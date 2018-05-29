@@ -46,10 +46,10 @@ attr_reader :merchants, :merchant_objects
     @merchant_objects << Merchant.new(attributes)
   end
 
-  def update_id(id, attributes)
+  def update(id, attributes)
     merchant = find_by_id(id)
-    # 
-    # update the Merchant instance with the corresponding id with the provided attributes. Only the merchant’s name attribute can be updated.
+    merchant.name = attributes[:name]
+    merchant
   end
 
   def delete(id)

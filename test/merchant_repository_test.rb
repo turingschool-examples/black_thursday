@@ -5,8 +5,8 @@ require './lib/merchant'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     @se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv'
     })
     @merchant_repository = @se.merchants
   end
@@ -55,14 +55,24 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'test_store', @merchant_repository.find_by_id('12337412').name
   end
 
-  def test_it_can_update_a_name
-    
+  def test_it_can_update_a_merchants_name
+    @merchant_repository.create({name: 'test_store',
+                                created_at: '2018-28-05',
+                                updated_at: '2018-28-05'})
+    assert @merchant_repository.find_by_name('test_store')
+    refute @merchant_repository.find_by_name('test_store_new')
+
+    @merchant_repository.update('12337412',{name: 'test_store_new',
+                                            created_at: '2018-28-05',
+                                            updated_at: '2018-28-05'} )
+
+    refute @merchant_repository.find_by_name('test_store')
+    assert @merchant_repository.find_by_name('test_store_new')
   end
 
   def test_it_can_delete_a_merchant_object
-    assert @merchant_repository.find_by_id("12337411")
-    @merchant_repository.delete("12337411")
-    refute @merchant_repository.find_by_id("12337411")
+    assert @merchant_repository.find_by_id('12337411')
+    @merchant_repository.delete('12337411')
+    refute @merchant_repository.find_by_id('12337411')
   end
-
 end
