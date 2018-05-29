@@ -3,10 +3,10 @@ require_relative '../lib/sales_engine'
 require 'pry'
 require 'time'
 class ItemRepository
+  attr_reader :items
 
   def initialize
     @items = []
-
   end
 
   def inspect
@@ -26,7 +26,7 @@ class ItemRepository
                                   updated_at: attributes[:updated_at].to_s,
                                   merchant_id: attributes[:merchant_id]})
     @items << new_item
-    
+
 
     return new_item
   end
