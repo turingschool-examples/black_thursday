@@ -1,6 +1,8 @@
 require 'csv'
+require 'bigdecimal'
 require_relative 'file_loader.rb'
 require_relative 'merchant_repository.rb'
+require_relative 'item_repository'
 
 class SalesEngine
   include FileLoader

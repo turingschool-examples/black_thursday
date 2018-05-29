@@ -292,6 +292,7 @@ class ItemRepositoryTest < MiniTest::Test
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
+      :merchant_id => 12334225,
       :created_at  => Time.now,
       :updated_at  => Time.now
     }
@@ -300,12 +301,22 @@ class ItemRepositoryTest < MiniTest::Test
       :name        => "Pen",
       :description => "You can use it to write other things",
       :unit_price  => BigDecimal.new(11.99,4),
+      :merchant_id => 12334225,
       :created_at  => Time.now,
       :updated_at  => Time.now
     }
     item_2 = ir.create(attributes_2)
+    attributes_3 = {
+      :name        => "Sharpie",
+      :description => "You can use it to write permanently",
+      :unit_price  => BigDecimal.new(11.99,4),
+      :merchant_id => 12334335,
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_3 = ir.create(attributes_3)
 
-    assert_equal [item_1], ir.find_all_by_merchant_id(263395240)
-    assert_equal [item_2], ir.find_all_by_merchant_id(263395241)
+    assert_equal [item_1, item_2], ir.find_all_by_merchant_id(12334225)
+    assert_equal [item_3], ir.find_all_by_merchant_id(12334335)
   end
 end

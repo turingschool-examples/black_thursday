@@ -21,6 +21,17 @@ class ItemRepository
     @collection[new_id] = Item.new(attributes)
   end
 
+  def update(current_id, new_attributes)
+    if @collection[current_id] == nil
+    else
+      @collection[current_id].update_name(new_attributes) if new_attributes[:name]
+      @collection[current_id].update_description(new_attributes) if new_attributes[:description]
+      @collection[current_id].update_unit_price(new_attributes) if new_attributes[:unit_price]
+      @collection[current_id].update_created_at(new_attributes) if new_attributes[:created_at]
+      @collection[current_id].update_updated_at(Time.now)
+    end
+  end
+
   def find_all_by_price(price)
     all.find_all do |item|
       item.unit_price == price
@@ -34,6 +45,8 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    Array.new << @collection[merchant_id]
+    all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
   end
 end

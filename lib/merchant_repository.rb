@@ -14,10 +14,9 @@ class MerchantRepository
       [line[:id].to_i, Merchant.new(line)]
     end.to_h
   end
-  
+
   def create(attributes)
     attributes[:id] = new_id
     @collection[new_id] = Merchant.new(attributes)
   end
-
 end

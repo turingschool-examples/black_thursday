@@ -137,6 +137,8 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal todays_date, mr.collection[12334105].updated_at
     assert_equal todays_date, mr.collection[12334112].updated_at
     assert_equal todays_date, mr.collection[12334113].updated_at
+
+    assert_nil mr.update(1234567876543212345, new_attributes_1)
   end
 
   def test_merchant_can_be_deleted_by_id
