@@ -3,14 +3,13 @@ require 'pry'
 
 class SalesAnalyst
 
-  def initialize(item_repository, merchant_repository)
-    @items = item_repository
-    @merchants = merchant_repository
-    @items_grouped_by_merchant = items_grouped_by_merchant
+  def initialize(sales_engine)
+    @items = sales_engine.items
+    @merchants = sales_engine.merchants
     @id_counts = {}
     @average_items = average_items_per_merchant
     @items_standard_deviation = average_items_per_merchant_standard_deviation
-    @average_price = average_total_item_price
+    @average_item_price = average_total_item_price
     @price_standard_deviation = item_price_standard_deviation
   end
 
@@ -79,7 +78,7 @@ class SalesAnalyst
     items.each do |item|
       sum += item.unit_price
     end
-    (sum / items.count).to_f.round(2)
+    (sum / items.count).round(2)
   end
 
 
@@ -88,7 +87,7 @@ class SalesAnalyst
     @merchants.all.each do |merchant|
       sum += average_item_price_for_merchant(merchant.id)
     end
-    (sum / @merchants.all.count).round(2)
+    (sum / @merchants.repository.count).round(2)
   end
 
   def average_item_prices_for_each_merchant
@@ -98,7 +97,7 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
-    standard_deviation(all_item_prices, @average_price).round(2)
+    standard_deviation(all_item_prices, @average_item_price).round(2)
   end
 
   def all_item_prices
@@ -118,7 +117,7 @@ class SalesAnalyst
   def golden_items
     golden_items = []
     @items.all.map do |item|
-      if item.unit_price >= (@average_price + (@price_standard_deviation * 2))
+      if item.unit_price >= (@average_item_price + (@price_standard_deviation * 2))
         golden_items << item
       end
     end

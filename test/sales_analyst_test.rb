@@ -46,13 +46,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_item_price_per_merchant
-    #needs to be a BigDecimal class, I changed this for the moment
     merchant_id = 12334105
     assert_equal 16.66, @sa.average_item_price_for_merchant(12334105)
   end
 
   def test_it_can_find_average_average_item_price_per_merchant
-    #not returning a BigDecimal due to change in average_item_price_for_merchant
     assert_equal 350.29, @sa.average_average_price_per_merchant
   end
 
