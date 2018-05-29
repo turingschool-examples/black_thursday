@@ -11,7 +11,7 @@ class Item
     @id = item[:id].to_i
     @name = item[:name]
     @description = item[:description]
-    @unit_price = item[:unit_price].to_i
+    @unit_price = BigDecimal(item[:unit_price]).to_f / 100
     @merchant_id = item[:merchant_id].to_i
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]

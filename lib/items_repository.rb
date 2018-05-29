@@ -38,7 +38,6 @@ class ItemsRepository
   def find_all_by_price(value)
     @all.find_all do |item|
       item.unit_price == (value.to_f * 100).to_i
-
     end
   end
 
