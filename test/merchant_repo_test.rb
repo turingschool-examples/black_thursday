@@ -56,7 +56,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_can_update_merchant_name
     @mr.load_merchants(@merchants)
-    @mr.update(12334105, {:name => "changed merch name")
+    @mr.update(12334105, {:name => "changed merch name"})
 
     assert_equal "changed merch name", @mr.find_by_id(12334105).name
   end

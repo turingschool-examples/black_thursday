@@ -19,7 +19,8 @@ class SalesEngine
       items_filepath = csv_hash[:items]
       csv_items = CSV.open items_filepath,
                         headers: true,
-                        header_converters: :symbol
+                        header_converters: :symbol,
+                        converters: :all
       items.load_items(csv_items)
     end
     if csv_hash[:merchants]

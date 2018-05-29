@@ -1,6 +1,7 @@
 require_relative 'item'
 require 'bigdecimal'
 require 'pry'
+require 'time'
 
 class ItemsRepository
   attr_reader :items_csv,
@@ -13,6 +14,8 @@ class ItemsRepository
 
   def load_items(items_csv)
     items_csv.each do |item|
+      item[:created_at] = Time.parse(item[:created_at])
+      item[:updated_at] = Time.parse(item[:updated_at])
       @all << Item.new(item)
     end
   end
@@ -37,15 +40,13 @@ class ItemsRepository
 
   def find_all_by_price(value)
     @all.find_all do |item|
-      item.unit_price == (value.to_f * 100).to_i
+      item.unit_price == value
     end
   end
 
   def find_all_by_price_in_range(range)
     @all.find_all do |item|
-      range_1 = (BigDecimal("#{range.first}").to_f * 100).to_i
-      range_2 = (BigDecimal("#{range.last}").to_f * 100).to_i
-      (range_1..range_2).include? item.unit_price
+      range.include? item.unit_price
     end
   end
 
