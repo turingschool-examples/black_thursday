@@ -22,19 +22,14 @@ class ItemRepository < Repository
   end
 
   def find_all_by_price(price)
-    by_price = @members.find_all do | member |
-      if member.unit_price == price
-        member
-      end
+    @members.find_all do | member |
+      member.unit_price == price
     end
-    by_price = by_price.compact
   end
 
   def find_all_by_price_in_range(range)
-    sammo = @members.map do | member |
-      if range.include?(member.unit_price)
-        member
-      end
+      @members.find_all do | member |
+      range.include?(member.unit_price)
     end
   end
 
@@ -49,13 +44,18 @@ class ItemRepository < Repository
 
 
   def update(id, attributes)
-    @members.each do | member |
-      if member.id == id
+    member = find_by_id(id)
+    if member != nil
+      if attributes[:name] != nil
         member.name = attributes[:name]
-        member.description = attributes[:description]
-        member.unit_price = attributes[:unit_price]
-        member.updated_at = Time.now
       end
+      if attributes[:description] != nil
+        member.description = attributes[:description]
+      end
+      if attributes[:unit_price] != nil
+        member.unit_price = attributes[:unit_price]
+      end
+      member.updated_at = Time.new
     end
   end
 
