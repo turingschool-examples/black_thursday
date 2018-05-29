@@ -5,15 +5,19 @@ require_relative '../lib/item_repository'
 class SalesEngine
   attr_reader :items,
               :merchants,
-              :merchant_data,
-              :item_data
+              :analyst
+
+  def initialize
+    @analyst = SalesAnalyst.new
+  end 
+
 
   def self.from_csv(sales_data)
-    @merchant_data = CSV.open(sales_data[:merchants], headers: true, header_converters: :symbol)
-    @item_data = CSV.open(sales_data[:items], headers: true, header_converters: :symbol)
+    merchant_data = CSV.open(sales_data[:merchants], headers: true, header_converters: :symbol)
+    item_data = CSV.open(sales_data[:items], headers: true, header_converters: :symbol)
     se = SalesEngine.new
-    se.create_merchant_repo(@merchant_data)
-    se.create_item_repo(@item_data)
+    se.create_merchant_repo(merchant_data)
+    se.create_item_repo(item_data)
     se
   end
 
