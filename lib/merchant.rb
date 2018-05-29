@@ -4,7 +4,7 @@ class Merchant
   attr_accessor :name
 
   def initialize(args)
-    @id = args[:id]
+    @id = args[:id].to_i
     @name = args[:name]
     @created_at = args[:created_at]
     @updated_at = args[:updated_at]
