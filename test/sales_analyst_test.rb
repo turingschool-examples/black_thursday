@@ -6,7 +6,8 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
       :items     => './data/items.csv',
-      :merchants => './data/merchants.csv'
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv'
     })
     @sales_analyst = @sales_engine.analyst
     @merchant_repository = @sales_engine.merchants
@@ -53,4 +54,30 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.average_item_price_for_merchant(merchant_id)
     assert_equal BigDecimal(47.5, 3), actual
   end
+
+  def test_it_can_return_all_item_unit_prices
+    assert_instance_of Array, @sales_analyst.all_item_unit_prices
+    assert_equal 1367, @sales_analyst.all_item_unit_prices.count
+  end
+
+  def test_it_can_find_the_average_unit_price
+    assert_equal 251.06, @sales_analyst.average_item_unit_price.to_f
+  end
+
+  def test_it_can_calculate_the_item_unit_price_variance
+    assert_equal 1367, @sales_analyst.price_variance.count
+  end
+
+  def test_it_can_sum_all_price_variances
+    assert_equal 2900.99, @sales_analyst.unit_price_std_dev
+  end
+
+  def test_it_can_find_all_golden_items
+    assert_equal 5, @sales_analyst.golden_items.count
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
+  end
+
 end

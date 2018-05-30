@@ -1,6 +1,4 @@
-# require_relative 'sales_engine'
 require_relative 'merchant'
-require 'pry'
 
 class MerchantRepository
   # Responsible for holding and searching Merchant instances.
@@ -50,7 +48,10 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attributes[:name]
+    unless merchant.nil?
+      merchant.name = attributes[:name]
+    end
+    return nil
   end
 
   def delete(id)
