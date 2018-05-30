@@ -7,18 +7,14 @@ class SalesEngine
               :merchants,
               :analyst
 
-  def initialize
-    @analyst = SalesAnalyst.new
-  end 
-
-
   def self.from_csv(sales_data)
     merchant_data = CSV.open(sales_data[:merchants], headers: true, header_converters: :symbol)
     item_data = CSV.open(sales_data[:items], headers: true, header_converters: :symbol)
-    se = SalesEngine.new
-    se.create_merchant_repo(merchant_data)
-    se.create_item_repo(item_data)
-    se
+    engine = SalesEngine.new
+    engine.create_merchant_repo(merchant_data)
+    engine.create_item_repo(item_data)
+    engine.create_sales_analyst(engine)
+    return engine
   end
 
   def create_merchant_repo(merchant_data)
@@ -39,4 +35,9 @@ class SalesEngine
                         merchant_id: item[:merchant_id]})
     end
   end
+
+  def create_sales_analyst(parent)
+    @analyst = SalesAnalyst.new(parent)
+  end
+
 end
