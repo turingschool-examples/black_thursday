@@ -88,4 +88,12 @@ class TestInvoiceRepository < Minitest::Test
     assert_equal 10, invoice.customer_id
     assert invoice.updated_at > original_time
   end
+
+  def test_it_deletes_invoice_by_id
+    @ir.delete(1)
+    invoice = @ir.find_by_id(1)
+    assert_nil invoice
+
+    assert_nil @ir.delete(5000)
+  end
 end
