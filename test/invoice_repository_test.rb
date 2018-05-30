@@ -49,4 +49,18 @@ class TestInvoiceRepository < Minitest::Test
     assert_equal 2, invoices.length
     assert_equal [], @ir.find_all_by_customer_id(100)
   end
+
+  def test_it_finds_all_invoices_for_a_given_merchant_id
+    invoices = @ir.find_all_by_merchant_id(5)
+
+    assert_equal 2, invoices.length
+    assert_equal [], @ir.find_all_by_merchant_id(100)
+  end
+
+  def test_it_finds_all_invoices_of_a_given_status
+    invoices = @ir.find_all_by_status(:pending)
+
+    assert_equal 10, invoices.length
+    assert_equal [], @ir.find_all_by_status(:sold)
+  end
 end
