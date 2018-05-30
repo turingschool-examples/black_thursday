@@ -1,10 +1,26 @@
 require './test/test_helper'
 require './lib/repository'
+require './salesengine'
 
 class RepositoryTest < Minitest::Test
-  def test_it_exists
-    repository = Repository.new
+  def setup
+    @se = SalesEngine.from_csv()
+    @repo = Repository.new
+  end
 
-    assert_instance_of Repository, repository
+  def test_it_exists
+    assert_instance_of Repository, @repo
+  end
+
+  def test_repository_members_starts_empty
+    assert_equal [], @repo.members
+  end
+
+  def test_all_returns_all_members
+    item_1 = mock
+    item_2 = mock
+    expected = @repo.all
+
+    assert_equal [item_1, item_2], expected
   end
 end

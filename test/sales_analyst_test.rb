@@ -12,6 +12,7 @@ class SalesAnalyst < Minitest::Test
   end
 
   def test_sales_analyst_finds_average_items_per_merchant
+    skip
     expected = @sa.average_items_per_merchant
 
     assert_equal 2.88, expected
@@ -19,6 +20,7 @@ class SalesAnalyst < Minitest::Test
   end
 
   def test_sales_analyst_finds_standard_deviation_of_items_per_merchant
+    skip
     expected = @sa.average_items_per_merchant_standard_deviation
 
     assert_equal 3.26, expected
