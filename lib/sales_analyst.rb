@@ -1,5 +1,7 @@
 require_relative 'merchant_repository'
 require_relative 'item'
+require_relative 'sales_engine'
+
 require 'bigdecimal'
 require 'pry'
 class SalesAnalyst
@@ -9,6 +11,8 @@ class SalesAnalyst
     @merchants = parent.merchants.merchants
     @items = parent.items.items
     @items_by_merchant = group_items_by_merchant
+    @invoices = parent.invoices.invoices
+    @invoices_by_merchant = group_invoices_by_merchant
   end
 
   def average_items_per_merchant
@@ -81,5 +85,125 @@ class SalesAnalyst
       item.unit_price > golden_price
     end
   end
+
+  def average_invoices_per_merchant
+    BigDecimal.new(@invoices.length.to_f / @merchants.length.to_f, 4).to_f
+  end
+
+  def group_invoices_by_merchant
+    @invoices.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average_invoices = average_invoices_per_merchant
+    sum_of_squared_differences = @invoices_by_merchant.inject(0) do |sum, merchant|
+      difference = merchant[1].length - average_invoices
+      sum += (difference ** 2)
+      sum
+    end
+    quotient = sum_of_squared_differences / (@merchants.length - 1)
+    standard_deviation_long = Math.sqrt(quotient)
+    return BigDecimal.new(standard_deviation_long, 3).to_f
+  end
+
+
+  def top_merchants_by_invoice_count
+    average_invoices = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    high_invoice_count = average_invoices + standard_deviation * 2
+    @invoices_by_merchant.map do |merchant|
+      if merchant[1].length > high_invoice_count
+        @parent.merchants.find_by_id(merchant[0])
+      end
+    end.compact
+  end
+
+
+  def bottom_merchants_by_invoice_count
+    average_invoices = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    low_invoice_count = average_invoices - standard_deviation * 2
+    @invoices_by_merchant.map do |merchant|
+      if merchant[1].length < low_invoice_count
+        @parent.merchants.find_by_id(merchant[0])
+      end
+    end.compact
+  end
+
+  def group_by_day
+    @invoices.group_by do |invoice|
+    invoice.created_at.strftime('%A')
+    end
+  end
+
+  def average_invoices_per_day
+    @invoices.length / 7
+  end
+
+  def invoice_per_day_standard_deviation
+    average_invoices = average_invoices_per_day
+    invoices_by_day = group_by_day
+    sum_of_squared_differences = invoices_by_day.inject(0) do |sum, day|
+      difference = day[1].length - average_invoices
+      sum += (difference ** 2)
+      sum
+    end
+    quotient = sum_of_squared_differences / 6
+    standard_deviation_long = Math.sqrt(quotient)
+    return BigDecimal.new(standard_deviation_long, 3).to_f
+  end
+
+  def top_days_by_invoice_count
+    average_invoices = average_invoices_per_day
+    invoice_standard_deviation = invoice_per_day_standard_deviation
+    top_invoice_count = average_invoices + invoice_standard_deviation
+    invoices_by_day = group_by_day
+    invoices_by_day.map do |day|
+      if day[1].length > top_invoice_count
+        day[0]
+      end
+    end.compact
+  end
+
+  def invoice_status(status)
+    matching_invoices = @parent.invoices.find_all_by_status(status)
+    ((matching_invoices.length.to_f / @invoices.length.to_f) * 100).round(2)
+  end
+
+  def group_transactions_by_invoice_id
+    @parent.transactions.transactions.group_by do |transaction|
+      transaction.invoice_id
+    end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction_by_invoice = group_transactions_by_invoice_id
+    if transaction_by_invoice[invoice_id].nil?
+      return false
+    end
+    transaction_by_invoice[invoice_id].any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def group_invoice_items_by_invoice_id
+    @parent.invoice_items.invoice_items.group_by do |invoice_item|
+      invoice_item.invoice_id
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items_by_invoice = group_invoice_items_by_invoice_id
+    invoice_items_by_invoice[invoice_id].inject(0) do |total, invoice_item|
+      # binding.pry
+      total += invoice_item.quantity * invoice_item.unit_price_to_dollars
+      total.to_d
+    end
+  end
+
+
+
 
 end
