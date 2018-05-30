@@ -49,7 +49,6 @@ class InvoiceRepository
     end
   end
 
-
   def update(id, attributes)
     if find_by_id(id).nil?
       return
@@ -68,9 +67,5 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
-
-
-
 
 end
