@@ -1,6 +1,4 @@
-# require_relative 'sales_engine'
 require_relative 'merchant'
-require 'pry'
 
 class MerchantRepository
   # Responsible for holding and searching Merchant instances.
