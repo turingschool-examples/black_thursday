@@ -39,7 +39,8 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_create_an_analyst
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     })
     assert_instance_of SalesAnalyst, se.analyst
   end

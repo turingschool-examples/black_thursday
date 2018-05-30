@@ -6,11 +6,14 @@ class SalesAnalyst
   def initialize(sales_engine)
     @items = sales_engine.items
     @merchants = sales_engine.merchants
+    @invoices = sales_engine.invoices
     @id_counts = {}
     @average_items = average_items_per_merchant
     @items_standard_deviation = average_items_per_merchant_standard_deviation
     @average_item_price = average_total_item_price
     @price_standard_deviation = item_price_standard_deviation
+    @average_invoices = average_invoices_per_merchant
+    @invoice_standard_deviation = average_invoices_per_merchant_standard_deviation
   end
 
   def average_items_per_merchant
@@ -107,4 +110,55 @@ class SalesAnalyst
     end
     golden_items
   end
+
+  ###### Invoices begin below, the copy and paste shows we arent DRY.
+
+  def invoices_grouped_by_merchant
+    @invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def invoices_per_merchant
+    array_of_arrays_of_invoices_per_merchant = invoices_grouped_by_merchant.values
+    array_of_arrays_of_invoices_per_merchant.map do |array|
+      array = array.count
+    end
+  end
+
+  def average_invoices_per_merchant
+    sum = invoices_per_merchant.reduce(0.0) do |total, count|
+      total += count
+    end
+    average = (sum / invoices_per_merchant.length).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoices_per_merchant, @average_invoices)
+  end
+
+  def invoice_counts_for_each_merhant
+    invoices_grouped_by_merchant.merge(invoices_grouped_by_merchant) do |id, invoices|
+      invoices.count
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    high_count = @average_invoices + (@invoice_standard_deviation * 2)
+    top_merchants = []
+    invoice_counts_for_each_merhant.each do |id, count|
+        top_merchants << @merchants.find_by_id(id) if count > high_count
+    end
+    top_merchants
+  end
+
+  def bottom_merchants_by_invoice_count
+    low_count = @average_invoices - (@invoice_standard_deviation * 2)
+    bottom_merchants = []
+    invoice_counts_for_each_merhant.each do |id, count|
+        bottom_merchants << @merchants.find_by_id(id) if count < low_count
+    end
+    bottom_merchants
+  end
+
 end
