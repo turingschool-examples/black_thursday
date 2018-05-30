@@ -1,5 +1,4 @@
-require_relative '../lib/item'
-require_relative '../lib/sales_engine'
+require_relative 'item'
 require 'pry'
 require 'time'
 class ItemRepository
@@ -9,9 +8,6 @@ class ItemRepository
     @items = []
   end
 
-  def inspect
-   “#<#{self.class} #{@items.size} rows>”
-  end
 
   def create(attributes)
     if attributes[:id].nil?
@@ -88,5 +84,9 @@ class ItemRepository
   def delete(id)
     deleted_item = find_by_id(id)
     @items.delete(deleted_item)
+  end
+
+  def inspect
+    “#<#{self.class} #{@items.size} rows>”
   end
 end

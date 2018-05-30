@@ -1,5 +1,5 @@
-require_relative 'merchantrepository.rb'
-require_relative 'item.rb'
+require_relative 'merchant_repository'
+require_relative 'item'
 require 'bigdecimal'
 require 'pry'
 class SalesAnalyst

@@ -1,14 +1,10 @@
-require_relative '../lib/merchant'
+require_relative 'merchant'
 require 'pry'
 class MerchantRepository
   attr_reader :merchants
 
   def initialize
     @merchants = []
-  end
-
-  def inspect
-   “#<#{self.class} #{@items.size} rows>”
   end
 
   def create(attributes)
@@ -58,5 +54,8 @@ class MerchantRepository
     @merchants.delete(deleted_merchant)
   end
 
+  def inspect
+   “#<#{self.class} #{@items.size} rows>”
+  end
 
 end
