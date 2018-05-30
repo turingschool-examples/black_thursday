@@ -167,7 +167,9 @@ class SalesAnalyst
     end.compact
   end
 
-  def invoice_status
+  def invoice_status(status)
+    matching_invoices = @parent.invoices.find_all_by_status(status)
+    ((matching_invoices.length.to_f / @invoices.length.to_f) * 100).round(2)
   end
 
 end
