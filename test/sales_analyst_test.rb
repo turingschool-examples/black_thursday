@@ -26,11 +26,27 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_get_average_items_per_merchant_standard_deviation
-    skip
     assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_get_single_merchants_total_items
     assert_equal 20, @sales_analyst.single_merchants_total_items(12334195)
+  end
+
+  def test_it_can_return_list_of_each_merchants_total_items
+    assert_equal 475, @sales_analyst.each_merchants_total_items.length
+  end
+
+  def test_it_sums_numbers
+    assert_equal 6, @sales_analyst.sum([1,2,3])
+  end
+
+  def test_can_find_merchants_with_high_item_count
+    assert_equal 52, @sales_analyst.merchant_with_high_item_count.length
+  end
+
+  def test_can_find_average_item_price_for_merchant
+    assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
+    assert_instance_of BigDecimal, @sales_analyst.average_item_price_for_merchant(12334105)
   end
 end
