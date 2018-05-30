@@ -15,19 +15,19 @@ class MerchantRepo
     end
   end
 
-  def find_by_id(merchant_id)
+  def find_by_id(merchant_id) # module
     @all.find do |merchant|
       merchant.id.to_i == merchant_id
     end
   end
 
-  def find_by_name(merchant_name)
+  def find_by_name(merchant_name) # module
     @all.find do |merchant|
       merchant.name.downcase == merchant_name.downcase
     end
   end
 
-  def find_all_by_name(merchant_name)
+  def find_all_by_name(merchant_name) 
     output = @all.find_all do |merchant|
       merchant.name.downcase.include? merchant_name.downcase
     end
@@ -47,7 +47,7 @@ class MerchantRepo
     merchant.name = attributes[:name] if attributes[:name]
   end
 
-  def delete(id)
+  def delete(id) # module
     @all.delete_if do |merchant|
       merchant.id.to_i == id
     end

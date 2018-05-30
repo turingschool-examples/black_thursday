@@ -80,11 +80,9 @@ class ItemsRepository
     end
   end
 
-  def delete(id)
-    @all.find do |item|
-      if item.id.to_i == id
-        @all.delete(item)
-      end
+  def delete(id) # module
+    @all.delete_if do |item|
+      item.id.to_i == id
     end
   end
 end
