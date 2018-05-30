@@ -35,4 +35,17 @@ class SalesAnalystTest < Minitest::Test
     avg_avg = @sa.average_average_price_per_merchant
     assert_instance_of BigDecimal, avg_avg
   end
+
+  def test_average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+  end
+
+  def test_merchants_with_high_item_count
+    assert_equal 52, @sa.merchants_with_high_item_count.length
+  end
+
+  def test_golden_items
+    assert_equal 5, @sa.golden_items.length
+  end
+
 end
