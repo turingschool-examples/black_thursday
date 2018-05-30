@@ -63,4 +63,29 @@ class TestInvoiceRepository < Minitest::Test
     assert_equal 10, invoices.length
     assert_equal [], @ir.find_all_by_status(:sold)
   end
+
+  def test_it_creates_new_instance_of_invoice
+    attributes = {
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+    }
+
+    @ir.create(attributes)
+    invoice = @ir.find_by_id(21)
+    assert_equal 8, invoice.merchant_id
+  end
+
+  def test_it_updates_an_invoice
+    original_time = @ir.find_by_id(20).updated_at
+    attributes = { :status => :success }
+
+    @ir.update(20, attributes)
+    invoice = @ir.find_by_id(20)
+    assert_equal :success, invoice.status
+    assert_equal 10, invoice.customer_id
+    assert invoice.updated_at > original_time
+  end
 end
