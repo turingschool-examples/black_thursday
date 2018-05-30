@@ -22,7 +22,7 @@ class ItemsRepository
 
   def find_by_id(item_id)
     @all.find do |item|
-      item.id.to_i == item_id
+      item.id == item_id
     end
   end
 
