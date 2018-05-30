@@ -3,6 +3,7 @@ require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'sales_analyst'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
 require 'csv'
 require 'pry'
 class SalesEngine
@@ -10,7 +11,8 @@ class SalesEngine
               :merchants,
               :analyst,
               :invoices,
-              :invoice_items
+              :invoice_items,
+              :transactions
 
 
   def self.from_csv(sales_data)
@@ -18,12 +20,14 @@ class SalesEngine
     item_data = CSV.open(sales_data[:items], headers: true, header_converters: :symbol)
     invoice_data = CSV.open(sales_data[:invoices], headers: true, header_converters: :symbol)
     invoice_item_data = CSV.open(sales_data[:invoice_items], headers: true, header_converters: :symbol)
+    transaction_data = CSV.open(sales_data[:transactions], headers: true, header_converters: :symbol)
     engine = SalesEngine.new
     engine.create_merchant_repo(merchant_data)
     engine.create_item_repo(item_data)
     engine.create_invoice_repo(invoice_data)
     engine.create_sales_analyst(engine)
     engine.create_invoice_item_repo(invoice_item_data)
+    engine.create_transaction_repo(transaction_data)
     return engine
   end
 
@@ -68,6 +72,19 @@ class SalesEngine
                         updated_at: invoice_item[:updated_at]})
       end
   end
+
+  def create_transaction_repo(transaction_data)
+    @transactions = TransactionRepository.new
+    transaction_data.each do |transaction|
+      @transactions.create({id: transaction[:id], invoice_id: transaction[:invoice_id],
+                        credit_card_number: transaction[:credit_card_number],
+                        credit_card_expiration_date: transaction[:credit_card_expiration_date],
+                        result: transaction[:result],
+                        created_at: transaction[:created_at],
+                        updated_at: transaction[:updated_at]})
+      end
+  end
+
 
 
 
