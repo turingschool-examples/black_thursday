@@ -31,4 +31,26 @@ class SalesAnalyst
     end.compact
     merchant_ids.map {|id| @parent.merchants.find_by_id(id)}
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @parent.items.find_all_by_merchant_id(merchant_id)
+    (items.inject(0) {|sum, item| sum += item.unit_price} / items.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+  merchant_ids = items_by_merchant_id.keys
+  (merchant_ids.inject(0) {|sum, id| sum += average_item_price_for_merchant(id)} / merchant_ids.count).round(2)
+  end
+
+  def item_price_std_dev
+    mean = average_average_price_per_merchant
+    sum_of_squares = @parent.items.all.inject(0.0) {|sum, item| ((item.unit_price - mean) ** 2) + sum }
+    divided = sum_of_squares / (@parent.items.all.count - 1)
+    Math.sqrt(divided).round(2)
+  end
+
+  def golden_items
+    two_sd_above = average_average_price_per_merchant + (item_price_std_dev * 2)
+    @parent.items.all.find_all {|item| item.unit_price > two_sd_above}
+  end
 end
