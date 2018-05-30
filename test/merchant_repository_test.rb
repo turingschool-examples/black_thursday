@@ -58,13 +58,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_a_merchants_name
-    @merchant_repository.create({name: 'test_store'})
-    assert @merchant_repository.find_by_name('test_store')
-    refute @merchant_repository.find_by_name('test_store_new')
+    @merchant_repository.create({name: 'test'})
+    assert @merchant_repository.find_by_name('test')
+    refute @merchant_repository.find_by_name('new_name')
 
-    @merchant_repository.update(12337412,{name: 'test_store_new'} )
-    refute @merchant_repository.find_by_name('test_store')
-    assert @merchant_repository.find_by_name('test_store_new')
+    @merchant_repository.update(12337412,{name: 'new_name'} )
+    refute @merchant_repository.find_by_name('test')
+    assert @merchant_repository.find_by_name('new_name')
   end
 
   def test_it_can_delete_a_merchant_object
