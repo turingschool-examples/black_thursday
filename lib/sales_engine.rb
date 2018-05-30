@@ -2,6 +2,7 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'sales_analyst'
 require_relative 'file_reader'
+require_relative 'invoice_repository'
 require 'csv'
 
 class SalesEngine
@@ -9,9 +10,10 @@ class SalesEngine
   include FileReader
 
   def initialize(path)
-    @path = path
-    @merchants = merchants
-    @items = items
+    @path       = path
+    @merchants  = merchants
+    @items      = items
+    @invoices   = invoices
   end
 
   def self.from_csv(path)
@@ -28,5 +30,9 @@ class SalesEngine
 
   def analyst
     SalesAnalyst.new(self)
+  end
+
+  def invoices
+    @invoices ||= InvoiceRepository.new(FileReader.load(@path[:invoices]))
   end
 end

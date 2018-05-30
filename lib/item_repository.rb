@@ -69,7 +69,7 @@ class ItemRepository
       item.name = attributes[:name] if attributes[:name]
       item.description = attributes[:description] if attributes[:description]
       item.unit_price = attributes[:unit_price] if attributes[:unit_price]
-      item.updated_at = (Time.now).to_s #throws sh error- revisit
+      item.updated_at = Time.now
     end
     return nil
   end
