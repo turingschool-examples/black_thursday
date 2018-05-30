@@ -1,6 +1,6 @@
 require_relative 'invoice_item'
 class InvoiceItemRepository
-  attr_reader :invoice_item
+  attr_reader :invoice_items
 
   def initialize
     @invoice_items = []

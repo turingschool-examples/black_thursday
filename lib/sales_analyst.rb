@@ -172,4 +172,38 @@ class SalesAnalyst
     ((matching_invoices.length.to_f / @invoices.length.to_f) * 100).round(2)
   end
 
+  def group_transactions_by_invoice_id
+    @parent.transactions.transactions.group_by do |transaction|
+      transaction.invoice_id
+    end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction_by_invoice = group_transactions_by_invoice_id
+    if transaction_by_invoice[invoice_id].nil?
+      return false
+    end
+    transaction_by_invoice[invoice_id].any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def group_invoice_items_by_invoice_id
+    @parent.invoice_items.invoice_items.group_by do |invoice_item|
+      invoice_item.invoice_id
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items_by_invoice = group_invoice_items_by_invoice_id
+    invoice_items_by_invoice[invoice_id].inject(0) do |total, invoice_item|
+      # binding.pry
+      total += invoice_item.quantity * invoice_item.unit_price_to_dollars
+      total.to_d
+    end
+  end
+
+
+
+
 end
