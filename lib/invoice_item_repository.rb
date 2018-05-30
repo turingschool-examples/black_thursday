@@ -1,3 +1,4 @@
+require_relative 'invoice_item'
 class InvoiceItemRepository
   attr_reader :invoice_item
 
@@ -37,8 +38,8 @@ class InvoiceItemRepository
                       invoice_id: attributes[:invoice_id],
                       quantity: attributes[:quantity],
                       unit_price: attributes[:unit_price],
-                      created_at: attributes[:created_at],
-                      updated_at: attributes[:updated_at]})
+                      created_at: attributes[:created_at].to_s,
+                      updated_at: attributes[:updated_at].to_s})
     @invoice_items << new_invoice_item
     return new_invoice_item
   end
@@ -60,4 +61,9 @@ class InvoiceItemRepository
     deleted_invoice_item = find_by_id(id)
     @invoice_items.delete(deleted_invoice_item)
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end

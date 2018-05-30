@@ -16,8 +16,8 @@ class InvoiceRepository
     new_invoice = Invoice.new({id: id, customer_id: attributes[:customer_id],
                       merchant_id: attributes[:merchant_id],
                       status: attributes[:status],
-                      created_at: attributes[:created_at],
-                      updated_at: attributes[:updated_at]})
+                      created_at: attributes[:created_at].to_s,
+                      updated_at: attributes[:updated_at].to_s})
     @invoices << new_invoice
     return new_invoice
   end
