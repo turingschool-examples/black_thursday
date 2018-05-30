@@ -16,7 +16,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 1367, ir.repository.count
   end
 
-  def test_it_will_return_all_entire_repository
+  def test_all_will_return_entire_repository
     ir = ItemRepository.new(load_file("./data/items.csv"))
     assert_equal ir.repository, ir.all
   end

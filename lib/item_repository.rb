@@ -47,17 +47,22 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    if !item.nil?
+    if item != nil
       attributes.each do |key, value|
-        if item.specs[key] != attributes[key]
-          next if (key == :id) || (key == :created_at) || (key == :merchant_id)
-          item.specs[key] = value
-          item.specs[:updated_at] = (Time.now).to_s
-          if key == :unit_price then item.specs[key] *= 100 end
-
-        end
+        update_name_or_desc(item, key, value) if (key == :name || key == :description)
+        update_unit_price(item, value) if key == :unit_price
       end
     end
+  end
+
+  def update_name_or_desc(item, key, value)
+    item.specs[key] = value
+    item.specs[:updated_at] = Time.now + 1
+  end
+
+  def update_unit_price(item, value)
+    item.specs[:unit_price] = value * 100
+    item.specs[:updated_at] = Time.now + 1
   end
 
   def delete(id)
