@@ -10,8 +10,8 @@ class Item
       name:         item[:name],
       description:  item[:description],
       unit_price:   BigDecimal(item[:unit_price]),
-      created_at:   item[:created_at].to_s,
-      updated_at:   item[:updated_at].to_s,
+      created_at:   item[:created_at],
+      updated_at:   item[:updated_at],
       merchant_id:  item[:merchant_id].to_i
     }
   end
@@ -33,11 +33,11 @@ class Item
   end
 
   def created_at
-    Time.parse(@specs[:created_at])
+    Time.parse(@specs[:created_at].to_s)
   end
 
   def updated_at
-    Time.parse(@specs[:updated_at])
+    Time.parse(@specs[:updated_at].to_s)
   end
 
   def merchant_id
