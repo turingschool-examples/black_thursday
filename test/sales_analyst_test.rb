@@ -12,24 +12,18 @@ class SalesAnalystTest < Minitest::Test
     items = se.load_file(se.content[:items])
     @mr = MerchantRepository.new(merchants)
     @ir = ItemRepository.new(items)
-    @sa = SalesAnalyst.new(@ir, @mr)
+    @sa = SalesAnalyst.new(se)
   end
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @sa
   end
 
-  def test_it_finds_all_merchant_ids
-    assert_equal @ir.all.length, @sa.merchant_ids.length
-    assert_equal @ir.all[0].merchant_id, @sa.merchant_ids[0]
-    assert_equal @ir.all[235].merchant_id, @sa.merchant_ids[235]
-  end
-
   def test_it_can_find_the_items_per_merchant
     first_id = @ir.all[0].merchant_id
     second_id = @ir.all[1].merchant_id
-    assert_equal @sa.merchant_ids.count(first_id), @sa.items_per_merchant[0]
-    assert_equal @sa.merchant_ids.count(second_id), @sa.items_per_merchant[1]
+    assert_equal 1, @sa.items_per_merchant[0]
+    assert_equal 6, @sa.items_per_merchant[1]
   end
 
   def test_analyst_can_check_average_items_per_merchant
@@ -46,13 +40,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_item_price_per_merchant
-    #needs to be a BigDecimal class, I changed this for the moment
     merchant_id = 12334105
     assert_equal 16.66, @sa.average_item_price_for_merchant(12334105)
   end
 
   def test_it_can_find_average_average_item_price_per_merchant
-    #not returning a BigDecimal due to change in average_item_price_for_merchant
     assert_equal 350.29, @sa.average_average_price_per_merchant
   end
 
