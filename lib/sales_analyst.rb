@@ -81,11 +81,16 @@ class SalesAnalyst
   end
 
   def unit_price_std_dev
-    sum = price_variance.inject(:+))
+    sum = price_variance.inject(:+)
     Math.sqrt(sum/(all_item_unit_prices.count-1)).round(2)
   end
-  # 
-  # def golden_items
-  # end
 
+  def golden_items
+    std_dev = unit_price_std_dev
+    mean = average_item_unit_price
+    two_std_dev = mean + (std_dev * 2)
+    @items.map do |item|
+      item if item.unit_price > two_std_dev
+    end.compact
+  end
 end

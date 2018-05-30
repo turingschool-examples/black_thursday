@@ -71,4 +71,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2900.99, @sales_analyst.unit_price_std_dev
   end
 
+  def test_it_can_find_all_golden_items
+    assert_equal 5, @sales_analyst.golden_items.count
+  end
+
 end
