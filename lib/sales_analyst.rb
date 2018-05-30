@@ -7,6 +7,7 @@ class SalesAnalyst
     @engine = engine
     @items = @engine.items.all
     @merchants = @engine.merchants.all
+    @invoices = @engine.invoices.all
   end
 
   def average_items_per_merchant
@@ -93,4 +94,14 @@ class SalesAnalyst
       item if item.unit_price > two_std_dev
     end.compact
   end
+
+  def average_invoices_per_merchant
+    (@invoices.count/@merchants.count.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    
+  end
+
+
 end
