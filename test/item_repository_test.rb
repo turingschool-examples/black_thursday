@@ -50,30 +50,38 @@ class ItemRepositoryTest < Minitest::Test
   def test_item_repo_has_items
     assert_equal 3, @ir.members.count
     assert_equal "Pencil", @ir.members[0].name
-    assert_equal 0, @ir.members[0].id
+    assert_equal 1, @ir.members[0].id
   end
 
   def test_all_returns_all_items_in_item_repo
-    assert_equal 3, @ir.all.count
-    assert_equal "Pencil", @ir.all[0].name
-    assert_equal 0, @ir.all[0].id
-    assert_equal 1, @ir.all[1].id
-    assert_equal "Stencil", @ir.all[1].name
+    all_items = @ir.all
+
+    assert_equal 3, all_items.count
+    assert_equal "Pencil", all_items[0].name
+    assert_equal 1, all_items[0].id
+    assert_equal 2, all_items[1].id
+    assert_equal "Stencil", all_items[1].name
   end
 
   def test_item_repo_can_find_by_id
-    assert_instance_of Item, @ir.find_by_id(0)
-    assert_equal "Stencil", @ir.find_by_id(0).name
+    found = @ir.find_by_id(1)
+
+    assert_instance_of Item, found
+    assert_equal "Pencil", found.name
   end
 
   def test_item_repo_can_find_by_merchant_id
-    assert_instance_of Item, @ir.find_all_by_merchant_id(4978)
-    assert_equal "Pencil", @ir.find_all_by_merchant_id(4978).name
+    by_merch_id = @ir.find_all_by_merchant_id(4978)
+
+    assert_instance_of Item, by_merch_id[0]
+    assert_equal "Stencil", by_merch_id[0].name
   end
 
   def test_item_repo_can_find_item_by_name
-    assert_instance_of Item, @ir.find_by_name("Pencil")
-    assert_equal 0, @ir.find_by_name("Pencil").id
+    by_name = @ir.find_by_name("Pencil")
+
+    assert_instance_of Item, by_name
+    assert_equal 1, by_name.id
   end
 
   def test_item_repo_can_find_by_description
@@ -90,9 +98,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repo_can_find_all_with_price
-    binding.pry
-    assert_equal 1, @ir.find_all_by_price(10.99).count
-    assert_equal "Pencil", @ir.find_all_by_price(10.99)[0].name
+    by_price = @ir.find_all_by_price(10.99)
+
+    assert_equal 1, by_price.count
+    assert_equal "Pencil",by_price[0].name
   end
 
   def test_item_repo_can_find_all_items_within_a_price_range

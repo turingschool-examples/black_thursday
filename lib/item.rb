@@ -18,7 +18,6 @@ class Item
     @name = item_attributes[:name]
     @description = item_attributes[:description]
     @unit_price = BigDecimal.new(item_attributes[:unit_price].to_i) / 100
-
     @created_at = time_conversion(item_attributes[:created_at])
     @updated_at = time_conversion(item_attributes[:updated_at])
   end
@@ -27,7 +26,6 @@ class Item
     if time.class == String
       time = Time.parse(time)
     end
-
     time
   end
 
