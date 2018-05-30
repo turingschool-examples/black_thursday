@@ -30,4 +30,10 @@ class SalesAnalystTest < Minitest::Test
      assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
   end
 
+  def test_returns_the_average_item_price_for_the_given_merchant
+      average_item_price = @sa.average_item_price_for_merchant(12334105)
+
+      assert_equal 16.66, average_item_price
+      assert_equal BigDecimal, average_item_price.class
+  end
 end

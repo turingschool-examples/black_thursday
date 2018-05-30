@@ -31,4 +31,10 @@ class SalesAnalyst
     end.compact
     merchant_ids.map {|id| @parent.merchants.find_by_id(id)}
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @parent.items.find_all_by_merchant_id(merchant_id)
+    (items.inject(0) {|sum, item| sum += item.unit_price} / items.count).round(2)
+  end
+
 end
