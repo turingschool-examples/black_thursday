@@ -48,12 +48,20 @@ class SalesAnalyst
     end.compact
   end
 
-
-
-
+  # helper method to return group_by hash with AVG prices
   def average_item_price_for_merchant(merchant_id)
+    prices = items_by_merchant_id[merchant_id].map do |item|
+      item.unit_price
+    end
+    (prices.inject(:+)/prices.count).round(2)
   end
 
+  # brute force - WAY TOO INTENSIVE
   def average_average_price_per_merchant
+    avg_prices = items_by_merchant_id.keys.map do |merchant_id|
+      average_item_price_for_merchant(merchant_id)
+    end
+    (avg_prices.inject(:+)/avg_prices.count).round(2)
   end
+
 end

@@ -41,4 +41,16 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual
     assert_equal 52, @sales_analyst.merchants_with_high_item_count.count
   end
+
+  def test_find_all_items_for_a_merchant_id
+    merchant_id = 12334783
+    actual = @sales_analyst.average_item_price_for_merchant(merchant_id)
+    assert_equal BigDecimal(47.5, 3), actual
+  end
+
+  def test_find_all_items_for_a_merchant_id
+    merchant_id = 12334783
+    actual = @sales_analyst.average_item_price_for_merchant(merchant_id)
+    assert_equal BigDecimal(47.5, 3), actual
+  end
 end
