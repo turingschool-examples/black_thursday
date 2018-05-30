@@ -3,6 +3,7 @@ require 'bigdecimal'
 require_relative 'file_loader.rb'
 require_relative 'merchant_repository.rb'
 require_relative 'item_repository'
+require_relative 'sales_analyst'
 
 class SalesEngine
   include FileLoader
@@ -17,4 +18,7 @@ class SalesEngine
     SalesEngine.new(file_paths)
   end
 
+  def analyst
+    SalesAnalyst.new(self)
+  end
 end
