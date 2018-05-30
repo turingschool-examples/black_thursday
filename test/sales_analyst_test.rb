@@ -12,24 +12,18 @@ class SalesAnalystTest < Minitest::Test
     items = se.load_file(se.content[:items])
     @mr = MerchantRepository.new(merchants)
     @ir = ItemRepository.new(items)
-    @sa = SalesAnalyst.new(@ir, @mr)
+    @sa = SalesAnalyst.new(se)
   end
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @sa
   end
 
-  def test_it_finds_all_merchant_ids
-    assert_equal @ir.all.length, @sa.merchant_ids.length
-    assert_equal @ir.all[0].merchant_id, @sa.merchant_ids[0]
-    assert_equal @ir.all[235].merchant_id, @sa.merchant_ids[235]
-  end
-
   def test_it_can_find_the_items_per_merchant
     first_id = @ir.all[0].merchant_id
     second_id = @ir.all[1].merchant_id
-    assert_equal @sa.merchant_ids.count(first_id), @sa.items_per_merchant[0]
-    assert_equal @sa.merchant_ids.count(second_id), @sa.items_per_merchant[1]
+    assert_equal 1, @sa.items_per_merchant[0]
+    assert_equal 6, @sa.items_per_merchant[1]
   end
 
   def test_analyst_can_check_average_items_per_merchant
