@@ -14,7 +14,19 @@ class SalesAnalyst
     average(amount_of_items, amount_of_merchants)
   end
 
-  # def average(first_list, seond_list)
-  #   (first_list.to_f / seond_list.to_f).round(2)
-  # end
+  def average_items_per_merchant_standard_deviation
+    average_items_per_merchant
+  end
+
+  def each_merchants_total_items
+    @sales_engine.merchants.collection.map
+  end
+
+  def single_merchants_total_items(desired_id)
+    @sales_engine.items.collection.values.find_all do |item|
+      if item.merchant_id == desired_id
+        item
+      end
+    end.length
+  end
 end
