@@ -23,7 +23,7 @@ class ItemTest < Minitest::Test
     assert_equal 263396209, @test_item.id
     assert_equal 'Vogue Paris Original Givenchy 2307', @test_item.name
     assert_equal 'Vogue Paris Original 2307; ca. 1980; Givenchy Dress', @test_item.description
-    assert_equal 2999, @test_item.unit_price
+    assert_equal 29.99, @test_item.unit_price.to_f
     assert_equal 12334105, @test_item.merchant_id
     assert_equal '2016-01-11 10:37:09 UTC', @test_item.created_at
     assert_equal '1995-03-19 10:02:43 UTC', @test_item.updated_at
@@ -42,7 +42,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_update_unit_price
-    assert_equal 2999, @test_item.unit_price
+    assert_equal 29.99, @test_item.unit_price.to_f
     @test_item.update_unit_price(1200)
     assert_equal 1200, @test_item.unit_price
   end

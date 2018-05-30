@@ -13,5 +13,4 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemsRepository, se.items
     assert_instance_of MerchantRepo, se.merchants
   end
-
 end

@@ -1,5 +1,6 @@
 require_relative 'items_repository'
 require_relative 'merchant_repo'
+require_relative 'sales_analyst'
 require 'csv'
 
 class SalesEngine
@@ -31,5 +32,9 @@ class SalesEngine
       merchants.load_merchants(csv_merchants)
     end
     new(items, merchants)
+  end
+
+  def analyst
+    SalesAnalyst.new(@items, @merchants)
   end
 end

@@ -27,10 +27,10 @@ class ItemsRepositoryTest < Minitest::Test
   def test_find_by_id
     @ir.load_items(@items)
 
-    nil_id = 1984
+    nil_id = '1984'
     assert_nil @ir.find_by_id(nil_id)
 
-    real_id = 263_395_237
+    real_id = '263395237'
     assert_instance_of Item, @ir.find_by_id(real_id)
   end
 
@@ -78,10 +78,10 @@ class ItemsRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id
     @ir.load_items(@items)
 
-    id_one = 1984
+    id_one = '1984'
     assert_equal [], @ir.find_all_by_merchant_id(id_one)
 
-    id_two = 12_334_185
+    id_two = '12334185'
     assert_instance_of Item, @ir.find_all_by_merchant_id(id_two)[0]
     assert_instance_of Item, @ir.find_all_by_merchant_id(id_two)[1]
     assert_instance_of Item, @ir.find_all_by_merchant_id(id_two)[2]
@@ -98,7 +98,7 @@ class ItemsRepositoryTest < Minitest::Test
 
     @ir.create(attributes)
     assert_equal 'Pencil', @ir.all.last.name
-    assert_equal 1099, @ir.all.last.unit_price
+    assert_equal 10.99, @ir.all.last.unit_price.to_f
     assert_equal 263_396_210, @ir.all.last.id
     assert_equal Time.now.hour, @ir.all.last.created_at.hour
   end
