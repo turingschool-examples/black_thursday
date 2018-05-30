@@ -6,7 +6,7 @@ class TestInvoiceRepository < Minitest::Test
     @loaded_file = [{id: 1, customer_id: 1, merchant_id: 1, status: 'pending', created_at: '2009-02-07', updated_at: '2010-03-15'},
                     {id: 2, customer_id: 1, merchant_id: 1, status: 'shipped', created_at: '2005-03-07', updated_at: '2011-03-15'},
                     {id: 3, customer_id: 2, merchant_id: 1, status: 'pending', created_at: '2009-06-07', updated_at: '2010-03-15'},
-                    {id: 4, customer_id: 2, merchant_id: 1, status: 'shipped', created_at: '2001-01-07', updated_at: '2006-03-15'},
+                    {id: 4, customer_id: 2, merchant_id: 3, status: 'shipped', created_at: '2001-01-07', updated_at: '2006-03-15'},
                     {id: 5, customer_id: 3, merchant_id: 1, status: 'pending', created_at: '2009-02-07', updated_at: '2014-03-15'},
                     {id: 6, customer_id: 3, merchant_id: 2, status: 'shipped', created_at: '2010-03-07', updated_at: '2014-06-15'},
                     {id: 7, customer_id: 4, merchant_id: 2, status: 'pending', created_at: '2009-02-07', updated_at: '2014-01-15'},
@@ -40,6 +40,13 @@ class TestInvoiceRepository < Minitest::Test
     assert_equal 10, invoice.id
     assert_equal 5, invoice.customer_id
     assert_equal 6, invoice.merchant_id
-    assert_equal 'shipped', invoice.status
+    assert_equal :shipped, invoice.status
+  end
+
+  def test_it_returns_all_invoices_associated_with_given_customer
+    invoices = @ir.find_all_by_customer_id(2)
+
+    assert_equal 2, invoices.length
+    assert_equal [], @ir.find_all_by_customer_id(100)
   end
 end
