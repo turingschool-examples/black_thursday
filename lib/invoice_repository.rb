@@ -7,7 +7,16 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    new_invoice = Invoice.new(attributes)
+    if attributes[:id].nil?
+      id = @invoices[-1].id + 1
+    else
+      id = attributes[:id]
+    end
+    new_invoice = Invoice.new({id: id, customer_id: attributes[:customer_id],
+                      merchant_id: attributes[:merchant_id],
+                      status: attributes[:status],
+                      created_at: attributes[:created_at],
+                      updated_at: attributes[:updated_at]})
     @invoices << new_invoice
     return new_invoice
   end
@@ -42,7 +51,11 @@ class InvoiceRepository
 
 
   def update(id, attributes)
-    updated_invoice = find_by_id(id)
+    if find_by_id(id).nil?
+      return
+    else
+      updated_invoice = find_by_id(id)
+    end
     updated_invoice.status = attributes[:status]
     updated_invoice.updated_at = Time.now
   end
