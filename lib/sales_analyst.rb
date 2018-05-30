@@ -16,6 +16,13 @@ class SalesAnalyst
     sum_prices = items.reduce(0) do |sum, item|
       sum += item.unit_price
     end
-     sum_prices/items.length
+     return sum_prices/items.length
+  end
+
+  def average_average_price_per_merchant
+    sum_avgs = @merchants.all.reduce(0) do |sum, merchant|
+      sum += average_item_price_for_merchant(merchant.id)
+    end
+    return sum_avgs
   end
 end

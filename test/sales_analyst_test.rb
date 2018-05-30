@@ -30,4 +30,9 @@ class SalesAnalystTest < Minitest::Test
     avg_price = @sa.average_item_price_for_merchant(merchant_id)
     assert_instance_of BigDecimal, avg_price
   end
+
+  def test_average_average_price_per_merchant
+    avg_avg = @sa.average_average_price_per_merchant
+    assert_instance_of BigDecimal, avg_avg
+  end
 end
