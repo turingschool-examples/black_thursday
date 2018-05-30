@@ -1,4 +1,7 @@
+require_relative 'math_methods'
+
 class SalesAnalyst
+  include MathMethods
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -11,7 +14,7 @@ class SalesAnalyst
     average(amount_of_items, amount_of_merchants)
   end
 
-  def average(first_list, seond_list)
-    (first_list.to_f / seond_list.to_f).round(2)
-  end
+  # def average(first_list, seond_list)
+  #   (first_list.to_f / seond_list.to_f).round(2)
+  # end
 end
