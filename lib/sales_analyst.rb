@@ -43,7 +43,7 @@ class SalesAnalyst
     single_merchants_items(desired_id).length
   end
 
-  def merchant_with_high_item_count
+  def merchants_with_high_item_count
     deviation_above = average_items_per_merchant + average_items_per_merchant_standard_deviation
     @sales_engine.merchants.collection.keys.inject([]) do |collector, merchant|
       if single_merchants_total_items(merchant) >= deviation_above
