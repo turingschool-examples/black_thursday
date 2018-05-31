@@ -54,4 +54,22 @@ module RepoMethods
   def inspect
     all
   end
+
+  def find_all_by_customer_id(customer_id)
+    all.find_all do |item|
+      item.customer_id == customer_id
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def find_all_by_status(status)
+    all.find_all do |item|
+      item.status == status
+    end
+  end
 end

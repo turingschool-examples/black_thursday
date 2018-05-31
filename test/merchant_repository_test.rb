@@ -10,7 +10,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_it_exists
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
 
@@ -20,7 +21,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_merchants_starts_as_an_empty_array
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
 
@@ -30,7 +32,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_it_can_create_merchants
     se = SalesEngine.from_csv({
      :items => "./data/item_sample.csv",
-     :merchants => "./data/merchant_sample.csv"
+     :merchants => "./data/merchant_sample.csv",
+     :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     attributes = {:name => 'Turing School', :created_at => "2018-04-25", :updated_at => "2018-05-25"}
@@ -44,7 +47,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_it_can_return_merchant_by_its_id
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -59,7 +63,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_it_returns_nil_if_merchant_id_is_not_present
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -73,7 +78,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_it_can_return_merchant_by_its_name
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -88,7 +94,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_it_returns_nil_if_merchant_name_is_not_present
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -102,7 +109,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_it_returns_array_of_merchants_by_their_name
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -120,7 +128,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_merchant_name_can_be_updated_and_records_date_of_update
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     new_attributes_1 = {:name => 'The Basement'}
@@ -144,7 +153,8 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_merchant_can_be_deleted_by_id
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
-      :merchants => "./data/merchant_sample.csv"
+      :merchants => "./data/merchant_sample.csv",
+      :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
