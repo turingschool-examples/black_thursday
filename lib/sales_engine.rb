@@ -1,6 +1,7 @@
 require_relative 'file_loader'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 
 class SalesEngine
   include FileLoader
@@ -26,4 +27,7 @@ class SalesEngine
     @analyst ||= SalesAnalyst.new(self)
   end
 
+  def invoices
+    @invoices ||= InvoiceRepository.new(load_file(file_paths[:invoices]))
+  end
 end
