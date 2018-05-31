@@ -1,26 +1,16 @@
 require_relative 'invoice.rb'
+require_relative 'repository_helper.rb'
 
 class InvoiceRepository
+  include RepositoryHelper
   attr_reader :repository
 
   def initialize(file_contents)
     @repository = file_contents.map { |invoice| Invoice.new(invoice) }
   end
 
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find { |invoice| invoice.id == id}
-  end
-
   def find_all_by_customer_id(customer_id)
     @repository.select { |invoice| invoice.customer_id == customer_id }
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @repository.select { |invoice| invoice.merchant_id == merchant_id }
   end
 
   def find_all_by_status(status)
@@ -43,11 +33,6 @@ class InvoiceRepository
       invoice.updated_at = Time.now
       invoice
     end
-  end
-
-  def delete(id)
-    invoice = find_by_id(id)
-    @repository.delete(invoice)
   end
 
   def inspect

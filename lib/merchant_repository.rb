@@ -1,29 +1,13 @@
 require_relative 'merchant.rb'
+require_relative 'repository_helper.rb'
 require 'pry'
 
 class MerchantRepository
+  include RepositoryHelper
   attr_reader :merchants, :repository
-  def initialize(merchants)
-    @merchants = merchants
-    @repository = make_repository
-  end
 
-  def make_repository
-    @merchants.map do |merchant|
-      merchant = Merchant.new(merchant)
-    end
-  end
-
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find { |merchant| merchant.id == id }
-  end
-
-  def find_by_name(name)
-    @repository.find { |merchant| merchant.name.downcase == name.downcase }
+  def initialize(file_contents)
+    @repository = file_contents.map { |merchant| Merchant.new(merchant) }
   end
 
   def find_all_by_name(name)
@@ -53,11 +37,6 @@ class MerchantRepository
       merchant.name = new_name
       merchant
     end
-  end
-
-  def delete(id)
-    merchant = find_by_id(id)
-    @repository.delete(merchant)
   end
 
   def inspect
