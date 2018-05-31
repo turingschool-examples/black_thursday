@@ -1,10 +1,12 @@
 class SalesAnalyst
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items     = items
     @merchants = merchants
+    @invoices  = invoices
   end
 
   def average_items_per_merchant
@@ -98,5 +100,74 @@ class SalesAnalyst
     end
   end
 
+  def average_invoices_per_merchant
+    total_merchants = @invoices.all.map do |invoice|
+      invoice.merchant_id
+    end.uniq.length
+    (@invoices.all.length.to_f / total_merchants).round(2)
+  end
 
+  def average_invoices_per_merchant_standard_deviation
+    # refactor this block into a separate method
+    merchant_invoices = @invoices.all.reduce({}) do |collector, invoice|
+      if collector[invoice.merchant_id]
+        collector[invoice.merchant_id] += 1
+      else
+        collector[invoice.merchant_id] = 1
+      end
+      collector
+    end
+    temp_mean = mean(merchant_invoices.values)
+    standard_deviation(temp_mean, merchant_invoices.values)
+  end
+
+  def top_merchants_by_invoice_count
+    sd = average_invoices_per_merchant_standard_deviation
+    average_invoice_count = average_invoices_per_merchant
+    cutoff = average_invoice_count + 2 * sd
+
+    merchant_invoices = @invoices.all.reduce({}) do |collector, invoice|
+      if collector[invoice.merchant_id]
+        collector[invoice.merchant_id] += 1
+      else
+        collector[invoice.merchant_id] = 1
+      end
+      collector
+    end
+
+    merchant_ids = merchant_invoices.reduce([]) do |collector, (key, value)|
+      if value >= cutoff
+        collector << key
+      end
+      collector
+    end
+    merchant_ids.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    sd = average_invoices_per_merchant_standard_deviation
+    average_invoice_count = average_invoices_per_merchant
+    cutoff = average_invoice_count - 2 * sd
+
+    merchant_invoices = @invoices.all.reduce({}) do |collector, invoice|
+      if collector[invoice.merchant_id]
+        collector[invoice.merchant_id] += 1
+      else
+        collector[invoice.merchant_id] = 1
+      end
+      collector
+    end
+
+    merchant_ids = merchant_invoices.reduce([]) do |collector, (key, value)|
+      if value <= cutoff
+        collector << key
+      end
+      collector
+    end
+    merchant_ids.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end
+  end
 end
