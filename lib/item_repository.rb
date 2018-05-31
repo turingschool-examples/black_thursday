@@ -1,10 +1,10 @@
+# frozen_string_literal: false
 
 require_relative 'item'
 require_relative 'repository'
-
+# Responsible for holding and searching Item instances.
 class ItemRepository
   include Repository
-  # Responsible for holding and searching Item instances.
   attr_reader :items
 
   def initialize(items)
@@ -20,7 +20,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    highest_id = @repository.max_by { |item| item.id }
+    highest_id = @repository.max_by(&:id)
     attributes[:id] = highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
