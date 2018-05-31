@@ -1,24 +1,24 @@
 require 'bigdecimal'
 require 'time'
 
-class Item
-  # create Item objects
+class InvoiceItem
+  #create InvoiceItem objects
   attr_reader   :id,
-                :created_at,
-                :merchant_id
-  attr_accessor :name,
-                :description,
+                :item_id,
+                :invoice_id,
                 :unit_price,
+                :created_at
+  attr_accessor :quantity,
                 :updated_at
 
   def initialize(args)
     @id          = args[:id].to_i
-    @name        = args[:name]
-    @description = args[:description]
+    @item_id     = args[:item_id].to_i
+    @invoice_id  = args[:invoice_id].to_i
+    @quantity    = args[:quantity]
     @unit_price  = BigDecimal(args[:unit_price])/100
     @created_at  = Time.parse(args[:created_at])
     @updated_at  = Time.parse(args[:updated_at])
-    @merchant_id = args[:merchant_id].to_i
   end
 
   def unit_price_to_dollars

@@ -1,6 +1,8 @@
 require_relative 'merchant'
+require_relative 'repository'
 
 class MerchantRepository
+  include Repository
   # Responsible for holding and searching Merchant instances.
   attr_reader :merchants
 
@@ -16,50 +18,9 @@ class MerchantRepository
     end
   end
 
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find do |merchant|
-      id == merchant.id
-    end
-  end
-
-  def find_by_name(name)
-    @repository.find do |merchant|
-      name.downcase == merchant.name.downcase
-    end
-  end
-
-  def find_all_by_name(name)
-    @repository.find_all do |merchant|
-      merchant.name.downcase.include?(name.downcase)
-    end
-  end
-
   def create(attributes)
-    highest_id = @repository.max_by do |merchant|
-      merchant.id
-    end
+    highest_id = @repository.max_by { |merchant| merchant.id }
     attributes[:id] = highest_id.id + 1
     @repository << Merchant.new(attributes)
-  end
-
-  def update(id, attributes)
-    merchant = find_by_id(id)
-    unless merchant.nil?
-      merchant.name = attributes[:name]
-    end
-    return nil
-  end
-
-  def delete(id)
-    merchant = find_by_id(id)
-    @repository.delete(merchant)
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
