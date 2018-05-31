@@ -12,11 +12,11 @@ class Transaction
   def initialize(attributes)
     @id = attributes[:id].to_i
     @invoice_id = attributes[:invoice_id].to_i
-    @credit_card_number = attributes[:credit_card_number].to_i
-    @credit_card_expiration_date = attributes[:credit_card_expiration_date]
-    @result = attributes[:result].to_sym 
+    @credit_card_number = attributes[:credit_card_number].to_s
+    @credit_card_expiration_date = attributes[:credit_card_expiration_date].to_s
+    @result = attributes[:result].to_sym
     @created_at = time_conversion(attributes[:created_at])
-    @created_at = time_conversion(attributes[:updated_at])
+    @updated_at = time_conversion(attributes[:updated_at])
   end
 
   def time_conversion(time)

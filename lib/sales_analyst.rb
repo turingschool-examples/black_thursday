@@ -5,12 +5,14 @@ class SalesAnalyst
 
   attr_reader     :items,
                   :merchants,
-                  :invoices
+                  :invoices,
+                  :transactions
 
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, invoices, transactions)
     @items = items
     @merchants = merchants
     @invoices = invoices
+    @transactions = transactions
   end
 
   def average_items_per_merchant
@@ -153,15 +155,6 @@ class SalesAnalyst
     added = numbers.inject(0) {|sum, number| sum + number}
     added.to_f / numbers.size.to_f
   end
-
-  # def calculate_standard_deviation(numbers)
-  #   average = calculate_average(numbers)
-  #   subbed = numbers.map do |number|
-  #     (number - average) ** 2
-  #   end
-  #   new_mean = calculate_average(subbed)
-  #   Math.sqrt(new_mean).round
-  # end
 
   def average_item_price_for_merchant(merchant_id)
     divided_by = 0

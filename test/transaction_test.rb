@@ -22,12 +22,10 @@ class TransactionTest < Minitest::Test
   def assert_transaction_has_attributes
     assert_equal 1, @tr.id
     assert_equal 2179, @tr.invoice_id
-    assert_equal 4068631943231473, @tr.credit_card_number
+    assert_equal "4068631943231473", @tr.credit_card_number
     assert_equal "0217", @tr.credit_card_expiration_date
     assert_equal :success, @tr.result
     assert_equal Time.parse("2012-02-26 20:56:56 UTC"), @tr.created_at
     assert_equal Time.parse("2012-02-26 20:56:56 UTC"), @tr.updated_at
   end
-
-
 end
