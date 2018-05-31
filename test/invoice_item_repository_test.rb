@@ -43,17 +43,53 @@ class TestInvoiceItemRepository < Minitest::Test
       assert_equal 7, invoice_item.invoice_id
   end
 
-  def finds_all_items_matching_given_item_id
-      item_ids = @iir.invoice_items.find_all_by_item_id(1)
+  def test_it_finds_all_items_matching_given_item_id
+      item_ids = @iir.find_all_by_item_id(1)
 
       assert_equal 3, item_ids.length
       assert_equal InvoiceItem, item_ids.first.class
   end
 
-  def finds_all_items_matching_given_item_id
+  def test_if_finds_all_items_matching_given_item_id
       invoice_items = @iir.find_all_by_invoice_id(10)
 
       assert_equal 2, invoice_items.length
       assert_equal InvoiceItem, invoice_items.first.class
   end
+
+  def test_it_creates_a_new_invoice_item_instance
+    attributes = {
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal.new(10.99, 4),
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+
+    @iir.create(attributes)
+    invoice_item = @iir.find_by_id(21)
+    assert_equal 7, invoice_item.item_id
+  end
+
+  def test_it_updates_an_invoice_item
+      original_time = @iir.find_by_id(5).updated_at
+
+      attributes = {quantity: 14,
+                    unit_price: BigDecimal.new(11.11, 4)
+                  }
+      @iir.update(5, attributes)
+
+      invoice_item = @iir.find_by_id(5)
+      assert_equal 14, invoice_item.quantity
+      assert_equal 11.11, invoice_item.unit_price
+      assert_equal 3, invoice_item.item_id
+      assert invoice_item.updated_at > original_time
+  end
+
+  def test_it_can_delete_the_specified_invoice
+      @iir.delete(13)
+      assert_nil @iir.find_by_id(13)
+  end
+
 end
