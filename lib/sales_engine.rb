@@ -3,6 +3,8 @@ require_relative 'merchant_repository.rb'
 require_relative 'item_repository.rb'
 require_relative 'sales_analyst.rb'
 require_relative 'invoice_repository.rb'
+require_relative 'invoice_item_repository.rb'
+require_relative 'customer_repository.rb'
 
 class SalesEngine
   include FileLoader
@@ -34,6 +36,10 @@ class SalesEngine
 
   def customers
     @customers ||= CustomerRepository.new(load_file(content[:customers]))
+  end
+
+  def invoice_items
+    @invoice_items ||= InvoiceItemRepository.new(load_file(content[:invoice_items]))
   end
 
 end

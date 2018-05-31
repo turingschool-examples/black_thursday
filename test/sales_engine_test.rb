@@ -40,14 +40,22 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
-    })
+      :invoices  => "./data/invoices.csv",
+      :customers => "./data/customers.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      # :transactions => "./data/transactions.csv"
+      })
     assert_instance_of SalesAnalyst, se.analyst
   end
 
   def test_invoices_creates_repository_of_invoices
     se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
     assert_instance_of InvoiceRepository, se.invoices
+  end
+
+  def test_invoices_creates_repository_of_invoice_items
+    se = SalesEngine.from_csv({:invoice_items => "./data/invoice_items.csv"})
+    assert_instance_of InvoiceItemRepository, se.invoice_items
   end
 
 end

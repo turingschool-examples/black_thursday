@@ -7,7 +7,8 @@ class SalesAnalyst
     @items = sales_engine.items
     @merchants = sales_engine.merchants
     @invoices = sales_engine.invoices
-    @transactions = sales_engine.transactions
+    # @transactions = sales_engine.transactions
+    @invoice_items = sales_engine.invoice_items
     @id_counts = {}
     @average_items = average_items_per_merchant
     @items_standard_deviation = average_items_per_merchant_standard_deviation
@@ -220,18 +221,26 @@ class SalesAnalyst
 
 ############ Transaction methods
 
-  def invoice_paid_in_full?(invoice_id)
-    related_transactions = @transactions.find_all_by_invoice_id
-    if related_transactions.any? do |transaction|
-      transaction.result == 'success'
-      end
-      true
-    else
-      false
-    end
-  end
+  # def invoice_paid_in_full?(invoice_id)
+  #   related_transactions = @transactions.find_all_by_invoice_id(invoice_id)
+  #   if related_transactions.any? do |transaction|
+  #     transaction.result == 'success'
+  #     end
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
   def invoice_total(invoice_id)
-    
+    related_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    costs = related_invoice_items.map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+    total = costs.inject(0) do |total, cost|
+      total += cost
+    end
+    amount = BigDecimal.new(total, 7)
+  end
 
 end

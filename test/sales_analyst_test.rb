@@ -7,20 +7,23 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv",
+      :customers => "./data/customers.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      # :transactions => "./data/transactions.csv"
       })
     merchants = se.load_file(se.content[:merchants])
     items = se.load_file(se.content[:items])
     invoices = se.load_file(se.content[:invoices])
     customers = se.load_file(se.content[:customers])
     invoice_items = se.load_file(se.content[:invoice_items])
-    transactions = se.load_file(se.content[:transactions])
+    # transactions = se.load_file(se.content[:transactions])
     @mr = MerchantRepository.new(merchants)
     @ir = ItemRepository.new(items)
     @in = InvoiceRepository.new(invoices)
     @cr = CustomerRepository.new(customers)
     @iir = InvoiceItemRepository.new(invoice_items)
-    @tr = TransactionRepository.new(transactions)
+    # @tr = TransactionRepository.new(transactions)
     @sa = SalesAnalyst.new(se)
   end
 
@@ -111,7 +114,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_the_amount_for_any_invoice
-    skip
-    assert_equal 21067.77, sales_analyst.invoice_total(1)
+    assert_equal 21067.77, @sa.invoice_total(1)
   end
 end
