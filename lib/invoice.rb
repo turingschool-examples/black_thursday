@@ -24,4 +24,4 @@ class Invoice
     end
     time
   end
-end 
+end

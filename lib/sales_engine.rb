@@ -3,19 +3,21 @@ require_relative 'sales_analyst'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
 require_relative 'customer_repository'
-require 'pry'
+
 
 class SalesEngine
   attr_reader   :items,
                 :merchants,
                 :invoices,
+                :transactions,
                 :invoice_items,
                 :customers
 
   def csv_to_hash(path)
-    raw_input = CSV.open(path, headers: true, header_converters: :symbol, converters: :all)
+    raw_input = CSV.open(path, headers: true, header_converters: :symbol)
     raw_input.map do | pre_hash |
       pre_hash.to_h
     end
@@ -40,6 +42,10 @@ class SalesEngine
     @invoices = InvoiceRepository.new
     hashes_to_repos(invoice_hashes, @invoices)
 
+    transaction_hashes = csv_to_hash(paths[:transactions])
+    @transactions = TransactionRepository.new
+    hashes_to_repos(transaction_hashes, @transactions)
+
     invoice_item_hashes = csv_to_hash(paths[:invoice_items])
     @invoice_items = InvoiceItemRepository.new
     hashes_to_repos(invoice_item_hashes, @invoice_items)
@@ -56,6 +62,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices)
+    SalesAnalyst.new(@items, @merchants, @invoices, @transactions, @invoice_items, @customers)
   end
 end
