@@ -3,12 +3,14 @@ require_relative 'sales_analyst'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
 require 'pry'
 
 class SalesEngine
   attr_reader   :items,
                 :merchants,
-                :invoices
+                :invoices,
+                :invoice_items
 
   def csv_to_hash(path)
     raw_input = CSV.open(path, headers: true, header_converters: :symbol, converters: :all)
@@ -35,6 +37,10 @@ class SalesEngine
     invoice_hashes = csv_to_hash(paths[:invoices])
     @invoices = InvoiceRepository.new
     hashes_to_repos(invoice_hashes, @invoices)
+
+    invoice_item_hashes = csv_to_hash(paths[:invoice_items])
+    @invoice_items = InvoiceItemRepository.new
+    hashes_to_repos(invoice_item_hashes, @invoice_items)
   end
 
   def self.from_csv(paths)
