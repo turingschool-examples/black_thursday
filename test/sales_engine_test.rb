@@ -50,4 +50,9 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceRepository, se.invoices
   end
 
+  def test_invoices_creates_repository_of_invoice_items
+    se = SalesEngine.from_csv({:invoice_items => "./data/invoice_items.csv"})
+    assert_instance_of InvoiceItemRepository, se.invoice_items
+  end
+
 end
