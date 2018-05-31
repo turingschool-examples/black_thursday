@@ -1,8 +1,9 @@
 
 class SalesAnalyst
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def average_items_per_merchant
@@ -15,6 +16,16 @@ class SalesAnalyst
     return (sum.to_f / items_per_merchant.values.length.to_f).round(2)
   end
 
+  def average_invoices_per_merchant
+    invoices_per_merchant = Hash.new(0)
+    @invoices.members.each do | invoice |
+      invoices_per_merchant[invoice.merchant_id] += 1
+    end
+    sum = invoices_per_merchant.values.inject(0) {| sum, n | sum+n}
+
+    return (sum.to_f / invoices_per_merchant.values.length.to_f).round(2)
+  end
+
   def average_items_per_merchant_standard_deviation
     items_per_merchant = Hash.new(0)
     @items.members.each do | item |
@@ -23,6 +34,23 @@ class SalesAnalyst
 
     subtracted_and_squared = items_per_merchant.values.map do | merchant |
       (merchant - average_items_per_merchant) ** 2
+    end
+
+    sum = subtracted_and_squared.inject(0) {| sum, n | sum+n}
+
+    divided = sum / (subtracted_and_squared.length - 1)
+    sd = Math.sqrt(divided)
+    sd.round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    invoices_per_merchant = Hash.new(0)
+    @invoices.members.each do | invoice |
+      invoices_per_merchant[invoice.merchant_id] += 1
+    end
+
+    subtracted_and_squared = invoices_per_merchant.values.map do | merchant |
+      (merchant - average_invoices_per_merchant) ** 2
     end
 
     sum = subtracted_and_squared.inject(0) {| sum, n | sum+n}
@@ -47,6 +75,85 @@ class SalesAnalyst
     ids.map do | merchant |
       @merchants.find_by_id(merchant)
     end
+  end
+
+  def top_merchants_by_invoice_count
+    invoices_per_merchant = Hash.new(0)
+    @invoices.members.each do | invoice |
+      invoices_per_merchant[invoice.merchant_id] += 1
+    end
+    higher_than = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    ids = invoices_per_merchant.keys.map do | merchant |
+      if invoices_per_merchant[merchant] > higher_than
+        merchant
+      end
+    end.compact
+
+    ids.map do | merchant |
+      @merchants.find_by_id(merchant)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    invoices_per_merchant = Hash.new(0)
+    @invoices.members.each do | invoice |
+      invoices_per_merchant[invoice.merchant_id] += 1
+    end
+    lower_than = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    ids = invoices_per_merchant.keys.map do | merchant |
+      if invoices_per_merchant[merchant] < lower_than
+        merchant
+      end
+    end.compact
+
+    ids.map do | merchant |
+      @merchants.find_by_id(merchant)
+    end
+  end
+
+  def top_days_by_invoice_count
+    by_day = @invoices.members.group_by do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+
+    number_by_day = by_day.values.map do |day|
+      day.count
+    end
+
+    std_dev = calculate_standard_deviation(number_by_day)
+    mean = calculate_average(number_by_day)
+    highest_days = []
+    by_day.each_pair do |day, invoices|
+      if invoices.count > (mean + std_dev)
+        highest_days << day
+      end
+    end
+    highest_days
+  end
+
+  def invoice_status(state)
+    divided = 0
+    total = @invoices.members.count
+    @invoices.members.map do |invoice|
+      if invoice.status == state
+        divided += 1
+      end
+    end
+    ((divided.to_f / total.to_f) * 100).round(2)
+  end
+
+  def calculate_average(numbers)
+    added = numbers.inject(0) {|sum, number| sum + number}
+    added.to_f / numbers.size.to_f
+  end
+
+  def calculate_standard_deviation(numbers)
+    average = calculate_average(numbers)
+    subbed = numbers.map do |number|
+      (number - average) ** 2
+    end
+    new_mean = calculate_average(subbed)
+    Math.sqrt(new_mean).round
   end
 
   def average_item_price_for_merchant(merchant_id)
