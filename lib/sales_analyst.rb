@@ -170,4 +170,41 @@ class SalesAnalyst
       @merchants.find_by_id(merchant_id)
     end
   end
+
+  def top_days_by_invoice_count
+    day_key = { 0 => "Sunday",
+                1 => "Monday",
+                2 => "Tuesday",
+                3 => "Wednesday",
+                4 => "Thursday",
+                5 => "Friday",
+                6 => "Saturday" }
+
+    invoices_by_day = @invoices.all.group_by do |invoice|
+      invoice.created_at.wday
+    end
+
+    count_by_day = invoices_by_day.map do |key, invoice_array|
+      invoice_array.length
+    end
+
+    avg_invoice_count = (@invoices.all.length / 7)
+    sd = standard_deviation(avg_invoice_count, count_by_day)
+
+    invoices_by_day.reduce([]) do |collector, (day, invoices)|
+      if invoices.length >= (avg_invoice_count + sd)
+        collector << day
+      end
+      collector
+    end.map do |day_num|
+      day_key[day_num]
+    end
+  end
+
+  def invoice_status(status)
+    matching_invoices = @invoices.all.select do |invoice|
+      invoice.status == status
+    end
+    (matching_invoices.length / @invoices.all.length.to_f * 100).round(2)
+  end
 end
