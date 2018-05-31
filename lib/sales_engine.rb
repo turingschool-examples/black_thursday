@@ -1,8 +1,11 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
+# require_relative 'customer_repository'
 require_relative 'sales_analyst'
 require_relative 'file_reader'
+
 require 'csv'
 
 class SalesEngine
@@ -28,12 +31,12 @@ class SalesEngine
     @items ||= ItemRepository.new(FileReader.load(@path[:items]))
   end
 
-  def analyst
-    SalesAnalyst.new(self)
-  end
-
   def invoices
     @invoices ||= InvoiceRepository.new(FileReader.load(@path[:invoices]))
+  end
+
+  def invoice_items
+    @invoice_items ||= InvoiceItemRepository.new(FileReader.load(@path[:invoice_items]))
   end
 
   def analyst
