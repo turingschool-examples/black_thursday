@@ -113,4 +113,35 @@ class SalesAnalyst
     BigDecimal((sum(collector)/collector.length).round(2))
   end
 
+  def average_invoices_per_merchant
+    amount_of_invoices = @sales_engine.invoices.collection.length
+    amount_of_merchants = @sales_engine.merchants.collection.length
+    average(amount_of_invoices, amount_of_merchants)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    values = difference_between_invoices_and_mean_squared
+    total = sum(values) / (values.length - 1)
+    Math.sqrt(total).round(2)
+  end
+
+  def difference_between_invoices_and_mean_squared
+    @sales_engine.merchants.collection.keys.map do |merchant|
+      (single_merchants_total_invoices(merchant).to_f - average_invoices_per_merchant.to_f)**2
+    end
+  end
+
+  def single_merchants_invoices(desired_id)
+    @sales_engine.invoices.collection.values.find_all do |invoice|
+      if invoice.merchant_id == desired_id
+        invoice
+      end
+    end
+  end
+
+  def single_merchants_total_invoices(desired_id)
+    single_merchants_invoices(desired_id).length
+  end
+
+
 end

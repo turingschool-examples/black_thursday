@@ -4,6 +4,7 @@ require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/file_loader'
 require './lib/sales_engine'
+require './lib/invoice_repository'
 require 'pry'
 
 class SalesAnalystTest < MiniTest::Test
@@ -60,4 +61,13 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 5, @sales_analyst.golden_items.length
     assert_equal Item, @sales_analyst.golden_items.first.class
   end
+
+  def test_can_find_average_invoices_per_merchant
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_can_find_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
 end
