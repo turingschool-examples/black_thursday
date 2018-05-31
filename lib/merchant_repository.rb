@@ -7,16 +7,8 @@ class MerchantRepository
   attr_reader :merchants, :repository
 
   def initialize(file_contents)
-    # @merchants = merchants
-    # @repository = make_repository
     @repository = file_contents.map { |merchant| Merchant.new(merchant) }
   end
-
-  # def make_repository
-  #   @merchants.map do |merchant|
-  #     merchant = Merchant.new(merchant)
-  #   end
-  # end
 
   def find_all_by_name(name)
     @repository.select do |merchant|
