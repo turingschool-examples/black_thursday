@@ -3,7 +3,7 @@ require_relative 'repository'
 
 class TransactionRepository
   include Repository
-  # Responsible for holding and searching InvoiceItem instances.
+  # Responsible for holding and searching Transaction instances.
   attr_reader :transactions
 
   def initialize(transactions)
@@ -27,14 +27,14 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(cc_number)
-    @repository.find_all do |element|
-      cc_number == element.credit_card_number
+    @repository.find_all do |transaction|
+      cc_number == transaction.credit_card_number
     end
   end
 
   def find_all_by_result(result)
-    @repository.find_all do |element|
-      result == element.result
+    @repository.find_all do |transaction|
+      result == transaction.result
     end
   end
 end

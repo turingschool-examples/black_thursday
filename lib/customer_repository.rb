@@ -3,7 +3,7 @@ require_relative 'repository'
 
 class CustomerRepository
   include Repository
-  # Responsible for holding and searching InvoiceItem instances.
+  # Responsible for holding and searching Customer instances.
   attr_reader :customers
 
   def initialize(customers)
@@ -27,14 +27,14 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(name)
-    @repository.find_all do |element|
-      element.first_name.downcase.include?(name.downcase)
+    @repository.find_all do |customer|
+      customer.first_name.downcase.include?(name.downcase)
     end
   end
 
   def find_all_by_last_name(name)
-    @repository.find_all do |element|
-      element.last_name.downcase.include?(name.downcase)
+    @repository.find_all do |customer|
+      customer.last_name.downcase.include?(name.downcase)
     end
   end
 end

@@ -27,8 +27,8 @@ class InvoiceItemRepository
   end
 
   def find_all_by_item_id(id)
-    @repository.find_all do |element|
-      id == element.item_id
+    @repository.find_all do |invoice_item|
+      id == invoice_item.item_id
     end
   end
 end
