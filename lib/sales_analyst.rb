@@ -102,10 +102,9 @@ class SalesAnalyst
   end
 
   def golden_items
+    high_price = @average_item_price + (@price_standard_deviation * 2)
     golden_items = @items.all.reduce([]) do |array, item|
-      if item.unit_price >= (@average_item_price + (@price_standard_deviation * 2))
-        array << item
-      end
+      array << item if item.unit_price >= high_price
       array
     end
     golden_items
@@ -113,6 +112,7 @@ class SalesAnalyst
 
   ###### Invoices begin below, the copy and paste shows we arent DRY.
 
+  ###### Invoices by merchant section 
   def invoices_grouped_by_merchant
     @invoices.all.group_by do |invoice|
       invoice.merchant_id
@@ -145,20 +145,76 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     high_count = @average_invoices + (@invoice_standard_deviation * 2)
-    top_merchants = []
-    invoice_counts_for_each_merhant.each do |id, count|
-        top_merchants << @merchants.find_by_id(id) if count > high_count
+    top_merchants = invoice_counts_for_each_merhant.map do |id, count|
+        @merchants.find_by_id(id) if count > high_count
     end
-    top_merchants
+    top_merchants.compact
   end
 
   def bottom_merchants_by_invoice_count
     low_count = @average_invoices - (@invoice_standard_deviation * 2)
-    bottom_merchants = []
-    invoice_counts_for_each_merhant.each do |id, count|
-        bottom_merchants << @merchants.find_by_id(id) if count < low_count
+    bottom_merchants = invoice_counts_for_each_merhant.map do |id, count|
+        @merchants.find_by_id(id) if count < low_count
     end
-    bottom_merchants
+    bottom_merchants.compact
+  end
+
+######### Invoices by day section
+
+  def invoices_grouped_by_day
+    @invoices.all.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def invoices_per_day
+    array_of_arrays_of_invoices_per_day = invoices_grouped_by_day.values
+    array_of_arrays_of_invoices_per_day.map do |array|
+      array = array.count
+    end
+  end
+
+  def average_invoices_per_day
+    sum = invoices_per_day.reduce(0.0) do |total, count|
+      total += count
+    end
+    average = (sum / invoices_per_day.length).round(2)
+  end
+
+  def average_invoices_per_day_standard_deviation
+    standard_deviation(invoices_per_day, average_invoices_per_day)
+  end
+
+  def invoice_counts_for_each_day
+    invoices_grouped_by_day.merge(invoices_grouped_by_day) do |day, invoices|
+      invoices.count
+    end
+  end
+
+  def top_days_by_invoice_count
+    high_count = average_invoices_per_day + average_invoices_per_day_standard_deviation
+    top_days = invoice_counts_for_each_day.map do |day, count|
+        day if count > high_count
+    end
+    top_days.compact
+  end
+
+  def invoices_grouped_by_status
+    @invoices.all.group_by do |invoice|
+      invoice.status
+    end
+  end
+
+  def invoice_counts_for_each_status
+    invoices_grouped_by_status.merge(invoices_grouped_by_status) do |day, invoices|
+      invoices.count
+    end
+  end
+
+  def invoice_status(status)
+    count = invoice_counts_for_each_status[status].to_f
+    total = @invoices.all.count.to_f
+    ((count / total) * 100).round(2)
   end
 
 end

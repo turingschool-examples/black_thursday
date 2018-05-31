@@ -40,7 +40,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_status
     invr = InvoiceRepository.new(load_file("./data/invoices.csv"))
-    assert_equal 1473, invr.find_all_by_status('pending').count
+    assert_equal 1473, invr.find_all_by_status(:pending).count
     assert_equal [], invr.find_all_by_status('oops')
   end
 

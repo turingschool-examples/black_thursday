@@ -85,4 +85,15 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, @sa.bottom_merchants_by_invoice_count[0]
   end
 
+  def test_it_can_find_top_days_of_the_week
+    assert_equal 1, @sa.top_days_by_invoice_count.count
+    assert_equal "Wednesday", @sa.top_days_by_invoice_count.first
+  end
+
+  def test_it_can_find_the_percent_of_invoices_at_each_status
+    assert_equal 29.55, @sa.invoice_status(:pending)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
+
 end
