@@ -4,7 +4,6 @@ require './lib/transaction_repository'
 class TestTransactionRepository < Minitest::Test
 
   def setup
-    skip
     @loaded_file = [{id: 1 ,invoice_id: 10, credit_card_number: '4068631943231473', credit_card_expiration_date: '0217', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
                     {id: 2 ,invoice_id: 11, credit_card_number: '4068631943231474', credit_card_expiration_date: '0218', result: 'failed', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
                     {id: 3 ,invoice_id: 12, credit_card_number: '4068631943231475', credit_card_expiration_date: '0219', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
@@ -16,7 +15,7 @@ class TestTransactionRepository < Minitest::Test
                     {id: 9 ,invoice_id: 18, credit_card_number: '4068631943231493', credit_card_expiration_date: '0817', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
                     {id: 10 ,invoice_id: 19, credit_card_number: '4068631943231463', credit_card_expiration_date: '0917', result: 'failed', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
                     {id: 11 ,invoice_id: 20, credit_card_number: '4068631943231453', credit_card_expiration_date: '1017', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
-                    {id: 12 ,invoice_id: 21, credit_card_number: '4068631943231443', credit_card_expiration_date: '1117', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
+                    {id: 12 ,invoice_id: 20, credit_card_number: '4068631943231443', credit_card_expiration_date: '1117', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
                     {id: 13 ,invoice_id: 22, credit_card_number: '4068631943231433', credit_card_expiration_date: '1217', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
                     {id: 14 ,invoice_id: 23, credit_card_number: '4068631943231423', credit_card_expiration_date: '0318', result: 'failed', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
                     {id: 15 ,invoice_id: 24, credit_card_number: '4068631943231413', credit_card_expiration_date: '0418', result: 'success', created_at: '2012-02-26 20:56:56 UTC', updated_at: '2012-02-26 20:56:56 UTC'},
@@ -29,21 +28,28 @@ class TestTransactionRepository < Minitest::Test
   end
 
   def test_it_exists
-    skip
     assert_instance_of TransactionRepository, @tr
   end
 
-  def test_it_returns_all_invoices
-    skip
+  def test_it_returns_all_transactions
     assert_equal 20, @tr.all.count
   end
 
   def test_it_returns_transaction_matching_given_id
-    skip
      transaction = @tr.find_by_id(2)
 
      assert_equal 2, transaction.id
      assert_equal Transaction, transaction.class
+  end
+
+  def test_it_returns_all_transactions_matching_given_id
+     transactions = @tr.find_all_by_invoice_id(20)
+
+     assert_equal 2, transactions.length
+     assert_equal Transaction, transactions.first.class
+
+     transactions = @tr.find_all_by_invoice_id(100)
+     assert_equal true, transactions.empty?
   end
 
 end
