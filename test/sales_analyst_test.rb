@@ -61,4 +61,50 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, expected.length
     assert_instance_of Item, expected.first
   end
+
+  def test_average_invoices_per_merchant_returns_average_number_of_invoices
+    expected = @sales_analyst.average_invoices_per_merchant
+
+    assert_equal 10.49, expected
+    assert_instance_of Float, expected
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation_finds_std_deviation
+    expected = @sales_analyst.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 3.29, expected
+    assert_instance_of Float, expected
+  end
+
+  def test_top_merchants_by_invoice_count_returns_correct_merchants
+    expected = @sales_analyst.top_merchants_by_invoice_count
+
+    assert_equal 12, expected.length
+    assert_instance_of Merchant, expected.first
+  end
+
+  def test_bottom_merchants_by_invoice_count_returns_correct_merchants
+    expected = @sales_analyst.bottom_merchants_by_invoice_count
+
+    assert_equal 4, expected.length
+    assert_instance_of Merchant, expected.first
+  end
+
+  def test_top_days_by_invoice_count_returns_correct_dats
+    expected = @sales_analyst.top_days_by_invoice_count
+
+    assert_equal ['Wednesday'], expected
+  end
+
+  def test_invoice_status_reuturns_correct_percentage_of_given_status
+    expected = @sales_analyst.invoice_status(:pending)
+    assert_equal 29.55, expected
+
+    expected = @sales_analyst.invoice_status(:shipped)
+    assert_equal 56.95, expected
+
+    expected = @sales_analyst.invoice_status(:returned)
+    assert_equal 13.50, expected
+  end
+
 end
