@@ -31,12 +31,4 @@ class InvoiceItemRepository
       id == element.item_id
     end
   end
-
-  def find_all_by_invoice_id(id)
-    @repository.find_all do |element|
-      id == element.invoice_id
-    end
-  end
-
-
 end

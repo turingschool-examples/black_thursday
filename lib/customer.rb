@@ -3,10 +3,10 @@ require 'time'
 class Customer
   #create Customer objects
   attr_reader   :id,
-                :first_name,
-                :last_name,
                 :created_at
-  attr_accessor :updated_at
+  attr_accessor :first_name,
+                :last_name,
+                :updated_at
 
   def initialize(args)
     @id          = args[:id].to_i
