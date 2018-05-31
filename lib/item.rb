@@ -1,8 +1,9 @@
+# frozen_string_literal: false
+
 require 'bigdecimal'
 require 'time'
-
+# responsible for creation of Item objects
 class Item
-  # create Item objects
   attr_reader   :id,
                 :created_at,
                 :merchant_id
@@ -15,7 +16,7 @@ class Item
     @id          = args[:id].to_i
     @name        = args[:name]
     @description = args[:description]
-    @unit_price  = BigDecimal(args[:unit_price])/100
+    @unit_price  = BigDecimal(args[:unit_price]) / 100
     @created_at  = Time.parse(args[:created_at])
     @updated_at  = Time.parse(args[:updated_at])
     @merchant_id = args[:merchant_id].to_i
