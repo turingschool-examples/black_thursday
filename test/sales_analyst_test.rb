@@ -1,18 +1,28 @@
 require './test/test_helper'
 require './lib/sales_engine'
 require './lib/sales_analyst'
+require './lib/mathematics_module'
 
-class SalesAnalyst < Minitest::Test
-  def test_sales_analyst_exists
+class SalesAnalystTest < Minitest::Test
+  def setup
     se = SalesEngine.from_csv({
       items: './data/items.csv',
       merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv'
     })
     @sa = se.analyst
   end
 
+  def test_sales_analyst_exists
+    assert_instance_of SalesAnalyst, @sa
+  end
+
+  def test_sales_analyst_can_find_average_set_of_numbers
+    number_set = stub(:average_items_per_merchant => )
+    number_set
+  end
+
   def test_sales_analyst_finds_average_items_per_merchant
-    skip
     expected = @sa.average_items_per_merchant
 
     assert_equal 2.88, expected
@@ -20,7 +30,6 @@ class SalesAnalyst < Minitest::Test
   end
 
   def test_sales_analyst_finds_standard_deviation_of_items_per_merchant
-    skip
     expected = @sa.average_items_per_merchant_standard_deviation
 
     assert_equal 3.26, expected
@@ -30,7 +39,7 @@ class SalesAnalyst < Minitest::Test
   def test_sales_analyst_finds_which_merchants_have_high_item_counts
     expected = @sa.merchants_with_high_item_count
 
-    assert_equal 52, expected
+    assert_equal 52, expected.count
     assert_equal Merchant, expected.first.class
   end
 
@@ -45,7 +54,7 @@ class SalesAnalyst < Minitest::Test
   def test_sales_analyst_finds_average_average_price_per_merchant
     expected = @sa.average_average_price_per_merchant
 
-    assert_equal 350.29,
+    assert_equal 350.29, expected
     assert_equal BigDecimal, expected.class
   end
 
