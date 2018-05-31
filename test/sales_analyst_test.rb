@@ -7,6 +7,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     })
 
     @sa = se.analyst
@@ -48,4 +49,36 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, @sa.golden_items.length
   end
 
+  def test_average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_instance_of Merchant, @sa.top_merchants_by_invoice_count.first
+    assert_equal 12, @sa.top_merchants_by_invoice_count.length
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_instance_of Merchant, @sa.bottom_merchants_by_invoice_count.first
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.length
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal 1, @sa.top_days_by_invoice_count.length
+    assert_equal "Wednesday", @sa.top_days_by_invoice_count.first
+  end
+
+  def test_invoice_status
+    assert_equal 29.55, @sa.invoice_status(:pending)
+
+
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+
+
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
 end

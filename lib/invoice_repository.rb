@@ -1,4 +1,4 @@
-require './lib/invoice'
+require_relative 'invoice'
 
 class InvoiceRepository
 
@@ -10,6 +10,8 @@ class InvoiceRepository
 
   def load_invoices(csv)
     csv.each do |invoice|
+      invoice[:created_at] = Time.parse(invoice[:created_at])
+      invoice[:updated_at] = Time.parse(invoice[:updated_at])
       @all << Invoice.new(invoice)
     end
   end
@@ -50,8 +52,9 @@ class InvoiceRepository
 
   def update(id, attributes)
     invoice = find_by_id(id)
-
-    invoice.update_status(attributes[:status])
+    if invoice
+      invoice.update_status(attributes[:status])
+    end
   end
 
   def delete(id)
@@ -60,5 +63,8 @@ class InvoiceRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 
 end
