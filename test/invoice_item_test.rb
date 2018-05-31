@@ -22,7 +22,7 @@ class InvoiceItemTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal.new(1099, 4),
       :created_at => "2016-01-11 11:51:36 UTC",
       :updated_at => "2001-09-17 15:28:43 UTC"
     })
@@ -41,7 +41,7 @@ class InvoiceItemTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal.new(1099, 4),
       :created_at => "2016-01-11 11:51:36 UTC",
       :updated_at => "2001-09-17 15:28:43 UTC"
     })
