@@ -117,4 +117,10 @@ class SalesAnalyst
   def invoice_counts_per_day_of_week
     invoices_per_day_of_week.map {|day, invoices| invoices.count}
   end
+
+  def invoice_status(status)
+    status = @parent.invoices.find_all_by_status(status)
+    ((status.count.to_f / @parent.invoices.all.count) * 100).round(2)
+  end
+
 end

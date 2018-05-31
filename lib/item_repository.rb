@@ -49,7 +49,7 @@ class ItemRepository
             merchant_id: attributes[:merchant_id]}
     @item_repo.push(Item.new(item, self))
   end
-#ask if attributes > 0 is necessary for update time
+
   def update(id, attributes)
     item = find_by_id(id)
     return item if item == nil
