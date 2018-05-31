@@ -16,6 +16,10 @@ module RepositoryHelper
     @repository.select { |instance| instance.merchant_id == merchant_id }
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    @repository.select { |instance| instance.invoice_id == invoice_id }
+  end
+
   def delete(id)
     instance = find_by_id(id)
     @repository.delete(instance)

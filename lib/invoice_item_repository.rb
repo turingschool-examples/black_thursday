@@ -13,10 +13,6 @@ class InvoiceItemRepository
     @repository.select { |invoice_item| invoice_item.item_id == item_id }
   end
 
-  def find_all_by_invoice_id(invoice_id)
-    @repository.select { |invoice_item| invoice_item.invoice_id == invoice_id }
-  end
-
   def create(attributes)
     sorted = @repository.sort_by { |invoice_item| invoice_item.id }
     new_id = sorted.last.id + 1
