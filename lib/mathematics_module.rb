@@ -9,7 +9,8 @@ module Mathematics
     subbed = numbers.map do |number|
       (number - average) ** 2
     end
-    new_mean = calculate_average(subbed)
-    Math.sqrt(new_mean).round
+    sq_sum = subbed.inject(0) {|sum, number| sum += number}
+    to_be_rooted = sq_sum / (subbed.length - 1)
+    Math.sqrt(to_be_rooted).round(2)
   end
 end
