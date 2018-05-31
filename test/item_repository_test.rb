@@ -16,7 +16,7 @@ class ItemsRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, @item_repository
   end
 
-  def test_merchant_repo_holds_all_instances_of_items
+  def test_item_repo_holds_all_instances_of_items
     assert_equal 1367, @item_repository.all.length
   end
 
@@ -51,7 +51,7 @@ class ItemsRepositoryTest < Minitest::Test
     assert_equal [], @item_repository.find_all_by_name('asdgihweogdv')
   end
 
-  def test_it_can_create_a_new_merchant_object
+  def test_it_can_create_a_new_item_object
     refute @item_repository.find_by_id(263567475)
     @item_repository.create({name: 'test_item',
                             description: 'this is a test item',
@@ -83,7 +83,7 @@ class ItemsRepositoryTest < Minitest::Test
     assert @item_repository.find_by_name('test_item_new')
   end
 
-  def test_it_can_delete_a_merchant_object
+  def test_it_can_delete_a_item_object
     assert @item_repository.find_by_id(263567474)
     @item_repository.delete(263567474)
     refute @item_repository.find_by_id(263567474)

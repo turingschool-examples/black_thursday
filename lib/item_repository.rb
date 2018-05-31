@@ -1,4 +1,3 @@
-# require_relative 'sales_engine'
 require_relative 'item'
 
 class ItemRepository
@@ -65,17 +64,20 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    item.name = attributes[:name]
-    item.description = attributes[:description]
-    item.unit_price = attributes[:unit_price]
-    item.updated_at = Time.now.to_s
+    unless item.nil?
+      item.name = attributes[:name] if attributes[:name]
+      item.description = attributes[:description] if attributes[:description]
+      item.unit_price = attributes[:unit_price] if attributes[:unit_price]
+      item.updated_at = Time.now
+    end
+    return nil
   end
 
   def create(attributes)
     highest_id = @repository.max_by { |item| item.id }
     attributes[:id] = highest_id.id + 1
-    attributes[:created_at] = attributes[:created_at].to_s
-    attributes[:updated_at] = attributes[:updated_at].to_s
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     @repository << Item.new(attributes)
   end
 
