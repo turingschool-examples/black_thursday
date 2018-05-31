@@ -7,6 +7,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.new({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
+        :invoices  => "./fixtures/invoices_test.csv"
         })
     @sa = @se.analyst
   end
@@ -46,6 +47,32 @@ class SalesAnalystTest < Minitest::Test
   def test_returns_items_that_are_two_standard_deviations_above_the_average_price
     assert_equal 5, @sa.golden_items.length
     assert_equal Item, @sa.golden_items.first.class
+  end
+
+  def test_it_returns_average_number_of_invoices_per_merchant
+      assert_equal 7.08, @sa.average_invoices_per_merchant
+      assert_equal Float, @sa.average_invoices_per_merchant.class
+  end
+
+  def test_it_returns_the_standard_deviation
+    assert_equal 2.39, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal Float, @sa.average_invoices_per_merchant_standard_deviation.class
+  end
+
+  def test_it_returns_top_merchants_by_invoice_count
+    assert_equal 1 ,@sa.top_merchants_by_invoice_count.length
+    assert_equal Merchant, @sa.top_merchants_by_invoice_count.first.class
+  end
+
+  def test_it_returns_bottom_merchants_by_invoice_count
+    assert_equal 1 ,@sa.bottom_merchants_by_invoice_count.length
+    assert_equal Merchant, @sa.bottom_merchants_by_invoice_count.first.class
+  end
+
+  def test_returns_days_with_an_invoice_count_more_than_one_standard_deviation_above_the_mean
+    assert_equal 1, @sa.top_days_by_invoice_count.length
+    assert_equal "Monday", @sa.top_days_by_invoice_count.first
+    assert_equal String, @sa.top_days_by_invoice_count.first.class
   end
 
 end
