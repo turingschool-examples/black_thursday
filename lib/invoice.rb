@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 require 'time'
-# creates Invoice objects
+# responsible for creation of Invoice objects
 class Invoice
   attr_reader   :id,
                 :customer_id,
