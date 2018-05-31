@@ -36,11 +36,12 @@ module Repository
   def update(id, attributes)
     object = find_by_id(id)
     unless object.nil?
-      object.name = attributes[:name] if attributes[:name]
+      object.name        = attributes[:name] if attributes[:name]
       object.description = attributes[:description] if attributes[:description]
-      object.unit_price = attributes[:unit_price] if attributes[:unit_price]
-      object.status = attributes[:status] if attributes[:status]
-      object.updated_at = Time.now unless object.class == Merchant
+      object.unit_price  = attributes[:unit_price] if attributes[:unit_price]
+      object.status      = attributes[:status] if attributes[:status]
+      object.quantity    = attributes[:quantity] if attributes[:quantity]
+      object.updated_at  = Time.now unless object.class == Merchant
     end
     return nil
   end
