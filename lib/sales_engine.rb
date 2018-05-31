@@ -32,4 +32,8 @@ class SalesEngine
     @invoices ||= InvoiceRepository.new(load_file(content[:invoices]))
   end
 
+  def customers
+    @customers ||= CustomerRepository.new(load_file(content[:customers]))
+  end
+
 end

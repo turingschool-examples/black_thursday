@@ -7,6 +7,7 @@ class SalesAnalyst
     @items = sales_engine.items
     @merchants = sales_engine.merchants
     @invoices = sales_engine.invoices
+    @transactions = sales_engine.transactions
     @id_counts = {}
     @average_items = average_items_per_merchant
     @items_standard_deviation = average_items_per_merchant_standard_deviation
@@ -112,7 +113,7 @@ class SalesAnalyst
 
   ###### Invoices begin below, the copy and paste shows we arent DRY.
 
-  ###### Invoices by merchant section 
+  ###### Invoices by merchant section
   def invoices_grouped_by_merchant
     @invoices.all.group_by do |invoice|
       invoice.merchant_id
@@ -216,5 +217,21 @@ class SalesAnalyst
     total = @invoices.all.count.to_f
     ((count / total) * 100).round(2)
   end
+
+############ Transaction methods
+
+  def invoice_paid_in_full?(invoice_id)
+    related_transactions = @transactions.find_all_by_invoice_id
+    if related_transactions.any? do |transaction|
+      transaction.result == 'success'
+      end
+      true
+    else
+      false
+    end
+  end
+
+  def invoice_total(invoice_id)
+    
 
 end

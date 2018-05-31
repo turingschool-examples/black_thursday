@@ -12,9 +12,15 @@ class SalesAnalystTest < Minitest::Test
     merchants = se.load_file(se.content[:merchants])
     items = se.load_file(se.content[:items])
     invoices = se.load_file(se.content[:invoices])
+    customers = se.load_file(se.content[:customers])
+    invoice_items = se.load_file(se.content[:invoice_items])
+    transactions = se.load_file(se.content[:transactions])
     @mr = MerchantRepository.new(merchants)
     @ir = ItemRepository.new(items)
     @in = InvoiceRepository.new(invoices)
+    @cr = CustomerRepository.new(customers)
+    @iir = InvoiceItemRepository.new(invoice_items)
+    @tr = TransactionRepository.new(transactions)
     @sa = SalesAnalyst.new(se)
   end
 
@@ -96,4 +102,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 13.5, @sa.invoice_status(:returned)
   end
 
+  def test_it_can_check_if_an_invoice_is_fully_paid
+    skip
+    assert @sa.invoice_paid_in_full?(1)
+    assert @sa.invoice_paid_in_full?(200)
+    refute @sa.invoice_paid_in_full?(203)
+    refute @sa.invoice_paid_in_full?(204)
+  end
+
+  def test_it_can_return_the_amount_for_any_invoice
+    skip
+    assert_equal 21067.77, sales_analyst.invoice_total(1)
+  end
 end
