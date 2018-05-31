@@ -1,3 +1,5 @@
+require 'date'
+
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -21,5 +23,9 @@ class Invoice
 
   def update_time(new_time)
     @updated_at = new_time
+  end
+
+  def created_day_of_week
+    Date::DAYNAMES[@created_at.wday]
   end
 end
