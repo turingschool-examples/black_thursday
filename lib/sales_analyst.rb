@@ -21,7 +21,7 @@ class SalesAnalyst
   end
 
   def each_merchants_total_items
-    total_items_list = @sales_engine.merchants.collection.values.map do |merchant|
+    @sales_engine.merchants.collection.values.map do |merchant|
       single_merchants_total_items(merchant.id)
     end
   end
@@ -75,5 +75,42 @@ class SalesAnalyst
     end
   end
 
+  def average_average_price_per_merchant
+    collector = @sales_engine.merchants.collection.keys.map do |merchant|
+      average_item_price_for_merchant(merchant)
+    end
+    BigDecimal((sum(collector)/collector.length).round(2))
+  end
+
+  def golden_items
+    deviation_above = average_price_per_item_standard_deviation * 2
+    @sales_engine.items.collection.values.inject([]) do |collector, item|
+      if item.unit_price >= deviation_above
+      collector << @sales_engine.items.collection[item.id]
+      end
+      collector
+    end
+    # binding.pry
+  end
+
+  def average_price_per_item_standard_deviation
+    values = difference_between_item_price_and_mean_squared
+    total = sum(values) / (values.length - 1)
+    Math.sqrt(total).round(2)
+    # binding.pry
+  end
+
+  def difference_between_item_price_and_mean_squared
+    @sales_engine.items.collection.values.map do |value|
+      (value.unit_price.to_f - average_price_per_item.to_f)**2
+    end
+  end
+
+  def average_price_per_item
+    collector = @sales_engine.items.collection.values.map do |item|
+      item.unit_price
+    end
+    BigDecimal((sum(collector)/collector.length).round(2))
+  end
 
 end
