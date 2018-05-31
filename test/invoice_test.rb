@@ -11,7 +11,7 @@ class InvoiceTest < Minitest::Test
       :status      => 'pending',
       :created_at  => '2016-01-11 09:34:06 UTC',
       :updated_at  => '2007-06-04 21:35:10 UTC'
-    }
+      }
     @invoice = Invoice.new(@args)
   end
 
@@ -20,11 +20,21 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_instance_of Fixnum, @invoice.id
-    assert_instance_of Fixnum, @invoice.customer_id
-    assert_instance_of Fixnum, @invoice.merchant_id
-    assert_instance_of Symbol, @invoice.status
+    assert_equal 456, @invoice.id
+    assert_equal 34567, @invoice.customer_id
+    assert_equal 3456789, @invoice.merchant_id
+    assert_equal :pending, @invoice.status
+  end
+
+  def test_time_attributes_for_created
     assert_instance_of Time, @invoice.created_at
+    assert_equal 2016, @invoice.created_at.year
+    assert_equal 34, @invoice.created_at.min
+  end
+
+  def test_time_attributes_for_updated
     assert_instance_of Time, @invoice.updated_at
+    assert_equal 06, @invoice.updated_at.mon
+    assert_equal 21, @invoice.updated_at.hour
   end
 end

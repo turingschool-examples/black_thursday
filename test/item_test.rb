@@ -23,21 +23,24 @@ class ItemTest < Minitest::Test
     assert_equal 1234, @item.id
     assert_equal 'Pencil', @item.name
     assert_equal 'You can use it to write things', @item.description
+    assert_equal 10.99, @item.unit_price
     assert_instance_of BigDecimal, @item.unit_price
   end
 
-  def test_time_attributes
+  def test_time_attributes_for_created
     assert_instance_of Time, @item.created_at
     assert_equal 2016, @item.created_at.year
     assert_equal 34, @item.created_at.min
+  end
 
+  def test_time_attributes_for_updated
     assert_instance_of Time, @item.updated_at
     assert_equal 06, @item.updated_at.mon
     assert_equal 21, @item.updated_at.hour
   end
 
-  def test_unit_price_to_dollars
-   assert_instance_of Float, @item.unit_price_to_dollars
-  assert_equal 10.99, @item.unit_price_to_dollars
+  def test_unit_price_to_dollars_functionality
+    assert_instance_of Float, @item.unit_price_to_dollars
+    assert_equal 10.99, @item.unit_price_to_dollars
   end
 end
