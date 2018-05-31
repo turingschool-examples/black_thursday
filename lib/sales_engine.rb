@@ -2,6 +2,7 @@ require_relative 'file_loader'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
 
 class SalesEngine
   include FileLoader
@@ -29,5 +30,9 @@ class SalesEngine
 
   def invoices
     @invoices ||= InvoiceRepository.new(load_file(file_paths[:invoices]))
+  end
+
+  def invoice_items
+    @invoice_items ||= InvoiceItemRepository.new(load_file(file_paths[:invoice_items]))
   end
 end
