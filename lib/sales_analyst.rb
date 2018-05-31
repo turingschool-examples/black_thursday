@@ -1,5 +1,8 @@
+require_relative 'mathematics_module'
 
 class SalesAnalyst
+  include Mathematics
+
   def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
