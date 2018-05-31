@@ -13,4 +13,28 @@ class InvoiceItemRepository
     @repository.select { |invoice_item| invoice_item.item_id == item_id }
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    @repository.select { |invoice_item| invoice_item.invoice_id == invoice_id }
+  end
+
+  def create(attributes)
+    sorted = @repository.sort_by { |invoice_item| invoice_item.id }
+    new_id = sorted.last.id + 1
+    attributes[:id] = new_id
+    new_invoice_item = InvoiceItem.new(attributes)
+    @repository << new_invoice_item
+    new_invoice_item
+  end
+
+  def update(id, attributes)
+    invoice_item = find_by_id(id)
+    if invoice_item != nil
+      attributes.each do |key, value|
+        invoice_item.quantity = value if key == :quantity
+        invoice_item.unit_price = value if key == :unit_price
+        invoice_item.updated_at = Time.now + 1
+      end
+    end
+  end
+
 end
