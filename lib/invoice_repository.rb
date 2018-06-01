@@ -1,4 +1,3 @@
-
 # frozen_string_literal: false
 
 require_relative 'invoice'
@@ -20,9 +19,12 @@ class InvoiceRepository
     end
   end
 
+  def find_highest_id
+    @repository.max_by(&:id)
+  end
+
   def create(attributes)
-    highest_id = @repository.max_by(&:id)
-    attributes[:id] = highest_id.id + 1
+    attributes[:id] = find_highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     @repository << Invoice.new(attributes)
