@@ -10,12 +10,14 @@ class SalesEngine
   include FileLoader
   attr_reader :merchants,
               :items,
-              :invoices
+              :invoices,
+              :inovice_items
   def initialize(file_paths)
     @file_paths = file_paths
     @merchants ||= MerchantRepository.new(load(file_paths[:merchants]))
     @items ||= ItemRepository.new(load(file_paths[:items]))
     @invoices ||= InvoiceRepository.new(load(file_paths[:invoices]))
+    @invoice_items ||= InvoiceItemRepository.new(load(file_paths[:invoice_items]))
   end
   def self.from_csv(file_paths)
     SalesEngine.new(file_paths)
