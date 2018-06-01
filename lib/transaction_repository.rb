@@ -1,9 +1,10 @@
+# frozen_string_literal: false
+
 require_relative 'transaction'
 require_relative 'repository'
-
+# Responsible for holding and searching Transaction instances.
 class TransactionRepository
   include Repository
-  # Responsible for holding and searching Transaction instances.
   attr_reader :transactions
 
   def initialize(transactions)
@@ -19,7 +20,7 @@ class TransactionRepository
   end
 
   def create(attributes)
-    highest_id = @repository.max_by { |transaction| transaction.id }
+    highest_id = @repository.max_by(&:id)
     attributes[:id] = highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
