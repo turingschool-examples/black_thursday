@@ -52,4 +52,64 @@ class TestTransactionRepository < Minitest::Test
      assert_equal true, transactions.empty?
   end
 
+  def test_it_finds_transaction_by_credit_card_number
+    transactions = @tr.find_all_by_credit_card_number("4068631943231474")
+
+    assert_equal 1, transactions.length
+    assert_equal Transaction, transactions.first.class
+
+    assert_equal "4068631943231474", transactions.first.credit_card_number
+
+    credit_card_number = "4848466917766328"
+    transactions = @tr.find_all_by_credit_card_number(credit_card_number)
+
+    assert transactions.empty?
+  end
+
+  def test_it_returns_all_transactions_matching_given_result
+      transactions = @tr.find_all_by_result(:success)
+
+      assert_equal 15, transactions.length
+      assert_equal Transaction, transactions.first.class
+
+      assert_equal :success, transactions.first.result
+
+      transactions = @tr.find_all_by_result(:failed)
+
+      assert_equal 5, transactions.length
+      assert_equal Transaction, transactions.first.class
+      assert_equal :failed, transactions.first.result
+  end
+
+  def test_it_creates_a_new_transaction_instance
+      attributes = {
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @tr.create(attributes)
+      transaction = @tr.find_by_id(21)
+      assert_equal 8, transaction.invoice_id
+  end
+
+  def test_it_can_update_a_transaction
+      original_time = @tr.find_by_id(20).updated_at
+      attributes = {
+        result: :failed
+      }
+      @tr.update(20, attributes)
+      transaction = @tr.find_by_id(20)
+      assert_equal :failed, transaction.result
+      assert_equal "0918", transaction.credit_card_expiration_date
+      assert transaction.updated_at > original_time
+  end
+
+  def test_it_deletes_the_specified_transaction
+      @tr.delete(19)
+      assert_nil @tr.find_by_id(19)
+  end
+
 end
