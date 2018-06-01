@@ -143,5 +143,27 @@ class SalesAnalyst
     single_merchants_invoices(desired_id).length
   end
 
+  def top_merchants_by_invoice_count
+    deviation_above = average_invoices_per_merchant + (average_items_per_merchant_standard_deviation * 2)
+    @sales_engine.merchants.collection.keys.inject([]) do |collector, merchant_id|
+      if single_merchants_total_invoices(merchant_id) >= deviation_above
+      collector << @sales_engine.merchants.find_by_id(merchant_id)
+      end
+      collector
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    deviation_below = average_invoices_per_merchant - (average_items_per_merchant_standard_deviation * 2)
+    @sales_engine.merchants.collection.keys.inject([]) do |collector, merchant_id|
+      if single_merchants_total_invoices(merchant_id) <= deviation_below
+      collector << @sales_engine.merchants.find_by_id(merchant_id)
+      end
+      collector
+    end
+  end
+
+  def test_top_days_by_invoice_count
+  end 
 
 end

@@ -26,6 +26,7 @@ class InvoiceTest < MiniTest::Test
                       :status => :shipped,
                       :created_at => Time.parse('2004-02-14'),
                       :updated_at => Time.parse('2010-03-26'))
+
   end
 
   def test_invoice_stores_id_as_integer
@@ -58,4 +59,15 @@ class InvoiceTest < MiniTest::Test
     assert_instance_of Time, @invoice_3.updated_at
   end
 
+  def test_invoice_can_return_created_at_day_of_the_week
+    attributes = {:id => 13,
+                  :customer_id => 3,
+                  :merchant_id => 12335955,
+                  :status => :shipped,
+                  :created_at => Time.parse('2004-02-14'),
+                  :updated_at => Time.parse('2010-03-26')}
+
+    invoice_4 = Invoice.new(attributes)
+    assert_equal "Saturday", invoice_4.day_of_week
+  end
 end

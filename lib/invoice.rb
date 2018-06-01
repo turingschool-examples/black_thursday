@@ -21,8 +21,12 @@ class Invoice
   def update_status(attributes)
     @status = attributes[:status]
   end
-  
+
   def update_updated_at(attributes)
     @updated_at = attributes
+  end
+
+  def day_of_week 
+    @created_at.strftime("%A")
   end
 end
