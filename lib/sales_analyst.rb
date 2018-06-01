@@ -224,7 +224,7 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id)
     related_transactions = @transactions.find_all_by_invoice_id(invoice_id)
     if related_transactions.any? do |transaction|
-      transaction.result == 'success'
+      transaction.result == :success
       end
       true
     else
