@@ -82,4 +82,5 @@ class CustomerRepositoryTest < Minitest::Test
     cr.delete(1001)
     refute cr.repository.include?(new_customer)
   end
+
 end

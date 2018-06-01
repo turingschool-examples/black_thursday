@@ -33,4 +33,8 @@ class InvoiceItemRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
+  end
+
 end
