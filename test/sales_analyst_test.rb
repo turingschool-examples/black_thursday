@@ -81,4 +81,15 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 13.5, @sa.invoice_status(:returned)
   end
+
+  def test_invoice_paid_in_full?
+    assert_equal true, @sa.invoice_paid_in_full?(750)
+  end
+
+  def test_invoice_total
+    @sa.invoice_total(1)
+
+    assert_equal 21067.77, @sa.invoice_total(1)
+    assert_equal BigDecimal, @sa.invoice_total(1).class
+  end
 end
