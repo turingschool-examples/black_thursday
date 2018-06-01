@@ -7,4 +7,8 @@ module Repository
   def find_all_by_invoice_id(invoice_id)
     all.find_all {|object| object.invoice_id == invoice_id}
   end
+
+  def highest_id
+    (all.max_by {|object| object.id}).id
+  end
 end
