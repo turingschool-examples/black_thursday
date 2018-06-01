@@ -243,4 +243,10 @@ class SalesAnalyst
     amount = BigDecimal.new(total, 7)
   end
 
+########### Iteration 4 methods
+
+  def total_revenue_by_date(date)
+    sales = @transactions.select do |transaction|
+      if transaction.result == 'success'  && transaction.updated_at.strftime('%d%m%y') == date.strftime('%d%m%y')
+
 end

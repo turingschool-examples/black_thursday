@@ -116,4 +116,10 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_the_amount_for_any_invoice
     assert_equal 21067.77, @sa.invoice_total(1)
   end
+
+  def test_it_can_find_the_total_revenue_by_date
+    date = Time.parse("2009-02-07")
+    assert_equal 21067.77, @sa.total_revenue_by_date(date)
+    assert_instance_of BigDecimal, @sa.total_revenue_by_date(date)
+  end
 end
