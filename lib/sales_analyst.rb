@@ -1,8 +1,8 @@
 require_relative 'merchant_repository'
 require_relative 'item'
 require_relative 'sales_engine'
-
 require 'bigdecimal'
+require 'time'
 require 'pry'
 class SalesAnalyst
 
@@ -197,11 +197,113 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     invoice_items_by_invoice = group_invoice_items_by_invoice_id
     invoice_items_by_invoice[invoice_id].inject(0) do |total, invoice_item|
-      # binding.pry
+
       total += invoice_item.quantity * invoice_item.unit_price_to_dollars
       total.to_d
     end
   end
+
+  def group_invoice_by_date
+    @parent.invoices.all.group_by do |invoice|
+      invoice.created_at.strftime("%F")
+    end
+  end
+
+  def group_invoice_items_by_invoice
+    @parent.invoice_items.all.group_by do |invoice_item|
+      invoice_item.invoice_id
+    end
+  end
+
+  def calculates_revenue_per_invoice(invoice_id)
+     invoice_items_by_invoice = group_invoice_items_by_invoice
+     invoice_items_by_invoice[invoice_id].inject(0) do |revenue, invoice_item|
+       revenue += invoice_item.unit_price * invoice_item.quantity
+       revenue
+     end
+   end
+
+
+  def total_revenue_by_date(date)
+    date_formatted = date.strftime("%F")
+    invoices_by_date = group_invoice_by_date
+    invoices_by_date[date_formatted].inject(0) do |total_revenue, invoice|
+      total_revenue += calculates_revenue_per_invoice(invoice.id)
+      total_revenue
+    end
+  end
+
+  def top_revenue_earners(x = 20)
+    merch_revenue = @parent.merchants.all.map do |merchant|
+      { merchant => revenue_by_merchant(merchant.id)}
+    end
+      sorted_merchants = merch_revenue.sort_by do |merchant|
+        merchant.values.pop
+      end
+       x = sorted_merchants[-x..-1].map do |merchant_hash|
+        merchant_hash.keys
+      end.flatten.reverse
+    end
+
+
+
+  def merchants_with_pending_invoices
+    transactions_by_invoice_id = group_transactions_by_invoice_id
+    pending_invoices = []
+    transactions_by_invoice_id.each do |invoice|
+      if invoice_paid_in_full?(invoice[0])
+        next
+      else
+        pending_invoices << @parent.invoices.find_by_id(invoice[0])
+      end
+    end
+    binding.pry
+    pending_invoices.map do |invoice|
+      @parent.merchants.find_by_id(invoice.merchant_id)
+    end
+  end
+
+  def merchants_with_only_one_item
+    #returns an array of merchants
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+  end
+
+  def group_invoice_items_by_items
+    @parent.invoice_items.all.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+  end
+
+  def calculates_revenue_per_item(item_id)
+    invoice_items_by_item = group_invoice_items_by_items
+    invoice_items_by_item[item_id].inject(0) do |revenue, invoice_item|
+      revenue += invoice_item.quantity * invoice_item.unit_price
+      revenue
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    items_by_merchant = group_items_by_merchant
+    items_by_merchant[merchant_id].inject(0) do |revenue, item|
+      revenue += calculates_revenue_per_item(item.id)
+      revenue
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    #array of item
+  end
+
+  def best_item_for_merchant(merchant_id)
+  end
+
+
+
+
+
+
 
 
 
