@@ -211,4 +211,18 @@ class SalesAnalyst
     end
     (matching_invoices.length / @invoices.all.length.to_f * 100).round(2)
   end
+
+  def invoice_paid_in_full?(id)
+    @transactions.find_all_by_invoice_id(id).any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(id)
+    @invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end.reduce(0) do |sum, num|
+      sum += num
+    end
+  end
 end
