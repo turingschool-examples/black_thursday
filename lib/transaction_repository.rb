@@ -21,21 +21,13 @@ class TransactionRepository
   end
 
   def create(attributes)
-    highest = all.max_by {|transaction| transaction.id}
-    transaction = {
-      id: (highest.id + 1),
-      invoice_id: attributes[:invoice_id],
-      credit_card_number: attributes[:credit_card_number],
-      credit_card_expiration_date: attributes[:credit_card_expiration_date],
-      result: attributes[:result],
-      created_at: attributes[:created_at],
-      updated_at: attributes[:updated_at]}
-    @transaction_repo.push(Transaction.new(transaction))
+    attributes[:id] = new_highest_id
+    @transaction_repo.push(Transaction.new(attributes))
   end
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    transaction if transaction.nil?
+    return transaction if transaction.nil?
     transaction.update_credit_card_number(attributes[:credit_card_number]) if !(attributes[:credit_card_number].nil?)
     transaction.update_credit_card_expiration_date(attributes[:credit_card_expiration_date]) if !(attributes[:credit_card_expiration_date].nil?)
     transaction.update_result(attributes[:result]) if !(attributes[:result].nil?)
