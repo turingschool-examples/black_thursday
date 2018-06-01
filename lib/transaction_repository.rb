@@ -49,7 +49,9 @@ class TransactionRepository
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    transaction.update(attributes)
+    if transaction
+      transaction.update(attributes)
+    end
   end
 
   def delete(id)
