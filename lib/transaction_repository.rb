@@ -57,6 +57,11 @@ class TransactionRepository
       transaction.id == id
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+  
 end
 
 
