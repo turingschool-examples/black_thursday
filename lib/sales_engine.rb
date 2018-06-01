@@ -4,6 +4,7 @@ require_relative 'file_loader.rb'
 require_relative 'merchant_repository.rb'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository.rb'
 require_relative 'sales_analyst'
 
 class SalesEngine
@@ -11,7 +12,7 @@ class SalesEngine
   attr_reader :merchants,
               :items,
               :invoices,
-              :inovice_items
+              :invoice_items
   def initialize(file_paths)
     @file_paths = file_paths
     @merchants ||= MerchantRepository.new(load(file_paths[:merchants]))

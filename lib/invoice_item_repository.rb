@@ -2,7 +2,7 @@ require_relative 'repo_methods'
 require_relative 'invoice_item'
 require 'bigdecimal'
 
-class ItemRepository
+class InvoiceItemRepository
   include RepoMethods
   attr_reader :collection
 
@@ -43,10 +43,4 @@ class ItemRepository
       range.include?(item.unit_price_to_dollars)
     end
   end
-
-  # def find_all_by_merchant_id(merchant_id)
-  #   all.find_all do |item|
-  #     item.merchant_id == merchant_id
-  #   end
-  # end
 end
