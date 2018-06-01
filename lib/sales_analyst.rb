@@ -1,7 +1,11 @@
 require_relative 'mathematics_module'
+require_relative './analyst_assistants/item_assistant'
+require_relative './analyst_assistants/invoice_assistant'
 
 class SalesAnalyst
   include Mathematics
+  include ItemAssistant
+  include InvoiceAssistant
 
   attr_reader     :items,
                   :merchants,
@@ -20,124 +24,76 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    items_per_merchant = Hash.new(0)
-    @items.members.each do | item |
-      items_per_merchant[item.merchant_id] += 1
-    end
-    sum = items_per_merchant.values.inject(0) {| sum, n | sum+n}
-
-    return (sum.to_f / items_per_merchant.values.length.to_f).round(2)
-  end
-
-  def average_invoices_per_merchant
-    invoices_per_merchant = Hash.new(0)
-    @invoices.members.each do | invoice |
-      invoices_per_merchant[invoice.merchant_id] += 1
-    end
-    sum = invoices_per_merchant.values.inject(0) {| sum, n | sum+n}
-
-    return (sum.to_f / invoices_per_merchant.values.length.to_f).round(2)
+    calculate_average(items_by_merchant_id.values)
   end
 
   def average_items_per_merchant_standard_deviation
-    items_per_merchant = Hash.new(0)
-    @items.members.each do | item |
-      items_per_merchant[item.merchant_id] += 1
-    end
-
-    subtracted_and_squared = items_per_merchant.values.map do | merchant |
-      (merchant - average_items_per_merchant) ** 2
-    end
-
-    sum = subtracted_and_squared.inject(0) {| sum, n | sum+n}
-
-    divided = sum / (subtracted_and_squared.length - 1)
-    sd = Math.sqrt(divided)
-    sd.round(2)
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    invoices_per_merchant = Hash.new(0)
-    @invoices.members.each do | invoice |
-      invoices_per_merchant[invoice.merchant_id] += 1
-    end
-
-    subtracted_and_squared = invoices_per_merchant.values.map do | merchant |
-      (merchant - average_invoices_per_merchant) ** 2
-    end
-
-    sum = subtracted_and_squared.inject(0) {| sum, n | sum+n}
-
-    divided = sum / (subtracted_and_squared.length - 1)
-    sd = Math.sqrt(divided)
-    sd.round(2)
+    calculate_standard_deviation(items_by_merchant_id.values)
   end
 
   def merchants_with_high_item_count
-    items_per_merchant = Hash.new(0)
-    @items.members.each do | item |
-      items_per_merchant[item.merchant_id] += 1
-    end
-    higher_than = average_items_per_merchant + average_items_per_merchant_standard_deviation
-    ids = items_per_merchant.keys.map do | merchant |
-      if items_per_merchant[merchant] > higher_than
-        merchant
-      end
-    end.compact
-
-    ids.map do | merchant |
+    merchant_ids_with_more_items_than_one_standard_deviation.map do | merchant |
       @merchants.find_by_id(merchant)
     end
   end
 
-  def top_merchants_by_invoice_count
-    invoices_per_merchant = Hash.new(0)
-    @invoices.members.each do | invoice |
-      invoices_per_merchant[invoice.merchant_id] += 1
+  def average_item_price_for_merchant(merchant_id)
+    divided_by = 0
+    total = @items.members.inject(0) do | sum, item |
+      if item.merchant_id == merchant_id
+        divided_by += 1
+        sum += item.unit_price
+      end
+      sum
     end
-    higher_than = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
-    ids = invoices_per_merchant.keys.map do | merchant |
-      if invoices_per_merchant[merchant] > higher_than
-        merchant
+    (total / divided_by).round(2)
+  end
+
+  def average_average_price_per_merchant
+    total = @merchants.members.inject(0) do | sum, merchant |
+      sum += average_item_price_for_merchant(merchant.id)
+      sum
+    end
+    (total/@merchants.members.length).round(2)
+  end
+
+  def golden_items
+    avg = calculate_average(all_item_prices)
+    std_dev = calculate_standard_deviation(all_item_prices)
+    greater_than = avg + (2 * std_dev)
+    @items.members.map do | item |
+      if item.unit_price >= greater_than
+        item
       end
     end.compact
+  end
 
-    ids.map do | merchant |
+  def average_invoices_per_merchant
+    calculate_average(invoices_by_merchant_id.values)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    calculate_standard_deviation(invoices_by_merchant_id.values)
+  end
+
+  def top_merchants_by_invoice_count
+    merchant_ids_with_more_invoices_than_two_standard_deviations_above_average.map do | merchant |
       @merchants.find_by_id(merchant)
     end
   end
 
   def bottom_merchants_by_invoice_count
-    invoices_per_merchant = Hash.new(0)
-    @invoices.members.each do | invoice |
-      invoices_per_merchant[invoice.merchant_id] += 1
-    end
-    lower_than = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
-    ids = invoices_per_merchant.keys.map do | merchant |
-      if invoices_per_merchant[merchant] < lower_than
-        merchant
-      end
-    end.compact
-
-    ids.map do | merchant |
+    merchant_ids_with_less_invoices_than_two_standard_deviations_below_average.map do | merchant |
       @merchants.find_by_id(merchant)
     end
   end
 
   def top_days_by_invoice_count
-    by_day = @invoices.members.group_by do |invoice|
-      invoice.created_at.strftime('%A')
-    end
-
-    number_by_day = by_day.values.map do |day|
-      day.count
-    end
-
-    std_dev = calculate_standard_deviation(number_by_day)
-    mean = calculate_average(number_by_day)
+    avg = calculate_average(total_invoices_per_day)
+    std_dev = calculate_standard_deviation(total_invoices_per_day)
     highest_days = []
-    by_day.each_pair do |day, invoices|
-      if invoices.count > (mean + std_dev)
+    invoices_by_day.each_pair do |day, invoices|
+      if invoices.count > (avg + std_dev)
         highest_days << day
       end
     end
@@ -155,59 +111,6 @@ class SalesAnalyst
     ((divided.to_f / total.to_f) * 100).round(2)
   end
 
-  def calculate_average(numbers)
-    added = numbers.inject(0) {|sum, number| sum + number}
-    added.to_f / numbers.size.to_f
-  end
-
-  def average_item_price_for_merchant(merchant_id)
-    divided_by = 0
-    total = @items.members.inject(0) do | sum, item |
-      if item.merchant_id == merchant_id
-        divided_by += 1
-        sum += item.unit_price
-      end
-      sum
-    end
-
-    (total / divided_by).round(2)
-  end
-
-  def average_average_price_per_merchant
-    total = @merchants.members.inject(0) do | sum, merchant |
-      sum += average_item_price_for_merchant(merchant.id)
-      sum
-    end
-
-    (total/@merchants.members.length).round(2)
-  end
-
-  def golden_items
-    price_total = @items.members.inject(0) do | sum, item |
-      sum += item.unit_price
-      sum
-    end
-
-    price_mean = price_total / @items.members.length
-
-    sd_sum = @items.members.inject(0) do | sum, item |
-      difference = item.unit_price - price_mean
-      square = difference ** 2
-      sum += square
-    end
-
-    sd_division = sd_sum / (@items.members.length-1)
-
-    sd = Math.sqrt(sd_division)
-
-    greater_than = price_mean + (2 * sd)
-
-    @items.members.map do | item |
-      if item.unit_price >= greater_than
-        item
-      end
-    end.compact
-  end
 
   def invoice_paid_in_full?(inv_id)
     success_array = []
@@ -229,7 +132,6 @@ class SalesAnalyst
 
   def invoice_total(inv_id)
     if invoice_paid_in_full?(inv_id) == true
-      #a module is begging to be put here
       get_invoices(inv_id)
     else
       false
