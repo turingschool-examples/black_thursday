@@ -7,7 +7,8 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.new({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
-        :invoices  => "./fixtures/invoices_test.csv"
+        :invoices  => "./fixtures/invoices_test.csv",
+        :transactions => "./fixtures/transactions_test.csv"
         })
     @sa = @se.analyst
   end
@@ -79,5 +80,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.47, @sa.invoice_status(:pending)
     assert_equal 40.00, @sa.invoice_status(:shipped)
     assert_equal 3.53, @sa.invoice_status(:returned)
+  end
+
+  def test_it_returns_true_if_the_invoice_is_paid_in_full
+    assert_equal true, @sa.invoice_paid_in_full?(2179)
+    assert_equal true, @sa.invoice_paid_in_full?(46)
+    assert_equal false, @sa.invoice_paid_in_full?(3560)
+    assert_equal false, @sa.invoice_paid_in_full?(4702)
   end
 end

@@ -123,4 +123,9 @@ class SalesAnalyst
     ((status.count.to_f / @parent.invoices.all.count) * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @parent.transactions.find_all_by_invoice_id(invoice_id)
+    transactions.any? {|transaction| transaction.result == :success}
+  end
+
 end
