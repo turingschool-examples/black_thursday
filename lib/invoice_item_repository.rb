@@ -2,11 +2,6 @@ require_relative 'repository'
 require_relative 'invoice_item'
 
 class InvoiceItemRepository < Repository
-
-  def initialize
-    super
-  end
-
   def find_all_by_item_id(item_id)
     @members.map do | member |
       if member.item_id == item_id
@@ -21,20 +16,6 @@ class InvoiceItemRepository < Repository
         member
       end
     end.compact
-  end
-
-  def update(id, attributes)
-    member = find_by_id(id)
-    if member != nil
-      if attributes[:quantity] != nil
-        member.quantity = attributes[:quantity]
-      end
-      if attributes[:unit_price] != nil
-        member.unit_price = attributes[:unit_price]
-      end
-      member.updated_at = Time.new
-    end
-
   end
 
   def create(attributes)

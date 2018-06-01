@@ -2,23 +2,16 @@ require_relative 'repository'
 require_relative 'merchant'
 
 class MerchantRepository < Repository
-  def initialize
-    super
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def find_all_by_name(name)
-    names = @members.map do |member|
+    @members.map do |member|
       if member.name.downcase.include?(name.downcase)
         member
-      else
-        nil
       end
-    end
-    names.compact
+    end.compact
   end
 
   def create(attributes)

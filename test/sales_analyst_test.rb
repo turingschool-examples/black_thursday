@@ -1,10 +1,10 @@
 require './test/test_helper'
 require './lib/sales_engine'
 require './lib/sales_analyst'
-require './lib/mathematics_module'
 
 class SalesAnalystTest < Minitest::Test
   def setup
+    binding.pry
     se = SalesEngine.from_csv({
       items: './data/items.csv',
       merchants: './data/merchants.csv',

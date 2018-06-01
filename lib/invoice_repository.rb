@@ -3,10 +3,6 @@ require_relative 'repository'
 require 'time'
 
 class InvoiceRepository < Repository
-  def initialize
-    super
-  end
-
   def find_all_by_customer_id(customer_id)
     by_customer_id = []
     @members.each do |invoice|
@@ -38,16 +34,5 @@ class InvoiceRepository < Repository
       attributes[:id] = find_next_id
     end
     @members.push(Invoice.new(attributes))
-  end
-
-  def update(id, attributes)
-    member = find_by_id(id)
-    if member != nil
-      if attributes[:status] != nil
-        member.status = attributes[:status].to_sym
-      end
-      member.updated_at = Time.new
-    end
-    member
   end
 end
