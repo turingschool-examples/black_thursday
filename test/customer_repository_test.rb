@@ -91,8 +91,4 @@ class TestCustomerRepository < Minitest::Test
     @cr.delete(10)
     assert_nil @cr.find_by_id(10)
   end
-
-  def test_highest_id
-    assert_equal 20, @cr.highest_id
-  end
 end

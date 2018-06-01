@@ -21,7 +21,7 @@ class CustomerRepository
   end
 
   def create(attributes)
-    attributes[:id] = (highest_id + 1)
+    attributes[:id] = new_highest_id
     @customer_repo.push(Customer.new(attributes))
   end
 

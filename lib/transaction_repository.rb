@@ -21,7 +21,7 @@ class TransactionRepository
   end
 
   def create(attributes)
-    attributes[:id] = (highest_id + 1)
+    attributes[:id] = new_highest_id
     @transaction_repo.push(Transaction.new(attributes))
   end
 
