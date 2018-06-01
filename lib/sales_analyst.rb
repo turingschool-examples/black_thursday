@@ -58,25 +58,9 @@ class SalesAnalyst
   end
 
   def golden_items
-    price_total = @items.members.inject(0) do | sum, item |
-      sum += item.unit_price
-      sum
-    end
-
-    price_mean = price_total / @items.members.length
-
-    sd_sum = @items.members.inject(0) do | sum, item |
-      difference = item.unit_price - price_mean
-      square = difference ** 2
-      sum += square
-    end
-
-    sd_division = sd_sum / (@items.members.length-1)
-
-    sd = Math.sqrt(sd_division)
-
-    greater_than = price_mean + (2 * sd)
-
+    avg = calculate_average(all_item_prices)
+    std_dev = calculate_standard_deviation(all_item_prices)
+    greater_than = avg + (2 * std_dev)
     @items.members.map do | item |
       if item.unit_price >= greater_than
         item
@@ -105,19 +89,11 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    by_day = @invoices.members.group_by do |invoice|
-      invoice.created_at.strftime('%A')
-    end
-
-    number_by_day = by_day.values.map do |day|
-      day.count
-    end
-
-    std_dev = calculate_standard_deviation(number_by_day)
-    mean = calculate_average(number_by_day)
+    avg = calculate_average(total_invoices_per_day)
+    std_dev = calculate_standard_deviation(total_invoices_per_day)
     highest_days = []
-    by_day.each_pair do |day, invoices|
-      if invoices.count > (mean + std_dev)
+    invoices_by_day.each_pair do |day, invoices|
+      if invoices.count > (avg + std_dev)
         highest_days << day
       end
     end
