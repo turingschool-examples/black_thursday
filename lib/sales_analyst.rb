@@ -1,7 +1,9 @@
 require_relative 'math_methods'
+require_relative 'day_of_the_week_table'
 
 class SalesAnalyst
   include MathMethods
+  include DayTable
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -120,12 +122,12 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    values = difference_between_invoices_and_mean_squared
+    values = difference_between_merchant_invoices_and_mean_squared
     total = sum(values) / (values.length - 1)
     Math.sqrt(total).round(2)
   end
 
-  def difference_between_invoices_and_mean_squared
+  def difference_between_merchant_invoices_and_mean_squared
     @sales_engine.merchants.collection.keys.map do |merchant|
       (single_merchants_total_invoices(merchant).to_f - average_invoices_per_merchant.to_f)**2
     end
@@ -163,7 +165,42 @@ class SalesAnalyst
     end
   end
 
-  def test_top_days_by_invoice_count
-  end 
+  def top_days_by_invoice_count
+    deviation_above = average_invoices_per_day + average_invoices_per_day_standard_deviation
+    invoice_per_day_table.keys.inject([]) do |collector, day|
+      if invoice_per_day_table[day] >= deviation_above
+      collector << day
+      end
+      collector
+    end
+  end
 
+  def average_invoices_per_day_standard_deviation
+    values = difference_between_invoices_and_mean_squared
+    total = sum(values) / (values.length - 1)
+    Math.sqrt(total).round(2)
+  end
+
+  def difference_between_invoices_and_mean_squared
+    invoice_per_day_table.values.map do |day|
+      (day.to_f - average_invoices_per_day.to_f)**2
+    end
+  end
+
+  def average_invoices_per_day
+    amount_of_invoices = @sales_engine.invoices.collection.length
+    average(amount_of_invoices, 7)
+  end
+
+  def invoice_status(desired_status)
+    amount_of_invoices = @sales_engine.invoices.collection.length
+    amount_of_invoices_matching_status = list_of_invoices_matching_status(desired_status).length
+    ((amount_of_invoices_matching_status.to_f / amount_of_invoices.to_f) * 100).round(2)
+  end
+
+  def list_of_invoices_matching_status(desired_status)
+    @sales_engine.invoices.collection.values.find_all do |invoice|
+      invoice.status == desired_status
+    end
+  end
 end
