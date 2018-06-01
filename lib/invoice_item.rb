@@ -1,3 +1,4 @@
+
 class InvoiceItem
   attr_reader :id,
               :item_id,
@@ -15,5 +16,17 @@ class InvoiceItem
     @unit_price = attributes[:unit_price]
     @created_at = attributes[:created_at]
     @updated_at = attributes[:updated_at]
+  end
+
+  def update_quantity(num)
+    @quantity = num
+  end
+
+  def update_price(float)
+    @unit_price = BigDecimal(float, float.to_s.length - 1)
+  end
+
+  def update_updated_at(time)
+    @updated_at = time
   end
 end
