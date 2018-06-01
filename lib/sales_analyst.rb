@@ -7,7 +7,7 @@ class SalesAnalyst
     @items = sales_engine.items
     @merchants = sales_engine.merchants
     @invoices = sales_engine.invoices
-    # @transactions = sales_engine.transactions
+    @transactions = sales_engine.transactions
     @invoice_items = sales_engine.invoice_items
     @id_counts = {}
     @average_items = average_items_per_merchant
@@ -221,16 +221,16 @@ class SalesAnalyst
 
 ############ Transaction methods
 
-  # def invoice_paid_in_full?(invoice_id)
-  #   related_transactions = @transactions.find_all_by_invoice_id(invoice_id)
-  #   if related_transactions.any? do |transaction|
-  #     transaction.result == 'success'
-  #     end
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
+  def invoice_paid_in_full?(invoice_id)
+    related_transactions = @transactions.find_all_by_invoice_id(invoice_id)
+    if related_transactions.any? do |transaction|
+      transaction.result == 'success'
+      end
+      true
+    else
+      false
+    end
+  end
 
   def invoice_total(invoice_id)
     related_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
@@ -242,5 +242,11 @@ class SalesAnalyst
     end
     amount = BigDecimal.new(total, 7)
   end
+
+########### Iteration 4 methods
+
+  def total_revenue_by_date(date)
+    sales = @transactions.select do |transaction|
+      if transaction.result == 'success'  && transaction.updated_at.strftime('%d%m%y') == date.strftime('%d%m%y')
 
 end
