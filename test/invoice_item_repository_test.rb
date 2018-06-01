@@ -52,7 +52,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :item_id => '89743578971234',
       :invoice_id => '2',
       :quantity => '500',
-      :unit_price => BigDecimal.new(1.59, 3),
+      :unit_price => BigDecimal(1.59, 3),
       :created_at => Time.now,
       :updated_at => Time.now
     }
@@ -88,5 +88,15 @@ class InvoiceItemRepositoryTest < Minitest::Test
     updated_time = @iir.find_by_id(12).updated_at
 
     assert updated_time > created_time
+  end
+
+  def test_delete
+    @iir.load_invoice_items(@inv_items)
+
+    assert_equal 12, @iir.all.length
+
+    @iir.delete(12)
+
+    assert_equal 11, @iir.all.length
   end
 end
