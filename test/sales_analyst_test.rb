@@ -8,6 +8,7 @@ class SalesAnalystTest < Minitest::Test
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
         :invoices  => "./fixtures/invoices_test.csv",
+        :invoice_items => "./fixtures/invoice_items_test.csv",
         :transactions => "./fixtures/transactions_test.csv"
         })
     @sa = @se.analyst
@@ -88,4 +89,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal false, @sa.invoice_paid_in_full?(3560)
     assert_equal false, @sa.invoice_paid_in_full?(4702)
   end
+
+  def test_it_returns_the_total_dollar_amount_if_the_invoice_is_paid_in_full
+
+      invoice_total = @sa.invoice_total(1)
+
+      assert_equal 21067.77, invoice_total
+      assert_equal BigDecimal, invoice_total.class
+  end
+
 end

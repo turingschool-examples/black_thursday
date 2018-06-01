@@ -128,4 +128,10 @@ class SalesAnalyst
     transactions.any? {|transaction| transaction.result == :success}
   end
 
+  def invoice_total(invoice_id)
+    return if !(invoice_paid_in_full?(invoice_id))
+    invoice_items = @parent.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.inject(0.0) {|sum, invoice_item| sum + (invoice_item.unit_price * invoice_item.quantity)}
+  end
+
 end
