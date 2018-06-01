@@ -246,7 +246,19 @@ class SalesAnalyst
 ########### Iteration 4 methods
 
   def total_revenue_by_date(date)
-    sales = @transactions.select do |transaction|
-      if transaction.result == 'success'  && transaction.updated_at.strftime('%d%m%y') == date.strftime('%d%m%y')
+    invoices = find_all_invoices_created_at_date(date)
+    invoices.inject(0) do |total, invoice|
+      total += invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+      total
+    end
+  end
+
+  def find_all_invoices_created_at_date(date)
+    @invoices.all.select do |invoice|
+      if invoice.created_at.strftime('%d%m%y') == date.strftime('%d%m%y')
+        invoice
+      end
+    end
+  end
 
 end
