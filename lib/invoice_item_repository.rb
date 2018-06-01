@@ -49,4 +49,8 @@ class InvoiceItemsRepository
       binding.pry
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 end

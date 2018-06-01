@@ -3,10 +3,14 @@ class SalesAnalyst
               :merchants,
               :invoices
 
-  def initialize(items, merchants, invoices)
-    @items     = items
+  def initialize(items, merchants, invoices,
+                 invoice_items, transactions, customers)
+    @items = items
     @merchants = merchants
-    @invoices  = invoices
+    @invoices = invoices
+    @invoice_items = invoice_items
+    @transactions = transactions
+    @customers = customers
   end
 
   def average_items_per_merchant
