@@ -5,7 +5,7 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.new({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :merchants => "./data/merchants.csv"
       })
   end
 
@@ -17,7 +17,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_create_new_instance_of_csv_file
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :merchants => "./data/merchants.csv"
       })
 
       assert_instance_of SalesEngine, se
