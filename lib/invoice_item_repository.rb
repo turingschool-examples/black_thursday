@@ -9,6 +9,7 @@ class InvoiceItemsRepository
 
   def load_invoice_items(csv)
     csv.each do |invoice_item|
+      invoice_item[:unit_price] = BigDecimal(invoice_item[:unit_price]) / 100
       invoice_item[:created_at] = Time.parse(invoice_item[:created_at])
       invoice_item[:updated_at] = Time.parse(invoice_item[:updated_at])
       @all << InvoiceItem.new(invoice_item)
@@ -46,7 +47,14 @@ class InvoiceItemsRepository
       invoice_item.update_quantity(attributes[:quantity])
       invoice_item.update_price(attributes[:unit_price])
       invoice_item.update_updated_at(Time.now)
-      binding.pry
+    end
+  end
+
+  def delete(id)
+    @all.each do |invoice_item|
+      if invoice_item.id == id
+        @all.delete(invoice_item)
+      end
     end
   end
 

@@ -28,7 +28,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_invoice_can_be_found_by_id
     @invoice_repository.load_invoices(@invoices)
 
-    assert_equal "12335938", @invoice_repository.find_by_id(1).merchant_id
+    assert_equal 12335938, @invoice_repository.find_by_id(1).merchant_id
     assert_nil @invoice_repository.find_by_id(123467)
   end
 
@@ -49,7 +49,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status
     @invoice_repository.load_invoices(@invoices)
 
-    assert_equal 6, @invoice_repository.find_all_by_status("pending").length
+    assert_equal 6, @invoice_repository.find_all_by_status(:pending).length
     assert_equal [], @invoice_repository.find_all_by_status("fake status")
   end
 

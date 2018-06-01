@@ -84,6 +84,6 @@ class SalesEngine
 
   def analyst
     SalesAnalyst.new(@items, @merchants, @invoices,
-                     @invoivce_items, @transactions, @customers)
+                     @invoice_items, @transactions, @customers)
   end
 end
