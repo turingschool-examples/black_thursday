@@ -1,6 +1,5 @@
 require_relative 'invoice'
 require_relative 'repository'
-require 'time'
 
 class InvoiceRepository < Repository
   def find_all_by_customer_id(customer_id)
@@ -11,14 +10,6 @@ class InvoiceRepository < Repository
       end
     end
     by_customer_id.compact
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @members.map do | invoice |
-      if invoice.merchant_id == merchant_id
-        invoice
-      end
-    end.compact
   end
 
   def find_all_by_status(status)

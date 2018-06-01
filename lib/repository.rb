@@ -5,10 +5,6 @@ class Repository
     @members = []
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def find_next_id
     id = 0
     @members.each do | member |
@@ -41,6 +37,22 @@ class Repository
     nil
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    @members.map do |member|
+      if member.invoice_id == invoice_id
+        member
+      end
+    end.compact
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @members.map do | invoice |
+      if invoice.merchant_id == merchant_id
+        invoice
+      end
+    end.compact
+  end
+
   def update(id, attributes)
     member = find_by_id(id)
     if member != nil
@@ -68,6 +80,12 @@ class Repository
       if attributes[:quantity] != nil
         member.quantity = attributes[:quantity]
       end
+      if attributes[:first_name] != nil
+        member.first_name = attributes[:first_name]
+      end
+      if attributes[:last_name] != nil
+        member.last_name = attributes[:last_name]
+      end
       if member.class != Merchant
         member.updated_at = Time.new
       end
@@ -85,5 +103,9 @@ class Repository
     if i !=nil
       @members.delete_at(i)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

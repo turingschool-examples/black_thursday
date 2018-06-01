@@ -10,14 +10,6 @@ class InvoiceItemRepository < Repository
     end.compact
   end
 
-  def find_all_by_invoice_id(invoice_id)
-    @members.map do | member |
-      if member.invoice_id == invoice_id
-        member
-      end
-    end.compact
-  end
-
   def create(attributes)
     if attributes[:id] == nil
       attributes[:id] = find_next_id

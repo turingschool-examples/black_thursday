@@ -1,13 +1,8 @@
 require_relative 'item'
 require_relative 'repository'
 require 'bigdecimal'
-require 'pry'
 
 class ItemRepository < Repository
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def find_all_with_description(fragment)
     desc = @members.map do | member |
       if member.description.downcase.include?(fragment.downcase)
@@ -27,15 +22,6 @@ class ItemRepository < Repository
       @members.find_all do | member |
       range.include?(member.unit_price)
     end
-  end
-
-  def find_all_by_merchant_id(id)
-    by_merchant_id = @members.map do | member |
-      if member.merchant_id == id
-        member
-      end
-    end
-    by_merchant_id = by_merchant_id.compact
   end
 
   def create(attributes)

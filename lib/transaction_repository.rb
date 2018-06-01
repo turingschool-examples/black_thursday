@@ -1,16 +1,7 @@
 require_relative 'repository'
 require_relative 'transaction'
-require 'time'
 
 class TransactionRepository < Repository
-  def find_all_by_invoice_id(invoice_id)
-    @members.map do |member|
-      if member.invoice_id == invoice_id
-        member
-      end
-    end.compact
-  end
-
   def find_all_by_credit_card_number(card_number)
     @members.find_all do |member|
       member.credit_card_number == card_number
