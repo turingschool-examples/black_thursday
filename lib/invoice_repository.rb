@@ -7,10 +7,6 @@ class InvoiceRepository < Repository
     super
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def find_all_by_customer_id(customer_id)
     by_customer_id = []
     @members.each do |invoice|

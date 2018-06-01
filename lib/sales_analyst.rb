@@ -208,4 +208,50 @@ class SalesAnalyst
       end
     end.compact
   end
+
+  def invoice_paid_in_full?(inv_id)
+    success_array = []
+    @transactions.members.each do |transaction|
+      if transaction.invoice_id == inv_id
+        success_array << transaction.result
+      end
+    end
+    all_true(success_array.flatten)
+  end
+
+  def all_true(result_array)
+    if result_array.length != 0
+      result_array.all? {|result| result == :success}
+    else
+      return false
+    end
+  end
+
+  def invoice_total(inv_id)
+    if invoice_paid_in_full?(inv_id) == true
+      #a module is begging to be put here
+      get_invoices(inv_id)
+    else
+      false
+    end
+  end
+
+  def get_invoices(inv_id)
+    fully_paid = @invoice_items.members.map do |member|
+      if member.invoice_id == inv_id
+        member
+      else
+        nil
+      end
+    end
+    get_invoice_item_total(fully_paid.compact)
+  end
+
+  def get_invoice_item_total(fully_paid)
+    to_add = fully_paid.map do |invoice_item|
+      invoice_item.unit_price * (invoice_item.quantity.to_i)
+    end
+    added = to_add.inject(0){|sum, number| sum + number}
+    added
+  end
 end

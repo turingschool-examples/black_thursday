@@ -7,10 +7,6 @@ class TransactionRepository < Repository
     super
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def find_all_by_invoice_id(invoice_id)
     @members.map do |member|
       if member.invoice_id == invoice_id

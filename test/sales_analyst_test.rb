@@ -17,11 +17,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa
   end
 
-  def test_sales_analyst_can_find_average_set_of_numbers
-    number_set = stub(:average_items_per_merchant => )
-    number_set
-  end
-
   def test_sales_analyst_finds_average_items_per_merchant
     expected = @sa.average_items_per_merchant
 

@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/repository'
-require './lib/salesengine'
+require './lib/sales_engine'
 
 class RepositoryTest < Minitest::Test
   def setup
