@@ -147,4 +147,25 @@ class SalesAnalyst
     customer_ids = (arr_of_arr.map {|arr| arr[0]}).reverse.take(selected)
     customer_ids.map {|id| @parent.customers.find_by_id(id)}
   end
+
+  def mode(array)
+    a = array.group_by {|num| num}
+    a.max_by {|key, value| value.count}.flatten.uniq[0]
+  end
+
+  def top_merchant_for_customer(customer_id)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoice_totals = invoices.map {|invoice| invoice_total(invoice.id)}
+    merchant_ids = invoices.map {|invoice| invoice.merchant_id}
+    merch_totals = {}
+    merchant_ids.each_with_index do |id, index|
+      if merch_totals[id] == nil
+        merch_totals[id] = invoice_totals[index]
+      else
+        merch_totals[id] += invoice_totals[index]
+      end
+    end
+    top_merch_id = merch_totals.max_by {|id, total| total}[0]
+    @parent.merchants.find_by_id(top_merch_id)
+  end
 end
