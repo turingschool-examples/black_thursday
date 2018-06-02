@@ -135,9 +135,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_merchant_given_customer_id
+    skip
     merchant = @sa.top_merchant_for_customer(100)
 
     assert_equal Merchant, merchant.class
     assert_equal 12336753, merchant.id
+  end
+
+  def test_one_time_buyers_returns_customers_with_only_one_invoice
+    customers = @sa.one_time_buyers
+
+    assert_equal 76, customers.length
+    assert_equal Customer, customers.first.class
   end
 end

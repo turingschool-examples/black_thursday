@@ -168,4 +168,21 @@ class SalesAnalyst
     top_merch_id = merch_totals.max_by {|id, total| total}[0]
     @parent.merchants.find_by_id(top_merch_id)
   end
+
+  def one_time_buyers
+    invoices = @parent.invoices.all
+    merchant_ids = invoices.map {|invoice| invoice.merchant_id}
+    customer_ids = invoices.map {|invoice| invoice.customer_id}
+    customers_per_merch ={}
+    customer_ids.each_with_index do |cust_id, index|
+      if customers_per_merch[cust_id] == nil
+         customers_per_merch[cust_id] = [merchant_ids[index]]
+      else
+        customers_per_merch[cust_id] << merchant_ids[index]
+      end
+    end
+    one_time_buyers = customers_per_merch.find_all {|cust_id, merch_ids| merch_ids.length == 1}
+    one_time_customer_ids = one_time_buyers.map {|cust_per_merch| cust_per_merch[0]}
+    one_time_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}
+  end
 end
