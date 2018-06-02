@@ -36,8 +36,8 @@ class TransactionTest < Minitest::Test
   end
 
   def test_returns_creditcard_experation_as_a_string
-    assert_equal "0217", @transaction.credit_card_number_expiration_date
-    assert_instance_of String, @transaction.credit_card_number_expiration_date
+    assert_equal "0217", @transaction.credit_card_expiration_date
+    assert_instance_of String, @transaction.credit_card_expiration_date
   end
 
   def test_returns_result_as_a_symbol
@@ -54,3 +54,4 @@ class TransactionTest < Minitest::Test
     assert_equal Time.parse("2012-02-26 20:56:56 UTC"), @transaction.updated_at
     assert_instance_of Time, @transaction.updated_at
   end
+end
