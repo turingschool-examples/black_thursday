@@ -13,7 +13,7 @@ class InvoiceItem
    @id = attributes[:id].to_i
    @item_id = attributes[:item_id].to_i
    @invoice_id = attributes[:invoice_id].to_i
-   @quantity = attributes[:quantity]
+   @quantity = attributes[:quantity].to_i
    @unit_price = BigDecimal.new(attributes[:unit_price])/100
    @created_at = time_conversion(attributes[:created_at])
    @updated_at = time_conversion(attributes[:updated_at])

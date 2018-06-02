@@ -1,6 +1,7 @@
 require_relative 'mathematics_module'
 require_relative './analyst_assistants/item_assistant'
 require_relative './analyst_assistants/invoice_assistant'
+require 'pry'
 
 class SalesAnalyst
   include Mathematics
@@ -155,5 +156,69 @@ class SalesAnalyst
     end
     added = to_add.inject(0){|sum, number| sum + number}
     added
+  end
+
+  def top_buyers(x = 20)
+    customers_by_money_spent = Hash.new(0.0)
+    @invoice_items.members.each do | invoice_item |
+      invoice = invoices.find_by_id(invoice_item.invoice_id)
+      customer = customers.find_by_id(invoice.customer_id)
+      customer_transactions = transactions.find_all_by_invoice_id(invoice.id)
+      if customer_transactions.any? { |transaction| transaction.result == :success }
+        customers_by_money_spent[customer] += (invoice_item.unit_price.to_f * invoice_item.quantity.to_f)
+      end
+    end
+    return_value = customers_by_money_spent.keys.sort_by do | customer |
+      customers_by_money_spent[customer] * -1
+    end
+    return_value[0...x]
+  end
+
+  def top_merchant_for_customer(customer_id)
+    customer_invoices = invoices.find_all_by_customer_id(customer_id)
+
+    purchase_count = Hash.new(0)
+
+    customer_invoices.each do | invoice |
+      merchant = merchants.find_by_id(invoice.merchant_id)
+      customer_transactions = transactions.find_all_by_invoice_id(invoice.id)
+      customer_invoice_items = invoice_items.find_all_by_invoice_id(invoice.id)
+      total = customer_invoice_items.inject(0) {|sum, invoice_item| sum += invoice_item.quantity}
+      if customer_transactions.any? { |transaction| transaction.result == :success }
+        purchase_count[merchant] += total
+      end
+    end
+    return purchase_count.key(purchase_count.values.max)
+
+  end
+
+  def items_bought_in_year(customer_id, year)
+    customer = customers.find_by_id(customer_id)
+    customer_invoices = invoices.find_all_by_customer_id(customer_id)
+    sum = []
+    customer_invoices.each do | invoice |
+      if invoice.created_at.year == year
+        customer_invoice_items = invoice_items.find_all_by_invoice_id(invoice.id)
+        customer_invoice_items.each do | invoice_item |
+          sum += [items.find_by_id(invoice_item.item_id)]
+        end
+      end
+    end
+    return sum
+  end
+
+  def highest_volume_items(customer_id)
+    customer = customers.find_by_id(customer_id)
+    customer_invoices = invoices.find_all_by_customer_id(customer_id)
+    items_and_quantities = {}
+    customer_invoices.each do | invoice |
+      customer_invoice_items = invoice_items.find_all_by_invoice_id(invoice.id)
+      customer_invoice_items.each do | invoice_item |
+        items_and_quantities[items.find_by_id(invoice_item.item_id)] = invoice_item.quantity
+      end
+    end
+
+    only_the_highest = items_and_quantities.keep_if { | item, quantity | quantity == items_and_quantities.values.max}
+    only_the_highest.keys
   end
 end
