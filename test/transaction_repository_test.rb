@@ -42,11 +42,11 @@ class TransactionRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_by_result
-    assert_equal 4158, @tr.find_all_by_result(:success).length
-    assert_instance_of Transaction, @tr.find_all_by_result(:success).first
+    assert_equal 4158, @tr.find_all_by_result('success').length
+    assert_instance_of Transaction, @tr.find_all_by_result('success').first
 
-    assert_equal 827, @tr.find_all_by_result(:failed).length
-    assert_instance_of Transaction, @tr.find_all_by_result(:failed).first
+    assert_equal 827, @tr.find_all_by_result('failed').length
+    assert_instance_of Transaction, @tr.find_all_by_result('failed').first
   end
 
   def test_it_can_create_new_transaction_instance
@@ -127,5 +127,12 @@ class TransactionRepositoryTest < MiniTest::Test
 
   def test_it_returns_nil_if_you_try_to_delete_nonexistant_ivoice_item
     assert_nil @tr.delete(5000)
+  end
+
+  def test_it_generates_table_of_transactions_and_their_results
+    table = @tr.result_table
+    assert_equal 4985, table.length
+
+    print table
   end
 end
