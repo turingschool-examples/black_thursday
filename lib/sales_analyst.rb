@@ -261,4 +261,31 @@ class SalesAnalyst
     end
   end
 
+  def top_revenue_earners(num)
+    earners = {}
+    invoices_grouped_by_merchant.each do |merchant_id, invoices|
+      earners[merchant_id] = invoices.map do |invoice|
+        if invoice_paid_in_full?(invoice.id)
+          invoice_total(invoice.id)
+        end
+      end.compact.inject(:+)
+    end
+    earners.keep_if do |merchant_id, earned|
+      earned != nil
+    end
+    earners.keep_if do |merchant_id, earned|
+      earners.values.sort[-num..-1].include?(earned)
+    end
+    top_values = earners.values.sort
+    top_merchants = []
+    top_values.each do |value|
+      earners.each do |merchant_id, earned|
+        top_merchants << merchant_id if earned == value
+      end
+    end
+    top_merchants.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end.reverse
+  end
+
 end

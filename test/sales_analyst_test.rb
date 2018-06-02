@@ -139,8 +139,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_the_total_revenue_by_date
+    skip
     date = Time.parse("2009-02-07")
     assert_equal 21067.77, @sa.total_revenue_by_date(date)
     assert_instance_of BigDecimal, @sa.total_revenue_by_date(date)
+  end
+
+  def test_it_can_find_top_x_revenue_earners
+    top_earners = @sa.top_revenue_earners(10)
+    assert_equal 10, top_earners.length
+    assert_equal Merchant, top_earners.first.class
+    assert_equal 12334634, top_earners.first.id
+    assert_equal 12335747, top_earners.last.id
   end
 end
