@@ -144,4 +144,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 28, @sa.merchants_with_pending_invoices.length
     assert_equal Merchant, @sa.merchants_with_pending_invoices.first.class
   end
+
+  def test_it_can_find_merchants_with_only_one_item
+    assert_equal Array, @sa.merchants_with_only_one_item.class
+    assert_equal 243, @sa.merchants_with_only_one_item.length
+    assert_equal Merchant, @sa.merchants_with_only_one_item.first.class
+  end
+
+  def test_it_can_find_merchants_with_one_invoice_in_given_month
+    assert_equal 9, @sa.merchants_with_only_one_item_registered_in_month("March").length
+    assert_equal Merchant, @sa.merchants_with_only_one_item_registered_in_month("March").first.class
+  end
+
 end

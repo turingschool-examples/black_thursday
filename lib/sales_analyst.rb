@@ -314,4 +314,44 @@ class SalesAnalyst
     end.uniq
   end
 
+  def merchants_with_only_one_item
+    merchants = id_counts.delete_if do |array|
+      array[1] != 1
+    end
+    merchants.map do |merchant|
+      @merchants.find_by_id(merchant[0])
+    end
+  end
+
+  def invoices_grouped_by_month
+    @invoices.all.group_by do |invoice|
+      invoice.created_at.strftime("%B")
+    end
+  end
+
+  def invoices_for_each_merchant_in_a_given_month(month)
+    invoices_in_month = invoices_grouped_by_month[month]
+    invoices_per_merchant = invoices_in_month.group_by do |invoice|
+      invoice.merchant_id
+    end
+    invoice_counts_per_merchant = {}
+    invoices_per_merchant.each do |merchant_id, invoices|
+      invoices = invoices.count
+      invoice_counts_per_merchant[merchant_id] = invoices
+    end
+    invoice_counts_per_merchant
+  end
+
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants = []
+    invoices_for_each_merchant_in_a_given_month(month).each do |merchant_id, count|
+      merchants << merchant_id if count == 1
+    end
+    merchants.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end
+  end
+
+
 end
