@@ -13,7 +13,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_makes_a_repository_of_invoices
     invr = InvoiceRepository.new(load_file("./data/invoices_test.csv"))
-    assert_equal 50, invr.repository.count
+    assert_equal 101, invr.repository.count
   end
 
   def test_all_will_return_entire_repository
@@ -41,7 +41,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_status
     invr = InvoiceRepository.new(load_file("./data/invoices_test.csv"))
-    assert_equal 17, invr.find_all_by_status(:pending).count
+    assert_equal 29, invr.find_all_by_status(:pending).count
     assert_equal [], invr.find_all_by_status('oops')
   end
 
@@ -57,7 +57,7 @@ class InvoiceRepositoryTest < Minitest::Test
     new_invoice = invr.create(attributes)
     sorted = invr.repository.sort_by { |invoice| invoice.id }
     assert invr.repository.include?(new_invoice)
-    assert_equal new_invoice, invr.find_by_id(51)
+    assert_equal new_invoice, invr.find_by_id(102)
   end
 
   def test_invoices_can_be_updated
@@ -85,9 +85,9 @@ class InvoiceRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
     }
     new_invoice = invr.create(attributes)
-    assert_equal 51, new_invoice.id
-    invr.delete(51)
-    assert_equal nil, invr.find_by_id(51)
+    assert_equal 102, new_invoice.id
+    invr.delete(102)
+    assert_equal nil, invr.find_by_id(102)
   end
 
 end

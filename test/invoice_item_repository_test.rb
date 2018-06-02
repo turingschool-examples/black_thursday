@@ -30,7 +30,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_invoice_id
     iir = InvoiceItemRepository.new(load_file("./data/invoice_items_test.csv"))
-    assert_equal 2, iir.find_all_by_invoice_id(2).count
+    assert_equal 4, iir.find_all_by_invoice_id(2).count
     assert_equal [], iir.find_all_by_invoice_id('oops')
   end
 
@@ -47,7 +47,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     new_invoice_item = iir.create(attributes)
     sorted = iir.repository.sort_by { |invoice_item| invoice_item.id }
     assert iir.repository.include?(new_invoice_item)
-    assert_equal new_invoice_item, iir.find_by_id(11)
+    assert_equal new_invoice_item, iir.find_by_id(102)
   end
 
   def test_it_can_update_an_entry
@@ -61,16 +61,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :updated_at => Time.now
     })
     new_invoice_item = iir.create(attributes)
-    original_time = iir.find_by_id(11).updated_at
+    original_time = iir.find_by_id(102).updated_at
     new_attributes = {
       :quantity => 2,
       :unit_price => BigDecimal.new(11.00,4)
     }
-    id = 11
+    id = 102
     iir.update(id, new_attributes)
-    assert_equal 2, iir.find_by_id(11).quantity
-    assert_equal 11, iir.find_by_id(11).unit_price
-    assert iir.find_by_id(11).updated_at > original_time
+    assert_equal 2, iir.find_by_id(id).quantity
+    assert_equal 11, iir.find_by_id(id).unit_price
+    assert iir.find_by_id(id).updated_at > original_time
   end
 
   def test_it_can_delete_an_entry
@@ -84,8 +84,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :updated_at => Time.now
     })
     new_invoice_item = iir.create(attributes)
-    iir.delete(11)
-    assert_equal nil, iir.find_by_id(11)
+    iir.delete(102)
+    assert_equal nil, iir.find_by_id(102)
   end
 
 end

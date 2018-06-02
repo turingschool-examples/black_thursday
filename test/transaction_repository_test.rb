@@ -35,7 +35,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_result
     tr = TransactionRepository.new(load_file("./data/transactions_test.csv"))
-    assert_equal 8, tr.find_all_by_result(:success).count
+    assert_equal 77, tr.find_all_by_result(:success).count
     assert_equal [], tr.find_all_by_result("oops")
   end
 
@@ -52,7 +52,7 @@ class TransactionRepositoryTest < Minitest::Test
     new_transaction = tr.create(attributes)
     sorted = tr.repository.sort_by { |transaction| transaction.id }
     assert tr.repository.include?(new_transaction)
-    assert_equal new_transaction, tr.find_by_id(10)
+    assert_equal new_transaction, tr.find_by_id(100)
   end
 
   def test_it_can_update_an_entry
@@ -91,9 +91,9 @@ class TransactionRepositoryTest < Minitest::Test
       :updated_at => Time.now
     }
     new_transaction = tr.create(attributes)
-    assert_equal 10, new_transaction.id
-    tr.delete(10)
-    assert_equal nil, tr.find_by_id(10)
+    assert_equal 100, new_transaction.id
+    tr.delete(100)
+    assert_equal nil, tr.find_by_id(100)
   end
 
 end
