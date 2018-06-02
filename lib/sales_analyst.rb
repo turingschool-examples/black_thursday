@@ -169,11 +169,11 @@ class SalesAnalyst
     @parent.merchants.find_by_id(top_merch_id)
   end
 
-  def one_time_buyers
+  def one_time_customer_ids
     invoices = @parent.invoices.all
     merchant_ids = invoices.map {|invoice| invoice.merchant_id}
     customer_ids = invoices.map {|invoice| invoice.customer_id}
-    customers_per_merch ={}
+    customers_per_merch = {}
     customer_ids.each_with_index do |cust_id, index|
       if customers_per_merch[cust_id] == nil
          customers_per_merch[cust_id] = [merchant_ids[index]]
@@ -181,8 +181,23 @@ class SalesAnalyst
         customers_per_merch[cust_id] << merchant_ids[index]
       end
     end
-    one_time_buyers = customers_per_merch.find_all {|cust_id, merch_ids| merch_ids.length == 1}
-    one_time_customer_ids = one_time_buyers.map {|cust_per_merch| cust_per_merch[0]}
+    customers_with_one_merch_id = customers_per_merch.find_all {|cust_id, merch_ids| merch_ids.length == 1}
+    customers_with_one_merch_id.map {|cust_per_merch| cust_per_merch[0]}
+  end
+
+  def one_time_buyers
     one_time_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}
+  end
+
+  def one_time_buyers_top_item
+    one_time_invoices = one_time_customer_ids.map {|cust_id| @parent.invoices.find_all_by_customer_id(cust_id)}.flatten
+    invoice_items = one_time_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+
+    quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+        hash[invoice_item.item_id] += invoice_item.quantity
+        hash
+    end
+    max_quantity_inv_item_id = quantity_per_item_id.max_by {|itm_id, quantity| quantity}[0]
+    @parent.items.find_by_id(max_quantity_inv_item_id)
   end
 end

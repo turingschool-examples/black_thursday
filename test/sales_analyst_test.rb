@@ -143,9 +143,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_one_time_buyers_returns_customers_with_only_one_invoice
+    skip
     customers = @sa.one_time_buyers
 
     assert_equal 76, customers.length
     assert_equal Customer, customers.first.class
+  end
+
+  def test_it_returns_item_bought_by_one_time_buyers_in_the_highest_quantity
+    highest_selling_item = @sa.one_time_buyers_top_item
+
+    assert_equal 263396463, highest_selling_item.id
+    assert_equal Item, highest_selling_item.class
   end
 end
