@@ -7,9 +7,10 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.new({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
-        :invoices  => "./fixtures/invoices_test.csv",
-        :invoice_items => "./fixtures/invoice_items_test.csv",
-        :transactions => "./fixtures/transactions_test.csv"
+        :customers => "./data/customers.csv",
+        :invoices  => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv",
+        :transactions => "./data/transactions.csv"
         })
     @sa = @se.analyst
   end
@@ -52,42 +53,42 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_average_number_of_invoices_per_merchant
-      assert_equal 7.08, @sa.average_invoices_per_merchant
+      assert_equal 10.49, @sa.average_invoices_per_merchant
       assert_equal Float, @sa.average_invoices_per_merchant.class
   end
 
   def test_it_returns_the_standard_deviation
-    assert_equal 2.39, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
     assert_equal Float, @sa.average_invoices_per_merchant_standard_deviation.class
   end
 
   def test_it_returns_top_merchants_by_invoice_count
-    assert_equal 1 ,@sa.top_merchants_by_invoice_count.length
+    assert_equal 12, @sa.top_merchants_by_invoice_count.length
     assert_equal Merchant, @sa.top_merchants_by_invoice_count.first.class
   end
 
   def test_it_returns_bottom_merchants_by_invoice_count
-    assert_equal 1 ,@sa.bottom_merchants_by_invoice_count.length
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.length
     assert_equal Merchant, @sa.bottom_merchants_by_invoice_count.first.class
   end
 
   def test_returns_days_with_an_invoice_count_more_than_one_standard_deviation_above_the_mean
     assert_equal 1, @sa.top_days_by_invoice_count.length
-    assert_equal "Monday", @sa.top_days_by_invoice_count.first
+    assert_equal "Wednesday", @sa.top_days_by_invoice_count.first
     assert_equal String, @sa.top_days_by_invoice_count.first.class
   end
 
   def test_returns_the_percentage_of_invoices_with_given_status
-    assert_equal 56.47, @sa.invoice_status(:pending)
-    assert_equal 40.00, @sa.invoice_status(:shipped)
-    assert_equal 3.53, @sa.invoice_status(:returned)
+    assert_equal 29.55, @sa.invoice_status(:pending)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 13.5, @sa.invoice_status(:returned)
   end
 
   def test_it_returns_true_if_the_invoice_is_paid_in_full
-    assert_equal true, @sa.invoice_paid_in_full?(2179)
-    assert_equal true, @sa.invoice_paid_in_full?(46)
-    assert_equal false, @sa.invoice_paid_in_full?(3560)
-    assert_equal false, @sa.invoice_paid_in_full?(4702)
+    assert_equal true, @sa.invoice_paid_in_full?(1)
+    assert_equal true, @sa.invoice_paid_in_full?(200)
+    assert_equal false, @sa.invoice_paid_in_full?(203)
+    assert_equal false, @sa.invoice_paid_in_full?(204)
   end
 
   def test_it_returns_the_total_dollar_amount_if_the_invoice_is_paid_in_full
@@ -96,6 +97,16 @@ class SalesAnalystTest < Minitest::Test
 
       assert_equal 21067.77, invoice_total
       assert_equal BigDecimal, invoice_total.class
+  end
+
+  def test_it_returns_the_top_x_customers_that_spent_the_most_money
+    customers = @sa.top_buyers(5)
+
+    assert_equal 5, customers.length
+    assert_equal 313, customers.first.id
+    assert_equal 478, customers.last.id
+
+    assert_equal Customer, customers.last.class
   end
 
 end

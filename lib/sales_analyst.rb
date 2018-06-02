@@ -129,9 +129,22 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
-    return if !(invoice_paid_in_full?(invoice_id))
+    return 0 if !(invoice_paid_in_full?(invoice_id))
     invoice_items = @parent.invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_items.inject(0.0) {|sum, invoice_item| sum + (invoice_item.unit_price * invoice_item.quantity)}
   end
 
+  def group_invoices_by_customer_id
+    @parent.invoices.all.group_by {|invoice| invoice.customer_id}
+  end
+
+  def top_buyers(selected)
+    new_hash = {}
+    group_invoices_by_customer_id.each do |cust_id, invoices|
+          new_hash[cust_id] = invoices.inject(0) {|sum, invoice| sum + invoice_total(invoice.id)}
+    end
+    arr_of_arr = new_hash.sort_by {|cust_id, total| total }
+    customer_ids = (arr_of_arr.map {|arr| arr[0]}).reverse.take(selected)
+    customer_ids.map {|id| @parent.customers.find_by_id(id)}
+  end
 end
