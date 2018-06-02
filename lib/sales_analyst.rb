@@ -377,42 +377,69 @@ class SalesAnalyst
 
 # ITERATION 5
 
-  # def top_buyers(x = 20)
-  #   customers_ranked_by_money_spent[0..(x - 1)]
-  # end
-  #
-  # def customers_ranked_by_money_spent
-  #   customers_by_money_spent = @parent.customers.all.map do |customer|
-  #     { customer => total_money_spent_by_customer(customer.id) }
-  #   end
-  #   ranked_customers = customers_by_money_spent.sort_by do |customer|
-  #     customer.values.pop
-  #   end.reverse
-  #   ranked_customers.map do |customer_hash|
-  #     customer_hash.keys
-  #   end.flatten
-  # end
-  #
-  # def total_money_spent_by_customer(customer_id)
-  #   if group_invoices_by_customer[customer_id].nil?
-  #     return 0
-  #   else
-  #     group_invoices_by_customer[customer_id].inject(0) do |money_spent, invoice|
-  #       if invoice_paid_in_full?(invoice.id)
-  #         money_spent += invoice_total(invoice.id)
-  #         money_spent
-  #       else
-  #         money_spent
-  #       end
-  #     end
-  #   end
-  # end
-  #
-  # def group_invoices_by_customer
-  #   @parent.invoices.all.group_by do |invoice|
-  #     invoice.customer_id
-  #   end
-  # end
+  def top_buyers(x = 20)
+    customers_ranked_by_money_spent[0..(x - 1)]
+  end
 
-  
+  def customers_ranked_by_money_spent
+    customers_by_money_spent = @parent.customers.all.map do |customer|
+      { customer => total_money_spent_by_customer(customer.id) }
+    end
+    ranked_customers = customers_by_money_spent.sort_by do |customer|
+      customer.values.pop
+    end.reverse
+    ranked_customers.map do |customer_hash|
+      customer_hash.keys
+    end.flatten
+  end
+
+  def total_money_spent_by_customer(customer_id)
+    if group_invoices_by_customer[customer_id].nil?
+      return 0
+    else
+      group_invoices_by_customer[customer_id].inject(0) do |money_spent, invoice|
+        if invoice_paid_in_full?(invoice.id)
+          money_spent += invoice_total(invoice.id)
+          money_spent
+        else
+          money_spent
+        end
+      end
+    end
+  end
+
+  def group_invoices_by_customer
+    @parent.invoices.all.group_by do |invoice|
+      invoice.customer_id
+    end
+  end
+
+  def total_items_sold_per_invoice(invoice_id)
+    @parent.invoice_items.find_all_by_invoice_id(invoice_id).inject(0) do |total, invoice_item|
+      if invoice_paid_in_full?(invoice_item.invoice_id)
+        total += invoice_item.quantity
+      else
+        total
+      end
+    end
+  end
+
+  def top_merchant_for_customer(customer_id)
+    invoices_per_customer = group_invoices_by_customer[customer_id]
+    purchases_by_merchant = invoices_per_customer.inject(Hash.new(0)) do |purchases_per_merchant, invoice|
+      purchases_per_merchant[invoice.merchant_id] += total_items_sold_per_invoice(invoice.id)
+      purchases_per_merchant
+    end
+    most_purchased_merchant = purchases_by_merchant.max_by do |merchant|
+      merchant[1]
+    end
+    @parent.merchants.find_by_id(most_purchased_merchant[0])
+  end
+
+  def one_time_buyers
+    customers_with_one_invoice = group_invoices_by_customer.find_all do |customer|
+      customer[1].length == 1
+    end
+    binding.pry
+  end
 end
