@@ -26,27 +26,18 @@ class SalesAnalyst
     end.compact
   end
 
-  # def average_item_price_for_merchant(merchant_id)
-  #   prices = items_grouped_by_merchant_id[merchant_id].map do |item|
-  #     item.unit_price
-  #   end
-  #   (prices.inject(:+)/prices.count).round(2)
-  # end
-
-  # def average_item_price_for_merchant(merchant_id) #############################
-  #   number_of_items = items_grouped_by_merchant_id[merchant_id].count
-  #
-  #   total = items_grouped_by_merchant_id[merchant_id].inject(BigDecimal(0)) do |sum, item|
-  #     sum += item.unit_price
-  #   end
-  #   (total/number_of_items).round(2)
-  # end
+  def average_item_price_for_merchant(merchant_id) #############################
+    prices = items_grouped_by_merchant_id[merchant_id].map do |item|
+      item.unit_price
+    end
+    mean(prices)
+  end
 
   def average_average_price_per_merchant #######################################
-    avg_prices = items_grouped_by_merchant_id.keys.map do |merchant_id|
+    avg_prices = items_grouped_by_merchant_id.map do |merchant_id, items|
       average_item_price_for_merchant(merchant_id)
     end
-    (avg_prices.inject(:+)/avg_prices.count).round(2)
+    mean(avg_prices)
   end
 
   def items_grouped_by_merchant_id
