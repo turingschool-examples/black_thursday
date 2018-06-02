@@ -181,14 +181,8 @@ class SalesAnalyst
     end
   end
 
-  def group_invoice_items_by_invoice_id
-    @parent.invoice_items.invoice_items.group_by do |invoice_item|
-      invoice_item.invoice_id
-    end
-  end
-
   def invoice_total(invoice_id)
-    invoice_items_by_invoice = group_invoice_items_by_invoice_id
+    invoice_items_by_invoice = group_invoice_items_by_invoice
     invoice_items_by_invoice[invoice_id].inject(0) do |total, invoice_item|
       total += invoice_item.quantity * invoice_item.unit_price_to_dollars
       total.to_d
@@ -249,6 +243,7 @@ class SalesAnalyst
         pending_merchants
       else
         pending_merchants << @parent.merchants.find_by_id(merchant[0])
+        pending_merchants
       end
     end
   end
@@ -279,21 +274,18 @@ class SalesAnalyst
   end
 
   def calculates_revenue_per_item(item_id)
-    invoice_items_by_item = group_invoice_items_by_items
-    invoice_items_by_item[item_id].inject(0) do |revenue, invoice_item|
+    group_invoice_items_by_items[item_id].inject(0) do |revenue, invoice_item|
       if invoice_paid_in_full?(invoice_item.invoice_id)
         revenue += invoice_item.quantity * invoice_item.unit_price
         revenue
       else
-        revenue += 0
         revenue
       end
     end
   end
 
   def revenue_by_merchant(merchant_id)
-    invoices_by_merchant = group_invoices_by_merchant
-    invoices_by_merchant[merchant_id].inject(0) do |revenue, invoice|
+    group_invoices_by_merchant[merchant_id].inject(0) do |revenue, invoice|
       if invoice_paid_in_full?(invoice.id)
         revenue += invoice_total(invoice.id)
         revenue
@@ -304,8 +296,7 @@ class SalesAnalyst
   end
 
   def find_quantity_of_items_sold
-    invoice_items_by_item = group_invoice_items_by_items
-    x = invoice_items_by_item.inject(Hash.new(0)) do |items_by_quantity, item|
+    group_invoice_items_by_items.inject(Hash.new(0)) do |items_by_quantity, item|
       items_by_quantity[item[0]] += find_quantity_per_item(item)
       items_by_quantity
     end
@@ -374,7 +365,6 @@ class SalesAnalyst
     @parent.items.find_by_id(max_revenue[0])
   end
 
-
 # ITERATION 5
 
   def top_buyers(x = 20)
@@ -437,11 +427,90 @@ class SalesAnalyst
   end
 
   def one_time_buyers
-    customers_with_one_invoice = group_invoices_by_customer.find_all do |customer|
-      customer[1].length == 1
-    end
-    customers_with_one_invoice.map do |customer|
+    find_customers_with_one_invoice.map do |customer|
       @parent.customers.find_by_id(customer[0])
     end
+  end
+
+  def find_customers_with_one_invoice
+    group_invoices_by_customer.find_all do |customer|
+      customer[1].length == 1
+    end
+  end
+
+  # def one_time_buyers_top_item
+  #   find_customers_with_one_invoice.inject(Hash.new(0)) do |items_bought, customer|
+  #     @parent.invoice_items.find_by_all_by_invoice_id(customer[1].first.id) += 1
+  #   end
+  # end
+
+  # def items_bought_in_year(customer_id, year)
+  #   items_in_year = group_invoices_by_customer[customer_id].find_all do |invoice|
+  #     invoice.created_at.strftime('%Y') == year.to_s
+  #   end
+  # end
+
+  def customers_with_unpaid_invoices
+    group_invoices_by_customer.inject([]) do |unpaid_customers, customer|
+      no_unpaid_invoices = customer[1].all? do |invoice|
+        invoice_paid_in_full?(invoice.id)
+      end
+      if no_unpaid_invoices
+        unpaid_customers
+      else
+        unpaid_customers << @parent.customers.find_by_id(customer[0])
+        unpaid_customers
+      end
+    end
+  end
+
+  def revenue_per_invoice(invoice_items)
+    invoice_items.inject(0) do |revenue, invoice_item|
+      revenue += invoice_item.quantity * invoice_item.unit_price
+      revenue
+    end
+  end
+
+  def invoices_by_revenue
+    group_invoice_items_by_invoice.inject(Hash.new(0)) do |revenues, invoice|
+      if invoice_paid_in_full?(invoice[0])
+        revenues[invoice[0]] += revenue_per_invoice(invoice[1])
+        revenues
+      else
+        revenues
+      end
+    end
+  end
+
+  def best_invoice_by_revenue
+    max_revenue_invoice = invoices_by_revenue.max_by do |invoice|
+      invoice[1]
+    end
+    @parent.invoices.find_by_id(max_revenue_invoice[0])
+  end
+
+  def quantity_per_invoice(invoice_items)
+    invoice_items.inject(0) do |quantity, invoice_item|
+      quantity += invoice_item.quantity
+      quantity
+    end
+  end
+
+  def invoices_by_quantity
+    group_invoice_items_by_invoice.inject(Hash.new(0)) do |quantities, invoice|
+      if invoice_paid_in_full?(invoice[0])
+        quantities[invoice[0]] += quantity_per_invoice(invoice[1])
+        quantities
+      else
+        quantities
+      end
+    end
+  end
+
+  def best_invoice_by_quantity
+    max_quantity_invoice = invoices_by_quantity.max_by do |invoice|
+      invoice[1]
+    end
+    @parent.invoices.find_by_id(max_quantity_invoice[0])
   end
 end
