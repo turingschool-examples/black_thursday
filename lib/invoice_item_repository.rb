@@ -24,10 +24,8 @@ class InvoiceItemRepository
   def update(current_id, new_attributes)
     if @collection[current_id] == nil
     else
-      @collection[current_id].update_name(new_attributes) if new_attributes[:name]
-      @collection[current_id].update_description(new_attributes) if new_attributes[:description]
       @collection[current_id].update_unit_price(new_attributes) if new_attributes[:unit_price]
-      @collection[current_id].update_created_at(new_attributes) if new_attributes[:created_at]
+      @collection[current_id].update_quantity(new_attributes) if new_attributes[:quantity]
       @collection[current_id].update_updated_at(Time.now)
     end
   end

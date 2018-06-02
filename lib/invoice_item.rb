@@ -17,4 +17,20 @@ class InvoiceItem
     @created_at = Time.parse(attributes[:created_at].to_s)
     @updated_at = Time.parse(attributes[:updated_at].to_s)
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
+  
+  def update_unit_price(attributes)
+    @unit_price = BigDecimal(attributes[:unit_price].to_s)
+  end
+
+  def update_quantity(attributes)
+    @quantity = attributes[:quantity].to_i
+  end
+
+  def update_updated_at(attributes)
+    @updated_at = attributes
+  end
 end

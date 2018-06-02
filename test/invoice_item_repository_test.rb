@@ -62,9 +62,74 @@ class InvoiceItemRepositoryTest < MiniTest::Test
                   :updated_at => Time.now}
     @iir.create(attributes)
 
-    new_ivoice_item = @iir.find_by_id(21831)
-    assert_equal 7, new_ivoice_item.item_id
+    new_invoice_item = @iir.find_by_id(21831)
+    assert_equal 7, new_invoice_item.item_id
   end
 
-  
+  def test_it_can_update_invoice_item
+    attributes = {:item_id => 7,
+                  :invoice_id => 8,
+                  :quantity => 1,
+                  :unit_price => BigDecimal.new(10.99,4),
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                  }
+    @iir.create(attributes)
+    new_invoice_item = @iir.find_by_id(21831)
+    original_time = new_invoice_item.updated_at
+    new_attributes = {:quantity => 13}
+    @iir.update(21831, new_attributes)
+    updated_invoice_item = @iir.find_by_id(21831)
+
+    assert_equal 13, updated_invoice_item.quantity
+    assert_equal 7, updated_invoice_item.item_id
+    assert updated_invoice_item.updated_at > original_time
+  end
+
+  def test_it_can_update_invoice_item
+    attributes = {:item_id => 7,
+                  :invoice_id => 8,
+                  :quantity => 1,
+                  :unit_price => BigDecimal.new(10.99,4),
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                  }
+    @iir.create(attributes)
+    new_invoice_item = @iir.find_by_id(21831)
+    original_time = new_invoice_item.updated_at
+    new_attributes = {:id => 22000,
+                      :item_id => 32,
+                      :invoice_id => 53,
+                      :created_at => Time.now
+                      }
+    @iir.update(21831, new_attributes)
+    updated_invoice_item = @iir.find_by_id(21831)
+
+    assert_nil @iir.find_by_id(22000)
+    refute_equal 22000, updated_invoice_item.id
+    refute_equal 53, updated_invoice_item.invoice_id
+    refute_equal Time.now, updated_invoice_item.created_at
+  end
+
+  def test_it_does_nothing_if_you_try_to_update_nonexistant_invoice_item
+    assert_nil @iir.update(200000, {})
+  end
+
+  def test_it_can_delete_invoice_item_by_id
+    attributes = {:item_id => 7,
+                  :invoice_id => 8,
+                  :quantity => 1,
+                  :unit_price => BigDecimal.new(10.99,4),
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                  }
+    @iir.create(attributes)
+    assert_instance_of InvoiceItem, @iir.find_by_id(21831)
+    @iir.delete(21831)
+    assert_nil @iir.find_by_id(21831)
+  end
+
+  def test_it_returns_nil_if_you_try_to_delete_nonexistant_ivoice_item
+    assert_nil @iir.delete(22000)
+  end
 end
