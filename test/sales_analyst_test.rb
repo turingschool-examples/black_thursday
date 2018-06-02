@@ -81,15 +81,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_the_average_invoices_per_merchant
-    assert_equal 1.09, @sa.average_invoices_per_merchant
+    assert_equal 1.13, @sa.average_invoices_per_merchant
   end
 
   def test_it_can_find_the_average_invoices_per_merchant_standard_devaition
-    assert_equal 0.28, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.34, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_top_performing_merchants
-    assert_equal 4, @sa.top_merchants_by_invoice_count.count
+    assert_equal 12, @sa.top_merchants_by_invoice_count.count
     assert_instance_of Merchant, @sa.top_merchants_by_invoice_count[0]
   end
 
@@ -104,9 +104,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_the_percent_of_invoices_at_each_status
-    assert_equal 34.0, @sa.invoice_status(:pending)
-    assert_equal 60.0, @sa.invoice_status(:shipped)
-    assert_equal 6.0, @sa.invoice_status(:returned)
+    assert_equal 28.71, @sa.invoice_status(:pending)
+    assert_equal 63.37, @sa.invoice_status(:shipped)
+    assert_equal 7.92, @sa.invoice_status(:returned)
   end
 
   def test_it_can_check_if_an_invoice_is_fully_paid
@@ -127,13 +127,21 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_top_x_revenue_earners
-    binding.pry
-    top_earners = @sa.top_revenue_earners(10)
-    assert_equal 10, top_earners.length
+    top_earners = @sa.top_revenue_earners(3)
+    assert_equal 3, top_earners.length
     assert_equal Merchant, top_earners.first.class
-    assert_equal 12334634, top_earners.first.id
-    assert_equal 12335747, top_earners.last.id
-    top_20_earners = @sa.top_revenue_earners
-    assert_equal 20, top_20_earners.length
+    assert_equal 12335150, top_earners.first.id
+    assert_equal 12335417, top_earners.last.id
+    # top_20_earners = @sa.top_revenue_earners
+    # assert_equal 20, top_20_earners.length
+  end
+
+  def test_it_can_find_revenue_for_one_merchant
+    assert_equal 22496.84, @sa.revenue_by_merchant(12335150)
+  end
+
+  def test_it_can_find_merchants_with_pending_invoices
+    assert_equal 28, @sa.merchants_with_pending_invoices.length
+    assert_equal Merchant, @sa.merchants_with_pending_invoices.first.class
   end
 end

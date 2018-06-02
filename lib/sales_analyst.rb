@@ -16,7 +16,6 @@ class SalesAnalyst
     @price_standard_deviation = item_price_standard_deviation
     @average_invoices = average_invoices_per_merchant
     @invoice_standard_deviation = average_invoices_per_merchant_standard_deviation
-    @revenue_for_merchants = total_revenue_for_each_merchant
   end
 
   def average_items_per_merchant
@@ -275,7 +274,7 @@ class SalesAnalyst
   end
 
   def merchants_with_a_sale
-    @revenue_for_merchants.keep_if do |merchant_id, earned|
+    total_revenue_for_each_merchant.keep_if do |merchant_id, earned|
       earned != nil
     end
   end
@@ -288,6 +287,7 @@ class SalesAnalyst
         array << key if pair_value == value
       end
     end
+    array.uniq
   end
 
   def top_revenue_earners(num = 20)
@@ -299,6 +299,19 @@ class SalesAnalyst
     top_merchants.map do |merchant_id|
       @merchants.find_by_id(merchant_id)
     end.reverse
+  end
+
+  def revenue_by_merchant(merchant_id)
+    total_revenue_for_each_merchant[merchant_id]
+  end
+
+  def merchants_with_pending_invoices
+    merchant_ids = invoices_grouped_by_status[:pending].map do |invoice|
+      invoice.merchant_id
+    end
+    merchant_ids.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end.uniq
   end
 
 end
