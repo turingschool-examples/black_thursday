@@ -261,7 +261,7 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(num = 20)
+  def total_revenue_for_each_merchant
     earners = {}
     invoices_grouped_by_merchant.each do |merchant_id, invoices|
       earners[merchant_id] = invoices.map do |invoice|
@@ -270,22 +270,48 @@ class SalesAnalyst
         end
       end.compact.inject(:+)
     end
-    earners.keep_if do |merchant_id, earned|
+    earners
+  end
+
+  def merchants_with_a_sale
+    total_revenue_for_each_merchant.keep_if do |merchant_id, earned|
       earned != nil
     end
-    earners.keep_if do |merchant_id, earned|
-      earners.values.sort[-num..-1].include?(earned)
-    end
-    top_values = earners.values.sort
-    top_merchants = []
-    top_values.each do |value|
-      earners.each do |merchant_id, earned|
-        top_merchants << merchant_id if earned == value
+  end
+
+  def hash_to_array_ordered_by_value(hash)
+    sorted_values = hash.values.sort
+    array = []
+    sorted_values.each do |value|
+      hash.each do |key, pair_value|
+        array << key if pair_value == value
       end
     end
+    array.uniq
+  end
+
+  def top_revenue_earners(num = 20)
+    merchants_with_a_sale.keep_if do |merchant_id, earned|
+      sorted_merchants = merchants_with_a_sale.values.sort
+      sorted_merchants[-num..-1].include?(earned)
+    end
+    top_merchants = hash_to_array_ordered_by_value(merchants_with_a_sale)
     top_merchants.map do |merchant_id|
       @merchants.find_by_id(merchant_id)
     end.reverse
+  end
+
+  def revenue_by_merchant(merchant_id)
+    total_revenue_for_each_merchant[merchant_id]
+  end
+
+  def merchants_with_pending_invoices
+    merchant_ids = invoices_grouped_by_status[:pending].map do |invoice|
+      invoice.merchant_id
+    end
+    merchant_ids.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end.uniq
   end
 
 end
