@@ -440,6 +440,8 @@ class SalesAnalyst
     customers_with_one_invoice = group_invoices_by_customer.find_all do |customer|
       customer[1].length == 1
     end
-    binding.pry
+    customers_with_one_invoice.map do |customer|
+      @parent.customers.find_by_id(customer[0])
+    end
   end
 end
