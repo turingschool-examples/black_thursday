@@ -9,59 +9,47 @@ require 'pry'
 class InvoiceItemTest < MiniTest::Test
   def setup
     se = SalesEngine.from_csv({
-    :items => "./data/item_sample.csv",
-    :merchants => "./data/merchant_sample.csv",
-    :invoices => "./data/invoices.csv",
+    :items => "./data/mock.csv",
+    :merchants => "./data/mock.csv",
+    :invoices => "./data/mock.csv",
     :invoice_items => "./data/invoice_items.csv"
     })
 
-    @iir = se.invoices
+    @iir = se.invoice_items
+    @invoice_item = @iir.find_by_id(2345)
   end
 
-  def test_invoice_stores_id_as_integer
-    assert_equal 1, @invoice_item_1.id
-    assert_instance_of Fixnum, @invoice_item_1.id
+  def test_invoice_item_stores_id_as_integer
+    assert_equal 2345, @invoice_item.id
+    assert_instance_of Fixnum, @invoice_item.id
   end
 
-  def test_invoice_stores_customer_id_as_integer
-    assert_equal 2, @invoice_item_1.item_id
-    assert_instance_of Fixnum, @invoice_item_1.item_id
+  def test_invoice_item_stores_item_id_as_integer
+    assert_equal 263562118, @invoice_item.item_id
+    assert_instance_of Fixnum, @invoice_item.item_id
   end
 
-  def test_invoice_stores_merchant_id_as_integer
-    skip
-    assert_equal 12335955, @invoice_3.merchant_id
-    assert_instance_of Fixnum, @invoice_3.merchant_id
+  def test_invoice_item_stores_invoice_id_as_integer
+    assert_equal 522, @invoice_item.invoice_id
+    assert_instance_of Fixnum, @invoice_item.invoice_id
   end
 
-  def test_invoice_stores_status_as_symbol
-    skip
-    assert_equal :shipped, @invoice_3.status
-    assert_instance_of Symbol, @invoice_3.status
+  def test_invoice_item_stores_unit_price_as_big_decimal
+    assert_equal 847.87, @invoice_item.unit_price
+    assert_instance_of BigDecimal, @invoice_item.unit_price
   end
 
-  def test_invoice_stores_created_at_as_time_object
-    skip
-    assert_equal Time.parse('2004-02-14'), @invoice_3.created_at
-    assert_instance_of Time, @invoice_3.created_at
+  def test_invoice_item_stores_created_at_as_time_object
+    assert_equal Time.parse("2012-03-27 14:54:35 UTC"), @invoice_item.created_at
+    assert_instance_of Time, @invoice_item.created_at
   end
 
-  def test_invoice_stores_updated_at_as_time_object
-    skip
-    assert_equal Time.parse('2010-03-26'), @invoice_3.updated_at
-    assert_instance_of Time, @invoice_3.updated_at
+  def test_invoice_item_stores_updated_at_as_time_object
+    assert_equal Time.parse("2012-03-27 14:54:35 UTC"), @invoice_item.updated_at
+    assert_instance_of Time, @invoice_item.updated_at
   end
 
-  def test_invoice_can_return_created_at_day_of_the_week
-    skip
-    attributes = {:id => 13,
-                  :customer_id => 3,
-                  :merchant_id => 12335955,
-                  :status => :shipped,
-                  :created_at => Time.parse('2004-02-14'),
-                  :updated_at => Time.parse('2010-03-26')}
-
-    invoice_4 = Invoice.new(attributes)
-    assert_equal "Saturday", invoice_4.day_of_week
+  def test_invoice_item_can_return_unit_price_in_dollars
+    assert_equal 847.87, @invoice_item.unit_price_to_dollars
   end
 end
