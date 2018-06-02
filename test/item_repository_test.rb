@@ -7,7 +7,6 @@ require 'bigdecimal'
 require 'pry'
 
 class ItemRepositoryTest < MiniTest::Test
-  include FileLoader
   def setup
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
