@@ -261,7 +261,7 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(num)
+  def top_revenue_earners(num = 20)
     earners = {}
     invoices_grouped_by_merchant.each do |merchant_id, invoices|
       earners[merchant_id] = invoices.map do |invoice|

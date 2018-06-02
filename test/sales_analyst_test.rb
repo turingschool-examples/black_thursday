@@ -151,5 +151,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, top_earners.first.class
     assert_equal 12334634, top_earners.first.id
     assert_equal 12335747, top_earners.last.id
+    top_20_earners = @sa.top_revenue_earners
+    assert_equal 20, top_20_earners.length
   end
 end
