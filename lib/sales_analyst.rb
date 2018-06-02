@@ -138,7 +138,7 @@ class SalesAnalyst
     @parent.invoices.all.group_by {|invoice| invoice.customer_id}
   end
 
-  def top_buyers(selected)
+  def top_buyers(selected = 20)
     new_hash = {}
     group_invoices_by_customer_id.each do |cust_id, invoices|
           new_hash[cust_id] = invoices.inject(0) {|sum, invoice| sum + invoice_total(invoice.id)}

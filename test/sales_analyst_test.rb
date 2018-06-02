@@ -92,7 +92,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_total_dollar_amount_if_the_invoice_is_paid_in_full
-
       invoice_total = @sa.invoice_total(1)
 
       assert_equal 21067.77, invoice_total
@@ -107,6 +106,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 478, customers.last.id
 
     assert_equal Customer, customers.last.class
+  end
+
+  def test_it_returns_top_20_customers_if_no_argument_given
+    top_buyers = @sa.top_buyers
+
+    assert_equal 20, top_buyers.length
+    assert_equal 313, top_buyers.first.id
+    assert_equal 250, top_buyers.last.id
+
+    assert_equal Customer, top_buyers.last.class
   end
 
 end
