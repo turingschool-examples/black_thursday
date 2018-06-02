@@ -30,20 +30,18 @@ class SalesAnalyst
     prices = items_grouped_by_merchant_id[merchant_id].map do |item|
       item.unit_price
     end
-    mean(prices)
+    BigDecimal(mean(prices), 6)
   end
 
   def average_average_price_per_merchant #######################################
     avg_prices = items_grouped_by_merchant_id.map do |merchant_id, items|
       average_item_price_for_merchant(merchant_id)
     end
-    mean(avg_prices)
+    BigDecimal(mean(avg_prices), 6)
   end
 
   def items_grouped_by_merchant_id
-    @items.all.group_by do |item|
-      item.merchant_id
-    end
+    @items.all.group_by(&:merchant_id)
   end
 
   def item_count_for_each_merchant_id
@@ -90,10 +88,101 @@ class SalesAnalyst
     end.compact
   end
 
-  def average_invoices_per_merchant ############################################
-    (@invoices.all.count/@merchants.all.count.to_f).round(2)
+  def invoices_grouped_by_merchant_id
+    @invoices.all.group_by(&:merchant_id)
   end
 
-  # def average_invoices_per_merchant_standard_deviation
-  # end
+  def invoice_count_for_each_merchant_id
+    invoices_grouped_by_merchant_id.merge(invoices_grouped_by_merchant_id) do |merchant_id,invoice_list|
+      invoice_list.count
+    end
+  end
+
+  def average_invoices_per_merchant ############################################
+    mean(invoice_count_for_each_merchant_id.values)
+  end
+
+  def average_invoices_per_merchant_standard_deviation##########################
+    standard_deviation(invoice_count_for_each_merchant_id.values)
+  end
+
+  def top_merchants_by_invoice_count
+    two_std_dev =
+      average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    invoice_count_for_each_merchant_id.map do |merchant_id,invoice_count|
+      @merchants.find_by_id(merchant_id) if invoice_count > two_std_dev
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    two_std_dev =
+      average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    invoice_count_for_each_merchant_id.map do |merchant_id,invoice_count|
+      @merchants.find_by_id(merchant_id) if invoice_count < two_std_dev
+    end.compact
+  end
+
+  def invoices_grouped_by_day
+    @invoices.all.group_by do |invoice|
+      invoice.created_at.wday
+    end
+  end
+
+  def invoice_count_by_weekday
+    invoices_grouped_by_day.map do |key,invoices|
+      if key == 0
+        key, invoices = 'Sunday', invoices.count
+      elsif key == 1
+        key, invoices = 'Monday', invoices.count
+      elsif key == 2
+        key, invoices = 'Tuesday', invoices.count
+      elsif key == 3
+        key, invoices = 'Wednesday', invoices.count
+      elsif key == 4
+        key, invoices = 'Thursday', invoices.count
+      elsif key == 5
+        key, invoices = 'Friday', invoices.count
+      elsif key == 6
+        key, invoices = 'Saturday', invoices.count
+      end
+    end.to_h
+  end
+
+  def average_invoice_count_per_weekday
+    mean(invoice_count_by_weekday.values)
+  end
+
+  def average_invoice_count_per_weekday_standard_deviation
+    standard_deviation(invoice_count_by_weekday.values)
+  end
+
+  def top_days_by_invoice_count
+    one_std_dev =
+      average_invoice_count_per_weekday + average_invoice_count_per_weekday_standard_deviation
+    invoice_count_by_weekday.map do |day,count|
+      day if count > one_std_dev
+    end.compact
+  end
+
+  def invoices_grouped_by_status
+    @invoices.all.group_by do |invoice|
+      invoice.status
+    end
+  end
+
+  def percentage(numbers)
+    (100*numbers.count/@invoices.all.count.to_f).round(2)
+  end
+
+  def invoice_count_by_status
+    invoices_grouped_by_status.map do |status, invoices|
+      status, invoices = status, percentage(invoices)
+    end.to_h
+  end
+
+  def invoice_status(status)
+    invoice_count_by_status[status]
+  end
+
+
 end
