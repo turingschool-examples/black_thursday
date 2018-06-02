@@ -12,7 +12,8 @@ class InvoiceItemTest < MiniTest::Test
     :items => "./data/mock.csv",
     :merchants => "./data/mock.csv",
     :invoices => "./data/mock.csv",
-    :invoice_items => "./data/invoice_items.csv"
+    :invoice_items => "./data/invoice_items.csv",
+    :transactions => "./data/mock.csv"
     })
 
     @iir = se.invoice_items

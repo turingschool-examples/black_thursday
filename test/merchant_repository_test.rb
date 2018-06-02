@@ -12,7 +12,8 @@ class MerchantRepositoryTest < MiniTest::Test
       :items => "./data/mock.csv",
       :merchants => "./data/merchant_sample.csv",
       :invoices => "./data/mock.csv",
-      :invoice_items => "./data/mock.csv"
+      :invoice_items => "./data/mock.csv",
+      :transactions => "./data/mock.csv"
     })
     @mr = se.merchants
   end
