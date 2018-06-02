@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
@@ -6,20 +8,12 @@ require_relative 'transaction_repository'
 require_relative 'customer_repository'
 require_relative 'sales_analyst'
 require_relative 'file_reader'
-require 'csv'
-
+# builds access to items and merchants
 class SalesEngine
-  # builds access to items and merchants
   include FileReader
 
   def initialize(path)
-    @path          = path
-    @merchants     = merchants
-    @items         = items
-    @invoices      = invoices
-    @invoice_items = invoice_items
-    @transactions  = transactions
-    @customers     = customers
+    @path = path
   end
 
   def self.from_csv(path)
