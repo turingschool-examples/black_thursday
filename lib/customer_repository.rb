@@ -1,5 +1,5 @@
-require './lib/customer.rb'
-require './lib/repo_methods.rb'
+require_relative 'customer.rb'
+require_relative 'repo_methods.rb'
 
 class CustomerRepository
   include RepoMethods

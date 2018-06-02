@@ -21,7 +21,7 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
-  
+
   def update_unit_price(attributes)
     @unit_price = BigDecimal(attributes[:unit_price].to_s)
   end
@@ -32,5 +32,9 @@ class InvoiceItem
 
   def update_updated_at(attributes)
     @updated_at = attributes
+  end
+
+  def total_price
+    unit_price * quantity
   end
 end
