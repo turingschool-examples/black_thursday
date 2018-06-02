@@ -225,7 +225,7 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    merchants_ranked_by_revenue[0..x - 1]
+    merchants_ranked_by_revenue[0..(x - 1)]
   end
 
   def merchants_ranked_by_revenue
@@ -373,4 +373,46 @@ class SalesAnalyst
     end
     @parent.items.find_by_id(max_revenue[0])
   end
+
+
+# ITERATION 5
+
+  # def top_buyers(x = 20)
+  #   customers_ranked_by_money_spent[0..(x - 1)]
+  # end
+  #
+  # def customers_ranked_by_money_spent
+  #   customers_by_money_spent = @parent.customers.all.map do |customer|
+  #     { customer => total_money_spent_by_customer(customer.id) }
+  #   end
+  #   ranked_customers = customers_by_money_spent.sort_by do |customer|
+  #     customer.values.pop
+  #   end.reverse
+  #   ranked_customers.map do |customer_hash|
+  #     customer_hash.keys
+  #   end.flatten
+  # end
+  #
+  # def total_money_spent_by_customer(customer_id)
+  #   if group_invoices_by_customer[customer_id].nil?
+  #     return 0
+  #   else
+  #     group_invoices_by_customer[customer_id].inject(0) do |money_spent, invoice|
+  #       if invoice_paid_in_full?(invoice.id)
+  #         money_spent += invoice_total(invoice.id)
+  #         money_spent
+  #       else
+  #         money_spent
+  #       end
+  #     end
+  #   end
+  # end
+  #
+  # def group_invoices_by_customer
+  #   @parent.invoices.all.group_by do |invoice|
+  #     invoice.customer_id
+  #   end
+  # end
+
+  
 end
