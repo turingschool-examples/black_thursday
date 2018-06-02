@@ -19,14 +19,12 @@ class MerchantTest < Minitest::Test
 
   def test_id_returns_the_merchant_id
     merchant = @engine.merchants.all.first
-
     assert_equal 12334105, merchant.id
   end
 
   def test_name_returns_the_merchant_name
     merchant1 = @engine.merchants.all.first
     merchant2 = @engine.merchants.all.last
-
     assert_equal 'Shopin1901', merchant1.name
     assert_equal 'CJsDecor', merchant2.name
   end
