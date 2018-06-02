@@ -75,25 +75,16 @@ class SalesAnalyst
   end
 
   def average_item_unit_price
-    (all_item_unit_prices.inject(:+)/all_item_unit_prices.count).round(2)
+    mean(all_item_unit_prices)
   end
 
-  def price_variance
-    mean = average_item_unit_price
-    @items.all.map do |item|
-      (item.unit_price - mean) ** 2
-    end
-  end
-
-  def unit_price_std_dev
-    sum = price_variance.inject(:+)
-    Math.sqrt(sum/(all_item_unit_prices.count-1)).round(2)
+  def average_item_unit_price_standard_deviation
+    standard_deviation(all_item_unit_prices)
   end
 
   def golden_items #############################################################
-    std_dev = unit_price_std_dev
-    mean = average_item_unit_price
-    two_std_dev = mean + (std_dev * 2)
+    two_std_dev =
+      average_item_unit_price + (average_item_unit_price_standard_deviation * 2)
     @items.all.map do |item|
       item if item.unit_price > two_std_dev
     end.compact
