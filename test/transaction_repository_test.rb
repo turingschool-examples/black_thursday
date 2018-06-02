@@ -12,7 +12,8 @@ class TransactionRepositoryTest < MiniTest::Test
     :merchants => "./data/mock.csv",
     :invoices => "./data/mock.csv",
     :invoice_items => "./data/mock.csv",
-    :transactions => "./data/transactions.csv"
+    :transactions => "./data/transactions.csv",
+    :customers => "./data/mock.csv"
     })
 
     @tr = se.transactions

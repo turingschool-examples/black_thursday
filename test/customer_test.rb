@@ -1,6 +1,6 @@
 require './lib/sales_engine.rb'
 
-class CustomerTest
+class CustomerTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
     :items => "./data/mock.csv",
@@ -8,7 +8,7 @@ class CustomerTest
     :invoices => "./data/mock.csv",
     :invoice_items => "./data/mock.csv",
     :transactions => "./data/mock.csv",
-    :customers => ".data/customers.csv"
+    :customers => "./data/customers.csv"
     })
 
     @cr = se.customers
