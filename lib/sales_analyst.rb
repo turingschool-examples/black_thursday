@@ -16,7 +16,7 @@ class SalesAnalyst
     @price_standard_deviation = item_price_standard_deviation
     @average_invoices = average_invoices_per_merchant
     @invoice_standard_deviation = average_invoices_per_merchant_standard_deviation
-    @revenue_for_merchants = total_revenue_for_each_merchant 
+    @revenue_for_merchants = total_revenue_for_each_merchant
   end
 
   def average_items_per_merchant
