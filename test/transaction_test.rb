@@ -13,7 +13,8 @@ class TransactionTest < Minitest::Test
     :merchants => "./data/mock.csv",
     :invoices => "./data/mock.csv",
     :invoice_items => "./data/mock.csv",
-    :transactions => "./data/transactions.csv"
+    :transactions => "./data/transactions.csv",
+    :customers => "./data/mock.csv"
     })
 
     @t = se.transactions
@@ -40,7 +41,7 @@ class TransactionTest < Minitest::Test
     assert_instance_of String, @transaction.credit_card_expiration_date
   end
 
-  def test_returns_result_as_a_symbol
+  def test_returns_result_as_a_string
     assert_equal :success, @transaction.result
     assert_instance_of Symbol, @transaction.result
   end

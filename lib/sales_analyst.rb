@@ -10,6 +10,19 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    @sales_engine.transactions.result_table[invoice_id] == :success
+  end
+
+  def invoice_total(invoice)
+    invoice_totals = @sales_engine.invoice_items.all.map do |invoice_item|
+      if invoice_item.invoice_id == invoice
+        invoice_item.total_price
+      end
+    end
+    BigDecimal(sum(invoice_totals.compact))
+  end
+
   def average_items_per_merchant
     amount_of_items = @sales_engine.items.collection.length
     amount_of_merchants = @sales_engine.merchants.collection.length

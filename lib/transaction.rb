@@ -30,7 +30,7 @@ class Transaction
   def update_credit_card_expiration_date(attributes)
     @credit_card_expiration_date = attributes[:credit_card_expiration_date].to_s
   end
-  
+
   def update_updated_at(attributes)
     @updated_at = attributes
   end

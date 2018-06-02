@@ -14,8 +14,9 @@ class SalesAnalystTest < MiniTest::Test
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
-      :invoice_items => "./data/mock.csv",
-      :transactions => "./data/mock.csv"
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
     })
 
     @sales_analyst = @sales_engine.analyst
@@ -97,4 +98,17 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_make_table_of_invoices_per_day
     assert_equal ({"Sunday"=>708, "Monday"=>696, "Tuesday"=>692, "Wednesday"=>741, "Thursday"=>718, "Friday"=>701, "Saturday"=>729}), @sales_analyst.invoice_per_day_table
   end
+
+  def test_it_can_check_if_an_invoice_is_paid_in_full
+    assert @sales_analyst.invoice_paid_in_full?(1)
+    assert @sales_analyst.invoice_paid_in_full?(200)
+    refute @sales_analyst.invoice_paid_in_full?(203)
+    refute @sales_analyst.invoice_paid_in_full?(204)
+  end
+
+  def test_it_can_reuturn_invoices_total_price
+    assert_equal 21067.77, @sales_analyst.invoice_total(1)
+    assert_instance_of BigDecimal, @sales_analyst.invoice_total(1)
+  end
+
 end

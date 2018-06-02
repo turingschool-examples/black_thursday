@@ -12,7 +12,8 @@ class TransactionRepositoryTest < MiniTest::Test
     :merchants => "./data/mock.csv",
     :invoices => "./data/mock.csv",
     :invoice_items => "./data/mock.csv",
-    :transactions => "./data/transactions.csv"
+    :transactions => "./data/transactions.csv",
+    :customers => "./data/mock.csv"
     })
 
     @tr = se.transactions
@@ -126,5 +127,10 @@ class TransactionRepositoryTest < MiniTest::Test
 
   def test_it_returns_nil_if_you_try_to_delete_nonexistant_ivoice_item
     assert_nil @tr.delete(5000)
+  end
+
+  def test_it_generates_table_of_transactions_and_their_results
+    table = @tr.result_table
+    assert_equal 3145, table.length
   end
 end
