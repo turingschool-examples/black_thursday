@@ -211,5 +211,15 @@ class SalesAnalyst
   end
 
   def highest_volume_items(customer_id)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoice_items = invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+        hash[invoice_item.item_id] += invoice_item.quantity
+        hash
+    end
+    sorted_items = quantity_per_item_id.sort_by {|item_id, quantity| quantity}
+    highest_quantity = sorted_items[-1][1]
+    item_ids = quantity_per_item_id.to_a.find_all {|item_quantity_pair| item_quantity_pair[0] if item_quantity_pair[1] == highest_quantity}
+    item_ids.map {|item_id| @parent.items.find_by_id(item_id[0])}
   end
 end
