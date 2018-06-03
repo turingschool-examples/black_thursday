@@ -214,8 +214,8 @@ class SalesAnalyst
     invoices = @parent.invoices.find_all_by_customer_id(customer_id)
     invoice_items = invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
     quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
-        hash[invoice_item.item_id] += invoice_item.quantity
-        hash
+      hash[invoice_item.item_id] += invoice_item.quantity
+      hash
     end
     sorted_items = quantity_per_item_id.sort_by {|item_id, quantity| quantity}
     highest_quantity = sorted_items[-1][1]
@@ -227,5 +227,29 @@ class SalesAnalyst
     unpaid_invoices = @parent.invoices.all.find_all {|invoice| !(invoice_paid_in_full?(invoice.id))}
     unpaid_customer_ids = unpaid_invoices.map {|invoice| invoice.customer_id}
     unpaid_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}.uniq
+  end
+
+  def best_invoice_by_revenue
+    invoices = @parent.invoices.all
+    paid_invoices = invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    invoice_items = paid_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    invoice_ids_and_totals = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+      hash[invoice_item.invoice_id] += (invoice_item.quantity * invoice_item.unit_price)
+      hash
+    end
+    best_invoice_id = invoice_ids_and_totals.max_by {|inv_id, total| total}[0]
+    @parent.invoices.find_by_id(best_invoice_id)
+  end
+
+  def best_invoice_by_quantity
+    invoices = @parent.invoices.all
+    paid_invoices = invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    invoice_items = paid_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    invoice_ids_and_totals = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+      hash[invoice_item.invoice_id] += invoice_item.quantity
+      hash
+    end
+    best_invoice_id = invoice_ids_and_totals.max_by {|inv_id, total| total}[0]
+    @parent.invoices.find_by_id(best_invoice_id)
   end
 end
