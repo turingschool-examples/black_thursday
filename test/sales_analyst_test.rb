@@ -8,7 +8,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv',
-      :transactions => './data/transactions.csv'
+      :transactions => './data/transactions.csv',
+      :invoice_items => './data/invoice_items.csv'
     })
     @sales_analyst = @sales_engine.analyst
     @merchant_repository = @sales_engine.merchants
@@ -123,14 +124,26 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 13.5, @sales_analyst.invoice_status(:returned)
   # end
 
-  def test_it_can_find_a_transaction_by_invoice_id
-    actual = @sales_analyst.find_transaction_by_invoice_id(8).credit_card_number
-    assert_equal '4352959538224312', actual
-  end
+  # def test_it_can_find_a_transaction_by_invoice_id
+  #   actual = @sales_analyst.find_transaction_by_invoice_id(8).credit_card_number
+  #   assert_equal '4352959538224312', actual
+  # end
+  #
+  # def test_invoice_paid_in_full
+  #   assert @sales_analyst.invoice_paid_in_full?(8)
+  #   refute @sales_analyst.invoice_paid_in_full?(105)
+  # end
 
-  def test_invoice_paid_in_full
-    assert @sales_analyst.invoice_paid_in_full?(8)
-    refute @sales_analyst.invoice_paid_in_full?(105)
-  end
+  # def test_it_can_find_all_invoice_items_by_invoice_id
+  #   assert_equal 8, @sales_analyst.find_invoice_items(1).count
+  #   assert @sales_analyst.find_invoice_items(1).all? do |element|
+  #     InvoiceItem == element.class && element.invoice_id == 1
+  #   end
+  # end
+
+  # def test_it_can_return_the_total_dollars_for_given_invoice_id
+  #   assert_equal 21_067.77 , @sales_analyst.invoice_total(1)
+  #   assert_instance_of BigDecimal, @sales_analyst.invoice_total(1)
+  # end
 
 end

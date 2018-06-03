@@ -9,6 +9,7 @@ class SalesAnalyst
     @merchants = @engine.merchants
     @invoices = @engine.invoices
     @transactions = @engine.transactions
+    @invoice_items = @engine.invoice_items
   end
 
   def average_items_per_merchant
@@ -196,4 +197,29 @@ class SalesAnalyst
     return false if find_transaction_by_invoice_id(invoice_id).nil?
     find_transaction_by_invoice_id(invoice_id).result == :success
   end
+
+  def find_invoice_items(invoice_id)
+    @invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
+  end
+
+  def invoice_total(invoice_id)
+    find_invoice_items(invoice_id).map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.inject(:+)
+  end
 end
+
+# id, item_id,  invoice_id, quantity, unit_price,
+# 1   263519844   1             5        136.35
+# 2   263454779   1             9        233.24
+# 3   263451719   1             8        348.73
+# 4   263542298   1             3        21.96
+# 5   263515158   1             7        791.40
+# 6   263539664   1             5        521.00
+# 7   263563764   1             4        667.47
+# 8   263432817   1             6        769.41
+
+
+    # (5 * 136.35) + (9 * 233.24) + (8 * 348.73) + (3 * 21.96) + (7 * 791.40) + (5 * 521.00) + (4 * 667.47) + (6 * 769.41)
