@@ -159,6 +159,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_items_which_the_given_customer_bought_in_the_given_year
+    skip
     customer_id = 400
     year = 2000
     items = @sa.items_bought_in_year(customer_id, year)
@@ -175,4 +176,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "Necklace: V Tube", items.first.name
     assert_equal Item, items.first.class
   end
+
+  def test_highest_volume_items_returns_an_array_of_the_item_purchased_the_most_times_by_a_customer
+    items = @sa.highest_volume_items(200)
+
+    assert_equal 6, items.length
+    assert_equal 263420195, items.first.id
+    assert_equal 263448547, items.last.id
+    assert_equal Item, items.first.class
+  end
+
 end

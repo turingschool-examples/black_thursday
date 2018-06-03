@@ -191,7 +191,8 @@ class SalesAnalyst
 
   def one_time_buyers_top_item
     one_time_invoices = one_time_customer_ids.map {|cust_id| @parent.invoices.find_all_by_customer_id(cust_id)}.flatten
-    invoice_items = one_time_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    paid_one_time_invoices = one_time_invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    invoice_items = paid_one_time_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
 
     quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
         hash[invoice_item.item_id] += invoice_item.quantity
@@ -207,5 +208,8 @@ class SalesAnalyst
     invoice_items_for_year = invoices_by_year.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
     item_ids_for_year = invoice_items_for_year.map {|invoice_item| invoice_item.item_id}.uniq
     item_ids_for_year.map {|item_id| @parent.items.find_by_id(item_id)}
+  end
+
+  def highest_volume_items(customer_id)
   end
 end
