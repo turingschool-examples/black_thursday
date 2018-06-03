@@ -5,16 +5,16 @@ require 'date'
 class MerchantRepository
   include Repository
 
-  attr_reader :merchant_repo,
+  attr_reader :repository,
               :parent
 
   def initialize(loaded_file, parent)
-    @merchant_repo = loaded_file.map { |merchant| Merchant.new(merchant, self)}
+    @repository = loaded_file.map { |merchant| Merchant.new(merchant, self)}
     @parent = parent
   end
 
   def all
-    @merchant_repo
+    @repository
   end
 
   def find_by_id(id)
@@ -36,7 +36,7 @@ class MerchantRepository
                 id: (highest.id + 1),
                 created_at: Date.today,
                 updated_at: Date.today}
-    @merchant_repo.push(Merchant.new(merchant, self))
+    @repository.push(Merchant.new(merchant, self))
   end
 
   def update(id_num, attributes)
@@ -47,7 +47,7 @@ class MerchantRepository
 
   def delete(id)
     merchant = find_by_id(id)
-    @merchant_repo.delete(merchant)
+    @repository.delete(merchant)
   end
 
 end

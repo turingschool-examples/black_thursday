@@ -5,11 +5,11 @@ class CustomerRepository
   include Repository
 
   def initialize(loaded_file)
-    @customer_repo = loaded_file.map { |customer| Customer.new(customer)}
+    @repository = loaded_file.map { |customer| Customer.new(customer)}
   end
 
   def all
-    @customer_repo
+    @repository
   end
 
   def find_all_by_first_name(fragment)
@@ -22,7 +22,7 @@ class CustomerRepository
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @customer_repo.push(Customer.new(attributes))
+    @repository.push(Customer.new(attributes))
   end
 
   def update(id, attributes)
@@ -35,7 +35,7 @@ class CustomerRepository
 
   def delete(id)
     customer = find_by_id(id)
-    @customer_repo.delete(customer)
+    @repository.delete(customer)
   end
 
 end

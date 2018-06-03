@@ -5,16 +5,15 @@ require 'time'
 class ItemRepository
   include Repository
 
-  attr_reader :item_repo,
-              :parent
+  attr_reader :parent
 
   def initialize(loaded_file, parent)
-    @item_repo = loaded_file.map { |item| Item.new(item, self)}
+    @repository = loaded_file.map { |item| Item.new(item, self)}
     @parent = parent
   end
 
   def all
-    @item_repo
+    @repository
   end
 
   def find_by_id(id_num)
@@ -50,7 +49,7 @@ class ItemRepository
             created_at: attributes[:created_at],
             updated_at: attributes[:updated_at],
             merchant_id: attributes[:merchant_id]}
-    @item_repo.push(Item.new(item, self))
+    @repository.push(Item.new(item, self))
   end
 
   def update(id, attributes)
@@ -65,7 +64,7 @@ class ItemRepository
   def delete(id)
     item = find_by_id(id)
     return item if item == nil
-    @item_repo.delete(item)
+    @repository.delete(item)
   end
 
 end

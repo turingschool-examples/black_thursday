@@ -5,11 +5,11 @@ class InvoiceRepository
   include Repository
 
   def initialize(loaded_file)
-    @invoice_repo = loaded_file.map { |invoice| Invoice.new(invoice)}
+    @repository = loaded_file.map { |invoice| Invoice.new(invoice)}
   end
 
   def all
-    @invoice_repo
+    @repository
   end
 
   def find_by_id(id)
@@ -36,7 +36,7 @@ class InvoiceRepository
                 status: attributes[:status].to_sym,
                 created_at: Time.now,
                 updated_at: Time.now}
-    @invoice_repo.push(Invoice.new(invoice))
+    @repository.push(Invoice.new(invoice))
   end
 
   def update(id, attributes)
@@ -47,7 +47,7 @@ class InvoiceRepository
 
   def delete(id)
     invoice = find_by_id(id)
-    @invoice_repo.delete(invoice)
+    @repository.delete(invoice)
   end
 
 end
