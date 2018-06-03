@@ -200,4 +200,12 @@ class SalesAnalyst
     max_quantity_inv_item_id = quantity_per_item_id.max_by {|itm_id, quantity| quantity}[0]
     @parent.items.find_by_id(max_quantity_inv_item_id)
   end
+
+  def items_bought_in_year(customer_id, year)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoices_by_year = invoices.find_all {|invoice| invoice.created_at.year == year}
+    invoice_items_for_year = invoices_by_year.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    item_ids_for_year = invoice_items_for_year.map {|invoice_item| invoice_item.item_id}.uniq
+    item_ids_for_year.map {|item_id| @parent.items.find_by_id(item_id)}
+  end
 end

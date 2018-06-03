@@ -151,9 +151,28 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_item_bought_by_one_time_buyers_in_the_highest_quantity
+    skip
     highest_selling_item = @sa.one_time_buyers_top_item
 
     assert_equal 263396463, highest_selling_item.id
     assert_equal Item, highest_selling_item.class
+  end
+
+  def test_it_returns_the_items_which_the_given_customer_bought_in_the_given_year
+    customer_id = 400
+    year = 2000
+    items = @sa.items_bought_in_year(customer_id, year)
+
+    assert_equal 0, items.length
+    assert_equal Array, items.class
+
+    customer_id = 400
+    year = 2002
+    items = @sa.items_bought_in_year(customer_id, year)
+
+    assert_equal 2, items.length
+    assert_equal 263549742, items.first.id
+    assert_equal "Necklace: V Tube", items.first.name
+    assert_equal Item, items.first.class
   end
 end
