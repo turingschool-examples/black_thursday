@@ -14,20 +14,6 @@ class SalesAnalyst
     mean(item_count_for_each_merchant_id.values)
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  def items_grouped_by_merchant_id
-    @items.group_by do |item|
-      item.merchant_id
-    end
-  end
-
-  def item_count_by_merchant_id
-    items_grouped_by_merchant_id.map do |merchant_id,item_list|
-      item_list.count
-=======
-=======
->>>>>>> ab611814bedda2e9da9c31adbf5293821dc5fc9b
   def average_items_per_merchant_standard_deviation ############################
     standard_deviation(item_count_for_each_merchant_id.values)
   end
@@ -43,10 +29,6 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id) #############################
     prices = items_grouped_by_merchant_id[merchant_id].map do |item|
       item.unit_price
-<<<<<<< HEAD
->>>>>>> 47b5c70e781a000340154dc660cee8c345b7e2fc
-=======
->>>>>>> ab611814bedda2e9da9c31adbf5293821dc5fc9b
     end
     BigDecimal(mean(prices), 6)
   end
@@ -63,37 +45,12 @@ class SalesAnalyst
   end
 
   def item_count_for_each_merchant_id
-    items_grouped_by_merchant_id.merge(items_grouped_by_merchant_id) do |merchant_id,item_list|
+    group_merch_id = items_grouped_by_merchant_id
+    group_merch_id.merge(group_merch_id) do |merchant_id,item_list|
       item_list.count
     end
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  def merchants_with_high_item_count
-    std_dev = average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
-    one_std_dev = mean + std_dev
-    items_grouped_by_merchant_id.map do |id,item_list|
-      @engine.merchants.find_by_id(id) if item_list.count > one_std_dev
-    end.compact
-  end
-
-  def average_item_price_for_merchant(merchant_id)
-    prices = items_gropued_by_merchant_id[merchant_id].map do |item|
-      item.unit_price
-    end
-    (prices.inject(:+)/prices.count).round(2)
-  end
-
-  def average_average_price_per_merchant
-    avg_prices = items_gropued_by_merchant_id.keys.map do |merchant_id|
-      average_item_price_for_merchant(merchant_id)
-    end
-    (avg_prices.inject(:+)/avg_prices.count).round(2)
-=======
-=======
->>>>>>> ab611814bedda2e9da9c31adbf5293821dc5fc9b
   def mean(numbers_array)
     (numbers_array.inject(:+).to_f / numbers_array.count).round(2)
   end
@@ -108,10 +65,6 @@ class SalesAnalyst
   def standard_deviation(numbers_array)
     result = (summed_variance(numbers_array) / (numbers_array.count - 1))
     Math.sqrt(result).round(2)
-<<<<<<< HEAD
->>>>>>> 47b5c70e781a000340154dc660cee8c345b7e2fc
-=======
->>>>>>> ab611814bedda2e9da9c31adbf5293821dc5fc9b
   end
 
   def all_item_unit_prices
@@ -228,41 +181,7 @@ class SalesAnalyst
     end.to_h
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-def average_invoices_per_merchant_standard_deviation
-  # => 3.29
-  # Who are our top performing merchants?
-  # Which merchants are more than two standard deviations above the mean?
-end
-
-def top_merchants_by_invoice_count
-  # => [merchant, merchant, merchant]
-  # Who are our lowest performing merchants?
-  # Which merchants are more than two standard deviations below the mean?
-end
-
-def bottom_merchants_by_invoice_count
-  # => [merchant, merchant, merchant]
-  # Which days of the week see the most sales?
-  # On which days are invoices created at more than one standard deviation above the mean?
-end
-
-def top_days_by_invoice_count
-  # => ["Sunday", "Saturday"]
-  # What percentage of invoices are not shipped?
-  # What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
-end
-=======
   def invoice_status(status)
     invoice_count_by_status[status]
   end
->>>>>>> 47b5c70e781a000340154dc660cee8c345b7e2fc
-=======
-  def invoice_status(status)
-    invoice_count_by_status[status]
-  end
->>>>>>> ab611814bedda2e9da9c31adbf5293821dc5fc9b
-
-
 end
