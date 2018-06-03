@@ -99,13 +99,13 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_equal ({"Sunday"=>708, "Monday"=>696, "Tuesday"=>692, "Wednesday"=>741, "Thursday"=>718, "Friday"=>701, "Saturday"=>729}), @sales_analyst.invoice_per_day_table
   # end
   #
-  # def test_it_can_check_if_an_invoice_is_paid_in_full
-  #   assert @sales_analyst.invoice_paid_in_full?(1)
-  #   assert @sales_analyst.invoice_paid_in_full?(200)
-  #   refute @sales_analyst.invoice_paid_in_full?(203)
-  #   refute @sales_analyst.invoice_paid_in_full?(204)
-  # end
-  #
+  def test_it_can_check_if_an_invoice_is_paid_in_full
+    assert @sales_analyst.invoice_paid_in_full?(1)
+    assert @sales_analyst.invoice_paid_in_full?(200)
+    refute @sales_analyst.invoice_paid_in_full?(203)
+    refute @sales_analyst.invoice_paid_in_full?(204)
+  end
+
   # def test_it_can_reuturn_invoices_total_price
   #   assert_equal 21067.77, @sales_analyst.invoice_total(1)
   #   assert_instance_of BigDecimal, @sales_analyst.invoice_total(1)
@@ -119,28 +119,28 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_return_top_revenue_earners
     top_earners = @sales_analyst.top_revenue_earners(10)
     assert_equal 10, top_earners.length
-    assert_equal 12334634, top_earners.first
+    assert_equal 12334634, top_earners.first.id
     assert_instance_of Merchant, top_earners.first
-    assert_equal 12335747, top_earners.last
+    assert_equal 12335747, top_earners.last.id
     assert_instance_of Merchant, top_earners.last
   end
 
-  # def test_top_revenue_earners_default_length_is_twenty
-  #   top_earners = @sales_analyst.top_revenue_earners
-  #   assert_equal 20, top_earners.length
-  #   assert_equal 12334634, top_earners.first
-  #   assert_instance_of Merchant, top_earners.first
-  #   assert_equal 12334159, top_earners.last
-  #   assert_instance_of Merchant, top_earners.last
-  # end
-  #
-  # def test_returns_merchants_ranked_by_total_revenue
-  #   ranked_merchants = @sales_analyst.merchants_ranked_by_revenue
-  #   assert_equal 12334634, merchants_ranked_by_revenue.first
-  #   assert_instance_of Merchant, merchants_ranked_by_revenue.first
-  #   assert_equal 12336175, merchants_ranked_by_revenue.last
-  #   assert_instance_of Merchant, merchants_ranked_by_revenue.last
-  # end
+  def test_top_revenue_earners_default_length_is_twenty
+    top_earners = @sales_analyst.top_revenue_earners
+    assert_equal 20, top_earners.length
+    assert_equal 12334634, top_earners.first.id
+    assert_instance_of Merchant, top_earners.first
+    assert_equal 12334159, top_earners.last.id
+    assert_instance_of Merchant, top_earners.last
+  end
+
+  def test_returns_merchants_ranked_by_total_revenue
+    ranked_merchants = @sales_analyst.merchants_ranked_by_revenue
+    assert_equal 12334634, ranked_merchants.first.id
+    assert_instance_of Merchant, ranked_merchants.first
+    assert_equal 12336175, ranked_merchants.last.id
+    assert_instance_of Merchant, ranked_merchants.last
+  end
   #
   # def test_returns_merchants_with_pending_invoices
   #   assert_equal 467, @sales_analyst.merchants_with_pending_invoices.length

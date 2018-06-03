@@ -42,10 +42,11 @@ class TransactionRepository
     end
   end
 
-  def result_table
-    all.map do |transaction|
-      [transaction.invoice_id, transaction.result]
-    end.to_h
-  end
+  # def result_table
+  #   all.map do |transaction|
+  #     [transaction.invoice_id, transaction.result]
+  #   end.to_h
+  # end
+
 
 end

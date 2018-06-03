@@ -13,7 +13,19 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @sales_engine.transactions.result_table[invoice_id] == :success
+    if invoice_result_table[invoice_id].nil?
+      return false
+    else
+      invoice_result_table[invoice_id].any? do |transaction|
+        transaction.result == :success
+      end
+    end 
+  end
+
+  def invoice_result_table
+    @sales_engine.transactions.all.group_by do |transaction|
+      transaction.invoice_id
+    end
   end
 
   def invoice_total(invoice)
@@ -213,9 +225,4 @@ class SalesAnalyst
     ((amount_of_invoices_matching_status.to_f / amount_of_invoices.to_f) * 100).round(2)
   end
 
-  def list_of_invoices_matching_status(desired_status)
-    @sales_engine.invoices.collection.values.find_all do |invoice|
-      invoice.status == desired_status
-    end
-  end
 end
