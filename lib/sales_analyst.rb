@@ -1,7 +1,6 @@
 require 'pry'
 
 class SalesAnalyst
-  # attr_reader :engine
 
   def initialize(engine)
     @engine = engine
@@ -10,6 +9,7 @@ class SalesAnalyst
     @invoices = @engine.invoices
     @transactions = @engine.transactions
     @invoice_items = @engine.invoice_items
+    @customers = @engine.customers
   end
 
   def average_items_per_merchant
@@ -209,17 +209,35 @@ class SalesAnalyst
       invoice_item.quantity * invoice_item.unit_price
     end.inject(:+)
   end
+
+  def invoices_per_customer(customer_id)
+    @invoices.all.find_all do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
+
+  def total_customer_spend
+    @customers.all.map do |customer|
+      spend = invoices_per_customer(customer.id).map do |invoice|
+      invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+    end
+    [customer, spend.compact.inject(:+)]
+    end
+  end
+
+  def sorted_customers_by_spend
+    x = total_customer_spend.sort_by do |customer, total_spent|
+      total_spent || 0
+    end.reverse
+  end
+
+  def top_buyers(x = 20)
+    golden_buyers = []
+    sorted = sorted_customers_by_spend
+    x.times do
+      golden_buyers << sorted.shift.shift
+    end
+    golden_buyers
+  end
+
 end
-
-# id, item_id,  invoice_id, quantity, unit_price,
-# 1   263519844   1             5        136.35
-# 2   263454779   1             9        233.24
-# 3   263451719   1             8        348.73
-# 4   263542298   1             3        21.96
-# 5   263515158   1             7        791.40
-# 6   263539664   1             5        521.00
-# 7   263563764   1             4        667.47
-# 8   263432817   1             6        769.41
-
-
-    # (5 * 136.35) + (9 * 233.24) + (8 * 348.73) + (3 * 21.96) + (7 * 791.40) + (5 * 521.00) + (4 * 667.47) + (6 * 769.41)

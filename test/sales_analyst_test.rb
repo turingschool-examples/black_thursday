@@ -9,7 +9,8 @@ class SalesAnalystTest < Minitest::Test
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv',
       :transactions => './data/transactions.csv',
-      :invoice_items => './data/invoice_items.csv'
+      :invoice_items => './data/invoice_items.csv',
+      :customers => './data/customers.csv'
     })
     @sales_analyst = @sales_engine.analyst
     @merchant_repository = @sales_engine.merchants
@@ -145,5 +146,37 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 21_067.77 , @sales_analyst.invoice_total(1)
   #   assert_instance_of BigDecimal, @sales_analyst.invoice_total(1)
   # end
+  #
+  # def test_it_can_find_all_invoices_per_customer_id
+  #   assert @sales_analyst.invoices_per_customer(4).all? do |element|
+  #     Customer == element.class && element.customer_id == 4
+  #   end
+  #   assert_instance_of Array, @sales_analyst.invoices_per_customer(4)
+  # end
+  #
+  # def test_it_can_find_total_spend_for_a_given_customer
+  #   assert @sales_analyst.total_customer_spend.all? do |element|
+  #     Customer == element[0].class
+  #   end
+  #   assert @sales_analyst.total_customer_spend.all? do |element|
+  #     BigDecimal == element[1].class
+  #   end
+  # end
 
+  # def test_it_can_sort_customers_from_highest_spending_to_lowest
+  #   first = @sales_analyst.sorted_customers_by_spend[0][1]
+  #   second = @sales_analyst.sorted_customers_by_spend[1][1]
+  #   assert first > second
+  #   actual = @sales_analyst.sorted_customers_by_spend[0][0].first_name
+  #     assert_equal 'Mazie', actual
+  # end
+
+  # def test_it_can_find_top_x_buyers
+  #   assert_equal 5, @sales_analyst.top_buyers(5).length
+  #   assert_equal 313, @sales_analyst.top_buyers(5).first.id
+  #   assert_equal 478, @sales_analyst.top_buyers(5).last.id
+  #   assert_equal 20, @sales_analyst.top_buyers.length
+  # end
+
+  
 end
