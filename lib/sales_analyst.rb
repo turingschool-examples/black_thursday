@@ -138,7 +138,7 @@ class SalesAnalyst
     @parent.invoices.all.group_by {|invoice| invoice.customer_id}
   end
 
-  def top_buyers(selected)
+  def top_buyers(selected = 20)
     new_hash = {}
     group_invoices_by_customer_id.each do |cust_id, invoices|
           new_hash[cust_id] = invoices.inject(0) {|sum, invoice| sum + invoice_total(invoice.id)}
@@ -146,5 +146,110 @@ class SalesAnalyst
     arr_of_arr = new_hash.sort_by {|cust_id, total| total }
     customer_ids = (arr_of_arr.map {|arr| arr[0]}).reverse.take(selected)
     customer_ids.map {|id| @parent.customers.find_by_id(id)}
+  end
+
+  def mode(array)
+    a = array.group_by {|num| num}
+    a.max_by {|key, value| value.count}.flatten.uniq[0]
+  end
+
+  def top_merchant_for_customer(customer_id)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoice_totals = invoices.map {|invoice| invoice_total(invoice.id)}
+    merchant_ids = invoices.map {|invoice| invoice.merchant_id}
+    merch_totals = {}
+    merchant_ids.each_with_index do |id, index|
+      if merch_totals[id] == nil
+        merch_totals[id] = invoice_totals[index]
+      else
+        merch_totals[id] += invoice_totals[index]
+      end
+    end
+    top_merch_id = merch_totals.max_by {|id, total| total}[0]
+    @parent.merchants.find_by_id(top_merch_id)
+  end
+
+  def one_time_customer_ids
+    invoices = @parent.invoices.all
+    merchant_ids = invoices.map {|invoice| invoice.merchant_id}
+    customer_ids = invoices.map {|invoice| invoice.customer_id}
+    customers_per_merch = {}
+    customer_ids.each_with_index do |cust_id, index|
+      if customers_per_merch[cust_id] == nil
+         customers_per_merch[cust_id] = [merchant_ids[index]]
+      else
+        customers_per_merch[cust_id] << merchant_ids[index]
+      end
+    end
+    customers_with_one_merch_id = customers_per_merch.find_all {|cust_id, merch_ids| merch_ids.length == 1}
+    customers_with_one_merch_id.map {|cust_per_merch| cust_per_merch[0]}
+  end
+
+  def one_time_buyers
+    one_time_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}
+  end
+
+  def one_time_buyers_top_item
+    one_time_invoices = one_time_customer_ids.map {|cust_id| @parent.invoices.find_all_by_customer_id(cust_id)}.flatten
+    paid_one_time_invoices = one_time_invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    invoice_items = paid_one_time_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+
+    quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+      hash[invoice_item.item_id] += invoice_item.quantity
+      hash
+    end
+    max_quantity_inv_item_id = quantity_per_item_id.max_by {|itm_id, quantity| quantity}[0]
+    @parent.items.find_by_id(max_quantity_inv_item_id)
+  end
+
+  def items_bought_in_year(customer_id, year)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoices_by_year = invoices.find_all {|invoice| invoice.created_at.year == year}
+    invoice_items_for_year = invoices_by_year.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    item_ids_for_year = invoice_items_for_year.map {|invoice_item| invoice_item.item_id}.uniq
+    item_ids_for_year.map {|item_id| @parent.items.find_by_id(item_id)}
+  end
+
+  def highest_volume_items(customer_id)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoice_items = invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+      hash[invoice_item.item_id] += invoice_item.quantity
+      hash
+    end
+    sorted_items = quantity_per_item_id.sort_by {|item_id, quantity| quantity}
+    highest_quantity = sorted_items[-1][1]
+    item_ids = quantity_per_item_id.to_a.find_all {|item_quantity_pair| item_quantity_pair[0] if item_quantity_pair[1] == highest_quantity}
+    item_ids.map {|item_id| @parent.items.find_by_id(item_id[0])}
+  end
+
+  def customers_with_unpaid_invoices
+    unpaid_invoices = @parent.invoices.all.find_all {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    unpaid_customer_ids = unpaid_invoices.map {|invoice| invoice.customer_id}
+    unpaid_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}.uniq
+  end
+
+  def best_invoice_by_revenue
+    invoices = @parent.invoices.all
+    paid_invoices = invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    invoice_items = paid_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    invoice_ids_and_totals = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+      hash[invoice_item.invoice_id] += (invoice_item.quantity * invoice_item.unit_price)
+      hash
+    end
+    best_invoice_id = invoice_ids_and_totals.max_by {|inv_id, total| total}[0]
+    @parent.invoices.find_by_id(best_invoice_id)
+  end
+
+  def best_invoice_by_quantity
+    invoices = @parent.invoices.all
+    paid_invoices = invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    invoice_items = paid_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
+    invoice_ids_and_totals = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+      hash[invoice_item.invoice_id] += invoice_item.quantity
+      hash
+    end
+    best_invoice_id = invoice_ids_and_totals.max_by {|inv_id, total| total}[0]
+    @parent.invoices.find_by_id(best_invoice_id)
   end
 end
