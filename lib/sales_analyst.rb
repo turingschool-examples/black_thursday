@@ -8,32 +8,33 @@ class SalesAnalyst
     @items = @engine.items
     @merchants = @engine.merchants
     @invoices = @engine.invoices
+    @transactions = @engine.transactions
   end
 
-  def average_items_per_merchant ###############################################
+  def average_items_per_merchant
     mean(item_count_for_each_merchant_id.values)
   end
 
-  def average_items_per_merchant_standard_deviation ############################
+  def average_items_per_merchant_standard_deviation
     standard_deviation(item_count_for_each_merchant_id.values)
   end
 
-  def merchants_with_high_item_count ###########################################
+  def merchants_with_high_item_count
     one_std_dev =
-      average_items_per_merchant + average_items_per_merchant_standard_deviation
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
     item_count_for_each_merchant_id.map do |merchant_id,item_count|
       @merchants.find_by_id(merchant_id) if item_count > one_std_dev
     end.compact
   end
 
-  def average_item_price_for_merchant(merchant_id) #############################
+  def average_item_price_for_merchant(merchant_id)
     prices = items_grouped_by_merchant_id[merchant_id].map do |item|
       item.unit_price
     end
     BigDecimal(mean(prices), 6)
   end
 
-  def average_average_price_per_merchant #######################################
+  def average_average_price_per_merchant
     avg_prices = items_grouped_by_merchant_id.map do |merchant_id, items|
       average_item_price_for_merchant(merchant_id)
     end
@@ -81,7 +82,7 @@ class SalesAnalyst
     standard_deviation(all_item_unit_prices)
   end
 
-  def golden_items #############################################################
+  def golden_items
     two_std_dev =
       average_item_unit_price + (average_item_unit_price_standard_deviation * 2)
     @items.all.map do |item|
@@ -99,11 +100,11 @@ class SalesAnalyst
     end
   end
 
-  def average_invoices_per_merchant ############################################
+  def average_invoices_per_merchant
     mean(invoice_count_for_each_merchant_id.values)
   end
 
-  def average_invoices_per_merchant_standard_deviation##########################
+  def average_invoices_per_merchant_standard_deviation
     standard_deviation(invoice_count_for_each_merchant_id.values)
   end
 
@@ -183,5 +184,16 @@ class SalesAnalyst
 
   def invoice_status(status)
     invoice_count_by_status[status]
+  end
+
+  def find_transaction_by_invoice_id(invoice_id)
+    @transactions.all.find do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    return false if find_transaction_by_invoice_id(invoice_id).nil?
+    find_transaction_by_invoice_id(invoice_id).result == :success
   end
 end
