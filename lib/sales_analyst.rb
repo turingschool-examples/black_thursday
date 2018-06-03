@@ -148,23 +148,29 @@ class SalesAnalyst
     customer_ids.map {|id| @parent.customers.find_by_id(id)}
   end
 
-  def mode(array)
-    a = array.group_by {|num| num}
-    a.max_by {|key, value| value.count}.flatten.uniq[0]
+  def invoice_totals_for_customer_id(customer_id)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoices.map {|invoice| invoice_total(invoice.id)}
+  end
+
+  def merchant_ids_for_customer(customer_id)
+    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
+    invoices.map {|invoice| invoice.merchant_id}
+  end
+
+  def merchant_totals_per_customer(invoice_totals, merchant_ids)
+    merch_totals = {}
+    merchant_ids.each_with_index do |id, index|
+      merch_totals[id] = invoice_totals[index] if merch_totals[id] == nil
+      merch_totals[id] += invoice_totals[index] if merch_totals[id] != nil
+    end
+    merch_totals
   end
 
   def top_merchant_for_customer(customer_id)
-    invoices = @parent.invoices.find_all_by_customer_id(customer_id)
-    invoice_totals = invoices.map {|invoice| invoice_total(invoice.id)}
-    merchant_ids = invoices.map {|invoice| invoice.merchant_id}
-    merch_totals = {}
-    merchant_ids.each_with_index do |id, index|
-      if merch_totals[id] == nil
-        merch_totals[id] = invoice_totals[index]
-      else
-        merch_totals[id] += invoice_totals[index]
-      end
-    end
+    invoice_totals = invoice_totals_for_customer_id(customer_id)
+    merchant_ids = merchant_ids_for_customer(customer_id)
+    merch_totals = merchant_totals_per_customer(invoice_totals, merchant_ids)
     top_merch_id = merch_totals.max_by {|id, total| total}[0]
     @parent.merchants.find_by_id(top_merch_id)
   end
