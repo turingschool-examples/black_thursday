@@ -1,6 +1,5 @@
 require_relative 'item'
-require 'pry'
-require 'time'
+
 class ItemRepository
   attr_reader :items
 

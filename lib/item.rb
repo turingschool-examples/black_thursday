@@ -1,7 +1,5 @@
-require 'bigdecimal'
 require 'bigdecimal/util'
-require 'pry'
-require 'time'
+
 class Item
   attr_accessor :name,
                 :description,
@@ -24,5 +22,4 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
-
 end

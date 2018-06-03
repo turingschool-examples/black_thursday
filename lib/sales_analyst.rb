@@ -470,7 +470,7 @@ class SalesAnalyst
 
   def items_bought_in_year(customer_id, year)
     invoice_items = invoice_items_per_customer(customer_id)
-    x = invoice_items.inject([]) do |items, invoice_item|
+    invoice_items.inject([]) do |items, invoice_item|
       if @parent.invoices.find_by_id(invoice_item.invoice_id).created_at.strftime('%Y') == year.to_s
         items << @parent.items.find_by_id(invoice_item.item_id)
         items

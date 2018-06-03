@@ -1,11 +1,11 @@
 class Transaction
-  attr_reader   :id,
-                :invoice_id,
-                :created_at
   attr_accessor :credit_card_number,
                 :credit_card_expiration_date,
                 :result,
                 :updated_at
+  attr_reader   :id,
+                :invoice_id,
+                :created_at
 
   def initialize(attributes)
     @id = attributes[:id].to_i
@@ -16,5 +16,4 @@ class Transaction
     @created_at = Time.parse(attributes[:created_at])
     @updated_at = Time.parse(attributes[:updated_at])
   end
-
 end
