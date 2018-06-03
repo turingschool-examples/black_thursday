@@ -1,8 +1,10 @@
 require_relative 'math_methods'
+require_relative 'merchant_analytics'
 require_relative 'day_of_the_week_table'
 
 class SalesAnalyst
   include MathMethods
+  include MerchantAnalytics
   include DayTable
   attr_reader :sales_engine
 

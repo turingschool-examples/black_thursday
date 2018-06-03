@@ -40,7 +40,7 @@ class InvoiceItemRepositoryTest < MiniTest::Test
     assert_instance_of InvoiceItem, @iir.find_all_by_item_id(263408101).first
   end
 
-  def test_it_returns_empty_array_if_item_id_is_nonexistan
+  def test_it_returns_empty_array_if_item_id_is_nonexistant
     assert_equal [], @iir.find_all_by_item_id(10)
     assert @iir.find_all_by_item_id(10).empty?
   end
