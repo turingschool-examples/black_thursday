@@ -14,14 +14,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of TransactionRepository, @tr
   end
 
-  def test_transaction_repo_holds_all_instances_of_transactions
+  def test_it_returns_an_array_of_all_known_transaction_instances
     assert_equal 4985, @tr.all.length
   end
 
-  def test_all_returns_array_of_all_transaction_objects
+  def test_all_returned_objects_in_array_are_transaction_objects
     transactions = @tr.all
     assert transactions.all? do |transaction|
       transaction.class == Transaction
     end
   end
-end
