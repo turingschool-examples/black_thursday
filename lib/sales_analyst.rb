@@ -450,6 +450,45 @@ class SalesAnalyst
   #   end
   # end
 
+  def invoice_items_per_customer(customer_id)
+    group_invoices_by_customer[customer_id].map do |invoice|
+      group_invoice_items_by_invoice[invoice.id]
+    end.flatten
+  end
+
+  def items_bought_in_year(customer_id, year)
+    invoice_items = invoice_items_per_customer(customer_id)
+    invoice_items.inject([]) do |items, invoice_item|
+      items << @parent.items.find_by_id(invoice_item.item_id)
+    end.uniq
+    binding.pry
+  end
+
+  def determine_quantity_sold_for_each_item(customer_id)
+    invoice_items_per_customer(customer_id).inject(Hash.new(0)) do |volume, invoice_item|
+      volume[invoice_item.item_id] += invoice_item.quantity
+      volume
+    end
+  end
+
+  def find_max_quantity_sold(quantity_sold_per_item)
+    quantity_sold_per_item.max_by do |item|
+      item[1]
+    end
+  end
+
+  def highest_volume_items(customer_id)
+    quantity_sold_per_item = determine_quantity_sold_for_each_item(customer_id)
+    max_quantity = find_max_quantity_sold(quantity_sold_per_item)
+    highest_volume = max_quantity[1]
+    best_sellers = quantity_sold_per_item.find_all do |item|
+      item[1] == highest_volume
+    end
+    best_sellers.map do |best_seller|
+      @parent.items.find_by_id(best_seller[0])
+    end
+  end
+
   def customers_with_unpaid_invoices
     group_invoices_by_customer.inject([]) do |unpaid_customers, customer|
       no_unpaid_invoices = customer[1].all? do |invoice|
