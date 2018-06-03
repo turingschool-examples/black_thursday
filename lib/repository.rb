@@ -11,4 +11,8 @@ module Repository
   def new_highest_id
     (all.max_by {|object| object.id}).id + 1
   end
+
+  def inspect
+   "#{self.class} #{all.size} rows"
+  end
 end

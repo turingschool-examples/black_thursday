@@ -1,6 +1,9 @@
+require_relative 'repository'
 require_relative 'invoice'
 
 class InvoiceRepository
+  include Repository
+
   def initialize(loaded_file)
     @invoice_repo = loaded_file.map { |invoice| Invoice.new(invoice)}
   end
@@ -47,7 +50,4 @@ class InvoiceRepository
     @invoice_repo.delete(invoice)
   end
 
-  def inspect
-   "#{self.class} #{@invoice_repo.size} rows"
-  end
 end

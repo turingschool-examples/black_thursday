@@ -1,7 +1,10 @@
+require_relative 'repository'
 require_relative 'merchant'
 require 'date'
 
 class MerchantRepository
+  include Repository
+
   attr_reader :merchant_repo,
               :parent
 
@@ -47,7 +50,4 @@ class MerchantRepository
     @merchant_repo.delete(merchant)
   end
 
-  def inspect
-   "#{self.class} #{@merchant_repo.size} rows"
-  end
 end

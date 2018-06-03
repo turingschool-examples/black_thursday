@@ -1,7 +1,10 @@
+require_relative 'repository'
 require_relative 'item'
 require 'time'
 
 class ItemRepository
+  include Repository
+
   attr_reader :item_repo,
               :parent
 
@@ -65,7 +68,4 @@ class ItemRepository
     @item_repo.delete(item)
   end
 
-  def inspect
-   "#{self.class} #{@item_repo.size} rows"
-  end
 end

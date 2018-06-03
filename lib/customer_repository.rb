@@ -38,7 +38,4 @@ class CustomerRepository
     @customer_repo.delete(customer)
   end
 
-  def inspect
-   "#{self.class} #{@customer_repo.size} rows"
-  end
 end

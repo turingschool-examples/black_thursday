@@ -39,7 +39,4 @@ class TransactionRepository
     @transaction_repo.delete(transaction)
   end
 
-  def inspect
-   "#{self.class} #{@transaction_repo.size} rows"
-  end
 end
