@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 require_relative 'customer'
 require_relative 'repository'
-
+# Responsible for holding and searching Customer instances.
 class CustomerRepository
   include Repository
-  # Responsible for holding and searching Customer instances.
-  attr_reader :customers
+  attr_reader   :customers
+  attr_accessor :first_name,
+                :last_name
 
   def initialize(customers)
     @customers = customers
@@ -19,7 +22,7 @@ class CustomerRepository
   end
 
   def create(attributes)
-    highest_id = @repository.max_by { |customer| customer.id }
+    highest_id = @repository.max_by(:id)
     attributes[:id] = highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s

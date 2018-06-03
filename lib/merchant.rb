@@ -1,5 +1,5 @@
+# create Merchant objects
 class Merchant
-  # create Merchant objects
   attr_reader   :id
   attr_accessor :name
 

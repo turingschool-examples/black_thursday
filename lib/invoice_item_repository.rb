@@ -1,9 +1,8 @@
 require_relative 'invoice_item'
 require_relative 'repository'
-
+# Responsible for holding and searching InvoiceItem instances.
 class InvoiceItemRepository
   include Repository
-  # Responsible for holding and searching InvoiceItem instances.
   attr_reader :invoice_items
 
   def initialize(invoice_items)

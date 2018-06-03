@@ -1,9 +1,8 @@
 require_relative 'merchant'
 require_relative 'repository'
-
+# Responsible for holding and searching Merchant instances.
 class MerchantRepository
   include Repository
-  # Responsible for holding and searching Merchant instances.
   attr_reader :merchants
 
   def initialize(merchants)
