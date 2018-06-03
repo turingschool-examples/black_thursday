@@ -12,6 +12,11 @@ module Repository
     (all.max_by {|object| object.id}).id + 1
   end
 
+  def delete(id)
+    object = find_by_id(id)
+    @repository.delete(object)
+  end
+
   def inspect
    "#{self.class} #{all.size} rows"
   end

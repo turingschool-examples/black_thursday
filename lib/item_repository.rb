@@ -58,10 +58,4 @@ class ItemRepository
     item.new_update_time(Time.now.utc) if attributes.length > 0
   end
 
-  def delete(id)
-    item = find_by_id(id)
-    return item if item == nil
-    @repository.delete(item)
-  end
-
 end

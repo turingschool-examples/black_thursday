@@ -34,9 +34,4 @@ class TransactionRepository
     transaction.new_update_time(Time.now.utc) if attributes.length > 0
   end
 
-  def delete(id)
-    transaction = find_by_id(id)
-    @repository.delete(transaction)
-  end
-
 end

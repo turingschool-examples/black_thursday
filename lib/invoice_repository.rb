@@ -45,9 +45,4 @@ class InvoiceRepository
     invoice.update_time(Time.now) if attributes.length > 0
   end
 
-  def delete(id)
-    invoice = find_by_id(id)
-    @repository.delete(invoice)
-  end
-
 end

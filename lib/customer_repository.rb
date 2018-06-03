@@ -33,9 +33,4 @@ class CustomerRepository
     customer.new_update_time(Time.now.utc) if attributes.length > 0
   end
 
-  def delete(id)
-    customer = find_by_id(id)
-    @repository.delete(customer)
-  end
-
 end
