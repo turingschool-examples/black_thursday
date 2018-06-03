@@ -38,15 +38,8 @@ class ItemRepository
   end
 
   def create(attributes)
-    highest = all.max_by {|item| item.id.to_i }
-    item = {name: attributes[:name],
-            description: attributes[:description],
-            unit_price: (attributes[:unit_price]*100),
-            id: (highest.id + 1),
-            created_at: attributes[:created_at],
-            updated_at: attributes[:updated_at],
-            merchant_id: attributes[:merchant_id]}
-    @repository.push(Item.new(item))
+    attributes[:id] = new_highest_id
+    @repository.push(Item.new(attributes))
   end
 
   def update(id, attributes)

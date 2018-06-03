@@ -29,14 +29,8 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    highest = all.max_by {|invoice| invoice.id}
-    invoice =  {id: (highest.id + 1),
-                customer_id: attributes[:customer_id],
-                merchant_id: attributes[:merchant_id],
-                status: attributes[:status].to_sym,
-                created_at: Time.now,
-                updated_at: Time.now}
-    @repository.push(Invoice.new(invoice))
+    attributes[:id] = new_highest_id        
+    @repository.push(Invoice.new(attributes))
   end
 
   def update(id, attributes)

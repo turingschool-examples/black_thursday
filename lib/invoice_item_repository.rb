@@ -25,9 +25,8 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    highest = all.max_by {|inv_itm| inv_itm.id}
-    attributes[:id] = (highest.id + 1)
-    @repository << InvoiceItem.new(attributes)
+    attributes[:id] = new_highest_id
+    @repository.push(InvoiceItem.new(attributes))
   end
 
   def update(id, attributes)

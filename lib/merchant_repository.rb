@@ -28,13 +28,10 @@ class MerchantRepository
   end
 
   def create(attributes)
-    name = attributes[:name]
-    highest = all.max_by {|merchant| merchant.id.to_i}
-    merchant = {name: name,
-                id: (highest.id + 1),
-                created_at: Date.today,
-                updated_at: Date.today}
-    @repository.push(Merchant.new(merchant))
+    attributes[:id] = new_highest_id
+    attributes[:created_at] = Time.now.utc
+    attributes[:updated_at] = Time.now.utc
+    @repository.push(Merchant.new(attributes))
   end
 
   def update(id_num, attributes)
