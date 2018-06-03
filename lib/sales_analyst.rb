@@ -195,8 +195,8 @@ class SalesAnalyst
     invoice_items = paid_one_time_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
 
     quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
-        hash[invoice_item.item_id] += invoice_item.quantity
-        hash
+      hash[invoice_item.item_id] += invoice_item.quantity
+      hash
     end
     max_quantity_inv_item_id = quantity_per_item_id.max_by {|itm_id, quantity| quantity}[0]
     @parent.items.find_by_id(max_quantity_inv_item_id)
@@ -221,5 +221,11 @@ class SalesAnalyst
     highest_quantity = sorted_items[-1][1]
     item_ids = quantity_per_item_id.to_a.find_all {|item_quantity_pair| item_quantity_pair[0] if item_quantity_pair[1] == highest_quantity}
     item_ids.map {|item_id| @parent.items.find_by_id(item_id[0])}
+  end
+
+  def customers_with_unpaid_invoices
+    unpaid_invoices = @parent.invoices.all.find_all {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    unpaid_customer_ids = unpaid_invoices.map {|invoice| invoice.customer_id}
+    unpaid_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}.uniq
   end
 end

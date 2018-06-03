@@ -186,4 +186,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Item, items.first.class
   end
 
+  def test_customers_with_unpaid_invoices_returns_customers_with_unpaid_invoices
+    customers = @sa.customers_with_unpaid_invoices
+
+    assert_equal 786, customers.length
+    assert_equal 1, customers.first.id
+    assert_equal 999, customers.last.id
+    assert_equal Customer, customers.first.class
+  end
 end
