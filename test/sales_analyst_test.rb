@@ -14,70 +14,112 @@ class SalesAnalystTest < Minitest::Test
     @item_repository = @sales_engine.items
   end
 
-  def test_it_exists
-    assert_instance_of SalesAnalyst, @sales_analyst
+  # def test_it_exists
+  #   assert_instance_of SalesAnalyst, @sales_analyst
+  # end
+  #
+  # def test_mean_calculation
+  #   assert_equal 5.25, @sales_analyst.mean([4, 6, 5, 6])
+  # end
+  #
+  # def test_summed_variance_calculation
+  #   assert_equal 5.0, @sales_analyst.summed_variance([4, 5, 6, 7])
+  # end
+  #
+  # def test_standard_deviation_calculation
+  #   assert_equal 2.3, @sales_analyst.standard_deviation([4, 5, 6, 7, 10])
+  # end
+  #
+  # def test_average_items_per_merchant
+  #   assert_equal 2.88, @sales_analyst.average_items_per_merchant
+  # end
+  #
+  # def test_average_items_per_merchant_standard_deviation
+  #   actual = @sales_analyst.average_items_per_merchant_standard_deviation
+  #   assert_equal 3.26, actual
+  # end
+  #
+  # def test_it_can_return_all_item_unit_prices
+  #   assert_instance_of Array, @sales_analyst.all_item_unit_prices
+  #   assert_equal 1367, @sales_analyst.all_item_unit_prices.count
+  # end
+  #
+  # def test_merchants_with_high_item_count
+  #   assert @sales_analyst.merchants_with_high_item_count.all? do |element|
+  #     Merchant == element.class
+  #   end
+  #   assert_equal 52, @sales_analyst.merchants_with_high_item_count.count
+  # end
+  #
+  # def test_calculates_average_item_price_for_merchant
+  #   actual = @sales_analyst.average_item_price_for_merchant(12334783)
+  #   assert_equal BigDecimal(47.5, 3), actual
+  # end
+  #
+  # def test_calculate_average_average_item_price_for_merchant
+  #   actual = @sales_analyst.average_average_price_per_merchant
+  #   assert_equal 350.29, actual
+  # end
+  #
+  # def test_it_can_find_all_golden_items
+  #   assert @sales_analyst.golden_items.all? do |element|
+  #     Item == element.class
+  #   end
+  #   assert_equal 5, @sales_analyst.golden_items.count
+  # end
+  #
+  # def test_it_can_calculate_average_invoices_per_merchant
+  #   assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
+  # end
+  #
+  # def test_average_invoices_per_merchant_standard_deviation
+  #   actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
+  #   assert_equal 3.29, actual
+  # end
+  #
+  # def test_it_can_determine_top_merchants_by_invoice_count
+  #   assert @sales_analyst.top_merchants_by_invoice_count.all? do |element|
+  #     Merchant == element.class
+  #   end
+  #   assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.count
+  # end
+  #
+  # def test_it_can_determine_top_merchants_by_invoice_count
+  #   assert @sales_analyst.bottom_merchants_by_invoice_count.all? do |element|
+  #     Merchant == element.class
+  #   end
+  #   assert_equal 463, @sales_analyst.bottom_merchants_by_invoice_count.count
+  # end
+
+  # def test_it_can_group_by_day
+  #   assert_equal 7, @sales_analyst.invoices_grouped_by_day.keys.count
+  # end
+  #
+  # def test_invoice_count_by_weekday
+  #   assert_equal 7, @sales_analyst.invoice_count_by_weekday.keys.count
+  # end
+  #
+  # def test_average_invoice_count_per_weekday
+  #   assert_equal 712.14, @sales_analyst.average_invoice_count_per_weekday
+  # end
+  #
+  # def test_average_invoice_count_per_weekday_standard_deviation
+  #   assert_equal 18.07, @sales_analyst.average_invoice_count_per_weekday_standard_deviation
+  # end
+  #
+  # def test_top_days_by_invoice_count
+  #   assert_equal ['Wednesday'], @sales_analyst.top_days_by_invoice_count
+  # end
+
+  def test_invoice_count_by_status
+    expected = {:pending=>29.55, :shipped=>56.95, :returned=>13.5}
+    assert_equal expected, @sales_analyst.invoice_count_by_status
   end
 
-  def test_average_items_per_merchant
-    assert_equal 2.88, @sales_analyst.average_items_per_merchant
+  def test_invoice_status
+    assert_equal 29.55, @sales_analyst.invoice_status(:pending)
+    assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
+    assert_equal 13.5, @sales_analyst.invoice_status(:returned)
+
   end
-
-  def test_average_items_per_merchant_standard_deviation
-    actual = @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_equal 3.26, actual
-  end
-
-  def test_group_items_by_merchant_id
-    expected = @merchant_repository.all.count
-    actual = @sales_analyst.items_by_merchant_id.keys.count
-    assert_equal expected, actual
-
-    assert @sales_analyst.items_by_merchant_id.values[0].all? do |item|
-      @sales_analyst.items_by_merchant_id.keys[0] == @sales_analyst.items_by_merchant_id.values[0].merchant_id
-    end
-  end
-
-  def test_merchants_with_high_item_count
-    actual = @sales_analyst.merchants_with_high_item_count[0]
-    assert_instance_of Merchant, actual
-    assert_equal 52, @sales_analyst.merchants_with_high_item_count.count
-  end
-
-  def test_find_all_items_for_a_merchant_id
-    merchant_id = 12334783
-    actual = @sales_analyst.average_item_price_for_merchant(merchant_id)
-    assert_equal BigDecimal(47.5, 3), actual
-  end
-
-  def test_find_all_items_for_a_merchant_id
-    merchant_id = 12334783
-    actual = @sales_analyst.average_item_price_for_merchant(merchant_id)
-    assert_equal BigDecimal(47.5, 3), actual
-  end
-
-  def test_it_can_return_all_item_unit_prices
-    assert_instance_of Array, @sales_analyst.all_item_unit_prices
-    assert_equal 1367, @sales_analyst.all_item_unit_prices.count
-  end
-
-  def test_it_can_find_the_average_unit_price
-    assert_equal 251.06, @sales_analyst.average_item_unit_price.to_f
-  end
-
-  def test_it_can_calculate_the_item_unit_price_variance
-    assert_equal 1367, @sales_analyst.price_variance.count
-  end
-
-  def test_it_can_sum_all_price_variances
-    assert_equal 2900.99, @sales_analyst.unit_price_std_dev
-  end
-
-  def test_it_can_find_all_golden_items
-    assert_equal 5, @sales_analyst.golden_items.count
-  end
-
-  def test_it_can_find_average_invoices_per_merchant
-    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
-  end
-
 end
