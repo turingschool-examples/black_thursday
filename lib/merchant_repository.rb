@@ -1,21 +1,14 @@
+require_relative 'repository'
 require_relative 'merchant'
 require 'date'
 
 class MerchantRepository
-  attr_reader :merchant_repo,
-              :parent
+  include Repository
 
-  def initialize(loaded_file, parent)
-    @merchant_repo = loaded_file.map { |merchant| Merchant.new(merchant, self)}
-    @parent = parent
-  end
+  attr_reader :repository
 
-  def all
-    @merchant_repo
-  end
-
-  def find_by_id(id)
-    all.find {|merchant| merchant.id == id}
+  def initialize(loaded_file)
+    @repository = loaded_file.map { |merchant| Merchant.new(merchant)}
   end
 
   def find_by_name(name)
@@ -27,13 +20,10 @@ class MerchantRepository
   end
 
   def create(attributes)
-    name = attributes[:name]
-    highest = all.max_by {|merchant| merchant.id.to_i}
-    merchant = {name: name,
-                id: (highest.id + 1),
-                created_at: Date.today,
-                updated_at: Date.today}
-    @merchant_repo.push(Merchant.new(merchant, self))
+    attributes[:id] = new_highest_id
+    attributes[:created_at] = Time.now.utc
+    attributes[:updated_at] = Time.now.utc
+    @repository.push(Merchant.new(attributes))
   end
 
   def update(id_num, attributes)
@@ -42,12 +32,4 @@ class MerchantRepository
     merchant.update_name(attributes[:name]) if attributes[:name] != nil
   end
 
-  def delete(id)
-    merchant = find_by_id(id)
-    @merchant_repo.delete(merchant)
-  end
-
-  def inspect
-   "#{self.class} #{@merchant_repo.size} rows"
-  end
 end

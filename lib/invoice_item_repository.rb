@@ -1,16 +1,11 @@
+require_relative 'repository'
 require_relative 'invoice_item'
 
 class InvoiceItemRepository
+  include Repository
+
   def initialize(loaded_file)
     @repository = loaded_file.map {|inv_itm| InvoiceItem.new(inv_itm)}
-  end
-
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    all.find {|inv_itm| id == inv_itm.id}
   end
 
   def find_all_by_item_id(item_id)
@@ -22,9 +17,8 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    highest = all.max_by {|inv_itm| inv_itm.id}
-    attributes[:id] = (highest.id + 1)
-    @repository << InvoiceItem.new(attributes)
+    attributes[:id] = new_highest_id
+    @repository.push(InvoiceItem.new(attributes))
   end
 
   def update(id, attributes)
@@ -35,12 +29,4 @@ class InvoiceItemRepository
     invoice_item.new_update_time(Time.now.utc) if attributes.count > 0
   end
 
-  def delete(id)
-    invoice_item = find_by_id(id)
-    @repository.delete(invoice_item)
-  end
-
-  def inspect
-   "#{self.class} #{@repository.size} rows"
-  end
 end

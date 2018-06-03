@@ -5,11 +5,7 @@ class TransactionRepository
   include Repository
 
   def initialize(loaded_file)
-    @transaction_repo = loaded_file.map { |transaction| Transaction.new(transaction)}
-  end
-
-  def all
-    @transaction_repo
+    @repository = loaded_file.map { |transaction| Transaction.new(transaction)}
   end
 
   def find_all_by_credit_card_number(card_num)
@@ -22,7 +18,7 @@ class TransactionRepository
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @transaction_repo.push(Transaction.new(attributes))
+    @repository.push(Transaction.new(attributes))
   end
 
   def update(id, attributes)
@@ -34,12 +30,4 @@ class TransactionRepository
     transaction.new_update_time(Time.now.utc) if attributes.length > 0
   end
 
-  def delete(id)
-    transaction = find_by_id(id)
-    @transaction_repo.delete(transaction)
-  end
-
-  def inspect
-   "#{self.class} #{@transaction_repo.size} rows"
-  end
 end

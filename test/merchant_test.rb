@@ -1,10 +1,6 @@
 require_relative 'test_helper'
 require './lib/merchant'
 
-class MockMerchantRepository
-
-end
-
 class MerchantTest < Minitest::Test
 
   MERCHANT_DATA = {id: "12334105",
@@ -14,19 +10,16 @@ class MerchantTest < Minitest::Test
                   }
 
   def test_it_exists
-    merchant = Merchant.new(MERCHANT_DATA, MockMerchantRepository.new)
-
+    merchant = Merchant.new(MERCHANT_DATA)
     assert_instance_of Merchant, merchant
   end
 
   def test_it_has_attributes
-    mock_parent = MockMerchantRepository.new
-    merchant = Merchant.new(MERCHANT_DATA, mock_parent)
+    merchant = Merchant.new(MERCHANT_DATA)
 
     assert_equal 12334105, merchant.id
     assert_equal "Shopin1901", merchant.name
     assert_instance_of Time, merchant.created_at
     assert_instance_of Time, merchant.updated_at
-    assert_equal mock_parent, merchant.parent
   end
 end

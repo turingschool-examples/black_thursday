@@ -19,11 +19,11 @@ class SalesEngine
   end
 
   def merchants
-    @merchants ||= MerchantRepository.new(load_file(file_paths[:merchants]), self)
+    @merchants ||= MerchantRepository.new(load_file(file_paths[:merchants]))
   end
 
   def items
-    @items ||= ItemRepository.new(load_file(file_paths[:items]), self)
+    @items ||= ItemRepository.new(load_file(file_paths[:items]))
   end
 
   def analyst
