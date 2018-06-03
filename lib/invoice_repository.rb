@@ -7,21 +7,6 @@ class InvoiceRepository
     @invoices = []
   end
 
-  def create(attributes)
-    if attributes[:id].nil?
-      id = @invoices[-1].id + 1
-    else
-      id = attributes[:id]
-    end
-    new_invoice = Invoice.new({id: id, customer_id: attributes[:customer_id],
-                      merchant_id: attributes[:merchant_id],
-                      status: attributes[:status],
-                      created_at: attributes[:created_at].to_s,
-                      updated_at: attributes[:updated_at].to_s})
-    @invoices << new_invoice
-    return new_invoice
-  end
-
   def all
     @invoices
   end
@@ -50,6 +35,22 @@ class InvoiceRepository
     end
   end
 
+  def create(attributes)
+    if attributes[:id].nil?
+      id = @invoices[-1].id + 1
+    else
+      id = attributes[:id]
+    end
+    new_invoice = Invoice.new(id: id,
+                              customer_id: attributes[:customer_id],
+                              merchant_id: attributes[:merchant_id],
+                              status: attributes[:status],
+                              created_at: attributes[:created_at].to_s,
+                              updated_at: attributes[:updated_at].to_s)
+    @invoices << new_invoice
+    return new_invoice
+  end
+
   def update(id, attributes)
     if find_by_id(id).nil?
       return
@@ -68,5 +69,4 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
-
 end

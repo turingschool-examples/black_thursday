@@ -7,25 +7,6 @@ class ItemRepository
     @items = []
   end
 
-
-  def create(attributes)
-    if attributes[:id].nil?
-      id = @items[-1].id + 1
-    else
-      id = attributes[:id]
-    end
-    new_item = Item.new({id: id, name: attributes[:name],
-                                  description: attributes[:description],
-                                  unit_price: attributes[:unit_price],
-                                  created_at: attributes[:created_at].to_s,
-                                  updated_at: attributes[:updated_at].to_s,
-                                  merchant_id: attributes[:merchant_id]})
-    @items << new_item
-
-
-    return new_item
-  end
-
   def all
     @items
   end
@@ -67,6 +48,23 @@ class ItemRepository
     end
   end
 
+  def create(attributes)
+    if attributes[:id].nil?
+      id = @items[-1].id + 1
+    else
+      id = attributes[:id]
+    end
+    new_item = Item.new(id: id,
+                        name: attributes[:name],
+                        description: attributes[:description],
+                        unit_price: attributes[:unit_price],
+                        created_at: attributes[:created_at].to_s,
+                        updated_at: attributes[:updated_at].to_s,
+                        merchant_id: attributes[:merchant_id])
+    @items << new_item
+    return new_item
+  end
+
   def update(id, attributes)
     if find_by_id(id).nil?
       return
@@ -77,7 +75,6 @@ class ItemRepository
     updated_item.description ||= attributes[:description]
     updated_item.unit_price = attributes[:unit_price]
     updated_item.updated_at = Time.now
-
   end
 
   def delete(id)

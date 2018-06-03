@@ -1,21 +1,10 @@
 require_relative 'merchant'
-require 'pry'
+
 class MerchantRepository
   attr_reader :merchants
 
   def initialize
     @merchants = []
-  end
-
-  def create(attributes)
-    if attributes[:id].nil?
-      id = @merchants[-1].id + 1
-    else
-      id = attributes[:id]
-    end
-    new_merchant = Merchant.new({id: id, name: attributes[:name], created_at: attributes[:created_at], updated_at: attributes[:updated_at]})
-    @merchants << new_merchant
-    return new_merchant
   end
 
   def all
@@ -38,6 +27,20 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def create(attributes)
+    if attributes[:id].nil?
+      id = @merchants[-1].id + 1
+    else
+      id = attributes[:id]
+    end
+    new_merchant = Merchant.new(id: id,
+                                name: attributes[:name],
+                                created_at: attributes[:created_at],
+                                updated_at: attributes[:updated_at])
+    @merchants << new_merchant
+    return new_merchant
   end
 
   def update(id, attributes)

@@ -1,4 +1,5 @@
 require_relative 'invoice_item'
+
 class InvoiceItemRepository
   attr_reader :invoice_items
 
@@ -34,16 +35,16 @@ class InvoiceItemRepository
     else
       id = attributes[:id]
     end
-    new_invoice_item = InvoiceItem.new({id: id, item_id: attributes[:item_id],
-                      invoice_id: attributes[:invoice_id],
-                      quantity: attributes[:quantity],
-                      unit_price: attributes[:unit_price],
-                      created_at: attributes[:created_at].to_s,
-                      updated_at: attributes[:updated_at].to_s})
+    new_invoice_item = InvoiceItem.new(id: id,
+                                       item_id: attributes[:item_id],
+                                       invoice_id: attributes[:invoice_id],
+                                       quantity: attributes[:quantity],
+                                       unit_price: attributes[:unit_price],
+                                       created_at: attributes[:created_at].to_s,
+                                       updated_at: attributes[:updated_at].to_s)
     @invoice_items << new_invoice_item
     return new_invoice_item
   end
-
 
   def update(id, attributes)
     if find_by_id(id).nil?
@@ -55,7 +56,6 @@ class InvoiceItemRepository
     updated_invoice_item.unit_price = attributes[:unit_price]
     updated_invoice_item.updated_at = Time.now
   end
-
 
   def delete(id)
     deleted_invoice_item = find_by_id(id)

@@ -1,4 +1,5 @@
 require_relative 'customer'
+
 class CustomerRepository
 
   def initialize
@@ -33,11 +34,11 @@ class CustomerRepository
     else
       id = attributes[:id]
     end
-    new_customer = Customer.new({id: id,
-                      first_name: attributes[:first_name],
-                      last_name: attributes[:last_name],
-                      created_at: attributes[:created_at].to_s,
-                      updated_at: attributes[:updated_at].to_s})
+    new_customer = Customer.new(id: id,
+                                first_name: attributes[:first_name],
+                                last_name: attributes[:last_name],
+                                created_at: attributes[:created_at].to_s,
+                                updated_at: attributes[:updated_at].to_s)
     @customers << new_customer
     return new_customer
   end

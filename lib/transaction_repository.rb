@@ -1,27 +1,10 @@
 require_relative 'transaction'
-require 'pry'
-class TransactionRepository
 
+class TransactionRepository
   attr_reader :transactions
 
   def initialize
     @transactions = []
-  end
-
-  def create(attributes)
-    if attributes[:id].nil?
-      id = @transactions[-1].id + 1
-    else
-      id = attributes[:id]
-    end
-    new_transaction = Transaction.new({id: id, invoice_id: attributes[:invoice_id],
-                      credit_card_number: attributes[:credit_card_number],
-                      credit_card_expiration_date: attributes[:credit_card_expiration_date],
-                      result: attributes[:result],
-                      created_at: attributes[:created_at].to_s,
-                      updated_at: attributes[:updated_at].to_s})
-    @transactions << new_transaction
-    return new_transaction
   end
 
   def all
@@ -50,6 +33,23 @@ class TransactionRepository
     @transactions.find_all do |transaction|
       transaction.result == result
     end
+  end
+
+  def create(attributes)
+    if attributes[:id].nil?
+      id = @transactions[-1].id + 1
+    else
+      id = attributes[:id]
+    end
+    new_transaction = Transaction.new(id: id,
+                                      invoice_id: attributes[:invoice_id],
+                                      credit_card_number: attributes[:credit_card_number],
+                                      credit_card_expiration_date: attributes[:credit_card_expiration_date],
+                                      result: attributes[:result],
+                                      created_at: attributes[:created_at].to_s,
+                                      updated_at: attributes[:updated_at].to_s)
+    @transactions << new_transaction
+    return new_transaction
   end
 
   def update(id, attributes)
