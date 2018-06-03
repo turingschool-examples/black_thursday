@@ -225,4 +225,47 @@ class SalesAnalyst
       sum += num
     end
   end
+
+  def top_buyers(num = 20)
+    invoices_by_customer = @invoices.all.group_by do |invoice|
+      invoice.customer_id
+    end
+    # paid_invoices_by_customer = invoices_by_customer.each do |customer, invoice_array|
+    #   invoice_array.select do |invoice|
+    #     invoice_paid_in_full?(invoice.id)
+    #   end
+    # end
+    totals_by_customer = invoices_by_customer.reduce({}) do |collector, (customer, paid_invoice_array)|
+      collector[customer] = paid_invoice_array.map do |invoice|
+        invoice_total(invoice.id)
+      end
+      collector
+    end.reduce({}) do |collector, (customer, total_array)|
+      collector[customer] = total_array.reduce(0) do |sum, total|
+        sum += total
+      end
+      collector
+    end
+    customer_ids_in_order = totals_by_customer.sort_by do |id, value|
+      value
+    end
+    p customer_ids_in_order
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

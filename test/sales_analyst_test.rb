@@ -100,7 +100,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_paid_in_full?
-    assert_equal true, @sa.invoice_paid_in_full?(750)
+    assert_equal true, @sa.invoice_paid_in_full?(1)
+    assert_equal false, @sa.invoice_paid_in_full?(203)
+    assert_equal false, @sa.invoice_paid_in_full?(204)
   end
 
   def test_invoice_total
@@ -109,4 +111,28 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, @sa.invoice_total(1)
     assert_equal BigDecimal, @sa.invoice_total(1).class
   end
+
+  def test_top_buyers
+    actual = @sa.top_buyers(5)
+
+    assert_equal 5, actual.length
+    assert_equal 313, actual.first.id
+    assert_equal 478, actual.last.id
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
