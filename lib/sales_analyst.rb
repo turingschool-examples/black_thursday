@@ -1,9 +1,3 @@
-require_relative 'merchant_repository'
-require_relative 'item'
-require_relative 'sales_engine'
-require 'bigdecimal'
-require 'time'
-require 'pry'
 class SalesAnalyst
 
   def initialize(parent)
@@ -11,7 +5,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    BigDecimal.new(@parent.items.all.length.to_f / @parent.merchants.all.length.to_f, 3).to_f
+    BigDecimal(@parent.items.all.length.to_f / @parent.merchants.all.length.to_f, 3).to_f
   end
 
   def group_items_by_merchant
@@ -29,7 +23,7 @@ class SalesAnalyst
     end
     quotient = sum_of_squared_differences / (@parent.merchants.all.length - 1)
     standard_deviation_long = Math.sqrt(quotient)
-    return BigDecimal.new(standard_deviation_long, 3).to_f
+    return BigDecimal(standard_deviation_long, 3).to_f
   end
 
   def merchants_with_high_item_count
@@ -50,26 +44,27 @@ class SalesAnalyst
       sum
     end
     average_long = sum_of_item_prices / items_by_merchant[id].length
-    return BigDecimal.new(average_long).round(2)
+    return BigDecimal(average_long).round(2)
   end
 
   def average_average_price_per_merchant
     sum_of_averages = group_items_by_merchant.inject(0) do |sum, merchant|
       sum += average_item_price_for_merchant(merchant[0])
+      sum
     end
     average_average_price = sum_of_averages / @parent.merchants.all.length
-    return BigDecimal.new(average_average_price).round(2)
+    return BigDecimal(average_average_price).round(2)
   end
 
   def item_price_standard_deviation(average_item_price)
     sum_of_squared_differences = @parent.items.all.inject(0) do |sum, item|
       difference = item.unit_price - average_item_price
-      sum += (difference ** 2)
+      sum += (difference**2)
       sum
     end
     quotient = sum_of_squared_differences / (@parent.items.all.length - 1)
     standard_deviation_long = Math.sqrt(quotient)
-    return BigDecimal.new(standard_deviation_long, 4)
+    return BigDecimal(standard_deviation_long, 4)
   end
 
   def golden_items
@@ -82,7 +77,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    BigDecimal.new(@parent.invoices.all.length.to_f / @parent.merchants.all.length.to_f, 4).to_f
+    BigDecimal(@parent.invoices.all.length.to_f / @parent.merchants.all.length.to_f, 4).to_f
   end
 
   def group_invoices_by_merchant
@@ -100,7 +95,7 @@ class SalesAnalyst
     end
     quotient = sum_of_squared_differences / (@parent.merchants.all.length - 1)
     standard_deviation_long = Math.sqrt(quotient)
-    return BigDecimal.new(standard_deviation_long, 3).to_f
+    return BigDecimal(standard_deviation_long, 3).to_f
   end
 
   def top_merchants_by_invoice_count
@@ -140,12 +135,12 @@ class SalesAnalyst
     invoices_by_day = group_by_day
     sum_of_squared_differences = invoices_by_day.inject(0) do |sum, day|
       difference = day[1].length - average_invoices
-      sum += (difference ** 2)
+      sum += (difference**2)
       sum
     end
     quotient = sum_of_squared_differences / 6
     standard_deviation_long = Math.sqrt(quotient)
-    return BigDecimal.new(standard_deviation_long, 3).to_f
+    return BigDecimal(standard_deviation_long, 3).to_f
   end
 
   def top_days_by_invoice_count
@@ -327,7 +322,7 @@ class SalesAnalyst
     best_sellers = quantities.find_all do |item|
       item[1] == max_quantity
     end
-    x = best_sellers.map do |item|
+    best_sellers.map do |item|
       @parent.items.find_by_id(item[0])
     end
   end
@@ -408,6 +403,7 @@ class SalesAnalyst
     @parent.invoice_items.find_all_by_invoice_id(invoice_id).inject(0) do |total, invoice_item|
       if invoice_paid_in_full?(invoice_item.invoice_id)
         total += invoice_item.quantity
+        total
       else
         total
       end

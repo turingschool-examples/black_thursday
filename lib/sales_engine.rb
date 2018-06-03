@@ -5,6 +5,9 @@ require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
 require_relative 'customer_repository'
 require_relative 'sales_analyst'
+require 'bigdecimal'
+require 'bigdecimal/util'
+require 'time'
 require 'csv'
 
 class SalesEngine

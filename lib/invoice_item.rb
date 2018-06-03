@@ -1,5 +1,3 @@
-require 'bigdecimal/util'
-
 class InvoiceItem
   attr_accessor :quantity,
                 :unit_price,

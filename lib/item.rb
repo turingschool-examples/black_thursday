@@ -1,5 +1,3 @@
-require 'bigdecimal/util'
-
 class Item
   attr_accessor :name,
                 :description,
