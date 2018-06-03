@@ -8,14 +8,6 @@ class InvoiceRepository
     @repository = loaded_file.map { |invoice| Invoice.new(invoice)}
   end
 
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    all.find {|invoice| invoice.id == id}
-  end
-
   def find_all_by_customer_id(customer_id)
     all.find_all {|invoice| invoice.customer_id == customer_id}
   end
@@ -29,7 +21,7 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    attributes[:id] = new_highest_id        
+    attributes[:id] = new_highest_id
     @repository.push(Invoice.new(attributes))
   end
 

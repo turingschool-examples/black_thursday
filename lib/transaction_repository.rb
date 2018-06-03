@@ -8,10 +8,6 @@ class TransactionRepository
     @repository = loaded_file.map { |transaction| Transaction.new(transaction)}
   end
 
-  def all
-    @repository
-  end
-
   def find_all_by_credit_card_number(card_num)
     all.find_all {|transaction| card_num == transaction.credit_card_number}
   end

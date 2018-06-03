@@ -11,14 +11,6 @@ class MerchantRepository
     @repository = loaded_file.map { |merchant| Merchant.new(merchant)}
   end
 
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    all.find {|merchant| merchant.id == id}
-  end
-
   def find_by_name(name)
     all.find {|merchant| merchant.name.downcase == name.downcase}
   end

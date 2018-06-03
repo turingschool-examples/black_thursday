@@ -1,5 +1,9 @@
 module Repository
 
+  def all
+    @repository
+  end
+
   def find_by_id(id)
     all.find {|object| object.id == id}
   end

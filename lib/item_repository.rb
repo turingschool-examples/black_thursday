@@ -9,14 +9,6 @@ class ItemRepository
     @repository = loaded_file.map { |item| Item.new(item)}
   end
 
-  def all
-    @repository
-  end
-
-  def find_by_id(id_num)
-    all.find {|item| item.id == id_num}
-  end
-
   def find_by_name(name)
     all.find {|item| item.name == name}
   end

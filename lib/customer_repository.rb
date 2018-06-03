@@ -8,10 +8,6 @@ class CustomerRepository
     @repository = loaded_file.map { |customer| Customer.new(customer)}
   end
 
-  def all
-    @repository
-  end
-
   def find_all_by_first_name(fragment)
     all.find_all {|customer| customer.first_name.upcase.include?(fragment.upcase)}
   end
