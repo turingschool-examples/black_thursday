@@ -5,15 +5,13 @@ class Merchant
   attr_reader :id,
               :name,
               :created_at,
-              :updated_at,
-              :parent
+              :updated_at
 
-  def initialize(data, parent)
+  def initialize(data)
     @id = data[:id].to_i
     @name = data[:name]
     @created_at = Time.parse(data[:created_at].to_s)
     @updated_at = Time.parse(data[:updated_at].to_s)
-    @parent = parent
   end
 
   def update_name(new_name)

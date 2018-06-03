@@ -5,11 +5,8 @@ require 'time'
 class ItemRepository
   include Repository
 
-  attr_reader :parent
-
-  def initialize(loaded_file, parent)
-    @repository = loaded_file.map { |item| Item.new(item, self)}
-    @parent = parent
+  def initialize(loaded_file)
+    @repository = loaded_file.map { |item| Item.new(item)}
   end
 
   def all
@@ -49,7 +46,7 @@ class ItemRepository
             created_at: attributes[:created_at],
             updated_at: attributes[:updated_at],
             merchant_id: attributes[:merchant_id]}
-    @repository.push(Item.new(item, self))
+    @repository.push(Item.new(item))
   end
 
   def update(id, attributes)

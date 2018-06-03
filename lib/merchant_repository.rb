@@ -5,12 +5,10 @@ require 'date'
 class MerchantRepository
   include Repository
 
-  attr_reader :repository,
-              :parent
+  attr_reader :repository
 
-  def initialize(loaded_file, parent)
-    @repository = loaded_file.map { |merchant| Merchant.new(merchant, self)}
-    @parent = parent
+  def initialize(loaded_file)
+    @repository = loaded_file.map { |merchant| Merchant.new(merchant)}
   end
 
   def all
@@ -36,7 +34,7 @@ class MerchantRepository
                 id: (highest.id + 1),
                 created_at: Date.today,
                 updated_at: Date.today}
-    @repository.push(Merchant.new(merchant, self))
+    @repository.push(Merchant.new(merchant))
   end
 
   def update(id_num, attributes)

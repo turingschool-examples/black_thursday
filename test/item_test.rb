@@ -3,9 +3,6 @@ require 'bigdecimal'
 require './lib/item'
 require './lib/sales_engine'
 
-class MockItemRepo
-end
-
 class ItemTest < Minitest::Test
   ITEM_DATA = {
     :id          => "263538760",
@@ -18,15 +15,13 @@ class ItemTest < Minitest::Test
     }
 
   def test_it_exists
-    item_repo = MockItemRepo.new
-    item = Item.new(ITEM_DATA, item_repo)
+    item = Item.new(ITEM_DATA)
 
     assert_instance_of Item, item
   end
 
   def test_it_has_attributes
-    item_repo = MockItemRepo.new
-    item = Item.new(ITEM_DATA, item_repo)
+    item = Item.new(ITEM_DATA)
 
     assert_equal 263538760, item.id
     assert_equal "Pencil", item.name
@@ -35,7 +30,6 @@ class ItemTest < Minitest::Test
     assert_equal 12334185, item.merchant_id
     assert_instance_of Time, item.created_at
     assert_instance_of Time, item.updated_at
-    assert_equal item_repo, item.parent
   end
 
   def test_returns_price_as_float
@@ -49,8 +43,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_update_name_description_time
-    item_repo = MockItemRepo.new
-    item = Item.new(ITEM_DATA, item_repo)
+    item = Item.new(ITEM_DATA)
 
     item.update_name('bottle')
     assert_equal 'bottle', item.name
