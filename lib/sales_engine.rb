@@ -109,7 +109,7 @@ class SalesEngine
     end
   end
 
-  def create_sales_analyst(parent)
-    @analyst = SalesAnalyst.new(parent)
+  def create_sales_analyst(engine)
+    @analyst = SalesAnalyst.new(engine)
   end
 end
