@@ -426,29 +426,41 @@ class SalesAnalyst
     @parent.merchants.find_by_id(most_purchased_merchant[0])
   end
 
-  def one_time_buyers
-    find_customers_with_one_invoice.map do |customer|
-      @parent.customers.find_by_id(customer[0])
-    end
-  end
-
   def find_customers_with_one_invoice
     group_invoices_by_customer.find_all do |customer|
       customer[1].length == 1
     end
   end
 
-  # def one_time_buyers_top_item
-  #   find_customers_with_one_invoice.inject(Hash.new(0)) do |items_bought, customer|
-  #     @parent.invoice_items.find_by_all_by_invoice_id(customer[1].first.id) += 1
-  #   end
-  # end
+  def one_time_buyers
+    find_customers_with_one_invoice.map do |customer|
+      @parent.customers.find_by_id(customer[0])
+    end
+  end
 
-  # def items_bought_in_year(customer_id, year)
-  #   items_in_year = group_invoices_by_customer[customer_id].find_all do |invoice|
-  #     invoice.created_at.strftime('%Y') == year.to_s
-  #   end
-  # end
+  def items_by_quantity(invoices)
+    invoices.inject(Hash.new(0)) do |quantities, invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_items = @parent.invoice_items.find_all_by_invoice_id(invoice.id)
+        invoice_items.each do |invoice_item|
+          quantities[invoice_item.item_id] += invoice_item.quantity
+        end
+        quantities
+      else
+        quantities
+      end
+    end
+  end
+
+  def one_time_buyers_top_item
+    single_invoices = find_customers_with_one_invoice.map do |customer|
+      customer[1]
+    end.flatten!
+    top_item = items_by_quantity(single_invoices).max_by do |item|
+      item[1]
+    end
+    @parent.items.find_by_id(top_item[0])
+  end
 
   def invoice_items_per_customer(customer_id)
     group_invoices_by_customer[customer_id].map do |invoice|
@@ -458,10 +470,14 @@ class SalesAnalyst
 
   def items_bought_in_year(customer_id, year)
     invoice_items = invoice_items_per_customer(customer_id)
-    invoice_items.inject([]) do |items, invoice_item|
-      items << @parent.items.find_by_id(invoice_item.item_id)
-    end.uniq
-    binding.pry
+    x = invoice_items.inject([]) do |items, invoice_item|
+      if @parent.invoices.find_by_id(invoice_item.invoice_id).created_at.strftime('%Y') == year.to_s
+        items << @parent.items.find_by_id(invoice_item.item_id)
+        items
+      else
+        items
+      end
+    end
   end
 
   def determine_quantity_sold_for_each_item(customer_id)
