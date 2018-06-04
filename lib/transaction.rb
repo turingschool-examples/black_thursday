@@ -1,7 +1,8 @@
-require 'time'
+# frozen_string_literal: false
 
-class Transaction
+require 'time'
 # create transaction objects
+class Transaction
   attr_reader   :id,
                 :invoice_id,
                 :created_at

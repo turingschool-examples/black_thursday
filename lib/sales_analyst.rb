@@ -45,7 +45,8 @@ class SalesAnalyst
   end
 
   def item_count_for_each_merchant_id
-    items_grouped_by_merchant_id.merge(items_grouped_by_merchant_id) do |merchant_id,item_list|
+    group_merch_id = items_grouped_by_merchant_id
+    group_merch_id.merge(group_merch_id) do |merchant_id,item_list|
       item_list.count
     end
   end
@@ -183,6 +184,4 @@ class SalesAnalyst
   def invoice_status(status)
     invoice_count_by_status[status]
   end
-
-
 end

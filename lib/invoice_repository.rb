@@ -1,9 +1,10 @@
+# frozen_string_literal: false
+
 require_relative 'invoice'
 require_relative 'repository'
-
+# Responsible for holding and searching Invoice instances.
 class InvoiceRepository
   include Repository
-  # Responsible for holding and searching Invoice instances.
   attr_reader :invoices
 
   def initialize(invoices)
@@ -18,11 +19,14 @@ class InvoiceRepository
     end
   end
 
+  def find_highest_id
+    @repository.max_by(&:id)
+  end
+
   def create(attributes)
-    highest_id = @repository.max_by { |invoice| invoice.id }
-    attributes[:id] = highest_id.id + 1
+    attributes[:id] = find_highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
-    attributes[:updated_at] = (Time.now).to_s
+    attributes[:updated_at] = Time.now.to_s
     @repository << Invoice.new(attributes)
   end
 

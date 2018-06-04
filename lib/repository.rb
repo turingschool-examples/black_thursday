@@ -1,5 +1,7 @@
-require_relative 'sales_engine'
+# frozen_string_literal: false
 
+require_relative 'sales_engine'
+# Responsible for holding all common methods for _repository classes.
 module Repository
   def all
     @repository
@@ -54,7 +56,7 @@ module Repository
       object.credit_card_expiration_date = exp_date if exp_date
       cc_number          = attributes[:credit_card_number]
       object.credit_card_number = cc_number if cc_number
-      object.updated_at  = Time.now unless object.class == Merchant
+      object.updated_at = Time.now unless object.class == Merchant
     end
     return nil
   end
