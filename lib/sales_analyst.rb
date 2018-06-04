@@ -213,7 +213,10 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(id)
-    @transactions.find_all_by_invoice_id(id).any? do |transaction|
+
+    transactions_by_invoice = @transactions.find_all_by_invoice_id(id)
+
+    return transactions_by_invoice.length > 0 && transactions_by_invoice.any? do |transaction|
       transaction.result == :success
     end
   end
@@ -230,17 +233,19 @@ class SalesAnalyst
     invoices_by_customer = @invoices.all.group_by do |invoice|
       invoice.customer_id
     end
-    paid_invoices_by_customer = invoices_by_customer.each do |customer, invoice_array|
-      invoice_array.select do |invoice|
+    paid_invoices_by_customer = invoices_by_customer.reduce({}) do |collector, (customer, invoice_array)|
+      collector[customer] = invoice_array.select do |invoice|
         invoice_paid_in_full?(invoice.id)
       end
+      collector
     end
-    totals_by_customer = invoices_by_customer.reduce({}) do |collector, (customer, paid_invoice_array)|
+    totals_by_customer = paid_invoices_by_customer.reduce({}) do |collector, (customer, paid_invoice_array)|
       collector[customer] = paid_invoice_array.map do |invoice|
         invoice_total(invoice.id)
       end
       collector
     end.reduce({}) do |collector, (customer, total_array)|
+
       collector[customer] = total_array.reduce(0) do |sum, total|
         sum += total
       end
@@ -248,7 +253,9 @@ class SalesAnalyst
     end
     customer_ids_in_order = totals_by_customer.sort_by do |id, value|
       value
+    end.reverse
+    customer_ids_in_order.slice(0...num).map do |customer_sub_array|
+      @customers.find_by_id(customer_sub_array[0])
     end
-    
   end
 end
