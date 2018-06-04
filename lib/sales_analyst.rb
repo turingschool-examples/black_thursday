@@ -1,8 +1,10 @@
 require_relative 'math_methods'
+require_relative 'merchant_analytics'
 require_relative 'day_of_the_week_table'
 
 class SalesAnalyst
   include MathMethods
+  include MerchantAnalytics
   include DayTable
   attr_reader :sales_engine
 
@@ -11,7 +13,15 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @sales_engine.transactions.result_table[invoice_id] == :success
+    @sales_engine.transactions.find_all_by_invoice_id(invoice_id).any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_result_table
+    @sales_engine.transactions.all.group_by do |transaction|
+      transaction.invoice_id
+    end
   end
 
   def invoice_total(invoice)
@@ -105,14 +115,12 @@ class SalesAnalyst
       end
       collector
     end
-    # binding.pry
   end
 
   def average_price_per_item_standard_deviation
     values = difference_between_item_price_and_mean_squared
     total = sum(values) / (values.length - 1)
     Math.sqrt(total).round(2)
-    # binding.pry
   end
 
   def difference_between_item_price_and_mean_squared

@@ -111,4 +111,73 @@ class SalesAnalystTest < MiniTest::Test
     assert_instance_of BigDecimal, @sales_analyst.invoice_total(1)
   end
 
+  def test_it_can_return_revenue_by_date
+    date = Time.parse("2009-02-07")
+    assert_equal 21067.77, @sales_analyst.total_revenue_by_date(date)
+  end
+
+  def test_it_can_return_top_revenue_earners
+    top_earners = @sales_analyst.top_revenue_earners(10)
+    assert_equal 10, top_earners.length
+    assert_equal 12334634, top_earners.first.id
+    assert_instance_of Merchant, top_earners.first
+    assert_equal 12335747, top_earners.last.id
+    assert_instance_of Merchant, top_earners.last
+  end
+
+  def test_top_revenue_earners_default_length_is_twenty
+    top_earners = @sales_analyst.top_revenue_earners
+    assert_equal 20, top_earners.length
+    assert_equal 12334634, top_earners.first.id
+    assert_instance_of Merchant, top_earners.first
+    assert_equal 12334159, top_earners.last.id
+    assert_instance_of Merchant, top_earners.last
+  end
+
+  def test_returns_merchants_ranked_by_total_revenue
+    ranked_merchants = @sales_analyst.merchants_ranked_by_revenue
+    assert_equal 12334634, ranked_merchants.first.id
+    assert_instance_of Merchant, ranked_merchants.first
+    assert_equal 12336175, ranked_merchants.last.id
+    assert_instance_of Merchant, ranked_merchants.last
+  end
+
+  def test_returns_merchants_with_pending_invoices
+    assert_equal 467, @sales_analyst.merchants_with_pending_invoices.length
+    assert_instance_of Merchant, @sales_analyst.merchants_with_pending_invoices.first
+  end
+
+  def test_returns_merchants_with_only_one_item
+    assert_equal 243, @sales_analyst.merchants_with_only_one_item.length
+  end
+
+  def test_returns_merchants_with_only_one_item_registered_in_month
+    assert_equal 21, @sales_analyst.merchants_with_only_one_item_registered_in_month("March").length
+    assert_equal 18, @sales_analyst.merchants_with_only_one_item_registered_in_month("June").length
+  end
+
+  def test_it_can_return_revenue_by_merchant
+    revenue = @sales_analyst.revenue_by_merchant(12334194)
+    assert_instance_of BigDecimal, revenue
+  end
+
+  def test_it_can_return_most_sold_items_by_merchant
+    most_sold = @sales_analyst.most_sold_item_for_merchant(12334189)
+    assert most_sold.map(&:name).include?('Adult Princess Leia Hat')
+    assert most_sold.map(&:id).include?(263524984)
+
+    most_sold_2 = @sales_analyst.most_sold_item_for_merchant(12334768)
+    assert most_sold_2.map(&:id).include?(263549386)
+
+    most_sold_3 = @sales_analyst.most_sold_item_for_merchant(12337105)
+    assert_equal 4, most_sold_3.length
+  end
+
+  def test_it_can_return_best_item_for_merchant
+    best_item = @sales_analyst.best_item_for_merchant(12334189)
+    assert_equal 263516130, best_item.id
+
+    best_item_2 = @sales_analyst.best_item_for_merchant(12337105)
+    assert_equal 263463003, best_item_2.id
+  end
 end
