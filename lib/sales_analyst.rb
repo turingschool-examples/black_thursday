@@ -288,4 +288,36 @@ class SalesAnalyst
     end
     @merchants.find_by_id(top_merchant[0])
   end
+
+  def one_time_buyers
+    invoices_by_customer = @invoices.all.group_by do |invoice|
+      invoice.customer_id
+    end
+    customers = invoices_by_customer.select do |key, value|
+      value.length == 1
+    end.keys
+
+    customers.map do |key, value|
+      @customers.find_by_id(key)
+    end
+
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

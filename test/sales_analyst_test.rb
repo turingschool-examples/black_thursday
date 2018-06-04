@@ -112,18 +112,40 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal BigDecimal, @sa.invoice_total(1).class
   # end
 
-  def test_top_buyers
-    actual = @sa.top_buyers(5)
+  # def test_top_buyers
+  #   actual = @sa.top_buyers(5)
 
-    assert_equal 5, actual.length
-    assert_equal 313, actual.first.id
-    assert_equal 478, actual.last.id
-  end
+  #   assert_equal 5, actual.length
+  #   assert_equal 313, actual.first.id
+  #   assert_equal 478, actual.last.id
+  # end
 
-  def test_top_merchant
-    actual = @sa.top_merchant_for_customer(100)
+  # def test_top_merchant
+  #   actual = @sa.top_merchant_for_customer(100)
 
-    assert_instance_of Merchant, actual
-    assert_equal 12336753, actual.id
+  #   assert_instance_of Merchant, actual
+  #   assert_equal 12336753, actual.id
+  # end
+
+  def test_one_time_buyers
+    actual = @sa.one_time_buyers
+
+    assert_equal 76, actual.length
+    assert_instance_of Customer, actual.first
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
