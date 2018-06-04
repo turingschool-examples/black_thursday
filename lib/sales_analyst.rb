@@ -230,11 +230,11 @@ class SalesAnalyst
     invoices_by_customer = @invoices.all.group_by do |invoice|
       invoice.customer_id
     end
-    # paid_invoices_by_customer = invoices_by_customer.each do |customer, invoice_array|
-    #   invoice_array.select do |invoice|
-    #     invoice_paid_in_full?(invoice.id)
-    #   end
-    # end
+    paid_invoices_by_customer = invoices_by_customer.each do |customer, invoice_array|
+      invoice_array.select do |invoice|
+        invoice_paid_in_full?(invoice.id)
+      end
+    end
     totals_by_customer = invoices_by_customer.reduce({}) do |collector, (customer, paid_invoice_array)|
       collector[customer] = paid_invoice_array.map do |invoice|
         invoice_total(invoice.id)
@@ -249,23 +249,6 @@ class SalesAnalyst
     customer_ids_in_order = totals_by_customer.sort_by do |id, value|
       value
     end
-    p customer_ids_in_order
+    
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
