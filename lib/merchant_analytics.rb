@@ -65,4 +65,12 @@ module MerchantAnalytics
       single_merchants_total_items(merchant_id) == 1
     end
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.map do |merchant|
+      if merchant.created_at.strftime("%B") == month
+        merchant
+      end
+    end.compact
+  end
 end
