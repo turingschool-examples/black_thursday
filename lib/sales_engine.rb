@@ -45,5 +45,4 @@ class SalesEngine
   def customers
     @customers ||= CustomerRepository.new(load_file(file_paths[:customers]))
   end
-
 end

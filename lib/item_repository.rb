@@ -14,7 +14,7 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    all.find_all { |item| item.description.downcase == description.downcase }
+    all.find_all { |item| item.description.casecmp(description).zero? }
   end
 
   def find_all_by_price(price)

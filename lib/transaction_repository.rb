@@ -24,10 +24,9 @@ class TransactionRepository
   def update(id, attributes)
     transaction = find_by_id(id)
     return transaction if transaction.nil?
-    transaction.update_credit_card_number(attributes[:credit_card_number]) if !(attributes[:credit_card_number].nil?)
-    transaction.update_credit_card_expiration_date(attributes[:credit_card_expiration_date]) if !(attributes[:credit_card_expiration_date].nil?)
-    transaction.update_result(attributes[:result]) if !(attributes[:result].nil?)
-    transaction.new_update_time(Time.now.utc) if attributes.length > 0
+    transaction.update_credit_card_number(attributes[:credit_card_number]) unless attributes[:credit_card_number].nil?
+    transaction.update_credit_card_expiration_date(attributes[:credit_card_expiration_date]) unless attributes[:credit_card_expiration_date].nil?
+    transaction.update_result(attributes[:result]) unless attributes[:result].nil?
+    transaction.new_update_time(Time.now.utc) unless attributes.empty?
   end
-
 end

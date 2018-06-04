@@ -8,15 +8,15 @@ class MerchantRepository
   attr_reader :repository
 
   def initialize(loaded_file)
-    @repository = loaded_file.map { |merchant| Merchant.new(merchant)}
+    @repository = loaded_file.map { |merchant| Merchant.new(merchant) }
   end
 
   def find_by_name(name)
-    all.find {|merchant| merchant.name.downcase == name.downcase}
+    all.find { |merchant| merchant.name.casecmp(name).zero? }
   end
 
   def find_all_by_name(fragment)
-    all.find_all {|merchant| merchant.name.downcase.include?(fragment.downcase)}
+    all.find_all { |merchant| merchant.name.downcase.include?(fragment.downcase) }
   end
 
   def create(attributes)
@@ -28,8 +28,7 @@ class MerchantRepository
 
   def update(id_num, attributes)
     merchant = find_by_id(id_num)
-    return merchant if merchant == nil
-    merchant.update_name(attributes[:name]) if attributes[:name] != nil
+    return merchant if merchant.nil?
+    merchant.update_name(attributes[:name]) unless attributes[:name].nil?
   end
-
 end
