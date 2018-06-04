@@ -30,6 +30,9 @@ class SalesAnalyst
     Math.sqrt(result).round(2)
   end
 
+###############################################################
+#item analytics
+
   def average_items_per_merchant # req
     mean(item_count_for_each_merchant_id.values)
   end
@@ -93,6 +96,8 @@ class SalesAnalyst
       item if item.unit_price > golden_deviation
     end.compact
   end
+###############################################################
+#invoice analytics
 
   def invoices_group_by_merchant_id # HELPER
     @invoices.all.group_by(&:merchant_id)
@@ -193,6 +198,9 @@ class SalesAnalyst
     invoice_count_by_status[status]
   end
 
+  ###############################################################
+  #invoice items analytics
+
   def transactions_group_by_invoice_id # HELPER
     @transactions.all.group_by(&:invoice_id)
   end
@@ -204,17 +212,73 @@ class SalesAnalyst
     end
   end
 
-  def invoice_items_group_by_invoice_id # HELPER
+  def invoice_items_group_by_invoice # HELPER
     @invoice_items.all.group_by(&:invoice_id)
   end
 
   def invoice_total(invoice_id) # req
-    invoice_items_group_by_invoice_id[invoice_id].map do |invoice_item|
+    invoice_items_group_by_invoice[invoice_id].map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end.inject(:+)
   end
 
-  def invoices_group_by_customer # HELPER
+###############################################################
+#customer analytics
+
+  def invoices_group_by_customer_id # HELPER
     @invoices.all.group_by(&:customer_id)
   end
+
+  def total_spend_per_customer #HELPER
+    invoices_group_by_customer_id.map do |customer, invoices|
+      spend = invoices.map do |invoice|
+        invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+      end.compact.inject(:+)
+      if spend.nil?
+        [customer, 0]
+      else
+        [customer, spend]
+      end
+    end
+  end
+
+  def top_buyers(x = 20)
+    total_spend_per_customer.sort_by do |customer_id , spend|
+      spend
+    end.reverse[0..x-1].map do |customer_id, _|
+      @customers.find_by_id(customer_id)
+    end
+  end
 end
+
+
+  #   sort the total_spend_per_customer, x times shift off the customer_id, push shifted into a new collection,
+  # iterate over the new collection and pull the associated customer object for each customer id. using @customers
+  # pull associated customers for the shifted item id
+
+  # def items_bought_in_year(customer_id, year) # req
+  # end
+  #
+  # def highest_volume_items(customer_id) # req
+  # end
+  #
+  # def customers_with_unpaid_invoices # req
+  # end
+  #
+  # def best_invoice_by_revenue # req
+  # end
+  #
+  # def best_invoice_by_quantity # req
+  # end
+
+
+# scratch
+  # def all_invoice_totals
+  #   invoice_items_group_by_invoice.merge(invoice_items_group_by_invoice) do |invoice, invoice_items|
+  #     invoice_items = invoice_total(invoice)
+  #   end
+  # end
+  #
+  # def customer_with_total_spent
+  #   @customers.merge(@customers) do ||
+  # end
