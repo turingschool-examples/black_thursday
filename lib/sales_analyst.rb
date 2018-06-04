@@ -242,20 +242,67 @@ class SalesAnalyst
     end
   end
 
-  def top_buyers(x = 20)
+  def top_buyers(x = 20) # req
     total_spend_per_customer.sort_by do |customer_id , spend|
       spend
     end.reverse[0..x-1].map do |customer_id, _|
       @customers.find_by_id(customer_id)
     end
   end
+
+  def invoice_item_qty_per_invoice(invoice_id) # HELPER
+    invoice_items_group_by_invoice[invoice_id].map do |invoice_item|
+      invoice_item.quantity
+    end.inject(:+)
+  end
+
+  def total_items_per_merchant_per_customer(customer_id) # req
+    my_merchants =
+      invoices_group_by_customer_id[customer_id].group_by(&:merchant_id)
+    my_merchants.map do |merchant, invoices|
+      invoices.map do |invoice|
+        if invoice_item_qty_per_invoice(invoice.id).nil?
+          [invoice.merchant_id, 0]
+        else
+          [invoice.merchant_id, invoice_item_qty_per_invoice(invoice.id)]
+        end
+      end[0]
+    end
+  end
+
+  def top_merchant_id(customer_id)
+    total_items_per_merchant_per_customer(customer_id).max_by do |quantity|
+      quantity[1]
+    end
+  end
+
+  def top_merchant_for_customer(customer_id)
+    @merchants.find_by_id(top_merchant_id(customer_id)[0])
+  end
 end
 
 
-  #   sort the total_spend_per_customer, x times shift off the customer_id, push shifted into a new collection,
-  # iterate over the new collection and pull the associated customer object for each customer id. using @customers
-  # pull associated customers for the shifted item id
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # def one_time_buyers # req
+  # end
+  #
+  # def one_time_buyers_item # req
+  # end
+  #
   # def items_bought_in_year(customer_id, year) # req
   # end
   #
@@ -269,16 +316,4 @@ end
   # end
   #
   # def best_invoice_by_quantity # req
-  # end
-
-
-# scratch
-  # def all_invoice_totals
-  #   invoice_items_group_by_invoice.merge(invoice_items_group_by_invoice) do |invoice, invoice_items|
-  #     invoice_items = invoice_total(invoice)
-  #   end
-  # end
-  #
-  # def customer_with_total_spent
-  #   @customers.merge(@customers) do ||
   # end
