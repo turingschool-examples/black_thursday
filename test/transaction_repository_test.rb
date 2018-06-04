@@ -40,19 +40,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], @tr.find_all_by_credit_card_number('notarealid')
   end
 
-  def test_it_can_create_a_new_transaction
-    refute @tr.find_by_id(4_987)
-    @tr.create(invoice_id: 4_987,
-               credit_card_number: '2333456789034567',
-               credit_card_expiration_date: '0518',
-               result: 'pending',
-               created_at: Time.now,
-               updated_at: Time.now)
-    actual = @tr.find_all_by_credit_card_number('2333456789034567')[0].id
-    assert 4987, actual
-  end
-
-  def test_it_can_update_a_credit_card_number
+  def test_it_can_create_and_update_a_credit_card_number
     @tr.create(invoice_id: 54_321,
                credit_card_number: '333333333333333',
                credit_card_expiration_date: '0518',
