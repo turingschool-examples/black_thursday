@@ -382,7 +382,6 @@ class SalesAnalyst
       new_key = @items.find_by_id(key)
       items_with_revenue[new_key] = new_value
     end
-    binding.pry
     high_revenue = items_with_revenue.values.max
     best_item = items_with_revenue.map do |item, revenue|
       item if revenue == high_revenue
@@ -390,4 +389,20 @@ class SalesAnalyst
     best_item.first
   end
 
+  def merchants_ranked_by_revenue
+    total_revenues = {}
+    total_revenue_for_each_merchant.each do |merchant_id, revenue|
+      if revenue == nil
+        revenue = 0
+      end
+      total_revenues[merchant_id] = revenue
+    end
+    merchants_with_revenue = total_revenues.to_a
+    sorted_merchants_with_revenue = merchants_with_revenue.sort_by do |merchant|
+      merchant[1]
+    end.reverse
+    sorted_merchants_with_revenue.map do |merchant|
+      @merchants.find_by_id(merchant[0])
+    end
+  end
 end
