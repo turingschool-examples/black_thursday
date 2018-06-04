@@ -188,29 +188,24 @@ class SalesAnalyst
   end
 
   def invoice_counts_for_each_day
-    invoices_grouped_by_day.merge(invoices_grouped_by_day) do |day, invoices|
-      invoices.count
-    end
+    hash = invoices_grouped_by_day
+    hash.merge(hash) { |day, invoices| invoices.count }
   end
 
   def top_days_by_invoice_count
     high_count = average_invoices_per_day + average_invoices_per_day_standard_deviation
-    top_days = invoice_counts_for_each_day.map do |day, count|
+    invoice_counts_for_each_day.map do |day, count|
         day if count > high_count
-    end
-    top_days.compact
+    end.compact
   end
 
   def invoices_grouped_by_status
-    @invoices.all.group_by do |invoice|
-      invoice.status
-    end
+    @invoices.all.group_by { |invoice| invoice.status }
   end
 
   def invoice_counts_for_each_status
-    invoices_grouped_by_status.merge(invoices_grouped_by_status) do |day, invoices|
-      invoices.count
-    end
+    hash = invoices_grouped_by_status
+    hash.merge(hash) { |status, invoices| invoices.count }
   end
 
   def invoice_status(status)
@@ -223,24 +218,19 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice_id)
     related_transactions = @transactions.find_all_by_invoice_id(invoice_id)
-    if related_transactions.any? do |transaction|
-      transaction.result == :success
-      end
-      true
-    else
-      false
-    end
+    related_transactions.any? { |transaction| transaction.result == :success }
   end
 
+################## should be able to .inject(:+) on costs... but its not working
   def invoice_total(invoice_id)
     related_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
     costs = related_invoice_items.map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end
-    total = costs.inject(0) do |total, cost|
+    total = costs.inject(0) do |total, cost| #.inject(:+)
       total += cost
     end
-    amount = BigDecimal.new(total, 7)
+    BigDecimal.new(total, 7)
   end
 
 ########### Iteration 4 methods
@@ -273,9 +263,9 @@ class SalesAnalyst
     earners
   end
 
-  def merchants_with_a_sale
-    total_revenue_for_each_merchant.keep_if do |merchant_id, earned|
-      earned != nil
+  def compact_for_hash(hash)
+    hash.delete_if do |key, value|
+      value == nil
     end
   end
 
@@ -291,12 +281,11 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(num = 20)
+    merchants_with_a_sale = compact_for_hash(total_revenue_for_each_merchant)
     merchants_with_a_sale.keep_if do |merchant_id, earned|
-      sorted_merchants = merchants_with_a_sale.values.sort
-      sorted_merchants[-num..-1].include?(earned)
+      merchants_with_a_sale.values.sort[-num..-1].include?(earned)
     end
-    top_merchants = hash_to_array_ordered_by_value(merchants_with_a_sale)
-    top_merchants.map do |merchant_id|
+    hash_to_array_ordered_by_value(merchants_with_a_sale).map do |merchant_id|
       @merchants.find_by_id(merchant_id)
     end.reverse
   end
@@ -329,7 +318,7 @@ class SalesAnalyst
     end
   end
 
-  def invoices_for_each_merchant_in_a_given_month(month)
+  def invoices_for_merchants_in_a_month(month)
     invoices_in_month = invoices_grouped_by_month[month]
     invoices_per_merchant = invoices_in_month.group_by do |invoice|
       invoice.merchant_id
@@ -345,7 +334,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month)
     merchants = []
-    invoices_for_each_merchant_in_a_given_month(month).each do |merchant_id, count|
+    invoices_for_merchants_in_a_month(month).each do |merchant_id, count|
       merchants << merchant_id if count == 1
     end
     merchants.map do |merchant_id|
