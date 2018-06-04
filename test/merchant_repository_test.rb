@@ -1,17 +1,13 @@
 require './test/test_helper.rb'
-require './lib/sales_engine.rb'
 require './lib/merchant_repository.rb'
+require './lib/file_loader.rb'
 require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
+  include FileLoader
 
   def setup
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      })
-    merchants = se.load_file(se.content[:merchants])
-    @mr = MerchantRepository.new(merchants)
+    @mr = MerchantRepository.new(load_file("./data/merchants.csv"))
   end
 
   def test_it_exists

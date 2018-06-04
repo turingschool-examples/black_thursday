@@ -4,7 +4,7 @@ require 'pry'
 
 class MerchantRepository
   include RepositoryHelper
-  attr_reader :merchants, :repository
+  attr_reader :repository
 
   def initialize(file_contents)
     @repository = file_contents.map { |merchant| Merchant.new(merchant) }
