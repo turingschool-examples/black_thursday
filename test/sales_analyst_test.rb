@@ -188,5 +188,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 76, @sa.one_invoice_customer_ids.count
     assert_equal Customer, @sa.one_time_buyers[0].class
   end
-
 end
