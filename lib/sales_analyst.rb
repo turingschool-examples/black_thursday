@@ -215,4 +215,30 @@ class SalesAnalyst
       end
     end.compact.uniq
   end
+
+  def best_invoice_by_revenue
+    invoices_by_revenue = Hash.new(0.0)
+    invoices.members.each do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_items.find_all_by_invoice_id(invoice.id).each do |invoice_item|
+          invoices_by_revenue[invoice] += (invoice_item.unit_price.to_f * invoice_item.quantity)
+        end
+      end
+    end
+
+    return invoices_by_revenue.key(invoices_by_revenue.values.max)
+  end
+
+  def best_invoice_by_quantity
+    invoices_by_quantity = Hash.new(0)
+    invoices.members.each do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_items.find_all_by_invoice_id(invoice.id).each do |invoice_item|
+          invoices_by_quantity[invoice] += invoice_item.quantity
+        end
+      end
+    end
+
+    return invoices_by_quantity.key(invoices_by_quantity.values.max)
+  end
 end
