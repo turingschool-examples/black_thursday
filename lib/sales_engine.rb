@@ -6,7 +6,6 @@ require_relative 'transaction_repository'
 require_relative 'customer_repository'
 require_relative 'sales_analyst'
 require_relative 'file_reader'
-require 'csv'
 
 class SalesEngine
   # builds access to items and merchants
@@ -14,12 +13,6 @@ class SalesEngine
 
   def initialize(path)
     @path          = path
-    @merchants     = merchants
-    @items         = items
-    @invoices      = invoices
-    @invoice_items = invoice_items
-    @transactions  = transactions
-    @customers     = customers
   end
 
   def self.from_csv(path)
