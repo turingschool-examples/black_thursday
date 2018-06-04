@@ -233,7 +233,6 @@ class SalesAnalyst
     invoices_by_customer = @invoices.all.group_by do |invoice|
       invoice.customer_id
     end
-    # p invoices_by_customer
     paid_invoices_by_customer = invoices_by_customer.reduce({}) do |collector, (customer, invoice_array)|
       collector[customer] = invoice_array.select do |invoice|
         invoice_paid_in_full?(invoice.id)
@@ -252,42 +251,11 @@ class SalesAnalyst
       end
       collector
     end
-
-    # p totals_by_customer
     customer_ids_in_order = totals_by_customer.sort_by do |id, value|
       value
     end.reverse
-    # p customer_ids_in_order
-
-    # collector = []
-
-    # num.times do
-    #   customer_ids_in_order.each do |customer_sub_array|
-    #     collector << @customers.find_by_id(customer_sub_array[0])
-    #   end
-    # end 
-    cutoff = num - 1
     customer_ids_in_order.slice(0...num).map do |customer_sub_array|
       @customers.find_by_id(customer_sub_array[0])
     end
-
-
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

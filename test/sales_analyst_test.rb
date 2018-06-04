@@ -120,19 +120,3 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 478, actual.last.id
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
