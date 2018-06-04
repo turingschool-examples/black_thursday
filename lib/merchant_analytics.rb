@@ -43,7 +43,7 @@ module MerchantAnalytics
   def merchants_with_pending_invoices
     merchant_ids_with_pending_invoices.map do |merchant_id|
       @sales_engine.merchants.find_by_id(merchant_id)
-    end 
+    end
   end
 
   def merchant_ids_with_pending_invoices
@@ -52,5 +52,17 @@ module MerchantAnalytics
         @sales_engine.invoices.find_by_id(invoice_id).merchant_id
       end
     end.compact.uniq!
+  end
+
+  def merchants_with_only_one_item
+    merchants_with_only_one_item_list.map do |merchant_id|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def merchants_with_only_one_item_list
+    @sales_engine.merchants.collection.keys.keep_if do |merchant_id|
+      single_merchants_total_items(merchant_id) == 1
+    end
   end
 end
