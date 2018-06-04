@@ -73,4 +73,16 @@ module MerchantAnalytics
       end
     end.compact
   end
+
+  def revenue_by_merchant(merchant_id)
+    sum(paid_invoice_totals_by_merchant(merchant_id))
+  end
+
+  def paid_invoice_totals_by_merchant(merchant_id)
+    single_merchants_invoices(merchant_id).map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_total(invoice.id)
+      end
+    end.compact
+  end
 end

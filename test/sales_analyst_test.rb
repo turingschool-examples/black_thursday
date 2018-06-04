@@ -151,14 +151,14 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_equal 243, @sales_analyst.merchants_with_only_one_item.length
   # end
   #
-  def test_returns_merchants_with_only_one_item_registered_in_month
-    assert_equal 21, @sales_analyst.merchants_with_only_one_item_registered_in_month("March").length
-    assert_equal 18, @sales_analyst.merchants_with_only_one_item_registered_in_month("June").length
-  end
-
-  # def test_it_can_return_revenue_by_merchant
-  #   revenue = @sales_analyst.revenue_by_merchant(12334194)
-  #   assert_instance_of BigDecimal, revenue
+  # def test_returns_merchants_with_only_one_item_registered_in_month
+  #   assert_equal 21, @sales_analyst.merchants_with_only_one_item_registered_in_month("March").length
+  #   assert_equal 18, @sales_analyst.merchants_with_only_one_item_registered_in_month("June").length
   # end
+
+  def test_it_can_return_revenue_by_merchant
+    revenue = @sales_analyst.revenue_by_merchant(12334194)
+    assert_instance_of BigDecimal, revenue
+  end
 
 end

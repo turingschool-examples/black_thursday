@@ -119,14 +119,12 @@ class SalesAnalyst
       end
       collector
     end
-    # binding.pry
   end
 
   def average_price_per_item_standard_deviation
     values = difference_between_item_price_and_mean_squared
     total = sum(values) / (values.length - 1)
     Math.sqrt(total).round(2)
-    # binding.pry
   end
 
   def difference_between_item_price_and_mean_squared
