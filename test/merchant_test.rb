@@ -1,10 +1,11 @@
+# frozen_string_literal: false
+
 require_relative 'test_helper'
 require './lib/merchant'
 
 class MerchantTest < Minitest::Test
-
   def setup
-    @args = {id: 5, name: 'Turing School'}
+    @args = { id: 5, name: 'Turing School' }
     @merchant = Merchant.new(@args)
   end
 
