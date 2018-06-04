@@ -112,32 +112,9 @@ class SalesAnalyst
     ((divided.to_f / total.to_f) * 100).round(2)
   end
 
-
-  # def invoice_paid_in_full?(inv_id)
-  #   success_array = []
-  #   @transactions.members.each do |transaction|
-  #     if transaction.invoice_id == inv_id
-  #       success_array << transaction.result
-  #     end
-  #   end
-  #   all_true(success_array.flatten)
-  # end
-  #
-  # def all_true(result_array)
-  #   if result_array.length != 0
-  #     result_array.all? {|result| result == :success}
-  #   else
-  #     return false
-  #   end
-  # end
-
   def invoice_paid_in_full?(invoice_id)
     invoice_transactions = transactions.find_all_by_invoice_id(invoice_id)
-    if invoice_transactions.any? {|transaction| transaction.result == :success}
-      return true
-    else
-      return false
-    end
+    return invoice_transactions.any? {|transaction| transaction.result == :success}
   end
 
   def invoice_total(inv_id)
