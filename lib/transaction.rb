@@ -1,5 +1,3 @@
-require 'time'
-
 class Transaction
   attr_accessor     :id,
                     :invoice_id,

@@ -4,11 +4,13 @@ require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    binding.pry
     se = SalesEngine.from_csv({
       items: './data/items.csv',
       merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
+      invoices: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv',
+      customers: './data/customers.csv'
     })
     @sa = se.analyst
   end
@@ -58,5 +60,14 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 5, expected.length
     assert_equal Item, expected.first.class
+  end
+
+  def test_sales_analyst_calculates_average_invoices_per_merchant
+    expected = @sa.average_invoices_per_merchant
+
+    assert_equal 4985, expected.count
+    assert_equal true, expected.all? do |invoice|
+      instance.class == Invoice
+    end
   end
 end

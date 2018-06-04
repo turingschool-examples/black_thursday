@@ -90,7 +90,6 @@ class Repository
         member.updated_at = Time.new
       end
     end
-    member
   end
 
   def delete(id)

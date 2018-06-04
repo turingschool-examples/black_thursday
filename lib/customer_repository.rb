@@ -1,5 +1,5 @@
-require_relative 'customer'
 require_relative 'repository'
+require_relative 'customer'
 
 class CustomerRepository < Repository
   def create(attributes)

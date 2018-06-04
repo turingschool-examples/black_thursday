@@ -1,5 +1,5 @@
-require_relative 'invoice'
 require_relative 'repository'
+require_relative 'invoice'
 
 class InvoiceRepository < Repository
   def find_all_by_customer_id(customer_id)

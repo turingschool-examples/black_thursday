@@ -1,6 +1,7 @@
 require_relative 'mathematics_module'
 require_relative './analyst_assistants/item_assistant'
 require_relative './analyst_assistants/invoice_assistant'
+require 'pry'
 
 class SalesAnalyst
   include Mathematics
@@ -111,49 +112,64 @@ class SalesAnalyst
     ((divided.to_f / total.to_f) * 100).round(2)
   end
 
-
   def invoice_paid_in_full?(inv_id)
-    success_array = []
-    @transactions.members.each do |transaction|
-      if transaction.invoice_id == inv_id
-        success_array << transaction.result
-      end
-    end
-    all_true(success_array.flatten)
-  end
-
-  def all_true(result_array)
-    if result_array.length != 0
-      result_array.all? {|result| result == :success}
-    else
-      return false
-    end
+    all_true = @transactions.find_all_by_invoice_id(inv_id)
+    all_true.any? {|transaction| transaction.result == :success}
   end
 
   def invoice_total(inv_id)
     if invoice_paid_in_full?(inv_id) == true
-      get_invoices(inv_id)
-    else
-      false
+      get_invoice_item_total(inv_id)
     end
   end
 
-  def get_invoices(inv_id)
-    fully_paid = @invoice_items.members.map do |member|
-      if member.invoice_id == inv_id
-        member
-      else
-        nil
-      end
-    end
-    get_invoice_item_total(fully_paid.compact)
-  end
-
-  def get_invoice_item_total(fully_paid)
-    to_add = fully_paid.map do |invoice_item|
+  def get_invoice_item_total(inv_id)
+    paid = @invoice_items.find_all_by_invoice_id(inv_id)
+    to_add = paid.map do |invoice_item|
       invoice_item.unit_price * (invoice_item.quantity.to_i)
     end
-    added = to_add.inject(0){|sum, number| sum + number}
-    added
+    to_add.inject(0){|sum, number| sum + number}
   end
+
+  def one_time_buyers
+    one_timers = []
+    invoices_by_customer = @customers.members.group_by do |customer|
+      @invoices.find_all_by_customer_id(customer.id)
+    end
+    invoices_by_customer.invert.each_pair do |key, value|
+      if value.size == 1
+        one_timers << key
+      end
+    end
+    one_timers.flatten
+  end
+
+  def one_time_buyers_top_item
+    invoices = one_time_buyers.map do |customer|
+      @invoices.find_all_by_customer_id(customer.id)
+    end
+    ii_ids = invoices.flatten.map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items_fully_paid = []
+    ii_ids.flatten.each do |invoice_item|
+      if invoice_paid_in_full?(invoice_item.invoice_id)
+        invoice_items_fully_paid << invoice_item
+      end
+    end
+    by_item_id = invoice_items_fully_paid.group_by(&:item_id)
+    added = Hash.new(0)
+    by_item_id.each_pair do |key, value|
+      added[key] = get_total_number_of_purchases_by_invoice_item(value)
+    end
+    @items.find_by_id(added.invert[added.values.max])
+  end
+end
+
+def get_total_number_of_purchases_by_invoice_item(ii_array)
+  to_add = []
+  ii_array.each do |invoice_item|
+    to_add << invoice_item.quantity.to_i
+  end
+  to_add.inject(0){|sum, quantity| sum + quantity}
 end

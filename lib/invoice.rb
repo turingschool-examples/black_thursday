@@ -1,6 +1,3 @@
-require 'bigdecimal'
-require 'time'
-
 class Invoice
   attr_accessor     :id,
                     :customer_id,
