@@ -113,19 +113,28 @@ class SalesAnalyst
   end
 
 
-  def invoice_paid_in_full?(inv_id)
-    success_array = []
-    @transactions.members.each do |transaction|
-      if transaction.invoice_id == inv_id
-        success_array << transaction.result
-      end
-    end
-    all_true(success_array.flatten)
-  end
+  # def invoice_paid_in_full?(inv_id)
+  #   success_array = []
+  #   @transactions.members.each do |transaction|
+  #     if transaction.invoice_id == inv_id
+  #       success_array << transaction.result
+  #     end
+  #   end
+  #   all_true(success_array.flatten)
+  # end
+  #
+  # def all_true(result_array)
+  #   if result_array.length != 0
+  #     result_array.all? {|result| result == :success}
+  #   else
+  #     return false
+  #   end
+  # end
 
-  def all_true(result_array)
-    if result_array.length != 0
-      result_array.all? {|result| result == :success}
+  def invoice_paid_in_full?(invoice_id)
+    invoice_transactions = transactions.find_all_by_invoice_id(invoice_id)
+    if invoice_transactions.any? {|transaction| transaction.result == :success}
+      return true
     else
       return false
     end
@@ -220,5 +229,13 @@ class SalesAnalyst
 
     only_the_highest = items_and_quantities.keep_if { | item, quantity | quantity == items_and_quantities.values.max}
     only_the_highest.keys
+  end
+
+  def customers_with_unpaid_invoices
+    @invoices.members.map do | invoice |
+      if !invoice_paid_in_full?(invoice.id)
+        @customers.find_by_id(invoice.customer_id)
+      end
+    end.compact.uniq
   end
 end
