@@ -258,4 +258,34 @@ class SalesAnalyst
       @customers.find_by_id(customer_sub_array[0])
     end
   end
+
+  def top_merchant_for_customer(cust_id)
+    customer_invoices = @invoices.find_all_by_customer_id(cust_id)
+
+    invoices_by_merchant = customer_invoices.group_by do |customer_invoice|
+      customer_invoice.merchant_id
+    end
+    invoice_items_by_merchant = invoices_by_merchant.reduce({}) do |collector, (key, value)|
+      collector[key] = value.flat_map do |invoice|
+        @invoice_items.find_all_by_invoice_id(invoice.id)
+      end
+      collector
+    end
+    quantity_of_items = invoice_items_by_merchant.reduce({}) do |collector, (key, value)|
+      collector[key] = value.map do |invoice_item|
+        invoice_item.quantity
+      end
+      collector
+    end
+    summed_items = quantity_of_items.reduce({}) do |collector, (key, value)|
+      collector[key] = value.reduce(0) do |sum, num|
+        sum += num
+      end
+      collector
+    end
+    top_merchant = summed_items.max_by do |key, value|
+      value
+    end
+    @merchants.find_by_id(top_merchant[0])
+  end
 end
