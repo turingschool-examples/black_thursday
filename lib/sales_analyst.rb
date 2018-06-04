@@ -96,6 +96,7 @@ class SalesAnalyst
       item.unit_price > golden_deviation
     end
   end
+
 ###############################################################
 #invoice analytics
 
@@ -270,65 +271,35 @@ class SalesAnalyst
     end
   end
 
-  def top_merchant_id(customer_id)
+  def top_merchant_id(customer_id) # HELPER
     total_items_per_merchant_per_customer(customer_id).max_by do |quantity|
       quantity[1]
     end
-  end # HELPER
+  end
 
-  def top_merchant_for_customer(customer_id)
+  def top_merchant_for_customer(customer_id) # req
     @merchants.find_by_id(top_merchant_id(customer_id)[0])
-  end # req
+  end
 
-  def all_invoices_paid_in_full
-    @invoices.all.find_all do |invoice|
-      invoice_paid_in_full?(invoice.id)
-    end
-  end # HELPER
+  def one_invoice_customer_ids # HELPER
+    invoices_group_by_customer_id.map do |customer_id, invoice_list|
+      customer_id if invoice_list.count == 1
+    end.compact
+  end
 
-  def group_paid_invoices_by_customer_id
-    @invoices.all.group_by(&:customer_id)
-  end # HELPER
-
-  def one_invoice_customer_ids
-    group_paid_invoices_by_customer_id.find_all do |customer_id, invoice_list|
-      invoice_list.count == 1
-    end
-  end # HELPER
-
-  def one_time_buyers
-    one_invoice_customer_ids.map do |customer_id|
+  def one_time_buyers # req
+    customers = one_invoice_customer_ids.map do |customer_id|
       @customers.find_by_id(customer_id)
     end
-  end # req
+    customers
+  end
 
-  # def item_list_one_time_buyers
-  #   one_time_buyers.map do |customer|
-  #     invoices_group_by_customer_id(customer.id)
-  #   end
-  # end
-  #
-  # def one_time_buyers_item # req
-  #
-  # end
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# REMAINING METHODS NEEDED
+  # def one_time_buyers_item
+  # end
+  #
   # def items_bought_in_year(customer_id, year) # req
   # end
   #
