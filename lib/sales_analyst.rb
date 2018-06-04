@@ -102,14 +102,9 @@ class SalesAnalyst
   end
 
   def invoice_status(state)
-    divided = 0
-    total = @invoices.members.count
-    @invoices.members.map do |invoice|
-      if invoice.status == state
-        divided += 1
-      end
-    end
-    ((divided.to_f / total.to_f) * 100).round(2)
+    total = @invoices.all.count
+    divided = @invoices.find_all_by_status(state)
+    ((divided.count.to_f / total.to_f) * 100).round(2)
   end
 
   def invoice_paid_in_full?(inv_id)
