@@ -279,6 +279,28 @@ class SalesAnalyst
   def top_merchant_for_customer(customer_id)
     @merchants.find_by_id(top_merchant_id(customer_id)[0])
   end
+
+  def all_invoices_paid_in_full
+    @invoices.all.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+  end
+
+  def group_paid_invoices_by_customer_id
+    @invoices.all.group_by(&:customer_id)
+  end
+
+  def one_invoice_customer_ids
+    group_paid_invoices_by_customer_id.find_all do |customer_id, invoice_list|
+      invoice_list.count == 1
+    end
+  end
+
+  def one_time_buyers
+    one_invoice_customer_ids.map do |customer_id|
+      @customers.find_by_id(customer_id)
+    end
+  end
 end
 
 
@@ -297,9 +319,6 @@ end
 
 
 
-  # def one_time_buyers # req
-  # end
-  #
   # def one_time_buyers_item # req
   # end
   #

@@ -176,12 +176,18 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 20, @sa.top_buyers.count
   # end
 
-  def test_item_qty_per_invoice
-    assert_equal 47, @sa.invoice_item_qty_per_invoice(1)
-  end
+  # def test_item_qty_per_invoice
+  #   assert_equal 47, @sa.invoice_item_qty_per_invoice(1)
+  # end
+  #
+  # def test_this
+  #   assert_equal [], @sa.top_merchant_for_customer(1)
+  # end
 
-  def test_this
-    assert_equal [], @sa.top_merchant_for_customer(1)
+  def test_one_invoice_customer_ids
+    # assert_equal [], @sa.one_invoice_customer_ids
+    # assert_equal [], @sa.one_time_buyers
+    assert_equal [], @sa.one_invoice_customer_ids.count
   end
 
 
