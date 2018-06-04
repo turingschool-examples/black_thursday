@@ -142,14 +142,14 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_instance_of Merchant, ranked_merchants.last
   # end
 
-  def test_returns_merchants_with_pending_invoices
-    assert_equal 467, @sales_analyst.merchants_with_pending_invoices.length
-    assert_instance_of Merchant, @sales_analyst.merchants_with_pending_invoices.first 
-  end
-  #
-  # def test_returns_merchants_with_only_one_item
-  #   assert_equal 243, @sales_analyst.merchants_with_only_one_item.length
+  # def test_returns_merchants_with_pending_invoices
+  #   assert_equal 467, @sales_analyst.merchants_with_pending_invoices.length
+  #   assert_instance_of Merchant, @sales_analyst.merchants_with_pending_invoices.first
   # end
+  #
+  def test_returns_merchants_with_only_one_item
+    assert_equal 243, @sales_analyst.merchants_with_only_one_item.length
+  end
   #
   # def test_returns_merchants_with_only_one_item_registered_in_month
   #   assert_equal 21, @sales_analyst.merchants_with_only_one_item_registered_in_month("March").length
