@@ -355,13 +355,39 @@ class SalesAnalyst
       item_id_quantities[invoice_item.item_id] += invoice_item.quantity
     end
     high_quantity = item_id_quantities.values.max
-    array_of_highest_item_ids = item_id_quanities.map do |key, value|
+    array_of_highest_item_ids = item_id_quantities.map do |key, value|
       key if value == high_quantity
     end.compact
     items = array_of_highest_item_ids.map do |item_id|
       @items.find_by_id(item_id)
     end
     items
+  end
+
+  def best_item_for_merchant(merchant_id)
+    array_of_invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    array_of_successful_invoices = array_of_invoices.map do |invoice|
+      invoice if invoice_paid_in_full?(invoice.id)
+    end.compact
+    array_of_invoice_items = array_of_successful_invoices.map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    item_id_quantities = Hash.new(0)
+    array_of_invoice_items.map do |invoice_item|
+      item_id_quantities[invoice_item.item_id] += invoice_item.quantity
+    end
+    items_with_revenue = {}
+    item_id_quantities.each do |key, value|
+      new_value = (@items.find_by_id(key).unit_price * value) * 100
+      new_key = @items.find_by_id(key)
+      items_with_revenue[new_key] = new_value
+    end
+    binding.pry
+    high_revenue = items_with_revenue.values.max
+    best_item = items_with_revenue.map do |item, revenue|
+      item if revenue == high_revenue
+    end.compact
+    best_item.first
   end
 
 end

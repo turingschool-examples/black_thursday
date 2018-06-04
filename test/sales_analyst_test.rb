@@ -156,7 +156,43 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, @sa.merchants_with_only_one_item_registered_in_month("March").first.class
   end
 
-  def test_it_can_find_most_sold_item_for_merchant
+  # def test_it_can_find_most_sold_item_for_merchant
+  #   se = SalesEngine.from_csv({
+  #     :items     => "./data/items.csv",
+  #     :merchants => "./data/merchants.csv",
+  #     # :invoices  => "./data/invoices_test.csv",
+  #     :invoices => "./data/invoices.csv",
+  #     :customers => "./data/customers.csv",
+  #     # :invoice_items => "./data/invoice_items_test.csv",
+  #     :invoice_items => "./data/invoice_items.csv",
+  #     # :transactions => "./data/transactions_test.csv"
+  #     :transactions => "./data/transactions.csv"
+  #     })
+  #   merchants = se.load_file(se.content[:merchants])
+  #   items = se.load_file(se.content[:items])
+  #   invoices = se.load_file(se.content[:invoices])
+  #   customers = se.load_file(se.content[:customers])
+  #   invoice_items = se.load_file(se.content[:invoice_items])
+  #   transactions = se.load_file(se.content[:transactions])
+  #   @mr = MerchantRepository.new(merchants)
+  #   @ir = ItemRepository.new(items)
+  #   @in = InvoiceRepository.new(invoices)
+  #   @cr = CustomerRepository.new(customers)
+  #   @iir = InvoiceItemRepository.new(invoice_items)
+  #   @tr = TransactionRepository.new(transactions)
+  #   @sa = SalesAnalyst.new(se)
+  #   merchant_id = 12334189
+  #   # binding.pry
+  #   assert_equal 263524984, @sa.most_sold_item_for_merchant(merchant_id).first.id
+  #   assert_equal "Adult Princess Leia Hat", @sa.most_sold_item_for_merchant(merchant_id).first.name
+  #   assert_instance_of Item, @sa.most_sold_item_for_merchant(merchant_id).first
+  #   merchant_id = 12334768
+  #   assert_equal 263549386, @sa.most_sold_item_for_merchant(merchant_id).first.id
+  #   merchant_id = 12337105
+  #   assert_equal 4, @sa.most_sold_item_for_merchant(merchant_id).length
+  # end
+
+  def test_it_can_find_best_item_for_merchant
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -182,10 +218,9 @@ class SalesAnalystTest < Minitest::Test
     @tr = TransactionRepository.new(transactions)
     @sa = SalesAnalyst.new(se)
     merchant_id = 12334189
-    assert_equal 263524984, @sa.most_sold_item_for_merchant(merchant_id).first.id
-    assert_equal "Adult Princess Leia Hat", @sa.most_sold_item_for_merchant(merchant_id).first.name
-    assert_instance_of Item, @sa.most_sold_item_for_merchant(merchant_id).first
+    assert_equal 263516130, @sa.best_item_for_merchant(merchant_id).id
+    merchant_id = 12337105
+    assert_equal 263463003, @sa.best_item_for_merchant(merchant_id).id
   end
-
 
 end
