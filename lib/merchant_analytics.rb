@@ -87,16 +87,23 @@ module MerchantAnalytics
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    #get list of paid invoices by merhchant
-    #get invoice items from those invoices
-    #get amount of items sold?
+    item_quantity_table = item_quantity_table_for_paid_invoices(merchant_id)
+    item_quantity_table.each_with_object([]){ |(item_id, quantity), items|
+      items << @sales_engine.items.find_by_id(item_id) if quantity == item_quantity_table.values.max}
   end
 
-  def paid_invoices_by_merchant(merchant_id)
-    @sales_engine.invoices.all.map do |invoice|
-      if invoice_paid_in_full?(invoice.id) && invoice.merhchant_id == merchant_id
-        invoice
+  def paid_invoice_items_by_merchant(merhchant_id)
+    single_merchants_invoices(merhchant_id).map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
       end
-    end.compact
+    end.compact.flatten
+  end
+
+  def item_quantity_table_for_paid_invoices(merchant_id)
+    paid_invoice_items_by_merchant(merchant_id).inject({}) do |table, invoice_item|
+      table[invoice_item.item_id] = invoice_item.quantity
+      table
+    end
   end
 end

@@ -162,10 +162,9 @@ class SalesAnalystTest < MiniTest::Test
   # end
 
   def test_it_can_return_most_sold_items_by_merchant
-    p @sales_analyst.most_sold_item_for_merchant(12334189)
-    # most_sold = @sales_analyst.most_sold_item_for_merchant(12334189)
-    # assert most_sold.map(&:name).include?('Adult Princess Leia Hat')
-    # assert most_sold.map(&:id).include?(263524984)
+    most_sold = @sales_analyst.most_sold_item_for_merchant(12334189)
+    assert most_sold.map(&:name).include?('Adult Princess Leia Hat')
+    assert most_sold.map(&:id).include?(263524984)
   end
 
 end

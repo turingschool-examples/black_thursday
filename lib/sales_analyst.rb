@@ -13,12 +13,8 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    if invoice_result_table[invoice_id].nil?
-      return false
-    else
-      invoice_result_table[invoice_id].any? do |transaction|
-        transaction.result == :success
-      end
+    @sales_engine.transactions.find_all_by_invoice_id(invoice_id).any? do |transaction|
+      transaction.result == :success
     end
   end
 
