@@ -21,9 +21,10 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
-    sum_of_squares = items_per_merchant.inject(0.0) {|sum, items| ((items - mean) ** 2) + sum }
-    divided = sum_of_squares / (items_per_merchant.count - 1)
-    Math.sqrt(divided).round(2)
+    sum_of_squares = items_per_merchant.inject(0.0) do |sum, items|
+      ((items - mean) ** 2) + sum
+    end / (items_per_merchant.count - 1)
+    Math.sqrt(sum_of_squares).round(2)
   end
 
   def merchants_with_high_item_count
@@ -36,19 +37,26 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items = @parent.items.find_all_by_merchant_id(merchant_id)
-    (items.inject(0) {|sum, item| sum += item.unit_price} / items.count).round(2)
+    average_item_price = items.inject(0) do |sum, item|
+      sum += item.unit_price
+    end / items.count
+    average_item_price.round(2)
   end
 
   def average_average_price_per_merchant
   merchant_ids = items_by_merchant_id.keys
-  (merchant_ids.inject(0) {|sum, id| sum += average_item_price_for_merchant(id)} / merchant_ids.count).round(2)
+  average_average_price = merchant_ids.inject(0) do |sum, id|
+    sum += average_item_price_for_merchant(id)
+  end / merchant_ids.count
+  average_average_price.round(2)
   end
 
   def item_price_std_dev
     mean = average_average_price_per_merchant
-    sum_of_squares = @parent.items.all.inject(0.0) {|sum, item| ((item.unit_price - mean) ** 2) + sum }
-    divided = sum_of_squares / (@parent.items.all.count - 1)
-    Math.sqrt(divided).round(2)
+    sum_of_squares = @parent.items.all.inject(0.0) do |sum, item|
+      ((item.unit_price - mean) ** 2) + sum
+    end / (@parent.items.all.count - 1)
+    Math.sqrt(sum_of_squares).round(2)
   end
 
   def golden_items
@@ -57,7 +65,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    total_invoices = invoices_per_merchant.inject(0.0){|sum, invoice_count| sum += invoice_count}
+    total_invoices = invoices_per_merchant.inject(0.0) do |sum, invoice_count|
+      sum += invoice_count
+    end
     (total_invoices / invoices_per_merchant.count).round(2)
   end
 
@@ -71,9 +81,10 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    sum_of_squares = invoices_per_merchant.inject(0.0) {|sum, invoices| ((invoices - mean) ** 2) + sum }
-    divided = sum_of_squares / (invoices_per_merchant.count - 1)
-    Math.sqrt(divided).round(2)
+    sum_of_squares = invoices_per_merchant.inject(0.0) do |sum, invoices|
+      ((invoices - mean) ** 2) + sum
+    end / (invoices_per_merchant.count - 1)
+    Math.sqrt(sum_of_squares).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -105,9 +116,10 @@ class SalesAnalyst
 
   def invoice_per_day_of_week_std_deviation
     mean = invoice_mean_for_day_of_week
-    sum_of_squares = invoice_counts_per_day_of_week.inject(0.0) { |sum, count| ((count - mean) ** 2) + sum }
-    divided = sum_of_squares / (invoice_counts_per_day_of_week.count - 1)
-    Math.sqrt(divided).round(2)
+    sum_of_squares = invoice_counts_per_day_of_week.inject(0.0) do |sum, count|
+       ((count - mean) ** 2) + sum
+    end / (invoice_counts_per_day_of_week.count - 1)
+    Math.sqrt(sum_of_squares).round(2)
   end
 
   def invoices_per_day_of_week
@@ -131,7 +143,9 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     return 0 if !(invoice_paid_in_full?(invoice_id))
     invoice_items = @parent.invoice_items.find_all_by_invoice_id(invoice_id)
-    invoice_items.inject(0.0) {|sum, invoice_item| sum + (invoice_item.unit_price * invoice_item.quantity)}
+    invoice_items.inject(0.0) do |sum, invoice_item|
+      sum + (invoice_item.unit_price * invoice_item.quantity)
+    end
   end
 
   def group_invoices_by_customer_id
@@ -143,8 +157,8 @@ class SalesAnalyst
     group_invoices_by_customer_id.each do |cust_id, invoices|
           new_hash[cust_id] = invoices.inject(0) {|sum, invoice| sum + invoice_total(invoice.id)}
     end
-    arr_of_arr = new_hash.sort_by {|cust_id, total| total }
-    customer_ids = (arr_of_arr.map {|arr| arr[0]}).reverse.take(selected)
+    cust_ids_sorted_by_total = Hash[new_hash.sort_by {|cust_id, total| total }]
+    customer_ids = (cust_ids_sorted_by_total.map {|arr| arr[0]}).reverse.take(selected)
     customer_ids.map {|id| @parent.customers.find_by_id(id)}
   end
 
@@ -175,44 +189,87 @@ class SalesAnalyst
     @parent.merchants.find_by_id(top_merch_id)
   end
 
-  def one_time_customer_ids
+  def all_merchant_ids_with_invoices
     invoices = @parent.invoices.all
     merchant_ids = invoices.map {|invoice| invoice.merchant_id}
+  end
+
+  def all_customer_ids_with_invoices
+    invoices = @parent.invoices.all
     customer_ids = invoices.map {|invoice| invoice.customer_id}
+  end
+
+  def one_time_customer_ids
+    merch_ids = all_customer_ids_with_invoices
+    customer_ids = all_customer_ids_with_invoices
+    merchs_per_cust = merchant_ids_per_customer_id(merch_ids, customer_ids)
+    cust = merchs_per_cust.find_all {|cust_id, merch_ids| merch_ids.length == 1}
+    cust.map {|cust_per_merch| cust_per_merch[0]}
+  end
+
+  def merchant_ids_per_customer_id(merchant_ids, customer_ids)
     customers_per_merch = {}
     customer_ids.each_with_index do |cust_id, index|
       if customers_per_merch[cust_id] == nil
          customers_per_merch[cust_id] = [merchant_ids[index]]
       else
-        customers_per_merch[cust_id] << merchant_ids[index]
+        customers_per_merch[cust_id].push(merchant_ids[index])
       end
     end
-    customers_with_one_merch_id = customers_per_merch.find_all {|cust_id, merch_ids| merch_ids.length == 1}
-    customers_with_one_merch_id.map {|cust_per_merch| cust_per_merch[0]}
+    customers_per_merch
   end
 
   def one_time_buyers
     one_time_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}
   end
 
-  def one_time_buyers_top_item
-    one_time_invoices = one_time_customer_ids.map {|cust_id| @parent.invoices.find_all_by_customer_id(cust_id)}.flatten
-    paid_one_time_invoices = one_time_invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
-    invoice_items = paid_one_time_invoices.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
-
-    quantity_per_item_id = invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
+  def quantity_per_item_id(invoice_items)
+      invoice_items.inject(Hash.new(0)) do |hash, invoice_item|
       hash[invoice_item.item_id] += invoice_item.quantity
       hash
     end
-    max_quantity_inv_item_id = quantity_per_item_id.max_by {|itm_id, quantity| quantity}[0]
-    @parent.items.find_by_id(max_quantity_inv_item_id)
   end
 
-  def items_bought_in_year(customer_id, year)
+  def delete_unpaid(one_time_invoices)
+    one_time_invoices.delete_if {|invoice| !(invoice_paid_in_full?(invoice.id))}
+  end
+
+  def one_time_invoices
+    one_time_customer_ids.map do |cust_id|
+      @parent.invoices.find_all_by_customer_id(cust_id)
+    end.flatten
+  end
+
+  def max_quantity_invoice_item_id(invoice_items)
+    quantity_per_item_id(invoice_items).max_by {|itm_id, quantity| quantity}[0]
+  end
+
+  def one_time_buyers_top_item
+    paid_one_time_invoices = delete_unpaid(one_time_invoices)
+    invoice_items = paid_one_time_invoices.map do |invoice|
+      @parent.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    @parent.items.find_by_id(max_quantity_invoice_item_id(invoice_items))
+  end
+
+  def invoices_from_invoice_ids_per_year(invoices_by_year)
+    invoices_by_year.map do |invoice|
+      @parent.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+  end
+
+  def invoice_items_for_year(customer_id, year)
     invoices = @parent.invoices.find_all_by_customer_id(customer_id)
-    invoices_by_year = invoices.find_all {|invoice| invoice.created_at.year == year}
-    invoice_items_for_year = invoices_by_year.map {|invoice| @parent.invoice_items.find_all_by_invoice_id(invoice.id)}.flatten
-    item_ids_for_year = invoice_items_for_year.map {|invoice_item| invoice_item.item_id}.uniq
+    invoices_by_year = invoices.find_all do |invoice|
+      invoice.created_at.year == year
+    end
+    invoices_from_invoice_ids_per_year(invoices_by_year)
+  end
+
+
+  def items_bought_in_year(customer_id, year)
+    invoice_items = invoice_items_for_year(customer_id, year)
+    item_ids_for_year = invoice_items.map {|invoice_item| invoice_item.item_id}.uniq
     item_ids_for_year.map {|item_id| @parent.items.find_by_id(item_id)}
   end
 
@@ -230,7 +287,9 @@ class SalesAnalyst
   end
 
   def customers_with_unpaid_invoices
-    unpaid_invoices = @parent.invoices.all.find_all {|invoice| !(invoice_paid_in_full?(invoice.id))}
+    unpaid_invoices = @parent.invoices.all.find_all do |invoice|
+      !(invoice_paid_in_full?(invoice.id))
+    end
     unpaid_customer_ids = unpaid_invoices.map {|invoice| invoice.customer_id}
     unpaid_customer_ids.map {|cust_id| @parent.customers.find_by_id(cust_id)}.uniq
   end
