@@ -35,9 +35,22 @@ module MerchantAnalytics
 
   def merchants_ranked_by_revenue
     sorted_list = merchant_revenue_table.sort_by{|merchant_id, revenue| revenue}.reverse
-    # binding.pry
     sorted_list.map do |pair|
       @sales_engine.merchants.find_by_id(pair[0])
     end
+  end
+
+  def merchants_with_pending_invoices
+    merchant_ids_with_pending_invoices.map do |merchant_id|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end 
+  end
+
+  def merchant_ids_with_pending_invoices
+    @sales_engine.invoices.collection.keys.map do |invoice_id|
+      if !invoice_paid_in_full?(invoice_id)
+        @sales_engine.invoices.find_by_id(invoice_id).merchant_id
+      end
+    end.compact.uniq!
   end
 end

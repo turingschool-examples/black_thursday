@@ -19,7 +19,7 @@ class SalesAnalyst
       invoice_result_table[invoice_id].any? do |transaction|
         transaction.result == :success
       end
-    end 
+    end
   end
 
   def invoice_result_table
