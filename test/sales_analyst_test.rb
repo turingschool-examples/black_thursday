@@ -156,9 +156,16 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_equal 18, @sales_analyst.merchants_with_only_one_item_registered_in_month("June").length
   # end
 
-  def test_it_can_return_revenue_by_merchant
-    revenue = @sales_analyst.revenue_by_merchant(12334194)
-    assert_instance_of BigDecimal, revenue
+  # def test_it_can_return_revenue_by_merchant
+  #   revenue = @sales_analyst.revenue_by_merchant(12334194)
+  #   assert_instance_of BigDecimal, revenue
+  # end
+
+  def test_it_can_return_most_sold_items_by_merchant
+    p @sales_analyst.most_sold_item_for_merchant(12334189)
+    # most_sold = @sales_analyst.most_sold_item_for_merchant(12334189)
+    # assert most_sold.map(&:name).include?('Adult Princess Leia Hat')
+    # assert most_sold.map(&:id).include?(263524984)
   end
 
 end

@@ -85,4 +85,18 @@ module MerchantAnalytics
       end
     end.compact
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    #get list of paid invoices by merhchant
+    #get invoice items from those invoices
+    #get amount of items sold?
+  end
+
+  def paid_invoices_by_merchant(merchant_id)
+    @sales_engine.invoices.all.map do |invoice|
+      if invoice_paid_in_full?(invoice.id) && invoice.merhchant_id == merchant_id
+        invoice
+      end
+    end.compact
+  end
 end
