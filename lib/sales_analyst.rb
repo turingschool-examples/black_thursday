@@ -219,4 +219,9 @@ class SalesAnalyst
     ((amount_of_invoices_matching_status.to_f / amount_of_invoices.to_f) * 100).round(2)
   end
 
+  def list_of_invoices_matching_status(desired_status)
+    @sales_engine.invoices.collection.values.find_all do |invoice|
+      invoice.status == desired_status
+    end
+  end
 end

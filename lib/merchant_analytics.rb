@@ -1,5 +1,4 @@
 module MerchantAnalytics
-
   def total_revenue_by_date(date)
     revenues_by_date = paid_invoices_by_date(date).map do |invoice|
       invoice_total(invoice.id)
@@ -103,6 +102,19 @@ module MerchantAnalytics
   def item_quantity_table_for_paid_invoices(merchant_id)
     paid_invoice_items_by_merchant(merchant_id).inject({}) do |table, invoice_item|
       table[invoice_item.item_id] = invoice_item.quantity
+      table
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    item_revenue_table = item_revenue_table_for_paid_invoices(merchant_id)
+    best_item = item_revenue_table.max_by{ |item_id, revenue| revenue}
+    @sales_engine.items.find_by_id(best_item[0])
+  end
+
+  def item_revenue_table_for_paid_invoices(merchant_id)
+    paid_invoice_items_by_merchant(merchant_id).inject({}) do |table, invoice_item|
+      table[invoice_item.item_id] = invoice_item.total_price
       table
     end
   end
