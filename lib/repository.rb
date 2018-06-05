@@ -52,9 +52,9 @@ module Repository
       object.status      = attributes[:status] if attributes[:status]
       object.quantity    = attributes[:quantity] if attributes[:quantity]
       object.result      = attributes[:result] if attributes[:result]
-      exp_date = attributes[:credit_card_expiration_date]
+      exp_date           = attributes[:credit_card_expiration_date]
       object.credit_card_expiration_date = exp_date if exp_date
-      cc_number = attributes[:credit_card_number]
+      cc_number          = attributes[:credit_card_number]
       object.credit_card_number = cc_number if cc_number
       object.updated_at = Time.now unless object.class == Merchant
     end

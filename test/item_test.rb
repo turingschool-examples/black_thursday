@@ -40,8 +40,18 @@ class ItemTest < Minitest::Test
     assert_equal 21, @item.updated_at.hour
   end
 
+<<<<<<< HEAD
+  def test_unit_price_to_dollars
+   assert_instance_of Float, @item.unit_price_to_dollars
+   assert_equal 10.99, @item.unit_price_to_dollars
+||||||| merged common ancestors
+  def test_unit_price_to_dollars
+   assert_instance_of Float, @item.unit_price_to_dollars
+  assert_equal 10.99, @item.unit_price_to_dollars
+=======
   def test_unit_price_to_dollars_functionality
     assert_instance_of Float, @item.unit_price_to_dollars
     assert_equal 10.99, @item.unit_price_to_dollars
+>>>>>>> 7c9723f6222b2fe6cec2f427a00aa8020f5c952e
   end
 end

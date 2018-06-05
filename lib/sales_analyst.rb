@@ -281,6 +281,8 @@ class SalesAnalyst
     @merchants.find_by_id(top_merchant_id(customer_id)[0])
   end
 
+
+
   def one_invoice_customer_ids # HELPER
     invoices_group_by_customer_id.map do |customer_id, invoice_list|
       customer_id if invoice_list.count == 1
@@ -294,17 +296,93 @@ class SalesAnalyst
     customers
   end
 
+  def one_time_invoice_ids
+    all_invoice_ids = one_invoice_customer_ids.map do |customer_id|
+      invoices_group_by_customer_id[customer_id][0].id
+    end
+    all_invoice_ids
+  end
+
+  def one_time_buyers_invoice_items
+    all_invoice_items = one_time_invoice_ids.map do |invoice_id|
+      invoice_items_group_by_invoice[invoice_id]
+    end
+    return all_invoice_items.flatten
+  end
+
+  def one_time_item_count
+    item_count = Hash.new(0)
+    one_time_buyers_invoice_items.each do |invoice_item|
+      if invoice_paid_in_full?(invoice_item.invoice_id)
+        item_count[invoice_item.item_id] += invoice_item.quantity
+      end
+    end
+    item_count
+  end
+
+  def one_time_buyers_top_item
+    max_item_id = one_time_item_count.max_by do |key,value|
+      value
+    end
+    @items.find_by_id(max_item_id[0])
+  end
+
+  def invoices_bought_in_year(customer_id, year)
+    invoices_group_by_customer_id[customer_id].map do |invoice|
+      invoice if invoice.created_at.year == year
+    end.compact
+  end
+
+  def invoice_items_bought_in_year(all_invoices)
+    all_invoices.map do |invoice|
+      invoice_items_group_by_invoice[invoice.id]
+    end.flatten
+  end
+
+  def items_bought_in_year(customer_id, year) # req
+    all_invoices = invoices_bought_in_year(customer_id, year)
+    all_invoice_items = invoice_items_bought_in_year(all_invoices)
+    all_items = all_invoice_items.map do |invoice_item|
+      @items.find_by_id(invoice_item.item_id)
+    end.flatten
+    return all_items
+  end
+
+
+  def customer_invoice_items(customer_id)
+    invoices_group_by_customer_id[customer_id].map do |invoice|
+      invoice_items_group_by_invoice[invoice.id]
+    end.compact.flatten
+  end
+
+  def customer_item_count(all_invoice_items)
+    item_count = Hash.new(0)
+    all_invoice_items.map do |invoice_item|
+      item_count[invoice_item.item_id] += invoice_item.quantity
+    end
+    item_count
+  end
+
+  def highest_volume_items(customer_id) # req
+    all_invoice_items = customer_invoice_items(customer_id)
+    all_item_count = customer_item_count(all_invoice_items)
+    highest_count = all_item_count.max_by do |item_id, count|
+      count
+    end
+    highest_count = highest_count[1]
+    highest_count_item_ids = all_item_count.find_all do |item_id, count|
+      count == highest_count
+    end
+    all_items = highest_count_item_ids.map do |item_id, _|
+      @items.find_by_id(item_id)
+    end
+    all_items
+  end
+
 end
 
 # REMAINING METHODS NEEDED
-  # def one_time_buyers_item
-  # end
   #
-  # def items_bought_in_year(customer_id, year) # req
-  # end
-  #
-  # def highest_volume_items(customer_id) # req
-  # end
   #
   # def customers_with_unpaid_invoices # req
   # end
