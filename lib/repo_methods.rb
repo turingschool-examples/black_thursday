@@ -4,14 +4,14 @@ module RepoMethods
       key
     end.max + 1
   end
-
-  def update(current_id, new_attributes)
-    if @collection[current_id] == nil
-    else
-      @collection[current_id].updated_at = Date.today.strftime("%Y-%m-%e")
-      @collection[current_id].update_name(new_attributes)
-    end
-  end
+  #
+  # def update(current_id, new_attributes)
+  #   if @collection[current_id] == nil
+  #   else
+  #     @collection[current_id].updated_at = Date.today.strftime("%Y-%m-%e")
+  #     @collection[current_id].update_name(new_attributes)
+  #   end
+  # end
 
   def delete(id)
     @collection.delete(id)
