@@ -120,19 +120,22 @@ class SalesAnalyst
   end
 
   def double_deviation # HELPER
-    average_invoices_per_merchant +
-    (average_invoices_per_merchant_standard_deviation * 2)
+
   end
 
   def top_merchants_by_invoice_count # req
+    std_dev = average_invoices_per_merchant +
+    (average_invoices_per_merchant_standard_deviation * 2)
     invoice_count_for_each_merchant_id.map do |merchant_id, invoice_count|
-      @merchants.find_by_id(merchant_id) if invoice_count > double_deviation
+      @merchants.find_by_id(merchant_id) if invoice_count > std_dev
     end.compact
   end
 
   def bottom_merchants_by_invoice_count # req
+    std_dev = average_invoices_per_merchant -
+    (average_invoices_per_merchant_standard_deviation * 2)
     invoice_count_for_each_merchant_id.map do |merchant_id, invoice_count|
-      @merchants.find_by_id(merchant_id) if invoice_count < double_deviation
+      @merchants.find_by_id(merchant_id) if invoice_count < std_dev
     end.compact
   end
 
@@ -402,9 +405,17 @@ class SalesAnalyst
     best = invoice_ids_by_total.max_by { |_, total| total }
     @invoices.find_by_id(best.first)
   end
+
+  def invoice_ids_by_quantity
+    @invoices.all.map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        [invoice.id, invoice_item_qty_per_invoice(invoice.id)]
+      end
+    end.compact
+  end
+
+  def best_invoice_by_quantity
+    best = invoice_ids_by_quantity.max_by { |_, quantity| quantity }
+    @invoices.find_by_id(best.first)
+  end
 end
-
-
-# REMAINING METHODS NEEDED
-  # def best_invoice_by_quantity # req
-  # end

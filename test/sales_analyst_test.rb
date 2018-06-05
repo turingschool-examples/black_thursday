@@ -213,10 +213,15 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 786, @sa.customer_ids_unpaid.length
   # end
 
-  def test_it_can_return_best_invoice_by_revenue
-    # assert_equal [], @sa.invoice_ids_by_total
-    # assert_equal [], @sa.best_invoice_by_revenue
-  end
+  # def test_it_can_return_best_invoice_by_revenue
+  #   assert_equal [], @sa.invoice_ids_by_total
+  #   assert_equal [], @sa.best_invoice_by_revenue
+  # end
+  #
+  # def test_it_can_return_invoices_with_qty
+  #   assert_equal 1281, @sa.best_invoice_by_quantity.id
+  #   assert_equal 248, @sa.best_invoice_by_quantity.customer_id
+  # end
 
 
 end
