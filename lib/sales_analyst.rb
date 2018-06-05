@@ -297,63 +297,61 @@ class SalesAnalyst
     one_item_in_month
   end
 
-  def most_sold_item_for_merchant(merchant_id)
-    array_of_invoices = @invoices.find_all_by_merchant_id(merchant_id)
-    array_of_successful_invoices = array_of_invoices.map do |invoice|
-      invoice if invoice_paid_in_full?(invoice.id)
-    end.compact
-    array_of_invoice_items = array_of_successful_invoices.map do |invoice|
+  # Helper method created for most sold item and best item methods
+  def successful_ivoice_items_per_merchant_id(merchant_id)
+    all_invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    all_invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
+    all_invoices.map do |invoice|
       @invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
+  end
+
+  # Helper method created for most sold item and best item methods
+  def high_item_from_item_ids_with_values(hash)
+    high_item_value = hash.values.max
+    hash.keep_if { |_key, value| value == high_item_value }
+    hash.keys.map { |item_id| @items.find_by_id(item_id) }
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
     item_id_quantities = Hash.new(0)
-    array_of_invoice_items.map do |invoice_item|
+    successful_ivoice_items_per_merchant_id(merchant_id).map do |invoice_item|
       item_id_quantities[invoice_item.item_id] += invoice_item.quantity
     end
-    high_quantity = item_id_quantities.values.max
-    array_of_highest_item_ids = item_id_quantities.map do |key, value|
-      key if value == high_quantity
-    end.compact
-    items = array_of_highest_item_ids.map do |item_id|
-      @items.find_by_id(item_id)
+    high_item_from_item_ids_with_values(item_id_quantities)
+  end
+
+  # Helper for best_item_for_merchant
+  def invoice_items_with_total_price(array)
+    invoice_items_with_price = Hash.new(0)
+    array.map do |invoice_item|
+      total = (invoice_item.unit_price * invoice_item.quantity)
+      invoice_items_with_price[invoice_item.item_id] += total
     end
-    items
+    invoice_items_with_price
   end
 
   def best_item_for_merchant(merchant_id)
-    array_of_invoices = @invoices.find_all_by_merchant_id(merchant_id)
-    array_of_successful_invoices = array_of_invoices.map do |invoice|
-      invoice if invoice_paid_in_full?(invoice.id)
-    end.compact
-    array_of_invoice_items = array_of_successful_invoices.map do |invoice|
-      @invoice_items.find_all_by_invoice_id(invoice.id)
-    end.flatten
-    item_id_unit_prices = Hash.new(0)
-    array_of_invoice_items.map do |invoice_item|
-      total = (invoice_item.unit_price * invoice_item.quantity)
-      item_id_unit_prices[invoice_item.item_id] += total
+    invoice_items = successful_ivoice_items_per_merchant_id(merchant_id)
+    item_id_unit_prices = invoice_items_with_total_price(invoice_items)
+    high_item_from_item_ids_with_values(item_id_unit_prices).first
+  end
+
+  # Helper method for merchants ranked by revenue
+  def change_nil_values_to_zero(hash)
+    new_hash = {}
+    hash.each do |key, value|
+      value = 0 if value.nil?
+      new_hash[key] = value
     end
-    high_unit_price = item_id_unit_prices.values.max
-    array_of_highest_item_ids = item_id_unit_prices.map do |key, value|
-      key if value == high_unit_price
-    end.compact
-    items = array_of_highest_item_ids.map do |item_id|
-      @items.find_by_id(item_id)
-    end
-    items.first
+    new_hash
   end
 
   def merchants_ranked_by_revenue
-    total_revenues = {}
-    total_revenue_for_each_merchant.each do |merchant_id, revenue|
-      revenue = 0 if revenue.nil?
-      total_revenues[merchant_id] = revenue
-    end
-    merchants_with_revenue = total_revenues.to_a
-    sorted_merchants_with_revenue = merchants_with_revenue.sort_by do |merchant|
+    total_revenues = change_nil_values_to_zero(total_revenue_for_each_merchant)
+    sorted_merchants = total_revenues.to_a.sort_by do |merchant|
       merchant[1]
     end.reverse
-    sorted_merchants_with_revenue.map do |merchant|
-      @merchants.find_by_id(merchant[0])
-    end
+    sorted_merchants.map { |merchant| @merchants.find_by_id(merchant[0]) }
   end
 end
