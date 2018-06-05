@@ -390,11 +390,19 @@ class SalesAnalyst
     end
   end
 
-  def best_invoice_by_revenue
+  def invoice_ids_by_total
+    @invoices.all.map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        [invoice.id, invoice_total(invoice.id)]
+      end
+    end.compact
+  end
 
+  def best_invoice_by_revenue
+    best = invoice_ids_by_total.max_by { |_, total| total }
+    @invoices.find_by_id(best.first)
   end
 end
-
 
 
 # REMAINING METHODS NEEDED

@@ -214,6 +214,8 @@ class SalesAnalystTest < Minitest::Test
   # end
 
   def test_it_can_return_best_invoice_by_revenue
+    # assert_equal [], @sa.invoice_ids_by_total
+    # assert_equal [], @sa.best_invoice_by_revenue
   end
 
 
