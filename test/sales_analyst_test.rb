@@ -127,12 +127,27 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 12336753, actual.id
   # end
 
-  def test_one_time_buyers
-    actual = @sa.one_time_buyers
+  # def test_one_time_buyers
+  #   actual = @sa.one_time_buyers
 
-    assert_equal 76, actual.length
-    assert_instance_of Customer, actual.first
+  #   assert_equal 76, actual.length
+  #   assert_instance_of Customer, actual.first
+  # end
+
+  # def test_one_time_buyers_top_item
+  #   actual = @sa.one_time_buyers_top_item
+
+  #   assert_equal 263396463, actual
+  #   assert_instance_of Item, actual
+  # end
+
+  def test_best_invoice_by_revenue
+    actual = @sa.best_invoice_by_revenue
+
+    assert_equal 3394, actual.id
+    assert_instance_of Invoice, actual
   end
+
 end
 
 
