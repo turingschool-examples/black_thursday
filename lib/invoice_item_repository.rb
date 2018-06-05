@@ -14,7 +14,7 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    sorted = @repository.sort_by { |invoice_item| invoice_item.id }
+    sorted = @repository.sort_by(&:id) # { |invoice_item| invoice_item.id }
     new_id = sorted.last.id + 1
     attributes[:id] = new_id
     new_invoice_item = InvoiceItem.new(attributes)
@@ -24,17 +24,15 @@ class InvoiceItemRepository
 
   def update(id, attributes)
     invoice_item = find_by_id(id)
-    if invoice_item != nil
-      attributes.each do |key, value|
-        invoice_item.quantity = value if key == :quantity
-        invoice_item.unit_price = value if key == :unit_price
-        invoice_item.updated_at = Time.now + 1
-      end
+    return if invoice_item.nil?
+    attributes.each do |key, value|
+      invoice_item.quantity = value if key == :quantity
+      invoice_item.unit_price = value if key == :unit_price
+      invoice_item.updated_at = Time.now + 1
     end
   end
 
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
-
 end
