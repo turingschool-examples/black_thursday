@@ -1,38 +1,39 @@
+# frozen_string_literal: false
+
 require_relative 'test_helper'
-require './lib/sales_engine'
 require './lib/customer'
 
 class CustomerTest < Minitest::Test
-
   def setup
     @args = {
-             :id => 6,
-             :first_name => 'Joan',
-             :last_name => 'Clarke',
-             :created_at  => '2016-01-11 09:34:06 UTC',
-             :updated_at  => '2007-06-04 21:35:10 UTC'
-            }
+      id:          '1234',
+      first_name:  'Bob',
+      last_name:   'Smith',
+      created_at:  '2016-01-11 09:34:06 UTC',
+      updated_at:  '2007-06-04 21:35:10 UTC'
+    }
     @customer = Customer.new(@args)
   end
 
-  def test_it_exists
+  def test_it_exits
     assert_instance_of Customer, @customer
   end
 
   def test_it_has_attributes
-    assert_equal 6, @customer.id
-    assert_equal 'Joan', @customer.first_name
-    assert_equal 'Clarke', @customer.last_name
+    assert_equal 'Bob', @customer.first_name
+    assert_equal 'Smith', @customer.last_name
+    assert_equal 1234, @customer.id
   end
 
-  def test_time_attributes
+  def test_time_attributes_for_created_at
     assert_instance_of Time, @customer.created_at
     assert_equal 2016, @customer.created_at.year
-    assert_equal 9, @customer.created_at.hour
-
-    assert_instance_of Time, @customer.updated_at
-    assert_equal 06, @customer.updated_at.month
-    assert_equal 35, @customer.updated_at.min
+    assert_equal 34, @customer.created_at.min
   end
 
+  def test_time_attributes_for_updated_at
+    assert_instance_of Time, @customer.updated_at
+    assert_equal 0o6, @customer.updated_at.mon
+    assert_equal 21, @customer.updated_at.hour
+  end
 end
