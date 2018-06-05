@@ -301,62 +301,6 @@ class SalesAnalyst
     end
   end
 
-  # def one_time_buyers_top_item
-  #   # how many customers bought the same item
-  #   # quantity matters apparently
-  #   one_time_customers = one_time_buyers
-  #   invoices_by_customer = one_time_customers.reduce({}) do |collector, customer|
-  #     collector[customer.id] = @invoices.find_all_by_customer_id(customer.id)
-  #     collector
-  #   end
-  #   invoice_items_by_customer = invoices_by_customer.reduce({}) do |collector, (customer_id, invoices)|
-  #     collector[customer_id] = invoices.flat_map do |invoice|
-  #       @invoice_items.find_all_by_invoice_id(invoice.id)
-  #     end
-  #     collector
-  #   end
-  #   # p invoice_items_by_customer
-  #   item_ids_per_customer = invoice_items_by_customer.reduce({}) do |collector, (customer_id, invoice_item_array)|
-  #     collector[customer_id] = []
-  #     invoice_item_array.each do |invoice_item|
-  #       invoice_item.quantity.times do 
-  #         collector[customer_id] << invoice_item.item_id
-  #       end
-  #     end
-  #     collector
-  #   end
-  #   p item_ids_per_customer
-
-  #   customers_per_item = item_ids_per_customer.reduce({}) do |collector, (customer_id, item_id_array)|
-      
-  #   end
-
-  #   # p customers_per_item
-  #   max_item = customers_per_item.max_by do |item, count|
-  #     count
-  #   end
-
-  #   p max_item
-
-
-  #   # quantity_per_item = item_ids_per_customer.reduce({}) do |collector, (customer_id, invoice_item_array)|
-  #   #   invoice_item_array.map.with_index do |item_id_with_quantity, i|
-  #   #     key = item_id_with_quantity.keys[0]
-  #   #     if collector[key]
-  #   #       collector[key] += item_id_with_quantity[key]
-  #   #     else
-  #   #       collector[key] = item_id_with_quantity[key]
-  #   #     end
-  #   #   end
-  #   #   collector
-  #   # end
-  #   # p quantity_per_item
-  #   # max_item = quantity_per_item.max_by do |key, value|
-  #   #   value
-  #   # end
-  #   # p max_item
-  # end
-
   def best_invoice_by_revenue
     valid_invoices = @invoices.all.select do |invoice|
       invoice_paid_in_full? invoice.id
