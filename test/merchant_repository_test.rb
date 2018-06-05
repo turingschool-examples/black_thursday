@@ -28,7 +28,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_create_merchants
-    attributes = {:name => 'Turing School', :created_at => "2018-04-25", :updated_at => "2018-05-25"}
+    attributes = {:name => 'Turing School'}
     @mr.create(attributes)
 
     assert_equal 12334123, @mr.all[-2].id

@@ -17,6 +17,8 @@ class MerchantRepository
 
   def create(attributes)
     attributes[:id] = new_id
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
     @collection[new_id] = Merchant.new(attributes)
   end
 
