@@ -309,4 +309,21 @@ class SalesAnalyst
     end
     items
   end
+
+  def highest_volume_items(customer_id)
+    customer_invoices = @invoices.find_all_by_customer_id(customer_id)
+    invoice_items = customer_invoices.map do |customer_invoice|
+      @invoice_items.find_all_by_invoice_id(customer_invoice.id)
+    end.flatten
+    highest_number = invoice_items.max_by do |invoice_item|
+      invoice_item.quantity
+    end.quantity
+    high_volume_invoice_items = invoice_items.find_all do |invoice_item|
+      invoice_item.quantity == highest_number
+    end
+    items = high_volume_invoice_items.map do |high_volume_invoice_item|
+      @items.find_by_id(high_volume_invoice_item.item_id)
+    end
+    items
+  end
 end
