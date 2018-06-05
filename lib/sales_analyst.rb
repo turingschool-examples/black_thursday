@@ -287,7 +287,55 @@ class SalesAnalyst
     end
     @merchants.find_by_id(top_merchant[0])
   end
+  
+  def one_time_buyers
+    invoices_by_customer = @invoices.all.group_by do |invoice|
+      invoice.customer_id
+    end
+    customers = invoices_by_customer.select do |key, value|
+      value.length == 1
+    end.keys
+    customers.map do |key, value|
+      @customers.find_by_id(key)
+    end
+  end
 
+  def best_invoice_by_revenue
+    valid_invoices = @invoices.all.select do |invoice|
+      invoice_paid_in_full? invoice.id
+    end
+    totals_by_invoice = valid_invoices.reduce({}) do |collector, invoice|
+      collector[invoice.id] = invoice_total(invoice.id)
+      collector
+    end
+    max_id = totals_by_invoice.max_by do |invoice_id, value|
+      value
+    end
+    @invoices.find_by_id(max_id.first)
+  end
+
+  def best_invoice_by_quantity
+    valid_invoices = @invoices.all.select do |invoice|
+      invoice_paid_in_full? invoice.id
+    end
+    quantity_per_invoice = valid_invoices.reduce({}) do |collector, invoice|
+      collector[invoice.id] = []
+      invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
+      invoice_items.map do |invoice_item|
+        collector[invoice.id] << invoice_item.quantity
+      end
+      collector
+    end.reduce({}) do |collector, (invoice_id, invoice_array)|
+      collector[invoice_id] = invoice_array.reduce(0) do |sum, num|
+        sum += num
+      end
+      collector
+    end
+    max_id = quantity_per_invoice.max_by do |invoice_id, quantity|
+      quantity
+    end
+    @invoices.find_by_id(max_id.first)
+    
   def items_bought_in_year(customer_id, year)
     customer_invoices = @invoices.find_all_by_customer_id(customer_id)
     valid_transactions = customer_invoices.map do |invoice|
@@ -325,5 +373,24 @@ class SalesAnalyst
       @items.find_by_id(high_volume_invoice_item.item_id)
     end
     items
+
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

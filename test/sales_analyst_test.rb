@@ -106,6 +106,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 478, actual.last.id
   end
 
+  def test_top_merchant
+    actual = @sa.top_merchant_for_customer(100)
+
+    assert_instance_of Merchant, actual
+    assert_equal 12336753, actual.id
+  end
+
+  def test_one_time_buyers
+    actual = @sa.one_time_buyers
+
+    assert_equal 76, actual.length
+    assert_instance_of Customer, actual.first
+  end
+
+  def test_one_time_buyers_top_item
+    actual = @sa.one_time_buyers_top_item
+    assert_equal 263396463, actual
+    assert_instance_of Item, actual
+  end
+
   def test_top_buyers_default
     actual = @sa.top_buyers
 
@@ -114,18 +134,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 250, actual.last.id
   end
 
-  def test_top_merchant
-    actual = @sa.top_merchant_for_customer(100)
+  def test_best_invoice_by_revenue
+    actual = @sa.best_invoice_by_revenue
 
-    assert_instance_of Merchant, actual
-    assert_equal 12336753, actual.id
+    assert_equal 3394, actual.id
+    assert_instance_of Invoice, actual
   end
 
-  def test_top_merchant
-    actual = @sa.top_merchant_for_customer(100)
+  def test_best_invoice_by_quantity
+    actual = @sa.best_invoice_by_quantity
 
-    assert_instance_of Merchant, actual
-    assert_equal 12336753, actual.id
+    assert_equal 1281, actual.id
+    assert_instance_of Invoice, actual
   end
 
   def test_items_bought_in_year
@@ -156,3 +176,18 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, expected.first
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
