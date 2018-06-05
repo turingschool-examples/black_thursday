@@ -16,137 +16,130 @@ class SalesAnalystTest < Minitest::Test
     @sa = se.analyst
   end
 
-  # def test_it_exists
-  #   skip
-  #   assert_instance_of SalesAnalyst, @sa
-  # end
+  def test_it_exists
+    assert_instance_of SalesAnalyst, @sa
+  end
 
-  # def test_it_has_repos
-  #   skip
-  #   assert_instance_of ItemsRepository, @sa.items
-  #   assert_instance_of MerchantRepo, @sa.merchants
-  # end
+  def test_it_has_repos
+    assert_instance_of ItemsRepository, @sa.items
+    assert_instance_of MerchantRepo, @sa.merchants
+  end
 
-  # def test_average_items_per_merchant
-  #   skip
-  #   assert_equal 2.88, @sa.average_items_per_merchant
-  # end
+  def test_average_items_per_merchant
+    assert_equal 2.88, @sa.average_items_per_merchant
+  end
 
-  # def test_average_item_price_for_merchant
-  #   skip
-  #   merchant_id = 12334159
-  #   avg_price = @sa.average_item_price_for_merchant(merchant_id)
-  #   assert_instance_of BigDecimal, avg_price
-  # end
+  def test_average_item_price_for_merchant
+    merchant_id = 12334159
+    avg_price = @sa.average_item_price_for_merchant(merchant_id)
+    assert_instance_of BigDecimal, avg_price
+  end
 
-  # def test_average_average_price_per_merchant
-  #   skip
-  #   avg_avg = @sa.average_average_price_per_merchant
-  #   assert_instance_of BigDecimal, avg_avg
-  # end
+  def test_average_average_price_per_merchant
+    avg_avg = @sa.average_average_price_per_merchant
+    assert_instance_of BigDecimal, avg_avg
+  end
 
-  # def test_average_items_per_merchant_standard_deviation
-  #   skip
-  #   assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
-  # end
+  def test_average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+  end
 
-  # def test_merchants_with_high_item_count
-  #   skip
-  #   assert_equal 52, @sa.merchants_with_high_item_count.length
-  # end
+  def test_merchants_with_high_item_count
+    assert_equal 52, @sa.merchants_with_high_item_count.length
+  end
 
-  # def test_golden_items
-  #   skip
-  #   assert_equal 5, @sa.golden_items.length
-  # end
+  def test_golden_items
+    assert_equal 5, @sa.golden_items.length
+  end
 
-  # def test_average_invoices_per_merchant
-  #   skip
-  #   assert_equal 10.49, @sa.average_invoices_per_merchant
-  # end
+  def test_average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+  end
 
-  # def test_average_invoices_per_merchant_standard_deviation
-  #   skip
-  #   assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
-  # end
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
 
-  # def test_top_merchants_by_invoice_count
-  #   skip
-  #   assert_instance_of Merchant, @sa.top_merchants_by_invoice_count.first
-  #   assert_equal 12, @sa.top_merchants_by_invoice_count.length
-  # end
+  def test_top_merchants_by_invoice_count
+    assert_instance_of Merchant, @sa.top_merchants_by_invoice_count.first
+    assert_equal 12, @sa.top_merchants_by_invoice_count.length
+  end
 
-  # def test_bottom_merchants_by_invoice_count
-  #   skip
-  #   assert_instance_of Merchant, @sa.bottom_merchants_by_invoice_count.first
-  #   assert_equal 4, @sa.bottom_merchants_by_invoice_count.length
-  # end
+  def test_bottom_merchants_by_invoice_count
+    assert_instance_of Merchant, @sa.bottom_merchants_by_invoice_count.first
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.length
+  end
 
-  # def test_top_days_by_invoice_count
-  #   skip
-  #   assert_equal 1, @sa.top_days_by_invoice_count.length
-  #   assert_equal "Wednesday", @sa.top_days_by_invoice_count.first
-  # end
+  def test_top_days_by_invoice_count
+    assert_equal 1, @sa.top_days_by_invoice_count.length
+    assert_equal "Wednesday", @sa.top_days_by_invoice_count.first
+  end
 
-  # def test_invoice_status
-  #   skip
-  #   assert_equal 29.55, @sa.invoice_status(:pending)
+  def test_invoice_status
+    assert_equal 29.55, @sa.invoice_status(:pending)
 
 
-  #   assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
 
 
-  #   assert_equal 13.5, @sa.invoice_status(:returned)
-  # end
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
 
-  # def test_invoice_paid_in_full?
-  #   assert_equal true, @sa.invoice_paid_in_full?(1)
-  #   assert_equal false, @sa.invoice_paid_in_full?(203)
-  #   assert_equal false, @sa.invoice_paid_in_full?(204)
-  # end
+  def test_invoice_paid_in_full?
+    assert_equal true, @sa.invoice_paid_in_full?(1)
+    assert_equal false, @sa.invoice_paid_in_full?(203)
+    assert_equal false, @sa.invoice_paid_in_full?(204)
+  end
 
-  # def test_invoice_total
-  #   @sa.invoice_total(1)
+  def test_invoice_total
+    @sa.invoice_total(1)
 
-  #   assert_equal 21067.77, @sa.invoice_total(1)
-  #   assert_equal BigDecimal, @sa.invoice_total(1).class
-  # end
+    assert_equal 21067.77, @sa.invoice_total(1)
+    assert_equal BigDecimal, @sa.invoice_total(1).class
+  end
 
-  # def test_top_buyers
-  #   actual = @sa.top_buyers(5)
+  def test_top_buyers
+    actual = @sa.top_buyers(5)
 
-  #   assert_equal 5, actual.length
-  #   assert_equal 313, actual.first.id
-  #   assert_equal 478, actual.last.id
-  # end
+    assert_equal 5, actual.length
+    assert_equal 313, actual.first.id
+    assert_equal 478, actual.last.id
+  end
 
-  # def test_top_merchant
-  #   actual = @sa.top_merchant_for_customer(100)
+  def test_top_merchant
+    actual = @sa.top_merchant_for_customer(100)
 
-  #   assert_instance_of Merchant, actual
-  #   assert_equal 12336753, actual.id
-  # end
+    assert_instance_of Merchant, actual
+    assert_equal 12336753, actual.id
+  end
 
-  # def test_one_time_buyers
-  #   actual = @sa.one_time_buyers
+  def test_one_time_buyers
+    actual = @sa.one_time_buyers
 
-  #   assert_equal 76, actual.length
-  #   assert_instance_of Customer, actual.first
-  # end
+    assert_equal 76, actual.length
+    assert_instance_of Customer, actual.first
+  end
 
-  # def test_one_time_buyers_top_item
-  #   actual = @sa.one_time_buyers_top_item
+  def test_one_time_buyers_top_item
+    actual = @sa.one_time_buyers_top_item
+    assert_equal 263396463, actual
+    assert_instance_of Item, actual
+  end
 
-  #   assert_equal 263396463, actual
-  #   assert_instance_of Item, actual
-  # end
+  def test_top_buyers_default
+    actual = @sa.top_buyers
 
-  # def test_best_invoice_by_revenue
-  #   actual = @sa.best_invoice_by_revenue
+    assert_equal 20, actual.length
+    assert_equal 313, actual.first.id
+    assert_equal 250, actual.last.id
+  end
 
-  #   assert_equal 3394, actual.id
-  #   assert_instance_of Invoice, actual
-  # end
+  def test_best_invoice_by_revenue
+    actual = @sa.best_invoice_by_revenue
+
+    assert_equal 3394, actual.id
+    assert_instance_of Invoice, actual
+  end
 
   def test_best_invoice_by_quantity
     actual = @sa.best_invoice_by_quantity
@@ -155,6 +148,33 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Invoice, actual
   end
 
+  def test_items_bought_in_year
+    customer_id = 400
+    year_1 = 2000
+    expected_1 = @sa.items_bought_in_year(customer_id, year_1)
+
+    assert_equal 0, expected_1.length
+    assert_instance_of Array, expected_1
+
+    customer_id = 400
+    year_2 = 2002
+    expected_2 = @sa.items_bought_in_year(customer_id, year_2)
+
+    assert_equal 2, expected_2.length
+    assert_equal 263549742, expected_2.first.id
+    assert_equal "Necklace: V Tube", expected_2.first.name
+    assert_equal Item, expected_2.first.class
+  end
+
+  def test_highest_volume_items
+    customer_id = 200
+    expected = @sa.highest_volume_items(customer_id)
+
+    assert_equal 6, expected.length
+    assert_equal 263420195, expected.first.id
+    assert_equal 263448547, expected.last.id
+    assert_instance_of Item, expected.first
+  end
 end
 
 
