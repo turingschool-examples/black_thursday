@@ -23,7 +23,7 @@ class MerchantTest < Minitest::Test
     m = Merchant.new(@merchant_1)
     assert_equal 12334105, m.id
     assert_equal 'Shopin1901', m.name
-    assert_equal '2010-12-10', m.created_at
-    assert_equal '2011-12-04', m.updated_at
+    assert_equal Time.parse('2010-12-10'), m.created_at
+    assert_equal Time.parse('2011-12-04'), m.updated_at
   end
 end

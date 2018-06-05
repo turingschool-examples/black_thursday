@@ -295,9 +295,9 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    merchant_ids = invoices_grouped_by_status[:pending].map do |invoice|
-      invoice.merchant_id
-    end
+    merchant_ids = @invoices.all.map do |invoice|
+      invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
+    end.compact
     merchant_ids.map do |merchant_id|
       @merchants.find_by_id(merchant_id)
     end.uniq
@@ -318,28 +318,18 @@ class SalesAnalyst
     end
   end
 
-  def invoices_for_merchants_in_a_month(month)
-    invoices_in_month = invoices_grouped_by_month[month]
-    invoices_per_merchant = invoices_in_month.group_by do |invoice|
-      invoice.merchant_id
+  def merchants_grouped_by_month
+    @merchants.all.group_by do |merchant|
+      merchant.created_at.strftime("%B")
     end
-    invoice_counts_per_merchant = {}
-    invoices_per_merchant.each do |merchant_id, invoices|
-      invoices = invoices.count
-      invoice_counts_per_merchant[merchant_id] = invoices
-    end
-    invoice_counts_per_merchant
   end
 
-
   def merchants_with_only_one_item_registered_in_month(month)
-    merchants = []
-    invoices_for_merchants_in_a_month(month).each do |merchant_id, count|
-      merchants << merchant_id if count == 1
+    merchants_in_month = merchants_grouped_by_month[month]
+    one_item_in_month = merchants_with_only_one_item.select do |merchant|
+      merchants_in_month.include?(merchant)
     end
-    merchants.map do |merchant_id|
-      @merchants.find_by_id(merchant_id)
-    end
+    one_item_in_month
   end
 
   def most_sold_item_for_merchant(merchant_id)
