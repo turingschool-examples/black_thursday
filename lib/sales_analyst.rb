@@ -362,21 +362,18 @@ class SalesAnalyst
     array_of_invoice_items = array_of_successful_invoices.map do |invoice|
       @invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
-    item_id_quantities = Hash.new(0)
+    item_id_unit_prices = Hash.new(0)
     array_of_invoice_items.map do |invoice_item|
-      item_id_quantities[invoice_item.item_id] += invoice_item.quantity
+      item_id_unit_prices[invoice_item.item_id] += (invoice_item.unit_price * invoice_item.quantity)
     end
-    items_with_revenue = {}
-    item_id_quantities.each do |key, value|
-      new_value = (@items.find_by_id(key).unit_price * value) * 100
-      new_key = @items.find_by_id(key)
-      items_with_revenue[new_key] = new_value
-    end
-    high_revenue = items_with_revenue.values.max
-    best_item = items_with_revenue.map do |item, revenue|
-      item if revenue == high_revenue
+    high_unit_price = item_id_unit_prices.values.max
+    array_of_highest_item_ids = item_id_unit_prices.map do |key, value|
+      key if value == high_unit_price
     end.compact
-    best_item.first
+    items = array_of_highest_item_ids.map do |item_id|
+      @items.find_by_id(item_id)
+    end
+    items.first
   end
 
   def merchants_ranked_by_revenue
