@@ -141,10 +141,17 @@ class SalesAnalystTest < Minitest::Test
   #   assert_instance_of Item, actual
   # end
 
-  def test_best_invoice_by_revenue
-    actual = @sa.best_invoice_by_revenue
+  # def test_best_invoice_by_revenue
+  #   actual = @sa.best_invoice_by_revenue
 
-    assert_equal 3394, actual.id
+  #   assert_equal 3394, actual.id
+  #   assert_instance_of Invoice, actual
+  # end
+
+  def test_best_invoice_by_quantity
+    actual = @sa.best_invoice_by_quantity
+
+    assert_equal 1281, actual.id
     assert_instance_of Invoice, actual
   end
 

@@ -10,7 +10,7 @@ class Item
               :updated_at
 
   def initialize(item)
-    @id = item[:id]
+    @id = item[:id].to_i
     @name = item[:name]
     @description = item[:description]
     @unit_price = BigDecimal(item[:unit_price]) / 100

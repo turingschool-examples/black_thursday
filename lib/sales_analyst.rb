@@ -368,7 +368,30 @@ class SalesAnalyst
     max_id = totals_by_invoice.max_by do |invoice_id, value|
       value
     end
-    @invoices.find_by_id(max_id[0])
+    @invoices.find_by_id(max_id.first)
+  end
+
+  def best_invoice_by_quantity
+    valid_invoices = @invoices.all.select do |invoice|
+      invoice_paid_in_full? invoice.id
+    end
+    quantity_per_invoice = valid_invoices.reduce({}) do |collector, invoice|
+      collector[invoice.id] = []
+      invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
+      invoice_items.map do |invoice_item|
+        collector[invoice.id] << invoice_item.quantity
+      end
+      collector
+    end.reduce({}) do |collector, (invoice_id, invoice_array)|
+      collector[invoice_id] = invoice_array.reduce(0) do |sum, num|
+        sum += num
+      end
+      collector
+    end
+    max_id = quantity_per_invoice.max_by do |invoice_id, quantity|
+      quantity
+    end
+    @invoices.find_by_id(max_id.first)
   end
 end
 

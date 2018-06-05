@@ -27,10 +27,10 @@ class ItemsRepositoryTest < Minitest::Test
   def test_find_by_id
     @ir.load_items(@items)
 
-    nil_id = '1984'
+    nil_id = 1984
     assert_nil @ir.find_by_id(nil_id)
 
-    real_id = '263395237'
+    real_id = 263395237
     assert_instance_of Item, @ir.find_by_id(real_id)
   end
 
