@@ -19,4 +19,12 @@ class MerchantRepository
     attributes[:id] = new_id
     @collection[new_id] = Merchant.new(attributes)
   end
+
+  def update(current_id, new_attributes)
+    if @collection[current_id] == nil
+    else
+      @collection[current_id].update_name(new_attributes) if new_attributes[:name]
+      @collection[current_id].update_updated_at(Time.now)
+    end
+  end
 end

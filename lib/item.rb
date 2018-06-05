@@ -43,5 +43,4 @@ class Item
   def update_updated_at(attributes)
     @updated_at = attributes
   end
-
 end

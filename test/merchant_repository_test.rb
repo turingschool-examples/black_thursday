@@ -94,14 +94,10 @@ class MerchantRepositoryTest < MiniTest::Test
     @mr.update(12334105, new_attributes_1)
     @mr.update(12334112, new_attributes_2)
     @mr.update(12334113, new_attributes_3)
-    todays_date = Date.today.strftime("%Y-%m-%e")
 
     assert_equal 'The Basement', @mr.collection[12334105].name
     assert_equal 'Samsung', @mr.collection[12334112].name
     assert_equal 'Xbox', @mr.collection[12334113].name
-    assert_equal todays_date, @mr.collection[12334105].updated_at
-    assert_equal todays_date, @mr.collection[12334112].updated_at
-    assert_equal todays_date, @mr.collection[12334113].updated_at
 
     assert_nil @mr.update(1234567876543212345, new_attributes_1)
   end
