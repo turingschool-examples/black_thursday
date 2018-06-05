@@ -7,6 +7,12 @@ class CustomerRepositoryTest < Minitest::Test
 
   def setup
     @cr = CustomerRepository.new(load_file('./data/customers.csv'))
+    @attributes = {
+      first_name: 'Brian',
+      last_name: 'Zanti',
+      created_at: Time.now,
+      updated_at: Time.now
+    }
   end
 
   def test_it_exists
@@ -39,43 +45,24 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_customers
-    attributes = {
-                  :first_name => 'Brian',
-                  :last_name => 'Zanti',
-                  :created_at => Time.now,
-                  :updated_at => Time.now
-                 }
     assert_equal Customer, @cr.find_by_id(1000).class
     assert_nil @cr.find_by_id(1001)
-    new_customer = @cr.create(attributes)
+    new_customer = @cr.create(@attributes)
     assert @cr.repository.include?(new_customer)
     assert_equal 1001, new_customer.id
   end
 
   def test_it_can_update_customers
-    attributes = {
-                  :first_name => 'Brian',
-                  :last_name => 'Zanti',
-                  :created_at => Time.now,
-                  :updated_at => Time.now
-                 }
-    new_customer = @cr.create(attributes)
-    @cr.update(1001, {:first_name => 'Brain'})
+    new_customer = @cr.create(@attributes)
+    @cr.update(1001, first_name: 'Brain')
     assert_equal 'Brain', new_customer.first_name
     assert_equal 'Zanti', new_customer.last_name
   end
 
   def test_it_can_delete_an_entry
-    attributes = {
-                  :first_name => 'Brian',
-                  :last_name => 'Zanti',
-                  :created_at => Time.now,
-                  :updated_at => Time.now
-                 }
-    new_customer = @cr.create(attributes)
+    new_customer = @cr.create(@attributes)
     assert @cr.repository.include?(new_customer)
     @cr.delete(1001)
     refute @cr.repository.include?(new_customer)
   end
-
 end

@@ -8,6 +8,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
     @iir = InvoiceItemRepository.new(load_file('./data/invoice_items_test.csv'))
+    @attributes = {
+      item_id: 7,
+      invoice_id: 8,
+      quantity: 1,
+      unit_price: BigDecimal(10.99, 4),
+      created_at: Time.now,
+      updated_at: Time.now
+    }
   end
 
   def test_it_exists
@@ -34,53 +42,27 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_a_new_entry
-    attributes = ({
-      :item_id => 7,
-      :invoice_id => 8,
-      :quantity => 1,
-      :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
-    })
-    new_invoice_item = @iir.create(attributes)
+    new_invoice_item = @iir.create(@attributes)
     assert @iir.repository.include?(new_invoice_item)
     assert_equal new_invoice_item, @iir.find_by_id(102)
   end
 
   def test_it_can_update_an_entry
-    attributes = ({
-      :item_id => 7,
-      :invoice_id => 8,
-      :quantity => 1,
-      :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
-    })
-    @iir.create(attributes)
+    @iir.create(@attributes)
     original_time = @iir.find_by_id(102).updated_at
     new_attributes = {
-      :quantity => 2,
-      :unit_price => BigDecimal(11.00,4)
+      quantity: 2,
+      unit_price: BigDecimal(11.00, 4)
     }
-    id = 102
-    @iir.update(id, new_attributes)
-    assert_equal 2, @iir.find_by_id(id).quantity
-    assert_equal 11, @iir.find_by_id(id).unit_price
-    assert @iir.find_by_id(id).updated_at > original_time
+    @iir.update(102, new_attributes)
+    assert_equal 2, @iir.find_by_id(102).quantity
+    assert_equal 11, @iir.find_by_id(102).unit_price
+    assert @iir.find_by_id(102).updated_at > original_time
   end
 
   def test_it_can_delete_an_entry
-    attributes = ({
-      :item_id => 7,
-      :invoice_id => 8,
-      :quantity => 1,
-      :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
-    })
-    @iir.create(attributes)
+    @iir.create(@attributes)
     @iir.delete(102)
     assert_equal nil, @iir.find_by_id(102)
   end
-
 end

@@ -7,6 +7,14 @@ class TransactionRepositoryTest < Minitest::Test
 
   def setup
     @tr = TransactionRepository.new(load_file('./data/transactions_test.csv'))
+    @attributes = {
+      invoice_id: 8,
+      credit_card_number: '4242424242424242',
+      credit_card_expiration_date: '0220',
+      result: 'success',
+      created_at: Time.now,
+      updated_at: Time.now
+    }
   end
 
   def test_it_exists
@@ -38,37 +46,20 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_a_new_entry
-    attributes = {
-      :invoice_id => 8,
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
-      :created_at => Time.now,
-      :updated_at => Time.now
-    }
-    new_transaction = @tr.create(attributes)
+    new_transaction = @tr.create(@attributes)
     assert @tr.repository.include?(new_transaction)
     assert_equal new_transaction, @tr.find_by_id(100)
   end
 
   def test_it_can_update_an_entry
-    attributes = {
-      :invoice_id => 8,
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
-      :created_at => Time.now,
-      :updated_at => Time.now
-    }
-    @tr.create(attributes)
+    @tr.create(@attributes)
     original_time = @tr.find_by_id(10).updated_at
     new_attributes = {
-      :credit_card_number => '1234123412341234',
-      :credit_card_expiration_date => '1220',
-      :result => "failure"
+      credit_card_number: '1234123412341234',
+      credit_card_expiration_date: '1220',
+      result: 'failure'
     }
-    id = 10
-    @tr.update(id, new_attributes)
+    @tr.update(10, new_attributes)
     assert_equal '1234123412341234', @tr.find_by_id(10).credit_card_number
     assert_equal '1220', @tr.find_by_id(10).credit_card_expiration_date
     assert_equal 'failure', @tr.find_by_id(10).result
@@ -76,15 +67,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_an_entry
-    attributes = {
-      :invoice_id => 8,
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
-      :created_at => Time.now,
-      :updated_at => Time.now
-    }
-    new_transaction = @tr.create(attributes)
+    new_transaction = @tr.create(@attributes)
     assert_equal 100, new_transaction.id
     @tr.delete(100)
     assert_equal nil, @tr.find_by_id(100)

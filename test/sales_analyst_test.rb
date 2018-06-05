@@ -3,16 +3,15 @@ require './lib/sales_analyst.rb'
 require 'pry'
 
 class SalesAnalystTest < Minitest::Test
-
   def setup
-    se = SalesEngine.from_csv({
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices  => './data/invoices_test.csv',
-      :customers => './data/customers.csv',
-      :invoice_items => './data/invoice_items_test.csv',
-      :transactions => './data/transactions_test.csv'
-    })
+    se = SalesEngine.from_csv(
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices_test.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items_test.csv',
+      transactions: './data/transactions_test.csv'
+    )
     @sa = SalesAnalyst.new(se)
   end
 
@@ -133,39 +132,34 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_most_sold_item_for_merchant
-    se = SalesEngine.from_csv({
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices => './data/invoices.csv',
-      :customers => './data/customers.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/transactions.csv'
-      })
+    se = SalesEngine.from_csv(
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+    )
     @sa = SalesAnalyst.new(se)
-    merchant_id = 12334189
-    assert_equal 263524984, @sa.most_sold_item_for_merchant(merchant_id).first.id
-    assert_equal 'Adult Princess Leia Hat', @sa.most_sold_item_for_merchant(merchant_id).first.name
-    assert_instance_of Item, @sa.most_sold_item_for_merchant(merchant_id).first
-    merchant_id = 12334768
-    assert_equal 263549386, @sa.most_sold_item_for_merchant(merchant_id).first.id
-    merchant_id = 12337105
-    assert_equal 4, @sa.most_sold_item_for_merchant(merchant_id).length
+    assert_equal 263524984, @sa.most_sold_item_for_merchant(12334189).first.id
+    assert_equal 'Adult Princess Leia Hat', @sa.most_sold_item_for_merchant(12334189).first.name
+    assert_instance_of Item, @sa.most_sold_item_for_merchant(12334189).first
+    assert_equal 263549386, @sa.most_sold_item_for_merchant(12334768).first.id
+    assert_equal 4, @sa.most_sold_item_for_merchant(12337105).length
   end
 
   def test_it_can_find_best_item_for_merchant
-    se = SalesEngine.from_csv({
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices => './data/invoices.csv',
-      :customers => './data/customers.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/transactions.csv'
-      })
+    se = SalesEngine.from_csv(
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+    )
     @sa = SalesAnalyst.new(se)
-    merchant_id = 12334189
-    assert_equal 263516130, @sa.best_item_for_merchant(merchant_id).id
-    merchant_id = 12337105
-    assert_equal 263463003, @sa.best_item_for_merchant(merchant_id).id
+    assert_equal 263516130, @sa.best_item_for_merchant(12334189).id
+    assert_equal 263463003, @sa.best_item_for_merchant(12337105).id
   end
 
   def test_it_can_rank_merchants_by_revenue
