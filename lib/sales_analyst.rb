@@ -244,9 +244,9 @@ class SalesAnalyst
   end
 
   def top_buyers(x = 20) # req
-    total_spend_per_customer.sort_by do |customer_id , spend|
+    total_spend_per_customer.sort_by do |customer_id, spend|
       spend
-    end.reverse[0..x-1].map do |customer_id, _|
+    end.reverse[0..x - 1].map do |customer_id, _|
       @customers.find_by_id(customer_id)
     end
   end
@@ -260,7 +260,7 @@ class SalesAnalyst
   def total_items_per_merchant_per_customer(customer_id) # HELPER
     my_merchants =
       invoices_group_by_customer_id[customer_id].group_by(&:merchant_id)
-    my_merchants.map do |merchant, invoices|
+    my_merchants.map do |_, invoices|
       invoices.map do |invoice|
         if invoice_item_qty_per_invoice(invoice.id).nil?
           [invoice.merchant_id, 0]
@@ -280,8 +280,6 @@ class SalesAnalyst
   def top_merchant_for_customer(customer_id) # req
     @merchants.find_by_id(top_merchant_id(customer_id)[0])
   end
-
-
 
   def one_invoice_customer_ids # HELPER
     invoices_group_by_customer_id.map do |customer_id, invoice_list|
@@ -320,8 +318,8 @@ class SalesAnalyst
     item_count
   end
 
-  def one_time_buyers_top_item
-    max_item_id = one_time_item_count.max_by do |key,value|
+  def one_time_buyers_top_item #req
+    max_item_id = one_time_item_count.max_by do |_,value|
       value
     end
     @items.find_by_id(max_item_id[0])
@@ -348,7 +346,6 @@ class SalesAnalyst
     return all_items
   end
 
-
   def customer_invoice_items(customer_id)
     invoices_group_by_customer_id[customer_id].map do |invoice|
       invoice_items_group_by_invoice[invoice.id]
@@ -366,11 +363,11 @@ class SalesAnalyst
   def highest_volume_items(customer_id) # req
     all_invoice_items = customer_invoice_items(customer_id)
     all_item_count = customer_item_count(all_invoice_items)
-    highest_count = all_item_count.max_by do |item_id, count|
+    highest_count = all_item_count.max_by do |_, count|
       count
     end
     highest_count = highest_count[1]
-    highest_count_item_ids = all_item_count.find_all do |item_id, count|
+    highest_count_item_ids = all_item_count.find_all do |_, count|
       count == highest_count
     end
     all_items = highest_count_item_ids.map do |item_id, _|
@@ -379,16 +376,27 @@ class SalesAnalyst
     all_items
   end
 
+  def customer_ids_unpaid
+    invoices_group_by_customer_id.map do |customer_id, invoice_list|
+      customer_id if invoice_list.any? do |invoice|
+        !invoice_paid_in_full?(invoice.id)
+      end
+    end.compact
+  end
+
+  def customers_with_unpaid_invoices # req
+    customers = customer_ids_unpaid.map do |customer_id|
+      @customers.find_by_id(customer_id)
+    end
+  end
+
+  def best_invoice_by_revenue
+
+  end
 end
 
+
+
 # REMAINING METHODS NEEDED
-  #
-  #
-  # def customers_with_unpaid_invoices # req
-  # end
-  #
-  # def best_invoice_by_revenue # req
-  # end
-  #
   # def best_invoice_by_quantity # req
   # end
