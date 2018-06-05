@@ -10,25 +10,19 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(name)
-    all = @repository.map do |customer|
-      if customer.first_name.downcase.include?(name.downcase)
-        customer
-      end
+    @repository.find_all do |customer|
+      customer.first_name.downcase.include?(name.downcase)
     end
-    all.compact
   end
 
   def find_all_by_last_name(name)
-    all = @repository.map do |customer|
-      if customer.last_name.downcase.include?(name.downcase)
-        customer
-      end
+    @repository.find_all do |customer|
+      customer.last_name.downcase.include?(name.downcase)
     end
-    all.compact
   end
 
   def create(attributes)
-    sorted = @repository.sort_by { |customer| customer.id }
+    sorted = @repository.sort_by(&:id)
     new_id = sorted.last.id + 1
     attributes[:id] = new_id
     new_customer = Customer.new(attributes)
@@ -38,18 +32,16 @@ class CustomerRepository
 
   def update(id, attributes)
     customer = find_by_id(id)
-    if customer != nil
-      attributes.each do |key, value|
-        customer.first_name = value if key == :first_name
-        customer.last_name = value if key == :last_name
-      end
-      customer.updated_at = Time.now + 1
-      customer
+    return if customer.nil?
+    attributes.each do |key, value|
+      customer.first_name = value if key == :first_name
+      customer.last_name = value if key == :last_name
     end
+    customer.updated_at = Time.now + 1
+    customer
   end
 
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
-  
 end

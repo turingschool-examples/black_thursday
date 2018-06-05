@@ -17,14 +17,14 @@ class MerchantRepository
   end
 
   def create(attributes)
-    max_id = @repository.sort_by{ |merchant| merchant.id }.last.id
+    max_id = @repository.max_by(&:id).id
     new_id = max_id + 1
-    new_merchant = Merchant.new({
-                    id: new_id.to_s,
-                    name: attributes[:name],
-                    created_at: Time.now,
-                    updated_at: Time.now
-                    })
+    new_merchant = Merchant.new(
+      id: new_id.to_s,
+      name: attributes[:name],
+      created_at: Time.now,
+      updated_at: Time.now
+    )
     @repository << new_merchant
     new_merchant
   end
@@ -32,15 +32,13 @@ class MerchantRepository
   def update(id, attributes)
     new_name = attributes[:name]
     merchant = find_by_id(id)
-    if !merchant.nil?
-      merchant.updated_at = Time.now
-      merchant.name = new_name
-      merchant
-    end
+    return if merchant.nil?
+    merchant.updated_at = Time.now
+    merchant.name = new_name
+    merchant
   end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
 end

@@ -18,7 +18,7 @@ class TransactionRepository
   end
 
   def create(attributes)
-    sorted = @repository.sort_by { |transaction| transaction.id }
+    sorted = @repository.sort_by(&:id)
     new_id = sorted.last.id + 1
     attributes[:id] = new_id
     new_transaction = Transaction.new(attributes)
@@ -28,18 +28,16 @@ class TransactionRepository
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    if transaction != nil
-      attributes.each do |key, value|
-        transaction.credit_card_number = value if key == :credit_card_number
-        transaction.credit_card_expiration_date = value if key == :credit_card_expiration_date
-        transaction.result = value if key == :result
-        transaction.updated_at = Time.now + 1
-      end
+    return if transaction.nil?
+    attributes.each do |key, value|
+      transaction.credit_card_number = value if key == :credit_card_number
+      transaction.credit_card_expiration_date = value if key == :credit_card_expiration_date
+      transaction.result = value if key == :result
+      transaction.updated_at = Time.now + 1
     end
   end
 
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
-  
 end

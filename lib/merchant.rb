@@ -8,5 +8,4 @@ class Merchant
     @created_at = Time.parse(merchant[:created_at].to_s)
     @updated_at = Time.parse(merchant[:updated_at].to_s)
   end
-
 end

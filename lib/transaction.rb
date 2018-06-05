@@ -19,5 +19,4 @@ class Transaction
     @created_at = Time.parse(transaction[:created_at].to_s)
     @updated_at = Time.parse(transaction[:updated_at].to_s)
   end
-
 end

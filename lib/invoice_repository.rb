@@ -18,7 +18,7 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    sorted = @repository.sort_by { |invoice| invoice.id }
+    sorted = @repository.sort_by(&:id)
     new_id = sorted.last.id + 1
     attributes[:id] = new_id
     new_invoice = Invoice.new(attributes)
@@ -28,15 +28,13 @@ class InvoiceRepository
 
   def update(id, attributes)
     invoice = find_by_id(id)
-    if !invoice.nil?
-      invoice.status = attributes[:status]
-      invoice.updated_at = Time.now
-      invoice
-    end
+    return if invoice.nil?
+    invoice.status = attributes[:status]
+    invoice.updated_at = Time.now
+    invoice
   end
 
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
-
 end

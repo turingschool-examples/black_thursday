@@ -7,7 +7,8 @@ class MerchantRepositoryTest < Minitest::Test
   include FileLoader
 
   def setup
-    @mr = MerchantRepository.new(load_file("./data/merchants.csv"))
+    @mr = MerchantRepository.new(load_file('./data/merchants.csv'))
+    @id = 12337412
   end
 
   def test_it_exists
@@ -44,27 +45,26 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_repo_can_create_new_merchants
-    new_merchant = @mr.create({name: 'Bill'})
+    new_merchant = @mr.create(name: 'Bill')
     assert_instance_of Merchant, new_merchant
     assert_equal 'Bill', new_merchant.name
     assert @mr.repository.include?(new_merchant)
-    assert_equal 12337412, new_merchant.id
+    assert_equal @id, new_merchant.id
   end
 
   def test_merchants_can_be_updated
-    new_merchant = @mr.create({name: 'Bill'})
-    assert_equal 12337412, new_merchant.id
-    assert_equal @mr.find_by_id(12337412).name, 'Bill'
-    @mr.update(12337412, {name: 'Billy'})
-    assert_equal @mr.find_by_id(12337412).name, 'Billy'
-    assert_equal nil, @mr.update(13000000, {name: 'Billy'})
+    new_merchant = @mr.create(name: 'Bill')
+    assert_equal @id, new_merchant.id
+    assert_equal @mr.find_by_id(@id).name, 'Bill'
+    @mr.update(@id, name: 'Billy')
+    assert_equal @mr.find_by_id(@id).name, 'Billy'
+    assert_equal nil, @mr.update(13000000, name: 'Billy')
   end
 
   def test_merchants_can_be_deleted
-    new_merchant = @mr.create({name: 'Bill'})
-    assert_equal 12337412, new_merchant.id
-    @mr.delete(12337412)
-    assert_equal nil, @mr.find_by_id(12337412)
+    new_merchant = @mr.create(name: 'Bill')
+    assert_equal @id, new_merchant.id
+    @mr.delete(@id)
+    assert_equal nil, @mr.find_by_id(@id)
   end
-
 end

@@ -25,7 +25,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    sorted = @repository.sort_by { |item| item.id }
+    sorted = @repository.sort_by(&:id) # { |item| item.id }
     new_id = sorted.last.id + 1
     attributes[:id] = new_id
     @repository << Item.new(attributes)
@@ -33,11 +33,10 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    if item != nil
-      attributes.each do |key, value|
-        update_name_or_desc(item, key, value) if (key == :name || key == :description)
-        update_unit_price(item, value) if key == :unit_price
-      end
+    return if item.nil?
+    attributes.each do |key, value|
+      update_name_or_desc(item, key, value) if key == :name || key == :description
+      update_unit_price(item, value) if key == :unit_price
     end
   end
 
@@ -54,5 +53,4 @@ class ItemRepository
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
-
 end
