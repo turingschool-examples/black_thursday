@@ -202,5 +202,11 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 263549742, @sa.items_bought_in_year(400, 2002).first.id
   # end
 
+  def test_highest_volume_items
+    # assert_equal 34, @sa.customer_invoice_items(200).length
+    # all_invoice_items = @sa.customer_invoice_items(200)
+    # assert_equal 0, @sa.customer_item_count(all_invoice_items)
+    assert_equal 6, @sa.highest_volume_items(200).length
+  end
 
 end
