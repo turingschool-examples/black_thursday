@@ -6,12 +6,12 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices_test.csv",
-      :customers => "./data/customers.csv",
-      :invoice_items => "./data/invoice_items_test.csv",
-      :transactions => "./data/transactions_test.csv"
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices_test.csv',
+      :customers => './data/customers.csv',
+      :invoice_items => './data/invoice_items_test.csv',
+      :transactions => './data/transactions_test.csv'
     })
     @sa = SalesAnalyst.new(se)
   end
@@ -134,15 +134,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_most_sold_item_for_merchant
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      # :invoices  => "./data/invoices_test.csv",
-      :invoices => "./data/invoices.csv",
-      :customers => "./data/customers.csv",
-      # :invoice_items => "./data/invoice_items_test.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      # :transactions => "./data/transactions_test.csv"
-      :transactions => "./data/transactions.csv"
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv'
       })
     @sa = SalesAnalyst.new(se)
     merchant_id = 12334189
@@ -157,15 +154,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_best_item_for_merchant
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      # :invoices  => "./data/invoices_test.csv",
-      :invoices => "./data/invoices.csv",
-      :customers => "./data/customers.csv",
-      # :invoice_items => "./data/invoice_items_test.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      # :transactions => "./data/transactions_test.csv"
-      :transactions => "./data/transactions.csv"
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv'
       })
     @sa = SalesAnalyst.new(se)
     merchant_id = 12334189

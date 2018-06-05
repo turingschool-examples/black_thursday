@@ -7,7 +7,7 @@ class InvoiceRepositoryTest < Minitest::Test
   include FileLoader
 
   def setup
-    @invr = InvoiceRepository.new(load_file("./data/invoices_test.csv"))
+    @invr = InvoiceRepository.new(load_file('./data/invoices_test.csv'))
   end
 
   def test_it_exists
@@ -51,7 +51,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
     }
     new_invoice = @invr.create(attributes)
-    sorted = @invr.repository.sort_by { |invoice| invoice.id }
+    # sorted = @invr.repository.sort_by { |invoice| invoice.id }
     assert @invr.repository.include?(new_invoice)
     assert_equal new_invoice, @invr.find_by_id(102)
   end
@@ -64,7 +64,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :created_at  => Time.now,
       :updated_at  => Time.now,
     }
-    new_invoice = @invr.create(attributes)
+    @invr.create(attributes)
     @invr.update(51, {status: 'shipped'})
     assert_equal @invr.find_by_id(51).status, 'shipped'
     assert_equal nil, @invr.update(13000000, {status: 'shipped'})

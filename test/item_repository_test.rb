@@ -7,7 +7,7 @@ class ItemRepositoryTest < Minitest::Test
   include FileLoader
 
   def setup
-    @ir = ItemRepository.new(load_file("./data/items.csv"))
+    @ir = ItemRepository.new(load_file('./data/items.csv'))
   end
 
   def test_it_exists
@@ -24,19 +24,19 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_id_number
     id = 263538760
-    name = "Puppy blankie"
+    name = 'Puppy blankie'
     assert_equal @ir.find_by_name(name), @ir.find_by_id(id)
   end
 
   def test_it_can_find_by_name
     id = 263395721
-    name = "Disney scrabble frames"
+    name = 'Disney scrabble frames'
     assert_equal @ir.find_by_id(id), @ir.find_by_name(name)
   end
 
   def test_it_can_find_by_description
     id = 263395721
-    description = "Disney glitter"
+    description = 'Disney glitter'
     assert_equal [@ir.find_by_id(id)], @ir.find_all_with_description(description)
   end
 
@@ -54,9 +54,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_create_a_new_entry
     attributes = {
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
     }
@@ -68,43 +68,43 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_update
     attributes = {
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
     }
     @ir.create(attributes)
     new_attributes = {
-      :name => "Pen",
-      :description => "Now in ink",
-      :unit_price => BigDecimal.new(11.00,4)
+      :name => 'Pen',
+      :description => 'Now in ink',
+      :unit_price => BigDecimal(11.00,4)
     }
     id = 263567475
     @ir.update(id, new_attributes)
-    assert_equal "Pen", @ir.find_by_id(263567475).name
+    assert_equal 'Pen', @ir.find_by_id(263567475).name
     assert_equal 11, @ir.find_by_id(263567475).unit_price
   end
 
   def test_it_can_update_just_one_thing
     attributes = {
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
     }
     @ir.create(attributes)
-    new_attributes = {unit_price: BigDecimal.new(379.99, 5)}
+    new_attributes = {unit_price: BigDecimal(379.99, 5)}
     @ir.update(263567475, new_attributes)
     assert_equal 379.99, @ir.find_by_id(263567475).unit_price
   end
 
   def test_it_can_delete_an_entry
     attributes = {
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
     }

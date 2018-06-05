@@ -7,11 +7,11 @@ class MerchantTest < Minitest::Test
 
   def setup
     @merchant_1 = {
-                   id: 12334105,
-                   name: 'Shopin1901',
-                   created_at: '2010-12-10',
-                   updated_at: '2011-12-04'
-                  }
+      id: 12334105,
+      name: 'Shopin1901',
+      created_at: '2010-12-10',
+      updated_at: '2011-12-04'
+    }
   end
 
   def test_it_exists

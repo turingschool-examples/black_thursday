@@ -6,7 +6,7 @@ class TransactionRepositoryTest < Minitest::Test
   include FileLoader
 
   def setup
-    @tr = TransactionRepository.new(load_file("./data/transactions_test.csv"))
+    @tr = TransactionRepository.new(load_file('./data/transactions_test.csv'))
   end
 
   def test_it_exists
@@ -28,13 +28,13 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_credit_card_number
-    assert_equal 1, @tr.find_all_by_credit_card_number("4271805778010747").count
+    assert_equal 1, @tr.find_all_by_credit_card_number('4271805778010747').count
     assert_equal [], @tr.find_all_by_credit_card_number('not a number')
   end
 
   def test_it_can_find_all_by_result
     assert_equal 77, @tr.find_all_by_result(:success).count
-    assert_equal [], @tr.find_all_by_result("oops")
+    assert_equal [], @tr.find_all_by_result('oops')
   end
 
   def test_it_can_create_a_new_entry
@@ -47,7 +47,6 @@ class TransactionRepositoryTest < Minitest::Test
       :updated_at => Time.now
     }
     new_transaction = @tr.create(attributes)
-    sorted = @tr.repository.sort_by { |transaction| transaction.id }
     assert @tr.repository.include?(new_transaction)
     assert_equal new_transaction, @tr.find_by_id(100)
   end
@@ -61,7 +60,7 @@ class TransactionRepositoryTest < Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now
     }
-    new_transaction = @tr.create(attributes)
+    @tr.create(attributes)
     original_time = @tr.find_by_id(10).updated_at
     new_attributes = {
       :credit_card_number => '1234123412341234',
@@ -70,7 +69,7 @@ class TransactionRepositoryTest < Minitest::Test
     }
     id = 10
     @tr.update(id, new_attributes)
-    assert_equal'1234123412341234', @tr.find_by_id(10).credit_card_number
+    assert_equal '1234123412341234', @tr.find_by_id(10).credit_card_number
     assert_equal '1220', @tr.find_by_id(10).credit_card_expiration_date
     assert_equal 'failure', @tr.find_by_id(10).result
     assert @tr.find_by_id(10).updated_at > original_time
@@ -90,5 +89,4 @@ class TransactionRepositoryTest < Minitest::Test
     @tr.delete(100)
     assert_equal nil, @tr.find_by_id(100)
   end
-
 end

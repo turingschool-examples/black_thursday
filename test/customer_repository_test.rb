@@ -6,7 +6,7 @@ class CustomerRepositoryTest < Minitest::Test
   include FileLoader
 
   def setup
-    @cr = CustomerRepository.new(load_file("./data/customers.csv"))
+    @cr = CustomerRepository.new(load_file('./data/customers.csv'))
   end
 
   def test_it_exists

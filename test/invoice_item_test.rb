@@ -9,7 +9,7 @@ class InvoiceItemTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal(10.99, 4),
       :created_at => Time.now,
       :updated_at => Time.now
     })
@@ -22,7 +22,7 @@ class InvoiceItemTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(1099, 4),
+      :unit_price => BigDecimal(1099, 4),
       :created_at => "2016-01-11 11:51:36 UTC",
       :updated_at => "2001-09-17 15:28:43 UTC"
     })
@@ -31,8 +31,8 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 8, ii.invoice_id
     assert_equal 1, ii.quantity
     assert_equal 10.99, ii.unit_price
-    assert_equal Time.parse("2016-01-11 11:51:36 UTC"), ii.created_at
-    assert_equal Time.parse("2001-09-17 15:28:43 UTC"), ii.updated_at
+    assert_equal Time.parse('2016-01-11 11:51:36 UTC'), ii.created_at
+    assert_equal Time.parse('2001-09-17 15:28:43 UTC'), ii.updated_at
   end
 
   def test_change_unit_price_to_dollars
@@ -41,7 +41,7 @@ class InvoiceItemTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(1099, 4),
+      :unit_price => BigDecimal(1099, 4),
       :created_at => "2016-01-11 11:51:36 UTC",
       :updated_at => "2001-09-17 15:28:43 UTC"
     })

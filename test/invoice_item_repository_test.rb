@@ -7,7 +7,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   include FileLoader
 
   def setup
-    @iir = InvoiceItemRepository.new(load_file("./data/invoice_items_test.csv"))
+    @iir = InvoiceItemRepository.new(load_file('./data/invoice_items_test.csv'))
   end
 
   def test_it_exists
@@ -38,12 +38,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal(10.99, 4),
       :created_at => Time.now,
       :updated_at => Time.now
     })
     new_invoice_item = @iir.create(attributes)
-    sorted = @iir.repository.sort_by { |invoice_item| invoice_item.id }
     assert @iir.repository.include?(new_invoice_item)
     assert_equal new_invoice_item, @iir.find_by_id(102)
   end
@@ -53,15 +52,15 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal(10.99, 4),
       :created_at => Time.now,
       :updated_at => Time.now
     })
-    new_invoice_item = @iir.create(attributes)
+    @iir.create(attributes)
     original_time = @iir.find_by_id(102).updated_at
     new_attributes = {
       :quantity => 2,
-      :unit_price => BigDecimal.new(11.00,4)
+      :unit_price => BigDecimal(11.00,4)
     }
     id = 102
     @iir.update(id, new_attributes)
@@ -75,11 +74,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal(10.99, 4),
       :created_at => Time.now,
       :updated_at => Time.now
     })
-    new_invoice_item = @iir.create(attributes)
+    @iir.create(attributes)
     @iir.delete(102)
     assert_equal nil, @iir.find_by_id(102)
   end
