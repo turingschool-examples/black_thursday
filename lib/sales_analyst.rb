@@ -287,4 +287,26 @@ class SalesAnalyst
     end
     @merchants.find_by_id(top_merchant[0])
   end
+
+  def items_bought_in_year(customer_id, year)
+    customer_invoices = @invoices.find_all_by_customer_id(customer_id)
+    valid_transactions = customer_invoices.map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice
+      end
+    end.compact
+    invoice_items = valid_transactions.map do |valid_invoice|
+      if valid_invoice.created_at.year == year
+        @invoice_items.find_all_by_invoice_id(valid_invoice.id)
+      end
+    end.compact.flatten
+    items = invoice_items.map do |invoice_item|
+      if invoice_item == nil
+        nil
+      else
+        @items.find_by_id(invoice_item.item_id)
+      end
+    end
+    items
+  end
 end
