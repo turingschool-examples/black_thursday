@@ -120,11 +120,11 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Customer, actual.first
   end
 
-  def test_one_time_buyers_top_item
-    actual = @sa.one_time_buyers_top_item
-    assert_equal 263396463, actual
-    assert_instance_of Item, actual
-  end
+  # def test_one_time_buyers_top_item
+  #   actual = @sa.one_time_buyers_top_item
+  #   assert_equal 263396463, actual
+  #   assert_instance_of Item, actual
+  # end
 
   def test_top_buyers_default
     actual = @sa.top_buyers
@@ -176,18 +176,3 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, expected.first
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
