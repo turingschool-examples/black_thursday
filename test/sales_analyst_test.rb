@@ -150,19 +150,42 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_group_invoice_items_by_invoice
-    assert @sa.invoice_items_group_by_invoice_id.all? do |k, v|
+    assert @sa.invoice_items_group_by_invoice.all? do |k, v|
       k == v[0].id
     end
   end
 
   def test_it_can_return_the_total_dollars_for_given_invoice_id
     assert_equal 21_067.77 , @sa.invoice_total(1)
-    assert_instance_of BigDecimal, @sa.invoice_total(1)
+    # assert_instance_of BigDecimal, @sa.invoice_total(1)
   end
 
   def test_it_can_group_invoices_by_customer
-    assert @sa.invoices_group_by_customer.all? do |k, v|
+    assert @sa.invoices_group_by_customer_id.all? do |k, v|
       k == v[0].id
     end
+  end
+
+  def test_it_can_return_array_of_arrays_cust_id_total_spend
+    assert_equal 1 , @sa.total_spend_per_customer.first[0]
+    assert_instance_of BigDecimal, @sa.total_spend_per_customer.first[1]
+  end
+
+  def test_it_can_return_top_buyers
+    assert_equal 2, @sa.top_buyers(2).count
+    assert_equal 20, @sa.top_buyers.count
+  end
+
+  def test_item_qty_per_invoice
+    assert_equal 47, @sa.invoice_item_qty_per_invoice(1)
+  end
+
+  def test_top_merchant_per_customer_id
+    assert_equal 'JiltedGems', @sa.top_merchant_for_customer(1).name
+  end
+
+  def test_one_time_buyers
+    assert_equal 76, @sa.one_invoice_customer_ids.count
+    assert_equal Customer, @sa.one_time_buyers[0].class
   end
 end

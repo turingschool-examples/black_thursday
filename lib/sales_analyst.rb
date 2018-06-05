@@ -30,6 +30,9 @@ class SalesAnalyst
     Math.sqrt(result).round(2)
   end
 
+###############################################################
+#item analytics
+
   def average_items_per_merchant # req
     mean(item_count_for_each_merchant_id.values)
   end
@@ -89,10 +92,13 @@ class SalesAnalyst
   end
 
   def golden_items #req
-    @items.all.map do |item|
-      item if item.unit_price > golden_deviation
-    end.compact
+    @items.all.find_all do |item|
+      item.unit_price > golden_deviation
+    end
   end
+
+###############################################################
+#invoice analytics
 
   def invoices_group_by_merchant_id # HELPER
     @invoices.all.group_by(&:merchant_id)
@@ -193,6 +199,9 @@ class SalesAnalyst
     invoice_count_by_status[status]
   end
 
+  ###############################################################
+  #invoice items analytics
+
   def transactions_group_by_invoice_id # HELPER
     @transactions.all.group_by(&:invoice_id)
   end
@@ -204,17 +213,104 @@ class SalesAnalyst
     end
   end
 
-  def invoice_items_group_by_invoice_id # HELPER
+  def invoice_items_group_by_invoice # HELPER
     @invoice_items.all.group_by(&:invoice_id)
   end
 
   def invoice_total(invoice_id) # req
-    invoice_items_group_by_invoice_id[invoice_id].map do |invoice_item|
+    invoice_items_group_by_invoice[invoice_id].map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end.inject(:+)
   end
 
-  def invoices_group_by_customer # HELPER
+###############################################################
+#customer analytics
+
+  def invoices_group_by_customer_id # HELPER
     @invoices.all.group_by(&:customer_id)
   end
+
+  def total_spend_per_customer #HELPER
+    invoices_group_by_customer_id.map do |customer, invoices|
+      spend = invoices.map do |invoice|
+        invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+      end.compact.inject(:+)
+      if spend.nil?
+        [customer, 0]
+      else
+        [customer, spend]
+      end
+    end
+  end
+
+  def top_buyers(x = 20) # req
+    total_spend_per_customer.sort_by do |customer_id , spend|
+      spend
+    end.reverse[0..x-1].map do |customer_id, _|
+      @customers.find_by_id(customer_id)
+    end
+  end
+
+  def invoice_item_qty_per_invoice(invoice_id) # HELPER
+    invoice_items_group_by_invoice[invoice_id].map do |invoice_item|
+      invoice_item.quantity
+    end.inject(:+)
+  end
+
+  def total_items_per_merchant_per_customer(customer_id) # HELPER
+    my_merchants =
+      invoices_group_by_customer_id[customer_id].group_by(&:merchant_id)
+    my_merchants.map do |merchant, invoices|
+      invoices.map do |invoice|
+        if invoice_item_qty_per_invoice(invoice.id).nil?
+          [invoice.merchant_id, 0]
+        else
+          [invoice.merchant_id, invoice_item_qty_per_invoice(invoice.id)]
+        end
+      end[0]
+    end
+  end
+
+  def top_merchant_id(customer_id) # HELPER
+    total_items_per_merchant_per_customer(customer_id).max_by do |quantity|
+      quantity[1]
+    end
+  end
+
+  def top_merchant_for_customer(customer_id) # req
+    @merchants.find_by_id(top_merchant_id(customer_id)[0])
+  end
+
+  def one_invoice_customer_ids # HELPER
+    invoices_group_by_customer_id.map do |customer_id, invoice_list|
+      customer_id if invoice_list.count == 1
+    end.compact
+  end
+
+  def one_time_buyers # req
+    customers = one_invoice_customer_ids.map do |customer_id|
+      @customers.find_by_id(customer_id)
+    end
+    customers
+  end
+
 end
+
+# REMAINING METHODS NEEDED
+  # def one_time_buyers_item
+  # end
+  #
+  # def items_bought_in_year(customer_id, year) # req
+  # end
+  #
+  # def highest_volume_items(customer_id) # req
+  # end
+  #
+  # def customers_with_unpaid_invoices # req
+  # end
+  #
+  # def best_invoice_by_revenue # req
+  # end
+  #
+  # def best_invoice_by_quantity # req
+  # end

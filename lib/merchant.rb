@@ -1,7 +1,12 @@
+# frozen_string_literal: false
+
+require 'pry'
 # create Merchant objects
 class Merchant
-  attr_reader   :id
-  attr_accessor :name
+  attr_reader   :id,
+                :created_at
+  attr_accessor :name,
+                :updated_at
 
   def initialize(args)
     @id         = args[:id].to_i
