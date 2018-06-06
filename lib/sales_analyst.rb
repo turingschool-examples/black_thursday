@@ -2,7 +2,6 @@ require_relative 'sales_engine.rb'
 require 'pry'
 
 class SalesAnalyst
-
   def initialize(sales_engine)
     @items = sales_engine.items
     @merchants = sales_engine.merchants
