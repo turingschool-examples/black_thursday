@@ -215,11 +215,12 @@ class SalesAnalystTest < Minitest::Test
   def test_top_buyers
     number_of_buyers = 7
     assert_equal number_of_buyers, @sa.top_buyers(number_of_buyers).length
+    assert @sa.top_buyers(number_of_buyers).all? { |id| id.class == Customer }
   end
 
   def test_it_can_return_best_invoice_by_revenue
-    assert_equal [], @sa.invoice_ids_by_total
-    assert_equal [], @sa.best_invoice_by_revenue
+    assert_instance_of Invoice, @sa.best_invoice_by_revenue
+    assert_equal 3394, @sa.best_invoice_by_revenue.id
   end
 
   def test_it_can_return_invoices_with_qty
