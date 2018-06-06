@@ -14,7 +14,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (@items.all.length.to_f/@merchants.all.length).round(2)
+    (@items.all.length.to_f / @merchants.all.length).round(2)
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -22,14 +22,14 @@ class SalesAnalyst
     sum_prices = items.reduce(0) do |sum, item|
       sum += item.unit_price
     end
-     return (sum_prices/items.length).round(2)
+     return (sum_prices / items.length).round(2)
   end
 
   def average_average_price_per_merchant
     sum_avgs = @merchants.all.reduce(0) do |sum, merchant|
       sum += average_item_price_for_merchant(merchant.id)
     end
-    return (sum_avgs/@merchants.all.length).round(2)
+    return (sum_avgs / @merchants.all.length).round(2)
   end
 
   def mean(set)
@@ -176,13 +176,13 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    day_key = { 0 => "Sunday",
-                1 => "Monday",
-                2 => "Tuesday",
-                3 => "Wednesday",
-                4 => "Thursday",
-                5 => "Friday",
-                6 => "Saturday" }
+    day_key = { 0 => 'Sunday',
+                1 => 'Monday',
+                2 => 'Tuesday',
+                3 => 'Wednesday',
+                4 => 'Thursday',
+                5 => 'Friday',
+                6 => 'Saturday' }
 
     invoices_by_day = @invoices.all.group_by do |invoice|
       invoice.created_at.wday
@@ -213,7 +213,6 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(id)
-
     transactions_by_invoice = @transactions.find_all_by_invoice_id(id)
 
     transactions_by_invoice.any? do |transaction|
@@ -322,11 +321,6 @@ class SalesAnalyst
     end
     @items.find_by_id(max_id.first)
   end
-
-
-
-
-
 
   def best_invoice_by_revenue
     valid_invoices = @invoices.all.select do |invoice|
