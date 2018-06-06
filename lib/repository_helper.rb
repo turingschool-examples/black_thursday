@@ -8,7 +8,7 @@ module RepositoryHelper
   end
 
   def find_by_name(name)
-    @repository.find { |instance| instance.name.downcase == name.downcase }
+    @repository.find { |instance| instance.name.casecmp(name).zero? }
   end
 
   def find_all_by_merchant_id(merchant_id)
