@@ -2,19 +2,10 @@ require_relative 'sales_engine.rb'
 require 'pry'
 
 class SalesAnalyst
+  attr_reader :se
+
   def initialize(sales_engine)
-    @items = sales_engine.items
-    @merchants = sales_engine.merchants
-    @invoices = sales_engine.invoices
-    @transactions = sales_engine.transactions
-    @invoice_items = sales_engine.invoice_items
-    @id_counts = {}
-    @average_items = average_items_per_merchant
-    @items_standard_deviation = average_items_per_merchant_standard_deviation
-    @average_item_price = average_total_item_price
-    @price_standard_deviation = item_price_standard_deviation
-    @average_invoices = average_invoices_per_merchant
-    @invoice_standard_deviation = average_invoices_per_merchant_standard_deviation
+    @se = sales_engine
   end
 
   def average_items_per_merchant
@@ -22,8 +13,8 @@ class SalesAnalyst
     (sum / items_per_merchant.length.round(2)).round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    standard_deviation(items_per_merchant, @average_items)
+  def items_per_merchant_standard_dev
+    standard_deviation(items_per_merchant, average_items_per_merchant)
   end
 
   def standard_deviation(array, average)
@@ -33,7 +24,7 @@ class SalesAnalyst
   end
 
   def items_grouped_by_merchant
-    @items.all.group_by(&:merchant_id)
+    @se.items.all.group_by(&:merchant_id)
   end
 
   def items_per_merchant
@@ -45,59 +36,56 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_count = @average_items + @items_standard_deviation
+    high_count = average_items_per_merchant + items_per_merchant_standard_dev
     id_counts.map do |id, count|
-      @merchants.find_by_id(id) if count >= high_count
+      @se.merchants.find_by_id(id) if count >= high_count
     end.compact
   end
 
   def average_item_price_for_merchant(id)
-    items = @items.find_all_by_merchant_id(id)
+    items = @se.items.find_all_by_merchant_id(id)
     sum = items.reduce(0) { |total, item| total + item.unit_price }
     (sum / items.count).round(2)
   end
 
   def average_average_price_per_merchant
-    sum = @merchants.all.reduce(0) do |total, merchant|
+    sum = @se.merchants.all.reduce(0) do |total, merchant|
       total + average_item_price_for_merchant(merchant.id)
     end
-    (sum / @merchants.repository.count).round(2)
+    (sum / @se.merchants.repository.count).round(2)
   end
 
   def average_item_prices_for_each_merchant
-    @merchants.all.map do |merchant|
+    @se.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
   end
 
   def item_price_standard_deviation
-    standard_deviation(all_item_prices, @average_item_price).round(2)
+    standard_deviation(all_item_prices, average_total_item_price).round(2)
   end
 
   def all_item_prices
-    @items.all.map(&:unit_price)
+    @se.items.all.map(&:unit_price)
   end
 
   def average_total_item_price
-    sum = @items.all.reduce(0) do |total, item|
+    sum = @se.items.all.reduce(0) do |total, item|
       total + item.unit_price
     end
-    sum / @items.all.count
+    sum / @se.items.all.count
   end
 
   def golden_items
-    high_price = @average_item_price + (@price_standard_deviation * 2)
-    @items.all.each_with_object([]) do |item, array|
+    high_price = average_total_item_price + (item_price_standard_deviation * 2)
+    @se.items.all.each_with_object([]) do |item, array|
       array << item if item.unit_price >= high_price
       array
     end
   end
 
-  ###### Invoices begin below, the copy and paste shows we arent DRY.
-
-  ###### Invoices by merchant section
   def invoices_grouped_by_merchant
-    @invoices.all.group_by(&:merchant_id)
+    @se.invoices.all.group_by(&:merchant_id)
   end
 
   def invoices_per_merchant
@@ -109,8 +97,8 @@ class SalesAnalyst
     (sum.to_f / invoices_per_merchant.length).round(2)
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    standard_deviation(invoices_per_merchant, @average_invoices)
+  def invoices_per_merchant_stand_dev
+    standard_deviation(invoices_per_merchant, average_invoices_per_merchant)
   end
 
   def invoice_counts_for_each_merhant
@@ -122,21 +110,21 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    high_count = @average_invoices + (@invoice_standard_deviation * 2)
+    high = average_invoices_per_merchant + (invoices_per_merchant_stand_dev * 2)
     invoice_counts_for_each_merhant.map do |id, count|
-      @merchants.find_by_id(id) if count > high_count
+      @se.merchants.find_by_id(id) if count > high
     end.compact
   end
 
   def bottom_merchants_by_invoice_count
-    low_count = @average_invoices - (@invoice_standard_deviation * 2)
+    low = average_invoices_per_merchant - (invoices_per_merchant_stand_dev * 2)
     invoice_counts_for_each_merhant.map do |id, count|
-      @merchants.find_by_id(id) if count < low_count
+      @se.merchants.find_by_id(id) if count < low
     end.compact
   end
 
   def invoices_grouped_by_day
-    @invoices.all.group_by do |invoice|
+    @se.invoices.all.group_by do |invoice|
       invoice.created_at.strftime('%A')
     end
   end
@@ -150,7 +138,7 @@ class SalesAnalyst
     (sum.to_f / invoices_per_day.length).round(2)
   end
 
-  def average_invoices_per_day_standard_deviation
+  def invoices_per_day_standard_deviation
     standard_deviation(invoices_per_day, average_invoices_per_day)
   end
 
@@ -163,14 +151,14 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    high_count = average_invoices_per_day + average_invoices_per_day_standard_deviation
+    high_count = average_invoices_per_day + invoices_per_day_standard_deviation
     invoice_counts_for_each_day.map do |day, count|
       day if count > high_count
     end.compact
   end
 
   def invoices_grouped_by_status
-    @invoices.all.group_by(&:status)
+    @se.invoices.all.group_by(&:status)
   end
 
   def invoice_counts_for_each_status
@@ -183,17 +171,17 @@ class SalesAnalyst
 
   def invoice_status(status)
     count = invoice_counts_for_each_status[status].to_f
-    total = @invoices.all.count.to_f
+    total = @se.invoices.all.count.to_f
     ((count / total) * 100).round(2)
   end
 
   def invoice_paid_in_full?(invoice_id)
-    related_transactions = @transactions.find_all_by_invoice_id(invoice_id)
+    related_transactions = @se.transactions.find_all_by_invoice_id(invoice_id)
     related_transactions.any? { |transaction| transaction.result == :success }
   end
 
   def invoice_total(invoice_id)
-    related_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    related_invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
     costs = related_invoice_items.map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end
@@ -212,7 +200,7 @@ class SalesAnalyst
   end
 
   def find_all_invoices_created_at_date(date)
-    @invoices.all.select do |invoice|
+    @se.invoices.all.select do |invoice|
       if invoice.created_at.strftime('%d%m%y') == date.strftime('%d%m%y')
         invoice
       end
@@ -250,7 +238,7 @@ class SalesAnalyst
       merchants_with_a_sale.values.sort[-num..-1].include?(earned)
     end
     hash_to_array_ordered_by_value(merchants_with_a_sale).map do |merchant_id|
-      @merchants.find_by_id(merchant_id)
+      @se.merchants.find_by_id(merchant_id)
     end.reverse
   end
 
@@ -259,11 +247,11 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    merchant_ids = @invoices.all.map do |invoice|
+    merchant_ids = @se.invoices.all.map do |invoice|
       invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end.compact
     merchant_ids.map do |merchant_id|
-      @merchants.find_by_id(merchant_id)
+      @se.merchants.find_by_id(merchant_id)
     end.uniq
   end
 
@@ -272,18 +260,18 @@ class SalesAnalyst
       array[1] != 1
     end
     merchants.map do |merchant|
-      @merchants.find_by_id(merchant[0])
+      @se.merchants.find_by_id(merchant[0])
     end
   end
 
   def invoices_grouped_by_month
-    @invoices.all.group_by do |invoice|
+    @se.invoices.all.group_by do |invoice|
       invoice.created_at.strftime('%B')
     end
   end
 
   def merchants_grouped_by_month
-    @merchants.all.group_by do |merchant|
+    @se.merchants.all.group_by do |merchant|
       merchant.created_at.strftime('%B')
     end
   end
@@ -296,31 +284,28 @@ class SalesAnalyst
     one_item_in_month
   end
 
-  # Helper method created for most sold item and best item methods
-  def successful_ivoice_items_per_merchant_id(merchant_id)
-    all_invoices = @invoices.find_all_by_merchant_id(merchant_id)
+  def successful_invoice_items_per_merchant_id(merchant_id)
+    all_invoices = @se.invoices.find_all_by_merchant_id(merchant_id)
     all_invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
     all_invoices.map do |invoice|
-      @invoice_items.find_all_by_invoice_id(invoice.id)
+      @se.invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
   end
 
-  # Helper method created for most sold item and best item methods
   def high_item_from_item_ids_with_values(hash)
     high_item_value = hash.values.max
     hash.keep_if { |_key, value| value == high_item_value }
-    hash.keys.map { |item_id| @items.find_by_id(item_id) }
+    hash.keys.map { |item_id| @se.items.find_by_id(item_id) }
   end
 
   def most_sold_item_for_merchant(merchant_id)
     item_id_quantities = Hash.new(0)
-    successful_ivoice_items_per_merchant_id(merchant_id).map do |invoice_item|
+    successful_invoice_items_per_merchant_id(merchant_id).map do |invoice_item|
       item_id_quantities[invoice_item.item_id] += invoice_item.quantity
     end
     high_item_from_item_ids_with_values(item_id_quantities)
   end
 
-  # Helper for best_item_for_merchant
   def invoice_items_with_total_price(array)
     invoice_items_with_price = Hash.new(0)
     array.map do |invoice_item|
@@ -331,12 +316,11 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    invoice_items = successful_ivoice_items_per_merchant_id(merchant_id)
+    invoice_items = successful_invoice_items_per_merchant_id(merchant_id)
     item_id_unit_prices = invoice_items_with_total_price(invoice_items)
     high_item_from_item_ids_with_values(item_id_unit_prices).first
   end
 
-  # Helper method for merchants ranked by revenue
   def change_nil_values_to_zero(hash)
     new_hash = {}
     hash.each do |key, value|
@@ -351,6 +335,6 @@ class SalesAnalyst
     sorted_merchants = total_revenues.to_a.sort_by do |merchant|
       merchant[1]
     end.reverse
-    sorted_merchants.map { |merchant| @merchants.find_by_id(merchant[0]) }
+    sorted_merchants.map { |merchant| @se.merchants.find_by_id(merchant[0]) }
   end
 end
