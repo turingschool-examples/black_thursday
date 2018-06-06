@@ -216,7 +216,7 @@ class SalesAnalyst
 
     transactions_by_invoice = @transactions.find_all_by_invoice_id(id)
 
-    return transactions_by_invoice.length > 0 && transactions_by_invoice.any? do |transaction|
+    transactions_by_invoice.any? do |transaction|
       transaction.result == :success
     end
   end
@@ -300,6 +300,34 @@ class SalesAnalyst
     end
   end
 
+  def one_time_buyers_top_item
+    one_time_customers = one_time_buyers
+    invoices = one_time_customers.flat_map do |customer|
+      @invoices.find_all_by_customer_id(customer.id)
+    end
+    paid_invoices = invoices.select do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+
+    invoice_items = paid_invoices.flat_map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    default_to_zero_hash = Hash.new(0)
+    items = invoice_items.reduce(default_to_zero_hash) do |collector, invoice_item|
+      collector[invoice_item.item_id] += invoice_item.quantity
+      collector
+    end
+    max_id = items.max_by do |item, count|
+      count
+    end
+    @items.find_by_id(max_id.first)
+  end
+
+
+
+
+
+
   def best_invoice_by_revenue
     valid_invoices = @invoices.all.select do |invoice|
       invoice_paid_in_full? invoice.id
@@ -335,6 +363,7 @@ class SalesAnalyst
       quantity
     end
     @invoices.find_by_id(max_id.first)
+  end
     
   def items_bought_in_year(customer_id, year)
     customer_invoices = @invoices.find_all_by_customer_id(customer_id)
