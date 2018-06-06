@@ -13,7 +13,7 @@ class SalesAnalyst
     (sum / items_per_merchant.length.round(2)).round(2)
   end
 
-  def items_per_merchant_standard_dev
+  def average_items_per_merchant_standard_deviation
     standard_deviation(items_per_merchant, average_items_per_merchant)
   end
 
@@ -36,7 +36,7 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_count = average_items_per_merchant + items_per_merchant_standard_dev
+    high_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
     id_counts.map do |id, count|
       @se.merchants.find_by_id(id) if count >= high_count
     end.compact
@@ -97,7 +97,7 @@ class SalesAnalyst
     (sum.to_f / invoices_per_merchant.length).round(2)
   end
 
-  def invoices_per_merchant_stand_dev
+  def average_invoices_per_merchant_standard_deviation
     standard_deviation(invoices_per_merchant, average_invoices_per_merchant)
   end
 
@@ -110,14 +110,14 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    high = average_invoices_per_merchant + (invoices_per_merchant_stand_dev * 2)
+    high = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
     invoice_counts_for_each_merhant.map do |id, count|
       @se.merchants.find_by_id(id) if count > high
     end.compact
   end
 
   def bottom_merchants_by_invoice_count
-    low = average_invoices_per_merchant - (invoices_per_merchant_stand_dev * 2)
+    low = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
     invoice_counts_for_each_merhant.map do |id, count|
       @se.merchants.find_by_id(id) if count < low
     end.compact
