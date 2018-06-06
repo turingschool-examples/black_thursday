@@ -8,9 +8,9 @@ class SalesEngineTest < Minitest::Test
     @file_paths = { items: './data/items.csv',
                     merchants: './data/merchants.csv',
                     invoices: './data/invoices.csv',
-                    invoice_items: './data/invoice_items',
-                    customers: './data/customers',
-                    transactions: './data/transactions' }
+                    invoice_items: './data/invoice_items.csv',
+                    customers: './data/customers.csv',
+                    transactions: './data/transactions.csv' }
     @se = SalesEngine.new(@file_paths)
   end
 
