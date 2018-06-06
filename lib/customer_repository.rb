@@ -5,9 +5,7 @@ require_relative 'repository'
 # Responsible for holding and searching Customer instances.
 class CustomerRepository
   include Repository
-  attr_reader   :customers
-  attr_accessor :first_name,
-                :last_name
+  attr_reader :customers
 
   def initialize(customers)
     @customers = customers
@@ -22,11 +20,20 @@ class CustomerRepository
   end
 
   def create(attributes)
-    highest_id = @repository.max_by(:id)
-    attributes[:id] = highest_id.id + 1
+    attributes[:id] = find_highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     @repository << Customer.new(attributes)
+  end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    unless customer.nil?
+      customer.first_name = attributes[:first_name] if attributes[:first_name]
+      customer.last_name  = attributes[:last_name] if attributes[:last_name]
+      customer.updated_at = Time.now
+    end
+    return nil
   end
 
   def find_all_by_first_name(name)

@@ -19,15 +19,20 @@ class InvoiceRepository
     end
   end
 
-  def find_highest_id
-    @repository.max_by(&:id)
-  end
-
   def create(attributes)
     attributes[:id] = find_highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     @repository << Invoice.new(attributes)
+  end
+
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    unless invoice.nil?
+      invoice.status     = attributes[:status] if attributes[:status]
+      invoice.updated_at = Time.now
+    end
+    return nil
   end
 
   def find_all_by_customer_id(id)
