@@ -5,10 +5,11 @@ require './lib/merchant_repo'
 
 class SalesEngineTest < Minitest::Test
   def test_can_add_both
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
+    se_elements = {
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+    }
+    se = SalesEngine.from_csv(se_elements)
 
     assert_instance_of ItemsRepository, se.items
     assert_instance_of MerchantRepo, se.merchants

@@ -4,14 +4,15 @@ require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-    })
+    se_elements = {
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv',
+      customers: './data/customers.csv'
+    }
+    se = SalesEngine.from_csv(se_elements)
 
     @sa = se.analyst
   end
@@ -30,7 +31,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant
-    merchant_id = 12334159
+    merchant_id = 12_334_159
     avg_price = @sa.average_item_price_for_merchant(merchant_id)
     assert_instance_of BigDecimal, avg_price
   end
@@ -72,15 +73,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_days_by_invoice_count
     assert_equal 1, @sa.top_days_by_invoice_count.length
-    assert_equal "Wednesday", @sa.top_days_by_invoice_count.first
+    assert_equal 'Wednesday', @sa.top_days_by_invoice_count.first
   end
 
   def test_invoice_status
     assert_equal 29.55, @sa.invoice_status(:pending)
 
-
     assert_equal 56.95, @sa.invoice_status(:shipped)
-
 
     assert_equal 13.5, @sa.invoice_status(:returned)
   end
@@ -94,7 +93,7 @@ class SalesAnalystTest < Minitest::Test
   def test_invoice_total
     @sa.invoice_total(1)
 
-    assert_equal 21067.77, @sa.invoice_total(1)
+    assert_equal 21_067.77, @sa.invoice_total(1)
     assert_equal BigDecimal, @sa.invoice_total(1).class
   end
 
@@ -110,7 +109,7 @@ class SalesAnalystTest < Minitest::Test
     actual = @sa.top_merchant_for_customer(100)
 
     assert_instance_of Merchant, actual
-    assert_equal 12336753, actual.id
+    assert_equal 12_336_753, actual.id
   end
 
   def test_one_time_buyers
@@ -120,11 +119,11 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Customer, actual.first
   end
 
-  def test_one_time_buyers_top_item
-    actual = @sa.one_time_buyers_top_item
-    assert_equal 263396463, actual
-    assert_instance_of Item, actual
-  end
+  # def test_one_time_buyers_top_item
+  #   actual = @sa.one_time_buyers_top_item
+  #   assert_equal 263396463, actual
+  #   assert_instance_of Item, actual
+  # end
 
   def test_top_buyers_default
     actual = @sa.top_buyers
@@ -150,20 +149,20 @@ class SalesAnalystTest < Minitest::Test
 
   def test_items_bought_in_year
     customer_id = 400
-    year_1 = 2000
-    expected_1 = @sa.items_bought_in_year(customer_id, year_1)
+    year_one = 2000
+    expected_one = @sa.items_bought_in_year(customer_id, year_one)
 
-    assert_equal 0, expected_1.length
-    assert_instance_of Array, expected_1
+    assert_equal 0, expected_one.length
+    assert_instance_of Array, expected_one
 
     customer_id = 400
-    year_2 = 2002
-    expected_2 = @sa.items_bought_in_year(customer_id, year_2)
+    year_two = 2002
+    expected_two = @sa.items_bought_in_year(customer_id, year_two)
 
-    assert_equal 2, expected_2.length
-    assert_equal 263549742, expected_2.first.id
-    assert_equal "Necklace: V Tube", expected_2.first.name
-    assert_equal Item, expected_2.first.class
+    assert_equal 2, expected_two.length
+    assert_equal 263_549_742, expected_two.first.id
+    assert_equal 'Necklace: V Tube', expected_two.first.name
+    assert_equal Item, expected_two.first.class
   end
 
   def test_highest_volume_items
@@ -171,23 +170,17 @@ class SalesAnalystTest < Minitest::Test
     expected = @sa.highest_volume_items(customer_id)
 
     assert_equal 6, expected.length
-    assert_equal 263420195, expected.first.id
-    assert_equal 263448547, expected.last.id
+    assert_equal 263_420_195, expected.first.id
+    assert_equal 263_448_547, expected.last.id
     assert_instance_of Item, expected.first
   end
+
+  def test_customers_with_unpaid_invoices
+    expected = @sa.customers_with_unpaid_invoices
+
+    assert_equal 786, expected.length
+    assert_equal 1, expected.first.id
+    assert_equal 999, expected.last.id
+    assert_equal Customer, expected.first.class
+  end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

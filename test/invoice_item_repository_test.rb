@@ -27,14 +27,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_invoice_item_can_be_found_by_id
     @iir.load_invoice_items(@inv_items)
 
-    assert_equal 263529264, @iir.find_by_id(9).item_id
-    assert_nil @iir.find_by_id(123467)
+    assert_equal 263_529_264, @iir.find_by_id(9).item_id
+    assert_nil @iir.find_by_id(123_467)
   end
 
   def test_find_all_by_item_id
     @iir.load_invoice_items(@inv_items)
 
-    assert_equal 3, @iir.find_all_by_item_id(263529264).length
+    assert_equal 3, @iir.find_all_by_item_id(263_529_264).length
     assert_equal 0, @iir.find_all_by_item_id(1984).length
   end
 
@@ -49,18 +49,18 @@ class InvoiceItemRepositoryTest < Minitest::Test
     @iir.load_invoice_items(@inv_items)
 
     attributes = {
-      :item_id => '89743578971234',
-      :invoice_id => '2',
-      :quantity => '500',
-      :unit_price => BigDecimal(1.59, 3),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      item_id: '89743578971234',
+      invoice_id: '2',
+      quantity: '500',
+      unit_price: BigDecimal(1.59, 3),
+      created_at: Time.now,
+      updated_at: Time.now
     }
 
     @iir.create(attributes)
 
     assert_equal 13, @iir.all.last.id
-    assert_equal 89743578971234, @iir.all.last.item_id
+    assert_equal 89_743_578_971_234, @iir.all.last.item_id
     assert_equal 2, @iir.all.last.invoice_id
     assert_equal 500, @iir.all.last.quantity
     assert_equal 1.59, @iir.all.last.unit_price
@@ -73,13 +73,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
     id = 12
 
-    attributes = {quantity: 746,
-                  unit_price: 10.99}
+    attributes = { quantity: 746,
+                   unit_price: 10.99 }
 
     @iir.update(id, attributes)
 
     assert_equal 12, @iir.find_by_id(12).id
-    assert_equal 263529264, @iir.find_by_id(12).item_id
+    assert_equal 263_529_264, @iir.find_by_id(12).item_id
     assert_equal 2, @iir.find_by_id(12).invoice_id
     assert_equal 746, @iir.find_by_id(12).quantity
     assert_equal 10.99, @iir.find_by_id(12).unit_price
