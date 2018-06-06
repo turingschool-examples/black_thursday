@@ -105,7 +105,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 478, actual.last.id
   end
 
-  def test_top_merchant
+  def test_top_merchant_for_customer
     actual = @sa.top_merchant_for_customer(100)
 
     assert_instance_of Merchant, actual
@@ -146,7 +146,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1281, actual.id
     assert_instance_of Invoice, actual
   end
-
+  
   def test_items_bought_in_year
     customer_id = 400
     year_one = 2000

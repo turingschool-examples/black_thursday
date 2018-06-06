@@ -38,6 +38,12 @@ class SalesAnalyst
     end.to_f / set.length
   end
 
+  def sum(array)
+    array.reduce(0) do |sum, num|
+      sum += num
+    end
+  end
+
   def standard_deviation(mean, set)
     root = set.map do |num|
       (num - mean) ** 2
@@ -49,7 +55,6 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    # refactor this block into a separate method
     merchant_items = @items.all.reduce({}) do |collector, item|
       if collector[item.merchant_id]
         collector[item.merchant_id] += 1
@@ -88,7 +93,6 @@ class SalesAnalyst
   end
 
   def golden_items
-
     item_price_array = @items.all.reduce([]) do |collector, item|
       collector << item.unit_price
     end
@@ -112,7 +116,6 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    # refactor this block into a separate method
     merchant_invoices = @invoices.all.reduce({}) do |collector, invoice|
       if collector[invoice.merchant_id]
         collector[invoice.merchant_id] += 1
@@ -221,11 +224,10 @@ class SalesAnalyst
   end
 
   def invoice_total(id)
-    @invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+    total_price_by_quantity = @invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
-    end.reduce(0) do |sum, num|
-      sum += num
     end
+    sum(total_price_by_quantity)
   end
 
   def top_buyers(num = 20)
@@ -244,9 +246,7 @@ class SalesAnalyst
       end
       collector
     end.reduce({}) do |collector, (customer, total_array)|
-      collector[customer] = total_array.reduce(0) do |sum, total|
-        sum += total
-      end
+      collector[customer] = sum(total_array)
       collector
     end
     customer_ids_in_order = totals_by_customer.sort_by do |id, value|
@@ -276,9 +276,7 @@ class SalesAnalyst
       collector
     end
     summed_items = quantity_of_items.reduce({}) do |collector, (key, value)|
-      collector[key] = value.reduce(0) do |sum, num|
-        sum += num
-      end
+      collector[key] = sum(value)
       collector
     end
     top_merchant = summed_items.max_by do |key, value|
@@ -348,9 +346,7 @@ class SalesAnalyst
       end
       collector
     end.reduce({}) do |collector, (invoice_id, invoice_array)|
-      collector[invoice_id] = invoice_array.reduce(0) do |sum, num|
-        sum += num
-      end
+      collector[invoice_id] = sum(invoice_array)
       collector
     end
     max_id = quantity_per_invoice.max_by do |invoice_id, quantity|
