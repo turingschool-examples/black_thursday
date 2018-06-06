@@ -5,14 +5,12 @@ require './lib/item'
 
 class ItemTest < Minitest::Test
   def setup
-    @args = {
-      id:          '1234',
-      name:        'Pencil',
-      description: 'You can use it to write things',
-      unit_price:  '1099',
-      created_at:  '2016-01-11 09:34:06 UTC',
-      updated_at:  '2007-06-04 21:35:10 UTC'
-    }
+    @args = { id:          '1234',
+              name:        'Pencil',
+              description: 'You can use it to write things',
+              unit_price:  '1099',
+              created_at:  '2016-01-11 09:34:06 UTC',
+              updated_at:  '2007-06-04 21:35:10 UTC' }
     @item = Item.new(@args)
   end
 
@@ -30,28 +28,18 @@ class ItemTest < Minitest::Test
 
   def test_time_attributes_for_created
     assert_instance_of Time, @item.created_at
-    assert_equal 2016, @item.created_at.year
+    assert_equal 2_016, @item.created_at.year
     assert_equal 34, @item.created_at.min
   end
 
   def test_time_attributes_for_updated
     assert_instance_of Time, @item.updated_at
-    assert_equal 0o6, @item.updated_at.mon
+    assert_equal 6, @item.updated_at.mon
     assert_equal 21, @item.updated_at.hour
   end
 
-<<<<<<< HEAD
   def test_unit_price_to_dollars
-   assert_instance_of Float, @item.unit_price_to_dollars
-   assert_equal 10.99, @item.unit_price_to_dollars
-||||||| merged common ancestors
-  def test_unit_price_to_dollars
-   assert_instance_of Float, @item.unit_price_to_dollars
-  assert_equal 10.99, @item.unit_price_to_dollars
-=======
-  def test_unit_price_to_dollars_functionality
     assert_instance_of Float, @item.unit_price_to_dollars
     assert_equal 10.99, @item.unit_price_to_dollars
->>>>>>> 7c9723f6222b2fe6cec2f427a00aa8020f5c952e
   end
 end
