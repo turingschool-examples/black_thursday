@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require_relative 'merchant'
 require_relative 'repository'
 # Responsible for holding and searching Merchant instances.
