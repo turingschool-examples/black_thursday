@@ -51,30 +51,30 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_create_a_new_item_object
     refute @ir.find_by_id(263_567_475)
     @ir.create(name: 'test_item',
-                            description: 'this is a test item',
-                            unit_price: '1200',
-                            merchant_id: '456782345',
-                            created_at: Time.now,
-                            updated_at: Time.now)
+               description: 'this is a test item',
+               unit_price: '1200',
+               merchant_id: '456782345',
+               created_at: Time.now,
+               updated_at: Time.now)
     assert_equal 'test_item', @ir.find_by_id(263_567_475).name
   end
 
   def test_it_can_update_item_name
     @ir.create(name: 'test_item',
-                            description: 'this is a test item',
-                            unit_price: '1200',
-                            merchant_id: '456782345',
-                            created_at: Time.now,
-                            updated_at: Time.now)
+               description: 'this is a test item',
+               unit_price: '1200',
+               merchant_id: '456782345',
+               created_at: Time.now,
+               updated_at: Time.now)
     assert @ir.find_by_name('test_item')
     refute @ir.find_by_name('test_item_new')
 
-    @ir.update(263_567_475,  name: 'test_item_new',
-                                          description: 'This is a test.',
-                                          unit_price: BigDecimal(500.01, 5),
-                                          created_at: Time.now,
-                                          updated_at: Time.now,
-                                          merchant_id: 100)
+    @ir.update(263_567_475, name: 'test_item_new',
+                            description: 'This is a test.',
+                            unit_price: BigDecimal(500.01, 5),
+                            created_at: Time.now,
+                            updated_at: Time.now,
+                            merchant_id: 100)
     refute @ir.find_by_name('test_item')
     assert @ir.find_by_name('test_item_new')
   end
