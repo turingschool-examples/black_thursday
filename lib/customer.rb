@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 require 'time'
-# create Customer objects
+# Responsible for creating Customer objects
 class Customer
   attr_reader   :id,
                 :created_at

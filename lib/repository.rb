@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 require_relative 'sales_engine'
-# Responsible for holding all common methods for _repository classes.
+# Responsible for holding all common methods for _repository classes
 module Repository
   def all
     @repository

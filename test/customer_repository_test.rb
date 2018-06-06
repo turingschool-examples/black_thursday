@@ -1,11 +1,12 @@
+# frozen_string_literal: false
+
 require_relative 'test_helper'
 require './lib/sales_engine'
 require './lib/customer_repository'
-require './lib/customer'
 
 class CustomerRepositoryTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv(:customers => "./data/customers.csv")
+    @se = SalesEngine.from_csv(customers: './data/customers.csv')
     @customers = @se.customers
   end
 
@@ -46,18 +47,18 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_it_can_create_a_new_customer_object
     refute @customers.find_by_id(1001)
-    attributes = {first_name: 'Homer', last_name: 'Simpson'}
+    attributes = { first_name: 'Homer', last_name: 'Simpson' }
     @customers.create(attributes)
     assert_equal 'Homer', @customers.find_by_id(1001).first_name
     assert_equal 1, @customers.find_all_by_last_name('simpson').length
   end
 
   def test_it_can_update_a_customer_first_name
-    @customers.create({first_name: 'Margaret', last_name: 'Simpson'})
+    @customers.create(first_name: 'Margaret', last_name: 'Simpson')
     assert_equal 1, @customers.find_all_by_first_name('Margaret').length
     assert_equal 0, @customers.find_all_by_first_name('Marge').length
 
-    @customers.update(1001,{first_name: 'Marge', last_name: 'Simpson'} )
+    @customers.update(1001, first_name: 'Marge', last_name: 'Simpson')
     assert_equal 0, @customers.find_all_by_first_name('Margaret').length
     assert_equal 1, @customers.find_all_by_first_name('Marge').length
   end

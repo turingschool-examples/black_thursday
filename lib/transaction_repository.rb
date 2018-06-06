@@ -2,7 +2,7 @@
 
 require_relative 'transaction'
 require_relative 'repository'
-# Responsible for holding and searching Transaction instances.
+# Responsible for holding and searching Transaction instances
 class TransactionRepository
   include Repository
   attr_reader :transactions
@@ -29,7 +29,7 @@ class TransactionRepository
   def update(id, attributes)
     transaction = find_by_id(id)
     unless transaction.nil?
-      transaction.result      = attributes[:result] if attributes[:result]
+      transaction.result = attributes[:result] if attributes[:result]
       exp_date = attributes[:credit_card_expiration_date]
       transaction.credit_card_expiration_date = exp_date if exp_date
       cc_number = attributes[:credit_card_number]

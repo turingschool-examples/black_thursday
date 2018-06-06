@@ -2,7 +2,7 @@
 
 require 'bigdecimal'
 require 'time'
-#create InvoiceItem objects
+# Responsible for creating InvoiceItem objects
 class InvoiceItem
   attr_reader   :id,
                 :item_id,
@@ -17,7 +17,7 @@ class InvoiceItem
     @item_id     = args[:item_id].to_i
     @invoice_id  = args[:invoice_id].to_i
     @quantity    = args[:quantity].to_i
-    @unit_price  = BigDecimal(args[:unit_price])/100
+    @unit_price  = BigDecimal(args[:unit_price]) / 100
     @created_at  = Time.parse(args[:created_at])
     @updated_at  = Time.parse(args[:updated_at])
   end

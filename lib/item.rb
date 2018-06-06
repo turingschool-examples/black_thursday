@@ -2,7 +2,7 @@
 
 require 'bigdecimal'
 require 'time'
-# responsible for creation of Item objects
+# Responsible for creating Item objects
 class Item
   attr_reader   :id,
                 :created_at,
