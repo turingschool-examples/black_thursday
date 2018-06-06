@@ -4,18 +4,16 @@ require './lib/invoice_item_repository'
 require './lib/file_loader'
 require './lib/sales_engine'
 require 'bigdecimal'
-require 'pry'
 
 class InvoiceItemRepositoryTest < MiniTest::Test
   def setup
     se = SalesEngine.from_csv({
-    :items => "./data/mock.csv",
-    :merchants => "./data/mock.csv",
-    :invoices => "./data/mock.csv",
-    :invoice_items => "./data/invoice_items.csv",
-    :transactions => "./data/mock.csv",
-    :customers => "./data/mock.csv"
-    })
+      :items => "./data/mock.csv",
+      :merchants => "./data/mock.csv",
+      :invoices => "./data/mock.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/mock.csv",
+      :customers => "./data/mock.csv"})
 
     @iir = se.invoice_items
   end
@@ -56,12 +54,14 @@ class InvoiceItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_create_new_invoice_item
-    attributes = {:item_id => 7,
-                  :invoice_id => 8,
-                  :quantity => 1,
-                  :unit_price => BigDecimal.new(10.99,4),
-                  :created_at => Time.now,
-                  :updated_at => Time.now}
+    attributes = {
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal.new(10.99,4),
+      :created_at => Time.now,
+      :updated_at => Time.now}
+
     @iir.create(attributes)
 
     new_invoice_item = @iir.find_by_id(21831)
@@ -69,13 +69,14 @@ class InvoiceItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_update_invoice_item
-    attributes = {:item_id => 7,
-                  :invoice_id => 8,
-                  :quantity => 1,
-                  :unit_price => BigDecimal.new(10.99,4),
-                  :created_at => Time.now,
-                  :updated_at => Time.now
-                  }
+    attributes = {
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal.new(10.99,4),
+      :created_at => Time.now,
+      :updated_at => Time.now}
+
     @iir.create(attributes)
     new_invoice_item = @iir.find_by_id(21831)
     original_time = new_invoice_item.updated_at
@@ -89,21 +90,24 @@ class InvoiceItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_update_invoice_item
-    attributes = {:item_id => 7,
-                  :invoice_id => 8,
-                  :quantity => 1,
-                  :unit_price => BigDecimal.new(10.99,4),
-                  :created_at => Time.now,
-                  :updated_at => Time.now
-                  }
+    attributes = {
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal.new(10.99,4),
+      :created_at => Time.now,
+      :updated_at => Time.now}
+
     @iir.create(attributes)
     new_invoice_item = @iir.find_by_id(21831)
     original_time = new_invoice_item.updated_at
-    new_attributes = {:id => 22000,
-                      :item_id => 32,
-                      :invoice_id => 53,
-                      :created_at => Time.now
-                      }
+
+    new_attributes = {
+      :id => 22000,
+      :item_id => 32,
+      :invoice_id => 53,
+      :created_at => Time.now}
+
     @iir.update(21831, new_attributes)
     updated_invoice_item = @iir.find_by_id(21831)
 
@@ -118,13 +122,14 @@ class InvoiceItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_delete_invoice_item_by_id
-    attributes = {:item_id => 7,
-                  :invoice_id => 8,
-                  :quantity => 1,
-                  :unit_price => BigDecimal.new(10.99,4),
-                  :created_at => Time.now,
-                  :updated_at => Time.now
-                  }
+    attributes = {
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal.new(10.99,4),
+      :created_at => Time.now,
+      :updated_at => Time.now}
+
     @iir.create(attributes)
     assert_instance_of InvoiceItem, @iir.find_by_id(21831)
     @iir.delete(21831)

@@ -4,7 +4,6 @@ require './lib/file_loader'
 require './lib/sales_engine'
 require 'mocha/minitest'
 require 'bigdecimal'
-require 'pry'
 
 class InvoiceItemTest < MiniTest::Test
   def setup
@@ -14,8 +13,7 @@ class InvoiceItemTest < MiniTest::Test
     :invoices => "./data/mock.csv",
     :invoice_items => "./data/invoice_items.csv",
     :transactions => "./data/mock.csv",
-    :customers => "./data/mock.csv"
-    })
+    :customers => "./data/mock.csv"})
 
     @iir = se.invoice_items
     @invoice_item = @iir.find_by_id(2345)

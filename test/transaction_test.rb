@@ -4,7 +4,6 @@ require './lib/file_loader'
 require './lib/sales_engine'
 require 'mocha/minitest'
 require 'bigdecimal'
-require 'pry'
 
 class TransactionTest < Minitest::Test
   def setup

@@ -4,7 +4,6 @@ require './lib/file_loader'
 require './lib/sales_engine'
 require 'mocha/minitest'
 require 'bigdecimal'
-require 'pry'
 
 class InvoiceTest < MiniTest::Test
   def setup
@@ -68,6 +67,7 @@ class InvoiceTest < MiniTest::Test
                   :updated_at => Time.parse('2010-03-26')}
 
     invoice_4 = Invoice.new(attributes)
+    
     assert_equal "Saturday", invoice_4.day_of_week
   end
 end

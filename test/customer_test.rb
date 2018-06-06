@@ -3,13 +3,12 @@ require './lib/sales_engine.rb'
 class CustomerTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
-    :items => "./data/mock.csv",
-    :merchants => "./data/mock.csv",
-    :invoices => "./data/mock.csv",
-    :invoice_items => "./data/mock.csv",
-    :transactions => "./data/mock.csv",
-    :customers => "./data/customers.csv"
-    })
+      :items => "./data/mock.csv",
+      :merchants => "./data/mock.csv",
+      :invoices => "./data/mock.csv",
+      :invoice_items => "./data/mock.csv",
+      :transactions => "./data/mock.csv",
+      :customers => "./data/customers.csv"})
 
     @cr = se.customers
     @customer = @cr.find_by_id(500)

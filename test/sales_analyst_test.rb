@@ -5,7 +5,6 @@ require './lib/item_repository'
 require './lib/file_loader'
 require './lib/sales_engine'
 require './lib/invoice_repository'
-require 'pry'
 
 class SalesAnalystTest < MiniTest::Test
   include FileLoader
@@ -16,8 +15,7 @@ class SalesAnalystTest < MiniTest::Test
       :invoices => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv",
       :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-    })
+      :customers => "./data/customers.csv"})
 
     @sales_analyst = @sales_engine.analyst
   end
@@ -76,18 +74,15 @@ class SalesAnalystTest < MiniTest::Test
   def test_top_merchants_by_invoice_count
     assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
   end
-  # two standard deviations above the mean?
 
   def test_bottom_merchants_by_invoice_count
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
   end
-  # two standard deviations below the mean?
 
   def test_top_days_by_invoice_count
     assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
     assert_equal 'Wednesday', @sales_analyst.top_days_by_invoice_count.first
   end
-  # # On which days are invoices created at more than one standard deviation above the mean?
 
   def test_percentages_of_invoices
     assert_equal 29.55, @sales_analyst.invoice_status(:pending)

@@ -3,7 +3,6 @@ require './lib/merchant'
 require './lib/merchant_repository'
 require './lib/file_loader'
 require './lib/sales_engine'
-require 'pry'
 
 class MerchantRepositoryTest < MiniTest::Test
   include FileLoader
@@ -14,8 +13,8 @@ class MerchantRepositoryTest < MiniTest::Test
       :invoices => "./data/mock.csv",
       :invoice_items => "./data/mock.csv",
       :transactions => "./data/mock.csv",
-      :customers => "./data/mock.csv"
-    })
+      :customers => "./data/mock.csv"})
+      
     @mr = se.merchants
   end
 
@@ -28,7 +27,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_create_merchants
-    attributes = {:name => 'Turing School'}
+    attributes = {:name => 'Turing School', :created_at => "2018-04-25", :updated_at => "2018-05-25"}
     @mr.create(attributes)
 
     assert_equal 12334123, @mr.all[-2].id

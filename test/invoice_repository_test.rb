@@ -4,7 +4,6 @@ require './lib/invoice_repository'
 require './lib/file_loader'
 require './lib/sales_engine'
 require 'bigdecimal'
-require 'pry'
 
 class InvoiceRepositoryTest < MiniTest::Test
   def setup
@@ -14,8 +13,7 @@ class InvoiceRepositoryTest < MiniTest::Test
     :invoices => "./data/invoices.csv",
     :invoice_items => "./data/mock.csv",
     :transactions => "./data/mock.csv",
-    :customers => "./data/mock.csv"
-    })
+    :customers => "./data/mock.csv"})
 
     @ir = se.invoices
   end
@@ -69,8 +67,8 @@ class InvoiceRepositoryTest < MiniTest::Test
       :merchant_id => 8,
       :status      => 'pending',
       :created_at  => Time.now,
-      :updated_at  => Time.now
-    }
+      :updated_at  => Time.now}
+
     @ir.create(attributes)
     new_invoice = @ir.find_by_id(4986)
 
@@ -83,13 +81,13 @@ class InvoiceRepositoryTest < MiniTest::Test
       :merchant_id => 8,
       :status      => 'pending',
       :created_at  => Time.now,
-      :updated_at  => Time.now
-    }
+      :updated_at  => Time.now}
+
     @ir.create(attributes)
 
     updated_attributes = {
-      :status => :success
-    }
+      :status => :success}
+
     updated_invoice = @ir.find_by_id(4986)
     original_time = updated_invoice.updated_at
     @ir.update(4986, updated_attributes)
@@ -104,16 +102,16 @@ class InvoiceRepositoryTest < MiniTest::Test
       :merchant_id => 8,
       :status      => 'pending',
       :created_at  => Time.now,
-      :updated_at  => Time.now
-    }
+      :updated_at  => Time.now}
+
     @ir.create(attributes)
 
     updated_attributes = {
       :id => 5000,
       :customer_id => 2,
       :merchant_id => 3,
-      :created_at => Time.now,
-    }
+      :created_at => Time.now,}
+
     updated_invoice = @ir.find_by_id(4986)
     @ir.update(4986, updated_attributes)
 
@@ -133,8 +131,8 @@ class InvoiceRepositoryTest < MiniTest::Test
       :merchant_id => 8,
       :status      => 'pending',
       :created_at  => Time.now,
-      :updated_at  => Time.now
-    }
+      :updated_at  => Time.now}
+
     @ir.create(attributes)
     assert_instance_of Invoice, @ir.find_by_id(4986)
     @ir.delete(4986)

@@ -4,13 +4,12 @@ require './test_helper.rb'
 class CustomerRepositoryTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
-    :items => "./data/mock.csv",
-    :merchants => "./data/mock.csv",
-    :invoices => "./data/mock.csv",
-    :invoice_items => "./data/mock.csv",
-    :transactions => "./data/mock.csv",
-    :customers => "./data/customers.csv"
-    })
+      :items => "./data/mock.csv",
+      :merchants => "./data/mock.csv",
+      :invoices => "./data/mock.csv",
+      :invoice_items => "./data/mock.csv",
+      :transactions => "./data/mock.csv",
+      :customers => "./data/customers.csv"})
 
     @cr = se.customers
   end
@@ -36,10 +35,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_customers
-    attributes = { :first_name => 'Joan',
-                   :last_name => 'Clarke',
-                   :created_at => Time.now,
-                   :updated_at => Time.now }
+    attributes = {
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => Time.now,
+      :updated_at => Time.now}
+
     @cr.create(attributes)
     new_customer = @cr.find_by_id(1001)
 
@@ -47,10 +48,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_customers
-    attributes = { :first_name => 'Joan',
-                   :last_name => 'Clarke',
-                   :created_at => Time.now,
-                   :updated_at => Time.now }
+    attributes = {
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => Time.now,
+      :updated_at => Time.now}
+
     @cr.create(attributes)
     customer = @cr.find_by_id(1001)
     original_time = customer.updated_at
@@ -68,10 +71,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_customer_can_be_deleted_by_id
-    attributes = { :first_name => 'Joan',
-                   :last_name => 'Clarke',
-                   :created_at => Time.now,
-                   :updated_at => Time.now }
+    attributes = {
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => Time.now,
+      :updated_at => Time.now}
+
     @cr.create(attributes)
     assert @cr.find_by_id(1001)
 
@@ -80,5 +85,4 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_nil @cr.delete(2000)
   end
-
 end
