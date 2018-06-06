@@ -73,8 +73,7 @@ class ItemRepositoryTest < Minitest::Test
       description: 'Now in ink',
       unit_price: BigDecimal(11.00, 4)
     }
-    id = 263567475
-    @ir.update(id, new_attributes)
+    @ir.update(263567475, new_attributes)
     assert_equal 'Pen', @ir.find_by_id(263567475).name
     assert_equal 11, @ir.find_by_id(263567475).unit_price
   end

@@ -163,8 +163,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_change_nil_values_to_zero
-    hash = {student: 'Lucas', feeling: 'Tired', energy: nil}
-    new_hash = {student: 'Lucas', feeling: 'Tired', energy: 0}
+    hash = { student: 'Lucas', feeling: 'Tired', energy: nil }
+    new_hash = { student: 'Lucas', feeling: 'Tired', energy: 0 }
     assert_equal new_hash, @sa.change_nil_values_to_zero(hash)
   end
 
