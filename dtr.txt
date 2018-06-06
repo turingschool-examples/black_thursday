@@ -1,0 +1,25 @@
+DTR Memo
+Project: Black Thursday
+Group Member Names: Andrew Mockett, Chris Powell
+Project Expectations: What does each group member hope to get out of this project? Goals and expectations:
+Andrew: Complete project, get a better grasp on class interaction.
+Chris: Complete project, get better at test writing with >95% coverage.
+Schedule Expectations: When are we available to work together and individually?
+Andrew: Make an effort to stick around after class. Night owl. Limited weekend availability.
+Chris: Stick around after class, flexible about working remotely.
+Communication Expectations: How and often will we communicate? How do we keep lines of communication open?
+Mostly thorugh slack except for when on campus.
+
+Abilities Expectations: Technical strengths and areas for desired improvement:
+Andrew: Problem solving is a strength, improve getting a better grasp on project architecture.
+Chris: Reading errors is a strength, improve same as Andrew.
+Workload Expectations: What features do we each want to work on?
+Shared expectations, equal contribution from both members. Keep open communication
+for plan of attack and any merges.
+Workflow Expectations: Git workflow/Tools/Code Review/Reviewing Pull Requests:
+Neither of us will work on master, only use master for merges. Commit frequently
+to ones own branch.
+Expectations for giving and receiving feedback:
+Keep it open and honest.
+Agenda to discuss project launch:
+Touch base Sunday, slack call.
