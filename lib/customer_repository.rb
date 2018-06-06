@@ -49,7 +49,7 @@ class CustomerRepository
     end
   end
 
-   def delete(id)
+  def delete(id)
     @all.delete_if do |customer|
       customer.id == id
     end

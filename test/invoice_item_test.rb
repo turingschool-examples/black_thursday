@@ -3,16 +3,15 @@ require './lib/invoice_item'
 require 'bigdecimal'
 
 class InvoiceItemTest < Minitest::Test
-
   def setup
     attributes = {
-      :id => '6',
-      :item_id => '7',
-      :invoice_id => '8',
-      :quantity => '1',
-      :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      id: '6',
+      item_id: '7',
+      invoice_id: '8',
+      quantity: '1',
+      unit_price: BigDecimal(10.99, 4),
+      created_at: Time.now,
+      updated_at: Time.now
     }
 
     @inv_item = InvoiceItem.new(attributes)

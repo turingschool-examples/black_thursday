@@ -63,23 +63,5 @@ class TransactionRepository
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
-  
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
