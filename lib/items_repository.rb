@@ -8,7 +8,6 @@ class ItemsRepository
               :all
 
   def initialize
-    # @items_csv = items_csv
     @all = []
   end
 
@@ -51,7 +50,7 @@ class ItemsRepository
   end
 
   def inspect
-      "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def find_all_by_merchant_id(id)
@@ -80,7 +79,7 @@ class ItemsRepository
     end
   end
 
-  def delete(id) # module
+  def delete(id)
     @all.delete_if do |item|
       item.id.to_i == id
     end

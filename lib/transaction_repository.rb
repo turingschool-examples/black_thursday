@@ -4,7 +4,7 @@ class TransactionRepository
   attr_reader :all
 
   def initialize
-    @all =[]
+    @all = []
   end
 
   def load_transactions(csv)
@@ -63,5 +63,4 @@ class TransactionRepository
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
-
 end

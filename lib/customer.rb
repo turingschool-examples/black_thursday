@@ -18,5 +18,4 @@ class Customer
     @last_name = attributes[:last_name] || @last_name
     @updated_at = Time.new
   end
-  
 end

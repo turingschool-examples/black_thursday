@@ -1,7 +1,6 @@
 require_relative 'customer'
 
 class CustomerRepository
-
   attr_reader :all
 
   def initialize

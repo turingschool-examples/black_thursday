@@ -6,7 +6,6 @@ class Invoice
               :created_at,
               :updated_at
 
-
   def initialize(invoice)
     @id = invoice[:id].to_i
     @customer_id = invoice[:customer_id].to_i

@@ -1,7 +1,6 @@
 require_relative 'invoice'
 
 class InvoiceRepository
-
   attr_reader :all
 
   def initialize
@@ -16,7 +15,7 @@ class InvoiceRepository
     end
   end
 
-  def find_by_id(invoice_id) # module
+  def find_by_id(invoice_id)
     @all.find do |invoice|
       invoice.id.to_i == invoice_id
     end
@@ -66,5 +65,4 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
-
 end

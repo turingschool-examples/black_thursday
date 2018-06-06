@@ -24,5 +24,4 @@ class Transaction
     @result = attributes[:result] || @result
     @updated_at = Time.new
   end
-
 end

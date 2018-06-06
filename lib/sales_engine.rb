@@ -8,7 +8,6 @@ require_relative 'sales_analyst'
 require 'csv'
 
 class SalesEngine
-
   attr_reader :items,
               :merchants,
               :invoices,
@@ -37,45 +36,45 @@ class SalesEngine
     if csv_hash[:items]
       items_filepath = csv_hash[:items]
       csv_items = CSV.open items_filepath,
-                        headers: true,
-                        header_converters: :symbol,
-                        converters: :all
+                           headers: true,
+                           header_converters: :symbol,
+                           converters: :all
       items.load_items(csv_items)
     end
     if csv_hash[:merchants]
       merchants_filepath = csv_hash[:merchants]
       csv_merchants = CSV.open merchants_filepath,
-                        headers: true,
-                        header_converters: :symbol
+                               headers: true,
+                               header_converters: :symbol
       merchants.load_merchants(csv_merchants)
     end
     if csv_hash[:invoices]
       invoices_filepath = csv_hash[:invoices]
       csv_invoices = CSV.open invoices_filepath,
-                        headers: true,
-                        header_converters: :symbol
+                              headers: true,
+                              header_converters: :symbol
       invoices.load_invoices(csv_invoices)
     end
     if csv_hash[:invoice_items]
       invoice_items_filepath = csv_hash[:invoice_items]
       csv_items = CSV.open invoice_items_filepath,
-                        headers: true,
-                        header_converters: :symbol,
-                        converters: :all
+                           headers: true,
+                           header_converters: :symbol,
+                           converters: :all
       invoice_items.load_invoice_items(csv_items)
     end
     if csv_hash[:transactions]
       transactions_filepath = csv_hash[:transactions]
       csv_merchants = CSV.open transactions_filepath,
-                        headers: true,
-                        header_converters: :symbol
+                               headers: true,
+                               header_converters: :symbol
       transactions.load_transactions(csv_merchants)
     end
     if csv_hash[:customers]
       customers_filepath = csv_hash[:customers]
       csv_invoices = CSV.open customers_filepath,
-                        headers: true,
-                        header_converters: :symbol
+                              headers: true,
+                              header_converters: :symbol
       customers.load_customers(csv_invoices)
     end
     new(items, merchants, invoices,

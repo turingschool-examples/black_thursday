@@ -23,7 +23,7 @@ class InvoiceItem
   end
 
   def update_price(float)
-    if float == nil
+    if float.nil?
       @unit_price
     else
       @unit_price = BigDecimal(float, float.to_s.length - 1)
