@@ -5,13 +5,13 @@ require 'pry'
 class SalesAnalyst
 
   def initialize(engine)
-    @engine = engine
-    @items = @engine.items
-    @merchants = @engine.merchants
-    @invoices = @engine.invoices
-    @transactions = @engine.transactions
+    @engine        = engine
+    @items         = @engine.items
+    @merchants     = @engine.merchants
+    @invoices      = @engine.invoices
+    @transactions  = @engine.transactions
     @invoice_items = @engine.invoice_items
-    @customers = @engine.customers
+    @customers     = @engine.customers
   end
 
   def mean(numbers_array)
@@ -86,7 +86,7 @@ class SalesAnalyst
 
   def golden_items
     std_dev = average_item_unit_price +
-    (average_item_unit_price_standard_deviation * 2)
+              (average_item_unit_price_standard_deviation * 2)
     @items.all.find_all do |item|
       item.unit_price > std_dev
     end
@@ -99,7 +99,7 @@ class SalesAnalyst
 
   def invoice_count_for_each_merchant_id
     grouped_invoices = invoices_group_by_merchant_id
-    grouped_invoices.merge(grouped_invoices) do |_ , invoice_list|
+    grouped_invoices.merge(grouped_invoices) do |_, invoice_list|
       invoice_list.count
     end
   end
@@ -114,7 +114,7 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     std_dev = average_invoices_per_merchant +
-    (average_invoices_per_merchant_standard_deviation * 2)
+              (average_invoices_per_merchant_standard_deviation * 2)
     invoice_count_for_each_merchant_id.map do |merchant_id, invoice_count|
       @merchants.find_by_id(merchant_id) if invoice_count > std_dev
     end.compact
@@ -122,7 +122,7 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     std_dev = average_invoices_per_merchant -
-    (average_invoices_per_merchant_standard_deviation * 2)
+              (average_invoices_per_merchant_standard_deviation * 2)
     invoice_count_for_each_merchant_id.map do |merchant_id, invoice_count|
       @merchants.find_by_id(merchant_id) if invoice_count < std_dev
     end.compact
@@ -136,23 +136,43 @@ class SalesAnalyst
 
   def invoice_count_by_weekday
     invoices_group_by_day.map do |day, invoices|
-      if day.zero?
-        day, invoices = 'Sunday', invoices.count
+      if day == 0
+        ['Sunday', invoices.count]
       elsif day == 1
-        day, invoices = 'Monday', invoices.count
+        ['Monday', invoices.count]
       elsif day == 2
-        day, invoices = 'Tuesday', invoices.count
+        ['Tuesday', invoices.count]
       elsif day == 3
-        day, invoices = 'Wednesday', invoices.count
+        ['Wednesday', invoices.count]
       elsif day == 4
-        day, invoices = 'Thursday', invoices.count
+        ['Thursday', invoices.count]
       elsif day == 5
-        day, invoices = 'Friday', invoices.count
+        ['Friday', invoices.count]
       elsif day == 6
-        day, invoices = 'Saturday', invoices.count
+        ['Saturday', invoices.count]
       end
     end.to_h
   end
+
+  # def invoice_count_by_weekday
+  #   invoices_group_by_day.map do |day, invoices|
+  #     if day == 0
+  #       day, invoices = ['Sunday', invoices.count
+  #     elsif day == 1
+  #       day, invoices = 'Monday', invoices.count
+  #     elsif day == 2
+  #       day, invoices = 'Tuesday', invoices.count
+  #     elsif day == 3
+  #       day, invoices = 'Wednesday', invoices.count
+  #     elsif day == 4
+  #       day, invoices = 'Thursday', invoices.count
+  #     elsif day == 5
+  #       day, invoices = 'Friday', invoices.count
+  #     elsif day == 6
+  #       day, invoices = 'Saturday', invoices.count
+  #     end
+  #   end.to_h
+  # end
 
   def average_invoice_count_per_weekday
     mean(invoice_count_by_weekday.values)
@@ -164,7 +184,7 @@ class SalesAnalyst
 
   def weekday_deviation
     average_invoice_count_per_weekday +
-    average_invoice_count_per_weekday_standard_deviation
+      average_invoice_count_per_weekday_standard_deviation
   end
 
   def top_days_by_invoice_count
@@ -183,7 +203,7 @@ class SalesAnalyst
 
   def invoice_count_by_status
     invoices_group_by_status.map do |status, invoices|
-      status, invoices = status, percentage(invoices)
+      [status, percentage(invoices)]
     end.to_h
   end
 
@@ -231,11 +251,11 @@ class SalesAnalyst
     end
   end
 
-  def top_buyers(x = 20)
-    top = total_spend_per_customer.max_by(x) do |customer_id, spend|
+  def top_buyers(buyers = 20)
+    top_ids = total_spend_per_customer.max_by(buyers) do |_, spend|
       spend
     end
-    top.map do |customer_id, _|
+    top_ids.map do |customer_id, _|
       @customers.find_by_id(customer_id)
     end
   end
