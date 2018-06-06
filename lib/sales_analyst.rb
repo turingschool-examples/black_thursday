@@ -208,11 +208,12 @@ class SalesAnalyst
     end
   end
 
+  def top_buyer_ids(buyers)
+    total_spend_per_customer.max_by(buyers) { |_, spend| spend }
+  end
+
   def top_buyers(buyers = 20)
-    top_ids = total_spend_per_customer.max_by(buyers) do |_, spend|
-      spend
-    end
-    top_ids.map do |customer_id, _|
+    top_buyer_ids(buyers).map do |customer_id, _|
       @customers.find_by_id(customer_id)
     end
   end

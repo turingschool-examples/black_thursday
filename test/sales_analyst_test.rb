@@ -205,8 +205,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_highest_volume_items
     assert_equal 34, @sa.customer_invoice_items(200).length
-    all_invoice_items = @sa.customer_invoice_items(200)
-    assert_equal 0, @sa.customer_item_count(all_invoice_items)
     assert_equal 6, @sa.highest_volume_items(200).length
   end
 
@@ -215,12 +213,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_buyers
-    # assert_equal [], @sa.top_buyers(5)
+    number_of_buyers = 7
+    assert_equal number_of_buyers, @sa.top_buyers(number_of_buyers).length
   end
 
   def test_it_can_return_best_invoice_by_revenue
-    # assert_equal [], @sa.invoice_ids_by_total
-    # assert_equal [], @sa.best_invoice_by_revenue
+    assert_equal [], @sa.invoice_ids_by_total
+    assert_equal [], @sa.best_invoice_by_revenue
   end
 
   def test_it_can_return_invoices_with_qty
