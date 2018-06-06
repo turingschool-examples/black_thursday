@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_the_standard_deviation_for_average_items_per_merchant
-    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sa.items_per_merchant_standard_dev
   end
 
   def test_it_can_find_merchants_offering_high_item_count
@@ -64,7 +64,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_the_average_invoices_per_merchant_standard_devaition
-    assert_equal 0.34, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.34, @sa.invoices_per_merchant_stand_dev
   end
 
   def test_it_can_find_top_performing_merchants
@@ -140,12 +140,51 @@ class SalesAnalystTest < Minitest::Test
       invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv'
     )
-    @sa = SalesAnalyst.new(se)
-    assert_equal 263524984, @sa.most_sold_item_for_merchant(12334189).first.id
-    assert_equal 'Adult Princess Leia Hat', @sa.most_sold_item_for_merchant(12334189).first.name
-    assert_instance_of Item, @sa.most_sold_item_for_merchant(12334189).first
-    assert_equal 263549386, @sa.most_sold_item_for_merchant(12334768).first.id
-    assert_equal 4, @sa.most_sold_item_for_merchant(12337105).length
+    sa = SalesAnalyst.new(se)
+    assert_equal 263524984, sa.most_sold_item_for_merchant(12334189).first.id
+    assert_equal 'Adult Princess Leia Hat', sa.most_sold_item_for_merchant(12334189).first.name
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12334189).first
+    assert_equal 263549386, sa.most_sold_item_for_merchant(12334768).first.id
+    assert_equal 4, sa.most_sold_item_for_merchant(12337105).length
+  end
+
+  def test_it_can_find_successful_invoice_items_per_merchant_id
+    se = SalesEngine.from_csv(
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+    )
+    sa = SalesAnalyst.new(se)
+    merchant_id = 12334189
+    assert_equal 16, sa.successful_invoice_items_per_merchant_id(merchant_id)
+                       .count
+    assert_equal InvoiceItem, sa.successful_invoice_items_per_merchant_id(merchant_id).first.class
+  end
+
+  def test_it_can_take_array_of_invoice_items_and_group_by_id_with_total_price
+    se = SalesEngine.from_csv(
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+    )
+    sa = SalesAnalyst.new(se)
+    array = sa.successful_invoice_items_per_merchant_id(12334269)
+    assert_equal 13, sa.invoice_items_with_total_price(array).keys.count
+    assert_equal Hash, sa.invoice_items_with_total_price(array).class
+    assert_equal BigDecimal, sa.invoice_items_with_total_price(array)
+                               .values.first.class
+  end
+
+  def test_it_can_find_high_item_from_hash
+    hash = { 263516130 => 20, 263463003 => 40 }
+    item = @sa.se.items.find_by_id(263463003)
+    assert_equal item, @sa.high_item_from_item_ids_with_values(hash).first
   end
 
   def test_it_can_find_best_item_for_merchant
@@ -157,14 +196,14 @@ class SalesAnalystTest < Minitest::Test
       invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv'
     )
-    @sa = SalesAnalyst.new(se)
-    assert_equal 263516130, @sa.best_item_for_merchant(12334189).id
-    assert_equal 263463003, @sa.best_item_for_merchant(12337105).id
+    sa = SalesAnalyst.new(se)
+    assert_equal 263516130, sa.best_item_for_merchant(12334189).id
+    assert_equal 263463003, sa.best_item_for_merchant(12337105).id
   end
 
   def test_it_can_change_nil_values_to_zero
-    hash = {student: 'Lucas', feeling: 'Tired', energy: nil}
-    new_hash = {student: 'Lucas', feeling: 'Tired', energy: 0}
+    hash = { student: 'Lucas', feeling: 'Tired', energy: nil }
+    new_hash = { student: 'Lucas', feeling: 'Tired', energy: 0 }
     assert_equal new_hash, @sa.change_nil_values_to_zero(hash)
   end
 
