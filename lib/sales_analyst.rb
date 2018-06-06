@@ -216,7 +216,7 @@ class SalesAnalyst
 
     transactions_by_invoice = @transactions.find_all_by_invoice_id(id)
 
-    return transactions_by_invoice.length > 0 && transactions_by_invoice.any? do |transaction|
+    transactions_by_invoice.any? do |transaction|
       transaction.result == :success
     end
   end
@@ -374,5 +374,18 @@ class SalesAnalyst
       @items.find_by_id(high_volume_invoice_item.item_id)
     end
     items
+  end
+
+  def customers_with_unpaid_invoices
+    unpaid_invoices = @invoices.all.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id) == false
+    end
+    unpaid_customer_ids = unpaid_invoices.map do |unpaid_invoice|
+      unpaid_invoice.customer_id
+    end.uniq
+    unpaid_customers = unpaid_customer_ids.map do |unpaid_customer_id|
+      @customers.find_by_id(unpaid_customer_id)
+    end
+    unpaid_customers
   end
 end

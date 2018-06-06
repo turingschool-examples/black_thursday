@@ -175,4 +175,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 263448547, expected.last.id
     assert_instance_of Item, expected.first
   end
+
+  def test_customers_with_unpaid_invoices
+    expected = @sa.customers_with_unpaid_invoices
+
+    assert_equal 786, expected.length
+    assert_equal 1, expected.first.id
+    assert_equal 999, expected.last.id
+    assert_equal Customer, expected.first.class
+  end
 end
