@@ -6,36 +6,42 @@ require './lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
   def setup
-    @ii = InvoiceItem.new(id: 6,
-                          item_id: 7,
-                          invoice_id: 8,
-                          quantity: 1,
-                          unit_price: BigDecimal(1099, 4),
-                          created_at: '2016-01-11 09:34:06 UTC',
-                          updated_at: '2007-06-04 21:35:10 UTC')
+    @args = { id: 6,
+              item_id: 7,
+              invoice_id: 8,
+              quantity: 1,
+              unit_price: BigDecimal(1099, 4),
+              created_at: '2016-01-11 09:34:06 UTC',
+              updated_at: '2007-06-04 21:35:10 UTC' }
+    @invoice_items = InvoiceItem.new(@args)
   end
 
   def test_it_exists
-    assert_instance_of InvoiceItem, @ii
+    assert_instance_of InvoiceItem, @invoice_items
   end
 
   def test_it_has_attributes
-    assert_equal 6, @ii.id
-    assert_equal 7, @ii.item_id
-    assert_equal 8, @ii.invoice_id
-    assert_equal 1, @ii.quantity
-    assert_instance_of BigDecimal, @ii.unit_price
+    assert_equal 6, @invoice_items.id
+    assert_equal 7, @invoice_items.item_id
+    assert_equal 8, @invoice_items.invoice_id
+    assert_equal 1, @invoice_items.quantity
+    assert_instance_of BigDecimal, @invoice_items.unit_price
   end
 
-  def test_time_attributes
-    assert_instance_of Time, @ii.created_at
-    assert_equal 2016, @ii.created_at.year
+  def test_time_attributes_for_created
+    assert_instance_of Time, @invoice_items.created_at
+    assert_equal 2_016, @invoice_items.created_at.year
+    assert_equal 11, @invoice_items.created_at.day
+  end
 
-    assert_instance_of Time, @ii.updated_at
-    assert_equal 4, @ii.updated_at.day
+  def test_time_attributes_for_updated
+    assert_instance_of Time, @invoice_items.updated_at
+    assert_equal 4, @invoice_items.updated_at.day
+    assert_equal 6, @invoice_items.updated_at.month
   end
 
   def test_unit_price_to_dollars
-    assert_equal 10.99, @ii.unit_price_to_dollars
+    assert_instance_of Float, @invoice_items.unit_price_to_dollars
+    assert_equal 10.99, @invoice_items.unit_price_to_dollars
   end
 end

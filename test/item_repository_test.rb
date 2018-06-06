@@ -15,7 +15,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repo_holds_all_instances_of_items
-    assert_equal 1367, @ir.all.length
+    assert_equal 1_367, @ir.all.length
   end
 
   def test_all_returns_array_of_all_item_objects
