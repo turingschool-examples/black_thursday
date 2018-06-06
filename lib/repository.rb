@@ -41,24 +41,8 @@ module Repository
     end
   end
 
-  def update(id, attributes)
-    object = find_by_id(id)
-    unless object.nil?
-      object.name        = attributes[:name] if attributes[:name]
-      object.first_name  = attributes[:first_name] if attributes[:first_name]
-      object.last_name   = attributes[:last_name] if attributes[:last_name]
-      object.description = attributes[:description] if attributes[:description]
-      object.unit_price  = attributes[:unit_price] if attributes[:unit_price]
-      object.status      = attributes[:status] if attributes[:status]
-      object.quantity    = attributes[:quantity] if attributes[:quantity]
-      object.result      = attributes[:result] if attributes[:result]
-      exp_date           = attributes[:credit_card_expiration_date]
-      object.credit_card_expiration_date = exp_date if exp_date
-      cc_number          = attributes[:credit_card_number]
-      object.credit_card_number = cc_number if cc_number
-      object.updated_at = Time.now unless object.class == Merchant
-    end
-    return nil
+  def find_highest_id
+    @repository.max_by(&:id)
   end
 
   def inspect

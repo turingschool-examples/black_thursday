@@ -20,11 +20,23 @@ class TransactionRepository
   end
 
   def create(attributes)
-    highest_id = @repository.max_by(&:id)
-    attributes[:id] = highest_id.id + 1
+    attributes[:id] = find_highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     @repository << Transaction.new(attributes)
+  end
+
+  def update(id, attributes)
+    transaction = find_by_id(id)
+    unless transaction.nil?
+      transaction.result      = attributes[:result] if attributes[:result]
+      exp_date = attributes[:credit_card_expiration_date]
+      transaction.credit_card_expiration_date = exp_date if exp_date
+      cc_number = attributes[:credit_card_number]
+      transaction.credit_card_number = cc_number if cc_number
+      transaction.updated_at = Time.now
+    end
+    return nil
   end
 
   def find_all_by_credit_card_number(cc_number)

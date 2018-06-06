@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require 'pry'
+require 'time'
 # create Merchant objects
 class Merchant
   attr_reader   :id,

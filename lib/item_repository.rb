@@ -20,11 +20,21 @@ class ItemRepository
   end
 
   def create(attributes)
-    highest_id = @repository.max_by(&:id)
-    attributes[:id] = highest_id.id + 1
+    attributes[:id] = find_highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     @repository << Item.new(attributes)
+  end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    unless item.nil?
+      item.name        = attributes[:name] if attributes[:name]
+      item.description = attributes[:description] if attributes[:description]
+      item.unit_price  = attributes[:unit_price] if attributes[:unit_price]
+      item.updated_at = Time.now
+    end
+    return nil
   end
 
   def find_all_with_description(description)
