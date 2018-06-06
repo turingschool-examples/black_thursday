@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 require 'time'
-# create transaction objects
+# Responsible for creating Transaction objects
 class Transaction
   attr_reader   :id,
                 :invoice_id,

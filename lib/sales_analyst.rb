@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 require_relative 'analytic_grouping'
-# responsible for database query
+# Responsible for relational database query
 class SalesAnalyst
   include AnalyticGrouping
   def initialize(engine)

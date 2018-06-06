@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 require 'time'
-# create Merchant objects
+# Responsible for creating Merchant objects
 class Merchant
   attr_reader   :id,
                 :created_at

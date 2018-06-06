@@ -8,7 +8,7 @@ require_relative 'transaction_repository'
 require_relative 'customer_repository'
 require_relative 'sales_analyst'
 require_relative 'file_reader'
-# builds access to items and merchants
+# Responsible for establishing each repository, which establishes each object
 class SalesEngine
   include FileReader
 

@@ -2,7 +2,7 @@
 
 require 'bigdecimal'
 require 'time'
-# create InvoiceItem objects
+# Responsible for creating InvoiceItem objects
 class InvoiceItem
   attr_reader   :id,
                 :item_id,

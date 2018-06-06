@@ -2,7 +2,7 @@
 
 require_relative 'customer'
 require_relative 'repository'
-# Responsible for holding and searching Customer instances.
+# Responsible for holding and searching Customer instances
 class CustomerRepository
   include Repository
   attr_reader :customers

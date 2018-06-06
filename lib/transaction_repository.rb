@@ -2,7 +2,7 @@
 
 require_relative 'transaction'
 require_relative 'repository'
-# Responsible for holding and searching Transaction instances.
+# Responsible for holding and searching Transaction instances
 class TransactionRepository
   include Repository
   attr_reader :transactions

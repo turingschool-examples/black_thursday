@@ -1,7 +1,6 @@
 # frozen_string_literal: false
 
 require_relative 'test_helper'
-require './lib/sales_engine'
 require './lib/item'
 
 class ItemTest < Minitest::Test
