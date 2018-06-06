@@ -4,7 +4,6 @@ require './lib/customer'
 require 'csv'
 
 class CustomerRepositoryTest < Minitest::Test
-
   def setup
     @customers = CSV.open './data/customer_test_data.csv',
                           headers: :true,
@@ -30,30 +29,30 @@ class CustomerRepositoryTest < Minitest::Test
   def test_find_by_id
     @customer_repository.load_customers(@customers)
     actual = @customer_repository.find_by_id(1)
-    assert_equal "Joey", actual.first_name
+    assert_equal 'Joey', actual.first_name
   end
 
   def test_find_all_by_first_name
     @customer_repository.load_customers(@customers)
 
-    assert_equal 2, @customer_repository.find_all_by_first_name("Joey").length
-    assert_equal [], @customer_repository.find_all_by_first_name("Huey")
+    assert_equal 2, @customer_repository.find_all_by_first_name('Joey').length
+    assert_equal [], @customer_repository.find_all_by_first_name('Huey')
   end
 
   def test_find_all_by_last_name
     @customer_repository.load_customers(@customers)
 
-    assert_equal 2, @customer_repository.find_all_by_last_name("Nader").length
-    assert_equal [], @customer_repository.find_all_by_last_name("Zanti")
+    assert_equal 2, @customer_repository.find_all_by_last_name('Nader').length
+    assert_equal [], @customer_repository.find_all_by_last_name('Zanti')
   end
 
   def test_create
     attributes = {
-      :id => 6,
-      :first_name => "Joan",
-      :last_name => "Clarke",
-      :created_at => Time.now,
-      :updated_at => Time.now
+      id: 6,
+      first_name: 'Joan',
+      last_name: 'Clarke',
+      created_at: Time.now,
+      updated_at: Time.now
     }
     @customer_repository.load_customers(@customers)
     @customer_repository.create(attributes)
@@ -66,16 +65,16 @@ class CustomerRepositoryTest < Minitest::Test
     @customer_repository.load_customers(@customers)
 
     attributes = {
-      :first_name => "Homer",
-      :last_name => "Simpson"
+      first_name: 'Homer',
+      last_name: 'Simpson'
     }
 
     time_before = @customer_repository.all[-1].updated_at
     @customer_repository.update(10, attributes)
     time_after = @customer_repository.all[-1].updated_at
 
-    assert_equal "Homer", @customer_repository.all[-1].first_name
-    assert_equal "Simpson", @customer_repository.all[-1].last_name
+    assert_equal 'Homer', @customer_repository.all[-1].first_name
+    assert_equal 'Simpson', @customer_repository.all[-1].last_name
     assert time_before < time_after
   end
 
@@ -86,5 +85,4 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal 9, @customer_repository.all.length
   end
-
 end
