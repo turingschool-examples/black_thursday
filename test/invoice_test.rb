@@ -2,16 +2,17 @@ require './test/test_helper'
 require './lib/invoice'
 
 class InvoiceTest < Minitest::Test
-
   def setup
-    @invoice = Invoice.new({
-      :id          => 6,
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-    })
+    attributes = {
+      id: 6,
+      customer_id: 7,
+      merchant_id: 8,
+      status: "pending",
+      created_at: Time.now,
+      updated_at: Time.now
+    }
+
+    @invoice = Invoice.new(attributes)
   end
 
   def test_has_attributes
@@ -22,5 +23,4 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, @invoice.created_at
     assert_instance_of Time, @invoice.updated_at
   end
-
 end

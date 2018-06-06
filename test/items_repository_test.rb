@@ -5,8 +5,8 @@ require 'csv'
 class ItemsRepositoryTest < Minitest::Test
   def setup
     @items = CSV.open './data/test_items.csv',
-                     headers: true,
-                     header_converters: :symbol
+                      headers: true,
+                      header_converters: :symbol
     @ir = ItemsRepository.new
   end
 
@@ -30,7 +30,7 @@ class ItemsRepositoryTest < Minitest::Test
     nil_id = 1984
     assert_nil @ir.find_by_id(nil_id)
 
-    real_id = 263395237
+    real_id = 263_395_237
     assert_instance_of Item, @ir.find_by_id(real_id)
   end
 
@@ -68,7 +68,7 @@ class ItemsRepositoryTest < Minitest::Test
   def test_find_all_by_price_in_range
     @ir.load_items(@items)
 
-    range_one = (-50.00 ..0)
+    range_one = (-50.00..0)
     assert_equal [], @ir.find_all_by_price_in_range(range_one)
 
     range_two = (0..15.00)

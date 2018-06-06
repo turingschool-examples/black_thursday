@@ -4,11 +4,10 @@ require './lib/merchant'
 require 'csv'
 
 class MerchantRepoTest < Minitest::Test
-
   def setup
       @merchants = CSV.open './data/test_merchants.csv',
-                        headers: true,
-                        header_converters: :symbol
+                            headers: true,
+                            header_converters: :symbol
       @mr = MerchantRepo.new
   end
 
@@ -28,46 +27,44 @@ class MerchantRepoTest < Minitest::Test
   def test_it_can_find_by_id
     @mr.load_merchants(@merchants)
 
-    assert_instance_of Merchant, @mr.find_by_id(12334105)
-    assert_equal "Shopin1901", @mr.find_by_id(12334105).name
+    assert_instance_of Merchant, @mr.find_by_id(12_334_105)
+    assert_equal 'Shopin1901', @mr.find_by_id(12_334_105).name
   end
 
   def test_it_can_find_by_name
     @mr.load_merchants(@merchants)
 
-    assert_instance_of Merchant, @mr.find_by_name("Shopin1901")
-    assert_equal 12334105, @mr.find_by_name("shopin1901").id
+    assert_instance_of Merchant, @mr.find_by_name('Shopin1901')
+    assert_equal 12_334_105, @mr.find_by_name('shopin1901').id
   end
 
   def test_it_can_find_all_by_name
     @mr.load_merchants(@merchants)
 
-    assert_equal 2, @mr.find_all_by_name("Shopin1901").length
-    assert_equal [], @mr.find_all_by_name("notvalidname")
+    assert_equal 2, @mr.find_all_by_name('Shopin1901').length
+    assert_equal [], @mr.find_all_by_name('notvalidname')
   end
 
   def test_it_can_create_new_merchant
     @mr.load_merchants(@merchants)
-    @mr.create({:name => "test merch"})
+    @mr.create({ name: 'test merch' })
 
     assert_equal 10, @mr.all.length
-    assert_equal 12334145, @mr.all.last.id
+    assert_equal 12_334_145, @mr.all.last.id
   end
 
   def test_it_can_update_merchant_name
     @mr.load_merchants(@merchants)
-    @mr.update(12334105, {:name => "changed merch name"})
+    @mr.update(12_334_105, { name: 'changed merch name' })
 
-    assert_equal "changed merch name", @mr.find_by_id(12334105).name
+    assert_equal 'changed merch name', @mr.find_by_id(12_334_105).name
   end
 
   def test_it_can_delete_by_id
     @mr.load_merchants(@merchants)
-    @mr.delete(12334105)
+    @mr.delete(12_334_105)
 
     assert_equal 8, @mr.all.length
-    assert_nil @mr.find_by_id(12334105)
-
+    assert_nil @mr.find_by_id(12_334_105)
   end
-
 end
