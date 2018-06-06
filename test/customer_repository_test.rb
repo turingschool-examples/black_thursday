@@ -6,7 +6,7 @@ require 'csv'
 class CustomerRepositoryTest < Minitest::Test
   def setup
     @customers = CSV.open './data/customer_test_data.csv',
-                          headers: :true,
+                          headers: true,
                           header_converters: :symbol
     @customer_repository = CustomerRepository.new
   end
