@@ -1,18 +1,18 @@
+# frozen_string_literal: false
+
 require_relative 'test_helper'
 require './lib/sales_engine'
 require './lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
   def setup
-    @ii = InvoiceItem.new({
-          :id => 6,
-          :item_id => 7,
-          :invoice_id => 8,
-          :quantity => 1,
-          :unit_price => BigDecimal.new(1099, 4),
-          :created_at  => '2016-01-11 09:34:06 UTC',
-          :updated_at  => '2007-06-04 21:35:10 UTC'
-        })
+    @ii = InvoiceItem.new(id: 6,
+                          item_id: 7,
+                          invoice_id: 8,
+                          quantity: 1,
+                          unit_price: BigDecimal(1099, 4),
+                          created_at: '2016-01-11 09:34:06 UTC',
+                          updated_at: '2007-06-04 21:35:10 UTC')
   end
 
   def test_it_exists
@@ -32,7 +32,7 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 2016, @ii.created_at.year
 
     assert_instance_of Time, @ii.updated_at
-    assert_equal 04, @ii.updated_at.day
+    assert_equal 4, @ii.updated_at.day
   end
 
   def test_unit_price_to_dollars
