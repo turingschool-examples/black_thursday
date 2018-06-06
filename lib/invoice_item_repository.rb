@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require_relative 'invoice_item'
 require_relative 'repository'
 # Responsible for holding and searching InvoiceItem instances.
@@ -16,7 +18,7 @@ class InvoiceItemRepository
       @repository << InvoiceItem.new(invoice_item)
     end
   end
-  
+
   def create(attributes)
     attributes[:id] = find_highest_id.id + 1
     attributes[:created_at] = Time.now.to_s
