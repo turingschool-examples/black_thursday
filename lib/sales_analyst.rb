@@ -14,116 +14,105 @@ class SalesAnalyst
     @customers = @engine.customers
   end
 
-  def mean(numbers_array) # HELPER
+  def mean(numbers_array)
     (numbers_array.inject(:+).to_f / numbers_array.count).round(2)
   end
 
-  def summed_variance(numbers_array) # HELPER
+  def summed_variance(numbers_array)
     avg = mean(numbers_array)
     numbers_array.map do |count|
       (count - avg)**2
     end.inject(:+)
   end
 
-  def standard_deviation(numbers_array) # HELPER
+  def standard_deviation(numbers_array)
     result = (summed_variance(numbers_array) / (numbers_array.count - 1))
     Math.sqrt(result).round(2)
   end
 
-###############################################################
-#item analytics
-
-  def average_items_per_merchant # req
+  def average_items_per_merchant
     mean(item_count_for_each_merchant_id.values)
   end
 
-  def average_items_per_merchant_standard_deviation # req
+  def average_items_per_merchant_standard_deviation
     standard_deviation(item_count_for_each_merchant_id.values)
   end
 
-  def one_deviation # HELPER
+  def one_deviation
     average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
-  def item_count_for_each_merchant_id # HELPER
+  def item_count_for_each_merchant_id
     grouped_items = items_group_by_merchant_id
     grouped_items.merge(grouped_items) do |_, item_list|
       item_list.count
     end
   end
 
-  def merchants_with_high_item_count #req
+  def merchants_with_high_item_count
     item_count_for_each_merchant_id.map do |merchant_id, item_count|
       @merchants.find_by_id(merchant_id) if item_count > one_deviation
     end.compact
   end
 
-  def items_group_by_merchant_id # HELPER
-    @items.all.group_by(&:merchant_id)
+  def items_group_by_merchant_id
+    @items_group_by_merchant_id ||=
+      @items.all.group_by(&:merchant_id)
   end
 
-  def average_item_price_for_merchant(merchant_id) #req
+  def average_item_price_for_merchant(merchant_id)
     prices = items_group_by_merchant_id[merchant_id].map(&:unit_price)
     BigDecimal(mean(prices), 6)
   end
 
-  def average_average_price_per_merchant #req
+  def average_average_price_per_merchant
     avg_prices = items_group_by_merchant_id.map do |merchant_id, _|
       average_item_price_for_merchant(merchant_id)
     end
     BigDecimal(mean(avg_prices), 6)
   end
 
-  def all_item_unit_prices # HELPER
+  def all_item_unit_prices
     @items.all.map(&:unit_price)
   end
 
-  def average_item_unit_price # HELPER
+  def average_item_unit_price
     mean(all_item_unit_prices)
   end
 
-  def average_item_unit_price_standard_deviation # HELPER
+  def average_item_unit_price_standard_deviation
     standard_deviation(all_item_unit_prices)
   end
 
-  def golden_deviation # HELPER
-    average_item_unit_price +
+  def golden_items
+    std_dev = average_item_unit_price +
     (average_item_unit_price_standard_deviation * 2)
-  end
-
-  def golden_items #req
     @items.all.find_all do |item|
-      item.unit_price > golden_deviation
+      item.unit_price > std_dev
     end
   end
 
-###############################################################
-#invoice analytics
-
-  def invoices_group_by_merchant_id # HELPER
-    @invoices.all.group_by(&:merchant_id)
+  def invoices_group_by_merchant_id
+    @invoices_group_by_merchant_id ||=
+      @invoices.all.group_by(&:merchant_id)
   end
 
-  def invoice_count_for_each_merchant_id # HELPER
+  def invoice_count_for_each_merchant_id
     grouped_invoices = invoices_group_by_merchant_id
     grouped_invoices.merge(grouped_invoices) do |_ , invoice_list|
       invoice_list.count
     end
   end
 
-  def average_invoices_per_merchant #req
+  def average_invoices_per_merchant
     mean(invoice_count_for_each_merchant_id.values)
   end
 
-  def average_invoices_per_merchant_standard_deviation #req
+  def average_invoices_per_merchant_standard_deviation
     standard_deviation(invoice_count_for_each_merchant_id.values)
   end
 
-  def double_deviation # HELPER
-
-  end
-
-  def top_merchants_by_invoice_count # req
+  def top_merchants_by_invoice_count
     std_dev = average_invoices_per_merchant +
     (average_invoices_per_merchant_standard_deviation * 2)
     invoice_count_for_each_merchant_id.map do |merchant_id, invoice_count|
@@ -131,7 +120,7 @@ class SalesAnalyst
     end.compact
   end
 
-  def bottom_merchants_by_invoice_count # req
+  def bottom_merchants_by_invoice_count
     std_dev = average_invoices_per_merchant -
     (average_invoices_per_merchant_standard_deviation * 2)
     invoice_count_for_each_merchant_id.map do |merchant_id, invoice_count|
@@ -139,13 +128,13 @@ class SalesAnalyst
     end.compact
   end
 
-  def invoices_group_by_day # HELPER
+  def invoices_group_by_day
     @invoices.all.group_by do |invoice|
       invoice.created_at.wday
     end
   end
 
-  def invoice_count_by_weekday # HELPER
+  def invoice_count_by_weekday
     invoices_group_by_day.map do |day, invoices|
       if day.zero?
         day, invoices = 'Sunday', invoices.count
@@ -165,102 +154,99 @@ class SalesAnalyst
     end.to_h
   end
 
-  def average_invoice_count_per_weekday # HELPER
+  def average_invoice_count_per_weekday
     mean(invoice_count_by_weekday.values)
   end
 
-  def average_invoice_count_per_weekday_standard_deviation # HELPER
+  def average_invoice_count_per_weekday_standard_deviation
     standard_deviation(invoice_count_by_weekday.values)
   end
 
-  def weekday_deviation # HELPER
+  def weekday_deviation
     average_invoice_count_per_weekday +
     average_invoice_count_per_weekday_standard_deviation
   end
 
-  def top_days_by_invoice_count # req
+  def top_days_by_invoice_count
     invoice_count_by_weekday.map do |day, count|
       day if count > weekday_deviation
     end.compact
   end
 
-  def invoices_group_by_status # HELPER
-    @invoices.all.group_by(&:status)
+  def invoices_group_by_status
+    @invoices_group_by_status ||= @invoices.all.group_by(&:status)
   end
 
-  def percentage(numbers) # HELPER
+  def percentage(numbers)
     (100 * numbers.count / @invoices.all.count.to_f).round(2)
   end
 
-  def invoice_count_by_status # HELPER
+  def invoice_count_by_status
     invoices_group_by_status.map do |status, invoices|
       status, invoices = status, percentage(invoices)
     end.to_h
   end
 
-  def invoice_status(status) # req
+  def invoice_status(status)
     invoice_count_by_status[status]
   end
 
-  ###############################################################
-  #invoice items analytics
-
-  def transactions_group_by_invoice_id # HELPER
-    @transactions.all.group_by(&:invoice_id)
+  def transactions_group_by_invoice_id
+    @transactions_group_by_invoice_id ||=
+      @transactions.all.group_by(&:invoice_id)
   end
 
-  def invoice_paid_in_full?(invoice_id) # req
+  def invoice_paid_in_full?(invoice_id)
     return false if transactions_group_by_invoice_id[invoice_id].nil?
     transactions_group_by_invoice_id[invoice_id].any? do |transaction|
       transaction.result == :success
     end
   end
 
-  def invoice_items_group_by_invoice # HELPER
-    @invoice_items.all.group_by(&:invoice_id)
+  def invoice_items_group_by_invoice
+    @invoice_items_group_by_invoice ||=
+      @invoice_items.all.group_by(&:invoice_id)
   end
 
-  def invoice_total(invoice_id) # req
+  def invoice_total(invoice_id)
     invoice_items_group_by_invoice[invoice_id].map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end.inject(:+)
   end
 
-###############################################################
-#customer analytics
-
-  def invoices_group_by_customer_id # HELPER
-    @invoices.all.group_by(&:customer_id)
+  def invoices_group_by_customer_id
+    @invoices_group_by_customer_id ||= @invoices.all.group_by(&:customer_id)
   end
 
-  def total_spend_per_customer #HELPER
-    invoices_group_by_customer_id.map do |customer, invoices|
+  def total_spend_per_customer
+    invoices_group_by_customer_id.map do |customer_id, invoices|
       spend = invoices.map do |invoice|
         invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
       end.compact.inject(:+)
       if spend.nil?
-        [customer, 0]
+        [customer_id, 0]
       else
-        [customer, spend]
+        [customer_id, spend]
       end
     end
   end
 
-  def top_buyers(x = 20) # req
-    total_spend_per_customer.sort_by do |customer_id, spend|
+  def top_buyers(x = 20)
+    top = total_spend_per_customer.max_by(x) do |customer_id, spend|
       spend
-    end.reverse[0..x - 1].map do |customer_id, _|
+    end
+    top.map do |customer_id, _|
       @customers.find_by_id(customer_id)
     end
   end
 
-  def invoice_item_qty_per_invoice(invoice_id) # HELPER
+  def invoice_item_qty_per_invoice(invoice_id)
     invoice_items_group_by_invoice[invoice_id].map do |invoice_item|
       invoice_item.quantity
     end.inject(:+)
   end
 
-  def total_items_per_merchant_per_customer(customer_id) # HELPER
+  def total_items_per_merchant_per_customer(customer_id)
     my_merchants =
       invoices_group_by_customer_id[customer_id].group_by(&:merchant_id)
     my_merchants.map do |_, invoices|
@@ -274,23 +260,23 @@ class SalesAnalyst
     end
   end
 
-  def top_merchant_id(customer_id) # HELPER
+  def top_merchant_id(customer_id)
     total_items_per_merchant_per_customer(customer_id).max_by do |quantity|
       quantity[1]
     end
   end
 
-  def top_merchant_for_customer(customer_id) # req
+  def top_merchant_for_customer(customer_id)
     @merchants.find_by_id(top_merchant_id(customer_id)[0])
   end
 
-  def one_invoice_customer_ids # HELPER
+  def one_invoice_customer_ids
     invoices_group_by_customer_id.map do |customer_id, invoice_list|
       customer_id if invoice_list.count == 1
     end.compact
   end
 
-  def one_time_buyers # req
+  def one_time_buyers
     customers = one_invoice_customer_ids.map do |customer_id|
       @customers.find_by_id(customer_id)
     end
@@ -321,7 +307,7 @@ class SalesAnalyst
     item_count
   end
 
-  def one_time_buyers_top_item #req
+  def one_time_buyers_top_item
     max_item_id = one_time_item_count.max_by do |_,value|
       value
     end
@@ -340,7 +326,7 @@ class SalesAnalyst
     end.flatten
   end
 
-  def items_bought_in_year(customer_id, year) # req
+  def items_bought_in_year(customer_id, year)
     all_invoices = invoices_bought_in_year(customer_id, year)
     all_invoice_items = invoice_items_bought_in_year(all_invoices)
     all_items = all_invoice_items.map do |invoice_item|
@@ -363,7 +349,7 @@ class SalesAnalyst
     item_count
   end
 
-  def highest_volume_items(customer_id) # req
+  def highest_volume_items(customer_id)
     all_invoice_items = customer_invoice_items(customer_id)
     all_item_count = customer_item_count(all_invoice_items)
     highest_count = all_item_count.max_by do |_, count|
@@ -387,17 +373,15 @@ class SalesAnalyst
     end.compact
   end
 
-  def customers_with_unpaid_invoices # req
+  def customers_with_unpaid_invoices
     customers = customer_ids_unpaid.map do |customer_id|
       @customers.find_by_id(customer_id)
     end
   end
 
   def invoice_ids_by_total
-    @invoices.all.map do |invoice|
-      if invoice_paid_in_full?(invoice.id)
-        [invoice.id, invoice_total(invoice.id)]
-      end
+    invoice_items_group_by_invoice.map do |id, invoice_items|
+      [id, invoice_total(id)] if invoice_paid_in_full?(id)
     end.compact
   end
 
@@ -407,9 +391,12 @@ class SalesAnalyst
   end
 
   def invoice_ids_by_quantity
-    @invoices.all.map do |invoice|
-      if invoice_paid_in_full?(invoice.id)
-        [invoice.id, invoice_item_qty_per_invoice(invoice.id)]
+    invoice_items_group_by_invoice.map do |invoice_id, invoice_items|
+      if invoice_paid_in_full?(invoice_id)
+        total_qty = invoice_items.map do |invoice_item|
+          invoice_item.quantity
+        end.inject(:+)
+        [invoice_id,total_qty]
       end
     end.compact
   end
