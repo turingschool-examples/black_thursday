@@ -4,12 +4,11 @@ require './lib/transaction'
 require 'csv'
 
 class TransactionRepositoryTest < Minitest::Test
-
   def setup
     @transactions = CSV.open './data/transaction_test_data.csv',
-                              headers: true,
-                              header_converters: :symbol
-    @transaction_repository = TransactionRepository.new                              
+                             headers: true,
+                             header_converters: :symbol
+    @transaction_repository = TransactionRepository.new
   end
 
   def test_exists
@@ -29,12 +28,12 @@ class TransactionRepositoryTest < Minitest::Test
     @transaction_repository.load_transactions(@transactions)
     actual = @transaction_repository.find_by_id(1)
 
-    assert_equal "0217", actual.credit_card_expiration_date
+    assert_equal '0217', actual.credit_card_expiration_date
   end
-  
+
   def test_find_all_by_invoice_id
     @transaction_repository.load_transactions(@transactions)
-    assert_equal [], @transaction_repository.find_all_by_invoice_id(217938)
+    assert_equal [], @transaction_repository.find_all_by_invoice_id(217_938)
     assert_equal 3, @transaction_repository.find_all_by_invoice_id(2179).length
   end
 
@@ -42,26 +41,26 @@ class TransactionRepositoryTest < Minitest::Test
     @transaction_repository.load_transactions(@transactions)
 
     assert_equal [], @transaction_repository.find_all_by_credit_card_number(123)
-    assert_equal 3, @transaction_repository.find_all_by_credit_card_number("4068631943231473").length
+    assert_equal 3, @transaction_repository.find_all_by_credit_card_number('4068631943231473').length
   end
 
   def test_find_all_by_result
     @transaction_repository.load_transactions(@transactions)
 
-    assert_equal [], @transaction_repository.find_all_by_result("fake status")
+    assert_equal [], @transaction_repository.find_all_by_result('fake status')
     assert_equal 9, @transaction_repository.find_all_by_result(:success).length
   end
 
   def test_create
     @transaction_repository.load_transactions(@transactions)
     attributes = {
-      :id => 6,
-      :invoice_id => 8,
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
-      :created_at => Time.now,
-      :updated_at => Time.now
+      id: 6,
+      invoice_id: 8,
+      credit_card_number: '4242424242424242',
+      credit_card_expiration_date: '0220',
+      result: 'success',
+      created_at: Time.now,
+      updated_at: Time.now
     }
 
     @transaction_repository.create(attributes)
@@ -74,17 +73,17 @@ class TransactionRepositoryTest < Minitest::Test
   def test_update
     @transaction_repository.load_transactions(@transactions)
     attributes = {
-      :credit_card_number => "123",
-      :credit_card_expiration_date => "1220",
-      :result => :failed
+      credit_card_number: '123',
+      credit_card_expiration_date: '1220',
+      result: :failed
     }
     time_before = @transaction_repository.all[-1].updated_at
     @transaction_repository.update(10, attributes)
     time_after = @transaction_repository.all[-1].updated_at
-    
+
     assert time_before < time_after
-    assert_equal "123", @transaction_repository.all[-1].credit_card_number
-    assert_equal "1220", @transaction_repository.all[-1].credit_card_expiration_date
+    assert_equal '123', @transaction_repository.all[-1].credit_card_number
+    assert_equal '1220', @transaction_repository.all[-1].credit_card_expiration_date
     assert_equal :failed, @transaction_repository.all[-1].result
   end
 
@@ -96,30 +95,3 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 9, @transaction_repository.all.length
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
