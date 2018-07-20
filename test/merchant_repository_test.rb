@@ -48,6 +48,18 @@ class MerchantRespositoryTest < Minitest::Test
     assert_instance_of Merchant, result
   end
 
-  def
+  def test_we_can_update_a_merchants_name_by_id
+    expected = "Ben"
+    result = @merchant_1.name
+    @merchant_repository.update(12334202, "Ben")
+    assert_equal expected, result
+  end
+
+  def test_we_can_delete_a_merchant_instance
+    expected = nil
+    @merchant_repository.delete(12336143)
+    result = @merchant_repository.find_by_id(12336143)
+    assert_equal expected, result
+  end
 
 end
