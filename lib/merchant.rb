@@ -4,11 +4,11 @@ class Merchant
   @@highest_merchant_id = nil
 
   def initialize(hash)
-    @id = hash[:id]
+    @id = hash[:id].to_i
     @name = hash[:name]
-    if @id > @@highest_merchant_id
-      @@highest_merchant_id = @id
-    end
+    # if @id > @@highest_merchant_id
+    #   @@highest_merchant_id = @id
+    # end
   end
 
   def self.create(name)
