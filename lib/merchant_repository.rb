@@ -39,4 +39,10 @@ class MerchantRepository
   def update(id, attributes)
     find_by_id(id).name = attributes[:name]
   end
+
+  def delete(id)
+    @merchants.reject! do |merchant|
+      merchant.id == id
+    end
+  end
 end

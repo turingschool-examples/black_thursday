@@ -56,4 +56,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 7, @merchant_2.id
   end
 
+  def test_merchant_can_be_deleted
+    @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+    assert_equal 4, @merchant_repository.all.count
+    @merchant_repository.delete(10)
+    assert_equal 3, @merchant_repository.all.count
+    assert_equal nil, @merchant_repository.find_by_name("Denver Coding School")
+  end
+
 end
