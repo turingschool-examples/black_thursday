@@ -12,25 +12,30 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     @ir = ItemRepository.new
     @item1 = @ir.create({
+      :id           => 1,
       :name         => "Pencil",
       :description  => "You can use it to write things",
       :unit_price   => BigDecimal.new(10.99,4),
       :created_at   => Time.now,
-      :updated_at   => Time.now
+      :updated_at   => Time.now,
+      :merchant_id  => 4
       })
     @item2 = @ir.create({
+      :id           =>  2,
       :name         => "Book",
       :description  => "You can use it to learn things",
       :unit_price   => BigDecimal.new(34,4),
       :created_at   => Time.now,
-      :updated_at   => Time.now
+      :updated_at   => Time.now,
+      :merchant_id  => 5
       })
-    @item3 = @ir.create({
+    @item3 = @ir.create({ #this one has no :id
       :name         => "Pencil Sharpener",
       :description  => "You can use it to sharpen pencils",
       :unit_price   => BigDecimal.new(13.99,4),
       :created_at   => Time.now,
-      :updated_at   => Time.now
+      :updated_at   => Time.now,
+      :merchant_id  => 6
       })
   end
 
@@ -43,10 +48,24 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_array_of_all_item_instances
-    assert_equal [@item1, @item2, @item3], @ir.all
+    expected = {
+      1 => @item1,
+      2 => @item2,
+      3 => @item3
+    }
+    assert_equal expected, @ir.all
   end
 
-  
+  def test_it_can_find_by_id
+    assert_equal @item1, @ir.find_by_id(1)
+  end
 
+  def test_it_can_find_by_name
+    assert_equal @item1, @ir.find_by_name("Pencil")
+  end
+
+  def test_it_finds_all_with_description
+    assert_equal [@item1, @item2], @ir.find_all_with_description("things")
+  end
 
 end
