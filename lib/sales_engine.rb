@@ -13,6 +13,9 @@ class SalesEngine
     SalesEngine.new(items, merchants)
   end
 
+  attr_reader :items,
+              :merchants
+
   def initialize(items, merchants)
     @items = items
     @merchants = merchants
@@ -33,6 +36,6 @@ class SalesEngine
   #         merchants << Merchant.new(row)
   #   end
   #   MerchantRepository.new(merchants)
-  # end 
+  # end
 
 end
