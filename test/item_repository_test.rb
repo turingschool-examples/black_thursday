@@ -56,7 +56,16 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, @ir.all
   end
 
+  def test_it_can_find_by_id
+    assert_equal @item1, @ir.find_by_id(1)
+  end
 
+  def test_it_can_find_by_name
+    assert_equal @item1, @ir.find_by_name("Pencil")
+  end
 
+  def test_it_finds_all_with_description
+    assert_equal [@item1, @item2], @ir.find_all_with_description("things")
+  end
 
 end
