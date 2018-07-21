@@ -9,4 +9,8 @@ class SalesEngineTest < MiniTest::Test
   def test_it_exists
     assert_instance_of SalesEngine, @sales_engine
   end
+
+  def test_case_name
+
+  end
 end
