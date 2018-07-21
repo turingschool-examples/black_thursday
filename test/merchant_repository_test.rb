@@ -12,6 +12,8 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_returns_all_merchants
     skip
+
+
     merchant_repository = MerchantRepository.new
     merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
     merchant_2 = Merchant.new({:id => 7, :name => "G School"})

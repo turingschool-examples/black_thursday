@@ -1,7 +1,12 @@
 class MerchantRepository
 
-  def all
-    
+  def initialize(merchants)
+    @merchants = merchants
   end
+
+  # def all
+  #   @
+
+
 
 end
