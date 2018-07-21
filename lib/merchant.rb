@@ -13,7 +13,6 @@ class Merchant
 
   def self.create(name)
     merchant_id = @@highest_merchant_id += 1
-    require 'pry' ; binding.pry
     Merchant.new({id: merchant_id, name: name})
   end
 

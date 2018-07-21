@@ -1,6 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-require 'pry'
 require 'minitest/pride'
 require 'minitest/autorun'
 require_relative '../lib/merchant'
@@ -13,10 +12,6 @@ class MerchantRespositoryTest < Minitest::Test
   def setup
     @salesengine = SalesEngine.from_csv({merchants: './data/merchants.csv'})
     @merchant_repository = @salesengine.merchants
-    # @merchant_1 = Merchant.new({id: 12334202, name: "VectorCoast"})
-    # @merchant_2 = Merchant.new({id: 12336143, name: "ArtfulCoasters"})
-    # @merchant_3 = Merchant.new({id: 12334601, name: "CoastalCreations16"})
-
   end
 
   def test_it_exists
@@ -57,7 +52,6 @@ class MerchantRespositoryTest < Minitest::Test
   def test_we_can_update_a_merchants_name_by_id
     expected = "Ben"
     @merchant_repository.update(12334202, "Ben")
-    # binding.pry
     result = @merchant_repository.find_by_id(12334202).name
     assert_equal expected, result
   end
