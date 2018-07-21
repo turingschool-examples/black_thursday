@@ -5,27 +5,28 @@ require_relative '../lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
 
-  def test_it_exists
-    merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
-    merchant_2 = Merchant.new({:id => 7, :name => "G School"})
-    merchant_3 = Merchant.new({:id => 9, :name => "Denver University"})
-    merchants = [merchant_1, merchant_2, merchant_3]
-    merchant_repository = MerchantRepository.new(merchants)
+  def setup
+    @merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
+    @merchant_2 = Merchant.new({:id => 7, :name => "G School"})
+    @merchant_3 = Merchant.new({:id => 9, :name => "Denver University"})
+    @merchants = [@merchant_1, @merchant_2, @merchant_3]
+    @merchant_repository = MerchantRepository.new(@merchants)
+  end
 
-    assert_instance_of MerchantRepository, merchant_repository
+  def test_it_exists
+    assert_instance_of MerchantRepository, @merchant_repository
   end
 
   def test_it_returns_all_merchants
-    merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
-    merchant_2 = Merchant.new({:id => 7, :name => "G School"})
-    merchant_3 = Merchant.new({:id => 9, :name => "Denver University"})
-    merchants = [merchant_1, merchant_2, merchant_3]
-    merchant_repository = MerchantRepository.new(merchants)
-    
-    expected = [merchant_1, merchant_2, merchant_3]
-    actual = merchant_repository.all
+    expected = [@merchant_1, @merchant_2, @merchant_3]
+    actual = @merchant_repository.all
 
     assert_equal expected, actual
+  end
+
+  def test_it_finds_merchant_by_id
+    assert_equal nil, @merchant_repository.find_by_id(2)
+    assert_equal @merchant_2, @merchant_repository.find_by_id(7)
   end
 
 end
