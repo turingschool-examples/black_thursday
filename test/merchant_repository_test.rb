@@ -14,7 +14,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Array, @merchant_repository.merchants
   end
 
-  def test_repo_is_holding_things
-    refute @merchant_repository.merchants.empty?
+  def test_it_holding_merchants
+    assert_instance_of Merchant, @merchant_repository.merchants[0]
+    assert_instance_of Merchant, @merchant_repository.merchants[25]
+  end
+
+  def test_it_can_return_merchants_using_all
+    assert_instance_of Merchant, @merchant_repository.all[5]
+    assert_instance_of Merchant, @merchant_repository.all[97]
   end
 end
