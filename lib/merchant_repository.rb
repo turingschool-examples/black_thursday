@@ -14,5 +14,13 @@ class MerchantRepository
     @merchant_repo
   end
 
+  def find_by_id(id)
+    @merchant_repo.find do |merchant|
+      id == merchant.id
+    end
+  end
+
   
+
+
 end
