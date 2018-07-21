@@ -4,9 +4,8 @@ class MerchantRepository
     @merchants = merchants
   end
 
-  # def all
-  #   @
-
-
-
+  def all
+    @merchants
+  end
+  
 end
