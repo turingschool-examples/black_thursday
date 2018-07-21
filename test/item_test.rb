@@ -39,4 +39,9 @@ class ItemTest < Minitest::Test
     assert_instance_of Time, @item.created_at
     assert_instance_of Time, @item.updated_at
   end
+
+  def test_it_gives_unit_price_in_dollars
+    assert_equal 10.99, @item.unit_price_to_dollars
+  end
+
 end
