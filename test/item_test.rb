@@ -32,7 +32,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_item_price_as_bigdecimal
-    assert_equal "You can use it to write things", @item.description
+    assert_equal BigDecimal.new(10.99,4), @item.unit_price
   end
 
+  def test_it_returns_time_information
+    assert_instance_of Time, @item.created_at
+    assert_instance_of Time, @item.updated_at
+  end
 end
