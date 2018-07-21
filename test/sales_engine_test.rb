@@ -10,7 +10,8 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of SalesEngine, @sales_engine
   end
 
-  def test_case_name
-
+  def test_merchant_repo_has_merchants
+    @sales_engine
+    assert_equal [],
   end
 end

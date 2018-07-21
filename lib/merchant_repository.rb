@@ -1,25 +1,25 @@
-class MerchantRepository
+require 'csv'
+require_relative '../lib/merchant.rb'
+require 'pry'
 
-  def self.from_sales_engine(merchant_data)
-    CSV.foreach(merchant_data, headers: true, header_converters: :symbol) do |row|
-      @merchant << Merchant.new(row)
+class MerchantRepository
+  attr_reader :merchants
+  
+  def initialize(merchant_data)
+    @merchant_data = merchant_data
+    @merchants = []
+    from_sales_engine
   end
 
-  def initialize(merchant_data)
-    @merchants = MerchantRepository.from_sales_engine(merchant_data)
+  def from_sales_engine
+    CSV.foreach(@merchant_data, headers: true, header_converters: :symbol) do |row|
+      @merchants << Merchant.new(row)
+      # binding.pry
+    end
   end
 
   def all
-    @merchant_list
-  end
-
-  def turn_into_objects
-
-    @merchant_list <<
-  end
-
-  def find_by_id(argument)
-    @merchant_list[argument]
+    @merchants
+    # binding.pry
   end
 end
-@merchant_list = []

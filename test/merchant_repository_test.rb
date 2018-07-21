@@ -3,17 +3,18 @@ require_relative '../lib/merchant_repository.rb'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    merchant_repository = MerchantRepository.new
+    @merchant_repository = MerchantRepository.new("./data/merchants.csv")
   end
 
-  # def test_it_exists
-  #   assert_instance_of MerchantRepository, merchant_repository
-  # end
+  def test_it_exists
+    assert_instance_of MerchantRepository, @merchant_repository
+  end
 
-  def test_it_can_return_all_merchants
-    merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
-    merchant_2 = Merchant.new({:id => 6, :name => "Shark Tank"})
+  def test_it_can_hold_merchants
+    assert_instance_of Array, @merchant_repository.merchants
+  end
 
-    assert_equal [merchant_1, merchant_2], merchant_repository.all
+  def test_repo_is_holding_things
+    refute @merchant_repository.merchants.empty?
   end
 end
