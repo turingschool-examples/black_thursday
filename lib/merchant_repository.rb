@@ -20,7 +20,13 @@ class MerchantRepository
     end
   end
 
-  
+  def find_by_name(name)
+    @merchant_repo.find do |merchant|
+      name == merchant.name 
+    end
+  end
+
+
 
 
 end
