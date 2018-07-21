@@ -41,4 +41,9 @@ class MerchantRepository
     merchant
   end
 
+  def delete(id)
+    merchant = find_by_id(id)
+    @merchants.delete(merchant)
+  end
+
 end

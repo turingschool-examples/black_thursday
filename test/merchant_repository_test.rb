@@ -50,5 +50,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected, @mr.find_by_name("Turing School of Software & Design")
   end
 
-
+  def test_it_can_delete_merchants
+    @mr.create({:id => 5, :name => "Turing School"})
+    @mr.delete(5)
+    assert_nil @mr.find_by_id(5)
+  end
 end
