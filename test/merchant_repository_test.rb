@@ -33,4 +33,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal nil, @merchant_repository.find_by_name("CU")
     assert_equal @merchant_2, @merchant_repository.find_by_name("G School")
   end
+
+  def test_if_finds_merchant_by_name_fragment
+    assert_equal [], @merchant_repository.find_all_by_name("Orange")
+    assert_equal [@merchant_1, @merchant_2], @merchant_repository.find_all_by_name("scho")
+
+  end
 end
