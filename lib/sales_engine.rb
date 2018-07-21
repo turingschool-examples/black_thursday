@@ -13,29 +13,24 @@ class SalesEngine
     SalesEngine.new(items, merchants)
   end
 
-  attr_reader :items,
-              :merchants
-
   def initialize(items, merchants)
     @items = items
     @merchants = merchants
   end
 
-  # def items
-  #   items = []
-  #   CSV.foreach(@items, headers: true, header_converters: :symbol) do |row|
-  #   items << Item.new(row)
-  #   end
-  #   # ItemRepository.new(items)
-  # end
-  #
-  # def merchants
-  #   merchants = []
-  #   CSV.foreach(@merchants, headers: true, header_converters: :symbol) do |row|
-  #     require "pry"; binding.pry
-  #         merchants << Merchant.new(row)
-  #   end
-  #   MerchantRepository.new(merchants)
-  # end
+  def items
+    items = []
+    CSV.foreach(@items, headers: true, header_converters: :symbol) do |row|
+    items << Item.new(row)
+    end
+    ItemRepository.new(items)
+  end
 
+  def merchants
+    merchants = []
+    CSV.foreach(@merchants, headers: true, header_converters: :symbol) do |row|
+          merchants << Merchant.new(row)
+    end
+    MerchantRepository.new(merchants)
+  end
 end
