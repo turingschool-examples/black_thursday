@@ -23,7 +23,7 @@ class SalesEngine
     end
     array.reject! {|row| row[0][0] == "id"}
     array.each do |merchant|
-      merchant_repository.create({id: merchant[0], name: merchant[1]})
+      merchant_repository.create_with_id({id: merchant[0], name: merchant[1]})
     end
     merchant_repository
   end
