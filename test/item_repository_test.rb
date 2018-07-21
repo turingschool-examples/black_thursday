@@ -81,4 +81,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, item.id
   end
 
+  def test_we_can_update_item_attributes
+    item = @item_repository.find_by_id(263410685)
+
+    @item_repository.update(263410685, {unit_price: 1})
+    expected = 1
+    assert_equal expected, item.unit_price_to_dollars
+  end
+
 end
