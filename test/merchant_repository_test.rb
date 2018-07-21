@@ -29,4 +29,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal @merchant_2, @merchant_repository.find_by_id(7)
   end
 
+  def test_it_finds_merchant_by_name
+    assert_equal nil, @merchant_repository.find_by_name("CU")
+    assert_equal @merchant_2, @merchant_repository.find_by_name("G School")
+  end
 end
