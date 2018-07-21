@@ -34,4 +34,11 @@ class MerchantRepository
     end
   end
 
+  def update(id, params)
+    new_name = params[:name]
+    merchant = find_by_id(id)
+    merchant.name = new_name
+    merchant
+  end
+
 end

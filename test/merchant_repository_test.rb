@@ -44,6 +44,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected, @mr.find_all_by_name("Turing")
   end
 
-  
+  def test_it_can_update_a_merchant
+    created = @mr.create({:id => 5, :name => "Turing School"})
+    expected = @mr.update(5, {:name => "Turing School of Software & Design"})
+    assert_equal expected, @mr.find_by_name("Turing School of Software & Design")
+  end
+
 
 end
