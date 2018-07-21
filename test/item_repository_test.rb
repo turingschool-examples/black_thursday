@@ -4,6 +4,6 @@ require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @item_repository = ItemRepository.new
+    @item_repo = ItemRepository.new('./data/items.csv')
   end
 end
