@@ -39,4 +39,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 41, @item_repo.find_all_by_price(1200.00).count
   end
 
+  def test_it_can_find_all_by_price_in_range
+    assert_equal 44, @item_repo.find_all_by_price_in_range(1200.00..1250.00).count
+  end
 end
