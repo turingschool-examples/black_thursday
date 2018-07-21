@@ -21,5 +21,13 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_all_items
     assert_equal @item_repo.items, @item_repo.all
-  end 
+  end
+
+  def test_it_can_find_an_item_by_id
+    assert_equal @item_repo.items[0], @item_repo.find_by_id(263395237)
+  end
+
+  def test_it_can_find_item_by_name
+    assert_equal @item_repo.items[0], @item_repo.find_by_name("510+ RealPush Icon Set")
+  end
 end
