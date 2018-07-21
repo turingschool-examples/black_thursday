@@ -89,4 +89,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, item.unit_price_to_dollars
   end
 
+  def test_we_can_delete
+    @item_repository.delete(263410685)
+    item = @item_repository.find_by_id(263410685)
+    assert_nil item
+  end
+
 end
