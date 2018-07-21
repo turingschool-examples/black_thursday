@@ -2,19 +2,16 @@ require_relative './merchant_repository'
 
 class SalesEngine
 
-  attr_reader     :merchants,
-                  :items
+  attr_reader     :location
 
-  def self.from_csv(csv_hash)
-    merchants_csv = csv_hash[:merchants]
-    items_csv = csv_hash[:items]
 
-    SalesEngine.new(merchants_csv, items_csv)
+  def initialize(location)
+    @file_loader = FileLoader.new(location)
+    @location = location
   end
 
-  def initialize(merchants_csv, items_csv)
-    @merchants = MerchantRepository.new(merchants_csv)
-    @items = ItemsRepository.new(items_csv)
+  def self.from_csv(location)
+    SalesEngine.new(location)
   end
 
 end
