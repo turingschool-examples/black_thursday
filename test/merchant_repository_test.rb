@@ -43,4 +43,7 @@ class MerchantRepositoryTest < Minitest::Test
     expected = [created1, created2, created3]
     assert_equal expected, @mr.find_all_by_name("Turing")
   end
+
+  
+
 end
