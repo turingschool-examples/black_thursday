@@ -18,4 +18,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_load_items_from_csv
     refute @item_repo.items.empty?
   end
+
+  def test_it_can_return_all_items
+    assert_equal @item_repo.items, @item_repo.all
+  end 
 end

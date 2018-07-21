@@ -17,4 +17,10 @@ class ItemRepository
       @items << Item.new(row)
     end
   end
+
+  def all
+    @items
+  end
+
+  
 end
