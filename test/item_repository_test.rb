@@ -27,7 +27,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal @item_repo.items[0], @item_repo.find_by_id(263395237)
   end
 
-  def test_it_can_find_item_by_name
-    assert_equal @item_repo.items[0], @item_repo.find_by_name("510+ RealPush Icon Set")
+  def test_it_can_find_item_by_name_regardless_of_case
+    assert_equal @item_repo.items[0], @item_repo.find_by_name("510+ realpush icon set")
   end
+
+  def test_it_can_find_all_by_description
+    assert_equal [@item_repo.items[0]], @item_repo.find_all_with_description("bunch of folders")
+  end
+
 end

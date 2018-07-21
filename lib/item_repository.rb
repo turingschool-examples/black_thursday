@@ -30,7 +30,13 @@ class ItemRepository
 
   def find_by_name(name)
     @items.find do |item|
-      name == item.name
+      name.upcase == item.name.upcase
+    end
+  end
+
+  def find_all_with_description(description)
+    @items.find_all do |item|
+      item.description.upcase.include?(description.upcase)
     end
   end
 end
