@@ -1,6 +1,9 @@
 require 'bigdecimal'
 
 class Item
+
+  @@greatest_id
+
   attr_reader :id,
               :name,
               :description,
