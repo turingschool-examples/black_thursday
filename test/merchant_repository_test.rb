@@ -37,6 +37,17 @@ class MerchantRepositoryTest < Minitest::Test
   def test_if_finds_merchant_by_name_fragment
     assert_equal [], @merchant_repository.find_all_by_name("Orange")
     assert_equal [@merchant_1, @merchant_2], @merchant_repository.find_all_by_name("scho")
-
   end
+
+  def test_it_creates_new_merchant
+    @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+    assert_equal 4, @merchant_repository.all.count
+    assert_equal "Denver Coding School", @merchant_repository.all.last.name
+  end
+
+  def test_new_merchant_has_highest_id_number
+    @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+    assert_equal 10, @merchant_repository.all.last.id
+  end
+
 end

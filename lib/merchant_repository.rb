@@ -27,5 +27,13 @@ class MerchantRepository
       merchant.name.downcase.include?(name)
     end
   end
-  
+
+  def create(attributes)
+    highest_merchant_id = @merchants.max_by do |merchant|
+      merchant.id
+    end
+    attributes[:id] = highest_merchant_id.id + 1
+    @merchants << Merchant.new(attributes)
+  end
+
 end
