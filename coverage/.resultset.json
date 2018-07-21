@@ -3,5 +3,22 @@
     "coverage": {
     },
     "timestamp": 1532126461
+  },
+  "Unit Tests": {
+    "coverage": {
+      "/Users/danielmulitauopele/Turing/1Module/black_thursday_project/black_thursday/lib/item.rb": [
+        1,
+        1,
+        null,
+        null,
+        1,
+        3,
+        3,
+        3,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1532198145
   }
 }
