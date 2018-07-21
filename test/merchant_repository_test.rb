@@ -12,4 +12,10 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
     assert_instance_of MerchantRepository, @mr
   end
+
+  def test_all
+    assert_instance_of Array, @mr.merchant_repo
+    assert_instance_of Merchant, @mr.merchant_repo[0]
+    assert_equal 475, @mr.merchant_repo.count
+  end
 end
