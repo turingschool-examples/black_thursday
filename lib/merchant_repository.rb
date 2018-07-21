@@ -1,0 +1,6 @@
+class MerchantRepository
+
+def
+
+
+end
