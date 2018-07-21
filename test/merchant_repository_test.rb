@@ -50,7 +50,7 @@ class MerchantRespositoryTest < Minitest::Test
   end
 
   def test_we_can_create_a_merchant_instance
-    result = @merchant_repository.create({name: "Dylan"})
+    result = @merchant_repository.create_without_id({name: "Dylan"})
     assert_instance_of Merchant, result
   end
 
