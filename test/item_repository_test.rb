@@ -35,4 +35,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [@item_repo.items[0]], @item_repo.find_all_with_description("bunch of folders")
   end
 
+  def test_it_can_find_all_by_price
+    assert_equal 41, @item_repo.find_all_by_price(1200.00).count
+  end
+
 end

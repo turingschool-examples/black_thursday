@@ -39,4 +39,10 @@ class ItemRepository
       item.description.upcase.include?(description.upcase)
     end
   end
+
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price_to_dollars == price
+    end
+  end
 end
