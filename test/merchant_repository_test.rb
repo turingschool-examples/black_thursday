@@ -50,4 +50,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 10, @merchant_repository.all.last.id
   end
 
+  def test_attributes_can_be_updated
+    @merchant_repository.update(7, {:id => 3, :name => "Galvanize"})
+    assert_equal "Galvanize", @merchant_2.name
+    assert_equal 7, @merchant_2.id
+  end
+
 end

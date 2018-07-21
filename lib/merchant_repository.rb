@@ -36,4 +36,7 @@ class MerchantRepository
     @merchants << Merchant.new(attributes)
   end
 
+  def update(id, attributes)
+    find_by_id(id).name = attributes[:name]
+  end
 end
