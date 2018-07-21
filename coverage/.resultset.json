@@ -6,19 +6,10 @@
   },
   "Unit Tests": {
     "coverage": {
-      "/Users/danielmulitauopele/Turing/1Module/black_thursday_project/black_thursday/lib/item.rb": [
-        1,
-        1,
-        null,
-        null,
-        1,
-        3,
-        3,
-        3,
-        null,
-        null
+      "/Users/danielmulitauopele/Turing/1Module/black_thursday_project/black_thursday/lib/merchant_repository.rb": [
+
       ]
     },
-    "timestamp": 1532198145
+    "timestamp": 1532199317
   }
 }
