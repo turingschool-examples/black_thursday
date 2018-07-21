@@ -29,8 +29,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at   => Time.now,
       :merchant_id  => 5
       })
-    @item3 = @ir.create({
-      :id           =>  3,
+    @item3 = @ir.create({ #this one has no :id
       :name         => "Pencil Sharpener",
       :description  => "You can use it to sharpen pencils",
       :unit_price   => BigDecimal.new(13.99,4),
@@ -49,7 +48,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_array_of_all_item_instances
-    assert_equal [@item1, @item2, @item3], @ir.all
+    expected = {
+      1 => @item1,
+      2 => @item2,
+      3 => @item3
+    }
+    assert_equal expected, @ir.all
   end
 
 
