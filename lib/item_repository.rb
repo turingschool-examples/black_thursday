@@ -17,4 +17,38 @@ class ItemRepository
       @items << Item.new(row)
     end
   end
+
+  def all
+    @items
+  end
+
+  def find_by_id(id)
+    @items.find do |item|
+      id.to_s == item.id
+    end
+  end
+
+  def find_by_name(name)
+    @items.find do |item|
+      name.upcase == item.name.upcase
+    end
+  end
+
+  def find_all_with_description(description)
+    @items.find_all do |item|
+      item.description.upcase.include?(description.upcase)
+    end
+  end
+
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price_to_dollars == price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all do |item|
+      (range).member?(item.unit_price_to_dollars)
+    end
+  end
 end
