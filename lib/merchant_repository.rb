@@ -1,3 +1,4 @@
+require 'pry'
 require_relative './merchant'
 
 class MerchantRepository
@@ -29,11 +30,14 @@ class MerchantRepository
   end
 
   def create(attributes)
-    @merchants << Merchant.create(attributes)
+    merchant = Merchant.new(attributes)
+    @merchants << merchant
+    merchant
   end
 
   def update(id, attributes)
     merchant = find_by_id(id)
+    # require 'pry' ; binding.pry
     merchant.name = attributes
   end
 
