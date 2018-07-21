@@ -26,8 +26,12 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_name
     assert_equal nil, @mr.find_by_name("Shopin190")
-    assert_equal @mr.all[0], @mr.find_by_name("Shopin1901")
+    assert_equal @mr.all[0], @mr.find_by_name("shopin1901")
   end
 
+  def test_find_all_by_name_fragment
+    assert_equal [], @mr.find_all_by_name("fjdkaljf")
+    assert_equal [@mr.all[0]], @mr.find_all_by_name("shopin")
+  end
 
 end
