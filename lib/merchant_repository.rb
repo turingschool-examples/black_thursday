@@ -34,7 +34,7 @@ class MerchantRepository
     merchant
   end
 
-  def create_without_id(attributes)
+  def create(attributes)
     merchant = Merchant.create(attributes)
     @merchants << merchant
     merchant
