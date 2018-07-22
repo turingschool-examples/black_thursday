@@ -3,6 +3,7 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'merchant'
 require_relative 'item'
+require_relative 'sales_analyst'
 
 class SalesEngine
   def self.from_csv(information_and_location)
@@ -31,4 +32,9 @@ class SalesEngine
     end
     MerchantRepository.new(merchants)
   end
+
+  def analyst
+    SalesAnalyst.new(items, merchants)
+  end
+
 end
