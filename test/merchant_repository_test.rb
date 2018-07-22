@@ -51,12 +51,12 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_id
-    expected = 12337412
+    expected = "12337412"
     actual = @merchant_repository.create_id
     assert_equal expected, actual
   end
 
-  def test_it_create_new_merchant_with_attribute
+  def test_it_create_new_merchant_with_attributes
     new_merchant_added = @merchant_repository.create("Bill Nye")
     expected = @merchant_repository.merchants[-1]
     actual = new_merchant_added.last

@@ -49,7 +49,7 @@ class MerchantRepository
       merchant.id
     end
     last_merchant = sorted_merchants.last
-    last_merchant.id.to_i + 1
+    (last_merchant.id.to_i + 1).to_s
   end
 
   def update(id, new_name)
