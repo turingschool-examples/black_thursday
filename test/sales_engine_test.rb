@@ -20,4 +20,8 @@ class SalesEngineTest < MiniTest::Test
   def test_it_creates_repository_of_items
     assert_instance_of ItemRepository, @sales_engine.item_repo
   end
+
+  def test_it_creates_sales_analyst
+    assert_instance_of SalesAnalyst, @sales_engine.analyst
+  end
 end
