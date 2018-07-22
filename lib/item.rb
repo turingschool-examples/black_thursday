@@ -6,10 +6,10 @@ class Item
                 :name,
                 :description,
                 :unit_price,
-                :updated_at
+                :updated_at,
+                :created_at
 
-  attr_reader :created_at,
-              :merchant_id
+  attr_reader :merchant_id
 
   def initialize(attributes)
     @id          = attributes[:id]

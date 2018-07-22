@@ -1,6 +1,5 @@
 require_relative '../lib/item'
 require 'csv'
-require 'pry'
 
 class ItemRepository
 
@@ -61,6 +60,7 @@ class ItemRepository
   def create(attributes)
     item = Item.new(attributes)
     item.id = (find_max_id + 1).to_s
+    item.created_at = Time.now
     @items << item
   end
 
@@ -79,4 +79,8 @@ class ItemRepository
     max_id_item.id.to_i
   end
 
+  def delete(id)
+    item = find_by_id(id)
+    @items.delete(item)
+  end
 end
