@@ -15,5 +15,3 @@ class MerchantRepoTest < Minitest::Test
     
     assert_equal mer_repo.merchants, mer_repo.load_file("./data/merchants.csv")
   end
-  
-end

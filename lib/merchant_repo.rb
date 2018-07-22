@@ -1,15 +1,14 @@
 require 'csv'
 
 class MerchantRepo
-  
   attr_reader :merchants
-  
+
   def initialize
     @merchants = []
   end
-  
+
   def load_file(file_location)
-    mer_repo = MerchantRepo.new 
+    mer_repo = MerchantRepo.new
     CSV.foreach(file_location, headers: true, header_converters: :symbol) do |line|
       add_merchant(line.to_h)
     end
@@ -21,3 +20,4 @@ class MerchantRepo
   end
   
 end
+
