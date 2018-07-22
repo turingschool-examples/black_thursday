@@ -25,7 +25,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_merchant_by_id
     # skip
 
-    assert_instance_of Merchant , @mr.find_by_id(12334112)
+    assert_instance_of Merchant, @mr.find_by_id(12334112)
   end
 
   def test_it_can_find_merchant_by_name
@@ -44,7 +44,7 @@ class MerchantRepositoryTest < Minitest::Test
     # skip
     search_1 = @mr.find_all_by_name("M")
     assert_equal 164, search_1.count
-    #201 instances of the letter "M", but only 164 objects
+    # 201 instances of the letter "M", but only 164 objects
 
     search_2 = @mr.find_all_by_name("mi")
     assert_equal 28, search_2.count
@@ -53,11 +53,21 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 1, search_3.count
   end
 
+  def test_it_can_create_a_new_id_number
+    new_id = @mr.create_new_id_number
+
+    assert_equal 12337412, new_id
+  end
+
   def test_it_can_create_a_new_merchant
-    
+    skip
+    name = "MockEtsyStore1"
+    new_id = @mr.create_new_id_number
+    new_merchant = @mr.create(new_id, name)
+    assert_equal "MockEtsyStore1", new_merchant.name
+    assert_equal 12337412, new_merchant.id
+    assert_equal Time.now, new_merchant.created_at
+    assert_equal Time.now, new_merchant.updated_at
   end
 
-  def test_newly_created_merchant_has_highest_id_number
-
-  end
 end
