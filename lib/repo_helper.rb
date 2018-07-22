@@ -16,5 +16,10 @@ module RepoHelper
     end
   end
 
+  def delete(id)
+    object = find_by_id(id)
+    @repo.delete(object)
+  end
+
 
 end

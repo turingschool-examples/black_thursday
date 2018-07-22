@@ -76,6 +76,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 'No lead, black ink', @item_repository.find_by_id(263395237).description
   end
 
+  def test_it_can_delete_by_id
+    @item_repository.delete(263395237)
+    assert_equal nil, @item_repository.find_by_id(263395237)
+  end
+
 
 
 end
