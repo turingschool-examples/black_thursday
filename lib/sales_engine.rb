@@ -5,17 +5,17 @@ require_relative '../lib/item_repository.rb'
 require 'pry'
 
 class SalesEngine
-  attr_reader :merchants,
-              :items
+  attr_reader :merchant_repo,
+              :item_repo
 
-  def initialize(merchant_data, item_data)
-    @merchants = MerchantRepository.new(merchant_data)
-    @items = ItemRepository.new(item_data)
+  def initialize(merchant_location, item_location)
+    @merchant_repo = MerchantRepository.new(merchant_location)
+    @item_repo = ItemRepository.new(item_location)
   end
 
   def self.from_csv(csv_hash)
-    merchant_data = csv_hash[:merchants]
-    item_data = csv_hash[:items]
-    SalesEngine.new(merchant_data, item_data)
+    merchant_location = csv_hash[:merchants]
+    item_location = csv_hash[:items]
+    SalesEngine.new(merchant_location, item_location)
   end
 end
