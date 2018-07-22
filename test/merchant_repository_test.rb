@@ -1,10 +1,8 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
-
   def setup
     @merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
     @merchant_2 = Merchant.new({:id => 7, :name => "G School"})
@@ -63,5 +61,4 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 3, @merchant_repository.all.count
     assert_equal nil, @merchant_repository.find_by_name("Denver Coding School")
   end
-
 end

@@ -1,10 +1,7 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
-
 class SalesEngineTest < Minitest::Test
-
   def test_it_exists
     items = "./data/items.csv"
     merchants = "./data/merchants.csv"
@@ -43,6 +40,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_creates_item_repository_object
+    skip
     sales_engine = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
@@ -50,5 +48,4 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of ItemRepository, sales_engine.items
   end
-
 end
