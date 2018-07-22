@@ -2,7 +2,6 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
 require_relative './test_helper'
 
-
 class MerchantRepositoryTest < Minitest::Test
   def setup
     @merchants =
@@ -32,5 +31,11 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_can_get_an_array_of_merchants
     assert_equal 3, @merchant_repository.all.count
+  end
+
+  def test_it_can_find_a_merchant_by_a_valid_id
+    merchant = @merchant_repository.find_by_id('12334105')
+    assert_instance_of Merchant, merchant
+    assert_equal '12334105', merchant.id
   end
 end
