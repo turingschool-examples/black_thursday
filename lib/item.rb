@@ -18,5 +18,4 @@ class Item
     @merchant_id = hash[:merchant_id]
   end
 
-
 end
