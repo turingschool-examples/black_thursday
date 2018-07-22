@@ -40,6 +40,20 @@ class MerchantRepository
     end
   end
 
+  def create(merchant_name)
+    @merchants << Merchant.new({name: merchant_name, id: create_id, created_at: Time.now, updated_at: Time.now})
 
+    # binding.pry
+  end
 
+  def create_id
+
+    sorted_merchants = @merchants.sort_by do |merchant|
+      merchant.id
+    end
+
+    last_merchant = sorted_merchants.last
+    last_merchant.id.to_i + 1
+
+  end
 end
