@@ -6,31 +6,6 @@
   },
   "Unit Tests": {
     "coverage": {
-      "/Users/danielmulitauopele/Turing/1Module/black_thursday_project/black_thursday/lib/item_repository.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        4,
-        4,
-        4,
-        null,
-        null,
-        1,
-        4,
-        5468,
-        null,
-        null,
-        null,
-        1,
-        2,
-        null,
-        null
-      ],
       "/Users/danielmulitauopele/Turing/1Module/black_thursday_project/black_thursday/lib/item.rb": [
         1,
         1,
@@ -42,17 +17,17 @@
         null,
         null,
         1,
-        5468,
-        5468,
-        5468,
-        5468,
-        5468,
-        5468,
-        5468,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
         null,
         null
       ]
     },
-    "timestamp": 1532221880
+    "timestamp": 1532222360
   }
 }
