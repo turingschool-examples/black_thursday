@@ -21,6 +21,6 @@ class Item
   end 
   
   def convert_unit_price_to_dollar_string
-    "$#{unit_price.to_f}"
+    "$#{unit_price.to_f/100}"
   end 
 end 
