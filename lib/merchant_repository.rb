@@ -1,5 +1,4 @@
 class MerchantRepository
-
   def initialize(merchant_data)
     @merchant_rows ||= build_merchant(merchant_data)
     @shops = @merchant_rows
