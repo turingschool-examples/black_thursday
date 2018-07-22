@@ -35,4 +35,22 @@ class MerchantRepositoryTest < Minitest::Test
     actual = @merchant_repository.find_by_name("Shopin1901")
     assert_equal expected, actual
   end
+
+  def test_it_can_find_all_by_name
+    expected = 4
+    actual = @merchant_repository.find_all_by_name("sas").count
+    assert_equal expected, actual
+    actual_2 = @merchant_repository.find_all_by_name("SAS").count
+    assert_equal expected, actual_2
+  end
+
+  def test_find_all_by_name_returns_empty_array_if_no_match
+    expected = []
+    actual = @merchant_repository.find_all_by_name("xyz")
+    assert_equal expected, actual
+  end
+
+  def test_case_name
+
+  end
 end
