@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 require './lib/item'
 
+# Item repository class
 class ItemRepository
-
   def initialize
     @items = {}
   end
 
   def create(params)
-    if params[:id].nil?
-      params[:id] = @items.max[0] + 1
-    end
+    params[:id] = @items.max[0] + 1 if params[:id].nil?
+
     Item.new(params).tap do |item|
       @items[params[:id]] = item
     end
@@ -33,9 +34,8 @@ class ItemRepository
     found_items = @items.find_all do |_, item|
       item.description.downcase.include?(input.downcase)
     end.flatten
-    found_items.delete_if do |thing|
-      !thing.is_a?(Item)
+    found_items.keep_if do |thing|
+      thing.is_a?(Item)
     end
   end
-
 end

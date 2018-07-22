@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 
+# Item class
 class Item
   attr_reader :id,
               :name,
@@ -22,5 +25,4 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
-
 end

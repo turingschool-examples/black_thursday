@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require './lib/merchant'
 
+# Merchant repository class
 class MerchantRepository
-
   def initialize
     @merchants = []
   end
@@ -45,5 +47,4 @@ class MerchantRepository
     merchant = find_by_id(id)
     @merchants.delete(merchant)
   end
-
 end
