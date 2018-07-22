@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require "./test/test_helper"
 require './lib/merchant_repository'
 require './lib/file_loader'
 
@@ -74,7 +73,17 @@ class MerchantRepositoryTest < Minitest::Test
 
     updated_merchant_2 = @mr.update(1234, :name => 'uh oh my id is not present')
 
-    assert_nil updated_merchant_2
+    assert_equal 'Record not found.', updated_merchant_2
+  end
+
+  def test_it_can_delete_a_merchant_record
+    sample_merchant = @mr.create({:name => 'SampleMerchant'})
+    assert_equal 'SampleMerchant', sample_merchant.name
+    assert_equal 12337412, sample_merchant.id
+    assert_equal 476, @mr.all.count
+
+    @mr.delete(12337412)
+    assert_equal 475, @mr.all.count
   end
 
 end
