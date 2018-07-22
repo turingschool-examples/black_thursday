@@ -54,5 +54,12 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_finds_item_by_item_name
     assert_equal nil, @item_repository.find_by_name("Tacos")
     assert_equal @item_2, @item_repository.find_by_name("Marker")
-  end 
+  end
+
+  def test_it_finds_items_by_description
+    actual = @item_repository.find_by_description("Made from tortillas")
+    assert_equal [], actual
+    actual = @item_repository.find_by_description("use it to write")
+    assert_equal [@item_1, @item_2], actual
+  end
 end
