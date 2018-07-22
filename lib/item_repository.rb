@@ -51,4 +51,32 @@ class ItemRepository
       (range).member?(item.unit_price_to_dollars)
     end
   end
+
+  def find_all_by_merchant_id(id)
+    @items.find_all do |item|
+      item.merchant_id == id.to_s
+    end
+  end
+
+  def create(attributes)
+    item = Item.new(attributes)
+    item.id = (find_max_id + 1).to_s
+    @items << item
+  end
+
+  def update(id, attributes)
+    item             = find_by_id(id)
+    item.name        = attributes[:name]
+    item.description = attributes[:description]
+    item.unit_price  = attributes[:unit_price].to_s.to_d
+    item.updated_at  = Time.now
+  end
+
+  def find_max_id
+    max_id_item = @items.max_by do |item|
+      item.id
+    end
+    max_id_item.id.to_i
+  end
+
 end
