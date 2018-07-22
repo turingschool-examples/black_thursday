@@ -18,6 +18,9 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_attributes
-
+    assert_equal 4579324, @m.id
+    assert_equal "EstyMockStore", @m.name
+    assert_equal Time.parse('2007-06-25'), @m.created_at
+    assert_equal Time.parse('2012-07-01'), @m.updated_at
   end
 end
