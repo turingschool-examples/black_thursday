@@ -35,4 +35,46 @@ class MerchantRepositoryTest < Minitest::Test
     actual = @merchant_repository.find_by_name("Shopin1901")
     assert_equal expected, actual
   end
+
+  def test_it_can_find_all_by_name
+    expected = 4
+    actual = @merchant_repository.find_all_by_name("sas").count
+    assert_equal expected, actual
+    actual_2 = @merchant_repository.find_all_by_name("SAS").count
+    assert_equal expected, actual_2
+  end
+
+  def test_find_all_by_name_returns_empty_array_if_no_match
+    expected = []
+    actual = @merchant_repository.find_all_by_name("xyz")
+    assert_equal expected, actual
+  end
+
+  def test_it_can_create_new_id
+    expected = 12337412
+    actual = @merchant_repository.create_id
+    assert_equal expected, actual
+  end
+
+  def test_it_create_new_merchant_with_attribute
+    new_merchant_added = @merchant_repository.create("Bill Nye")
+    expected = @merchant_repository.merchants[-1]
+    actual = new_merchant_added.last
+    assert_equal expected, actual
+  end
+
+  def test_it_can_update_name
+    last_merchant = @merchant_repository.merchants[-1].name
+    assert_equal "CJsDecor", last_merchant
+
+    renamed_merchant = @merchant_repository.update(12337411, "Eric LaSalle")
+    assert_equal "Eric LaSalle", renamed_merchant
+  end
+
+  def test_it_can_delete_merchant
+    assert_equal @merchant_repository.merchants[0], @merchant_repository.find_by_name("Shopin1901")
+
+    @merchant_repository.delete(12334105)
+    assert_nil @merchant_repository.find_by_name("Shopin1901")
+  end
 end
