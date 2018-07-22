@@ -10,15 +10,6 @@ class SalesEngineTest < Minitest::Test
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
      })
-    assert_instance_of SalesEngine , sales_engine
+    assert_instance_of SalesEngine, sales_engine
   end
-  # def test_it_exists
-  # se = SalesEngine.from_csv({
-  # :items     => "./data/items.csv",
-  # :merchants => "./data/merchants.csv",
-  # })
-  # assert_instance_of SalesEngine , se
-  # end
-
-
 end
