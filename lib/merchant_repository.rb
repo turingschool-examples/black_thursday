@@ -33,6 +33,21 @@ class MerchantRepository
     return all_names
   end
 
+  def create(attributes)
+    max_id = @merchant_repo.max_by do |merchant|
+      merchant.id
+    end # this returns the complete merchant object with highest id
+    new_id = max_id.id + 1
+    new_merchant = Merchant.new(
+      id: new_id.to_s,
+      name: attributes[:name],
+      created_at: Time.now,
+      updated_at: Time.now
+    )
+    @merchant_repo << new_merchant
+    new_merchant
+  end
+
 
 
 

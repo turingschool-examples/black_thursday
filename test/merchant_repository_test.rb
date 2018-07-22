@@ -34,4 +34,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [@mr.all[0]], @mr.find_all_by_name("shopin")
   end
 
+  def test_repo_can_create_new_merchants
+    new_merchant = @mr.create(name: 'Jennifer')
+    id = 12337412
+    assert_instance_of Merchant, new_merchant
+    assert_equal 'Jennifer', new_merchant.name
+    assert @mr.merchant_repo.include?(new_merchant)
+    assert_equal id, new_merchant.id
+  end
+
 end
