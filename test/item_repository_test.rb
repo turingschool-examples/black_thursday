@@ -43,6 +43,11 @@ class ItemRepositoryTest < Minitest::Test
     expected = @items
     actual = @item_repository.all
 
-    assert_equal expected, actual 
+    assert_equal expected, actual
+  end
+
+  def test_it_finds_items_by_id
+    assert_equal nil, @item_repository.find_by_id(65)
+    assert_equal @item_3, @item_repository.find_by_id(263395234)
   end
 end
