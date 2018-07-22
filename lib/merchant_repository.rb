@@ -47,17 +47,21 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    merchant = find_by_id(id)
-    merchant.name = attributes[:name]
-    merchant.updated_at = Time.now
-    merchant
+    if merchant = find_by_id(id)
+      merchant.name = attributes[:name]
+      merchant.updated_at = Time.now
+      merchant
+    else
+      'Record not found.'
+    end
   end
-  # update(id, attributes) - update the Merchant instance with the
-  # corresponding id with the provided attributes.
-  # Only the merchant’s name attribute can be updated.
+
+  def delete(id)
+    merchant = find_by_id(id)
+    @repository.delete(merchant)
+  end
 end
 
-# delete(id)- delete the Merchant instance with the corresponding id
 
 # def create_new_id_number
 #   max_id = @repository.max do |object|
