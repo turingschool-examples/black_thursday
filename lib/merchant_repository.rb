@@ -54,6 +54,10 @@ class MerchantRepository
 
   def update(id, new_name)
     find_by_id(id).name = new_name
-    binding.pry
   end
+
+  def delete(id)
+    @merchants.delete(find_by_id(id))
+  end
+
 end

@@ -63,11 +63,18 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_it_can_update_id
+  def test_it_can_update_name
     last_merchant = @merchant_repository.merchants[-1].name
     assert_equal "CJsDecor", last_merchant
 
     renamed_merchant = @merchant_repository.update(12337411, "Eric LaSalle")
     assert_equal "Eric LaSalle", renamed_merchant
+  end
+
+  def test_it_can_delete_merchant
+    assert_equal @merchant_repository.merchants[0], @merchant_repository.find_by_name("Shopin1901")
+
+    @merchant_repository.delete(12334105)
+    assert_nil @merchant_repository.find_by_name("Shopin1901")
   end
 end
