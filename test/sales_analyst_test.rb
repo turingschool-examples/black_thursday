@@ -30,4 +30,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_find_merchants_with_high_item_count
+    skip
+    actual = @sales_analyst.merchants_with_high_item_count
+    merchant_ids = actual.map do |merchant|
+      merchant.id
+    end
+
+    assert merchant_ids.all? do |merchant_id|
+      @sales_analyst.items.find_all_by_merchant_id(merchant_id).count >= 6.14
+    end
+
+  end
+
 end
