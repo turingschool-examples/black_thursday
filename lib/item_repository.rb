@@ -11,6 +11,13 @@ class ItemRepository
     end
   end
 
+  def find_all_with_description(description)
+    all_items = @repo.select do |item|
+      item.description.downcase.include?(description.downcase)
+    end
+    return all_items
+  end
+
 
 
 

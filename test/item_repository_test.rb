@@ -30,6 +30,20 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal @item_repository.repo, @item_repository.all
   end
 
+  def test_it_can_find_by_id
+    assert_equal @item_repository.repo[0], @item_repository.find_by_id(263395237)
+  end
+
+  def test_it_can_find_by_name
+    assert_equal @item_repository.repo[0], @item_repository.find_by_name("510+ RealPush Icon Set")
+
+  end
+
+  def test_it_can_find_by_item_description
+    assert_equal [@item_repository.repo[0]], @item_repository.find_all_with_description("Almost every social icon")
+    assert_equal [], @item_repository.find_all_with_description("saxophone")
+
+  end
 
 
 
