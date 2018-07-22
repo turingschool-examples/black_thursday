@@ -7,13 +7,13 @@ class ItemTest < Minitest::Test
 
   def setup
     @info = {
-      :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1099",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      id:          1,
+      name:        "Pencil",
+      description: "You can use it to write things",
+      unit_price:  "1099",
+      created_at:  Time.now,
+      updated_at:  Time.now,
+      merchant_id: 2
     }
 
   end
