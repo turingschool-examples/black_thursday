@@ -20,7 +20,6 @@ class MerchantRepository
   def find_by_name(name)
     @repository.find do |merchant|
       merchant.name.downcase == name.downcase
-      # require "pry"; binding.pry
     end
   end
 
@@ -46,10 +45,19 @@ class MerchantRepository
     @repository << new_merchant
     new_merchant
   end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    merchant.name = attributes[:name]
+    merchant.updated_at = Time.now
+    merchant
+  end
+  # update(id, attributes) - update the Merchant instance with the
+  # corresponding id with the provided attributes.
+  # Only the merchant’s name attribute can be updated.
 end
 
-# update(id, attributes) - update the Merchant instance with the corresponding id with the provided attributes. Only the merchant’s name attribute can be updated.
-# delete(id)
+# delete(id)- delete the Merchant instance with the corresponding id
 
 # def create_new_id_number
 #   max_id = @repository.max do |object|
