@@ -2,6 +2,7 @@ require './test/test_helper'
 require './lib/file_loader'
 require './lib/merchant_repository'
 
+
 class MerchantRepositoryTest < Minitest::Test
   include FileLoader
 
@@ -15,9 +16,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all
-    assert_instance_of Array, @mr.merchant_repo
-    assert_instance_of Merchant, @mr.merchant_repo[0]
-    assert_equal 475, @mr.merchant_repo.count
+    assert_instance_of Array, @mr.repo
+    assert_instance_of Merchant, @mr.repo[0]
+    assert_equal 475, @mr.repo.count
   end
 
   def test_find_by_id
@@ -39,7 +40,7 @@ class MerchantRepositoryTest < Minitest::Test
     new_merchant = @mr.create(name: 'Jennifer')
     assert_instance_of Merchant, new_merchant
     assert_equal 'Jennifer', new_merchant.name
-    assert @mr.merchant_repo.include?(new_merchant)
+    assert @mr.repo.include?(new_merchant)
     assert_equal @id, new_merchant.id
   end
 
