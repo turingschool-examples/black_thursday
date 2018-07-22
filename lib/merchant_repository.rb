@@ -53,4 +53,15 @@ class MerchantRepository
     merchant.id = (find_max_id + 1).to_s
     @merchants << merchant
   end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    merchant.name = attributes[:name]
+    merchant.updated_at = Time.now
+  end
+
+  def delete(id)
+    merchant = find_by_id(id)
+    @merchants.delete(merchant)
+  end
 end

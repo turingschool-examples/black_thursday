@@ -72,6 +72,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_an_item
+    assert_instance_of Item, @item_repo.find_by_id(263395237)
     @item_repo.delete(263395237)
     assert_nil @item_repo.find_by_id(263395237)
   end
