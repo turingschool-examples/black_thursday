@@ -20,6 +20,7 @@ class MerchantRepository
   def find_by_name(name)
     @repository.find do |merchant|
       merchant.name.downcase == name.downcase
+      # require "pry"; binding.pry
     end
   end
 
@@ -34,15 +35,17 @@ class MerchantRepository
     new_id = max_id + 1
   end
 
-  def create(new_id, name)
-    Merchant.new(
-      :id = new_id,
-      :name = name,
-      :created_at = ,
-      :updated_at = 
-      )
+  def create(attributes)
+    new_id = create_new_id_number
+    new_merchant = Merchant.new(
+      name: attributes[:name],
+      id: new_id,
+      created_at: Time.now,
+      updated_at: Time.now
+    )
+    @repository << new_merchant
+    new_merchant
   end
-
 end
 
 # def create_new_id_number
