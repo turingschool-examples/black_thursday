@@ -3,7 +3,6 @@ class Item
               :description
 
   def initialize(item_hash)
-    @item_hash = item_hash
     @name = item_hash[:name]
     @description = item_hash[:description]
   end
