@@ -71,4 +71,14 @@ class ItemRepository
     last_item = sorted_items.last
     (last_item.id.to_i + 1).to_s
   end
+
+  def update(id, new_name, new_description, new_unit_price)
+    find_by_id(id).name = new_name
+    find_by_id(id).description = new_description
+    find_by_id(id).unit_price = new_unit_price
+  end
+
+  def delete(id)
+    @items.delete(find_by_id(id))
+  end
 end

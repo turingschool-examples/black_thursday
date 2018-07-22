@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repository.rb'
+require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
@@ -75,4 +76,32 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_it_can_update_attributes
+    @item_repository.create("pots", "shiny", "1000", "5555")
+    new_item = @item_repository.items.last
+
+    last_item_name = new_item.name
+    last_item_description = new_item.description
+    last_item_price = new_item.unit_price
+
+    assert_equal "pots", last_item_name
+    assert_equal "shiny", last_item_description
+    assert_equal "1000", last_item_price
+
+    @item_repository.update(263567475, "chicken", "fat", "12")
+    changed_item = @item_repository.items.last
+
+    assert_equal "chicken", changed_item.name
+    assert_equal "fat", changed_item.description
+    assert_equal "12", changed_item.unit_price
+
+    assert_equal new_item.id, changed_item.id
+  end
+
+  def test_it_can_delete_item
+    assert_equal @item_repository.items[0], @item_repository.find_by_name("510+ RealPush Icon Set")
+
+    @item_repository.delete(263395237)
+    assert_nil @item_repository.find_by_name("510+ RealPush Icon Set")
+  end
 end
