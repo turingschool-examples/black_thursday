@@ -4,5 +4,8 @@ class ItemRepository
     @items = items
   end
 
+  def all
+    @items
+  end
 
 end

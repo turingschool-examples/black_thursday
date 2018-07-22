@@ -16,7 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_all_merchants
-    expected = [@merchant_1, @merchant_2, @merchant_3]
+    expected = @merchants
     actual = @merchant_repository.all
 
     assert_equal expected, actual

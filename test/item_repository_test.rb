@@ -1,9 +1,48 @@
 require_relative 'test_helper'
-require_relative '../lib/item_repository.rb'
+require_relative '../lib/item_repository'
+require_relative '../lib/item'
 
 class ItemRepositoryTest < Minitest::Test
+  def setup
+    @item_1 = Item.new({
+          :id          => 263395237,
+          :name        => "Pencil",
+          :description => "You can use it to write things",
+          :unit_price  => BigDecimal.new(10.99,4),
+          :merchant_id => 12334141,
+          :created_at  => Time.now,
+          :updated_at  => Time.now
+      })
+    @item_2 = Item.new({
+          :id          => 263395985,
+          :name        => "Marker",
+          :description => "You can use it to write more things",
+          :unit_price  => BigDecimal.new(12.99,4),
+          :merchant_id => 12339191,
+          :created_at  => Time.now,
+          :updated_at  => Time.now
+      })
+    @item_3 = Item.new({
+          :id          => 263395234,
+          :name        => "Chapstick",
+          :description => "Moisturizes lips.",
+          :unit_price  => BigDecimal.new(4.55,4),
+          :merchant_id => 12337777,
+          :created_at  => Time.now,
+          :updated_at  => Time.now
+      })
+    @items = [@item_1, @item_2, @item_3]
+    @item_repository = ItemRepository.new(@items)
+  end
+
   def test_it_exists
-    item_repository = ItemRepository.new
-    assert_instance_of ItemRepository, item_repository
+    assert_instance_of ItemRepository, @item_repository
+  end
+
+  def test_it_returns_all_item_instances
+    expected = @items
+    actual = @item_repository.all
+
+    assert_equal expected, actual 
   end
 end
