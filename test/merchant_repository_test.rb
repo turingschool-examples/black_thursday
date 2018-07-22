@@ -31,13 +31,12 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_merchant_by_name
     # skip
     search_1 = @mr.find_by_name('JEJUM')
+    assert_equal @mr.all[7], search_1
     assert_equal true, search_1.name.include?('jejum')
-  end
 
-  def test_it_can_find_a_different_merchant_by_name
-    skip
-    search = @mr.find_by_name('Shopin1901')
-    assert_equal true, search.name.include?('shopin1901')
+    search_2 = @mr.find_by_name('MiniatureBikez')
+    assert_equal @mr.all[2], search_2
+    # assert_equal true, search_2.name.include?('miniaturebikez')
   end
 
   def test_it_can_find_all_merchants_with_matching_name_fragment
@@ -45,7 +44,6 @@ class MerchantRepositoryTest < Minitest::Test
     search_1 = @mr.find_all_by_name("M")
     assert_equal 164, search_1.count
     # 201 instances of the letter "M", but only 164 objects
-
     search_2 = @mr.find_all_by_name("mi")
     assert_equal 28, search_2.count
 
@@ -60,14 +58,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_a_new_merchant
-    skip
-    name = "MockEtsyStore1"
-    new_id = @mr.create_new_id_number
-    new_merchant = @mr.create(new_id, name)
+    # skip
+    new_merchant = @mr.create({:name => "MockEtsyStore1"})
+
     assert_equal "MockEtsyStore1", new_merchant.name
     assert_equal 12337412, new_merchant.id
-    assert_equal Time.now, new_merchant.created_at
-    assert_equal Time.now, new_merchant.updated_at
+    assert_equal new_merchant, @mr.all.last
+    assert_equal 476, @mr.all.count
   end
 
 end
