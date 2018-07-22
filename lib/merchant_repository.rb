@@ -57,7 +57,9 @@ class MerchantRepository
     merchant
   end
 
-
-
+  def delete(id)
+    object = find_by_id(id)
+    @merchant_repo.delete(object)
+  end
 
 end

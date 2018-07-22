@@ -52,4 +52,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal nil, @mr.update(12337499, name: 'Joseph')
   end
 
+  def test_merchants_can_be_deleted
+    new_merchant = @mr.create(name: 'Jennifer')
+    assert_equal @id, new_merchant.id
+    @mr.delete(@id)
+    assert_equal nil, @mr.find_by_id(@id)
+  end
+
 end
