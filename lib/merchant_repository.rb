@@ -48,12 +48,12 @@ class MerchantRepository
   end
 end
 
+# update(id, attributes) - update the Merchant instance with the corresponding id with the provided attributes. Only the merchant’s name attribute can be updated.
+# delete(id)
+
 # def create_new_id_number
 #   max_id = @repository.max do |object|
 #     object.id
 #   end
 #   new_id = max_id.id + 1
 # end
-# create(attributes) - create a new Merchant instance with the provided attributes. The new Merchant’s id should be the current highest Merchant id plus 1.
-# update(id, attributes) - update the Merchant instance with the corresponding id with the provided attributes. Only the merchant’s name attribute can be updated.
-# delete(id)
