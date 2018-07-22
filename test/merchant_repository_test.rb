@@ -38,4 +38,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, merchant
     assert_equal '12334105', merchant.id
   end
+
+  def test_it_returns_nil_if_merchant_id_is_invalid
+    merchant = @merchant_repository.find_by_id('invalid')
+    assert_nil merchant
+  end
 end
