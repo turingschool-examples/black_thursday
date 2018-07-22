@@ -2,7 +2,7 @@ require 'bigdecimal'
 require 'time'
 
 class Item
-  attr_accessor :attributes
+  attr_accessor :attributes, :updated_at, :name, :description, :unit_price
 
   def initialize(hash = {})
     @attributes = {
