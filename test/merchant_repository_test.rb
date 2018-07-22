@@ -57,8 +57,17 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_create_new_merchant_with_attribute
-    expected = 1
-    actual = @merchant_repository.create({name: "Bill Nye"})
+    new_merchant_added = @merchant_repository.create("Bill Nye")
+    expected = @merchant_repository.merchants[-1]
+    actual = new_merchant_added.last
     assert_equal expected, actual
+  end
+
+  def test_it_can_update_id
+    last_merchant = @merchant_repository.merchants[-1].name
+    assert_equal "CJsDecor", last_merchant
+
+    renamed_merchant = @merchant_repository.update(12337411, "Eric LaSalle")
+    assert_equal "Eric LaSalle", renamed_merchant
   end
 end
