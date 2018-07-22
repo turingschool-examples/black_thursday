@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/rajaaboulassouak/turing/1module/week4/final-project/black_thursday/lib/item.rb": [
+      "/Users/tim/turing/1module/final_project/black_thursday/lib/item.rb": [
         1,
         null,
         1,
@@ -20,12 +20,67 @@
         2,
         2,
         2,
+        null,
+        null,
+        null
+      ],
+      "/Users/tim/turing/1module/final_project/black_thursday/test/merchant_repo_test.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/tim/turing/1module/final_project/black_thursday/lib/merchant.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        477,
+        477,
         null,
         null,
         null,
         null
       ],
-      "/Users/rajaaboulassouak/turing/1module/week4/final-project/black_thursday/test/merchant_test.rb": [
+      "/Users/tim/turing/1module/final_project/black_thursday/lib/merchant_repo.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        3,
+        null,
+        null,
+        1,
+        1,
+        1,
+        475,
+        null,
+        1,
+        null,
+        null,
+        1,
+        475,
+        null,
+        null
+      ],
+      "/Users/tim/turing/1module/final_project/black_thursday/test/merchant_test.rb": [
         1,
         1,
         null,
@@ -49,59 +104,32 @@
         null,
         null
       ],
-      "/Users/rajaaboulassouak/turing/1module/week4/final-project/black_thursday/lib/merchant.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        1,
-        2,
-        2,
+      "/Users/tim/turing/1module/final_project/black_thursday/test/sales_engine_test.rb": [
         null,
         null,
         null,
-        null
-      ],
-      "/Users/rajaaboulassouak/turing/1module/week4/final-project/black_thursday/test/sales_engine_test.rb": [
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
         null,
         null,
         null,
-        1,
         null,
         null,
-        null
-      ],
-      "/Users/rajaaboulassouak/turing/1module/week4/final-project/black_thursday/lib/sales_engine.rb": [
-        1,
-        null,
-        1,
-        null,
-        1,
         null,
         null,
-        1,
-        1,
-        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1532221947
+    "timestamp": 1532301778
   }
 }
