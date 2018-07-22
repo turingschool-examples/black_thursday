@@ -60,4 +60,7 @@ class MerchantRepository
     @merchants.delete(find_by_id(id))
   end
 
+  def inspect
+    "#<#{self.MerchantRepository} #{@merchants.size} rows>"
+  end
 end

@@ -81,4 +81,8 @@ class ItemRepository
   def delete(id)
     @items.delete(find_by_id(id))
   end
+
+  def inspect
+    "#<#{self.ItemRepository} #{@items.size} rows>"
+  end
 end
