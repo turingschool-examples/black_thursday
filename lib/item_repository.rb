@@ -68,7 +68,7 @@ class ItemRepository
       update_unit_price(item, value) if key == :unit_price
     end
   end
-  
+
   def update_name_or_desc(item, key, value)
     item.attributes[key] = value
     item.attributes[:updated_at] = Time.now + 1
@@ -79,6 +79,8 @@ class ItemRepository
     item.attributes[:updated_at] = Time.now + 1
   end
 
-
+  def inspect
+    "#<#{self.class} #{@repo.size} rows>"
+  end
 
 end
