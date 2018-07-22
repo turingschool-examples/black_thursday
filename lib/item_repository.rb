@@ -18,6 +18,20 @@ class ItemRepository
     return all_items
   end
 
+  def find_all_by_price(price)
+    all_items = @repo.select do |item|
+      item.unit_price == price
+    end
+    return all_items
+  end
+
+  def find_all_by_price_in_range(range)
+    all_items = @repo.select do |item|
+      range.include?(item.unit_price)
+    end
+    return all_items
+  end
+
 
 
 

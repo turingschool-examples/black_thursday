@@ -42,7 +42,14 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_by_item_description
     assert_equal [@item_repository.repo[0]], @item_repository.find_all_with_description("Almost every social icon")
     assert_equal [], @item_repository.find_all_with_description("saxophone")
+  end
 
+  def test_it_can_find_all_by_price
+    assert_equal 41, @item_repository.find_all_by_price(12).count
+  end
+
+  def test_it_can_find_all_in_price_range
+    assert_equal 70, @item_repository.find_all_by_price_in_range(12..14).count
   end
 
 
