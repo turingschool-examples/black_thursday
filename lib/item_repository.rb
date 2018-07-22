@@ -41,6 +41,16 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
       item.merchant_id == merchant_id
-    end 
+    end
   end
+
+  def create(attributes)
+    highest_item_id = @items.max_by do |item|
+      item.id
+    end 
+    attributes[:id] = highest_item_id.id + 1
+    @items << Item.new(attributes)
+  end
+
+
 end

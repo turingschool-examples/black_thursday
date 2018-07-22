@@ -77,4 +77,37 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], @item_repository.find_all_by_merchant_id(5)
     assert_equal [@item_3], @item_repository.find_all_by_merchant_id(12337777)
   end
+
+  def test_can_create_new_item
+    @item_repository.create({
+          :id          => 837359,
+          :name        => "Tacos",
+          :description => "The most delicious food",
+          :unit_price  => BigDecimal.new(1.99,4),
+          :merchant_id => 123123123,
+          :created_at  => Time.now,
+          :updated_at  => Time.now
+      })
+
+    assert_equal 4, @item_repository.all.count
+    assert_equal 263395986, @item_repository.all.last.id
+  end
+
+  def test_new_item_has_highest_id
+    @item_repository.create({
+          :id          => 837359,
+          :name        => "Tacos",
+          :description => "The most delicious food",
+          :unit_price  => BigDecimal.new(1.99,4),
+          :merchant_id => 123123123,
+          :created_at  => Time.now,
+          :updated_at  => Time.now
+      })
+
+    expected = @item_repository.all.max_by do |item|
+                  item.id
+                end
+
+    assert_equal expected, @item_repository.all.last
+  end
 end
