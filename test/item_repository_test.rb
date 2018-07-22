@@ -35,10 +35,39 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price
-    assert_equal 41, @item_repo.find_all_by_price(1200.00).count
+    assert_equal 41, @item_repo.find_all_by_price(12.00).count
   end
 
   def test_it_can_find_all_by_price_in_range
-    assert_equal 44, @item_repo.find_all_by_price_in_range(1200.00..1250.00).count
+    assert_equal 44, @item_repo.find_all_by_price_in_range(12.00..12.50).count
+  end
+
+  def test_it_can_find_all_by_merchant_id
+    assert_equal 6, @item_repo.find_all_by_merchant_id(12334185).count
+  end
+
+  def test_it_can_create_a_new_item
+    assert_equal 1367, @item_repo.items.count
+    @item_repo.create({
+      :name        => "Pencil",
+      :description => "You can use it to write things.",
+      :unit_price  => 1099,
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 1234566
+    })
+    assert_equal 1368, @item_repo.items.count
+  end
+
+  def test_it_can_update_attributes
+    @item_repo.update(263395237, {
+                                  :name => "Sour Cream",
+                                  :description => "Creamy, white, sour",
+                                  :unit_price => 299
+                                })
+    sour_creamy = @item_repo.find_by_id(263395237)
+    assert_equal sour_creamy.name, "Sour Cream"
+    assert_equal sour_creamy.description, "Creamy, white, sour"
+    assert_equal sour_creamy.unit_price_to_dollars, 2.99
   end
 end
