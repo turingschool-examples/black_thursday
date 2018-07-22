@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -32,15 +33,19 @@ class SalesAnalystTest < Minitest::Test
 
   def test_find_merchants_with_high_item_count
     skip
-    actual = @sales_analyst.merchants_with_high_item_count
-    merchant_ids = actual.map do |merchant|
+    high_item_merchants = @sales_analyst.merchants_with_high_item_count
+    a = high_item_merchants.map do |merchant|
       merchant.id
     end
-
-    assert merchant_ids.all? do |merchant_id|
-      @sales_analyst.items.find_all_by_merchant_id(merchant_id).count >= 6.14
+    b = a.map do |id|
+      @sales_analyst.items.find_all_by_merchant_id(id)
+    end
+    binding.pry
+    c = b.all? do |number|
+      number >= 6.14
     end
 
+      assert_equal true, c
   end
 
 end

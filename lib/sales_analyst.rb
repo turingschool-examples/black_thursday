@@ -38,8 +38,13 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_item_indicator = average_items_per_merchant
-                        + average_items_per_merchant_standard_deviation
-
+    high_item_indicator = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    high_seller_ids = find_all_merchant_ids.find_all do |merchant_id|
+      @items.find_all_by_merchant_id(merchant_id).count >= high_item_indicator
+    end
+    high_seller_ids.map do |id|
+      @merchants.find_by_id(id)
+      
+    end
   end
 end
