@@ -59,12 +59,22 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_create_a_new_merchant
     # skip
-    new_merchant = @mr.create({:name => "MockEtsyStore1"})
+    new_merchant = @mr.create({:name => 'MockEtsyStore1'})
 
-    assert_equal "MockEtsyStore1", new_merchant.name
+    assert_equal 'MockEtsyStore1', new_merchant.name
     assert_equal 12337412, new_merchant.id
     assert_equal new_merchant, @mr.all.last
     assert_equal 476, @mr.all.count
+  end
+
+  def test_it_can_update_a_merchant_name
+    updated_merchant_1 = @mr.update(12337409, :name => 'CardsByMary&Kate')
+
+    assert_equal 'CardsByMary&Kate', updated_merchant_1.name
+
+    updated_merchant_2 = @mr.update(1234, :name => 'uh oh my id is not present')
+
+    assert_nil updated_merchant_2
   end
 
 end
