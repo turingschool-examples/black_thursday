@@ -23,4 +23,16 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, @merchant_repository.all[5]
     assert_instance_of Merchant, @merchant_repository.all[97]
   end
+
+  def test_it_can_find_by_id
+    expected = @merchant_repository.merchants[0]
+    actual = @merchant_repository.find_by_id(12334105)
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_by_name
+    expected = @merchant_repository.merchants[0]
+    actual = @merchant_repository.find_by_name("Shopin1901")
+    assert_equal expected, actual
+  end
 end
