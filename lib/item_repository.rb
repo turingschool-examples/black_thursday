@@ -1,5 +1,4 @@
 class ItemRepository
-
   def initialize(items)
     @items = items
   end
@@ -59,5 +58,9 @@ class ItemRepository
     find_by_id(id).updated_at = Time.now
   end
 
-
+  def delete(id)
+    @items.reject! do |item|
+      item.id == id
+    end
+  end
 end

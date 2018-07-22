@@ -58,8 +58,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_finds_items_by_description
     actual = @item_repository.find_all_with_description("Made from tortillas")
+
     assert_equal [], actual
+
     actual = @item_repository.find_all_with_description("use it to write")
+
     assert_equal [@item_1, @item_2], actual
   end
 
@@ -125,5 +128,23 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Mechanical Pencil", @item_1.name
     assert_equal "You can use it to write super cool things", @item_1.description
     assert_equal BigDecimal.new(15.99,4), @item_1.unit_price
+  end
+
+  def test_items_can_be_deleted_by_id
+    @item_repository.create({
+          :id          => 837359,
+          :name        => "Tacos",
+          :description => "The most delicious food",
+          :unit_price  => BigDecimal.new(1.99,4),
+          :merchant_id => 123123123,
+          :created_at  => Time.now,
+          :updated_at  => Time.now
+      })
+    assert_equal 4, @item_repository.all.count
+
+    @item_repository.delete(263395986)
+    assert_equal 3, @item_repository.all.count
+
+    assert_equal nil, @item_repository.find_by_name("Tacos")
   end
 end

@@ -39,25 +39,31 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_creates_new_merchant
     @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+
     assert_equal 4, @merchant_repository.all.count
     assert_equal "Denver Coding School", @merchant_repository.all.last.name
   end
 
   def test_new_merchant_has_highest_id_number
     @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+
     assert_equal 10, @merchant_repository.all.last.id
   end
 
   def test_attributes_can_be_updated
     @merchant_repository.update(7, {:id => 3, :name => "Galvanize"})
+
     assert_equal "Galvanize", @merchant_2.name
     assert_equal 7, @merchant_2.id
   end
 
   def test_merchant_can_be_deleted
     @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+
     assert_equal 4, @merchant_repository.all.count
+
     @merchant_repository.delete(10)
+
     assert_equal 3, @merchant_repository.all.count
     assert_equal nil, @merchant_repository.find_by_name("Denver Coding School")
   end
