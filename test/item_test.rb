@@ -1,5 +1,5 @@
-require_relative "../test/test_helper"
-require_relative "../lib/item"
+require_relative '../test/test_helper'
+require_relative '../lib/item'
 require 'bigdecimal'
 require 'time'
 
