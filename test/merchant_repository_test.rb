@@ -43,4 +43,25 @@ class MerchantRepositoryTest < Minitest::Test
     merchant = @merchant_repository.find_by_id('invalid')
     assert_nil merchant
   end
+
+  def test_it_can_find_a_merchant_by_name
+    merchant = @merchant_repository.find_by_name('Candisart')
+    assert_instance_of Merchant, merchant
+    assert_equal 'Candisart', merchant.name
+  end
+
+  def test_it_returns_nil_if_merchant_name_is_invalid
+    merchant = @merchant_repository.find_by_name('invalid')
+    assert_nil merchant
+  end
+
+  def test_merchant_find_by_name_is_case_insensitive
+    merchant = @merchant_repository.find_by_name('candisart')
+    assert_equal 'Candisart', merchant.name
+  end
+
+  def test_find_all_by_name_or_name_fragment
+    merchants = @merchant_repository.find_all_by_name('Bike')
+    assert_equal 'MiniatureBikez', merchants.first.name
+  end
 end

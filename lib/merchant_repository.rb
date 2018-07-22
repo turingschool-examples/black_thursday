@@ -19,4 +19,16 @@ class MerchantRepository
       merchant.id == id
     end
   end
+
+  def find_by_name(name)
+    @merchants.find do |merchant| #rubocop wants the line below
+      merchant.name.casecmp(name).zero? # if case-insensitive returns 0, = the same name
+    end
+  end
+
+  def find_all_by_name(fragment)
+    @merchants.find_all do |merchant|
+      merchant.name.include?(fragment)
+    end
+  end
 end
