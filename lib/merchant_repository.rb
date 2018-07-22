@@ -39,13 +39,22 @@ class MerchantRepository
     end # this returns the complete merchant object with highest id
     new_id = max_id.id + 1
     new_merchant = Merchant.new(
-      id: new_id.to_s,
+      id: new_id,    #check for .to_s later
       name: attributes[:name],
       created_at: Time.now,
       updated_at: Time.now
     )
     @merchant_repo << new_merchant
     new_merchant
+  end
+
+  def update(id, attributes)
+    new_name = attributes[:name]
+    merchant = find_by_id(id)
+    return if merchant.nil?
+    merchant.updated_at = Time.now
+    merchant.name = new_name
+    merchant
   end
 
 

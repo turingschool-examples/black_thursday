@@ -7,6 +7,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     @mr = MerchantRepository.new(load_file('./data/merchants.csv'))
+    @id = 12337412
   end
 
   def test_it_exists
@@ -36,11 +37,19 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_repo_can_create_new_merchants
     new_merchant = @mr.create(name: 'Jennifer')
-    id = 12337412
     assert_instance_of Merchant, new_merchant
     assert_equal 'Jennifer', new_merchant.name
     assert @mr.merchant_repo.include?(new_merchant)
-    assert_equal id, new_merchant.id
+    assert_equal @id, new_merchant.id
+  end
+
+  def test_merchants_can_be_updated
+    new_merchant = @mr.create(name: 'Jennifer')
+    assert_equal @id, new_merchant.id
+    assert_equal @mr.find_by_id(@id).name, 'Jennifer'
+    @mr.update(@id, name: 'Jenn')
+    assert_equal @mr.find_by_id(@id).name, 'Jenn'
+    assert_equal nil, @mr.update(12337499, name: 'Joseph')
   end
 
 end
