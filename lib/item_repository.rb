@@ -1,11 +1,12 @@
 require_relative 'item.rb'
-# require_relative 'repo_helper'
+require_relative 'repo_helper'
 
 class ItemRepository
-  attr_reader :item_repo
+  include RepoHelper
+  attr_reader :repo
 
   def initialize(file_contents)
-    @item_repo = file_contents.map do |item|
+    @repo = file_contents.map do |item|
       Item.new(item)
     end
   end

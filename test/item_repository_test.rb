@@ -23,7 +23,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_make_repo_of_item
-    assert_equal 1367, @item_repository.item_repo.count
+    assert_equal 1367, @item_repository.repo.count
+  end
+
+  def test_it_can_return_all
+    assert_equal @item_repository.repo, @item_repository.all
   end
 
 
