@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'bigdecimal'
 require 'pry'
 
 class SalesAnalystTest < Minitest::Test
@@ -44,8 +45,15 @@ class SalesAnalystTest < Minitest::Test
     c = b.all? do |number|
       number >= 6.14
     end
-
       assert_equal true, c
+  end
+
+  def test_it_calculates_average_price_for_specific_merchant
+    actual = @sales_analyst.average_item_price_for_merchant(12334193)
+    expected = 29.99
+
+    assert_instance_of BigDecimal, actual
+    assert_equal expected, actual.to_f
   end
 
 end

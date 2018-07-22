@@ -67,4 +67,5 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 3, @merchant_repository.all.count
     assert_equal nil, @merchant_repository.find_by_name("Denver Coding School")
   end
+
 end
