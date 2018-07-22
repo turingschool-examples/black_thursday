@@ -19,4 +19,8 @@ class Item
     @updated_at = item_hash[:updated_at]
     @merchant_id = item_hash[:merchant_id]
   end 
+  
+  def convert_unit_price_to_dollar_string
+    "$#{unit_price.to_f}"
+  end 
 end 
