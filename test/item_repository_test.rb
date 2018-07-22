@@ -72,4 +72,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], @item_repository.find_all_by_price_in_range(25..79)
     assert_equal [@item_1, @item_2], @item_repository.find_all_by_price_in_range(10..13)
   end
+
+  def test_finds_all_items_by_merchant_id
+    assert_equal [], @item_repository.find_all_by_merchant_id(5)
+    assert_equal [@item_3], @item_repository.find_all_by_merchant_id(12337777)
+  end
 end
