@@ -45,4 +45,10 @@ class MerchantRepositoryTest < Minitest::Test
     sour_creamy = @merchant_repo.find_by_id(12334105)
     assert_equal "Sour Creamery", sour_creamy.name
   end
+
+  def test_it_can_delete_a_merchant
+    assert_instance_of Merchant, @merchant_repo.find_by_id(12334105)
+    @merchant_repo.delete(12334105)
+    assert_nil @merchant_repo.find_by_id(12334105)
+  end
 end
