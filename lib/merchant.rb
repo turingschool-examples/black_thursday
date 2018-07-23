@@ -13,7 +13,7 @@ class Merchant
 
   def self.create(name)
     merchant_id = @@highest_merchant_id += 1
-    Merchant.new({id: merchant_id, name: name})
+    Merchant.new({id: merchant_id, name: name[:name]})
   end
 
 end
