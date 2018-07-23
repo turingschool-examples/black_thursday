@@ -34,6 +34,7 @@ class MerchantRepository
     end
     attributes[:id] = highest_merchant_id.id + 1
     @merchants << Merchant.new(attributes)
+    Merchant.new(attributes)
   end
 
   def update(id, attributes)

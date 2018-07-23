@@ -41,6 +41,8 @@ class MerchantRepositoryTest < Minitest::Test
     @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
 
     assert_equal 4, @merchant_repository.all.count
+    assert_instance_of Merchant, @merchant_repository.all.last
+    require "pry"; binding.pry
     assert_equal "Denver Coding School", @merchant_repository.all.last.name
   end
 
