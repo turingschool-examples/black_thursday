@@ -168,4 +168,15 @@ class ItemRepositoryTest < Minitest::Test
     expected_2 = @item_repository.find_by_name('SixThing')
     assert_nil expected_2
   end
+
+  def test_it_can_delete_an_item
+    id = 4
+
+    item = @item_repository.delete(id)
+    expected_1 = @item_repository.find_by_name('FourThing')
+    expected_2 = @item_repository.find_by_id(id)
+
+    assert_nil expected_1
+    assert_nil expected_2
+  end
 end
