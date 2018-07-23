@@ -9,4 +9,20 @@ class ItemRepository
       Item.new(item)
     end
   end
+
+  def all
+    @items
+  end
+
+  def find_by_id(id)
+    @items.find do |item|
+      item.id == id
+    end
+  end
+
+  def find_by_name(name)
+    @items.find do |item|
+      item.name.casecmp(name).zero?
+    end
+  end
 end
