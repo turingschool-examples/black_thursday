@@ -14,7 +14,7 @@ class Item
     @id = information[:id].to_i
     @name = information[:name]
     @description = information[:description]
-    @unit_price = (information[:unit_price].to_f / 100).to_d
+    @unit_price = (information[:unit_price].to_f / 100).to_s.to_d
     @merchant_id = information[:merchant_id].to_i
     @created_at = information[:created_at]
     @updated_at = information[:updated_at]
