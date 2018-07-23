@@ -130,4 +130,28 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal ([]), items_2
     assert_equal 3, items_3.count
   end
+
+  def test_it_can_find_highest_id
+    item = @item_repository.find_highest_id
+    assert_equal 6, item.id
+  end
+
+  def test_it_can_create_new_id
+    item = @item_repository.create_id
+    assert_equal 7, item
+  end
+
+  def test_it_can_create_attributes
+    attributes =
+        {name: 'SevenThing',
+        description:'a moped thing that does stuff',
+        unit_price: 3500,
+        merchant_id: 1,
+        created_at: '2018-07-20',
+        updated_at: '2018-07-20'}
+    item = @item_repository.create(attributes)
+    assert_equal 'SevenThing', item[-1].name
+    assert_equal 7, item[-1].id
+
+  end
 end
