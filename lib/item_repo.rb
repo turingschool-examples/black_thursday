@@ -35,12 +35,12 @@ class ItemRepo
     end
   end
 
-#   def find_all_by_name(name)
-#     @merchants.find_all do |merchant|
-#       merchant.name == name
-#     end
-#   end
-#
+  def find_all_with_description(description)
+    @items.find_all do |item|
+      item.description.to_s == description.to_s
+    end
+  end
+
 #   def create(attributes)
 #     merchant_new = Merchant.new(attributes)
 #     max_merchant = @merchants.max_by do |merchant|
