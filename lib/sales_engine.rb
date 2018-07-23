@@ -16,10 +16,10 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(load_file(data_files[:merchants]))
+    @merchants ||= MerchantRepository.new(load_file(data_files[:merchants]))
   end
 
   def items
-    ItemRepository.new(load_file(data_files[:items]))
+    @items ||= ItemRepository.new(load_file(data_files[:items]))
   end
 end
