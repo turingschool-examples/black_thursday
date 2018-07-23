@@ -1,4 +1,6 @@
 require 'bigdecimal'
+require 'bigdecimal/util'
+
 
 class Item
     attr_reader   :id,
@@ -10,11 +12,11 @@ class Item
                   :updated_at
 
   def initialize(information)
-    @id = information[:id]
+    @id = information[:id].to_i
     @name = information[:name]
     @description = information[:description]
-    @unit_price = information[:unit_price]
-    @merchant_id = information[:merchant_id]
+    @unit_price = information[:unit_price].to_d
+    @merchant_id = information[:merchant_id].to_i
     @created_at = information[:created_at]
     @updated_at = information[:updated_at]
   end
