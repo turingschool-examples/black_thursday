@@ -152,6 +152,20 @@ class ItemRepositoryTest < Minitest::Test
     item = @item_repository.create(attributes)
     assert_equal 'SevenThing', item[-1].name
     assert_equal 7, item[-1].id
+  end
 
+  def test_it_can_update_item_attributes
+    attributes = {
+      name: 'ShinySixThing' ,
+      description: 'a new shiny kayak thing that does stuff',
+      unit_price: 20000,
+    }
+    id = 6
+    item = @item_repository.update(id, attributes)
+    expected_1 = @item_repository.find_by_id(id)
+    assert_equal 'ShinySixThing', expected_1.name
+    assert_equal Time, expected_1.updated_at.class
+    expected_2 = @item_repository.find_by_name('SixThing')
+    assert_nil expected_2
   end
 end
