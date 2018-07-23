@@ -9,17 +9,21 @@ require './lib/sales_analyst'
 # Sales Analyst test class
 class SalesAnalystTest < Minitest::Test
 
+  def setup
+    @sa = SalesAnalyst.new
+
+  end
+
   def test_it_exists
-    sa = SalesAnalyst.new
     assert_instance_of SalesAnalyst, sa
   end
 
-  def test_it_calculates_avarage_items_per_merchant
+  def test_it_calculates_average_items_per_merchant
     skip
-
+    assert_equal ,
   end
 
-  def test_it_calculates_avarage_items_per_merchant_standard_devation
+  def test_it_calculates_average_items_per_merchant_standard_devation
     skip
   end
 
@@ -27,12 +31,12 @@ class SalesAnalystTest < Minitest::Test
     skip
   end
 
-  def test_it_calculates_avarage_item_price_for_merchant
+  def test_it_calculates_average_item_price_for_merchant
     skip
     #takes argument of merchant id
   end
 
-  def test_it_calculates_avarage_price_per_merchant
+  def test_it_calculates_average_price_per_merchant
     skip
   end
 
