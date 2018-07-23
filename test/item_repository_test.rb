@@ -54,4 +54,29 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_exists
     assert_instance_of ItemRepository, @item_repository
   end
+
+  def test_it_can_build_item
+    assert_equal Array, @item_repository.build_item(@items).class
+  end
+
+  def test_can_get_an_array_of_items
+    assert_equal 6, @item_repository.all.count
+  end
+
+  def test_it_can_find_an_item_by_a_valid_id
+    item = @item_repository.find_by_id(3)
+    assert_instance_of Item, item
+    assert_equal 3, item.id
+  end
+
+  def test_it_returns_nil_if_item_id_is_invalid
+    item = @item_repository.find_by_id('invalid')
+    assert_nil item
+  end
+
+  def test_it_can_find_a_item_by_name
+    item = @item_repository.find_by_name('OneThing')
+    assert_instance_of Item, item
+    assert_equal 'OneThing', item.name
+  end
 end
