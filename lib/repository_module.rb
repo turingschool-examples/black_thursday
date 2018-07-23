@@ -2,6 +2,7 @@ module RepositoryModule
 
   def all
     @repository.find_all do |element|
+      binding.pry
       element
   end
 
@@ -13,6 +14,7 @@ module RepositoryModule
 
   def delete(id)
     @repository.delete_if {|element| element.id == id}
+    end
   end
 
 end

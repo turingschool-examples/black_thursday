@@ -49,5 +49,5 @@ class Item
   def unit_price_in_dollars
     unit_price.to_f
   end
-
+  
 end
