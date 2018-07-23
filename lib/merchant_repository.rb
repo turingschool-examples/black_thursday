@@ -31,4 +31,33 @@ class MerchantRepository
       merchant.name.downcase.include?(fragment.downcase)
     end
   end
+
+  def create(attributes)
+    id = create_id
+    attributes[:id] = id
+    merchant = Merchant.new(attributes)
+    @merchants << merchant
+  end
+
+  def create_id
+    find_highest_id.id + 1
+  end
+
+  def find_highest_id
+    @merchants.max_by do |merchant|
+      merchant.id
+    end
+  end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    merchant.name = attributes[:name]
+  end
+
+  def delete(id)
+    merchant = @merchants.find_index do |merchant|
+      merchant.id == id
+    end
+    @merchants.delete_at(merchant)
+  end
 end

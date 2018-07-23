@@ -5,15 +5,15 @@ require_relative './test_helper'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     @merchants =
-      [{id: '12334105',
+      [{id: 12334105,
       name: 'Shopin1901',
       created_at: '2010-12-10',
       updated_at: '2011-12-04'},
-      {id: '12334112',
+      {id: 12334112,
       name: 'Candisart',
       created_at: '2009-05-30',
       updated_at: '2010-08-29'},
-      {id: '12334113',
+      {id: 12334113,
       name: 'MiniatureBikez',
       created_at: '2010-03-30',
       updated_at: '2013-01-21'}]
@@ -34,9 +34,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_a_merchant_by_a_valid_id
-    merchant = @merchant_repository.find_by_id('12334105')
+    merchant = @merchant_repository.find_by_id(12334105)
     assert_instance_of Merchant, merchant
-    assert_equal '12334105', merchant.id
+    assert_equal 12334105, merchant.id
   end
 
   def test_it_returns_nil_if_merchant_id_is_invalid
@@ -67,6 +67,47 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'MiniatureBikez', merchants_1.first.name
     assert_equal ([]), merchants_2
     assert_equal 'Shopin1901', merchants_3.first.name
-    assert_equal 'MiniatureBikez', merchants_3[1].name
+    assert_equal 'MiniatureBikez', merchants_3[-1].name
+  end
+
+  def test_it_can_find_highest_id
+    merchant = @merchant_repository.find_highest_id
+    assert_equal 12334113, merchant.id
+  end
+
+  def test_it_can_create_new_id
+    merchant = @merchant_repository.create_id
+    assert_equal 12334114, merchant
+  end
+
+  def test_it_can_create_new_merchant
+    attributes = { name: 'Turing School',
+                    created_at: '2010-12-10',
+                    updated_at: '2011-12-04'}
+    merchant = @merchant_repository.create(attributes)
+    assert_equal 'Turing School', merchant[-1].name
+    assert_equal 12334114, merchant[-1].id
+  end
+
+  def test_it_can_update_merchant_name
+    attributes = {
+      name: 'Shopin2001'
+    }
+    id = 12334105
+    merchant = @merchant_repository.update(id, attributes)
+    expected = @merchant_repository.find_by_id(id)
+    assert_equal 'Shopin2001', expected.name
+    expected = @merchant_repository.find_by_name('Shopin1901')
+    assert_nil expected
+  end
+
+  def test_it_can_delete_merchant
+    id = 12334105
+
+    merchant = @merchant_repository.delete(id)
+    expected = @merchant_repository.find_by_name('Shopin1901')
+    expected = @merchant_repository.find_by_id(id)
+
+    assert_nil expected
   end
 end
