@@ -10,6 +10,10 @@ class MerchantRepository
     @merchants
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def find_by_id(id)
     @merchants.find do |merchant|
       merchant.id == id
