@@ -5,9 +5,13 @@ class Merchant
                 :updated_at
 
   def initialize(hash)
-    @id   = hash[:id]
+    @id   = hash[:id].to_i
     @name = hash[:name]
-    @created_at = hash[:created_at]
-    @updated_at = hash[:updated_at]
+    @created_at = if hash[:created_at].class == String
+                    Time.parse(hash[:created_at])
+                  end
+    @updated_at = if hash[:created_at].class == String
+                    Time.parse(hash[:created_at])
+                  end
   end
 end

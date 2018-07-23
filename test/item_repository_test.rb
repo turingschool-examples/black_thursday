@@ -63,7 +63,7 @@ class ItemRepositoryTest < Minitest::Test
     @item_repo.update(263395237, {
                                   :name => "Sour Cream",
                                   :description => "Creamy, white, sour",
-                                  :unit_price => 299
+                                  :unit_price => "299"
                                 })
     sour_creamy = @item_repo.find_by_id(263395237)
     assert_equal sour_creamy.name, "Sour Cream"

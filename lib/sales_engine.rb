@@ -3,9 +3,9 @@ require_relative '../lib/merchant_repository'
 
 class SalesEngine
 
-  attr_reader :items,
-              :merchants
-              
+  attr_accessor :items,
+                :merchants
+
   def self.from_csv(hash)
     SalesEngine.new(hash[:items], hash[:merchants])
   end

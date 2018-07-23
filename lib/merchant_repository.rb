@@ -22,9 +22,9 @@ class MerchantRepository
     @merchants
   end
 
-  def find_by_id(id)
+  def find_by_id(search_id)
     @merchants.find do |merchant|
-      id.to_s == merchant.id
+      search_id == merchant.id
     end
   end
 
@@ -44,20 +44,22 @@ class MerchantRepository
     max_id_merchant = @merchants.max_by do |merchant|
       merchant.id
     end
-    max_id_merchant.id.to_i
+    max_id_merchant.id
   end
 
   def create(attributes)
     merchant = Merchant.new(attributes)
     merchant.created_at = Time.now
-    merchant.id = (find_max_id + 1).to_s
+    merchant.id = find_max_id + 1
     @merchants << merchant
   end
 
   def update(id, attributes)
-    merchant = find_by_id(id)
-    merchant.name = attributes[:name]
-    merchant.updated_at = Time.now
+    if find_by_id(id)
+      merchant = find_by_id(id)
+      merchant.name = attributes[:name]
+      merchant.updated_at = Time.now
+    end
   end
 
   def delete(id)
