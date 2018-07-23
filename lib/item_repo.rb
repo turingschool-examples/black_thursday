@@ -18,11 +18,11 @@ class ItemRepo
   def add_item(item)
     @items << Item.new(item)
   end
-#
-#   def all
-#     @merchants
-#   end
-#
+
+  def all
+    @items
+  end
+
 #   def find_by_id(id)
 #     @merchants.find do |merchant|
 #       merchant.id.to_i == id
