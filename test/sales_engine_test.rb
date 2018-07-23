@@ -14,11 +14,11 @@ class SalesEngineTest < MiniTest::Test
   end
 
   def test_it_creates_repository_of_merchants
-    assert_instance_of MerchantRepository, @sales_engine.merchant_repo
+    assert_instance_of MerchantRepository, @sales_engine.merchants
   end
 
   def test_it_creates_repository_of_items
-    assert_instance_of ItemRepository, @sales_engine.item_repo
+    assert_instance_of ItemRepository, @sales_engine.items
   end
 
   def test_it_creates_sales_analyst
