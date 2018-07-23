@@ -62,7 +62,6 @@ class MerchantRepository
   end
 end
 
-
 # def create_new_id_number
 #   max_id = @repository.max do |object|
 #     object.id

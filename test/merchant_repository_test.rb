@@ -1,4 +1,4 @@
-require "./test/test_helper"
+require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/file_loader'
 
@@ -23,7 +23,6 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_find_merchant_by_id
     # skip
-
     assert_instance_of Merchant, @mr.find_by_id(12334112)
   end
 
@@ -40,13 +39,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_merchants_with_matching_name_fragment
     # skip
-    search_1 = @mr.find_all_by_name("M")
+    search_1 = @mr.find_all_by_name('M')
     assert_equal 164, search_1.count
-    # 201 instances of the letter "M", but only 164 objects
-    search_2 = @mr.find_all_by_name("mi")
+    # 201 instances of the letter 'M', but only 164 objects
+    search_2 = @mr.find_all_by_name('mi')
     assert_equal 28, search_2.count
 
-    search_3 = @mr.find_all_by_name("MINI")
+    search_3 = @mr.find_all_by_name('MINI')
     assert_equal 1, search_3.count
   end
 
@@ -85,5 +84,4 @@ class MerchantRepositoryTest < Minitest::Test
     @mr.delete(12337412)
     assert_equal 475, @mr.all.count
   end
-
 end
