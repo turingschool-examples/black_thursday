@@ -31,4 +31,14 @@ class MerchantRepository
       merchant.name.downcase.include?(fragment.downcase)
     end
   end
+
+  def create_id
+    find_highest_id.id + 1
+  end
+
+  def find_highest_id
+    @merchants.max_by do |merchant|
+      merchant.id
+    end
+  end
 end
