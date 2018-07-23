@@ -58,22 +58,15 @@ class MerchantRepoTest < Minitest::Test
     mer_repo.update(12334105, "HiThere!")
     assert_equal "HiThere!" , mer_repo.merchants[0].name
   end
-  # def test_it_sorts
-  #   mer_repo = MerchantRepo.new
-  #   mer_repo.load_file("./data/merchants.csv")
-  #   assert_instance_of Array, mer_repo.sort_them
-  # end
+
+  def test_it_deletes_merchant_by_id
+
+  end
 
 end
 
-  # def test_it_creates_new_merchant_with_attributes
-  #
-  # end
-  #
-  # def test_it_updates_merchant_with_attributes
-  #
-  # end
-  #
-  # def test_it_deletes_merchant_by_id
-  #
-  # end
+# def test_it_sorts
+#   mer_repo = MerchantRepo.new
+#   mer_repo.load_file("./data/merchants.csv")
+#   assert_instance_of Array, mer_repo.sort_them
+# end
