@@ -28,6 +28,15 @@ class ItemRepoTest < Minitest::Test
     refute_instance_of Item, item_repo.find_by_id(0)
   end
 
+  def test_it_finds_by_name   #note update merchant to include find_by_name test
+    item_repo = ItemRepo.new
+    item_repo.load_file("./data/items.csv")
+
+    assert_instance_of Item, item_repo.find_by_name("Green Footed Ceramic Bowl") #add name
+    refute_instance_of Item, item_repo.find_by_name("heya")
+  end
+#make merchant find_by_name case insensitive
+
 #   def test_it_returns_merchant_by_name
 #     mer_repo = MerchantRepo.new
 #     mer_repo.load_file("./data/merchants.csv")

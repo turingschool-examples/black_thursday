@@ -29,12 +29,12 @@ class ItemRepo
     end
   end
 
-#   def find_by_name(name)
-#     @merchants.find do |merchant|
-#       merchant.name == name
-#     end
-#   end
-#
+  def find_by_name(name)
+    @items.find do |item|
+      item.name.downcase == name.downcase
+    end
+  end
+
 #   def find_all_by_name(name)
 #     @merchants.find_all do |merchant|
 #       merchant.name == name
