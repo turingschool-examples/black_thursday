@@ -59,7 +59,6 @@ class MerchantRepo
   def delete(id)
     merchant_to_change = find_by_id(id)
     @merchants.delete(merchant_to_change)
-    binding.pry
   end
 end
 

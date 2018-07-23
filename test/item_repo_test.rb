@@ -3,12 +3,12 @@ require_relative "../lib/item"
 require_relative "../lib/item_repo"
 
 class ItemRepoTest < Minitest::Test
-#
-#   def test_it_exists
-#     mer_repo = MerchantRepo.new
-#
-#     assert_instance_of MerchantRepo, mer_repo
-#   end
+
+  def test_it_exists
+    item_repo = ItemRepo.new
+
+    assert_instance_of ItemRepo, item_repo
+  end
 #
 #   def test_it_loads_file
 #     mer_repo = MerchantRepo.new
