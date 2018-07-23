@@ -15,7 +15,7 @@ class ItemRepositoryTest < Minitest::Test
       {id: 2,
       name: 'TwoThing',
       description:'a bike thing that does stuff',
-      unit_price: 1300,
+      unit_price: 1370,
       merchant_id: 1,
       created_at: '2018-07-22',
       updated_at: '2018-07-22'},
@@ -99,5 +99,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 'a car thing that does stuff', items_3.first.description
     assert_equal 'a kayak thing that does stuff', items_3[-1].description
     assert_equal 6, items_3.count
+  end
+
+  def test_it_can_find_all_with_price
+    items_1 = @item_repository.find_all_by_price(1300)
+    items_2 = @item_repository.find_all_by_price(9900)
+    items_3 = @item_repository.find_all_by_price(1500)
+
+    assert_equal 1300, items_1.first.unit_price
+    assert_equal ([]), items_2
+    assert_equal 3, items_3.count
   end
 end
