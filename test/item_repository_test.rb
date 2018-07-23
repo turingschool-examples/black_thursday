@@ -18,7 +18,7 @@ class ItemRepositoryTest < Minitest::Test
       id:          1,
       name:        'Pencil',
       description: 'You can use it to write things',
-      unit_price:  BigDecimal(10.99, 4),
+      unit_price:  BigDecimal(10.00, 4),
       created_at:  Time.now,
       updated_at:  Time.now,
       merchant_id: 4
@@ -27,7 +27,7 @@ class ItemRepositoryTest < Minitest::Test
       id:          2,
       name:        'Book',
       description: 'You can use it to learn things',
-      unit_price:  BigDecimal(34, 4),
+      unit_price:  BigDecimal(10.00, 4),
       created_at:  Time.now,
       updated_at:  Time.now,
       merchant_id: 5
@@ -69,5 +69,16 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_finds_all_with_description
     assert_equal [@item1, @item2], @ir.find_all_with_description('things')
+  end
+
+  def test_it_finds_all_by_price
+
+    assert_equal [@item1, @item2], @ir.find_all_by_price(10.00)
+  end
+
+  def test_it_finds_all_by_price_in_range
+
+    assert_equal [@item1, @item2, @item3], @ir.find_all_by_price_in_range(10..15)
+    assert_equal [], @ir.find_all_by_price_in_range(2..5)
   end
 end

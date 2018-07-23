@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 require './lib/item'
 
 # Item repository class
@@ -38,4 +38,23 @@ class ItemRepository
       thing.is_a?(Item)
     end
   end
+
+  def find_all_by_price(price)
+    found_items = @items.find_all do |_, item|
+      item.unit_price == price
+    end.flatten
+    found_items.keep_if do |thing|
+      thing.is_a?(Item)
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    found_items = @items.find_all do |_, item|
+      range.member?(item.unit_price)
+    end.flatten
+    found_items.keep_if do |thing|
+      thing.is_a?(Item)
+    end
+  end
+
 end
