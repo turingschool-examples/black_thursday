@@ -80,13 +80,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334114, merchant
   end
 
-  # def test_it_can_create_new_merchant
-  #   skip
-  #   attributes = [{ id: '',
-  #                   name: 'Turing School',
-  #                   created_at: '2010-12-10',
-  #                   updated_at: '2011-12-04'}
-  #   merchant = @merchant_repository.create(attributes)
-  #
-  # end
+  def test_it_can_create_new_merchant
+    attributes = { name: 'Turing School',
+                    created_at: '2010-12-10',
+                    updated_at: '2011-12-04'}
+    merchant = @merchant_repository.create(attributes)
+    assert_equal 'Turing School', merchant.name
+    assert_equal 12334114, merchant.id
+  end
 end

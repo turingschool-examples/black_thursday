@@ -32,6 +32,13 @@ class MerchantRepository
     end
   end
 
+  def create(attributes)
+    id = create_id
+    attributes[:id] = id
+    merchant = Merchant.new(attributes)
+    @merchants << merchant
+  end
+
   def create_id
     find_highest_id.id + 1
   end
