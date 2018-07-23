@@ -79,4 +79,14 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, item
     assert_equal 'OneThing', item.name
   end
+
+  def test_it_returns_nil_if_item_name_is_invalid
+    item = @item_repository.find_by_name('invalid')
+    assert_nil item
+  end
+
+  def test_item_find_by_name_is_case_insensitive
+    item = @item_repository.find_by_name('tWOThing')
+    assert_equal 'TwoThing', item.name
+  end
 end
