@@ -18,7 +18,10 @@ class ItemRepository
   end
 
   def all
-    @items
+    item_pairs = @items.to_a.flatten
+    item_pairs.keep_if do |thing|
+      thing.is_a?(Item)
+    end
   end
 
   def find_by_id(id)
@@ -75,8 +78,9 @@ class ItemRepository
     item.description = params[:description] unless params[:description].nil?
     item.unit_price = BigDecimal(params[:unit_price], sig_fig) unless params[:unit_price].nil?
     item.updated_at = Time.now
-
-
   end
 
+  def delete(id)
+    @items.delete(id)
+  end
 end
