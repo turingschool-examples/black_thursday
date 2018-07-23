@@ -85,7 +85,20 @@ class MerchantRepositoryTest < Minitest::Test
                     created_at: '2010-12-10',
                     updated_at: '2011-12-04'}
     merchant = @merchant_repository.create(attributes)
-    assert_equal 'Turing School', merchant.name
-    assert_equal 12334114, merchant.id
+    assert_equal 'Turing School', merchant[-1].name
+    assert_equal 12334114, merchant[-1].id
+  end
+
+  def test_it_can_update_merchant_name
+    attributes = {
+      name: 'Shopin2001'
+    }
+    id = 12334105
+    merchant = @merchant_repository.update(id, attributes)
+    expected = @merchant_repository.find_by_id(id)
+    assert_equal 'Shopin2001', expected.name
+    expected = @merchant_repository.find_by_name('Shopin1901')
+    assert_nil expected
+
   end
 end

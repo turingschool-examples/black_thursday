@@ -48,4 +48,9 @@ class MerchantRepository
       merchant.id
     end
   end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    merchant.name = attributes[:name]
+  end
 end
