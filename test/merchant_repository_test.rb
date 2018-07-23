@@ -105,9 +105,10 @@ class MerchantRepositoryTest < Minitest::Test
     id = 12334105
 
     merchant = @merchant_repository.delete(id)
-    expected = @merchant_repository.find_by_name('Shopin1901')
-    expected = @merchant_repository.find_by_id(id)
+    expected_1 = @merchant_repository.find_by_name('Shopin1901')
+    expected_2 = @merchant_repository.find_by_id(id)
 
-    assert_nil expected
+    assert_nil expected_1
+    assert_nil expected_2
   end
 end
