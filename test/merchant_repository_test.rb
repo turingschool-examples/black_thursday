@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/file_loader'
 
@@ -24,7 +23,6 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_find_merchant_by_id
     # skip
-
     assert_instance_of Merchant, @mr.find_by_id(12334112)
   end
 
@@ -41,13 +39,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_merchants_with_matching_name_fragment
     # skip
-    search_1 = @mr.find_all_by_name("M")
+    search_1 = @mr.find_all_by_name('M')
     assert_equal 164, search_1.count
-    # 201 instances of the letter "M", but only 164 objects
-    search_2 = @mr.find_all_by_name("mi")
+    # 201 instances of the letter 'M', but only 164 objects
+    search_2 = @mr.find_all_by_name('mi')
     assert_equal 28, search_2.count
 
-    search_3 = @mr.find_all_by_name("MINI")
+    search_3 = @mr.find_all_by_name('MINI')
     assert_equal 1, search_3.count
   end
 
@@ -74,7 +72,16 @@ class MerchantRepositoryTest < Minitest::Test
 
     updated_merchant_2 = @mr.update(1234, :name => 'uh oh my id is not present')
 
-    assert_nil updated_merchant_2
+    assert_equal 'Record not found.', updated_merchant_2
   end
 
+  def test_it_can_delete_a_merchant_record
+    sample_merchant = @mr.create({:name => 'SampleMerchant'})
+    assert_equal 'SampleMerchant', sample_merchant.name
+    assert_equal 12337412, sample_merchant.id
+    assert_equal 476, @mr.all.count
+
+    @mr.delete(12337412)
+    assert_equal 475, @mr.all.count
+  end
 end
