@@ -18,7 +18,6 @@ class MerchantRepoTest < Minitest::Test
   def test_it_finds_by_id
     mer_repo = MerchantRepo.new
     mer_repo.load_file("./data/merchants.csv")
-    #binding.pry
     assert_instance_of Merchant, mer_repo.find_by_id(12334112)
   end
 end
