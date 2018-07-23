@@ -53,4 +53,11 @@ class MerchantRepository
     merchant = find_by_id(id)
     merchant.name = attributes[:name]
   end
+
+  def delete(id)
+    merchant = @merchants.find_index do |merchant|
+      merchant.id == id
+    end
+    @merchants.delete_at(merchant)
+  end
 end

@@ -99,6 +99,15 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'Shopin2001', expected.name
     expected = @merchant_repository.find_by_name('Shopin1901')
     assert_nil expected
+  end
 
+  def test_it_can_delete_merchant
+    id = 12334105
+
+    merchant = @merchant_repository.delete(id)
+    expected = @merchant_repository.find_by_name('Shopin1901')
+    expected = @merchant_repository.find_by_id(id)
+
+    assert_nil expected
   end
 end
