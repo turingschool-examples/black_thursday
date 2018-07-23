@@ -1,4 +1,11 @@
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+
 class SalesEngine
+
+  attr_reader :items,
+              :merchants
+              
   def self.from_csv(hash)
     SalesEngine.new(hash[:items], hash[:merchants])
   end
