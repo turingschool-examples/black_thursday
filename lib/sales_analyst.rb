@@ -35,13 +35,17 @@ class SalesAnalyst
     ((sum / count_minus_one) ** (1.0/2)).round(2)
   end
 
-  
+  def merchants_with_high_item_count
+    deviation = average_items_per_merchant_standard_deviation
+    average = average_items_per_merchant
+    high_count = deviation + average
 
+    merchant_id_paired_with_count.map do |merchant, count|
+      @sales_engine.merchants.find_by_id(merchant) if count >= high_count
+    end.compact
+  end
 
-
-
-
-
-
-
+  def merchant_id_paired_with_count
+    group_items_by_merchant.keys.zip(count_items_by_merchant)
+  end
 end
