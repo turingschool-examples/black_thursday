@@ -23,12 +23,12 @@ class ItemRepo
     @items
   end
 
-#   def find_by_id(id)
-#     @merchants.find do |merchant|
-#       merchant.id.to_i == id
-#     end
-#   end
-#
+  def find_by_id(id)
+    @items.find do |item|
+      item.id.to_i == id
+    end
+  end
+
 #   def find_by_name(name)
 #     @merchants.find do |merchant|
 #       merchant.name == name

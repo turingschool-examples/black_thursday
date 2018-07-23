@@ -21,13 +21,13 @@ class ItemRepoTest < Minitest::Test
     assert_equal item_repo.items, item_repo.all
   end
 
-#   def test_it_returns_merchant_by_id
-#     mer_repo = MerchantRepo.new
-#     mer_repo.load_file("./data/merchants.csv")
-#     assert_instance_of Merchant, mer_repo.find_by_id(12334159)
-#     refute_instance_of Merchant, mer_repo.find_by_id(0)
-#   end
-#
+  def test_it_returns_items_by_id
+    item_repo = ItemRepo.new
+    item_repo.load_file("./data/items.csv")
+    assert_instance_of Item, item_repo.find_by_id(263396013)
+    refute_instance_of Item, item_repo.find_by_id(0)
+  end
+
 #   def test_it_returns_merchant_by_name
 #     mer_repo = MerchantRepo.new
 #     mer_repo.load_file("./data/merchants.csv")
