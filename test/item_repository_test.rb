@@ -7,42 +7,42 @@ class ItemRepositoryTest < Minitest::Test
     @items =
       [{id: 1,
       name: 'OneThing',
-      description:'a thing that does stuff',
+      description:'a car thing that does stuff',
       unit_price: 1500,
       merchant_id: 1,
       created_at: '2018-07-22',
       updated_at: '2018-07-22'},
       {id: 2,
       name: 'TwoThing',
-      description:'a thing that does stuff',
+      description:'a bike thing that does stuff',
       unit_price: 1300,
       merchant_id: 1,
       created_at: '2018-07-22',
       updated_at: '2018-07-22'},
       {id: 3,
       name: 'ThreeThing',
-      description:'a thing that does stuff',
+      description:'a scooter thing that does stuff',
       unit_price: 1500,
       merchant_id: 2,
       created_at: '2018-01-22',
       updated_at: '2018-07-22'},
       {id: 4,
       name: 'FourThing',
-      description:'a thing that does stuff',
+      description:'a skateboard thing that does stuff',
       unit_price: 1300,
       merchant_id: 2,
       created_at: '2018-03-22',
       updated_at: '2018-07-27'},
       {id: 5,
       name: 'FiveThing',
-      description:'a thing that does stuff',
+      description:'a boat thing that does stuff',
       unit_price: 1500,
       merchant_id: 2,
       created_at: '2018-02-23',
       updated_at: '2018-06-22'},
       {id: 6,
       name: 'SixThing',
-      description:'a thing that does stuff',
+      description:'a kayak thing that does stuff',
       unit_price: 12400,
       merchant_id: 3,
       created_at: '2018-04-22',
@@ -88,5 +88,16 @@ class ItemRepositoryTest < Minitest::Test
   def test_item_find_by_name_is_case_insensitive
     item = @item_repository.find_by_name('tWOThing')
     assert_equal 'TwoThing', item.name
+  end
+
+  def test_find_all_items_with_description
+    items_1 = @item_repository.find_all_with_description('bike')
+    items_2 = @item_repository.find_all_with_description('zzzz')
+    items_3 = @item_repository.find_all_with_description('stuff')
+    assert_equal 'a bike thing that does stuff', items_1.first.description
+    assert_equal ([]), items_2
+    assert_equal 'a car thing that does stuff', items_3.first.description
+    assert_equal 'a kayak thing that does stuff', items_3[-1].description
+    assert_equal 6, items_3.count
   end
 end
