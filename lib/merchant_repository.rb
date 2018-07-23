@@ -1,4 +1,5 @@
 require_relative 'merchant'
+
 class MerchantRepository
 
   def initialize(data_file)
