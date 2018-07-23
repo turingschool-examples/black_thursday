@@ -57,12 +57,17 @@ class MerchantRepo
   #   require "pry"; binding.pry
   # end
   # 
-  # def update(id, attributes)
-  # 
-  # end
-  # 
-  # def delete(id)
-  # 
-  # end
+  def update(id, attributes)
+    
+    
+    merchant_to_change = find_by_id(id)
+    merchant_to_change
+    
+  
+  end
+  
+  def delete(id)
+  
+  end
 end
 
