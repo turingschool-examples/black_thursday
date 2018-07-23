@@ -9,13 +9,13 @@ class ItemRepoTest < Minitest::Test
 
     assert_instance_of ItemRepo, item_repo
   end
-#
-#   def test_it_loads_file
-#     mer_repo = MerchantRepo.new
-#
-#     assert_equal mer_repo.merchants, mer_repo.load_file("./data/merchants.csv")
-#   end
-#
+
+  def test_it_loads_file
+    item_repo = ItemRepo.new
+
+    assert_equal item_repo.items, item_repo.load_file("./data/items.csv")
+  end
+
 #   def test_it_returns_all_merchants
 #     mer_repo = MerchantRepo.new
 #
