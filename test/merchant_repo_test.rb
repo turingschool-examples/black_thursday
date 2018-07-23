@@ -60,7 +60,12 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_deletes_merchant_by_id
+    mer_repo = MerchantRepo.new
+    mer_repo.load_file("./data/merchants.csv")
 
+    mer_repo.delete(12334105)
+
+    assert_equal nil, mer_repo.find_by_id(12334105)
   end
 
 end

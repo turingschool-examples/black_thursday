@@ -1,4 +1,5 @@
 require 'csv'
+require "pry"
 
 class MerchantRepo
   attr_reader :merchants
@@ -50,6 +51,19 @@ class MerchantRepo
     @merchants << merchant_new
   end
 
+  def update(id, attributes)
+    merchant_to_change = find_by_id(id)
+    merchant_to_change.name = attributes  #how are attributes passed? In what form
+  end
+
+  def delete(id)
+    merchant_to_change = find_by_id(id)
+    @merchants.delete(merchant_to_change)
+    binding.pry
+  end
+end
+
+
   # def sort_them
   #   sorted_merchants = @merchants.sort_by do |merchant|
   #     merchant.id
@@ -57,12 +71,3 @@ class MerchantRepo
   #   require "pry"; binding.pry
   # end
   #
-  def update(id, attributes)
-    merchant_to_change = find_by_id(id)
-    merchant_to_change.name = attributes  #how are attributes passed? In what form
-  end
-  #
-  # def delete(id)
-  #
-  # end
-end
