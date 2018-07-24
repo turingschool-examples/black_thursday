@@ -23,4 +23,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal @invoice_1, @invoice_repository.find_by_id(6)
     assert_equal nil, @invoice_repository.find_by_id(10)
   end
+
+  def test_it_finds_by_customer_id
+    assert_equal [@invoice_1], @invoice_repository.find_all_by_customer_id(26)
+    assert_equal [], @invoice_repository.find_all_by_customer_id(10000)
+  end
+
 end
