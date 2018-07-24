@@ -15,13 +15,28 @@ class MerchantRepository
     end 
   end
 
-  def find_by_id(id) 
+  def find_by_id(id)
+    @all.find do |object|
+      object.id == id 
+    end 
   end
+  
+  def find_by_name(name)
+    @all.find do |object|
+      object.name.downcase == name.downcase 
+    end 
+  end 
+  
+  def find_all_by_name(name)
+    #find_all_by_name(name) - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
+    @all.find_all do |object| 
+      object.name.downcase.include?(name.downcase)
+    end 
+  end 
 end 
-
-# mr = MerchantRepository.new("./data/merchants.csv")
-# mr.create_all_from_csv("./data/merchants.csv")
-# p mr.all[1]
-# p mr.all.count 
-# puts mr.merchants 
+# 
+# mr = MerchantRepository.new("./data/dummy_merchants.csv")
+# mr.create_all_from_csv("./data/dummy_merchants.csv")
+# p mr.find_by_id("12334112")
+# p mr.find_all_by_name("Candi")
 

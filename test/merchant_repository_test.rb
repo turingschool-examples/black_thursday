@@ -11,7 +11,7 @@ class MerchantRepositoryTest < Minitest::Test
     :items     => "./data/dummy_items.csv",
     :merchants => "./data/dummy_merchants.csv",
      })
-    mr = MerchantRepository.create_all_from_csv(se.csv_hash[:merchants])
+    mr = MerchantRepository.new(se.csv_hash[:merchants])
     
     assert_instance_of MerchantRepository, mr 
   end 
