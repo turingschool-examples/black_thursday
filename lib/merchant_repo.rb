@@ -1,5 +1,4 @@
 class MerchantRepo
-
   attr_accessor :merchants
 
   def initialize
@@ -33,8 +32,8 @@ class MerchantRepo
     max_merchant_id = @merchants.max_by do |merchant|
       merchant[:id]
     end
-    max_num = max_merchant_id[:id] + 1
-    merchant_new.id = max_num
+    new_max_id = max_merchant_id[:id] + 1
+    merchant_new.id = new_max_id
     @merchants << merchant_new
     return merchant_new
   end
