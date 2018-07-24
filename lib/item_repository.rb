@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'pry'
 
 class ItemRepository
 
@@ -28,13 +29,13 @@ class ItemRepository
 
   def find_all_with_description(description)
     @items.find_all do |item|
-      item.description.include?(description)
+      item.description.downcase.include?(description.downcase)
     end
   end
 
   def find_all_by_price(price)
-    @items.find_all do |item|
-      item.unit_price_to_dollars == price.to_f
+     @items.find_all do |item|
+      item.unit_price == price
     end
   end
 

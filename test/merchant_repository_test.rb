@@ -24,6 +24,13 @@ class MerchantRespositoryTest < Minitest::Test
     assert_equal [], merchant_repository.all
   end
 
+  def test_it_stores_all_merchants
+    expected = 475
+    result = @merchant_repository.all
+
+    assert_equal expected, result
+  end
+
   def test_we_can_find_a_merchant_by_id
     id = 12334105
     result = @merchant_repository.find_by_id(id).id
