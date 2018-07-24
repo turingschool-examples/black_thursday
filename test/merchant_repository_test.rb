@@ -46,7 +46,7 @@ class MerchantRepositoryTest < Minitest::Test
     created1 = @mr.create(id: 5, name: 'Turing School')
     created2 = @mr.create(id: 12, name: 'turing store')
     created3 = @mr.create(id: 888, name: 'BoutiqueTuring')
-    created4 = @mr.create(id: 1115, name: 'Kmart')
+    @mr.create(id: 1115, name: 'Kmart')
 
     expected = [created1, created2, created3]
 
@@ -63,9 +63,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_merchants
-    @mr.create(id: 5, name: 'Turing School')
-    @mr.delete(5)
+    created = @mr.create(id: 5, name: 'Turing School')
 
-    assert_nil @mr.find_by_id(5)
+    assert_equal created, @mr.delete(5)
+    assert_equal [], @mr.all
   end
 end

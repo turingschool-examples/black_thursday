@@ -5,34 +5,38 @@ require './lib/merchant'
 # Merchant repository class
 class MerchantRepository
   def initialize
-    @merchants = []
+    @merchants = {}
   end
 
   def create(params)
     Merchant.new(params).tap do |merchant|
-      @merchants << merchant
+      @merchants[params[:id]] = merchant
     end
   end
 
   def all
-    @merchants
+    merchant_pairs = @merchants.to_a.flatten
+    merchant_pairs.keep_if do |element|
+      element.is_a?(Merchant)
+    end
   end
 
   def find_by_id(id)
-    @merchants.find do |merchant|
-      merchant.id == id
-    end
+    @merchants.fetch(id)
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
+    @merchants.find do |_, merchant|
       merchant.name.downcase == name.downcase
-    end
+    end.last
   end
 
   def find_all_by_name(name)
-    @merchants.find_all do |merchant|
+    merchant_pairs = @merchants.find_all do |_, merchant|
       merchant.name.downcase.include?(name.downcase)
+    end.flatten
+    merchant_pairs.keep_if do |element|
+      element.is_a?(Merchant)
     end
   end
 
@@ -44,7 +48,6 @@ class MerchantRepository
   end
 
   def delete(id)
-    merchant = find_by_id(id)
-    @merchants.delete(merchant)
+    @merchants.delete(id)
   end
 end
