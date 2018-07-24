@@ -3,8 +3,8 @@ require_relative '../lib/invoice.rb'
 
 class InvoiceTest < Minitest::Test
 
-  def test_it_exists
-    invoice = Invoice.new({
+  def setup
+    @invoice = Invoice.new({
       :id          => 6,
       :customer_id => 7,
       :merchant_id => 8,
@@ -12,9 +12,14 @@ class InvoiceTest < Minitest::Test
       :created_at  => Time.now,
       :updated_at  => Time.now,
     })
-
-    assert_instance_of Invoice, invoice
   end
 
+  def test_it_exists
+    assert_instance_of Invoice, @invoice
+  end
+
+  def test_it_has_an_id
+    assert_equal 6, @invoice.id
+  end
 
 end
