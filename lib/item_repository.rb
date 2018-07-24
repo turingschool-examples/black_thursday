@@ -4,7 +4,7 @@ require 'pry'
 
 class ItemRepository
 
-  attr_reader :items
+  attr_accessor :items
 
   def initialize(items = [])
       @items = items
