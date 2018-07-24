@@ -33,4 +33,8 @@ class SalesEngineTest < Minitest::Test
     assert_equal 'Item Repellat Dolorum', item.name
   end
 
+  def test_it_creates_analyst
+    result = @se.analyst
+    assert_instance_of SalesAnalyst, result
+  end
 end
