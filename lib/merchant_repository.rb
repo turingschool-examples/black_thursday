@@ -33,9 +33,9 @@ class MerchantRepository
     Merchant
   end
 
-  # def create(attributes)
-  #   all << child_class.create(attributes)
-  # end
+  def create(attributes)
+    all << child_class.create(attributes)
+  end
 
   def update(id, attributes)
     merchant = find_by_id(id)
