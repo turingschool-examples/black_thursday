@@ -1,3 +1,7 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
+require 'pry'
+
 class ItemRepository
   def initialize(items)
     @items = items
@@ -26,14 +30,19 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
+    if price.class != BigDecimal
+      price = (price / 100.00).to_s.to_d
+    end
     @items.find_all do |item|
       item.unit_price == price
+      binding.pry
     end
+
   end
 
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
-      range.include?(item.unit_price)
+      range.include?(item.unit_price.to_f * 100)
     end
   end
 
@@ -53,9 +62,15 @@ class ItemRepository
 
   def update(id, attributes)
     if find_by_id(id)
-      find_by_id(id).name = attributes[:name]
-      find_by_id(id).description = attributes[:description]
-      find_by_id(id).unit_price = attributes[:unit_price]
+      if attributes.key?(:name)
+        find_by_id(id).name = attributes[:name]
+      end
+      if attributes.key?(:description)
+        find_by_id(id).description = attributes[:description]
+      end
+      if attributes.key?(:unit_price)
+        find_by_id(id).unit_price = attributes[:unit_price]
+      end
       find_by_id(id).updated_at = Time.now
     end
   end
