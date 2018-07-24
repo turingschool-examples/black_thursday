@@ -9,8 +9,8 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @repository.find do |item|
-      item..description == description
+    @repository.find_all do |item|
+      item.description == description
     end
   end
 end
