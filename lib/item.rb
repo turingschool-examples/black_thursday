@@ -5,10 +5,7 @@ class Item
 
   attr_accessor :attributes
 
-
-
-
-  def initialize(item_data = {})
+  def initialize(item_data)
     @attributes = {id:          item_data[:id],
                   name:         item_data[:name],
                   description:  item_data[:description],
@@ -49,5 +46,5 @@ class Item
   def unit_price_in_dollars
     unit_price.to_f
   end
-  
+
 end
