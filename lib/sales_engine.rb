@@ -6,35 +6,27 @@ require_relative 'item'
 require_relative 'sales_analyst'
 
 class SalesEngine
-  def self.from_csv(information_and_location)
-    items = information_and_location[:items]
-    merchants = information_and_location[:merchants]
-    SalesEngine.new(items, merchants)
-  end
-
-  def initialize(items, merchants)
-    @items = items
-    @merchants = merchants
-  end
-
-  def items
+  def self.from_csv(file_hash)
     items = []
-    CSV.foreach(@items, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(file_hash[:items], headers: true, header_converters: :symbol) do |row|
       items << Item.new(row)
     end
-    ItemRepository.new(items)
-  end
-
-  def merchants
     merchants = []
-    CSV.foreach(@merchants, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(file_hash[:merchants], headers: true, header_converters: :symbol) do |row|
       merchants << Merchant.new(row)
     end
-    MerchantRepository.new(merchants)
+    SalesEngine.new(items, merchants)
+  end
+  attr_reader :items,
+              :merchants
+
+  def initialize(items, merchants)
+    @items = ItemRepository.new(items)
+    @merchants = MerchantRepository.new(merchants)
   end
 
   def analyst
-    SalesAnalyst.new(items, merchants)
+    SalesAnalyst.new(@items, @merchants)
   end
 
 end
