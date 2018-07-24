@@ -10,7 +10,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     @repository.find_all do |item|
-      item.description == description
+      item.description.downcase.include?(description.downcase)
     end
   end
   #
@@ -50,5 +50,8 @@ class ItemRepository
       item.merchant_id == id
     end
   end
-   # *update(id, attributes) - update the Item instance with the corresponding id with the provided attributes. Only the item’s name, desription, and unit_price attributes can be updated. This method will also change the items updated_at attribute to the current time.
+
+  def inspect
+  "#<#{self.class} #{@items.size} rows>"
+  end
 end
