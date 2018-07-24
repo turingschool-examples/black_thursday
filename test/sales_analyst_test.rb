@@ -20,4 +20,9 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_create_instance_of_sales_engine
     assert_instance_of SalesEngine, @se
   end
+
+  # def test_it_can_find_average_items_per_merchant
+  #   assert_equal , sa.average_items_per_merchant
+  #
+  # end
 end
