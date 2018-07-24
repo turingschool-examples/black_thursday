@@ -10,7 +10,7 @@ class Item
     @id = hash[:id].to_i
     @name = hash[:name]
     @description = hash[:description]
-    @unit_price = BigDecimal.new(hash[:unit_price])
+    @unit_price = BigDecimal(hash[:unit_price]) / 100
     @created_at = Time.new(hash[:created_at])
     @updated_at = Time.new(hash[:updated_at])
     @merchant_id = hash[:merchant_id].to_i
@@ -25,7 +25,7 @@ class Item
 
   def self.create(attributes)
     item_id = @@highest_item_id += 1
-    Item.new({id: item_id,
+    new({id: item_id,
               name: attributes[:name],
               description: attributes[:description],
               unit_price: attributes[:unit_price],

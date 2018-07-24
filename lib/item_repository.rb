@@ -1,7 +1,8 @@
 require 'bigdecimal'
+require 'pry'
 
 class ItemRepository
-  
+
   def initialize
     @items = []
   end
@@ -33,9 +34,8 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @items.find_all do |item|
+     @items.find_all do |item|
       item.unit_price == price
-      require 'pry' ; binding.pry
     end
   end
 
