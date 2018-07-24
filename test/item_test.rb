@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
       id:          1,
       name:        "Pencil",
       description: "You can use it to write things",
-      unit_price:  "1099",
+      unit_price:  "1200",
       created_at:  Time.now,
       updated_at:  Time.now,
       merchant_id: 2
@@ -30,7 +30,7 @@ class ItemTest < Minitest::Test
     assert_equal 1, item.id
     assert_equal "Pencil", item.name
     assert_equal "You can use it to write things", item.description
-    assert_equal "1099", item.unit_price
+    assert_equal 12, item.unit_price.to_i
     assert_equal Time, item.created_at.class
     assert_equal Time, item.updated_at.class
     assert_equal 2, item.merchant_id
@@ -39,9 +39,7 @@ class ItemTest < Minitest::Test
   def test_can_convert_price_to_dollars
     item = Item.new(@info)
 
-    assert_equal 10.99, item.unit_price_to_dollars
-    @info[:unit_price] = "10.99"
-    assert_equal 10.99, item.unit_price_to_dollars
+    assert_equal 12.00, item.unit_price_to_dollars
   end
 
 
