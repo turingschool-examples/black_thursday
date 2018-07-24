@@ -7,7 +7,8 @@ class Invoice
               :customer_id,
               :merchant_id,
               :status,
-              :created_at
+              :created_at,
+              :updated_at
 
   def initialize(information)
     @id = information[:id].to_i
