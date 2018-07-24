@@ -1,9 +1,12 @@
 # frozen_string_literals: true
 
 require 'bigdecimal'
+require_relative 'repository'
+require_relative 'item'
 
 # ./lib/item_repository
 class ItemRepository
+  include Repository
   attr_reader :items
 
   def initialize
@@ -11,19 +14,11 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 
   def all
     @items
-  end
-
-  def find_by_id(search_id)
-    @items.find { |item| item.id == search_id }
-  end
-
-  def find_by_name(search_name)
-    @items.find { |item| item.name == search_name }
   end
 
   def find_all_with_description(partial_description)
@@ -51,8 +46,12 @@ class ItemRepository
     @items << Item.new(attributes)
   end
 
+  def child_class
+    Item
+  end
+
   def create(attributes)
-    @items << Item.create(attributes)
+    all << child_class.create(attributes)
   end
 
   def update(id, attributes)
@@ -64,7 +63,4 @@ class ItemRepository
     item.updated_at = Time.now
   end
 
-  def delete(id)
-    @items.delete(find_by_id(id))
-  end
 end
