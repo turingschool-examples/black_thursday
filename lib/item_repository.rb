@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'pry'
 require_relative './item'
+require 'time'
 require 'bigdecimal'
 
 # Item repository class
@@ -11,6 +12,9 @@ class ItemRepository
 
   def populate_from_csv(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+      row[:unit_price] = BigDecimal(row[:unit_price].dup.insert(-3, '.'))
+      row[:created_at] = Time.parse(row[:created_at])
+      row[:updated_at] = Time.parse(row[:updated_at])
       create(row)
     end
   end
@@ -36,9 +40,9 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @items.find do |_, item|
+    all.find do |item|
       item.name.downcase == name.downcase
-    end.last
+    end
   end
 
   def find_all_with_description(input)
@@ -51,8 +55,9 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
+    float_price = price.to_f
     found_items = @items.find_all do |_, item|
-      item.unit_price == price
+      item.unit_price_to_dollars == float_price
     end.flatten
     found_items.keep_if do |thing|
       thing.is_a?(Item)
@@ -78,6 +83,7 @@ class ItemRepository
   end
 
   def update(id, params)
+    return nil unless @items.key?(id)
     sig_fig = params[:unit_price].to_s.size - 1
 
     item = find_by_id(id)
