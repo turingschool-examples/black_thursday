@@ -1,22 +1,27 @@
 require_relative './file_loader'
 require_relative './merchant_repository'
-# require_relative './item_repository'
+require_relative './item_repository'
 
 class SalesEngine
-  attr_reader     :location
+  attr_reader     :file_path
 
-  def self.from_csv(location)
-    SalesEngine.new(location)
+  def self.from_csv(file_path)
+    SalesEngine.new(file_path)
   end
 
-  def initialize(location)
-    @file_loader = FileLoader.new(location)
-    @location = location
+  def initialize(file_path)
+    @file_loader = FileLoader.new(file_path)
+    @file_path = file_path
   end
 
   def merchants
-    merchant_location = @file_loader.builder(location[:merchants])
-    @merchants ||= MerchantRepository.new(merchant_location)
+    merchant_file_path = @file_loader.builder(file_path[:merchants])
+    @merchants ||= MerchantRepository.new(merchant_file_path)
+  end
+
+  def items
+    item_file_path = @file_loader.builder(file_path[:items])
+    @items ||= ItemRepository.new(item_file_path)
   end
 
 
