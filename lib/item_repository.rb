@@ -14,7 +14,6 @@ class ItemRepository
     end
   end
   #
-
   def find_all_by_price(price)
     @repository.find_all do |item|
       item.unit_price_to_dollars == price.to_f
@@ -34,15 +33,12 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    if item = find_by_id(id)
+      item = find_by_id(id)
+      return if item.nil?
       item.name = attributes[:name]
       item.description = attributes[:description]
       item.unit_price = attributes[:unit_price]
       item.updated_at = Time.now
-      item
-    else
-      'Record not found.'
-    end
   end
 
   def inspect
