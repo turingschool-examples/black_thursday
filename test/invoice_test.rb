@@ -30,4 +30,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 8, @invoice.merchant_id
   end
 
+  def test_it_has_a_status
+    assert_equal "pending", @invoice.status
+  end
+
 end
