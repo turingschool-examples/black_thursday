@@ -66,7 +66,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_create_new_item_with_attributes
-    new_item_added = @item_repository.create("pots", "shiny", "1000", "5555")
+    new_item_added = @item_repository.create({name: "pots", description: "shiny", unit_price: "1000", merchant_id: "5555"})
     expected = @item_repository.items[-1]
     actual = new_item_added.last
     assert_equal expected, actual
@@ -79,7 +79,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_attributes
-    @item_repository.create("pots", "shiny", 1099, "5555")
+    @item_repository.create({name: "pots", description: "shiny", unit_price: "1099", merchant_id: "5555"})
     new_item = @item_repository.items.last
 
     last_item_name = new_item.name
@@ -90,12 +90,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "shiny", last_item_description
     assert_equal 10.99, last_item_price
 
-    @item_repository.update(263567475, "chicken", "fat", "12")
+    @item_repository.update(263567475, {name: "chicken", description: "fat", unit_price: 12.00})
     changed_item = @item_repository.items.last
 
     assert_equal "chicken", changed_item.name
     assert_equal "fat", changed_item.description
-    assert_equal "12", changed_item.unit_price
+    assert_equal 12.0, changed_item.unit_price
 
     assert_equal new_item.id, changed_item.id
   end
