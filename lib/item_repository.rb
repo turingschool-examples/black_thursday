@@ -1,3 +1,5 @@
+require_relative 'item'
+
 class ItemRepository
   def initialize(item_data)
     @item_rows ||= build_item(item_data)
@@ -80,5 +82,9 @@ class ItemRepository
       item.id == id
     end
     @items.delete_at(item)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
