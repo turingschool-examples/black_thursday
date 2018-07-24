@@ -16,4 +16,10 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_status(status)
+    @list.find_all do |invoice|
+      invoice.status == status
+    end
+  end
+  
 end

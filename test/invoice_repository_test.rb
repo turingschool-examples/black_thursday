@@ -33,4 +33,9 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [@invoice_2], @invoice_repository.find_all_by_merchant_id(2289)
     assert_equal [], @invoice_repository.find_all_by_merchant_id(3)
   end
+
+  def test_it_finds_by_status
+    assert_equal @invoices, @invoice_repository.find_all_by_status("pending")
+    assert_equal [], @invoice_repository.find_all_by_status("complete")
+  end
 end
