@@ -38,4 +38,15 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal @invoices, @invoice_repository.find_all_by_status("pending")
     assert_equal [], @invoice_repository.find_all_by_status("complete")
   end
+
+  def test_it_creates_new_invoice
+    attributes = ({:id => 2, :customer_id => 26, :merchant_id => 1355, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+
+    assert_equal 3, @invoice_repository.all.count
+    
+    @invoice_repository.create(attributes)
+
+    assert_equal 4, @invoice_repository.all.count
+  end
+
 end

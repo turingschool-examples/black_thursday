@@ -21,5 +21,11 @@ class InvoiceRepository
       invoice.status == status
     end
   end
-  
+
+  def create(attributes)
+    highest_invoice_id = find_highest_id
+    attributes[:id] = highest_invoice_id.id + 1
+    @list << Invoice.new(attributes)
+  end
+
 end
