@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'pry'
-require './lib/item'
+require_relative './item'
 require 'bigdecimal'
 
 # Item repository class
@@ -82,5 +82,9 @@ class ItemRepository
 
   def delete(id)
     @items.delete(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'csv'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative './merchant_repository'
+require_relative './item_repository'
 
 class SalesEngine
   attr_reader :items

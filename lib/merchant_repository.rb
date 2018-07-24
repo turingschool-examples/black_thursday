@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './lib/merchant'
+require_relative './merchant'
 
 # Merchant repository class
 class MerchantRepository
@@ -15,6 +15,8 @@ class MerchantRepository
   end
 
   def create(params)
+    params[:id] = @merchants.max[0] + 1 if params[:id].nil?
+
     Merchant.new(params).tap do |merchant|
       @merchants[params[:id].to_i] = merchant
     end
@@ -55,5 +57,9 @@ class MerchantRepository
 
   def delete(id)
     @merchants.delete(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
