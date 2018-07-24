@@ -31,12 +31,6 @@ class ItemRepository
     end
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @list.find_all do |item|
-      item.merchant_id == merchant_id
-    end
-  end
-
   def create(attributes)
     highest_item_id = @list.max_by do |item|
       item.id

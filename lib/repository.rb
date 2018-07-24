@@ -16,6 +16,12 @@ module Repository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    @list.find_all do |list_item|
+      list_item.merchant_id == merchant_id
+    end
+  end
+
   def delete(id)
     @list.reject! do |list_item|
       list_item.id == id
@@ -25,5 +31,4 @@ module Repository
   def inspect
     "#<#{self.class} #{@list.size} rows>"
   end
-
 end
