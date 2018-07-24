@@ -20,4 +20,10 @@ class SalesEngine
       merchant_repo.populate_from_csv(@filepaths[:merchants])
     end
   end
+
+  def items
+    @items ||= ItemRepository.new.tap do |item_repo|
+      item_repo.populate_from_csv(@filepaths[:items])
+    end
+  end
 end

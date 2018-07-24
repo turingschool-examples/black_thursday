@@ -9,6 +9,12 @@ class ItemRepository
     @items = {}
   end
 
+  def populate_from_csv(filepath)
+    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+      create(row)
+    end
+  end
+
   def create(params)
     params[:id] = @items.max[0] + 1 if params[:id].nil?
 
