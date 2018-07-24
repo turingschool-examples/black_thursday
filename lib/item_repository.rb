@@ -60,8 +60,9 @@ class ItemRepository
     end
   end
 
-  def create(item_name, item_description, unit_price, merchant_id)
-    @items << Item.new({name: item_name, description: item_description, id: create_id, unit_price: unit_price, created_at: Time.now, updated_at: Time.now, merchant_id: merchant_id})
+  def create(attributes)
+    attributes[:id] = create_id
+    @items << Item.new(attributes)
   end
 
   def create_id
