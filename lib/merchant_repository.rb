@@ -1,4 +1,5 @@
 require 'csv'
+
 require './lib/merchant.rb'
 class MerchantRepository 
   
@@ -33,10 +34,8 @@ class MerchantRepository
       object.name.downcase.include?(name.downcase)
     end 
   end 
-end 
-# 
-# mr = MerchantRepository.new("./data/dummy_merchants.csv")
-# mr.create_all_from_csv("./data/dummy_merchants.csv")
-# p mr.find_by_id("12334112")
-# p mr.find_all_by_name("Candi")
 
+  def all
+    @merchants
+  end
+end
