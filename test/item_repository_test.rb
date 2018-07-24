@@ -68,7 +68,7 @@ class ItemRepositoryTest < Minitest::Test
     sour_creamy = @item_repo.find_by_id(263395237)
     assert_equal sour_creamy.name, "Sour Cream"
     assert_equal sour_creamy.description, "Creamy, white, sour"
-    assert_equal sour_creamy.unit_price_to_dollars, 2.99
+    assert_equal sour_creamy.unit_price_to_dollars, 299.0
   end
 
   def test_it_can_delete_an_item

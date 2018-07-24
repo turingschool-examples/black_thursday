@@ -6,16 +6,9 @@ class MerchantRepository
 
   attr_reader :merchants
 
-  def initialize(merchants_location)
-      @merchants_location = merchants_location
-      @merchants = []
-      load_csv
-  end
-
-  def load_csv
-    CSV.foreach(@merchants_location, headers: true, header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
-    end
+  def initialize(merchants_array = [])
+      @merchants = merchants_array
+      # binding.pry
   end
 
   def all
