@@ -12,7 +12,7 @@ class SalesEngine
     @merchants = MerchantRepository.new(csv_hash[:merchants])
   end
 
-  def from_csv(csv_hash)
+  def self.from_csv(csv_hash)#pass in result of read_from_csv
     SalesEngine.new(csv_hash)
   end
 end

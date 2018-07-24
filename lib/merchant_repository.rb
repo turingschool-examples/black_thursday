@@ -1,22 +1,27 @@
 require 'csv'
+require './lib/merchant.rb'
 class MerchantRepository 
-  def initialize#(merchants_file)
-    @merchants = []
+  
+  attr_reader     :filepath,
+                  :all 
+  def initialize(filepath)
+    @filepath = filepath
+    @all = []
   end 
   
-  def create_merchants_from_csv 
-    CSV.foreach('./data/merchants.csv', headers: true, header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
+  def create_all_from_csv(filepath)
+    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+      @all << Merchant.new(row)
     end 
   end
-  
-  def all 
-    @merchants 
-  end 
-  
+
   def find_by_id(id) 
   end
 end 
 
-mr = MerchantRepository.new
+# mr = MerchantRepository.new("./data/merchants.csv")
+# mr.create_all_from_csv("./data/merchants.csv")
+# p mr.all[1]
+# p mr.all.count 
+# puts mr.merchants 
 
