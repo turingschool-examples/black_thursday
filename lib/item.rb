@@ -10,7 +10,7 @@ class Item
                   :updated_at
 
   def initialize(info)
-    @id = info[:id]
+    @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
     @unit_price = info[:unit_price]
@@ -18,7 +18,7 @@ class Item
     #Time.parse
     @updated_at = info[:updated_at]
     #Time.parse
-    @merchant_id = info[:merchant_id]
+    @merchant_id = info[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
