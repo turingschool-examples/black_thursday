@@ -49,8 +49,6 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     @items.find_all_by_merchant_id(id)
-
-    binding.pry
   end
 
 end
