@@ -33,7 +33,6 @@ class ItemRepository
     end
   end
 
-
   def create_new_id_number
     max_id = @repository.max_by(&:id).id
     new_id = max_id + 1
