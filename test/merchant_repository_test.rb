@@ -57,7 +57,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_create_new_merchant_with_attributes
-    new_merchant_added = @merchant_repository.create("Bill Nye")
+    new_merchant_added = @merchant_repository.create({name: "Bill Nye"})
     expected = @merchant_repository.merchants[-1]
     actual = new_merchant_added.last
     assert_equal expected, actual
@@ -67,7 +67,7 @@ class MerchantRepositoryTest < Minitest::Test
     last_merchant = @merchant_repository.merchants[-1].name
     assert_equal "CJsDecor", last_merchant
 
-    renamed_merchant = @merchant_repository.update(12337411, "Eric LaSalle")
+    renamed_merchant = @merchant_repository.update(12337411, {name: "Eric LaSalle"})
     assert_equal "Eric LaSalle", renamed_merchant
   end
 

@@ -42,7 +42,7 @@ class MerchantRepository
   end
 
   def create(merchant_name)
-    @merchants << Merchant.new({name: merchant_name, id: create_id, created_at: Time.now, updated_at: Time.now})
+    @merchants << Merchant.new({name: merchant_name[:name], id: create_id, created_at: Time.now, updated_at: Time.now})
   end
 
   def create_id
@@ -54,7 +54,11 @@ class MerchantRepository
   end
 
   def update(id, new_name)
-    find_by_id(id).name = new_name
+    if find_by_id(id) != nil
+      find_by_id(id).name = new_name[:name]
+    else
+      nil
+    end
   end
 
   def delete(id)

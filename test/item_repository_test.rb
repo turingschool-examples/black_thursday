@@ -46,14 +46,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price
-    expected = 50
-    actual = @item_repository.find_all_by_price(1200).count
+    price = BigDecimal.new(25)
+    expected = 79
+    actual = @item_repository.find_all_by_price(price).count
+    # binding.pry
     assert_equal expected, actual
   end
 
   def test_it_can_find_all_by_price_in_range
-    expected = 247
-    actual = @item_repository.find_all_by_price_in_range(1200..2000).count
+    expected = 205
+    actual = @item_repository.find_all_by_price_in_range(10.00..15.00).count
     assert_equal expected, actual
   end
 
@@ -77,16 +79,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_attributes
-    @item_repository.create("pots", "shiny", "1000", "5555")
+    @item_repository.create("pots", "shiny", 1099, "5555")
     new_item = @item_repository.items.last
 
     last_item_name = new_item.name
     last_item_description = new_item.description
     last_item_price = new_item.unit_price
-
+    # binding.pry
     assert_equal "pots", last_item_name
     assert_equal "shiny", last_item_description
-    assert_equal "1000", last_item_price
+    assert_equal 10.99, last_item_price
 
     @item_repository.update(263567475, "chicken", "fat", "12")
     changed_item = @item_repository.items.last
