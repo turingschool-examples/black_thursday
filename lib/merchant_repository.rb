@@ -30,6 +30,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
+    return nil unless @merchants.key?(id)
     @merchants.fetch(id)
   end
 
