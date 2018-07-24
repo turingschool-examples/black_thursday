@@ -33,6 +33,17 @@ class ItemRepository
     end
   end
 
+
+  def create_new_id_number
+    max_id = @repository.max_by(&:id).id
+    new_id = max_id + 1
+  end
+
+  def create(attributes)
+    new_id = create_new_id_number
+    attributes[:id] = new_id
+     @repository << Item.new(attributes)
+
   def update(id, attributes)
     if item = find_by_id(id)
       item.name = attributes[:name]
@@ -43,6 +54,7 @@ class ItemRepository
     else
       'Record not found.'
     end
+
   end
 
   def inspect

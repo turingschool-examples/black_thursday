@@ -102,5 +102,26 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal [@irepo.all[0]], search
   end
 
+  def test_new_id
+    result = @irepo.create_new_id_number
+    expected = 5
+    assert_equal expected, result
+  end
+
+
+  def test_create
+    new_item = @irepo.create(
+    :id         => 6,
+    :name        => "Test",
+    :description => "Test Description",
+    :unit_price  => BigDecimal.new(100.00,5),
+    :created_at  => Time.now,
+    :updated_at  => Time.now,
+    :merchant_id => 55555)
+    assert_instance_of Item, new_item[-1]
+    result = "Test"
+    expected = @irepo.all.last.name
+    assert_equal expected, result
+  end
 
 end
