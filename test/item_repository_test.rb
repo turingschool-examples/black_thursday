@@ -39,7 +39,7 @@ class ItemRepositoryTest < MiniTest::Test
     :created_at  => Time.now,
     :updated_at  => Time.now,
     :merchant_id => 44444}
-    ] 
+    ]
 
     @irepo = ItemRepository.new(@mock_data)
   end
@@ -50,39 +50,27 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_return_all_items
-    skip
-    assert_equal 1367, @irepo.all.count
-    assert_instance_of Item, @irepo.all[20]
-    assert_instance_of Item, @irepo.all[99]
-    assert_instance_of Item, @irepo.all[1366]
+    # skip
+    assert_equal 4, @irepo.all.count
+    assert_equal "stationary set", @irepo.all[1].name
+    assert_equal "Ruby Studded Shades", @irepo.all[3].name
   end
 
   def test_test_it_can_find_item_by_id
-    skip
-    item = @irepo.find_by_id(263395237)
-    assert_equal '510+ RealPush Icon Set', item.name
-    assert_equal 263395237, item.id
-    assert_equal 12334141, item.merchant_id
-    assert_equal Time.parse('2016-01-11 09:34:06 UTC'), item.created_at
+    # skip
+    assert_equal @irepo.all[0], @irepo.find_by_id(1)
+    assert_equal @irepo.all[3], @irepo.find_by_id(4)
   end
 
   def test_test_it_can_find_item_by_name
-    skip
-    search_1 = @irepo.find_by_name("Glitter scrabble frames")
-    item_1 = @irepo.find_by_id(263395617)
-
-    assert_equal item_1, search_1
-
-    search_2 = @irepo.find_by_name('Wooden pen and stand')
-    item_2 = @irepo.find_by_id(263397843)
-
-    assert_equal item_2, search_2
+    # skip
+    assert_equal @irepo.all[1], @irepo.find_by_name("stationary set")
+    assert_equal @irepo.all[2], @irepo.find_by_name("GlitterPens")
   end
 
   def test_find_by_description
-    skip
-    search = @irepo.find_by_name("Glitter scrabble frames")
-    assert_equal @irepo.repository[1], @irepo.find_all_with_description("Glitter scrabble frames \n\nAny colour glitter \nAny wording\n\nAvailable colour scrabble tiles\nPink\n
-      Blue\nBlack\nWooden")
+    # skip
+    search = @irepo.find_all_with_description("Make It Sparkle")
+    assert_equal [@irepo.all[2]], search
   end
 end
