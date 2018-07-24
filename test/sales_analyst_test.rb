@@ -49,6 +49,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_average_price_for_specific_merchant
+    skip
     actual = @sales_analyst.average_item_price_for_merchant(12334193)
     expected = 29.99
 
