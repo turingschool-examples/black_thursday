@@ -8,17 +8,20 @@ require_relative './merchant'
 require_relative './merchant_repository'
 require_relative './sales_analyst'
 require_relative './invoice_item_repository'
-
+require_relative './transaction_repository'
+require_relative './transaction'
 # ./lib/sales_engine
 class SalesEngine
   attr_accessor :merchant_repository,
                 :item_repository,
-                :invoice_item_repository
+                :invoice_item_repository,
+                :transaction_repository
 
   def initialize
     @merchant_repository = nil
     @item_repository = nil
     @invoice_item_repository = nil
+    @transaction_repository = nil
   end
 
   def self.from_csv(data)
@@ -26,6 +29,7 @@ class SalesEngine
     sales_engine.merchant_repository = sales_engine.merchant_builder(data[:merchants])
     sales_engine.item_repository = sales_engine.item_builder(data[:items])
     sales_engine.invoice_item_repository = sales_engine.invoice_item_builder(data[:invoice_items])
+    sales_engine.transaction_repository = sales_engine.transaction_builder(data[:transactions])
     sales_engine
   end
 
@@ -39,6 +43,10 @@ class SalesEngine
 
   def invoice_items
     @invoice_item_repository
+  end
+
+  def transactions
+    @transaction_repository
   end
 
   def csv_reader(csv)
@@ -78,7 +86,7 @@ class SalesEngine
     invoice_item_repository = InvoiceItemRepository.new
     array = csv_reader(item_data)
     array.each do |invoice|
-      invoice_item_repository.create_with_id(id: invoice[0].to_i,
+      invoice_item_repository.create_with_id(id: invoice[0],
                                              item_id: invoice[1],
                                              invoice_id: invoice[2],
                                              quantity: invoice[3],
@@ -87,6 +95,21 @@ class SalesEngine
                                              updated_at: invoice[6])
     end
     invoice_item_repository
+  end
+
+  def transaction_builder(item_data)
+    transaction_repository = TransactionRepository.new
+    array = csv_reader(item_data)
+    array.each do |transaction|
+      transaction_repository.create_with_id(id: transaction[0],
+                                             invoice_id: transaction[1],
+                                             credit_card_number: transaction[2],
+                                             credit_card_expiration_date: transaction[3],
+                                             result: transaction[4],
+                                             created_at: transaction[5],
+                                             updated_at: transaction[6])
+    end
+    transaction_repository
   end
 
   def analyst
