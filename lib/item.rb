@@ -2,17 +2,18 @@ require 'bigdecimal'
 require 'time'
 
 class Item
-
   attr_accessor :attributes
 
   def initialize(item_data)
-    @attributes = {id:          item_data[:id],
-                  name:         item_data[:name],
-                  description:  item_data[:description],
-                  unit_price:   item_data[:unit_price],
-                  created_at:   item_data[:created_at],
-                  updated_at:   item_data[:updated_at],
-                  merchant_id:  item_data[:merchant_id]}
+    @attributes = {
+      id:           item_data[:id].to_i,
+      name:         item_data[:name],
+      description:  item_data[:description],
+      unit_price:   BigDecimal(item_data[:unit_price]),
+      created_at:   item_data[:created_at],
+      updated_at:   item_data[:updated_at],
+      merchant_id:  item_data[:merchant_id].to_i
+    }
   end
 
   def id
@@ -28,23 +29,22 @@ class Item
   end
 
   def unit_price
-    @attributes[:unit_price]
+    @attributes[:unit_price] / 100
   end
 
   def created_at
-    @attributes[:created_at]
+    Time.parse(@attributes[:created_at].to_s)
   end
 
   def updated_at
-    @attributes[:updated_at]
+    Time.parse(@attributes[:updated_at].to_s)
   end
 
   def merchant_id
     @attributes[:merchant_id]
   end
 
-  def unit_price_in_dollars
+  def unit_price_to_dollars
     unit_price.to_f
   end
-
 end

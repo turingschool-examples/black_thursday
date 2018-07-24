@@ -8,9 +8,9 @@ class ItemRepository
     @repository = data_file.map {|item| Item.new(item)}
   end
 
-  def find_all_with_description(description)
-    @repository.find_all do |item|
-      item.attributes[:description] == description
-    end
-  end
+  # def find_all_with_description(description)
+  #   @repository.find_all do |item|
+  #     item.attributes[:description] == description
+  #   end
+  # end
 end
