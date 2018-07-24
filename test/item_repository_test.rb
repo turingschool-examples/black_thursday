@@ -25,14 +25,14 @@ class ItemRepositoryTest < MiniTest::Test
     :created_at  => Time.now,
     :updated_at  => Time.now,
     :merchant_id => 22222},
-    {:id          => 3,
+    {:id         => 3,
     :name        => "GlitterPens",
     :description => "Make It Sparkle",
-    :unit_price  => BigDecimal.new(5.99,3),
+    :unit_price  => BigDecimal.new(5.99, 3),
     :created_at  => Time.now,
     :updated_at  => Time.now,
     :merchant_id => 33333},
-    {:id          => 4,
+    {:id         => 4,
     :name        => "Ruby Studded Shades",
     :description => "Life is rosy",
     :unit_price  => BigDecimal.new(101.99,5),
@@ -74,8 +74,15 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal [@irepo.all[2]], search
   end
 
-  def test_it_can_find_all_items_by_price
-    
+  def test_it_can_update_an_item
+    assert_equal 'GlitterPens', @irepo.all[2].name
+    assert_equal "Make It Sparkle", @irepo.all[2].description
 
+    new_attributes = {:name => 'GLITTERpens', :description => 'So very sparkly', :unit_price => BigDecimal(3.99, 3)}
+    updated_item = @irepo.update(3, new_attributes)
+
+    assert_equal 'GLITTERpens', @irepo.all[2].name
+    assert_equal 'So very sparkly', @irepo.all[2].description
+    assert_equal 3.99, @irepo.all[2].unit_price
   end
 end

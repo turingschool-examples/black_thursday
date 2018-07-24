@@ -8,24 +8,6 @@ class MerchantRepository
     @repository = data_file.map {|merchant| Merchant.new(merchant)}
   end
 
-  # def all
-  #   @repository.find_all do |merchant|
-  #     merchant
-  #   end
-  # end
-
-  # def find_by_id(id)
-  #   @repository.find do |merchant|
-  #     merchant.id == id
-  #   end
-  # end
-  #
-  # def find_by_name(name)
-  #   @repository.find do |merchant|
-  #     merchant.name.downcase == name.downcase
-  #   end
-  # end
-
   def find_all_by_name(name)
     @repository.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
@@ -58,11 +40,6 @@ class MerchantRepository
       'Record not found.'
     end
   end
-
-  # def delete(id)
-  #   merchant = find_by_id(id)
-  #   @repository.delete(merchant)
-  # end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
