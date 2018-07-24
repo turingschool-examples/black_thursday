@@ -60,5 +60,15 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of BigDecimal, actual
     assert_equal expected, actual
+
+    actual = @sales_analyst.average_item_price_for_merchant(12334141)
+    assert_equal 10.99, actual
+  end
+
+  def test_it_calculates_average_price_for_all_merchants
+    actual = @sales_analyst.average_average_price_per_merchant
+    expected = 12.61
+
+    assert_equal expected, actual
   end
 end
