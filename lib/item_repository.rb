@@ -71,8 +71,9 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    item.name = attributes[:name]
-    item.description = attributes[:description]
+    return if item.nil?
+    item.name ||= attributes[:name]
+    item.description ||= attributes[:description]
     item.unit_price = attributes[:unit_price]
     item.updated_at = Time.now
   end
@@ -81,6 +82,7 @@ class ItemRepository
     item = @items.find_index do |item|
       item.id == id
     end
+    return if item.nil?
     @items.delete_at(item)
   end
 

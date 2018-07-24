@@ -36,9 +36,14 @@ class MerchantRepository
 
   def create(attributes)
     id = create_id
-    attributes[:id] = id
-    merchant = Merchant.new(attributes)
+    merchant = Merchant.new(
+      id: id,
+      name: attributes[:name],
+      created_at: Time.now,
+      updated_at: Time.now,
+      )
     @merchants << merchant
+    merchant
   end
 
   def create_id
@@ -53,13 +58,17 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
+    return if merchant.nil?
     merchant.name = attributes[:name]
+    merchant.updated_at = Time.now
+    merchant
   end
 
   def delete(id)
     merchant = @merchants.find_index do |merchant|
       merchant.id == id
     end
+    return if merchant.nil?
     @merchants.delete_at(merchant)
   end
 
