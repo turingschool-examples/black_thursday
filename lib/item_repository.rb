@@ -41,15 +41,15 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    price_string = price.to_s
+    # price_string = price.to_s
     @items.find_all do |item|
-      item.unit_price.include?(price_string)
+      item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
-      range.include?(item.unit_price.to_i)
+      range.include?(item.unit_price.to_f)
     end
   end
 
@@ -60,8 +60,9 @@ class ItemRepository
     end
   end
 
-  def create(item_name, item_description, unit_price, merchant_id)
-    @items << Item.new({name: item_name, description: item_description, id: create_id, unit_price: unit_price, created_at: Time.now, updated_at: Time.now, merchant_id: merchant_id})
+  def create(attributes)
+    attributes[:id] = create_id
+    @items << Item.new(attributes)
   end
 
   def create_id
