@@ -2,12 +2,15 @@ require 'csv'
 require_relative '../lib/item.rb'
 
 class ItemRepository
-  def initialize(items_file)
+  attr_reader :items
+
+  def initialize(filepath)
+    @filepath = filepath #"./data/items.csv"
     @items = [ ]
   end
 
-  def create_items(filepath)
-    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+  def create_items
+    CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
       @items << Item.new(row)
     end
   end
@@ -42,3 +45,8 @@ end
 
 
 end
+ir = ItemRepository.new("./data/items.csv")
+ir.create_items
+# ir.items[2]
+
+p ir.items.count

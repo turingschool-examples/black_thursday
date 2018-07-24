@@ -12,7 +12,7 @@ class ItemRepositoryTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
       })
-      @items =
+      @items_placeholder =
       [{id: 1,
       name: 'Thing1',
       description:'a locket',
@@ -38,25 +38,25 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_exists
     #items_file = ['painting','candles','locket']
-    ir = ItemRepository.new(@items)
+    ir = ItemRepository.new(@items_placeholder)
     assert_instance_of ItemRepository, ir
   end
 
   def test_it_creates_items
     skip
   #  items_file = ['painting','candles','locket']
-    ir = ItemRepository.new(@items)
+    ir = ItemRepository.new(@items_placeholder)
 
   end
 
   def test_all_array
   #  items_file = ['painting','candles','locket']
-    ir = ItemRepository.new(@items)
+    ir = ItemRepository.new(@items_placeholder)
     assert_equal [ ], ir.all
   end
-  
+
   def test_can_find_by_id
-    ir = ItemRepository.new(@items)
+    ir = ItemRepository.new(@items_placeholder)
     assert_equal 3 , ir.find_by_id(3)
   end
 end
