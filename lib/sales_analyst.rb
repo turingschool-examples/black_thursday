@@ -16,6 +16,7 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     merchant_ids = find_all_merchant_ids
+
     items_from_each_merchant = get_number_of_items_from_merchants(merchant_ids)
     difference_squared = items_from_each_merchant.map do |number|
       (number - average_items_per_merchant) ** 2
@@ -48,7 +49,46 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    @items.find_all_by_merchant_id(id)
+    merchants_items = @items.find_all_by_merchant_id(id)
+    summed_price_of_items = merchants_items.inject(0) do |sum, item|
+      sum += item.unit_price
+    end
+    (summed_price_of_items / merchants_items.count).round(2)
   end
 
+  def average_average_price_per_merchant
+    average_prices = find_all_merchant_ids.map do |id|
+      average_item_price_for_merchant(id)
+    end
+    average_all_prices = average_prices.inject(0) do |sum, price|
+      sum += price
+    end
+    (average_all_prices / average_prices.count).round(2)
+  end
+
+  def average_of_item_prices
+    total_of_prices = (@items.all).inject(0) do |sum, item|
+      sum += item.unit_price
+    end
+    (price_average = total_of_prices / @items.all.count).round(2)
+  end
+
+  def standard_deviation_of_prices
+    all_prices = @items.all.map do |item|
+      item.unit_price
+    end
+    difference_squared = all_prices.map do |price|
+      (price - average_of_item_prices) ** 2
+    end
+    summed_differences = difference_squared.inject(:+)
+    sum = summed_differences / (all_prices.count - 1)
+    std_dev = (Math.sqrt(sum).round(2)).to_s.to_d
+  end
+
+  def golden_items
+    golden_standard_price = average_of_item_prices + (2 * standard_deviation_of_prices)
+    @items.all.find_all do |item|
+      item.unit_price >= golden_standard_price
+    end
+  end
 end
