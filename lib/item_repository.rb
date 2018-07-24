@@ -31,6 +31,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
+    return nil unless @items.key?(id)
     @items.fetch(id)
   end
 
