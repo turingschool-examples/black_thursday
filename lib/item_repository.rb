@@ -42,9 +42,9 @@ class ItemRepository
     @items.find_all { |item| item.merchant_id == search_id }
   end
 
-  def create_with_id(attributes)
-    @items << Item.new(attributes)
-  end
+  # def create_with_id(attributes)
+  #   @items << Item.new(attributes)
+  # end
 
   def child_class
     Item
