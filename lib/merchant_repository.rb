@@ -1,3 +1,5 @@
+require_relative 'merchant'
+
 class MerchantRepository
   def initialize(merchant_data)
     @merchant_rows ||= build_merchant(merchant_data)
@@ -59,5 +61,9 @@ class MerchantRepository
       merchant.id == id
     end
     @merchants.delete_at(merchant)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
