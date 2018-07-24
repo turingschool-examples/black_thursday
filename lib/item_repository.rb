@@ -51,6 +51,17 @@ class ItemRepository
     end
   end
 
+  def create_new_id_number
+    max_id = @repository.max_by(&:id).id
+    new_id = max_id + 1
+  end
+
+  def create(attributes)
+    new_id = create_new_id_number
+    attributes[:id] = new_id
+     @repository << Item.new(attributes)
+  end
+
   def inspect
   "#<#{self.class} #{@items.size} rows>"
   end

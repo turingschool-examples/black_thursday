@@ -105,8 +105,8 @@ class ItemTest < MiniTest::Test
       :updated_at  => Time.now,
       :merchant_id => 2
                 })
-      expected = 10.99
-      result = i.unit_price_in_dollars
+      expected = 0.1099
+      result = i.unit_price_to_dollars
       assert_equal expected, result
     end
 
