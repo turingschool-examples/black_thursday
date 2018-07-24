@@ -30,9 +30,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_which_merchants_exceed_1_stdev_higher_than_average_number_products
-    skip
-    expected = []
-    actual = @sales_analyst.merchants_with_high_item_count
+    expected = 52
+    actual = @sales_analyst.merchants_with_high_item_count.count
 
     assert_equal expected, actual
   end

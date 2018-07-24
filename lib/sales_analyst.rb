@@ -1,3 +1,5 @@
+require_relative '../lib/merchant_repository'
+
 class SalesAnalyst
   attr_reader :merchant_repo,
               :item_repo
@@ -33,7 +35,15 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-  (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+    one_stddev_up = (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+
+    merchant_ids = items_per_merchant.find_all do |merchant_id, item_count|
+      item_count > one_stddev_up
+    end
+
+    merchant_ids.map do |merchant_id, item_count|
+      @merchant_repo.find_by_id(merchant_id.to_i)
+    end
   end
 
 end
