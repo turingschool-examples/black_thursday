@@ -71,4 +71,35 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_it_finds_item_price_average
+    item_6 = Item.new({:id => 263395241, :name => "Really Cool Stuff", :description => "Use when you want to be ultimately cool", :unit_price  => BigDecimal.new(45.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+    @items << item_6
+
+    expected = 18.51
+    actual = @sales_analyst.average_of_item_prices
+
+    assert_equal expected, actual
+  end
+
+  def test_it_finds_standard_deviation_of_prices
+    item_6 = Item.new({:id => 263395241, :name => "Really Cool Stuff", :description => "Use when you want to be ultimately cool", :unit_price  => BigDecimal.new(45.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+    @items << item_6
+
+    expected = 14.22
+    actual = @sales_analyst.standard_deviation_of_prices
+
+    assert_equal expected, actual
+    assert_instance_of BigDecimal, actual
+  end
+
+  def test_it_finds_golden_items
+    item_6 = Item.new({:id => 263395241, :name => "Really Cool Stuff", :description => "Use when you want to be ultimately cool", :unit_price  => BigDecimal.new(90.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+    @items << item_6
+
+    expected = [item_6]
+    actual = @sales_analyst.golden_items
+
+    assert_equal expected, actual
+  end
 end
