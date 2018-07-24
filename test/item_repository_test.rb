@@ -5,7 +5,6 @@ require './lib/file_loader'
 require './test/test_helper'
 require 'pry'
 
-
 class ItemRepositoryTest < MiniTest::Test
   include FileLoader
 
@@ -102,6 +101,6 @@ class ItemRepositoryTest < MiniTest::Test
     search = @irepo.find_all_by_merchant_id(11111)
     assert_equal [@irepo.all[0]], search
   end
-  
+
 
 end
