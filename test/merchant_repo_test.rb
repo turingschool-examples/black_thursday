@@ -38,16 +38,16 @@ class MerchantRepoTest < Minitest::Test
     assert_equal nil, @mer_repo.find_by_name("NotAngry1901")
   end
 # 
-  def test_it_finds_all_by_name
+  def test_it_finds_all_merchants_by_name
     assert_equal [@merchant_1, @merchant_2, @merchant_3], @mer_repo.find_all_by_name("Shopin1901")
     assert_equal [], @mer_repo.find_all_by_name("NotAngry1901")
   end
   
-  def test_it_creates_attribute
+  def test_it_creates_merchant_with_attributes
     assert_instance_of Merchant, @mer_repo.create({:id => 8, :name => "Cool School"})
   end
 
-  def test_it_updates_id
+  def test_it_updates_merchant_attributes
     assert_equal @merchant_10 = {id: 12334114, name: "HiThere", created_at: "2010-12-10", updated_at: "2011-12-04"}, @mer_repo.update(12334114, {:id => 2222222, :name => "HiThere"})
   end
 
