@@ -26,8 +26,4 @@ class MerchantRepository
       find_by_id(id).name = attributes[:name]
     end
   end
-
-  def inspect
-    "#<#{self.class} #{@list.size} rows>"
-  end
 end

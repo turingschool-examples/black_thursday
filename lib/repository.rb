@@ -22,4 +22,8 @@ module Repository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@list.size} rows>"
+  end
+
 end

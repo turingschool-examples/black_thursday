@@ -59,8 +59,4 @@ class ItemRepository
       find_by_id(id).updated_at = Time.now
     end
   end
-
-  def inspect
-    "#<#{self.class} #{@list.size} rows>"
-  end
 end
