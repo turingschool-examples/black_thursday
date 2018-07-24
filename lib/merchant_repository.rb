@@ -1,36 +1,36 @@
-class MerchantRepository
-  def initialize(merchants)
-    @merchants = merchants
-  end
+require_relative 'repository'
 
-  def all
-    @merchants
+class MerchantRepository
+  include Repository
+
+  def initialize(merchants)
+    @list = merchants
   end
 
   def find_by_id(id)
-    @merchants.find do |merchant|
+    @list.find do |merchant|
       merchant.id == id
     end
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
+    @list.find do |merchant|
       merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
-    @merchants.find_all do |merchant|
+    @list.find_all do |merchant|
       merchant.name.downcase.include?(name)
     end
   end
 
   def create(attributes)
-    highest_merchant_id = @merchants.max_by do |merchant|
+    highest_merchant_id = @list.max_by do |merchant|
       merchant.id
     end
     attributes[:id] = highest_merchant_id.id + 1
-    @merchants << Merchant.new(attributes)
+    @list << Merchant.new(attributes)
   end
 
   def update(id, attributes)
@@ -40,12 +40,12 @@ class MerchantRepository
   end
 
   def delete(id)
-    @merchants.reject! do |merchant|
+    @list.reject! do |merchant|
       merchant.id == id
     end
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@list.size} rows>"
   end
 end
