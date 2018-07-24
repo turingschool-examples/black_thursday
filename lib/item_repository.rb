@@ -10,12 +10,6 @@ class ItemRepository
     @list = items
   end
 
-  def find_by_id(id)
-    @list.find do |item|
-      item.id == id
-    end
-  end
-
   def find_by_name(name)
     @list.find do |item|
       item.name.downcase == name.downcase

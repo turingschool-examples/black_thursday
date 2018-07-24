@@ -7,12 +7,6 @@ class MerchantRepository
     @list = merchants
   end
 
-  def find_by_id(id)
-    @list.find do |merchant|
-      merchant.id == id
-    end
-  end
-
   def find_by_name(name)
     @list.find do |merchant|
       merchant.name.downcase == name.downcase
