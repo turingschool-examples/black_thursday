@@ -13,7 +13,7 @@ class SalesEngine
   end
 
   def initialize(items, merchants)
-    @items = items
+    @items = ItemReposity.new(items)
     @merchants = merchants
   end
 
@@ -22,7 +22,6 @@ class SalesEngine
     CSV.foreach(@items, headers: true, header_converters: :symbol) do |row|
       items << Item.new(row)
     end
-    ItemRepository.new(items)
   end
 
   def merchants
