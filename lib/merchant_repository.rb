@@ -30,13 +30,14 @@ class MerchantRepository
   end
 
   def find_by_id(id)
+    return nil unless @merchants.key?(id)
     @merchants.fetch(id)
   end
 
   def find_by_name(name)
-    @merchants.find do |_, merchant|
+    all.find do |merchant|
       merchant.name.downcase == name.downcase
-    end.last
+    end
   end
 
   def find_all_by_name(name)
@@ -49,6 +50,7 @@ class MerchantRepository
   end
 
   def update(id, params)
+    return nil unless @merchants.key?(id)
     new_name = params[:name]
     merchant = find_by_id(id)
     merchant.name = new_name
