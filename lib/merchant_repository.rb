@@ -1,7 +1,4 @@
-require 'pry'
-
 class MerchantRepository
-
   def initialize(merchants)
     @merchants = merchants
   end
