@@ -1,5 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
+require 'time'
+require 'pry'
 
 class ItemTest < MiniTest::Test
   def setup
@@ -35,15 +37,18 @@ class ItemTest < MiniTest::Test
   end
 
   def test_it_has_a_created_time
-    assert_equal "1972-07-30 18:08:53 UTC", @item.created_at
+    assert_equal Time.parse("1972-07-30 18:08:53 UTC"), @item.created_at
   end
 
   def test_it_has_a_updated_time
-    assert_equal "2016-01-11 18:30:35 UTC", @item.updated_at
+    assert_equal Time.parse("2016-01-11 18:30:35 UTC"), @item.updated_at
   end
 
   def test_it_has_a_merchant_id
     assert_equal 2, @item.merchant_id
   end
 
+  def test_it_can_convert_price_to_dollars
+    assert_equal Float, @item.unit_price_to_dollars.class
+  end
 end
