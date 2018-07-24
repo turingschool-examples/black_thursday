@@ -73,4 +73,9 @@ class ItemRepositoryTest < MiniTest::Test
     search = @irepo.find_all_with_description("Make It Sparkle")
     assert_equal [@irepo.all[2]], search
   end
+
+  def test_it_can_find_all_items_by_price
+    
+
+  end
 end
