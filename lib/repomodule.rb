@@ -14,7 +14,4 @@ module Repository
     all.delete(find_by_id(id))
   end
 
-  # def create_with_id(attributes)
-  #   all << child_class.new(attributes)
-  # end
 end
