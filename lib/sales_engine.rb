@@ -1,7 +1,7 @@
-require_relative './file_loader'
-require_relative './merchant_repository'
-require_relative './item_repository'
-require_relative './sales_analyst'
+require_relative 'file_loader'
+require_relative 'merchant_repository'
+require_relative 'item_repository'
+require_relative 'sales_analyst'
 
 class SalesEngine
   attr_reader     :file_path
@@ -29,7 +29,4 @@ class SalesEngine
     item_file_path = @file_loader.builder(file_path[:items])
     @items ||= ItemRepository.new(item_file_path)
   end
-
-
-
 end
