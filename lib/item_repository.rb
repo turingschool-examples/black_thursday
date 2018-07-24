@@ -8,11 +8,11 @@ class ItemRepository
     @repository = data_file.map {|item| Item.new(item)}
   end
 
-  # def find_all_with_description(description)
-  #   @repository.find_all do |item|
-  #     item.attributes[:description] == description
-  #   end
-  # end
+  def find_all_with_description(description)
+    @repository.find do |item|
+      item..description == description
+    end
+  end
 end
 
 # *find_all_with_description(description) - returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
