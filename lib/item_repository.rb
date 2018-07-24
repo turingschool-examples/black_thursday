@@ -31,18 +31,16 @@ class ItemRepository
 
   def find_all_by_price(price)
     if price.class != BigDecimal
-      price = (price / 100.00).to_s.to_d
+      price = (price.to_f / 100).to_s.to_d
     end
     @items.find_all do |item|
       item.unit_price == price
-      binding.pry
     end
-
   end
 
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
-      range.include?(item.unit_price.to_f * 100)
+      range.include?(item.unit_price.to_f)
     end
   end
 

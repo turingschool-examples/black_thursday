@@ -15,7 +15,11 @@ class Item
     @id = information[:id].to_i
     @name = information[:name]
     @description = information[:description]
-    @unit_price = BigDecimal.new(information[:unit_price].to_f / 100, 4)
+    @unit_price = if information[:unit_price].class != BigDecimal
+        BigDecimal.new((information[:unit_price].to_f / 100), 4)
+      else
+        information[:unit_price]
+      end
     @merchant_id = information[:merchant_id].to_i
     @created_at = Time.parse(information[:created_at].to_s)
     @updated_at = Time.parse(information[:updated_at].to_s)
