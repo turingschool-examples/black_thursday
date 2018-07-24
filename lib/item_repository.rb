@@ -2,6 +2,7 @@ require 'bigdecimal'
 require 'pry'
 
 class ItemRepository
+  attr_reader :items
 
   def initialize
     @items = []

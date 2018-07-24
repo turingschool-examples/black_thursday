@@ -2,6 +2,7 @@ require_relative './merchant'
 require_relative './item'
 require_relative './merchant_repository'
 require_relative './item_repository'
+require_relative './sales_analyst'
 require 'csv'
 
 class SalesEngine
@@ -64,4 +65,8 @@ class SalesEngine
     item_repository
   end
 
+  def analyst
+    SalesAnalyst.new(@merchant_repository, @item_repository)
+  end
+  
 end
