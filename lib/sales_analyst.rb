@@ -4,7 +4,7 @@ class SalesAnalyst
 
   def initialize(merchant_repository, item_repository)
     @merchant_repository = merchant_repository
-    @item_repository = item_repository
+    @item_repository     = item_repository
   end
 
   def average_items_per_merchant
@@ -16,7 +16,7 @@ class SalesAnalyst
   end
 
   def mean_item_price
-    sum = 0
+    sum   = 0
     count = 0
     @item_repository.items.each do |item|
       sum += item.unit_price
@@ -44,7 +44,7 @@ class SalesAnalyst
   end
 
   def golden_items
-    mean = mean_item_price
+    mean  = mean_item_price
     stdev = average_price_per_item_standard_deviation * 2
     @item_repository.items.find_all do |item|
       item.unit_price > (mean + stdev)
@@ -52,10 +52,12 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    hash = group_item_by_merchant_id
-    array = []
+    stdev   = average_items_per_merchant_standard_deviation
+    average = average_items_per_merchant
+    hash    = group_item_by_merchant_id
+    array   = []
     hash.each do |id, items|
-      if items.count > (average_items_per_merchant_standard_deviation + average_items_per_merchant)
+      if items.count > (stdev + average)
         array << @merchant_repository.find_by_id(id)
       end
     end
@@ -63,7 +65,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    sum = BigDecimal.new(0)
+    sum      = BigDecimal.new(0)
     merchant = group_item_by_merchant_id.find do |key, items|
       key == id
     end
@@ -75,8 +77,8 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    sum = BigDecimal.new(0)
-    hash = group_item_by_merchant_id
+    sum   = BigDecimal.new(0)
+    hash  = group_item_by_merchant_id
     total_merchants = 0
     hash.each do |id, items|
       sum += average_item_price_for_merchant(id)

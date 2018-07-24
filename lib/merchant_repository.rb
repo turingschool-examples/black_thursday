@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require_relative './merchant'
-
+require_relative 'merchant'
+require_relative 'repository'
 # ./lib/merchant_repository
 class MerchantRepository
+  include Repository
   attr_reader :merchants
   def initialize
     @merchants = []
@@ -14,18 +15,7 @@ class MerchantRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
-  def find_by_id(id)
-    @merchants.find { |merchant| merchant.id == id }
-  end
-
-  def find_by_name(name)
-    @merchants.find do |merchant|
-      merchant_name = merchant.name.downcase
-      merchant_name == name.downcase
-    end
+    "#<#{self.class} #{all.size} rows>"
   end
 
   def find_all_by_name(name)
@@ -39,8 +29,12 @@ class MerchantRepository
     @merchants << Merchant.new(attributes)
   end
 
+  def child_class
+    Merchant
+  end
+
   def create(attributes)
-    @merchants << Merchant.create(attributes)
+    all << child_class.create(attributes)
   end
 
   def update(id, attributes)
@@ -48,7 +42,4 @@ class MerchantRepository
     merchant.name = attributes[:name] unless merchant.nil?
   end
 
-  def delete(id)
-    @merchants.delete(find_by_id(id))
-  end
 end
