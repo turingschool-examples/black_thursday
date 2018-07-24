@@ -29,8 +29,8 @@ class Item
               name: attributes[:name],
               description: attributes[:description],
               unit_price: attributes[:unit_price],
-              created_at: attributes[:created_at],
-              updated_at: attributes[:updated_at],
+              created_at: attributes[:created_at].to_s,
+              updated_at: attributes[:updated_at].to_s,
               merchant_id: attributes[:merchant_id]
             })
   end
