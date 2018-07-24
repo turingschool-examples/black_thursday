@@ -43,6 +43,7 @@ class ItemRepository
     new_id = create_new_id_number
     attributes[:id] = new_id
      @repository << Item.new(attributes)
+   end
 
   def update(id, attributes)
     if item = find_by_id(id)
