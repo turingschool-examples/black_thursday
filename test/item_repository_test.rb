@@ -9,54 +9,72 @@ require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+    @se = SalesEngine.from_csv({
+      :items     => "./data/dummy_items.csv",
+      :merchants => "./data/dummy_merchants.csv"
       })
-      @items_placeholder =
-      [{id: 1,
-      name: 'Thing1',
-      description:'a locket',
-      unit_price: 1200,
-      merchant_id: 1,
-      created_at: '2018-07-23',
-      updated_at: '2018-07-23'},
-      {id: 2,
-      name: 'Thing2',
-      description:'a painting of a dog',
-      unit_price: 1300,
-      merchant_id: 1,
-      created_at: '2018-07-23',
-      updated_at: '2018-07-23'},
-      {id: 3,
-      name: 'Thing3',
-      description:'a candle that smells like lucky charms',
-      unit_price: 1400,
-      merchant_id: 2,
-      created_at: '2018-01-23',
-      updated_at: '2018-07-23'}]
 
 
   end
 
   def test_it_exists
-    ir = ItemRepository.new(@items_placeholder)
+    se = SalesEngine.from_csv({
+      :items     => "./data/dummy_items.csv",
+      :merchants => "./data/dummy_merchants.csv"
+      })
+    ir = ItemRepository.new(se.csv_hash[:items])
     assert_instance_of ItemRepository, ir
   end
 
   def test_it_creates_items
-    ir = ItemRepository.new(@items_placeholder)
-    @items.push(@items_placeholder)
+    se = SalesEngine.from_csv({
+      :items     => "./data/dummy_items.csv",
+      :merchants => "./data/dummy_merchants.csv"
+      })
+    ir = ItemRepository.new(se.csv_hash[:items])
     assert_equal [ ] , ir.items
   end
 
   def test_all_array
-    ir = ItemRepository.new(@items_placeholder)
+    se = SalesEngine.from_csv({
+      :items     => "./data/dummy_items.csv",
+      :merchants => "./data/dummy_merchants.csv"
+      })
+    ir = ItemRepository.new(se.csv_hash[:items])
     assert_equal [ ], ir.all
   end
 
   def test_can_find_by_id
-    ir = ItemRepository.new(@items_placeholder)
-        assert_equal 3 , ir.find_by_id(3)
+    se = SalesEngine.from_csv({
+      :items     => "./data/dummy_items.csv",
+      :merchants => "./data/dummy_merchants.csv"
+      })
+    ir = ItemRepository.new(se.csv_hash[:items])
+    ir.create_items
+    assert_equal Item, ir.find_by_id("263395237").class
   end
+
+  def test_find_all_by_price
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/dummy_items.csv",
+      :merchants => "./data/dummy_merchants.csv"
+      })
+    ir = ItemRepository.new(se.csv_hash[:items])
+    ir.find_all_by_price(700)
+    assert_equal 700 , ir.find_all_by_price(700)
+  end
+
+  def test_find_all_with_description
+    se = SalesEngine.from_csv({
+      :items     => "./data/dummy_items.csv",
+      :merchants => "./data/dummy_merchants.csv"
+      })
+    ir = ItemRepository.new(se.csv_hash[:items])
+    ir.create_items
+    ir.find_all_with_description("Disney glitter frames")
+    #binding.pry
+    assert_equal ir.find_all_with_description("Disney glitter frames").class
+  end
+
 end

@@ -42,9 +42,5 @@ def find_all_by_price(price)
     item.unit_price == price
   end
 end
+
 end
-# ir = ItemRepository.new("./data/items.csv")
-# ir.create_items
-#  p ir.items[2]
-#
-# p ir.items.count
