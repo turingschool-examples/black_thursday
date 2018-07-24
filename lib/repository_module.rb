@@ -2,7 +2,6 @@ module RepositoryModule
 
   def all
     @repository.find_all do |element|
-      binding.pry
       element
   end
 
