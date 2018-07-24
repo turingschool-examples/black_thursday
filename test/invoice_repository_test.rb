@@ -15,4 +15,8 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceRepository, @invoice_repository
   end
 
+  def test_it_finds_all_invoices
+    assert_equal @invoices, @invoice_repository.all
+  end
+
 end
