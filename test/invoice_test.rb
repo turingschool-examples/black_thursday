@@ -22,4 +22,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 6, @invoice.id
   end
 
+  def test_it_has_customer_id
+    assert_equal 7, @invoice.customer_id
+  end
+
 end

@@ -3,7 +3,8 @@ require 'bigdecimal/util'
 require 'time'
 
 class Invoice
-  attr_reader :id
+  attr_reader :id,
+              :customer_id
 
   def initialize(information)
     @id = information[:id].to_i
