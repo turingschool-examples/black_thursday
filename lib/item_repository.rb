@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'pry'
-require './lib/item'
+require_relative './item'
 require 'bigdecimal'
 
 # Item repository class
@@ -9,11 +9,17 @@ class ItemRepository
     @items = {}
   end
 
+  def populate_from_csv(filepath)
+    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+      create(row)
+    end
+  end
+
   def create(params)
     params[:id] = @items.max[0] + 1 if params[:id].nil?
 
     Item.new(params).tap do |item|
-      @items[params[:id]] = item
+      @items[params[:id].to_i] = item
     end
   end
 
@@ -82,5 +88,9 @@ class ItemRepository
 
   def delete(id)
     @items.delete(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
