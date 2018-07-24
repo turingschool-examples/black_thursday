@@ -33,5 +33,22 @@ class ItemRepository
     item.attributes[:updated_at] = Time.now + 1
   end
 
+  def find_all_by_price(price)
+    @repository.find_all do |item|
+      item.unit_price_to_dollars == price.to_f
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @repository.find_all do |item|
+      range.include?(item.unit_price_to_dollars)
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    @repository.find_all do |item|
+      item.merchant_id == id
+    end
+  end
    # *update(id, attributes) - update the Item instance with the corresponding id with the provided attributes. Only the item’s name, desription, and unit_price attributes can be updated. This method will also change the items updated_at attribute to the current time.
 end
