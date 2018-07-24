@@ -52,10 +52,12 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    find_by_id(id).name = attributes[:name]
-    find_by_id(id).description = attributes[:description]
-    find_by_id(id).unit_price = attributes[:unit_price]
-    find_by_id(id).updated_at = Time.now
+    if find_by_id(id)
+      find_by_id(id).name = attributes[:name]
+      find_by_id(id).description = attributes[:description]
+      find_by_id(id).unit_price = attributes[:unit_price]
+      find_by_id(id).updated_at = Time.now
+    end
   end
 
   def delete(id)
