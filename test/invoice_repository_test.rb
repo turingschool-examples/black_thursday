@@ -19,4 +19,8 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal @invoices, @invoice_repository.all
   end
 
+  def test_it_finds_invoice_by_id
+    assert_equal @invoice_1, @invoice_repository.find_by_id(6)
+    assert_equal nil, @invoice_repository.find_by_id(10)
+  end
 end
