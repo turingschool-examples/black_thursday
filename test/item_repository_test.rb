@@ -5,6 +5,7 @@ require_relative '../lib/item.rb'
 require_relative '../lib/sales_engine.rb'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/merchant_repository.rb'
+require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
@@ -34,29 +35,28 @@ class ItemRepositoryTest < Minitest::Test
       merchant_id: 2,
       created_at: '2018-01-23',
       updated_at: '2018-07-23'}]
+
+
   end
 
   def test_it_exists
-    #items_file = ['painting','candles','locket']
     ir = ItemRepository.new(@items_placeholder)
     assert_instance_of ItemRepository, ir
   end
 
   def test_it_creates_items
-    skip
-  #  items_file = ['painting','candles','locket']
     ir = ItemRepository.new(@items_placeholder)
-
+    @items.push(@items_placeholder)
+    assert_equal [ ] , ir.items
   end
 
   def test_all_array
-  #  items_file = ['painting','candles','locket']
     ir = ItemRepository.new(@items_placeholder)
     assert_equal [ ], ir.all
   end
 
   def test_can_find_by_id
     ir = ItemRepository.new(@items_placeholder)
-    assert_equal 3 , ir.find_by_id(3)
+        assert_equal 3 , ir.find_by_id(3)
   end
 end
