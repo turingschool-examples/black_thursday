@@ -1,10 +1,12 @@
 require_relative "../test/test_helper"
 require_relative "../lib/item"
 require_relative "../lib/item_repo"
-require "pry"
+
+
+
 
 class ItemRepoTest < Minitest::Test
-  
+
   def test_it_exists
     item_repo = ItemRepo.new
 
@@ -41,10 +43,8 @@ class ItemRepoTest < Minitest::Test
   def test_it_finds_all_with_description
     item_repo = ItemRepo.new
     item_repo.load_file("./data/merchants.csv")
-    expected = "Magnifique toile Street Art 50x100cm réalisée avec peinture acrylique, peinture 3D, collage mosaïque, feutre Posca."
-    actual = item_repo.find_all_with_description(expected)
-    binding.pry
-    assert_equal [expected], actual.description
+
+    assert_instance_of [], item_repo.find_all_with_description("cow")
   end
 
 #   def test_it_finds_all_by_name

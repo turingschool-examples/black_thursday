@@ -4,74 +4,56 @@ require_relative "../lib/merchant_repo"
 
 class MerchantRepoTest < Minitest::Test
 
-  def test_it_exists
-    mer_repo = MerchantRepo.new
-
-    assert_instance_of MerchantRepo, mer_repo
+  def setup
+    @mer_repo = MerchantRepo.new
+  
+    @mer_repo.merchants = [ 
+    @merchant_1 = {id: 12334105, name: "Shopin1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_2 = {id: 12334106, name: "Shopin1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_3 = {id: 12334107, name: "Shopin1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_4 = {id: 12334108, name: "Woody1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_5 = {id: 12334109, name: "Fully1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_6 = {id: 12334110, name: "Sleepy1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_7 = {id: 12334111, name: "Happy1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_8 = {id: 12334112, name: "Angry1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_9 = {id: 12334113, name: "Turing1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
+    @merchant_10 = {id: 12334114, name: "Awesome1901", created_at: "2010-12-10", updated_at: "2011-12-04"}]
   end
 
-  def test_it_loads_file
-    mer_repo = MerchantRepo.new
-
-    assert_equal mer_repo.merchants, mer_repo.load_file("./data/merchants.csv")
+  def test_it_exists
+    assert_instance_of MerchantRepo, @mer_repo
   end
 
   def test_it_returns_all_merchants
-    mer_repo = MerchantRepo.new
-
-    assert_equal mer_repo.merchants, mer_repo.all
+    assert_equal @mer_repo.merchants, @mer_repo.all
   end
 
   def test_it_returns_merchant_by_id
-    mer_repo = MerchantRepo.new
-    mer_repo.load_file("./data/merchants.csv")
-    assert_instance_of Merchant, mer_repo.find_by_id(12334159)
-    refute_instance_of Merchant, mer_repo.find_by_id(0)
+    assert_equal @merchant_1, @mer_repo.find_by_id(12334105)
+    assert_equal nil, @mer_repo.find_by_id(12345678)
   end
 
   def test_it_returns_merchant_by_name
-    mer_repo = MerchantRepo.new
-    mer_repo.load_file("./data/merchants.csv")
-
-    assert_instance_of Merchant, mer_repo.find_by_name("SassyStrangeArt")
-    refute_instance_of Merchant, mer_repo.find_by_name("Turing School")
+    assert_equal @merchant_8, @mer_repo.find_by_name("Angry1901")
+    assert_equal nil, @mer_repo.find_by_name("NotAngry1901")
   end
-
+# 
   def test_it_finds_all_by_name
-    mer_repo = MerchantRepo.new
-    mer_repo.load_file("./data/merchants.csv")
-
-    assert_instance_of Array, mer_repo.find_all_by_name("TheWoodchopDesign")
+    assert_equal [@merchant_1, @merchant_2, @merchant_3], @mer_repo.find_all_by_name("Shopin1901")
+    assert_equal [], @mer_repo.find_all_by_name("NotAngry1901")
   end
-
-  def test_it_creates_attributes
-    mer_repo = MerchantRepo.new
-    mer_repo.load_file("./data/merchants.csv")
-
-    assert_equal mer_repo.merchants, mer_repo.create({:id => 5, :name => "Turing"})
+  
+  def test_it_creates_attribute
+    assert_instance_of Merchant, @mer_repo.create({:id => 8, :name => "Cool School"})
   end
 
   def test_it_updates_id
-    mer_repo = MerchantRepo.new
-    mer_repo.load_file("./data/merchants.csv")
-
-    mer_repo.update(12334105, "HiThere!")
-    assert_equal "HiThere!" , mer_repo.merchants[0].name
+    assert_equal @merchant_10 = {id: 12334114, name: "HiThere", created_at: "2010-12-10", updated_at: "2011-12-04"}, @mer_repo.update(12334114, {:id => 2222222, :name => "HiThere"})
   end
 
   def test_it_deletes_merchant_by_id
-    mer_repo = MerchantRepo.new
-    mer_repo.load_file("./data/merchants.csv")
-
-    mer_repo.delete(12334105)
-
-    assert_equal nil, mer_repo.find_by_id(12334105)
+    @mer_repo.delete(12334109)
+    assert_equal nil, @mer_repo.find_by_id(12334109)
   end
-
+  
 end
-
-# def test_it_sorts
-#   mer_repo = MerchantRepo.new
-#   mer_repo.load_file("./data/merchants.csv")
-#   assert_instance_of Array, mer_repo.sort_them
-# end
