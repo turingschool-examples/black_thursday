@@ -13,7 +13,7 @@ class ItemRepository
     params[:id] = @items.max[0] + 1 if params[:id].nil?
 
     Item.new(params).tap do |item|
-      @items[params[:id]] = item
+      @items[params[:id].to_i] = item
     end
   end
 

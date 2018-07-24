@@ -8,9 +8,15 @@ class MerchantRepository
     @merchants = {}
   end
 
+  def populate_from_csv(filepath)
+    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+      create(row)
+    end
+  end
+
   def create(params)
     Merchant.new(params).tap do |merchant|
-      @merchants[params[:id]] = merchant
+      @merchants[params[:id].to_i] = merchant
     end
   end
 
