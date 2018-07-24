@@ -7,10 +7,20 @@ require 'pry'
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    @sales_engine = SalesEngine.from_csv({
-          :items     => "./data/items.csv",
-          :merchants => "./data/merchants.csv",
-          })
+    @item_1 = Item.new({:id => 263395237, :name => "Pencil", :description => "You can use it to write things", :unit_price  => BigDecimal.new(10.99,4), :merchant_id => 12334141, :created_at  => Time.now, :updated_at  => Time.now})
+    @item_2 = Item.new({:id => 263395985,:name => "Marker",:description => "You can use it to write more things",:unit_price  => BigDecimal.new(12.99,4), :merchant_id => 12339191, :created_at  => Time.now,:updated_at  => Time.now})
+    @item_3 = Item.new({:id => 263395234, :name => "Chapstick", :description => "Moisturizes lips.", :unit_price  => BigDecimal.new(4.55,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+    @item_4 = Item.new({:id => 263395239, :name => "Water Bottle", :description => "Used for drinking water", :unit_price  => BigDecimal.new(18.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+    @item_5 = Item.new({:id => 263395240, :name => "Cool Stuff", :description => "Use when you want to be cool", :unit_price  => BigDecimal.new(18.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+
+    @merchant_1 = Merchant.new({:id => 12334141, :name => "Target"})
+    @merchant_2 = Merchant.new({:id => 12337777, :name => "Walmart"})
+    @merchant_3 = Merchant.new({:id => 12339191, :name => "Cool Place"})
+
+    @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
+    @merchants = [@merchant_1, @merchant_2, @merchant_3]
+
+    @sales_engine = SalesEngine.new(@items, @merchants)
     @sales_analyst = @sales_engine.analyst
   end
 
@@ -18,43 +28,37 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sales_analyst
   end
 
+  def test_it_has_attributes
+    assert_equal @sales_engine.items, @sales_analyst.items
+    assert_equal @sales_engine.merchants, @sales_analyst.merchants
+  end
+
   def test_it_gives_average_items_per_merchant
     actual = @sales_analyst.average_items_per_merchant
-    expected = 2.88
+    expected = 1.67
 
     assert_equal expected, actual
   end
 
   def test_it_calculates_standard_deviation
     actual = @sales_analyst.average_items_per_merchant_standard_deviation
-    expected = 3.26
+    expected = 1.15
 
     assert_equal expected, actual
   end
 
   def test_find_merchants_with_high_item_count
-    skip
-    high_item_merchants = @sales_analyst.merchants_with_high_item_count
-    a = high_item_merchants.map do |merchant|
-      merchant.id
-    end
-    b = a.map do |id|
-      @sales_analyst.items.find_all_by_merchant_id(id)
-    end
-    binding.pry
-    c = b.all? do |number|
-      number >= 6.14
-    end
-      assert_equal true, c
+    actual = @sales_analyst.merchants_with_high_item_count
+    expected = [@merchant_2]
+
+    assert_equal expected, actual
   end
 
   def test_it_calculates_average_price_for_specific_merchant
-    skip
-    actual = @sales_analyst.average_item_price_for_merchant(12334193)
-    expected = 29.99
+    actual = @sales_analyst.average_item_price_for_merchant(12337777)
+    expected = 13.85
 
     assert_instance_of BigDecimal, actual
-    assert_equal expected, actual.to_f
+    assert_equal expected, actual
   end
-
 end

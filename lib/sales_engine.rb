@@ -17,7 +17,7 @@ class SalesEngine
     end
     SalesEngine.new(items, merchants)
   end
-  
+
   attr_reader :items,
               :merchants
 
