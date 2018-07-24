@@ -85,4 +85,23 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal 'So very sparkly', @irepo.all[2].description
     assert_equal 3.99, @irepo.all[2].unit_price
   end
+
+  def test_find_all_by_price
+    search = @irepo.find_all_by_price(0.1099)
+    assert_equal [@irepo.all[0]], search
+  end
+
+  def test_find_all_by_price_in_range
+    search = @irepo.find_all_by_price_in_range(1.00..10.00)
+    assert_equal [@irepo.all[3]], search
+    search = @irepo.find_all_by_price_in_range(0.00..2.00)
+    assert_equal [@irepo.all[0], @irepo.all[1], @irepo.all[2], @irepo.all[3]], search
+  end
+
+  def test_find_all_by_merchant_id
+    search = @irepo.find_all_by_merchant_id(11111)
+    assert_equal [@irepo.all[0]], search
+  end
+  
+
 end
