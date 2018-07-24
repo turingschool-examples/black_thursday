@@ -33,7 +33,6 @@ class ItemRepository
     end
   end
 
-
   def create_new_id_number
     max_id = @repository.max_by(&:id).id
     new_id = max_id + 1
@@ -43,42 +42,18 @@ class ItemRepository
     new_id = create_new_id_number
     attributes[:id] = new_id
      @repository << Item.new(attributes)
-   end
+  end
 
   def update(id, attributes)
-    if item = find_by_id(id)
-      item.name = attributes[:name]
+      item = find_by_id(id)
+      return if item.nil?
+      item.name ||= attributes[:name]
       item.description = attributes[:description]
       item.unit_price = attributes[:unit_price]
       item.updated_at = Time.now
-      item
-    else
-      'Record not found.'
-    end
-
   end
 
   def inspect
   "#<#{self.class} #{@items.size} rows>"
   end
 end
-
-
-# def update(id, attributes)
-#   item = find_by_id(id)
-#   return if item.nil?
-#   attributes.each do |key, value|
-#     update_name_or_desc(item, key, value) if key == :name || key == :description
-#     update_unit_price(item, value) if key == :unit_price
-#   end
-# end
-#
-# def update_name_or_desc(item, key, value)
-#   item.attributes[key] = value
-#   item.attributes[:updated_at] = Time.now
-# end
-#
-# def update_unit_price(item, value)
-#   item.attributes[:unit_price] = value * 100
-#   item.attributes[:updated_at] = Time.now
-# end
