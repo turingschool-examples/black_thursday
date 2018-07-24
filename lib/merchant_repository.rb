@@ -7,12 +7,6 @@ class MerchantRepository
     @list = merchants
   end
 
-  def find_by_name(name)
-    @list.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
-  end
-
   def find_all_by_name(name)
     @list.find_all do |merchant|
       merchant.name.downcase.include?(name)
@@ -30,12 +24,6 @@ class MerchantRepository
   def update(id, attributes)
     if find_by_id(id)
       find_by_id(id).name = attributes[:name]
-    end
-  end
-
-  def delete(id)
-    @list.reject! do |merchant|
-      merchant.id == id
     end
   end
 

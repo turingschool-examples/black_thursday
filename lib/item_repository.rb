@@ -10,12 +10,6 @@ class ItemRepository
     @list = items
   end
 
-  def find_by_name(name)
-    @list.find do |item|
-      item.name.downcase == name.downcase
-    end
-  end
-
   def find_all_with_description(description)
     @list.find_all do |item|
       item.description.downcase.include?(description.downcase)
@@ -63,12 +57,6 @@ class ItemRepository
         find_by_id(id).unit_price = attributes[:unit_price]
       end
       find_by_id(id).updated_at = Time.now
-    end
-  end
-
-  def delete(id)
-    @list.reject! do |item|
-      item.id == id
     end
   end
 
