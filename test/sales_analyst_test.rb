@@ -17,10 +17,10 @@ class SalesAnalystTest < Minitest::Test
     @merchant_2 = Merchant.new({:id => 12337777, :name => "Walmart"})
     @merchant_3 = Merchant.new({:id => 12339191, :name => "Cool Place"})
 
-    @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 1355, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    @invoice_2 = Invoice.new({:id => 7, :customer_id => 37, :merchant_id => 2289, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    @invoice_3 = Invoice.new({:id => 8, :customer_id => 48, :merchant_id => 4934, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    @invoice_4 = Invoice.new({:id => 9, :customer_id => 48, :merchant_id => 4934, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 12334141, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_2 = Invoice.new({:id => 7, :customer_id => 37, :merchant_id => 12337777, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_3 = Invoice.new({:id => 8, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_4 = Invoice.new({:id => 9, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
 
     @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
@@ -111,6 +111,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_finds_average_invoices_per_merchant
     assert_equal 1.33, @sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_it_finds_standard_deviation_of_invoices
+    assert_equal 0.58 , @sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
 end

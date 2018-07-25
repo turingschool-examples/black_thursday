@@ -32,6 +32,12 @@ class SalesAnalyst
     std_dev = Math.sqrt(sum).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    merchant_ids = find_all_merchant_ids
+    invoices_from_each_merchant = get_number_of_invoices_from_merchants(merchant_ids)
+    standard_deviation(invoices_from_each_merchant, average_invoices_per_merchant)
+  end
+
   def standard_deviation_of_prices
     all_prices = @items.all.map do |item|
       item.unit_price
@@ -54,6 +60,12 @@ class SalesAnalyst
   def get_number_of_items_from_merchants(merchant_ids)
     merchant_ids.map do |merchant_id|
       @items.find_all_by_merchant_id(merchant_id).count
+    end
+  end
+
+  def get_number_of_invoices_from_merchants(merchant_ids)
+    merchant_ids.map do |merchant_id|
+      @invoices.find_all_by_merchant_id(merchant_id).count
     end
   end
 
