@@ -49,4 +49,11 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_it_can_find_golden_items
+    expected = 5
+    actual = @sales_analyst.golden_items
+
+    assert_equal expected, actual
+  end
 end

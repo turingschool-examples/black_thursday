@@ -68,8 +68,22 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant.id.to_i)
     end
 
-
     (sum(total_average_price).to_f / @merchant_repo.merchants.count).round(2).to_d
   end
 
+  def golden_items
+    total_repo_value = @item_repo.items.inject(0) do |sum, item|
+      sum + item.unit_price
+    end
+
+    average_price = total_repo_value / @item_repo.items.count
+
+    stddev_sum = @item_repo.items.inject(0) do |sum, item|
+      sum ((item.unit_price - average_price) ** 2)
+      binding.pry
+    end
+
+    divided = (stddev_sum / @item_repo.items.count)
+    Math.sqrt(divided).round(2)
+  end
 end
