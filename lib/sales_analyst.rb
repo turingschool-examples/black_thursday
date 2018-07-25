@@ -51,15 +51,33 @@ class SalesAnalyst
     BigDecimal(average_price, 5)
   end
 
-  def average_item_price_per_merchant
-
-    # iterate - perform the above methos on all merchants
-    # sum total / divid by total number of merchants
-    #return big decimal
+  def average_average_price_per_merchant
+    merchants = @engine.merchants.all
+    average_price_array = merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    average_price_sum = average_price_array.inject(0) do |sum, price|
+      sum + price
+    end
+    total_average = (average_price_sum / average_price_array.size).round(2)
+    BigDecimal(total_average, 5)
   end
 
   def golden_items
-    #run above method to get the average item price for all merchants
-    #see above
+    all_items = @engine.items.all
+    prices_sum = all_items.inject(0) do |sum, item|
+      sum + item.unit_price
+    end
+    average = prices_sum / all_items.size
+    equation = all_items.inject(0) do |sum, item|
+      sum + (item.unit_price - average)**2
+    end
+    std = Math.sqrt((equation / (all_items.size - 1)))
+    golden_threshold = average + std*2
+
+    result = all_items.find_all do |item|
+      item.unit_price > golden_threshold
+    end
   end
+
 end
