@@ -20,10 +20,11 @@ class SalesAnalystTest < Minitest::Test
     @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 1355, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
     @invoice_2 = Invoice.new({:id => 7, :customer_id => 37, :merchant_id => 2289, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
     @invoice_3 = Invoice.new({:id => 8, :customer_id => 48, :merchant_id => 4934, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_4 = Invoice.new({:id => 9, :customer_id => 48, :merchant_id => 4934, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
 
     @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
-    @invoices = [@invoice_1, @invoice_2, @invoice_3]
+    @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4]
 
     @sales_engine = SalesEngine.new(@items, @merchants, @invoices)
     @sales_analyst = @sales_engine.analyst
@@ -107,4 +108,9 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_finds_average_invoices_per_merchant
+    assert_equal 1.33, @sales_analyst.average_invoices_per_merchant
+  end
+
 end

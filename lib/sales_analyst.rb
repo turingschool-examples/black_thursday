@@ -19,6 +19,10 @@ class SalesAnalyst
     (average = total / number_of_elements.count).round(2)
   end
 
+  def average_invoices_per_merchant
+    (@invoices.all.count.to_f / @merchants.all.count).round(2)
+  end
+
   def standard_deviation(elements, element_average)
     difference_squared = elements.map do |element|
       (element - element_average) ** 2
