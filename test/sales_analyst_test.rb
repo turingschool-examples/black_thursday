@@ -117,4 +117,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.58 , @sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
+  def test_it_can_find_number_of_invoices
+    merchant_ids = @sales_analyst.find_all_merchant_ids
+    assert_equal [1, 1, 2], @sales_analyst.get_number_of_invoices_from_merchants(merchant_ids)
+  end
+
+  def test_it_finds_top_performing_merchants
+    @invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoices << [@invoice_5, @invoice_6, @invoice_7]
+    @invoices = @invoices.flatten
+
+    assert_equal [@merchant_3], @sales_analyst.top_merchants_by_invoice_count
+  end
+
 end

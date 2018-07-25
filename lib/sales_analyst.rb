@@ -19,10 +19,6 @@ class SalesAnalyst
     (average = total / number_of_elements.count).round(2)
   end
 
-  def average_invoices_per_merchant
-    (@invoices.all.count.to_f / @merchants.all.count).round(2)
-  end
-
   def standard_deviation(elements, element_average)
     difference_squared = elements.map do |element|
       (element - element_average) ** 2
@@ -30,12 +26,6 @@ class SalesAnalyst
     summed_differences = difference_squared.inject(:+)
     sum = summed_differences / (elements.count - 1)
     std_dev = Math.sqrt(sum).round(2)
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    merchant_ids = find_all_merchant_ids
-    invoices_from_each_merchant = get_number_of_invoices_from_merchants(merchant_ids)
-    standard_deviation(invoices_from_each_merchant, average_invoices_per_merchant)
   end
 
   def standard_deviation_of_prices
@@ -60,12 +50,6 @@ class SalesAnalyst
   def get_number_of_items_from_merchants(merchant_ids)
     merchant_ids.map do |merchant_id|
       @items.find_all_by_merchant_id(merchant_id).count
-    end
-  end
-
-  def get_number_of_invoices_from_merchants(merchant_ids)
-    merchant_ids.map do |merchant_id|
-      @invoices.find_all_by_merchant_id(merchant_id).count
     end
   end
 
@@ -110,4 +94,29 @@ class SalesAnalyst
       item.unit_price >= golden_standard_price
     end
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchant_ids = find_all_merchant_ids
+    invoices_from_each_merchant = get_number_of_invoices_from_merchants(merchant_ids)
+    standard_deviation(invoices_from_each_merchant, average_invoices_per_merchant)
+  end
+
+  def average_invoices_per_merchant
+    (@invoices.all.count.to_f / @merchants.all.count).round(2)
+  end
+
+  def get_number_of_invoices_from_merchants(merchant_ids)
+    merchant_ids.map do |merchant_id|
+      @invoices.find_all_by_merchant_id(merchant_id).count
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    top_invoice_number = average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation)
+    top_performing_merchants = find_all_merchant_ids.find_all do |merchant_id|
+      (@invoices.find_all_by_merchant_id(merchant_id)).count > top_invoice_number
+    end
+    @merchants.find_by_id(top_performing_merchants)
+  end
+
 end
