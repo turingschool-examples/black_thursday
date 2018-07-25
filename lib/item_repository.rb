@@ -1,6 +1,5 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
-require 'pry'
 require_relative 'repository'
 
 class ItemRepository
