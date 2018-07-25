@@ -1,35 +1,37 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/csv_adaptor'
+require "pry"
 
 class MerchantRepo
-  
+
   include CsvAdaptor
-  
-  attr_accessor :merchants, 
+
+  attr_accessor :merchants,
                 :csv_hashes
 
   def initialize(merchants = [])
+    binding.pry
     @merchants = merchants
-    csv_merchants_to_objects
+    #csv_merchants_to_objects
     @csv_hashes = csv_hashes
   end
 
   def all
     @merchants
   end
-  
+
   def csv_merchants_to_objects(csv_hashes)
     @csv_hashes.each do |hash|
       require "pry"; binding.pry
       add_merchant_objects(hash)
-    end 
+    end
   @merchants
   end
-      
+
   def add_merchant_objects(merchant_hash)
     @merchants << Merchant.new(merchant_hash)
   end
-  
+
   def find_by_id(id)
     @merchants.find do |merchant|
       merchant.id == id
@@ -68,5 +70,5 @@ class MerchantRepo
     merchant_to_delete = find_by_id(id)
     @merchants.delete(merchant_to_delete)
   end
-  
+
 end
