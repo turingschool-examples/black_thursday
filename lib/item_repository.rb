@@ -13,7 +13,6 @@ class ItemRepository
       item.description.downcase.include?(description.downcase)
     end
   end
-  #
 
   def find_all_by_price(price)
     @repository.find_all do |item|
@@ -45,12 +44,12 @@ class ItemRepository
   end
 
   def update(id, attributes)
-      item = find_by_id(id)
-      return if item.nil?
-      item.name ||= attributes[:name]
-      item.description = attributes[:description]
-      item.unit_price = attributes[:unit_price]
-      item.updated_at = Time.now
+    item = find_by_id(id)
+    return if item.nil?
+    item.name = attributes[:name] unless attributes[:name].nil?
+    item.description = attributes[:description] unless attributes[:description].nil?
+    item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    item.updated_at = Time.now
   end
 
   def inspect
