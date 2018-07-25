@@ -43,10 +43,27 @@ class InvoiceRepositoryTest < Minitest::Test
     attributes = ({:id => 2, :customer_id => 26, :merchant_id => 1355, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
 
     assert_equal 3, @invoice_repository.all.count
-    
+
     @invoice_repository.create(attributes)
 
     assert_equal 4, @invoice_repository.all.count
   end
 
+  def test_invoice_can_be_updated
+    original_time = @invoice_3.updated_at
+    @invoice_repository.update(8, {:status => "complete", :created_at => Time.now, :updated_at => Time.now})
+
+    assert_equal 8, @invoice_3.id
+    assert_equal "complete", @invoice_3.status
+    assert @invoice_3.updated_at > original_time
+  end
+
+  def test_invoice_can_be_deleted
+    assert_equal 3, @invoices.count
+
+    @invoice_repository.delete(8)
+
+    assert_equal 2, @invoices.count
+    assert_equal nil, @invoice_repository.find_by_id(8)
+  end
 end
