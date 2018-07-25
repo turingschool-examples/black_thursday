@@ -1,13 +1,12 @@
 bundle exec rspec spec/iteration_2_spec.rb
 Finished:
+*sales_analyst = sales_engine.analyst
 
 Work in Progress/Updates:
-
+*sales_analyst.average_items_per_merchant # => 2.88
 
 Pending:
 Iteration 1
-*sales_analyst = sales_engine.analyst
-*sales_analyst.average_items_per_merchant # => 2.88
 *sales_analyst.average_items_per_merchant_standard_deviation # => 3.26
 *sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant]
 *sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
