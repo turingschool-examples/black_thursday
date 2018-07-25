@@ -5,22 +5,30 @@ require 'minitest/autorun'
 require 'minitest/pride'
 
 require './lib/sales_analyst'
+require './lib/sales_engine'
 
 # Sales Analyst test class
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    @sa = SalesAnalyst.new
-
+    @se = SalesEngine.from_csv(
+      merchants: './data/merchants.csv',
+      items: './data/items.csv'
+    )
+    @sa = @se.analyst
   end
 
   def test_it_exists
-    assert_instance_of SalesAnalyst, sa
+    assert_instance_of SalesAnalyst, @sa
+  end
+
+  def test_it_has_sales_engine
+    assert_instance_of SalesEngine, @sa.engine
   end
 
   def test_it_calculates_average_items_per_merchant
     skip
-    assert_equal ,
+
   end
 
   def test_it_calculates_average_items_per_merchant_standard_devation

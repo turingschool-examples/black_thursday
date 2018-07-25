@@ -3,6 +3,7 @@
 require 'csv'
 require_relative './merchant_repository'
 require_relative './item_repository'
+require_relative './sales_analyst'
 
 class SalesEngine
   def self.from_csv(filepaths) # Hash values are file paths
@@ -23,5 +24,9 @@ class SalesEngine
     @items ||= ItemRepository.new.tap do |item_repo|
       item_repo.populate_from_csv(@filepaths[:items])
     end
+  end
+
+  def analyst
+    SalesAnalyst.new(self)
   end
 end

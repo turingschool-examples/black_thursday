@@ -1,9 +1,14 @@
 
 class SalesAnalyst
+  attr_reader :engine
+
+  def initialize(engine)
+    @engine = engine
+  end
 
   def average_items_per_merchant
-
     #count how many merchants there are
+    merchant_count = @engine.merchants.all.size
     #for each merchant count thier items
     #add together all items sold total for all merchants
     # then divid the sum of items sold by the number of merchants
@@ -50,8 +55,6 @@ class SalesAnalyst
 
   def golden_items
     #run above method to get the average item price for all merchants
-    #see above 
+    #see above
   end
-
-
 end
