@@ -71,14 +71,14 @@ class InvoiceRepository
     invoice.updated_at = Time.now
     invoice
   end
-  #
-  # def delete(id)
-  #   invoice = @invoices.find_index do |invoice|
-  #     invoice.id == id
-  #   end
-  #   return if invoice.nil?
-    # @invoices.delete_at(invoice)
-  # end
+  
+  def delete(id)
+    invoice = @invoices.find_index do |invoice|
+      invoice.id == id
+    end
+    return if invoice.nil?
+    @invoices.delete_at(invoice)
+  end
   #
   # def inspect
   #   "#<#{self.class} #{@invoices.size} rows>"
