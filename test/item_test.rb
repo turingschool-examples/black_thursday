@@ -1,35 +1,33 @@
+require './test/test_helper'
 require 'pry'
 require './lib/item'
-require 'minitest/autorun'
-require 'minitest/pride'
 require 'bigdecimal'
-
 
 class ItemTest < MiniTest::Test
 
   def test_existence
     i = Item.new({
-  :id          => 1,
-  :name        => "Pencil",
-  :description => "You can use it to write things",
-  :unit_price  => BigDecimal.new(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  :merchant_id => 2
-                })
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+                    })
     assert_instance_of Item, i
   end
 
   def test_id
-      i = Item.new({
-        :id          => 1,
-        :name        => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price  => BigDecimal.new(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
-        :merchant_id => 2
-                  })
+    i = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+                })
     result = i.id
     expected = 1
     assert_equal expected, result
