@@ -63,4 +63,13 @@ class SalesAnalyst
     end
   end
 
+  def average_average_price_per_merchant
+    total_average_price = @merchant_repo.merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id.to_i)
+    end
+
+
+    (sum(total_average_price).to_f / @merchant_repo.merchants.count).round(2).to_d
+  end
+
 end

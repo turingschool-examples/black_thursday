@@ -36,9 +36,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_find_average_item_price_for_merchant
+  def test_it_can_find_average_item_price_for_merchant
     expected = 16.66
     actual = @sales_analyst.average_item_price_for_merchant(12334105)
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_average_average_price_for_merchant
+    expected = 350.29
+    actual = @sales_analyst.average_average_price_per_merchant
 
     assert_equal expected, actual
   end
