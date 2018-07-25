@@ -16,6 +16,10 @@ class SalesEngine
     new(data_files)
   end
 
+  def analyst
+    @sales_analyst = SalesAnalyst.new(self)
+  end
+
   def merchants
     @merchants ||= MerchantRepository.new(load_file(data_files[:merchants]))
   end
@@ -24,7 +28,20 @@ class SalesEngine
     @items ||= ItemRepository.new(load_file(data_files[:items]))
   end
 
-  def analyst
-    SalesAnalyst.new
-  end
+  # def invoices
+  #   @invoices ||= InvoiceRepository.new(load_file(content[:invoices]))
+  # end
+  #
+  # def customers
+  #   @customers ||= CustomerRepository.new(load_file(content[:customers]))
+  # end
+  #
+  # def invoice_items
+  #   @invoice_items ||= InvoiceItemRepository.new(load_file(content[:invoice_items]))
+  # end
+  #
+  # def transactions
+  #   @transactions ||= TransactionRepository.new(load_file(content[:transactions]))
+  # end
+
 end
