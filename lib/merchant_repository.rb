@@ -32,13 +32,11 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    if merchant = find_by_id(id)
-      merchant.name = attributes[:name]
-      merchant.updated_at = Time.now
-      merchant
-    else
-      'Record not found.'
-    end
+    merchant = find_by_id(id)
+    return if merchant.nil?
+    merchant.name = attributes[:name] unless attributes[:name].nil?
+    merchant.updated_at = Time.now
+    merchant
   end
 
   def inspect
