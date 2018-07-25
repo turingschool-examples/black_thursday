@@ -32,7 +32,7 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    std = average_items_per_merchant_standard_deviation + 1
+    std = average_items_per_merchant + average_items_per_merchant_standard_deviation
     all_merchants = @engine.merchants.all
 
     all_merchants.find_all do |merchant|
