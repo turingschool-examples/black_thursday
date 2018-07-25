@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-07-24T19:35:01-06:00">2018-07-24T19:35:01-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-07-24T19:56:34-06:00">2018-07-24T19:56:34-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         9.0
+         12.6
        </span>
     </span> hits/line)
   </h2>
@@ -67,7 +67,7 @@
         <td>10</td>
         <td>10</td>
         <td>0</td>
-        <td>2.4</td>
+        <td>64.0</td>
       </tr>
       
       <tr>
@@ -337,44 +337,44 @@
           <code class="ruby">  def initialize(hash)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="12">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="91" data-linenumber="12">
+          <span class="hits">91</span>
           
           <code class="ruby">    @id = hash[:id]</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="13">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="91" data-linenumber="13">
+          <span class="hits">91</span>
           
           <code class="ruby">    @name = hash[:name]</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="14">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="91" data-linenumber="14">
+          <span class="hits">91</span>
           
           <code class="ruby">    @description = hash[:description]</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="15">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="91" data-linenumber="15">
+          <span class="hits">91</span>
           
           <code class="ruby">    @unit_price = hash[:unit_price]</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="16">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="91" data-linenumber="16">
+          <span class="hits">91</span>
           
           <code class="ruby">    @created_at = hash[:created_at]</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="17">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="91" data-linenumber="17">
+          <span class="hits">91</span>
           
           <code class="ruby">    @updated_at = hash[:updated_at]</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="18">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="91" data-linenumber="18">
+          <span class="hits">91</span>
           
           <code class="ruby">    @merchant_id = hash[:merchant_id]</code>
         </li>
@@ -497,7 +497,7 @@
         <li class="covered" data-hits="25" data-linenumber="14">
           <span class="hits">25</span>
           
-          <code class="ruby">      item[:id] == id</code>
+          <code class="ruby">      item.id == id</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="15">
@@ -533,7 +533,7 @@
         <li class="covered" data-hits="16" data-linenumber="20">
           <span class="hits">16</span>
           
-          <code class="ruby">      item[:name].downcase == name.downcase</code>
+          <code class="ruby">      item.name.downcase == name.downcase</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
@@ -569,7 +569,7 @@
         <li class="covered" data-hits="16" data-linenumber="26">
           <span class="hits">16</span>
           
-          <code class="ruby">      item[:description].downcase == description.downcase</code>
+          <code class="ruby">      item.description.downcase == description.downcase</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="27">
@@ -605,7 +605,7 @@
         <li class="covered" data-hits="16" data-linenumber="32">
           <span class="hits">16</span>
           
-          <code class="ruby">      item[:unit_price].to_i == price </code>
+          <code class="ruby">      item.unit_price.to_i == price </code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="33">
@@ -641,7 +641,7 @@
         <li class="covered" data-hits="16" data-linenumber="38">
           <span class="hits">16</span>
           
-          <code class="ruby">        item[:unit_price].to_i &gt;= range[0] &amp;&amp; item[:unit_price].to_i &lt;= range[1]</code>
+          <code class="ruby">        item.unit_price.to_i &gt;= range[0] &amp;&amp; item.unit_price.to_i &lt;= range[1]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="39">
@@ -677,7 +677,7 @@
         <li class="covered" data-hits="16" data-linenumber="44">
           <span class="hits">16</span>
           
-          <code class="ruby">      item[:merchant_id].to_i == merchant_id </code>
+          <code class="ruby">      item.merchant_id.to_i == merchant_id </code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="45">
@@ -725,7 +725,7 @@
         <li class="covered" data-hits="8" data-linenumber="52">
           <span class="hits">8</span>
           
-          <code class="ruby">      item[:id]</code>
+          <code class="ruby">      item.id</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="53">
@@ -737,7 +737,7 @@
         <li class="covered" data-hits="1" data-linenumber="54">
           <span class="hits">1</span>
           
-          <code class="ruby">    new_max_id = max_item_id[:id] + 1</code>
+          <code class="ruby">    new_max_id = max_item_id.id + 1</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="55">
@@ -785,19 +785,19 @@
         <li class="covered" data-hits="1" data-linenumber="62">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_to_change[:name] = attributes[:name]</code>
+          <code class="ruby">    item_to_change.name = attributes[:name]</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="63">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_to_change[:description] = attributes[:description]</code>
+          <code class="ruby">    item_to_change.description = attributes[:description]</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="64">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_to_change[:unit_price] = attributes[:unit_price].to_s</code>
+          <code class="ruby">    item_to_change.unit_price = attributes[:unit_price].to_s</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="65">
@@ -2002,7 +2002,7 @@
         <li class="never" data-hits="" data-linenumber="64">
           
           
-          <code class="ruby"># </code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="65">
