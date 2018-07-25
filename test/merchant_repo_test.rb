@@ -5,9 +5,9 @@ require_relative "../lib/merchant_repo"
 class MerchantRepoTest < Minitest::Test
 
   def setup
-    @mer_repo = MerchantRepo.new
-  
-    @mer_repo.merchants = [ 
+    @mer_repo = MerchantRepo.new(merchants)
+
+    @mer_repo.merchants = [
     @merchant_1 = Merchant.new({id: 12334105, name: "Shopin1901"}),
     @merchant_2 = Merchant.new({id: 12334106, name: "Shopin1901"}),
     @merchant_3 = Merchant.new({id: 12334107, name: "Shopin1901"}),
@@ -50,9 +50,9 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_updates_merchant_attributes
     refute_equal "HiThere", @merchant_10.name
-    
+
     @mer_repo.update(12334114, {:id => 2222222, :name => "HiThere"})
-    
+
     assert_equal "HiThere", @merchant_10.name
     assert_equal 12334114, @merchant_10.id
   end

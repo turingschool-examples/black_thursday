@@ -4,7 +4,8 @@ require_relative "../lib/sales_engine"
 class SalesEngineTest < Minitest::Test
 
 def setup
-  @sales_engine = SalesEngine.new("./data/merchants.csv", "./data/items.csv")
+  SalesEngine.from_csv()
+  @sales_engine = SalesEngine.new(@merchants, @items)
 
   @merchants = [@merchant_1 = {id: 12334105, name: "Shopin1901", created_at: "2010-12-10", updated_at: "2011-12-04"},
   @merchant_2 = {id: 12334106, name: "Shopin1901", created_at: "2010-12-10", updated_at: "2011-12-04"},

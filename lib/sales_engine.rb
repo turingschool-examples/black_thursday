@@ -1,32 +1,33 @@
-require_relative '../lib/csv_adaptor'
-require_relative '../lib/merchant_repo'
-require_relative '../lib/item_repo'
+require_relative './csv_adaptor'
+require_relative './merchant_repo'
+require_relative './item_repo'
 
 class SalesEngine
   attr_reader :merchants, :items
 
   extend CsvAdaptor
 
-  def initialize(merchant_hashes, item_hashes)
-    @merchants = MerchantRepo.new(merchant_hashes)
-    @items = ItemRepo.new(item_hashes)
+  def initialize(merchant_array, item_array)
+    @merchants = MerchantRepo.new(merchant_array)
+    @items = ItemRepo.new(item_array)
   end
 
-  def self.from_csv(file_location)
-    merchant_file = file_location[:merchants]
-    item_file = file_location[:items]
+  def self.from_csv(hash)
+    merchant_file = hash[:merchants]
+    item_file = hash[:items]
 
-    merchant_hashes = self.load_from_csv(merchant_file)
-    item_hashes = self.load_from_csv(item_file)
-
-    SalesEngine.new(merchant_hashes, item_hashes)
+    merchant_array = load_from_csv(merchant_file)
+    item_array = load_from_csv(item_file)
+    SalesEngine.new(merchant_array, item_array)
   end
 
 end
 
-#
-# sa = SalesEngine.new
-# se = sa.from_csv("./data/items.csv")
+
+# se = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+# })
 # mr = se.merchants
-#
-# p mr
+# merchant = mr.merchant_hashes_to_objects()
+# p merchant
