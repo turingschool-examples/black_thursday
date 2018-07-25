@@ -1,8 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/item_repository'
 require './lib/file_loader'
-require './test/test_helper'
 require 'pry'
 
 class ItemRepositoryTest < MiniTest::Test
