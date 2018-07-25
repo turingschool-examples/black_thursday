@@ -10,18 +10,22 @@ require_relative './sales_analyst'
 require_relative './invoice_item_repository'
 require_relative './transaction_repository'
 require_relative './transaction'
+require_relative './customer_repository'
+require_relative './customer'
 # ./lib/sales_engine
 class SalesEngine
   attr_accessor :merchant_repository,
                 :item_repository,
                 :invoice_item_repository,
-                :transaction_repository
+                :transaction_repository,
+                :customer_repository
 
   def initialize
     @merchant_repository = nil
     @item_repository = nil
     @invoice_item_repository = nil
     @transaction_repository = nil
+    @customer_repository = nil
   end
 
   def self.from_csv(data)
@@ -30,6 +34,7 @@ class SalesEngine
     sales_engine.item_repository = sales_engine.item_builder(data[:items])
     sales_engine.invoice_item_repository = sales_engine.invoice_item_builder(data[:invoice_items])
     sales_engine.transaction_repository = sales_engine.transaction_builder(data[:transactions])
+    sales_engine.customer_repository = sales_engine.customer_builder(data[:customers])
     sales_engine
   end
 
@@ -47,6 +52,10 @@ class SalesEngine
 
   def transactions
     @transaction_repository
+  end
+
+  def customers
+    @customer_repository
   end
 
   def csv_reader(csv)
@@ -110,6 +119,19 @@ class SalesEngine
                                              updated_at: transaction[6])
     end
     transaction_repository
+  end
+
+  def customer_builder(item_data)
+    customer_repository = CustomerRepository.new
+    array = csv_reader(item_data)
+    array.each do |customer|
+      customer_repository.create_with_id(id: customer[0],
+                                         first_name: customer[1],
+                                         last_name: customer[2],
+                                         created_at: customer[3],
+                                         updated_at: customer[4])
+    end
+    customer_repository
   end
 
   def analyst
