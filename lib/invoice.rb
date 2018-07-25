@@ -1,5 +1,5 @@
 class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status
+  attr_reader :id, :customer_id, :merchant_id, :status, :created_at
 
   attr_accessor :updated_at
 
