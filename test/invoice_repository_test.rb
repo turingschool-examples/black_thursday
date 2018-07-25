@@ -100,18 +100,19 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Time, invoice.created_at
     assert_instance_of Time, invoice.updated_at
   end
-  #
-  # def test_it_can_update_invoice_name
-  #   attributes = {
-  #     name: 'Shopin2001'
-  #   }
-  #   id = 12334105
-  #   invoice = @invoice_repository.update(id, attributes)
-  #   expected = @invoice_repository.find_by_id(id)
-  #   assert_equal 'Shopin2001', expected.name
-  #   expected = @invoice_repository.find_by_name('Shopin1901')
-  #   assert_nil expected
-  # end
+
+  def test_it_can_update_invoice_status_and_time_it_was_updated_at
+    attributes = {
+      status: 'pending'
+    }
+    id = 1
+    invoice = @invoice_repository.update(id, attributes)
+    expected = @invoice_repository.find_by_id(id)
+    assert_instance_of Time, invoice.updated_at # maybe refactor later
+    assert_equal 1111, expected.merchant_id
+    expected = @invoice_repository.find_all_by_status('shipped')
+    assert_equal ([]), expected
+  end
   #
   # def test_it_can_delete_invoice
   #   id = 12334105
@@ -124,7 +125,7 @@ class InvoiceRepositoryTest < Minitest::Test
   #   assert_nil expected_2
   # end
 
-# create(attributes) - create a new Invoice instance with the provided attributes. The new Invoice’s id should be the current highest Invoice id plus 1.
+
 # update(id, attribute) - update the Invoice instance with the corresponding id with the provided attributes. Only the invoice’s status can be updated. This method will also change the invoice’s updated_at attribute to the current time.
 # delete(id) - delete the Invoice instance with the corresponding id
 end
