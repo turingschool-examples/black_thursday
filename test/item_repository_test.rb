@@ -15,7 +15,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Array, @item_repository.items
   end
 
-  def test_it_holding_items
+  def test_its_holding_items
     assert_instance_of Item, @item_repository.items[0]
     assert_instance_of Item, @item_repository.items[25]
   end

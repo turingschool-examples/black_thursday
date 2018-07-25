@@ -14,7 +14,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Array, @merchant_repository.merchants
   end
 
-  def test_it_holding_merchants
+  def test_its_holding_merchants
     assert_instance_of Merchant, @merchant_repository.merchants[0]
     assert_instance_of Merchant, @merchant_repository.merchants[25]
   end
