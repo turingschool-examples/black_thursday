@@ -99,7 +99,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'CandisART', @mr.all[1].name
 
     updated_merchant_2 = @mr.update(1234, :name => 'uh oh my id is not present')
-    assert_equal 'Record not found.', updated_merchant_2
+    assert_nil updated_merchant_2
   end
 
   def test_it_can_delete_a_merchant_record
