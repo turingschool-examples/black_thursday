@@ -11,7 +11,6 @@ class SalesAnalystTest < Minitest::Test
   end 
   
   def test_it_exists
-    # skip
     sales_engine = SalesEngine.new({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
