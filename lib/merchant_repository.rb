@@ -1,6 +1,6 @@
 require 'csv'
 require 'pry'
-require './lib/merchant.rb'
+require_relative './merchant'
 class MerchantRepository
 
   attr_reader     :filepath,
@@ -58,6 +58,10 @@ class MerchantRepository
     @all = @all.reject do |object|
       object.id == id
     end
+  end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
 

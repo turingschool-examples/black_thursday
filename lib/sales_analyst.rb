@@ -1,4 +1,4 @@
-require_relative '../lib/sales_engine.rb'
+require_relative './sales_engine'
 
 class SalesAnalyst 
 end 

@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require_relative '../lib/sales_engine.rb'
+require_relative './sales_engine'
 
 class SalesAnalystTest < Minitest::Test 
   def test_it_exists
