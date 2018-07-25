@@ -15,16 +15,30 @@ class SalesAnalyst
     (@items.all.count.to_f / @merchants.all.count).round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    merchant_ids = find_all_merchant_ids
+  def average(total, number_of_elements)
+    (average = total / number_of_elements.count).round(2)
+  end
 
-    items_from_each_merchant = get_number_of_items_from_merchants(merchant_ids)
-    difference_squared = items_from_each_merchant.map do |number|
-      (number - average_items_per_merchant) ** 2
+  def standard_deviation(elements, element_average)
+    difference_squared = elements.map do |element|
+      (element - element_average) ** 2
     end
     summed_differences = difference_squared.inject(:+)
-    sum = summed_differences / (items_from_each_merchant.count - 1)
+    sum = summed_differences / (elements.count - 1)
     std_dev = Math.sqrt(sum).round(2)
+  end
+
+  def standard_deviation_of_prices
+    all_prices = @items.all.map do |item|
+      item.unit_price
+    end
+    standard_deviation(all_prices, average_of_item_prices).to_s.to_d
+  end
+
+  def average_items_per_merchant_standard_deviation
+    merchant_ids = find_all_merchant_ids
+    items_from_each_merchant = get_number_of_items_from_merchants(merchant_ids)
+    standard_deviation(items_from_each_merchant, average_items_per_merchant)
   end
 
   def find_all_merchant_ids
@@ -54,7 +68,7 @@ class SalesAnalyst
     summed_price_of_items = merchants_items.inject(0) do |sum, item|
       sum += item.unit_price
     end
-    (summed_price_of_items / merchants_items.count).round(2)
+    average(summed_price_of_items, merchants_items)
   end
 
   def average_average_price_per_merchant
@@ -64,26 +78,14 @@ class SalesAnalyst
     average_all_prices = average_prices.inject(0) do |sum, price|
       sum += price
     end
-    (average_all_prices / average_prices.count).round(2)
+    average(average_all_prices, average_prices)
   end
 
   def average_of_item_prices
     total_of_prices = (@items.all).inject(0) do |sum, item|
       sum += item.unit_price
     end
-    (price_average = total_of_prices / @items.all.count).round(2)
-  end
-
-  def standard_deviation_of_prices
-    all_prices = @items.all.map do |item|
-      item.unit_price
-    end
-    difference_squared = all_prices.map do |price|
-      (price - average_of_item_prices) ** 2
-    end
-    summed_differences = difference_squared.inject(:+)
-    sum = summed_differences / (all_prices.count - 1)
-    std_dev = (Math.sqrt(sum).round(2)).to_s.to_d
+    average(total_of_prices, @items.all)
   end
 
   def golden_items
