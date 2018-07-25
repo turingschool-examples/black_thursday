@@ -61,7 +61,7 @@ class ItemRepositoryTest < Minitest::Test
       })
     ir = ItemRepository.new(se.csv_hash[:items])
     ir.create_items
-    assert_equal [ir.all[3]], [ir.find_by_name("Free standing Woden letters")]
+    assert_equal ir.all[3], ir.find_by_name("Free standing Woden letters")
 #when i run this there are brackets that switch if i put brackets around both they pass?
   end
 
@@ -84,19 +84,19 @@ class ItemRepositoryTest < Minitest::Test
       ir = ItemRepository.new(se.csv_hash[:items])
       ir.create_items
     #  ir.all.convert_unit_price_to_dollar_string
-      assert_equal [ir.all[3]] , ir.find_all_by_price("700")
+      assert_equal [ir.all[3]], ir.find_all_by_price("700")
     end
 
     def test_find_all_by_price_range
-      skip
+
       se = SalesEngine.from_csv({
         :items     => "./data/dummy_items.csv",
         :merchants => "./data/dummy_merchants.csv"
         })
       ir = ItemRepository.new(se.csv_hash[:items])
       ir.create_items
-      ir.convert_unit_price_to_dollar_string
-      assert_equal 2 , ir.find_all_by_price_in_range("13.00..14.00").count
+      #ir.convert_unit_price_to_dollar_string
+      assert_equal 2 , ir.find_all_by_price_in_range(1300..1400).count
     end
 
     def test_find_all_by_merchant_id

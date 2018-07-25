@@ -37,14 +37,16 @@ end
   end
 
   def find_all_by_price(price)
-    @items.find_all do |item|
+    kittens = @items.find_all do |item|
+
     item.unit_price == price
-    end
+  end#.flatten
   end
 
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
-    range.include?(item.unit_price)
+      #binding.pry
+    range.include?(item.unit_price.to_f)
     end
   end
 
@@ -65,16 +67,13 @@ end
   end
 
   def create(attributes)
-    id = create_id
-    attributes[:id] = id
+    attributes[:id] = create_id
     item = Item.new(attributes)
     @items << item
   end
 
   def update(id, attributes)
     find_by_id(id).update_attributes(attributes)
-
-
   end
 
   def delete(id)
