@@ -136,5 +136,4 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal 'So very sparkly', @irepo.all[2].description
     assert_equal 3.99, @irepo.all[2].unit_price
   end
-
 end
