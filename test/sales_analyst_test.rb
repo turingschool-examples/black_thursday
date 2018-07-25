@@ -72,4 +72,8 @@ class SalesAnalystTest < Minitest::Test
     ipm = [2, 3, 4, 3, 5]
     assert_equal 1.14, @sa.square_root_of_variance(v, ipm)
   end
+
+  def test_it_can_find_one_stnd_deviation_above_average
+    assert_equal 6.14, @sa.one_standard_deviation_above
+  end
 end
