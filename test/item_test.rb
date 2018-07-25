@@ -70,12 +70,12 @@ class ItemTest < MiniTest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new(10.99, 4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
                 })
-    expected = BigDecimal.new(10.99,4)
+    expected = 10.99
     result = i.unit_price
     assert_equal expected, result
   end
@@ -105,11 +105,8 @@ class ItemTest < MiniTest::Test
       :updated_at  => Time.now,
       :merchant_id => 2
                 })
-      expected = 0.1099
-      result = i.unit_price_to_dollars
-      assert_equal expected, result
-    end
-
-
-
+    expected = 0.1099
+    result = i.unit_price_to_dollars
+    assert_equal expected, result
+  end
 end
