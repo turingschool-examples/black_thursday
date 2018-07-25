@@ -146,4 +146,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [], @sales_analyst.bottom_merchants_by_invoice_count
   end
 
+
+
 end
