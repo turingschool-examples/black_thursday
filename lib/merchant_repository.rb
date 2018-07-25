@@ -14,9 +14,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    highest_merchant_id = @list.max_by do |merchant|
-      merchant.id
-    end
+    highest_merchant_id = find_highest_id
     attributes[:id] = highest_merchant_id.id + 1
     @list << Merchant.new(attributes)
   end

@@ -3,12 +3,12 @@ require 'bigdecimal/util'
 require 'time'
 
 class Invoice
-  attr_reader :id,
-              :customer_id,
-              :merchant_id,
-              :status,
-              :created_at,
-              :updated_at
+  attr_reader   :id,
+                :customer_id,
+                :merchant_id,
+                :created_at
+  attr_accessor :status,
+                :updated_at
 
   def initialize(information)
     @id = information[:id].to_i
@@ -18,5 +18,4 @@ class Invoice
     @created_at = Time.parse(information[:created_at].to_s)
     @updated_at = Time.parse(information[:updated_at].to_s)
   end
-
 end

@@ -32,9 +32,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    highest_item_id = @list.max_by do |item|
-      item.id
-    end
+    highest_item_id = find_highest_id
     attributes[:id] = highest_item_id.id + 1
     @list << Item.new(attributes)
   end
