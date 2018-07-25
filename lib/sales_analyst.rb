@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'bigdecimal'
+require 'bigdecimal/util'
+
 
 class SalesAnalyst
   attr_reader :engine
@@ -17,7 +19,6 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
-    #binding.pry
     all_merchants = @engine.merchants.all
 
     items_per_merchant = []
@@ -27,19 +28,16 @@ class SalesAnalyst
     equation = items_per_merchant.inject(0) do |sum, number_items|
       sum + (number_items - average)**2
     end
-    result = Math.sqrt(equation/ (items_per_merchant.size - 1))
-    BigDecimal(result, 3)
-    #binding.pry
+    ((Math.sqrt(equation / (items_per_merchant.size - 1)).round(2))).to_d
   end
 
   def merchants_with_high_item_count
-    # run the above method to get the SD
-    # and one to the above number
-    # get all the merchants
-    #iterate over each merchant to compare the number of items they sell
-    #with the SD plus 1
-    #if they sell more items than the SD + 1
-    # shovell them into an array of high item count merchants
+    std = average_items_per_merchant_standard_deviation + 1
+    all_merchants = @engine.merchants.all
+
+    all_merchants.find_all do |merchant|
+      @engine.items.find_all_by_merchant_id(merchant.id).size > std
+    end
   end
 
   def average_item_price_for_merchant(merchant_id)
