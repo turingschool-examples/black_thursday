@@ -3,7 +3,6 @@ require_relative '../lib/item.rb'
 
 class ItemRepository
   attr_reader :items
-
   def initialize(filepath)
     @filepath = filepath #"./data/items.csv"
     @items = [ ]
@@ -55,4 +54,30 @@ end
     end
   end
 
+  def find_highest_id
+    @items.max_by do |item|
+      item.id
+    end
+  end
+
+  def create_id
+    find_highest_id.id.to_i + 1
+  end
+
+  def create(attributes)
+    id = create_id
+    attributes[:id] = id
+    item = Item.new(attributes)
+    @items << item
+  end
+
+  #def update
+
+
+  #end
+
+  def delete(id)
+    item = find_by_id(id)
+    @items.delete(item)
+  end
 end

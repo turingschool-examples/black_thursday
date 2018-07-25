@@ -109,5 +109,52 @@ class ItemRepositoryTest < Minitest::Test
       assert_equal [ir.all[0]], ir.find_all_by_merchant_id("12334141")
     end
 
+    def test_it_can_create_new_id
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+      })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      item = ir.create_id
+      assert_equal 263396014, item
+  end
+    def test_it_can_create
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+        })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      added_item = ir.create(
+        :id          => 3,
+        :name        => "cats",
+        :description => "cat frame",
+        :unit_price  => 100,
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 1111)
+        assert_instance_of Item, added_item[-1]
+        actual = "cats"
+        expected = ir.all.last.name
+        assert_equal expected, actual
+    end
+
+    def test_updadte
+      skip
+
+    end
+
+    def test_delete
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+      })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      ir.delete("263396013")
+      assert_nil ir.find_by_id("263396013")
+    end
+
 
 end
