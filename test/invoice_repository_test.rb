@@ -35,8 +35,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_by_status
-    assert_equal @invoices, @invoice_repository.find_all_by_status("pending")
-    assert_equal [], @invoice_repository.find_all_by_status("complete")
+    assert_equal @invoices, @invoice_repository.find_all_by_status(:pending)
+    assert_equal [], @invoice_repository.find_all_by_status(:complete)
   end
 
   def test_it_creates_new_invoice
@@ -51,10 +51,10 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_invoice_can_be_updated
     original_time = @invoice_3.updated_at
-    @invoice_repository.update(8, {:status => "complete", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_repository.update(8, {:status => :complete, :created_at => Time.now, :updated_at => Time.now})
 
     assert_equal 8, @invoice_3.id
-    assert_equal "complete", @invoice_3.status
+    assert_equal :complete, @invoice_3.status
     assert @invoice_3.updated_at > original_time
   end
 
