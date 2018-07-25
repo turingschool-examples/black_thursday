@@ -73,18 +73,6 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal [@irepo.all[2]], search
   end
 
-  def test_it_can_update_an_item
-    assert_equal 'GlitterPens', @irepo.all[2].name
-    assert_equal "Make It Sparkle", @irepo.all[2].description
-
-    new_attributes = {:name => 'GLITTERpens', :description => 'So very sparkly', :unit_price => BigDecimal(3.99, 3)}
-    updated_item = @irepo.update(3, new_attributes)
-
-    assert_equal 'GLITTERpens', @irepo.all[2].name
-    assert_equal 'So very sparkly', @irepo.all[2].description
-    assert_equal 3.99, @irepo.all[2].unit_price
-  end
-
   def test_find_all_by_price
     search = @irepo.find_all_by_price(0.1099)
     assert_equal [@irepo.all[0]], search
@@ -108,7 +96,6 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal expected, result
   end
 
-
   def test_create
     new_item = @irepo.create(
     :id         => 6,
@@ -122,6 +109,32 @@ class ItemRepositoryTest < MiniTest::Test
     result = "Test"
     expected = @irepo.all.last.name
     assert_equal expected, result
+  end
+
+  def test_it_can_update_an_item
+    # skip
+    assert_equal 'GlitterPens', @irepo.all[2].name
+    assert_equal "Make It Sparkle", @irepo.all[2].description
+
+    new_attributes = {:name => 'GLITTERpens', :description => 'So very sparkly', :unit_price => BigDecimal(3.99, 3)}
+    updated_item = @irepo.update(3, new_attributes)
+
+    assert_equal 'GLITTERpens', @irepo.all[2].name
+    assert_equal 'So very sparkly', @irepo.all[2].description
+    assert_equal 3.99, @irepo.all[2].unit_price
+  end
+
+  def test_it_can_update_an_item_if_only_one_attribute_is_provided
+    # skip
+    assert_equal 'GlitterPens', @irepo.all[2].name
+    assert_equal "Make It Sparkle", @irepo.all[2].description
+
+    new_attributes = {:description => 'So very sparkly', :unit_price => BigDecimal(3.99, 3)}
+    updated_item = @irepo.update(3, new_attributes)
+
+    assert_equal 'GlitterPens', @irepo.all[2].name
+    assert_equal 'So very sparkly', @irepo.all[2].description
+    assert_equal 3.99, @irepo.all[2].unit_price
   end
 
 end
