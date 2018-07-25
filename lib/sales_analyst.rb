@@ -122,4 +122,14 @@ class SalesAnalyst
     end
   end
 
+  def bottom_merchants_by_invoice_count
+    bottom_invoice_number = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    top_performing_merchants = find_all_merchant_ids.find_all do |merchant_id|
+      @invoices.find_all_by_merchant_id(merchant_id).count < bottom_invoice_number
+    end
+    top_performing_merchants.map do |id|
+      @merchants.find_by_id(id)
+    end
+  end
+
 end

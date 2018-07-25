@@ -126,25 +126,24 @@ class SalesAnalystTest < Minitest::Test
     invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
     invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
     invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    invoice_8 = Invoice.new({:id => 13, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    invoice_9 = Invoice.new({:id => 14, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    invoice_10 = Invoice.new({:id => 15, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    invoice_11 = Invoice.new({:id => 16, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    invoice_12 = Invoice.new({:id => 17, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    invoice_13 = Invoice.new({:id => 18, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
 
     @invoices << invoice_5
     @invoices << invoice_6
     @invoices << invoice_7
-    @invoices << invoice_8
-    @invoices << invoice_9
-    @invoices << invoice_10
-    @invoices << invoice_11
-    @invoices << invoice_12
-    @invoices << invoice_13
 
     assert_equal [], @sales_analyst.top_merchants_by_invoice_count
+  end
 
+  def test_it_finds_bottom_performing_merchants
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+
+    @invoices << invoice_5
+    @invoices << invoice_6
+    @invoices << invoice_7
+
+    assert_equal [], @sales_analyst.bottom_merchants_by_invoice_count
   end
 
 end
