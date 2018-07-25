@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-07-24T19:00:11-06:00">2018-07-24T19:00:11-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-07-25T10:03:44-06:00">2018-07-25T10:03:44-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">75.14%</span></span>
+    (<span class="covered_percent"><span class="red">76.37%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         7860.41
+         7832.24
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>6</b> files in total.
-    <b>181</b> relevant lines. 
-    <span class="green"><b>136</b> lines covered</span> and
-    <span class="red"><b>45</b> lines missed </span>
+    <b>182</b> relevant lines. 
+    <span class="green"><b>139</b> lines covered</span> and
+    <span class="red"><b>43</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -92,12 +92,12 @@
       
       <tr>
         <td class="strong"><a href="#75cb51ab7c35ee76b22d785605c8adfa3485efba" class="src_link" title="lib/sales_analyst.rb">lib/sales_analyst.rb</a></td>
-        <td class="green strong">95.92 %</td>
-        <td>89</td>
-        <td>49</td>
-        <td>47</td>
-        <td>2</td>
-        <td>13614.1</td>
+        <td class="green strong">100.0 %</td>
+        <td>94</td>
+        <td>50</td>
+        <td>50</td>
+        <td>0</td>
+        <td>13396.5</td>
       </tr>
       
       <tr>
@@ -1435,11 +1435,11 @@
         <div class="source_table" id="75cb51ab7c35ee76b22d785605c8adfa3485efba">
   <div class="header">
     <h3>lib/sales_analyst.rb</h3>
-    <h4><span class="green">95.92 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>49</b> relevant lines. 
-      <span class="green"><b>47</b> lines covered</span> and
-      <span class="red"><b>2</b> lines missed.</span>
+      <b>50</b> relevant lines. 
+      <span class="green"><b>50</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -1932,22 +1932,22 @@
           <code class="ruby">    stddev_sum = @item_repo.items.inject(0) do |sum, item|</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="82">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="1367" data-linenumber="82">
+          <span class="hits">1367</span>
           
-          <code class="ruby">      sum + ((item.unit_price - average_price) ** 2)</code>
+          <code class="ruby">        sum + ((item.unit_price - average_price) ** 2)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="83">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="83">
           
-          <code class="ruby">      binding.pry</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="84">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">    # binding.pry</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="85">
@@ -1956,25 +1956,55 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="86">
-          
+        <li class="covered" data-hits="1" data-linenumber="86">
+          <span class="hits">1</span>
           
           <code class="ruby">    divided = (stddev_sum / @item_repo.items.count)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="87">
+        <li class="covered" data-hits="1" data-linenumber="87">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    Math.sqrt(divided).round(2)</code>
+          <code class="ruby">    stddev = Math.sqrt(divided).round(2)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="88">
+        <li class="covered" data-hits="1" data-linenumber="88">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @item_repo.items.find_all do |item|</code>
+        </li>
+      
+        <li class="covered" data-hits="1367" data-linenumber="89">
+          <span class="hits">1367</span>
+          
+          <code class="ruby">      item.unit_price &gt; ((stddev * 2) + average_price)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="90">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="91">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="92">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="93">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="89">
+        <li class="never" data-hits="" data-linenumber="94">
           
           
           <code class="ruby">end</code>

@@ -52,7 +52,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_golden_items
     expected = 5
-    actual = @sales_analyst.golden_items
+    actual = @sales_analyst.golden_items.count
 
     assert_equal expected, actual
   end

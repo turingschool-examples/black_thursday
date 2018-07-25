@@ -79,11 +79,16 @@ class SalesAnalyst
     average_price = total_repo_value / @item_repo.items.count
 
     stddev_sum = @item_repo.items.inject(0) do |sum, item|
-      sum ((item.unit_price - average_price) ** 2)
-      binding.pry
+        sum + ((item.unit_price - average_price) ** 2)
     end
+    # binding.pry
 
     divided = (stddev_sum / @item_repo.items.count)
-    Math.sqrt(divided).round(2)
+    stddev = Math.sqrt(divided).round(2)
+    @item_repo.items.find_all do |item|
+      item.unit_price > ((stddev * 2) + average_price)
+    end
+
+
   end
 end
