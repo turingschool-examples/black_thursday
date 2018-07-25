@@ -113,19 +113,13 @@ class InvoiceRepositoryTest < Minitest::Test
     expected = @invoice_repository.find_all_by_status('shipped')
     assert_equal ([]), expected
   end
-  #
-  # def test_it_can_delete_invoice
-  #   id = 12334105
-  #
-  #   invoice = @invoice_repository.delete(id)
-  #   expected_1 = @invoice_repository.find_by_name('Shopin1901')
-  #   expected_2 = @invoice_repository.find_by_id(id)
-  #
-  #   assert_nil expected_1
-  #   assert_nil expected_2
-  # end
 
+  def test_it_can_delete_invoice
+    id = 2
 
-# update(id, attribute) - update the Invoice instance with the corresponding id with the provided attributes. Only the invoice’s status can be updated. This method will also change the invoice’s updated_at attribute to the current time.
-# delete(id) - delete the Invoice instance with the corresponding id
+    invoice = @invoice_repository.delete(id)
+    expected = @invoice_repository.find_by_id(2)
+
+    assert_nil expected
+  end
 end
