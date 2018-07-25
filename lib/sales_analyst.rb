@@ -3,7 +3,8 @@ require_relative 'sales_engine'
 
 class SalesAnalyst
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
   def initialize(items, merchants, invoices)
     @items = items
@@ -114,7 +115,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     top_invoice_number = average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation)
     top_performing_merchants = find_all_merchant_ids.find_all do |merchant_id|
-      (@invoices.find_all_by_merchant_id(merchant_id)).count > top_invoice_number
+      @invoices.find_all_by_merchant_id(merchant_id).count > top_invoice_number
     end
     @merchants.find_by_id(top_performing_merchants)
   end
