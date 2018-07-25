@@ -1,5 +1,4 @@
 require 'csv'
-
 require './lib/merchant.rb'
 class MerchantRepository 
   
@@ -29,13 +28,44 @@ class MerchantRepository
   end 
   
   def find_all_by_name(name)
-    #find_all_by_name(name) - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
     @all.find_all do |object| 
       object.name.downcase.include?(name.downcase)
     end 
   end 
+  
+  def find_highest_id
+    @all.max_by do |object|
+      object.id 
+    end 
+  end 
+  
+  def create(attributes)
+    mr = Merchant.new(attributes)
+    mr.id = find_highest_id + 1
+    @all << mr 
+  end 
+  
+  def update(id, attributes) #assuming attributes will  be a hash 
+    mr = @all.find do |object|
+      object.id == id 
+    end 
+    mr.name = attributes[name]
+    return mr 
+  end 
+  
+  def delete(id)
+    @all = @all.reject do |object|
+      object.id == id 
+    end
+  end  
+end 
 
-  def all
-    @merchants
-  end
-end
+mr = MerchantRepository.new("./data/dummy_merchants.csv")
+mr.create_all_from_csv("./data/dummy_merchants.csv")
+# p mr.find_by_id("12334112")
+# p mr.find_all_by_name("Candi")
+# p mr.find_highest_id
+puts mr.all.count
+p mr.create({:name => "Donald's"})
+puts mr.all.count 
+
