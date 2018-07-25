@@ -5,9 +5,10 @@ class SalesAnalyst
   attr_reader :items,
               :merchants
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def average_items_per_merchant
