@@ -41,15 +41,18 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    #find the merchant using the id
-    #count how many items the merchant sells
-    #get a list of all merchant item prices
-    #sum all the item prices together
-    #divide the sum by the total count
-    #return big decimal
+    merchant = @engine.merchants.find_by_id(merchant_id)
+    total_items = @engine.items.find_all_by_merchant_id(merchant_id).size
+    all_items = @engine.items.find_all_by_merchant_id(merchant_id)
+    sum = all_items.inject(0) do |sum, item|
+      sum + item.unit_price
+    end
+    average_price = sum / total_items
+    BigDecimal(average_price, 5)
   end
 
   def average_item_price_per_merchant
+
     # iterate - perform the above methos on all merchants
     # sum total / divid by total number of merchants
     #return big decimal

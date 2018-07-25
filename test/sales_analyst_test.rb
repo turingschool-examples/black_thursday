@@ -61,7 +61,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_average_item_price_for_merchant
-    skip
+
+    assert_equal 8.5, @sa.average_item_price_for_merchant(2)
     #takes argument of merchant id
   end
 
