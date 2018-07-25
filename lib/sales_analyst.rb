@@ -64,7 +64,20 @@ class SalesAnalyst
   end
 
   def golden_items
-    #run above method to get the average item price for all merchants
-    #see above
+    all_items = @engine.items.all
+    prices_sum = all_items.inject(0) do |sum, item|
+      sum + item.unit_price
+    end
+    average = prices_sum / all_items.size
+    equation = all_items.inject(0) do |sum, item|
+      sum + (item.unit_price - average)**2
+    end
+    std = Math.sqrt((equation / (all_items.size - 1)))
+    golden_threshold = average + std*2
+
+    result = all_items.find_all do |item|
+      item.unit_price > golden_threshold
+    end
   end
+
 end

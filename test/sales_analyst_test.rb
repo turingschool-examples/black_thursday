@@ -56,12 +56,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_merchants_with_high_item_count
-
     assert_equal [@se.merchants.find_by_id(5)], @sa.merchants_with_high_item_count
   end
 
   def test_it_calculates_average_item_price_for_merchant
-
     assert_equal 8.5, @sa.average_item_price_for_merchant(2)
     #takes argument of merchant id
   end
@@ -71,6 +69,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_identifies_golden_items
-    skip
+    assert_equal [@se.items.find_by_id(8)], @sa.golden_items
   end
 end
