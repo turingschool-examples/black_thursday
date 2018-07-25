@@ -8,8 +8,8 @@ class MerchantRepository
     @merchants = {}
   end
 
-  def populate_from_csv(filepath)
-    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+  def populate(data)
+    data.map do |row|
       create(row)
     end
   end
