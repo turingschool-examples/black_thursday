@@ -59,7 +59,7 @@ class MerchantRepository
   def update(id, attributes)
     merchant = find_by_id(id)
     return if merchant.nil?
-    merchant.name = attributes[:name]
+    merchant.name = attributes[:name] || merchant.name
     merchant.updated_at = Time.now
     merchant
   end
