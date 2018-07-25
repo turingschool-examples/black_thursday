@@ -117,7 +117,7 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal "Make It Sparkle", @irepo.all[2].description
 
     new_attributes = {:name => 'GLITTERpens', :description => 'So very sparkly', :unit_price => BigDecimal(3.99, 3)}
-    updated_item = @irepo.update(3, new_attributes)
+    @irepo.update(3, new_attributes)
 
     assert_equal 'GLITTERpens', @irepo.all[2].name
     assert_equal 'So very sparkly', @irepo.all[2].description
@@ -130,7 +130,7 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal "Make It Sparkle", @irepo.all[2].description
 
     new_attributes = {:description => 'So very sparkly', :unit_price => BigDecimal(3.99, 3)}
-    updated_item = @irepo.update(3, new_attributes)
+    @irepo.update(3, new_attributes)
 
     assert_equal 'GlitterPens', @irepo.all[2].name
     assert_equal 'So very sparkly', @irepo.all[2].description
