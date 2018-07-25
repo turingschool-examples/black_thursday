@@ -64,20 +64,20 @@ class InvoiceRepository
     end
   end
 
-  # def update(id, attributes)
-  #   invoice = find_by_id(id)
-  #   return if invoice.nil?
-  #   invoice.name = attributes[:name]
-  #   invoice.updated_at = Time.now
-  #   invoice
-  # end
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    return if invoice.nil?
+    invoice.status = attributes[:status]
+    invoice.updated_at = Time.now
+    invoice
+  end
   #
   # def delete(id)
   #   invoice = @invoices.find_index do |invoice|
   #     invoice.id == id
   #   end
   #   return if invoice.nil?
-  #   @invoices.delete_at(invoice)
+    # @invoices.delete_at(invoice)
   # end
   #
   # def inspect
