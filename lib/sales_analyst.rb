@@ -53,4 +53,14 @@ class SalesAnalyst
     (Math.sqrt(v/(ipm.size-1))).round(2)
   end
 
+  def one_standard_deviation_above
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
+  end
+
+  def merchants_with_high_item_count
+    group_items_by_merchant.find_all do |id, items|
+      items.count > one_standard_deviation_above
+    end
+  end
+
 end
