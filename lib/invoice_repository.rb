@@ -39,4 +39,48 @@ class InvoiceRepository
       invoice.status == status
     end
   end
+
+  def create(attributes)
+    id = create_id
+    invoice = Invoice.new(
+      id: id,
+      customer_id: attributes[:customer_id],
+      merchant_id: attributes[:merchant_id],
+      status: attributes[:status],
+      created_at: Time.now,
+      updated_at: Time.now
+      )
+    @invoices << invoice
+    invoice
+  end
+
+  def create_id
+    find_highest_id.id + 1
+  end
+
+  def find_highest_id
+    @invoices.max_by do |invoice|
+      invoice.id
+    end
+  end
+
+  # def update(id, attributes)
+  #   invoice = find_by_id(id)
+  #   return if invoice.nil?
+  #   invoice.name = attributes[:name]
+  #   invoice.updated_at = Time.now
+  #   invoice
+  # end
+  #
+  # def delete(id)
+  #   invoice = @invoices.find_index do |invoice|
+  #     invoice.id == id
+  #   end
+  #   return if invoice.nil?
+  #   @invoices.delete_at(invoice)
+  # end
+  #
+  # def inspect
+  #   "#<#{self.class} #{@invoices.size} rows>"
+  # end
 end

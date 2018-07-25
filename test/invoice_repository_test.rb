@@ -80,7 +80,49 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal ([]), invoices_3
   end
 
+  def test_it_can_create_new_id
+    invoice = @invoice_repository.create_id
+    assert_equal 4, invoice
+  end
 
+  def test_it_can_create_new_invoice
+    attributes = {  customer_id: 27,
+                    merchant_id: 2772,
+                    status: 'shipping',
+                    created_at: '2010-12-10',
+                    updated_at: '2011-12-04',
+                  }
+    invoice = @invoice_repository.create(attributes)
+    assert_equal 4, invoice.id
+    assert_equal 27, invoice.customer_id
+    assert_equal 2772, invoice.merchant_id
+    assert_equal 'shipping', invoice.status
+    assert_instance_of Time, invoice.created_at
+    assert_instance_of Time, invoice.updated_at
+  end
+  #
+  # def test_it_can_update_invoice_name
+  #   attributes = {
+  #     name: 'Shopin2001'
+  #   }
+  #   id = 12334105
+  #   invoice = @invoice_repository.update(id, attributes)
+  #   expected = @invoice_repository.find_by_id(id)
+  #   assert_equal 'Shopin2001', expected.name
+  #   expected = @invoice_repository.find_by_name('Shopin1901')
+  #   assert_nil expected
+  # end
+  #
+  # def test_it_can_delete_invoice
+  #   id = 12334105
+  #
+  #   invoice = @invoice_repository.delete(id)
+  #   expected_1 = @invoice_repository.find_by_name('Shopin1901')
+  #   expected_2 = @invoice_repository.find_by_id(id)
+  #
+  #   assert_nil expected_1
+  #   assert_nil expected_2
+  # end
 
 # create(attributes) - create a new Invoice instance with the provided attributes. The new Invoice’s id should be the current highest Invoice id plus 1.
 # update(id, attribute) - update the Invoice instance with the corresponding id with the provided attributes. Only the invoice’s status can be updated. This method will also change the invoice’s updated_at attribute to the current time.
