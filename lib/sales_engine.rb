@@ -1,6 +1,9 @@
 require 'csv'
 require_relative '../lib/item.rb'
 require_relative '../lib/merchant.rb'
+require_relative '../lib/merchant_repository.rb'
+require_relative '../lib/item_repository.rb'
+require_relative '../lib/sales_analyst.rb'  
 
 class SalesEngine
   attr_reader :csv_hash,
@@ -9,12 +12,15 @@ class SalesEngine
 
   def initialize(csv_hash)
     @csv_hash = csv_hash
-    # @items = ItemRepository.new(csv_hash[:items])
+    @items = ItemRepository.new(csv_hash[:items])
     @merchants = MerchantRepository.new(csv_hash[:merchants])
   end
-
 
   def self.from_csv(csv_hash)#pass in result of read_from_csv
     SalesEngine.new(csv_hash)
   end
+  
+  def analyst 
+    SalesAnalyst.new 
+  end 
 end
