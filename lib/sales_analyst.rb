@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class SalesAnalyst
   attr_reader :engine
@@ -7,20 +8,25 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    #count how many merchants there are
-    merchant_count = @engine.merchants.all.size
-    #for each merchant count thier items
-    #add together all items sold total for all merchants
-    # then divid the sum of items sold by the number of merchants
-    #return the mean as a big decimal
+    merchant_count = @engine.merchants.all.size.to_f
+    item_count = @engine.items.all.size.to_f
+    BigDecimal((item_count / merchant_count), 3)
   end
 
   def average_items_per_merchant_standard_deviation
-    #run the above method(average items per merchant)
+    average = average_items_per_merchant
     # get all the merchants
+    all_merchants = @engine.merchants.all
     #count how may items each merchant sells and put it in an array
+    items_per_merchant = []
+    all_merchants.each do |merchant|
+      items_per_merchant << @engine.items.find_all_by_merchant_id(merchant.id).size
+    end
+    equation = items_per_merchant.inject(0) do |sum, number_items|
+      sum + (number_items - average)**2
+    end
+    binding.pry
     #iterate - for each item in the array minus mean and square the result
-    # return an array of the squared differences
     #sum the whole array together
     #divide the sum by the number of elements it had minus 1
     # take the square root of the result
