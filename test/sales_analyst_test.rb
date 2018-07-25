@@ -66,8 +66,8 @@ class SalesAnalystTest < Minitest::Test
     #takes argument of merchant id
   end
 
-  def test_it_calculates_average_price_per_merchant
-    skip
+  def test_it_calculates_average_average_price_per_merchant
+    assert_equal 3645.36, @sa.average_average_price_per_merchant
   end
 
   def test_it_identifies_golden_items
