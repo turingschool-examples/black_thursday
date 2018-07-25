@@ -58,7 +58,7 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    x = group_items_by_merchant.find_all do |id, items|
+    group_items_by_merchant.find_all do |id, items|
       items.count > one_standard_deviation_above
     end
   end
