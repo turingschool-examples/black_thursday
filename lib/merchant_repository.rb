@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 require './lib/merchant.rb'
 class MerchantRepository 
   
@@ -40,17 +41,15 @@ class MerchantRepository
   end 
   
   def create(attributes)
+    attributes[:id] = find_highest_id.id.to_i + 1
     mr = Merchant.new(attributes)
-    mr.id = find_highest_id + 1
-    @all << mr 
+    @all << mr
+    return mr 
   end 
   
-  def update(id, attributes) #assuming attributes will  be a hash 
-    mr = @all.find do |object|
-      object.id == id 
-    end 
-    mr.name = attributes[name]
-    return mr 
+  def update(id, attributes)
+    merchant = find_by_id(id.to_s)
+    merchant.attributes_hash[:name] = attributes[:name]
   end 
   
   def delete(id)
@@ -66,6 +65,9 @@ mr.create_all_from_csv("./data/dummy_merchants.csv")
 # p mr.find_all_by_name("Candi")
 # p mr.find_highest_id
 puts mr.all.count
-p mr.create({:name => "Donald's"})
-puts mr.all.count 
+# p mr.all[0].id
+# p mr.create({:name => "Donald's"})
+# puts mr.all.count 
+mr.update(12334105, {:id => 512334105, :name => "Jerry's"}) 
+p mr.all[0]
 
