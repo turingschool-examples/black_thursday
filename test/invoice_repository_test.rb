@@ -36,4 +36,45 @@ class InvoiceRepositoryTest < Minitest::Test
     actual = @invoice_repository.find_all_by_customer_id(1).count
     assert_equal expected, actual
   end
+
+  def test_it_can_find_all_by_merchant_id
+    expected = 16
+    actual = @invoice_repository.find_all_by_merchant_id(12335938).count
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_all_by_status
+    expected = 1473
+    actual = @invoice_repository.find_all_by_status("pending").count
+    assert_equal expected, actual
+  end
+
+  def test_it_create_new_invoice_with_attributes
+    new_invoice_added = @invoice_repository.create({
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+      })
+    expected = @invoice_repository.invoices[-1]
+    actual = new_invoice_added
+    assert_equal expected, actual
+  end
+
+  def test_it_can_update_attributes
+    new_invoice_added = @invoice_repository.create({
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending"
+      })
+
+    assert_equal @invoice_repository.invoices.last.customer_id, new_invoice_added.customer_id
+    assert_equal @invoice_repository.invoices.last.merchant_id, new_invoice_added.merchant_id
+    assert_equal @invoice_repository.invoices.last.status, new_invoice_added.status
+
+    @invoice_repository.update(4986, {:status => "shipped"})
+
+    assert_equal "shipped", new_invoice_added.status
+  end
 end

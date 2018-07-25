@@ -17,7 +17,7 @@ class SalesEngine
     @merchants = MerchantRepository.new(merchant_location)
     @items = ItemRepository.new(item_location)
     @invoices = InvoiceRepository.new(invoice_location)
-    @analyst = SalesAnalyst.new(@merchants, @items)
+    @analyst = SalesAnalyst.new(@merchants, @items, @invoices)
   end
 
   def self.from_csv(csv_hash)

@@ -29,6 +29,27 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_status(status)
+    all.find_all do |each|
+      each.status == status.to_sym
+    end
+  end
+
+  def create(attributes)
+    attributes[:id] = create_id
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    created = Invoice.new(attributes)
+    @invoices << created
+    created
+  end
+
+  def update(id, attributes)
+    find_by_id(id).status = attributes[:status] unless attributes[:status].nil?
+    find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
+  end
+
+
   def inspect
     "#<#{self.InvoiceRepository} #{@invoices.size} rows>"
   end

@@ -3,11 +3,14 @@ require_relative '../lib/item_repository'
 
 class SalesAnalyst
   attr_reader :merchant_repo,
-              :item_repo
+              :item_repo,
+              :invoice_repo
 
-  def initialize(merchant_repo, item_repo)
+
+  def initialize(merchant_repo, item_repo, invoice_repo)
     @merchant_repo = merchant_repo
     @item_repo = item_repo
+    @invoice_repo = invoice_repo
   end
 
   def average_items_per_merchant
@@ -81,7 +84,7 @@ class SalesAnalyst
     stddev_sum = @item_repo.items.inject(0) do |sum, item|
         sum + ((item.unit_price - average_price) ** 2)
     end
-    
+
     divided = (stddev_sum / @item_repo.items.count)
     stddev = Math.sqrt(divided).round(2)
     @item_repo.items.find_all do |item|
