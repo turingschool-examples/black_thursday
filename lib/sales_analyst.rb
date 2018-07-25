@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+require 'bigdecimal'
+require 'bigdecimal/util'
+
 
 class SalesAnalyst
   attr_reader :engine
@@ -7,35 +12,32 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    #count how many merchants there are
-    merchant_count = @engine.merchants.all.size
-    #for each merchant count thier items
-    #add together all items sold total for all merchants
-    # then divid the sum of items sold by the number of merchants
-    #return the mean as a big decimal
+    merchant_count = @engine.merchants.all.size.to_f
+    item_count = @engine.items.all.size.to_f
+    BigDecimal((item_count / merchant_count), 3)
   end
 
   def average_items_per_merchant_standard_deviation
-    #run the above method(average items per merchant)
-    # get all the merchants
-    #count how may items each merchant sells and put it in an array
-    #iterate - for each item in the array minus mean and square the result
-    # return an array of the squared differences
-    #sum the whole array together
-    #divide the sum by the number of elements it had minus 1
-    # take the square root of the result
-    # return a big decimal
+    average = average_items_per_merchant
+    all_merchants = @engine.merchants.all
 
+    items_per_merchant = []
+    all_merchants.each do |merchant|
+      items_per_merchant << @engine.items.find_all_by_merchant_id(merchant.id).size
+    end
+    equation = items_per_merchant.inject(0) do |sum, number_items|
+      sum + (number_items - average)**2
+    end
+    ((Math.sqrt(equation / (items_per_merchant.size - 1)).round(2))).to_d
   end
 
   def merchants_with_high_item_count
-    # run the above method to get the SD
-    # and one to the above number
-    # get all the merchants
-    #iterate over each merchant to compare the number of items they sell
-    #with the SD plus 1
-    #if they sell more items than the SD + 1
-    # shovell them into an array of high item count merchants
+    std = average_items_per_merchant_standard_deviation + 1
+    all_merchants = @engine.merchants.all
+
+    all_merchants.find_all do |merchant|
+      @engine.items.find_all_by_merchant_id(merchant.id).size > std
+    end
   end
 
   def average_item_price_for_merchant(merchant_id)
