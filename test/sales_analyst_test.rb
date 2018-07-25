@@ -76,4 +76,11 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_one_stnd_deviation_above_average
     assert_equal 6.14, @sa.one_standard_deviation_above
   end
+
+  def test_it_can_find_high_seller_merchants
+    skip
+    assert_equal 52, @sa.merchants_with_high_item_count.count
+    assert_equal Array, @sa.merchants_with_high_item_count.class
+    assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
+  end
 end
