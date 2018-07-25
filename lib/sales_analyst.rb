@@ -117,7 +117,9 @@ class SalesAnalyst
     top_performing_merchants = find_all_merchant_ids.find_all do |merchant_id|
       @invoices.find_all_by_merchant_id(merchant_id).count > top_invoice_number
     end
-    @merchants.find_by_id(top_performing_merchants)
+    top_performing_merchants.map do |id|
+      @merchants.find_by_id(id)
+    end
   end
 
 end
