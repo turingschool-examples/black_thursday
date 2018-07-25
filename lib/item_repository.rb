@@ -3,7 +3,6 @@ require_relative '../lib/item.rb'
 
 class ItemRepository
   attr_reader :items
-
   def initialize(filepath)
     @filepath = filepath #"./data/items.csv"
     @items = [ ]
@@ -25,26 +24,60 @@ class ItemRepository
   end
 end
 
-def find_by_name(name)
-  @items.find do |item|
+  def find_by_name(name)
+    @items.find do |item|
     item.name.downcase == name.downcase
+    end
   end
-end
 
-def find_all_with_description(description)
+  def find_all_with_description(description)
     @items.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end
-end
+  end
 
-def find_all_by_price(price)
-  @items.find_all do |item|
+  def find_all_by_price(price)
+    kittens = @items.find_all do |item|
+
     item.unit_price == price
+  end#.flatten
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all do |item|
+      #binding.pry
+    range.include?(item.unit_price.to_f)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def find_highest_id
+    @items.max_by do |item|
+      item.id
+    end
+  end
+
+  def create_id
+    find_highest_id.id.to_i + 1
+  end
+
+  def create(attributes)
+    attributes[:id] = create_id
+    item = Item.new(attributes)
+    @items << item
+  end
+
+  def update(id, attributes)
+    find_by_id(id).update_attributes(attributes)
+  end
+
+  def delete(id)
+    item = find_by_id(id)
+    @items.delete(item)
   end
 end
-end
-# ir = ItemRepository.new("./data/items.csv")
-# ir.create_items
-#  p ir.items[2]
-#
-# p ir.items.count

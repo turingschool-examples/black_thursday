@@ -1,5 +1,6 @@
-class Item 
-  
+require 'pry'
+class Item
+
   attr_reader     :item_hash,
                   :id,
                   :name,
@@ -8,7 +9,7 @@ class Item
                   :created_at,
                   :updated_at,
                   :merchant_id
-                  
+
   def initialize(item_hash)
     @item_hash = item_hash
     @id = item_hash[:id]
@@ -18,9 +19,16 @@ class Item
     @created_at = item_hash[:created_at]
     @updated_at = item_hash[:updated_at]
     @merchant_id = item_hash[:merchant_id]
-  end 
-  
+  end
+
   def convert_unit_price_to_dollar_string
     "$#{unit_price.to_f/100}"
-  end 
-end 
+  end
+
+  def update_attributes(attributes)
+    @name = attributes[:name] || @name
+    @description = attributes[:description] || @description
+    @unit_price = attributes[:unit_price] || @unit_price
+    @updated_at = Time.now
+  end
+end
