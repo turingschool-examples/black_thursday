@@ -7,22 +7,26 @@ require_relative './sales_analyst'
 
 class SalesEngine
   def self.from_csv(filepaths) # Hash values are file paths
-    new(filepaths)
+    csv_data = {}
+    filepaths.each do |repo, filepath|
+      csv_data[repo] = CSV.open(filepath, headers: true, header_converters: :symbol)
+    end
+    new(csv_data)
   end
 
-  def initialize(filepaths)
-    @filepaths = filepaths
+  def initialize(data)
+    @data = data
   end
 
   def merchants
     @merchants ||= MerchantRepository.new.tap do |merchant_repo|
-      merchant_repo.populate_from_csv(@filepaths[:merchants])
+      merchant_repo.populate(@data[:merchants])
     end
   end
 
   def items
     @items ||= ItemRepository.new.tap do |item_repo|
-      item_repo.populate_from_csv(@filepaths[:items])
+      item_repo.populate(@data[:items])
     end
   end
 
