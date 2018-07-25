@@ -18,7 +18,7 @@ class SalesEngineTest < Minitest::Test
     item1 = { id: 1, name: 'Pencil', description: 'Use me to write things', unit_price: '1000', created_at: '2010-12-22', updated_at: '2011-05-04', merchant_id: 1 }
     item2 = { id: 1, name: 'Pen', description: 'Use me to write permanently', unit_price: '1200', created_at: '2010-12-22', updated_at: '2011-05-04', merchant_id: 1 }
     item3 = { id: 1, name: 'Paper', description: 'Use me to write things on', unit_price: '500', created_at: '2010-12-22', updated_at: '2011-05-04', merchant_id: 1 }
-    items = [item1]
+    items = [item1, item2, item3]
 
     data = { merchants: merchants, items: items }
     @se = SalesEngine.new(data)
@@ -35,5 +35,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_use_sub_methods
     assert_instance_of Item, @se.items.find_by_id(1)
+  end
+
+  def test_it_can_run_analyst
+    assert_instance_of SalesAnalyst, @se.analyst
   end
 end
