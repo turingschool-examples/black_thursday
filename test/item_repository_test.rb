@@ -54,15 +54,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, ir.find_by_id("263395237").class
   end
 
-  def test_find_all_by_price
-    skip
+  def test_find_by_name
     se = SalesEngine.from_csv({
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv"
       })
     ir = ItemRepository.new(se.csv_hash[:items])
-    ir.find_all_by_price(700)
-    assert_equal 700 , ir.find_all_by_price(700)
+    ir.create_items
+    assert_equal [ir.all[3]], [ir.find_by_name("Free standing Woden letters")]
+#when i run this there are brackets that switch if i put brackets around both they pass?
   end
 
   def test_find_all_with_description
@@ -72,9 +72,42 @@ class ItemRepositoryTest < Minitest::Test
       })
     ir = ItemRepository.new(se.csv_hash[:items])
     ir.create_items
-    ir.find_all_with_description("Disney glitter frames")
-    #binding.pry
-    assert_equal ir.find_all_with_description("Disney glitter frames").class
+    assert_equal [ir.all[1]], ir.find_all_with_description("scrabble frames")
+    #should i use items or all?
   end
+
+    def test_find_all_by_price
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+        })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+    #  ir.all.convert_unit_price_to_dollar_string
+      assert_equal [ir.all[3]] , ir.find_all_by_price("700")
+    end
+
+    def test_find_all_by_price_range
+      skip
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+        })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      ir.convert_unit_price_to_dollar_string
+      assert_equal 2 , ir.find_all_by_price_in_range("13.00..14.00").count
+    end
+
+    def test_find_all_by_merchant_id
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+        })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      assert_equal [ir.all[0]], ir.find_all_by_merchant_id("12334141")
+    end
+
 
 end
