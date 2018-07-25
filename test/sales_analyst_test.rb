@@ -13,15 +13,23 @@ class SalesAnalystTest < Minitest::Test
     @sa = SalesAnalyst.new(@se)
   end
 
-  def test_it_can_find_total_number_of_merchants
-    assert_equal 475, @se.total_merchants
+  def test_it_exists
+    # skip
+    assert_instance_of SalesAnalyst, @sa
   end
 
-  def test_it_can_find_total_number_of_items
-    assert_equal 1603, @se.total_items
+  def test_it_can_create_an_instance_of_sales_engine
+    # skip
+    assert_instance_of SalesEngine, @sa.se
+  end
+
+  def test_it_can_group_items_by_merchant
+    # skip
+    assert_equal 2, @sa.group_items_by_merchant.count
   end
 
   def test_it_can_find_the_average_number_of_items_per_merchant
+    skip
     assert_equal 2.88, @sa.average_items_per_merchant
   end
 end
