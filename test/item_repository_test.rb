@@ -102,21 +102,21 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_with_price
-    items_1 = @item_repository.find_all_by_price(1300)
-    items_2 = @item_repository.find_all_by_price(9900)
-    items_3 = @item_repository.find_all_by_price(1500)
+    items_1 = @item_repository.find_all_by_price(13)
+    items_2 = @item_repository.find_all_by_price(99)
+    items_3 = @item_repository.find_all_by_price(15)
 
-    assert_equal 1300, items_1.first.unit_price
+    assert_equal 13, items_1.first.unit_price.to_i
     assert_equal ([]), items_2
     assert_equal 3, items_3.count
   end
 
   def test_it_can_find_all_items_within_a_price_range
-    items_1 = @item_repository.find_all_by_price_in_range(0..1300)
-    items_2 = @item_repository.find_all_by_price_in_range(9800..9900)
-    items_3 = @item_repository.find_all_by_price_in_range(0..12500)
+    items_1 = @item_repository.find_all_by_price_in_range(0..13)
+    items_2 = @item_repository.find_all_by_price_in_range(98..99)
+    items_3 = @item_repository.find_all_by_price_in_range(0..125)
 
-    assert_equal 1300, items_1.first.unit_price
+    assert_equal 13, items_1.first.unit_price.to_i
     assert_equal ([]), items_2
     assert_equal 6, items_3.count
   end
@@ -126,7 +126,7 @@ class ItemRepositoryTest < Minitest::Test
     items_2 = @item_repository.find_all_by_merchant_id(99)
     items_3 = @item_repository.find_all_by_merchant_id(2)
 
-    assert_equal 1500, items_1.first.unit_price
+    assert_equal 15, items_1.first.unit_price.to_i
     assert_equal ([]), items_2
     assert_equal 3, items_3.count
   end

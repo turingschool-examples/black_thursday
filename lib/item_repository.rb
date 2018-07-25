@@ -72,9 +72,9 @@ class ItemRepository
   def update(id, attributes)
     item = find_by_id(id)
     return if item.nil?
-    item.name ||= attributes[:name]
-    item.description ||= attributes[:description]
-    item.unit_price = attributes[:unit_price]
+    item.name = attributes[:name] || item.name # if name DNE, will return nil, making it falsey -> rt side
+    item.description = attributes[:description] || item.description
+    item.unit_price = attributes[:unit_price] || item.unit_price
     item.updated_at = Time.now
   end
 
