@@ -1,5 +1,5 @@
 require 'csv'
-require_relative '../lib/item.rb'
+require_relative './item'
 
 class ItemRepository
   attr_reader :items
@@ -79,5 +79,9 @@ end
   def delete(id)
     item = find_by_id(id)
     @items.delete(item)
+  end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
