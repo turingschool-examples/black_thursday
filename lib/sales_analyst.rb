@@ -1,4 +1,5 @@
 require_relative '../lib/merchant_repository'
+require_relative '../lib/item_repository'
 
 class SalesAnalyst
   attr_reader :merchant_repo,
@@ -26,11 +27,11 @@ class SalesAnalyst
       items_per_merchant_array << value
     end
 
-    sum = items_per_merchant_array.inject(0) do |sum, number|
+    stddev_sum = items_per_merchant_array.inject(0) do |sum, number|
       sum + ((number - average_items_per_merchant) ** 2)
     end
 
-    divided = (sum / items_per_merchant_array.count)
+    divided = (stddev_sum / items_per_merchant_array.count)
     Math.sqrt(divided).round(2)
   end
 
@@ -43,6 +44,22 @@ class SalesAnalyst
 
     merchant_ids.map do |merchant_id, item_count|
       @merchant_repo.find_by_id(merchant_id.to_i)
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    item_list = @item_repo.find_all_by_merchant_id(merchant_id)
+    prices = item_list.map do |item|
+      item.unit_price
+    end
+    item_denominator = items_per_merchant[merchant_id.to_s]
+
+    (sum(prices).to_f / item_denominator).round(2).to_d
+  end
+
+  def sum(array)
+    array.inject(0) do |sum, number|
+      sum + number
     end
   end
 
