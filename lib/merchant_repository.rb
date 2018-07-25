@@ -31,22 +31,7 @@ class MerchantRepository
     new_merchant
   end
 
-  def update(id, attributes)
-    merchant = find_by_id(id)
-    return if merchant.nil?
-    merchant.name = attributes[:name] unless attributes[:name].nil?
-    merchant.updated_at = Time.now
-    merchant
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end
-
-# def create_new_id_number
-#   max_id = @repository.max do |object|
-#     object.id
-#   end
-#   new_id = max_id.id + 1
-# end
