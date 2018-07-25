@@ -1,5 +1,5 @@
 require 'csv'
-# require_relative '../lib/invoice.rb'
+require_relative '../lib/invoice.rb'
 require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
@@ -19,4 +19,17 @@ class InvoiceRepository
     end
   end
 
+  def all
+    @invoices
+  end
+
+  def find_all_by_customer_id(customer_id)
+    all.find_all do |each|
+      each.customer_id == customer_id
+    end
+  end
+
+  def inspect
+    "#<#{self.InvoiceRepository} #{@invoices.size} rows>"
+  end
 end

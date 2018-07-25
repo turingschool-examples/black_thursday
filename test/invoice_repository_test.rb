@@ -19,4 +19,21 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, @invoice_repository.invoices[0]
     assert_instance_of Invoice, @invoice_repository.invoices[25]
   end
+
+  def test_it_can_return_items_using_all
+    assert_instance_of Invoice, @invoice_repository.all[5]
+    assert_instance_of Invoice, @invoice_repository.all[97]
+  end
+
+  def test_it_can_find_by_id
+    expected = @invoice_repository.invoices[0]
+    actual = @invoice_repository.find_by_id(1)
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_all_by_customer_id
+    expected = 8
+    actual = @invoice_repository.find_all_by_customer_id(1).count
+    assert_equal expected, actual
+  end
 end
