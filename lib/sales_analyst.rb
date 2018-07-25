@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
+
 class SalesAnalyst
   attr_reader :engine
 
@@ -15,9 +17,9 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
-    # get all the merchants
+    #binding.pry
     all_merchants = @engine.merchants.all
-    #count how may items each merchant sells and put it in an array
+
     items_per_merchant = []
     all_merchants.each do |merchant|
       items_per_merchant << @engine.items.find_all_by_merchant_id(merchant.id).size
@@ -25,13 +27,9 @@ class SalesAnalyst
     equation = items_per_merchant.inject(0) do |sum, number_items|
       sum + (number_items - average)**2
     end
-    binding.pry
-    #iterate - for each item in the array minus mean and square the result
-    #sum the whole array together
-    #divide the sum by the number of elements it had minus 1
-    # take the square root of the result
-    # return a big decimal
-
+    result = Math.sqrt(equation/ (items_per_merchant.size - 1))
+    BigDecimal(result, 3)
+    #binding.pry
   end
 
   def merchants_with_high_item_count
