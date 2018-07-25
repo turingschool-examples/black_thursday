@@ -1,9 +1,11 @@
 require 'csv'
 require_relative '../lib/merchant.rb'
+require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
 class MerchantRepository
   attr_reader :merchants
+  include RepoMethodHelper
 
   def initialize(merchant_location)
     @merchant_location = merchant_location
@@ -19,12 +21,6 @@ class MerchantRepository
 
   def all
     @merchants
-  end
-
-  def find_by_id(id_number)
-    @merchants.find do |merchant|
-      merchant.id.to_i == id_number
-    end
   end
 
   def find_by_name(name)

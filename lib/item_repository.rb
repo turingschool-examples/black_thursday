@@ -1,9 +1,11 @@
 require 'csv'
 require_relative '../lib/item.rb'
+require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
 class ItemRepository
   attr_reader :items
+  include RepoMethodHelper
 
   def initialize(item_location)
     @item_location = item_location
@@ -19,12 +21,6 @@ class ItemRepository
 
   def all
     @items
-  end
-
-  def find_by_id(id_number)
-    @items.find do |item|
-      item.id.to_i == id_number
-    end
   end
 
   def find_by_name(name)
