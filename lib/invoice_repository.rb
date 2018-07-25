@@ -21,4 +21,22 @@ class InvoiceRepository
       invoice.id == id
     end
   end
+
+  def find_all_by_customer_id(customer_id)
+    @invoices.find_all do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @invoices.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
+  end
+
+  def find_all_by_status(status)
+    @invoices.find_all do |invoice|
+      invoice.status == status
+    end
+  end
 end

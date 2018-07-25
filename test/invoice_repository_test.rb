@@ -7,20 +7,20 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoices =
       [{id: 1,
       customer_id: 1,
-      merchant_id: 12335938,
-      status: 'pending',
+      merchant_id: 1111,
+      status: 'shipped',
       created_at: '2010-11-10',
       updated_at: '2011-11-04'},
       {id: 2,
       customer_id: 2,
-      merchant_id: 12377738,
+      merchant_id: 2222,
       status: 'pending',
       created_at: '2013-12-10',
       updated_at: '2013-12-04'},
       {id: 3,
-      customer_id: 3,
-      merchant_id: 12335888,
-      status: 'shipped',
+      customer_id: 2,
+      merchant_id: 2222,
+      status: 'pending',
       created_at: '2010-03-10',
       updated_at: '2011-03-04'}]
 
@@ -44,78 +44,45 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, invoice
     assert_equal 1, invoice.id
   end
-  #
-  # def test_it_returns_nil_if_invoice_id_is_invalid
-  #   invoice = @invoice_repository.find_by_id('invalid')
-  #   assert_nil invoice
-  # end
-  #
-  # def test_it_can_find_a_invoice_by_name
-  #   invoice = @invoice_repository.find_by_name('Candisart')
-  #   assert_instance_of Invoice, invoice
-  #   assert_equal 'Candisart', invoice.name
-  # end
-  #
-  # def test_it_returns_nil_if_merchant_name_is_invalid
-  #   merchant = @merchant_repository.find_by_name('invalid')
-  #   assert_nil merchant
-  # end
-  #
-  # def test_merchant_find_by_name_is_case_insensitive
-  #   merchant = @merchant_repository.find_by_name('candisart')
-  #   assert_equal 'Candisart', merchant.name
-  # end
-  #
-  # def test_find_all_by_name_or_name_fragment
-  #   invoices_1 = @merchant_repository.find_all_by_name('Bike')
-  #   invoices_2 = @merchant_repository.find_all_by_name('zzzz')
-  #   invoices_3 = @merchant_repository.find_all_by_name('in')
-  #   assert_equal 'MiniatureBikez', invoices_1.first.name
-  #   assert_equal ([]), invoices_2
-  #   assert_equal 'Shopin1901', invoices_3.first.name
-  #   assert_equal 'MiniatureBikez', invoices_3[-1].name
-  # end
-  #
-  # def test_it_can_find_highest_id
-  #   merchant = @merchant_repository.find_highest_id
-  #   assert_equal 12334113, merchant.id
-  # end
-  #
-  # def test_it_can_create_new_id
-  #   merchant = @merchant_repository.create_id
-  #   assert_equal 12334114, merchant
-  # end
-  #
-  # def test_it_can_create_new_merchant
-  #   attributes = {  name: 'Turing School',
-  #                   created_at: '2010-12-10',
-  #                   updated_at: '2011-12-04'
-  #                 }
-  #   merchant = @merchant_repository.create(attributes)
-  #   assert_equal 'Turing School', merchant.name
-  #   assert_equal 12334114, merchant.id
-  # end
-  #
-  # def test_it_can_update_merchant_name
-  #   attributes = {
-  #     name: 'Shopin2001'
-  #   }
-  #   id = 12334105
-  #   merchant = @merchant_repository.update(id, attributes)
-  #   expected = @merchant_repository.find_by_id(id)
-  #   assert_equal 'Shopin2001', expected.name
-  #   expected = @merchant_repository.find_by_name('Shopin1901')
-  #   assert_nil expected
-  # end
-  #
-  # def test_it_can_delete_merchant
-  #   id = 12334105
-  #
-  #   merchant = @merchant_repository.delete(id)
-  #   expected_1 = @merchant_repository.find_by_name('Shopin1901')
-  #   expected_2 = @merchant_repository.find_by_id(id)
-  #
-  #   assert_nil expected_1
-  #   assert_nil expected_2
-  # end
+
+  def test_it_returns_nil_if_invoice_id_is_invalid
+    invoice = @invoice_repository.find_by_id('invalid')
+    assert_nil invoice
+  end
+
+  def test_it_can_find_all_invoices_by_customer_id
+    invoices_1 = @invoice_repository.find_all_by_customer_id(1)
+    invoices_2 = @invoice_repository.find_all_by_customer_id(2)
+    invoices_3 = @invoice_repository.find_all_by_customer_id(3)
+    assert_equal 1, invoices_1.first.customer_id
+    assert_equal 2, invoices_2.first.customer_id
+    assert_equal 2, invoices_2[-1].customer_id
+    assert_equal ([]), invoices_3
+  end
+
+  def test_it_can_find_all_invoices_by_merchant_id
+    invoices_1 = @invoice_repository.find_all_by_merchant_id(1111)
+    invoices_2 = @invoice_repository.find_all_by_merchant_id(2222)
+    invoices_3 = @invoice_repository.find_all_by_merchant_id(3333)
+    assert_equal 1111, invoices_1.first.merchant_id
+    assert_equal 2222, invoices_2.first.merchant_id
+    assert_equal 2222, invoices_2[-1].merchant_id
+    assert_equal ([]), invoices_3
+  end
+
+  def test_it_can_find_all_invoices_by_status
+    invoices_1 = @invoice_repository.find_all_by_status('shipped')
+    invoices_2 = @invoice_repository.find_all_by_status('pending')
+    invoices_3 = @invoice_repository.find_all_by_status('status DNE')
+    assert_equal 'shipped', invoices_1.first.status
+    assert_equal 'pending', invoices_2.first.status
+    assert_equal 'pending', invoices_2[-1].status
+    assert_equal ([]), invoices_3
+  end
+
+
+
+# create(attributes) - create a new Invoice instance with the provided attributes. The new Invoice’s id should be the current highest Invoice id plus 1.
+# update(id, attribute) - update the Invoice instance with the corresponding id with the provided attributes. Only the invoice’s status can be updated. This method will also change the invoice’s updated_at attribute to the current time.
+# delete(id) - delete the Invoice instance with the corresponding id
 end
