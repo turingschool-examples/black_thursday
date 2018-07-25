@@ -1,4 +1,4 @@
-module RepositoryModule
+module RepositoryAssistant
 
   def all
     @repository.find_all do |repo_object|

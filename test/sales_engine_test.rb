@@ -1,7 +1,7 @@
 require './test/test_helper'
 require './lib/sales_engine'
 require './lib/file_loader'
-# require './lib/merchant_repository'
+require './lib/merchant_repository'
 
 class SalesEngineTest < Minitest::Test
 

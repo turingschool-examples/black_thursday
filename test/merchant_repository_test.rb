@@ -95,11 +95,11 @@ class MerchantRepositoryTest < Minitest::Test
     # skip
     assert_equal 'Candisart', @mr.all[1].name
 
-    updated_merchant_1 = @mr.update(12334112, :name => 'CandisART')
+    @mr.update(12334112, :name => 'CandisART')
     assert_equal 'CandisART', @mr.all[1].name
 
-    updated_merchant_2 = @mr.update(1234, :name => 'uh oh my id is not present')
-    assert_nil updated_merchant_2
+    updated_merchant = @mr.update(1234, :name => 'uh oh my id is not present')
+    assert_nil updated_merchant
   end
 
   def test_it_can_delete_a_merchant_record

@@ -1,8 +1,8 @@
 require_relative 'merchant'
-require_relative 'repository_module'
+require_relative 'repository_assistant'
 
 class MerchantRepository
-  include RepositoryModule
+  include RepositoryAssistant
 
   def initialize(data_file)
     @repository = data_file.map {|merchant| Merchant.new(merchant)}
