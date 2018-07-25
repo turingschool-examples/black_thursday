@@ -140,9 +140,19 @@ class ItemRepositoryTest < Minitest::Test
         assert_equal expected, actual
     end
 
-    def test_updadte
-      skip
-
+    def test_update
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+      })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      original_item = ir.find_by_id("263395721")
+      assert_equal "Disney scrabble frames"  , original_item.name
+      ir.update("263395721",{:name => "Dog frame" })
+      assert_equal "Dog frame", ir.find_by_id("263395721").name
+      assert_equal "Disney glitter frames" , ir.find_by_id("263395721").description
+      #refute_equal original_item.updated_at, ir.find_by_id("263395721").updated_at
     end
 
     def test_delete

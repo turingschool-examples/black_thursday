@@ -71,10 +71,11 @@ end
     @items << item
   end
 
-  #def update
+  def update(id, attributes)
+    find_by_id(id).update_attributes(attributes)
 
 
-  #end
+  end
 
   def delete(id)
     item = find_by_id(id)
