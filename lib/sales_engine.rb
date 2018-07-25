@@ -1,22 +1,27 @@
-require 'csv'
+require_relative '../lib/csv_adaptor'
+require_relative '../lib/merchant_repo'
+require_relative '../lib/item_repo'
 
 class SalesEngine
+  
+  include CsvAdaptor
 
-  attr_reader :item_file,
-              :merchant_file,
-              :items,
-              :merchants
-
-  def initialize(merchant_file, item_file)
-    @merchant_file = merchant_file
-    @item_file = item_file
+  def initialize
+    @merchants = MerchantRepo.new(from_csv)
+    @items = ItemRepo.new(from_csv)
   end
 
-  def self.from_csv(hash)
-    @merchants = MerchantRepo.new(hash[:merchants])  #test me.
-    #@items = ItemRepository.new
-    @items_csv = CSV.open(hash[:items], headers: true, header_converters: :symbol)
-    #@items = ItemRepository.new
+  def from_csv(file_location)
+    load_from_csv(file_location)
   end
 
 end
+
+# 
+# sa = SalesEngine.new 
+# se = sa.from_csv("./data/items.csv")
+# mr = se.merchants
+# 
+# p mr
+
+
