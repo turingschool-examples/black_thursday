@@ -17,10 +17,16 @@ class SalesAnalystTest < Minitest::Test
     @merchant_2 = Merchant.new({:id => 12337777, :name => "Walmart"})
     @merchant_3 = Merchant.new({:id => 12339191, :name => "Cool Place"})
 
+    @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 1355, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_2 = Invoice.new({:id => 7, :customer_id => 37, :merchant_id => 2289, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_3 = Invoice.new({:id => 8, :customer_id => 48, :merchant_id => 4934, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+
+
     @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
+    @invoices = [@invoice_1, @invoice_2, @invoice_3]
 
-    @sales_engine = SalesEngine.new(@items, @merchants)
+    @sales_engine = SalesEngine.new(@items, @merchants, @invoices)
     @sales_analyst = @sales_engine.analyst
   end
 
