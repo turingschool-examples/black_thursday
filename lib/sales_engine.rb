@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
-
+require 'pry'
 require_relative './item'
 require_relative './item_repository'
 require_relative './merchant'
@@ -12,13 +12,16 @@ require_relative './transaction_repository'
 require_relative './transaction'
 require_relative './customer_repository'
 require_relative './customer'
+require_relative './invoice'
+require_relative './invoice_repository'
 # ./lib/sales_engine
 class SalesEngine
   attr_accessor :merchant_repository,
                 :item_repository,
                 :invoice_item_repository,
                 :transaction_repository,
-                :customer_repository
+                :customer_repository,
+                :invoice_repository
 
   def initialize
     @merchant_repository = nil
@@ -26,6 +29,7 @@ class SalesEngine
     @invoice_item_repository = nil
     @transaction_repository = nil
     @customer_repository = nil
+    @invoice_repository = nil
   end
 
   def self.from_csv(data)
@@ -35,6 +39,7 @@ class SalesEngine
     sales_engine.invoice_item_repository = sales_engine.invoice_item_builder(data[:invoice_items])
     sales_engine.transaction_repository = sales_engine.transaction_builder(data[:transactions])
     sales_engine.customer_repository = sales_engine.customer_builder(data[:customers])
+    sales_engine.invoice_repository = sales_engine.invoice_builder(data[:invoices])
     sales_engine
   end
 
@@ -48,6 +53,10 @@ class SalesEngine
 
   def invoice_items
     @invoice_item_repository
+  end
+
+  def invoices
+    @invoice_repository
   end
 
   def transactions
@@ -134,8 +143,23 @@ class SalesEngine
     customer_repository
   end
 
+  def invoice_builder(invoice_data)
+    invoice_repository = InvoiceRepository.new
+    array = []
+    array = csv_reader(invoice_data)
+    array.each do |invoice|
+      invoice_repository.create(id: invoice[0],
+                                customer_id: invoice[1],
+                                merchant_id: invoice[2],
+                                status: invoice[3],
+                                created_at: invoice[4],
+                                update_at: invoice[5])
+    end
+    invoice_repository
+  end
+
   def analyst
-    SalesAnalyst.new(@merchant_repository, @item_repository)
+    SalesAnalyst.new(@merchant_repository, @item_repository, @invoice_repository)
   end
 
 end
