@@ -9,7 +9,7 @@ class InvoiceItemTest < MiniTest::Test
                       :id          => 2345,
                       :item_id        => 263562118,
                       :invoice_id => 522,
-                      :unit_price  => 847.87,
+                      :unit_price  => 84787,
                       :quantity => 5,
                       :created_at  => "2012-03-27 14:54:35 UTC",
                       :updated_at  => "2012-03-27 14:54:35 UTC"
@@ -27,14 +27,13 @@ class InvoiceItemTest < MiniTest::Test
   def test_it_has_a_item_id
     assert_equal 263562118, @invoice_item.item_id
   end
-  
+
   def test_it_has_a_invoice_id
     assert_equal 522, @invoice_item.invoice_id
   end
 
   def test_it_has_a_unit_price
-    skip
-    assert_equal 8.4700, @invoice_item.unit_price
+    assert_equal 847.87, @invoice_item.unit_price
   end
 
   def test_it_has_a_quantity

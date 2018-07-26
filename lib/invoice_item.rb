@@ -6,12 +6,12 @@ class InvoiceItem
   attr_reader   :id,
                 :item_id,
                 :invoice_id,
-                :unit_price,
-                :quantity,
                 :created_at
 
 
-  attr_accessor :updated_at
+  attr_accessor :unit_price,
+                :quantity,
+                :updated_at
 
   def initialize(invoice_item_hash)
     @id = invoice_item_hash[:id].to_i

@@ -44,12 +44,11 @@ class InvoiceItemRepository
     created
   end
 
-  # def update(id, attributes)
-  #   find_by_id(id).name = attributes[:name] unless attributes[:name].nil?
-  #   find_by_id(id).description = attributes[:description] unless attributes[:description].nil?
-  #   find_by_id(id).unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
-  #   find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
-  # end
+  def update(id, attributes)
+    find_by_id(id).quantity = attributes[:quantity] unless attributes[:quantity].nil?
+    find_by_id(id).unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
+  end
 
   def inspect
     "#<#{self.InvoiceItemRepository} #{@invoice_items.size} rows>"
