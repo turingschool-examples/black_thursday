@@ -12,7 +12,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    (Math.sqrt( get_mean_of_totaled_squares(@item_repository.group_item_by_merchant_id, average_items_per_merchant))).round(2)
+    mean_total_sqr = @item_repository.group_item_by_merchant_id
+    mean_items_per = average_items_per_merchant
+
+    (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
   end
 
   def get_squared_item_prices
@@ -22,9 +25,8 @@ class SalesAnalyst
   end
 
   def get_mean_of_items_squared
-    sum = 0
-    get_squared_item_prices.each do |price|
-      sum += price
+    sum = get_squared_item_prices.inject(0) do |total, price|
+      total += price
     end
     sum / get_squared_item_prices.count
   end
@@ -34,7 +36,7 @@ class SalesAnalyst
   end
 
   def golden_items
-    mean  = mean_item_price
+    mean  = @item_repository.mean_item_price
     stdev = average_price_per_item_standard_deviation * 2
     @item_repository.items.find_all do |item|
       item.unit_price > (mean + stdev)
@@ -62,17 +64,6 @@ class SalesAnalyst
     @item_repository.average_average_price_per_merchant
   end
 
-#  def average_average_price_per_merchant
-#    sum   = BigDecimal.new(0)
-#    hash  = group_item_by_merchant_id
-#    total_merchants = 0
-#    hash.each do |id, items|
-#      sum += average_item_price_for_merchant(id)
-#      total_merchants += 1
-#    end
-#    average = sum / BigDecimal.new(total_merchants)
-#    average.round(2)
-#  end
 
   def get_mean_of_totaled_squares(grouped_hash, average)
     get_total_of_squares(grouped_hash, average) / get_squared_values(grouped_hash, average).count
@@ -87,41 +78,4 @@ class SalesAnalyst
       (item.count - average) ** 2
     end
   end
-
- # def get_number_of_merchants
- #   @merchant_repository.merchants.count
- # end
-
-#  def get_number_of_items
-#    @item_repository.items.count
-#  end
-
-#  def group_item_by_merchant_id
-#    @item_repository.items.group_by { |item| item.merchant_id}
-#  end
-
-#  def average_item_price_for_merchant(id)
-#    sum      = BigDecimal.new(0)
-#    merchant = group_item_by_merchant_id.find do |key, items|
-#      key == id
-#    end
-#    merchant[1].each do |item|
-#      sum += item.unit_price
-#    end
-#    average = sum / BigDecimal.new(merchant[1].count)
-#    average.round(2)
-#  end
-
-# def mean_item_price
-#    sum   = 0
-#    count = 0
-#    @item_repository.items.each do |item|
-#      sum += item.unit_price
-#      count += 1
-#    end
-#     thing = sum / count
-#     require 'pry', binding.pry
-#  end
-
-
 end
