@@ -24,7 +24,7 @@ class InvoiceRepositoryTest < Minitest::Test
       id:          2,
       customer_id: 2,
       merchant_id: 3,
-      status:      'shipped',
+      status:      'pending',
       created_at:  Time.now,
       updated_at:  Time.now
     )
@@ -64,5 +64,18 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_status
+    actual = @invoice_repo.find_all_by_status('pending')
+    assert_equal [@invoice1, @invoice2], actual
+  end
+
+  def test_it_can_update_attributes
+    @invoice_repo.update(1, status: 'shipped')
+    assert_equal 'shipped', @invoice1.status
+  end
+
+  def test_it_can_delete_invoices
+    @invoice_repo.delete(3)
+    assert_equal [@invoice1, @invoice2], @invoice_repo.all
+  end
 
 end

@@ -45,4 +45,24 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_status(status)
+    found_invoices = @invoices.find_all do |_, invoice|
+      invoice.status == status
+    end.flatten
+    found_invoices.keep_if do |element|
+      element.is_a?(Invoice)
+    end
+  end
+
+  def update(id, params)
+    return nil unless @invoices.key?(id)
+    invoice = find_by_id(id)
+    invoice.status = params[:status] unless params[:status].nil?
+    invoice.updated_at = Time.now
+  end
+
+  def delete(id)
+    @invoices.delete(id)
+  end
+
 end
