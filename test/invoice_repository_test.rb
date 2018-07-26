@@ -77,4 +77,11 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal "shipped", new_invoice_added.status
   end
+
+  def test_it_can_delete_item
+    assert_equal @invoice_repository.invoices[0], @invoice_repository.find_by_id(1)
+
+    @invoice_repository.delete(1)
+    assert_nil @invoice_repository.find_by_id(1)
+  end
 end

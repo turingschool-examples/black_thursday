@@ -26,7 +26,6 @@ module RepoMethodHelper
   end
 
   def find_all_by_merchant_id(merchant_id)
-    # merchant_id_string = merchant_id.to_s
     all.find_all do |each|
       each.merchant_id.to_i == merchant_id
     end
