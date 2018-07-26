@@ -2,8 +2,14 @@ require 'bigdecimal'
 require 'time'
 
 class Item
-  attr_reader :id, :created_at, :merchant_id
-  attr_accessor :name, :description, :unit_price, :updated_at
+  attr_reader :id,
+              :created_at,
+              :merchant_id
+
+  attr_accessor :name,
+                :description,
+                :unit_price,
+                :updated_at
 
   def initialize(item_data)
     @id = item_data[:id].to_i
@@ -16,6 +22,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price.to_f 
+    unit_price.to_f
   end
 end

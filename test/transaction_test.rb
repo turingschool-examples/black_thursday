@@ -12,7 +12,7 @@ class TransactionTest < Minitest::Test
       :result => "success",
       :created_at => Time.now,
       :updated_at => Time.now
-    })
+      })
   end
 
   def test_it_exists

@@ -1,8 +1,11 @@
 require 'time'
 
 class Merchant
-  attr_reader  :id, :created_at
-  attr_accessor :name, :updated_at
+  attr_reader  :id,
+               :created_at
+
+  attr_accessor :name,
+                :updated_at
 
   def initialize(merchant_data)
     @name = merchant_data[:name]
