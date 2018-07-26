@@ -35,6 +35,7 @@ module RepositoryAssistant
     repo_object.description = attributes[:description] unless attributes[:description].nil?
     repo_object.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     repo_object.status = attributes[:status] unless attributes[:status].nil?
+    repo_object.quantity = attributes[:quantity] unless attributes[:quantity].nil?
     repo_object.updated_at = Time.now
   end
 end
