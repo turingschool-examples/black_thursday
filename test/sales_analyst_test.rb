@@ -17,10 +17,10 @@ class SalesAnalystTest < Minitest::Test
     @merchant_2 = Merchant.new({:id => 12337777, :name => "Walmart"})
     @merchant_3 = Merchant.new({:id => 12339191, :name => "Cool Place"})
 
-    @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 12334141, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    @invoice_2 = Invoice.new({:id => 7, :customer_id => 37, :merchant_id => 12337777, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    @invoice_3 = Invoice.new({:id => 8, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
-    @invoice_4 = Invoice.new({:id => 9, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => Time.now, :updated_at => Time.now})
+    @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 12334141, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    @invoice_2 = Invoice.new({:id => 7, :customer_id => 37, :merchant_id => 12337777, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    @invoice_3 = Invoice.new({:id => 8, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    @invoice_4 = Invoice.new({:id => 9, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
 
     @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
@@ -144,6 +144,86 @@ class SalesAnalystTest < Minitest::Test
     @invoices << invoice_7
 
     assert_equal [], @sales_analyst.bottom_merchants_by_invoice_count
+  end
+
+  def test_it_finds_which_days_of_the_week_have_the_most_sales
+    skip
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_8 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_9 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_10 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_11= Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_12 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_13 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2015-03-12", :updated_at => Time.now})
+
+    @invoices << invoice_5
+    @invoices << invoice_6
+    @invoices << invoice_7
+    @invoices << invoice_8
+    @invoices << invoice_9
+    @invoices << invoice_10
+    @invoices << invoice_11
+    @invoices << invoice_12
+    @invoices << invoice_13
+
+    assert_equal ["Thursday"], @sales_analyst.top_days_by_invoice_count
+  end
+
+  def test_finds_invoices_per_day
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_8 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_9 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => :shipped, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_10 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => :shipped, :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_11 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :shipped, :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_12 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => :returned, :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_13 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => :returned, :created_at => "2015-03-12", :updated_at => Time.now})
+
+    @invoices << invoice_5
+    @invoices << invoice_6
+    @invoices << invoice_7
+    @invoices << invoice_8
+    @invoices << invoice_9
+    @invoices << invoice_10
+    @invoices << invoice_11
+    @invoices << invoice_12
+    @invoices << invoice_13
+
+    expected = {"Saturday" => 9, "Friday" => 3, "Thursday" => 1}
+
+    assert_equal expected, @sales_analyst.weekday_breakdown
+  end
+
+
+  def test_percentage_of_invoices_shipped_based_on_status
+    skip
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_8 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_9 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => :shipped, :created_at => "2009-02-07", :updated_at => Time.now})
+    invoice_10 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => :shipped, :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_11= Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :shipped, :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_12 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => :returned, :created_at => "2012-11-23", :updated_at => Time.now})
+    invoice_13 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => :returned, :created_at => "2015-03-13", :updated_at => Time.now})
+
+    @invoices << invoice_5
+    @invoices << invoice_6
+    @invoices << invoice_7
+    @invoices << invoice_8
+    @invoices << invoice_9
+    @invoices << invoice_10
+    @invoices << invoice_11
+    @invoices << invoice_12
+    @invoices << invoice_13
+
+    assert_equal 61.54, sales_analyst.invoice_status(:pending)
+    assert_equal 23.08, sales_analyst.invoice_status(:shipped)
+    assert_equal 15.38, sales_analyst.invoice_status(:returned)
+
   end
 
 

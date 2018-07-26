@@ -1,4 +1,6 @@
+require 'time'
 require 'pry'
+require 'date'
 require_relative 'sales_engine'
 
 class SalesAnalyst
@@ -131,5 +133,27 @@ class SalesAnalyst
       @merchants.find_by_id(id)
     end
   end
+
+  def weekday_breakdown
+    @invoices.all.each_with_object({}) do |invoice, days|
+      if days[invoice.created_at.strftime("%A")]
+        days[invoice.created_at.strftime("%A")] += 1
+      else
+        days[invoice.created_at.strftime("%A")] = 1
+      end
+    end
+  end
+
+  def top_days_by_invoice_count
+    average_by_day = @invoices.all.count / 7
+
+
+
+      #once day of the week is totaled you need to compair it to the average plus 1 standard_deviation
+  end
+
+  # def invoice_status(status)
+  #
+  # end
 
 end
