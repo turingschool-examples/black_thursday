@@ -41,4 +41,20 @@ class TransactionRepository
       each.result == result.to_sym
     end
   end
+
+  def create(attributes)
+    attributes[:id] = create_id
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    created = Transaction.new(attributes)
+    @transactions << created
+    created
+  end
+
+  def update(id, attributes)
+    find_by_id(id).result = attributes[:result].to_sym unless attributes[:result].nil?
+    find_by_id(id).credit_card_number = attributes[:credit_card_number].to_i unless attributes[:credit_card_number].nil?
+    find_by_id(id).credit_card_expiration_date = attributes[:credit_card_expiration_date].to_i unless attributes[:credit_card_expiration_date].nil?
+    find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
+  end
 end

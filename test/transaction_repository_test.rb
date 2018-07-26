@@ -48,4 +48,54 @@ class TransactionRepositoryTest < Minitest::Test
     actual = @transaction_repository.find_all_by_result("success").count
     assert_equal expected, actual
   end
+
+  def test_it_create_new_transaction_with_attributes
+    new_transaction_added = @transaction_repository.create({
+      invoice_id: "99999999",
+      credit_card_number: "4646464675757575",
+      credit_card_expiration_date: "0823",
+      result: "failed"
+      })
+    expected = @transaction_repository.transactions[-1]
+    actual = new_transaction_added
+    assert_equal expected, actual
+  end
+
+  def test_it_can_update_attributes
+    @transaction_repository.create({
+      invoice_id: "99999999",
+      credit_card_number: "4646464675757575",
+      credit_card_expiration_date: "1123",
+      result: "failed"
+      })
+    new_transaction = @transaction_repository.transactions.last
+
+    last_transaction_credit_card_number = new_transaction.credit_card_number
+    last_transaction_credit_card_expiration_date = new_transaction.credit_card_expiration_date
+    last_transaction_result = new_transaction.result
+
+    assert_equal 4646464675757575, last_transaction_credit_card_number
+    assert_equal 1123, last_transaction_credit_card_expiration_date
+    assert_equal :failed, last_transaction_result
+
+    @transaction_repository.update(4986, {
+      credit_card_number: "4646464692929292",
+      credit_card_expiration_date: "1205",
+      result: "success"
+      })
+    changed_transaction = @transaction_repository.transactions.last
+
+    assert_equal 4646464692929292, changed_transaction.credit_card_number
+    assert_equal 1205, changed_transaction.credit_card_expiration_date
+    assert_equal :success, changed_transaction.result
+
+    assert_equal new_transaction.id, changed_transaction.id
+  end
+
+  def test_it_can_delete_transaction
+    assert_equal @transaction_repository.transactions[0], @transaction_repository.find_by_id(1)
+
+    @transaction_repository.delete("1")
+    assert_nil @transaction_repository.find_by_id("1")
+  end
 end
