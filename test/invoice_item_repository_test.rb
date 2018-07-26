@@ -46,4 +46,23 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 10, actual
     assert_equal 5, @invoice_item_repository.all.count
   end
+
+  def test_instance_can_be_updated
+    @invoice_item_repository.update(6, {:id => 6, :item_id => 8, :invoice_id => 90, :quantity => 4, :unit_price => BigDecimal.new(35.42, 4), :created_at => Time.now, :updated_at => Time.now})
+    actual = @invoice_item_repository.find_by_id(6).quantity
+    assert_equal 4, actual
+
+    actual = @invoice_item_repository.find_by_id(6).unit_price
+    assert_equal 35.42, actual
+
+    actual = @invoice_item_repository.find_by_id(6).invoice_id
+    assert_equal 88, actual
+  end
+
+  def test_invoice_item_can_be_deleted
+    assert_equal 4, @invoice_item_repository.all.count
+    @invoice_item_repository.delete(7)
+    assert_equal 3, @invoice_item_repository.all.count
+    assert_equal nil, @invoice_item_repository.find_by_id(7)
+  end
 end
