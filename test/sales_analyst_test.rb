@@ -63,7 +63,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_one_stnd_deviation_above_average
-    assert_equal 3.0, @sa.one_standard_deviation_above
+    assert_equal 3.0, @sa.items_one_standard_deviation_above
   end
 
   def test_it_can_zip_items_and_merchant_ids
@@ -78,6 +78,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_average_item_price_for_single_merchant
     assert_equal 14.33, @sa.average_item_price_for_merchant(2)
+    assert_equal BigDecimal, @sa.average_item_price_for_merchant(2).class
+  end
+
+  def test_it_can_find_average_average_price_per_merchant
+    assert_equal 50.89, @sa.average_average_price_per_merchant
+    assert_equal BigDecimal, @sa.average_average_price_per_merchant.class
   end
 
 
