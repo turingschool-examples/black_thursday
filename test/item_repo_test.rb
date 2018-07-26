@@ -44,28 +44,25 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_all_items_by_price_range
-    skip
-    assert_equal [@item_4, @item_5, @item_7], @item_repo.find_all_by_price_in_range([1700,2000])
+    assert_equal [@item_repo.all[3], @item_repo.all[4]], @item_repo.find_all_by_price_in_range([1700,2000])
     assert_equal [], @item_repo.find_all_by_price_in_range([1000,1300])
   end
 
   def test_it_returns_all_items_by_merchant_id
-    skip
-    assert_equal [@item_1, @item_2, @item_3], @item_repo.find_all_by_merchant_id(12334195)
-    assert_equal [], @item_repo.find_all_by_merchant_id(12345678)
+    assert_equal [@item_repo.all[0], @item_repo.all[1], @item_repo.all[2]], @item_repo.find_all_by_merchant_id(12334195)
+    assert_equal [], @item_repo.find_all_by_merchant_id(123456)
   end
 
   def test_it_creates_item_with_attributes
-    skip
-  assert_instance_of Item, @item_repo.create({
-  :id          => 1,
-  :name        => "Eagle",
-  :description => "animal 7",
-  :unit_price  => BigDecimal.new(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  :merchant_id => 2
-  })
+    refute_instance_of Item, @item_repo.all[6]
+    @item_repo.create({:id          => "1",
+                       :name        => "Eagle",
+                       :description => "animal 7",
+                       :unit_price  => "1099",
+                       :created_at  => "2016-01-11 11:51:37 UTC",
+                       :updated_at  => "2016-01-11 11:51:37 UTC",
+                       :merchant_id => "2"})
+    assert_instance_of Item, @item_repo.all[6]
   end
 
 
