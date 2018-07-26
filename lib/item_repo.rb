@@ -5,12 +5,21 @@ class ItemRepo
 
   attr_accessor :items
 
-  def initialize(items = [])
+  def initialize(items)
     @items = items
+    change_item_hashes_to_objects
   end
 
   def all
     @items
+  end
+
+  def change_item_hashes_to_objects
+    item_array = []
+    @items.each do |hash|
+      item_array << Item.new(hash)
+    end
+    @items = item_array
   end
 
   def find_by_id(id)
