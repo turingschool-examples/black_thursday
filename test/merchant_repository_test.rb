@@ -83,11 +83,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_create_a_new_merchant
     # skip
-    new_merchant = @mr.create({:name => 'MockEtsyStore1'})
+    @mr.create({
+      :name => 'MockEtsyStore1',
+      :created_at => Time.now,
+      :updated_at => Time.now})
 
-    assert_equal 'MockEtsyStore1', new_merchant.name
-    assert_equal 12334208, new_merchant.id
-    assert_equal new_merchant, @mr.all.last
+    assert_equal 'MockEtsyStore1', @mr.all[-1].name
+    assert_equal 12334208, @mr.all[-1].id
     assert_equal 7, @mr.all.count
   end
 
@@ -104,9 +106,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_delete_a_merchant_record
     # skip
-    sample_merchant = @mr.create({:name => 'SampleMerchant'})
-    assert_equal 'SampleMerchant', sample_merchant.name
-    assert_equal 12334208, sample_merchant.id
+    @mr.create({
+      :name => 'SampleMerchant',
+      :created_at => Time.now,
+      :updated_at => Time.now})
+
+    assert_equal 'SampleMerchant', @mr.all[-1].name
+    assert_equal 12334208, @mr.all[-1].id
     assert_equal 7, @mr.all.count
 
     @mr.delete(12334208)
