@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/sales_analyst'
 require './lib/sales_engine'
+require 'pry'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -9,7 +10,6 @@ class SalesAnalystTest < Minitest::Test
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv',
       })
-
     @sa = SalesAnalyst.new(@se)
   end
 
@@ -24,12 +24,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_group_items_by_merchant
-    skip
-    assert_equal 2, @sa.group_items_by_merchant.count
+    assert_equal 475, @sa.group_items_by_merchant.count
+  end
+
+  def test_items_per_merchant
+    assert_equal 2, @sa.items_per_merchant
   end
 
   def test_it_can_find_the_average_number_of_items_per_merchant
-    skip
     assert_equal 2.88, @sa.average_items_per_merchant
   end
 end
