@@ -38,4 +38,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal expected, actual
     assert_equal [], @invoice_item_repository.find_all_by_invoice_id(1001)
   end
+
+  def test_it_creates_new_invoice_items
+    @invoice_item_repository.create({:id => 2, :item_id => 20, :invoice_id => 880, :quantity => 1, :unit_price => BigDecimal.new(10.99, 4), :created_at => Time.now, :updated_at => Time.now})
+    actual = @invoice_item_repository.all.last.id
+
+    assert_equal 10, actual
+    assert_equal 5, @invoice_item_repository.all.count
+  end
 end
