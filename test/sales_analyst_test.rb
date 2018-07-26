@@ -147,7 +147,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_finds_which_days_of_the_week_have_the_most_sales
-    skip
     invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
     invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
     invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => "pending", :created_at => "2009-02-07", :updated_at => Time.now})
@@ -168,7 +167,7 @@ class SalesAnalystTest < Minitest::Test
     @invoices << invoice_12
     @invoices << invoice_13
 
-    assert_equal ["Thursday"], @sales_analyst.top_days_by_invoice_count
+    assert_equal ["Saturday"], @sales_analyst.top_days_by_invoice_count
   end
 
   def test_finds_invoices_per_day
@@ -223,9 +222,5 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 61.54, sales_analyst.invoice_status(:pending)
     assert_equal 23.08, sales_analyst.invoice_status(:shipped)
     assert_equal 15.38, sales_analyst.invoice_status(:returned)
-
   end
-
-
-
 end

@@ -146,10 +146,16 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     average_by_day = @invoices.all.count / 7
-
-
-
-      #once day of the week is totaled you need to compair it to the average plus 1 standard_deviation
+    st_dev_days = standard_deviation(weekday_breakdown.values, average_by_day)
+    top_day_invoice_number = average_by_day + st_dev_days
+    top_pairs = weekday_breakdown.find_all do |day, number|
+      if number >= top_day_invoice_number
+        day
+      end
+    end.flatten
+    top_pairs.find_all do |days|
+      days.class == String
+    end
   end
 
   # def invoice_status(status)
