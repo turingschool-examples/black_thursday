@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require_relative './invoice_repository'
 require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './sales_analyst'
@@ -27,6 +28,12 @@ class SalesEngine
   def items
     @items ||= ItemRepository.new.tap do |item_repo|
       item_repo.populate(@data[:items])
+    end
+  end
+
+  def invoices
+    @invoices ||= InvoiceRepository.new.tap do |invoice_repo|
+      invoice_repo.populate(@data[:invoices])
     end
   end
 

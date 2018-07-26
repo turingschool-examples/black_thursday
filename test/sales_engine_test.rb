@@ -20,7 +20,12 @@ class SalesEngineTest < Minitest::Test
     item3 = { id: 1, name: 'Paper', description: 'Use me to write things on', unit_price: '500', created_at: '2010-12-22', updated_at: '2011-05-04', merchant_id: 1 }
     items = [item1, item2, item3]
 
-    data = { merchants: merchants, items: items }
+    invoice1 = { id: 1, customer_id: 2, merchant_id: 3, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice2 = { id: 2, customer_id: 2, merchant_id: 3, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice3 = { customer_id: 3, merchant_id: 4, status: 'returned', created_at: Time.now, updated_at: Time.now}
+    invoices = [invoice1, invoice2, invoice3]
+    
+    data = { merchants: merchants, items: items, invoices: invoices}
     @se = SalesEngine.new(data)
   end
 
@@ -31,6 +36,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_loads_repos
     refute_empty @se.merchants.all
     refute_empty @se.items.all
+    refute_empty @se.invoices.all
   end
 
   def test_it_can_use_sub_methods
