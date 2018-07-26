@@ -72,24 +72,27 @@ class ItemRepoTest < Minitest::Test
     refute_equal "animal 100", @item_repo.all[5].description
     refute_equal "2100", @item_repo.all[5].unit_price
 
+    current_time = Time.now.to_s
+
     @item_repo.update(263395214, {
-      :id           => 363395250,
+      :id           => "363395250",
       :name         => "Bat",
       :description  => "animal 100",
-      :unit_price   => 2100,
-      :created_at   => Time.now,
-      :updated_at   => Time.now,
+      :unit_price   => "2100",
+      :created_at   => current_time,
+      :updated_at   => current_time,
       :merchant_id  => "12334104"
       })
-      #{id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}
+      ##stopping here.
 
-      assert_equal "Bat", @item_8.name
-      assert_equal "animal 100", @item_8.description
-      assert_equal "2100", @item_8.unit_price
-      assert_equal 263395214, @item_8.id
-      assert_equal "2016-01-11 11:51:37 UTC", @item_8.created_at
-      assert_equal "2016-01-11 11:51:37 UTC", @item_8.updated_at
-      assert_equal "12334104", @item_8.merchant_id
+      #{id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}
+      assert_equal "Bat", @item_repo.all[5].name
+      assert_equal "animal 100", @item_repo.all[5].description
+      assert_equal "2100", @item_repo.all[5].unit_price
+      assert_equal 263395214, @item_repo.all[5].id
+      assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].created_at
+      assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].updated_at
+      assert_equal 12334104, @item_repo.all[5].merchant_id
   end
 
   def test_it_deletes_item_by_id
