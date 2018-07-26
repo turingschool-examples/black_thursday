@@ -1,6 +1,7 @@
 require_relative 'file_loader'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 require_relative 'sales_analyst'
 
 class SalesEngine
@@ -28,5 +29,10 @@ class SalesEngine
   def items
     item_file_path = @file_loader.builder(file_path[:items])
     @items ||= ItemRepository.new(item_file_path)
+  end
+
+  def invoices
+    invoice_file_path = @file_loader.builder(file_path[:invoices])
+    @invoices ||= InvoiceRepository.new(invoice_file_path)
   end
 end
