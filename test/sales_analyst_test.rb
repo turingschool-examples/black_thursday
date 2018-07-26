@@ -90,6 +90,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sa.average_average_price_per_merchant.class
   end
 
+  def test_it_can_find_golden_items
+    assert_equal 1, @sa.golden_items.count
+    assert_equal Item, @sa.golden_items.class
+  end
+
 
   #--------------------------ITERATION-2-STUFF-------------#
   #
