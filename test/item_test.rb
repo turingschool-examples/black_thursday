@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './item'
+require_relative '../lib/item'
 require 'bigdecimal'
 require 'time'
 require 'pry'

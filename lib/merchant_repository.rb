@@ -1,6 +1,6 @@
 require 'csv'
-require 'pry'
-require_relative './merchant'
+
+require_relative '../lib/merchant'
 class MerchantRepository
 
   attr_reader     :filepath,
@@ -40,11 +40,21 @@ class MerchantRepository
     end
   end
 
+  # def create(attributes)
+  #   attributes[:id] = find_highest_id.id.to_i + 1
+  #   mr = Merchant.new(attributes)
+  #   @all << mr
+  #   return mr
+  # end
   def create(attributes)
-    attributes[:id] = find_highest_id.id.to_i + 1
-    mr = Merchant.new(attributes)
-    @all << mr
-    return mr
+    id = find_highest_id.id + 1
+    merchant = Merchant.new(
+      id: id,
+      name: attributes[:name],
+      created_at: Time.now,
+      updated_at: Time.now,
+      )
+    @all << merchant
   end
 
   # def update(id, attributes)

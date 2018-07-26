@@ -39,7 +39,7 @@ end
   def find_all_by_price(price)
     kittens = @items.find_all do |item|
 
-    item.unit_price == price
+    item.unit_price == price.to_i
   end#.flatten
   end
 
@@ -73,14 +73,16 @@ end
   end
 
   def update(id, attributes)
+  if find_by_id(id) != nil
     find_by_id(id).update_attributes(attributes)
+  end
   end
 
   def delete(id)
     item = find_by_id(id)
     @items.delete(item)
   end
-  
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
