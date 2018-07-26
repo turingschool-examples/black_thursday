@@ -1,9 +1,9 @@
 require './test/test_helper'
 require './lib/sales_engine'
 require './lib/file_loader'
-# require './lib/merchant_repository'
 
 class SalesEngineTest < Minitest::Test
+  include FileLoader
 
   def setup
     @se = SalesEngine.from_csv({
@@ -25,7 +25,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_an_item_by_name
-    # skip
     ir = @se.items
     item = ir.find_by_name('510+ RealPush Icon Set')
 
@@ -37,10 +36,10 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv(
       items: './data/items.csv',
       merchants: './data/merchants.csv',
-      # invoices: './data/invoices_test.csv',
+      invoices: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      # transactions: './data/transactions.csv'
       # customers: './data/customers.csv',
-      # invoice_items: './data/invoice_items_test.csv',
-      # transactions: './data/transactions_test.csv'
     )
     assert_instance_of SalesAnalyst, se.analyst
   end
