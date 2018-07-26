@@ -22,6 +22,12 @@ module Repository
     end
   end
 
+  def find_all_by_item_id(item_id)
+    @list.find_all do |list_item|
+      list_item.item_id == item_id
+    end
+  end
+
   def find_highest_id
     highest_list_id = @list.max_by do |list_item|
       list_item.id
