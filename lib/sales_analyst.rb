@@ -51,13 +51,18 @@ class SalesAnalyst
     (Math.sqrt(v/(ipm.size-1))).round(2)
   end
 
-  def one_standard_deviation_above
+  def items_one_standard_deviation_above
+    #item quantity
     average_items_per_merchant + average_items_per_merchant_standard_deviation
+  end
+
+  def items_two_standard_deviation_above
+    #item price
   end
 
   def merchants_with_high_item_count
     item_amount_per_merchant.map do |id, quantity|
-      @sales_engine.merchants.find_by_id(id) if quantity >= one_standard_deviation_above
+      @sales_engine.merchants.find_by_id(id) if quantity >= items_one_standard_deviation_above
     end.compact
   end
 
@@ -71,6 +76,10 @@ class SalesAnalyst
       total + item.unit_price
     end
     (sum/items.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+
   end
 #---------------ITERATION-2-STUFF------------------------#
 # sales_analyst.average_invoices_per_merchant # => 10.49
