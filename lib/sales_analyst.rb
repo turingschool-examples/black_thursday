@@ -15,19 +15,9 @@ class SalesAnalyst
     (Math.sqrt( get_mean_of_totaled_squares(@item_repository.group_item_by_merchant_id, average_items_per_merchant))).round(2)
   end
 
-  def mean_item_price
-    sum   = 0
-    count = 0
-    @item_repository.items.each do |item|
-      sum += item.unit_price
-      count += 1
-    end
-    sum / count
-  end
-
   def get_squared_item_prices
     @item_repository.items.map do |item|
-      (item.unit_price - mean_item_price) ** 2
+      (item.unit_price - @item_repository.mean_item_price) ** 2
     end
   end
 
@@ -54,7 +44,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     stdev   = average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
-    hash    = group_item_by_merchant_id
+    hash    = @item_repository.group_item_by_merchant_id
     array   = []
     hash.each do |id, items|
       if items.count > (stdev + average)
@@ -65,28 +55,24 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    sum      = BigDecimal.new(0)
-    merchant = group_item_by_merchant_id.find do |key, items|
-      key == id
-    end
-    merchant[1].each do |item|
-      sum += item.unit_price
-    end
-    average = sum / BigDecimal.new(merchant[1].count)
-    average.round(2)
+    @item_repository.average_item_price_for_merchant(id)
   end
 
   def average_average_price_per_merchant
-    sum   = BigDecimal.new(0)
-    hash  = group_item_by_merchant_id
-    total_merchants = 0
-    hash.each do |id, items|
-      sum += average_item_price_for_merchant(id)
-      total_merchants += 1
-    end
-    average = sum / BigDecimal.new(total_merchants)
-    average.round(2)
+    @item_repository.average_average_price_per_merchant
   end
+
+#  def average_average_price_per_merchant
+#    sum   = BigDecimal.new(0)
+#    hash  = group_item_by_merchant_id
+#    total_merchants = 0
+#    hash.each do |id, items|
+#      sum += average_item_price_for_merchant(id)
+#      total_merchants += 1
+#    end
+#    average = sum / BigDecimal.new(total_merchants)
+#    average.round(2)
+#  end
 
   def get_mean_of_totaled_squares(grouped_hash, average)
     get_total_of_squares(grouped_hash, average) / get_squared_values(grouped_hash, average).count
@@ -113,5 +99,29 @@ class SalesAnalyst
 #  def group_item_by_merchant_id
 #    @item_repository.items.group_by { |item| item.merchant_id}
 #  end
+
+#  def average_item_price_for_merchant(id)
+#    sum      = BigDecimal.new(0)
+#    merchant = group_item_by_merchant_id.find do |key, items|
+#      key == id
+#    end
+#    merchant[1].each do |item|
+#      sum += item.unit_price
+#    end
+#    average = sum / BigDecimal.new(merchant[1].count)
+#    average.round(2)
+#  end
+
+# def mean_item_price
+#    sum   = 0
+#    count = 0
+#    @item_repository.items.each do |item|
+#      sum += item.unit_price
+#      count += 1
+#    end
+#     thing = sum / count
+#     require 'pry', binding.pry
+#  end
+
 
 end

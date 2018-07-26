@@ -75,4 +75,29 @@ class ItemRepository
   def average_items_per_merchant
     (@items.size / number_of_merchants.to_f).round(2)
   end
+
+  def mean_item_price
+    total = @items.inject(0) {|sum, item| sum += item.unit_price }
+    total / @items.count
+  end
+  
+  def average_item_price_for_merchant(id)
+     grouped_hash = group_item_by_merchant_id
+     item_count = grouped_hash[id].size
+     item_value_total = grouped_hash[id].inject(BigDecimal.new(0)) do |total, item| 
+       total += item.unit_price 
+     end
+     average = (item_value_total / BigDecimal.new(item_count))
+     average.round(2)
+  end
+
+  def average_average_price_per_merchant
+    grouped_hash = group_item_by_merchant_id
+    merchant_count = grouped_hash.keys.size
+    sum = grouped_hash.inject(BigDecimal.new(0)) do |total, hash_array|
+      total += average_item_price_for_merchant(hash_array[0])
+    end
+    average = sum / merchant_count
+    average.round(2)
+  end
 end
