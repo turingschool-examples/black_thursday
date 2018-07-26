@@ -14,7 +14,7 @@ class SalesAnalyst
   def average_items_per_merchant
     merchant_count = @engine.merchants.all.size.to_f
     item_count = @engine.items.all.size.to_f
-    BigDecimal((item_count / merchant_count), 3)
+    BigDecimal((item_count / merchant_count), 3).to_f
   end
 
   def average_items_per_merchant_standard_deviation
@@ -28,7 +28,7 @@ class SalesAnalyst
     equation = items_per_merchant.inject(0) do |sum, number_items|
       sum + (number_items - average)**2
     end
-    ((Math.sqrt(equation / (items_per_merchant.size - 1)).round(2))).to_d
+    ((Math.sqrt(equation / (items_per_merchant.size - 1)).round(2))).to_f
   end
 
   def merchants_with_high_item_count
@@ -48,7 +48,7 @@ class SalesAnalyst
       sum + item.unit_price
     end
     average_price = sum / total_items
-    BigDecimal(average_price, 5)
+    BigDecimal(average_price, 5).round(2)
   end
 
   def average_average_price_per_merchant
