@@ -1,12 +1,18 @@
 require_relative "./test_helper"
 require_relative "../lib/merchant"
 require_relative "../lib/merchant_repo"
+require "pry"
 
 class MerchantRepoTest < Minitest::Test
 
   def setup
-  #   @mer_repo = MerchantRepo.new()
-  #
+    @merchant_array = [{:id=>12334105, :name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"},
+      {:id=>12334112, :name=>"Candisart", :created_at=>"2009-05-30", :updated_at=>"2010-08-29"},
+      {:id=>12334113, :name=>"MiniatureBikez", :created_at=>"2010-03-30", :updated_at=>"2013-01-21"},
+      {:id=>12334115, :name=>"LolaMarleys", :created_at=>"2008-06-09", :updated_at=>"2015-04-16"},
+      {:id=>12334123, :name=>"Keckenbauer", :created_at=>"2010-07-15", :updated_at=>"2012-07-25"}]
+    @mer_repo = MerchantRepo.new(@merchat_array)
+    binding.pry
   #   @mer_repo.merchants = [
   #   @merchant_1 = Merchant.new({id: 12334105, name: "Shopin1901"}),
   #   @merchant_2 = Merchant.new({id: 12334106, name: "Shopin1901"}),

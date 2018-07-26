@@ -7,22 +7,24 @@ class MerchantRepo
 
   def initialize(merchants)
     @merchants = merchants
+    merchant_hashes_to_objects()
   end
 
   def all
     @merchants
   end
 
-  def merchant_hashes_to_objects(merchants)
-    @merchants.each do |hash|
+  def merchant_hashes_to_objects
+
+    @merchants.map do |hash|
       add_merchant_objects(hash)
-      binding.pry
     end
   @merchants
+  #binding.pry
   end
 
-  def add_merchant_objects(merchants)
-    @merchants << Merchant.new(merchants)
+  def add_merchant_objects(merchant)
+    @merchants << Merchant.new(merchant)
   end
 
   def find_by_id(id)
