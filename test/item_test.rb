@@ -12,7 +12,7 @@ class ItemTest < Minitest::Test
     @item = Item.new({id: 1084930,
                       name: "Pencil",
                       description: "You can use it to write things",
-                      unit_price: BigDecimal.new(10.99,4),
+                      unit_price: 1099,
                       created_at: "2018-04-01 00:00:00",
                       updated_at: "2018-04-01 00:00:00"
                       })
@@ -26,14 +26,14 @@ class ItemTest < Minitest::Test
     id = 1084930
     name = "Pencil"
     description = "You can use it to write things"
-    unit_price = BigDecimal.new(10.99,4)
+    unit_price = BigDecimal.new(10.99, 4).to_f
     created_at = Time.parse("2018-04-01 00:00:00")
     updated_at = Time.parse("2018-04-01 00:00:00")
 
     assert_equal id, @item.id
     assert_equal name, @item.name
     assert_equal description, @item.description
-    assert_equal unit_price, @item.unit_price
+    assert_equal unit_price, @item.unit_price.to_f
     assert_equal created_at, @item.created_at
     assert_equal updated_at, @item.updated_at
   end

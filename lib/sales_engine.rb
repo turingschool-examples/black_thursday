@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
-
+require 'pry'
 require_relative './item'
 require_relative './item_repository'
 require_relative './merchant'
@@ -148,12 +148,12 @@ class SalesEngine
     array = []
     array = csv_reader(invoice_data)
     array.each do |invoice|
-      invoice_repository.create(id: invoice_data[0],
-                                customer_id: invoice_data[1],
-                                merchant_id: invoice_data[2],
-                                status: invoice_data[3],
-                                created_at: invoice_data[4],
-                                update_at: invoice_data[5])
+      invoice_repository.create(id: invoice[0],
+                                customer_id: invoice[1],
+                                merchant_id: invoice[2],
+                                status: invoice[3],
+                                created_at: invoice[4],
+                                update_at: invoice[5])
     end
     invoice_repository
   end

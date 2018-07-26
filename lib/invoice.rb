@@ -12,8 +12,8 @@ class Invoice
   @@max_merchant_id = 0
 
   def initialize(attributes)
-    @id = attributes[:id].to_i unless attributes[:id].nil? 
-    @id = (@@max_merchant_id += 1) if attributes[:id].nil?
+    @id = attributes[:id].to_i #unless attributes[:id].nil? 
+    #@id = (@@max_merchant_id += 1) if attributes[:id].nil?
     @customer_id = attributes[:customer_id].to_i
     @merchant_id = attributes[:merchant_id].to_i
     @status = attributes[:status].to_sym
