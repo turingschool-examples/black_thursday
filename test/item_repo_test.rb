@@ -34,13 +34,12 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_all_items_with_description
-    assert_equal [@item_repo[0], @item_repo[1], @item_repo[2]], @item_repo.find_all_with_description("animal 1")
+    assert_equal [@item_repo.all[0], @item_repo.all[1], @item_repo.all[2]], @item_repo.find_all_with_description("animal 1")
     assert_equal [], @item_repo.find_all_with_description("it's doesn't have one")
   end
 
   def test_it_finds_all_items_by_price
-    skip
-    assert_equal [@item_1, @item_2, @item_3, @item_6, @item_8], @item_repo.find_all_by_price(1400)
+    assert_equal [@item_repo.all[0], @item_repo.all[1], @item_repo.all[2], @item_repo.all[5]], @item_repo.find_all_by_price(1400)
     assert_equal [], @item_repo.find_all_by_price(1000)
   end
 
