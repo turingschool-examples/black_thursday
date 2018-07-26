@@ -14,21 +14,9 @@ class MerchantRepository
     end
   end
 
-  def create_new_id_number
-    max_id = @repository.max_by(&:id).id
-    new_id = max_id + 1
-  end
-
   def create(attributes)
-    new_id = create_new_id_number
-    new_merchant = Merchant.new(
-      name: attributes[:name],
-      id: new_id,
-      created_at: Time.now,
-      updated_at: Time.now
-    )
-    @repository << new_merchant
-    new_merchant
+    attributes[:id] = create_new_id_number
+    @repository << Merchant.new(attributes)
   end
 
   def inspect
