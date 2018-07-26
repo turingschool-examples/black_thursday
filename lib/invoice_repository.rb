@@ -22,4 +22,27 @@ class InvoiceRepository
       element.is_a?(Invoice)
     end
   end
+
+  def find_by_id(id)
+    @invoices.fetch(id)
+  end
+
+  def find_all_by_customer_id(id)
+    found_invoices = @invoices.find_all do |_, invoice|
+      invoice.customer_id == id
+    end.flatten
+    found_invoices.keep_if do |element|
+      element.is_a?(Invoice)
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    found_invoices = @invoices.find_all do |_, invoice|
+      invoice.merchant_id == id
+    end.flatten
+    found_invoices.keep_if do |element|
+      element.is_a?(Invoice)
+    end
+  end
+
 end

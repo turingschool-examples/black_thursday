@@ -48,4 +48,21 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_returns_array_of_all_invoice_instances
     assert_equal [@invoice1, @invoice2, @invoice3], @invoice_repo.all
   end
+
+  def test_it_can_find_by_id
+    assert_equal @invoice3, @invoice_repo.find_by_id(3)
+  end
+
+  def test_it_can_find_all_by_customer_id
+    actual = @invoice_repo.find_all_by_customer_id(2)
+    assert_equal [@invoice1, @invoice2], actual
+  end
+
+  def test_it_can_find_all_by_merchant_id
+    actual = @invoice_repo.find_all_by_merchant_id(3)
+    assert_equal [@invoice1, @invoice2], actual
+  end
+
+  def test_it_can_find_all_by_status
+
 end
