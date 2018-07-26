@@ -22,4 +22,17 @@ class SalesAnalyst
     ((total_items).round(2) / items_per_merchant.length.round(2)).round(2)
   end
 
+  def average_items_per_merchant_standard_deviation
+    mean = average_items_per_merchant
+    length_less_one = items_per_merchant.length - 1
+    diffed_and_squared = []
+    items_per_merchant.each do |count|
+      diffed_and_squared  << (count - mean)**2
+    end
+    sum = diffed_and_squared.inject(0) do |sum, number|
+      number + sum
+    end
+    divided = sum / length_less_one
+    return (divided ** (1.0/2)).round(2)
+  end
 end

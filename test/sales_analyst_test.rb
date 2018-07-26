@@ -38,9 +38,13 @@ class SalesAnalystTest < Minitest::Test
   def test_count_items_per_merchant
     assert_equal 6, @sa.items_per_merchant[1]
   end
-  
+
   def test_it_can_find_the_average_number_of_items_per_merchant
     assert_equal 2.88, @sa.average_items_per_merchant
+  end
+
+  def test_average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
   end
 
 end
