@@ -29,8 +29,8 @@ class ItemRepository
 
   def all
     item_pairs = @items.to_a.flatten
-    item_pairs.keep_if do |thing|
-      thing.is_a?(Item)
+    item_pairs.keep_if do |element|
+      element.is_a?(Item)
     end
   end
 
