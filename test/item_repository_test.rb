@@ -1,10 +1,10 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './item_repository'
-require_relative './item'
-require_relative './sales_engine'
-require_relative './merchant'
-require_relative './merchant_repository'
+require_relative '../lib/item_repository.rb'
+require_relative '../lib/item.rb'
+require_relative '../lib/sales_engine.rb'
+require_relative '../lib/merchant.rb'
+require_relative '../lib/merchant_repository.rb'
 require 'pry'
 
 class ItemRepositoryTest < Minitest::Test

@@ -75,14 +75,14 @@ end
   def update(id, attributes)
     if find_by_id(id) != nil 
       find_by_id(id).update_attributes(attributes)
-    end 
+    end
   end
 
   def delete(id)
     item = find_by_id(id)
     @items.delete(item)
   end
-  
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

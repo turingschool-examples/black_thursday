@@ -1,5 +1,6 @@
 require 'pry'
 require 'time'
+require 'bigdecimal'
 
 class Item
 
