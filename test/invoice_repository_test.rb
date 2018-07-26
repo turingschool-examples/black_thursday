@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/invoice_repository'
-require './lib/invoice'
 require './lib/file_loader'
 
 class InvoiceRepositoryTest < Minitest::Test
@@ -86,6 +85,7 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice_repo.delete(4)
 
     assert_equal 3, @invoice_repo.all.count
+    assert_equal 3, @invoice_repo.all[-1].id
   end
 
 end
