@@ -6,7 +6,7 @@ class SalesAnalyst
   end
 
   def group_items_by_merchant
-    @se.items.all.group_by(&:merchant_id)
+    @se.items.all.group_by { |item| item.merchant_id }
   end
 
 
