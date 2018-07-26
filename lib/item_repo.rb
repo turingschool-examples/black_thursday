@@ -1,4 +1,7 @@
+require "time"
+require "bigdecimal"
 require_relative './item'
+
 require "pry"
 
 class ItemRepo

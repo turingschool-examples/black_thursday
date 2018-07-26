@@ -1,3 +1,6 @@
+require "time"
+require "bigdecimal"
+
 class Item
 
   attr_accessor :id,

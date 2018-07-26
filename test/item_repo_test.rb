@@ -1,6 +1,9 @@
 require_relative "./test_helper"
 require_relative "../lib/item"
 require_relative "../lib/item_repo"
+require "time"
+require "bigdecimal"
+
 require "pry"
 
 class ItemRepoTest < Minitest::Test
@@ -67,7 +70,6 @@ class ItemRepoTest < Minitest::Test
 
 
   def test_it_updates_item_attributes
-    skip
     refute_equal "Bat", @item_repo.all[5].name
     refute_equal "animal 100", @item_repo.all[5].description
     refute_equal "2100", @item_repo.all[5].unit_price
@@ -85,7 +87,7 @@ class ItemRepoTest < Minitest::Test
       })
       ##stopping here.
 
-      #{id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}
+      #original {id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}
       assert_equal "Bat", @item_repo.all[5].name
       assert_equal "animal 100", @item_repo.all[5].description
       assert_equal "2100", @item_repo.all[5].unit_price
