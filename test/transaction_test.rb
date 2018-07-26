@@ -9,7 +9,7 @@ class TransactionTest < MiniTest::Test
                       :id                           => 6,
                       :invoice_id                   => 8,
                       :credit_card_number           => "4242424242424242",
-                      :credit_card_expiration_date  => "0220",
+                      :credit_card_expiration_date  => "1020",
                       :result                       => "success",
                       :created_at                   => "1972-07-30 18:08:53 UTC",
                       :updated_at                   => "2016-01-11 18:30:35 UTC"
@@ -33,7 +33,7 @@ class TransactionTest < MiniTest::Test
   end
 
   def test_it_has_a_credit_card_expiration_date
-    assert_equal "0220", @transaction.credit_card_expiration_date
+    assert_equal 1020, @transaction.credit_card_expiration_date
   end
 
   def test_it_has_a_result

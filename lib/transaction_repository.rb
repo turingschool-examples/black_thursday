@@ -57,4 +57,8 @@ class TransactionRepository
     find_by_id(id).credit_card_expiration_date = attributes[:credit_card_expiration_date].to_i unless attributes[:credit_card_expiration_date].nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
   end
+
+  def inspect
+    "#<#{self.TransactionRepository} #{@transactions.size} rows>"
+  end
 end

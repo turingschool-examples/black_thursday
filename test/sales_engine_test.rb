@@ -6,7 +6,9 @@ class SalesEngineTest < MiniTest::Test
     @sales_engine = SalesEngine.from_csv({
                         :items     => "./data/items.csv",
                         :merchants => "./data/merchants.csv",
-                        :invoices => "./data/invoices.csv"
+                        :invoices => "./data/invoices.csv",
+                        :invoice_items => "./data/invoice_items.csv",
+                        :transactions => "./data/transactions.csv"
                       })
   end
 
@@ -20,6 +22,18 @@ class SalesEngineTest < MiniTest::Test
 
   def test_it_creates_repository_of_items
     assert_instance_of ItemRepository, @sales_engine.items
+  end
+
+  def test_it_creates_repository_of_items
+    assert_instance_of InvoiceRepository, @sales_engine.invoices
+  end
+
+  def test_it_creates_repository_of_items
+    assert_instance_of InvoiceItemRepository, @sales_engine.invoice_items
+  end
+
+  def test_it_creates_repository_of_items
+    assert_instance_of TransactionRepository, @sales_engine.transactions
   end
 
   def test_it_creates_sales_analyst
