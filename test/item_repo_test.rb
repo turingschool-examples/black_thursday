@@ -68,9 +68,9 @@ class ItemRepoTest < Minitest::Test
 
   def test_it_updates_item_attributes
     skip
-    refute_equal "Bat", @item_8.name
-    refute_equal "animal 100", @item_8.description
-    refute_equal "2100", @item_8.unit_price
+    refute_equal "Bat", @item_repo.all[5].name
+    refute_equal "animal 100", @item_repo.all[5].description
+    refute_equal "2100", @item_repo.all[5].unit_price
 
     @item_repo.update(263395214, {
       :id           => 363395250,
@@ -81,6 +81,7 @@ class ItemRepoTest < Minitest::Test
       :updated_at   => Time.now,
       :merchant_id  => "12334104"
       })
+      #{id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}
 
       assert_equal "Bat", @item_8.name
       assert_equal "animal 100", @item_8.description
@@ -92,7 +93,6 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_deletes_item_by_id
-    skip
     @item_repo.delete(263395237)
     assert_equal nil, @item_repo.find_by_id(263395237)
   end
