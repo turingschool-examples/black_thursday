@@ -1,4 +1,6 @@
+require 'time'
 require 'pry'
+require 'date'
 require_relative 'sales_engine'
 
 class SalesAnalyst
@@ -117,7 +119,49 @@ class SalesAnalyst
     top_performing_merchants = find_all_merchant_ids.find_all do |merchant_id|
       @invoices.find_all_by_merchant_id(merchant_id).count > top_invoice_number
     end
-    @merchants.find_by_id(top_performing_merchants)
+    top_performing_merchants.map do |id|
+      @merchants.find_by_id(id)
+    end
   end
 
+  def bottom_merchants_by_invoice_count
+    bottom_invoice_number = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    top_performing_merchants = find_all_merchant_ids.find_all do |merchant_id|
+      @invoices.find_all_by_merchant_id(merchant_id).count < bottom_invoice_number
+    end
+    top_performing_merchants.map do |id|
+      @merchants.find_by_id(id)
+    end
+  end
+
+  def weekday_breakdown
+    @invoices.all.each_with_object({}) do |invoice, days|
+      if days[invoice.created_at.strftime("%A")]
+        days[invoice.created_at.strftime("%A")] += 1
+      else
+        days[invoice.created_at.strftime("%A")] = 1
+      end
+    end
+  end
+
+  def top_days_by_invoice_count
+    average_by_day = @invoices.all.count / 7
+    st_dev_days = standard_deviation(weekday_breakdown.values, average_by_day)
+    top_day_invoice_number = average_by_day + st_dev_days
+    top_pairs = weekday_breakdown.find_all do |day, number|
+      if number >= top_day_invoice_number
+        day
+      end
+    end.flatten
+    top_pairs.find_all do |days|
+      days.class == String
+    end
+  end
+
+  def invoice_status(status)
+    status_count = @invoices.all.each_with_object(Hash.new(0)) do |invoice, statuses|
+      statuses[invoice.status] += 1
+    end
+    ((status_count[status].to_f / @invoices.all.count) * 100).round(2)
+  end
 end
