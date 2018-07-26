@@ -1,7 +1,7 @@
-require_relative '../lib/csv_adaptor'
+require_relative './csv_adaptor'
 require_relative './merchant_repo'
 require_relative './item_repo'
-require "pry"
+# require "pry"
 
 class SalesEngine
   attr_reader :merchants, :items
@@ -9,7 +9,6 @@ class SalesEngine
   extend CsvAdaptor
 
   def initialize(merchant_array, item_array)
-    # binding.pry
     @merchants = MerchantRepo.new(merchant_array)
     @items = ItemRepo.new(item_array)
   end
