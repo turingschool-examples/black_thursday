@@ -2,10 +2,16 @@ require 'bigdecimal'
 
 class SalesAnalyst
 
-  def initialize(merchant_repository, item_repository, invoice_repository)
-    @merchant_repository = merchant_repository
-    @item_repository     = item_repository
-    @invoice_repository = invoice_repository
+  def initialize(merchant_repository,
+                 item_repository,
+                 invoice_repository,
+                 transaction_repository,
+                 invoice_item_repository)
+    @merchant_repository      = merchant_repository
+    @item_repository          = item_repository
+    @invoice_repository       = invoice_repository
+    @transaction_repository   = transaction_repository
+    @invoice_item_repository  = invoice_item_repository
   end
 
   def average_items_per_merchant
@@ -79,4 +85,24 @@ class SalesAnalyst
       (item.count - average) ** 2
     end
   end
+
+  # Probably a better way to write this
+  def invoice_paid_in_full?(invoice_id)
+    invoices = @transaction_repository.find_all_by_invoice_id(invoice_id)
+    if invoices.empty?
+      false
+    else
+      invoices.all? do |invoice|
+        invoice.result == :success
+      end
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoices = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    invoices.inject(0) do |sum, invoice|
+      sum += invoice.unit_price * invoice.quantity.to_i
+    end
+  end
+
 end
