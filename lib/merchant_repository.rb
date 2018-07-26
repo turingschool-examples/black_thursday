@@ -17,8 +17,8 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @all.find do |object|
-      object.id == id
+    @all.find do|object|
+      id == object.id
     end
   end
 
@@ -47,19 +47,27 @@ class MerchantRepository
     return mr
   end
 
+  # def update(id, attributes)
+  #   merchant = find_by_id(id.to_s)
+  #   merchant.attributes[:name] = attributes[:name]
+  #   #binding.pry
+  #   merchant.name = attributes[:name]
+  # end
   def update(id, attributes)
-    merchant = find_by_id(id.to_s)
-    merchant.attributes_hash[:name] = attributes[:name]
-    #binding.pry
-    merchant.name = attributes[:name]
+    merchant = find_by_id(id)
+    return if merchant.nil?
+    merchant.name = attributes[:name] || merchant.name
+    merchant.updated_at = Time.now
+    merchant
   end
+
 
   def delete(id)
     @all = @all.reject do |object|
       object.id == id
     end
   end
-  
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
