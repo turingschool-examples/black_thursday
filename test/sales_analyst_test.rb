@@ -10,7 +10,6 @@ class SalesAnalystTest < Minitest::Test
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv',
       })
-
     @sa = SalesAnalyst.new(@se)
   end
 
@@ -31,7 +30,6 @@ class SalesAnalystTest < Minitest::Test
   end
   
   def test_it_can_find_the_average_number_of_items_per_merchant
-    skip
     assert_equal 2.88, @sa.average_items_per_merchant
   end
 end
