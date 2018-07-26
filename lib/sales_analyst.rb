@@ -64,6 +64,14 @@ class SalesAnalyst
   def item_amount_per_merchant
     group_items_by_merchant.keys.zip(items_per_merchant)
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
+    sum = items.inject(0) do |total, item|
+      total + item.unit_price
+    end
+    (sum/items.count).round(2)
+  end
 #---------------ITERATION-2-STUFF------------------------#
 # sales_analyst.average_invoices_per_merchant # => 10.49
   # def average_invoices_per_merchant
