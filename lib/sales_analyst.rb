@@ -70,25 +70,25 @@ class SalesAnalyst
     invoices_total = find_total_number_of_invoices(grouped_invoices)
     (invoices_total.to_f / merchants_total).round(2)
   end
-
-  # def average_invoices_per_merchant_standard_deviation
-  #   average = average_invoices_per_merchant
-  #   grouped_invoices = group_invoices_by_merchant
-  #   ipm = invoices_per_merchant(grouped_invoices)
-  #   v = variance(average, ipm)
-  #   square_root_of_variance(v, ipm)
-  # end
+# sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
+  def average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    grouped_invoices = group_invoices_by_merchant
+    ipm = invoices_per_merchant(grouped_invoices)
+    v = variance(average, ipm)
+    square_root_of_variance(v, ipm)
+  end
   #
   def group_invoices_by_merchant
     @sales_engine.invoices.all.group_by(&:merchant_id)
   end
-  #
+
   def find_number_of_merchants(grouped_invoices)
     grouped_invoices.inject(0) do |count, (id, invoices)|
       count + 1
     end
   end
-  #
+
   def find_total_number_of_invoices(grouped_invoices)
     grouped_invoices.inject(0) do |count, (id, invoices)|
       count + invoices.count
@@ -100,16 +100,4 @@ class SalesAnalyst
       invoices.count
     end
   end
-  #
-  # def variance(average, ipm)
-  #   variance = ipm.inject(0) do |count, invoices|
-  #     count += (invoices - average) ** 2
-  #   end
-  # end
-  #
-  # def square_root_of_variance(v, ipm)
-  #   (Math.sqrt(v/(ipm.size-1))).round(2)
-  # end
-
-# sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
 end
