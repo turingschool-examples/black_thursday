@@ -1,5 +1,5 @@
 require 'csv'
-# require_relative '../lib/transaction.rb'
+require_relative '../lib/transaction.rb'
 require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
@@ -11,5 +11,34 @@ class TransactionRepository
   def initialize(transaction_location)
     @transaction_location = transaction_location
     @transactions = []
+    from_sales_engine
+  end
+
+  def from_sales_engine
+    CSV.foreach(@transaction_location, headers: true, header_converters: :symbol) do |row|
+      @transactions << Transaction.new(row)
+    end
+  end
+
+  def all
+    @transactions
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |each|
+      each.invoice_id.to_i == invoice_id
+    end
+  end
+
+  def find_all_by_credit_card_number(credit_card_number)
+    all.find_all do |each|
+      each.credit_card_number.to_i == credit_card_number
+    end
+  end
+
+  def find_all_by_result(result)
+    all.find_all do |each|
+      each.result == result.to_sym
+    end
   end
 end
