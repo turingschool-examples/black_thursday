@@ -4,8 +4,10 @@ require 'time'
 require_relative 'repository'
 
 class Transaction
-  attr_reader :id
-  
+  attr_reader :id,
+              :invoice_id,
+              :credit_card_number
+
   def initialize(information)
     @id                          = information[:id].to_i
     @invoice_id                  = information[:invoice_id].to_i
