@@ -57,8 +57,8 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     item_amount_per_merchant.map do |id, quantity|
-      @se.merchants.find_by_id(id) if quantity >= one_standard_deviation_above
-    end
+      @sales_engine.merchants.find_by_id(id) if quantity >= one_standard_deviation_above
+    end.compact
   end
 
   def item_amount_per_merchant
