@@ -11,7 +11,6 @@ class SalesEngine
     filepaths.each do |repo, filepath|
       csv_data[repo] = CSV.open(filepath, headers: true, header_converters: :symbol)
     end
-    require "pry"; binding.pry
     new(csv_data)
   end
 
