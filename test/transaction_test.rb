@@ -32,4 +32,8 @@ class TransactionTest < Minitest::Test
     assert_equal expected, @transaction_item.credit_card_number
   end
 
+  def test_it_has_a_credit_card_result
+    assert_equal "success", @transaction_item.result
+  end
+
 end

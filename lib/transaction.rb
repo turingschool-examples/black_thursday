@@ -6,7 +6,8 @@ require_relative 'repository'
 class Transaction
   attr_reader :id,
               :invoice_id,
-              :credit_card_number
+              :credit_card_number,
+              :result
 
   def initialize(information)
     @id                          = information[:id].to_i
