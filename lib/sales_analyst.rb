@@ -2,9 +2,10 @@ require 'bigdecimal'
 
 class SalesAnalyst
 
-  def initialize(merchant_repository, item_repository)
+  def initialize(merchant_repository, item_repository, invoice_repository)
     @merchant_repository = merchant_repository
     @item_repository     = item_repository
+    @invoice_repository = invoice_repository
   end
 
   def average_items_per_merchant
