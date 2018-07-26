@@ -41,7 +41,7 @@ class MerchantRepo
   end
 
   def create(attributes)
-    merchant_new = Merchant.new(attributes) #refactor with module?
+    merchant_new = Merchant.new(attributes)
     max_merchant_id = @merchants.max_by do |merchant|
       merchant.id
     end
