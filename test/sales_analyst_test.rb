@@ -32,7 +32,21 @@ class SalesAnalystTest < Minitest::Test
 
     items = [item1, item2, item3, item4, item5,item6, item7, item8, item9]
 
-    data = { merchants: merchants, items: items }
+    invoice1 = { id: 1, customer_id: 2, merchant_id: 1, status: 'shipped', created_at: Time.now, updated_at: Time.now}
+
+    invoice2 = { id: 2, customer_id: 2, merchant_id: 2, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice3 = { id: 3, customer_id: 3, merchant_id: 2, status: 'returned', created_at: Time.now, updated_at: Time.now}
+
+    invoice4 = { id: 4, customer_id: 2, merchant_id: 5, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice5 = { id: 5, customer_id: 2, merchant_id: 5, status: 'shipped', created_at: Time.now, updated_at: Time.now}
+    invoice6 = { id: 6, customer_id: 3, merchant_id: 5, status: 'returned', created_at: Time.now, updated_at: Time.now}
+    invoice7 = { id: 7, customer_id: 2, merchant_id: 5, status: 'shipped', created_at: Time.now, updated_at: Time.now}
+    invoice8 = { id: 8, customer_id: 2, merchant_id: 5, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice9 = { id: 9, customer_id: 3, merchant_id: 5, status: 'returned', created_at: Time.now, updated_at: Time.now}
+
+    invoices = [invoice1, invoice2, invoice3, invoice4, invoice5, invoice6, invoice7, invoice8, invoice9]
+
+    data = { merchants: merchants, items: items, invoices: invoices }
     @se = SalesEngine.new(data)
     @sa = @se.analyst
   end
@@ -71,4 +85,14 @@ class SalesAnalystTest < Minitest::Test
   def test_it_identifies_golden_items
     assert_equal [@se.items.find_by_id(8)], @sa.golden_items
   end
+
+  def test_it_calculates_average_invoices_per_merchant
+    assert_equal 3, @sa.average_invoices_per_merchant
+  end
+
+  def test_it_calculates_average_invoices_per_merchant_standard_deviation
+    assert_equal 2.65, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+
 end

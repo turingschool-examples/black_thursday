@@ -80,4 +80,23 @@ class SalesAnalyst
     end
   end
 
+  def average_invoices_per_merchant
+    total_invoices = @engine.invoices.all.size.to_f
+    total_merchants = @engine.merchants.all.size.to_f
+    (total_invoices / total_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    all_invoices = @engine.invoices.all
+    invoices_per_merchant = []
+    all_invoices.each do |invoice|
+      invoices_per_merchant << @engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size
+    end
+    invoices_per_merchant.uniq! #this was outputting a number for every invoice instead of 1 per merchant
+    equation = invoices_per_merchant.inject(0) do |sum, number_invoices|
+      sum + (number_invoices - mean)**2
+    end
+    ((Math.sqrt(equation / (invoices_per_merchant.size - 1)).round(2))).to_f
+  end
 end
