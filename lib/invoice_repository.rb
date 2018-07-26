@@ -29,4 +29,8 @@ class InvoiceRepository
     attributes[:id] = create_new_id_number
     @repository << Invoice.new(attributes)
   end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 end

@@ -24,7 +24,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_group_items_by_merchant
-    # skip
+    skip
     assert_equal 2, @sa.group_items_by_merchant.count
   end
 
