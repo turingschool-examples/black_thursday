@@ -30,4 +30,9 @@ class SalesEngine
     item_file_path = @file_loader.builder(file_path[:items])
     @items ||= ItemRepository.new(item_file_path)
   end
+
+  def invoices
+    invoice_file_path = @file_loader.builder(file_path[:invoices])
+    @invoices ||= InvoiceRepository.new(invoice_file_path)
+  end
 end
