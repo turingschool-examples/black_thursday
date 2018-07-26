@@ -79,7 +79,14 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
+    sum = @sales_engine.merchants.all.inject(0) do |total, merchant|
+      total + average_item_price_for_merchant(merchant.id)
+    end
+    (sum / number_of_merchants).round(2)
+  end
 
+  def number_of_merchants
+    @sales_engine.merchants.all.count
   end
 #---------------ITERATION-2-STUFF------------------------#
 # sales_analyst.average_invoices_per_merchant # => 10.49
