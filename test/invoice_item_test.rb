@@ -34,4 +34,9 @@ class InvoiceItemTest < Minitest::Test
   def test_it_has_quantity
     assert_equal 1, @invoice_item.quantity
   end
+
+  def test_it_has_unit_price
+    assert_equal 10.99, @invoice_item.unit_price
+    assert_instance_of BigDecimal, @invoice_item.unit_price
+  end
 end
