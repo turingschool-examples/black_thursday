@@ -1,0 +1,7 @@
+id,name,description,unit_price,merchant_id,created_at,updated_at
+1,OneThing,a car thing that does stuff,1500,1,2018-07-22,2018-07-22
+2,TwoThing,a bike thing that does stuff,1370,1,2018-07-22,2018-07-22
+3,ThreeThing,a scooter thing that does stuff,1500,2,2018-01-22,2018-07-22
+4,FourThing,a skateboard thing that does stuff,1300,2,2018-03-22,2018-07-27
+5,FiveThing,a boat thing that does stuff,1500,2,2018-02-23,2018-06-22
+6,SixThing,a kayak thing that does stuff,12400,3,2018-04-22,2018-07-12
