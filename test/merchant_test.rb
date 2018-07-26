@@ -14,8 +14,4 @@ class MerchantTest < MiniTest::Test
     assert_equal 5 , m.id
     assert_equal "Turing School" , m.name
   end
-
-
-
-
 end

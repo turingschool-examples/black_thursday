@@ -13,7 +13,9 @@ class SalesEngine
   def initialize(csv_hash)
     @csv_hash = csv_hash
     @items = ItemRepository.new(csv_hash[:items])
+    @items.create_items
     @merchants = MerchantRepository.new(csv_hash[:merchants])
+    @merchants.create_all_from_csv(csv_hash[:merchants])
   end
 
   def self.from_csv(csv_hash)#pass in result of read_from_csv

@@ -1,8 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './merchant_repository.rb'
-require_relative './merchant.rb'
-require_relative './sales_engine.rb'
+require_relative './merchant_repository'
+require_relative './merchant'
+require_relative './sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
