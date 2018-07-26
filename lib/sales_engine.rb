@@ -9,7 +9,7 @@ class SalesEngine
   extend CsvAdaptor
 
   def initialize(merchant_array, item_array)
-    #require "pry"; binding.pry
+    require "pry"; binding.pry
     @merchants = MerchantRepo.new(merchant_array)
     @items = ItemRepo.new(item_array)
   end
