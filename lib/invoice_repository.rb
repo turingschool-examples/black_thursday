@@ -38,7 +38,8 @@ class InvoiceRepository
     invoice_to_update = find_by_id(id)
     unless invoice_to_update.nil?
       invoice_to_update.status = attributes[:status] unless attributes[:status].nil?
-    invoice_to_update.updated_at = Time.now
+      invoice_to_update.updated_at = Time.now
+
     end
   end
 
