@@ -4,13 +4,13 @@ require 'time'
 require_relative 'repository'
 
 class InvoiceItem
-  attr_reader :id,
-              :item_id,
-              :invoice_id,
-              :quantity,
-              :unit_price,
-              :created_at,
-              :updated_at
+  attr_reader   :id,
+                :item_id,
+                :invoice_id,
+                :created_at,
+                :updated_at
+  attr_accessor :quantity,
+                :unit_price
 
   def initialize(information)
     @id         = information[:id].to_i
