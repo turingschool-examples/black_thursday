@@ -59,48 +59,45 @@ class InvoiceItemRepositoryTest < Minitest::Test
     actual = new_item_added
     assert_equal expected, actual
   end
-  #
-  # def test_it_can_create_new_id
-  #   expected = "263567475"
-  #   actual = @invoice_item_repository.create_id
-  #   assert_equal expected, actual
-  # end
-  #
-  # def test_it_can_update_attributes
-  #   @invoice_item_repository.create({
-  #     name: "pots",
-  #     description: "shiny",
-  #     unit_price: "1099",
-  #     merchant_id: "5555"
-  #     })
-  #   new_item = @invoice_item_repository.items.last
-  #
-  #   last_item_name = new_item.name
-  #   last_item_description = new_item.description
-  #   last_item_price = new_item.unit_price
-  #
-  #   assert_equal "pots", last_item_name
-  #   assert_equal "shiny", last_item_description
-  #   assert_equal 10.99, last_item_price
-  #
-  #   @invoice_item_repository.update(263567475, {
-  #     name: "chicken",
-  #     description: "fat",
-  #     unit_price: 12.00
-  #     })
-  #   changed_item = @invoice_item_repository.items.last
-  #
-  #   assert_equal "chicken", changed_item.name
-  #   assert_equal "fat", changed_item.description
-  #   assert_equal 12.0, changed_item.unit_price
-  #
-  #   assert_equal new_item.id, changed_item.id
-  # end
-  #
-  # def test_it_can_delete_item
-  #   assert_equal @invoice_item_repository.items[0], @invoice_item_repository.find_by_name("510+ RealPush Icon Set")
-  #
-  #   @invoice_item_repository.delete(263395237)
-  #   assert_nil @invoice_item_repository.find_by_name("510+ RealPush Icon Set")
-  # end
+
+  def test_it_can_update_attributes
+    skip
+    new_attributes = {
+          :item_id => 7,
+          :invoice_id => 8,
+          :quantity => 1,
+          :unit_price => BigDecimal.new(10.99, 4),
+          :created_at => Time.now,
+          :updated_at => Time.now
+        }
+    updated_attributes = {
+      quantity: 13
+    }
+    @invoice_item_repository.create(new_attributes)
+    new_invoice_item = @invoice_invoice_item_repository.invoice_items.last
+
+    last_invoice_item_name = new_invoice_item.name
+    last_invoice_item_description = new_invoice_item.description
+    last_invoice_item_price = new_invoice_item.unit_price
+
+    assert_equal "pots", last_invoice_item_name
+    assert_equal "shiny", last_invoice_item_description
+    assert_equal 10.99, last_invoice_item_price
+
+    @invoice_invoice_item_repository.update(updated_attributes)
+    changed_invoice_item = @invoice_invoice_item_repository.invoice_items.last
+
+    assert_equal "chicken", changed_invoice_item.name
+    assert_equal "fat", changed_invoice_item.description
+    assert_equal 12.0, changed_invoice_item.unit_price
+
+    assert_equal new_invoice_item.id, changed_invoice_item.id
+  end
+
+  def test_it_can_delete_invoice_item
+    assert_equal @invoice_item_repository.invoice_items[0], @invoice_item_repository.find_by_id(1)
+
+    @invoice_item_repository.delete(1)
+    assert_nil @invoice_item_repository.find_by_id(1)
+  end
 end

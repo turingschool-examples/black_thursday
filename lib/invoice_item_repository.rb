@@ -22,14 +22,7 @@ class InvoiceItemRepository
   def all
     @invoice_items
   end
-  #
-  # def find_all_with_description(description)
-  #   downcased_description = description.downcase
-  #   @invoice_items.find_all do |invoice_item|
-  #     invoice_item.description.downcase.include?(downcased_description)
-  #   end
-  # end
-  #
+
   def find_all_by_item_id(item_id)
     @invoice_items.find_all do |invoice_item|
       invoice_item.item_id == item_id
