@@ -19,5 +19,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_returns_all_instances
     assert_equal @invoice_items, @invoice_item_repository.all
+  end
+
+  def test_it_returns_by_id
+    assert_equal @invoice_item_1, @invoice_item_repository.find_by_id(6)
+    assert_equal nil, @invoice_item_repository.find_by_id(256)
   end 
 end
