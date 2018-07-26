@@ -8,6 +8,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
 
     @sa = SalesAnalyst.new(@se)
@@ -83,4 +84,54 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, @sa.merchants_with_high_item_count.class
     assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
   end
+
+  #--------------------------ITERATION-2-STUFF-------------#
+
+  def test_it_can_group_invoices_by_merchant_id
+    assert_equal 7, @sa.group_invoices_by_merchant[12335080].count
+    assert_equal 12, @sa.group_invoices_by_merchant[12335955].count
+  end
+
+  def test_it_can_find_number_invoices
+    grouped_invoices = {
+                    12334141 => ["invoice_1", "invoice_2"],
+                    12334185 => ["invoice_1", "invoice_2", "invoice_3"]
+    }
+    assert_equal 5, @sa.find_total_number_of_invoices(grouped_invoices)
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    grouped_invoices = {
+                    12334141 => ["invoice_1", "invoice_2"],
+                    12334185 => ["invoice_1", "invoice_2", "invoice_3"]
+    }
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+    assert_equal Float, @sa.average_invoices_per_merchant.class
+  end
+
+  # def test_it_can_find_average_invoices_per_merchant_standard_deviation
+  #   assert_equal 3.26, @sa.average_invoices_per_merchant_standard_deviation
+  #   assert_equal Float, @sa.average_invoices_per_merchant_standard_deviation.class
+  # end
+  #
+  # def test_it_can_find_number_of_invoices_for_each_merchant
+  #   grouped_invoices = {
+  #                   12334141 => ["invoice_1", "invoice_2"],
+  #                   12334185 => ["invoice_1", "invoice_2", "invoice_3"],
+  #                   12345678 => ["invoice_1", "invoice_2", "invoice_3", "invoice_4"]
+  #                 }
+  #   assert_equal [2, 3, 4], @sa.invoices_per_merchant(grouped_invoices)
+  # end
+  #
+  # def test_it_can_find_variance
+  #   invoice_count_array = [2, 3, 4, 3, 5]
+  #   average = 3.4
+  #   assert_equal 5.2, @sa.variance(average, invoice_count_array)
+  # end
+  #
+  # def test_it_can_find_square_root_of_variance
+  #   v = 5.2
+  #   ipm = [2, 3, 4, 3, 5]
+  #   assert_equal 1.14, @sa.square_root_of_variance(v, ipm)
+  # end
 end
