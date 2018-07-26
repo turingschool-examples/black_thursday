@@ -109,29 +109,29 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Float, @sa.average_invoices_per_merchant.class
   end
 
-  # def test_it_can_find_average_invoices_per_merchant_standard_deviation
-  #   assert_equal 3.26, @sa.average_invoices_per_merchant_standard_deviation
-  #   assert_equal Float, @sa.average_invoices_per_merchant_standard_deviation.class
-  # end
-  #
-  # def test_it_can_find_number_of_invoices_for_each_merchant
-  #   grouped_invoices = {
-  #                   12334141 => ["invoice_1", "invoice_2"],
-  #                   12334185 => ["invoice_1", "invoice_2", "invoice_3"],
-  #                   12345678 => ["invoice_1", "invoice_2", "invoice_3", "invoice_4"]
-  #                 }
-  #   assert_equal [2, 3, 4], @sa.invoices_per_merchant(grouped_invoices)
-  # end
-  #
-  # def test_it_can_find_variance
-  #   invoice_count_array = [2, 3, 4, 3, 5]
-  #   average = 3.4
-  #   assert_equal 5.2, @sa.variance(average, invoice_count_array)
-  # end
-  #
-  # def test_it_can_find_square_root_of_variance
-  #   v = 5.2
-  #   ipm = [2, 3, 4, 3, 5]
-  #   assert_equal 1.14, @sa.square_root_of_variance(v, ipm)
-  # end
+  def test_it_can_find_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal Float, @sa.average_invoices_per_merchant_standard_deviation.class
+  end
+
+  def test_it_can_find_number_of_invoices_for_each_merchant
+    grouped_invoices = {
+                    12334141 => ["invoice_1", "invoice_2"],
+                    12334185 => ["invoice_1", "invoice_2", "invoice_3"],
+                    12345678 => ["invoice_1", "invoice_2", "invoice_3", "invoice_4"]
+                  }
+    assert_equal [2, 3, 4], @sa.invoices_per_merchant(grouped_invoices)
+  end
+
+  def test_it_can_find_variance
+    invoice_count_array = [2, 3, 4, 3, 5]
+    average = 3.4
+    assert_equal 5.2, @sa.variance(average, invoice_count_array)
+  end
+
+  def test_it_can_find_square_root_of_variance
+    v = 5.2
+    ipm = [2, 3, 4, 3, 5]
+    assert_equal 1.14, @sa.square_root_of_variance(v, ipm)
+  end
 end
