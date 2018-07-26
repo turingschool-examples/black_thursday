@@ -14,7 +14,6 @@ class InvoiceItemTest < Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now
     })
-
   end
 
   def test_it_exists
@@ -28,5 +27,4 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 1, @invoice_item.quantity
     assert_equal BigDecimal(5.99, 3), @invoice_item.unit_price
   end
-
 end

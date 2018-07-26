@@ -42,19 +42,16 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_merchants
-    # skip
     assert_equal 6, @mr.all.count
     assert_equal 'Shopin1901', @mr.all[0].name
     assert_equal 'Keckenbauer', @mr.all[4].name
   end
 
   def test_it_can_find_merchant_by_id
-    # skip
     assert_equal @mr.all[2], @mr.find_by_id(12334113)
   end
 
   def test_it_can_find_merchant_by_name
-    # skip
     search_1 = @mr.find_by_name('LolaMarleys')
     assert_equal @mr.all[3], search_1
 
@@ -63,10 +60,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_merchants_with_matching_name_fragment
-    # skip
     search_1 = @mr.find_all_by_name('M')
     assert_equal 3, search_1.count
-    # 201 instances of the letter 'M', but only 164 objects
+
     search_2 = @mr.find_all_by_name('mi')
     assert_equal 2, search_2.count
 
@@ -75,14 +71,12 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_a_new_id_number
-    # skip
     new_id = @mr.create_new_id_number
 
     assert_equal 12334208, new_id
   end
 
   def test_it_can_create_a_new_merchant
-    # skip
     @mr.create({
       :name => 'MockEtsyStore1',
       :created_at => Time.now,
@@ -94,7 +88,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_a_merchant_name
-    # skip
     assert_equal 'Candisart', @mr.all[1].name
 
     @mr.update(12334112, :name => 'CandisART')
@@ -105,7 +98,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_a_merchant_record
-    # skip
     @mr.create({
       :name => 'SampleMerchant',
       :created_at => Time.now,
