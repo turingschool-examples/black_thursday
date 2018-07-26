@@ -16,7 +16,7 @@ class Item
     @name = information[:name]
     @description = information[:description]
     @unit_price = if information[:unit_price].class != BigDecimal
-        BigDecimal.new((information[:unit_price].to_f / 100), 5)
+        BigDecimal.new((information[:unit_price].to_f / 100), 10)
       else
         information[:unit_price]
       end
