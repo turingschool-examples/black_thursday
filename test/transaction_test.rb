@@ -36,4 +36,9 @@ class TransactionTest < Minitest::Test
     assert_equal "success", @transaction_item.result
   end
 
+  def test_it_has_created_at_and_updated_at_time
+    assert_instance_of Time, @transaction_item.created_at
+    assert_instance_of Time, @transaction_item.updated_at
+  end
+
 end
