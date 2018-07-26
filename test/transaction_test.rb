@@ -32,6 +32,10 @@ class TransactionTest < Minitest::Test
     assert_equal expected, @transaction_item.credit_card_number
   end
 
+  def test_it_has_credit_card_expiration_date
+      assert_equal "0220", @transaction_item.credit_card_expiration_date
+  end
+
   def test_it_has_a_credit_card_result
     assert_equal "success", @transaction_item.result
   end
