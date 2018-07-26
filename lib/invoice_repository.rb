@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative './invoice'
+require 'time'
+require 'pry'
 
 # Invoice repository class
 class InvoiceRepository
@@ -13,6 +15,12 @@ class InvoiceRepository
 
     Invoice.new(params).tap do |invoice|
       @invoices[params[:id].to_i] = invoice
+    end
+  end
+
+  def populate(data)
+    data.map do |row|
+      create(row)
     end
   end
 

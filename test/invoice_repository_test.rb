@@ -5,6 +5,7 @@ SimpleCov.start
 
 require 'minitest/autorun'
 require 'minitest/emoji'
+require 'time'
 
 require './lib/invoice_repository'
 
