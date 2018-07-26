@@ -179,4 +179,13 @@ class SalesAnalyst
       pair[0]
     end
   end
+
+  def invoice_status(status)
+    denominator = @invoice_repo.invoices.count
+    numerator = @invoice_repo.invoices.find_all do |invoice|
+      invoice.status == status
+    end.count
+    percentage = (numerator / denominator.to_f) * 100
+    percentage.round(2)
+  end
 end

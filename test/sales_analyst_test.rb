@@ -93,4 +93,21 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.top_days_by_invoice_count
     assert_equal expected, actual
   end
+
+  def test_it_can_show_invoice_status_percentage
+    expected = 29.55
+    actual = @sales_analyst.invoice_status(:pending)
+
+    assert_equal expected, actual
+
+    expected_2 = 56.95
+    actual_2 = @sales_analyst.invoice_status(:shipped)
+
+    assert_equal expected_2, actual_2
+
+    expected_3 = 13.5
+    actual_3 = @sales_analyst.invoice_status(:returned)
+
+    assert_equal expected_3, actual_3
+  end
 end
