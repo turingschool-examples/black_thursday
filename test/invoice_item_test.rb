@@ -39,4 +39,9 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 10.99, @invoice_item.unit_price
     assert_instance_of BigDecimal, @invoice_item.unit_price
   end
+
+  def test_it_has_created_at_and_updated_at_time
+    assert_instance_of Time, @invoice_item.created_at
+    assert_instance_of Time, @invoice_item.updated_at 
+  end
 end
