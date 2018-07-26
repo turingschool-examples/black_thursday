@@ -1,6 +1,7 @@
 class Merchant
 
-  attr_accessor :id, :name
+  attr_accessor :id,
+                :name
 
   def initialize(hash)
     @id = hash[:id].to_i
