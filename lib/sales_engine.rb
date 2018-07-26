@@ -159,7 +159,11 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@merchant_repository, @item_repository, @invoice_repository)
+    SalesAnalyst.new(@merchant_repository,
+                     @item_repository,
+                     @invoice_repository,
+                     @transaction_repository,
+                     @invoice_item_repository)
   end
 
 end
