@@ -33,7 +33,7 @@ class ItemRepo
       item.name.downcase == name.downcase
     end
   end
-  
+
 
   def find_all_with_description(description)
     @items.find_all do |item|
@@ -43,7 +43,7 @@ class ItemRepo
 
   def find_all_by_price(price) #find out more about if bigdecimal or not
     @items.find_all do |item|
-      item.unit_price.to_i == price
+      item.unit_price.to_i == price.to_i
     end
   end
 
@@ -55,13 +55,12 @@ class ItemRepo
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
-      item.merchant_id.to_i == merchant_id
+      item.merchant_id.to_i == merchant_id.to_i
     end
   end
 
   def create(attributes)
     item_new = Item.new(attributes)
-
     max_item_id = @items.max_by do |item|
       item.id
     end
