@@ -62,5 +62,17 @@ class ItemRepository
     item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     item.updated_at = Time.now
   end
+# ----------------------------------------------------------------------
 
+  def number_of_merchants
+    group_item_by_merchant_id.keys.count
+  end
+
+  def group_item_by_merchant_id
+    @items.group_by { |item| item.merchant_id }
+  end
+
+  def average_items_per_merchant
+    (@items.size / number_of_merchants.to_f).round(2)
+  end
 end

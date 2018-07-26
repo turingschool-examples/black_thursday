@@ -8,11 +8,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (get_number_of_items / get_number_of_merchants.to_f).round(2)
+    @item_repository.average_items_per_merchant
   end
 
   def average_items_per_merchant_standard_deviation
-    (Math.sqrt( get_mean_of_totaled_squares )).round(2)
+    (Math.sqrt( get_mean_of_totaled_squares(@item_repository.group_item_by_merchant_id, average_items_per_merchant))).round(2)
   end
 
   def mean_item_price
@@ -88,30 +88,30 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def get_mean_of_totaled_squares
-    get_total_of_squares / get_squared_values.count
+  def get_mean_of_totaled_squares(grouped_hash, average)
+    get_total_of_squares(grouped_hash, average) / get_squared_values(grouped_hash, average).count
   end
 
-  def get_total_of_squares
-    get_squared_values.inject(0) {|sum, value| sum += value}
+  def get_total_of_squares(grouped_hash, average)
+    get_squared_values(grouped_hash, average).inject(0) {|sum, value| sum += value}
   end
 
-  def get_squared_values
-    group_item_by_merchant_id.map do |id, item|
-      (item.count - average_items_per_merchant) ** 2
+  def get_squared_values(grouped_hash, average)
+   grouped_hash.map do |id, item|
+      (item.count - average) ** 2
     end
   end
 
-  def get_number_of_merchants
-    @merchant_repository.merchants.count
-  end
+ # def get_number_of_merchants
+ #   @merchant_repository.merchants.count
+ # end
 
-  def get_number_of_items
-    @item_repository.items.count
-  end
+#  def get_number_of_items
+#    @item_repository.items.count
+#  end
 
-  def group_item_by_merchant_id
-    @item_repository.items.group_by { |item| item.merchant_id}
-  end
+#  def group_item_by_merchant_id
+#    @item_repository.items.group_by { |item| item.merchant_id}
+#  end
 
 end
