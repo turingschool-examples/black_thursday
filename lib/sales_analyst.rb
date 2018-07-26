@@ -7,7 +7,6 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    # grouped_items = group_items_by_merchant
     merchants_total = find_number_of_merchants
     items_total = find_total_number_of_items
     (items_total.to_f / merchants_total).round(2)
@@ -15,7 +14,6 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
-    # grouped_items = group_items_by_merchant
     ipm = items_per_merchant
     v = variance(average, ipm)
     square_root_of_variance(v, ipm)
@@ -58,9 +56,13 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    group_items_by_merchant.find_all do |id, items|
-      items.count > one_standard_deviation_above
+    item_amount_per_merchant.map do |id, quantity|
+      @se.merchants.find_by_id(id) if quantity >= one_standard_deviation_above
     end
+  end
+
+  def item_amount_per_merchant
+    group_items_by_merchant.keys.zip(items_per_merchant)
   end
 #---------------ITERATION-2-STUFF------------------------#
 # sales_analyst.average_invoices_per_merchant # => 10.49
