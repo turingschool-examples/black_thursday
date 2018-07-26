@@ -100,4 +100,16 @@ class SalesAnalyst
       invoices.count
     end
   end
+
+# Which merchants are more than two standard deviations above the mean?
+# sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
+  def two_standard_deviations_above(average_invoices_per_merchant, average_invoices_per_merchant_standard_deviation)
+    average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation*2
+  end
+
+  def top_merchants_by_invoice_count
+    group_items_by_merchant.find_all do |id, invoices|
+      invoices.count > two_standard_deviations_above
+    end
+  end
 end

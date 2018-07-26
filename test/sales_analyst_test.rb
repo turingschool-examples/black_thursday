@@ -130,8 +130,26 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_square_root_of_variance
-    v = 5.2
-    ipm = [2, 3, 4, 3, 5]
-    assert_equal 1.14, @sa.square_root_of_variance(v, ipm)
+    variance = 5.2
+    invoices_per_merchant = [2, 3, 4, 3, 5]
+    assert_equal 1.14, @sa.square_root_of_variance(variance, invoices_per_merchant)
   end
+
+  def test_it_can_find_two_standard_deviations_above_average
+    average_invoices_per_merchant = 5
+    average_invoices_per_merchant_standard_deviation = 1
+    assert_equal 7, @sa.two_standard_deviations_above(5, 1)
+    # assert_equal 17.07, @sa.two_standard_deviations_above
+  end
+
+  # def test_it_can_find_top_merchants_by_invoice_count
+  # grouped_invoices = {
+  #                 12334141 => ["invoice_1", "invoice_2"],
+  #                 12334185 => ["invoice_1", "invoice_2", "invoice_3"],
+  #                 12345678 => ["invoice_1", "invoice_2", "invoice_3", "invoice_4"]
+  #               }
+  #   assert_equal 12, @sa.top_merchants_by_invoice_count.count
+  #   assert_equal Array, @sa.top_merchants_by_invoice_count.class
+  #   assert_equal Merchant, @sa.top_merchants_by_invoice_count.first.class
+  # end
 end
