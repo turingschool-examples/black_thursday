@@ -39,5 +39,4 @@ def setup
                                   })
     assert_instance_of SalesEngine, actual
   end
-
 end
