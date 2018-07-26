@@ -23,17 +23,17 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_returns_merchant_by_id
-    assert_equal @mer_repo.all[1], @mer_repo.find_by_id(12334112)
+    assert_equal @mer_repo.merchants[1], @mer_repo.find_by_id(12334112)
     assert_equal nil, @mer_repo.find_by_id(12345678)
   end
 
   def test_it_returns_merchant_by_name
-    assert_equal @mer_repo.all[0], @mer_repo.find_by_name("Shopin1901")
+    assert_equal @mer_repo.merchants[0], @mer_repo.find_by_name("Shopin1901")
     assert_equal nil, @mer_repo.find_by_name("NotAngry1901")
   end
 
-  def test_it_finds_all_merchants_by_name
-    assert_equal [@mer_repo.all[2], @mer_repo.all[3]], @mer_repo.find_all_by_name("Sandy")
+  def test_it_finds_all_merchants_by_name #testing
+    assert_equal [@mer_repo.merchants[2], @mer_repo.merchants[3]], @mer_repo.find_all_by_name("Sandy")
     assert_equal [], @mer_repo.find_all_by_name("NotAngry1901")
   end
 
@@ -41,8 +41,8 @@ class MerchantRepoTest < Minitest::Test
     actual = @mer_repo.create({:id => 8, :name => "Cool School"})
     assert_instance_of Merchant, actual
 
-    assert_equal "Cool School", @mer_repo.all[5].name
-    refute_equal 8, @mer_repo.all[5].id
+    assert_equal "Cool School", @mer_repo.merchants[5].name
+    refute_equal 8, @mer_repo.merchants[5].id
   end
 
   def test_it_updates_merchant_attributes

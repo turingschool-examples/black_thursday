@@ -88,16 +88,17 @@ class ItemRepoTest < Minitest::Test
       ##stopping here.
 
       #original {id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}
-      assert_equal "Bat", @item_repo.all[5].name
-      assert_equal "animal 100", @item_repo.all[5].description
-      assert_equal "2100", @item_repo.all[5].unit_price
-      assert_equal 263395214, @item_repo.all[5].id
-      assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].created_at
-      assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].updated_at
-      assert_equal 12334104, @item_repo.all[5].merchant_id
+    assert_equal "Bat", @item_repo.all[5].name
+    assert_equal "animal 100", @item_repo.all[5].description
+    assert_equal "2100", @item_repo.all[5].unit_price
+    assert_equal 263395214, @item_repo.all[5].id
+    assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].created_at
+    assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].updated_at
+    assert_equal 12334104, @item_repo.all[5].merchant_id
   end
 
   def test_it_deletes_item_by_id
+    assert_instance_of Item, @item_repo.find_by_id(263395237)
     @item_repo.delete(263395237)
     assert_equal nil, @item_repo.find_by_id(263395237)
   end
