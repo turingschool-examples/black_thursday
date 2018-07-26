@@ -158,8 +158,10 @@ class SalesAnalyst
     end
   end
 
-  # def invoice_status(status)
-  #
-  # end
-
+  def invoice_status(status)
+    status_count = @invoices.all.each_with_object(Hash.new(0)) do |invoice, statuses|
+      statuses[invoice.status] += 1
+    end
+    ((status_count[status].to_f / @invoices.all.count) * 100).round(2)
+  end
 end

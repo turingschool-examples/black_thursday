@@ -198,7 +198,6 @@ class SalesAnalystTest < Minitest::Test
 
 
   def test_percentage_of_invoices_shipped_based_on_status
-    skip
     invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
     invoice_6 = Invoice.new({:id => 11, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
     invoice_7 = Invoice.new({:id => 12, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
@@ -219,8 +218,8 @@ class SalesAnalystTest < Minitest::Test
     @invoices << invoice_12
     @invoices << invoice_13
 
-    assert_equal 61.54, sales_analyst.invoice_status(:pending)
-    assert_equal 23.08, sales_analyst.invoice_status(:shipped)
-    assert_equal 15.38, sales_analyst.invoice_status(:returned)
+    assert_equal 61.54, @sales_analyst.invoice_status(:pending)
+    assert_equal 23.08, @sales_analyst.invoice_status(:shipped)
+    assert_equal 15.38, @sales_analyst.invoice_status(:returned)
   end
 end
