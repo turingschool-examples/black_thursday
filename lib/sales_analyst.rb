@@ -112,4 +112,14 @@ class SalesAnalyst
       invoices.count > two_standard_deviations_above
     end
   end
+# sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
+  def two_standard_deviations_below
+    average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation*2
+  end
+
+  def bottom_merchants_by_invoice_count
+    group_invoices_by_merchant.find_all do |id, invoices|
+      invoices.count < two_standard_deviations_below
+    end
+  end
 end

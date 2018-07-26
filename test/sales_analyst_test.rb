@@ -101,10 +101,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_invoices_per_merchant
-    grouped_invoices = {
-                    12334141 => ["invoice_1", "invoice_2"],
-                    12334185 => ["invoice_1", "invoice_2", "invoice_3"]
-    }
     assert_equal 10.49, @sa.average_invoices_per_merchant
     assert_equal Float, @sa.average_invoices_per_merchant.class
   end
@@ -123,17 +119,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [2, 3, 4], @sa.invoices_per_merchant(grouped_invoices)
   end
 
-  def test_it_can_find_variance
-    invoice_count_array = [2, 3, 4, 3, 5]
-    average = 3.4
-    assert_equal 5.2, @sa.variance(average, invoice_count_array)
-  end
-
-  def test_it_can_find_square_root_of_variance
-    variance = 5.2
-    invoices_per_merchant = [2, 3, 4, 3, 5]
-    assert_equal 1.14, @sa.square_root_of_variance(variance, invoices_per_merchant)
-  end
+  # def test_it_can_find_variance
+  #   invoice_count_array = [2, 3, 4, 3, 5]
+  #   average = 3.4
+  #   assert_equal 5.2, @sa.variance(average, invoice_count_array)
+  # end
+  #
+  # def test_it_can_find_square_root_of_variance
+  #   variance = 5.2
+  #   invoices_per_merchant = [2, 3, 4, 3, 5]
+  #   assert_equal 1.14, @sa.square_root_of_variance(variance, invoices_per_merchant)
+  # end
 
   def test_it_can_find_two_standard_deviations_above_average
     assert_equal 17.07, @sa.two_standard_deviations_above
@@ -144,5 +140,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12, @sa.top_merchants_by_invoice_count.count
   #   assert_equal Array, @sa.top_merchants_by_invoice_count.class
   #   assert_equal Merchant, @sa.top_merchants_by_invoice_count.first.class
+  end
+
+  def test_it_can_find_two_standard_deviations_below_average
+    assert_equal 3.91, @sa.two_standard_deviations_below
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    skip
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.count
+  #   assert_equal Array, @sa.bottom_merchants_by_invoice_count.class
+  #   assert_equal Merchant, @sa.bottom_merchants_by_invoice_count.first.class
   end
 end
