@@ -7,6 +7,7 @@ class SalesAnalystTest < Minitest::Test
     @sales_engine = SalesEngine.from_csv({
                         :items     => "./data/items.csv",
                         :merchants => "./data/merchants.csv",
+                        :invoices => "./data/invoices.csv",
                       })
     @sales_analyst = @sales_engine.analyst
   end
@@ -55,5 +56,58 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.golden_items.count
 
     assert_equal expected, actual
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    expected = 10.49
+    actual = @sales_analyst.average_invoices_per_merchant
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_stddev_of_average_items_per_merchant
+    expected = 3.29
+    actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    expected = 12
+    actual = @sales_analyst.top_merchants_by_invoice_count
+
+    assert_instance_of Merchant, actual[0]
+    assert_equal expected, actual.count
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    expected = 4
+    actual = @sales_analyst.bottom_merchants_by_invoice_count
+
+    assert_instance_of Merchant, actual[0]
+    assert_equal expected, actual.count
+  end
+
+  def test_it_can_find_top_days_by_invoice_count
+    expected = ["Wednesday"]
+    actual = @sales_analyst.top_days_by_invoice_count
+    assert_equal expected, actual
+  end
+
+  def test_it_can_show_invoice_status_percentage
+    expected = 29.55
+    actual = @sales_analyst.invoice_status(:pending)
+
+    assert_equal expected, actual
+
+    expected_2 = 56.95
+    actual_2 = @sales_analyst.invoice_status(:shipped)
+
+    assert_equal expected_2, actual_2
+
+    expected_3 = 13.5
+    actual_3 = @sales_analyst.invoice_status(:returned)
+
+    assert_equal expected_3, actual_3
   end
 end
