@@ -18,6 +18,13 @@ module RepositoryAssistant
     end
   end
 
+
+  def find_all_by_invoice_id(id)
+    @repository.find_all do |repo_object|
+      repo_object.invoice_id == id
+    end
+  end
+
   def delete(id)
     found_id = find_by_id(id)
     @repository.delete(found_id)
@@ -36,6 +43,9 @@ module RepositoryAssistant
     repo_object.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     repo_object.status = attributes[:status] unless attributes[:status].nil?
     repo_object.quantity = attributes[:quantity] unless attributes[:quantity].nil?
+    repo_object.credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+    repo_object.credit_card_exp_date = attributes[:credit_card_exp_date] unless attributes[:credit_card_exp_date].nil?
+    repo_object.result = attributes[:result] unless attributes[:result].nil?
     repo_object.updated_at = Time.now
   end
 end
