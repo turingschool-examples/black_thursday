@@ -66,12 +66,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.0, @sa.one_standard_deviation_above
   end
 
-  # def test_it_can_find_high_seller_merchants
-  #   skip
-  #   assert_equal 52, @sa.merchants_with_high_item_count.count
-  #   assert_equal Array, @sa.merchants_with_high_item_count.class
-  #   assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
-  # end
+  def test_it_can_zip_items_and_merchant_ids
+    assert_equal [[1, 2], [2, 3], [3, 1]], @sa.item_amount_per_merchant
+  end
+
+  def test_it_can_find_high_seller_merchants
+    assert_equal 1, @sa.merchants_with_high_item_count.count
+    assert_equal Array, @sa.merchants_with_high_item_count.class
+    assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
+  end
+
 
   #--------------------------ITERATION-2-STUFF-------------#
   #
