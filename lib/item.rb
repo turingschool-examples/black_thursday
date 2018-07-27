@@ -24,7 +24,7 @@ class Item
     @updated_at = if hash[:updated_at].class == String
                     Time.parse(hash[:updated_at])
                     else
-                      Time.now 
+                      Time.now
                     end
     @merchant_id = hash[:merchant_id].to_i
   end
