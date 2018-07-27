@@ -22,6 +22,7 @@ class InvoiceRepository
     data.map do |row|
       row[:created_at] = Time.parse(row[:created_at].to_s)
       row[:updated_at] = Time.parse(row[:updated_at].to_s)
+      row[:status] = row[:status].to_sym
       create(row)
     end
   end
@@ -34,6 +35,7 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
+    return nil unless @invoices.key?(id)
     @invoices.fetch(id)
   end
 
@@ -75,4 +77,7 @@ class InvoiceRepository
     @invoices.delete(id)
   end
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 end
