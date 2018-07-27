@@ -14,26 +14,26 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-07-27T11:30:05-06:00">2018-07-27T11:30:05-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-07-27T11:32:34-06:00">2018-07-27T11:32:34-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">53.91%</span></span>
+    (<span class="covered_percent"><span class="red">54.26%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.11
+         1.85
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>5</b> files in total.
-    <b>128</b> relevant lines. 
-    <span class="green"><b>69</b> lines covered</span> and
+    <b>129</b> relevant lines. 
+    <span class="green"><b>70</b> lines covered</span> and
     <span class="red"><b>59</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -57,7 +57,7 @@
         <td>20</td>
         <td>16</td>
         <td>4</td>
-        <td>3.1</td>
+        <td>5.8</td>
       </tr>
       
       <tr>
@@ -67,7 +67,7 @@
         <td>57</td>
         <td>23</td>
         <td>34</td>
-        <td>0.5</td>
+        <td>0.7</td>
       </tr>
       
       <tr>
@@ -77,7 +77,7 @@
         <td>8</td>
         <td>8</td>
         <td>0</td>
-        <td>3.0</td>
+        <td>5.5</td>
       </tr>
       
       <tr>
@@ -87,17 +87,17 @@
         <td>39</td>
         <td>18</td>
         <td>21</td>
-        <td>0.6</td>
+        <td>0.8</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#d3a7b8ae2ebe7a25dcdb6b9794e6da006a83d1ff" class="src_link" title="lib/sales_analyst.rb">lib/sales_analyst.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>9</td>
-        <td>4</td>
-        <td>4</td>
+        <td>11</td>
+        <td>5</td>
+        <td>5</td>
         <td>0</td>
-        <td>1.0</td>
+        <td>1.4</td>
       </tr>
       
     </tbody>
@@ -208,26 +208,26 @@
           <code class="ruby">  def initialize(hash)</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="14">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="14">
+          <span class="hits">12</span>
           
           <code class="ruby">    @id = hash[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="15">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="15">
+          <span class="hits">12</span>
           
           <code class="ruby">    @name = hash[:name]</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="16">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="16">
+          <span class="hits">12</span>
           
           <code class="ruby">    @description = hash[:description]</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="17">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="17">
+          <span class="hits">12</span>
           
           <code class="ruby">    @unit_price = BigDecimal(hash[:unit_price].to_i)</code>
         </li>
@@ -238,14 +238,14 @@
           <code class="ruby">      # require &quot;pry&quot;; binding.pry</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="19">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="19">
+          <span class="hits">12</span>
           
           <code class="ruby">    @created_at = if hash[:created_at].class == String</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="20">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="20">
+          <span class="hits">12</span>
           
           <code class="ruby">                  Time.parse(hash[:created_at])</code>
         </li>
@@ -268,14 +268,14 @@
           <code class="ruby">                  end</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="24">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="24">
+          <span class="hits">12</span>
           
           <code class="ruby">    @updated_at = if hash[:updated_at].class == String</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="25">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="25">
+          <span class="hits">12</span>
           
           <code class="ruby">                    Time.parse(hash[:updated_at])</code>
         </li>
@@ -298,8 +298,8 @@
           <code class="ruby">                    end</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="29">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="29">
+          <span class="hits">12</span>
           
           <code class="ruby">    @merchant_id = hash[:merchant_id].to_i</code>
         </li>
@@ -443,14 +443,14 @@
           <code class="ruby">  def initialize(items)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="10">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="10">
+          <span class="hits">2</span>
           
           <code class="ruby">    @items = items</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="11">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="11">
+          <span class="hits">2</span>
           
           <code class="ruby">    change_item_hashes_to_objects</code>
         </li>
@@ -497,20 +497,20 @@
           <code class="ruby">  def change_item_hashes_to_objects</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="19">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="19">
+          <span class="hits">2</span>
           
           <code class="ruby">    item_array = []</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="20">
+          <span class="hits">2</span>
           
           <code class="ruby">    @items.each do |hash|</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="21">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="12" data-linenumber="21">
+          <span class="hits">12</span>
           
           <code class="ruby">      item_array &lt;&lt; Item.new(hash)</code>
         </li>
@@ -521,8 +521,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="23">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="23">
+          <span class="hits">2</span>
           
           <code class="ruby">    @items = item_array</code>
         </li>
@@ -1050,26 +1050,26 @@
           <code class="ruby">  def initialize(hash)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="11">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="10" data-linenumber="11">
+          <span class="hits">10</span>
           
           <code class="ruby">    @id = hash[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="12">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="10" data-linenumber="12">
+          <span class="hits">10</span>
           
           <code class="ruby">    @name = hash[:name].to_s</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="13">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="10" data-linenumber="13">
+          <span class="hits">10</span>
           
           <code class="ruby">    @created_at = Time.parse(hash[:created_at].to_s)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="14">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="10" data-linenumber="14">
+          <span class="hits">10</span>
           
           <code class="ruby">    @updated_at = Time.parse(hash[:updated_at].to_s)</code>
         </li>
@@ -1153,14 +1153,14 @@
           <code class="ruby">  def initialize(merchants)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="8">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="8">
+          <span class="hits">2</span>
           
           <code class="ruby">    @merchants = merchants</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="9">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="9">
+          <span class="hits">2</span>
           
           <code class="ruby">    change_merchant_hashes_to_objects</code>
         </li>
@@ -1207,20 +1207,20 @@
           <code class="ruby">  def change_merchant_hashes_to_objects</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="17">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="17">
+          <span class="hits">2</span>
           
           <code class="ruby">    object_array = []</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="18">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="18">
+          <span class="hits">2</span>
           
           <code class="ruby">    @merchants.each do |hash|</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="19">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="10" data-linenumber="19">
+          <span class="hits">10</span>
           
           <code class="ruby">      object_array &lt;&lt; Merchant.new(hash)</code>
         </li>
@@ -1231,8 +1231,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="21">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="21">
+          <span class="hits">2</span>
           
           <code class="ruby">    @merchants = object_array</code>
         </li>
@@ -1553,8 +1553,8 @@
     <h3>lib/sales_analyst.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>4</b> relevant lines. 
-      <span class="green"><b>4</b> lines covered</span> and
+      <b>5</b> relevant lines. 
+      <span class="green"><b>5</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1577,40 +1577,52 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">  def initialize(merchant_repo, item_repo)</code>
+          <code class="ruby">  attr_reader :merchants, :items</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="4">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    @merchants = merchant_repo</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="5">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    @items = item_repo</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="6">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="7">
+        <li class="never" data-hits="" data-linenumber="4">
           
           
           <code class="ruby"></code>
         </li>
       
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(merchant_repo, item_repo)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="6">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    @merchants = merchant_repo</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="7">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    @items = item_repo</code>
+        </li>
+      
         <li class="never" data-hits="" data-linenumber="8">
           
           
-          <code class="ruby">  </code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
           
           
           <code class="ruby">end</code>

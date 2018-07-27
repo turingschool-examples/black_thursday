@@ -28,4 +28,9 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sales_analyst
   end
 
+  def test_it_has_repositories
+    assert_instance_of MerchantRepo, @sales_analyst.merchants
+    assert_instance_of ItemRepo, @sales_analyst.items
+  end
+
 end
