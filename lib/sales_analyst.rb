@@ -11,12 +11,12 @@ class SalesAnalyst
               :transactions,
               :customers
 
-  def initialize(items, merchants, invoices, invoice_items, transactions, customers)
+  def initialize(items, merchants, invoices, transactions, invoice_items, customers)
     @items = items
     @merchants = merchants
     @invoices = invoices
-    @invoice_items = invoice_items
     @transactions = transactions
+    @invoice_items = invoice_items
     @customers = customers
   end
 
@@ -169,5 +169,12 @@ class SalesAnalyst
       statuses[invoice.status] += 1
     end
     ((status_count[status].to_f / @invoices.all.count) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transactions.find_all_by_invoice_id(invoice_id)
+    transactions.all? do |transaction|
+      transaction.result == :success
+    end
   end
 end
