@@ -35,4 +35,8 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [@transaction_3], @transaction_repository.find_all_by_credit_card_number("4242424242423333")
   end
 
+  def test_it_can_find_all_by_result
+    assert_equal [], @transaction_repository.find_all_by_result("card shut off")
+    assert_equal @transactions, @transaction_repository.find_all_by_result("success")
+  end
 end
