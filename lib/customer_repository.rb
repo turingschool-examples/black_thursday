@@ -9,4 +9,9 @@ class CustomerRepository
     @list = customers
   end
 
+  def find_all_by_first_name(name)
+    @list.find_all do |customer|
+      customer.first_name.downcase.include?(name.downcase)
+    end
+  end
 end
