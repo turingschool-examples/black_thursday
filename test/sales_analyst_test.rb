@@ -48,13 +48,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    assert_equal 114, @sa.merchants_with_high_item_count.length
+    assert_equal 52, @sa.merchants_with_high_item_count.length
     assert_instance_of Merchant, @sa.merchants_with_high_item_count[0]
     assert_instance_of Merchant, @sa.merchants_with_high_item_count[-1]
   end
 
   def test_select_merchant_ids_over_standard_deviation
-    assert_equal 114, @sa.select_merchant_ids_over_standard_deviation.length
+    assert_equal 52, @sa.select_merchant_ids_over_standard_deviation.length
     assert_instance_of Fixnum, @sa.select_merchant_ids_over_standard_deviation[-1]
     assert_instance_of Fixnum, @sa.select_merchant_ids_over_standard_deviation[0]
   end
@@ -69,4 +69,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 350.29, @sa.average_average_price_per_merchant
   end
 
+  def test_average_item_price
+    assert_equal 251.06, @sa.average_item_price
+  end
+
+  def test_standard_deviation_for_prices
+    assert_instance_of BigDecimal, @sa.average_price_standard_deviation
+    assert_equal 251.06, @sa.average_item_price
+  end
+
+  def test_golden_items
+    assert_equal 5, @sa.golden_items.length
+  end
 end
