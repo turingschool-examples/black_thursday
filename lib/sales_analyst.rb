@@ -120,4 +120,34 @@ class SalesAnalyst
     end
   end
 
+  def top_days_by_invoice_count
+    all_invoices = @engine.invoices.all
+    invoices_per_day = all_invoices.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+    count_per_day = invoices_per_day.map do |day, invoice|
+      invoice.count
+    end
+    total_invoices = count_per_day.inject(0) do |sum, count|
+      sum += count
+    end
+    mean = total_invoices.to_f / count_per_day.size
+
+    std_sum = count_per_day.inject(0) do |sum, count|
+      sum + (count - mean)**2
+    end
+    std = Math.sqrt(std_sum.to_f / 6)
+    threshold = mean + std
+
+    top_days = invoices_per_day.find_all do |day, object_array|
+      object_array.size > threshold
+    end
+    top_days.flatten.delete_if do |element|
+      element.is_a?(Invoice)
+    end
+
+  end
+
+
+
 end

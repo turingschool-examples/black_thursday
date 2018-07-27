@@ -46,31 +46,31 @@ class SalesAnalystTest < Minitest::Test
 
     items = [item1, item2, item3, item4, item5,item6, item7, item8, item9, item10, item11, item12, item13]
 
-    invoice1 = { id: 1, customer_id: 2, merchant_id: 1, status: 'shipped', created_at: Time.now, updated_at: Time.now}
+    invoice1 = { id: 1, customer_id: 2, merchant_id: 1, status: 'shipped', created_at: "2017-10-01", updated_at: Time.now}
 
-    invoice19 = { id: 19, customer_id: 2, merchant_id: 2, status: 'shipped', created_at: Time.now, updated_at: Time.now}
+    invoice19 = { id: 19, customer_id: 2, merchant_id: 2, status: 'shipped', created_at: "2017-10-01", updated_at: Time.now}
 
-    invoice2 = { id: 2, customer_id: 2, merchant_id: 3, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice2 = { id: 2, customer_id: 2, merchant_id: 3, status: 'pending', created_at: "2017-10-02", updated_at: Time.now}
 
-    invoice12 = { id: 12, customer_id: 2, merchant_id: 4, status: 'pending', created_at: Time.now, updated_at: Time.now}
-    invoice16 = { id: 16, customer_id: 2, merchant_id: 4, status: 'shipped', created_at: Time.now, updated_at: Time.now}
-    invoice17 = { id: 17, customer_id: 2, merchant_id: 4, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice12 = { id: 12, customer_id: 2, merchant_id: 4, status: 'pending', created_at: "2017-10-02", updated_at: Time.now}
+    invoice16 = { id: 16, customer_id: 2, merchant_id: 4, status: 'shipped', created_at: "2017-10-02", updated_at: Time.now}
+    invoice17 = { id: 17, customer_id: 2, merchant_id: 4, status: 'pending', created_at: "2017-10-03", updated_at: Time.now}
 
-    invoice18 = { id: 18, customer_id: 2, merchant_id: 5, status: 'pending', created_at: Time.now, updated_at: Time.now}
-    invoice3 = { id: 3, customer_id: 3, merchant_id: 5, status: 'returned', created_at: Time.now, updated_at: Time.now}
-    invoice4 = { id: 4, customer_id: 2, merchant_id: 5, status: 'pending', created_at: Time.now, updated_at: Time.now}
+    invoice18 = { id: 18, customer_id: 2, merchant_id: 5, status: 'pending', created_at: "2017-10-03", updated_at: Time.now}
+    invoice3 = { id: 3, customer_id: 3, merchant_id: 5, status: 'returned', created_at: "2017-10-04", updated_at: Time.now}
+    invoice4 = { id: 4, customer_id: 2, merchant_id: 5, status: 'pending', created_at: "2017-10-04", updated_at: Time.now}
 
-    invoice5 = { id: 5, customer_id: 2, merchant_id: 6, status: 'shipped', created_at: Time.now, updated_at: Time.now}
-    invoice6 = { id: 6, customer_id: 3, merchant_id: 6, status: 'returned', created_at: Time.now, updated_at: Time.now}
-    invoice7 = { id: 7, customer_id: 2, merchant_id: 6, status: 'shipped', created_at: Time.now, updated_at: Time.now}
+    invoice5 = { id: 5, customer_id: 2, merchant_id: 6, status: 'shipped', created_at: "2017-10-05", updated_at: Time.now}
+    invoice6 = { id: 6, customer_id: 3, merchant_id: 6, status: 'returned', created_at: "2017-10-05", updated_at: Time.now}
+    invoice7 = { id: 7, customer_id: 2, merchant_id: 6, status: 'shipped', created_at: "2017-10-06", updated_at: Time.now}
 
-    invoice8 = { id: 8, customer_id: 2, merchant_id: 7, status: 'pending', created_at: Time.now, updated_at: Time.now}
-    invoice9 = { id: 9, customer_id: 3, merchant_id: 7, status: 'returned', created_at: Time.now, updated_at: Time.now}
-    invoice10 = { id: 10, customer_id: 2, merchant_id: 7, status: 'pending', created_at: Time.now, updated_at: Time.now}
-    invoice11 = { id: 11, customer_id: 3, merchant_id: 7, status: 'returned', created_at: Time.now, updated_at: Time.now}
-    invoice13 = { id: 13, customer_id: 3, merchant_id: 7, status: 'returned', created_at: Time.now, updated_at: Time.now}
-    invoice14 = { id: 14, customer_id: 3, merchant_id: 7, status: 'returned', created_at: Time.now, updated_at: Time.now}
-    invoice15 = { id: 15, customer_id: 3, merchant_id: 7, status: 'returned', created_at: Time.now, updated_at: Time.now}
+    invoice8 = { id: 8, customer_id: 2, merchant_id: 7, status: 'pending', created_at: "2017-10-06", updated_at: Time.now}
+    invoice9 = { id: 9, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-06", updated_at: Time.now}
+    invoice10 = { id: 10, customer_id: 2, merchant_id: 7, status: 'pending', created_at: "2017-10-06", updated_at: Time.now}
+    invoice11 = { id: 11, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-07", updated_at: Time.now}
+    invoice13 = { id: 13, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-07", updated_at: Time.now}
+    invoice14 = { id: 14, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-07", updated_at: Time.now}
+    invoice15 = { id: 15, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-07", updated_at: Time.now}
 
 
     invoices = [invoice1, invoice2, invoice3, invoice4, invoice5, invoice6, invoice7, invoice8, invoice9, invoice10, invoice11, invoice12, invoice13, invoice14, invoice15, invoice16, invoice17, invoice18, invoice19]
@@ -129,6 +129,16 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_bottom_merchants_by_invoice_count
     assert_empty @sa.bottom_merchants_by_invoice_count
+  end
+
+  def test_it_calculates_top_days_by_invoice_count
+    assert_equal ["Friday", "Saturday"], @sa.top_days_by_invoice_count
+  end
+
+  def test_it_calculates_percent_status_of_invoices
+    assert_equal ,sales_analyst.invoice_status(:pending)
+    assert_equal ,sales_analyst.invoice_status()
+    assert_equal ,sales_analyst.invoice_status()
   end
 
 
