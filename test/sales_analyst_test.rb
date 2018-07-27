@@ -115,6 +115,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_checks_if_invoice_paid_in_full
-    assert_equal true, @sales_analyst.invoice_paid_in_full?
+    assert_equal true, @sales_analyst.invoice_paid_in_full?(1)
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(204)
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(203)
   end
 end

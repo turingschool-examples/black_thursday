@@ -29,11 +29,11 @@ class TransactionTest < MiniTest::Test
   end
 
   def test_it_has_a_credit_card_number
-    assert_equal 4242424242424242, @transaction.credit_card_number
+    assert_equal "4242424242424242", @transaction.credit_card_number
   end
 
   def test_it_has_a_credit_card_expiration_date
-    assert_equal 1020, @transaction.credit_card_expiration_date
+    assert_equal "1020", @transaction.credit_card_expiration_date
   end
 
   def test_it_has_a_result

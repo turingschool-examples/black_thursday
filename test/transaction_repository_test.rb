@@ -39,7 +39,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_credit_card_number
     expected = 1
-    actual = @transaction_repository.find_all_by_credit_card_number(4068631943231473).count
+    actual = @transaction_repository.find_all_by_credit_card_number("4068631943231473").count
     assert_equal expected, actual
   end
 
@@ -74,8 +74,8 @@ class TransactionRepositoryTest < Minitest::Test
     last_transaction_credit_card_expiration_date = new_transaction.credit_card_expiration_date
     last_transaction_result = new_transaction.result
 
-    assert_equal 4646464675757575, last_transaction_credit_card_number
-    assert_equal 1123, last_transaction_credit_card_expiration_date
+    assert_equal "4646464675757575", last_transaction_credit_card_number
+    assert_equal "1123", last_transaction_credit_card_expiration_date
     assert_equal :failed, last_transaction_result
 
     @transaction_repository.update(4986, {
@@ -85,8 +85,8 @@ class TransactionRepositoryTest < Minitest::Test
       })
     changed_transaction = @transaction_repository.transactions.last
 
-    assert_equal 4646464692929292, changed_transaction.credit_card_number
-    assert_equal 1205, changed_transaction.credit_card_expiration_date
+    assert_equal "4646464692929292", changed_transaction.credit_card_number
+    assert_equal "1205", changed_transaction.credit_card_expiration_date
     assert_equal :success, changed_transaction.result
 
     assert_equal new_transaction.id, changed_transaction.id
