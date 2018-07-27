@@ -123,4 +123,13 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_invoice_total
     assert_equal 21067.77, @sales_analyst.invoice_total(1)
   end
+
+  def test_it_can_check_total_revenue_by_date
+    assert_equal 21067.77, @sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))
+  end
+
+  def test_it_can_check_top_revenue_earners
+    skip
+    assert_equal [], @sales_analyst.top_revenue_earners
+  end
 end
