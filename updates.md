@@ -24,6 +24,14 @@ Iteraltion 2
 sales_analyst.invoice_status(:shipped) # => 56.95
 sales_analyst.invoice_status(:returned) # => 13.5
 
+Iteration 3
+*sales_analyst.invoice_paid_in_full?(invoice_id) returns true if the Invoice with the corresponding id is paid in full
+*sales_analyst.invoice_total(invoice_id) returns the total $ amount of the Invoice with the corresponding id.
+
+Notes:
+Failed charges should never be counted in revenue totals or statistics.
+An invoice is considered paid in full if it has a successful transaction
+
 Iteration 4: Merchant Analytics
 *sales_analyst = sales_engine.analyst
 *sales_analyst.total_revenue_by_date(date) #=> $$
