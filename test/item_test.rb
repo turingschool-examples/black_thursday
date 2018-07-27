@@ -1,7 +1,5 @@
-require_relative '../test/test_helper'
+require_relative 'test_helper'
 require_relative '../lib/item'
-require 'bigdecimal'
-require 'time'
 
 class ItemTest < Minitest::Test
 
@@ -30,5 +28,10 @@ class ItemTest < Minitest::Test
   assert_instance_of Time, @item.updated_at
   assert_equal 2, @item.merchant_id
   end
+  
+  def test_it_converst_unit_price_to_dollars 
+    
+  end
+    
 
 end

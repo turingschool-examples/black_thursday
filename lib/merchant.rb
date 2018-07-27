@@ -2,7 +2,6 @@ require 'time'
 
 
 class Merchant
-
   attr_accessor :id,
                 :name,
                 :updated_at,

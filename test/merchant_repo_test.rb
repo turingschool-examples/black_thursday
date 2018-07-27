@@ -1,7 +1,5 @@
-require_relative "./test_helper"
-#require_relative "../lib/merchant"
-require_relative "../lib/merchant_repo"
-require "pry"
+require_relative 'test_helper'
+require_relative '../lib/merchant_repo'
 
 class MerchantRepoTest < Minitest::Test
 
@@ -42,7 +40,7 @@ class MerchantRepoTest < Minitest::Test
     assert_instance_of Merchant, actual
 
     assert_equal "Cool School", @mer_repo.merchants[5].name
-    refute_equal 8, @mer_repo.[5].id
+    refute_equal 8, @mer_repo.merchants[5].id
   end
 
   def test_it_updates_merchant_attributes

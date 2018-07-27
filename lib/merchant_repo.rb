@@ -1,10 +1,7 @@
-require_relative './merchant'
-require "time"
-require "pry"
+require_relative 'merchant'
 
 
 class MerchantRepo
-
   attr_accessor :merchants
 
   def initialize(merchants)
