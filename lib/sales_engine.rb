@@ -55,7 +55,7 @@ class SalesEngine
     @invoices      = InvoiceRepository.new(invoices)
     @invoice_items = InvoiceItemRepository.new(invoice_items)
     @customers     = CustomerRepository.new(customers)
-    @transactions = TransactionRepository.new(transactions)
+    @transactions  = TransactionRepository.new(transactions)
   end
 
   def analyst
