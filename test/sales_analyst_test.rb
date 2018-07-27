@@ -28,16 +28,10 @@ class SalesAnalystTest < Minitest::Test
   end  
     
   
-  # def test_average_items_per_merchant 
-  #   sales_engine = SalesEngine.new({
-  #   :items     => "./data/items.csv",
-  #   :merchants => "./data/merchants.csv",
-  #    })
-  #   sales_analyst = sales_engine.analyst 
-  # 
-  #   assert_equal 2.88, sales_engine.analyst.average_items_per_merchant 
-  #   assert_equal Float, sales_engine.average_items_per_merchant.class 
-  # end
+  def test_average_items_per_merchant 
+    assert_equal 2.88, @sales_engine.analyst.average_items_per_merchant 
+    assert_equal Float, @sales_engine.analyst.average_items_per_merchant.class 
+  end
   
   # let(:sales_analyst) { engine.analyst }
   # 

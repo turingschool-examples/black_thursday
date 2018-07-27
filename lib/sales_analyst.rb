@@ -9,6 +9,8 @@ class SalesAnalyst
   end
   
   def average_items_per_merchant 
-    
+     (@item_repository.items.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end 
+  
+  
 end 
