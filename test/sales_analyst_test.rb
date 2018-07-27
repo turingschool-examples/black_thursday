@@ -95,15 +95,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sa.average_item_prices_for_each_merchant[0].class
   end
 
+  def test_it_can_find_item_price_average
+    assert_equal 32.62, @sa.item_price_average
+  end
+
   def test_it_can_find_all_item_prices
     assert_equal 6, @sa.all_item_prices.count
   end
 
-  def test_it_can_find_variance_for_item_price
+  def test_it_can_find_standard_deviation_for_item_price
     skip
-    average = 50.89
-    item_price_per_merchant = [14.35, 14.33, 124.00]
-    assert_equal 32.62, @sa.variance_item_price(average, item_price_per_merchant)
+    assert_equal 40.88, @sa.standard_deviation_for_item_price
   end
 
   def test_it_can_find_golden_items
