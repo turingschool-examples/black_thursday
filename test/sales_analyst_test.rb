@@ -63,7 +63,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_one_stnd_deviation_above_average
-    assert_equal 3.0, @sa.one_standard_deviation_above
+    assert_equal 3.0, @sa.items_one_standard_deviation_above
   end
 
   def test_it_can_zip_items_and_merchant_ids
@@ -74,6 +74,44 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sa.merchants_with_high_item_count.count
     assert_equal Array, @sa.merchants_with_high_item_count.class
     assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
+  end
+
+  def test_it_can_find_average_item_price_for_single_merchant
+    assert_equal 14.33, @sa.average_item_price_for_merchant(2)
+    assert_equal BigDecimal, @sa.average_item_price_for_merchant(2).class
+  end
+
+  def test_it_can_find_number_of_merchants
+    assert_equal 3, @sa.number_of_merchants
+  end
+
+  def test_it_can_find_average_average_price_per_merchant
+    assert_equal 50.89, @sa.average_average_price_per_merchant
+    assert_equal BigDecimal, @sa.average_average_price_per_merchant.class
+  end
+
+  def test_it_can_find_average_item_prices_for_each_merchant
+    assert_equal 3, @sa.average_item_prices_for_each_merchant.count
+    assert_equal BigDecimal, @sa.average_item_prices_for_each_merchant[0].class
+  end
+
+  def test_it_can_find_item_price_average
+    assert_equal 32.62, @sa.item_price_average
+  end
+
+  def test_it_can_find_all_item_prices
+    assert_equal 6, @sa.all_item_prices.count
+  end
+
+  def test_it_can_find_standard_deviation_for_item_price
+    skip
+    assert_equal 40.88, @sa.standard_deviation_for_item_price
+  end
+
+  def test_it_can_find_golden_items
+    skip
+    assert_equal 1, @sa.golden_items.count
+    assert_equal Item, @sa.golden_items.class
   end
 
 

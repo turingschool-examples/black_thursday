@@ -41,29 +41,90 @@ class SalesAnalyst
     end
   end
 
-  def variance(average, ipm)
-    variance = ipm.inject(0) do |count, items|
+  def variance(average, array)
+    #need to update this name to show it's for item quantity
+    array.inject(0) do |count, items|
       count += (items - average) ** 2
     end
   end
 
-  def square_root_of_variance(v, ipm)
-    (Math.sqrt(v/(ipm.size-1))).round(2)
+  def square_root_of_variance(variance, array)
+    (Math.sqrt(variance/(array.size-1))).round(2)
   end
 
-  def one_standard_deviation_above
+  def items_one_standard_deviation_above
+    #item quantity
     average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
   def merchants_with_high_item_count
     item_amount_per_merchant.map do |id, quantity|
-      @sales_engine.merchants.find_by_id(id) if quantity >= one_standard_deviation_above
+      @sales_engine.merchants.find_by_id(id) if quantity >= items_one_standard_deviation_above
     end.compact
   end
 
   def item_amount_per_merchant
     group_items_by_merchant.keys.zip(items_per_merchant)
   end
+
+  def number_of_merchants
+    @sales_engine.merchants.all.count
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
+    sum = items.inject(0) do |total, item|
+      total + item.unit_price
+    end
+    (sum / items.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+    sum = @sales_engine.merchants.all.inject(0) do |total, merchant|
+      total + average_item_price_for_merchant(merchant.id)
+    end
+    (sum / number_of_merchants).round(2)
+  end
+
+  def average_item_prices_for_each_merchant
+    @sales_engine.merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+  end
+
+  def all_item_prices_total
+    @sales_engine.items.all.inject(0) do |total, item|
+      total + item.unit_price
+    end
+  end
+
+  def item_price_average
+    (all_item_prices_total / @sales_engine.items.all.count).round(2)
+  end
+
+  def all_item_prices
+    @sales_engine.items.all.map do |item|
+      item.unit_price
+    end
+  end
+
+  def standard_deviation_for_item_price
+    v = variance(item_price_average, all_item_prices)
+    square_root_of_variance(v, all_item_prices)
+  end
+
+  def two_standard_deviations_above
+    item_price_average + (standard_deviation_for_item_price * 2)
+  end
+
+  def golden_items
+    @sales_engine.items.all.each_with_object([]) do |item, collection|
+      collection << item if item.unit_price >= two_standard_deviations_above
+      collection
+    end
+  end
+
+
 #---------------ITERATION-2-STUFF------------------------#
 # sales_analyst.average_invoices_per_merchant # => 10.49
   # def average_invoices_per_merchant
