@@ -48,8 +48,8 @@ class SalesAnalyst
     end
   end
 
-  def square_root_of_variance(v, ipm)
-    (Math.sqrt(v/(ipm.size-1))).round(2)
+  def square_root_of_variance(variance, array)
+    (Math.sqrt(variance/(array.size-1))).round(2)
   end
 
   def items_one_standard_deviation_above
@@ -92,6 +92,16 @@ class SalesAnalyst
     end
   end
 
+  def all_item_prices_total
+    @sales_engine.items.all.inject(0) do |total, item|
+      total + item.unit_price
+    end
+  end
+
+  def item_price_average
+    (all_item_prices_total / @sales_engine.items.all.count).round(2)
+  end
+
   def all_item_prices
     @sales_engine.items.all.map do |item|
       item.unit_price
@@ -99,14 +109,20 @@ class SalesAnalyst
   end
 
   def standard_deviation_for_item_price
-    variance()
+    v = variance(item_price_average, all_item_prices)
+    square_root_of_variance(v, all_item_prices)
   end
 
-  # def golden_items
-  #   average = average_average_price_per_merchant
-  #   item_price_per_merchant = average_price_per_merchant_array
-  #   variance_item_price(average, item_price_per_merchant)
-  # end
+  def two_standard_deviations_above
+    item_price_average + (standard_deviation_for_item_price * 2)
+  end
+
+  def golden_items
+    @sales_engine.items.all.each_with_object([]) do |item, collection|
+      collection << item if item.unit_price >= two_standard_deviations_above
+      collection
+    end
+  end
 
 
 #---------------ITERATION-2-STUFF------------------------#
