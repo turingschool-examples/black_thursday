@@ -5,6 +5,7 @@ require_relative '../lib/item_repository.rb'
 require_relative '../lib/invoice_item_repository.rb'
 require_relative '../lib/transaction_repository.rb'
 require_relative '../lib/invoice_repository.rb'
+require_relative '../lib/customer_repository.rb'
 require_relative '../lib/sales_analyst.rb'
 
 require 'pry'
@@ -15,15 +16,17 @@ class SalesEngine
               :invoices,
               :analyst,
               :invoice_items,
-              :transactions
+              :transactions,
+              :customers
 
-  def initialize(merchant_location, item_location, invoice_location, invoice_item_location, transaction_location)
+  def initialize(merchant_location, item_location, invoice_location, invoice_item_location, transaction_location, customer_location)
     @merchants = MerchantRepository.new(merchant_location)
     @items = ItemRepository.new(item_location)
     @invoices = InvoiceRepository.new(invoice_location)
     @invoice_items = InvoiceItemRepository.new(invoice_item_location)
     @transactions = TransactionRepository.new(transaction_location)
-    @analyst = SalesAnalyst.new(@merchants, @items, @invoices, @invoice_items, @transactions)
+    @customers = CustomerRepository.new(customer_location)
+    @analyst = SalesAnalyst.new(@merchants, @items, @invoices, @invoice_items, @transactions, @customers)
 
   end
 
@@ -33,6 +36,7 @@ class SalesEngine
     invoice_location = csv_hash[:invoices]
     invoice_item_location = csv_hash[:invoice_items]
     transaction_location = csv_hash[:transactions]
-    SalesEngine.new(merchant_location, item_location, invoice_location, invoice_item_location, transaction_location)
+    customer_location = csv_hash[:customers]
+    SalesEngine.new(merchant_location, item_location, invoice_location, invoice_item_location, transaction_location, customer_location)
   end
 end
