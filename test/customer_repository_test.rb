@@ -31,4 +31,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal expected, @customer_repository.find_all_by_first_name("Nic")
     assert_equal [], @customer_repository.find_all_by_first_name("Ali")
   end
+
+  def test_it_finds_all_by_last_name
+    expected = [@customer_1, @customer_2]
+    assert_equal expected, @customer_repository.find_all_by_last_name("Clar")
+    assert_equal [], @customer_repository.find_all_by_last_name("Brow")
+  end 
 end
