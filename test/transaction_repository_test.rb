@@ -61,7 +61,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal "0223", actual
 
     actual = @transaction_repository.find_by_id(6).result
-    assert_equal "bingo", actual
+    assert_equal :bingo, actual
   end
 
   def test_transaction_can_be_deleted
