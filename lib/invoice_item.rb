@@ -1,7 +1,6 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
 require 'time'
-require_relative 'repository'
 
 class InvoiceItem
   attr_reader   :id,
