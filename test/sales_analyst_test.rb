@@ -9,7 +9,7 @@ class SalesAnalystTest < Minitest::Test
       :items     =>  "./data/fake_item_csv.csv",
       # "./data/items.csv",
       :merchants => "./data/fake_merchant_csv.csv",
-      :invoices => "./data/invoices.csv"
+      :invoices => "./data/fake_invoice_csv.csv"
     })
 
     @sa = SalesAnalyst.new(@se)
@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_number_of_merchants
-    assert_equal 5, @sa.find_number_of_merchants
+    assert_equal 5, @sa.find_number_of_merchants_for_items
   end
 
   def test_it_can_find_number_items
@@ -124,70 +124,78 @@ class SalesAnalystTest < Minitest::Test
 
 
   #--------------------------ITERATION-2-STUFF-------------#
-  #
-  # def test_it_can_group_invoices_by_merchant_id
-  #   assert_equal 7, @sa.group_invoices_by_merchant[12335080].count
-  #   assert_equal 12, @sa.group_invoices_by_merchant[12335955].count
-  # end
 
-  # def test_it_can_find_number_invoices
-  #   grouped_invoices = {
-  #                   12334141 => ["invoice_1", "invoice_2"],
-  #                   12334185 => ["invoice_1", "invoice_2", "invoice_3"]
-  #   }
-  #   assert_equal 5, @sa.find_total_number_of_invoices(grouped_invoices)
-  # end
-  #
-  # def test_it_can_find_average_invoices_per_merchant
-  #   assert_equal 10.49, @sa.average_invoices_per_merchant
-  #   assert_equal Float, @sa.average_invoices_per_merchant.class
-  # end
-  #
-  # def test_it_can_find_average_invoices_per_merchant_standard_deviation
-  #   assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
-  #   assert_equal Float, @sa.average_invoices_per_merchant_standard_deviation.class
-  # end
-  #
-  # def test_it_can_find_number_of_invoices_for_each_merchant
-  #   grouped_invoices = {
-  #                   12334141 => ["invoice_1", "invoice_2"],
-  #                   12334185 => ["invoice_1", "invoice_2", "invoice_3"],
-  #                   12345678 => ["invoice_1", "invoice_2", "invoice_3", "invoice_4"]
-  #                 }
-  #   assert_equal [2, 3, 4], @sa.invoices_per_merchant(grouped_invoices)
-  # end
+  def test_it_can_group_invoices_by_merchant_id
+    assert_equal 7, @sa.group_invoices_by_merchant[].count
+    assert_equal 12, @sa.group_invoices_by_merchant[12335955].count
+  end
 
-  # def test_it_can_find_variance
-  #   invoice_count_array = [2, 3, 4, 3, 5]
-  #   average = 3.4
-  #   assert_equal 5.2, @sa.variance(average, invoice_count_array)
-  # end
-  #
-  # def test_it_can_find_square_root_of_variance
-  #   variance = 5.2
-  #   invoices_per_merchant = [2, 3, 4, 3, 5]
-  #   assert_equal 1.14, @sa.square_root_of_variance(variance, invoices_per_merchant)
-  # end
-  #
-  # def test_it_can_find_two_standard_deviations_above_average
-  #   assert_equal 17.07, @sa.two_standard_deviations_above
-  # end
-  #
-  # def test_it_can_find_top_merchants_by_invoice_count
-  #   skip
-  #   assert_equal 12, @sa.top_merchants_by_invoice_count.count
-  #   assert_equal Array, @sa.top_merchants_by_invoice_count.class
-  #   assert_equal Merchant, @sa.top_merchants_by_invoice_count.first.class
-  # end
-  #
-  # def test_it_can_find_two_standard_deviations_below_average
-  #   assert_equal 3.91, @sa.two_standard_deviations_below
-  # end
-  #
-  # def test_it_can_find_bottom_merchants_by_invoice_count
-  #   skip
-  #   assert_equal 4, @sa.bottom_merchants_by_invoice_count.count
-  #   assert_equal Array, @sa.bottom_merchants_by_invoice_count.class
-  #   assert_equal Merchant, @sa.bottom_merchants_by_invoice_count.first.class
-  # end
+  def test_it_can_find_number_invoices
+    skip
+    grouped_invoices = {
+                    12334141 => ["invoice_1", "invoice_2"],
+                    12334185 => ["invoice_1", "invoice_2", "invoice_3"]
+    }
+    assert_equal 5, @sa.find_total_number_of_invoices(grouped_invoices)
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    skip
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+    assert_equal Float, @sa.average_invoices_per_merchant.class
+  end
+
+  def test_it_can_find_average_invoices_per_merchant_standard_deviation
+    skip
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal Float, @sa.average_invoices_per_merchant_standard_deviation.class
+  end
+
+  def test_it_can_find_number_of_invoices_for_each_merchant
+    skip
+    grouped_invoices = {
+                    12334141 => ["invoice_1", "invoice_2"],
+                    12334185 => ["invoice_1", "invoice_2", "invoice_3"],
+                    12345678 => ["invoice_1", "invoice_2", "invoice_3", "invoice_4"]
+                  }
+    assert_equal [2, 3, 4], @sa.invoices_per_merchant(grouped_invoices)
+  end
+
+  def test_it_can_find_variance
+    skip
+    invoice_count_array = [2, 3, 4, 3, 5]
+    average = 3.4
+    assert_equal 5.2, @sa.variance(average, invoice_count_array)
+  end
+
+  def test_it_can_find_square_root_of_variance
+    skip
+    variance = 5.2
+    invoices_per_merchant = [2, 3, 4, 3, 5]
+    assert_equal 1.14, @sa.square_root_of_variance(variance, invoices_per_merchant)
+  end
+
+  def test_it_can_find_two_standard_deviations_above_average
+    skip
+    assert_equal 17.07, @sa.two_standard_deviations_above
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    skip
+    assert_equal 12, @sa.top_merchants_by_invoice_count.count
+    assert_equal Array, @sa.top_merchants_by_invoice_count.class
+    assert_equal Merchant, @sa.top_merchants_by_invoice_count.first.class
+  end
+
+  def test_it_can_find_two_standard_deviations_below_average
+    skip
+    assert_equal 3.91, @sa.two_standard_deviations_below
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    skip
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.count
+    assert_equal Array, @sa.bottom_merchants_by_invoice_count.class
+    assert_equal Merchant, @sa.bottom_merchants_by_invoice_count.first.class
+  end
 end
