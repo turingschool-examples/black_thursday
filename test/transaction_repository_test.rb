@@ -15,4 +15,9 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_exists
     assert_instance_of TransactionRepository, @transaction_item_repository
   end
+
+  def test_it_returns_all_transactions
+    assert_equal @transaction_items, @transaction_item_repository.all
+  end
+
 end

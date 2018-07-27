@@ -8,4 +8,5 @@ class TransactionRepository
   def initialize(transaction_items)
     @list = transaction_items
   end
+  
 end
