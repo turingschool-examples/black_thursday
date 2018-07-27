@@ -4,10 +4,10 @@ require_relative '../lib/transaction'
 
 class TransactionRepositoryTest < Minitest::Test
   def setup
-    @transaction_1 = Transaction.new({:id => 6, :invoice_id => 8, :credit_card_number => "4242424242421111", :credit_card_expiration_date => "0220", :result => "success", :created_at => Time.now, :updated_at => Time.now})
-    @transaction_2 = Transaction.new({:id => 7, :invoice_id => 9, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => "success", :created_at => Time.now, :updated_at => Time.now})
-    @transaction_3 = Transaction.new({:id => 8, :invoice_id => 10, :credit_card_number => "4242424242423333", :credit_card_expiration_date => "0422", :result => "success", :created_at => Time.now, :updated_at => Time.now})
-    @transaction_4 = Transaction.new({:id => 9, :invoice_id => 11, :credit_card_number => "4242424242424444", :credit_card_expiration_date => "0523", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    @transaction_1 = Transaction.new({:id => 6, :invoice_id => 8, :credit_card_number => "4242424242421111", :credit_card_expiration_date => "0220", :result => :success, :created_at => Time.now, :updated_at => Time.now})
+    @transaction_2 = Transaction.new({:id => 7, :invoice_id => 9, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => :success, :created_at => Time.now, :updated_at => Time.now})
+    @transaction_3 = Transaction.new({:id => 8, :invoice_id => 10, :credit_card_number => "4242424242423333", :credit_card_expiration_date => "0422", :result => :success, :created_at => Time.now, :updated_at => Time.now})
+    @transaction_4 = Transaction.new({:id => 9, :invoice_id => 11, :credit_card_number => "4242424242424444", :credit_card_expiration_date => "0523", :result => :success, :created_at => Time.now, :updated_at => Time.now})
     @transactions = [@transaction_1, @transaction_2, @transaction_3, @transaction_4]
     @transaction_repository = TransactionRepository.new(@transactions)
   end
@@ -37,11 +37,11 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_result
     assert_equal [], @transaction_repository.find_all_by_result("card shut off")
-    assert_equal @transactions, @transaction_repository.find_all_by_result("success")
+    assert_equal @transactions, @transaction_repository.find_all_by_result(:success)
   end
 
   def test_transaction_can_be_created
-    @transaction_repository.create({:id => 6, :invoice_id => 8, :credit_card_number => "4242424242425555", :credit_card_expiration_date => "0720", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    @transaction_repository.create({:id => 6, :invoice_id => 8, :credit_card_number => "4242424242425555", :credit_card_expiration_date => "0720", :result => :success, :created_at => Time.now, :updated_at => Time.now})
     actual = @transaction_repository.all.last.id
 
     assert_equal 10, actual
@@ -50,7 +50,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_be_updated
     original_time = @transaction_1.updated_at
-    @transaction_repository.update(6, {:id => 6, :invoice_id => 8, :credit_card_number => "4242424242429999", :credit_card_expiration_date => "0223", :result => "bingo", :created_at => Time.now, :updated_at => Time.now})
+    @transaction_repository.update(6, {:id => 6, :invoice_id => 8, :credit_card_number => "4242424242429999", :credit_card_expiration_date => "0223", :result => :bingo, :created_at => Time.now, :updated_at => Time.now})
 
     assert original_time < @transaction_1.updated_at
 
