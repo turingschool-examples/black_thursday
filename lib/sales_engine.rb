@@ -12,7 +12,7 @@ class SalesEngine
   def initialize(merchant_array, item_array)
     @merchants = MerchantRepo.new(merchant_array)
     @items = ItemRepo.new(item_array)
-    @sales_analyst = SalesAnalyst.new(merchant_array, item_array)
+    @sales_analyst = SalesAnalyst.new(@merchants, @items)
   end
 
   def self.from_csv(hash)
