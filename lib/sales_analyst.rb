@@ -2,6 +2,7 @@
 
 require 'bigdecimal'
 require 'bigdecimal/util'
+require 'pry'
 
 
 class SalesAnalyst
@@ -88,15 +89,25 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    all_invoices = @engine.invoices.all
+    all_merchants = @engine.merchants.all
     invoices_per_merchant = []
-    all_invoices.each do |invoice|
-      invoices_per_merchant << @engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size
+    all_merchants.each do |merchant|
+      invoices_per_merchant << @engine.invoices.find_all_by_merchant_id(merchant.id).size
     end
-    invoices_per_merchant.uniq! #this was outputting a number for every invoice instead of 1 per merchant
     equation = invoices_per_merchant.inject(0) do |sum, number_invoices|
       sum + (number_invoices - mean)**2
     end
     ((Math.sqrt(equation / (invoices_per_merchant.size - 1)).round(2))).to_f
   end
+
+  def top_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    two_std = average_invoices_per_merchant_standard_deviation * 2
+    all_merchants = @engine.merchants.all
+
+    all_merchants.find_all do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).size > (two_std + mean)
+    end
+  end
+
 end
