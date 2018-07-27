@@ -33,5 +33,19 @@ class TransactionRepository
     @list << Transaction.new(attributes)
   end
 
+  def update(id, attributes)
+    if find_by_id(id)
+      if attributes[:credit_card_number]
+        find_by_id(id).credit_card_number = attributes[:credit_card_number]
+      end
+      if attributes[:credit_card_expiration_date]
+        find_by_id(id).credit_card_expiration_date = attributes[:credit_card_expiration_date]
+      end
+      if attributes[:result]
+        find_by_id(id).result = attributes[:result]
+      end
+      find_by_id(id).updated_at = Time.now
+    end
+  end
 
 end

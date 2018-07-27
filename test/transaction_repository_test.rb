@@ -48,4 +48,19 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 5, @transaction_repository.all.count
   end
 
+  def test_it_can_be_updated
+    original_time = @transaction_1.updated_at
+    @transaction_repository.update(6, {:id => 6, :invoice_id => 8, :credit_card_number => "4242424242429999", :credit_card_expiration_date => "0223", :result => "bingo", :created_at => Time.now, :updated_at => Time.now})
+
+    assert original_time < @transaction_1.updated_at
+
+    actual = @transaction_repository.find_by_id(6).credit_card_number
+    assert_equal "4242424242429999", actual
+
+    actual = @transaction_repository.find_by_id(6).credit_card_expiration_date
+    assert_equal "0223", actual
+
+    actual = @transaction_repository.find_by_id(6).result
+    assert_equal "bingo", actual
+  end
 end
