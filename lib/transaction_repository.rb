@@ -47,5 +47,4 @@ class TransactionRepository
       find_by_id(id).updated_at = Time.now
     end
   end
-
 end

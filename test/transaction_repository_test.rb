@@ -63,4 +63,11 @@ class TransactionRepositoryTest < Minitest::Test
     actual = @transaction_repository.find_by_id(6).result
     assert_equal "bingo", actual
   end
+
+  def test_transaction_can_be_deleted
+    assert_equal 4, @transaction_repository.all.count
+    @transaction_repository.delete(8)
+    assert_equal 3, @transaction_repository.all.count
+    assert_equal nil, @transaction_repository.find_by_id(8)
+  end
 end
