@@ -1,4 +1,6 @@
 require_relative 'test_helper'
+require_relative '../lib/merchant_repo'
+require_relative '../lib/item_repo'
 require_relative '../lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
