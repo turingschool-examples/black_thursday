@@ -2,11 +2,11 @@ require 'time'
 require_relative 'repository'
 
 class Customer
-  attr_reader :id,
-              :first_name,
-              :last_name,
-              :created_at,
-              :updated_at
+  attr_reader   :id,
+                :created_at
+  attr_accessor :first_name,
+                :last_name,
+                :updated_at
 
   def initialize(information)
     @id         = information[:id].to_i
