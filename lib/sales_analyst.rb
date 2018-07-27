@@ -120,4 +120,20 @@ class SalesAnalyst
     end
   end
 
+  def top_days_by_invoice_count
+    all_invoices = @engine.invoices.all
+    invoices_per_day = all_invoices.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+    count_per_day = invoices_per_day.map do |day, invoice|
+      invoice.count
+    end
+    total_invoices = count_per_day.inject(0) do |sum, count|
+      sum += count
+    end
+    mean = total_invoices / count_per_day.size
+  end
+
+
+
 end
