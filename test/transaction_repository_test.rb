@@ -30,4 +30,9 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [@transaction_4], @transaction_repository.find_all_by_invoice_id(11)
   end
 
+  def test_it_can_find_by_credit_card_number
+    assert_equal [], @transaction_repository.find_all_by_credit_card_number("987987987")
+    assert_equal [@transaction_3], @transaction_repository.find_all_by_credit_card_number("4242424242423333")
+  end
+
 end
