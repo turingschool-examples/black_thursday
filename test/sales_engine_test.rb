@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'csv'
-require_relative './sales_engine'
-require_relative './item_repository'
-require_relative './merchant_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists

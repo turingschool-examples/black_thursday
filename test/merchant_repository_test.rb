@@ -1,8 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './merchant_repository'
-require_relative './merchant'
-require_relative './sales_engine'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -33,7 +33,7 @@ class MerchantRepositoryTest < Minitest::Test
       })
     mr = MerchantRepository.new(se.csv_hash[:merchants])
     mr.create_all_from_csv("./data/dummy_merchants.csv")
-    assert_equal Merchant, mr.find_by_id("12334115").class
+    assert_equal Merchant, mr.find_by_id(12334115).class
   end
 
   def test_find_by_name
@@ -84,10 +84,10 @@ class MerchantRepositoryTest < Minitest::Test
       })
       mr = MerchantRepository.new(se.csv_hash[:merchants])
       mr.create_all_from_csv("./data/dummy_merchants.csv")
-      original_merchant = mr.find_by_id("12334113")
+      original_merchant = mr.find_by_id(12334113)
       assert_equal "MiniatureBikez"  , original_merchant.name
-      mr.update("12334113", {:name => "DogBikez" })
-      assert_equal "DogBikez", mr.find_by_id("12334113").name
+      mr.update(12334113, {:name => "DogBikez" })
+      assert_equal "DogBikez", mr.find_by_id(12334113).name
     end
 
     def test_delete

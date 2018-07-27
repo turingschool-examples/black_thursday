@@ -1,17 +1,31 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative'./merchant'
+require_relative '../lib/merchant'
+
 class MerchantTest < MiniTest::Test
 
-  def test_merchant_exists
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    assert_instance_of Merchant , m
+  def test_it_exists
+    merchant = Merchant.new(
+      {
+        :id => 5,
+        :name => "Turing School",
+        :created_at => "2010-12-10",
+        :updated_at => "2011-12-04"
+        }
+      )
+    assert_instance_of Merchant, merchant
   end
 
-  def test_merchant_has_attributes
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    assert_equal({:id => 5, :name => "Turing School"}, m.attributes_hash)
-    assert_equal 5 , m.id
-    assert_equal "Turing School" , m.name
+  def test_it_has_attributes
+    merchant = Merchant.new(
+      {
+        :id => 5,
+        :name => "Turing School",
+        :created_at => "2010-12-10",
+        :updated_at => "2011-12-04"
+        }
+      )
+    assert_equal 5, merchant.id
+    assert_equal "Turing School", merchant.name
   end
 end
