@@ -248,13 +248,14 @@ class SalesAnalystTest < Minitest::Test
   def test_it_checks_if_invoice_paid_in_full
     invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
     transaction_6 = Transaction.new({:id => 22, :invoice_id => 10, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    transaction_7 = Transaction.new({:id => 23, :invoice_id => 10, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => "success", :created_at => Time.now, :updated_at => Time.now})
 
     @invoices << invoice_5
     @transactions << transaction_6
+    @transactions << transaction_7
 
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(5)
     assert_equal false, @sales_analyst.invoice_paid_in_full?(6)
     assert_equal true, @sales_analyst.invoice_paid_in_full?(10)
   end
-
-
 end
