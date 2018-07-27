@@ -28,10 +28,11 @@ class ItemTest < Minitest::Test
   assert_instance_of Time, @item.updated_at
   assert_equal 2, @item.merchant_id
   end
-  
-  def test_it_converst_unit_price_to_dollars 
-    
+
+  def test_it_converst_unit_price_to_dollars
+  actual = @item.unit_price.unit_price_to_dollars
+  assert_equal 10.99, actual
   end
-    
+
 
 end
