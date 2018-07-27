@@ -62,3 +62,4 @@ class TransactionRepository
     "#<#{self.TransactionRepository} #{@transactions.size} rows>"
   end
 end
+end
