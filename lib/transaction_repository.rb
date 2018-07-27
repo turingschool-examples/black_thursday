@@ -26,4 +26,12 @@ class TransactionRepository
         card.result == card_result
       end
   end
+
+  def create(attributes)
+    highest_transaction_item_id = find_highest_id
+    attributes[:id] = highest_transaction_item_id.id + 1
+    @list << Transaction.new(attributes)
+  end
+
+
 end

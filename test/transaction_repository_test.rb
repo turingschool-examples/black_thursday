@@ -39,4 +39,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], @transaction_repository.find_all_by_result("card shut off")
     assert_equal @transactions, @transaction_repository.find_all_by_result("success")
   end
+
+  def test_transaction_can_be_created
+    @transaction_repository.create({:id => 6, :invoice_id => 8, :credit_card_number => "4242424242425555", :credit_card_expiration_date => "0720", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    actual = @transaction_repository.all.last.id
+
+    assert_equal 10, actual
+    assert_equal 5, @transaction_repository.all.count
+  end
+
 end
