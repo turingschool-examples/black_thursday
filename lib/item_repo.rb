@@ -2,6 +2,7 @@ require "time"
 require "bigdecimal"
 require_relative './item'
 
+
 require "pry"
 
 class ItemRepo
@@ -37,7 +38,6 @@ class ItemRepo
     end
   end
 
-
   def find_all_with_description(description)
     @items.find_all do |item|
       item.description.downcase == description.downcase
@@ -46,13 +46,13 @@ class ItemRepo
 
   def find_all_by_price(price) #find out more about if bigdecimal or not
     @items.find_all do |item|
-      item.unit_price.to_i == price.to_i
+      item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
       @items.find_all do |item|
-        item.unit_price.to_i >= range[0] && item.unit_price.to_i <= range[1]
+        range.include?(item.unit_price)
       end
   end
 
@@ -75,10 +75,18 @@ class ItemRepo
 
   def update(id, attributes)
     item_to_change = find_by_id(id)
-    item_to_change.name = attributes[:name]
-    item_to_change.description = attributes[:description]
-    item_to_change.unit_price = attributes[:unit_price].to_s
-    item_to_change
+    return if item_to_change.nil?
+    if attributes[:name]
+      item_to_change.name = attributes[:name]
+    end
+    if attributes[:description]
+      item_to_change.description = attributes[:description]
+    end
+    if attributes[:unit_price]
+      item_to_change.unit_price = attributes[:unit_price].to_f * 100
+    end
+    item_to_change.updated_at = Time.now
+    return item_to_change
   end
 
   def delete(id)

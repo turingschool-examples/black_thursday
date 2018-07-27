@@ -1,5 +1,7 @@
 require_relative './merchant'
+require "time"
 require "pry"
+
 
 class MerchantRepo
 
@@ -36,24 +38,33 @@ class MerchantRepo
 
   def find_all_by_name(name)
     @merchants.find_all do |merchant|
-      merchant.name.downcase == name.downcase
+      if merchant.name.downcase.include?(name.downcase)
+        merchant
+      end
     end
   end
 
   def create(attributes)
-    merchant_new = Merchant.new(attributes)
     max_merchant_id = @merchants.max_by do |merchant|
       merchant.id
     end
     new_max_id = max_merchant_id.id + 1
-    merchant_new.id = new_max_id
+    merchant_new = Merchant.new(
+      id: new_max_id,
+      name: attributes[:name],
+      created_at: Time.now,
+      updated_at: Time.now
+    )
     @merchants << merchant_new
-    return merchant_new
+    merchant_new
   end
 
   def update(id, attributes)
     merchant_to_change = find_by_id(id)
-    merchant_to_change.name = attributes[:name]
+    return if merchant_to_change.nil?
+      merchant_to_change.updated_at = Time.now
+      merchant_to_change.name = attributes[:name]
+      merchant_to_change
   end
 
   def delete(id)

@@ -27,37 +27,37 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_returns_item_by_id
-    assert_equal @item_repo.all[0], @item_repo.find_by_id(263395237)
+    assert_equal @item_repo.items[0], @item_repo.find_by_id(263395237)
     assert_equal nil, @item_repo.find_by_id(123456)
   end
 
   def test_it_returns_item_by_name
-    assert_equal @item_repo.all[3], @item_repo.find_by_name("Moose1")
+    assert_equal @item_repo.items[3], @item_repo.find_by_name("Moose1")
     assert_equal nil, @item_repo.find_by_name("Horse")
   end
 
   def test_it_finds_all_items_with_description
-    assert_equal [@item_repo.all[0], @item_repo.all[1], @item_repo.all[2]], @item_repo.find_all_with_description("animal 1")
+    assert_equal [@item_repo.items[0], @item_repo.items[1], @item_repo.items[2]], @item_repo.find_all_with_description("animal 1")
     assert_equal [], @item_repo.find_all_with_description("it's doesn't have one")
   end
 
   def test_it_finds_all_items_by_price
-    assert_equal [@item_repo.all[0], @item_repo.all[1], @item_repo.all[2], @item_repo.all[5]], @item_repo.find_all_by_price(1400)
+    assert_equal [@item_repo.items[0], @item_repo.items[1], @item_repo.items[2], @item_repo.all[5]], @item_repo.find_all_by_price(1400)
     assert_equal [], @item_repo.find_all_by_price(1000)
   end
 
   def test_it_finds_all_items_by_price_range
-    assert_equal [@item_repo.all[3], @item_repo.all[4]], @item_repo.find_all_by_price_in_range([1700,2000])
-    assert_equal [], @item_repo.find_all_by_price_in_range([1000,1300])
+    assert_equal [@item_repo.items[3], @item_repo.items[4]], @item_repo.find_all_by_price_in_range(1700..2000)
+    assert_equal [], @item_repo.find_all_by_price_in_range(1000..1300)
   end
 
   def test_it_returns_all_items_by_merchant_id
-    assert_equal [@item_repo.all[0], @item_repo.all[1], @item_repo.all[2]], @item_repo.find_all_by_merchant_id(12334195)
+    assert_equal [@item_repo.items[0], @item_repo.items[1], @item_repo.all[2]], @item_repo.find_all_by_merchant_id(12334195)
     assert_equal [], @item_repo.find_all_by_merchant_id(123456)
   end
 
   def test_it_creates_item_with_attributes
-    refute_instance_of Item, @item_repo.all[6]
+    refute_instance_of Item, @item_repo.items[6]
     @item_repo.create({:id          => "1",
                        :name        => "Eagle",
                        :description => "animal 7",
@@ -65,14 +65,14 @@ class ItemRepoTest < Minitest::Test
                        :created_at  => "2016-01-11 11:51:37 UTC",
                        :updated_at  => "2016-01-11 11:51:37 UTC",
                        :merchant_id => "2"})
-    assert_instance_of Item, @item_repo.all[6]
+    assert_instance_of Item, @item_repo.items[6]
   end
 
 
   def test_it_updates_item_attributes
-    refute_equal "Bat", @item_repo.all[5].name
-    refute_equal "animal 100", @item_repo.all[5].description
-    refute_equal "2100", @item_repo.all[5].unit_price
+    refute_equal "Bat", @item_repo.items[5].name
+    refute_equal "animal 100", @item_repo.items[5].description
+    refute_equal "2100", @item_repo.items[5].unit_price
 
     current_time = Time.now.to_s
 
@@ -88,13 +88,13 @@ class ItemRepoTest < Minitest::Test
       ##stopping here.
 
       #original {id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}
-    assert_equal "Bat", @item_repo.all[5].name
-    assert_equal "animal 100", @item_repo.all[5].description
-    assert_equal "2100", @item_repo.all[5].unit_price
-    assert_equal 263395214, @item_repo.all[5].id
-    assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].created_at
-    assert_equal "2016-01-11 11:51:37 UTC", @item_repo.all[5].updated_at
-    assert_equal 12334104, @item_repo.all[5].merchant_id
+    assert_equal "Bat", @item_repo.items[5].name
+    assert_equal "animal 100", @item_repo.items[5].description
+    assert_equal "2100", @item_repo.items[5].unit_price
+    assert_equal 263395214, @item_repo.items[5].id
+    assert_equal "2016-01-11 11:51:37 UTC", @item_repo.items[5].created_at
+    assert_equal "2016-01-11 11:51:37 UTC", @item_repo.items[5].updated_at
+    assert_equal 12334104, @item_repo.items[5].merchant_id
   end
 
   def test_it_deletes_item_by_id
