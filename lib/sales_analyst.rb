@@ -35,4 +35,27 @@ class SalesAnalyst
     divided = sum / length_less_one
     return (divided ** (1.0/2)).round(2)
   end
+
+  def select_merchant_ids_over_standard_deviation
+  grouped = group_items_by_merchant
+  selected_ids = []
+  grouped.each do |key, value|
+    if value.length > average_items_per_merchant_standard_deviation
+      selected_ids << key
+      end
+    end
+    return selected_ids
+  end
+
+  def merchants_with_high_item_count
+    merchants = []
+    selected_ids = select_merchant_ids_over_standard_deviation
+    @se.merchants.all.each do |merchant|
+      if selected_ids.include?(merchant.id)
+        merchants << merchant
+      end
+    end
+    return merchants
+  end
+
 end

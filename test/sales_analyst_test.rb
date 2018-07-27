@@ -26,6 +26,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_group_items_by_merchant
     result = @sa.group_items_by_merchant
     assert_equal 475, result.length
+    binding.pry
     assert_equal 6, result[12334185].length
   end
 
@@ -45,6 +46,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_standard_deviation
     assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+  end
+
+  def test_merchants_with_high_item_count
+    assert_equal 114, @sa.merchants_with_high_item_count.length
   end
 
 end
