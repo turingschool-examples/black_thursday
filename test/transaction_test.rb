@@ -9,12 +9,12 @@ class TransactionTest < Minitest::Test
                 :invoice_id => 8,
                 :credit_card_number => "4242424242424242",
                 :credit_card_expiration_date => "0220",
-                :result => "success",
+                :result => :success,
                 :created_at => Time.now,
                 :updated_at => Time.now
               })
   end
-
+  
   def test_it_exists
     assert_instance_of Transaction, @transaction_item
   end
@@ -37,12 +37,11 @@ class TransactionTest < Minitest::Test
   end
 
   def test_it_has_a_credit_card_result
-    assert_equal "success", @transaction_item.result
+    assert_equal :success, @transaction_item.result
   end
 
   def test_it_has_created_at_and_updated_at_time
     assert_instance_of Time, @transaction_item.created_at
     assert_instance_of Time, @transaction_item.updated_at
   end
-
 end
