@@ -41,8 +41,9 @@ class SalesAnalyst
     end
   end
 
-  def variance(average, ipm)
-    variance = ipm.inject(0) do |count, items|
+  def variance(average, array)
+    #need to update this name to show it's for item quantity
+    array.inject(0) do |count, items|
       count += (items - average) ** 2
     end
   end
@@ -56,10 +57,6 @@ class SalesAnalyst
     average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
-  def items_two_standard_deviation_above
-    #item price
-  end
-
   def merchants_with_high_item_count
     item_amount_per_merchant.map do |id, quantity|
       @sales_engine.merchants.find_by_id(id) if quantity >= items_one_standard_deviation_above
@@ -70,12 +67,16 @@ class SalesAnalyst
     group_items_by_merchant.keys.zip(items_per_merchant)
   end
 
+  def number_of_merchants
+    @sales_engine.merchants.all.count
+  end
+
   def average_item_price_for_merchant(merchant_id)
     items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
     sum = items.inject(0) do |total, item|
       total + item.unit_price
     end
-    (sum/items.count).round(2)
+    (sum / items.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -85,9 +86,29 @@ class SalesAnalyst
     (sum / number_of_merchants).round(2)
   end
 
-  def number_of_merchants
-    @sales_engine.merchants.all.count
+  def average_item_prices_for_each_merchant
+    @sales_engine.merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
   end
+
+  def all_item_prices
+    @sales_engine.items.all.map do |item|
+      item.unit_price
+    end
+  end
+
+  def standard_deviation_for_item_price
+    variance()
+  end
+
+  # def golden_items
+  #   average = average_average_price_per_merchant
+  #   item_price_per_merchant = average_price_per_merchant_array
+  #   variance_item_price(average, item_price_per_merchant)
+  # end
+
+
 #---------------ITERATION-2-STUFF------------------------#
 # sales_analyst.average_invoices_per_merchant # => 10.49
   # def average_invoices_per_merchant
