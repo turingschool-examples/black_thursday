@@ -2,6 +2,7 @@
 
 require 'bigdecimal'
 require 'bigdecimal/util'
+require 'pry'
 
 
 class SalesAnalyst
@@ -77,6 +78,45 @@ class SalesAnalyst
 
     result = all_items.find_all do |item|
       item.unit_price > golden_threshold
+    end
+  end
+
+  def average_invoices_per_merchant
+    total_invoices = @engine.invoices.all.size.to_f
+    total_merchants = @engine.merchants.all.size.to_f
+    (total_invoices / total_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    all_merchants = @engine.merchants.all
+    invoices_per_merchant = []
+    all_merchants.each do |merchant|
+      invoices_per_merchant << @engine.invoices.find_all_by_merchant_id(merchant.id).size
+    end
+    equation = invoices_per_merchant.inject(0) do |sum, number_invoices|
+      sum + (number_invoices - mean)**2
+    end
+    ((Math.sqrt(equation / (invoices_per_merchant.size - 1)).round(2))).to_f
+  end
+
+  def top_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    two_std = average_invoices_per_merchant_standard_deviation * 2
+    all_merchants = @engine.merchants.all
+
+    all_merchants.find_all do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).size > (two_std + mean)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    two_std = average_invoices_per_merchant_standard_deviation * 2
+    all_merchants = @engine.merchants.all
+
+    all_merchants.find_all do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).size < (mean - two_std)
     end
   end
 
