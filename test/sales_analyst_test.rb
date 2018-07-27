@@ -135,5 +135,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Friday", "Saturday"], @sa.top_days_by_invoice_count
   end
 
+  def test_it_calculates_percent_status_of_invoices
+    assert_equal ,sales_analyst.invoice_status(:pending)
+    assert_equal ,sales_analyst.invoice_status()
+    assert_equal ,sales_analyst.invoice_status()
+  end
+
 
 end
