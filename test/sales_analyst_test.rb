@@ -32,7 +32,7 @@ class SalesAnalystTest < Minitest::Test
     @customer_3 = Customer.new({:id => 12, :first_name => "Nick", :last_name => "Program", :created_at => Time.now, :updated_at => Time.now})
     @customer_4 = Customer.new({:id => 90, :first_name => "Nicolas", :last_name => "Jones", :created_at => Time.now, :updated_at => Time.now})
 
-    @transaction_1 = Transaction.new({:id => 6, :invoice_id => 8, :credit_card_number => "4242424242421111", :credit_card_expiration_date => "0220", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    @transaction_1 = Transaction.new({:id => 6, :invoice_id => 6, :credit_card_number => "4242424242421111", :credit_card_expiration_date => "0220", :result => "failed", :created_at => Time.now, :updated_at => Time.now})
     @transaction_2 = Transaction.new({:id => 7, :invoice_id => 9, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => "success", :created_at => Time.now, :updated_at => Time.now})
     @transaction_3 = Transaction.new({:id => 8, :invoice_id => 10, :credit_card_number => "4242424242423333", :credit_card_expiration_date => "0422", :result => "success", :created_at => Time.now, :updated_at => Time.now})
     @transaction_4 = Transaction.new({:id => 9, :invoice_id => 11, :credit_card_number => "4242424242424444", :credit_card_expiration_date => "0523", :result => "success", :created_at => Time.now, :updated_at => Time.now})
@@ -44,7 +44,7 @@ class SalesAnalystTest < Minitest::Test
     @customers = [@customer_1, @customer_2, @customer_3, @customer_4]
     @transactions = [@transaction_1, @transaction_2, @transaction_3, @transaction_4]
 
-    @sales_engine = SalesEngine.new(@items, @merchants, @invoices, @invoice_items, @transactions, @customers)
+    @sales_engine = SalesEngine.new(@items, @merchants, @invoices, @transactions, @invoice_items, @customers)
     @sales_analyst = @sales_engine.analyst
   end
 
@@ -243,5 +243,33 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 61.54, @sales_analyst.invoice_status(:pending)
     assert_equal 23.08, @sales_analyst.invoice_status(:shipped)
     assert_equal 15.38, @sales_analyst.invoice_status(:returned)
+  end
+
+  def test_it_checks_if_invoice_paid_in_full
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    transaction_6 = Transaction.new({:id => 22, :invoice_id => 10, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    transaction_7 = Transaction.new({:id => 23, :invoice_id => 10, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+
+    @invoices << invoice_5
+    @transactions << transaction_6
+    @transactions << transaction_7
+
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(5)
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(6)
+    assert_equal true, @sales_analyst.invoice_paid_in_full?(10)
+  end
+
+  def test_it_finds_invoice_total
+    invoice_item_9 = InvoiceItem.new({:id => 6, :item_id => 7, :invoice_id => 10, :quantity => 1, :unit_price => BigDecimal.new(100.99, 4), :created_at => Time.now, :updated_at => Time.now})
+    invoice_item_22 = InvoiceItem.new({:id => 7, :item_id => 33, :invoice_id => 10, :quantity => 2, :unit_price => BigDecimal.new(5.99, 4), :created_at => Time.now, :updated_at => Time.now})
+
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+
+    @invoices << invoice_5
+    @invoice_items << invoice_item_9
+    @invoice_items << invoice_item_22
+
+    assert_equal 112.98, @sales_analyst.invoice_total(10).to_f
+    assert_instance_of BigDecimal, @sales_analyst.invoice_total(10)
   end
 end

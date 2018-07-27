@@ -39,7 +39,7 @@ class SalesEngine
     CSV.foreach(file_hash[:customers], headers: true, header_converters: :symbol) do |row|
       customers << Customer.new(row)
     end
-    SalesEngine.new(items, merchants, invoices, invoice_items, customers, transactions)
+    SalesEngine.new(items, merchants, invoices, transactions, invoice_items, customers)
   end
 
   attr_reader :items,
@@ -49,16 +49,16 @@ class SalesEngine
               :invoice_items,
               :customers
 
-  def initialize(items, merchants, invoices, invoice_items, customers, transactions)
+  def initialize(items, merchants, invoices, transactions, invoice_items, customers)
     @items         = ItemRepository.new(items)
     @merchants     = MerchantRepository.new(merchants)
     @invoices      = InvoiceRepository.new(invoices)
-    @invoice_items = InvoiceItemRepository.new(invoice_items)
     @transactions  = TransactionRepository.new(transactions)
+    @invoice_items = InvoiceItemRepository.new(invoice_items)
     @customers     = CustomerRepository.new(customers)
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions, @customers)
+    SalesAnalyst.new(@items, @merchants, @invoices, @transactions, @invoice_items, @customers)
   end
 end
