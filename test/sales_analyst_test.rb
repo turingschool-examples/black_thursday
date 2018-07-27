@@ -43,6 +43,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
+  
+
   # Which merchants sell the most items?
   # Maybe we could set a good example for our lower sellers by displaying the merchants who have the most items for sale. Which merchants are more than one standard deviation above the average number of products offered?
   #

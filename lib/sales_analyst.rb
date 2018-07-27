@@ -79,4 +79,7 @@ class SalesAnalyst
     #square root the result
     result = Math.sqrt(result)
   end
+
+  
+
 end
