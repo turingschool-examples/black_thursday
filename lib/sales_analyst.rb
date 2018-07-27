@@ -196,7 +196,6 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice_id)
     invoice_array = @transaction_repo.find_all_by_invoice_id(invoice_id)
-    # binding.pry
     if invoice_array == []
       false
     else
@@ -204,5 +203,13 @@ class SalesAnalyst
         transaction.result == :success
       end
     end
+  end
+
+  def invoice_total(invoice_id)
+    price_array = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+
+    price_array.inject(0) do |sum, num|
+        sum + (num.unit_price * num.quantity.to_i)
+      end
   end
 end
