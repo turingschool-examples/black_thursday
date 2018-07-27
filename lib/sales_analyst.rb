@@ -58,4 +58,17 @@ class SalesAnalyst
     return merchants
   end
 
+  def average_item_price_per_merchant(merchant_id_number)
+    grouped = group_items_by_merchant
+    items = grouped[merchant_id_number]
+    prices = []
+    items.each do |item|
+      prices << item.unit_price_to_dollars
+    end
+    total = prices.inject(0.00) do |sum, price|
+      sum + price
+    end
+    (total / prices.length).round(2)
+  end
+
 end
