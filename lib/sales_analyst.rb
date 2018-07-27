@@ -145,8 +145,17 @@ class SalesAnalyst
     top_days.flatten.delete_if do |element|
       element.is_a?(Invoice)
     end
-
   end
+
+  def invoice_status(status)
+    total_invoices = @engine.invoices.all
+    invoices_by_status = total_invoices.count do |invoice|
+      invoice.status == status.to_s
+    end
+    ((invoices_by_status.to_f / total_invoices.size) * 100).round(2)
+  end
+
+
 
 
 
