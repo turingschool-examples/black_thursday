@@ -9,7 +9,7 @@ class SalesEngine
   attr_reader :csv_hash,
               :items,
               :merchants
-  def initialize(csv_hash)
+  def initialize(csv_hash)# keys: items, merchants; values: paths to csv files
     @csv_hash = csv_hash
     @items = ItemRepository.new(csv_hash[:items])
     @items.create_items
@@ -17,11 +17,11 @@ class SalesEngine
     @merchants.create_all_from_csv(csv_hash[:merchants])
   end
 
-  def self.from_csv(csv_hash)#pass in result of read_from_csv
+  def self.from_csv(csv_hash)
     SalesEngine.new(csv_hash)
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(self)
   end
 end
