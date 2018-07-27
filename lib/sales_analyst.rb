@@ -4,4 +4,6 @@ class SalesAnalyst
     @merchants = merchant_repo
     @items = item_repo
   end
+
+  
 end
