@@ -1,3 +1,6 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
+
 class SalesAnalyst
   attr_reader :se
 
@@ -58,7 +61,7 @@ class SalesAnalyst
     return merchants
   end
 
-  def average_item_price_per_merchant(merchant_id_number)
+  def average_item_price_for_merchant(merchant_id_number)
     grouped = group_items_by_merchant
     items = grouped[merchant_id_number]
     prices = []
@@ -68,7 +71,23 @@ class SalesAnalyst
     total = prices.inject(0.00) do |sum, price|
       sum + price
     end
-    (total / prices.length).round(2)
+    (total / prices.length).round(2).to_d
   end
+
+  def average_average_price_per_merchant
+    ids = []
+    grouped = group_items_by_merchant
+    grouped.each do |key, value|
+      ids << key
+    end
+    average_prices = ids.map do |id|
+      average_item_price_for_merchant(id)
+    end
+    sum = average_prices.inject(0.00) do |sum, price|
+      sum + price
+    end
+    return (sum / average_prices.length).round(2).to_d
+  end
+
 
 end
