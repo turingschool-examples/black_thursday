@@ -181,4 +181,13 @@ class SalesAnalyst
       end
     end
   end
+
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id)
+      matched_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+      matched_invoice_items.inject(0) do |total, invoice_item|
+        total += invoice_item.unit_price * invoice_item.quantity
+      end
+    end
+  end
 end

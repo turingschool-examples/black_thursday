@@ -258,4 +258,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal false, @sales_analyst.invoice_paid_in_full?(6)
     assert_equal true, @sales_analyst.invoice_paid_in_full?(10)
   end
+
+  def test_it_finds_invoice_total
+    invoice_item_9 = InvoiceItem.new({:id => 6, :item_id => 7, :invoice_id => 10, :quantity => 1, :unit_price => BigDecimal.new(100.99, 4), :created_at => Time.now, :updated_at => Time.now})
+    invoice_item_22 = InvoiceItem.new({:id => 7, :item_id => 33, :invoice_id => 10, :quantity => 2, :unit_price => BigDecimal.new(5.99, 4), :created_at => Time.now, :updated_at => Time.now})
+
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+
+    @invoices << invoice_5
+    @invoice_items << invoice_item_9
+    @invoice_items << invoice_item_22
+
+    assert_equal 112.98, @sales_analyst.invoice_total(10).to_f
+    assert_instance_of BigDecimal, @sales_analyst.invoice_total(10)
+  end
 end
