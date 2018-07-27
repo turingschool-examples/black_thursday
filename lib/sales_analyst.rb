@@ -40,10 +40,11 @@ class SalesAnalyst
   end
 
   def select_merchant_ids_over_standard_deviation
+  mean = average_items_per_merchant
   grouped = group_items_by_merchant
   selected_ids = []
   grouped.each do |key, value|
-    if value.length > average_items_per_merchant_standard_deviation
+    if value.length > average_items_per_merchant_standard_deviation + mean
       selected_ids << key
       end
     end
