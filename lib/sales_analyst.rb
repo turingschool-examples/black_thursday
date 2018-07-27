@@ -1,5 +1,3 @@
-require_relative '../lib/merchant_repository'
-require_relative '../lib/item_repository'
 require_relative '../lib/repo_method_helper.rb'
 require 'date'
 
@@ -7,14 +5,21 @@ require 'date'
 class SalesAnalyst
   attr_reader :merchant_repo,
               :item_repo,
-              :invoice_repo
+              :invoice_repo,
+              :invoice_item_repo,
+              :transaction_repo,
+              :customer_repo
+
   include RepoMethodHelper
 
 
-  def initialize(merchant_repo, item_repo, invoice_repo)
+  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo, transaction_repo, customer_repo)
     @merchant_repo = merchant_repo
     @item_repo = item_repo
     @invoice_repo = invoice_repo
+    @invoice_item_repo = invoice_item_repo
+    @transaction_repo = transaction_repo
+    @customer_repo = customer_repo
   end
 
   def sum(array)
