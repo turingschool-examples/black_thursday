@@ -5,6 +5,8 @@ require_relative 'merchant'
 require_relative 'item'
 require_relative 'invoice_repository'
 require_relative 'invoice'
+require_relative 'transaction'
+require_relative 'transaction_repository'
 require_relative 'sales_analyst'
 
 class SalesEngine
@@ -21,20 +23,26 @@ class SalesEngine
     CSV.foreach(file_hash[:invoices], headers: true, header_converters: :symbol) do |row|
       invoices << Invoice.new(row)
     end
-    SalesEngine.new(items, merchants, invoices)
+    transactions = []
+    CSV.foreach(file_hash[:transactions], headers: true, header_converters: :symbol) do |row|
+      transactions << Transaction.new(row)
+    end
+    SalesEngine.new(items, merchants, invoices, transactions)
   end
 
   attr_reader :items,
               :merchants,
-              :invoices
+              :invoices,
+              :transactions
 
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, invoices, transactions)
     @items = ItemRepository.new(items)
     @merchants = MerchantRepository.new(merchants)
     @invoices = InvoiceRepository.new(invoices)
+    @transactions = TransactionRepository.new(transactions)
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices)
+    SalesAnalyst.new(@items, @merchants, @invoices, @transactions)
   end
 end
