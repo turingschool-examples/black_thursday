@@ -23,6 +23,7 @@ class InvoiceItemRepository
       if attributes[:unit_price]
         find_by_id(id).unit_price = attributes[:unit_price]
       end
+      find_by_id(id).updated_at = Time.now
     end
   end
 end

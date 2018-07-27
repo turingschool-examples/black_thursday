@@ -48,7 +48,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_instance_can_be_updated
+    original_time = @invoice_item_1.updated_at
     @invoice_item_repository.update(6, {:id => 6, :item_id => 8, :invoice_id => 90, :quantity => 4, :unit_price => BigDecimal.new(35.42, 4), :created_at => Time.now, :updated_at => Time.now})
+
+    assert original_time < @invoice_item_1.updated_at
+
     actual = @invoice_item_repository.find_by_id(6).quantity
     assert_equal 4, actual
 
