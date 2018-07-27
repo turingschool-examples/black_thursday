@@ -75,11 +75,8 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    ids = []
     grouped = group_items_by_merchant
-    grouped.each do |key, value|
-      ids << key
-    end
+    ids = grouped.keys
     average_prices = ids.map do |id|
       average_item_price_for_merchant(id)
     end
