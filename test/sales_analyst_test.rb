@@ -69,6 +69,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 350.29, @sa.average_average_price_per_merchant
   end
 
-  def test_
+  def test_average_item_price
+    assert_equal 251.06, @sa.average_item_price
+  end
+
+  def test_standard_deviation_for_prices
+    assert_instance_of BigDecimal, @sa.average_price_standard_deviation
+    assert_equal 251.06, @sa.average_item_price
+  end
+
+  def test_golden_items
+    assert_equal 5, @sa.golden_items.length
   end
 end
