@@ -38,6 +38,10 @@ module RepositoryAssistant
   def update(id, attributes)
     repo_object = find_by_id(id)
     return if repo_object.nil?
+    # update_mehotd(repo_object, attributes)
+      #attributes.each do |k,v|
+        #unless 
+      #end
     repo_object.name = attributes[:name] unless attributes[:name].nil?
     repo_object.description = attributes[:description] unless attributes[:description].nil?
     repo_object.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
