@@ -1,18 +1,28 @@
-require_relative '../lib/csv_adaptor'
+require "time"
+require "bigdecimal"
+require_relative './item'
+
+require "pry"
 
 class ItemRepo
-  
-  
-  include CsvAdaptor
-  
+
   attr_accessor :items
 
-  def initialize(items = [])
+  def initialize(items)
     @items = items
+    change_item_hashes_to_objects
   end
 
   def all
     @items
+  end
+
+  def change_item_hashes_to_objects
+    item_array = []
+    @items.each do |hash|
+      item_array << Item.new(hash)
+    end
+    @items = item_array
   end
 
   def find_by_id(id)
@@ -27,33 +37,33 @@ class ItemRepo
     end
   end
 
+
   def find_all_with_description(description)
     @items.find_all do |item|
       item.description.downcase == description.downcase
     end
   end
-  
+
   def find_all_by_price(price) #find out more about if bigdecimal or not
     @items.find_all do |item|
-      item.unit_price.to_i == price 
-    end 
-  end 
-  
+      item.unit_price.to_i == price.to_i
+    end
+  end
+
   def find_all_by_price_in_range(range)
       @items.find_all do |item|
         item.unit_price.to_i >= range[0] && item.unit_price.to_i <= range[1]
       end
-  end 
-  
+  end
+
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
-      item.merchant_id.to_i == merchant_id 
-    end 
+      item.merchant_id.to_i == merchant_id.to_i
+    end
   end
-  
+
   def create(attributes)
     item_new = Item.new(attributes)
-    
     max_item_id = @items.max_by do |item|
       item.id
     end
@@ -62,7 +72,7 @@ class ItemRepo
     @items << item_new
     return item_new
   end
-  
+
   def update(id, attributes)
     item_to_change = find_by_id(id)
     item_to_change.name = attributes[:name]
@@ -70,7 +80,7 @@ class ItemRepo
     item_to_change.unit_price = attributes[:unit_price].to_s
     item_to_change
   end
-  
+
   def delete(id)
     item_to_delete = find_by_id(id)
     @items.delete(item_to_delete)

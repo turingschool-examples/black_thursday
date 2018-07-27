@@ -7,22 +7,19 @@ class MerchantRepo
 
   def initialize(merchants)
     @merchants = merchants
+    change_merchant_hashes_to_objects
   end
 
   def all
     @merchants
   end
 
-  def merchant_hashes_to_objects(merchants)
+  def change_merchant_hashes_to_objects
+    object_array = []
     @merchants.each do |hash|
-      add_merchant_objects(hash)
-      binding.pry
+      object_array << Merchant.new(hash)
     end
-  @merchants
-  end
-
-  def add_merchant_objects(merchants)
-    @merchants << Merchant.new(merchants)
+    @merchants = object_array
   end
 
   def find_by_id(id)
@@ -33,18 +30,18 @@ class MerchantRepo
 
   def find_by_name(name)
     @merchants.find do |merchant|
-      merchant.name == name
+      merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
     @merchants.find_all do |merchant|
-      merchant.name == name
+      merchant.name.downcase == name.downcase
     end
   end
 
   def create(attributes)
-    merchant_new = Merchant.new(attributes) #refactor with module?
+    merchant_new = Merchant.new(attributes)
     max_merchant_id = @merchants.max_by do |merchant|
       merchant.id
     end
