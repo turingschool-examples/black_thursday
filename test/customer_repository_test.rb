@@ -21,4 +21,8 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal @customers, @customer_repository.all
   end
 
+  def test_it_finds_by_id
+    assert_equal @customer_2, @customer_repository.find_by_id(33)
+    assert_equal nil, @customer_repository.find_by_id(687)
+  end
 end
