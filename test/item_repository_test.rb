@@ -8,14 +8,6 @@ require_relative '../lib/merchant_repository.rb'
 require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
-  def setup
-    @se = SalesEngine.from_csv({
-      :items     => "./data/dummy_items.csv",
-      :merchants => "./data/dummy_merchants.csv"
-      })
-
-
-  end
 
   def test_it_exists
     se = SalesEngine.from_csv({
@@ -23,6 +15,7 @@ class ItemRepositoryTest < Minitest::Test
       :merchants => "./data/dummy_merchants.csv"
       })
     ir = ItemRepository.new(se.csv_hash[:items])
+    ir.create_items
     assert_instance_of ItemRepository, ir
   end
 
@@ -51,7 +44,7 @@ class ItemRepositoryTest < Minitest::Test
       })
     ir = ItemRepository.new(se.csv_hash[:items])
     ir.create_items
-    assert_equal Item, ir.find_by_id("263395237").class
+    assert_equal Item, ir.find_by_id(263395237).class
   end
 
   def test_find_by_name
@@ -62,7 +55,6 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new(se.csv_hash[:items])
     ir.create_items
     assert_equal ir.all[3], ir.find_by_name("Free standing Woden letters")
-#when i run this there are brackets that switch if i put brackets around both they pass?
   end
 
   def test_find_all_with_description
@@ -84,7 +76,7 @@ class ItemRepositoryTest < Minitest::Test
       ir = ItemRepository.new(se.csv_hash[:items])
       ir.create_items
     #  ir.all.convert_unit_price_to_dollar_string
-      assert_equal [ir.all[3]], ir.find_all_by_price("700")
+      assert_equal [ir.all[3]], ir.find_all_by_price(7.00)
     end
 
     def test_find_all_by_price_range
@@ -95,8 +87,7 @@ class ItemRepositoryTest < Minitest::Test
         })
       ir = ItemRepository.new(se.csv_hash[:items])
       ir.create_items
-      #ir.convert_unit_price_to_dollar_string
-      assert_equal 2 , ir.find_all_by_price_in_range(1300..1400).count
+      assert_equal 2 , ir.find_all_by_price_in_range(13..14).count
     end
 
     def test_find_all_by_merchant_id
@@ -106,10 +97,32 @@ class ItemRepositoryTest < Minitest::Test
         })
       ir = ItemRepository.new(se.csv_hash[:items])
       ir.create_items
-      assert_equal [ir.all[0]], ir.find_all_by_merchant_id("12334141")
+      assert_equal [ir.all[0]], ir.find_all_by_merchant_id(12334141)
     end
 
-    def test_it_can_create_new_id
+    def test_it_can_find_the_highest_id
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+        })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      assert_equal 263396013, ir.find_highest_id.id
+    end
+
+    def test_it_can_create_new_highest_id
+      #ask kelly about this
+      se = SalesEngine.from_csv({
+        :items     => "./data/dummy_items.csv",
+        :merchants => "./data/dummy_merchants.csv"
+      })
+      ir = ItemRepository.new(se.csv_hash[:items])
+      ir.create_items
+      item = ir.create_id
+      assert_equal 263396014 ,item
+    end
+
+    def test_it_can_create
       se = SalesEngine.from_csv({
         :items     => "./data/dummy_items.csv",
         :merchants => "./data/dummy_merchants.csv"
@@ -147,11 +160,11 @@ class ItemRepositoryTest < Minitest::Test
       })
       ir = ItemRepository.new(se.csv_hash[:items])
       ir.create_items
-      original_item = ir.find_by_id("263395721")
+      original_item = ir.find_by_id(263395721)
       assert_equal "Disney scrabble frames"  , original_item.name
-      ir.update("263395721",{:name => "Dog frame" })
-      assert_equal "Dog frame", ir.find_by_id("263395721").name
-      assert_equal "Disney glitter frames" , ir.find_by_id("263395721").description
+      ir.update(263395721,{:name => "Dog frame" })
+      assert_equal "Dog frame", ir.find_by_id(263395721).name
+      assert_equal "Disney glitter frames" , ir.find_by_id(263395721).description
       #refute_equal original_item.updated_at, ir.find_by_id("263395721").updated_at
     end
 
