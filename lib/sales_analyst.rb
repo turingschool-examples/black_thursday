@@ -110,4 +110,14 @@ class SalesAnalyst
     end
   end
 
+  def bottom_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    two_std = average_invoices_per_merchant_standard_deviation * 2
+    all_merchants = @engine.merchants.all
+
+    all_merchants.find_all do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).size < (mean - two_std)
+    end
+  end
+
 end

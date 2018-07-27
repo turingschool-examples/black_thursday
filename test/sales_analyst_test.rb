@@ -127,5 +127,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [@se.merchants.find_by_id(7)], @sa.top_merchants_by_invoice_count
   end
 
+  def test_it_returns_bottom_merchants_by_invoice_count
+    assert_empty @sa.bottom_merchants_by_invoice_count
+  end
+
 
 end
