@@ -1,5 +1,6 @@
 require 'time'
 
+
 class Merchant
 
   attr_accessor :id,

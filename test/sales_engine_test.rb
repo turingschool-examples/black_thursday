@@ -5,7 +5,6 @@ require_relative "../lib/item_repo"
 require_relative "../lib/merchant"
 require_relative "../lib/item"
 
-
 class SalesEngineTest < Minitest::Test
 
   def test_it_exists

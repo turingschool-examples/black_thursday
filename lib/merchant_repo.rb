@@ -2,6 +2,7 @@ require_relative './merchant'
 require "time"
 require "pry"
 
+
 class MerchantRepo
 
   attr_accessor :merchants
