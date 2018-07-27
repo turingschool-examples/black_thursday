@@ -25,4 +25,9 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal nil, @transaction_repository.find_by_id(8798798)
   end
 
+  def test_it_can_find_all_by_invoice_id
+    assert_equal [], @transaction_repository.find_all_by_invoice_id(37)
+    assert_equal [@transaction_4], @transaction_repository.find_all_by_invoice_id(11)
+  end
+
 end

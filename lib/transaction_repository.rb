@@ -8,5 +8,11 @@ class TransactionRepository
   def initialize(transaction_items)
     @list = transaction_items
   end
-  
+
+  def find_all_by_invoice_id(id)
+    @list.find_all do |invoice|
+      invoice.invoice_id == id
+    end
+  end
+
 end
