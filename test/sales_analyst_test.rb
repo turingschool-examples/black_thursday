@@ -92,8 +92,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_average_price_per_merchant
-  # (9/1 + (10+11)/2 + (12+13+14)/3 + (15+16+17+18)/4 + (19+20+21)/3)/5 = 13.8
-    assert_equal 13.8, @sa.average_average_price_per_merchant
+  # (9/1 + (10+11)/2 + (12+13+14)/3 + (15+16+17+18)/4 + (19+20+50)/3)/5 = 15.73
+    assert_equal 15.73, @sa.average_average_price_per_merchant
     assert_equal BigDecimal, @sa.average_average_price_per_merchant.class
   end
 
@@ -103,7 +103,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_item_price_average
-    assert_equal 15.00, @sa.item_price_average
+    # (9+10+11+12+13+14+15+16+17+18+19+20+50)/13 = 17.23
+    assert_equal 17.23, @sa.item_price_average
   end
 
   def test_it_can_find_all_item_prices
@@ -111,13 +112,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_standard_deviation_for_item_price
-    assert_equal 3.89, @sa.standard_deviation_for_item_price
+    # sqrt(((9-17.23)^2 +(10-17.23)^2 +(11-17.23)^2 +(12-17.23)^2+(13-17.23)^2 + (14-17.23)^2+(15-17.23)^2+(16-17.23)^2+(17-17.23)^2+(18-17.23)^2+(19-17.23)^2+(20-17.23)^2+(50-17.23)^2)/12) = 10.43
+    assert_equal 10.43, @sa.standard_deviation_for_item_price
   end
 
-  def test_it_can_find_golden_items # items where price >= $20.78
-    skip
-    assert_equal 2, @sa.golden_items.count
-    assert_equal Item, @sa.golden_items.class
+  def test_it_can_find_golden_items
+    # items where price >= $38.09 or 2 standard deviations above average price
+    assert_equal 1, @sa.golden_items.count
+    # assert_equal Item, @sa.golden_items.class
   end
 
 
