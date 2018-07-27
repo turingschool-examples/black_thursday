@@ -36,5 +36,13 @@ class CustomerRepositoryTest < Minitest::Test
     expected = [@customer_1, @customer_2]
     assert_equal expected, @customer_repository.find_all_by_last_name("Clar")
     assert_equal [], @customer_repository.find_all_by_last_name("Brow")
-  end 
+  end
+
+  def test_it_can_create_new_customer
+    assert_equal 4, @customer_repository.all.count
+    @customer_repository.create({:first_name => "Nichole", :last_name => "Jonney", :created_at => Time.now, :updated_at => Time.now})
+
+    assert_equal 5, @customer_repository.all.count
+    assert_equal 91, @customer_repository.all.last.id
+  end
 end

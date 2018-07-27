@@ -20,4 +20,10 @@ class CustomerRepository
       customer.last_name.downcase.include?(name.downcase)
     end
   end
+
+  def create(attributes)
+    highest_customer_id = find_highest_id
+    attributes[:id] = highest_customer_id.id + 1
+    @list << Customer.new(attributes)
+  end
 end
