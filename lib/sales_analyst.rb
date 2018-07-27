@@ -193,4 +193,23 @@ class SalesAnalyst
     percentage = (numerator / denominator.to_f) * 100
     percentage.round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    invoice_array = @transaction_repo.find_all_by_invoice_id(invoice_id)
+    if invoice_array == []
+      false
+    else
+      invoice_array.all? do |transaction|
+        transaction.result == :success
+      end
+    end
+  end
+
+  def invoice_total(invoice_id)
+    price_array = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+
+    price_array.inject(0) do |sum, num|
+        sum + (num.unit_price * num.quantity.to_i)
+      end
+  end
 end

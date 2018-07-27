@@ -32,7 +32,7 @@ class TransactionRepository
 
   def find_all_by_credit_card_number(credit_card_number)
     all.find_all do |each|
-      each.credit_card_number.to_i == credit_card_number
+      each.credit_card_number == credit_card_number
     end
   end
 
@@ -53,8 +53,8 @@ class TransactionRepository
 
   def update(id, attributes)
     find_by_id(id).result = attributes[:result].to_sym unless attributes[:result].nil?
-    find_by_id(id).credit_card_number = attributes[:credit_card_number].to_i unless attributes[:credit_card_number].nil?
-    find_by_id(id).credit_card_expiration_date = attributes[:credit_card_expiration_date].to_i unless attributes[:credit_card_expiration_date].nil?
+    find_by_id(id).credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+    find_by_id(id).credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
   end
 
