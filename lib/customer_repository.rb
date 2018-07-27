@@ -26,4 +26,16 @@ class CustomerRepository
     attributes[:id] = highest_customer_id.id + 1
     @list << Customer.new(attributes)
   end
+
+  def update(id, attributes)
+    if find_by_id(id)
+      if attributes[:first_name]
+        find_by_id(id).first_name = attributes[:first_name]
+      end
+      if attributes[:last_name]
+        find_by_id(id).last_name = attributes[:last_name]
+      end
+      find_by_id(id).updated_at = Time.now
+    end
+  end
 end

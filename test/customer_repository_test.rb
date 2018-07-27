@@ -45,4 +45,12 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 5, @customer_repository.all.count
     assert_equal 91, @customer_repository.all.last.id
   end
+
+  def test_it_can_update_existing_customer
+    original_time = @customer_3.updated_at
+    @customer_repository.update(12, {:first_name => "Nicholas", :last_name => "Programmer", :updated_at => Time.now})
+    assert original_time < @customer_3.updated_at
+    assert_equal "Nicholas", @customer_repository.find_by_id(12).first_name
+    assert_equal "Programmer", @customer_repository.find_by_id(12).last_name
+  end
 end
