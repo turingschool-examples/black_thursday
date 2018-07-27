@@ -46,4 +46,17 @@ class InvoiceRepository
   def create(attributes)
     @invoices << Invoice.new(attributes)
   end
+  
+  def number_of_merchants
+    group_invoices_by_merchant_id.keys.count
+  end
+
+  def group_invoices_by_merchant_id
+    @invoices.group_by { |invoice| invoice.merchant_id }
+  end
+
+  def average_invoices_per_merchant
+    (@invoices.size / number_of_merchants.to_f).round(2)
+  end
+
 end
