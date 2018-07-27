@@ -17,4 +17,8 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of CustomerRepository, @customer_repository
   end
 
+  def test_it_finds_all_instances
+    assert_equal @customers, @customer_repository.all
+  end
+
 end
