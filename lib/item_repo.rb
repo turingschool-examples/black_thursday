@@ -1,12 +1,9 @@
-require "time"
-require "bigdecimal"
-require_relative './item'
+require 'time'
+require 'bigdecimal'
+require_relative 'item'
 
-
-require "pry"
 
 class ItemRepo
-
   attr_accessor :items
 
   def initialize(items)
@@ -44,16 +41,18 @@ class ItemRepo
     end
   end
 
-  def find_all_by_price(price) #find out more about if bigdecimal or not
-    @items.find_all do |item|
+  def find_all_by_price(price)
+    found_items = @items.find_all do |item|
       item.unit_price == price
     end
+    return found_items
   end
 
   def find_all_by_price_in_range(range)
-      @items.find_all do |item|
+      items_found = @items.find_all do |item|
         range.include?(item.unit_price)
       end
+      return items_found
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -88,6 +87,7 @@ class ItemRepo
     item_to_change.updated_at = Time.now
     return item_to_change
   end
+  
 
   def delete(id)
     item_to_delete = find_by_id(id)
