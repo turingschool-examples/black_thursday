@@ -6,7 +6,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchants_total = find_number_of_merchants
+    merchants_total = find_number_of_merchants_for_items
     items_total = find_total_number_of_items
     (items_total.to_f / merchants_total).round(2)
   end
@@ -22,7 +22,7 @@ class SalesAnalyst
     @sales_engine.items.all.group_by(&:merchant_id)
   end
 
-  def find_number_of_merchants
+  def find_number_of_merchants_for_items
     group_items_by_merchant.inject(0) do |count, (id, items)|
       count + 1
     end
