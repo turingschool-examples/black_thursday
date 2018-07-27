@@ -24,30 +24,32 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_group_items_by_merchant_id
-    assert_equal 2, @sa.group_items_by_merchant[1].count
-    assert_equal 3, @sa.group_items_by_merchant[2].count
+    assert_equal 1, @sa.group_items_by_merchant[1].count
+    assert_equal 3, @sa.group_items_by_merchant[3].count
   end
 
   def test_it_can_find_number_of_merchants
-    assert_equal 3, @sa.find_number_of_merchants
+    assert_equal 5, @sa.find_number_of_merchants
   end
 
   def test_it_can_find_number_items
-    assert_equal 6, @sa.find_total_number_of_items
+    assert_equal 13, @sa.find_total_number_of_items
   end
 
   def test_it_can_find_average_items_per_merchant
-    assert_equal 2.0, @sa.average_items_per_merchant
+    # ((1/1)+(2/1)+(3/1)+(4/1)+(3/1))/5 = 13/5 = 2.6 avg
+    assert_equal 2.6, @sa.average_items_per_merchant
     assert_equal Float, @sa.average_items_per_merchant.class
   end
 
   def test_it_can_find_average_items_per_merchant_standard_deviation
-    assert_equal 1.0, @sa.average_items_per_merchant_standard_deviation
+    # sqrt(((1-2.6)^2+(2-2.6)^2+(3-2.6)^2+(4-2.6)^2+(3-2.6)^2)/4) = 1.14 sd
+    assert_equal 1.14, @sa.average_items_per_merchant_standard_deviation
     assert_equal Float, @sa.average_items_per_merchant_standard_deviation.class
   end
 
   def test_it_can_find_number_of_items_for_each_merchant
-    assert_equal [2, 3, 1], @sa.items_per_merchant
+    assert_equal [1, 2, 3, 4, 3], @sa.items_per_merchant
   end
 
   def test_it_can_find_variance
@@ -63,54 +65,58 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_one_stnd_deviation_above_average
-    assert_equal 3.0, @sa.items_one_standard_deviation_above
+    # avg + sd = 2.60 + 1.14 = 3.74
+    assert_equal 3.74, @sa.items_one_standard_deviation_above
   end
 
-  def test_it_can_zip_items_and_merchant_ids
-    assert_equal [[1, 2], [2, 3], [3, 1]], @sa.item_amount_per_merchant
+  def test_it_can_zip_merchant_ids_and_item_quantities
+    # merchant id first, then item quantity
+    expected = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 3]]
+    assert_equal expected, @sa.item_amount_per_merchant
   end
 
   def test_it_can_find_high_seller_merchants
+    # high seller merchants have >= 3.74 items
     assert_equal 1, @sa.merchants_with_high_item_count.count
     assert_equal Array, @sa.merchants_with_high_item_count.class
     assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
   end
 
   def test_it_can_find_average_item_price_for_single_merchant
-    assert_equal 14.33, @sa.average_item_price_for_merchant(2)
-    assert_equal BigDecimal, @sa.average_item_price_for_merchant(2).class
+    assert_equal 16.5, @sa.average_item_price_for_merchant(4)
+    assert_equal BigDecimal, @sa.average_item_price_for_merchant(4).class
   end
 
   def test_it_can_find_number_of_merchants
-    assert_equal 3, @sa.number_of_merchants
+    assert_equal 5, @sa.number_of_merchants
   end
 
   def test_it_can_find_average_average_price_per_merchant
-    assert_equal 50.89, @sa.average_average_price_per_merchant
+  # (9/1 + (10+11)/2 + (12+13+14)/3 + (15+16+17+18)/4 + (19+20+21)/3)/5 = 13.8
+    assert_equal 13.8, @sa.average_average_price_per_merchant
     assert_equal BigDecimal, @sa.average_average_price_per_merchant.class
   end
 
   def test_it_can_find_average_item_prices_for_each_merchant
-    assert_equal 3, @sa.average_item_prices_for_each_merchant.count
+    assert_equal 5, @sa.average_item_prices_for_each_merchant.count
     assert_equal BigDecimal, @sa.average_item_prices_for_each_merchant[0].class
   end
 
   def test_it_can_find_item_price_average
-    assert_equal 32.62, @sa.item_price_average
+    assert_equal 15.00, @sa.item_price_average
   end
 
   def test_it_can_find_all_item_prices
-    assert_equal 6, @sa.all_item_prices.count
+    assert_equal 13, @sa.all_item_prices.count
   end
 
   def test_it_can_find_standard_deviation_for_item_price
-    skip
-    assert_equal 40.88, @sa.standard_deviation_for_item_price
+    assert_equal 3.89, @sa.standard_deviation_for_item_price
   end
 
-  def test_it_can_find_golden_items
+  def test_it_can_find_golden_items # items where price >= $20.78
     skip
-    assert_equal 1, @sa.golden_items.count
+    assert_equal 2, @sa.golden_items.count
     assert_equal Item, @sa.golden_items.class
   end
 

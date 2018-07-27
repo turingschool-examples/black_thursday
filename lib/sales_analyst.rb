@@ -1,7 +1,6 @@
 require_relative './sales_engine'
 
 class SalesAnalyst
-
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
@@ -42,9 +41,8 @@ class SalesAnalyst
   end
 
   def variance(average, array)
-    #need to update this name to show it's for item quantity
-    array.inject(0) do |count, items|
-      count += (items - average) ** 2
+    variance = array.inject(0) do |count, items|
+      count += (items.to_f - average) ** 2
     end
   end
 
@@ -99,7 +97,7 @@ class SalesAnalyst
   end
 
   def item_price_average
-    (all_item_prices_total / @sales_engine.items.all.count).round(2)
+    (all_item_prices_total.to_f / @sales_engine.items.all.count).round(2)
   end
 
   def all_item_prices
