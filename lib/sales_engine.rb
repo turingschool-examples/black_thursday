@@ -54,11 +54,11 @@ class SalesEngine
     @merchants     = MerchantRepository.new(merchants)
     @invoices      = InvoiceRepository.new(invoices)
     @invoice_items = InvoiceItemRepository.new(invoice_items)
-    @customers     = CustomerRepository.new(customers)
     @transactions  = TransactionRepository.new(transactions)
+    @customers     = CustomerRepository.new(customers)
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @customers, @transactions)
+    SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions, @customers)
   end
 end

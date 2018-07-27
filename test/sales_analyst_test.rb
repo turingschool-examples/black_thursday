@@ -22,11 +22,29 @@ class SalesAnalystTest < Minitest::Test
     @invoice_3 = Invoice.new({:id => 8, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
     @invoice_4 = Invoice.new({:id => 9, :customer_id => 48, :merchant_id => 12339191, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
 
+    @invoice_item_1 = InvoiceItem.new({:id => 6, :item_id => 7, :invoice_id => 88, :quantity => 1, :unit_price => BigDecimal.new(100.99, 4), :created_at => Time.now, :updated_at => Time.now})
+    @invoice_item_2 = InvoiceItem.new({:id => 7, :item_id => 33, :invoice_id => 99, :quantity => 1, :unit_price => BigDecimal.new(5.99, 4), :created_at => Time.now, :updated_at => Time.now})
+    @invoice_item_3 = InvoiceItem.new({:id => 8, :item_id => 7, :invoice_id => 99, :quantity => 1, :unit_price => BigDecimal.new(12.36, 4), :created_at => Time.now, :updated_at => Time.now})
+    @invoice_item_4 = InvoiceItem.new({:id => 9, :item_id => 987, :invoice_id => 66, :quantity => 1, :unit_price => BigDecimal.new(9.79, 4), :created_at => Time.now, :updated_at => Time.now})
+
+    @customer_1 = Customer.new({:id => 6, :first_name => "Joan", :last_name => "Clarke", :created_at => Time.now, :updated_at => Time.now})
+    @customer_2 = Customer.new({:id => 33, :first_name => "Kat", :last_name => "Clarkson", :created_at => Time.now, :updated_at => Time.now})
+    @customer_3 = Customer.new({:id => 12, :first_name => "Nick", :last_name => "Program", :created_at => Time.now, :updated_at => Time.now})
+    @customer_4 = Customer.new({:id => 90, :first_name => "Nicolas", :last_name => "Jones", :created_at => Time.now, :updated_at => Time.now})
+
+    @transaction_1 = Transaction.new({:id => 6, :invoice_id => 8, :credit_card_number => "4242424242421111", :credit_card_expiration_date => "0220", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    @transaction_2 = Transaction.new({:id => 7, :invoice_id => 9, :credit_card_number => "4242424242422222", :credit_card_expiration_date => "0321", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    @transaction_3 = Transaction.new({:id => 8, :invoice_id => 10, :credit_card_number => "4242424242423333", :credit_card_expiration_date => "0422", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+    @transaction_4 = Transaction.new({:id => 9, :invoice_id => 11, :credit_card_number => "4242424242424444", :credit_card_expiration_date => "0523", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+
     @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
     @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4]
+    @invoice_items = [@invoice_item_1, @invoice_item_2, @invoice_item_3, @invoice_item_4]
+    @customers = [@customer_1, @customer_2, @customer_3, @customer_4]
+    @transactions = [@transaction_1, @transaction_2, @transaction_3, @transaction_4]
 
-    @sales_engine = SalesEngine.new(@items, @merchants, @invoices)
+    @sales_engine = SalesEngine.new(@items, @merchants, @invoices, @invoice_items, @transactions, @customers)
     @sales_analyst = @sales_engine.analyst
   end
 
@@ -37,6 +55,10 @@ class SalesAnalystTest < Minitest::Test
   def test_it_has_attributes
     assert_equal @sales_engine.items, @sales_analyst.items
     assert_equal @sales_engine.merchants, @sales_analyst.merchants
+    assert_equal @sales_engine.invoices, @sales_analyst.invoices
+    assert_equal @sales_engine.invoice_items, @sales_analyst.invoice_items
+    assert_equal @sales_engine.transactions, @sales_analyst.transactions
+    assert_equal @sales_engine.customers, @sales_analyst.customers
   end
 
   def test_it_gives_average_items_per_merchant
