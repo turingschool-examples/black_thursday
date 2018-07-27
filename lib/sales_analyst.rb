@@ -111,13 +111,13 @@ class SalesAnalyst
     square_root_of_variance(v, all_item_prices)
   end
 
-  def two_standard_deviations_above
+  def item_two_standard_deviations_above
     item_price_average + (standard_deviation_for_item_price * 2)
   end
 
   def golden_items
     @sales_engine.items.all.each_with_object([]) do |item, collection|
-      collection << item if item.unit_price >= two_standard_deviations_above
+      collection << item if item.unit_price >= item_two_standard_deviations_above
       collection
     end
   end
@@ -143,19 +143,19 @@ class SalesAnalyst
   end
 
   def find_number_of_merchants_for_invoices
-    grouped_invoices.inject(0) do |count, (id, invoices)|
+    group_invoices_by_merchant.inject(0) do |count, (id, invoices)|
       count + 1
     end
   end
 
   def find_total_number_of_invoices
-    grouped_invoices.inject(0) do |count, (id, invoices)|
+    group_invoices_by_merchant.inject(0) do |count, (id, invoices)|
       count + invoices.count
     end
   end
 
-  def invoices_per_merchant(grouped_invoices)
-    grouped_invoices.map do |id, invoices|
+  def invoices_per_merchant
+    group_invoices_by_merchant.map do |id, invoices|
       invoices.count
     end
   end
@@ -163,7 +163,7 @@ class SalesAnalyst
 # Which merchants are more than two standard deviations above the mean?
 # sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
   def invoices_two_standard_deviations_above
-    average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation*2
+    (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation*2).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -173,7 +173,7 @@ class SalesAnalyst
   end
 # sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
   def invoices_two_standard_deviations_below
-    average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation*2
+    (average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation*2).round(2)
   end
 
   def bottom_merchants_by_invoice_count
