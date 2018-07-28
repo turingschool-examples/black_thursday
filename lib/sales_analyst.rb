@@ -220,8 +220,34 @@ class SalesAnalyst
     end.first
   end
 
-  def top_revenue_earners(top_number = nil)
-    
+  
+
+  def top_revenue_earners(number_of_top = 20)
+    number_of_top = number_of_top - 1
+
+    merchant_and_invoices = @invoice_repo.invoices.group_by do |invoice|
+      invoice.merchant_id
+    end
+    revenue_earned_per_merchant = merchant_and_invoices.map do |merchant, invoices|
+      [merchant, sum(invoices.map! do |invoice|
+        invoice_total(invoice.id)
+      end)]
+    end
+
+    sorted_highest_rev_per_mer = revenue_earned_per_merchant.sort_by do |merchant, revenue|
+      revenue
+    end.reverse
+
+    sorted_highest_merchants = sorted_highest_rev_per_mer.map do |pair|
+      pair[0]
+    end
+
+    top_revenue_merchants_descending = sorted_highest_merchants.map do |id|
+      @merchant_repo.find_by_id(id)
+    end
+binding.pry
+    top_revenue_merchants_descending[0..number_of_top]
   end
+
 
 end
