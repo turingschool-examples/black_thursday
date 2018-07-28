@@ -162,6 +162,10 @@ class SalesAnalyst
 
 # Which merchants are more than two standard deviations above the mean?
 # sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
+  def invoices_one_standard_deviation_above
+    (average_invoices_per_merchant +average_invoices_per_merchant_standard_deviation).round(2)
+  end
+
   def invoices_two_standard_deviations_above
     (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation*2).round(2)
   end
@@ -181,4 +185,22 @@ class SalesAnalyst
       invoices.count <= invoices_two_standard_deviations_below
     end
   end
+  # On which days are invoices created at more than one standard deviation above the mean?
+  def top_days_by_invoice_count # => ["Sunday", "Saturday"]
+    # Date.new(2001,2,3).wday           #=> 6
+  #   top_days = []
+  #
+  #   if invoices.count >= invoices_one_standard_deviation_above
+  #     top_days << day
+  #
+  end
+
+  def weekday(date_string)
+    Date.parse(date_string).strftime("%A")
+  end
+
+  def group_invoices_by_date_created
+    @sales_engine.invoices.all.group_by(&:created_at)
+  end
+
 end
