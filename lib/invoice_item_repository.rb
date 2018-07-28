@@ -4,7 +4,7 @@ require_relative './invoice_item'
 require 'bigdecimal'
 require 'time'
 
-#InvoiceItemRepository class
+# InvoiceItemRepository class
 class InvoiceItemRepository
   def initialize
     @invoice_items = {}
