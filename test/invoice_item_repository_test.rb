@@ -72,10 +72,19 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_update_attributes
     @iir.update(1001, quantity: 4)
+
     assert_equal 4, @invoice_item1.quantity
 
+    original_time = @invoice_item2.updated_at
     @iir.update(1002, unit_price: 22.99)
+
     assert_equal 22.99, @invoice_item2.unit_price
+    refute_equal original_time, @invoice_item2.updated_at
+  end
+
+  def test_it_can_delete_invoice_items
+    @iir.delete(1003)
+    assert_equal [@invoice_item1, @invoice_item2], @iir.all
   end
 
 end

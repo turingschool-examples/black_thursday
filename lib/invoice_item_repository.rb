@@ -57,4 +57,12 @@ class InvoiceItemRepository
     invoice_item.unit_price = BigDecimal(params[:unit_price], sig_fig) unless params[:unit_price].nil?
     invoice_item.updated_at = Time.now
   end
+
+  def delete(id)
+    @invoice_items.delete(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 end
