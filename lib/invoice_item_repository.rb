@@ -14,4 +14,10 @@ class InvoiceItemRepository
       InvoiceItem.new(invoice_item)
     end
   end
+
+  def find_all_by_item_id(item_id)
+    @repo.find_all do |item|
+      item.item_id == item_id
+    end
+  end
 end
