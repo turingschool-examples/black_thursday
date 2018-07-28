@@ -160,19 +160,66 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1.14, @sa.square_root_of_variance(variance, invoices_per_merchant)
   end
 
-  def test_it_can_find_two_standard_deviations_above_average
+  def test_it_can_find_invoices_two_standard_deviations_above_average
     assert_equal 4.88, @sa.invoices_two_standard_deviations_above
   end
 
-  def test_it_can_find_top_merchants_by_invoice_count
+  def test_it_groups_top_merchants_by_invoice_count_over_two_standard_deviations # > 2sd above avg
     assert_equal 0, @sa.top_merchants_by_invoice_count.count
+    assert_equal ([]), @sa.bottom_merchants_by_invoice_count
   end
 
   def test_it_can_find_two_standard_deviations_below_average
     assert_equal 0.32, @sa.invoices_two_standard_deviations_below
   end
 
-  def test_it_can_find_bottom_merchants_by_invoice_count
+  def test_it_groups_bottom_merchants_by_invoice_count_below_two_standard_deviations
     assert_equal 0, @sa.bottom_merchants_by_invoice_count.count
-  end 
+    assert_equal ([]), @sa.bottom_merchants_by_invoice_count
+  end
+# On which days are invoices created at more than one standard deviation above the mean?
+
+  # def test_it_can_convert_numerical_date_to_week_day
+  #   assert_equal "Saturday", @sa.weekday("2018-07-28")
+  # end
+
+  def test_it_can_group_invoices_by_date
+    assert_equal 7, @sa.group_invoices_by_day_created.count
+  end
+
+  def test_it_can_find_number_of_invoices_per_day
+    assert_equal 4, @sa.group_invoices_by_day_created[0].count #Sunday
+    assert_equal 1, @sa.group_invoices_by_day_created[1].count #Monday
+    assert_equal 1, @sa.group_invoices_by_day_created[2].count #Tuesday
+    assert_equal 1, @sa.group_invoices_by_day_created[3].count #Wednesday
+    assert_equal 1, @sa.group_invoices_by_day_created[4].count #Thursday
+    assert_equal 2, @sa.group_invoices_by_day_created[5].count #Friday
+    assert_equal 3, @sa.group_invoices_by_day_created[6].count #Saturday
+  end
+
+  def test_it_can_find_number_of_days_for_invoices
+    assert_equal 7, @sa.find_number_of_days_for_invoices
+  end
+
+  def test_it_can_find_total_number_of_invoices
+    assert_equal 13, @sa.find_total_number_of_invoices
+  end
+
+  def test_it_can_find_average_number_of_invoices_per_day
+    assert_equal 1.86, @sa.average_invoices_per_day
+  end
+
+  def test_it_can_find_average_invoices_per_day_standard_deviation
+    assert_equal 1.21, @sa.average_invoices_per_day_standard_deviation
+    assert_equal Float, @sa.average_invoices_per_day_standard_deviation.class
+  end
+
+  def test_it_can_find_invoices_per_day_one_standard_deviation_above_average
+    assert_equal 3.07, @sa.invoices_per_day_one_standard_deviation_above
+  end
+
+  def test_it_groups_top_days_by_invoice_count_over_one_standard_deviation
+    assert_equal 1, @sa.top_days_by_invoice_count.count
+    assert_equal (["Sunday"]), @sa.top_days_by_invoice_count
+  end
 end
