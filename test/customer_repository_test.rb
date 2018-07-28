@@ -30,4 +30,32 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal [customer_list].flatten, @cr.all
   end
+
+  def test_it_can_find_by_id
+    expected = @cr.create(id: 7, first_name: "Wes", last_name: "Anderson")
+
+    assert_equal expected, @cr.find_by_id(7)
+  end
+
+  def test_it_can_find_by_all_first_name
+    created1 = @cr.create(id: 7, first_name: "Wes", last_name: "Anderson")
+    created2 = @cr.create(id: 8, first_name: "Wes", last_name: "Mcfly")
+    created3 = @cr.create(id: 9, first_name: "Napoleon", last_name: "Winter")
+
+    expected = [created1, created2]
+
+    assert_equal expected, @cr.find_all_by_first_name("Wes")
+  end
+
+  def test_it_can_find_all_by_last_name
+    
+    created1 = @cr.create(id: 7, first_name: "Wes", last_name: "Anderson")
+    created2 = @cr.create(id: 7, first_name: "Neo", last_name: "Anderson")
+    created3 = @cr.create(id: 7, first_name: "Napoleon", last_name: "Winter")
+
+    expected = [created1, created2]
+
+    assert_equal expected, @cr.find_all_by_last_name("Anderson")
+  end
+
 end

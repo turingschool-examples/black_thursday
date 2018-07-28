@@ -29,6 +29,29 @@ class CustomerRepository
     end
   end
 
+  def find_by_id(id)
+    return nil unless @customers.key?(id)
+    @customers.fetch(id)
+  end
+
+  def find_all_by_first_name(first_name)
+    customer_list = @customers.find_all do |_, customer|
+      customer.first_name.downcase.include?(first_name.downcase)
+    end.flatten
+    customer_list.keep_if do |element|
+      element.is_a?(Customer)
+    end
+  end
+
+  def find_all_by_last_name(last_name)
+    customer_list = @customers.find_all do |_, customer|
+      customer.last_name.downcase.include?(last_name.downcase)
+    end.flatten
+    customer_list.keep_if do |element|
+      element.is_a?(Customer)
+    end
+    binding.pry
+  end
 
 
 
