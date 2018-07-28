@@ -13,12 +13,14 @@ class InvoiceItemRepository
   def populate(data)
     data.map do |row|
       row[:unit_price] = BigDecimal(row[:unit_price].dup.insert(-3, '.'))
+      row[:created_at] = Time.parse(row[:created_at])
+      row[:updated_at] = Time.parse(row[:updated_at])
       create(row)
     end
   end
 
   def create(params)
-    params[:id] - @invoices.max[0] + 1 if params[:id].nil?
+    params[:id] = @invoice_items.max[0] + 1 if params[:id].nil?
 
     InvoiceItem.new(params).tap do |invoice_item|
       @invoice_items[params[:id].to_i] = invoice_item
