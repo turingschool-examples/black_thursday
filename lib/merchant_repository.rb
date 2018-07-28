@@ -14,22 +14,6 @@ class MerchantRepository
     end
   end
 
-  def all
-    @repo
-  end
-
-  def find_by_id(id)
-    @repo.find do |merchant|
-      merchant.id == id
-    end
-  end
-
-  def find_by_name(name)
-    @repo.find do |merchant| #rubocop wants the line below
-      merchant.name.casecmp(name).zero? # if case-insensitive returns 0, = the same name
-    end
-  end
-
   def find_all_by_name(fragment)
     @repo.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
@@ -48,16 +32,6 @@ class MerchantRepository
     merchant
   end
 
-  def create_id
-    find_highest_id.id + 1
-  end
-
-  def find_highest_id
-    @repo.max_by do |merchant|
-      merchant.id
-    end
-  end
-
   def update(id, attributes)
     merchant = find_by_id(id)
     return if merchant.nil?
@@ -66,15 +40,4 @@ class MerchantRepository
     merchant
   end
 
-  def delete(id)
-    merchant = @repo.find_index do |merchant|
-      merchant.id == id
-    end
-    return if merchant.nil?
-    @repo.delete_at(merchant)
-  end
-
-  def inspect
-    "#<#{self.class} #{@repo.size} rows>"
-  end
 end
