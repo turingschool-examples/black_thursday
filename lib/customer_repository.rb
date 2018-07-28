@@ -10,6 +10,8 @@ class CustomerRepository
 
   def populate(data)
     data.map do |row|
+      row[:created_at] = Time.parse(row[:created_at])
+      row[:updated_at] = Time.parse(row[:updated_at])
       create(row)
     end
   end
@@ -36,7 +38,7 @@ class CustomerRepository
 
   def find_all_by_first_name(first_name)
     customer_list = @customers.find_all do |_, customer|
-      
+
       customer.first_name.downcase.include?(first_name.downcase)
     end.flatten
     customer_list.keep_if do |element|
