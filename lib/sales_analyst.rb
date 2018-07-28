@@ -200,7 +200,9 @@ class SalesAnalyst
   end
 
   def group_invoices_by_date_created
-    @sales_engine.invoices.all.group_by(&:created_at)
+    group_invoices_by_date = @sales_engine.invoices.all.group_by do |invoice|
+      invoice.created_at.wday
+    end
   end
 
 end
