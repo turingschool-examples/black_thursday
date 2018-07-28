@@ -16,13 +16,11 @@ class CustomerRepository
 
   def create(params)
     params[:id] = @customer.max[0] + 1 if params[:id].nil?
+
+    Customer.new(params).tap do |customer|
+      @customer[params[:id].to_i] = customer
+    end
   end
-# def create(params)
-#   params[:id] = @merchants.max[0] + 1 if params[:id].nil?
-#
-#   Merchant.new(params).tap do |merchant|
-#     @merchants[params[:id].to_i] = merchant
-#   end
-# end
+
 
 end
