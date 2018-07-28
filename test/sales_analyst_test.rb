@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
 require_relative '../lib/sales_analyst'
+require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -25,9 +26,7 @@ class SalesAnalystTest < Minitest::Test
       {id: 263395314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
       {id: 263365314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
       {id: 263375314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
-      {id: 263345314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}
-
-    ]
+      {id: 263345314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}]
     @item_repo = ItemRepo.new(item_array)
 
     @analyst = SalesAnalyst.new(@mer_repo, @item_repo)
@@ -47,56 +46,35 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_standard_deviation
-    @analyst.return_array_of_unique_merchants
     assert_equal 2.65, @analyst.average_items_per_merchant_standard_deviation
   end
-  #
-  # def test_it_returns_unique_merchants
-  #
-  # end
-  #
-  # def test_it_counts_items_for_each_merchant
-  #
-  # end
-  #
-  # def test_it_calcultates_difference_from_average
-  #
-  # end
-  #
-  # def test_it_squares_each_element_in_array
-  #
-  # end
-  #
-  # def test_it_sums_an_array
-  #
-  # end
 
+  # def test_it_returns_merchants_ids_for_high_item_count
+  #   assert_equal [[@mer_repo.merchants[2], 8]], @analyst.merchants_ids_for_high_item_count
+  # end
+    
   def test_it_returns_merchants_with_high_item_count
-    assert_equal [@mer_repo.merchants[2]], @analyst.merchants_ids_for_high_item_count
+    assert_equal [@mer_repo.merchants[2]], @analyst.merchants_with_high_item_count
   end
-
-  # def test_it_returns_merchants_with_high_item_count
-  #   assert
+  
+  def test_it_calculates_average_item_price_for_merchant 
+    assert_equal BigDecimal(14.88,4), @analyst.average_item_price_for_merchant(12334113)
+  end
+  
+  # def test_it_returns_all_average_prices 
+  #   assert_equal [BigDecimal(14.00,4), BigDecimal(15.75,4), BigDecimal(14.88,4)], @analyst.all_average_prices
   # end
-
-  # def test_returns_hash_of_merchants_with_items
-  #   @analyst.return_hash_of_merchants_with_items
+  
+  def test_it_calculates_average_average_price_per_merchant
+    assert_equal BigDecimal(14.88,4), @analyst.average_average_price_per_merchant
+  end
+  
+  # def test_it_calculates_item_standard_deviation
+  #   assert_equal 1.62, @analyst.standard_deviation
   # end
-
-  # Which merchants sell the most items?
-  # Maybe we could set a good example for our lower sellers by displaying the merchants who have the most items for sale. Which merchants are more than one standard deviation above the average number of products offered?
-  #
-  # sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant]
-  # What are prices like on our platform?
-  # Are these merchants selling commodity or luxury goods? Let’s find the average price of a merchant’s items (by supplying the merchant ID):
-  #
-  # sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
-  # Then we can sum all of the averages and find the average price across all merchants (this implies that each merchant’s average has equal weight in the calculation):
-  #
-  # sales_analyst.average_average_price_per_merchant # => BigDecimal
-  # Which are our Golden Items?
-  # Given that our platform is going to charge merchants based on their sales, expensive items are extra exciting to us. Which are our “Golden Items”, those two standard-deviations above the average item price? Return the item objects of these “Golden Items”.
-  #
-  # sales_analyst.golden_items # => [<item>, <item>, <item>, <item>]
-
+  
+  def test_it_return_golden_items
+   assert_equal [], @analyst.golden_items
+  end
+  
 end
