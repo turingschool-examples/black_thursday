@@ -189,4 +189,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_group_invoices_by_date
     assert_equal 7, @sa.group_invoices_by_date_created.count
   end
+
+  def test_it_can_find_number_of_invoices_per_day
+    assert_equal 2, @sa.group_invoices_by_date_created[0].count
+  end
 end

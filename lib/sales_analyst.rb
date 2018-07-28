@@ -205,4 +205,9 @@ class SalesAnalyst
     end
   end
 
+  def find_number_of_invoices_per_day
+    group_invoices_by_merchant.inject(0) do |count, (id, invoices)|
+      count + 1
+    end
+  end
 end
