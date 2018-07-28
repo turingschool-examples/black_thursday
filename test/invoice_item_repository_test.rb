@@ -74,4 +74,27 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal ([]), invoice_items_3
   end
 
+  def test_it_can_create_new_id
+    invoice_item = @iir.create_id
+    assert_equal 4, invoice_item
+  end
+
+  def test_it_can_create_new_invoice_item
+    attributes = {  item_id: 27,
+                    invoice_id: 2772,
+                    quantity: 4,
+                    unit_price: 2134,
+                    created_at: '2018-07-28',
+                    updated_at: '2018-07-28'
+                  }
+    invoice_item = @iir.create(attributes)
+    assert_equal 4, invoice_item.id
+    assert_equal 27, invoice_item.item_id
+    assert_equal 2772, invoice_item.invoice_id
+    assert_equal 4, invoice_item.quantity
+    assert_equal BigDecimal, invoice_item.unit_price.class
+    assert_instance_of Time, invoice_item.created_at
+    assert_instance_of Time, invoice_item.updated_at
+  end
+
 end
