@@ -10,7 +10,7 @@ class SalesAnalyst
   
   # works
   def average_items_per_merchant 
-     (@item_repository.items.count.to_f / @merchant_repository.all.count.to_f).round(2)
+     (@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end 
   
   #works, but may be an unnecessary step 
@@ -28,6 +28,19 @@ class SalesAnalyst
     end 
     return items 
   end 
+  
+  # what if...
+  # nested enumerables
+  def merchant_id_item_counter
+    m_item_count = Hash.new(0)
+    sales_engine.merchants.all.map do |merchant|
+      m_items = sales_engine.items.all.find_all do |item|
+        item.merchant_id == merchant.id 
+        # m_items   
+      end
+      m_item_count[merchant.id] += m_items.count
+    end 
+  end
   
   # def average_items_per_merchant_standard_deviation
   #   #need to find #items for each merchant 
