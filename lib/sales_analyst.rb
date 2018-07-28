@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 require 'bigdecimal'
-require 'bigdecimal/util'
-require 'pry'
 
-
+# Sales anaylst class
 class SalesAnalyst
   attr_reader :engine
 
@@ -19,36 +17,32 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    average = average_items_per_merchant
+    mean = average_items_per_merchant
     all_merchants = @engine.merchants.all
 
-    items_per_merchant = []
-    all_merchants.each do |merchant|
-      items_per_merchant << @engine.items.find_all_by_merchant_id(merchant.id).size
+    items_per_merchant = all_merchants.map do |merchant|
+      @engine.items.find_all_by_merchant_id(merchant.id).size
     end
-    equation = items_per_merchant.inject(0) do |sum, number_items|
-      sum + (number_items - average)**2
-    end
-    ((Math.sqrt(equation / (items_per_merchant.size - 1)).round(2))).to_f
+
+    standard_deviation(items_per_merchant, mean)
   end
 
   def merchants_with_high_item_count
-    std = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    threshold = average_items_per_merchant + average_items_per_merchant_standard_deviation
     all_merchants = @engine.merchants.all
 
     all_merchants.find_all do |merchant|
-      @engine.items.find_all_by_merchant_id(merchant.id).size > std
+      @engine.items.find_all_by_merchant_id(merchant.id).size > threshold
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
-    merchant = @engine.merchants.find_by_id(merchant_id)
     total_items = @engine.items.find_all_by_merchant_id(merchant_id).size
     all_items = @engine.items.find_all_by_merchant_id(merchant_id)
-    sum = all_items.inject(0) do |sum, item|
+    total_sum = all_items.inject(0) do |sum, item|
       sum + item.unit_price
     end
-    average_price = sum / total_items
+    average_price = total_sum / total_items
     BigDecimal(average_price, 5).round(2)
   end
 
@@ -65,18 +59,11 @@ class SalesAnalyst
   end
 
   def golden_items
-    all_items = @engine.items.all
-    prices_sum = all_items.inject(0) do |sum, item|
-      sum + item.unit_price
-    end
-    average = prices_sum / all_items.size
-    equation = all_items.inject(0) do |sum, item|
-      sum + (item.unit_price - average)**2
-    end
-    std = Math.sqrt((equation / (all_items.size - 1)))
-    golden_threshold = average + std*2
+    mean = all_prices_sum / all_items.size
+    std = standard_deviation(all_prices, mean)
+    golden_threshold = mean + std * 2
 
-    result = all_items.find_all do |item|
+    all_items.find_all do |item|
       item.unit_price > golden_threshold
     end
   end
@@ -90,9 +77,9 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
     all_merchants = @engine.merchants.all
-    invoices_per_merchant = []
-    all_merchants.each do |merchant|
-      invoices_per_merchant << @engine.invoices.find_all_by_merchant_id(merchant.id).size
+    # invoices_per_merchant = []
+    invoices_per_merchant = all_merchants.map do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).size
     end
     equation = invoices_per_merchant.inject(0) do |sum, number_invoices|
       sum + (number_invoices - mean)**2
@@ -153,5 +140,28 @@ class SalesAnalyst
       invoice.status == status
     end
     ((invoices_by_status.to_f / total_invoices.size) * 100).round(2)
+  end
+
+  private
+
+  def standard_deviation(data, mean)
+    total_sum = data.inject(0) do |sum, number_items|
+      sum + (number_items - mean)**2
+    end
+    Math.sqrt(total_sum / (data.size - 1)).round(2).to_f
+  end
+
+  def all_items
+    @engine.items.all
+  end
+
+  def all_prices
+    all_items.map(&:unit_price)
+  end
+
+  def all_prices_sum
+    all_items.inject(0) do |sum, item|
+      sum + item.unit_price
+    end
   end
 end
