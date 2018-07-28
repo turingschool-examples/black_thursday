@@ -58,13 +58,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 4, @transaction.all.count
   end
 
-  def test_it_can_find_an_invoice_item_by_a_valid_id
+  def test_it_can_find_a_transaction_by_a_valid_id
     transaction = @transaction.find_by_id(1)
     assert_instance_of Transaction, transaction
     assert_equal 1, transaction.id
   end
 
-  def test_it_returns_nil_if_invoice_id_is_invalid
+  def test_it_returns_nil_if_transaction_id_is_invalid
     transaction = @transaction.find_by_id('invalid')
     assert_nil transaction
   end
