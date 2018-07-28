@@ -128,11 +128,8 @@ class SalesAnalyst
 
 
 #----------------Iteration Two---------------------------------
-# *sales_analyst = sales_engine.analyst
-# *sales_analyst.average_invoices_per_merchant # => 10.49
-
   def average_invoices_per_merchant
-    (total_invoices.to_f / total_merchants_by_invoice.to_f).round(2)
+    (total_invoices / total_merchants_by_invoice.to_f).round(2)
   end
 
   def group_invoices_by_merchant
@@ -150,8 +147,8 @@ class SalesAnalyst
       count + items.count
     end
   end
-
 # *sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
+
 # *sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
 # *sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
 # *sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
