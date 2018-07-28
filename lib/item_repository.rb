@@ -15,22 +15,6 @@ class ItemRepository
     end
   end
 
-  def all
-    @repo
-  end
-
-  def find_by_id(id)
-    @repo.find do |item|
-      item.id == id
-    end
-  end
-
-  def find_by_name(name)
-    @repo.find do |item|
-      item.name.casecmp(name).zero?
-    end
-  end
-
   def find_all_with_description(description)
     @repo.find_all do |item|
       item.description.downcase.include?(description.downcase)
@@ -49,22 +33,6 @@ class ItemRepository
     end
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @repo.find_all do |item|
-      item.merchant_id == merchant_id
-    end
-  end
-
-  def find_highest_id
-    @repo.max_by do |item|
-      item.id
-    end
-  end
-
-  def create_id
-    find_highest_id.id + 1
-  end
-
   def create(attributes)
     id = create_id
     attributes[:id] = id
@@ -79,17 +47,5 @@ class ItemRepository
     item.description = attributes[:description] || item.description
     item.unit_price = attributes[:unit_price] || item.unit_price
     item.updated_at = Time.now
-  end
-
-  def delete(id)
-    item = @repo.find_index do |item|
-      item.id == id
-    end
-    return if item.nil?
-    @repo.delete_at(item)
-  end
-
-  def inspect
-    "#<#{self.class} #{@repo.size} rows>"
   end
 end
