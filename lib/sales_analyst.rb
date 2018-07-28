@@ -215,6 +215,13 @@ class SalesAnalyst
     (invoices_total.to_f / days_total).round(2)
   end
 
+  def average_invoices_per_day_standard_deviation
+    average = average_invoices_per_day
+    ipd = invoices_per_day
+    v = variance(average, ipd)
+    square_root_of_variance(v, ipd)
+  end
+
   def find_number_of_days_for_invoices
     group_invoices_by_day_created.inject(0) do |count, (id, invoices)|
       count + 1
@@ -226,4 +233,11 @@ class SalesAnalyst
       count + invoices.count
     end
   end
+
+  def invoices_per_day
+    group_invoices_by_day_created.map do |id, invoices|
+      invoices.count
+    end
+  end
+  
 end
