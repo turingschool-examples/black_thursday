@@ -65,13 +65,13 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_status
-    actual = @invoice_repo.find_all_by_status('pending')
+    actual = @invoice_repo.find_all_by_status(:pending)
     assert_equal [@invoice1, @invoice2], actual
   end
 
   def test_it_can_update_attributes
-    @invoice_repo.update(1, status: 'shipped')
-    assert_equal 'shipped', @invoice1.status
+    @invoice_repo.update(1, status: :shipped)
+    assert_equal :shipped, @invoice1.status
   end
 
   def test_it_can_delete_invoices
