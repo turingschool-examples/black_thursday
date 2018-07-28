@@ -1,6 +1,9 @@
 require_relative 'item'
+require_relative 'repo_methods'
 
 class ItemRepository
+  include RepoMethods
+
   def initialize(item_data)
     @item_rows ||= build_item(item_data)
     @repo = @item_rows
