@@ -33,15 +33,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Float, @sales_engine.analyst.average_items_per_merchant.class 
   end
   
-  # let(:sales_analyst) { engine.analyst }
-  # 
-  # it "#average_items_per_merchant returns average items per merchant" do
-  #   expected = sales_analyst.average_items_per_merchant
-  # 
-  #   expect(expected).to eq 2.88
-  #   expect(expected.class).to eq Float
-  # end
-  # 
+  # def test_item_count_by_merchant 
+  #   @sales_analyst.item_count_by_merchant
+  #   # binding.pry
+  # end 
+  
+  def test_it_builds_hash_of_merchant_item_counts
+    @sales_analyst.build_hash_of_merchant_item_counts
+  end 
+  
+  # def test_average_items_per_merchant_standard_deviation
+  #   assert_equal 3.26, @sales_engine.analyst.average_items_per_merchant_standard_deviation 
+  #   assert_equal Float, @sales_engine.analyst.average_items_per_merchant_standard_deviation.class 
+  # end 
+
   # it "#average_items_per_merchant_standard_deviation returns the standard deviation" do
   #   expected = sales_analyst.average_items_per_merchant_standard_deviation
   # 
