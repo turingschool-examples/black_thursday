@@ -22,7 +22,7 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     @repository.find_all do |invoice|
-      invoice.status.downcase.include?(status.downcase)
+      invoice.status == status
     end
   end
 
