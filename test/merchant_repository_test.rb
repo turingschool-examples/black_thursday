@@ -10,28 +10,28 @@ class MerchantRepositoryTest < Minitest::Test
     @mock_data = [
         {id: 12334105,
         name: 'Shopin1901',
-        created_at: '2010-12-10',
-        updated_at: '2011-12-04'},
+        created_at: Time.now,
+        updated_at: Time.now},
         {id: 12334112,
         name: 'Candisart',
-        created_at: '2009-05-30',
-        updated_at: '2010-08-29'},
+        created_at: Time.now,
+        updated_at: Time.now},
         {id: 12334113,
         name: 'MiniatureBikez',
-        created_at: '2010-03-30',
-        updated_at: '2013-01-21'},
+        created_at: Time.now,
+        updated_at: Time.now},
         {id: 12334115,
         name: 'LolaMarleys',
-        created_at: '2008-06-09',
-        updated_at: '2015-04-16'},
+        created_at: Time.now,
+        updated_at: Time.now},
         {id: 12334123,
         name: 'Keckenbauer',
-        created_at: '2010-07-15',
-        updated_at: '2012-07-25'},
+        created_at: Time.now,
+        updated_at: Time.now},
         {id: 12334207,
         name: 'BloominScents',
-        created_at: '2004-02-26',
-        updated_at: '2012-08-03'}
+        created_at: Time.now,
+        updated_at: Time.now}
         ]
 
     @mr = MerchantRepository.new(@mock_data)
@@ -80,7 +80,8 @@ class MerchantRepositoryTest < Minitest::Test
     @mr.create({
       :name => 'MockEtsyStore1',
       :created_at => Time.now,
-      :updated_at => Time.now})
+      :updated_at => Time.now
+      })
 
     assert_equal 'MockEtsyStore1', @mr.all[-1].name
     assert_equal 12334208, @mr.all[-1].id
