@@ -24,7 +24,7 @@ class TransactionRepositoryTest < Minitest::Test
     }
     @transaction2 = {
       id:                          9,
-      invoice_id:                  10,
+      invoice_id:                  8,
       credit_card_number:          '4222929305032939',
       credit_card_expiration_date: '0120',
       result:                      'failed',
@@ -34,7 +34,7 @@ class TransactionRepositoryTest < Minitest::Test
     @transaction3 = {
       id:                          14,
       invoice_id:                  11,
-      credit_card_number:          '1616161616161616',
+      credit_card_number:          '4242424242424242',
       credit_card_expiration_date: '0619',
       result:                      'success',
       created_at:                  Time.now,
@@ -53,11 +53,38 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_all_transactions_in_an_array
-    @transrepo.create(@transaction1)
-    @transrepo.create(@transaction2)
-    @transrepo.create(@transaction3)
+    expected1 = @transrepo.create(@transaction1)
+    expected2 = @transrepo.create(@transaction2)
+    expected3 = @transrepo.create(@transaction3)
+    expected_array = [expected1, expected2, expected3]
 
-    refute_empty @transrepo.all
+    assert_equal expected_array, @transrepo.all
     assert_instance_of Array, @transrepo.all
+  end
+
+  def test_it_finds_transactions_by_id
+    expected = @transrepo.create(@transaction1)
+
+    assert_equal expected, @transrepo.find_by_id(6)
+  end
+
+  def test_it_can_find_all_by_invoice_id
+    expected1 = @transrepo.create(@transaction1)
+    expected2 = @transrepo.create(@transaction2)
+    @transrepo.create(@transaction3)
+    expected_array = [expected1, expected2]
+
+    assert_equal expected_array, @transrepo.find_all_by_invoice_id(8)
+  end
+
+  def test_it_can_find_all_by_cc_number
+    expected1 = @transrepo.create(@transaction1)
+    @transrepo.create(@transaction2)
+    expected3 = @transrepo.create(@transaction3)
+    expected_array = [expected1, expected3]
+
+    actual = @transrepo.find_all_by_credit_card_number('4242424242424242')
+
+    assert_equal expected_array, actual
   end
 end

@@ -22,4 +22,27 @@ class TransactionRepository
       element.is_a?(Transaction)
     end
   end
+
+  def find_by_id(id)
+    return nil unless @transactions.key?(id)
+    @transactions.fetch(id)
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    found_transactions = @transactions.find_all do |_, transaction|
+      transaction.invoice_id == invoice_id
+    end.flatten
+    found_transactions.keep_if do |element|
+      element.is_a?(Transaction)
+    end
+  end
+
+  def find_all_by_credit_card_number(number)
+    found_transactions = @transactions.find_all do |_, transaction|
+      transaction.credit_card_number == number
+    end.flatten
+    found_transactions.keep_if do |element|
+      element.is_a?(Transaction)
+    end
+  end
 end
