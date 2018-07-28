@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 require_relative './customer'
+require_relative './repository_helper'
 
 # Customer repository class
 class CustomerRepository
+  include RepositoryHelper
+
   def initialize
     @customers = {}
-  end
-
-  def populate(data)
-    data.map do |row|
-      create(row)
-    end
   end
 
   def create(params)

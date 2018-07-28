@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 require_relative './transaction'
+require_relative './repository_helper'
 
 # Transaction repository class
 class TransactionRepository
+  include RepositoryHelper
+
   def initialize
     @transactions = {}
-  end
-
-  def populate(data)
-    data.map do |row|
-      create(row)
-    end
   end
 
   def create(params)

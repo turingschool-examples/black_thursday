@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require_relative './invoice'
+require_relative './repository_helper'
 
 # Invoice repository class
 class InvoiceRepository
+  include RepositoryHelper
+
   def initialize
     @invoices = {}
   end
@@ -13,12 +16,6 @@ class InvoiceRepository
 
     Invoice.new(params).tap do |invoice|
       @invoices[params[:id].to_i] = invoice
-    end
-  end
-
-  def populate(data)
-    data.map do |row|
-      create(row)
     end
   end
 

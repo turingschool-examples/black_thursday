@@ -1,19 +1,14 @@
 # frozen_string_literal: true
 
 require_relative './invoice_item'
-require 'bigdecimal'
-require 'time'
+require_relative './repository_helper'
 
 # InvoiceItemRepository class
 class InvoiceItemRepository
+  include RepositoryHelper
+  
   def initialize
     @invoice_items = {}
-  end
-
-  def populate(data)
-    data.map do |row|
-      create(row)
-    end
   end
 
   def create(params)

@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 require_relative './merchant'
+require_relative './repository_helper'
 
 # Merchant repository class
 class MerchantRepository
+  include RepositoryHelper
+  
   def initialize
     @merchants = {}
-  end
-
-  def populate(data)
-    data.map do |row|
-      create(row)
-    end
   end
 
   def create(params)
