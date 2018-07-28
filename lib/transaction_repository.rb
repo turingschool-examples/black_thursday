@@ -45,4 +45,17 @@ class TransactionRepository
       element.is_a?(Transaction)
     end
   end
+
+  def find_all_by_result(result)
+    found_transactions = @transactions.find_all do |_, transaction|
+      transaction.result == result
+    end.flatten
+    found_transactions.keep_if do |element|
+      element.is_a?(Transaction)
+    end
+  end
+
+  def delete(id)
+    @transactions.delete(id)
+  end
 end

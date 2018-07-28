@@ -72,6 +72,7 @@ class TransactionRepositoryTest < Minitest::Test
     expected1 = @transrepo.create(@transaction1)
     expected2 = @transrepo.create(@transaction2)
     @transrepo.create(@transaction3)
+
     expected_array = [expected1, expected2]
 
     assert_equal expected_array, @transrepo.find_all_by_invoice_id(8)
@@ -81,10 +82,33 @@ class TransactionRepositoryTest < Minitest::Test
     expected1 = @transrepo.create(@transaction1)
     @transrepo.create(@transaction2)
     expected3 = @transrepo.create(@transaction3)
-    expected_array = [expected1, expected3]
 
+    expected_array = [expected1, expected3]
     actual = @transrepo.find_all_by_credit_card_number('4242424242424242')
 
     assert_equal expected_array, actual
+  end
+
+  def test_it_can_find_all_by_result
+    expected1 = @transrepo.create(@transaction1)
+    @transrepo.create(@transaction2)
+    expected3 = @transrepo.create(@transaction3)
+
+    expected_array = [expected1, expected3]
+    actual = @transrepo.find_all_by_result('success')
+
+    assert_equal expected_array, actual
+  end
+
+  def test_it_can_delete_transactions
+    expected1 = @transrepo.create(@transaction1)
+    expected2 = @transrepo.create(@transaction2)
+    expected3 = @transrepo.create(@transaction3)
+
+    expected = [expected2, expected3]
+
+    @transrepo.delete(6)
+
+    assert_equal expected, @transrepo.all
   end
 end
