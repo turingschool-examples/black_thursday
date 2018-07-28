@@ -38,12 +38,38 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_average_items_per_merchant_standard_deviation
+    skip
     @sales_analyst.unique_merchant_array
-
-    assert_equal 1, @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal #, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
-  
+  def test_it_returns_unique_merchants
+
+  end
+
+  def test_it_counts_items_for_each_merchant
+
+  end
+
+  def test_it_calcultates_difference_from_average
+
+  end
+
+  def test_it_squares_each_element_in_array
+
+  end
+
+  def test_it_sums_an_array
+
+  end
+
+  def test_it_returns_merchants_with_highest_item_count
+    @sales_analyst.merchants_with_high_item_count
+  end
+
+  def test_returns_hash_of_merchants_with_items
+    @sales_analyst.return_hash_of_merchants_with_items
+  end
 
   # Which merchants sell the most items?
   # Maybe we could set a good example for our lower sellers by displaying the merchants who have the most items for sale. Which merchants are more than one standard deviation above the average number of products offered?

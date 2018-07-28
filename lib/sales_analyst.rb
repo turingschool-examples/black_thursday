@@ -21,14 +21,27 @@ class SalesAnalyst
     (total_items / total_merchants)
   end
 
-  def unique_merchant_array
-    @merchants.all.uniq do |merchant|
-      merchant.id
+  def return_array_of_unique_merchants
+    if @merchants != nil
+      return @merchants.all.uniq do |merchant|
+        merchant.id
+      end
     end
   end
 
+  def return_hash_of_merchants_with_items #creating this
+    hash = Hash.new(0)
+    return_array_of_unique_merchants.each do |merchant|
+      mer_items = @items.all.find_all do |item|
+        item.merchant_id == merchant.id
+      end
+      hash[merchant.id] = mer_items
+    end
+    hash
+  end
+
   def total_count_items_by_merchant
-    merchants = unique_merchant_array
+    merchants = return_array_of_unique_merchants
     merchant_item_total = []
     #for every merchant id find_all get count and add to array
     merchants.each do |merchant|
@@ -80,6 +93,17 @@ class SalesAnalyst
     result = Math.sqrt(result)
   end
 
-  
+  def merchants_with_high_item_count
+    #get merchants with count of items
+    hash = return_hash_of_merchants_with_items.map do |merchant, items|
+      items = items.count
+    end
+    binding.pry
+    #reduce the hash to the count.
+    result = 0
+    #subtract out the standard_deviation_for each
+    #return merchants whose new value is greater than 0.
+  end
+
 
 end
