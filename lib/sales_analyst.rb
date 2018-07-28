@@ -241,9 +241,21 @@ class SalesAnalyst
       @merchant_repo.find_by_id(id)
     end
     top_revenue_merchants_descending[0..number_of_top]
-    binding.pry
   end
 
+  def merchants_with_pending_invoices
+    status_of_invoices_per_merchant = @merchant_repo.merchants.map do |merchant|
+      [merchant.id, status_of_invoices_by_merchant(merchant.id)]
+    end
+    merchant_with_pending_invoices = status_of_invoices_per_merchant.find_all do |merchant, invoice_status|
+      invoice_status.any? do |status|
+        status == :pending
+      end
+    end
+    merchant_with_pending_invoices.map do |merchant_id, invoice_status|
+        @merchant_repo.find_by_id(merchant_id)
+    end
+  end
 
   def revenue_by_merchant(merchant_id)
     all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
@@ -251,5 +263,14 @@ class SalesAnalyst
       invoice_total(invoice.id)
     end
     sum(revenue_per_invoice)
+  end
+  
+#helper method
+  def status_of_invoices_by_merchant(merchant_id)
+    all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    all_merchant_invoices.map do |invoice|
+      invoice.status
     end
+  end
+
 end
