@@ -38,5 +38,13 @@ class InvoiceItemRepository
       element.is_a?(InvoiceItem)
     end
   end
-  
+
+  def find_all_by_invoice_id(id)
+    found_invoice_items = @invoice_items.find_all do |_, invoice_item|
+      invoice_item.invoice_id == id
+    end.flatten
+    found_invoice_items.keep_if do |element|
+      element.is_a?(InvoiceItem)
+    end
+  end
 end
