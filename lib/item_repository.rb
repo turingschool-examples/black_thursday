@@ -12,9 +12,6 @@ class ItemRepository
 
   def populate(data)
     data.map do |row|
-      row[:unit_price] = BigDecimal(row[:unit_price].dup.insert(-3, '.'))
-      row[:created_at] = Time.parse(row[:created_at])
-      row[:updated_at] = Time.parse(row[:updated_at])
       create(row)
     end
   end
