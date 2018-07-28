@@ -129,9 +129,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_check_top_revenue_earners
+    # skip
     top_revenue_merchants = @sales_analyst.top_revenue_earners(10)
     assert_equal 10, @sales_analyst.top_revenue_earners(10).count
     assert_instance_of Merchant, top_revenue_merchants[0]
     assert_equal 20, @sales_analyst.top_revenue_earners.count
+  end
+
+  def test_it_can_check_revenue_by_merchant
+    assert_equal 97979.37, @sales_analyst.revenue_by_merchant(12334194)
   end
 end
