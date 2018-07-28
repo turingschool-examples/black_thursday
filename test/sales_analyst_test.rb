@@ -22,7 +22,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_has_attributes
     assert_equal SalesEngine, @sales_analyst.sales_engine.class
     assert_equal ItemRepository, @sales_analyst.item_repository.class
-    assert_equal 1367, @sales_analyst.item_repository.items.count
+    assert_equal 1367, @sales_analyst.item_repository.all.count
     assert_equal MerchantRepository, @sales_analyst.merchant_repository.class
     assert_equal 475, @sales_analyst.merchant_repository.all.count
   end  
@@ -39,7 +39,7 @@ class SalesAnalystTest < Minitest::Test
   # end 
   
   def test_it_builds_hash_of_merchant_item_counts
-    @sales_analyst.build_hash_of_merchant_item_counts
+    @sales_analyst.merchant_id_item_counter
   end 
   
   # def test_average_items_per_merchant_standard_deviation
