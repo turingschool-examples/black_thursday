@@ -17,4 +17,17 @@ class InvoiceItemRepository
       @invoice_items[params[:id].to_i] = invoice_item
     end
   end
+
+  def all
+    invoice_item_pairs = @invoice_items.to_a.flatten
+    invoice_item_pairs.keep_if do |element|
+      element.is_a?(InvoiceItem)
+    end
+  end
+
+  def find_by_id(id)
+    return nil unless @invoice_items.key?(id)
+    @invoice_items.fetch(id)
+  end
+
 end

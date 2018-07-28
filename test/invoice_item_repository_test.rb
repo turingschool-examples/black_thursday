@@ -51,4 +51,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItem, @invoice_item1
   end
 
+  def test_it_returns_array_of_all_invoice_item_instances
+    expected = [@invoice_item1, @invoice_item2, @invoice_item3]
+    assert_equal expected, @iir.all
+  end
+
+  def test_it_can_find_by_id
+    assert_equal @invoice_item1, @iir.find_by_id(1001)
+  end
+
 end
