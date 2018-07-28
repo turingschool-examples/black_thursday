@@ -97,4 +97,18 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Time, invoice_item.updated_at
   end
 
+  def test_it_can_update_invoice_item
+    attributes = {
+      quantity: 4,
+      unit_price: 15635
+    }
+    id = 1
+    invoice_item = @iir.update(id, attributes)
+    expected = @iir.find_by_id(id)
+    assert_instance_of Time, invoice_item.updated_at # maybe refactor later
+    assert_equal 1, expected.invoice_id
+    assert_equal 4, expected.quantity
+    assert_equal 15635, expected.unit_price
+  end
+
 end
