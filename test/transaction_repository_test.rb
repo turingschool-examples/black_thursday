@@ -45,4 +45,8 @@ class TransactionRepositoryTest < Minitest::Test
 
     @transaction = TransactionRepository.new(transactions)
   end
+
+  def test_it_exists
+    assert_instance_of TransactionRepository, @transaction    
+  end
 end
