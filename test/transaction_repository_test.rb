@@ -53,4 +53,8 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_build_transaction
     assert_equal Array, @transaction.build_transaction(@transactions).class
   end
+
+  def test_it_can_return_an_array_of_all_known_transaction_instances
+    assert_equal 4, @transaction.all.count
+  end
 end
