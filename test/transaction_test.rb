@@ -47,5 +47,11 @@ class TransactionTest < Minitest::Test
   def test_certain_attributes_can_be_changed
     @transaction.result = 'failed'
     assert_equal 'failed', @transaction.result
+
+    @transaction.credit_card_number = '1010101010101010'
+    assert_equal '1010101010101010', @transaction.credit_card_number
+
+    @transaction.credit_card_expiration_date = '0122'
+    assert_equal '0122', @transaction.credit_card_expiration_date
   end
 end
