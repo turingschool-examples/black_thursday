@@ -21,4 +21,8 @@ class InvoiceItemTest < Minitest::Test
     assert_instance_of InvoiceItem, @invoice_item
   end
 
+  def test_it_can_find_unit_price_to_dollars
+    assert_equal 136.35, @invoice_item.unit_price_to_dollars
+  end
+
 end
