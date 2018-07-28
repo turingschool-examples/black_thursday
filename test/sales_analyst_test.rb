@@ -121,6 +121,5 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_standard_deviation_of_avg_invoices_per_merchant
     assert_equal 3.29
-
   end
 end
