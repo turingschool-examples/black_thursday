@@ -26,4 +26,19 @@ class InvoiceItemRepository
       invoice_item.invoice_id == invoice_id
     end
   end
+
+  def create(attributes)
+    id = create_id
+    invoice_item = InvoiceItem.new(
+      id: id,
+      item_id: attributes[:item_id],
+      invoice_id: attributes[:invoice_id],
+      quantity: attributes[:quantity],
+      unit_price: attributes[:unit_price],
+      created_at: Time.now,
+      updated_at: Time.now
+      )
+    @repo << invoice_item
+    invoice_item
+  end
 end
