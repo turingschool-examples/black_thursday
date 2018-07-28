@@ -12,6 +12,7 @@ class InvoiceItemRepository
 
   def populate(data)
     data.map do |row|
+      row[:unit_price] = BigDecimal(row[:unit_price].dup.insert(-3, '.'))
       create(row)
     end
   end

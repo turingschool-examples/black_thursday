@@ -112,6 +112,20 @@ class SalesAnalyst
     ((invoices_by_status.to_f / all_invoices.size) * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @engine.transactions.find_all_by_invoice_id(invoice_id)
+    transactions.all? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.inject(0) do |sum, invoice_item|
+      sum + invoice_item.quantity * invoice_item.unit_price_to_dollars
+    end
+  end
+
   private
 
   def standard_deviation(data_set, mean)
