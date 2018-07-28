@@ -36,6 +36,13 @@ class SalesAnalyst
     (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
   end
 
+  def average_invoices_per_day_standard_deviation
+    mean_total_sqr = @invoice_repository.group_by_day
+    mean_items_per = @invoice_repository.average_invoices_per_day
+
+    (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
+  end
+
 
   def get_squared_item_prices
     @item_repository.items.map do |item|
@@ -106,6 +113,18 @@ class SalesAnalyst
     array
   end
 
+ def top_days_by_invoice_count
+    mean = @invoice_repository.average_invoices_per_day
+    stdev = average_invoices_per_day_standard_deviation
+    thing = @invoice_repository.group_by_day.find_all do |merchant, invoices|
+      invoices.size > (mean + stdev)
+    end
+    new_thing = thing.map do |array|
+      array[0]
+    end
+    new_thing
+  end
+
   def average_item_price_for_merchant(id)
     @item_repository.average_item_price_for_merchant(id)
   end
@@ -147,5 +166,4 @@ class SalesAnalyst
       sum += invoice.unit_price * invoice.quantity.to_i
     end
   end
-
 end

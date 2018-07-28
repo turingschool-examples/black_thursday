@@ -58,5 +58,14 @@ class InvoiceRepository
   def average_invoices_per_merchant
     (@invoices.size / number_of_merchants.to_f).round(2)
   end
+  
+  def group_by_day
+    @invoices.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
 
+  def average_invoices_per_day
+    average = (@invoices.size / 7.0).round(2)
+  end
 end
