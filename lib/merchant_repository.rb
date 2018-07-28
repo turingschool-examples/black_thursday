@@ -1,6 +1,8 @@
 require_relative 'merchant'
+require_relative 'repo_methods'
 
 class MerchantRepository
+  include RepoMethods
   def initialize(merchant_data)
     @merchant_rows ||= build_merchant(merchant_data)
     @repo = @merchant_rows #shops = an array of merchants, might change this name
