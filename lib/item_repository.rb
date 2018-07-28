@@ -1,4 +1,5 @@
 require 'csv'
+
 require_relative '../lib/item'
 require_relative '../lib/repository_helper'
 require 'bigdecimal'
@@ -16,6 +17,7 @@ class ItemRepository
 
   def create_items
     CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
+
       @all << Item.new(row)
     end
   end
@@ -30,9 +32,14 @@ class ItemRepository
     if find_by_id(id) != nil
       find_by_id(id).update_attributes(attributes)
     end
+
   end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end
+
+# ir = ItemRepository.new("./data/items.csv")
+# ir.create_items 
+# ir.update(270000000, {})
