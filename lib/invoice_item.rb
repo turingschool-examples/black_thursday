@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # InvoiceItem class
-
 class InvoiceItem
   attr_reader   :id,
                 :item_id,
