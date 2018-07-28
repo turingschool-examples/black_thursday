@@ -186,21 +186,21 @@ class SalesAnalyst
     end
   end
   # On which days are invoices created at more than one standard deviation above the mean?
-  def top_days_by_invoice_count # => ["Sunday", "Saturday"]
-    # Date.new(2001,2,3).wday           #=> 6
-  #   top_days = []
-  #
-  #   if invoices.count >= invoices_one_standard_deviation_above
-  #     top_days << day
-  #
-  end
+  # def top_days_by_invoice_count # => ["Sunday", "Saturday"]
+  #   # Date.new(2001,2,3).wday           #=> 6
+  # #   top_days = []
+  # #
+  # #   if invoices.count >= invoices_one_standard_deviation_above
+  # #     top_days << day
+  # #
+  # end
 
   # def weekday(date_string)
   #   Date.parse(date_string).strftime("%A")
   # end
 
   def group_invoices_by_day_created
-    group_invoices_by_day_created = @sales_engine.invoices.all.group_by do |invoice|
+    @sales_engine.invoices.all.group_by do |invoice|
       invoice.created_at.wday
     end
   end
@@ -235,9 +235,18 @@ class SalesAnalyst
   end
 
   def invoices_per_day
-    group_invoices_by_day_created.map do |id, invoices|
+    group_invoices_by_day_created.map do |day, invoices|
       invoices.count
     end
   end
-  
+
+  def invoices_per_day_one_standard_deviation_above
+    (average_invoices_per_day + average_invoices_per_day_standard_deviation).round(2)
+  end
+
+  def top_days_by_invoice_count
+    group_invoices_by_day_created.find_all do |id, invoices|
+      invoices.count >= invoices_per_day_one_standard_deviation_above
+    end
+  end
 end
