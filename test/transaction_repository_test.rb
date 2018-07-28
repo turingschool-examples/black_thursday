@@ -4,7 +4,7 @@ require './lib/transaction_repository'
 
 class TransactionRepositoryTest < Minitest::Test
   def setup
-    transactions =
+    @transactions =
     [
       { id: 1,
         invoice_id: 2171,
@@ -43,10 +43,14 @@ class TransactionRepositoryTest < Minitest::Test
         }
     ]
 
-    @transaction = TransactionRepository.new(transactions)
+    @transaction = TransactionRepository.new(@transactions)
   end
 
   def test_it_exists
-    assert_instance_of TransactionRepository, @transaction    
+    assert_instance_of TransactionRepository, @transaction
+  end
+
+  def test_it_can_build_transaction
+    assert_equal Array, @transaction.build_transaction(@transactions).class
   end
 end
