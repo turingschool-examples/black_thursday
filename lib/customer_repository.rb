@@ -36,11 +36,13 @@ class CustomerRepository
 
   def find_all_by_first_name(first_name)
     customer_list = @customers.find_all do |_, customer|
+      
       customer.first_name.downcase.include?(first_name.downcase)
     end.flatten
     customer_list.keep_if do |element|
       element.is_a?(Customer)
     end
+
   end
 
   def find_all_by_last_name(last_name)
@@ -52,19 +54,19 @@ class CustomerRepository
     end
   end
 
-  # def update(id, params)
-  #   return nil unless @customers.key?(id)
-  #   customer.first_name = params[:first_name] unless params[:first_name].nil?
-  #   customer.last_name  = params[:last_name] unless params[:last_name].nil?
-  #   item.updated_at = Time.now
-  # end
+  def update(id, params)
+    return nil unless @customers.key?(id)
+    customer = find_by_id(id)
+    customer.first_name = params[:first_name] unless params[:first_name].nil?
+    customer.last_name  = params[:last_name] unless params[:last_name].nil?
+    customer.updated_at = Time.now
+  end
 
   def delete(id)
     @customers.delete(id)
   end
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@customers.size} rows>"
   end
-
 end

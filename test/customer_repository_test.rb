@@ -58,13 +58,18 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_a_customer_first_name
-    skip
+
     @cr.create(id: 7, first_name: "Wes", last_name: "Anderson")
 
     expected = @cr.update(7, first_name: "Alexandre", last_name: "Anderson")
-    actual   = @cr.find_by_first_name(id: 7, first_name: "Alexandre", last_name: "Anderson")
-    #what is the best way to test this?
-    assert_equal expected, actual
+    assert_equal "Alexandre", @cr.find_by_id(7).first_name
+  end
+
+  def test_it_can_update_a_customer_last_name
+    @cr.create(id: 7, first_name: "Wes", last_name: "Anderson")
+    expected = @cr.update(7, first_name: "Wes", last_name: "Snipes")
+
+    assert_equal "Snipes", @cr.find_by_id(7).last_name
   end
 
   def test_it_can_delete_customer_by_id
@@ -73,6 +78,4 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal created, @cr.delete(7)
     assert_equal [], @cr.all
   end
-
-
 end
