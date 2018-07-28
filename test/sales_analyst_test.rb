@@ -220,6 +220,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_groups_top_days_by_invoice_count_over_one_standard_deviation
     assert_equal 1, @sa.top_days_by_invoice_count.count
-    # assert_equal (["Sunday"]), @sa.top_days_by_invoice_count
+    assert_equal (["Sunday"]), @sa.top_days_by_invoice_count
   end
 end
