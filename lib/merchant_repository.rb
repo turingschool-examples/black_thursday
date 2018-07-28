@@ -1,5 +1,6 @@
 require_relative 'merchant'
 require_relative 'repository_assistant'
+require 'time'
 
 class MerchantRepository
   include RepositoryAssistant
@@ -16,6 +17,8 @@ class MerchantRepository
 
   def create(attributes)
     attributes[:id] = create_new_id_number
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
     @repository << Merchant.new(attributes)
   end
 
