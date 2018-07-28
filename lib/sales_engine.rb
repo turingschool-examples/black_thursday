@@ -153,7 +153,7 @@ class SalesEngine
                                 merchant_id: invoice[2],
                                 status: invoice[3],
                                 created_at: invoice[4],
-                                update_at: invoice[5])
+                                updated_at: invoice[5])
     end
     invoice_repository
   end

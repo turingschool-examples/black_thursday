@@ -17,6 +17,10 @@ class SalesAnalyst
   def average_items_per_merchant
     @item_repository.average_items_per_merchant
   end
+  
+  def average_invoices_per_merchant
+    @invoice_repository.average_invoices_per_merchant
+  end
 
   def average_items_per_merchant_standard_deviation
     mean_total_sqr = @item_repository.group_item_by_merchant_id
@@ -24,6 +28,14 @@ class SalesAnalyst
 
     (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean_total_sqr = @invoice_repository.group_invoices_by_merchant_id
+    mean_items_per = average_invoices_per_merchant
+
+    (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
+  end
+
 
   def get_squared_item_prices
     @item_repository.items.map do |item|
@@ -49,6 +61,37 @@ class SalesAnalyst
       item.unit_price > (mean + stdev)
     end
   end
+
+  def top_merchants_by_invoice_count
+    mean  = average_invoices_per_merchant
+    stdev = average_invoices_per_merchant_standard_deviation * 2
+    thing = @invoice_repository.group_invoices_by_merchant_id.find_all do |merchant, invoices|
+      invoices.size > (mean + stdev)
+    end
+    thing.map! do |array| 
+      array[0] 
+    end
+    new_thing = thing.map do |id|
+      @merchant_repository.find_by_id(id)
+    end
+    new_thing
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean  = average_invoices_per_merchant
+    stdev = average_invoices_per_merchant_standard_deviation * 2
+    thing = @invoice_repository.group_invoices_by_merchant_id.find_all do |merchant, invoices|
+      invoices.size < (mean - stdev)
+    end
+    thing.map! do |array| 
+      array[0] 
+    end
+    new_thing = thing.map do |id|
+      @merchant_repository.find_by_id(id)
+    end
+    new_thing
+  end
+
 
   def merchants_with_high_item_count
     stdev   = average_items_per_merchant_standard_deviation

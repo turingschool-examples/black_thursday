@@ -38,11 +38,25 @@ class InvoiceRepository
     invoice_to_update = find_by_id(id)
     unless invoice_to_update.nil?
       invoice_to_update.status = attributes[:status] unless attributes[:status].nil?
-    invoice_to_update.updated_at = Time.now
+      invoice_to_update.updated_at = Time.now
+
     end
   end
 
   def create(attributes)
     @invoices << Invoice.new(attributes)
   end
+  
+  def number_of_merchants
+    group_invoices_by_merchant_id.keys.count
+  end
+
+  def group_invoices_by_merchant_id
+    @invoices.group_by { |invoice| invoice.merchant_id }
+  end
+
+  def average_invoices_per_merchant
+    (@invoices.size / number_of_merchants.to_f).round(2)
+  end
+
 end
