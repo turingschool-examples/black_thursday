@@ -19,11 +19,16 @@ class InvoiceRepository
     end
   end
 
+  def update(id, params)
+    return nil unless @invoices.key?(id)
+    invoice = find_by_id(id)
+    invoice.status = params[:status] unless params[:status].nil?
+    invoice.updated_at = Time.now
+  end
+
   def all
     invoice_pairs = @invoices.to_a.flatten
-    invoice_pairs.keep_if do |element|
-      element.is_a?(Invoice)
-    end
+    remove_keys(invoice_pairs, Invoice)
   end
 
   def find_by_id(id)
@@ -35,34 +40,21 @@ class InvoiceRepository
     found_invoices = @invoices.find_all do |_, invoice|
       invoice.customer_id == id
     end.flatten
-    found_invoices.keep_if do |element|
-      element.is_a?(Invoice)
-    end
+    remove_keys(found_invoices, Invoice)
   end
 
   def find_all_by_merchant_id(id)
     found_invoices = @invoices.find_all do |_, invoice|
       invoice.merchant_id == id
     end.flatten
-    found_invoices.keep_if do |element|
-      element.is_a?(Invoice)
-    end
+    remove_keys(found_invoices, Invoice)
   end
 
   def find_all_by_status(status)
     found_invoices = @invoices.find_all do |_, invoice|
       invoice.status == status
     end.flatten
-    found_invoices.keep_if do |element|
-      element.is_a?(Invoice)
-    end
-  end
-
-  def update(id, params)
-    return nil unless @invoices.key?(id)
-    invoice = find_by_id(id)
-    invoice.status = params[:status] unless params[:status].nil?
-    invoice.updated_at = Time.now
+    remove_keys(found_invoices, Invoice)
   end
 
   def delete(id)

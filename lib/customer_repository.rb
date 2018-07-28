@@ -19,11 +19,17 @@ class CustomerRepository
     end
   end
 
+  def update(id, params)
+    return nil unless @customers.key?(id)
+    customer = find_by_id(id)
+    customer.first_name = params[:first_name] unless params[:first_name].nil?
+    customer.last_name  = params[:last_name] unless params[:last_name].nil?
+    customer.updated_at = Time.now
+  end
+
   def all
     customer_list = @customers.to_a.flatten
-    customer_list.keep_if do |element|
-      element.is_a?(Customer)
-    end
+    remove_keys(customer_list, Customer)
   end
 
   def find_by_id(id)
@@ -36,27 +42,14 @@ class CustomerRepository
 
       customer.first_name.downcase.include?(first_name.downcase)
     end.flatten
-    customer_list.keep_if do |element|
-      element.is_a?(Customer)
-    end
-
+    remove_keys(customer_list, Customer)
   end
 
   def find_all_by_last_name(last_name)
     customer_list = @customers.find_all do |_, customer|
       customer.last_name.downcase.include?(last_name.downcase)
     end.flatten
-    customer_list.keep_if do |element|
-      element.is_a?(Customer)
-    end
-  end
-
-  def update(id, params)
-    return nil unless @customers.key?(id)
-    customer = find_by_id(id)
-    customer.first_name = params[:first_name] unless params[:first_name].nil?
-    customer.last_name  = params[:last_name] unless params[:last_name].nil?
-    customer.updated_at = Time.now
+    remove_keys(customer_list, Customer)
   end
 
   def delete(id)

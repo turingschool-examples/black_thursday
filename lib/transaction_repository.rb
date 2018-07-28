@@ -30,9 +30,7 @@ class TransactionRepository
 
   def all
     transaction_pairs = @transactions.to_a.flatten
-    transaction_pairs.keep_if do |element|
-      element.is_a?(Transaction)
-    end
+    remove_keys(transaction_pairs, Transaction)
   end
 
   def find_by_id(id)
@@ -44,27 +42,21 @@ class TransactionRepository
     found_transactions = @transactions.find_all do |_, transaction|
       transaction.invoice_id == invoice_id
     end.flatten
-    found_transactions.keep_if do |element|
-      element.is_a?(Transaction)
-    end
+    remove_keys(found_transactions, Transaction)
   end
 
   def find_all_by_credit_card_number(number)
     found_transactions = @transactions.find_all do |_, transaction|
       transaction.credit_card_number == number
     end.flatten
-    found_transactions.keep_if do |element|
-      element.is_a?(Transaction)
-    end
+    remove_keys(found_transactions, Transaction)
   end
 
   def find_all_by_result(result)
     found_transactions = @transactions.find_all do |_, transaction|
       transaction.result == result
     end.flatten
-    found_transactions.keep_if do |element|
-      element.is_a?(Transaction)
-    end
+    remove_keys(found_transactions, Transaction)
   end
 
   def delete(id)

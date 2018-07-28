@@ -6,7 +6,7 @@ require_relative './repository_helper'
 # InvoiceItemRepository class
 class InvoiceItemRepository
   include RepositoryHelper
-  
+
   def initialize
     @invoice_items = {}
   end
@@ -19,11 +19,19 @@ class InvoiceItemRepository
     end
   end
 
+  def update(id, params)
+    return nil unless @invoice_items.key?(id)
+    sig_fig = params[:unit_price].to_s.size - 1
+
+    invoice_item = find_by_id(id)
+    invoice_item.quantity = params[:quantity] unless params[:quantity].nil?
+    invoice_item.unit_price = BigDecimal(params[:unit_price], sig_fig) unless params[:unit_price].nil?
+    invoice_item.updated_at = Time.now
+  end
+
   def all
     invoice_item_pairs = @invoice_items.to_a.flatten
-    invoice_item_pairs.keep_if do |element|
-      element.is_a?(InvoiceItem)
-    end
+    remove_keys(invoice_item_pairs, InvoiceItem)
   end
 
   def find_by_id(id)
@@ -35,28 +43,14 @@ class InvoiceItemRepository
     found_invoice_items = @invoice_items.find_all do |_, invoice_item|
       invoice_item.item_id == id
     end.flatten
-    found_invoice_items.keep_if do |element|
-      element.is_a?(InvoiceItem)
-    end
+    remove_keys(found_invoice_items, InvoiceItem)
   end
 
   def find_all_by_invoice_id(id)
     found_invoice_items = @invoice_items.find_all do |_, invoice_item|
       invoice_item.invoice_id == id
     end.flatten
-    found_invoice_items.keep_if do |element|
-      element.is_a?(InvoiceItem)
-    end
-  end
-
-  def update(id, params)
-    return nil unless @invoice_items.key?(id)
-    sig_fig = params[:unit_price].to_s.size - 1
-
-    invoice_item = find_by_id(id)
-    invoice_item.quantity = params[:quantity] unless params[:quantity].nil?
-    invoice_item.unit_price = BigDecimal(params[:unit_price], sig_fig) unless params[:unit_price].nil?
-    invoice_item.updated_at = Time.now
+    remove_keys(found_invoice_items, InvoiceItem)
   end
 
   def delete(id)

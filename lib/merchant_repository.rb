@@ -6,7 +6,7 @@ require_relative './repository_helper'
 # Merchant repository class
 class MerchantRepository
   include RepositoryHelper
-  
+
   def initialize
     @merchants = {}
   end
@@ -19,11 +19,17 @@ class MerchantRepository
     end
   end
 
+  def update(id, params)
+    return nil unless @merchants.key?(id)
+    new_name = params[:name]
+    merchant = find_by_id(id)
+    merchant.name = new_name
+    merchant
+  end
+
   def all
     merchant_pairs = @merchants.to_a.flatten
-    merchant_pairs.keep_if do |element|
-      element.is_a?(Merchant)
-    end
+    remove_keys(merchant_pairs, Merchant)
   end
 
   def find_by_id(id)
@@ -41,17 +47,7 @@ class MerchantRepository
     merchant_pairs = @merchants.find_all do |_, merchant|
       merchant.name.downcase.include?(name.downcase)
     end.flatten
-    merchant_pairs.keep_if do |element|
-      element.is_a?(Merchant)
-    end
-  end
-
-  def update(id, params)
-    return nil unless @merchants.key?(id)
-    new_name = params[:name]
-    merchant = find_by_id(id)
-    merchant.name = new_name
-    merchant
+    remove_keys(merchant_pairs, Merchant)
   end
 
   def delete(id)
