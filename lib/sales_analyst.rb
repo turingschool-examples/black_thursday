@@ -73,9 +73,6 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    invoices_per_merchant = all_merchants.map do |merchant|
-      @engine.invoices.find_all_by_merchant_id(merchant.id).size
-    end
     standard_deviation(invoices_per_merchant, mean)
   end
 
@@ -141,8 +138,8 @@ class SalesAnalyst
   end
 
   def all_prices_sum
-    all_items.inject(0) do |sum, item|
-      sum + item.unit_price
+    all_prices.inject(0) do |sum, price|
+      sum + price
     end
   end
 
@@ -155,6 +152,12 @@ class SalesAnalyst
   def remove_keys(data, type)
     data.flatten.delete_if do |element|
       element.is_a?(type)
+    end
+  end
+
+  def invoices_per_merchant
+    all_merchants.map do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).size
     end
   end
 
