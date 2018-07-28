@@ -24,6 +24,15 @@ class TransactionRepository
     end
   end
 
+  def update(id, params)
+    return nil unless @transactions.key?(id)
+    trans = find_by_id(id)
+    trans.credit_card_number = params[:credit_card_number] unless params[:credit_card_number].nil?
+    trans.credit_card_expiration_date = params[:credit_card_expiration_date] unless params[:credit_card_expiration_date].nil?
+    trans.result = params[:result] unless params[:result].nil?
+    trans.updated_at = Time.now
+  end
+
   def all
     transaction_pairs = @transactions.to_a.flatten
     transaction_pairs.keep_if do |element|

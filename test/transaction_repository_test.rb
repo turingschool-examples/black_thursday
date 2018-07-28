@@ -111,4 +111,20 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal expected, @transrepo.all
   end
+
+  def test_it_can_update_transactions
+    transaction = @transrepo.create(@transaction1)
+
+    update_params = {
+      credit_card_number:          '1020102010201020',
+      credit_card_expiration_date: '0120',
+      result:                      'failed'
+    }
+    @transrepo.update(6, update_params)
+
+    expected = %w[1020102010201020 0120 failed]
+    actual   = [transaction.credit_card_number, transaction.credit_card_expiration_date, transaction.result]
+
+    assert_equal expected, actual
+  end
 end
