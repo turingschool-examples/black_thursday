@@ -2,7 +2,6 @@ require_relative 'merchant_repo'
 require_relative 'item_repo'
 require 'time'
 require 'bigdecimal'
-require 'pry'
 
 class SalesAnalyst
 
@@ -81,7 +80,7 @@ class SalesAnalyst
     result = Math.sqrt(result).round(2)
   end
 
-  def merchants_with_high_item_count
+  def merchants_ids_for_high_item_count
     high_item_count = average_items_per_merchant_standard_deviation + average_items_per_merchant
     id_count_combo = return_array_of_unique_merchants.zip(total_count_items_by_merchant)
     merchant_ids = id_count_combo.find_all do |element|
@@ -89,15 +88,26 @@ class SalesAnalyst
         element[0]
       end
     end
-    merchant_ids[0].delete_at(-1)
-    merchant_ids.flatten
-
+  end
+    
+  def merchants_with_high_item_count
+    merchants = merchants_ids_for_high_item_count
+    merchants.map do |element|
+      element.reverse
+      element.pop
+    end
+    merchants.flatten
   end
 
-  # def merchants_high_item_count
-  #   merchants_ids_for_high_item_count.each do |id|
-  #     @merchants.find_by_id(id)
-  #   end
-  # end
-
+  def average_item_price_for_merchant(merchant_id)
+    total_items = @items.find_all_by_merchant_id(merchant_id)
+    total_prices = total_items.inject(0) do |sum, item| 
+      sum += item.unit_price
+    end 
+    average_item_price = total_prices / total_items.count
+    average_item_price.round(2)
+  end
+  
+  
+  
 end
