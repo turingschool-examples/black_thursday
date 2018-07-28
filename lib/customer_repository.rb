@@ -52,14 +52,19 @@ class CustomerRepository
     end
   end
 
-  def update(id, params)
-    return nil unless @customers.key?(id)
-    new_name = params[:first_name]
-    customer = find_by_id(id)
-    customer.first_name = new_name
-    customer 
+  # def update(id, params)
+  #   return nil unless @customers.key?(id)
+  #   customer.first_name = params[:first_name] unless params[:first_name].nil?
+  #   customer.last_name  = params[:last_name] unless params[:last_name].nil?
+  #   item.updated_at = Time.now
+  # end
+
+  def delete(id)
+    @customers.delete(id)
   end
 
-
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 
 end
