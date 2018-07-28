@@ -178,9 +178,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ([]), @sa.bottom_merchants_by_invoice_count
   end
 # On which days are invoices created at more than one standard deviation above the mean?
-  def test_it_can_collect_top_days_by_invoice_count_over_one_standard_deviation
-    assert_equal ([]), @sa.top_days_by_invoice_count
-  end
 
   # def test_it_can_convert_numerical_date_to_week_day
   #   assert_equal "Saturday", @sa.weekday("2018-07-28")
@@ -215,5 +212,14 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_average_invoices_per_day_standard_deviation
     assert_equal 1.21, @sa.average_invoices_per_day_standard_deviation
     assert_equal Float, @sa.average_invoices_per_day_standard_deviation.class
+  end
+
+  def test_it_can_find_invoices_per_day_one_standard_deviation_above_average
+    assert_equal 3.07, @sa.invoices_per_day_one_standard_deviation_above
+  end
+
+  def test_it_groups_top_days_by_invoice_count_over_one_standard_deviation
+    assert_equal 1, @sa.top_days_by_invoice_count.count
+    # assert_equal (["Sunday"]), @sa.top_days_by_invoice_count
   end
 end
