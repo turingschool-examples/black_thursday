@@ -154,9 +154,4 @@ class SalesAnalyst
     end
     ((invoices_by_status.to_f / total_invoices.size) * 100).round(2)
   end
-
-
-
-
-
 end

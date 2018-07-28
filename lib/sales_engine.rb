@@ -4,6 +4,7 @@ require 'csv'
 require_relative './invoice_repository'
 require_relative './merchant_repository'
 require_relative './item_repository'
+require_relative './transaction_repository'
 require_relative './sales_analyst'
 
 class SalesEngine
@@ -34,6 +35,12 @@ class SalesEngine
   def invoices
     @invoices ||= InvoiceRepository.new.tap do |invoice_repo|
       invoice_repo.populate(@data[:invoices])
+    end
+  end
+
+  def transactions
+    @transactions ||= TransactionRepository.new.tap do |transaction_repo|
+      transaction_repo.populate(@data[:transactions])
     end
   end
 
