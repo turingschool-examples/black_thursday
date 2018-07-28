@@ -101,7 +101,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_transactions
-    expected1 = @transrepo.create(@transaction1)
+    @transrepo.create(@transaction1)
     expected2 = @transrepo.create(@transaction2)
     expected3 = @transrepo.create(@transaction3)
 
