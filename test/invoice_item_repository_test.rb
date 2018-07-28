@@ -44,8 +44,24 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_an_invoice_item_by_a_valid_id
-    item = @iir.find_by_id(1)
-    assert_instance_of InvoiceItem, item
-    assert_equal 1, item.id
+    item_invoice = @iir.find_by_id(1)
+    assert_instance_of InvoiceItem, item_invoice
+    assert_equal 1, item_invoice.id
   end
+
+  def test_it_returns_nil_if_invoice_id_is_invalid
+    invoice = @iir.find_by_id('invalid')
+    assert_nil invoice
+  end
+
+  def test_it_can_find_all_by_item_id
+    invoice_item_1 = @iir.find_all_by_item_id(263519841)
+    invoice_item_2 = @iir.find_all_by_item_id(263519842)
+    invoice_item_3 = @iir.find_all_by_item_id(263519847)
+    assert_equal 263519841, invoice_item_1.first.item_id
+    assert_equal 263519842, invoice_item_2.first.item_id
+    assert_equal 263519842, invoice_item_2[-1].item_id
+    assert_equal ([]), invoice_item_3
+  end
+
 end
