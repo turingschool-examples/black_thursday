@@ -1,6 +1,9 @@
 require_relative 'invoice'
+require_relative 'repo_methods'
 
 class InvoiceRepository
+  include RepoMethods
+
   def initialize(invoice_data)
     @invoice_rows ||= build_invoice(invoice_data)
     @repo = @invoice_rows
