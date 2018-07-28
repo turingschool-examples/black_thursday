@@ -3,25 +3,26 @@
 require_relative './invoice'
 require_relative './repository'
 require 'pry'
+require 'time'
 # ./lib/invoice_repository.rb
 class InvoiceRepository
-  
+
   include Repository
   attr_reader :invoices
   def initialize
     @invoices = []
   end
 
-  def all 
+  def all
     @invoices
   end
 
   def inspect
-    "#<#{self.class} #{all.size} rows>"  
+    "#<#{self.class} #{all.size} rows>"
   end
 
   def find_all_by_status(search_status)
-    @invoices.find_all do |invoice| 
+    @invoices.find_all do |invoice|
       invoice.status.downcase == search_status.downcase
     end
   end
@@ -39,14 +40,13 @@ class InvoiceRepository
     unless invoice_to_update.nil?
       invoice_to_update.status = attributes[:status] unless attributes[:status].nil?
       invoice_to_update.updated_at = Time.now
-
     end
   end
 
   def create(attributes)
-    @invoices << Invoice.new(attributes)
+    @invoices << Invoice.create(attributes)
   end
-  
+
   def number_of_merchants
     group_invoices_by_merchant_id.keys.count
   end
@@ -58,10 +58,10 @@ class InvoiceRepository
   def average_invoices_per_merchant
     (@invoices.size / number_of_merchants.to_f).round(2)
   end
-  
+
   def group_by_day
     @invoices.group_by do |invoice|
-      invoice.created_at.strftime("%A")
+      invoice.created_at.strftime('%A')
     end
   end
 
