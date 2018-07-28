@@ -70,4 +70,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal [], @iir.find_all_by_invoice_id(17)
   end
 
+  def test_it_can_update_attributes
+    @iir.update(1001, quantity: 4)
+    assert_equal 4, @invoice_item1.quantity
+
+    @iir.update(1002, unit_price: 22.99)
+    assert_equal 22.99, @invoice_item2.unit_price
+  end
+
 end

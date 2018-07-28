@@ -47,4 +47,14 @@ class InvoiceItemRepository
       element.is_a?(InvoiceItem)
     end
   end
+
+  def update(id, params)
+    return nil unless @invoice_items.key?(id)
+    sig_fig = params[:unit_price].to_s.size - 1
+
+    invoice_item = find_by_id(id)
+    invoice_item.quantity = params[:quantity] unless params[:quantity].nil?
+    invoice_item.unit_price = BigDecimal(params[:unit_price], sig_fig) unless params[:unit_price].nil?
+    invoice_item.updated_at = Time.now
+  end
 end
