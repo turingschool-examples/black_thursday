@@ -86,5 +86,4 @@ class InvoiceItemRepositoryTest < Minitest::Test
     @iir.delete(1003)
     assert_equal [@invoice_item1, @invoice_item2], @iir.all
   end
-
 end
