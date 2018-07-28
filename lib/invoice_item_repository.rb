@@ -10,6 +10,12 @@ class InvoiceItemRepository
     @invoice_items = {}
   end
 
+  def populate(data)
+    data.map do |row|
+      create(row)
+    end
+  end
+
   def create(params)
     params[:id] - @invoices.max[0] + 1 if params[:id].nil?
 
