@@ -3,6 +3,15 @@ require_relative './sales_engine'
 class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
+    @days = {
+            0 => "Sunday",
+            1 => "Monday",
+            2 => "Tuesday",
+            3 => "Wednesday",
+            4 => "Thursday",
+            5 => "Friday",
+            6 => "Saturday"
+            }
   end
 
   def average_items_per_merchant
@@ -163,11 +172,13 @@ class SalesAnalyst
 # Which merchants are more than two standard deviations above the mean?
 # sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
   def invoices_one_standard_deviation_above
-    (average_invoices_per_merchant +average_invoices_per_merchant_standard_deviation).round(2)
+    sum = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
+    sum.round(2)
   end
 
   def invoices_two_standard_deviations_above
-    (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation*2).round(2)
+    sum = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation*2
+    sum.round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -177,7 +188,8 @@ class SalesAnalyst
   end
 # sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
   def invoices_two_standard_deviations_below
-    (average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation*2).round(2)
+    diff = average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation*2
+    diff.round(2)
   end
 
   def bottom_merchants_by_invoice_count
@@ -185,19 +197,6 @@ class SalesAnalyst
       invoices.count <= invoices_two_standard_deviations_below
     end
   end
-  # On which days are invoices created at more than one standard deviation above the mean?
-  # def top_days_by_invoice_count # => ["Sunday", "Saturday"]
-  #   # Date.new(2001,2,3).wday           #=> 6
-  # #   top_days = []
-  # #
-  # #   if invoices.count >= invoices_one_standard_deviation_above
-  # #     top_days << day
-  # #
-  # end
-
-  # def weekday(date_string)
-  #   Date.parse(date_string).strftime("%A")
-  # end
 
   def group_invoices_by_day_created
     @sales_engine.invoices.all.group_by do |invoice|
@@ -223,13 +222,13 @@ class SalesAnalyst
   end
 
   def find_number_of_days_for_invoices
-    group_invoices_by_day_created.inject(0) do |count, (id, invoices)|
+    group_invoices_by_day_created.inject(0) do |count, (day, invoices)|
       count + 1
     end
   end
 
   def find_total_number_of_invoices
-    group_invoices_by_day_created.inject(0) do |count, (id, invoices)|
+    group_invoices_by_day_created.inject(0) do |count, (day, invoices)|
       count + invoices.count
     end
   end
@@ -241,12 +240,18 @@ class SalesAnalyst
   end
 
   def invoices_per_day_one_standard_deviation_above
-    (average_invoices_per_day + average_invoices_per_day_standard_deviation).round(2)
+    sum = average_invoices_per_day + average_invoices_per_day_standard_deviation
+    sum.round(2)
   end
 
   def top_days_by_invoice_count
-    group_invoices_by_day_created.find_all do |id, invoices|
-      invoices.count >= invoices_per_day_one_standard_deviation_above
+    top_days = []
+    group_invoices_by_day_created.find_all do |day, invoices|
+      if invoices.count >= invoices_per_day_one_standard_deviation_above
+        top_days << @days[day]
+      end
     end
+    top_days
   end
+
 end
