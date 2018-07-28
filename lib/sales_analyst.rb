@@ -195,19 +195,35 @@ class SalesAnalyst
   #
   end
 
-  def weekday(date_string)
-    Date.parse(date_string).strftime("%A")
-  end
+  # def weekday(date_string)
+  #   Date.parse(date_string).strftime("%A")
+  # end
 
-  def group_invoices_by_date_created
-    group_invoices_by_date = @sales_engine.invoices.all.group_by do |invoice|
+  def group_invoices_by_day_created
+    group_invoices_by_day_created = @sales_engine.invoices.all.group_by do |invoice|
       invoice.created_at.wday
     end
   end
 
-  def find_number_of_invoices_per_day
-    group_invoices_by_merchant.inject(0) do |count, (id, invoices)|
+  def number_of_invoices
+    @sales_engine.invoices.all.count
+  end
+
+  def average_invoices_per_day
+    days_total = find_number_of_days_for_invoices
+    invoices_total = find_total_number_of_invoices
+    (invoices_total.to_f / days_total).round(2)
+  end
+
+  def find_number_of_days_for_invoices
+    group_invoices_by_day_created.inject(0) do |count, (id, invoices)|
       count + 1
+    end
+  end
+
+  def find_total_number_of_invoices
+    group_invoices_by_day_created.inject(0) do |count, (id, invoices)|
+      count + invoices.count
     end
   end
 end

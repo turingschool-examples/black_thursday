@@ -182,15 +182,33 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ([]), @sa.top_days_by_invoice_count
   end
 
-  def test_it_can_convert_numerical_date_to_week_day
-    assert_equal "Saturday", @sa.weekday("2018-07-28")
-  end
+  # def test_it_can_convert_numerical_date_to_week_day
+  #   assert_equal "Saturday", @sa.weekday("2018-07-28")
+  # end
 
   def test_it_can_group_invoices_by_date
-    assert_equal 7, @sa.group_invoices_by_date_created.count
+    assert_equal 7, @sa.group_invoices_by_day_created.count
   end
 
   def test_it_can_find_number_of_invoices_per_day
-    assert_equal 2, @sa.group_invoices_by_date_created[0].count
+    assert_equal 4, @sa.group_invoices_by_day_created[0].count #Sunday
+    assert_equal 1, @sa.group_invoices_by_day_created[1].count #Monday
+    assert_equal 1, @sa.group_invoices_by_day_created[2].count #Tuesday
+    assert_equal 1, @sa.group_invoices_by_day_created[3].count #Wednesday
+    assert_equal 1, @sa.group_invoices_by_day_created[4].count #Thursday
+    assert_equal 2, @sa.group_invoices_by_day_created[5].count #Friday
+    assert_equal 3, @sa.group_invoices_by_day_created[6].count #Saturday
+  end
+
+  def test_it_can_find_number_of_days_for_invoices
+    assert_equal 7, @sa.find_number_of_days_for_invoices
+  end
+
+  def test_it_can_find_total_number_of_invoices
+    assert_equal 13, @sa.find_total_number_of_invoices
+  end
+
+  def test_it_can_find_average_number_of_invoices_per_day
+    assert_equal 1.86, @sa.average_invoices_per_day
   end
 end
