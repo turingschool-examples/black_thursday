@@ -75,12 +75,22 @@ class SalesAnalystTest < Minitest::Test
 
     invoices = [invoice1, invoice2, invoice3, invoice4, invoice5, invoice6, invoice7, invoice8, invoice9, invoice10, invoice11, invoice12, invoice13, invoice14, invoice15, invoice16, invoice17, invoice18, invoice19]
 
-    data = { merchants: merchants, items: items, invoices: invoices }
+    invoice_item1 = { id: 1, item_id: 12, invoice_id: 12, quantity: 2, unit_price: '4000', created_at: Time.now, updated_at: Time.now }
+    invoice_item2 = { id: 2, item_id: 13, invoice_id: 12, quantity: 1, unit_price: '4000', created_at: Time.now, updated_at: Time.now }
+    invoice_item3 = { id: 3, item_id: 6, invoice_id: 12, quantity: 1, unit_price: '250', created_at: Time.now, updated_at: Time.now }
+    invoice_items = [invoice_item1, invoice_item2, invoice_item3]
+
+    transaction1 = { id: 1, invoice_id: 1, credit_card_number: '4242424242424242', credit_card_expiration_date: '0120', result: :success, created_at: Time.now, updated_at: Time.now }
+    transaction2 = { id: 2, invoice_id: 2, credit_card_number: '4274424242424242', credit_card_expiration_date: '0121', result: :success, created_at: Time.now, updated_at: Time.now }
+    transaction3 = { id: 3, invoice_id: 3, credit_card_number: '4242424742424242', credit_card_expiration_date: '0128', result: :success, created_at: Time.now, updated_at: Time.now }
+    transaction4 = { id: 4, invoice_id: 4, credit_card_number: '4242424242724242', credit_card_expiration_date: '0712', result: :failed, created_at: Time.now, updated_at: Time.now }
+    transaction5 = { id: 5, invoice_id: 5, credit_card_number: '4242427242424242', credit_card_expiration_date: '0813', result: :failed, created_at: Time.now, updated_at: Time.now }
+    transactions = [transaction1, transaction2, transaction3, transaction4, transaction5]
+
+    data = { merchants: merchants, items: items, invoices: invoices, transactions: transactions, invoice_items: invoice_items }
     @se = SalesEngine.new(data)
     @sa = @se.analyst
   end
-
-
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @sa
@@ -104,7 +114,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_calculates_average_item_price_for_merchant
     assert_equal 8.5, @sa.average_item_price_for_merchant(2)
-    #takes argument of merchant id
   end
 
   def test_it_calculates_average_average_price_per_merchant
@@ -139,5 +148,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 36.84, @sa.invoice_status(:pending)
     assert_equal 26.32, @sa.invoice_status(:shipped)
     assert_equal 36.84, @sa.invoice_status(:returned)
+  end
+
+  def test_it_returns_whether_invoice_paid_in_full
+    assert @sa.invoice_paid_in_full?(1)
+    refute @sa.invoice_paid_in_full?(4)
+  end
+
+  def test_it_returns_invoice_total_in_dollars
+    assert_equal 122.5, @sa.invoice_total(12)
   end
 end

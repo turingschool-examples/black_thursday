@@ -38,6 +38,6 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_gives_unit_price_in_dollars
-    assert_equal 20.99, @ii.unit
+    assert_equal 20.99, @ii.unit_price_to_dollars
   end
 end

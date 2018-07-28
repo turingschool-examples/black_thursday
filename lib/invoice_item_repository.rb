@@ -10,6 +10,13 @@ class InvoiceItemRepository
     @invoice_items = {}
   end
 
+  def populate(data)
+    data.map do |row|
+      row[:unit_price] = BigDecimal(row[:unit_price].dup.insert(-3, '.'))
+      create(row)
+    end
+  end
+
   def create(params)
     params[:id] - @invoices.max[0] + 1 if params[:id].nil?
 
