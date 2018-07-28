@@ -19,7 +19,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       item_id:      101,
       invoice_id:   11,
       quantity:     1,
-      unit_price:   BigDecimal(10.99, 4),
+      unit_price:   '1099',
       created_at:   Time.now,
       updated_at:   Time.now
     )
@@ -28,7 +28,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       item_id:      102,
       invoice_id:   12,
       quantity:     2,
-      unit_price:   BigDecimal(20.99, 4),
+      unit_price:   '2099',
       created_at:   Time.now,
       updated_at:   Time.now
     )
@@ -37,7 +37,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       item_id:      103,
       invoice_id:   13,
       quantity:     3,
-      unit_price:   BigDecimal(30.99, 4),
+      unit_price:   '3099',
       created_at:   Time.now,
       updated_at:   Time.now
     )
@@ -76,9 +76,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 4, @invoice_item1.quantity
 
     original_time = @invoice_item2.updated_at
-    @iir.update(1002, unit_price: 22.99)
+    @iir.update(1002, unit_price: BigDecimal(20.99, 4))
 
-    assert_equal 22.99, @invoice_item2.unit_price
+    assert_equal 20.99, @invoice_item2.unit_price_to_dollars
     refute_equal original_time, @invoice_item2.updated_at
   end
 

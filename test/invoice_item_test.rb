@@ -17,7 +17,7 @@ class InvoiceItemTest < Minitest::Test
       item_id:      100,
       invoice_id:   10,
       quantity:     1,
-      unit_price:   BigDecimal(20.99, 4),
+      unit_price:   '2099',
       created_at:   Time.now,
       updated_at:   Time.now
     )

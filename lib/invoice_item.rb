@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'time'
+
 # InvoiceItem class
 class InvoiceItem
   attr_reader   :id,
@@ -16,9 +18,9 @@ class InvoiceItem
     @item_id      = params[:item_id].to_i
     @invoice_id   = params[:invoice_id].to_i
     @quantity     = params[:quantity].to_i
-    @unit_price   = params[:unit_price]
-    @created_at   = params[:created_at]
-    @updated_at   = params[:updated_at]
+    @unit_price   = BigDecimal(params[:unit_price].dup.insert(-3, '.'))
+    @created_at   = Time.parse(params[:created_at].to_s)
+    @updated_at   = Time.parse(params[:updated_at].to_s)
   end
 
   def unit_price_to_dollars
