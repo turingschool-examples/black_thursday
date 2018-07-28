@@ -91,6 +91,7 @@ class SalesAnalyst
     result = sum / (@items.all.count - 1)
     #square root the result
     result = Math.sqrt(result)
+    binding.pry
   end
 
   def merchants_with_high_item_count
