@@ -11,14 +11,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchant_count = @engine.merchants.all.size.to_f
-    item_count = @engine.items.all.size.to_f
+    merchant_count = all_merchants.size.to_f
+    item_count = all_items.size.to_f
     BigDecimal((item_count / merchant_count), 3).to_f
   end
 
   def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
-    all_merchants = @engine.merchants.all
 
     items_per_merchant = all_merchants.map do |merchant|
       @engine.items.find_all_by_merchant_id(merchant.id).size
@@ -110,20 +109,19 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    total_invoices = @engine.invoices.all
-    invoices_by_status = total_invoices.count do |invoice|
+    invoices_by_status = all_invoices.count do |invoice|
       invoice.status == status
     end
-    ((invoices_by_status.to_f / total_invoices.size) * 100).round(2)
+    ((invoices_by_status.to_f / all_invoices.size) * 100).round(2)
   end
 
   private
 
-  def standard_deviation(data, mean)
-    total_sum = data.inject(0) do |sum, number_items|
-      sum + (number_items - mean)**2
+  def standard_deviation(data_set, mean)
+    total_sum = data_set.inject(0) do |sum, number_items|
+      sum + (number_items - mean) ** 2
     end
-    Math.sqrt(total_sum / (data.size - 1)).round(2).to_f
+    Math.sqrt(total_sum / (data_set.size - 1)).round(2).to_f
   end
 
   def all_items
