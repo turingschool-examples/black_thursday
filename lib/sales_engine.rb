@@ -37,6 +37,12 @@ class SalesEngine
     end
   end
 
+  def transactions
+    @transations ||= TransactionRepository.new.tap do |transaction_repo|
+      transaction_repo.populate(@data[:transactions])
+    end
+  end
+
   def analyst
     SalesAnalyst.new(self)
   end
