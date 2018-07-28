@@ -108,6 +108,19 @@ class SalesAnalyst
     average_item_price.round(2)
   end
   
+  def all_average_prices
+    average_prices = @merchants.all.map do |merchant|
+      merchant_id = merchant.id
+      average_item_price_for_merchant(merchant_id) 
+    end
+  end 
   
+  def average_average_price_per_merchant
+    average_summed = all_average_prices.inject(0) do |sum, price| 
+      sum += price
+    end
+    average_average_price = average_summed / @merchants.all.count
+    average_average_price.round(2)
+  end
   
 end

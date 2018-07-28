@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
 require_relative '../lib/sales_analyst'
+require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -58,9 +59,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [@mer_repo.merchants[2]], @analyst.merchants_with_high_item_count
   end
   
-  def test_it_calculates_average_item_price_per_merchant 
-    assert_equal 15.75, @analyst.average_item_price_per_merchant(12334113)
+  def test_it_calculates_average_item_price_for_merchant 
+    assert_equal BigDecimal(14.88,4), @analyst.average_item_price_for_merchant(12334113)
   
+  end
+  def test_it_returns_all_average_prices 
+    assert_equal [BigDecimal(14.00,4), BigDecimal(15.75,4), BigDecimal(14.88,4)], @analyst.all_average_prices
+  end
+  
+  def test_it_calculates_average_average_price_per_merchant
+    assert_equal BigDecimal(14.88,4), @analyst.average_average_price_per_merchant
   end
   
 end
