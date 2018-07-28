@@ -22,7 +22,6 @@ class InvoiceRepository
     data.map do |row|
       row[:created_at] = Time.parse(row[:created_at].to_s)
       row[:updated_at] = Time.parse(row[:updated_at].to_s)
-      row[:status] = row[:status].to_sym
       create(row)
     end
   end
