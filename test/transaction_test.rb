@@ -16,7 +16,7 @@ class TransactionTest < Minitest::Test
       invoice_id:                  8,
       credit_card_number:          '4242424242424242',
       credit_card_expiration_date: '0220',
-      result:                      'success',
+      result:                      :success,
       created_at:                  Time.now,
       updated_at:                  Time.now
     )
@@ -38,7 +38,7 @@ class TransactionTest < Minitest::Test
     actual2   = @transaction.credit_card_expiration_date
     assert_equal expected2, actual2
 
-    assert_equal 'success', @transaction.result
+    assert_equal :success, @transaction.result
 
     assert_instance_of Time, @transaction.created_at
     assert_instance_of Time, @transaction.updated_at

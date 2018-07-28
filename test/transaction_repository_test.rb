@@ -18,7 +18,7 @@ class TransactionRepositoryTest < Minitest::Test
       invoice_id:                  8,
       credit_card_number:          '4242424242424242',
       credit_card_expiration_date: '0220',
-      result:                      'success',
+      result:                      :success,
       created_at:                  Time.now,
       updated_at:                  Time.now
     }
@@ -27,7 +27,7 @@ class TransactionRepositoryTest < Minitest::Test
       invoice_id:                  8,
       credit_card_number:          '4222929305032939',
       credit_card_expiration_date: '0120',
-      result:                      'failed',
+      result:                      :failed,
       created_at:                  Time.now,
       updated_at:                  Time.now
     }
@@ -36,7 +36,7 @@ class TransactionRepositoryTest < Minitest::Test
       invoice_id:                  11,
       credit_card_number:          '4242424242424242',
       credit_card_expiration_date: '0619',
-      result:                      'success',
+      result:                      :success,
       created_at:                  Time.now,
       updated_at:                  Time.now
     }
@@ -95,7 +95,7 @@ class TransactionRepositoryTest < Minitest::Test
     expected3 = @transrepo.create(@transaction3)
 
     expected_array = [expected1, expected3]
-    actual = @transrepo.find_all_by_result('success')
+    actual = @transrepo.find_all_by_result(:success)
 
     assert_equal expected_array, actual
   end
@@ -118,11 +118,11 @@ class TransactionRepositoryTest < Minitest::Test
     update_params = {
       credit_card_number:          '1020102010201020',
       credit_card_expiration_date: '0120',
-      result:                      'failed'
+      result:                      :failed
     }
     @transrepo.update(6, update_params)
 
-    expected = %w[1020102010201020 0120 failed]
+    expected = ['1020102010201020', '0120', :failed]
     actual   = [transaction.credit_card_number, transaction.credit_card_expiration_date, transaction.result]
 
     assert_equal expected, actual
