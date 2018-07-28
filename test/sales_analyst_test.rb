@@ -129,7 +129,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_check_top_revenue_earners
-    skip
     assert_equal [], @sales_analyst.top_revenue_earners
   end
 end

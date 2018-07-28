@@ -119,7 +119,6 @@ class SalesAnalyst
     @invoice_repo.invoices.each_with_object(Hash.new(0)) do |invoice, counts|
       counts[invoice.merchant_id] += 1
     end
-    # binding.pry
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -155,7 +154,6 @@ class SalesAnalyst
     bottom_merchants_id_array.map do |id|
       @merchant_repo.find_by_id(id)
     end
-    # binding.pry
   end
 
   def average_invoice_counts_per_day
@@ -210,6 +208,20 @@ class SalesAnalyst
 
     price_array.inject(0) do |sum, num|
         sum + (num.unit_price * num.quantity.to_i)
-      end
+    end
   end
+
+  def total_revenue_by_date(date)
+    date_matched_invoices = @invoice_repo.invoices.find_all do |invoice|
+      invoice.created_at == date
+    end
+    date_matched_invoices.map do |invoice|
+      invoice_total(invoice.id)
+    end.first
+  end
+
+  def top_revenue_earners(top_number = nil)
+    
+  end
+
 end
