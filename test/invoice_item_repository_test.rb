@@ -111,4 +111,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 15635, expected.unit_price
   end
 
+  def test_it_can_delete_invoice
+    id = 2
+
+    invoice = @iir.delete(id)
+    expected = @iir.find_by_id(2)
+
+    assert_nil expected
+  end
 end
