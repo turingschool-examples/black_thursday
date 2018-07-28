@@ -166,6 +166,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_top_merchants_by_invoice_count
     assert_equal 0, @sa.top_merchants_by_invoice_count.count
+    assert_equal ([]), @sa.bottom_merchants_by_invoice_count
   end
 
   def test_it_can_find_two_standard_deviations_below_average
@@ -174,5 +175,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_bottom_merchants_by_invoice_count
     assert_equal 0, @sa.bottom_merchants_by_invoice_count.count
-  end 
+    assert_equal ([]), @sa.bottom_merchants_by_invoice_count
+  end
 end
