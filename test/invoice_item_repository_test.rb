@@ -64,4 +64,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal ([]), invoice_item_3
   end
 
+  def test_it_can_find_all_invoice_items_by_invoice_id
+    invoice_items_1 = @iir.find_all_by_invoice_id(1)
+    invoice_items_2 = @iir.find_all_by_invoice_id(2)
+    invoice_items_3 = @iir.find_all_by_invoice_id(5)
+    assert_equal 1, invoice_items_1.first.invoice_id
+    assert_equal 2, invoice_items_2.first.invoice_id
+    assert_equal 2, invoice_items_2[-1].invoice_id
+    assert_equal ([]), invoice_items_3
+  end
+
 end
