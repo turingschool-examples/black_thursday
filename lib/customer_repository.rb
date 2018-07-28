@@ -50,7 +50,14 @@ class CustomerRepository
     customer_list.keep_if do |element|
       element.is_a?(Customer)
     end
-    binding.pry
+  end
+
+  def update(id, params)
+    return nil unless @customers.key?(id)
+    new_name = params[:first_name]
+    customer = find_by_id(id)
+    customer.first_name = new_name
+    customer 
   end
 
 

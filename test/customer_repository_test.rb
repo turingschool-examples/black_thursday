@@ -48,14 +48,24 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_last_name
-    
     created1 = @cr.create(id: 7, first_name: "Wes", last_name: "Anderson")
-    created2 = @cr.create(id: 7, first_name: "Neo", last_name: "Anderson")
-    created3 = @cr.create(id: 7, first_name: "Napoleon", last_name: "Winter")
+    created2 = @cr.create(id: 8, first_name: "Neo", last_name: "Anderson")
+    created3 = @cr.create(id: 9, first_name: "Napoleon", last_name: "Winter")
 
     expected = [created1, created2]
 
     assert_equal expected, @cr.find_all_by_last_name("Anderson")
   end
+
+  def test_it_can_update_a_customer_first_name
+    @cr.create(id: 7, first_name: "Wes", last_name: "Anderson")
+
+    expected = @cr.update(first_name: "Alexandre", last_name: "Anderson")
+    actual   = @cr.find_by_first_name(id: 7, first_name: "Alexandre", last_name: "Anderson")
+#what is the best way to test this?
+    assert_equal expected, actual
+  end
+
+
 
 end
