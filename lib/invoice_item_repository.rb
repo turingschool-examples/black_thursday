@@ -41,4 +41,13 @@ class InvoiceItemRepository
     @repo << invoice_item
     invoice_item
   end
+
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    return if invoice.nil?
+    invoice.quantity = attributes[:quantity]
+    invoice.unit_price = attributes[:unit_price]
+    invoice.updated_at = Time.now
+    invoice
+  end
 end
