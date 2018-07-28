@@ -22,58 +22,66 @@ class SalesAnalystTest < Minitest::Test
       {id: 263305218, name: "Moose1", description: "animal 2", unit_price: "1700", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
       {id: 263395217, name: "Moose2", description: "animal 3", unit_price: "1800", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
       {id: 263395216, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
-      {id: 263395314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}
+      {id: 263395314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
+      {id: 263365314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
+      {id: 263375314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
+      {id: 263345314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}
+
     ]
     @item_repo = ItemRepo.new(item_array)
 
-    @sales_analyst = SalesAnalyst.new(@mer_repo, @item_repo)
+    @analyst = SalesAnalyst.new(@mer_repo, @item_repo)
   end
 
   def test_it_exists
-    assert_instance_of SalesAnalyst, @sales_analyst
+    assert_instance_of SalesAnalyst, @analyst
   end
 
   def test_it_has_repositories
-    assert_instance_of MerchantRepo, @sales_analyst.merchants
-    assert_instance_of ItemRepo, @sales_analyst.items
+    assert_instance_of MerchantRepo, @analyst.merchants
+    assert_instance_of ItemRepo, @analyst.items
   end
 
   def test_it_calculates_average_items_per_merchant
-    assert_equal 4, @sales_analyst.average_items_per_merchant
+    assert_equal 5.0, @analyst.average_items_per_merchant
   end
 
-  def test_it_calculates_average_items_per_merchant_standard_deviation
-    @sales_analyst.unique_merchant_array
-    assert_equal 1, @sales_analyst.average_items_per_merchant_standard_deviation
+  def test_it_calculates_standard_deviation
+    @analyst.return_array_of_unique_merchants
+    assert_equal 2.65, @analyst.average_items_per_merchant_standard_deviation
+  end
+  #
+  # def test_it_returns_unique_merchants
+  #
+  # end
+  #
+  # def test_it_counts_items_for_each_merchant
+  #
+  # end
+  #
+  # def test_it_calcultates_difference_from_average
+  #
+  # end
+  #
+  # def test_it_squares_each_element_in_array
+  #
+  # end
+  #
+  # def test_it_sums_an_array
+  #
+  # end
+
+  def test_it_returns_merchants_with_high_item_count
+    assert_equal [@mer_repo.merchants[2]], @analyst.merchants_ids_for_high_item_count
   end
 
-  def test_it_returns_unique_merchants
+  # def test_it_returns_merchants_with_high_item_count
+  #   assert
+  # end
 
-  end
-
-  def test_it_counts_items_for_each_merchant
-
-  end
-
-  def test_it_calcultates_difference_from_average
-
-  end
-
-  def test_it_squares_each_element_in_array
-
-  end
-
-  def test_it_sums_an_array
-
-  end
-
-  def test_it_returns_merchants_with_highest_item_count
-    @sales_analyst.merchants_with_high_item_count
-  end
-
-  def test_returns_hash_of_merchants_with_items
-    @sales_analyst.return_hash_of_merchants_with_items
-  end
+  # def test_returns_hash_of_merchants_with_items
+  #   @analyst.return_hash_of_merchants_with_items
+  # end
 
   # Which merchants sell the most items?
   # Maybe we could set a good example for our lower sellers by displaying the merchants who have the most items for sale. Which merchants are more than one standard deviation above the average number of products offered?

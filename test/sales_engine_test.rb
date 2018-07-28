@@ -16,7 +16,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_makes_sales_analyst
-    assert_instance_of SalesAnalyst, @sales_engine.sales_analyst
+    assert_instance_of SalesAnalyst, @sales_engine.analyst
   end
 
 end
