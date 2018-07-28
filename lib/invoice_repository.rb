@@ -15,25 +15,9 @@ class InvoiceRepository
     end
   end
 
-  def all
-    @repo
-  end
-
-  def find_by_id(id)
-    @repo.find do |invoice|
-      invoice.id == id
-    end
-  end
-
   def find_all_by_customer_id(customer_id)
     @repo.find_all do |invoice|
       invoice.customer_id == customer_id
-    end
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @repo.find_all do |invoice|
-      invoice.merchant_id == merchant_id
     end
   end
 
@@ -57,33 +41,11 @@ class InvoiceRepository
     invoice
   end
 
-  def create_id
-    find_highest_id.id + 1
-  end
-
-  def find_highest_id
-    @repo.max_by do |invoice|
-      invoice.id
-    end
-  end
-
   def update(id, attributes)
     invoice = find_by_id(id)
     return if invoice.nil?
     invoice.status = attributes[:status]
     invoice.updated_at = Time.now
     invoice
-  end
-
-  def delete(id)
-    invoice = @repo.find_index do |invoice|
-      invoice.id == id
-    end
-    return if invoice.nil?
-    @repo.delete_at(invoice)
-  end
-
-  def inspect
-    "#<#{self.class} #{@repo.size} rows>"
   end
 end
