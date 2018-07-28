@@ -36,8 +36,8 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     total_items = @engine.items.find_all_by_merchant_id(merchant_id).size
-    all_items = @engine.items.find_all_by_merchant_id(merchant_id)
-    total_sum = all_items.inject(0) do |sum, item|
+    all_items_merchant = @engine.items.find_all_by_merchant_id(merchant_id)
+    total_sum = all_items_merchant.inject(0) do |sum, item|
       sum + item.unit_price
     end
     average_price = total_sum / total_items
@@ -119,7 +119,7 @@ class SalesAnalyst
 
   def standard_deviation(data_set, mean)
     total_sum = data_set.inject(0) do |sum, number_items|
-      sum + (number_items - mean) ** 2
+      sum + (number_items - mean)**2
     end
     Math.sqrt(total_sum / (data_set.size - 1)).round(2).to_f
   end
