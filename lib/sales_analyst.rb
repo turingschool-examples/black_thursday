@@ -18,27 +18,16 @@ class SalesAnalyst
     (total_items / total_merchants).round(2)
   end
 
-  def return_array_of_unique_merchants
+  def return_unique_merchants
     if @merchants != nil
       return @merchants.all.uniq do |merchant|
         merchant.id
       end
     end
   end
-
-  def return_hash_of_merchants_with_items
-    hash = Hash.new(0)
-    return_array_of_unique_merchants.each do |merchant|
-      mer_items = @items.all.find_all do |item|
-        item.merchant_id == merchant.id
-      end
-      hash[merchant.id] = mer_items
-    end
-    hash
-  end
-
-  def total_count_items_by_merchant
-    merchants = return_array_of_unique_merchants
+  
+  def total_items_per_merchant
+    merchants = return_unique_merchants
     merchant_item_total = []
     merchants.each do |merchant|
       merchant_items = @items.all.find_all do |item|
@@ -49,54 +38,49 @@ class SalesAnalyst
     merchant_item_total
   end
 
-  def difference_from_average
-    count = total_count_items_by_merchant
-    count.map do |element|
-      element.to_f - average_items_per_merchant
+  def differences_from_average
+    total_items_per_merchant.map do |amount|
+      amount.to_f - average_items_per_merchant
     end
   end
 
-  def square_each_element
-    difference_from_average.map do |element|
-      element * element
+  def square_each_amount
+    differences_from_average.map do |amount|
+      amount * amount
     end
   end
 
-  def sum_array
-    sum = 0
-    square_each_element.each do |element|
-      sum += element
+  def sum_amount
+    square_each_amount.inject(0) do |sum, amount|
+      sum += amount
     end
-    sum
   end
 
   def average_items_per_merchant_standard_deviation
-    average_items_per_merchant
-    total_count_items_by_merchant
-    difference_from_average
-    square_each_element
-    sum = sum_array
+    differences_from_average
+    square_each_amount
+    sum = sum_amount
     result = sum / (@merchants.all.count - 1)
     result = Math.sqrt(result).round(2)
   end
 
   def merchants_ids_for_high_item_count
     high_item_count = average_items_per_merchant_standard_deviation + average_items_per_merchant
-    id_count_combo = return_array_of_unique_merchants.zip(total_count_items_by_merchant)
-    merchant_ids = id_count_combo.find_all do |element|
-      if element[1] >= high_item_count
-        element[0]
+    id_count_pair = return_unique_merchants.zip(total_items_per_merchant)
+    merchant_ids = id_count_pair.find_all do |pair|
+      if pair[1] >= high_item_count
+        pair[0]
       end
     end
   end
     
   def merchants_with_high_item_count
-    merchants = merchants_ids_for_high_item_count
-    merchants.map do |element|
-      element.reverse
-      element.pop
+    pairs = merchants_ids_for_high_item_count
+    pairs.map do |pair|
+      pair.reverse
+      pair.pop
     end
-    merchants.flatten
+    pairs.flatten
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -123,4 +107,65 @@ class SalesAnalyst
     average_average_price.round(2)
   end
   
+  def average_item_price
+    prices_summed = @items.all.inject(0) do |sum, item|
+      sum += item.unit_price
+    end
+    prices_summed / @items.all.count
+  end
+  
+  def all_item_prices
+   @items.all.map do |item|
+    item.unit_price
+    end
+  end
+  
+  def differences_from_average_price
+    all_item_prices.map do |price|
+      price.to_f - average_item_price
+    end
+  end
+  
+  def square_differences
+    differences_from_average_price.map do |amount|
+      amount * amount
+    end  
+  end
+  
+  def sum_prices
+    square_differences.inject(0) do |sum, amount|
+      sum += amount
+    end
+  end 
+  
+  def standard_deviation
+    differences_from_average_price
+    square_differences
+    sum_prices
+    result = sum_prices/ (@items.all.count - 1)
+    result = Math.sqrt(result).round(2)
+  end
+
+  def golden_items
+    high_item_price = standard_deviation * 2 + average_item_price
+    golden = []
+    @items.all.each do |item|
+      if item.unit_price >= high_item_price
+        golden << item
+      end
+    end
+    golden
+  end
+  
 end
+
+# def return_hash_of_merchants_with_items
+#   hash = Hash.new(0)
+#   return_array_of_unique_merchants.each do |merchant|
+#     mer_items = @items.all.find_all do |item|
+#       item.merchant_id == merchant.id
+#     end
+#     hash[merchant.id] = mer_items
+#   end
+#   hash
+# end
