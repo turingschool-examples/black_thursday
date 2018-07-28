@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/invoice_repository'
+require './lib/invoice'
 require './lib/file_loader'
 
 class InvoiceRepositoryTest < Minitest::Test

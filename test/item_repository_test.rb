@@ -53,56 +53,56 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal "Ruby Studded Shades", @irepo.all[3].name
   end
 
-  def test_test_it_can_find_item_by_id
+  def test_it_can_find_item_by_id
     # skip
     assert_equal @irepo.all[0], @irepo.find_by_id(1)
     assert_equal @irepo.all[3], @irepo.find_by_id(4)
   end
 
-  def test_test_it_can_find_item_by_name
+  def test_it_can_find_item_by_name
     # skip
     assert_equal @irepo.all[1], @irepo.find_by_name("stationary set")
     assert_equal @irepo.all[2], @irepo.find_by_name("GlitterPens")
   end
 
-  def test_find_by_description
+  def test_it_can_find_an_item_by_description
     # skip
     search = @irepo.find_all_with_description("Make It Sparkle")
     assert_equal [@irepo.all[2]], search
   end
 
-  def test_find_all_by_price
+  def test_it_can_find_all_items_by_price
     search = @irepo.find_all_by_price(0.1099)
     assert_equal [@irepo.all[0]], search
   end
 
-  def test_find_all_by_price_in_range
+  def test_find_all_items_by_price_in_range
     search = @irepo.find_all_by_price_in_range(1.00..10.00)
     assert_equal [@irepo.all[3]], search
     search = @irepo.find_all_by_price_in_range(0.00..2.00)
     assert_equal [@irepo.all[0], @irepo.all[1], @irepo.all[2], @irepo.all[3]], search
   end
 
-  def test_find_all_by_merchant_id
+  def test_it_can_find_all_items_by_merchant_id
     search = @irepo.find_all_by_merchant_id(11111)
     assert_equal [@irepo.all[0]], search
   end
 
-  def test_new_id
+  def test_it_can_create_a_new_id
     result = @irepo.create_new_id_number
     expected = 5
     assert_equal expected, result
   end
 
-  def test_create
-    new_item = @irepo.create(
+  def test_it_can_create_a_new_item
+    new_item = @irepo.create({
     :id         => 6,
     :name        => "Test",
     :description => "Test Description",
     :unit_price  => BigDecimal.new(100.00,5),
     :created_at  => Time.now,
     :updated_at  => Time.now,
-    :merchant_id => 55555)
+    :merchant_id => 55555})
     assert_instance_of Item, new_item[-1]
     result = "Test"
     expected = @irepo.all.last.name
