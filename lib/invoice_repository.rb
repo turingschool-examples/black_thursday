@@ -3,7 +3,7 @@ require_relative 'invoice'
 class InvoiceRepository
   def initialize(invoice_data)
     @invoice_rows ||= build_invoice(invoice_data)
-    @invoices = @invoice_rows
+    @repo = @invoice_rows
   end
 
   def build_invoice(invoice_data)
@@ -13,29 +13,29 @@ class InvoiceRepository
   end
 
   def all
-    @invoices
+    @repo
   end
 
   def find_by_id(id)
-    @invoices.find do |invoice|
+    @repo.find do |invoice|
       invoice.id == id
     end
   end
 
   def find_all_by_customer_id(customer_id)
-    @invoices.find_all do |invoice|
+    @repo.find_all do |invoice|
       invoice.customer_id == customer_id
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @invoices.find_all do |invoice|
+    @repo.find_all do |invoice|
       invoice.merchant_id == merchant_id
     end
   end
 
   def find_all_by_status(status)
-    @invoices.find_all do |invoice|
+    @repo.find_all do |invoice|
       invoice.status == status
     end
   end
@@ -50,7 +50,7 @@ class InvoiceRepository
       created_at: Time.now,
       updated_at: Time.now
       )
-    @invoices << invoice
+    @repo << invoice
     invoice
   end
 
@@ -59,7 +59,7 @@ class InvoiceRepository
   end
 
   def find_highest_id
-    @invoices.max_by do |invoice|
+    @repo.max_by do |invoice|
       invoice.id
     end
   end
@@ -73,14 +73,14 @@ class InvoiceRepository
   end
 
   def delete(id)
-    invoice = @invoices.find_index do |invoice|
+    invoice = @repo.find_index do |invoice|
       invoice.id == id
     end
     return if invoice.nil?
-    @invoices.delete_at(invoice)
+    @repo.delete_at(invoice)
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{@repo.size} rows>"
   end
 end
