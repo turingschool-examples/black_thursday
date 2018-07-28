@@ -1,16 +1,18 @@
 require_relative 'csv_adaptor'
 require_relative 'merchant_repo'
 require_relative 'item_repo'
+require_relative 'sales_analyst'
 
 
 class SalesEngine
   extend CsvAdaptor
-  
-  attr_accessor :merchants, :items
+
+  attr_accessor :merchants, :items, :analyst
 
   def initialize(merchant_array, item_array)
     @merchants = MerchantRepo.new(merchant_array)
     @items = ItemRepo.new(item_array)
+    @analyst = SalesAnalyst.new(@merchants, @items)
   end
 
   def self.from_csv(hash)
