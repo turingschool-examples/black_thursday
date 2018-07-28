@@ -23,4 +23,11 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_instance_of Customer, actual
   end
+
+  def test_it_returns_array_of_all_customers
+    customer_list = @cr.create(id: 7, first_name: "Wes", last_name: "Anderson", updated_at: '2009-05-30'),
+                    @cr.create(id: 8, first_name: "Quentin", last_name: "Tarantino", updated_at: '2011-08-20')
+
+    assert_equal [customer_list].flatten, @cr.all
+  end
 end

@@ -5,7 +5,7 @@ require_relative './customer'
 # Customer repository class
 class CustomerRepository
   def initialize
-    @customer = {}
+    @customers = {}
   end
 
   def populate(data)
@@ -15,12 +15,21 @@ class CustomerRepository
   end
 
   def create(params)
-    params[:id] = @customer.max[0] + 1 if params[:id].nil?
+    params[:id] = @customers.max[0] + 1 if params[:id].nil?
 
     Customer.new(params).tap do |customer|
-      @customer[params[:id].to_i] = customer
+      @customers[params[:id].to_i] = customer
     end
   end
+
+  def all
+    customer_list = @customers.to_a.flatten
+    customer_list.keep_if do |element|
+      element.is_a?(Customer)
+    end
+  end
+
+
 
 
 end
