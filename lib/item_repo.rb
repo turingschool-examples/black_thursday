@@ -1,4 +1,3 @@
-# require 'time'
 require 'bigdecimal'
 require_relative 'item'
 

@@ -34,5 +34,4 @@ class ItemTest < Minitest::Test
   assert_equal 10.99, actual
   end
 
-
 end
