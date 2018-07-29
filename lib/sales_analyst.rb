@@ -158,6 +158,8 @@ class SalesAnalyst
     end
     golden
   end
+
+  
 end
 
 # def return_hash_of_merchants_with_items
