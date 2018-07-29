@@ -91,7 +91,7 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 5, customer
   end
 
-  def test_it_can_create_new_merchant
+  def test_it_can_create_new_customer
     attributes = {  first_name: 'Juan',
                     last_name: 'Don',
                     created_at: '2010-12-10',
@@ -101,5 +101,17 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 'Juan', customer.first_name
     assert_equal 'Don', customer.last_name
     assert_equal 5, customer.id
+  end
+
+  def test_it_can_update_customer_name
+    attributes = {
+      first_name: 'Greg'
+    }
+    id = 2
+    customer = @customer_repository.update(id, attributes)
+    expected = @customer_repository.find_by_id(id)
+    assert_equal 'Greg', expected.first_name
+    expected = @customer_repository.find_all_by_first_name('John')
+    assert_equal [], expected
   end
 end
