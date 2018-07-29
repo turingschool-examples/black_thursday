@@ -87,10 +87,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sa.average_item_price_for_merchant(4).class
   end
 
-  def test_it_can_find_number_of_merchants
-    assert_equal 5, @sa.number_of_merchants
-  end
-
   def test_it_can_find_average_average_price_per_merchant
   # (9/1 + (10+11)/2 + (12+13+14)/3 + (15+16+17+18)/4 + (19+20+50)/3)/5 = 15.73
     assert_equal 15.73, @sa.average_average_price_per_merchant
@@ -223,10 +219,9 @@ class SalesAnalystTest < Minitest::Test
 
 # What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
   def test_it_can_find_percentage_of_invoices
-    skip
-    assert_equal 46.15, @sa.invoice_status(:pending)
-    assert_equal 46.15, @sa.invoice_status(:shipped)
-    assert_equal 7.7, @sa.invoice_status(:returned)
+    assert_equal 7.69, @sa.invoice_status(:returned)
+    assert_equal 53.85, @sa.invoice_status(:shipped)
+    assert_equal 38.46, @sa.invoice_status(:pending)
   end
 
   def test_it_can_group_invoices_by_status
@@ -234,7 +229,9 @@ class SalesAnalystTest < Minitest::Test
     expected = (["returned","shipped","pending"])
     assert_equal expected, @sa.group_invoices_by_status.keys
     assert_equal 1, @sa.group_invoices_by_status["returned"].count
-    assert_equal 6, @sa.group_invoices_by_status["shipped"].count
-    assert_equal 6, @sa.group_invoices_by_status["shipped"].count
+    assert_equal 7, @sa.group_invoices_by_status["shipped"].count
+    assert_equal 5, @sa.group_invoices_by_status["pending"].count
   end
+
+
 end
