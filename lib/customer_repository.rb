@@ -13,4 +13,16 @@ class CustomerRepository
       Customer.new(customer)
     end
   end
-end 
+
+  def find_all_by_first_name(fragment)
+    @repo.find_all do |customer|
+      customer.first_name.downcase.include?(fragment.downcase)
+    end
+  end
+
+  def find_all_by_last_name(fragment)
+    @repo.find_all do |customer|
+      customer.last_name.downcase.include?(fragment.downcase)
+    end
+  end
+end
