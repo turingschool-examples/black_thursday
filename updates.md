@@ -1,15 +1,15 @@
 bundle exec rspec spec/iteration_2_spec.rb
 Finished:
 *sales_analyst.average_invoices_per_merchant # => 10.49
+*sales_analyst.average_items_per_merchant_standard_deviation # => 3.26
+*sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
+*sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
 
 Work in Progress/Updates:
-*sales_analyst.average_items_per_merchant_standard_deviation # => 3.26
+*sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
 
 Pending:
 Iteraltion 2
-*sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
-*sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
-*sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
 *sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
 *sales_analyst.invoice_status(:pending) # => 29.55
 sales_analyst.invoice_status(:shipped) # => 56.95
