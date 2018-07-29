@@ -19,7 +19,13 @@ class CustomerRepositoryTest < Minitest::Test
       first_name: 'Jerry',
       last_name: 'Doe',
       created_at: '2010-03-30',
-      updated_at: '2013-01-21'}]
+      updated_at: '2013-01-21'},
+      {id: 4,
+      first_name: 'Jerry',
+      last_name: 'Don',
+      created_at: '2010-03-30',
+      updated_at: '2013-01-21'}
+    ]
 
     @customer_repository = CustomerRepository.new(@customers)
   end
@@ -30,6 +36,10 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_it_can_build_customer
     assert_equal Array, @customer_repository.build_customer(@customers).class
+  end
+
+  def test_can_get_an_array_of_customers
+    assert_equal 4, @customer_repository.all.count
   end
 
 end
