@@ -40,7 +40,7 @@ class InvoiceRepo
 
   def find_all_by_status(status)
     @invoices.find_all do |invoice|
-      invoice.status == status
+      invoice.status.to_sym == status.to_sym
     end
   end
 
