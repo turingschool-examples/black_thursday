@@ -2,7 +2,7 @@ require './test/test_helper'
 require './lib/customer_repository'
 require './lib/file_loader'
 
-class CustomerRespositoryTest < Minitest::Test
+class CustomerRepositoryTest < Minitest::Test
 
   def setup
     @mock_data = [

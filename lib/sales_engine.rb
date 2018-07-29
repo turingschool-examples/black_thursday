@@ -37,14 +37,14 @@ class SalesEngine
   end
 
   def invoice_items
-    @invoice_items ||= InvoiceItemRepository.new(load_file(content[:invoice_items]))
+    @invoice_items ||= InvoiceItemRepository.new(load_file(data_files[:invoice_items]))
   end
 
   def transactions
-    @transactions ||= TransactionRepository.new(load_file(content[:transactions]))
+    @transactions ||= TransactionRepository.new(load_file(data_files[:transactions]))
   end
 
   def customers
-    @customers ||= CustomerRepository.new(load_file(content[:customers]))
+    @customers ||= CustomerRepository.new(load_file(data_files[:customers]))
   end
 end

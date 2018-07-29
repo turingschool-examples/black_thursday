@@ -1,7 +1,7 @@
 require_relative 'customer'
 require_relative 'repository_assistant'
 
-class CustomerRespository
+class CustomerRepository
   include RepositoryAssistant
 
   def initialize(data_file)
