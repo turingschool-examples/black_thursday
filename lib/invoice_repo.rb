@@ -46,9 +46,8 @@ class InvoiceRepo
 
   def find_all_by_day(day)
     @invoices.find_all do |invoice|
-      #day = invoice.created_at.to_s
-
-      #== day
+      require "pry"; binding.pry
+      day = invoice.created_at.to_s
     end
 
   end

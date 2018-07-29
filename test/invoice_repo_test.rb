@@ -50,6 +50,10 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal [], @invoice_repo.find_all_by_status("pending")
   end
 
+  def test_finds_all_by_day
+    @invoice_repo.find_all_by_day("Monday")
+  end
+
   def test_it_creates_invoice_with_attributes
     refute_instance_of Invoice, @invoice_repo.invoices[14]
 
