@@ -129,10 +129,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 54.05, @sa.invoice_status(:shipped)
     assert_equal 16.22, @sa.invoice_status(:returned)
   end
-end
+
 
 #-------------------------ITERATION THREE UNIT TESTS-------------------------
-  #Please put your unit tests for your iteration 3 methods here
+def test_it_can_find_invoice_by_id
+    assert_instance_of Invoice, @sa.find_invoice('1')[0]
+    assert_equal "12335938", @sa.find_invoice('1')[0].merchant_id
+  end
 
+  def test_invoice_paid_in_full?
+    assert_equal true, @sa.invoice_paid_in_full?('134')
+  end
+
+  def test_invoice_total
+    assert_equal 100.00, @sa.invoice_total('1')
+  end
+end
 
 #-------------------------ITERATION FOUR UNIT TESTS--------------------------
