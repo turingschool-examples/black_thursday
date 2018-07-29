@@ -175,4 +175,8 @@ class SalesAnalyst
     day_counts = @invoice_repository.group_by_day
     day_counts.select { |_day, invoices | invoices.size > st_dev }.keys
   end
+
+  def invoice_status(status)
+    @invoice_repository.invoice_status(status)
+  end
 end

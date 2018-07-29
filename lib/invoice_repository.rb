@@ -61,11 +61,17 @@ class InvoiceRepository
 
   def group_by_day
     @invoices.group_by do |invoice|
-      invoice.created_at.strftime('%A')
+      created_at = Time.parse(invoice.created_string)
+      created_at.strftime('%A')
     end
   end
 
   def average_invoices_per_day
-    average = (@invoices.size / 7.0).round(2)
+    (@invoices.size / 7.0).round(2)
+  end
+
+  def invoice_status(status)
+    grouped = @invoices.group_by { |invoice| invoice.status }
+    ((grouped[status].size.to_f / @invoices.size) * 100).round(2)
   end
 end
