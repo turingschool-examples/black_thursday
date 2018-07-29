@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 class Customer
   attr_reader   :id,
                 :created_at
@@ -13,8 +14,8 @@ class Customer
     @id = attributes[:id].to_i
     @first_name = attributes[:first_name]
     @last_name = attributes[:last_name]
-    @created_at = Time.new(attributes[:created_at])
-    @updated_at = Time.new(attributes[:updated_at])
+    @created_at = Time.parse(attributes[:created_at])
+    @updated_at = Time.parse(attributes[:updated_at])
     highest_id_updater
   end
 

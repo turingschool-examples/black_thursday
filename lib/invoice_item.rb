@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 class InvoiceItem
   attr_reader   :id,
                 :item_id,
@@ -17,8 +18,8 @@ class InvoiceItem
     @invoice_id = attributes[:invoice_id].to_i
     @quantity = attributes[:quantity]
     @unit_price = BigDecimal(attributes[:unit_price]) / 100
-    @created_at = Time.new(attributes[:created_at])
-    @updated_at = Time.new(attributes[:updated_at])
+    @created_at = Time.parse(attributes[:created_at])
+    @updated_at = Time.parse(attributes[:updated_at])
     highest_id_updater
   end
 
