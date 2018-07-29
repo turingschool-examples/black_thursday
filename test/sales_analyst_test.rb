@@ -234,5 +234,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, @sa.group_invoices_by_status["pending"].count
   end
 
+  def test_invoice_paid_in_full
+    assert_equal true, @sa.invoice_paid_in_full?(2)
+    assert_equal false, @sa.invoice_paid_in_full?(1752)
+  end
 
 end
