@@ -141,12 +141,9 @@ class SalesAnalyst
   end
 
   def weekday_breakdown
-    @invoices.all.each_with_object({}) do |invoice, days|
-      if days[invoice.created_at.strftime("%A")]
-        days[invoice.created_at.strftime("%A")] += 1
-      else
-        days[invoice.created_at.strftime("%A")] = 1
-      end
+    @invoices.all.inject(Hash.new(0)) do |days, invoice|
+      days[invoice.created_at.strftime("%A")] += 1
+      days
     end
   end
 
@@ -202,5 +199,20 @@ class SalesAnalyst
       end
       sum
     end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchants_items = @items.find_all_by_merchant_id(merchant_id)
+    item_ids = merchants_items.map do |merchant_item|
+      merchant_item.id
+    end
+    invoices_for_item = item_ids.map do |item_id|
+      @invoice_items.find_all_by_item_id(item_id)
+    end.flatten
+    item_counts = invoices_for_item.inject(Hash.new(0)) do |count, invoice|
+      count[invoice.item_id] += invoice.quantity
+    end
+    max_sold = item_counts.values.max
+
   end
 end
