@@ -114,8 +114,8 @@ class SalesAnalyst
     standard_deviation(all_item_prices, average_item_price, @items)
   end
 
-  def standard_deviation(one, average, collection)
-    differences = differences_from_average(one, average)
+  def standard_deviation(array, average, collection)
+    differences = differences_from_average(array, average)
     squares = square_each_amount(differences)
     sum = sum_amount(squares)
     result = divide_sum_by_elements_less_one(collection, sum)
@@ -158,7 +158,6 @@ class SalesAnalyst
   def average_invoices_per_merchant
     unique_merchants = @merchants.all.uniq
     average = @invoices.all.count.to_f / unique_merchants.count
-    require "pry"; binding.pry
     average.round(2)
   end
 
@@ -169,7 +168,6 @@ class SalesAnalyst
       id = merchant.id
       all_invoices = @invoices.find_all_by_merchant_id(id)
       array << all_invoices.count
-      end
     end
     array
   end
@@ -178,28 +176,63 @@ class SalesAnalyst
     standard_deviation(array_invoices_per_merchant, average_invoices_per_merchant, @invoices)
   end
 
-# Who are our top performing merchants?
-# Which merchants are more than two standard deviations above the mean?
-#
-# sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
-# Who are our lowest performing merchants?
-# Which merchants are more than two standard deviations below the mean?
-#
-# sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
-# Which days of the week see the most sales?
-# On which days are invoices created at more than one standard deviation above the mean?
-#
-# sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
-# What percentage of invoices are not shipped?
-# What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
-#
-# sales_analyst.invoice_status(:pending) # => 29.55
-# sales_analyst.invoice_status(:shipped) # => 56.95
-# sales_analyst.invoice_status(:returned) # => 13.5
+  def top_merchants_by_invoice_count
+    high_level = average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant
+    unique_merchants = @merchants.all.uniq
+    top_merchants = []
+    unique_merchants.each do |merchant|
+      id = merchant.id
+      all_invoices = @invoices.find_all_by_merchant_id(id)
+      count = all_invoices.count
+      if count >= high_level
+        top_merchants << merchant
+      end
+    end
+    top_merchants
+  end
+
+  def bottom_merchants_by_invoice_count
+    low_level = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    unique_merchants = @merchants.all.uniq
+    low_merchants = []
+    unique_merchants.each do |merchant|
+      id = merchant.id
+      all_invoices = @invoices.find_all_by_merchant_id(id)
+      count = all_invoices.count
+      if count <= low_level
+        low_merchants << merchant
+      end
+    end
+    low_merchants
+  end
+
+  def average_days_array
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    days = days.map do |day|
+      @invoices.find_all
+      / 7.0
+    end
+  end
+
+  def top_days_by_invoice_count
+
+
+    standard_deviation(array, average, @invoices)
+  # Which days of the week see the most sales?
+  # On which days are invoices created at more than one standard deviation above the mean?
+  #
+  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+  end
+
+  def invoice_status(sym)
+    percentage = @invoices.find_all_by_status(sym).count.to_f / @invoices.all.count
+    percentage = percentage * 100
+    percentage.round(2)
+  end
+
+
 
 end
-
-
 
 # def return_hash_of_merchants_with_items
 #   hash = Hash.new(0)

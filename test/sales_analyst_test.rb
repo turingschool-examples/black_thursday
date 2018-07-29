@@ -38,7 +38,7 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4986, :customer_id=>"888", :merchant_id=>"12334113", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
     {:id=>4987, :customer_id=>"888", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
     {:id=>4988, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
-    {:id=>4989, :customer_id=>"999", :merchant_id=>"12334113", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
+    {:id=>4989, :customer_id=>"999", :merchant_id=>"12334113", :status=>"pending", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
     {:id=>4990, :customer_id=>"777", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"},
     {:id=>4991, :customer_id=>"777", :merchant_id=>"12334112", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
     {:id=>4992, :customer_id=>"777", :merchant_id=>"12334105", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
@@ -97,11 +97,29 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    assert_equal 1, @analyst.average_invoices_per_merchant
+    assert_equal 5, @analyst.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    assert_equal 1, @analyst.average_items_per_merchant_standard_deviation
+    assert_equal 2.65, @analyst.average_items_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_equal [@mer_repo.all[2]], @analyst.top_merchants_by_invoice_count
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_equal [@mer_repo.all[0]], @analyst.bottom_merchants_by_invoice_count
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal []
+  end
+
+  def test_invoice_status
+    assert_equal 6.67, @analyst.invoice_status(:pending)
+    assert_equal 60, @analyst.invoice_status(:shipped)
+    assert_equal 33.33, @analyst.invoice_status(:returned)
   end
 
 end
