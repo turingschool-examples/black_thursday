@@ -5,10 +5,11 @@ class MerchantRepoTest < Minitest::Test
 
   def setup
     merchant_array = [{:id=>"12334105", :name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"},
-      {:id=>"12334112", :name=>"Candisart", :created_at=>"2009-05-30", :updated_at=>"2010-08-29"},
-      {:id=>"12334113", :name=>"Sandy", :created_at=>"2010-03-30", :updated_at=>"2013-01-21"},
-      {:id=>"12334115", :name=>"sandy", :created_at=>"2008-06-09", :updated_at=>"2015-04-16"},
-      {:id=>"12334123", :name=>"Keckenbauer", :created_at=>"2010-07-15", :updated_at=>"2012-07-25"}]
+    {:id=>"12334112", :name=>"Candisart", :created_at=>"2009-05-30", :updated_at=>"2010-08-29"},
+    {:id=>"12334113", :name=>"Sandy", :created_at=>"2010-03-30", :updated_at=>"2013-01-21"},
+    {:id=>"12334115", :name=>"sandy", :created_at=>"2008-06-09", :updated_at=>"2015-04-16"},
+    {:id=>"12334123", :name=>"Keckenbauer", :created_at=>"2010-07-15", :updated_at=>"2012-07-25"}]
+    
     @mer_repo = MerchantRepo.new(merchant_array)
   end
 
@@ -44,15 +45,15 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_updates_merchant_attributes
-    refute_equal "HiThere", @mer_repo.all[4].name
+    refute_equal "HiThere", @mer_repo.merchants[4].name
     @mer_repo.update(12334123, {:id => 2222222, :name => "HiThere"})
 
-    assert_equal "HiThere", @mer_repo.all[4].name
-    assert_equal 12334123, @mer_repo.all[4].id
+    assert_equal "HiThere", @mer_repo.merchants[4].name
+    assert_equal 12334123, @mer_repo.merchants[4].id
   end
 
   def test_it_deletes_merchant_by_id
-    assert_equal 12334123, @mer_repo.all[4].id
+    assert_equal 12334123, @mer_repo.merchants[4].id
     @mer_repo.delete(12334123)
     assert_equal nil, @mer_repo.find_by_id(12334123)
   end

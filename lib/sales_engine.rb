@@ -30,10 +30,9 @@ class SalesEngine
 end
 
 
+
 # se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
+#   :items     => "./data/invoices.csv"}]
 # mr = se.merchants
 # merchant = mr.merchant_hashes_to_objects()
 # p merchant
