@@ -203,9 +203,12 @@ class SalesAnalyst
     end
     top_days
   end
-# *sales_analyst.invoice_status(:pending) # => 29.55
-# sales_analyst.invoice_status(:shipped) # => 56.95
-# sales_analyst.invoice_status(:returned) # => 13.5
+
+  def invoice_status(status)
+    invoices = @se.invoices.all.count
+    by_status = @se.invoices.find_all_by_status(status).count
+    ((by_status / invoices.to_f) * 100).round(2)
+  end
 end
 
 #-------------------ITERATION THREE------------------------------------
