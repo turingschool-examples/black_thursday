@@ -13,7 +13,7 @@ class Invoice
     @id = hash[:id].to_i
     @customer_id = hash[:customer_id].to_i
     @merchant_id = hash[:merchant_id].to_i
-    @status = hash[:status].to_s
+    @status = hash[:status].to_sym
     @created_at = if hash[:created_at].class == String
                     Time.parse(hash[:created_at])
                   else
