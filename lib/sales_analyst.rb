@@ -266,4 +266,11 @@ class SalesAnalyst
       invoice.status
     end
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    require "pry"; binding.pry
+    @sales_engine.transactions.find_all_by_invoice_id(invoice_id).all? do |invoice|
+      invoice.result == :success
+    end
+  end
 end
