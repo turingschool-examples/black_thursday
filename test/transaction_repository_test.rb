@@ -88,4 +88,14 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '4068631943231472', transaction_2[-1].credit_card_number
     assert_equal ([]), transaction_3
   end
+
+  def test_it_can_find_all_by_result
+    transaction_1 = @transaction.find_all_by_result('success')
+    transaction_2 = @transaction.find_all_by_result('failed')
+    transaction_3 = @transaction.find_all_by_result('invalid')
+    assert_equal :success, transaction_1.first.result
+    assert_equal :failed, transaction_2.first.result
+    assert_equal :failed, transaction_2[-1].result
+    assert_equal ([]), transaction_3
+  end
 end

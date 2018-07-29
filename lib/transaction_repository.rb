@@ -18,7 +18,13 @@ class TransactionRepository
   def find_all_by_credit_card_number(credit_card_number)
     @repo.find_all do |transaction|
       transaction.credit_card_number == credit_card_number
-    end 
+    end
+  end
+
+  def find_all_by_result(result)
+    @repo.find_all do |transaction|
+      transaction.result == result.to_sym
+    end
   end
 
 end
