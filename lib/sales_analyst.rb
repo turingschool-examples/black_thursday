@@ -156,16 +156,8 @@ class SalesAnalyst
 # sales_analyst.average_invoices_per_merchant # => 10.49
 # sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
   def average_invoices_per_merchant
-
-####  working here
-    invoice_numbers = []
-    unique_merchants = @merchants.uniq
-    unique_merchants.each do |merchant|
-      array_of_invoices = @invoices.find_all_by_merchant_id(merchant.id)
-      invoice_numbers << array_of_invoices.count
-    end
-    sum_of_invoices = sum_amount(invoice_numbers)
-    average = sum_of_invoices / unique_merchants.count
+    unique_merchants = @merchants.all.uniq
+    average = @invoices.all.count.to_f / unique_merchants.count
     require "pry"; binding.pry
     average.round(2)
   end

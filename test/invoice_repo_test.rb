@@ -82,8 +82,4 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal nil, @invoice_repo.find_by_id(4983)
   end
 
-  def test_average_invoices_per_merchant
-    assert_equal 
-  end
-
 end
