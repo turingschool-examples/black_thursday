@@ -60,12 +60,7 @@ class SalesEngine
     CSV.foreach(csv_hash[:customers], headers: true, header_converters: :symbol) do |row|
       customers << Customer.new(row)
     end
-
-    # item_location = csv_hash[:items]
-    # invoice_location = csv_hash[:invoices]
-    # invoice_item_location = csv_hash[:invoice_items]
-    # transaction_location = csv_hash[:transactions]
-    # customer_location = csv_hash[:customers]
+    
     SalesEngine.new(merchants, items, invoices, invoice_items, transactions, customers)
   end
 end

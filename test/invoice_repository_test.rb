@@ -5,29 +5,29 @@ require 'pry'
 class InvoiceRepositoryTest < Minitest::Test
   def setup
     invoice_1 = Invoice.new({
-                      :id          => 1,
-                      :customer_id => 10,
-                      :merchant_id => 123,
-                      :status      => "pending",
-                      :created_at  => "2004-02-17",
-                      :updated_at  => "2014-03-15"
-                    })
+      id: 1,
+      customer_id: 10,
+      merchant_id: 123,
+      status: "pending",
+      created_at: "2004-02-17",
+      updated_at: "2014-03-15"
+      })
     invoice_2 = Invoice.new({
-                      :id          => 2,
-                      :customer_id => 10,
-                      :merchant_id => 124,
-                      :status      => "shipped",
-                      :created_at  => "2009-02-07",
-                      :updated_at  => "2012-03-15"
-                    })
+      id: 2,
+      customer_id: 10,
+      merchant_id: 124,
+      status: "shipped",
+      created_at: "2009-02-07",
+      updated_at: "2012-03-15"
+      })
     invoice_3 = Invoice.new({
-                      :id          => 3,
-                      :customer_id => 12,
-                      :merchant_id => 125,
-                      :status      => "returned",
-                      :created_at  => "1997-07-31",
-                      :updated_at  => "2014-02-11"
-                    })
+      id: 3,
+      customer_id: 12,
+      merchant_id: 125,
+      status: "returned",
+      created_at: "1997-07-31",
+      updated_at: "2014-02-11"
+      })
 
     invoices = [invoice_1, invoice_2, invoice_3]
     @invoice_repository = InvoiceRepository.new(invoices)

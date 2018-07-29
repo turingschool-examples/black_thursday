@@ -8,16 +8,8 @@ class TransactionRepository
   attr_reader :transactions
   include RepoMethodHelper
 
-  def initialize(transaction_location)
-    @transaction_location = transaction_location
-    @transactions = []
-    from_sales_engine
-  end
-
-  def from_sales_engine
-    CSV.foreach(@transaction_location, headers: true, header_converters: :symbol) do |row|
-      @transactions << Transaction.new(row)
-    end
+  def initialize(transactions)
+    @transactions = transactions
   end
 
   def all

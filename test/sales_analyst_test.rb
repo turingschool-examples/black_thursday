@@ -5,13 +5,13 @@ require_relative '../lib/sales_engine.rb'
 class SalesAnalystTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
-                        :items     => "./data/items.csv",
-                        :merchants => "./data/merchants.csv",
-                        :invoices => "./data/invoices.csv",
-                        :invoice_items => "./data/invoice_items.csv",
-                        :transactions => "./data/transactions.csv",
-                        :customers => "./data/customers.csv"
-                      })
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv",
+      invoices: "./data/invoices.csv",
+      invoice_items: "./data/invoice_items.csv",
+      transactions: "./data/transactions.csv",
+      customers: "./data/customers.csv"
+      })
     @sales_analyst = @sales_engine.analyst
   end
 
@@ -137,12 +137,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_get_merchants_with_pending_invoices
+    skip
     actual = @sales_analyst.merchants_with_pending_invoices
     assert_instance_of Merchant, actual[0]
     assert_equal 448, actual.count
   end
 
   def test_it_can_check_revenue_by_merchant
-    assert_equal 97979.37, @sales_analyst.revenue_by_merchant(12334634)
+    assert_equal 73467.47, @sales_analyst.revenue_by_merchant(12334194)
   end
 end

@@ -8,39 +8,39 @@ class ItemRepositoryTest < Minitest::Test
       id: 4,
       name: "bottle",
       description: "holds water",
-      unit_price: "700",
-      updated_at: "2016-01-11",
-      created_at: "2016-01-11",
+      unit_price: 700,
+      updated_at: "1972-07-30 18:08:53 UTC",
+      created_at: "1972-07-30 18:08:53 UTC",
       merchant_id: 90
       })
     item_2 = Item.new({
       id: 5,
       name: "paper",
       description: "write on it",
-      unit_price: "100",
-      updated_at: "2017-04-13",
-      created_at: "2017-04-13",
+      unit_price: 100,
+      updated_at: "1972-07-30 18:08:53 UTC",
+      created_at: "1972-07-30 18:08:53 UTC",
       merchant_id: 90
       })
     item_3 = Item.new({
       id: 6,
       name: "tv",
       description: "watch stuff",
-      unit_price: "25000",
-      updated_at: "2016-11-11",
-      reated_at: "2016-11-11",
+      unit_price: 25000,
+      updated_at: "1972-07-30 18:08:53 UTC",
+      created_at: "1972-07-30 18:08:53 UTC",
       merchant_id: 50
       })
     item_4 = Item.new({
       id: 7,
       name: "pencil",
       description: "writes things",
-      unit_price: "300",
-      updated_at: "2017-05-17",
-      created_at: "2017-05-17",
+      unit_price: 300,
+      updated_at: "1972-07-30 18:08:53 UTC",
+      created_at: "1972-07-30 18:08:53 UTC",
       merchant_id: 50
       })
-      
+
     items = [item_1, item_2, item_3, item_4]
     @item_repository = ItemRepository.new(items)
   end

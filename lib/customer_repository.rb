@@ -7,16 +7,8 @@ class CustomerRepository
   attr_reader :customers
   include RepoMethodHelper
 
-  def initialize(customer_location)
-    @customer_location = customer_location
-    @customers = []
-    from_sales_engine
-  end
-
-  def from_sales_engine
-    CSV.foreach(@customer_location, headers: true, header_converters: :symbol) do |row|
-      @customers << Customer.new(row)
-    end
+  def initialize(customers)
+    @customers = customers
   end
 
   def all

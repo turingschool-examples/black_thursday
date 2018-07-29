@@ -4,7 +4,23 @@ require 'pry'
 
 class CustomerRepositoryTest < Minitest::Test
   def setup
-    @customer_repository = CustomerRepository.new("./data/customers.csv")
+    customer_1 = Customer.new({
+      id: 6,
+      first_name: "Joan",
+      last_name: "Clarke",
+      created_at: "1972-07-30 18:08:53 UTC",
+      updated_at: "2016-01-11 18:30:35 UTC"
+      })
+    customer_2 = Customer.new({
+      id: 7,
+      first_name: "Alan",
+      last_name: "Turing",
+      created_at: "1972-07-30 18:08:53 UTC",
+      updated_at: "2016-01-11 18:30:35 UTC"
+      })
+
+    customers = [customer_1, customer_2]
+    @customer_repository = CustomerRepository.new(customers)
   end
 
   def test_it_exists
@@ -17,33 +33,33 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_its_holding_customers
     assert_instance_of Customer, @customer_repository.customers[0]
-    assert_instance_of Customer, @customer_repository.customers[25]
+    assert_instance_of Customer, @customer_repository.customers[1]
   end
 
   def test_it_can_return_customers_using_all
-    assert_instance_of Customer, @customer_repository.all[5]
-    assert_instance_of Customer, @customer_repository.all[97]
+    assert_instance_of Customer, @customer_repository.all[0]
+    assert_instance_of Customer, @customer_repository.all[1]
   end
 
   def test_it_can_find_by_id
     expected = @customer_repository.customers[0]
-    actual = @customer_repository.find_by_id(1)
+    actual = @customer_repository.find_by_id(6)
     assert_equal expected, actual
   end
 
   def test_it_can_find_all_by_first_name
     expected = 1
-    actual = @customer_repository.find_all_by_first_name("Joey").count
+    actual = @customer_repository.find_all_by_first_name("Alan").count
     assert_equal expected, actual
-    actual_2 = @customer_repository.find_all_by_first_name("JOEY").count
+    actual_2 = @customer_repository.find_all_by_first_name("ALAN").count
     assert_equal expected, actual_2
   end
 
   def test_it_can_find_all_by_last_name
-    expected = 3
-    actual = @customer_repository.find_all_by_last_name("Ondricka").count
+    expected = 1
+    actual = @customer_repository.find_all_by_last_name("Clarke").count
     assert_equal expected, actual
-    actual_2 = @customer_repository.find_all_by_last_name("ONDRICKA").count
+    actual_2 = @customer_repository.find_all_by_last_name("CLARKE").count
     assert_equal expected, actual_2
   end
 
@@ -67,7 +83,7 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Pots", new_customer.first_name
     assert_equal "McGee", new_customer.last_name
 
-    @customer_repository.update(1001, {
+    @customer_repository.update(8, {
       first_name: "Fats",
       last_name: "Lever"
       })
