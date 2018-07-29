@@ -86,4 +86,9 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 4, customer.id
   end
 
+  def test_it_can_create_new_id
+    customer = @customer_repository.create_id
+    assert_equal 5, customer
+  end
+
 end
