@@ -138,4 +138,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '0722', expected.credit_card_expiration_date
     assert_equal :success, expected.result
   end
+
+  def test_it_can_delete_invoice
+    id = 2
+
+    invoice = @transaction.delete(id)
+    expected = @transaction.find_by_id(2)
+
+    assert_nil expected
+  end
 end
