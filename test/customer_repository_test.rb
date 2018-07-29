@@ -91,4 +91,15 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 5, customer
   end
 
+  def test_it_can_create_new_merchant
+    attributes = {  first_name: 'Juan',
+                    last_name: 'Don',
+                    created_at: '2010-12-10',
+                    updated_at: '2011-12-04'
+                  }
+    customer = @customer_repository.create(attributes)
+    assert_equal 'Juan', customer.first_name
+    assert_equal 'Don', customer.last_name
+    assert_equal 5, customer.id
+  end
 end

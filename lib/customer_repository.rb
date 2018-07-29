@@ -25,4 +25,17 @@ class CustomerRepository
       customer.last_name.downcase.include?(fragment.downcase)
     end
   end
+
+  def create(attributes)
+    id = create_id
+    customer = Customer.new(
+      id: id,
+      first_name: attributes[:first_name],
+      last_name: attributes[:last_name],
+      created_at: Time.now,
+      updated_at: Time.now,
+      )
+    @repo << customer
+    customer
+  end
 end
