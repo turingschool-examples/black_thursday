@@ -28,11 +28,11 @@ class CustomerRepositoryTest < Minitest::Test
       :updated_at => Time.now}
       ]
 
-    @customer_repo = CustomerRespository.new(@mock_data)
+    @customer_repo = CustomerRepository.new(@mock_data)
   end
 
   def test_it_exists
-    assert_instance_of CustomerRespository, @customer_repo
+    assert_instance_of CustomerRepository, @customer_repo
   end
 
   def test_it_can_find_all_customers
