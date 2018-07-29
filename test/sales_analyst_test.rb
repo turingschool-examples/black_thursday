@@ -185,9 +185,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_group_invoices_by_date
     assert_equal 7, @sa.group_invoices_by_day_created.count
-  end
-
-  def test_it_can_find_number_of_invoices_per_day
+    assert_equal [0, 1, 2, 3, 4, 5, 6], @sa.group_invoices_by_day_created.keys
     assert_equal 4, @sa.group_invoices_by_day_created[0].count #Sunday
     assert_equal 1, @sa.group_invoices_by_day_created[1].count #Monday
     assert_equal 1, @sa.group_invoices_by_day_created[2].count #Tuesday
