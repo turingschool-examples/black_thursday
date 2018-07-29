@@ -16,7 +16,7 @@ class TransactionRepositoryTest < Minitest::Test
       :invoice_id => 8,
       :credit_card_number => "3737373737373737",
       :credit_card_exp_date => "0220",
-      :result => "success",
+      :result => :success,
       :created_at => Time.now,
       :updated_at => Time.now},
      {:id => 8,

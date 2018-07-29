@@ -16,7 +16,7 @@ class TransactionRepository
 
   def find_all_by_result(result)
     @repository.find_all do |transaction|
-      transaction.result.downcase.include?(result.downcase)
+      transaction.result == result
     end
   end
 

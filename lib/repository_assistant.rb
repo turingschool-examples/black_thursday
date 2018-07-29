@@ -18,7 +18,6 @@ module RepositoryAssistant
     end
   end
 
-
   def find_all_by_invoice_id(invoice_id)
     @repository.find_all do |repo_object|
       repo_object.invoice_id == invoice_id
