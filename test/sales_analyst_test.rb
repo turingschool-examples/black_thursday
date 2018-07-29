@@ -319,4 +319,9 @@ class SalesAnalystTest < Minitest::Test
   def test_it_finds_merchants_with_one_item
     assert_equal [@merchant_1, @merchant_3], @sales_analyst.merchants_with_only_one_item
   end
+
+  def test_if_finds_merchants_with_one_item_by_month
+    actual = @sales_analyst.merchants_with_only_one_item_registered_in_month("February")
+    assert_equal [@merchant_1, @merchant_3], actual
+  end
 end
