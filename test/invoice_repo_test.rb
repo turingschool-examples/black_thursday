@@ -26,25 +26,25 @@ class InvoiceRepoTest < Minitest::Test
     assert_instance_of InvoiceRepo, @invoice_repo
   end
 
-#   def test_it_returns_all_invoices
-#     assert_equal @invoice_repo.invoices, @invoice_repo.all
-#   end
-#
-#   def test_it_finds_invoice_by_id
-#     assert_equal @invoice_repo.invoices[0], @invoice_repo.find_by_id(4972)
-#     assert_equal nil, @invoice_repo.find_by_id(1234)
-#   end
-#
-#   def test_it_finds_all_invoices_by_cutomer_id
-#     assert_equal [@invoice_repo.invoices[0], @invoice_repo.invoices[1]], @invoice_repo.find_all_by_customer_id(996)
-#     assert_equal [], @invoice_repo.find_all_by_customer_id(1234)
-#   end
-#
-#   def test_it_finds_all_invoices_by_merchant_id
-#     assert_equal [@invoice_repo.invoices[12], @invoice_repo.invoices[13]], @invoice_repo.find_all_by_merchant_id(12335541)
-#     assert_equal [], @invoice_repo.find_all_by_merchant_id(12345678)
-#   end
-#
+  def test_it_returns_all_invoices
+    assert_equal @invoice_repo.invoices, @invoice_repo.all
+  end
+
+  def test_it_finds_invoice_by_id
+    assert_equal @invoice_repo.invoices[0], @invoice_repo.find_by_id(4972)
+    assert_equal nil, @invoice_repo.find_by_id(1234)
+  end
+
+  # def test_it_finds_all_invoices_by_cutomer_id
+  #   assert_equal [@invoice_repo.invoices[0], @invoice_repo.invoices[1]], @invoice_repo.find_all_by_customer_id(996)
+  #   assert_equal [], @invoice_repo.find_all_by_customer_id(1234)
+  # end
+
+  # def test_it_finds_all_invoices_by_merchant_id
+  #   assert_equal [@invoice_repo.invoices[12], @invoice_repo.invoices[13]], @invoice_repo.find_all_by_merchant_id(12335541)
+  #   assert_equal [], @invoice_repo.find_all_by_merchant_id(12345678)
+  # end
+
 #   def test_it_finds_all_by_status
 #     assert_equal [@invoice_repo.invoices[9], @invoice_repo.invoices[12]], @invoice_repo.find_all_by_status("returned")
 #     assert_equal [], @invoice_repo.find_all_by_status("pending")
