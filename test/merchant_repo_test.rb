@@ -37,7 +37,8 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_creates_merchant_with_attributes
-    actual = @mer_repo.create({:id => 8, :name => "Cool School"})
+    actual = @mer_repo.create({:id => 8, 
+                               :name => "Cool School"})
     assert_instance_of Merchant, actual
 
     assert_equal "Cool School", @mer_repo.merchants[5].name
@@ -46,7 +47,8 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_updates_merchant_attributes
     refute_equal "HiThere", @mer_repo.merchants[4].name
-    @mer_repo.update(12334123, {:id => 2222222, :name => "HiThere"})
+    @mer_repo.update(12334123, {:id => 2222222, 
+                                :name => "HiThere"})
 
     assert_equal "HiThere", @mer_repo.merchants[4].name
     assert_equal 12334123, @mer_repo.merchants[4].id

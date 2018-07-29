@@ -66,6 +66,7 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_it_updates_invoice_attributes
     refute_equal "returned", @invoice_repo.invoices[13].status
+    
     @invoice_repo.update(4985, {id:           6,
                                 customer_id:  7,
                                 merchant_id:  8,
@@ -73,6 +74,7 @@ class InvoiceRepoTest < Minitest::Test
                                 created_at:   Time.now,
                                 updated_at:   Time.now
                                 })
+                                
     assert_equal "shipped", @invoice_repo.invoices[13].status
   end
 

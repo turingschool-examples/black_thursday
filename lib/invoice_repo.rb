@@ -13,7 +13,7 @@ class InvoiceRepo
     @invoices.each do |invoice|
       invoice_array << Invoice.new(invoice)
     end
-    @items = invoice_array
+    @invoices = invoice_array
   end
 
   def all 
@@ -40,7 +40,7 @@ class InvoiceRepo
   
   def find_all_by_status(status)
     @invoices.find_all do |invoice|
-      invoice.status == status
+      invoice.status.to_sym == status.to_sym
     end
   end
   

@@ -13,7 +13,7 @@ class InvoiceItemRepo
   def change_invoice_item_hash_to_object
     invoice_items_array = []
     @invoice_items.each do |invoice_item|
-      invoice_items_array << InvoiceItem.new(invoice_ite)
+      invoice_items_array << InvoiceItem.new(invoice_item)
     end
     @invoice_items = invoice_items_array
   end
@@ -30,14 +30,14 @@ class InvoiceItemRepo
   
   def find_all_by_item_id(item_id)
     @invoice_items.find_all do |invoice_item|
-      invoice_item.id == item_id
+      invoice_item.item_id == item_id
     end
   end
   
   def find_all_by_invoice_id(invoice_id)
     @invoice_items.find_all do |invoice_item|
-      invoice_item.id == invoice_id
-    end 
+      invoice_item.invoice_id == invoice_id
+    end
   end
   
   def create(attributes)
@@ -68,6 +68,8 @@ class InvoiceItemRepo
     invoice_item_to_delete = find_by_id(id)
     @invoice_items.delete(invoice_item_to_delete)
   end
+
+end
   
   
   

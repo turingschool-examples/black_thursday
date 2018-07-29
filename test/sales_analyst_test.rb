@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
 require_relative '../lib/invoice_repo'
+require_relative '../lib/invoice_item_repo'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
 
@@ -36,8 +37,17 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4984, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
     {:id=>4985, :customer_id=>"999", :merchant_id=>"12335541", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
     @invoice_repo = InvoiceRepo.new(invoice_array)
+    
+    invoice_item_array = [{:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"
+    2000-12-14", :updated_at=>"2011-02-05"}, {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"
+    2000-12-14", :updated_at=>"2011-02-05"}, {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"
+    2000-12-14", :updated_at=>"2011-02-05"}, {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"
+    2000-12-14", :updated_at=>"2011-02-05"}, {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"
+    2000-12-14", :updated_at=>"2011-02-05"}, {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"
+    2000-12-14", :updated_at=>"2011-02-05"}]
+    @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
 
-    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo)
+    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo)
   end
   
   def test_it_exists
