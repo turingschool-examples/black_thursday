@@ -75,7 +75,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, @sales_analyst.ids_with_high_item_count.class
     assert_equal Array, @sales_analyst.ids_with_high_item_count[0].class
     assert_equal 52, @sales_analyst.ids_with_high_item_count.count
+  end
+  
+  def test_average_average_price_per_merchant
+    assert_equal BigDecimal, @sales_analyst.average_average_price_per_merchant.class
+    assert_equal 350.29, @sales_analyst.average_average_price_per_merchant
   end 
+  
+  def test_it_creates_array_of_averages_per_merchant 
+    assert_equal Array, @sales_analyst.create_array_of_averages_per_merchant.class
+    assert_equal BigDecimal, @sales_analyst.create_array_of_averages_per_merchant[0].class
+    assert_equal @sales_analyst.merchant_repository.all.count, @sales_analyst.create_array_of_averages_per_merchant.count
+  end 
+    
   
   def test_average_item_price_for_merchant 
     assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)

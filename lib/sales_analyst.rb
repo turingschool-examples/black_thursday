@@ -58,13 +58,31 @@ class SalesAnalyst
       count > @item_count_std_dev + average_items_per_merchant
     end
     return id_high_items
-  end  
+  end
+
+  def average_average_price_per_merchant 
+    sum = create_array_of_averages_per_merchant.inject(0) do |total, avg|
+      total += avg 
+    end
+    count = create_array_of_averages_per_merchant.count 
+    (sum / count).round(2)
+  end
+  
+  # helper to average_average_price_per_merchant
+  def create_array_of_averages_per_merchant
+    @merchant_repository.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+  end 
   
   # => BigDecimal
   def average_item_price_for_merchant(merchant_id)
     price_array = create_price_array(merchant_id)
     sum = sum_prices_in_price_array(price_array) 
-    (sum / price_array.count).round(2)    
+    if price_array.count > 0
+    (sum / price_array.count).round(2) 
+    end  
+    # binding.pry  
   end
   
   # helper to average_item_price_for_merchant
