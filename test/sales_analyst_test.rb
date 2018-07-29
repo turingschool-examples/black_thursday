@@ -142,7 +142,7 @@ def test_it_can_find_invoice_by_id
   end
 
   def test_invoice_total
-  assert_equal BigDecimal.new(18, 27), @sa.invoice_total(1)
+    assert_equal 0.2106777E5, @sa.invoice_total(1)
   end
 end
 
