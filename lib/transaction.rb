@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 class Transaction
   attr_reader   :id,
                 :invoice_id,
@@ -17,8 +18,8 @@ class Transaction
     @credit_card_number = attributes[:credit_card_number]
     @credit_card_expiration_date = attributes[:credit_card_expiration_date]
     @result = attributes[:result].to_sym
-    @created_at = Time.new(attributes[:created_at])
-    @updated_at = Time.new(attributes[:updated_at])
+    @created_at = Time.parse(attributes[:created_at])
+    @updated_at = Time.parse(attributes[:updated_at])
     highest_id_updater
   end
 

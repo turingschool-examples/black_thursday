@@ -100,9 +100,9 @@ class SalesEngine
     item_repository
   end
 
-  def invoice_item_builder(item_data)
+  def invoice_item_builder(invoice_item_data)
     invoice_item_repository = InvoiceItemRepository.new
-    array = csv_reader(item_data)
+    array = csv_reader(invoice_item_data)
     array.each do |invoice|
       invoice_item_repository.create_with_id(id: invoice[0],
                                              item_id: invoice[1],
