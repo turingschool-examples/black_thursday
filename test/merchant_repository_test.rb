@@ -21,7 +21,7 @@ class MerchantRepositoryTest < Minitest::Test
     @merchant_repository = MerchantRepository.new(@merchants)
   end
 
-  def test_it_exist
+  def test_it_exists
     assert_instance_of MerchantRepository, @merchant_repository
   end
 
