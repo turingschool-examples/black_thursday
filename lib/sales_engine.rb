@@ -9,19 +9,22 @@ class SalesEngine
 
   attr_accessor :merchants, :items, :analyst
 
-  def initialize(merchant_array, item_array)
+  def initialize(merchant_array, item_array, invoice_array)
     @merchants = MerchantRepo.new(merchant_array)
     @items = ItemRepo.new(item_array)
+    @invoices = InvoiceRepo.new(invoice_array)
     @analyst = SalesAnalyst.new(@merchants, @items)
   end
 
   def self.from_csv(hash)
     merchant_file = hash[:merchants]
     item_file = hash[:items]
+    invoice_file = hash[:invoices]
 
     merchant_array = load_from_csv(merchant_file)
     item_array = load_from_csv(item_file)
-    new(merchant_array, item_array)
+    invoice_array = load_from_csv(invoice_file)
+    new(merchant_array, item_array, invoice_array)
   end
 
 end
