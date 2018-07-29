@@ -35,10 +35,10 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal nil, @invoice_repo.find_by_id(1234)
   end
 
-  def test_it_finds_all_invoices_by_cutomer_id
-    assert_equal [@invoice_repo.invoices[0], @invoice_repo.invoices[1]], @invoice_repo.find_all_by_customer_id(996)
-    #assert_equal [], @invoice_repo.find_all_by_customer_id(1234)
-  end
+  # def test_it_finds_all_invoices_by_cutomer_id
+  #   assert_equal [@invoice_repo.invoices[0], @invoice_repo.invoices[1]], @invoice_repo.find_all_by_customer_id(996)
+  #   assert_equal [], @invoice_repo.find_all_by_customer_id(1234)
+  # end
 
   # def test_it_finds_all_invoices_by_merchant_id
   #   assert_equal [@invoice_repo.invoices[12], @invoice_repo.invoices[13]], @invoice_repo.find_all_by_merchant_id(12335541)
