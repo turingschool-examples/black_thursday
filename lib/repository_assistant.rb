@@ -49,7 +49,7 @@ module RepositoryAssistant
     repo_object.status = attributes[:status] unless attributes[:status].nil?
     repo_object.quantity = attributes[:quantity] unless attributes[:quantity].nil?
     repo_object.credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
-    repo_object.credit_card_exp_date = attributes[:credit_card_exp_date] unless attributes[:credit_card_exp_date].nil?
+    repo_object.credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
     repo_object.result = attributes[:result] unless attributes[:result].nil?
     repo_object.first_name = attributes[:first_name] unless attributes[:first_name].nil?
     repo_object.last_name = attributes[:last_name] unless attributes[:last_name].nil?

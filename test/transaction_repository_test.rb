@@ -8,28 +8,28 @@ class TransactionRepositoryTest < Minitest::Test
      {:id => 6,
       :invoice_id => 8,
       :credit_card_number => "4242424242424242",
-      :credit_card_exp_date => "0418",
+      :credit_card_expiration_date => "0418",
       :result => "failed",
       :created_at => Time.now,
       :updated_at => Time.now},
      {:id => 7,
       :invoice_id => 8,
       :credit_card_number => "3737373737373737",
-      :credit_card_exp_date => "0220",
+      :credit_card_expiration_date => "0220",
       :result => :success,
       :created_at => Time.now,
       :updated_at => Time.now},
      {:id => 8,
       :invoice_id => 9,
       :credit_card_number => "3737373737373737",
-      :credit_card_exp_date => "0220",
+      :credit_card_expiration_date => "0220",
       :result => "success",
       :created_at => Time.now,
       :updated_at => Time.now},
      {:id => 9,
       :invoice_id => 10,
       :credit_card_number => "5959595959595959",
-      :credit_card_exp_date => "1219",
+      :credit_card_expiration_date => "1219",
       :result => "success",
       :created_at => Time.now,
       :updated_at => Time.now}
@@ -64,14 +64,14 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_transactions_by_credit_card_result
     result = [@transaction_repo.all[0]]
-    assert_equal result, @transaction_repo.find_all_by_result("failed")
+    assert_equal result, @transaction_repo.find_all_by_result(:failed)
   end
 
   def test_it_can_create_a_new_transaction
     @transaction_repo.create(
     {:invoice_id => 10,
      :credit_card_number => "5959595959595959",
-     :credit_card_exp_date => "1219",
+     :credit_card_expiration_date => "1219",
      :result => "success",
      :created_at => Time.now,
      :updated_at => Time.now}
@@ -79,18 +79,18 @@ class TransactionRepositoryTest < Minitest::Test
 
    assert_equal 10, @transaction_repo.all[-1].id
    assert_equal "5959595959595959", @transaction_repo.all[-1].credit_card_number
-   assert_equal "1219", @transaction_repo.all[-1].credit_card_exp_date
-   assert_equal "success", @transaction_repo.all[-1].result
+   assert_equal "1219", @transaction_repo.all[-1].credit_card_expiration_date
+   assert_equal :success, @transaction_repo.all[-1].result
   end
 
   def test_it_can_update_all_transaction_attributes
     attributes = {:credit_card_number => "121212121212",
-      :credit_card_exp_date => "1118",
+      :credit_card_expiration_date => "1118",
       :result => "failed"}
     @transaction_repo.update(6, attributes)
 
     assert_equal "121212121212", @transaction_repo.all[0].credit_card_number
-    assert_equal "1118", @transaction_repo.all[0].credit_card_exp_date
+    assert_equal "1118", @transaction_repo.all[0].credit_card_expiration_date
     assert_equal "failed", @transaction_repo.all[0].result
   end
 
@@ -98,7 +98,7 @@ class TransactionRepositoryTest < Minitest::Test
     @transaction_repo.update(6, {:result => "success"})
 
     assert_equal "4242424242424242", @transaction_repo.all[0].credit_card_number
-    assert_equal "0418", @transaction_repo.all[0].credit_card_exp_date
+    assert_equal "0418", @transaction_repo.all[0].credit_card_expiration_date
     assert_equal "success", @transaction_repo.all[0].result
   end
 
