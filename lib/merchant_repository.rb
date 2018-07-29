@@ -7,16 +7,8 @@ class MerchantRepository
   attr_reader :merchants
   include RepoMethodHelper
 
-  def initialize(merchant_location)
-    @merchant_location = merchant_location
-    @merchants = []
-    from_sales_engine
-  end
-
-  def from_sales_engine
-    CSV.foreach(@merchant_location, headers: true, header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
-    end
+  def initialize(merchants)
+    @merchants = merchants
   end
 
   def all

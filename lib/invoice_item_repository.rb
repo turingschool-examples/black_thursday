@@ -7,16 +7,8 @@ class InvoiceItemRepository
   attr_reader :invoice_items
   include RepoMethodHelper
 
-  def initialize(invoice_item_location)
-    @invoice_item_location = invoice_item_location
-    @invoice_items = []
-    from_sales_engine
-  end
-
-  def from_sales_engine
-    CSV.foreach(@invoice_item_location, headers: true, header_converters: :symbol) do |row|
-      @invoice_items << InvoiceItem.new(row)
-    end
+  def initialize(invoice_items)
+    @invoice_items = invoice_items
   end
 
   def all

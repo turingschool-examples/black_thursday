@@ -5,9 +5,9 @@ require_relative '../lib/merchant.rb'
 class MerchantTest < Minitest::Test
 
   def setup
-    @merchant = Merchant.new({:id => 5, :name => "Turing School"})
+    @merchant = Merchant.new({id: 5, name: "Turing School"})
   end
-  
+
   def test_it_exists
     assert_instance_of Merchant, @merchant
   end
