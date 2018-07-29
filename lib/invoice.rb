@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'pry'
 require 'time'
 # ./lib/invoice
 class Invoice
@@ -19,6 +18,10 @@ class Invoice
     @created_at = attributes[:created_at]
     @updated_at = Time.new(attributes[:updated_at].to_s)
     update_max_id
+  end
+
+  def self.max_id
+    @@max_id
   end
 
   def update_max_id

@@ -2,7 +2,6 @@
 
 require_relative './invoice'
 require_relative './repository'
-require 'pry'
 require 'time'
 # ./lib/invoice_repository.rb
 class InvoiceRepository
