@@ -162,8 +162,20 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def average_invoices_per_merchant_standard_deviation
+  def array_invoices_per_merchant
+    unique_merchants = @merchants.all.uniq
+    array = []
+    unique_merchants.each do |merchant|
+      id = merchant.id
+      all_invoices = @invoices.find_all_by_merchant_id(id)
+      array << all_invoices.count
+      end
+    end
+    array
+  end
 
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(array_invoices_per_merchant, average_invoices_per_merchant, @invoices)
   end
 
 # Who are our top performing merchants?

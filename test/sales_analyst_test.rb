@@ -30,11 +30,21 @@ class SalesAnalystTest < Minitest::Test
     {id: 263345314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}]
     @item_repo = ItemRepo.new(item_array)
 
-    invoice_array = [{:id=>4981, :customer_id=>"999", :merchant_id=>"12335252", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
-    {:id=>4982, :customer_id=>"999", :merchant_id=>"12334146", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
-    {:id=>4983, :customer_id=>"999", :merchant_id=>"12334553", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
-    {:id=>4984, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
-    {:id=>4985, :customer_id=>"999", :merchant_id=>"12335541", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
+    invoice_array = [{:id=>4981, :customer_id=>"999", :merchant_id=>"12334105", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
+    {:id=>4982, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
+    {:id=>4983, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
+    {:id=>4984, :customer_id=>"999", :merchant_id=>"12334113", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
+    {:id=>4985, :customer_id=>"888", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"},
+    {:id=>4986, :customer_id=>"888", :merchant_id=>"12334113", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
+    {:id=>4987, :customer_id=>"888", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
+    {:id=>4988, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
+    {:id=>4989, :customer_id=>"999", :merchant_id=>"12334113", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
+    {:id=>4990, :customer_id=>"777", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"},
+    {:id=>4991, :customer_id=>"777", :merchant_id=>"12334112", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
+    {:id=>4992, :customer_id=>"777", :merchant_id=>"12334105", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
+    {:id=>4993, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
+    {:id=>4994, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
+    {:id=>4995, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
     @invoice_repo = InvoiceRepo.new(invoice_array)
 
     @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo)
@@ -87,8 +97,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    @analyst.average_invoices_per_merchant
-    return 1
+    assert_equal 1, @analyst.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal
   end
 
 end
