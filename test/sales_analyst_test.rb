@@ -222,4 +222,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sa.top_days_by_invoice_count.count
     assert_equal (["Sunday"]), @sa.top_days_by_invoice_count
   end
+
+# What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
+  def test_it_can_find_percentage_of_invoices
+    skip
+    assert_equal 46.15, @sa.invoice_status(:pending)
+    assert_equal 46.15, @sa.invoice_status(:shipped)
+    assert_equal 7.7, @sa.invoice_status(:returned)
+  end
+
+  def test_it_can_group_invoices_by_status
+    assert_equal 3, @sa.group_invoices_by_status.count
+    expected = (["returned","shipped","pending"])
+    assert_equal expected, @sa.group_invoices_by_status.keys
+  end
 end
