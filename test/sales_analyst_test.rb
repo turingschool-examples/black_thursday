@@ -284,4 +284,39 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 9.79, actual.to_f
     assert_instance_of BigDecimal, actual
   end
+
+  def test_it_finds_most_sold_item_for_merchant
+    invoice_item_9 = InvoiceItem.new({:id => 6, :item_id => 7, :invoice_id => 10, :quantity => 3, :unit_price => BigDecimal.new(18.50, 4), :created_at => Time.now, :updated_at => Time.now})
+    invoice_item_22 = InvoiceItem.new({:id => 7, :item_id => 33, :invoice_id => 10, :quantity => 2, :unit_price => BigDecimal.new(5.99, 4), :created_at => Time.now, :updated_at => Time.now})
+    item_8 = Item.new({:id => 33, :name => "Cool Stuff", :description => "Use when you want to be cool", :unit_price  => BigDecimal.new(18.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+    item_9 = Item.new({:id => 7, :name => "Laptop Covers", :description => "Use when you want to be cool", :unit_price  => BigDecimal.new(18.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+
+    invoice_5 = Invoice.new({:id => 10, :customer_id => 48, :merchant_id => 12337777, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    @items << item_8
+    @items << item_9
+    @invoices << invoice_5
+    @invoice_items << invoice_item_9
+    @invoice_items << invoice_item_22
+
+    assert_equal [item_9], @sales_analyst.most_sold_item_for_merchant(12337777)
+  end
+
+  def test_it_finds_best_item_for_merchant
+    skip
+    invoice_item_9 = InvoiceItem.new({:id => 30, :item_id => 7, :invoice_id => 20, :quantity => 1, :unit_price => BigDecimal.new(1800.50, 4), :created_at => Time.now, :updated_at => Time.now})
+    item_9 = Item.new({:id => 7, :name => "Laptop", :description => "Use when you want to be cool", :unit_price  => BigDecimal.new(1800.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
+    invoice_5 = Invoice.new({:id => 20, :customer_id => 48, :merchant_id => 12337777, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    transaction_9 = Transaction.new({:id => 9, :invoice_id => 20, :credit_card_number => "4242424242424444", :credit_card_expiration_date => "0523", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+
+    @items << item_9
+    @invoices << invoice_5
+    @invoice_items << invoice_item_9
+    @transactions << transaction_9
+
+    assert_equal item_9, @sales_analyst.best_item_for_merchant(12337777)
+  end
+
+  def test_it_finds_merchants_with_one_item
+    assert_equal [@merchant_1, @merchant_3], @sales_analyst.merchants_with_only_one_item
+  end
 end
