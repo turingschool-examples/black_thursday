@@ -254,4 +254,13 @@ class SalesAnalyst
     top_days
   end
 
+  def invoice_status(status)
+    invoices_with_status(status) / number_of_invoices
+  end
+
+  def group_invoices_by_status
+    @sales_engine.invoices.all.group_by do |invoice|
+      invoice.status
+    end
+  end
 end
