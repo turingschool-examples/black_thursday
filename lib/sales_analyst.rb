@@ -129,8 +129,8 @@ class SalesAnalyst
     return golden_items
   end
 
+#----------------ITERATION TWO---------------------------------
 
-#----------------Iteration Two---------------------------------
   def average_invoices_per_merchant
     (@se.invoices.all.count / @se.merchants.all.count.to_f).round(2)
   end
@@ -179,10 +179,38 @@ class SalesAnalyst
     bottom_merchants.compact
   end
 
+  def day_of_the_week
+    @se.invoices.all.map do |invoice|
+      Date::DAYNAMES[invoice.created_at.wday]
+    end
+  end
 
-# *sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
-# *sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+  def group_by_day_of_the_week
+    day_of_the_week.inject(Hash.new(0)) do |hash, day|
+      hash[day] += 1
+      hash
+    end
+  end
+
+  def top_days_by_invoice_count
+    top_days = []
+    values = group_by_day_of_the_week.values
+    bar = (average(values) + standard_deviation(values)).round
+    group_by_day_of_the_week.each do |day, count|
+      if count > bar
+        top_days << day
+      end
+    end
+    top_days
+  end
 # *sales_analyst.invoice_status(:pending) # => 29.55
 # sales_analyst.invoice_status(:shipped) # => 56.95
 # sales_analyst.invoice_status(:returned) # => 13.5
 end
+
+#-------------------ITERATION THREE------------------------------------
+#Please put your iteration three methods here
+
+
+#----------------------ITERATION FOUR----------------------------------
+#I will put iteration four methods here
