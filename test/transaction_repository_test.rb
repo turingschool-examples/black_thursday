@@ -121,4 +121,21 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Time, transaction.created_at
     assert_instance_of Time, transaction.updated_at
   end
+
+  def test_it_can_update_transaction
+    attributes = {
+      credit_card_number: '4068631943231477',
+      credit_card_expiration_date: '0722',
+      result: 'success'
+    }
+    id = 1
+    transaction = @transaction.update(id, attributes)
+    expected = @transaction.find_by_id(id)
+    assert_instance_of Time, expected.updated_at # maybe refactor later
+    assert_equal 2171, expected.invoice_id
+    assert_equal 1, expected.id
+    assert_equal '4068631943231477', expected.credit_card_number
+    assert_equal '0722', expected.credit_card_expiration_date
+    assert_equal :success, expected.result
+  end
 end

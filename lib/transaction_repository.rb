@@ -41,4 +41,14 @@ class TransactionRepository
     @repo << transaction
     transaction
   end
+
+  def update(id, attributes)
+    transaction = find_by_id(id)
+    return if transaction.nil?
+    transaction.credit_card_number = attributes[:credit_card_number] || transaction.credit_card_number
+    transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] || transaction.credit_card_expiration_date
+    transaction.result = attributes[:result].to_sym || transaction.result
+    transaction.updated_at = Time.now
+    transaction
+  end
 end
