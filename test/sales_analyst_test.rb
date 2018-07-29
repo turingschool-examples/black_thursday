@@ -129,11 +129,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 54.05, @sa.invoice_status(:shipped)
     assert_equal 16.22, @sa.invoice_status(:returned)
   end
+end
 
 #-------------------------ITERATION THREE UNIT TESTS-------------------------
   #Please put your unit tests for your iteration 3 methods here
 
 
 #-------------------------ITERATION FOUR UNIT TESTS--------------------------
-
-end
