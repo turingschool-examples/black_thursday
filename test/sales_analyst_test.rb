@@ -21,6 +21,8 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa
   end
 
+#-----------------------ITERATION ONE UNIT TESTS-----------------------------
+
   def test_it_can_create_an_instance_of_sales_engine
     assert_instance_of SalesEngine, @sa.se
   end
@@ -121,4 +123,17 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_top_days_by_invoice_count
     assert_equal ["Monday"], @sa.top_days_by_invoice_count
   end
+
+  def test_it_can_calculate_percentages_based_invoice_status
+    assert_equal 29.73, @sa.invoice_status(:pending)
+    assert_equal 54.05, @sa.invoice_status(:shipped)
+    assert_equal 16.22, @sa.invoice_status(:returned)
+  end
+
+#-------------------------ITERATION THREE UNIT TESTS-------------------------
+  #Please put your unit tests for your iteration 3 methods here
+
+
+#-------------------------ITERATION FOUR UNIT TESTS--------------------------
+
 end

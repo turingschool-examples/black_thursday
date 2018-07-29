@@ -5,15 +5,15 @@ Finished:
 *sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
 *sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
 *sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
-
-Work in Progress/Updates:
 *sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
-
-Pending:
-Iteraltion 2
 *sales_analyst.invoice_status(:pending) # => 29.55
 sales_analyst.invoice_status(:shipped) # => 56.95
 sales_analyst.invoice_status(:returned) # => 13.5
+
+Work in Progress/Updates:
+
+Pending:
+Iteraltion 2
 
 Iteration 3
 *sales_analyst.invoice_paid_in_full?(invoice_id) returns true if the Invoice with the corresponding id is paid in full
@@ -33,9 +33,3 @@ Iteration 4: Merchant Analytics
 *sales_analyst.revenue_by_merchant(merchant_id) #=> $
 *sales_analyst.most_sold_item_for_merchant(merchant_id) #=> [item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
 *sales_analyst.best_item_for_merchant(merchant_id) #=> item (in terms of revenue generated)
-
-Iteration 1
-*sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant]
-*sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
-*sales_analyst.average_average_price_per_merchant # => BigDecimal
-*sales_analyst.golden_items # => [<item>, <item>, <item>, <item>]
