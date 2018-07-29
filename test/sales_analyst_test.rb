@@ -9,7 +9,8 @@ class SalesAnalystTest < Minitest::Test
       :items     =>  "./data/fake_item_csv.csv",
       # "./data/items.csv",
       :merchants => "./data/fake_merchant_csv.csv",
-      :invoices => "./data/fake_invoice_csv.csv"
+      :invoices => "./data/fake_invoice_csv.csv",
+      :transactions => "./data/fake_transaction_csv.csv"
     })
 
     @sa = SalesAnalyst.new(@se)
