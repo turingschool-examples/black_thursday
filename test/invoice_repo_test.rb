@@ -53,38 +53,33 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_creates_invoice_with_attributes
     refute_instance_of Invoice, @invoice_repo.invoices[14]
 
-    @invoice_repo.create({id:          6,
-                customer_id: 7,
-                merchant_id: 8,
-                status:      "pending",
-                created_at:  Time.now,
-                updated_at:  Time.now
-              })
+    @invoice_repo.create({id:           6,
+                          customer_id:  7,
+                          merchant_id:  8,
+                          status:       "pending",
+                          created_at:   Time.now,
+                          updated_at:   Time.now
+                         })
 
     assert_instance_of Invoice, @invoice_repo.invoices[14]
   end
 
-  # def test_it_updates_invoice_attributes
-  #   refute_equal "returned", @invoice_repo.invoices[13].status
-  #
-  #   @invoive_repo.update(4985, {
-  #                     id:           6,
-  #                     customer_id:  7,
-  #                     merchant_id:  8,
-  #                     status:       "returned",
-  #                     created_at:   Time.now,
-  #                     updated_at:   Time.now,
-  #                     })
-  #
-  #   assert_equal "returned", @invoice_repo.invoices[13].status
-  # end
+  def test_it_updates_invoice_attributes
+    refute_equal "returned", @invoice_repo.invoices[13].status
+    @invoice_repo.update(4985, {id:           6,
+                                customer_id:  7,
+                                merchant_id:  8,
+                                status:       "shipped",
+                                created_at:   Time.now,
+                                updated_at:   Time.now
+                                })
+    assert_equal "shipped", @invoice_repo.invoices[13].status
+  end
 
   def test_it_deletes_invoice_by_id
-    assert_equal 4983, @mer_repo.invoices[11].id
-
-    @mer_repo.delete(4983)
-
-    assert_equal nil, @mer_repo.find_by_id(4983)
+    assert_equal 4983, @invoice_repo.invoices[11].id
+    @invoice_repo.delete(4983)
+    assert_equal nil, @invoice_repo.find_by_id(4983)
   end
 
 end
