@@ -215,12 +215,13 @@ class SalesAnalyst
     date_matched_invoices = @invoice_repo.invoices.find_all do |invoice|
       invoice.created_at == date
     end
-    date_matched_invoices.map do |invoice|
+    revenue_of_date_matched_invoices = date_matched_invoices.map do |invoice|
       invoice_total(invoice.id)
-    end.first
+      # binding.pry
+    end
+    sum(revenue_of_date_matched_invoices)
+    # binding.pry
   end
-
-
 
   def top_revenue_earners(number_of_top = 20)
     number_of_top = number_of_top - 1
@@ -255,22 +256,22 @@ class SalesAnalyst
     merchant_with_pending_invoices.map do |merchant_id, invoice_status|
         @merchant_repo.find_by_id(merchant_id)
     end
+    # binding.pry
   end
-
+#helper method for pending invoices
+  def status_of_invoices_by_merchant(merchant_id)
+    all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    all_merchant_invoices.map do |invoice|
+      invoice.status
+    end
+  end
+#--------------------------
   def revenue_by_merchant(merchant_id)
     all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
     revenue_per_invoice = all_merchant_invoices.map do |invoice|
       invoice_total(invoice.id)
     end
     sum(revenue_per_invoice)
-  end
-  
-#helper method
-  def status_of_invoices_by_merchant(merchant_id)
-    all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-    all_merchant_invoices.map do |invoice|
-      invoice.status
-    end
   end
 
 end
