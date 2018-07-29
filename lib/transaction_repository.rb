@@ -27,4 +27,18 @@ class TransactionRepository
     end
   end
 
+  def create(attributes)
+    id = create_id
+    transaction = Transaction.new(
+      id: id,
+      invoice_id: attributes[:invoice_id],
+      credit_card_number: attributes[:credit_card_number],
+      credit_card_expiration_date: attributes[:credit_card_expiration_date],
+      result: attributes[:result],
+      created_at: Time.now,
+      updated_at: Time.now
+      )
+    @repo << transaction
+    transaction
+  end
 end

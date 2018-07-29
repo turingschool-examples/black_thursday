@@ -98,4 +98,27 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal :failed, transaction_2[-1].result
     assert_equal ([]), transaction_3
   end
+
+  def test_it_can_create_new_id
+    transaction = @transaction.create_id
+    assert_equal 5, transaction
+  end
+
+  def test_it_can_create_new_invoice_item
+    attributes = {  invoice_id: 2775,
+                    credit_card_number: '4068631943231475',
+                    credit_card_expiration_date: '0215',
+                    result: 'success',
+                    created_at: '2018-07-28',
+                    updated_at: '2018-07-28'
+                  }
+    transaction = @transaction.create(attributes)
+    assert_equal 5, transaction.id
+    assert_equal 2775, transaction.invoice_id
+    assert_equal '4068631943231475', transaction.credit_card_number
+    assert_equal '0215', transaction.credit_card_expiration_date
+    assert_equal :success, transaction.result
+    assert_instance_of Time, transaction.created_at
+    assert_instance_of Time, transaction.updated_at
+  end
 end
