@@ -114,4 +114,15 @@ class CustomerRepositoryTest < Minitest::Test
     expected = @customer_repository.find_all_by_first_name('John')
     assert_equal [], expected
   end
+
+  def test_it_can_delete_customer
+    id = 2
+
+    customer = @customer_repository.delete(id)
+    expected_1 = @customer_repository.find_all_by_first_name('John')
+    expected_2 = @customer_repository.find_by_id(id)
+
+    assert_equal [], expected_1
+    assert_nil expected_2
+  end
 end
