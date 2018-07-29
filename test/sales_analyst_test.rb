@@ -76,12 +76,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, @sales_analyst.ids_with_high_item_count[0].class
     assert_equal 52, @sales_analyst.ids_with_high_item_count.count
   end 
-  # sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
+  
   def test_average_item_price_for_merchant 
-    # merchant_id = 12334105
-    # expected = sales_analyst.average_item_price_for_merchant(merchant_id)
-    # 
-    # expect(expected).to eq 16.66
-    # expect(expected.class).to eq BigDecimal
+    assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
+    assert_equal BigDecimal, @sales_analyst.average_item_price_for_merchant(12334105).class
+  end
+  
+  def test_it_finds_items_by_merchant_id
+    assert_equal Array, @sales_analyst.find_items_by_merchant_id(12334159).class 
+    assert_equal 10, @sales_analyst.find_items_by_merchant_id(12334159).count 
+    assert_equal Item, @sales_analyst.find_items_by_merchant_id(12334159)[0].class
+  end 
+  
+  def test_it_creates_price_array 
+    assert_equal Array, @sales_analyst.create_price_array(12334159).class
+    assert_equal 10, @sales_analyst.create_price_array(12334159).count
+    assert_equal BigDecimal, @sales_analyst.create_price_array(12334159)[0].class
+  end 
+  
+  def test_it_sums_prices_in_price_array
+    assert_equal 15, @sales_analyst.sum_prices_in_price_array([1, 2, 3, 4, 5])
+  end
   
 end 

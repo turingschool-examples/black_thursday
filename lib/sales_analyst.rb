@@ -57,10 +57,35 @@ class SalesAnalyst
     id_high_items = @merchant_id_item_counts.find_all do |id, count|
       count > @item_count_std_dev + average_items_per_merchant
     end
-    # binding.pry 
     return id_high_items
   end  
   
-  #  sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
-  # iterate over 
+  # => BigDecimal
+  def average_item_price_for_merchant(merchant_id)
+    price_array = create_price_array(merchant_id)
+    sum = sum_prices_in_price_array(price_array) 
+    (sum / price_array.count).round(2)    
+  end
+  
+  # helper to average_item_price_for_merchant
+  def create_price_array(merchant_id)
+    find_items_by_merchant_id(merchant_id).map! do |item_object|
+      item_object.unit_price 
+    end  
+  end
+  
+  # helper to create_price_array 
+  def find_items_by_merchant_id(merchant_id)
+    @item_repository.all.find_all do |item|
+      item.merchant_id == merchant_id    
+    end
+  end
+  
+  # helper to average_item_price_for_merchant
+  def sum_prices_in_price_array(price_array)
+    price_array.inject(0) do |total, price|
+      total += price 
+    end 
+  end 
+    
 end 
