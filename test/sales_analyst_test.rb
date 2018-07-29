@@ -32,6 +32,11 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst.merchant_id_item_counter 
     assert_equal 475, @sales_analyst.merchant_id_item_counts.count 
   end 
+  
+  def test_average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sales_engine.analyst.average_items_per_merchant_standard_deviation 
+    assert_equal Float, @sales_engine.analyst.average_items_per_merchant_standard_deviation.class 
+  end 
 
   def test_average_items_per_merchant 
     assert_equal 2.88, @sales_engine.analyst.average_items_per_merchant 
@@ -47,11 +52,5 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Hash, @sales_analyst.merchant_id_item_counter.class 
     assert_equal 475, @sales_analyst.merchant_id_item_counter.count 
     assert_equal [12334105, 3], @sales_analyst.merchant_id_item_counter.first
-  end 
-  
-  # def test_average_items_per_merchant_standard_deviation
-  #   assert_equal 3.26, @sales_engine.analyst.average_items_per_merchant_standard_deviation 
-  #   assert_equal Float, @sales_engine.analyst.average_items_per_merchant_standard_deviation.class 
-  # end 
-
+  end
 end 
