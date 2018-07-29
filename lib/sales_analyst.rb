@@ -57,7 +57,7 @@ class SalesAnalyst
   
   def ids_with_high_item_count
     id_high_items = @merchant_id_item_counts.find_all do |id, count|
-      count > @item_count_std_dev
+      count > @item_count_std_dev + average_items_per_merchant
     end
     # binding.pry 
     return id_high_items
