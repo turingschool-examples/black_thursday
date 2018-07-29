@@ -14,6 +14,12 @@ class SalesAnalyst
     @invoices = invoice_repo
   end
 
+  # def average(elements, total_elements)
+  #   total_elements = elments.all.count_to_f
+  #   total_total_elements = total_elements.all.count.to_f
+  #   (total_elements / total_total_elements).round(2)
+  # end
+
   def average_items_per_merchant
     total_items = @items.all.count.to_f
     total_merchants = @merchants.all.count.to_f
@@ -145,6 +151,47 @@ class SalesAnalyst
     end
     golden
   end
+
+# How many invoices does the average merchant have?
+# sales_analyst.average_invoices_per_merchant # => 10.49
+# sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
+  def average_invoices_per_merchant
+
+####  working here
+    invoice_numbers = []
+    unique_merchants = @merchants.uniq
+    unique_merchants.each do |merchant|
+      array_of_invoices = @invoices.find_all_by_merchant_id(merchant.id)
+      invoice_numbers << array_of_invoices.count
+    end
+    sum_of_invoices = sum_amount(invoice_numbers)
+    average = sum_of_invoices / unique_merchants.count
+    require "pry"; binding.pry
+    average.round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+
+  end
+
+# Who are our top performing merchants?
+# Which merchants are more than two standard deviations above the mean?
+#
+# sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
+# Who are our lowest performing merchants?
+# Which merchants are more than two standard deviations below the mean?
+#
+# sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
+# Which days of the week see the most sales?
+# On which days are invoices created at more than one standard deviation above the mean?
+#
+# sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+# What percentage of invoices are not shipped?
+# What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
+#
+# sales_analyst.invoice_status(:pending) # => 29.55
+# sales_analyst.invoice_status(:shipped) # => 56.95
+# sales_analyst.invoice_status(:returned) # => 13.5
 
 end
 
