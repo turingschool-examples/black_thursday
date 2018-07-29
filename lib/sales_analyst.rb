@@ -29,10 +29,32 @@ class SalesAnalyst
     average_item_price.round(2)
   end
 
+  def average_average_price_per_merchant
+    average_summed = all_average_prices.inject(0) do |sum, price|
+      sum += price
+    end
+    average_average_price = average_summed / @merchants.all.count
+    average_average_price.round(2)
+  end
+
+  def average_item_price
+    prices_summed = @items.all.inject(0) do |sum, item|
+      sum += item.unit_price
+    end
+    prices_summed / @items.all.count
+  end
+
+
   def all_average_prices
     average_prices = @merchants.all.map do |merchant|
       merchant_id = merchant.id
       average_item_price_for_merchant(merchant_id)
+    end
+  end
+
+  def all_item_prices
+   @items.all.map do |item|
+    item.unit_price
     end
   end
 
@@ -62,12 +84,6 @@ class SalesAnalyst
     end
   end
 
-  # def differences_from_average_price
-  #   all_item_prices.map do |price|
-  #     price.to_f - average_item_price
-  #   end
-  # end
-
   def square_each_amount(array)
     array.map do |amount|
       amount * amount
@@ -85,23 +101,18 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    differences_from_average = differences_from_average(total_items_per_merchant, average_items_per_merchant)
-    squares = square_each_amount(differences_from_average)
-    sum = sum_amount(squares)
-    result = divide_sum_by_elements_less_one(@merchants, sum)
-    result = Math.sqrt(result).round(2)
+    standard_deviation(total_items_per_merchant, average_items_per_merchant, @merchants)
   end
 
-  def standard_deviation  #for prices
-    # differences_from_average_price
-    differences_from_average(all_item_prices, average_item_price)
-    # square_differences
-    squares = square_each_amount(differences_from_average)
-    # sum_prices
+  def standard_deviation_prices  #for prices
+    standard_deviation(all_item_prices, average_item_price, @items)
+  end
+
+  def standard_deviation(one, average, collection)
+    differences = differences_from_average(one, average)
+    squares = square_each_amount(differences)
     sum = sum_amount(squares)
-    # result = sum_prices/ (@items.all.count - 1)
-    result = divide_sum_by_elements_less_one(@items, sum)
-    # result = Math.sqrt(result).round(2)
+    result = divide_sum_by_elements_less_one(collection, sum)
     result = Math.sqrt(result).round(2)
   end
 
@@ -124,47 +135,8 @@ class SalesAnalyst
     pairs.flatten
   end
 
-
-
-  def average_average_price_per_merchant
-    average_summed = all_average_prices.inject(0) do |sum, price|
-      sum += price
-    end
-    average_average_price = average_summed / @merchants.all.count
-    average_average_price.round(2)
-  end
-
-  def average_item_price
-    prices_summed = @items.all.inject(0) do |sum, item|
-      sum += item.unit_price
-    end
-    prices_summed / @items.all.count
-  end
-
-  def all_item_prices
-   @items.all.map do |item|
-    item.unit_price
-    end
-  end
-
-
-
-  def square_differences
-    differences_from_average_price.map do |amount|
-      amount * amount
-    end
-  end
-
-  def sum_prices
-    square_differences.inject(0) do |sum, amount|
-      sum += amount
-    end
-  end
-
-
-
   def golden_items
-    high_item_price = standard_deviation * 2 + average_item_price
+    high_item_price = standard_deviation_prices * 2 + average_item_price
     golden = []
     @items.all.each do |item|
       if item.unit_price >= high_item_price
@@ -175,6 +147,8 @@ class SalesAnalyst
   end
 
 end
+
+
 
 # def return_hash_of_merchants_with_items
 #   hash = Hash.new(0)
