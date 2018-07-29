@@ -154,10 +154,10 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     standard_deviation(invoices_per_merchant.values)
   end
-  
+
   def top_merchants_by_invoice_count
     top_merchants = []
-    bar = two_standard_deviations(invoices_per_merchant.values)
+    bar = two_standard_deviations_above(invoices_per_merchant.values)
     invoices_per_merchant.each do |merchant_id, invoice|
       if invoice > bar
         merchant = @se.merchants.find_by_id(merchant_id)
@@ -166,6 +166,20 @@ class SalesAnalyst
     end
     top_merchants
   end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    bar = two_standard_deviations_below(invoices_per_merchant.values)
+    invoices_per_merchant.each do |merchant_id, invoice|
+      if invoice < bar
+        merchant = @se.merchants.find_by_id(merchant_id)
+        bottom_merchants << merchant
+      end
+    end
+    bottom_merchants.compact
+  end
+
+
 # *sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
 # *sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
 # *sales_analyst.invoice_status(:pending) # => 29.55

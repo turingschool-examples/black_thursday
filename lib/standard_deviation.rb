@@ -14,10 +14,16 @@ module StandardDeviation
     Math.sqrt(average(var)).round(2)
   end
 
-  def two_standard_deviations(info)
+  def two_standard_deviations_above(info)
     avg = average(info)
     std_dev = standard_deviation(info) * 2
     avg + std_dev
+  end
+
+  def two_standard_deviations_below(info)
+    avg = average(info)
+    std_dev = standard_deviation(info) * 2
+    avg - std_dev
   end
 
 end
