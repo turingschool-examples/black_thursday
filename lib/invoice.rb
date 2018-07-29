@@ -1,6 +1,6 @@
 require 'time'
 class Invoice
-  attr_accessor :id,
+  attr_reader :id,
               :customer_id,
               :merchant_id,
               :created_at,

@@ -1,11 +1,11 @@
 require 'csv'
-require_relative './item'
-require_relative './merchant'
-require_relative './merchant_repository'
-require_relative './item_repository'
-require_relative './sales_analyst'
-require_relative './invoice'
-require_relative './invoice_repository'
+require_relative '../lib/item'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item_repository'
+require_relative '../lib/sales_analyst'
+require_relative '../lib/invoice'
+require_relative '../lib/invoice_repository'
 
 class SalesEngine
   attr_reader :csv_hash,
@@ -18,8 +18,8 @@ class SalesEngine
     @items.create_items
     @merchants = MerchantRepository.new(csv_hash[:merchants])
     @merchants.create_all_from_csv(csv_hash[:merchants])
-   @invoices = InvoiceRepository.new(csv_hash[:invoices])
-  @invoices.create_invoices
+    @invoices = InvoiceRepository.new(csv_hash[:invoices])
+    @invoices.create_invoices(csv_hash[:invoices])
   end
 
   def self.from_csv(csv_hash)

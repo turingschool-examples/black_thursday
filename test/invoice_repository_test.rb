@@ -13,8 +13,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :invoices => "./data/dummy_invoices.csv"
       })
     @invoice_repo = InvoiceRepository.new(@se.csv_hash[:invoices])
-    #@invoices =
-     @invoice_repo.create_invoices
+   @invoice_repo.create_invoices
   end
 
   def test_it_exists

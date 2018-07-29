@@ -18,6 +18,7 @@ class InvoiceRepository
     end
   end
 
+
   def build_invoice(invoice_data)
     invoice_data.map do |invoice|
       Invoice.new(invoice)
