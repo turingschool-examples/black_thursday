@@ -54,9 +54,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_a_customer_by_a_valid_first_name
-    customer = @customer_repository.find_all_by_first_name('Jane')
-    assert_equal Customer, customer[0].class
-    assert_equal 'Jane', customer[0].first_name
+    customer_1 = @customer_repository.find_all_by_first_name('Jane')
+    assert_equal Customer, customer_1[0].class
+    assert_equal 'Jane', customer_1[0].first_name
+
+    customer_2 = @customer_repository.find_all_by_first_name('Jerry')
+    assert_equal 2, customer_2.count
   end
 
   def test_it_returns_nil_if_customer_first_name_is_invalid
@@ -65,9 +68,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_a_customer_by_a_valid_last_name
-    customer = @customer_repository.find_all_by_last_name('Don')
-    assert_equal Customer, customer[0].class
-    assert_equal 'Don', customer[0].last_name
+    customer_1 = @customer_repository.find_all_by_last_name('Don')
+    assert_equal Customer, customer_1[0].class
+    assert_equal 'Don', customer_1[0].last_name
+
+    customer_2 = @customer_repository.find_all_by_last_name('Doe')
+    assert_equal 3, customer_2.count
   end
 
   def test_it_returns_nil_if_customer_last_name_is_invalid
