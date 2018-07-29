@@ -24,4 +24,8 @@ class CustomerRepositoryTest < Minitest::Test
     @customer_repository = CustomerRepository.new(@customers)
   end
 
+  def test_it_exists
+    assert_instance_of CustomerRepository, @customer_repository
+  end
+
 end
