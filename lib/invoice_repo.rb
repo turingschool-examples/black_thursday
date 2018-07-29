@@ -1,18 +1,29 @@
-require_relative 'repo_module'
 require_relative 'invoice'
 
 class InvoiceRepo 
-
-  include Repository
-
   attr_accessor :invoices
 
   def initialize(invoices)
     @invoices = invoices 
+    change_invoice_hash_to_object
+  end
+  
+  def change_invoice_hash_to_object
+    invoice_array = []
+    @invoices.each do |invoice|
+      invoice_array << Invoice.new(invoice)
+    end
+    @items = invoice_array
   end
 
   def all 
     @invoices
+  end
+  
+  def find_by_id(id)
+    @invoices.find do |invoice|
+      invoice.id == id
+    end
   end
 
   def find_all_by_customer_id(id)
@@ -50,6 +61,11 @@ class InvoiceRepo
     invoice_to_change.updated_at = Time.now
     invoice_to_change.status = attributes[:status]
     invoice_to_change 
+  end
+  
+  def delete(id)
+    invoice_to_delete = find_by_id(id)
+    @invoices.delete(invoice_to_delete)
   end
   
 end

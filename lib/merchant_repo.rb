@@ -1,24 +1,23 @@
 require_relative 'merchant'
 
-
 class MerchantRepo
   attr_accessor :merchants
 
   def initialize(merchants)
     @merchants = merchants
-    change_merchant_hashes_to_objects
+    change_merchant_hash_to_object
+  end
+  
+  def change_merchant_hash_to_object
+    merchant_array = []
+    @merchants.each do |merchant|
+      merchant_array << Merchant.new(merchant)
+    end
+    @merchants = merchant_array
   end
 
   def all
     @merchants
-  end
-
-  def change_merchant_hashes_to_objects
-    object_array = []
-    @merchants.each do |hash|
-      object_array << Merchant.new(hash)
-    end
-    @merchants = object_array
   end
 
   def find_by_id(id)
@@ -47,11 +46,11 @@ class MerchantRepo
     end
     new_max_id = max_merchant_id.id + 1
     merchant_new = Merchant.new(
-      id: new_max_id,
-      name: attributes[:name],
-      created_at: Time.now,
-      updated_at: Time.now
-    )
+                    id: new_max_id,
+                    name: attributes[:name],
+                    created_at: Time.now,
+                    updated_at: Time.now
+                  )
     @merchants << merchant_new
     merchant_new
   end

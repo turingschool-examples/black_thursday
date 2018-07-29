@@ -21,12 +21,12 @@ class ItemRepoTest < Minitest::Test
     assert_equal @item_repo.items, @item_repo.all
   end
 
-  def test_it_returns_item_by_id
+  def test_it_finds_item_by_id
     assert_equal @item_repo.items[0], @item_repo.find_by_id(263395237)
     assert_equal nil, @item_repo.find_by_id(123456)
   end
 
-  def test_it_returns_item_by_name
+  def test_it_finds_item_by_name
     assert_equal @item_repo.items[3], @item_repo.find_by_name("Moose1")
     assert_equal nil, @item_repo.find_by_name("Horse")
   end
@@ -46,7 +46,7 @@ class ItemRepoTest < Minitest::Test
     assert_equal [], @item_repo.find_all_by_price_in_range(10..13)
   end
 
-  def test_it_returns_all_items_by_merchant_id
+  def test_it_finds_all_items_by_merchant_id
     assert_equal [@item_repo.items[0], @item_repo.items[1], @item_repo.all[2]], @item_repo.find_all_by_merchant_id(12334195)
     assert_equal [], @item_repo.find_all_by_merchant_id(123456)
   end
@@ -62,7 +62,6 @@ class ItemRepoTest < Minitest::Test
                        :merchant_id => "2"})
     assert_instance_of Item, @item_repo.items[6]
   end
-
 
   def test_it_updates_item_attributes
     refute_equal "Bat", @item_repo.items[5].name

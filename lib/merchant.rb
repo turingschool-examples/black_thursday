@@ -2,11 +2,12 @@ require 'time'
 
 
 class Merchant
-  attr_accessor :id,
-                :name,
-                :updated_at,
+  attr_reader   :id,
                 :created_at
-
+                
+  attr_accessor :updated_at,
+                :name
+  
   def initialize(hash)
     @id = hash[:id].to_i
     @name = hash[:name].to_s
