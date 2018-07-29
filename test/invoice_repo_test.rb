@@ -51,7 +51,8 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_finds_all_by_day
-    @invoice_repo.find_all_by_day("Monday")
+    assert_equal [@invoice_repo.invoices[5], @invoice_repo.invoices[8]], @invoice_repo.find_all_by_day("Wednesday")
+    assert_equal [], @invoice_repo.find_all_by_day("Timsday")
   end
 
   def test_it_creates_invoice_with_attributes

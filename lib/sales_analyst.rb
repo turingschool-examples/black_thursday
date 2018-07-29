@@ -209,15 +209,14 @@ class SalesAnalyst
   def average_days_array
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     days = days.map do |day|
-      @invoices.find_all
-      / 7.0
+      @invoices.find_all_by_day(day).count / 7.0
     end
   end
 
   def top_days_by_invoice_count
-
-
-    standard_deviation(array, average, @invoices)
+    standard_deviation(average_days_array, @invoices.all.count / 7.0, @invoices)
+    require "pry"; binding.pry
+    
   # Which days of the week see the most sales?
   # On which days are invoices created at more than one standard deviation above the mean?
   #

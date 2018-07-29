@@ -45,11 +45,10 @@ class InvoiceRepo
   end
 
   def find_all_by_day(day)
-    @invoices.find_all do |invoice|
-      require "pry"; binding.pry
-      day = invoice.created_at.to_s
+    days = @invoices.find_all do |invoice|
+      invoice.created_at.strftime('%A') == day.to_s
     end
-
+    days
   end
 
   def create(attributes)
