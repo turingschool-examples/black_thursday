@@ -118,4 +118,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4.08, @sa.average_invoices_per_merchant_standard_deviation
   end
 
+  def test_it_can_find_merchants_with_invoices_two_std_deviations_above_mean
+    assert_equal [12334113], @sa.top_merchants_by_invoice_count
+  end
+
 end
