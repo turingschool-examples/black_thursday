@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/invoice_repository'
+require './lib/invoice'
 require './lib/file_loader'
 
 class InvoiceRepositoryTest < Minitest::Test
@@ -60,7 +61,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_status
     result = [@invoice_repo.all[0], @invoice_repo.all[3]]
-    assert_equal result, @invoice_repo.find_all_by_status('pending')
+    assert_equal result, @invoice_repo.find_all_by_status(:pending)
   end
 
   def test_it_can_create_a_new_invoice

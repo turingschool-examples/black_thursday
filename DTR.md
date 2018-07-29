@@ -6,22 +6,28 @@ Group Member Names:Pat McCartney Harper Bellows
 
 ##### Project Expectations: What does each group member hope to get out of this project?
 Harper: I would love to get better at some of the harder algorithms and business analytics
+
 Pat:
 
 ##### Goals and expectations:
 Harper: I expect to fully finish this project, with time to spare to deal with spec harness issues, and to refactor a bit.
+
 Pat:
 
 ##### Team strengths:
-Harper: Organized, task-oriented, puntucal, and strong work ethic
+Harper: Organized, task-oriented, punctual, and strong work ethic
+
+
 Pat:
 
 ##### How to overcome obstacles:
 Harper: Open lines of communication, with regular updates and pull requests so I don't leave my partner wondering what I'm working on
+
 Pat:
 
 ##### Schedule Expectations (When are we available to work together and individually?):
 First weekend: Work together. It was suggested to work together through Iteration One, with a divide conquer approach for Iterations 2 and 3.
+
 Second weekend: A regroup to determine how to tackle Iteration 4/5.
 
 ##### Communication Expectations (How and often will we communicate? How do we keep lines of communication open?):

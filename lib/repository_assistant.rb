@@ -19,9 +19,9 @@ module RepositoryAssistant
   end
 
 
-  def find_all_by_invoice_id(id)
+  def find_all_by_invoice_id(invoice_id)
     @repository.find_all do |repo_object|
-      repo_object.invoice_id == id
+      repo_object.invoice_id == invoice_id
     end
   end
 
@@ -38,9 +38,11 @@ module RepositoryAssistant
   def update(id, attributes)
     repo_object = find_by_id(id)
     return if repo_object.nil?
-    # update_mehotd(repo_object, attributes)
+    # update_method(repo_object, attributes)
       #attributes.each do |k,v|
-        #unless 
+        #unless k.nil?
+          # attributes[k] = v
+        # end
       #end
     repo_object.name = attributes[:name] unless attributes[:name].nil?
     repo_object.description = attributes[:description] unless attributes[:description].nil?

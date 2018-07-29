@@ -29,6 +29,3 @@ class CustomerRespository
     "#<#{self.class} #{@customers.size} rows>"
   end
 end
-
-# find_all_by_first_name - returns either [] or one or more matches which have a first name matching the substring fragment supplied
-# find_all_by_last_name - returns either [] or one or more matches which have a last name matching the substring fragment supplied

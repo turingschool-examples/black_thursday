@@ -1,7 +1,10 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
+require_relative 'standard_deviation'
 
 class SalesAnalyst
+  include StandardDeviation
+
   attr_reader :se
 
   def initialize(sales_engine)
@@ -15,7 +18,7 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-  group_items_by_merchant.values.map(&:count)
+    group_items_by_merchant.values.map(&:count)
   end
 
   def average_items_per_merchant
@@ -126,7 +129,125 @@ class SalesAnalyst
     return golden_items
   end
 
-  def find_invoice(invoice_id)
+#----------------ITERATION TWO---------------------------------
+
+  def average_invoices_per_merchant
+    (@se.invoices.all.count / @se.merchants.all.count.to_f).round(2)
+  end
+
+  # returns a hash with the merchant_id as key and array of invoice objects
+  # that belong to that merchant
+  def group_invoices_by_merchant
+    @se.invoices.all.group_by(&:merchant_id)
+  end
+
+  # returns a hash with merchant_id as key and sum of invoice objects as value
+  # invoices per merchant or ipm
+  def invoices_per_merchant
+    ipm = group_invoices_by_merchant
+    ipm.inject(ipm) do |hash, (merchant_id, invoices)|
+      hash[merchant_id] = invoices.count
+      hash
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoices_per_merchant.values)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    bar = two_standard_deviations_above(invoices_per_merchant.values)
+    invoices_per_merchant.each do |merchant_id, invoice|
+      if invoice > bar
+        merchant = @se.merchants.find_by_id(merchant_id)
+        top_merchants << merchant
+      end
+    end
+    top_merchants
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    bar = two_standard_deviations_below(invoices_per_merchant.values)
+    invoices_per_merchant.each do |merchant_id, invoice|
+      if invoice < bar
+        merchant = @se.merchants.find_by_id(merchant_id)
+        bottom_merchants << merchant
+      end
+    end
+    bottom_merchants.compact
+  end
+
+  def day_of_the_week
+    @se.invoices.all.map do |invoice|
+      Date::DAYNAMES[invoice.created_at.wday]
+    end
+  end
+
+  def group_by_day_of_the_week
+    day_of_the_week.inject(Hash.new(0)) do |hash, day|
+      hash[day] += 1
+      hash
+    end
+  end
+
+  def top_days_by_invoice_count
+    top_days = []
+    values = group_by_day_of_the_week.values
+    bar = (average(values) + standard_deviation(values)).round
+    group_by_day_of_the_week.each do |day, count|
+      if count > bar
+        top_days << day
+      end
+    end
+    top_days
+  end
+
+  def invoice_status(status)
+    invoices = @se.invoices.all.count
+    by_status = @se.invoices.find_all_by_status(status).count
+    ((by_status / invoices.to_f) * 100).round(2)
+   end
+  end
+
+def find_invoice(invoice_id)
+    selected = []
+    @se.invoices.all.each do |invoice|
+      if invoice.id == invoice_id
+        selected << invoice
+      end
+    end
+    return selected
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    invoice = find_invoice(invoice_id)
+    result = []
+    @se.transactions.all.each do |transaction|
+      if transaction.invoice_id == invoice_id
+        result << transaction
+      end
+    end
+    if result[0].result == "success"
+      true
+    else
+      false
+    end
+  end
+
+  def invoice_total(invoice)
+    selected = []
+    @se.invoice_items.all.each do |invoice_item|
+      if invoice_item.invoice_id == invoice
+        selcted << invoice_item
+      end
+    end
+    return selected
+  end
+
+#-------------------ITERATION THREE------------------------------------
+def find_invoice(invoice_id)
     selected = []
     @se.invoices.all.each do |invoice|
       if invoice.id == invoice_id
@@ -163,8 +284,5 @@ class SalesAnalyst
 
 
 
-
-
-
-
-end
+#----------------------ITERATION FOUR----------------------------------
+#I will put iteration four methods here
