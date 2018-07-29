@@ -44,7 +44,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 4, @invoice_repo.all.count
   end
 
-  def test_it_can_find_all_invoices_by_id_number
+  def test_it_can_find_an_invoice_by_id_number
     assert_equal @invoice_repo.all[0], @invoice_repo.find_by_id(1)
     assert_equal @invoice_repo.all[3], @invoice_repo.find_by_id(4)
   end
