@@ -238,32 +238,23 @@ class SalesAnalyst
     transactions.each do |transaction|
       statuses << transaction.result
     end
-    if statuses.include?(:failed) == true
-      false
-    else
+    if statuses.include?(:success)
       true
+    else
+      false
     end
   end
 
-  def invoice_total(invoice)
-    selected = []
-    @se.invoice_items.all.each do |invoice_item|
-      if invoice_item.invoice_id == invoice
-        selcted << invoice_item
-      end
-    end
-    return selected
-  end
-
-  def invoice_total(id)
-    all_invoices_for_id = @se.invoice_items.all.find_all do |invoice_item|
-      invoice_item.invoice_id == id
-    end
-    result = all_invoices_for_id.inject(0) do |sum, invoice|
-      sum + invoice.unit_price.to_f
-    end
-    return result.round(2)
-  end
+  def invoice_total(invoice_id)
+   invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
+   total_price_per_pruchase = invoice_items.map do |invoice_item|
+     invoice_item.quantity * invoice_item.unit_price
+   end
+   sum = total_price_per_pruchase.inject(0) do |total, cost|
+     total + cost
+   end
+   BigDecimal(sum, 7)
+ end
 
 
 
