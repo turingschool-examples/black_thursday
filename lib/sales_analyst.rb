@@ -4,7 +4,7 @@ require_relative 'standard_deviation'
 
 class SalesAnalyst
   include StandardDeviation
-  
+
   attr_reader :se
 
   def initialize(sales_engine)
@@ -151,11 +151,21 @@ class SalesAnalyst
     end
   end
 
-# *sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
   def average_invoices_per_merchant_standard_deviation
     standard_deviation(invoices_per_merchant.values)
   end
-# *sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
+  
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    bar = two_standard_deviations(invoices_per_merchant.values)
+    invoices_per_merchant.each do |merchant_id, invoice|
+      if invoice > bar
+        merchant = @se.merchants.find_by_id(merchant_id)
+        top_merchants << merchant
+      end
+    end
+    top_merchants
+  end
 # *sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
 # *sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
 # *sales_analyst.invoice_status(:pending) # => 29.55
