@@ -70,12 +70,22 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_invoice_id
-    invoice_items_1 = @transaction.find_all_by_invoice_id(2171)
-    invoice_items_2 = @transaction.find_all_by_invoice_id(2172)
-    invoice_items_3 = @transaction.find_all_by_invoice_id(5)
-    assert_equal 2171, invoice_items_1.first.invoice_id
-    assert_equal 2172, invoice_items_2.first.invoice_id
-    assert_equal 2172, invoice_items_2[-1].invoice_id
-    assert_equal ([]), invoice_items_3
+    transaction_1 = @transaction.find_all_by_invoice_id(2171)
+    transaction_2 = @transaction.find_all_by_invoice_id(2172)
+    transaction_3 = @transaction.find_all_by_invoice_id(5)
+    assert_equal 2171, transaction_1.first.invoice_id
+    assert_equal 2172, transaction_2.first.invoice_id
+    assert_equal 2172, transaction_2[-1].invoice_id
+    assert_equal ([]), transaction_3
+  end
+
+  def test_it_can_find_all_by_credit_card_number
+    transaction_1 = @transaction.find_all_by_credit_card_number('4068631943231471')
+    transaction_2 = @transaction.find_all_by_credit_card_number('4068631943231472')
+    transaction_3 = @transaction.find_all_by_credit_card_number('406863194323147')
+    assert_equal '4068631943231471', transaction_1.first.credit_card_number
+    assert_equal '4068631943231472', transaction_2.first.credit_card_number
+    assert_equal '4068631943231472', transaction_2[-1].credit_card_number
+    assert_equal ([]), transaction_3
   end
 end
