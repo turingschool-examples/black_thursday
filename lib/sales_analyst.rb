@@ -27,7 +27,7 @@ class SalesAnalyst
       end
     end
   end
-  
+
   def total_items_per_merchant
     merchants = return_unique_merchants
     merchant_item_total = []
@@ -75,7 +75,7 @@ class SalesAnalyst
       end
     end
   end
-    
+
   def merchants_with_high_item_count
     pairs = merchants_ids_for_high_item_count
     pairs.map do |pair|
@@ -87,59 +87,59 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     total_items = @items.find_all_by_merchant_id(merchant_id)
-    total_prices = total_items.inject(0) do |sum, item| 
+    total_prices = total_items.inject(0) do |sum, item|
       sum += item.unit_price
-    end 
+    end
     average_item_price = total_prices / total_items.count
     average_item_price.round(2)
   end
-  
+
   def all_average_prices
     average_prices = @merchants.all.map do |merchant|
       merchant_id = merchant.id
-      average_item_price_for_merchant(merchant_id) 
+      average_item_price_for_merchant(merchant_id)
     end
-  end 
-  
+  end
+
   def average_average_price_per_merchant
-    average_summed = all_average_prices.inject(0) do |sum, price| 
+    average_summed = all_average_prices.inject(0) do |sum, price|
       sum += price
     end
     average_average_price = average_summed / @merchants.all.count
     average_average_price.round(2)
   end
-  
+
   def average_item_price
     prices_summed = @items.all.inject(0) do |sum, item|
       sum += item.unit_price
     end
     prices_summed / @items.all.count
   end
-  
+
   def all_item_prices
    @items.all.map do |item|
     item.unit_price
     end
   end
-  
+
   def differences_from_average_price
     all_item_prices.map do |price|
       price.to_f - average_item_price
     end
   end
-  
+
   def square_differences
     differences_from_average_price.map do |amount|
       amount * amount
-    end  
+    end
   end
-  
+
   def sum_prices
     square_differences.inject(0) do |sum, amount|
       sum += amount
     end
-  end 
-  
+  end
+
   def standard_deviation
     differences_from_average_price
     square_differences
@@ -158,7 +158,6 @@ class SalesAnalyst
     end
     golden
   end
-  
 end
 
 # def return_hash_of_merchants_with_items
