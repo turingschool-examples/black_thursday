@@ -130,7 +130,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 16.22, @sa.invoice_status(:returned)
   end
 
-
 #-------------------------ITERATION THREE UNIT TESTS-------------------------
 def test_it_can_find_invoice_by_id
     assert_instance_of Invoice, @sa.find_invoice('1')[0]
