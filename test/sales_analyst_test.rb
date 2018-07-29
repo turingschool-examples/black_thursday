@@ -7,8 +7,10 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
+      :items        => './data/items.csv',
+      :merchants    => './data/merchants.csv',
+      :invoices     => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
       })
     @sa = SalesAnalyst.new(@se)
   end
@@ -80,5 +82,18 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items
     assert_equal 5, @sa.golden_items.length
+  end
+
+  def test_it_can_find_invoice_by_id
+    assert_instance_of Invoice, @sa.find_invoice('1')[0]
+    assert_equal "12335938", @sa.find_invoice('1')[0].merchant_id
+  end
+
+  def test_invoice_paid_in_full?
+    assert_equal true, @sa.invoice_paid_in_full?('134')
+  end
+
+  def test_invoice_total
+    assert_equal 100.00, @sa.invoice_total('1')
   end
 end

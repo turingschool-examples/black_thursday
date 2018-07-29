@@ -125,4 +125,46 @@ class SalesAnalyst
     end
     return golden_items
   end
+
+  def find_invoice(invoice_id)
+    selected = []
+    @se.invoices.all.each do |invoice|
+      if invoice.id == invoice_id
+        selected << invoice
+      end
+    end
+    return selected
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    invoice = find_invoice(invoice_id)
+    result = []
+    @se.transactions.all.each do |transaction|
+      if transaction.invoice_id == invoice_id
+        result << transaction
+      end
+    end
+    if result[0].result == "success"
+      true
+    else
+      false
+    end
+  end
+
+  def invoice_total(invoice)
+    selected = []
+    @se.invoice_items.all.each do |invoice_item|
+      if invoice_item.invoice_id == invoice
+        selcted << invoice_item
+      end
+    end
+    return selected
+  end
+
+
+
+
+
+
+
 end
