@@ -68,4 +68,14 @@ class TransactionRepositoryTest < Minitest::Test
     transaction = @transaction.find_by_id('invalid')
     assert_nil transaction
   end
+
+  def test_it_can_find_all_by_invoice_id
+    invoice_items_1 = @transaction.find_all_by_invoice_id(2171)
+    invoice_items_2 = @transaction.find_all_by_invoice_id(2172)
+    invoice_items_3 = @transaction.find_all_by_invoice_id(5)
+    assert_equal 2171, invoice_items_1.first.invoice_id
+    assert_equal 2172, invoice_items_2.first.invoice_id
+    assert_equal 2172, invoice_items_2[-1].invoice_id
+    assert_equal ([]), invoice_items_3
+  end
 end
