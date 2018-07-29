@@ -1,4 +1,4 @@
-require 'time'
+# require 'time'
 require 'bigdecimal'
 require_relative 'item'
 
@@ -8,19 +8,19 @@ class ItemRepo
 
   def initialize(items)
     @items = items
-    change_item_hashes_to_objects
+    change_item_hash_to_object
+  end
+  
+  def change_item_hash_to_object
+    item_array = []
+    @items.each do |item|
+      item_array << Item.new(item)
+    end
+    @items = item_array
   end
 
   def all
     @items
-  end
-
-  def change_item_hashes_to_objects
-    item_array = []
-    @items.each do |hash|
-      item_array << Item.new(hash)
-    end
-    @items = item_array
   end
 
   def find_by_id(id)
@@ -88,7 +88,6 @@ class ItemRepo
     return item_to_change
   end
   
-
   def delete(id)
     item_to_delete = find_by_id(id)
     @items.delete(item_to_delete)

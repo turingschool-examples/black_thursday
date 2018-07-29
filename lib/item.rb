@@ -15,7 +15,6 @@ class Item
     @name = hash[:name]
     @description = hash[:description]
     @unit_price = BigDecimal(hash[:unit_price].to_i)
-      # require "pry"; binding.pry
     @created_at = if hash[:created_at].class == String
                   Time.parse(hash[:created_at])
                     else
