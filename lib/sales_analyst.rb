@@ -209,7 +209,7 @@ class SalesAnalyst
     by_status = @se.invoices.find_all_by_status(status).count
     ((by_status / invoices.to_f) * 100).round(2)
    end
-  end
+
 #-------------------ITERATION THREE------------------------------------
   def find_invoice(invoice_id)
     selected = []
@@ -221,7 +221,7 @@ class SalesAnalyst
     return selected
   end
 
-  def invoice_paid_in_full?(invoice_id)
+  def grab_all_transactions(invoice_id)
     invoice = find_invoice(invoice_id)
     result = []
     @se.transactions.all.each do |transaction|
@@ -229,10 +229,19 @@ class SalesAnalyst
         result << transaction
       end
     end
-    if result[0].result == "success"
-      true
-    else
+    return result
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = grab_all_transactions(invoice_id)
+    statuses = []
+    transactions.each do |transaction|
+      statuses << transaction.result
+    end
+    if statuses.include?(:failed) == true
       false
+    else
+      true
     end
   end
 
@@ -245,6 +254,20 @@ class SalesAnalyst
     end
     return selected
   end
+
+  def invoice_total(id)
+    all_invoices_for_id = @se.invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == id
+    end
+    result = all_invoices_for_id.inject(0) do |sum, invoice|
+      sum + invoice.unit_price.to_f
+    end
+    return result.round(2)
+  end
+
+
+
+end
 
 #----------------------ITERATION FOUR----------------------------------
 #I will put iteration four methods here

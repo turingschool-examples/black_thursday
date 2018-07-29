@@ -132,16 +132,18 @@ class SalesAnalystTest < Minitest::Test
 
 #-------------------------ITERATION THREE UNIT TESTS-------------------------
 def test_it_can_find_invoice_by_id
-    assert_instance_of Invoice, @sa.find_invoice('1')[0]
-    assert_equal "12335938", @sa.find_invoice('1')[0].merchant_id
+    assert_instance_of Invoice, @sa.find_invoice(1)[0]
+    assert_equal 12335938, @sa.find_invoice(1)[0].merchant_id
   end
 
   def test_invoice_paid_in_full?
-    assert_equal true, @sa.invoice_paid_in_full?('134')
+    assert_equal true, @sa.invoice_paid_in_full?(74)
+    assert_equal false, @sa.invoice_paid_in_full?(2969)
   end
 
   def test_invoice_total
-    assert_equal 100.00, @sa.invoice_total('1')
+    assert_equal 3489.56, @sa.invoice_total(1)
+    assert_equal 2897.46, @sa.invoice_total(74)
   end
 end
 
