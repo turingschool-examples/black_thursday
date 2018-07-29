@@ -28,4 +28,8 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of CustomerRepository, @customer_repository
   end
 
+  def test_it_can_build_customer
+    assert_equal Array, @customer_repository.build_customer(@customers).class
+  end
+
 end
