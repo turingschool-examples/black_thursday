@@ -81,4 +81,9 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal [], customer
   end
 
+  def test_it_can_find_highest_id
+    customer = @customer_repository.find_highest_id
+    assert_equal 4, customer.id
+  end
+
 end
