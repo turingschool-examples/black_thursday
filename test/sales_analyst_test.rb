@@ -101,7 +101,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    assert_equal
+    assert_equal 1, @analyst.average_items_per_merchant_standard_deviation
   end
 
 end
