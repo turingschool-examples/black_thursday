@@ -255,7 +255,10 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    invoices_with_status(status) / number_of_invoices
+    number_of_invoices_with_status = group_invoices_by_status[status.to_s].count
+    ratio = number_of_invoices_with_status / number_of_invoices.to_f
+    percentage = ratio * 100
+    percentage.round(2)
   end
 
   def group_invoices_by_status
