@@ -160,15 +160,3 @@ class SalesAnalyst
   end
 
   
-end
-
-# def return_hash_of_merchants_with_items
-#   hash = Hash.new(0)
-#   return_array_of_unique_merchants.each do |merchant|
-#     mer_items = @items.all.find_all do |item|
-#       item.merchant_id == merchant.id
-#     end
-#     hash[merchant.id] = mer_items
-#   end
-#   hash
-# end

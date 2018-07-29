@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
     {id: 263375314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"},
     {id: 263345314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}]
     @item_repo = ItemRepo.new(item_array)
-    
+
     invoice_array = [{:id=>4981, :customer_id=>"999", :merchant_id=>"12335252", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
     {:id=>4982, :customer_id=>"999", :merchant_id=>"12334146", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
     {:id=>4983, :customer_id=>"999", :merchant_id=>"12334553", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
@@ -37,9 +37,11 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4985, :customer_id=>"999", :merchant_id=>"12335541", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
     @invoice_repo = InvoiceRepo.new(invoice_array)
 
+    #make sure merchant ids are the same.
+
     @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo)
   end
-  
+
   def test_it_exists
     assert_instance_of SalesAnalyst, @analyst
   end
@@ -61,29 +63,29 @@ class SalesAnalystTest < Minitest::Test
   # def test_it_returns_merchants_ids_for_high_item_count
   #   assert_equal [[@mer_repo.merchants[2], 8]], @analyst.merchants_ids_for_high_item_count
   # end
-    
+
   def test_it_returns_merchants_with_high_item_count
     assert_equal [@mer_repo.merchants[2]], @analyst.merchants_with_high_item_count
   end
-  
-  def test_it_calculates_average_item_price_for_merchant 
+
+  def test_it_calculates_average_item_price_for_merchant
     assert_equal BigDecimal(14.88,4), @analyst.average_item_price_for_merchant(12334113)
   end
-  
-  # def test_it_returns_all_average_prices 
+
+  # def test_it_returns_all_average_prices
   #   assert_equal [BigDecimal(14.00,4), BigDecimal(15.75,4), BigDecimal(14.88,4)], @analyst.all_average_prices
   # end
-  
+
   def test_it_calculates_average_average_price_per_merchant
     assert_equal BigDecimal(14.88,4), @analyst.average_average_price_per_merchant
   end
-  
+
   # def test_it_calculates_item_standard_deviation
   #   assert_equal 1.62, @analyst.standard_deviation
   # end
-  
+
   def test_it_return_golden_items
    assert_equal [], @analyst.golden_items
   end
-  
+
 end
