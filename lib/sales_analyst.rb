@@ -163,7 +163,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    
+
   end
 
 # Who are our top performing merchants?
