@@ -119,7 +119,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_invoices_two_std_deviations_above_mean
-    assert_equal [12334113], @sa.top_merchants_by_invoice_count
+    # skip
+    assert_equal 1, @sa.top_merchants_by_invoice_count.size
+  end
+
+  def test_it_can_find_merchants_with_invoices_two_std_deviations_below_mean
+    # skip
+    assert_equal 0, @sa.bottom_merchants_by_invoice_count.size
   end
 
 end
