@@ -21,6 +21,6 @@ class InvoiceTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 6, @invoice.id
     assert_equal 7, @invoice.customer_id
-    assert_equal 'pending', @invoice.status
+    assert_equal :pending, @invoice.status
   end
 end
