@@ -1,7 +1,10 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
+require_relative 'standard_deviation'
 
 class SalesAnalyst
+  include StandardDeviation
+  
   attr_reader :se
 
   def initialize(sales_engine)
@@ -129,26 +132,29 @@ class SalesAnalyst
 
 #----------------Iteration Two---------------------------------
   def average_invoices_per_merchant
-    (total_invoices / total_merchants_by_invoice.to_f).round(2)
+    (@se.invoices.all.count / @se.merchants.all.count.to_f).round(2)
   end
 
+  # returns a hash with the merchant_id as key and array of invoice objects
+  # that belong to that merchant
   def group_invoices_by_merchant
     @se.invoices.all.group_by(&:merchant_id)
   end
 
-  def total_merchants_by_invoice
-    group_invoices_by_merchant.inject(0) do |count, (id, items)|
-      count + 1
+  # returns a hash with merchant_id as key and sum of invoice objects as value
+  # invoices per merchant or ipm
+  def invoices_per_merchant
+    ipm = group_invoices_by_merchant
+    ipm.inject(ipm) do |hash, (merchant_id, invoices)|
+      hash[merchant_id] = invoices.count
+      hash
     end
   end
 
-  def total_invoices
-    group_invoices_by_merchant.inject(0) do |count, (id, items)|
-      count + items.count
-    end
-  end
 # *sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
-
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoices_per_merchant.values)
+  end
 # *sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
 # *sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
 # *sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
