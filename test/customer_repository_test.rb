@@ -42,4 +42,37 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 4, @customer_repository.all.count
   end
 
+  def test_it_can_find_a_customer_by_a_valid_id
+    customer = @customer_repository.find_by_id(2)
+    assert_equal Customer, customer.class
+    assert_equal 2, customer.id
+  end
+
+  def test_it_returns_nil_if_customer_id_is_invalid
+    customer = @customer_repository.find_by_id('invalid')
+    assert_nil customer
+  end
+
+  def test_it_can_find_a_customer_by_a_valid_first_name
+    customer = @customer_repository.find_all_by_first_name('Jane')
+    assert_equal Customer, customer[0].class
+    assert_equal 'Jane', customer[0].first_name
+  end
+
+  def test_it_returns_nil_if_customer_first_name_is_invalid
+    customer = @customer_repository.find_all_by_first_name('invalid')
+    assert_equal [], customer
+  end
+
+  def test_it_can_find_a_customer_by_a_valid_last_name
+    customer = @customer_repository.find_all_by_last_name('Don')
+    assert_equal Customer, customer[0].class
+    assert_equal 'Don', customer[0].last_name
+  end
+
+  def test_it_returns_nil_if_customer_last_name_is_invalid
+    customer = @customer_repository.find_all_by_last_name('invalid')
+    assert_equal [], customer
+  end
+
 end
