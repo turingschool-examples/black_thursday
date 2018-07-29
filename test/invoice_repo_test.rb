@@ -82,5 +82,4 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal nil, @invoice_repo.find_by_id(4983)
   end
   
-
 end
