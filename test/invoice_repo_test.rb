@@ -81,5 +81,6 @@ class InvoiceRepoTest < Minitest::Test
     @invoice_repo.delete(4983)
     assert_equal nil, @invoice_repo.find_by_id(4983)
   end
+  
 
 end
