@@ -60,8 +60,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [12334105, 3], @sales_analyst.merchant_id_item_counter.first
   end
   
-  #sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant]
-  
   def test_it_finds_merchants_with_high_item_count
     @sales_analyst.merchant_id_item_counter
     @sales_analyst.average_items_per_merchant_standard_deviation
@@ -78,5 +76,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, @sales_analyst.ids_with_high_item_count[0].class
     assert_equal 52, @sales_analyst.ids_with_high_item_count.count
   end 
+  # sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
+  def test_average_item_price_for_merchant 
+    # merchant_id = 12334105
+    # expected = sales_analyst.average_item_price_for_merchant(merchant_id)
+    # 
+    # expect(expected).to eq 16.66
+    # expect(expected.class).to eq BigDecimal
   
 end 

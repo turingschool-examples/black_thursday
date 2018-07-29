@@ -45,8 +45,6 @@ class SalesAnalyst
     @merchant_id_item_counts = m_item_count 
   end
   
-  # sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant] 
-  
   def merchants_with_high_item_count
     ids_with_high_item_count.map do |id_array| 
       @merchant_repository.all.find do |merchant|
@@ -62,4 +60,7 @@ class SalesAnalyst
     # binding.pry 
     return id_high_items
   end  
+  
+  #  sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
+  # iterate over 
 end 
