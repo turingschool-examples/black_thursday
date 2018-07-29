@@ -235,5 +235,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3, @sa.group_invoices_by_status.count
     expected = (["returned","shipped","pending"])
     assert_equal expected, @sa.group_invoices_by_status.keys
+    assert_equal 1, @sa.group_invoices_by_status["returned"].count
+    assert_equal 6, @sa.group_invoices_by_status["shipped"].count
+    assert_equal 6, @sa.group_invoices_by_status["shipped"].count
   end
 end
