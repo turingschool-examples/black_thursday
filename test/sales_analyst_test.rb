@@ -272,4 +272,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 112.98, @sales_analyst.invoice_total(10).to_f
     assert_instance_of BigDecimal, @sales_analyst.invoice_total(10)
   end
+
+  def test_it_finds_single_merchant_revenue
+    invoice_item_5 = InvoiceItem.new({:id => 22, :item_id => 7, :invoice_id => 8, :quantity => 1, :unit_price => BigDecimal.new(12.36, 4), :created_at => Time.now, :updated_at => Time.now})
+    invoice_item_6 = InvoiceItem.new({:id => 23, :item_id => 987, :invoice_id => 9, :quantity => 1, :unit_price => BigDecimal.new(9.79, 4), :created_at => Time.now, :updated_at => Time.now})
+
+    @invoice_items << invoice_item_5
+    @invoice_items << invoice_item_6
+
+    actual = @sales_analyst.revenue_by_merchant(12339191)
+    assert_equal 9.79, actual.to_f
+    assert_instance_of BigDecimal, actual
+  end
 end

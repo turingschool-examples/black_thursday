@@ -190,4 +190,17 @@ class SalesAnalyst
       end
     end
   end
+
+  def revenue_by_merchant(merchant_id)
+    merchants_invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    invoice_ids = merchants_invoices.map do |invoice|
+      invoice.id
+    end
+    invoice_ids.inject(0) do |sum, invoice_id|
+      if invoice_paid_in_full?(invoice_id)
+        sum += invoice_total(invoice_id)
+      end
+      sum
+    end
+  end
 end
