@@ -197,7 +197,7 @@ class SalesAnalyst
     if invoice_array == []
       false
     else
-      invoice_array.all? do |transaction|
+      invoice_array.any? do |transaction|
         transaction.result == :success
       end
     end
@@ -228,7 +228,7 @@ class SalesAnalyst
         merchant_list << merchant
       end
     end
-
+    
     merchant_list.map do |merchant_id|
       @merchant_repo.find_by_id(merchant_id.to_i)
     end
@@ -244,100 +244,34 @@ class SalesAnalyst
     Date.parse(month).strftime("%B")
   end
 
-    def revenue_by_merchant(merchant_id)
-      all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-        successful_invoices = all_merchant_invoices.find_all do |invoice|
-            invoice_paid_in_full?(invoice.id)
-        end
-
-         success_and_shipped =  successful_invoices.map do |invoice|
-            if invoice.status == :shipped
-              invoice_total(invoice.id)
-            end
-          end.compact
-      sum(success_and_shipped)
+  def revenue_by_merchant(merchant_id)
+    all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    successful_invoices = all_merchant_invoices.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
     end
-  # def revenue_by_merchant(merchant_id)
-  #   all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-  #   transactions = all_merchant_invoices.map do |invoice|
-  #     @transaction_repo.find_all_by_invoice_id(invoice.id)
-  #
-  #   end.flatten.compact
-  #   # binding.pry
-  #   array = transactions.find_all do |transaction|
-  #     # binding.pry
-  #     transaction.result == :success
-  #   end
-  #
-  #   successful_invoices = array.map do |transaction|
-  #     @invoice_repo.find_by_id(transaction.invoice_id)
-  #   end
-  #
-  #   revenue_per_invoice = successful_invoices.map do |invoice|
-  #    if invoice.status != :returned
-  #      invoice_total(invoice.id)
-  #    end
-  #  end
-  #
-  #   # revenue_per_invoice = success_and_shipped.map do |invoice|
-  #   #   invoice_total(invoice.id)
-  #   # end
-  #   # binding.pry
-  #   sum(revenue_per_invoice.compact)
-  # end
-  #
-  # def revenue_by_merchant(merchant_id)
-  #   all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-  #   revenue_per_invoice = all_merchant_invoices.map do |invoice|
-  #     # if invoice.status == :shipped
-  #     invoice_total(invoice.id)
-  #     # end
-  #   end
-  #   sum(revenue_per_invoice.compact)
-  # end
+    revenue_of_successful_invoices = successful_invoices.map do |invoice|
+      invoice_total(invoice.id)
+    end
+    sum(revenue_of_successful_invoices)
+  end
 
-  def top_revenue_earners(number_of_top = 20)
-    number_of_top = number_of_top - 1
-
+  def merchants_ranked_by_revenue
     revenue_earned_per_merchant = @merchant_repo.merchants.map do |merchant|
       [merchant.id, revenue_by_merchant(merchant.id)]
     end
-
     sorted_highest_rev_per_mer = revenue_earned_per_merchant.sort_by do |merchant, revenue|
       revenue
     end.reverse
-
     sorted_highest_merchants = sorted_highest_rev_per_mer.map do |pair|
       pair[0]
     end
-
-    top_revenue_merchants_descending = sorted_highest_merchants.map do |id|
+    sorted_highest_merchants.map do |id|
       @merchant_repo.find_by_id(id)
     end
-    top_revenue_merchants_descending[0..number_of_top]
-    binding.pry
   end
 
-  # def merchants_with_pending_invoices
-  #   status_of_invoices_per_merchant = @merchant_repo.merchants.map do |merchant|
-  #     [merchant.id, status_of_invoices_by_merchant(merchant.id)]
-  #   end
-  #   merchant_with_pending_invoices = status_of_invoices_per_merchant.find_all do |merchant, invoice_status|
-  #     invoice_status.any? do |status|
-  #       status == :pending
-  #     end
-  #   end
-  #   merchant_with_pending_invoices.map do |merchant_id, invoice_status|
-  #       @merchant_repo.find_by_id(merchant_id)
-  #   end
-  # end
-# #helper method for pending invoices
-#   def status_of_invoices_by_merchant(merchant_id)
-#     all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-#     all_merchant_invoices.map do |invoice|
-#       invoice.status
-#     end
-#   end
-#--------------------------
-
+  def top_revenue_earners(number_of_top = 20)
+    number_of_top = number_of_top - 1
+    merchants_ranked_by_revenue[0..number_of_top]
+  end
 end
