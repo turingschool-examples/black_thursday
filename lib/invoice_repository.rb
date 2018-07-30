@@ -11,14 +11,6 @@ class InvoiceRepository
     @repository = {}
   end
 
-  def create(params)
-    params[:id] = @repository.max[0] + 1 if params[:id].nil?
-
-    Invoice.new(params).tap do |invoice|
-      @repository[params[:id].to_i] = invoice
-    end
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     invoice = find_by_id(id)

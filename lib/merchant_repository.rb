@@ -11,14 +11,6 @@ class MerchantRepository
     @repository = {}
   end
 
-  def create(params)
-    params[:id] = @repository.max[0] + 1 if params[:id].nil?
-
-    Merchant.new(params).tap do |merchant|
-      @repository[params[:id].to_i] = merchant
-    end
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     new_name = params[:name]

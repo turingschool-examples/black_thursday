@@ -11,14 +11,6 @@ class TransactionRepository
     @repository = {}
   end
 
-  def create(params)
-    params[:id] = @repository.max[0] + 1 if params[:id].nil?
-
-    Transaction.new(params).tap do |transaction|
-      @repository[params[:id].to_i] = transaction
-    end
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     trans = find_by_id(id)

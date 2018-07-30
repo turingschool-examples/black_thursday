@@ -11,14 +11,6 @@ class InvoiceItemRepository
     @repository = {}
   end
 
-  def create(params)
-    params[:id] = @repository.max[0] + 1 if params[:id].nil?
-
-    InvoiceItem.new(params).tap do |invoice_item|
-      @repository[params[:id].to_i] = invoice_item
-    end
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     sig_fig = params[:unit_price].to_s.size - 1

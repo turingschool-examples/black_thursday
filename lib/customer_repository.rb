@@ -11,14 +11,6 @@ class CustomerRepository
     @repository = {}
   end
 
-  def create(params)
-    params[:id] = @repository.max[0] + 1 if params[:id].nil?
-
-    Customer.new(params).tap do |customer|
-      @repository[params[:id].to_i] = customer
-    end
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     customer = find_by_id(id)

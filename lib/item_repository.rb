@@ -13,14 +13,6 @@ class ItemRepository
     @repository = {}
   end
 
-  def create(params)
-    params[:id] = @repository.max[0] + 1 if params[:id].nil?
-
-    Item.new(params).tap do |item|
-      @repository[params[:id].to_i] = item
-    end
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     sig_fig = params[:unit_price].to_s.size - 1

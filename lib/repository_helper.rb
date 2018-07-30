@@ -8,6 +8,14 @@ module RepositoryHelper
     end
   end
 
+  def create(params)
+    params[:id] = @repository.max[0] + 1 if params[:id].nil?
+
+    sub_class.new(params).tap do |new_object|
+      @repository[params[:id].to_i] = new_object
+    end
+  end
+
   def find_by_id(id)
     return nil unless @repository.key?(id)
     @repository.fetch(id)
