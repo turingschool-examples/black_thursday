@@ -29,8 +29,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_converst_unit_price_to_dollars
-    actual = @item.unit_price_to_dollars
-    assert_equal 0.1, actual
+    assert_equal 0.1, @item.unit_price_to_dollars
   end
 
 
