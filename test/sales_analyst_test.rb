@@ -9,7 +9,9 @@ class SalesAnalystTest < Minitest::Test
       :items     =>  "./data/fake_item_csv.csv",
       # "./data/items.csv",
       :merchants => "./data/fake_merchant_csv.csv",
-      :invoices => "./data/fake_invoice_csv.csv"
+      :invoices => "./data/fake_invoice_csv.csv",
+      :transactions => "./data/fake_transaction_csv.csv",
+      :invoice_items => "./data/fake_invoice_items_csv.csv"
     })
 
     @sa = SalesAnalyst.new(@se)
@@ -233,5 +235,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, @sa.group_invoices_by_status["pending"].count
   end
 
+  def test_invoice_paid_in_full
+    assert_equal true, @sa.invoice_paid_in_full?(2)
+    assert_equal false, @sa.invoice_paid_in_full?(1752)
+    assert_equal false, @sa.invoice_paid_in_full?(3)
+  end
+
+  def test_it_can_calculate_invoice_total
+    assert_equal BigDecimal, @sa.invoice_total(3).class
+    assert_equal BigDecimal, @sa.invoice_total(4).class
+  end
 
 end

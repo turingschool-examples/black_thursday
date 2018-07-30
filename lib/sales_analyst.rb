@@ -266,4 +266,20 @@ class SalesAnalyst
       invoice.status
     end
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    return false if @sales_engine.transactions.find_all_by_invoice_id(invoice_id) == []
+    invoice = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
+    invoice.all? do |invoice|
+      invoice.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    return nil if @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id) == []
+    invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.inject(0) do |total, invoice_item|
+      total + (invoice_item.unit_price * invoice_item.quantity)
+    end
+  end
 end
