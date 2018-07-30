@@ -140,7 +140,7 @@ class SalesAnalyst
     if invoices.empty?
       false
     else
-      invoices.all? do |invoice|
+      invoices.any? do |invoice|
         invoice.result == :success
       end
     end
@@ -195,36 +195,50 @@ class SalesAnalyst
     price = values.inject(0, &:+)
   end
 
+  def revenue_by_merchant(merchant_id)
+    invoices = @invoice_repository.all.select do |invoice|
+      invoice.merchant_id == merchant_id
+    end
+    paid_invoices = invoices.select do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+    invoice_items = paid_invoices.map do |invoice|
+      @invoice_item_repository.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items.flatten!
+    total = invoice_items.inject(0) do |sum, invoice|
+      sum += (invoice.unit_price * invoice.quantity.to_i)
+    end
+
+  end
+
   def top_revenue_earners(top_n=20)
-    grouped = @invoice_item_repository.all.group_by do |invoice|
-      invoice.invoice_id
+    merchant_ids = get_merchant_ids
+    revenue_hash = {}
+    merchant_ids.each do |merchant_id|
+      revenue_hash[merchant_id] = revenue_by_merchant(merchant_id)
     end
-    grouped = grouped.select do |key, value|
-      invoice_paid_in_full?(key)
+    top_merchants = revenue_hash.sort_by do |merchant_id, revenue|
+      - revenue
     end
-    new = {}
-    grouped.each do |key, array|
-      new[key] = array.map do |invoice|
-        (invoice.quantity.to_f * invoice.unit_price).round(2)
-      end.inject(0, &:+)
+    if top_n != nil
+      top_merchants = top_merchants[0...top_n]
+    else
+      top_merchants
     end
-    merch_invo = @invoice_repository.all.group_by do |invoice|
-      invoice.merchant_id
+    merchant_objs = top_merchants.map do |array|
+      @merchant_repository.find_by_id(array[0])
     end
-    newer = {}
-    merch_invo.each do |key, invo_array|
-      newer[key] = invo_array.map do | invo |
-          new[invo.id]
-      end.compact.inject(0, &:+)
-    end
+    merchant_objs
+  end
 
-    top = newer.max_by(top_n) {|key, value| value}
-    top.sort_by {|array| - array[1] }
-    top.flatten!
+  def merchants_ranked_by_revenue
+    top_revenue_earners(nil)
+  end
 
-    binding.pry
-    merchants = top.map do |merch_id|
-      @merchant_repository.find_by_id(merch_id)
-    end.compact
+  def get_merchant_ids
+    @merchant_repository.all.map do |merchant|
+      merchant.id
+    end
   end
 end
