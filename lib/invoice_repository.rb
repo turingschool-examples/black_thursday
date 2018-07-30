@@ -26,11 +26,6 @@ class InvoiceRepository
     invoice.updated_at = Time.now
   end
 
-  def all
-    invoice_pairs = @repository.to_a.flatten
-    remove_keys(invoice_pairs, Invoice)
-  end
-
   def find_all_by_customer_id(id)
     all.find_all do |invoice|
       invoice.customer_id == id
@@ -47,5 +42,11 @@ class InvoiceRepository
     all.find_all do |invoice|
       invoice.status == status
     end
+  end
+
+  private
+
+  def sub_class
+    Invoice
   end
 end

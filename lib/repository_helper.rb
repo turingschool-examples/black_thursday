@@ -19,6 +19,11 @@ module RepositoryHelper
     end
   end
 
+  def all
+    repository_pairs = @repository.to_a.flatten
+    remove_keys(repository_pairs, sub_class)
+  end
+
   def delete(id)
     @repository.delete(id)
   end

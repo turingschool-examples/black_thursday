@@ -21,9 +21,15 @@ class ItemRepository
     end
   end
 
-  def all
-    item_pairs = @repository.to_a.flatten
-    remove_keys(item_pairs, Item)
+  def update(id, params)
+    return nil unless @repository.key?(id)
+    sig_fig = params[:unit_price].to_s.size - 1
+
+    item = find_by_id(id)
+    item.name = params[:name] unless params[:name].nil?
+    item.description = params[:description] unless params[:description].nil?
+    item.unit_price = BigDecimal(params[:unit_price], sig_fig) unless params[:unit_price].nil?
+    item.updated_at = Time.now
   end
 
   def find_all_with_description(input)
@@ -51,14 +57,9 @@ class ItemRepository
     end
   end
 
-  def update(id, params)
-    return nil unless @repository.key?(id)
-    sig_fig = params[:unit_price].to_s.size - 1
+  private
 
-    item = find_by_id(id)
-    item.name = params[:name] unless params[:name].nil?
-    item.description = params[:description] unless params[:description].nil?
-    item.unit_price = BigDecimal(params[:unit_price], sig_fig) unless params[:unit_price].nil?
-    item.updated_at = Time.now
+  def sub_class
+    Item
   end
 end

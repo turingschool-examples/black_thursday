@@ -29,11 +29,6 @@ class InvoiceItemRepository
     invoice_item.updated_at = Time.now
   end
 
-  def all
-    invoice_item_pairs = @repository.to_a.flatten
-    remove_keys(invoice_item_pairs, InvoiceItem)
-  end
-
   def find_all_by_item_id(id)
     all.find_all do |invoice_item|
       invoice_item.item_id == id
@@ -44,5 +39,11 @@ class InvoiceItemRepository
     all.find_all do |invoice_item|
       invoice_item.invoice_id == id
     end
+  end
+
+  private
+
+  def sub_class
+    InvoiceItem
   end
 end

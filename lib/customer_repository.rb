@@ -27,11 +27,6 @@ class CustomerRepository
     customer.updated_at = Time.now
   end
 
-  def all
-    customer_list = @repository.to_a.flatten
-    remove_keys(customer_list, Customer)
-  end
-
   def find_all_by_first_name(first_name)
     all.find_all do |customer|
       customer.first_name.downcase.include?(first_name.downcase)
@@ -42,5 +37,11 @@ class CustomerRepository
     all.find_all do |customer|
       customer.last_name.downcase.include?(last_name.downcase)
     end
+  end
+
+  private
+
+  def sub_class
+    Customer
   end
 end

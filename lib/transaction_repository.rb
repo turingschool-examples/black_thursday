@@ -28,11 +28,6 @@ class TransactionRepository
     trans.updated_at = Time.now
   end
 
-  def all
-    transaction_pairs = @repository.to_a.flatten
-    remove_keys(transaction_pairs, Transaction)
-  end
-
   def find_all_by_invoice_id(invoice_id)
     all.find_all do |transaction|
       transaction.invoice_id == invoice_id
@@ -49,5 +44,11 @@ class TransactionRepository
     all.find_all do |transaction|
       transaction.result == result
     end
+  end
+
+  private
+
+  def sub_class
+    Transaction
   end
 end
