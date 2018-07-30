@@ -6,14 +6,14 @@ require 'pry'
 class TransactionTest < MiniTest::Test
   def setup
     @transaction = Transaction.new({
-                      :id                           => 6,
-                      :invoice_id                   => 8,
-                      :credit_card_number           => "4242424242424242",
-                      :credit_card_expiration_date  => "1020",
-                      :result                       => "success",
-                      :created_at                   => "1972-07-30 18:08:53 UTC",
-                      :updated_at                   => "2016-01-11 18:30:35 UTC"
-                    })
+      id: 6,
+      invoice_id: 9,
+      credit_card_number: "4242424242424242",
+      credit_card_expiration_date: "1020",
+      result: "success",
+      created_at: "1972-07-30 18:08:53 UTC",
+      updated_at: "2016-01-11 18:30:35 UTC"
+      })
   end
 
   def test_it_exists
@@ -25,7 +25,7 @@ class TransactionTest < MiniTest::Test
   end
 
   def test_it_has_a_invoice_id
-    assert_equal 8, @transaction.invoice_id
+    assert_equal 9, @transaction.invoice_id
   end
 
   def test_it_has_a_credit_card_number

@@ -5,13 +5,13 @@ require_relative '../lib/sales_engine.rb'
 class SalesAnalystTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
-                        :items     => "./data/items.csv",
-                        :merchants => "./data/merchants.csv",
-                        :invoices => "./data/invoices.csv",
-                        :invoice_items => "./data/invoice_items.csv",
-                        :transactions => "./data/transactions.csv",
-                        :customers => "./data/customers.csv"
-                      })
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv",
+      invoices: "./data/invoices.csv",
+      invoice_items: "./data/invoice_items.csv",
+      transactions: "./data/transactions.csv",
+      customers: "./data/customers.csv"
+      })
     @sales_analyst = @sales_engine.analyst
   end
 
@@ -122,5 +122,28 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_return_invoice_total
     assert_equal 21067.77, @sales_analyst.invoice_total(1)
+  end
+
+  def test_it_can_check_total_revenue_by_date
+    assert_equal 14074.79, @sales_analyst.total_revenue_by_date(Time.parse("2011-06-30"))
+  end
+
+  def test_it_can_check_top_revenue_earners
+    # skip
+    top_revenue_merchants = @sales_analyst.top_revenue_earners(10)
+    assert_equal 10, @sales_analyst.top_revenue_earners(10).count
+    assert_instance_of Merchant, top_revenue_merchants[0]
+    assert_equal 20, @sales_analyst.top_revenue_earners.count
+  end
+
+  def test_it_can_get_merchants_with_pending_invoices
+    skip
+    actual = @sales_analyst.merchants_with_pending_invoices
+    assert_instance_of Merchant, actual[0]
+    assert_equal 448, actual.count
+  end
+
+  def test_it_can_check_revenue_by_merchant
+    assert_equal 73467.47, @sales_analyst.revenue_by_merchant(12334194)
   end
 end

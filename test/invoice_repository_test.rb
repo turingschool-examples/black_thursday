@@ -4,7 +4,33 @@ require 'pry'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    @invoice_repository = InvoiceRepository.new("./data/invoices.csv")
+    invoice_1 = Invoice.new({
+      id: 1,
+      customer_id: 10,
+      merchant_id: 123,
+      status: "pending",
+      created_at: "2004-02-17",
+      updated_at: "2014-03-15"
+      })
+    invoice_2 = Invoice.new({
+      id: 2,
+      customer_id: 10,
+      merchant_id: 124,
+      status: "shipped",
+      created_at: "2009-02-07",
+      updated_at: "2012-03-15"
+      })
+    invoice_3 = Invoice.new({
+      id: 3,
+      customer_id: 12,
+      merchant_id: 125,
+      status: "returned",
+      created_at: "1997-07-31",
+      updated_at: "2014-02-11"
+      })
+
+    invoices = [invoice_1, invoice_2, invoice_3]
+    @invoice_repository = InvoiceRepository.new(invoices)
   end
 
   def test_it_exists
@@ -17,12 +43,12 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_its_holding_invoices
     assert_instance_of Invoice, @invoice_repository.invoices[0]
-    assert_instance_of Invoice, @invoice_repository.invoices[25]
+    assert_instance_of Invoice, @invoice_repository.invoices[2]
   end
 
   def test_it_can_return_items_using_all
-    assert_instance_of Invoice, @invoice_repository.all[5]
-    assert_instance_of Invoice, @invoice_repository.all[97]
+    assert_instance_of Invoice, @invoice_repository.all[1]
+    assert_instance_of Invoice, @invoice_repository.all[2]
   end
 
   def test_it_can_find_by_id
@@ -32,19 +58,19 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_customer_id
-    expected = 8
-    actual = @invoice_repository.find_all_by_customer_id(1).count
+    expected = 2
+    actual = @invoice_repository.find_all_by_customer_id(10).count
     assert_equal expected, actual
   end
 
   def test_it_can_find_all_by_merchant_id
-    expected = 16
-    actual = @invoice_repository.find_all_by_merchant_id(12335938).count
+    expected = 1
+    actual = @invoice_repository.find_all_by_merchant_id(125).count
     assert_equal expected, actual
   end
 
   def test_it_can_find_all_by_status
-    expected = 1473
+    expected = 1
     actual = @invoice_repository.find_all_by_status("pending").count
     assert_equal expected, actual
   end
@@ -70,10 +96,8 @@ class InvoiceRepositoryTest < Minitest::Test
       })
 
     assert_equal @invoice_repository.invoices.last.customer_id, new_invoice_added.customer_id
-    assert_equal @invoice_repository.invoices.last.merchant_id, new_invoice_added.merchant_id
-    assert_equal @invoice_repository.invoices.last.status, new_invoice_added.status
 
-    @invoice_repository.update(4986, {:status => "shipped"})
+    @invoice_repository.update(4, {:status => "shipped"})
 
     assert_equal "shipped", new_invoice_added.status
   end
