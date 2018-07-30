@@ -152,9 +152,6 @@ class SalesAnalyst
     golden
   end
 
-# How many invoices does the average merchant have?
-# sales_analyst.average_invoices_per_merchant # => 10.49
-# sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
   def average_invoices_per_merchant
     unique_merchants = @merchants.all.uniq
     average = @invoices.all.count.to_f / unique_merchants.count
@@ -218,23 +215,20 @@ class SalesAnalyst
   end
 
   def average_days
-    days = days_array
-    days = days.map do |day|
-      @invoices.find_all_by_day(day).count / 7.0
+    days = average_days_array
+    days = days.inject(0) do |sum, num|
+      sum += num
     end
-    require "pry"; binding.pry
+    days = days / 7.0
   end
 
   def top_days_by_invoice_count
     standard = standard_deviation(average_days_array, @invoices.all.count / 7.0, @invoices)
-    days = days_array.zip(average_days_array)
     high_level = standard + (average_days)
-
     golden = []
-    days = average_days_array
-    days.each do |day|
-      if day[1] >= high_level
-        golden << day[0]
+    average_days_array.each_with_index do |day, index|
+      if day >= high_level
+        golden << [days_array[index]]
       end
     end
     golden
@@ -246,17 +240,4 @@ class SalesAnalyst
     percentage.round(2)
   end
 
-
-
 end
-
-# def return_hash_of_merchants_with_items
-#   hash = Hash.new(0)
-#   return_array_of_unique_merchants.each do |merchant|
-#     mer_items = @items.all.find_all do |item|
-#       item.merchant_id == merchant.id
-#     end
-#     hash[merchant.id] = mer_items
-#   end
-#   hash
-# end
