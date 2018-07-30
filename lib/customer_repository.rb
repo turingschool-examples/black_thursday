@@ -8,19 +8,19 @@ class CustomerRepository
   include RepositoryHelper
 
   def initialize
-    @customers = {}
+    @repository = {}
   end
 
   def create(params)
-    params[:id] = @customers.max[0] + 1 if params[:id].nil?
+    params[:id] = @repository.max[0] + 1 if params[:id].nil?
 
     Customer.new(params).tap do |customer|
-      @customers[params[:id].to_i] = customer
+      @repository[params[:id].to_i] = customer
     end
   end
 
   def update(id, params)
-    return nil unless @customers.key?(id)
+    return nil unless @repository.key?(id)
     customer = find_by_id(id)
     customer.first_name = params[:first_name] unless params[:first_name].nil?
     customer.last_name  = params[:last_name] unless params[:last_name].nil?
@@ -28,35 +28,19 @@ class CustomerRepository
   end
 
   def all
-    customer_list = @customers.to_a.flatten
+    customer_list = @repository.to_a.flatten
     remove_keys(customer_list, Customer)
-  end
-
-  def find_by_id(id)
-    return nil unless @customers.key?(id)
-    @customers.fetch(id)
   end
 
   def find_all_by_first_name(first_name)
-    customer_list = @customers.find_all do |_, customer|
-
+    all.find_all do |customer|
       customer.first_name.downcase.include?(first_name.downcase)
-    end.flatten
-    remove_keys(customer_list, Customer)
+    end
   end
 
   def find_all_by_last_name(last_name)
-    customer_list = @customers.find_all do |_, customer|
+    all.find_all do |customer|
       customer.last_name.downcase.include?(last_name.downcase)
-    end.flatten
-    remove_keys(customer_list, Customer)
-  end
-
-  def delete(id)
-    @customers.delete(id)
-  end
-
-  def inspect
-    "#<#{self.class} #{@customers.size} rows>"
+    end
   end
 end
