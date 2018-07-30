@@ -70,4 +70,5 @@ class MerchantRepoTest < Minitest::Test
     assert_equal nil, @mer_repo.find_by_id(12334123)
   end
 
+
 end

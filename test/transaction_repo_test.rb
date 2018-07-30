@@ -19,7 +19,7 @@ class TransactionRepoTest < Minitest::Test
     assert_instance_of TransactionRepo, @transaction_repo
   end
 
-  def test_it_returns_all_items
+  def test_it_returns_all_transactions
     assert_equal @transaction_repo.transactions, @transaction_repo.all
   end
  
@@ -85,5 +85,6 @@ class TransactionRepoTest < Minitest::Test
     @transaction_repo.delete(1)
     assert_equal nil, @transaction_repo.find_by_id(1)
   end
+
 
 end

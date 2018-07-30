@@ -24,4 +24,5 @@ class CustomerTest < Minitest::Test
     assert_instance_of Time, @customer.updated_at
   end
   
+  
 end

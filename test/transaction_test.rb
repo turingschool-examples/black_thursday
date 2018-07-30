@@ -28,4 +28,5 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time, @transaction.updated_at
   end
   
+  
 end

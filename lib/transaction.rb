@@ -27,5 +27,6 @@ class Transaction
                     end
     @merchant_id = hash[:merchant_id].to_i
   end
+  
 
 end

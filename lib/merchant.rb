@@ -15,4 +15,5 @@ class Merchant
     @updated_at = Time.parse(hash[:updated_at].to_s)
   end
 
+
 end
