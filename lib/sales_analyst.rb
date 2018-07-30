@@ -130,8 +130,7 @@ class SalesAnalyst
 
   def merchants_with_pending_invoices
     all_merchants.find_all do |merchant|
-      invoices = @engine.invoices.find_all_by_merchant_id(merchant.id)
-      invoices.any? do |invoice|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
         invoice.status == :pending
       end
     end
