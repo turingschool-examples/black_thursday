@@ -44,6 +44,13 @@ class InvoiceRepo
     end
   end
 
+  def find_all_by_day(day)
+    days = @invoices.find_all do |invoice|
+      invoice.created_at.strftime('%A') == day.to_s
+    end
+    days
+  end
+
   def create(attributes)
     invoice_new = Invoice.new(attributes)
     max_invoice_id = @invoices.max_by do |invoice|
