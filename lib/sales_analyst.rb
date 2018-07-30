@@ -218,14 +218,18 @@ class SalesAnalyst
   end
 
   def average_days
+    days = days_array
+    days = days.map do |day|
+      @invoices.find_all_by_day(day).count / 7.0
+    end
+    require "pry"; binding.pry
   end
 
   def top_days_by_invoice_count
     standard = standard_deviation(average_days_array, @invoices.all.count / 7.0, @invoices)
+    days = days_array.zip(average_days_array)
+    high_level = standard + (average_days)
 
-    days = days_array
-    days = days.zip(average_days_array)
-    high_level = standard + (average of days)
     golden = []
     days = average_days_array
     days.each do |day|
@@ -234,7 +238,6 @@ class SalesAnalyst
       end
     end
     golden
-    require "pry"; binding.pry
   end
 
   def invoice_status(sym)
