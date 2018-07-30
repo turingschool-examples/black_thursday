@@ -237,8 +237,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_invoice_paid_in_full
     assert_equal true, @sa.invoice_paid_in_full?(2)
-    assert_equal false, @sa.invoice_paid_in_full?(1752)
-    assert_equal false, @sa.invoice_paid_in_full?(3)
+    assert_equal false, @sa.invoice_paid_in_full?(12)
+    assert_equal false, @sa.invoice_paid_in_full?(9999)
   end
 
   def test_it_can_calculate_invoice_total
@@ -261,8 +261,12 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 2, @sa.top_revenue_earners(2)
   # end
 
-  def test_can_get_invoice_ids
-    assert_equal [1,2,3,4,5,6], @sa.get_invoice_ids
+  # def test_can_get_invoice_ids
+  #   assert_equal [1,2,3,4,5,6], @sa.get_invoice_ids
+  # end
+
+  def test_it_can_group_invoices_by_merchant_id
+
   end
 
 end
