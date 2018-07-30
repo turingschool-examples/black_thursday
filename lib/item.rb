@@ -1,7 +1,7 @@
 # frozen_string_literals: true
 
 require 'bigdecimal'
-
+require 'time'
 # ./lib/item.rb
 class Item
   attr_reader :id,
@@ -19,8 +19,8 @@ class Item
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = BigDecimal.new(attributes[:unit_price], 4) / 100
-    @created_at = Time.new(attributes[:created_at])
-    @updated_at = Time.new(attributes[:updated_at])
+    @created_at = Time.parse(attributes[:created_at])
+    @updated_at = Time.parse(attributes[:updated_at])
     @merchant_id = attributes[:merchant_id].to_i
     highest_id_updater
   end

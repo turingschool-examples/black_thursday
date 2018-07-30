@@ -247,9 +247,45 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_only_one_item
+    merchant_ids = @item_repository.all.group_by do |item|
+      item.merchant_id
+    end
+    single_ids = merchant_ids.select do |key, value|
+      value.length == 1
+    end
+    merchants = single_ids.keys.map do |id|
+      @merchant_repository.find_by_id(id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants = merchants_with_only_one_item
+    merchants.select do |merchant|
+      merchant.created_at.strftime("%B") == month
+    end
+  end
+
   def get_merchant_ids
     @merchant_repository.all.map do |merchant|
       merchant.id
     end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    items = @item_repository.all.select do |item|
+      item.merchant_id == merchant_id
+    end
+    hash = {}
+    items.each do |item|
+      hash[item] = @invoice_item_repository.find_all_by_item_id(item.id)
+    end
+    reduced_hash = {}
+    hash.each do |key, array|
+      reduced_hash[key] = array.max_by do |item_inv|
+        item_inv.quantity
+      end
+    end
+    reduced_hash.keys
   end
 end
