@@ -246,4 +246,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sa.invoice_total(4).class
   end
 
+  def test_it_can_find_total_revenue_by_date
+    skip
+    assert_equal 0, @sa.total_revenue_by_date(0)
+  end
+
+  def test_it_can_find_invoices_by_created_at_date
+    date = Time.parse('2018-07-22')
+    assert_equal Array, @sa.find_all_invoices_by_date(date).class
+    assert_equal 1, @sa.find_all_invoices_by_date(date).count
+  end
+
 end
