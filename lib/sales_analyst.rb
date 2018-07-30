@@ -258,7 +258,6 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-
     invoices_by_date = @invoices.all.find_all do |invoice|
       invoice.created_at.strftime("%F") == date.strftime("%F")
     end
@@ -271,5 +270,12 @@ class SalesAnalyst
     total = matched_invoice_items.inject(0) do |total, invoice_item|
       total += (invoice_item.unit_price * invoice_item.quantity)
     end
+  end
+
+  def top_revenue_earners(x)
+    sorted_merchants = @merchants.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end
+    sorted_merchants.reverse.take(x)
   end
 end

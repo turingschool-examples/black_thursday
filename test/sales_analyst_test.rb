@@ -337,4 +337,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 202.0, @sales_analyst.total_revenue_by_date(Time.parse("2009-02-07")).to_f
     assert_instance_of BigDecimal, @sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))
   end
+
+  def test_it_finds_x_top_revenue_earners
+    expected = [@merchant_3, @merchant_2]
+    assert_equal expected, @sales_analyst.top_revenue_earners(2)
+  end
 end
