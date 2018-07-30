@@ -68,6 +68,13 @@ class InvoiceRepo
     @invoices.delete(invoice_to_delete)
   end
   
+  def find_all_by_day(day)
+    days = @invoices.find_all do |invoice|
+      invoice.created_at.strftime('%A') == day.to_s
+    end
+    days
+  end
+  
 end
   
   
