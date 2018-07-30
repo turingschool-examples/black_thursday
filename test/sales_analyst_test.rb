@@ -157,4 +157,9 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual[0]
     assert_equal 448, actual.count
   end
+
+  def test_it_can_return_the_most_sold_item_for_merchant
+    assert_instance_of Item, @sales_analyst.most_sold_item_for_merchant(12334189).first.class
+    
+  end
 end

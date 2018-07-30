@@ -284,4 +284,53 @@ class SalesAnalyst
       @merchant_repo.find_by_id(merchant_id)
     end.uniq
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoice_items = merchant_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id) unless invoice_paid_in_full?(invoice.id) == false
+    end.flatten.compact
+
+    grouped_invoice_items = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    hash = {}
+    grouped_invoice_items.each do |key, value|
+      hash[key] = value.inject(0) do |sum, num|
+        sum + num.quantity.to_i
+      end
+    end
+
+    highest_quantity = hash.values.max
+    highest_values = hash.find_all do |key, value|
+      value == highest_quantity
+    end
+
+    highest_values.map do |id, quantity|
+      @item_repo.find_by_id(id)
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoice_items = merchant_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id) unless invoice_paid_in_full?(invoice.id) == false
+    end.flatten.compact
+
+    grouped_invoice_items = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    hash = {}
+    grouped_invoice_items.each do |key, value|
+      hash[key] = value.inject(0) do |sum, num|
+        sum + (num.quantity.to_i * num.unit_price)
+      end
+    end
+
+    highest_quantity = hash.key(hash.values.max)
+    @item_repo.find_by_id(highest_quantity)
+    # binding.pry
+  end
 end
