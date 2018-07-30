@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'bigdecimal'
+require 'pry'
 
 # Sales anaylst class
 class SalesAnalyst
@@ -157,6 +158,14 @@ class SalesAnalyst
     end
     valid_invoices.inject(0) do |sum, invoice|
       sum + invoice_total_float(invoice.id)
+    end
+  end
+
+  def merchants_with_pending_invoices
+    all_merchants.find_all do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
+        !invoice_paid_in_full?(invoice.id)
+      end
     end
   end
 
