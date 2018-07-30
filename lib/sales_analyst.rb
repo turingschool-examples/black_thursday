@@ -1,17 +1,21 @@
 require_relative 'merchant_repo'
 require_relative 'item_repo'
 require_relative 'invoice_repo'
+require_relative 'invoice_item_repo'
+require_relative 'transaction_repo'
 require 'time'
 require 'bigdecimal'
 
 class SalesAnalyst
 
-  attr_reader :merchants, :items, :invoices
+  attr_reader :merchants, :items, :invoices, :invoice_items, :transactions
 
-  def initialize(merchant_repo, item_repo, invoice_repo)
+  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo, transaction_repo)
     @merchants = merchant_repo
     @items = item_repo
     @invoices = invoice_repo
+    @invoice_items = invoice_item_repo
+    @transactions = transaction_repo
   end
 
   # def average(elements, total_elements)

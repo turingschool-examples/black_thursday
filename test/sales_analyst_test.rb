@@ -2,6 +2,8 @@ require_relative 'test_helper'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
 require_relative '../lib/invoice_repo'
+require_relative '../lib/invoice_item_repo'
+require_relative '../lib/transaction_repo'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
 
@@ -54,10 +56,29 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4995, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
 >>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
     @invoice_repo = InvoiceRepo.new(invoice_array)
+<<<<<<< HEAD
 
     #make sure merchant ids are the same.
 
     @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo)
+=======
+    
+    #ids still need to be adjusted to match data.
+    invoice_item_array = [{:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21832", :item_id=>"263519847", :invoice_id=>"4987", :quantity=>"13", :unit_price=>"13638", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21833", :item_id=>"263519848", :invoice_id=>"4988", :quantity=>"14", :unit_price=>"13639", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21834", :item_id=>"263519849", :invoice_id=>"4989", :quantity=>"15", :unit_price=>"13630", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}]
+    @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
+    
+    #ids still need to be adjusted to match data.
+    transaction_array = []
+    @transaction_repo = TransactionRepo.new(transaction_array)
+    
+    
+    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo)
+>>>>>>> 888878f53448d9deaaf3887658667e93c6e462b4
   end
 
   def test_it_exists
@@ -68,6 +89,8 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of MerchantRepo, @analyst.merchants
     assert_instance_of ItemRepo, @analyst.items
     assert_instance_of InvoiceRepo, @analyst.invoices
+    assert_instance_of InvoiceItemRepo, @analyst.invoice_items
+    assert_instance_of TransactionRepo, @analyst.transactions
   end
 
   def test_it_calculates_average_items_per_merchant
