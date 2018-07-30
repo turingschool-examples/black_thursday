@@ -228,7 +228,7 @@ class SalesAnalyst
         merchant_list << merchant
       end
     end
-    
+
     merchant_list.map do |merchant_id|
       @merchant_repo.find_by_id(merchant_id.to_i)
     end
@@ -273,5 +273,15 @@ class SalesAnalyst
   def top_revenue_earners(number_of_top = 20)
     number_of_top = number_of_top - 1
     merchants_ranked_by_revenue[0..number_of_top]
+  end
+
+  def merchants_with_pending_invoices
+    merchant_ids_of_pending = @invoice_repo.invoices.map do |invoice|
+      invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
+    end.compact
+
+    final = merchant_ids_of_pending.map do |merchant_id|
+      @merchant_repo.find_by_id(merchant_id)
+    end.uniq
   end
 end

@@ -153,10 +153,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_get_merchants_with_pending_invoices
-    skip
     actual = @sales_analyst.merchants_with_pending_invoices
     assert_instance_of Merchant, actual[0]
     assert_equal 448, actual.count
   end
-
 end
