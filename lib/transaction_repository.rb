@@ -47,7 +47,7 @@ class TransactionRepository
     return if transaction.nil?
     transaction.credit_card_number = attributes[:credit_card_number] || transaction.credit_card_number
     transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] || transaction.credit_card_expiration_date
-    transaction.result = attributes[:result] || transaction.result
+    transaction.result = attributes[:result].to_sym unless attributes[:result].nil?
     transaction.updated_at = Time.now
     transaction
   end
