@@ -1,6 +1,8 @@
 require_relative './sales_engine'
+require_relative './merchant_analytics'
 
 class SalesAnalyst
+  include MerchantAnalytics
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @days = {
