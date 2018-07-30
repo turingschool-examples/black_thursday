@@ -53,6 +53,7 @@ class ItemRepoTest < Minitest::Test
 
   def test_it_creates_item_with_attributes
     refute_instance_of Item, @item_repo.items[6]
+    
     @item_repo.create({:id          => "1",
                        :name        => "Eagle",
                        :description => "animal 7",
@@ -60,6 +61,7 @@ class ItemRepoTest < Minitest::Test
                        :created_at  => Time.now,
                        :updated_at  => Time.now,
                        :merchant_id => "2"})
+                       
     assert_instance_of Item, @item_repo.items[6]
   end
 
@@ -70,15 +72,14 @@ class ItemRepoTest < Minitest::Test
 
     current_time = Time.now.to_s
 
-    @item_repo.update(263395212, {
-      :id           => "363395250",
-      :name         => "Bat",
-      :description  => "animal 100",
-      :unit_price   => BigDecimal.new(10.99,4),
-      :created_at   => "2016-01-11 11:51:37 UTC",
-      :updated_at   => current_time,
-      :merchant_id  => "12334104"
-      })
+    @item_repo.update(263395212, {:id           => "363395250",
+                                  :name         => "Bat",
+                                  :description  => "animal 100",
+                                  :unit_price   => BigDecimal.new(10.99,4),
+                                  :created_at   => Time.now,
+                                  :updated_at   => current_time,
+                                  :merchant_id  => "12334104"
+                                 })
 
     assert_equal "Bat", @item_repo.items[5].name
     assert_equal "animal 100", @item_repo.items[5].description

@@ -15,7 +15,8 @@ class InvoiceItemRepoTest < Minitest::Test
     {:id=>"21836", :item_id=>"263519841", :invoice_id=>"4981", :quantity=>"17", :unit_price=>"13632", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
     {:id=>"21837", :item_id=>"263519842", :invoice_id=>"4982", :quantity=>"18", :unit_price=>"13633", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
     {:id=>"21838", :item_id=>"263519843", :invoice_id=>"4983", :quantity=>"19", :unit_price=>"13634", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
-    {:id=>"21839", :item_id=>"263519839", :invoice_id=>"4990", :quantity=>"20", :unit_price=>"13640", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}]
+    {:id=>"21839", :item_id=>"263519839", :invoice_id=>"4990", :quantity=>"20", :unit_price=>"13640", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}
+  ]
     
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
   end 
@@ -46,15 +47,14 @@ class InvoiceItemRepoTest < Minitest::Test
   def test_it_creates_invoice_item_with_attributes
     refute_instance_of InvoiceItem, @invoice_item_repo.invoice_items[11]
     
-    @invoice_item_repo.create({
-                    :id => 6,
-                    :item_id => 7,
-                    :invoice_id => 8,
-                    :quantity => 1,
-                    :unit_price => BigDecimal.new(10.99,4),
-                    :created_at => Time.now,
-                    :updated_at => Time.now
-                  })
+    @invoice_item_repo.create({:id         => 6,
+                               :item_id    => 7,
+                               :invoice_id => 8,
+                               :quantity   => 1,
+                               :unit_price => BigDecimal.new(10.99,4),
+                               :created_at => Time.now,
+                               :updated_at => Time.now
+                              })
                   
     assert_instance_of InvoiceItem, @invoice_item_repo.invoice_items[11]
   end
@@ -63,17 +63,20 @@ class InvoiceItemRepoTest < Minitest::Test
     refute_equal 1, @invoice_item_repo.invoice_items[0].quantity 
     refute_equal 10.99, @invoice_item_repo.invoice_items[0].unit_price 
     
+    current_time = Time.now.to_s
+    
     @invoice_item_repo.update(21829, {:id         => 6,
                                       :item_id    => 7,
                                       :invoice_id => 8,
                                       :quantity   => 1,
                                       :unit_price => BigDecimal.new(10.99,4),
                                       :created_at => Time.now,
-                                      :updated_at => Time.now
+                                      :updated_at => current_time
                                     })
                                     
     assert_equal 1, @invoice_item_repo.invoice_items[0].quantity 
     assert_equal 10.99, @invoice_item_repo.invoice_items[0].unit_price 
+    assert_equal current_time, @invoice_item_repo.invoice_items[0].updated_at.to_s
   end
   
   def test_it_deletes_invoice_item_by_id
