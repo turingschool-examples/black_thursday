@@ -173,7 +173,7 @@ class SalesAnalyst
       false
     else
       transactions = @transactions.find_all_by_invoice_id(invoice_id)
-      transactions.all? do |transaction|
+      transactions.any? do |transaction|
         transaction.result == :success
       end
     end
@@ -254,6 +254,22 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.strftime("%B") == month
+    end
+  end
+
+  def total_revenue_by_date(date)
+
+    invoices_by_date = @invoices.all.find_all do |invoice|
+      invoice.created_at.strftime("%F") == date.strftime("%F")
+    end
+    paid_invoices = invoices_by_date.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+    matched_invoice_items = paid_invoices.map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    total = matched_invoice_items.inject(0) do |total, invoice_item|
+      total += (invoice_item.unit_price * invoice_item.quantity)
     end
   end
 end

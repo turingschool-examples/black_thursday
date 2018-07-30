@@ -324,4 +324,17 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.merchants_with_only_one_item_registered_in_month("February")
     assert_equal [], actual
   end
+
+  def test_it_finds_revenue_by_date
+    invoice_item_6 = InvoiceItem.new({:id => 6, :item_id => 7, :invoice_id => 88, :quantity => 1, :unit_price => BigDecimal.new(100.99, 4), :created_at => Time.now, :updated_at => Time.now})
+    invoice_6 = Invoice.new({:id => 88, :customer_id => 26, :merchant_id => 12334141, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
+    transaction_6 = Transaction.new({:id => 6, :invoice_id =>88, :credit_card_number => "4242424242421111", :credit_card_expiration_date => "0220", :result => "success", :created_at => Time.now, :updated_at => Time.now})
+
+    @invoices << invoice_6
+    @invoice_items << invoice_item_6
+    @transactions << transaction_6
+
+    assert_equal 202.0, @sales_analyst.total_revenue_by_date(Time.parse("2009-02-07")).to_f
+    assert_instance_of BigDecimal, @sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))
+  end
 end
