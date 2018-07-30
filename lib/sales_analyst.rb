@@ -131,7 +131,7 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     all_merchants.find_all do |merchant|
       @engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
-        invoice.status == :pending
+        !invoice_paid_in_full?(invoice.id)
       end
     end
   end
