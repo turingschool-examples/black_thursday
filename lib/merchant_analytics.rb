@@ -33,7 +33,11 @@ module MerchantAnalytics
         sum + invoice
       end
     end
-    totals.delete_if {|key, value| value == 0}
+    totals.delete_if {|merchant_id, sum| sum == 0}
+  end
+
+  def sort_summed_invoice_totals
+    sum_invoice_totals.sort_by {|merchant_id, sum| sum }.reverse.to_h
   end
 
 end
