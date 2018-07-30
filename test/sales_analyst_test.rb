@@ -85,7 +85,8 @@ class SalesAnalystTest < Minitest::Test
     transaction3 = { id: 3, invoice_id: 3, credit_card_number: '4242424742424242', credit_card_expiration_date: '0128', result: :success, created_at: Time.now, updated_at: Time.now }
     transaction4 = { id: 4, invoice_id: 4, credit_card_number: '4242424242724242', credit_card_expiration_date: '0712', result: :failed, created_at: Time.now, updated_at: Time.now }
     transaction5 = { id: 5, invoice_id: 5, credit_card_number: '4242427242424242', credit_card_expiration_date: '0813', result: :failed, created_at: Time.now, updated_at: Time.now }
-    transactions = [transaction1, transaction2, transaction3, transaction4, transaction5]
+    transaction6 = { id: 6, invoice_id: 12, credit_card_number: '0000000000000000', credit_card_expiration_date: '0120', result: :success, created_at: Time.now, updated_at: Time.now }
+    transactions = [transaction1, transaction2, transaction3, transaction4, transaction5, transaction6]
 
     data = { merchants: merchants, items: items, invoices: invoices, transactions: transactions, invoice_items: invoice_items }
     @se = SalesEngine.new(data)
@@ -162,5 +163,20 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_merchants_with_pending_invoices
     expected = [@se.merchants.find_by_id(5), @se.merchants.find_by_id(6)]
     assert_equal expected, @sa.merchants_with_pending_invoices
+  end
+
+  def test_it_returns_total_revenue_by_given_date
+    date = Time.parse('2017-10-02')
+    assert_equal 122.5, @sa.total_revenue_by_date(date)
+  end
+
+  def test_it_returns_merchant_revenue_total
+    assert_equal 122.5, @sa.revenue_by_merchant(4)
+  end
+
+  def test_it_returns_top_revenue_earners
+    expected = [@se.merchants.find_by_id(4)]
+
+    assert_equal expected, @sa.top_revenue_earners(1)
   end
 end
