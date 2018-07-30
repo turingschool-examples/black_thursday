@@ -126,13 +126,37 @@ class SalesAnalyst
     end
     BigDecimal(total, total.to_s.size - 1)
   end
-
+  
   def total_revenue_by_date(date)
     valid_invoices = all_invoices.keep_if do |invoice|
       invoice.created_at == date
     end
     invoice_sum =  valid_invoices.inject(0) do |sum, invoice|
         sum + invoice_total(invoice.id)
+    end
+  end
+
+
+  def top_revenue_earners(limit = 20)
+    all_merchants.max_by(limit) do |merchant|
+      revenue_by_merchant(merchant.id)
+    end
+  end
+      
+  def invoice_total_float(invoice_id)
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.inject(0) do |sum, invoice_item|
+      sum + invoice_item.quantity * invoice_item.unit_price_to_dollars
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
+    valid_invoices = merchant_invoices.keep_if do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+    valid_invoices.inject(0) do |sum, invoice|
+      sum + invoice_total_float(invoice.id)
     end
   end
 
