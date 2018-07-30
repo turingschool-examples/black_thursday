@@ -188,10 +188,43 @@ class SalesAnalyst
     invoice_items = invoice_ids.map do |id|
       @invoice_item_repository.find_all_by_invoice_id(id)
     end
-    flat = invoice_items.flatten
-    values = flat.map do |invoice|
+    flat_invoices = invoice_items.flatten
+    values = flat_invoices.map do |invoice|
       (invoice.quantity.to_f * invoice.unit_price)
     end
     price = values.inject(0, &:+)
+  end
+
+  def top_revenue_earners(top_n=20)
+    grouped = @invoice_item_repository.all.group_by do |invoice|
+      invoice.invoice_id
+    end
+    grouped = grouped.select do |key, value|
+      invoice_paid_in_full?(key)
+    end
+    new = {}
+    grouped.each do |key, array|
+      new[key] = array.map do |invoice|
+        (invoice.quantity.to_f * invoice.unit_price).round(2)
+      end.inject(0, &:+)
+    end
+    merch_invo = @invoice_repository.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+    newer = {}
+    merch_invo.each do |key, invo_array|
+      newer[key] = invo_array.map do | invo |
+          new[invo.id]
+      end.compact.inject(0, &:+)
+    end
+
+    top = newer.max_by(top_n) {|key, value| value}
+    top.sort_by {|array| - array[1] }
+    top.flatten!
+
+    binding.pry
+    merchants = top.map do |merch_id|
+      @merchant_repository.find_by_id(merch_id)
+    end.compact
   end
 end
