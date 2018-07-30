@@ -222,8 +222,41 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
+    merchant_list = []
+    items_per_merchant.each do |merchant, item_count|
+      if item_count == 1
+        merchant_list << merchant
+      end
+    end
 
+    merchant_list.map do |merchant_id|
+      @merchant_repo.find_by_id(merchant_id.to_i)
+    end
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      month_finder(merchant.created_at.to_s) == month
+    end
+  end
+
+  def month_finder(month)
+    Date.parse(month).strftime("%B")
+  end
+
+    def revenue_by_merchant(merchant_id)
+      all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+        successful_invoices = all_merchant_invoices.find_all do |invoice|
+            invoice_paid_in_full?(invoice.id)
+        end
+
+         success_and_shipped =  successful_invoices.map do |invoice|
+            if invoice.status == :shipped
+              invoice_total(invoice.id)
+            end
+          end.compact
+      sum(success_and_shipped)
+    end
   # def revenue_by_merchant(merchant_id)
   #   all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
   #   transactions = all_merchant_invoices.map do |invoice|
@@ -263,27 +296,27 @@ class SalesAnalyst
   #   sum(revenue_per_invoice.compact)
   # end
 
-  # def top_revenue_earners(number_of_top = 20)
-  #   number_of_top = number_of_top - 1
-  #
-  #   revenue_earned_per_merchant = @merchant_repo.merchants.map do |merchant|
-  #     [merchant.id, revenue_by_merchant(merchant.id)]
-  #   end
-  #
-  #   sorted_highest_rev_per_mer = revenue_earned_per_merchant.sort_by do |merchant, revenue|
-  #     revenue
-  #   end.reverse
-  #
-  #   sorted_highest_merchants = sorted_highest_rev_per_mer.map do |pair|
-  #     pair[0]
-  #   end
-  #
-  #   top_revenue_merchants_descending = sorted_highest_merchants.map do |id|
-  #     @merchant_repo.find_by_id(id)
-  #   end
-  #   top_revenue_merchants_descending[0..number_of_top]
-  #   binding.pry
-  # end
+  def top_revenue_earners(number_of_top = 20)
+    number_of_top = number_of_top - 1
+
+    revenue_earned_per_merchant = @merchant_repo.merchants.map do |merchant|
+      [merchant.id, revenue_by_merchant(merchant.id)]
+    end
+
+    sorted_highest_rev_per_mer = revenue_earned_per_merchant.sort_by do |merchant, revenue|
+      revenue
+    end.reverse
+
+    sorted_highest_merchants = sorted_highest_rev_per_mer.map do |pair|
+      pair[0]
+    end
+
+    top_revenue_merchants_descending = sorted_highest_merchants.map do |id|
+      @merchant_repo.find_by_id(id)
+    end
+    top_revenue_merchants_descending[0..number_of_top]
+    binding.pry
+  end
 
   # def merchants_with_pending_invoices
   #   status_of_invoices_per_merchant = @merchant_repo.merchants.map do |merchant|
