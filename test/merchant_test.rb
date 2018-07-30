@@ -26,7 +26,7 @@ class MerchantTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 5, @merchant.id
     assert_equal 'Turing School', @merchant.name
-    assert_equal '2009-05-30', @merchant.created_at
-    assert_equal '2010-08-29', @merchant.updated_at
+    assert_instance_of Time, @merchant.created_at
+    assert_instance_of Time, @merchant.updated_at
   end
 end

@@ -12,6 +12,7 @@ class MerchantRepository
     new_name = params[:name]
     merchant = find_by_id(id)
     merchant.name = new_name
+    merchant.updated_at = Time.now
     merchant
   end
 
