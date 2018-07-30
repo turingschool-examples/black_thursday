@@ -127,6 +127,15 @@ class SalesAnalyst
     BigDecimal(total, total.to_s.size - 1)
   end
 
+  def total_revenue_by_date(date)
+    valid_invoices = all_invoices.keep_if do |invoice|
+      invoice.created_at == date
+    end
+    invoice_sum =  valid_invoices.inject(0) do |sum, invoice|
+        sum + invoice_total(invoice.id)
+    end
+  end
+
   private
 
   def standard_deviation(data_set, mean)
@@ -180,11 +189,5 @@ class SalesAnalyst
     invoices_by_day.map do |_, invoice|
       invoice.count
     end
-  end
-
-  def total_revenue_by_date(date)
-
-
-
   end
 end
