@@ -179,4 +179,19 @@ class SalesAnalyst
   def invoice_status(status)
     @invoice_repository.invoice_status(status)
   end
+
+  def total_revenue_by_date(date)
+    invoices = @invoice_repository.invoices.select do |invoice| 
+      invoice.created_string == date.strftime("%F")
+    end
+    invoice_ids = invoices.map {|invoice| invoice.id}
+    invoice_items = invoice_ids.map do |id|
+      @invoice_item_repository.find_all_by_invoice_id(id)
+    end
+    flat = invoice_items.flatten
+    values = flat.map do |invoice|
+      (invoice.quantity.to_f * invoice.unit_price)
+    end
+    price = values.inject(0, &:+)
+  end
 end
