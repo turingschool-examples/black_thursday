@@ -1,19 +1,20 @@
 require 'time'
 require 'bigdecimal'
 
-class Item
+class InvoiceItem 
   attr_accessor :id,
-                :name,
-                :description,
+                :item_id,
+                :invoice_id,
+                :quantity,
                 :unit_price,
                 :created_at,
-                :updated_at,
-                :merchant_id
-
+                :updated_at
+              
   def initialize(hash)
     @id = hash[:id].to_i
-    @name = hash[:name]
-    @description = hash[:description]
+    @item_id = hash[:item_id].to_i
+    @invoice_id = hash[:invoice_id].to_i 
+    @quantity = hash[:quantity].to_i 
     @unit_price = BigDecimal(hash[:unit_price].to_i)
     @created_at = if hash[:created_at].class == String
                   Time.parse(hash[:created_at])
@@ -24,10 +25,9 @@ class Item
                     Time.parse(hash[:updated_at])
                     else
                       Time.now
-                    end
-    @merchant_id = hash[:merchant_id].to_i
+                  end
   end
-
+  
   def unit_price
     @unit_price / 100
   end
@@ -35,6 +35,6 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f / 100
   end
-
-
+  
+  
 end

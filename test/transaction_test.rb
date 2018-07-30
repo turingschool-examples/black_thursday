@@ -4,8 +4,8 @@ require_relative '../lib/transaction'
 class TransactionTest < Minitest::Test
 
   def setup
-    @transaction = Transaction.new({
-                                    :id => 6,
+
+    @transaction = Transaction.new({:id => 6,
                                     :invoice_id => 8,
                                     :credit_card_number => "4242424242424242",
                                     :credit_card_expiration_date => "0220",
@@ -24,7 +24,7 @@ class TransactionTest < Minitest::Test
     assert_equal 8, @transaction.invoice_id
     assert_equal "4242424242424242", @transaction.credit_card_number
     assert_equal "0220", @transaction.credit_card_expiration_date
-    assert_equal "success", @transaction.result
+    assert_equal :success, @transaction.result
     assert_instance_of Time, @transaction.created_at
     assert_instance_of Time, @transaction.updated_at
   end
