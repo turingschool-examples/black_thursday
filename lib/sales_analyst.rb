@@ -147,7 +147,6 @@ class SalesAnalyst
     pairs.flatten
   end
 
-<<<<<<< HEAD
   def average_item_price_for_merchant(merchant_id)
     total_items = @items.find_all_by_merchant_id(merchant_id)
     total_prices = total_items.inject(0) do |sum, item|
@@ -167,7 +166,9 @@ class SalesAnalyst
   def average_average_price_per_merchant
     average_summed = all_average_prices.inject(0) do |sum, price|
       sum += price
-=======
+    end
+  end
+
   def golden_items
     high_item_price = standard_deviation_prices * 2 + average_item_price
     golden = []
@@ -175,16 +176,16 @@ class SalesAnalyst
       if item.unit_price >= high_item_price
         golden << item
       end
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
     end
     golden
   end
 
-<<<<<<< HEAD
   def average_item_price
     prices_summed = @items.all.inject(0) do |sum, item|
       sum += item.unit_price
-=======
+    end
+  end
+
   def average_invoices_per_merchant
     unique_merchants = @merchants.all.uniq
     average = @invoices.all.count.to_f / unique_merchants.count
@@ -198,16 +199,17 @@ class SalesAnalyst
       id = merchant.id
       all_invoices = @invoices.find_all_by_merchant_id(id)
       array << all_invoices.count
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
     end
     array
   end
 
-<<<<<<< HEAD
+
   def all_item_prices
-   @items.all.map do |item|
-    item.unit_price
-=======
+    @items.all.map do |item|
+     item.unit_price
+    end
+  end
+
   def average_invoices_per_merchant_standard_deviation
     standard_deviation(array_invoices_per_merchant, average_invoices_per_merchant, @invoices)
   end
@@ -228,11 +230,12 @@ class SalesAnalyst
     top_merchants
   end
 
-<<<<<<< HEAD
+
   def differences_from_average_price
     all_item_prices.map do |price|
       price.to_f - average_item_price
-=======
+  end
+
   def bottom_merchants_by_invoice_count
     low_level = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
     unique_merchants = @merchants.all.uniq
@@ -244,12 +247,10 @@ class SalesAnalyst
       if count <= low_level
         low_merchants << merchant
       end
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
     end
     low_merchants
   end
 
-<<<<<<< HEAD
   def square_differences
     differences_from_average_price.map do |amount|
       amount * amount
@@ -268,7 +269,8 @@ class SalesAnalyst
     sum_prices
     result = sum_prices/ (@items.all.count - 1)
     result = Math.sqrt(result).round(2)
-=======
+  end
+
   def days_array
     ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   end
@@ -278,7 +280,6 @@ class SalesAnalyst
     days = days.map do |day|
       @invoices.find_all_by_day(day).count / 7.0
     end
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
   end
 
   def average_days
@@ -301,9 +302,6 @@ class SalesAnalyst
     golden
   end
 
-  
-<<<<<<< HEAD
-=======
   def invoice_status(sym)
     percentage = @invoices.find_all_by_status(sym).count.to_f / @invoices.all.count
     percentage = percentage * 100
@@ -311,12 +309,3 @@ class SalesAnalyst
   end
 
 end
-
-  def invoice_status(sym)
-    percentage = @invoices.find_all_by_status(sym).count.to_f / @invoices.all.count
-    percentage = percentage * 100
-    percentage.round(2)
-  end
-
-end
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
