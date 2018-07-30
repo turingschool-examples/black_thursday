@@ -74,9 +74,9 @@ class TransactionRepoTest < Minitest::Test
                                  :updated_at => current_time
                                 })
   
-    assert_equal "424242424242424", @transaction_repo.transactions[7].credit_card_number
+    assert_equal "4242424242424242", @transaction_repo.transactions[7].credit_card_number
     assert_equal "0220", @transaction_repo.transactions[7].credit_card_expiration_date
-    assert_equal "success", @transaction_repo.transactions[7].result
+    assert_equal :success, @transaction_repo.transactions[7].result
     assert_equal current_time, @transaction_repo.transactions[7].updated_at.to_s
   end
 

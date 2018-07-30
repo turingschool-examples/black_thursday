@@ -39,10 +39,9 @@ class TransactionRepo
   end
 
   def find_all_by_result(result) 
-    @transactions.find_all do |transactions|
-        transactions.result == result
+    @transactions.find_all do |transaction|
+        transaction.result.to_sym == result.to_sym
       end
-    end
   end 
   
   def create(attributes) 
@@ -56,13 +55,19 @@ class TransactionRepo
     return transaction_new 
   end 
   
-  def update(id, attribute) 
+  def update(id, attributes) 
     transaction_to_change = find_by_id(id)
     return if transaction_to_change.nil?
+    if attributes[:credit_card_number]
+      transaction_to_change.credit_card_number = attributes[:credit_card_number]
+    end
+    if attributes[:credit_card_expiration_date]
+      transaction_to_change.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+    end
+    if attributes[:result]
+     transaction_to_change.result = attributes[:result].to_sym
+    end
     transaction_to_change.updated_at = Time.now
-    transactions_to_change.credit_card_number = attributes[:credit_card_number]
-    transactions_to_change.credit_card_expiration_date = attributes[:credit_card_expiration_date]
-    transactions_to_change.result = attributes[:result]
     transaction_to_change 
   end 
   
@@ -70,4 +75,6 @@ class TransactionRepo
     transaction_to_delete = find_by_id(id)
     @transactions.delete(transaction_to_delete)
   end
+
+end
   

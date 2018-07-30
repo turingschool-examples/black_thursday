@@ -59,7 +59,10 @@ class SalesAnalystTest < Minitest::Test
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
     
     #ids still need to be adjusted to match data.
-    transaction_array = []
+    transaction_array = [{:id=>"1", :invoice_id=>"2170", :credit_card_number=>"4068631943231473", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"2", :invoice_id=>"2179", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"3", :invoice_id=>"2178", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"4", :invoice_id=>"2179", :credit_card_number=>"4068631943231475", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}]
     @transaction_repo = TransactionRepo.new(transaction_array)
     
     
