@@ -49,6 +49,7 @@ class SalesAnalyst
   end
   
   def merchants_with_high_item_count
+    
     ids_with_high_item_count.map do |id_array| 
       @merchant_repository.all.find do |merchant|
         merchant.id == id_array[0]
@@ -58,6 +59,8 @@ class SalesAnalyst
   
   # helper to merchants_with_high_item_count
   def ids_with_high_item_count
+    merchant_id_item_counter
+    average_items_per_merchant_standard_deviation
     id_high_items = @merchant_id_item_counts.find_all do |id, count|
       count > @item_count_std_dev + average_items_per_merchant
     end

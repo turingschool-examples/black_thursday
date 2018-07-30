@@ -69,9 +69,6 @@ class SalesAnalystTest < Minitest::Test
   end 
   
   def test_it_finds_ids_with_high_item_count
-    @sales_analyst.merchant_id_item_counter
-    @sales_analyst.average_items_per_merchant_standard_deviation
-    
     assert_equal Array, @sales_analyst.ids_with_high_item_count.class
     assert_equal Array, @sales_analyst.ids_with_high_item_count[0].class
     assert_equal 52, @sales_analyst.ids_with_high_item_count.count
