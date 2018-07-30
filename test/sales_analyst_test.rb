@@ -113,7 +113,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    assert_equal []
+    assert_equal [], @analyst.top_days_by_invoice_count
   end
 
   def test_invoice_status

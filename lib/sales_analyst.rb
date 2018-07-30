@@ -206,21 +206,35 @@ class SalesAnalyst
     low_merchants
   end
 
+  def days_array
+    ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  end
+
   def average_days_array
-    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    days = days_array
     days = days.map do |day|
       @invoices.find_all_by_day(day).count / 7.0
     end
   end
 
+  def average_days
+  end
+
   def top_days_by_invoice_count
-    standard_deviation(average_days_array, @invoices.all.count / 7.0, @invoices)
+    standard = standard_deviation(average_days_array, @invoices.all.count / 7.0, @invoices)
+
+    days = days_array
+    days = days.zip(average_days_array)
+    high_level = standard + (average of days)
+    golden = []
+    days = average_days_array
+    days.each do |day|
+      if day[1] >= high_level
+        golden << day[0]
+      end
+    end
+    golden
     require "pry"; binding.pry
-    
-  # Which days of the week see the most sales?
-  # On which days are invoices created at more than one standard deviation above the mean?
-  #
-  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
   end
 
   def invoice_status(sym)
