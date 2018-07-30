@@ -3,12 +3,14 @@ require_relative './sales_engine'
 class SalesAnalyst 
   attr_reader       :sales_engine, 
                     :item_repository, :merchant_repository, :merchant_id_item_counts,
-                    :item_count_std_dev
+                    :item_count_std_dev,
+                    :invoice_repository
                     
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @item_repository = @sales_engine.items
     @merchant_repository = @sales_engine.merchants
+    @invoice_repository = @sales_engine.invoices
     @merchant_id_item_counts = nil
     @item_count_std_dev = nil
   end
@@ -138,5 +140,9 @@ class SalesAnalyst
     end 
     count = @item_repository.all.count 
     (sum / count).round(2)
+  end
+  
+  def average_invoices_per_merchant # => 10.49
+    (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end 
 end 

@@ -24,6 +24,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1367, @sales_analyst.item_repository.all.count
     assert_equal MerchantRepository, @sales_analyst.merchant_repository.class
     assert_equal 475, @sales_analyst.merchant_repository.all.count
+    assert_equal InvoiceRepository, @sales_analyst.invoice_repository.class
+    assert_equal 4985, @sales_analyst.invoice_repository.all.count
     assert_nil @sales_analyst.merchant_id_item_counts
     assert_nil @sales_analyst.item_count_std_dev 
   end 
@@ -45,8 +47,8 @@ class SalesAnalystTest < Minitest::Test
   end 
 
   def test_average_items_per_merchant 
-    assert_equal 2.88, @sales_engine.analyst.average_items_per_merchant 
-    assert_equal Float, @sales_engine.analyst.average_items_per_merchant.class 
+    assert_equal 2.88, @sales_analyst.average_items_per_merchant 
+    assert_equal Float, @sales_analyst.average_items_per_merchant.class 
   end
   
   def test_it_sums_differences_squared
@@ -121,5 +123,10 @@ class SalesAnalystTest < Minitest::Test
   
   def test_average_item_price 
     assert_equal BigDecimal, @sales_analyst.average_item_price.class
-  end  
+  end
+  
+  def test_average_invoices_per_merchant 
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant 
+    assert_equal Float, @sales_analyst.average_invoices_per_merchant.class 
+  end 
 end 
