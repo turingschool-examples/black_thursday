@@ -236,6 +236,17 @@ class SalesAnalyst
     top_revenue_earners(nil)
   end
 
+  def merchants_with_pending_invoices
+    pending_invoices = @invoice_repository.all.reject do |invoice| 
+      invoice_paid_in_full?(invoice.id)
+    end
+    merchant_ids = pending_invoices.map {|invoice| invoice.merchant_id}
+    merchant_ids.uniq!
+    merchants = merchant_ids.map do |merchant_id|
+      @merchant_repository.find_by_id(merchant_id)
+    end
+  end
+
   def get_merchant_ids
     @merchant_repository.all.map do |merchant|
       merchant.id
