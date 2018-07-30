@@ -17,8 +17,13 @@ class ItemRepository
 
   def create_items
     CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
-
       @all << Item.new(row)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all do |item|
+      item.merchant_id == merchant_id
     end
   end
 
@@ -41,5 +46,5 @@ class ItemRepository
 end
 
 # ir = ItemRepository.new("./data/items.csv")
-# ir.create_items 
+# ir.create_items
 # ir.update(270000000, {})
