@@ -5,7 +5,7 @@ module RepositoryHelper
   def initialize
     @repository = {}
   end
-  
+
   def populate(data)
     data.map do |row|
       create(row)
@@ -33,6 +33,18 @@ module RepositoryHelper
   def find_by_name(name)
     all.find do |repository|
       repository.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    all.find_all do |repository|
+      repository.merchant_id == id
+    end
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |repository|
+      repository.invoice_id == invoice_id
     end
   end
 

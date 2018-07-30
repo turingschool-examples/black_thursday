@@ -23,12 +23,6 @@ class InvoiceItemRepository
     end
   end
 
-  def find_all_by_invoice_id(id)
-    all.find_all do |invoice_item|
-      invoice_item.invoice_id == id
-    end
-  end
-
   private
 
   def sub_class
