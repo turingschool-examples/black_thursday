@@ -69,19 +69,57 @@ class SalesAnalystTest < Minitest::Test
   end 
   
   def test_it_finds_ids_with_high_item_count
-    @sales_analyst.merchant_id_item_counter
-    @sales_analyst.average_items_per_merchant_standard_deviation
-    
     assert_equal Array, @sales_analyst.ids_with_high_item_count.class
     assert_equal Array, @sales_analyst.ids_with_high_item_count[0].class
     assert_equal 52, @sales_analyst.ids_with_high_item_count.count
-  end 
-  # sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal
-  def test_average_item_price_for_merchant 
-    # merchant_id = 12334105
-    # expected = sales_analyst.average_item_price_for_merchant(merchant_id)
-    # 
-    # expect(expected).to eq 16.66
-    # expect(expected.class).to eq BigDecimal
+  end
   
+  def test_average_average_price_per_merchant
+    assert_equal BigDecimal, @sales_analyst.average_average_price_per_merchant.class
+    assert_equal 350.29, @sales_analyst.average_average_price_per_merchant
+  end 
+  
+  def test_it_creates_array_of_averages_per_merchant 
+    assert_equal Array, @sales_analyst.create_array_of_averages_per_merchant.class
+    assert_equal BigDecimal, @sales_analyst.create_array_of_averages_per_merchant[0].class
+    assert_equal @sales_analyst.merchant_repository.all.count, @sales_analyst.create_array_of_averages_per_merchant.count
+  end
+
+  def test_average_item_price_for_merchant 
+    assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
+    assert_equal BigDecimal, @sales_analyst.average_item_price_for_merchant(12334105).class
+  end
+  
+  def test_it_finds_items_by_merchant_id
+    assert_equal Array, @sales_analyst.find_items_by_merchant_id(12334159).class 
+    assert_equal 10, @sales_analyst.find_items_by_merchant_id(12334159).count 
+    assert_equal Item, @sales_analyst.find_items_by_merchant_id(12334159)[0].class
+  end 
+  
+  def test_it_creates_price_array 
+    assert_equal Array, @sales_analyst.create_price_array(12334159).class
+    assert_equal 10, @sales_analyst.create_price_array(12334159).count
+    assert_equal BigDecimal, @sales_analyst.create_price_array(12334159)[0].class
+  end 
+  
+  def test_it_sums_prices_in_price_array
+    assert_equal 15, @sales_analyst.sum_prices_in_price_array([1, 2, 3, 4, 5])
+  end
+  
+  def test_it_returns_golden_items 
+    assert_equal 5, @sales_analyst.golden_items.length
+    assert_equal Item, @sales_analyst.golden_items[0].class
+  end
+  
+  def test_price_standard_deviation
+    assert_equal 2899.93, @sales_analyst.price_standard_deviation
+  end 
+  
+  def test_sum_of_price_differences_squared 
+    assert_equal BigDecimal, @sales_analyst.sum_of_price_differences_squared.class 
+  end 
+  
+  def test_average_item_price 
+    assert_equal BigDecimal, @sales_analyst.average_item_price.class
+  end  
 end 
