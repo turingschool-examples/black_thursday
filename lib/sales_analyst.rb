@@ -203,7 +203,6 @@ class SalesAnalyst
     array
   end
 
-
   def all_item_prices
     @items.all.map do |item|
      item.unit_price
@@ -225,7 +224,6 @@ class SalesAnalyst
       if count >= high_level
         top_merchants << merchant
       end
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
     end
     top_merchants
   end
