@@ -247,12 +247,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_total_revenue_by_date
-    skip
-    assert_equal 0, @sa.total_revenue_by_date(0)
+    date = Time.parse('2018-07-23')
+    assert_equal BigDecimal, @sa.total_revenue_by_date(date).class
   end
 
   def test_it_can_find_invoices_by_created_at_date
-    date = Time.parse('2018-07-22')
+    date = Time.parse('2018-07-23')
     assert_equal Array, @sa.find_all_invoices_by_date(date).class
     assert_equal 1, @sa.find_all_invoices_by_date(date).count
   end
