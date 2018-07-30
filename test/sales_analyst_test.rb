@@ -50,23 +50,23 @@ class SalesAnalystTest < Minitest::Test
 
     invoice19 = { id: 19, customer_id: 2, merchant_id: 2, status: 'shipped', created_at: "2017-10-01", updated_at: Time.now}
 
-    invoice2 = { id: 2, customer_id: 2, merchant_id: 3, status: 'pending', created_at: "2017-10-02", updated_at: Time.now}
+    invoice2 = { id: 2, customer_id: 2, merchant_id: 3, status: 'returned', created_at: "2017-10-02", updated_at: Time.now}
 
-    invoice12 = { id: 12, customer_id: 2, merchant_id: 4, status: 'pending', created_at: "2017-10-02", updated_at: Time.now}
+    invoice12 = { id: 12, customer_id: 2, merchant_id: 4, status: 'shipped', created_at: "2017-10-02", updated_at: Time.now}
     invoice16 = { id: 16, customer_id: 2, merchant_id: 4, status: 'shipped', created_at: "2017-10-02", updated_at: Time.now}
-    invoice17 = { id: 17, customer_id: 2, merchant_id: 4, status: 'pending', created_at: "2017-10-03", updated_at: Time.now}
+    invoice17 = { id: 17, customer_id: 2, merchant_id: 4, status: 'returned', created_at: "2017-10-03", updated_at: Time.now}
 
     invoice18 = { id: 18, customer_id: 2, merchant_id: 5, status: 'pending', created_at: "2017-10-03", updated_at: Time.now}
     invoice3 = { id: 3, customer_id: 3, merchant_id: 5, status: 'returned', created_at: "2017-10-04", updated_at: Time.now}
     invoice4 = { id: 4, customer_id: 2, merchant_id: 5, status: 'pending', created_at: "2017-10-04", updated_at: Time.now}
 
-    invoice5 = { id: 5, customer_id: 2, merchant_id: 6, status: 'shipped', created_at: "2017-10-05", updated_at: Time.now}
+    invoice5 = { id: 5, customer_id: 2, merchant_id: 6, status: 'pending', created_at: "2017-10-05", updated_at: Time.now}
     invoice6 = { id: 6, customer_id: 3, merchant_id: 6, status: 'returned', created_at: "2017-10-05", updated_at: Time.now}
     invoice7 = { id: 7, customer_id: 2, merchant_id: 6, status: 'shipped', created_at: "2017-10-06", updated_at: Time.now}
 
-    invoice8 = { id: 8, customer_id: 2, merchant_id: 7, status: 'pending', created_at: "2017-10-06", updated_at: Time.now}
+    invoice8 = { id: 8, customer_id: 2, merchant_id: 7, status: 'shipped', created_at: "2017-10-06", updated_at: Time.now}
     invoice9 = { id: 9, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-06", updated_at: Time.now}
-    invoice10 = { id: 10, customer_id: 2, merchant_id: 7, status: 'pending', created_at: "2017-10-06", updated_at: Time.now}
+    invoice10 = { id: 10, customer_id: 2, merchant_id: 7, status: 'shipped', created_at: "2017-10-06", updated_at: Time.now}
     invoice11 = { id: 11, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-07", updated_at: Time.now}
     invoice13 = { id: 13, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-07", updated_at: Time.now}
     invoice14 = { id: 14, customer_id: 3, merchant_id: 7, status: 'returned', created_at: "2017-10-07", updated_at: Time.now}
@@ -145,9 +145,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_percent_status_of_invoices
-    assert_equal 36.84, @sa.invoice_status(:pending)
-    assert_equal 26.32, @sa.invoice_status(:shipped)
-    assert_equal 36.84, @sa.invoice_status(:returned)
+    assert_equal 15.79, @sa.invoice_status(:pending)
+    assert_equal 36.84, @sa.invoice_status(:shipped)
+    assert_equal 47.37, @sa.invoice_status(:returned)
   end
 
   def test_it_returns_whether_invoice_paid_in_full
@@ -157,5 +157,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_invoice_total_in_dollars
     assert_equal 122.5, @sa.invoice_total(12)
+  end
+
+  def test_it_returns_merchants_with_pending_invoices
+    expected = [@se.merchants.find_by_id(5), @se.merchants.find_by_id(6)]
+    assert_equal expected, @sa.merchants_with_pending_invoices
   end
 end

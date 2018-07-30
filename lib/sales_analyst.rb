@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'bigdecimal'
+require 'pry'
 
 # Sales anaylst class
 class SalesAnalyst
@@ -125,6 +126,15 @@ class SalesAnalyst
       sum + invoice_item.quantity * invoice_item.unit_price_to_dollars
     end
     BigDecimal(total, total.to_s.size - 1)
+  end
+
+  def merchants_with_pending_invoices
+    all_merchants.find_all do |merchant|
+      invoices = @engine.invoices.find_all_by_merchant_id(merchant.id)
+      invoices.any? do |invoice|
+        invoice.status == :pending
+      end
+    end
   end
 
   private
