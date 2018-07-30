@@ -1,9 +1,13 @@
 class Merchant
-  attr_reader :id
-  attr_accessor :name
+  attr_reader :id,
+              :created_at
+  attr_accessor :name,
+                :updated_at
 
-  def initialize(id_and_name)
-    @name = id_and_name[:name]
-    @id = id_and_name[:id].to_i
+  def initialize(information)
+    @name = information[:name]
+    @id = information[:id].to_i
+    @created_at = Time.parse(information[:created_at].to_s)
+    @updated_at = Time.parse(information[:updated_at].to_s)
   end
 end
