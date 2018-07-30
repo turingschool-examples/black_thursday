@@ -7,10 +7,6 @@ require_relative './repository_helper'
 class MerchantRepository
   include RepositoryHelper
 
-  def initialize
-    @repository = {}
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     new_name = params[:name]

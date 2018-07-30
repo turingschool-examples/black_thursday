@@ -7,10 +7,6 @@ require_relative './repository_helper'
 class TransactionRepository
   include RepositoryHelper
 
-  def initialize
-    @repository = {}
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     trans = find_by_id(id)

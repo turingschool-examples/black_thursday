@@ -9,10 +9,6 @@ require 'bigdecimal'
 class ItemRepository
   include RepositoryHelper
 
-  def initialize
-    @repository = {}
-  end
-
   def update(id, params)
     return nil unless @repository.key?(id)
     sig_fig = params[:unit_price].to_s.size - 1

@@ -2,6 +2,10 @@
 
 # Repository helper methods
 module RepositoryHelper
+  def initialize
+    @repository = {}
+  end
+  
   def populate(data)
     data.map do |row|
       create(row)
