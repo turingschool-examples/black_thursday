@@ -176,7 +176,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_top_revenue_earners
     expected = [@se.merchants.find_by_id(4)]
-
     assert_equal expected, @sa.top_revenue_earners(1)
+  end
+
+  def test_it_returns_merchants_with_one_item_offered
+    expected = [@se.merchants.find_by_id(1), @se.merchants.find_by_id(4), @se.merchants.find_by_id(3), @se.merchants.find_by_id(6), @se.merchants.find_by_id(7)]
+    assert_equal expected, @sa.merchants_with_only_one_item
   end
 end

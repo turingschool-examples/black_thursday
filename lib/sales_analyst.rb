@@ -183,6 +183,14 @@ class SalesAnalyst
     top_revenue_earners(all_merchants.size)
   end
 
+  def merchants_with_only_one_item
+    all_merchants.find_all do |merchant|
+      all_items.one? do |item|
+        item.merchant_id == merchant.id
+      end
+    end
+  end
+
   private
 
   def standard_deviation(data_set, mean)
