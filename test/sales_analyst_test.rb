@@ -109,10 +109,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 15, @sales_analyst.sum_prices_in_price_array([1, 2, 3, 4, 5])
   end
   
-  # def test_it_returns_golden_items 
-  #   assert_equal 5, @sales_analyst.golden_items.length
-  #   assert_equal Item, @sales_analyst.golden_items[0].class
-  # end
+  def test_it_returns_golden_items 
+    assert_equal 5, @sales_analyst.golden_items.length
+    assert_equal Item, @sales_analyst.golden_items[0].class
+  end
+  
+  def test_price_standard_deviation
+    assert_equal 2899.93, @sales_analyst.price_standard_deviation
+  end 
+  
+  def test_sum_of_price_differences_squared 
+    assert_equal BigDecimal, @sales_analyst.sum_of_price_differences_squared.class 
+  end 
   
   def test_average_item_price 
     assert_equal BigDecimal, @sales_analyst.average_item_price.class

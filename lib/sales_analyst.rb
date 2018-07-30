@@ -18,6 +18,7 @@ class SalesAnalyst
     (Math.sqrt(sum_of_differences_squared / @merchant_repository.all.count)).round(2)
   end
   
+  # helper to average_items_per_merchant_standard_deviation
   def sum_of_differences_squared
     merchant_id_item_counter
     avg = average_items_per_merchant
@@ -29,10 +30,12 @@ class SalesAnalyst
     return sum.round(2)
   end
   
+  # helper to sum_of_differences_squared
   def average_items_per_merchant 
     (@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end
   
+  # helper to sum_of_differences_squared
   def merchant_id_item_counter
     m_item_count = Hash.new(0)
     sales_engine.merchants.all.map do |merchant|
@@ -53,6 +56,7 @@ class SalesAnalyst
     end
   end 
   
+  # helper to merchants_with_high_item_count
   def ids_with_high_item_count
     id_high_items = @merchant_id_item_counts.find_all do |id, count|
       count > @item_count_std_dev + average_items_per_merchant
@@ -106,10 +110,25 @@ class SalesAnalyst
   end
   
   # golden_items => array of items 2 std dev above avg price
-  # def golden_items
-  #   @item_repository.all.map do |item| 
-  #     item.unit_price > 
-  # end
+  def golden_items
+    std_dev_doubled = price_standard_deviation * 2
+    @item_repository.all.find_all do |item| 
+      item.unit_price > std_dev_doubled
+    end
+  end
+  
+  def price_standard_deviation
+    (Math.sqrt(sum_of_price_differences_squared / @item_repository.all.count)).round(2)
+  end 
+  
+  # helper to price_standard_deviation
+  def sum_of_price_differences_squared
+    avg_price = average_item_price
+    sum = @item_repository.all.inject(0) do |total, item_object| 
+      total += (item_object.unit_price - avg_price) ** 2
+    end
+    return sum.round(2)
+  end
   
   def average_item_price
     sum = @item_repository.all.inject(0) do |total, item_object|
