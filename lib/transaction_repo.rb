@@ -11,7 +11,7 @@ class TransactionRepo
   def change_transaction_hash_to_object
     transaction_array = []
     @transactions.each do |transaction|
-      transaction_array << Transactions.new(transaction)
+      transaction_array << Transaction.new(transaction)
     end
     @transactions = transaction_array
   end
@@ -28,12 +28,12 @@ class TransactionRepo
   
   def find_all_by_invoice_id(invoice_id)
     @transactions.find_all do |transaction|
-      transactions.invoice_id == invoice_id
+      transaction.invoice_id == invoice_id
     end
   end 
   
   def find_all_by_credit_card_number(credit_card_number)
-    @transactions.find do |transaction|
+    @transactions.find_all do |transaction|
       transaction.credit_card_number == credit_card_number
     end
   end

@@ -49,6 +49,7 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4995, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
     @invoice_repo = InvoiceRepo.new(invoice_array)
     
+    #ids still need to be adjusted to match data.
     invoice_item_array = [{:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
     {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
     {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
@@ -57,6 +58,7 @@ class SalesAnalystTest < Minitest::Test
     {:id=>"21834", :item_id=>"263519849", :invoice_id=>"4989", :quantity=>"15", :unit_price=>"13630", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}]
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
     
+    #ids still need to be adjusted to match data.
     transaction_array = []
     @transaction_repo = TransactionRepo.new(transaction_array)
     
