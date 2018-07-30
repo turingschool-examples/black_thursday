@@ -5,14 +5,13 @@ require_relative '../lib/merchant'
 require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
-
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
       :invoices  => "./data/dummy_invoices.csv"})
-     @mr = MerchantRepository.new(@se.csv_hash[:merchants])
-     @mr.create_all_from_csv("./data/dummy_merchants.csv")
+    @mr = MerchantRepository.new(@se.csv_hash[:merchants])
+    @mr.create_all_from_csv("./data/dummy_merchants.csv")
   end
 
   def test_it_exists
@@ -20,7 +19,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_creates_merchants
-    assert_equal  4 , @mr.all.count
+    assert_equal  4, @mr.all.count
   end
 
   def test_it_finds_by_id
@@ -41,18 +40,18 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_create
     @mr.create({:name => "Donald's"})
-    assert_equal 5 , @mr.all.count
+    assert_equal 5, @mr.all.count
   end
 
   def test_update
     original_merchant = @mr.find_by_id(12334113)
-    assert_equal "MiniatureBikez"  , original_merchant.name
+    assert_equal "MiniatureBikez", original_merchant.name
     @mr.update(12334113, {:name => "DogBikez" })
     assert_equal "DogBikez", @mr.find_by_id(12334113).name
   end
 
   def test_delete
-  @mr.delete(12334112)
-  assert_nil @mr.find_by_id(12334112)
+    @mr.delete(12334112)
+    assert_nil @mr.find_by_id(12334112)
   end
 end

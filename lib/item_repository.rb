@@ -1,5 +1,4 @@
 require 'csv'
-
 require_relative '../lib/item'
 require_relative '../lib/repository_helper'
 require 'bigdecimal'
@@ -11,7 +10,7 @@ class ItemRepository
 
   def initialize(filepath)
     @filepath = filepath
-     @items = [ ]
+    @items = []
     @all= []
   end
 
@@ -37,7 +36,6 @@ class ItemRepository
     if find_by_id(id) != nil
       find_by_id(id).update_attributes(attributes)
     end
-
   end
 
   def inspect
@@ -45,6 +43,3 @@ class ItemRepository
   end
 end
 
-# ir = ItemRepository.new("./data/items.csv")
-# ir.create_items
-# ir.update(270000000, {})

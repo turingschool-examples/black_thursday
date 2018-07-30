@@ -7,14 +7,13 @@ require_relative '../lib/merchant.rb'
 require_relative '../lib/merchant_repository.rb'
 
 class ItemRepositoryTest < Minitest::Test
-
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
       :invoices  => "./data/dummy_invoices.csv"})
-   @item_repo = ItemRepository.new(@se.csv_hash[:items])
-   @item_repo.create_items
+    @item_repo = ItemRepository.new(@se.csv_hash[:items])
+    @item_repo.create_items
   end
 
   def test_it_exists
@@ -30,8 +29,8 @@ class ItemRepositoryTest < Minitest::Test
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
       :invoices  => "./data/dummy_invoices.csv"})
-   item_repo = ItemRepository.new(se.csv_hash[:items])
-  assert_equal [ ], item_repo.all
+    item_repo = ItemRepository.new(se.csv_hash[:items])
+    assert_equal [ ], item_repo.all
   end
 
   def test_can_find_by_id
@@ -64,7 +63,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_create_new_highest_id
     item = @item_repo.create_id
-    assert_equal 263396014 ,item
+    assert_equal 263396014, item
   end
 
   def test_it_can_create

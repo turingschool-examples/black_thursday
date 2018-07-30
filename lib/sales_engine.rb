@@ -21,7 +21,6 @@ class SalesEngine
     @merchants.create_all_from_csv(csv_hash[:merchants])
     @invoices = InvoiceRepository.new(csv_hash[:invoices])
     @invoices.create_invoices
-
   end
 
   def self.from_csv(csv_hash)

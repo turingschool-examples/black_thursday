@@ -1,11 +1,10 @@
 require 'time'
 class Invoice
   attr_accessor :id,
-              :customer_id,
-              :merchant_id,
-              :created_at
-
-  attr_accessor :updated_at,
+                :customer_id,
+                :merchant_id,
+                :created_at,
+                :updated_at,
                 :status
 
   def initialize(invoice_info)
