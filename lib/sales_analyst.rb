@@ -139,7 +139,7 @@ class SalesAnalyst
 
   def top_revenue_earners(limit = 20)
     all_merchants.max_by(limit) do |merchant|
-      revenue_by_merchant(merchant.id)
+      revenue_by_merchant_float(merchant.id)
     end
   end
 
@@ -155,6 +155,17 @@ class SalesAnalyst
     valid_invoices = merchant_invoices.keep_if do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
+    total = valid_invoices.inject(0) do |sum, invoice|
+      sum + invoice_total_float(invoice.id)
+    end
+    BigDecimal(total, total.to_s.size - 1)
+  end
+
+  def revenue_by_merchant_float(merchant_id)
+    merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
+    valid_invoices = merchant_invoices.keep_if do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
     valid_invoices.inject(0) do |sum, invoice|
       sum + invoice_total_float(invoice.id)
     end
@@ -166,6 +177,10 @@ class SalesAnalyst
         !invoice_paid_in_full?(invoice.id)
       end
     end
+  end
+
+  def merchants_ranked_by_revenue
+    top_revenue_earners(all_merchants.size)
   end
 
   private
