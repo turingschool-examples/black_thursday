@@ -6,17 +6,16 @@ require_relative'../lib/sales_engine'
 require 'csv'
 
 class InvoiceRepositoryTest < Minitest::Test
-
-    def setup
+  def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
       :invoices  => "./data/dummy_invoices.csv"})
-   @invoice_repo = InvoiceRepository.new(@se.csv_hash[:invoices])
-   @invoice_repo.create_invoices
- end
+    @invoice_repo = InvoiceRepository.new(@se.csv_hash[:invoices])
+    @invoice_repo.create_invoices
+  end
 
-   def test_it_exists
+  def test_it_exists
     assert_instance_of InvoiceRepository, @invoice_repo
   end
 
@@ -67,7 +66,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice = @invoice_repo.update(id, attributes)
     assert_instance_of Time, invoice.updated_at
     assert_equal "pending", invoice.status
-    assert_equal 2 , invoice.id
+    assert_equal 2, invoice.id
     assert_equal 12334269, invoice.merchant_id
   end
 
@@ -75,5 +74,4 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice_repo.delete(1)
     assert_nil @invoice_repo.find_by_id(1)
   end
-
 end

@@ -48,8 +48,7 @@ class SalesAnalyst
     @merchant_id_item_counts = m_item_count 
   end
   
-  def merchants_with_high_item_count
-    
+  def merchants_with_high_item_count    
     ids_with_high_item_count.map do |id_array| 
       @merchant_repository.all.find do |merchant|
         merchant.id == id_array[0]

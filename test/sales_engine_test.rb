@@ -7,9 +7,10 @@ require_relative '../lib/merchant_repository'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
-    sales_engine= SalesEngine.new({
+    sales_engine = SalesEngine.new({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
      })
     assert_instance_of SalesEngine, sales_engine
   end

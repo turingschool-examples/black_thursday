@@ -9,7 +9,7 @@ class InvoiceRepository
 
   def initialize(filepath)
     @filepath = filepath
-   @invoices = []
+    @invoices = []
     @all = []
   end
 
@@ -43,7 +43,7 @@ class InvoiceRepository
       )
       @all << invoice
       invoice
-    end
+  end
 
   def update(id, attributes)
     invoice = find_by_id(id)

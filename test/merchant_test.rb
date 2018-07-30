@@ -3,7 +3,6 @@ require 'minitest/pride'
 require_relative '../lib/merchant'
 
 class MerchantTest < MiniTest::Test
-
   def test_it_exists
     merchant = Merchant.new(
       {

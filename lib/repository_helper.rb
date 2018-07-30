@@ -32,7 +32,7 @@ module RepositoryHelper
   
   def find_all_by_merchant_id(merchant_id)
     @all.find_all do |object|
-    object.merchant_id == merchant_id
+      object.merchant_id == merchant_id
     end
   end
 
@@ -65,9 +65,8 @@ module RepositoryHelper
   end
 
   def delete(id)
-     @all= @all.reject do |object|
-    object.id == id
+    @all= @all.reject do |object|
+      object.id == id
     end
   end
-
 end
