@@ -16,6 +16,11 @@ module RepositoryHelper
     end
   end
 
+  def all
+    repository_pairs = @repository.to_a.flatten
+    remove_keys(repository_pairs, sub_class)
+  end
+
   def find_by_id(id)
     return nil unless @repository.key?(id)
     @repository.fetch(id)
@@ -25,11 +30,6 @@ module RepositoryHelper
     all.find do |repository|
       repository.name.downcase == name.downcase
     end
-  end
-
-  def all
-    repository_pairs = @repository.to_a.flatten
-    remove_keys(repository_pairs, sub_class)
   end
 
   def delete(id)
