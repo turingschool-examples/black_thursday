@@ -181,4 +181,10 @@ class SalesAnalyst
       invoice.count
     end
   end
+
+  def total_revenue_by_date(date)
+
+
+
+  end
 end
