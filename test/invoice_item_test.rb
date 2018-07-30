@@ -32,5 +32,6 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 0.1, @invoice_item.unit_price_to_dollars
   end
             
+            
 end                  
           

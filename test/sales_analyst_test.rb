@@ -4,6 +4,7 @@ require_relative '../lib/item_repo'
 require_relative '../lib/invoice_repo'
 require_relative '../lib/invoice_item_repo'
 require_relative '../lib/transaction_repo'
+require_relative '../lib/customer_repo'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
 
@@ -32,13 +33,13 @@ class SalesAnalystTest < Minitest::Test
     {id: 263345314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}]
     @item_repo = ItemRepo.new(item_array)
 
-<<<<<<< HEAD
-    invoice_array = [{:id=>4981, :customer_id=>"999", :merchant_id=>"12335252", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
-    {:id=>4982, :customer_id=>"999", :merchant_id=>"12334146", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
-    {:id=>4983, :customer_id=>"999", :merchant_id=>"12334553", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
-    {:id=>4984, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
-    {:id=>4985, :customer_id=>"999", :merchant_id=>"12335541", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
-=======
+# invoice_array = [
+#     {:id=>4981, :customer_id=>"999", :merchant_id=>"12335252", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
+#     {:id=>4982, :customer_id=>"999", :merchant_id=>"12334146", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
+#     {:id=>4983, :customer_id=>"999", :merchant_id=>"12334553", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
+#     {:id=>4984, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
+#     {:id=>4985, :customer_id=>"999", :merchant_id=>"12335541", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
+
     invoice_array = [{:id=>4981, :customer_id=>"999", :merchant_id=>"12334105", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
     {:id=>4982, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
     {:id=>4983, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
@@ -54,31 +55,32 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4993, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
     {:id=>4994, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
     {:id=>4995, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
-    @invoice_repo = InvoiceRepo.new(invoice_array)
-<<<<<<< HEAD
 
-    #make sure merchant ids are the same.
-
-    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo)
-=======
-    
-    #ids still need to be adjusted to match data.
-    invoice_item_array = [{:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
-    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
-    {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
-    {:id=>"21832", :item_id=>"263519847", :invoice_id=>"4987", :quantity=>"13", :unit_price=>"13638", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
-    {:id=>"21833", :item_id=>"263519848", :invoice_id=>"4988", :quantity=>"14", :unit_price=>"13639", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    invoice_item_array = [{:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
+    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
+    {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
+    {:id=>"21832", :item_id=>"263519847", :invoice_id=>"4987", :quantity=>"13", :unit_price=>"13638", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
+    {:id=>"21833", :item_id=>"263519848", :invoice_id=>"4988", :quantity=>"14", :unit_price=>"13639", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
     {:id=>"21834", :item_id=>"263519849", :invoice_id=>"4989", :quantity=>"15", :unit_price=>"13630", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}]
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
-    
+
     #ids still need to be adjusted to match data.
-    transaction_array = []
+    transaction_array = [{:id=>"1", :invoice_id=>"2170", :credit_card_number=>"4068631943231473", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
+    {:id=>"2", :invoice_id=>"2179", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
+    {:id=>"3", :invoice_id=>"2178", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
+    {:id=>"4", :invoice_id=>"2179", :credit_card_number=>"4068631943231475", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}]
     @transaction_repo = TransactionRepo.new(transaction_array)
-    
-    
-    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo)
->>>>>>> 888878f53448d9deaaf3887658667e93c6e462b4
+
+    customer_array = [{:id=>"1", :first_name=>"Joan", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
+    {:id=>"2", :first_name=>"Joey", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
+    {:id=>"3", :first_name=>"Joey", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
+    {:id=>"4", :first_name=>"Joel", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
+    {:id=>"5", :first_name=>"Joel", :last_name=>"Funny", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
+    {:id=>"6", :first_name=>"Harry", :last_name=>"Clark", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
+    {:id=>"7", :first_name=>"Marry", :last_name=>"House", :created_at=>"2012-03-27 14:54:09 UTC"}]
+    @customer_repo = CustomerRepo.new(customer_array)
+
+    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo, @customer_repo)
   end
 
   def test_it_exists
@@ -91,6 +93,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of InvoiceRepo, @analyst.invoices
     assert_instance_of InvoiceItemRepo, @analyst.invoice_items
     assert_instance_of TransactionRepo, @analyst.transactions
+    assert_instance_of CustomerRepo, @analyst.customers
   end
 
   def test_it_calculates_average_items_per_merchant
@@ -125,14 +128,7 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 1.62, @analyst.standard_deviation
   # end
 
-<<<<<<< HEAD
   def test_it_return_golden_items
-   assert_equal [], @analyst.golden_items
-  end
-
-=======
-  def test_it_returns_golden_items
-
    assert_equal [], @analyst.golden_items
   end
 
@@ -162,5 +158,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 33.33, @analyst.invoice_status(:returned)
   end
 
->>>>>>> 1f78fbc07bc27a34fc66d0ff9de9de15d9600ad5
 end

@@ -34,9 +34,7 @@ class MerchantRepo
 
   def find_all_by_name(name)
     @merchants.find_all do |merchant|
-      if merchant.name.downcase.include?(name.downcase)
-        merchant
-      end
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
@@ -67,5 +65,6 @@ class MerchantRepo
     merchant_to_delete = find_by_id(id)
     @merchants.delete(merchant_to_delete)
   end
+
 
 end
