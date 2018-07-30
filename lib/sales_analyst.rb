@@ -273,9 +273,25 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
+    merchants_ranked_by_revenue.take(x)
+  end
+
+  def merchants_ranked_by_revenue
     sorted_merchants = @merchants.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end
-    sorted_merchants.reverse.take(x)
+    sorted_merchants.reverse
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices = @invoices.all.find_all do |invoice|
+      !invoice_paid_in_full?(invoice.id)
+    end 
+    merchant_ids = pending_invoices.map do |invoice|
+      invoice.merchant_id
+    end.uniq
+    merchant_ids.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end
   end
 end

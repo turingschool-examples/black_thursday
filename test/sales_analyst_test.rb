@@ -343,4 +343,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, @sales_analyst.top_revenue_earners(2)
     assert_equal [@merchant_3, @merchant_2, @merchant_1], @sales_analyst.top_revenue_earners
   end
+
+  def test_it_ranks_merchants_by_revenue
+    assert_equal [@merchant_3, @merchant_2, @merchant_1], @sales_analyst.merchants_ranked_by_revenue
+  end
+
+  def test_it_finds_pending_invoices
+    expected = [@merchant_1, @merchant_2, @merchant_3]
+    assert_equal expected, @sales_analyst.merchants_with_pending_invoices
+  end
 end
