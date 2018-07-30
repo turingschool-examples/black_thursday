@@ -1,4 +1,5 @@
 require_relative 'repository'
+require 'time'
 
 class MerchantRepository
   include Repository
@@ -23,5 +24,6 @@ class MerchantRepository
     if find_by_id(id)
       find_by_id(id).name = attributes[:name]
     end
+    attributes[:updated_at] = Time.now
   end
 end

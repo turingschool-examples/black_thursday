@@ -8,9 +8,9 @@ class SalesEngineTest < Minitest::Test
     @item_3 = Item.new({:id => 263395234, :name => "Chapstick", :description => "Moisturizes lips.", :unit_price  => BigDecimal.new(4.55,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
     @items = [@item_1, @item_2, @item_3]
 
-    @merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
-    @merchant_2 = Merchant.new({:id => 7, :name => "G School"})
-    @merchant_3 = Merchant.new({:id => 15, :name => "Denver University"})
+    @merchant_1 = Merchant.new({:id => 5, :name => "Turing School", :created_at => Time.now, :updated_at => Time.now})
+    @merchant_2 = Merchant.new({:id => 7, :name => "G School", :created_at => Time.now, :updated_at => Time.now})
+    @merchant_3 = Merchant.new({:id => 15, :name => "Denver University", :created_at => Time.now, :updated_at => Time.now})
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
 
     @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 1355, :status => "pending", :created_at => Time.now, :updated_at => Time.now})

@@ -4,9 +4,9 @@ require_relative '../lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    @merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
-    @merchant_2 = Merchant.new({:id => 7, :name => "G School"})
-    @merchant_3 = Merchant.new({:id => 9, :name => "Denver University"})
+    @merchant_1 = Merchant.new({:id => 5, :name => "Turing School", :created_at => Time.now, :updated_at => Time.now})
+    @merchant_2 = Merchant.new({:id => 7, :name => "G School", :created_at => Time.now, :updated_at => Time.now})
+    @merchant_3 = Merchant.new({:id => 9, :name => "Denver University", :created_at => Time.now, :updated_at => Time.now})
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
     @merchant_repository = MerchantRepository.new(@merchants)
   end
@@ -38,14 +38,14 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_creates_new_merchant
-    @merchant_repository.create({:name => "Denver Coding School"})
+    @merchant_repository.create({:name => "Denver Coding School", :created_at => Time.now, :updated_at => Time.now})
     assert_equal 4, @merchant_repository.all.count
     assert_instance_of Merchant, @merchant_repository.all.last
     assert_equal "Denver Coding School", @merchant_repository.all.last.name
   end
 
   def test_new_merchant_has_highest_id_number
-    @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+    @merchant_repository.create({:id => 3, :name => "Denver Coding School", :created_at => Time.now, :updated_at => Time.now})
 
     assert_equal 10, @merchant_repository.all.last.id
   end
@@ -58,7 +58,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_can_be_deleted
-    @merchant_repository.create({:id => 3, :name => "Denver Coding School"})
+    @merchant_repository.create({:id => 3, :name => "Denver Coding School", :created_at => Time.now, :updated_at => Time.now})
 
     assert_equal 4, @merchant_repository.all.count
 

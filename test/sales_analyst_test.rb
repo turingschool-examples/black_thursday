@@ -13,9 +13,9 @@ class SalesAnalystTest < Minitest::Test
     @item_4 = Item.new({:id => 263395239, :name => "Water Bottle", :description => "Used for drinking water", :unit_price  => BigDecimal.new(18.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
     @item_5 = Item.new({:id => 263395240, :name => "Cool Stuff", :description => "Use when you want to be cool", :unit_price  => BigDecimal.new(18.50,4), :merchant_id => 12337777, :created_at  => Time.now, :updated_at  => Time.now})
 
-    @merchant_1 = Merchant.new({:id => 12334141, :name => "Target"})
-    @merchant_2 = Merchant.new({:id => 12337777, :name => "Walmart"})
-    @merchant_3 = Merchant.new({:id => 12339191, :name => "Cool Place"})
+    @merchant_1 = Merchant.new({:id => 12334141, :name => "Target", :created_at => Time.now, :updated_at => Time.now})
+    @merchant_2 = Merchant.new({:id => 12337777, :name => "Walmart", :created_at => Time.now, :updated_at => Time.now})
+    @merchant_3 = Merchant.new({:id => 12339191, :name => "Cool Place", :created_at => Time.now, :updated_at => Time.now})
 
     @invoice_1 = Invoice.new({:id => 6, :customer_id => 26, :merchant_id => 12334141, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
     @invoice_2 = Invoice.new({:id => 7, :customer_id => 37, :merchant_id => 12337777, :status => :pending, :created_at => "2009-02-07", :updated_at => Time.now})
@@ -320,8 +320,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [@merchant_1, @merchant_3], @sales_analyst.merchants_with_only_one_item
   end
 
-  def test_if_finds_merchants_with_one_item_by_month
+  def test_if_finds_merchants_with_one_item_by_month_registered
     actual = @sales_analyst.merchants_with_only_one_item_registered_in_month("February")
-    assert_equal [@merchant_1, @merchant_3], actual
+    assert_equal [@merchant_1, @merchant_2], actual
   end
 end

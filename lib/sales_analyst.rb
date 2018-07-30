@@ -252,18 +252,8 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    monthly_invoices = @invoices.all.find_all do |invoice|
-      invoice.created_at.strftime("%B") == month
-    end
-    merchant_invoice_count = monthly_invoices.group_by do |invoice|
-      invoice.merchant_id
-    end
-    one_invoice_merchants = merchant_invoice_count.find_all do |merchant_id, invoices|
-      invoices.count == 1
-    end
-    one_invoice_merchants.map do |merchant, invoice|
-      @merchants.find_by_id(merchant)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B") == month
     end
   end
-
 end
