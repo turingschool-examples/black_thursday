@@ -272,7 +272,7 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(x)
+  def top_revenue_earners(x = 20)
     sorted_merchants = @merchants.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end

@@ -341,5 +341,6 @@ class SalesAnalystTest < Minitest::Test
   def test_it_finds_x_top_revenue_earners
     expected = [@merchant_3, @merchant_2]
     assert_equal expected, @sales_analyst.top_revenue_earners(2)
+    assert_equal [@merchant_3, @merchant_2, @merchant_1], @sales_analyst.top_revenue_earners
   end
 end
