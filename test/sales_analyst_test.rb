@@ -3,6 +3,7 @@ require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
 require_relative '../lib/invoice_repo'
 require_relative '../lib/invoice_item_repo'
+require_relative '../lib/transaction_repo'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
 
@@ -56,8 +57,11 @@ class SalesAnalystTest < Minitest::Test
     {:id=>"21834", :item_id=>"263519849", :invoice_id=>"4989", :quantity=>"15", :unit_price=>"13630", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}]
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
     
+    transaction_array = []
+    @transaction_repo = TransactionRepo.new(transaction_array)
     
-    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo)
+    
+    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo)
   end
 
   def test_it_exists
@@ -69,6 +73,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of ItemRepo, @analyst.items
     assert_instance_of InvoiceRepo, @analyst.invoices
     assert_instance_of InvoiceItemRepo, @analyst.invoice_items
+    assert_instance_of TransactionRepo, @analyst.transactions
   end
 
   def test_it_calculates_average_items_per_merchant
