@@ -16,11 +16,24 @@ module MerchantAnalytics
   def top_revenue_earners(number)
 
   end
+  def invoice_hash
+    earners = {}
+    group_invoices_by_merchant.each do |merchant_id, invoices|
+      earners[merchant_id] = invoices.map do |invoice|
+        invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+      end.compact
+    end
+    earners
+  end
 
-  def get_invoice_ids
-    @sales_engine.invoice_items.all.map do |invoice_item|
-      invoice_item.invoice_id
-    end.uniq
+  def sum_invoice_totals
+    totals = {}
+    invoice_hash.each do |merchant_id, invoices|
+      totals[merchant_id] = invoices.inject(0) do |sum, invoice|
+        sum + invoice
+      end
+    end
+    totals.delete_if {|key, value| value == 0}
   end
 
 end
