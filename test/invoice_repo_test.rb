@@ -24,7 +24,7 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of InvoiceRepo, @invoice_repo
-  end
+  end  
 
   def test_it_returns_all_invoices
     assert_equal @invoice_repo.invoices, @invoice_repo.all
@@ -47,7 +47,7 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_it_finds_all_by_status
     assert_equal [@invoice_repo.invoices[9], @invoice_repo.invoices[12]], @invoice_repo.find_all_by_status("returned")
-    assert_equal [], @invoice_repo.find_all_by_status("pending")
+    assert_equal [], @invoice_repo.find_all_by_status("pending")  
   end
 
   def test_finds_all_by_day
@@ -58,32 +58,38 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_creates_invoice_with_attributes
     refute_instance_of Invoice, @invoice_repo.invoices[14]
 
-    @invoice_repo.create({id:           6,
-                          customer_id:  7,
-                          merchant_id:  8,
-                          status:       "pending",
-                          created_at:   Time.now,
-                          updated_at:   Time.now
-                         })
+    @invoice_repo.create({
+                id:           6,
+                customer_id:  7,
+                merchant_id:  8,
+                status:       "pending",
+                created_at:   Time.now,
+                updated_at:   Time.now,
+              })
 
     assert_instance_of Invoice, @invoice_repo.invoices[14]
-  end
+  end 
 
   def test_it_updates_invoice_attributes
-    refute_equal "returned", @invoice_repo.invoices[13].status
-    @invoice_repo.update(4985, {id:           6,
-                                customer_id:  7,
-                                merchant_id:  8,
-                                status:       "shipped",
-                                created_at:   Time.now,
-                                updated_at:   Time.now
-                                })
-    assert_equal "shipped", @invoice_repo.invoices[13].status
+    refute_equal "returned", @invoice_repo.invoices[13].status 
+
+    @invoice_repo.update(4985, {
+                      id:           6,
+                      customer_id:  7,
+                      merchant_id:  8,
+                      status:       "returned",
+                      created_at:   Time.now,
+                      updated_at:   Time.now,
+                      }) 
+
+    assert_equal "returned", @invoice_repo.invoices[13].status
   end
 
   def test_it_deletes_invoice_by_id
     assert_equal 4983, @invoice_repo.invoices[11].id
+  
     @invoice_repo.delete(4983)
+  
     assert_equal nil, @invoice_repo.find_by_id(4983)
   end
 
