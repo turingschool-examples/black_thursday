@@ -86,9 +86,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, @sales_analyst.create_array_of_averages_per_merchant.class
     assert_equal BigDecimal, @sales_analyst.create_array_of_averages_per_merchant[0].class
     assert_equal @sales_analyst.merchant_repository.all.count, @sales_analyst.create_array_of_averages_per_merchant.count
-  end 
-    
-  
+  end
+
   def test_average_item_price_for_merchant 
     assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
     assert_equal BigDecimal, @sales_analyst.average_item_price_for_merchant(12334105).class
@@ -110,4 +109,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 15, @sales_analyst.sum_prices_in_price_array([1, 2, 3, 4, 5])
   end
   
+  # def test_it_returns_golden_items 
+  #   assert_equal 5, @sales_analyst.golden_items.length
+  #   assert_equal Item, @sales_analyst.golden_items[0].class
+  # end
+  
+  def test_average_item_price 
+    assert_equal BigDecimal, @sales_analyst.average_item_price.class
+  end  
 end 

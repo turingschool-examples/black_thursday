@@ -81,8 +81,7 @@ class SalesAnalyst
     sum = sum_prices_in_price_array(price_array) 
     if price_array.count > 0
     (sum / price_array.count).round(2) 
-    end  
-    # binding.pry  
+    end   
   end
   
   # helper to average_item_price_for_merchant
@@ -104,6 +103,19 @@ class SalesAnalyst
     price_array.inject(0) do |total, price|
       total += price 
     end 
+  end
+  
+  # golden_items => array of items 2 std dev above avg price
+  # def golden_items
+  #   @item_repository.all.map do |item| 
+  #     item.unit_price > 
+  # end
+  
+  def average_item_price
+    sum = @item_repository.all.inject(0) do |total, item_object|
+      total += item_object.unit_price 
+    end 
+    count = @item_repository.all.count 
+    (sum / count).round(2)
   end 
-    
 end 
