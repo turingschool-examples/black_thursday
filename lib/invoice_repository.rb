@@ -1,27 +1,21 @@
 require_relative '../lib/invoice'
 require_relative '../lib/repository_helper'
+require 'csv'
 
 class InvoiceRepository
   include RepositoryHelper
   attr_reader :all,
-              :invoices,
+              :invoices
 
   def initialize(filepath)
     @filepath = filepath
-    @invoices = [ ]
-    @all = [ ]
+   @invoices = []
+    @all = []
   end
 
   def create_invoices
     CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
       @all << Invoice.new(row)
-    end
-  end
-
-
-  def build_invoice(invoice_data)
-    invoice_data.map do |invoice|
-      Invoice.new(invoice)
     end
   end
 
@@ -38,30 +32,28 @@ class InvoiceRepository
   end
 
   def create(attributes)
-  id = create_id
-  invoice = Invoice.new(
-    id: id,
-    customer_id: attributes[:customer_id],
-    merchant_id: attributes[:merchant_id],
-    status: attributes[:status],
-    created_at: Time.now,
-    updated_at: Time.now
-    )
-  @all << invoice
-  invoice
-end
+    id = create_id
+    invoice = Invoice.new({
+      id: id,
+      customer_id: attributes[:customer_id],
+      merchant_id: attributes[:merchant_id],
+      status: attributes[:status],
+      created_at: Time.now,
+      updated_at: Time.now}
+      )
+      @all << invoice
+      invoice
+    end
 
-def update(id, attributes)
-  invoice = find_by_id(id)
-  return if invoice.nil?
-  invoice.status = attributes[:status]
-  invoice.updated_at = Time.now
-  invoice
-end
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    return if invoice.nil?
+    invoice.status = attributes[:status]
+    invoice.updated_at = Time.now
+    invoice
+  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
-
 end
