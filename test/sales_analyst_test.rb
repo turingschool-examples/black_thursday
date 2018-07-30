@@ -111,6 +111,7 @@ class SalesAnalystTest < Minitest::Test
   # end
 
   def test_it_returns_golden_items
+
    assert_equal [], @analyst.golden_items
   end
 
