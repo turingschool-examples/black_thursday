@@ -68,6 +68,7 @@ class InvoiceItemRepo
     invoice_item_to_delete = find_by_id(id)
     @invoice_items.delete(invoice_item_to_delete)
   end
+  
 
 end
   

@@ -1,20 +1,16 @@
 require 'time'
 
-class Transaction
+class Customer 
   attr_accessor :id,
-                :invoice_id,
-                :credit_card_number,
-                :credit_card_expiration_date,
-                :result,
+                :first_name,
+                :last_name,
                 :created_at,
                 :updated_at
-
+                
   def initialize(hash)
     @id = hash[:id].to_i
-    @invoice_id = hash[:invoice_id].to_i
-    @credit_card_number = hash[:credit_card_number]
-    @credit_card_expiration_date = hash[:credit_card_expiration_date]
-    @result = hash[:result].to_sym
+    @first_name = hash[:first_name]
+    @last_name = hash[:last_name]
     @created_at = if hash[:created_at].class == String
                   Time.parse(hash[:created_at])
                     else
@@ -24,9 +20,8 @@ class Transaction
                     Time.parse(hash[:updated_at])
                     else
                       Time.now
-                    end
-    @merchant_id = hash[:merchant_id].to_i
-  end
+                  end  
+  end 
   
-
+  
 end

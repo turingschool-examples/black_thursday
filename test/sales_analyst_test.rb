@@ -4,6 +4,7 @@ require_relative '../lib/item_repo'
 require_relative '../lib/invoice_repo'
 require_relative '../lib/invoice_item_repo'
 require_relative '../lib/transaction_repo'
+require_relative '../lib/customer_repo'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
 
@@ -59,11 +60,23 @@ class SalesAnalystTest < Minitest::Test
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
     
     #ids still need to be adjusted to match data.
-    transaction_array = []
+    transaction_array = [{:id=>"1", :invoice_id=>"2170", :credit_card_number=>"4068631943231473", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"2", :invoice_id=>"2179", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"3", :invoice_id=>"2178", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"4", :invoice_id=>"2179", :credit_card_number=>"4068631943231475", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}]
     @transaction_repo = TransactionRepo.new(transaction_array)
     
+    customer_array = [{:id=>"1", :first_name=>"Joan", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"2", :first_name=>"Joey", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"3", :first_name=>"Joey", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"4", :first_name=>"Joel", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"5", :first_name=>"Joel", :last_name=>"Funny", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"6", :first_name=>"Harry", :last_name=>"Clark", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"7", :first_name=>"Marry", :last_name=>"House", :created_at=>"2012-03-27 14:54:09 UTC"}]
+    @customer_repo = CustomerRepo.new(customer_array)
     
-    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo)
+    
+    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo, @customer_repo)
   end
 
   def test_it_exists
@@ -76,6 +89,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of InvoiceRepo, @analyst.invoices
     assert_instance_of InvoiceItemRepo, @analyst.invoice_items
     assert_instance_of TransactionRepo, @analyst.transactions
+    assert_instance_of CustomerRepo, @analyst.customers
   end
 
   def test_it_calculates_average_items_per_merchant
@@ -140,5 +154,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 60, @analyst.invoice_status(:shipped)
     assert_equal 33.33, @analyst.invoice_status(:returned)
   end
+
 
 end

@@ -22,4 +22,5 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", merchant.name
   end
 
+
 end
