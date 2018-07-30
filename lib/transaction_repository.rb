@@ -8,19 +8,19 @@ class TransactionRepository
   include RepositoryHelper
 
   def initialize
-    @transactions = {}
+    @repository = {}
   end
 
   def create(params)
-    params[:id] = @transactions.max[0] + 1 if params[:id].nil?
+    params[:id] = @repository.max[0] + 1 if params[:id].nil?
 
     Transaction.new(params).tap do |transaction|
-      @transactions[params[:id].to_i] = transaction
+      @repository[params[:id].to_i] = transaction
     end
   end
 
   def update(id, params)
-    return nil unless @transactions.key?(id)
+    return nil unless @repository.key?(id)
     trans = find_by_id(id)
     trans.credit_card_number = params[:credit_card_number] unless params[:credit_card_number].nil?
     trans.credit_card_expiration_date = params[:credit_card_expiration_date] unless params[:credit_card_expiration_date].nil?
@@ -29,41 +29,25 @@ class TransactionRepository
   end
 
   def all
-    transaction_pairs = @transactions.to_a.flatten
+    transaction_pairs = @repository.to_a.flatten
     remove_keys(transaction_pairs, Transaction)
   end
 
-  def find_by_id(id)
-    return nil unless @transactions.key?(id)
-    @transactions.fetch(id)
-  end
-
   def find_all_by_invoice_id(invoice_id)
-    found_transactions = @transactions.find_all do |_, transaction|
+    all.find_all do |transaction|
       transaction.invoice_id == invoice_id
-    end.flatten
-    remove_keys(found_transactions, Transaction)
+    end
   end
 
   def find_all_by_credit_card_number(number)
-    found_transactions = @transactions.find_all do |_, transaction|
+    all.find_all do |transaction|
       transaction.credit_card_number == number
-    end.flatten
-    remove_keys(found_transactions, Transaction)
+    end
   end
 
   def find_all_by_result(result)
-    found_transactions = @transactions.find_all do |_, transaction|
+    all.find_all do |transaction|
       transaction.result == result
-    end.flatten
-    remove_keys(found_transactions, Transaction)
-  end
-
-  def delete(id)
-    @transactions.delete(id)
-  end
-
-  def inspect
-    "#<#{self.class} #{@transactions.size} rows>"
+    end
   end
 end
