@@ -20,18 +20,18 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_attributes
-  assert_equal 1, @item.id
-  assert_equal "Pencil", @item.name
-  assert_equal "You can use it to write things", @item.description
-  assert_instance_of BigDecimal, @item.unit_price
-  assert_instance_of Time, @item.created_at
-  assert_instance_of Time, @item.updated_at
-  assert_equal 2, @item.merchant_id
+    assert_equal 1, @item.id
+    assert_equal "Pencil", @item.name
+    assert_equal "You can use it to write things", @item.description
+    assert_instance_of BigDecimal, @item.unit_price
+    assert_instance_of Time, @item.created_at
+    assert_instance_of Time, @item.updated_at
+    assert_equal 2, @item.merchant_id
   end
 
   def test_it_converst_unit_price_to_dollars
-  actual = @item.unit_price_to_dollars
-  assert_equal 0.1, actual
+    actual = @item.unit_price_to_dollars
+    assert_equal 0.1, actual
   end
 
 end
