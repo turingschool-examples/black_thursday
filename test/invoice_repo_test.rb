@@ -50,6 +50,11 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal [], @invoice_repo.find_all_by_status("pending")  
   end
 
+  def test_finds_all_by_day
+    assert_equal [@invoice_repo.invoices[5], @invoice_repo.invoices[8]], @invoice_repo.find_all_by_day("Wednesday")
+    assert_equal [], @invoice_repo.find_all_by_day("Timsday")
+  end
+
   def test_it_creates_invoice_with_attributes
     refute_instance_of Invoice, @invoice_repo.invoices[14]
 
@@ -66,18 +71,18 @@ class InvoiceRepoTest < Minitest::Test
   end 
 
   def test_it_updates_invoice_attributes
-    refute_equal "returned", @invoice_repo.invoices[13].status 
 
-    @invoice_repo.update(4985, {
-                      id:           6,
-                      customer_id:  7,
-                      merchant_id:  8,
-                      status:       "returned",
-                      created_at:   Time.now,
-                      updated_at:   Time.now,
-                      }) 
-
-    assert_equal "returned", @invoice_repo.invoices[13].status
+    refute_equal "returned", @invoice_repo.invoices[13].status
+    
+    @invoice_repo.update(4985, {id:           6,
+                                customer_id:  7,
+                                merchant_id:  8,
+                                status:       "shipped",
+                                created_at:   Time.now,
+                                updated_at:   Time.now
+                                })
+                                
+    assert_equal "shipped", @invoice_repo.invoices[13].status
   end
 
   def test_it_deletes_invoice_by_id
@@ -87,5 +92,11 @@ class InvoiceRepoTest < Minitest::Test
   
     assert_equal nil, @invoice_repo.find_by_id(4983)
   end
-
+  
+  def test_it_finds_all_invoices_by_day
+    assert_equal [@invoice_repo.invoices[5], @invoice_repo.invoices[8]], @invoice_repo.find_all_by_day("Wednesday")
+    assert_equal [], @invoice_repo.find_all_by_day("Timsday")
+  end
+  
 end
+
