@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'cane'
-gem 'reek'
-gem 'rake'
 gem 'minitest'
+gem 'minitest-emoji'
+gem 'pry'
+gem 'rake'
+gem 'reek'
 gem 'rubocop'
 gem 'simplecov'
-gem 'pry'

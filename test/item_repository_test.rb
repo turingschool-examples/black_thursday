@@ -19,7 +19,7 @@ class ItemRepositoryTest < Minitest::Test
       id:          1,
       name:        'Pencil',
       description: 'You can use it to write things',
-      unit_price:  BigDecimal(10.00, 4),
+      unit_price:  '1000',
       created_at:  Time.now,
       updated_at:  Time.now,
       merchant_id: 4
@@ -28,7 +28,7 @@ class ItemRepositoryTest < Minitest::Test
       id:          2,
       name:        'Book',
       description: 'You can use it to learn things',
-      unit_price:  BigDecimal(10.00, 4),
+      unit_price:  '1000',
       created_at:  Time.now,
       updated_at:  Time.now,
       merchant_id: 4
@@ -36,7 +36,7 @@ class ItemRepositoryTest < Minitest::Test
     @item3 = @ir.create( # this one has no :id
       name:        'Pencil Sharpener',
       description: 'You can use it to sharpen pencils',
-      unit_price:  BigDecimal(13.99, 4),
+      unit_price:  '1399',
       created_at:  Time.now,
       updated_at:  Time.now,
       merchant_id: 6

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'time'
+
 # Invoice class
 class Invoice
   attr_reader   :id,
@@ -14,8 +16,8 @@ class Invoice
     @id          = params[:id].to_i
     @customer_id = params[:customer_id].to_i
     @merchant_id = params[:merchant_id].to_i
-    @status      = params[:status]
-    @created_at  = params[:created_at]
-    @updated_at  = params[:updated_at]
+    @status      = params[:status].to_sym
+    @created_at  = Time.parse(params[:created_at].to_s)
+    @updated_at  = Time.parse(params[:updated_at].to_s)
   end
 end
