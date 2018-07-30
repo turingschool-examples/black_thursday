@@ -13,6 +13,12 @@ module RepositoryHelper
     @repository.fetch(id)
   end
 
+  def find_by_name(name)
+    all.find do |repository|
+      repository.name.downcase == name.downcase
+    end
+  end
+
   def delete(id)
     @repository.delete(id)
   end

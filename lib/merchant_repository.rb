@@ -32,12 +32,6 @@ class MerchantRepository
     remove_keys(merchant_pairs, Merchant)
   end
 
-  def find_by_name(name)
-    all.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
-  end
-
   def find_all_by_name(name)
     all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
