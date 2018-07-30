@@ -265,8 +265,14 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal [1,2,3,4,5,6], @sa.get_invoice_ids
   # end
 
-  def test_it_can_group_invoices_by_merchant_id
+  def test_invoice_hash
+    assert_equal Array, @sa.invoice_hash[1].class
+    assert_equal 1, @sa.invoice_hash[1].count
+  end
 
+  def test_it_can_sum_invoice_totals
+    assert_equal 2780.91, @sa.sum_invoice_totals[1].to_f
+    assert_equal 3, @sa.sum_invoice_totals.count
   end
 
 end
