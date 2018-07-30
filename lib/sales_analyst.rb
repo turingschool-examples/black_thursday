@@ -233,6 +233,14 @@ class SalesAnalyst
     end
     golden
   end
+  
+  def invoice_status(sym)
+    percentage = @invoices.find_all_by_status(sym).count.to_f / @invoices.all.count
+    percentage = percentage * 100
+    percentage.round(2)
+  end
+
+end
 
   def invoice_status(sym)
     percentage = @invoices.find_all_by_status(sym).count.to_f / @invoices.all.count

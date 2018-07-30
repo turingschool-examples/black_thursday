@@ -1,6 +1,41 @@
 {
   "Unit Tests": {
     "coverage": {
+      "/Users/rajaaboulassouak/turing/1module/week6/final_project/black_thursday/lib/transaction.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        0,
+        null,
+        2,
+        null,
+        2,
+        0,
+        null,
+        2,
+        null,
+        2,
+        null,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1532912549
 
   }
 }

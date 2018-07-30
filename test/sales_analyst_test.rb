@@ -92,7 +92,8 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 1.62, @analyst.standard_deviation
   # end
 
-  def test_it_return_golden_items
+  def test_it_returns_golden_items
+
    assert_equal [], @analyst.golden_items
   end
 

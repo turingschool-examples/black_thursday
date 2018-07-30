@@ -5,11 +5,11 @@ class ItemRepoTest < Minitest::Test
 
   def setup
     item_array = [{id: 263395237, name: "Cow1" , description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334195"},
-      {id: 263395238, name: "Cow1", description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334195"},
-      {id: 263395239, name: "cow1", description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334195"},
-      {id: 263395210, name: "Moose1", description: "animal 2", unit_price: "1700", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334101"},
-      {id: 263395211, name: "Moose2", description: "animal 3", unit_price: "1800", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334102"},
-      {id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}]
+    {id: 263395238, name: "Cow1", description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334195"},
+    {id: 263395239, name: "cow1", description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334195"},
+    {id: 263395210, name: "Moose1", description: "animal 2", unit_price: "1700", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334101"},
+    {id: 263395211, name: "Moose2", description: "animal 3", unit_price: "1800", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334102"},
+    {id: 263395212, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334103"}]
     @item_repo = ItemRepo.new(item_array)
   end
 
@@ -56,9 +56,9 @@ class ItemRepoTest < Minitest::Test
     @item_repo.create({:id          => "1",
                        :name        => "Eagle",
                        :description => "animal 7",
-                       :unit_price  => "1099",
-                       :created_at  => "2016-01-11 11:51:37 UTC",
-                       :updated_at  => "2016-01-11 11:51:37 UTC",
+                       :unit_price  => BigDecimal.new(10.99,4),
+                       :created_at  => Time.now,
+                       :updated_at  => Time.now,
                        :merchant_id => "2"})
     assert_instance_of Item, @item_repo.items[6]
   end
@@ -74,7 +74,7 @@ class ItemRepoTest < Minitest::Test
       :id           => "363395250",
       :name         => "Bat",
       :description  => "animal 100",
-      :unit_price   => 21,
+      :unit_price   => BigDecimal.new(10.99,4),
       :created_at   => "2016-01-11 11:51:37 UTC",
       :updated_at   => current_time,
       :merchant_id  => "12334104"
@@ -82,7 +82,7 @@ class ItemRepoTest < Minitest::Test
 
     assert_equal "Bat", @item_repo.items[5].name
     assert_equal "animal 100", @item_repo.items[5].description
-    assert_equal 21, @item_repo.items[5].unit_price
+    assert_equal 10.99, @item_repo.items[5].unit_price
     assert_equal 263395212, @item_repo.items[5].id
     assert_equal "2016-01-11 11:51:37 UTC", @item_repo.items[5].created_at.to_s
     assert_equal current_time, @item_repo.items[5].updated_at.to_s
