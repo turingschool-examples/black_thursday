@@ -80,12 +80,12 @@ class ItemRepository
     total = @items.inject(0) {|sum, item| sum += item.unit_price }
     total / @items.count
   end
-  
+
   def average_item_price_for_merchant(id)
      grouped_hash = group_item_by_merchant_id
      item_count = grouped_hash[id].size
-     item_value_total = grouped_hash[id].inject(BigDecimal.new(0)) do |total, item| 
-       total += item.unit_price 
+     item_value_total = grouped_hash[id].inject(BigDecimal.new(0)) do |total, item|
+       total += item.unit_price
      end
      average = (item_value_total / BigDecimal.new(item_count))
      average.round(2)

@@ -47,7 +47,7 @@ class InvoiceItemRepository
     item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     item.updated_at = Time.now
   end
-  
+
   def group_by_day
     @invoice_items.group_by do |invoice|
       binding.pry

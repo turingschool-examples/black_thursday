@@ -4,7 +4,7 @@ module MathHelper
       (item.count - average) ** 2
     end
   end
-  
+
   def get_total_of_squares(grouped_hash, average)
     get_squared_values(grouped_hash, average).inject(0) { |sum, value| sum += value}
   end
