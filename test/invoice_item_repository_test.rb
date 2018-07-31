@@ -59,12 +59,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_hold_items
-    assert_instance_of Array, @invoice_item_repository.invoice_items
+    assert_instance_of Array, @invoice_item_repository.list
   end
 
   def test_its_holding_items
-    assert_instance_of InvoiceItem, @invoice_item_repository.invoice_items[0]
-    assert_instance_of InvoiceItem, @invoice_item_repository.invoice_items[3]
+    assert_instance_of InvoiceItem, @invoice_item_repository.list[0]
+    assert_instance_of InvoiceItem, @invoice_item_repository.list[3]
   end
 
   def test_it_can_return_items_using_all
@@ -73,7 +73,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    expected = @invoice_item_repository.invoice_items[0]
+    expected = @invoice_item_repository.list[0]
     actual = @invoice_item_repository.find_by_id(2345)
     assert_equal expected, actual
   end
@@ -100,7 +100,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       updated_at: Time.now
       }
     new_item_added = @invoice_item_repository.create(attributes)
-    expected = @invoice_item_repository.invoice_items[-1]
+    expected = @invoice_item_repository.list[-1]
     actual = new_item_added
     assert_equal expected, actual
   end
@@ -119,12 +119,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
       unit_price: 12.99
       }
     @invoice_item_repository.create(new_attributes)
-    new_invoice_item = @invoice_item_repository.invoice_items.last
+    new_invoice_item = @invoice_item_repository.list.last
 
     assert_equal BigDecimal.new(10.99, 4), new_invoice_item.unit_price
 
     @invoice_item_repository.update(2350, updated_attributes)
-    changed_invoice_item = @invoice_item_repository.invoice_items.last
+    changed_invoice_item = @invoice_item_repository.list.last
 
     assert_equal BigDecimal.new(12.99, 4), changed_invoice_item.unit_price
     assert_equal 13, changed_invoice_item.quantity
@@ -133,7 +133,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_invoice_item
-    assert_equal @invoice_item_repository.invoice_items[0], @invoice_item_repository.find_by_id(2345)
+    assert_equal @invoice_item_repository.list[0], @invoice_item_repository.find_by_id(2345)
 
     @invoice_item_repository.delete(2345)
     assert_nil @invoice_item_repository.find_by_id(2345)

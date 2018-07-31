@@ -4,32 +4,28 @@ require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :list
   include RepoMethodHelper
 
-  def initialize(items)
-    @items = items
-  end
-
-  def all
-    @items
+  def initialize(list)
+    @list = list
   end
 
   def find_all_with_description(description)
     downcased_description = description.downcase
-    @items.find_all do |item|
+    @list.find_all do |item|
       item.description.downcase.include?(downcased_description)
     end
   end
 
   def find_all_by_price(price)
-    @items.find_all do |item|
+    @list.find_all do |item|
       item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
-    @items.find_all do |item|
+    @list.find_all do |item|
       range.include?(item.unit_price.to_f)
     end
   end
@@ -39,7 +35,7 @@ class ItemRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     created = Item.new(attributes)
-    @items << created
+    @list << created
     created
   end
 
@@ -51,6 +47,6 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.ItemRepository} #{@items.size} rows>"
+    "#<#{self.ItemRepository} #{@list.size} rows>"
   end
 end

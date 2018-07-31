@@ -4,15 +4,11 @@ require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
 class InvoiceRepository
-  attr_reader :invoices
+  attr_reader :list
   include RepoMethodHelper
 
-  def initialize(invoices)
-    @invoices = invoices
-  end
-
-  def all
-    @invoices
+  def initialize(list)
+    @list = list
   end
 
   def find_all_by_customer_id(customer_id)
@@ -32,7 +28,7 @@ class InvoiceRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     created = Invoice.new(attributes)
-    @invoices << created
+    @list << created
     created
   end
 
@@ -43,6 +39,6 @@ class InvoiceRepository
 
 
   def inspect
-    "#<#{self.InvoiceRepository} #{@invoices.size} rows>"
+    "#<#{self.InvoiceRepository} #{@list.size} rows>"
   end
 end

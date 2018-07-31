@@ -38,21 +38,21 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_hold_invoices
-    assert_instance_of Array, @invoice_repository.invoices
+    assert_instance_of Array, @invoice_repository.list
   end
 
   def test_its_holding_invoices
-    assert_instance_of Invoice, @invoice_repository.invoices[0]
-    assert_instance_of Invoice, @invoice_repository.invoices[2]
+    assert_instance_of Invoice, @invoice_repository.list[0]
+    assert_instance_of Invoice, @invoice_repository.list[2]
   end
 
-  def test_it_can_return_items_using_all
+  def test_it_can_return_invoices_using_all
     assert_instance_of Invoice, @invoice_repository.all[1]
     assert_instance_of Invoice, @invoice_repository.all[2]
   end
 
   def test_it_can_find_by_id
-    expected = @invoice_repository.invoices[0]
+    expected = @invoice_repository.list[0]
     actual = @invoice_repository.find_by_id(1)
     assert_equal expected, actual
   end
@@ -83,7 +83,7 @@ class InvoiceRepositoryTest < Minitest::Test
         :created_at  => Time.now,
         :updated_at  => Time.now,
       })
-    expected = @invoice_repository.invoices[-1]
+    expected = @invoice_repository.list[-1]
     actual = new_invoice_added
     assert_equal expected, actual
   end
@@ -95,7 +95,7 @@ class InvoiceRepositoryTest < Minitest::Test
         :status      => "pending"
       })
 
-    assert_equal @invoice_repository.invoices.last.customer_id, new_invoice_added.customer_id
+    assert_equal @invoice_repository.list.last.customer_id, new_invoice_added.customer_id
 
     @invoice_repository.update(4, {:status => "shipped"})
 
@@ -103,7 +103,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_item
-    assert_equal @invoice_repository.invoices[0], @invoice_repository.find_by_id(1)
+    assert_equal @invoice_repository.list[0], @invoice_repository.find_by_id(1)
 
     @invoice_repository.delete(1)
     assert_nil @invoice_repository.find_by_id(1)

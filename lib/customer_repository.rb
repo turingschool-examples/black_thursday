@@ -4,27 +4,23 @@ require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
 class CustomerRepository
-  attr_reader :customers
+  attr_reader :list
   include RepoMethodHelper
 
-  def initialize(customers)
-    @customers = customers
-  end
-
-  def all
-    @customers
+  def initialize(list)
+    @list = list
   end
 
   def find_all_by_first_name(first_name)
     downcased_first_name = first_name.downcase
-    @customers.find_all do |customer|
+    @list.find_all do |customer|
       customer.first_name.downcase.include?(downcased_first_name)
     end
   end
 
   def find_all_by_last_name(last_name)
     downcased_last_name = last_name.downcase
-    @customers.find_all do |customer|
+    @list.find_all do |customer|
       customer.last_name.downcase.include?(downcased_last_name)
     end
   end
@@ -34,7 +30,7 @@ class CustomerRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     created = Customer.new(attributes)
-    @customers << created
+    @list << created
     created
   end
 
@@ -45,6 +41,6 @@ class CustomerRepository
   end
 
   def inspect
-    "#<#{self.CustomerRepository} #{@customers.size} rows>"
+    "#<#{self.CustomerRepository} #{@list.size} rows>"
   end
 end

@@ -21,7 +21,7 @@ class MerchantRepositoryTest < Minitest::Test
       created_at: "2010-12-10",
       updated_at: "2011-12-04"
       })
-      
+
     merchants = [merchant_1, merchant_2, merchant_3]
     @merchant_repository = MerchantRepository.new(merchants)
   end
@@ -31,12 +31,12 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_hold_merchants
-    assert_instance_of Array, @merchant_repository.merchants
+    assert_instance_of Array, @merchant_repository.list
   end
 
   def test_its_holding_merchants
-    assert_instance_of Merchant, @merchant_repository.merchants[0]
-    assert_instance_of Merchant, @merchant_repository.merchants[2]
+    assert_instance_of Merchant, @merchant_repository.list[0]
+    assert_instance_of Merchant, @merchant_repository.list[2]
   end
 
   def test_it_can_return_merchants_using_all
@@ -45,13 +45,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    expected = @merchant_repository.merchants[0]
+    expected = @merchant_repository.list[0]
     actual = @merchant_repository.find_by_id(123)
     assert_equal expected, actual
   end
 
   def test_it_can_find_by_name
-    expected = @merchant_repository.merchants[0]
+    expected = @merchant_repository.list[0]
     actual = @merchant_repository.find_by_name("Bills Tools")
     assert_equal expected, actual
   end
@@ -78,13 +78,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_create_new_merchant_with_attributes
     new_merchant_added = @merchant_repository.create({name: "Bill Nye"})
-    expected = @merchant_repository.merchants[-1]
+    expected = @merchant_repository.list[-1]
     actual = new_merchant_added.last
     assert_equal expected, actual
   end
 
   def test_it_can_update_name
-    last_merchant = @merchant_repository.merchants[-1].name
+    last_merchant = @merchant_repository.list[-1].name
     assert_equal "Bilbos Tools", last_merchant
 
     renamed_merchant = @merchant_repository.update(125, {name: "Eric LaSalle"})
@@ -92,7 +92,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_merchant
-    assert_equal @merchant_repository.merchants[1], @merchant_repository.find_by_name("Billys Tools")
+    assert_equal @merchant_repository.list[1], @merchant_repository.find_by_name("Billys Tools")
 
     @merchant_repository.delete(124)
     assert_nil @merchant_repository.find_by_name("Billys Tools")

@@ -4,16 +4,11 @@ require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
 class TransactionRepository
-
-  attr_reader :transactions
+  attr_reader :list
   include RepoMethodHelper
 
-  def initialize(transactions)
-    @transactions = transactions
-  end
-
-  def all
-    @transactions
+  def initialize(list)
+    @list = list
   end
 
   def find_all_by_invoice_id(invoice_id)
@@ -39,7 +34,7 @@ class TransactionRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     created = Transaction.new(attributes)
-    @transactions << created
+    @list << created
     created
   end
 
@@ -51,6 +46,6 @@ class TransactionRepository
   end
 
   def inspect
-    "#<#{self.TransactionRepository} #{@transactions.size} rows>"
+    "#<#{self.TransactionRepository} #{@list.size} rows>"
   end
 end

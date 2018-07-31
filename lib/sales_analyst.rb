@@ -42,13 +42,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    numerator = @item_repo.items.count
-    denominator = @merchant_repo.merchants.count.to_f
+    numerator = @item_repo.list.count
+    denominator = @merchant_repo.list.count.to_f
     average(numerator, denominator)
   end
 
   def items_per_merchant
-    @item_repo.items.each_with_object(Hash.new(0)) do |item, counts|
+    @item_repo.list.each_with_object(Hash.new(0)) do |item, counts|
       counts[item.merchant_id] += 1
     end
   end
@@ -84,41 +84,41 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    total_average_price = @merchant_repo.merchants.map do |merchant|
+    total_average_price = @merchant_repo.list.map do |merchant|
       average_item_price_for_merchant(merchant.id.to_i)
     end
 
     numerator = sum(total_average_price).to_f
-    denominator = @merchant_repo.merchants.count
+    denominator = @merchant_repo.list.count
     average(numerator, denominator).to_d
   end
 
   def golden_items
-    total_repo_value = @item_repo.items.inject(0) do |sum, item|
+    total_repo_value = @item_repo.list.inject(0) do |sum, item|
       sum + item.unit_price
     end
 
-    unit_prices = @item_repo.items.map do |item|
+    unit_prices = @item_repo.list.map do |item|
       item.unit_price
     end
 
-    average_price = total_repo_value / @item_repo.items.count
+    average_price = total_repo_value / @item_repo.list.count
     stddev = standard_deviation(unit_prices, average_price)
 
-    @item_repo.items.find_all do |item|
+    @item_repo.list.find_all do |item|
       item.unit_price > ((stddev * 2) + average_price)
       # binding.pry
     end
   end
 
   def average_invoices_per_merchant
-    numerator = @invoice_repo.invoices.count
-    denominator = @merchant_repo.merchants.count.to_f
+    numerator = @invoice_repo.list.count
+    denominator = @merchant_repo.list.count.to_f
     average(numerator, denominator)
   end
 
   def invoices_per_merchant
-    @invoice_repo.invoices.each_with_object(Hash.new(0)) do |invoice, counts|
+    @invoice_repo.list.each_with_object(Hash.new(0)) do |invoice, counts|
       counts[invoice.merchant_id] += 1
     end
   end
@@ -160,7 +160,7 @@ class SalesAnalyst
   end
 
   def average_invoice_counts_per_day
-    numerator = @invoice_repo.invoices.count
+    numerator = @invoice_repo.list.count
     denominator = 7
     average(numerator, denominator)
   end
@@ -170,7 +170,7 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    invoice_created_day_of_week = @invoice_repo.invoices.map do |invoice|
+    invoice_created_day_of_week = @invoice_repo.list.map do |invoice|
       weekday(invoice.created_at.to_s)
     end
     total_invoice_counts_by_day_of_week = invoice_created_day_of_week.each_with_object(Hash.new(0)) do |day, counts|
@@ -187,8 +187,8 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    denominator = @invoice_repo.invoices.count
-    numerator = @invoice_repo.invoices.find_all do |invoice|
+    denominator = @invoice_repo.list.count
+    numerator = @invoice_repo.list.find_all do |invoice|
       invoice.status == status
     end.count
     percentage = (numerator / denominator.to_f) * 100
@@ -215,7 +215,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    date_matched_invoices = @invoice_repo.invoices.find_all do |invoice|
+    date_matched_invoices = @invoice_repo.list.find_all do |invoice|
       invoice.created_at == date
     end
     revenue_of_date_matched_invoices = date_matched_invoices.map do |invoice|
@@ -259,7 +259,7 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    revenue_earned_per_merchant = @merchant_repo.merchants.map do |merchant|
+    revenue_earned_per_merchant = @merchant_repo.list.map do |merchant|
       [merchant.id, revenue_by_merchant(merchant.id)]
     end
     sorted_highest_rev_per_mer = revenue_earned_per_merchant.sort_by do |merchant, revenue|
@@ -279,7 +279,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    merchant_ids_of_pending = @invoice_repo.invoices.map do |invoice|
+    merchant_ids_of_pending = @invoice_repo.list.map do |invoice|
       invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end.compact
 
