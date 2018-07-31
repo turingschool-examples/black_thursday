@@ -1,7 +1,7 @@
 require 'bigdecimal'
-require 'item_analyst'
-require 'invoice_analyst'
-require 'math_helper'
+require_relative 'item_analyst'
+require_relative 'invoice_analyst'
+require_relative 'math_helper'
 
 class SalesAnalyst
   include MathHelper
@@ -22,7 +22,7 @@ class SalesAnalyst
   def average_items_per_merchant
     @item_ana.average_items_per_merchant
   end
- 
+
   def average_items_per_merchant_standard_deviation
     mean_total_sqr = @item_repository.group_item_by_merchant_id
     mean_items_per = average_items_per_merchant
@@ -119,7 +119,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoices = @invoice_repository.invoices.select do |invoice| 
+    invoices = @invoice_repository.invoices.select do |invoice|
       invoice.created_string == date.strftime("%F")
     end
     invoice_ids = invoices.map {|invoice| invoice.id}
@@ -174,7 +174,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @invoice_repository.all.reject do |invoice| 
+    pending_invoices = @invoice_repository.all.reject do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
     merchant_ids = pending_invoices.map {|invoice| invoice.merchant_id}
@@ -221,8 +221,8 @@ class SalesAnalyst
     grouped = flat.group_by {|item| item.item_id}
     hash = {}
     grouped.each do |key, value|
-      hash[key] = value.inject(0) do |sum, val| 
-        sum += val.quantity.to_i 
+      hash[key] = value.inject(0) do |sum, val|
+        sum += val.quantity.to_i
       end
     end
     sorted = hash.sort_by {|key, value| - value }
@@ -245,7 +245,7 @@ class SalesAnalyst
     grouped = flat.group_by {|item| item.item_id}
     hash = {}
     grouped.each do |key, value|
-      hash[key] = value.inject(0) do |sum, val| 
+      hash[key] = value.inject(0) do |sum, val|
         sum += (val.unit_price * val.quantity.to_i).round(2)
       end
     end
@@ -271,7 +271,7 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     @invoice_ana.average_invoices_per_merchant_standard_deviation
   end
-  
+
   def average_invoices_per_day_standard_deviation
     @invoice_ana.average_invoices_per_day_standard_deviation
   end
