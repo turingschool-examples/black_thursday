@@ -16,7 +16,7 @@ class Invoice
     @merchant_id = attributes[:merchant_id].to_i
     @status = attributes[:status].to_sym
     @created_at = attributes[:created_at]
-    @updated_at = Time.new(attributes[:updated_at].to_s)
+    @updated_at = Time.parse(attributes[:updated_at])
     update_max_id
   end
 
@@ -29,7 +29,7 @@ class Invoice
   end
 
   def created_at
-    Time.new(@created_at)
+    Time.parse(@created_at)
   end
 
   def created_string
@@ -43,6 +43,6 @@ class Invoice
         merchant_id: attributes[:merchant_id],
         status: attributes[:status],
         created_at: attributes[:created_at].to_s,
-        updated_at: attributes[:created_at].to_s)
+        updated_at: attributes[:updated_at].to_s)
   end
 end

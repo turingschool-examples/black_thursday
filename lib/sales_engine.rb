@@ -80,7 +80,9 @@ class SalesEngine
     merchant_repository = MerchantRepository.new
     merchant_array = csv_reader(merchant_data)
     merchant_array.each do |merchant|
-      merchant_repository.create_with_id(id: merchant[0], name: merchant[1])
+      merchant_repository.create_with_id(id: merchant[0],
+                                         name: merchant[1],
+                                        created_at: merchant[2])
     end
     merchant_repository
   end
