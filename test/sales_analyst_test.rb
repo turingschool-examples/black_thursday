@@ -23,7 +23,7 @@ class SalesAnalystTest < Minitest::Test
       :updated_at  => "1972-07-30 18:08:53 UTC"
       })
     @item_3 = Item.new({
-      :id => 263395234,
+      :id => 7,
       :name => "Chapstick",
       :description => "Moisturizes lips.",
       :unit_price  => 455,
@@ -75,7 +75,7 @@ class SalesAnalystTest < Minitest::Test
       :merchant_id => 12334141,
       :status => "pending",
       :created_at => "2009-02-07",
-      :updated_at => "2009-02-07"
+      :updated_at => "2009-02-08"
       })
     @invoice_2 = Invoice.new({
       :id => 7,
@@ -83,58 +83,58 @@ class SalesAnalystTest < Minitest::Test
       :merchant_id => 12337777,
       :status => "pending",
       :created_at => "2009-02-07",
-      :updated_at => "2009-02-07"
+      :updated_at => "2009-02-10"
       })
     @invoice_3 = Invoice.new({
       :id => 8,
       :customer_id => 48,
       :merchant_id => 12339191,
-      :status => "pending",
-      :created_at => "2009-02-07",
-      :updated_at => "2009-02-07"
+      :status => "shipped",
+      :created_at => "2009-02-11",
+      :updated_at => "2009-02-12"
       })
     @invoice_4 = Invoice.new({
       :id => 9,
       :customer_id => 48,
       :merchant_id => 12339191,
-      :status => "pending",
-      :created_at => "2009-02-07",
-      :updated_at => "2009-02-07"
+      :status => "returned",
+      :created_at => "2009-02-13",
+      :updated_at => "2009-02-14"
       })
 
     @invoice_item_1 = InvoiceItem.new({
       :id => 6,
       :item_id => 7,
-      :invoice_id => 88,
+      :invoice_id => 6,
       :quantity => 1,
-      :unit_price => BigDecimal.new(100.99, 4),
+      :unit_price => 10099,
       :created_at => "1972-07-30 18:08:53 UTC",
       :updated_at => "1972-07-30 18:08:53 UTC"
       })
     @invoice_item_2 = InvoiceItem.new({
       :id => 7,
       :item_id => 33,
-      :invoice_id => 99,
+      :invoice_id => 6,
       :quantity => 1,
-      :unit_price => BigDecimal.new(5.99, 4),
+      :unit_price => 599,
       :created_at => "1972-07-30 18:08:53 UTC",
       :updated_at => "1972-07-30 18:08:53 UTC"
       })
     @invoice_item_3 = InvoiceItem.new({
       :id => 8,
       :item_id => 7,
-      :invoice_id => 99,
+      :invoice_id => 7,
       :quantity => 1,
-      :unit_price => BigDecimal.new(12.36, 4),
+      :unit_price => 1236,
       :created_at => "1972-07-30 18:08:53 UTC",
       :updated_at => "1972-07-30 18:08:53 UTC"
       })
     @invoice_item_4 = InvoiceItem.new({
       :id => 9,
       :item_id => 987,
-      :invoice_id => 66,
+      :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(9.79, 4),
+      :unit_price => 979,
       :created_at => "1972-07-30 18:08:53 UTC",
       :updated_at => "1972-07-30 18:08:53 UTC"
       })
@@ -188,7 +188,7 @@ class SalesAnalystTest < Minitest::Test
       })
     @transaction_3 = Transaction.new({
       :id => 8,
-      :invoice_id => 10,
+      :invoice_id => 7,
       :credit_card_number => "4242424242423333",
       :credit_card_expiration_date => "0422",
       :result => "success",
@@ -306,7 +306,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count
-    skip
+    @sales_engine = SalesEngine.from_csv({
+         items: "./data/items.csv",
+         merchants: "./data/merchants.csv",
+         invoices: "./data/invoices.csv",
+         invoice_items: "./data/invoice_items.csv",
+         transactions: "./data/transactions.csv",
+         customers: "./data/customers.csv"
+         })
+       @sales_analyst = @sales_engine.analyst
     expected = 4
     actual = @sales_analyst.bottom_merchants_by_invoice_count
 
@@ -315,84 +323,78 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_top_days_by_invoice_count
-    skip
-    expected = ["Wednesday"]
+
+    expected = ["Saturday"]
     actual = @sales_analyst.top_days_by_invoice_count
     assert_equal expected, actual
   end
 
   def test_it_can_show_invoice_status_percentage
-    skip
-    expected = 29.55
+    expected = 50.0
     actual = @sales_analyst.invoice_status(:pending)
 
     assert_equal expected, actual
 
-    expected_2 = 56.95
+    expected_2 = 25.0
     actual_2 = @sales_analyst.invoice_status(:shipped)
 
     assert_equal expected_2, actual_2
 
-    expected_3 = 13.5
+    expected_3 = 25.0
     actual_3 = @sales_analyst.invoice_status(:returned)
 
     assert_equal expected_3, actual_3
   end
 
   def test_it_checks_if_invoice_paid_in_full
-    skip
-    assert_equal true, @sales_analyst.invoice_paid_in_full?(1)
-    assert_equal false, @sales_analyst.invoice_paid_in_full?(204)
-    assert_equal false, @sales_analyst.invoice_paid_in_full?(203)
+    refute @sales_analyst.invoice_paid_in_full?(6)
+    assert @sales_analyst.invoice_paid_in_full?(7)
+    assert @sales_analyst.invoice_paid_in_full?(9)
   end
 
   def test_it_can_return_invoice_total
-    skip
-    assert_equal 21067.77, @sales_analyst.invoice_total(1)
+    assert_equal 12.36, @sales_analyst.invoice_total(7)
   end
 
   def test_it_can_check_total_revenue_by_date
-    skip
-    assert_equal 14074.79, @sales_analyst.total_revenue_by_date(Time.parse("2011-06-30"))
+    assert_equal 119.34, @sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))
   end
 
   def test_it_can_check_revenue_by_merchant
-    skip
-    assert_equal 81572, @sales_analyst.revenue_by_merchant(12334141).to_i
+    assert_equal 12.36, @sales_analyst.revenue_by_merchant(12337777)
   end
 
   def test_it_can_check_top_revenue_earners_with_argument
-    skip
-    top_revenue_merchants = @sales_analyst.top_revenue_earners(10)
-    assert_equal 10, @sales_analyst.top_revenue_earners(10).count
+    top_revenue_merchants = @sales_analyst.top_revenue_earners(3)
+    assert_equal 3, @sales_analyst.top_revenue_earners(3).count
     assert_instance_of Merchant, top_revenue_merchants[0]
-    assert_equal 12334634, @sales_analyst.top_revenue_earners(10).first.id
-    assert_equal 12335747, @sales_analyst.top_revenue_earners(10).last.id
+    assert_equal 12337777, @sales_analyst.top_revenue_earners(3).first.id
+    assert_equal 12334141, @sales_analyst.top_revenue_earners(3).last.id
 
-    assert_equal 20, @sales_analyst.top_revenue_earners.count
-    assert_equal 12334634, @sales_analyst.top_revenue_earners.first.id
-    assert_equal 12334159, @sales_analyst.top_revenue_earners.last.id
+    assert_equal 3, @sales_analyst.top_revenue_earners.count
+    assert_equal 12337777, @sales_analyst.top_revenue_earners.first.id
+    assert_equal 12334141, @sales_analyst.top_revenue_earners.last.id
   end
 
   def test_it_can_rank_all_revenue_earners
-    skip
     ranked_revenue_merchants = @sales_analyst.merchants_ranked_by_revenue
-    assert_equal 475, @sales_analyst.merchants_ranked_by_revenue.count
-    assert_equal 12334634, @sales_analyst.merchants_ranked_by_revenue.first.id
-    assert_equal 12336175, @sales_analyst.merchants_ranked_by_revenue.last.id
+    assert_equal 3, @sales_analyst.merchants_ranked_by_revenue.count
+    assert_equal 12337777, @sales_analyst.merchants_ranked_by_revenue.first.id
+    assert_equal 12334141, @sales_analyst.merchants_ranked_by_revenue.last.id
     assert_instance_of Merchant, ranked_revenue_merchants[0]
   end
 
   def test_it_can_get_merchants_with_pending_invoices
-    skip
     actual = @sales_analyst.merchants_with_pending_invoices
     assert_instance_of Merchant, actual[0]
-    assert_equal 467, actual.count
+    assert_equal 2, actual.count
   end
 
   def test_it_can_return_the_most_sold_item_for_merchant
-    skip
-    assert_instance_of Item, @sales_analyst.most_sold_item_for_merchant(12334189).first
+    assert_instance_of Item, @sales_analyst.most_sold_item_for_merchant(12337777).first
+  end
 
+  def test_it_can_return_the_best_item_for_merchant
+    assert_instance_of Item, @sales_analyst.best_item_for_merchant(12337777)
   end
 end

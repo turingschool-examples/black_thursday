@@ -313,6 +313,7 @@ class SalesAnalyst
     highest_values.map do |id, quantity|
       @item_repo.find_by_id(id)
     end
+    # binding.pry
   end
 
   def best_item_for_merchant(merchant_id)
@@ -331,7 +332,6 @@ class SalesAnalyst
         sum + (num.quantity.to_i * num.unit_price)
       end
     end
-
     highest_quantity = hash.key(hash.values.max)
     @item_repo.find_by_id(highest_quantity)
   end
