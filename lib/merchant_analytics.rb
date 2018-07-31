@@ -18,7 +18,6 @@ module MerchantAnalytics
     sorted.map do |merchant_id, invoice_total|
       @sales_engine.merchants.find_by_id(merchant_id)
     end
-    require "pry"; binding.pry
   end
 
   def invoice_hash
