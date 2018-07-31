@@ -59,7 +59,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Time, invoice.created_at
     assert_instance_of Time, invoice.updated_at
   end
-  
+
   def test_it_can_update_attributes
     attributes = {status: "pending"}
     id = 2

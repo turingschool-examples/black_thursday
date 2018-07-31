@@ -29,7 +29,7 @@ module RepositoryHelper
       object.merchant_id == merchant_id
     end
   end
-  
+
   def find_all_by_merchant_id(merchant_id)
     @all.find_all do |object|
       object.merchant_id == merchant_id
@@ -69,4 +69,10 @@ module RepositoryHelper
       object.id == id
     end
   end
+
+  def find_all_by_invoice_id(invoice_id)
+   @all.find_all do |invoice_item|
+     invoice_item.invoice_id == invoice_id
+   end
+ end
 end
