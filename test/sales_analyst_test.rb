@@ -125,6 +125,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sales_analyst.average_item_price.class
   end
   
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sales_engine.analyst.average_invoices_per_merchant_standard_deviation 
+    assert_equal Float, @sales_engine.analyst.average_invoices_per_merchant_standard_deviation.class 
+  end 
+  
+  def test_it_sums_inv_differences_squared
+    @sales_analyst.sum_of_inv_differences_squared
+    assert_equal 5132.75, @sales_analyst.sum_of_inv_differences_squared.round(2)
+  end
+  
+  def test_merchant_id_item_counts_attribute_can_be_populated
+    @sales_analyst.merchant_id_invoice_counter 
+    assert_equal 475, @sales_analyst.merchant_id_invoice_counts.count 
+  end 
+  
   def test_average_invoices_per_merchant 
     assert_equal 10.49, @sales_analyst.average_invoices_per_merchant 
     assert_equal Float, @sales_analyst.average_invoices_per_merchant.class 

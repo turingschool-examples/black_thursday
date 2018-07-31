@@ -4,7 +4,8 @@ class SalesAnalyst
   attr_reader       :sales_engine, 
                     :item_repository, :merchant_repository, :merchant_id_item_counts,
                     :item_count_std_dev,
-                    :invoice_repository
+                    :invoice_repository,
+                    :merchant_id_invoice_counts
                     
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -13,6 +14,7 @@ class SalesAnalyst
     @invoice_repository = @sales_engine.invoices
     @merchant_id_item_counts = nil
     @item_count_std_dev = nil
+    @merchant_id_invoice_counts = nil 
   end
   
   def average_items_per_merchant_standard_deviation
@@ -142,7 +144,38 @@ class SalesAnalyst
     (sum / count).round(2)
   end
   
-  def average_invoices_per_merchant # => 10.49
+  def average_invoices_per_merchant_standard_deviation # => 3.29
+    @invoice_count_std_dev =
+    (Math.sqrt(sum_of_inv_differences_squared / @merchant_repository.all.count)).round(2)
+  end 
+  
+  # helper to average_invoices_per_merchant_standard_deviation
+  def sum_of_inv_differences_squared
+    merchant_id_invoice_counter
+    avg = average_invoices_per_merchant
+    counts = @merchant_id_invoice_counts
+    sum = 0.00
+    @merchant_repository.all.each do |merchant|
+      sum += (counts[merchant.id].to_f - avg.to_f)**2
+    end  
+    return sum.round(2)
+  end
+  
+  # helper to sum_of_inv_differences_squared
+  def merchant_id_invoice_counter
+    m_invoice_count = Hash.new(0)
+    @merchant_repository.all.map do |merchant|
+      m_invoices = @invoice_repository.all.find_all do |invoice|
+        invoice.merchant_id == merchant.id 
+        # m_items   
+      end
+      m_invoice_count[merchant.id] += m_invoices.count
+    end
+    @merchant_id_invoice_counts = m_invoice_count 
+  end
+  
+  # helper to sum_of_inv_differences_squared
+  def average_invoices_per_merchant
     (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end 
 end 
