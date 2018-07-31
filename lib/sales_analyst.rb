@@ -29,11 +29,6 @@ class SalesAnalyst
     final_square(mean_total_sqr, mean_items_per)
   end
 
-#  def final_square(mean_total_sqr, mean_items_per)
-#    (Math.sqrt(
-#      get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
-#  end
-
   def get_squared_item_prices
     @item_repository.items.map do |item|
       (item.unit_price - @item_repository.mean_item_price) ** 2
@@ -110,21 +105,6 @@ class SalesAnalyst
     @item_repository.average_average_price_per_merchant
   end
 
-#  def get_mean_of_totaled_squares(grouped_hash, average)
-#    get_total_of_squares(grouped_hash, average) / get_squared_values(grouped_hash, average).count
-#  end
-
-#  def get_total_of_squares(grouped_hash, average)
-#    get_squared_values(grouped_hash, average).inject(0) { |sum, value| sum += value}
-#  end
-
-#  def get_squared_values(grouped_hash, average)
-#    grouped_hash.map do |id, item|
-#      (item.count - average) ** 2
-#    end
-#  end
-
-  # Probably a better way to write this
   def invoice_paid_in_full?(invoice_id)
     invoices = @transaction_repository.find_all_by_invoice_id(invoice_id)
     return false if invoices.empty?
@@ -290,9 +270,6 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     @invoice_ana.average_invoices_per_merchant_standard_deviation
-#    mean_total_sqr = @invoice_ana.group_invoices_by_merchant_id
-#    mean_items_per = average_invoices_per_merchant
-#    final_square(mean_total_sqr, mean_items_per)
   end
   
   def average_invoices_per_day_standard_deviation
