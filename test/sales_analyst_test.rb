@@ -24,20 +24,35 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1367, @sales_analyst.item_repository.all.count
     assert_equal MerchantRepository, @sales_analyst.merchant_repository.class
     assert_equal 475, @sales_analyst.merchant_repository.all.count
+    assert_equal InvoiceRepository, @sales_analyst.invoice_repository.class
+    assert_equal 4985, @sales_analyst.invoice_repository.all.count
     assert_nil @sales_analyst.merchant_id_item_counts
-    assert_nil @sales_analyst.item_count_std_dev 
+    assert_nil @sales_analyst.item_count_std_dev
+    assert_nil @sales_analyst.merchant_id_invoice_counts
+    assert_nil @sales_analyst.merchant_id_invoice_counts_std_dev
   end 
   
   def test_merchant_id_item_counts_attribute_can_be_populated
     @sales_analyst.merchant_id_item_counter 
     assert_equal 475, @sales_analyst.merchant_id_item_counts.count 
-  end 
+  end
   
   def test_average_items_per_merchant_standard_deviation_can_be_populated 
     @sales_analyst.merchant_id_item_counter
     @sales_analyst.average_items_per_merchant_standard_deviation
     assert_equal Float, @sales_analyst.item_count_std_dev.class
+  end
+  
+  def test_merchant_id_invoice_counts_attribute_can_be_populated
+    @sales_analyst.merchant_id_invoice_counter 
+    assert_equal 475, @sales_analyst.merchant_id_invoice_counts.count 
   end 
+  
+  def test_average_invoices_per_merchant_standard_deviation_can_be_populated 
+    @sales_analyst.merchant_id_invoice_counter
+    @sales_analyst.average_invoices_per_merchant_standard_deviation 
+    assert_equal Float, @sales_analyst.merchant_id_invoice_counts_std_dev.class
+  end
   
   def test_average_items_per_merchant_standard_deviation
     assert_equal 3.26, @sales_engine.analyst.average_items_per_merchant_standard_deviation 
@@ -45,8 +60,8 @@ class SalesAnalystTest < Minitest::Test
   end 
 
   def test_average_items_per_merchant 
-    assert_equal 2.88, @sales_engine.analyst.average_items_per_merchant 
-    assert_equal Float, @sales_engine.analyst.average_items_per_merchant.class 
+    assert_equal 2.88, @sales_analyst.average_items_per_merchant 
+    assert_equal Float, @sales_analyst.average_items_per_merchant.class 
   end
   
   def test_it_sums_differences_squared
@@ -121,5 +136,57 @@ class SalesAnalystTest < Minitest::Test
   
   def test_average_item_price 
     assert_equal BigDecimal, @sales_analyst.average_item_price.class
-  end  
+  end
+  
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sales_engine.analyst.average_invoices_per_merchant_standard_deviation 
+    assert_equal Float, @sales_engine.analyst.average_invoices_per_merchant_standard_deviation.class 
+  end 
+  
+  def test_it_sums_inv_differences_squared
+    @sales_analyst.sum_of_inv_differences_squared
+    assert_equal 5132.75, @sales_analyst.sum_of_inv_differences_squared.round(2)
+  end
+  
+  def test_merchant_id_item_counts_attribute_can_be_populated
+    @sales_analyst.merchant_id_invoice_counter 
+    assert_equal 475, @sales_analyst.merchant_id_invoice_counts.count 
+  end 
+  
+  def test_average_invoices_per_merchant 
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant 
+    assert_equal Float, @sales_analyst.average_invoices_per_merchant.class 
+  end 
+  
+  # it "#top_merchants_by_invoice_count returns merchants that are two standard deviations above the mean" do
+  def test_it_finds_top_merchants_by_invoice_count
+    @sales_analyst.merchant_id_invoice_counter
+    @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal Array, @sales_analyst.top_merchants_by_invoice_count.class 
+    assert_equal Merchant, @sales_analyst.top_merchants_by_invoice_count[0].class
+    assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.count 
+  end
+  
+  def test_it_finds_bottom_merchants_by_invoice_count
+    @sales_analyst.merchant_id_invoice_counter
+    @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal Array, @sales_analyst.bottom_merchants_by_invoice_count.class 
+    assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count[0].class
+    assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.count 
+  end
+  
+  # def test_top_days_by_invoice_count 
+  #   # expected = sales_analyst.top_days_by_invoice_count
+  #   # 
+  #   # expect(expected.length).to eq 1
+  #   # expect(expected.first).to eq "Wednesday"
+  #   # expect(expected.first.class).to eq String
+  # end 
+  
+  def test_arrange_invoices_by_day
+    assert_equal 6, @sales_analyst.arrange_invoices_by_day.keys[0]
+    assert_equal 7, @sales_analyst.arrange_invoices_by_day.keys.count
+    assert_equal Fixnum, @sales_analyst.arrange_invoices_by_day.values[6].class
+    assert_equal Fixnum, @sales_analyst.arrange_invoices_by_day.values[3].class
+  end 
 end 
