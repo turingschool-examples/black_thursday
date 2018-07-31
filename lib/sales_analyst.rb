@@ -188,7 +188,7 @@ class SalesAnalyst
     group_invoices_by_merchant.find_all do |id, invoices|
       if invoices.count >= invoices_two_standard_deviations_above
         merchants << @sales_engine.merchants.find_by_id(id)
-      end 
+      end
     end
     merchants
   end
@@ -199,9 +199,13 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
+    merchants = []
     group_invoices_by_merchant.find_all do |id, invoices|
-      invoices.count <= invoices_two_standard_deviations_below
+      if invoices.count <= invoices_two_standard_deviations_below
+        merchants << @sales_engine.merchants.find_by_id(id)
+      end
     end
+    merchants
   end
 
   def group_invoices_by_day_created
