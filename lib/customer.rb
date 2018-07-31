@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 require 'time'
+
+# ./lib/customer.rb
 class Customer
   attr_reader   :id,
                 :created_at
@@ -31,5 +35,4 @@ class Customer
         created_at: attributes[:created_at].to_s,
         updated_at: attributes[:updated_at].to_s)
   end
-
 end

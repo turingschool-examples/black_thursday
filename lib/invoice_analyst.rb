@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+
 require_relative 'math_helper'
 
+# ./liv/inoice_analyst
 class InvoiceAnalyst
   include MathHelper
   def initialize(invoice_repository)
@@ -8,7 +10,7 @@ class InvoiceAnalyst
   end
 
   def group_invoices_by_merchant_id
-    @invoice_repo.all.group_by { |invoice| invoice.merchant_id }
+    @invoice_repo.all.group_by(&:merchant_id)
   end
 
   def number_of_merchants
@@ -35,13 +37,13 @@ class InvoiceAnalyst
     (percent * 100).round(2)
   end
 
-   def average_invoices_per_day_standard_deviation
+  def average_invoices_per_day_standard_deviation
     mean_total_sqr = group_by_day
     mean_items_per = average_invoices_per_day
     final_square(mean_total_sqr, mean_items_per)
   end
 
-   def average_invoices_per_merchant_standard_deviation
+  def average_invoices_per_merchant_standard_deviation
     mean_total_sqr = group_invoices_by_merchant_id
     mean_items_per = average_invoices_per_merchant
     final_square(mean_total_sqr, mean_items_per)
