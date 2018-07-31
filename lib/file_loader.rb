@@ -1,14 +1,7 @@
 require "csv"
 
-class FileLoader
-
-  attr_accessor   :file
-
-  def initialize(file)
-    @file = file
-  end
-
+module FileLoader
   def builder(file)
-    CSV.foreach(file, headers: true, header_converters: :symbol).map(&:to_h)
+    CSV.open(file, headers: true, header_converters: :symbol)
   end
 end
