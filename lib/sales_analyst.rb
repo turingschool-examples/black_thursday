@@ -1,9 +1,10 @@
 require 'bigdecimal'
 require 'item_analyst'
 require 'invoice_analyst'
+require 'math_helper'
 
 class SalesAnalyst
-
+  include MathHelper
   def initialize(merchant_repository,
                  item_repository,
                  invoice_repository,
@@ -28,10 +29,10 @@ class SalesAnalyst
     final_square(mean_total_sqr, mean_items_per)
   end
 
-  def final_square(mean_total_sqr, mean_items_per)
-    (Math.sqrt(
-      get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
-  end
+#  def final_square(mean_total_sqr, mean_items_per)
+#    (Math.sqrt(
+#      get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
+#  end
 
   def get_squared_item_prices
     @item_repository.items.map do |item|
@@ -109,19 +110,19 @@ class SalesAnalyst
     @item_repository.average_average_price_per_merchant
   end
 
-  def get_mean_of_totaled_squares(grouped_hash, average)
-    get_total_of_squares(grouped_hash, average) / get_squared_values(grouped_hash, average).count
-  end
+#  def get_mean_of_totaled_squares(grouped_hash, average)
+#    get_total_of_squares(grouped_hash, average) / get_squared_values(grouped_hash, average).count
+#  end
 
-  def get_total_of_squares(grouped_hash, average)
-    get_squared_values(grouped_hash, average).inject(0) { |sum, value| sum += value}
-  end
+#  def get_total_of_squares(grouped_hash, average)
+#    get_squared_values(grouped_hash, average).inject(0) { |sum, value| sum += value}
+#  end
 
-  def get_squared_values(grouped_hash, average)
-    grouped_hash.map do |id, item|
-      (item.count - average) ** 2
-    end
-  end
+#  def get_squared_values(grouped_hash, average)
+#    grouped_hash.map do |id, item|
+#      (item.count - average) ** 2
+#    end
+#  end
 
   # Probably a better way to write this
   def invoice_paid_in_full?(invoice_id)
@@ -288,15 +289,14 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    mean_total_sqr = @invoice_ana.group_invoices_by_merchant_id
-    mean_items_per = average_invoices_per_merchant
-    final_square(mean_total_sqr, mean_items_per)
+    @invoice_ana.average_invoices_per_merchant_standard_deviation
+#    mean_total_sqr = @invoice_ana.group_invoices_by_merchant_id
+#    mean_items_per = average_invoices_per_merchant
+#    final_square(mean_total_sqr, mean_items_per)
   end
   
   def average_invoices_per_day_standard_deviation
-    mean_total_sqr = @invoice_ana.group_by_day
-    mean_items_per = @invoice_ana.average_invoices_per_day
-    final_square(mean_total_sqr, mean_items_per)
+    @invoice_ana.average_invoices_per_day_standard_deviation
   end
 
   def count_per_day

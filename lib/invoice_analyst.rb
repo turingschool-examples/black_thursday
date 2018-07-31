@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+require 'math_helper'
 
 class InvoiceAnalyst
+  include MathHelper
   def initialize(invoice_repository)
     @invoice_repo = invoice_repository
   end
@@ -33,6 +35,19 @@ class InvoiceAnalyst
     (percent * 100).round(2)
   end
 
+   def average_invoices_per_day_standard_deviation
+    mean_total_sqr = group_by_day
+    mean_items_per = average_invoices_per_day
+    final_square(mean_total_sqr, mean_items_per)
+  end
+  
+   def average_invoices_per_merchant_standard_deviation
+    mean_total_sqr = group_invoices_by_merchant_id
+    mean_items_per = average_invoices_per_merchant
+    final_square(mean_total_sqr, mean_items_per)
+  end
+
+  
 
 
 end
