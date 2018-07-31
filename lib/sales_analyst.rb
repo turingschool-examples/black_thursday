@@ -297,21 +297,30 @@ class SalesAnalyst
     winners.compact
   end
 
+  def best_item_for_merchant(merchant_id)
+    invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
+
+    invoices = invoices.map(&:id)
+    invoices = invoices.select {|invoice| invoice_paid_in_full?(invoice)}
+    items = invoices.map do |invoice|
+      @invoice_item_repository.find_all_by_invoice_id(invoice)
+    end
+    flat = items.flatten
+    grouped = flat.group_by {|item| item.item_id}
+    hash = {}
+    grouped.each do |key, value|
+      hash[key] = value.inject(0) do |sum, val| 
+        sum += (val.unit_price * val.quantity.to_i).round(2)
+      end
+    end
+    sorted = hash.sort_by {|key, value| - value }
+    max = sorted.first[1]
+    chunky_winners = sorted.reject { |array| array[1] < max }
+    flat_winners = chunky_winners.flatten
+    flat_winners = flat_winners.uniq
+    winners = flat_winners.map {|item| @item_repository.find_by_id(item)}
+    winners.compact.first
+  end
+
   
-#    hash = {}
-#    items.each do |item|
-#      hash[item] = @invoice_item_repository.find_all_by_item_id(item.id)
-#    end
-#    reduced_hash = {}
-#    hash.each do |key, array|
-#      reduced_hash[key] = array.inject(0) do |sum, inv|
-#        + inv.quantity
-#      end
-#    end
-#    sorted_array = reduced_hash.sort_by {|key, value| - value}
-#    max = sorted_array[0][1].to_i
-#    winners = sorted_array.reject{ |inner_array| inner_array[1].to_i < max }
-#    flat_winners = winners.flatten
-#    winners = flat_winners.reject {|object| object.class != Item}
-#    return winners
 end
