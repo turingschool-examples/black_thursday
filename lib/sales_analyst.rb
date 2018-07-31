@@ -219,6 +219,16 @@ class SalesAnalyst
   
   # On which days are invoices created at more than one standard deviation above the mean?
   # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+  
+  # def standard_deviation_of_invoices_by_day
+  #   count = @invoice_repository.all.count
+  #   avg = count / 7
+  #   sum_differences_squared = arrange_invoices_by_day.inject(0) do |diff_squared, day_count|
+  #     diff_squared += (day_count - avg) ** 2
+  #   end
+  #   Math.sqrt(sum_differences_squared/count) 
+  # end 
+  
   def arrange_invoices_by_day
     @invoice_repository.all.inject(Hash.new(0)) do |hash, invoice| 
       hash.merge(invoice.created_at.wday => hash[invoice.created_at.wday] + 1)
