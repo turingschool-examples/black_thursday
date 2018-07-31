@@ -174,4 +174,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count[0].class
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.count 
   end
+  
+  # def test_top_days_by_invoice_count 
+  #   # expected = sales_analyst.top_days_by_invoice_count
+  #   # 
+  #   # expect(expected.length).to eq 1
+  #   # expect(expected.first).to eq "Wednesday"
+  #   # expect(expected.first.class).to eq String
+  # end 
+  
+  def test_arrange_invoices_by_day
+    assert_equal 6, @sales_analyst.arrange_invoices_by_day.keys[0]
+    assert_equal 7, @sales_analyst.arrange_invoices_by_day.keys.count
+    assert_equal Fixnum, @sales_analyst.arrange_invoices_by_day.values[6].class
+    assert_equal Fixnum, @sales_analyst.arrange_invoices_by_day.values[3].class
+  end 
 end 

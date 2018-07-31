@@ -216,4 +216,12 @@ class SalesAnalyst
     end
     return id_low_invoices
   end
+  
+  # On which days are invoices created at more than one standard deviation above the mean?
+  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+  def arrange_invoices_by_day
+    @invoice_repository.all.inject(Hash.new(0)) do |hash, invoice| 
+      hash.merge(invoice.created_at.wday => hash[invoice.created_at.wday] + 1)
+    end
+  end 
 end 
