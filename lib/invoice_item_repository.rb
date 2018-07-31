@@ -48,4 +48,7 @@ class InvoiceItemRepository
     invoice.updated_at = Time.now
     invoice
   end
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
+ end
 end

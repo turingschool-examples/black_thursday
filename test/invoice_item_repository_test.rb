@@ -47,7 +47,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     new_invoice_item = @iir.create_id
     assert_equal 10, new_invoice_item
   end
-  #
+
   def test_it_can_create_new_invoice_item
     attributes = {  item_id: 50,
                     invoice_id: 6666,
@@ -65,7 +65,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Time, invoice_item.created_at
     assert_instance_of Time, invoice_item.updated_at
   end
-  #
+  
   def test_it_can_update_invoice_item
     attributes = {
       quantity: 4,
