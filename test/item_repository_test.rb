@@ -8,10 +8,13 @@ require_relative '../lib/merchant_repository.rb'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv({
+    @se= SalesEngine.from_csv({
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
-      :invoices  => "./data/dummy_invoices.csv"})
+      :invoices  => "./data/dummy_invoices.csv",
+      :invoice_items => "./data/dummy_invoice_items.csv",
+      :transactions =>"./data/dummy_transactions.csv",
+      :customers => "./data/dummy_customers.csv" })
     @item_repo = ItemRepository.new(@se.csv_hash[:items])
     @item_repo.create_items
   end
@@ -25,12 +28,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_all_array
-    se = SalesEngine.from_csv({
-      :items     => "./data/dummy_items.csv",
-      :merchants => "./data/dummy_merchants.csv",
-      :invoices  => "./data/dummy_invoices.csv"})
-    item_repo = ItemRepository.new(se.csv_hash[:items])
-    assert_equal [ ], item_repo.all
+    assert_equal 4, @item_repo.all.count
   end
 
   def test_can_find_by_id

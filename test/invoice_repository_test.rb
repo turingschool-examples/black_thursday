@@ -7,10 +7,13 @@ require 'csv'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv({
+    @se= SalesEngine.from_csv({
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
-      :invoices  => "./data/dummy_invoices.csv"})
+      :invoices  => "./data/dummy_invoices.csv",
+      :invoice_items => "./data/dummy_invoice_items.csv",
+      :transactions =>"./data/dummy_transactions.csv",
+      :customers => "./data/dummy_customers.csv" })
     @invoice_repo = InvoiceRepository.new(@se.csv_hash[:invoices])
     @invoice_repo.create_invoices
   end
@@ -59,7 +62,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Time, invoice.created_at
     assert_instance_of Time, invoice.updated_at
   end
-  
+
   def test_it_can_update_attributes
     attributes = {status: "pending"}
     id = 2
