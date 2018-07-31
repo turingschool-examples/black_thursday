@@ -10,6 +10,7 @@ require_relative 'repo_methods'
 
 class SalesEngine
   include RepoMethods
+  include FileLoader
   attr_reader     :file_path
 
   def self.from_csv(file_path)
@@ -18,41 +19,34 @@ class SalesEngine
 
   def initialize(file_path)
     @file_path = file_path
-    @file_loader = FileLoader.new(file_path)
   end
 
   def analyst
-    SalesAnalyst.new(self)
+    @analyst = SalesAnalyst.new(self)
     # may want to refactor at a later time
   end
 
   def merchants
-    merchant_file_path = @file_loader.builder(file_path[:merchants])
-    @merchants ||= MerchantRepository.new(merchant_file_path)
+    @merchants ||= MerchantRepository.new(builder(file_path[:merchants]))
   end
 
   def items
-    item_file_path = @file_loader.builder(file_path[:items])
-    @items ||= ItemRepository.new(item_file_path)
+    @items ||= ItemRepository.new(builder(file_path[:items]))
   end
 
   def invoices
-    invoice_file_path = @file_loader.builder(file_path[:invoices])
-    @invoices ||= InvoiceRepository.new(invoice_file_path)
+    @invoices ||= InvoiceRepository.new(builder(file_path[:invoices]))
   end
 
   def invoice_items
-    invoice_items_file_path = @file_loader.builder(file_path[:invoice_items])
-    @invoice_items ||= InvoiceItemRepository.new(invoice_items_file_path)
+    @invoice_items ||= InvoiceItemRepository.new(builder(file_path[:invoice_items]))
   end
 
   def transactions
-    transactions_file_path = @file_loader.builder(file_path[:transactions])
-    @transactions ||= TransactionRepository.new(transactions_file_path)
+    @transactions ||= TransactionRepository.new(builder(file_path[:transactions]))
   end
 
   def customers
-    customer_file_path = @file_loader.builder(file_path[:customers])
-    @customers ||= CustomerRepository.new(customer_file_path)
+    @customers ||= CustomerRepository.new(builder(file_path[:customers]))
   end
 end
