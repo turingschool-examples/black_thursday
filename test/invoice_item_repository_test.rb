@@ -2,6 +2,7 @@ require "minitest/autorun"
 require 'minitest/pride'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/invoice_item'
+require_relative '../lib/sales_engine'
 require 'csv'
 
 
@@ -65,7 +66,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Time, invoice_item.created_at
     assert_instance_of Time, invoice_item.updated_at
   end
-  
+
   def test_it_can_update_invoice_item
     attributes = {
       quantity: 4,
