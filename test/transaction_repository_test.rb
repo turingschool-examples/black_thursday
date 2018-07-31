@@ -41,12 +41,12 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_hold_transactions
-    assert_instance_of Array, @transaction_repository.transactions
+    assert_instance_of Array, @transaction_repository.list
   end
 
   def test_its_holding_transactions
-    assert_instance_of Transaction, @transaction_repository.transactions[0]
-    assert_instance_of Transaction, @transaction_repository.transactions[1]
+    assert_instance_of Transaction, @transaction_repository.list[0]
+    assert_instance_of Transaction, @transaction_repository.list[1]
   end
 
   def test_it_can_return_transactions_using_all
@@ -55,7 +55,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    expected = @transaction_repository.transactions[0]
+    expected = @transaction_repository.list[0]
     actual = @transaction_repository.find_by_id(6)
     assert_equal expected, actual
   end
@@ -85,7 +85,7 @@ class TransactionRepositoryTest < Minitest::Test
       credit_card_expiration_date: "0823",
       result: "failed"
       })
-    expected = @transaction_repository.transactions[-1]
+    expected = @transaction_repository.list[-1]
     actual = new_transaction_added
     assert_equal expected, actual
   end
@@ -97,7 +97,7 @@ class TransactionRepositoryTest < Minitest::Test
       credit_card_expiration_date: "1123",
       result: "failed"
       })
-    new_transaction = @transaction_repository.transactions.last
+    new_transaction = @transaction_repository.list.last
 
     assert_equal "4646464675757575", new_transaction.credit_card_number
 
@@ -106,7 +106,7 @@ class TransactionRepositoryTest < Minitest::Test
       credit_card_expiration_date: "1205",
       result: "success"
       })
-    changed_transaction = @transaction_repository.transactions.last
+    changed_transaction = @transaction_repository.list.last
 
     assert_equal "4646464692929292", changed_transaction.credit_card_number
     assert_equal "1205", changed_transaction.credit_card_expiration_date
@@ -116,7 +116,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_transaction
-    assert_equal @transaction_repository.transactions[0], @transaction_repository.find_by_id(6)
+    assert_equal @transaction_repository.list[0], @transaction_repository.find_by_id(6)
 
     @transaction_repository.delete(6)
     assert_nil @transaction_repository.find_by_id(6)

@@ -50,12 +50,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_hold_items
-    assert_instance_of Array, @item_repository.items
+    assert_instance_of Array, @item_repository.list
   end
 
   def test_its_holding_items
-    assert_instance_of Item, @item_repository.items[0]
-    assert_instance_of Item, @item_repository.items[3]
+    assert_instance_of Item, @item_repository.list[0]
+    assert_instance_of Item, @item_repository.list[3]
   end
 
   def test_it_can_return_items_using_all
@@ -64,13 +64,13 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    expected = @item_repository.items[0]
+    expected = @item_repository.list[0]
     actual = @item_repository.find_by_id(4)
     assert_equal expected, actual
   end
 
   def test_it_can_find_by_name
-    expected = @item_repository.items[0]
+    expected = @item_repository.list[0]
     actual = @item_repository.find_by_name("bottle")
     assert_equal expected, actual
   end
@@ -109,8 +109,8 @@ class ItemRepositoryTest < Minitest::Test
       unit_price: "1000",
       merchant_id: "5555"
       })
-    expected = @item_repository.items[-1]
-    actual = new_item_added
+    expected = @item_repository.list[-1]
+    actual = new_item_added.last
     assert_equal expected, actual
   end
 
@@ -127,7 +127,7 @@ class ItemRepositoryTest < Minitest::Test
       unit_price: "1099",
       merchant_id: "5555"
       })
-    new_item = @item_repository.items.last
+    new_item = @item_repository.list.last
 
     assert_equal "pots", new_item.name
     assert_equal "shiny", new_item.description
@@ -138,7 +138,7 @@ class ItemRepositoryTest < Minitest::Test
       description: "fat",
       unit_price: 12.00
       })
-    changed_item = @item_repository.items.last
+    changed_item = @item_repository.list.last
 
     assert_equal "chicken", changed_item.name
     assert_equal "fat", changed_item.description
@@ -148,7 +148,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_item
-    assert_equal @item_repository.items[0], @item_repository.find_by_name("bottle")
+    assert_equal @item_repository.list[0], @item_repository.find_by_name("bottle")
 
     @item_repository.delete(4)
     assert_nil @item_repository.find_by_name("bottle")

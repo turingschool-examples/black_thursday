@@ -4,22 +4,11 @@ require_relative '../lib/repo_method_helper.rb'
 require 'pry'
 
 class TransactionRepository
-
-  attr_reader :transactions
+  attr_reader :list
   include RepoMethodHelper
 
-  def initialize(transactions)
-    @transactions = transactions
-  end
-
-  def all
-    @transactions
-  end
-
-  def find_all_by_invoice_id(invoice_id)
-    all.find_all do |each|
-      each.invoice_id.to_i == invoice_id
-    end
+  def initialize(list)
+    @list = list
   end
 
   def find_all_by_credit_card_number(credit_card_number)
@@ -39,7 +28,7 @@ class TransactionRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     created = Transaction.new(attributes)
-    @transactions << created
+    @list << created
     created
   end
 
@@ -48,9 +37,5 @@ class TransactionRepository
     find_by_id(id).credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
     find_by_id(id).credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
-  end
-
-  def inspect
-    "#<#{self.TransactionRepository} #{@transactions.size} rows>"
   end
 end

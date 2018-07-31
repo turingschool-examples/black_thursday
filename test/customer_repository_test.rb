@@ -28,12 +28,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_hold_customers
-    assert_instance_of Array, @customer_repository.customers
+    assert_instance_of Array, @customer_repository.list
   end
 
   def test_its_holding_customers
-    assert_instance_of Customer, @customer_repository.customers[0]
-    assert_instance_of Customer, @customer_repository.customers[1]
+    assert_instance_of Customer, @customer_repository.list[0]
+    assert_instance_of Customer, @customer_repository.list[1]
   end
 
   def test_it_can_return_customers_using_all
@@ -42,7 +42,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    expected = @customer_repository.customers[0]
+    expected = @customer_repository.list[0]
     actual = @customer_repository.find_by_id(6)
     assert_equal expected, actual
   end
@@ -68,7 +68,7 @@ class CustomerRepositoryTest < Minitest::Test
       first_name: "Pots",
       last_name: "McGee"
       })
-    expected = @customer_repository.customers[-1]
+    expected = @customer_repository.list[-1]
     actual = new_customer_added
     assert_equal expected, actual
   end
@@ -78,7 +78,7 @@ class CustomerRepositoryTest < Minitest::Test
       first_name: "Pots",
       last_name: "McGee"
       })
-    new_customer = @customer_repository.customers.last
+    new_customer = @customer_repository.list.last
 
     assert_equal "Pots", new_customer.first_name
     assert_equal "McGee", new_customer.last_name
@@ -87,7 +87,7 @@ class CustomerRepositoryTest < Minitest::Test
       first_name: "Fats",
       last_name: "Lever"
       })
-    changed_customer = @customer_repository.customers.last
+    changed_customer = @customer_repository.list.last
 
     assert_equal "Fats", changed_customer.first_name
     assert_equal "Lever", changed_customer.last_name

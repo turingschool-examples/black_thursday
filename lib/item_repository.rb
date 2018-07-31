@@ -1,56 +1,54 @@
-require 'csv'
 require_relative '../lib/item.rb'
 require_relative '../lib/repo_method_helper.rb'
-require 'pry'
+require 'csv'
 
 class ItemRepository
-  attr_reader :items
   include RepoMethodHelper
 
-  def initialize(items)
-    @items = items
-  end
+  attr_reader :list
 
-  def all
-    @items
+  def initialize(list)
+    @list = list
   end
 
   def find_all_with_description(description)
     downcased_description = description.downcase
-    @items.find_all do |item|
+    @list.find_all do |item|
       item.description.downcase.include?(downcased_description)
     end
   end
 
   def find_all_by_price(price)
-    @items.find_all do |item|
+    @list.find_all do |item|
       item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
-    @items.find_all do |item|
+    @list.find_all do |item|
       range.include?(item.unit_price.to_f)
     end
   end
 
   def create(attributes)
-    attributes[:id] = create_id
-    attributes[:created_at] = Time.now.to_s
-    attributes[:updated_at] = Time.now.to_s
-    created = Item.new(attributes)
-    @items << created
-    created
+    @list << Item.new({
+      id: create_id,
+      created_at: Time.now.to_s,
+      updated_at: Time.now.to_s,
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price],
+      merchant_id: attributes[:merchant_id]
+      })
   end
 
   def update(id, attributes)
-    find_by_id(id).name = attributes[:name] unless attributes[:name].nil?
-    find_by_id(id).description = attributes[:description] unless attributes[:description].nil?
-    find_by_id(id).unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    new_name = attributes[:name]
+    find_by_id(id).name = new_name unless new_name.nil?
+    new_description = attributes[:description]
+    find_by_id(id).description = new_description unless new_description.nil?
+    new_unit_price = attributes[:unit_price]
+    find_by_id(id).unit_price = new_unit_price unless new_unit_price.nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
-  end
-
-  def inspect
-    "#<#{self.ItemRepository} #{@items.size} rows>"
   end
 end
