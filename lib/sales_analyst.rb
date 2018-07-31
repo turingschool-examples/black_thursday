@@ -5,7 +5,8 @@ class SalesAnalyst
                     :item_repository, :merchant_repository, :merchant_id_item_counts,
                     :item_count_std_dev,
                     :invoice_repository,
-                    :merchant_id_invoice_counts
+                    :merchant_id_invoice_counts,
+                    :merchant_id_invoice_counts_std_dev
                     
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -14,7 +15,8 @@ class SalesAnalyst
     @invoice_repository = @sales_engine.invoices
     @merchant_id_item_counts = nil
     @item_count_std_dev = nil
-    @merchant_id_invoice_counts = nil 
+    @merchant_id_invoice_counts = nil
+    @merchant_id_invoice_counts_std_dev = nil 
   end
   
   def average_items_per_merchant_standard_deviation
@@ -145,7 +147,7 @@ class SalesAnalyst
   end
   
   def average_invoices_per_merchant_standard_deviation # => 3.29
-    @invoice_count_std_dev =
+    @merchant_id_invoice_counts_std_dev =
     (Math.sqrt(sum_of_inv_differences_squared / @merchant_repository.all.count)).round(2)
   end 
   

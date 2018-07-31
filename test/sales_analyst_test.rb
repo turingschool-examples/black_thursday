@@ -27,19 +27,32 @@ class SalesAnalystTest < Minitest::Test
     assert_equal InvoiceRepository, @sales_analyst.invoice_repository.class
     assert_equal 4985, @sales_analyst.invoice_repository.all.count
     assert_nil @sales_analyst.merchant_id_item_counts
-    assert_nil @sales_analyst.item_count_std_dev 
+    assert_nil @sales_analyst.item_count_std_dev
+    assert_nil @sales_analyst.merchant_id_invoice_counts
+    assert_nil @sales_analyst.merchant_id_invoice_counts_std_dev
   end 
   
   def test_merchant_id_item_counts_attribute_can_be_populated
     @sales_analyst.merchant_id_item_counter 
     assert_equal 475, @sales_analyst.merchant_id_item_counts.count 
-  end 
+  end
   
   def test_average_items_per_merchant_standard_deviation_can_be_populated 
     @sales_analyst.merchant_id_item_counter
     @sales_analyst.average_items_per_merchant_standard_deviation
     assert_equal Float, @sales_analyst.item_count_std_dev.class
+  end
+  
+  def test_merchant_id_invoice_counts_attribute_can_be_populated
+    @sales_analyst.merchant_id_invoice_counter 
+    assert_equal 475, @sales_analyst.merchant_id_invoice_counts.count 
   end 
+  
+  def test_average_invoices_per_merchant_standard_deviation_can_be_populated 
+    @sales_analyst.merchant_id_invoice_counter
+    @sales_analyst.average_invoices_per_merchant_standard_deviation 
+    assert_equal Float, @sales_analyst.merchant_id_invoice_counts_std_dev.class
+  end
   
   def test_average_items_per_merchant_standard_deviation
     assert_equal 3.26, @sales_engine.analyst.average_items_per_merchant_standard_deviation 
