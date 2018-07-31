@@ -20,27 +20,9 @@ module MerchantAnalytics
     end
   end
 
-  # def invoice_hash
-  #   earners = {}
-  #   group_invoices_by_merchant.each do |merchant_id, invoices|
-  #     earners[merchant_id] = invoices.map do |invoice|
-  #       invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
-  #     end.compact
-  #   end
-  #   earners
-  # end
-  def invoice_hash
-    earners = {}
-    group_invoices_by_merchant.each do |merchant_id, invoices|
-      earners[merchant_id] = pull_invoices(invoices)
-    end
-    earners
-  end
-
-  def pull_invoices(invoices)
-    invoices.map do |invoice|
-      invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
-    end.compact
+  def sort_summed_invoice_totals(number)
+    sorted = sum_invoice_totals.sort_by {|merchant_id, sum| sum }
+    sorted[-number..-1].reverse.to_h
   end
 
   def sum_invoice_totals
@@ -57,9 +39,18 @@ module MerchantAnalytics
     end
   end
 
-  def sort_summed_invoice_totals(number)
-    sorted = sum_invoice_totals.sort_by {|merchant_id, sum| sum }
-    sorted[-number..-1].reverse.to_h
+  def invoice_hash
+    earners = {}
+    group_invoices_by_merchant.each do |merchant_id, invoices|
+      earners[merchant_id] = pull_invoices(invoices)
+    end
+    earners
+  end
+
+  def pull_invoices(invoices)
+    invoices.map do |invoice|
+      invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+    end.compact
   end
 
 end
