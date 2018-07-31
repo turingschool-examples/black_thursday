@@ -11,12 +11,14 @@ require 'bigdecimal'
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    merchant_array = [{:id=>"12334105", :name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"},
+    merchant_array = [
+    {:id=>"12334105", :name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"},
     {:id=>"12334112", :name=>"Candisart", :created_at=>"2009-05-30", :updated_at=>"2010-08-29"},
     {:id=>"12334113", :name=>"Sandy", :created_at=>"2010-03-30", :updated_at=>"2013-01-21"}]
     @mer_repo = MerchantRepo.new(merchant_array)
 
-    item_array = [{id: 263395237, name: "Cow1" , description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334105"},
+    item_array = [
+    {id: 263395237, name: "Cow1" , description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334105"},
     {id: 263395238, name: "Cow1", description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334105"},
     {id: 263395239, name: "cow1", description: "animal 1", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334105"},
     {id: 263395210, name: "Moose1", description: "animal 2", unit_price: "1700", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334112"},
@@ -33,14 +35,8 @@ class SalesAnalystTest < Minitest::Test
     {id: 263345314, name: "Pig", description: "animal 4", unit_price: "1400", created_at: "2016-01-11 11:51:37 UTC", updated_at: "2016-01-11 11:51:37 UTC", merchant_id: "12334113"}]
     @item_repo = ItemRepo.new(item_array)
 
-# invoice_array = [
-#     {:id=>4981, :customer_id=>"999", :merchant_id=>"12335252", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
-#     {:id=>4982, :customer_id=>"999", :merchant_id=>"12334146", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
-#     {:id=>4983, :customer_id=>"999", :merchant_id=>"12334553", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
-#     {:id=>4984, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
-#     {:id=>4985, :customer_id=>"999", :merchant_id=>"12335541", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
-
-    invoice_array = [{:id=>4981, :customer_id=>"999", :merchant_id=>"12334105", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
+    invoice_array = [
+    {:id=>4981, :customer_id=>"999", :merchant_id=>"12334105", :status=>"returned", :created_at=>"2009-07-07", :updated_at=>"2012-07-04"},
     {:id=>4982, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2009-05-29", :updated_at=>"2014-10-02"},
     {:id=>4983, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
     {:id=>4984, :customer_id=>"999", :merchant_id=>"12334113", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
@@ -55,6 +51,7 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4993, :customer_id=>"999", :merchant_id=>"12334112", :status=>"shipped", :created_at=>"2001-01-13", :updated_at=>"2003-10-13"},
     {:id=>4994, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
     {:id=>4995, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
+    @invoice_repo = InvoiceRepo.new(invoice_array)
 
     invoice_item_array = [{:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
     {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
@@ -82,6 +79,7 @@ class SalesAnalystTest < Minitest::Test
 
     @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo, @customer_repo)
   end
+
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @analyst
@@ -141,11 +139,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
-    assert_equal [@mer_repo.all[2]], @analyst.top_merchants_by_invoice_count
+    assert_equal [], @analyst.top_merchants_by_invoice_count
   end
 
   def test_bottom_merchants_by_invoice_count
-    assert_equal [@mer_repo.all[0]], @analyst.bottom_merchants_by_invoice_count
+    assert_equal [], @analyst.bottom_merchants_by_invoice_count
   end
 
   def test_top_days_by_invoice_count

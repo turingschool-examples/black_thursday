@@ -4,6 +4,7 @@ require_relative '../lib/transaction'
 class TransactionTest < Minitest::Test
 
   def setup
+
     @transaction = Transaction.new({:id => 6,
                                     :invoice_id => 8,
                                     :credit_card_number => "4242424242424242",
@@ -11,7 +12,7 @@ class TransactionTest < Minitest::Test
                                     :result => "success",
                                     :created_at => Time.now,
                                     :updated_at => Time.now
-                                   })
+                                  })
   end
 
   def test_it_exists
@@ -27,6 +28,5 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time, @transaction.created_at
     assert_instance_of Time, @transaction.updated_at
   end
-  
   
 end

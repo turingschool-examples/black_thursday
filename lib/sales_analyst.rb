@@ -20,12 +20,6 @@ class SalesAnalyst
     @customers = customer_repo
   end
 
-  # def average(elements, total_elements)
-  #   total_elements = elments.all.count_to_f
-  #   total_total_elements = total_elements.all.count.to_f
-  #   (total_elements / total_total_elements).round(2)
-  # end
-
   def average_items_per_merchant
     total_items = @items.all.count.to_f
     total_merchants = @merchants.all.count.to_f
@@ -112,12 +106,20 @@ class SalesAnalyst
     sum / (elements.all.count - 1)
   end
 
+  # def divide_sum_by_elements(elements, sum)
+  #   sum / (elements.all.count)
+  # end
+
   def average_items_per_merchant_standard_deviation
     standard_deviation(total_items_per_merchant, average_items_per_merchant, @merchants)
   end
 
-  def standard_deviation_prices  #for prices
+  def standard_deviation_prices
     standard_deviation(all_item_prices, average_item_price, @items)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(array_invoices_per_merchant, average_invoices_per_merchant, @merchants)
   end
 
   def standard_deviation(array, average, collection)
@@ -187,15 +189,13 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    unique_merchants = @merchants.all.uniq
-    average = @invoices.all.count.to_f / unique_merchants.count
+    average = @invoices.all.count.to_f / @merchants.all.count
     average.round(2)
   end
 
   def array_invoices_per_merchant
-    unique_merchants = @merchants.all.uniq
     array = []
-    unique_merchants.each do |merchant|
+    @merchants.all.each do |merchant|
       id = merchant.id
       all_invoices = @invoices.find_all_by_merchant_id(id)
       array << all_invoices.count
@@ -273,26 +273,39 @@ class SalesAnalyst
     ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   end
 
-  def average_days_array
+  def average_invoices_per_day
+    total_invoices = @invoices.all.count.to_f
+    total_days = 7.0
+    (total_invoices / total_days).round(2)
+  end
+
+  def average_invoices_per_day_standard_deviation
+    standard_deviation(average_days_occurrence_array, average_invoices_per_day, @invoices)
+  end
+
+  def average_days_occurrence_array
     days = days_array
     days = days.map do |day|
-      @invoices.find_all_by_day(day).count / 7.0
+      occurrences = @invoices.find_all_by_day(day)
+      occurrences = occurrences.count
+      occurrences
     end
+    days
   end
 
   def average_days
-    days = average_days_array
+    days = average_days_occurrence_array
     days = days.inject(0) do |sum, num|
       sum += num
     end
     days = days / 7.0
+    days.round(2)
   end
 
   def top_days_by_invoice_count
-    standard = standard_deviation(average_days_array, @invoices.all.count / 7.0, @invoices)
-    high_level = standard + (average_days)
+    high_level = average_invoices_per_day_standard_deviation + average_days
     golden = []
-    average_days_array.each_with_index do |day, index|
+    average_days_occurrence_array.each_with_index do |day, index|
       if day >= high_level
         golden << [days_array[index]]
       end
@@ -305,5 +318,18 @@ class SalesAnalyst
     percentage = percentage * 100
     percentage.round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transactions.find_all_by_invoice_id(invoice_id)
+    transactions.any? {|transaction| transaction.result.to_s == "success"}
+  end
+
+  def invoice_total(invoice_id)
+    invoices = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoices.inject(0) do |total, invoice|
+      total += (invoice.quantity * invoice.unit_price)
+    end
+  end
+
 
 end
