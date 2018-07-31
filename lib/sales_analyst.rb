@@ -184,9 +184,13 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
+    merchants = []
     group_invoices_by_merchant.find_all do |id, invoices|
-      invoices.count >= invoices_two_standard_deviations_above
+      if invoices.count >= invoices_two_standard_deviations_above
+        merchants << @sales_engine.merchants.find_by_id(id)
+      end
     end
+    merchants
   end
 # sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
   def invoices_two_standard_deviations_below
@@ -195,9 +199,13 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
+    merchants = []
     group_invoices_by_merchant.find_all do |id, invoices|
-      invoices.count <= invoices_two_standard_deviations_below
+      if invoices.count <= invoices_two_standard_deviations_below
+        merchants << @sales_engine.merchants.find_by_id(id)
+      end
     end
+    merchants
   end
 
   def group_invoices_by_day_created
@@ -257,7 +265,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    number_of_invoices_with_status = group_invoices_by_status[status.to_s].count
+    number_of_invoices_with_status = group_invoices_by_status[status].count
     ratio = number_of_invoices_with_status / number_of_invoices.to_f
     percentage = ratio * 100
     percentage.round(2)

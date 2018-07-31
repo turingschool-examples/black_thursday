@@ -74,9 +74,9 @@ class InvoiceRepositoryTest < Minitest::Test
     invoices_1 = @invoice_repository.find_all_by_status('shipped')
     invoices_2 = @invoice_repository.find_all_by_status('pending')
     invoices_3 = @invoice_repository.find_all_by_status('status DNE')
-    assert_equal 'shipped', invoices_1.first.status
-    assert_equal 'pending', invoices_2.first.status
-    assert_equal 'pending', invoices_2[-1].status
+    assert_equal :shipped, invoices_1.first.status
+    assert_equal :pending, invoices_2.first.status
+    assert_equal :pending, invoices_2[-1].status
     assert_equal ([]), invoices_3
   end
 
@@ -96,7 +96,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 4, invoice.id
     assert_equal 27, invoice.customer_id
     assert_equal 2772, invoice.merchant_id
-    assert_equal 'shipping', invoice.status
+    assert_equal :shipping, invoice.status
     assert_instance_of Time, invoice.created_at
     assert_instance_of Time, invoice.updated_at
   end
