@@ -228,11 +228,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_group_invoices_by_status
     assert_equal 3, @sa.group_invoices_by_status.count
-    expected = (["returned","shipped","pending"])
+    expected = ([:returned,:shipped,:pending])
     assert_equal expected, @sa.group_invoices_by_status.keys
-    assert_equal 1, @sa.group_invoices_by_status["returned"].count
-    assert_equal 7, @sa.group_invoices_by_status["shipped"].count
-    assert_equal 5, @sa.group_invoices_by_status["pending"].count
+    assert_equal 1, @sa.group_invoices_by_status[:returned].count
+    assert_equal 7, @sa.group_invoices_by_status[:shipped].count
+    assert_equal 5, @sa.group_invoices_by_status[:pending].count
   end
 
   def test_invoice_paid_in_full
