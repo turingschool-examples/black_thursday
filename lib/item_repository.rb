@@ -1,11 +1,11 @@
-require 'csv'
 require_relative '../lib/item.rb'
 require_relative '../lib/repo_method_helper.rb'
-require 'pry'
+require 'csv'
 
 class ItemRepository
-  attr_reader :list
   include RepoMethodHelper
+
+  attr_reader :list
 
   def initialize(list)
     @list = list
@@ -31,22 +31,24 @@ class ItemRepository
   end
 
   def create(attributes)
-    attributes[:id] = create_id
-    attributes[:created_at] = Time.now.to_s
-    attributes[:updated_at] = Time.now.to_s
-    created = Item.new(attributes)
-    @list << created
-    created
+    @list << Item.new({
+      id: create_id,
+      created_at: Time.now.to_s,
+      updated_at: Time.now.to_s,
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price],
+      merchant_id: attributes[:merchant_id]
+      })
   end
 
   def update(id, attributes)
-    find_by_id(id).name = attributes[:name] unless attributes[:name].nil?
-    find_by_id(id).description = attributes[:description] unless attributes[:description].nil?
-    find_by_id(id).unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    new_name = attributes[:name]
+    find_by_id(id).name = new_name unless new_name.nil?
+    new_description = attributes[:description]
+    find_by_id(id).description = new_description unless new_description.nil?
+    new_unit_price = attributes[:unit_price]
+    find_by_id(id).unit_price = new_unit_price unless new_unit_price.nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
-  end
-
-  def inspect
-    "#<#{self.ItemRepository} #{@list.size} rows>"
   end
 end

@@ -1,4 +1,3 @@
-require 'csv'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/merchant_repository.rb'
 require_relative '../lib/item.rb'
@@ -12,8 +11,7 @@ require_relative '../lib/invoice_repository.rb'
 require_relative '../lib/customer.rb'
 require_relative '../lib/customer_repository.rb'
 require_relative '../lib/sales_analyst.rb'
-
-require 'pry'
+require 'csv'
 
 class SalesEngine
   attr_reader :merchants,
@@ -60,7 +58,7 @@ class SalesEngine
     CSV.foreach(csv_hash[:customers], headers: true, header_converters: :symbol) do |row|
       customers << Customer.new(row)
     end
-    
+
     SalesEngine.new(merchants, items, invoices, invoice_items, transactions, customers)
   end
 end

@@ -36,9 +36,4 @@ class InvoiceRepository
     find_by_id(id).status = attributes[:status] unless attributes[:status].nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
   end
-
-
-  def inspect
-    "#<#{self.InvoiceRepository} #{@list.size} rows>"
-  end
 end

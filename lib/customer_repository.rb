@@ -39,8 +39,4 @@ class CustomerRepository
     find_by_id(id).last_name = attributes[:last_name] unless attributes[:last_name].nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
   end
-
-  def inspect
-    "#<#{self.CustomerRepository} #{@list.size} rows>"
-  end
 end

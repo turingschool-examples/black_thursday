@@ -3,15 +3,14 @@ require 'date'
 
 
 class SalesAnalyst
+  include RepoMethodHelper
+
   attr_reader :merchant_repo,
               :item_repo,
               :invoice_repo,
               :invoice_item_repo,
               :transaction_repo,
               :customer_repo
-
-  include RepoMethodHelper
-
 
   def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo, transaction_repo, customer_repo)
     @merchant_repo = merchant_repo
@@ -20,25 +19,6 @@ class SalesAnalyst
     @invoice_item_repo = invoice_item_repo
     @transaction_repo = transaction_repo
     @customer_repo = customer_repo
-  end
-
-  def sum(array)
-    array.inject(0) do |sum, number|
-      sum + number
-    end
-  end
-
-  def average(numerator, denominator)
-    average = numerator / denominator
-    average.round(2)
-  end
-
-  def standard_deviation(array_of_values, calculated_average_of_values)
-    stddev_sum = array_of_values.inject(0) do |sum, number|
-      sum + ((number - calculated_average_of_values) ** 2)
-    end
-    divided = (stddev_sum / array_of_values.count)
-    Math.sqrt(divided).round(2)
   end
 
   def average_items_per_merchant
@@ -62,7 +42,6 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     one_stddev_up = (average_items_per_merchant + average_items_per_merchant_standard_deviation)
-
     merchant_ids = items_per_merchant.find_all do |merchant_id, item_count|
       item_count > one_stddev_up
     end
@@ -73,48 +52,29 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     item_list = @item_repo.find_all_by_merchant_id(merchant_id)
-
     prices = item_list.map do |item|
       item.unit_price
     end
-    numerator = sum(prices).to_f
-    denominator = items_per_merchant[merchant_id.to_s]
-
-    average(numerator, denominator).to_d
+    average(sum(prices).to_f, items_per_merchant[merchant_id.to_s]).to_d
   end
 
   def average_average_price_per_merchant
     total_average_price = @merchant_repo.list.map do |merchant|
       average_item_price_for_merchant(merchant.id.to_i)
     end
-
-    numerator = sum(total_average_price).to_f
-    denominator = @merchant_repo.list.count
-    average(numerator, denominator).to_d
+    average(sum(total_average_price).to_f, @merchant_repo.list.count).to_d
   end
 
   def golden_items
-    total_repo_value = @item_repo.list.inject(0) do |sum, item|
-      sum + item.unit_price
-    end
-
-    unit_prices = @item_repo.list.map do |item|
-      item.unit_price
-    end
-
-    average_price = total_repo_value / @item_repo.list.count
-    stddev = standard_deviation(unit_prices, average_price)
-
+    average_price = total_item_repo_value / @item_repo.list.count
+    stddev = standard_deviation(unit_prices_of_every_item, average_price)
     @item_repo.list.find_all do |item|
       item.unit_price > ((stddev * 2) + average_price)
-      # binding.pry
     end
   end
 
   def average_invoices_per_merchant
-    numerator = @invoice_repo.list.count
-    denominator = @merchant_repo.list.count.to_f
-    average(numerator, denominator)
+    average(@invoice_repo.list.count, @merchant_repo.list.count.to_f)
   end
 
   def invoices_per_merchant
@@ -313,7 +273,6 @@ class SalesAnalyst
     highest_values.map do |id, quantity|
       @item_repo.find_by_id(id)
     end
-    # binding.pry
   end
 
   def best_item_for_merchant(merchant_id)
@@ -334,5 +293,38 @@ class SalesAnalyst
     end
     highest_quantity = hash.key(hash.values.max)
     @item_repo.find_by_id(highest_quantity)
+  end
+
+  ## -----HELPER METHODS--------------------------------------------------------
+
+  def sum(array)
+    array.inject(0) do |sum, number|
+      sum + number
+    end
+  end
+
+  def average(numerator, denominator)
+    average = numerator / denominator
+    average.round(2)
+  end
+
+  def standard_deviation(array_of_values, calculated_average_of_values)
+    stddev_sum = array_of_values.inject(0) do |sum, number|
+      sum + ((number - calculated_average_of_values) ** 2)
+    end
+    divided = (stddev_sum / array_of_values.count)
+    Math.sqrt(divided).round(2)
+  end
+
+  def total_item_repo_value
+    @item_repo.list.inject(0) do |sum, item|
+      sum + item.unit_price
+    end
+  end
+
+  def unit_prices_of_every_item
+    @item_repo.list.map do |item|
+      item.unit_price
+    end
   end
 end

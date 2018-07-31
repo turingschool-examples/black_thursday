@@ -1,11 +1,11 @@
-require 'csv'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/repo_method_helper.rb'
-require 'pry'
+require 'csv'
 
 class MerchantRepository
-  attr_reader :list
   include RepoMethodHelper
+  
+  attr_reader :list
 
   def initialize(merchants)
     @list = merchants
@@ -19,14 +19,15 @@ class MerchantRepository
   end
 
   def create(merchant_name)
-    @list << Merchant.new({name: merchant_name[:name], id: create_id, created_at: Time.now, updated_at: Time.now})
+    @list << Merchant.new({
+      name: merchant_name[:name],
+      id: create_id,
+      created_at: Time.now,
+      updated_at: Time.now
+      })
   end
 
   def update(id, attributes)
     find_by_id(id).name = attributes[:name] unless attributes[:name].nil?
-  end
-
-  def inspect
-    "#<#{self.MerchantRepository} #{@list.size} rows>"
   end
 end

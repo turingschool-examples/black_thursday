@@ -110,7 +110,7 @@ class ItemRepositoryTest < Minitest::Test
       merchant_id: "5555"
       })
     expected = @item_repository.list[-1]
-    actual = new_item_added
+    actual = new_item_added.last
     assert_equal expected, actual
   end
 

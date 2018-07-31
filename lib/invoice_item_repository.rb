@@ -17,12 +17,6 @@ class InvoiceItemRepository
     end
   end
 
-  def find_all_by_invoice_id(invoice_id)
-    @list.find_all do |invoice_item|
-      invoice_item.invoice_id == invoice_id
-    end
-  end
-
   def create(attributes)
     attributes[:id] = create_id
     attributes[:created_at] = Time.now.to_s
@@ -36,9 +30,5 @@ class InvoiceItemRepository
     find_by_id(id).quantity = attributes[:quantity] unless attributes[:quantity].nil?
     find_by_id(id).unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     find_by_id(id).updated_at = Time.now unless find_by_id(id).nil?
-  end
-
-  def inspect
-    "#<#{self.InvoiceItemRepository} #{@list.size} rows>"
   end
 end
