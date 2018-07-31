@@ -257,9 +257,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sa.find_all_invoices_by_date(date).count
   end
 
-  # def test_it_can_find_the_top_number_of_revenue_earners
-  #   assert_equal 2, @sa.top_revenue_earners(2)
-  # end
+  def test_it_can_find_the_top_number_of_revenue_earners
+    assert_equal 2, @sa.top_revenue_earners(2).count
+  end
 
   # def test_can_get_invoice_ids
   #   assert_equal [1,2,3,4,5,6], @sa.get_invoice_ids
@@ -276,7 +276,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_sort_summed_invoice_totals
-    assert_equal ({}), @sa.sort_summed_invoice_totals
+    assert_equal 2, @sa.sort_summed_invoice_totals(2).count
   end
 
 end

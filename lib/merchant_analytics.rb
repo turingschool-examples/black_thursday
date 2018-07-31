@@ -13,9 +13,14 @@ module MerchantAnalytics
     end
   end
 
-  def top_revenue_earners(number)
-
+  def top_revenue_earners(number = 20)
+    sorted = sort_summed_invoice_totals(number)
+    sorted.map do |merchant_id, invoice_total|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end
+    require "pry"; binding.pry
   end
+
   def invoice_hash
     earners = {}
     group_invoices_by_merchant.each do |merchant_id, invoices|
@@ -36,8 +41,9 @@ module MerchantAnalytics
     totals.delete_if {|merchant_id, sum| sum == 0}
   end
 
-  def sort_summed_invoice_totals
-    sum_invoice_totals.sort_by {|merchant_id, sum| sum }.reverse.to_h
+  def sort_summed_invoice_totals(number)
+    sorted = sum_invoice_totals.sort_by {|merchant_id, sum| sum }
+    sorted[-number..-1].reverse.to_h
   end
 
 end
