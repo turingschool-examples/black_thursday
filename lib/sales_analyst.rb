@@ -1,4 +1,6 @@
 require 'bigdecimal'
+require 'item_analyst'
+require 'invoice_analyst'
 
 class SalesAnalyst
 
@@ -12,37 +14,24 @@ class SalesAnalyst
     @invoice_repository       = invoice_repository
     @transaction_repository   = transaction_repository
     @invoice_item_repository  = invoice_item_repository
+    @item_ana = ItemAnalyst.new(@item_repository)
+    @invoice_ana = InvoiceAnalyst.new(@invoice_repository)
   end
 
   def average_items_per_merchant
-    @item_repository.average_items_per_merchant
+    @item_ana.average_items_per_merchant
   end
-
-  def average_invoices_per_merchant
-    @invoice_repository.average_invoices_per_merchant
-  end
-
+ 
   def average_items_per_merchant_standard_deviation
     mean_total_sqr = @item_repository.group_item_by_merchant_id
     mean_items_per = average_items_per_merchant
-
-    (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
+    final_square(mean_total_sqr, mean_items_per)
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    mean_total_sqr = @invoice_repository.group_invoices_by_merchant_id
-    mean_items_per = average_invoices_per_merchant
-
-    (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
+  def final_square(mean_total_sqr, mean_items_per)
+    (Math.sqrt(
+      get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
   end
-
-  def average_invoices_per_day_standard_deviation
-    mean_total_sqr = @invoice_repository.group_by_day
-    mean_items_per = @invoice_repository.average_invoices_per_day
-
-    (Math.sqrt(get_mean_of_totaled_squares(mean_total_sqr, mean_items_per))).round(2)
-  end
-
 
   def get_squared_item_prices
     @item_repository.items.map do |item|
@@ -72,7 +61,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     mean  = average_invoices_per_merchant
     stdev = average_invoices_per_merchant_standard_deviation * 2
-    thing = @invoice_repository.group_invoices_by_merchant_id.find_all do |merchant, invoices|
+    thing = @invoice_ana.group_invoices_by_merchant_id.find_all do |merchant, invoices|
       invoices.size > (mean + stdev)
     end
     thing.map! do |array|
@@ -87,7 +76,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     mean  = average_invoices_per_merchant
     stdev = average_invoices_per_merchant_standard_deviation * 2
-    thing = @invoice_repository.group_invoices_by_merchant_id.find_all do |merchant, invoices|
+    thing = @invoice_ana.group_invoices_by_merchant_id.find_all do |merchant, invoices|
       invoices.size < (mean - stdev)
     end
     thing.map! do |array|
@@ -137,13 +126,8 @@ class SalesAnalyst
   # Probably a better way to write this
   def invoice_paid_in_full?(invoice_id)
     invoices = @transaction_repository.find_all_by_invoice_id(invoice_id)
-    if invoices.empty?
-      false
-    else
-      invoices.any? do |invoice|
-        invoice.result == :success
-      end
-    end
+    return false if invoices.empty?
+    invoices.any? { |invoice| invoice.result == :success }
   end
 
   def invoice_total(invoice_id)
@@ -151,33 +135,6 @@ class SalesAnalyst
     invoices.inject(0) do |sum, invoice|
       sum + invoice.unit_price * invoice.quantity.to_i
     end
-  end
-
-  def count_per_day
-    @invoice_repository.group_by_day.map { |day, invoices| invoices.count }
-  end
-
-  def average_number_of_invoices_created_per_day
-    (count_per_day.inject(0, &:+).to_f / 7).round(2)
-  end
-
-  def invoice_per_day_standard_deviation
-    average = average_number_of_invoices_created_per_day
-    abs_differences = count_per_day.map do |count|
-      ((count - average).abs) ** 2.0
-    end
-    total = abs_differences.inject(0, &:+)
-    (Math.sqrt(total / 6)).round(2)
-  end
-
-  def top_days_by_invoice_count
-    st_dev = average_number_of_invoices_created_per_day + invoice_per_day_standard_deviation
-    day_counts = @invoice_repository.group_by_day
-    day_counts.select { |_day, invoices | invoices.size > st_dev }.keys
-  end
-
-  def invoice_status(status)
-    @invoice_repository.invoice_status(status)
   end
 
   def total_revenue_by_date(date)
@@ -209,7 +166,6 @@ class SalesAnalyst
     total = invoice_items.inject(0) do |sum, invoice|
       sum += (invoice.unit_price * invoice.quantity.to_i)
     end
-
   end
 
   def top_revenue_earners(top_n=20)
@@ -299,7 +255,6 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
-
     invoices = invoices.map(&:id)
     invoices = invoices.select {|invoice| invoice_paid_in_full?(invoice)}
     items = invoices.map do |invoice|
@@ -322,5 +277,44 @@ class SalesAnalyst
     winners.compact.first
   end
 
+  # Invoice Area
+
+  def invoice_status(status)
+    @invoice_ana.percent_by_invoice_status(status)
+  end
+
+  def average_invoices_per_merchant
+    @invoice_ana.average_invoices_per_merchant
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean_total_sqr = @invoice_ana.group_invoices_by_merchant_id
+    mean_items_per = average_invoices_per_merchant
+    final_square(mean_total_sqr, mean_items_per)
+  end
   
+  def average_invoices_per_day_standard_deviation
+    mean_total_sqr = @invoice_ana.group_by_day
+    mean_items_per = @invoice_ana.average_invoices_per_day
+    final_square(mean_total_sqr, mean_items_per)
+  end
+
+  def count_per_day
+    @invoice_ana.group_by_day.map { |day, invoices| invoices.count }
+  end
+
+  def invoice_per_day_standard_deviation
+    average = @invoice_ana.average_invoices_per_day
+    abs_differences = count_per_day.map do |count|
+      ((count - average).abs) ** 2.0
+    end
+    total = abs_differences.inject(0, &:+)
+    (Math.sqrt(total / 6)).round(2)
+  end
+
+  def top_days_by_invoice_count
+    st_dev = @invoice_ana.average_invoices_per_day + invoice_per_day_standard_deviation
+    day_counts = @invoice_ana.group_by_day
+    day_counts.select { |_day, invoices | invoices.size > st_dev }.keys
+  end
 end

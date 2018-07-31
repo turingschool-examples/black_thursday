@@ -45,32 +45,4 @@ class InvoiceRepository
   def create(attributes)
     @invoices << Invoice.create(attributes)
   end
-
-  def number_of_merchants
-    group_invoices_by_merchant_id.keys.count
-  end
-
-  def group_invoices_by_merchant_id
-    @invoices.group_by { |invoice| invoice.merchant_id }
-  end
-
-  def average_invoices_per_merchant
-    (@invoices.size / number_of_merchants.to_f).round(2)
-  end
-
-  def group_by_day
-    @invoices.group_by do |invoice|
-      created_at = Time.parse(invoice.created_string)
-      created_at.strftime('%A')
-    end
-  end
-
-  def average_invoices_per_day
-    (@invoices.size / 7.0).round(2)
-  end
-
-  def invoice_status(status)
-    grouped = @invoices.group_by { |invoice| invoice.status }
-    ((grouped[status].size.to_f / @invoices.size) * 100).round(2)
-  end
 end
