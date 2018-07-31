@@ -157,4 +157,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10.49, @sales_analyst.average_invoices_per_merchant 
     assert_equal Float, @sales_analyst.average_invoices_per_merchant.class 
   end 
+  
+  # it "#top_merchants_by_invoice_count returns merchants that are two standard deviations above the mean" do
+  def test_it_finds_top_merchants_by_invoice_count
+    @sales_analyst.merchant_id_invoice_counter
+    @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal Array, @sales_analyst.top_merchants_by_invoice_count.class 
+    assert_equal Merchant, @sales_analyst.top_merchants_by_invoice_count[0].class
+    assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.count 
+  end
+  
+  def test_it_finds_bottom_merchants_by_invoice_count
+    @sales_analyst.merchant_id_invoice_counter
+    @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal Array, @sales_analyst.bottom_merchants_by_invoice_count.class 
+    assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count[0].class
+    assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.count 
+  end
 end 

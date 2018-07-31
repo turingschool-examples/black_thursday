@@ -179,5 +179,41 @@ class SalesAnalyst
   # helper to sum_of_inv_differences_squared
   def average_invoices_per_merchant
     (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
+  end
+  
+  def top_merchants_by_invoice_count    
+    ids_with_high_invoice_count.map do |id_array| 
+      @merchant_repository.all.find do |merchant|
+        merchant.id == id_array[0]
+      end
+    end
   end 
+  
+  # helper to top_merchants_by_invoice_count
+  def ids_with_high_invoice_count
+    merchant_id_invoice_counter
+    average_invoices_per_merchant_standard_deviation
+    id_high_invoices = @merchant_id_invoice_counts.find_all do |id, count|
+      count > ((@merchant_id_invoice_counts_std_dev) * 2) + average_invoices_per_merchant
+    end
+    return id_high_invoices
+  end
+  
+  def bottom_merchants_by_invoice_count    
+    ids_with_low_invoice_count.map do |id_array| 
+      @merchant_repository.all.find do |merchant|
+        merchant.id == id_array[0]
+      end
+    end
+  end 
+  
+  # helper to bottom_merchants_by_invoice_count
+  def ids_with_low_invoice_count
+    merchant_id_invoice_counter
+    average_invoices_per_merchant_standard_deviation
+    id_low_invoices = @merchant_id_invoice_counts.find_all do |id, count|
+      count < average_invoices_per_merchant - ((@merchant_id_invoice_counts_std_dev) * 2)
+    end
+    return id_low_invoices
+  end
 end 
