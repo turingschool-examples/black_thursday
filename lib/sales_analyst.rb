@@ -79,6 +79,7 @@ class SalesAnalyst
     end
     numerator = sum(prices).to_f
     denominator = items_per_merchant[merchant_id.to_s]
+
     average(numerator, denominator).to_d
   end
 
@@ -106,6 +107,7 @@ class SalesAnalyst
 
     @item_repo.items.find_all do |item|
       item.unit_price > ((stddev * 2) + average_price)
+      # binding.pry
     end
   end
 
@@ -137,9 +139,10 @@ class SalesAnalyst
     top_merchants_id_array = top_merchants_and_counts_array.map do |merchant|
       merchant[0]
     end
-    top_merchants_id_array.map do |id|
+    nan = top_merchants_id_array.map do |id|
       @merchant_repo.find_by_id(id)
     end
+    # binding.pry
   end
 
   def bottom_merchants_by_invoice_count
@@ -310,6 +313,7 @@ class SalesAnalyst
     highest_values.map do |id, quantity|
       @item_repo.find_by_id(id)
     end
+    # binding.pry
   end
 
   def best_item_for_merchant(merchant_id)
@@ -328,9 +332,7 @@ class SalesAnalyst
         sum + (num.quantity.to_i * num.unit_price)
       end
     end
-
     highest_quantity = hash.key(hash.values.max)
     @item_repo.find_by_id(highest_quantity)
-    # binding.pry
   end
 end
