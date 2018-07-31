@@ -27,7 +27,7 @@ class InvoiceRepository
   end
 
   def find_all_by_merchant_id(search_merchant_id)
-    @invoices.find_all { |invoice| invoice.merchant_id == search_merchant_id }
+    all.find_all { |invoice| invoice.merchant_id == search_merchant_id }
   end
 
   def find_all_by_customer_id(search_customer_id)
