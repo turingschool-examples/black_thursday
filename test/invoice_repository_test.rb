@@ -7,10 +7,13 @@ require 'csv'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv({
+    @se= SalesEngine.from_csv({
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
-      :invoices  => "./data/dummy_invoices.csv"})
+      :invoices  => "./data/dummy_invoices.csv",
+      :invoice_items => "./data/dummy_invoice_items.csv",
+      :transactions =>"./data/dummy_transactions.csv",
+      :customers => "./data/dummy_customers.csv" })
     @invoice_repo = InvoiceRepository.new(@se.csv_hash[:invoices])
     @invoice_repo.create_invoices
   end

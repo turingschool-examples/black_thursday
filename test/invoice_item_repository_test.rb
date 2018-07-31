@@ -12,7 +12,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :items     => "./data/dummy_items.csv",
       :merchants => "./data/dummy_merchants.csv",
       :invoices  => "./data/dummy_invoices.csv",
-      :invoice_items => "./data/dummy_invoice_items.csv" })
+      :invoice_items => "./data/dummy_invoice_items.csv",
+      :transactions =>"./data/dummy_transactions.csv",
+      :customers => "./data/dummy_customers.csv" })
       @iir = InvoiceItemRepository.new(@se.csv_hash[:invoice_items])
       @iir.create_invoice_items
     end

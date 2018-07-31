@@ -13,7 +13,8 @@ class TransactionRepositoryTest < Minitest::Test
       :merchants => "./data/dummy_merchants.csv",
       :invoices  => "./data/dummy_invoices.csv",
       :invoice_items => "./data/dummy_invoice_items.csv",
-      :transactions =>"./data/dummy_transactions.csv" })
+      :transactions =>"./data/dummy_transactions.csv",
+      :customers => "./data/dummy_customers.csv" })
       @tr = TransactionRepository.new(@se.csv_hash[:transactions])
       @tr.create_transactions
   end
