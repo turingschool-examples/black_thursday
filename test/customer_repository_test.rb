@@ -1,6 +1,6 @@
-require_relative '../lib/customer_repository'
-require_relative '../lib/customer'
 require_relative './test_helper'
+require './lib/customer_repository'
+require './lib/customer'
 
 class CustomerRepositoryTest < Minitest::Test
   def setup
