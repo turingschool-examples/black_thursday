@@ -319,4 +319,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2780.91, @sa.revenue_by_merchant(1).to_f
     assert_equal BigDecimal, @sa.revenue_by_merchant(1).class
   end
+
+  # def test_can_find_a_merchants_most_sold_item
+  #   assert_equal [item], @sa.most_sold_item_for_merchant(4)
+  # end
+
+  def test_it_can_get_paid_invoices_per_merchant
+    assert_equal 2, @sa.pull_paid_invoices_per_merchant(4).count
+    assert_equal Invoice, @sa.pull_paid_invoices_per_merchant(4).first.class
+  end
 end
