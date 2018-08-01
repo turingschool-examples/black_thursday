@@ -161,7 +161,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Float, @sales_analyst.average_invoices_per_merchant.class 
   end 
   
-  # it "#top_merchants_by_invoice_count returns merchants that are two standard deviations above the mean" do
   def test_it_finds_top_merchants_by_invoice_count
     @sales_analyst.merchant_id_invoice_counter
     @sales_analyst.average_invoices_per_merchant_standard_deviation
@@ -177,12 +176,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count[0].class
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.count 
   end
-
+  
   def test_top_days_by_invoice_count
-    #{6=>729, 5=>701, 3=>741, 1=>696, 0=>708, 2=>692, 4=>718}
-    p @sales_analyst.invoice_repository.all.count / 7
-    p (@sales_analyst.invoice_repository.all.count / 7) + 17
-    p @sales_analyst.top_integer_days_by_invoice_count
     assert_equal 1, @sales_analyst.top_days_by_invoice_count.count
     assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count[0]
     assert_equal String, @sales_analyst.top_days_by_invoice_count[0].class  
@@ -198,4 +193,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Fixnum, @sales_analyst.arrange_invoices_by_day.values[6].class
     assert_equal Fixnum, @sales_analyst.arrange_invoices_by_day.values[3].class
   end 
+  
+  def test_invoice_status
+    assert_equal 29.55, @sales_analyst.invoice_status(:pending)
+    assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
+    assert_equal 13.5, @sales_analyst.invoice_status(:returned)
+  end
 end 

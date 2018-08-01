@@ -245,9 +245,16 @@ class SalesAnalyst
     (Math.sqrt(sum_differences_squared/7)).round(3)
   end 
   
+  # helper to standard_deviation_of_invoices_by_day
   def arrange_invoices_by_day
     @invoice_repository.all.inject(Hash.new(0)) do |hash, invoice| 
       hash.merge(invoice.created_at.wday => hash[invoice.created_at.wday] + 1)
     end
+  end 
+  
+  def invoice_status(inv_symbol)
+    ((@invoice_repository.all.find_all do |invoice_obj|
+      invoice_obj.status == inv_symbol
+    end.count / @invoice_repository.all.count.to_f) * 100).round(2)
   end 
 end 
