@@ -216,4 +216,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal InvoiceItem, @sales_analyst.invoice_items_by_invoice_id(200)[0].class
     assert_equal Array, @sales_analyst.invoice_items_by_invoice_id(200).class
   end 
+  
+  def test_total_revenue_by_date 
+  end 
+  # sales_analyst.total_revenue_by_date(date) #=> $$
+  # date = Time.parse("2009-02-07")
+  # expected = sales_analyst.total_revenue_by_date(date)
+  # 
+  # expect(expected).to eq 21067.77
+  # expect(expected.class).to eq BigDecimal
+  # Note: When calculating revenue the unit_price listed within invoice_items should be used. The invoice_item.unit_price represents the final sale price of an item after sales, discounts or other intermediary price changes.
+  def test_invoice_items_by_date 
+    p @sales_analyst.invoice_items_by_date(Time.parse("2009-02-07")).count
 end 
