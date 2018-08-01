@@ -327,5 +327,23 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_get_paid_invoices_per_merchant
     assert_equal 2, @sa.pull_paid_invoices_per_merchant(4).count
     assert_equal Invoice, @sa.pull_paid_invoices_per_merchant(4).first.class
+    # assert_equal [], @sa.pull_paid_invoices_per_merchant(4)
+    assert_equal 7, @sa.pull_paid_invoices_per_merchant(4).first.id
+    assert_equal 9, @sa.pull_paid_invoices_per_merchant(4).last.id
+    # [invoice_1, invoice_2]
+    # invoice_1 = #<Invoice:0xXXXXXX @id=7, @customer_id=1, @merchant_id=4, @status=:pending, @created_at=2018-07-28 00:00:00-0600, @updated_at=2018-08-26 00:00:00 -0600>
+    # invoice_2 = #<Invoice:0xXXXXXX @id=9, @customer_id=2, @merchant_id=4, @status=:shipped, @created_at=2018-08-03 00:00:00 -0600, @updated_at=2018-11-05 00:00:00 -0700>
   end
+
+  def test_it_can_find_all_paid_invoice_items_by_invoice_id
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    # assert_equal 2, @sa.find_all_paid_invoice_items_by_id(paid_invoice_ids).count
+    assert_equal 7, @sa.find_all_paid_invoice_items_by_id(paid_invoices).first.invoice_id
+    assert_equal 9, @sa.find_all_paid_invoice_items_by_id(paid_invoices).last.invoice_id
+    assert_equal InvoiceItem, @sa.find_all_paid_invoice_items_by_id(paid_invoices).first.class
+    # [item_1, item_2]
+    #item 1 = #<InvoiceItem:0xXXXXXX @id=7, @item_id=7, @invoice_id=7, @quantity=4, @unit_price=#<BigDecimal:7f8c85064960,'0.66747E3',18(36)>, @created_at=2012-03-27 14:54:09 UTC, @updated_at=2012-03-27 14:54:09 UTC>
+    #item 2 = #<InvoiceItem:0xXXXXXX @id=9, @item_id=9, @invoice_id=9, @quantity=6, @unit_price=#<BigDecimal:7f818a83c918,'0.29973E3',18(36)>, @created_at=2012-03-27 14:54:09 UTC, @updated_at=2012-03-27 14:54:09 UTC>
+  end
+
 end
