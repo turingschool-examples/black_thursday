@@ -43,12 +43,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_an_invoice_item_by_a_valid_id
     item_invoice = @iir.find_by_id(1)
+
     assert_instance_of InvoiceItem, item_invoice
     assert_equal 1, item_invoice.id
   end
 
   def test_it_returns_nil_if_invoice_id_is_invalid
     invoice = @iir.find_by_id('invalid')
+
     assert_nil invoice
   end
 
@@ -56,6 +58,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_item_one = @iir.find_all_by_item_id(263519841)
     invoice_item_two = @iir.find_all_by_item_id(263519842)
     invoice_item_three = @iir.find_all_by_item_id(263519847)
+
     assert_equal 263519841, invoice_item_one.first.item_id
     assert_equal 263519842, invoice_item_two.first.item_id
     assert_equal 263519842, invoice_item_two[-1].item_id
@@ -66,6 +69,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_items_one = @iir.find_all_by_invoice_id(1)
     invoice_items_two = @iir.find_all_by_invoice_id(2)
     invoice_items_three = @iir.find_all_by_invoice_id(5)
+
     assert_equal 1, invoice_items_one.first.invoice_id
     assert_equal 2, invoice_items_two.first.invoice_id
     assert_equal 2, invoice_items_two[-1].invoice_id
@@ -83,9 +87,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
                     quantity: 4,
                     unit_price: 2134,
                     created_at: '2018-07-28',
-                    updated_at: '2018-07-28'
-                  }
+                    updated_at: '2018-07-28' }
     invoice_item = @iir.create(attributes)
+
     assert_equal 4, invoice_item.id
     assert_equal 27, invoice_item.item_id
     assert_equal 2772, invoice_item.invoice_id
@@ -96,14 +100,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_invoice_item
-    attributes = {
-      quantity: 4,
-      unit_price: 15635
-    }
+    attributes = { quantity: 4,
+                   unit_price: 15635 }
     id = 1
     invoice_item = @iir.update(id, attributes)
     expected = @iir.find_by_id(id)
-    assert_instance_of Time, invoice_item.updated_at # maybe refactor later
+
+    assert_instance_of Time, invoice_item.updated_at
     assert_equal 1, expected.invoice_id
     assert_equal 4, expected.quantity
     assert_equal 15635, expected.unit_price
@@ -111,8 +114,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_delete_invoice
     id = 2
-
-    invoice = @iir.delete(id)
+    @iir.delete(id)
     expected = @iir.find_by_id(2)
 
     assert_nil expected
