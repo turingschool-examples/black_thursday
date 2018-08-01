@@ -45,9 +45,7 @@ class SalesAnalyst
     merchant_ids = items_per_merchant.find_all do |merchant_id, item_count|
       item_count > one_stddev_up
     end
-    merchant_ids.map do |merchant_id, item_count|
-      @merchant_repo.find_by_id(merchant_id.to_i)
-    end
+    convert_to_merchants_objects(merchant_ids)
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -99,10 +97,7 @@ class SalesAnalyst
     top_merchants_id_array = top_merchants_and_counts_array.map do |merchant|
       merchant[0]
     end
-    nan = top_merchants_id_array.map do |id|
-      @merchant_repo.find_by_id(id)
-    end
-    # binding.pry
+    convert_to_merchants_objects(top_merchants_id_array)
   end
 
   def bottom_merchants_by_invoice_count
@@ -114,9 +109,7 @@ class SalesAnalyst
     bottom_merchants_id_array = bottom_merchants_and_counts_array.map do |merchant|
       merchant[0]
     end
-    bottom_merchants_id_array.map do |id|
-      @merchant_repo.find_by_id(id)
-    end
+    convert_to_merchants_objects(bottom_merchants_id_array)
   end
 
   def average_invoice_counts_per_day
@@ -191,10 +184,7 @@ class SalesAnalyst
         merchant_list << merchant
       end
     end
-
-    merchant_list.map do |merchant_id|
-      @merchant_repo.find_by_id(merchant_id.to_i)
-    end
+    convert_to_merchants_objects(merchant_list)
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
@@ -228,9 +218,7 @@ class SalesAnalyst
     sorted_highest_merchants = sorted_highest_rev_per_mer.map do |pair|
       pair[0]
     end
-    sorted_highest_merchants.map do |id|
-      @merchant_repo.find_by_id(id)
-    end
+    convert_to_merchants_objects(sorted_highest_merchants)
   end
 
   def top_revenue_earners(number_of_top = 20)
@@ -243,9 +231,7 @@ class SalesAnalyst
       invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end.compact
 
-    final = merchant_ids_of_pending.map do |merchant_id|
-      @merchant_repo.find_by_id(merchant_id)
-    end.uniq
+    convert_to_merchants_objects(merchant_ids_of_pending).uniq
   end
 
   def most_sold_item_for_merchant(merchant_id)
@@ -325,6 +311,12 @@ class SalesAnalyst
   def unit_prices_of_every_item
     @item_repo.list.map do |item|
       item.unit_price
+    end
+  end
+
+  def convert_to_merchants_objects(array)
+    array.map do |merchant_id, value|
+      @merchant_repo.find_by_id(merchant_id.to_i)
     end
   end
 end
