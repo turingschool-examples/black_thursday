@@ -88,7 +88,6 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     stddev = average_invoices_per_merchant_standard_deviation
-
     top_merchants_ids_and_counts = invoices_per_merchant.find_all do |merchant, invoice_count|
       invoice_count > ((stddev * 2) + average_invoices_per_merchant)
     end
@@ -98,7 +97,6 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     stddev = average_invoices_per_merchant_standard_deviation
-
     bottom_merchants_and_counts_array = invoices_per_merchant.find_all do |merchant, invoice_count|
       invoice_count < (average_invoices_per_merchant - (stddev * 2))
     end
@@ -120,9 +118,8 @@ class SalesAnalyst
       counts[day] += 1
     end
     stddev = standard_deviation(total_invoice_counts_by_day_of_week.values, average_invoice_counts_per_day)
-
-    day_with_highest_invoice_count = total_invoice_counts_by_day_of_week.find_all do |day, count|
-      count > (stddev + average_invoice_counts_per_day).round.to_i
+    day_with_highest_invoice_count = total_invoice_counts_by_day_of_week.find_all do |day, invoice_count|
+      invoice_count > (stddev + average_invoice_counts_per_day).round.to_i
     end
     pull_first_element_from_pair(day_with_highest_invoice_count)
   end
@@ -205,51 +202,30 @@ class SalesAnalyst
     merchant_ids_of_pending = @invoice_repo.list.map do |invoice|
       invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end.compact
-
     convert_to_merchants_objects(merchant_ids_of_pending).uniq
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-    invoice_items = merchant_invoices.map do |invoice|
-      @invoice_item_repo.find_all_by_invoice_id(invoice.id) unless invoice_paid_in_full?(invoice.id) == false
-    end.flatten.compact
-
-    grouped_invoice_items = invoice_items.group_by do |invoice_item|
-      invoice_item.item_id
+    grouped_invoice_items_by_item_id = merchant_id_to_invoice_items_grouped_by_item_ids(merchant_id)
+    item_id_and_quantity_sold = {}
+    grouped_invoice_items_by_item_id.each do |item_id, invoice_items|
+      item_id_and_quantity_sold[item_id] = total_quantity(invoice_items)
     end
-
-    hash = {}
-    grouped_invoice_items.each do |key, value|
-      hash[key] = value.inject(0) do |sum, num|
-        sum + num.quantity.to_i
-      end
+    highest_quantity = item_id_and_quantity_sold.values.max
+    highest_quantity_item_id = item_id_and_quantity_sold.find_all do |item_id, quantity|
+      quantity == highest_quantity
     end
-
-    highest_quantity = hash.values.max
-    highest_values = hash.find_all do |key, value|
-      value == highest_quantity
-    end
-    convert_to_item_objects(highest_values)
+    convert_to_item_objects(highest_quantity_item_id)
   end
 
   def best_item_for_merchant(merchant_id)
-    merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-    invoice_items = merchant_invoices.map do |invoice|
-      @invoice_item_repo.find_all_by_invoice_id(invoice.id) unless invoice_paid_in_full?(invoice.id) == false
-    end.flatten.compact
-    grouped_invoice_items = invoice_items.group_by do |invoice_item|
-      invoice_item.item_id
+    grouped_invoice_items_by_item_id = merchant_id_to_invoice_items_grouped_by_item_ids(merchant_id)
+    item_id_and_revenue = {}
+    grouped_invoice_items_by_item_id.each do |item_id, invoice_items|
+      item_id_and_revenue[item_id] = total_revenue(invoice_items)
     end
-
-    hash = {}
-    grouped_invoice_items.each do |key, value|
-      hash[key] = value.inject(0) do |sum, num|
-        sum + (num.quantity.to_i * num.unit_price)
-      end
-    end
-    highest_quantity = hash.key(hash.values.max)
-    @item_repo.find_by_id(highest_quantity)
+    highest_revenue_item_id = item_id_and_revenue.key(item_id_and_revenue.values.max)
+    @item_repo.find_by_id(highest_revenue_item_id)
   end
 
   ## -----HELPER METHODS--------------------------------------------------------
@@ -320,6 +296,22 @@ class SalesAnalyst
   def total_revenue(array)
     array.inject(0) do |sum, num|
         sum + (num.unit_price * num.quantity.to_i)
+    end
+  end
+
+  def total_quantity(array)
+    array.inject(0) do |sum, num|
+        sum + num.quantity.to_i
+    end
+  end
+
+  def merchant_id_to_invoice_items_grouped_by_item_ids(merchant_id)
+    merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoice_items = merchant_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id) unless invoice_paid_in_full?(invoice.id) == false
+    end.flatten.compact
+    invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
     end
   end
 
