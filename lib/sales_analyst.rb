@@ -427,6 +427,34 @@ class SalesAnalyst
     array.uniq
   end
 
+  def get_successful_invoices(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    invoices.map do |invoice|
+      transactions = @transactions.find_all_by_invoice_id(invoice.id)
+      if transactions.any? {|transaction| transaction.result == "success"}
+        return
+      else
+        invoice = nil
+      end
+    end.compact
+    invoices
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = get_successful_invoices(merchant_id)
+    total = []
+    invoices.map do |invoice|
+      items = @invoice_items.find_all_by_invoice_id(invoice.id)
+      items.each do |item|
+        total << (item.unit_price * item.quantity)
+      end
+    end
+    total = total.inject(0) do |sum, revenue|
+      sum += revenue
+    end
+    total
+  end
+
   def top_items_per_merchant(merchant_id)
     invoices = @invoices.find_all_by_merchant_id(merchant_id)
     invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
