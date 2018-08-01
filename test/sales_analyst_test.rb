@@ -219,7 +219,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal (["Sunday"]), @sa.top_days_by_invoice_count
   end
 
-# What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
   def test_it_can_find_percentage_of_invoices
     assert_equal 7.69, @sa.invoice_status(:returned)
     assert_equal 53.85, @sa.invoice_status(:shipped)
@@ -320,12 +319,90 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sa.revenue_by_merchant(1).class
   end
 
-  # def test_can_find_a_merchants_most_sold_item
-  #   assert_equal [item], @sa.most_sold_item_for_merchant(4)
-  # end
+  def test_can_find_a_merchants_most_sold_item #=> [item]
+    assert_equal Array, @sa.most_sold_item_for_merchant(4).class
+    assert_equal Item, @sa.most_sold_item_for_merchant(4).first.class
+    assert_equal "NineThing", @sa.most_sold_item_for_merchant(4).first.name
+    assert_equal 1, @sa.most_sold_item_for_merchant(4).count
+  end
 
   def test_it_can_get_paid_invoices_per_merchant
     assert_equal 2, @sa.pull_paid_invoices_per_merchant(4).count
     assert_equal Invoice, @sa.pull_paid_invoices_per_merchant(4).first.class
+    assert_equal 7, @sa.pull_paid_invoices_per_merchant(4).first.id
+    assert_equal 9, @sa.pull_paid_invoices_per_merchant(4).last.id
+    # [invoice_1, invoice_2]
+    # invoice_1 = #<Invoice:0xXXXXXX @id=7, @customer_id=1, @merchant_id=4, @status=:pending, @created_at=2018-07-28 00:00:00-0600, @updated_at=2018-08-26 00:00:00 -0600>
+    # invoice_2 = #<Invoice:0xXXXXXX @id=9, @customer_id=2, @merchant_id=4, @status=:shipped, @created_at=2018-08-03 00:00:00 -0600, @updated_at=2018-11-05 00:00:00 -0700>
   end
+
+  def test_it_can_find_all_paid_invoice_items_by_invoice_id
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+
+    assert_equal 2, @sa.find_all_paid_invoice_items_by_id(paid_invoices).count
+    assert_equal 7, @sa.find_all_paid_invoice_items_by_id(paid_invoices).first.invoice_id
+    assert_equal 9, @sa.find_all_paid_invoice_items_by_id(paid_invoices).last.invoice_id
+    assert_equal InvoiceItem, @sa.find_all_paid_invoice_items_by_id(paid_invoices).first.class
+    # [item_1, item_2]
+    #item 1 = #<InvoiceItem:0xXXXXXX @id=7, @item_id=7, @invoice_id=7, @quantity=4, @unit_price=#<BigDecimal:7f8c85064960,'0.66747E3',18(36)>, @created_at=2012-03-27 14:54:09 UTC, @updated_at=2012-03-27 14:54:09 UTC>
+    #item 2 = #<InvoiceItem:0xXXXXXX @id=9, @item_id=9, @invoice_id=9, @quantity=6, @unit_price=#<BigDecimal:7f818a83c918,'0.29973E3',18(36)>, @created_at=2012-03-27 14:54:09 UTC, @updated_at=2012-03-27 14:54:09 UTC>
+  end
+
+  def test_it_can_find_invoice_item_quantities_sold_by_merchant
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+
+    assert_equal 2, @sa.sold_invoice_item_quantities(paid_invoice_items).count
+    assert_equal ({7=>4, 9=>6}), @sa.sold_invoice_item_quantities(paid_invoice_items)
+  end
+
+
+  def test_it_can_find_a_merchants_best_selling_item_by_quantity
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+    quantities = @sa.sold_invoice_item_quantities(paid_invoice_items)
+
+    assert_equal Array, @sa.top_selling_item_by_quantity(quantities).class
+    assert_equal Item, @sa.top_selling_item_by_quantity(quantities).first.class
+    assert_equal "NineThing", @sa.top_selling_item_by_quantity(quantities).first.name
+    assert_equal 1, @sa.top_selling_item_by_quantity(quantities).count
+    #=> [#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff", @unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]
+  end
+
+  def test_it_can_find_a_merchants_best_selling_item_by_revenue
+    # assert_equal [], @sa.best_item_for_merchant(4)
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+    revenues = @sa.sold_invoice_item_revenues(paid_invoice_items)
+
+    assert_equal Array, @sa.top_selling_item_by_revenue(revenues).class
+    assert_equal Item, @sa.top_selling_item_by_revenue(revenues).first.class
+    assert_equal "SevenThing", @sa.top_selling_item_by_revenue(revenues).first.name
+    assert_equal 1, @sa.top_selling_item_by_revenue(revenues).count
+    #=> [#<Item:0xXXXXXX @id=7, @name="SevenThing", @description="a longboard thing that does stuff", @unit_price=#<BigDecimal:7f970113e9e0,'0.15E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]
+  end
+
+
+  def test_it_can_find_invoice_item_revenues_received_by_merchant
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+
+    assert_equal 2, @sa.sold_invoice_item_revenues(paid_invoice_items).count
+    assert_equal [7,9], @sa.sold_invoice_item_revenues(paid_invoice_items).keys
+    #=> {7=>#<BigDecimal:7fed0f8d9678,'0.266988E4',18(36)>, 9=>#<BigDecimal:7fed0f8d95b0,'0.179838E4',18(36)>}
+  end
+
+  def test_it_can_find_a_merchants_best_selling_item_by_price
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+    revenues = @sa.sold_invoice_item_quantities(paid_invoice_items)
+
+    assert_equal Array, @sa.top_selling_item_by_revenue(revenues).class
+    assert_equal Item, @sa.top_selling_item_by_revenue(revenues).first.class
+    assert_equal "NineThing", @sa.top_selling_item_by_revenue(revenues).first.name
+    assert_equal 1, @sa.top_selling_item_by_revenue(revenues).count
+    #=> [#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff", @unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]
+  end
+
+
 end
