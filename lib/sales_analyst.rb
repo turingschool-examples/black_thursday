@@ -405,6 +405,28 @@ class SalesAnalyst
     merchants
   end
 
+  def merchants_with_only_one_item
+    array = []
+    @merchants.all.each do |merchant|
+      items = @items.find_all_by_merchant_id(merchant.id)
+      if items.count == 1
+        array << merchant
+      end
+    end
+    array.uniq
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    array = []
+    @merchants.all.each do |merchant|
+      items = @items.find_all_by_merchant_id(merchant.id)
+      if items.count == 1 && merchant.created_at.strftime('%B') == month
+        array << merchant
+      end
+    end
+    array.uniq
+  end
+
   def top_items_per_merchant(merchant_id)
     invoices = @invoices.find_all_by_merchant_id(merchant_id)
     invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
