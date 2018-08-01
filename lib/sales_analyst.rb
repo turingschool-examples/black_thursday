@@ -217,17 +217,33 @@ class SalesAnalyst
     return id_low_invoices
   end
   
-  # On which days are invoices created at more than one standard deviation above the mean?
-  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+  def top_days_by_invoice_count
+    day_names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    top_integer_days_by_invoice_count.map do |element| 
+      day_names[element[0]]
+    end 
+  end 
   
-  # def standard_deviation_of_invoices_by_day
-  #   count = @invoice_repository.all.count
-  #   avg = count / 7
-  #   sum_differences_squared = arrange_invoices_by_day.inject(0) do |diff_squared, day_count|
-  #     diff_squared += (day_count - avg) ** 2
-  #   end
-  #   Math.sqrt(sum_differences_squared/count) 
-  # end 
+  # helper to top_days_by_invoice_count
+  # returns nested array 
+  def top_integer_days_by_invoice_count 
+    count = @invoice_repository.all.count
+    avg = count / 7
+    arrange_invoices_by_day.find_all do |day, day_count|
+      day_count > (avg + standard_deviation_of_invoices_by_day).round(0)
+    end
+  end
+  
+  # helper to top_days_by_invoice_count
+  def standard_deviation_of_invoices_by_day
+    count = (@invoice_repository.all.count) -1
+    avg = count / 7
+    sum_differences_squared = arrange_invoices_by_day.inject(0) do |diff_squared, day_count|
+      diff_squared += (day_count[1] - avg) ** 2
+    end
+    # binding.pry 
+    (Math.sqrt(sum_differences_squared/7)).round(3)
+  end 
   
   def arrange_invoices_by_day
     @invoice_repository.all.inject(Hash.new(0)) do |hash, invoice| 

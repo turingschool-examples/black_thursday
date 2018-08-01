@@ -6,12 +6,12 @@ require_relative '../lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test 
   def setup 
-    sales_engine = SalesEngine.new({
+    @sales_engine = SalesEngine.new({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     :invoices  => "./data/invoices.csv",
     :transactions => "./data/transactions.csv",
-    :customers => "./data/transactions.csv",
+    :customers => "./data/customers.csv",
     :invoice_items => "./data/invoice_items.csv"
      })
     @sales_analyst = @sales_engine.analyst
@@ -61,7 +61,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, @sales_engine.analyst.average_items_per_merchant_standard_deviation 
     assert_equal Float, @sales_engine.analyst.average_items_per_merchant_standard_deviation.class 
   end 
-
+  
   def test_average_items_per_merchant 
     assert_equal 2.88, @sales_analyst.average_items_per_merchant 
     assert_equal Float, @sales_analyst.average_items_per_merchant.class 
@@ -102,7 +102,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sales_analyst.create_array_of_averages_per_merchant[0].class
     assert_equal @sales_analyst.merchant_repository.all.count, @sales_analyst.create_array_of_averages_per_merchant.count
   end
-
+  
   def test_average_item_price_for_merchant 
     assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
     assert_equal BigDecimal, @sales_analyst.average_item_price_for_merchant(12334105).class
@@ -177,14 +177,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count[0].class
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.count 
   end
+
+  def test_top_days_by_invoice_count
+    #{6=>729, 5=>701, 3=>741, 1=>696, 0=>708, 2=>692, 4=>718}
+    p @sales_analyst.invoice_repository.all.count / 7
+    p (@sales_analyst.invoice_repository.all.count / 7) + 17
+    p @sales_analyst.top_integer_days_by_invoice_count
+    assert_equal 1, @sales_analyst.top_days_by_invoice_count.count
+    assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count[0]
+    assert_equal String, @sales_analyst.top_days_by_invoice_count[0].class  
+  end
   
-  # def test_top_days_by_invoice_count 
-  #   # expected = sales_analyst.top_days_by_invoice_count
-  #   # 
-  #   # expect(expected.length).to eq 1
-  #   # expect(expected.first).to eq "Wednesday"
-  #   # expect(expected.first.class).to eq String
-  # end 
+  def test_standard_deviation_of_invoices_by_day
+    assert_equal 16.703, @sales_analyst.standard_deviation_of_invoices_by_day
+  end 
   
   def test_arrange_invoices_by_day
     assert_equal 6, @sales_analyst.arrange_invoices_by_day.keys[0]

@@ -9,9 +9,11 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
 require_relative './invoice_item_repository'
-require_relative'../lib/transaction_repository.rb'
+require_relative '../lib/transaction_repository.rb'
 require_relative '../lib/customer_repository.rb'
-require_relative './sales_analyst'
+require_relative '../lib/sales_analyst'
+
+############
 
 class SalesEngine
   attr_reader :csv_hash,

@@ -15,7 +15,7 @@ class SalesEngineTest < Minitest::Test
     :merchants => "./data/merchants.csv",
     :invoices  => "./data/invoices.csv",
     :transactions => "./data/transactions.csv",
-    :customers => "./data/transactions.csv",
+    :customers => "./data/customers.csv",
     :invoice_items => "./data/invoice_items.csv"
      })
     assert_instance_of SalesEngine, sales_engine
