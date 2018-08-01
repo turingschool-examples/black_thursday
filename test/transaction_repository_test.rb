@@ -41,7 +41,7 @@ class TransactionRepositoryTest < Minitest::Test
                                     created_at: "2012-08-08",
                                     updated_at: "2018-09-15"
                                     })
-    end
+  end
 
     def test_it_exists
       assert_instance_of TransactionRepository, @transaction_repository

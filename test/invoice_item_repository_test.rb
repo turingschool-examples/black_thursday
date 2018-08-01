@@ -41,7 +41,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
                                              created_at: "2018-01-01",
                                              updated_at: "2018-01-01"
                                              })
-    end
+  end
 
     def test_it_exists
       assert_instance_of InvoiceItemRepository, @invoice_item_repository

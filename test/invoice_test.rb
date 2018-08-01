@@ -23,12 +23,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 1, @invoice.customer_id
     assert_equal 12_335_938, @invoice.merchant_id
     assert_equal :pending, @invoice.status
-    assert_equal Time.new('2009-02-07'), @invoice.created_at
-    assert_equal Time.new('2014-03-15'), @invoice.updated_at
-  end
-
-  def test_it_updates_max_id
-    assert_equal 1, Invoice.max_id
+    assert_equal Time.parse('2009-02-07'), @invoice.created_at
+    assert_equal Time.parse('2014-03-15'), @invoice.updated_at
   end
 
   def test_it_returns_created_string

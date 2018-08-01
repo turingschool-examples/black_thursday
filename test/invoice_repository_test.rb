@@ -89,10 +89,7 @@ class InvoiceRepositoryTest < Minitest::Test
                                          created_at: '2009-02-07',
                                          updated_at: '2014-03-1')
 
-    expected = 5
-    actual = invoice.last.id
-
-    assert_equal expected, actual
+    assert_instance_of Invoice, invoice.first
     @invoice_repository.delete(5)
   end
 

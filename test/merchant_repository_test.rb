@@ -80,10 +80,9 @@ class MerchantRespositoryTest < Minitest::Test
   end
 
   def test_we_can_delete_a_merchant_instance
-    expected = nil
     @merchant_repository.delete(12336143)
     result = @merchant_repository.find_by_id(12336143)
-    assert_equal expected, result
+    assert_nil(result)
   end
 
 end

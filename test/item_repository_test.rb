@@ -10,35 +10,35 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     @item_repository = ItemRepository.new
     @item_repository.create_with_id({id: 1,
-                                     name: "Pencil",
-                                     description: "Pointy",
-                                     unit_price: "100",
-                                     created_at: "2017-01-01 00:00:00",
-                                     updated_at: "2017-01-01 00:00:00",
+                                     name: 'Pencil',
+                                     description: 'Pointy',
+                                     unit_price: '100',
+                                     created_at: '2017-01-01 00:00:00',
+                                     updated_at: '2017-01-01 00:00:00',
                                      merchant_id: 1
                                     })
     @item_repository.create_with_id({id: 2,
-                                     name: "Book",
-                                     description: "Wordy",
-                                     unit_price: "1000",
-                                     created_at: "2017-01-01 00:00:00",
-                                     updated_at: "2017-01-01 00:00:00",
+                                     name: 'Book',
+                                     description: 'Wordy',
+                                     unit_price: '1000',
+                                     created_at: '2017-01-01 00:00:00',
+                                     updated_at: '2017-01-01 00:00:00',
                                      merchant_id: 2
                                     })
     @item_repository.create_with_id({id: 3,
-                                     name: "Laptop",
-                                     description: "Expensive",
-                                     unit_price: "10000",
-                                     created_at: "2017-01-01 00:00:00",
-                                     updated_at: "2017-01-01 00:00:00",
+                                     name: 'Laptop',
+                                     description: 'Expensive',
+                                     unit_price: '10000',
+                                     created_at: '2017-01-01 00:00:00',
+                                     updated_at: '2017-01-01 00:00:00',
                                      merchant_id: 3
                                     })
     @item_repository.create_with_id({id: 4,
-                                     name: "Car",
-                                     description: "expensive luxury",
-                                     unit_price: "1000000",
-                                     created_at: "2017-01-01 00:00:00",
-                                     updated_at: "2017-01-01 00:00:00",
+                                     name: 'Car',
+                                     description: 'expensive luxury',
+                                     unit_price: '1000000',
+                                     created_at: '2017-01-01 00:00:00',
+                                     updated_at: '2017-01-01 00:00:00',
                                      merchant_id: 3
                                     })
   end
@@ -60,7 +60,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_we_can_find_item_by_name
-    name = "Pencil"
+    name = 'Pencil'
     result = @item_repository.find_by_name(name).name
     assert_equal name, result
   end
@@ -69,7 +69,7 @@ class ItemRepositoryTest < Minitest::Test
     item_1 = @item_repository.find_by_id(3)
     item_2 = @item_repository.find_by_id(4)
     expected = [item_1, item_2]
-    result = @item_repository.find_all_with_description("expensive")
+    result = @item_repository.find_all_with_description('expensive')
 
     assert_equal expected, result
   end
@@ -98,17 +98,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, result
   end
 
-  def test_we_can_create_an_item_instance_with_incremented_id
-    item = @item_repository.create({name: "Patrick",
-                                              description: "Male",
-                                              unit_price: "100",
-                                              created_at: "2017-01-01 00:00:00",
-                                              updated_at: "2017-01-01 00:00:00",
-                                              merchant_id: 5
-                                            })
-    expected = 5
-    assert_equal expected, @item_repository.all[4].id
-  end
 
   def test_we_can_update_item_attributes
     item = @item_repository.find_by_id(1)

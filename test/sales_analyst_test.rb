@@ -86,21 +86,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, result
   end
 
-  def test_we_can_get_average_invoices_per_merchant
-    expected = 2.5
-    result = @sales_analyst.average_invoices_per_merchant
-    assert_equal expected, result
-  end
-
   def test_we_can_get_average_invoices_per_merchant_stdev
     expected = 2.06
     result = @sales_analyst.average_invoices_per_merchant_standard_deviation
-    assert_equal expected, result
-  end
-
-  def test_we_can_get_average_invoices_per_day_stdev
-    expected = 0.49
-    result = @sales_analyst.average_invoices_per_day_standard_deviation
     assert_equal expected, result
   end
 
