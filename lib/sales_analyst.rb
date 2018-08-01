@@ -106,10 +106,6 @@ class SalesAnalyst
     sum / (elements.all.count - 1)
   end
 
-  # def divide_sum_by_elements(elements, sum)
-  #   sum / (elements.all.count)
-  # end
-
   def average_items_per_merchant_standard_deviation
     standard_deviation(total_items_per_merchant, average_items_per_merchant, @merchants)
   end
@@ -256,19 +252,76 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    #returns true if the Invoice with the corresponding id is paid in full
-    #if status is success from transactions return true
     transactions = @transactions.find_all_by_invoice_id(invoice_id)
     transactions.any? {|transaction| transaction.result.to_s == "success"}
   end
 
   def invoice_total(invoice_id)
-    #returns the total $ amount of the Invoice with the corresponding id
     invoices = @invoice_items.find_all_by_invoice_id(invoice_id)
     invoices.inject(0) do |total, invoice|
       total += (invoice.quantity * invoice.unit_price)
     end
   end
-
+  
+  def total_revenue_by_date(date)
+    items = @invoice_items.find_all_by_date(date)
+    totals = items.map do |invoice_item|
+      invoice_ids = invoice_item.invoice_id
+      invoice_total(invoice_ids).to_f
+    end
+    totals.inject(0) do |sum, total|
+      sum += total 
+    end
+  end
+  
+  def invoices_grouped_by_merchant
+    @invoices.invoices.group_by do |invoice|
+      invoice.merchant_id 
+    end 
+  end
+  
+  def revenue_per_merchant 
+    merchants = {}
+    invoices_grouped_by_merchant.each do |merchant_id, invoices|
+      merchants[merchant_id] = invoices.map do |invoice|
+        invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+      end.compact.inject(:+)
+    end
+    merchants
+  end
+  
+  def hash_to_array(hash)
+  values_sorted = hash.values.sort
+  value_array = []
+  values_sorted.each do |value|
+    hash.each do |name, amount|
+      value_array << name if amount == value
+    end
+  end
+  value_array.uniq
+  end
+  
+  def delete_nils(hash)
+    hash.delete_if do |key, value|
+      value.nil?
+    end 
+  end 
+  
+  def top_revenue_earners(x = 20)
+    merchants_revenue = delete_nils(revenue_per_merchant)
+    merchants_revenue.keep_if do |merchant_id, revenue|
+     merchants_revenue.values.sort[-x..-1].include?(revenue)
+    end
+    hash_to_array(merchants_revenue).map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end.reverse
+  end
 
 end
+    
+    
+
+  
+
+
+

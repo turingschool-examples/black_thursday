@@ -5,8 +5,8 @@ class InvoiceItemRepoTest < Minitest::Test
 
   def setup
     invoice_item_array = [
-    {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
-    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"}, 
+    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"}, 
     {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
     {:id=>"21832", :item_id=>"263519847", :invoice_id=>"4987", :quantity=>"13", :unit_price=>"13638", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
     {:id=>"21833", :item_id=>"263519848", :invoice_id=>"4988", :quantity=>"14", :unit_price=>"13639", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
@@ -34,14 +34,18 @@ class InvoiceItemRepoTest < Minitest::Test
     assert_equal nil, @invoice_item_repo.find_by_id(1234)
   end
   
-  def test_it_finds_all_invoices_by_item_id
+  def test_it_finds_all_invoices_items_by_item_id
     assert_equal [@invoice_item_repo.invoice_items[0], @invoice_item_repo.invoice_items[1]], @invoice_item_repo.find_all_by_item_id(263519844)
     assert_equal [], @invoice_item_repo.find_all_by_item_id(1234)
   end
   
-  def test_it_finds_all_invoices_by_invoice_id
+  def test_it_finds_all_invoices_items_by_invoice_id
     assert_equal [@invoice_item_repo.invoice_items[1], @invoice_item_repo.invoice_items[2]], @invoice_item_repo.find_all_by_invoice_id(4985)
     assert_equal [], @invoice_item_repo.find_all_by_invoice_id(1234)
+  end
+  
+  def test_it_finds_all_invoice_items_by_date
+    assert_equal [@invoice_item_repo.invoice_items[0], @invoice_item_repo.invoice_items[1]], @invoice_item_repo.find_all_by_date("2000-12-10")
   end
   
   def test_it_creates_invoice_item_with_attributes
@@ -84,6 +88,10 @@ class InvoiceItemRepoTest < Minitest::Test
     @invoice_item_repo.delete(21829)
     assert_equal nil, @invoice_item_repo.find_by_id(21829)
   end
-
-
+  
+  def test_finds_all_by_date
+    assert_equal [@invoice_item_repo.invoice_items[0], @invoice_item_repo.invoice_items[1]], @invoice_item_repo.find_all_by_date("2000-12-10")
+  end
+  
+  
 end
