@@ -130,43 +130,52 @@ class SalesAnalyst
 
     invoice_items = paid_invoices.map do |invoice|
       @invoice_item_repository.find_all_by_invoice_id(invoice.id)
-    end
+    end.flatten!
 
-    invoice_items.flatten!
     invoice_items.inject(0) do |sum, invoice|
       sum + (invoice.unit_price * invoice.quantity.to_i)
     end
   end
 
-  def top_revenue_earners(top_n=20)
+  def revenue_per_merchant
     merchant_revenue = {}
     merchant_ids.each do |merchant_id|
       merchant_revenue[merchant_id] = revenue_by_merchant(merchant_id)
     end
+    merchant_revenue
+  end
 
-    top_merchants = merchant_revenue.sort_by do |_merchant_id, revenue|
+  def sort_by_revenue(merchant_revenue)
+    merchant_revenue.sort_by do |_merchant_id, revenue|
       - revenue
     end
+  end
 
-    if !top_n.nil?
-      top_merchants = top_merchants[0...top_n]
-    else
-      top_merchants
-    end
-
-    top_merchants.map do |array|
+  def merchant_lookup(merchants)
+    merchants.map do |array|
       @merchant_repository.find_by_id(array[0])
     end
+  end
+
+  def top_revenue_earners(top_n = 20)
+    merchant_revenue = revenue_per_merchant
+    sorted_merchants = sort_by_revenue(merchant_revenue)
+    top_merchant_ids = sorted_merchants[0...top_n] unless top_n.nil?
+    top_merchant_ids = sorted_merchants if top_n.nil?
+    merchant_lookup(top_merchant_ids)
   end
 
   def merchants_ranked_by_revenue
     top_revenue_earners(nil)
   end
 
-  def merchants_with_pending_invoices
-    pending_invoices = @invoice_repository.all.reject do |invoice|
+  def pending_invoices
+    @invoice_repository.all.reject do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
+  end
+
+  def merchants_with_pending_invoices
     merchant_ids = pending_invoices.map(&:merchant_id)
     merchant_ids.uniq!
     merchant_ids.map do |merchant_id|
@@ -207,7 +216,7 @@ class SalesAnalyst
       @invoice_item_repository.find_all_by_invoice_id(invoice)
     end
     flat = items.flatten
-    grouped = flat.group_by(&:item_id)
+    flat.group_by(&:item_id)
   end
 
   def item_quantity_builder(items)
@@ -217,7 +226,25 @@ class SalesAnalyst
         sum + val.quantity.to_i
       end
     end
-    sorted = hash.sort_by { |_key, value| - value }
+    hash.sort_by { |_key, value| - value }
+  end
+
+  def item_revenue_builder(items)
+    hash = {}
+    items.each do |key, value|
+      hash[key] = value.inject(0) do |sum, val|
+        sum + (val.unit_price * val.quantity.to_i).round(2)
+      end
+    end
+    hash.sort_by { |_key, value| - value }
+  end
+
+  def winning_item_selector(sorted_merchants, max)
+    chunky_winners = sorted_merchants.reject { |array| array[1] < max }
+    flat_winners = chunky_winners.flatten
+    flat_winners = flat_winners.uniq
+    winners = flat_winners.map { |item| @item_repository.find_by_id(item) }
+    winners.compact
   end
 
   def most_sold_item_for_merchant(merchant_id)
@@ -225,35 +252,15 @@ class SalesAnalyst
     grouped = items_for_merchant(invoices)
     sorted = item_quantity_builder(grouped)
     max = sorted.first[1]
-    chunky_winners = sorted.reject { |array| array[1] < max }
-    flat_winners = chunky_winners.flatten
-    flat_winners = flat_winners.uniq
-    winners = flat_winners.map { |item| @item_repository.find_by_id(item) }
-    winners.compact
+    winning_item_selector(sorted, max)
   end
 
   def best_item_for_merchant(merchant_id)
-    invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
-    invoices = invoices.map(&:id)
-    invoices = invoices.select { |invoice| invoice_paid_in_full?(invoice) }
-    items = invoices.map do |invoice|
-      @invoice_item_repository.find_all_by_invoice_id(invoice)
-    end
-    flat = items.flatten
-    grouped = flat.group_by(&:item_id)
-    hash = {}
-    grouped.each do |key, value|
-      hash[key] = value.inject(0) do |sum, val|
-        sum + (val.unit_price * val.quantity.to_i).round(2)
-      end
-    end
-    sorted = hash.sort_by { |_key, value| - value }
+    invoices = invoices_for_merchant(merchant_id)
+    grouped = items_for_merchant(invoices)
+    sorted = item_revenue_builder(grouped)
     max = sorted.first[1]
-    chunky_winners = sorted.reject { |array| array[1] < max }
-    flat_winners = chunky_winners.flatten
-    flat_winners = flat_winners.uniq
-    winners = flat_winners.map { |item| @item_repository.find_by_id(item) }
-    winners.compact.first
+    winning_item_selector(sorted, max).first
   end
 
   def invoice_status(status)
@@ -286,7 +293,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    st_dev = @invoice_ana.average_invoices_per_day + invoice_per_day_standard_deviation
+    average = @invoice_ana.average_invoices_per_day
+    st_dev = average + invoice_per_day_standard_deviation
     day_counts = @invoice_ana.group_by_day
     day_counts.select { |_day, invoices| invoices.size > st_dev }.keys
   end
