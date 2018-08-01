@@ -275,18 +275,19 @@ class SalesAnalyst
   # helper to invoice_total
   def invoice_items_by_invoice_id(invoice_id)
     @sales_engine.invoice_items.all.find_all do |inv_item| 
-      inv_item.invoice_id == invoice_id 
+      inv_item.invoice_id == invoice_id
     end 
   end
   
-  def total_revenue_by_date
-    # invoice has .created_at date 
-    # 
+  def total_revenue_by_date(date)
+    invoice_items_by_date(date).inject(BigDecimal(0)) do |total, invoice_item|
+      total += (invoice_item.unit_price_to_dollars * invoice_item.quantity)
+    end 
   end
   
   def invoice_items_by_date(date)
     @sales_engine.invoice_items.all.find_all do |inv_item| 
-      inv_item.created_at == date  
+      inv_item.created_at.strftime("%F") == date.strftime("%F")
     end 
   end 
 end
