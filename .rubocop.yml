@@ -1,0 +1,14 @@
+rubocop:
+  config_file: .rubocop.yml
+
+# remove missing frozen string literal comments
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# remove missing top-level class documentation comments
+Style/Documentation:
+  Enabled: false
+
+# remove use underscores as a decimal mark & separate every 3 numbers with them
+Style/NumericLiterals:
+  Enabled: false
