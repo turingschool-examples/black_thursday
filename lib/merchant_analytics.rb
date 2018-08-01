@@ -102,6 +102,7 @@ module MerchantAnalytics
   # def most_sold_item_for_merchant(merchant_id)
   #   paid_invoices = pull_paid_invoices_per_merchant(merchant_id)
   #   paid_invoices = find_all_paid_invoice_items_by_id(paid_invoices)
+  #   sold_quantities = sold_invoice_item_quantities(paid_invoice_items)
   # end
 
   def pull_paid_invoices_per_merchant(merchant_id)
@@ -116,8 +117,14 @@ module MerchantAnalytics
     end.flatten
   end
 
-  # def find_item_quantity_sold_by_merchant()
 
+  def sold_invoice_item_quantities(paid_invoice_items) #merchants sold item quantities
+    sold_quantities = {}
+    paid_invoice_items.map do |item|
+      sold_quantities[item.item_id] = item.quantity
+    end
+    return sold_quantities
+  end
 
 
 
