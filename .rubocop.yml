@@ -1,2 +1,5 @@
 rubocop:
   config_file: .rubocop.yml
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
