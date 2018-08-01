@@ -22,7 +22,6 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    #@ii.unit_price_to_dollars
     assert_equal 6, @ii.id
     assert_equal 7, @ii.item_id
     assert_equal 8, @ii.invoice_id
@@ -31,6 +30,4 @@ class InvoiceItemTest < Minitest::Test
     assert_instance_of Time , @ii.created_at
     assert_instance_of Time, @ii.updated_at
   end
-
-
 end

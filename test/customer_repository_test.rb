@@ -25,6 +25,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_all
     assert_equal 10, @customer_repo.all.count
+    assert_equal Customer, @customer_repo.all[0].class
   end
 
   def test_find_by_id
@@ -36,10 +37,12 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_all_by_first_name
     assert_equal 2, @customer_repo.find_all_by_first_name("on").count
+    assert_equal Customer, @customer_repo.find_all_by_first_name("on")[0].class
   end
 
   def test_find_all_by_last_name
     assert_equal 5, @customer_repo.find_all_by_last_name("a").count
+    assert_equal Customer, @customer_repo.find_all_by_last_name("a")[0].class
   end
 
   def test_you_can_create_new_id

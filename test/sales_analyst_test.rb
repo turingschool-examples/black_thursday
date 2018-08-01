@@ -5,6 +5,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require 'time'
 
+
 class SalesAnalystTest < Minitest::Test 
   def setup 
     @sales_engine = SalesEngine.new({
@@ -21,7 +22,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_exists
     assert_instance_of SalesAnalyst, @sales_analyst
   end
-  
+
   def test_it_has_attributes
     assert_equal SalesEngine, @sales_analyst.sales_engine.class
     assert_equal ItemRepository, @sales_analyst.item_repository.class

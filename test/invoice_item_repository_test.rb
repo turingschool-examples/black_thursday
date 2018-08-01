@@ -25,30 +25,33 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_an_array_of_all_known_invoice_item_instances
     assert_equal 9, @iir.all.count
+    assert_equal InvoiceItem, @iir.all[0].class
   end
 
   def test_it_can_find_by_id
-    item_invoice = @iir.find_by_id(5)
-    assert_instance_of InvoiceItem, item_invoice
-    assert_equal 5, item_invoice.id
+    expected = @iir.find_by_id(5)
+    assert_instance_of InvoiceItem, expected
+    assert_equal 5, expected.id
   end
 
   def test_it_cannot_find_by_invalid_id
-    invoice = @iir.find_by_id(25)
-    assert_nil invoice
+    expected = @iir.find_by_id(25)
+    assert_nil expected
   end
   #
   def test_it_can_find_all_by_item_id
     assert_equal 3, @iir.find_all_by_item_id(263519844).count
+    assert_equal InvoiceItem,  @iir.find_all_by_item_id(263519844)[0].class
   end
 
   def test_it_can_find_all_by_invoice_id
     assert_equal 8, @iir.find_all_by_invoice_id(1).count
+    assert_equal InvoiceItem, @iir.find_all_by_invoice_id(1)[0].class
   end
 
   def test_it_can_create_new_id
-    new_invoice_item = @iir.create_id
-    assert_equal 10, new_invoice_item
+    expected = @iir.create_id
+    assert_equal 10, expected
   end
 
   def test_it_can_create_new_invoice_item
