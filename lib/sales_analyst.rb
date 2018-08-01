@@ -50,7 +50,6 @@ class SalesAnalyst
     prices_summed / @items.all.count
   end
 
-
   def all_average_prices
     average_prices = @merchants.all.map do |merchant|
       merchant_id = merchant.id
@@ -228,6 +227,7 @@ class SalesAnalyst
   def differences_from_average_price
     all_item_prices.map do |price|
       price.to_f - average_item_price
+    end
   end
 
   def bottom_merchants_by_invoice_count
@@ -384,6 +384,25 @@ class SalesAnalyst
     hash_to_array(merchants_revenue).map do |merchant_id|
       @merchants.find_by_id(merchant_id)
     end.reverse
+  end
+
+  def get_unsuccessful_invoices
+    invoices = @invoices.all
+    list = []
+    invoices.map do |invoice|
+      if !invoice_paid_in_full?(invoice.id)
+        list << invoice
+      end
+    end
+    list
+  end
+
+  def merchants_with_pending_invoices
+    invoices = get_unsuccessful_invoices
+    merchants =invoices.map do |invoice|
+        invoice = @merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+    merchants
   end
 
   def top_items_per_merchant(merchant_id)
