@@ -308,4 +308,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sa.merchants_with_only_one_item.count
     assert_equal Merchant, @sa.merchants_with_only_one_item.first.class
   end
+
+  def test_it_can_group_merchants_with_one_item_by_month_created_at
+    actual = @sa.merchants_with_only_one_item_registered_in_month("December")
+    assert_equal 1, actual.count
+    assert_equal Merchant, actual.first.class
+  end
 end
