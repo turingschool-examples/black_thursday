@@ -137,8 +137,18 @@ module MerchantAnalytics
     end
   end
 
+  def best_item_for_merchant(merchant_id)
+    paid_invoices = pull_paid_invoices_per_merchant(merchant_id)
+    total_revenue = revenue_by_merchant(merchant_id)
+  end
 
-
+  def sold_invoice_item_revenue(paid_invoice_items) #merchants sold item quantities
+    sold_quantities = {}
+    paid_invoice_items.map do |item|
+      sold_quantities[item.item_id] = item.quantity * item.unit_price
+    end
+    return sold_quantities
+  end
 
 
 
