@@ -264,14 +264,19 @@ class SalesAnalyst
   end
   
   def total_revenue_by_date(date)
-    items = @invoice_items.find_all_by_date(date)
-    totals = items.map do |invoice_item|
-      invoice_ids = invoice_item.invoice_id
-      invoice_total(invoice_ids).to_f
-    end
-    totals.inject(0) do |sum, total|
-      sum += total 
-    end
+   all_invoices = @invoices.invoices.find_all do |invoice|
+     invoice.created_at.to_s[0...10] == date.to_s[0...10]
+   end
+   invoice_ids = all_invoices.map do |invoice|
+     invoice.id
+   end
+   total_revenue(invoice_ids)
+  end
+
+  def total_revenue(invoice_ids)
+   invoice_ids.inject(0) do |total, invoice_id|
+     total += invoice_total(invoice_id.to_f)
+   end
   end
   
   def invoices_grouped_by_merchant
@@ -342,13 +347,20 @@ class SalesAnalyst
     end
     top_item(item_quantities)
   end
+   
+  def invoice_items_total_price(array)
+    invo_items = Hash.new(0)
+    array.map do |invoice_item|
+      total = (invoice_item.unit_price * invoice_item.quantity)
+      invo_items[invoice_item.item_id] += total
+    end
+    invo_items
+  end
   
+  def best_item_for_merchant(merchant_id)
+    invoice_items = top_items_per_merchant(merchant_id)
+    item_prices = invoice_items_total_price(invoice_items)
+    top_item(item_prices).first
+  end
   
 end
-    
-    
-
-  
-
-
-

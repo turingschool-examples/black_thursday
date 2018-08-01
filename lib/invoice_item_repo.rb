@@ -40,13 +40,6 @@ class InvoiceItemRepo
     end
   end
   
-  def find_all_by_date(date)
-    items = @invoice_items.find_all do |invoice_item|
-      invoice_item.created_at.to_s[0...10] == date.to_s[0...10]
-    end
-    items
-  end
-  
   def create(attributes)
     invoice_item_new = InvoiceItem.new(attributes)
     max_invoice_item_id = @invoice_items.max_by do |invoice_item|

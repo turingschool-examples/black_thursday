@@ -43,11 +43,7 @@ class InvoiceItemRepoTest < Minitest::Test
     assert_equal [@invoice_item_repo.invoice_items[1], @invoice_item_repo.invoice_items[2]], @invoice_item_repo.find_all_by_invoice_id(4985)
     assert_equal [], @invoice_item_repo.find_all_by_invoice_id(1234)
   end
-  
-  def test_it_finds_all_invoice_items_by_date
-    assert_equal [@invoice_item_repo.invoice_items[0], @invoice_item_repo.invoice_items[1]], @invoice_item_repo.find_all_by_date("2000-12-10")
-  end
-  
+    
   def test_it_creates_invoice_item_with_attributes
     refute_instance_of InvoiceItem, @invoice_item_repo.invoice_items[11]
     
@@ -87,10 +83,6 @@ class InvoiceItemRepoTest < Minitest::Test
     assert_equal 21829, @invoice_item_repo.invoice_items[0].id
     @invoice_item_repo.delete(21829)
     assert_equal nil, @invoice_item_repo.find_by_id(21829)
-  end
-  
-  def test_finds_all_by_date
-    assert_equal [@invoice_item_repo.invoice_items[0], @invoice_item_repo.invoice_items[1]], @invoice_item_repo.find_all_by_date("2000-12-10")
   end
   
   

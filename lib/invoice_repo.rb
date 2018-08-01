@@ -50,7 +50,7 @@ class InvoiceRepo
     end
     days
   end
-
+  
   def create(attributes)
     invoice_new = Invoice.new(attributes)
     max_invoice_id = @invoices.max_by do |invoice|
@@ -73,13 +73,6 @@ class InvoiceRepo
   def delete(id)
     invoice_to_delete = find_by_id(id)
     @invoices.delete(invoice_to_delete)
-  end
-  
-  def find_all_by_day(day)
-    days = @invoices.find_all do |invoice|
-      invoice.created_at.strftime('%A') == day.to_s
-    end
-    days
   end
   
   
