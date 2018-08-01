@@ -95,13 +95,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
       item_id: 7,
       invoice_id: 8,
       unit_price: BigDecimal.new(10.99, 4),
-      quantity: 1,
-      created_at: Time.now,
-      updated_at: Time.now
+      quantity: 1
       }
     new_item_added = @invoice_item_repository.create(attributes)
     expected = @invoice_item_repository.list[-1]
-    actual = new_item_added
+    actual = new_item_added.last
     assert_equal expected, actual
   end
 

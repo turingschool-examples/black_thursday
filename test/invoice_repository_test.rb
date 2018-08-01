@@ -79,12 +79,10 @@ class InvoiceRepositoryTest < Minitest::Test
     new_invoice_added = @invoice_repository.create({
         :customer_id => 7,
         :merchant_id => 8,
-        :status      => "pending",
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :status      => "pending"
       })
     expected = @invoice_repository.list[-1]
-    actual = new_invoice_added
+    actual = new_invoice_added.last
     assert_equal expected, actual
   end
 
@@ -95,11 +93,11 @@ class InvoiceRepositoryTest < Minitest::Test
         :status      => "pending"
       })
 
-    assert_equal @invoice_repository.list.last.customer_id, new_invoice_added.customer_id
+    assert_equal @invoice_repository.list.last.customer_id, new_invoice_added.last.customer_id
 
     @invoice_repository.update(4, {:status => "shipped"})
 
-    assert_equal "shipped", new_invoice_added.status
+    assert_equal "shipped", new_invoice_added.last.status
   end
 
   def test_it_can_delete_item

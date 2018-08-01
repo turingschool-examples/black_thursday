@@ -69,7 +69,7 @@ class CustomerRepositoryTest < Minitest::Test
       last_name: "McGee"
       })
     expected = @customer_repository.list[-1]
-    actual = new_customer_added
+    actual = new_customer_added.last
     assert_equal expected, actual
   end
 

@@ -86,7 +86,7 @@ class TransactionRepositoryTest < Minitest::Test
       result: "failed"
       })
     expected = @transaction_repository.list[-1]
-    actual = new_transaction_added
+    actual = new_transaction_added.last
     assert_equal expected, actual
   end
 

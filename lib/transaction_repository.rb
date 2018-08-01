@@ -24,12 +24,15 @@ class TransactionRepository
   end
 
   def create(attributes)
-    attributes[:id] = create_id
-    attributes[:created_at] = Time.now.to_s
-    attributes[:updated_at] = Time.now.to_s
-    created = Transaction.new(attributes)
-    @list << created
-    created
+    @list << Transaction.new({
+    id: create_id,
+    created_at: Time.now.to_s,
+    updated_at: Time.now.to_s,
+    invoice_id: attributes[:invoice_id],
+    credit_card_number: attributes[:credit_card_number],
+    credit_card_expiration_date: attributes[:credit_card_expiration_date],
+    result: attributes[:result]
+    })
   end
 
   def update(id, attributes)

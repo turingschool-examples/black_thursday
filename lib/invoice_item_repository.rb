@@ -18,12 +18,15 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    attributes[:id] = create_id
-    attributes[:created_at] = Time.now.to_s
-    attributes[:updated_at] = Time.now.to_s
-    created = InvoiceItem.new(attributes)
-    @list << created
-    created
+    @list << InvoiceItem.new({
+      id: create_id,
+      created_at: Time.now.to_s,
+      updated_at: Time.now.to_s,
+      item_id: attributes[:item_id],
+      invoice_id: attributes[:invoice_id],
+      unit_price: attributes[:unit_price],
+      quantity: attributes[:quantity]
+      })
   end
 
   def update(id, attributes)
