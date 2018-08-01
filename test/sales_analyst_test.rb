@@ -314,4 +314,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, actual.count
     assert_equal Merchant, actual.first.class
   end
+
+  def test_it_can_find_a_merchants_total_revenue_by_merchant_id
+    assert_equal 2780.91, @sa.revenue_by_merchant(1).to_f
+    assert_equal BigDecimal, @sa.revenue_by_merchant(1).class
+  end
 end
