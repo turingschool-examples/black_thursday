@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 require 'time'
+
 # ./lib/invoice
 class Invoice
   attr_reader :id,
@@ -7,7 +9,6 @@ class Invoice
               :merchant_id
   attr_accessor :status,
                 :updated_at
-
   @@max_id = 0
 
   def initialize(attributes)

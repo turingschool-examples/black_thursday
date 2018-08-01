@@ -1,4 +1,4 @@
-# frozen_string_literals: true
+# frozen_string_literal: true
 
 require 'bigdecimal'
 require_relative 'repository'
@@ -54,22 +54,21 @@ class ItemRepository
     all << child_class.create(attributes)
   end
 
-  def update(id, attributes)
+  def update(id, details)
     item = find_by_id(id)
     return nil if item.nil?
-    item.name = attributes[:name] unless attributes[:name].nil?
-    item.description = attributes[:description] unless attributes[:description].nil?
-    item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    item.name = details[:name] unless details[:name].nil?
+    item.description = details[:description] unless details[:description].nil?
+    item.unit_price = details[:unit_price] unless details[:unit_price].nil?
     item.updated_at = Time.now
   end
-# ----------------------------------------------------------------------
 
   def number_of_merchants
     group_item_by_merchant_id.keys.count
   end
 
   def group_item_by_merchant_id
-    @items.group_by { |item| item.merchant_id }
+    @items.group_by(&:merchant_id)
   end
 
   def average_items_per_merchant
@@ -77,25 +76,25 @@ class ItemRepository
   end
 
   def mean_item_price
-    total = @items.inject(0) {|sum, item| sum += item.unit_price }
+    total = @items.inject(0) { |sum, item| sum + item.unit_price }
     total / @items.count
   end
 
   def average_item_price_for_merchant(id)
-     grouped_hash = group_item_by_merchant_id
-     item_count = grouped_hash[id].size
-     item_value_total = grouped_hash[id].inject(BigDecimal.new(0)) do |total, item|
-       total += item.unit_price
-     end
-     average = (item_value_total / BigDecimal.new(item_count))
-     average.round(2)
+    grouped_hash = group_item_by_merchant_id
+    item_count = grouped_hash[id].size
+    item_value_total = grouped_hash[id].inject(BigDecimal(0)) do |total, item|
+      total + item.unit_price
+    end
+    average = (item_value_total / BigDecimal(item_count))
+    average.round(2)
   end
 
   def average_average_price_per_merchant
     grouped_hash = group_item_by_merchant_id
     merchant_count = grouped_hash.keys.size
-    sum = grouped_hash.inject(BigDecimal.new(0)) do |total, hash_array|
-      total += average_item_price_for_merchant(hash_array[0])
+    sum = grouped_hash.inject(BigDecimal(0)) do |total, hash_array|
+      total + average_item_price_for_merchant(hash_array[0])
     end
     average = sum / merchant_count
     average.round(2)

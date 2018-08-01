@@ -1,5 +1,7 @@
-# frozen_string_literals: true
+# frozen_string_literal: true
+
 require 'time'
+
 # ./lib/merchant.rb
 class Merchant
   attr_reader :id,

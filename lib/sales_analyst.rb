@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 require_relative 'item_analyst'
 require_relative 'invoice_analyst'
 
 require_relative 'math_helper'
 
+# ./lib/sales_analyst.rb
 class SalesAnalyst
   include MathHelper
   def initialize(merchant_repository,
@@ -38,7 +41,7 @@ class SalesAnalyst
     stdev = average_invoices_per_merchant_standard_deviation * 2
     merchant_invoices = @invoice_ana.group_invoices_by_merchant_id
 
-    merchant_invoices = merchant_invoices.find_all do |merchant, invoices|
+    merchant_invoices = merchant_invoices.find_all do |_merchant, invoices|
       invoices.size > (mean + stdev)
     end
 
@@ -46,12 +49,12 @@ class SalesAnalyst
     merchant_ids.map { |id| @merchant_repository.find_by_id(id) }
   end
 
-   def bottom_merchants_by_invoice_count
+  def bottom_merchants_by_invoice_count
     mean  = average_invoices_per_merchant
     stdev = average_invoices_per_merchant_standard_deviation * 2
     merchant_invoices = @invoice_ana.group_invoices_by_merchant_id
 
-    merchant_invoices = merchant_invoices.find_all do |merchant, invoices|
+    merchant_invoices = merchant_invoices.find_all do |_merchant, invoices|
       invoices.size < (mean - stdev)
     end
 
@@ -62,9 +65,9 @@ class SalesAnalyst
   def merchants_with_high_item_count
     stdev   = average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
-    merchant_items    = @item_repository.group_item_by_merchant_id
+    merchant_items = @item_repository.group_item_by_merchant_id
 
-    top_merchants   = []
+    top_merchants = []
     merchant_items.each do |merchant_id, items_array|
       if items_array.count > (stdev + average)
         top_merchants << @merchant_repository.find_by_id(merchant_id)
@@ -111,8 +114,8 @@ class SalesAnalyst
   end
 
   def get_invoices_for_date(date)
-     @invoice_repository.invoices.select do |invoice|
-       invoice.created_string == date.strftime("%F")
+    @invoice_repository.invoices.select do |invoice|
+      invoice.created_string == date.strftime('%F')
     end
   end
 
@@ -130,23 +133,22 @@ class SalesAnalyst
     end
 
     invoice_items.flatten!
-    revenue = invoice_items.inject(0) do |sum, invoice|
-      sum += (invoice.unit_price * invoice.quantity.to_i)
+    invoice_items.inject(0) do |sum, invoice|
+      sum + (invoice.unit_price * invoice.quantity.to_i)
     end
   end
 
   def top_revenue_earners(top_n=20)
-    merchant_ids = get_merchant_ids
     merchant_revenue = {}
     merchant_ids.each do |merchant_id|
       merchant_revenue[merchant_id] = revenue_by_merchant(merchant_id)
     end
 
-    top_merchants = merchant_revenue.sort_by do |merchant_id, revenue|
+    top_merchants = merchant_revenue.sort_by do |_merchant_id, revenue|
       - revenue
     end
 
-    if top_n != nil
+    if !top_n.nil?
       top_merchants = top_merchants[0...top_n]
     else
       top_merchants
@@ -165,21 +167,20 @@ class SalesAnalyst
     pending_invoices = @invoice_repository.all.reject do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
-    merchant_ids = pending_invoices.map {|invoice| invoice.merchant_id}
+    merchant_ids = pending_invoices.map(&:merchant_id)
     merchant_ids.uniq!
-    merchants = merchant_ids.map do |merchant_id|
+    merchant_ids.map do |merchant_id|
       @merchant_repository.find_by_id(merchant_id)
     end
   end
 
   def merchants_with_only_one_item
-    merchant_ids = @item_repository.all.group_by do |item|
-      item.merchant_id
-    end
-    single_ids = merchant_ids.select do |key, value|
+    merchant_ids = @item_repository.all.group_by(&:merchant_id)
+
+    single_ids = merchant_ids.select do |_key, value|
       value.length == 1
     end
-    merchants = single_ids.keys.map do |id|
+    single_ids.keys.map do |id|
       @merchant_repository.find_by_id(id)
     end
   end
@@ -187,59 +188,71 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month)
     merchants = merchants_with_only_one_item
     merchants.select do |merchant|
-      merchant.created_at.strftime("%B") == month
+      merchant.created_at.strftime('%B') == month
     end
   end
 
-  def get_merchant_ids
+  def merchant_ids
     @merchant_repository.all.map(&:id)
   end
 
-  def most_sold_item_for_merchant(merchant_id)
+  def invoices_for_merchant(merchant_id)
     invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
     invoices = invoices.map(&:id)
-    invoices = invoices.select {|invoice| invoice_paid_in_full?(invoice)}
+    invoices.select { |invoice| invoice_paid_in_full?(invoice) }
+  end
+
+  def items_for_merchant(invoices)
     items = invoices.map do |invoice|
       @invoice_item_repository.find_all_by_invoice_id(invoice)
     end
     flat = items.flatten
-    grouped = flat.group_by {|item| item.item_id}
+    grouped = flat.group_by(&:item_id)
+  end
+
+  def item_quantity_builder(items)
     hash = {}
-    grouped.each do |key, value|
+    items.each do |key, value|
       hash[key] = value.inject(0) do |sum, val|
-        sum += val.quantity.to_i
+        sum + val.quantity.to_i
       end
     end
-    sorted = hash.sort_by {|key, value| - value }
+    sorted = hash.sort_by { |_key, value| - value }
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoices = invoices_for_merchant(merchant_id)
+    grouped = items_for_merchant(invoices)
+    sorted = item_quantity_builder(grouped)
     max = sorted.first[1]
     chunky_winners = sorted.reject { |array| array[1] < max }
     flat_winners = chunky_winners.flatten
     flat_winners = flat_winners.uniq
-    winners = flat_winners.map {|item| @item_repository.find_by_id(item)}
+    winners = flat_winners.map { |item| @item_repository.find_by_id(item) }
     winners.compact
   end
 
   def best_item_for_merchant(merchant_id)
     invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
     invoices = invoices.map(&:id)
-    invoices = invoices.select {|invoice| invoice_paid_in_full?(invoice)}
+    invoices = invoices.select { |invoice| invoice_paid_in_full?(invoice) }
     items = invoices.map do |invoice|
       @invoice_item_repository.find_all_by_invoice_id(invoice)
     end
     flat = items.flatten
-    grouped = flat.group_by {|item| item.item_id}
+    grouped = flat.group_by(&:item_id)
     hash = {}
     grouped.each do |key, value|
       hash[key] = value.inject(0) do |sum, val|
-        sum += (val.unit_price * val.quantity.to_i).round(2)
+        sum + (val.unit_price * val.quantity.to_i).round(2)
       end
     end
-    sorted = hash.sort_by {|key, value| - value }
+    sorted = hash.sort_by { |_key, value| - value }
     max = sorted.first[1]
     chunky_winners = sorted.reject { |array| array[1] < max }
     flat_winners = chunky_winners.flatten
     flat_winners = flat_winners.uniq
-    winners = flat_winners.map {|item| @item_repository.find_by_id(item)}
+    winners = flat_winners.map { |item| @item_repository.find_by_id(item) }
     winners.compact.first
   end
 
@@ -260,21 +273,21 @@ class SalesAnalyst
   end
 
   def count_per_day
-    @invoice_ana.group_by_day.map { |day, invoices| invoices.count }
+    @invoice_ana.group_by_day.map { |_day, invoices| invoices.count }
   end
 
   def invoice_per_day_standard_deviation
     average = @invoice_ana.average_invoices_per_day
     abs_differences = count_per_day.map do |count|
-      ((count - average).abs) ** 2.0
+      (count - average).abs**2.0
     end
     total = abs_differences.inject(0, &:+)
-    (Math.sqrt(total / 6)).round(2)
+    Math.sqrt(total / 6).round(2)
   end
 
   def top_days_by_invoice_count
     st_dev = @invoice_ana.average_invoices_per_day + invoice_per_day_standard_deviation
     day_counts = @invoice_ana.group_by_day
-    day_counts.select { |_day, invoices | invoices.size > st_dev }.keys
+    day_counts.select { |_day, invoices| invoices.size > st_dev }.keys
   end
 end

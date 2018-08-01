@@ -1,4 +1,6 @@
-# Rename this module and filename
+# frozen_string_literal: true
+
+# ./lib/repository.rb
 module Repository
   def find_by_id(id)
     all.find { |each| each.id == id }
