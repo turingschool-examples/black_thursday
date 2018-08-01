@@ -4,49 +4,48 @@ require_relative './test_helper'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @items =
-      [{id: 1,
-      name: 'OneThing',
-      description:'a car thing that does stuff',
-      unit_price: 1500,
-      merchant_id: 1,
-      created_at: '2018-07-22',
-      updated_at: '2018-07-22'},
-      {id: 2,
-      name: 'TwoThing',
-      description:'a bike thing that does stuff',
-      unit_price: 1370,
-      merchant_id: 1,
-      created_at: '2018-07-22',
-      updated_at: '2018-07-22'},
-      {id: 3,
-      name: 'ThreeThing',
-      description:'a scooter thing that does stuff',
-      unit_price: 1500,
-      merchant_id: 2,
-      created_at: '2018-01-22',
-      updated_at: '2018-07-22'},
-      {id: 4,
-      name: 'FourThing',
-      description:'a skateboard thing that does stuff',
-      unit_price: 1300,
-      merchant_id: 2,
-      created_at: '2018-03-22',
-      updated_at: '2018-07-27'},
-      {id: 5,
-      name: 'FiveThing',
-      description:'a boat thing that does stuff',
-      unit_price: 1500,
-      merchant_id: 2,
-      created_at: '2018-02-23',
-      updated_at: '2018-06-22'},
-      {id: 6,
-      name: 'SixThing',
-      description:'a kayak thing that does stuff',
-      unit_price: 12400,
-      merchant_id: 3,
-      created_at: '2018-04-22',
-      updated_at: '2018-07-12'}]
+    @items = [{ id: 1,
+                name: 'OneThing',
+                description: 'a car thing that does stuff',
+                unit_price: 1500,
+                merchant_id: 1,
+                created_at: '2018-07-22',
+                updated_at: '2018-07-22' },
+              { id: 2,
+                name: 'TwoThing',
+                description: 'a bike thing that does stuff',
+                unit_price: 1370,
+                merchant_id: 1,
+                created_at: '2018-07-22',
+                updated_at: '2018-07-22' },
+              { id: 3,
+                name: 'ThreeThing',
+                description: 'a scooter thing that does stuff',
+                unit_price: 1500,
+                merchant_id: 2,
+                created_at: '2018-01-22',
+                updated_at: '2018-07-22' },
+              { id: 4,
+                name: 'FourThing',
+                description: 'a skateboard thing that does stuff',
+                unit_price: 1300,
+                merchant_id: 2,
+                created_at: '2018-03-22',
+                updated_at: '2018-07-27' },
+              { id: 5,
+                name: 'FiveThing',
+                description: 'a boat thing that does stuff',
+                unit_price: 1500,
+                merchant_id: 2,
+                created_at: '2018-02-23',
+                updated_at: '2018-06-22' },
+              { id: 6,
+                name: 'SixThing',
+                description: 'a kayak thing that does stuff',
+                unit_price: 12400,
+                merchant_id: 3,
+                created_at: '2018-04-22',
+                updated_at: '2018-07-12' }]
 
     @item_repository = ItemRepository.new(@items)
   end
@@ -91,44 +90,44 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_items_with_description
-    items_1 = @item_repository.find_all_with_description('bike')
-    items_2 = @item_repository.find_all_with_description('zzzz')
-    items_3 = @item_repository.find_all_with_description('stuff')
-    assert_equal 'a bike thing that does stuff', items_1.first.description
-    assert_equal ([]), items_2
-    assert_equal 'a car thing that does stuff', items_3.first.description
-    assert_equal 'a kayak thing that does stuff', items_3[-1].description
-    assert_equal 6, items_3.count
+    items_one = @item_repository.find_all_with_description('bike')
+    items_two = @item_repository.find_all_with_description('zzzz')
+    items_three = @item_repository.find_all_with_description('stuff')
+    assert_equal 'a bike thing that does stuff', items_one.first.description
+    assert_equal [], items_two
+    assert_equal 'a car thing that does stuff', items_three.first.description
+    assert_equal 'a kayak thing that does stuff', items_three[-1].description
+    assert_equal 6, items_three.count
   end
 
   def test_it_can_find_all_with_price
-    items_1 = @item_repository.find_all_by_price(13)
-    items_2 = @item_repository.find_all_by_price(99)
-    items_3 = @item_repository.find_all_by_price(15)
+    items_one = @item_repository.find_all_by_price(13)
+    items_two = @item_repository.find_all_by_price(99)
+    items_three = @item_repository.find_all_by_price(15)
 
-    assert_equal 13, items_1.first.unit_price.to_i
-    assert_equal ([]), items_2
-    assert_equal 3, items_3.count
+    assert_equal 13, items_one.first.unit_price.to_i
+    assert_equal [], items_two
+    assert_equal 3, items_three.count
   end
 
   def test_it_can_find_all_items_within_a_price_range
-    items_1 = @item_repository.find_all_by_price_in_range(0..13)
-    items_2 = @item_repository.find_all_by_price_in_range(98..99)
-    items_3 = @item_repository.find_all_by_price_in_range(0..125)
+    items_one = @item_repository.find_all_by_price_in_range(0..13)
+    items_two = @item_repository.find_all_by_price_in_range(98..99)
+    items_three = @item_repository.find_all_by_price_in_range(0..125)
 
-    assert_equal 13, items_1.first.unit_price.to_i
-    assert_equal ([]), items_2
-    assert_equal 6, items_3.count
+    assert_equal 13, items_one.first.unit_price.to_i
+    assert_equal [], items_two
+    assert_equal 6, items_three.count
   end
 
   def test_it_can_find_all_items_by_merchant_id
-    items_1 = @item_repository.find_all_by_merchant_id(1)
-    items_2 = @item_repository.find_all_by_merchant_id(99)
-    items_3 = @item_repository.find_all_by_merchant_id(2)
+    items_one = @item_repository.find_all_by_merchant_id(1)
+    items_two = @item_repository.find_all_by_merchant_id(99)
+    items_three = @item_repository.find_all_by_merchant_id(2)
 
-    assert_equal 15, items_1.first.unit_price.to_i
-    assert_equal ([]), items_2
-    assert_equal 3, items_3.count
+    assert_equal 15, items_one.first.unit_price.to_i
+    assert_equal [], items_two
+    assert_equal 3, items_three.count
   end
 
   def test_it_can_find_highest_id
@@ -142,41 +141,38 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_attributes
-    attributes =
-        {name: 'SevenThing',
-        description:'a moped thing that does stuff',
-        unit_price: 3500,
-        merchant_id: 1,
-        created_at: '2018-07-20',
-        updated_at: '2018-07-20'}
+    attributes = { name: 'SevenThing',
+                   description: 'a moped thing that does stuff',
+                   unit_price: 3500,
+                   merchant_id: 1,
+                   created_at: '2018-07-20',
+                   updated_at: '2018-07-20' }
     item = @item_repository.create(attributes)
     assert_equal 'SevenThing', item[-1].name
     assert_equal 7, item[-1].id
   end
 
   def test_it_can_update_item_attributes
-    attributes = {
-      name: 'ShinySixThing' ,
-      description: 'a new shiny kayak thing that does stuff',
-      unit_price: 20000,
-    }
+    attributes = { name: 'ShinySixThing',
+                   description: 'a new shiny kayak thing that does stuff',
+                   unit_price: 20000 }
     id = 6
-    item = @item_repository.update(id, attributes)
-    expected_1 = @item_repository.find_by_id(id)
-    assert_equal 'ShinySixThing', expected_1.name
-    assert_equal Time, expected_1.updated_at.class
-    expected_2 = @item_repository.find_by_name('SixThing')
-    assert_nil expected_2
+    @item_repository.update(id, attributes)
+    expected_one = @item_repository.find_by_id(id)
+    assert_equal 'ShinySixThing', expected_one.name
+    assert_equal Time, expected_one.updated_at.class
+    expected_two = @item_repository.find_by_name('SixThing')
+    assert_nil expected_two
   end
 
   def test_it_can_delete_an_item
     id = 4
 
-    item = @item_repository.delete(id)
-    expected_1 = @item_repository.find_by_name('FourThing')
-    expected_2 = @item_repository.find_by_id(id)
+    @item_repository.delete(id)
+    expected_one = @item_repository.find_by_name('FourThing')
+    expected_two = @item_repository.find_by_id(id)
 
-    assert_nil expected_1
-    assert_nil expected_2
+    assert_nil expected_one
+    assert_nil expected_two
   end
 end
