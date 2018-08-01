@@ -22,6 +22,3 @@ module Repository
 
 end
 
-
-
-Collapse 

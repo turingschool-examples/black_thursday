@@ -217,7 +217,6 @@ class SalesAnalyst
   end
   
   def average_invoices_per_day_standard_deviation
-    # standard_deviation(average_days_occurrence_array, average_invoices_per_day, days_array)
     array = average_days_occurrence_array
     average = average_invoices_per_day
     differences = differences_from_average(array, average)
