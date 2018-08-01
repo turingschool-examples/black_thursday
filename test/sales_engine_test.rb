@@ -20,10 +20,16 @@ require_relative '../lib/math_helper'
 
 class SalesEngineTest < Minitest::Test
 
+# We are effectively testing that our item builders are functional in the setup method
+# so is testing the builders individually necessary?
   def setup
     @sales_engine = SalesEngine.new
-
     @sales_engine.merchant_repository = @sales_engine.merchant_builder('./test/fixtures/merchants.csv')
+    @sales_engine.item_repository = @sales_engine.item_builder('./test/fixtures/items.csv')
+    @sales_engine.invoice_item_repository = @sales_engine.invoice_item_builder('./test/fixtures/invoice_items.csv')
+    @sales_engine.transaction_repository = @sales_engine.transaction_builder('./test/fixtures/transactions.csv')
+    @sales_engine.customer_repository = @sales_engine.customer_builder('./test/fixtures/customers.csv')
+    @sales_engine.invoice_repository = @sales_engine.invoice_builder('./test/fixtures/invoices.csv')
   end
 
   def test_it_exists
@@ -35,23 +41,23 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_an_item_repository
-skip
+    assert_instance_of ItemRepository, @sales_engine.item_repository
   end
 
   def test_it_can_return_an_invoice_item_repository
-skip
+    assert_instance_of InvoiceItemRepository, @sales_engine.invoice_item_repository
   end
 
   def test_it_can_return_a_transaction_repository
-skip
+    assert_instance_of TransactionRepository, @sales_engine.transaction_repository
   end
 
   def test_it_can_return_a_customer_repository
-skip
+    assert_instance_of CustomerRepository, @sales_engine.customer_repository
   end
 
   def test_it_can_return_an_invoice_repository
-    skip
+    assert_instance_of InvoiceRepository, @sales_engine.invoice_repository
   end
 
 end
