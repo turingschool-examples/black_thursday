@@ -94,8 +94,7 @@ class CustomerRepositoryTest < Minitest::Test
     attributes = {  first_name: 'Juan',
                     last_name: 'Don',
                     created_at: '2010-12-10',
-                    updated_at: '2011-12-04'
-                  }
+                    updated_at: '2011-12-04' }
     customer = @customer_repository.create(attributes)
     assert_equal 'Juan', customer.first_name
     assert_equal 'Don', customer.last_name
@@ -115,13 +114,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_customer
-    id = 2
+    customer_id = 2
+    @customer_repository.delete(customer_id)
+    expected_one = @customer_repository.find_all_by_first_name('John')
+    expected_two = @customer_repository.find_by_id(customer_id)
 
-    customer = @customer_repository.delete(id)
-    expected_1 = @customer_repository.find_all_by_first_name('John')
-    expected_2 = @customer_repository.find_by_id(id)
-
-    assert_equal [], expected_1
-    assert_nil expected_2
+    assert_equal [], expected_one
+    assert_nil expected_two
   end
 end
