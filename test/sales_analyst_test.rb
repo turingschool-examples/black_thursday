@@ -9,7 +9,7 @@ require_relative '../lib/sales_analyst'
 require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
-
+  
   def setup
     merchant_array = [
     {:id=>"12334105", :name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"},
@@ -52,35 +52,35 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4994, :customer_id=>"999", :merchant_id=>"12335541", :status=>"returned", :created_at=>"2009-10-15", :updated_at=>"2010-01-21"},
     {:id=>4995, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
     @invoice_repo = InvoiceRepo.new(invoice_array)
-
+    
     invoice_item_array = [
-    {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"},
-    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"},
-    {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
-    {:id=>"21832", :item_id=>"263519847", :invoice_id=>"4987", :quantity=>"13", :unit_price=>"13638", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
-    {:id=>"21833", :item_id=>"263519848", :invoice_id=>"4988", :quantity=>"14", :unit_price=>"13639", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
+    {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"}, 
+    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"}, 
+    {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21832", :item_id=>"263519847", :invoice_id=>"4987", :quantity=>"13", :unit_price=>"13638", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
+    {:id=>"21833", :item_id=>"263519848", :invoice_id=>"4988", :quantity=>"14", :unit_price=>"13639", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}, 
     {:id=>"21834", :item_id=>"263519849", :invoice_id=>"4989", :quantity=>"15", :unit_price=>"13630", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}]
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
-
-    transaction_array = [{:id=>"1", :invoice_id=>"2170", :credit_card_number=>"4068631943231473", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
-    {:id=>"2", :invoice_id=>"2179", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
-    {:id=>"3", :invoice_id=>"2178", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
+    
+    #ids still need to be adjusted to match data.
+    transaction_array = [{:id=>"1", :invoice_id=>"2170", :credit_card_number=>"4068631943231473", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"2", :invoice_id=>"2179", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
+    {:id=>"3", :invoice_id=>"2178", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}, 
     {:id=>"4", :invoice_id=>"2179", :credit_card_number=>"4068631943231475", :credit_card_expiration_date=>"0217", :result=>"failed", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}]
-
     @transaction_repo = TransactionRepo.new(transaction_array)
-
-    customer_array = [{:id=>"1", :first_name=>"Joan", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
-    {:id=>"2", :first_name=>"Joey", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
-    {:id=>"3", :first_name=>"Joey", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
-    {:id=>"4", :first_name=>"Joel", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
-    {:id=>"5", :first_name=>"Joel", :last_name=>"Funny", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
-    {:id=>"6", :first_name=>"Harry", :last_name=>"Clark", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
+    
+    customer_array = [{:id=>"1", :first_name=>"Joan", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"2", :first_name=>"Joey", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"3", :first_name=>"Joey", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"4", :first_name=>"Joel", :last_name=>"Hola", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"5", :first_name=>"Joel", :last_name=>"Funny", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
+    {:id=>"6", :first_name=>"Harry", :last_name=>"Clark", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"}, 
     {:id=>"7", :first_name=>"Marry", :last_name=>"House", :created_at=>"2012-03-27 14:54:09 UTC"}]
     @customer_repo = CustomerRepo.new(customer_array)
-
-    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo, @customer_repo)
+    
+    @analyst = SalesAnalyst.new(@mer_repo, @item_repo, @invoice_repo, @invoice_item_repo, @transaction_repo, @customer_repo) 
   end
-
+  
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @analyst
@@ -98,11 +98,15 @@ class SalesAnalystTest < Minitest::Test
   def test_it_calculates_average_items_per_merchant
     assert_equal 5.0, @analyst.average_items_per_merchant
   end
+  
+  def test_it_returns_top_items_per_merchant
+    assert_equal [], @analyst.top_items_per_merchant(12334105)
+  end
 
   def test_it_calculates_standard_deviation
     assert_equal 2.65, @analyst.average_items_per_merchant_standard_deviation
   end
-
+  
   def test_it_returns_merchants_with_high_item_count
     assert_equal [@mer_repo.merchants[2]], @analyst.merchants_with_high_item_count
   end
@@ -110,7 +114,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_calculates_average_item_price_for_merchant
     assert_equal BigDecimal(14.88,4), @analyst.average_item_price_for_merchant(12334113)
   end
-
+  
   def test_it_calculates_average_average_price_per_merchant
     assert_equal BigDecimal(14.88,4), @analyst.average_average_price_per_merchant
   end
@@ -148,16 +152,16 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_total_revenue_by_date
     assert_equal 0, @analyst.total_revenue_by_date("2000-12-10")
   end
-
-  def test_it_returns_top_revenue_eraners
+  
+  def test_it_returns_top_revenue_eraners 
     assert_equal [], @analyst.top_revenue_earners(x = 20)
   end
   
-  def test_it_returns_best_item_for_merchant
+  def test_returns_best_for_merchant
     assert_equal nil ,@analyst.best_item_for_merchant(12334105)
   end
   
-  def test_it_find_to_item
+  def test_it_finds_best_item_for_merchant
     hash = { 1234567891 => 5, 11121131415 => 15, 8906543219 => 25 }
     item = @item_repo.find_by_id(8906543219)
     assert_equal [item], @analyst.top_item(hash)
