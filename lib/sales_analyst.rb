@@ -3,12 +3,16 @@
 require 'bigdecimal'
 require_relative 'item_analyst'
 require_relative 'invoice_analyst'
-
 require_relative 'math_helper'
 
 # ./lib/sales_analyst.rb
 class SalesAnalyst
   include MathHelper
+  attr_reader :merchant_repository,
+              :item_repository,
+              :invoice_repository,
+              :transaction_repository,
+              :invoice_item_repository
   def initialize(merchant_repository,
                  item_repository,
                  invoice_repository,
