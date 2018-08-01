@@ -25,6 +25,12 @@ class InvoiceRepositoryTest < Minitest::Test
          updated_at: '2011-03-04' }]
 
     @invoice_repository = InvoiceRepository.new(@invoices)
+
+    @attributes = { customer_id: 27,
+                    merchant_id: 2772,
+                    status: 'shipping',
+                    created_at: '2010-12-10',
+                    updated_at: '2011-12-04' }
   end
 
   def test_it_exist
@@ -57,7 +63,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, invoices_one.first.customer_id
     assert_equal 2, invoices_two.first.customer_id
     assert_equal 2, invoices_two[-1].customer_id
-    assert_equal ([]), invoices_three
+    assert_equal [], invoices_three
   end
 
   def test_it_can_find_all_invoices_by_merchant_id
@@ -67,7 +73,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1111, invoices_one.first.merchant_id
     assert_equal 2222, invoices_two.first.merchant_id
     assert_equal 2222, invoices_two[-1].merchant_id
-    assert_equal ([]), invoices_three
+    assert_equal [], invoices_three
   end
 
   def test_it_can_find_all_invoices_by_status
@@ -77,7 +83,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal :shipped, invoices_one.first.status
     assert_equal :pending, invoices_two.first.status
     assert_equal :pending, invoices_two[-1].status
-    assert_equal ([]), invoices_three
+    assert_equal [], invoices_three
   end
 
   def test_it_can_create_new_id
@@ -86,13 +92,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_invoice
-    attributes = {  customer_id: 27,
-                    merchant_id: 2772,
-                    status: 'shipping',
-                    created_at: '2010-12-10',
-                    updated_at: '2011-12-04',
-                  }
-    invoice = @invoice_repository.create(attributes)
+    invoice = @invoice_repository.create(@attributes)
+
     assert_equal 4, invoice.id
     assert_equal 27, invoice.customer_id
     assert_equal 2772, invoice.merchant_id
@@ -111,13 +112,12 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Time, invoice.updated_at # maybe refactor later
     assert_equal 1111, expected.merchant_id
     expected = @invoice_repository.find_all_by_status('shipped')
-    assert_equal ([]), expected
+    assert_equal [], expected
   end
 
   def test_it_can_delete_invoice
     id = 2
-
-    invoice = @invoice_repository.delete(id)
+    @invoice_repository.delete(id)
     expected = @invoice_repository.find_by_id(2)
 
     assert_nil expected
