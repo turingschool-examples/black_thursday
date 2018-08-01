@@ -109,7 +109,7 @@ class InvoiceRepositoryTest < Minitest::Test
     id = 1
     invoice = @invoice_repository.update(id, attributes)
     expected = @invoice_repository.find_by_id(id)
-    assert_instance_of Time, invoice.updated_at # maybe refactor later
+    assert_instance_of Time, invoice.updated_at
     assert_equal 1111, expected.merchant_id
     expected = @invoice_repository.find_all_by_status('shipped')
     assert_equal [], expected
