@@ -51,33 +51,33 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_customer_id
-    invoices_1 = @invoice_repository.find_all_by_customer_id(1)
-    invoices_2 = @invoice_repository.find_all_by_customer_id(2)
-    invoices_3 = @invoice_repository.find_all_by_customer_id(3)
-    assert_equal 1, invoices_1.first.customer_id
-    assert_equal 2, invoices_2.first.customer_id
-    assert_equal 2, invoices_2[-1].customer_id
-    assert_equal ([]), invoices_3
+    invoices_one = @invoice_repository.find_all_by_customer_id(1)
+    invoices_two = @invoice_repository.find_all_by_customer_id(2)
+    invoices_three = @invoice_repository.find_all_by_customer_id(3)
+    assert_equal 1, invoices_one.first.customer_id
+    assert_equal 2, invoices_two.first.customer_id
+    assert_equal 2, invoices_two[-1].customer_id
+    assert_equal ([]), invoices_three
   end
 
   def test_it_can_find_all_invoices_by_merchant_id
-    invoices_1 = @invoice_repository.find_all_by_merchant_id(1111)
-    invoices_2 = @invoice_repository.find_all_by_merchant_id(2222)
-    invoices_3 = @invoice_repository.find_all_by_merchant_id(3333)
-    assert_equal 1111, invoices_1.first.merchant_id
-    assert_equal 2222, invoices_2.first.merchant_id
-    assert_equal 2222, invoices_2[-1].merchant_id
-    assert_equal ([]), invoices_3
+    invoices_one = @invoice_repository.find_all_by_merchant_id(1111)
+    invoices_two = @invoice_repository.find_all_by_merchant_id(2222)
+    invoices_three = @invoice_repository.find_all_by_merchant_id(3333)
+    assert_equal 1111, invoices_one.first.merchant_id
+    assert_equal 2222, invoices_two.first.merchant_id
+    assert_equal 2222, invoices_two[-1].merchant_id
+    assert_equal ([]), invoices_three
   end
 
   def test_it_can_find_all_invoices_by_status
-    invoices_1 = @invoice_repository.find_all_by_status('shipped')
-    invoices_2 = @invoice_repository.find_all_by_status('pending')
-    invoices_3 = @invoice_repository.find_all_by_status('status DNE')
-    assert_equal :shipped, invoices_1.first.status
-    assert_equal :pending, invoices_2.first.status
-    assert_equal :pending, invoices_2[-1].status
-    assert_equal ([]), invoices_3
+    invoices_one = @invoice_repository.find_all_by_status('shipped')
+    invoices_two = @invoice_repository.find_all_by_status('pending')
+    invoices_three = @invoice_repository.find_all_by_status('status DNE')
+    assert_equal :shipped, invoices_one.first.status
+    assert_equal :pending, invoices_two.first.status
+    assert_equal :pending, invoices_two[-1].status
+    assert_equal ([]), invoices_three
   end
 
   def test_it_can_create_new_id
