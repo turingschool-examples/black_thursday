@@ -2,20 +2,15 @@ require_relative './test_helper'
 require './lib/item'
 require 'bigdecimal'
 
-
 class ItemTest < Minitest::Test
-
   def setup
-    @info = {
-      id:          1,
-      name:        "Pencil",
-      description: "You can use it to write things",
-      unit_price:  "1200",
-      created_at:  Time.now,
-      updated_at:  Time.now,
-      merchant_id: 2
-    }
-
+    @info = { id: 1,
+              name: 'Pencil',
+              description: 'You can use it to write things',
+              unit_price: '1200',
+              created_at: Time.now,
+              updated_at: Time.now,
+              merchant_id: 2 }
   end
 
   def test_it_exists
@@ -28,8 +23,8 @@ class ItemTest < Minitest::Test
     item = Item.new(@info)
 
     assert_equal 1, item.id
-    assert_equal "Pencil", item.name
-    assert_equal "You can use it to write things", item.description
+    assert_equal 'Pencil', item.name
+    assert_equal 'You can use it to write things', item.description
     assert_equal 12, item.unit_price.to_i
     assert_equal Time, item.created_at.class
     assert_equal Time, item.updated_at.class
@@ -41,6 +36,4 @@ class ItemTest < Minitest::Test
 
     assert_equal 12.00, item.unit_price_to_dollars
   end
-
-
 end
