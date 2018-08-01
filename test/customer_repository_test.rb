@@ -106,7 +106,7 @@ class CustomerRepositoryTest < Minitest::Test
       first_name: 'Greg'
     }
     id = 2
-    customer = @customer_repository.update(id, attributes)
+    @customer_repository.update(id, attributes)
     expected = @customer_repository.find_by_id(id)
     assert_equal 'Greg', expected.first_name
     expected = @customer_repository.find_all_by_first_name('John')
