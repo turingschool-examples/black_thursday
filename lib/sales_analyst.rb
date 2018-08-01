@@ -234,15 +234,4 @@ class SalesAnalyst
       hash.merge(invoice.created_at.wday => hash[invoice.created_at.wday] + 1)
     end
   end
-
-  def invoice_paid_in_full?(invoice_id)
-  return false if @sales_engine.transactions.find_all_by_invoice_id(invoice_id) == []
-   invoice = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
-   invoice.all? do |invoice|
-     invoice.result == :success
-   end
- end
-
-
-
 end
