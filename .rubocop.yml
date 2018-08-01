@@ -1,5 +1,10 @@
 rubocop:
   config_file: .rubocop.yml
 
+# remove missing frozen string literal comments
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# remove missing top-level class documentation comments
+Style/Documentation:
   Enabled: false
