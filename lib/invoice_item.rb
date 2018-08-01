@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 require 'time'
+
+# ./lib/invoice_item.rb
 class InvoiceItem
   attr_reader   :id,
                 :item_id,
@@ -41,5 +45,4 @@ class InvoiceItem
         created_at: attributes[:created_at].to_s,
         updated_at: attributes[:updated_at].to_s)
   end
-
 end

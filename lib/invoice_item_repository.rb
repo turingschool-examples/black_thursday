@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require_relative 'repository'
 require_relative 'invoice_item'
 
+# ./invoice_item_repository.rb
 class InvoiceItemRepository
   include Repository
 
@@ -40,18 +43,15 @@ class InvoiceItemRepository
     end
   end
 
-  def update(id, attributes)
+  def update(id, details)
     item = find_by_id(id)
     return nil if item.nil?
-    item.quantity = attributes[:quantity] unless attributes[:quantity].nil?
-    item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    item.quantity = details[:quantity] unless details[:quantity].nil?
+    item.unit_price = details[:unit_price] unless details[:unit_price].nil?
     item.updated_at = Time.now
   end
-  
+
   def group_by_day
-    @invoice_items.group_by do |invoice|
-      binding.pry
-      invoice.created_at
-    end
+    @invoice_items.group_by(&:created_at)
   end
 end

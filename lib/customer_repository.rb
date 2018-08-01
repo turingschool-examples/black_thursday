@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require_relative 'repository'
 require_relative 'customer'
 
+# ./lib/customer_repository
 class CustomerRepository
   include Repository
 
@@ -40,12 +43,11 @@ class CustomerRepository
     end
   end
 
-  def update(id, attributes)
+  def update(id, details)
     customer = find_by_id(id)
     return nil if customer.nil?
-    customer.first_name = attributes[:first_name] unless attributes[:first_name].nil?
-    customer.last_name = attributes[:last_name] unless attributes[:last_name].nil?
+    customer.first_name = details[:first_name] unless details[:first_name].nil?
+    customer.last_name = details[:last_name] unless details[:last_name].nil?
     customer.updated_at = Time.now
   end
-
 end

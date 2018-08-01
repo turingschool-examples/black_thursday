@@ -14,6 +14,7 @@ require_relative './customer_repository'
 require_relative './customer'
 require_relative './invoice'
 require_relative './invoice_repository'
+
 # ./lib/sales_engine
 class SalesEngine
   attr_accessor :merchant_repository,
@@ -33,14 +34,14 @@ class SalesEngine
   end
 
   def self.from_csv(data)
-    sales_engine = SalesEngine.new
-    sales_engine.merchant_repository = sales_engine.merchant_builder(data[:merchants])
-    sales_engine.item_repository = sales_engine.item_builder(data[:items])
-    sales_engine.invoice_item_repository = sales_engine.invoice_item_builder(data[:invoice_items])
-    sales_engine.transaction_repository = sales_engine.transaction_builder(data[:transactions])
-    sales_engine.customer_repository = sales_engine.customer_builder(data[:customers])
-    sales_engine.invoice_repository = sales_engine.invoice_builder(data[:invoices])
-    sales_engine
+    se = SalesEngine.new
+    se.merchant_repository = se.merchant_builder(data[:merchants])
+    se.item_repository = se.item_builder(data[:items])
+    se.invoice_item_repository = se.invoice_item_builder(data[:invoice_items])
+    se.transaction_repository = se.transaction_builder(data[:transactions])
+    se.customer_repository = se.customer_builder(data[:customers])
+    se.invoice_repository = se.invoice_builder(data[:invoices])
+    se
   end
 
   def merchants
@@ -122,12 +123,12 @@ class SalesEngine
     array = csv_reader(item_data)
     array.each do |transaction|
       transaction_repository.create_with_id(id: transaction[0],
-                                             invoice_id: transaction[1],
-                                             credit_card_number: transaction[2],
-                                             credit_card_expiration_date: transaction[3],
-                                             result: transaction[4],
-                                             created_at: transaction[5],
-                                             updated_at: transaction[6])
+                                            invoice_id: transaction[1],
+                                            credit_card_number: transaction[2],
+                                            credit_card_expiration_date: transaction[3],
+                                            result: transaction[4],
+                                            created_at: transaction[5],
+                                            updated_at: transaction[6])
     end
     transaction_repository
   end
@@ -147,7 +148,6 @@ class SalesEngine
 
   def invoice_builder(invoice_data)
     invoice_repository = InvoiceRepository.new
-    array = []
     array = csv_reader(invoice_data)
     array.each do |invoice|
       invoice_repository.create(id: invoice[0],
@@ -167,5 +167,4 @@ class SalesEngine
                      @transaction_repository,
                      @invoice_item_repository)
   end
-
 end
