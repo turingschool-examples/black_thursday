@@ -1,28 +1,28 @@
-require_relative '../lib/invoice_repository'
-require_relative '../lib/invoice'
 require_relative './test_helper'
+require './lib/invoice_repository'
+require './lib/invoice'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
     @invoices =
-      [{id: 1,
-      customer_id: 1,
-      merchant_id: 1111,
-      status: 'shipped',
-      created_at: '2010-11-10',
-      updated_at: '2011-11-04'},
-      {id: 2,
-      customer_id: 2,
-      merchant_id: 2222,
-      status: 'pending',
-      created_at: '2013-12-10',
-      updated_at: '2013-12-04'},
-      {id: 3,
-      customer_id: 2,
-      merchant_id: 2222,
-      status: 'pending',
-      created_at: '2010-03-10',
-      updated_at: '2011-03-04'}]
+      [{ id: 1,
+         customer_id: 1,
+         merchant_id: 1111,
+         status: 'shipped',
+         created_at: '2010-11-10',
+         updated_at: '2011-11-04' },
+       { id: 2,
+         customer_id: 2,
+         merchant_id: 2222,
+         status: 'pending',
+         created_at: '2013-12-10',
+         updated_at: '2013-12-04' },
+       { id: 3,
+         customer_id: 2,
+         merchant_id: 2222,
+         status: 'pending',
+         created_at: '2010-03-10',
+         updated_at: '2011-03-04' }]
 
     @invoice_repository = InvoiceRepository.new(@invoices)
   end
