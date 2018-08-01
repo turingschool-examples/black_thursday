@@ -104,4 +104,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, result
   end
 
+  def test_we_can_get_the_top_revenue_earners
+    merchant_1 = @sales_analyst.merchant_repository.all[0]
+    merchant_2 = @sales_analyst.merchant_repository.all[1]
+    expected = [merchant_1, merchant_2]
+    result = @sales_analyst.top_revenue_earners(2)
+    assert_equal expected, result
+  end
+
+  def test_we_can_find_merchants_with_pending_invoices
+    merchant_1 = @sales_analyst.merchant_repository.all[2]
+    expected = [merchant_1]
+    result = @sales_analyst.merchants_with_pending_invoices
+    assert_equal expected, [result[0]]
+  end
+
+  def test_we_can_get_merchants_with_only_one_item
+    merchant = nil
+    expected = []
+    result = @sales_analyst.merchants_with_only_one_item
+    assert_equal expected, result
+  end
+
 end
