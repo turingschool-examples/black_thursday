@@ -97,6 +97,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_counts_number_of_merchants
+    skip
     expected = 3
     actual = @invoice_repository.number_of_merchants
 
@@ -104,6 +105,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_groups_invoices_by_merchant
+    skip
     expected = {12_335_938 => [@invoice1, @invoice2],
                 12_335_955 => [@invoice3],
                 12_334_269 => [@invoice4]}
@@ -113,6 +115,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_calculates_average_invoices_per_merchant
+    skip
     expected = 1.33
     actual = @invoice_repository.average_invoices_per_merchant
 
@@ -120,6 +123,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_groups_by_day
+    skip
     expected = [@invoice2]
     actual = @invoice_repository.group_by_day['Friday']
 
@@ -127,6 +131,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_average_invoices_per_day
+    skip
     expected = 0.57
     actual = @invoice_repository.average_invoices_per_day
 
@@ -134,10 +139,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_calculates_percentage_by_status
+    skip
     expected = 50.0
     actual = @invoice_repository.invoice_status(:shipped)
 
     assert_equal expected, actual
   end
 end
-

@@ -129,7 +129,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_we_can_get_merchant_ids
     expected = [12334105, 12334112, 12334113, 12334115, 12334123, 99999999]
-    result = @sales_analyst.get_merchant_ids
+    result = @sales_analyst.merchant_ids
     assert_equal expected, result
   end
 
@@ -163,6 +163,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, result
   end
 
-  def 
-
+  def test_top_merchants_by_invoice_count
+    expected = []
+    result = @sales_analyst.top_merchants_by_invoice_count
+    assert_equal expected, result
+  end
 end
