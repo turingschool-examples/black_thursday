@@ -53,23 +53,23 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_item_id
-    invoice_item_1 = @iir.find_all_by_item_id(263519841)
-    invoice_item_2 = @iir.find_all_by_item_id(263519842)
-    invoice_item_3 = @iir.find_all_by_item_id(263519847)
-    assert_equal 263519841, invoice_item_1.first.item_id
-    assert_equal 263519842, invoice_item_2.first.item_id
-    assert_equal 263519842, invoice_item_2[-1].item_id
-    assert_equal ([]), invoice_item_3
+    invoice_item_one = @iir.find_all_by_item_id(263519841)
+    invoice_item_two = @iir.find_all_by_item_id(263519842)
+    invoice_item_three = @iir.find_all_by_item_id(263519847)
+    assert_equal 263519841, invoice_item_one.first.item_id
+    assert_equal 263519842, invoice_item_two.first.item_id
+    assert_equal 263519842, invoice_item_two[-1].item_id
+    assert_equal [], invoice_item_three
   end
 
   def test_it_can_find_all_invoice_items_by_invoice_id
-    invoice_items_1 = @iir.find_all_by_invoice_id(1)
-    invoice_items_2 = @iir.find_all_by_invoice_id(2)
-    invoice_items_3 = @iir.find_all_by_invoice_id(5)
-    assert_equal 1, invoice_items_1.first.invoice_id
-    assert_equal 2, invoice_items_2.first.invoice_id
-    assert_equal 2, invoice_items_2[-1].invoice_id
-    assert_equal ([]), invoice_items_3
+    invoice_items_one = @iir.find_all_by_invoice_id(1)
+    invoice_items_two = @iir.find_all_by_invoice_id(2)
+    invoice_items_three = @iir.find_all_by_invoice_id(5)
+    assert_equal 1, invoice_items_one.first.invoice_id
+    assert_equal 2, invoice_items_two.first.invoice_id
+    assert_equal 2, invoice_items_two[-1].invoice_id
+    assert_equal [], invoice_items_three
   end
 
   def test_it_can_create_new_id
