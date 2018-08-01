@@ -316,7 +316,34 @@ class SalesAnalyst
       @merchants.find_by_id(merchant_id)
     end.reverse
   end
-
+  
+  def top_items_per_merchant(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
+    invoices.map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+  end
+  
+  def top_item(hash)
+    max_item_value = hash.values.max
+    hash.keep_if do | key, value|
+      value == max_item_value
+    end
+    hash.keys.map do |item_id|
+      @items.find_by_id(item_id)
+    end
+  end
+  
+  def most_sold_item_for_merchant(merchant_id)
+    item_quantities = Hash.new(0)
+    top_items_per_merchant(merchant_id).map do |invoice_item|
+      item_quantities[invoice_item.item_id] += invoice_item.quantity
+    end
+    top_item(item_quantities)
+  end
+  
+  
 end
     
     

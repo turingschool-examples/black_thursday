@@ -154,3 +154,31 @@ class SalesAnalystTest < Minitest::Test
   end
   
 end
+
+
+
+def most_sold_item_for_merchant(merchant_id)
+    item_quantities = Hash.new(0)
+    successful_items_per_merchant_id(merchant_id).map do |invoice_item|
+      item_quantities[invoice_item.item_id] += invoice_item.quantity
+    end
+    high_item_from_ids_with_values(item_quantities)
+  end
+
+  # def successful_items_per_merchant_id(merchant_id)
+  #   all_invoices = @sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+  #   all_invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
+  #   all_invoices.map do |invoice|
+  #     @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+  #   end.flatten
+  # end
+
+  # def high_item_from_ids_with_values(hash)
+  #   high_item_value = hash.values.max
+  #   hash.keep_if do | key, value|
+  #     value == high_item_value
+  #   end
+  #   hash.keys.map do |item_id|
+  #     @sales_engine.items.find_by_id(item_id)
+  #   end
+  # end
