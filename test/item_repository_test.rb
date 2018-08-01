@@ -29,6 +29,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_all_array
     assert_equal 4, @item_repo.all.count
+    assert_equal Item, @item_repo.all[0].class
   end
 
   def test_can_find_by_id
