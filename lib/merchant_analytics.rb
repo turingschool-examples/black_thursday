@@ -101,7 +101,7 @@ module MerchantAnalytics
 
   def most_sold_item_for_merchant(merchant_id)
     paid_invoices = pull_paid_invoices_per_merchant(merchant_id)
-    paid_invoices = find_all_paid_invoice_items_by_id(paid_invoices)
+    paid_invoice_items = find_all_paid_invoice_items_by_id(paid_invoices)
     sold_quantities = sold_invoice_item_quantities(paid_invoice_items)
     top_selling_item_by_quantity(sold_quantities)
   end
@@ -136,6 +136,8 @@ module MerchantAnalytics
     top_items
     end
   end
+
+
 
 
 
