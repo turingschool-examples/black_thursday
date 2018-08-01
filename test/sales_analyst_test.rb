@@ -259,6 +259,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_the_top_number_of_revenue_earners
     assert_equal 2, @sa.top_revenue_earners(2).count
+    assert_equal Merchant, @sa.top_revenue_earners(2).first.class
+    assert_equal 3, @sa.top_revenue_earners(2).first.id
+    assert_equal 2, @sa.top_revenue_earners(2).last.id
   end
 
   # def test_can_get_invoice_ids
@@ -290,6 +293,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [merchant_1, merchant_2], @sa.merchants_with_pending_invoices
     assert_equal Merchant, @sa.merchants_with_pending_invoices.first.class
     assert_equal 2, @sa.merchants_with_pending_invoices.count
+  end
+
+  def test_it_ranks_merchants_by_revenue
+    assert_equal Merchant, @sa.merchants_ranked_by_revenue.first.class
+    assert_equal 3, @sa.merchants_ranked_by_revenue.first.id
   end
 
 end
