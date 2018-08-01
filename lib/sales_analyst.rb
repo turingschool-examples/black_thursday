@@ -326,11 +326,7 @@ class SalesAnalyst
       total += (invoice.quantity * invoice.unit_price)
     end
   end
-<<<<<<< HEAD
 
-
-=======
-  
   def total_revenue_by_date(date)
    all_invoices = @invoices.invoices.find_all do |invoice|
      invoice.created_at.to_s[0...10] == date.to_s[0...10]
@@ -346,14 +342,14 @@ class SalesAnalyst
      total += invoice_total(invoice_id.to_f)
    end
   end
-  
+
   def invoices_grouped_by_merchant
     @invoices.invoices.group_by do |invoice|
-      invoice.merchant_id 
-    end 
+      invoice.merchant_id
+    end
   end
-  
-  def revenue_per_merchant 
+
+  def revenue_per_merchant
     merchants = {}
     invoices_grouped_by_merchant.each do |merchant_id, invoices|
       merchants[merchant_id] = invoices.map do |invoice|
@@ -362,7 +358,7 @@ class SalesAnalyst
     end
     merchants
   end
-  
+
   def hash_to_array(hash)
   values_sorted = hash.values.sort
   value_array = []
@@ -373,13 +369,13 @@ class SalesAnalyst
   end
   value_array.uniq
   end
-  
+
   def delete_nils(hash)
     hash.delete_if do |key, value|
       value.nil?
-    end 
-  end 
-  
+    end
+  end
+
   def top_revenue_earners(x = 20)
     merchants_revenue = delete_nils(revenue_per_merchant)
     merchants_revenue.keep_if do |merchant_id, revenue|
@@ -389,7 +385,7 @@ class SalesAnalyst
       @merchants.find_by_id(merchant_id)
     end.reverse
   end
-  
+
   def top_items_per_merchant(merchant_id)
     invoices = @invoices.find_all_by_merchant_id(merchant_id)
     invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
@@ -397,7 +393,7 @@ class SalesAnalyst
       @invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
   end
-  
+
   def top_item(hash)
     max_item_value = hash.values.max
     hash.keep_if do | key, value|
@@ -407,7 +403,7 @@ class SalesAnalyst
       @items.find_by_id(item_id)
     end
   end
-  
+
   def most_sold_item_for_merchant(merchant_id)
     item_quantities = Hash.new(0)
     top_items_per_merchant(merchant_id).map do |invoice_item|
@@ -415,7 +411,7 @@ class SalesAnalyst
     end
     top_item(item_quantities)
   end
-   
+
   def invoice_items_total_price(array)
     invo_items = Hash.new(0)
     array.map do |invoice_item|
@@ -424,12 +420,11 @@ class SalesAnalyst
     end
     invo_items
   end
-  
+
   def best_item_for_merchant(merchant_id)
     invoice_items = top_items_per_merchant(merchant_id)
     item_prices = invoice_items_total_price(invoice_items)
     top_item(item_prices).first
   end
-  
->>>>>>> 998c1354c664dff50d8100bf5ec41ea0df852c86
+
 end

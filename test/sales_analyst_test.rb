@@ -153,6 +153,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [@mer_repo.merchants[0], @mer_repo.merchants[1]], @analyst.top_revenue_earners(x = 20)
   end
 
-
->>>>>>> 998c1354c664dff50d8100bf5ec41ea0df852c86
 end
