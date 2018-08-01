@@ -8,3 +8,7 @@ Style/FrozenStringLiteralComment:
 # remove missing top-level class documentation comments
 Style/Documentation:
   Enabled: false
+
+# remove use underscores as a decimal mark & separate every 3 numbers with them
+Style/NumericLiterals:
+  Enabled: false
