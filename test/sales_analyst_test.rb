@@ -356,6 +356,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ({7=>4, 9=>6}), @sa.sold_invoice_item_quantities(paid_invoice_items)
   end
 
+
   def test_it_can_find_a_merchants_best_selling_item_by_quantity
     paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
     paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
@@ -369,16 +370,26 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_a_merchants_best_selling_item_by_revenue
-    skip
-    assert_equal [], @sa.best_item_for_merchant(4)
+    # assert_equal [], @sa.best_item_for_merchant(4)
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+    revenues = @sa.sold_invoice_item_revenues(paid_invoice_items)
+
+    assert_equal Array, @sa.top_selling_item_by_revenue(revenues).class
+    assert_equal Item, @sa.top_selling_item_by_revenue(revenues).first.class
+    assert_equal "SevenThing", @sa.top_selling_item_by_revenue(revenues).first.name
+    assert_equal 1, @sa.top_selling_item_by_revenue(revenues).count
+    #=> [#<Item:0xXXXXXX @id=7, @name="SevenThing", @description="a longboard thing that does stuff", @unit_price=#<BigDecimal:7f970113e9e0,'0.15E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]
   end
 
-  def test_it_can_find_sold_invoice_item_revenue_received_by_merchant
+
+  def test_it_can_find_invoice_item_revenues_received_by_merchant
     paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
     paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
 
-    assert_equal 2, @sa.sold_invoice_item_quantities(paid_invoice_items).count
-    assert_equal [7, 9], @sa.sold_invoice_item_revenue(paid_invoice_items).keys
+    assert_equal 2, @sa.sold_invoice_item_revenues(paid_invoice_items).count
+    assert_equal [7,9], @sa.sold_invoice_item_revenues(paid_invoice_items).keys
+    #=> {7=>#<BigDecimal:7fed0f8d9678,'0.266988E4',18(36)>, 9=>#<BigDecimal:7fed0f8d95b0,'0.179838E4',18(36)>}
   end
 
   def test_it_can_find_a_merchants_best_selling_item_by_price
@@ -392,4 +403,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sa.top_selling_item_by_revenue(revenues).count
     #=> [#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff", @unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]
   end
+
+
 end
