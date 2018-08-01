@@ -320,6 +320,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_a_merchants_most_sold_item #=> [item]
+    assert_equal Array, @sa.most_sold_item_for_merchant(4).class
+    assert_equal Item, @sa.most_sold_item_for_merchant(4).first.class
     assert_equal "NineThing", @sa.most_sold_item_for_merchant(4).first.name
     assert_equal 1, @sa.most_sold_item_for_merchant(4).count
   end
@@ -359,11 +361,24 @@ class SalesAnalystTest < Minitest::Test
     paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
     sold_quantities = @sa.sold_invoice_item_quantities(paid_invoice_items)
 
+    assert_equal Array, @sa.top_selling_item_by_quantity(sold_quantities).class
+    assert_equal Item, @sa.top_selling_item_by_quantity(sold_quantities).first.class
     assert_equal "NineThing", @sa.top_selling_item_by_quantity(sold_quantities).first.name
     assert_equal 1, @sa.top_selling_item_by_quantity(sold_quantities).count
     #=> [#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff", @unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]
   end
 
-  # def test_it_can_find
+  def test_it_can_find_a_merchants_best_selling_item_by_revenue
+    skip
+    assert_equal [], @sa.best_item_for_merchant(4)
 
+  end
+
+  def test_it_can_find_sold_invoice_item_revenue_received_by_merchant
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+
+    assert_equal 2, @sa.sold_invoice_item_quantities(paid_invoice_items).count
+    assert_equal [7, 9], @sa.sold_invoice_item_revenue(paid_invoice_items).keys
+  end
 end
