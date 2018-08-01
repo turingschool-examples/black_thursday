@@ -137,19 +137,28 @@ module MerchantAnalytics
     end
   end
 
+  def top_selling_item_by_revenue(sold_revenues)
+    max_item_revenue = sold_revenues.values.max
+    sold_revenues.keep_if do |item_id, revenue|
+      revenue == max_item_revenue
+    end
+    sold_revenues.keys.map do |item_id|
+      @sales_engine.items.find_by_id(item_id)
+    end
+  end
+
   def best_item_for_merchant(merchant_id)
     paid_invoices = pull_paid_invoices_per_merchant(merchant_id)
-    total_revenue = revenue_by_merchant(merchant_id)
+    paid_invoice_items = find_all_paid_invoice_items_by_id(paid_invoices)
+    sold_revenues = sold_invoice_item_revenues(paid_invoice_items)
+    top_selling_item_by_revenue(sold_revenues)
   end
 
-  def sold_invoice_item_revenue(paid_invoice_items) #merchants sold item quantities
-    sold_quantities = {}
+  def sold_invoice_item_revenues(paid_invoice_items) #merchants sold item quantities
+    sold_revenues = {}
     paid_invoice_items.map do |item|
-      sold_quantities[item.item_id] = item.quantity * item.unit_price
+      sold_revenues[item.item_id] = item.quantity * item.unit_price
     end
-    return sold_quantities
+    return sold_revenues
   end
-
-
-
 end
