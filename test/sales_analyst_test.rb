@@ -259,6 +259,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_the_top_number_of_revenue_earners
     assert_equal 2, @sa.top_revenue_earners(2).count
+    assert_equal Merchant, @sa.top_revenue_earners(2).first.class
+    assert_equal 3, @sa.top_revenue_earners(2).first.id
+    assert_equal 2, @sa.top_revenue_earners(2).last.id
   end
 
   # def test_can_get_invoice_ids
@@ -272,7 +275,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_sum_invoice_totals
     assert_equal 2780.91, @sa.sum_invoice_totals[1].to_f
-    assert_equal 3, @sa.sum_invoice_totals.count
   end
 
   def test_it_can_sort_summed_invoice_totals
@@ -292,4 +294,38 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, @sa.merchants_with_pending_invoices.count
   end
 
+  def test_it_ranks_merchants_by_revenue
+    assert_equal Merchant, @sa.merchants_ranked_by_revenue.first.class
+    assert_equal 3, @sa.merchants_ranked_by_revenue.first.id
+  end
+
+  def test_it_can_collect_merchant_ids_with_one_item
+    assert_equal 1, @sa.get_merchant_ids_with_one_item.count
+    assert_equal ({1 => 1}), @sa.get_merchant_ids_with_one_item
+  end
+
+  def test_groups_merchants_with_only_one_item
+    assert_equal 1, @sa.merchants_with_only_one_item.count
+    assert_equal Merchant, @sa.merchants_with_only_one_item.first.class
+  end
+
+  def test_it_can_group_merchants_with_one_item_by_month_created_at
+    actual = @sa.merchants_with_only_one_item_registered_in_month("December")
+    assert_equal 1, actual.count
+    assert_equal Merchant, actual.first.class
+  end
+
+  def test_it_can_find_a_merchants_total_revenue_by_merchant_id
+    assert_equal 2780.91, @sa.revenue_by_merchant(1).to_f
+    assert_equal BigDecimal, @sa.revenue_by_merchant(1).class
+  end
+
+  # def test_can_find_a_merchants_most_sold_item
+  #   assert_equal [item], @sa.most_sold_item_for_merchant(4)
+  # end
+
+  def test_it_can_get_paid_invoices_per_merchant
+    assert_equal 2, @sa.pull_paid_invoices_per_merchant(4).count
+    assert_equal Invoice, @sa.pull_paid_invoices_per_merchant(4).first.class
+  end
 end

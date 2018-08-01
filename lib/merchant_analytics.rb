@@ -30,7 +30,7 @@ module MerchantAnalytics
     invoice_hash.each do |merchant_id, invoices|
       totals[merchant_id] = sum_invoices(invoices)
     end
-    totals.delete_if {|merchant_id, sum| sum == 0}
+    totals.delete_if {|merchant_id, sum| sum.nil?}
   end
 
   def sum_invoices(invoices)
@@ -64,6 +64,48 @@ module MerchantAnalytics
       if !invoice_paid_in_full?(invoice.id)
         invoice.merchant_id
       end
-    end.compact
+    end.uniq.compact
+  end
+
+  def merchants_ranked_by_revenue
+    sorted = sum_invoice_totals.sort_by {|merchant_id, sum| sum }
+    reversed = sorted.reverse.to_h
+    reversed.map do |merchant_id, invoice_total|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def get_merchant_ids_with_one_item
+    items_per_merchant = {}
+    group_items_by_merchant.each do |merchant_id, items|
+      items_per_merchant[merchant_id] = items.count
+    end
+    items_per_merchant.keep_if {|id, items| items == 1}
+  end
+
+  def merchants_with_only_one_item
+    get_merchant_ids_with_one_item.map do |merchant_id, items|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime('%B') == month
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    sum_invoice_totals[merchant_id]
+  end
+
+  # def most_sold_item_for_merchant(id)
+  #
+  # end
+
+  def pull_paid_invoices_per_merchant(id)
+    @sales_engine.invoices.find_all_by_merchant_id(id).find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
   end
 end
