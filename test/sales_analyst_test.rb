@@ -279,13 +279,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, @sa.sort_summed_invoice_totals(2).count
   end
 
+  def test_it_can_get_merchant_id_for_pending_invoices
+    assert_equal [4, 5], @sa.get_merchant_id_for_pending_invoices
+  end
+
   def test_it_can_group_merchants_with_pending_invoices
     merchant_1 = @sa.merchants_with_pending_invoices[0]
     merchant_2 = @sa.merchants_with_pending_invoices[1]
 
     assert_equal [merchant_1, merchant_2], @sa.merchants_with_pending_invoices
-    assert_equal Merchant, @sa.merchants_with_pending_invoices.first
-    assert_equal 2, @sa.test_it_can_group_merchants_with_pending_invoices.count
+    assert_equal Merchant, @sa.merchants_with_pending_invoices.first.class
+    assert_equal 2, @sa.merchants_with_pending_invoices.count
   end
 
 end
