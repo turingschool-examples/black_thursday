@@ -26,7 +26,15 @@ class InvoiceItemRepositoryTest < Minitest::Test
           unit_price: 33635,
           created_at: '2003-03-03 14:54:09 UTC',
           updated_at: '2013-03-03 14:54:09 UTC' }]
+
     @iir = InvoiceItemRepository.new(@invoice_items)
+
+    @attributes = { item_id: 27,
+                    invoice_id: 2772,
+                    quantity: 4,
+                    unit_price: 2134,
+                    created_at: '2018-07-28',
+                    updated_at: '2018-07-28' }
   end
 
   def test_it_exists
@@ -82,13 +90,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_invoice_item
-    attributes = {  item_id: 27,
-                    invoice_id: 2772,
-                    quantity: 4,
-                    unit_price: 2134,
-                    created_at: '2018-07-28',
-                    updated_at: '2018-07-28' }
-    invoice_item = @iir.create(attributes)
+    invoice_item = @iir.create(@attributes)
 
     assert_equal 4, invoice_item.id
     assert_equal 27, invoice_item.item_id
