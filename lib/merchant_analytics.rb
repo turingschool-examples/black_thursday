@@ -99,13 +99,26 @@ module MerchantAnalytics
     sum_invoice_totals[merchant_id]
   end
 
-  # def most_sold_item_for_merchant(id)
-  #
+  # def most_sold_item_for_merchant(merchant_id)
+  #   paid_invoices = pull_paid_invoices_per_merchant(merchant_id)
+  #   paid_invoices = find_all_paid_invoice_items_by_id(paid_invoices)
   # end
 
-  def pull_paid_invoices_per_merchant(id)
-    @sales_engine.invoices.find_all_by_merchant_id(id).find_all do |invoice|
+  def pull_paid_invoices_per_merchant(merchant_id)
+    @sales_engine.invoices.find_all_by_merchant_id(merchant_id).find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
   end
+
+  def find_all_paid_invoice_items_by_id(paid_invoices)
+    paid_invoices.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+  end
+
+  # def find_item_quantity_sold_by_merchant()
+
+
+
+
 end
