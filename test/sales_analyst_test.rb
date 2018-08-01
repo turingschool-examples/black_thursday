@@ -355,6 +355,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_a_merchants_best_selling_item_by_quantity
+    skip # will need refactoring
     paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
     paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
     sold_quantities = @sa.sold_invoice_item_quantities(paid_invoice_items)
