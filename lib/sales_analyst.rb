@@ -323,6 +323,16 @@ class SalesAnalyst
     end
   end
   
+  def merchants_ranked_by_revenue
+    merchants_revenue = delete_nils(revenue_per_merchant)
+    merchants_revenue.keep_if do |merchant_id, revenue|
+     merchants_revenue.values.sort.include?(revenue)
+    end
+    hash_to_array(merchants_revenue).map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end.reverse
+  end
+  
   def top_revenue_earners(x = 20)
     merchants_revenue = delete_nils(revenue_per_merchant)
     merchants_revenue.keep_if do |merchant_id, revenue|
