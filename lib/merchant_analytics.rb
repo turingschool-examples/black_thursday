@@ -99,11 +99,12 @@ module MerchantAnalytics
     sum_invoice_totals[merchant_id]
   end
 
-  # def most_sold_item_for_merchant(merchant_id)
-  #   paid_invoices = pull_paid_invoices_per_merchant(merchant_id)
-  #   paid_invoices = find_all_paid_invoice_items_by_id(paid_invoices)
-  #   sold_quantities = sold_invoice_item_quantities(paid_invoice_items)
-  # end
+  def most_sold_item_for_merchant(merchant_id)
+    paid_invoices = pull_paid_invoices_per_merchant(merchant_id)
+    paid_invoices = find_all_paid_invoice_items_by_id(paid_invoices)
+    sold_quantities = sold_invoice_item_quantities(paid_invoice_items)
+    top_selling_item_by_quantity(sold_quantities)
+  end
 
   def pull_paid_invoices_per_merchant(merchant_id)
     @sales_engine.invoices.find_all_by_merchant_id(merchant_id).find_all do |invoice|
@@ -125,6 +126,17 @@ module MerchantAnalytics
     end
     return sold_quantities
   end
+
+  def top_selling_item_by_quantity(sold_quantities)
+    top_items = []
+    sold_quantities.map do |item, quantity|
+      if quantity == sold_quantities.values.max
+        top_items << @sales_engine.items.find_by_id(item)
+      end
+    top_items
+    end
+  end
+
 
 
 

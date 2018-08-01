@@ -354,4 +354,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ({7=>4, 9=>6}), @sa.sold_invoice_item_quantities(paid_invoice_items)
   end
 
+  def test_it_can_find_a_merchants_best_selling_item_by_quantity
+    paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
+    paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
+    sold_quantities = @sa.sold_invoice_item_quantities(paid_invoice_items)
+
+    # assert_equal [], @sa.top_selling_item_by_quantity(sold_quantities)
+    assert_equal "NineThing", @sa.top_selling_item_by_quantity(sold_quantities).first.name
+    assert_equal "NineThing", @sa.top_selling_item_by_quantity(sold_quantities).last.name
+    #=> [[#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff", @unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>], [#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff",@unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]]
+  end
+
 end
