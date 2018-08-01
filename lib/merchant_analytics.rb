@@ -94,4 +94,8 @@ module MerchantAnalytics
       merchant.created_at.strftime('%B') == month
     end
   end
+
+  def revenue_by_merchant(merchant_id)
+    sum_invoice_totals[merchant_id]
+  end
 end
