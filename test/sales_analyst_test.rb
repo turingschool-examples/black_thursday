@@ -193,7 +193,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Fixnum, @sales_analyst.arrange_invoices_by_day.values[3].class
   end
 
-  def test_invoice_paid_in_full
-  assert_equal true, @sales_analyst.invoice_paid_in_full?(290)
-end
 end

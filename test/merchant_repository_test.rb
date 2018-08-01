@@ -23,6 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_creates_merchants
     assert_equal  4, @mr.all.count
+    assert_equal Merchant, @mr.all[0].class
   end
 
   def test_it_finds_by_id
