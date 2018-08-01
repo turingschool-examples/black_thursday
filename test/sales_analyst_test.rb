@@ -199,4 +199,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
     assert_equal 13.5, @sales_analyst.invoice_status(:returned)
   end
+  
+  def test_invoice_paid_in_full?
+    assert_equal true, @sales_analyst.invoice_paid_in_full?(1)
+    assert_equal true, @sales_analyst.invoice_paid_in_full?(200)
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(203)
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(204)
+  end
+  
+  def test_invoice_total 
+    assert_equal 21067.77, @sales_analyst.invoice_total(1)
+    assert_equal BigDecimal, @sales_analyst.invoice_total(1).class 
+  end 
+  
+  def test_invoice_items_by_invoice_id 
+    assert_equal InvoiceItem, @sales_analyst.invoice_items_by_invoice_id(200)[0].class
+    assert_equal Array, @sales_analyst.invoice_items_by_invoice_id(200).class
+  end 
 end 
