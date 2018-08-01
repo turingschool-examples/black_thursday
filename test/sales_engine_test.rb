@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+#require 'simplecov'
+#SimpleCov.start
 
 require 'minitest/pride'
 require 'minitest/autorun'
@@ -21,20 +21,17 @@ require_relative '../lib/math_helper'
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @merchant_repository
     @sales_engine = SalesEngine.new
-    @sales_engine.merchant_builder("id: 1")
+
+    @sales_engine.merchant_repository = @sales_engine.merchant_builder('./test/fixtures/merchants.csv')
   end
 
   def test_it_exists
-    salesengine = SalesEngine.new
-    assert_instance_of SalesEngine, salesengine
+    assert_instance_of SalesEngine, @sales_engine
   end
 
   def test_it_can_return_a_merchant_repository
-    se = SalesEngine.new
-    se.merchant_builder(@merchant_data)
-    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of MerchantRepository, @sales_engine.merchant_repository
   end
 
   def test_it_can_return_an_item_repository
