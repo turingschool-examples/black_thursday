@@ -299,4 +299,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3, @sa.merchants_ranked_by_revenue.first.id
   end
 
+  def test_it_can_collect_merchant_ids_with_one_item
+    assert_equal 1, @sa.merchant_ids_with_one_item.count
+    assert_equal ({1 => 1}), @sa.merchant_ids_with_one_item
+  end
+
+  def test_groups_merchants_with_only_one_item
+
+  end
 end
