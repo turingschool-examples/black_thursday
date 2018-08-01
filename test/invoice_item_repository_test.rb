@@ -5,29 +5,27 @@ require './lib/invoice_item'
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
     @invoice_items =
-    [
-      { id: 1,
-        item_id: 263519841,
-        invoice_id: 1,
-        quantity: 5,
-        unit_price: 13635,
-        created_at: '2001-01-01 14:54:09 UTC',
-        updated_at: '2011-01-01 14:54:09 UTC'},
-      { id: 2,
-        item_id: 263519842,
-        invoice_id: 2,
-        quantity: 2,
-        unit_price: 23635,
-        created_at: '2002-02-02 14:54:09 UTC',
-        updated_at: '2012-02-02 14:54:09 UTC'},
-      { id: 3,
-        item_id: 263519843,
-        invoice_id: 3,
-        quantity: 3,
-        unit_price: 33635,
-        created_at: '2003-03-03 14:54:09 UTC',
-        updated_at: '2013-03-03 14:54:09 UTC'}
-    ]
+      [{  id: 1,
+          item_id: 263519841,
+          invoice_id: 1,
+          quantity: 5,
+          unit_price: 13635,
+          created_at: '2001-01-01 14:54:09 UTC',
+          updated_at: '2011-01-01 14:54:09 UTC' },
+       {  id: 2,
+          item_id: 263519842,
+          invoice_id: 2,
+          quantity: 2,
+          unit_price: 23635,
+          created_at: '2002-02-02 14:54:09 UTC',
+          updated_at: '2012-02-02 14:54:09 UTC' },
+       {  id: 3,
+          item_id: 263519843,
+          invoice_id: 3,
+          quantity: 3,
+          unit_price: 33635,
+          created_at: '2003-03-03 14:54:09 UTC',
+          updated_at: '2013-03-03 14:54:09 UTC' }]
     @iir = InvoiceItemRepository.new(@invoice_items)
   end
 
