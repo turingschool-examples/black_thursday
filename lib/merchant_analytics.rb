@@ -64,7 +64,7 @@ module MerchantAnalytics
       if !invoice_paid_in_full?(invoice.id)
         invoice.merchant_id
       end
-    end.compact
+    end.uniq.compact
   end
 
   def merchants_ranked_by_revenue
@@ -97,5 +97,15 @@ module MerchantAnalytics
 
   def revenue_by_merchant(merchant_id)
     sum_invoice_totals[merchant_id]
+  end
+
+  # def most_sold_item_for_merchant(id)
+  #
+  # end
+
+  def pull_paid_invoices_per_merchant(id)
+    @sales_engine.invoices.find_all_by_merchant_id(id).find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
   end
 end
