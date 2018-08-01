@@ -278,4 +278,15 @@ class SalesAnalyst
       inv_item.invoice_id == invoice_id 
     end 
   end
+  
+  def total_revenue_by_date
+    # invoice has .created_at date 
+    # 
+  end
+  
+  def invoice_items_by_date(date)
+    @sales_engine.invoice_items.all.find_all do |inv_item| 
+      inv_item.created_at == date  
+    end 
+  end 
 end
