@@ -219,7 +219,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal (["Sunday"]), @sa.top_days_by_invoice_count
   end
 
-# What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
   def test_it_can_find_percentage_of_invoices
     assert_equal 7.69, @sa.invoice_status(:returned)
     assert_equal 53.85, @sa.invoice_status(:shipped)
@@ -320,9 +319,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @sa.revenue_by_merchant(1).class
   end
 
-  # def test_can_find_a_merchants_most_sold_item
-  #   assert_equal [item], @sa.most_sold_item_for_merchant(4)
-  # end
+  def test_can_find_a_merchants_most_sold_item #=> [item]
+    assert_equal "NineThing", @sa.most_sold_item_for_merchant(4).first.name
+    assert_equal 1, @sa.most_sold_item_for_merchant(4).count
+  end
 
   def test_it_can_get_paid_invoices_per_merchant
     assert_equal 2, @sa.pull_paid_invoices_per_merchant(4).count
@@ -355,15 +355,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_a_merchants_best_selling_item_by_quantity
-    skip # will need refactoring
     paid_invoices = @sa.pull_paid_invoices_per_merchant(4)
     paid_invoice_items = @sa.find_all_paid_invoice_items_by_id(paid_invoices)
     sold_quantities = @sa.sold_invoice_item_quantities(paid_invoice_items)
 
-    # assert_equal [], @sa.top_selling_item_by_quantity(sold_quantities)
     assert_equal "NineThing", @sa.top_selling_item_by_quantity(sold_quantities).first.name
-    assert_equal "NineThing", @sa.top_selling_item_by_quantity(sold_quantities).last.name
-    #=> [[#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff", @unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>], [#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff",@unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]]
+    assert_equal 1, @sa.top_selling_item_by_quantity(sold_quantities).count
+    #=> [#<Item:0xXXXXXX @id=9, @name="NineThing", @description="a Tesla thing that does stuff", @unit_price=#<BigDecimal:7fe51e8eef30,'0.17E2',9(36)>, @created_at=2018-04-22 00:00:00 -0600, @updated_at=2018-07-12 00:00:00 -0600, @merchant_id=4>]
   end
+
+  # def test_it_can_find
 
 end
