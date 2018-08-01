@@ -53,19 +53,20 @@ class SalesAnalystTest < Minitest::Test
     {:id=>4995, :customer_id=>"999", :merchant_id=>"12334113", :status=>"shipped", :created_at=>"2004-04-12", :updated_at=>"2014-01-27"}]
     @invoice_repo = InvoiceRepo.new(invoice_array)
 
-    invoice_item_array = [{:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
-    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
+    invoice_item_array = [
+    {:id=>"21829", :item_id=>"263519844", :invoice_id=>"4984", :quantity=>"10", :unit_price=>"13635", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"},
+    {:id=>"21830", :item_id=>"263519844", :invoice_id=>"4985", :quantity=>"11", :unit_price=>"13636", :created_at=>"2000-12-10", :updated_at=>"2011-02-05"},
     {:id=>"21831", :item_id=>"263519846", :invoice_id=>"4985", :quantity=>"12", :unit_price=>"13637", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
     {:id=>"21832", :item_id=>"263519847", :invoice_id=>"4987", :quantity=>"13", :unit_price=>"13638", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
     {:id=>"21833", :item_id=>"263519848", :invoice_id=>"4988", :quantity=>"14", :unit_price=>"13639", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"},
     {:id=>"21834", :item_id=>"263519849", :invoice_id=>"4989", :quantity=>"15", :unit_price=>"13630", :created_at=>"2000-12-14", :updated_at=>"2011-02-05"}]
     @invoice_item_repo = InvoiceItemRepo.new(invoice_item_array)
 
-    #ids still need to be adjusted to match data.
     transaction_array = [{:id=>"1", :invoice_id=>"2170", :credit_card_number=>"4068631943231473", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
     {:id=>"2", :invoice_id=>"2179", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
     {:id=>"3", :invoice_id=>"2178", :credit_card_number=>"4068631943231474", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"},
-    {:id=>"4", :invoice_id=>"2179", :credit_card_number=>"4068631943231475", :credit_card_expiration_date=>"0217", :result=>"success", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}]
+    {:id=>"4", :invoice_id=>"2179", :credit_card_number=>"4068631943231475", :credit_card_expiration_date=>"0217", :result=>"failed", :created_at=>"2012-02-26 20:56:56 UTC", :updated_at=>"2012-02-26 20:56:56 UTC"}]
+
     @transaction_repo = TransactionRepo.new(transaction_array)
 
     customer_array = [{:id=>"1", :first_name=>"Joan", :last_name=>"Ondricka", :created_at=>"2012-03-27 14:54:09 UTC", :updated_at=>"2012-03-27 14:54:09 UTC"},
@@ -102,10 +103,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.65, @analyst.average_items_per_merchant_standard_deviation
   end
 
-  # def test_it_returns_merchants_ids_for_high_item_count
-  #   assert_equal [[@mer_repo.merchants[2], 8]], @analyst.merchants_ids_for_high_item_count
-  # end
-
   def test_it_returns_merchants_with_high_item_count
     assert_equal [@mer_repo.merchants[2]], @analyst.merchants_with_high_item_count
   end
@@ -114,19 +111,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal(14.88,4), @analyst.average_item_price_for_merchant(12334113)
   end
 
-  # def test_it_returns_all_average_prices
-  #   assert_equal [BigDecimal(14.00,4), BigDecimal(15.75,4), BigDecimal(14.88,4)], @analyst.all_average_prices
-  # end
-
   def test_it_calculates_average_average_price_per_merchant
     assert_equal BigDecimal(14.88,4), @analyst.average_average_price_per_merchant
   end
 
-  # def test_it_calculates_item_standard_deviation
-  #   assert_equal 1.62, @analyst.standard_deviation
-  # end
-
-  def test_it_return_golden_items
+  def test_it_returns_golden_items
    assert_equal [], @analyst.golden_items
   end
 
@@ -156,4 +145,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 33.33, @analyst.invoice_status(:returned)
   end
 
+  def test_it_returns_total_revenue_by_date
+    assert_equal 4499.9, @analyst.total_revenue_by_date("2000-12-10")
+  end
+
+  def test_it_returns_top_revenue_eraners
+    assert_equal [@mer_repo.merchants[0], @mer_repo.merchants[1]], @analyst.top_revenue_earners(x = 20)
+  end
+
+
+>>>>>>> 998c1354c664dff50d8100bf5ec41ea0df852c86
 end

@@ -106,10 +106,6 @@ class SalesAnalyst
     sum / (elements.all.count - 1)
   end
 
-  # def divide_sum_by_elements(elements, sum)
-  #   sum / (elements.all.count)
-  # end
-
   def average_items_per_merchant_standard_deviation
     standard_deviation(total_items_per_merchant, average_items_per_merchant, @merchants)
   end
@@ -330,6 +326,110 @@ class SalesAnalyst
       total += (invoice.quantity * invoice.unit_price)
     end
   end
+<<<<<<< HEAD
 
 
+=======
+  
+  def total_revenue_by_date(date)
+   all_invoices = @invoices.invoices.find_all do |invoice|
+     invoice.created_at.to_s[0...10] == date.to_s[0...10]
+   end
+   invoice_ids = all_invoices.map do |invoice|
+     invoice.id
+   end
+   total_revenue(invoice_ids)
+  end
+
+  def total_revenue(invoice_ids)
+   invoice_ids.inject(0) do |total, invoice_id|
+     total += invoice_total(invoice_id.to_f)
+   end
+  end
+  
+  def invoices_grouped_by_merchant
+    @invoices.invoices.group_by do |invoice|
+      invoice.merchant_id 
+    end 
+  end
+  
+  def revenue_per_merchant 
+    merchants = {}
+    invoices_grouped_by_merchant.each do |merchant_id, invoices|
+      merchants[merchant_id] = invoices.map do |invoice|
+        invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+      end.compact.inject(:+)
+    end
+    merchants
+  end
+  
+  def hash_to_array(hash)
+  values_sorted = hash.values.sort
+  value_array = []
+  values_sorted.each do |value|
+    hash.each do |name, amount|
+      value_array << name if amount == value
+    end
+  end
+  value_array.uniq
+  end
+  
+  def delete_nils(hash)
+    hash.delete_if do |key, value|
+      value.nil?
+    end 
+  end 
+  
+  def top_revenue_earners(x = 20)
+    merchants_revenue = delete_nils(revenue_per_merchant)
+    merchants_revenue.keep_if do |merchant_id, revenue|
+     merchants_revenue.values.sort[-x..-1].include?(revenue)
+    end
+    hash_to_array(merchants_revenue).map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end.reverse
+  end
+  
+  def top_items_per_merchant(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    invoices.keep_if { |invoice| invoice_paid_in_full?(invoice.id) }
+    invoices.map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+  end
+  
+  def top_item(hash)
+    max_item_value = hash.values.max
+    hash.keep_if do | key, value|
+      value == max_item_value
+    end
+    hash.keys.map do |item_id|
+      @items.find_by_id(item_id)
+    end
+  end
+  
+  def most_sold_item_for_merchant(merchant_id)
+    item_quantities = Hash.new(0)
+    top_items_per_merchant(merchant_id).map do |invoice_item|
+      item_quantities[invoice_item.item_id] += invoice_item.quantity
+    end
+    top_item(item_quantities)
+  end
+   
+  def invoice_items_total_price(array)
+    invo_items = Hash.new(0)
+    array.map do |invoice_item|
+      total = (invoice_item.unit_price * invoice_item.quantity)
+      invo_items[invoice_item.item_id] += total
+    end
+    invo_items
+  end
+  
+  def best_item_for_merchant(merchant_id)
+    invoice_items = top_items_per_merchant(merchant_id)
+    item_prices = invoice_items_total_price(invoice_items)
+    top_item(item_prices).first
+  end
+  
+>>>>>>> 998c1354c664dff50d8100bf5ec41ea0df852c86
 end
