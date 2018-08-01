@@ -275,7 +275,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_sum_invoice_totals
     assert_equal 2780.91, @sa.sum_invoice_totals[1].to_f
-    assert_equal 3, @sa.sum_invoice_totals.count
   end
 
   def test_it_can_sort_summed_invoice_totals

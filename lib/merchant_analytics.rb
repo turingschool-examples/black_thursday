@@ -30,7 +30,7 @@ module MerchantAnalytics
     invoice_hash.each do |merchant_id, invoices|
       totals[merchant_id] = sum_invoices(invoices)
     end
-    totals.delete_if {|merchant_id, sum| sum == 0}
+    totals.delete_if {|merchant_id, sum| sum.nil?}
   end
 
   def sum_invoices(invoices)
@@ -65,5 +65,13 @@ module MerchantAnalytics
         invoice.merchant_id
       end
     end.compact
+  end
+
+  def merchants_ranked_by_revenue
+    sorted = sum_invoice_totals.sort_by {|merchant_id, sum| sum }
+    reversed = sorted.reverse.to_h
+    reversed.map do |merchant_id, invoice_total|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end
   end
 end
