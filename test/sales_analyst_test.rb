@@ -300,11 +300,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_collect_merchant_ids_with_one_item
-    assert_equal 1, @sa.merchant_ids_with_one_item.count
-    assert_equal ({1 => 1}), @sa.merchant_ids_with_one_item
+    assert_equal 1, @sa.get_merchant_ids_with_one_item.count
+    assert_equal ({1 => 1}), @sa.get_merchant_ids_with_one_item
   end
 
   def test_groups_merchants_with_only_one_item
-
+    assert_equal 1, @sa.merchants_with_only_one_item.count
+    assert_equal Merchant, @sa.merchants_with_only_one_item.first.class
   end
 end
