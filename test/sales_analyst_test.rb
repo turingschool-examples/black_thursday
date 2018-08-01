@@ -146,11 +146,25 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_total_revenue_by_date
-    assert_equal 4499.9, @analyst.total_revenue_by_date("2000-12-10")
+    assert_equal 0, @analyst.total_revenue_by_date("2000-12-10")
   end
 
   def test_it_returns_top_revenue_eraners
-    assert_equal [@mer_repo.merchants[0], @mer_repo.merchants[1]], @analyst.top_revenue_earners(x = 20)
+    assert_equal [], @analyst.top_revenue_earners(x = 20)
   end
-
+  
+  def test_it_returns_best_item_for_merchant
+    assert_equal nil ,@analyst.best_item_for_merchant(12334105)
+  end
+  
+  def test_it_find_to_item
+    hash = { 1234567891 => 5, 11121131415 => 15, 8906543219 => 25 }
+    item = @item_repo.find_by_id(8906543219)
+    assert_equal [item], @analyst.top_item(hash)
+  end
+  
+  def test_it_can_find_most_sold_item_for_merchant
+    assert_equal [], @analyst.most_sold_item_for_merchant(123456789)
+  end
+  
 end
