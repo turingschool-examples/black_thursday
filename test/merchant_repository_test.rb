@@ -11,8 +11,23 @@ require_relative '../lib/sales_engine'
 class MerchantRespositoryTest < Minitest::Test
 
   def setup
-    @salesengine = SalesEngine.from_csv({merchants: './data/merchants.csv'})
-    @merchant_repository = @salesengine.merchants
+    @merchant_repository = MerchantRepository.new
+    @merchant_repository.create_with_id({id: 1,
+                                         name: "Dylan",
+                                         created_at: "2010-12-10",
+                                         updated_at: "2011-09-15"})
+    @merchant_repository.create_with_id({id: 2,
+                                         name: "Allison",
+                                         created_at: "2015-04-12",
+                                         updated_at: "2018-01-07"})
+    @merchant_repository.create_with_id({id: 3,
+                                         name: "Carl",
+                                         created_at: "2012-08-11",
+                                         updated_at: "2018-02-03"})
+    @merchant_repository.create_with_id({id: 4,
+                                         name: "Carl's Jr's",
+                                         created_at: "2012-08-11",
+                                         updated_at: "2018-02-03"})
   end
 
   def test_it_exists
@@ -25,42 +40,42 @@ class MerchantRespositoryTest < Minitest::Test
   end
 
   def test_it_stores_all_merchants
-    expected = 475
-    result = @merchant_repository.all
+    expected = 4
+    result = @merchant_repository.all.count
 
     assert_equal expected, result
   end
 
   def test_we_can_find_a_merchant_by_id
-    id = 12334105
+    id = 1
     result = @merchant_repository.find_by_id(id).id
     assert_equal id, result
   end
 
   def test_we_can_find_merchant_by_name
-    name = "Shopin1901"
+    name = "Dylan"
     result = @merchant_repository.find_by_name(name).name
     assert_equal name, result
   end
 
   def test_we_can_find_all_merchants_by_name
-    merchant_1 = @merchant_repository.find_by_id(12334202)
-    merchant_2 = @merchant_repository.find_by_id(12334601)
-    merchant_3 = @merchant_repository.find_by_id(12336143)
-    expected = [merchant_1, merchant_2, merchant_3]
-    result = @merchant_repository.find_all_by_name("Coast")
+    merchant_1 = @merchant_repository.find_by_id(3)
+    merchant_2 = @merchant_repository.find_by_id(4)
+    expected = [merchant_1, merchant_2]
+    result = @merchant_repository.find_all_by_name("Carl")
     assert_equal expected, result
   end
 
   def test_we_can_create_a_merchant_instance
-    result = @merchant_repository.create({name: "Dylan"})
-    assert_instance_of Merchant, result
+    @merchant_repository.create({name: "James"})
+    found = @merchant_repository.find_by_name("James")
+    assert_instance_of Merchant, found
   end
 
   def test_we_can_update_a_merchants_name_by_id
     expected = "Ben"
-    @merchant_repository.update(12334202, "Ben")
-    result = @merchant_repository.find_by_id(12334202).name
+    @merchant_repository.update(1, {name: "Ben"})
+    result = @merchant_repository.find_by_id(1).name
     assert_equal expected, result
   end
 
