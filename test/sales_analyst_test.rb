@@ -104,4 +104,65 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, result
   end
 
+  def test_we_can_get_the_top_revenue_earners
+    merchant_1 = @sales_analyst.merchant_repository.all[0]
+    merchant_2 = @sales_analyst.merchant_repository.all[1]
+    expected = [merchant_1, merchant_2]
+    result = @sales_analyst.top_revenue_earners(2)
+    assert_equal expected, result
+  end
+
+  def test_we_can_find_merchants_with_pending_invoices
+    merchant_1 = @sales_analyst.merchant_repository.all[2]
+    expected = [merchant_1]
+    result = @sales_analyst.merchants_with_pending_invoices
+    assert_equal expected, [result[0]]
+  end
+
+  def test_we_can_get_merchants_with_only_one_item
+    skip
+    merchant = @sales_analyst.merchant_repository.all[5]
+    expected = [merchant]
+    result = @sales_analyst.merchants_with_only_one_item
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_merchant_ids
+    expected = [12334105, 12334112, 12334113, 12334115, 12334123, 99999999]
+    result = @sales_analyst.get_merchant_ids
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_average_invoices_per_merchant
+    expected = 2.5
+    result = @sales_analyst.average_invoices_per_merchant
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_average_invoices_merchant_stdev
+    expected = 2.06
+    result = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_average_invoices_per_day_stdev
+    expected = 0.49
+    result = @sales_analyst.average_invoices_per_day_standard_deviation
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_top_days_by_invoice_count
+    expected = ["Friday", "Tuesday", "Sunday"]
+    result = @sales_analyst.top_days_by_invoice_count
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_invoice_per_day_stdev
+    expected = 0.53
+    result = @sales_analyst.invoice_per_day_standard_deviation
+    assert_equal expected, result
+  end
+
+  def 
+
 end
