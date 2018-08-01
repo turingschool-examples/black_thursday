@@ -120,9 +120,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_we_can_get_merchants_with_only_one_item
-    merchant = nil
-    expected = []
+    skip
+    merchant = @sales_analyst.merchant_repository.all[5]
+    expected = [merchant]
     result = @sales_analyst.merchants_with_only_one_item
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_merchant_ids
+    expected = [12334105, 12334112, 12334113, 12334115, 12334123, 99999999]
+    result = @sales_analyst.get_merchant_ids
     assert_equal expected, result
   end
 
