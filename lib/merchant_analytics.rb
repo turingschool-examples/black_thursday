@@ -53,4 +53,17 @@ module MerchantAnalytics
     end.compact
   end
 
+  def merchants_with_pending_invoices
+    get_merchant_id_for_pending_invoices.map do |merchant_id|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end.uniq
+  end
+
+  def get_merchant_id_for_pending_invoices
+    @sales_engine.invoices.all.map do |invoice|
+      if !invoice_paid_in_full?(invoice.id)
+        invoice.merchant_id
+      end
+    end.compact
+  end
 end
