@@ -5,6 +5,11 @@ require_relative 'math_helper'
 
 class SalesAnalyst
   include MathHelper
+  attr_reader :merchant_repository,
+              :item_repository,
+              :invoice_repository,
+              :transaction_repository,
+              :invoice_item_repository
   def initialize(merchant_repository,
                  item_repository,
                  invoice_repository,

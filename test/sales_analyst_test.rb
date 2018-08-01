@@ -54,6 +54,14 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, sa
   end
 
+  def test_it_contains_repositories
+    assert_instance_of MerchantRepository, @sales_analyst.merchant_repository
+    assert_instance_of ItemRepository, @sales_analyst.item_repository
+    assert_instance_of InvoiceRepository, @sales_analyst.invoice_repository
+    assert_instance_of TransactionRepository, @sales_analyst.transaction_repository
+    assert_instance_of InvoiceItemRepository, @sales_analyst.invoice_item_repository
+  end
+
   def test_we_can_get_the_average_items_per_merchant
     expected = 3.0
     result = @sales_analyst.average_items_per_merchant
@@ -75,6 +83,24 @@ class SalesAnalystTest < Minitest::Test
   def test_we_can_see_if_an_invoice_was_paid_in_full
     expected = true
     result = @sales_analyst.invoice_paid_in_full?(1)
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_average_invoices_per_merchant
+    expected = 2.5
+    result = @sales_analyst.average_invoices_per_merchant
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_average_invoices_per_merchant_stdev
+    expected = 2.06
+    result = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal expected, result
+  end
+
+  def test_we_can_get_average_invoices_per_day_stdev
+    expected = 0.49
+    result = @sales_analyst.average_invoices_per_day_standard_deviation
     assert_equal expected, result
   end
 
