@@ -41,9 +41,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    one_stddev_up = (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+    stddev =  average_items_per_merchant_standard_deviation
     merchant_ids = items_per_merchant.find_all do |merchant_id, item_count|
-      item_count > one_stddev_up
+      item_count > (stddev + average_items_per_merchant)
     end
     convert_to_merchants_objects(merchant_ids)
   end
@@ -82,22 +82,18 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    invoices_per_merchant_array = invoices_per_merchant.map do |key, value|
-      value
-    end
-    standard_deviation(invoices_per_merchant_array, average_invoices_per_merchant)
+    invoice_amounts_for_each_merchant = invoices_per_merchant.values
+    standard_deviation(invoice_amounts_for_each_merchant, average_invoices_per_merchant)
   end
 
   def top_merchants_by_invoice_count
     stddev = average_invoices_per_merchant_standard_deviation
 
-    top_merchants_and_counts_array = invoices_per_merchant.find_all do |merchant, invoice_count|
+    top_merchants_ids_and_counts = invoices_per_merchant.find_all do |merchant, invoice_count|
       invoice_count > ((stddev * 2) + average_invoices_per_merchant)
     end
-    top_merchants_id_array = top_merchants_and_counts_array.map do |merchant|
-      merchant[0]
-    end
-    convert_to_merchants_objects(top_merchants_id_array)
+    top_merchants_ids = pull_first_element_from_pair(top_merchants_ids_and_counts)
+    convert_to_merchants_objects(top_merchants_ids)
   end
 
   def bottom_merchants_by_invoice_count
@@ -106,20 +102,14 @@ class SalesAnalyst
     bottom_merchants_and_counts_array = invoices_per_merchant.find_all do |merchant, invoice_count|
       invoice_count < (average_invoices_per_merchant - (stddev * 2))
     end
-    bottom_merchants_id_array = bottom_merchants_and_counts_array.map do |merchant|
-      merchant[0]
-    end
-    convert_to_merchants_objects(bottom_merchants_id_array)
+    bottom_merchants_ids = pull_first_element_from_pair(bottom_merchants_and_counts_array)
+    convert_to_merchants_objects(bottom_merchants_ids)
   end
 
   def average_invoice_counts_per_day
     numerator = @invoice_repo.list.count
     denominator = 7
     average(numerator, denominator)
-  end
-
-  def weekday(date_string)
-    Date.parse(date_string).strftime("%A")
   end
 
   def top_days_by_invoice_count
@@ -131,12 +121,10 @@ class SalesAnalyst
     end
     stddev = standard_deviation(total_invoice_counts_by_day_of_week.values, average_invoice_counts_per_day)
 
-    pairs = total_invoice_counts_by_day_of_week.find_all do |day, count|
+    day_with_highest_invoice_count = total_invoice_counts_by_day_of_week.find_all do |day, count|
       count > (stddev + average_invoice_counts_per_day).round.to_i
     end
-    pairs.map do |pair|
-      pair[0]
-    end
+    pull_first_element_from_pair(day_with_highest_invoice_count)
   end
 
   def invoice_status(status)
@@ -160,20 +148,15 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
-    price_array = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
-
-    price_array.inject(0) do |sum, num|
-        sum + (num.unit_price * num.quantity.to_i)
-    end
+    returned_invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+    total_revenue(returned_invoice_items)
   end
 
   def total_revenue_by_date(date)
     date_matched_invoices = @invoice_repo.list.find_all do |invoice|
       invoice.created_at == date
     end
-    revenue_of_date_matched_invoices = date_matched_invoices.map do |invoice|
-      invoice_total(invoice.id)
-    end
+    revenue_of_date_matched_invoices = invoice_total_over_data_set(date_matched_invoices)
     sum(revenue_of_date_matched_invoices)
   end
 
@@ -193,18 +176,12 @@ class SalesAnalyst
     end
   end
 
-  def month_finder(month)
-    Date.parse(month).strftime("%B")
-  end
-
   def revenue_by_merchant(merchant_id)
     all_merchant_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
     successful_invoices = all_merchant_invoices.find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
-    revenue_of_successful_invoices = successful_invoices.map do |invoice|
-      invoice_total(invoice.id)
-    end
+    revenue_of_successful_invoices = invoice_total_over_data_set(successful_invoices.map)
     sum(revenue_of_successful_invoices)
   end
 
@@ -215,9 +192,7 @@ class SalesAnalyst
     sorted_highest_rev_per_mer = revenue_earned_per_merchant.sort_by do |merchant, revenue|
       revenue
     end.reverse
-    sorted_highest_merchants = sorted_highest_rev_per_mer.map do |pair|
-      pair[0]
-    end
+    sorted_highest_merchants = pull_first_element_from_pair(sorted_highest_rev_per_mer)
     convert_to_merchants_objects(sorted_highest_merchants)
   end
 
@@ -255,10 +230,7 @@ class SalesAnalyst
     highest_values = hash.find_all do |key, value|
       value == highest_quantity
     end
-
-    highest_values.map do |id, quantity|
-      @item_repo.find_by_id(id)
-    end
+    convert_to_item_objects(highest_values)
   end
 
   def best_item_for_merchant(merchant_id)
@@ -266,7 +238,6 @@ class SalesAnalyst
     invoice_items = merchant_invoices.map do |invoice|
       @invoice_item_repo.find_all_by_invoice_id(invoice.id) unless invoice_paid_in_full?(invoice.id) == false
     end.flatten.compact
-
     grouped_invoice_items = invoice_items.group_by do |invoice_item|
       invoice_item.item_id
     end
@@ -302,6 +273,14 @@ class SalesAnalyst
     Math.sqrt(divided).round(2)
   end
 
+  def weekday(date_string)
+    Date.parse(date_string).strftime("%A")
+  end
+
+  def month_finder(month)
+    Date.parse(month).strftime("%B")
+  end
+
   def total_item_repo_value
     @item_repo.list.inject(0) do |sum, item|
       sum + item.unit_price
@@ -319,4 +298,29 @@ class SalesAnalyst
       @merchant_repo.find_by_id(merchant_id.to_i)
     end
   end
+
+  def convert_to_item_objects(array)
+    array.map do |item_id, value|
+      @item_repo.find_by_id(item_id)
+    end
+  end
+
+  def pull_first_element_from_pair(array)
+    array.map do |pair|
+      pair[0]
+    end
+  end
+
+  def invoice_total_over_data_set(array)
+    array.map do |invoice|
+      invoice_total(invoice.id)
+    end
+  end
+
+  def total_revenue(array)
+    array.inject(0) do |sum, num|
+        sum + (num.unit_price * num.quantity.to_i)
+    end
+  end
+
 end
