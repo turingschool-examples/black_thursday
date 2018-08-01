@@ -128,12 +128,12 @@ module MerchantAnalytics
   end
 
   def top_selling_item_by_quantity(sold_quantities)
-    top_items = []
-    sold_quantities.map do |item, quantity|
-      if quantity == sold_quantities.values.max
-        top_items << @sales_engine.items.find_by_id(item)
-      end
-    top_items
+    max_item_quantity = sold_quantities.values.max
+    sold_quantities.keep_if do |item_id, quantity|
+      quantity == max_item_quantity
+    end
+    sold_quantities.keys.map do |item_id|
+      @sales_engine.items.find_by_id(item_id)
     end
   end
 
