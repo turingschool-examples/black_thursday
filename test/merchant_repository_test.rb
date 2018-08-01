@@ -1,22 +1,21 @@
-require_relative '../lib/merchant_repository'
-require_relative '../lib/merchant'
 require_relative './test_helper'
+require './lib/merchant_repository'
+require './lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    @merchants =
-      [{id: 12334105,
-      name: 'Shopin1901',
-      created_at: '2010-12-10',
-      updated_at: '2011-12-04'},
-      {id: 12334112,
-      name: 'Candisart',
-      created_at: '2009-05-30',
-      updated_at: '2010-08-29'},
-      {id: 12334113,
-      name: 'MiniatureBikez',
-      created_at: '2010-03-30',
-      updated_at: '2013-01-21'}]
+    @merchants = [{ id: 12334105,
+                    name: 'Shopin1901',
+                    created_at: '2010-12-10',
+                    updated_at: '2011-12-04' },
+                  { id: 12334112,
+                    name: 'Candisart',
+                    created_at: '2009-05-30',
+                    updated_at: '2010-08-29' },
+                  { id: 12334113,
+                    name: 'MiniatureBikez',
+                    created_at: '2010-03-30',
+                    updated_at: '2013-01-21' }]
 
     @merchant_repository = MerchantRepository.new(@merchants)
   end
@@ -61,13 +60,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_or_name_fragment
-    merchants_1 = @merchant_repository.find_all_by_name('Bike')
-    merchants_2 = @merchant_repository.find_all_by_name('zzzz')
-    merchants_3 = @merchant_repository.find_all_by_name('in')
-    assert_equal 'MiniatureBikez', merchants_1.first.name
-    assert_equal ([]), merchants_2
-    assert_equal 'Shopin1901', merchants_3.first.name
-    assert_equal 'MiniatureBikez', merchants_3[-1].name
+    merchants_one = @merchant_repository.find_all_by_name('Bike')
+    merchants_two = @merchant_repository.find_all_by_name('zzzz')
+    merchants_three = @merchant_repository.find_all_by_name('in')
+    assert_equal 'MiniatureBikez', merchants_one.first.name
+    assert_equal ([]), merchants_two
+    assert_equal 'Shopin1901', merchants_three.first.name
+    assert_equal 'MiniatureBikez', merchants_three[-1].name
   end
 
   def test_it_can_find_highest_id
@@ -81,10 +80,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_merchant
-    attributes = {  name: 'Turing School',
-                    created_at: '2010-12-10',
-                    updated_at: '2011-12-04'
-                  }
+    attributes = { name: 'Turing School',
+                   created_at: '2010-12-10',
+                   updated_at: '2011-12-04' }
     merchant = @merchant_repository.create(attributes)
     assert_equal 'Turing School', merchant.name
     assert_equal 12334114, merchant.id
@@ -95,7 +93,7 @@ class MerchantRepositoryTest < Minitest::Test
       name: 'Shopin2001'
     }
     id = 12334105
-    merchant = @merchant_repository.update(id, attributes)
+    @merchant_repository.update(id, attributes)
     expected = @merchant_repository.find_by_id(id)
     assert_equal 'Shopin2001', expected.name
     expected = @merchant_repository.find_by_name('Shopin1901')
@@ -105,11 +103,11 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_delete_merchant
     id = 12334105
 
-    merchant = @merchant_repository.delete(id)
-    expected_1 = @merchant_repository.find_by_name('Shopin1901')
-    expected_2 = @merchant_repository.find_by_id(id)
+    @merchant_repository.delete(id)
+    expected_one = @merchant_repository.find_by_name('Shopin1901')
+    expected_two = @merchant_repository.find_by_id(id)
 
-    assert_nil expected_1
-    assert_nil expected_2
+    assert_nil expected_one
+    assert_nil expected_two
   end
 end
