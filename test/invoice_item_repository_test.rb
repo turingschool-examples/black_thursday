@@ -1,6 +1,6 @@
-require_relative '../lib/invoice_item_repository'
-require_relative '../lib/invoice_item'
 require_relative './test_helper'
+require './lib/invoice_item_repository'
+require './lib/invoice_item'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
