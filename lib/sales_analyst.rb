@@ -217,21 +217,78 @@ class SalesAnalyst
     return id_low_invoices
   end
 
-  # On which days are invoices created at more than one standard deviation above the mean?
-  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
-
-  # def standard_deviation_of_invoices_by_day
-  #   count = @invoice_repository.all.count
-  #   avg = count / 7
-  #   sum_differences_squared = arrange_invoices_by_day.inject(0) do |diff_squared, day_count|
-  #     diff_squared += (day_count - avg) ** 2
-  #   end
-  #   Math.sqrt(sum_differences_squared/count)
-  # end
-
+  def top_days_by_invoice_count
+    day_names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    top_integer_days_by_invoice_count.map do |element| 
+      day_names[element[0]]
+    end 
+  end 
+  
+  # helper to top_days_by_invoice_count
+  # returns nested array 
+  def top_integer_days_by_invoice_count 
+    count = @invoice_repository.all.count
+    avg = count / 7
+    arrange_invoices_by_day.find_all do |day, day_count|
+      day_count > (avg + standard_deviation_of_invoices_by_day).round(0)
+    end
+  end
+  
+  # helper to top_days_by_invoice_count
+  def standard_deviation_of_invoices_by_day
+    count = (@invoice_repository.all.count) -1
+    avg = count / 7
+    sum_differences_squared = arrange_invoices_by_day.inject(0) do |diff_squared, day_count|
+      diff_squared += (day_count[1] - avg) ** 2
+    end
+    # binding.pry 
+    (Math.sqrt(sum_differences_squared/7)).round(3)
+  end 
+  
+  # helper to standard_deviation_of_invoices_by_day
   def arrange_invoices_by_day
     @invoice_repository.all.inject(Hash.new(0)) do |hash, invoice|
       hash.merge(invoice.created_at.wday => hash[invoice.created_at.wday] + 1)
     end
+
+  end 
+  
+  def invoice_status(inv_symbol)
+    ((@invoice_repository.all.find_all do |invoice_obj|
+      invoice_obj.status == inv_symbol
+    end.count / @invoice_repository.all.count.to_f) * 100).round(2)
+  end 
+  
+  def invoice_paid_in_full?(invoice_id)
+    return false if @sales_engine.transactions.find_all_by_invoice_id(invoice_id) == []
+      invoice = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
+    invoice.all? do |invoice|
+      invoice.result == :success
+    end
+ end
+ 
+  def invoice_total(invoice_id)
+    invoice_items_by_invoice_id(invoice_id).inject(BigDecimal(0)) do |total, object|
+      total += (object.unit_price_to_dollars * object.quantity)
+    end
+  end 
+  
+  # helper to invoice_total
+  def invoice_items_by_invoice_id(invoice_id)
+    @sales_engine.invoice_items.all.find_all do |inv_item| 
+      inv_item.invoice_id == invoice_id
+    end 
   end
+  
+  def total_revenue_by_date(date)
+    invoice_items_by_date(date).inject(BigDecimal(0)) do |total, invoice_item|
+      total += (invoice_item.unit_price_to_dollars * invoice_item.quantity)
+    end 
+  end
+  
+  def invoice_items_by_date(date)
+    @sales_engine.invoice_items.all.find_all do |inv_item| 
+      inv_item.created_at.strftime("%F") == date.strftime("%F")
+    end 
+  end 
 end
