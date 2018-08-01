@@ -124,50 +124,44 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    invoices = @invoice_repository.all.select do |invoice|
-      invoice.merchant_id == merchant_id
-    end
+     invoices = @invoice_repository.all.select do |invoice|
+       invoice.merchant_id == merchant_id
+     end
 
-    paid_invoices = invoices.select do |invoice|
-      invoice_paid_in_full?(invoice.id)
-    end
+     paid_invoices = invoices.select do |invoice|
+       invoice_paid_in_full?(invoice.id)
+     end
 
-    invoice_items = paid_invoices.map do |invoice|
-      @invoice_item_repository.find_all_by_invoice_id(invoice.id)
-    end.flatten!
+     invoice_items = paid_invoices.map do |invoice|
+       @invoice_item_repository.find_all_by_invoice_id(invoice.id)
+     end
 
-    invoice_items.inject(0) do |sum, invoice|
-      sum + (invoice.unit_price * invoice.quantity.to_i)
-    end
-  end
+     invoice_items.flatten!
+     invoice_items.inject(0) do |sum, invoice|
+       sum + (invoice.unit_price * invoice.quantity.to_i)
+     end
+   end
 
-  def revenue_per_merchant
-    merchant_revenue = {}
-    merchant_ids.each do |merchant_id|
-      merchant_revenue[merchant_id] = revenue_by_merchant(merchant_id)
-    end
-    merchant_revenue
-  end
+   def top_revenue_earners(top_n=20)
+     merchant_revenue = {}
+     merchant_ids.each do |merchant_id|
+       merchant_revenue[merchant_id] = revenue_by_merchant(merchant_id)
+     end
 
-  def sort_by_revenue(merchant_revenue)
-    merchant_revenue.sort_by do |_merchant_id, revenue|
-      - revenue
-    end
-  end
+     top_merchants = merchant_revenue.sort_by do |_merchant_id, revenue|
+       - revenue
+     end
 
-  def merchant_lookup(merchants)
-    merchants.map do |array|
-      @merchant_repository.find_by_id(array[0])
-    end
-  end
+     if !top_n.nil?
+       top_merchants = top_merchants[0...top_n]
+     else
+       top_merchants
+     end
 
-  def top_revenue_earners(top_n = 20)
-    merchant_revenue = revenue_per_merchant
-    sorted_merchants = sort_by_revenue(merchant_revenue)
-    top_merchant_ids = sorted_merchants[0...top_n] unless top_n.nil?
-    top_merchant_ids = sorted_merchants if top_n.nil?
-    merchant_lookup(top_merchant_ids)
-  end
+     top_merchants.map do |array|
+       @merchant_repository.find_by_id(array[0])
+     end
+   end
 
   def merchants_ranked_by_revenue
     top_revenue_earners(nil)
