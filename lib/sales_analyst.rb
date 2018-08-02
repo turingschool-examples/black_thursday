@@ -281,14 +281,66 @@ class SalesAnalyst
   end
   
   def total_revenue_by_date(date)
-    invoice_items_by_date(date).inject(BigDecimal(0)) do |total, invoice_item|
-      total += (invoice_item.unit_price_to_dollars * invoice_item.quantity)
+    invoices_by_date(date).inject(BigDecimal(0)) do |total, invoice|
+      if invoice_paid_in_full?(invoice.id) == true 
+       total += invoice_total(invoice.id)
+     end
     end 
   end
   
-  def invoice_items_by_date(date)
-    @sales_engine.invoice_items.all.find_all do |inv_item| 
+  #helper to total_revenue_by_date
+  def invoices_by_date(date)
+    @sales_engine.invoices.all.find_all do |inv_item| 
       inv_item.created_at.strftime("%F") == date.strftime("%F")
+    end
+  end
+  
+  def merchants_with_only_one_item 
+    merchant_ids_with_only_one_item.map do |merch_id|
+      @merchant_repository.all.reject do |merchant|
+        merchant.id != merch_id 
+      end 
+    end.flatten      
+  end 
+  
+  # helper to merchants_with_only_one_item
+  def merchant_ids_with_only_one_item 
+    merchant_id_item_counter.reject do |merch_id, count|
+      count != 1
+    end.keys
+  end 
+  
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B") == month
+    end
+  end 
+  
+  def merchants_ranked_by_revenue 
+    # revenue_by_merchant.sort_by do |merch_id, revenue|
+    #    
+    # end
+  end
+  
+  def merchant_id_revenue_hash 
+    @merchant_repository.all.inject(Hash.new(0)) do |hash, merchant|
+      hash.merge(merchant.id => revenue_by_merchant(merchant.id))
+    end
+  end
+  
+  def revenue_by_merchant(merchant_id)
+    revenue_hash_by_merchant_id(merchant_id)[merchant_id]
+  end
+  
+  def revenue_hash_by_merchant_id(merchant_id)
+    find_all_invoices_paid_in_full.inject(Hash.new(BigDecimal(0))) do |hash, invoice|
+      hash.merge(invoice.merchant_id => hash[invoice.merchant_id] += invoice_total(invoice.id))
+    end
+  end
+
+  def find_all_invoices_paid_in_full
+    @sales_engine.invoices.all.find_all do |inv|
+      invoice_paid_in_full?(inv.id) == true 
     end 
   end 
 end
