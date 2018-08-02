@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
 require_relative'../lib/sales_engine'

@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require 'pry'
 require_relative '../lib/read_data.rb'
 

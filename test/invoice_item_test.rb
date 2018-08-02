@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/invoice_item.rb'
 require 'time'
 require 'bigdecimal'
