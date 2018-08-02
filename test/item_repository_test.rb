@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require_relative '../lib/item_repository.rb'
 require_relative '../lib/item.rb'
 require_relative '../lib/sales_engine.rb'
