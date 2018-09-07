@@ -5,6 +5,8 @@ Use this template to when conducting DTR with your project partners. It's recomm
 ### Guiding Questions to Define The Relationship:
 
 * What are your learning goals for this project? What drives us in this project?
+  
+
 * What is your collaboration style? How do you feel about pair programming vs. divide-and-conquer approaches?
 * How do you communicate best? How do you appreciate receiving communication from others?
 * How would you describe your work style?
