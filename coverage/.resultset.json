@@ -1,45 +1,15 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/aizarcabrera/turing/1module/week_5/black_thursday/lib/merchant_repository.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        1,
-        2,
-        2,
-        null,
-        null,
-        null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        2,
-        950,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/aizarcabrera/turing/1module/week_5/black_thursday/lib/merchant.rb": [
+      "/Users/aizarcabrera/turing/1module/week_5/black_thursday/lib/item.rb": [
         1,
         null,
         1,
         1,
-        null,
-        null,
-        1,
-        950,
-        950,
         null,
         null
       ]
     },
-    "timestamp": 1536444467
+    "timestamp": 1536448079
   }
 }

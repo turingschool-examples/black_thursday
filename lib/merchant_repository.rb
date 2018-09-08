@@ -19,5 +19,4 @@ class MerchantRepository
       @merchants << Merchant.new(row)
     end
   end
-
 end
