@@ -38,5 +38,19 @@ class MerchantRepo
    end
   end
 
+  def create(merchant_params)
+    merchant = Merchant.new(merchant_params)
+    highest_current = merch_id_counter.id
+    new_highest_current = highest_current += 1
+    merchant.id = new_highest_current
+    @merchants << merchant
+     merchant
+  end
+
+  def merch_id_counter
+   @merchants.max do |merchant|
+     merchant.id
+   end
+  end
 
 end
