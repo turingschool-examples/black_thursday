@@ -2,18 +2,20 @@ require_relative '../lib/merchant'
 class MerchantRepository
 # The MerchantRepository is responsible for holding and
 # searching our Merchant instances.
-  attr_reader :merchants
 
   def initialize
     @merchants = []
   end
 
   def all
-    # Returns an array of all known Merchant instances
+    @merchants
   end
 
-  def find_all_by_id(id)
+  def find_all_by_id(number)
     # Returns either nil or an instance of Merchant with a matching ID
+    @merchants.find do |merch|
+      merch.id == number
+    end
   end
 
   def find_by_name(name)
