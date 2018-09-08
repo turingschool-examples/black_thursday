@@ -56,8 +56,13 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_can_find_all_instances_that_contain_name_fragments
     mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    first_one = mr.find_by_name("Shopin1901")
+    second_one = mr.find_by_name("Shopin1802")
+
+    expected = [first_one, second_one]
     actual = mr.find_all_by_name("Shopin")
-    expected = ["1,Shopin1901,2010-12-10,2011-12-04", "7,Shopin1802,2010-12-10,2011-12-04"]
+    
     assert_equal expected, actual
 
   end
