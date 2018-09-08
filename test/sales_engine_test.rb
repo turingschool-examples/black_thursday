@@ -3,6 +3,7 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_engine'
+require './lib/merchant_repo'
 require 'pry'
 
 class SalesEngineTest < Minitest::Test

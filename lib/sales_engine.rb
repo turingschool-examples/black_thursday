@@ -18,5 +18,6 @@ end
 
 #merchants method populates your merchant repo
 # in the merchant repo you can search by parameters
-# all just returns everything 
+# all just returns everything
+# so here we just iterate over all our merchant data and put it in merchants
 end
