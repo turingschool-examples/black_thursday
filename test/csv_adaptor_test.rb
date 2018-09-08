@@ -8,6 +8,7 @@ require_relative '../lib/csv_adaptor'
 class CsvAdaptorTest < Minitest::Test
 
   def test_it_exists
+    data_file = "./data/merchants.csv"
     a = CsvAdaptor.new
 
     assert_instance_of CsvAdaptor, a
@@ -15,8 +16,9 @@ class CsvAdaptorTest < Minitest::Test
 
   def test_load_merchants
     a = CsvAdaptor.new
+    data_file = "./data/merchants.csv"
 
-    assert_instance_of Array, a.load_merchants
+    assert_instance_of Array, a.load_merchants(data_file)
   end
 
 end

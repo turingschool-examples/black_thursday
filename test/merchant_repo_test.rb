@@ -17,9 +17,10 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_all_merchant_characteristics_returns_array_of_merchant_characteristics
-    mr = MerchantRepo.new("./data/merchants.csv")
+    data_file = "./data/merchants.csv"
+    mr = MerchantRepo.new(data_file)
 
-    assert_instance_of Array, mr.all_merchant_characteristics
+    assert_instance_of Array, mr.all_merchant_characteristics(data_file)
   end
 
   def test_all_returns_array_of_merchant_objects
@@ -46,4 +47,22 @@ class MerchantRepoTest < Minitest::Test
     assert_equal expected, mr.find_by_name(name)
   end
 
+  def test_it_returns_nil_when_name_or_id_dont_exist
+    mr = MerchantRepo.new("./data/merchants.csv")
+    mr.all
+    name = "amy"
+    id = "12345"
+
+    assert_equal nil, mr.find_by_name(name)
+    assert_equal nil, mr.find_by_id(id)
+  end
+
+  def test_find_all_by_name_returns_merchants_with_name_fragment
+    data_file = "./data/sample_merchant_file.csv"
+    mr = MerchantRepo.new(data_file)
+    mr.all
+    name = "kec"
+
+    assert_equal "", mr.find_all_by_name(name)
+  end
 end
