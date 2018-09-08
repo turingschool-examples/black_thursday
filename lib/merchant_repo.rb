@@ -4,8 +4,6 @@ require 'pry'
 require './lib/merchant'
 
 class MerchantRepo
-  #how do we indent this?
-  # include Black_Thursday_Helper
 
   def initialize(file_path)
     @merchants = []
@@ -22,5 +20,10 @@ class MerchantRepo
     end
   end
 
+  def find_by_id(id)
+   @merchants.find do |merchant|
+     merchant.id == id
+   end
+  end
 
 end

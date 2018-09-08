@@ -24,4 +24,20 @@ class MerchantRepoTest < Minitest::Test
     assert_equal "Shopin1901", mr.all.first.name
   end
 
+  def test_it_can_find_a_merchant_by_id
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+    result = mr.find_by_id(1)
+    assert_instance_of Merchant, result
+    assert_equal "Shopin1901", result.name
+    assert_equal 1, result.id
+  end
+
+  def test_returns_nil_if_no_match_found
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    result = mr.find_by_id(289312)
+
+    assert_nil result
+  end
+
 end
