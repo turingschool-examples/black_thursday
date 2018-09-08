@@ -12,10 +12,6 @@ class MerchantRepo < CsvAdaptor
     load_merchants(data_file)
   end
 
-  def create_array_of_merchant_objects
-
-  end
-
   def all
     load_merchants(data_file).each do |merchant_info|
       @merchants << Merchant.new(merchant_info)
