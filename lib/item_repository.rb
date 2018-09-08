@@ -2,7 +2,11 @@ require_relative '../lib/item'
 require 'bigdecimal'
 require 'time'
 
+
 class ItemRepository
+
+  attr_reader :items
+
   def initialize
     @items = []
   end

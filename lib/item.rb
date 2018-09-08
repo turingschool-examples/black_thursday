@@ -1,5 +1,5 @@
 class Item
-  def initialize
+  def initialize(arg)
 
   end
 
