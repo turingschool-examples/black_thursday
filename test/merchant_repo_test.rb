@@ -74,5 +74,20 @@ class MerchantRepoTest < Minitest::Test
     assert_equal [], actual
   end
 
+  def test_i_can_make_a_merchant_object_and_include_its_attributes
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    actual = mr.create({:id => 99, :name => "jay-z"})
+
+    assert_instance_of Merchant, mr.find_by_name("jay-z")
+  end
+
+  def test_the_new_merchants_id_increments_by_one
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    actual = mr.create({:id => 99, :name => "jay-z"})
+    assert_equal 8, actual.id
+  end
+
 
 end
