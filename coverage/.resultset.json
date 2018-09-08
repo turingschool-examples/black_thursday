@@ -1,15 +1,13 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/aizarcabrera/turing/1module/week_5/black_thursday/lib/merchant.rb": [
+      "/Users/aizarcabrera/turing/1module/week_5/black_thursday/lib/merchant_repository.rb": [
         1,
         null,
         1,
-        1,
-        null,
         null
       ]
     },
-    "timestamp": 1536438374
+    "timestamp": 1536442161
   }
 }
