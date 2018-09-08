@@ -14,18 +14,6 @@ class CSVParseTest < Minitest::Test
     @path = './data/merchants.csv'
   end
 
-  # These are no longer necessary for class methods (?)
-  # ==============================================
-  # def test_it_exists
-  #   assert_instance_of CSVParse, @file
-  # end
-
-  # def test_it_can_get_path
-  #   path = './data/merchants.csv'
-  #   assert_equal path, @file.path
-  # end
-  # ==============================================
-
   def test_it_can_create_the_repository
     first = {:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}
     second = {:name=>"Candisart", :created_at=>"2009-05-30", :updated_at=>"2010-08-29"}
