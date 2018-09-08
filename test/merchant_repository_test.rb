@@ -31,4 +31,32 @@ class MerchantRepositoryTest < Minitest::Test
     actual = merchant_repository.find_by_id(123)
     assert_nil actual
   end
+
+  def test_it_can_find_by_name
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+
+    actual = merchant_repository.find_by_name("MiniatureBikez")
+    assert_instance_of Merchant, actual
+    assert_equal 3, actual.id
+  end
+
+  def test_find_name_can_return_nil
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+
+    actual = merchant_repository.find_by_name("Samuel")
+    assert_nil actual
+  end
+
+  def test_it_can_find_all_by_name
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+
+    merchant_2 = merchant_repository.find_by_name("MiniatureBikez")
+    merchant_1 = merchant_repository.find_by_name("Shopin1901")
+
+    assert_equal [], merchant_repository.find_all_by_name("Samuel")
+    assert_equal [merchant_2], merchant_repository.find_all_by_name("MiniatureBikez")
+    assert_equal [merchant_1, merchant_2], merchant_repository.find_all_by_name("In")
+  end
+
+  
 end
