@@ -20,3 +20,13 @@ namespace :sanitation do
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
 end
+
+task default: 'test'
+
+Rake::TestTask.new do |task|
+  task.pattern = 'test/*_test.rb'
+end
+
+RuboCop::RakeTask.new(:rubocop) do |task|
+  task.options = ['--display-cop-names']
+end
