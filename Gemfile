@@ -6,4 +6,3 @@ gem 'rake'
 gem 'minitest'
 
 gem 'simplecov'
-gem 'simplecov'

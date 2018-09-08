@@ -1,2 +1,8 @@
-puts "hi"
-puts "please work"
+class SalesEngine
+
+
+def initialize(data)
+  @data= data
+end
+
+end
