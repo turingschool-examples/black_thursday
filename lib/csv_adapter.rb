@@ -1,8 +1,9 @@
-require 'csv'
+require 'CSV'
+require 'pry'
 
-module CsvAdaptor
-  def load_from_csv(file_location)
-    csv_objects = CSV.open(file_location, headers: true, header_converters: :symbol)
+class CsvAdaptor
+  def load_from_csv (file_path)
+    csv_objects = CSV.open(file_path, headers: true, header_converters: :symbol)
     csv_objects.map do |object|
       object[:id] = object[:id].to_i
       object.to_h
