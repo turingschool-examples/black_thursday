@@ -23,4 +23,9 @@ class MerchantRepository
     end
   end
 
+  def find_by_name(name)
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
+  end
 end
