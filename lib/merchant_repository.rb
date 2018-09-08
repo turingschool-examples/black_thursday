@@ -1,0 +1,26 @@
+require 'CSV'
+
+class MerchantRepository
+
+  def initialize(file_path)
+    @merchants = []
+    load_merchants(file_path)
+  end
+
+  def all
+    @merchants
+  end
+
+  def load_merchants(file_path)
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      @merchants << Merchant.new(row)
+    end
+  end
+
+  def find_by_id(id_number)
+    @merchants.find do |merchant|
+      merchant.id == id_number
+    end 
+  end
+
+end
