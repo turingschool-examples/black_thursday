@@ -1,0 +1,26 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/ruthbrand/turing/1module2.0/projects/black_thursday/lib/merchant_repo.rb": [
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/ruthbrand/turing/1module2.0/projects/black_thursday/lib/merchant.rb": [
+        1,
+        1,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1536431436
+  }
+}
