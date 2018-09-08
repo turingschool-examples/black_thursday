@@ -47,4 +47,28 @@ class MerchantRepo < CsvAdaptor
     end
   end
 
+  def find_highest_merchant_id
+    @merchants.max_by do |merchant|
+      merchant.id
+    end.id
+  end
+
+  def create(attributes)
+    merchant = Merchant.new(attributes)
+    merchant.create_id(find_highest_merchant_id + 1)
+    merchant
+  end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    new_name = attributes[:name]
+    merchant.change_name(new_name)
+    merchant
+  end
+
+  def delete(id)
+    @merchants.delete_if do |merchant|
+      merchant.id == id
+    end
+  end
 end
