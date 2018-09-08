@@ -25,6 +25,11 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_returns_nil_with_no_matching_id
     ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    ir.create(hash)
     assert_nil ir.find_all_by_id(1234)
   end
 
@@ -35,8 +40,46 @@ class MerchantRepositoryTest < Minitest::Test
       :name        => "Pencil",
     }
     ir.create(hash)
-
     assert_equal "Pencil", ir.find_all_by_id(1).name
   end
 
+  def test_it_returns_nil_with_no_matching_names
+    ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    ir.create(hash)
+    assert_nil ir.find_by_name("Water Buffalo")
+  end
+
+  def test_it_can_return_by_name
+    ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    ir.create(hash)
+    assert_equal "Pencil", ir.find_by_name("Pencil").name
+  end
+
+  def test_it_returns_an_empty_array_with_no_name_matches
+    ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    ir.create(hash)
+    assert_equal [], ir.find_all_by_name("Water Buffalo")
+  end
+
+  def test_it_can_find_all_by_name_fragment
+    ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    ir.create(hash)
+    assert_equal 1, ir.find_all_by_name("pen").length
+  end
 end
