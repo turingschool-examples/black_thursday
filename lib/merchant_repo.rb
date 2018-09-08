@@ -32,15 +32,22 @@ class MerchantRepo < CsvAdaptor
     end
   end
 
+  # def find_by_name(name)
+  #   holder = @merchants.map do |merchant|
+  #     if merchant.name == name
+  #       merchant
+  #     end
+  #   end
+  #   holder.compact
+  # end
+
   def find_by_name(name)
     @merchants.each do |merchant|
       if merchant.name == name
         return merchant
-      else
-        nil
       end
     end
+    nil
   end
-
 
 end

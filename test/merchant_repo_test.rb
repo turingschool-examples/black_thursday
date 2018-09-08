@@ -46,4 +46,14 @@ class MerchantRepoTest < Minitest::Test
     assert_equal expected, mr.find_by_name(name)
   end
 
+  # def test_it_returns_nil_when_name_or_id_dont_exist
+  #   mr = MerchantRepo.new("./data/merchants.csv")
+  #   mr.all
+  #   name = "amy"
+  #   # id = "12345"
+  #
+  #   assert_equal nil, mr.find_by_name(name)
+  #   # assert_equal nil, mr.find_by_id(id)
+  # end
+
 end
