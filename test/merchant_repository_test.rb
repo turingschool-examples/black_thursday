@@ -50,13 +50,24 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_name
     merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
 
-    merchant_2 = merchant_repository.find_by_name("MiniatureBikez")
     merchant_1 = merchant_repository.find_by_name("Shopin1901")
+    merchant_2 = merchant_repository.find_by_name("MiniatureBikez")
 
     assert_equal [], merchant_repository.find_all_by_name("Samuel")
     assert_equal [merchant_2], merchant_repository.find_all_by_name("MiniatureBikez")
     assert_equal [merchant_1, merchant_2], merchant_repository.find_all_by_name("In")
   end
 
-  
+  def test_it_can_create_new_merchant
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+
+    attributes = {name: "Turing"}
+
+    merchant_repository.create(attributes)
+
+    assert_equal "Turing", merchant_repository.merchants[-1].name
+    assert_equal 5, merchant_repository.merchants[-1].id
+  end
+
+
 end
