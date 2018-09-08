@@ -11,7 +11,7 @@ require 'pry'
 class MerchantRepoTest < Minitest::Test
 
   def test_it_exists
-    mr = MerchantRepo.new("./data/merchants.csv")
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
     assert_instance_of MerchantRepo, mr
   end
 
@@ -19,7 +19,7 @@ class MerchantRepoTest < Minitest::Test
     mr = MerchantRepo.new("./test/fixtures/merchants.csv")
 
     assert_equal 6, mr.all.count
-    assert_instance of Array, mr.all
+    assert_instance_of Array, mr.all
     assert mr.all.all? { |merchant| merchant.is_a?(Merchant)}
     assert_equal "Shopin1901", mr.all.first.name
   end

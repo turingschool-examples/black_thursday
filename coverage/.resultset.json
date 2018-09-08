@@ -3,8 +3,30 @@
     "coverage": {
       "/Users/ruthbrand/turing/1module2.0/projects/black_thursday/lib/merchant_repo.rb": [
         1,
+        1,
         null,
         1,
+        null,
+        1,
+        2,
+        2,
+        null,
+        null,
+        1,
+        4,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/ruthbrand/turing/1module2.0/projects/black_thursday/lib/black_thursday_helper.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        2,
+        12,
         null,
         null,
         null,
@@ -16,13 +38,13 @@
         null,
         null,
         1,
-        0,
-        0,
+        12,
+        12,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1536433224
+    "timestamp": 1536434294
   }
 }
