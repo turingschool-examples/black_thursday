@@ -1,8 +1,11 @@
+require_relative '../lib/merchant'
 class MerchantRepository
 # The MerchantRepository is responsible for holding and
 # searching our Merchant instances.
-  def initialize
+  attr_reader :merchants
 
+  def initialize
+    @merchants = []
   end
 
   def all
@@ -24,8 +27,13 @@ class MerchantRepository
   end
 
   def create(attributes)
-    # Create a new Merchant instance with the provided attributes.
-    # The new Merchant’s id should be the current highest Merchant id plus 1.
+    # Attributes is in the form of CSV object. Create extracts the data from
+    # that object and creates a new merchant object.
+    merchant = Merchant.new({
+      id: attributes[:id],
+      name: attributes[:name]
+      })
+      @merchants << merchant
   end
 
   def update(id, attributes)

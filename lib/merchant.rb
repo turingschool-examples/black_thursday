@@ -1,6 +1,6 @@
 class Merchant
 
-  def initialize
+  def initialize(args)
 
   end
 

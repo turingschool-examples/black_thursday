@@ -1,6 +1,10 @@
 require 'Csv'
+require_relative '../lib/item_repository'
 
 class SalesEngine
+
+  attr_reader :items,
+              :merchants
 
 
   def self.from_csv(file_path_hash)
@@ -12,33 +16,27 @@ class SalesEngine
       items: items_objs,
       merchants: merchant_objs
     }
-    create_and_populate_item_repo
-    create_and_populate_merchant_repo
-    SalesEngine.new
-  end
 
-  def items
-    @item_repo
-  end
+    se = SalesEngine.new
+    @items = ItemRepository.new
+    @merchants = MerchantRepository.new
 
-  def merchants
-    @merchant_repo
+    create_and_populate_item_repo(items_objs)
+    create_and_populate_merchant_repo(merchant_objs)
+    return se
   end
 
   private
 
-  def self.create_and_populate_item_repo
-    # TODO Are defineing the instance variables down here okay?
-    @item_repo = ItemRepository.new
+  def self.create_and_populate_item_repo(items_objs)
     items_objs.each do |item|
-      item_repo.create(item)
+      @items.create(item)
     end
   end
 
-  def self.create_and_populate_merchant_repo
-    @merchant_repo = MerchantRepository.new
+  def self.create_and_populate_merchant_repo(merchant_objs)
     merchant_objs.each do |item|
-      item_repo.create(item)
+      @merchants.create(item)
     end
   end
 end

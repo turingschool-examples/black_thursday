@@ -1,4 +1,16 @@
+require_relative '../lib/item'
+require 'bigdecimal'
+require 'time'
+
+
 class ItemRepository
+
+  attr_reader :items
+
+  def initialize
+    @items = []
+  end
+
   def all
     # Returns an array of all known Item instances
   end
@@ -34,8 +46,19 @@ class ItemRepository
   end
 
   def create(attributes)
-    # Create a new Item instance with the provided attributes.
-    # The new Item’s id should be the current highest Item id plus 1.
+    # Attributes is in the form of CSV object. Create extracts the data from
+    # that object and creates a new item object.
+    item = Item.new({
+      id: attributes[:id],
+      name: attributes[:name],
+      description: attributes[:description],
+      #TODO What are the args for BigDecimal?
+      unit_price: BigDecimal.new(attributes[:unit_price],4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: attributes[:merchant_id],
+      })
+      @items << item
   end
 
   def update(id, attributes)
