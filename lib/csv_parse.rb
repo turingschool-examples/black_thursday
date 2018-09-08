@@ -3,31 +3,20 @@ require 'csv'
 
 class CSVParse
 
-  attr_reader :path
-
-  def initialize(path)
-    @path = path
-  end
-
-  def create_repo
-    csv = parse
-    # RENAME THIS
-    # headers = csv.shift
+  def self.create_repo(path)
+    csv = parse(path)
     headers, *data = csv
     repo = hashed_rows(data, headers)
     return repo
   end
 
 
-  def parse  # CEO method
-    csv = CSV.read(@path)
-    # hashed_rows(csv, headers)
-    # CSV is mutated, no header
+  def self.parse(path)  # CEO method
+    csv = CSV.read(path)
   end
 
 
-  def hashed_rows(csv, headers)
-    # head, *tail = headers
+  def self.hashed_rows(csv, headers)
     temp = template_hash(headers)
     hash = {}
     csv.each { |row|
@@ -38,8 +27,8 @@ class CSVParse
   end
 
 
-  def fill_row(row, template)
-    head, *tail = row # head is ID, do not need
+  def self.fill_row(row, template)
+    head, *tail = row   # head is ID, do not need
     keys = template.keys
     tail.each.with_index { |col, index|
       key = keys[index]
@@ -49,9 +38,8 @@ class CSVParse
   end
 
 
-  def template_hash(headers)
-    headers.shift
-    # headers mutated
+  def self.template_hash(headers)
+    headers.shift   # headers mutated
     hash = {}
     headers.each { |col|
       key = col.to_sym
@@ -59,16 +47,4 @@ class CSVParse
     }
     return hash
   end
-
-
-
-
-
-
-
-
-
-
-
-
 end
