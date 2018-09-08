@@ -1,15 +1,10 @@
 class Merchant
 
-  def initialize(args)
+  attr_reader :id,
+              :name
 
+  def initialize(attributes)
+    @id = attributes[:id]
+    @name = attributes[:name]
   end
-
-  def id
-    # Returns the integer id of the merchant
-  end
-
-  def name
-    # Returns the name of the merchant
-  end
-
 end
