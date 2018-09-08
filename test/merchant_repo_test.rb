@@ -61,10 +61,17 @@ class MerchantRepoTest < Minitest::Test
     second_one = mr.find_by_name("Shopin1802")
 
     expected = [first_one, second_one]
-    actual = mr.find_all_by_name("Shopin")
-    
-    assert_equal expected, actual
+    actual = mr.find_all_by_name("shopin")
 
+    assert_equal expected, actual
+  end
+
+  def test_it_returns_empty_array_if_no_name_fragments_are_found
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    actual = mr.find_all_by_name("hi norm")
+
+    assert_equal [], actual
   end
 
 
