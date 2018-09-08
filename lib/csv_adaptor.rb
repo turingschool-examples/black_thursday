@@ -2,8 +2,8 @@ require 'csv'
 
 class CsvAdaptor
 
-  def load_merchants
-    csv_objs = CSV.read("./data/merchants.csv", headers: true, header_converters: :symbol)
+  def load_merchants(data_file)
+    csv_objs = CSV.read(data_file, headers: true, header_converters: :symbol)
     csv_objs.map do |obj|
       obj[:id] = obj[:id].to_i
       obj[:name] = obj[:name]
