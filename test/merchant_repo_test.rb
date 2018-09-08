@@ -63,6 +63,46 @@ class MerchantRepoTest < Minitest::Test
     mr.all
     name = "kec"
 
-    assert_equal "", mr.find_all_by_name(name)
+    assert_equal 3, mr.find_all_by_name(name).length
   end
+
+  def test_find_highest_merchant_id
+    data_file = "./data/sample_merchant_file.csv"
+    mr = MerchantRepo.new(data_file)
+    mr.all
+
+    assert_equal 1233411111, mr.find_highest_merchant_id
+  end
+
+  def test_create_creates_new_instance_of_merchant
+    data_file = "./data/sample_merchant_file.csv"
+    mr = MerchantRepo.new(data_file)
+    mr.all
+    attributes = {name: "Amy", created_at: "2018-09-08"}
+
+    assert_instance_of Merchant, mr.create(attributes)
+  end
+
+  def test_you_can_update_name_attribute_accessing_through_id
+    data_file = "./data/sample_merchant_file.csv"
+    mr = MerchantRepo.new(data_file)
+    mr.all
+    id = 12334105
+    obj = mr.find_by_id(id)
+    attributes = {name: "TEST_NAME"}
+    mr.update(id, attributes)
+
+    assert_equal "TEST_NAME", obj.name
+  end
+
+  def test_delete_id_deletes_merchant_object_from_merchant_array
+    data_file = "./data/sample_merchant_file.csv"
+    mr = MerchantRepo.new(data_file)
+    mr.all
+    merchant = mr.find_by_id(12334105)
+    mr.delete(12334105)
+
+    refute mr.merchants.include?(merchant)
+  end
+
 end

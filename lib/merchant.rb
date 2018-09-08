@@ -10,4 +10,12 @@ class Merchant
     @updated_at = merchant_hash[:updated_at]
   end
 
+  def create_id(new_id)
+    @id = new_id
+  end
+
+  def change_name(name)
+    @name = name
+  end
+
 end
