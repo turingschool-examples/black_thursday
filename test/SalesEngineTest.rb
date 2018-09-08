@@ -9,4 +9,4 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of SalesEngine, se
   end
-end
+end 
