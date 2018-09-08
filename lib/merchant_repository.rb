@@ -38,11 +38,17 @@ class MerchantRepository
   def create(attributes)
     # Attributes is in the form of CSV object. Create extracts the data from
     # that object and creates a new merchant object.
-    merchant = Merchant.new({
-      id: attributes[:id],
-      name: attributes[:name]
-      })
-      @merchants << merchant
+    if attributes.class == String
+      merchant = Merchant.new({id: find_next_id, name: attributes})
+    else
+      merchant = Merchant.new({
+        id: attributes[:id],
+        name: attributes[:name]
+        })
+    end
+    @merchants << merchant
+
+  
   end
 
   def update(id, attributes)
@@ -55,5 +61,12 @@ class MerchantRepository
     # Delete the Merchant instance with the corresponding id
   end
 
+
+  def find_next_id
+    max_id = @merchants.max_by do |merch|
+      merch.id
+    end.id
+    max_id += 1
+  end
 
 end

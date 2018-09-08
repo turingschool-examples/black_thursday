@@ -20,7 +20,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_an_instance_of_item_repo
-    skip
     se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
@@ -29,7 +28,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_an_instance_of_merchant_repo
-    skip
     se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
