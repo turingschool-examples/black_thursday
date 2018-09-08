@@ -1,6 +1,7 @@
 require 'CSV'
 
 class MerchantRepository
+  attr_reader :merchants
 
   def initialize(file_path)
     @merchants = []
@@ -33,6 +34,11 @@ class MerchantRepository
     found_all_names = @merchants.find_all do |merchant|
                         merchant.name.downcase.include?(name.downcase)
                       end
+  end
+
+  def create(attributes)
+    attributes[:id] = @merchants[-1].id + 1
+    @merchants << Merchant.new(attributes)
   end
 
 end
