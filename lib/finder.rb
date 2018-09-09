@@ -2,10 +2,6 @@ require 'pry'
 
 module Finder
   
-  def all
-    @merchants
-  end
-
   def find_by_id(id)
     @csv.keep_if do |key, value|      
       key == id

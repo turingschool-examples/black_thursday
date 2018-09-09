@@ -34,7 +34,7 @@ class MerchantRepositoryTest < Minitest::Test
     end
 
     def test_it_can_make_all_merchants
-      merch = @repo.merchants.first(100)
+      merch = @repo.all.first(100)
       assert_equal 100, merch.count
       assert_equal 100, merch.uniq.count
       assert_equal 12334105, merch[0].id
