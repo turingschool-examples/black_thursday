@@ -17,8 +17,9 @@ class SalesEngine
   def self.from_csv(files)
     initializers = {items: ItemRepository,
                     merchants: MerchantRepository}
-    # TODO: Iterate through files, create "repo" objects, and send them to init
     repositories = {}
+    
+    # TODO: Change to inject pattern? Maybe?
     files.each do |dataset, filename|
       data = hash_from_csv(filename)
       repositories[dataset] = initializers[dataset].new(data)

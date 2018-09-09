@@ -4,7 +4,6 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
-    SalesEngine.stubs(:hash_from_csv).returns("data")
     @se = SalesEngine.from_csv({:items => "./data/items.csv",
                                 :merchants => "./data/merchants.csv"})
   end
