@@ -69,5 +69,23 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 5, merchant_repository.merchants[-1].id
   end
 
+  def test_it_can_update_name
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+    merchant = merchant_repository.find_by_id(4)
+    attributes = {name: "Averi"}
+    merchant_repository.update(4,attributes)
+
+
+    assert_equal "Averi", merchant.name
+  end
+
+  def test_it_can_delete_merchants_by_id
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+    merchant = merchant_repository.find_by_id(4)
+    merchant_repository.delete(4)
+
+    refute merchant_repository.merchants.include?(merchant)
+  end
+
 
 end
