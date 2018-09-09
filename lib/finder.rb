@@ -1,9 +1,8 @@
-
 require 'pry'
+
 module Finder
   
   def all
-    # binding.pry
     @csv
   end
 
