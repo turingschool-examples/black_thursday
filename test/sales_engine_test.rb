@@ -9,4 +9,7 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of SalesEngine, se
   end
+
+  def test_it_can_initialize_from_csv
+    se = SalesEngine.from_csv()
 end

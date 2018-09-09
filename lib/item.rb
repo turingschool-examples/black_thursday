@@ -1,4 +1,5 @@
 require 'pry'
+require_relative './merchant'
 
 class Item
 
