@@ -9,7 +9,6 @@ class SalesEngineTest < Minitest::Test
               :merchants     => './test/fixtures/merchants_fixtures.csv',
               :items         => './test/fixtures/items_fixtures.csv'
               })
-              binding.pry
     assert_equal MerchantRepository, se.merchants.class
     assert_equal ItemRepository, se.items.class
   end
