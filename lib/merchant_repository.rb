@@ -1,5 +1,7 @@
 require 'CSV'
-require 'pry'
+require 'bigdecimal'
+require 'bigdecimal/util'
+
 require_relative 'merchant.rb'
 require_relative 'crud.rb'
 
@@ -22,9 +24,7 @@ include Crud
     @collection << new.data
   end
 
-  # def update(id, attributes)
-  #   merch = collection.find { |element| element[:id] == id}
-  #   merch[:name] = attributes
-  # end
-
+  def find_all_by_name(string)
+    find_all_by(:name, string)
+  end
 end
