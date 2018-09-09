@@ -100,8 +100,18 @@ class ItemRepositoryTest <  Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_find_by_merchant_id
-
+  def test_find_all_by_merchant_id
+    ir = ItemRepository.new('./data/items_tiny.csv')
+    actual = ir.find_all_by_merchant_id('12334257')
+    expected = [{:id=>263397843,
+      :name=>"Wooden pen and stand",
+      :description=>
+      "Hand crafted wood pen made from T Tree\nVarious other woods available.\n\nRed gum (SA)\nSwan red gum (WA)\nBlackwood (TAS)\nAcacia (NT)\nForest red gum (TAS)\nT Tree (TAS)\n\nOther woods available on request\n\nAll pens are hand crafted and treated with local bees wax. These pens make great presents I can also have names etc lazier engraved for an extra $10.",
+      :unit_price=>BigDecimal.new(4000,0),
+      :merchant_id=>"12334257",
+      :created_at=>"2016-01-11 11:44:00 UTC",
+      :updated_at=>"2006-08-26 06:56:21 UTC"}]
+    assert_equal expected, actual
   end
 
   def test_find_all_by_price_in_range

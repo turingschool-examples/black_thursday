@@ -32,4 +32,8 @@ include Crud
   def find_all_by_price(string)
     find_all_by_exact(:unit_price, string)
   end
+
+  def find_all_by_merchant_id(string)
+    find_all_by_exact(:merchant_id, string)
+  end
 end
