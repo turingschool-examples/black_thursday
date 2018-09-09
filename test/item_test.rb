@@ -37,7 +37,10 @@ class ItemTest < Minitest::Test
     assert_equal "2016-01-11 09:34:06 UTC", i.created_at
     assert_equal "2007-06-04 21:35:10 UTC", i.updated_at
     assert_equal 2, i.merchant_id
+    assert_equal 2.00, i.unit_price_to_dollars
   end
+
+
 
 
 end
