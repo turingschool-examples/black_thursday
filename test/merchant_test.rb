@@ -8,6 +8,4 @@ class MerchantTest <  Minitest::Test
     assert_instance_of Merchant, m
   end
 
-
-
 end
