@@ -210,5 +210,42 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, ir.find_by_name("Marker")
   end
 
+  def test_it_can_update_attributes
+    ir = ItemRepository.new("./data/items.csv")
+    i1 = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+      })
+    i2 = Item.new({
+        :id          => 2,
+        :name        => "Notebook",
+        :description => "You can use it to write on",
+        :unit_price  => BigDecimal.new(7.50,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 5
+        })
+    ir.add_individual_item(i1)
+    ir.add_individual_item(i2)
+    hash_2 = {
+        :id          => 5,
+        :name        => "Sparkly Notebook",
+        :description => "You can use it to write on and it sparkles.",
+        :unit_price  => BigDecimal.new(9.01,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 9
+        }
+        ir.update(2, hash_2)
+    assert_equal "Sparkly Notebook", i2.name
+    assert_equal "You can use it to write on and it sparkles.", i2.description
+    assert_equal 9.01, i2.unit_price
+    refute_equal 5, i2.id
+  end
 
 end

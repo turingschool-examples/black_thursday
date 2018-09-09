@@ -62,7 +62,7 @@ class ItemRepository
     end
   end
 
-  def create(attribute_hash)
+  def create(attributes)
     if @all == []
       new_id = 1
     else
@@ -71,10 +71,17 @@ class ItemRepository
       end.id
       new_id = highest_id + 1
     end
-    attribute_hash[:id] = new_id
-    @all << Item.new(attribute_hash)
+    attributes[:id] = new_id
+    @all << Item.new(attributes)
   end
 
+  def update(id, attributes)
+    item = find_by_id(id)
+    item.name = attributes[:name]
+    item.description = attributes[:description]
+    item.unit_price = attributes[:unit_price]
+    item.updated_at = Time.now
+  end
 
 
 
