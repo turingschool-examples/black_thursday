@@ -1,6 +1,8 @@
 require 'pry'
+require 'bigdecimal'
 
 class Item
+
   attr_reader :id, 
               :created_at,
               :merchant_id
@@ -20,5 +22,5 @@ class Item
     @unit_price = hash[:unit_price]
     @updated_at = hash[:updated_at]
   end
-
 end
+
