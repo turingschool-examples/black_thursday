@@ -5,7 +5,7 @@ require 'pry'
 
 require './lib/merchant_repository'
 require './lib/merchant'
-
+require './lib/finder'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -26,7 +26,7 @@ class MerchantRepositoryTest < Minitest::Test
     @merchant1 = Merchant.new( {id: 12334105, name: "Shopin1901"} )
     @merchant2 = Merchant.new( {id: 12334112, name: "Candisart"} )
 
-
+   
   end
 
     def test_it_exists
@@ -41,6 +41,10 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal "Shopin1901", merch[0].name
     end
 
-
+    def test_it_can_use_Finder_module
+      expected = [{:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}]
+      actual = @repo.find_entry_by_name('merchant', 'Shopin1901')
+      assert_equal expected, actual
+    end
 
 end

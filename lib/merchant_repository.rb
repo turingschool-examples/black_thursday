@@ -2,9 +2,11 @@ require 'pry'
 
 require_relative 'csv_parse'
 require_relative 'merchant'
+require './lib/finder'
 
 
 class MerchantRepository
+  include Finder
 
   attr_reader :merchants
 
@@ -26,6 +28,31 @@ class MerchantRepository
   end
 
 
+  # find_by_entry_name('merchant', 'TuringSchool')
+  # => #<Merchant0x0000000 @id = 12345, @name='TuringSchool'>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Methods
   # Finder
@@ -42,9 +69,5 @@ class MerchantRepository
     # update(id, attributes)
     # delete(id)
 
-
-
-
-
-
 end
+
