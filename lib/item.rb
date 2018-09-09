@@ -19,8 +19,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    binding.pry
     @unit_price.to_f
   end
-
 end
