@@ -22,4 +22,8 @@ class SalesEngine
     ItemRepo.new(@item_file)
   end
 
+  def analyst
+    SalesAnalyst.new(@item_file, @merchant_file)
+  end
+
 end
