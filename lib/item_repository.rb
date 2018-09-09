@@ -18,4 +18,17 @@ class ItemRepository
     end
   end
 
+  def find_by_id(id)
+  @items.find do |item|
+     item.id == id
+    end
+  end
+
+  def find_by_name(name)
+   @items.find do |items|
+      item.name == name
+    end
+  end
+
+
 end

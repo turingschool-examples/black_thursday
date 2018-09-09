@@ -16,4 +16,23 @@ class MerchantTest<Minitest::Test
     assert_equal 10 , @ir.all.count
     assert_instance_of Array, @ir.all
   end
+
+  def test_it_can_find_item_by_id
+    result = @ir.find_by_id(263397059)
+
+    assert_instance_of Item, result
+    assert_equal 263397059, result.id
+    assert_equal "Etre ailleurs", result.name
+  end
+
+  def test_it_can_find_items_by_name
+    result = @mr.find_by_name("Etre ailleurs")
+    assert_equal "Etre ailleurs", result.name
+  end
+
+  # def test_it_can_find_all_by_name
+  #   result = @mr.find_all_by_name("Urcase")
+  #   assert_equal "Urcase", result.find_all_by_name(name)
+  # end
+
 end
