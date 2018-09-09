@@ -33,6 +33,16 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 2.88, sales_analyst.average_items_per_merchant
   end
 
+  def test_average_items_per_merchant_standard_deviation
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+
+    assert_equal 3.26, sales_analyst.average_items_per_merchant_standard_deviation
+  end
+
   def test_find_all_merchant_ids
     sales_engine = SalesEngine.from_csv({
     :items     => "./data/items.csv",
