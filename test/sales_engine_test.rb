@@ -6,10 +6,11 @@ require_relative '../lib/sales_engine'
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @engine = SalesEngine.new({:merchants => "./data/merchants.csv"})
+    @engine = SalesEngine.from_csv({:merchants => "./data/merchants_tiny.csv"})
   end
 
   def test_it_can_create_new_instance_of_csv_file
+    skip
     assert_instance_of SalesEngine, @engine
   end
 

@@ -1,21 +1,19 @@
-
+require_relative 'merchant_repository'
 require 'csv'
+require 'pry'
 
 class SalesEngine
-	attr_reader :collection
+include Crud
 
-  	def initialize(files)
-  	  @files = files
-  	end
+  attr_reader :filepath
+  attr_accessor :merchants
 
-    def self.from_csv(filepath)
-      @collection = []
+  def initialize(filepath)
+    @filepath = filepath
+  end
 
-      csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
-      csv_objects.map do |object|
-        object[:id] = object[:id].to_i
-        @collection << object.to_h
-      end
-    end
-
+  def self.from_csv(filepath)
+    @merchants = MerchantRepository.new(filepath[:merchants])
+    # @items = ItemRepository.new(filepath[:items]
+  end
 end
