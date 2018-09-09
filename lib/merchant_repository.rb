@@ -1,5 +1,4 @@
 require 'CSV'
-require 'pry'
 require_relative './merchant'
 class MerchantRepository
   def initialize(filepath)
@@ -12,7 +11,7 @@ class MerchantRepository
   end
 
   def load_merchants(filepath)
-    data = CSV.foreach(filepath, headers: true, header_converters: :symbol ) do |data|
+    CSV.foreach(filepath, headers: true, header_converters: :symbol ) do |data|
       @merchants << Merchant.new(data)
     end
   end
@@ -27,5 +26,16 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def create(new_merchant)
+    highest_id = @merchants.max_by do |merchant|
+      merchant.id
+    end.id
+    new_merchant_id = highest_id += 1
+    new_merchant = Merchant.new(id: new_merchant_id, name: new_merchant[:name])
+    @merchants << new_merchant
+
+    return new_merchant
   end
 end
