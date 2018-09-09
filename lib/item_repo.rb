@@ -43,10 +43,6 @@ class ItemRepo < CsvAdaptor
     end
   end
 
-<<<<<<< HEAD
-  def method_name
-
-=======
   def find_all_by_price(price)
     @items.find_all do |item|
       item.unit_price_to_dollars == price
@@ -93,7 +89,6 @@ class ItemRepo < CsvAdaptor
     @items.delete_if do |item|
       item.id == id
     end
->>>>>>> e8675480358c7eca4eb9700dc03bf731ebcd1456
   end
 
 end
