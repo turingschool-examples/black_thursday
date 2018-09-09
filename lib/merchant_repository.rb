@@ -1,4 +1,4 @@
-require 'CSV'
+
 require_relative './merchant'
 class MerchantRepository
   def initialize(filepath)

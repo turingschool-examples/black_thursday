@@ -13,7 +13,9 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repository = MerchantRepository.new('./data/merchants.csv')
 
     assert_equal 475, merchant_repository.all.count
+
     assert_instance_of Array, merchant_repository.all
+
     assert merchant_repository.all.all? { |merchant| merchant.is_a?(Merchant)}
     assert_equal "Shopin1901", merchant_repository.all.first.name
   end
