@@ -60,7 +60,17 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal new_hash, @repo.make_hash(@key, @value)
   end
 
+  def test_it_can_find_all
+    assert_equal 1367, @repo.all.count
+  end
 
+  def test_it_can_find_by_id
+    # well, it works
+    assert_equal 263395617, @repo.find_by_id("263395617").first.id
+  end
 
+  def test_it_can_find_all_by_name
+    assert_equal [@first_item], @repo.find_all_by_name("510+ RealPush Icon Set")
+  end
 
 end

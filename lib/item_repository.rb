@@ -6,9 +6,10 @@ require 'pry'
 
 require_relative 'item'
 require_relative 'csv_parse'
-
+require './lib/finder'
 
 class ItemRepository
+  include Finder
 
   attr_reader :all
 
@@ -34,6 +35,13 @@ class ItemRepository
     # provided are all needed for the Item object
     value.each { |col, data| hash[col] = data }
     return hash
+  end
+
+  #overrides module
+  def find_by_id(id)
+    all.keep_if do |item|      
+      item.id == id.to_i
+    end
   end
 
 end

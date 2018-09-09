@@ -41,6 +41,6 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal "Shopin1901", merch[0].name
     end
 
-
-
+    
+    
 end
