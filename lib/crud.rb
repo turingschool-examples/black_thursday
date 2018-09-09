@@ -4,8 +4,7 @@ module Crud
       csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
       csv_objects.map do |object|
         object[:id] = object[:id].to_i
-
-        @collection << object.to_h
+      collection << object.to_h
       end
   end
 
@@ -34,6 +33,18 @@ module Crud
 
   def delete(id)
     collection.delete_if { |element| element[:id] == id }
+  end
+
+  
+  def update(id, key_value_array)
+    it = collection.find { |element| element[:id] == id}
+   
+    key_value_array.map do |key_value|
+      if @changeable_attributes.include?(key_value[0])
+       it[key_value[0]] = key_value[1] 
+       it[:updated_at] = Time.now
+      end
+    end
   end
 
 end
