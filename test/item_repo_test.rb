@@ -56,4 +56,13 @@ class ItemRepoTest < Minitest::Test
     assert_equal expected, ir.find_by_name(name)
   end
 
+  def test_find_all_with_description_returns_items_with_description_fragment
+    data_file = "./data/items.csv"
+    ir = ItemRepo.new(data_file)
+    ir.all
+    description = "disney"
+
+    assert_instance_of Array, ir.find_all_with_description(description)
+  end
+
 end

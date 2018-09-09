@@ -1,7 +1,8 @@
 class Item
 
   attr_reader :id,
-              :name
+              :name,
+              :description
 
   def initialize(item_hash)
     @id = item_hash[:id]
