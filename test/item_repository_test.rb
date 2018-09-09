@@ -25,7 +25,7 @@ class ItemRepositoryTest < Minitest::Test
     @key = :"263395237"
     @value = {
               :name           => "510+ RealPush Icon Set",
-              :description    => "You&#39;ve got a total socialmedia iconset!", #this is an excerpt of first item
+              :description    => "You&#39;ve got a total socialmedia iconset!", # NOTE - excerpt!
               :unit_price     => "1200",
               :merchant_id    => "12334141",
               :created_at     => "2016-01-11 09:34:06 UTC",

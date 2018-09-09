@@ -16,6 +16,7 @@ class MerchantRepository
 
 
   def make_merchants
+
     @csv.each { |key, value|
       number = key.to_s.to_i
       name = value[:name]
