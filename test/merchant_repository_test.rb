@@ -58,6 +58,22 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [merchant_repository.find_by_id(12337412)], actual
   end
 
+  ##above tests require square brackets...might need to fix that.
+
+  def test_merchants_attributes_can_be_updated
+    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+
+    actual = merchant_repository.find_by_id(12334112)
+
+    assert_equal "Candisart", actual.name
+
+    id = 12337412
+    new_attributes = {name: "Artiscandi"}
+
+    merchant_repository.update(id, new_attributes)
+
+    assert_equal "Artiscandi", actual.name
+  end
 
 
 

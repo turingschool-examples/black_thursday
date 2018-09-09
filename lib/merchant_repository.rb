@@ -35,7 +35,18 @@ class MerchantRepository
     new_merchant_id = highest_id += 1
     new_merchant = Merchant.new(id: new_merchant_id, name: new_merchant[:name])
     @merchants << new_merchant
-
     return new_merchant
   end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    return merchant if merchant.nil?
+    merchant.update_name(attributes[:name]) unless attributes[:name].nil?
+  end
+
+
+
+
+
+
 end
