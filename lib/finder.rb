@@ -25,5 +25,19 @@ module Finder
       entry.id
     end
   end
-  
+
+  def create(attributes)
+    new_id = find_highest_id.id + 1
+    new_item_attributes = {
+      :id           => new_id,
+      :name         => attributes[:name],
+      :description  => attributes[:description],
+      :unit_price   => attributes[:unit_price],
+      :created_at   => Time.now,
+      :updated_at   => Time.now,
+      :merchant_id  => 2
+    }
+    return Item.new(new_item_attributes)
+    # next, write to csv
+  end
 end

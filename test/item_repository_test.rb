@@ -77,4 +77,29 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263567474, @repo.find_highest_id.id
   end
 
+  def test_it_can_create_new_merchant_instance_from_attribute_hash
+    new_item = {
+      :id             => 0,
+      :name           => "511+ RealPush Icon Set",
+      :description    => "You&#39;ve got a total socialmedia iconset!", # NOTE - excerpt!
+      :unit_price     => BigDecimal(10.99,4),
+      :created_at     => Time.now,
+      :updated_at     => Time.now,
+      :merchant_id    => 2
+    }
+
+    expected = Item.new({
+      :id             => 263567475,
+      :name           => "511+ RealPush Icon Set",
+      :description    => "You&#39;ve got a total socialmedia iconset!",
+      :unit_price     => BigDecimal(10.99,4),
+      :created_at     => Time.now,
+      :updated_at     => Time.now,
+      :merchant_id    =>2
+    })
+    
+    assert_equal expected.id, @repo.create(new_item).id
+    
+  end
+
 end
