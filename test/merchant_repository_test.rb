@@ -41,14 +41,26 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal "Shopin1901", merch[0].name
     end
 
-    def test_it_can_use_Finder_module
-      expected = [{:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}]
-      actual = @repo.find_entry_by_name('merchant', 'Shopin1901')
-      assert_equal expected, actual
+    # def test_it_can_use_Find_by_name
+    #   expected = {:"12334105"=>{:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}}
+    #   actual = @repo.find_entry_by_name('merchant', 'Shopin1901')
+    #   assert_equal expected, actual
 
-      # binding.pry
-      expected = [{:name=>"jejum", :created_at=>"2007-06-25", :updated_at=>"2015-09-09"}]
-      actual = @repo.find_entry_by_name('merchant', 'jejum')
+    #   expected = [{:name=>"jejum", :created_at=>"2007-06-25", :updated_at=>"2015-09-09"}]
+    #   actual = @repo.find_entry_by_name('merchant', 'jejum')
+    #   assert_equal expected, actual
+    # end
+
+    # def test_it_can_use_Find_by_created
+    #   expected = {:"12334105"=>{:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}}
+    #   actual = @repo.find_entry_by_created('merchant', '2010-12-10')
+    #   assert_equal expected, actual
+
+    # end
+
+    def test_it_can_use_Find_by_id
+      expected = {:"12334105"=>{:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}}
+      actual = @repo.find_by_id(:"12334105")
       assert_equal expected, actual
     end
 
