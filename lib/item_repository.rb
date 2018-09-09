@@ -10,12 +10,12 @@ require_relative 'csv_parse'
 
 class ItemRepository
 
-  attr_reader :items
+  attr_reader :all
 
   def initialize(path)
     @csv = CSVParse.create_repo(path)
     # @headers = [:created_at, :merchant_id, :name, :description, :unit_price, :updated_at]
-    @items = []
+    @all = []
     make_items
   end
 
@@ -23,9 +23,9 @@ class ItemRepository
     @csv.each { |key, value|
       hash = make_hash(key, value)
       item = Item.new(hash)
-      @items << item
+      @all << item
     }
-    @items.flatten!
+    @all.flatten!
   end
 
   def make_hash(key, value)

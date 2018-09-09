@@ -17,9 +17,9 @@ class ItemRepositoryTest < Minitest::Test
     @repo = ItemRepository.new(@path)
 
     # -- First Item's information --
-    @first_item = @repo.items[0]
+    @first_item = @repo.all[0]
     # NOTE - The description is only an except.
-    # NOTE - DO NOT try to match the description value (@repo.items[0].description)
+    # NOTE - DO NOT try to match the description value (@repo.all[0].description)
     @headers = [:id, :created_at, :merchant_id, :name, :description, :unit_price, :updated_at]
     # --- CSVParse created hash set ---
     @key = :"263395237"
@@ -40,9 +40,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_makes_and_gets_items
-    assert_instance_of Array, @repo.items
-    assert_instance_of Item,  @repo.items[0]
-    assert_instance_of Item,  @repo.items[1000]
+    assert_instance_of Array, @repo.all
+    assert_instance_of Item,  @repo.all[0]
+    assert_instance_of Item,  @repo.all[1000]
   end
 
   def test_it_makes_items
