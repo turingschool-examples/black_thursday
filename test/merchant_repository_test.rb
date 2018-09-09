@@ -55,11 +55,22 @@ class MerchantRepositoryTest < Minitest::Test
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     })
-
     mr = se.merchants
     findings = mr.find_by_name("CJsDecor")
     actual = findings[0].id
+
     assert_equal 12337411, actual
+  end
+
+  def test_the_find_by_name_method_returns_nil_if_not_found
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    mr = se.merchants
+    actual = mr.find_by_name("Mcdonalds")
+
+    assert_equal nil, actual
   end
 
   def test_that_the_find_all_method_finds_merchants_by_fragment
@@ -72,6 +83,17 @@ class MerchantRepositoryTest < Minitest::Test
     actual = mr.find_all_by_name("Ann").count
 
     assert_equal 2, actual
+  end
+
+  def test_the_find_by_id_method_returns_nil_if_not_found
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    mr = se.merchants
+    actual = mr.find_by_id(6457654)
+
+    assert_equal nil, actual
   end
 
   def test_that_create_method_creates_new_merchants
@@ -98,5 +120,19 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 2 , id_number
     assert_equal 'Mcdonalds', name
   end
+
+  def test_update
+    mr = MerchantRepository.new([])
+    mr.create("Turing School")
+    mr.update(1, {:id => 1, :name => "Mcdonalds"})
+    created_date = mr.merchants_array[0].created_at
+    updated_date = mr.merchants_array[0].updated_at
+    name = mr.merchants_array[0].name
+    boolean = created_date != updated_date
+
+    assert boolean
+    assert_equal 'Mcdonalds', name
+  end
+
 
 end

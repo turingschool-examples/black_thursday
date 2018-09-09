@@ -1,5 +1,6 @@
 require './lib/sales_engine'
 require 'pry'
+
 class MerchantRepository < SalesEngine
   attr_reader :merchants_array
   def initialize(merchants_array)
@@ -11,15 +12,20 @@ class MerchantRepository < SalesEngine
   end
 # find_by_name must return nil name doesn't exist
   def find_by_name(name)
-    @merchants_array.find_all do |merchant|
+    findings = @merchants_array.find_all do |merchant|
       merchant.name.downcase == name.downcase
     end
+
+    findings = nil if findings == []
+    findings
   end
 
   def find_by_id(id)
-    @merchants_array.find_all do |merchant|
+    findings = @merchants_array.find_all do |merchant|
       merchant.id == id
     end
+    findings = nil if findings == []
+    findings
   end
 
   def find_all_by_name(name)
@@ -43,7 +49,10 @@ class MerchantRepository < SalesEngine
   end
 
   def update(id, attributes)
-
+    name = attributes[:name]
+    merchant = find_by_id(id)
+    merchant[0].updated_at = Date.today.to_s
+    merchant[0].name = name
   end
 
   def delete(id)
