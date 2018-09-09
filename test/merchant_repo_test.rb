@@ -89,5 +89,19 @@ class MerchantRepoTest < Minitest::Test
     assert_equal 8, actual.id
   end
 
+  def test_updated_attribute_does_not_update_id
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    mr.update(5, "TheWhitePowderShop")
+
+    expected = mr.find_by_id(5)
+    assert_equal expected, mr.find_by_name("TheWhitePowderShop")
+
+    expected = mr.find_by_name("TheWhitePowderShop")
+    assert_equal expected, mr.find_by_id(5)
+    assert_nil mr.update(10928194829481028301823401934092, "Hi")
+  end
+
+
 
 end
