@@ -1,5 +1,5 @@
 require './test/minitest_helper'
-require './lib/item'
+require '../lib/item'
 
 
 

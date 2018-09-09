@@ -24,12 +24,13 @@ class MerchantTest < Minitest::Test
     assert_equal "Shopin1901", result.name
   end
 
-  def test_it_can_find_all_by_name
-    assert_instance_of MerchantRepository, @mr
+  def test_it_can_find_merchants_by_name
+    result = @mr.find_by_name("Candisart")
+    assert_equal "Candisart", result.name
   end
 
-  def test_merchant_repo_has_merchants
-    assert_equal 13 , @mr.all.count
-    assert_instance_of Array, @mr.all
+  def test_it_can_find_all_by_name
+    result = @mr.find_all_by_name("Urcase")
+    assert_equal "Urcase", result.find_all_by_name(name)
   end
 end

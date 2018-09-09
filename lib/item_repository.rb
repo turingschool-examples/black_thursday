@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require './lib/item'
+require_relative './item'
 
 class ItemRepository
   def initialize(item_path)
