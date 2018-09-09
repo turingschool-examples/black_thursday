@@ -65,4 +65,15 @@ class ItemRepoTest < Minitest::Test
     assert_instance_of Array, ir.find_all_with_description(description)
   end
 
+  def test_find_by_price
+    r = ItemRepo.new("./data/items.csv")
+    ir.all
+    name = "LolaMarleys"
+    expected = mr.merchants[3]
+
+    assert_equal expected, mr.find_by_name(name)
+  end
+
+  end
+
 end
