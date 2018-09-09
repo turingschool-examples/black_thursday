@@ -17,8 +17,8 @@ class SalesEngine
   end
 
   def merchants
-    array_of_merchants << csv_converter(@merchants_file)
-    MerchantRepository.new(@file_path_hash, array_of_merchants)
+    array_of_merchants = csv_converter(@merchants_file)
+    MerchantRepository.new(array_of_merchants)
   end
 
   def items

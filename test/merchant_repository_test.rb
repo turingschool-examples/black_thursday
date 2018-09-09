@@ -15,4 +15,16 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
     assert_instance_of MerchantRepository, mr
   end
+
+  def test_that_it_loads_the_repository_of_merchants
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+
+    mr = se.merchants
+    actual = mr.merchants_array[0]
+
+    assert_instance_of Merchant , actual
+  end
 end
