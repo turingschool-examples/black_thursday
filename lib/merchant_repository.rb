@@ -25,6 +25,7 @@ class MerchantRepository
     @merchants.flatten!
   end
 
+end
 
 
 # Methods
@@ -41,10 +42,3 @@ class MerchantRepository
     # create(attributes)
     # update(id, attributes)
     # delete(id)
-
-
-
-
-
-
-end

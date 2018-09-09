@@ -1,7 +1,7 @@
 require 'pry'
 
 class Item
-  attr_reader :id, 
+  attr_reader :id,
               :created_at,
               :merchant_id
 
@@ -11,10 +11,11 @@ class Item
                 :updated_at
 
   def initialize(hash)
+    # -- Read Only --
     @id = hash[:id]
     @created_at = hash[:created_at]
     @merchant_id = hash[:merchant_id]
-    
+    # -- Accessible --
     @name = hash[:name]
     @description = hash[:description]
     @unit_price = hash[:unit_price]
