@@ -41,7 +41,7 @@ class MerchantRepositoryTest < Minitest::Test
       :name        => "Pencil",
     }
     ir.create(hash)
-    assert_nil ir.find_all_by_id(1234)
+    assert_nil ir.find_by_id(1234)
   end
 
   def test_it_can_return_by_id
@@ -51,7 +51,7 @@ class MerchantRepositoryTest < Minitest::Test
       :name        => "Pencil",
     }
     ir.create(hash)
-    assert_equal "Pencil", ir.find_all_by_id(1).name
+    assert_equal "Pencil", ir.find_by_id(1).name
   end
 
   def test_it_returns_nil_with_no_matching_names
@@ -102,5 +102,48 @@ class MerchantRepositoryTest < Minitest::Test
     }
     ir.create(hash)
     assert_equal 2, ir.find_next_id
+  end
+
+  def test_it_can_update_name
+    ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    ir.create(hash)
+    ir.update(1, "Eraser")
+    assert_equal "Eraser", ir.all[0].name
+  end
+
+  def test_merchant_can_be_deleted
+    ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    hash2 = {
+      :id          => 2,
+      :name        => "Eraser",
+    }
+    ir.create(hash)
+    ir.create(hash2)
+    ir.delete(2)
+    assert_equal 1, ir.all.length
+  end
+
+  def test_it_will_do_nothing_when_trying_to_delete_nonexistant_id
+    ir = MerchantRepository.new
+    hash = {
+      :id          => 1,
+      :name        => "Pencil",
+    }
+    hash2 = {
+      :id          => 2,
+      :name        => "Eraser",
+    }
+    ir.create(hash)
+    ir.create(hash2)
+    ir.delete(3)
+    assert_equal 2, ir.all.length
   end
 end
