@@ -73,4 +73,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [@first_item], @repo.find_all_by_name("510+ RealPush Icon Set")
   end
 
+  def test_it_can_find_highest_id
+    assert_equal 263567474, @repo.find_highest_id.id
+  end
+
 end

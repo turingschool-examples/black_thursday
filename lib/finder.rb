@@ -19,5 +19,11 @@ module Finder
       entry.name == name
     end
   end
+
+  def find_highest_id
+    all.max_by do |entry|
+      entry.id
+    end
+  end
   
 end
