@@ -34,4 +34,8 @@ class MerchantTest < Minitest::Test
     assert_equal "Urcase17", result.first.name
   end
 
+  def test_you_can_create_new_merchant_with_incrimented_id
+    new_merchant = @mr.create()
+  end
+
 end
