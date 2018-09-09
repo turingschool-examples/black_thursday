@@ -13,6 +13,8 @@ class Item
     @merchant_id = item_hash[:merchant_id]
   end
 
-
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
 
 end
