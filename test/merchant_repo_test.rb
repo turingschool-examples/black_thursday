@@ -89,5 +89,34 @@ class MerchantRepoTest < Minitest::Test
     assert_equal 8, actual.id
   end
 
+  def test_updated_attribute_does_not_update_id
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    mr.update(5, "TheWhitePowderShop")
+
+    expected = mr.find_by_id(5)
+    assert_equal expected, mr.find_by_name("TheWhitePowderShop")
+
+    expected = mr.find_by_name("TheWhitePowderShop")
+    assert_equal expected, mr.find_by_id(5)
+    assert_nil mr.update(10928194829481028301823401934092, "Hi")
+  end
+
+  def test_i_can_delete_merchant_by_id
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+    mr.delete(4)
+
+    assert_nil mr.find_by_id(4)
+  end
+
+  def test_if_you_delete_an_unknown_merchant_it_does_nothing
+      mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+
+      mr.delete(283482058208490284091840824820482904)
+
+      assert_nil mr.find_by_id(283482058208490284091840824820482904)
+  end
+
 
 end

@@ -53,4 +53,19 @@ class MerchantRepo
    end
   end
 
+  def update(id, attributes)
+      if find_by_id(id) != nil
+      merchant_to_be_updated = find_by_id(id)
+      merchant_to_be_updated.name = attributes
+      else
+        nil
+      end
+  end
+
+  def delete(id)
+    @merchants.delete_if do |merchant|
+      merchant.id == id
+    end
+  end
+
 end
