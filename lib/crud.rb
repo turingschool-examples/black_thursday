@@ -1,5 +1,13 @@
 module Crud
 
+  def load(filepath)
+      csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
+      csv_objects.map do |object|
+        object[:id] = object[:id].to_i
+        @collection << object.to_h
+      end
+  end
+
   def all
     collection
   end
@@ -21,16 +29,10 @@ module Crud
     collection.keep_if do |element|
       element[:name].downcase.include? name_fixed
     end
-
-  end
-
-  def create(attributes)
-  end
-
-  def update(id, attributes)
   end
 
   def delete(id)
+    collection.delete_if { |element| element[:id] == id }
   end
 
 end
