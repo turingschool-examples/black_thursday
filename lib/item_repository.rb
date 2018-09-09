@@ -53,6 +53,12 @@ class ItemRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all do |item|
+      item.merchant_id == merchant_id.to_i
+    end
+  end
+
 
 
     # def find_all_by(attr_sym, search_string)
