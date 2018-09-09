@@ -1,5 +1,7 @@
 require 'Csv'
 require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_analyst'
 
 class SalesEngine
 
@@ -10,7 +12,6 @@ class SalesEngine
     @items = ItemRepository.new
     @merchants = MerchantRepository.new
   end
-
 
   def self.from_csv(file_path_hash)
     items_objs = CSV.read(file_path_hash[:items],
@@ -31,12 +32,15 @@ class SalesEngine
     items_objs.each do |item|
       @items.create(item)
     end
-
   end
 
   def create_and_populate_merchant_repo(merchant_objs)
     merchant_objs.each do |item|
       @merchants.create(item)
     end
+  end
+
+  def analyst
+    SalesAnalyst.new
   end
 end

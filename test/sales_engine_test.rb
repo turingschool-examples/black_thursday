@@ -35,4 +35,12 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, se.merchants
   end
 
+  def test_it_can_create_a_sales_analyst_instance
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+        })
+    assert_instance_of SalesAnalyst, se.analyst
+  end
+
 end
