@@ -22,22 +22,22 @@ class ItemTest < Minitest::Test
       :merchant_id => 2
     }
     
-    @m = Item.new(input)
+    @item = Item.new(input)
   end
 
   def test_it_exists
-    assert_instance_of Item, @m
+    assert_instance_of Item, @item
   end
 
   def test_it_has_attributes
-    assert_equal 1, @m.id
-    assert_equal @created, @m.created_at
-    assert_equal 2, @m.merchant_id
+    assert_equal 1, @item.id
+    assert_equal @created, @item.created_at
+    assert_equal 2, @item.merchant_id
 
-    assert_equal "Pencil", @m.name
-    assert_equal "You can use it to write things", @m.description
-    assert_equal @decimal, @m.unit_price
-    assert_equal @updated, @m.updated_at
+    assert_equal "Pencil", @item.name
+    assert_equal "You can use it to write things", @item.description
+    assert_equal @decimal, @item.unit_price
+    assert_equal @updated, @item.updated_at
   end
 
 
