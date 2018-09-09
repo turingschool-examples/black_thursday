@@ -12,8 +12,8 @@ class Item
     @name = item_hash[:name]
     @description = item_hash[:description]
     @unit_price = item_hash[:unit_price]
-    @created_at = Time.now
-    @updated_at = Time.now
+    @created_at = Time.now.getutc
+    @updated_at = Time.now.getutc
     @merchant_id = item_hash[:merchant_id]
   end
 
@@ -38,7 +38,7 @@ class Item
   end
 
   def change_updated_at
-    @updated_at = Time.now
+    @updated_at = Time.now.getutc
   end
 
 end
