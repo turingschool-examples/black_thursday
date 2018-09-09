@@ -43,11 +43,6 @@ class MerchantRepositoryTest < Minitest::Test
 
     def test_it_can_find_all
       assert_equal 475, @repo.all.count
-      # expected = [:"12334105", {:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}]
-      # assert_equal expected, @repo.all.first
-
-      # expected = 
-      # assert_equal expected, @repo.all.last
     end
 
     def test_it_can_use_find_by_id
@@ -61,7 +56,6 @@ class MerchantRepositoryTest < Minitest::Test
 
       #returning a nested hash
       assert_equal expected, @repo.find_all_by_name("Shopin1901")
-      
     end
 
 end
