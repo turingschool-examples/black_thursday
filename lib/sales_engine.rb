@@ -1,22 +1,21 @@
-require_relative 'crud.rb'
-require_relative 'merchant_repository'
-require './test/test_helper'
+
+require 'csv'
 
 class SalesEngine
-  include Crud
-  
-  attr_reader :filepath 
-  attr_accessor :merchants,
+	attr_reader :collection
 
-  def initialize(filepath)
-    @filepath = filepath
-    @merchants = MerchantRepository.new(load(filepath[:merchants]))
+  	def initialize(files)
+  	  @files = files
+  	end
 
-    binding.pry
-  end
+    def self.from_csv(filepath)
+      @collection = []
 
-  def self.from_csv(hash)
-    merchant_file = hash[:merchants]
-    merchant_array = load(filepath[:merchants])
-  end
+      csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
+      csv_objects.map do |object|
+        object[:id] = object[:id].to_i
+        @collection << object.to_h
+      end
+    end
+
 end

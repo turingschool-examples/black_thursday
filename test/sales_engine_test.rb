@@ -1,4 +1,5 @@
 
+
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
@@ -17,3 +18,4 @@ class SalesEngineTest < Minitest::Test
     assert_equal 475, @engine.merchants.all
   end
 end
+
