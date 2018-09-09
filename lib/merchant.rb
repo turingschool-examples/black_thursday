@@ -1,7 +1,10 @@
+require 'date'
+
 class Merchant
-  attr_reader :id, :name
+  attr_accessor :id, :name
   def initialize(merchant_hash)
     @id = merchant_hash[:id]
-    @name = merchant_hash[:name] 
+    @name = merchant_hash[:name]
+    @created_at = (Date.today).to_s
   end
 end
