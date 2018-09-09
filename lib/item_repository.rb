@@ -83,6 +83,10 @@ class ItemRepository
     item.updated_at = Time.now
   end
 
+  def delete(id)
+    item = find_by_id(id)
+    @all.delete(item)
+  end
 
 
 

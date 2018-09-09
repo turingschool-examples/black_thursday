@@ -248,4 +248,31 @@ class ItemRepositoryTest < Minitest::Test
     refute_equal 5, i2.id
   end
 
+  def test_it_can_delete_items
+    ir = ItemRepository.new("./data/items.csv")
+    i1 = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+      })
+    i2 = Item.new({
+        :id          => 2,
+        :name        => "Notebook",
+        :description => "You can use it to write on",
+        :unit_price  => BigDecimal.new(7.50,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 5
+        })
+    ir.add_individual_item(i1)
+    ir.add_individual_item(i2)
+    ir.delete(2)
+    assert_nil ir.find_by_id(2)
+  end
+
+
 end
