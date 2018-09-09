@@ -24,14 +24,6 @@ class MerchantRepository
     csv_objects.map do |object|
       object[:id] = object[:id].to_i
       @merchants << object.to_h
-      # require 'pry'; binding.pry
      end
   end
-
-  # def make_merchants(value_path)
-  #   CSV.foreach(value_path, headers: true, header_converters: :symbol) do |row|
-  #     @merchants << Merchant.new(row)
-  #   end
-  # end
-
 end
