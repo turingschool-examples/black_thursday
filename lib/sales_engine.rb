@@ -10,25 +10,32 @@ class SalesEngine
 
   attr_reader :items, :merchants
 
-  def initialize
-    @items      = nil
-    @merchants  = nil
+  def initialize (items = nil, merchants = nil)
+    @items      = items
+    @merchants  = merchants
   end
 
   def self.from_csv(hash)
-    self.new
-    # binding.pry
-    # -- file paths --
-    items_path = hash[:items]
-    merchants_path = hash[:merchants]
-    # -- make repos --
-    # @items = ItemRepository.new(items_path)
-    @merchants = MerchantRepository.new(merchants_path)
-    # binding.pry
-    # return self.itself
-    # return instance_eval('self')
+    merch_reop = make_merch_repo(hash)
+    #item_repo = make_item_repo(hash)
+    self.new(merch_reop, nil)
   end
 
+  def self.make_merch_repo(hash)
+    merchants_path = hash[:merchants]
+    @merchants = MerchantRepository.new(merchants_path)
+  end
 
+  def self.make_item_repo(hash)
+    items_path = hash[:items]
+    @items = ItemRepository.new(items_path)
+  end
 
 end
+#
+#
+# hash = { :items     => "./data/items.csv",
+#           :merchants => "./data/merchants.csv",
+#         }
+# se = SalesEngine.from_csv(hash)
+# binding.pry
