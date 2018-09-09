@@ -40,4 +40,24 @@ class SalesAnalyst
     Math.sqrt(step_two).round(2)
   end
 
+  def merchant_hash
+    return_hash = {}
+    @merchant_repo.all.each do |merchant|
+      return_hash[merchant] = @item_repo.all.find_all do |item|
+        merchant.id == item.merchant_id
+      end
+    end
+    return_hash
+  end
+
+  def merchants_with_high_item_count_hash
+    merchant_hash.find_all do |key, value|
+      value.length >= average_items_per_merchant_standard_deviation + average_items_per_merchant
+    end.to_h
+  end
+
+  def merchants_with_high_item_count
+    merchants_with_high_item_count_hash.keys
+  end
+
 end
