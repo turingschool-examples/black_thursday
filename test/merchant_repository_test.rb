@@ -53,8 +53,7 @@ class MerchantRepositoryTest < Minitest::Test
 
     def test_it_can_find_all_by_name
       skip
-      # expected = #<Merchant:0xXXXXXX @id=12334105, @name="Shopin1901">
-      assert_equal expected, @repo.find_all_by_name("Shopin1901")
+      assert_equal [@merchant1], @repo.find_all_by_name("Shopin1901")
     end
 
 end
