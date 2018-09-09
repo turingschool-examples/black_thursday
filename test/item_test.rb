@@ -51,7 +51,7 @@ class ItemTest < Minitest::Test
       :updated_at  => Time.now,
       :merchant_id => 2
     })
-    
+
     assert_equal 10.99, i.unit_price_to_dollars
   end
 
