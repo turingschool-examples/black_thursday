@@ -10,8 +10,8 @@
         1,
         null,
         1,
-        11,
-        11,
+        13,
+        13,
         null,
         null,
         1,
@@ -19,14 +19,14 @@
         null,
         null,
         1,
-        11,
-        77,
+        13,
+        91,
         null,
         null,
         null,
         1,
-        7,
-        35,
+        9,
+        48,
         null,
         null,
         null,
@@ -66,6 +66,12 @@
         null,
         null,
         null,
+        1,
+        2,
+        14,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/ruthbrand/turing/1module2.0/projects/black_thursday/lib/merchant.rb": [
@@ -76,13 +82,13 @@
         null,
         null,
         1,
-        79,
-        79,
+        93,
+        93,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1536523242
+    "timestamp": 1536523885
   }
 }
