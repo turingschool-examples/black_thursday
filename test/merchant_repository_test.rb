@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/merchant_repository'
+require_relative './test_helper'
+require_relative '../lib/merchant_repository'
 
 
 class MerchantRepositoryTest < Minitest::Test
@@ -67,7 +67,7 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal "Candisart", actual.name
 
-    id = 12337412
+    id = (12334112)
     new_attributes = {name: "Artiscandi"}
 
     merchant_repository.update(id, new_attributes)
@@ -75,7 +75,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Artiscandi", actual.name
   end
 
+  def test_repo_can_delete_merchants
+    merchant_repository = MerchantRepository.new('./data/merchants.csv')
 
+    merchant_repository.delete(12334112)
 
-
+    assert_nil merchant_repository.find_by_id(12334112)
+  end
 end
