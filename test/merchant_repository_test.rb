@@ -30,7 +30,8 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_name
-    result = @mr.find_all_by_name("Urcase")
-    assert_equal "Urcase", result.find_all_by_name(name)
+    result = @mr.find_all_by_name("Urcase17")
+    assert_equal "Urcase17", result.first.name
   end
+
 end
