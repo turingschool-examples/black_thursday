@@ -1,6 +1,16 @@
 {
   "Unit Tests": {
     "coverage": {
+      "/Users/aizarcabrera/turing/1module/week_5/black_thursday/lib/item_repository.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/aizarcabrera/turing/1module/week_5/black_thursday/lib/item.rb": [
         1,
         null,
@@ -14,17 +24,17 @@
         null,
         null,
         1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         null,
         null
       ]
     },
-    "timestamp": 1536451673
+    "timestamp": 1536454860
   }
 }
