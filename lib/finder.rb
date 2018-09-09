@@ -1,7 +1,11 @@
 
+require 'pry'
 module Finder
   
-  
+  def all
+    # binding.pry
+    @csv
+  end
 
   def find_by_id(id)
     @csv.keep_if do |key, value|      
