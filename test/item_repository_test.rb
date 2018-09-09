@@ -200,4 +200,35 @@ class ItemRepositoryTest < Minitest::Test
     str = "Hello"
     assert_equal [], @ir.find_all_with_description(str)
   end
+
+  def test_it_can_update_attributes
+    @ir.create(@hash)
+    update_attributes = {
+      name: "Eraser",
+      description: "It erases things",
+      unit_price: BigDecimal.new(12.21, 4)
+    }
+    @ir.update(1,update_attributes)
+    assert_equal "Eraser", @ir.all[0].name
+    assert_equal "It erases things", @ir.all[0].description
+    assert_equal 12.21, @ir.all[0].unit_price_to_dollars
+    assert_equal Time.now.min, @ir.all[0].updated_at.min
+  end
+
+  def test_it_can_delete
+    @ir.create(@hash)
+    hash2 = {
+      :id          => 2,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(11.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    }
+    @ir.create(hash2)
+    @ir.delete(2)
+    assert_equal 1, @ir.all.length
+
+  end
 end

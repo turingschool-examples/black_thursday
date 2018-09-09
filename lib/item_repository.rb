@@ -86,10 +86,14 @@ class ItemRepository
     # can be updated.
     # This method will also change the items updated_at
     # attribute to the current time.
+    find_by_id(id).name = attributes[:name]
+    find_by_id(id).description = attributes[:description]
+    find_by_id(id).unit_price = attributes[:unit_price]
+    find_by_id(id).updated_at = Time.now
   end
 
   def delete(id)
-    # Delete the Item instance with the corresponding id
+    @items.delete(find_by_id(id))
   end
 
   def find_next_id
