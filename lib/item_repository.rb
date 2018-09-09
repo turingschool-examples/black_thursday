@@ -14,26 +14,26 @@ class ItemRepository
 
   def initialize(path)
     @csv = CSVParse.create_repo(path)
+    # @headers = [:created_at, :merchant_id, :name, :description, :unit_price, :updated_at]
     @items = []
     make_items
   end
 
   def make_items
     @csv.each { |key, value|
-      item = Item.new( {
-        # -- Read Only --
-        id: key.to_s.to_i,
-        :created_at = value[:created_at]
-        :merchant_id: value[:merchant_id]
-        # -- Accessible --
-        name: value[:name],
-        :description = value[:description]
-        :unit_price = value[:unit_price]
-        :updated_at = value[:updated_at]
-      } )
-      @items << merch
+      hash = make_hash(key, value)
+      item = Item.new(hash)
+      @items << item
     }
     @items.flatten!
+  end
+
+  def make_hash(key, value)
+    hash = {id: key.to_s.to_i}
+    # This is a coincidence that the columns
+    # provided are all needed for the Item object
+    value.each { |col, data| hash[col] = data }
+    return hash
   end
 
 end
