@@ -4,6 +4,7 @@ module Crud
       csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
       csv_objects.map do |object|
         object[:id] = object[:id].to_i
+
         @collection << object.to_h
       end
   end
