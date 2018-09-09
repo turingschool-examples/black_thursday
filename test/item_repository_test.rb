@@ -31,10 +31,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @ir.items[0]
   end
 
-  def test_it_can_add_by_string
-    skip
+  def test_it_can_add_by_hash_attributes
     @ir.create(@hash)
-    @ir.create("Pencil")
+    hash2 = {
+      :name        => "Journal",
+      :description => "You can write in",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :merchant_id => 2
+    }
+    @ir.create(hash2)
     assert_equal 2, @ir.all.length
   end
 
@@ -107,7 +112,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_by_merchant_id
-    skip
     @ir.create(@hash)
     hash2 = {
       :id          => 2,
@@ -130,12 +134,11 @@ class ItemRepositoryTest < Minitest::Test
     }
     @ir.create(hash3)
     assert_equal 2, @ir.find_all_by_merchant_id(2)[0].merchant_id
-    assert_equal 2, @ir.find_all_by_merchant_id.length
+    assert_equal 2, @ir.find_all_by_merchant_id(2).length
 
   end
 
   def test_it_returns_empty_array_with_no_matching_merchant_id
-    skip
     @ir.create(@hash)
     assert_equal [], @ir.find_all_by_merchant_id(100)
   end

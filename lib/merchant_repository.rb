@@ -36,6 +36,7 @@ class MerchantRepository
   end
 
   def create(attributes)
+    # TODO update
     # Attributes is in the form of CSV object. Create extracts the data from
     # that object and creates a new merchant object.
     if attributes.class == String
@@ -48,7 +49,7 @@ class MerchantRepository
     end
     @merchants << merchant
 
-  
+
   end
 
   def update(id, attributes)

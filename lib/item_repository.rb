@@ -50,25 +50,33 @@ class ItemRepository
    end
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_by_merchant_id(search_merchant_id)
     # Returns either [] or instances of Item where the supplied
     # merchant ID matches that supplied
+    @items.find_all do |item|
+      item.merchant_id == search_merchant_id
+    end
   end
 
   def create(attributes)
     # Attributes is in the form of CSV object. Create extracts the data from
     # that object and creates a new item object.
-    item = Item.new({
-      id: attributes[:id],
-      name: attributes[:name],
-      description: attributes[:description],
-      #TODO What are the args for BigDecimal?
-      unit_price: BigDecimal.new(attributes[:unit_price],4),
-      created_at: Time.now,
-      updated_at: Time.now,
-      merchant_id: attributes[:merchant_id],
-      })
-      @items << item
+    if attributes[:id] != nil
+      item = Item.new({
+        id: attributes[:id],
+        name: attributes[:name],
+        description: attributes[:description],
+        #TODO What are the args for BigDecimal?
+        unit_price: BigDecimal.new(attributes[:unit_price],4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: attributes[:merchant_id],
+        })
+        @items << item
+    else
+      attributes[:id] = find_next_id
+      item = create(attributes)
+    end
   end
 
   def update(id, attributes)
@@ -82,5 +90,12 @@ class ItemRepository
 
   def delete(id)
     # Delete the Item instance with the corresponding id
+  end
+
+  def find_next_id
+    max_id = @items.max_by do |item|
+      item.id
+    end.id
+    max_id += 1
   end
 end
