@@ -23,17 +23,25 @@ class ItemRepository
     end
   end
 
-    def find_all_by(attr_sym, search_string)
-      @items.find_all do |item|
-        item[:data][attr_sym] == search_string.downcase
-      end
+  def find_by_id(id)
+    @all.find do |item|
+      item.id == id
     end
+  end
 
-    def find_by(attr_sym, search_string)
-      @items.find do |item|
-        item[attr_sym] == search_string.downcase
-      end
-    end
+
+
+    # def find_all_by(attr_sym, search_string)
+    #   @items.find_all do |item|
+    #     item[:data][attr_sym] == search_string.downcase
+    #   end
+    # end
+    #
+    # def find_by(attr_sym, search_string)
+    #   @items.find do |item|
+    #     item[attr_sym] == search_string.downcase
+    #   end
+    # end
 
 
 
