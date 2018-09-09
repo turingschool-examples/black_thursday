@@ -18,7 +18,7 @@ class SalesEngine
   def self.from_csv(hash)
     merch_reop = make_merch_repo(hash)
     #item_repo = make_item_repo(hash)
-    self.new(merch_reop, nil)
+    self.new(nil, merch_reop)
   end
 
   def self.make_merch_repo(hash)
@@ -32,10 +32,3 @@ class SalesEngine
   end
 
 end
-#
-#
-# hash = { :items     => "./data/items.csv",
-#           :merchants => "./data/merchants.csv",
-#         }
-# se = SalesEngine.from_csv(hash)
-# binding.pry

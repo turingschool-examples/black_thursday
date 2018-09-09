@@ -19,9 +19,7 @@ class SalesEngineTest < Minitest::Test
               :merchants => "./data/merchants.csv",
             }
     @se_new = SalesEngine.new
-    # binding.pry # BUG below
     @se_csv = SalesEngine.from_csv(@hash)
-    # binding.pry
   end
 
   def test_it_exists
@@ -29,12 +27,9 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_be_created_via_from_csv_method
-    # BUG
-    assert_instance_of SalesEngine, @se_csv #.itself
-    # assert_instance_of MerchantRepository, @se_csv.merchants  # ERROR, is Array
-
-
-
+    assert_instance_of SalesEngine, @se_csv
+    # assert_instance_of MerchantRepository, @se_csv.merchants
+    # assert_instance_of MerchantRepository, @se_csv.items
   end
 
   def test_it_gets_attrubutes
@@ -43,9 +38,18 @@ class SalesEngineTest < Minitest::Test
     assert_nil @se_new.merchants
     # -- via .from_csv --
     # assert_instance_of ItemRepository, @se_csv.items
-    # assert_instance_of Item, @se_csv.items[0]
-    # assert_instance_of MerchantRepository, @se_csv.merchants  # ERROR, is Array
-    # assert_instance_of Merchant, @se_csv.merchants[0]
+    # assert_instance_of Item, @se_csv.item.items[0]
+
+    assert_instance_of MerchantRepository, @se_csv.merchants
+    assert_instance_of Merchant, @se_csv.merchants.merchants[0]
   end
 
+  def test_it_creates_a_merchant_repo
+    assert_instance_of MerchantRepository, @se_csv.merchants
+  end
+
+  # def test_it_creates_an_item_repo
+    # assert_instance_of ItemRepository, @se_csv.items
+  # end
+  
 end
