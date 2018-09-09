@@ -1,4 +1,4 @@
-require 'CSV'
+
 require_relative './merchant'
 class MerchantRepository
   def initialize(filepath)
@@ -39,14 +39,15 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    merchant = find_by_id(id)
-    return merchant if merchant.nil?
-    merchant.update_name(attributes[:name]) unless attributes[:name].nil?
+    @merchants.find do |merchant|
+      if merchant.id == id
+      merchant.name.gsub! merchant.name, attributes[:name]
+      end
+    end
   end
 
-
-
-
-
-
+  def delete(id)
+    merchant = find_by_id(id)
+    @merchants.delete(merchant)
+  end
 end
