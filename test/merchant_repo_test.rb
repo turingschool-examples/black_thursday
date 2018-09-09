@@ -24,9 +24,12 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_all_returns_array_of_merchant_objects
-    mr = MerchantRepo.new("./data/merchants.csv")
+    engine = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+    })
 
-    assert_instance_of Merchant, mr.all[1]
+    assert_instance_of Array, engine.merchants.all
   end
 
   def test_find_by_id_returns_merchant_id

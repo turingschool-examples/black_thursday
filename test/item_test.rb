@@ -42,4 +42,25 @@ class ItemTest < Minitest::Test
     assert_equal 10.99, i.unit_price_to_dollars
   end
 
+  def test_changing_attributes
+    i = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    })
+    i.change_name("TEST")
+    i.change_description("TEST")
+    i.change_unit_price(1000000)
+    i.change_updated_at
+
+    assert_equal "TEST", i.name
+    assert_equal "TEST", i.description
+    assert_equal 1000000, i.unit_price
+    refute i.updated_at == nil
+  end
+
 end
