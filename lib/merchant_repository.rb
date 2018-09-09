@@ -28,28 +28,6 @@ class MerchantRepository
   end
 
 
-  # find_by_entry_name('merchant', 'TuringSchool')
-  # => #<Merchant0x0000000 @id = 12345, @name='TuringSchool'>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
