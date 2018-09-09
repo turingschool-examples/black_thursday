@@ -195,7 +195,20 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [i1], ir.find_all_by_merchant_id(2)
   end
 
+  def test_it_can_create_item
+    ir = ItemRepository.new("./data/items.csv")
+    i3 = ir.create({
+      :name        => "Marker",
+      :description => "You can use it to write things in color!",
+      :unit_price  => BigDecimal.new(4.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 6
+      })
 
+    expected = ir.find_by_id(1)
+    assert_equal expected, ir.find_by_name("Marker")
+  end
 
 
 end

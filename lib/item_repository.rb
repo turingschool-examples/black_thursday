@@ -19,7 +19,10 @@ class ItemRepository
 
     item_objects.map do |object|
       object[:id] = object[:id].to_i
-      @all << object.to_h
+      @attributes_array << object.to_h
+    end
+    @attributes_array.map do |hash|
+      @all << Item.new(hash)
     end
   end
 
@@ -58,6 +61,21 @@ class ItemRepository
       item.merchant_id == merchant_id.to_i
     end
   end
+
+  def create(attribute_hash)
+    if @all == []
+      new_id = 1
+    else
+      highest_id = @all.max_by do |item|
+        item.id
+      end.id
+      new_id = highest_id + 1
+    end
+    attribute_hash[:id] = new_id
+    @all << Item.new(attribute_hash)
+  end
+
+
 
 
 
