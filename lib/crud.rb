@@ -12,7 +12,7 @@ module Crud
   end
 
   def all
-    collection
+    collection.count
   end
 
   def find_by_id(id)
