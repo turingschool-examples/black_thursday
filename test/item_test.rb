@@ -15,4 +15,19 @@ class ItemTest <  Minitest::Test
     assert_instance_of Item, i
   end
 
+  def test_id
+    i = Item.new({
+      :id     => 1,
+      :name    => "Pencil",
+      :description => "You can use it tow write things",
+      :unit_price => BigDecimal.new(10.99,4),
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :merchant_id => 2
+      })
+    actual = i.id
+    expected = 1
+    assert_equal expected, actual
+  end
+
 end
