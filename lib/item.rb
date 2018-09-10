@@ -9,7 +9,7 @@ class Item
               :merchant_id
 
   def initialize(params)
-    @id = params[:id]
+    @id = params[:id].to_i
     @name = params[:name]
     @description = params[:description]
     @unit_price = params[:unit_price]

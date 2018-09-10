@@ -14,7 +14,7 @@ module BlackThursdayHelper
 
   def find_by_name(name)
     @collections.find do |object|
-      object.name == name
+      object.name.downcase == name.downcase
     end
   end
 
@@ -23,6 +23,22 @@ module BlackThursdayHelper
      object.name.downcase.include? (name.downcase)
    end
   end
+
+  def update(id, attributes)
+      if find_by_id(id) != nil
+      merchant_to_be_updated = find_by_id(id)
+      merchant_to_be_updated.name = attributes
+      else
+        nil
+      end
+  end
+
+  def delete(id)
+    @collections.delete_if do |object|
+      object.id == id
+    end
+  end
+
 
 
 
