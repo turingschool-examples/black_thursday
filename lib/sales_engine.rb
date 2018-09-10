@@ -14,13 +14,13 @@ class SalesEngine
     @items = repositories[:items]
   end
 
-  def self.from_csv(files)
+  def self.from_csv(file_hash)
     initializers = {items: ItemRepository,
                     merchants: MerchantRepository}
     repositories = {}
 
     # XXX: Change to inject pattern? Maybe?
-    files.each do |dataset, filename|
+    file_hash.each do |dataset, filename|
       data = hash_from_csv(filename)
       repositories[dataset] = initializers[dataset].new(data)
     end

@@ -3,14 +3,19 @@ class DataRepository
 
   # XXX: Maybe split this and make it an ititialize method that calls populate?
   # TODO: Simplify the input data (array of hash instead of hash of hash)
-  def populate(data, data_class)
+  def initialize(data, data_class)
     @data_class = data_class
+    populate(data)
+  end
+
+  def populate(data)
     # TODO: After Enums III, update to build hash of hashes with inject.
     # That allows us to skip any invalid attributes
-    @data_set = data.map do |key, attributes|
+    @data_set = data.map do |attributes|
       # TODO: Validate each set of "attributes"
       attributes[:id] = attributes[:id].to_i
-      [attributes[:id], data_class.from_raw_hash(attributes)]
+
+      [attributes[:id], @data_class.from_raw_hash(attributes)]
     end.to_h
   end
 

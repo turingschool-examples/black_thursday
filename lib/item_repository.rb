@@ -3,7 +3,7 @@ require_relative './item'
 
 class ItemRepository < DataRepository
   def initialize(data)
-    populate(data, Item)
+    super(data, Item)
   end
 
   def items
