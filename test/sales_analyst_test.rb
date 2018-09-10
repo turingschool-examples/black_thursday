@@ -14,8 +14,8 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of ItemRepository, sa.ir
   end
 
-  def test_it_calculates average_items_per_merchant
+  def test_it_calculates_average_items_per_merchant
     sa = SalesAnalyst.new
-    assert_equal = 2.88, sa.average_items_per_merchant
+    assert_equal 2.88, sa.average_items_per_merchant
   end
 end

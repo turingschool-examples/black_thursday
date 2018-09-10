@@ -10,10 +10,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-
+    (@ir.all.count.to_f/@mr.all.count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
+    hash = Hash.new(0)
+    @ir.all.each do |item|
+      hash[item.merchant_id] += 1
+    end
 
   end
 
