@@ -17,6 +17,6 @@ class SalesEngine
   end
 
   def analyst
-    @sales_analyst = SalesAnalyst.new
+    @sales_analyst = SalesAnalyst.new(self)
   end
 end
