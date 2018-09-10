@@ -6,30 +6,6 @@ require 'bigdecimal'
 
 class ItemTest < Minitest::Test
 
-  # def setup
-  #
-  #   @decimal = BigDecimal.new(10.99, 4)
-  #   @created = Time.new(2018, 9, 7)
-  #   @updated = Time.new(2018, 9, 8)
-  #
-  #   input = {
-  #     :id => 1,
-  #     :name => "Pencil",
-  #     :description => "You can use it to write things",
-  # ===================================
-  #  This is actually feeding our program the result it's supposed to return
-  #  We need our program to convert this string value into a big decimal float
-  #     :unit_price => @decimal,
-  # ===================================
-  #     :created_at => @created,
-  #     :updated_at => @updated,
-  #     :merchant_id => 2
-  #   }
-  #
-  #   @item = Item.new(input)
-  # end
-
-
   def setup
     # -- First Item's information --
     #          (from csv)
@@ -47,7 +23,8 @@ class ItemTest < Minitest::Test
               :updated_at     => "2007-06-04 21:35:10 UTC"
     }
     @item = Item.new(@hash)
-    @decimal = 1200.0000
+    @big_decimal = BigDecimal.new(@hash[:unit_price], 4)
+    @price_as_float = 1200.0000
     # -----------------------------------
   end
 
@@ -57,15 +34,19 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_gets_attributes
+    # -- Read Only --
     assert_equal @hash[:id], @item.id
     assert_equal @hash[:created_at], @item.created_at
     assert_equal @hash[:merchant_id], @item.merchant_id
-
+    # -- Accessible --
     assert_equal @hash[:name], @item.name
     assert_equal @hash[:description], @item.description
-    assert_equal @decimal, @item.unit_price
+    assert_equal @big_decimal, @item.unit_price
     assert_equal @hash[:updated_at], @item.updated_at
   end
 
+  def test_it_can_get_unit_price_in_dollars
+    assert_equal @price_as_float, @item.unit_price_to_dollars
+  end
 
 end

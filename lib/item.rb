@@ -23,17 +23,14 @@ class Item
     # -- Accessible --
     @name = hash[:name]
     @description = hash[:description]
-    # @unit_price = convert_to_big_decimal(hash[:unit_price])
-    @unit_price = BigDecimal.new(hash[:unit_price], 4).to_f
+    @unit_price = BigDecimal.new(hash[:unit_price], 4) #.to_f
     @updated_at = hash[:updated_at]
     # TO DO - How to handle -> New creations need Time.now for updated_at, created_at
   end
 
-
-  # def convert_to_big_decimal(value)
-  #   BigDecimal.new(value, 4)
-  # end
-
-
+  def unit_price_to_dollars
+    # TO DO - Is this supposed to be 2 decimal places?
+    @unit_price.to_f
+  end
 
 end
