@@ -70,7 +70,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
     actual = mr.find_by_name("Mcdonalds")
 
-    assert_equal nil, actual
+    assert_nil actual
   end
 
   def test_that_the_find_all_method_finds_merchants_by_fragment
