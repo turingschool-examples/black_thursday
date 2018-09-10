@@ -36,10 +36,15 @@ class MerchantTest < Minitest::Test
 
   def test_you_can_create_new_merchant_with_incrimented_id
     new_merchant = @mr.create({:name => "Aizar Aaron"})
-    # attributes = {:name => "Aizar Aaron"}
-
     assert_equal "Aizar Aaron", new_merchant.name
     assert_equal 12334156, new_merchant.id
   end
 
+  def test_new_merchant_instance_can_update_name
+    new_merchant = @mr.create({:name => "Aizar Aaron"})
+    @mr.find_by_id(12334156)
+    result = @mr.update(12334156, {:name => "DudeMan"})
+    # require 'pry'; binding.pry
+    assert_equal "DudeMan", result.name
+  end
 end

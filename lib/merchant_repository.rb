@@ -34,7 +34,9 @@ class MerchantRepository
 
   def create(attributes)
     attributes[:id] = @merchants[-1].id + 1
-      Merchant.new(attributes)
+    new_merchant = Merchant.new(attributes)
+      @merchants << new_merchant
+      new_merchant
   end
 
   def make_merchants(value_path)
