@@ -13,7 +13,6 @@ class CSVAdapterTest < Minitest::Test
     data = @test_obj.hash_from_csv(file)
 
     expected = "1200"
-    
     assert_equal expected, data[0][:unit_price]
   end
 end

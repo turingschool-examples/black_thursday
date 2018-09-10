@@ -1,22 +1,19 @@
 class DataRepository
   # TODO: Create tests for these
 
-  # XXX: Maybe split this and make it an ititialize method that calls populate?
-  # TODO: Simplify the input data (array of hash instead of hash of hash)
   def initialize(data, data_class)
     @data_class = data_class
     populate(data)
   end
 
   def populate(data)
-    # TODO: After Enums III, update to build hash of hashes with inject.
-    # That allows us to skip any invalid attributes
-    @data_set = data.map do |attributes|
-      # TODO: Validate each set of "attributes"
+    @data_set = data.inject({}) do |hash, attributes|
+      # TODO: Validate each set of "attributes", only add if valid
       attributes[:id] = attributes[:id].to_i
-
-      [attributes[:id], @data_class.from_raw_hash(attributes)]
-    end.to_h
+      # binding.pry
+      hash[attributes[:id]] = @data_class.from_raw_hash(attributes)
+      hash
+    end
   end
 
   # returns an array of all known Merchant/Item instances

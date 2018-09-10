@@ -1,25 +1,13 @@
-require_relative './merchant'
+require_relative './data_object'
 
-class Item < Merchant
-  # XXX: How do we keep a flexible and scalable design, but match the
-  # initialization parameters? Thought: make the "initialize" method so it
-  # takes the converted parameters, and make a custom initializer that takes
-  # a raw parameter list, converts it, then calls the main initializer with
-  # those conversions.
+class Item < DataObject
 
   def initialize(refined_attributes)
     @attributes = refined_attributes
   end
 
-  def self.from_raw_hash(raw_attributes)
-    # Psuedocode:
-    # Take "raw" data hash. "Validate" the hash.
-    # Convert each attribute to proper type & add to a refined attribute hash
-    # call Item.new(refined_attributes)
-    self.new(raw_attributes)
-  end
-
   def valid_attributes?(attributes)
+    
   end
 
   # TODO: Make tests for these
