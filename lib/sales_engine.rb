@@ -1,4 +1,3 @@
-
 class SalesEngine
     attr_reader :data
   def intialize(data)
@@ -7,5 +6,6 @@ class SalesEngine
 
   def self.from_csv(data)
     new
+    binding.pry
   end
 end
