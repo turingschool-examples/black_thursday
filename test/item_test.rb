@@ -3,7 +3,7 @@ require 'time'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require './lib/items'
+require './lib/item'
 
 class ItemsTest < Minitest::Test
 

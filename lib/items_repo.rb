@@ -14,4 +14,8 @@ class ItemsRepo
     end
   end
 
+  def all
+   @items
+  end
+
 end

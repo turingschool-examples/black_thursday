@@ -9,7 +9,10 @@ require 'pry'
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @se = SalesEngine.new("put data here")
+    @se = SalesEngine.from_csv(
+                              # :items => "./test/fixtures/items.csv",
+                               "./test/fixtures/merchants.csv"
+                            )
   end
 
   def test_it_exists
@@ -17,7 +20,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_populate_repos
-    # ?
     refute_empty @se.merchants.all
   end
 
