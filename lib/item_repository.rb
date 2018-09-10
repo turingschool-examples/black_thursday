@@ -32,4 +32,34 @@ class ItemRepository
     items.find_all {|item| item.unit_price_to_dollars == price.to_f}
   end
 
+  def find_all_by_price_in_range(range)
+    items.find_all {|item| range.include?(item.unit_price_to_dollars)}
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    items.find_all {|item| item.merchant_id == merchant_id}
+  end
+
+  def create(attributes)
+    max_id = (items.max_by{|item| item.id}).id + 1
+    attributes[:id] = max_id
+    new_item = Item.new(attributes)
+    add_item(new_item)
+    new_item
+  end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    item.name = attributes[:name]
+    item.description = attributes[:description]
+    item.unit_price = attributes[:unit_price]
+    item.updated_at = attributes[:updated_at]
+    item
+  end
+
+  def delete(id)
+    index = items.find_index {|i| i.id == id}
+    items.delete_at(index)
+  end
+
 end
