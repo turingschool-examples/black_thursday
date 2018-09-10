@@ -14,5 +14,14 @@ class ItemRepository < Repository
     end
   end
 
+  def find_all_with_description(description)
+    @data.find_all do |datum|
+      datum.description.include?(description)
+    end
+  end
+
+
+
+
 
 end
