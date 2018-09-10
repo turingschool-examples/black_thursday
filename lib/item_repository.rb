@@ -6,16 +6,17 @@ require 'pry'
 
 require_relative 'item'
 require_relative 'csv_parse'
-
+require './lib/finder'
 
 class ItemRepository
+  include Finder
 
-  attr_reader :items
+  attr_reader :all
 
   def initialize(path)
     @csv = CSVParse.create_repo(path)
     # @headers = [:created_at, :merchant_id, :name, :description, :unit_price, :updated_at]
-    @items = []
+    @all = []
     make_items
   end
 
@@ -23,9 +24,9 @@ class ItemRepository
     @csv.each { |key, value|
       hash = make_hash(key, value)
       item = Item.new(hash)
-      @items << item
+      @all << item
     }
-    @items.flatten!
+    @all.flatten!
   end
 
   def make_hash(key, value)
@@ -34,6 +35,13 @@ class ItemRepository
     # provided are all needed for the Item object
     value.each { |col, data| hash[col] = data }
     return hash
+  end
+
+  #overrides module
+  def find_by_id(id)
+    all.keep_if do |item|      
+      item.id == id.to_i
+    end
   end
 
 end

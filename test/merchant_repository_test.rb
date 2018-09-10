@@ -55,5 +55,4 @@ class MerchantRepositoryTest < Minitest::Test
       skip
       assert_equal [@merchant1], @repo.find_all_by_name("Shopin1901")
     end
-
 end
