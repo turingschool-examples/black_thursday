@@ -1,3 +1,4 @@
+require "item_repository"
 class Item
 
   attr_reader :id, :created_at, :merchant_id

@@ -1,4 +1,4 @@
-require_relative 'merchant'
+require_relative "merchant"
 
 class MerchantRepository
 
@@ -44,4 +44,7 @@ class MerchantRepository
     merchants.delete_at(index)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

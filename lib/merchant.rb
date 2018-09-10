@@ -1,4 +1,4 @@
-
+require_relative "merchant_repository"
 class Merchant
 
   attr_reader :id

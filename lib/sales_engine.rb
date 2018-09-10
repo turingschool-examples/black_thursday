@@ -1,4 +1,6 @@
 require "csv"
+require_relative "merchant_repository"
+require_relative "item_repository"
 class SalesEngine
   attr_accessor :merchants,
                 :items
@@ -9,11 +11,9 @@ class SalesEngine
 
   def self.from_csv(repos)
     se = SalesEngine.new
-    merchant_repository = se.pull_merchant_repository(repos[:merchants])
-    item_repository = se.pull_item_repository(repos[:items])
-
-    se.merchants = merchant_repository
-   se.items = item_repository
+    se.merchants = se.pull_merchant_repository(repos[:merchants])
+    se.items = se.pull_item_repository(repos[:items])
+    
    return se
   end
 
@@ -24,7 +24,7 @@ class SalesEngine
       m = Merchant.new({:id => merchant[:id], :name => merchant[:name]})
       mr.add_merchant(m)
     end
-    return mr
+    mr
   end
 
   def pull_item_repository(file_path_item)

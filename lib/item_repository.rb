@@ -1,4 +1,4 @@
-# require 'pry'
+require_relative "item"
 
 class ItemRepository
 
@@ -31,6 +31,10 @@ class ItemRepository
   def find_all_by_price(price)
     items.find_all {|item| item.unit_price_to_dollars == price.to_f}
   end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def find_all_by_price_in_range(range)
     items.find_all {|item| range.include?(item.unit_price_to_dollars)}
@@ -61,5 +65,4 @@ class ItemRepository
     index = items.find_index {|i| i.id == id}
     items.delete_at(index)
   end
-
 end
