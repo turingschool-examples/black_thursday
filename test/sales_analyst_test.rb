@@ -29,18 +29,7 @@ class SalesAnalystTest < MiniTest::Test
     :merchants => "./data/merchants.csv"
     })
     sales_analyst = sales_engine.analyst
-
     assert_equal 2.88, sales_analyst.average_items_per_merchant
-  end
-
-  def test_average_items_per_merchant_standard_deviation
-    sales_engine = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
-    })
-    sales_analyst = sales_engine.analyst
-
-    assert_equal 3.26, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_find_all_merchant_ids
@@ -54,5 +43,62 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal expected, sales_analyst.find_all_merchant_ids.count
   end
+
+  def test_find_number_item_objects_per_merchant
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+    assert_instance_of Hash, sales_analyst.find_item_object_per_merchant
+  end
+
+  def test_find_number_of_items_per_merchant
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+
+    assert_instance_of Array, sales_analyst.find_number_of_items_per_merchant
+  end
+
+  def test_find_standard_devation_step_one
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+    assert_instance_of Array, sales_analyst.find_standard_deviation_step_one
+  end
+
+  def test_find_standard_devation_step_two
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+    assert_instance_of Float, sales_analyst.find_standard_deviation_step_two
+  end
+
+  def test_find_standard_devation_step_three
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+    assert_instance_of Float, sales_analyst.find_standard_deviation_step_three
+  end
+
+  def test_find_standard_deviation
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+
+    assert_equal 3.26, sales_analyst.find_standard_deviation
+  end
+
 
 end
