@@ -9,7 +9,16 @@ class SalesAnalyst
   end
 
   def average_items_per_merchants_standard_deviation
-    items_per_merchant_array
+    differences_squared = items_per_merchant_array.map do |number|
+                            (number - average_item_per_merchant) ** 2
+                          end
+
+        summed = differences_squared.inject(0) do |sum, num|
+                    sum + num
+                  end
+
+    divided_sum = summed / (items_per_merchant_array.count - 1)
+    Math.sqrt(divided_sum).round(2)
   end
 
   def items_per_merchant_array
@@ -18,8 +27,6 @@ class SalesAnalyst
               total
             end
             array.values
-            require "pry"; binding.pry
-
   end
 
   def merchant_id_array
