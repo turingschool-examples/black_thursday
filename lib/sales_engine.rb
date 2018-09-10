@@ -22,4 +22,8 @@ class SalesEngine
     MerchantRepository.new(data[:merchants])
   end
 
+  def analyst
+    SalesAnalyst.new(self)
+  end
+
 end
