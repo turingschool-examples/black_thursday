@@ -16,7 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_all
     mr = MerchantRepository.new('./data/merchants_tiny.csv')
-    actual = mr.all.length
+    actual = mr.all
     expected = 9
     assert_equal expected, actual
   end
