@@ -8,7 +8,7 @@ class SalesEngineTest <Minitest::Test
   :merchants => "./data/merchants.csv",
   })
 
-  assert_instance_of SalesEngine, se
+
   end
 
   def test_it_has_from_csv
@@ -17,5 +17,21 @@ class SalesEngineTest <Minitest::Test
     :merchants => "./data/merchants.csv",
     })
     assert_equal ({items: './data/items.csv', merchants: './data/merchants.csv'}), se.data
+  end
+
+  def test_it_has_items
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    assert_instance_of Array, se.items.items
+  end
+
+  def test_it_has_merchants
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    assert_instance_of Array, se.merchants.merchants
   end
 end
