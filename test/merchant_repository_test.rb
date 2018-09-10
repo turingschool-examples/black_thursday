@@ -41,6 +41,10 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal "Shopin1901", merch[0].name
     end
 
-    
+    def test_delete_returns_modified_array
+      @repo.delete("12334105")
+      
+
+    end
     
 end

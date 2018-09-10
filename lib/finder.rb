@@ -40,4 +40,10 @@ module Finder
     return Item.new(new_item_attributes)
     # next, write to csv
   end
+
+  def delete(id)
+    find_by_id(id)
+    binding.pry
+    #return @all with chosen entry deleted
+  end
 end
