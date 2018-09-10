@@ -35,7 +35,11 @@ class MerchantTest < Minitest::Test
   end
 
   def test_you_can_create_new_merchant_with_incrimented_id
-    new_merchant = @mr.create()
+    new_merchant = @mr.create({:name => "Aizar Aaron"})
+    # attributes = {:name => "Aizar Aaron"}
+
+    assert_equal "Aizar Aaron", new_merchant.name
+    assert_equal 12334156, new_merchant.id
   end
 
 end
