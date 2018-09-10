@@ -20,7 +20,17 @@ class ItemRepository < Repository
     end
   end
 
+  def find_all_by_price(price)
+    @data.find_all do |datum|
+      datum.unit_price == price
+    end
+  end
 
+  def find_all_by_price_range(range)
+    @data.find_all do |datum|
+      range.include?(datum.unit_price)
+    end
+  end
 
 
 
