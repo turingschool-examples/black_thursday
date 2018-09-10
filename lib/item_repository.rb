@@ -1,5 +1,6 @@
 require_relative './item'
 require_relative './repository'
+require 'bigdecimal'
 
 class ItemRepository < Repository
 
@@ -9,8 +10,9 @@ class ItemRepository < Repository
   end
 
   def load_items(filepath)
-    CSV.foreach(filepath, headers: true, header_converters: :symbol ) do |data|
-      @data << Item.new(data)
+    CSV.foreach(filepath, headers: true, header_converters: :symbol ) do |datum|
+      datum[:unit_price] = BigDecimal.new(datum[:unit_price],4)/100
+      @data << Item.new(datum)
     end
   end
 
@@ -57,9 +59,8 @@ class ItemRepository < Repository
   def update(id, attributes)
     @data.find do |datum|
       if datum.id == id
-      #merchant.name.gsub! merchant.name, attributes[:name]
-      datum.name.gsub! datum.name, attributes[:name]
-      datum.description.gsub! datum.description, attributes[:description]
+      datum.name = attributes[:name]
+      datum.description = attributes[:description]
       datum.unit_price = attributes[:unit_price]
       datum.updated_at = Time.now
       end
