@@ -17,7 +17,6 @@ class ItemRepository
   def make_items(item_path)
     CSV.foreach(item_path, headers: true, header_converters: :symbol) do |row|
       @items << Item.new(row)
-      # binding.pry
     end
   end
 
