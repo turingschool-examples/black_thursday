@@ -18,8 +18,8 @@ class SalesEngine
     initializers = {items: ItemRepository,
                     merchants: MerchantRepository}
     repositories = {}
-    
-    # TODO: Change to inject pattern? Maybe?
+
+    # XXX: Change to inject pattern? Maybe?
     files.each do |dataset, filename|
       data = hash_from_csv(filename)
       repositories[dataset] = initializers[dataset].new(data)

@@ -13,6 +13,8 @@ class CSVAdapterTest < Minitest::Test
     data = @test_obj.hash_from_csv(file)
 
     expected = "17000"
+    # TODO: Update to expect 'data' as an array of hashes instead of a hash of
+    # hashes
     assert_equal expected, data[263400793][:unit_price]
   end
 end
