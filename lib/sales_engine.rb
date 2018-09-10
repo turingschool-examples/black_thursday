@@ -4,15 +4,20 @@ require_relative 'merchant'
 require_relative 'item'
 require_relative 'item_repository'
 require_relative 'sales_analyst'
-
+require 'pry'
 class SalesEngine
-    attr_reader :data
-  def intialize(data)
-    @data = data
+    attr_reader :merchants, :items
+
+  def initialize(path_1, path_2)
+    @merchants = MerchantRepository.new(path_2)
+    @items = ItemRepository.new(path_1)
   end
 
   def self.from_csv(data)
-    new
+    self.new(data[:items], data[:merchants])
   end
 
+  def analyst
+    @sales_analyst = SalesAnalyst.new
+  end
 end
