@@ -17,8 +17,13 @@ class Item
     @merchant_id = item_hash[:merchant_id]
   end
 
+  def unit_price_to_big_decimal
+  end
+
   def unit_price_to_dollars
-    @unit_price.to_f
+    length = @unit_price.length
+    @unit_price = unit_price.to_i
+    @unit_price = BigDecimal(@unit_price, length)
   end
 
   def create_id(new_id)
