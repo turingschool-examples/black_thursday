@@ -1,19 +1,18 @@
 require_relative './item'
+require_relative './repository'
 
-class ItemRepository
+class ItemRepository < Repository
 
   def initialize(filepath)
-    @items = []
+    super()
     load_items(filepath)
   end
 
   def load_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol ) do |data|
-      @items << Item.new(data)
+      @data << Item.new(data)
     end
   end
 
-  def all
-    @items
-  end
+
 end
