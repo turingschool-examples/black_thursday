@@ -46,9 +46,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_with_description
     ir = ItemRepository.new("./data/items.csv")
-    expected = [ir.all[0]]
+    expected = ir.all[0]
 
-    assert_equal expected, ir.find_all_with_description("google")
+    assert_equal expected, ir.find_all_with_description("google")[0]
     assert_equal [], ir.find_all_with_description("This doesn't exist")
   end
 
@@ -64,8 +64,17 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./data/items.csv")
     expected = ir.all[0]
     range = (1200..1300)
+
     assert_equal 56, ir.find_all_by_price_range(range).count
     assert_equal expected, ir.find_all_by_price(1200)[0]
+  end
+
+  def test_it_can_find_all_by_merchant_id
+    ir = ItemRepository.new("./data/items.csv")
+    expected = ir.all[0]
+
+    assert_equal 1, ir.find_all_by_merchant_id(12334141).count
+    assert_equal expected, ir.find_all_by_merchant_id(12334141)[0]
   end
 
 end

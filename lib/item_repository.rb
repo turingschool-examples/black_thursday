@@ -32,6 +32,34 @@ class ItemRepository < Repository
     end
   end
 
+  def find_all_by_merchant_id(id)
+    @data.find_all do |datum|
+      datum.merchant_id == id
+    end
+  end
+
+  def create(new_item)
+    highest_id = @data.max_by do |datum|
+      datum.id
+    end.id
+    new_item_id = highest_id += 1
+    new_item = Item.new(id: new_item_id,
+                        name: new_item[:name],
+                        description: new_item[:description],
+                        unit_price: new_item[:unit_price],
+                        # created_at: Time.now,
+                        # updated_at: Time.now,
+                        merchant_id: new_item[:merchant_id])
+    @data << new_item
+    return new_item
+  end
+
+  def update(id, attributes)
+
+  end
+
+
+
 
 
 end
