@@ -110,9 +110,8 @@ class ItemRepositoryTest < Minitest::Test
 
   end
 
-  def test_repo_can_delete_merchants
-    skip
-    ir = MerchantRepository.new('./data/merchants.csv')
+  def test_repo_can_delete_items
+    ir = ItemRepository.new('./data/items.csv')
 
     ir.delete(263395237)
 
