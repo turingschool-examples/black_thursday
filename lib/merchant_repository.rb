@@ -41,4 +41,13 @@ class MerchantRepository
     @merchants << Merchant.new(attributes)
   end
 
+  def update(id,attributes)
+    merchant = find_by_id(id)
+    merchant.name = attributes[:name]
+  end
+
+  def delete(id)
+    @merchants.delete(find_by_id(id))
+  end
+
 end

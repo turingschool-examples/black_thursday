@@ -1,8 +1,7 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/merchant_repository'
-require './lib/merchant'
-require 'pry'
+require_relative './test_helper'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/merchant'
+
 
 class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
@@ -67,6 +66,24 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal "Turing", merchant_repository.merchants[-1].name
     assert_equal 5, merchant_repository.merchants[-1].id
+  end
+
+  def test_it_can_update_name
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+    merchant = merchant_repository.find_by_id(4)
+    attributes = {name: "Averi"}
+    merchant_repository.update(4,attributes)
+
+
+    assert_equal "Averi", merchant.name
+  end
+
+  def test_it_can_delete_merchants_by_id
+    merchant_repository = MerchantRepository.new('./test/short_test/short_merchants.csv')
+    merchant = merchant_repository.find_by_id(4)
+    merchant_repository.delete(4)
+
+    refute merchant_repository.merchants.include?(merchant)
   end
 
 
