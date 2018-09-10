@@ -6,13 +6,14 @@ def initialize(data)
 end
 
 def self.from_csv(file_location)
- data_from_csv = {}
- file_location.each do |repository, file_path|
-   data_from_csv[repository] = CSV.open(file_path, headers: true, header_converters: :symbol)
- end
+ # data_from_csv = {}
+ # file_location.each do |repository, file_path|
+   # data_from_csv[repository] =
+    merchants = MerchantRepo.new(file_location)
+   binding.pry
  #we need to return the hash now and maybe we can use explicit return or new (file_location)
  #if this doesn't work
- data_from_csv
+ # data_from_csv
 end
 
 

@@ -1,19 +1,51 @@
 require 'CSV'
 require 'pry'
-module Black_Thursday_Helper
+module BlackThursdayHelper
 
-  def populate(filepath)
-    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data)
+  def all
+    @collections
+  end
+
+  def find_by_id(id)
+   @collections.find do |object|
+     object.id == id
+   end
+  end
+
+  def find_by_name(name)
+    @collections.find do |object|
+      object.name.downcase == name.downcase
     end
   end
 
-  def populate(filepath)
-      csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
-      csv_objects.map do |object|
-        object[:id] = object[:id].to_i
-      collection << object.to_h
+  def find_all_by_name(name)
+   @collections.find_all do |object|
+     object.name.downcase.include? (name.downcase)
+   end
+  end
+
+  def update(id, attributes)
+      if find_by_id(id) != nil
+      merchant_to_be_updated = find_by_id(id)
+      merchant_to_be_updated.name = attributes
+      else
+        nil
+      end
+  end
+
+  def delete(id)
+    @collections.delete_if do |object|
+      object.id == id
     end
   end
+
+
+
+
+  # def populate(filepath)
+  #   CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
+  #     @merchants << Merchant.new(data)
+  #   end
+  # end
 
 end
