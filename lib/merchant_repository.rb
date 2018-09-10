@@ -1,4 +1,3 @@
-
 require_relative './merchant'
 class MerchantRepository
   def initialize(filepath)
@@ -37,7 +36,7 @@ class MerchantRepository
     @merchants << new_merchant
     return new_merchant
   end
-
+require 'pry'
   def update(id, attributes)
     @merchants.find do |merchant|
       if merchant.id == id
