@@ -1,6 +1,5 @@
 require_relative 'merchant_repository'
 require 'csv'
-require 'pry'
 
 class SalesEngine
 include Crud

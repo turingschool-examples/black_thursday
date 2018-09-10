@@ -1,5 +1,4 @@
 require 'CSV'
-require 'pry'
 require_relative 'item.rb'
 require_relative 'crud.rb'
 
@@ -31,6 +30,13 @@ include Crud
 
   def find_all_by_price(string)
     find_all_by_exact(:unit_price, string)
+  end
+
+  def find_all_by_price_in_range(range)
+    big_range = ((range.begin.to_d)..(range.end.to_d))
+    collection.keep_if do |element|
+      big_range.include? element[:unit_price]
+    end
   end
 
   def find_all_by_merchant_id(string)

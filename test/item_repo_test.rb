@@ -115,6 +115,10 @@ class ItemRepositoryTest <  Minitest::Test
   end
 
   def test_find_all_by_price_in_range
-    skip
+    ir = ItemRepository.new('./data/items_tiny.csv')
+    found = ir.find_all_by_price_in_range(1000.00..1500.00)
+    actual = found.length
+    expected = 4
+    assert_equal expected, actual
   end
 end
