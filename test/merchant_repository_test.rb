@@ -23,14 +23,14 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, ir.all[0]
   end
 
-  def test_it_can_add_by_string
+  def test_it_can_add_without_id
     ir = MerchantRepository.new
     hash = {
       :id          => 1,
       :name        => "Pencil",
     }
     ir.create(hash)
-    ir.create("Pencil")
+    ir.create({name: "Eraser"})
     assert_equal 2, ir.all.length
   end
 
@@ -104,6 +104,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 2, ir.find_next_id
   end
 
+  def test_id_starts_at_0
+    ir = MerchantRepository.new
+    assert_equal 1, ir.find_next_id
+  end
+
   def test_it_can_update_name
     ir = MerchantRepository.new
     hash = {
@@ -111,7 +116,7 @@ class MerchantRepositoryTest < Minitest::Test
       :name        => "Pencil",
     }
     ir.create(hash)
-    ir.update(1, "Eraser")
+    ir.update(1, {name: "Eraser"})
     assert_equal "Eraser", ir.all[0].name
   end
 

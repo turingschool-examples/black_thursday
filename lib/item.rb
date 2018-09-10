@@ -11,7 +11,7 @@ class Item
                   :unit_price
 
   def initialize(attributes)
-    @id = attributes[:id]
+    @id = attributes[:id].to_i
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = BigDecimal.new(attributes[:unit_price],4)
