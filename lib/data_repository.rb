@@ -16,16 +16,18 @@ class DataRepository
     end
   end
 
-  # returns an array of all known Merchant/Item instances
   def all
+    @data_set.values
   end
 
-  # returns either nil or an instance of Merchant with a matching ID
   def find_by_id(id)
+    @data_set[id]
   end
 
-  # returns either nil or an instance of Merchant having done a case insensitive search
   def find_by_name(name)
+    @data_set.values.find do |entry|
+      entry.name.downcase == name.downcase
+    end
   end
 
   # create a new Merchant instance with the provided attributes. The new Merchant’s id should be the current highest Merchant id plus 1.

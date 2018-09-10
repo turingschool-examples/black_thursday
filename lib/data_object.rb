@@ -3,6 +3,7 @@ require 'bigdecimal'
 class DataObject
   def initialize(attributes)
     @attributes = attributes
+    # binding.pry
   end
 
   def self.from_raw_hash(raw_attrs)
@@ -23,8 +24,8 @@ class DataObject
       if normalizer[key]
         value = self.send(normalizer[key], value)
       end
-      value
-    end
+      [key, value]
+    end.to_h
   end
 
   def self.convert_to_int(str_num)
@@ -33,7 +34,7 @@ class DataObject
 
   def self.convert_to_big_d(raw_price)
     price = raw_price.to_f / 100
-    p BigDecimal.new(price, raw_price.length)
+    BigDecimal.new(price, raw_price.length)
   end
 
   def self.convert_to_dates(raw_date)
