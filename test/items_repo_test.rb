@@ -18,7 +18,7 @@ class ItemsRepoTest < Minitest::Test
     ir = ItemsRepo.new("./test/fixtures/items.csv")
     assert_equal "Cheer bow", ir.all.first.name
     assert_instance_of Array, ir.all
-    assert_equal 6, ir.all.count
+    assert_equal 7, ir.all.count
     assert_equal "Cheer bow", ir.all.first.name
   end
 
@@ -52,12 +52,28 @@ class ItemsRepoTest < Minitest::Test
 
   def test_it_can_find_all_with_a_description
     ir = ItemsRepo.new("./test/fixtures/items.csv")
+
     chicken = ir.find_by_id(3)
-    expected = [chicken]
+    student = ir.find_by_id(7)
+
+    expected = [chicken, student]
     actual = ir.find_all_with_description("eat it")
     assert_equal expected, actual
+
+    assert_equal [], ir.find_all_with_description("jifeowjflsjeioa")
   end
 
+  def test_i_can_find_all_items_with_the_same_price
+    ir = ItemsRepo.new("./test/fixtures/items.csv")
+
+    cheer_bow = ir.find_by_id(1)
+    student = ir.find_by_id(7)
+
+    expected = [cheer_bow, student]
+    actual = ir.find_all_by_price(10.00)
+
+    assert_equal expected, actual
+  end
 
 
 end

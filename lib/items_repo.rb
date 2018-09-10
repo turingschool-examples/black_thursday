@@ -19,7 +19,14 @@ class ItemsRepo
 
   def find_all_with_description(description)
     @collections.find_all do |object|
-      object.name.downcase.include? (description.downcase)
+      object.description.downcase.include? (description.downcase)
+    end
+  end
+
+  def find_all_by_price(price)
+    @collections.find_all do |object|
+      object.unit_price == price
+      # binding.pry
     end
   end
 

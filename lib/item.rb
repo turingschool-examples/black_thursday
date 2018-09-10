@@ -12,7 +12,7 @@ class Item
     @id = params[:id].to_i
     @name = params[:name]
     @description = params[:description]
-    @unit_price = params[:unit_price]
+    @unit_price = params[:unit_price].to_f/100
     @created_at = params[:created_at]
     @updated_at = params[:updated_at]
     @merchant_id = params[:merchant_id]
