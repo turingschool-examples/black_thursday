@@ -13,11 +13,11 @@ class SalesEngine
   end
 
   def items
-    @items ||= ItemRepository.new(load_file(data[:items]))
+    ItemRepository.new(data[:items])
   end
 
   def merchants
-    @merchants ||= MerchantRepository.new(load_file(data[:merchants]))
+    MerchantRepository.new(data[:merchants])
   end
 
 end
