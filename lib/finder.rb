@@ -1,33 +1,14 @@
-
-#find_all uses find_by
+require 'pry'
 
 module Finder
-
-  def find_by(class, attribute)
-    # case class
-    # when "merchant"
-    #   => {:id = 12345, :name => "Turing School"}
-    # 
-    # when "item"
-    #   => {:id = 1, 
-    #       :name => "Pencil", 
-    #       :description => "You can use it to write things",
-    #       ...}
-    #
-
+  
+  def find_by(repo, id)
+    repo.keep_if do |entry|      
+      entry.id == id
+    end
   end
 
+  
 
-  def find_all_by(class, attribute)
-    # case class
-    # 
-    # calls find_by to return all chosen
-    #
-    #
-    #
-    #
-    #
-    #    
 
-  end
 end

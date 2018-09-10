@@ -15,6 +15,7 @@ class Item
   def initialize(hash)
     # -- Read Only --
     @id = hash[:id]
+    
     @created_at = hash[:created_at]
     @merchant_id = hash[:merchant_id]
     # -- Accessible --
