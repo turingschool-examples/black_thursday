@@ -7,6 +7,9 @@ class Item
               :updated_at,
               :merchant_id
 
+  attr_writer :unit_price,
+              :updated_at
+
   def initialize(data)
     @id = data[:id].to_i
     @name = data[:name]

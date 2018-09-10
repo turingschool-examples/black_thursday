@@ -47,15 +47,23 @@ class ItemRepository < Repository
                         name: new_item[:name],
                         description: new_item[:description],
                         unit_price: new_item[:unit_price],
-                        # created_at: Time.now,
-                        # updated_at: Time.now,
+                        created_at: Time.now,
+                        updated_at: Time.now,
                         merchant_id: new_item[:merchant_id])
     @data << new_item
     return new_item
   end
 
   def update(id, attributes)
-
+    @data.find do |datum|
+      if datum.id == id
+      #merchant.name.gsub! merchant.name, attributes[:name]
+      datum.name.gsub! datum.name, attributes[:name]
+      datum.description.gsub! datum.description, attributes[:description]
+      datum.unit_price = attributes[:unit_price]
+      datum.updated_at = Time.now
+      end
+    end
   end
 
 
