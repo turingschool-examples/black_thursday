@@ -10,7 +10,7 @@ class Item
               :updated_at
 
   def initialize(item_hash)
-    @id          = item_hash[:id]
+    @id          = item_hash[:id].to_i
     @name        = item_hash[:name]
     @description = item_hash[:description]
     @unit_price  = item_hash[:unit_price]
