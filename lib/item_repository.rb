@@ -1,4 +1,4 @@
-# require 'pry'
+require_relative "item"
 
 class ItemRepository
 
@@ -32,4 +32,7 @@ class ItemRepository
     items.find_all {|item| item.unit_price_to_dollars == price.to_f}
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

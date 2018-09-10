@@ -1,3 +1,4 @@
+require "item_repository"
 class Item
 
   attr_reader :id, :name,:description, :unit_price,
