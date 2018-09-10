@@ -4,7 +4,7 @@ require_relative './item_repository'
 class SalesAnalyst
   attr_reader :mr, :ir
 
-  def initialize
+  def initialize(sales_engine)
     @mr = MerchantRepository.new("./data/merchants.csv")
     @ir = ItemRepository.new("./data/items.csv")
   end
@@ -17,7 +17,7 @@ class SalesAnalyst
     hash = Hash.new(0)
     @ir.all.each do |item|
       hash[item.merchant_id] += 1
-    end 
+    end
 
   end
 
