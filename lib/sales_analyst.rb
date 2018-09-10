@@ -17,7 +17,7 @@ class SalesAnalyst
     hash = Hash.new(0)
     @ir.all.each do |item|
       hash[item.merchant_id] += 1
-    end
+    end 
 
   end
 
