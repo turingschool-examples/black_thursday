@@ -1,6 +1,6 @@
 require_relative './item'
 require_relative './repository'
-require 'bigdecimal'
+# require 'bigdecimal'
 
 class ItemRepository < Repository
 

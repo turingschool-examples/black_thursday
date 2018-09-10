@@ -4,7 +4,6 @@ require_relative 'merchant'
 require_relative 'item'
 require_relative 'item_repository'
 require_relative 'sales_analyst'
-require 'pry'
 class SalesEngine
     attr_reader :merchants, :items
 
