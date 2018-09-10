@@ -32,7 +32,16 @@ class ItemRepository
     end
   end
 
+  def find_all_with_description(item_description)
+    @items.find_all do |item|
+      item.description.include?(item_description)
+    end
+  end
 
-
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price.include?(price)
+    end
+  end
 
 end
