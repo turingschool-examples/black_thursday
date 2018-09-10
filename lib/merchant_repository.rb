@@ -27,5 +27,21 @@ class MerchantRepository
     merchants.find_all {|merchant| merchant.name.downcase == name}
   end
 
+  def create(attributes)
+    max_id = (merchants.max_by{|merchant| merchant.id}.id) + 1
+    m = Merchant.new({:id => max_id, :name => attributes})
+    add_merchant(m)
+    m
+  end
+
+  def update(id, attributes)
+    m = find_by_id(id)
+    m.name = attributes
+  end
+
+  def delete(id)
+    index = merchants.find_index {|i| i.id == id}
+    merchants.delete_at(index)
+  end
 
 end

@@ -91,5 +91,56 @@ class MerchantRepositoryTest < Minitest::Test
 
   end
 
+  def test_we_can_create_new_merchant
+    mr = MerchantRepository.new
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 6, :name => "Basement"})
+    m3 = Merchant.new({:id => 7, :name => "BaseMent"})
+    m4 = Merchant.new({:id => 8, :name => "bAsEmEnT"})
+
+    mr.add_merchant(m)
+    mr.add_merchant(m2)
+    mr.add_merchant(m3)
+    mr.add_merchant(m4)
+    m5 = mr.create("Pawn Shop")
+
+    actual = m5.id
+    assert_equal 9, actual
+
+  end
+
+  def test_we_can_update_merchant
+    mr = MerchantRepository.new
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 6, :name => "Basement"})
+
+    mr.add_merchant(m)
+    mr.add_merchant(m2)
+    mr.update(6, "Pawn Shop")
+
+    actual = m2.name
+    assert_equal "Pawn Shop", actual
+  end
+
+  def test_we_can_delete_merchant
+    mr = MerchantRepository.new
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 6, :name => "Basement"})
+    m3 = Merchant.new({:id => 7, :name => "BaseMent"})
+    m4 = Merchant.new({:id => 8, :name => "bAsEmEnT"})
+
+    mr.add_merchant(m)
+    mr.add_merchant(m2)
+    mr.add_merchant(m3)
+    mr.add_merchant(m4)
+    mr.delete(6)
+
+    assert_equal [m,m3,m4], mr.merchants
+
+    mr.delete(5)
+
+    assert_equal [m3,m4], mr.merchants
+  end
+
 
 end

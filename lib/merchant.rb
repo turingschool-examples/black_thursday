@@ -1,7 +1,9 @@
 
 class Merchant
 
-  attr_reader :name, :id
+  attr_reader :id
+
+  attr_accessor :name
 
   def initialize(merchant_hash)
     @id = merchant_hash[:id]
