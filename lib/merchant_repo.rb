@@ -2,8 +2,10 @@
 require 'CSV'
 require 'pry'
 require './lib/merchant'
+require './lib/black_thursday_helper'
 
 class MerchantRepo
+  include Black_Thursday_Helper
 
   def initialize(file_path)
     @merchants = []
@@ -19,6 +21,7 @@ class MerchantRepo
       @merchants << Merchant.new(data)
     end
   end
+
 
   def find_by_id(id)
    @merchants.find do |merchant|

@@ -14,7 +14,5 @@ class ItemsRepoTest < Minitest::Test
     assert_instance_of ItemsRepo, ir
   end
 
-  def 
-
-
+  
 end
