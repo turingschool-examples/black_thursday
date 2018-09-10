@@ -17,6 +17,11 @@ namespace :sanitation do
     puts ""
   end
 
+  desc "run all tests"
+  task :test do
+  ruby "test/*_test.rb"
+  end
+
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
 end
