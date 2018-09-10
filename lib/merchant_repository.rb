@@ -32,10 +32,16 @@ class MerchantRepository
     end
   end
 
+  def create(attributes)
+    attributes[:id] = @merchants[-1].id + 1
+      Merchant.new(attributes)
+  end
+
   def make_merchants(value_path)
     csv_objects = CSV.open(value_path, headers: true, header_converters: :symbol)
     csv_objects.map do |object|
       @merchants << Merchant.new(object)
-     end
+    end
   end
+
 end
