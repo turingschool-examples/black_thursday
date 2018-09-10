@@ -26,4 +26,9 @@ class Repository
     datum = find_by_id(id)
     @data.delete(datum)
   end
+
+  def inspect
+   "#<#{self.class} #{@data.size} rows>"
+  end
+
 end
