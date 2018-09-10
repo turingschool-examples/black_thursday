@@ -1,8 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/item'
-require 'bigdecimal'
-require 'time'
+require_relative '../lib/item'
+require_relative './test_helper'
+
 
 class ItemTest < Minitest::Test
   def test_it_exists
