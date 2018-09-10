@@ -18,12 +18,11 @@ class Item
   end
 
   def unit_price_to_big_decimal
+    @unit_price = BigDecimal(@unit_price)
   end
 
   def unit_price_to_dollars
-    length = @unit_price.length
-    @unit_price = unit_price.to_i
-    @unit_price = BigDecimal(@unit_price, length)
+    (@unit_price / 100).to_f
   end
 
   def create_id(new_id)
