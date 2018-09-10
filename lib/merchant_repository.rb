@@ -2,15 +2,17 @@ require 'pry'
 
 require_relative 'csv_parse'
 require_relative 'merchant'
+require './lib/finder'
 
 
 class MerchantRepository
+  include Finder
 
-  attr_reader :merchants
+  attr_reader :all
 
   def initialize(path)
     @csv = CSVParse.create_repo(path)
-    @merchants = []
+    @all = []
     make_merchants
   end
 
@@ -21,9 +23,9 @@ class MerchantRepository
       number = key.to_s.to_i
       name = value[:name]
       merch = Merchant.new({id: number, name: name })
-      @merchants << merch
+      @all << merch
     }
-    @merchants.flatten!
+    @all.flatten!
   end
 
   # Customized find methods that retain permission rights
@@ -65,13 +67,11 @@ class MerchantRepository
 
 end
 
-
 # Methods
   # Finder
     # --  make module for find_by(type, attribute) --
     # --  make module for find_all_by(type, attribute) --
 
-    # all
     # find_by_id(id)
     # find_by_name(name)
     # find_all_by_name(name)
@@ -80,3 +80,5 @@ end
     # create(attributes)
     # update(id, attributes)
     # delete(id)
+end
+
