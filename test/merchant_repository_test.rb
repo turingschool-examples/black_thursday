@@ -4,13 +4,13 @@ require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     assert_instance_of MerchantRepository, merchant_repository
   end
 
   def test_merchant_repository_has_merchants
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     assert_equal 475, merchant_repository.all.count
 
@@ -21,7 +21,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_by_id
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     actual = merchant_repository.find_by_id(12334112)
 
@@ -31,7 +31,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_returns_nil_when_no_match_is_found
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     actual = merchant_repository.find_by_id(99999)
 
@@ -39,7 +39,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_by_name
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     actual = [merchant_repository.all[0]]
 
@@ -47,7 +47,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_repository_can_create_new_merchants
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     new_merchant = merchant_repository.create(name: "Droplitz")
 
@@ -63,7 +63,7 @@ class MerchantRepositoryTest < Minitest::Test
   ##above tests require square brackets...might need to fix that.
 
   def test_merchants_attributes_can_be_updated
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     actual = merchant_repository.find_by_id(12334112)
 
@@ -78,7 +78,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_repo_can_delete_merchants
-    merchant_repository = MerchantRepository.new('./data/merchants.csv')
+    merchant_repository = MerchantRepository.new('./fixures/merchants.csv')
 
     merchant_repository.delete(12334112)
 
