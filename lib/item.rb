@@ -1,4 +1,4 @@
-require "item_repository"
+require_relative 'item_repository'
 class Item
 
   attr_reader :id, :created_at, :merchant_id
