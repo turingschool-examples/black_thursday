@@ -30,11 +30,12 @@ class SalesEngine
   def pull_item_repository(file_path_item)
     it = ItemRepository.new
     total_items = CSV.read(file_path_item, headers: true, header_converters: :symbol)
-    total_itmes.each do |item|
+    total_items.each do |item|
       i = Item.new({:id => item[:id], :name => item[:name], :description => item[:description],
                     :unit_price => item[:unit_price], :created_at => item[:created_at],
                     :updated_at => item[:updated_at], :merchant_id => item[:merchant_id]})
       it.add_item(1)
-    end 
+    end
+    return it
   end
 end

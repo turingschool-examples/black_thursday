@@ -57,7 +57,7 @@ class SalesEngineTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    assert_equal 1367, se.items.items.length
+    assert_equal 1367, se.items.all.length
   end
 
   def test_it_can_add_to_item_repo
