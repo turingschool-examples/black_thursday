@@ -1,5 +1,7 @@
 require './lib/merchant_repository'
+require './lib/item_repository'
 require './lib/merchant'
+require './lib/item'
 require 'CSV'
 
 class SalesEngine
@@ -17,19 +19,29 @@ class SalesEngine
   end
 
   def merchants
-    array_of_merchants = csv_converter(@merchants_file)
+    array_of_merchants = merchant_csv_converter(@merchants_file)
     MerchantRepository.new(array_of_merchants)
   end
 
   def items
-    csv_converter(@items_file)
+    array_of_items = item_csv_converter(@items_file)
+    ItemRepository.new(array_of_items)
   end
 
-  def csv_converter(file_path)
+  def merchant_csv_converter(file_path)
     csv_objs = CSV.read(file_path, {headers: true, header_converters: :symbol})
     csv_objs.map do |obj|
       obj[:id] = obj[:id].to_i
       Merchant.new(obj.to_h)
+    end
+  end
+
+  def item_csv_converter(file_path)
+    csv_objs = CSV.read(file_path, {headers: true, header_converters: :symbol})
+    csv_objs.map do |obj|
+      obj[:id] = obj[:id].to_i
+      obj[:merchant_id] = obj[:merchant_id].to_i
+      Item.new(obj.to_h)
     end
   end
 end
