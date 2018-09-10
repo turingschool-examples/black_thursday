@@ -35,7 +35,6 @@ class SalesEngine
                     :unit_price => item[:unit_price], :created_at => item[:created_at],
                     :updated_at => item[:updated_at], :merchant_id => item[:merchant_id]})
       it.add_item(1)
-    end
-    return it
+    end 
   end
 end
