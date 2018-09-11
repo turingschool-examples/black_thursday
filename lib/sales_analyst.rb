@@ -60,4 +60,29 @@ class SalesAnalyst
     merchants_with_high_item_count_hash.keys
   end
 
+  def average_item_price_for_merchant(search_id)
+    merchant_array = merchant_hash.find do |merchant, items|
+      merchant.id == search_id
+    end
+    bd_array = merchant_array[1].map do |item|
+      item.unit_price
+    end
+    inject_big_decimal(bd_array)/bd_array.length
+  end
+
+  def average_average_price_per_merchant
+    array = []
+    merchant_hash.each do |key, value|
+      array << average_item_price_for_merchant(key.id)
+    end
+
+    inject_big_decimal(array)/array.length
+  end
+
+  def inject_big_decimal(array)
+    array.inject(BigDecimal.new(0,10)) do |sum, bd|
+      bd + sum
+    end
+  end
+
 end
