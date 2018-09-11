@@ -16,7 +16,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of SalesEngine, @se
+    sales_engine = SalesEngine.new
+    assert_instance_of SalesEngine, sales_engine
   end
 
   def test_it_can_populate_repos
