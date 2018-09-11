@@ -22,6 +22,7 @@ class SalesAnalyst
   end
 
   def items_per_merchant_array
+    binding.pry
     array = merchant_id_array.inject(Hash.new(0)) do |total, id|
               total[id] += 1
               total

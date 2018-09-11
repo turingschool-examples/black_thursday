@@ -5,8 +5,8 @@ require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def test_it_exist
     se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
+    :items     => "./short_tests/short_items.csv",
+    :merchants => "./short_tests/short_merchants.csv",
     })
 
     sales_analyst = SalesAnalyst.new(se)
@@ -15,19 +15,19 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_has_average_item_per_merchants
     se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
+    :items     => "./short_tests/short_items.csv",
+    :merchants => "./short_tests/short_merchants.csv",
     })
 
     sales_analyst = SalesAnalyst.new(se)
 
-    assert_equal 2.88, sales_analyst.average_item_per_merchant
+    assert_equal 1.67, sales_analyst.average_item_per_merchant
   end
 
   def test_it_has_average_items_per_merchants_standard_deviation
     se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
+    :items     => "./short_tests/short_items.csv",
+    :merchants => "./short_tests/short_merchants.csv",
     })
 
     sales_analyst = SalesAnalyst.new(se)
