@@ -73,6 +73,20 @@ class ItemsRepoTest < Minitest::Test
     actual = ir.find_all_by_price(10.00)
 
     assert_equal expected, actual
+    assert_equal [], ir.find_all_by_price(2492849)
+  end
+
+  def test_it_can_find_prices_in_a_range
+    ir = ItemsRepo.new("./test/fixtures/items.csv")
+
+    chicken = ir.find_by_id(3)
+    brian = ir.find_by_id(5)
+
+    expected = [chicken, brian]
+    actual = ir.find_all_by_price_in_range(12.00..15.00)
+
+    assert_equal expected, actual
+    assert_equal [], ir.find_all_by_price_in_range(0..1)
   end
 
 
