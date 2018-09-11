@@ -9,10 +9,7 @@ class ItemRepository
   def initialize(filepath = nil)
     @filepath = filepath
     @all = []
-  end
-
-  def add_individual_item(item)
-    @all << item
+    split(filepath) if filepath != nil
   end
 
   def create(attributes)

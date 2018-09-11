@@ -1,16 +1,21 @@
+require 'csv'
+
 module RepoMethods
 
   def split(filepath)
     objects = CSV.open(filepath, headers: true, header_converters: :symbol)
-
+    attributes_array = []
     objects.map do |object|
       object[:id] = object[:id].to_i
-
-      @attributes_array << object.to_h
+      attributes_array << object.to_h
     end
-    @attributes_array.each do |hash|
+    attributes_array.each do |hash|
       create(hash)
     end
+  end
+
+  def add_individual_item(object)
+    @all << object
   end
 
   def all
@@ -25,16 +30,23 @@ module RepoMethods
 
   def find_by_name(name)
     @all.find do |object|
-      object.name.downcase == name.downcase
+      object_name = object.name.downcase
+      object_name.include?(name.downcase)
     end
   end
 
   def update(id, attributes)
     object = find_by_id(id)
     object.name = attributes[:name]
-    object.description = attributes[:description]
-    object.unit_price = attributes[:unit_price]
-    object.updated_at = Time.now
+    if defined? object.description != nil
+      object.description = attributes[:description]
+    end
+    if defined? object.unit_price != nil
+      object.unit_price = attributes[:unit_price]
+    end
+    if defined? object.updated_at != nil
+      object.updated_at = Time.now
+    end
   end
 
   def delete(id)
