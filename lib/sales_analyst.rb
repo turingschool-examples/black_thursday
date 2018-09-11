@@ -14,11 +14,13 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     hash = items_hash
-    differences_squared = square_differences(hash)
+    differences_squared = square_differences(hash.values,
+                                             average_items_per_merchant)
     sum = sum(differences_squared)
     sum_div = sum/hash.count
     Math.sqrt(sum_div).round(2)
   end
+
 
   def merchants_with_high_item_count
     hash = items_hash
@@ -29,7 +31,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     prices = find_prices_for_merchant(id)
     sum = sum(prices)
-    sum/prices.count
+    (sum/prices.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -40,7 +42,20 @@ class SalesAnalyst
   end
 
   def golden_items
+    prices = @se.items.all.inject([]) do |array, item|
+      array << item.unit_price
+    end
+    average = sum(prices)/prices.count
+    differences_squared = square_differences(prices, average)
+    sum = sum(differences_squared)
+    sum_div = sum/prices.count
+    std_dev = Math.sqrt(sum_div).round(2)
 
+    threshold = average + std_dev * 2
+
+    @se.items.all.find_all do |item|
+      item.unit_price > threshold
+    end
   end
 
  # -------- Helper Methods ---------
@@ -53,9 +68,9 @@ class SalesAnalyst
    hash
  end
 
- def square_differences(hash)
-   hash.values.map do |value|
-     (value-average_items_per_merchant)**2
+ def square_differences(values,average)
+   values.map do |value|
+     (value-average)**2
    end
  end
 
@@ -85,6 +100,16 @@ class SalesAnalyst
      prices << item.unit_price if item.merchant_id == id
    end
    prices
+ end
+
+ def average(numbers)
+   sum(numbers)/numbers.count
+ end
+
+ def find_prices
+   @se.items.all.inject([]) do |array, item|
+     array << item.unit_price
+   end
  end
 
 end

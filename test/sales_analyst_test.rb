@@ -75,4 +75,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, sa.average_average_price_per_merchant
   end
 
+  def test_it_can_find_golden_items
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    sa = se.analyst
+
+    assert_equal 5, sa.golden_items.count
+
+  end
+
+
 end
