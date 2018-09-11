@@ -34,9 +34,8 @@ class MerchantRepository
   end
 
   def create(attributes)
-    # TODO update
-    if attributes.class == String
-      merchant = Merchant.new({id: find_next_id, name: attributes})
+    if attributes.class == Hash
+      merchant = Merchant.new({id: find_next_id, name: attributes[:name]})
     else
       merchant = Merchant.new({
         id: attributes[:id],
@@ -47,7 +46,11 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    find_by_id(id).name = attributes
+    if find_by_id(id) != nil
+      find_by_id(id).name = attributes[:name]
+    else
+      nil
+    end
   end
 
   def delete(id)
@@ -55,9 +58,13 @@ class MerchantRepository
   end
 
   def find_next_id
-    max_id = @merchants.max_by do |merch|
-      merch.id
-    end.id
-    max_id += 1
+    if @merchants == []
+      return 1
+    else
+      max_id = @merchants.max_by do |merch|
+        merch.id
+      end.id
+      max_id += 1
+    end
   end
 end

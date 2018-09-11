@@ -44,13 +44,14 @@ class ItemRepository
     @items.find_all do |item|
       item.unit_price_to_dollars == search_price
     end
+
   end
 
   def find_all_by_price_in_range(range)
    # Returns either [] or instances of Item where the supplied price is in
    # the supplied range (a single Ruby range instance is passed in)
    @items.find_all do |item|
-     item.unit_price.between?(range.first, range.last)
+     item.unit_price.to_f.between?(range.first, range.last)
    end
   end
 
@@ -63,37 +64,45 @@ class ItemRepository
   end
 
   def create(attributes)
-    # Attributes is in the form of CSV object. Create extracts the data from
-    # that object and creates a new item object.
+
     if attributes[:id] != nil
-      item = Item.new({
+      #Coming From CSV
+      hash = {
         id: attributes[:id],
         name: attributes[:name],
         description: attributes[:description],
-        #TODO What are the args for BigDecimal?
-        unit_price: BigDecimal.new(attributes[:unit_price],4),
-        created_at: Time.now,
-        updated_at: Time.now,
-        merchant_id: attributes[:merchant_id],
-        })
-        @items << item
+        #TODO This line is very ugly
+        unit_price: BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length),
+        updated_at: Time.parse(attributes[:updated_at]),
+        created_at: Time.parse(attributes[:created_at]),
+        merchant_id: attributes[:merchant_id]
+        }
+      item = Item.new(hash)
+      @items << item
+
     else
-      attributes[:id] = find_next_id
-      item = create(attributes)
+      #Gererated on the fly
+      hash = {
+        id: find_next_id,
+        name: attributes[:name],
+        description: attributes[:description],
+        unit_price: attributes[:unit_price],
+        updated_at: attributes[:updated_at],
+        created_at: attributes[:created_at]
+      }
+      item = Item.new(hash)
+      @items << item
+
     end
   end
 
   def update(id, attributes)
-    # Ppdate the Item instance with the corresponding id with the
-    # provided attributes.
-    # Only the item’s name, desription, and unit_price attributes
-    # can be updated.
-    # This method will also change the items updated_at
-    # attribute to the current time.
-    find_by_id(id).name = attributes[:name]
-    find_by_id(id).description = attributes[:description]
-    find_by_id(id).unit_price = attributes[:unit_price]
-    find_by_id(id).updated_at = Time.now
+    if find_by_id(id) != nil
+      find_by_id(id).name = attributes[:name] if attributes[:name] != nil
+      find_by_id(id).description = attributes[:description] if attributes[:description] != nil
+      find_by_id(id).unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
+      find_by_id(id).updated_at = Time.now
+    end
   end
 
   def delete(id)
