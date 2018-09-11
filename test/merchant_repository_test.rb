@@ -40,5 +40,4 @@ class MerchantRepositoryTest < Minitest::Test
     repo = MerchantRepository.new(datas)
     assert_equal [merch_1, merch_3], repo.find_all_by_name("2")
   end
-
 end
