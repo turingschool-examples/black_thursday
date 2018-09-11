@@ -3,7 +3,6 @@ require_relative './item_repository'
 require 'pry'
 
 class SalesAnalyst
-
   def initialize(sales_engine)
     @se = sales_engine
   end
@@ -13,7 +12,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    hash = items_hash
+    hash = item_count_per_merchant_id
     differences_squared = square_differences(hash.values,
                                              average_items_per_merchant)
     sum = sum(differences_squared)
@@ -21,9 +20,8 @@ class SalesAnalyst
     Math.sqrt(sum_div).round(2)
   end
 
-
   def merchants_with_high_item_count
-    hash = items_hash
+    hash = item_count_per_merchant_id
     merchant_ids = merchant_ids_with_high_item_count(hash)
     merchants_from_ids(merchant_ids)
   end
@@ -42,25 +40,19 @@ class SalesAnalyst
   end
 
   def golden_items
-    prices = @se.items.all.inject([]) do |array, item|
-      array << item.unit_price
-    end
+    prices = find_prices
     average = sum(prices)/prices.count
     differences_squared = square_differences(prices, average)
     sum = sum(differences_squared)
     sum_div = sum/prices.count
     std_dev = Math.sqrt(sum_div).round(2)
-
     threshold = average + std_dev * 2
-
-    @se.items.all.find_all do |item|
-      item.unit_price > threshold
-    end
+    find_golden_items(@se.items.all, threshold)
   end
 
  # -------- Helper Methods ---------
 
- def items_hash
+ def item_count_per_merchant_id
    hash = Hash.new(0)
    @se.items.all.each do |item|
      hash[item.merchant_id] += 1
@@ -112,4 +104,9 @@ class SalesAnalyst
    end
  end
 
+ def find_golden_items(items, threshold)
+   items.find_all do |item|
+     item.unit_price > threshold
+   end
+ end
 end
