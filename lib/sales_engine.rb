@@ -1,5 +1,5 @@
-require "./lib/items_repo"
-
+require_relative "../lib/items_repo"
+require_relative "../lib/merchant_repo"
 
 class SalesEngine
   attr_reader :merchants,
@@ -9,6 +9,7 @@ class SalesEngine
   def self.from_csv(params)
     merchants = MerchantRepo.new(params[:merchants])
     items = ItemsRepo.new(params[:items])
+
     SalesEngine.new(merchants, items)
   end
 
@@ -16,5 +17,4 @@ class SalesEngine
     @merchants = merchants
     @items = items
   end
-
 end

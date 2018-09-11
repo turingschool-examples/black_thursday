@@ -2,9 +2,9 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine'
-require './lib/merchant_repo'
 require 'pry'
+require_relative '../lib/sales_engine'
+require_relative '../lib/merchant_repo'
 
 class SalesEngineTest < Minitest::Test
 
@@ -21,7 +21,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_populate_repos
     refute_empty @se.merchants.all
-
+    refute_empty @se.items.all
   end
-
 end

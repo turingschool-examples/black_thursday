@@ -2,8 +2,8 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant'
 require 'pry'
+require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
 
@@ -23,5 +23,4 @@ class MerchantTest < Minitest::Test
     assert_equal 8, merchant.id
     assert_equal "Yum Yum Spice", merchant.name
   end
-
 end

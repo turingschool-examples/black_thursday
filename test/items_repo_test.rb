@@ -1,10 +1,12 @@
+require 'simplecov'
+SimpleCov.start
 require 'bigdecimal'
 require 'time'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/items_repo'
-require './lib/item'
 require 'pry'
+require_relative '../lib/items_repo'
+require_relative '../lib/item'
 
 
 class ItemsRepoTest < Minitest::Test
@@ -162,5 +164,4 @@ class ItemsRepoTest < Minitest::Test
     ir.delete(1)
     assert_nil ir.find_by_id(1)
   end
-
 end
