@@ -110,9 +110,10 @@ class ItemRepositoryTest < Minitest::Test
     ir.update(id, new_attributes)
 
     assert_equal "510+ RealPush Icon Set VALUE PACK", actual.name
-    assert_equal [ir.all[0]], ir.find_all_with_description("New description")
-    assert_equal 3, ir.find_all_by_price(11.99).count
 
+    assert_equal [ir.all[0]], ir.find_all_with_description("New description")
+
+    assert_equal 3, ir.find_all_by_price(11.99).count
   end
 
   def test_repo_can_delete_items
