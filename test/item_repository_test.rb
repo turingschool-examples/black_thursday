@@ -50,6 +50,8 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal expected, ir.find_all_with_description("google")[0]
     assert_equal [], ir.find_all_with_description("This doesn't exist")
+
+    assert_equal 263395237, expected.id
   end
 
   def test_it_can_find_all_by_price
