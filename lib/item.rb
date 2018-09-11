@@ -22,7 +22,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    (@unit_price / 100).to_f
+    (@unit_price.to_i / 100).to_f
   end
 
   def create_id(new_id)
