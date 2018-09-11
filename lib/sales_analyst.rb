@@ -1,5 +1,6 @@
 require_relative './merchant_repository'
 require_relative './item_repository'
+require 'pry'
 
 class SalesAnalyst
 
@@ -16,10 +17,21 @@ class SalesAnalyst
     @se.items.all.each do |item|
       hash[item.merchant_id] += 1
     end
-
+    differences_squared = hash.values.map do |value|
+      (value-average_items_per_merchant)**2
+    end
+    sum = differences_squared.inject(0) do |sum, num|
+      sum + num
+    end
+    sum_div = sum/hash.count
+    Math.sqrt(sum_div).round(2)
   end
 
   def merchants_with_high_item_count
+    hash = Hash.new(0)
+    @se.items.all.each do |item|
+      hash[item.merchant_id] += 1
+    end
 
   end
 
