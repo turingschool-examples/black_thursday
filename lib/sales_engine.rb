@@ -14,7 +14,7 @@ class SalesEngine
   end
 
   def self.from_csv(csv_hash)
-    new(csv_hash)
+   new(csv_hash)
   end
 
 end

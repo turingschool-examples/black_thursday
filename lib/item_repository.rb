@@ -16,7 +16,7 @@ class ItemRepository
 
   def make_items(item_path)
     CSV.foreach(item_path, headers: true, header_converters: :symbol) do |row|
-      @items << Item.new(row)
+     @items << Item.new(row)
     end
   end
 
@@ -28,31 +28,32 @@ class ItemRepository
 
   def find_by_name(name)
    @items.find do |item|
-      item.name == name
+     item.name == name
     end
   end
 
   def find_all_with_description(item_description)
     @items.find_all do |item|
-      item.description.include?(item_description)
+     item.description.include?(item_description)
     end
   end
 
   def find_all_by_price(price)
     @items.find_all do |item|
-      item.unit_price == price
+     item.unit_price == price
     end
   end
 
 
   def find_all_by_price_in_range(range)
-   @items.find_all do |item|
-   range.include?(item.unit_price.to_f)
-   end
+    @items.find_all do |item|
+     range.include?(item.unit_price.to_f)
+    end
   end
 
-  # def find_all_by_merchant_id(id)
-  #   @items.find_all { |object| object.merchant_id == id }
-  # end
-
+  def find_all_by_merchant_id(id)
+    @items.find_all do |item|
+     item.merchant_id == id
+    end
+  end
 end
