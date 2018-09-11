@@ -51,4 +51,26 @@ class SalesAnalyst
     summed_unit_price/items.count
   end
 
+  def average_average_price_per_merchant
+    average_of_all_merchants = items_per_merchant_hash.map do |merchant|
+      average_item_price_for_merchant(merchant[0])
+    end
+      summed = average_of_all_merchants.inject(0) do |sum, num|
+                sum + num
+              end
+
+      (summed / @sales_engine.merchants.merchants.count).round(2)
+  end
+
+  def average_item_cost
+    array_of_unit_price = @sales_engine.items.items.map do |item|
+                           item.unit_price
+                        end
+
+        sum_of_unit_price = array_of_unit_price.inject(0) do |sum, num|
+                              sum + num
+                            end
+        (sum_of_unit_price / @sales_engine.items.items.count).round(2)
+  end
+
 end
