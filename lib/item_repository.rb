@@ -59,6 +59,7 @@ attr_reader :items
     item.description = attributes[:description] unless attributes[:description].nil?
     item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     item.updated_at = Time.now
+    item
   end
 
   def delete(id)

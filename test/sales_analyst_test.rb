@@ -64,7 +64,6 @@ class SalesAnalystTest < Minitest::Test
     :merchants => "./short_tests/short_merchants.csv",
     })
     sales_analyst = SalesAnalyst.new(se)
-    merchant_1 = se.merchants.find_all_by_name("Candisart")
 
     assert_instance_of BigDecimal, sales_analyst.average_average_price_per_merchant
     assert_equal 11.58, sales_analyst.average_average_price_per_merchant.to_f
@@ -76,22 +75,29 @@ class SalesAnalystTest < Minitest::Test
     :merchants => "./short_tests/short_merchants.csv",
     })
     sales_analyst = SalesAnalyst.new(se)
-    merchant_1 = se.merchants.find_all_by_name("Candisart")
 
     assert_equal 11.29, sales_analyst.average_item_cost.to_f
   end
 
-  def test_it_has_
+  def test_it_has_golden_items_standard_deviation
+    se = SalesEngine.from_csv({
+    :items     => "./short_tests/short_items.csv",
+    :merchants => "./short_tests/short_merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
 
+    assert_equal 8.56, sales_analyst.golden_items_standard_deviation
   end
-  # def test_it_has_golden_items
-  #   se = SalesEngine.from_csv({
-  #   :items     => "./short_tests/short_items.csv",
-  #   :merchants => "./short_tests/short_merchants.csv",
-  #   })
-  #   sales_analyst = SalesAnalyst.new(se)
-  #   merchant_1 = se.merchants.find_all_by_name("Candisart")
-  #
-  #
-  # end
+
+  def test_it_has_golden_items
+    se = SalesEngine.from_csv({
+    :items     => "./short_tests/short_items.csv",
+    :merchants => "./short_tests/short_merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    item_1= se.items.update(7, unit_price: 20000)
+
+    assert_equal [item_1], sales_analyst.golden_items
+  end
 end

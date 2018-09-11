@@ -73,4 +73,26 @@ class SalesAnalyst
         (sum_of_unit_price / @sales_engine.items.items.count).round(2)
   end
 
+  def golden_items_standard_deviation
+    differences_squared = @sales_engine.items.items.map do |item|
+                              (item.unit_price - average_item_cost) ** 2
+                          end
+
+        summed = differences_squared.inject(0) do |sum, num|
+                    sum + num
+                  end
+
+    divided_sum = summed / (@sales_engine.items.items.count - 1)
+    Math.sqrt(divided_sum).round(2)
+  end
+
+  def golden_items
+    golden_items_array = []
+    golden_items = @sales_engine.items.items.find_all do |item|
+      if item.unit_price > (average_item_cost + (golden_items_standard_deviation * 2 ))
+          golden_items_array  << item
+      end
+    end
+  end
+
 end
