@@ -39,6 +39,20 @@ class MerchantRepository
       new_merchant
   end
 
+  def update(id, attributes)
+    merchant  = find_by_id(id)
+    updated_name = attributes[:name]
+    merchant.name = updated_name
+    merchant
+  end
+
+  def delete(id)
+    find_merchant  = find_by_id(id)
+    @merchants.delete_if do |merchant|
+      merchant == find_merchant
+    end
+  end
+
   def make_merchants(value_path)
     csv_objects = CSV.open(value_path, headers: true, header_converters: :symbol)
     csv_objects.map do |object|
