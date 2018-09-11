@@ -143,7 +143,6 @@ class ItemsRepoTest < Minitest::Test
     assert_equal "Every dating profile in CO ever", actual.description
     assert_equal 10.99, actual.unit_price
     assert_instance_of Time, actual.updated_at
-    refute_equal 
   end
 
   def test_update_merchant_id_doesnt_work
