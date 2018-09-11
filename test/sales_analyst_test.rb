@@ -71,39 +71,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_does_standard_deviation
-    # vals = [1.0, 2.0, 3.0, 4.0, 5.0]
-    # TO DO - HARDCODE more of this here (less calculations)
-    # mean = (15.0 / 5.0).round(2)   # merchant average is rounded 2
-    # squares = [4.0, 1.0, 0.0, 1.0, 4.0]
-    # sq_sum = 10.0
-    # # sq_sum = vals.inject(0) {|tot, val| tot += val }
-    # av = sq_sum / (5-1).to_f
-    # std = Math.sqrt(av).round(2)
-
-    # mean = 3.00     # merchant average is rounded 2
-    skip
-    values = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
-    sum    = values.inject(0){ |sum, val| sum + val }
-    ct     = values.count
-    mean   = (sum / ct.to_f) #.round(2)
-    val1 = (1.0-mean)**2 ; val2 = (2.0-mean)**2
-    val3 = (3.0-mean)**2 ; val4 = (4.0-mean)**2
-    val5 = (5.0-mean)**2 ; val6 = (6.0-mean)**2
-    val7 = (7.0-mean)**2 ; val8 = (8.0-mean)**2
-    sq_sum = val1 + val2 + val3 + val4 + val5 + val6 + val7 + val8
-
-    ct             = 8
-    sq_mean        = (sq_sum / ct.to_f).round(2)
-    std            = Math.sqrt(sq_mean).round(2)
-    assert_equal std, @sa_csv.standard_deviation(values, mean)
-
-    skip
-    # sample_ct      = ct - 1
-    # sample_average = (sq_sum / sample_ct.to_f).round(2)
-    sample_average = (sq_sum / ct.to_f).round(2)
-    sample_std     = Math.sqrt(average).round(2)
-    assert_equal sample_std, @sa_csv.standard_deviation(values, mean)
-
+    vals = [1.0, 2.0, 3.0, 4.0, 5.0]
+    sum = vals.inject(0) { |sum, val| sum += val }
+    mean = sum / (vals.count).to_f
+    assert_equal 1.58, @sa_csv.standard_deviation(vals, mean)
   end
 
 
