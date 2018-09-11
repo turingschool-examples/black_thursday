@@ -4,18 +4,19 @@ require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
 
     assert_instance_of ItemRepository, ir
   end
 
   def test_it_can_split_csv
-    ir = ItemRepository.new
+    ir = ItemRepository.new("./data/test_items.csv")
 
+    assert_equal "Glitter scrabble frames", ir.find_by_id(1).name
   end
 
-  def test_it_can_add_individual_merchant
-    ir = ItemRepository.new("./data/test_items.csv")
+  def test_it_can_add_individual_items
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -32,7 +33,7 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def test_it_can_return_all_items
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -61,7 +62,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -88,7 +89,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_name
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -115,7 +116,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_description
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -143,7 +144,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -170,7 +171,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_in_range
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -198,7 +199,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_merchant_id
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -225,8 +226,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_item
-    ir = ItemRepository.new("./data/test_items.csv")
-    i3 = ir.create({
+    ir = ItemRepository.new
+    ir.create({
       :name        => "Marker",
       :description => "You can use it to write things in color!",
       :unit_price  => BigDecimal.new(4.99,4),
@@ -240,7 +241,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_attributes
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
@@ -279,7 +280,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_items
-    ir = ItemRepository.new("./data/test_items.csv")
+    ir = ItemRepository.new
     i1 = Item.new({
       :id          => 1,
       :name        => "Pencil",
