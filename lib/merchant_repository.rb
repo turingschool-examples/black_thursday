@@ -11,10 +11,16 @@ include Crud
   attr_reader :collection,
               :changeable_attributes
 
-  def initialize(filepath)
-    @collection = []
-    load(filepath)
+  def initialize(content, parent)
+    @collection = content.map do |hash|
+      Merchant.new(hash, self) 
+    end
+    @parent = parent 
     @changeable_attributes = [:name]
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def create(attributes)
@@ -27,4 +33,10 @@ include Crud
   def find_all_by_name(string)
     find_all_by(:name, string)
   end
+
+  def all 
+    @collection.count
+  
+  end
+  
 end

@@ -6,6 +6,7 @@ require_relative '../lib/sales_engine'
 class SalesEngineTest < Minitest::Test
 
   def setup
+    
     @engine = SalesEngine.from_csv({:merchants => "./data/merchants_tiny.csv"})
   end
 
@@ -17,6 +18,12 @@ class SalesEngineTest < Minitest::Test
   def test_me
     skip
     assert_equal 475, @engine.merchants.all
+  end
+
+  def test_import_merchants
+   engine = SalesEngine.new("./data/merchants_tiny.csv")
+   expected = [] 
+   assert_equal expected, engine.mr.import_merchants(expected)
   end
 end
 
