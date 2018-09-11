@@ -5,6 +5,8 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
 require_relative '../lib/item'
 require_relative '../lib/item_repository'
+require 'pry'
+
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
@@ -40,6 +42,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_add_to_merchant_repo
     se = SalesEngine.new
     mr = se.pull_merchant_repository("./data/merchants.csv")
+    binding.pry
     assert_instance_of MerchantRepository, mr
     assert_equal 475, mr.merchants.length
   end

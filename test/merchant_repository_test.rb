@@ -56,6 +56,7 @@ class MerchantRepositoryTest < Minitest::Test
     actual = mr.find_by_id(6).name
 
     assert_equal "Basement", actual
+    assert_equal 6, mr.find_by_id(6).id
 
   end
 

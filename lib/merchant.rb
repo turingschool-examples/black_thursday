@@ -1,9 +1,9 @@
 require_relative "merchant_repository"
 class Merchant
 
-  attr_reader :id
+  attr_reader 
 
-  attr_accessor :name
+  attr_accessor :name, :id
 
   def initialize(merchant_hash)
     @id = merchant_hash[:id]
