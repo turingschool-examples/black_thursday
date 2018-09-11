@@ -21,6 +21,13 @@ class SalesAnalyst
     groups = repo.group_by { |object| object.send(method)}  #method is a symbol
   end   # returns a hash
 
+  # Lets wait to see if this is useful in the other iterations
+    #  we can use it in the merchant methods
+  def create_values_array(hash, hash_method, rule_method)
+    data    = hash.send(hash_method)
+    values  = data.inject([]) {|arr, val| arr << val.send(rule_method) }
+  end
+
   def sum(values)
     sum = values.inject(0) { |total, val| total += val.to_f }
   end   # returns an rounded float
@@ -31,8 +38,7 @@ class SalesAnalyst
     average = (sum / ct)
   end   # returns an unrounded float
 
-  # TO DO -  TEST ME
-  def standard_deviation(values, mean)
+  def standard_deviation(values, mean) # Explicit steps
     floats      = values.map     { |val| val.to_f   }
     difference  = floats.map     { |val| val - mean }
     values      = difference.map { |val| val ** 2   }
@@ -59,6 +65,11 @@ class SalesAnalyst
     std    = standard_deviation(vals, mean)
   end
 
+  def merchants_with_high_item_count
+    # find all merchants > one std of items
+
+
+  end
 
 
 
