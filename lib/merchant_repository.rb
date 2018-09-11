@@ -19,11 +19,11 @@ class MerchantRepository < Repository
     end
   end
 
-  def find_by_name(name)
-    @data.find_all do |datum|
-      datum.name.downcase.include?(name.downcase)
-    end
-  end
+  # def find_by_name(name)
+  #   @data.find do |datum|
+  #     datum.name.downcase.include?(name.downcase)
+  #   end
+  # end
 
   def create(new_merchant)
     highest_id = @data.max_by do |datum|

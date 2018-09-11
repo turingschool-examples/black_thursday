@@ -17,7 +17,7 @@ class Repository
   end
 
   def find_by_name(name)
-    @data.find_all do |datum|
+    @data.find do |datum|
       datum.name.downcase.include?(name.downcase)
     end
   end
