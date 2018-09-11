@@ -16,7 +16,7 @@ class MerchantRepository
   end
 
   def find_by_id(number)
-    a = @merchants.find do |merch|
+    @merchants.find do |merch|
       merch.id == number
     end
   end

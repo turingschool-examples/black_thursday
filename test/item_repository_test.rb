@@ -1,18 +1,19 @@
 require_relative '../test/test_helper'
 require_relative '../lib/item_repository'
+require 'bigdecimal'
 
 class ItemRepositoryTest < Minitest::Test
 
   def setup
     @ir = ItemRepository.new
     @hash = {
-      :id          => 1,
+      :id          => "1",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => "1099",
+      :created_at  => "2016-01-11 09:34:06 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "2"
     }
   end
 
@@ -36,8 +37,10 @@ class ItemRepositoryTest < Minitest::Test
     hash2 = {
       :name        => "Journal",
       :description => "You can write in",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :merchant_id => 2
+      :unit_price  => "1099",
+      :merchant_id => "2",
+      :created_at  => "2016-01-11 09:34:06 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC"
     }
     @ir.create(hash2)
     assert_equal 2, @ir.all.length
@@ -94,13 +97,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_return_by_price_range
     @ir.create(@hash)
     hash2 = {
-      :id          => 2,
+      :id          => "2",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "2"
     }
     @ir.create(hash2)
     assert_equal 2, @ir.find_all_by_price_in_range(10..12).length
@@ -114,23 +117,23 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_return_all_by_merchant_id
     @ir.create(@hash)
     hash2 = {
-      :id          => 2,
+      :id          => "2",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "2"
     }
     @ir.create(hash2)
     hash3 = {
-      :id          => 2,
+      :id          => "2",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 3
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "3"
     }
     @ir.create(hash3)
     assert_equal 2, @ir.find_all_by_merchant_id(2)[0].merchant_id
@@ -146,23 +149,23 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_with_description
     @ir.create(@hash)
     hash2 = {
-      :id          => 2,
+      :id          => "2",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "2"
     }
     @ir.create(hash2)
     hash3 = {
-      :id          => 2,
-      :name        => "Pencil",
-      :description => "You can use it to write",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 3
+      :id          => "2",
+      :name        => "Eraser",
+      :description => "Erase things",
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "3"
     }
     @ir.create(hash3)
     str = "You can use it to write things"
@@ -172,23 +175,23 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_with_partial_description
     @ir.create(@hash)
     hash2 = {
-      :id          => 2,
+      :id          => "2",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "2"
     }
     @ir.create(hash2)
     hash3 = {
-      :id          => 2,
+      :id          => "2",
       :name        => "Pencil",
-      :description => "You can use it to write",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 3
+      :description => "You can use it to write things",
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "3"
     }
     @ir.create(hash3)
     str = "You"
@@ -218,13 +221,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_delete
     @ir.create(@hash)
     hash2 = {
-      :id          => 2,
+      :id          => "2",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(11.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => "1199",
+      :created_at  => "2007-06-04 21:35:10 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC",
+      :merchant_id => "2"
     }
     @ir.create(hash2)
     @ir.delete(2)
