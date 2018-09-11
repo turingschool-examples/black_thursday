@@ -2,6 +2,7 @@ require 'CSV'
 require 'pry'
 require_relative './item'
 
+
 class ItemRepository
  attr_reader :items
 
@@ -55,5 +56,19 @@ class ItemRepository
     @items.find_all do |item|
      item.merchant_id == id
     end
+  end
+
+  def find_max_item_id
+    max_item = @items.max_by do |item_num|
+      item_num.id
+    end
+    max_item
+  end
+
+  def create(attributes)
+    attributes[:id] = @items.first.find_max_item_id.id + 1
+    new_item = Item.new(attributes)
+    @items << new_item
+    new_item
   end
 end

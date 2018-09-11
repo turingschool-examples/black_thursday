@@ -2,6 +2,7 @@ require './test/minitest_helper'
 require './lib/item_repository'
 require 'CSV'
 
+
 class ItemTest<Minitest::Test
 
   def setup
@@ -50,5 +51,16 @@ class ItemTest<Minitest::Test
    merchant_id = '12334185'#Check string at spec harness
    result = @ir.find_all_by_merchant_id(merchant_id)
    assert_equal 3, result.length
+  end
+
+  def test_it_can_find_max_item_id
+    result = @ir.find_max_item_id
+    assert_equal 263397059, result.id
+  end
+
+  def test_we_can_create_new_item_and_incriment_its_id_up_one
+    new_item = @ir.create({:name => "Rusty Shoes"})
+    assert_equal "Rusty Shoes", new_item.name
+    assert_equal 263397060, new_item.id
   end
 end
