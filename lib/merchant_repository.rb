@@ -7,6 +7,7 @@ class MerchantRepository
   def initialize(filepath = nil)
     @filepath = filepath
     @all = []
+    split(filepath) if filepath != nil
   end
 
   def create(attributes)
@@ -32,7 +33,6 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-
       merchant_name = merchant.name.downcase
       merchant_name.include?(name.downcase)
     end

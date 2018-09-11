@@ -10,11 +10,17 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of MerchantRepository, mr
   end
 
+  def test_it_can_split_csv
+    mr = MerchantRepository.new("./data/test_merchants.csv")
+
+    assert_equal "Shopin1901", mr.find_by_id(1).name
+  end
+
   def test_it_can_add_individual_merchant
     mr = MerchantRepository.new
     m1 = Merchant.new({:id => 5, :name => "Turing School"})
     mr.add_individual_item(m1)
-    
+
     assert_equal [m1], mr.all
   end
 
