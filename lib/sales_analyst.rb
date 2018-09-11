@@ -34,4 +34,13 @@ class SalesAnalyst
                       end
   end
 
+  def merchants_with_high_item_count
+    highest_count = items_per_merchant_hash.find_all do |merchant|
+      merchant[1] > (average_item_per_merchant + average_items_per_merchants_standard_deviation)
+    end
+    highest_count.map do |merchant|
+      @sales_engine.merchants.find_by_id(merchant[0])
+    end
+  end
+
 end
