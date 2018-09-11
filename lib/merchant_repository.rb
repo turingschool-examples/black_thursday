@@ -24,7 +24,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    merchants.find_all {|merchant| merchant.name.downcase == name.downcase}
+    all.find_all {|merchant| merchant.name.downcase == name.downcase}
   end
 
   def create(attributes)
@@ -35,8 +35,12 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    m = find_by_id(id)
-    m.name = attributes[:name]
+    if find_by_id(id) == nil
+
+    else
+      m = find_by_id(id)
+      m.name = attributes[:name]
+    end
   end
 
   def delete(id)
