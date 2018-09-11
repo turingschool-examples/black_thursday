@@ -82,7 +82,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
-  # --- Merchant Methods ---
+  # --- Item Repo Analysis Methods ---
+
+  # TO DO - TEST ME
+  # def merchant_stores
+
+  # TO DO - TEST ME
+  # def merchant_store_item_counts(groups)
+
 
   def test_it_gets_average_items_per_merchant
     assert_equal 2.88, @sa_csv.average_items_per_merchant
@@ -91,6 +98,14 @@ class SalesAnalystTest < Minitest::Test
   def test_it_gets_items_per_merchant_standard_deviation
     actual = @sa_csv.average_items_per_merchant_standard_deviation
     assert_equal 3.26, actual
+  end
+
+  def test_it_can_find_merchants_with_item_content_greater_than_one_std
+    sellers = @sa_csv.merchants_with_high_item_count
+    assert_instance_of Array, sellers
+    assert_instance_of Merchant, sellers[0]
+    # TO DO
+    # FINDER MODULE!  -- use the merchant id to ensure 1st, 10th 30th all have more than one std value of items
   end
 
 
