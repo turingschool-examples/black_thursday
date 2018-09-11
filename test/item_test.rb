@@ -1,9 +1,11 @@
+require 'simplecov'
+SimpleCov.start
 require 'bigdecimal'
 require 'time'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require './lib/item'
+require_relative '../lib/item'
 
 class ItemsTest < Minitest::Test
 

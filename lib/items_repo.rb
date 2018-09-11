@@ -1,7 +1,7 @@
 require 'CSV'
 require 'pry'
-require './lib/item'
-require './lib/black_thursday_helper'
+require_relative '../lib/item'
+require_relative '../lib/black_thursday_helper'
 
 class ItemsRepo
   include BlackThursdayHelper

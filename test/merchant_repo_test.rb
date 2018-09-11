@@ -2,11 +2,9 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant_repo'
-require './lib/merchant'
 require 'pry'
-#is it require relative everywhere or just in the sales engine?
-# change all the requires to require relative
+require_relative '../lib/merchant_repo'
+require_relative '../lib/merchant'
 
 class MerchantRepoTest < Minitest::Test
 
@@ -111,11 +109,11 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_if_you_delete_an_unknown_merchant_it_does_nothing
-      mr = MerchantRepo.new("./test/fixtures/merchants.csv")
+    mr = MerchantRepo.new("./test/fixtures/merchants.csv")
 
-      mr.delete(283482058208490284091840824820482904)
+    mr.delete(283482058208490284091840824820482904)
 
-      assert_nil mr.find_by_id(283482058208490284091840824820482904)
+    assert_nil mr.find_by_id(283482058208490284091840824820482904)
   end
 
 

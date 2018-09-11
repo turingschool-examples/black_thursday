@@ -36,23 +36,4 @@ module BlackThursdayHelper
      object.id
     end
   end
-
-
-  # def create(merchant_params)
-  #   merchant = Merchant.new(merchant_params)
-  #   highest_current = merch_id_counter.id
-  #   new_highest_current = highest_current += 1
-  #   merchant.id = new_highest_current
-  #   @collections << merchant
-  #    merchant
-  # end
-
-
-
-  # def populate(filepath)
-  #   CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-  #     @merchants << Merchant.new(data)
-  #   end
-  # end
-
 end

@@ -1,5 +1,4 @@
 class Item
-
   attr_reader   :created_at,
                 :merchant_id
 
