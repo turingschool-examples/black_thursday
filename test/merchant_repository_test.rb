@@ -40,7 +40,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_merchant_by_name
     merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    actual = [merchant_repository.all[0]]
+    actual = merchant_repository.all[0]
 
     assert_equal merchant_repository.find_by_name("Shopin1901"), actual
   end
@@ -52,14 +52,12 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_instance_of Merchant, new_merchant
 
-    actual = [merchant_repository.all.last]
+    actual = merchant_repository.all.last
 
     assert_equal merchant_repository.find_by_name("Droplitz"), actual
 
-    assert_equal [merchant_repository.find_by_id(6)], actual
+    assert_equal merchant_repository.find_by_id(6), actual
   end
-
-  ##above tests require square brackets...might need to fix that.
 
   def test_merchants_attributes_can_be_updated
     merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')

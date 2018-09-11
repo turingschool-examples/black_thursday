@@ -37,7 +37,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_item_by_name
     ir = ItemRepository.new("./data/items.csv")
 
-    actual = ir.find_by_name("510+ RealPush Icon Set")[0]
+    actual = ir.find_by_name("510+ RealPush Icon Set")
 
     assert_instance_of Item, actual
     assert_equal "510+ RealPush Icon Set", actual.name
@@ -84,10 +84,10 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_instance_of Item, new_item
 
-    actual = [ir.all.last]
+    actual = ir.all.last
 
     assert_equal ir.find_by_name("thingamajigger"), actual
-    assert_equal [ir.find_by_id(263567475)], actual
+    assert_equal ir.find_by_id(263567475), actual
   end
 
   def test_merchants_attributes_can_be_updated
