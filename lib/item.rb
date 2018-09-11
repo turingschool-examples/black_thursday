@@ -1,4 +1,8 @@
+require 'bigdecimal'
+require_relative '../lib/black_thursday_helper'
+
 class Item
+  include BlackThursdayHelper
   attr_reader   :created_at,
                 :merchant_id
 
@@ -12,7 +16,7 @@ class Item
     @id = params[:id].to_i
     @name = params[:name]
     @description = params[:description]
-    @unit_price = params[:unit_price].to_f/100
+    @unit_price = BigDecimal.new(params[:unit_price].to_f/100,4)
     @created_at = params[:created_at]
     @updated_at = params[:updated_at]
     @merchant_id = params[:merchant_id].to_i

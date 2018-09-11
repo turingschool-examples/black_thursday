@@ -44,6 +44,7 @@ class ItemsRepoTest < Minitest::Test
     assert_instance_of Item, actual
     assert_equal 4, actual.id
     assert_equal "sal", actual.name
+    assert_equal "Cheer bow", ir.all.first.name
   end
 
   def test_it_returns_nil_if_no_name_match_found

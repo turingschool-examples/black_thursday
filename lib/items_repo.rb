@@ -43,8 +43,7 @@ class ItemsRepo
 
   def create(item_params)
     item = Item.new(item_params)
-    highest_current = object_id_counter.id
-    new_highest_current = highest_current += 1
+    new_highest_current = object_id_counter.id + 1
     item.id = new_highest_current
     @collections << item
     item
