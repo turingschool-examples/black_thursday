@@ -1,23 +1,24 @@
 require_relative '../lib/sales_analyst'
+require_relative '../lib/repo_module'
 
 class SalesAnalyst
+  include RepoModule
+
+  attr_reader :item_repo,
+              :merchant_repo
 
   def initialize(item_repo, merchant_repo)
     @item_repo = item_repo
     @merchant_repo = merchant_repo
   end
 
-  def average_items_per_merchant
-    (@item_repo.all.count.to_f / @merchant_repo.all.count).round(2)
-  end
-
-  def items_per_merchant_array
-    @merchant_repo.all.map do |merchant|
-      @item_repo.all.find_all do |item|
-        merchant.id == item.merchant_id
-      end.count
-    end
-  end
+  # def items_per_merchant_array
+  #   @merchant_repo.all.map do |merchant|
+  #     @item_repo.all.find_all do |item|
+  #       merchant.id == item.merchant_id
+  #     end.count
+  #   end
+  # end
 
   def sum(array)
     type = 0 if array[0].class != BigDecimal
@@ -39,7 +40,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count_hash
     merchant_hash.find_all do |key, value|
-      value.length >= average_items_per_merchant_standard_deviation + average_items_per_merchant
+      value.length >= per_merchant_standard_deviation(@items) + average_items_per_merchant
     end.to_h
   end
 
@@ -73,13 +74,32 @@ class SalesAnalyst
     end
   end
 
-  def subtract_square_sum_array_for_items_per_merchant
-    set = items_per_merchant_array
-    average = average_items_per_merchant
-    new_set = set.map do |element|
-      (average - element)**2
+#standard deviation for items per merchant
+  # def average_items_per_merchant
+  #   (@item_repo.all.count.to_f / @merchant_repo.all.count).round(2)
+  # end
+  #
+  # def subtract_square_sum_array_for_items_per_merchant
+  #   set = items_per_merchant_array
+  #   average = average_items_per_merchant
+  #   new_set = set.map do |element|
+  #     (average - element)**2
+  #   end
+  #   sum(new_set)
+  # end
+  #
+  # def average_items_per_merchant_standard_deviation
+  #   step_one = subtract_square_sum_array_for_items_per_merchant
+  #   step_two = step_one/(@merchant_repo.all.count - 1)
+  #   Math.sqrt(step_two).round(2)
+  # end
+
+#stand deviation for item price
+  def calculate_average_item_price
+    prices = @item_repo.all.map do |item|
+      item.unit_price
     end
-    sum(new_set)
+    sum(prices)/@item_repo.all.length
   end
 
   def subtract_square_sum_array_for_unit_price
@@ -91,22 +111,9 @@ class SalesAnalyst
     sum(new_set)
   end
 
-  def average_items_per_merchant_standard_deviation
-    step_one = subtract_square_sum_array_for_items_per_merchant
-    step_two = step_one/(@merchant_repo.all.count - 1)
-    Math.sqrt(step_two).round(2)
-  end
-
   def calculate_std_dev_for_items
     step_one = subtract_square_sum_array_for_unit_price
     step_two = step_one/(@item_repo.all.count - 1)
     Math.sqrt(step_two).round(2)
-  end
-
-  def calculate_average_item_price
-    prices = @item_repo.all.map do |item|
-      item.unit_price
-    end
-    sum(prices)/@item_repo.all.length
   end
 end

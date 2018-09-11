@@ -11,7 +11,7 @@ class SalesAnalystTest < Minitest::Test
         :merchants => "./data/merchants.csv",
       })
     sa = se.analyst
-    assert_equal 2.88, sa.average_items_per_merchant
+    assert_equal 2.88, sa.average_items_invoices_per_merchant(sa.item_repo)
   end
 
   def test_it_can_get_array_of_items_per_merchant
@@ -20,7 +20,7 @@ class SalesAnalystTest < Minitest::Test
         :merchants => "./data/merchants.csv",
       })
     sa = se.analyst
-    assert_equal 475, sa.items_per_merchant_array.length
+    assert_equal 475, sa.items_per_merchant_array(sa.item_repo).length
   end
 
   def test_it_can_take_difference_between_a_set_and_mean_and_square_it
@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
         :merchants => "./data/merchants.csv",
       })
     sa = se.analyst
-    assert_equal 5034.919999999962, sa.subtract_square_sum_array_for_items_per_merchant
+    assert_equal 5034.919999999962, sa.subtract_square_sum_array_for_items_per_merchant(sa.item_repo)
   end
 
   def test_it_can_sum_array
@@ -47,7 +47,7 @@ class SalesAnalystTest < Minitest::Test
         :merchants => "./data/merchants.csv",
       })
     sa = se.analyst
-    assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, sa.per_merchant_standard_deviation(sa.item_repo)
   end
 
   def test_it_can_return_a_hash_of_merchants_with_their_items
