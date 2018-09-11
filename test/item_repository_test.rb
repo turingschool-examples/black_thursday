@@ -58,16 +58,18 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./data/items.csv")
     expected = ir.all[0]
 
+
     assert_equal 41, ir.find_all_by_price(12.00).count
     assert_equal expected, ir.find_all_by_price(12.00)[0]
   end
 
-  def test_it_can_find_all_by_price_range
-    ir = ItemRepository.new("./data/items.csv")
+  def test_it_can_find_all_by_price_in_range
+    ir = ItemRepository.new("./test/fixtures/items.csv")
     expected = ir.all[0]
     range = (12.00..13.00)
 
-    assert_equal 56, ir.find_all_by_price_range(range).count
+    assert_equal ir.all[0], ir.find_all_by_price_in_range(range)[0]
+    assert_equal 2, ir.find_all_by_price_in_range(range).count
     assert_equal expected, ir.find_all_by_price(12.00)[0]
   end
 
