@@ -3,18 +3,20 @@ require 'bigdecimal/util'
 
 module Crud
 
-  # def load(filepath)
-  #     csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
-  #     csv_objects.map do |object|
-  #       object[:id] = object[:id].to_i
-  #     object.to_h
-  #     end
-  # end
+  def load(filepath)
+      csv_objects = CSV.read(filepath, headers: true, header_converters: :symbol)
+      # csv_objects.map do |object|
+      #   object[:id] = object[:id].to_i
+      # object.to_h
+      
+  end
 
   def find_by_id(id)
-    collection.find do |element|
+    
+    @collection.find do |element|
       element[:id] == id
     end
+    
   end
 
   def find_by_name(name)
@@ -22,9 +24,9 @@ module Crud
       element[:name].downcase == name.downcase
     end
   end
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
   # def find_all_by_name(name)
   #   name_fixed = name[0..4].downcase
   #   collection.keep_if do |element|
