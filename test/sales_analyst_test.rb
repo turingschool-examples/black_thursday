@@ -32,13 +32,13 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa_csv
   end
 
-
-
-
-
   def test_it_gets_average_items_per_merchant
     assert_equal 2.88, @sa_csv.average_items_per_merchant
+  end
+
+  def test_it_gets_items_per_merchant_standard_deviation
 
   end
+
 
 end

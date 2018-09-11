@@ -13,22 +13,29 @@ class SalesAnalyst
     # binding.pry
   end
 
+  def standard_deviation(values, mean)
+    # each value - mean
+    # each difference ^2
+    # sum squares
+    # sum / (ct -1)
+    # Math.sqrt(above)
+
+  end
+
+
+
   def average_items_per_merchant
-    groups = @items.group_by { |item|  item.merchant_id }
-    count  = groups.group_by { |group| group.count.to_f }
-    # count  = groups.values.group_by { |group| group.count.to_f }
-    # ONLY THE FIRST ELEMENT IS BEING RETURNED
-    each_count = count.keys
-    qty_merchants = count.keys.count.to_f
-    binding.pry
-    sum = each_count.inject(0) {|sum, ct| sum += ct } # .sum doesn't work in this version
-    average = sum / qty_merchants
-    # binding.pry
-    return average
+    groups = @items.group_by { |item| item.merchant_id }
+    sum = groups.values.inject(0){ |ct, store| ct += store.count.to_f }
+    merchants_ct = groups.keys.count.to_f
+    average = sum / merchants_ct
+    return average.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
 
   end
+
+
 
 end
