@@ -11,8 +11,11 @@ include Crud
   attr_reader :collection,
               :changeable_attributes
 
-  def initialize(filepath)
+  attr_accessor :merchants
+
+  def initialize(merchants)
     @collection = []
+    @merchants = merchants
     load(filepath)
     @changeable_attributes = [:name]
   end
@@ -32,8 +35,8 @@ include Crud
     find_all_by(:name, string)
   end
 
-  def merchants
-    collection
+  def all 
+    @merchants.count
   end
   
 end

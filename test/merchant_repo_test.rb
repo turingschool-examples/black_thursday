@@ -65,5 +65,12 @@ class MerchantRepositoryTest < Minitest::Test
     updated_item = mr.find_by_id(12334123)
     assert_equal "Keckenbooty", updated_item[:name]
   end
-
+  
+  def test_it_create_instance_array
+    mr = MerchantRepository.new('./data/merchants_tiny.csv')
+    actual  = mr.create_instance(mr.collection)
+    binding.pry
+    expected = []
+    assert_equal expected, actual
+   end
 end

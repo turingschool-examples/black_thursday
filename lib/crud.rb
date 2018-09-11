@@ -7,12 +7,8 @@ module Crud
       csv_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
       csv_objects.map do |object|
         object[:id] = object[:id].to_i
-      collection << object.to_h
+      object.to_h
       end
-  end
-
-  def all
-    collection.count
   end
 
   def find_by_id(id)
@@ -26,7 +22,9 @@ module Crud
       element[:name].downcase == name.downcase
     end
   end
-
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
   # def find_all_by_name(name)
   #   name_fixed = name[0..4].downcase
   #   collection.keep_if do |element|
