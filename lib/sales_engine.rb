@@ -5,8 +5,8 @@ require_relative './item'
 require 'CSV'
 
 class SalesEngine
-  attr_reader :items_file,
-              :merchants_file
+  attr_reader :ir,
+              :mr
 
   def initialize(file_path_hash)
     @mr = MerchantRepository.new(file_path_hash[:merchants])

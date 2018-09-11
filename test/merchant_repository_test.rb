@@ -46,7 +46,7 @@ class MerchantRepositoryTest < Minitest::Test
 
     mr = se.merchants
     findings = mr.find_by_id(12334176)
-    actual = findings[0].name
+    actual = findings.name
     assert_equal 'thepurplepenshop', actual
   end
 
@@ -57,7 +57,7 @@ class MerchantRepositoryTest < Minitest::Test
     })
     mr = se.merchants
     findings = mr.find_by_name("CJsDecor")
-    actual = findings[0].id
+    actual = findings.id
 
     assert_equal 12337411, actual
   end
@@ -82,7 +82,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
     actual = mr.find_all_by_name("style").count
 
-    assert_equal 2, actual
+    assert_equal 3, actual
   end
 
   def test_the_find_by_id_method_returns_nil_if_not_found
@@ -97,37 +97,37 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_that_create_method_creates_new_merchants
-    mr = MerchantRepository.new([])
+    mr = MerchantRepository.new("./data/merchants.csv")
 
-    mr.create("Turing School")
-    mr.create("Mcdonalds")
-    id_number = mr.merchants_array[1].id
-    name = mr.merchants_array[1].name
+    mr.create({name: "Turing School"})
+    mr.create({name: "Mcdonalds"})
+    id_number = mr.merchants_array[-1].id
+    name = mr.merchants_array[-1].name
 
-    assert_equal 2 , id_number
+    assert_equal  12337413, id_number
     assert_equal 'Mcdonalds', name
   end
 
   def test_that_delete_method_deletes_merchants
-    mr = MerchantRepository.new([])
+    mr = MerchantRepository.new("./data/merchants.csv")
 
-    mr.create("Turing School")
-    mr.create("Mcdonalds")
+    mr.create({name: "Turing School"})
+    mr.create({name: "Mcdonalds"})
     mr.delete(1)
-    id_number = mr.merchants_array[0].id
-    name = mr.merchants_array[0].name
+    id_number = mr.merchants_array[-1].id
+    name = mr.merchants_array[-1].name
 
-    assert_equal 2 , id_number
+    assert_equal 12337413, id_number
     assert_equal 'Mcdonalds', name
   end
 
   def test_update
-    mr = MerchantRepository.new([])
-    mr.create("Turing School")
-    mr.update(1, {:id => 1, :name => "Mcdonalds"})
-    created_date = mr.merchants_array[0].created_at
-    updated_date = mr.merchants_array[0].updated_at
-    name = mr.merchants_array[0].name
+    mr = MerchantRepository.new("./data/merchants.csv")
+    mr.create({name: "Turing School"})
+    mr.update(12337412, {:id => 1, :name => "Mcdonalds"})
+    created_date = mr.merchants_array[-1].created_at
+    updated_date = mr.merchants_array[-1].updated_at
+    name = mr.merchants_array[-1].name
     boolean = created_date != updated_date
 
     assert boolean

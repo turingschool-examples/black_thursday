@@ -21,8 +21,8 @@ class SalesEngineTest < Minitest::Test
     :merchants => "./data/merchants.csv",
     })
 
-    assert_equal "./data/items.csv", se.items_file
-    assert_equal "./data/merchants.csv", se.merchants_file
+    assert_instance_of ItemRepository, se.ir
+    assert_instance_of MerchantRepository, se.mr
   end
 
   def test_that_merchant_passes_an_array_of_merchants_to_mr
@@ -52,7 +52,7 @@ class SalesEngineTest < Minitest::Test
     :merchants => "./data/merchants.csv",
     })
     ir = se.items
-    actual = ir.array_of_items[0]
+    actual = ir.items_array[0]
 
     assert_instance_of Item , actual
   end
