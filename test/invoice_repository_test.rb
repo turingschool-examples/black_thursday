@@ -77,7 +77,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, @ir.find_all_by_merchant_id(9).length
   end
 
-  def test_it_can_find_all_by_merchant_id
+  def test_it_can_find_all_by_status
     @ir.create(@hash)
     hash2 = {
       :customer_id => "21",
@@ -90,5 +90,19 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, @ir.find_all_by_status("active").length
   end
 
+  def test_it_can_be_updated
+    @ir.create(@hash)
+    hash2 = {
+      :id         => "11",
+      :customer_id => "21",
+      :merchant_id => "9",
+      :status      => "active",
+      :created_at  => "2016-01-11 09:34:06 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC"
+    }
+    @ir.create(hash2)
+    @ir.update(11, {status: "inactive"} )
+    assert_equal "inactive", @ir.all[1].status
+  end
 
 end

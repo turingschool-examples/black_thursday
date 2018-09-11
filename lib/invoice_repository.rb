@@ -55,4 +55,11 @@ class InvoiceRepository
       invoice.status.downcase == search_status.downcase
     end
   end
+
+  def update(id, attributes)
+    if find_by_id(id) != nil
+      update_attributes(id, attributes)
+      find_by_id(id).updated_at = Time.now
+    end
+  end
 end
