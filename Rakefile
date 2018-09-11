@@ -1,3 +1,13 @@
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.pattern = "test/**/*_test.rb"
+end
+
+task default: ["test"]
+
+#above items may need to be moved to bottom of this file
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
