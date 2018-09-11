@@ -44,12 +44,24 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_for_merchant(merchant_id)
-
+  def average_item_price_for_merchant(id)
+    prices = []
+    @se.items.all.each do |item|
+      if item.merchant_id == id
+        prices << item.unit_price
+      end
+    end
+    sum = prices.inject(0) do |sum, price|
+      sum + price
+    end
+    sum/prices.count
   end
 
   def average_average_price_per_merchant
-
+    sum = @se.merchants.all.inject(0) do |sum, merchant|
+      sum + average_item_price_for_merchant(merchant.id)
+    end
+    (sum/@se.merchants.all.count).round(2)
   end
 
   def golden_items

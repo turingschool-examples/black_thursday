@@ -53,4 +53,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, sa.merchants_with_high_item_count.count
   end
 
+  def test_it_finds_average_item_price_for_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    sa = se.analyst
+
+    expected = BigDecimal(31.5, 4)
+    assert_equal expected, sa.average_item_price_for_merchant(12334159)
+  end
+
+  def test_it_finds_average_average_price_per_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    sa = se.analyst
+
+    expected = BigDecimal(350.29, 5)
+    assert_equal expected, sa.average_average_price_per_merchant
+  end
+
 end
