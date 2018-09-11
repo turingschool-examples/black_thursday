@@ -1,6 +1,6 @@
 id,name,description,unit_price,merchant_id,created_at,updated_at
 1,card,"decorated with animals",500,2,2016-01-11 11:30:35 UTC,1994-05-07 23:38:43 UTC
-2,dog leash,"colorful comes in sizes",1000,2,2010-01-12 11:45:35 UTC,1990-06,10 23:45:33 UTC
-3,basket,"comes in three small or large",2200,3,2011-01-12 11:45:35 UTC,1997-06,10 23:45:33 UTC
-4,bulletin board,"decorated around edges",1500,4,2014-01-12 11:47:35 UTC,1999-06,10 23:45:36 UTC
-5,calendar,"has flamingos on it",2200,3,2010-01-12 12:45:35 UTC,2000-06,10 23:49:40 UTC
+2,dog leash,"colorful comes in sizes",1000,2,2010-01-12 11:45:35 UTC,1990-06-10 23:45:33 UTC
+3,basket,"comes in three small or large",2200,3,2011-01-12 11:45:35 UTC,1997-06-10, 23:45:33 UTC
+4,bulletin board,"decorated around edges",1500,4,2014-01-12 11:47:35 UTC,1999-06-10, 23:45:36 UTC
+5,calendar,"has flamingos on it",2200,3,2010-01-12 12:45:35 UTC,2000-06-10,23:49:40 UTC

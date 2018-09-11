@@ -5,6 +5,7 @@ class SalesAnalyst
   end
 
   def average_item_per_merchant
+    binding.pry
     (@sales_engine.items.items.count.to_f / @sales_engine.merchants.merchants.count).round(2)
   end
 
@@ -22,7 +23,6 @@ class SalesAnalyst
   end
 
   def items_per_merchant_array
-    binding.pry
     array = merchant_id_array.inject(Hash.new(0)) do |total, id|
               total[id] += 1
               total
