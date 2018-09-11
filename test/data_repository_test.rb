@@ -55,16 +55,18 @@ class DataRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_data_object_from_attributes
-    @repo.create({id:          '246',
-                  name:        'fakeitem',
-                  description: 'mockdescription',
-                  merchant_id: '1213',
-                  unit_price:  '3200',
-                  created_at:  @time_1,
-                  updated_at:  @time_2})
+    data = {id:          '246',
+            name:        'fakeitem',
+            description: 'mockdescription',
+            merchant_id: '1213',
+            unit_price:  '3200',
+            created_at:  @time_1,
+            updated_at:  @time_2}
+    data = DataObject.normalize_attributes(data)
+    @repo.create(data)
     actual = @repo.all
     assert_instance_of(Item, actual[-1])
-    assert_equal('fakeitem', actual[-1].name)
+    assert_equal(1213, actual[-1].merchant_id)
   end
 
   def test_it_can_update_object_by_id_and_attributes

@@ -4,6 +4,12 @@ require_relative '../lib/item_repository'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
+    @item_1 = stub("Item", id: 123)
+    @item_2 = stub("Item", id: 456)
+    @item_3 = stub("Item", id: 321)
+    @mock_data = [{id:123},{id:456},{id:321}]
+
+
     @time_1 = '1993-10-28 11:56:40 UTC'
 
     @time_2 = '1993-09-29 12:45:30 UTC'
@@ -38,15 +44,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_with_description
-    item_1 = stub("Item", id: 123, description: "description is 2")
-    item_2 = stub("Item", id: 456, description: "description is 1")
-    item_3 = stub("Item", id: 321, description: "description is 2")
-    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)
-    datas = [{id:123},{id:456},{id:321}]
-    repo = ItemRepository.new(datas)
-    assert_equal [item_1, item_3], repo.find_all_with_description("2")
+    @item_1.stubs(description: "A Word is here!")
+    @item_2.stubs(description: "None here...")
+    @item_3.stubs(description: "Another word.")
+
+    Item.stubs(:from_raw_hash).returns(@item_1, @item_2, @item_3)
+    repository = ItemRepository.new(@mock_data)
+
+    assert_equal [@item_1, @item_3], repository.find_all_with_description("word")
   end
 
+  # TODO: Refactor tests
   def test_it_can_find_all_by_price
     item_1 = stub("Item", id: 123, unit_price: BigDecimal.new(12.00, 4))
     item_2 = stub("Item", id: 456, unit_price: BigDecimal.new(13.00, 4))

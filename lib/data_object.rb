@@ -33,11 +33,13 @@ class DataObject
   end
 
   def self.convert_to_big_d(raw_price)
+    return raw_price if raw_price.class == BigDecimal
     price = raw_price.to_f / 100
     BigDecimal.new(price, raw_price.length)
   end
 
   def self.convert_to_dates(raw_date)
+    return raw_date if raw_date.class == Time
     Time.parse(raw_date)
   end
 

@@ -34,9 +34,7 @@ class ItemTest < Minitest::Test
     assert_equal(Time.parse(@time_2), @item.updated_at)
   end
 
-
-
-
-
-
+  def test_it_can_return_unit_price_in_dollars
+    assert_equal 12.00, @item.unit_price_to_dollars
+  end
 end

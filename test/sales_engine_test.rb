@@ -17,4 +17,8 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, @se.merchants
     @se.merchants.all.count
   end
+
+  def test_it_has_sales_analyst
+    assert_instance_of SalesAnalyst, @se.analyst
+  end
 end

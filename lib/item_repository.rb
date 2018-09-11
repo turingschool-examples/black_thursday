@@ -28,11 +28,10 @@ class ItemRepository < DataRepository
     end
   end
 
-  # returns either [] or instances of Item where the supplied merchant ID
-  # matches that supplied
   def find_all_by_merchant_id(merchant_id)
     @data_set.values.find_all do |element|
       element.merchant_id == merchant_id
     end
   end
+
 end
