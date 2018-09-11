@@ -43,4 +43,12 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
+    summed_unit_price = items.inject(0) do |sum,item|
+                          sum + item.unit_price
+                        end
+    summed_unit_price/items.count
+  end
+
 end

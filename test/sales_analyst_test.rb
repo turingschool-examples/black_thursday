@@ -45,4 +45,16 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal merchant_1,sales_analyst.merchants_with_high_item_count
   end
+
+  def test_it_can_calculate_average_item_price_for_merchant
+    se = SalesEngine.from_csv({
+    :items     => "./short_tests/short_items.csv",
+    :merchants => "./short_tests/short_merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+    merchant_1 = se.merchants.find_all_by_name("Candisart")
+
+    assert_instance_of BigDecimal, sales_analyst.average_item_price_for_merchant(3)
+    assert_equal 12.25, sales_analyst.average_item_price_for_merchant(3).to_f
+  end
 end
