@@ -35,17 +35,18 @@ class ItemRepository
   end
 
   def create(attributes)
+    #all incoming data must be formatted as String datatype
     if attributes[:id] != nil
       #Coming From CSV
       hash = {
-        id: attributes[:id],
+        id: attributes[:id].to_i,
         name: attributes[:name],
         description: attributes[:description],
         #TODO This line is very ugly
         unit_price: BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length),
         updated_at: Time.parse(attributes[:updated_at]),
         created_at: Time.parse(attributes[:created_at]),
-        merchant_id: attributes[:merchant_id]
+        merchant_id: attributes[:merchant_id].to_i
         }
       item = Item.new(hash)
       @data << item
