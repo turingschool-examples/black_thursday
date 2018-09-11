@@ -14,6 +14,12 @@ class SalesAnalyst < SalesEngine
     end
   end
 
+  def find_item_object_per_merchant
+    items.all.group_by do |item|
+      item.merchant_id
+    end
+  end
+
   def find_all_merchant_ids
     merchants.all.map do |merchant|
       merchant.id.to_s
@@ -46,6 +52,36 @@ class SalesAnalyst < SalesEngine
     Math.sqrt(find_standard_deviation_step_three).round(2)
   end
 
+  def merchant_and_item_count_hash
+    hash = Hash.new
+    find_item_object_per_merchant.each do |id, item_array|
+      hash[id] = item_array.length
+    end
+    hash
+  end
 
+  def find_merchant_ids_with_high_item_count
+    hash = merchant_and_item_count_hash
+    array = []
+    hash.each do |id, item_count|
+      if item_count > (average_items_per_merchant + find_standard_deviation)
+        array << id
+      else nil
+      end
+    end
+    array
+  end
+
+  def find_merchant_objects_with_high_item_count
+    array = []
+    find_merchant_ids_with_high_item_count.each do |id|
+      merchants.all.each do |merchant|
+        if merchant.id == id.to_i
+          array << merchant
+        end
+      end
+    end
+    array
+  end
 
 end

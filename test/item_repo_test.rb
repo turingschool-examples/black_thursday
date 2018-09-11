@@ -93,16 +93,16 @@ class ItemRepoTest < Minitest::Test
     ir.find_all_by_price_in_range(range)
     # want to write better test to ensure method is working - create custom csv
 
-    assert_equal "", ir.find_all_by_price_in_range(range).count
+    assert_equal 8, ir.find_all_by_price_in_range(range).count
   end
 
   def test_find_all_by_merchant_id_returns_array_of_matching_items_by_merchant_id
     data_file = "./data/sample_item_data.csv"
     ir = ItemRepo.new(data_file)
     ir.all
-    merchant_id = "374"
+    merchant_id = "1233400"
     # want to write better test to ensure method is working - create custom csv
-    assert_equal 1, ir.find_all_by_merchant_id(merchant_id).count
+    assert_equal 3, ir.find_all_by_merchant_id(merchant_id).count
   end
 
   def test_find_highest_item_id
@@ -110,7 +110,7 @@ class ItemRepoTest < Minitest::Test
     ir = ItemRepo.new(data_file)
     ir.all
 
-    assert_equal 4839248321, ir.find_highest_item_id
+    assert_equal 372872193712983129, ir.find_highest_item_id
   end
 
   def test_create_creates_new_instance_of_item
@@ -120,7 +120,7 @@ class ItemRepoTest < Minitest::Test
     attributes = {name: "TEST_ITEM", created_at: "2018-09-08", merchant_id: 5}
 
     assert_instance_of Item, ir.create(attributes)
-    assert_equal 4839248322, ir.create(attributes).id
+    assert_equal 372872193712983130, ir.create(attributes).id
   end
 
   def test_update_will_update_name_description_unit_price_and_updated_at_attributes
