@@ -39,6 +39,21 @@ module BlackThursdayHelper
     end
   end
 
+  def object_id_counter
+    @collections.max do |object|
+     object.id
+    end
+  end
+
+
+  # def create(merchant_params)
+  #   merchant = Merchant.new(merchant_params)
+  #   highest_current = merch_id_counter.id
+  #   new_highest_current = highest_current += 1
+  #   merchant.id = new_highest_current
+  #   @collections << merchant
+  #    merchant
+  # end
 
 
 
