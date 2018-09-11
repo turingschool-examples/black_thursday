@@ -134,6 +134,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_we_can_find_items_by_description
+    skip
     ir = ItemRepository.new
     i = Item.new({
       :id          => 1,
@@ -168,8 +169,8 @@ class ItemRepositoryTest < Minitest::Test
     ir.add_item(i2)
     ir.add_item(i3)
 
-    assert_equal [i,i2], ir.find_by_description("write")
-    assert_equal [i3], ir.find_by_description("compute")
+    assert_equal [i,i2], ir.find_all_with_description("write")
+    assert_equal [i3], ir.find_all_with_description("compute")
   end
 
   def test_we_can_find_items_by_price
