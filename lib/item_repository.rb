@@ -60,7 +60,7 @@ class ItemRepository
       item.name = attributes[:name]
       item.description = attributes[:description]
       item.unit_price = attributes[:unit_price]
-      item.updated_at = attributes[:updated_at]
+      item.updated_at = Time.new
       item
     end
   end

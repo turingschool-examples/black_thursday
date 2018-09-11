@@ -86,17 +86,19 @@ class MerchantRepositoryTest < Minitest::Test
     mr.add_merchant(m3)
     mr.add_merchant(m4)
 
-    actual = mr.find_all_by_name("basement")
-
+    actual = mr.find_all_by_name("base")
+    binding.pry
     assert_equal [m2,m3,m4], actual
 
   end
 
   def test_we_can_create_new_merchant
+    skip
     mr = MerchantRepository.new
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Basement"})
     m3 = Merchant.new({:id => 7, :name => "BaseMent"})
+    m4 = Merchant.new({:id => 8, :name => "bAsEmEnT"})
     m4 = Merchant.new({:id => 8, :name => "bAsEmEnT"})
 
     mr.add_merchant(m)
@@ -111,6 +113,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_we_can_update_merchant
+    skip
     mr = MerchantRepository.new
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Basement"})

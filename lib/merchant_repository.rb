@@ -12,7 +12,7 @@ class MerchantRepository
   end
 
   def all
-    merchants
+    @merchants
   end
 
   def find_by_id(id)
@@ -20,11 +20,11 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    merchants.find {|merchant| merchant.name.downcase == name.downcase}
+    merchants.find {|merchant| merchant.name.downcase. == name.downcase}
   end
 
   def find_all_by_name(name)
-    @merchants.find_all {|merchant| merchant.name.downcase == name.downcase}
+    all.find_all {|merchant| merchant.name.downcase.include? name.downcase}
   end
 
   def create(attributes)
