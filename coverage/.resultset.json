@@ -99,9 +99,6 @@
         null,
         null,
         null,
-        null,
-        null,
-        null,
         null
       ],
       "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/sales_engine.rb": [
@@ -188,6 +185,10 @@
         0,
         null,
         null,
+        1,
+        0,
+        null,
+        null,
         null
       ],
       "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/item_repository.rb": [
@@ -247,6 +248,11 @@
         null,
         null,
         1,
+        0,
+        0,
+        null,
+        null,
+        1,
         1,
         1,
         1,
@@ -258,9 +264,14 @@
         1,
         0,
         null,
+        null,
+        1,
+        0,
+        null,
         null
       ],
       "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/item.rb": [
+        1,
         1,
         1,
         null,
@@ -301,6 +312,6 @@
         null
       ]
     },
-    "timestamp": 1536706436
+    "timestamp": 1536709156
   }
 }

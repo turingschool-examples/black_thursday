@@ -41,13 +41,17 @@ class MerchantRepository
     @merchants << Merchant.new(attributes)
   end
 
-  def update(id,attributes)
+  def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attributes[:name]
+    merchant.name = attributes[:name] unless attributes[:name].nil?
   end
 
   def delete(id)
     @merchants.delete(find_by_id(id))
+  end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
