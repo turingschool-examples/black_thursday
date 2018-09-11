@@ -1,5 +1,6 @@
 require 'CSV'
 require 'pry'
+require 'time'
 module BlackThursdayHelper
 
   def all
@@ -26,8 +27,11 @@ module BlackThursdayHelper
 
   def update(id, attributes)
       if find_by_id(id) != nil
-      merchant_to_be_updated = find_by_id(id)
-      merchant_to_be_updated.name = attributes
+      object_to_be_updated = find_by_id(id)
+      object_to_be_updated.name = attributes[:name]
+      object_to_be_updated.description = attributes[:description]
+      object_to_be_updated.unit_price = attributes[:unit_price]
+      object_to_be_updated.updated_at = Time.now
       else
         nil
       end
