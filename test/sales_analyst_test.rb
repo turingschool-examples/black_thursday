@@ -93,8 +93,14 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, @sa_csv.merchant_stores.values[0][0]
   end
 
-  # TO DO - TEST ME
-  # def merchant_store_item_counts(groups)
+  def test_it_can_create_an_array_of_the_counts_of_its_per_merchant
+    groups = @sa_csv.merchant_stores
+    values = @sa_csv.merchant_store_item_counts(groups)
+
+    assert_instance_of Array, values
+    qty_merch  = @sa_csv.merchants.count
+    assert_equal qty_merch, values.count
+  end
 
 
   def test_it_gets_average_items_per_merchant

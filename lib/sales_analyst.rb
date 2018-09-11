@@ -55,7 +55,6 @@ class SalesAnalyst
     groups = group_by(@items, :merchant_id)
   end
 
-  # TO DO - TEST ME
   def merchant_store_item_counts(groups)
     vals = groups.values.inject([]) { |arr, shop| arr << shop.count }
   end
@@ -85,6 +84,8 @@ class SalesAnalyst
     list = list.to_a.flatten
     return list
   end
+
+  
 
 
 
