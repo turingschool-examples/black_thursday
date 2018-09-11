@@ -9,7 +9,8 @@ class Merchant
   def initialize(merchant_hash)
     @id = merchant_hash[:id]
     @name = merchant_hash[:name]
-    @created_at = Time.new.getutc
-    @updated_at = Time.new.getutc
+    @created_at = merchant_hash[:created_at]
+    @updated_at = merchant_hash[:updated_at]
   end
+
 end

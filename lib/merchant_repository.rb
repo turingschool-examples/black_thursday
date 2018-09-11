@@ -1,11 +1,23 @@
 require 'time'
-require './lib/merchant'
-require './lib/sales_engine'
+require_relative './merchant'
+require_relative'./sales_engine'
 
 class MerchantRepository
   attr_reader :merchants_array
-  def initialize(merchants_array)
-    @merchants_array = merchants_array
+  def initialize(file_path)
+    @merchants_array = merchant_csv_converter(file_path)
+  end
+
+  def merchant_csv_converter(file_path)
+    csv_objs = CSV.read(file_path, {headers: true, header_converters: :symbol})
+    csv_objs.map do |obj|
+      obj[:id] = obj[:id].to_i
+      Merchant.new(obj.to_h)
+    end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants_array.size} rows>"
   end
 
   def all
@@ -16,24 +28,19 @@ class MerchantRepository
     findings = @merchants_array.find_all do |merchant|
       merchant.name.downcase == name.downcase
     end
-    findings = nil if findings == []
-    findings
+    findings[0]
   end
 
   def find_by_id(id)
     findings = @merchants_array.find_all do |merchant|
       merchant.id == id
     end
-    findings = nil if findings == []
-    findings
+    findings[0]
   end
 
   def find_all_by_name(name)
-    chars = name.length
-    down_case_name = name.downcase
     @merchants_array.find_all do |merchant|
-      prefix = merchant.name[0..chars - 1].downcase
-      down_case_name == prefix
+      merchant.name.downcase =~ /#{name.downcase}/
     end
   end
 
@@ -44,23 +51,26 @@ class MerchantRepository
     else
       max_id = last_merchant.id + 1
     end
-    attributes = {:id => max_id, :name => name}
+    attributes = {:id => max_id, :name => name[:name]}
     @merchants_array << Merchant.new(attributes)
   end
 
   def update(id, attributes)
     name = attributes[:name]
     merchant = find_by_id(id)
-    merchant[0].updated_at = Time.new.getutc
-    merchant[0].name = name
+    if merchant != nil and name != nil
+      merchant.updated_at = Time.new.getutc
+      merchant.name = name
+    end
   end
 
   def delete(id)
     merchant = find_by_id(id)
-    if merchant != []
-      @merchants_array.delete_at(0)
+    if merchant != nil
+      index = @merchants_array.index(merchant)
+      @merchants_array.delete_at(index)
     else
-      "Merchant not found"
+      puts "Merchant not found"
     end
   end
 end
