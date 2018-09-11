@@ -22,21 +22,11 @@ module Crud
       element[:name].downcase == name.downcase
     end
   end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-  # def find_all_by_name(name)
-  #   name_fixed = name[0..4].downcase
-  #   collection.keep_if do |element|
-  #     element[:name].downcase.include? name_fixed
-  #   end
-  # end
-  #
-  # def find_all_by_description(string)
-  #   collection.keep_if do |element|
-  #     element[:description].downcase.include? string.downcase
-  #   end
-  # end
+
   def find_all_by_exact(key, string)
     collection.keep_if do |element|
       element[key] == string
@@ -64,4 +54,16 @@ module Crud
     end
   end
 
+  # def find_all_by_name(name)
+  #   name_fixed = name[0..4].downcase
+  #   collection.keep_if do |element|
+  #     element[:name].downcase.include? name_fixed
+  #   end
+  # end
+  #
+  # def find_all_by_description(string)
+  #   collection.keep_if do |element|
+  #     element[:description].downcase.include? string.downcase
+  #   end
+  # end
 end
