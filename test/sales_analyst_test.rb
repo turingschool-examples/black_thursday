@@ -32,6 +32,6 @@ class SalesAnalystTest < Minitest::Test
 
     sales_analyst = SalesAnalyst.new(se)
 
-    assert_equal 3.26, sales_analyst.average_items_per_merchants_standard_deviation
+    assert_equal 0.58, sales_analyst.average_items_per_merchants_standard_deviation
   end
 end

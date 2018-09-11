@@ -5,7 +5,6 @@ class SalesAnalyst
   end
 
   def average_item_per_merchant
-    binding.pry
     (@sales_engine.items.items.count.to_f / @sales_engine.merchants.merchants.count).round(2)
   end
 
