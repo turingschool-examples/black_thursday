@@ -47,6 +47,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, actual.values[1]
   end
 
+  def test_it_can_average_an_array_of_values
+    vals = [1, 2, 3, 4, 5]
+    assert_equal 3.to_f, @sa_csv.average(vals)
+  end
 
 
 

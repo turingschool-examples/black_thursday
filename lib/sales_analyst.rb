@@ -21,7 +21,6 @@ class SalesAnalyst
     groups = repo.group_by { |object| object.send(method)}  #method is a symbol
   end
 
-  # TO DO - TEST ME
   def average(values)
     sum = values.inject(0) { |tot, val| tot += val.to_f }
     ct = values.count.to_f
