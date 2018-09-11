@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class DataObject
   def initialize(attributes)
@@ -41,8 +42,15 @@ class DataObject
     Time.parse(raw_date)
   end
 
+  def update(attributes)
+    normal = DataObject.normalize_attributes(attributes)
+    normal.each do |key, value|
+      if @editable.include?(key)
+        @attributes[key] = normal[key]
+      end
+    end
+  end
 
-  # TODO: Make tests for these
   def id
     @attributes[:id]
   end

@@ -36,8 +36,10 @@ class DataRepositoryTest < Minitest::Test
 
   def test_it_can_find_object_by_id
     actual = @repo.find_by_id(123)
+    actual_2 = @repo.find_by_id(0000000000000)
     assert_instance_of(Item, actual)
     assert_equal('testname', actual.name)
+    assert_nil(actual_2)
   end
 
   def test_it_can_find_object_by_name
@@ -52,11 +54,50 @@ class DataRepositoryTest < Minitest::Test
     skip
   end
 
-  def test_it_can_create_new_object_from_attributes
-    skip
+  def test_it_can_create_new_data_object_from_attributes
+    @repo.create({id:          '246',
+                  name:        'fakeitem',
+                  description: 'mockdescription',
+                  merchant_id: '1213',
+                  unit_price:  '3200',
+                  created_at:  @time_1,
+                  updated_at:  @time_2})
+    actual = @repo.all
+    assert_instance_of(Item, actual[-1])
+    assert_equal('fakeitem', actual[-1].name)
   end
 
-  def test_it_can_update_new_object_by_id_and_attributes
-    skip
+  def test_it_wont_create_with_duplicate_id
+    @repo.create({id:          '123',
+                  name:        'fakeitem',
+                  description: 'mockdescription',
+                  merchant_id: '1213',
+                  unit_price:  '3200',
+                  created_at:  @time_1,
+                  updated_at:  @time_2})
+
+    actual = @repo.all
+    assert_equal('secondname', actual[-1].name)
+    assert_nil(@repo.find_by_name('fakeitem'))
   end
+
+  def test_it_can_update_object_by_id_and_attributes
+    @repo.update(123, {id:          '123',
+                  name:        'fakeitem',
+                  description: 'mockdescription',
+                  merchant_id: '1213',
+                  unit_price:  '3200',
+                  created_at:  @time_1,
+                  updated_at:  @time_2})
+    actual = @repo.find_by_id(123)
+    assert_equal('fakeitem', actual.name)
+    expected = Time.now.to_s.split[0]
+    assert_equal(expected, actual.updated_at.to_s.split[0])
+  end
+
+  def test_it_can_delete_an_object
+    @repo.delete(123)
+    assert_nil(@repo.find_by_id(123))
+  end
+
 end
