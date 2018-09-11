@@ -2,20 +2,18 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 
 class SalesAnalyst
-  attr_reader :mr, :ir
 
   def initialize(sales_engine)
-    @mr = MerchantRepository.new("./data/merchants.csv")
-    @ir = ItemRepository.new("./data/items.csv")
+    @se = sales_engine
   end
 
   def average_items_per_merchant
-    (@ir.all.count.to_f/@mr.all.count).round(2)
+    (@se.items.all.count.to_f/@se.merchants.all.count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     hash = Hash.new(0)
-    @ir.all.each do |item|
+    @se.items.all.each do |item|
       hash[item.merchant_id] += 1
     end
 
