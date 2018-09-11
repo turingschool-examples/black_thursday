@@ -52,4 +52,15 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, @se_csv.items
   end
 
+
+
+  # --- Sales Analyst ---
+
+  def test_it_gets_average_items_per_merchant
+    binding.pry
+
+  end
+
+
+
 end

@@ -2,6 +2,7 @@ require 'pry'
 
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'sales_analyst'
 
 
 
@@ -28,7 +29,10 @@ class SalesEngine
   def self.make_item_repo(hash)
     items_path = hash[:items]
     @items = ItemRepository.new(items_path)
-    # binding.pry
+  end
+
+  def analyst
+    SalesAnalyst.new(self)
   end
 
 end
