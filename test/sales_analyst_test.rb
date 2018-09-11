@@ -32,6 +32,26 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa_csv
   end
 
+
+  # --- General Methods ---
+
+  def test_it_can_group_by_a_method_of_an_object_in_a_repo
+    # From the getter methods of objects in the repo
+    sample = @sa_csv.merchants.first(100)
+    items = @sa_csv.items
+    actual = @sa_csv.group_by(items, :merchant_id )
+    assert_operator 100, :<, actual.count
+    assert_equal "12334141", actual.keys[0]
+    assert_instance_of Array, actual.values[0]
+    assert_equal "12334185", actual.keys[1]
+    assert_instance_of Array, actual.values[1]
+  end
+
+
+
+
+
+
   def test_it_does_standard_deviation
     vals = [1, 2, 3, 4, 5]
     # TO DO - HARDCODE more of this here (less calculations)
@@ -57,6 +77,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_gets_items_per_merchant_standard_deviation
+    skip
     actual = @sa_csv.average_items_per_merchant_standard_deviation
     binding.pry
     assert_equal 3.26, actual

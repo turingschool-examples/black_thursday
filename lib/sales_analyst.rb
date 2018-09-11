@@ -6,6 +6,8 @@ require 'pry'
 
 class SalesAnalyst
 
+  attr_reader :engine, :merchants, :items
+
   def initialize(sales_engine)
     @engine = sales_engine
     @merchants = @engine.merchants.all
@@ -17,6 +19,13 @@ class SalesAnalyst
 
   def group_by(repo, method)
     groups = repo.group_by { |object| object.send(method)}  #method is a symbol
+  end
+
+  # TO DO - TEST ME
+  def average(values)
+    sum = values.inject(0) { |tot, val| tot += val.to_f }
+    ct = values.count.to_f
+    average = (sum / ct) #.round(2)
   end
 
   def standard_deviation(values, mean)
@@ -31,17 +40,15 @@ class SalesAnalyst
   # --- Merchant Methods ---
 
   def average_items_per_merchant
-    groups = @items.group_by { |item| item.merchant_id }
-    sum = groups.values.inject(0){ |ct, store| ct += store.count.to_f }
-    merchants_ct = groups.keys.count.to_f
-    average = sum / merchants_ct
-    return average.round(2)
+    groups = group_by(@items, :merchant_id)
+    vals = groups.values.inject([]) { |arr, store| arr << store.count }
+    mean = average(vals)
+    return mean.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
     groups = group_by(@items, :merchant_id)
-    # groups = @items.group_by { |item| item.merchant_id }
     vals = groups.values.inject([]) { |arr, store| arr << store.count }
     std = standard_deviation(vals, mean)
   end
