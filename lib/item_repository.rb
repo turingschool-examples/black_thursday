@@ -1,49 +1,60 @@
-require_relative './item'
-require_relative './merchant'
+require_relative './repository_module'
 require 'pry'
 
 class ItemRepository
-    attr_reader :all
+  include RepoMethods
 
   def initialize(filepath = nil)
     @filepath = filepath
     @all = []
+    split(filepath) if filepath != nil
   end
 
-  def add_individual_item(item)
-    @all << item
-  end
-
-  def split(filepath)
-    item_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
-
-    item_objects.map do |object|
-      object[:id] = object[:id].to_i
-      @all << object.to_h
+  def create(attributes)
+    isnt_included = @all.any? do |item|
+      attributes[:id] != item.id
+    end
+    has_id = attributes[:id] != nil
+    if has_id && isnt_included
+      @all << Item.new(attributes)
+    elsif @all == []
+      new_id = 1
+      attributes[:id] = new_id
+      @all << Item.new(attributes)
+    else
+      highest_id = @all.max_by do |item|
+        item.id
+      end.id
+      new_id = highest_id + 1
+      attributes[:id] = new_id
+      @all << Item.new(attributes)
     end
   end
 
-  def find_by_id(id)
-    @all.find do |item|
-      item.id == id
+  def find_all_with_description(description)
+    @all.find_all do |item|
+      item.description.downcase.include?(description.downcase)
+    end
+  end
+
+]
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.unit_price.to_f == price.to_f
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all do |item|
+      range.include?(item.unit_price.to_f)
     end
   end
 
 
-
-    # def find_all_by(attr_sym, search_string)
-    #   @items.find_all do |item|
-    #     item[:data][attr_sym] == search_string.downcase
-    #   end
-    # end
-    #
-    # def find_by(attr_sym, search_string)
-    #   @items.find do |item|
-    #     item[attr_sym] == search_string.downcase
-    #   end
-    # end
-
-
-
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all do |item|
+      item.merchant_id == merchant_id.to_i
+    end
+  end
 
 end
