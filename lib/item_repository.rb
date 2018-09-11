@@ -50,9 +50,8 @@ class ItemRepository
         }
       item = Item.new(hash)
       @data << item
-
     else
-      #Gererated on the fly
+      #Generated on the fly
       hash = {
         id: find_next_id,
         name: attributes[:name],
