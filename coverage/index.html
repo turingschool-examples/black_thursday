@@ -14,7 +14,11 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
+
       <div class="timestamp">Generated <abbr class="timeago" title="2018-09-11T11:56:26-06:00">2018-09-11T11:56:26-06:00</abbr></div>
+
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-11T11:32:47-06:00">2018-09-11T11:32:47-06:00</abbr></div>
+
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,16 +29,26 @@
      covered at
      <span class="covered_strength">
        <span class="green">
+
          2.01
+
+         1.8
+
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
+
     <b>6</b> files in total.
     <b>107</b> relevant lines. 
     <span class="green"><b>64</b> lines covered</span> and
-    <span class="red"><b>43</b> lines missed </span>
+    <span class="red"><b>43</b> lines 
+    <b>1</b> files in total.
+    <b>5</b> relevant lines. 
+    <span class="green"><b>5</b> lines covered</span> and
+    <span class="red"><b>0</b> lines missed </span>
+
   </div>
   <table class="file_list">
     <thead>
@@ -51,6 +65,7 @@
     <tbody>
       
       <tr>
+
         <td class="strong"><a href="#d0a757b43980e36f332c8edab96effd90d5eca93" class="src_link" title="lib/black_thursday_helper.rb">lib/black_thursday_helper.rb</a></td>
         <td class="red strong">47.62 %</td>
         <td>58</td>
@@ -82,11 +97,15 @@
       
       <tr>
         <td class="strong"><a href="#41294a8034643ac182277891e9dd8cff571a10db" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
+
+        <td class="strong"><a href="#3e04c8c5480142af79e7a3afd3121c8696aeb4bd" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
+
         <td class="green strong">100.0 %</td>
         <td>12</td>
         <td>5</td>
         <td>5</td>
         <td>0</td>
+
         <td>6.2</td>
       </tr>
       
@@ -108,6 +127,9 @@
         <td>5</td>
         <td>2</td>
         <td>1.0</td>
+
+        <td>1.8</td>
+
       </tr>
       
     </tbody>
@@ -126,14 +148,23 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="d0a757b43980e36f332c8edab96effd90d5eca93">
+        <div class="source_table" id="3e04c8c5480142af79e7a3afd3121c8696aeb4bd">
   <div class="header">
+
     <h3>lib/black_thursday_helper.rb</h3>
     <h4><span class="red">47.62 %</span> covered</h4>
     <div>
       <b>21</b> relevant lines. 
       <span class="green"><b>10</b> lines covered</span> and
       <span class="red"><b>11</b> lines missed.</span>
+
+    <h3>lib/merchant.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>5</b> relevant lines. 
+      <span class="green"><b>5</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+
     </div>
   </div>
   
@@ -143,6 +174,7 @@
         <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
+
           <code class="ruby">require &#39;CSV&#39;</code>
         </li>
       
@@ -360,20 +392,28 @@
           
           
           <code class="ruby">    end</code>
+
+          <code class="ruby">class Merchant</code>
+
         </li>
       
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="never" data-hits="" data-linenumber="2">
           
           
+
           <code class="ruby">  end</code>
+
+          <code class="ruby">  # attr_reader :name</code>
+
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="3">
           
           
           <code class="ruby"></code>
         </li>
       
+
         <li class="never" data-hits="" data-linenumber="40">
           
           
@@ -396,20 +436,31 @@
           
           
           <code class="ruby">  #   highest_current = merch_id_counter.id</code>
+
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_accessor :id,</code>
+
         </li>
       
-        <li class="never" data-hits="" data-linenumber="44">
+        <li class="never" data-hits="" data-linenumber="5">
           
           
+
           <code class="ruby">  #   new_highest_current = highest_current += 1</code>
+
+          <code class="ruby">                :name</code>
+
         </li>
       
-        <li class="never" data-hits="" data-linenumber="45">
+        <li class="never" data-hits="" data-linenumber="6">
           
           
           <code class="ruby">  #   merchant.id = new_highest_current</code>
         </li>
       
+
         <li class="never" data-hits="" data-linenumber="46">
           
           
@@ -426,20 +477,37 @@
           
           
           <code class="ruby">  # end</code>
+
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(params)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="49">
+        <li class="covered" data-hits="3" data-linenumber="8">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @id = params[:id].to_i</code>
+
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="9">
+          <span class="hits">3</span>
+          
+
+          <code class="ruby"></code>
+
+          <code class="ruby">    @name = params[:name]</code>
+
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="50">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
+
         <li class="never" data-hits="" data-linenumber="51">
           
           
@@ -532,11 +600,15 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
+
+        <li class="never" data-hits="" data-linenumber="11">
+
           
           
           <code class="ruby"></code>
         </li>
       
+
         <li class="covered" data-hits="1" data-linenumber="6">
           <span class="hits">1</span>
           
@@ -1742,6 +1814,10 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="30">
+          
+          
+
+        <li class="never" data-hits="" data-linenumber="12">
           
           
           <code class="ruby">end</code>
