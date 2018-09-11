@@ -13,9 +13,14 @@ include BlackThursdayHelper
     populate(file_path)
   end
 
-  # def all
-  #   @collections
-  # end
+  def update(id, attributes)
+      if find_by_id(id) != nil
+      object_to_be_updated = find_by_id(id)
+      object_to_be_updated.name = attributes[:name]
+      else
+        nil
+      end
+  end
 
   def populate(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|

@@ -1,13 +1,13 @@
 class Item
 
-attr_reader   :name,
-              :description,
-              :unit_price,
-              :created_at,
-              :updated_at,
-              :merchant_id
+  attr_reader   :created_at,
+                :merchant_id
 
-  attr_accessor :id
+  attr_accessor :id,
+                :name,
+                :description,
+                :unit_price,
+                :updated_at
 
   def initialize(params)
     @id = params[:id].to_i
