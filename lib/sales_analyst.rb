@@ -5,11 +5,13 @@ class SalesAnalyst
   include RepoModule
 
   attr_reader :item_repo,
-              :merchant_repo
+              :merchant_repo,
+              :invoice_repo
 
-  def initialize(item_repo, merchant_repo)
+  def initialize(item_repo, merchant_repo, invoice_repo)
     @item_repo = item_repo
     @merchant_repo = merchant_repo
+    @invoice_repo = invoice_repo
   end
 
   # def items_per_merchant_array

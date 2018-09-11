@@ -52,21 +52,10 @@ module RepoModule
       end
     end
 
-
-
-
-
-
-
-
-
-
-#passing in repo instance variable
     def average_items_invoices_per_merchant(repo)
       (repo.all.count.to_f / @merchant_repo.all.count).round(2)
     end
 
-#passing in repo instance variable
     def items_per_merchant_array(repo)
       @merchant_repo.all.map do |merchant|
         repo.all.find_all do |element|
