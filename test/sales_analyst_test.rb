@@ -14,15 +14,21 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    skip
-    sa = SalesAnalyst.new
-    assert_instance_of MerchantRepository, sa.mr
-    assert_instance_of ItemRepository, sa.ir
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    sa = se.analyst
+    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of ItemRepository, se.items
   end
 
   def test_it_calculates_average_items_per_merchant
-    skip
-    sa = SalesAnalyst.new
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    sa = se.analyst
     assert_equal 2.88, sa.average_items_per_merchant
   end
 end
