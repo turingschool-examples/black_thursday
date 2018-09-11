@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
         :merchants => "./data/merchants.csv",
       })
     sa = se.analyst
-    assert_equal 5034.919999999962, sa.subtract_square_sum_array
+    assert_equal 5034.919999999962, sa.subtract_square_sum_array_for_items_per_merchant
   end
 
   def test_it_can_sum_array
@@ -72,11 +72,44 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_merchants_above_one_stand_deviation_in_an_array
+    skip
     se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
       })
     sa = se.analyst
     assert_equal 52, sa.merchants_with_high_item_count.count
+  end
+
+  def test_it_can_return_average_item_price_per_merchant
+    skip
+    se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+      })
+    sa = se.analyst
+    assert_instance_of BigDecimal, sa.average_item_price_for_merchant(12334105)
+    assert_equal 16.66 , sa.average_item_price_for_merchant(12334105).to_f.round(2)
+  end
+
+  def test_it_can_find_the_global_average
+    skip
+    se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+      })
+    sa = se.analyst
+    assert_instance_of BigDecimal, sa.average_average_price_per_merchant
+    assert_equal 350.29 , sa.average_average_price_per_merchant.to_f.round(2)
+  end
+
+  def test_it_can_find_golden_items
+    se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+      })
+    sa = se.analyst
+    assert_equal 5, sa.golden_items.count
+
   end
 end
