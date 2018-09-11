@@ -23,6 +23,7 @@ class ItemRepository < Repository
       return all_items
   end
 
+
   def find_all_by_price(price)
     @data.find_all do |datum|
       datum.unit_price == price
@@ -58,18 +59,27 @@ class ItemRepository < Repository
   end
 
   def update(id, attributes)
-    @data.find do |datum|
-      if datum.id == id
-      datum.name = attributes[:name]
-      datum.description = attributes[:description]
-      datum.unit_price = attributes[:unit_price]
-      datum.updated_at = Time.now
-      end
+    item = find_by_id(id)
+    return if item.nil?
+    attributes.each do |key, value|
+      update_name(item, key, value) if key == :name
+      update_description(item, key, value) if key == :description
+      update_unit_price(item, value) if key == :unit_price
     end
   end
 
+  def update_name(item, key, value)
+    item.name = value
+    item.updated_at = Time.now + 1
+  end
 
+  def update_description(item, key, value)
+    item.description = value
+    item.updated_at = Time.now + 1
+  end
 
-
-
+  def update_unit_price(item, value)
+    item.unit_price = value
+    item.updated_at = Time.now + 1
+  end
 end

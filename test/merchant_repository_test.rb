@@ -75,9 +75,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Keckenbauer", actual.name
 
     id = (5)
-    new_attributes = {name: "Reuabnekcek"}
+    attributes = {name: "Reuabnekcek"}
 
-    merchant_repository.update(id, new_attributes)
+    merchant_repository.update(id, attributes)
 
     assert_equal "Reuabnekcek", actual.name
   end
