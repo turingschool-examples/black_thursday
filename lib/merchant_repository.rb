@@ -24,7 +24,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    all.find_all {|merchant| merchant.name.downcase == name.downcase}
+    @merchants.find_all {|merchant| merchant.name.downcase == name.downcase}
   end
 
   def create(attributes)
@@ -44,8 +44,12 @@ class MerchantRepository
   end
 
   def delete(id)
-    index = merchants.find_index {|i| i.id == id}
-    merchants.delete_at(index)
+    if find_by_id(id) == nil
+
+    else
+      index = merchants.find_index {|i| i.id == id}
+      merchants.delete_at(index)
+    end
   end
 
   def inspect
