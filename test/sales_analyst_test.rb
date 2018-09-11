@@ -39,11 +39,11 @@ class SalesAnalystTest < Minitest::Test
     # NOTE - Instance vars for repos are the arrays
     # held within the repos, not the repos themselves.
     # -- Merchant --
-    assert_instance_of Array, @sa_csv.merchants
-    assert_instance_of Merchant, @sa_csv.merchants[0]
+    assert_instance_of MerchantRepository, @sa_csv.merchants
+    assert_instance_of Merchant, @sa_csv.merchants.all[0]
     # -- Item --
-    assert_instance_of Array, @sa_csv.items
-    assert_instance_of Item, @sa_csv.items[0]
+    assert_instance_of ItemRepository, @sa_csv.items
+    assert_instance_of Item, @sa_csv.items.all[0]
   end
 
 
@@ -51,8 +51,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_group_by_a_method_of_an_object_in_a_repo
     # From the getter methods of objects in the repo
-    sample = @sa_csv.merchants.first(100)
-    items = @sa_csv.items
+    sample = @sa_csv.merchants.all.first(100)
+    items = @sa_csv.items.all
     actual = @sa_csv.group_by(items, :merchant_id )
     assert_operator 100, :<, actual.count
     assert_equal "12334141", actual.keys[0]
@@ -85,7 +85,7 @@ class SalesAnalystTest < Minitest::Test
   # --- Item Repo Analysis Methods ---
 
   def test_it_creates_merchant_stores_by_id_and_item_collection
-    qty_merch  = @sa_csv.merchants.count
+    qty_merch  = @sa_csv.merchants.all.count
     qty_stores = @sa_csv.merchant_stores.count
     assert_equal qty_merch, qty_stores
     assert_instance_of Hash, @sa_csv.merchant_stores
@@ -96,10 +96,13 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_create_an_array_of_the_counts_of_its_per_merchant
     groups = @sa_csv.merchant_stores
     values = @sa_csv.merchant_store_item_counts(groups)
-
     assert_instance_of Array, values
-    qty_merch  = @sa_csv.merchants.count
+    qty_merch  = @sa_csv.merchants.all.count
     assert_equal qty_merch, values.count
+
+    sum = values.inject(0) { |total, val| total += val}
+    count = @sa_csv.items.all.count
+    assert_equal count, sum
   end
 
 

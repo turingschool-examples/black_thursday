@@ -10,8 +10,8 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @engine = sales_engine
-    @merchants = @engine.merchants.all
-    @items = @engine.items.all
+    @merchants = @engine.merchants #.all
+    @items = @engine.items #.all
     # binding.pry
   end
 
@@ -52,7 +52,7 @@ class SalesAnalyst
   # --- Item Repo Analysis Methods ---
 
   def merchant_stores
-    groups = group_by(@items, :merchant_id)
+    groups = group_by(@items.all, :merchant_id)
   end
 
   def merchant_store_item_counts(groups)
@@ -60,7 +60,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    groups = group_by(@items, :merchant_id)
+    groups = group_by(@items.all, :merchant_id)
     vals   = merchant_store_item_counts(groups)
     mean   = average(vals)
     return mean.round(2)
@@ -80,12 +80,15 @@ class SalesAnalyst
     groups    = merchant_stores
     above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
     merch_ids = above.keys.map { |key| key.to_i}
-    list = merch_ids.map { |id| @merchants.find { |merch| merch.id == id } }
+    list = merch_ids.map { |id| @merchants.all.find { |merch| merch.id == id } }
     list = list.to_a.flatten
     return list
   end
 
-  
+  def average_item_price_for_merchant(id)
+
+  end
+
 
 
 
