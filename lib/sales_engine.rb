@@ -36,7 +36,7 @@ class SalesEngine
     total_items.each do |item|
       i = Item.new({:id => item[:id].to_i, :name => item[:name], :description => item[:description],
                     :unit_price => BigDecimal.new(item[:unit_price].to_f/100,4), :created_at => item[:created_at],
-                    :updated_at => item[:updated_at], :merchant_id => item[:merchant_id]})
+                    :updated_at => item[:updated_at], :merchant_id => item[:merchant_id].to_i})
       it.add_item(i)
     end
     return it
