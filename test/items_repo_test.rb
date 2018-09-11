@@ -143,6 +143,7 @@ class ItemsRepoTest < Minitest::Test
     assert_equal "Every dating profile in CO ever", actual.description
     assert_equal 10.99, actual.unit_price
     assert_instance_of Time, actual.updated_at
+    refute_equal 
   end
 
   def test_update_merchant_id_doesnt_work
@@ -153,8 +154,14 @@ class ItemsRepoTest < Minitest::Test
                   :unit_price => BigDecimal.new(10.99,4)})
 
     actual = ir.find_by_name("Dude dog mountain").id
-    
+
     assert_equal 6, actual
+  end
+
+  def test_it_can_delete_the_item_with_corresponding_id
+    ir = ItemsRepo.new("./test/fixtures/items.csv")
+    ir.delete(1)
+    assert_nil ir.find_by_id(1)
   end
 
 end

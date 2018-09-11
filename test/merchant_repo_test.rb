@@ -92,7 +92,7 @@ class MerchantRepoTest < Minitest::Test
   def test_updated_attribute_does_not_update_id
     mr = MerchantRepo.new("./test/fixtures/merchants.csv")
 
-    mr.update(5, "TheWhitePowderShop")
+    mr.update(5, {:name => "TheWhitePowderShop"})
 
     expected = mr.find_by_id(5)
     assert_equal expected, mr.find_by_name("TheWhitePowderShop")
