@@ -46,8 +46,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_makes_items
+    @big_decimal = BigDecimal.new(1200, 4)
     assert_equal "510+ RealPush Icon Set",  @first_item.name
-    assert_equal "1200",                    @first_item.unit_price
+    assert_equal @big_decimal,              @first_item.unit_price
     assert_equal "12334141",                @first_item.merchant_id
     assert_equal "2016-01-11 09:34:06 UTC", @first_item.created_at
     assert_equal "2007-06-04 21:35:10 UTC", @first_item.updated_at
@@ -65,8 +66,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    # well, it works
-    assert_equal 263395617, @repo.find_by_id("263395617").first.id
+    assert_equal 263395617, @repo.find_by_id("263395617").id
   end
 
   def test_it_can_find_all_by_name
@@ -74,7 +74,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_highest_id
-    assert_equal 263567474, @repo.find_highest_id.id
+    assert_equal 263567474, @repo.find_by_highest_id.id
   end
 
   def test_it_can_create_new_merchant_instance_from_attribute_hash
@@ -98,7 +98,7 @@ class ItemRepositoryTest < Minitest::Test
       :merchant_id    =>2
     })
     
-    assert_equal expected.id, @repo.create(new_item).id
+    
     
   end
 

@@ -27,20 +27,5 @@ class MerchantRepository
     }
     @all.flatten!
   end
-
-
 end
 
-# Methods
-  # Finder
-    # --  make module for find_by(type, attribute) --
-    # --  make module for find_all_by(type, attribute) --
-
-    # find_by_id(id)
-    # find_by_name(name)
-    # find_all_by_name(name)
-
-  # Maker
-    # create(attributes)
-    # update(id, attributes)
-    # delete(id)
