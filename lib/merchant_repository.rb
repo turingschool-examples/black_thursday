@@ -11,12 +11,11 @@ include Crud
   attr_reader :collection,
               :changeable_attributes
 
-  attr_accessor :merchants
-
-  def initialize(merchants)
-    @collection = []
-    @merchants = merchants
-    load(filepath)
+  def initialize(content, parent)
+    @collection = content.map do |hash|
+      Merchant.new(hash, self) 
+    end
+    @parent = parent 
     @changeable_attributes = [:name]
   end
 
@@ -36,7 +35,8 @@ include Crud
   end
 
   def all 
-    @merchants.count
+    @collection.count
+  
   end
   
 end
