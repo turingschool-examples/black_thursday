@@ -2,12 +2,19 @@ require "./lib/items_repo"
 
 
 class SalesEngine
+  attr_reader :merchants,
+              :items
 
-  def self.from_csv(file_location)
-   file_location.each do |repository, file_path|
-      merchants = MerchantRepo.new(file_location[:merchants])
-      items = ItemsRepo.new(file_location[:items])
-    end
-    se = self.new
+
+  def self.from_csv(params)
+    merchants = MerchantRepo.new(params[:merchants])
+    items = ItemsRepo.new(params[:items])
+    SalesEngine.new(merchants, items)
   end
+
+  def initialize(merchants, items)
+    @merchants = merchants
+    @items = items
+  end
+
 end
