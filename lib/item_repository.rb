@@ -11,7 +11,7 @@ class ItemRepository < Repository
 
   def load_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol ) do |datum|
-      datum[:unit_price] = BigDecimal.new(datum[:unit_price],4)/100
+      datum[:unit_price] = BigDecimal(datum[:unit_price],4)/100
       @data << Item.new(datum)
     end
   end
