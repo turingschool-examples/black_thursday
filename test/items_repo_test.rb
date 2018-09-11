@@ -89,5 +89,55 @@ class ItemsRepoTest < Minitest::Test
     assert_equal [], ir.find_all_by_price_in_range(0..1)
   end
 
+  def test_it_finds_all_by_merchant_id
+    ir = ItemsRepo.new("./test/fixtures/items.csv")
+
+    cheer_bow = ir.find_by_id(1)
+    student = ir.find_by_id(7)
+
+    expected = [cheer_bow, student]
+    actual = ir.find_all_by_merchant_id(1)
+
+    assert_equal expected, actual
+    assert_equal [], ir.find_all_by_merchant_id(289348)
+  end
+
+  def test_it_can_create_a_new_item_with_new_parameters
+    ir = ItemsRepo.new("./test/fixtures/items.csv")
+
+    actual  = ir.create({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+                        })
+
+    assert_instance_of Item, actual
+  end
+
+  def test_the_new_items_id_increments_by_one
+    ir = ItemsRepo.new("./test/fixtures/items.csv")
+
+    actual  = ir.create({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+                        })
+    assert_equal 8, actual.id
+  end
+
+  # def test_it_can_update_items_attributes_with_correspending_id
+  #   ir = ItemsRepo.new("./test/fixtures/items.csv")
+  #
+  #   ir.update(6, {:name => "Dude dog mountain"})
+  #   assert_equal "Dude dog mountain", ir.find_by_id(6)
+  # end
 
 end

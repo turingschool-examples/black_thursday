@@ -25,18 +25,18 @@ include BlackThursdayHelper
 
   def create(merchant_params)
     merchant = Merchant.new(merchant_params)
-    highest_current = merch_id_counter.id
+    highest_current = object_id_counter.id
     new_highest_current = highest_current += 1
     merchant.id = new_highest_current
     @collections << merchant
-     merchant
+    merchant
   end
 
-  def merch_id_counter
-   @collections.max do |merchant|
-     merchant.id
-   end
-  end
+  # def merch_id_counter
+  #  @collections.max do |merchant|
+  #    merchant.id
+  #  end
+  # end
 
   # => dont delete this
   # def update(id, attributes)
