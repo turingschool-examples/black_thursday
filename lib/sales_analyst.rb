@@ -21,7 +21,7 @@ class SalesAnalyst
 
   def sum(array)
     type = 0 if array[0].class != BigDecimal
-    type = BigDecimal.new(0,10) if array[0].class == BigDecimal
+    type = BigDecimal.new(0,4) if array[0].class == BigDecimal
       array.inject(type) do |sum, price|
         price + sum
     end
@@ -54,7 +54,7 @@ class SalesAnalyst
     bd_array = merchant_array[1].map do |item|
       item.unit_price
     end
-    sum(bd_array)/bd_array.length
+    (sum(bd_array)/bd_array.length).round(2)
   end
 
   def average_average_price_per_merchant
@@ -63,7 +63,7 @@ class SalesAnalyst
       array << average_item_price_for_merchant(key.id)
     end
 
-    sum(array)/array.length
+    (sum(array)/array.length).round(2)
   end
 
   def golden_items

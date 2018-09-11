@@ -89,7 +89,7 @@ class SalesAnalystTest < Minitest::Test
       })
     sa = se.analyst
     assert_instance_of BigDecimal, sa.average_item_price_for_merchant(12334105)
-    assert_equal 16.66 , sa.average_item_price_for_merchant(12334105).to_f.round(2)
+    assert_equal 16.66 , sa.average_item_price_for_merchant(12334105)
   end
 
   def test_it_can_find_the_global_average
@@ -100,7 +100,7 @@ class SalesAnalystTest < Minitest::Test
       })
     sa = se.analyst
     assert_instance_of BigDecimal, sa.average_average_price_per_merchant
-    assert_equal 350.29 , sa.average_average_price_per_merchant.to_f.round(2)
+    assert_equal 350.29 , sa.average_average_price_per_merchant
   end
 
   def test_it_can_find_golden_items
