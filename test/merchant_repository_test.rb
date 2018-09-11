@@ -80,7 +80,7 @@ class MerchantRepositoryTest < Minitest::Test
     })
 
     mr = se.merchants
-    actual = mr.find_all_by_name("Ann").count
+    actual = mr.find_all_by_name("style").count
 
     assert_equal 2, actual
   end

@@ -15,8 +15,8 @@ class Item
     @name = item_hash[:name]
     @description = item_hash[:description]
     @unit_price = item_hash[:unit_price]
-    @created_at = Time.new.getutc
-    @updated_at = Time.new.getutc
+    @created_at = (item_hash[:created_at])
+    @updated_at = (item_hash[:updated_at])
     @merchant_id = item_hash[:merchant_id]
   end
 

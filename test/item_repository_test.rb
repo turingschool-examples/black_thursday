@@ -84,7 +84,7 @@ class ItemRepositoryTest < Minitest::Test
     item = ir.find_all_with_description('Handmade Bracelet')
 
     expected = 'Exotic Beaded Women&#39;s or Men&#39;s Handmade Bracelet or Anklet'
-    actual = item[0].name
+    actual = item.name
 
     assert_equal expected, actual
   end
@@ -96,10 +96,10 @@ class ItemRepositoryTest < Minitest::Test
     })
 
     ir = se.items
-    item = ir.find_all_by_price(60000)
+    item = ir.find_all_by_price(BigDecimal.new(60000))
 
     expected = 'Introspection virginalle'
-    actual = item[0].name
+    actual = item.name
 
     assert_equal expected, actual
   end
