@@ -1,7 +1,6 @@
 require 'pry'
 
-# TO DO -- class was made without item repo class avialble, update & test
-# require_relative 'item_repository'
+require_relative 'item_repository'
 require_relative 'merchant_repository'
 
 
@@ -16,9 +15,9 @@ class SalesEngine
   end
 
   def self.from_csv(hash)
-    merch_reop = make_merch_repo(hash)
-    #item_repo = make_item_repo(hash)
-    self.new(nil, merch_reop)
+    merch_repo = make_merch_repo(hash)
+    item_repo = make_item_repo(hash)
+    self.new(item_repo, merch_repo)
   end
 
   def self.make_merch_repo(hash)
@@ -29,6 +28,7 @@ class SalesEngine
   def self.make_item_repo(hash)
     items_path = hash[:items]
     @items = ItemRepository.new(items_path)
+    # binding.pry
   end
 
 end
