@@ -31,4 +31,14 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal(321, merchants[1].id)
   end
 
+  def test_it_can_find_all_by_name
+    merch_1 = stub("Merchant", id: 123, name: "name is 2")
+    merch_2 = stub("Merchant", id: 456, name: "name is 1")
+    merch_3 = stub("Merchant", id: 321, name: "name is 2")
+    Merchant.stubs(:from_raw_hash).returns(merch_1).then.returns(merch_2).then.returns(merch_3)
+    datas = [{id:123},{id:456},{id:321}]
+    repo = MerchantRepository.new(datas)
+    assert_equal [merch_1, merch_3], repo.find_all_by_name("2")
+  end
+
 end

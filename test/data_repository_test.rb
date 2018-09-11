@@ -67,20 +67,6 @@ class DataRepositoryTest < Minitest::Test
     assert_equal('fakeitem', actual[-1].name)
   end
 
-  def test_it_wont_create_with_duplicate_id
-    @repo.create({id:          '123',
-                  name:        'fakeitem',
-                  description: 'mockdescription',
-                  merchant_id: '1213',
-                  unit_price:  '3200',
-                  created_at:  @time_1,
-                  updated_at:  @time_2})
-
-    actual = @repo.all
-    assert_equal('secondname', actual[-1].name)
-    assert_nil(@repo.find_by_name('fakeitem'))
-  end
-
   def test_it_can_update_object_by_id_and_attributes
     @repo.update(123, {id:          '123',
                   name:        'fakeitem',

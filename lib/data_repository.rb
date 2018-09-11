@@ -34,9 +34,10 @@ class DataRepository
   end
 
   def create(attributes)
-    attributes[:id] = attributes[:id].to_i
-    return nil if @data_set[attributes[:id]]
-    @data_set[attributes[:id]] = @data_class.from_raw_hash(attributes)
+
+    new_id = @data_set.keys.max + 1
+    attributes[:id] = new_id
+    @data_set[new_id] = @data_class.from_raw_hash(attributes)
   end
 
   # Determine if the attribute hash matches the expected attributes for the
@@ -45,7 +46,7 @@ class DataRepository
   end
 
   def update(id, attributes)
-    @data_set[id].update(attributes)
+    @data_set[id].update(attributes) if @data_set[id]
   end
 
   def delete(id)

@@ -13,8 +13,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_has_item_and_merchant_repositories
-    # binding.pry
     assert_instance_of ItemRepository, @se.items
     assert_instance_of MerchantRepository, @se.merchants
+    @se.merchants.all.count
   end
 end

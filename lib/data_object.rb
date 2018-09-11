@@ -4,7 +4,6 @@ require 'time'
 class DataObject
   def initialize(attributes)
     @attributes = attributes
-    # binding.pry
   end
 
   def self.from_raw_hash(raw_attrs)

@@ -37,4 +37,44 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal(321, items[1].id)
   end
 
+  def test_it_can_find_all_with_description
+    item_1 = stub("Item", id: 123, description: "description is 2")
+    item_2 = stub("Item", id: 456, description: "description is 1")
+    item_3 = stub("Item", id: 321, description: "description is 2")
+    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)
+    datas = [{id:123},{id:456},{id:321}]
+    repo = ItemRepository.new(datas)
+    assert_equal [item_1, item_3], repo.find_all_with_description("2")
+  end
+
+  def test_it_can_find_all_by_price
+    item_1 = stub("Item", id: 123, unit_price: BigDecimal.new(12.00, 4))
+    item_2 = stub("Item", id: 456, unit_price: BigDecimal.new(13.00, 4))
+    item_3 = stub("Item", id: 321, unit_price: BigDecimal.new(12.00, 4))
+    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)
+    datas = [{id:123},{id:456},{id:321}]
+    repo = ItemRepository.new(datas)
+    assert_equal [item_1, item_3], repo.find_all_by_price(BigDecimal.new(12.00, 4))
+  end
+
+  def test_it_can_find_all_by_price_in_range
+    item_1 = stub("Item", id: 123, unit_price: BigDecimal.new(12.00, 4))
+    item_2 = stub("Item", id: 456, unit_price: BigDecimal.new(18.00, 4))
+    item_3 = stub("Item", id: 321, unit_price: BigDecimal.new(5.00, 4))
+    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)
+    datas = [{id:123},{id:456},{id:321}]
+    repo = ItemRepository.new(datas)
+    assert_equal [item_1, item_3], repo.find_all_by_price_in_range((4..15))
+  end
+
+  def test_it_can_find_all_items_by_merchant_id
+    item_1 = stub("Item", id: 123, merchant_id: 1234)
+    item_2 = stub("Item", id: 456, merchant_id: 4567)
+    item_3 = stub("Item", id: 321, merchant_id: 1234)
+    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)
+    datas = [{id:123},{id:456},{id:321}]
+    repo = ItemRepository.new(datas)
+    assert_equal [item_1, item_3], repo.find_all_by_merchant_id(1234)
+  end
+
 end
