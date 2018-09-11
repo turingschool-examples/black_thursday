@@ -39,7 +39,20 @@ class ItemTest<Minitest::Test
     result = @ir.find_all_by_price('1350')
     assert_equal 1350, result.first.unit_price.to_i
   end
-  #
+
+   def test_it_returns_array_of_items_priced_within_givin_range
+    range = (1000.00..1500.00)
+    result = @ir.find_all_by_price_in_range(range)
+
+    assert_equal 4, result.length
+   end
+
+  # def test_find_all_by_merchant_id_finds_items_by_given_merchant_id
+  #   items = @ir.find_all_by_merchant_id(12334113)
+  #   assert_equal "Vogue Paris Original Givenchy 2307", items[0].name
+  #   assert_equal "Cache cache à la plage", items[1].name
+  # end
+  # #
   # def test_it_can_find_merchant_by_id
   #   result = @ir.find_by_id(263397059)
   #
