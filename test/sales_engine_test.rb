@@ -56,10 +56,7 @@ class SalesEngineTest < Minitest::Test
 
   # --- Sales Analyst ---
 
-  def test_it_gets_average_items_per_merchant
-    binding.pry
 
-  end
 
 
 

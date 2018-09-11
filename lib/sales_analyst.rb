@@ -19,37 +19,44 @@ class SalesAnalyst
 
   def group_by(repo, method)
     groups = repo.group_by { |object| object.send(method)}  #method is a symbol
-  end
+  end   # returns a hash
 
-  def average(values)
-    sum = values.inject(0) { |tot, val| tot += val.to_f }
-    ct = values.count.to_f
-    average = (sum / ct) #.round(2)
-  end
+  def sum(values)
+    sum = values.inject(0) { |total, val| total += val.to_f }
+  end   # returns an rounded float
 
+  def average(values, ct = values.count)
+    sum     = sum(values)
+    ct      = ct.to_f
+    average = (sum / ct)
+  end   # returns an unrounded float
+
+  # TO DO -  TEST ME
   def standard_deviation(values, mean)
-    values = values.each { |val| (val.to_f - mean) ** 2 }     # (each value - mean)**2
-    sum = values.inject(0) { |total, val| total += val }      # sum squares
-    div = sum / (values.count - 1)                            # sum / (ct -1)
-    sqrt = Math.sqrt(div)                                     # Math.sqrt(above)
+    floats      = values.map     { |val| val.to_f   }
+    difference  = floats.map     { |val| val - mean }
+    values      = difference.map { |val| val ** 2   }
+    sample_ct   = (values.count - 1)
+    div         = average(values, sample_ct)
+    sqrt        = Math.sqrt(div)
     return sqrt.round(2)
-  end
+  end   # returns float rounded to 2 places
 
 
   # --- Merchant Methods ---
 
   def average_items_per_merchant
     groups = group_by(@items, :merchant_id)
-    vals = groups.values.inject([]) { |arr, store| arr << store.count }
-    mean = average(vals)
+    vals   = groups.values.inject([]) { |arr, shop| arr << shop.count }
+    mean   = average(vals)
     return mean.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
+    mean   = average_items_per_merchant
     groups = group_by(@items, :merchant_id)
-    vals = groups.values.inject([]) { |arr, store| arr << store.count }
-    std = standard_deviation(vals, mean)
+    vals   = groups.values.inject([]) { |arr, shop| arr << shop.count }
+    std    = standard_deviation(vals, mean)
   end
 
 
