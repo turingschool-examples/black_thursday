@@ -84,8 +84,14 @@ class SalesAnalystTest < Minitest::Test
 
   # --- Item Repo Analysis Methods ---
 
-  # TO DO - TEST ME
-  # def merchant_stores
+  def test_it_creates_merchant_stores_by_id_and_item_collection
+    qty_merch  = @sa_csv.merchants.count
+    qty_stores = @sa_csv.merchant_stores.count
+    assert_equal qty_merch, qty_stores
+    assert_instance_of Hash, @sa_csv.merchant_stores
+    assert_instance_of Array, @sa_csv.merchant_stores.values[0]
+    assert_instance_of Item, @sa_csv.merchant_stores.values[0][0]
+  end
 
   # TO DO - TEST ME
   # def merchant_store_item_counts(groups)

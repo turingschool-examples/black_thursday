@@ -51,7 +51,6 @@ class SalesAnalyst
 
   # --- Item Repo Analysis Methods ---
 
-  # TO DO - TEST ME
   def merchant_stores
     groups = group_by(@items, :merchant_id)
   end
