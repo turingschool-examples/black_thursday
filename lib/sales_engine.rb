@@ -6,7 +6,6 @@ require_relative 'csv_adapter'
 require_relative 'crud'
 
 require 'csv'
-require 'pry'
 
 class SalesEngine
 include Crud
