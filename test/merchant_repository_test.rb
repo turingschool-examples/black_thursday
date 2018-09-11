@@ -42,9 +42,16 @@ class MerchantTest < Minitest::Test
 
   def test_new_merchant_instance_can_update_name
     new_merchant = @mr.create({:name => "Aizar Aaron"})
-    @mr.find_by_id(12334156)
     result = @mr.update(12334156, {:name => "DudeMan"})
-    # require 'pry'; binding.pry
     assert_equal "DudeMan", result.name
+  end
+
+  def test_we_can_delete_instance_by_id
+    new_merchant = @mr.create({:name => "Aizar Aaron"})
+
+    assert_equal 14, @mr.merchants.length
+    @mr.delete(12334156)
+    assert_equal 13, @mr.merchants.length
+    refute @mr.merchants.include? new_merchant
   end
 end
