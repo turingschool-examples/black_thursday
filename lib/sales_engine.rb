@@ -1,19 +1,26 @@
 class SalesEngine
 
-
-def initialize(data)
-  @data = data
+def self.from_csv(params)
+ # file_location.each do |repository, file_path|
+    items = ItemsRepo.new(params[:items])
+    merchants = MerchantRepo.new(params[:merchants])
+    # binding.pry
 end
 
-def self.from_csv(file_location)
- file_location.each do |repository, file_path|
-    merchants = MerchantRepo.new(file_location[:merchants])
-    items = ItemsRepo.new(file_location[:items])
-   binding.pry
- #we need to return the hash now and maybe we can use explicit return or new (file_location)
- #if this doesn't work
- # data_from_csv
+def merchants
+  @merchants ||=MerchantRepo.new.tap do |merchant_repo|
+    merchant_repo.populate(@data[:merchants])
+  end
 end
+
+# def merchants
+#   merchants
+# end
+ # looked over my notes. two suggestions:
+
+# 1. Create a key/value pair for the objects that are being sourced in a given CSV file, and the relative URL.
+# Pass that key/value pair (as a hash) into the "load data" method,
+# and it can read the key and send the CSV data to the right repository.
 
 
 #merchants method populates your merchant repo

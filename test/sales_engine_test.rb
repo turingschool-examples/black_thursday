@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_engine'
 require './lib/merchant_repo'
+require './lib/items_repo'
 require 'pry'
 
 class SalesEngineTest < Minitest::Test
@@ -11,12 +12,13 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv(
                                {:items => "./test/fixtures/items.csv",
-                                :merchants => "wherevermerchantslives"}
+                                :merchants => "./test/fixtures/merchants.csv"}
                             )
   end
 
   def test_it_exists
-    assert_instance_of SalesEngine, @se
+    sales_engine = SalesEngine.new
+    assert_instance_of SalesEngine, sales_engine
   end
 
   def test_it_can_populate_repos
