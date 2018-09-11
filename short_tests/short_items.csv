@@ -4,3 +4,5 @@ id,name,description,unit_price,merchant_id,created_at,updated_at
 3,basket,"comes in three small or large",2200,3,2011-01-12 11:45:35 UTC,1997-06-10, 23:45:33 UTC
 4,bulletin board,"decorated around edges",1500,4,2014-01-12 11:47:35 UTC,1999-06-10, 23:45:36 UTC
 5,calendar,"has flamingos on it",2200,3,2010-01-12 12:45:35 UTC,2000-06-10,23:49:40 UTC
+6,fabric,"hawaiian theme",200,3,2011-09-12 12:34:24 UTC,2010-06-10,23:49:40 UTC
+7,plastic straw,"great for parties",300,3,2011-09-12 12:34:24 UTC,2010-06-10,23:49:40 UTC
