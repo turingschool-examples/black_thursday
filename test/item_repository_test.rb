@@ -24,12 +24,12 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_has_no_items_to_start
     @ir = ItemRepository.new
-    assert_equal [], @ir.items
+    assert_equal [], @ir.all
   end
 
   def test_new_item_added_to_item_array
     @ir.create(@hash)
-    assert_instance_of Item, @ir.items[0]
+    assert_instance_of Item, @ir.all[0]
   end
 
   def test_it_can_add_by_hash_attributes
