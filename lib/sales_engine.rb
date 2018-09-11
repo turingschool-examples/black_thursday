@@ -15,7 +15,6 @@ include Crud
 
   def initialize(filepath)
     @filepath = filepath
-
   end
 
   def self.from_csv(filepath)
@@ -34,7 +33,20 @@ include Crud
    end
  end
 
- def merchants 
-  @merchants ||= MerchantRepository.new(CsvAdapter.load(filepath[:merchants]), self)
+ def merchants
+   @merchants ||= MerchantRepository.new(filepath, self)
+   @merchants.collection 
  end
+
+#  def loader(filepath)
+#    merchant_table = load(filepath)
+#     merchant_table.map do |merchant|
+#       Merchant.new(merchant, @parent)
+#     end
+#   end
+
 end
+
+
+
+# @merchants ||= MerchantRepository.new(load(filepath[:merchants], self))

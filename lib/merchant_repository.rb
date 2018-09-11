@@ -1,4 +1,5 @@
 require 'CSV'
+require_relative 'csv_adapter'
 require 'bigdecimal'
 require 'bigdecimal/util'
 
@@ -11,16 +12,12 @@ include Crud
   attr_reader :collection,
               :changeable_attributes
 
-  def initialize(content, parent)
-    @collection = content.map do |hash|
-      Merchant.new(hash, self) 
-    end
+  def initialize(filepath, parent)
+    @collection = []
+    
+    loader(filepath)
     @parent = parent 
     @changeable_attributes = [:name]
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def create(attributes)
@@ -35,8 +32,13 @@ include Crud
   end
 
   def all 
-    @collection.count
-  
+    @collection
   end
-  
+
+  def loader(filepath)
+    merchant_table = load(filepath)
+     merchant_table.map do |merchant|
+      @collection << Merchant.new(merchant, @parent)
+     end
+   end
 end

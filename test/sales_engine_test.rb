@@ -22,8 +22,10 @@ class SalesEngineTest < Minitest::Test
 
   def test_import_merchants
    engine = SalesEngine.new("./data/merchants_tiny.csv")
-   expected = [] 
-   assert_equal expected, engine.mr.import_merchants(expected)
+   expected = 9
+   assert_equal expected, engine.merchants.count
   end
+
+
 end
 
