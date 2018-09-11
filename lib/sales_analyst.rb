@@ -13,16 +13,22 @@ class SalesAnalyst
     # binding.pry
   end
 
-  def standard_deviation(values, mean)
-    # each value - mean
-    # each difference ^2
-    # sum squares
-    # sum / (ct -1)
-    # Math.sqrt(above)
+  # --- General Methods ---
 
+  def group_by(repo, method)
+    groups = repo.group_by { |object| object.send(method)}  #method is a symbol
+  end
+
+  def standard_deviation(values, mean)
+    values = values.each { |val| (val.to_f - mean) ** 2 }     # (each value - mean)**2
+    sum = values.inject(0) { |total, val| total += val }      # sum squares
+    div = sum / (values.count - 1)                            # sum / (ct -1)
+    sqrt = Math.sqrt(div)                                     # Math.sqrt(above)
+    return sqrt.round(2)
   end
 
 
+  # --- Merchant Methods ---
 
   def average_items_per_merchant
     groups = @items.group_by { |item| item.merchant_id }
@@ -33,8 +39,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-
+    mean = average_items_per_merchant
+    groups = group_by(@items, :merchant_id)
+    # groups = @items.group_by { |item| item.merchant_id }
+    vals = groups.values.inject([]) { |arr, store| arr << store.count }
+    std = standard_deviation(vals, mean)
   end
+
 
 
 

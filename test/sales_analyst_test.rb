@@ -32,13 +32,37 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa_csv
   end
 
+  def test_it_does_standard_deviation
+    vals = [1, 2, 3, 4, 5]
+    # TO DO - HARDCODE more of this here (less calculations)
+    mean = ((1 + 2 + 3 + 4 + 5) / 5).round(2)   # merchant average is rounded 2
+    squares = vals.map { |val| (val - mean)**2 }
+    sum = vals.inject(0) {|tot, val| tot += val }
+    av = sum / (5-1)
+    std = Math.sqrt(av).round(2)
+
+    # mean = 3.00     # merchant average is rounded 2
+    # val1 = (1-mean)**2 ; val2 = (2-mean)**2
+    # val3 = (3-mean)**2 ; val4 = (4-mean)**2
+    # val5 = (5-mean)**2
+    # average = (val1 + val2 + val3 + val4 + val5) / 5.to_f
+    # std = Math.sqrt(average).round(2)
+
+    assert_equal std, @sa_csv.standard_deviation(vals, mean)
+  end
+
+
   def test_it_gets_average_items_per_merchant
     assert_equal 2.88, @sa_csv.average_items_per_merchant
   end
 
   def test_it_gets_items_per_merchant_standard_deviation
-
+    actual = @sa_csv.average_items_per_merchant_standard_deviation
+    binding.pry
+    assert_equal 3.26, actual
   end
+
+
 
 
 end
