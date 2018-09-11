@@ -41,7 +41,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_new_merchant_instance_can_update_name
-    new_merchant = @mr.create({:name => "Aizar Aaron"})
+    @mr.create({:name => "Aizar Aaron"})
     result = @mr.update(12334156, {:name => "DudeMan"})
     assert_equal "DudeMan", result.name
   end
