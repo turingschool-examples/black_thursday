@@ -32,7 +32,16 @@ class SalesAnalyst
     @se.items.all.each do |item|
       hash[item.merchant_id] += 1
     end
+    threshold = average_items_per_merchant +
+                average_items_per_merchant_standard_deviation
 
+    merchant_ids = hash.find_all do |key, value|
+      value > threshold
+    end
+
+    merchant_ids.map do |id, value|
+      @se.merchants.find_by_id(id)
+    end
   end
 
   def average_item_price_for_merchant(merchant_id)
