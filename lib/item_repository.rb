@@ -17,10 +17,12 @@ class ItemRepository < Repository
   end
 
   def find_all_with_description(description)
-    @data.find_all do |datum|
-      datum.description.include?(description)
-    end
+    all_items = @data.find_all do |datum|
+      datum.description.downcase.include?(description.downcase)
+      end
+      return all_items
   end
+
 
   def find_all_by_price(price)
     @data.find_all do |datum|
