@@ -1,3 +1,12 @@
+require 'time'
+require 'bigdecimal'
+require_relative '../lib/sales_engine'
+require_relative '../lib/csv_adaptor'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repo'
+require_relative '../lib/item'
+require_relative '../lib/item_repo'
+
 class ItemRepo < CsvAdaptor
 
   attr_reader :data_file,
@@ -25,7 +34,6 @@ class ItemRepo < CsvAdaptor
         return item
       end
     end
-    nil
   end
 
   def find_by_name(name)

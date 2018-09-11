@@ -7,7 +7,7 @@ require_relative '../lib/merchant_repo'
 require_relative '../lib/item'
 require_relative '../lib/item_repo'
 
-class SalesEngine
+class SalesEngine < CsvAdaptor
 
   attr_reader :item_file,
               :merchant_file

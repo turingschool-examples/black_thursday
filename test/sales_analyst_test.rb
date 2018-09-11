@@ -124,12 +124,42 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_find_merchant_objects_with_high_item_count
     sales_engine = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/sample_merchant_file.csv"
     })
     sales_analyst = sales_engine.analyst
 
     assert_instance_of Merchant, sales_analyst.find_merchant_objects_with_high_item_count[0]
   end
 
+  def test_average_item_price_for_merchant
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/sample_merchant_file.csv"
+    })
+    sales_analyst = sales_engine.analyst
+    id = 1233400
+
+    assert_equal BigDecimal(3424 / 100), sales_analyst.average_item_price_for_merchant(id)
+  end
+
+  def test_average_item_price_for_merchant
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/sample_merchant_file.csv"
+    })
+    sales_analyst = sales_engine.analyst
+
+    assert_equal "", sales_analyst.average_average_price_per_merchant
+  end
+
+  def test_item_price_find_standard_deviation
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./data/sample_item_data.csv",
+    :merchants => "./data/sample_merchant_file.csv"
+    })
+    sales_analyst = sales_engine.analyst
+
+    assert_equal "", sales_analyst.average_item_price_standard_deviation
+  end
 end

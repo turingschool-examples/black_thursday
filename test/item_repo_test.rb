@@ -117,8 +117,7 @@ class ItemRepoTest < Minitest::Test
     data_file = "./data/sample_item_data.csv"
     ir = ItemRepo.new(data_file)
     ir.all
-    attributes = {name: "TEST_ITEM", created_at: "2018-09-08", merchant_id: 5}
-
+    attributes = {name: "TEST_ITEM", created_at: "2018-09-08", merchant_id: 5, unit_price: 1000}
     assert_instance_of Item, ir.create(attributes)
     assert_equal 372872193712983130, ir.create(attributes).id
   end
