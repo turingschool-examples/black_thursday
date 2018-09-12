@@ -80,13 +80,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-<<<<<<< HEAD
-
-        :unit_price  => BigDecimal.new(7.50,4),
-
-=======
         :unit_price  => BigDecimal.new("7.50"),
->>>>>>> f383e696193518f2683634daad455d6f6829953c
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5

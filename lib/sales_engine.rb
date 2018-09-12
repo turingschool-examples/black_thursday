@@ -1,11 +1,3 @@
-
-require 'pry'
-require 'csv'
-class SalesEngine
-  def initialize(items_and_merchants)
-    @items = items_and_merchants[:items]
-    @merchants = items_and_merchants[:merchants]
-
 require_relative './merchant_repository'
 require_relative './merchant'
 require_relative './item_repository'
@@ -27,11 +19,6 @@ class SalesEngine
     merchants_filepath = filepath_hash[:merchants]
     items_filepath = filepath_hash[:items]
     SalesEngine.new(merchants_filepath, items_filepath)
-
   end
 
-  def self.from_csv(file)
-    csv_object = CSV.open("file", headers: true, header_converters: :symbol)
-    csv_object.map do |object|
-      object[]
 end

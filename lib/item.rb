@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-require 'pry'
-require_relative './merchant'
-=======
 require 'csv'
 require 'bigdecimal'
 require 'time'
->>>>>>> f383e696193518f2683634daad455d6f6829953c
+
 
 class Item
 

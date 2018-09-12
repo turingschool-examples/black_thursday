@@ -15,10 +15,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, se
   end
 
-<<<<<<< HEAD
-  def test_it_can_initialize_from_csv
-    se = SalesEngine.from_csv()
-=======
+
   def test_it_can_create_repos_from_csv
     se = SalesEngine.from_csv({
         :items => './data/test_items.csv',
@@ -29,5 +26,5 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Shopin1901", actual
   end
 
->>>>>>> f383e696193518f2683634daad455d6f6829953c
+
 end
