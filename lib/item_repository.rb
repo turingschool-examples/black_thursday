@@ -19,6 +19,7 @@ class ItemRepository
 
     item_objects.map do |object|
       object[:id] = object[:id].to_i
+
       @attributes_array << object.to_h
     end
     @attributes_array.map do |hash|
@@ -102,6 +103,7 @@ class ItemRepository
     #     item[attr_sym] == search_string.downcase
     #   end
     # end
+
 
 
 

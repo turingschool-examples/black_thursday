@@ -6,8 +6,8 @@ class Merchant
               :name
 
   def initialize(data)
-    @id = args[:id]
-    @name = args[:name]
+    @id = data[:id]
+    @name = data[:name]
   end
 
 end

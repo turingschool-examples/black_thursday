@@ -12,7 +12,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, ir
   end
 
+
   def test_it_can_return_all_items
+
     ir = ItemRepository.new("./data/items.csv")
     i1 = Item.new({
       :id          => 1,
@@ -27,7 +29,10 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
+
         :unit_price  => BigDecimal.new(7.50,4),
+
+
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -273,6 +278,7 @@ class ItemRepositoryTest < Minitest::Test
     ir.delete(2)
     assert_nil ir.find_by_id(2)
   end
+
 
 
 end
