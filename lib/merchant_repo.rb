@@ -9,7 +9,6 @@ class MerchantRepo
 include BlackThursdayHelper
   def initialize(file_path)
     @collections = []
-    # binding.pry
     populate(file_path)
   end
 

@@ -3,6 +3,8 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
+require 'CSV'
+require 'time'
 require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repo'
 
@@ -16,8 +18,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_exists
-    sales_engine = SalesEngine.new
-    assert_instance_of SalesEngine, sales_engine
+    assert_instance_of SalesEngine, @se
   end
 
   def test_it_can_populate_repos
