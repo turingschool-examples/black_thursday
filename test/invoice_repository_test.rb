@@ -6,8 +6,10 @@ require_relative './test_helper'
 class InvoiceRepositoryTest <Minitest::Test
   def test_it_exists
     se = SalesEngine.from_csv({:invoices => "./short_tests/short_invoice.csv"})
+    invoice = se.invoices
 
     assert_instance_of SalesEngine, se
+    assert_instance_of InvoiceRepository, invoice
   end
 
   def test_all_returns_array
