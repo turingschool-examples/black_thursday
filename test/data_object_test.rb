@@ -3,11 +3,8 @@ require_relative '../lib/data_object'
 
 class DataObjectTest < Minitest::Test
   def setup
-
     @object = DataObject.new({})
-
     @time_1 = '1993-10-28 11:56:40 UTC'
-
     @time_2 = '1993-09-29 12:45:30 UTC'
     @raw_data = {id:          '123',
                 name:        'testname',
@@ -37,9 +34,7 @@ class DataObjectTest < Minitest::Test
   end
 
   def test_it_normalizes_data
-
     actual = DataObject.normalize_attributes(@raw_data)
-
     expected = {id:          123,
                 name:        'testname',
                 description: 'fakedescription',
@@ -49,7 +44,6 @@ class DataObjectTest < Minitest::Test
                 unit_price:  BigDecimal.new(12.00, 4),
                 created_at:  Time.parse(@time_1),
                 updated_at:  Time.parse(@time_2)}
-
     assert_equal(expected, actual)
   end
 
@@ -61,5 +55,4 @@ class DataObjectTest < Minitest::Test
     assert_instance_of(Dummy, dummy)
     assert_equal('testname', dummy.name)
   end
-
 end

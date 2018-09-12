@@ -1,7 +1,6 @@
 require_relative './data_object'
 
 class Item < DataObject
-
   def initialize(attributes)
     @editable = [:name, :description, :unit_price]
     super(attributes)
@@ -39,5 +38,4 @@ class Item < DataObject
     super(attributes)
     @attributes[:updated_at] = Time.now
   end
-
 end
