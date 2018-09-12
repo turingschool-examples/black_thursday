@@ -79,7 +79,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_golden_items
-    unit_prices = ["1.0", "1.1", "200", "1.3", "1.4", "1.2"]
+    unit_prices = ['1.0', '1.1', '200', '1.3', '1.4', '1.2']
 
     item_stubs = unit_prices.map do |price|
       stub('Item', unit_price: BigDecimal.new(price))
