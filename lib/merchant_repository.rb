@@ -17,12 +17,12 @@ include Crud
     @collection = []
     loader(filepath)
     @parent = parent
-    @changeable_attributes = [:name]
+    # @changeable_attributes = [name]
   end
 
   def create(attributes)
-    largest = (@collection.max_by {|element| element[:id]})
-    attributes[:id] = (largest[:id] + 1)
+    largest = (@collection.max_by {|element| element.id})
+    attributes[:id] = (largest.id + 1)
     attributes[:updated_at] = Time.now
     attributes[:created_at] = Time.now
     merch = Merchant.new(attributes, self)
@@ -30,7 +30,7 @@ include Crud
   end
 
   def find_all_by_name(string)
-    find_all_by(:name, string)
+    find_all_by("name", string)
   end
 
   def all
