@@ -1,5 +1,7 @@
+require 'csv'
+require 'bigdecimal'
+require 'time'
 require_relative './repository_module'
-require 'pry'
 
 class ItemRepository
   include RepoMethods
@@ -11,11 +13,12 @@ class ItemRepository
   end
 
   def create(attributes)
-    isnt_included = @all.any? do |item|
-      attributes[:id] != item.id
+    is_included = @all.any? do |item|
+      attributes[:id] == item.id
     end
+    is_included = false if @all == []
     has_id = attributes[:id] != nil
-    if has_id && isnt_included
+    if has_id && !is_included
       @all << Item.new(attributes)
     elsif @all == []
       new_id = 1
@@ -31,6 +34,27 @@ class ItemRepository
     end
   end
 
+  def split(filepath)
+    objects = CSV.open(filepath, headers: true, header_converters: :symbol)
+    attributes_array = []
+    objects.map do |object|
+      object[:id] = object[:id].to_i
+
+      object[:unit_price] = BigDecimal.new(object[:unit_price]) / 100
+
+      object[:merchant_id] = object[:merchant_id].to_i
+
+      object[:created_at] = Time.parse(object[:created_at])
+
+      object[:updated_at] = Time.parse(object[:updated_at])
+
+      attributes_array << object.to_h
+    end
+    attributes_array.each do |hash|
+      create(hash)
+    end
+  end
+
   def find_all_with_description(description)
     @all.find_all do |item|
       item.description.downcase.include?(description.downcase)
@@ -39,13 +63,13 @@ class ItemRepository
 
   def find_all_by_price(price)
     @all.find_all do |item|
-      item.unit_price.to_f == price.to_f
+      item.unit_price_to_dollars == price
     end
   end
 
   def find_all_by_price_in_range(range)
     @all.find_all do |item|
-      range.include?(item.unit_price.to_f)
+      range.include?(item.unit_price_to_dollars)
     end
   end
 
@@ -53,6 +77,10 @@ class ItemRepository
     @all.find_all do |item|
       item.merchant_id == merchant_id.to_i
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

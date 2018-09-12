@@ -1,5 +1,7 @@
+require 'csv'
+require 'bigdecimal'
+require 'time'
 require_relative './repository_module'
-require 'pry'
 
 class MerchantRepository
   include RepoMethods
@@ -11,11 +13,12 @@ class MerchantRepository
   end
 
   def create(attributes)
-    isnt_included = @all.any? do |merchant|
-      attributes[:id] != merchant.id
+    is_included = @all.any? do |merchant|
+      attributes[:id] == merchant.id
     end
     has_id = attributes[:id] != nil
-    if has_id && isnt_included
+    is_included = false if @all == []
+    if has_id && !is_included
       @all << Merchant.new(attributes)
     elsif @all == []
       new_id = 1
@@ -31,11 +34,27 @@ class MerchantRepository
     end
   end
 
+  def split(filepath)
+    objects = CSV.open(filepath, headers: true, header_converters: :symbol)
+    attributes_array = []
+    objects.map do |object|
+      object[:id] = object[:id].to_i
+      attributes_array << object.to_h
+    end
+    attributes_array.each do |hash|
+      create(hash)
+    end
+  end
+
   def find_all_by_name(name)
     @all.find_all do |merchant|
       merchant_name = merchant.name.downcase
       merchant_name.include?(name.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
