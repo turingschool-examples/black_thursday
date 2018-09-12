@@ -1,4 +1,5 @@
 require_relative './modules/precision_math'
+require_relative './modules/data_object_helper'
 
 require 'time'
 
@@ -21,7 +22,8 @@ class DataObject
                   invoice_id:  'convert_to_int',
                   unit_price:  'convert_to_big_d_dollars',
                   created_at:  'convert_to_dates',
-                  updated_at:  'convert_to_dates'}
+                  updated_at:  'convert_to_dates',
+                  status:      'convert_to_symbol'}
 
     attrs.map do |key, value|
       if normalizer[key]
@@ -45,6 +47,10 @@ class DataObject
     Time.parse(raw_date)
   end
 
+  def self.convert_to_symbol(string)
+    string.to_sym
+  end
+
   def update(attributes)
     normal = DataObject.normalize_attributes(attributes)
     normal.each do |key, value|
@@ -52,6 +58,7 @@ class DataObject
         @attributes[key] = normal[key]
       end
     end
+    @attributes[:updated_at] = Time.now
   end
 
   def id

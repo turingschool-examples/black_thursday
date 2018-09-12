@@ -4,8 +4,9 @@ require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    @engine = SalesEngine.from_csv({:items => './test/data/items.csv',
-                                    :merchants => './test/data/merchants.csv'})
+    @engine = SalesEngine.from_csv(:items => './test/data/items.csv',
+                                   :merchants => './test/data/merchants.csv',
+                                   :invoices => './test/data/invoices.csv')
 
     @analyst = @engine.analyst
   end
@@ -25,12 +26,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_average_items_per_merchant_standard_deviation
-    merch = stub('Merchant', id:1)
-    merch_array = [merch]*5
+    merch = stub('Merchant', id: 1)
+    merch_array = [merch] * 5
     @engine.merchants.stubs(:all).returns(merch_array)
-    @engine.items.stubs(:find_all_by_merchant_id).returns([0]*5, [0]*3,
-                                                          [0]*6, [0]*2,
-                                                          [0]*7)
+    @engine.items.stubs(:find_all_by_merchant_id).returns([0] * 5, [0] * 3,
+                                                          [0] * 6, [0] * 2,
+                                                          [0] * 7)
 
     actual = @analyst.average_items_per_merchant_standard_deviation
     assert_equal 2.07, actual
@@ -42,19 +43,17 @@ class SalesAnalystTest < Minitest::Test
     merch3 = stub('Merchant', id: 3)
     merch_array = [merch1, merch2, merch3]
 
-    items = stub('Item')
-    item_array = [items]*105
     @engine.merchants.stubs(:all).returns(merch_array)
     @engine.items.stubs(:find_all_by_merchant_id).returns(
-            [0] * 2, [0] * 3, [0] * 100,
-            [0] * 2, [0] * 3, [0] * 100)
+      [0] * 2, [0] * 3, [0] * 100,
+      [0] * 2, [0] * 3, [0] * 100,
+      [0] * 2, [0] * 3, [0] * 100)
 
     actual = @analyst.merchants_with_high_item_count
     assert_equal [merch3], actual
   end
 
   def test_it_returns_average_item_price_for_merchant
-    merch = stub('Merchant', id:1)
     item1 = stub('Item', unit_price: BigDecimal.new(25.00, 4))
     item2 = stub('Item', unit_price: BigDecimal.new(30.00, 4))
     item3 = stub('Item', unit_price: BigDecimal.new(5.00, 4))
@@ -80,13 +79,68 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_golden_items
     unit_prices = ['1.0', '1.1', '200', '1.3', '1.4', '1.2']
-
     item_stubs = unit_prices.map do |price|
       stub('Item', unit_price: BigDecimal.new(price))
     end
-
     @engine.items.stubs(:all).returns(item_stubs)
 
     assert_equal [item_stubs[2]], @analyst.golden_items
+  end
+
+  def test_it_can_return_average_invoices_per_merchant
+    merch = stub('Merchant', id: 1)
+    merch_array = [merch] * 5
+    @engine.merchants.stubs(:all).returns(merch_array)
+    @engine.invoices.stubs(:find_all_by_merchant_id).returns([0] * 5, [0] * 3,
+                                                             [0] * 6, [0] * 2,
+                                                             [0] * 7)
+
+    actual = @analyst.average_invoices_per_merchant
+    assert_instance_of Float, actual
+    assert_equal 4.6, actual
+  end
+
+  def test_it_can_return_average_invoices_per_merchant_standard_deviation
+    merch = stub('Merchant', id: 1)
+    merch_array = [merch] * 5
+    @engine.merchants.stubs(:all).returns(merch_array)
+    @engine.invoices.stubs(:find_all_by_merchant_id).returns([0] * 5, [0] * 3,
+                                                             [0] * 6, [0] * 2,
+                                                             [0] * 7)
+
+    actual = @analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.07, actual
+  end
+
+  def test_it_can_return_top_merchants_by_invoice_count
+    merch_ids = [1, 2, 3, 4, 5, 6]
+    merchants = merch_ids.map do |id|
+      stub('Merchant', id: id)
+    end
+
+    @engine.merchants.stubs(:all).returns(merchants)
+    @engine.invoices.stubs(:find_all_by_merchant_id).returns(
+      [0] * 5, [0] * 3, [0] * 6, [0] * 2, [0] * 7, [0] * 1000,
+      [0] * 5, [0] * 3, [0] * 6, [0] * 2, [0] * 7, [0] * 1000,
+      [0] * 5, [0] * 3, [0] * 6, [0] * 2, [0] * 7, [0] * 1000)
+
+    actual = @analyst.top_merchants_by_invoice_count
+    assert_equal [merchants[5]], actual
+  end
+
+  def test_it_can_return_bottom_merchants_by_invoice_count
+    merch_ids = [1, 2, 3, 4, 5, 6]
+    merchants = merch_ids.map do |id|
+      stub('Merchant', id: id)
+    end
+
+    @engine.merchants.stubs(:all).returns(merchants)
+    @engine.invoices.stubs(:find_all_by_merchant_id).returns(
+      [0] * 1000, [0] * 1000, [0] * 1, [0] * 1000, [0] * 1000, [0] * 1000,
+      [0] * 1000, [0] * 1000, [0] * 1, [0] * 1000, [0] * 1000, [0] * 1000,
+      [0] * 1000, [0] * 1000, [0] * 1, [0] * 1000, [0] * 1000, [0] * 1000)
+
+    actual = @analyst.bottom_merchants_by_invoice_count
+    assert_equal [merchants[2]], actual
   end
 end
