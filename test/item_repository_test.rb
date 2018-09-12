@@ -12,7 +12,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_split_csv
     ir = ItemRepository.new("./data/test_items.csv")
 
-    assert_equal "Glitter scrabble frames", ir.find_by_id(1).name
+    assert_equal "Glitter scrabble frames", ir.find_by_id(263395617).name
   end
 
   def test_it_can_add_individual_items
@@ -185,7 +185,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => 7.50,
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5

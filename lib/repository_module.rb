@@ -1,18 +1,8 @@
 require 'csv'
+require 'bigdecimal'
+
 
 module RepoMethods
-
-  def split(filepath)
-    objects = CSV.open(filepath, headers: true, header_converters: :symbol)
-    attributes_array = []
-    objects.map do |object|
-      object[:id] = object[:id].to_i
-      attributes_array << object.to_h
-    end
-    attributes_array.each do |hash|
-      create(hash)
-    end
-  end
 
   def add_individual_item(object)
     @all << object
@@ -36,13 +26,20 @@ module RepoMethods
   end
 
   def update(id, attributes)
+    return nil if attributes == {}
     object = find_by_id(id)
-    object.name = attributes[:name]
+    if attributes[:name] != nil
+      object.name = attributes[:name]
+    end
     if defined? object.description != nil
-      object.description = attributes[:description]
+      if attributes[:description] != nil
+        object.description = attributes[:description]
+      end
     end
     if defined? object.unit_price != nil
-      object.unit_price = attributes[:unit_price]
+       if attributes[:unit_price] != nil
+        object.unit_price = attributes[:unit_price]
+      end
     end
     if defined? object.updated_at != nil
       object.updated_at = Time.now
