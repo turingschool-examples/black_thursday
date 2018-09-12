@@ -1,6 +1,7 @@
 require_relative './item'
 require_relative './repository'
 require 'bigdecimal'
+require 'time'
 
 class ItemRepository < Repository
 
@@ -51,9 +52,8 @@ class ItemRepository < Repository
                         name: new_item[:name],
                         description: new_item[:description],
                         unit_price: new_item[:unit_price],
-                        created_at: Time.now,
-                        updated_at: Time.now,
                         merchant_id: new_item[:merchant_id])
+
     @data << new_item
     return new_item
   end
@@ -62,24 +62,21 @@ class ItemRepository < Repository
     item = find_by_id(id)
     return if item.nil?
     attributes.each do |key, value|
-      update_name(item, key, value) if key == :name
-      update_description(item, key, value) if key == :description
+      update_name(item, value) if key == :name
+      update_description(item, value) if key == :description
       update_unit_price(item, value) if key == :unit_price
     end
   end
 
-  def update_name(item, key, value)
+  def update_name(item, value)
     item.name = value
-    item.updated_at = Time.now + 1
   end
 
-  def update_description(item, key, value)
+  def update_description(item, value)
     item.description = value
-    item.updated_at = Time.now + 1
   end
 
   def update_unit_price(item, value)
     item.unit_price = value
-    item.updated_at = Time.now + 1
   end
 end

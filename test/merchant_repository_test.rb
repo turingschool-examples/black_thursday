@@ -75,11 +75,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Keckenbauer", actual.name
 
     id = (5)
-    attributes = {name: "Reuabnekcek"}
+    attributes = {name: "Reuabnekcek", created_at: 2010-07-15, updated_at: Time.now}
 
     merchant_repository.update(id, attributes)
 
     assert_equal "Reuabnekcek", actual.name
+
+    assert_equal 5, actual.id
   end
 
   def test_repo_can_delete_merchants
