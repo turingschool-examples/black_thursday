@@ -1,5 +1,9 @@
 require 'CSV'
+require_relative 'csv_adapter'
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'time'
+
 require_relative 'item.rb'
 require_relative 'crud.rb'
 
@@ -37,18 +41,22 @@ include Crud
   #   find_all_by_exact(:unit_price, string)
   # end
 
-  def find_all_by_exact(bigdec)
+  def find_all_by_price(bigdec)
     collection.keep_if do |element|
       element[:unit_price] == bigdec
     end
   end
 
 
-  def find_all_by_price_in_range(range)
-    big_range = ((range.begin.to_d)..(range.end.to_d))
+  def find_all_by_price_in_range(big_range)
+    # big_range = ((range.begin.to_d)..(range.end.to_d))
     collection.keep_if do |element|
       big_range.include? element[:unit_price]
     end
+  end
+
+  def all
+    @collection
   end
 
   def find_all_by_merchant_id(string)
