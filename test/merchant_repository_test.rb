@@ -13,7 +13,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_split_csv
     mr = MerchantRepository.new("./data/test_merchants.csv")
 
-    assert_equal "Shopin1901", mr.find_by_id(1).name
+    assert_equal "Shopin1901", mr.find_by_id(12334105).name
   end
 
   def test_it_can_add_individual_merchant
@@ -59,16 +59,38 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [m1, m3], mr.find_all_by_name("turing")
   end
 
-  def test_it_can_create_merchant
+  def test_it_can_create_merchant_with_empty_array
+    mr = MerchantRepository.new
+
+    mr.create({:id => 490, :name => "Jim Flooring"})
+    actual = mr.find_by_id(490).name
+    assert_equal "Jim Flooring", actual
+  end
+
+  def test_it_can_create_merchant_without_passing_id
     mr = MerchantRepository.new
     m1 = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 1, :name => "Galvanize Schools"})
+
     mr.add_individual_item(m1)
     mr.add_individual_item(m2)
-    mr.create({:id => 3, :name => "Alan Turing"})
 
-    actual = mr.find_by_id(3).name
-    assert_equal "Alan Turing", actual
+    mr.create({:name => "Jim Flooring"})
+    actual = mr.find_by_id(6).name
+    assert_equal "Jim Flooring", actual
+  end
+
+  def test_it_can_create_merchant_with_existing_id
+    mr = MerchantRepository.new
+    m1 = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 1, :name => "Galvanize Schools"})
+
+    mr.add_individual_item(m1)
+    mr.add_individual_item(m2)
+
+    mr.create({:id => 5, :name => "Jim Flooring"})
+    actual = mr.find_by_id(6).name
+    assert_equal "Jim Flooring", actual
   end
 
   def test_it_can_update_merchant

@@ -13,7 +13,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_split_csv
     ir = ItemRepository.new("./data/test_items.csv")
 
-    assert_equal "Glitter scrabble frames", ir.find_by_id(1).name
+    assert_equal "Glitter scrabble frames", ir.find_by_id(263395617).name
   end
 
   def test_it_can_add_individual_items
@@ -22,7 +22,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -40,7 +40,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -50,7 +50,7 @@ class ItemRepositoryTest < Minitest::Test
         :name        => "Notebook",
         :description => "You can use it to write on",
 
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => BigDecimal.new("7.50"),
 
 
         :created_at  => Time.now,
@@ -71,7 +71,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -80,9 +80,13 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
+<<<<<<< HEAD
 
         :unit_price  => BigDecimal.new(7.50,4),
 
+=======
+        :unit_price  => BigDecimal.new("7.50"),
+>>>>>>> f383e696193518f2683634daad455d6f6829953c
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -101,7 +105,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -110,7 +114,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => BigDecimal.new("7.50"),
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -128,7 +132,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -137,7 +141,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => BigDecimal.new("7.50"),
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -157,7 +161,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -166,7 +170,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => BigDecimal.new("7.50"),
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -184,7 +188,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -193,7 +197,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => 7.50,
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -212,7 +216,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -221,7 +225,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => BigDecimal.new("7.50"),
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -254,7 +258,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -263,7 +267,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => BigDecimal.new("7.50"),
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
@@ -293,7 +297,7 @@ class ItemRepositoryTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new("10.99"),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -302,7 +306,7 @@ class ItemRepositoryTest < Minitest::Test
         :id          => 2,
         :name        => "Notebook",
         :description => "You can use it to write on",
-        :unit_price  => BigDecimal.new(7.50,4),
+        :unit_price  => BigDecimal.new("7.50"),
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 5
