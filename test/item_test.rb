@@ -47,4 +47,30 @@ class ItemTest < Minitest::Test
     assert_equal 10.99, i.unit_price_to_dollars
   end
 
+  def test_it_returns_created_at
+    i = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    })
+    assert_instance_of Time, i.created_at
+  end
+
+  def test_it_returns_updated_at
+    i = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    })
+    assert_instance_of Time, i.updated_at
+  end
+
 end
