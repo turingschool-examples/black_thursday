@@ -20,7 +20,7 @@ class DataObject
                   created_at:  'convert_to_dates',
                   updated_at:  'convert_to_dates'}
 
-    normal = attrs.map do |key, value|
+    attrs.map do |key, value|
       if normalizer[key]
         value = self.send(normalizer[key], value)
       end

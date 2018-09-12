@@ -7,3 +7,4 @@ gem 'rake'
 gem 'minitest'
 gem 'mocha'
 gem 'simplecov', require: false, group: :test
+gem 'ruby_native_statistics'
