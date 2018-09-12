@@ -2,12 +2,13 @@ require 'pry'
 
 class Item
   attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
               :merchant_id,
               :created_at,
               :updated_at
+
+  attr_accessor :name,
+                :description,
+                :unit_price
 
   def initialize(item_hash)
     @id          = item_hash[:id].to_i

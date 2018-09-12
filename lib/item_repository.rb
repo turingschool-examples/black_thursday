@@ -65,9 +65,21 @@ class ItemRepository
   end
 
   def create(attributes)
-    attributes[:id] = @items.first.find_max_item_id.id + 1
-    new_item = Item.new(attributes)
-    @items << new_item
+    attributes[:id] = find_max_item_id.id + 1
+      new_item = Item.new(attributes)
+      @items << new_item
     new_item
   end
+
+  def update(id, attributes)
+    @items.find do |item|
+      if item.id == id
+      updated_nam = attributes[:name]
+      updated_description = attributes[:description]
+      updated_unit_price = attributes[:unit_price]
+      # item.updated_at = Time.now
+      end
+    end
+  end
+
 end
