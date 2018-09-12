@@ -94,7 +94,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal ir.find_by_id(263567475), actual
   end
 
-  def test_merchants_attributes_can_be_updated
+  def test_item_attributes_can_be_updated
     ir = ItemRepository.new('./data/items.csv')
 
     actual = ir.find_by_id(263395237)
