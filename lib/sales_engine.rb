@@ -18,7 +18,7 @@ include Crud
   end
 
   def self.from_csv(filepath)
-    SalesEngine.new(filepath)     
+    SalesEngine.new(filepath)
   end
 
   def create_instance_of_merchants(merchant_array)
@@ -34,8 +34,8 @@ include Crud
  end
 
  def merchants
-   @merchants ||= MerchantRepository.new(filepath, self)
-   @merchants.collection 
+   @merchants ||= MerchantRepository.new(filepath[:merchants], self)
+   # @merchants.collection
  end
 
 #  def loader(filepath)
