@@ -1,12 +1,9 @@
-
-
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
 
   def setup
-    
     @engine = SalesEngine.from_csv({:merchants => "./data/merchants_tiny.csv"})
   end
 
@@ -28,4 +25,3 @@ class SalesEngineTest < Minitest::Test
 
 
 end
-
