@@ -1,5 +1,6 @@
 require_relative '../lib/sales_analyst'
 require_relative '../lib/std_dev_module'
+require 'Date'
 
 class SalesAnalyst
   include StdDevModule
@@ -14,13 +15,7 @@ class SalesAnalyst
     @invoice_repo = invoice_repo
   end
 
-  def sum(array)
-    type = 0 if array[0].class != BigDecimal
-    type = BigDecimal.new(0,4) if array[0].class == BigDecimal
-      array.inject(type) do |sum, price|
-        price + sum
-    end
-  end
+
 
   def merchant_hash(repo)
     return_hash = {}
@@ -106,5 +101,29 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     per_merchant_standard_deviation(@invoice_repo)
+  end
+
+  def top_days_by_invoice_count
+    average = @invoice_repo.all.count/7
+    grouped_by_weekday = @invoice_repo.all.group_by do |invoice|
+      invoice.created_at.wday
+    end
+    invoices_by_day = grouped_by_weekday.values.map do |invoice_collection|
+      invoice_collection.count
+    end
+    a = day_nums = grouped_by_weekday.find_all do |weekday, invoices|
+      invoices.count >= average + standard_deviation(invoices_by_day)
+    end.to_h.keys
+    day_nums.map do |daynumber|
+      Date::DAYNAMES[daynumber]
+    end
+  end
+
+  def invoice_status(status_sym)
+    status = status_sym.to_s
+    grouped_by_status = @invoice_repo.all.group_by do |invoice|
+      invoice.status
+    end
+    (((grouped_by_status[status].count.to_f)/(@invoice_repo.all.count)) * 100).round(2)
   end
 end
