@@ -65,7 +65,7 @@ class ItemTest<Minitest::Test
 
   def test_we_can_update_attributes
     new_item = @ir.create({:name => "Rusty Shoes"})
-    result = @mr.update(263397060, {:name => "Nice Loafers", :description => "hurry up and buy", :unit_price => 2500})
+    @mr.update(263397060, {:name => "Nice Loafers", :description => "hurry up and buy", :unit_price => 2500})
     assert_equal "Nice Loafers", new_item.name
     assert_equal "hurry up and buy", new_item.description
     assert_equal 2500, new_item.unit_price.to_i
