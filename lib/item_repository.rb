@@ -53,15 +53,26 @@ attr_reader :items
     end
   end
 
+  def create(attributes)
+    attributes[:id] = @items[-1].id + 1
+    @items << Item.new(attributes)
+  end
+
   def update(id, attributes)
     item = find_by_id(id)
     item.name = attributes[:name] unless attributes[:name].nil?
     item.description = attributes[:description] unless attributes[:description].nil?
     item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
-    item.updated_at = Time.now
+    item.updated_at = Time.now unless (attributes[:name].nil? && attributes[:description].nil? && attributes[:unit_price].nil?)
+    item
+    require "pry"; binding.pry
   end
 
   def delete(id)
     @items.delete(find_by_id(id))
+  end
+
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
   end
 end

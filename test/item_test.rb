@@ -32,8 +32,8 @@ class ItemTest < Minitest::Test
     assert_equal "Pencil", i.name
     assert_equal "You can use it to write things", i.description
     assert_equal 2, i.unit_price
-    assert_equal "2016-01-11 09:34:06 UTC", i.created_at
-    assert_equal "2007-06-04 21:35:10 UTC", i.updated_at
+    assert_equal Time.parse('2016-01-11 09:34:06 UTC'), i.created_at
+    assert_equal Time.parse('2007-06-04 21:35:10 UTC'), i.updated_at
     assert_equal 2, i.merchant_id
     assert_equal 2.00, i.unit_price_to_dollars
   end
