@@ -1,3 +1,6 @@
+require 'csv'
+require 'bigdecimal'
+require 'time'
 require_relative './repository_module'
 
 class ItemRepository
@@ -37,7 +40,7 @@ class ItemRepository
     objects.map do |object|
       object[:id] = object[:id].to_i
 
-      object[:unit_price] = BigDecimal.new(object[:unit_price], object[:unit_price].length)
+      object[:unit_price] = BigDecimal.new(object[:unit_price]) / 100
 
       object[:merchant_id] = object[:merchant_id].to_i
 

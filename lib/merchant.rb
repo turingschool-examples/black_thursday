@@ -1,3 +1,6 @@
+require 'csv'
+require 'bigdecimal'
+require 'time'
 
 class Merchant
 

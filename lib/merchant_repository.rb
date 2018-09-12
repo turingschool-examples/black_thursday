@@ -1,3 +1,6 @@
+require 'csv'
+require 'bigdecimal'
+require 'time'
 require_relative './repository_module'
 
 class MerchantRepository

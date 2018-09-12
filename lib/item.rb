@@ -1,3 +1,6 @@
+require 'csv'
+require 'bigdecimal'
+require 'time'
 
 class Item
 
@@ -20,7 +23,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f / 100
+    @unit_price.to_f
   end
 
 end

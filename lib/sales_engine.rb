@@ -2,6 +2,9 @@ require_relative './merchant_repository'
 require_relative './merchant'
 require_relative './item_repository'
 require_relative './item'
+require 'csv'
+require 'bigdecimal'
+require 'time'
 
 class SalesEngine
   attr_reader :merchants,
