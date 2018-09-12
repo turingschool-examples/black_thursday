@@ -8,15 +8,14 @@ module Crud
   end
 
   def find_by_id(id)
-    require "pry"; binding.pry
     @collection.find do |element|
-      element.data[:id] == id
+      element[:id] == id
     end
   end
 
   def find_by_name(name)
     collection.find do |element|
-      element.data[:name].downcase == name.downcase
+      element[:name].downcase == name.downcase
     end
   end
 
@@ -26,27 +25,27 @@ module Crud
 
   def find_all_by_exact(key, string)
     collection.keep_if do |element|
-      element.data[key] == string
+      element[key] == string
     end
   end
 
   def find_all_by(key, string)
     collection.keep_if do |element|
-      element.data[key].downcase.include? string.downcase
+      element[key].downcase.include? string.downcase
     end
   end
 
   def delete(id)
-    collection.delete_if { |element| element.data[:id] == id }
+    collection.delete_if { |element| element[:id] == id }
   end
 
   def update(id, key_value_array)
-    it = collection.find { |element| element.data[:id] == id}
+    it = collection.find { |element| element[:id] == id}
 
     key_value_array.map do |key_value|
       if @changeable_attributes.include?(key_value[0])
-       it.data[key_value[0]] = key_value[1]
-       it.data[:updated_at] = Time.now
+       it[key_value[0]] = key_value[1]
+       it[:updated_at] = Time.now
       end
     end
   end

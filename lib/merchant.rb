@@ -1,10 +1,10 @@
 class Merchant
-	attr_reader :data, :parent
+	attr_reader :id, :name, :parent
 
 	def initialize(data, parent)
-		@data = data
+		@id = data[:id]
+		@name = data[:name]
 		@parent = parent
-		
 	end
-
+	
 end

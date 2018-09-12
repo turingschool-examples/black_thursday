@@ -1,35 +1,21 @@
 class Item
-	attr_reader :data
+	attr_accessor :id,
+	              :name,
+							  :description,
+						  	:unit_price,
+						  	:created_at,
+							  :updated_at,
+							  :merchant_id
 
-	def initialize(data)
-		@data = data
+	def initialize(data, parent)
+		@id = data[:id]
+		@name = data[:name]
+		@description = data[:description]
+		@unit_price = data[:unit_price]
+		@created_at = data[:created_at]
+		@updated_at = data[:updated_at]
+		@merchant_id = data[:merchant_id]
+		@parent = parent
 	end
 
-	def id
-		data[:id]
-	end
-
-	def name
-		data[:name]
-	end
-
-	def description
-		data[:description]
-	end
-
-	def unit_price
-		data[:unit_price]
-	end
-
-	def created_at
-		data[:created_at]
-	end
-
-	def updated_at
-		data[:updated_at]
-	end
-
-	def merchant_id
-		data[:merchant_id]
-	end
 end

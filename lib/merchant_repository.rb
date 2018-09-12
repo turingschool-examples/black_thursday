@@ -21,8 +21,8 @@ include Crud
   end
 
   def create(attributes)
-    largest = (@collection.max_by {|element| element.data[:id]})
-    attributes[:id] = (largest.data[:id] + 1)
+    largest = (@collection.max_by {|element| element[:id]})
+    attributes[:id] = (largest[:id] + 1)
     attributes[:updated_at] = Time.now
     attributes[:created_at] = Time.now
     merch = Merchant.new(attributes, self)

@@ -23,21 +23,21 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_id
     mr = MerchantRepository.new('./data/merchants_tiny.csv', self)
-    actual = mr.find_by_id(12334123).data[:id]
+    actual = mr.find_by_id(12334123)[:id]
     expected = 12334123
     assert_equal expected, actual
   end
 
   def test_find_by_name
     mr = MerchantRepository.new('./data/merchants_tiny.csv', self)
-    actual = mr.find_by_name("Keckenbauer").data[:name]
+    actual = mr.find_by_name("Keckenbauer")[:name]
     expected = "Keckenbauer"
     assert_equal expected, actual
   end
 
   def test_find_all_by_name
     mr = MerchantRepository.new('./data/merchants_tiny.csv', self)
-    actual = mr.find_all_by_name("bauer")[0].data[:name]
+    actual = mr.find_all_by_name("bauer")[0][:name]
     expected = "Keckenbauer"
     assert_equal expected, actual
   end
@@ -54,8 +54,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_create
     mr = MerchantRepository.new('./data/merchants_tiny.csv', self)
     mr.create({:id => 0, :name=>"Melvin", :created_at=>"2018-09-08", :updated_at=>"2018-09-08"})
-    newdude = mr.collection.max_by {|element| element.data[:id]}
-    actual = newdude.data[:id]
+    newdude = mr.collection.max_by {|element| element[:id]}
+    actual = newdude[:id]
     expected = 12334145
     assert_equal expected, actual
   end
@@ -64,7 +64,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new('./data/merchants_tiny.csv', self)
     mr.update(12334123, [[:name , "Keckenbooty"]])
     updated_item = mr.find_by_id(12334123)
-    assert_equal "Keckenbooty", updated_item.data[:name]
+    assert_equal "Keckenbooty", updated_item[:name]
   end
 
 end
