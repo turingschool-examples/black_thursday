@@ -74,7 +74,6 @@ class MerchantRepo < CsvAdaptor
     merchant = Merchant.new(attributes)
     merchant.create_id(find_highest_merchant_id + 1)
     @merchants << merchant
-    merchant
   end
 
   def update(id, attributes)
