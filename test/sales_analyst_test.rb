@@ -115,12 +115,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, actual
   end
 
+  # TO DO - FINDER MODULE!  -- use the merchant id to ensure 1st, 10th 30th all have more than one std value of items
   def test_it_can_find_merchants_with_item_content_greater_than_one_std
     sellers = @sa_csv.merchants_with_high_item_count
     assert_instance_of Array, sellers
     assert_instance_of Merchant, sellers[0]
-    # TO DO
-    # FINDER MODULE!  -- use the merchant id to ensure 1st, 10th 30th all have more than one std value of items
   end
 
   # TO DO - TEST WHEN finder method is available
@@ -134,9 +133,18 @@ class SalesAnalystTest < Minitest::Test
 
   # TO DO - TEST WHEN finder method is available
   def test_it_can_average_average_price_per_merchant
+    skip
     av_price = @sa_csv.average_average_price_per_merchant
     assert_equal ____, av_price
     assert_instance_of BigDecimal, av_price
+  end
+
+  # TO DO - FINDER MODULE!  -- use the merchant id to ensure 1st, 10th 30th all have more than one std value of items
+  def test_it_gets_golden_items
+    items = @sa_csv.golden_items
+    assert_instance_of Array, items
+    assert_instance_of Item, items[0]
+    assert_operator @sa_csv.items.all.count, >, items.count
   end
 
 

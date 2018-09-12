@@ -103,10 +103,14 @@ class SalesAnalyst
     mean = average(averages)
   end
 
-
+  def golden_items
+    # items with prices above 2 std of average price
+    prices = @items.all.map{ |item| item.unit_price }
+    mean = average(prices)
+    std = standard_deviation(prices, mean)
+    std_high = mean + (std * 2)
+    above = @items.all.find_all{|item| item.unit_price > std_high}.to_a
   end
-
-
 
 
 
