@@ -123,6 +123,21 @@ class SalesAnalystTest < Minitest::Test
     # FINDER MODULE!  -- use the merchant id to ensure 1st, 10th 30th all have more than one std value of items
   end
 
+  # TO DO - TEST WHEN finder method is available
+  def test_it_can_average_item_price_per_merchant
+    skip
+    id = *__interger__*
+    av_price = @sa_csv.average_item_price_for_merchant(id)
+    assert_equal ______, av_price
+    assert_instance_of BigDecimal, av_price
+  end
+
+  # TO DO - TEST WHEN finder method is available
+  def test_it_can_average_average_price_per_merchant
+    av_price = @sa_csv.average_average_price_per_merchant
+    assert_equal ____, av_price
+    assert_instance_of BigDecimal, av_price
+  end
 
 
 

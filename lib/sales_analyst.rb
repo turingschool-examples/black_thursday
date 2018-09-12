@@ -85,9 +85,28 @@ class SalesAnalyst
     return list
   end
 
+  # TO DO - TEST WHEN finder method is available
   def average_item_price_for_merchant(id)
+    # FINDER MODULE
+    id = id.to_s
+    group = @items.all.find_by_merchant_id(id)
+    total = group.inject(0) { |sum, item| sum += item.unit_price }
+    count = group.count
+    mean = total / count
+  end   # returns big decimal
+
+  # TO DO - TEST WHEN finder method is available
+  def average_average_price_per_merchant
+    repo = @merchants.all
+    ids = repo.map { |merch| merch.id.to_s }
+    averages = ids.map { |id| average_item_price_for_merchant(id) }
+    mean = average(averages)
+  end
+
 
   end
+
+
 
 
 
