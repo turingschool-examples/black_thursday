@@ -5,7 +5,7 @@ require_relative 'item'
 require_relative 'item_repository'
 require_relative 'sales_analyst'
 class SalesEngine
-    attr_reader :merchants, :items
+    attr_reader :merchants, :items, :sales_analyst
 
   def initialize(path_1, path_2)
     @merchants = MerchantRepository.new(path_2)

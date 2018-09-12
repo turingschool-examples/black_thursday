@@ -50,22 +50,26 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal expected, ir.find_all_with_description("google")[0]
     assert_equal [], ir.find_all_with_description("This doesn't exist")
+
+    assert_equal 263395237, expected.id
   end
 
   def test_it_can_find_all_by_price
     ir = ItemRepository.new("./data/items.csv")
     expected = ir.all[0]
 
+
     assert_equal 41, ir.find_all_by_price(12.00).count
     assert_equal expected, ir.find_all_by_price(12.00)[0]
   end
 
-  def test_it_can_find_all_by_price_range
-    ir = ItemRepository.new("./data/items.csv")
+  def test_it_can_find_all_by_price_in_range
+    ir = ItemRepository.new("./test/fixtures/items.csv")
     expected = ir.all[0]
     range = (12.00..13.00)
 
-    assert_equal 56, ir.find_all_by_price_range(range).count
+    assert_equal ir.all[0], ir.find_all_by_price_in_range(range)[0]
+    assert_equal 2, ir.find_all_by_price_in_range(range).count
     assert_equal expected, ir.find_all_by_price(12.00)[0]
   end
 
@@ -99,15 +103,17 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 2, ir.find_all_by_price(11.99).count
 
     id = (263395237)
-    new_attributes = {name: "510+ RealPush Icon Set VALUE PACK",
+    attributes = {name: "510+ RealPush Icon Set VALUE PACK",
                       description: "New description",
                       unit_price: 11.99}
 
-    ir.update(id, new_attributes)
+    ir.update(id, attributes)
 
-    assert_equal "510+ RealPush Icon Set VALUE PACK", actual.name
-    assert_equal [ir.all[0]], ir.find_all_with_description("New description")
-    assert_equal 3, ir.find_all_by_price(11.99).count
+    assert_equal '510+ RealPush Icon Set VALUE PACK', ir.find_by_id(id).name
+
+    assert_equal 11.99, ir.find_by_id(id).unit_price
+
+    assert_equal "New description", ir.find_by_id(id).description
 
   end
 

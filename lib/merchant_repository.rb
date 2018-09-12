@@ -19,23 +19,35 @@ class MerchantRepository < Repository
     end
   end
 
+  def find_all_by_name(name)
+    all_merch_names = @data.select do |datum|
+      datum.name.downcase.include?(name.downcase)
+    end
+    return all_merch_names
+  end
 
   def create(new_merchant)
     highest_id = @data.max_by do |datum|
       datum.id
     end.id
     new_merchant_id = highest_id += 1
-    new_merchant = Merchant.new(id: new_merchant_id, name: new_merchant[:name])
+    new_merchant = Merchant.new(id: new_merchant_id,
+                                name: new_merchant[:name])
     @data << new_merchant
     return new_merchant
   end
 
   def update(id, attributes)
-    @data.find do |datum|
-      if datum.id == id
-      datum.name.gsub! datum.name, attributes[:name]
-      end
+    merchant = find_by_id(id)
+    return if merchant.nil?
+    attributes.each do |key, value|
+      update_name(merchant, value) if key == :name
     end
+  end
+
+  def update_name(merchant, value)
+    merchant.name = value
+    merchant.updated_at = Time.now
   end
 
   def delete(id)

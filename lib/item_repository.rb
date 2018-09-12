@@ -1,6 +1,7 @@
 require_relative './item'
 require_relative './repository'
 require 'bigdecimal'
+require 'time'
 
 class ItemRepository < Repository
 
@@ -17,10 +18,12 @@ class ItemRepository < Repository
   end
 
   def find_all_with_description(description)
-    @data.find_all do |datum|
-      datum.description.include?(description)
-    end
+    all_items = @data.find_all do |datum|
+      datum.description.downcase.include?(description.downcase)
+      end
+      return all_items
   end
+
 
   def find_all_by_price(price)
     @data.find_all do |datum|
@@ -28,7 +31,7 @@ class ItemRepository < Repository
     end
   end
 
-  def find_all_by_price_range(range)
+  def find_all_by_price_in_range(range)
     @data.find_all do |datum|
       range.include?(datum.unit_price)
     end
@@ -49,26 +52,33 @@ class ItemRepository < Repository
                         name: new_item[:name],
                         description: new_item[:description],
                         unit_price: new_item[:unit_price],
-                        created_at: Time.now,
-                        updated_at: Time.now,
                         merchant_id: new_item[:merchant_id])
+
     @data << new_item
     return new_item
   end
 
   def update(id, attributes)
-    @data.find do |datum|
-      if datum.id == id
-      datum.name = attributes[:name]
-      datum.description = attributes[:description]
-      datum.unit_price = attributes[:unit_price]
-      datum.updated_at = Time.now
-      end
+    item = find_by_id(id)
+    return if item.nil?
+    attributes.each do |key, value|
+      update_name(item, value) if key == :name
+      update_description(item, value) if key == :description
+      update_unit_price(item, value) if key == :unit_price
+      # item.updated_at = Time.now unless (attributes[:name] == nil && attributes[:description] == nil && attributes[:unit_price] == nil)
     end
   end
 
+  def update_name(item, value)
+    item.name = value
 
+  end
 
+  def update_description(item, value)
+    item.description = value
+  end
 
-
+  def update_unit_price(item, value)
+    item.unit_price = value
+  end
 end

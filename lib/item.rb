@@ -18,8 +18,16 @@ class Item
     @merchant_id = data[:merchant_id].to_i
   end
 
+
   def unit_price_to_dollars
     @unit_price.to_f
   end
 
+  def created_at
+   Time.parse(@created_at.to_s)
+  end
+
+  def updated_at
+   Time.parse(@updated_at.to_s)
+  end
 end

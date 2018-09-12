@@ -45,9 +45,14 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal merchant_repository.find_by_name("Shopin1901"), actual
   end
 
-  # def test_it_can_find_all_merchants_by_partial_name
-  #   merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')
 
+  def test_merchant_can_find_all_by_partial_name
+    merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')
+
+    assert_equal [], merchant_repository.find_all_by_name("qqqqppplllla")
+
+    assert_equal [merchant_repository.all[0]], merchant_repository.find_all_by_name("shopin")
+  end
 
   def test_repository_can_create_new_merchants
     merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')
@@ -71,11 +76,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Keckenbauer", actual.name
 
     id = (5)
-    new_attributes = {name: "Reuabnekcek"}
+    attributes = {name: "Reuabnekcek", created_at: 2010-07-15, updated_at: Time.now}
 
-    merchant_repository.update(id, new_attributes)
+    merchant_repository.update(id, attributes)
 
     assert_equal "Reuabnekcek", actual.name
+
+    assert_equal 5, actual.id
   end
 
   def test_repo_can_delete_merchants

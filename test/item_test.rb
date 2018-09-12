@@ -23,8 +23,8 @@ class ItemTest < Minitest::Test
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :created_at  => Time.parse("2016-01-11 09:34:06 UTC",),
+      :updated_at  => Time.parse("2007-06-04 21:35:10 UTC"),
       :merchant_id => 2
     })
     assert_equal 1, i.id
