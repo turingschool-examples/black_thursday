@@ -65,7 +65,6 @@ attr_reader :items
     item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     item.updated_at = Time.now unless (attributes[:name].nil? && attributes[:description].nil? && attributes[:unit_price].nil?)
     item
-    require "pry"; binding.pry
   end
 
   def delete(id)
