@@ -1,9 +1,4 @@
-
-# TO DO - Add these to simplecov
-require 'minitest/autorun'
-require 'minitest/pride'
-
-require 'pry'
+require_relative 'test_helper'
 
 # TO DO  - change these to require require_relative
 require './lib/item'
@@ -97,9 +92,9 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at     => Time.now,
       :merchant_id    =>2
     })
-    
-    
-    
+
+
+
   end
 
 end

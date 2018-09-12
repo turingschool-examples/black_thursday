@@ -1,6 +1,5 @@
-require 'pry'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
+
 require './lib/invoice'
 
 
@@ -33,9 +32,9 @@ class InvoiceTest < Minitest::Test
     # -- Accessible --
     assert_equal @hash[:created_at], @invoice.created_at
     assert_equal @hash[:updated_at], @invoice.updated_at
-    # TO DO - Assert we can write to these values 
+    # TO DO - Assert we can write to these values
   end
 
-  
+
 
 end
