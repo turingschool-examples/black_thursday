@@ -33,6 +33,14 @@ class SalesAnalyst
     end.to_h
   end
 
+  def average_items_per_merchant
+    average_items_invoices_per_merchant(@item_repo)
+  end
+
+  def average_invoices_per_merchant
+    average_items_invoices_per_merchant(@invoice_repo)
+  end
+
   def merchants_with_high_item_count
     merchants_with_high_item_count_hash.keys
   end
@@ -53,6 +61,10 @@ class SalesAnalyst
       array << average_item_price_for_merchant(key.id)
     end
     (sum(array)/array.length).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    per_merchant_standard_deviation(@item_repo)
   end
 
   def golden_items
@@ -120,7 +132,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status_sym)
-    status = status_sym.to_s
+    status = status_sym
     grouped_by_status = @invoice_repo.all.group_by do |invoice|
       invoice.status
     end
