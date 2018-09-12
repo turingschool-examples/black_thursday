@@ -38,8 +38,8 @@ class ItemsRepo
   end
 
   def find_all_by_price_in_range(range)
-    @collections.keep_if do |object|
-      range.include?(object.unit_price)
+    all.find_all do |item|
+      range.member?(item.unit_price)
     end
   end
 
