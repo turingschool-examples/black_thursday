@@ -1,3 +1,5 @@
+require_relative './modules/data_repository_helper'
+
 class DataRepository
 
   def initialize(data, data_class)
