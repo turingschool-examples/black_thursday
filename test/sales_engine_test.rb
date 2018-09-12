@@ -52,4 +52,12 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, @se_csv.items
   end
 
+
+
+  # --- Sales Analyst ---
+
+
+
+
+
 end
