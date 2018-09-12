@@ -51,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
     })
     sales_analyst = se.analyst
 
-    assert_equal 52, sales_analyst.merchants_with_high_item_count
+    assert_equal 52, sales_analyst.merchants_with_high_item_count.count
 
   end
 
