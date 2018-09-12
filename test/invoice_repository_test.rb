@@ -55,7 +55,34 @@ class InvoiceRepositoryTest <Minitest::Test
   end
 
   def test_it_can_find_all_by_status
-  end 
+    se = SalesEngine.from_csv({:invoices => "./short_tests/short_invoice.csv"})
+    invoice = se.invoices
 
+    i1 = invoice.find_by_id(1)
+    i2 = invoice.find_by_id(2)
+    i3 = invoice.find_by_id(3)
+    i4 = invoice.find_by_id(4)
+    i5 = invoice.find_by_id(5)
+    i6 = invoice.find_by_id(6)
+    i7 = invoice.find_by_id(7)
+    i8 = invoice.find_by_id(8)
+    i9 = invoice.find_by_id(9)
+    i10 = invoice.find_by_id(10)
+
+    assert_equal [i1,i4,i5,i6,i7,i10], invoice.find_all_by_status("pending")
+  end
+
+def test_it_can_create_new_invoice_from_attributes
+  se = SalesEngine.from_csv({:invoices => "./short_tests/short_invoice.csv"})
+  invoice = se.invoices
+
+  attributes = {customer_id: 2, merchant_id: 12337139, status: "pending", created_at: "2016-01-11 12:29:33 UTC", updated_at: Time.now}
+
+  invoice.create(attributes)
+
+  assert_equal 2, invoice.repo[-1].customer_id
+  assert_equal 11, invoice.repo[-1].id
+  assert_equal 12337139, invoice.repo[-1].merchant_id
+end
 
 end

@@ -22,4 +22,17 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_status(status)
+    @repo.find_all do |invoice|
+      invoice.status == status
+    end
+  end
+
+  def create(attributes)
+    attributes[:id] = @repo[-1].id + 1
+    @repo << Invoice.new(attributes)
+  end
+
+
+
 end
