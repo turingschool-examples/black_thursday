@@ -63,12 +63,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @all.find_all do |item|
-<<<<<<< HEAD
-      item.unit_price.to_f == price.to_f
-      binding.pry
-=======
       item.unit_price_to_dollars == price
->>>>>>> f383e696193518f2683634daad455d6f6829953c
     end
   end
 
