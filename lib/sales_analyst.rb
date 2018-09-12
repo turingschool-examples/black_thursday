@@ -5,7 +5,7 @@ class SalesAnalyst
   end
 
   def average_item_per_merchant
-    (@sales_engine.items.items.count.to_f / @sales_engine.merchants.merchants.count).round(2)
+    (@sales_engine.items.repo.count.to_f / @sales_engine.merchants.repo.count).round(2)
   end
 
   def average_items_per_merchants_standard_deviation
@@ -24,7 +24,7 @@ class SalesAnalyst
   end
 
   def merchant_id_array
-    merchant_ids = @sales_engine.items.items.map do |item|
+    merchant_ids = @sales_engine.items.repo.map do |item|
       item.merchant_id
     end
   end
@@ -51,26 +51,26 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant[0])
     end
     summed = sum_values(average_of_all_merchants)
-    (summed / @sales_engine.merchants.merchants.count).round(2)
+    (summed / @sales_engine.merchants.repo.count).round(2)
   end
 
   def average_item_cost
     summed = sum_values(array_of_unit_price)
-    (summed / @sales_engine.items.items.count).round(2)
+    (summed / @sales_engine.items.repo.count).round(2)
   end
 
   def golden_items_standard_deviation
-    differences_squared = @sales_engine.items.items.map do |item|
+    differences_squared = @sales_engine.items.repo.map do |item|
       (item.unit_price - average_item_cost) ** 2
     end
     summed = sum_values(differences_squared)
-    divided_sum = summed / (@sales_engine.items.items.count - 1)
+    divided_sum = summed / (@sales_engine.items.repo.count - 1)
     Math.sqrt(divided_sum).round(2)
   end
 
   def golden_items
     golden_items_array = []
-    golden_items = @sales_engine.items.items.find_all do |item|
+    golden_items = @sales_engine.items.repo.find_all do |item|
       if item.unit_price > (average_item_cost + (golden_items_standard_deviation * 2 ))
           golden_items_array  << item
       end
@@ -78,7 +78,7 @@ class SalesAnalyst
   end
 
   def array_of_unit_price
-    @sales_engine.items.items.map do |item|
+    @sales_engine.items.repo.map do |item|
       item.unit_price
     end
   end
@@ -93,6 +93,10 @@ class SalesAnalyst
     array.inject(0) do |sum,num|
       sum + num
     end
+  end
+
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

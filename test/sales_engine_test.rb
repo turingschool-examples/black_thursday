@@ -24,7 +24,7 @@ class SalesEngineTest <Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
-    assert_instance_of Array, se.items.items
+    assert_instance_of Array, se.items.repo
   end
 
   def test_it_has_merchants
@@ -32,6 +32,6 @@ class SalesEngineTest <Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
-    assert_instance_of Array, se.merchants.merchants
+    assert_instance_of Array, se.merchants.repo
   end
 end
