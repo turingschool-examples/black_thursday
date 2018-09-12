@@ -22,7 +22,6 @@ class DataRepositoryTest < Minitest::Test
                   unit_price:  '2100',
                   created_at:  @time_2,
                   updated_at:  @time_1}]
-
     @repo = DataRepository.new(@raw_data, Item)
   end
 
@@ -87,5 +86,4 @@ class DataRepositoryTest < Minitest::Test
     @repo.delete(123)
     assert_nil(@repo.find_by_id(123))
   end
-
 end

@@ -37,17 +37,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_merchants_with_high_item_counts
-    merch1 = stub('Merchant', id:1)
-    merch2 = stub('Merchant', id:2)
-    merch3 = stub('Merchant', id:3)
+    merch1 = stub('Merchant', id: 1)
+    merch2 = stub('Merchant', id: 2)
+    merch3 = stub('Merchant', id: 3)
     merch_array = [merch1, merch2, merch3]
 
     items = stub('Item')
     item_array = [items]*105
     @engine.merchants.stubs(:all).returns(merch_array)
     @engine.items.stubs(:find_all_by_merchant_id).returns(
-            [0]*2, [0]*3, [0]*100,
-            [0]*2, [0]*3, [0]*100)
+            [0] * 2, [0] * 3, [0] * 100,
+            [0] * 2, [0] * 3, [0] * 100)
 
     actual = @analyst.merchants_with_high_item_count
     assert_equal [merch3], actual
@@ -59,13 +59,12 @@ class SalesAnalystTest < Minitest::Test
     item2 = stub('Item', unit_price: BigDecimal.new(30.00, 4))
     item3 = stub('Item', unit_price: BigDecimal.new(5.00, 4))
     @engine.items.stubs(:find_all_by_merchant_id).with(1).returns([item1, item2, item3])
-
     assert_equal 20, @analyst.average_item_price_for_merchant(1)
   end
 
   def test_it_returns_average_average_price_per_merchant
-    merch1 = stub('Merchant', id:1)
-    merch2 = stub('Merchant', id:2)
+    merch1 = stub('Merchant', id: 1)
+    merch2 = stub('Merchant', id: 2)
     item1 = stub('Item', unit_price: BigDecimal.new(26.00, 4))
     item2 = stub('Item', unit_price: BigDecimal.new(10.00, 4))
     item3 = stub('Item', unit_price: BigDecimal.new(1.00, 4))

@@ -9,10 +9,9 @@ class CSVAdapterTest < Minitest::Test
   end
 
   def test_it_can_get_hash_from_csv_file
-    file = "./test/data/items.csv"
+    file = './test/data/items.csv'
     data = @test_obj.hash_from_csv(file)
-
-    expected = "1200"
-    assert_equal expected, data[0][:unit_price]
+    expected = '1200'
+    assert_equal(expected, data[0][:unit_price])
   end
 end

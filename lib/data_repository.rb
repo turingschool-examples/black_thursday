@@ -32,7 +32,6 @@ class DataRepository
   end
 
   def create(attributes)
-
     new_id = @data_set.keys.max + 1
     attributes[:id] = new_id
     @data_set[new_id] = @data_class.from_raw_hash(attributes)

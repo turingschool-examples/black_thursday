@@ -33,5 +33,4 @@ class ItemRepository < DataRepository
       element.merchant_id == merchant_id
     end
   end
-
 end
