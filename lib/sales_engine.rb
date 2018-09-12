@@ -1,3 +1,4 @@
+require 'pry'
 require 'time'
 require 'bigdecimal'
 require_relative '../lib/sales_engine'
@@ -24,11 +25,15 @@ class SalesEngine < CsvAdaptor
   end
 
   def merchants
-    MerchantRepo.new(@merchant_file)
+    m = MerchantRepo.new(@merchant_file)
+    m.load_all_merchants
+    return m
   end
 
   def items
-    ItemRepo.new(@item_file)
+    i = ItemRepo.new(@item_file)
+    i.load_all_items
+    return i
   end
 
   def analyst

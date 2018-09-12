@@ -15,7 +15,7 @@ class Item
     @unit_price = BigDecimal(item_hash[:unit_price]) / 100
     @created_at = item_hash[:name]
     @updated_at = item_hash[:name]
-    @merchant_id = item_hash[:merchant_id]
+    @merchant_id = item_hash[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
@@ -23,7 +23,7 @@ class Item
   end
 
   def create_id(new_id)
-    @id = new_id
+    @id = new_id.to_i
   end
 
   def change_name(new_name)
