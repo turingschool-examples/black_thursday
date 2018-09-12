@@ -1,3 +1,4 @@
+require 'CSV'
 require_relative "../lib/items_repo"
 require_relative "../lib/merchant_repo"
 
@@ -6,10 +7,19 @@ class SalesEngine
               :items
 
   def self.from_csv(params)
-    merchants = MerchantRepo.new(params[:merchants])
-    self.populate_merchants(params[:merchant])
-    items = ItemsRepo.new(params[:items])
-    self.populate_items(params[:items])
+    merchants = MerchantRepo.new(params[:merchants]).tap do |merchant_repo|
+      merchant_repo.populate(params[:merchant])
+    end
+
+    items = ItemsRepo.new(params[:items]).tap do |item_repo|
+      item_repo.populate(params[:items])
+    end
+
+    # merchants = MerchantRepo.new(params[:merchants])
+    # self.populate_merchants(params[:merchant])
+
+    # items = ItemsRepo.new(params[:items])
+    # self.populate_items(params[:items])
 
     SalesEngine.new(merchants, items)
   end
