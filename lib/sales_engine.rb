@@ -1,11 +1,11 @@
-<<<<<<< HEAD
+
 require 'pry'
 require 'csv'
 class SalesEngine
   def initialize(items_and_merchants)
     @items = items_and_merchants[:items]
     @merchants = items_and_merchants[:merchants]
-=======
+
 require_relative './merchant_repository'
 require_relative './merchant'
 require_relative './item_repository'
@@ -27,7 +27,7 @@ class SalesEngine
     merchants_filepath = filepath_hash[:merchants]
     items_filepath = filepath_hash[:items]
     SalesEngine.new(merchants_filepath, items_filepath)
->>>>>>> f383e696193518f2683634daad455d6f6829953c
+
   end
 
   def self.from_csv(file)
