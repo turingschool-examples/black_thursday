@@ -56,7 +56,7 @@ class SalesAnalystTest < Minitest::Test
         :merchants => "./data/merchants.csv",
       })
     sa = se.analyst
-    assert_equal 475, sa.merchant_hash.length
+    assert_equal 475, sa.merchant_hash(sa.item_repo).length
   end
 
   def test_it_can_return_a_hash_of_merchants_and_items_above_one_stand_deviation
@@ -120,5 +120,49 @@ class SalesAnalystTest < Minitest::Test
       })
     sa = se.analyst
     assert_equal 10.49, sa.average_items_invoices_per_merchant(sa.invoice_repo)
+  end
+
+  def test_it_can_average_invoice_per_merch_std_dev
+    se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => "./data/invoices.csv"
+      })
+    sa = se.analyst
+    assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_returns_top_performing_merchants_by_invoice_count
+    se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => "./data/invoices.csv"
+      })
+    sa = se.analyst
+    assert_instance_of Merchant, sa.top_merchants_by_invoice_count[0]
+    assert_equal 12, sa.top_merchants_by_invoice_count.length
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+      se = SalesEngine.from_csv({
+          :items     => "./data/items.csv",
+          :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv"
+        })
+      sa = se.analyst
+      assert_instance_of Merchant, sa.bottom_merchants_by_invoice_count[0]
+      assert_equal 4, sa.bottom_merchants_by_invoice_count.length
+  end
+
+  def test_it_can_find_days_of_week_with_most_sales
+    skip
+    se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => "./data/invoices.csv"
+      })
+    sa = se.analyst
+    assert_instance_of Array, sa.top_days_by_invoice_count
+    assert_equal 3, sa.top_days_by_invoice_count.length
   end
 end
