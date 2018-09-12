@@ -94,6 +94,8 @@ class FinderClassTest < MiniTest::Test
   end
 
   def test_it_can_find_all_within_column_data_range
+    # NOTE range inclusive and exclusing both give the same 
+    # high/low values (ie inclusive by our method)
     low = BigDecimal(100, 4)
     high = BigDecimal(200, 4)
     found = FinderClass.find_by_range(@items.all, :unit_price, (low..high))
