@@ -17,4 +17,8 @@ class SalesEngine
    new(csv_hash)
   end
 
+  def analyst
+     SalesAnalyst.new(self)
+  end
+
 end

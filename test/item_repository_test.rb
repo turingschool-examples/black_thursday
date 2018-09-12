@@ -65,9 +65,23 @@ class ItemTest<Minitest::Test
 
   def test_we_can_update_attributes
     @ir.create({:name => "Rusty Shoes", :description => "nice", :unit_price => 200})
-    result = @ir.update(263397060, {:name => "Nice Loafers", :description => "hurry up and buy", :unit_price => 2500})
-    assert_equal "Nice Loafers", result.name
-    assert_equal "hurry up and buy", result.description
-    assert_equal 2500, result.unit_price.to_i
+    @ir.update(263397060, {:name => "Nice Loafers", :description => "hurry up and buy", :unit_price => 2500})
+
+    updated_item = @ir.find_by_id(263397060)
+
+    assert_equal "Nice Loafers", updated_item.name
+    assert_equal "hurry up and buy", updated_item.description
+    assert_equal 2500, updated_item.unit_price
+  end
+
+  def test_we_can_delete_an_item_by_id
+    @ir.create({:name => "Rusty Shoes", :description => "nice", :unit_price => 200})
+    max_item = @ir.find_max_item_id
+    assert_equal 263397060, max_item.id
+
+    @ir.delete(263397060)
+
+    max_item = @ir.find_max_item_id
+    assert_equal 263397059, max_item.id
   end
 end

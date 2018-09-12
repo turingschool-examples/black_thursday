@@ -47,7 +47,7 @@ class MerchantRepository
   end
 
   def delete(id)
-   find_merchant  = find_by_id(id)
+    find_merchant  = find_by_id(id)
     @merchants.delete_if do |merchant|
      merchant == find_merchant
     end
