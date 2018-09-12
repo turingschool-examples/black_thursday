@@ -2,22 +2,17 @@ require_relative 'test_helper'
 require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
-
   def setup
     @time_1 = '1993-10-28 11:56:40 UTC'
-
     @time_2 = '1993-09-29 12:45:30 UTC'
-
-    @attributes = {id:       123,
-                name:        'testname',
-                description: 'fakedescription',
-                merchant_id: 456,
-                unit_price:  BigDecimal.new(12.00, 4),
-                created_at:  Time.parse(@time_1),
-                updated_at:  Time.parse(@time_2)}
-
+    @attributes = { id:           123,
+                    name:         'testname',
+                    description:  'fakedescription',
+                    merchant_id:  456,
+                    unit_price:   BigDecimal.new(12.00, 4),
+                    created_at:   Time.parse(@time_1),
+                    updated_at:   Time.parse(@time_2)}
     @item = Item.new(@attributes)
-
   end
 
   def test_it_exists
@@ -35,6 +30,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_return_unit_price_in_dollars
-    assert_equal 12.00, @item.unit_price_to_dollars
+    assert_equal(12.00, @item.unit_price_to_dollars)
   end
 end

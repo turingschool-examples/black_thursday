@@ -60,5 +60,4 @@ class SalesAnalyst
   #   end
   #   binding.pry
   # end
-
 end
