@@ -65,11 +65,13 @@ class ItemRepository < Repository
       update_name(item, value) if key == :name
       update_description(item, value) if key == :description
       update_unit_price(item, value) if key == :unit_price
+      # item.updated_at = Time.now unless (attributes[:name] == nil && attributes[:description] == nil && attributes[:unit_price] == nil)
     end
   end
 
   def update_name(item, value)
     item.name = value
+
   end
 
   def update_description(item, value)
