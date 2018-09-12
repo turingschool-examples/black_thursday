@@ -24,8 +24,11 @@ class FinderClass
     low = range.first
     high = range.last
     # TEST difference between range types (0..2) vs (0...2)
-
-
+    list = repo.find_all { |object|
+      value = object.send(method)
+      value >= low && value <= high
+    }
+    return list
   end
 
   # -------------------------------------

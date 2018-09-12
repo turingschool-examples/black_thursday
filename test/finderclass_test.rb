@@ -93,6 +93,19 @@ class FinderClassTest < MiniTest::Test
     assert_equal true, max
   end
 
+  def test_it_can_find_all_within_column_data_range
+    low = BigDecimal(100, 4)
+    high = BigDecimal(200, 4)
+    found = FinderClass.find_by_range(@items.all, :unit_price, (low..high))
+    count = found.count
+    assert_operator 0, :<, count
+    object = found[4]
+    assert_operator low,  :<=,  object.unit_price
+    assert_operator high, :>=,  object.unit_price
+    object = found.last
+    assert_operator low,  :<=,  object.unit_price
+    assert_operator high, :>=,  object.unit_price
+  end
 
 
 
