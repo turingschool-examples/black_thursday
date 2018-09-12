@@ -10,7 +10,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_items
-    skip
     ir = ItemRepository.new("./data/items.csv")
     assert_equal 1367, ir.all.count
 
@@ -18,7 +17,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_item_by_id
-    skip
     ir = ItemRepository.new("./data/items.csv")
 
     actual = ir.find_by_id(263395237)
