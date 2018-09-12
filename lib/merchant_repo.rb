@@ -8,12 +8,12 @@ require_relative '../lib/item_repo'
 
 class MerchantRepo < CsvAdaptor
 
-    attr_reader :merchants,
-                :data_file
+  attr_reader :merchants,
+              :data_file
 
-  def initialize(data_file)
+  def initialize(data_file, merchants=[])
     @data_file = data_file
-    @merchants = []
+    @merchants = merchants
   end
 
   # def all_merchant_characteristics(data_file)
@@ -40,12 +40,9 @@ class MerchantRepo < CsvAdaptor
   # end
 
   def find_by_id(id)
-    @merchants.each do |merchant|
-      if merchant.id == id
-        return merchant
-      end
+    @merchants.find do |merchant|
+      merchant.id == id
     end
-    nil
   end
 
   def find_by_name(name)
@@ -71,9 +68,10 @@ class MerchantRepo < CsvAdaptor
   end
 
   def create(attributes)
+    attributes[:id] = (find_highest_merchant_id + 1)
     merchant = Merchant.new(attributes)
-    merchant.create_id(find_highest_merchant_id + 1)
     @merchants << merchant
+    merchant
   end
 
   def update(id, attributes)
@@ -89,4 +87,11 @@ class MerchantRepo < CsvAdaptor
       merchant.id == id
     end
   end
+
+  def merchant_array_from_file
+    load_merchants(data_file).each do |merchant_info|
+      @merchants << Merchant.new(merchant_info)
+    end
+  end
+
 end

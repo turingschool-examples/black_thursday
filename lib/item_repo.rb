@@ -12,9 +12,9 @@ class ItemRepo < CsvAdaptor
   attr_reader :data_file,
               :items
 
-  def initialize(data_file)
+  def initialize(data_file, items=[])
     @data_file = data_file
-    @items = []
+    @items = items
   end
 
   def all_item_characteristics(data_file)

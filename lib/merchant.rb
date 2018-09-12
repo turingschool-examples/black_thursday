@@ -1,10 +1,10 @@
 class Merchant
 
-  attr_accessor :name, :id
+  attr_reader :name, :id
 
-  def initialize(merchant_hash)
-    @name = merchant_hash[:name]
-    @id = merchant_hash[:id]
+  def initialize(attributes)
+    @name = attributes[:name]
+    @id = attributes[:id]
     @created_at = Time.now.getutc
     @updated_at = Time.now.getutc
   end
