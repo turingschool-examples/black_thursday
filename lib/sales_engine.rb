@@ -16,7 +16,7 @@ class SalesEngine < CsvAdaptor
   def self.from_csv(file_hash)
     item_file = file_hash[:items]
     merchant_file = file_hash[:merchants]
-      SalesEngine.new(item_file, merchant_file)
+      s = SalesEngine.new(item_file, merchant_file)
   end
 
   def initialize(item_file, merchant_file)
@@ -26,14 +26,18 @@ class SalesEngine < CsvAdaptor
 
   def merchants
     m = MerchantRepo.new(@merchant_file)
-    m.load_all_merchants
-    return m
+    load_merchants(merchant_file).each do |merchant_info|
+      m.merchants << Merchant.new(merchant_info)
+    end
+    m
   end
 
   def items
     i = ItemRepo.new(@item_file)
-    i.load_all_items
-    return i
+    i.load_items(item_file).each do |item_info|
+      i.items << Item.new(item_info)
+    end
+    i
   end
 
   def analyst
