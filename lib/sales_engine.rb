@@ -21,4 +21,8 @@ class SalesEngine
     SalesEngine.new(merchants_filepath, items_filepath)
   end
 
+  def analyst
+  SalesAnalyst.new(@merchants, @items)
+  end
+
 end
