@@ -30,7 +30,13 @@ class FinderClass
     return list
   end
 
-  # -------------------------------------
-
+  def self.find_by_fragment(repo, method, frag)
+    frag = frag.downcase
+    list = repo.find_all{ |object|
+      value = object.send(method).downcase
+      value.include?(frag)
+    }
+    return list
+  end
 
 end

@@ -94,7 +94,7 @@ class FinderClassTest < MiniTest::Test
   end
 
   def test_it_can_find_all_within_column_data_range
-    # NOTE range inclusive and exclusing both give the same 
+    # NOTE range inclusive and exclusing both give the same
     # high/low values (ie inclusive by our method)
     low = BigDecimal(100, 4)
     high = BigDecimal(200, 4)
@@ -107,6 +107,38 @@ class FinderClassTest < MiniTest::Test
     object = found.last
     assert_operator low,  :<=,  object.unit_price
     assert_operator high, :>=,  object.unit_price
+  end
+
+  def test_it_can_find_all_from_a_string_fragment_of_specific_column_data
+    # --- Return value ---
+    found = FinderClass.find_by_fragment(@merchants.all, :name, "pi")
+    assert_instance_of Array, found
+    assert_instance_of Merchant, found[0]
+    count = found.count
+    assert_operator 0, :<, count
+    # -- empty array if no match --
+    found3 = FinderClass.find_by_fragment(@merchants.all, :name, "zzzzz")
+    assert_equal [], found3
+
+    # --- case insensitive --
+    first  = found.first.name
+    first1 = first.include?("pi")
+    first2 = first.include?("PI")
+    first3 = first.include?("Pi")
+    first4 = first.include?("pI")
+    first_found = first1 || first2 || first3 || first4
+    assert_equal true, first_found
+
+    last  = found.last.name
+    last1 = last.include?("pi")
+    last2 = last.include?("PI")
+    last3 = last.include?("Pi")
+    last4 = last.include?("pI")
+    last_found = last1 || last2 || last3 || last4
+    assert_equal true, last_found
+
+    found2 = FinderClass.find_by_fragment(@merchants.all, :name, "PI")
+    assert_equal found, found2
   end
 
 
