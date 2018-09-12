@@ -6,10 +6,6 @@ class Item < DataObject
     super(attributes)
   end
 
-  # def valid_attributes?(attributes)
-  #
-  # end
-
   def description
     @attributes[:description]
   end

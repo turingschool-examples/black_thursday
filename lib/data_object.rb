@@ -36,7 +36,8 @@ class DataObject
   end
 
   def self.convert_to_big_d_dollars(raw_price)
-    convert_to_big_d(raw_price)/100
+    raw_price = raw_price.to_f / 100 if raw_price.class != BigDecimal
+    convert_to_big_d(raw_price)
   end
 
   def self.convert_to_dates(raw_date)
