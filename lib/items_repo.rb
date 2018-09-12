@@ -1,5 +1,6 @@
 require 'CSV'
 require 'pry'
+require 'time'
 require_relative '../lib/item'
 require_relative '../lib/black_thursday_helper'
 
