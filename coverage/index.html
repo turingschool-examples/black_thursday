@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-11T22:19:52-06:00">2018-09-11T22:19:52-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-11T22:25:29-06:00">2018-09-11T22:25:29-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -3455,19 +3455,19 @@
         <li class="covered" data-hits="6" data-linenumber="6">
           <span class="hits">6</span>
           
-          <code class="ruby">    @item_1 = stub(&#39;Item&#39;, id: 123)</code>
+          <code class="ruby">    @item1 = stub(&#39;Item&#39;, id: 123)</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="7">
           <span class="hits">6</span>
           
-          <code class="ruby">    @item_2 = stub(&#39;Item&#39;, id: 456)</code>
+          <code class="ruby">    @item2 = stub(&#39;Item&#39;, id: 456)</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="8">
           <span class="hits">6</span>
           
-          <code class="ruby">    @item_3 = stub(&#39;Item&#39;, id: 321)</code>
+          <code class="ruby">    @item3 = stub(&#39;Item&#39;, id: 321)</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="9">
@@ -3479,13 +3479,13 @@
         <li class="covered" data-hits="6" data-linenumber="10">
           <span class="hits">6</span>
           
-          <code class="ruby">    @time_1 = &#39;1993-10-28 11:56:40 UTC&#39;</code>
+          <code class="ruby">    @time1 = &#39;1993-10-28 11:56:40 UTC&#39;</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="11">
           <span class="hits">6</span>
           
-          <code class="ruby">    @time_2 = &#39;1993-09-29 12:45:30 UTC&#39;</code>
+          <code class="ruby">    @time2 = &#39;1993-09-29 12:45:30 UTC&#39;</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="12">
@@ -3521,13 +3521,13 @@
         <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">                  created_at:  @time_1,</code>
+          <code class="ruby">                  created_at:  @time1,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
           
           
-          <code class="ruby">                  updated_at:  @time_2},</code>
+          <code class="ruby">                  updated_at:  @time2},</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="19">
@@ -3563,13 +3563,13 @@
         <li class="never" data-hits="" data-linenumber="24">
           
           
-          <code class="ruby">                  created_at:  @time_2,</code>
+          <code class="ruby">                  created_at:  @time2,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
           
           
-          <code class="ruby">                  updated_at:  @time_1}]</code>
+          <code class="ruby">                  updated_at:  @time1}]</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="26">
@@ -3665,25 +3665,25 @@
         <li class="covered" data-hits="1" data-linenumber="41">
           <span class="hits">1</span>
           
-          <code class="ruby">    @item_1.stubs(description: &#39;A Word is here!&#39;)</code>
+          <code class="ruby">    @item1.stubs(description: &#39;A Word is here!&#39;)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="42">
           <span class="hits">1</span>
           
-          <code class="ruby">    @item_2.stubs(description: &#39;None here...&#39;)</code>
+          <code class="ruby">    @item2.stubs(description: &#39;None here...&#39;)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="43">
           <span class="hits">1</span>
           
-          <code class="ruby">    @item_3.stubs(description: &#39;Another word.&#39;)</code>
+          <code class="ruby">    @item3.stubs(description: &#39;Another word.&#39;)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="44">
           <span class="hits">1</span>
           
-          <code class="ruby">    Item.stubs(:from_raw_hash).returns(@item_1, @item_2, @item_3)</code>
+          <code class="ruby">    Item.stubs(:from_raw_hash).returns(@item1, @item2, @item3)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="45">
@@ -3695,7 +3695,7 @@
         <li class="covered" data-hits="1" data-linenumber="46">
           <span class="hits">1</span>
           
-          <code class="ruby">    assert_equal([@item_1, @item_3], repository.find_all_with_description(&#39;word&#39;))</code>
+          <code class="ruby">    assert_equal([@item1, @item3], repository.find_all_with_description(&#39;word&#39;))</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="47">
@@ -3725,25 +3725,25 @@
         <li class="covered" data-hits="1" data-linenumber="51">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_1 = stub(&#39;Item&#39;, id: 123, unit_price: BigDecimal.new(12.00, 4))</code>
+          <code class="ruby">    item1 = stub(&#39;Item&#39;, id: 123, unit_price: BigDecimal.new(12.00, 4))</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="52">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_2 = stub(&#39;Item&#39;, id: 456, unit_price: BigDecimal.new(13.00, 4))</code>
+          <code class="ruby">    item2 = stub(&#39;Item&#39;, id: 456, unit_price: BigDecimal.new(13.00, 4))</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="53">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_3 = stub(&#39;Item&#39;, id: 321, unit_price: BigDecimal.new(12.00, 4))</code>
+          <code class="ruby">    item3 = stub(&#39;Item&#39;, id: 321, unit_price: BigDecimal.new(12.00, 4))</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="54">
           <span class="hits">1</span>
           
-          <code class="ruby">    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)</code>
+          <code class="ruby">    Item.stubs(:from_raw_hash).returns(item1).then.returns(item2).then.returns(item3)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="55">
@@ -3761,7 +3761,7 @@
         <li class="covered" data-hits="1" data-linenumber="57">
           <span class="hits">1</span>
           
-          <code class="ruby">    assert_equal([item_1, item_3], repo.find_all_by_price(BigDecimal.new(12.00, 4)))</code>
+          <code class="ruby">    assert_equal([item1, item3], repo.find_all_by_price(BigDecimal.new(12.00, 4)))</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="58">
@@ -3785,25 +3785,25 @@
         <li class="covered" data-hits="1" data-linenumber="61">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_1 = stub(&#39;Item&#39;, id: 123, unit_price: BigDecimal.new(12.00, 4))</code>
+          <code class="ruby">    item1 = stub(&#39;Item&#39;, id: 123, unit_price: BigDecimal.new(12.00, 4))</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="62">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_2 = stub(&#39;Item&#39;, id: 456, unit_price: BigDecimal.new(18.00, 4))</code>
+          <code class="ruby">    item2 = stub(&#39;Item&#39;, id: 456, unit_price: BigDecimal.new(18.00, 4))</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="63">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_3 = stub(&#39;Item&#39;, id: 321, unit_price: BigDecimal.new(5.00, 4))</code>
+          <code class="ruby">    item3 = stub(&#39;Item&#39;, id: 321, unit_price: BigDecimal.new(5.00, 4))</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="64">
           <span class="hits">1</span>
           
-          <code class="ruby">    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)</code>
+          <code class="ruby">    Item.stubs(:from_raw_hash).returns(item1).then.returns(item2).then.returns(item3)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="65">
@@ -3821,7 +3821,7 @@
         <li class="covered" data-hits="1" data-linenumber="67">
           <span class="hits">1</span>
           
-          <code class="ruby">    assert_equal([item_1, item_3], repo.find_all_by_price_in_range((4..15)))</code>
+          <code class="ruby">    assert_equal([item1, item3], repo.find_all_by_price_in_range((4..15)))</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">
@@ -3845,31 +3845,31 @@
         <li class="covered" data-hits="1" data-linenumber="71">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_1 = stub(&#39;Item&#39;, id: 123, merchant_id: 1234)</code>
+          <code class="ruby">    item1 = stub(&#39;Item&#39;, id: 123, merchant_id: 1234)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="72">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_2 = stub(&#39;Item&#39;, id: 456, merchant_id: 4567)</code>
+          <code class="ruby">    item2 = stub(&#39;Item&#39;, id: 456, merchant_id: 4567)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="73">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_3 = stub(&#39;Item&#39;, id: 321, merchant_id: 1234)</code>
+          <code class="ruby">    item3 = stub(&#39;Item&#39;, id: 321, merchant_id: 1234)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="74">
           <span class="hits">1</span>
           
-          <code class="ruby">    Item.stubs(:from_raw_hash).returns(item_1).then.returns(item_2).then.returns(item_3)</code>
+          <code class="ruby">    Item.stubs(:from_raw_hash).returns(item1).then.returns(item2).then.returns(item3)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="75">
           <span class="hits">1</span>
           
-          <code class="ruby">    datas = [{id: 123},{id: 456},{id: 321}]</code>
+          <code class="ruby">    datas = [{id: 123}, {id: 456}, {id: 321}]</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="76">
@@ -3881,7 +3881,7 @@
         <li class="covered" data-hits="1" data-linenumber="77">
           <span class="hits">1</span>
           
-          <code class="ruby">    assert_equal([item_1, item_3], repo.find_all_by_merchant_id(1234))</code>
+          <code class="ruby">    assert_equal([item1, item3], repo.find_all_by_merchant_id(1234))</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="78">
@@ -4363,7 +4363,7 @@
         <li class="covered" data-hits="1" data-linenumber="37">
           <span class="hits">1</span>
           
-          <code class="ruby">    assert_equal([merch_1, merch_3], repo.find_all_by_name(&quot;2&quot;))</code>
+          <code class="ruby">    assert_equal([merch_1, merch_3], repo.find_all_by_name(&#39;2&#39;))</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="38">
