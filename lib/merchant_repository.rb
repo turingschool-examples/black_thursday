@@ -35,13 +35,8 @@ class MerchantRepository
     FinderClass.find_by(@all, :name, name)
   end
 
-  def find_all_by_name(name)
-    name = name.downcase
+  def find_all_by_name(frag)
+    FinderClass.find_by_fragment(@all, :name, frag)
   end
-
-
-
-
-
 
 end

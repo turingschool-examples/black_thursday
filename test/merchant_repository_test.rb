@@ -67,10 +67,23 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal @merchant2.name, found.name
     end
 
-    # def test_it_can_find_from_a_string_fragment
-    #   found = @repo.
-    #
-    # end
+    def test_it_can_find_from_a_string_fragment
+      found1 = @repo.find_all_by_name("pi")
+      found2 = @repo.find_all_by_name("PI")
+      found3 = @repo.find_all_by_name("Pi")
+      found4 = @repo.find_all_by_name("pI")
+      test1 = found1 == found2
+      test2 = found2 == found3
+      test3 = found3 == found4
+      assert_equal true, test1 && test2 && test3
+      assert_instance_of Array, found1
+      assert_instance_of Merchant, found1[0]
+      assert_equal true, found1[0].name.include?("pi")
+      not_found = @repo.find_all_by_name("zzzzz")
+      assert_equal [], not_found
+    end
+
+
 
 
 
