@@ -41,18 +41,7 @@ class MerchantRepositoryTest < Minitest::Test
     def test_it_gets_all_merchants
       assert_equal 475, @repo.all.count
     end
-
-    # def test_it_can_find_by_id
-    #   expected = {:"12334105"=>{:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}}
-    #   actual = @repo.find_by_id(:"12334105")
-    #   assert_equal expected, actual
-    # end
-    #
-    # def test_it_can_find_all_by_name
-    #   skip
-    #   assert_equal [@merchant1], @repo.find_all_by_name("Shopin1901")
-    # end
-
+    
     def test_it_can_find_by_merchant_id
       found = @repo.find_by_id(12334105)
       assert_equal @merchant1.id, found.id
