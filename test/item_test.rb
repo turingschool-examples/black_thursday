@@ -1,6 +1,5 @@
-require 'pry'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
+
 require './lib/item'
 require 'bigdecimal'
 
@@ -44,7 +43,7 @@ class ItemTest < Minitest::Test
     assert_equal @hash[:description], @item.description
     assert_equal @big_decimal, @item.unit_price
     assert_equal @hash[:updated_at], @item.updated_at
-    # TO DO - Assert we can write to these values 
+    # TO DO - Assert we can write to these values
   end
 
   def test_it_can_get_unit_price_in_dollars
