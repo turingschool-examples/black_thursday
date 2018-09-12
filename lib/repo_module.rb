@@ -31,6 +31,9 @@ module RepoModule
           if key == :unit_price
             find_by_id(id).unit_price = attributes[:unit_price]
           end
+          if key == :status
+            find_by_id(id).status = attributes[:status]
+          end
         end
     end
 
@@ -48,4 +51,5 @@ module RepoModule
         max_id += 1
       end
     end
+
 end
