@@ -1,41 +1,57 @@
-require_relative './item'
-require_relative './merchant'
-require 'pry'
+require 'csv'
+require 'bigdecimal'
+require 'time'
+require_relative './repository_module'
 
 class ItemRepository
-    attr_reader :all
+  include RepoMethods
 
   def initialize(filepath = nil)
     @filepath = filepath
     @all = []
+    split(filepath) if filepath != nil
   end
 
-  def add_individual_item(item)
-    @all << item
+  def create(attributes)
+    is_included = @all.any? do |item|
+      attributes[:id] == item.id
+    end
+    is_included = false if @all == []
+    has_id = attributes[:id] != nil
+    if has_id && !is_included
+      @all << Item.new(attributes)
+    elsif @all == []
+      new_id = 1
+      attributes[:id] = new_id
+      @all << Item.new(attributes)
+    else
+      highest_id = @all.max_by do |item|
+        item.id
+      end.id
+      new_id = highest_id + 1
+      attributes[:id] = new_id
+      @all << Item.new(attributes)
+    end
   end
 
   def split(filepath)
-    item_objects = CSV.open(filepath, headers: true, header_converters: :symbol)
-
-    item_objects.map do |object|
+    objects = CSV.open(filepath, headers: true, header_converters: :symbol)
+    attributes_array = []
+    objects.map do |object|
       object[:id] = object[:id].to_i
 
-      @attributes_array << object.to_h
-    end
-    @attributes_array.map do |hash|
-      @all << Item.new(hash)
-    end
-  end
+      object[:unit_price] = BigDecimal.new(object[:unit_price]) / 100
 
-  def find_by_id(id)
-    @all.find do |item|
-      item.id == id
-    end
-  end
+      object[:merchant_id] = object[:merchant_id].to_i
 
-  def find_by_name(name)
-    @all.find do |item|
-      item.name.downcase == name.downcase
+      object[:created_at] = Time.parse(object[:created_at])
+
+      object[:updated_at] = Time.parse(object[:updated_at])
+
+      attributes_array << object.to_h
+    end
+    attributes_array.each do |hash|
+      create(hash)
     end
   end
 
@@ -47,14 +63,18 @@ class ItemRepository
 
   def find_all_by_price(price)
     @all.find_all do |item|
+<<<<<<< HEAD
       item.unit_price.to_f == price.to_f
       binding.pry
+=======
+      item.unit_price_to_dollars == price
+>>>>>>> f383e696193518f2683634daad455d6f6829953c
     end
   end
 
   def find_all_by_price_in_range(range)
     @all.find_all do |item|
-      range.include?(item.unit_price.to_f)
+      range.include?(item.unit_price_to_dollars)
     end
   end
 
@@ -64,48 +84,8 @@ class ItemRepository
     end
   end
 
-  def create(attributes)
-    if @all == []
-      new_id = 1
-    else
-      highest_id = @all.max_by do |item|
-        item.id
-      end.id
-      new_id = highest_id + 1
-    end
-    attributes[:id] = new_id
-    @all << Item.new(attributes)
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
-
-  def update(id, attributes)
-    item = find_by_id(id)
-    item.name = attributes[:name]
-    item.description = attributes[:description]
-    item.unit_price = attributes[:unit_price]
-    item.updated_at = Time.now
-  end
-
-  def delete(id)
-    item = find_by_id(id)
-    @all.delete(item)
-  end
-
-
-
-    # def find_all_by(attr_sym, search_string)
-    #   @items.find_all do |item|
-    #     item[:data][attr_sym] == search_string.downcase
-    #   end
-    # end
-    #
-    # def find_by(attr_sym, search_string)
-    #   @items.find do |item|
-    #     item[attr_sym] == search_string.downcase
-    #   end
-    # end
-
-
-
-
 
 end
