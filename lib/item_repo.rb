@@ -105,4 +105,10 @@ class ItemRepo < CsvAdaptor
     end
   end
 
+  def item_array_from_file
+    load_items(data_file).each do |item_info|
+      @items << Item.new(item_info)
+    end
+  end
+
 end
