@@ -1,6 +1,9 @@
 class Merchant
-    attr_reader :id, :created_at
-    attr_accessor :name, :updated_at
+    attr_reader :id,
+                :created_at
+    attr_accessor :name,
+                  :updated_at
+
   def initialize(data)
     @id = data[:id].to_i
     @name = data[:name]
