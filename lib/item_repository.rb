@@ -48,11 +48,8 @@ class ItemRepository < Repository
       datum.id
     end.id
     new_item_id = highest_id += 1
-    new_item = Item.new(id: new_item_id,
-                        name: new_item[:name],
-                        description: new_item[:description],
-                        unit_price: new_item[:unit_price],
-                        merchant_id: new_item[:merchant_id])
+    new_item[:id] = new_item_id
+    new_item = Item.new(new_item)
 
     @data << new_item
     return new_item
@@ -65,13 +62,13 @@ class ItemRepository < Repository
       update_name(item, value) if key == :name
       update_description(item, value) if key == :description
       update_unit_price(item, value) if key == :unit_price
-      # item.updated_at = Time.now unless (attributes[:name] == nil && attributes[:description] == nil && attributes[:unit_price] == nil)
     end
+    current_time = Time.now + 1
+    item.updated_at = current_time.to_s
   end
 
   def update_name(item, value)
     item.name = value
-
   end
 
   def update_description(item, value)
