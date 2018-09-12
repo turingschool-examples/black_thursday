@@ -8,7 +8,6 @@ class Item
                 :unit_price,
                 :updated_at
 
-
   def initialize(data)
     @id = data[:id].to_i
     @name = data[:name]
