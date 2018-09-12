@@ -1,4 +1,5 @@
 require_relative 'item'
+require 'time'
 
 class ItemRepository
 
@@ -53,15 +54,19 @@ class ItemRepository
   end
 
   def update(id, attributes)
+    item = find_by_id(id)
+
     if find_by_id(id) == nil
 
     else
-      item = find_by_id(id)
-      item.name = attributes[:name]
-      item.description = attributes[:description]
-      item.unit_price = attributes[:unit_price]
+      attributes.each do |attribute|
+        if (attribute[0] == :id || attribute[0] == :created_at || attribute[0] == :merchant_id)
+
+        else
+          item.send("#{attribute[0]}=",attribute[1])
+        end
+      end
       item.updated_at = Time.new
-      item
     end
   end
 
