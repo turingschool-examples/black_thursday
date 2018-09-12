@@ -16,12 +16,18 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_exists
-    sales_engine = SalesEngine.new
+    skip
+    sales_engine = SalesEngine.new()
     assert_instance_of SalesEngine, sales_engine
   end
 
   def test_it_can_populate_repos
     refute_empty @se.merchants.all
     refute_empty @se.items.all
+  end
+
+  def test_it_can_populate_items
+    skip
+    refute_empty @se.populate()
   end
 end

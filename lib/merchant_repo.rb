@@ -9,8 +9,6 @@ class MerchantRepo
 include BlackThursdayHelper
   def initialize(file_path)
     @collections = []
-    # binding.pry
-    populate(file_path)
   end
 
   def update(id, attributes)
@@ -22,11 +20,11 @@ include BlackThursdayHelper
       end
   end
 
-  def populate(filepath)
-    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @collections << Merchant.new(data)
-    end
-  end
+  # def populate(filepath)
+  #   CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
+  #     @collections << Merchant.new(data)
+  #   end
+  # end
 
   def create(merchant_params)
     merchant = Merchant.new(merchant_params)
