@@ -1,8 +1,8 @@
 require_relative '../lib/sales_analyst'
-require_relative '../lib/repo_module'
+require_relative '../lib/std_dev_module'
 
 class SalesAnalyst
-  include RepoModule
+  include StdDevModule
 
   attr_reader :item_repo,
               :merchant_repo,
@@ -34,7 +34,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count_hash
     merchant_hash(@item_repo).find_all do |key, value|
-      value.length >= per_merchant_standard_deviation(@items) + average_items_per_merchant
+      value.length >= per_merchant_standard_deviation(@item_repo) + average_items_invoices_per_merchant(@item_repo)
     end.to_h
   end
 

@@ -60,7 +60,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_a_hash_of_merchants_and_items_above_one_stand_deviation
-    skip
     se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
@@ -72,7 +71,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_merchants_above_one_stand_deviation_in_an_array
-    skip
     se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
@@ -82,7 +80,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_average_item_price_per_merchant
-    skip
     se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
@@ -93,7 +90,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_the_global_average
-    skip
     se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
@@ -164,5 +160,18 @@ class SalesAnalystTest < Minitest::Test
     sa = se.analyst
     assert_instance_of Array, sa.top_days_by_invoice_count
     assert_equal 3, sa.top_days_by_invoice_count.length
+  end
+
+  def test_it_can_return_percentage_of_invoices_by_status
+    skip
+    se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => "./data/invoices.csv"
+      })
+    sa = se.analyst
+    assert_equal 29.55, sa.invoice_status(:pending)
+    assert_equal 56.95, sa.invoice_status(:shipped)
+    assert_equal 13.5, sa.invoice_status(:returned)
   end
 end
