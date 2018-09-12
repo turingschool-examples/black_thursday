@@ -1,5 +1,4 @@
 class DataRepository
-  # TODO: Create tests for these
 
   def initialize(data, data_class)
     @data_class = data_class
@@ -12,7 +11,6 @@ class DataRepository
 
   def populate(data)
     @data_set = data.inject({}) do |hash, attributes|
-      # TODO: Validate each set of "attributes", only add if valid
       attributes[:id] = attributes[:id].to_i
       hash[attributes[:id]] = @data_class.from_raw_hash(attributes)
       hash
@@ -38,11 +36,6 @@ class DataRepository
     new_id = @data_set.keys.max + 1
     attributes[:id] = new_id
     @data_set[new_id] = @data_class.from_raw_hash(attributes)
-  end
-
-  # Determine if the attribute hash matches the expected attributes for the
-  # data repository's given data_class
-  def valid_attributes?(attributes)
   end
 
   def update(id, attributes)

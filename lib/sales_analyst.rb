@@ -1,7 +1,7 @@
-require_relative './modules/standard_deviation'
+require_relative './modules/precision_math'
 
 class SalesAnalyst
-  include StandardDeviation
+  include PrecisionMath
   attr_reader :engine
 
   def initialize(engine)
@@ -18,7 +18,7 @@ class SalesAnalyst
     counts = @engine.merchants.all.inject([]) do |accumulator, merch|
       accumulator << @engine.items.find_all_by_merchant_id(merch.id).length
     end
-    stdev(counts).round(2)
+    stdev(counts).to_f.round(2)
   end
 
   def merchants_with_high_item_count
@@ -49,16 +49,15 @@ class SalesAnalyst
     BigDecimal.new(float, float.to_s.length)
   end
 
-  # def golden_items
-  #   items = @engine.items.all
-  #   item_prices = items.map do |item|
-  #     item.unit_price
-  #   end
-  #   threshold = average(item_prices) + (2 * stdev(item_prices))
-  #   items.find_all do |item|
-  #     item.unit_price > threshold
-  #   end
-  #   binding.pry
-  # end
+  def golden_items
+    items = @engine.items.all
+    item_prices = items.map do |item|
+      item.unit_price
+    end
+    threshold = average(item_prices) + (2 * stdev(item_prices))
+    items.find_all do |item|
+      item.unit_price > threshold
+    end
+  end
 
 end

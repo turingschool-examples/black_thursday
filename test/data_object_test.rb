@@ -31,7 +31,7 @@ class DataObjectTest < Minitest::Test
   end
 
   def test_it_can_convert_to_big_decimal
-    actual = DataObject.convert_to_big_d("1200")
+    actual = DataObject.convert_to_big_d_dollars("1200")
     expected = BigDecimal(12.00, 4)
     assert_equal(expected, actual)
   end

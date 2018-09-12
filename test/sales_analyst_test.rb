@@ -79,18 +79,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10, @analyst.average_average_price_per_merchant
   end
 
-  # FIXME: Fix this test tomorrow
-  # def test_it_returns_golden_items
-  #   item1 = stub('Item', unit_price: BigDecimal.new(200.00, 5))
-  #   item2 = stub('Item', unit_price: BigDecimal.new(1.00, 3))
-  #   item3 = stub('Item', unit_price: BigDecimal.new(1.10, 3))
-  #   item4 = stub('Item', unit_price: BigDecimal.new(1.20, 3))
-  #   item5 = stub('Item', unit_price: BigDecimal.new(1.30, 3))
-  #   item5 = stub('Item', unit_price: BigDecimal.new(1.40, 3))
-  #
-  #   @engine.items.stubs(:all).returns(
-  #                       [item1, item2, item3, item4, item5])
-  #
-  #   assert_equal [item1], @analyst.golden_items
-  # end
+  def test_it_returns_golden_items
+    unit_prices = ["1.0", "1.1", "200", "1.3", "1.4", "1.2"]
+
+    item_stubs = unit_prices.map do |price|
+      stub('Item', unit_price: BigDecimal.new(price))
+    end
+
+    @engine.items.stubs(:all).returns(item_stubs)
+
+    assert_equal [item_stubs[2]], @analyst.golden_items
+  end
 end

@@ -1,7 +1,10 @@
-require 'bigdecimal'
+require_relative './modules/precision_math'
+
 require 'time'
 
 class DataObject
+  extend PrecisionMath
+
   def initialize(attributes)
     @attributes = attributes
   end
@@ -16,7 +19,7 @@ class DataObject
                   merchant_id: 'convert_to_int',
                   customer_id: 'convert_to_int',
                   invoice_id:  'convert_to_int',
-                  unit_price:  'convert_to_big_d',
+                  unit_price:  'convert_to_big_d_dollars',
                   created_at:  'convert_to_dates',
                   updated_at:  'convert_to_dates'}
 
@@ -32,10 +35,8 @@ class DataObject
     str_num.to_i
   end
 
-  def self.convert_to_big_d(raw_price)
-    return raw_price if raw_price.class == BigDecimal
-    price = raw_price.to_f / 100
-    BigDecimal.new(price, raw_price.length)
+  def self.convert_to_big_d_dollars(raw_price)
+    convert_to_big_d(raw_price)/100
   end
 
   def self.convert_to_dates(raw_date)

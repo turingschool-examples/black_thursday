@@ -34,6 +34,10 @@ class DataRepositoryTest < Minitest::Test
     assert_equal(321, all_items[1].id)
   end
 
+  def test_it_can_be_inspected
+    assert_equal '#<DataRepository 2 rows>', @repo.inspect
+  end
+
   def test_it_can_find_object_by_id
     actual = @repo.find_by_id(123)
     actual_2 = @repo.find_by_id(0000000000000)
@@ -48,10 +52,6 @@ class DataRepositoryTest < Minitest::Test
     assert_instance_of(Item, actual)
     assert_nil(actual_2)
     assert_equal(321, actual.id)
-  end
-
-  def test_it_can_validate_new_object_from_attributes
-    skip
   end
 
   def test_it_can_create_new_data_object_from_attributes
