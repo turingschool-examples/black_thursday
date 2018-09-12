@@ -109,7 +109,7 @@ class ItemRepositoryTest < Minitest::Test
     item = item_repository.find_by_id(3)
     item_repository.delete(3)
 
-    refute item_repository.items.include?(item)
+    refute item_repository.repo.include?(item)
   end
 
 end

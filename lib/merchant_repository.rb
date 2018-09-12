@@ -1,57 +1,35 @@
 require 'CSV'
+require_relative 'repo_module'
 
 class MerchantRepository
-  attr_reader :merchants
+  include RepoModule
+  attr_reader :repo
 
   def initialize(file_path)
-    @merchants = []
+    @repo = []
     load_merchants(file_path)
-  end
-
-  def all
-    @merchants
   end
 
   def load_merchants(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
-    end
-  end
-
-  def find_by_id(id_number)
-    @merchants.find do |merchant|
-      merchant.id == id_number
-    end
-  end
-
-  def find_by_name(name)
-    @merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
+      @repo << Merchant.new(row)
     end
   end
 
   def find_all_by_name(name)
-    found_all_names = @merchants.find_all do |merchant|
+    found_all_names = @repo.find_all do |merchant|
                         merchant.name.downcase.include?(name.downcase)
                       end
   end
 
   def create(attributes)
-    attributes[:id] = @merchants[-1].id + 1
-    @merchants << Merchant.new(attributes)
+    attributes[:id] = @repo[-1].id + 1
+    @repo << Merchant.new(attributes)
   end
 
   def update(id, attributes)
     merchant = find_by_id(id)
     merchant.name = attributes[:name] unless attributes[:name].nil?
-  end
-
-  def delete(id)
-    @merchants.delete(find_by_id(id))
-  end
-
-  def inspect
-  "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

@@ -64,8 +64,8 @@ class MerchantRepositoryTest < Minitest::Test
 
     merchant_repository.create(attributes)
 
-    assert_equal "Turing", merchant_repository.merchants[-1].name
-    assert_equal 5, merchant_repository.merchants[-1].id
+    assert_equal "Turing", merchant_repository.repo[-1].name
+    assert_equal 5, merchant_repository.repo[-1].id
   end
 
   def test_it_can_update_name
@@ -83,7 +83,7 @@ class MerchantRepositoryTest < Minitest::Test
     merchant = merchant_repository.find_by_id(4)
     merchant_repository.delete(4)
 
-    refute merchant_repository.merchants.include?(merchant)
+    refute merchant_repository.repo.include?(merchant)
   end
 
 
