@@ -96,7 +96,7 @@ class ItemRepo < CsvAdaptor
       item.description = attributes[:description]
       item.unit_price = attributes[:unit_price]
       time = Time.now
-      item.updated_at = Time.parse(time.to_s)
+      item.updated_at = Time.now
     end
   end
 

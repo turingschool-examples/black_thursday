@@ -109,15 +109,24 @@ class SalesAnalyst < SalesEngine
     BigDecimal((sum / average_price_array.length)).round(2)
   end
 ### Golden Method
-  def find_average_item_price_array
-    average_price_array = find_all_merchant_ids.map do |id|
-      average_item_price_for_merchant(id)
+
+  def average_item_price_array
+    average_price_array = items.all.map do |item|
+      item.price
     end
   end
 
+  def average_item_price
+    sum = average_item_price_array.reduce(0) do |sum, price|
+      sum += price
+      sum
+    end
+    ((sum / average_item_price_array.length)).round(2)
+  end
+
   def find_item_price_standard_deviation_step_one
-    find_average_item_price_array.map do |num|
-      (num - average_average_price_per_merchant)**2
+    average_item_price_array.map do |num|
+      (num - average_item_price)**2
     end
   end
 
@@ -133,6 +142,13 @@ class SalesAnalyst < SalesEngine
 
   def average_item_price_standard_deviation
     Math.sqrt(find_item_price_standard_deviation_step_three).round(2)
+  end
+
+  def golden_items
+    golden_value = average_item_price + (average_item_price_standard_deviation * 2)
+    items.all.find_all do |item|
+      item.price > golden_value
+    end
   end
 
 end
