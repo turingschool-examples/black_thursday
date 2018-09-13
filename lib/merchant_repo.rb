@@ -95,4 +95,7 @@ class MerchantRepo < CsvAdaptor
     end
   end
 
+  def x
+  end
+
 end
