@@ -9,7 +9,6 @@ require_relative 'csv_parse'
 require './lib/finderclass'
 
 class ItemRepository
-  # include Finder
 
   attr_reader :all,
               :items
@@ -56,6 +55,13 @@ class ItemRepository
     FinderClass.find_all_by(all, :unit_price, price)
   end
 
+  def find_all_by_price_in_range(range) # range instance like (0..200)
+    FinderClass.find_by_range(all, :unit_price, range)
+  end
 
+  def find_all_by_merchant_id(id)
+    # TO DO -- Our Objects need to be updated with the correct data types
+    FinderClass.find_all_by(all, :merchant_id, id)
+  end
 
 end

@@ -41,9 +41,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_makes_items
-    @big_decimal = BigDecimal.new(1200, 4)
+    big_decimal = BigDecimal.new(1200, 4)
     assert_equal "510+ RealPush Icon Set",  @first_item.name
-    assert_equal @big_decimal,              @first_item.unit_price
+    assert_equal big_decimal,               @first_item.unit_price
     assert_equal "12334141",                @first_item.merchant_id
     assert_equal "2016-01-11 09:34:06 UTC", @first_item.created_at
     assert_equal "2007-06-04 21:35:10 UTC", @first_item.updated_at
@@ -85,44 +85,35 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], found_none
   end
 
-  def test_it_can_find_by_item_unit_price
+  def test_it_can_find_an_item_by_unit_price
+    big_decimal = BigDecimal.new("1200", 4)
+    found_1 = @repo.find_all_by_price(1200)
+    found_2 = @repo.find_all_by_price("1200")
+    found_3 = @repo.find_all_by_price(big_decimal)
+    # -- Handles multiple types of price input --
+    same = found_1 == found_2 && found_1 == found_3
+    assert_equal true, same
+  end
 
+  def test_it_can_find_items_within_same_price_range
+    found = @repo.find_all_by_price_in_range((100..200))
+    assert_operator   0, :<, found.count
+    # -- first example --
+    assert_operator  99, :<, found.last.unit_price
+    assert_operator 201, :>, found.last.unit_price
+    # -- last example --
+    assert_operator  99, :<, found.first.unit_price
+    assert_operator 201, :>, found.first.unit_price
+  end
 
-
-
-
-
-  # def test_it_can_find_all_by_name
-  #   assert_equal [@first_item], @repo.find_all_by_name("510+ RealPush Icon Set")
-  # end
-  #
-  # def test_it_can_find_highest_id
-  #   assert_equal 263567474, @repo.find_by_highest_id.id
-  # end
-  #
-  # def test_it_can_create_new_merchant_instance_from_attribute_hash
-  #   new_item = {
-  #     :id             => 0,
-  #     :name           => "511+ RealPush Icon Set",
-  #     :description    => "You&#39;ve got a total socialmedia iconset!", # NOTE - excerpt!
-  #     :unit_price     => BigDecimal(10.99,4),
-  #     :created_at     => Time.now,
-  #     :updated_at     => Time.now,
-  #     :merchant_id    => 2
-  #   }
-  #
-  #   expected = Item.new({
-  #     :id             => 263567475,
-  #     :name           => "511+ RealPush Icon Set",
-  #     :description    => "You&#39;ve got a total socialmedia iconset!",
-  #     :unit_price     => BigDecimal(10.99,4),
-  #     :created_at     => Time.now,
-  #     :updated_at     => Time.now,
-  #     :merchant_id    =>2
-  #   })
-  #
-  #
-  #
-  # end
+  def test_it_can_find_all_items_with_same_merchant_id
+    found_1 = @repo.find_all_by_merchant_id("12334141")
+    found_2 = @repo.find_all_by_merchant_id(12334141)
+    assert_operator 1, :<=, found_1.count
+    assert_equal "12334141", found_1[0].merchant_id
+    skip
+    # TO DO - We have to update all objects to hold correct data type
+    assert_equal 12334141, found_2[0].merchant_id
+  end
 
 end

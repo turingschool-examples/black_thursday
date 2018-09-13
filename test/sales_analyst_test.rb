@@ -140,7 +140,7 @@ class SalesAnalystTest < Minitest::Test
     items = @sa_csv.golden_items
     assert_instance_of Array, items
     assert_instance_of Item, items[0]
-    assert_operator @sa_csv.items.all.count, >, items.count
+    assert_operator @sa_csv.items.all.count, :>, items.count
   end
 
 
