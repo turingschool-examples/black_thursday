@@ -71,8 +71,12 @@ class SalesAnalyst
   end
 
   def golden_items
+    avg = average_item_cost
+    dev = golden_items_standard_deviation * 2
+    golden_benchmark = avg + dev
+
   @sales_engine.items.repo.find_all do |item|
-      item.unit_price > (average_item_cost + (golden_items_standard_deviation * 2 ))
+      item.unit_price > golden_benchmark
     end
   end
 
@@ -116,6 +120,19 @@ class SalesAnalyst
   def merchant_id_array_for_invoices
     merchant_ids = @sales_engine.invoices.repo.map do |invoice|
       invoice.merchant_id
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    dev = average_invoices_per_merchant_standard_deviation * 2
+    golden_benchmark = avg + dev
+
+    top_merchants = invoice_per_merchant_hash.find_all do |merchant_id,     invoice_count|
+      invoice_count > golden_benchmark
+    end
+    top_merchants.map do |merchant|
+      @sales_engine.merchants.find_by_id(merchant[0])
     end
   end
 
