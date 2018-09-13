@@ -48,5 +48,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
+  def test_it_can_return_merchants_with_high_item_count
+    sales_engine = SalesEngine.from_csv({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+    })
+    sales_analyst = sales_engine.analyst
+    actual = sales_analyst.merchants_with_high_item_count.count
+    assert_equal 52, actual
+
+  end
 
 end

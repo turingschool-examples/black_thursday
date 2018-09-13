@@ -41,4 +41,21 @@ class SalesAnalyst
     standard_deviation(items_per_merchant).round(2)
   end
 
+  def merchants_with_high_item_count
+    grouped_by_merchant_id = @items.all.group_by do |item|
+      item.merchant_id
+    end
+
+    high_count_merchants = []
+    high_count_cutoff = (average_items_per_merchant_standard_deviation +
+    average_items_per_merchant)
+
+    grouped_by_merchant_id.each do |merchant_id, items|
+      if items.count > high_count_cutoff
+        high_count_merchants << @merchants.find_by_id(merchant_id)
+      end
+    end
+    high_count_merchants
+  end
+
 end
