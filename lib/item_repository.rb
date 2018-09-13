@@ -6,10 +6,10 @@ require 'pry'
 
 require_relative 'item'
 require_relative 'csv_parse'
-require './lib/finder'
+require './lib/finderclass'
 
 class ItemRepository
-  include Finder
+  # include Finder
 
   attr_reader :all,
               :items
@@ -36,6 +36,13 @@ class ItemRepository
     return hash
   end
 
+  def find_by_id(id)
+    # retains reader permissions
+    FinderClass.find_by(all, :id, id)
+  end
+
+  def find_by_name(name)
+    FinderClass.find_by_insensitive(all, :name, name)
+  end
+
 end
-
-

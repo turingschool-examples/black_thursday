@@ -109,6 +109,24 @@ class FinderClassTest < MiniTest::Test
     assert_operator high, :>=,  object.unit_price
   end
 
+  def test_it_can_find_by_a_case_insensitive_search
+    found1 = FinderClass.find_by_insensitive(@merchants.all, :name, "Candisart")
+    found2 = FinderClass.find_by_insensitive(@merchants.all, :name, "CANDISART")
+    found3 = FinderClass.find_by_insensitive(@merchants.all, :name, "CaNDiSaRT")
+    found = found1 == found2 && found1 == found3
+    assert_equal true, found
+    assert_instance_of Merchant, found1
+  end
+
+  def test_it_can_find_by_a_case_insensitive_search
+    found1 = FinderClass.find_all_by_insensitive(@merchants.all, :name, "Candisart")
+    found2 = FinderClass.find_all_by_insensitive(@merchants.all, :name, "CANDISART")
+    found3 = FinderClass.find_all_by_insensitive(@merchants.all, :name, "CaNDiSaRT")
+    found = found1 == found2 && found1 == found3
+    assert_equal true, found
+    assert_instance_of Merchant, found1[0]
+  end
+
   def test_it_can_find_all_from_a_string_fragment_of_specific_column_data
     # --- Return value ---
     found = FinderClass.find_by_fragment(@merchants.all, :name, "pi")

@@ -20,12 +20,29 @@ class FinderClass
   end # returns an object (not the max value itself)
 
   def self.find_by_range(repo, method, range)
-    # range = range.to_a   #range comes in as (0..2)
     low = range.first
     high = range.last
     list = repo.find_all { |object|
       value = object.send(method)
       value >= low && value <= high
+    }
+    return list
+  end
+
+  def self.find_by_insensitive(repo, method, data)
+    data = data.downcase
+    obj = repo.find { |object|
+      value = object.send(method).downcase
+      value == data
+    }
+    return obj
+  end
+
+  def self.find_all_by_insensitive(repo, method, data)
+    data = data.downcase
+    list = repo.find_all{ |object|
+      value = object.send(method).downcase
+      value == data
     }
     return list
   end

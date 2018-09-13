@@ -41,7 +41,7 @@ class MerchantRepositoryTest < Minitest::Test
     def test_it_gets_all_merchants
       assert_equal 475, @repo.all.count
     end
-    
+
     def test_it_can_find_by_merchant_id
       found = @repo.find_by_id(12334105)
       assert_equal @merchant1.id, found.id
