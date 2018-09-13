@@ -37,11 +37,9 @@ include Crud
 
   def find_all_by_price(bigdec)
     collection.find_all do |element|
-      price = element.unit_price
-      price == bigdec.truncate(2).to_f.round(2)
+      element.unit_price == bigdec  #.truncate(2).to_f.round(2)
     end
   end
-
 
   def find_all_by_price_in_range(range)
       collection.find_all do |element|
