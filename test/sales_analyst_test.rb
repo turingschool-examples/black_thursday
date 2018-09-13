@@ -1,6 +1,8 @@
 require_relative './test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require_relative '../lib/invoice'
+require_relative '../lib/invoice_repository'
 
 class SalesAnalystTest < Minitest::Test
   def test_it_exist
@@ -116,4 +118,16 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal [item_1], sales_analyst.golden_items
   end
+
+  def test_it_has_average_invoices_per_merchant
+    se = SalesEngine.from_csv({
+    :invoices     => "./data/invoices.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 10.49, sales_analyst.average_invoices_per_merchant
+  end
+
+
 end

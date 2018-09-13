@@ -1,11 +1,12 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/meghanstang/turing/1module/projects/black_thursday_project/black_thursday/lib/sales_analyst.rb": [
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/sales_analyst.rb": [
+        1,
         1,
         null,
         1,
-        10,
+        11,
         null,
         null,
         1,
@@ -98,12 +99,16 @@
         null,
         null,
         1,
+        1,
+        null,
+        null,
+        1,
         0,
         null,
         null,
         null
       ],
-      "/Users/meghanstang/turing/1module/projects/black_thursday_project/black_thursday/lib/sales_engine.rb": [
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         1,
@@ -114,11 +119,11 @@
         1,
         1,
         1,
-        10,
+        11,
         null,
         null,
         1,
-        10,
+        11,
         null,
         null,
         1,
@@ -126,7 +131,7 @@
         null,
         null,
         1,
-        13,
+        14,
         null,
         null,
         1,
@@ -134,12 +139,12 @@
         null,
         null,
         1,
-        0,
+        1,
         null,
         null,
         null
       ],
-      "/Users/meghanstang/turing/1module/projects/black_thursday_project/black_thursday/lib/merchant_repository.rb": [
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         null,
@@ -148,13 +153,13 @@
         1,
         null,
         1,
-        5,
-        5,
+        6,
+        6,
         null,
         null,
         1,
-        5,
-        15,
+        6,
+        490,
         null,
         null,
         null,
@@ -176,7 +181,7 @@
         null,
         null
       ],
-      "/Users/meghanstang/turing/1module/projects/black_thursday_project/black_thursday/lib/repo_module.rb": [
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/repo_module.rb": [
         1,
         null,
         1,
@@ -211,7 +216,7 @@
         null,
         null
       ],
-      "/Users/meghanstang/turing/1module/projects/black_thursday_project/black_thursday/lib/item_repository.rb": [
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/item_repository.rb": [
         1,
         1,
         null,
@@ -264,7 +269,7 @@
         null,
         null
       ],
-      "/Users/meghanstang/turing/1module/projects/black_thursday_project/black_thursday/lib/item.rb": [
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/item.rb": [
         1,
         1,
         1,
@@ -294,18 +299,79 @@
         null,
         null
       ],
-      "/Users/meghanstang/turing/1module/projects/black_thursday_project/black_thursday/lib/merchant.rb": [
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/merchant.rb": [
         1,
         1,
         1,
         null,
         1,
-        15,
-        15,
+        490,
+        490,
+        null,
+        null
+      ],
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/invoice.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        4985,
+        4985,
+        4985,
+        4985,
+        4985,
+        4985,
+        null,
+        null
+      ],
+      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/invoice_repository.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        4985,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
         null,
         null
       ]
     },
-    "timestamp": 1536809603
+    "timestamp": 1536865136
   }
 }
