@@ -27,7 +27,7 @@ module RepoModule
   end
 
   def inspect
-  "#<#{self.class} #{@repo.size} rows>"
+  "#<#{self.class} #{@merchant.size} rows>"
   end
 
 end
