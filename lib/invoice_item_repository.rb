@@ -3,8 +3,16 @@ require_relative '../lib/repo_module'
 require 'bigdecimal'
 require 'time'
 
-class InvoiceItemRepositoy
+class InvoiceItemRepository
   include RepoModule
+
+  attr_accessor :quantity,
+                :unit_price,
+                :updated_at
+  attr_reader :id,
+              :item_id,
+              :invoice_id,
+              :created_at
 
   def initialize
     @data = []
@@ -19,7 +27,7 @@ class InvoiceItemRepositoy
     end
       hash[:item_id] = attributes[:item_id].to_i
       hash[:invoice_id] = attributes[:invoice_id].to_i
-      hash[:quantity] = attributes[:quantity]
+      hash[:quantity] = attributes[:quantity].to_i
       hash[:unit_price] = BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length)
       hash[:created_at] = Time.parse(attributes[:created_at])
       hash[:updated_at] = Time.parse(attributes[:updated_at])

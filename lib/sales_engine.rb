@@ -19,7 +19,7 @@ class SalesEngine
     @merchants = MerchantRepository.new
     @invoices = InvoiceRepository.new
     @transactions = TransactionRepository.new
-    @invoice_items = InvoiceItemRepositoy.new
+    @invoice_items = InvoiceItemRepository.new
   end
 
   def self.from_csv(file_path_hash)

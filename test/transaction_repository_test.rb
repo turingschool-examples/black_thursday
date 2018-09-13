@@ -145,5 +145,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], tr.find_all_by_result(:pending)
   end
 
+  def test_it_can_update_accessible_attributes
+    tr = TransactionRepository.new
+    tr.create(@hash)
 
+    tr.update(6, {credit_card_number: "4242000000424242", credit_card_expiration_date: "1220", result: "failed"})
+    assert_equal "4242000000424242", tr.all[0].credit_card_number
+    assert_equal "1220", tr.all[0].credit_card_expiration_date
+    assert_equal "failed", tr.all[0].result
+  end
 end

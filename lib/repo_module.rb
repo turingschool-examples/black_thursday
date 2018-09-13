@@ -44,22 +44,22 @@ module RepoModule
             find_by_id(id).status = attributes[:status]
           end
           if key == :credit_card_number
-            find_by_id(id).status = attributes[:credit_card_number]
+            find_by_id(id).credit_card_number = attributes[:credit_card_number]
           end
           if key == :credit_card_expiration_date
-            find_by_id(id).status = attributes[:credit_card_expiration_date]
+            find_by_id(id).credit_card_expiration_date = attributes[:credit_card_expiration_date]
           end
           if key == :result
-            find_by_id(id).status = attributes[:result]
+            find_by_id(id).result = attributes[:result]
           end
           if key == :quantity
-            find_by_id(id).status = attributes[:quantity]
+            find_by_id(id).quantity = attributes[:quantity].to_i
           end
           if key == :first_name
-            find_by_id(id).status = attributes[:quantity]
+            find_by_id(id).first_name = attributes[:first_name]
           end
           if key == :last_name
-            find_by_id(id).status = attributes[:quantity]
+            find_by_id(id).last_name = attributes[:last_name]
           end
         end
     end
