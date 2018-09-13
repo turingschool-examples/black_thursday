@@ -18,4 +18,12 @@ class SalesAnalystTest<Minitest::Test
     assert_instance_of SalesAnalyst, @sa
   end
 
+  def test_it_gives_average_items_per_merchant
+    assert_equal 1.0, @sa.average_items_per_merchant
+  end
+
+  def test_it_can_give_average_items_per_merchant_standard_deviation
+    assert_equal 1.0, @sa.average_items_per_merchant_standard_deviation
+  end
+
 end

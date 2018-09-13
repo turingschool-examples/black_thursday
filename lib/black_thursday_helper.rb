@@ -38,6 +38,6 @@ module BlackThursdayHelper
   end
 
   def inspect
-    "#<#{self.class} #{@repository.size} rows>"
+    "#<#{self.class} #{@collections.size} rows>"
   end
 end
