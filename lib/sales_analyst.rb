@@ -95,7 +95,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (@sales_engine.invoices.repo.count / @sales_engine.merchants.repo.count).round(2)
+    (@sales_engine.invoices.repo.count / @sales_engine.merchants.repo.count.to_f).round(2)
   end
 
   def inspect
