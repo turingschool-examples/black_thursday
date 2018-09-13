@@ -27,6 +27,13 @@ class InvoiceRepository < Repository
     return all_invoices
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    all_invoices = @data.find_all do |datum|
+      datum.merchant_id == merchant_id
+      end
+    return all_invoices
+  end
+
   def find_all_by_status(status)
     all_invoices = @data.find_all do |datum|
       datum.status == status
