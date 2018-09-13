@@ -25,8 +25,7 @@ class FinderClass
     list = repo.find_all { |object|
       value = object.send(method)
       value >= low && value <= high
-    }
-    return list
+    }; return list
   end
 
   def self.find_by_insensitive(repo, method, data)
@@ -34,8 +33,7 @@ class FinderClass
     obj = repo.find { |object|
       value = object.send(method).downcase
       value == data
-    }
-    return obj
+    }; return obj
   end
 
   def self.find_all_by_insensitive(repo, method, data)
@@ -43,8 +41,7 @@ class FinderClass
     list = repo.find_all{ |object|
       value = object.send(method).downcase
       value == data
-    }
-    return list
+    }; return list
   end
 
   def self.find_by_fragment(repo, method, frag)
@@ -52,8 +49,7 @@ class FinderClass
     list = repo.find_all{ |object|
       value = object.send(method).downcase
       value.include?(frag)
-    }
-    return list
+    }; return list
   end
 
 end

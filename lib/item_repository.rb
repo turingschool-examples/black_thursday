@@ -45,4 +45,17 @@ class ItemRepository
     FinderClass.find_by_insensitive(all, :name, name)
   end
 
+  def find_all_with_description(desc)
+    FinderClass.find_by_fragment(all, :description, desc)
+  end
+
+  def find_all_by_price(price)
+    price.class != BigDecimal ? price = BigDecimal.new(price, 4) : price
+    # TO DO -  What is the expected format of this price?
+    # TO DO - Should we be using the price_in_dollars method ??
+    FinderClass.find_all_by(all, :unit_price, price)
+  end
+
+
+
 end

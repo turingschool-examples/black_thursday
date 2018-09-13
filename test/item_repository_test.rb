@@ -56,12 +56,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal new_hash, @repo.make_hash(@key, @value)
   end
 
-  def test_it_gets_all
+  def test_it_gets_all_merchants
     assert_equal 1367, @repo.all.count
     assert_equal @repo.items, @repo.all
   end
 
-  def test_it_can_find_by_id
+  def test_it_can_find_by_item_id
     found = @repo.find_by_id(263395237)
     assert_equal @first_item.id, found.id
   end
@@ -72,8 +72,20 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_with_similar_description
-    skip
+    # -- only one has this string --
+    found_1 = @repo.find_all_with_description("You&#39;ve got a total socialmedia iconset!")
+    assert_equal 1, found_1.count
+    assert_equal @first_item.description, found_1[0].description
+    # -- many have this string --
+    found_many = @repo.find_all_with_description("You")
+    assert_equal @first_item.description, found_many[0].description
+    assert_equal true, found_many[500].description.include?("You".downcase)
+    # -- none have this string --
+    found_none = @repo.find_all_with_description("zzzzzzzzz")
+    assert_equal [], found_none
   end
+
+  def test_it_can_find_by_item_unit_price
 
 
 

@@ -137,7 +137,6 @@ class FinderClassTest < MiniTest::Test
     # -- empty array if no match --
     found3 = FinderClass.find_by_fragment(@merchants.all, :name, "zzzzz")
     assert_equal [], found3
-
     # --- case insensitive --
     first  = found.first.name
     first1 = first.include?("pi")
@@ -158,7 +157,5 @@ class FinderClassTest < MiniTest::Test
     found2 = FinderClass.find_by_fragment(@merchants.all, :name, "PI")
     assert_equal found, found2
   end
-
-
 
 end
