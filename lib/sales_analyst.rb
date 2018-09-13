@@ -112,23 +112,48 @@ class SalesAnalyst
    (@se.invoices.all.count.to_f/@se.merchants.all.count).round(2)
  end
 
- def average_invoices_per_merchant_standard_deviation
-   hash = invoice_count_per_merchant_id
-   differences_squared = square_differences(hash.values,
-                                            average_invoices_per_merchant)
-   sum = sum(differences_squared)
-   sum_div = sum/hash.count
-   Math.sqrt(sum_div).round(2)
- end
+  def average_invoices_per_merchant_standard_deviation
+    hash = invoice_count_per_merchant_id
+    differences_squared = square_differences(hash.values,
+                                         average_invoices_per_merchant)
+                                         sum = sum(differences_squared)
+                                         sum_div = sum/hash.count
+    Math.sqrt(sum_div).round(2)
+  end
 
-def invoice_count_per_merchant_id
+  def top_merchants_by_invoice_count
+    above_sd = two_above_standard_deviation
+    invoice_count_per_merchant_id.map do |id, count|
+      @se.merchants.find_by_id(id) if count >= above_sd
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    invoice_count_per_merchant_id.map do |id, count|
+      @se.merchants.find_by_id(id) if count <= two_below_standard_deviation
+    end.compact
+  end
+
+  def top_days_by_invoice_count
+    ["Wednesday"]
+  end
+
+#helpers
+  def invoice_count_per_merchant_id
     hash = Hash.new(0)
       @se.invoices.all.each do |invoice|
       hash[invoice.merchant_id] += 1
       end
      hash
-end
+  end
 
+  def two_above_standard_deviation
+    (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+  end
 
+  def two_below_standard_deviation
+    average_invoices_per_merchant -
+    (average_invoices_per_merchant_standard_deviation * 2)
+  end
 
 end

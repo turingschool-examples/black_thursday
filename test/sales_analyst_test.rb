@@ -243,4 +243,48 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 475, sa.invoice_count_per_merchant_id.count
   end
 
+  def test_can_calculate_two_above_the_standard_deviation
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 17.07, sa.two_above_standard_deviation
+  end
+
+  def test_can_find_the_top_merchants_two_standard_deviations_above_the_mean
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 12, sa.top_merchants_by_invoice_count.count
+  end
+
+  def test_can_calculate_two_below_the_standard_deviation
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 3.91, sa.two_below_standard_deviation
+  end
+
+
+  def test_can_find_the_bottom_merchants_two_standard_deviations_below_the_mean
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 4, sa.bottom_merchants_by_invoice_count.count
+  end
 end
