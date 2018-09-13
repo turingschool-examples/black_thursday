@@ -89,14 +89,15 @@ class ItemRepo < CsvAdaptor
 
   def update(id, attributes)
     item = find_by_id(id)
-    new_name = attributes[:name]
-    new_description = attributes[:description]
-    new_unit_price = attributes[:unit_price]
-    item.change_name(new_name)
-    item.change_description(new_description)
-    item.change_unit_price(new_unit_price)
-    item.change_updated_at
-    item
+    if item == nil
+      do_nothing
+    else
+      item.name = attributes[:name] unless attributes[:name] == nil
+      item.description = attributes[:description]
+      item.unit_price = attributes[:unit_price]
+      time = Time.now
+      item.updated_at = Time.parse(time.to_s)
+    end
   end
 
   def delete(id)

@@ -1,13 +1,13 @@
 class Item
 
   attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
               :merchant_id,
               :created_at
 
-  attr_accessor :updated_at
+  attr_accessor :updated_at,
+                :name,
+                :description,
+                :unit_price
 
   def initialize(item_hash, created_at=Time.now, updated_at=Time.now)
     @id = item_hash[:id]
@@ -27,21 +27,9 @@ class Item
     @id = new_id.to_i
   end
 
-  def change_name(new_name)
-    @name = new_name
+  def price
+    @unit_price.to_f
   end
 
-  def change_description(new_description)
-    @description = new_description
-  end
-
-  def change_unit_price(new_price)
-    @unit_price = new_price
-  end
-
-  # def change_updated_at
-  #   time = Time.now
-  #   @updated_at = Time.parse(time.to_s)
-  # end
 
 end

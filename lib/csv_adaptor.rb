@@ -27,4 +27,7 @@ class CsvAdaptor
     end
   end
 
+  def do_nothing
+  end
+  
 end

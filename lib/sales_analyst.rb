@@ -72,7 +72,7 @@ class SalesAnalyst < SalesEngine
     array
   end
 
-  def find_merchant_objects_with_high_item_count
+  def merchants_with_high_item_count
     array = []
     find_merchant_ids_with_high_item_count.each do |id|
       merchants.all.each do |merchant|
@@ -86,14 +86,16 @@ class SalesAnalyst < SalesEngine
 
   def average_item_price_for_merchant(id)
     id = id.to_s
-    item_array = find_item_object_per_merchant[id].map do |item|
-      item.unit_price_to_dollars
+    merchant_items = items.find_all_by_merchant_id(id)
+    item_array = merchant_items.map do |item|
+      item.unit_price
     end
     sum = item_array.reduce(0) do |sum, price|
       sum += price
       sum
     end
-    BigDecimal((sum / item_array.length))
+    avg = (sum / item_array.length)
+    BigDecimal((sum / item_array.length)).round(2)
   end
 
   def average_average_price_per_merchant
@@ -104,7 +106,7 @@ class SalesAnalyst < SalesEngine
       sum += price
       sum
     end
-    BigDecimal((sum / average_price_array.length))
+    BigDecimal((sum / average_price_array.length)).round(2)
   end
 ### Golden Method
   def find_average_item_price_array
