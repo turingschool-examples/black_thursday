@@ -11,6 +11,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
     })
     assert_instance_of SalesEngine, se
   end
@@ -19,6 +20,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
     })
 
     assert_instance_of ItemRepository, se.ir
@@ -29,6 +31,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
     actual = mr.merchants_array[0]
@@ -40,6 +43,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
     })
     mr = se.merchants
 
@@ -50,6 +54,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
     })
     ir = se.items
     actual = ir.items_array[0]

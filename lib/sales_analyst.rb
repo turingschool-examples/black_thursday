@@ -3,9 +3,10 @@ require 'pry'
 class SalesAnalyst
   attr_reader :ir,
               :mr
-  def initialize(merchant_repository, item_repository)
+  def initialize(merchant_repository, item_repository, invoice_repository)
       @mr = merchant_repository
       @ir = item_repository
+      @inv_repo = invoice_repository
   end
 
   def average_items_per_merchant
@@ -105,5 +106,41 @@ class SalesAnalyst
 
   def expensive_items(stnd_dev)
     @ir.items_array.find_all { |item| item.unit_price >= 5805.38 }
+  end
+
+  def average_invoices_per_merchant
+    all_invoices = @inv_repo.all.count
+    all_merchants = @mr.all.count
+    (all_invoices.to_f/all_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average_inv = average_invoices_per_merchant
+    invoices_subtracted = merchant_invoices_minus_average_invoices(average_inv)
+    squared_subtracted_invoices = squared(invoices_subtracted)
+    standard_deviation(squared_subtracted_invoices)
+  end
+
+  def merchant_invoices_minus_average_invoices(average_invoices)
+    merchant_ids_and_count = count_duplicates
+    merchant_ids_and_count.values.map do |dup_count|
+      (dup_count - average_invoices)
+    end
+  end
+
+  def number_of_invoice_per_merchant
+    @inv_repo.invoices_array.map do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def count_duplicates
+    merchant_invoice_count = {}
+    merchant_id_array = number_of_invoice_per_merchant
+    @mr.all.each do |merchant|
+      number = merchant_id_array.count(merchant.id)
+      merchant_invoice_count[merchant] = number
+    end
+    merchant_invoice_count
   end
 end
