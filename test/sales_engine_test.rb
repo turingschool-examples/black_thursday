@@ -10,26 +10,33 @@ require_relative '../lib/merchant'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/item'
 require_relative '../lib/item_repo'
+require_relative '../lib/sales_analyst'
 
 class SalesEngineTest < Minitest::Test
 
   def test_it_exists
-    se = SalesEngine.new("file1", "file2")
+    se = SalesEngine.from_csv({
+      :items     => "./data/sample_item_data.csv",
+      :merchants => "./data/sample_merchant_file.csv"
+    })
 
     assert_instance_of SalesEngine, se
   end
 
   def test_it_has_attributes
-    se = SalesEngine.new("file1", "file2")
+    se = SalesEngine.from_csv({
+      :items     => "./data/sample_item_data.csv",
+      :merchants => "./data/sample_merchant_file.csv"
+    })
 
-    assert_equal "file1", se.item_file
-    assert_equal "file2", se.merchant_file
+    assert_equal "./data/sample_item_data.csv", se.item_file
+    assert_equal "./data/sample_merchant_file.csv", se.merchant_file
   end
 
   def test_merchants_and_items_creates_instances_of_repos
     se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+      :items     => "./data/sample_item_data.csv",
+      :merchants => "./data/sample_merchant_file.csv"
     })
 
     assert_instance_of MerchantRepo, se.merchants
@@ -37,12 +44,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_test_analyst_creates_sales_analyst
-    sales_engine = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    se = SalesEngine.from_csv({
+      :items     => "./data/sample_item_data.csv",
+      :merchants => "./data/sample_merchant_file.csv"
     })
 
-    assert_instance_of SalesAnalyst, sales_engine.analyst
+    assert_instance_of SalesAnalyst, se.analyst
   end
 
 end

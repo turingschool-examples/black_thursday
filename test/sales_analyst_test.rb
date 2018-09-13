@@ -129,7 +129,7 @@ class SalesAnalystTest < MiniTest::Test
     })
     sales_analyst = sales_engine.analyst
 
-    assert_instance_of Merchant, sales_analyst.find_merchant_objects_with_high_item_count[0]
+    assert_instance_of Merchant, sales_analyst.merchants_with_high_item_count[0]
   end
 
   def test_average_item_price_for_merchant
@@ -150,7 +150,7 @@ class SalesAnalystTest < MiniTest::Test
     })
     sales_analyst = sales_engine.analyst
 
-    assert_equal "", sales_analyst.average_average_price_per_merchant
+    assert_instance_of BigDecimal, sales_analyst.average_average_price_per_merchant
   end
 
   def test_item_price_find_standard_deviation
@@ -160,6 +160,6 @@ class SalesAnalystTest < MiniTest::Test
     })
     sales_analyst = sales_engine.analyst
 
-    assert_equal "", sales_analyst.average_item_price_standard_deviation
+    assert_equal 155.77, sales_analyst.average_item_price_standard_deviation
   end
 end

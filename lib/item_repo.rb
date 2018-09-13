@@ -98,6 +98,7 @@ class ItemRepo < CsvAdaptor
       time = Time.now
       item.updated_at = Time.now
     end
+    item
   end
 
   def delete(id)
