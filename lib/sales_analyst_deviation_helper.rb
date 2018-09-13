@@ -1,37 +1,26 @@
-module StandardDeviation
+require_relative '../lib/sales_engine'
+module SalesAnalystHelper
 
-  def average
-
+  def mean_method
+    average_items_per_merchant
   end
 
-  def sum
-    
+  def standard_dev(data, mean)
+    total_sum = data.inject(0) do |sum, number_items|
+      sum + (number_items - mean)**2
+    end
+    Math.sqrt(total_sum / (data.size - 1)).round(2).to_f
   end
 
-  def standard_deviation
-
-    average = ages.sum.to_f / ages.length
-
-    subtracted = ages.map do |age|
-      age - average
-    end
-
-    rounded_numbers = subtracted.map do |number|
-      number.round(2)
-    end
-
-    squared_numbers = rounded_numbers.map do |number|
-      number ** 2
-    end
-
-    rounded_square_numbers = squared_numbers.map do |number|
-      number.round(2)
-    end
-
-    divided_result = rounded_square_numbers.sum / ages.length
-
-    Math.sqrt(divided_result).round(2)
-
+  def all_items
+    @sales_engine.items.all
   end
+
+  def all_merchants
+    @sales_engine.merchants.all
+  end
+
+
+
 
 end
