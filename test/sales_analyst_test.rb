@@ -26,4 +26,9 @@ class SalesAnalystTest<Minitest::Test
     assert_equal 0.58, @sa.average_items_per_merchant_standard_deviation
   end
 
+  def test_it_calculates_merchants_with_high_item_count
+    expected = [@se.merchants.find_by_id(1)]
+    assert_equal expected , @sa.merchants_with_high_item_count
+  end
+
 end

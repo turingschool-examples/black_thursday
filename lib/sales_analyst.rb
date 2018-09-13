@@ -27,4 +27,12 @@ class SalesAnalyst
     standard_dev(items_per_merchant, mean)
   end
 
+  def merchants_with_high_item_count
+    goal = average_items_per_merchant + average_items_per_merchant_standard_deviation
+
+    all_merchants.find_all do |merchant|
+      @sales_engine.items.find_all_by_merchant_id(merchant.id).size > goal
+    end
+  end
+
 end
