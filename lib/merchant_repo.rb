@@ -46,12 +46,9 @@ class MerchantRepo < CsvAdaptor
   end
 
   def find_by_name(name)
-    @merchants.each do |merchant|
-      if merchant.name.downcase == name.downcase
-        return merchant
-      end
+    @merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
     end
-    nil
   end
 
   def find_all_by_name(name)
@@ -75,6 +72,9 @@ class MerchantRepo < CsvAdaptor
   end
 
   def update(id, attributes)
+    if find_by_id(id) == nil
+      nil
+    end
     merchant = find_by_id(id)
     new_name = attributes[:name]
     merchant.change_name(new_name)

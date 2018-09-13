@@ -5,21 +5,22 @@ class Item
               :description,
               :unit_price,
               :merchant_id,
-              :updated_at,
               :created_at
 
-  def initialize(item_hash)
+  attr_accessor :updated_at
+
+  def initialize(item_hash, created_at=Time.now, updated_at=Time.now)
     @id = item_hash[:id]
     @name = item_hash[:name]
     @description = item_hash[:description]
     @unit_price = BigDecimal(item_hash[:unit_price]) / 100
-    @created_at = item_hash[:name]
-    @updated_at = item_hash[:name]
+    @created_at = Time.parse((item_hash[:created_at]).to_s)
+    @updated_at = Time.parse((item_hash[:updated_at]).to_s)
     @merchant_id = item_hash[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
-    @unit_price.to_i
+    @unit_price.to_f
   end
 
   def create_id(new_id)
@@ -38,8 +39,9 @@ class Item
     @unit_price = new_price
   end
 
-  def change_updated_at
-    @updated_at = Time.now.getutc
-  end
+  # def change_updated_at
+  #   time = Time.now
+  #   @updated_at = Time.parse(time.to_s)
+  # end
 
 end
