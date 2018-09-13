@@ -1,4 +1,5 @@
 require 'pry'
+require 'date'
 
 class SalesAnalyst
   def initialize(sales_engine)
@@ -135,7 +136,11 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    ["Wednesday"]
+    top_day = []
+    dates_sorted = group_invoices_by_days_of_the_week.max_by do |key, value|
+      value.count
+    end
+    top_day << dates_sorted[0]
   end
 
 #helpers
@@ -154,6 +159,12 @@ class SalesAnalyst
   def two_below_standard_deviation
     average_invoices_per_merchant -
     (average_invoices_per_merchant_standard_deviation * 2)
+  end
+
+  def group_invoices_by_days_of_the_week
+    @se.invoices.all.group_by do |invoice|
+      invoice.created_at.strftime('%A')
+    end
   end
 
 end

@@ -276,7 +276,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.91, sa.two_below_standard_deviation
   end
 
-
   def test_can_find_the_bottom_merchants_two_standard_deviations_below_the_mean
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
@@ -286,5 +285,27 @@ class SalesAnalystTest < Minitest::Test
     sa = se.analyst
 
     assert_equal 4, sa.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_can_group_invoices_by_day_of_the_week
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal ["Saturday", "Friday", "Wednesday", "Monday", "Sunday", "Tuesday", "Thursday"], sa.group_invoices_by_days_of_the_week.keys
+  end
+#
+  def test_can_get_top_days_based_on_invoice_count
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 end
