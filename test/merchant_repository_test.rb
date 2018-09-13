@@ -1,7 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-
-require 'pry'
+require_relative 'test_helper'
 
 require './lib/merchant_repository'
 require './lib/merchant'
@@ -26,7 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
     @merchant1 = Merchant.new( {id: 12334105, name: "Shopin1901"} )
     @merchant2 = Merchant.new( {id: 12334112, name: "Candisart"} )
 
-   
+
   end
 
     def test_it_exists

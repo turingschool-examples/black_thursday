@@ -1,6 +1,5 @@
-require 'pry'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
+
 # require_relative '../black_thursday/lib/csv_parse'
 require './lib/csv_parse'
 
