@@ -38,9 +38,6 @@ class InvoiceItemRepositoy
     end
   end
 
-
-
-# create(attributes) - create a new InvoiceItem instance with the provided attributes. The new InvoiceItem’s id should be the current highest InvoiceItem id plus 1.
 # update(id, attribute) - update the InvoiceItem instance with the corresponding id with the provided attributes. Only the invoice_item’s quantity and unit_price can be updated. This method will also change the invoice_item’s updated_at attribute to the current time.
 # delete(id) - delete the InvoiceItem instance with the corresponding idte(id, attribute) - update the Transaction instance with the corresponding id with the provided attributes. Only the transaction’s credit_card_number, credit_card_expiration_date, and result can be updated. This method will also change the transaction’s updated_at attribute to the current time.
 
