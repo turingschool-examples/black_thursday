@@ -7,12 +7,16 @@ class SalesAnalyst
 
   attr_reader :item_repo,
               :merchant_repo,
-              :invoice_repo
+              :invoice_repo,
+              :invoice_item_repo,
+              :transaction_repo
 
-  def initialize(item_repo, merchant_repo, invoice_repo)
+  def initialize(item_repo, merchant_repo, invoice_repo, transaction_repo, invoices_items_repo)
     @item_repo = item_repo
     @merchant_repo = merchant_repo
     @invoice_repo = invoice_repo
+    @invoice_item_repo = invoice_item_repo
+    @transaction_repo = transaction_repo
   end
 
 

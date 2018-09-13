@@ -20,6 +20,15 @@ module RepoModule
       end
     end
 
+    def update(id, attributes)
+      if find_by_id(id) != nil
+        update_attributes(id, attributes)
+        if find_by_id(id).updated_at != nil
+          find_by_id(id).updated_at = Time.now
+        end
+      end
+    end
+
     def update_attributes(id, attributes)
         attributes.each do |key, value|
           if key == :name
@@ -33,6 +42,18 @@ module RepoModule
           end
           if key == :status
             find_by_id(id).status = attributes[:status]
+          end
+          if key == :credit_card_number
+            find_by_id(id).status = attributes[:credit_card_number]
+          end
+          if key == :credit_card_expiration_date
+            find_by_id(id).status = attributes[:credit_card_expiration_date]
+          end
+          if key == :result
+            find_by_id(id).status = attributes[:result]
+          end
+          if key == :quantity
+            find_by_id(id).status = attributes[:quantity]
           end
         end
     end
