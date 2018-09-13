@@ -1,4 +1,5 @@
 require_relative './modules/precision_math'
+require 'time'
 
 class SalesAnalyst
   include PrecisionMath
@@ -93,4 +94,35 @@ class SalesAnalyst
       top_merchants
     end
   end
+
+  def top_days_by_invoice_count
+    counts = invoice_counts_by_weekday
+    threshold = average(counts.values) + stdev(counts.values)
+    counts.inject([]) do |top_days, day_count|
+      top_days << day_count[0] if day_count[1] > threshold
+      top_days
+    end
+  end
+
+  def invoice_counts_by_weekday
+    @engine.invoices.all.inject(Hash.new(0)) do |day_counts, invoice|
+      day = invoice.created_at.strftime("%A")
+      day_counts[day] += 1
+      day_counts
+    end
+  end
+
+  def invoice_counts_by_status
+    @engine.invoices.all.inject(Hash.new(0)) do |status_counts, invoice|
+      status_counts[invoice.status] += 1
+      status_counts
+    end
+  end
+
+  def invoice_status(status)
+    counts = invoice_counts_by_status
+    total_count = @engine.invoices.all.length
+    ((counts[status].to_f / total_count) * 100).round(2)
+  end
+
 end

@@ -1,12 +1,13 @@
 require_relative './test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'time'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    @engine = SalesEngine.from_csv(:items => './test/data/items.csv',
-                                   :merchants => './test/data/merchants.csv',
-                                   :invoices => './test/data/invoices.csv')
+    @engine = SalesEngine.from_csv(items: './test/data/items.csv',
+                                   merchants: './test/data/merchants.csv',
+                                   invoices: './test/data/invoices.csv')
 
     @analyst = @engine.analyst
   end
@@ -143,4 +144,56 @@ class SalesAnalystTest < Minitest::Test
     actual = @analyst.bottom_merchants_by_invoice_count
     assert_equal [merchants[2]], actual
   end
+
+  def test_it_can_show_invoice_counts_by_weekday
+    we = Time.parse('2018-09-12 17:45:35 -0600')
+    th = Time.parse('2018-09-13 17:45:35 -0600')
+    fr = Time.parse('2018-09-14 17:45:35 -0600')
+    sa = Time.parse('2018-09-15 17:45:35 -0600')
+    su = Time.parse('2018-09-16 17:45:35 -0600')
+    mo = Time.parse('2018-09-17 17:45:35 -0600')
+    tu = Time.parse('2018-09-18 17:45:35 -0600')
+
+    weekdays = [we, th, fr, sa, su, mo, [tu] * 1000].flatten
+    invoices = weekdays.map do |day|
+      stub('Invoice', created_at: day)
+    end
+    @engine.invoices.stubs(:all).returns(invoices)
+    expected = {  "Wednesday" => 1, "Thursday" => 1, "Friday" => 1,
+                  "Saturday" => 1, "Sunday" => 1, "Monday" => 1,
+                  "Tuesday" => 1000 }
+    actual = @analyst.invoice_counts_by_weekday
+    assert_equal(expected, actual)
+  end
+
+  def test_it_can_show_top_days_by_invoice_count
+    we = Time.parse('2018-09-12 17:45:35 -0600')
+    th = Time.parse('2018-09-13 17:45:35 -0600')
+    fr = Time.parse('2018-09-14 17:45:35 -0600')
+    sa = Time.parse('2018-09-15 17:45:35 -0600')
+    su = Time.parse('2018-09-16 17:45:35 -0600')
+    mo = Time.parse('2018-09-17 17:45:35 -0600')
+    tu = Time.parse('2018-09-18 17:45:35 -0600')
+
+    weekdays = [we, th, fr, sa, su, mo, [tu] * 1000].flatten
+    invoices = weekdays.map do |day|
+      stub('Invoice', created_at: day)
+    end
+    @engine.invoices.stubs(:all).returns(invoices)
+    expected = ["Tuesday"]
+    actual = @analyst.top_days_by_invoice_count
+    assert_equal(expected, actual)
+  end
+
+  def test_it_can_return_percentages_by_invoice_status
+    statuses = [ [:pending] * 30, [:shipped] * 45, [:returned] * 25 ].flatten
+    invoices = statuses.map do |status|
+      stub('Invoice', status: status)
+    end
+    @engine.invoices.stubs(:all).returns(invoices)
+    assert_equal(30.0, @analyst.invoice_status(:pending))
+    assert_equal(45.0, @analyst.invoice_status(:shipped))
+    assert_equal(25.0, @analyst.invoice_status(:returned))
+  end
+
 end
