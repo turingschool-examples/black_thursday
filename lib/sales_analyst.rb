@@ -1,16 +1,17 @@
+require 'pry'
 class SalesAnalyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
 
-  def average_item_per_merchant
+  def average_items_per_merchant
     (@sales_engine.items.repo.count.to_f / @sales_engine.merchants.repo.count).round(2)
   end
 
-  def average_items_per_merchants_standard_deviation
+  def average_items_per_merchant_standard_deviation
     diff_squared =
-    differences_squared(items_per_merchant_hash.values,average_item_per_merchant)
+    differences_squared(items_per_merchant_hash.values,average_items_per_merchant)
     summed = sum_values(diff_squared)
     divided_sum = summed / (items_per_merchant_hash.count - 1)
     Math.sqrt(divided_sum).round(2)
@@ -31,7 +32,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     highest_count = items_per_merchant_hash.find_all do |merchant|
-      merchant[1] > (average_item_per_merchant + average_items_per_merchants_standard_deviation)
+      merchant[1] > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
     highest_count.map do |merchant|
       @sales_engine.merchants.find_by_id(merchant[0])
@@ -43,7 +44,7 @@ class SalesAnalyst
     summed_unit_price = items.inject(0) do |sum,item|
       sum + item.unit_price
     end
-    summed_unit_price/items.count
+    (summed_unit_price/items.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -56,6 +57,7 @@ class SalesAnalyst
 
   def average_item_cost
     summed = sum_values(array_of_unit_price)
+    # binding.pry
     (summed / @sales_engine.items.repo.count).round(2)
   end
 
@@ -69,11 +71,8 @@ class SalesAnalyst
   end
 
   def golden_items
-    golden_items_array = []
-    golden_items = @sales_engine.items.repo.find_all do |item|
-      if item.unit_price > (average_item_cost + (golden_items_standard_deviation * 2 ))
-          golden_items_array  << item
-      end
+  @sales_engine.items.repo.find_all do |item|
+      item.unit_price > (average_item_cost + (golden_items_standard_deviation * 2 ))
     end
   end
 
@@ -96,7 +95,7 @@ class SalesAnalyst
   end
 
   def inspect
-   "#<#{self.class} #{@merchants.size} rows>"
+   "#<#{self.class} #{@merchant.size} rows>"
   end
 
 end
