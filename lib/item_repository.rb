@@ -17,7 +17,7 @@ include Crud
     @collection = []
     loader(filepath)
     @parent = parent
-    @changeable_attributes = [:name]
+    @changeable_attributes = [:name, :description, :unit_price]
     # @collection = []
     # loader(filepath)
     # @collection.each do |item|
@@ -27,24 +27,22 @@ include Crud
   end
 
   def create(attributes)
-    largest = (collection.max_by {|element| element[:id]})[:id]
-    attributes[:id] = (largest + 1)
-    new = Item.new(attributes)
-    @collection << new
+    if @collection != []
+      largest = (@collection.max_by {|element| element.id})
+      attributes[:id] = (largest.id + 1)
+    else
+      attributes[:id] = 1
+    end
+    i = Item.new(attributes, self)
+    @collection << i
   end
 
   def find_all_with_description(string)
-    find_all_by(:description, string)
+    find_all_by("description", string.downcase)
   end
 
-  # def find_all_by_price(string)
-  #   find_all_by_exact(:unit_price, string)
-  # end
-
   def find_all_by_price(bigdec)
-    collection.keep_if do |element|
-      element[:unit_price] == bigdec
-    end
+    find_all_by("unit_price", bigdec)
   end
 
 

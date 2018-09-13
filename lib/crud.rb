@@ -31,7 +31,7 @@ module Crud
 
   def find_all_by(type, string)
     collection.find_all do |element|
-      element.send(type).downcase.include? string.downcase
+      element.send(type).downcase.include? string
     end
   end
 
