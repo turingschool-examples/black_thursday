@@ -35,5 +35,4 @@ class TransactionTet < Minitest::Test
     assert_equal "2012-02-26 20:56:56 UTC", @t.updated_at
   end
 
-
 end
