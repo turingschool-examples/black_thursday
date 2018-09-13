@@ -1,4 +1,4 @@
-require 'bigdecimal'
+ require 'bigdecimal'
 require_relative '../lib/sales_engine'
 require_relative '../lib/black_thursday_helper'
 require_relative '../lib/sales_analyst_deviation_helper'
