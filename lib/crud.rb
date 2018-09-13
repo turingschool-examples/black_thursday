@@ -24,7 +24,7 @@ module Crud
   end
 
   def find_all_by_exact(key, string)
-    collection.keep_if do |element|
+    collection.find_all do |element|
       element[key] == string
     end
   end
@@ -37,17 +37,6 @@ module Crud
 
   def delete(id)
     collection.delete_if { |element| element.id == id }
-  end
-
-  def update(id, key_value_array)
-    it = collection.find { |element| element.id == id}
-
-    key_value_array.map do |key_value|
-      if @changeable_attributes.include?(key_value[0])
-       it[key_value[0]] = key_value[1]
-       it.updated_at = Time.now
-      end
-    end
   end
 
 end
