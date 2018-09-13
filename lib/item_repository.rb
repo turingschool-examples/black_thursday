@@ -60,7 +60,9 @@ include Crud
   end
 
   def find_all_by_merchant_id(string)
-    find_all_by_exact(:merchant_id, string)
+    collection.find_all do |element|
+      element.merchant_id == string.to_i
+    end
   end
 
   def loader(filepath)
