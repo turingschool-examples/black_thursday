@@ -58,4 +58,44 @@ class SalesAnalyst
     high_count_merchants
   end
 
+  def average_item_price_for_merchant(for_merchant_id)
+    grouped_by_merchant_id = @items.all.group_by do |item|
+      item.merchant_id
+    end
+     merchants_items = grouped_by_merchant_id[for_merchant_id]
+     mimic_sum = merchants_items.inject(0.0) do |sum, item|
+       sum + item.unit_price
+     end
+     (mimic_sum / merchants_items.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+    merchant_price_averages = @merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    mimic_sum = merchant_price_averages.inject(0.0) do |sum, price_average|
+      sum + price_average
+    end
+    (mimic_sum / merchant_price_averages.count).round(2)
+  end
+
+  def golden_items
+    item_prices = @items.all.map do |item|
+      item.unit_price
+    end
+
+    sd_item_prices = standard_deviation(item_prices)
+    average_price = average_average_price_per_merchant.to_f
+    golden_item_cutoff = sd_item_prices * 2 + average_price
+    golden_priced_items = []
+    @items.all.each do |item|
+      if item.unit_price > golden_item_cutoff
+        golden_priced_items << item
+      end
+    end
+    golden_priced_items
+  end
+
+
+
 end

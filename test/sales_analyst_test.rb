@@ -59,4 +59,35 @@ class SalesAnalystTest < Minitest::Test
 
   end
 
+  def test_it_can_return_average_item_price_per_merchant
+    sales_engine = SalesEngine.from_csv({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+    })
+    sales_analyst = sales_engine.analyst
+    actual = sales_analyst.average_item_price_for_merchant(12334105)
+    assert_equal 16.66, actual
+  end
+
+  def test_it_can_average_the_average_price_per_merchant
+    sales_engine = SalesEngine.from_csv({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+    })
+    sales_analyst = sales_engine.analyst
+    actual = sales_analyst.average_average_price_per_merchant
+    assert_equal 350.29, actual
+  end
+
+  def test_it_can_return_golden_items
+
+    sales_engine = SalesEngine.from_csv({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+    })
+    sales_analyst = sales_engine.analyst
+    actual = sales_analyst.golden_items.count
+    assert_equal 5, actual
+  end
+
 end
