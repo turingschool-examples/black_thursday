@@ -3,7 +3,7 @@ require_relative '../lib/repo_module'
 require 'bigdecimal'
 require 'time'
 
-class InvoiceItemRepositoy
+class InvoiceItemRepository
   include RepoModule
 
   def initialize

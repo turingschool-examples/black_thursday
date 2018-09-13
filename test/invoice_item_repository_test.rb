@@ -2,10 +2,10 @@ require_relative '../test/test_helper'
 require_relative '../lib/invoice_item_repository'
 
 
-class InvoiceItemRepositoyTest < Minitest::Test
+class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
-    @iir = InvoiceItemRepositoy.new
+    @iir = InvoiceItemRepository.new
     @args1 = {
         :id => "6",
         :item_id => "7",

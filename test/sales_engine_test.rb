@@ -1,7 +1,5 @@
 require_relative '../test/test_helper'
 require_relative '../lib/sales_engine'
-require_relative '../lib/merchant_repository'
-require_relative '../lib/item_repository'
 
 class SalesEngineTest < Minitest::Test
 
@@ -34,13 +32,17 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, se.merchants
   end
 
-  def test_it_can_return_an_instance_of_item_repo
+  def test_it_can_return_an_instance_of_all_other_repos
     se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
-  :invoices => "./data/invoices.csv"
+  :invoices => "./data/invoices.csv",
+  :transactions => "./data/transactions.csv",
+  :invoice_items => "./data/invoice_items.csv",
     })
     assert_instance_of InvoiceRepository, se.invoices
+    assert_instance_of TransactionRepository, se.transactions
+    assert_instance_of InvoiceItemRepository, se.invoice_items
   end
 
   def test_it_can_create_a_sales_analyst_instance
