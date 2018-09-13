@@ -7,7 +7,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_exists
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     assert_instance_of SalesAnalyst, sa
@@ -16,17 +17,20 @@ class SalesAnalystTest < Minitest::Test
   def test_it_has_attributes
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of ItemRepository, se.items
+    assert_instance_of InvoiceRepository, se.invoices
   end
 
   def test_it_calculates_average_items_per_merchant
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     assert_equal 2.88, sa.average_items_per_merchant
@@ -35,7 +39,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_calculates_standard_deviation
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
@@ -44,7 +49,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_finds_merchants_with_high_item_count
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -56,7 +62,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_finds_average_item_price_for_merchant
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -67,7 +74,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_finds_average_average_price_per_merchant
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -78,7 +86,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_golden_items
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -90,7 +99,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_count_items_per_id
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -100,7 +110,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_square_differences
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
-      :merchants => "./test/fixtures/merchants.csv"
+      :merchants => "./test/fixtures/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     values = [4,5,6,7,8,9,10]
@@ -113,7 +124,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_sum
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
-      :merchants => "./test/fixtures/merchants.csv"
+      :merchants => "./test/fixtures/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     values = [4,5,6,7,8,9,10]
@@ -124,7 +136,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_merchant_ids_with_high_item_count
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -138,7 +151,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_merchants_from_ids
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -152,7 +166,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_prices_for_merchants
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -165,7 +180,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_average_numbers
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
-      :merchants => "./test/fixtures/merchants.csv"
+      :merchants => "./test/fixtures/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     values = [4,5,6,7,8,9,10]
@@ -176,7 +192,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_prices
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
-      :merchants => "./test/fixtures/merchants.csv"
+      :merchants => "./test/fixtures/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
@@ -187,7 +204,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_golden_items_from_threshold
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
     threshold = 6051
