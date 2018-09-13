@@ -55,6 +55,12 @@ module RepoModule
           if key == :quantity
             find_by_id(id).status = attributes[:quantity]
           end
+          if key == :first_name
+            find_by_id(id).status = attributes[:quantity]
+          end
+          if key == :last_name
+            find_by_id(id).status = attributes[:quantity]
+          end
         end
     end
 
