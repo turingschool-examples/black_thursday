@@ -23,12 +23,6 @@ module Crud
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  # def find_all_by_exact(key, string)
-  #   collection.find_all do |element|
-  #     element[key] == string
-  #   end
-  # end
-
   def find_all_by(type, string)
     collection.find_all do |element|
       element.send(type).downcase.include? string

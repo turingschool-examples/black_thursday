@@ -18,12 +18,6 @@ include Crud
     loader(filepath)
     @parent = parent
     @changeable_attributes = [:name, :description, :unit_price]
-    # @collection = []
-    # loader(filepath)
-    # @collection.each do |item|
-    #   item[:unit_price] = item[:unit_price].to_d
-    # end
-    # @changeable_attributes = [ :name, :description, :unit_price  ]
   end
 
   def create(attributes)
@@ -74,6 +68,18 @@ include Crud
        item[:created_at] = Time.parse(item[:created_at])
        item[:merchant_id] = item[:merchant_id].to_i
       @collection << Item.new(item, @parent)
+     end
+   end
+
+   def update(id, attributes)
+     if find_by_id(id) != nil
+       it = collection.find { |element| element.id == id }
+         # it.name = attributes[:name]
+         it.description = attributes[:description]
+         it.unit_price = attributes[:unit_price]
+         it.updated_at = Time.now
+     else
+       []
      end
    end
 
