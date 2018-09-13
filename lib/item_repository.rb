@@ -42,14 +42,16 @@ include Crud
   end
 
   def find_all_by_price(bigdec)
-    find_all_by("unit_price", bigdec)
+    collection.find_all do |element|
+      price = element.unit_price
+      price == bigdec.truncate(2).to_f.round(2)
+    end
   end
 
 
-  def find_all_by_price_in_range(big_range)
-    # big_range = ((range.begin.to_d)..(range.end.to_d))
-    collection.keep_if do |element|
-      big_range.include? element[:unit_price]
+  def find_all_by_price_in_range(range)
+      collection.find_all do |element|
+      range.include? element.unit_price.truncate(2).to_f
     end
   end
 
@@ -65,8 +67,10 @@ include Crud
     item_table = load(filepath)
      item_table.map do |item|
        item[:id] = item[:id].to_i
+       item[:unit_price] = (item[:unit_price].insert (-3), ".").to_d
        item[:updated_at] = Time.parse(item[:updated_at])
        item[:created_at] = Time.parse(item[:created_at])
+       item[:merchant_id] = item[:merchant_id].to_i
       @collection << Item.new(item, @parent)
      end
    end
