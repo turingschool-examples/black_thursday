@@ -143,6 +143,11 @@ class SalesAnalyst
     top_day << dates_sorted[0]
   end
 
+  def invoice_status(status)
+    decimal = invoices_grouped_by_status[status]
+    (decimal.to_f / @se.invoices.all.count * 100).round(2)
+  end
+
 #helpers
   def invoice_count_per_merchant_id
     hash = Hash.new(0)
@@ -167,4 +172,12 @@ class SalesAnalyst
     end
   end
 
+  def invoices_grouped_by_status
+    group_status = @se.invoices.all.group_by do |invoice|
+      invoice.status
+    end
+    group_status.each do |status, invoices|
+      group_status[status] = invoices.count
+    end
+  end
 end

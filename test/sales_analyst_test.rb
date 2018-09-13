@@ -308,4 +308,30 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
+
+  def test_it_can_group_invoices_by_status
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal [:pending, :shipped, :returned], sa.invoices_grouped_by_status.keys
+  end
+
+  def test_can_find_percentage_by_invoice_status
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 29.55, sa.invoice_status(:pending)
+
+    assert_equal 56.95, sa.invoice_status(:shipped)
+
+    assert_equal 13.5, sa.invoice_status(:returned)
+  end
 end
