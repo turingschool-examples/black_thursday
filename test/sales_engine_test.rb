@@ -25,4 +25,9 @@ class SalesEngineTest < Minitest::Test
     refute_empty @se.merchants.all
     refute_empty @se.items.all
   end
+
+  def test_it_can_instanciate_an_analyst
+    assert_instance_of SalesAnalyst, @se.analyst
+  end
+
 end

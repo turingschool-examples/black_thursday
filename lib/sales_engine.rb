@@ -2,6 +2,7 @@ require 'time'
 require 'CSV'
 require_relative "../lib/items_repo"
 require_relative "../lib/merchant_repo"
+require_relative "../lib/sales_analyst"
 
 class SalesEngine
   attr_reader :merchants,
@@ -16,4 +17,9 @@ class SalesEngine
     items =   params[:items]
     SalesEngine.new(merchants, items)
   end
+
+  def analyst
+    SalesAnalyst.new(self)
+  end
+
 end
