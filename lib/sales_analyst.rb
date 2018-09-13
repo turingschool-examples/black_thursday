@@ -98,6 +98,28 @@ class SalesAnalyst
     (@sales_engine.invoices.repo.count / @sales_engine.merchants.repo.count.to_f).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    diff_squared = differences_squared(invoice_per_merchant_hash.values, average_invoices_per_merchant)
+
+    summed = sum_values(diff_squared)
+    divided_sum = summed / (invoice_per_merchant_hash.count - 1)
+    Math.sqrt(divided_sum).round(2)
+  end
+
+  def invoice_per_merchant_hash
+    merchant_id_array_for_invoices.inject(Hash.new(0)) do |total, merchant_id|
+      total[merchant_id] += 1
+      total
+    end
+  end
+
+  def merchant_id_array_for_invoices
+    merchant_ids = @sales_engine.invoices.repo.map do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+
   def inspect
    "#<#{self.class} #{@merchant.size} rows>"
   end
