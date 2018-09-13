@@ -54,45 +54,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal new_hash, @repo.make_hash(@key, @value)
   end
 
-  # def test_it_can_find_all
-  #   assert_equal 1367, @repo.all.count
-  # end
-
-  # def test_it_can_find_by_id
-  #   assert_equal 263395617, @repo.find_by_id("263395617").id
-  # end
-
-  # def test_it_can_find_all_by_name
-  #   assert_equal [@first_item], @repo.find_all_by_name("510+ RealPush Icon Set")
-  # end
-
-  # def test_it_can_find_highest_id
-  #   assert_equal 263567474, @repo.find_by_highest_id.id
-  # end
-
-  # def test_it_can_create_new_merchant_instance_from_attribute_hash
-  #   new_item = {
-  #     :id             => 0,
-  #     :name           => "511+ RealPush Icon Set",
-  #     :description    => "You&#39;ve got a total socialmedia iconset!", # NOTE - excerpt!
-  #     :unit_price     => BigDecimal(10.99,4),
-  #     :created_at     => Time.now,
-  #     :updated_at     => Time.now,
-  #     :merchant_id    => 2
-  #   }
-
-  #   expected = Item.new({
-  #     :id             => 263567475,
-  #     :name           => "511+ RealPush Icon Set",
-  #     :description    => "You&#39;ve got a total socialmedia iconset!",
-  #     :unit_price     => BigDecimal(10.99,4),
-  #     :created_at     => Time.now,
-  #     :updated_at     => Time.now,
-  #     :merchant_id    =>2
-  #   })
-    
-    
-    
-  # end
-
 end
