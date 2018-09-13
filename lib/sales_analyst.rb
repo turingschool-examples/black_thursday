@@ -1,5 +1,3 @@
-require_relative './merchant_repository'
-require_relative './item_repository'
 require 'pry'
 
 class SalesAnalyst
@@ -109,4 +107,28 @@ class SalesAnalyst
      item.unit_price > threshold
    end
  end
+
+ def average_invoices_per_merchant
+   (@se.invoices.all.count.to_f/@se.merchants.all.count).round(2)
+ end
+
+ def average_invoices_per_merchant_standard_deviation
+   hash = invoice_count_per_merchant_id
+   differences_squared = square_differences(hash.values,
+                                            average_invoices_per_merchant)
+   sum = sum(differences_squared)
+   sum_div = sum/hash.count
+   Math.sqrt(sum_div).round(2)
+ end
+
+def invoice_count_per_merchant_id
+    hash = Hash.new(0)
+      @se.invoices.all.each do |invoice|
+      hash[invoice.merchant_id] += 1
+      end
+     hash
+end
+
+
+
 end

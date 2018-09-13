@@ -211,4 +211,36 @@ class SalesAnalystTest < Minitest::Test
     threshold = 6051
     assert_equal 5, sa.find_golden_items(se.items.all, threshold).count
   end
+
+  def test_it_calculates_average_invoices_per_merchant
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+    assert_equal 10.49, sa.average_invoices_per_merchant
+  end
+
+  def test_it_calculates_standard_deviation_for_invoices
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+    assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_count_invoices_per_id
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 475, sa.invoice_count_per_merchant_id.count
+  end
+
 end

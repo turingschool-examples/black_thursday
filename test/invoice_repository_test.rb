@@ -46,7 +46,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_status
     invoice_repository = InvoiceRepository.new("./data/invoices.csv")
 
-    assert_equal 1473, invoice_repository.find_all_by_status('pending').count
+    assert_equal 1473, invoice_repository.find_all_by_status(:pending).count
 
     assert_equal [], invoice_repository.find_all_by_status("thisisnotastatus")
   end
@@ -73,7 +73,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal 1, invoice_repository.find_by_id(id).id
 
-    assert_equal "success", invoice_repository.find_by_id(id).status
+    assert_equal :success, invoice_repository.find_by_id(id).status
   end
 
   def test_it_can_delete_an_invoice

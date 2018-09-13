@@ -29,7 +29,7 @@ class InvoiceRepository < Repository
 
   def find_all_by_status(status)
     all_invoices = @data.find_all do |datum|
-      datum.status.include?(status)
+      datum.status == status
       end
     return all_invoices
   end
@@ -50,7 +50,7 @@ class InvoiceRepository < Repository
     invoice = find_by_id(id)
     return if invoice.nil?
     attribute.each do |key, value|
-      invoice.status = value if key == :status
+      invoice.status = value.to_sym if key == :status
     end
     current_time = Time.now + 1
     invoice.updated_at = current_time.to_s
