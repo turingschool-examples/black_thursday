@@ -31,6 +31,21 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, tr.all[0]
   end
 
+  def test_new_transaction_added_with_no_initial_id
+    tr = TransactionRepository.new
+    hash_2 = {
+      :invoice_id => "8",
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => "2016-01-11 09:34:06 UTC",
+      :updated_at => "2016-01-11 09:34:06 UTC"
+    }
+    tr.create(hash_2)
+    assert_instance_of Transaction, tr.all[0]
+    assert_equal 1, tr.all[0].id
+  end
+
   def test_it_can_find_all_by_invoice_id
     tr = TransactionRepository.new
     tr.create(@hash)
