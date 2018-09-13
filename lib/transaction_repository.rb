@@ -51,7 +51,13 @@ class TransactionRepository
   def find_all_by_credit_card_number(number)
     @data.find_all do |transaction|
       transaction.credit_card_number == number
-    end 
+    end
+  end
+
+  def find_all_by_result(symbol)
+    @data.find_all do |transaction|
+      transaction.result == symbol
+    end
   end
 
 end

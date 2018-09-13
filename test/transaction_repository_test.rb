@@ -81,7 +81,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 1, tr.find_all_by_credit_card_number("3737373737373").count
   end
 
-  def test_it_returns_empty_array_with_no_match
+  def test_it_returns_empty_array_with_no_match_for_cc_num
     tr = TransactionRepository.new
     tr.create(@hash)
     hash2 = {
@@ -96,5 +96,39 @@ class TransactionRepositoryTest < Minitest::Test
     tr.create(hash2)
     assert_equal [], tr.find_all_by_credit_card_number("3737373700373")
   end
+
+  def test_it_can_find_all_by_result
+    tr = TransactionRepository.new
+    tr.create(@hash)
+    hash2 = {
+      :id => "3",
+      :invoice_id => "9",
+      :credit_card_number => "3737373737373",
+      :credit_card_expiration_date => "2222",
+      :result => "failed",
+      :created_at => "2016-01-11 09:34:06 UTC",
+      :updated_at => "2016-01-11 09:34:06 UTC"
+    }
+    tr.create(hash2)
+    assert_instance_of Transaction, tr.find_all_by_result(:failed)[0]
+    assert_equal 1, tr.find_all_by_result(:failed).count
+  end
+
+  def test_it_returns_empty_array_with_no_match_for_result
+    tr = TransactionRepository.new
+    tr.create(@hash)
+    hash2 = {
+      :id => "3",
+      :invoice_id => "9",
+      :credit_card_number => "3737373737373",
+      :credit_card_expiration_date => "2222",
+      :result => "failed",
+      :created_at => "2016-01-11 09:34:06 UTC",
+      :updated_at => "2016-01-11 09:34:06 UTC"
+    }
+    tr.create(hash2)
+    assert_equal [], tr.find_all_by_result(:pending)
+  end
+
 
 end
