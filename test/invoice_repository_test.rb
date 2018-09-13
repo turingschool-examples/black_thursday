@@ -46,8 +46,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_merchant_id
     invoice_repository = InvoiceRepository.new("./data/invoices.csv")
     actual = invoice_repository.all[0]
-
-    assert_equal actual, invoice_repository.find_all_by_merchant_id(1)[0]
+    assert_equal actual, invoice_repository.find_all_by_merchant_id(12335938)[0]
 
     assert_equal [], invoice_repository.find_all_by_merchant_id(99999)
 
