@@ -30,7 +30,7 @@ class InvoiceItemRepository
       created_at = value[:created_at]
       updated_at = value[:updated_at]
 
-      invoice_item = InvoiceItem.new({
+        invoice_item = InvoiceItem.new({
         id: number, 
         item_id: item_id,
         invoice_id: invoice_id,
