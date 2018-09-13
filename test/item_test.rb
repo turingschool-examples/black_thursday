@@ -11,7 +11,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2
-      })
+      }, self)
     assert_instance_of Item, i
   end
 
@@ -24,7 +24,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2
-      })
+      }, self)
     actual = i.id
     expected = 1
     assert_equal expected, actual
@@ -39,7 +39,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2
-      })
+      }, self)
     actual = i.name
     expected = "Pencil"
     assert_equal expected, actual
@@ -54,7 +54,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2
-      })
+      }, self)
     actual = i.description
     expected = "You can use it to write things"
     assert_equal expected, actual
@@ -69,7 +69,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2
-      })
+      }, self)
     actual = i.unit_price
     expected = BigDecimal.new(10.99,4)
     assert_equal expected, actual
@@ -84,7 +84,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.new(2018),
       :updated_at => Time.now,
       :merchant_id => 2
-      })
+      }, self)
     actual = i.created_at
     expected = Time.new(2018)
     assert_equal expected, actual
@@ -99,7 +99,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.new(2018),
       :merchant_id => 2
-      })
+      }, self)
     actual = i.updated_at
     expected = Time.new(2018)
     assert_equal expected, actual
@@ -114,7 +114,7 @@ class ItemTest <  Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2
-      })
+      }, self)
     actual = i.merchant_id
     expected = 2
     assert_equal expected, actual

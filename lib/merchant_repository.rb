@@ -32,7 +32,7 @@ include Crud
   end
 
   def find_all_by_name(string)
-    find_all_by("name", string)
+    find_all_by(("name"), string.downcase)
   end
 
   def all

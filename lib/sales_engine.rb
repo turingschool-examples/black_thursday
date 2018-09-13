@@ -11,7 +11,7 @@ class SalesEngine
 include Crud
 
   attr_reader :filepath
-  attr_accessor :merchants
+  attr_accessor :merchants, :items
 
   def initialize(filepath)
     @filepath = filepath
@@ -35,8 +35,12 @@ include Crud
 
  def merchants
    @merchants ||= MerchantRepository.new(filepath[:merchants], self)
-   # @merchants.collection
  end
+
+ def items
+   @items ||= ItemRepository.new(filepath[:items], self)
+ end
+
 
 #  def loader(filepath)
 #    merchant_table = load(filepath)

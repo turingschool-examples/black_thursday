@@ -19,8 +19,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_import_merchants
    engine = SalesEngine.new("./data/merchants_tiny.csv")
-   require "pry"; binding.pry
-
   end
 
 
