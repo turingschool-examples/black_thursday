@@ -8,12 +8,14 @@ require './lib/finder'
 class MerchantRepository
   include Finder
 
-  attr_reader :all
+  attr_reader :all,
+              :merchants
 
   def initialize(path)
     @csv = CSVParse.create_repo(path)
     @all = []
     make_merchants
+    @merchants = all
   end
 
 
