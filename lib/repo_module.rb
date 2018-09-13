@@ -53,7 +53,7 @@ module RepoModule
             find_by_id(id).result = attributes[:result]
           end
           if key == :quantity
-            find_by_id(id).quantity = attributes[:quantity]
+            find_by_id(id).quantity = attributes[:quantity].to_i
           end
           if key == :first_name
             find_by_id(id).first_name = attributes[:first_name]

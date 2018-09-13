@@ -45,5 +45,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 1, @iir.find_all_by_item_id(1).length
   end
 
+  def test_it_can_update_accessible_attributes
+    @iir.create(@args1)
+
+    @iir.update(6, {quantity: "2", unit_price: BigDecimal.new(12.21, 4)})
+    assert_equal 2, @iir.all[0].quantity
+    assert_instance_of BigDecimal, @iir.all[0].unit_price
+  end
+
 
 end
