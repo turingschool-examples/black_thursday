@@ -5,6 +5,7 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/invoice_item_repository'
+require_relative '../lib/customer_repository'
 
 class SalesEngine
 
@@ -12,7 +13,8 @@ class SalesEngine
               :merchants,
               :invoices,
               :transactions,
-              :invoice_items
+              :invoice_items,
+              :customers
 
   def initialize
     @items = ItemRepository.new
@@ -20,6 +22,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new
     @transactions = TransactionRepository.new
     @invoice_items = InvoiceItemRepository.new
+    @customers = CustomerRepository.new
   end
 
   def self.from_csv(file_path_hash)
@@ -50,6 +53,11 @@ class SalesEngine
       repo_hash[:transactions] = CSV.read(file_path_hash[:transactions],
       headers: true, header_converters: :symbol)
       se.create_and_populate_transaction_repo(repo_hash[:transactions])
+    end
+    if file_path_hash[:customers] != nil
+      repo_hash[:customers] = CSV.read(file_path_hash[:customers],
+      headers: true, header_converters: :symbol)
+      se.create_and_populate_customer_repo(repo_hash[:customers])
     end
     return se
   end
@@ -84,7 +92,13 @@ class SalesEngine
     end
   end
 
+  def create_and_populate_customer_repo(customer_objs)
+    customer_objs.each do |item|
+      @customers.create(item)
+    end
+  end
+
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices, @transactions, @invoice_items)
+    SalesAnalyst.new(@items, @merchants, @invoices, @transactions, @invoice_items, @customers)
   end
 end

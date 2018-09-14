@@ -18,20 +18,51 @@ class InvoiceItemRepository
     @data = []
   end
 
+  # def create(attributes)
+  #   hash = {}
+  #   if attributes[:id] != nil
+  #     hash[:id] = attributes[:id].to_i
+  #   else
+  #     attributes[:id] = find_by_id
+  #   end
+  #     hash[:item_id] = attributes[:item_id].to_i
+  #     hash[:invoice_id] = attributes[:invoice_id].to_i
+  #     hash[:quantity] = attributes[:quantity].to_i
+  #     hash[:unit_price] = BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length)
+  #     hash[:created_at] = Time.parse(attributes[:created_at])
+  #     hash[:updated_at] = Time.parse(attributes[:updated_at])
+  #     @data << InvoiceItem.new(hash)
+  # end
+
   def create(attributes)
-    hash = {}
+    #all incoming data must be formatted as String datatype
     if attributes[:id] != nil
-      hash[:id] = attributes[:id].to_i
+      #Coming From CSV
+      hash = {
+        id: attributes[:id].to_i,
+        item_id: attributes[:item_id].to_i,
+        invoice_id: attributes[:invoice_id].to_i,
+        quantity: attributes[:quantity].to_i,
+        unit_price: BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length),
+        updated_at: Time.parse(attributes[:updated_at]),
+        created_at: Time.parse(attributes[:created_at]),
+        }
+      invoice_item = InvoiceItem.new(hash)
+      @data << invoice_item
     else
-      attributes[:id] = find_by_id
+      #Generated on the fly
+      hash = {
+        id: find_next_id,
+        item_id: attributes[:item_id].to_i,
+        invoice_id: attributes[:invoice_id].to_i,
+        quantity: attributes[:quantity].to_i,
+        unit_price: attributes[:unit_price],
+        updated_at: attributes[:updated_at],
+        created_at: attributes[:created_at]
+        }
+      invoice_item = InvoiceItem.new(hash)
+      @data << invoice_item
     end
-      hash[:item_id] = attributes[:item_id].to_i
-      hash[:invoice_id] = attributes[:invoice_id].to_i
-      hash[:quantity] = attributes[:quantity].to_i
-      hash[:unit_price] = BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length)
-      hash[:created_at] = Time.parse(attributes[:created_at])
-      hash[:updated_at] = Time.parse(attributes[:updated_at])
-      @data << InvoiceItem.new(hash)
   end
 
   def find_all_by_invoice_id(id)

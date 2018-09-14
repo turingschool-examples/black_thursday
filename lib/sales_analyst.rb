@@ -9,14 +9,16 @@ class SalesAnalyst
               :merchant_repo,
               :invoice_repo,
               :invoice_item_repo,
-              :transaction_repo
+              :transaction_repo,
+              :customer_repo
 
-  def initialize(item_repo, merchant_repo, invoice_repo, transaction_repo, invoice_item_repo)
+  def initialize(item_repo, merchant_repo, invoice_repo, transaction_repo, invoice_item_repo, customer_repo)
     @item_repo = item_repo
     @merchant_repo = merchant_repo
     @invoice_repo = invoice_repo
     @invoice_item_repo = invoice_item_repo
     @transaction_repo = transaction_repo
+    @customer_repo = customer_repo
   end
 
   def merchant_hash(repo)
