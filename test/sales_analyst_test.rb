@@ -7,7 +7,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     assert_instance_of SalesAnalyst, sa
@@ -17,19 +17,22 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of ItemRepository, se.items
     assert_instance_of InvoiceRepository, se.invoices
+    assert_instance_of InvoiceItemRepository, se.invoice_items
+    # assert_instance_of TransactionRepository, se.transactions
+    # assert_instance_of CustomerRepository, se.customers
   end
 #-- Iteration 1 Tests --#
   def test_it_calculates_average_items_per_merchant
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     assert_equal 2.88, sa.average_items_per_merchant
@@ -39,7 +42,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
@@ -49,7 +52,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -62,7 +65,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -74,7 +77,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -86,7 +89,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -99,7 +102,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -110,7 +113,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
       :merchants => "./test/fixtures/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     values = [4,5,6,7,8,9,10]
@@ -124,7 +127,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
       :merchants => "./test/fixtures/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     values = [4,5,6,7,8,9,10]
@@ -136,7 +139,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -151,7 +154,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -166,7 +169,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -180,7 +183,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
       :merchants => "./test/fixtures/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     values = [4,5,6,7,8,9,10]
@@ -192,7 +195,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./test/fixtures/items.csv",
       :merchants => "./test/fixtures/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -204,7 +207,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     threshold = 6051
@@ -215,7 +218,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     assert_equal 10.49, sa.average_invoices_per_merchant
@@ -225,7 +228,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
     assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
@@ -235,7 +238,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -246,7 +249,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -257,7 +260,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -268,7 +271,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -285,7 +288,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -296,7 +299,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -307,7 +310,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -318,7 +321,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -329,7 +332,7 @@ class SalesAnalystTest < Minitest::Test
       se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
@@ -340,7 +343,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
+    :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
   )
   sa = se.analyst
 
@@ -355,7 +358,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
+    :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
   )
   sa = se.analyst
 
@@ -370,7 +373,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
+    :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
   )
   sa = se.analyst
 
@@ -383,7 +386,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :invoices  => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"
     )
     sa = se.analyst
 
