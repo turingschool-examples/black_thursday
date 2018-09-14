@@ -4,7 +4,6 @@ require_relative 'item'
 require_relative 'item_repository'
 require_relative 'csv_adapter'
 require_relative 'crud'
-
 require 'csv'
 
 class SalesEngine
