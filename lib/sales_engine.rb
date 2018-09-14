@@ -41,15 +41,15 @@ class SalesEngine
       headers: true, header_converters: :symbol)
       se.create_and_populate_invoice_repo(repo_hash[:invoices])
     end
-    if file_path_hash[:invoice_item] != nil
-      repo_hash[:invoice_item] = CSV.read(file_path_hash[:invoice_item],
+    if file_path_hash[:invoice_items] != nil
+      repo_hash[:invoice_items] = CSV.read(file_path_hash[:invoice_items],
       headers: true, header_converters: :symbol)
-      se.create_and_populate_invoice_item_repo(repo_hash[:invoice_item])
+      se.create_and_populate_invoice_item_repo(repo_hash[:invoice_items])
     end
-    if file_path_hash[:transaction] != nil
-      repo_hash[:transaction] = CSV.read(file_path_hash[:transaction],
+    if file_path_hash[:transactions] != nil
+      repo_hash[:transactions] = CSV.read(file_path_hash[:transactions],
       headers: true, header_converters: :symbol)
-      se.create_and_populate_transactions_repo(repo_hash[:transaction])
+      se.create_and_populate_transaction_repo(repo_hash[:transactions])
     end
     return se
   end
@@ -71,11 +71,13 @@ class SalesEngine
       @invoices.create(item)
     end
   end
+
   def create_and_populate_invoice_item_repo(invoice_item_objs)
     invoice_item_objs.each do |item|
-      @invoices_items.create(item)
+      @invoice_items.create(item)
     end
   end
+
   def create_and_populate_transaction_repo(transaction_objs)
     transaction_objs.each do |item|
       @transactions.create(item)

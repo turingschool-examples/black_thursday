@@ -11,15 +11,13 @@ class SalesAnalyst
               :invoice_item_repo,
               :transaction_repo
 
-  def initialize(item_repo, merchant_repo, invoice_repo, transaction_repo, invoices_items_repo)
+  def initialize(item_repo, merchant_repo, invoice_repo, transaction_repo, invoice_item_repo)
     @item_repo = item_repo
     @merchant_repo = merchant_repo
     @invoice_repo = invoice_repo
     @invoice_item_repo = invoice_item_repo
     @transaction_repo = transaction_repo
   end
-
-
 
   def merchant_hash(repo)
     return_hash = {}
@@ -141,5 +139,26 @@ class SalesAnalyst
       invoice.status
     end
     (((grouped_by_status[status].count.to_f)/(@invoice_repo.all.count)) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(search_invoice_id)
+    trans_id_list = @transaction_repo.all.find_all do |transaction|
+      transaction.invoice_id == search_invoice_id
+    end
+    return false if trans_id_list == []
+    if trans_id_list != []
+      trans_id_list.all? do |trans|
+      trans.result == :success
+      end
+    end
+  end
+
+  def invoice_total(search_invoice_id)
+    invoices_list = @invoice_item_repo.all.find_all do |i|
+      i.invoice_id == search_invoice_id
+    end
+    invoices_list.reduce(BigDecimal(0)) do |sum, i|
+      (i.quantity * i.unit_price) + sum
+    end
   end
 end
