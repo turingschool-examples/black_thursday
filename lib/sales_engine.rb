@@ -41,16 +41,8 @@ include Crud
    @items ||= ItemRepository.new(filepath[:items], self)
  end
 
-
-#  def loader(filepath)
-#    merchant_table = load(filepath)
-#     merchant_table.map do |merchant|
-#       Merchant.new(merchant, @parent)
-#     end
-#   end
+ def analyst
+   @analyst ||= SalesAnalyst.new(self)
+ end
 
 end
-
-
-
-# @merchants ||= MerchantRepository.new(load(filepath[:merchants], self))
