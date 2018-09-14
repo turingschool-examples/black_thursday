@@ -2,7 +2,6 @@ require 'pry'
 require 'bigdecimal'
 require_relative 'finder'
 
-
 class InvoiceItem
   include Finder
 
@@ -22,7 +21,7 @@ class InvoiceItem
     @invoice_id = hash[:invoice_id]
     # -- Accessible --
     @quantity = hash[:quantity]
-    @unit_price = BigDecimal.new(hash[:unit_price], 4) #.to_f
+    @unit_price = BigDecimal.new(hash[:unit_price], 4)
     @created_at = hash[:created_at]
     @updated_at = hash[:updated_at]
     # TO DO - How to handle -> New creations need Time.now for updated_at, created_at

@@ -4,7 +4,6 @@ require_relative 'finder'
 
 
 class Item
-  include Finder
 
   attr_reader :id,
               :created_at,
