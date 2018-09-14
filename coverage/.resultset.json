@@ -1,32 +1,26 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/Silver/turing/1.2module/Turing_Projects/Black_thurs_project/black_thursday/lib/Transaction.rb": [
+      "/Users/Silver/turing/1.2module/Turing_Projects/Black_thurs_project/black_thursday/lib/transaction_repo.rb": [
         1,
         1,
         1,
+        1,
         null,
         null,
         1,
         1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         null,
         1,
         2,
         2,
-        2,
-        2,
         null,
+        null,
+        1,
         2,
-        2,
-        2,
+        22,
+        null,
+        null,
         null,
         null
       ],
@@ -37,7 +31,7 @@
         1,
         null,
         1,
-        0,
+        4,
         null,
         null,
         1,
@@ -74,8 +68,36 @@
         0,
         null,
         null
+      ],
+      "/Users/Silver/turing/1.2module/Turing_Projects/Black_thurs_project/black_thursday/lib/transaction.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        null,
+        null
       ]
     },
-    "timestamp": 1536944329
+    "timestamp": 1536945242
   }
 }
