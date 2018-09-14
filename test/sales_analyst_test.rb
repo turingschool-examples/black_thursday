@@ -149,6 +149,65 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12, sales_analyst.top_merchants_by_invoice_count.length
   end
 
+  def test_bottom_merchants_by_invoice_count
+    se = SalesEngine.from_csv({
+    :invoices     => "./data/invoices.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 4, sales_analyst.bottom_merchants_by_invoice_count.length
+  end
+
+  def test_top_days_by_invoice_hash_returns_hash
+    se = SalesEngine.from_csv({
+    :invoices     => "./data/invoices.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_instance_of Hash, sales_analyst.day_and_invoice_count_hash
+  end
+
+  def test_average_invoice_per_day
+    se = SalesEngine.from_csv({
+    :invoices     => "./data/invoices.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 712.14, sales_analyst.average_invoice_per_day
+  end
+
+  def test_average_day_per_invoice_standard_deviation
+    se = SalesEngine.from_csv({
+    :invoices     => "./data/invoices.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 18.07, sales_analyst.average_day_per_invoice_standard_deviation
+  end
+
+  def test_top_days_by_invoice_count
+    se = SalesEngine.from_csv({
+    :invoices     => "./data/invoices.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal ["Wednesday"], sales_analyst.top_days_by_invoice_count
+  end
+
+  def test_invoice_status_returns_correct_percent
+    se = SalesEngine.from_csv({
+    :invoices     => "./data/invoices.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 29.55, sales_analyst.invoice_status(:pending)
+  end
 
 
 

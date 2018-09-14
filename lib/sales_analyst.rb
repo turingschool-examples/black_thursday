@@ -127,13 +127,68 @@ class SalesAnalyst
     avg = average_invoices_per_merchant
     dev = average_invoices_per_merchant_standard_deviation * 2
     golden_benchmark = avg + dev
-
-    top_merchants = invoice_per_merchant_hash.find_all do |merchant_id,     invoice_count|
+    top_merchants = invoice_per_merchant_hash.find_all do |merchant_id, invoice_count|
       invoice_count > golden_benchmark
     end
     top_merchants.map do |merchant|
       @sales_engine.merchants.find_by_id(merchant[0])
     end
+  end
+
+  def bottom_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    dev = average_invoices_per_merchant_standard_deviation * 2
+    golden_benchmark = avg - dev
+    top_merchants = invoice_per_merchant_hash.find_all do |merchant_id, invoice_count|
+      invoice_count < golden_benchmark
+    end
+    top_merchants.map do |merchant|
+      @sales_engine.merchants.find_by_id(merchant[0])
+    end
+  end
+
+  def invoice_status(status_symbol)
+    status_count = @sales_engine.invoices.repo.find_all do |invoice|
+      invoice.status == status_symbol
+    end
+    (status_count.count.to_f/@sales_engine.invoices.repo.count * 100).round(2)
+  end
+
+  def time_to_day(time)
+    time.strftime("%A")
+  end
+
+  def day_and_invoice_count_hash
+    @sales_engine.invoices.repo.inject(Hash.new(0)) do |total,merchant|
+      total[time_to_day(merchant.created_at)] += 1
+      total
+    end
+  end
+
+  def average_invoice_per_day
+    summed = sum_values(day_and_invoice_count_hash.values)
+    (summed.to_f/day_and_invoice_count_hash.count).round(2)
+  end
+
+  def top_days_by_invoice_count
+    avg = average_invoice_per_day
+    dev = average_day_per_invoice_standard_deviation
+    benchmark = avg + dev
+    top_days = day_and_invoice_count_hash.find_all do |merchant_id, invoice_count|
+      invoice_count > benchmark
+    end
+    top_days.map do |day_count|
+      day_count[0]
+    end
+  end
+
+  def average_day_per_invoice_standard_deviation
+    avg = average_invoice_per_day
+    diff_squared = differences_squared(day_and_invoice_count_hash.values,avg)
+
+    summed = sum_values(diff_squared)
+    divided_sum = summed / (day_and_invoice_count_hash.count - 1)
+    Math.sqrt(divided_sum).round(2)
   end
 
 

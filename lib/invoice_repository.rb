@@ -16,7 +16,7 @@ class InvoiceRepository
     end
   end
 
-  def find_by_customer_id(id_number)
+  def find_all_by_customer_id(id_number)
     @repo.find_all do |invoice|
       invoice.customer_id == id_number
     end
@@ -33,6 +33,10 @@ class InvoiceRepository
     @repo << Invoice.new(attributes)
   end
 
-
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    invoice.status = attributes[:status] unless attributes[:status].nil?
+    invoice.updated_at = Time.now unless attributes[:status].nil?
+  end
 
 end
