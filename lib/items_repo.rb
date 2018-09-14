@@ -7,14 +7,6 @@ require_relative '../lib/black_thursday_helper'
 class ItemsRepo
   include BlackThursdayHelper
 
-  def create(item_params)
-    item = Item.new(item_params)
-    new_highest_current = object_id_counter.id + 1
-    item.id = new_highest_current
-    @collections << item
-    item
-  end
-
   def initialize(filepath)
     @collections = []
     populate(filepath)
@@ -63,4 +55,11 @@ class ItemsRepo
     end
   end
 
+  def create(item_params)
+    item = Item.new(item_params)
+    new_highest_current = object_id_counter.id + 1
+    item.id = new_highest_current
+    @collections << item
+    item
+  end
 end
