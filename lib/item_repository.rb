@@ -71,7 +71,6 @@ class ItemRepository
     @items << new_item
     new_item
   end
-
   def update(id, attributes)
     item = find_by_id(id)
 

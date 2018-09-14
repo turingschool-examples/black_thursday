@@ -1,5 +1,6 @@
 require './test/minitest_helper'
 require './lib/item_repository'
+require './lib/item'
 require 'CSV'
 
 class ItemTest<Minitest::Test
