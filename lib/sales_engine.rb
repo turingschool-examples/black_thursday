@@ -13,7 +13,7 @@ class SalesEngine
 include Crud
 
   attr_reader :filepath
-  attr_accessor :merchants, :items
+  attr_accessor :merchants, :items, :analyst
 
   def initialize(filepath)
     @filepath = filepath
@@ -33,5 +33,9 @@ include Crud
 
   def invoices 
     @invoices ||= InvoiceRepository.new(filepath[:invoices], self)
+  end
+
+  def analyst
+    @sales_analyst = SalesAnalyst.new(self)
   end
 end
