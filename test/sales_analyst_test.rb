@@ -25,7 +25,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of InvoiceRepository, se.invoices
     assert_instance_of InvoiceItemRepository, se.invoice_items
     # assert_instance_of TransactionRepository, se.transactions
-    # assert_instance_of CustomerRepository, se.customers
+    assert_instance_of CustomerRepository, se.customers
   end
 #-- Iteration 1 Tests --#
   def test_it_calculates_average_items_per_merchant
