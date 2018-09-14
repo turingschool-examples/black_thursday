@@ -16,7 +16,7 @@ class InvoiceRepository
   def make_invoices(invoice_path)
    csv_objects = CSV.open(invoice_path, headers: true, header_converters: :symbol)
     csv_objects.map do |row|
-      @invoices << InvoiceRepository.new(row)
+      @invoices << row
     end
   end
 end
