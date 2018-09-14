@@ -45,9 +45,9 @@ class SalesAnalyst
     return sqrt.round(2)
   end   # returns float rounded to 2 places
 
-  def standard_dev_measure(values, above_or_below)
+  def standard_dev_measure(values, above_or_below, std = nil)
     mean = average(values)
-    std = standard_deviation(values, mean)
+    std == nil ? std = standard_deviation(values, mean) : std
     outside_this = mean + (std * above_or_below)
   end # returns a float
 
@@ -95,13 +95,13 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count # find all merchants > one std of items
-    average   = average_items_per_merchant
-    std       = average_items_per_merchant_standard_deviation
-    std_high  = average + std
     groups    = merchant_stores
-    above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
+    vals      = merchant_store_item_counts(groups)
+    std_high  = standard_dev_measure(vals, 1)
+    all_above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
     # TO DO - DATA TYPES in OBJECTS!
-    merch_ids = above.keys.map { |key| key.to_i }
+    merch_ids = all_above.keys.map { |key| key.to_i }
+    # merch_ids = all_above.keys
     list = merch_ids.map { |id| @merchants.all.find { |merch| merch.id == id } }
     list = list.to_a.flatten
     return list
@@ -109,27 +109,28 @@ class SalesAnalyst
 
   # TO DO - TEST WHEN finder method is available
   def average_item_price_for_merchant(id)
-    # FINDER MODULE
-    id = id.to_s
-    group = @items.all.find_by_merchant_id(id)
+    id    = id.to_s
+    group = @items.find_all_by_merchant_id(id)
     total = group.inject(0) { |sum, item| sum += item.unit_price }
     count = group.count
-    mean = total / count
+    mean  = total / count
   end   # returns big decimal
 
   # TO DO - TEST WHEN finder method is available
   def average_average_price_per_merchant
-    repo = @merchants.all
-    ids = repo.map { |merch| merch.id.to_s }
+    repo     = @merchants.all
+    ids      = repo.map { |merch| merch.id.to_s }
     averages = ids.map { |id| average_item_price_for_merchant(id) }
-    mean = average(averages)
-  end
+    mean     = average(averages)
+    # binding.pry
+    mean     = BigDecimal(mean, 4)
+  end   # returns a big decimal
 
   def golden_items
     # items with prices above 2 std of average price
-    prices = @items.all.map{ |item| item.unit_price }
+    prices   = @items.all.map{ |item| item.unit_price }
     std_high = standard_dev_measure(prices, 2)
-    above = @items.all.find_all{|item| item.unit_price > std_high}.to_a
+    above    = @items.all.find_all{|item| item.unit_price > std_high}.to_a
   end
 
 
