@@ -1,5 +1,6 @@
 require 'CSV'
 require 'pry'
+require 'time'
 require_relative './item'
 
 class ItemRepository
@@ -65,9 +66,24 @@ class ItemRepository
   end
 
   def create(attributes)
-    attributes[:id] = @items.first.find_max_item_id.id + 1
+    attributes[:id] = find_max_item_id.id + 1
     new_item = Item.new(attributes)
     @items << new_item
     new_item
+  end
+  def update(id, attributes)
+    item = find_by_id(id)
+
+    item.name = attributes[:name]
+    item.description = attributes[:description]
+    item.unit_price = attributes[:unit_price]
+
+    item.updated_at = Time.now
+  end
+
+  def delete(id)
+    @items.delete_if do |item|
+      item == find_by_id(id)
+    end
   end
 end

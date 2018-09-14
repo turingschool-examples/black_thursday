@@ -2,12 +2,13 @@ require 'pry'
 
 class Item
   attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
               :merchant_id,
-              :created_at,
-              :updated_at
+              :created_at
+
+  attr_accessor :name,
+                :description,
+                :unit_price,
+                :updated_at
 
   def initialize(item_hash)
     @id          = item_hash[:id].to_i
@@ -19,7 +20,7 @@ class Item
     @updated_at  = item_hash[:updated_at]
   end
 
-    def unit_price_to_dollars
-      @unit_price.to_f
-    end
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
 end
