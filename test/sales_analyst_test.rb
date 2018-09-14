@@ -287,6 +287,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, sa.bottom_merchants_by_invoice_count.count
   end
 
+  def test_can_get_top_days_based_on_invoice_count
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
+  end
+
+
   def test_can_group_invoices_by_day_of_the_week
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
@@ -297,16 +309,59 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal ["Saturday", "Friday", "Wednesday", "Monday", "Sunday", "Tuesday", "Thursday"], sa.group_invoices_by_days_of_the_week.keys
   end
-#
-  def test_can_get_top_days_based_on_invoice_count
-    se = SalesEngine.from_csv(
+
+  def test_can_average_invoices_for_days_of_the_week
+      se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices  => "./data/invoices.csv"
     )
     sa = se.analyst
 
-    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
+    assert_equal 712.14, sa.average_invoices_per_day
+  end
+
+  def test_can_calculate_difference_of_invoices_per_day_and_average
+    se = SalesEngine.from_csv(
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
+  )
+  sa = se.analyst
+
+  assert_equal 16.86, sa.differences_by_day("Saturday")
+
+  assert_equal (-16.14), sa.differences_by_day("Monday")
+
+  assert_equal 28.86, sa.differences_by_day("Wednesday")
+  end
+
+  def test_it_can_square_differences_by_day
+    se = SalesEngine.from_csv(
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
+  )
+  sa = se.analyst
+
+  assert_equal 284.26, sa.differences_by_day_squared("Saturday")
+
+  assert_equal 260.5, sa.differences_by_day_squared("Monday")
+
+  assert_equal 832.9, sa.differences_by_day_squared("Wednesday")
+  end
+
+  def test_can_calculate_standard_deviation_by_day
+    se = SalesEngine.from_csv(
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
+  )
+  sa = se.analyst
+
+  sa.differences_by_day_squared("Wednesday")
+
+  assert_equal 18.07, sa.calculate_sd_by_day
   end
 
   def test_it_can_group_invoices_by_status
