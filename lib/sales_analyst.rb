@@ -1,9 +1,6 @@
 require 'pry'
 
 
-
-
-
 class SalesAnalyst
 
   attr_reader :engine, :merchants, :items
@@ -49,6 +46,8 @@ class SalesAnalyst
   end   # returns float rounded to 2 places
 
 
+
+
   # --- Item Repo Analysis Methods ---
 
   def merchant_stores
@@ -73,13 +72,24 @@ class SalesAnalyst
     std    = standard_deviation(vals, mean)
   end
 
+  # WIP -- IGNORE THIS FOR NOW
+  # TO DO - Test Me
+  # def best_by(set, mean, std, std_high)
+  # # def best_by(repo, values, mean, std_high)
+  #   # std = standard_deviation(values, mean)
+  #   above_this = mean + (std * std_high)
+  #   above = set.find_all { |merch_id, items| items.count > std_high }.to_h
+  # end
+
+
   def merchants_with_high_item_count # find all merchants > one std of items
     average   = average_items_per_merchant
     std       = average_items_per_merchant_standard_deviation
     std_high  = average + std
     groups    = merchant_stores
     above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
-    merch_ids = above.keys.map { |key| key.to_i}
+    # TO DO - DATA TYPES in OBJECTS!
+    merch_ids = above.keys.map { |key| key.to_i }
     list = merch_ids.map { |id| @merchants.all.find { |merch| merch.id == id } }
     list = list.to_a.flatten
     return list
