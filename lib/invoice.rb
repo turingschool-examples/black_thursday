@@ -2,11 +2,13 @@ require 'pry'
 
 class Invoice
   attr_reader :id,
-              :customer_id,
-              :merchant_id,
-              :status,
-              :created_at,
-              :updated_at
+              :created_at
+
+  attr_accessor :customer_id,
+                :merchant_id,
+                :status,
+                :updated_at
+
 
   def initialize(sale_stats)
     @sale_stats = {}
