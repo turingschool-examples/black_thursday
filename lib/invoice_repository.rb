@@ -10,7 +10,6 @@ class InvoiceRepository
     csv_objs = CSV.read(file_path, {headers: true, header_converters: :symbol})
     csv_objs.map do |obj|
       obj[:id] = obj[:id].to_i
-      obj[:invoice_id] = obj[:invoice_id].to_i
       obj[:merchant_id] = obj[:merchant_id].to_i
       obj[:status] = obj[:status].to_sym
       obj[:customer_id] = obj[:customer_id].to_i
@@ -62,10 +61,9 @@ class InvoiceRepository
     end
     time = attributes[:created_at].getutc
     attributes = {:id => max_id,
-                  :name => attributes[:name],
-                  :description => attributes[:description],
-                  :unit_price => attributes[:unit_price],
                   :merchant_id => attributes[:merchant_id],
+                  :status => attributes[:status].to_sym,
+                  :customer_id => attributes[:customer_id].to_i,
                   :created_at => time,
                   :updated_at => time }
     @invoices_array << Invoice.new(attributes)
