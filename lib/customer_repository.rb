@@ -25,4 +25,27 @@ class CustomerRepository < Repository
       datum.last_name == name
     end
   end
+
+  def create(attributes)
+    highest_id = @data.max_by do |datum|
+      datum.id
+    end.id
+    new_customer_id = highest_id += 1
+    attributes[:id] = new_customer_id
+    new_customer = Customer.new(attributes)
+
+    @data << new_customer
+    return new_customer
+  end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    return if item.nil?
+    attributes.each do |key, value|
+      item.first_name = value if key == :first_name
+      item.last_name = value if key == :last_name
+    end
+    current_time = Time.now + 1
+    item.updated_at = current_time.to_s
+  end
 end
