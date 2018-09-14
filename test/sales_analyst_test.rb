@@ -211,4 +211,182 @@ class SalesAnalystTest < Minitest::Test
     threshold = 6051
     assert_equal 5, sa.find_golden_items(se.items.all, threshold).count
   end
+
+  def test_it_calculates_average_invoices_per_merchant
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+    assert_equal 10.49, sa.average_invoices_per_merchant
+  end
+
+  def test_it_calculates_standard_deviation_for_invoices
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+    assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_count_invoices_per_id
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 475, sa.invoice_count_per_merchant_id.count
+  end
+
+  def test_can_calculate_two_above_the_standard_deviation
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 17.07, sa.two_above_standard_deviation
+  end
+
+  def test_can_find_the_top_merchants_two_standard_deviations_above_the_mean
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 12, sa.top_merchants_by_invoice_count.count
+  end
+
+  def test_can_calculate_two_below_the_standard_deviation
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 3.91, sa.two_below_standard_deviation
+  end
+
+  def test_can_find_the_bottom_merchants_two_standard_deviations_below_the_mean
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 4, sa.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_can_get_top_days_based_on_invoice_count
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
+  end
+
+
+  def test_can_group_invoices_by_day_of_the_week
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal ["Saturday", "Friday", "Wednesday", "Monday", "Sunday", "Tuesday", "Thursday"], sa.group_invoices_by_days_of_the_week.keys
+  end
+
+  def test_can_average_invoices_for_days_of_the_week
+      se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 712.14, sa.average_invoices_per_day
+  end
+
+  def test_can_calculate_difference_of_invoices_per_day_and_average
+    se = SalesEngine.from_csv(
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
+  )
+  sa = se.analyst
+
+  assert_equal 16.86, sa.differences_by_day("Saturday")
+
+  assert_equal (-16.14), sa.differences_by_day("Monday")
+
+  assert_equal 28.86, sa.differences_by_day("Wednesday")
+  end
+
+  def test_it_can_square_differences_by_day
+    se = SalesEngine.from_csv(
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
+  )
+  sa = se.analyst
+
+  assert_equal 284.26, sa.differences_by_day_squared("Saturday")
+
+  assert_equal 260.5, sa.differences_by_day_squared("Monday")
+
+  assert_equal 832.9, sa.differences_by_day_squared("Wednesday")
+  end
+
+  def test_can_calculate_standard_deviation_by_day
+    se = SalesEngine.from_csv(
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
+  )
+  sa = se.analyst
+
+  sa.differences_by_day_squared("Wednesday")
+
+  assert_equal 18.07, sa.calculate_sd_by_day
+  end
+
+  def test_it_can_group_invoices_by_status
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal [:pending, :shipped, :returned], sa.invoices_grouped_by_status.keys
+  end
+
+  def test_can_find_percentage_by_invoice_status
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 29.55, sa.invoice_status(:pending)
+
+    assert_equal 56.95, sa.invoice_status(:shipped)
+
+    assert_equal 13.5, sa.invoice_status(:returned)
+  end
 end
