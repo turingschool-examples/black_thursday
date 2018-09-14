@@ -1,7 +1,6 @@
 require_relative '../test/test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
-
 class SalesAnalystTest < Minitest::Test
 
   def test_it_exists
