@@ -5,12 +5,14 @@ require_relative '../lib/black_thursday_helper'
 class Customer
   include BlackThursdayHelper
 
-  attr_reader :id,
-              :first_name,
-              :last_name,
-              :created_at,
-              :updated_at
-              
+  attr_accessor :id,
+                :first_name,
+                :last_name,
+                :updated_at
+
+
+  attr_reader :created_at
+
   def initialize(params)
     @id = params[:id].to_i
     @first_name = params[:first_name]

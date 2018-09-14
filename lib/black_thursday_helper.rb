@@ -8,7 +8,7 @@ module BlackThursdayHelper
   end
 
   def find_by_id(id)
-   @collections.find do |object|
+    @collections.find do |object|
      object.id == id
    end
   end
@@ -20,7 +20,7 @@ module BlackThursdayHelper
   end
 
   def find_all_by_name(name)
-   @collections.find_all do |object|
+    @collections.find_all do |object|
      object.name.downcase.include? (name.downcase)
    end
   end
