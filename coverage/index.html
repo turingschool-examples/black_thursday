@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.10.2/application.js' type='text/javascript'></script>    
     <link href='./assets/0.10.2/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_red.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_yellow.png" />
     <link rel="icon" type="image/png" href="./assets/0.10.2/favicon.png" />
   </head>
   
@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-14T11:14:02-06:00">2018-09-14T11:14:02-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-14T11:53:28-06:00">2018-09-14T11:53:28-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">77.55%</span></span>
+    (<span class="covered_percent"><span class="yellow">84.91%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         4.35
+         10.19
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>3</b> files in total.
-    <b>49</b> relevant lines. 
-    <span class="green"><b>38</b> lines covered</span> and
-    <span class="red"><b>11</b> lines missed </span>
+    <b>53</b> relevant lines. 
+    <span class="green"><b>45</b> lines covered</span> and
+    <span class="red"><b>8</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -52,12 +52,12 @@
       
       <tr>
         <td class="strong"><a href="#31a3efe101553a31a8d3ba38770537851d5cd42b" class="src_link" title="lib/black_thursday_helper.rb">lib/black_thursday_helper.rb</a></td>
-        <td class="red strong">52.17 %</td>
-        <td>43</td>
-        <td>23</td>
-        <td>12</td>
-        <td>11</td>
-        <td>0.7</td>
+        <td class="red strong">70.37 %</td>
+        <td>50</td>
+        <td>27</td>
+        <td>19</td>
+        <td>8</td>
+        <td>2.6</td>
       </tr>
       
       <tr>
@@ -67,17 +67,17 @@
         <td>14</td>
         <td>14</td>
         <td>0</td>
-        <td>11.5</td>
+        <td>28.0</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#a49132cca931467e9a77f7f8651ba2789f576e6f" class="src_link" title="lib/transaction_repo.rb">lib/transaction_repo.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>21</td>
+        <td>23</td>
         <td>12</td>
         <td>12</td>
         <td>0</td>
-        <td>3.0</td>
+        <td>6.5</td>
       </tr>
       
     </tbody>
@@ -99,11 +99,11 @@
         <div class="source_table" id="31a3efe101553a31a8d3ba38770537851d5cd42b">
   <div class="header">
     <h3>lib/black_thursday_helper.rb</h3>
-    <h4><span class="red">52.17 %</span> covered</h4>
+    <h4><span class="red">70.37 %</span> covered</h4>
     <div>
-      <b>23</b> relevant lines. 
-      <span class="green"><b>12</b> lines covered</span> and
-      <span class="red"><b>11</b> lines missed.</span>
+      <b>27</b> relevant lines. 
+      <span class="green"><b>19</b> lines covered</span> and
+      <span class="red"><b>8</b> lines missed.</span>
     </div>
   </div>
   
@@ -146,8 +146,8 @@
           <code class="ruby">  def all</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="7">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="5" data-linenumber="7">
+          <span class="hits">5</span>
           
           <code class="ruby">    @collections</code>
         </li>
@@ -170,14 +170,14 @@
           <code class="ruby">  def find_by_id(id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="11">
-          
+        <li class="covered" data-hits="4" data-linenumber="11">
+          <span class="hits">4</span>
           
           <code class="ruby">    @collections.find do |object|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="12">
-          
+        <li class="covered" data-hits="22" data-linenumber="12">
+          <span class="hits">22</span>
           
           <code class="ruby">     object.id == id</code>
         </li>
@@ -347,22 +347,64 @@
         <li class="covered" data-hits="1" data-linenumber="40">
           <span class="hits">1</span>
           
-          <code class="ruby">  def inspect</code>
+          <code class="ruby">  def find_all_by_invoice_id(invoice_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="41">
+        <li class="covered" data-hits="1" data-linenumber="41">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@collections.size} rows&gt;&quot;</code>
+          <code class="ruby">    all.find_all do |object|</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="42">
+        <li class="covered" data-hits="11" data-linenumber="42">
+          <span class="hits">11</span>
+          
+          <code class="ruby">      binding.pry</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="43">
+          <span class="hits">11</span>
+          
+          <code class="ruby">      object.invoice_id == invoice_id</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="44">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="45">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="43">
+        <li class="never" data-hits="" data-linenumber="46">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="47">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def inspect</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="48">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    &quot;#&lt;#{self.class} #{@collections.size} rows&gt;&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="49">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="50">
           
           
           <code class="ruby">end</code>
@@ -489,44 +531,44 @@
           <code class="ruby">  def initialize(params)</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="18">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="18">
+          <span class="hits">55</span>
           
           <code class="ruby">    @id = params[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="19">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="19">
+          <span class="hits">55</span>
           
-          <code class="ruby">    @invoice_id = params[:invoice_id]</code>
+          <code class="ruby">    @invoice_id = params[:invoice_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="20">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="20">
+          <span class="hits">55</span>
           
           <code class="ruby">    @credit_card_number = params[:credit_card_number]</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="21">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="21">
+          <span class="hits">55</span>
           
           <code class="ruby">    @credit_card_expiration_date = params[:credit_card_expiration_date]</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="22">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="22">
+          <span class="hits">55</span>
           
           <code class="ruby">    @result = params[:result]</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="23">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="23">
+          <span class="hits">55</span>
           
           <code class="ruby">    @created_at = Time.parse(params[:created_at].to_s)</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="24">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="24">
+          <span class="hits">55</span>
           
           <code class="ruby">    @updated_at = Time.parse(params[:updated_at].to_s)</code>
         </li>
@@ -622,14 +664,14 @@
           <code class="ruby">  def initialize(filepath)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="11">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="5" data-linenumber="11">
+          <span class="hits">5</span>
           
           <code class="ruby">    @collections = []</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="12">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="5" data-linenumber="12">
+          <span class="hits">5</span>
           
           <code class="ruby">    populate(filepath)</code>
         </li>
@@ -652,14 +694,14 @@
           <code class="ruby">  def populate(filepath)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="16">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="5" data-linenumber="16">
+          <span class="hits">5</span>
           
           <code class="ruby">    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |params|</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="17">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="55" data-linenumber="17">
+          <span class="hits">55</span>
           
           <code class="ruby">      @collections &lt;&lt; Transaction.new(params)</code>
         </li>
@@ -683,6 +725,18 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">end</code>

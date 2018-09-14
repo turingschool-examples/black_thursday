@@ -23,28 +23,30 @@ class TransactionRepoTest < Minitest::Test
   def test_it_can_find_an_item_by_id
     tr = TransactionRepo.new("./test/fixtures/transactions.csv")
 
-    actual = tr.find_by_id(1)
+    actual = tr.find_by_id(2)
     assert_instance_of Transaction, actual
-    assert_equal "Cheer bow", actual.name
-    assert_equal 1, actual.id
+    assert_equal "success", actual.result
+    assert_equal 2, actual.id
   end
 
   def test_it_returns_nil_if_no_id_match_found
-    skip
     tr = TransactionRepo.new("./test/fixtures/transactions.csv")
 
-    actual = ir.find_by_id(28349289034)
+    actual = tr.find_by_id(28349289034)
     assert_nil actual
   end
 
-  def test_it_can_find_an_item_by_name
-    skip
+  def test_it_can_find_all_invoice_by_id
     tr = TransactionRepo.new("./test/fixtures/transactions.csv")
 
-    actual = ir.find_by_name("Sal")
-    assert_instance_of Item, actual
-    assert_equal 4, actual.id
-    assert_equal "sal", actual.name
+    t_one = tr.find_by_id(4)
+    t_two = tr.find_by_id(5)
+
+    expected = [t_one, t_two]
+    actual = tr.find_all_by_invoice_id(41)
+    assert_equal expected, actual
+
+    assert_equal [], tr.find_all_by_invoice_id(99999)
   end
 
   def test_it_returns_nil_if_no_name_match_found

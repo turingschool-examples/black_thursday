@@ -37,6 +37,13 @@ module BlackThursdayHelper
     end
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |object|
+      binding.pry
+      object.invoice_id == invoice_id
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@collections.size} rows>"
   end
