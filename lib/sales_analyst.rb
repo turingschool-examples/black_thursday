@@ -23,13 +23,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation#(count_items_per_merchant)
-     hash = count_items_per_merchant
-      set = hash.values.map do |item_count|
-      ((item_count - 0.77) ** 2).round(2)
+     mean = average_items_per_merchant
+      set = count_items_per_merchant.values.map do |item_count|
+      ((item_count - mean) ** 2).round(2)
         end
         new_sum = set.inject(0) do |sum, number|
         sum + number
       end
-      Math.sqrt(new_sum/9).round(2)
+      Math.sqrt(new_sum/@ir.all.count-1).round(2)
   end
+
 end

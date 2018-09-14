@@ -27,7 +27,7 @@ require 'pry'
     def test_average_items_per_merchant_standard_deviation
       result = @sa.average_items_per_merchant_standard_deviation#({"12334141"=>1, "12334185"=>3, "12334105"=>1, "12334195"=>3, "12334213"=>2})
       assert_equal Float, result.class
-      assert_equal 1.13, result
+      assert_equal 0.39, result
     end
 
  end
