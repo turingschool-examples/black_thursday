@@ -13,7 +13,8 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv(
                                {:items => "./test/fixtures/items.csv",
-                                :merchants => "./test/fixtures/merchants.csv"}
+                                :merchants => "./test/fixtures/merchants.csv",
+                                :customers => "./data/customers.csv"}
                             )
   end
 
@@ -24,6 +25,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_populate_repos
     refute_empty @se.merchants.all
     refute_empty @se.items.all
+    refute_empty @se.customers.all
   end
 
   def test_it_can_instanciate_an_analyst
