@@ -25,7 +25,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of ItemRepository, se.items
     assert_instance_of InvoiceRepository, se.invoices
   end
-
+#-- Iteration 1 Tests --#
   def test_it_calculates_average_items_per_merchant
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
@@ -94,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, sa.golden_items.count
   end
 
-  # --------- Tests for Helper Methods ----------
+  # -Iteration 1 Helper Methods-#
 
   def test_it_can_count_items_per_id
     se = SalesEngine.from_csv(
@@ -211,7 +211,7 @@ class SalesAnalystTest < Minitest::Test
     threshold = 6051
     assert_equal 5, sa.find_golden_items(se.items.all, threshold).count
   end
-
+#--Iteration 2 Tests--#
   def test_it_calculates_average_invoices_per_merchant
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
@@ -232,28 +232,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
   end
 
-  def test_it_can_count_invoices_per_id
-    se = SalesEngine.from_csv(
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
-    )
-    sa = se.analyst
-
-    assert_equal 475, sa.invoice_count_per_merchant_id.count
-  end
-
-  def test_can_calculate_two_above_the_standard_deviation
-    se = SalesEngine.from_csv(
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
-    )
-    sa = se.analyst
-
-    assert_equal 17.07, sa.two_above_standard_deviation
-  end
-
   def test_can_find_the_top_merchants_two_standard_deviations_above_the_mean
     se = SalesEngine.from_csv(
       :items     => "./data/items.csv",
@@ -263,17 +241,6 @@ class SalesAnalystTest < Minitest::Test
     sa = se.analyst
 
     assert_equal 12, sa.top_merchants_by_invoice_count.count
-  end
-
-  def test_can_calculate_two_below_the_standard_deviation
-    se = SalesEngine.from_csv(
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
-    )
-    sa = se.analyst
-
-    assert_equal 3.91, sa.two_below_standard_deviation
   end
 
   def test_can_find_the_bottom_merchants_two_standard_deviations_below_the_mean
@@ -298,6 +265,55 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 
+  def test_can_find_percentage_by_invoice_status
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 29.55, sa.invoice_status(:pending)
+
+    assert_equal 56.95, sa.invoice_status(:shipped)
+
+    assert_equal 13.5, sa.invoice_status(:returned)
+  end
+
+  #-Iteration 2 Helper Tests-#
+
+  def test_it_can_count_invoices_per_id
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 475, sa.invoice_count_per_merchant_id.count
+  end
+
+  def test_can_calculate_two_above_the_standard_deviation
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 17.07, sa.two_above_standard_deviation
+  end
+
+  def test_can_calculate_two_below_the_standard_deviation
+    se = SalesEngine.from_csv(
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    )
+    sa = se.analyst
+
+    assert_equal 3.91, sa.two_below_standard_deviation
+  end
 
   def test_can_group_invoices_by_day_of_the_week
     se = SalesEngine.from_csv(
@@ -375,18 +391,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [:pending, :shipped, :returned], sa.invoices_grouped_by_status.keys
   end
 
-  def test_can_find_percentage_by_invoice_status
-    se = SalesEngine.from_csv(
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
-    )
-    sa = se.analyst
-
-    assert_equal 29.55, sa.invoice_status(:pending)
-
-    assert_equal 56.95, sa.invoice_status(:shipped)
-
-    assert_equal 13.5, sa.invoice_status(:returned)
-  end
 end

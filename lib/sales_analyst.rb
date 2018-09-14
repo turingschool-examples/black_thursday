@@ -5,7 +5,7 @@ class SalesAnalyst
   def initialize(sales_engine)
     @se = sales_engine
   end
-
+#------Iteration 1 Methods--------#
   def average_items_per_merchant
     (@se.items.all.count.to_f/@se.merchants.all.count).round(2)
   end
@@ -49,7 +49,7 @@ class SalesAnalyst
     find_golden_items(@se.items.all, threshold)
   end
 
- # -------- Helper Methods ---------
+ #-- Iteration 1 Helper Methods --#
 
  def item_count_per_merchant_id
    hash = Hash.new(0)
@@ -109,6 +109,8 @@ class SalesAnalyst
    end
  end
 
+ #-----Iteration 2 Methods-----#
+
  def average_invoices_per_merchant
    (@se.invoices.all.count.to_f/@se.merchants.all.count).round(2)
  end
@@ -137,7 +139,7 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     highest_day = []
-    above_sd = two_above_sd_for_day
+    above_sd = one_above_sd_for_day
     number_of_invoices_per_day.map do |day, count|
     highest_day << day if count > above_sd
     end
@@ -149,7 +151,7 @@ class SalesAnalyst
     (decimal.to_f / @se.invoices.all.count * 100).round(2)
   end
 
-#helpers
+#--Iteration 2 Helper Methods--#
   def invoice_count_per_merchant_id
     hash = Hash.new(0)
       @se.invoices.all.each do |invoice|
@@ -176,7 +178,7 @@ class SalesAnalyst
     end
   end
 
-  def two_above_sd_for_day
+  def one_above_sd_for_day
     (calculate_sd_by_day * 1) + average_invoices_per_day
   end
 
