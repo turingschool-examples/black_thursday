@@ -14,4 +14,15 @@ class CustomerRepository < Repository
     end
   end
 
+  def find_all_by_first_name(name)
+    @data.find_all do |datum|
+      datum.first_name == name
+    end
+  end
+
+  def find_all_by_last_name(name)
+    @data.find_all do |datum|
+      datum.last_name == name
+    end
+  end
 end

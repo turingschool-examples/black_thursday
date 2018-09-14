@@ -32,4 +32,23 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_nil actual
   end
+
+  def test_it_can_find_all_by_first_name
+    cr = CustomerRepository.new("./data/customers.csv")
+    expected = [cr.all[0]]
+
+    assert_equal expected, cr.find_all_by_first_name("Joey")
+    assert_equal 3, cr.find_all_by_first_name("Anya").count
+    assert_equal [], cr.find_all_by_first_name("NotName")
+  end
+
+  def test_it_can_find_all_by_last_name
+    cr = CustomerRepository.new("./data/customers.csv")
+    expected = cr.all[0]
+
+    assert_equal expected, cr.find_all_by_last_name("Ondricka").first
+    assert_equal 3, cr.find_all_by_last_name("Ondricka").count
+    assert_equal [], cr.find_all_by_last_name("NotName")
+  end
+
 end
