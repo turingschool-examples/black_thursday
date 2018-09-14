@@ -45,6 +45,28 @@ class SalesAnalyst
     return sqrt.round(2)
   end   # returns float rounded to 2 places
 
+  def standard_dev_measure(values, above_or_below)
+    mean = average(values)
+    std = standard_deviation(values, mean)
+    outside_this = mean + (std * above_or_below)
+  end # returns a float
+
+
+  # # WIP -- IGNORE THIS FOR NOW
+  # # TO DO - Test Me
+  # def best_or_worst_by_group(group, values, mean, above_or_below)
+  #   mean = average(values)
+  #   above_this = standard_dev_measure(values, mean, above_or_below)
+  #   above = group.find_all { |key, collection| collection.count > above_this }.to_h
+  # end
+  #
+  # # WIP -- IGNORE THIS FOR NOW
+  # # TO DO - Test Me
+  # def best_or_worst_by_repo(repo, values, mean, above_or_below)
+  #   mean = average(values)
+  #   above_this = standard_dev_measure(values, mean, above_or_below)
+  #   above = group.find_all { |merch_id, items| items.count > std_high }.to_h
+  # end
 
 
 
@@ -71,16 +93,6 @@ class SalesAnalyst
     vals   = merchant_store_item_counts(groups)
     std    = standard_deviation(vals, mean)
   end
-
-  # WIP -- IGNORE THIS FOR NOW
-  # TO DO - Test Me
-  # def best_by(set, mean, std, std_high)
-  # # def best_by(repo, values, mean, std_high)
-  #   # std = standard_deviation(values, mean)
-  #   above_this = mean + (std * std_high)
-  #   above = set.find_all { |merch_id, items| items.count > std_high }.to_h
-  # end
-
 
   def merchants_with_high_item_count # find all merchants > one std of items
     average   = average_items_per_merchant
@@ -116,9 +128,7 @@ class SalesAnalyst
   def golden_items
     # items with prices above 2 std of average price
     prices = @items.all.map{ |item| item.unit_price }
-    mean = average(prices)
-    std = standard_deviation(prices, mean)
-    std_high = mean + (std * 2)
+    std_high = standard_dev_measure(prices, 2)
     above = @items.all.find_all{|item| item.unit_price > std_high}.to_a
   end
 

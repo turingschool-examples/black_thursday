@@ -11,14 +11,13 @@ class SalesAnalystTest < Minitest::Test
 
   # ================================
   def setup
-    @hash = { :items     => "./data/items.csv",
+    hash = { :items     => "./data/items.csv",
               :merchants => "./data/merchants.csv",
             }
-    # @se_new = SalesEngine.new
-    @se_csv = SalesEngine.from_csv(@hash)
-
-    # @sa_new = SalesAnalyst.new(@se_new)
-    @sa_csv = SalesAnalyst.new(@se_csv)
+    # se_new = SalesEngine.new
+    se_csv = SalesEngine.from_csv(hash)
+    # @sa_new = SalesAnalyst.new(se_new)
+    @sa_csv = SalesAnalyst.new(se_csv)
   end
   # ================================
 
@@ -76,6 +75,24 @@ class SalesAnalystTest < Minitest::Test
     mean = sum / (vals.count).to_f
     assert_equal 1.58, @sa_csv.standard_deviation(vals, mean)
   end
+
+  def test_it_gets_standard_deviation_measure
+    # pairs with within/outside x std's of mean
+    values = [1.0, 2.0, 3.0, 4.0, 5.0]
+    sum = values.inject(0) { |sum, val| sum += val }
+    mean = sum / (values.count).to_f
+    # -- 1 STD above/below --
+    std_1_high = mean + 1.58
+    std_1_low  = mean - 1.58
+    assert_equal std_1_high, @sa_csv.standard_dev_measure(values, 1)
+    assert_equal std_1_low,  @sa_csv.standard_dev_measure(values, -1)
+    # -- 2 STD above/below --
+    std_2_high = mean + (1.58 * 2)
+    std_2_low  = mean - (1.58 * 2)
+    assert_equal std_2_high, @sa_csv.standard_dev_measure(values, 2)
+    assert_equal std_2_low,  @sa_csv.standard_dev_measure(values, -2)
+  end
+
 
 
   # --- Item Repo Analysis Methods ---
