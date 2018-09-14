@@ -159,8 +159,8 @@ class SalesAnalyst
   end
 
   def day_and_invoice_count_hash
-    @sales_engine.invoices.repo.inject(Hash.new(0)) do |total,merchant|
-      total[time_to_day(merchant.created_at)] += 1
+    @sales_engine.invoices.repo.inject(Hash.new(0)) do |total,invoice|
+      total[time_to_day(invoice.created_at)] += 1
       total
     end
   end

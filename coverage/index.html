@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-13T20:53:53-06:00">2018-09-13T20:53:53-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-14T09:36:13-06:00">2018-09-14T09:36:13-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -2574,13 +2574,13 @@
         <li class="covered" data-hits="14" data-linenumber="162">
           <span class="hits">14</span>
           
-          <code class="ruby">    @sales_engine.invoices.repo.inject(Hash.new(0)) do |total,merchant|</code>
+          <code class="ruby">    @sales_engine.invoices.repo.inject(Hash.new(0)) do |total,invoice|</code>
         </li>
       
         <li class="covered" data-hits="69790" data-linenumber="163">
           <span class="hits">69790</span>
           
-          <code class="ruby">      total[time_to_day(merchant.created_at)] += 1</code>
+          <code class="ruby">      total[time_to_day(invoice.created_at)] += 1</code>
         </li>
       
         <li class="covered" data-hits="69790" data-linenumber="164">
