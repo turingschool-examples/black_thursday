@@ -121,7 +121,7 @@ class SalesAnalystTest < Minitest::Test
   # TO DO - TEST WHEN finder method is available
   def test_it_can_average_item_price_per_merchant
     skip
-    id = *__interger__*
+    id = 12334112
     av_price = @sa_csv.average_item_price_for_merchant(id)
     assert_equal ______, av_price
     assert_instance_of BigDecimal, av_price
@@ -140,7 +140,7 @@ class SalesAnalystTest < Minitest::Test
     items = @sa_csv.golden_items
     assert_instance_of Array, items
     assert_instance_of Item, items[0]
-    assert_operator @sa_csv.items.all.count, >, items.count
+    assert_operator @sa_csv.items.all.count, :>, items.count
   end
 
 

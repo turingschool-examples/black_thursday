@@ -2,7 +2,7 @@ require_relative 'test_helper'
 
 require './lib/merchant_repository'
 require './lib/merchant'
-require './lib/finder'
+require './lib/finderclass'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -38,18 +38,43 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal "Shopin1901", merch[0].name
     end
 
-    def test_it_can_find_all
+    def test_it_gets_all_merchants
       assert_equal 475, @repo.all.count
     end
 
-    def test_it_can_find_by_id
-      expected = {:"12334105"=>{:name=>"Shopin1901", :created_at=>"2010-12-10", :updated_at=>"2011-12-04"}}
-      actual = @repo.find_by_id(:"12334105")
-      assert_equal expected, actual
+    def test_it_can_find_by_merchant_id
+      found = @repo.find_by_id(12334105)
+      assert_equal @merchant1.id, found.id
+      found = @repo.find_by_id(12334112)
+      assert_equal @merchant2.id, found.id
     end
 
-    def test_it_can_find_all_by_name
-      skip
-      assert_equal [@merchant1], @repo.find_all_by_name("Shopin1901")
+    def test_it_can_find_by_merchant_name
+      found = @repo.find_by_name("Shopin1901")
+      assert_equal @merchant1.name, found.name
+      found = @repo.find_by_name("Candisart")
+      assert_equal @merchant2.name, found.name
     end
+
+    def test_it_can_find_from_a_string_fragment
+      found1 = @repo.find_all_by_name("pi")
+      found2 = @repo.find_all_by_name("PI")
+      found3 = @repo.find_all_by_name("Pi")
+      found4 = @repo.find_all_by_name("pI")
+      test1 = found1 == found2
+      test2 = found2 == found3
+      test3 = found3 == found4
+      assert_equal true, test1 && test2 && test3
+      assert_instance_of Array, found1
+      assert_instance_of Merchant, found1[0]
+      assert_equal true, found1[0].name.include?("pi")
+      not_found = @repo.find_all_by_name("zzzzz")
+      assert_equal [], not_found
+    end
+
+
+
+
+
+
 end
