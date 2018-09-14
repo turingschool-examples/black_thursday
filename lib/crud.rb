@@ -32,5 +32,4 @@ module Crud
   def delete(id)
     collection.delete_if { |element| element.id == id }
   end
-
 end
