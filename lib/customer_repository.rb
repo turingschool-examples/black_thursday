@@ -21,7 +21,6 @@ class CustomerRepository
       customer = Customer.new(hash)
       @customers << customer
     }
-  @customers.flatten!
   end
 
   def make_hash(key, value)
