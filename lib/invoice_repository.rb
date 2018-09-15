@@ -82,8 +82,7 @@ class InvoiceRepository
   def delete(id)
     merchant = find_by_id(id)
     if merchant != nil
-      index = @invoices_array.index(merchant)
-      @invoices_array.delete_at(index)
+      @invoices_array.delete(merchant)
     else
       puts "Item not found"
     end

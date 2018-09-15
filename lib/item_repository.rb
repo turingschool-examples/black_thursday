@@ -104,10 +104,9 @@ class ItemRepository
   end
 
   def delete(id)
-    merchant = find_by_id(id)
-    if merchant != nil
-      index = @items_array.index(merchant)
-      @items_array.delete_at(index)
+    item = find_by_id(id)
+    if item != nil
+      @items_array.delete(item)
     else
       puts "Item not found"
     end

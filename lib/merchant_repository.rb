@@ -67,8 +67,7 @@ class MerchantRepository
   def delete(id)
     merchant = find_by_id(id)
     if merchant != nil
-      index = @merchants_array.index(merchant)
-      @merchants_array.delete_at(index)
+      @merchants_array.delete(merchant)
     else
       puts "Merchant not found"
     end
