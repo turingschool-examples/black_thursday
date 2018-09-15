@@ -1,6 +1,4 @@
 require_relative 'minitest_helper'
-require './lib/sales_engine'
-require 'CSV'
 
 class SalesEngineTest < Minitest::Test
 

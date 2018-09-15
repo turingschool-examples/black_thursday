@@ -1,5 +1,5 @@
 require './test/minitest_helper'
-require './lib/invoice'
+
 
 class InvoiceTest < Minitest::Test
 

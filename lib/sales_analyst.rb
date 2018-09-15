@@ -1,4 +1,5 @@
 require 'pry'
+require './test/minitest_helper'
 
 class SalesAnalyst
   attr_reader :se,
@@ -41,4 +42,13 @@ class SalesAnalyst
       end
      end.compact
    end
+
+  def average_item_price_per_merchant(merchant_id)
+    items = @ir.find_all_by_merchant_id(merchant_id)
+     sum_unit_price = items.inject(0) do |sum,item|
+       # binding.pry
+     sum + item.unit_price.to_i
+     end
+    (sum_unit_price/items.count).round(2)
+  end
 end

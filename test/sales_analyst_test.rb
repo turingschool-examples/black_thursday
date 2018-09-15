@@ -1,7 +1,4 @@
 require './test/minitest_helper'
-require './lib/sales_analyst'
-require './lib/sales_engine'
-require 'pry'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -28,7 +25,7 @@ class SalesAnalystTest < Minitest::Test
     result = @sa.average_items_per_merchant_standard_deviation
 
     assert_equal Float, result.class
-    assert_equal 0.39, result# <= We're using fixtures here...!!!
+    assert_equal 0.39, result # <= We're using fixtures here...!!!
   end
 
   def test_it_can_return_which_merchants_sell_the_most_items
@@ -36,4 +33,12 @@ class SalesAnalystTest < Minitest::Test
       assert_instance_of Array,result
       assert_equal 3, result.count
   end
+
+  def test_it_can_return_average_item_price_per_merchant
+      result = @sa.average_item_price_per_merchant(12334141).to_f
+
+      assert_equal BigDecimal,result.class
+      assert_equal 64.63,result.class
+  end
+
 end
