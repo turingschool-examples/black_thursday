@@ -7,7 +7,7 @@ require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   def test_it_exists
-    new_salesanalyst = SalesAnalyst.new('ir', 'mr', 'inv_repo')
+    new_salesanalyst = SalesAnalyst.new('ir', 'mr', 'inv_repo', 'ii')
 
     assert_instance_of SalesAnalyst, new_salesanalyst
   end
