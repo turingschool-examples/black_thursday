@@ -56,15 +56,32 @@ class SalesAnalyst
     end
   end
 
-  def average_average_price_per_merchant
-    merchant_ids = items_by_merchant_id.keys
-    average_average_price = merchant_ids.inject(0) do |sum, id|
-      sum += average_item_price_per_merchant(id)
-      binding.pry
-    end / merchant_ids.count
-    average_average_price.round(2)
-  end
+  # def average_average_price_per_merchant
+  #   merchant_ids = items_by_merchant_id.keys
+  #   average_average_price = merchant_ids.inject(0) do |sum, id|
+  #     sum += average_item_price_per_merchant(id)
+  #     binding.pry
+  #   end / merchant_ids.count
+  #   average_average_price.round(2)
+  # end
+
+  # def item_price_std_dev
+  #   mean = average_items_per_merchant
+  #     set = count_items_per_merchant.values.map do |item_count|
+  #     ((item_count - mean) ** 2).round(2)
+  #       end
+  #       new_sum = set.inject(0) do |sum, number|
+  #       sum + number
+  #     end
+  #     Math.sqrt(new_sum/@ir.all.count-1).round(2)
+  # end
 
 
-  
+  # def golden_items
+  #   2 sd above = average_average_price_per_merchant + item_std_dev * 2
+  #      iterate over items and find all the prices that are above 2 sd
+  #
+  # end
+
+
 end
