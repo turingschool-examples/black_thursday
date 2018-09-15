@@ -28,7 +28,7 @@ class TransactionTest < Minitest::Test
       })
     assert_equal 6, t.id
     assert_equal "4242424242424242", t.credit_card_number
-    assert_equal "success", t.result
+    assert_equal :success, t.result
   end
 
   def test_it_returns_time_for_created_and_updated

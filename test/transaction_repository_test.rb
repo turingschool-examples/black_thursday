@@ -60,9 +60,9 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal [], transaction_repository.find_all_by_result('ha')
 
-    assert_equal 4158, transaction_repository.find_all_by_result("success").count
+    assert_equal 4158, transaction_repository.find_all_by_result(:success).count
 
-    assert_equal 827, transaction_repository.find_all_by_result("failed").count
+    assert_equal 827, transaction_repository.find_all_by_result(:failed).count
   end
 
   def test_can_create_a_transaction
