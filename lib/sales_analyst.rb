@@ -164,8 +164,4 @@ class SalesAnalyst
     end
   end
 
-  def
-    find all customers invoices
-    calculate invoice total per invoice
-    inject all totals into a sum
 end

@@ -63,11 +63,4 @@ class InvoiceRepository
     end
   end
 
-  def gather_invoice_items_by_id(ii_repo)
-    invoice_hash = {}
-    @data.each do |invoice|
-      invoice_hash[invoice] = ii_repo.find_all_by_invoice_id(invoice.id)
-    end
-    return invoice_hash
-    end
 end

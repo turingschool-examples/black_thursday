@@ -106,29 +106,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "inactive", @ir.all[1].status
   end
 
-  def test_it_gathers_invoice_items_by_invoice_id
-    @ir.create(@hash)
-    hash2 = {
-      :id         => "11",
-      :customer_id => "21",
-      :merchant_id => "9",
-      :status      => "active",
-      :created_at  => "2016-01-11 09:34:06 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC"
-    }
-    @ir.create(hash2)
-    iir = InvoiceItemRepository.new
-    args1 = {
-        :id => "6",
-        :item_id => "7",
-        :invoice_id => "11",
-        :quantity => "1",
-        :unit_price => "1099",
-        :created_at => "2016-01-11 09:34:06 UTC",
-        :updated_at => "2016-01-11 09:34:06 UTC"
-        }
-    iir.create(args1)
-    assert_equal 11, @ir.gather_invoice_items_by_id(iir).keys.last.id
-  end
-
 end
