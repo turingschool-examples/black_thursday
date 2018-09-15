@@ -98,7 +98,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     ii = InvoiceItemRepository.new("./data/invoice_items.csv")
 
     old_invoice = ii.find_by_id(1)
+<<<<<<< HEAD
     old_invoice_time = old_invoice.updated_at
+=======
+>>>>>>> a33524423e857984fe691490a07b9b74076983f8
     attributes = {:quantity => 1}
     assert_equal 5, old_invoice.quantity
 
@@ -107,6 +110,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     new_invoice = ii.find_by_id(1)
 
     assert_equal 1, new_invoice.quantity
+<<<<<<< HEAD
     assert old_invoice_time < new_invoice.updated_at
   end
 
@@ -117,5 +121,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
     expected = ii.find_by_id(1)
 
     assert_nil expected 
+=======
+    assert old_invoice.updated_at < new_invoice.updated_at
+>>>>>>> a33524423e857984fe691490a07b9b74076983f8
   end
 end

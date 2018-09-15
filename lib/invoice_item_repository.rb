@@ -69,6 +69,7 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
+<<<<<<< HEAD
     invoice_item = find_by_id(id)
     if attributes[:quantity].class == Fixnum
       invoice_item.updated_at = Time.now
@@ -85,5 +86,8 @@ class InvoiceItemRepository
     else
       puts 'Invoice_item not found'
     end
+=======
+
+>>>>>>> a33524423e857984fe691490a07b9b74076983f8
   end
 end
