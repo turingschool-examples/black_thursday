@@ -142,7 +142,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_performing_merchants_by_invoice_count
-    skip
     se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
@@ -151,6 +150,7 @@ class SalesAnalystTest < Minitest::Test
     sa = se.analyst
     assert_instance_of Merchant, sa.top_merchants_by_invoice_count[0]
     assert_equal 12, sa.top_merchants_by_invoice_count.length
+
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count
@@ -192,6 +192,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_if_an_invoice_is_paid_in_full
+    skip
     se = SalesEngine.from_csv({
         :transactions => "./data/transactions.csv"
       })
@@ -201,6 +202,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_invoice_dollar_amount
+    skip
     se = SalesEngine.from_csv({
         :invoice_items => "./data/invoice_items.csv"
       })
@@ -210,6 +212,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_total_revenue_by_date
+    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -219,6 +222,32 @@ class SalesAnalystTest < Minitest::Test
     sa = se.analyst
     assert_instance_of BigDecimal, sa.total_revenue_by_date(Time.parse("2009-02-07"))
     assert_equal 21067.77, sa.total_revenue_by_date(Time.parse("2009-02-07")).to_f
+  end
+
+  def test_it_can_return_top_performing_merchants_in_terms_of_revenue
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :invoices => "./data/invoices.csv",
+        })
+    sa = se.analyst
+    assert_instance_of Array, sa.top_revenue_earners(10)
+    assert_instance_of Merchant, sa.top_revenue_earners(10)[0]
+    assert_equal 10, sa.top_revenue_earners(10)
+    assert_equal 12334634, sa.top_revenue_earners(10).first.id
+    assert_equal 12335747, sa.top_revenue_earners(10).last.id
+  end
+
+  def test_it_can_group_merchants_with_total_revenue
+    skip
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :invoices => "./data/invoices.csv",
+        })
+    sa = se.analyst
+    assert_instance_of Hash, sa.merchant_by_total_revenue
+    assert_equal 681.75, sa.merchant_by_total_revenue.values[0].to_f
   end
 
 end

@@ -159,7 +159,7 @@ class SalesAnalyst
     invoices_list = @invoice_item_repo.all.find_all do |i|
       i.invoice_id == search_invoice_id
     end
-    invoices_list.reduce(BigDecimal(0)) do |sum, i|
+    invoices_list.reduce(BigDecimal(0,10)) do |sum, i|
       (i.quantity * i.unit_price) + sum
     end
   end
@@ -173,4 +173,30 @@ class SalesAnalyst
     end
     sum(invoice_totals)
   end
+
+  # def top_revenue_earners(return_count)
+  #   hash = merchant_by_total_revenue
+  #
+  #   top_earners = hash.sort_by do |key, value|
+  #     value.to_f
+  #   end[-10..-1]#[-(return_count)..-1]
+  #   top_earners.map do |top_earner|
+  #     top_earner[0]
+  #   end
+  # end
+  #
+  # def merchant_by_total_revenue
+  #   hash = {}
+  #   @merchant_repo.all.each do |merchant|
+  #     merchant_invoices = @invoice_repo.all.find_all do |invoice|
+  #       invoice.merchant_id == merchant.id # && invoice.status != :returned
+  #     end
+  #     totals = merchant_invoices.map do |invoice|
+  #       invoice_total(invoice.id)
+  #     end
+  #     hash[merchant] = sum(totals).to_f
+  #   end
+  #   hash
+  # end
+
 end
