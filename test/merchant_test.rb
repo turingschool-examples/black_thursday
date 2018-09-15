@@ -1,5 +1,5 @@
 require './test/minitest_helper'
-require '../lib/merchant'
+require './lib/merchant'
 
 class MerchantTest<Minitest::Test
 
