@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require_relative './merchant'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader   :merchants
@@ -59,4 +59,5 @@ class MerchantRepository
       @merchants << Merchant.new(object)
     end
   end
+
 end

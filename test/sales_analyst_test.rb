@@ -1,6 +1,6 @@
-require './test/minitest_helper'
-require './lib/sales_analyst'
-require './lib/sales_engine'
+require_relative '../test/minitest_helper'
+require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
 require 'pry'
 
  class SalesAnalystTest < Minitest::Test

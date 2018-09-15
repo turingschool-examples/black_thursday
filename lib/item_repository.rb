@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require_relative './item'
+require_relative 'item'
 
 class ItemRepository
  attr_reader :items
