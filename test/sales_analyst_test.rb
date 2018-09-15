@@ -3,6 +3,7 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
+require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
   def test_it_exist
@@ -209,6 +210,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 29.55, sales_analyst.invoice_status(:pending)
   end
 
+  def test_it_can_find_invoice_paid_in_full
+    se = SalesEngine.from_csv({
+    :transactions => "./data/transactions.csv"
+    })
+    sales_analyst = SalesAnalyst.new(se)
 
+    assert sales_analyst.invoice_paid_in_full?(2179)
+    refute sales_analyst.invoice_paid_in_full?(731)
+  end
 
+  def test_it_has_invoice_total
+    se = SalesEngine.from_csv({
+    :invoice_items => "./data/invoice_items.csv"
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 3489.56, sales_analyst.invoice_total(1)
+  end
 end
