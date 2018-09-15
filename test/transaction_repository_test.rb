@@ -34,7 +34,7 @@ class TransactoinRepositoryTest < Minitest::Test
 
     transaction = tr.find_by_id(9)
 
-    assert_equal [transaction], tr.find_all_by_result("failed")
+    assert_equal [transaction], tr.find_all_by_result(:failed)
   end
 
   def test_it_create_attributes

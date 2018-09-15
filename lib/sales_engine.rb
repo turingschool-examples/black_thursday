@@ -9,6 +9,8 @@ require_relative 'invoice_item_repository'
 require_relative 'invoice_item'
 require_relative 'transaction'
 require_relative 'transaction_repository'
+require_relative 'customer'
+require_relative 'customer_repository'
 
 
 class SalesEngine
@@ -39,6 +41,14 @@ class SalesEngine
 
   def invoice_items
     @invoice_items ||= InvoiceItemRepository.new(data[:invoice_items])
+  end
+
+  def transactions
+    @transactions ||= TransactoinRepository.new(data[:transactions])
+  end
+
+  def customers
+    @customers ||= CustomerRepository.new(data[:customers])
   end
 
 end
