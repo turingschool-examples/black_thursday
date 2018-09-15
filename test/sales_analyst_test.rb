@@ -226,6 +226,6 @@ class SalesAnalystTest < Minitest::Test
     })
     sales_analyst = SalesAnalyst.new(se)
 
-    assert_equal 3489.56, sales_analyst.invoice_total(1)
+    assert_equal 21067.77, sales_analyst.invoice_total(1)
   end
 end
