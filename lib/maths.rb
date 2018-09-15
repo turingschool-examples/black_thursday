@@ -1,7 +1,7 @@
 module Maths
 
   def square(number)
-    number ** 2
+    number ** 2.to_d
   end
 
   def sum(number_array)
