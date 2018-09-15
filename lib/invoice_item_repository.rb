@@ -16,45 +16,34 @@ class InvoiceItemRepository
     end
   end
 
-  def find_all_by_item_id
-
+  def find_all_by_item_id(id)
+    @repo.find_all do |invoice_item|
+      invoice_item.item_id == id
+    end
   end
 
-  # def find_all_by_invoice_id
-  #
-  # end
+  def find_all_by_invoice_id(id)
+    @repo.find_all do |invoice_item|
+      invoice_item.invoice_id == id
+    end
+  end
 
-
-  # def find_all_with_description(item_description)
-  #   @repo.find_all do |item|
-  #     item.description.downcase.include?(item_description.downcase)
-  #     end
-  # end
-  #
-  # def find_all_by_price(price)
-  #   @repo.find_all do |item|
-  #     item.unit_price == price
-  #   end
-  # end
-  #
-  # def find_all_by_price_in_range(range)
-  #   @repo.find_all do |item|
-  #     range.include?(item.unit_price)
-  #   end
-  # end
-  #
   def create(attributes)
     attributes[:id] = @repo[-1].id + 1
     @repo << InvoiceItem.new(attributes)
   end
 
-  # def update(id, attributes)
-  #   item = find_by_id(id)
-  #   item.name = attributes[:name] unless attributes[:name].nil?
-  #   item.description = attributes[:description] unless attributes[:description].nil?
-  #   item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
-  #   item.updated_at = Time.now unless (attributes[:name].nil? && attributes[:description].nil? && attributes[:unit_price].nil?)
-  #   item
-  # end
+  def update(id, attributes)
+    invoice_item = find_by_id(id)
+    invoice_item.quantity = attributes[:quantity] unless attributes[:quantity].nil?
+    invoice_item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    invoice_item.updated_at = Time.now unless (attributes[:quantity].nil? && attributes[:unit_price].nil?)
+  end
+
+  def create(attributes)
+    attributes[:id] = @repo[-1].id + 1
+    @repo << InvoiceItem.new(attributes)
+  end
+
 
 end
