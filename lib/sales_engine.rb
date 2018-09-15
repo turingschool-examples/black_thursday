@@ -4,22 +4,27 @@ require_relative "../lib/items_repo"
 require_relative "../lib/merchant_repo"
 require_relative "../lib/sales_analyst"
 require_relative "../lib/customer_repo"
+require_relative "../lib/transaction_repo"
 
 class SalesEngine
   attr_reader :merchants,
               :items,
-              :customers
-  def initialize(merchants, items, customers)
+              :customers,
+              :transactions
+
+  def initialize(merchants, items, customers, transactions)
     @merchants = MerchantRepo.new(merchants)
     @items = ItemsRepo.new(items)
     @customers = CustomerRepo.new(customers)
+    @transactions = TransactionRepo.new(transactions)
   end
 
   def self.from_csv(params)
     merchants =  params[:merchants]
     items =   params[:items]
     customers = params[:customers]
-    SalesEngine.new(merchants, items, customers)
+    transactions = params[:transactions]
+    SalesEngine.new(merchants, items, customers, transactions)
   end
 
   def analyst
