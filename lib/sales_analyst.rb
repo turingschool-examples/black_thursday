@@ -4,11 +4,12 @@ class SalesAnalyst
   attr_reader :ir,
               :mr
 
-  def initialize(merchant_repository, item_repository, inv_repo, inv_items_repo)
+  def initialize(merchant_repository, item_repository, inv_repo, inv_items_repo, transaction_repo)
       @mr = merchant_repository
       @ir = item_repository
       @inv_repo = inv_repo
       @ii = inv_items_repo
+      @tr = transaction_repo
   end
 
   def average_items_per_merchant
