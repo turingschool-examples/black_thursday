@@ -1,5 +1,5 @@
 require './test/minitest_helper'
-require './lib/invoice_repository'
+require_relative '../lib/invoice_repository'
 require 'CSV'
 require 'pry'
 
@@ -13,6 +13,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_an_array_of_all_invoices
-    assert_equal 15, @invoice_r.all.count
+    assert_equal 14, @invoice_r.all.count
   end
 end
