@@ -1,4 +1,3 @@
-require 'pry'
 require './test/minitest_helper'
 
 class SalesAnalyst
@@ -51,4 +50,7 @@ class SalesAnalyst
      end
     (sum_unit_price/items.count).round(2)
   end
+
+
+
 end
