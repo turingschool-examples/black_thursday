@@ -1,4 +1,5 @@
 require_relative './invoice_item'
+
 require 'time'
 require 'pry'
 
@@ -27,6 +28,47 @@ class InvoiceItemRepository
   end
 
   def all
-    @invoice_items_array 
+    @invoice_items_array
+  end
+
+  def find_by_id(id)
+    findings = @invoice_items_array.find_all do |invoice_item|
+      invoice_item.id == id
+    end
+    findings[0]
+  end
+
+  def find_all_by_item_id(id)
+    @invoice_items_array.find_all do |invoice_item|
+      invoice_item.item_id == id
+    end
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    @invoice_items_array.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
+  end
+
+  def create(attributes)
+    last_invoice = @invoice_items_array.last
+    if last_invoice == nil
+      max_id = 1
+    else
+      max_id = last_invoice.id + 1
+    end
+    time = attributes[:created_at].getutc
+    attributes = {:id => max_id,
+                  :item_id => attributes[:item_id],
+                  :invoice_id => attributes[:invoice_id],
+                  :quantity => attributes[:quantity],
+                  :unit_price => attributes[:unit_price],
+                  :created_at => time,
+                  :updated_at => time }
+    @invoice_items_array << InvoiceItem.new(attributes)
+  end
+
+  def update(id, attributes)
+
   end
 end
