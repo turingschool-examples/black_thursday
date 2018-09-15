@@ -30,4 +30,9 @@ require 'pry'
       assert_equal 0.39, result
     end
 
+    def test_it_can_return_which_merchants_sell_the_most_items
+      result = @sa.merchant_with_high_item_count
+      assert_instance_of Array,result
+      assert_equal 3, result.count
+    end
  end

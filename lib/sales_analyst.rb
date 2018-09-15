@@ -22,8 +22,8 @@ class SalesAnalyst
     end
   end
 
-  def average_items_per_merchant_standard_deviation#(count_items_per_merchant)
-     mean = average_items_per_merchant
+  def average_items_per_merchant_standard_deviation
+    mean = average_items_per_merchant
       set = count_items_per_merchant.values.map do |item_count|
       ((item_count - mean) ** 2).round(2)
         end
@@ -31,6 +31,15 @@ class SalesAnalyst
         sum + number
       end
       Math.sqrt(new_sum/@ir.all.count-1).round(2)
+  end
+
+  def merchant_with_high_item_count
+    one_sd_above = average_items_per_merchant + average_items_per_merchant_standard_deviation
+      count_items_per_merchant.map do |merchant_id, items_per_merchant|
+        if items_per_merchant > one_sd_above
+            merchant_id
+        end
+      end.compact
   end
 
 end
