@@ -53,7 +53,7 @@ include Crud
 
   def find_all_by_merchant_id(string)
     collection.find_all do |element|
-      element.merchant_id == string.to_i
+      element.merchant_id == string
     end
   end
 
