@@ -1,4 +1,7 @@
-require 'pry'
+require 'csv'
+require 'bigdecimal'
+require 'time'
+
 
 class Invoice
   attr_reader :id,

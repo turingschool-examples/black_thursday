@@ -1,4 +1,6 @@
-require 'pry'
+require 'csv'
+require 'bigdecimal'
+require 'time'
 require_relative './repository_module'
 
 class InvoiceRepository
@@ -50,8 +52,8 @@ class InvoiceRepository
      attributes[:id] = new_id
     @all << Invoice.new(attributes)
     else
-     highest_id = @all.max_by do |item|
-     item.id
+     highest_id = @all.max_by do |invoice|
+     invoice.id
     end.id
      new_id = highest_id + 1
      attributes[:id] = new_id
@@ -65,9 +67,9 @@ class InvoiceRepository
     if attributes[:status] != nil
       object.status = attributes[:status]
     end
-    # if object.updated_at != nil
-    #    object.updated_at = Time.now
-    # end
+    if object.updated_at != nil
+       object.updated_at = Time.now
+    end
   end
 
 
@@ -75,13 +77,13 @@ class InvoiceRepository
     objects = CSV.open(filepath, headers: true, header_converters: :symbol)
     attributes_array = []
     objects.map do |object|
-      object[:id] = object[:id]
+      object[:id] = object[:id].to_i
 
-      object[:customer_id] = object[:customer_id]
+      object[:customer_id] = object[:customer_id].to_i
 
-      object[:merchant_id] = object[:merchant_id]
+      object[:merchant_id] = object[:merchant_id].to_i
 
-      object[:status] = object[:status]
+      object[:status] = object[:status].to_sym
 
       object[:created_at] = Time.parse(object[:created_at])
 
@@ -92,6 +94,9 @@ class InvoiceRepository
       create(hash)
       end
     end
-    
+
+    def inspect
+   "#<#{self.class} #{@invoices.size} rows>"
+ end
 
 end

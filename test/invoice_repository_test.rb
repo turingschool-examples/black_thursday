@@ -221,7 +221,9 @@ require_relative '../lib/repository_module'
 
    def test_it_can_split_csv
      invoice = InvoiceRepository.new("./data/test_invoices.csv")
-    
+
      assert_equal 8, invoice.all.count
    end
+
+
 end
