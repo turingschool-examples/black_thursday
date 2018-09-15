@@ -48,8 +48,7 @@ module BlackThursdayHelper
       object.result == result
     end
   end
-
-
+  
   def inspect
     "#<#{self.class} #{@collections.size} rows>"
   end

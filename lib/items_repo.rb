@@ -42,7 +42,6 @@ class ItemsRepo
     end
   end
 
-
   def update(id, attributes)
     if find_by_id(id) != nil
       object_to_be_updated = find_by_id(id)
