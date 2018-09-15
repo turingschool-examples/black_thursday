@@ -10,7 +10,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_that_it_exists
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -20,7 +22,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_that_it_loads_the_repository_of_merchants
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -32,7 +36,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_the_all_method_returns_an_array_of__all_instances_of_merchant
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -42,7 +48,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_the_find_by_id_method_finds_merchants_by_id
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -54,7 +62,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_the_find_by_name_method_finds_merchants_by_name
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
     ir = se.items
     findings = ir.find_by_name("Grande toile")
@@ -66,7 +76,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_the_find_by_name_method_returns_nil_if_not_found
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
     ir = se.items
     actual = ir.find_by_name("Mcdonalds")
@@ -77,7 +89,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_that_the_find_all_with_description_finds_items_by_fragment
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -92,7 +106,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_that_find_all_price_searches_based_on_price
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -107,7 +123,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_that_find_all_by_price_in_range_selects_items_in_range
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -121,7 +139,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_that_find_all_by_id_selects_items_in_by_id_number
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
     ir = se.items
@@ -136,7 +156,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_the_find_by_id_method_returns_nil_if_not_found
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
     ir = se.items
     actual = ir.find_by_id(6457654)

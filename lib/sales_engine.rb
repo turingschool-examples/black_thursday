@@ -1,6 +1,7 @@
 require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
+require_relative './invoice_item_repository'
 require_relative './invoice'
 require_relative './merchant'
 require_relative './item'
@@ -10,12 +11,14 @@ require 'CSV'
 class SalesEngine
   attr_reader :ir,
               :mr,
-              :inv_repo
+              :inv_repo,
+              :inv_item_repo
 
   def initialize(file_path_hash)
     @mr = MerchantRepository.new(file_path_hash[:merchants])
     @ir = ItemRepository.new(file_path_hash[:items])
     @inv_repo = InvoiceRepository.new(file_path_hash[:invoices])
+    @inv_item_repo = InvoiceItemRepository.new(file_path_hash[:invoice_items])
   end
 
   def self.from_csv(file_path_hash)
@@ -34,8 +37,12 @@ class SalesEngine
     @inv_repo
   end
 
+  def invoice_items
+    @inv_item_repo
+  end
+
   def analyst
-    sales_analyst = SalesAnalyst.new(@mr, @ir, @inv_repo)
+    sales_analyst = SalesAnalyst.new(@mr, @ir, @inv_repo, @inv_item_repo)
   end
 
 end
