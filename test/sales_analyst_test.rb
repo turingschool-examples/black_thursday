@@ -27,8 +27,13 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_average_items_per_merchant_standard_deviation
     result = @sa.average_items_per_merchant_standard_deviation
 
-    assert_equal 3.26, result # <= We're using fixtures here...!!!
     assert_equal Float, result.class
+    assert_equal 0.39, result# <= We're using fixtures here...!!!
   end
 
+  def test_it_can_return_which_merchants_sell_the_most_items
+      result = @sa.merchant_with_high_item_count
+      assert_instance_of Array,result
+      assert_equal 3, result.count
+  end
 end
