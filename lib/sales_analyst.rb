@@ -193,17 +193,20 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice_id)
     transactions_by_invoice = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
-    transactions_by_invoice.all? do |transaction|
+    transactions_by_invoice.any? do |transaction|
       transaction.result == :success
     end
   end
 
   def invoice_total(invoice_id)
-    invoice = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
-    invoice.inject(0) do |sum, invoice|
-      sum += invoice.unit_price
+    invoices = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoices.inject(0) do |sum, invoice|
+      sum += invoice.unit_price * invoice.quantity
+      sum
     end
   end
+
+
 
   def inspect
    "#<#{self.class} #{@merchant.size} rows>"
