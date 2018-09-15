@@ -36,21 +36,35 @@ class SalesAnalyst
    def merchant_with_high_item_count
      one_sd_above = average_items_per_merchant + average_items_per_merchant_standard_deviation
       count_items_per_merchant.map do |merchant_id, items_per_merchant|
-      if items_per_merchant > one_sd_above
-        merchant_id
-      end
+        if items_per_merchant > one_sd_above
+         merchant_id
+        end
      end.compact
    end
 
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
-     sum_unit_price = items.inject(0) do |sum,item|
-       # binding.pry
-     sum + item.unit_price.to_i
-     end
+      sum_unit_price = items.inject(0) do |sum,item|
+       sum + item.unit_price.to_i
+      end
     (sum_unit_price/items.count).round(2)
   end
 
+  def items_by_merchant_id
+    @ir.all.group_by do |item|
+      item.merchant_id
+    end
+  end
+
+  def average_average_price_per_merchant
+    merchant_ids = items_by_merchant_id.keys
+    average_average_price = merchant_ids.inject(0) do |sum, id|
+      sum += average_item_price_per_merchant(id)
+      binding.pry
+    end / merchant_ids.count
+    average_average_price.round(2)
+  end
 
 
+  
 end
