@@ -7,9 +7,8 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @engine = sales_engine
-    @merchants = @engine.merchants #.all
-    @items = @engine.items #.all
-    # binding.pry
+    @merchants = @engine.merchants
+    @items = @engine.items
   end
 
   # --- General Methods ---
@@ -94,14 +93,13 @@ class SalesAnalyst
     std    = standard_deviation(vals, mean)
   end
 
-  def merchants_with_high_item_count # find all merchants > one std of items
+  def merchants_with_high_item_count
+    # find all merchants > one std of items
     groups    = merchant_stores
     vals      = merchant_store_item_counts(groups)
     std_high  = standard_dev_measure(vals, 1)
     all_above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
-    # TO DO - DATA TYPES in OBJECTS!
-    merch_ids = all_above.keys.map { |key| key.to_i }
-    # merch_ids = all_above.keys
+    merch_ids = all_above.keys
     list = merch_ids.map { |id| @merchants.all.find { |merch| merch.id == id } }
     list = list.to_a.flatten
     return list
@@ -109,7 +107,7 @@ class SalesAnalyst
 
   # TO DO - TEST WHEN finder method is available
   def average_item_price_for_merchant(id)
-    id    = id.to_s
+    id    = id
     group = @items.find_all_by_merchant_id(id)
     total = group.inject(0) { |sum, item| sum += item.unit_price }
     count = group.count
@@ -119,7 +117,7 @@ class SalesAnalyst
   # TO DO - TEST WHEN finder method is available
   def average_average_price_per_merchant
     repo     = @merchants.all
-    ids      = repo.map { |merch| merch.id.to_s }
+    ids      = repo.map { |merch| merch.id }
     averages = ids.map { |id| average_item_price_for_merchant(id) }
     mean     = average(averages)
     # binding.pry

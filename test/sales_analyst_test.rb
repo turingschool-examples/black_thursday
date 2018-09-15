@@ -50,9 +50,9 @@ class SalesAnalystTest < Minitest::Test
     items = @sa_csv.items.all
     actual = @sa_csv.group_by(items, :merchant_id )
     assert_operator 100, :<, actual.count
-    assert_equal "12334141", actual.keys[0]
+    assert_equal 12334141, actual.keys[0]
     assert_instance_of Array, actual.values[0]
-    assert_equal "12334185", actual.keys[1]
+    assert_equal 12334185, actual.keys[1]
     assert_instance_of Array, actual.values[1]
   end
 
@@ -138,23 +138,17 @@ class SalesAnalystTest < Minitest::Test
     # ------ merch 1 ------
     high_count = 2.88 + 3.26  # 1 std above
     merch_1 = merchants.first.id
-    # TO DO - fix data types
-    fix_datatype = merch_1.to_s
-    merch_1_items = @sa_csv.items.find_all_by_merchant_id(fix_datatype)
-    # merch_1_items = @sa_csv.items.find_all_by_merchant_id(merch_1)
+    merch_1_items = @sa_csv.items.find_all_by_merchant_id(merch_1)
     assert_operator high_count, :<=, merch_1_items.count
     # ------ merch 2 ------
     merch_2 = merchants.last.id
-    # TO DO - fix data types
-    fix_datatype = merch_2.to_s
-    merch_2_items = @sa_csv.items.find_all_by_merchant_id(fix_datatype)
-    # merch_2_items = @sa_csv.items.find_all_by_merchant_id(merch_2)
+    merch_2_items = @sa_csv.items.find_all_by_merchant_id(merch_2)
     assert_operator high_count, :<=, merch_2_items.count
   end
 
   # TO DO - FIX DATA TYPES
   def test_it_can_average_item_price_per_merchant
-    id = "12334185"
+    id = 12334185
     all_merchant_items = @sa_csv.items.find_all_by_merchant_id(id)
     first_item = all_merchant_items[0]
     average_price = @sa_csv.average_item_price_for_merchant(id)
@@ -166,8 +160,8 @@ class SalesAnalystTest < Minitest::Test
   # TO DO - TEST WHEN finder method is available
   def test_it_can_average_average_price_per_merchant
     skip
-    id = "12334141"
-    # id = "12334185"
+    id = 12334141
+    # id = 12334185
     one_average_price     = @sa_csv.average_item_price_for_merchant(id)
     average_average_price = @sa_csv.average_average_price_per_merchant
     assert_instance_of BigDecimal, average_average_price
