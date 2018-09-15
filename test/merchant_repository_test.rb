@@ -14,16 +14,13 @@ class MerchantRepositoryTest < Minitest::Test
     # -- from CSV --
     # 12334105,Shopin1901,2010-12-10,2011-12-04
     # 12334112,Candisart,2009-05-30,2010-08-29
-    @merch1_data = {:name => "Shopin1901", :created_at => "2010-12-10", :updated_at => "2011-12-04"}
-    @merch2_data = {:name => "Candisart", :created_at => "2009-05-30", :updated_at => "2010-08-29"}
-
-    @merch1 = {:"12334105" => @merch1_data }
-    @merch2 = {:"12334112" => @merch2_data}
+    merch1_data = {:name => "Shopin1901", :created_at => "2010-12-10", :updated_at => "2011-12-04"}
+    merch2_data = {:name => "Candisart", :created_at => "2009-05-30", :updated_at => "2010-08-29"}
+    merch1 = {:"12334105" => merch1_data }
+    merch2 = {:"12334112" => merch2_data}
 
     @merchant1 = Merchant.new( {id: 12334105, name: "Shopin1901"} )
     @merchant2 = Merchant.new( {id: 12334112, name: "Candisart"} )
-
-
   end
 
     def test_it_exists

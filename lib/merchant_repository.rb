@@ -2,11 +2,9 @@ require 'pry'
 
 require_relative 'csv_parse'
 require_relative 'merchant'
-require './lib/finderclass'
-
+require_relative 'finderclass'
 
 class MerchantRepository
-  # include Finder
 
   attr_reader :all,
               :merchants
@@ -26,7 +24,6 @@ class MerchantRepository
       merch = Merchant.new({id: number, name: name })
       @all << merch
     }
-    @all.flatten!
   end
 
   def find_by_id(id)
