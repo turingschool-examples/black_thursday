@@ -151,6 +151,20 @@ class SalesAnalyst
     (decimal.to_f / @se.invoices.all.count * 100).round(2)
   end
 
+  # -----Iteration 3 Methods----- #
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions_by_invoice_id = @se.transactions.find_all_by_invoice_id(invoice_id)
+    transactions_by_invoice_id.any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
+    total_revenue(invoice_items)
+  end
+
 #--Iteration 2 Helper Methods--#
   def invoice_count_per_merchant_id
     hash = Hash.new(0)
@@ -224,3 +238,11 @@ class SalesAnalyst
     ((sum / count_minus_one) ** (1.0 / 2)).round(2)
   end
 end
+
+#-----Iteration 3 Helper Method -----#
+
+  def total_revenue(invoice_items)
+    invoice_items.inject(0) do |sum, num|
+      sum + (num.quantity.to_i * num.unit_price)
+    end
+  end
