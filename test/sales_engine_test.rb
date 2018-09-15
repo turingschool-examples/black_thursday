@@ -52,4 +52,6 @@ class SalesEngineTest < Minitest::Test
         })
     assert_instance_of SalesAnalyst, se.analyst
   end
+
+
 end

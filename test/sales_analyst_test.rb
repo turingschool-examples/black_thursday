@@ -209,4 +209,16 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, sa.invoice_total(1)
   end
 
+  def test_it_returns_total_revenue_by_date
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :invoices => "./data/invoices.csv",
+        })
+    sa = se.analyst
+    assert_instance_of BigDecimal, sa.total_revenue_by_date(Time.parse("2009-02-07"))
+    assert_equal 21067.77, sa.total_revenue_by_date(Time.parse("2009-02-07")).to_f
+  end
+
 end

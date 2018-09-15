@@ -164,4 +164,13 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date)
+    found_invoices = @invoice_repo.all.find_all do |invoice|
+      invoice.created_at.strftime("%F") == date.strftime("%F")
+    end
+    invoice_totals = found_invoices.map do |invoice|
+      invoice_total(invoice.id)
+    end
+    sum(invoice_totals)
+  end
 end
