@@ -5,6 +5,8 @@ require_relative 'merchant'
 require_relative 'sales_analyst'
 require_relative 'invoice'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
+require_relative 'invoice_item'
 
 
 class SalesEngine
@@ -31,6 +33,10 @@ class SalesEngine
 
   def invoices
   @invoices ||= InvoiceRepository.new(data[:invoices])
+  end
+
+  def invoice_items
+    @invoice_items ||= InvoiceItemRepository.new(data[:invoice_items])
   end
 
 end

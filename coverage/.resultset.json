@@ -1,32 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/averi/turing/1module/project/Black_Thursday/black_thursday/lib/invoice_item.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        null,
-        null
-      ]
     },
-    "timestamp": 1536942011
+    "timestamp": 1537028888
   }
 }
