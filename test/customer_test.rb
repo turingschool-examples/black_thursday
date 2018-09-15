@@ -15,6 +15,8 @@ class CustomerTest < Minitest::Test
         assert_instance_of Customer, c
       end
 
+      def find_all_by_first_name
+
       def test_it_has_attributes
         c = Customer.new({
           :id => 6,

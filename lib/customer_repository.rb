@@ -14,15 +14,15 @@ class CustomerRepository < Repository
     end
   end
 
-  def find_all_by_first_name(name)
+  def find_all_by_first_name(first_name)
     @data.find_all do |datum|
-      datum.first_name == name
+      datum.first_name.downcase.include?(first_name.downcase)
     end
   end
 
-  def find_all_by_last_name(name)
+  def find_all_by_last_name(last_name)
     @data.find_all do |datum|
-      datum.last_name == name
+      datum.last_name.downcase.include?(last_name.downcase)
     end
   end
 
