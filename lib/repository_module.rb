@@ -16,7 +16,7 @@ module RepoMethods
   def find_by_id(id)
     @all.find do |object|
       object.id == id
-  
+
     end
   end
 
@@ -39,7 +39,7 @@ module RepoMethods
       end
     end
     if defined? object.unit_price != nil
-       if attributes[:unit_price] != nil
+      if attributes[:unit_price] != nil
         object.unit_price = attributes[:unit_price]
       end
     end
