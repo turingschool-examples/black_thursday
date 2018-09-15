@@ -1,7 +1,4 @@
-require 'pry'
-
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 
 require './lib/transaction'
 
@@ -9,8 +6,9 @@ require './lib/transaction'
 class TransactionTet < Minitest::Test
 
   def setup
+    # CSV: 1,2179,4068631943231473,0217,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
     @hash = {
-              :id                          => 1,
+              :id                          => "1",
               :invoice_id                  => "2179",
               :credit_card_number          => "4068631943231473",
               :credit_card_expiration_date => "0217",
@@ -27,7 +25,7 @@ class TransactionTet < Minitest::Test
 
   def test_it_gets_attributes
     assert_equal 1, @t.id
-    assert_equal "2179", @t.invoice_id
+    assert_equal 2179, @t.invoice_id
     assert_equal "4068631943231473", @t.credit_card_number
     assert_equal "0217", @t.credit_card_expiration_date
     assert_equal "success", @t.result
