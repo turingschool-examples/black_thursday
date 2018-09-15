@@ -40,10 +40,5 @@ class InvoiceItemRepository
     invoice_item.updated_at = Time.now unless (attributes[:quantity].nil? && attributes[:unit_price].nil?)
   end
 
-  def create(attributes)
-    attributes[:id] = @repo[-1].id + 1
-    @repo << InvoiceItem.new(attributes)
-  end
-
 
 end
