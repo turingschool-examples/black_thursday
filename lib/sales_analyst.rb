@@ -163,4 +163,9 @@ class SalesAnalyst
       (i.quantity * i.unit_price) + sum
     end
   end
+
+  def
+    find all customers invoices
+    calculate invoice total per invoice
+    inject all totals into a sum
 end

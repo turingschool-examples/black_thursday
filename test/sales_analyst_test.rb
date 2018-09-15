@@ -208,4 +208,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, sa.invoice_total(1).to_f
     assert_instance_of BigDecimal, sa.invoice_total(1)
   end
+
+  def test_it_can_customers_that_spend_the_most_money
+    se = SalesEngine.from_csv({
+      :invoice_items => "./data/invoice_items.csv",
+      :invoices => "./data/invoices.csv",
+      :customers => "./data/customers.csv"
+      })
+    sa = se.analyst
+
+    assert_equal 5, sa.top_buyers(5).length
+    assert_equal 313, sa.top_buyers(5).first.id
+    assert_equal 478, sa.top_buyers(5).last.id
+  end
 end

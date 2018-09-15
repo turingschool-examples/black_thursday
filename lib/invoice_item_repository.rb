@@ -18,22 +18,6 @@ class InvoiceItemRepository
     @data = []
   end
 
-  # def create(attributes)
-  #   hash = {}
-  #   if attributes[:id] != nil
-  #     hash[:id] = attributes[:id].to_i
-  #   else
-  #     attributes[:id] = find_by_id
-  #   end
-  #     hash[:item_id] = attributes[:item_id].to_i
-  #     hash[:invoice_id] = attributes[:invoice_id].to_i
-  #     hash[:quantity] = attributes[:quantity].to_i
-  #     hash[:unit_price] = BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length)
-  #     hash[:created_at] = Time.parse(attributes[:created_at])
-  #     hash[:updated_at] = Time.parse(attributes[:updated_at])
-  #     @data << InvoiceItem.new(hash)
-  # end
-
   def create(attributes)
     #all incoming data must be formatted as String datatype
     if attributes[:id] != nil
