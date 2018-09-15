@@ -1,14 +1,10 @@
-# Create a repository of Item objects
-#   - makes all item objects
-#   - uses finder & CRUD modules
 
 require 'pry'
-require_relative 'item'
+
 require_relative 'csv_parse'
-require './lib/invoice'
+require_relative 'invoice'
 
 class InvoiceRepository
-  include Finder
 
   attr_reader :all,
               :invoices
@@ -26,7 +22,6 @@ class InvoiceRepository
       invoice = Invoice.new(hash)
       @invoices << invoice
     }
-    @invoices.flatten!
   end
 
   def make_hash(key, value)
@@ -36,5 +31,3 @@ class InvoiceRepository
   end
 
 end
-
-

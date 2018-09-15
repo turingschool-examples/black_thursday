@@ -10,12 +10,10 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     @path = './data/items.csv'
     @repo = ItemRepository.new(@path)
-
-    # -- First Item's information --
     @first_item = @repo.all[0]
+    # -- First Item's information --
     # NOTE - The description is only an except.
     # NOTE - DO NOT try to match the description value (@repo.all[0].description)
-    @headers = [:id, :created_at, :merchant_id, :name, :description, :unit_price, :updated_at]
     # --- CSVParse created hash set ---
     @key = :"263395237"
     @value = {
@@ -26,7 +24,7 @@ class ItemRepositoryTest < Minitest::Test
               :created_at     => "2016-01-11 09:34:06 UTC",
               :updated_at     => "2007-06-04 21:35:10 UTC"
     }
-    @expected_form_from_csv_parse = {@key => @value}
+    expected_form_from_csv_parse = {@key => @value}
     # -----------------------------------
   end
 
@@ -44,7 +42,7 @@ class ItemRepositoryTest < Minitest::Test
     big_decimal = BigDecimal.new(1200, 4)
     assert_equal "510+ RealPush Icon Set",  @first_item.name
     assert_equal big_decimal,               @first_item.unit_price
-    assert_equal "12334141",                @first_item.merchant_id
+    assert_equal 12334141,                  @first_item.merchant_id
     assert_equal "2016-01-11 09:34:06 UTC", @first_item.created_at
     assert_equal "2007-06-04 21:35:10 UTC", @first_item.updated_at
   end
@@ -107,13 +105,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_with_same_merchant_id
-    found_1 = @repo.find_all_by_merchant_id("12334141")
-    found_2 = @repo.find_all_by_merchant_id(12334141)
+    # --- Merchant 1 ---
+    found_1 = @repo.find_all_by_merchant_id(12334141)
     assert_operator 1, :<=, found_1.count
-    assert_equal "12334141", found_1[0].merchant_id
-    skip
-    # TO DO - We have to update all objects to hold correct data type
-    assert_equal 12334141, found_2[0].merchant_id
+    assert_equal 12334141, found_1[0].merchant_id
+    # --- Merchant 2 ---
+    found_2 = @repo.find_all_by_merchant_id(12334185)
+    assert_operator 1, :<=, found_2.count
+    assert_equal 12334185, found_2[0].merchant_id
   end
 
 end

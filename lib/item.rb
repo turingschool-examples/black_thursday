@@ -1,10 +1,9 @@
 require 'pry'
+
 require 'bigdecimal'
-require_relative 'finder'
 
 
 class Item
-  include Finder
 
   attr_reader :id,
               :created_at,
@@ -17,14 +16,14 @@ class Item
 
   def initialize(hash)
     # -- Read Only --
-    @id = hash[:id]
-    @created_at = hash[:created_at]
-    @merchant_id = hash[:merchant_id]
+    @id           = hash[:id].to_i
+    @created_at   = hash[:created_at]
+    @merchant_id  = hash[:merchant_id].to_i
     # -- Accessible --
-    @name = hash[:name]
-    @description = hash[:description]
-    @unit_price = BigDecimal.new(hash[:unit_price], 4) #.to_f
-    @updated_at = hash[:updated_at]
+    @name         = hash[:name]
+    @description  = hash[:description]
+    @unit_price   = BigDecimal.new(hash[:unit_price], 4)
+    @updated_at   = hash[:updated_at]
     # TO DO - How to handle -> New creations need Time.now for updated_at, created_at
   end
 

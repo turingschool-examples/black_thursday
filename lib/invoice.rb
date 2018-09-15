@@ -1,4 +1,4 @@
-require './lib/finder'
+require 'pry'
 
 class Invoice
 
@@ -7,16 +7,16 @@ class Invoice
               :merchant_id,
               :created_at,
               :updated_at
-              
+
   attr_accessor :status
 
   def initialize(hash)
-    @id = hash[:id]
-    @customer_id = hash[:customer_id]
-    @merchant_id = hash[:merchant_id]
-    @status = hash[:status]
-    @created_at = hash[:created_at]
-    @updated_at = hash[:updated_at]
+    @id          = hash[:id].to_i
+    @customer_id = hash[:customer_id].to_i
+    @merchant_id = hash[:merchant_id].to_i
+    @status      = hash[:status]
+    @created_at  = hash[:created_at]
+    @updated_at  = hash[:updated_at]
   end
 
 end

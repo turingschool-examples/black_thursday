@@ -13,7 +13,7 @@ class ItemTest < Minitest::Test
     @headers = [:id, :created_at, :merchant_id, :name, :description, :unit_price, :updated_at]
     # --- CSVParse created hash set ---
     @hash = {
-              :id             => 263395237,
+              :id             => "263395237",
               :name           => "510+ RealPush Icon Set",
               :description    => "You&#39;ve got a total socialmedia iconset!", # NOTE - excerpt!
               :unit_price     => "1200",
@@ -34,9 +34,9 @@ class ItemTest < Minitest::Test
 
   def test_it_gets_attributes
     # -- Read Only --
-    assert_equal @hash[:id], @item.id
+    assert_equal 263395237, @item.id
     assert_equal @hash[:created_at], @item.created_at
-    assert_equal @hash[:merchant_id], @item.merchant_id
+    assert_equal 12334141, @item.merchant_id
     # TO DO - Assert we cannot write to these values https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html
     # -- Accessible --
     assert_equal @hash[:name], @item.name

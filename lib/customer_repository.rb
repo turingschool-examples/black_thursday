@@ -1,14 +1,9 @@
-# Create a repository of Item objects
-#   - makes all item objects
-#   - uses finder & CRUD modules
-
 require 'pry'
-require_relative 'item'
+
 require_relative 'csv_parse'
-require './lib/invoice'
+require_relative 'customer'
 
 class CustomerRepository
-  include Finder
 
   attr_reader :all,
               :customers
@@ -17,7 +12,7 @@ class CustomerRepository
     @csv = CSVParse.create_repo(path)
     @customers = []
     make_customers
-    @all = customers
+    @all = customers # retains permissions
   end
 
   def make_customers
@@ -26,7 +21,6 @@ class CustomerRepository
       customer = Customer.new(hash)
       @customers << customer
     }
-  @customers.flatten!
   end
 
   def make_hash(key, value)
@@ -34,6 +28,6 @@ class CustomerRepository
     value.each { |col, data| hash[col] = data }
     return hash
   end
-  
+
 
 end
