@@ -1,10 +1,11 @@
 require 'pry'
 
 class SalesAnalyst
-  def initialize(merchants, items, invoices = nil)
+  def initialize(merchants, items, invoices, invoice_items)
     @merchants = merchants
     @items = items
     @invoices = invoices
+    @invoice_items = invoice_items
   end
 
   def average_items_per_merchant

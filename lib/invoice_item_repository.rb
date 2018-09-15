@@ -60,6 +60,18 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_item_id(items_id)
+    @all.find_all do |invoice_item|
+      invoice_item.item_id == items_id
+    end
+  end
+
+  def find_all_by_invoice_id(invoices_id)
+    @all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoices_id
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
