@@ -42,8 +42,8 @@ class InvoiceRepositoryTest <Minitest::Test
     i9 = invoice.find_by_id(9)
     i10 = invoice.find_by_id(10)
 
-    assert_equal [i1,i2,i3,i4,i5,i6,i7,i8], invoice.find_by_customer_id(1)
-    assert_equal [i9,i10], invoice.find_by_customer_id(2)
+    assert_equal [i1,i2,i3,i4,i5,i6,i7,i8], invoice.find_all_by_customer_id(1)
+    assert_equal [i9,i10], invoice.find_all_by_customer_id(2)
   end
 
   def test_it_can_find_all_by_merchant_id
@@ -71,7 +71,7 @@ class InvoiceRepositoryTest <Minitest::Test
     i9 = invoice.find_by_id(9)
     i10 = invoice.find_by_id(10)
 
-    assert_equal [i1,i4,i5,i6,i7,i10], invoice.find_all_by_status("pending")
+    assert_equal [i1,i4,i5,i6,i7,i10], invoice.find_all_by_status(:pending)
   end
 
 def test_it_can_create_new_invoice_from_attributes
