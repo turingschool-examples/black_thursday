@@ -43,18 +43,23 @@ class TransactionRepoTest < Minitest::Test
     t_two = tr.find_by_id(5)
 
     expected = [t_one, t_two]
-    actual = tr.find_all_by_invoice_id(41)
+    actual = tr.find_all_by_invoice_id(4115)
     assert_equal expected, actual
 
     assert_equal [], tr.find_all_by_invoice_id(99999)
   end
 
-  def test_it_returns_nil_if_no_name_match_found
-    skip
+  def test_it_can_find_all_by_credit_card_number
     tr = TransactionRepo.new("./test/fixtures/transactions.csv")
 
-    actual = ir.find_by_name("hiiiiiiiii")
-    assert_nil actual
+    t_one = tr.find_by_id(4)
+    t_two = tr.find_by_id(5)
+
+    expected = [t_one, t_two]
+    actual = tr.find_all_by_credit_card_number("4048033451067370")
+    assert_equal expected, actual
+
+    assert_equal [], tr.find_all_by_credit_card_number(99999)
   end
 
   def test_it_can_find_all_with_a_description
@@ -72,49 +77,40 @@ class TransactionRepoTest < Minitest::Test
     assert_equal [], ir.find_all_with_description("jifeowjflsjeioa")
   end
 
-  def test_i_can_find_all_items_with_the_same_price
-    skip
+  def test_it_can_find_all_by_result
     tr = TransactionRepo.new("./test/fixtures/transactions.csv")
 
+    expected = tr.find_by_id(9)
+    assert_equal [expected], tr.find_all_by_result("failed")
 
-    cheer_bow = ir.find_by_id(1)
-    student = ir.find_by_id(7)
+    actual = tr.find_all_by_result("success")
+    assert_equal 10, actual.count
 
-    expected = [cheer_bow, student]
-    actual = ir.find_all_by_price(10.00)
-
-    assert_equal expected, actual
-    assert_equal [], ir.find_all_by_price(2492849)
+    assert_equal [], tr.find_all_by_result("asdfdf")
   end
 
-  def test_it_can_find_prices_in_a_range
-    skip
+  # def test_it_can_create_a_transaction_with_current_highest_id
+  #   tr = TransactionRepo.new("./test/fixtures/transactions.csv")
+  #
+  #   actual = tr.create({
+  #     :id                            => 15,
+  #     :invoice_id                    => 232321,
+  #     :credit_card_number            => "4463525332822968",
+  #     :credit_card_expiration_date   => "0422",
+  #     :result                        => "failed",
+  #     :created_at                    => Time.now,
+  #     :updated_at                    => Time.now,
+  #                       })
+  #
+  #   assert_instance_of Transaction, actual
+  #
+  # assert_equal 11, tr.all.count
+  # end
+
+  def test_it_finds_update_a_transaction
     tr = TransactionRepo.new("./test/fixtures/transactions.csv")
 
-
-    chicken = ir.find_by_id(3)
-    brian = ir.find_by_id(5)
-
-    expected = [chicken, brian]
-    actual = ir.find_all_by_price_in_range(12.00..15.00)
-
-    assert_equal expected, actual
-    assert_equal [], ir.find_all_by_price_in_range(0..1)
-  end
-
-  def test_it_finds_all_by_merchant_id
-    skip
-    tr = TransactionRepo.new("./test/fixtures/transactions.csv")
-
-
-    cheer_bow = ir.find_by_id(1)
-    student = ir.find_by_id(7)
-
-    expected = [cheer_bow, student]
-    actual = ir.find_all_by_merchant_id(1)
-
-    assert_equal expected, actual
-    assert_equal [], ir.find_all_by_merchant_id(289348)
+    
   end
 
   def test_it_can_create_a_new_item_with_new_parameters

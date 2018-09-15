@@ -18,6 +18,20 @@ class TransactionRepo
     end
   end
 
+  def find_all_by_credit_card_number(credit_number)
+    @collections.find_all do |object|
+      object.credit_card_number == credit_number
+    end
+  end
+
+  def create(params)
+    transaction = Transaction.new(params)
+    new_highest_current = object_id_counter.id + 1
+    transaction.id = new_highest_current
+    @collections << transaction
+    transaction
+  end
+
 
 
 end
