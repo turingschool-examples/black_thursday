@@ -1,7 +1,4 @@
 require './test/minitest_helper'
-require_relative '../lib/invoice_repository'
-require 'CSV'
-require 'pry'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup

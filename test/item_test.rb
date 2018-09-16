@@ -1,5 +1,4 @@
 require './test/minitest_helper'
-require './lib/item'
 
 class ItemTest<Minitest::Test
 

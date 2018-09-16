@@ -1,7 +1,4 @@
 require './test/minitest_helper'
-require './lib/item_repository'
-require './lib/item'
-require 'CSV'
 
 class ItemTest<Minitest::Test
 
@@ -48,7 +45,7 @@ class ItemTest<Minitest::Test
   end
 
   def test_it_returns_an_array_of_items_associated_with_given_merchant_id
-   merchant_id = '12334185'#Check string at spec harness
+   merchant_id = 12334185#Check string at spec harness
    result = @ir.find_all_by_merchant_id(merchant_id)
    assert_equal 3, result.length
   end

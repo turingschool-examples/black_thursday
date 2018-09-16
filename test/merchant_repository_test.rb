@@ -1,7 +1,4 @@
 require './test/minitest_helper'
-require './lib/merchant_repository'
-require './lib/merchant'
-require 'CSV'
 
 class MerchantTest < Minitest::Test
   def setup
