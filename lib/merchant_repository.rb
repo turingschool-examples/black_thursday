@@ -22,7 +22,7 @@ class MerchantRepository
 
   def find_by_name(name)
     @merchants.find do |merchant|
-     merchant.name == name
+     merchant.name.downcase == name.downcase
     end
   end
 
@@ -41,6 +41,7 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant  = find_by_id(id)
+    return if merchant.nil?
     updated_name = attributes[:name]
     merchant.name = updated_name
     merchant

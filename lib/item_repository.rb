@@ -35,7 +35,7 @@ class ItemRepository
 
   def find_all_with_description(item_description)
     @items.find_all do |item|
-     item.description.include?(item_description)
+     item.description.downcase.include?(item_description.downcase)
     end
   end
 
@@ -71,13 +71,13 @@ class ItemRepository
     @items << new_item
     new_item
   end
+
   def update(id, attributes)
     item = find_by_id(id)
-
-    item.name = attributes[:name]
-    item.description = attributes[:description]
-    item.unit_price = attributes[:unit_price]
-
+    return if item.nil?
+    item.name = attributes[:name] unless attributes[:name].nil?
+    item.description = attributes[:description] unless attributes[:description].nil?
+    item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     item.updated_at = Time.now
   end
 
