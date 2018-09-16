@@ -1,4 +1,6 @@
-require 'pry'
+require 'csv'
+require 'bigdecimal'
+require 'time'
 
 class SalesAnalyst
   def initialize(merchants, items, invoices, invoice_items, transactions, customers)
@@ -152,6 +154,7 @@ class SalesAnalyst
     invoice_item_list = @invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_item_list.reduce(BigDecimal("0")) do |total, invoice_item|
       item_total = invoice_item.unit_price * invoice_item.quantity
+
       total + item_total
     end
   end

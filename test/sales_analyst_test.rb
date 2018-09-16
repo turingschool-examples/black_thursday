@@ -15,6 +15,7 @@ class SalesAnalystTest < Minitest::Test
         :items => './data/items.csv',
         :merchants => './data/merchants.csv',
         :invoices => './data/invoices.csv',
+        :invoice_items => './data/invoice_items.csv',
         :transactions => './data/transactions.csv',
         :customers => './data/customers.csv'
     })
@@ -93,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_calc_invoice_total_dollar_amount
-
+    assert_equal 21067.77, @sales_analyst.invoice_total(1)
   end
 
 end

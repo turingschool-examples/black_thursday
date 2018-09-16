@@ -58,6 +58,21 @@ module RepoMethods
         object.quantity = attributes[:quantity]
       end
     end
+    if defined? object.credit_card_number != nil
+      if attributes[:credit_card_number] != nil
+        object.credit_card_number = attributes[:credit_card_number]
+      end
+    end
+    if defined? object.credit_card_expiration_date != nil
+      if attributes[:credit_card_expiration_date] != nil
+        object.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+      end
+    end
+    if defined? object.result != nil
+      if attributes[:result] != nil
+        object.result = attributes[:result]
+      end
+    end
     if defined? object.updated_at != nil
       object.updated_at = Time.now
     end
