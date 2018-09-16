@@ -14,26 +14,26 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-15T20:27:25-06:00">2018-09-15T20:27:25-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-15T20:42:59-06:00">2018-09-15T20:42:59-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">63.04%</span></span>
+    (<span class="covered_percent"><span class="red">65.31%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.64
+         0.66
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>3</b> files in total.
-    <b>46</b> relevant lines. 
-    <span class="green"><b>29</b> lines covered</span> and
+    <b>49</b> relevant lines. 
+    <span class="green"><b>32</b> lines covered</span> and
     <span class="red"><b>17</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -62,10 +62,10 @@
       
       <tr>
         <td class="strong"><a href="#d68775d4e076cee3f7066fd91eea2c446afa7a82" class="src_link" title="lib/invoice.rb">lib/invoice.rb</a></td>
-        <td class="yellow strong">90.0 %</td>
-        <td>15</td>
-        <td>10</td>
-        <td>9</td>
+        <td class="green strong">92.31 %</td>
+        <td>18</td>
+        <td>13</td>
+        <td>12</td>
         <td>1</td>
         <td>0.9</td>
       </tr>
@@ -376,10 +376,10 @@
         <div class="source_table" id="d68775d4e076cee3f7066fd91eea2c446afa7a82">
   <div class="header">
     <h3>lib/invoice.rb</h3>
-    <h4><span class="yellow">90.0 %</span> covered</h4>
+    <h4><span class="green">92.31 %</span> covered</h4>
     <div>
-      <b>10</b> relevant lines. 
-      <span class="green"><b>9</b> lines covered</span> and
+      <b>13</b> relevant lines. 
+      <span class="green"><b>12</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
@@ -399,16 +399,16 @@
           <code class="ruby">require &#39;time&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="3">
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">require &#39;pry&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">class Invoice</code>
+          <code class="ruby">require_relative &#39;../lib/black_thursday_helper&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
@@ -420,58 +420,76 @@
         <li class="covered" data-hits="1" data-linenumber="6">
           <span class="hits">1</span>
           
-          <code class="ruby">def initialize(params)</code>
+          <code class="ruby">class Invoice</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="7">
           <span class="hits">1</span>
           
-          <code class="ruby">  @id = params[:id].to_i</code>
+          <code class="ruby">  include BlackThursdayHelper</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="8">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  @customer_id = params[:id].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="9">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  @merchant_id = params[:merchant_id].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="10">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  @status = params[:status]</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="11">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  @created_at = Time.parse(params[:created_at].to_i)</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="12">
-          
-          
-          <code class="ruby">  @updated_at = Time.parse(params[:updated_at].to_i)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="13">
-          
-          
-          <code class="ruby">end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="14">
+        <li class="never" data-hits="" data-linenumber="8">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="15">
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">def initialize(params)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="10">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  @id = params[:id].to_i</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  @customer_id = params[:id].to_i</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  @merchant_id = params[:merchant_id].to_i</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="13">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  @status = params[:status]</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="14">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  @created_at = Time.parse(params[:created_at])</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="15">
+          
+          
+          <code class="ruby">  @updated_at = Time.parse(params[:updated_at])</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="16">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
           
           
           <code class="ruby">end</code>

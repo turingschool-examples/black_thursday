@@ -3,6 +3,7 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
+require 'time'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
 
