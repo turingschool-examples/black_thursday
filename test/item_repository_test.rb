@@ -1,67 +1,65 @@
 require_relative 'test_helper'
 
-# TO DO  - change these to require require_relative
-require './lib/item'
-require './lib/item_repository'
+require_relative '../lib/item'
+require_relative '../lib/item_repository'
 
 
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @path = './data/items.csv'
-    @repo = ItemRepository.new(@path)
+    path = './data/items.csv'
+    @repo = ItemRepository.new(path)
     @first_item = @repo.all[0]
-    # -- First Item's information --
+    # ===== Item Examples =================
     # NOTE - The description is only an except.
     # NOTE - DO NOT try to match the description value (@repo.all[0].description)
-    # --- CSVParse created hash set ---
-    @key = :"263395237"
-    @value = {
-              :name           => "510+ RealPush Icon Set",
-              :description    => "You&#39;ve got a total socialmedia iconset!", # NOTE - excerpt!
-              :unit_price     => "1200",
-              :merchant_id    => "12334141",
-              :created_at     => "2016-01-11 09:34:06 UTC",
-              :updated_at     => "2007-06-04 21:35:10 UTC"
-    }
-    expected_form_from_csv_parse = {@key => @value}
-    # -----------------------------------
+    # 263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! # 1200,12334141,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+    item_1_hash = { :"263395237" => { name:        "510+ RealPush Icon Set",
+                                      description: "You&#39;ve got a total socialmedia iconset!", # Excerpt!
+                                      unit_price:  "1200",
+                                      merchant_id: "12334141",
+                                      created_at:  "2016-01-11 09:34:06 UTC",
+                                      updated_at:  "2007-06-04 21:35:10 UTC"
+                                     } }
+    @key = item_1_hash.keys.first
+    @values = item_1_hash.values.first
   end
 
   def test_it_exists
     assert_instance_of ItemRepository, @repo
   end
 
-  def test_it_makes_and_gets_items
+  def test_it_gets_attributes
+    # --- Read Only ---
     assert_instance_of Array, @repo.all
-    assert_instance_of Item,  @repo.all[0]
-    assert_instance_of Item,  @repo.all[1000]
+    assert_instance_of Item, @repo.all[0]
+    assert_equal @repo.all.count, @repo.all.uniq.count
+    assert_equal 1367, @repo.all.count
   end
 
   def test_it_makes_items
-    big_decimal = BigDecimal.new(1200, 4)
-    assert_equal "510+ RealPush Icon Set",  @first_item.name
-    assert_equal big_decimal,               @first_item.unit_price
-    assert_equal 12334141,                  @first_item.merchant_id
-    assert_equal "2016-01-11 09:34:06 UTC", @first_item.created_at
-    assert_equal "2007-06-04 21:35:10 UTC", @first_item.updated_at
+    # This test is skipped because it will affect other tests.
+    skip
+    @repo.make_items
+    assert_equal 1367 * 2, @repo.all.count
   end
+
 
   def test_it_makes_a_formatted_hash
     # -- The new hash needs an additional column --
     new_column = {:id => 263395237}
-    new_hash = new_column.merge(@value.dup)
-    assert_equal new_hash, @repo.make_hash(@key, @value)
+    new_hash = new_column.merge(@values.dup)
+    assert_equal new_hash, @repo.make_hash(@key, @values)
   end
 
-  def test_it_gets_all_merchants
-    assert_equal 1367, @repo.all.count
-    assert_equal @repo.items, @repo.all
-  end
+
+  # --- Find By ---
 
   def test_it_can_find_by_item_id
+    assert_nil @repo.find_by_id(000)
     found = @repo.find_by_id(263395237)
-    assert_equal @first_item.id, found.id
+    assert_instance_of Item, found
+    assert_equal 263395237, found.id
   end
 
   def test_it_can_find_by_case_insensitive_name
@@ -70,6 +68,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_with_similar_description
+    # -- none have this string --
+    found_none = @repo.find_all_with_description("zzzzzzzzz")
+    assert_equal [], found_none
     # -- only one has this string --
     found_1 = @repo.find_all_with_description("You&#39;ve got a total socialmedia iconset!")
     assert_equal 1, found_1.count
@@ -78,22 +79,26 @@ class ItemRepositoryTest < Minitest::Test
     found_many = @repo.find_all_with_description("You")
     assert_equal @first_item.description, found_many[0].description
     assert_equal true, found_many[500].description.include?("You".downcase)
-    # -- none have this string --
-    found_none = @repo.find_all_with_description("zzzzzzzzz")
-    assert_equal [], found_none
   end
 
   def test_it_can_find_an_item_by_unit_price
+    # -- none have this price --
+    found_none = @repo.find_all_by_price(0)
+    assert_equal [], found_none
+    # -- Handles multiple types of price input --
     big_decimal = BigDecimal.new("1200", 4)
     found_1 = @repo.find_all_by_price(1200)
     found_2 = @repo.find_all_by_price("1200")
     found_3 = @repo.find_all_by_price(big_decimal)
-    # -- Handles multiple types of price input --
     same = found_1 == found_2 && found_1 == found_3
     assert_equal true, same
   end
 
   def test_it_can_find_items_within_same_price_range
+    # -- none have this price --
+    found_none = @repo.find_all_by_price_in_range((0..1))
+    assert_equal [], found_none
+    # -- results --
     found = @repo.find_all_by_price_in_range((100..200))
     assert_operator   0, :<, found.count
     # -- first example --
@@ -105,6 +110,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_with_same_merchant_id
+    # -- none have this id --
+    found_none = @repo.find_all_by_merchant_id(000)
+    assert_equal [], found_none
     # --- Merchant 1 ---
     found_1 = @repo.find_all_by_merchant_id(12334141)
     assert_operator 1, :<=, found_1.count
