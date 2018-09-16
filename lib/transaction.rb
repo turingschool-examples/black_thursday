@@ -1,5 +1,3 @@
-require 'bigdecimal'
-
 class Transaction
 
   attr_reader :id, :invoice_id, :credit_card_number,
@@ -12,9 +10,8 @@ class Transaction
     @credit_card_number          = transaction_data[:credit_card_number]
     @credit_card_expiration_date = transaction_data[:credit_card_expiration_date]
     @result                      = transaction_data[:result]
-    @created_at                  = Time.parse(hash[:created_at].to_s)
-    @updated_at                  = Time.parse(hash[:updated_at].to_s)
+    @created_at                  = transaction_data[:created_at]
+    @updated_at                  = transaction_data[:updated_at]
   end
-
 
 end
