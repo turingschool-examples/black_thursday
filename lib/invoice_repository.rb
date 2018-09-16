@@ -100,6 +100,15 @@ include Crud
     end
   end
 
-  
+  def find_all_by_day(day)
+    days = @collection.find_all do |invoice|
+      invoice.created_at.strftime('%A') == day.to_s
+    end
+  end
 
+  def find_all_by_status(status)
+    @collection.find_all do |invoice|
+      invoice.status.to_sym == status.to_sym
+    end
+  end
 end
