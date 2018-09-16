@@ -5,6 +5,8 @@ require 'minitest/pride'
 require 'pry'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/merchant'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice'
 
 class MerchantRepoTest < Minitest::Test
 
