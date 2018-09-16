@@ -14,7 +14,7 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     hash = {
-              # :items         => "./data/items.csv",
+              :items         => "./data/items.csv",
               # :merchants     => "./data/merchants.csv",
               :invoices      => "./data/invoices.csv",
               :invoice_items => "./data/invoice_items.csv",
@@ -43,7 +43,7 @@ class SalesEngineTest < Minitest::Test
     assert_nil @se_new.customers
     # --- From CSV ---
     # assert_instance_of MerchantRepository,    @se_csv.merchants
-    # assert_instance_of ItemRepository,        @se_csv.items
+    assert_instance_of ItemRepository,        @se_csv.items
     assert_instance_of InvoiceRepository,     @se_csv.invoices
     assert_instance_of InvoiceItemRepository, @se_csv.invoice_items
     # assert_instance_of TransactionRepository, @se_csv.transactions

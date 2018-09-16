@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 
+require_relative '../lib/sales_engine'
 require_relative '../lib/item'
 require_relative '../lib/item_repository'
 
@@ -7,8 +8,8 @@ require_relative '../lib/item_repository'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    path = './data/items.csv'
-    @repo = ItemRepository.new(path)
+    path = {:items => './data/items.csv'}
+    @repo = SalesEngine.from_csv(path).items
     @first_item = @repo.all[0]
     # ===== Item Examples =================
     # NOTE - The description is only an except.
