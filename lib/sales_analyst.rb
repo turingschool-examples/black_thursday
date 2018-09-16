@@ -127,7 +127,7 @@ class SalesAnalyst
     invoices_by_day = grouped_by_weekday.values.map do |invoice_collection|
       invoice_collection.count
     end
-    a = day_nums = grouped_by_weekday.find_all do |weekday, invoices|
+    day_nums = grouped_by_weekday.find_all do |weekday, invoices|
       invoices.count >= average + standard_deviation(invoices_by_day)
     end.to_h.keys
     day_nums.map do |daynumber|
@@ -174,29 +174,16 @@ class SalesAnalyst
     sum(invoice_totals)
   end
 
-  # def top_revenue_earners(return_count)
-  #   hash = merchant_by_total_revenue
-  #
-  #   top_earners = hash.sort_by do |key, value|
-  #     value.to_f
-  #   end[-10..-1]#[-(return_count)..-1]
-  #   top_earners.map do |top_earner|
-  #     top_earner[0]
-  #   end
-  # end
-  #
-  # def merchant_by_total_revenue
-  #   hash = {}
-  #   @merchant_repo.all.each do |merchant|
-  #     merchant_invoices = @invoice_repo.all.find_all do |invoice|
-  #       invoice.merchant_id == merchant.id # && invoice.status != :returned
-  #     end
-  #     totals = merchant_invoices.map do |invoice|
-  #       invoice_total(invoice.id)
-  #     end
-  #     hash[merchant] = sum(totals).to_f
-  #   end
-  #   hash
-  # end
+  def revenue_by_merchant(search_merchant_id)
+    paid_invoices = @invoice_repo.all.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+    merchant_paid_invoices = paid_invoices.find_all do |invoice|
+      invoice.merchant_id == search_merchant_id
+    end
+    merchant_paid_invoices.reduce(0) do |sum, invoice|
+      invoice_total(invoice.id) + sum
+    end
+  end
 
 end

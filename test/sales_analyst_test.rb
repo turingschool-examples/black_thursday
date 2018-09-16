@@ -224,30 +224,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, sa.total_revenue_by_date(Time.parse("2009-02-07")).to_f
   end
 
-  def test_it_can_return_top_performing_merchants_in_terms_of_revenue
+  def test_it_can_find_total_revenue_for_a_single_merchant
     se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv",
       :invoice_items => "./data/invoice_items.csv",
       :invoices => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv"
         })
     sa = se.analyst
-    assert_instance_of Array, sa.top_revenue_earners(10)
-    assert_instance_of Merchant, sa.top_revenue_earners(10)[0]
-    assert_equal 10, sa.top_revenue_earners(10)
-    assert_equal 12334634, sa.top_revenue_earners(10).first.id
-    assert_equal 12335747, sa.top_revenue_earners(10).last.id
+    assert_instance_of BigDecimal, sa.revenue_by_merchant(12334194)
   end
-
-  def test_it_can_group_merchants_with_total_revenue
-    skip
-    se = SalesEngine.from_csv({
-      :merchants => "./data/merchants.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :invoices => "./data/invoices.csv",
-        })
-    sa = se.analyst
-    assert_instance_of Hash, sa.merchant_by_total_revenue
-    assert_equal 681.75, sa.merchant_by_total_revenue.values[0].to_f
-  end
-
 end
