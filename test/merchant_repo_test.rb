@@ -15,7 +15,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_a_merchant_repo_has_merchants
     mr = MerchantRepo.new("./test/fixtures/merchants.csv")
-
+    binding.pry
     assert_equal 7, mr.all.count
     assert_instance_of Array, mr.all
     assert mr.all.all? { |merchant| merchant.is_a?(Merchant)}

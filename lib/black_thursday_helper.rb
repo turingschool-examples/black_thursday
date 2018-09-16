@@ -25,11 +25,10 @@ module BlackThursdayHelper
    end
   end
 
-  def find_all_by_customer_id(id)
+  def find_all_by_customer_id(customer_id)
     @collections.find_all do |object|
-      object.id == id
+      object.customer_id == customer_id
     end
-    binding.pry
   end
 
 
@@ -42,6 +41,12 @@ module BlackThursdayHelper
   def object_id_counter
     @collections.max do |object|
      object.id
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @collections.find_all do |object|
+      object.merchant_id == merchant_id
     end
   end
 
