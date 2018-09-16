@@ -38,6 +38,16 @@ module RepoMethods
         object.description = attributes[:description]
       end
     end
+    if defined? object.first_name != nil
+      if attributes[:first_name] != nil
+        object.first_name = attributes[:first_name]
+      end
+    end
+    if defined? object.last_name != nil
+      if attributes[:last_name] != nil
+        object.last_name = attributes[:last_name]
+      end
+    end
     if defined? object.unit_price != nil
       if attributes[:unit_price] != nil
         object.unit_price = attributes[:unit_price]

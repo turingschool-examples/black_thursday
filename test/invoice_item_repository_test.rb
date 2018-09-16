@@ -75,7 +75,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_update_attributes
     iir = InvoiceItemRepository.new( "./data/test_invoice_items.csv" )
-    updated_time =
     hash_2 = {
         :id          => 100,
         :item_id     => 263000844,
