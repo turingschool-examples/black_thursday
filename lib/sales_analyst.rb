@@ -68,41 +68,10 @@ def average_invoices_per_merchant_standard_deviation
   standard_dev(invoices_per_merchant, mean)
 end
 
-# def top_merchants_by_invoice_count
-#   # def merchants_with_high_item_count
-#     goal = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
-#
-#     all_merchants.find_all do |merchant|
-#       @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size > goal
-#     end
-#   end
-
-# Which merchants are more than two standard deviations above the mean?
-
-
-# def top_merchants_by_invoice_count
-#    mean = average_invoices_per_merchant
-#    two_std = average_invoices_per_merchant_standard_deviation * 2
-#
-#    all_merchants.find_all do |merchant|
-#      @engine.invoices.find_all_by_merchant_id(merchant.id).size > (two_std + mean)
-#    end
-#  end
-
-# def top_merchants_by_invoice_count
-#    mean = average_invoices_per_merchant
-#    two_std = average_invoices_per_merchant_standard_deviation * 2
-#
-#    all_merchants.find_all do |merchant|
-#      @engine.invoices.find_all_by_merchant_id(merchant.id).size > (two_std + mean)
-#    end
-#  end
-
 def top_merchants_by_invoice_count
   mean = mean_method_for_invoices
   doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
   all_invoices.find_all do |invoice|
-    binding.pry
   # binding.pry
     #ok so this goes into the invoices and find all the ones for particular merchant
     #then it will count it. if thats more than the standard deviation for the other merchants,
@@ -110,5 +79,17 @@ def top_merchants_by_invoice_count
     @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size > (doubled_standard_deviation + mean)
   end
 end
+
+def bottom_merchants_by_invoice_count
+    mean = mean_method_for_invoices
+    doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
+    all_invoices.find_all do |invoice|
+      @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size < (doubled_standard_deviation - mean)
+    end
+end
+
+def top_days_by_invoice_count
+end
+
 
 end
