@@ -5,8 +5,8 @@ require_relative '../lib/merchant'
 require_relative '../lib/black_thursday_helper'
 
 class MerchantRepo
-
 include BlackThursdayHelper
+
   def initialize(file_path)
     @collections = []
     populate(file_path)

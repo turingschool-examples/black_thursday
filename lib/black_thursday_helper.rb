@@ -25,6 +25,14 @@ module BlackThursdayHelper
    end
   end
 
+  def find_all_by_customer_id(id)
+    @collections.find_all do |object|
+      object.id == id
+    end
+    binding.pry
+  end
+
+
   def delete(id)
     @collections.delete_if do |object|
       object.id == id
@@ -40,4 +48,5 @@ module BlackThursdayHelper
   def inspect
     "#<#{self.class} #{@collections.size} rows>"
   end
+
 end
