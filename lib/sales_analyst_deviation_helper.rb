@@ -19,8 +19,4 @@ module SalesAnalystHelper
   def all_merchants
     @sales_engine.merchants.all
   end
-
-
-
-
 end

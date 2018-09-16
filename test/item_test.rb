@@ -30,9 +30,8 @@ class ItemsTest < Minitest::Test
     assert_equal "Gretchen Weiners lightsaber", @i.name
     assert_equal "Says 'you can't sit with us!' instead of ligthsaber sounds", @i.description
     assert_equal BigDecimal.new(10.99, 4), @i.unit_price
-    # HEY YOU! MERE!
-    # assert_equal Time.now, @i.created_at
-    # assert_equal Time.now, @i.updated_at
+    assert_instance_of Time, @i.created_at
+    assert_instance_of Time, @i.updated_at
     assert_equal 2, @i.merchant_id
   end
 
