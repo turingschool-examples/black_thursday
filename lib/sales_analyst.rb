@@ -1,11 +1,12 @@
 require 'pry'
 
 class SalesAnalyst
-  def initialize(merchants, items, invoices, invoice_items)
+  def initialize(merchants, items, invoices, invoice_items, transactions, customers)
     @merchants = merchants
     @items = items
     @invoices = invoices
     @invoice_items = invoice_items
+    @transactions = transactions
   end
 
   def average_items_per_merchant
@@ -137,6 +138,22 @@ class SalesAnalyst
     invoices_for_status_fraction = (invoice_count_for_status / @invoices.all.count)
 
     (invoices_for_status_fraction * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    invoice_transactions = @transactions.find_all_by_invoice_id(invoice_id)
+    return false if invoice_transactions == []
+    @transactions.find_all_by_invoice_id(invoice_id).all? do |trans|
+      trans.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_item_list = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_item_list.reduce(BigDecimal("0")) do |total, invoice_item|
+      item_total = invoice_item.unit_price * invoice_item.quantity
+      total + item_total
+    end
   end
 
   # helper method
