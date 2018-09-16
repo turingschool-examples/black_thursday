@@ -32,7 +32,7 @@ class InvoiceRepository
     value.each { |col, data| hash[col] = data }
     return hash
   end
-  
+
 
   # --- Find By ---
 

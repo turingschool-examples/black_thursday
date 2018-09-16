@@ -53,6 +53,9 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal new_hash, @repo.make_hash(@key, @values)
   end
 
+
+  # --- Find By ---
+
   def test_it_can_find_an_invoice_by_id
     assert_nil @repo.find_by_id("000")
     assert_equal 1, @repo.find_by_id(1).id
