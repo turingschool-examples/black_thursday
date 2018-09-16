@@ -5,6 +5,10 @@ module SalesAnalystHelper
     average_items_per_merchant
   end
 
+  def mean_method_for_invoices
+    average_invoices_per_merchant
+  end
+
   def standard_dev(data, mean)
     total_sum = data.inject(0) do |sum, number_items|
       sum + (number_items - mean)**2

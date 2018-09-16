@@ -23,7 +23,6 @@ class SalesAnalyst
     items_per_merchant = all_merchants.map do |merchant|
       @sales_engine.items.find_all_by_merchant_id(merchant.id).size
     end
-
     standard_dev(items_per_merchant, mean)
   end
 
@@ -62,11 +61,12 @@ class SalesAnalyst
   end
 
 #am i on the right track?
-  # def average_invoices_per_merchant_standard_deviation
-  #   mean = mean_method
-  #   invoices_per_merchant = all_merchants.map do |merchant|
-  #     @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size
-  #   end
-  # end
+def average_invoices_per_merchant_standard_deviation
+  mean = mean_method_for_invoices
+  invoices_per_merchant = all_merchants.map do |merchant|
+    @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size
+  end
+  standard_dev(invoices_per_merchant, mean)
+end
 
 end
