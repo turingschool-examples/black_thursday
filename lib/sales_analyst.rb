@@ -23,7 +23,7 @@ class SalesAnalyst
     total_invoices = @se.invoices.all.count
     BigDecimal((total_invoices.to_d / total_merchants), 3).round(2).to_f
   end
-  
+
   def average_invoices_per_merchant_standard_deviation
     @invoice_stock = @se.invoices.all.group_by do |invoice|
       invoice.merchant_id
@@ -33,7 +33,7 @@ class SalesAnalyst
     end
      standard_deviation(totals.flatten)
   end
-  
+
   def top_merchants_by_invoice_count
     cutoff = (average_invoices_per_merchant) + (average_invoices_per_merchant_standard_deviation * 2)
     high_count = @se.merchants.all.map do |merchant|
@@ -62,13 +62,13 @@ class SalesAnalyst
   def days_array
     ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   end
-  
+
   def average_invoices_per_day
     total_invoices = @se.invoices.all.count.to_f
     total_days = 7.0
     (total_invoices / total_days).round(2)
   end
-  
+
   def average_invoices_per_day_standard_deviation
     array = average_days_occurrence
     average = average_invoices_per_day
@@ -78,7 +78,7 @@ class SalesAnalyst
     result = sum / 6.0
     result = Math.sqrt(result).round(2)
   end
-    
+
   def average_days_occurrence
     days = days_array.map do |day|
       occurrences = @se.invoices.find_all_by_day(day)
@@ -91,14 +91,14 @@ class SalesAnalyst
     percentage = percentage * 100
     percentage.round(2)
   end
-  
+
   def average_days
     days = average_days_occurrence.inject(0) do |sum, num|
       sum += num
     end
       (days / 7.0).round(2)
   end
-  
+
   def top_days_by_invoice_count
     high_level = average_invoices_per_day_standard_deviation + average_days
     golden = []
@@ -108,6 +108,7 @@ class SalesAnalyst
       end
     end
     golden.flatten
+  end
 
   def total_inventory
     merchant_stock.map do |merchant, items|
