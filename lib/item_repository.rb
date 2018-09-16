@@ -86,4 +86,8 @@ class ItemRepository
       item == find_by_id(id)
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 end

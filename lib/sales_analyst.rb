@@ -1,4 +1,5 @@
-require './test/minitest_helper'
+require 'bigdecimal/util'
+require 'bigdecimal'
 
 class SalesAnalyst
   attr_reader :se,
@@ -17,37 +18,35 @@ class SalesAnalyst
 
   def count_items_per_merchant
      @ir.items.inject(Hash.new (0)) do |total, item|
-       total[item.merchant_id]+= 1
+       total[item.merchant_id] += 1
        total
      end
   end
 
    def average_items_per_merchant_standard_deviation
      mean = average_items_per_merchant
-       set = count_items_per_merchant.values.map do |item_count|
-       ((item_count - mean) ** 2).round(2)
-         end
-         new_sum = set.inject(0) do |sum, number|
-         sum + number
-       end
-       Math.sqrt(new_sum/@ir.all.count-1).round(2)
+     set = count_items_per_merchant.values.map do |item_count|
+       ((item_count - mean) ** 2)
+     end.sum
+
+    Math.sqrt(set/(@mr.all.count-1)).round(2)
    end
 
-   def merchant_with_high_item_count
-     one_sd_above = average_items_per_merchant + average_items_per_merchant_standard_deviation
-      count_items_per_merchant.map do |merchant_id, items_per_merchant|
-        if items_per_merchant > one_sd_above
-         merchant_id
-        end
-     end.compact
-   end
+  def merchants_with_high_item_count
+    one_sd_above = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    count_items_per_merchant.map do |merchant_id, items_per_merchant|
+      if items_per_merchant > one_sd_above
+        @mr.find_by_id(merchant_id.to_i)
+      end
+    end.compact
+  end
 
-  def average_item_price_per_merchant(merchant_id)
+  def average_item_price_for_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
       sum_unit_price = items.inject(0) do |sum,item|
        sum + item.unit_price
       end
-    BigDecimal.new(sum_unit_price/items.count)
+    BigDecimal.new(sum_unit_price/items.count).round(2)
   end
 
   def items_by_merchant_id
@@ -60,7 +59,7 @@ class SalesAnalyst
     merchant_ids = items_by_merchant_id.keys
     average_average_price = merchant_ids.inject(0) do |sum, id|
       # binding.pry
-      sum += average_item_price_per_merchant(id.to_i)
+      sum += average_item_price_for_merchant(id.to_i)
     end / merchant_ids.count
     average_average_price.round(2)
   end
@@ -76,7 +75,7 @@ class SalesAnalyst
     new_set = @ir.items.map do |item|
       (item.unit_price - mean)**2
     end.sum
-     Math.sqrt(new_set/@ir.all.count-1).round(2)
+     Math.sqrt(new_set/(@ir.all.count-1)).round(2)
   end
 
 
