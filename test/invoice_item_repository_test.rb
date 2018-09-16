@@ -37,6 +37,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 21830, @repo.all.count
   end
 
+  def test_it_makes_invoice_items
+    # This test is skipped because it will affect other tests.
+    skip
+    @repo.make_invoice_items
+    assert_equal 21830 * 2, @repo.all.count
+  end
+
   def test_it_can_make_a_formatted_hash
     # -- The new hash needs an additional column --
     new_column = {:id => 1}
