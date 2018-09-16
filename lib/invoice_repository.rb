@@ -27,7 +27,7 @@ class InvoiceRepository
       end
     end
 
-    def create(merchant_params)
+    def create(invoice_params)
       invoice = Invoice.new(invoice_params)
       highest_current = object_id_counter.id
       new_highest_current = highest_current += 1

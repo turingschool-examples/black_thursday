@@ -10,9 +10,9 @@ require_relative '../lib/invoice'
 class InvoiceTest<Minitest::Test
 
   def setup
-    @invoice = Invoice.new({:id => 1,
-                            :customer_id => 1,
-                            :merchant_id => 12335938,
+    @invoice = Invoice.new({:id => 6,
+                            :customer_id => 7,
+                            :merchant_id => 8,
                             :status => "pending",
                             :created_at => Time.now,
                             :updated_at => Time.now}
@@ -25,9 +25,9 @@ class InvoiceTest<Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 1, @invoice.id
-    assert_equal 1, @invoice.customer_id
-    assert_equal 12335938, @invoice.merchant_id
+    assert_equal 6, @invoice.id
+    assert_equal 7, @invoice.customer_id
+    assert_equal 8, @invoice.merchant_id
     assert_equal "pending", @invoice.status
  #i chose to not test the time attributes, becuse i have
  #literally no idea how to do that

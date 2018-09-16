@@ -32,9 +32,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_returns_nil_if_no_match_found
     mr = MerchantRepo.new("./test/fixtures/merchants.csv")
-
     result = mr.find_by_id(289312)
-
     assert_nil result
   end
 
