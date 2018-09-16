@@ -1,10 +1,9 @@
 require_relative 'test_helper'
 
-# TO DO  - change these to require require_relative
-require './lib/item_repository'
-require './lib/merchant_repository'
-require './lib/sales_engine'
-require './lib/sales_analyst'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/sales_analyst'
 
 
 class SalesAnalystTest < Minitest::Test
@@ -27,19 +26,19 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa_csv
   end
 
-  def test_it_gets_attrubutes
-    # -- Sales Engine --
-    assert_instance_of SalesEngine, @sa_csv.engine
-    # ==== REPOs ====
-    # NOTE - Instance vars for repos are the arrays
-    # held within the repos, not the repos themselves.
-    # -- Merchant --
-    assert_instance_of MerchantRepository, @sa_csv.merchants
-    assert_instance_of Merchant, @sa_csv.merchants.all[0]
-    # -- Item --
-    assert_instance_of ItemRepository, @sa_csv.items
-    assert_instance_of Item, @sa_csv.items.all[0]
-  end
+  # def test_it_gets_attrubutes
+  #   # -- Sales Engine --
+  #   assert_instance_of SalesEngine, @sa_csv.engine
+  #   # ==== REPOs ====
+  #   # NOTE - Instance vars for repos are the arrays
+  #   # held within the repos, not the repos themselves.
+  #   # -- Merchant --
+  #   assert_instance_of MerchantRepository, @sa_csv.merchants
+  #   assert_instance_of Merchant, @sa_csv.merchants.all[0]
+  #   # -- Item --
+  #   assert_instance_of ItemRepository, @sa_csv.items
+  #   assert_instance_of Item, @sa_csv.items.all[0]
+  # end
 
 
   # --- General Methods ---

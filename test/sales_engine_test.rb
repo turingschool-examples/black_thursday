@@ -1,21 +1,28 @@
 require_relative 'test_helper'
 
-# TO DO  - change these to require require_relative
-# require './lib/item'
-require './lib/item_repository'
-# require './lib/merchant'
-require './lib/merchant_repository'
-require './lib/sales_engine'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
+
+require_relative '../lib/sales_engine'
 
 
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @hash = { :items     => "./data/items.csv",
-              :merchants => "./data/merchants.csv",
+    hash = {
+              # :items         => "./data/items.csv",
+              # :merchants     => "./data/merchants.csv",
+              # :invoices      => "./data/invoices.csv",
+              # :invoice_items => "./data/invoice_items.csv",
+              # :transactions  => "./data/transactions.csv",
+              :customers     => "./data/customers.csv"
             }
-    @se_new = SalesEngine.new
-    @se_csv = SalesEngine.from_csv(@hash)
+    @se_new = SalesEngine.new({})
+    @se_csv = SalesEngine.from_csv(hash)
   end
 
   def test_it_exists
@@ -24,34 +31,37 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_be_created_via_from_csv_method
     assert_instance_of SalesEngine, @se_csv
-    assert_instance_of MerchantRepository, @se_csv.merchants
-    assert_instance_of ItemRepository, @se_csv.items
+    # --- Repos ---
+    # assert_instance_of MerchantRepository, @se_csv.merchants
+    # assert_instance_of ItemRepository, @se_csv.items
+
+    assert_instance_of CustomerRepository, @se_csv.customers
   end
 
   def test_it_gets_attrubutes
-    # -- via .new --
-    assert_nil @se_new.items
+    # --- From empty hash ---
     assert_nil @se_new.merchants
-    # -- via .from_csv --
-    assert_instance_of ItemRepository, @se_csv.items
-    assert_instance_of Item, @se_csv.items.all[0]
-
-    assert_instance_of MerchantRepository, @se_csv.merchants
-    assert_instance_of Merchant, @se_csv.merchants.all[0]
+    assert_nil @se_new.items
+    assert_nil @se_new.invoices
+    assert_nil @se_new.invoice_items
+    assert_nil @se_new.transactions
+    assert_nil @se_new.customers
+    # --- From CSV ---
+    # assert_instance_of MerchantRepository,    @se_csv.merchants
+    # assert_instance_of ItemRepository,        @se_csv.items
+    # assert_instance_of InvoiceRepository,     @se_csv.invoices
+    # assert_instance_of InvoiceItemRepository, @se_csv.invoice_items
+    # assert_instance_of TransactionRepository, @se_csv.transactions
+    assert_instance_of CustomerRepository,    @se_csv.customers
   end
-
-  def test_it_creates_a_merchant_repo
-    assert_instance_of MerchantRepository, @se_csv.merchants
-  end
-
-  def test_it_creates_an_item_repo
-    assert_instance_of ItemRepository, @se_csv.items
-  end
-
 
 
   # --- Sales Analyst ---
 
+  def test_it_makes_a_sales_analyst
+    assert_instance_of SalesAnalyst, @se_new.analyst
+    assert_instance_of SalesAnalyst, @se_csv.analyst
+  end
 
 
 

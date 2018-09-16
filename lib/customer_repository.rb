@@ -9,8 +9,11 @@ class CustomerRepository
 
   attr_reader :all
 
-  def initialize(path)
-    @csv = CSVParse.create_repo(path)
+  def initialize(hash)
+  # def initialize(path)
+    @csv = hash
+    # @csv = CSVParse.create_repo(hash)
+    # @csv = CSVParse.create_repo(path)
     @customers = []
     make_customers
     @all = @customers
