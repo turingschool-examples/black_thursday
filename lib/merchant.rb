@@ -11,10 +11,6 @@ class Merchant
 		@customer_id = data[:customer_id].to_i
 	end
 
-	# def merchant_id
-	#   @data[:merchant_id].to_i
-	# end
-
 	def status
 		@data[:status].to_sym
 	end
@@ -26,6 +22,5 @@ class Merchant
 	def updated_at
 		@data[:updated_at]
 	end
-	
 
 end
