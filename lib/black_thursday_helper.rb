@@ -44,8 +44,14 @@ module BlackThursdayHelper
   end
 
   def find_all_by_result(result)
-     @collections.find_all do |object|
+    @collections.find_all do |object|
       object.result == result
+    end
+  end
+
+  def find_all_by_item_id(item_id)
+    @collections.find_all do |object|
+      object.item_id == item_id
     end
   end
   
