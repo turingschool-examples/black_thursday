@@ -43,6 +43,11 @@ module RepoMethods
         object.unit_price = attributes[:unit_price]
       end
     end
+    if defined? object.quantity != nil
+      if attributes[:quantity] != nil
+        object.quantity = attributes[:quantity]
+      end
+    end
     if defined? object.updated_at != nil
       object.updated_at = Time.now
     end
