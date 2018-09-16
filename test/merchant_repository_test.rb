@@ -1,13 +1,11 @@
 require_relative 'test_helper'
 
-require './lib/merchant_repository'
-require './lib/merchant'
-require './lib/finderclass'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    # these tests might break with specharness / require relative
     @path = './data/merchants.csv'
     @repo = MerchantRepository.new(@path)
 
@@ -27,19 +25,22 @@ class MerchantRepositoryTest < Minitest::Test
       assert_instance_of MerchantRepository, @repo
     end
 
-    def test_it_can_make_all_merchants
-      merch = @repo.all.first(100)
-      assert_equal 100, merch.count
-      assert_equal 100, merch.uniq.count
-      assert_equal 12334105, merch[0].id
-      assert_equal "Shopin1901", merch[0].name
-    end
-
-    def test_it_gets_all_merchants
+    def test_it_gets_attributes
+      # --- Read Only ---
+      assert_instance_of Array, @repo.all
+      assert_instance_of Merchant, @repo.all[0]
+      assert_equal @repo.all.count, @repo.all.uniq.count
       assert_equal 475, @repo.all.count
     end
 
+
+    # --- Find By ---
+
     def test_it_can_find_by_merchant_id
+      # -- no results --
+      not_found = @repo.find_by_id(000)
+      assert_nil not_found
+      # -- results --
       found = @repo.find_by_id(12334105)
       assert_equal @merchant1.id, found.id
       found = @repo.find_by_id(12334112)
@@ -47,6 +48,10 @@ class MerchantRepositoryTest < Minitest::Test
     end
 
     def test_it_can_find_by_merchant_name
+      # -- no results --
+      not_found = @repo.find_by_id("zzzz")
+      assert_nil not_found
+      # -- results --
       found = @repo.find_by_name("Shopin1901")
       assert_equal @merchant1.name, found.name
       found = @repo.find_by_name("Candisart")
@@ -54,24 +59,20 @@ class MerchantRepositoryTest < Minitest::Test
     end
 
     def test_it_can_find_from_a_string_fragment
+      # -- no results --
+      not_found = @repo.find_all_by_name("zzzzz")
+      assert_equal [], not_found
+      # -- results --
       found1 = @repo.find_all_by_name("pi")
       found2 = @repo.find_all_by_name("PI")
       found3 = @repo.find_all_by_name("Pi")
       found4 = @repo.find_all_by_name("pI")
-      test1 = found1 == found2
-      test2 = found2 == found3
-      test3 = found3 == found4
-      assert_equal true, test1 && test2 && test3
+      tests = found1 == found2 && found1 == found3 && found1 == found4
+      assert_equal true, tests
       assert_instance_of Array, found1
       assert_instance_of Merchant, found1[0]
+      assert_equal false, found1[0].name.downcase == "pi"
       assert_equal true, found1[0].name.include?("pi")
-      not_found = @repo.find_all_by_name("zzzzz")
-      assert_equal [], not_found
     end
-
-
-
-
-
 
 end
