@@ -18,6 +18,97 @@ class SalesAnalyst
     end
   end
 
+  def average_invoices_per_merchant
+    total_merchants = @se.merchants.all.count
+    total_invoices = @se.invoices.all.count
+    BigDecimal((total_invoices.to_d / total_merchants), 3).round(2).to_f
+  end
+  
+  def average_invoices_per_merchant_standard_deviation
+    @invoice_stock = @se.invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+    totals = @invoice_stock.map do |merchant, invoices|
+      [invoices.count.to_d]
+    end
+     standard_deviation(totals.flatten)
+  end
+  
+  def top_merchants_by_invoice_count
+    cutoff = (average_invoices_per_merchant) + (average_invoices_per_merchant_standard_deviation * 2)
+    high_count = @se.merchants.all.map do |merchant|
+    if @invoice_stock[merchant.id]
+      if ((@invoice_stock[merchant.id]).count - cutoff) >= 0
+      merchant
+      end
+    end
+  end
+    high_count.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    cutoff = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    lows = []
+    @se.merchants.all.map do |merchant|
+      all_invoices = @se.invoices.find_all_by_merchant_id(merchant.id)
+      count = all_invoices.count
+      if count <= cutoff
+        lows << merchant
+      end
+    end
+    lows
+  end
+
+  def days_array
+    ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  end
+  
+  def average_invoices_per_day
+    total_invoices = @se.invoices.all.count.to_f
+    total_days = 7.0
+    (total_invoices / total_days).round(2)
+  end
+  
+  def average_invoices_per_day_standard_deviation
+    array = average_days_occurrence
+    average = average_invoices_per_day
+    differences = differences_from_average(array, average)
+    squares = square_each_amount(differences)
+    sum = sum_amount(squares)
+    result = sum / 6.0
+    result = Math.sqrt(result).round(2)
+  end
+    
+  def average_days_occurrence
+    days = days_array.map do |day|
+      occurrences = @se.invoices.find_all_by_day(day)
+      occurrences.count
+    end
+  end
+
+  def invoice_status(sym)
+    percentage = @se.invoices.find_all_by_status(sym).count.to_f / @se.invoices.all.count
+    percentage = percentage * 100
+    percentage.round(2)
+  end
+  
+  def average_days
+    days = average_days_occurrence.inject(0) do |sum, num|
+      sum += num
+    end
+      (days / 7.0).round(2)
+  end
+  
+  def top_days_by_invoice_count
+    high_level = average_invoices_per_day_standard_deviation + average_days
+    golden = []
+    average_days_occurrence.each_with_index do |day, index|
+      if day >= high_level
+        golden << [days_array[index]]
+      end
+    end
+    golden.flatten
+
   def total_inventory
     merchant_stock.map do |merchant, items|
       [items.count.to_d]
@@ -26,6 +117,7 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
      standard_deviation(total_inventory.flatten)
+
   end
 
   def merchants_with_high_item_count
