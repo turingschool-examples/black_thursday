@@ -5,13 +5,13 @@
 class InvoiceItem
   include BlackThursdayHelper
   attr_reader   :created_at,
-                :id,
                 :item_id,
                 :invoice_id
 
   attr_accessor :quantity,
                 :unit_price,
-                :updated_at
+                :updated_at,
+                :id
 
   def initialize(params)
     @id = params[:id].to_i
