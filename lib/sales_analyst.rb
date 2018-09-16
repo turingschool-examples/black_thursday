@@ -27,22 +27,12 @@ class SalesAnalyst
     total_invoices = @se.invoices.all.count
     BigDecimal((total_invoices.to_d / total_merchants), 3).round(2).to_f
   end
-  
-  # def average_invoices_per_merchant_standard_deviation
-  #   @invoice_stock = @se.invoices.all.group_by do |invoice|
-  #     invoice.merchant_id
-  #   end
-  #   totals = @invoice_stock.map do |merchant, invoices|
-  #     [invoices.count.to_d]
-  #   end
-  #    standard_deviation(totals.flatten)
-  # end
-  
+
   def top_merchants_by_invoice_count
     cutoff = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
     high_count = @se.merchants.all.map do |merchant|
     if @merchant_stock[merchant.id]
-    
+
       if ((@merchant_stock[merchant.id]).count - cutoff) >= 0
       merchant
       end
@@ -72,7 +62,7 @@ class SalesAnalyst
     end
     (sum_of_prices / merchant_items.count).round(2)
   end
-  
+
   def average_average_price_per_merchant
     merchant_items =  @se.items.all.group_by do |item|
       item.merchant_id

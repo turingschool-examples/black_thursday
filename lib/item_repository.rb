@@ -53,7 +53,7 @@ include Crud
 
   def find_all_by_merchant_id(string)
     collection.find_all do |element|
-      element.merchant_id == string
+      element.merchant_id == string.to_i
     end
   end
 
@@ -72,10 +72,10 @@ include Crud
    def update(id, attributes)
      if find_by_id(id) != nil
        it = collection.find { |element| element.id == id }
-         # it.name = attributes[:name]
-         it.description = attributes[:description]
-         it.unit_price = attributes[:unit_price]
-         it.updated_at = Time.now
+        it.name = attributes[:name] if attributes[:name] != nil
+        it.description = attributes[:description] if attributes[:description] != nil
+        it.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
+        it.updated_at = Time.now
      else
        []
      end
