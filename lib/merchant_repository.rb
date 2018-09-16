@@ -1,6 +1,5 @@
 require 'pry'
 
-require_relative 'csv_parse'
 require_relative 'finderclass'
 
 require_relative 'merchant'
@@ -9,15 +8,15 @@ class MerchantRepository
 
   attr_reader :all
 
-  def initialize(path)
-    @csv = CSVParse.create_repo(path)
+  def initialize(data)
+    @data = data
     @merchants = []
     make_merchants
     @all = @merchants
   end
 
   def make_merchants
-    @csv.each { |key, value|
+    @data.each { |key, value|
       number = key.to_s.to_i
       name = value[:name]
       merch = Merchant.new({id: number, name: name })

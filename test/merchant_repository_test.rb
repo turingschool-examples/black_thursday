@@ -1,13 +1,14 @@
 require_relative 'test_helper'
 
+require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @path = './data/merchants.csv'
-    @repo = MerchantRepository.new(@path)
+    path = {:merchants => './data/merchants.csv'}
+    @repo = SalesEngine.from_csv(path).merchants
 
     # -- from CSV --
     # 12334105,Shopin1901,2010-12-10,2011-12-04
