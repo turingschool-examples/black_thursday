@@ -63,7 +63,7 @@ class InvoiceItemRepoTest < Minitest::Test
       :item_id        => 8,
       :invoice_id => 4,
       :quantity => 7,
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
                         })
@@ -79,7 +79,7 @@ class InvoiceItemRepoTest < Minitest::Test
     iir.update(13,{
       :id          => 12,
       :quantity => 7,
-      :unit_price  => BigDecimal.new(50.50,4),
+      :unit_price  => BigDecimal(50.50,4),
       :updated_at  => Time.now,
                         })
 

@@ -15,7 +15,8 @@ class SalesEngineTest < Minitest::Test
                                {:items => "./test/fixtures/items.csv",
                                 :merchants => "./test/fixtures/merchants.csv",
                                 :customers => "./data/customers.csv",
-                                :transactions => "./data/transactions.csv"}
+                                :transactions => "./data/transactions.csv",
+                              :invoice_items => "./data/invoice_items.csv"}
                             )
   end
 
@@ -28,6 +29,7 @@ class SalesEngineTest < Minitest::Test
     refute_empty @se.items.all
     refute_empty @se.customers.all
     refute_empty @se.transactions.all
+    refute_empty @se.invoice_items.all
   end
 
   def test_it_can_instanciate_an_analyst
