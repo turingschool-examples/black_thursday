@@ -80,23 +80,6 @@ class TransactionRepository
     end
   end
 
-  def update(id, attributes)
-    return nil if attributes == {}
-    object = find_by_id(id)
-    if attributes[:credit_card_number] != nil
-      object.credit_card_number = attributes[:credit_card_number]
-    end
-    if attributes[:credit_card_expiration_date] != nil
-      object.credit_card_expiration_date = attributes[:credit_card_expiration_date]
-    end
-    if attributes[:result] != nil
-      object.result = attributes[:result]
-    end
-    if object.updated_at != nil
-      object.updated_at = Time.now
-    end
-  end
-
   def inspect
    "#<#{self.class} #{@transactions.size} rows>"
   end

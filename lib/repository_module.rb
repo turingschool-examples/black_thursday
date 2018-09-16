@@ -38,6 +38,16 @@ module RepoMethods
         object.description = attributes[:description]
       end
     end
+    if defined? object.first_name != nil
+      if attributes[:first_name] != nil
+        object.first_name = attributes[:first_name]
+      end
+    end
+    if defined? object.last_name != nil
+      if attributes[:last_name] != nil
+        object.last_name = attributes[:last_name]
+      end
+    end
     if defined? object.unit_price != nil
       if attributes[:unit_price] != nil
         object.unit_price = attributes[:unit_price]
@@ -46,6 +56,21 @@ module RepoMethods
     if defined? object.quantity != nil
       if attributes[:quantity] != nil
         object.quantity = attributes[:quantity]
+      end
+    end
+    if defined? object.credit_card_number != nil
+      if attributes[:credit_card_number] != nil
+        object.credit_card_number = attributes[:credit_card_number]
+      end
+    end
+    if defined? object.credit_card_expiration_date != nil
+      if attributes[:credit_card_expiration_date] != nil
+        object.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+      end
+    end
+    if defined? object.result != nil
+      if attributes[:result] != nil
+        object.result = attributes[:result]
       end
     end
     if defined? object.updated_at != nil
