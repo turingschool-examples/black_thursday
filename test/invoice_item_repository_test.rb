@@ -44,7 +44,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 21830 * 2, @repo.all.count
   end
 
-  def test_it_can_make_a_formatted_hash
+  def test_it_makes_a_formatted_hash
     # -- The new hash needs an additional column --
     new_column = {:id => 1}
     new_hash = new_column.merge(@values.dup)

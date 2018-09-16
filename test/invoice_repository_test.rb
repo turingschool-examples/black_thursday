@@ -10,7 +10,6 @@ class InvoiceRepositoryTest < Minitest::Test
   def setup
     path = './data/invoices.csv'
     @repo = InvoiceRepository.new(path)
-    @first = @repo.all[0]
     # ===== Invoice Examples =================
     # id,customer_id,merchant_id,status,created_at,updated_at
           # 1,1,12335938,pending,2009-02-07,2014-03-15
@@ -21,8 +20,8 @@ class InvoiceRepositoryTest < Minitest::Test
                                  created_at:  "2009-02-07",
                                  updated_at:  "2014-03-15"
                                 } }
-    @key = invoice_1_hash.keys[0]
-    @values = invoice_1_hash.values[0]
+    @key = invoice_1_hash.keys.first
+    @values = invoice_1_hash.values.first
   end
 
 
@@ -31,19 +30,12 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceRepository, @repo
   end
 
-  def test_it_makes_and_gets_invoices
+  def test_it_gets_attributes
+    # --- Read Only ---
     assert_instance_of Array, @repo.all
-    assert_instance_of Invoice, @first
+    assert_instance_of Invoice, @repo.all.first
+    assert_equal @repo.all.count, @repo.all.uniq.count
     assert_operator 1, :<=, @repo.all.count
-  end
-
-  def test_it_makes_invoices
-    assert_equal 1,  @first.id
-    assert_equal 1,  @first.customer_id
-    assert_equal 12335938,  @first.merchant_id
-    assert_equal :pending, @first.status
-    assert_equal "2009-02-07", @first.created_at
-    assert_equal "2014-03-15", @first.updated_at
   end
 
   def test_it_makes_a_formatted_hash

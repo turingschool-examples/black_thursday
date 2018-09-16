@@ -9,14 +9,13 @@ require_relative 'invoice'
 
 class InvoiceRepository
 
-  attr_reader :all,
-              :invoices
+  attr_reader :all
 
   def initialize(path)
     @csv = CSVParse.create_repo(path)
     @invoices = []
     make_invoices
-    @all = invoices
+    @all = @invoices
   end
 
   def make_invoices
