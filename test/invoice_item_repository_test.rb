@@ -2,6 +2,7 @@ require_relative 'test_helper'
 
 require 'bigdecimal'
 
+require_relative '../lib/sales_engine'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/invoice_item'
 
@@ -9,8 +10,8 @@ require_relative '../lib/invoice_item'
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
-    path = './data/invoice_items.csv'
-    @repo = InvoiceItemRepository.new(path)
+    path = {:invoice_items => './data/invoice_items.csv'}
+    @repo = SalesEngine.from_csv(path).invoice_items
     # ===== Invoice Item Examples =================
     # id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
     invoice_item_1_hash = { :"1" => { item_id:    "263519844",

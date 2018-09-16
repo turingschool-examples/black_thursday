@@ -1,6 +1,5 @@
 require 'pry'
 
-require_relative 'csv_parse'
 require_relative 'finderclass'
 
 require_relative 'invoice_item'
@@ -10,8 +9,8 @@ class InvoiceItemRepository
 
   attr_reader :all
 
-  def initialize(path)
-    @csv = CSVParse.create_repo(path)
+  def initialize(data)
+    @data = data
     @invoice_items = []
     make_invoice_items
     @all = @invoice_items  # retains permissions
@@ -19,7 +18,7 @@ class InvoiceItemRepository
 
 
   def make_invoice_items
-    @csv.each { |key, value|
+    @data.each { |key, value|
       hash = make_hash(key, value)
       item = InvoiceItem.new(hash)
       @invoice_items << item
