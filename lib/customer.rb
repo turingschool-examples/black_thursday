@@ -1,8 +1,8 @@
-require './lib/finder'
+require 'pry'
+
 
 class Customer
-  include Finder 
-  
+
   attr_reader :id,
               :first_name,
               :last_name,
@@ -10,9 +10,9 @@ class Customer
               :updated_at
 
   def initialize(hash)
-    @id = hash[:id]
+    @id         = hash[:id].to_i
     @first_name = hash[:first_name]
-    @last_name = hash[:last_name]
+    @last_name  = hash[:last_name]
     @created_at = hash[:created_at]
     @updated_at = hash[:updated_at]
   end

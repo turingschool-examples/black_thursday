@@ -1,9 +1,9 @@
 require 'pry'
+
+
 require 'bigdecimal'
-require_relative 'finder'
 
 class InvoiceItem
-  include Finder
 
   attr_reader :id,
               :item_id,
@@ -16,11 +16,15 @@ class InvoiceItem
 
   def initialize(hash)
     # -- Read Only --
-    @id = hash[:id]
-    @item_id = hash[:item_id]
-    @invoice_id = hash[:invoice_id]
+    @id         = hash[:id].to_i
+    @item_id    = hash[:item_id].to_i
+    @invoice_id = hash[:invoice_id].to_i
     # -- Accessible --
+<<<<<<< HEAD
     @quantity = hash[:quantity]
+=======
+    @quantity   = hash[:quantity].to_i
+>>>>>>> 5f399fe8d79407e1d5933ab68e0dfa355e65e7b2
     @unit_price = BigDecimal.new(hash[:unit_price], 4)
     @created_at = hash[:created_at]
     @updated_at = hash[:updated_at]
@@ -28,5 +32,3 @@ class InvoiceItem
   end
 
 end
-
-

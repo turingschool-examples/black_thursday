@@ -54,7 +54,7 @@ class FinderClassTest < MiniTest::Test
     found = FinderClass.find_by(@merchants.all, :id, 12334112)
     assert_equal @merchant2.id,  found.id
     found = FinderClass.find_by(@merchants.all, :id, 12)
-    assert_equal nil,  found
+    assert_nil found
 
     # --- Item Repo ---
     found = FinderClass.find_by(@items.all, :id, 263395237)
@@ -62,15 +62,14 @@ class FinderClassTest < MiniTest::Test
     found = FinderClass.find_by(@items.all, :name, "510+ RealPush Icon Set")
     assert_equal @item.name, found.name
     found = FinderClass.find_by(@items.all, :id, 5237)
-    assert_equal nil, found
+    assert_nil found
   end
 
   def test_if_finds_all_objects_with_specific_column_data
     # --- Item Repo ---
-    found1 = FinderClass.find_all_by(@items.all, :merchant_id, 12334105.to_s)
-    found2 = FinderClass.find_all_by(@items.all, :merchant_id, 12334112.to_s)
-    found3 = FinderClass.find_all_by(@items.all, :merchant_id, 12334141.to_s)
-
+    found1 = FinderClass.find_all_by(@items.all, :merchant_id, 12334105)
+    found2 = FinderClass.find_all_by(@items.all, :merchant_id, 12334112)
+    found3 = FinderClass.find_all_by(@items.all, :merchant_id, 12334141)
     count1 = found1.count
     count2 = found2.count
     count3 = found3.count

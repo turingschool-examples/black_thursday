@@ -1,32 +1,28 @@
-# Create a repository of Item objects
-#   - makes all item objects
-#   - uses finder & CRUD modules
 
 require 'pry'
 
+require_relative 'finderclass'
+
 require_relative 'item'
-require_relative 'csv_parse'
-require './lib/finderclass'
+
 
 class ItemRepository
 
-  attr_reader :all,
-              :items
+  attr_reader :all
 
-  def initialize(path)
-    @csv = CSVParse.create_repo(path)
+  def initialize(data)
+    @data = data
     @items = []
     make_items
-    @all = items
+    @all = @items
   end
 
   def make_items
-    @csv.each { |key, value|
+    @data.each { |key, value|
       hash = make_hash(key, value)
       item = Item.new(hash)
       @items << item
     }
-    @items.flatten!
   end
 
   def make_hash(key, value)
@@ -35,8 +31,10 @@ class ItemRepository
     return hash
   end
 
+
+  # --- Find By ---
+
   def find_by_id(id)
-    # retains reader permissions
     FinderClass.find_by(all, :id, id)
   end
 
@@ -60,7 +58,6 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(id)
-    # TO DO -- Our Objects need to be updated with the correct data types
     FinderClass.find_all_by(all, :merchant_id, id)
   end
 

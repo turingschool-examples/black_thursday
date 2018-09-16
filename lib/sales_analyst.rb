@@ -3,13 +3,22 @@ require 'pry'
 
 class SalesAnalyst
 
-  attr_reader :engine, :merchants, :items
+  attr_reader :merchants,
+              :items, 
+              :invoices, 
+              :invoice_items, 
+              :transactions, 
+              :customers
 
   def initialize(sales_engine)
     @engine = sales_engine
-    @merchants = @engine.merchants #.all
-    @items = @engine.items #.all
-    # binding.pry
+
+    @merchants     = @engine.merchants
+    @items         = @engine.items
+    @invoices      = @engine.invoices
+    @invoice_items = @engine.invoice_items
+    @transactions  = @engine.transactions
+    @customers     = @engine.customers
   end
 
   # --- General Methods ---
@@ -45,6 +54,28 @@ class SalesAnalyst
     return sqrt.round(2)
   end   # returns float rounded to 2 places
 
+  def standard_dev_measure(values, above_or_below, std = nil)
+    mean = average(values)
+    std == nil ? std = standard_deviation(values, mean) : std
+    outside_this = mean + (std * above_or_below)
+  end # returns a float
+
+
+  # # WIP -- IGNORE THIS FOR NOW
+  # # TO DO - Test Me
+  # def best_or_worst_by_group(group, values, mean, above_or_below)
+  #   mean = average(values)
+  #   above_this = standard_dev_measure(values, mean, above_or_below)
+  #   above = group.find_all { |key, collection| collection.count > above_this }.to_h
+  # end
+  #
+  # # WIP -- IGNORE THIS FOR NOW
+  # # TO DO - Test Me
+  # def best_or_worst_by_repo(repo, values, mean, above_or_below)
+  #   mean = average(values)
+  #   above_this = standard_dev_measure(values, mean, above_or_below)
+  #   above = group.find_all { |merch_id, items| items.count > std_high }.to_h
+  # end
 
 
 
@@ -72,24 +103,13 @@ class SalesAnalyst
     std    = standard_deviation(vals, mean)
   end
 
-  # WIP -- IGNORE THIS FOR NOW
-  # TO DO - Test Me
-  # def best_by(set, mean, std, std_high)
-  # # def best_by(repo, values, mean, std_high)
-  #   # std = standard_deviation(values, mean)
-  #   above_this = mean + (std * std_high)
-  #   above = set.find_all { |merch_id, items| items.count > std_high }.to_h
-  # end
-
-
-  def merchants_with_high_item_count # find all merchants > one std of items
-    average   = average_items_per_merchant
-    std       = average_items_per_merchant_standard_deviation
-    std_high  = average + std
+  def merchants_with_high_item_count
+    # find all merchants > one std of items
     groups    = merchant_stores
-    above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
-    # TO DO - DATA TYPES in OBJECTS!
-    merch_ids = above.keys.map { |key| key.to_i }
+    vals      = merchant_store_item_counts(groups)
+    std_high  = standard_dev_measure(vals, 1)
+    all_above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
+    merch_ids = all_above.keys
     list = merch_ids.map { |id| @merchants.all.find { |merch| merch.id == id } }
     list = list.to_a.flatten
     return list
@@ -97,29 +117,28 @@ class SalesAnalyst
 
   # TO DO - TEST WHEN finder method is available
   def average_item_price_for_merchant(id)
-    # FINDER MODULE
-    id = id.to_s
-    group = @items.all.find_by_merchant_id(id)
+    id    = id
+    group = @items.find_all_by_merchant_id(id)
     total = group.inject(0) { |sum, item| sum += item.unit_price }
     count = group.count
-    mean = total / count
+    mean  = total / count
   end   # returns big decimal
 
   # TO DO - TEST WHEN finder method is available
   def average_average_price_per_merchant
-    repo = @merchants.all
-    ids = repo.map { |merch| merch.id.to_s }
+    repo     = @merchants.all
+    ids      = repo.map { |merch| merch.id }
     averages = ids.map { |id| average_item_price_for_merchant(id) }
-    mean = average(averages)
-  end
+    mean     = average(averages)
+    # binding.pry
+    mean     = BigDecimal(mean, 4)
+  end   # returns a big decimal
 
   def golden_items
     # items with prices above 2 std of average price
-    prices = @items.all.map{ |item| item.unit_price }
-    mean = average(prices)
-    std = standard_deviation(prices, mean)
-    std_high = mean + (std * 2)
-    above = @items.all.find_all{|item| item.unit_price > std_high}.to_a
+    prices   = @items.all.map{ |item| item.unit_price }
+    std_high = standard_dev_measure(prices, 2)
+    above    = @items.all.find_all{|item| item.unit_price > std_high}.to_a
   end
 
 
