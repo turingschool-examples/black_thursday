@@ -15,7 +15,7 @@ class InvoiceRepository
     def update(id, attributes)
         if find_by_id(id) != nil
         object_to_be_updated = find_by_id(id)
-        object_to_be_updated.name = attributes[:name]
+        object_to_be_updated.status = attributes[:status]
         else
           nil
         end
@@ -31,6 +31,7 @@ class InvoiceRepository
       invoice = Invoice.new(invoice_params)
       highest_current = object_id_counter.id
       new_highest_current = highest_current += 1
+          binding.pry
       invoice.id = new_highest_current
       @collections << invoice
       invoice

@@ -67,8 +67,8 @@ module BlackThursdayHelper
     end
   end
 
-  def inspect
-    "#<#{self.class} #{@collections.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@collections.size} rows>"
+  # end
 
 end

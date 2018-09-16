@@ -64,10 +64,29 @@ class InvoiceRepositoryTest<Minitest::Test
                         :status => "shipped",
                         :created_at => Time.now,
                         :updated_at => Time.now})
-                        binding.pry
+
     assert_instance_of Invoice, ir.find_by_id(5)
   end
 
-  
+
+  def test_i_can_update_an_existing_invoice
+    ir = InvoiceRepository.new("./test/fixtures/invoices.csv")
+    actual = ir.create({:id => 99,
+                        :cutomer_id => 77,
+                        :merchant_id => 9384530,
+                        :status => "shipped",
+                        :created_at => Time.now,
+                        :updated_at => Time.now})
+    ir.update(5, {:status =>"delivered, sucka"})
+    expected = ir.find_by_id(5)
+
+    assert_equal [expected], ir.find_all_by_status("delivered, sucka")
+  end
+
+  def test_i_can_delete_an_invoice_based_on_its_id
+    ir = InvoiceRepository.new("./test/fixtures/invoices.csv")
+    ir.delete(1)
+    assert_nil ir.find_by_id(1)
+  end
 
 end
