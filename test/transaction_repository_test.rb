@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 
+require_relative '../lib/sales_engine'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/transaction'
 
@@ -8,8 +9,8 @@ class TransactionRepositoryTest < Minitest::Test
 
   def setup
     # these tests might break with specharness / require relative
-    path = './data/transactions.csv'
-    @repo = TransactionRepository.new(path)
+    path = {:transactions => './data/transactions.csv'}
+    @repo = SalesEngine.from_csv(path).transactions
     # # ===== Transaction Examples =================
     # id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,updated_at
     # 1,2179,4068631943231473,0217,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC

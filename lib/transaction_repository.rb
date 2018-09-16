@@ -1,6 +1,5 @@
 require 'pry'
 
-require_relative 'csv_parse'
 require_relative 'finderclass'
 
 require_relative 'transaction'
@@ -10,15 +9,15 @@ class TransactionRepository
 
   attr_reader :all
 
-  def initialize(path)
-    @csv = CSVParse.create_repo(path)
+  def initialize(data)
+    @data = data
     @transactions = []
     make_transactions
     @all = @transactions
   end
 
   def make_transactions
-    @csv.each { |key, value|
+    @data.each { |key, value|
       hash = make_hash(key, value)
       transaction = Transaction.new(hash)
       @transactions << transaction
