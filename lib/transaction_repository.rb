@@ -1,19 +1,20 @@
 require 'pry'
 
 require_relative 'csv_parse'
+require_relative 'finderclass'
+
 require_relative 'transaction'
 
 
 class TransactionRepository
 
-  attr_reader :all,
-              :transactions
+  attr_reader :all
 
   def initialize(path)
     @csv = CSVParse.create_repo(path)
     @transactions = []
     make_transactions
-    @all = transactions
+    @all = @transactions
   end
 
   def make_transactions
@@ -28,6 +29,25 @@ class TransactionRepository
     hash = {id: key.to_s.to_i}
     value.each { |col, data| hash[col] = data }
     return hash
+  end
+
+
+  # --- Find By ---
+
+  def find_by_id(id)
+    FinderClass.find_by(all, :id, id)
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    FinderClass.find_all_by(all, :invoice_id, invoice_id)
+  end
+
+  def find_all_by_credit_card_number(credit_card_number)
+    FinderClass.find_all_by(all, :credit_card_number, credit_card_number)
+  end
+
+  def find_all_by_result(result)
+    FinderClass.find_all_by(all, :result, result)
   end
 
 end

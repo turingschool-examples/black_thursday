@@ -11,7 +11,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def setup
     path = './data/invoice_items.csv'
     @repo = InvoiceItemRepository.new(path)
-
+    # ===== Invoice Item Examples =================
+    # id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
     invoice_item_1_hash = { :"1" => { item_id:    "263519844",
                                       invoice_id: "1",
                                       quantity:   "5",

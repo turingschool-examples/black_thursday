@@ -1,9 +1,7 @@
 require_relative 'test_helper'
 
-# TO DO  - change these to require require_relative
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
-
 
 class InvoiceRepositoryTest < Minitest::Test
 
