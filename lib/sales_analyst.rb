@@ -235,6 +235,23 @@ class SalesAnalyst
   end
 
 
-
+  # def merchants_with_only_one_item_registered_in_month(month_name)
+  #
+  #   merchants_with_only_one_item.find_all do |merchant|
+  #     merchant.created_at.month == Time.parse(month_name).month
+  #     binding.pry
+  #   end
+  #
+  #   # invoices_by_merchant = merchant_hash(@invoice_repo)
+  #   # found = invoices_by_merchant.find_all do |merchant,invoices|
+  #   #   matching = invoices.find_all do |invoice|
+  #   #     invoice.created_at.month == Time.parse(month_name).month
+  #   #   end
+  #   #   matching.length == 1
+  #   # end
+  #   # found.map do |pair|
+  #   #   pair[0]
+  #   # end
+  # end
 
 end
