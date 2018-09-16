@@ -224,7 +224,15 @@ class SalesAnalyst
     end
   end
 
-
+  def merchants_with_only_one_item
+    items_by_merchant = merchant_hash(@item_repo)
+    found = items_by_merchant.find_all do |merchant,items|
+      items.length == 1
+    end
+    found.map do |pair|
+      pair[0]
+    end
+  end
 
 
 

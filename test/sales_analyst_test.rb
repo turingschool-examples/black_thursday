@@ -261,4 +261,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 467, sa.merchants_with_pending_invoices.length
     assert_instance_of Merchant, sa.merchants_with_pending_invoices[0]
   end
+
+  def test_it_can_return_merchants_with_one_item
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+        })
+    sa = se.analyst
+    assert_equal 243, sa.merchants_with_only_one_item.length
+    assert_instance_of Merchant, sa.merchants_with_only_one_item[0]
+  end
 end
