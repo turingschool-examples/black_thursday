@@ -87,9 +87,16 @@ def bottom_merchants_by_invoice_count
       @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size < (doubled_standard_deviation - mean)
     end
 end
+#
+# def top_days_by_invoice_count
+#     times = @sales_engine.invoices.all.map do |invoice|
+#     invoice.created_at
+#   end
+#   times.map do |time|
+#     time.
+# end
 
-def top_days_by_invoice_count
-end
+
 
 
 end

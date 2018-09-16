@@ -52,8 +52,10 @@ class SalesAnalystTest<Minitest::Test
     assert_equal @se.invoices.find_all_by_merchant_id(34444), @sa.bottom_merchants_by_invoice_count
   end
 
-  def test_top_days_by_invoice_count
-    assert_equal ["Sunday"], @sa.top_days_by_invoice_count
-  end
+  #parking lot this for tomorrow
+
+  # def test_top_days_by_invoice_count
+  #   assert_equal ["Sunday"], @sa.top_days_by_invoice_count
+  # end
 
 end
