@@ -16,7 +16,7 @@ class SalesEngineTest < Minitest::Test
     hash = {
               # :items         => "./data/items.csv",
               # :merchants     => "./data/merchants.csv",
-              # :invoices      => "./data/invoices.csv",
+              :invoices      => "./data/invoices.csv",
               :invoice_items => "./data/invoice_items.csv",
               # :transactions  => "./data/transactions.csv",
               :customers     => "./data/customers.csv"
@@ -44,7 +44,7 @@ class SalesEngineTest < Minitest::Test
     # --- From CSV ---
     # assert_instance_of MerchantRepository,    @se_csv.merchants
     # assert_instance_of ItemRepository,        @se_csv.items
-    # assert_instance_of InvoiceRepository,     @se_csv.invoices
+    assert_instance_of InvoiceRepository,     @se_csv.invoices
     assert_instance_of InvoiceItemRepository, @se_csv.invoice_items
     # assert_instance_of TransactionRepository, @se_csv.transactions
     assert_instance_of CustomerRepository,    @se_csv.customers

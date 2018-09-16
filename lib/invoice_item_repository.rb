@@ -13,7 +13,7 @@ class InvoiceItemRepository
     @data = data
     @invoice_items = []
     make_invoice_items
-    @all = @invoice_items  # retains permissions
+    @all = @invoice_items
   end
 
 

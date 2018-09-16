@@ -1,13 +1,15 @@
 require_relative 'test_helper'
 
+
+require_relative '../lib/sales_engine'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    path = './data/invoices.csv'
-    @repo = InvoiceRepository.new(path)
+    path = {:invoices => './data/invoices.csv'}
+    @repo = SalesEngine.from_csv(path).invoices
     # ===== Invoice Examples =================
     # id,customer_id,merchant_id,status,created_at,updated_at
           # 1,1,12335938,pending,2009-02-07,2014-03-15
