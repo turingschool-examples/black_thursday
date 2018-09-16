@@ -47,21 +47,23 @@ class TransactionRepositoryTest <  Minitest::Test
   end
 
   def test_create
-    skip
     tr = TransactionRepository.new('./data/transactions_tiny.csv')
-    tr.create({:id => 0, :name =>"Pencil", :description => "You can use it to write things", :unit_price => BigDecimal.new(10.99,4) , :created_at=> Time.now, :updated_at=> Time.now, :merchant_id => 2})
+    tr.create({:id => 0, :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0202",
+      :result => "success", :created_at => Time.now,
+      :updated_at => Time.now})
     actual = tr.collection.max_by {|element| element.id}.id
-    expected = 263398180
+    expected = 51
     assert_equal expected, actual
   end
 
   def test_update
-    skip
     tr = TransactionRepository.new('./data/transactions_tiny.csv')
-    attributes = { unit_price: BigDecimal.new(379.99, 5) }
-    tr.update(263397919, attributes)
-    updated_item = tr.find_by_id(263397919)
-    assert_equal 379.99, updated_item.unit_price
+    attributes = { :credit_card_number =>  "4343434343434343"}
+    tr.update(20, attributes)
+    updated_item = tr.find_by_id(20)
+    assert_equal "4343434343434343", updated_item.credit_card_number
   end
 
 end
