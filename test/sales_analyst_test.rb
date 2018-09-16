@@ -1,44 +1,57 @@
 require_relative 'test_helper'
 
-require_relative '../lib/item_repository'
-require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 
+
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
 
 class SalesAnalystTest < Minitest::Test
 
   # ================================
   def setup
-    hash = { :items     => "./data/items.csv",
-              :merchants => "./data/merchants.csv",
+    hash = {
+              :items         => "./data/items.csv",
+              :merchants     => "./data/merchants.csv",
+              :invoices      => "./data/invoices.csv",
+              :invoice_items => "./data/invoice_items.csv",
+              :transactions  => "./data/transactions.csv",
+              :customers     => "./data/customers.csv"
             }
-    # se_new = SalesEngine.new
+    # -- no data --
+    se_new = SalesEngine.new({})
+    @sa_new = SalesAnalyst.new(se_new)
+    # -- CSV data --
     se_csv = SalesEngine.from_csv(hash)
-    # @sa_new = SalesAnalyst.new(se_new)
     @sa_csv = SalesAnalyst.new(se_csv)
   end
   # ================================
 
 
   def test_it_exists
-    # assert_instance_of SalesAnalyst, @sa_new
+    assert_instance_of SalesAnalyst, @sa_new
     assert_instance_of SalesAnalyst, @sa_csv
   end
 
-  # def test_it_gets_attrubutes
-  #   # -- Sales Engine --
-  #   assert_instance_of SalesEngine, @sa_csv.engine
-  #   # ==== REPOs ====
-  #   # NOTE - Instance vars for repos are the arrays
-  #   # held within the repos, not the repos themselves.
-  #   # -- Merchant --
-  #   assert_instance_of MerchantRepository, @sa_csv.merchants
-  #   assert_instance_of Merchant, @sa_csv.merchants.all[0]
-  #   # -- Item --
-  #   assert_instance_of ItemRepository, @sa_csv.items
-  #   assert_instance_of Item, @sa_csv.items.all[0]
-  # end
+  def test_it_gets_attrubutes
+    # ==== REPOs ====
+    # -- Merchant --
+    assert_instance_of MerchantRepository, @sa_csv.merchants
+    assert_instance_of Merchant, @sa_csv.merchants.all[0]
+    # -- Item --
+    assert_instance_of ItemRepository, @sa_csv.items
+    assert_instance_of Item, @sa_csv.items.all[0]
+    # -- other --
+    assert_instance_of InvoiceRepository, @sa_csv.invoices
+    assert_instance_of InvoiceItemRepository, @sa_csv.invoice_items
+    assert_instance_of TransactionRepository, @sa_csv.transactions
+    assert_instance_of CustomerRepository, @sa_csv.customers
+  end
 
 
   # --- General Methods ---

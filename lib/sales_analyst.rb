@@ -3,6 +3,13 @@ require 'pry'
 
 class SalesAnalyst
 
+  attr_reader :merchants,
+              :items, 
+              :invoices, 
+              :invoice_items, 
+              :transactions, 
+              :customers
+
   def initialize(sales_engine)
     @engine = sales_engine
 
