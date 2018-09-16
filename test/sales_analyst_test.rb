@@ -36,7 +36,7 @@ class SalesAnalystTest<Minitest::Test
     assert_equal 148005.43, @sa.average_average_price_per_merchant
   end
 
-  def test_average_invoices_per_merchant
+  def test_average_invoices_per_merchant_aaa
     assert_equal 1.4, @sa.average_invoices_per_merchant
   end
 
@@ -45,7 +45,7 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
-    assert_equal [@se.invoices.find_all_by_merchant_id(12334269)], @sa.top_merchants_by_invoice_count
+    assert_equal @se.invoices.find_all_by_merchant_id(12334269), @sa.top_merchants_by_invoice_count
   end
 
 end
