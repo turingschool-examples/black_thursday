@@ -14,7 +14,7 @@ class Invoice
     @id          = hash[:id].to_i
     @customer_id = hash[:customer_id].to_i
     @merchant_id = hash[:merchant_id].to_i
-    @status      = hash[:status]
+    @status      = hash[:status].to_sym  # TO DO - TEST ME
     @created_at  = hash[:created_at]
     @updated_at  = hash[:updated_at]
   end

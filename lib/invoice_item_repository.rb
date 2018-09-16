@@ -2,26 +2,28 @@ require 'pry'
 
 require_relative 'finderclass'
 
-require_relative 'customer'
+require_relative 'invoice_item'
 
-class CustomerRepository
+
+class InvoiceItemRepository
 
   attr_reader :all
 
   def initialize(data)
     @data = data
-    @customers = []
-    make_customers
-    @all = @customers
+    @invoice_items = []
+    make_invoice_items
+    @all = @invoice_items
   end
 
-  def make_customers
+
+  def make_invoice_items
     @data.each { |key, value|
       hash = make_hash(key, value)
-      customer = Customer.new(hash)
-      @customers << customer
+      item = InvoiceItem.new(hash)
+      @invoice_items << item
     }
-  end
+    end
 
   def make_hash(key, value)
     hash = {id: key.to_s.to_i}
@@ -36,12 +38,12 @@ class CustomerRepository
     FinderClass.find_by(all, :id, id)
   end
 
-  def find_all_by_first_name(name)
-    FinderClass.find_by_fragment(all, :first_name, name)
+  def find_all_by_item_id(item_id)
+    FinderClass.find_all_by(all, :item_id, item_id)
   end
 
-  def find_all_by_last_name(name)
-    FinderClass.find_by_fragment(all, :last_name, name)
+  def find_all_by_invoice_id(invoice_id)
+    FinderClass.find_all_by(all, :invoice_id, invoice_id)
   end
 
 end

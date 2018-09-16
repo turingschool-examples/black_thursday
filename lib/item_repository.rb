@@ -1,24 +1,24 @@
 
 require 'pry'
 
+require_relative 'finderclass'
+
 require_relative 'item'
-require_relative 'csv_parse'
-require './lib/finderclass'
+
 
 class ItemRepository
 
-  attr_reader :all,
-              :items
+  attr_reader :all
 
-  def initialize(path)
-    @csv = CSVParse.create_repo(path)
+  def initialize(data)
+    @data = data
     @items = []
     make_items
-    @all = items  # retains reader permissions
+    @all = @items
   end
 
   def make_items
-    @csv.each { |key, value|
+    @data.each { |key, value|
       hash = make_hash(key, value)
       item = Item.new(hash)
       @items << item
@@ -30,6 +30,9 @@ class ItemRepository
     value.each { |col, data| hash[col] = data }
     return hash
   end
+
+
+  # --- Find By ---
 
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)

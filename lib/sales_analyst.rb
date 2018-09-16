@@ -3,12 +3,22 @@ require 'pry'
 
 class SalesAnalyst
 
-  attr_reader :engine, :merchants, :items
+  attr_reader :merchants,
+              :items, 
+              :invoices, 
+              :invoice_items, 
+              :transactions, 
+              :customers
 
   def initialize(sales_engine)
     @engine = sales_engine
-    @merchants = @engine.merchants
-    @items = @engine.items
+
+    @merchants     = @engine.merchants
+    @items         = @engine.items
+    @invoices      = @engine.invoices
+    @invoice_items = @engine.invoice_items
+    @transactions  = @engine.transactions
+    @customers     = @engine.customers
   end
 
   # --- General Methods ---
