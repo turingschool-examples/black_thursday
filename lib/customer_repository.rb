@@ -1,6 +1,5 @@
 require 'pry'
 
-require_relative 'csv_parse'
 require_relative 'finderclass'
 
 require_relative 'customer'
@@ -9,18 +8,15 @@ class CustomerRepository
 
   attr_reader :all
 
-  def initialize(hash)
-  # def initialize(path)
-    @csv = hash
-    # @csv = CSVParse.create_repo(hash)
-    # @csv = CSVParse.create_repo(path)
+  def initialize(data)
+    @data = data
     @customers = []
     make_customers
     @all = @customers
   end
 
   def make_customers
-    @csv.each { |key, value|
+    @data.each { |key, value|
       hash = make_hash(key, value)
       customer = Customer.new(hash)
       @customers << customer

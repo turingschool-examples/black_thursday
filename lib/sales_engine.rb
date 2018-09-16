@@ -25,21 +25,12 @@ class SalesEngine
 
   def initialize(data)
     @data = data
-    @customers = make_customers
-    # @merchants     = make_merchants(data[:merchants])         if data[:merchants]
-    # @items         = make_items(data[:items])                 if data[:items]
-    # @invoices      = make_invoices(data[:invoices])           if data[:invoices]
-    # @invoice_items = make_invoice_items(data[:invoice_items]) if data[:invoice_items]
-    # @transactions  = make_transactions(data[:transactions])   if data[:transactions]
-    # @customers     = make_customers(data[:customers])         if data[:customers]
-    # @customers     = make_customers(data[:customers])         if data[:customers]
-    @merchants     = MerchantRepository.new(data[:merchants])        if data[:merchants]
-    @items         = ItemRepository.new(data[:items])                if data[:items]
-    @invoices      = InvoiceRepository.new(data[:invoices])          if data[:invoices]
-    @invoice_items = InvoiceItemRepository.new(data[:invoice_items]) if data[:invoice_items]
-    @transactions  = TransactionRepository.new(data[:transactions])  if data[:transactions]
-    @customers     = CustomerRepository.new(data[:customers])        if data[:customers]
-    # @customers     = CustomerRepository.new(data[:customers])        if data[:customers]
+    @merchants     = make_merchants
+    @items         = make_items
+    @invoices      = make_invoices
+    @invoice_items = make_invoice_items
+    @transactions  = make_transactions
+    @customers     = make_customers
   end
 
   def self.from_csv(paths)
@@ -51,31 +42,32 @@ class SalesEngine
   end
 
 
-  # # --- Repo Creation ---
-  #
-  # def make_merchants(data)
-  #   @merchants = MerchantRepository.new(data)
-  # end
-  #
-  # def make_items(data)
-  #   @items = ItemRepository.new(data)
-  # end
-  #
-  # def make_invoices(data)
-  #   @invoices = InvoiceRepository.new(data)
-  # end
-  #
-  # def make_invoice_items(data)
-  #   @invoice_items = InvoiceItemRepository.new(data)
-  # end
-  #
-  # def make_transactions(data)
-  #   @transactions = TransactionRepository.new(data)
-  # end
-  #
-  # def make_customers(data)
-  #   @customers = CustomerRepository.new(data)
-  # end
+  # --- Repo Creation ---
+
+  def make_merchants
+    data = @data[:merchants]
+    @merchants = MerchantRepository.new(data) if data
+  end
+
+  def make_items
+    data = @data[:items]
+    @items = ItemRepository.new(data) if data
+  end
+
+  def make_invoices
+    data = @data[:invoices]
+    @invoices = InvoiceRepository.new(data) if data
+  end
+
+  def make_invoice_items
+    data = @data[:invoice_items]
+    @invoice_items = InvoiceItemRepository.new(data) if data
+  end
+
+  def make_transactions
+    data = @data[:transactions]
+    @transactions = TransactionRepository.new(data) if data
+  end
 
   def make_customers
     data = @data[:customers]

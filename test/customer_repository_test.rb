@@ -1,19 +1,20 @@
 require_relative 'test_helper'
 
+require_relative '../lib/sales_engine'
 require_relative '../lib/customer_repository'
 require_relative '../lib/customer'
 
 class CustomerRepositoryTest < Minitest::Test
 
   def setup
-    path = './data/customers.csv'
-    @repo = CustomerRepository.new(path)
+    path = {:customers => './data/customers.csv'}
+    @repo = SalesEngine.from_csv(path).customers
     # 1,Joey,Ondricka,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
     customer_1_hash = { :"1" => { first_name: "Joey",
-                                   last_name:  "Ondricka",
-                                   created_at: "2012-03-27 14:54:09 UTC",
-                                   updated_at: "2012-03-27 14:54:09 UTC"
-                                  } }
+                                  last_name:  "Ondricka",
+                                  created_at: "2012-03-27 14:54:09 UTC",
+                                  updated_at: "2012-03-27 14:54:09 UTC"
+                                 } }
     @key = customer_1_hash.keys.first
     @values = customer_1_hash.values.first
   end
