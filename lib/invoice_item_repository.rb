@@ -35,17 +35,14 @@ class InvoiceItemRepository
 
   # --- Find By ---
 
-  #returns either nil or an instance of InvoiceItem with a matching ID
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
   end
 
-  # returns either [] or one or more matches which have a matching item ID
   def find_all_by_item_id(item_id)
     FinderClass.find_all_by(all, :item_id, item_id)
   end
 
-  # returns either [] or one or more matches which have a matching invoice ID
   def find_all_by_invoice_id(invoice_id)
     FinderClass.find_all_by(all, :invoice_id, invoice_id)
   end
