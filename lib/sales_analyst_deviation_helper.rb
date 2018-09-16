@@ -20,7 +20,8 @@ module SalesAnalystHelper
     @sales_engine.merchants.all
   end
 
-
-
+  def all_invoices
+    @sales_engine.invoices.all
+  end
 
 end

@@ -1,4 +1,4 @@
- require 'bigdecimal'
+require 'bigdecimal'
 require_relative '../lib/sales_engine'
 require_relative '../lib/black_thursday_helper'
 require_relative '../lib/sales_analyst_deviation_helper'
@@ -54,5 +54,19 @@ class SalesAnalyst
     averages_total = (averages_summed/ merchant_item_averages.size).round(2)
     BigDecimal(averages_total, 4)
   end
+
+  def average_invoices_per_merchant
+    total_merchants = @sales_engine.merchants.all.count
+    total_invoices = @sales_engine.invoices.all.count
+    BigDecimal((total_merchants.to_f/total_invoices),3)
+  end
+
+#am i on the right track?
+  # def average_invoices_per_merchant_standard_deviation
+  #   mean = mean_method
+  #   invoices_per_merchant = all_merchants.map do |merchant|
+  #     @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size
+  #   end
+  # end
 
 end

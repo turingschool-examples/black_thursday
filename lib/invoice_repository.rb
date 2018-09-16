@@ -3,6 +3,7 @@ require 'pry'
 require 'time'
 require 'bigdecimal'
 require_relative '../lib/black_thursday_helper'
+require_relative '../lib/invoice'
 
 class InvoiceRepository
   include BlackThursdayHelper
