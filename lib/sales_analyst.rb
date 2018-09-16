@@ -45,9 +45,9 @@ class SalesAnalyst
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
       sum_unit_price = items.inject(0) do |sum,item|
-       sum + item.unit_price.to_i
+       sum + item.unit_price
       end
-    (sum_unit_price/items.count).round(2)
+    BigDecimal.new(sum_unit_price/items.count)
   end
 
   def items_by_merchant_id
@@ -56,32 +56,36 @@ class SalesAnalyst
     end
   end
 
-  # def average_average_price_per_merchant
-  #   merchant_ids = items_by_merchant_id.keys
-  #   average_average_price = merchant_ids.inject(0) do |sum, id|
-  #     sum += average_item_price_per_merchant(id)
-  #     binding.pry
-  #   end / merchant_ids.count
-  #   average_average_price.round(2)
-  # end
+  def average_average_price_per_merchant
+    merchant_ids = items_by_merchant_id.keys
+    average_average_price = merchant_ids.inject(0) do |sum, id|
+      # binding.pry
+      sum += average_item_price_per_merchant(id.to_i)
+    end / merchant_ids.count
+    average_average_price.round(2)
+  end
 
-  # def item_price_std_dev
-  #   mean = average_items_per_merchant
-  #     set = count_items_per_merchant.values.map do |item_count|
-  #     ((item_count - mean) ** 2).round(2)
-  #       end
-  #       new_sum = set.inject(0) do |sum, number|
-  #       sum + number
-  #     end
-  #     Math.sqrt(new_sum/@ir.all.count-1).round(2)
-  # end
+  def average_items_price
+    @ir.items.inject(0) do |sum,item|
+      sum += item.unit_price
+    end/@ir.all.count
+  end
+
+  def item_price_std_dev
+    mean = average_items_price
+    new_set = @ir.items.map do |item|
+      (item.unit_price - mean)**2
+    end.sum
+     Math.sqrt(new_set/@ir.all.count-1).round(2)
+  end
 
 
-  # def golden_items
-  #   2 sd above = average_average_price_per_merchant + item_std_dev * 2
-  #      iterate over items and find all the prices that are above 2 sd
-  #
-  # end
+  def golden_items
+    two_sd_above = (average_average_price_per_merchant + item_price_std_dev * 2)
+    @ir.items.find_all do |item|
+      item.unit_price > two_sd_above
+    end
+  end
 
 
 end

@@ -33,16 +33,26 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_return_average_item_price_per_merchant
-      result = @sa.average_item_price_per_merchant(12334105).to_f
-      # assert_equal BigDecimal,result.class #Need to check BIG DECIMAL conversion
+      result = @sa.average_item_price_per_merchant(12334105)
+      assert_instance_of BigDecimal,result
       assert_equal 2999.0,result
     end
 
     def test_it_returns_the_average_price_for_all_merchants
       result = @sa.average_average_price_per_merchant
-      assert_equal 349.5,result
-      assert_equal BigDecimal, result.class
+      assert_instance_of BigDecimal, result
+      assert_equal 0.58076e4,result
     end
 
-    
+    def test_item_price_std_dev
+      result = @sa.item_price_std_dev
+      assert_equal 11855.45,result
+    end
+
+    def test_it_can_return_golden_items
+      result = @sa.golden_items
+      assert_instance_of Array, result
+      assert_equal 1,result.count
+      assert_equal 40000, result.first.unit_price
+    end
 end
