@@ -25,7 +25,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     # @invoice_item_1 = InvoiceItem.new(@invoice_item_1_hash)
   end
 
-
   def test_it_exists
     assert_instance_of InvoiceItemRepository, @repo
   end
