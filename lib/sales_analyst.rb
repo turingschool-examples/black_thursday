@@ -2,6 +2,7 @@ require 'pry'
 require 'date'
 
 class SalesAnalyst
+    attr_reader :se
   def initialize(sales_engine)
     @se = sales_engine
   end
@@ -180,24 +181,26 @@ class SalesAnalyst
 
   def top_revenue_earners(x = 20)
     hash = Hash.new(0)
-    merchant_invoice_totals = @se.invoices.all.each do |invoice|
+     @se.invoices.all.each do |invoice|
+       if invoice_paid_in_full?(invoice.id)
       hash[invoice.merchant_id] += invoice_total(invoice.id)
     end
+  end
 
-    sorted = merchant_invoice_totals.sort_by do |merchant_id, invoice_total|
+
+    sorted = hash.sort_by do |merchant_id, invoice_total|
       invoice_total
-    end.transpose
-
+    end.transpose[0].reverse
     top_x = []
 
 
-    x.times do |i|
-      top_x << sorted[0][i-1]
-    end
+    # x.times do |i|
+      top_x = sorted[0..x-1]
 
-    top_x.map do |merchant_id|
+    top_merchants = top_x.map do |merchant_id|
       @se.merchants.find_by_id(merchant_id)
     end
+    top_merchants
   end
 
   def merchants_with_pending_invoices
