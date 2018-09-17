@@ -210,14 +210,14 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(number)
-    merchants_ranked_by_revenue[-number..-1]
+  def top_revenue_earners(number=20)
+    merchants_ranked_by_revenue[0..(number-1)]
   end
 
   def merchants_ranked_by_revenue
     @merchant_repo.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
-    end
+    end.reverse
   end
 
   def merchants_with_only_one_item
