@@ -135,14 +135,14 @@ class SalesAnalyst
     BigDecimal(total, total.to_s.size - 1)
   end
 
-  # def golden_items
-  #   mean = all_prices_sum / all_items.size
-  #   std = standard_deviation(all_prices, mean)
-  #   golden_threshold = mean + std * 2
-  #
-  #   all_items.find_all do |item|
-  #     item.unit_price > golden_threshold
-  #   end
-  # end
+  def golden_items
+    mean = all_prices_sum / all_items.size
+    std = standard_dev(all_prices, mean)
+    golden_goal = mean + std * 2
+
+    all_items.find_all do |item|
+      item.unit_price > golden_goal
+    end
+  end
 
 end
