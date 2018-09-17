@@ -17,6 +17,9 @@ module CRUD
     entry.unit_price = attributes[:unit_price] if attributes[:unit_price]
     entry.updated_at = current_time if attributes[:current_time]
     entry.status = attributes[:status] if attributes[:status]
+    entry.quantity = attributes[:quantity] if attributes[:quantity]
+    entry.item_id = attributes[:item_id] if attributes[:item_id]
+
   end
 
 

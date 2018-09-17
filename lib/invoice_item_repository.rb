@@ -19,13 +19,13 @@ class InvoiceItemRepository
   end
 
 
-  def make_invoice_items
-    @data.each { |key, value|
+  def make_invoice_items(data = @data)
+    data.each { |key, value|
       hash = make_hash(key, value)
       item = InvoiceItem.new(hash)
       @invoice_items << item
     }
-    end
+  end
 
   def make_hash(key, value)
     hash = {id: key.to_s.to_i}
@@ -49,15 +49,15 @@ class InvoiceItemRepository
   def create(attributes)
     id = make_id(all, :id)
     data = {id => attributes} 
-    make_merchants(data)
+    make_invoice_items(data)
   end
 
   def update(id, attributes)
-    update_entry(@merchants, id, attributes)
+    update_entry(@invoice_items, id, attributes)
   end
 
   def delete(id)
-    delete_entry(@merchants, id)
+    delete_entry(@invoice_items, id)
   end
 
 end
