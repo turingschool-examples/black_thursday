@@ -1,4 +1,6 @@
 require 'pry'
+require 'bigdecimal'
+require 'bigdecimal/util'
 class SalesAnalyst
 
   def initialize(sales_engine)
@@ -206,7 +208,81 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date)
+    invoice_by_date = @sales_engine.invoices.repo.find_all do |invoice|
+      invoice.created_at == date
+    end
+    total = invoice_by_date.map do |invoice|
+      invoice_total(invoice.id)
+    end
+    total[0]
+  end
 
+  def merchants_with_pending_invoices
+    invoices_pending = @sales_engine.invoices.repo.delete_if do |invoice|
+      failed_transactions_by_invoice.include?(invoice.id)
+    end
+    invoices_pending.map do |invoice|
+      invoice.merchant_id
+    end
+
+  end
+
+  def failed_transactions_by_invoice
+    failed_transactions = @sales_engine.transactions.repo.find_all do |transaction|
+      transaction.result == :failed
+    end
+    a=failed_transactions.map do |transaction|
+      transaction.invoice_id
+    end
+  end
+
+  def merchants_with_only_one_item
+    one_item_merchants = items_per_merchant_hash.find_all do |merchant_id, items|
+      items == 1
+    end
+    one_item_merchants.map do |merchant_id_array|
+      @sales_engine.merchants.find_by_id(merchant_id_array[0])
+    end
+  end
+
+  def items_per_merchant_hash
+    merchant_id_array_for_items.inject(Hash.new(0)) do |total, merchant_id|
+      total[merchant_id] += 1
+      total
+    end
+  end
+
+  def merchant_id_array_for_items
+    merchant_ids = @sales_engine.items.repo.map do |item|
+      item.merchant_id
+    end
+  end
+
+  def find_items_per_merchant_id(id)
+      matching_items = @sales_engine.items.repo.find_all do |item|
+      item.merchant_id == id
+    end
+      matching_items.map do |item|
+      item.id
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    items_array = find_items_per_merchant_id(merchant_id)
+    item_totals = items_array.map do |item|
+      item_total(item)
+    end
+    sum_values(item_totals)
+  end
+
+  def item_total(item_id)
+  items = @sales_engine.invoice_items.find_all_by_item_id(item_id)
+   items.inject(0) do |sum, item|
+      sum += item.unit_price * item.quantity
+      sum
+    end
+  end
 
   def inspect
    "#<#{self.class} #{@merchant.size} rows>"
