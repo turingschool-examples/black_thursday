@@ -40,34 +40,28 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    skip
     assert_equal 0.875, @sa.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    skip
     assert_equal 0.95, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_top_merchants_by_invoice_count
-    skip
     assert_equal @se.invoices.find_all_by_merchant_id(12334269), @sa.top_merchants_by_invoice_count
   end
 
   def test_bottom_merchants_by_invoice_count
-    skip
     assert_equal @se.invoices.find_all_by_merchant_id(34444), @sa.bottom_merchants_by_invoice_count
   end
 
-  #parking lot this for tomorrow
-
-  # def test_top_days_by_invoice_count
-  #   assert_equal ["Sunday"], @sa.top_days_by_invoice_count
-  # end
+  def test_top_days_by_invoice_count
+    assert_equal ["Monday"], @sa.top_days_by_invoice_count
+  end
 
   def test_the_invoice_status
-    assert_equal 62.5, @sa.invoice_status(:pending)
-    assert_equal 25.0, @sa.invoice_status(:shipped)
+    assert_equal 25.0, @sa.invoice_status(:pending)
+    assert_equal 62.5, @sa.invoice_status(:shipped)
     assert_equal 12.5, @sa.invoice_status(:returned)
   end
 

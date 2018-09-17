@@ -87,37 +87,41 @@ class SalesAnalyst
         @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size < (doubled_standard_deviation - mean)
       end
   end
-#
-# def top_days_by_invoice_count
-#     times = @sales_engine.invoices.all.map do |invoice|
-#     invoice.created_at
-#   end
-#   times.map do |time|
-#     time.
-# end
+
+  def top_days_by_invoice_count
+    mean = all_invoices.size.to_f / count_invoices_per_day.size
+    goal = mean + standard_dev(count_invoices_per_day, mean)
+
+    top_days = invoices_by_day.find_all do |day, object_array|
+      object_array.size > goal
+    end
+    remove_keys(top_days, Invoice)
+  end
+
+  def count_invoices_per_day
+    invoices_by_day.map do |day, invoice|
+      invoice.count
+    end
+  end
+
+  def invoices_by_day
+    all_invoices.group_by do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+  end
+
+  def remove_keys(data, type)
+    data.flatten.delete_if do |element|
+      element.is_a?(type)
+    end
+  end
 
   def invoice_status(status)
-    #so we need to calculate the percentage of invoices with each status present
-    #get the total of each invoice with each status
-    binding.pry
-    total_invoices = all_invoices.size
-    words = @sales_engine.invoices.all.map do |invoice|
-      invoice.status
+    invoices_by_status = all_invoices.count do |invoice|
+      invoice.status == status.to_s
     end
-    hash = Hash.new 0
-    words.each do |word|
-      hash[word] += 1
-    end
-    hash
-    new_hash = Hash.new 0
-    hash.each do |key, value|
-       new_hash[key]= value.to_f/total_invoices * 100
-    end
-    new_hash
+    ((invoices_by_status.to_f / all_invoices.size) * 100).round(2)
   end
-  #get the total of ALL invoices
-  #divide the statuses invoices by the total of all the totals
-  #multiply that by 100
 
   def invoice_paid_in_full?(invoice_id)
     transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
@@ -144,5 +148,4 @@ class SalesAnalyst
       item.unit_price > golden_goal
     end
   end
-
 end
