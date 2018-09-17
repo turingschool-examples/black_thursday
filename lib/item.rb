@@ -26,9 +26,8 @@ class Item
     # -- Accessible --
     @name         = hash[:name]
     @description  = hash[:description]
-    # @unit_price   = BigDecimal.new(hash[:unit_price], 4)
     @unit_price   = make_big_decimal(hash[:unit_price])
-    @updated_at   = hash[:updated_at]
+    @updated_at   = make_time(hash[:updated_at])
     # TO DO - How to handle -> New creations need Time.now for updated_at, created_at
   end
 

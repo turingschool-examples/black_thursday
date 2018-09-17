@@ -37,7 +37,6 @@ class ItemTest < Minitest::Test
     # -- Read Only --
     assert_equal 263395237, @item.id
     assert_instance_of Time, @item.created_at
-
     assert_equal @hash[:created_at], @item.created_at.to_s
     assert_equal 12334141, @item.merchant_id
     # TO DO - Assert we cannot write to these values https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html
@@ -45,7 +44,8 @@ class ItemTest < Minitest::Test
     assert_equal @hash[:name], @item.name
     assert_equal @hash[:description], @item.description
     assert_equal @big_decimal, @item.unit_price
-    assert_equal @hash[:updated_at], @item.updated_at
+    assert_instance_of Time, @item.updated_at
+    assert_equal @hash[:updated_at], @item.updated_at.to_s
     # TO DO - Assert we can write to these values
   end
 
