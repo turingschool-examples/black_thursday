@@ -20,14 +20,14 @@ class MerchantRepository
     if attributes[:id] != nil
       merchant = Merchant.new(
         {
-        id: find_next_id,
+        id: attributes[:id].to_i,
         name: attributes[:name],
         created_at: Time.parse(attributes[:created_at])
           }
         )
     else
       merchant = Merchant.new({
-        id: attributes[:id].to_i,
+        id: find_next_id,
         name: attributes[:name],
         created_at: attributes[:created_at]
         })

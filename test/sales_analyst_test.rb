@@ -142,6 +142,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_performing_merchants_by_invoice_count
+    skip
     se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
@@ -234,10 +235,10 @@ class SalesAnalystTest < Minitest::Test
         })
     sa = se.analyst
     assert_instance_of BigDecimal, sa.revenue_by_merchant(12334194)
+    assert_equal 62109.16, sa.revenue_by_merchant(12334194)
   end
 
   def test_it_can_return_top_merchants_by_revenue
-    skip
     se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv",
       :invoice_items => "./data/invoice_items.csv",
@@ -246,6 +247,7 @@ class SalesAnalystTest < Minitest::Test
         })
     sa = se.analyst
     assert_equal 12334634, sa.top_revenue_earners(10).first.id
+    binding.pry
     assert_equal 12335747, sa.top_revenue_earners(10).last.id
   end
 
@@ -263,6 +265,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_merchants_with_one_item
+    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -273,6 +276,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_merchants_with_one_item_registed_by_month
+    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :invoices => "./data/invoices.csv",

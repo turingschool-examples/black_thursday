@@ -198,9 +198,6 @@ class SalesAnalyst
     end
   end
 
-
-
-
   def revenue_by_merchant(search_merchant_id)
     paid_invoices = @invoice_repo.all.find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
@@ -214,14 +211,14 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(number)
-    a= merchants_ranked_by_revenue[-number..-1]
-    binding.pry
+    merchants_ranked_by_revenue[-number..-1]
   end
 
   def merchants_ranked_by_revenue
-    @merchant_repo.all.sort_by do |merchant|
+    a = @merchant_repo.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end
+    binding.pry
   end
 
   def merchants_with_only_one_item
