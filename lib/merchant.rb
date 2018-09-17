@@ -7,4 +7,5 @@ class Merchant
     @id = params[:id].to_i
     @name = params[:name]
   end
+  
 end

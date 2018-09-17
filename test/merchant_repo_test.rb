@@ -5,6 +5,8 @@ require 'minitest/pride'
 require 'pry'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/merchant'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice'
 
 class MerchantRepoTest < Minitest::Test
 
@@ -15,7 +17,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_a_merchant_repo_has_merchants
     mr = MerchantRepo.new("./test/fixtures/merchants.csv")
-
+    binding.pry
     assert_equal 7, mr.all.count
     assert_instance_of Array, mr.all
     assert mr.all.all? { |merchant| merchant.is_a?(Merchant)}
@@ -32,9 +34,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_returns_nil_if_no_match_found
     mr = MerchantRepo.new("./test/fixtures/merchants.csv")
-
     result = mr.find_by_id(289312)
-
     assert_nil result
   end
 

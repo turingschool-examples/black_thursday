@@ -44,7 +44,7 @@ module BlackThursdayHelper
   end
 
   def find_all_by_result(result)
-    @collections.find_all do |object|
+     @collections.find_all do |object|
       object.result == result
     end
   end
@@ -58,4 +58,32 @@ module BlackThursdayHelper
   def inspect
     "#<#{self.class} #{@collections.size} rows>"
   end
+
+  def find_all_by_customer_id(customer_id)
+    @collections.find_all do |object|
+      object.customer_id == customer_id
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @collections.find_all do |object|
+      object.merchant_id == merchant_id
+    end
+  end
+
+  def find_all_by_status(status)
+    @collections.find_all do |object|
+      object.status.downcase.include? (status.downcase)
+    end
+  end
+
+  # def inspect
+  #   binding.pry
+  #  instance.nil? ? nil : "#<#{self.class} #{instance.size} rows>"
+  # end
+
+  # def inspect
+  #   "#<#{self.class} #{@collections.size} rows>"
+  # end
+
 end
