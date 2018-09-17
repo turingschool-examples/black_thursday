@@ -19,9 +19,10 @@ module CRUD
     entry.status = attributes[:status] if attributes[:status]
     entry.quantity = attributes[:quantity] if attributes[:quantity]
     entry.item_id = attributes[:item_id] if attributes[:item_id]
-
+    entry.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
+    entry.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
+    entry.result = attributes[:result] if attributes[:result]
   end
-
 
   def delete_entry(repo, id)
     entry = FinderClass.find_by(repo, :id, id)

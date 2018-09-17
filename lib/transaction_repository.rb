@@ -4,8 +4,10 @@ require_relative 'finderclass'
 
 require_relative 'transaction'
 
+require_relative 'crud'
 
 class TransactionRepository
+  include CRUD
 
   attr_reader :all
 
@@ -16,8 +18,8 @@ class TransactionRepository
     @all = @transactions
   end
 
-  def make_transactions
-    @data.each { |key, value|
+  def make_transactions(data = @data)
+    data.each { |key, value|
       hash = make_hash(key, value)
       transaction = Transaction.new(hash)
       @transactions << transaction
@@ -48,5 +50,20 @@ class TransactionRepository
   def find_all_by_result(result)
     FinderClass.find_all_by(all, :result, result)
   end
+
+  def create(attributes)
+    id = make_id(all, :id)
+    data = {id => attributes} 
+    make_transactions(data)
+  end
+
+  def update(id, attributes)
+    update_entry(@transactions, id, attributes)
+  end
+
+  def delete(id)
+    delete_entry(@transactions, id)
+  end
+
 
 end
