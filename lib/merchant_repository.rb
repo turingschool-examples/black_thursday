@@ -65,3 +65,4 @@ class MerchantRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end
+12345

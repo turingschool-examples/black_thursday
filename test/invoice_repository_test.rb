@@ -65,4 +65,5 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoices_r.delete(15)
     assert_equal 14, @invoices_r.invoices.length
   end
+
 end

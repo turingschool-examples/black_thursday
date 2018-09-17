@@ -17,3 +17,4 @@ class Invoice
     @updated_at   = invoice_hash[:updated_at]
   end
 end
+12345
