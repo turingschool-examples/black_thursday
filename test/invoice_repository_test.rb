@@ -1,4 +1,7 @@
 require './test/minitest_helper'
+require './lib/invoice_repository'
+require './lib/invoice'
+require './lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
@@ -18,5 +21,8 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 14, @invoices_r.all.count
   end
 
-
+  def test_it_can_find_by_id
+    result = @invoices_r.find_by_id(1)
+    assert_equal 1, result
+  end
 end
