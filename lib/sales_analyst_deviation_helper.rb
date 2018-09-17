@@ -39,5 +39,4 @@ module SalesAnalystHelper
       sum + price
     end
   end
-
 end
