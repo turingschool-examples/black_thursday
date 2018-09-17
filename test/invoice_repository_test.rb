@@ -23,6 +23,12 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_id
     result = @invoices_r.find_by_id(1)
-    assert_equal 1, result
+    assert_equal 1, result.id
+  end
+
+  def test_it_can_find_all_by_cusomter_id
+    result = @invoices_r.find_all_by_customer_id(2)
+    require 'pry'; binding.pry
+    assert_equal [], result.customer_id
   end
 end

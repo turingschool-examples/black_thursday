@@ -21,10 +21,15 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_customer_id(customer_id)
+    @invoices.find_all do |invoice|
+      invoice.customer_id.to_i == customer_id
+    end
+  end
+
   def make_invoices(invoice_path)
-   csv_objects = CSV.open(invoice_path, headers: true, header_converters: :symbol)
-    csv_objects.map do |row|
-      @invoices << row
+   CSV.foreach(invoice_path, headers: true, header_converters: :symbol) do |row|
+      @invoices << Invoice.new(row)
     end
   end
 end
