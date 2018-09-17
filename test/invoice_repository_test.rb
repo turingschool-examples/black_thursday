@@ -18,4 +18,5 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 14, @invoices_r.all.count
   end
 
+
 end

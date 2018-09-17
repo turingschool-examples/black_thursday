@@ -21,4 +21,5 @@ class InvoiceRepository
       @invoices << row
     end
   end
+
 end
