@@ -54,10 +54,10 @@ module BlackThursdayHelper
       object.item_id == item_id
     end
   end
-  
-  def inspect
-    "#<#{self.class} #{@collections.size} rows>"
-  end
+
+  # def inspect
+  #   "#<#{self.class} #{@collections.size} rows>"
+  # end
 
   def find_all_by_customer_id(customer_id)
     @collections.find_all do |object|
@@ -76,14 +76,4 @@ module BlackThursdayHelper
       object.status.downcase.include? (status.downcase)
     end
   end
-
-  # def inspect
-  #   binding.pry
-  #  instance.nil? ? nil : "#<#{self.class} #{instance.size} rows>"
-  # end
-
-  # def inspect
-  #   "#<#{self.class} #{@collections.size} rows>"
-  # end
-
 end

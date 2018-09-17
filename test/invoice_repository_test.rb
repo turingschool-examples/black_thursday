@@ -18,7 +18,7 @@ class InvoiceRepositoryTest<Minitest::Test
   def test_i_can_get_all_the_invoices_in_an_array
     ir = InvoiceRepository.new("./test/fixtures/invoices.csv")
     assert_instance_of Array, ir.all
-    assert_equal 4, ir.all.count
+    assert_equal 8, ir.all.count
     assert ir.all.all? { |invoice| invoice.is_a?(Invoice)}
   end
 

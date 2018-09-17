@@ -28,4 +28,16 @@ module SalesAnalystHelper
     @sales_engine.invoices.all
   end
 
+  def all_prices
+    all_items.map do |item|
+      item.unit_price
+    end
+  end
+
+  def all_prices_sum
+    all_prices.inject(0) do |sum, price|
+      sum + price
+    end
+  end
+
 end
