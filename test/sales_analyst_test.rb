@@ -11,6 +11,10 @@ require_relative '../lib/invoice_item_repository'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/customer_repository'
 
+require_relative '../lib/invoice_item'
+
+
+
 class SalesAnalystTest < Minitest::Test
 
   # ================================
@@ -250,6 +254,7 @@ class SalesAnalystTest < Minitest::Test
 
 
   # --- Transaction Repo Analysis Methods ---
+
   def test_it_can_assess_if_an_invoice_was_paid_in_full
     id_with_a_success = 1752
     all_transactions_by_id = @sa_csv.transactions.find_all_by_invoice_id(1752)
@@ -275,10 +280,41 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal false, found_has_failed
   # end
 
-  def test_it_can_find_a_list_of_successful_invoice_items
-    id = 25  # has a return
-    items = @sa_csv.invoice_items_of_successful_transactions( id )
+
+  def test_it_can_determine_if_an_invoice_was_not_returned
+    # -- Returned --> not successful --
+    id = 25
+    assert_equal false, @sa_csv.invoice_was_not_returned?( id )
+    # -- Pending --> successful --
+    id = 1
+    assert_equal true, @sa_csv.invoice_was_not_returned?( id )
+    # -- Shipped --> successful --
+    id = 2
+    assert_equal true, @sa_csv.invoice_was_not_returned?( id )
   end
+
+
+
+  def test_it_can_find_a_list_of_successful_invoice_items
+    # -- Returned --> not successful --
+    id = 25
+    items = @sa_csv.invoice_items_of_successful_transactions( id )
+    assert_nil items
+
+    # TO DO -- is pending considered a success???
+
+    # -- Pending --> successful --
+    id = 1
+    items = @sa_csv.invoice_items_of_successful_transactions( id )
+    assert_operator 1, :<=, items.count
+    assert_instance_of InvoiceItem, items.first
+    # -- Shipped --> successful --
+    id = 2
+    items = @sa_csv.invoice_items_of_successful_transactions( id )
+    assert_operator 1, :<=, items.count
+    assert_instance_of InvoiceItem, items.first
+  end
+
 
 
   def test_it_can_total_the_invoice_revenue
@@ -286,9 +322,16 @@ class SalesAnalystTest < Minitest::Test
     nothing = @sa_csv.invoice_total(0)
     assert_nil nothing
     # -- first invoice id --
-    total_1 = @sa_csv.invoice_total(1)
+    id = 1
+    total_1 = @sa_csv.invoice_total( id )
     assert_operator 0, :<, total_1
     assert_instance_of Float, total_1
+    items = @sa_csv.invoice_items_of_successful_transactions( id )
+    price = items.first.unit_price_to_dollars
+    qty = items.first.quantity
+    refute_equal total_1, qty
+    refute_equal total_1, price
+    refute_equal total_1, qty * price
     # -- second invoice id --
     total_2 = @sa_csv.invoice_total(2)
     assert_operator 0, :<, total_2

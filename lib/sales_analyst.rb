@@ -209,28 +209,17 @@ class SalesAnalyst
   #   sale.find_all { |trans| trans.result == :success }
   # end
 
-  def invoice_was_not_returned(invoice_id)
+  # TO DO - DOES PENDING count as a sale??
+  def invoice_was_not_returned?(invoice_id)
     invoice = @invoices.find_by_id(invoice_id)
     not_returned = invoice.status != :returned
   end
 
-
-
-  # TO DO - TEST ME
   # Is returned supposed to count towards revenue??
   def invoice_items_of_successful_transactions(invoice_id)
-    sold = invoice_paid_in_full?(invoice_id) && invoice_was_not_returned(invoice_id)
+    sold = invoice_paid_in_full?(invoice_id) && invoice_was_not_returned?(invoice_id)
     items_by_invoice = @invoice_items.find_all_by_invoice_id(invoice_id) if sold
   end
-
-  # def invoice_items_of_successful_transactions(invoice_id)
-  #   not_returned_items = invoice_items_of_successful_transactions(invoice_id)
-  #   inv_items = invoice_ids.map { |id|
-  #     @invoice_items.find_all_by_invoice_id(invoice_id)
-  #   }.flatten
-  # end
-
-
 
   def invoice_total(invoice_id)
     # returns the total $ amount of the Invoice with the corresponding id.
