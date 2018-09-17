@@ -116,6 +116,14 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices, @transactions, @invoice_items, @customers)
+    args = {
+      items: @items,
+      merchants: @merchants,
+      invoices: @invoices,
+      transactions: @transactions,
+      invoice_items: @invoice_items,
+      customers: @customers
+    }
+    SalesAnalyst.new(args)
   end
 end

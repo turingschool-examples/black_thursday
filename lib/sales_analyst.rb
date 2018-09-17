@@ -12,13 +12,13 @@ class SalesAnalyst
               :transaction_repo,
               :customer_repo
 
-  def initialize(item_repo, merchant_repo, invoice_repo, transaction_repo, invoice_item_repo, customer_repo)
-    @item_repo = item_repo
-    @merchant_repo = merchant_repo
-    @invoice_repo = invoice_repo
-    @invoice_item_repo = invoice_item_repo
-    @transaction_repo = transaction_repo
-    @customer_repo = customer_repo
+  def initialize(args)
+    @item_repo = args[:items]
+    @merchant_repo = args[:merchants]
+    @invoice_repo = args[:invoices]
+    @invoice_item_repo = args[:invoice_items]
+    @transaction_repo = args[:transactions]
+    @customer_repo = args[:customers]
   end
 
   def merchant_hash(repo)
