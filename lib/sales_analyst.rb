@@ -267,11 +267,33 @@ class SalesAnalyst
     end
   end
 
-    def map_invoice_to_invoice_items(invoices)
-      invoices.map do |invoice|
-        @invoice_item_repo.all.find_all do |i|
-          i.invoice_id == invoice.id
-        end
+  def map_invoice_to_invoice_items(invoices)
+    invoices.map do |invoice|
+      @invoice_item_repo.all.find_all do |i|
+        i.invoice_id == invoice.id
       end
     end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    valid = find_valid_invoices_by_merchant(merchant_id)
+    invoice_items = map_invoice_to_invoice_items(valid).flatten!
+    grouped = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    item_price_array = grouped.map do |key, value|
+      sum = 0
+      value.each do |invoice_item|
+          sum += invoice_item.quantity * invoice_item.unit_price
+      end
+      [key, sum]
+    end
+
+    winner = item_price_array.sort_by do |pair|
+      pair[1]
+    end.last
+
+    @item_repo.find_by_id(winner[0])
+  end
 end
