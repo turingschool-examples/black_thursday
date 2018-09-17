@@ -5,7 +5,9 @@ class SalesAnalyst
   def initialize(sales_engine)
     @se = sales_engine
   end
-#------Iteration 1 Methods--------#
+
+  #------Iteration 1 Methods--------#
+
   def average_items_per_merchant
     (@se.items.all.count.to_f/@se.merchants.all.count).round(2)
   end
@@ -49,65 +51,65 @@ class SalesAnalyst
     find_golden_items(@se.items.all, threshold)
   end
 
- #-- Iteration 1 Helper Methods --#
+  #-- Iteration 1 Helper Methods --#
 
- def item_count_per_merchant_id
-   hash = Hash.new(0)
-   @se.items.all.each do |item|
-     hash[item.merchant_id] += 1
-   end
-   hash
- end
+  def item_count_per_merchant_id
+    hash = Hash.new(0)
+    @se.items.all.each do |item|
+      hash[item.merchant_id] += 1
+    end
+    hash
+  end
 
- def square_differences(values,average)
-   values.map do |value|
-     (value-average)**2
-   end
- end
+  def square_differences(values,average)
+    values.map do |value|
+      (value-average)**2
+    end
+  end
 
- def sum(numbers)
-   numbers.inject(0) do |sum, num|
-     sum + num
-   end
- end
+  def sum(numbers)
+    numbers.inject(0) do |sum, num|
+      sum + num
+    end
+  end
 
- def merchant_ids_with_high_item_count(hash)
-   threshold = average_items_per_merchant +
-               average_items_per_merchant_standard_deviation
-   hash.find_all do |key, value|
-     value > threshold
-   end
- end
+  def merchant_ids_with_high_item_count(hash)
+    threshold = average_items_per_merchant +
+                average_items_per_merchant_standard_deviation
+    hash.find_all do |key, value|
+      value > threshold
+    end
+  end
 
- def merchants_from_ids(ids)
-   ids.map do |id, value|
-     @se.merchants.find_by_id(id)
-   end
- end
+  def merchants_from_ids(ids)
+    ids.map do |id, value|
+      @se.merchants.find_by_id(id)
+    end
+  end
 
- def find_prices_for_merchant(id)
-   prices = []
-   @se.items.all.each do |item|
-     prices << item.unit_price if item.merchant_id == id
-   end
-   prices
- end
+  def find_prices_for_merchant(id)
+    prices = []
+    @se.items.all.each do |item|
+      prices << item.unit_price if item.merchant_id == id
+    end
+    prices
+  end
 
- def average(numbers)
-   sum(numbers)/numbers.count
- end
+  def average(numbers)
+    sum(numbers)/numbers.count
+  end
 
- def find_prices
-   @se.items.all.inject([]) do |array, item|
-     array << item.unit_price
-   end
- end
+  def find_prices
+    @se.items.all.inject([]) do |array, item|
+      array << item.unit_price
+    end
+  end
 
- def find_golden_items(items, threshold)
-   items.find_all do |item|
-     item.unit_price > threshold
-   end
- end
+  def find_golden_items(items, threshold)
+    items.find_all do |item|
+      item.unit_price > threshold
+    end
+  end
 
  #-----Iteration 2 Methods-----#
 
@@ -165,7 +167,65 @@ class SalesAnalyst
     total_revenue(invoice_items)
   end
 
-#--Iteration 2 Helper Methods--#
+  # -----Iteration 4 Methods----- #
+
+  def total_revenue_by_date(date)
+    @se.invoices.all.inject(0) do |sum, invoice|
+      if invoice.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d") && invoice_paid_in_full?(invoice.id)
+        sum += invoice_total(invoice.id)
+      end
+      sum
+    end
+  end
+
+  def top_revenue_earners(x = 20)
+    hash = Hash.new(0)
+    merchant_invoice_totals = @se.invoices.all.each do |invoice|
+      hash[invoice.merchant_id] += invoice_total(invoice.id)
+    end
+
+    sorted = merchant_invoice_totals.sort_by do |merchant_id, invoice_total|
+      invoice_total
+    end.transpose
+
+    top_x = []
+
+
+    x.times do |i|
+      top_x << sorted[0][i-1]
+    end
+
+    top_x.map do |merchant_id|
+      @se.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def merchants_with_pending_invoices
+
+  end
+
+  def merchants_with_only_one_item
+
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+
+  end
+
+  def revenue_by_merchant(merchant_id)
+
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+
+  end
+
+  def best_item_for_merchant(merchant_id)
+
+  end
+
+  #--Iteration 2 Helper Methods--#
+
   def invoice_count_per_merchant_id
     hash = Hash.new(0)
       @se.invoices.all.each do |invoice|
@@ -238,12 +298,12 @@ class SalesAnalyst
     ((sum / count_minus_one) ** (1.0 / 2)).round(2)
   end
 
+  #-----Iteration 3 Helper Method -----#
 
-#-----Iteration 3 Helper Method -----#
-#
   def total_revenue(invoice_items)
     invoice_items.inject(0) do |sum, num|
       sum + (num.quantity.to_i * num.unit_price)
     end
   end
+
 end
