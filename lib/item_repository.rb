@@ -5,8 +5,10 @@ require_relative 'finderclass'
 
 require_relative 'item'
 
+require_relative 'crud'
 
 class ItemRepository
+  include CRUD
 
   attr_reader :all
 
@@ -17,8 +19,8 @@ class ItemRepository
     @all = @items
   end
 
-  def make_items
-    @data.each { |key, value|
+  def make_items(data = @data)
+    data.each { |key, value|
       hash = make_hash(key, value)
       item = Item.new(hash)
       @items << item
@@ -59,6 +61,13 @@ class ItemRepository
 
   def find_all_by_merchant_id(id)
     FinderClass.find_all_by(all, :merchant_id, id)
+  end
+
+  def create(attributes)
+    id = make_id(all, :id)
+    # binding.pry
+    data = {id => attributes} 
+    make_items(data)
   end
 
 end

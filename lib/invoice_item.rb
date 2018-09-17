@@ -20,11 +20,7 @@ class InvoiceItem
     @item_id    = hash[:item_id].to_i
     @invoice_id = hash[:invoice_id].to_i
     # -- Accessible --
-<<<<<<< HEAD
-    @quantity = hash[:quantity]
-=======
     @quantity   = hash[:quantity].to_i
->>>>>>> 5f399fe8d79407e1d5933ab68e0dfa355e65e7b2
     @unit_price = BigDecimal.new(hash[:unit_price], 4)
     @created_at = hash[:created_at]
     @updated_at = hash[:updated_at]

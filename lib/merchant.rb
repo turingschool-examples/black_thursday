@@ -11,7 +11,3 @@ class Merchant
   end
 
 end
-<<<<<<< HEAD
-
-=======
->>>>>>> 5f399fe8d79407e1d5933ab68e0dfa355e65e7b2
