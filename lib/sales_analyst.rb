@@ -1,4 +1,5 @@
 require_relative 'maths'
+require 'bigdecimal'
 
 class SalesAnalyst
   include Maths
@@ -78,11 +79,8 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     cutoff = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
     high_count = @se.merchants.all.map do |merchant|
-    if merchant_stock[merchant.id]
-
       if ((merchant_stock[merchant.id]).count - cutoff) >= 0
       merchant
-      end
     end
   end
     high_count.compact
@@ -181,6 +179,24 @@ class SalesAnalyst
       end
     end
     golden.flatten
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    invoices = @se.transactions.find_all_by_invoice_id(invoice_id)
+    invoices.any? do |invoice|
+      invoice.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
+    prices = invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity     
+    end
+    total_price = prices.inject do |sum, number|
+      sum + number
+    end
+    total_price.round(2)
   end
 
 end

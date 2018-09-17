@@ -1,11 +1,8 @@
 require 'CSV'
-require_relative 'csv_adapter'
 require 'bigdecimal'
 require 'bigdecimal/util'
 require 'time'
-require_relative 'invoice_item'
-require_relative 'invoice_repository'
-require_relative 'merchant.rb'
+require_relative 'invoice'
 require_relative 'crud.rb'
 
 class InvoiceRepository
@@ -28,7 +25,7 @@ include Crud
     else
       attributes[:id] = 1
     end
-    invoice = InvoiceRepository.new(attributes, self)
+    invoice = Invoice.new(attributes, self)
     @collection << invoice
   end
 
@@ -41,13 +38,13 @@ include Crud
   end
 
   def loader(filepath)
-    merchant_table = load(filepath)
-     merchant_table.map do |merchant|
-       merchant[:id] = merchant[:id].to_i
-       merchant[:updated_at] = Time.parse(merchant[:updated_at])
-       merchant[:created_at] = Time.parse(merchant[:created_at])
-      @collection << Merchant.new(merchant, @parent)
-     end
+    invoice_table = load(filepath)
+    invoice_table.map do |invoice|
+      invoice[:id] = invoice[:id].to_i
+      invoice[:updated_at] = Time.parse(invoice[:updated_at])
+      invoice[:created_at] = Time.parse(invoice[:created_at])
+      @collection << Invoice.new(invoice, @parent)
+    end
   end
 
   def update(id, attributes)
@@ -86,7 +83,7 @@ include Crud
     else
       attributes[:id] = 1
     end
-    i = InvoiceItem.new(attributes, self)
+    i = Invoice.new(attributes, self)
     @collection << i
   end
 
