@@ -179,7 +179,25 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
+    hash = Hash.new(0)
+    merchant_invoice_totals = @se.invoices.all.each do |invoice|
+      hash[invoice.merchant_id] += invoice_total(invoice.id)
+    end
 
+    sorted = merchant_invoice_totals.sort_by do |merchant_id, invoice_total|
+      invoice_total
+    end.transpose
+
+    top_x = []
+
+
+    x.times do |i|
+      top_x << sorted[0][i-1]
+    end
+
+    top_x.map do |merchant_id|
+      @se.merchants.find_by_id(merchant_id)
+    end
   end
 
   def merchants_with_pending_invoices
