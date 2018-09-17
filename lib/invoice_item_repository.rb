@@ -25,10 +25,6 @@ class InvoiceItemRepository
     end
   end
 
-  # def inspect
-  #   "#<#{self.class} #{@objects_array.size} rows>"
-  # end
-
   def find_all_by_item_id(id)
     @objects_array.find_all do |invoice_item|
       invoice_item.item_id == id

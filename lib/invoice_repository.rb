@@ -22,21 +22,6 @@ class InvoiceRepository
     end
   end
 
-  def inspect
-    "#<#{self.class} #{@objects_array.size} rows>"
-  end
-
-  # def all
-  #   @objects_array
-  # end
-  #
-  # def find_by_id(id)
-  #   findings = @objects_array.find_all do |invoice|
-  #     invoice.id == id
-  #   end
-  #   findings[0]
-  # end
-
   def find_all_by_merchant_id(merchant_id)
     findings = @objects_array.find_all do |invoice|
       invoice.merchant_id == merchant_id
@@ -57,12 +42,6 @@ class InvoiceRepository
 
   def create(attributes)
     max_id = generate_id
-    # last_invoice = @objects_array.last
-    # if last_invoice == nil
-    #   max_id = 1
-    # else
-    #   max_id = last_invoice.id + 1
-    # end
     time = attributes[:created_at].getutc
     attributes = {:id => max_id,
                   :merchant_id => attributes[:merchant_id],
@@ -82,13 +61,4 @@ class InvoiceRepository
       'You can not modify this attribute'
     end
   end
-
-  # def delete(id)
-  #   merchant = find_by_id(id)
-  #   if merchant != nil
-  #     @objects_array.delete(merchant)
-  #   else
-  #     puts "Item not found"
-  #   end
-  # end
 end

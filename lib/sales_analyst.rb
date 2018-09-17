@@ -16,7 +16,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    sum = summed(@ir.items_array)
+    sum = summed(@ir.objects_array)
     (sum.to_f/@mr.all.count).round(2)
   end
 
@@ -35,7 +35,7 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-    @ir.items_array.group_by do |item|
+    @ir.objects_array.group_by do |item|
       item.merchant_id
     end
   end
@@ -64,7 +64,7 @@ class SalesAnalyst
     merchants_hash = items_per_merchant.select do |id, items|
       (items.count - average) >= 3.26
     end
-    @mr.merchants_array.find_all do |merchant|
+    @mr.objects_array.find_all do |merchant|
       merchants_hash.include?(merchant.id)
     end
   end
@@ -83,7 +83,7 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    merchant_id_array = @mr.merchants_array.map { |merchant| merchant.id }
+    merchant_id_array = @mr.objects_array.map { |merchant| merchant.id }
     average_price_list = merchant_id_array.map do |merchant_id|
       average_item_price_for_merchant(merchant_id)
     end
@@ -104,14 +104,14 @@ class SalesAnalyst
   end
 
   def price_minus_average_price(average_price)
-    prices = @ir.items_array.map { |item| item.unit_price}
+    prices = @ir.objects_array.map { |item| item.unit_price}
     prices_subtracted = prices.map do |price|
       (price - average_price)
     end
   end
 
   def expensive_items(stnd_dev)
-    @ir.items_array.find_all { |item| item.unit_price >= 5805.38 }
+    @ir.objects_array.find_all { |item| item.unit_price >= 5805.38 }
   end
 
   def average_invoices_per_merchant
@@ -135,7 +135,7 @@ class SalesAnalyst
   end
 
   def number_of_invoice_per_merchant
-    @inv_repo.invoices_array.map do |invoice|
+    @inv_repo.objects_array.map do |invoice|
       invoice.merchant_id
     end
   end
@@ -189,7 +189,7 @@ class SalesAnalyst
   end
 
   def dates_to_days_of_week
-    @inv_repo.invoices_array.map do |invoice|
+    @inv_repo.objects_array.map do |invoice|
       invoice.created_at.wday
     end
   end
@@ -222,7 +222,7 @@ class SalesAnalyst
   end
 
   def group_invoices_by_status
-    @inv_repo.invoices_array.group_by do |invoice|
+    @inv_repo.objects_array.group_by do |invoice|
       invoice.status
     end
   end

@@ -1,8 +1,8 @@
-require 'time'
-require 'pry'
 require_relative './repo_methods'
 require_relative './transaction'
-require "csv"
+require 'time'
+require 'pry'
+require "CSV"
 
 
 class TransactionRepository
