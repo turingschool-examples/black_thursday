@@ -140,7 +140,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, actual
   end
 
-  # TO DO - FIX DATA TYPES
   def test_it_can_find_merchants_with_item_content_greater_than_one_std
     # --- returns a list of merchants --
     merchants = @sa_csv.merchants_with_high_item_count
@@ -169,24 +168,91 @@ class SalesAnalystTest < Minitest::Test
     refute_equal average_price, first_item.unit_price
   end
 
-  # TO DO - TEST WHEN finder method is available
   def test_it_can_average_average_price_per_merchant
-    skip
     id = 12334141
-    # id = 12334185
     one_average_price     = @sa_csv.average_item_price_for_merchant(id)
     average_average_price = @sa_csv.average_average_price_per_merchant
     assert_instance_of BigDecimal, average_average_price
     assert_operator 0, :<,  average_average_price
-    refute_equal one_average_price.to_f, one_average_price.to_f
+    refute_equal one_average_price, average_average_price
   end
 
-  # TO DO - FINDER MODULE!  -- use the merchant id to ensure 1st, 10th 30th all have more than one std value of items
   def test_it_gets_golden_items
     items = @sa_csv.golden_items
     assert_instance_of Array, items
     assert_instance_of Item, items[0]
     assert_operator @sa_csv.items.all.count, :>, items.count
+    assert_operator 605303.51, :<=, items[0].unit_price
+  end
+
+
+  # --- Invoice Repo Analysis Methods ---
+
+  def test_it_can_group_invoices_by_merchant_id
+    groups = @sa_csv.invoices_grouped_by_merchant
+    assert_instance_of Hash, groups
+    id = groups.keys.first
+    invoices = groups.values.first
+    assert_instance_of Invoice, invoices.first
+    assert_equal id, invoices.first.merchant_id
+  end
+
+  def test_it_can_count_invoices_per_merchant
+    counts = @sa_csv.invoice_counts_per_merchant
+    assert_instance_of Array, counts
+    assert_instance_of Float, counts.first
+  end
+
+  def test_it_can_find_average_invoices_for_merchants
+    assert_equal 10.49, @sa_csv.average_invoices_per_merchant
+  end
+
+  def test_it_can_find_the_standard_deviation_of_invoices_per_merchant
+    assert_equal 3.29, @sa_csv.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    # -- Return value --
+    top = @sa_csv.top_merchants_by_invoice_count
+    assert_instance_of Array, top
+    assert_instance_of Merchant, top.first
+    assert_operator top.count, :<, @sa_csv.merchants.all.count
+    # -- verify a returned object --
+    first_id = top.first.id
+    groups = @sa_csv.invoices_grouped_by_merchant
+    count = groups[first_id].count
+    assert_operator 17.07, :<, count
+  end
+
+  def test_it_can_find_bottom_merchants_by_count
+    # -- Return value --
+    bottom = @sa_csv.bottom_merchants_by_invoice_count
+    assert_instance_of Array, bottom
+    assert_instance_of Merchant, bottom.first
+    assert_operator bottom.count, :<, @sa_csv.merchants.all.count
+    # -- verify a returned object --
+    first_id = bottom.first.id
+    groups = @sa_csv.invoices_grouped_by_merchant
+    count = groups[first_id].count
+    assert_operator 3.91, :>, count
+  end
+
+  # TO DO - DATES NEED TO BE IMPLEMENTED
+  def test_it_can_find_top_days_by_invoice_count_that_day
+    skip
+  end
+
+  def test_it_can_find_the_status_of_all_invoices_as_a_percentage
+    assert_equal 29.55, @sa_csv.invoice_status(:pending)
+    assert_equal 56.95, @sa_csv.invoice_status(:shipped)
+    assert_equal 13.5,  @sa_csv.invoice_status(:returned)
+  end
+
+
+  # --- Transaction Repo Analysis Methods ---
+  def test_it_can_assess_if_an_invoice_was_paid_in_full
+    assert_equal false, @sa_csv.invoice_paid_in_full?(520)
+    assert_equal  true, @sa_csv.invoice_paid_in_full?(2179)
   end
 
 
