@@ -149,8 +149,20 @@ class SalesAnalyst
     end
     return false if trans_id_list == []
     if trans_id_list != []
+      trans_id_list.any? do |trans|
+        trans.result == :success
+      end
+    end
+  end
+
+  def invoice_pending?(search_invoice_id)
+    trans_id_list = @transaction_repo.all.find_all do |transaction|
+      transaction.invoice_id == search_invoice_id
+    end
+    return true if trans_id_list == []
+    if trans_id_list != []
       trans_id_list.all? do |trans|
-      trans.result == :success
+        trans.result == :failed
       end
     end
   end
@@ -174,6 +186,18 @@ class SalesAnalyst
     sum(invoice_totals)
   end
 
+  def merchants_with_pending_invoices
+    hash = merchant_hash(@invoice_repo)
+    pending_merchants = hash.find_all do |merchant, invoices|
+      invoices.any? do |invoice|
+        invoice_pending?(invoice.id)
+      end
+    end
+    pending_merchants.map do |merchant|
+      merchant[0]
+    end
+  end
+
   def revenue_by_merchant(search_merchant_id)
     paid_invoices = @invoice_repo.all.find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
@@ -186,4 +210,29 @@ class SalesAnalyst
     end
   end
 
+  def top_revenue_earners(number=20)
+    merchants_ranked_by_revenue[0..(number-1)]
+  end
+
+  def merchants_ranked_by_revenue
+    @merchant_repo.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end.reverse
+  end
+
+  def merchants_with_only_one_item
+    items_by_merchant = merchant_hash(@item_repo)
+    found = items_by_merchant.find_all do |merchant,items|
+      items.length == 1
+    end
+    found.map do |pair|
+      pair[0]
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == Time.parse(month_name).month
+    end
+  end
 end
