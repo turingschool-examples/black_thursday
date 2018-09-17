@@ -133,7 +133,23 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 1368, @repo.all.count
     
     assert_instance_of Item, @repo.find_by_id(263567475)
-   
+  end
+
+  def test_it_can_UPDATE_existing_items
+    hash = {name: "GeoffX Plush Toys",
+            description: "Fun, plush toys for everyone!",
+            unit_price: "1200"}
+
+    @repo.update(263395237, hash)
+    entry = @repo.find_by_id(263395237)
+    assert_equal "GeoffX Plush Toys", entry.name
+    assert_equal "Fun, plush toys for everyone!", entry.description
+    assert_equal "1200", entry.unit_price
+  end
+
+  def test_it_can_DELETE_existing_items
+    @repo.delete(263395237)
+    assert_nil @repo.find_by_id(263395237)
   end
 
 end

@@ -65,9 +65,16 @@ class ItemRepository
 
   def create(attributes)
     id = make_id(all, :id)
-    # binding.pry
     data = {id => attributes} 
     make_items(data)
+  end
+
+  def update(id, attributes)
+    update_entry(@items, id, attributes)
+  end
+
+  def delete(id)
+    delete_entry(@items, id)
   end
 
 end
