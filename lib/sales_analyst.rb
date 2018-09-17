@@ -120,15 +120,15 @@ class SalesAnalyst
     group = @items.find_all_by_merchant_id(id)
     total = group.inject(0) { |sum, item| sum += item.unit_price }
     count = group.count
-    mean  = total / count
+    mean  = (total / count).round(2)
   end   # returns big decimal
 
   def average_average_price_per_merchant
     repo     = @merchants.all
     ids      = repo.map { |merch| merch.id }
     averages = ids.map { |id| average_item_price_for_merchant(id) }
-    mean     = average(averages)
-    mean     = BigDecimal(mean, 4)
+    mean     = average(averages).round(2)
+    mean     = BigDecimal(mean, 5)
   end   # returns a big decimal
 
   def golden_items # items with prices above 2 std of average price

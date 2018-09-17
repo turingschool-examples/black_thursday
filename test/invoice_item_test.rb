@@ -17,7 +17,7 @@ class InvoiceItemTest < Minitest::Test
               :updated_at     => "2007-06-04 21:35:10 UTC"
     }
     @invoice_item = InvoiceItem.new(hash)
-    @big_decimal = BigDecimal(1200, 4)
+    @big_decimal = BigDecimal(12.00, 4)
   end
 
 
@@ -40,7 +40,7 @@ class InvoiceItemTest < Minitest::Test
   def test_it_calculates_unit_price_in_dollars
     price = @invoice_item.unit_price_to_dollars
     assert_instance_of Float, price
-    assert_equal 1200.0, price 
+    assert_equal 12.00, price
   end
 
 end
