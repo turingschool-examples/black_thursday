@@ -231,52 +231,8 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month_name)
-    array = []
-    merchant_ii_hash = merchants_grouped_with_invoice_items
-    merchant_ii_hash.each do |merchant, ii_array|
-      found = ii_array.find_all do |invoice_item|
-        invoice_item.created_at.month == Time.parse(month_name).month
-      end
-
-      array << merchant if found.length == 1
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == Time.parse(month_name).month
     end
-    return array
   end
-
-  def merchants_grouped_with_invoice_items
-    invoices_by_merchant = merchant_hash(@invoice_repo)
-
-    merchant_item_invoices = {}
-    invoices_by_merchant.map do |merchant, invoices|
-      invoices.each do |invoice|
-        if invoice_paid_in_full?(invoice.id)
-          merchant_item_invoices[merchant] = @invoice_item_repo.all.find_all do |ii|
-            ii.invoice_id == invoice.id
-          end
-        end
-      end
-    end
-    return merchant_item_invoices
-  end
-
-
-  # def merchants_with_only_one_item_registered_in_month(month_name)
-  #
-  #   merchants_with_only_one_item.find_all do |merchant|
-  #     merchant.created_at.month == Time.parse(month_name).month
-  #     binding.pry
-  #   end
-  #
-  #   # invoices_by_merchant = merchant_hash(@invoice_repo)
-  #   # found = invoices_by_merchant.find_all do |merchant,invoices|
-  #   #   matching = invoices.find_all do |invoice|
-  #   #     invoice.created_at.month == Time.parse(month_name).month
-  #   #   end
-  #   #   matching.length == 1
-  #   # end
-  #   # found.map do |pair|
-  #   #   pair[0]
-  #   # end
-  # end
-
 end

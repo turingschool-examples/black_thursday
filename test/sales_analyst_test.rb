@@ -193,6 +193,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_if_an_invoice_is_paid_in_full
+    skip
     se = SalesEngine.from_csv({
         :transactions => "./data/transactions.csv"
       })
@@ -289,20 +290,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, sa.merchants_with_only_one_item[0]
   end
 
-  def test_it_can_return_merchants_with_one_item_registed_by_month
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :invoices => "./data/invoices.csv",
-      :merchants => "./data/merchants.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv"
-        })
-    sa = se.analyst
-    assert_equal 21, sa.merchants_with_only_one_item_registered_in_month("March").length
-    assert_equal 18, sa.merchants_with_only_one_item_registered_in_month("June").length
-  end
-
   def test_it_groups_merchants_with_invoice_items
     skip
     se = SalesEngine.from_csv({
@@ -316,5 +303,19 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant,
     sa.merchants_grouped_with_invoice_items.keys[0]
     assert_instance_of InvoiceItem, sa.merchants_grouped_with_invoice_items.values[0][0]
+  end
+
+  def test_it_can_return_merchants_with_one_item_registed_by_month
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :invoices => "./data/invoices.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
+        })
+    sa = se.analyst
+    assert_equal 21, sa.merchants_with_only_one_item_registered_in_month("March").length
+    assert_equal 18, sa.merchants_with_only_one_item_registered_in_month("June").length
   end
 end
