@@ -232,18 +232,12 @@ class SalesAnalystTest < Minitest::Test
   def test_it_has_merchants_with_pending_invoices
     se = SalesEngine.from_csv({
     :invoices => "./data/invoices.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :transactions => "./data/transactions.csv"
     })
     sales_analyst = SalesAnalyst.new(se)
 
-    m1 = se.merchants.find_by_id(12335938)
-    m2 = se.merchants.find_by_id(12334269)
-    m3 = se.merchants.find_by_id(12335311)
-    m4 = se.merchants.find_by_id(12334389)
-    m5 = se.merchants.find_by_id(12335009)
-    m6 = se.merchants.find_by_id(12334839)
-
-    assert_equal [m1,m2,m3,m4,m5,m6], sales_analyst.merchants_with_pending_invoices[0..5]
+    assert_equal 467, sales_analyst.merchants_with_pending_invoices.length
   end
 
   def test_it_has_merchants_with_only_one_item
@@ -261,5 +255,25 @@ class SalesAnalystTest < Minitest::Test
     m6 = se.merchants.find_by_id(12334113)
 
     assert_equal [m1,m2,m3,m4,m5,m6], sales_analyst.merchants_with_only_one_item[0..5]
+  end
+
+  def test_it_can_find_items_per_merchant_id
+    se = SalesEngine.from_csv({
+    :items => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 2, sales_analyst.find_items_per_merchant_id(12334271).length
+  end
+
+  def test_it_can_calculate_revenue_by_merchant
+    se = SalesEngine.from_csv({
+    :items => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoice_items => "./data/invoice_items.csv"})
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 17.00, sales_analyst.revenue_by_merchant(12334271)
   end
 end

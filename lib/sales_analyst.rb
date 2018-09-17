@@ -219,13 +219,22 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @sales_engine.invoices.repo.find_all do |invoice|
-      invoice.status == :pending
+    invoices_pending = @sales_engine.invoices.repo.delete_if do |invoice|
+      failed_transactions_by_invoice.include?(invoice.id)
     end
-    pending_invoices.map do |invoice|
-      @sales_engine.merchants.find_by_id(invoice.merchant_id)
+    invoices_pending.map do |invoice|
+      invoice.merchant_id
     end
 
+  end
+
+  def failed_transactions_by_invoice
+    failed_transactions = @sales_engine.transactions.repo.find_all do |transaction|
+      transaction.result == :failed
+    end
+    a=failed_transactions.map do |transaction|
+      transaction.invoice_id
+    end
   end
 
   def merchants_with_only_one_item
@@ -250,16 +259,30 @@ class SalesAnalyst
     end
   end
 
-  # def top_revenue_earners(x)
-  #   item_id_price_hash = @sales_engine.invoice_items.repo.inject(Hash.new(0)) do |hash,invoice_item|
-  #     hash[invoice_item.item_id] = invoice_item.unit_price
-  #     hash
-  #   end
-  #   item_id_price_hash
-  #   binding.pry
-  # end
-  #
+  def find_items_per_merchant_id(id)
+      matching_items = @sales_engine.items.repo.find_all do |item|
+      item.merchant_id == id
+    end
+      matching_items.map do |item|
+      item.id
+    end
+  end
 
+  def revenue_by_merchant(merchant_id)
+    items_array = find_items_per_merchant_id(merchant_id)
+    item_totals = items_array.map do |item|
+      item_total(item)
+    end
+    sum_values(item_totals)
+  end
+
+  def item_total(item_id)
+  items = @sales_engine.invoice_items.find_all_by_item_id(item_id)
+   items.inject(0) do |sum, item|
+      sum += item.unit_price * item.quantity
+      sum
+    end
+  end
 
   def inspect
    "#<#{self.class} #{@merchant.size} rows>"
