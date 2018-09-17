@@ -79,11 +79,8 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     cutoff = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
     high_count = @se.merchants.all.map do |merchant|
-    if merchant_stock[merchant.id]
-
       if ((merchant_stock[merchant.id]).count - cutoff) >= 0
       merchant
-      end
     end
   end
     high_count.compact
