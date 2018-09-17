@@ -76,4 +76,35 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal true, found1[0].name.include?("pi")
     end
 
+    def test_it_can_CREATE_new_merchant
+      
+      assert_equal 475, @repo.all.count
+
+      @repo.create( {name: "GeoffX"} ) 
+
+      assert_equal 476, @repo.all.count
+      assert_equal "GeoffX", @repo.all.last.name
+      assert_equal 12337412, @repo.all.last.id
+    end
+  
+    def test_it_can_UPDATE_existing_merchants
+      assert_equal 475, @repo.all.count
+      hash = {name: "GeoffX Plush Toys"}
+
+      @repo.update(12337411, hash)
+      entry = @repo.find_by_id(12337411)
+      assert_equal "GeoffX Plush Toys", entry.name
+      assert_equal 475, @repo.all.count
+      hash = {name: "RachelNose Pliers"}
+      @repo.update(12337411, hash)
+      entry = @repo.find_by_id(12337411)
+      assert_equal "RachelNose Pliers", entry.name
+      assert_equal 475, @repo.all.count
+    end
+  
+    def test_it_can_DELETE_existing_merchants
+      @repo.delete(263395237)
+      assert_nil @repo.find_by_id(263395237)
+    end
+
 end
