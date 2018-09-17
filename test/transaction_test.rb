@@ -7,7 +7,7 @@ class TransactionTest <  Minitest::Test
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0202",
       :result => "success", :created_at => Time.now,
-      :updated_at => Time.now})
+      :updated_at => Time.now}, self)
     assert_instance_of Transaction, t
   end
 
@@ -16,7 +16,7 @@ class TransactionTest <  Minitest::Test
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0202",
       :result => "success", :created_at => Time.now,
-      :updated_at => Time.now})
+      :updated_at => Time.now}, self)
     assert_equal 6, t.id
     assert_equal 8, t.invoice_id
   end
@@ -26,7 +26,7 @@ class TransactionTest <  Minitest::Test
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0202",
       :result => "success", :created_at => Time.now,
-      :updated_at => Time.now})
+      :updated_at => Time.now}, self)
     assert_equal "4242424242424242", t.credit_card_number
     assert_equal "0202", t.credit_card_expiration_date
     assert_equal "success", t.result
@@ -37,7 +37,7 @@ class TransactionTest <  Minitest::Test
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0202",
       :result => "success", :created_at => Time.now,
-      :updated_at => Time.now})
+      :updated_at => Time.now}, self)
     assert_equal Time, t.created_at.class
     assert_equal Time, t.updated_at.class
   end
