@@ -5,12 +5,8 @@ module RepoMethods
     @objects_array
   end
 
-  def create_id
-    if last_invoice == nil
-      max_id = 1
-    else
-      max_id = last_invoice.id + 1
-    end
+  def inspect
+    "#<#{self.class} #{@objects_array.size} rows>"
   end
 
   def find_by_id(id)
