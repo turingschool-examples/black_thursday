@@ -96,6 +96,30 @@ end
 #     time.
 # end
 
+def invoice_status(status)
+  #so we need to calculate the percentage of invoices with each status present
+  #get the total of each invoice with each status
+  total_invoices = @sales_engine.invoices.all.count
+
+  words = @sales_engine.invoices.all.map do |invoice|
+    invoice.status
+  end
+  hash = Hash.new 0
+  words.each do |word|
+    hash[word] += 1
+  end
+  hash
+  new_hash = Hash.new 0
+  hash.each do |key, value|
+     new_hash[key]= value.to_f/total_invoices * 100
+  end
+  new_hash
+  #get the total of ALL invoices
+  #divide the statuses invoices by the total of all the totals
+  #multiply that by 100
+
+end
+
 
 
 
