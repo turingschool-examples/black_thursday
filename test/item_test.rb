@@ -2,6 +2,7 @@ require_relative 'test_helper'
 
 require './lib/item'
 require 'bigdecimal'
+require 'time'
 
 class ItemTest < Minitest::Test
 
@@ -35,7 +36,9 @@ class ItemTest < Minitest::Test
   def test_it_gets_attributes
     # -- Read Only --
     assert_equal 263395237, @item.id
-    assert_equal @hash[:created_at], @item.created_at
+    assert_instance_of Time, @item.created_at
+
+    assert_equal @hash[:created_at], @item.created_at.to_s
     assert_equal 12334141, @item.merchant_id
     # TO DO - Assert we cannot write to these values https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html
     # -- Accessible --
