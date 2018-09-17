@@ -251,8 +251,49 @@ class SalesAnalystTest < Minitest::Test
 
   # --- Transaction Repo Analysis Methods ---
   def test_it_can_assess_if_an_invoice_was_paid_in_full
-    assert_equal false, @sa_csv.invoice_paid_in_full?(520)
-    assert_equal  true, @sa_csv.invoice_paid_in_full?(2179)
+    id_with_a_success = 1752
+    all_transactions_by_id = @sa_csv.transactions.find_all_by_invoice_id(1752)
+    all_results = all_transactions_by_id.map { |trans| trans.result }
+    has_fail = all_results.include?(:failed)
+    has_success = all_results.include?(:success)
+    assert_equal true, has_fail
+    assert_equal true, has_success
+    assert_equal true, @sa_csv.invoice_paid_in_full?( id_with_a_success )
+  end
+
+  # def test_it_can_find_all_successful_transactions_by_invoice_id
+  #   id = 520
+  #   # -- id has failed transactions --
+  #   all_by_id = @sa_csv.transactions.find_all_by_invoice_id( id )
+  #   all_transaction_results = all_by_id.map { |trans| trans.result }
+  #   all_has_failed = all_transaction_results.include?(:failed)
+  #   assert_equal true, all_has_failed
+  #   # -- only successful transactions are returned --
+  #   found = @sa_csv.successful_transactions_by_invoice_id ( id )
+  #   found_transaction_results = found.map { |trans| trans.result }
+  #   found_has_failed = found_transaction_results.include?(:failed)
+  #   assert_equal false, found_has_failed
+  # end
+
+  def test_it_can_find_a_list_of_successful_invoice_items
+    id = 25  # has a return
+    items = @sa_csv.invoice_items_of_successful_transactions( id )
+  end
+
+
+  def test_it_can_total_the_invoice_revenue
+    # -- invoice id does not exist --
+    nothing = @sa_csv.invoice_total(0)
+    assert_nil nothing
+    # -- first invoice id --
+    total_1 = @sa_csv.invoice_total(1)
+    assert_operator 0, :<, total_1
+    assert_instance_of Float, total_1
+    # -- second invoice id --
+    total_2 = @sa_csv.invoice_total(2)
+    assert_operator 0, :<, total_2
+
+    refute_equal total_1, total_2
   end
 
 

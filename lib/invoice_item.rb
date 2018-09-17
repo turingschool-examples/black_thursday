@@ -28,4 +28,11 @@ class InvoiceItem
     # TO DO - How to handle -> New creations need Time.now for updated_at, created_at
   end
 
+  # TO DO - TEST ME
+  def unit_price_to_dollars
+    # TO DO - Is this supposed to be 2 decimal places?
+    @unit_price.to_f
+  end
+
+
 end
