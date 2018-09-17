@@ -12,13 +12,13 @@ class SalesAnalyst
               :transaction_repo,
               :customer_repo
 
-  def initialize(item_repo, merchant_repo, invoice_repo, transaction_repo, invoice_item_repo, customer_repo)
-    @item_repo = item_repo
-    @merchant_repo = merchant_repo
-    @invoice_repo = invoice_repo
-    @invoice_item_repo = invoice_item_repo
-    @transaction_repo = transaction_repo
-    @customer_repo = customer_repo
+  def initialize(args)
+    @item_repo = args[:items]
+    @merchant_repo = args[:merchants]
+    @invoice_repo = args[:invoices]
+    @invoice_item_repo = args[:invoice_items]
+    @transaction_repo = args[:transactions]
+    @customer_repo = args[:customers]
   end
 
   def merchant_hash(repo)
@@ -178,7 +178,7 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     found_invoices = @invoice_repo.all.find_all do |invoice|
-      invoice.created_at.strftime("%F") == date.strftime("%F")
+      invoice.created_at.strftime('%F') == date.strftime('%F')
     end
     invoice_totals = found_invoices.map do |invoice|
       invoice_total(invoice.id)
@@ -199,14 +199,18 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(search_merchant_id)
+    merchant_paid_invoices = find_valid_invoices_by_merchant(search_merchant_id)
+    merchant_paid_invoices.reduce(0) do |sum, invoice|
+      invoice_total(invoice.id) + sum
+    end
+  end
+
+  def find_valid_invoices_by_merchant(search_merchant_id)
     paid_invoices = @invoice_repo.all.find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
-    merchant_paid_invoices = paid_invoices.find_all do |invoice|
+    paid_invoices.find_all do |invoice|
       invoice.merchant_id == search_merchant_id
-    end
-    merchant_paid_invoices.reduce(0) do |sum, invoice|
-      invoice_total(invoice.id) + sum
     end
   end
 
@@ -233,6 +237,72 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month_name)
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.month == Time.parse(month_name).month
+    end
+  end
+
+  def map_invoice_to_invoice_items(invoices)
+    invoices.map do |invoice|
+      @invoice_item_repo.all.find_all do |i|
+        i.invoice_id == invoice.id
+      end
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    valid_invoices = find_valid_invoices_by_merchant(merchant_id)
+    invoice_items = map_invoice_to_invoice_items(valid_invoices)
+    invoice_items.flatten!
+    grouped_by_item_id = invoice_items.group_by do |invoice|
+      invoice.item_id
+    end
+    sorted = group_item_id_by_quantity(grouped_by_item_id)
+    final = sort_pairs_by_quantity(sorted)
+    final.map do |element|
+      @item_repo.find_by_id(element[0])
+    end
+  end
+
+  def group_item_id_by_quantity(grouped_by_item_id)
+    item_quantity_array = grouped_by_item_id.map do |key, value|
+      total = value.reduce(0) do |sum, invoice_item|
+          sum + invoice_item.quantity
+      end
+      [key, total]
+    end
+    item_quantity_array.sort_by do |pair|
+      pair[1]
+    end
+  end
+
+  def sort_pairs_by_quantity(sorted)
+    sorted.find_all do |pairs|
+      pairs[1] == sorted[-1][1]
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    valid = find_valid_invoices_by_merchant(merchant_id)
+    invoice_items = map_invoice_to_invoice_items(valid).flatten!
+    grouped = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+    winner = sort_pairs_by_revenue(grouped).last
+    @item_repo.find_by_id(winner[0])
+  end
+
+  def group_item_id_by_revenue(grouped)
+    grouped.map do |key, value|
+      total = value.reduce(0) do |sum, invoice_item|
+          sum + (invoice_item.quantity * invoice_item.unit_price)
+      end
+      [key, total]
+    end
+  end
+
+  def sort_pairs_by_revenue(grouped)
+    item_price_array = group_item_id_by_revenue(grouped)
+    item_price_array.sort_by do |pair|
+      pair[1]
     end
   end
 end

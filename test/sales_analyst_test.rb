@@ -318,4 +318,51 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21, sa.merchants_with_only_one_item_registered_in_month("March").length
     assert_equal 18, sa.merchants_with_only_one_item_registered_in_month("June").length
   end
+
+  def test_it_returns_most_sold_items_for_a_merchant
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :invoices => "./data/invoices.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
+        })
+    sa = se.analyst
+    assert_instance_of Array, sa.most_sold_item_for_merchant(12334189)
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12334189)[0]
+    assert_equal 263524984, sa.most_sold_item_for_merchant(12334189)[0].id
+    assert_equal 263549386, sa.most_sold_item_for_merchant(12334768)[0].id
+  end
+
+  def test_it_returns_all_most_sold_items_for_a_merchant_when_tied
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :invoices => "./data/invoices.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
+        })
+    sa = se.analyst
+    assert_instance_of Array, sa.most_sold_item_for_merchant(12337105)
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12337105)[0]
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12337105)[1]
+    assert_equal 4, sa.most_sold_item_for_merchant(12337105).length
+  end
+
+  def test_it_returns_item_with_most_revenue_generated_by_merchant
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :invoices => "./data/invoices.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
+        })
+    sa = se.analyst
+    assert_instance_of Item, sa.best_item_for_merchant(12334189)
+    assert_equal 263516130, sa.best_item_for_merchant(12334189).id
+    assert_instance_of Item, sa.best_item_for_merchant(12337105)
+    assert_equal 263463003, sa.best_item_for_merchant(12337105).id
+  end
 end
