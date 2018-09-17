@@ -6,6 +6,8 @@ require_relative 'csv_adapter'
 require_relative 'crud'
 require_relative 'invoice_repository'
 require_relative 'invoice_item'
+require_relative 'transaction'
+require_relative 'transaction_repository'
 require 'csv'
 
 class SalesEngine
@@ -22,6 +24,12 @@ include Crud
     SalesEngine.new(filepath)
   end
 
+  def create_instance_of_items(items_array)
+    items_array.map do |hash|
+     Item.new(hash)
+   end
+ end
+
   def merchants
     @merchants ||= MerchantRepository.new(filepath[:merchants], self)
   end
@@ -30,17 +38,16 @@ include Crud
     @items ||= ItemRepository.new(filepath[:items], self)
   end
 
-  def invoices 
+  def invoices
     @invoices ||= InvoiceRepository.new(filepath[:invoices], self)
   end
-
-  def create_instance_of_items(items_array)
-    items_array.map do |hash|
-     Item.new(hash)
-   end
- end
 
   def analyst
     @sales_analyst = SalesAnalyst.new(self)
   end
+
+  def transactions
+    @transactions ||= TransactionRepository.new(filepath[:transactions], self)
+  end
+
 end

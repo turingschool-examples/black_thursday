@@ -29,6 +29,12 @@ module Crud
     end
   end
 
+  def find_all_by_exact(type, input)
+    collection.find_all do |element|
+      element.send(type) == input
+    end
+  end
+
   def delete(id)
     collection.delete_if { |element| element.id == id }
   end
