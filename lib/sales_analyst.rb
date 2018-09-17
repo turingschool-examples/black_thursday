@@ -1,4 +1,6 @@
 require 'pry'
+require 'bigdecimal'
+require 'bigdecimal/util'
 class SalesAnalyst
 
   def initialize(sales_engine)
@@ -206,6 +208,57 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date)
+    invoice_by_date = @sales_engine.invoices.repo.find_all do |invoice|
+      invoice.created_at == date
+    end
+    total = invoice_by_date.map do |invoice|
+      invoice_total(invoice.id)
+    end
+    total[0]
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices = @sales_engine.invoices.repo.find_all do |invoice|
+      invoice.status == :pending
+    end
+    pending_invoices.map do |invoice|
+      @sales_engine.merchants.find_by_id(invoice.merchant_id)
+    end
+
+  end
+
+  def merchants_with_only_one_item
+    one_item_merchants = items_per_merchant_hash.find_all do |merchant_id, items|
+      items == 1
+    end
+    one_item_merchants.map do |merchant_id_array|
+      @sales_engine.merchants.find_by_id(merchant_id_array[0])
+    end
+  end
+
+  def items_per_merchant_hash
+    merchant_id_array_for_items.inject(Hash.new(0)) do |total, merchant_id|
+      total[merchant_id] += 1
+      total
+    end
+  end
+
+  def merchant_id_array_for_items
+    merchant_ids = @sales_engine.items.repo.map do |item|
+      item.merchant_id
+    end
+  end
+
+  # def top_revenue_earners(x)
+  #   item_id_price_hash = @sales_engine.invoice_items.repo.inject(Hash.new(0)) do |hash,invoice_item|
+  #     hash[invoice_item.item_id] = invoice_item.unit_price
+  #     hash
+  #   end
+  #   item_id_price_hash
+  #   binding.pry
+  # end
+  #
 
 
   def inspect
