@@ -103,8 +103,10 @@ class MerchantRepositoryTest < Minitest::Test
     end
   
     def test_it_can_DELETE_existing_merchants
-      @repo.delete(263395237)
-      assert_nil @repo.find_by_id(263395237)
+      entry = @repo.find_by_id(12334105)
+      assert_instance_of Merchant, entry
+      @repo.delete(12334105)
+      assert_nil @repo.find_by_id(12334105)
     end
 
 end
