@@ -148,5 +148,4 @@ class SalesAnalyst
       item.unit_price > golden_goal
     end
   end
-
 end

@@ -53,15 +53,4 @@ class SalesEngine
   def analyst
     SalesAnalyst.new(self)
   end
-
-  # def inspect
-  #  instance.nil? ? nil : "#<#{self.class} #{instance.size} rows>"
-  # end
-
-  # def inspect
-  #   "#<#{self.class} #{@collections.size} rows>"
-  # end
-
-  #maybe you may need to put this in all your repos
-
 end
