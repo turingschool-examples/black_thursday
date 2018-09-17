@@ -199,7 +199,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    found_invoices = @se.invoices.find_all_by_day(date)
+    found_invoices = @se.invoices.find_all_by_date(date)
     total_revenue = 0
     found_invoices.each do |invoice|
       total_revenue += invoice_total(invoice.id)

@@ -97,9 +97,15 @@ include Crud
     end
   end
 
+  def find_all_by_date(date)
+    days = @collection.find_all do |invoice|
+      invoice.created_at.strftime("%F") == date.strftime("%F")
+    end
+  end
+
   def find_all_by_day(day)
     days = @collection.find_all do |invoice|
-      invoice.created_at.strftime("%F") == day.strftime("%F")
+      invoice.created_at.strftime("%A") == day
     end
   end
 
