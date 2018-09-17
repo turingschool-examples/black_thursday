@@ -267,7 +267,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_merchants_with_pending_invoices
-    skip
     se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv",
       :invoice_items => "./data/invoice_items.csv",

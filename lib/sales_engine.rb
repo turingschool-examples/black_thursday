@@ -8,7 +8,6 @@ require_relative '../lib/invoice_item_repository'
 require_relative '../lib/customer_repository'
 
 class SalesEngine
-
   attr_reader :items,
               :merchants,
               :invoices,
@@ -28,38 +27,56 @@ class SalesEngine
   def self.from_csv(file_path_hash)
     se = SalesEngine.new
     repo_hash = {}
-    #is there a way to do this dynamically?
-    if file_path_hash[:items] != nil
-      repo_hash[:items] = CSV.read(file_path_hash[:items],
-      headers: true, header_converters: :symbol)
+    # Is there a way to do this dynamically?
+    unless file_path_hash[:items].nil?
+      repo_hash[:items] = CSV.read(
+        file_path_hash[:items],
+        headers: true,
+        header_converters: :symbol
+      )
       se.create_and_populate_item_repo(repo_hash[:items])
     end
-    if file_path_hash[:merchants] != nil
-      repo_hash[:merchants] = CSV.read(file_path_hash[:merchants],
-      headers: true, header_converters: :symbol)
+    unless file_path_hash[:merchants].nil?
+      repo_hash[:merchants] = CSV.read(
+        file_path_hash[:merchants],
+        headers: true,
+        header_converters: :symbol
+      )
       se.create_and_populate_merchant_repo(repo_hash[:merchants])
     end
-    if file_path_hash[:invoices] != nil
-      repo_hash[:invoices] = CSV.read(file_path_hash[:invoices],
-      headers: true, header_converters: :symbol)
+    unless file_path_hash[:invoices].nil?
+      repo_hash[:invoices] = CSV.read(
+        file_path_hash[:invoices],
+        headers: true,
+        header_converters: :symbol
+      )
       se.create_and_populate_invoice_repo(repo_hash[:invoices])
     end
-    if file_path_hash[:invoice_items] != nil
-      repo_hash[:invoice_items] = CSV.read(file_path_hash[:invoice_items],
-      headers: true, header_converters: :symbol)
+    unless file_path_hash[:invoice_items].nil?
+      repo_hash[:invoice_items] = CSV.read(
+        file_path_hash[:invoice_items],
+        headers: true,
+        header_converters: :symbol
+      )
       se.create_and_populate_invoice_item_repo(repo_hash[:invoice_items])
     end
-    if file_path_hash[:transactions] != nil
-      repo_hash[:transactions] = CSV.read(file_path_hash[:transactions],
-      headers: true, header_converters: :symbol)
+    unless file_path_hash[:transactions].nil?
+      repo_hash[:transactions] = CSV.read(
+        file_path_hash[:transactions],
+        headers: true,
+        header_converters: :symbol
+      )
       se.create_and_populate_transaction_repo(repo_hash[:transactions])
     end
-    if file_path_hash[:customers] != nil
-      repo_hash[:customers] = CSV.read(file_path_hash[:customers],
-      headers: true, header_converters: :symbol)
+    unless file_path_hash[:customers].nil?
+      repo_hash[:customers] = CSV.read(
+        file_path_hash[:customers],
+        headers: true,
+        header_converters: :symbol
+      )
       se.create_and_populate_customer_repo(repo_hash[:customers])
     end
-    return se
+    se
   end
 
   def create_and_populate_item_repo(items_objs)
