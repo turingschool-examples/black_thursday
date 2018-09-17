@@ -149,7 +149,7 @@ class SalesAnalyst
     end
     return false if trans_id_list == []
     if trans_id_list != []
-      trans_id_list.all? do |trans|
+      trans_id_list.any? do |trans|
         trans.result == :success
       end
     end
@@ -215,10 +215,9 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    a = @merchant_repo.all.sort_by do |merchant|
+    @merchant_repo.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end
-    binding.pry
   end
 
   def merchants_with_only_one_item
@@ -229,6 +228,35 @@ class SalesAnalyst
     found.map do |pair|
       pair[0]
     end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    array = []
+    merchant_ii_hash = merchants_grouped_with_invoice_items
+    merchant_ii_hash.each do |merchant, ii_array|
+      found = ii_array.find_all do |invoice_item|
+        invoice_item.created_at.month == Time.parse(month_name).month
+      end
+
+      array << merchant if found.length == 1
+    end
+    return array
+  end
+
+  def merchants_grouped_with_invoice_items
+    invoices_by_merchant = merchant_hash(@invoice_repo)
+
+    merchant_item_invoices = {}
+    invoices_by_merchant.map do |merchant, invoices|
+      invoices.each do |invoice|
+        if invoice_paid_in_full?(invoice.id)
+          merchant_item_invoices[merchant] = @invoice_item_repo.all.find_all do |ii|
+            ii.invoice_id == invoice.id
+          end
+        end
+      end
+    end
+    return merchant_item_invoices
   end
 
 
