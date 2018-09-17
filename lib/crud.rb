@@ -8,20 +8,20 @@ module CRUD
   end
 
 
-  def update(repo, id, attributes)
-    entry = repo.find_by_id(id)
+  def update_entry(repo, id, attributes)
+    entry = FinderClass.find_by(repo, :id, id)
     current_time = "2007-06-04 21:35:10 UTC" #Time.now
     
     entry.name = attributes[:name] if attributes[:name]
     entry.description = attributes[:description] if attributes[:description]
     entry.unit_price = attributes[:unit_price] if attributes[:unit_price]
-    entry.updated_at = current_time if attributes{:current_time}
+    entry.updated_at = current_time if attributes[:current_time]
   end
 
 
-  def delete(repo, id)
-    entry = repo.find_by_id(id)
-    repo -= [entry]
+  def delete_entry(repo, id)
+    entry = FinderClass.find_by(repo, :id, id)
+    repo.delete(entry)
   end
 
 end
