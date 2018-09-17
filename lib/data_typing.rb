@@ -2,6 +2,7 @@ require 'pry'
 
 require 'bigdecimal'
 require 'time'
+require 'date'
 
 
 module DataTyping
@@ -11,15 +12,20 @@ module DataTyping
     string.to_i
   end
 
+  def make_symbol(string)
+    string.to_sym
+  end
+
   def make_big_decimal(string)
     BigDecimal.new(string, 4)
   end
 
+  # SPEC HARNESS
   def make_date(string)
     if string
-      # date
+      Date.parse(string)
     else
-      # new date
+      Date.today
     end
   end
 
@@ -30,9 +36,6 @@ module DataTyping
       Time.now.getgm  #converts to UTC
     end
   end
-
-
-
 
 
 end

@@ -1,6 +1,9 @@
 require 'pry'
 
+require_relative 'data_typing'
+
 class Invoice
+  include DataTyping
 
   attr_reader :id,
               :customer_id,
@@ -11,12 +14,12 @@ class Invoice
   attr_accessor :status
 
   def initialize(hash)
-    @id          = hash[:id].to_i
-    @customer_id = hash[:customer_id].to_i
-    @merchant_id = hash[:merchant_id].to_i
-    @status      = hash[:status].to_sym  # TO DO - TEST ME
-    @created_at  = hash[:created_at]
-    @updated_at  = hash[:updated_at]
+    @id          = make_integer(hash[:id])
+    @customer_id = make_integer(hash[:customer_id])
+    @merchant_id = make_integer(hash[:merchant_id])
+    @status      = make_symbol(hash[:status])
+    @created_at  = make_date(hash[:created_at])
+    @updated_at  = make_date(hash[:updated_at])
   end
 
 end

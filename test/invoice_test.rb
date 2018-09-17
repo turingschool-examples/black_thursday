@@ -1,18 +1,22 @@
 require_relative 'test_helper'
 
+require 'date'
+
 require './lib/invoice'
+
 
 
 class InvoiceTest < Minitest::Test
 
   def setup
+    # 1,1,12335938,pending,2009-02-07,2014-03-15
     @hash = {
-      :id          => "6",
-      :customer_id => "7",
-      :merchant_id => "8",
+      :id          => "1",
+      :customer_id => "1",
+      :merchant_id => "12335938",
       :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now
+      :created_at  => "2009-02-07",
+      :updated_at  => "2014-03-15"
     }
     @invoice = Invoice.new(@hash)
   end
@@ -24,16 +28,14 @@ class InvoiceTest < Minitest::Test
 
   def test_it_gets_attributes
     # -- Read Only --
-    assert_equal 6, @invoice.id
-    assert_equal 7, @invoice.customer_id
-    assert_equal 8, @invoice.merchant_id
-    # TO DO - Assert we cannot write to these values https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html
+    assert_equal 1, @invoice.id
+    assert_equal 1, @invoice.customer_id
+    assert_equal 12335938, @invoice.merchant_id
     # -- Accessible --
-    assert_equal @hash[:created_at], @invoice.created_at
-    assert_equal @hash[:updated_at], @invoice.updated_at
-    # TO DO - Assert we can write to these values
+    assert_instance_of Date, @invoice.created_at
+    assert_equal @hash[:created_at], @invoice.created_at.to_s
+    assert_instance_of Date, @invoice.updated_at
+    assert_equal @hash[:updated_at], @invoice.updated_at.to_s
   end
-
-
 
 end
