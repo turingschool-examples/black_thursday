@@ -275,12 +275,20 @@ class SalesAnalyst
     ((sum / count_minus_one) ** (1.0 / 2)).round(2)
   end
 
+<<<<<<< HEAD
   #-----Iteration 3 Helper Method -----#
+=======
+>>>>>>> dfaebcc9c4a664589f3b7ed23fec3848a74231b9
 
+#-----Iteration 3 Helper Method -----#
+#
   def total_revenue(invoice_items)
     invoice_items.inject(0) do |sum, num|
       sum + (num.quantity.to_i * num.unit_price)
     end
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> dfaebcc9c4a664589f3b7ed23fec3848a74231b9
 end
