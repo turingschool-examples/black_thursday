@@ -257,9 +257,14 @@ class SalesAnalyst
     sorted = item_quantity_array.sort_by do |pair|
       pair[1]
     end
-    most_sold = []
-    most_sold << @item_repo.find_by_id(sorted[-1][0])
-    most_sold
+
+    final = sorted.find_all do |pairs|
+      pairs[1] == sorted[-1][1]
+    end
+
+    final.map do |element|
+      @item_repo.find_by_id(element[0])
+    end
   end
 
     def map_invoice_to_invoice_items(invoices)

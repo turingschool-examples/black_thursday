@@ -344,9 +344,9 @@ class SalesAnalystTest < Minitest::Test
       :transactions => "./data/transactions.csv"
         })
     sa = se.analyst
-    assert_instance_of Array, sa.most_sold_item_for_merchant(123337105)
-    assert_instance_of Item, sa.most_sold_item_for_merchant(123337105)[0]
-    assert_instance_of Item, sa.most_sold_item_for_merchant(123337105)[1]
-    assert_equal 4, sa.most_sold_item_for_merchant(123337105).length
+    assert_instance_of Array, sa.most_sold_item_for_merchant(12337105)
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12337105)[0]
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12337105)[1]
+    assert_equal 4, sa.most_sold_item_for_merchant(12337105).length
   end
 end
