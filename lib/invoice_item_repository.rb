@@ -4,8 +4,10 @@ require_relative 'finderclass'
 
 require_relative 'invoice_item'
 
+require_relative 'crud'
 
 class InvoiceItemRepository
+  include CRUD
 
   attr_reader :all
 
@@ -32,8 +34,6 @@ class InvoiceItemRepository
   end
 
 
-  # --- Find By ---
-
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
   end
@@ -44,6 +44,20 @@ class InvoiceItemRepository
 
   def find_all_by_invoice_id(invoice_id)
     FinderClass.find_all_by(all, :invoice_id, invoice_id)
+  end
+
+  def create(attributes)
+    id = make_id(all, :id)
+    data = {id => attributes} 
+    make_merchants(data)
+  end
+
+  def update(id, attributes)
+    update_entry(@merchants, id, attributes)
+  end
+
+  def delete(id)
+    delete_entry(@merchants, id)
   end
 
 end
