@@ -59,9 +59,13 @@ include Crud
        item[:invoice_id]                  = item[:invoice_id].to_i
        item[:credit_card_number]          = item[:credit_card_number]
        item[:credit_card_expiration_date] = item[:credit_card_expiration_date]
-       item[:result]                      = item[:result]
        item[:updated_at]                  = Time.parse(item[:updated_at])
        item[:created_at]                  = Time.parse(item[:created_at])
+       if item[:result] == "success"
+         item[:result] = :success
+       else
+         item[:result] = :failed
+       end
      @collection << Transaction.new(item, @parent)
      end
    end

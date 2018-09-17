@@ -6,6 +6,8 @@ require_relative 'csv_adapter'
 require_relative 'crud'
 require_relative 'invoice_repository'
 require_relative 'invoice_item'
+require_relative 'transaction'
+require_relative 'transaction_repository'
 require 'csv'
 
 class SalesEngine

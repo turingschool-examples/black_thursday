@@ -37,6 +37,20 @@ class TransactionRepositoryTest <  Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_find_all_by_credit_card_number
+    tr = TransactionRepository.new('./data/transactions_tiny.csv', self)
+    actual = tr.find_all_by_credit_card_number("4613250127567219").length
+    expected = 1
+    assert_equal expected, actual
+  end
+
+  def test_find_all_by_result
+    tr = TransactionRepository.new('./data/transactions_tiny.csv', self)
+    actual = tr.find_all_by_result(:success).length
+    expected = 40
+    assert_equal expected, actual
+  end
+
   def test_delete
     tr = TransactionRepository.new('./data/transactions_tiny.csv', self)
     assert_equal 50, tr.collection.length
@@ -51,7 +65,7 @@ class TransactionRepositoryTest <  Minitest::Test
     tr.create({:id => 0, :invoice_id => 8,
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0202",
-      :result => "success", :created_at => Time.now,
+      :result => :success, :created_at => Time.now,
       :updated_at => Time.now})
     actual = tr.collection.max_by {|element| element.id}.id
     expected = 51
