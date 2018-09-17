@@ -1,10 +1,11 @@
 require 'pry'
 class Invoice
-  attr_reader   :id,
-                :customer_id,
+  attr_reader   :customer_id,
                 :merchant_id,
+                :created_at
+
+  attr_accessor :id,
                 :status,
-                :created_at,
                 :updated_at
 
   def initialize(invoice_hash)
