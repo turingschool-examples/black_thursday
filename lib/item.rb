@@ -28,7 +28,6 @@ class Item
     @description  = hash[:description]
     @unit_price   = make_big_decimal(hash[:unit_price])
     @updated_at   = make_time(hash[:updated_at])
-    # TO DO - How to handle -> New creations need Time.now for updated_at, created_at
   end
 
   def unit_price_to_dollars
