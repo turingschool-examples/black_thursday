@@ -336,7 +336,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_all_most_sold_items_for_a_merchant_when_tied
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :invoices => "./data/invoices.csv",
@@ -352,6 +351,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_item_with_most_revenue_generated_by_merchant
+    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :invoices => "./data/invoices.csv",

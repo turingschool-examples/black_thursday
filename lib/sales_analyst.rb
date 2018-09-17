@@ -255,22 +255,28 @@ class SalesAnalyst
     grouped_by_item_id = invoice_items.group_by do |invoice|
       invoice.item_id
     end
-    item_quantity_array = grouped_by_item_id.map do |key, value|
-      value.reduce(0) do |sum, invoice_item|
-          sum + invoice_item.quantity
-      end
-      [key, sum]
-    end
-    sorted = item_quantity_array.sort_by do |pair|
-      pair[1]
-    end
-
-    final = sorted.find_all do |pairs|
-      pairs[1] == sorted[-1][1]
-    end
-
+    sorted = group_item_id_by_quantity(grouped_by_item_id)
+    final = sort_pairs_by_quantity(sorted)
     final.map do |element|
       @item_repo.find_by_id(element[0])
+    end
+  end
+
+  def group_item_id_by_quantity(grouped_by_item_id)
+    item_quantity_array = grouped_by_item_id.map do |key, value|
+      total = value.reduce(0) do |sum, invoice_item|
+          sum + invoice_item.quantity
+      end
+      [key, total]
+    end
+    item_quantity_array.sort_by do |pair|
+      pair[1]
+    end
+  end
+
+  def sort_pairs_by_quantity(sorted)
+    sorted.find_all do |pairs|
+      pairs[1] == sorted[-1][1]
     end
   end
 
