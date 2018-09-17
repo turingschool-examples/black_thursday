@@ -199,14 +199,18 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(search_merchant_id)
+    merchant_paid_invoices = find_valid_invoices_by_merchant(search_merchant_id)
+    merchant_paid_invoices.reduce(0) do |sum, invoice|
+      invoice_total(invoice.id) + sum
+    end
+  end
+
+  def find_valid_invoices_by_merchant(search_merchant_id)
     paid_invoices = @invoice_repo.all.find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
-    merchant_paid_invoices = paid_invoices.find_all do |invoice|
+    paid_invoices.find_all do |invoice|
       invoice.merchant_id == search_merchant_id
-    end
-    merchant_paid_invoices.reduce(0) do |sum, invoice|
-      invoice_total(invoice.id) + sum
     end
   end
 
@@ -235,4 +239,34 @@ class SalesAnalyst
       merchant.created_at.month == Time.parse(month_name).month
     end
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    valid_invoices = find_valid_invoices_by_merchant(merchant_id)
+    invoice_items = map_invoice_to_invoice_items(valid_invoices)
+    invoice_items.flatten!
+    grouped_by_item_id = invoice_items.group_by do |invoice|
+      invoice.item_id
+    end
+    item_quantity_array = grouped_by_item_id.map do |key, value|
+      sum = 0
+      value.each do |invoice_item|
+          sum += invoice_item.quantity
+      end
+      [key, sum]
+    end
+    sorted = item_quantity_array.sort_by do |pair|
+      pair[1]
+    end
+    most_sold = []
+    most_sold << @item_repo.find_by_id(sorted[-1][0])
+    most_sold
+  end
+
+    def map_invoice_to_invoice_items(invoices)
+      invoices.map do |invoice|
+        @invoice_item_repo.all.find_all do |i|
+          i.invoice_id == invoice.id
+        end
+      end
+    end
 end
