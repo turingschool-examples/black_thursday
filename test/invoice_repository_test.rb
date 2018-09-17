@@ -2,14 +2,20 @@ require './test/minitest_helper'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    @invoice_r = InvoiceRepository.new('./test/fixtures/invoices_fixtures.csv')
+    se = SalesEngine.from_csv({
+    :merchants     => './test/fixtures/merchants_fixtures.csv',
+    :items         => './test/fixtures/items_fixtures.csv',
+    :invoices      => './test/fixtures/invoices_fixtures.csv'
+                              })
+    @invoices_r = se.invoices
   end
 
   def test_it_exists
-    assert_instance_of InvoiceRepository, @invoice_r
+    assert_instance_of InvoiceRepository, @invoices_r
   end
 
   def test_all_returns_an_array_of_all_invoices
-    assert_equal 14, @invoice_r.all.count
+    assert_equal 14, @invoices_r.all.count
   end
+
 end

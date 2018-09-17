@@ -4,12 +4,13 @@ require 'pry'
 
 class SalesEngine
   attr_reader :merchants,
-              :items
+              :items,
+              :invoices
 
   def initialize(csv_hash) # <= {merchant: MerchantRepo.new(), item: ItemRepo.new(), ...}
     @merchants = MerchantRepository.new(csv_hash[:merchants])
     @items     = ItemRepository.new(csv_hash[:items])
-    # @merchants = repos[:merchant_repository]
+    @invoices  = InvoiceRepository.new(csv_hash[:invoices])
   end
 
   def self.from_csv(csv_hash)
