@@ -167,10 +167,15 @@ class SalesAnalyst
     total_revenue(invoice_items)
   end
 
-  # -----Iteration 3 Methods----- #
+  # -----Iteration 4 Methods----- #
 
-  def total_revenue_by_date
-
+  def total_revenue_by_date(date)
+    @se.invoices.all.inject(0) do |sum, invoice|
+      if invoice.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d") && invoice_paid_in_full?(invoice.id)
+        sum += invoice_total(invoice.id)
+      end
+      sum
+    end
   end
 
   def top_revenue_earners(x = 20)
@@ -275,20 +280,12 @@ class SalesAnalyst
     ((sum / count_minus_one) ** (1.0 / 2)).round(2)
   end
 
-<<<<<<< HEAD
   #-----Iteration 3 Helper Method -----#
-=======
->>>>>>> dfaebcc9c4a664589f3b7ed23fec3848a74231b9
 
-#-----Iteration 3 Helper Method -----#
-#
   def total_revenue(invoice_items)
     invoice_items.inject(0) do |sum, num|
       sum + (num.quantity.to_i * num.unit_price)
     end
   end
-<<<<<<< HEAD
 
-=======
->>>>>>> dfaebcc9c4a664589f3b7ed23fec3848a74231b9
 end

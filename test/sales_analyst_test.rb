@@ -242,4 +242,14 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_group_invoices_by_status
     assert_equal [:pending, :shipped, :returned], @sa.invoices_grouped_by_status.keys
   end
+
+  #----- Iteration 4 Tests -----#
+
+  def test_it_can_calculate_total_revenue_by_date
+    assert_equal 21067.77, @sa.total_revenue_by_date(Time.parse("2009-02-07"))
+  end
+
+
+
+
 end
