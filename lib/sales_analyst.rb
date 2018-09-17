@@ -210,4 +210,95 @@ class SalesAnalyst
 
   # end calc helpers
 
+  def top_merchants_for_customer(customer_id)
+    #Find all customer purchases
+    customer_invoices = @invoices.find_all_by_customer_id(customer_id)
+    #Use array of Customer invoice objects and follow invoice id's into invoice item repository
+    customer_invoice_ids = customer_invoices.group_by do |invoice|
+      invoice.id
+    end
+
+    cust_invoice_objects = customer_invoice_ids.values
+    invoice_ids = customer_invoice_ids.keys
+    # @invoice_items.group_by do |item|
+    #   item.[invoice_ids[0..-1]
+    quantities = []
+    in_item_one = @invoice_items.find_all_by_invoice_id(invoice_ids[0])
+    quantities << in_item_one
+
+    in_item_two = @invoice_items.find_all_by_invoice_id(invoice_ids[1])
+    quantities << in_item_two
+
+    in_item_three = @invoice_items.find_all_by_invoice_id(invoice_ids[2])
+    quantities << in_item_three
+
+    in_item_four = @invoice_items.find_all_by_invoice_id(invoice_ids[3])
+    quantities << in_item_four
+
+    in_item_five = @invoice_items.find_all_by_invoice_id(invoice_ids[4])
+    quantities << in_item_five
+
+    in_item_six = @invoice_items.find_all_by_invoice_id(invoice_ids[5])
+    quantities << in_item_six
+
+    in_item_seven= @invoice_items.find_all_by_invoice_id(invoice_ids[6])
+    quantities << in_item_seven
+
+    in_item_eight = @invoice_items.find_all_by_invoice_id(invoice_ids[7])
+    quantities << in_item_eight
+
+    greatest = quantities[1].max_by do |item|
+
+      item.quantity
+    end
+  
+     @invoices.find_by_id(greatest.invoice_id).merchant_id
+
+  end
+
+    # invoice_ids = @invoice_items.group_by do |item|
+    #   item.invoice_ids
+    # end
+
+    # invoice_ids.max_by do |item|
+    #   item.quantity
+    # end
+
+    # max_invoice = cust_invoice_objects.each do |invoice|
+    #   binding.pry
+    #   invoice.id
+    # end
+    #
+    # @merchant.find_by_id(max_invoice.id)
+
+    # customer_invoice_items = @invoice_items[customer_invoice_ids.key]
+    #
+    # greatest_purchase = customer_invoice_items.max_by do |item|
+    #   item.quantity
+    # end
+    #
+    # greatest_merchant = @invoices.all.find_by_id(greatest_purchase.id).merchant_id
+    #
+    # the_greatest = @merchants.all.find_by_id(greatest_merchant)
+    #
+    # return the_greatest
+
+
+    # invoice_quantities = []
+    # customer_invoice_ids.max_by do |k,v|
+    #    customer_invoices[k] = v
+    # end
+    # invoice_quantities.
+
+  #   customer_items = Hash.new(0)
+  #   customer_invoices.each do |invoice|
+  #     customer_items << invoice[@invoice_iteminvoice_id] += invoice_item.invoice.id.quantity
+  #   end
+  #     top_merch_id = customer_items.max_by do |item|
+  #       invoice_item.quanitity
+  #     end
+  #     @merchants[top_merch_id]
+
+
+
 end
