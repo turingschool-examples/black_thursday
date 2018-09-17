@@ -106,8 +106,12 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_DELETE_existing_invoice
+    assert_equal 4985, @repo.all.count
+    
     @repo.delete(1)
     assert_nil @repo.find_by_id(1)
+    
+    assert_equal 4984, @repo.all.count
   end 
 
 
