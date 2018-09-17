@@ -87,17 +87,22 @@ class ItemRepositoryTest < Minitest::Test
     found_none = @repo.find_all_by_price(0)
     assert_equal [], found_none
     # -- Handles multiple types of price input --
-    big_decimal = BigDecimal.new("1200", 4)
-    found_1 = @repo.find_all_by_price(1200)
-    found_2 = @repo.find_all_by_price("1200")
-    found_3 = @repo.find_all_by_price(big_decimal)
-    same = found_1 == found_2 && found_1 == found_3
-    assert_equal true, same
+    big_decimal = BigDecimal.new("12.00", 4)
+    found = @repo.find_all_by_price(12.00)
+    assert_instance_of Array, found
+    assert_equal big_decimal, found.first.unit_price
+
+    # TO DO - delete this functionality
+    # found_1 = @repo.find_all_by_price(1200)
+    # found_2 = @repo.find_all_by_price("1200")
+    # found_3 = @repo.find_all_by_price(big_decimal)
+    # same = found_1 == found_2 && found_1 == found_3
+    # assert_equal true, same
   end
 
   def test_it_can_find_items_within_same_price_range
     # -- none have this price --
-    found_none = @repo.find_all_by_price_in_range((0..1))
+    found_none = @repo.find_all_by_price_in_range((0..0.1))
     assert_equal [], found_none
     # -- results --
     found = @repo.find_all_by_price_in_range((100..200))
