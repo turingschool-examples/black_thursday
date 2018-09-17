@@ -60,33 +60,33 @@ class SalesAnalyst
     BigDecimal((total_merchants.to_f/total_invoices),3)
   end
 
-def average_invoices_per_merchant_standard_deviation
-  mean = mean_method_for_invoices
-  invoices_per_merchant = all_merchants.map do |merchant|
-    @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size
+  def average_invoices_per_merchant_standard_deviation
+    mean = mean_method_for_invoices
+    invoices_per_merchant = all_merchants.map do |merchant|
+      @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size
+    end
+    standard_dev(invoices_per_merchant, mean)
   end
-  standard_dev(invoices_per_merchant, mean)
-end
 
-def top_merchants_by_invoice_count
-  mean = mean_method_for_invoices
-  doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
-  all_invoices.find_all do |invoice|
-  # binding.pry
-    #ok so this goes into the invoices and find all the ones for particular merchant
-    #then it will count it. if thats more than the standard deviation for the other merchants,
-    #its "golden"-aka that one merchant has way more invoices to their name
-    @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size > (doubled_standard_deviation + mean)
-  end
-end
-
-def bottom_merchants_by_invoice_count
+  def top_merchants_by_invoice_count
     mean = mean_method_for_invoices
     doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
     all_invoices.find_all do |invoice|
-      @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size < (doubled_standard_deviation - mean)
+    # binding.pry
+      #ok so this goes into the invoices and find all the ones for particular merchant
+      #then it will count it. if thats more than the standard deviation for the other merchants,
+      #its "golden"-aka that one merchant has way more invoices to their name
+      @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size > (doubled_standard_deviation + mean)
     end
-end
+  end
+
+  def bottom_merchants_by_invoice_count
+      mean = mean_method_for_invoices
+      doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
+      all_invoices.find_all do |invoice|
+        @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size < (doubled_standard_deviation - mean)
+      end
+  end
 #
 # def top_days_by_invoice_count
 #     times = @sales_engine.invoices.all.map do |invoice|
@@ -96,25 +96,25 @@ end
 #     time.
 # end
 
-def invoice_status(status)
-  #so we need to calculate the percentage of invoices with each status present
-  #get the total of each invoice with each status
-  total_invoices = @sales_engine.invoices.all.count
+  def invoice_status(status)
+    #so we need to calculate the percentage of invoices with each status present
+    #get the total of each invoice with each status
+    total_invoices = @sales_engine.invoices.all.count
 
-  words = @sales_engine.invoices.all.map do |invoice|
-    invoice.status
+    words = @sales_engine.invoices.all.map do |invoice|
+      invoice.status
+    end
+    hash = Hash.new 0
+    words.each do |word|
+      hash[word] += 1
+    end
+    hash
+    new_hash = Hash.new 0
+    hash.each do |key, value|
+       new_hash[key]= value.to_f/total_invoices * 100
+    end
+    new_hash
   end
-  hash = Hash.new 0
-  words.each do |word|
-    hash[word] += 1
-  end
-  hash
-  new_hash = Hash.new 0
-  hash.each do |key, value|
-     new_hash[key]= value.to_f/total_invoices * 100
-  end
-  new_hash
-end
   #get the total of ALL invoices
   #divide the statuses invoices by the total of all the totals
   #multiply that by 100
@@ -134,4 +134,15 @@ end
 
     BigDecimal(total, total.to_s.size - 1)
   end
+
+  # def golden_items
+  #   mean = all_prices_sum / all_items.size
+  #   std = standard_deviation(all_prices, mean)
+  #   golden_threshold = mean + std * 2
+  #
+  #   all_items.find_all do |item|
+  #     item.unit_price > golden_threshold
+  #   end
+  # end
+
 end
