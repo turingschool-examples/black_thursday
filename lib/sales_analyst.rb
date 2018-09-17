@@ -27,7 +27,6 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
      standard_deviation(total_inventory.flatten)
-
   end
 
   def merchants_with_high_item_count
@@ -191,12 +190,21 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
     prices = invoice_items.map do |invoice_item|
-      invoice_item.unit_price * invoice_item.quantity     
+      invoice_item.unit_price * invoice_item.quantity
     end
     total_price = prices.inject do |sum, number|
       sum + number
     end
     total_price.round(2)
+  end
+
+  def total_revenue_by_date(date)
+    found_invoices = @se.invoices.find_all_by_day(date)
+    total_revenue = 0
+    found_invoices.each do |invoice|
+      total_revenue += invoice_total(invoice.id)
+    end
+    total_revenue
   end
 
 end

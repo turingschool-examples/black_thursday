@@ -51,5 +51,19 @@ class MathsTest < Minitest::Test
     assert_equal 164.71, actual
     assert_equal Float, actual.class
   end
-  
+
+  def test_differences_from_average
+    array = [600.to_d, 470.to_d, 170.to_d, 430.to_d, 300.to_d]
+    actual = differences_from_average(array, 50)
+    expected = [550.0, 420.0, 120.0, 380.0, 250.0]
+    assert_equal expected, actual
+  end
+
+  def test_squares_each_amount
+    array = [1.to_d, 2.to_d, 5.to_d, 8.to_d]
+    actual = square_each_amount(array)
+    expected = [1.0, 4.0, 25.0, 64.0]
+    assert_equal expected, actual
+  end
+
 end
