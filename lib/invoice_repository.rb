@@ -15,6 +15,12 @@ class InvoiceRepository
     @invoices
   end
 
+  def find_by_id(id)
+    @invoices.find do |invoice|
+      invoice.id == id
+    end
+  end
+
   def make_invoices(invoice_path)
    csv_objects = CSV.open(invoice_path, headers: true, header_converters: :symbol)
     csv_objects.map do |row|
