@@ -23,8 +23,9 @@ class ItemTest < Minitest::Test
               :updated_at     => "2007-06-04 21:35:10 UTC"
     }
     @item = Item.new(@hash)
-    @big_decimal = BigDecimal.new(@hash[:unit_price], 4)
-    @price_as_float = 1200.0000
+    price = @hash[:unit_price].chars.insert(-3, ".").join
+    @big_decimal = BigDecimal.new(price, 4)
+    @price_as_float = 12.00
     # -----------------------------------
   end
 

@@ -17,6 +17,7 @@ module DataTyping
   end
 
   def make_big_decimal(string)
+    string = string.chars.insert(-3, ".").join
     BigDecimal.new(string, 4)
   end
 

@@ -30,6 +30,14 @@ class CustomerRepository
   end
 
 
+  # --- Spec Harness Requirement ---
+
+  # TO DO - TEST ME
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+  
   # --- Find By ---
 
   def find_by_id(id)

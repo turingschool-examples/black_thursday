@@ -31,6 +31,13 @@ class ItemRepository
     return hash
   end
 
+  # --- Spec Harness Requirement ---
+
+  # TO DO - TEST ME
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
 
   # --- Find By ---
 
