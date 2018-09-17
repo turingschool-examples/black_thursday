@@ -27,6 +27,8 @@ include Crud
     else
       attributes[:id] = 1
     end
+    attributes[:updated_at] = Time.now
+    attributes[:created_at] = Time.now
     merch = Merchant.new(attributes, self)
     @collection << merch
   end
