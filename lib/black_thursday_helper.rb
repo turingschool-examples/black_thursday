@@ -49,6 +49,16 @@ module BlackThursdayHelper
     end
   end
 
+  def find_all_by_item_id(item_id)
+    @collections.find_all do |object|
+      object.item_id == item_id
+    end
+  end
+  
+  def inspect
+    "#<#{self.class} #{@collections.size} rows>"
+  end
+
   def find_all_by_customer_id(customer_id)
     @collections.find_all do |object|
       object.customer_id == customer_id

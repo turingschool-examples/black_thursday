@@ -114,13 +114,24 @@ def invoice_status(status)
      new_hash[key]= value.to_f/total_invoices * 100
   end
   new_hash
+end
   #get the total of ALL invoices
   #divide the statuses invoices by the total of all the totals
   #multiply that by 100
 
-end
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
 
+  def invoice_total(invoice_id)
+    invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    total = invoice_items.inject(0) do |sum, in_item|
+      sum + in_item.quantity * in_item.unit_price_to_dollars
+    end
 
-
-
+    BigDecimal(total, total.to_s.size - 1)
+  end
 end

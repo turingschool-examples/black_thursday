@@ -10,7 +10,10 @@ class SalesAnalystTest<Minitest::Test
     @se = SalesEngine.from_csv(
                                {:items => "./test/fixtures/items.csv",
                                 :merchants => "./test/fixtures/merchants.csv",
-                                :invoices => "./test/fixtures/invoices.csv"}
+                                :invoices => "./test/fixtures/invoices.csv",
+                                :customers => "./test/fixtures/customers.csv",
+                                :transactions => "./test/fixtures/transactions.csv",
+                              :invoice_items => "./test/fixtures/invoice_items.csv"}
                             )
     @sa = @se.analyst
   end
@@ -36,7 +39,7 @@ class SalesAnalystTest<Minitest::Test
     assert_equal 148005.43, @sa.average_average_price_per_merchant
   end
 
-  def test_average_invoices_per_merchant_aaa
+  def test_average_invoices_per_merchant
     assert_equal 0.875, @sa.average_invoices_per_merchant
   end
 
@@ -62,6 +65,14 @@ class SalesAnalystTest<Minitest::Test
     assert_equal 62.5, @sa.invoice_status(:pending)
     assert_equal 25.0, @sa.invoice_status(:shipped)
     assert_equal 12.5, @sa.invoice_status(:returned)
+  end
+  
+  def test_it_can_check_if_invoice_is_paid_in_full
+    assert_equal true, @sa.invoice_paid_in_full?(3374)
+  end
+
+  def test_it_can_return_dollar_amount_of_invoices_based_on_id
+    assert_equal 21048, @sa.invoice_total(1)
   end
 
 end
