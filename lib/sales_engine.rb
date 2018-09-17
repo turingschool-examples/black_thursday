@@ -13,10 +13,10 @@ class SalesEngine
               :items,
               :customers,
               :transactions,
-              :invoice_items, 
+              :invoice_items,
               :invoices
 
-          
+
 
 #   def initialize(params)
 #     @merchants = MerchantRepo.new(params[:merchants]) if params[:merchants]
@@ -31,21 +31,23 @@ class SalesEngine
 #     SalesEngine.new(params)
 
 
-  def initialize(merchants, items, customers, transactions, invoice_items)
+  def initialize(merchants, items, customers, transactions, invoice_items, invoices)
     @merchants = MerchantRepo.new(merchants)
     @items = ItemsRepo.new(items)
     @customers = CustomerRepo.new(customers)
     @transactions = TransactionRepo.new(transactions)
     @invoice_items = InvoiceItemRepo.new(invoice_items)
+    @invoices = InvoiceRepository.new(invoices)
   end
 
   def self.from_csv(params)
-    merchants =  params[:merchants]
+    merchants = params[:merchants]
     items =   params[:items]
     customers = params[:customers]
     transactions = params[:transactions]
     invoice_items = params[:invoice_items]
-    SalesEngine.new(merchants, items, customers, transactions, invoice_items)
+    invoices = params[:invoices]
+    SalesEngine.new(merchants, items, customers, transactions, invoice_items, invoices)
   end
 
   def analyst

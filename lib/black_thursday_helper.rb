@@ -76,5 +76,4 @@ module BlackThursdayHelper
       object.status.downcase.include? (status.downcase)
     end
   end
-
 end

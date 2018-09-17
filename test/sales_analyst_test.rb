@@ -66,7 +66,6 @@ class SalesAnalystTest<Minitest::Test
   # end
 
   def test_the_invoice_status
-    skip
     assert_equal 62.5, @sa.invoice_status(:pending)
     assert_equal 25.0, @sa.invoice_status(:shipped)
     assert_equal 12.5, @sa.invoice_status(:returned)

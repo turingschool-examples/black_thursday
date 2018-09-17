@@ -99,8 +99,8 @@ class SalesAnalyst
   def invoice_status(status)
     #so we need to calculate the percentage of invoices with each status present
     #get the total of each invoice with each status
-    total_invoices = @sales_engine.invoices.all.count
-
+    binding.pry
+    total_invoices = all_invoices.size
     words = @sales_engine.invoices.all.map do |invoice|
       invoice.status
     end

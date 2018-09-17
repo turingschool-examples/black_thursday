@@ -29,9 +29,8 @@ class InvoiceTest<Minitest::Test
     assert_equal 7, @invoice.customer_id
     assert_equal 8, @invoice.merchant_id
     assert_equal "pending", @invoice.status
- #i chose to not test the time attributes, becuse i have
- #literally no idea how to do that
- binding.pry
+    assert_instance_of Time, @invoice.created_at
+    assert_instance_of Time, @invoice.updated_at
   end
 
 end
