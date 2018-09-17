@@ -1,12 +1,14 @@
 require_relative './invoice_item'
-
+require_relative './repo_methods'
 require 'time'
 require 'pry'
 
 class InvoiceItemRepository
-  attr_reader :invoice_items_array
+  include RepoMethods
+  attr_reader :objects_array
+
   def initialize(file_path)
-    @invoice_items_array = invoice_item_csv_converter(file_path)
+    @objects_array = invoice_item_csv_converter(file_path)
   end
 
   def invoice_item_csv_converter(file_path)
@@ -23,40 +25,18 @@ class InvoiceItemRepository
     end
   end
 
-  def inspect
-    "#<#{self.class} #{@invoice_items_array.size} rows>"
-  end
-
-  def all
-    @invoice_items_array
-  end
-
-  def find_by_id(id)
-    findings = @invoice_items_array.find_all do |invoice_item|
-      invoice_item.id == id
-    end
-    findings[0]
-  end
+  # def inspect
+  #   "#<#{self.class} #{@objects_array.size} rows>"
+  # end
 
   def find_all_by_item_id(id)
-    @invoice_items_array.find_all do |invoice_item|
+    @objects_array.find_all do |invoice_item|
       invoice_item.item_id == id
     end
   end
 
-  def find_all_by_invoice_id(invoice_id)
-    @invoice_items_array.find_all do |invoice_item|
-      invoice_item.invoice_id == invoice_id
-    end
-  end
-
   def create(attributes)
-    last_invoice = @invoice_items_array.last
-    if last_invoice == nil
-      max_id = 1
-    else
-      max_id = last_invoice.id + 1
-    end
+    max_id = generate_id
     time = attributes[:created_at].getutc
     attributes = {:id => max_id,
                   :item_id => attributes[:item_id],
@@ -65,7 +45,7 @@ class InvoiceItemRepository
                   :unit_price => attributes[:unit_price],
                   :created_at => time,
                   :updated_at => time }
-    @invoice_items_array << InvoiceItem.new(attributes)
+    @objects_array << InvoiceItem.new(attributes)
   end
 
   def update(id, attributes)
@@ -75,15 +55,6 @@ class InvoiceItemRepository
       invoice_item.quantity = attributes[:quantity]
     else
       "Not a valid entry"
-    end
-  end
-
-  def delete(id)
-    invoice_item = find_by_id(id)
-    if invoice_item != nil
-      @invoice_items_array.delete(invoice_item)
-    else
-      puts 'Invoice_item not found'
     end
   end
 end

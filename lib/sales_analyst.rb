@@ -2,7 +2,10 @@ require 'pry'
 
 class SalesAnalyst
   attr_reader :ir,
-              :mr
+              :mr,
+              :inv_repo,
+              :ii,
+              :tr
 
   def initialize(merchant_repository, item_repository, inv_repo, inv_items_repo, transaction_repo)
       @mr = merchant_repository
@@ -221,6 +224,28 @@ class SalesAnalyst
   def group_invoices_by_status
     @inv_repo.invoices_array.group_by do |invoice|
       invoice.status
+    end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @tr.find_all_by_invoice_id(invoice_id)
+    return false if transactions[0] == nil
+    if transactions.all? { |transaction| transaction.result == :success }
+      true
+    else
+      false
+    end
+  end
+
+  def invoice_total(invoice_id)
+    totals_array = multiply_unit_price_and_quantity(invoice_id)
+    summed_prices(totals_array)
+  end
+
+  def multiply_unit_price_and_quantity(invoice_id)
+    invoice_items = @ii.find_all_by_invoice_id(invoice_id)
+    invoice_items.map do |invoice_item|
+      BigDecimal.new(invoice_item.unit_price) * invoice_item.quantity
     end
   end
 end

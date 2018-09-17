@@ -1,9 +1,12 @@
 require_relative './invoice'
+require_relative './repo_methods'
 require 'pry'
 class InvoiceRepository
-  attr_reader :invoices_array
+  include RepoMethods
+  attr_reader :objects_array
+
   def initialize(file_path)
-    @invoices_array = invoice_csv_converter(file_path)
+    @objects_array = invoice_csv_converter(file_path)
   end
 
   def invoice_csv_converter(file_path)
@@ -20,45 +23,46 @@ class InvoiceRepository
   end
 
   def inspect
-    "#<#{self.class} #{@invoices_array.size} rows>"
+    "#<#{self.class} #{@objects_array.size} rows>"
   end
 
-  def all
-    @invoices_array
-  end
-
-  def find_by_id(id)
-    findings = @invoices_array.find_all do |invoice|
-      invoice.id == id
-    end
-    findings[0]
-  end
+  # def all
+  #   @objects_array
+  # end
+  #
+  # def find_by_id(id)
+  #   findings = @objects_array.find_all do |invoice|
+  #     invoice.id == id
+  #   end
+  #   findings[0]
+  # end
 
   def find_all_by_merchant_id(merchant_id)
-    findings = @invoices_array.find_all do |invoice|
+    findings = @objects_array.find_all do |invoice|
       invoice.merchant_id == merchant_id
     end
   end
 
   def find_all_by_customer_id(customer_id)
-    @invoices_array.find_all do |invoice|
+    @objects_array.find_all do |invoice|
       invoice.customer_id == customer_id
     end
   end
 
   def find_all_by_status(status)
-    findings = @invoices_array.find_all do |invoice|
+    findings = @objects_array.find_all do |invoice|
       invoice.status == status
     end
   end
 
   def create(attributes)
-    last_invoice = @invoices_array.last
-    if last_invoice == nil
-      max_id = 1
-    else
-      max_id = last_invoice.id + 1
-    end
+    max_id = generate_id
+    # last_invoice = @objects_array.last
+    # if last_invoice == nil
+    #   max_id = 1
+    # else
+    #   max_id = last_invoice.id + 1
+    # end
     time = attributes[:created_at].getutc
     attributes = {:id => max_id,
                   :merchant_id => attributes[:merchant_id],
@@ -66,7 +70,7 @@ class InvoiceRepository
                   :customer_id => attributes[:customer_id].to_i,
                   :created_at => time,
                   :updated_at => time }
-    @invoices_array << Invoice.new(attributes)
+    @objects_array << Invoice.new(attributes)
   end
 
   def update(id, attribute)
@@ -79,12 +83,12 @@ class InvoiceRepository
     end
   end
 
-  def delete(id)
-    merchant = find_by_id(id)
-    if merchant != nil
-      @invoices_array.delete(merchant)
-    else
-      puts "Item not found"
-    end
-  end
+  # def delete(id)
+  #   merchant = find_by_id(id)
+  #   if merchant != nil
+  #     @objects_array.delete(merchant)
+  #   else
+  #     puts "Item not found"
+  #   end
+  # end
 end
