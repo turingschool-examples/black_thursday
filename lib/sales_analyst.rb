@@ -121,9 +121,9 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     hash = invoice_count_per_merchant_id
     differences_squared = square_differences(hash.values,
-                                         average_invoices_per_merchant)
-                                         sum = sum(differences_squared)
-                                         sum_div = sum/hash.count
+                                 average_invoices_per_merchant)
+                                 sum = sum(differences_squared)
+                                 sum_div = sum/hash.count
     Math.sqrt(sum_div).round(2)
   end
 
@@ -165,7 +165,7 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
-    total_revenue(invoice_items)
+    total_revenue_by_item(invoice_items)
   end
 
   # -----Iteration 4 Methods----- #
@@ -179,36 +179,57 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(x = 20)
-    merchants_ranked_by_revenue[0..x-1]
+
+
+#First total revenue per invoice
+#then I need total revenue by merchant based on the invoice ids for that merchant
+#need to get rid of nils (turn into 0s?)
+#sort the hash of merchants to total revenue by total revenue
+
+def total_revenue(invoice_ids)
+  invoice_ids.inject(0) do |total, invoice_id|
+    total += invoice_total(invoice_id.to_f)
   end
-
-  def merchants_ranked_by_revenue
-    hash = Hash.new(0)
-      @se.invoices.all.each do |invoice|
-        if invoice_paid_in_full?(invoice.id)
-          hash[invoice.merchant_id] += invoice_total(invoice.id)
-        end
-      end
+end
 
 
-    sorted = hash.sort_by do |merchant_id, invoice_total|
-      invoice_total
-    end.transpose[0].reverse
-      a = sorted.each do |merchant_id|
-      @se.merchants.find_by_id(merchant_id)
-    end
-    a
-  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   def merchants_with_pending_invoices
-	  pending_invoices =   @se.invoices.all.find_all do |invoice|
-		    invoice.status == :pending
-	   end
-	  pending_invoices.map do |invoice|
-		  @se.merchants.find_by_id(invoice.merchant_id)
-	  end.uniq
+    pending_invoices = @se.invoices.all.map do |invoice|
+      invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
+    end.compact
+    pending_invoices.map do |merchant_id|
+      @se.merchants.find_by_id(merchant_id)
+    end.uniq
   end
+
 
   def merchants_with_only_one_item
 	hash = Hash.new(0)
@@ -326,7 +347,7 @@ class SalesAnalyst
 
   #-----Iteration 3 Helper Method -----#
 
-  def total_revenue(invoice_items)
+  def total_revenue_by_item(invoice_items)
     invoice_items.inject(0) do |sum, num|
       sum + (num.quantity.to_i * num.unit_price)
     end
