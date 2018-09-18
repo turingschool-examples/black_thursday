@@ -4,8 +4,10 @@ require_relative 'finderclass'
 
 require_relative 'invoice'
 
+require_relative 'crud'
 
 class InvoiceRepository
+  include CRUD
 
   attr_reader :all
 
@@ -16,8 +18,8 @@ class InvoiceRepository
     @all = @invoices
   end
 
-  def make_invoices
-    @data.each { |key, value|
+  def make_invoices(data = @data)
+    data.each { |key, value|
       hash = make_hash(key, value)
       invoice = Invoice.new(hash)
       @invoices << invoice
@@ -29,9 +31,6 @@ class InvoiceRepository
     value.each { |col, data| hash[col] = data }
     return hash
   end
-
-
-  # --- Find By ---
 
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
@@ -49,5 +48,18 @@ class InvoiceRepository
     FinderClass.find_all_by(all, :status, status)
   end
 
+  def create(attributes)
+    id = make_id(all, :id)
+    data = {id => attributes} 
+    make_invoices(data)
+  end
+
+  def update(id, attributes)
+    update_entry(@invoices, id, attributes)
+  end
+
+  def delete(id)
+    delete_entry(@invoices, id)
+  end
 
 end

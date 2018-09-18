@@ -1,13 +1,11 @@
-require 'pry'
-
-
 class Customer
 
   attr_reader :id,
-              :first_name,
-              :last_name,
-              :created_at,
-              :updated_at
+              :created_at
+              
+  attr_accessor :first_name,
+                :last_name,
+                :updated_at
 
   def initialize(hash)
     @id         = hash[:id].to_i
@@ -16,6 +14,5 @@ class Customer
     @created_at = hash[:created_at]
     @updated_at = hash[:updated_at]
   end
-
 
 end

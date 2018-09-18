@@ -35,8 +35,6 @@ class MerchantRepositoryTest < Minitest::Test
     end
 
 
-    # --- Find By ---
-
     def test_it_can_find_by_merchant_id
       # -- no results --
       not_found = @repo.find_by_id(000)
@@ -74,6 +72,39 @@ class MerchantRepositoryTest < Minitest::Test
       assert_instance_of Merchant, found1[0]
       assert_equal false, found1[0].name.downcase == "pi"
       assert_equal true, found1[0].name.include?("pi")
+    end
+
+    def test_it_can_CREATE_new_merchant
+      
+      assert_equal 475, @repo.all.count
+
+      @repo.create( {name: "GeoffX"} ) 
+
+      assert_equal 476, @repo.all.count
+      assert_equal "GeoffX", @repo.all.last.name
+      assert_equal 12337412, @repo.all.last.id
+    end
+  
+    def test_it_can_UPDATE_existing_merchants
+      assert_equal 475, @repo.all.count
+      hash = {name: "GeoffX Plush Toys"}
+
+      @repo.update(12337411, hash)
+      entry = @repo.find_by_id(12337411)
+      assert_equal "GeoffX Plush Toys", entry.name
+      assert_equal 475, @repo.all.count
+      hash = {name: "RachelNose Pliers"}
+      @repo.update(12337411, hash)
+      entry = @repo.find_by_id(12337411)
+      assert_equal "RachelNose Pliers", entry.name
+      assert_equal 475, @repo.all.count
+    end
+  
+    def test_it_can_DELETE_existing_merchants
+      entry = @repo.find_by_id(12334105)
+      assert_instance_of Merchant, entry
+      @repo.delete(12334105)
+      assert_nil @repo.find_by_id(12334105)
     end
 
 end

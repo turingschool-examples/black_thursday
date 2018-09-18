@@ -15,7 +15,7 @@ class TransactionRepositoryTest < Minitest::Test
     # id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,updated_at
     # 1,2179,4068631943231473,0217,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
     # 2,46,4177816490204479,0813,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
-    transaction_1_hash = { :"1" => { invocie_id:         "2179",
+    transaction_1_hash = { :"1" => { invoice_id:         "2179",
                                      credit_card_number: "4068631943231473",
                                      credit_card_expiration_date: "0217",
                                      result:             "success",
@@ -85,6 +85,44 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Array, found
     assert_instance_of Transaction, found.first
     assert_equal "success", found.first.result
+  end
+
+  def test_it_can_CREATE_new_transactions
+    assert_equal 4985, @repo.all.count
+    
+    hash = {
+      invoice_id:         "9999",
+      credit_card_number: "4068631943231473",
+      credit_card_expiration_date: "0217",
+      result:             "success",
+      created_at:         "2012-02-26 20:56:56 UTC",
+      updated_at:         "2012-02-26 20:56:56 UTC"
+    }
+
+    @repo.create(hash)
+    assert_equal 4986, @repo.all.count
+  end
+
+  def test_it_can_UPDATE_existing_transactions
+    assert_equal 4985, @repo.all.count
+
+    hash = {                        
+      credit_card_number:          "9999999999999999",
+      credit_card_expiration_date: "0000",
+      result:                      "failed",
+    }
+    
+    @repo.update(1, hash)
+    assert_equal 4985, @repo.all.count
+    
+    entry = @repo.find_by_id(1)
+    assert_equal "9999999999999999", entry.credit_card_number
+  end
+
+  def test_it_can_DELETE_existing_transactions
+    assert_equal 4985, @repo.all.count
+    @repo.delete(1)
+    assert_equal 4984, @repo.all.count
   end
 
 end

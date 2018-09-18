@@ -53,8 +53,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
 
-  # --- Find By ---
-
   def test_it_can_find_by_invoice_item_id
     assert_nil @repo.find_by_id(000)
     found = @repo.find_by_id(1)
@@ -76,6 +74,43 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Array, found
     assert_instance_of InvoiceItem, found.first
     assert_equal 1, found.first.invoice_id
+  end
+
+  def test_it_can_CREATE_invoice_items
+    assert_equal 21830, @repo.all.count
+    
+    hash = {
+    item_id:    "263519844",
+    invoice_id: "1",
+    quantity:   "5",
+    unit_price: "13635",
+    created_at: "2012-03-27 14:54:09 UTC",
+    updated_at: "2012-03-27 14:54:09 UTC"
+    } 
+    
+    @repo.create(hash)
+    assert_equal 21831, @repo.all.count
+  end
+
+  def test_it_can_UPDATE_existing_invoice_items
+    assert_equal 21830, @repo.all.count
+    
+    hash = {quantity:   "10", unit_price: "17000"} 
+
+    entry = @repo.find_by_id(1)
+    @repo.update(1, hash)
+
+    assert_equal 21830, @repo.all.count
+    assert_equal "10", @repo.find_by_id(1).quantity
+    assert_equal "17000", @repo.find_by_id(1).unit_price
+  end
+
+  def test_it_can_DELETE_existing_invoice_items
+    assert_equal 21830, @repo.all.count
+
+    @repo.delete(1)
+    assert_nil @repo.find_by_id(1)
+    assert_equal 21829, @repo.all.count
   end
 
 end

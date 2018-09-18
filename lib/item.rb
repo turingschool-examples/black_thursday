@@ -15,11 +15,11 @@ class Item
                 :updated_at
 
   def initialize(hash)
-    # -- Read Only --
+
     @id           = hash[:id].to_i
     @created_at   = hash[:created_at]
     @merchant_id  = hash[:merchant_id].to_i
-    # -- Accessible --
+
     @name         = hash[:name]
     @description  = hash[:description]
     @unit_price   = BigDecimal.new(hash[:unit_price], 4)
