@@ -1,20 +1,22 @@
 require './test/helper'
 
 class InvoiceItem
-  # attr_reader   :customer_id,
-  #               :merchant_id,
-  #               :created_at
-  #
-  # attr_accessor :id,
-  #               :status,
-  #               :updated_at
-  #
+  attr_reader   :invoice_id,
+                :item_id,
+                :created_at
+
+  attr_accessor :id,
+                :unit_price,
+                :quantity,
+                :updated_at
+
   def initialize(invoice_item_hash)
-  #   @id           = invoice_hash[:id].to_i
-  #   @customer_id  = invoice_hash[:customer_id].to_i
-  #   @merchant_id  = invoice_hash[:merchant_id].to_i
-  #   @status       = invoice_hash[:status]
-  #   @created_at   = invoice_hash[:created_at]
-  #   @updated_at   = invoice_hash[:updated_at]
+    @id           = invoice_item_hash[:id].to_i
+    @item_id      = invoice_item_hash[:item_id].to_i
+    @invoice_id   = invoice_item_hash[:invoice_id].to_i
+    @unit_price   = BigDecimal.new(invoice_item_hash[:unit_price].to_i)/100
+    @quantity     = invoice_item_hash[:quantity].to_i
+    @created_at   = invoice_item_hash[:created_at]
+    @updated_at   = invoice_item_hash[:updated_at]
   end
 end
