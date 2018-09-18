@@ -1,7 +1,4 @@
-require_relative './invoice'
-require 'time'
-require 'pry'
-require 'CSV'
+require './test/helper'
 
 class InvoiceRepository
   attr_reader :invoices

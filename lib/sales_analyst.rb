@@ -1,5 +1,4 @@
-require 'bigdecimal/util'
-require 'bigdecimal'
+require './test/helper'
 
 class SalesAnalyst
   attr_reader :se,

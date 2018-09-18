@@ -1,4 +1,4 @@
-require './test/minitest_helper'
+require './test/helper'
 
 class SalesAnalystTest < Minitest::Test
 
