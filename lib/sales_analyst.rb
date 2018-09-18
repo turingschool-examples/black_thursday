@@ -123,4 +123,6 @@ class SalesAnalyst
     end.compact
   end
 
+  def invoice_status(symbol_arg)
+  end
 end
