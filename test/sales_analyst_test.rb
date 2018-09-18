@@ -192,8 +192,9 @@ class SalesAnalystTest < Minitest::Test
         :invoice_items => "./data/invoice_items.csv"
       })
     sa = se.analyst
-    assert_equal 21067.77, sa.invoice_total(1).to_f
-    assert_instance_of BigDecimal, sa.invoice_total(1)
+    actual = sa.invoice_total(1)
+    assert_instance_of BigDecimal, actual
+    assert_equal 21067.77, actual.to_f
   end
 
   def test_it_returns_total_revenue_by_date
@@ -254,8 +255,9 @@ class SalesAnalystTest < Minitest::Test
       :transactions => "./data/transactions.csv"
         })
     sa = se.analyst
-    assert_equal 467, sa.merchants_with_pending_invoices.length
-    assert_instance_of Merchant, sa.merchants_with_pending_invoices[0]
+    actual = sa.merchants_with_pending_invoices
+    assert_equal 467, actual.length
+    assert_instance_of Merchant, actual[0]
   end
 
   def test_it_can_return_merchants_with_one_item
@@ -264,8 +266,9 @@ class SalesAnalystTest < Minitest::Test
       :merchants => "./data/merchants.csv"
         })
     sa = se.analyst
-    assert_equal 243, sa.merchants_with_only_one_item.length
-    assert_instance_of Merchant, sa.merchants_with_only_one_item[0]
+    actual = sa.merchants_with_only_one_item
+    assert_equal 243, actual.length
+    assert_instance_of Merchant, actual[0]
   end
 
   def test_it_groups_merchants_with_invoice_items
@@ -277,9 +280,9 @@ class SalesAnalystTest < Minitest::Test
       :transactions => "./data/transactions.csv"
         })
     sa = se.analyst
-    assert_instance_of Merchant,
-    sa.merchants_grouped_with_invoice_items.keys[0]
-    assert_instance_of InvoiceItem, sa.merchants_grouped_with_invoice_items.values[0][0]
+    actual = sa.merchants_grouped_with_invoice_items
+    assert_instance_of Merchant,actual.keys[0]
+    assert_instance_of InvoiceItem, actual.values[0][0]
   end
 
   def test_it_can_return_merchants_with_one_item_registed_by_month
@@ -304,14 +307,14 @@ class SalesAnalystTest < Minitest::Test
       :transactions => "./data/transactions.csv"
         })
     sa = se.analyst
-    instnace_1 = sa.most_sold_item_for_merchant(12334189)
-    assert_instance_of Array, instnace_1
-    assert_instance_of Array, instnace_1[0]
+    instance_1 = sa.most_sold_item_for_merchant(12334189)
+    assert_instance_of Array, instance_1
+    assert_instance_of Array, instance_1[0]
     assert_equal 263524984, instance_1[0].id
 
     instance_2 = sa.most_sold_item_for_merchant(12334189)
-    assert_instance_of Array, instnace_2
-    assert_instance_of Item, instnace_2[0]
+    assert_instance_of Array, instance_2
+    assert_instance_of Item, instance_2[0]
     assert_equal 263549386, sa.most_sold_item_for_merchant(12334768)[0].id
   end
 
