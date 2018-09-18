@@ -3,12 +3,14 @@ require 'bigdecimal'
 require 'time'
 
 class SalesAnalyst
+
   def initialize(merchants, items, invoices, invoice_items, transactions, customers)
     @merchants = merchants
     @items = items
     @invoices = invoices
     @invoice_items = invoice_items
     @transactions = transactions
+    @customers = customers
   end
 
   def average_items_per_merchant
@@ -145,7 +147,7 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id)
     invoice_transactions = @transactions.find_all_by_invoice_id(invoice_id)
     return false if invoice_transactions == []
-    @transactions.find_all_by_invoice_id(invoice_id).all? do |trans|
+    invoice_transactions.any? do |trans|
       trans.result == :success
     end
   end
@@ -158,6 +160,78 @@ class SalesAnalyst
       total + item_total
     end
   end
+
+  def money_spent(customer_id)
+    invoices = @invoices.find_all_by_customer_id(customer_id)
+    total = invoices.reduce(0.0) do |sum, invoice|
+      if invoice_paid_in_full?(invoice.id) == true
+        sum + invoice_total(invoice.id).to_f
+      else
+        sum
+      end
+    end
+    total
+  end
+
+  def top_buyers(x = 20)
+    customers_spending = @customers.all.reduce([]) do |array, customer|
+      array << [money_spent(customer.id), customer]
+    end
+
+    customer_spending_sorted = customers_spending.sort_by do |customer_spending|
+      customer_spending[0]
+    end.reverse
+
+    customer_spending_sorted[0..(x - 1)].map do |customer_spending|
+      customer_spending[1]
+    end
+  end
+
+  # returns array of customer objects
+  def one_time_buyers
+    @customers.all.find_all do |customer|
+      invoices = @invoices.find_all_by_customer_id(customer.id)
+      invoices.length == 1
+    end
+  end
+
+  def one_time_buyer_items
+    one_time_buyers.reduce([]) do |array, buyer|
+      invoice = (@invoices.find_all_by_customer_id(buyer.id))[0]
+
+      if invoice_paid_in_full?(invoice.id) == true
+        buyer_items = @invoice_items.find_all_by_invoice_id(invoice.id)
+
+        sub_array = []
+
+        buyer_items.each do |buyer_item|
+          sub_array << buyer_item
+        end
+
+        array << sub_array
+      end
+      array
+    end
+  end
+
+  # returns item object
+  def one_time_buyers_top_item
+    item_quantities = one_time_buyer_items.flatten.reduce(Hash.new(0)) do |hash, buyer_item|
+      if hash[buyer_item.item_id] == 0
+        hash[buyer_item.item_id] = buyer_item.quantity
+      else
+        hash[buyer_item.item_id] += buyer_item.quantity
+      end
+      hash
+    end
+
+    sorted_item_quantities = item_quantities.sort_by do |buyer_item, quantity|
+      quantity
+    end
+
+    @items.find_by_id(sorted_item_quantities[-1][0])
+  end
+
 
   # helper method
   def group_by_merch_id(object_array)
@@ -252,9 +326,5 @@ class SalesAnalyst
     @merchants.find_by_id(found_merch_id)
 
   end
-
-
-
-
 
 end

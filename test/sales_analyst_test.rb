@@ -118,4 +118,29 @@ class SalesAnalystTest < Minitest::Test
     #11,100,12336753,pending,2006-04-05,2007-05-28
   end
 
+  def test_can_return_top_buyers
+    actual1 = @sales_analyst.top_buyers(5)
+    assert_equal 5, actual1.length
+    assert_equal 313, actual1.first.id
+    assert_equal 478, actual1.last.id
+
+    actual2 = @sales_analyst.top_buyers
+    assert_equal 20, actual2.length
+    assert_equal 313, actual2.first.id
+    assert_equal 250, actual2.last.id
+  end
+
+  def test_can_return_list_one_time_buyers
+    actual = @sales_analyst.one_time_buyers
+    first_id = actual.first.id
+
+    assert_equal 76, actual.length
+    assert_equal 1, @sales_engine.invoices.find_all_by_customer_id(first_id).length
+  end
+
+  def test_find_item
+    item = @sales_analyst.one_time_buyers_top_item
+    assert_equal 263396463, item.id
+  end
+
 end
