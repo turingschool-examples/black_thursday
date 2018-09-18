@@ -2,11 +2,13 @@
 require 'pry'
 
 require_relative 'finderclass'
+require_relative 'crud'
 
 require_relative 'item'
 
 
 class ItemRepository
+  include CRUD
 
   attr_reader :all
 
@@ -17,8 +19,8 @@ class ItemRepository
     @all = @items
   end
 
-  def make_items
-    @data.each { |key, value|
+  def make_items(data = @data)
+    data.each { |key, value|
       hash = make_hash(key, value)
       item = Item.new(hash)
       @items << item
@@ -30,6 +32,7 @@ class ItemRepository
     value.each { |col, data| hash[col] = data }
     return hash
   end
+
 
   # --- Spec Harness Requirement ---
 
@@ -67,6 +70,23 @@ class ItemRepository
 
   def find_all_by_merchant_id(id)
     FinderClass.find_all_by(all, :merchant_id, id)
+  end
+  
+  
+  # --- CRUD ---
+
+  def create(attributes)
+    id = make_id(all, :id)
+    data = {id => attributes} 
+    make_items(data)
+  end
+
+  def update(id, attributes)
+    update_entry(@items, id, attributes)
+  end
+
+  def delete(id)
+    delete_entry(@items, id)
   end
 
 end

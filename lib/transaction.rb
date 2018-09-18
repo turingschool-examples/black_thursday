@@ -14,7 +14,6 @@ class Transaction
                 :credit_card_expiration_date,
                 :result
 
-
   def initialize(hash)
     # -- Read Only --
     @id                 = make_integer(hash[:id])
@@ -26,6 +25,5 @@ class Transaction
     @credit_card_expiration_date = hash[:credit_card_expiration_date]
     @result             = make_symbol(hash[:result])
   end
-
-
+  
 end

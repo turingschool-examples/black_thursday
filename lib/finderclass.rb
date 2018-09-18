@@ -1,11 +1,4 @@
-# This will consist of class methods for finder functionality
-
-require 'pry'
-
 class FinderClass
-
-  # if this was a module, maybe this would work
-  # def find_by(method, data, repo = @all)
 
   def self.find_by(repo, method, data)
     repo.find {|object| object.send(method) == data }

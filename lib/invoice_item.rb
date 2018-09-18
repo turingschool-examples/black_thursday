@@ -1,9 +1,9 @@
 require 'pry'
 
-
 require 'bigdecimal'
 
 require_relative 'data_typing'
+
 
 class InvoiceItem
   include DataTyping

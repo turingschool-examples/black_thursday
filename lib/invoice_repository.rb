@@ -1,11 +1,13 @@
 require 'pry'
 
 require_relative 'finderclass'
+require_relative 'crud'
 
 require_relative 'invoice'
 
 
 class InvoiceRepository
+  include CRUD
 
   attr_reader :all
 
@@ -16,8 +18,8 @@ class InvoiceRepository
     @all = @invoices
   end
 
-  def make_invoices
-    @data.each { |key, value|
+  def make_invoices(data = @data)
+    data.each { |key, value|
       hash = make_hash(key, value)
       invoice = Invoice.new(hash)
       @invoices << invoice
@@ -30,7 +32,7 @@ class InvoiceRepository
     return hash
   end
 
-
+  
   # --- Spec Harness Requirement ---
 
   # TO DO - TEST ME
@@ -56,6 +58,22 @@ class InvoiceRepository
   def find_all_by_status(status)
     FinderClass.find_all_by(all, :status, status)
   end
+  
+  
+  # --- CRUD ---
 
+  def create(attributes)
+    id = make_id(all, :id)
+    data = {id => attributes} 
+    make_invoices(data)
+  end
+
+  def update(id, attributes)
+    update_entry(@invoices, id, attributes)
+  end
+
+  def delete(id)
+    delete_entry(@invoices, id)
+  end
 
 end
