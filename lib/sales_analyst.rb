@@ -75,16 +75,6 @@ class SalesAnalyst
     BigDecimal((total_invoices.to_d / total_merchants), 3).round(2).to_f
   end
 
-  # def top_merchants_by_invoice_count
-  #   cutoff = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
-  #   high_count = @se.merchants.all.map do |merchant|
-  #     if ((merchant_stock[merchant.id]).count - cutoff) >= 0
-  #     merchant
-  #   end
-  # end
-  #   high_count.compact
-  # end
-
   def average_invoices_per_merchant
     total_merchants = @se.merchants.all.count
     total_invoices = @se.invoices.all.count
@@ -221,22 +211,6 @@ class SalesAnalyst
     end
   end
 
-  # def invoice_totals_by_merchant
-  #   totals = {}
-  #   @se.merchants.all.each do |merchant|
-  #     woof = pending_scrubbed.group_by do |value|
-  #     value
-  #     end
-  #
-  #       thingy = 0
-  #       woof.each do |idk|
-  #       thingy += invoice_total(idk[0]).to_f
-  #     end
-  #   totals[merchant.id] = thingy
-  #   end
-  #   totals
-  # end
-
   def invoice_gather
     matched = {}
     pending_scrubbed.each do |invoice|
@@ -278,13 +252,9 @@ class SalesAnalyst
     end.reverse
     limit = x - 1
     top = best[0..limit]
-    top.map do |gofuckyourselves|
-      @se.merchants.find_by_id(gofuckyourselves[0])
+    top.map do |fuckthis|
+      @se.merchants.find_by_id(fuckthis[0])
     end
   end
-  # total = 0
-  # fucked.each do |number|
-  #   total += number
-  # end
 
 end
