@@ -184,7 +184,7 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count  # two standard deviations below the mean
     groups = invoices_grouped_by_merchant
-    counts = invoice_counts_per_merchant\
+    counts = invoice_counts_per_merchant
     worst = find_exceptional(groups, counts, -2, :count)
     merch_ids = worst.keys
     bottom_merchants = FinderClass.match_by_data(@merchants.all, merch_ids, :id )
