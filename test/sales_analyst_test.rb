@@ -257,15 +257,21 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_group_invoices_by_merchant
+    skip
     expected = @sa.invoices_grouped_by_merchant
 
     assert_equal '', expected.first[0]
   end
 
   def test_it_can_hash_total_revenue_per_merchant
+    skip
     expected = @sa.total_revenue_per_merchant
 
     assert_equal '', expected.first
+  end
+
+  def test_it_can_rank_merchants_by_revenue
+    @sa.merchants_ranked_by_revenue
   end
 
 

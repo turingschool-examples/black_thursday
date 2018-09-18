@@ -179,6 +179,10 @@ class SalesAnalyst
     end
   end
 
+  def top_revenue_earners(x = 20)
+    merchants_ranked_by_revenue[0..x-1]
+  end
+
   def merchants_with_pending_invoices
     pending_invoices = @se.invoices.all.map do |invoice|
       invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
@@ -216,7 +220,7 @@ class SalesAnalyst
     merchants_from_ids(ids)
   end
 
-  def       revenue_by_merchant(merchant_id)
+  def revenue_by_merchant(merchant_id)
 	  invoices = @se.invoices.all.find_all do |invoice|
 		  invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
 	   end
@@ -314,5 +318,22 @@ class SalesAnalyst
       sum + (num.quantity.to_i * num.unit_price)
     end
   end
+
+  #-----Iteration 4 Helper Method -----#
+
+  def merchants_ranked_by_revenue
+    hash = Hash.new()
+    @se.merchants.all.each do |merchant|
+      hash[merchant] = revenue_by_merchant(merchant.id)
+    end
+
+    hash.sort_by do |merchant, revenue|
+      revenue * -1
+    end.transpose[0]
+
+  end
+
+
+
 
 end
