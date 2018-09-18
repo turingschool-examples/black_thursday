@@ -73,6 +73,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.to_f, @sa_csv.average(vals)
   end
 
+  def test_it_can_get_a_percentage
+    found = 5
+    all   = 10
+    assert_equal 50.0, @sa_csv.percentage(found, all)
+  end
+
   def test_it_does_standard_deviation
     vals = [1.0, 2.0, 3.0, 4.0, 5.0]
     sum = vals.inject(0) { |sum, val| sum += val }

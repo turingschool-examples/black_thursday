@@ -41,6 +41,11 @@ class SalesAnalyst
     average = (sum / ct)
   end   # returns an unrounded float
 
+  # TO DO - TEST ME
+  def percentage(fraction, all)
+    (fraction / all.to_f ) * 100
+  end
+
   def standard_deviation(values, mean) # Explicit steps
     floats      = values.map     { |val| val.to_f   }
     difference  = floats.map     { |val| val - mean }
@@ -186,8 +191,9 @@ class SalesAnalyst
   def invoice_status(status)
     all = @invoices.all.count.to_f
     found = @invoices.find_all_by_status(status).count
-    percent = ( found / all ) * 100
-    percent.round(2)
+    percent = percentage(found, all).round(2)
+    # percent = ( found / all ) * 100
+    # percent.round(2)
   end
 
 
@@ -198,7 +204,6 @@ class SalesAnalyst
     sale.any? { |trans| trans.result == :success }
   end
 
-  # Is returned supposed to count towards revenue??
   def invoice_items_of_successful_transactions(invoice_id)
     sold = invoice_paid_in_full?(invoice_id)
     items_by_invoice = @invoice_items.find_all_by_invoice_id(invoice_id) if sold
