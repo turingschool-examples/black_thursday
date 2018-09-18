@@ -2,6 +2,7 @@ require 'pry'
 require 'date'
 
 class SalesAnalyst
+    attr_reader :se
   def initialize(sales_engine)
     @se = sales_engine
   end
@@ -120,9 +121,9 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     hash = invoice_count_per_merchant_id
     differences_squared = square_differences(hash.values,
-                                         average_invoices_per_merchant)
-                                         sum = sum(differences_squared)
-                                         sum_div = sum/hash.count
+                                 average_invoices_per_merchant)
+                                 sum = sum(differences_squared)
+                                 sum_div = sum/hash.count
     Math.sqrt(sum_div).round(2)
   end
 
@@ -164,7 +165,7 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
-    total_revenue(invoice_items)
+    total_revenue_by_item(invoice_items)
   end
 
   # -----Iteration 4 Methods----- #
@@ -178,42 +179,50 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(x = 20)
-    hash = Hash.new(0)
-    merchant_invoice_totals = @se.invoices.all.each do |invoice|
-      hash[invoice.merchant_id] += invoice_total(invoice.id)
-    end
-
-    sorted = merchant_invoice_totals.sort_by do |merchant_id, invoice_total|
-      invoice_total
-    end.transpose
-
-    top_x = []
-
-
-    x.times do |i|
-      top_x << sorted[0][i-1]
-    end
-
-    top_x.map do |merchant_id|
-      @se.merchants.find_by_id(merchant_id)
-    end
-  end
-
   def merchants_with_pending_invoices
-
+    pending_invoices = @se.invoices.all.map do |invoice|
+      invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
+    end.compact
+    pending_invoices.map do |merchant_id|
+      @se.merchants.find_by_id(merchant_id)
+    end.uniq
   end
+
 
   def merchants_with_only_one_item
+	  hash = Hash.new(0)
+	    @se.items.all.each do |item|
+		      hash[item.merchant_id] += 1
+	   end
 
+	  ids = hash.find_all do |merchant_id, amount|
+		  amount == 1
+	   end.transpose[0]
+
+	  merchants_from_ids(ids)
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
+    hash = Hash.new(0)
+    @se.items.all.each do |item|
+      if @se.merchants.find_by_id(item.merchant_id).created_at.strftime("%B") == month
 
+      hash[item.merchant_id] += 1
+      end
+    end
+    ids = hash.find_all do |merchant_id, amount|
+      amount == 1
+    end.transpose[0]
+    merchants_from_ids(ids)
   end
 
-  def revenue_by_merchant(merchant_id)
-
+  def       revenue_by_merchant(merchant_id)
+	  invoices = @se.invoices.all.find_all do |invoice|
+		  invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
+	   end
+     invoices.inject(0) do |sum, invoice|
+		sum + invoice_total(invoice.id)
+	  end
   end
 
   def most_sold_item_for_merchant(merchant_id)
@@ -300,7 +309,7 @@ class SalesAnalyst
 
   #-----Iteration 3 Helper Method -----#
 
-  def total_revenue(invoice_items)
+  def total_revenue_by_item(invoice_items)
     invoice_items.inject(0) do |sum, num|
       sum + (num.quantity.to_i * num.unit_price)
     end
