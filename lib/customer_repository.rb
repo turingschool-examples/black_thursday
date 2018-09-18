@@ -51,11 +51,11 @@ class CustomerRepository
   end
 
   def update(id, attributes)
-    update_entry(@transactions, id, attributes)
+    update_entry(@customers, id, attributes)
   end
 
   def delete(id)
-    delete_entry(@transactions, id)
+    delete_entry(@customers, id)
   end
 
 end

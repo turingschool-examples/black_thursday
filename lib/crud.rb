@@ -22,6 +22,8 @@ module CRUD
     entry.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
     entry.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
     entry.result = attributes[:result] if attributes[:result]
+    entry.first_name = attributes[:first_name] if attributes[:first_name]
+    entry.last_name = attributes[:last_name] if attributes[:last_name]
   end
 
   def delete_entry(repo, id)

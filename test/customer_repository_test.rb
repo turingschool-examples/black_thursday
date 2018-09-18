@@ -87,7 +87,17 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 1001, @repo.all.count
   end
 
-  
+  def test_it_can_UPDATE_existing_customers
+    assert_equal 1000, @repo.all.count
+
+    hash = {first_name: "Geoff", last_name: "Adams"}
+    @repo.update(1, hash)
+    
+    entry = @repo.find_by_id(1)
+    assert_equal "Geoff", entry.first_name
+    assert_equal "Adams", entry.last_name
+    assert_equal 1000, @repo.all.count
+  end
 
 
 end
