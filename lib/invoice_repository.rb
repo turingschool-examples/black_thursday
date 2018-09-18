@@ -109,9 +109,9 @@ include Crud
     end
   end
 
-  def find_all_by_status(status)
-    @collection.find_all do |invoice|
-      invoice.status.to_sym == status.to_sym
-    end
-  end
+  # def find_all_by_status(status)
+  #   @collection.find_all do |invoice|
+  #     invoice.status.to_sym == status.to_sym
+  #   end
+  # end
 end

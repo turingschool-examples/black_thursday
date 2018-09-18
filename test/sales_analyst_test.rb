@@ -66,6 +66,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
+    skip
     se = SalesEngine.from_csv({:merchants => "./data/merchants.csv", :items => "./data/items.csv"})
     sa = se.analyst
     actual = sa.average_average_price_per_merchant
@@ -74,6 +75,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_price_standard_deviation
+    skip
     se = SalesEngine.from_csv({:merchants => "./data/merchants.csv", :items => "./data/items.csv"})
     sa = se.analyst
     actual = sa.price_standard_deviation
@@ -82,6 +84,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
+    skip
     se = SalesEngine.from_csv({:merchants => "./data/merchants.csv", :items => "./data/items.csv"})
     sa = se.analyst
     actual = sa.golden_items.count
@@ -104,11 +107,19 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_total_revenue_by_date
+    skip
     se = SalesEngine.from_csv({:merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
     sa = se.analyst
     actual = sa.total_revenue_by_date(Time.parse("2009-02-07"))
     assert_equal 21067.77, actual
     assert_equal BigDecimal, actual.class
+  end
+
+  def test_verified_merchant_revenue
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
+    sa = se.analyst
+    temp = sa.invoice_totals_by_merchant
+    require "pry"; binding.pry
   end
 
 end
