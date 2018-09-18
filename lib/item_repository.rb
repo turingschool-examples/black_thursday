@@ -1,7 +1,4 @@
-require 'CSV'
-require 'pry'
-require 'time'
-require_relative './item'
+require './test/helper'
 
 class ItemRepository
  attr_reader :items
@@ -41,8 +38,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items.find_all do |item|
-     item.unit_price == BigDecimal.new(price)
-     binding.pry
+     item.unit_price == BigDecimal.new(price)/100
     end
   end
 

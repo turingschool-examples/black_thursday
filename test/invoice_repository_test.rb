@@ -1,4 +1,4 @@
-require './test/minitest_helper'
+require './test/helper'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup

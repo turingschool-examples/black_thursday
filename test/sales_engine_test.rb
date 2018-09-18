@@ -1,4 +1,4 @@
-require_relative 'minitest_helper'
+require_relative 'helper'
 
 class SalesEngineTest < Minitest::Test
 
