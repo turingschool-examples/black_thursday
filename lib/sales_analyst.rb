@@ -74,14 +74,6 @@ class SalesAnalyst
   end
 
 
-
-  # # WIP -- IGNORE THIS FOR NOW
-  # # TO DO - Test Me
-  # def best_or_worst_by_group(group, values, mean, above_or_below)
-  #   mean = average(values)
-  #   above_this = standard_dev_measure(values, mean, above_or_below)
-  #   above = group.find_all { |key, collection| collection.count > above_this }.to_h
-  # end
   #
   # # WIP -- IGNORE THIS FOR NOW
   # # TO DO - Test Me
