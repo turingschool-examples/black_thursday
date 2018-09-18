@@ -114,7 +114,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_top_merchant_for_customer_id
-    assert_equal 12336753, @sales_analyst.top_merchants_for_customer(100)
+    assert_equal 12336753, @sales_analyst.top_merchant_for_customer(100).id
     #11,100,12336753,pending,2006-04-05,2007-05-28
   end
 
