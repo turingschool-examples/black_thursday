@@ -97,6 +97,33 @@ class SalesAnalystTest < Minitest::Test
     assert_equal std_2_low,  @sa_csv.standard_dev_measure(values, -2)
   end
 
+  def test_if_finds_exceptional
+    # This tests find_exceptional and
+    # helper methods: exceptional_from_hash & exceptional_from_array
+    # --- from hash ---
+    hash = { "a" => [1, 2, 3], "b" => [1], "c" => [1, 2, 3, 4, 5, 6, 7]}
+    hash_values = [3, 1, 7]
+    stds = 1
+    method = :count
+    found = @sa_csv.find_exceptional(hash, hash_values, stds, method)
+    top = {"c" => [1, 2, 3, 4, 5, 6, 7]}
+    assert_instance_of Hash, found
+    assert_equal top, found
+    assert_equal top, @sa_csv.exceptional_from_hash(hash, hash_values, stds, method)
+    # --- from Array ---
+    array = @sa_csv.items.all
+    array_values = array.map { |item| item.unit_price }
+    stds = 2
+    method = :unit_price
+    found = @sa_csv.find_exceptional(array, array_values, stds, method)
+    assert_equal found, @sa_csv.exceptional_from_array(array, array_values, stds, method)
+    assert_instance_of Array, found
+    assert_operator array.count, :>, found.count
+    top = found.first
+    std_high = @sa_csv.standard_dev_measure(array_values, 2)
+    assert_instance_of Item, top
+    assert_operator std_high, :<=, top.unit_price
+  end
 
 
   # --- Item Repo Analysis Methods ---
@@ -121,7 +148,6 @@ class SalesAnalystTest < Minitest::Test
     count = @sa_csv.items.all.count
     assert_equal count, sum
   end
-
 
   def test_it_gets_average_items_per_merchant
     assert_equal 2.88, @sa_csv.average_items_per_merchant
@@ -149,7 +175,6 @@ class SalesAnalystTest < Minitest::Test
     assert_operator high_count, :<=, merch_2_items.count
   end
 
-  # TO DO - FIX DATA TYPES
   def test_it_can_average_item_price_per_merchant
     id = 12334185
     all_merchant_items = @sa_csv.items.find_all_by_merchant_id(id)

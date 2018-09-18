@@ -24,11 +24,6 @@ class SalesAnalyst
 
   # --- General Methods ---
 
-  # # TO DO - MOVE TO FINDER
-  # def group_by(repo, method)
-  #   groups = repo.group_by { |object| object.send(method)}  #method is a symbol
-  # end   # returns a hash
-
   # Lets wait to see if this is useful in the other iterations
     #  we can use it in the Item Repo Analysis
   def create_values_array(hash, hash_method, rule_method)
@@ -62,27 +57,30 @@ class SalesAnalyst
     outside_this = mean + (std * above_or_below)
   end # returns a float
 
-
-  # TO DO - TEST ME
-  def find_exceptional(hash, values_for_std, stds, hash_value_method)
-    method = hash_value_method
-    stds > 0 ? operator = :> : operator = :<
-    std_limit = standard_dev_measure(values_for_std, stds)
-    hash.find_all {|key, value|
-      value.send(method).send(operator, std_limit)
-    }.to_h
+  def find_exceptional(collection, values, stds, method)
+    case collection
+    when Hash;  exceptional_from_hash(collection, values, stds, method)
+    when Array; exceptional_from_array(collection, values, stds, method)
+    end
   end
 
+  def exceptional_from_hash(collection, values, stds, method)
+    stds > 0 ? operator = :> : operator = :<
+    std_limit = standard_dev_measure(values, stds)
+    list = collection.find_all {|key, value|
+      value.send(method).send(operator, std_limit)
+    }.to_h
+    return list
+  end
 
-  #
-  # # WIP -- IGNORE THIS FOR NOW
-  # # TO DO - Test Me
-  # def best_or_worst_by_repo(repo, values, mean, above_or_below)
-  #   mean = average(values)
-  #   above_this = standard_dev_measure(values, mean, above_or_below)
-  #   above = group.find_all { |merch_id, items| items.count > std_high }.to_h
-  # end
-
+  def exceptional_from_array(collection, values, stds, method)
+    stds > 0 ? operator = :> : operator = :<
+    std_limit = standard_dev_measure(values, stds)
+    list = collection.find_all {|object|
+      object.send(method).send(operator, std_limit)
+    }
+    return list
+  end
 
 
   # --- Item Repo Analysis Methods ---
@@ -135,8 +133,7 @@ class SalesAnalyst
 
   def golden_items # items with prices above 2 std of average price
     prices   = @items.all.map{ |item| item.unit_price }
-    std_high = standard_dev_measure(prices, 2)
-    above    = @items.all.find_all{|item| item.unit_price > std_high}.to_a
+    above    = find_exceptional(@items.all, prices, 2, :unit_price)
   end
 
 
@@ -201,12 +198,6 @@ class SalesAnalyst
     sale.any? { |trans| trans.result == :success }
   end
 
-  #  SAVE FOR REVENUE
-  # def successful_transactions_by_invoice_id(invoice_id)
-  #   sale = @transactions.find_all_by_invoice_id(invoice_id)
-  #   sale.find_all { |trans| trans.result == :success }
-  # end
-
   # Is returned supposed to count towards revenue??
   def invoice_items_of_successful_transactions(invoice_id)
     sold = invoice_paid_in_full?(invoice_id)
@@ -225,31 +216,6 @@ class SalesAnalyst
       # TO DO - I think the SpecHarness is wrong -- wants both an int & BigDecimal
     end
   end
-
-
-
-
-  #  SAVE FOR REVENUE
-  # # TO DO - DOES PENDING count as a sale??
-  # def invoice_was_not_returned?(invoice_id)
-  #   invoice = @invoices.find_by_id(invoice_id)
-  #   not_returned = invoice.status != :returned
-  # end
-
-
-  # #  SAVE FOR REVENUE
-  # def invoice_total(invoice_id)
-  #   # returns the total $ amount of the Invoice with the corresponding id.
-  #   # Failed charges should never be counted in revenue totals or statistics.
-  #   invoice_items_by_id = invoice_items_of_successful_transactions(invoice_id)
-  #   if invoice_items_by_id
-  #     sum = invoice_items_by_id.inject(0) { |sum, item|
-  #       cost = item.quantity * item.unit_price_to_dollars
-  #       sum += cost
-  #     }
-  #     return sum
-  #   end
-  # end
 
 
 end

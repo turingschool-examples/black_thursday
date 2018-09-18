@@ -47,7 +47,6 @@ class FinderClass
     }; return list
   end
 
-  # THIS ALREADY EXISTS IN SALES ANALYSTS
   def self.group_by(collection, method)
     collection.group_by { |obj| obj.send(method) }
   end
@@ -69,7 +68,5 @@ class FinderClass
     when 6; "Saturday"
     end
   end
-
-
 
 end
