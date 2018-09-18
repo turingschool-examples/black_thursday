@@ -75,16 +75,6 @@ class SalesAnalyst
     BigDecimal((total_invoices.to_d / total_merchants), 3).round(2).to_f
   end
 
-  # def top_merchants_by_invoice_count
-  #   cutoff = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
-  #   high_count = @se.merchants.all.map do |merchant|
-  #     if ((merchant_stock[merchant.id]).count - cutoff) >= 0
-  #     merchant
-  #   end
-  # end
-  #   high_count.compact
-  # end
-
   def average_invoices_per_merchant
     total_merchants = @se.merchants.all.count
     total_invoices = @se.invoices.all.count
@@ -257,6 +247,13 @@ class SalesAnalyst
     biggest_to_smallest = sorted_by_revenue.reverse
     biggest_to_smallest.map do |merchant, _revenue|
       merchant
+  end
+
+  def invoice_gather
+    matched = {}
+    pending_scrubbed.each do |invoice|
+      newkey = invoice_total(invoice[0]).to_d
+      matched[newkey] = invoice[1]
     end
   end
 
@@ -265,5 +262,67 @@ class SalesAnalyst
     sorted_merchants[0, count]
   end
 
+  def invoice_arrays_by_merchant
+    good_invoices = invoice_gather
+    good_merchants = good_invoices.values.uniq
+    grouped = {}
+    good_merchants.each do |merchant|
+      total_calc = []
+      good_invoices.each do |data|
+        total_calc << data[0] if data[1] == merchant
+      end
+      grouped[merchant] = total_calc
+    end
+    grouped
+  end
 
+  def invoice_totals_by_merchant
+    finally = {}
+    invoice_arrays_by_merchant.each do |array|
+      summed = 0
+      array[1].each do |number|
+        summed += number
+      end
+    finally[array[0]] = summed
+    end
+    finally
+  end
+
+  def top_revenue_earners(x = 20)
+    best = invoice_totals_by_merchant.sort_by do |block|
+      block[1]
+    end.reverse
+    limit = x - 1
+    top = best[0..limit]
+    top.map do |fuckthis|
+      @se.merchants.find_by_id(fuckthis[0])
+    end
+  end
+
+  def pending_invoices
+    @se.invoices.all.map do |invoice|
+      if !invoice_paid_in_full?(invoice.id)
+       invoice
+      end
+    end.compact
+  end
+
+  def merchants_with_pending_invoices
+    invoices  = pending_invoices
+    merchants = invoices.map do |invoice|
+        invoice = @se.merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+      merchants
+  end
+
+  def merchants_with_only_one_item
+    singles = []
+    @se.merchants.all.each do |merchant|
+      items = @se.items.find_all_by_merchant_id(merchant.id)
+      if items.count == 1
+          singles << merchant
+      end
+    end
+    singles.uniq
+  end
 end
