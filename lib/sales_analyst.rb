@@ -184,8 +184,22 @@ class SalesAnalyst
     # groups = group_by { @invoices.all (:created_at,:wday)}
     values = groups.map { |day, inv| inv.count }
     std_high = standard_dev_measure(values, 1)
-    top = groups.find_all { |day, sales| sales.count > std_high }.to_h
+    # top = groups.find_all { |day, sales| sales.count > std_high }.to_h
+    # top = find_exceptional(groups, :day, :value, :value, :count, :>, std_high)
+    top = find_exceptional(groups, values, 1, :count)
     top_as_word = top.keys.map { |day| FinderClass.day_of_week(day) }
+  end
+
+  # def find_exceptional(collection, key, value, object, action, operator, std_limit)
+  #   collection.find_all { |key, value| object.send(action).send(operator, std_limit) }.to_h
+  # end
+
+  def find_exceptional(hash, values_for_std, stds, hash_value_method)
+    method = hash_value_method
+    operator = :> if stds > 0
+    operator = :< if stds < 0
+    std_limit = standard_dev_measure(values_for_std, stds)
+    hash.find_all {|key, value| value.send(method).send(operator, std_limit) }.to_h
   end
 
   def invoice_status(status)
