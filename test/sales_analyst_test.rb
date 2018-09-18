@@ -60,18 +60,6 @@ class SalesAnalystTest < Minitest::Test
 
   # --- General Methods ---
 
-  def test_it_can_group_by_a_method_of_an_object_in_a_repo
-    # From the getter methods of objects in the repo
-    sample = @sa_csv.merchants.all.first(100)
-    items = @sa_csv.items.all
-    actual = @sa_csv.group_by(items, :merchant_id )
-    assert_operator 100, :<, actual.count
-    assert_equal 12334141, actual.keys[0]
-    assert_instance_of Array, actual.values[0]
-    assert_equal 12334185, actual.keys[1]
-    assert_instance_of Array, actual.values[1]
-  end
-
   def test_it_can_create_an_array_of_values
     # Lets wait to see if this is useful in the other iterations
   end

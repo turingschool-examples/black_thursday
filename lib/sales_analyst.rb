@@ -24,10 +24,10 @@ class SalesAnalyst
 
   # --- General Methods ---
 
-  # TO DO - MOVE TO FINDER
-  def group_by(repo, method)
-    groups = repo.group_by { |object| object.send(method)}  #method is a symbol
-  end   # returns a hash
+  # # TO DO - MOVE TO FINDER
+  # def group_by(repo, method)
+  #   groups = repo.group_by { |object| object.send(method)}  #method is a symbol
+  # end   # returns a hash
 
   # Lets wait to see if this is useful in the other iterations
     #  we can use it in the Item Repo Analysis
@@ -143,7 +143,7 @@ class SalesAnalyst
   # --- Invoice Repo Analysis Methods ---
 
   def invoices_grouped_by_merchant
-    groups = group_by(@invoices.all, :merchant_id)
+    groups = FinderClass.group_by(@invoices.all, :merchant_id)
   end
 
   def invoice_counts_per_merchant
