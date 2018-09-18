@@ -71,21 +71,19 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     mean = mean_method_for_invoices
     doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
-    all_invoices.find_all do |invoice|
-    # binding.pry
-      #ok so this goes into the invoices and find all the ones for particular merchant
-      #then it will count it. if thats more than the standard deviation for the other merchants,
-      #its "golden"-aka that one merchant has way more invoices to their name
-      @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size > (doubled_standard_deviation + mean)
+
+    all_merchants.find_all do |merchant|
+      @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size > (doubled_standard_deviation + mean)
     end
   end
 
   def bottom_merchants_by_invoice_count
-      mean = mean_method_for_invoices
-      doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
-      all_invoices.find_all do |invoice|
-        @sales_engine.invoices.find_all_by_merchant_id(invoice.merchant_id).size < (doubled_standard_deviation - mean)
-      end
+    mean = mean_method_for_invoices
+    doubled_standard_deviation = average_invoices_per_merchant_standard_deviation * 2
+
+    all_merchants.find_all do |merchant|
+      @sales_engine.invoices.find_all_by_merchant_id(merchant.id).size < (mean - doubled_standard_deviation)
+    end
   end
 
   def top_days_by_invoice_count
