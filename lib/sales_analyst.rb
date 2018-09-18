@@ -246,22 +246,42 @@ class SalesAnalyst
     matched
   end
 
-  def invoice_totals_by_merchant
-    
-    good_merchants = matched.values.uniq
-
+  def invoice_arrays_by_merchant
+    good_invoices = invoice_gather
+    good_merchants = good_invoices.values.uniq
     grouped = {}
-    require "pry"; binding.pry
-    @good_merchants.each do |merchant|
-      totals = []
-      invoice_gather.each do |data|
-        totals << data[0] if data[1] == merchant.id
+    good_merchants.each do |merchant|
+      total_calc = []
+      good_invoices.each do |data|
+        total_calc << data[0] if data[1] == merchant
       end
-      grouped[merchant.id] = totals
+      grouped[merchant] = total_calc
     end
-    require "pry"; binding.pry
+    grouped
   end
 
+  def invoice_totals_by_merchant
+    finally = {}
+    invoice_arrays_by_merchant.each do |array|
+      summed = 0
+      array[1].each do |number|
+        summed += number
+      end
+    finally[array[0]] = summed
+    end
+    finally
+  end
+
+  def top_revenue_earners(x = 20)
+    best = invoice_totals_by_merchant.sort_by do |block|
+      block[1]
+    end.reverse
+    limit = x - 1
+    top = best[0..limit]
+    top.map do |gofuckyourselves|
+      @se.merchants.find_by_id(gofuckyourselves[0])
+    end
+  end
   # total = 0
   # fucked.each do |number|
   #   total += number
