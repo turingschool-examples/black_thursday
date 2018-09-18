@@ -42,8 +42,8 @@ class CustomerRepo
   def update(id, attributes)
     if find_by_id(id) != nil
       object_to_be_updated = find_by_id(id)
-      object_to_be_updated.first_name = attributes[:first_name]
-      object_to_be_updated.last_name = attributes[:last_name]
+      object_to_be_updated.first_name = attributes[:first_name] unless attributes[:first_name].nil?
+      object_to_be_updated.last_name = attributes[:last_name] unless attributes[:last_name].nil?
       object_to_be_updated.updated_at = Time.now
     else
       nil

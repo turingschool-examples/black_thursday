@@ -57,7 +57,7 @@ class SalesAnalyst
   def average_invoices_per_merchant
     total_merchants = @sales_engine.merchants.all.count.to_f
     total_invoices = @sales_engine.invoices.all.count.to_f
-    BigDecimal((total_invoices/total_merchants),3).round(2)
+    (total_invoices/total_merchants).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -116,24 +116,24 @@ class SalesAnalyst
 
   def invoice_status(status)
     invoices_by_status = all_invoices.count do |invoice|
-      invoice.status == status.to_s
+      invoice.status == status
     end
     ((invoices_by_status.to_f / all_invoices.size) * 100).round(2)
   end
 
+
   def invoice_paid_in_full?(invoice_id)
     transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
     transactions.any? do |transaction|
-      transaction.result == "success"
+      transaction.result == :success
     end
   end
 
   def invoice_total(invoice_id)
     invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
     total = invoice_items.inject(0) do |sum, in_item|
-      sum + in_item.quantity * in_item.unit_price_to_dollars
+      sum + (in_item.quantity * in_item.unit_price_to_dollars)
     end
-
     BigDecimal(total, total.to_s.size - 1)
   end
 

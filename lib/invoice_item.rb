@@ -18,7 +18,8 @@ class InvoiceItem
     @item_id = params[:item_id].to_i
     @invoice_id = params[:invoice_id].to_i
     @quantity = params[:quantity].to_i
-    @unit_price = BigDecimal.new(params[:unit_price].to_f/100,4).to_i
+    params[:unit_price] = params[:unit_price].dup.insert(-3, '.') if params[:unit_price].is_a?(String)
+    @unit_price = BigDecimal.new(params[:unit_price])
     @created_at = Time.parse(params[:created_at].to_s)
     @updated_at = Time.parse(params[:updated_at].to_s)
   end
