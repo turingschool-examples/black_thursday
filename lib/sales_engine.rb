@@ -7,7 +7,7 @@ class SalesEngine
               :items,
               :invoices
 
-  def initialize(csv_hash) # <= {merchant: MerchantRepo.new(), item: ItemRepo.new(), ...}
+  def initialize(csv_hash)
     @merchants = MerchantRepository.new(csv_hash[:merchants])
     @items     = ItemRepository.new(csv_hash[:items])
     @invoices  = InvoiceRepository.new(csv_hash[:invoices])

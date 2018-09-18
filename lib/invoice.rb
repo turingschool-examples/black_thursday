@@ -1,4 +1,5 @@
 require 'pry'
+
 class Invoice
   attr_reader   :customer_id,
                 :merchant_id,

@@ -1,7 +1,4 @@
 require './test/minitest_helper'
-require './lib/invoice_repository'
-require './lib/invoice'
-require './lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
@@ -44,23 +41,19 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_create_new_invoice_with_attributes
     new_invoice = @invoices_r.create({customer_id: 2,
-       merchant_id: 12334839, status: "pending"})
-
+    merchant_id: 12334839, status: "pending"})
     assert_equal 12334839, new_invoice.merchant_id
     assert_equal 15, new_invoice.id
   end
 
   def test_attributes_can_be_updated
-    @invoices_r.create({customer_id: 2,
-      merchant_id: 12334839, status: "pending"})
+    @invoices_r.create({customer_id: 2, merchant_id: 12334839, status: "pending"})
     result = @invoices_r.update(15, {status: "shipped"})
     assert_equal "shipped", result.status
   end
 
   def test_it_can_be_deleted
-    new_invoice = @invoices_r.create({customer_id: 2,
-      merchant_id: 12334839, status: "pending"})
-
+    @invoices_r.create({customer_id: 2, merchant_id: 12334839, status: "pending"})
     assert_equal 15, @invoices_r.invoices.length
     @invoices_r.delete(15)
     assert_equal 14, @invoices_r.invoices.length

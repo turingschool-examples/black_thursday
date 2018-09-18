@@ -4,7 +4,7 @@ require 'pry'
 require 'CSV'
 
 class InvoiceRepository
-  attr_reader     :invoices
+  attr_reader :invoices
 
   def initialize(invoice_path)
     @invoices = []
@@ -58,11 +58,11 @@ class InvoiceRepository
     find_invoice = find_by_id(id)
     @invoices.delete_if do |invoice|
      invoice == find_invoice
-   end
+    end
   end
 
   def make_invoices(invoice_path)
-   CSV.foreach(invoice_path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(invoice_path, headers: true, header_converters: :symbol) do |row|
       @invoices << Invoice.new(row)
     end
   end
