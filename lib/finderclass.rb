@@ -57,15 +57,23 @@ class FinderClass
     collection.group_by { |obj| obj.send(method) }
   end
 
-
-  # TO DO - MOVE TO FINDER
-  # TO DO - TEST ME
   def self.match_by_data(repo, collection, method)
     collection.map { |data|
       repo.find_all { |obj| obj.send(method) == data }
     }.flatten
   end
 
+  def self.day_of_week(integer)
+    case integer
+    when 0; "Sunday"
+    when 1; "Monday"
+    when 2; "Tuesday"
+    when 3; "Wednesday"
+    when 4; "Thursday"
+    when 5; "Friday"
+    when 6; "Saturday"
+    end
+  end
 
 
 

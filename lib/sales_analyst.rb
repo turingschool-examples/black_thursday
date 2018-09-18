@@ -179,26 +179,13 @@ class SalesAnalyst
     bottom_merchants = FinderClass.match_by_data(@merchants.all, merch_ids, :id )
   end
 
-  # TO DO - MOVE TO FINDER
-  def day_of_week(integer)
-    case integer
-    when 0; "Sunday"
-    when 1; "Monday"
-    when 2; "Tuesday"
-    when 3; "Wednesday"
-    when 4; "Thursday"
-    when 5; "Friday"
-    when 6; "Saturday"
-    end
-  end
-
   def top_days_by_invoice_count
     groups = @invoices.all.group_by { |invoice| invoice.created_at.wday}
     # groups = group_by { @invoices.all (:created_at,:wday)}
     values = groups.map { |day, inv| inv.count }
     std_high = standard_dev_measure(values, 1)
     top = groups.find_all { |day, sales| sales.count > std_high }.to_h
-    top_as_word = top.keys.map { |day| day_of_week(day) }
+    top_as_word = top.keys.map { |day| FinderClass.day_of_week(day) }
   end
 
   def invoice_status(status)
