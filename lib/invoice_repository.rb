@@ -75,7 +75,7 @@ include Crud
       element.status == (status)
     end
   end
-  
+
   def create(attributes)
     if @collection != []
       largest = (@collection.max_by {|element| element.id})
@@ -97,15 +97,21 @@ include Crud
     end
   end
 
-  def find_all_by_day(day)
+  def find_all_by_date(date)
     days = @collection.find_all do |invoice|
-      invoice.created_at.strftime('%A') == day.to_s
+      invoice.created_at.strftime("%F") == date.strftime("%F")
     end
   end
 
-  def find_all_by_status(status)
-    @collection.find_all do |invoice|
-      invoice.status.to_sym == status.to_sym
+  def find_all_by_day(day)
+    days = @collection.find_all do |invoice|
+      invoice.created_at.strftime("%A") == day
     end
   end
+
+  # def find_all_by_status(status)
+  #   @collection.find_all do |invoice|
+  #     invoice.status.to_sym == status.to_sym
+  #   end
+  # end
 end

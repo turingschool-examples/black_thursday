@@ -44,7 +44,6 @@ module Maths
     Math.sqrt(sampled).round(2)
   end
 
-    
   def differences_from_average(array, average)
     array.map do |amount|
       amount.to_f - average

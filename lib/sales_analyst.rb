@@ -27,7 +27,6 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
      standard_deviation(total_inventory.flatten)
-
   end
 
   def merchants_with_high_item_count
@@ -76,15 +75,15 @@ class SalesAnalyst
     BigDecimal((total_invoices.to_d / total_merchants), 3).round(2).to_f
   end
 
-  def top_merchants_by_invoice_count
-    cutoff = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
-    high_count = @se.merchants.all.map do |merchant|
-      if ((merchant_stock[merchant.id]).count - cutoff) >= 0
-      merchant
-    end
-  end
-    high_count.compact
-  end
+  # def top_merchants_by_invoice_count
+  #   cutoff = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
+  #   high_count = @se.merchants.all.map do |merchant|
+  #     if ((merchant_stock[merchant.id]).count - cutoff) >= 0
+  #     merchant
+  #   end
+  # end
+  #   high_count.compact
+  # end
 
   def average_invoices_per_merchant
     total_merchants = @se.merchants.all.count
@@ -191,12 +190,101 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
     prices = invoice_items.map do |invoice_item|
-      invoice_item.unit_price * invoice_item.quantity     
+      invoice_item.unit_price * invoice_item.quantity
     end
     total_price = prices.inject do |sum, number|
       sum + number
     end
     total_price.round(2)
   end
+
+  def total_revenue_by_date(date)
+    found_invoices = @se.invoices.find_all_by_date(date)
+    total_revenue = 0
+    found_invoices.each do |invoice|
+      total_revenue += invoice_total(invoice.id)
+    end
+    total_revenue
+  end
+
+  def matched_invoices
+    matched = {}
+    @se.invoices.all.each do |invoice|
+      matched[invoice.id] = invoice.merchant_id
+    end
+    matched
+  end
+
+  def pending_scrubbed
+    matched_invoices.select do |key, value|
+      invoice_paid_in_full?(key)
+    end
+  end
+
+  # def invoice_totals_by_merchant
+  #   totals = {}
+  #   @se.merchants.all.each do |merchant|
+  #     woof = pending_scrubbed.group_by do |value|
+  #     value
+  #     end
+  #
+  #       thingy = 0
+  #       woof.each do |idk|
+  #       thingy += invoice_total(idk[0]).to_f
+  #     end
+  #   totals[merchant.id] = thingy
+  #   end
+  #   totals
+  # end
+
+  def invoice_gather
+    matched = {}
+    pending_scrubbed.each do |invoice|
+      newkey = invoice_total(invoice[0]).to_d
+      matched[newkey] = invoice[1]
+    end
+    matched
+  end
+
+  def invoice_arrays_by_merchant
+    good_invoices = invoice_gather
+    good_merchants = good_invoices.values.uniq
+    grouped = {}
+    good_merchants.each do |merchant|
+      total_calc = []
+      good_invoices.each do |data|
+        total_calc << data[0] if data[1] == merchant
+      end
+      grouped[merchant] = total_calc
+    end
+    grouped
+  end
+
+  def invoice_totals_by_merchant
+    finally = {}
+    invoice_arrays_by_merchant.each do |array|
+      summed = 0
+      array[1].each do |number|
+        summed += number
+      end
+    finally[array[0]] = summed
+    end
+    finally
+  end
+
+  def top_revenue_earners(x = 20)
+    best = invoice_totals_by_merchant.sort_by do |block|
+      block[1]
+    end.reverse
+    limit = x - 1
+    top = best[0..limit]
+    top.map do |gofuckyourselves|
+      @se.merchants.find_by_id(gofuckyourselves[0])
+    end
+  end
+  # total = 0
+  # fucked.each do |number|
+  #   total += number
+  # end
 
 end

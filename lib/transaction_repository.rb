@@ -61,11 +61,7 @@ include Crud
        item[:credit_card_expiration_date] = item[:credit_card_expiration_date]
        item[:updated_at]                  = Time.parse(item[:updated_at])
        item[:created_at]                  = Time.parse(item[:created_at])
-       if item[:result] == "success"
-         item[:result] = :success
-       else
-         item[:result] = :failed
-       end
+       item[:result]                      = item[:result].to_sym
      @collection << Transaction.new(item, @parent)
      end
    end
