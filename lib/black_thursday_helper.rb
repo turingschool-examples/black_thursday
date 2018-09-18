@@ -73,7 +73,7 @@ module BlackThursdayHelper
 
   def find_all_by_status(status)
     @collections.find_all do |object|
-      object.status.downcase.include? (status.downcase)
+      object.status == status
     end
   end
 end

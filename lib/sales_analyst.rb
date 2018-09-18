@@ -54,21 +54,10 @@ class SalesAnalyst
     BigDecimal(averages_total, 4)
   end
 
-  # def average_average_price_per_merchant
-  #   average_price_array = all_merchants.map do |merchant|
-  #     average_item_price_for_merchant(merchant.id)
-  #   end
-  #   average_price_sum = average_price_array.inject(0) do |sum, price|
-  #     sum + price
-  #   end
-  #   total_average = (average_price_sum / average_price_array.size).round(2)
-  #   BigDecimal(total_average, 5)
-  # end
-
   def average_invoices_per_merchant
-    total_merchants = @sales_engine.merchants.all.count
-    total_invoices = @sales_engine.invoices.all.count
-    BigDecimal((total_merchants.to_f/total_invoices),3)
+    total_merchants = @sales_engine.merchants.all.count.to_f
+    total_invoices = @sales_engine.invoices.all.count.to_f
+    BigDecimal((total_invoices/total_merchants),3).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation

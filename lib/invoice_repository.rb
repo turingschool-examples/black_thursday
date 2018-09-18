@@ -17,6 +17,7 @@ class InvoiceRepository
       if find_by_id(id) != nil
       object_to_be_updated = find_by_id(id)
       object_to_be_updated.status = attributes[:status]
+      object_to_be_updated.updated_at = Time.now
       else
         nil
       end
