@@ -209,30 +209,51 @@ class SalesAnalyst
   #   sale.find_all { |trans| trans.result == :success }
   # end
 
-  # TO DO - DOES PENDING count as a sale??
-  def invoice_was_not_returned?(invoice_id)
-    invoice = @invoices.find_by_id(invoice_id)
-    not_returned = invoice.status != :returned
-  end
+
 
   # Is returned supposed to count towards revenue??
   def invoice_items_of_successful_transactions(invoice_id)
-    sold = invoice_paid_in_full?(invoice_id) && invoice_was_not_returned?(invoice_id)
+    # sold = invoice_paid_in_full?(invoice_id) && invoice_was_not_returned?(invoice_id)
+    sold = invoice_paid_in_full?(invoice_id)
     items_by_invoice = @invoice_items.find_all_by_invoice_id(invoice_id) if sold
   end
 
   def invoice_total(invoice_id)
-    # returns the total $ amount of the Invoice with the corresponding id.
-    # Failed charges should never be counted in revenue totals or statistics.
-    invoice_items_by_id = invoice_items_of_successful_transactions(invoice_id)
-    if invoice_items_by_id
-      sum = invoice_items_by_id.inject(0) { |sum, item|
+    items_by_invoice = invoice_items_of_successful_transactions(invoice_id)
+    if items_by_invoice
+      sum = items_by_invoice.inject(0) { |sum, item|
         cost = item.quantity * item.unit_price_to_dollars
         sum += cost
       }
       return sum
+      # return BigDecimal.new(sum, 4)
     end
   end
+
+
+
+
+  #  SAVE FOR REVENUE
+  # # TO DO - DOES PENDING count as a sale??
+  # def invoice_was_not_returned?(invoice_id)
+  #   invoice = @invoices.find_by_id(invoice_id)
+  #   not_returned = invoice.status != :returned
+  # end
+
+
+  # #  SAVE FOR REVENUE
+  # def invoice_total(invoice_id)
+  #   # returns the total $ amount of the Invoice with the corresponding id.
+  #   # Failed charges should never be counted in revenue totals or statistics.
+  #   invoice_items_by_id = invoice_items_of_successful_transactions(invoice_id)
+  #   if invoice_items_by_id
+  #     sum = invoice_items_by_id.inject(0) { |sum, item|
+  #       cost = item.quantity * item.unit_price_to_dollars
+  #       sum += cost
+  #     }
+  #     return sum
+  #   end
+  # end
 
 
 end

@@ -282,19 +282,6 @@ class SalesAnalystTest < Minitest::Test
   # end
 
 
-  def test_it_can_determine_if_an_invoice_was_not_returned
-    # -- Returned --> not successful --
-    id = 25
-    assert_equal false, @sa_csv.invoice_was_not_returned?( id )
-    # -- Pending --> successful --
-    id = 1
-    assert_equal true, @sa_csv.invoice_was_not_returned?( id )
-    # -- Shipped --> successful --
-    id = 2
-    assert_equal true, @sa_csv.invoice_was_not_returned?( id )
-  end
-
-
 
   def test_it_can_find_a_list_of_successful_invoice_items
     # -- Returned --> not successful --
@@ -316,29 +303,55 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of InvoiceItem, items.first
   end
 
-
-
-  def test_it_can_total_the_invoice_revenue
-    # -- invoice id does not exist --
-    nothing = @sa_csv.invoice_total(0)
-    assert_nil nothing
-    # -- first invoice id --
+  def test_it_can_total_invoice_charge
     id = 1
-    total_1 = @sa_csv.invoice_total( id )
-    assert_operator 0, :<, total_1
-    assert_instance_of Float, total_1
-    items = @sa_csv.invoice_items_of_successful_transactions( id )
-    price = items.first.unit_price_to_dollars
-    qty = items.first.quantity
-    refute_equal total_1, qty
-    refute_equal total_1, price
-    refute_equal total_1, qty * price
-    # -- second invoice id --
-    total_2 = @sa_csv.invoice_total(2)
-    assert_operator 0, :<, total_2
-
-    refute_equal total_1, total_2
+    assert_equal 21067.77, @sa_csv.invoice_total(id)
   end
+
+
+
+
+
+
+
+
+  #  SAVE FOR REVENUE
+  # def test_it_can_determine_if_an_invoice_was_not_returned
+  #   # -- Returned --> not successful --
+  #   id = 25
+  #   assert_equal false, @sa_csv.invoice_was_not_returned?( id )
+  #   # -- Pending --> successful --
+  #   id = 1
+  #   assert_equal true, @sa_csv.invoice_was_not_returned?( id )
+  #   # -- Shipped --> successful --
+  #   id = 2
+  #   assert_equal true, @sa_csv.invoice_was_not_returned?( id )
+  # end
+
+
+#  SAVE FOR REVENUE
+
+  # def test_it_can_total_the_invoice_revenue
+  #   # -- invoice id does not exist --
+  #   nothing = @sa_csv.invoice_total(0)
+  #   assert_nil nothing
+  #   # -- first invoice id --
+  #   id = 1
+  #   total_1 = @sa_csv.invoice_total( id )
+  #   assert_operator 0, :<, total_1
+  #   assert_instance_of Float, total_1
+  #   items = @sa_csv.invoice_items_of_successful_transactions( id )
+  #   price = items.first.unit_price_to_dollars
+  #   qty = items.first.quantity
+  #   refute_equal total_1, qty
+  #   refute_equal total_1, price
+  #   refute_equal total_1, qty * price
+  #   # -- second invoice id --
+  #   total_2 = @sa_csv.invoice_total(2)
+  #   assert_operator 0, :<, total_2
+  #
+  #   refute_equal total_1, total_2
+  # end
 
 
 
