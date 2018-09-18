@@ -96,7 +96,7 @@ class SalesAnalyst
   # --- Item Repo Analysis Methods ---
 
   def merchant_stores
-    groups = group_by(@items.all, :merchant_id)
+    groups = FinderClass.group_by(@items.all, :merchant_id)
   end
 
   def merchant_store_item_counts(groups)
@@ -117,15 +117,12 @@ class SalesAnalyst
     std    = standard_deviation(vals, mean)
   end
 
-  def merchants_with_high_item_count
-    # find all merchants > one std of items
+  def merchants_with_high_item_count # find all merchants > one std of items
     groups    = merchant_stores
-    vals      = merchant_store_item_counts(groups)
-    std_high  = standard_dev_measure(vals, 1)
-    all_above = groups.find_all { |merch_id, items| items.count > std_high }.to_h
+    values      = merchant_store_item_counts(groups)
+    all_above = find_exceptional(groups, values, 1, :count)
     merch_ids = all_above.keys
-    list = merch_ids.map { |id| @merchants.all.find { |merch| merch.id == id } }
-    list = list.to_a.flatten
+    list = FinderClass.match_by_data(@merchants.all, merch_ids, :id)
     return list
   end
 
