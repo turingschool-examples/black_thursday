@@ -81,10 +81,10 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_transactions_by_result_status
     assert_equal [], @repo.find_all_by_result(000)
-    found = @repo.find_all_by_result("success")
+    found = @repo.find_all_by_result(:success)
     assert_instance_of Array, found
     assert_instance_of Transaction, found.first
-    assert_equal "success", found.first.result
+    assert_equal :success, found.first.result
   end
 
   def test_it_can_CREATE_new_transactions

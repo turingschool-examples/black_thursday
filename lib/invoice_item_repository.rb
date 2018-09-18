@@ -1,10 +1,10 @@
 require 'pry'
 
 require_relative 'finderclass'
+require_relative 'crud'
 
 require_relative 'invoice_item'
 
-require_relative 'crud'
 
 class InvoiceItemRepository
   include CRUD
@@ -34,6 +34,17 @@ class InvoiceItemRepository
   end
 
 
+
+  # --- Spec Harness Requirement ---
+
+  # TO DO - TEST ME
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+
+  # --- Find By ---
+
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
   end
@@ -45,6 +56,9 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_id)
     FinderClass.find_all_by(all, :invoice_id, invoice_id)
   end
+  
+  
+  # --- CRUD ---
 
   def create(attributes)
     id = make_id(all, :id)

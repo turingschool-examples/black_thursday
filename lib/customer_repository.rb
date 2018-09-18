@@ -32,6 +32,16 @@ class CustomerRepository
     return hash
   end
 
+  # --- Spec Harness Requirement ---
+
+  # TO DO - TEST ME
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+  
+  # --- Find By ---
+
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
   end
@@ -44,6 +54,9 @@ class CustomerRepository
     FinderClass.find_by_fragment(all, :last_name, name)
   end
 
+  
+  # --- CRUD ---
+  
   def create(attributes)
     id = make_id(all, :id)
     data = {id => attributes} 

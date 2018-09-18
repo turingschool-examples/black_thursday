@@ -2,8 +2,12 @@ require 'pry'
 
 require 'bigdecimal'
 
+require_relative 'data_typing'
+
 
 class Item
+  include DataTyping
+
 
   attr_reader :id,
               :created_at,
@@ -15,16 +19,15 @@ class Item
                 :updated_at
 
   def initialize(hash)
-
-    @id           = hash[:id].to_i
-    @created_at   = hash[:created_at]
-    @merchant_id  = hash[:merchant_id].to_i
-
+    # -- Read Only --
+    @id           = make_integer(hash[:id])
+    @created_at   = make_time(hash[:created_at])
+    @merchant_id  = make_integer(hash[:merchant_id])
+    # -- Accessible --
     @name         = hash[:name]
     @description  = hash[:description]
-    @unit_price   = BigDecimal.new(hash[:unit_price], 4)
-    @updated_at   = hash[:updated_at]
-    # TO DO - How to handle -> New creations need Time.now for updated_at, created_at
+    @unit_price   = make_big_decimal(hash[:unit_price])
+    @updated_at   = make_time(hash[:updated_at])
   end
 
   def unit_price_to_dollars

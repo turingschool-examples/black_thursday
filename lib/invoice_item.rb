@@ -1,6 +1,12 @@
+require 'pry'
+
 require 'bigdecimal'
 
+require_relative 'data_typing'
+
+
 class InvoiceItem
+  include DataTyping
 
   attr_reader :id,
               :item_id,
@@ -12,19 +18,17 @@ class InvoiceItem
                 :created_at
 
   def initialize(hash)
-   
-    @id         = hash[:id].to_i
-    @item_id    = hash[:item_id].to_i
-    @invoice_id = hash[:invoice_id].to_i
-    
-    @quantity   = hash[:quantity].to_i
-    @unit_price = BigDecimal.new(hash[:unit_price], 4)
-    @created_at = hash[:created_at]
-    @updated_at = hash[:updated_at]
-   
+    # -- Read Only --
+    @id         = make_integer(hash[:id])
+    @item_id    = make_integer(hash[:item_id])
+    @invoice_id = make_integer(hash[:invoice_id])
+    # -- Accessible --
+    @quantity   = make_integer(hash[:quantity])
+    @unit_price = make_big_decimal(hash[:unit_price])
+    @created_at = make_time(hash[:created_at])
+    @updated_at = make_time(hash[:updated_at])
   end
 
-  # TO DO - TEST ME
   def unit_price_to_dollars
     # TO DO - Is this supposed to be 2 decimal places?
     @unit_price.to_f

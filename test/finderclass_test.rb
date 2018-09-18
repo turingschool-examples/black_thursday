@@ -157,4 +157,29 @@ class FinderClassTest < MiniTest::Test
     assert_equal found, found2
   end
 
+  def test_it_can_group_by
+    groups = FinderClass.group_by(@items.all, :merchant_id)
+    assert_instance_of Hash, groups
+    assert_equal 12334141, groups.keys.first
+    assert_instance_of Item, groups.values.first.first
+  end
+
+  def test_it_can_match_by_data
+    ids = [12334105, 12334112]
+    matches = FinderClass.match_by_data(@merchants.all, ids, :id)
+    assert_instance_of Array, matches
+    assert_instance_of Merchant, matches.first
+    assert_equal 2, matches.count
+    assert_equal 12334105, matches.first.id
+  end
+
+  def test_it_can_convert_an_integer_day_of_week_to_the_word
+    assert_equal "Sunday",    FinderClass.day_of_week(0)
+    assert_equal "Monday",    FinderClass.day_of_week(1)
+    assert_equal "Tuesday",   FinderClass.day_of_week(2)
+    assert_equal "Wednesday", FinderClass.day_of_week(3)
+    assert_equal "Thursday",  FinderClass.day_of_week(4)
+    assert_equal "Friday",    FinderClass.day_of_week(5)
+    assert_equal "Saturday",  FinderClass.day_of_week(6)
+  end
 end

@@ -1,6 +1,8 @@
 require_relative 'test_helper'
 
-require './lib/transaction'
+require 'time'
+
+require_relative '../lib/transaction'
 
 
 class TransactionTet < Minitest::Test
@@ -16,21 +18,23 @@ class TransactionTet < Minitest::Test
               :created_at                  => "2012-02-26 20:56:56 UTC",
               :updated_at                  => "2012-02-26 20:56:56 UTC"
     }
-    @t = Transaction.new(@hash)
+    @transaction = Transaction.new(@hash)
   end
 
   def test_it_exists
-    assert_instance_of Transaction, @t
+    assert_instance_of Transaction, @transaction
   end
 
   def test_it_gets_attributes
-    assert_equal 1, @t.id
-    assert_equal 2179, @t.invoice_id
-    assert_equal "4068631943231473", @t.credit_card_number
-    assert_equal "0217", @t.credit_card_expiration_date
-    assert_equal "success", @t.result
-    assert_equal "2012-02-26 20:56:56 UTC", @t.created_at
-    assert_equal "2012-02-26 20:56:56 UTC", @t.updated_at
+    assert_equal 1, @transaction.id
+    assert_equal 2179, @transaction.invoice_id
+    assert_equal "4068631943231473", @transaction.credit_card_number
+    assert_equal "0217", @transaction.credit_card_expiration_date
+    assert_equal :success, @transaction.result
+    assert_instance_of Time, @transaction.created_at
+    assert_equal "2012-02-26 20:56:56 UTC", @transaction.created_at.to_s
+    assert_instance_of Time, @transaction.updated_at
+    assert_equal "2012-02-26 20:56:56 UTC", @transaction.updated_at.to_s
   end
 
 end

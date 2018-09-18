@@ -1,10 +1,10 @@
 require 'pry'
 
 require_relative 'finderclass'
+require_relative 'crud'
 
 require_relative 'transaction'
 
-require_relative 'crud'
 
 class TransactionRepository
   include CRUD
@@ -33,6 +33,16 @@ class TransactionRepository
   end
 
 
+  # --- Spec Harness Requirement ---
+
+  # TO DO - TEST ME
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+  
+
+  # --- Find By ---
+
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
   end
@@ -48,6 +58,9 @@ class TransactionRepository
   def find_all_by_result(result)
     FinderClass.find_all_by(all, :result, result)
   end
+  
+  
+  # --- CRUD ---
 
   def create(attributes)
     id = make_id(all, :id)
