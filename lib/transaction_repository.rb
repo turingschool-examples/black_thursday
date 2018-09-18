@@ -33,8 +33,6 @@ class TransactionRepository
   end
 
 
-  # --- Find By ---
-
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
   end

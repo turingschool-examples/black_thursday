@@ -71,6 +71,23 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Ondricka", found.first.last_name
   end
 
+  def test_it_can_CREATE_new_customers
+    assert_equal 1000, @repo.all.count
+
+    hash = {
+      invoice_id:         "9999",
+      credit_card_number: "4068631943231473",
+      credit_card_expiration_date: "0217",
+      result:             "success",
+      created_at:         "2012-02-26 20:56:56 UTC",
+      updated_at:         "2012-02-26 20:56:56 UTC"
+    }
+
+    @repo.create(hash)
+    assert_equal 1001, @repo.all.count
+  end
+
+  
 
 
 end

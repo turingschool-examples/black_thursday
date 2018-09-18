@@ -4,7 +4,10 @@ require_relative 'finderclass'
 
 require_relative 'customer'
 
+require_relative 'crud'
+
 class CustomerRepository
+  include CRUD
 
   attr_reader :all
 
@@ -15,8 +18,8 @@ class CustomerRepository
     @all = @customers
   end
 
-  def make_customers
-    @data.each { |key, value|
+  def make_customers(data = @data)
+    data.each { |key, value|
       hash = make_hash(key, value)
       customer = Customer.new(hash)
       @customers << customer
@@ -29,9 +32,6 @@ class CustomerRepository
     return hash
   end
 
-
-  # --- Find By ---
-
   def find_by_id(id)
     FinderClass.find_by(all, :id, id)
   end
@@ -42,6 +42,20 @@ class CustomerRepository
 
   def find_all_by_last_name(name)
     FinderClass.find_by_fragment(all, :last_name, name)
+  end
+
+  def create(attributes)
+    id = make_id(all, :id)
+    data = {id => attributes} 
+    make_customers(data)
+  end
+
+  def update(id, attributes)
+    update_entry(@transactions, id, attributes)
+  end
+
+  def delete(id)
+    delete_entry(@transactions, id)
   end
 
 end
