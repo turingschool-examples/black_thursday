@@ -176,4 +176,11 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_pending_invoices
+    pending_merchants = all_merchants.find_all do |merchant|
+      @sales_engine.invoices.find_all_by_merchant_id(merchant.id)
+      binding.pry
+    end
+  end
+
 end

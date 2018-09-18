@@ -91,4 +91,16 @@ class SalesAnalystTest<Minitest::Test
     expected = [@se.merchants.find_by_id(2)]
     assert_equal expected, @sa.top_revenue_earners(1)
   end
+
+  def test_it_returns_20_revenue_earners_by_defualt
+    actual = @sa.top_revenue_earners
+    assert_equal 7, actual.count
+  end
+
+  def test_it_can_return_merchants_with_pending_invoices
+    expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(5)]
+    assert_equal expected, @sa.merchants_with_pending_invoices
+  end
+
+
 end
