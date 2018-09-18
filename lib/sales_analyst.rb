@@ -179,48 +179,6 @@ class SalesAnalyst
     end
   end
 
-
-
-#First total revenue per invoice
-#then I need total revenue by merchant based on the invoice ids for that merchant
-#need to get rid of nils (turn into 0s?)
-#sort the hash of merchants to total revenue by total revenue
-
-def total_revenue(invoice_ids)
-  invoice_ids.inject(0) do |total, invoice_id|
-    total += invoice_total(invoice_id.to_f)
-  end
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   def merchants_with_pending_invoices
     pending_invoices = @se.invoices.all.map do |invoice|
       invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
@@ -232,17 +190,16 @@ end
 
 
   def merchants_with_only_one_item
-	hash = Hash.new(0)
-	@se.items.all.each do |item|
-		hash[item.merchant_id] += 1
-	end
+	  hash = Hash.new(0)
+	    @se.items.all.each do |item|
+		      hash[item.merchant_id] += 1
+	   end
 
-	ids = hash.find_all do |merchant_id, amount|
-		amount == 1
-	end.transpose[0]
+	  ids = hash.find_all do |merchant_id, amount|
+		  amount == 1
+	   end.transpose[0]
 
-	merchants_from_ids(ids)
-
+	  merchants_from_ids(ids)
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
@@ -251,16 +208,21 @@ end
       if @se.merchants.find_by_id(item.merchant_id).created_at.strftime("%B") == month
 
       hash[item.merchant_id] += 1
+      end
     end
-  end
     ids = hash.find_all do |merchant_id, amount|
-  amount == 1
-  end.transpose[0]
+      amount == 1
+    end.transpose[0]
     merchants_from_ids(ids)
   end
 
-  def revenue_by_merchant(merchant_id)
-
+  def       revenue_by_merchant(merchant_id)
+	  invoices = @se.invoices.all.find_all do |invoice|
+		  invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
+	   end
+     invoices.inject(0) do |sum, invoice|
+		sum + invoice_total(invoice.id)
+	  end
   end
 
   def most_sold_item_for_merchant(merchant_id)

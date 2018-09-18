@@ -250,9 +250,22 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_top_revenue_earners
+    skip
     expected = @sa.top_revenue_earners(10)
 
     assert_equal 12334634, expected.first.id
+  end
+
+  def test_it_can_group_invoices_by_merchant
+    expected = @sa.invoices_grouped_by_merchant
+
+    assert_equal '', expected.first[0]
+  end
+
+  def test_it_can_hash_total_revenue_per_merchant
+    expected = @sa.total_revenue_per_merchant
+
+    assert_equal '', expected.first
   end
 
 
