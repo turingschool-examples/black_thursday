@@ -116,10 +116,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_verified_merchant_revenue
+    skip
     se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
     sa = se.analyst
-    temp = sa.top_revenue_earners(2)
-    require "pry"; binding.pry
+    temp = sa.top_revenue_earners(10)
   end
 
 end

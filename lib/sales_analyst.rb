@@ -240,7 +240,7 @@ class SalesAnalyst
   def invoice_gather
     matched = {}
     pending_scrubbed.each do |invoice|
-      newkey = invoice_total(invoice[0]).to_i
+      newkey = invoice_total(invoice[0]).to_d
       matched[newkey] = invoice[1]
     end
     matched
