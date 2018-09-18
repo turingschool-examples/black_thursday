@@ -52,8 +52,21 @@ class FinderClass
     }; return list
   end
 
+  # THIS ALREADY EXISTS IN SALES ANALYSTS
   def self.group_by(collection, method)
     collection.group_by { |obj| obj.send(method) }
   end
+
+
+  # TO DO - MOVE TO FINDER
+  # TO DO - TEST ME
+  def self.match_by_data(repo, collection, method)
+    collection.map { |data|
+      repo.find_all { |obj| obj.send(method) == data }
+    }.flatten
+  end
+
+
+
 
 end

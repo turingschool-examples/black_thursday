@@ -166,9 +166,8 @@ class SalesAnalyst
     std_high = standard_dev_measure(counts, 2)
     top = groups.find_all { |id, invoices| invoices.count > std_high }.to_h
     merch_ids = top.keys
-    top_merchants = merch_ids.map { |id|
-      @merchants.all.find_all { |merch| merch.id == id }
-    }.flatten
+    top_merchants = FinderClass.match_by_data(@merchants.all, merch_ids, :id )
+
   end
 
   def bottom_merchants_by_invoice_count  # two standard deviations below the mean
@@ -177,9 +176,7 @@ class SalesAnalyst
     std_low = standard_dev_measure(counts, -2)
     top = groups.find_all { |id, invoices| invoices.count < std_low }.to_h
     merch_ids = top.keys
-    top_merchants = merch_ids.map { |id|
-      @merchants.all.find_all { |merch| merch.id == id }
-    }.flatten
+    bottom_merchants = FinderClass.match_by_data(@merchants.all, merch_ids, :id )
   end
 
   # TO DO - MOVE TO FINDER
