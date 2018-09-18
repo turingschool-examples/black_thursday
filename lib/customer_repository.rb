@@ -39,11 +39,9 @@ class CustomerRepository
   def create(attributes)
     max_id = generate_id
     time = attributes[:created_at].getutc
-    attributes = {:id => max_id,
-          :first_name => attributes[:first_name],
-          :last_name => attributes[:last_name],
-          :created_at => time,
-          :updated_at => time}
+    attributes = {:id => max_id, :first_name => attributes[:first_name],
+              :last_name => attributes[:last_name], :created_at => time,
+              :updated_at => time}
     @objects_array << Customer.new(attributes)
   end
 
