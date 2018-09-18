@@ -6,11 +6,13 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :merchants     => './test/fixtures/merchants_fixtures.csv',
     :items         => './test/fixtures/items_fixtures.csv',
-    :invoices      => './test/fixtures/invoices_fixtures.csv'
+    :invoices      => './test/fixtures/invoices_fixtures.csv',
+    :invoice_items => './test/fixtures/invoice_items_fixtures.csv'
                               })
     assert_equal MerchantRepository, se.merchants.class
     assert_equal ItemRepository, se.items.class
     assert_equal InvoiceRepository, se.invoices.class
+    assert_equal InvoiceItemRepository, se.invoice_items.class
   end
 
 end
