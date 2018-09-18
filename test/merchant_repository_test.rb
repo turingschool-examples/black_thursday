@@ -1,4 +1,4 @@
-require './test/minitest_helper'
+require './test/helper'
 
 class MerchantTest < Minitest::Test
   def setup

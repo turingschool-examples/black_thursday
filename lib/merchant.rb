@@ -1,4 +1,4 @@
-require 'pry'
+require './test/helper'
 
 class Merchant
   attr_reader     :id

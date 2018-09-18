@@ -1,4 +1,4 @@
-require 'pry'
+require './test/helper'
 
 class Invoice
   attr_reader   :customer_id,

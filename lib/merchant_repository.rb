@@ -1,6 +1,4 @@
-require 'CSV'
-require 'pry'
-require_relative './merchant'
+require './test/helper'
 
 class MerchantRepository
   attr_reader   :merchants

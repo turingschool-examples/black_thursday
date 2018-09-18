@@ -1,5 +1,4 @@
-require 'pry'
-require 'bigdecimal'
+require './test/helper'
 
 class Item
   attr_reader :id,
