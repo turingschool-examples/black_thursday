@@ -179,6 +179,10 @@ class SalesAnalyst
     end
   end
 
+  def top_revenue_earners(x = 20)
+    merchants_ranked_by_revenue[0..x-1]
+  end
+
   def merchants_with_pending_invoices
     pending_invoices = @se.invoices.all.map do |invoice|
       invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
@@ -216,7 +220,7 @@ class SalesAnalyst
     merchants_from_ids(ids)
   end
 
-  def       revenue_by_merchant(merchant_id)
+  def revenue_by_merchant(merchant_id)
 	  invoices = @se.invoices.all.find_all do |invoice|
 		  invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
 	   end
@@ -226,10 +230,54 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
+    merchant_invoices = @se.invoices.all.find_all do |invoice|
+  		invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
+  	end
+    invoice_ids = merchant_invoices.map do |invoice|
+      invoice.id
+    end
+    items_hash = Hash.new(0)
+
+    @se.invoice_items.all.each do |invoice_item|
+      if invoice_ids.include?(invoice_item.invoice_id)
+        items_hash[invoice_item.item_id] += invoice_item.quantity
+      end
+    end
+
+    max_item_quantity = items_hash.max_by do |item_id, quantity|
+      quantity
+    end[1]
+
+    top_item_ids = items_hash.find_all do |item_id, quantity|
+      quantity == max_item_quantity
+    end
+
+    a = top_item_ids.map do |item_id|
+      @se.items.find_by_id(item_id[0])
+    end
 
   end
 
   def best_item_for_merchant(merchant_id)
+    merchant_invoices = @se.invoices.all.find_all do |invoice|
+  		invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
+  	end
+    invoice_ids = merchant_invoices.map do |invoice|
+      invoice.id
+    end
+    items_hash = Hash.new(0)
+
+    @se.invoice_items.all.each do |invoice_item|
+      if invoice_ids.include?(invoice_item.invoice_id)
+        items_hash[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+      end
+    end
+
+    max_revenue_item = items_hash.max_by do |item_id, revenue|
+      revenue
+    end
+
+    @se.items.find_by_id(max_revenue_item[0])
 
   end
 
@@ -314,5 +362,22 @@ class SalesAnalyst
       sum + (num.quantity.to_i * num.unit_price)
     end
   end
+
+  #-----Iteration 4 Helper Method -----#
+
+  def merchants_ranked_by_revenue
+    hash = Hash.new()
+    @se.merchants.all.each do |merchant|
+      hash[merchant] = revenue_by_merchant(merchant.id)
+    end
+
+    hash.sort_by do |merchant, revenue|
+      revenue * -1
+    end.transpose[0]
+
+  end
+
+
+
 
 end
