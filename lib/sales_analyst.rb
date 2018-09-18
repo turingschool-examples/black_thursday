@@ -146,4 +146,34 @@ class SalesAnalyst
       item.unit_price > golden_goal
     end
   end
+
+  def total_revenue_by_date(date)
+    correct_invoices = all_invoices.keep_if do |invoice|
+      invoice.created_at == date
+    end
+    correct_invoices.inject(0) do |sum, invoice|
+      sum + invoice_total(invoice.id)
+    end
+  end
+
+  def top_revenue_earners(show_count = 20)
+    all_merchants.max_by(show_count) do |merchant|
+      revenue_by_merchant_float(merchant.id)
+    end
+  end
+
+  def revenue_by_merchant_float(merchant_id)
+    merchant_invoices = valid_merchant_invoices(merchant_id)
+    merchant_invoices.inject(0) do |sum, invoice|
+      sum + invoice_total_float(invoice.id)
+    end
+  end
+
+  def valid_merchant_invoices(merchant_id)
+    merchant_invoices = @sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    merchant_invoices.keep_if do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+  end
+
 end
