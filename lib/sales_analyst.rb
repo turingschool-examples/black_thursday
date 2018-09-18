@@ -180,39 +180,62 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    hash = Hash.new(0)
-     @se.invoices.all.each do |invoice|
-       if invoice_paid_in_full?(invoice.id)
-      hash[invoice.merchant_id] += invoice_total(invoice.id)
-    end
+    merchants_ranked_by_revenue[0..x-1]
   end
+
+  def merchants_ranked_by_revenue
+    hash = Hash.new(0)
+      @se.invoices.all.each do |invoice|
+        if invoice_paid_in_full?(invoice.id)
+          hash[invoice.merchant_id] += invoice_total(invoice.id)
+        end
+      end
 
 
     sorted = hash.sort_by do |merchant_id, invoice_total|
       invoice_total
     end.transpose[0].reverse
-    top_x = []
-
-
-    # x.times do |i|
-      top_x = sorted[0..x-1]
-
-    top_merchants = top_x.map do |merchant_id|
+      a = sorted.each do |merchant_id|
       @se.merchants.find_by_id(merchant_id)
     end
-    top_merchants
+    a
   end
 
   def merchants_with_pending_invoices
-
+	  pending_invoices =   @se.invoices.all.find_all do |invoice|
+		    invoice.status == :pending
+	   end
+	  pending_invoices.map do |invoice|
+		  @se.merchants.find_by_id(invoice.merchant_id)
+	  end.uniq
   end
 
   def merchants_with_only_one_item
+	hash = Hash.new(0)
+	@se.items.all.each do |item|
+		hash[item.merchant_id] += 1
+	end
+
+	ids = hash.find_all do |merchant_id, amount|
+		amount == 1
+	end.transpose[0]
+
+	merchants_from_ids(ids)
 
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
+    hash = Hash.new(0)
+    @se.items.all.each do |item|
+      if @se.merchants.find_by_id(item.merchant_id).created_at.strftime("%B") == month
 
+      hash[item.merchant_id] += 1
+    end
+  end
+    ids = hash.find_all do |merchant_id, amount|
+  amount == 1
+  end.transpose[0]
+    merchants_from_ids(ids)
   end
 
   def revenue_by_merchant(merchant_id)

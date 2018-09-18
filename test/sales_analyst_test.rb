@@ -249,6 +249,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, @sa.total_revenue_by_date(Time.parse("2009-02-07"))
   end
 
+  def test_it_can_find_top_revenue_earners
+    expected = @sa.top_revenue_earners(10)
+
+    assert_equal 12334634, expected.first.id
+  end
+
 
 
 
