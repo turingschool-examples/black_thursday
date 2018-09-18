@@ -99,5 +99,11 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 1000, @repo.all.count
   end
 
+  def test_it_can_DELETE_existing_customers
+    assert_equal 1000, @repo.all.count
+    @repo.delete(1)
+    assert_equal 999, @repo.all.count
+  end
+
 
 end
