@@ -77,5 +77,4 @@ class SalesAnalystTest<Minitest::Test
     expected = @se.items.find_by_id(2)
     assert_equal [expected], @sa.golden_items
   end
-
 end
