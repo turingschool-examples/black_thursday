@@ -197,66 +197,6 @@ class SalesAnalyst
     total_revenue
   end
 
-  def matched_invoices
-    matched = {}
-    @se.invoices.all.each do |invoice|
-      matched[invoice.id] = invoice.merchant_id
-    end
-    matched
-  end
-
-  def pending_scrubbed
-    matched_invoices.select do |key, value|
-      invoice_paid_in_full?(key)
-    end
-  end
-
-  def invoice_gather
-    matched = {}
-    pending_scrubbed.each do |invoice|
-      newkey = invoice_total(invoice[0]).to_d
-      matched[newkey] = invoice[1]
-    end
-    matched
-  end
-
-  def invoice_arrays_by_merchant
-    good_invoices = invoice_gather
-    good_merchants = good_invoices.values.uniq
-    grouped = {}
-    good_merchants.each do |merchant|
-      total_calc = []
-      good_invoices.each do |data|
-        total_calc << data[0] if data[1] == merchant
-      end
-      grouped[merchant] = total_calc
-    end
-    grouped
-  end
-
-  def invoice_totals_by_merchant
-    finally = {}
-    invoice_arrays_by_merchant.each do |array|
-      summed = 0.to_d
-      array[1].each do |number|
-        summed += number
-      end
-    finally[array[0]] = summed
-    end
-    finally
-  end
-
-  def top_revenue_earners(x = 20)
-    best = invoice_totals_by_merchant.sort_by do |block|
-      block[1]
-    end.reverse
-    limit = x - 1
-    top = best[0..limit]
-    top.map do |fuckthis|
-      @se.merchants.find_by_id(fuckthis[0])
-    end
-  end
-
   def pending_invoices
     @se.invoices.all.map do |invoice|
       if !invoice_paid_in_full?(invoice.id)
@@ -282,6 +222,117 @@ class SalesAnalyst
       end
     end
     singles.uniq
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @se.invoices.find_all_by_merchant_id(merchant_id)
+    invoice_item_total = invoices.map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_total(invoice.id)
+      end
+    end.compact
+    total = invoice_item_total.inject(0) do |sum, num|
+      sum + num
+    end
+    total.round(2)
+  end
+
+  def merchants_ranked_by_revenue
+      merchant_revenue_array = @se.merchants.all.map do |merchant|
+        [merchant, revenue_by_merchant(merchant.id)]
+      end
+      sorted_by_revenue = merchant_revenue_array.sort_by do |merchant, revenue|
+        revenue
+      end
+      biggest_to_smallest = sorted_by_revenue.reverse
+      biggest_to_smallest.map do |merchant, revenue|
+        merchant
+      end
+  end
+
+  def top_revenue_earners(count = 20)
+    sorted_merchants = merchants_ranked_by_revenue
+    sorted_merchants[0, count]
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+     lonely_merchants = []
+     @se.merchants.all.each do |merchant|
+       items = @se.items.find_all_by_merchant_id(merchant.id)
+       if items.count == 1 && merchant.created_at.strftime('%B') == month
+         lonely_merchants << merchant
+       end
+     end
+     lonely_merchants.uniq
+  end
+
+  def valid_transactions(invoices)
+   invoices.find_all do |invoice|
+     invoice_paid_in_full?(invoice.id)
+   end
+  end
+
+  def valid_invoice_items(valid_transactions)
+   valid_transactions.map do |invoice|
+     @se.invoice_items.find_all_by_invoice_id(invoice.id)
+   end.flatten
+  end
+
+  def quantity_of_items(grouped_items)
+   grouped_items.map do |item_id, invoice_items|
+     [item_id, invoice_items.inject(0) do |sum, invoice_item|
+       sum + (invoice_item.quantity * invoice_item.unit_price)
+     end ]
+   end
+  end
+
+  def quantities_of_items(grouped_items)
+   grouped_items.map do |item_id, invoice_items|
+     [item_id, invoice_items.inject(0) do |sum, invoice_item|
+       sum + invoice_item.quantity
+     end ]
+   end
+  end
+
+def most_sold_item_for_merchant(merchant_id)
+   invoices = @se.invoices.find_all_by_merchant_id(merchant_id)
+   valid_transactions = valid_transactions(invoices)
+   invoice_items = valid_invoice_items(valid_transactions)
+   grouped_items = invoice_items.group_by do |invoice_item|
+     invoice_item.item_id
+   end
+   qty_of_items = quantities_of_items(grouped_items)
+   qty = qty_of_items.sort_by do |item_id, quantity|
+     quantity
+   end
+   final = get_quantity_of_items(qty)
+   final.compact
+  end
+
+  def best_item_for_merchant(merchant_id)
+   invoices = @se.invoices.find_all_by_merchant_id(merchant_id)
+   valid_transactions = valid_transactions(invoices)
+   validated_invoice_items = valid_invoice_items(valid_transactions)
+   grouped_items = group_valid_invoice_items(validated_invoice_items)
+   quantity_of_items = quantity_of_items(grouped_items)
+   qty = quantity_of_items.sort_by do |item_id, quantity|
+     quantity
+   end
+   @se.items.find_by_id(qty[-1][0])
+  end
+
+  def get_quantity_of_items(qty)
+   qty.map do |item_id, quantity|
+     if quantity == qty[-1][1]
+       @se.items.find_by_id(item_id)
+     end
+   end
+  end
+
+  def group_valid_invoice_items(valid_invoice_items)
+   valid_invoice_items.group_by do |invoice_item|
+     invoice_item.item_id
+   end
   end
 
 end
