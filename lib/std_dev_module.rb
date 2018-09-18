@@ -36,6 +36,14 @@ module StdDevModule
     Math.sqrt(step_two).round(2)
   end
 
+  def calculate_std_dev_for_items
+    set = @item_repo.all.map do |item|
+        item.unit_price
+      end
+      standard_deviation(set)
+  end
+
+
 #stand_deviation (1)
   def standard_deviation(array)
     # Expect Array of numbers

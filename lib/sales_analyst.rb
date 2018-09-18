@@ -36,12 +36,20 @@ class SalesAnalyst
     end.to_h
   end
 
+  def average_items_per_merchant_standard_deviation
+    per_merchant_standard_deviation(@item_repo)
+  end
+
   def average_items_per_merchant
     average_items_invoices_per_merchant(@item_repo)
   end
 
   def average_invoices_per_merchant
     average_items_invoices_per_merchant(@invoice_repo)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    per_merchant_standard_deviation(@invoice_repo)
   end
 
   def merchants_with_high_item_count
@@ -64,10 +72,6 @@ class SalesAnalyst
       array << average_item_price_for_merchant(key.id)
     end
     (sum(array)/array.length).round(2)
-  end
-
-  def average_items_per_merchant_standard_deviation
-    per_merchant_standard_deviation(@item_repo)
   end
 
   def golden_items
@@ -99,25 +103,6 @@ class SalesAnalyst
     sum(prices)/@item_repo.all.length
   end
 
-  def subtract_square_sum_array_for_unit_price
-    set = @item_repo.all
-    mean = calculate_average_item_price
-    new_set = set.map do |element|
-      (mean - element.unit_price)**2
-    end
-    sum(new_set)
-  end
-
-  def calculate_std_dev_for_items
-    step_one = subtract_square_sum_array_for_unit_price
-    step_two = step_one/(@item_repo.all.count - 1)
-    Math.sqrt(step_two).round(2)
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    per_merchant_standard_deviation(@invoice_repo)
-  end
-  #########
 
   def top_days_by_invoice_count
     average = @invoice_repo.all.count/7
@@ -144,9 +129,7 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(search_invoice_id)
-    trans_id_list = @transaction_repo.all.find_all do |transaction|
-      transaction.invoice_id == search_invoice_id
-    end
+    trans_id_list = group_transaction_by_invoice(search_invoice_id)
     return false if trans_id_list == []
     if trans_id_list != []
       trans_id_list.any? do |trans|
@@ -156,14 +139,18 @@ class SalesAnalyst
   end
 
   def invoice_pending?(search_invoice_id)
-    trans_id_list = @transaction_repo.all.find_all do |transaction|
-      transaction.invoice_id == search_invoice_id
-    end
+    trans_id_list = group_transaction_by_invoice(search_invoice_id)
     return true if trans_id_list == []
     if trans_id_list != []
       trans_id_list.all? do |trans|
         trans.result == :failed
       end
+    end
+  end
+
+  def group_transaction_by_invoice(search_invoice_id)
+    @transaction_repo.all.find_all do |transaction|
+      transaction.invoice_id == search_invoice_id
     end
   end
 
@@ -250,8 +237,7 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     valid_invoices = find_valid_invoices_by_merchant(merchant_id)
-    invoice_items = map_invoice_to_invoice_items(valid_invoices)
-    invoice_items.flatten!
+    invoice_items = map_invoice_to_invoice_items(valid_invoices).flatten
     grouped_by_item_id = invoice_items.group_by do |invoice|
       invoice.item_id
     end

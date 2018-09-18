@@ -18,8 +18,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_new_item_added_to_item_array
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
     assert_instance_of Merchant, @mr.all[0]
@@ -28,19 +28,19 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_add_without_id
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
-    @mr.create({name: "Eraser"})
+    @mr.create({name: 'Eraser'})
     assert_equal 2, @mr.all.length
   end
 
   def test_it_returns_nil_with_no_matching_id
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
     assert_nil @mr.find_by_id(1234)
@@ -49,58 +49,58 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_return_by_id
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
-    assert_equal "Pencil", @mr.find_by_id(1).name
+    assert_equal 'Pencil', @mr.find_by_id(1).name
   end
 
   def test_it_returns_nil_with_no_matching_names
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
-    assert_nil @mr.find_by_name("Water Buffalo")
+    assert_nil @mr.find_by_name('Water Buffalo')
   end
 
   def test_it_can_return_by_name
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
-    assert_equal "Pencil", @mr.find_by_name("Pencil").name
+    assert_equal 'Pencil', @mr.find_by_name('Pencil').name
   end
 
   def test_it_returns_an_empty_array_with_no_name_matches
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
-    assert_equal [], @mr.find_all_by_name("Water Buffalo")
+    assert_equal [], @mr.find_all_by_name('Water Buffalo')
   end
 
   def test_it_can_find_all_by_name_fragment
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
-    assert_equal 1, @mr.find_all_by_name("pen").length
+    assert_equal 1, @mr.find_all_by_name('pen').length
   end
 
   def test_it_can_find_next_id
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
     assert_equal 2, @mr.find_next_id
@@ -113,24 +113,24 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_update_name
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
-    @mr.update(1, {name: "Eraser"})
-    assert_equal "Eraser", @mr.all[0].name
+    @mr.update(1, {name: 'Eraser'})
+    assert_equal 'Eraser', @mr.all[0].name
   end
 
   def test_merchant_can_be_deleted
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     hash2 = {
       :id          => 2,
-      :name        => "Eraser",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Eraser',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
     @mr.create(hash2)
@@ -141,13 +141,13 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_will_do_nothing_when_trying_to_delete_nonexistant_id
     hash = {
       :id          => 1,
-      :name        => "Pencil",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Pencil',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     hash2 = {
       :id          => 2,
-      :name        => "Eraser",
-      :created_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Eraser',
+      :created_at  => '2016-01-11 09:34:06 UTC'
     }
     @mr.create(hash)
     @mr.create(hash2)

@@ -7,13 +7,13 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     @ir = ItemRepository.new
     @hash = {
-      :id          => "1",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1099",
-      :created_at  => "2016-01-11 09:34:06 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "2"
+      :id          => '1',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1099',
+      :created_at  => '2016-01-11 09:34:06 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '2'
     }
   end
 
@@ -35,12 +35,12 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_add_by_hash_attributes
     @ir.create(@hash)
     hash2 = {
-      :name        => "Journal",
-      :description => "You can write in",
-      :unit_price  => "1099",
-      :merchant_id => "2",
-      :created_at  => "2016-01-11 09:34:06 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC"
+      :name        => 'Journal',
+      :description => 'You can write in',
+      :unit_price  => '1099',
+      :merchant_id => '2',
+      :created_at  => '2016-01-11 09:34:06 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC'
     }
     @ir.create(hash2)
     assert_equal 2, @ir.all.length
@@ -53,22 +53,22 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_by_id
     @ir.create(@hash)
-    assert_equal "Pencil", @ir.find_by_id(1).name
+    assert_equal 'Pencil', @ir.find_by_id(1).name
   end
 
   def test_it_returns_nil_with_no_matching_names
     @ir.create(@hash)
-    assert_nil @ir.find_by_name("Water Buffalo")
+    assert_nil @ir.find_by_name('Water Buffalo')
   end
 
   def test_it_can_return_by_name
     @ir.create(@hash)
-    assert_equal "Pencil", @ir.find_by_name("Pencil").name
+    assert_equal 'Pencil', @ir.find_by_name('Pencil').name
   end
 
   def test_it_returns_an_empty_array_with_no_name_matches
     @ir.create(@hash)
-    assert_nil @ir.find_by_name("Water Buffalo")
+    assert_nil @ir.find_by_name('Water Buffalo')
   end
 
   def test_it_can_find_next_by_id
@@ -78,7 +78,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_by_price
     @ir.create(@hash)
-    assert_equal "Pencil", @ir.find_all_by_price(10.99)[0].name
+    assert_equal 'Pencil', @ir.find_all_by_price(10.99)[0].name
   end
 
   def test_it_returns_empty_array_with_no_matchching_prices
@@ -89,13 +89,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_return_by_price_range
     @ir.create(@hash)
     hash2 = {
-      :id          => "2",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "2"
+      :id          => '2',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '2'
     }
     @ir.create(hash2)
     assert_equal 2, @ir.find_all_by_price_in_range(10..12).length
@@ -109,23 +109,23 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_return_all_by_merchant_id
     @ir.create(@hash)
     hash2 = {
-      :id          => "2",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "2"
+      :id          => '2',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '2'
     }
     @ir.create(hash2)
     hash3 = {
-      :id          => "2",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "3"
+      :id          => '2',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '3'
     }
     @ir.create(hash3)
     assert_equal 2, @ir.find_all_by_merchant_id(2)[0].merchant_id
@@ -141,71 +141,71 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_with_description
     @ir.create(@hash)
     hash2 = {
-      :id          => "2",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "2"
+      :id          => '2',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '2'
     }
     @ir.create(hash2)
     hash3 = {
-      :id          => "2",
-      :name        => "Eraser",
-      :description => "Erase things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "3"
+      :id          => '2',
+      :name        => 'Eraser',
+      :description => 'Erase things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '3'
     }
     @ir.create(hash3)
-    str = "You can use it to write things"
+    str = 'You can use it to write things'
     assert_equal 2, @ir.find_all_with_description(str).length
   end
 
   def test_it_can_find_all_with_partial_description
     @ir.create(@hash)
     hash2 = {
-      :id          => "2",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "2"
+      :id          => '2',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '2'
     }
     @ir.create(hash2)
     hash3 = {
-      :id          => "2",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "3"
+      :id          => '2',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '3'
     }
     @ir.create(hash3)
-    str = "You"
+    str = 'You'
     assert_equal 3, @ir.find_all_with_description(str).length
   end
 
   def test_it_returns_empty_array_with_no_matching_description
     @ir.create(@hash)
-    str = "Hello"
+    str = 'Hello'
     assert_equal [], @ir.find_all_with_description(str)
   end
 
   def test_it_can_update_attributes
     @ir.create(@hash)
     update_attributes = {
-      name: "Eraser",
-      description: "It erases things",
+      name: 'Eraser',
+      description: 'It erases things',
       unit_price: BigDecimal.new(12.21, 4)
     }
     @ir.update(1,update_attributes)
-    assert_equal "Eraser", @ir.all[0].name
-    assert_equal "It erases things", @ir.all[0].description
+    assert_equal 'Eraser', @ir.all[0].name
+    assert_equal 'It erases things', @ir.all[0].description
     assert_equal 12.21, @ir.all[0].unit_price_to_dollars
     assert_equal Time.now.min, @ir.all[0].updated_at.min
   end
@@ -213,13 +213,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_delete
     @ir.create(@hash)
     hash2 = {
-      :id          => "2",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1199",
-      :created_at  => "2007-06-04 21:35:10 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC",
-      :merchant_id => "2"
+      :id          => '2',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1199',
+      :created_at  => '2007-06-04 21:35:10 UTC',
+      :updated_at  => '2016-01-11 09:34:06 UTC',
+      :merchant_id => '2'
     }
     @ir.create(hash2)
     @ir.delete(2)

@@ -26,30 +26,12 @@ class SalesEngine
 
   def self.from_csv(file_path_hash)
     se = SalesEngine.new
-    # Is there a way to do this dynamically?
+
     file_path_hash.each do |key, value|
       eval('se.create_and_populate_' + key.to_s[0..-2] + '_repo(' + 'value' + ')')
     end
-    #
-    # unless file_path_hash[:items].nil?
-    #   se.create_and_populate_item_repo(file_path_hash[:items])
-    # end
-    # unless file_path_hash[:merchants].nil?
-    #   se.create_and_populate_merchant_repo(file_path_hash[:merchants])
-    # end
-    # unless file_path_hash[:invoices].nil?
-    #   se.create_and_populate_invoice_repo(file_path_hash[:invoices])
-    # end
-    # unless file_path_hash[:invoice_items].nil?
-    #   se.create_and_populate_invoice_item_repo(file_path_hash[:invoice_items])
-    # end
-    # unless file_path_hash[:transactions].nil?
-    #   se.create_and_populate_transaction_repo(file_path_hash[:transactions])
-    # end
-    # unless file_path_hash[:customers].nil?
-    #   se.create_and_populate_customer_repo(file_path_hash[:customers])
-    # end
-    se
+    
+    return se
   end
 
   def create_and_populate_item_repo(file_path)
