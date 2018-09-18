@@ -1,6 +1,5 @@
 require 'pry'
 
-
 class Customer
 
   attr_reader :id,
@@ -17,6 +16,5 @@ class Customer
     @created_at = hash[:created_at]
     @updated_at = hash[:updated_at]
   end
-
 
 end
