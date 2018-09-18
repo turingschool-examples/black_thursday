@@ -24,6 +24,7 @@ class SalesAnalyst
 
   # --- General Methods ---
 
+  # TO DO - MOVE TO FINDER
   def group_by(repo, method)
     groups = repo.group_by { |object| object.send(method)}  #method is a symbol
   end   # returns a hash
@@ -140,16 +141,13 @@ class SalesAnalyst
   # --- Invoice Repo Analysis Methods ---
 
   def invoices_grouped_by_merchant
-    # groups = @invoices.all.group_by { |invoice| invoice.merchant_id }
     groups = group_by(@invoices.all, :merchant_id)
   end
-
 
   def invoice_counts_per_merchant
     groups = invoices_grouped_by_merchant
     counts = groups.map { |id, invoices| invoices.count.to_f }
   end
-
 
   def average_invoices_per_merchant
     counts = invoice_counts_per_merchant
@@ -184,6 +182,7 @@ class SalesAnalyst
     }.flatten
   end
 
+  # TO DO - MOVE TO FINDER
   def day_of_week(integer)
     case integer
     when 0; "Sunday"
@@ -198,6 +197,7 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     groups = @invoices.all.group_by { |invoice| invoice.created_at.wday}
+    # groups = group_by { @invoices.all (:created_at,:wday)}
     values = groups.map { |day, inv| inv.count }
     std_high = standard_dev_measure(values, 1)
     top = groups.find_all { |day, sales| sales.count > std_high }.to_h
@@ -240,7 +240,7 @@ class SalesAnalyst
       }
       return sum
       # return BigDecimal.new(sum, 4)
-      # TO DO - I think the SpecHarness is wrongs -- wants both an int & BigDecimal
+      # TO DO - I think the SpecHarness is wrong -- wants both an int & BigDecimal
     end
   end
 

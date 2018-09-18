@@ -248,10 +248,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "Tuesday", @sa_csv.day_of_week(2)
     assert_equal "Wednesday", @sa_csv.day_of_week(3)
     assert_equal "Thursday", @sa_csv.day_of_week(4)
-    assert_equal "Friday", @sa_csv.day_of_week(5) 
+    assert_equal "Friday", @sa_csv.day_of_week(5)
     assert_equal "Saturday", @sa_csv.day_of_week(6)
   end
-
 
   def test_it_can_find_top_days_by_invoice_count_that_day
     top = @sa_csv.top_days_by_invoice_count
@@ -319,7 +318,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_total_invoice_charge
     id = 1
     assert_equal 21067.77, @sa_csv.invoice_total(id)
-    # TO DO - I think the PpecHarness is wrongs -- wants both an int & BigDecimal
+    # TO DO - I think the SpecHarness is wrong -- wants both an int & BigDecimal
   end
 
 
