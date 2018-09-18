@@ -176,13 +176,6 @@ class SalesAnalyst
     end
   end
 
-  def merchants_with_pending_invoices
-    @sales_engine.invoices.all.keep_if do |invoice|
-      # binding.pry
-        invoice.status.to_s == "pending"
-    end
-  end
-
   def pull_out_pending_invoices
     @sales_engine.invoices.all.keep_if do |invoice|
         invoice.status.to_s == "pending"
@@ -192,6 +185,13 @@ class SalesAnalyst
   def pull_out_the_merchant_ids_from_pending_invoices
     pull_out_pending_invoices.map do |invoice|
       invoice.merchant_id
+    end
+  end
+
+  def merchants_with_pending_invoices
+    @sales_engine.merchants.all.keep_if do |merchant|
+      # binding.pry
+        merchant.id == pull_out_the_merchant_ids_from_pending_invoices
     end
   end
 
