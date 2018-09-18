@@ -67,19 +67,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_an_empty_array_with_no_name_matches
-    skip
     @ir.create(@hash)
-    assert_equal [], @ir.find_all_by_name("Water Buffalo")
-  end
-
-  def test_it_can_find_all_by_name_fragment
-    skip
-    @ir.create(@hash)
-    assert_equal 1, @ir.find_all_by_name("pen").length
+    assert_nil @ir.find_by_name("Water Buffalo")
   end
 
   def test_it_can_find_next_by_id
-    skip
     @ir.create(@hash)
     assert_equal 2, @ir.find_next_id
   end

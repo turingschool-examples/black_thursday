@@ -36,6 +36,7 @@ module StdDevModule
     Math.sqrt(step_two).round(2)
   end
 
+#stand_deviation (1)
   def standard_deviation(array)
     # Expect Array of numbers
     average = sum(array)/array.count
@@ -45,8 +46,3 @@ module StdDevModule
     Math.sqrt(total/(array.length-1))
   end
 end
-
-# Take the difference between each number and the mean and square it
-# Sum these square differences together
-# Divide the sum by the number of elements minus 1
-# Take the square root of this result

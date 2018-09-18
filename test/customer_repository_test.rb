@@ -41,6 +41,18 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 2, @cr.all.length
   end
 
+  def test_it_can_add_by_hash_attributes_given_no_id
+    @cr.create(@hash)
+    hash2 = {
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => "2016-01-11 09:34:06 UTC",
+      :updated_at => "2016-01-11 09:34:06 UTC"
+              }
+    @cr.create(hash2)
+    assert_equal 2, @cr.all.length
+  end
+
   def test_it_can_find_all_by_first_name
     @cr.create(@hash)
     hash2 = {
@@ -74,7 +86,8 @@ class CustomerRepositoryTest < Minitest::Test
       :updated_at => "2016-01-11 09:34:06 UTC"
               }
     @cr.create(hash2)
-    assert_equal 1, @cr.find_all_by_first_name("Joan").count
+    assert_equal 1, @cr.find_all_by_last_name("Clarke").count
+    assert_equal 1, @cr.find_all_by_last_name("Smith").count
 
     hash3 = {
       :id => 6,
@@ -84,7 +97,7 @@ class CustomerRepositoryTest < Minitest::Test
       :updated_at => "2016-01-11 09:34:06 UTC"
               }
     @cr.create(hash3)
-    assert_equal 2, @cr.find_all_by_first_name("Joan").count
+    assert_equal 2, @cr.find_all_by_last_name("Clarke").count
   end
 
 end

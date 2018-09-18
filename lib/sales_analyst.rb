@@ -1,4 +1,3 @@
-require_relative '../lib/sales_analyst'
 require_relative '../lib/std_dev_module'
 require 'Date'
 
@@ -118,6 +117,7 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     per_merchant_standard_deviation(@invoice_repo)
   end
+  #########
 
   def top_days_by_invoice_count
     average = @invoice_repo.all.count/7

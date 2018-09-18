@@ -33,6 +33,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 6, @iir.all[0].id
   end
 
+  def test_it_can_create_when_given_no_id
+    args = {
+        :item_id => "7",
+        :invoice_id => "8",
+        :quantity => "1",
+        :unit_price => "1099",
+        :created_at => "2016-01-11 09:34:06 UTC",
+        :updated_at => "2016-01-11 09:34:06 UTC"
+        }
+    @iir.create(args)
+    assert_equal 1, @iir.all.count
+    assert_equal 1, @iir.all[0].id
+  end
+
   def test_it_can_return_all_by_invoice_id
     @iir.create(@args1)
     @iir.create(@args2)
@@ -52,6 +66,5 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 2, @iir.all[0].quantity
     assert_instance_of BigDecimal, @iir.all[0].unit_price
   end
-
 
 end
