@@ -36,7 +36,7 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_it_can_do_average_average_price_per_merchant
-    assert_equal 148005.43, @sa.average_average_price_per_merchant
+    assert_equal 148005.43, @sa.average_average_price_for_merchant
   end
 
   def test_average_invoices_per_merchant
@@ -77,5 +77,4 @@ class SalesAnalystTest<Minitest::Test
     expected = @se.items.find_by_id(2)
     assert_equal [expected], @sa.golden_items
   end
-
 end
