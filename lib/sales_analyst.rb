@@ -187,6 +187,33 @@ class SalesAnalyst
     end
   end
 
+  def pending_invoices
+    @se.invoices.all.map do |invoice|
+      if !invoice_paid_in_full?(invoice.id)
+       invoice
+      end
+    end.compact
+  end
+
+  def merchants_with_pending_invoices
+    invoices  = pending_invoices
+    merchants = invoices.map do |invoice|
+        invoice = @se.merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+      merchants
+  end
+
+  def merchants_with_only_one_item
+    singles = []
+    @se.merchants.all.each do |merchant|
+      items = @se.items.find_all_by_merchant_id(merchant.id)
+      if items.count == 1
+          singles << merchant
+      end
+    end
+    singles.uniq
+  end
+
   def invoice_total(invoice_id)
     invoice_items = @se.invoice_items.find_all_by_invoice_id(invoice_id)
     prices = invoice_items.map do |invoice_item|
@@ -206,65 +233,37 @@ class SalesAnalyst
     end
     total_revenue
   end
-
-  def matched_invoices
-    matched = {}
-    @se.invoices.all.each do |invoice|
-      matched[invoice.id] = invoice.merchant_id
-    end
-    matched
-  end
-
-  def pending_scrubbed
-    matched_invoices.select do |key, value|
-      invoice_paid_in_full?(key)
-    end
-  end
-
-  # def invoice_totals_by_merchant
-  #   totals = {}
-  #   @se.merchants.all.each do |merchant|
-  #     woof = pending_scrubbed.group_by do |value|
-  #     value
-  #     end
-  #
-  #       thingy = 0
-  #       woof.each do |idk|
-  #       thingy += invoice_total(idk[0]).to_f
-  #     end
-  #   totals[merchant.id] = thingy
-  #   end
-  #   totals
-  # end
-
-  def invoice_gather
-    matched = {}
-    pending_scrubbed.each do |invoice|
-      newkey = invoice_total(invoice[0]).to_i
-      matched[newkey] = invoice[1]
-    end
-    matched
-  end
-
-  def invoice_totals_by_merchant
-    
-    good_merchants = matched.values.uniq
-
-    grouped = {}
-    require "pry"; binding.pry
-    @good_merchants.each do |merchant|
-      totals = []
-      invoice_gather.each do |data|
-        totals << data[0] if data[1] == merchant.id
+  
+  def revenue_by_merchant(merchant_id)
+    invoices = @se.invoices.find_all_by_merchant_id(merchant_id)
+    invoice_item_total = invoices.map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_total(invoice.id)
       end
-      grouped[merchant.id] = totals
+    end.compact
+    total = invoice_item_total.inject(0) do |sum, num|
+      sum + num
     end
-    require "pry"; binding.pry
+    total.round(2)
+  end
+  
+  def merchants_ranked_by_revenue
+    merchant_revenue_array = @se.merchants.all.map do |merchant|
+      [merchant, revenue_by_merchant(merchant.id)]
+    end
+    sorted_by_revenue = merchant_revenue_array.sort_by do |_merchant, revenue|
+      revenue
+    end
+    biggest_to_smallest = sorted_by_revenue.reverse
+    biggest_to_smallest.map do |merchant, _revenue|
+      merchant
+    end
   end
 
-  # total = 0
-  # fucked.each do |number|
-  #   total += number
-  # end
+  def top_revenue_earners(count = 20)
+    sorted_merchants = merchants_ranked_by_revenue
+    sorted_merchants[0, count]
+  end
+
 
 end
