@@ -321,22 +321,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual[0]
   end
 
-  def test_it_groups_merchants_with_invoice_items
-    se = SalesEngine.from_csv(
-      {
-        :items     => './data/items.csv',
-        :invoices => './data/invoices.csv',
-        :merchants => './data/merchants.csv',
-        :invoice_items => './data/invoice_items.csv',
-        :transactions => './data/transactions.csv'
-      }
-    )
-    sa = se.analyst
-    actual = sa.merchants_grouped_with_invoice_items
-    assert_instance_of Merchant,actual.keys[0]
-    assert_instance_of InvoiceItem, actual.values[0][0]
-  end
-
   def test_it_can_return_merchants_with_one_item_registed_by_month
     se = SalesEngine.from_csv(
       {
@@ -365,7 +349,7 @@ class SalesAnalystTest < Minitest::Test
     sa = se.analyst
     instance_1 = sa.most_sold_item_for_merchant(12_334_189)
     assert_instance_of Array, instance_1
-    assert_instance_of Array, instance_1[0]
+    assert_instance_of Item, instance_1[0]
     assert_equal 263_524_984, instance_1[0].id
 
     instance_2 = sa.most_sold_item_for_merchant(12_334_189)

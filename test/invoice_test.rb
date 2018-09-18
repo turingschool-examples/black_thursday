@@ -8,7 +8,7 @@ class InvoiceTest < Minitest::Test
         :id          => 6,
         :customer_id => 7,
         :merchant_id => 8,
-        :status      => "pending",
+        :status      => 'pending',
         :created_at  => Time.now,
         :updated_at  => Time.now,
       })
@@ -21,15 +21,15 @@ class InvoiceTest < Minitest::Test
         :id          => 6,
         :customer_id => 7,
         :merchant_id => 8,
-        :status      => "pending",
+        :status      => 'pending',
         :created_at  => Time.now,
         :updated_at  => Time.now,
       })
     assert_equal 6, invoice.id
     assert_equal 7, invoice.customer_id
     assert_equal 8, invoice.merchant_id
-    assert_equal "pending", invoice.status
+    assert_equal 'pending', invoice.status
     assert_instance_of Time, invoice.created_at
     assert_instance_of Time, invoice.updated_at
-  end 
+  end
 end

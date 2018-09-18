@@ -32,7 +32,9 @@ class SalesAnalyst
 
   def merchants_with_high_item_count_hash
     merchant_hash(@item_repo).find_all do |key, value|
-      value.length >= per_merchant_standard_deviation(@item_repo) + average_items_invoices_per_merchant(@item_repo)
+      merchant = per_merchant_standard_deviation(@item_repo)
+      average = average_items_invoices_per_merchant(@item_repo)
+      value.length >= merchant + average
     end.to_h
   end
 
@@ -63,7 +65,7 @@ class SalesAnalyst
     bd_array = merchant_array[1].map do |item|
       item.unit_price
     end
-    (sum(bd_array)/bd_array.length).round(2)
+    (sum(bd_array) / bd_array.length).round(2)
   end
 
   def average_average_price_per_merchant

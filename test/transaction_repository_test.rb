@@ -5,13 +5,13 @@ class TransactionRepositoryTest < Minitest::Test
 
   def setup
     @hash = {
-      :id => "6",
-      :invoice_id => "8",
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :id => '6',
+      :invoice_id => '8',
+      :credit_card_number => '4242424242424242',
+      :credit_card_expiration_date => '0220',
+      :result => 'success',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
   end
 
@@ -34,12 +34,12 @@ class TransactionRepositoryTest < Minitest::Test
   def test_new_transaction_added_with_no_initial_id
     tr = TransactionRepository.new
     hash_2 = {
-      :invoice_id => "8",
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :invoice_id => '8',
+      :credit_card_number => '4242424242424242',
+      :credit_card_expiration_date => '0220',
+      :result => 'success',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
     tr.create(hash_2)
     assert_instance_of Transaction, tr.all[0]
@@ -50,13 +50,13 @@ class TransactionRepositoryTest < Minitest::Test
     tr = TransactionRepository.new
     tr.create(@hash)
     hash2 = {
-      :id => "3",
-      :invoice_id => "9",
-      :credit_card_number => "3737373737373",
-      :credit_card_expiration_date => "2222",
-      :result => "failed",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :id => '3',
+      :invoice_id => '9',
+      :credit_card_number => '3737373737373',
+      :credit_card_expiration_date => '2222',
+      :result => 'failed',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
     tr.create(hash2)
     assert_instance_of Transaction, tr.find_all_by_invoice_id(9)[0]
@@ -67,13 +67,13 @@ class TransactionRepositoryTest < Minitest::Test
     tr = TransactionRepository.new
     tr.create(@hash)
     hash2 = {
-      :id => "3",
-      :invoice_id => "9",
-      :credit_card_number => "3737373737373",
-      :credit_card_expiration_date => "2222",
-      :result => "failed",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :id => '3',
+      :invoice_id => '9',
+      :credit_card_number => '3737373737373',
+      :credit_card_expiration_date => '2222',
+      :result => 'failed',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
     tr.create(hash2)
     assert_equal [], tr.find_all_by_invoice_id(99)
@@ -83,46 +83,46 @@ class TransactionRepositoryTest < Minitest::Test
     tr = TransactionRepository.new
     tr.create(@hash)
     hash2 = {
-      :id => "3",
-      :invoice_id => "9",
-      :credit_card_number => "3737373737373",
-      :credit_card_expiration_date => "2222",
-      :result => "failed",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :id => '3',
+      :invoice_id => '9',
+      :credit_card_number => '3737373737373',
+      :credit_card_expiration_date => '2222',
+      :result => 'failed',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
     tr.create(hash2)
-    assert_instance_of Transaction, tr.find_all_by_credit_card_number("3737373737373")[0]
-    assert_equal 1, tr.find_all_by_credit_card_number("3737373737373").count
+    assert_instance_of Transaction, tr.find_all_by_credit_card_number('3737373737373')[0]
+    assert_equal 1, tr.find_all_by_credit_card_number('3737373737373').count
   end
 
   def test_it_returns_empty_array_with_no_match_for_cc_num
     tr = TransactionRepository.new
     tr.create(@hash)
     hash2 = {
-      :id => "3",
-      :invoice_id => "9",
-      :credit_card_number => "3737373737373",
-      :credit_card_expiration_date => "2222",
-      :result => "failed",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :id => '3',
+      :invoice_id => '9',
+      :credit_card_number => '3737373737373',
+      :credit_card_expiration_date => '2222',
+      :result => 'failed',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
     tr.create(hash2)
-    assert_equal [], tr.find_all_by_credit_card_number("3737373700373")
+    assert_equal [], tr.find_all_by_credit_card_number('3737373700373')
   end
 
   def test_it_can_find_all_by_result
     tr = TransactionRepository.new
     tr.create(@hash)
     hash2 = {
-      :id => "3",
-      :invoice_id => "9",
-      :credit_card_number => "3737373737373",
-      :credit_card_expiration_date => "2222",
-      :result => "failed",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :id => '3',
+      :invoice_id => '9',
+      :credit_card_number => '3737373737373',
+      :credit_card_expiration_date => '2222',
+      :result => 'failed',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
     tr.create(hash2)
     assert_instance_of Transaction, tr.find_all_by_result(:failed)[0]
@@ -133,13 +133,13 @@ class TransactionRepositoryTest < Minitest::Test
     tr = TransactionRepository.new
     tr.create(@hash)
     hash2 = {
-      :id => "3",
-      :invoice_id => "9",
-      :credit_card_number => "3737373737373",
-      :credit_card_expiration_date => "2222",
-      :result => "failed",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :id => '3',
+      :invoice_id => '9',
+      :credit_card_number => '3737373737373',
+      :credit_card_expiration_date => '2222',
+      :result => 'failed',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
     }
     tr.create(hash2)
     assert_equal [], tr.find_all_by_result(:pending)
@@ -148,10 +148,14 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_update_accessible_attributes
     tr = TransactionRepository.new
     tr.create(@hash)
-
-    tr.update(6, {credit_card_number: "4242000000424242", credit_card_expiration_date: "1220", result: "failed"})
-    assert_equal "4242000000424242", tr.all[0].credit_card_number
-    assert_equal "1220", tr.all[0].credit_card_expiration_date
-    assert_equal "failed", tr.all[0].result
+    attributes = {
+      credit_card_number: '4242000000424242',
+      credit_card_expiration_date: '1220',
+      result: 'failed'
+    }
+    tr.update(6, attributes)
+    assert_equal '4242000000424242', tr.all[0].credit_card_number
+    assert_equal '1220', tr.all[0].credit_card_expiration_date
+    assert_equal 'failed', tr.all[0].result
   end
 end

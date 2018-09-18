@@ -8,10 +8,10 @@ class CustomerRepositoryTest < Minitest::Test
     @cr = CustomerRepository.new
     @hash =   {
       :id => 6,
-      :first_name => "Joan",
-      :last_name => "Clarke",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
               }
   end
 
@@ -32,10 +32,10 @@ class CustomerRepositoryTest < Minitest::Test
     @cr.create(@hash)
     hash2 = {
       :id => 6,
-      :first_name => "Joan",
-      :last_name => "Clarke",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
               }
     @cr.create(hash2)
     assert_equal 2, @cr.all.length
@@ -44,10 +44,10 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_can_add_by_hash_attributes_given_no_id
     @cr.create(@hash)
     hash2 = {
-      :first_name => "Joan",
-      :last_name => "Clarke",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
               }
     @cr.create(hash2)
     assert_equal 2, @cr.all.length
@@ -57,47 +57,47 @@ class CustomerRepositoryTest < Minitest::Test
     @cr.create(@hash)
     hash2 = {
       :id => 6,
-      :first_name => "Bob",
-      :last_name => "Clarke",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :first_name => 'Bob',
+      :last_name => 'Clarke',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
               }
     @cr.create(hash2)
-    assert_equal 1, @cr.find_all_by_first_name("Joan").count
+    assert_equal 1, @cr.find_all_by_first_name('Joan').count
 
     hash3 = {
       :id => 6,
-      :first_name => "Joan",
-      :last_name => "Clarke",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
               }
     @cr.create(hash3)
-    assert_equal 2, @cr.find_all_by_first_name("Joan").count
+    assert_equal 2, @cr.find_all_by_first_name('Joan').count
   end
 
   def test_it_can_find_all_by_last_name
     @cr.create(@hash)
     hash2 = {
       :id => 6,
-      :first_name => "Bob",
-      :last_name => "Smith",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :first_name => 'Bob',
+      :last_name => 'Smith',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
               }
     @cr.create(hash2)
-    assert_equal 1, @cr.find_all_by_last_name("Clarke").count
-    assert_equal 1, @cr.find_all_by_last_name("Smith").count
+    assert_equal 1, @cr.find_all_by_last_name('Clarke').count
+    assert_equal 1, @cr.find_all_by_last_name('Smith').count
 
     hash3 = {
       :id => 6,
-      :first_name => "Joan",
-      :last_name => "Clarke",
-      :created_at => "2016-01-11 09:34:06 UTC",
-      :updated_at => "2016-01-11 09:34:06 UTC"
+      :first_name => 'Joan',
+      :last_name => 'Clarke',
+      :created_at => '2016-01-11 09:34:06 UTC',
+      :updated_at => '2016-01-11 09:34:06 UTC'
               }
     @cr.create(hash3)
-    assert_equal 2, @cr.find_all_by_last_name("Clarke").count
+    assert_equal 2, @cr.find_all_by_last_name('Clarke').count
   end
 
 end

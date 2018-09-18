@@ -23,23 +23,23 @@ class InvoiceItemRepository
     if attributes[:id] != nil
       #Coming From CSV
       hash = {
-        id: attributes[:id].to_i,
-        item_id: attributes[:item_id].to_i,
+        id:         attributes[:id].to_i,
+        item_id:    attributes[:item_id].to_i,
         invoice_id: attributes[:invoice_id].to_i,
-        quantity: attributes[:quantity].to_i,
+        quantity:   attributes[:quantity].to_i,
         unit_price: BigDecimal.new(attributes[:unit_price].to_f/100, attributes[:unit_price].length),
         updated_at: Time.parse(attributes[:updated_at]),
         created_at: Time.parse(attributes[:created_at]),
-        }
+      }
       invoice_item = InvoiceItem.new(hash)
       @data << invoice_item
     else
       #Generated on the fly
       hash = {
-        id: find_next_id,
-        item_id: attributes[:item_id].to_i,
+        id:         find_next_id,
+        item_id:    attributes[:item_id].to_i,
         invoice_id: attributes[:invoice_id].to_i,
-        quantity: attributes[:quantity].to_i,
+        quantity:   attributes[:quantity].to_i,
         unit_price: attributes[:unit_price],
         updated_at: attributes[:updated_at],
         created_at: attributes[:created_at]
