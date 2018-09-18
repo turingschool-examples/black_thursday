@@ -98,8 +98,23 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_it_can_return_merchants_with_pending_invoices
+  skip
     expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(5)]
+
     assert_equal expected, @sa.merchants_with_pending_invoices
+  end
+
+  def test_i_can_pull_out_the_pending_invoices
+    expected =
+    [Invoice:0xXXXXXX @id=1, @customer_id=8, @merchant_id=34444, @status=:pending, @created_at=2009-02-07 00:00:00 -07
+    00, @updated_at=2014-03-15 00:00:00 -0600>, <Invoice:0xXXXXXX @id=5, @customer_id=1, @merchant_id=12334269, @status=
+    :pending, @created_at=2013-08-05 00:00:00 -0600, @updated_at=2014-06-06 00:00:00 -0600]
+  
+    assert_equal ["invoice"], @sa.pull_out_pending_invoices
+  end
+
+  def test_i_can_pull_out_the_merchant_ids_from_the_pending_invoices
+    assert_equal [34444, 12334269], @sa.pull_out_the_merchant_ids_from_pending_invoices
   end
 
 
