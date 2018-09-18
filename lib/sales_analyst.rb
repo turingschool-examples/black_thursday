@@ -210,4 +210,51 @@ class SalesAnalyst
 
   # end calc helpers
 
+  def top_merchant_for_customer(customer_id)
+    customer_invoices = @invoices.find_all_by_customer_id(customer_id)
+    customer_invoice_ids = customer_invoices.group_by do |invoice|
+      invoice.id
+    end
+
+    cust_invoice_objects = customer_invoice_ids.values
+
+    invoice_ids = customer_invoice_ids.keys
+    quantities = []
+    in_item_one = @invoice_items.find_all_by_invoice_id(invoice_ids[0])
+    quantities << in_item_one
+
+    in_item_two = @invoice_items.find_all_by_invoice_id(invoice_ids[1])
+    quantities << in_item_two
+
+    in_item_three = @invoice_items.find_all_by_invoice_id(invoice_ids[2])
+    quantities << in_item_three
+
+    in_item_four = @invoice_items.find_all_by_invoice_id(invoice_ids[3])
+    quantities << in_item_four
+
+    in_item_five = @invoice_items.find_all_by_invoice_id(invoice_ids[4])
+    quantities << in_item_five
+
+    in_item_six = @invoice_items.find_all_by_invoice_id(invoice_ids[5])
+    quantities << in_item_six
+
+    in_item_seven= @invoice_items.find_all_by_invoice_id(invoice_ids[6])
+    quantities << in_item_seven
+
+    in_item_eight = @invoice_items.find_all_by_invoice_id(invoice_ids[7])
+    quantities << in_item_eight
+
+    greatest = quantities[1].max_by do |item|
+      item.quantity
+    end
+    found_merch_id = @invoices.find_by_id(greatest.invoice_id).merchant_id
+
+    @merchants.find_by_id(found_merch_id)
+
+  end
+
+
+
+
+
 end
