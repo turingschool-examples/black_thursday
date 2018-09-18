@@ -157,4 +157,11 @@ class FinderClassTest < MiniTest::Test
     assert_equal found, found2
   end
 
+  def test_it_can_group_by
+    groups = FinderClass.group_by(@items.all, :merchant_id)
+    assert_instance_of Hash, groups
+    assert_equal 12334141, groups.keys.first
+    assert_instance_of Item, groups.values.first.first
+  end
+
 end

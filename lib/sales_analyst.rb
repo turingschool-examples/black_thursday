@@ -1,5 +1,6 @@
 require 'pry'
 
+require_relative 'finderclass'
 
 class SalesAnalyst
 
@@ -59,7 +60,6 @@ class SalesAnalyst
     std == nil ? std = standard_deviation(values, mean) : std
     outside_this = mean + (std * above_or_below)
   end # returns a float
-
 
   # # WIP -- IGNORE THIS FOR NOW
   # # TO DO - Test Me
@@ -184,8 +184,24 @@ class SalesAnalyst
     }.flatten
   end
 
+  def day_of_week(integer)
+    case integer
+    when 0; "Sunday"
+    when 1; "Monday"
+    when 2; "Tuesday"
+    when 3; "Wednesday"
+    when 4; "Thursday"
+    when 5; "Friday"
+    when 6; "Saturday"
+    end
+  end
+
   def top_days_by_invoice_count
-    # TO DO - DATES NEED TO BE IMPLEMENTED
+    groups = @invoices.all.group_by { |invoice| invoice.created_at.wday}
+    values = groups.map { |day, inv| inv.count }
+    std_high = standard_dev_measure(values, 1)
+    top = groups.find_all { |day, sales| sales.count > std_high }.to_h
+    top_as_word = top.keys.map { |day| day_of_week(day) }
   end
 
   def invoice_status(status)
@@ -204,12 +220,11 @@ class SalesAnalyst
     sale.any? { |trans| trans.result == :success }
   end
 
+  #  SAVE FOR REVENUE
   # def successful_transactions_by_invoice_id(invoice_id)
   #   sale = @transactions.find_all_by_invoice_id(invoice_id)
   #   sale.find_all { |trans| trans.result == :success }
   # end
-
-
 
   # Is returned supposed to count towards revenue??
   def invoice_items_of_successful_transactions(invoice_id)
@@ -227,6 +242,7 @@ class SalesAnalyst
       }
       return sum
       # return BigDecimal.new(sum, 4)
+      # TO DO - I think the PpecHarness is wrongs -- wants both an int & BigDecimal
     end
   end
 

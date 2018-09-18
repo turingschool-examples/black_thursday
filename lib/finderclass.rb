@@ -52,4 +52,8 @@ class FinderClass
     }; return list
   end
 
+  def self.group_by(collection, method)
+    collection.group_by { |obj| obj.send(method) }
+  end
+
 end

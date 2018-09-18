@@ -242,9 +242,21 @@ class SalesAnalystTest < Minitest::Test
     assert_operator 3.91, :>, count
   end
 
-  # TO DO - DATES NEED TO BE IMPLEMENTED
+  def test_it_can_convert_an_integer_day_of_week_to_the_word
+    assert_equal "Sunday", @sa_csv.day_of_week(0)
+    assert_equal "Monday", @sa_csv.day_of_week(1)
+    assert_equal "Tuesday", @sa_csv.day_of_week(2)
+    assert_equal "Wednesday", @sa_csv.day_of_week(3)
+    assert_equal "Thursday", @sa_csv.day_of_week(4)
+    assert_equal "Friday", @sa_csv.day_of_week(5) 
+    assert_equal "Saturday", @sa_csv.day_of_week(6)
+  end
+
+
   def test_it_can_find_top_days_by_invoice_count_that_day
-    skip
+    top = @sa_csv.top_days_by_invoice_count
+    assert_instance_of Array, top
+    assert_equal "Wednesday", top.first
   end
 
   def test_it_can_find_the_status_of_all_invoices_as_a_percentage
@@ -267,6 +279,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal true, @sa_csv.invoice_paid_in_full?( id_with_a_success )
   end
 
+  #  SAVE FOR REVENUE
   # def test_it_can_find_all_successful_transactions_by_invoice_id
   #   id = 520
   #   # -- id has failed transactions --
@@ -306,6 +319,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_total_invoice_charge
     id = 1
     assert_equal 21067.77, @sa_csv.invoice_total(id)
+    # TO DO - I think the PpecHarness is wrongs -- wants both an int & BigDecimal
   end
 
 
