@@ -13,9 +13,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    total_merchants = @sales_engine.merchants.all.count
-    total_items = @sales_engine.items.all.count
-    BigDecimal((total_merchants.to_f/total_items),3)
+    total_merchants = all_merchants.size.to_f
+    total_items = all_items.size.to_f
+    BigDecimal((total_items.to_f/total_merchants), 3).to_f
   end
 
   def average_items_per_merchant_standard_deviation
@@ -34,7 +34,7 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_per_merchant(merchant_id)
+  def average_item_price_for_merchant(merchant_id)
     items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
     item_sum = items.inject(0) do |sum, item|
       sum + item.unit_price
@@ -45,7 +45,7 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     merchant_item_averages = all_merchants.map do |merchant|
-      average_item_price_per_merchant(merchant.id)
+      average_item_price_for_merchant(merchant.id)
     end
     averages_summed = merchant_item_averages.inject(0) do |sum, average|
       sum + average
