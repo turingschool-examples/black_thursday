@@ -4,12 +4,14 @@ require 'bigdecimal'
 class SalesAnalyst
   attr_reader :se,
               :mr,
-              :ir
+              :ir,
+              :inv
 
   def initialize(se)
     @se = se
     @mr = @se.merchants
     @ir = @se.items
+    @inv = @se.invoices
   end
 
   def average_items_per_merchant
@@ -85,5 +87,41 @@ class SalesAnalyst
     end
   end
 
+  def average_invoices_per_merchant
+    (@inv.all.count.to_f/@mr.all.count).round(2)
+  end
+
+  def count_invoices_per_merchant
+     @inv.invoices.inject(Hash.new (0)) do |total, invoice|
+       total[invoice.merchant_id] += 1
+       total
+     end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    set = count_invoices_per_merchant.values.map do |invoice_count|
+      ((invoice_count - mean) ** 2)
+    end.inject(:+)
+    Math.sqrt(set/(@mr.all.count-1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    one_sd_above = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
+    count_invoices_per_merchant.map do |merchant_id, invoices_per_merchant|
+      if invoices_per_merchant > one_sd_above
+        @mr.find_by_id(merchant_id.to_i)
+      end
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    one_sd_below = average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation
+    count_invoices_per_merchant.map do |merchant_id, invoices_per_merchant|
+      if invoices_per_merchant < one_sd_below
+        @mr.find_by_id(merchant_id.to_i)
+      end
+    end.compact
+  end
 
 end
