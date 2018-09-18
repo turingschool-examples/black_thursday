@@ -113,14 +113,39 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, actual.class
   end
 
+  def test_invoice_total
+    skip
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
+    sa = se.analyst
+    actual = sa.invoice_total(3485)
+    assert_equal 28597.08, actual
+    assert_equal BigDecimal, actual.class
+  end
+
+  def test_total_revenue_by_date
+    skip
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
+    sa = se.analyst
+    actual = sa.total_revenue_by_date(Time.parse("2009-02-07"))
+    assert_equal 21067.77, actual
+    assert_equal BigDecimal, actual.class
+  end
+
+  def test_matched_invoices
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
+    sa = se.analyst
+    actual = sa.matched_invoices[328]
+    expected = 12337193
+    assert_equal expected, actual
+  end
+
   def test_top_revenue_earners
     skip
     se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
     sa = se.analyst
-    earners = sa.top_revenue_earners(10)
-    actual = earners.count
-    expected = 10
-    assert_equal expected, actual
+    earners = sa.top_revenue_earners
+    assert_equal 20, earners.count
+    assert_equal 12334159, earners.last.id
   end
 
 end
