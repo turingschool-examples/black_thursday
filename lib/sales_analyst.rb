@@ -301,6 +301,7 @@ def most_sold_item_for_merchant(merchant_id)
    grouped_items = invoice_items.group_by do |invoice_item|
      invoice_item.item_id
    end
+   require "pry"; binding.pry
    qty_of_items = quantities_of_items(grouped_items)
    qty = qty_of_items.sort_by do |item_id, quantity|
      quantity
