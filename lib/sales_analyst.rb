@@ -90,7 +90,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    groups = group_by(@items.all, :merchant_id)
+    groups = merchant_stores
     vals   = merchant_store_item_counts(groups)
     mean   = average(vals)
     return mean.round(2)
@@ -116,7 +116,6 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    id    = id
     group = @items.find_all_by_merchant_id(id)
     total = group.inject(0) { |sum, item| sum += item.unit_price }
     count = group.count
@@ -141,7 +140,8 @@ class SalesAnalyst
   # --- Invoice Repo Analysis Methods ---
 
   def invoices_grouped_by_merchant
-    groups = @invoices.all.group_by { |invoice| invoice.merchant_id }
+    # groups = @invoices.all.group_by { |invoice| invoice.merchant_id }
+    groups = group_by(@invoices.all, :merchant_id)
   end
 
 
@@ -214,8 +214,7 @@ class SalesAnalyst
 
   # --- Transaction Repo Analysis Methods ---
 
-  def invoice_paid_in_full?(invoice_id)
-    # An invoice is considered paid in full if it has a successful transaction  (ANY!)
+  def invoice_paid_in_full?(invoice_id) # Paid in full if t/f
     sale = @transactions.find_all_by_invoice_id(invoice_id)
     sale.any? { |trans| trans.result == :success }
   end
@@ -228,7 +227,6 @@ class SalesAnalyst
 
   # Is returned supposed to count towards revenue??
   def invoice_items_of_successful_transactions(invoice_id)
-    # sold = invoice_paid_in_full?(invoice_id) && invoice_was_not_returned?(invoice_id)
     sold = invoice_paid_in_full?(invoice_id)
     items_by_invoice = @invoice_items.find_all_by_invoice_id(invoice_id) if sold
   end
@@ -242,7 +240,7 @@ class SalesAnalyst
       }
       return sum
       # return BigDecimal.new(sum, 4)
-      # TO DO - I think the PpecHarness is wrongs -- wants both an int & BigDecimal
+      # TO DO - I think the SpecHarness is wrongs -- wants both an int & BigDecimal
     end
   end
 
