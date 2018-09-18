@@ -63,5 +63,4 @@ class TransactionRepository
     delete_entry(@transactions, id)
   end
 
-
 end

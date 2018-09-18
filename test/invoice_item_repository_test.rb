@@ -53,8 +53,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
 
-  # --- Find By ---
-
   def test_it_can_find_by_invoice_item_id
     assert_nil @repo.find_by_id(000)
     found = @repo.find_by_id(1)
@@ -107,7 +105,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal "17000", @repo.find_by_id(1).unit_price
   end
 
-  def test_it_can_DELETE_existing_items
+  def test_it_can_DELETE_existing_invoice_items
     assert_equal 21830, @repo.all.count
 
     @repo.delete(1)

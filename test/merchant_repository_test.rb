@@ -35,8 +35,6 @@ class MerchantRepositoryTest < Minitest::Test
     end
 
 
-    # --- Find By ---
-
     def test_it_can_find_by_merchant_id
       # -- no results --
       not_found = @repo.find_by_id(000)

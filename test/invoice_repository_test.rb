@@ -46,8 +46,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
 
-  # --- Find By ---
-
   def test_it_can_find_an_invoice_by_id
     assert_nil @repo.find_by_id("000")
     assert_equal 1, @repo.find_by_id(1).id
@@ -80,7 +78,6 @@ class InvoiceRepositoryTest < Minitest::Test
 
 
   def test_it_can_CREATE_new_invoice
-  
     assert_equal 4985, @repo.all.count
         
     hash = {customer_id: "1",
@@ -113,6 +110,5 @@ class InvoiceRepositoryTest < Minitest::Test
     
     assert_equal 4984, @repo.all.count
   end 
-
 
 end

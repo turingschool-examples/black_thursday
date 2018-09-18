@@ -52,7 +52,6 @@ class InvoiceRepository
     id = make_id(all, :id)
     data = {id => attributes} 
     make_invoices(data)
-    # binding.pry
   end
 
   def update(id, attributes)

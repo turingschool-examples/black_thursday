@@ -111,11 +111,18 @@ class TransactionRepositoryTest < Minitest::Test
       credit_card_expiration_date: "0000",
       result:                      "failed",
     }
+    
     @repo.update(1, hash)
-    entry = @repo.find_by_id(1)
-
     assert_equal 4985, @repo.all.count
+    
+    entry = @repo.find_by_id(1)
     assert_equal "9999999999999999", entry.credit_card_number
+  end
+
+  def test_it_can_DELETE_existing_transactions
+    assert_equal 4985, @repo.all.count
+    @repo.delete(1)
+    assert_equal 4984, @repo.all.count
   end
 
 end

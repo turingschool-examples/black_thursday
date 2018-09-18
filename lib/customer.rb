@@ -1,5 +1,3 @@
-require 'pry'
-
 class Customer
 
   attr_reader :id,
