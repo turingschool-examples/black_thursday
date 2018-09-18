@@ -62,6 +62,19 @@ class SalesAnalyst
     outside_this = mean + (std * above_or_below)
   end # returns a float
 
+
+  # TO DO - TEST ME
+  def find_exceptional(hash, values_for_std, stds, hash_value_method)
+    method = hash_value_method
+    stds > 0 ? operator = :> : operator = :<
+    std_limit = standard_dev_measure(values_for_std, stds)
+    hash.find_all {|key, value|
+      value.send(method).send(operator, std_limit)
+    }.to_h
+  end
+
+
+
   # # WIP -- IGNORE THIS FOR NOW
   # # TO DO - Test Me
   # def best_or_worst_by_group(group, values, mean, above_or_below)
@@ -163,8 +176,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count  # two standard deviations above the mean
     groups = invoices_grouped_by_merchant
     counts = invoice_counts_per_merchant
-    std_high = standard_dev_measure(counts, 2)
-    top = groups.find_all { |id, invoices| invoices.count > std_high }.to_h
+    top = find_exceptional(groups, counts, 2, :count)
     merch_ids = top.keys
     top_merchants = FinderClass.match_by_data(@merchants.all, merch_ids, :id )
 
@@ -172,34 +184,17 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count  # two standard deviations below the mean
     groups = invoices_grouped_by_merchant
-    counts = invoice_counts_per_merchant
-    std_low = standard_dev_measure(counts, -2)
-    top = groups.find_all { |id, invoices| invoices.count < std_low }.to_h
-    merch_ids = top.keys
+    counts = invoice_counts_per_merchant\
+    worst = find_exceptional(groups, counts, -2, :count)
+    merch_ids = worst.keys
     bottom_merchants = FinderClass.match_by_data(@merchants.all, merch_ids, :id )
   end
 
   def top_days_by_invoice_count
     groups = @invoices.all.group_by { |invoice| invoice.created_at.wday}
-    # groups = group_by { @invoices.all (:created_at,:wday)}
     values = groups.map { |day, inv| inv.count }
-    std_high = standard_dev_measure(values, 1)
-    # top = groups.find_all { |day, sales| sales.count > std_high }.to_h
-    # top = find_exceptional(groups, :day, :value, :value, :count, :>, std_high)
     top = find_exceptional(groups, values, 1, :count)
     top_as_word = top.keys.map { |day| FinderClass.day_of_week(day) }
-  end
-
-  # def find_exceptional(collection, key, value, object, action, operator, std_limit)
-  #   collection.find_all { |key, value| object.send(action).send(operator, std_limit) }.to_h
-  # end
-
-  def find_exceptional(hash, values_for_std, stds, hash_value_method)
-    method = hash_value_method
-    operator = :> if stds > 0
-    operator = :< if stds < 0
-    std_limit = standard_dev_measure(values_for_std, stds)
-    hash.find_all {|key, value| value.send(method).send(operator, std_limit) }.to_h
   end
 
   def invoice_status(status)
