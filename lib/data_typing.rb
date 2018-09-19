@@ -19,7 +19,8 @@ module DataTyping
   end
 
   def make_big_decimal(string)
-    return string if string.class == BigDecimal
+    return string        if string.class == BigDecimal
+    string = string.to_s if string.class != BigDecimal
     string = string.chars.insert(-3, ".").join
     BigDecimal.new(string, 4)
   end

@@ -11,7 +11,6 @@ class ItemRepository
   include CRUD
 
   attr_reader :all
-  # attr_accessor :items
 
   def initialize(data)
     @data = data
@@ -75,13 +74,6 @@ class ItemRepository
 
 
   # --- CRUD ---
-#   reate(attributes) - create a new Item instance with the provided attributes.
-# The new Item’s id should be the current highest Item id plus 1.
-
-  # update(id, attributes) - update the Item instance with the corresponding id with the provided attributes. Only the item’s name, desription, and unit_price attributes can be updated. This method will also change the items updated_at attribute to the current time.
-
-  # delete(id) - delete the Item instance with the corresponding id
-
 
   def create(hash)
     last = FinderClass.find_max(all, :id)
@@ -97,6 +89,9 @@ class ItemRepository
     item.make_updates(attributes) if item
   end
 
+  def delete(id)
+    @items.delete_if{ |item| item.id == id }
+  end
 
 
 

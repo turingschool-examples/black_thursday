@@ -136,23 +136,31 @@ class ItemRepositoryTest < Minitest::Test
   # --- CRUD ---
 
   def test_it_creates_an_item
-    # assert_equal @repo.all.object_id, @repo.items.object_id
     all_before = @repo.all.count.to_s.to_i
-    # items_before = @repo.items.count.to_s.to_i
     assert_equal 1367, all_before
-    # assert_equal all_before, items_before
 
     hash = {name: "something"}
     @repo.create(hash)
     all_after = @repo.all.count.to_s.to_i
-    # items_after = @repo.items.count.to_s.to_i
     assert_equal 1368, all_after
-    # assert_equal all_after, items_after
     assert_equal 263567475, @repo.all.last.id
   end
 
   def test_it_updates_an_item
+    found = @repo.find_by_id(263395237)
+    assert_equal 12.00, found.unit_price
+    hash = {unit_price: 13.00}
+    @repo.update(263395237, hash)
+    assert_equal 13.00, found.unit_price
+    assert_instance_of BigDecimal, found.unit_price
+  end
 
+  def test_it_deletes_an_item
+    found = @repo.find_by_id(263395237)
+    assert_instance_of Item, found
+    @repo.delete(263395237)
+    not_found = @repo.find_by_id(263395237)
+    assert_nil not_found
   end
 
 
