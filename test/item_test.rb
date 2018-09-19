@@ -59,7 +59,7 @@ class ItemTest < Minitest::Test
     hash = {id: "NOPE", created_at: "NOPE", merchant_id: "NOPE",
             name: "YES", description: "YES", unit_price: 1000,
             updated_at: now }
-    @item.make_updates(hash)
+    @item.make_update(hash)
     # --- denied ---
     refute_equal "NOPE", @item.id
     refute_equal "NOPE", @item.created_at

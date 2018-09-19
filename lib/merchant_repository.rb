@@ -1,14 +1,12 @@
 require 'pry'
 
 require_relative 'finderclass'
-require_relative 'crud'
 
 require_relative 'merchant'
 
 
 
 class MerchantRepository
-  include CRUD
 
   attr_reader :all
 
@@ -33,7 +31,7 @@ class MerchantRepository
 
   # TO DO - TEST ME
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 
@@ -53,10 +51,10 @@ class MerchantRepository
 
 
   # --- CRUD ---
-  
+
   def create(attributes)
     id = make_id(all, :id)
-    data = {id => attributes} 
+    data = {id => attributes}
     make_merchants(data)
   end
 

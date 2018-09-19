@@ -1,13 +1,11 @@
 require 'pry'
 
 require_relative 'finderclass'
-require_relative 'crud'
 
 require_relative 'transaction'
 
 
 class TransactionRepository
-  include CRUD
 
   attr_reader :all
 
@@ -37,7 +35,7 @@ class TransactionRepository
 
   # TO DO - TEST ME
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 

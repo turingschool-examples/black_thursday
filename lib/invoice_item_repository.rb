@@ -1,13 +1,11 @@
 require 'pry'
 
 require_relative 'finderclass'
-require_relative 'crud'
 
 require_relative 'invoice_item'
 
 
 class InvoiceItemRepository
-  include CRUD
 
   attr_reader :all
 
@@ -39,7 +37,7 @@ class InvoiceItemRepository
 
   # TO DO - TEST ME
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 

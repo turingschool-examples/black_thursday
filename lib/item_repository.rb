@@ -2,13 +2,11 @@
 require 'pry'
 
 require_relative 'finderclass'
-require_relative 'crud'
 
 require_relative 'item'
 
 
 class ItemRepository
-  include CRUD
 
   attr_reader :all
 
@@ -38,7 +36,7 @@ class ItemRepository
 
   # TO DO - TEST ME
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 
@@ -82,7 +80,7 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    item.make_updates(attributes) if item
+    item.make_update(attributes) if item
   end
 
   def delete(id)
