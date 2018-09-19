@@ -103,6 +103,7 @@ class SalesAnalystTest<Minitest::Test
     assert_equal expected, @sa.merchants_with_pending_invoices
   end
 
+
   def test_it_can_return_merchants_with_only_one_item
     expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(3), @se.merchants.find_by_id(4), @se.merchants.find_by_id(5), @se.merchants.find_by_id(6),@se.merchants.find_by_id(7)]
     assert_equal expected, @sa.merchants_with_only_one_item
@@ -120,6 +121,11 @@ class SalesAnalystTest<Minitest::Test
   end
 
 
+
+
+  def test_i_can_pull_out_the_merchant_ids_from_the_pending_invoices
+    assert_equal [34444, 12334269], @sa.pull_out_the_merchant_ids_from_pending_invoices
+  end
 
 
 end

@@ -169,6 +169,7 @@ class SalesAnalyst
     end
   end
 
+
   def invoice_total_float(invoice_id)
     invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
 
@@ -180,11 +181,29 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id)
     transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
     transactions.any? do |transaction|
-      transaction.result == :success
+        transaction.result == :success
+    end 
+  end 
+
+  def pull_out_pending_invoices
+    @sales_engine.invoices.all.keep_if do |invoice|
+        invoice.status.to_s == "pending"
     end
   end
-#########################################################
 
+  def pull_out_the_merchant_ids_from_pending_invoices
+    pull_out_pending_invoices.map do |invoice|
+      invoice.merchant_id.slice
+    end
+  end
+
+  def merchants_with_pending_invoices
+    @sales_engine.merchants.all.keep_if do |merchant|
+      binding.pry
+        merchant.id == pull_out_the_merchant_ids_from_pending_invoices
+
+    end
+  end
 
   def merchants_with_only_one_item
     all_merchants.find_all do |merchant|
@@ -275,6 +294,7 @@ class SalesAnalyst
   #     merchant_invoice_ids.include?(invoice_item.invoice_id)
   #   end
   # end
+
 
 
 end
