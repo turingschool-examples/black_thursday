@@ -56,22 +56,26 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_id)
     FinderClass.find_all_by(all, :invoice_id, invoice_id)
   end
-  
-  
+
+
   # --- CRUD ---
 
-  def create(attributes)
-    id = make_id(all, :id)
-    data = {id => attributes} 
-    make_invoice_items(data)
+  def create(hash)
+    last = FinderClass.find_max(all, :id)
+    new_id = last.id + 1
+    hash[:id] = new_id
+    invoice_item = InvoiceItem.new(hash)
+    @invoice_items << invoice_item
+    return invoice_item
   end
 
-  def update(id, attributes)
-    update_entry(@invoice_items, id, attributes)
+  def update(id, hash)
+    item = find_by_id(id)
+    item.make_update(hash) if item
   end
 
   def delete(id)
-    delete_entry(@invoice_items, id)
+    @invoice_items.delete_if{ |item| item.id == id }
   end
 
 end
