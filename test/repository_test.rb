@@ -13,5 +13,8 @@ class RepositoryTest < Minitest::Test
     assert_equal [], repo.all
   end
 
-
+  def test_it_inspects
+    repo = Repository.new
+    assert_equal "#<Repository 0 rows>", repo.inspect
+  end
 end

@@ -206,17 +206,8 @@ class SalesAnalystTest < Minitest::Test
   end
 #THIS IS WHERE I STOPPED UPDATING TESTS!!!!!!!!!!!!!!!!!!!
   def test_it_can_find_golden_items_from_threshold
-    se = SalesEngine.from_csv(
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices  => './data/invoices.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/transactions.csv',
-      :customers => './data/customers.csv'
-    )
-
     threshold = 605_1
-    assert_equal 5, @sa.find_golden_items(se.items.all, threshold).count
+    assert_equal 5, @sa.find_golden_items(@se.items.all, threshold).count
   end
 
   #-Iteration 2 Helper Tests-#
@@ -231,6 +222,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_calculate_two_below_the_standard_deviation
     assert_equal 3.91, @sa.two_below_standard_deviation
+  end
+
+  def test_it_can_group_invoices_by_status
+    expected = @sa.invoices_grouped_by_status
+
+    assert_equal 1, expected
   end
 
   def test_can_group_invoices_by_day_of_the_week
@@ -266,13 +263,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
 #----Iteration 4 Helper Methods----#
-
-def test_it_can_hash_total_revenue_per_merchant
-  skip
-  expected = @sa.total_revenue_per_merchant
-
-  assert_equal '', expected.first
-end
 
 def test_it_can_rank_merchants_by_revenue
   @sa.merchants_ranked_by_revenue

@@ -22,6 +22,8 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, actual
 
     assert_equal 1, actual.id
+
+    assert_equal :pending, actual.status
   end
 
   def test_returns_nil_when_no_match_is_found
