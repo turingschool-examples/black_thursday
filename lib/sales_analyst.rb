@@ -51,7 +51,7 @@ class SalesAnalyst
       sum + average
     end
     averages_total = (averages_summed/ merchant_item_averages.size)
-    BigDecimal(averages_total, 4)
+    averages_total.round(2)
   end
 
   def average_invoices_per_merchant
@@ -148,7 +148,6 @@ class SalesAnalyst
     end
   end
 
-#########################why are you not working ###########
   def top_revenue_earners(show_count = 20)
     all_merchants.max_by(show_count) do |merchant|
       revenue_by_merchant_float(merchant.id)

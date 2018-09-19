@@ -1,6 +1,7 @@
 # require_relative 'black_thursday_helper'
 require 'CSV'
 require 'pry'
+require 'time'
 require_relative '../lib/merchant'
 require_relative '../lib/black_thursday_helper'
 
@@ -13,13 +14,13 @@ include BlackThursdayHelper
   end
 
   def update(id, attributes)
-      if find_by_id(id) != nil
-      object_to_be_updated = find_by_id(id)
-      object_to_be_updated.name = attributes[:name]
-      object_to_be_updated.updated_at = Time.now
-      else
-        nil
-      end
+    if find_by_id(id) != nil
+    object_to_be_updated = find_by_id(id)
+    object_to_be_updated.name = attributes[:name]
+    object_to_be_updated.updated_at = Time.now
+    else
+      nil
+    end
   end
 
   def populate(filepath)
@@ -29,9 +30,10 @@ include BlackThursdayHelper
   end
 
   def create(merchant_params)
+
     merchant = Merchant.new(merchant_params)
     highest_current = object_id_counter.id
-    new_highest_current = highest_current += 1
+    new_highest_current = highest_current + 1
     merchant.id = new_highest_current
     @collections << merchant
     merchant
