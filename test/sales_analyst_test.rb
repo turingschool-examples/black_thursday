@@ -371,4 +371,23 @@ class SalesAnalystTest < Minitest::Test
     assert top_items.map(&:name).include?("Adult Princess Leia Hat")
     assert_equal 4, top_4_items.count
   end
+
+  def test_best_item_for_merchant_returns_most_sold_merchant
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :customers => "./data/customers.csv",
+    :invoice_items => "./data/invoice_items.csv",
+    :transactions => "./data/transactions.csv"})
+    top_item = se.analyst.best_item_for_merchant(12334189)
+
+    assert_equal 263516130, top_item.id
+    assert_instance_of Item, top_item
+
+    top_item2 = se.analyst.best_item_for_merchant(12337105)
+
+    assert_equal 263463003, top_item2.id
+    assert_instance_of Item, top_item2
+  end
 end

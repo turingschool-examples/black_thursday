@@ -308,16 +308,6 @@ class SalesAnalyst
     top_revenue_earners(@mr.objects_array.count)
   end
 
-  def pending?(invoice_id)
-    transactions = @tr.find_all_by_invoice_id(invoice_id)
-    return false if transactions[0] == nil
-    if transactions.any? { |transaction| transaction.result == :success }
-      true
-    else
-      false
-    end
-  end
-
   def succesful_invoices(invoice_id)
     transactions = @tr.find_all_by_invoice_id(invoice_id)
     if transactions.all? { |transaction| transaction.result == :failed }
@@ -361,8 +351,10 @@ class SalesAnalyst
     grouped_invoices_with_merchant = invoices_by_merchant
     specific_merchant_invoices = grouped_invoices_with_merchant[merchant_id]
     invoice_items_array = specific_merchant_invoices.map do |invoice|
-      @ii.find_all_by_invoice_id(invoice.id)
-    end
+      if invoice_paid_in_full?(invoice.id)
+        @ii.find_all_by_invoice_id(invoice.id)
+      end
+    end.compact
     item_id_to_inv_item = invoice_items_array.flatten.group_by do |invoice_item|
       invoice_item.item_id
     end
@@ -378,6 +370,28 @@ class SalesAnalyst
       @ir.find_by_id(invoice_id) if top_item[1].quantity == invoice_item.quantity
     end
     item_ids_array.compact
+  end
+
+  def best_item_for_merchant(merchant_id)
+    grouped_invoices_with_merchant = invoices_by_merchant
+    specific_merchant_invoices = grouped_invoices_with_merchant[merchant_id]
+    invoice_items_array = specific_merchant_invoices.map do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        @ii.find_all_by_invoice_id(invoice.id)
+      end
+    end.compact
+    item_id_to_inv_item = invoice_items_array.flatten.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+    array_of_hashes = item_id_to_inv_item.map do |item_id, invoice_items|
+      top_invoice = invoice_items.group_by do |inv_item|
+        multiply_unit_price_and_quantity([inv_item])
+      end
+    end
+    top_rev_item = array_of_hashes.max_by do |total, invoice_item|
+      total.keys[0]
+    end
+    @ir.find_by_id(top_rev_item.values[0][0].item_id)
   end
 
 end
