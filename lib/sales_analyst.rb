@@ -121,14 +121,6 @@ class SalesAnalyst
     ((invoices_by_status.to_f / all_invoices.size) * 100).round(2)
   end
 
-
-  def invoice_paid_in_full?(invoice_id)
-    transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
-    transactions.any? do |transaction|
-      transaction.result == :success
-    end
-  end
-
   def invoice_total(invoice_id)
     invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
     total = invoice_items.inject(0) do |sum, in_item|
@@ -156,6 +148,7 @@ class SalesAnalyst
     end
   end
 
+#########################why are you not working ###########
   def top_revenue_earners(show_count = 20)
     all_merchants.max_by(show_count) do |merchant|
       revenue_by_merchant_float(merchant.id)
@@ -176,6 +169,22 @@ class SalesAnalyst
     end
   end
 
+
+  def invoice_total_float(invoice_id)
+    invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+
+    invoice_items.inject(0) do |sum, invoice_item|
+      sum + invoice_item.quantity * invoice_item.unit_price_to_dollars
+    end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
+    transactions.any? do |transaction|
+        transaction.result == :success
+    end 
+  end 
+
   def pull_out_pending_invoices
     @sales_engine.invoices.all.keep_if do |invoice|
         invoice.status.to_s == "pending"
@@ -192,8 +201,100 @@ class SalesAnalyst
     @sales_engine.merchants.all.keep_if do |merchant|
       binding.pry
         merchant.id == pull_out_the_merchant_ids_from_pending_invoices
+
     end
   end
+
+  def merchants_with_only_one_item
+    all_merchants.find_all do |merchant|
+      all_items.one? do |item|
+        item.merchant_id == merchant.id
+      end
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.keep_if do |merchant|
+      merchant.created_at.strftime('%B') == month
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merch_inv = valid_merchant_invoices(merchant_id)
+    total = merch_inv.inject(0) do |sum, inv|
+      sum + invoice_total_float(inv.id)
+    end
+    BigDecimal(total, total.to_s.size - 1)
+  end
+
+
+
+#################   Attempt number two    ################################
+ #  def top_revenue_earners(limit = 20)
+ #    merchants_ranked_by_revenue[0..(limit-1)]
+ #  end
+ #
+ #  def merchants_ranked_by_revenue
+ #    all_merchants.sort_by do |merchant|
+ #     revenue_by_merchant(merchant.id)
+ #    end.reverse
+ #  end
+ #
+ # def revenue_by_merchant(merchant_id)
+ #   validated_merchant_invoices = validate_merchants(merchant_id)
+ #   array = []
+ #   validated_merchant_invoices.each do |invoice|
+ #     array << invoice_total(invoice.id)
+ #   end
+ #   sum_array(array)
+ # end
+ #
+ # def sum_array(array)
+ #   array.inject(0) do |sum,number|
+ #     sum + number
+ #   end
+ # end
+ #
+ # def validate_merchants(search_merchant_id)
+ #   merchant_invoices = all_invoices.find_all do |invoice|
+ #     invoice.merchant_id == search_merchant_id
+ #   end
+ #   merchant_invoices.find_all do |invoice|
+ #     invoice_paid_in_full?(invoice.id)
+ #   end
+ # end
+ #######################################################################
+
+  # def highest_quantity_items(merchant_item_quantities)
+  #   goal = merchant_item_quantities.max_by do |key, value|
+  #    value
+  #   end
+  #   merchant_item_quantities.select do |key, value|
+  #    value == goal.last
+  #   end
+  # end
+
+  # def most_sold_item_for_merchant(merchant_id)
+  #   merchant_item_quantities = Hash.new(0)
+  #   merchant_invoices = valid_merchant_invoices(merchant_id)
+  #   merchant_invoice_items(merchant_invoices).each do |invoice_item|
+  #     merchant_item_quantities[invoice_item.item_id] += invoice_item.quantity
+  #   end
+  #   item_pairs = highest_quantity_items(merchant_item_quantities)
+  #
+  #   item_pairs.map do |item_id, value|
+  #     @sales_engine.items.find_by_id(item_id)
+  #   end
+  # end
+  #
+  # def merchant_invoice_items(merchant_invoices)
+  #   merchant_invoice_ids = merchant_invoices.map(&:id)
+  #
+  #   all_invoice_items.find_all do |invoice_item|
+  #     merchant_invoice_ids.include?(invoice_item.invoice_id)
+  #   end
+  # end
+
 
 
 end

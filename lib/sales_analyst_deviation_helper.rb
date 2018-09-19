@@ -28,6 +28,10 @@ module SalesAnalystHelper
     @sales_engine.invoices.all
   end
 
+  def all_invoice_items
+    @sales_engine.invoice_items.all
+  end
+
   def all_prices
     all_items.map do |item|
       item.unit_price

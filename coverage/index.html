@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-17T19:33:53-06:00">2018-09-17T19:33:53-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-09-19T11:04:25-06:00">2018-09-19T11:04:25-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">83.13%</span></span>
+    (<span class="covered_percent"><span class="yellow">84.15%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         13.74
+         15.0
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>3</b> files in total.
-    <b>83</b> relevant lines. 
+    <b>82</b> relevant lines. 
     <span class="green"><b>69</b> lines covered</span> and
-    <span class="red"><b>14</b> lines missed </span>
+    <span class="red"><b>13</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -52,22 +52,22 @@
       
       <tr>
         <td class="strong"><a href="#31a3efe101553a31a8d3ba38770537851d5cd42b" class="src_link" title="lib/black_thursday_helper.rb">lib/black_thursday_helper.rb</a></td>
-        <td class="red strong">68.29 %</td>
+        <td class="red strong">69.23 %</td>
         <td>79</td>
-        <td>41</td>
-        <td>28</td>
-        <td>13</td>
-        <td>6.0</td>
+        <td>39</td>
+        <td>27</td>
+        <td>12</td>
+        <td>5.9</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#f228e788681daf4d25db360a046225a8419d4430" class="src_link" title="lib/invoice_item.rb">lib/invoice_item.rb</a></td>
-        <td class="green strong">94.12 %</td>
-        <td>30</td>
+        <td class="green strong">94.44 %</td>
+        <td>31</td>
+        <td>18</td>
         <td>17</td>
-        <td>16</td>
         <td>1</td>
-        <td>43.8</td>
+        <td>47.2</td>
       </tr>
       
       <tr>
@@ -99,11 +99,11 @@
         <div class="source_table" id="31a3efe101553a31a8d3ba38770537851d5cd42b">
   <div class="header">
     <h3>lib/black_thursday_helper.rb</h3>
-    <h4><span class="red">68.29 %</span> covered</h4>
+    <h4><span class="red">69.23 %</span> covered</h4>
     <div>
-      <b>41</b> relevant lines. 
-      <span class="green"><b>28</b> lines covered</span> and
-      <span class="red"><b>13</b> lines missed.</span>
+      <b>39</b> relevant lines. 
+      <span class="green"><b>27</b> lines covered</span> and
+      <span class="red"><b>12</b> lines missed.</span>
     </div>
   </div>
   
@@ -389,7 +389,7 @@
         <li class="missed" data-hits="0" data-linenumber="47">
           
           
-          <code class="ruby">     @collections.find_all do |object|</code>
+          <code class="ruby">    @collections.find_all do |object|</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="48">
@@ -422,14 +422,14 @@
           <code class="ruby">  def find_all_by_item_id(item_id)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="53">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="1" data-linenumber="53">
+          <span class="hits">1</span>
           
           <code class="ruby">    @collections.find_all do |object|</code>
         </li>
       
-        <li class="covered" data-hits="26" data-linenumber="54">
-          <span class="hits">26</span>
+        <li class="covered" data-hits="13" data-linenumber="54">
+          <span class="hits">13</span>
           
           <code class="ruby">      object.item_id == item_id</code>
         </li>
@@ -452,22 +452,22 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="58">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="58">
           
-          <code class="ruby">  def inspect</code>
+          
+          <code class="ruby">  # def inspect</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="59">
+        <li class="never" data-hits="" data-linenumber="59">
           
           
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@collections.size} rows&gt;&quot;</code>
+          <code class="ruby">  #   &quot;#&lt;#{self.class} #{@collections.size} rows&gt;&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="60">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">  # end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="61">
@@ -563,7 +563,7 @@
         <li class="missed" data-hits="0" data-linenumber="76">
           
           
-          <code class="ruby">      object.status.downcase.include? (status.downcase)</code>
+          <code class="ruby">      object.status == status</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="77">
@@ -592,10 +592,10 @@
         <div class="source_table" id="f228e788681daf4d25db360a046225a8419d4430">
   <div class="header">
     <h3>lib/invoice_item.rb</h3>
-    <h4><span class="green">94.12 %</span> covered</h4>
+    <h4><span class="green">94.44 %</span> covered</h4>
     <div>
-      <b>17</b> relevant lines. 
-      <span class="green"><b>16</b> lines covered</span> and
+      <b>18</b> relevant lines. 
+      <span class="green"><b>17</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
@@ -726,58 +726,64 @@
         <li class="covered" data-hits="105" data-linenumber="21">
           <span class="hits">105</span>
           
-          <code class="ruby">    @unit_price = BigDecimal.new(params[:unit_price].to_f/100,4).to_i</code>
+          <code class="ruby">    params[:unit_price] = params[:unit_price].dup.insert(-3, &#39;.&#39;) if params[:unit_price].is_a?(String)</code>
         </li>
       
         <li class="covered" data-hits="105" data-linenumber="22">
           <span class="hits">105</span>
           
-          <code class="ruby">    @created_at = Time.parse(params[:created_at].to_s)</code>
+          <code class="ruby">    @unit_price = BigDecimal.new(params[:unit_price])</code>
         </li>
       
         <li class="covered" data-hits="105" data-linenumber="23">
           <span class="hits">105</span>
           
-          <code class="ruby">    @updated_at = Time.parse(params[:updated_at].to_s)</code>
+          <code class="ruby">    @created_at = Time.parse(params[:created_at].to_s)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="24">
+        <li class="covered" data-hits="105" data-linenumber="24">
+          <span class="hits">105</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    @updated_at = Time.parse(params[:updated_at].to_s)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="26">
+        <li class="covered" data-hits="1" data-linenumber="27">
           <span class="hits">1</span>
           
           <code class="ruby">  def unit_price_to_dollars</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="27">
+        <li class="missed" data-hits="0" data-linenumber="28">
           
           
           <code class="ruby">    @unit_price.to_f</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="never" data-hits="" data-linenumber="29">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="29">
+        <li class="never" data-hits="" data-linenumber="30">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby">end</code>

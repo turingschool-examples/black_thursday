@@ -69,7 +69,7 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_it_can_check_if_invoice_is_paid_in_full
-    assert_equal true, @sa.invoice_paid_in_full?(3374)
+    assert_equal false, @sa.invoice_paid_in_full?(3374)
   end
 
   def test_it_can_return_dollar_amount_of_invoices_based_on_id
@@ -98,12 +98,34 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_it_can_return_merchants_with_pending_invoices
+    skip
     expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(5)]
     assert_equal expected, @sa.merchants_with_pending_invoices
   end
 
+
+  def test_it_can_return_merchants_with_only_one_item
+    expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(3), @se.merchants.find_by_id(4), @se.merchants.find_by_id(5), @se.merchants.find_by_id(6),@se.merchants.find_by_id(7)]
+    assert_equal expected, @sa.merchants_with_only_one_item
+  end
+
+  def test_it_can_return_merchants_with_only_one_item_registered_per_month
+    assert_equal [@se.merchants.find_by_id(4)], @sa.merchants_with_only_one_item_registered_in_month('June')
+  end
+
+  def test_it_returns_revenue_by_merchant
+    assert_equal 0.0, @sa.revenue_by_merchant(4)
+  end
+
+  def test_it_can_show_witch_item_sold_the_most
+  end
+
+
+
+
   def test_i_can_pull_out_the_merchant_ids_from_the_pending_invoices
     assert_equal [34444, 12334269], @sa.pull_out_the_merchant_ids_from_pending_invoices
   end
+
 
 end
