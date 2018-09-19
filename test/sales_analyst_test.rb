@@ -14,6 +14,7 @@ class SalesAnalystTest < Minitest::Test
     )
 
     @sa = se.analyst
+    @se = se
   end
 
   def test_it_exists
@@ -21,21 +22,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    se = SalesEngine.from_csv(
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices  => './data/invoices.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/transactions.csv',
-      :customers => './data/customers.csv'
-    )
-
-    assert_instance_of MerchantRepository, se.merchants
-    assert_instance_of ItemRepository, se.items
-    assert_instance_of InvoiceRepository, se.invoices
-    assert_instance_of InvoiceItemRepository, se.invoice_items
-    assert_instance_of TransactionRepository, se.transactions
-    assert_instance_of CustomerRepository, se.customers
+    assert_instance_of MerchantRepository, @se.merchants
+    assert_instance_of ItemRepository, @se.items
+    assert_instance_of InvoiceRepository, @se.invoices
+    assert_instance_of InvoiceItemRepository, @se.invoice_items
+    assert_instance_of TransactionRepository, @se.transactions
+    assert_instance_of CustomerRepository, @se.customers
   end
 #-- Iteration 1 Tests --#
   def test_it_calculates_average_items_per_merchant
@@ -47,7 +39,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_finds_merchants_with_high_item_count
-    # update expected
     expected = 52
     assert_equal expected, @sa.merchants_with_high_item_count.count
   end
@@ -66,91 +57,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, @sa.golden_items.count
   end
 
-  # -Iteration 1 Helper Methods-#
 
-  def test_it_can_count_items_per_id
-    assert_equal 475, @sa.item_count_per_merchant_id.count
-  end
-
-  def test_it_can_square_differences
-    values = [4,5,6,7,8,9,10]
-    average = 7
-    expected = [9, 4, 1, 0, 1, 4, 9]
-
-    assert_equal expected, @sa.square_differences(values, average)
-  end
-
-  def test_it_can_sum
-    values = [4,5,6,7,8,9,10]
-
-    assert_equal 49, @sa.sum(values)
-  end
-
-  def test_it_can_find_merchant_ids_with_high_item_count
-    hash = @sa.item_count_per_merchant_id
-
-    assert_equal 52, @sa.merchant_ids_with_high_item_count(hash).count
-    assert_equal [123_341_95, 20], @sa.merchant_ids_with_high_item_count(hash)[0]
-
-  end
-
-  def test_it_can_find_merchants_from_ids
-    se = SalesEngine.from_csv(
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices  => './data/invoices.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/transactions.csv',
-      :customers => './data/customers.csv'
-    )
-    sa = se.analyst
-
-    hash = sa.item_count_per_merchant_id
-    ids = sa.merchant_ids_with_high_item_count(hash)
-    assert_equal 52,  sa.merchants_from_ids(ids).count
-    expected = se.merchants.find_by_id(ids[0][0])
-    assert_equal expected, sa.merchants_from_ids(ids)[0]
-  end
-
-  def test_it_can_find_prices_for_merchants
-    assert_equal 20, @sa.find_prices_for_merchant(123_341_95).count
-    assert_equal 149, @sa.find_prices_for_merchant(123_341_95)[0]
-  end
-
-  def test_it_can_average_numbers
-    values = [4,5,6,7,8,9,10]
-
-    assert_equal 7, @sa.average(values)
-  end
-
-  def test_it_can_find_prices
-    se = SalesEngine.from_csv(
-      :items     => './test/fixtures/items.csv',
-      :merchants => './test/fixtures/merchants.csv',
-      :invoices  => './data/invoices.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/transactions.csv',
-      :customers => './data/customers.csv'
-    )
-    sa = se.analyst
-
-    expected = [12, 13, 13.5, 7, 29.99, 149]
-    assert_equal expected, sa.find_prices
-  end
-
-  def test_it_can_find_golden_items_from_threshold
-    se = SalesEngine.from_csv(
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices  => './data/invoices.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/transactions.csv',
-      :customers => './data/customers.csv'
-    )
-
-    threshold = 605_1
-    assert_equal 5, @sa.find_golden_items(se.items.all, threshold).count
-  end
 #--Iteration 2 Tests--#
   def test_it_calculates_average_invoices_per_merchant
     assert_equal 10.49, @sa.average_invoices_per_merchant
@@ -184,6 +91,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_determine_if_an_invoice_has_been_paid_in_full
     assert_equal true, @sa.invoice_paid_in_full?(217_9)
+
     assert_equal true, @sa.invoice_paid_in_full?(46)
 
     assert_equal false, @sa.invoice_paid_in_full?(203)
@@ -195,6 +103,120 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 284_90.93,  @sa.invoice_total(285_0)
 
     assert_equal 0, @sa.invoice_total(999_999_9)
+  end
+
+  #----- Iteration 4 Tests -----#
+
+  def test_it_can_calculate_total_revenue_by_date
+    assert_equal 21067.77, @sa.total_revenue_by_date(Time.parse("2009-02-07"))
+  end
+
+  def test_it_can_find_top_revenue_earners
+    expected = @sa.top_revenue_earners(10)
+
+    assert_equal 12334634, expected.first.id
+  end
+
+  def test_can_find_merchants_with_pending_invoices
+    expected = @sa.merchants_with_pending_invoices
+
+    assert_equal 467, expected.count
+  end
+
+  def test_it_can_find_merchants_with_only_one_item
+    expected = @sa.merchants_with_only_one_item
+
+    assert_equal 243, expected.length
+  end
+
+  def test_can_find_merchants_with_only_one_item_registered_in_a_month
+    expected = @sa.merchants_with_only_one_item_registered_in_month("March")
+
+    assert_equal 21, expected.length
+  end
+
+  def test_can_find_revenue_by_merchant_id
+    expected = @sa.revenue_by_merchant(12334194)
+
+    assert_equal BigDecimal.new(expected), expected
+  end
+
+  def test_can_find_most_sold_item_for_merchant_by_id
+    expected = @sa.most_sold_item_for_merchant(12334189)
+
+    assert_equal 'Adult Princess Leia Hat', expected[0].name
+  end
+
+  def test_can_find_best_item_for_merchant_by_id
+    expected = @sa.best_item_for_merchant(12334189)
+
+    assert_equal 'To Our Son the Chattan - Jewish Wedding Greeting Card', expected.name
+  end
+
+
+  # -Iteration 1 Helper Methods-#
+
+  def test_it_can_count_items_per_id
+    assert_equal 475, @sa.item_count_per_merchant_id.count
+  end
+
+  def test_it_can_square_differences
+    values = [4,5,6,7,8,9,10]
+    average = 7
+    expected = [9, 4, 1, 0, 1, 4, 9]
+
+    assert_equal expected, @sa.square_differences(values, average)
+  end
+
+  def test_it_can_sum
+    values = [4,5,6,7,8,9,10]
+
+    assert_equal 49, @sa.sum(values)
+  end
+
+  def test_it_can_find_merchant_ids_with_high_item_count
+    hash = @sa.item_count_per_merchant_id
+
+    assert_equal 52, @sa.merchant_ids_with_high_item_count(hash).count
+    assert_equal [123_341_95, 20], @sa.merchant_ids_with_high_item_count(hash)[0]
+
+  end
+
+  def test_it_can_find_merchants_from_ids
+    hash = @sa.item_count_per_merchant_id
+    ids = @sa.merchant_ids_with_high_item_count(hash)
+    assert_equal 52,  @sa.merchants_from_ids(ids).count
+    expected = @se.merchants.find_by_id(ids[0][0])
+    assert_equal expected, @sa.merchants_from_ids(ids)[0]
+  end
+
+  def test_it_can_find_prices_for_merchants
+    assert_equal 20, @sa.find_prices_for_merchant(123_341_95).count
+    assert_equal 149, @sa.find_prices_for_merchant(123_341_95)[0]
+  end
+
+  def test_it_can_average_numbers
+    values = [4,5,6,7,8,9,10]
+
+    assert_equal 7, @sa.average(values)
+  end
+
+  def test_it_can_find_prices
+    assert_equal 1367, @sa.find_prices.count
+  end
+#THIS IS WHERE I STOPPED UPDATING TESTS!!!!!!!!!!!!!!!!!!!
+  def test_it_can_find_golden_items_from_threshold
+    se = SalesEngine.from_csv(
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+
+    threshold = 605_1
+    assert_equal 5, @sa.find_golden_items(se.items.all, threshold).count
   end
 
   #-Iteration 2 Helper Tests-#
@@ -243,38 +265,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [:pending, :shipped, :returned], @sa.invoices_grouped_by_status.keys
   end
 
-  #----- Iteration 4 Tests -----#
+#----Iteration 4 Helper Methods----#
 
-  def test_it_can_calculate_total_revenue_by_date
-    assert_equal 21067.77, @sa.total_revenue_by_date(Time.parse("2009-02-07"))
-  end
+def test_it_can_hash_total_revenue_per_merchant
+  skip
+  expected = @sa.total_revenue_per_merchant
 
-  def test_it_can_find_top_revenue_earners
-    skip
-    expected = @sa.top_revenue_earners(10)
+  assert_equal '', expected.first
+end
 
-    assert_equal 12334634, expected.first.id
-  end
-
-  def test_it_can_group_invoices_by_merchant
-    skip
-    expected = @sa.invoices_grouped_by_merchant
-
-    assert_equal '', expected.first[0]
-  end
-
-  def test_it_can_hash_total_revenue_per_merchant
-    skip
-    expected = @sa.total_revenue_per_merchant
-
-    assert_equal '', expected.first
-  end
-
-  def test_it_can_rank_merchants_by_revenue
-    @sa.merchants_ranked_by_revenue
-  end
-
-
-
+def test_it_can_rank_merchants_by_revenue
+  @sa.merchants_ranked_by_revenue
+end
 
 end
