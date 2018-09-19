@@ -98,6 +98,7 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_it_can_return_merchants_with_pending_invoices
+    skip
     expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(5)]
     assert_equal expected, @sa.merchants_with_pending_invoices
   end
