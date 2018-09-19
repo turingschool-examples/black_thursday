@@ -15,8 +15,7 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     hash = item_count_per_merchant_id
-    differences_squared = square_differences(hash.values,
-                                             average_items_per_merchant)
+    differences_squared = square_differences(hash.values, average_items_per_merchant)
     sum = sum(differences_squared)
     sum_div = sum/hash.count
     Math.sqrt(sum_div).round(2)
@@ -35,10 +34,10 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    sum = @se.merchants.all.inject(0) do |sum, merchant|
+    summed = @se.merchants.all.inject(0) do |sum, merchant|
       sum + average_item_price_for_merchant(merchant.id)
     end
-    (sum/@se.merchants.all.count).round(2)
+    (summed/@se.merchants.all.count).round(2)
   end
 
   def golden_items
@@ -52,66 +51,6 @@ class SalesAnalyst
     find_golden_items(@se.items.all, threshold)
   end
 
-  #-- Iteration 1 Helper Methods --#
-
-  def item_count_per_merchant_id
-    hash = Hash.new(0)
-    @se.items.all.each do |item|
-      hash[item.merchant_id] += 1
-    end
-    hash
-  end
-
-  def square_differences(values,average)
-    values.map do |value|
-      (value-average)**2
-    end
-  end
-
-  def sum(numbers)
-    numbers.inject(0) do |sum, num|
-      sum + num
-    end
-  end
-
-  def merchant_ids_with_high_item_count(hash)
-    threshold = average_items_per_merchant +
-                average_items_per_merchant_standard_deviation
-    hash.find_all do |key, value|
-      value > threshold
-    end
-  end
-
-  def merchants_from_ids(ids)
-    ids.map do |id, value|
-      @se.merchants.find_by_id(id)
-    end
-  end
-
-  def find_prices_for_merchant(id)
-    prices = []
-    @se.items.all.each do |item|
-      prices << item.unit_price if item.merchant_id == id
-    end
-    prices
-  end
-
-  def average(numbers)
-    sum(numbers)/numbers.count
-  end
-
-  def find_prices
-    @se.items.all.inject([]) do |array, item|
-      array << item.unit_price
-    end
-  end
-
-  def find_golden_items(items, threshold)
-    items.find_all do |item|
-      item.unit_price > threshold
-    end
-  end
-
  #-----Iteration 2 Methods-----#
 
  def average_invoices_per_merchant
@@ -120,10 +59,9 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     hash = invoice_count_per_merchant_id
-    differences_squared = square_differences(hash.values,
-                                 average_invoices_per_merchant)
-                                 sum = sum(differences_squared)
-                                 sum_div = sum/hash.count
+    differences_squared = square_differences(hash.values, average_invoices_per_merchant)
+    sum = sum(differences_squared)
+    sum_div = sum/hash.count
     Math.sqrt(sum_div).round(2)
   end
 
@@ -192,7 +130,6 @@ class SalesAnalyst
     end.uniq
   end
 
-
   def merchants_with_only_one_item
 	  hash = Hash.new(0)
 	    @se.items.all.each do |item|
@@ -252,10 +189,9 @@ class SalesAnalyst
       quantity == max_item_quantity
     end
 
-    a = top_item_ids.map do |item_id|
+    top_item_ids.map do |item_id|
       @se.items.find_by_id(item_id[0])
     end
-
   end
 
   def best_item_for_merchant(merchant_id)
@@ -279,6 +215,66 @@ class SalesAnalyst
 
     @se.items.find_by_id(max_revenue_item[0])
 
+  end
+
+  #-- Iteration 1 Helper Methods --#
+
+  def item_count_per_merchant_id
+    hash = Hash.new(0)
+    @se.items.all.each do |item|
+      hash[item.merchant_id] += 1
+    end
+    hash
+  end
+
+  def square_differences(values,average)
+    values.map do |value|
+      (value-average)**2
+    end
+  end
+
+  def sum(numbers)
+    numbers.inject(0) do |sum, num|
+      sum + num
+    end
+  end
+
+  def merchant_ids_with_high_item_count(hash)
+    threshold = average_items_per_merchant +
+                average_items_per_merchant_standard_deviation
+    hash.find_all do |key, value|
+      value > threshold
+    end
+  end
+
+  def merchants_from_ids(ids)
+    ids.map do |id, value|
+      @se.merchants.find_by_id(id)
+    end
+  end
+
+  def find_prices_for_merchant(id)
+    prices = []
+    @se.items.all.each do |item|
+      prices << item.unit_price if item.merchant_id == id
+    end
+    prices
+  end
+
+  def average(numbers)
+    sum(numbers)/numbers.count
+  end
+
+  def find_prices
+    @se.items.all.inject([]) do |array, item|
+      array << item.unit_price
+    end
+  end
+
+  def find_golden_items(items, threshold)
+    items.find_all do |item|
+      item.unit_price > threshold
+    end
   end
 
   #--Iteration 2 Helper Methods--#
@@ -316,7 +312,7 @@ class SalesAnalyst
   def calculate_sd_by_day
     array = number_of_invoices_per_day.values
     average = average_invoices_per_day
-    sd = standard_deviation(array, average)
+    standard_deviation(array, average)
   end
 
   def group_invoices_by_days_of_the_week
@@ -355,15 +351,15 @@ class SalesAnalyst
     ((sum / count_minus_one) ** (1.0 / 2)).round(2)
   end
 
-  #-----Iteration 3 Helper Method -----#
+#-----Iteration 3 Helper Method -----#
 
   def total_revenue_by_item(invoice_items)
-    invoice_items.inject(0) do |sum, num|
-      sum + (num.quantity.to_i * num.unit_price)
+  invoice_items.inject(0) do |sum, num|
+    sum + (num.quantity.to_i * num.unit_price)
     end
   end
 
-  #-----Iteration 4 Helper Method -----#
+#-----Iteration 4 Helper Method -----#
 
   def merchants_ranked_by_revenue
     hash = Hash.new()
@@ -374,10 +370,5 @@ class SalesAnalyst
     hash.sort_by do |merchant, revenue|
       revenue * -1
     end.transpose[0]
-
   end
-
-
-
-
 end
