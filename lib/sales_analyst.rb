@@ -184,13 +184,13 @@ class SalesAnalyst
 
   def pull_out_the_merchant_ids_from_pending_invoices
     pull_out_pending_invoices.map do |invoice|
-      invoice.merchant_id
+      invoice.merchant_id.slice
     end
   end
 
   def merchants_with_pending_invoices
     @sales_engine.merchants.all.keep_if do |merchant|
-      # binding.pry
+      binding.pry
         merchant.id == pull_out_the_merchant_ids_from_pending_invoices
     end
   end
