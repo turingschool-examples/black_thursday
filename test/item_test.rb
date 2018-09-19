@@ -54,4 +54,22 @@ class ItemTest < Minitest::Test
     assert_equal @price_as_float, @item.unit_price_to_dollars
   end
 
+  def test_it_can_make_updates_with_permissions
+    now = Time.now
+    hash = {id: "NOPE", created_at: "NOPE", merchant_id: "NOPE",
+            name: "YES", description: "YES", unit_price: 1000,
+            updated_at: now }
+    @item.make_updates(hash)
+    # --- denied ---
+    refute_equal "NOPE", @item.id
+    refute_equal "NOPE", @item.created_at
+    refute_equal "NOPE", @item.merchant_id
+    # --- allowed ---
+    assert_equal "YES", @item.name
+    assert_equal "YES", @item.description
+    assert_equal 10.0,  @item.unit_price
+    assert_equal now.to_s, @item.updated_at.to_s
+  end
+
+
 end

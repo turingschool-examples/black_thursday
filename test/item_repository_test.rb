@@ -138,7 +138,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_creates_an_item
     all_before = @repo.all.count.to_s.to_i
     assert_equal 1367, all_before
-
     hash = {name: "something"}
     @repo.create(hash)
     all_after = @repo.all.count.to_s.to_i

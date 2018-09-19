@@ -33,7 +33,6 @@ class Item
     @unit_price.to_f
   end
 
-  # TO DO - Test ME
   def make_updates(hash)
     @name        = hash[:name]                         if hash[:name]
     @description = hash[:description]                  if hash[:description]
