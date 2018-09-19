@@ -1,4 +1,4 @@
-require './test/helper'
+require_relative 'helper'
 
 class ItemRepository
  attr_reader :items

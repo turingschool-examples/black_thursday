@@ -1,4 +1,4 @@
-require './test/helper'
+require_relative 'helper'
 
 class Invoice
   attr_reader   :customer_id,
