@@ -51,7 +51,7 @@ class SalesAnalyst
       sum + average
     end
     averages_total = (averages_summed/ merchant_item_averages.size)
-    BigDecimal(averages_total, 4)
+    averages_total.truncate(2)
   end
 
   def average_invoices_per_merchant
@@ -148,7 +148,6 @@ class SalesAnalyst
     end
   end
 
-#########################why are you not working ###########
   def top_revenue_earners(show_count = 20)
     all_merchants.max_by(show_count) do |merchant|
       revenue_by_merchant_float(merchant.id)
@@ -197,9 +196,12 @@ class SalesAnalyst
     end
   end
 
+  def merchants_ranked_by_revenue
+    top_revenue_earners(all_merchants.size)
+  end
+
   def merchants_with_pending_invoices
-    @sales_engine.merchants.all.select do |merchant|
-      binding.pry
+    @sales_engine.merchants.all.keep_if do |merchant|
         merchant.id == pull_out_the_merchant_ids_from_pending_invoices
 
     end
@@ -238,73 +240,26 @@ class SalesAnalyst
   end
 
 
+  def most_sold_item_for_merchant(merchant_id)
+    merchant_item_quantities = Hash.new(0)
+    merchant_invoices = valid_merchant_invoices(merchant_id)
+    merchant_invoice_items(merchant_invoices).each do |invoice_item|
+      merchant_item_quantities[invoice_item.item_id] += invoice_item.quantity
+    end
+    item_pairs = highest_quantity_items(merchant_item_quantities)
 
+    item_pairs.map do |item_id, value|
+      @sales_engine.items.find_by_id(item_id)
+    end
+  end
 
-#################   Attempt number two    ################################
- #  def top_revenue_earners(limit = 20)
- #    merchants_ranked_by_revenue[0..(limit-1)]
- #  end
- #
- #  def merchants_ranked_by_revenue
- #    all_merchants.sort_by do |merchant|
- #     revenue_by_merchant(merchant.id)
- #    end.reverse
- #  end
- #
- # def revenue_by_merchant(merchant_id)
- #   validated_merchant_invoices = validate_merchants(merchant_id)
- #   array = []
- #   validated_merchant_invoices.each do |invoice|
- #     array << invoice_total(invoice.id)
- #   end
- #   sum_array(array)
- # end
- #
- # def sum_array(array)
- #   array.inject(0) do |sum,number|
- #     sum + number
- #   end
- # end
- #
- # def validate_merchants(search_merchant_id)
- #   merchant_invoices = all_invoices.find_all do |invoice|
- #     invoice.merchant_id == search_merchant_id
- #   end
- #   merchant_invoices.find_all do |invoice|
- #     invoice_paid_in_full?(invoice.id)
- #   end
- # end
- #######################################################################
+  def merchant_invoice_items(merchant_invoices)
+    merchant_invoice_ids = merchant_invoices.map(&:id)
 
-  # def highest_quantity_items(merchant_item_quantities)
-  #   goal = merchant_item_quantities.max_by do |key, value|
-  #    value
-  #   end
-  #   merchant_item_quantities.select do |key, value|
-  #    value == goal.last
-  #   end
-  # end
-
-  # def most_sold_item_for_merchant(merchant_id)
-  #   merchant_item_quantities = Hash.new(0)
-  #   merchant_invoices = valid_merchant_invoices(merchant_id)
-  #   merchant_invoice_items(merchant_invoices).each do |invoice_item|
-  #     merchant_item_quantities[invoice_item.item_id] += invoice_item.quantity
-  #   end
-  #   item_pairs = highest_quantity_items(merchant_item_quantities)
-  #
-  #   item_pairs.map do |item_id, value|
-  #     @sales_engine.items.find_by_id(item_id)
-  #   end
-  # end
-  #
-  # def merchant_invoice_items(merchant_invoices)
-  #   merchant_invoice_ids = merchant_invoices.map(&:id)
-  #
-  #   all_invoice_items.find_all do |invoice_item|
-  #     merchant_invoice_ids.include?(invoice_item.invoice_id)
-  #   end
-  # end
+    all_invoice_items.find_all do |invoice_item|
+      merchant_invoice_ids.include?(invoice_item.invoice_id)
+    end
+  end
 
 
 
