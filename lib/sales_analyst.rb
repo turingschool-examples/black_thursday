@@ -1,4 +1,5 @@
 require './test/helper'
+require 'time'
 
 class SalesAnalyst
   attr_reader :se,
@@ -123,6 +124,49 @@ class SalesAnalyst
     end.compact
   end
 
-  def invoice_status(symbol_arg)
+  def invoice_mean_for_day_of_week
+    @inv.all.count / 7
   end
+
+  def time_to_day(time)
+    Time.now
+  end
+
+  def day_and_invoice_count_hash
+    @inv.all.inject(Hash.new(0)) do |total,invoice|
+      total[time_to_day(invoice.created_at)] += 1
+      total
+    end
+  end
+
+  def average_invoices_per_day
+    summed =(day_and_invoice_count_hash.values).sum
+    (summed.to_f/day_and_invoice_count_hash.count).round(2)
+  end
+
+  def top_days_by_invoice_count
+      set = average_invoices_per_day + average_day_per_invoice_standard_deviation
+      top_day = day_and_invoice_count_hash.find_all do |merchant_id, invoice_count|
+        invoice_count > set
+      end
+      top_day.map do |day_count|
+        day_count[0]
+      end
+  end
+
+  def average_day_per_invoice_standard_deviation
+    mean = average_invoices_per_day
+    set = day_and_invoice_count_hash.values.map do |invoice_count|
+      ((invoice_count - mean) ** 2)
+    end.inject(:+)
+    Math.sqrt(set/((day_and_invoice_count_hash.count - 1)).round(2))
+  end
+
+  def invoice_status(status_symbol)
+    status_count = @inv.all.find_all do |invoice|
+     invoice.status == status_symbol
+    end
+    ((status_count.count.to_f/@inv.all.count) * 100).round(2)
+  end
+
 end

@@ -6,7 +6,8 @@ class SalesAnalystTest < Minitest::Test
    se = SalesEngine.from_csv({
    :merchants     => './test/fixtures/merchants_fixtures.csv',
    :items         => './test/fixtures/items_fixtures.csv',
-   :invoices      => './test/fixtures/invoices_fixtures.csv'
+   :invoices      => './test/fixtures/invoices_fixtures.csv',
+   :invoice_items => './test/fixtures/invoice_items_fixtures.csv'
                            })
    @sa = se.analyst
   end
@@ -77,19 +78,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [], result
   end
 
+  def test_which_days_of_the_week_we_see_the_most_sales
+    result = @sa.top_days_by_invoice_count
+    assert_equal [], result
+  end
+
   def test_percentage_of_invoices_not_shipped
     result    = @sa.invoice_status(:pending)
     result_2  = @sa.invoice_status(:shipped)
     result_3  = @sa.invoice_status(:returned)
 
-    assert_equal 10, result
-    assert_equal 10, result_2
-    assert_equal 10, result_3
-  end
-
-  def test_which_days_of_the_week_we_see_the_most_sales
-    skip
-    result = @sa.top_days_by_invoice_count
-    assert_equal ["Sunday", "Saturday"], result
+    assert_equal 0, result
+    assert_equal 0, result_2
+    assert_equal 0, result_3
   end
 end
