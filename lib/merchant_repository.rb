@@ -19,11 +19,16 @@ class MerchantRepository
 
   def make_merchants(data = @data)
     data.each { |key, value|
-      number = key.to_s.to_i
-      name = value[:name]
-      merch = Merchant.new({id: number, name: name })
+      hash = make_hash(key, value)
+      merch = Merchant.new(hash)
       @merchants << merch
     }
+  end
+
+  def make_hash(key, value)
+    hash = {id: key.to_s.to_i}
+    value.each { |col, data| hash[col] = data }
+    return hash
   end
 
 
