@@ -221,22 +221,33 @@ class SalesAnalyst
     end
     total[0]
   end
-
+  def invoices_without_transactions
+    invoice_ids = @sales_engine.invoices.repo.map do |invoice|
+      invoice.id
+    end
+    transaction_invoice_ids = @sales_engine.transactions.repo.map do |transaction|
+      transaction.invoice_id
+    end
+    invoice_ids.reject do |invoice|
+      transaction_invoice_ids.include?(invoice)
+    end
+  end
 
   def merchants_with_pending_invoices
-    invoices_pending = @sales_engine.invoices.repo.delete_if do |invoice|
-      failed_transactions_by_invoice.include?(invoice.id)
-    end
+    invoices_pending = @sales_engine.invoices.repo.reject do |invoice|
+      failed_transactions_by_merchant.include?(invoice.id)
+      # invoice_paid_in_full?(invoice.id)
+    end.compact
     invoices_pending.map do |invoice|
-      invoice.merchant_id
+      @sales_engine.merchants.find_by_id(invoice.merchant_id)
     end.uniq
   end
 
-  def failed_transactions_by_invoice
+  def failed_transactions_by_merchant
     failed_transactions = @sales_engine.transactions.repo.find_all do |transaction|
-      transaction.result == :failed
+      transaction.result == :success
     end
-    a=failed_transactions.map do |transaction|
+    failed_transactions.map do |transaction|
       transaction.invoice_id
     end
   end
@@ -312,7 +323,6 @@ class SalesAnalyst
     @sales_engine.items.repo.each do |item|
       merchant = @sales_engine.merchants.find_by_id(item.merchant_id)
       if time_to_month(merchant.created_at).downcase == month.downcase
-        # time_to_month(item.created_at).downcase == month.downcase
       hash[item.merchant_id] += 1
       end
     end
