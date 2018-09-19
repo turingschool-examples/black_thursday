@@ -4,10 +4,7 @@ require_relative 'finderclass'
 
 require_relative 'customer'
 
-require_relative 'crud'
-
 class CustomerRepository
-  include CRUD
 
   attr_reader :all
 
@@ -39,7 +36,7 @@ class CustomerRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  
+
   # --- Find By ---
 
   def find_by_id(id)
@@ -54,21 +51,25 @@ class CustomerRepository
     FinderClass.find_by_fragment(all, :last_name, name)
   end
 
-  
+
   # --- CRUD ---
-  
-  def create(attributes)
-    id = make_id(all, :id)
-    data = {id => attributes} 
-    make_customers(data)
+
+  def create(hash)
+    last = FinderClass.find_max(all, :id)
+    new_id = last.id + 1
+    hash[:id] = new_id
+    customer = Customer.new(hash)
+    @customers << customer
+    return customer
   end
 
   def update(id, attributes)
-    update_entry(@customers, id, attributes)
+    customer = find_by_id(id)
+    customer.make_update(attributes) if customer
   end
 
   def delete(id)
-    delete_entry(@customers, id)
+    @customers.delete_if{ |customer| customer.id == id }
   end
 
 end

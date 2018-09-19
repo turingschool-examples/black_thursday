@@ -71,38 +71,33 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Ondricka", found.first.last_name
   end
 
-  def test_it_can_CREATE_new_customers
-    assert_equal 1000, @repo.all.count
 
-    hash = {
-      invoice_id:         "9999",
-      credit_card_number: "4068631943231473",
-      credit_card_expiration_date: "0217",
-      result:             "success",
-      created_at:         "2012-02-26 20:56:56 UTC",
-      updated_at:         "2012-02-26 20:56:56 UTC"
-    }
+  # --- CRUD ---
 
+  def test_it_can_create_a_customer
+    all_before = @repo.all.count.to_s.to_i
+    assert_equal 1000, all_before
+    hash = @values
     @repo.create(hash)
-    assert_equal 1001, @repo.all.count
+    all_after = @repo.all.count.to_s.to_i
+    assert_equal 1001, all_after
+    assert_equal 1001, @repo.all.last.id
   end
 
-  def test_it_can_UPDATE_existing_customers
-    assert_equal 1000, @repo.all.count
-
-    hash = {first_name: "Geoff", last_name: "Adams"}
+  def test_it_can_update_a_customer
+    found = @repo.find_by_id(1)
+    assert_equal "Joey", found.first_name
+    hash = {first_name: "CHANGED"}
     @repo.update(1, hash)
-    
-    entry = @repo.find_by_id(1)
-    assert_equal "Geoff", entry.first_name
-    assert_equal "Adams", entry.last_name
-    assert_equal 1000, @repo.all.count
+    assert_equal "CHANGED", found.first_name
   end
 
-  def test_it_can_DELETE_existing_customers
-    assert_equal 1000, @repo.all.count
+  def test_it_deletes_a_customer
+    found = @repo.find_by_id(1)
+    assert_instance_of Customer, found
     @repo.delete(1)
-    assert_equal 999, @repo.all.count
+    not_found = @repo.find_by_id(1)
+    assert_nil not_found
   end
 
 
