@@ -170,6 +170,7 @@ class SalesAnalyst
 
   def invoice_total_float(invoice_id)
     invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+
     invoice_items.inject(0) do |sum, invoice_item|
       sum + invoice_item.quantity * invoice_item.unit_price_to_dollars
     end
@@ -181,4 +182,41 @@ class SalesAnalyst
       transaction.result == :success
     end
   end
+########################################################################
+ #  def top_revenue_earners(limit = 20)
+ #    merchants_ranked_by_revenue[0..(limit-1)]
+ #  end
+ #
+ #  def merchants_ranked_by_revenue
+ #    all_merchants.sort_by do |merchant|
+ #     revenue_by_merchant(merchant.id)
+ #    end.reverse
+ #  end
+ #
+ # def revenue_by_merchant(merchant_id)
+ #   validated_merchant_invoices = validate_merchants(merchant_id)
+ #   array = []
+ #   validated_merchant_invoices.each do |invoice|
+ #     array << invoice_total(invoice.id)
+ #   end
+ #   sum_array(array)
+ # end
+ #
+ # def sum_array(array)
+ #   array.inject(0) do |sum,number|
+ #     sum + number
+ #   end
+ # end
+ #
+ # def validate_merchants(search_merchant_id)
+ #   merchant_invoices = all_invoices.find_all do |invoice|
+ #     invoice.merchant_id == search_merchant_id
+ #   end
+ #   merchant_invoices.find_all do |invoice|
+ #     invoice_paid_in_full?(invoice.id)
+ #   end
+ # end
+ #######################################################################
+
+
 end
