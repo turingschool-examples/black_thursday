@@ -182,8 +182,8 @@ class SalesAnalyst
     transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
     transactions.any? do |transaction|
         transaction.result == :success
-    end 
-  end 
+    end
+  end
 
   def pull_out_pending_invoices
     @sales_engine.invoices.all.keep_if do |invoice|
@@ -226,6 +226,17 @@ class SalesAnalyst
     end
     BigDecimal(total, total.to_s.size - 1)
   end
+
+  def most_sold_item_for_merchant(merchant)
+    merchants_by_item = @sales_engine.items.all.group_by do |item|
+      item.merchant_id
+    end
+    # merchants_by_item.group_by do |item|
+    #   binding.pry
+    #   item.id
+    # end
+  end
+
 
 
 
