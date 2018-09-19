@@ -338,4 +338,37 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21, actual.count
     assert_instance_of Merchant, actual.first
   end
+
+  def test_that_revenue_by_merchant_returns_individual
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :customers => "./data/customers.csv",
+    :invoice_items => "./data/invoice_items.csv",
+    :transactions => "./data/transactions.csv"})
+    sales_analyst = se.analyst
+    top_five = sales_analyst.top_revenue_earners(5)
+
+    top_5_total_revenue = top_five.max_by(5) do |merchant|
+       bigD = sales_analyst.revenue_by_merchant(merchant.id)
+    end
+    assert top_five == top_5_total_revenue
+  end
+
+  def test_that_most_sold_items_for_merchant_returns_most_sold_item
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
+    :customers => "./data/customers.csv",
+    :invoice_items => "./data/invoice_items.csv",
+    :transactions => "./data/transactions.csv"})
+    top_items = se.analyst.most_sold_item_for_merchant(12334189)
+    top_4_items = se.analyst.most_sold_item_for_merchant(12337105)
+
+    assert top_items.map(&:id).include?(263524984)
+    assert top_items.map(&:name).include?("Adult Princess Leia Hat")
+    assert_equal 4, top_4_items.count
+  end
 end

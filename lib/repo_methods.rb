@@ -1,4 +1,4 @@
-
+require 'pry'
 module RepoMethods
 
   def all

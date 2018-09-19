@@ -268,16 +268,23 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(number = 20)
-    invoices_by_merchant = inv_repo.objects_array.group_by do |invoice|
+    hash = merchant_invoice_totals
+    top_merchants = hash.max_by(number) { |key, value| value }
+    top_merchants.map { |merchant| @mr.find_by_id(merchant[0]) }
+  end
+
+  def invoices_by_merchant
+    @inv_repo.objects_array.group_by do |invoice|
       invoice.merchant_id
     end
-    invoices_by_merchant.each do |merchant_id, invoice_array|
-      invoices_by_merchant[merchant_id] = sum_total_invoice_array(invoice_array)
-    end
-    top_merchants = invoices_by_merchant.max_by(number) { |key, value| value }
-    top_merchants.map do |merchant| @mr.find_by_id(merchant[0])
+  end
 
+  def merchant_invoice_totals
+    hash = invoices_by_merchant
+    hash.each do |merchant_id, invoice_array|
+      hash[merchant_id] = sum_total_invoice_array(invoice_array)
     end
+    hash
   end
 
   def sum_total_invoice_array(invoice_array)
@@ -288,11 +295,13 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @inv_repo.find_all_by_status(:pending)
-    pending_merchants = pending_invoices.map do |invoice|
+    invoices_array = @inv_repo.objects_array.map do |invoice|
+      succesful_invoices(invoice.id)
+    end
+    merchants_array = invoices_array.compact.map do |invoice|
       @mr.find_by_id(invoice.merchant_id)
     end
-    pending_merchants.uniq
+    merchants_array.uniq
   end
 
   def merchants_ranked_by_revenue
@@ -302,10 +311,17 @@ class SalesAnalyst
   def pending?(invoice_id)
     transactions = @tr.find_all_by_invoice_id(invoice_id)
     return false if transactions[0] == nil
-    if transactions.all? { |transaction| transaction.result == :failed }
+    if transactions.any? { |transaction| transaction.result == :success }
       true
     else
       false
+    end
+  end
+
+  def succesful_invoices(invoice_id)
+    transactions = @tr.find_all_by_invoice_id(invoice_id)
+    if transactions.all? { |transaction| transaction.result == :failed }
+      @inv_repo.find_by_id(invoice_id)
     end
   end
 
@@ -322,7 +338,7 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month)
     one_item_merchants = merchants_with_only_one_item
     one_item_merchants.find_all do |merchant|
-      created_month = time = Time.parse(merchant.created_at).month
+      created_month = Time.parse(merchant.created_at).month
       created_month == months_to_numbers(month)
     end
   end
@@ -334,5 +350,34 @@ class SalesAnalyst
     months[month.downcase.to_sym]
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchant = @mr.find_by_id(merchant_id)
+    merchants_with_invoices = invoices_by_merchant
+    merchant_invoices = merchants_with_invoices[merchant.id]
+    sum_total_invoice_array(merchant_invoices)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    grouped_invoices_with_merchant = invoices_by_merchant
+    specific_merchant_invoices = grouped_invoices_with_merchant[merchant_id]
+    invoice_items_array = specific_merchant_invoices.map do |invoice|
+      @ii.find_all_by_invoice_id(invoice.id)
+    end
+    item_id_to_inv_item = invoice_items_array.flatten.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+    hash = {}
+    item_id_to_inv_item.each do |item_id, invoice_items|
+      top_invoice = invoice_items.max_by do |inv_item|
+        inv_item.quantity
+      end
+      hash[item_id] = top_invoice
+    end
+    top_item = hash.max_by { |item_id, invoice_item| invoice_item.quantity }
+    item_ids_array = hash.map do |invoice_id, invoice_item|
+      @ir.find_by_id(invoice_id) if top_item[1].quantity == invoice_item.quantity
+    end
+    item_ids_array.compact
+  end
 
 end
