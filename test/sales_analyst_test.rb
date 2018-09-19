@@ -314,6 +314,11 @@ class SalesAnalystTest < Minitest::Test
     :transactions => "./data/transactions.csv",
     :invoices => "./data/invoices.csv"})
     sales_analyst = SalesAnalyst.new(se)
+    actual = sales_analyst.most_sold_item_for_merchant(12334189)
+
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual[0]
+    assert_equal 263524984, actual[0].id
   end
 
 end

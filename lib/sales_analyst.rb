@@ -324,7 +324,27 @@ class SalesAnalyst
     end
   end
 
-  def most_sold_item_for_merchant
+  def most_sold_item_for_merchant(selected_merchant_id)
+    invoices_for_merchant = @sales_engine.invoices.repo.find_all do |invoice|
+      invoice.merchant_id == selected_merchant_id
+    end
+    items_per_merchant = invoices_for_merchant.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    hash = Hash.new(0)
+
+    items_per_merchant.flatten.each do |invoice|
+      hash[invoice.item_id] += invoice.quantity
+    end
+
+    highest_items = hash.find_all do |item_id,count|
+      count == hash.values.max
+    end
+
+    highest_items.map do |item_quantity_array|
+      @sales_engine.items.find_by_id(item_quantity_array[0])
+    end
+    
   end
 
   def inspect
