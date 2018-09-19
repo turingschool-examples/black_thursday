@@ -187,6 +187,7 @@ class SalesAnalystTest < Minitest::Test
 
 
   def test_valid_invoice_items
+    skip
     se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
     sa = se.analyst
     actual = sa.most_sold_item_for_merchant(12334189)
@@ -194,6 +195,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, actual.class
   end
 
+  def test_most_sold_item_for_merchant
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv", :merchants => "./data/merchants.csv", :items => "./data/items.csv", :invoices => "./data/invoices.csv", :invoice_items => "./data/invoice_items.csv"})
+    sa = se.analyst
+    actual = sa.most_sold_item_for_merchant(12334189)
+    assert_equal 1, actual.count
+    assert_equal Array, actual.class
+  end
 
   # def test_matched_invoices
   #   skip
