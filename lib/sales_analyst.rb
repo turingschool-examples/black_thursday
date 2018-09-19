@@ -236,7 +236,6 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     invoices_pending = @sales_engine.invoices.repo.reject do |invoice|
       failed_transactions_by_merchant.include?(invoice.id)
-      # invoice_paid_in_full?(invoice.id)
     end.compact
     invoices_pending.map do |invoice|
       @sales_engine.merchants.find_by_id(invoice.merchant_id)

@@ -60,7 +60,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_create_new_merchant
     merchant_repository = MerchantRepository.new('./short_tests/short_merchants.csv')
 
-    attributes = {name: "Turing"}
+    attributes = {name: "Turing", created_at: Time.now}
 
     merchant_repository.create(attributes)
 
