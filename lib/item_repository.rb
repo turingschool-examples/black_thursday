@@ -92,6 +92,11 @@ class ItemRepository
     return item
   end
 
+  def update(id, attributes)
+    item = find_by_id(id)
+    item.make_updates(attributes)
+  end
+
 
 
 

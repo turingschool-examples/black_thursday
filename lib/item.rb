@@ -33,4 +33,13 @@ class Item
     @unit_price.to_f
   end
 
+  def make_updates(hash)
+    @name        = hash[:name]                         if hash[:name]
+    @description = hash[:description]                  if hash[:description]
+    @unit_price  = make_big_decimal(hash[:unit_price]) if hash[:unit_price]
+    @updated_at  = make_time(hash[:updated_at])        if hash[:updated_at]
+    @updated_at  = make_time(Time.now)                 if hash[:updated_at] == nil
+  end
+
+
 end
