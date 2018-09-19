@@ -95,7 +95,7 @@ class ItemRepositoryTest < Minitest::Test
     item_repository = ItemRepository.new('./short_tests/short_items.csv')
 
     attributes = {name: "My Favorite Store", description: "It's just the best store ever!", unit_price: 5000}
-    item = item_repository.update(4, attributes)
+    item_repository.update(4, attributes)
     item_1 = item_repository.find_by_id(4)
 
     assert_equal 4, item_1.id

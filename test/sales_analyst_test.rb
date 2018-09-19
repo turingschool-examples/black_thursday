@@ -58,7 +58,6 @@ class SalesAnalystTest < Minitest::Test
     :merchants => "./short_tests/short_merchants.csv",
     })
     sales_analyst = SalesAnalyst.new(se)
-    merchant_1 = se.merchants.find_all_by_name("Candisart")
 
     assert_instance_of BigDecimal, sales_analyst.average_item_price_for_merchant(3)
     assert_equal 12.25, sales_analyst.average_item_price_for_merchant(3).to_f
@@ -111,14 +110,13 @@ class SalesAnalystTest < Minitest::Test
     :merchants => "./short_tests/short_merchants.csv",
     })
     sales_analyst = SalesAnalyst.new(se)
-
     item_1= se.items.update(3, unit_price: 35)
-    item_2= se.items.update(7, unit_price: 15)
-    item_3= se.items.update(1, unit_price: 9)
-    item_4= se.items.update(6, unit_price: 12)
-    item_5= se.items.update(2, unit_price: 10)
-    item_6= se.items.update(4, unit_price: 9)
-    item_7 = se.items.update(5, unit_price: 20)
+    se.items.update(7, unit_price: 15)
+    se.items.update(1, unit_price: 9)
+    se.items.update(6, unit_price: 12)
+    se.items.update(2, unit_price: 10)
+    se.items.update(4, unit_price: 9)
+    se.items.update(5, unit_price: 20)
 
     assert_equal [item_1], sales_analyst.golden_items
   end

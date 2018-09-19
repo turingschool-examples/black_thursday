@@ -61,14 +61,10 @@ class InvoiceRepositoryTest <Minitest::Test
     invoice = se.invoices
 
     i1 = invoice.find_by_id(1)
-    i2 = invoice.find_by_id(2)
-    i3 = invoice.find_by_id(3)
     i4 = invoice.find_by_id(4)
     i5 = invoice.find_by_id(5)
     i6 = invoice.find_by_id(6)
     i7 = invoice.find_by_id(7)
-    i8 = invoice.find_by_id(8)
-    i9 = invoice.find_by_id(9)
     i10 = invoice.find_by_id(10)
 
     assert_equal [i1,i4,i5,i6,i7,i10], invoice.find_all_by_status(:pending)

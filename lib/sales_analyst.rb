@@ -19,19 +19,6 @@ class SalesAnalyst
     Math.sqrt(divided_sum).round(2)
   end
 
-  def items_per_merchant_hash
-    merchant_id_array.inject(Hash.new(0)) do |total, id|
-      total[id] += 1
-      total
-    end
-  end
-
-  def merchant_id_array
-    merchant_ids = @sales_engine.items.repo.map do |item|
-      item.merchant_id
-    end
-  end
-
   def merchants_with_high_item_count
     highest_count = items_per_merchant_hash.find_all do |merchant|
       merchant[1] > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
@@ -120,7 +107,7 @@ class SalesAnalyst
   end
 
   def merchant_id_array_for_invoices
-    merchant_ids = @sales_engine.invoices.repo.map do |invoice|
+    @sales_engine.invoices.repo.map do |invoice|
       invoice.merchant_id
     end
   end
@@ -204,14 +191,6 @@ class SalesAnalyst
     end
   end
 
-  def invoice_total(invoice_id)
-    invoices = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
-    invoices.inject(0) do |sum, invoice|
-      sum += invoice.unit_price * invoice.quantity
-      sum
-    end
-  end
-
   def total_revenue_by_date(date)
     invoice_by_date = @sales_engine.invoices.repo.find_all do |invoice|
       invoice.created_at == date
@@ -268,16 +247,16 @@ class SalesAnalyst
   end
 
   def merchant_id_array_for_items
-    merchant_ids = @sales_engine.items.repo.map do |item|
+    @sales_engine.items.repo.map do |item|
       item.merchant_id
     end
   end
 
   def find_items_per_merchant_id(id)
-      matching_items = @sales_engine.items.repo.find_all do |item|
+    matching_items = @sales_engine.items.repo.find_all do |item|
       item.merchant_id == id
     end
-    a =  matching_items.map do |item|
+    matching_items.map do |item|
       item.id
     end
   end
@@ -287,7 +266,7 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    sorted_merchant_id = @sales_engine.merchants.repo.sort_by do |merchant|
+    @sales_engine.merchants.repo.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end.reverse
   end

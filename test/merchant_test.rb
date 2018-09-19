@@ -13,7 +13,7 @@ class MerchantTest < Minitest::Test
 
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
-    assert_equal Time.parse("2016-01-11 12:29:33 UTC"), merchant.created_at
+    assert_equal Time.parse("2016-01-11 12:29:33 UTC"), merchant.time
   end
 
 
