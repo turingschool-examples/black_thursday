@@ -1,6 +1,5 @@
-require './test/test_helper'
-require './lib/transaction_repository'
-
+require_relative 'test_helper'
+require_relative '../lib/transaction_repository'
 
 class TransactionRepositoryTest < Minitest::Test
   def test_it_exists
@@ -27,7 +26,7 @@ class TransactionRepositoryTest < Minitest::Test
     actual = transaction_repository.find_by_id(1)
 
     assert_instance_of Transaction, actual
-    assert_equal "4068631943231473", actual.credit_card_number
+    assert_equal '4068631943231473', actual.credit_card_number
     assert_equal 1, actual.id
   end
 
@@ -50,9 +49,9 @@ class TransactionRepositoryTest < Minitest::Test
   def test_can_find_all_by_credit_card_number
     transaction_repository = TransactionRepository.new('./data/transactions.csv')
 
-    assert_equal [], transaction_repository.find_all_by_credit_card_number("0")
+    assert_equal [], transaction_repository.find_all_by_credit_card_number('0')
 
-    assert_equal [transaction_repository.all[0]], transaction_repository.find_all_by_credit_card_number("4068631943231473")
+    assert_equal [transaction_repository.all[0]], transaction_repository.find_all_by_credit_card_number('4068631943231473')
   end
 
   def test_can_find_all_by_result
@@ -68,7 +67,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_can_create_a_transaction
     transaction_repository = TransactionRepository.new('./data/transactions.csv')
 
-    new_transaction = transaction_repository.create(invoinvoice_id: 12, credit_card_number: "123456789101112131", credit_card_expiration_date: '0920', result: "success", created_at: Time.now, updated_at: Time.now)
+    new_transaction = transaction_repository.create(invoice_id: 12, credit_card_number: '123456789101112131', credit_card_expiration_date: '0920', result: 'success', created_at: Time.now, updated_at: Time.now)
 
     assert_instance_of Transaction, new_transaction
 
@@ -76,7 +75,7 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal transaction_repository.find_by_id(4986), actual
 
-    assert_equal transaction_repository.find_all_by_credit_card_number("123456789101112131"), [actual]
+    assert_equal transaction_repository.find_all_by_credit_card_number('123456789101112131'), [actual]
   end
 
   def test_transaction_attributes_can_be_updated
@@ -84,14 +83,14 @@ class TransactionRepositoryTest < Minitest::Test
 
     actual = transaction_repository.find_by_id(1)
 
-    assert_equal transaction_repository.find_all_by_credit_card_number("4068631943231473"), [actual]
+    assert_equal transaction_repository.find_all_by_credit_card_number('4068631943231473'), [actual]
 
     id = (1)
-    attributes = {credit_card_number: "5068631943231475"}
+    attributes = {credit_card_number: '5068631943231475'}
 
     transaction_repository.update(id, attributes)
 
-    assert_equal "5068631943231475", transaction_repository.find_by_id(id).credit_card_number
+    assert_equal '5068631943231475', transaction_repository.find_by_id(id).credit_card_number
   end
 
   def test_transaction_can_be_deleted

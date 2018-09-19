@@ -16,7 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Array, merchant_repository.all
 
     assert merchant_repository.all.all? { |merchant| merchant.is_a?(Merchant)}
-    assert_equal "Shopin1901", merchant_repository.all.first.name
+    assert_equal 'Shopin1901', merchant_repository.all.first.name
   end
 
   def test_it_can_find_merchant_by_id
@@ -25,7 +25,7 @@ class MerchantRepositoryTest < Minitest::Test
     actual = merchant_repository.find_by_id(1)
 
     assert_instance_of Merchant, actual
-    assert_equal "Shopin1901", actual.name
+    assert_equal 'Shopin1901', actual.name
     assert_equal 1, actual.id
   end
 
@@ -42,28 +42,28 @@ class MerchantRepositoryTest < Minitest::Test
 
     actual = merchant_repository.all[0]
 
-    assert_equal merchant_repository.find_by_name("Shopin1901"), actual
+    assert_equal merchant_repository.find_by_name('Shopin1901'), actual
   end
 
 
   def test_merchant_can_find_all_by_partial_name
     merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    assert_equal [], merchant_repository.find_all_by_name("qqqqppplllla")
+    assert_equal [], merchant_repository.find_all_by_name('qqqqppplllla')
 
-    assert_equal [merchant_repository.all[0]], merchant_repository.find_all_by_name("shopin")
+    assert_equal [merchant_repository.all[0]], merchant_repository.find_all_by_name('shopin')
   end
 
   def test_repository_can_create_new_merchants
     merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    new_merchant = merchant_repository.create(name: "Droplitz")
+    new_merchant = merchant_repository.create(name: 'Droplitz')
 
     assert_instance_of Merchant, new_merchant
 
     actual = merchant_repository.all.last
 
-    assert_equal merchant_repository.find_by_name("Droplitz"), actual
+    assert_equal merchant_repository.find_by_name('Droplitz'), actual
 
     assert_equal merchant_repository.find_by_id(6), actual
   end
@@ -73,14 +73,14 @@ class MerchantRepositoryTest < Minitest::Test
 
     actual = merchant_repository.find_by_id(5)
 
-    assert_equal "Keckenbauer", actual.name
+    assert_equal 'Keckenbauer', actual.name
 
     id = (5)
-    attributes = {name: "Reuabnekcek", created_at: 2010-07-15, updated_at: Time.now}
+    attributes = {name: 'Reuabnekcek', created_at: 2010-07-15, updated_at: Time.now}
 
     merchant_repository.update(id, attributes)
 
-    assert_equal "Reuabnekcek", actual.name
+    assert_equal 'Reuabnekcek', actual.name
 
     assert_equal 5, actual.id
   end
