@@ -24,8 +24,6 @@ class InvoiceRepositoryTest < Minitest::Test
     @values = invoice_1_hash.values.first
   end
 
-
-
   def test_it_exists
     assert_instance_of InvoiceRepository, @repo
   end
@@ -77,38 +75,37 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
 
-  def test_it_can_CREATE_new_invoice
-    assert_equal 4985, @repo.all.count
-        
-    hash = {customer_id: "1",
-      merchant_id: "10335938",
-      status:      "pending",
-      created_at:  "2009-02-07",
-      updated_at:  "2014-03-15"}          
-    new_entry = @repo.create(hash)
+  # --- CRUD ---
 
-    assert_equal 4986, @repo.all.count
-    assert_instance_of Invoice, @repo.find_by_id(1)
+  def test_it_can_create_an_invoice
+    all_before = @repo.all.count.to_s.to_i
+    assert_equal 4985, all_before
+    hash = {
+             merchant_id: "12335938",
+             status:      "pending",
+             created_at:  "2009-02-07",
+             updated_at:  "2014-03-15"
+            }
+    @repo.create(hash)
+    all_after = @repo.all.count.to_s.to_i
+    assert_equal 4986, all_after
     assert_equal 4986, @repo.all.last.id
   end
 
-  def test_it_can_UPDATE_existing_invoice
-    entry = @repo.find_by_id(1)
-    assert_equal :pending, entry.status
-
-    hash = {status: :shipped}          
+  def test_it_can_update_an_invoice
+    found = @repo.find_by_id(1)
+    assert_equal :pending, found.status
+    hash = {status: :shipped}
     @repo.update(1, hash)
-    entry = @repo.find_by_id(1)
-    assert_equal :shipped, entry.status
+    assert_equal :shipped, found.status
   end
 
-  def test_it_can_DELETE_existing_invoice
-    assert_equal 4985, @repo.all.count
-    
+  def test_it_can_delete_an_invoice
+    found = @repo.find_by_id(1)
+    assert_instance_of Invoice, found
     @repo.delete(1)
-    assert_nil @repo.find_by_id(1)
-    
-    assert_equal 4984, @repo.all.count
-  end 
+    not_found = @repo.find_by_id(1)
+    assert_nil not_found
+  end
 
 end

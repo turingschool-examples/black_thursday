@@ -32,10 +32,14 @@ class InvoiceTest < Minitest::Test
     assert_equal 1, @invoice.customer_id
     assert_equal 12335938, @invoice.merchant_id
     # -- Accessible --
-    assert_instance_of Date, @invoice.created_at
-    assert_equal @hash[:created_at], @invoice.created_at.to_s
-    assert_instance_of Date, @invoice.updated_at
-    assert_equal @hash[:updated_at], @invoice.updated_at.to_s
+    # assert_instance_of Date, @invoice.created_at
+    assert_instance_of Time, @invoice.created_at
+    time_string = @invoice.created_at.to_s.split[0]
+    assert_equal @hash[:created_at], time_string
+    # assert_instance_of Date, @invoice.updated_at
+    assert_instance_of Time, @invoice.updated_at
+    time_string = @invoice.updated_at.to_s.split[0]
+    assert_equal @hash[:updated_at], time_string
   end
 
 end
