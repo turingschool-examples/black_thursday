@@ -147,6 +147,7 @@ class SalesAnalyst
       sum + invoice_total(invoice.id)
     end
   end
+
 #########################why are you not working ###########
   def top_revenue_earners(show_count = 20)
     all_merchants.max_by(show_count) do |merchant|
@@ -207,7 +208,8 @@ class SalesAnalyst
     BigDecimal(total, total.to_s.size - 1)
   end
 
-  
+
+
 #################   Attempt number two    ################################
  #  def top_revenue_earners(limit = 20)
  #    merchants_ranked_by_revenue[0..(limit-1)]
@@ -244,6 +246,35 @@ class SalesAnalyst
  # end
  #######################################################################
 
+  # def highest_quantity_items(merchant_item_quantities)
+  #   goal = merchant_item_quantities.max_by do |key, value|
+  #    value
+  #   end
+  #   merchant_item_quantities.select do |key, value|
+  #    value == goal.last
+  #   end
+  # end
+
+  # def most_sold_item_for_merchant(merchant_id)
+  #   merchant_item_quantities = Hash.new(0)
+  #   merchant_invoices = valid_merchant_invoices(merchant_id)
+  #   merchant_invoice_items(merchant_invoices).each do |invoice_item|
+  #     merchant_item_quantities[invoice_item.item_id] += invoice_item.quantity
+  #   end
+  #   item_pairs = highest_quantity_items(merchant_item_quantities)
+  #
+  #   item_pairs.map do |item_id, value|
+  #     @sales_engine.items.find_by_id(item_id)
+  #   end
+  # end
+  #
+  # def merchant_invoice_items(merchant_invoices)
+  #   merchant_invoice_ids = merchant_invoices.map(&:id)
+  #
+  #   all_invoice_items.find_all do |invoice_item|
+  #     merchant_invoice_ids.include?(invoice_item.invoice_id)
+  #   end
+  # end
 
 
 end
