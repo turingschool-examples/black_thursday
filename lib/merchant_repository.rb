@@ -1,4 +1,4 @@
-require './test/helper'
+require_relative 'helper'
 
 class MerchantRepository
   attr_reader   :merchants
@@ -63,4 +63,3 @@ class MerchantRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end
-12345

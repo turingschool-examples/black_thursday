@@ -1,4 +1,4 @@
-require './test/helper'
+require_relative 'helper'
 
 class Merchant
   attr_reader     :id

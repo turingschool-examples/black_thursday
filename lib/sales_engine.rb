@@ -1,4 +1,4 @@
-require'./test/helper'
+require_relative'helper'
 
 class SalesEngine
   attr_reader :merchants,

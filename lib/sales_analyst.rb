@@ -1,5 +1,4 @@
-require './test/helper'
-require 'time'
+require_relative 'helper'
 
 class SalesAnalyst
   attr_reader :se,

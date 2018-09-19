@@ -1,4 +1,4 @@
-require './test/helper'
+require_relative 'helper'
 
 class InvoiceRepository
   attr_reader :invoices
