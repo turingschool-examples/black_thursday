@@ -1,8 +1,5 @@
-require_relative '../lib/transaction_repository'
-require_relative '../lib/transaction'
-require_relative '../lib/sales_engine'
 require_relative './test_helper'
-require 'pry'
+
 
 class TransactoinRepositoryTest < Minitest::Test
   def test_it_exists

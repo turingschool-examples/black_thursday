@@ -1,5 +1,4 @@
 require_relative './test_helper'
-require_relative '../lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
   def test_it_exists

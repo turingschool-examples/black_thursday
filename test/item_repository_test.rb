@@ -1,7 +1,4 @@
-require_relative '../lib/item_repository'
-require_relative '../lib/item'
 require_relative './test_helper'
-
 
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists

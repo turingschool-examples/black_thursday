@@ -1,8 +1,4 @@
-require_relative '../lib/invoice_item_repository'
-require_relative '../lib/invoice_item'
-require_relative '../lib/sales_engine'
 require_relative './test_helper'
-require 'pry'
 
 class InvoiceItemRepositoryTest <Minitest::Test
   def test_it_exists
