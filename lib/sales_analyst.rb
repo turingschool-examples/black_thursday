@@ -147,7 +147,7 @@ class SalesAnalyst
       sum + invoice_total(invoice.id)
     end
   end
-
+#########################why are you not working ###########
   def top_revenue_earners(show_count = 20)
     all_merchants.max_by(show_count) do |merchant|
       revenue_by_merchant_float(merchant.id)
@@ -182,6 +182,8 @@ class SalesAnalyst
       transaction.result == :success
     end
   end
+#########################################################
+
 
   def merchants_with_only_one_item
     all_merchants.find_all do |merchant|
@@ -197,8 +199,16 @@ class SalesAnalyst
     end
   end
 
+  def revenue_by_merchant(merchant_id)
+    merch_inv = valid_merchant_invoices(merchant_id)
+    total = merch_inv.inject(0) do |sum, inv|
+      sum + invoice_total_float(inv.id)
+    end
+    BigDecimal(total, total.to_s.size - 1)
+  end
 
-########################################################################
+  
+#################   Attempt number two    ################################
  #  def top_revenue_earners(limit = 20)
  #    merchants_ranked_by_revenue[0..(limit-1)]
  #  end

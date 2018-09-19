@@ -69,7 +69,7 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_it_can_check_if_invoice_is_paid_in_full
-    assert_equal true, @sa.invoice_paid_in_full?(3374)
+    assert_equal false, @sa.invoice_paid_in_full?(3374)
   end
 
   def test_it_can_return_dollar_amount_of_invoices_based_on_id
@@ -112,7 +112,13 @@ class SalesAnalystTest<Minitest::Test
     assert_equal [@se.merchants.find_by_id(4)], @sa.merchants_with_only_one_item_registered_in_month('June')
   end
 
-  
+  def test_it_returns_revenue_by_merchant
+    assert_equal 0.0, @sa.revenue_by_merchant(4)
+  end
+
+  def test_it_can_show_witch_item_sold_the_most
+
+
 
 
 end
