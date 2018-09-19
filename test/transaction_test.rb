@@ -37,4 +37,28 @@ class TransactionTet < Minitest::Test
     assert_equal "2012-02-26 20:56:56 UTC", @transaction.updated_at.to_s
   end
 
+  def test_it_makes_updates
+    now = Time.now
+    hash = {
+              :id                          => "NOPE",
+              :invoice_id                  => "NOPE",
+              :created_at                  => "NOPE",
+              :credit_card_number          => "YES",
+              :credit_card_expiration_date => "YES",
+              :result                      => "YES",
+              :updated_at                  => now
+    }
+    @transaction.make_updates(hash)
+    # --- denied ---
+    refute_equal "NOPE", @transaction.id
+    refute_equal "NOPE", @transaction.invoice_id
+    refute_equal "NOPE", @transaction.created_at
+    # --- allowed ---
+    assert_equal "YES", @transaction.credit_card_number
+    assert_equal "YES", @transaction.credit_card_expiration_date
+    assert_equal :YES,  @transaction.result
+    assert_equal now.to_s, @transaction.updated_at.to_s
+  end
+
+
 end

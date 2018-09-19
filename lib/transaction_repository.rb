@@ -39,7 +39,7 @@ class TransactionRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-  
+
 
   # --- Find By ---
 
@@ -58,22 +58,26 @@ class TransactionRepository
   def find_all_by_result(result)
     FinderClass.find_all_by(all, :result, result)
   end
-  
-  
+
+
   # --- CRUD ---
 
-  def create(attributes)
-    id = make_id(all, :id)
-    data = {id => attributes} 
-    make_transactions(data)
+  def create(hash)
+    last = FinderClass.find_max(all, :id)
+    new_id = last.id + 1
+    hash[:id] = new_id
+    transaction = Transaction.new(hash)
+    @transactions << transaction
+    return transaction
   end
 
   def update(id, attributes)
-    update_entry(@transactions, id, attributes)
+    transaction = find_by_id(id)
+    transaction.make_updates(attributes) if transaction
   end
 
   def delete(id)
-    delete_entry(@transactions, id)
+    @transactions.delete_if{ |transaction| transaction.id == id }
   end
 
 end

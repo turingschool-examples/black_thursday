@@ -87,42 +87,34 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal :success, found.first.result
   end
 
-  def test_it_can_CREATE_new_transactions
-    assert_equal 4985, @repo.all.count
-    
-    hash = {
-      invoice_id:         "9999",
-      credit_card_number: "4068631943231473",
-      credit_card_expiration_date: "0217",
-      result:             "success",
-      created_at:         "2012-02-26 20:56:56 UTC",
-      updated_at:         "2012-02-26 20:56:56 UTC"
-    }
 
+  # --- CRUD ---
+
+  def test_it_can_create_a_transaction
+    all_before = @repo.all.count.to_s.to_i
+    assert_equal 4985, all_before
+    hash = @values
     @repo.create(hash)
-    assert_equal 4986, @repo.all.count
+    all_after = @repo.all.count.to_s.to_i
+    assert_equal 4986, all_after
+    assert_equal 4986, @repo.all.last.id
   end
 
-  def test_it_can_UPDATE_existing_transactions
-    assert_equal 4985, @repo.all.count
-
-    hash = {                        
-      credit_card_number:          "9999999999999999",
-      credit_card_expiration_date: "0000",
-      result:                      "failed",
-    }
-    
+  def test_it_can_update_a_transaction
+    found = @repo.find_by_id(1)
+    assert_equal "0217", found.credit_card_expiration_date
+    hash = {credit_card_expiration_date: "CHANGED"}
     @repo.update(1, hash)
-    assert_equal 4985, @repo.all.count
-    
-    entry = @repo.find_by_id(1)
-    assert_equal "9999999999999999", entry.credit_card_number
+    assert_equal "CHANGED", found.credit_card_expiration_date
   end
 
-  def test_it_can_DELETE_existing_transactions
-    assert_equal 4985, @repo.all.count
+  def test_it_deletes_a_transaction
+    found = @repo.find_by_id(1)
+    assert_instance_of Transaction, found
     @repo.delete(1)
-    assert_equal 4984, @repo.all.count
+    not_found = @repo.find_by_id(1)
+    assert_nil not_found
   end
+
 
 end
