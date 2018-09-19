@@ -182,6 +182,16 @@ class SalesAnalyst
       transaction.result == :success
     end
   end
+
+  def merchants_with_only_one_item
+    all_merchants.find_all do |merchant|
+      all_items.one? do |item|
+        item.merchant_id == merchant.id
+      end
+    end
+  end
+
+  
 ########################################################################
  #  def top_revenue_earners(limit = 20)
  #    merchants_ranked_by_revenue[0..(limit-1)]
@@ -217,6 +227,7 @@ class SalesAnalyst
  #   end
  # end
  #######################################################################
+
 
 
 end
