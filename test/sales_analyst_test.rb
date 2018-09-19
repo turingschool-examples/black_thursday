@@ -104,9 +104,15 @@ class SalesAnalystTest<Minitest::Test
   end
 
   def test_it_can_return_merchants_with_only_one_item
-    expected = [@se.merchants.find_by_id(1), @se.merchants.find_by_id(4), @se.merchants.find_by_id(3), @se.merchants.find_by_id(6), @se.merchants.find_by_id(7)]
+    expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(3), @se.merchants.find_by_id(4), @se.merchants.find_by_id(5), @se.merchants.find_by_id(6),@se.merchants.find_by_id(7)]
     assert_equal expected, @sa.merchants_with_only_one_item
-  end 
+  end
+
+  def test_it_can_return_merchants_with_only_one_item_registered_per_month
+    assert_equal [@se.merchants.find_by_id(4)], @sa.merchants_with_only_one_item_registered_in_month('June')
+  end
+
+  
 
 
 end
