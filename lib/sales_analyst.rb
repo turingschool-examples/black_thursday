@@ -321,7 +321,7 @@ class SalesAnalyst
     hash = Hash.new(0)
     @sales_engine.items.repo.each do |item|
       merchant = @sales_engine.merchants.find_by_id(item.merchant_id)
-      if time_to_month(merchant.created_at).downcase == month.downcase
+      if time_to_month(merchant.time).downcase == month.downcase
       hash[item.merchant_id] += 1
       end
     end
