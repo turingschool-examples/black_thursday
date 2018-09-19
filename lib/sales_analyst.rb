@@ -221,22 +221,32 @@ class SalesAnalyst
     end
     total[0]
   end
-
+  def invoices_without_transactions
+    invoice_ids = @sales_engine.invoices.repo.map do |invoice|
+      invoice.id
+    end
+    transaction_invoice_ids = @sales_engine.transactions.repo.map do |transaction|
+      transaction.invoice_id
+    end
+    invoice_ids.reject do |invoice|
+      transaction_invoice_ids.include?(invoice)
+    end
+  end
 
   def merchants_with_pending_invoices
-    invoices_pending = @sales_engine.invoices.repo.delete_if do |invoice|
-      failed_transactions_by_invoice.include?(invoice.id)
-    end
+    invoices_pending = @sales_engine.invoices.repo.reject do |invoice|
+      failed_transactions_by_merchant.include?(invoice.id)
+    end.compact
     invoices_pending.map do |invoice|
-      invoice.merchant_id
+      @sales_engine.merchants.find_by_id(invoice.merchant_id)
     end.uniq
   end
 
-  def failed_transactions_by_invoice
+  def failed_transactions_by_merchant
     failed_transactions = @sales_engine.transactions.repo.find_all do |transaction|
-      transaction.result == :failed
+      transaction.result == :success
     end
-    a=failed_transactions.map do |transaction|
+    failed_transactions.map do |transaction|
       transaction.invoice_id
     end
   end
@@ -311,8 +321,7 @@ class SalesAnalyst
     hash = Hash.new(0)
     @sales_engine.items.repo.each do |item|
       merchant = @sales_engine.merchants.find_by_id(item.merchant_id)
-      if time_to_month(merchant.created_at).downcase == month.downcase
-        # time_to_month(item.created_at).downcase == month.downcase
+      if time_to_month(merchant.time).downcase == month.downcase
       hash[item.merchant_id] += 1
       end
     end
@@ -325,26 +334,35 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(selected_merchant_id)
-    invoices_for_merchant = @sales_engine.invoices.repo.find_all do |invoice|
-      invoice.merchant_id == selected_merchant_id
-    end
-    items_per_merchant = invoices_for_merchant.map do |invoice|
+    validated_merchant_invoices = validate_merchants(selected_merchant_id)
+    items_per_merchant = validated_merchant_invoices.map do |invoice|
       @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
     end
     hash = Hash.new(0)
-
     items_per_merchant.flatten.each do |invoice|
       hash[invoice.item_id] += invoice.quantity
     end
-
     highest_items = hash.find_all do |item_id,count|
       count == hash.values.max
     end
-
     highest_items.map do |item_quantity_array|
       @sales_engine.items.find_by_id(item_quantity_array[0])
     end
-    
+  end
+
+  def best_item_for_merchant(merchant_id)
+    validated_merchant_invoices = validate_merchants(merchant_id)
+    invoices_per_merchant = validated_merchant_invoices.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    hash = Hash.new(0)
+    invoices_per_merchant.flatten.each do |invoice|
+      hash[invoice.item_id] += (invoice.quantity * invoice.unit_price)
+    end
+    highest_revenue = hash.max_by do |invoice_id,revenue|
+      revenue
+    end
+    @sales_engine.items.find_by_id(highest_revenue[0])
   end
 
   def inspect
