@@ -63,4 +63,7 @@ class InvoiceRepository
       @invoices << Invoice.new(row)
     end
   end
+  def inspect
+      "#<#{self.class} #{@invoices.size} rows>"
+  end
 end

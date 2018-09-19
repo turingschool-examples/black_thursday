@@ -59,4 +59,8 @@ attr_reader :invoice_items
      invoice == find_invoice
     end
   end
+
+  def inspect
+      "#<#{self.class} #{@invoice_items.size} rows>"
+  end
 end
