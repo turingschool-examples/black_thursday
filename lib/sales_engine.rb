@@ -12,9 +12,9 @@ require_relative 'transaction_repository'
 require_relative 'customer'
 require_relative 'customer_repository'
 
-
 class SalesEngine
   attr_reader :data
+
   def initialize(data)
     @data = data
   end
@@ -24,11 +24,11 @@ class SalesEngine
   end
 
   def items
-  @items ||=  ItemRepository.new(data[:items])
+    @items ||=  ItemRepository.new(data[:items])
   end
 
   def merchants
-  @merchants ||=  MerchantRepository.new(data[:merchants])
+    @merchants ||=  MerchantRepository.new(data[:merchants])
   end
 
   def analyst
@@ -36,7 +36,7 @@ class SalesEngine
   end
 
   def invoices
-  @invoices ||= InvoiceRepository.new(data[:invoices])
+    @invoices ||= InvoiceRepository.new(data[:invoices])
   end
 
   def invoice_items

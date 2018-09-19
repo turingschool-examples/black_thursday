@@ -3,8 +3,8 @@ require_relative 'repo_module'
 
 class CustomerRepository
   include RepoModule
-
   attr_reader :repo
+  
   def initialize(file_path)
     @repo = []
     load_items(file_path)

@@ -3,8 +3,8 @@ require_relative 'repo_module'
 
 class InvoiceRepository
   include RepoModule
-
   attr_reader :repo
+  
   def initialize(file_path)
     @repo = []
     load_invoice(file_path)

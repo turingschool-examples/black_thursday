@@ -11,6 +11,7 @@ class TransactionTest < Minitest::Test
     :created_at => Time.now,
     :updated_at => Time.now
     })
+    
     assert_instance_of Transaction, t
   end
 

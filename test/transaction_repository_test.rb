@@ -46,8 +46,8 @@ class TransactoinRepositoryTest < Minitest::Test
     :created_at => Time.now,
     :updated_at => Time.now
     })
-
     tr.create(attributes)
+    
     assert_equal 11, tr.repo.last.id
   end
 

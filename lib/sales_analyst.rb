@@ -1,4 +1,3 @@
-require 'pry'
 require 'bigdecimal'
 require 'bigdecimal/util'
 class SalesAnalyst
@@ -28,6 +27,19 @@ class SalesAnalyst
     end
   end
 
+  def items_per_merchant_hash
+    merchant_id_array_for_items.inject(Hash.new(0)) do |total, merchant_id|
+      total[merchant_id] += 1
+      total
+    end
+  end
+
+  def merchant_id_array_for_items
+    @sales_engine.items.repo.map do |item|
+      item.merchant_id
+    end
+  end
+
   def average_item_price_for_merchant(merchant_id)
     items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
     summed_unit_price = items.inject(0) do |sum,item|
@@ -46,7 +58,6 @@ class SalesAnalyst
 
   def average_item_cost
     summed = sum_values(array_of_unit_price)
-
     (summed / @sales_engine.items.repo.count).round(2)
   end
 
@@ -63,7 +74,6 @@ class SalesAnalyst
     avg = average_item_cost
     dev = golden_items_standard_deviation * 2
     golden_benchmark = avg + dev
-
   @sales_engine.items.repo.find_all do |item|
       item.unit_price > golden_benchmark
     end
@@ -93,7 +103,6 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     diff_squared = differences_squared(invoice_per_merchant_hash.values, average_invoices_per_merchant)
-
     summed = sum_values(diff_squared)
     divided_sum = summed / (invoice_per_merchant_hash.count - 1)
     Math.sqrt(divided_sum).round(2)
@@ -178,7 +187,6 @@ class SalesAnalyst
   def average_day_per_invoice_standard_deviation
     avg = average_invoice_per_day
     diff_squared = differences_squared(day_and_invoice_count_hash.values,avg)
-
     summed = sum_values(diff_squared)
     divided_sum = summed / (day_and_invoice_count_hash.count - 1)
     Math.sqrt(divided_sum).round(2)
@@ -236,19 +244,6 @@ class SalesAnalyst
     end
     one_item_merchants.map do |merchant_id_array|
       @sales_engine.merchants.find_by_id(merchant_id_array[0])
-    end
-  end
-
-  def items_per_merchant_hash
-    merchant_id_array_for_items.inject(Hash.new(0)) do |total, merchant_id|
-      total[merchant_id] += 1
-      total
-    end
-  end
-
-  def merchant_id_array_for_items
-    @sales_engine.items.repo.map do |item|
-      item.merchant_id
     end
   end
 

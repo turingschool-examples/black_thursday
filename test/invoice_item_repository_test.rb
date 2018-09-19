@@ -27,7 +27,6 @@ class InvoiceItemRepositoryTest <Minitest::Test
   def test_it_can_update_attributes
     iir = InvoiceItemRepository.new('./short_tests/short_invoice_item.csv')
 
-
     invoice_item_1 = iir.find_by_id(10)
     iir.update(10, {quantity: 5})
 
@@ -45,8 +44,8 @@ class InvoiceItemRepositoryTest <Minitest::Test
     :updated_at => "2017-01-11 12:29:33 UTC",
     :created_at => "2016-01-11 12:29:33 UTC"
     })
-
     iir.create(attributes)
+    
     assert_equal 11, iir.repo.last.id
   end
 

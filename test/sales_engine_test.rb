@@ -15,6 +15,7 @@ class SalesEngineTest <Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     assert_equal ({items: './short_tests/short_items.csv', merchants: './short_tests/short_merchants.csv'}), se.data
   end
 
@@ -23,6 +24,7 @@ class SalesEngineTest <Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     assert_instance_of Array, se.items.repo
   end
 
@@ -31,6 +33,7 @@ class SalesEngineTest <Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+    
     assert_instance_of Array, se.merchants.repo
   end
 end

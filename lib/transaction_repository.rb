@@ -47,5 +47,4 @@ class TransactoinRepository
     end
   end
 
-
 end

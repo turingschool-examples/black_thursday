@@ -16,4 +16,5 @@ class Invoice
     @created_at = Time.parse(hash[:created_at].to_s)
     @updated_at = Time.parse(hash[:updated_at].to_s)
   end
+  
 end

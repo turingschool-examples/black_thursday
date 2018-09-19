@@ -3,8 +3,8 @@ require_relative 'repo_module'
 
 class InvoiceItemRepository
   include RepoModule
-
   attr_reader :repo
+
   def initialize(file_path)
     @repo = []
     load_items(file_path)
@@ -39,6 +39,5 @@ class InvoiceItemRepository
     invoice_item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     invoice_item.updated_at = Time.now unless (attributes[:quantity].nil? && attributes[:unit_price].nil?)
   end
-
 
 end

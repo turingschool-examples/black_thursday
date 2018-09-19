@@ -45,8 +45,10 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_with_description
     item_repository = ItemRepository.new('./short_tests/short_items.csv')
+
     description = "has flamingos on it"
     item_1 = item_repository.find_by_id(5)
+
     assert_equal [item_1], item_repository.find_all_with_description(description)
   end
 
@@ -73,7 +75,6 @@ class ItemRepositoryTest < Minitest::Test
     item_2 = item_repository.find_by_id(2)
     item_3 = item_repository.find_by_id(4)
 
-
     assert_equal [item_1,item_2,item_3], item_repository.find_all_by_price_in_range(5.00 .. 20.00)
   end
 
@@ -84,7 +85,6 @@ class ItemRepositoryTest < Minitest::Test
     item_2 = item_repository.find_by_id(2)
 
     assert_equal [item_1,item_2], item_repository.find_all_by_merchant_id(2)
-
     assert_equal [], item_repository.find_all_by_merchant_id(12)
   end
 

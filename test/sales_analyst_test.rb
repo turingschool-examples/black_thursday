@@ -38,6 +38,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
     merchant_1 = se.merchants.find_all_by_name("Candisart")
 
@@ -49,6 +50,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_instance_of BigDecimal, sales_analyst.average_item_price_for_merchant(3)
@@ -60,6 +62,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_instance_of BigDecimal, sales_analyst.average_average_price_per_merchant
@@ -71,6 +74,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 11.29, sales_analyst.average_item_cost.to_f
@@ -81,6 +85,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 8.56, sales_analyst.golden_items_standard_deviation
@@ -91,6 +96,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 15, sales_analyst.sum_values([1,2,3,5,4])
@@ -101,6 +107,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./short_tests/short_items.csv",
     :merchants => "./short_tests/short_merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
     item_1= se.items.update(3, unit_price: 35)
     se.items.update(7, unit_price: 15)
@@ -118,6 +125,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 10.49, sales_analyst.average_invoices_per_merchant
@@ -128,6 +136,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 3.29, sales_analyst.average_invoices_per_merchant_standard_deviation
@@ -138,6 +147,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 12, sales_analyst.top_merchants_by_invoice_count.length
@@ -148,6 +158,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 4, sales_analyst.bottom_merchants_by_invoice_count.length
@@ -158,6 +169,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_instance_of Hash, sales_analyst.day_and_invoice_count_hash
@@ -168,6 +180,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 712.14, sales_analyst.average_invoice_per_day
@@ -178,6 +191,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 18.07, sales_analyst.average_day_per_invoice_standard_deviation
@@ -188,6 +202,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal ["Wednesday"], sales_analyst.top_days_by_invoice_count
@@ -198,6 +213,7 @@ class SalesAnalystTest < Minitest::Test
     :invoices     => "./data/invoices.csv",
     :merchants => "./data/merchants.csv",
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 29.55, sales_analyst.invoice_status(:pending)
@@ -207,6 +223,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
     :transactions => "./data/transactions.csv"
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert sales_analyst.invoice_paid_in_full?(2179)
@@ -217,6 +234,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
     :invoice_items => "./data/invoice_items.csv"
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 21067.77, sales_analyst.invoice_total(1)
@@ -229,6 +247,7 @@ class SalesAnalystTest < Minitest::Test
     :invoice_items => "./data/invoice_items.csv",
     :transactions => "./data/transactions.csv",
     :invoices => "./data/invoices.csv"})
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 467, sales_analyst.merchants_with_pending_invoices.length
@@ -241,6 +260,7 @@ class SalesAnalystTest < Minitest::Test
     :invoice_items => "./data/invoice_items.csv",
     :transactions => "./data/transactions.csv",
     :invoices => "./data/invoices.csv"})
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 12334634, sales_analyst.top_revenue_earners(10).first.id
@@ -251,8 +271,8 @@ class SalesAnalystTest < Minitest::Test
     :items => "./data/items.csv",
     :merchants => "./data/merchants.csv"
     })
-    sales_analyst = SalesAnalyst.new(se)
 
+    sales_analyst = SalesAnalyst.new(se)
     m1 = se.merchants.find_by_id(12334141)
     m2 = se.merchants.find_by_id(12334207)
     m3 = se.merchants.find_by_id(12334235)
@@ -268,6 +288,7 @@ class SalesAnalystTest < Minitest::Test
     :items => "./data/items.csv",
     :merchants => "./data/merchants.csv"
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 2, sales_analyst.find_items_per_merchant_id(12334271).length
@@ -280,6 +301,7 @@ class SalesAnalystTest < Minitest::Test
     :invoice_items => "./data/invoice_items.csv",
     :transactions => "./data/transactions.csv",
     :invoices => "./data/invoices.csv"})
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 91237.25, sales_analyst.revenue_by_merchant(12334271)
@@ -290,6 +312,7 @@ class SalesAnalystTest < Minitest::Test
     :items => "./data/items.csv",
     :merchants => "./data/merchants.csv"
     })
+
     sales_analyst = SalesAnalyst.new(se)
 
     assert_equal 21, sales_analyst.merchants_with_only_one_item_registered_in_month("March").length
@@ -303,6 +326,7 @@ class SalesAnalystTest < Minitest::Test
     :invoice_items => "./data/invoice_items.csv",
     :transactions => "./data/transactions.csv",
     :invoices => "./data/invoices.csv"})
+    
     sales_analyst = SalesAnalyst.new(se)
     actual = sales_analyst.most_sold_item_for_merchant(12334189)
 

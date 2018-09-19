@@ -12,4 +12,5 @@ class Merchant
   def time
     Time.parse(@created_at.to_s)
   end
+  
 end

@@ -7,7 +7,6 @@ class Customer
                 :last_name,
                 :updated_at
 
-
   def initialize(hash)
     @id = hash[:id].to_i
     @first_name = hash[:first_name]

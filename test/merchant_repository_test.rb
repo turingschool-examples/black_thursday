@@ -58,7 +58,6 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repository = MerchantRepository.new('./short_tests/short_merchants.csv')
 
     attributes = {name: "Turing", created_at: Time.now}
-
     merchant_repository.create(attributes)
 
     assert_equal "Turing", merchant_repository.repo[-1].name
@@ -67,10 +66,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_update_name
     merchant_repository = MerchantRepository.new('./short_tests/short_merchants.csv')
+
     merchant = merchant_repository.find_by_id(4)
     attributes = {name: "Averi"}
     merchant_repository.update(4,attributes)
-
 
     assert_equal "Averi", merchant.name
   end
@@ -82,6 +81,5 @@ class MerchantRepositoryTest < Minitest::Test
 
     refute merchant_repository.repo.include?(merchant)
   end
-
 
 end

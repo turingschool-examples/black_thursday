@@ -36,7 +36,4 @@ class ItemTest < Minitest::Test
     assert_equal 2.00, i.unit_price_to_dollars
   end
 
-
-
-
 end
