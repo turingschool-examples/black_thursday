@@ -102,5 +102,8 @@ class SalesAnalystTest<Minitest::Test
     assert_equal expected, @sa.merchants_with_pending_invoices
   end
 
+  def test_i_can_pull_out_the_merchant_ids_from_the_pending_invoices
+    assert_equal [34444, 12334269], @sa.pull_out_the_merchant_ids_from_pending_invoices
+  end
 
 end
