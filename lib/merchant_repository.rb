@@ -52,18 +52,24 @@ class MerchantRepository
 
   # --- CRUD ---
 
-  def create(attributes)
-    id = make_id(all, :id)
-    data = {id => attributes}
-    make_merchants(data)
+  def create(hash)
+    last = FinderClass.find_max(all, :id)
+    new_id = last.id + 1
+    hash[:id] = new_id
+    merchant = Merchant.new(hash)
+    @merchants << merchant
+    return merchant
   end
 
   def update(id, attributes)
-    update_entry(@merchants, id, attributes)
+    merchant = find_by_id(id)
+    merchant.make_update(attributes) if merchant
   end
 
   def delete(id)
-    delete_entry(@merchants, id)
+    @merchants.delete_if{ |merch| merch.id == id }
   end
+
+
 
 end

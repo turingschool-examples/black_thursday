@@ -20,5 +20,18 @@ class MerchantTest < Minitest::Test
     assert_equal "Shopin1901", @merchant.name
   end
 
+  def test_it_can_make_an_update
+    now = Time.now
+    hash = {id: "NOPE", created_at: "NOPE",
+            name: "YES",  updated_at: now }
+    @merchant.make_update(hash)
+    # --- denied ---
+    refute_equal "NOPE", @merchant.id
+    refute_equal "NOPE", @merchant.created_at
+    # --- allowed ---
+    assert_equal "YES", @merchant.name
+    assert_equal now.to_s, @merchant.updated_at.to_s
+  end
+
 
 end

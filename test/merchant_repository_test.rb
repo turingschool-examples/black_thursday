@@ -13,9 +13,9 @@ class MerchantRepositoryTest < Minitest::Test
     # -- from CSV --
     # 12334105,Shopin1901,2010-12-10,2011-12-04
     # 12334112,Candisart,2009-05-30,2010-08-29
-    merch1_data = {:name => "Shopin1901", :created_at => "2010-12-10", :updated_at => "2011-12-04"}
+    @merch1_data = {:name => "Shopin1901", :created_at => "2010-12-10", :updated_at => "2011-12-04"}
     merch2_data = {:name => "Candisart", :created_at => "2009-05-30", :updated_at => "2010-08-29"}
-    merch1 = {:"12334105" => merch1_data }
+    merch1 = {:"12334105" => @merch1_data }
     merch2 = {:"12334112" => merch2_data}
 
     @merchant1 = Merchant.new( {id: 12334105, name: "Shopin1901"} )
@@ -74,37 +74,33 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal true, found1[0].name.include?("pi")
     end
 
-    def test_it_can_CREATE_new_merchant
-      
-      assert_equal 475, @repo.all.count
 
-      @repo.create( {name: "GeoffX"} ) 
+    # --- CRUD ---
 
-      assert_equal 476, @repo.all.count
-      assert_equal "GeoffX", @repo.all.last.name
+    def test_it_can_create_a_merchant
+      all_before = @repo.all.count.to_s.to_i
+      assert_equal 475, all_before
+      hash = @merch1_data
+      @repo.create(hash)
+      all_after = @repo.all.count.to_s.to_i
+      assert_equal 476, all_after
       assert_equal 12337412, @repo.all.last.id
     end
-  
-    def test_it_can_UPDATE_existing_merchants
-      assert_equal 475, @repo.all.count
-      hash = {name: "GeoffX Plush Toys"}
 
-      @repo.update(12337411, hash)
-      entry = @repo.find_by_id(12337411)
-      assert_equal "GeoffX Plush Toys", entry.name
-      assert_equal 475, @repo.all.count
-      hash = {name: "RachelNose Pliers"}
-      @repo.update(12337411, hash)
-      entry = @repo.find_by_id(12337411)
-      assert_equal "RachelNose Pliers", entry.name
-      assert_equal 475, @repo.all.count
+    def test_it_updates_a_merchant
+      found = @repo.find_by_id(12334105)
+      assert_equal "Shopin1901", found.name
+      hash = {name: "CHANGED"}
+      @repo.update(12334105, hash)
+      assert_equal "CHANGED", found.name
     end
-  
-    def test_it_can_DELETE_existing_merchants
-      entry = @repo.find_by_id(12334105)
-      assert_instance_of Merchant, entry
+
+    def test_it_deletes_a_merchant
+      found = @repo.find_by_id(12334105)
+      assert_instance_of Merchant, found
       @repo.delete(12334105)
-      assert_nil @repo.find_by_id(12334105)
+      not_found = @repo.find_by_id(12334105)
+      assert_nil not_found
     end
 
 end
