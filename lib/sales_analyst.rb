@@ -140,7 +140,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    correct_invoices = all_invoices.keep_if do |invoice|
+    correct_invoices = all_invoices.select do |invoice|
       invoice.created_at == date
     end
     correct_invoices.inject(0) do |sum, invoice|
@@ -164,7 +164,7 @@ class SalesAnalyst
 
   def valid_merchant_invoices(merchant_id)
     merchant_invoices = @sales_engine.invoices.find_all_by_merchant_id(merchant_id)
-    merchant_invoices.keep_if do |invoice|
+    merchant_invoices.select do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
   end
@@ -186,7 +186,7 @@ class SalesAnalyst
   end
 
   def pull_out_pending_invoices
-    @sales_engine.invoices.all.keep_if do |invoice|
+    @sales_engine.invoices.all.select do |invoice|
         invoice.status.to_s == "pending"
     end
   end
@@ -198,7 +198,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    @sales_engine.merchants.all.keep_if do |merchant|
+    @sales_engine.merchants.all.select do |merchant|
       binding.pry
         merchant.id == pull_out_the_merchant_ids_from_pending_invoices
 
@@ -214,7 +214,7 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    merchants_with_only_one_item.keep_if do |merchant|
+    merchants_with_only_one_item.select do |merchant|
       merchant.created_at.strftime('%B') == month
     end
   end
