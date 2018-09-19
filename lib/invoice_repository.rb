@@ -62,14 +62,6 @@ class InvoiceRepository
 
   # --- CRUD ---
 
-  # create(attributes) - create a new Invoice instance with the provided
-  # attributes. The new Invoice’s id should be the current highest Invoice id plus 1.
-
-  # update(id, attribute) - update the Invoice instance with the
-  # corresponding id with the provided attributes. Only the invoice’s status can be updated. This method will also change the invoice’s updated_at attribute to the current time.
-
-  # delete(id) - delete the Invoice instance with the corresponding id
-
   def create(hash)
     last = FinderClass.find_max(all, :id)
     new_id = last.id + 1

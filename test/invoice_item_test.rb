@@ -2,7 +2,7 @@ require_relative 'test_helper'
 
 require 'time'
 
-require './lib/invoice_item'
+require_relative '../lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
 
@@ -42,5 +42,24 @@ class InvoiceItemTest < Minitest::Test
     assert_instance_of Float, price
     assert_equal 12.00, price
   end
+
+  def test_it_can_make_updates
+    now = Time.now
+    hash = {id: "NOPE", item_id: "NOPE", invoice_id: "NOPE", created_at: "NOPE",
+            quantity: 100, unit_price: 1000,
+            updated_at: now }
+    @invoice_item.make_update(hash)
+    # --- denied ---
+    refute_equal "NOPE", @invoice_item.id
+    refute_equal "NOPE", @invoice_item.item_id
+    refute_equal "NOPE", @invoice_item.invoice_id
+    refute_equal "NOPE", @invoice_item.created_at
+    # --- allowed ---
+    assert_equal 100, @invoice_item.quantity
+    assert_equal 10.0,  @invoice_item.unit_price
+    assert_equal now.to_s, @invoice_item.updated_at.to_s
+  end
+
+
 
 end
