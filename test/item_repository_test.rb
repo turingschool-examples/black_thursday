@@ -1,8 +1,11 @@
 require_relative 'test_helper'
 
+require_relative '../lib/finderclass'
+
 require_relative '../lib/sales_engine'
-require_relative '../lib/item'
+
 require_relative '../lib/item_repository'
+require_relative '../lib/item'
 
 
 class ItemRepositoryTest < Minitest::Test
@@ -22,7 +25,7 @@ class ItemRepositoryTest < Minitest::Test
                                       created_at:  "2016-01-11 09:34:06 UTC",
                                       updated_at:  "2007-06-04 21:35:10 UTC"
                                      } }
-    @key = @item_1_hash.keys.first
+    @key    = @item_1_hash.keys.first
     @values = @item_1_hash.values.first
   end
 
@@ -130,31 +133,32 @@ class ItemRepositoryTest < Minitest::Test
   end
 
 
-  def test_it_can_CREATE_new_item
-    assert_equal nil, @repo.find_by_id(263567475)
-    assert_equal 1367, @repo.all.count
-        
-    @repo.create(@item_1_hash.values.first)
-    assert_equal 1368, @repo.all.count
-    
-    assert_instance_of Item, @repo.find_by_id(263567475)
+  # --- CRUD ---
+
+  def test_it_creates_an_item
+    # assert_equal @repo.all.object_id, @repo.items.object_id
+    all_before = @repo.all.count.to_s.to_i
+    # items_before = @repo.items.count.to_s.to_i
+    assert_equal 1367, all_before
+    # assert_equal all_before, items_before
+
+    hash = {name: "something"}
+    @repo.create(hash)
+    all_after = @repo.all.count.to_s.to_i
+    # items_after = @repo.items.count.to_s.to_i
+    assert_equal 1368, all_after
+    # assert_equal all_after, items_after
+    assert_equal 263567475, @repo.all.last.id
   end
 
-  def test_it_can_UPDATE_existing_items
-    hash = {name: "GeoffX Plush Toys",
-            description: "Fun, plush toys for everyone!",
-            unit_price: "1200"}
+  def test_it_updates_an_item
 
-    @repo.update(263395237, hash)
-    entry = @repo.find_by_id(263395237)
-    assert_equal "GeoffX Plush Toys", entry.name
-    assert_equal "Fun, plush toys for everyone!", entry.description
-    assert_equal "1200", entry.unit_price
   end
 
-  def test_it_can_DELETE_existing_items
-    @repo.delete(263395237)
-    assert_nil @repo.find_by_id(263395237)
-  end
+
+
+
+
+
 
 end

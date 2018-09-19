@@ -11,6 +11,7 @@ class ItemRepository
   include CRUD
 
   attr_reader :all
+  # attr_accessor :items
 
   def initialize(data)
     @data = data
@@ -71,22 +72,38 @@ class ItemRepository
   def find_all_by_merchant_id(id)
     FinderClass.find_all_by(all, :merchant_id, id)
   end
-  
-  
+
+
   # --- CRUD ---
+#   reate(attributes) - create a new Item instance with the provided attributes.
+# The new Item’s id should be the current highest Item id plus 1.
 
-  def create(attributes)
-    id = make_id(all, :id)
-    data = {id => attributes} 
-    make_items(data)
+  # update(id, attributes) - update the Item instance with the corresponding id with the provided attributes. Only the item’s name, desription, and unit_price attributes can be updated. This method will also change the items updated_at attribute to the current time.
+
+  # delete(id) - delete the Item instance with the corresponding id
+
+
+  def create(hash)
+    last = FinderClass.find_max(all, :id)
+    new_id = last.id + 1
+    hash[:id] = new_id
+    item = Item.new(hash)
+    @items << item
+    return item
   end
 
-  def update(id, attributes)
-    update_entry(@items, id, attributes)
-  end
 
-  def delete(id)
-    delete_entry(@items, id)
-  end
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
