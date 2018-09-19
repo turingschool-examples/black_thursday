@@ -94,7 +94,7 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    item.make_updates(attributes)
+    item.make_updates(attributes) if item
   end
 
 
