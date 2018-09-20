@@ -37,5 +37,4 @@ class InvoiceRepository
     @collections << invoice
     invoice
   end
-
 end

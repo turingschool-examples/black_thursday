@@ -29,14 +29,14 @@ class ItemsTest < Minitest::Test
     assert_equal 1, @i.id
     assert_equal "Gretchen Weiners lightsaber", @i.name
     assert_equal "Says 'you can't sit with us!' instead of ligthsaber sounds", @i.description
-    assert_equal BigDecimal.new(10.99, 4), @i.unit_price
+    assert_equal BigDecimal.new(0.1099, 4), @i.unit_price
     assert_instance_of Time, @i.created_at
     assert_instance_of Time, @i.updated_at
     assert_equal 2, @i.merchant_id
   end
 
   def test_the_unit_price_goes_to_dollhairs_correctly
-    assert_equal 10.99, @i.unit_price_to_dollars
+    assert_equal 0.1099, @i.unit_price_to_dollars
   end
 
 end

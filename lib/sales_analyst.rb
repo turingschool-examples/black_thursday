@@ -168,7 +168,6 @@ class SalesAnalyst
     end
   end
 
-
   def invoice_total_float(invoice_id)
     invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
 
@@ -201,9 +200,10 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    @sales_engine.merchants.all.keep_if do |merchant|
-        merchant.id == pull_out_the_merchant_ids_from_pending_invoices
-
+    all_merchants.find_all do |merchant|
+      @sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
+        !invoice_paid_in_full?(invoice.id)
+      end
     end
   end
 
@@ -229,30 +229,6 @@ class SalesAnalyst
     BigDecimal(total, total.to_s.size - 1)
   end
 
-  def most_sold_item_for_merchant(merchant)
-    merchants_by_item = @sales_engine.items.all.group_by do |item|
-      item.merchant_id
-    end
-    # merchants_by_item.group_by do |item|
-    #   binding.pry
-    #   item.id
-    # end
-  end
-
-
-  def most_sold_item_for_merchant(merchant_id)
-    merchant_item_quantities = Hash.new(0)
-    merchant_invoices = valid_merchant_invoices(merchant_id)
-    merchant_invoice_items(merchant_invoices).each do |invoice_item|
-      merchant_item_quantities[invoice_item.item_id] += invoice_item.quantity
-    end
-    item_pairs = highest_quantity_items(merchant_item_quantities)
-
-    item_pairs.map do |item_id, value|
-      @sales_engine.items.find_by_id(item_id)
-    end
-  end
-
   def merchant_invoice_items(merchant_invoices)
     merchant_invoice_ids = merchant_invoices.map(&:id)
 
@@ -261,6 +237,35 @@ class SalesAnalyst
     end
   end
 
+  def highest_quantity_items(merchant_item_quantities)
+    goal = merchant_item_quantities.max_by do |key, value|
+      value
+    end
+    merchant_item_quantities.select do |key, value|
+      value == goal.last
+    end
+  end
 
+  def most_sold_item_for_merchant(merchant_id)
+    merchant_item_quantities = Hash.new(0)
+    merchant_invoices = valid_merchant_invoices(merchant_id)
+    merchant_invoice_items(merchant_invoices).each do |invoice_item|
+      merchant_item_quantities[invoice_item.item_id] += invoice_item.quantity
+    end
 
+    item_pairs = highest_quantity_items(merchant_item_quantities)
+
+    item_pairs.map do |item_id, count|
+      @sales_engine.items.find_by_id(item_id)
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant_invoices = valid_merchant_invoices(merchant_id)
+    invoice_items = merchant_invoice_items(merchant_invoices)
+    invoice_item = invoice_items.max_by do |invoice_item_obj|
+      invoice_item_obj.quantity * invoice_item_obj.unit_price
+    end
+    @sales_engine.items.find_by_id(invoice_item.item_id)
+  end
 end

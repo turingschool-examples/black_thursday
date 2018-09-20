@@ -114,6 +114,4 @@ class MerchantRepoTest < Minitest::Test
 
     assert_nil mr.find_by_id(283482058208490284091840824820482904)
   end
-
-
 end

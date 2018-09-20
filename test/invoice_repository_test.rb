@@ -50,7 +50,7 @@ class InvoiceRepositoryTest<Minitest::Test
 
   def test_i_can_find_all_by_status
     ir = InvoiceRepository.new("./test/fixtures/invoices.csv")
-    actual = ir.find_all_by_status("pending")
+    actual = ir.find_all_by_status(:pending)
     expected_one = ir.all.first
     expected_two = ir.all.last
     assert_equal [expected_one, expected_two], actual
@@ -67,7 +67,6 @@ class InvoiceRepositoryTest<Minitest::Test
 
     assert_instance_of Invoice, ir.find_by_id(5)
   end
-
 
   def test_i_can_update_an_existing_invoice
     ir = InvoiceRepository.new("./test/fixtures/invoices.csv")
@@ -88,5 +87,4 @@ class InvoiceRepositoryTest<Minitest::Test
     ir.delete(1)
     assert_nil ir.find_by_id(1)
   end
-
 end
