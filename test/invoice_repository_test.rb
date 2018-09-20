@@ -50,7 +50,7 @@ class InvoiceRepositoryTest<Minitest::Test
 
   def test_i_can_find_all_by_status
     ir = InvoiceRepository.new("./test/fixtures/invoices.csv")
-    actual = ir.find_all_by_status("pending")
+    actual = ir.find_all_by_status(:pending)
     expected_one = ir.all.first
     expected_two = ir.all.last
     assert_equal [expected_one, expected_two], actual
