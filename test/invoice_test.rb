@@ -32,5 +32,4 @@ class InvoiceTest<Minitest::Test
     assert_instance_of Time, @invoice.created_at
     assert_instance_of Time, @invoice.updated_at
   end
-
 end

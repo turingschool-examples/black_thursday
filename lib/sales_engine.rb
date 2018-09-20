@@ -16,21 +16,6 @@ class SalesEngine
               :invoice_items,
               :invoices
 
-
-
-#   def initialize(params)
-#     @merchants = MerchantRepo.new(params[:merchants]) if params[:merchants]
-#     @items = ItemsRepo.new(params[:items]) if params[:items]
-#     @invoices = InvoiceRepository.new(params[:invoices]) if params[:invoices]
-#   end
-
-#   def self.from_csv(params)
-#     # merchants =  params[:merchants]
-#     # items =   params[:items]
-#     # invoices = params[:invoices]
-#     SalesEngine.new(params)
-
-
   def initialize(merchants, items, customers, transactions, invoice_items, invoices)
     @merchants = MerchantRepo.new(merchants)
     @items = ItemsRepo.new(items)

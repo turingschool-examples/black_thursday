@@ -103,7 +103,6 @@ class SalesAnalystTest<Minitest::Test
     assert_equal expected, @sa.merchants_with_pending_invoices
   end
 
-
   def test_it_can_return_merchants_with_only_one_item
     expected = [@se.merchants.find_by_id(2), @se.merchants.find_by_id(3), @se.merchants.find_by_id(4), @se.merchants.find_by_id(5), @se.merchants.find_by_id(6),@se.merchants.find_by_id(7)]
     assert_equal expected, @sa.merchants_with_only_one_item
@@ -117,15 +116,7 @@ class SalesAnalystTest<Minitest::Test
     assert_equal 0.0, @sa.revenue_by_merchant(4)
   end
 
-  # def test_it_can_show_which_item_sold_the_most_per_merchant_xx
-  # #so i have each merchant pointing to its items
-  #   #[item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
-  #  assert_equal ["wief"], @sa.most_sold_item_for_merchant(3444)
-  # end
-
   def test_i_can_pull_out_the_merchant_ids_from_the_pending_invoices
     assert_equal [34444, 12334269], @sa.pull_out_the_merchant_ids_from_pending_invoices
   end
-
-
 end

@@ -14,5 +14,4 @@ class Merchant
     @created_at = Time.parse(params[:created_at].to_s)
     @updated_at = Time.parse(params[:updated_at].to_s)
   end
-
 end

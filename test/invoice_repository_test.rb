@@ -68,7 +68,6 @@ class InvoiceRepositoryTest<Minitest::Test
     assert_instance_of Invoice, ir.find_by_id(5)
   end
 
-
   def test_i_can_update_an_existing_invoice
     ir = InvoiceRepository.new("./test/fixtures/invoices.csv")
     actual = ir.create({:id => 99,
@@ -88,5 +87,4 @@ class InvoiceRepositoryTest<Minitest::Test
     ir.delete(1)
     assert_nil ir.find_by_id(1)
   end
-
 end

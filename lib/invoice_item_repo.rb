@@ -36,5 +36,4 @@ class InvoiceItemRepo
     @collections << invoice_item
     invoice_item
   end
-
 end

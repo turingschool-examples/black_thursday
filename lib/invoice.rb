@@ -15,7 +15,6 @@ class Invoice
                 :status,
                 :created_at
 
-
   def initialize(params)
     @id = params[:id].to_i
     @customer_id = params[:customer_id].to_i
@@ -24,5 +23,4 @@ class Invoice
     @created_at = Time.parse(params[:created_at].to_s)
     @updated_at = Time.parse(params[:updated_at].to_s)
   end
-
 end
