@@ -260,6 +260,12 @@ class SalesAnalyst
     end
   end
 
-
-
+  def best_item_for_merchant(merchant_id)
+    merchant_invoices = valid_merchant_invoices(merchant_id)
+    invoice_items = merchant_invoice_items(merchant_invoices)
+    invoice_item = invoice_items.max_by do |invoice_item_obj|
+      invoice_item_obj.quantity * invoice_item_obj.unit_price
+    end
+    @sales_engine.items.find_by_id(invoice_item.item_id)
+  end
 end
