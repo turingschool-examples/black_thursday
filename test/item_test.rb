@@ -2,7 +2,7 @@ require './test/test_helper'
 
 require './lib/item'
 
-class ItemTest < Minitest::test
+class ItemTest < Minitest::Test
   def setup
     @current_time = Time.now
 
