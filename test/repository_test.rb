@@ -1,4 +1,40 @@
+require './test/test_helper.rb'
+require './lib/repository'
+require './lib/merchant_repository'
+require './lib/merchant'
 
+class RepositoryTest < Minitest::Test
+
+  def setup
+    @rep = Repository.new
+  end
+
+  def test_it_exists
+    assert_instance_of Repository, @rep
+  end
+
+  def test_all_returns_an_empty_array_by_default
+    assert_equal [], @rep.all
+  end
+
+  def test_find_by_id_returns_nil_if_no_items
+    assert_nil @rep.find_by_id(1)
+  end
+
+  def test_find_by_name_returns_nil_if_no_items
+    assert_nil @rep.find_by_name("Name of something")
+  end
+
+  def test_find_all_returns_an_empty_array_if_none_found
+    assert_equal [], @rep.find_all("name")
+  end
+
+  def test_f
+
+  end
+
+
+end
 
 
 # - all - returns an array of all known Merchant instances
