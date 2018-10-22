@@ -1,17 +1,19 @@
 # MerchantRepository
 
-class Repository
-  def print_me
-    p "I am a Repository!!!"
+require './test/test_helper'
+require './lib/merchant_repository'
+
+class MerchantRepositoryTest < Minitest::Test
+
+  def setup
+    @mr = MerchantRepository.new
   end
+
+  def test_it_exists
+    assert_instance_of MerchantRepository, @mr
+  end
+
 end
-
-class MerchantRepository < Repository
-end
-
-r = MerchantRepository.new
-
-r.printme
 
 # - all - returns an array of all known Merchant instances
 # - find_by_id(id) - returns either nil or an instance of Merchant with a matching ID
