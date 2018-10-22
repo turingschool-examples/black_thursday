@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/item'
+require 'bigdecimal'
 
 class ItemTest < Minitest::Test
   def setup
@@ -48,6 +49,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_can_convert_units_to_dollars
-    assert_equal "$3.00", Item.unit_price_to_dollars(3)
+    assert_equal "$10.99", Item.unit_price_to_dollars(@item.unit_price)
   end
 end
