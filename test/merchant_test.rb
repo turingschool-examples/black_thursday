@@ -3,7 +3,7 @@ require './lib/merchant'
 
 class MerchantTest < Minitest::Test
   def setup
-    @merchant = Merchant.new({:id => 5, :name => "Turing School"})
+    @merchant = Merchant.new({:id => 5, :name => 'Turing School'})
   end
 
   def test_it_exists
@@ -15,6 +15,6 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_a_name
-    assert_equal "Turing School", @merchant.name
+    assert_equal 'Turing School', @merchant.name
   end
 end
