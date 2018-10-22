@@ -25,3 +25,7 @@ class Repository
   end
 
 end
+
+
+# - create(attributes) - create a new Merchant instance with the provided attributes. The new Merchant’s id should be the current highest Merchant id plus 1.
+# - delete(id) - delete the Merchant instance with the corresponding id

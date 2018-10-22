@@ -2,6 +2,7 @@ require './test/test_helper'
 require './lib/merchant'
 
 class MerchantTest < Minitest::Test
+
   def setup
     @merchant = Merchant.new({:id => 5, :name => "Turing School"})
   end
