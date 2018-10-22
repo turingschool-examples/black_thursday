@@ -1,12 +1,17 @@
 require './test/test_helper.rb'
 require './lib/repository'
-require './lib/merchant_repository'
-require './lib/merchant'
 
 class RepositoryTest < Minitest::Test
+  GenericObject = Struct.new(:name, :id)
 
   def setup
     @rep = Repository.new
+
+    @ob1 = GenericObject.new("bob", 4)
+    @ob2 = GenericObject.new("deb", 3)
+    @ob3 = GenericObject.new("jane", 2)
+    @ob4 = GenericObject.new("john", 1)
+    @ob5 = GenericObject.new("bill", 5)
   end
 
   def test_it_exists
@@ -25,14 +30,34 @@ class RepositoryTest < Minitest::Test
     assert_nil @rep.find_by_name("Name of something")
   end
 
-  def test_find_all_returns_an_empty_array_if_none_found
-    assert_equal [], @rep.find_all("name")
+  def test_find_by_id_returns_instance_with_name
+    assert_equal @ob1
   end
 
-  def test_f
-
+  def test_find_all_by_name_returns_an_empty_array_if_none_found
+    assert_equal [], @rep.find_all_by_name("name")
   end
 
+  def test_find_all_by_name_returns_matched_objects_by_name
+    @rep.create(@ob1)
+    @rep.create(@ob2)
+    @rep.create(@ob3)
+    @rep.create(@ob4)
+
+    assert_equal [@ob4], @rep.find_all_by_name("john")
+  end
+
+  def test_create_adds_instances_to_array
+    @rep.create(@ob1)
+    @rep.create(@ob2)
+    @rep.create(@ob3)
+    @rep.create(@ob4)
+    @rep.create(@ob5)
+
+    expected = [@ob1, @ob2, @ob3, @ob4, @ob5]
+
+    assert_equal expected, @rep.all
+  end
 
 end
 
