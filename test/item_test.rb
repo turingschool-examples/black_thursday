@@ -1,5 +1,5 @@
 require './test/test_helper'
-require './lib/merchant_repository'
+require './lib/item'
 
 class ItemTest < Minitest::Test
   def test_it_exists
