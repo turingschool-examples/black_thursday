@@ -8,8 +8,8 @@ class ItemTest < Minitest::Test
 
     @item = Item.new({
       :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => @current_time,
       :updated_at  => @current_time,
@@ -25,11 +25,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_name
-    assert_equal "Pencil", @item.name
+    assert_equal 'Pencil', @item.name
   end
 
   def test_it_has_a_description
-    assert_equal "You can use it to write things", @item.description
+    assert_equal 'You can use it to write things', @item.description
   end
 
   def test_it_has_a_unit_price
@@ -49,6 +49,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_can_convert_units_to_dollars
-    assert_equal "$10.99", Item.unit_price_to_dollars(@item.unit_price)
+    assert_equal '$10.99', Item.unit_price_to_dollars(@item.unit_price)
   end
 end
