@@ -26,4 +26,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal @merchant_2, @mr.find_by_id(12334145)
   end
 
+  def test_find_merchant_by_name
+    assert_equal @merchant_3, @mr.find_by_name("SassyStrangeArt")
+  end
+
 end
