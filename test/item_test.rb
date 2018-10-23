@@ -31,9 +31,9 @@ class ItemTest < Minitest::Test
     assert_equal "You can use it to write things", @i.description
   end
 
-  # def test_it_has_a_unit_price
-  #   assert
-  # end
+  def test_it_has_a_unit_price
+    assert_equal BigDecimal.new(10.99,4), @i.unit_price
+  end
 
 
 end
