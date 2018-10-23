@@ -97,31 +97,52 @@ class ItemRepositoryTest < Minitest::Test
     @ir.find_all_by_price(10.99)
   end
 
-  def find_all_by_price_range_returns_empty_array_if_no_items_match
+  def test_find_all_by_price_range_returns_empty_array_if_no_items_match
     create_items
 
     assert_equal ([]),
     @ir.find_all_by_price_range(12.99, 13.99)
   end
 
-  def find_all_by_price_range_returns_matches
+  def test_find_all_by_price_range_returns_matches
     create_items
 
     assert diff [Item.new(@item_2), Item.new(@item_4)],
     @ir.find_all_by_price_range(5, 10)
   end
 
-  def find_all_by_merchant_id_returns_empty_array_if_no_items_match
+  def test_find_all_by_merchant_id_returns_empty_array_if_no_items_match
     create_items
 
     assert_equal ([]),
     @ir.find_all_by_mercant_id(5)
   end
 
-  def find_all_by_merchant_id_returns_matches
+  def test_find_all_by_merchant_id_returns_matches
     create_items
 
     assert diff [Item.new(@item_1), Item.new(@item_2)],
     @ir.find_all_by_mercant_id(2)
+  end
+
+  def test_update_returns_nil_if_no_item_with_id
+    create_items
+
+    assert_nil @ir.update(5, name: "Pen", description: "Writes things")
+  end
+
+  def test_update_succesfully_updates_item_with_some_new_attribute_values
+    skip
+    create_items
+
+    @ir.update(3, name: "Pen", description: "Writes things")
+  end
+
+  def test_update_succesfully_updates_item_with_all_new_attribute_values
+    create_items
+
+    assert_equal Item.new(@item_3), @ir.instances[2]
+
+    # @ir.update(3, name: "Pen", description: "Writes things")
   end
 end
