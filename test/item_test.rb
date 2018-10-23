@@ -23,5 +23,9 @@ class ItemTest < Minitest::Test
     assert_equal 1, @i.id
   end
 
+  def test_item_has_name
+    assert_equal "Pencil", @i.name
+  end
+
 
 end
