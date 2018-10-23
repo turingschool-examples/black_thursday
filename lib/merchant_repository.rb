@@ -7,7 +7,8 @@ class MerchantRepository < Repository
   end
 
   def create(args)
-    unless args[:id]
+    id = args[:id]
+    unless id
       @count += 1
       args[:id] = @count
     else

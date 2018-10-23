@@ -2,8 +2,8 @@ require 'bigdecimal'
 require_relative 'equivalency'
 class Item
   include Equivalency
-  attr_reader :id, :created_at, :updated_at, :merchant_id
-  attr_accessor :name, :description, :unit_price
+  attr_reader :id, :created_at, :merchant_id
+  attr_accessor :name, :description, :unit_price, :updated_at
 
   attr_accessor :name, :description, :unit
   def initialize(input_hash)
