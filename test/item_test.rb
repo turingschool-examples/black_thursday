@@ -36,7 +36,7 @@ class ItemTest < Minitest::Test
     assert_equal BigDecimal.new(10.99,4), @i.unit_price
   end
 
-  def test_it_can_be_created
+  def test_it_can_be_created_at_a_certain_time
 
     assert_equal @time_now, @i.created_at
   end
