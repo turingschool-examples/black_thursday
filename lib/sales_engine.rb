@@ -33,6 +33,7 @@ class SalesEngine
 
   def self.parse_items(ir, file_path)
     CSV.foreach(file_path) do |row|
+      binding.pry
       ir.add_item(Merchant.new({:id => row[0].to_i, :name => row[1]}))
     end
     ir
