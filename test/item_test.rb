@@ -7,14 +7,14 @@ class ItemTest < Minitest::Test
     @time_now = Time.now
     @update_time = Time.now
     @i = Item.new({
-      :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @time_now,
-      :updated_at  => @update_time,
-      :merchant_id => 2
-      })
+                    :id          => 1,
+                    :name        => "Pencil",
+                    :description => "You can use it to write things",
+                    :unit_price  => BigDecimal.new(10.99,4),
+                    :created_at  => @time_now,
+                    :updated_at  => @update_time,
+                    :merchant_id => 2
+                  })
   end
 
   def test_item_exists
@@ -26,11 +26,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_name
-    assert_equal "Pencil", @i.name
+    assert_equal 'Pencil', @i.name
   end
 
   def test_it_has_description
-    assert_equal "You can use it to write things", @i.description
+    assert_equal 'You can use it to write things', @i.description
   end
 
   def test_it_has_a_unit_price
@@ -48,5 +48,4 @@ class ItemTest < Minitest::Test
   def test_it_has_merchant_id
     assert_equal 2, @i.merchant_id
   end
-
 end
