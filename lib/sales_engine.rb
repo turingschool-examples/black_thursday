@@ -20,8 +20,13 @@ class SalesEngine
   end
 
   def self.parse_merchants(mr, file_path)
+    skip_first_line = true
     CSV.foreach(file_path) do |row|
-      mr.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1]}))
+      unless skip_first_line
+        mr.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1]}))
+      else
+        skip_first_line = false
+      end
     end
     mr
   end

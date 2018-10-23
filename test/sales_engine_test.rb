@@ -28,10 +28,10 @@ class SalesEngineTest < Minitest::Test
     })
     merchant_1 = Merchant.new({id: 12334105, name: "Shopin1901"})
     merchant_2 = Merchant.new({id: 12334112, name: "Candisart"})
-    assert_equal merchant_1.id, se.merchants[0].id
-    assert_equal merchant_1.name, se.merchants[0].name
-    assert_equal merchant_2.id, se.merchants[1].id
-    assert_equal merchant_2.name, se.merchants[1].name
+    assert_equal merchant_1.id, se.merchants.all[0].id
+    assert_equal merchant_1.name, se.merchants.all[0].name
+    assert_equal merchant_2.id, se.merchants.all[1].id
+    assert_equal merchant_2.name, se.merchants.all[1].name
   end
 
 
