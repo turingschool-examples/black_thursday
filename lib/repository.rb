@@ -28,6 +28,13 @@ class Repository
     @instances.reject!{|instance| instance.id == id}
   end
 
+  def update(id, attributes)
+    instance = find_by_id(id)
+    attributes.each do |key, value|
+      instance.public_send(key.to_s + '=', value)
+    end
+  end
+
 end
 
 
