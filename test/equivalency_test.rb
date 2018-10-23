@@ -1,8 +1,8 @@
 require './test/test_helper'
-require './lib/comparable'
+require './lib/equivalency'
 
 class GenericObject
-  include Comparable
+  include Equivalency
   attr_reader :name, :id
   def initialize(name, id)
     @name = name
@@ -11,7 +11,7 @@ class GenericObject
 end
 
 class OtherGenericObject
-  include Comparable
+  include Equivalency
   attr_reader :name, :id
   def initialize(name, id)
     @name = name
@@ -19,7 +19,7 @@ class OtherGenericObject
   end
 end
 
-class ComparableTest < Minitest::Test
+class EquivalencyTest < Minitest::Test
 
   def setup
     @ob1 = GenericObject.new("a", 3)
