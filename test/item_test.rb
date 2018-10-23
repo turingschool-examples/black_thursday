@@ -5,13 +5,14 @@ class ItemTest < Minitest::Test
 
   def setup
     @time_now = Time.now
+    @update_time = Time.now
     @i = Item.new({
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => @time_now,
-      :updated_at  => Time.now,
+      :updated_at  => @update_time,
       :merchant_id => 2
       })
   end
@@ -37,9 +38,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_be_created_at_a_certain_time
-
     assert_equal @time_now, @i.created_at
   end
 
+  def test_it_can_be_updated_at_a_certain_time
+    assert_equal @update_time, @i.updated_at
+  end
 
 end
