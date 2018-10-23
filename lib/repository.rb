@@ -24,6 +24,10 @@ class Repository
     @instances << object
   end
 
+  def delete(id)
+    @instances.reject!{|instance| instance.id == id}
+  end
+
 end
 
 
