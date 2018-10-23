@@ -8,7 +8,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, ir
   end
 
-  def test_it_can_store_items
+  def test_it_can_add_items_to_repository
     item_1 = Item.new({
           :id          => 1,
           :name        => "Pencil",
@@ -28,6 +28,8 @@ class ItemRepositoryTest < Minitest::Test
           :merchant_id => 2
         })
     ir = ItemRepository.new
+    ir.add_item(item_1)
+    ir.add_item(item_2)
     expected = [item_1, item_2]
     assert_equal expected, ir.all
   end
