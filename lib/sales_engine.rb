@@ -32,9 +32,13 @@ class SalesEngine
   end
 
   def self.parse_items(ir, file_path)
+    skip_first_line = true
     CSV.foreach(file_path) do |row|
-      binding.pry
-      ir.add_item(Merchant.new({:id => row[0].to_i, :name => row[1]}))
+      unless skip_first_line
+        ir.add_item(Merchant.new({:id => row[0].to_i, :name => row[1]}))
+      else
+        skip_first_line = false
+      end
     end
     ir
   end

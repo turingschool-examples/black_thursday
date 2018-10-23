@@ -2,7 +2,7 @@ require './test/test_helper'
 require './lib/time_conversions'
 
 class TimeConversionTest < Minitest::Test
-  include TimeConversion
+  include TimeConversions
 
   def test_it_converts_time
     time = Time.utc(2016, 01, 11, 11, 46, 07)
