@@ -70,7 +70,7 @@ class ItemRepositoryTest < Minitest::Test
     @ir.create(@item_3)
     @ir.create(@item_4)
 
-    assert_empty
+    assert_equal ([]),
     @ir.find_all_with_description("You can use it to eliminate rodents")
   end
 
