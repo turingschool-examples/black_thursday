@@ -101,28 +101,31 @@ class ItemRepositoryTest < Minitest::Test
     create_items
 
     assert_equal ([]),
-    @ir.find_all_by_price_range(12.99, 13.99)
+    @ir.find_all_by_price_range(BigDecimal.new(12.99, 4)..BigDecimal.new(13.99, 4))
   end
 
   def test_find_all_by_price_range_returns_matches
     create_items
 
-    assert diff [Item.new(@item_2), Item.new(@item_4)],
-    @ir.find_all_by_price_range(5, 10)
+    expected = [Item.new(@item_2), Item.new(@item_4)]
+    result = @ir.find_all_by_price_range(BigDecimal.new(5.99, 4)..BigDecimal.new(10, 2))
+
+    result.each_with_index {|item, index| assert item == expected[index]}
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_if_no_items_match
     create_items
 
     assert_equal ([]),
-    @ir.find_all_by_mercant_id(5)
+    @ir.find_all_by_merchant_id(5)
   end
 
   def test_find_all_by_merchant_id_returns_matches
     create_items
 
-    assert diff [Item.new(@item_1), Item.new(@item_2)],
-    @ir.find_all_by_mercant_id(2)
+    expected = [Item.new(@item_1), Item.new(@item_2)]
+    result = @ir.find_all_by_merchant_id(2)
+    result.each_with_index {|item, index| assert item == expected[index]}
   end
 
   def test_update_returns_nil_if_no_item_with_id
@@ -131,18 +134,33 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil @ir.update(5, name: "Pen", description: "Writes things")
   end
 
-  def test_update_succesfully_updates_item_with_some_new_attribute_values
-    skip
+  def test_update_succesfully_updates_item_with_new_attribute_values
     create_items
 
-    @ir.update(3, name: "Pen", description: "Writes things")
-  end
+    item_previous = {
+      :id          => 2,
+      :name        => "Penguin",
+      :description => "You can use it to sled",
+      :unit_price  => BigDecimal.new(9.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    }
+    
+    assert Item.new(item_previous) == @ir.find_by_id(2)
 
-  def test_update_succesfully_updates_item_with_all_new_attribute_values
-    create_items
+    item_updated = {
+      :id          => 2,
+      :name        => "Pen",
+      :description => "Writes things",
+      :unit_price  => BigDecimal.new(9.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    }
 
-    assert_equal Item.new(@item_3), @ir.instances[2]
+    @ir.update(2, name: "Pen", description: "Writes things")
 
-    # @ir.update(3, name: "Pen", description: "Writes things")
+    assert Item.new(item_updated) == @ir.find_by_id(2)
   end
 end
