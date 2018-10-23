@@ -16,11 +16,16 @@ class ItemRepository < Repository
 
   def find_all_by_price_range(start_number, end_number)
     @instances.find_all do |item|
-      item.unit_price >= start_number || item.unit_price <= end_number
+      item.unit_price >= start_number && item.unit_price <= end_number
     end
   end
 
   def find_all_by_merchant_id(id)
     @instances.find_all {|merchant| merchant.id == id}
+  end
+
+  def update(id, attributes)
+    @instances.find_by_id(id)
+    binding.pry
   end
 end
