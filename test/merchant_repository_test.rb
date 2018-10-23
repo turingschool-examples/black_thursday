@@ -7,6 +7,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     @mr = MerchantRepository.new
+    @merchant1 = Merchant.new({:id => 1, :name => "Mr. Merchant"})
   end
 
   def test_it_exists
@@ -14,7 +15,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_create_adds_merchant
-    assert_equal 
+    @mr.create("Mr. Merchant")
+    assert_equal [@merchant1], @mr.all
   end
 
 end
