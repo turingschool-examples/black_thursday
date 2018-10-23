@@ -49,6 +49,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_can_convert_units_to_dollars
-    assert_equal '$10.99', Item.unit_price_to_dollars(@item.unit_price)
+    assert_equal 10.99, @item.unit_price_to_dollars
   end
 end

@@ -1,20 +1,32 @@
-require './lib/repository'
-require './lib/item'
+require_relative 'repository'
+require_relative 'item'
 
 class ItemRepository < Repository
+  def initialize
+    @count = 0
+    super
+  end
+
   def create(args)
+    unless args[:id]
+      @count += 1
+      args[:id] = @count
+    else
+      @count = @count < args[:id] ? args[:id] : @count
+    end
     super(Item.new(args))
   end
 
   def find_all_with_description(description)
-    @instances.find_all {|item| item.description == description}
+    @instances.find_all {|item| item.description.downcase == description.downcase}
   end
 
   def find_all_by_price(price)
-    @instances.find_all {|item| item.unit_price == price}
+    #require 'pry';binding.pry
+    @instances.find_all {|item| item.unit_price.to_f == price.to_f}
   end
 
-  def find_all_by_price_range(range)
+  def find_all_by_price_in_range(range)
     start_number, end_number = range.first, range.last
 
     @instances.find_all do |item|
@@ -41,5 +53,6 @@ class ItemRepository < Repository
         when :unit_price then found_item.unit_price = new_value
       end
     end
+    found_item.updated_at = Time.now
   end
 end

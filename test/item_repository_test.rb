@@ -101,14 +101,14 @@ class ItemRepositoryTest < Minitest::Test
     create_items
 
     assert_equal ([]),
-    @ir.find_all_by_price_range(BigDecimal.new(12.99, 4)..BigDecimal.new(13.99, 4))
+    @ir.find_all_by_price_in_range(BigDecimal.new(12.99, 4)..BigDecimal.new(13.99, 4))
   end
 
   def test_find_all_by_price_range_returns_matches
     create_items
 
     expected = [Item.new(@item_2), Item.new(@item_4)]
-    result = @ir.find_all_by_price_range(BigDecimal.new(5.99, 4)..BigDecimal.new(10, 2))
+    result = @ir.find_all_by_price_in_range(BigDecimal.new(5.99, 4)..BigDecimal.new(10, 2))
 
     result.each_with_index {|item, index| assert item == expected[index]}
   end
@@ -146,7 +146,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
       :merchant_id => 2
     }
-    
+
     assert Item.new(item_previous) == @ir.find_by_id(2)
 
     item_updated = {
