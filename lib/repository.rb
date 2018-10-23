@@ -16,20 +16,14 @@ class Repository
     end
   end
 
-  def find_max_id
+  def find_new_id
     max_id_object = @collection.max_by do |collection|
       collection.id
     end
     max_id_object.id + 1
   end
 
-#create(attributes) - create a new Item instance with the
-# provided attributes. The new Item’s
-# id should be the current highest Item id plus 1
-
-
-  # create(attributes)  <<< Maybe??
-  # update(id, attributes)
-  # delete(id)
+  # update(id, attributes) - Justin
+  # delete(id) - Maddie
 
 end

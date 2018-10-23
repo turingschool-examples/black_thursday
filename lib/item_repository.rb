@@ -12,10 +12,14 @@ class ItemRepository < Repository
     @items << item
   end
 
-  # find_all_with_description(description)
-  # find_all_by_price(price)
-  # find_all_by_price_in_range(range)
-  # find_all_by_merchant_id(merchant_id)
-  
+  def create(attributes)
+    attributes[:id] = find_new_id
+    add_item(Item.new(attributes))
+  end
+
+  # find_all_with_description(description) - Jennica
+  # find_all_by_price(price) - Jennica
+  # find_all_by_price_in_range(range) - Justin
+  # find_all_by_merchant_id(merchant_id) - Justin
 
 end

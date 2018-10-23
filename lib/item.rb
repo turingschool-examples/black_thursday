@@ -17,6 +17,6 @@ class Item
     @merchant_id = info[:merchant_id]
   end
 
-  # unit_price_to_dollars
+  # unit_price_to_dollars 
 
 end
