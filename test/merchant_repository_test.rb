@@ -21,12 +21,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_by_id
-    skip
     mr = MerchantRepository.new
     merchant_1 = Merchant.new({:id => 12334123, :name => "Keckenbauer"})
     merchant_2 = Merchant.new({:id => 12334145, :name => "BowlsByChris"})
     merchant_3 = Merchant.new({:id => 12334159, :name => "SassyStrangeArt"})
-    assert_equal merchant_1, mr.find_by_id({id: 5})
+    assert_equal merchant_2, mr.find_by_id({id: 12334145})
   end
 
 
