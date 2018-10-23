@@ -45,8 +45,8 @@ class SalesEngineTest < Minitest::Test
           :name        => "510+ RealPush Icon Set",
           :description => "You&#39;ve got a...",
           :unit_price  => BigDecimal.new(1200,4),
-          :created_at  => Time.utc(2016, 01, 11, 09, 34, 06),
-          :updated_at  => Time.utc(2016, 01, 11, 09, 34, 06),
+          :created_at  => "2016-1-11 9:34:06 UTC",
+          :updated_at  => "2016-1-11 9:34:06 UTC",
           :merchant_id => 12334141
         })
     item_2 = Item.new({
@@ -54,8 +54,8 @@ class SalesEngineTest < Minitest::Test
           :name        => "Glitter scrabble frames",
           :description => "Glitter scrabble frames...",
           :unit_price  => BigDecimal.new(1300,4),
-          :created_at  => Time.utc(2016, 01, 11, 11, 51, 37),
-          :updated_at  => Time.utc(1993, 09, 29, 11, 56, 40),
+          :created_at  => "2016-1-11 11:51:37 UTC",
+          :updated_at  => "1993-9-29 11:56:40 UTC",
           :merchant_id => 12334185
         })
     assert_equal item_1.id, se.items[0].id
