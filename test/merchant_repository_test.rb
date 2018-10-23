@@ -30,4 +30,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal @merchant_3, @mr.find_by_name("SassyStrangeArt")
   end
 
+  def test_it_can_add_new_merchant_from_attributes
+    name = "Big D's Watches"
+    expected_id = 12334160
+    expected_merchant = Merchant.new({id: expected_id, name: name})
+    @mr.create(name)
+    assert_equal expected_merchant.id, @mr.all.last.id
+    assert_equal expected_merchant.name, @mr.all.last.name
+  end
+
 end

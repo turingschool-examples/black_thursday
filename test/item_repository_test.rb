@@ -45,4 +45,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal @item_2, @ir.find_by_name("Marker")
   end
 
+  def test_it_can_create_new_item_from_attributes
+
+
+    assert_equal
+  end
+
 end
