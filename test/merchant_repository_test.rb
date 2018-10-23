@@ -48,7 +48,6 @@ class MerchantRepositoryTest < Minitest::Test
     end
     
     def test_it_can_delete_merchants
-      skip
       @mr.delete(5)
       refute @mr.all.include? @merchant_1
     end 
