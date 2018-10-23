@@ -1,4 +1,6 @@
-class MerchantRepository 
+require './lib/repository'
+
+class MerchantRepository < Repository
 
   def initialize
     @merchants = []
