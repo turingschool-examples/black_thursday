@@ -1,8 +1,6 @@
 require_relative './helper'
 require_relative '../lib/item'
-
 class ItemTest < Minitest::Test
-
   def setup
     @time_now = Time.now
     @update_time = Time.now
