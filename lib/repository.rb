@@ -12,15 +12,15 @@ class Repository
     find_by_attribute(:id, id)
   end
 
-  def find_by_attribute(attr_key, attr_value, all = false)
+  def find_all_by_attribute(method, value, all = true)
     finder = all ? :find_all : :find
     @instances.public_send(finder) do |instance|
-      instance.public_send(attr_key) == attr_value
+      instance.public_send(method) == value
     end
   end
 
-  def find_all_by_attribute(attr_key, attr_value)
-    find_by_attribute(attr_key, attr_value, true)
+  def find_by_attribute(method, value)
+    find_all_by_attribute(method, value, false)
   end
 
   def find_by_name(name)
@@ -38,7 +38,6 @@ class Repository
   def delete(id)
     @instances.reject! { |instance| instance.id == id }
   end
-
 
   def update(id, attributes)
     instance = find_by_id(id)
