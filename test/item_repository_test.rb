@@ -41,7 +41,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal @item_2, @ir.find_by_id(2347892358)
   end
 
-  def find_item_by_name
+  def test_find_item_by_name
     assert_equal @item_2, @ir.find_by_name("Marker")
   end
 
