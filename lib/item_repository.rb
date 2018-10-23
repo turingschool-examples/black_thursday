@@ -19,4 +19,8 @@ class ItemRepository < Repository
       item.unit_price >= start_number || item.unit_price <= end_number
     end
   end
+
+  def find_all_by_merchant_id(id)
+    @instances.find_all {|merchant| merchant.id == id}
+  end
 end
