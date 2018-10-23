@@ -1,4 +1,5 @@
 require_relative 'test_helper.rb'
+require_relative '../lib/merchant'
 require 'pry'
 
 
@@ -12,10 +13,10 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_an_id
-    
+    assert_equal 5, @merchant.id
   end
 
   def test_it_has_an_name
-    
+    assert_equal "Nixon", @merchant.name
   end
 end
