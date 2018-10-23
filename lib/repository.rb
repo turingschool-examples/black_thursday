@@ -9,15 +9,27 @@ class Repository
   end
 
   def find_by_id(id)
-    @instances.find { |instance| instance.id == id }
+    find_by_attribute(:id, id)
+  end
+
+  def find_by_attribute(attr_key, attr_value)
+    @instances.find do |instance|
+      instance.public_send(attr_key) == attr_value
+    end
+  end
+
+  def find_all_by_attribute(attr_key, attr_value)
+    @instances.find_all do |instance|
+      instance.public_send(attr_key) == attr_value
+    end
   end
 
   def find_by_name(name)
-    @instances.find { |instance| instance.name == name }
+    find_by_attribute(:name, name)
   end
 
   def find_all_by_name(name)
-    @instances.find_all { |instance| instance.name == name }
+    find_all_by_attribute(:name, name)
   end
 
   def create(object)
@@ -27,6 +39,7 @@ class Repository
   def delete(id)
     @instances.reject! { |instance| instance.id == id }
   end
+
 
   def update(id, attributes)
     instance = find_by_id(id)
