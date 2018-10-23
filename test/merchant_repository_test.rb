@@ -30,4 +30,9 @@ class MerchantRepositoryTest < Minitest::Test
 
   end
 
+  def test_update_updates_name
+    @mr.create("Mr. Merchant")
+    @mr.update(1, {name: "Dr. Merchant"})
+  end
+
 end
