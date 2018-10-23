@@ -27,7 +27,11 @@ class RepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_found_instance
-    assert_equal
+    @rep.create(@ob2)
+    @rep.create(@ob3)
+    @rep.create(@ob4)
+    @rep.create(@ob5)
+    assert_equal @ob5, @rep.find_by_id(5)
   end
 
   def test_find_by_name_returns_nil_if_no_items
@@ -64,6 +68,20 @@ class RepositoryTest < Minitest::Test
     @rep.create(@ob5)
 
     expected = [@ob1, @ob2, @ob3, @ob4, @ob5]
+
+    assert_equal expected, @rep.all
+  end
+
+  def test_deleting_by_id_removes_instance
+    @rep.create(@ob1)
+    @rep.create(@ob2)
+    @rep.create(@ob3)
+    @rep.create(@ob4)
+    @rep.create(@ob5)
+
+    @rep.delete(5)
+
+    expected = [@ob1, @ob2, @ob3, @ob4]
 
     assert_equal expected, @rep.all
   end
