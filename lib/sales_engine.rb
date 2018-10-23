@@ -2,11 +2,10 @@ require 'csv'
 require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/merchant'
+require './lib/item'
 
 class SalesEngine
-
-
-    attr_reader :merchants, :items
+  attr_reader :merchants, :items
 
   def initialize(merchant_repository, item_repository)
     @merchants = merchant_repository
@@ -14,26 +13,38 @@ class SalesEngine
   end
 
   def self.from_csv(file_paths)
-    items = 0
-    merchants = MerchantRepository.new
-    # @items = ItemRepository.new
-    # item_path = file_paths[:items]
-    merchant_path = file_paths[:merchants]
-    # parse_merchants(merchant_path)
-    CSV.foreach(merchant_path) do |row|
-      merchants.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1]}))
-    end
-    binding.pry
+    mr = MerchantRepository.new
+    ir = ItemRepository.new
+    merchants = self.parse_merchants(mr, file_paths[:merchants])
+    items = self.parse_items(ir, file_paths[:items])
     SalesEngine.new(merchants, items)
   end
 
-  # def parse_merchants(merchant_path)
-  #   merchants = []
-  #   CSV.foreach(merchant_path) do |row|
-  #     binding.pry
-  #     merchants << (Merchant.new({:id => row[0].to_i, :name => row[1]}))
-  #   end
-  #   merchants
-  # end
+  def self.parse_merchants(mr, file_path)
+    skip_first_line = true
+    CSV.foreach(file_path) do |row|
+      unless skip_first_line
+        mr.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1]}))
+      else
+        skip_first_line = false
+      end
+    end
+    mr
+  end
+
+  def self.parse_items(ir, file_path)
+    skip_first_line = true
+    CSV.foreach(file_path) do |row|
+      unless skip_first_line
+        ir.add_item(Item.new({:id => row[0].to_i, :name => row[1],
+              :description => row[2], :unit_price => BigDecimal.new(row[3].to_f,4),
+              :created_at => row[5], :updated_at => row[6],
+              :merchant_id => row[4].to_i}))
+      else
+        skip_first_line = false
+      end
+    end
+    ir
+  end
 
 end

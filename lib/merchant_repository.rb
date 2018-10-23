@@ -1,20 +1,24 @@
+require './lib/repository'
 
-class MerchantRepository
+class MerchantRepository < Repository
 
   def initialize
     @merchants = []
-  end
-
-  def all
-    @merchants
+    @collection = @merchants
   end
 
   def add_merchant(merchant)
     @merchants << merchant
   end
 
-  def inspect
-  "#<#{self.class} #{@merchants.size} rows>"
+  def merchants
+    @merchants
   end
+
+  def create(name)
+    add_merchant(Merchant.new({id: find_new_id, name: name}))
+  end
+
+  # find all by name - Maddie
 
 end
