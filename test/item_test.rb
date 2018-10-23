@@ -22,5 +22,19 @@ class ItemTest < Minitest::Test
     assert_equal 1, @i.id
   end
 
+  def test_it_has_name
+    assert_equal "Pencil", @i.name
+  end
+
+  def test_it_has_description
+    assert_equal "You can use it to write things", @i.description
+  end
+
+  def test_it_has_unit_price
+    assert_equal BigDecimal.new(10.99,4), @i.unit_price
+  end
+
+
+
 
 end
