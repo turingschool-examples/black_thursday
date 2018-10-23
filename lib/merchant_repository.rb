@@ -11,10 +11,6 @@ class MerchantRepository < Repository
     @merchants << merchant
   end
 
-  def all
-    @merchants
-  end
-
   def merchants
     @merchants
   end

@@ -8,10 +8,6 @@ class ItemRepository < Repository
     @collection = @items
   end
 
-  def all
-    @items
-  end
-
   def add_item(item)
     @items << item
   end
