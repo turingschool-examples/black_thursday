@@ -1,1 +1,5 @@
 echo "coverage" >> .gitignore
+
+coverage
+.ruby-version
+
