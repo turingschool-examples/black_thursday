@@ -9,15 +9,26 @@ class Repository
   end
 
   def find_by_id(id)
-    @instances.find { |instance| instance.id == id }
+    find_by_attribute(:id, id)
+  end
+
+  def find_all_by_attribute(method, value, all = true)
+    finder = all ? :find_all : :find
+    @instances.public_send(finder) do |instance|
+      instance.public_send(method) == value
+    end
+  end
+
+  def find_by_attribute(method, value)
+    find_all_by_attribute(method, value, false)
   end
 
   def find_by_name(name)
-    @instances.find { |instance| instance.name == name }
+    find_by_attribute(:name, name)
   end
 
   def find_all_by_name(name)
-    @instances.find_all { |instance| instance.name == name }
+    find_all_by_attribute(:name, name)
   end
 
   def create(object)
