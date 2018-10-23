@@ -90,8 +90,7 @@ class RepositoryTest < Minitest::Test
     @rep.create(@ob3)
     @rep.create(@ob4)
     @rep.create(@ob5)
-    @rep.update(5, {name: "Alf"})
-    assert_equal "Alf", @rep.find_by_id(5).name
+    @rep.update(5, name: 'Alf')
+    assert_equal 'Alf', @rep.find_by_id(5).name
   end
-
 end

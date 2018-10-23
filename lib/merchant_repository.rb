@@ -12,5 +12,4 @@ class MerchantRepository < Repository
     super(Merchant.new(args))
     @count += 1
   end
-
 end
