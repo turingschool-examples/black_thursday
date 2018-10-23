@@ -39,7 +39,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_created_at
-    skip
+    
     p "Verify current time of #{@t}"
     assert_equal @t, @i.created_at
   end
