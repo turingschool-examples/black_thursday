@@ -1,5 +1,5 @@
-require './lib/repository'
-require './lib/item'
+require_relative 'repository'
+require_relative 'item'
 
 class ItemRepository < Repository
   def create(args)

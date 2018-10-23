@@ -1,7 +1,6 @@
-require './lib/Repository'
-require './lib/Merchant'
+require_relative 'repository'
+require_relative 'merchant'
 class MerchantRepository < Repository
-
   def initialize
     @count = 1
     super

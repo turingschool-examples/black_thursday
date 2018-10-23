@@ -45,4 +45,8 @@ class Repository
       instance.public_send(key.to_s + '=', value)
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@instances.size} rows>"
+  end
 end
