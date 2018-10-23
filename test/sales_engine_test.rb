@@ -1,7 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require 'test/test_helper.rb'
 require 'pry'
-SimpleCov.start
+
 
 class SalesEngineTest < Minitest::Test
 
