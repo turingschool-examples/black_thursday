@@ -98,9 +98,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def find_all_by_price_range_returns_empty_array_if_no_items_match
-    skip
     create_items
 
+    assert_equal ([]),
+    @ir.find_all_by_price_range(12.99, 13.99)
+  end
 
+  def find_all_by_price_range_returns_matches
+    create_items
+
+    assert diff [Item.new(@item_2), Item.new(@item_4)],
+    @ir.find_all_by_price_range(5, 10)
   end
 end
