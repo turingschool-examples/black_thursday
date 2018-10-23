@@ -4,11 +4,12 @@ class MerchantRepository < Repository
 
   def initialize()
     @count = 1
+    super
   end
 
-  def create(args)
-    super(@count, Merchant.new(args))
-    @count += 1
+  def create(name)
+    args = {name: name, id: @count}
+    super(Merchant.new(args))
   end
 
 end
