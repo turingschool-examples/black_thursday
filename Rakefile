@@ -1,5 +1,5 @@
-require_relative 'rake'
-require_relative 'rake/testtask'
+require 'rake'
+require 'rake/testtask'
 
 Rake::TestTask.new do |t|
   t.libs << "test"

@@ -1,4 +1,4 @@
-require 'test/test_helper.rb'
+require_relative 'test_helper'
 require 'pry'
 
 

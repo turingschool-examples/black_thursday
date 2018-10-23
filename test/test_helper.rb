@@ -1,6 +1,6 @@
-require_relative 'simplecov'
+require 'simplecov'
 SimpleCov.start
 
-require_relative 'minitest/autorun'
-require_relative 'minitest/pride'
+require 'minitest/autorun'
+require 'minitest/pride'
 
