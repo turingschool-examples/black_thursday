@@ -45,4 +45,8 @@ class ItemTest < Minitest::Test
     assert_equal @update_time, @i.updated_at
   end
 
+  def test_it_has_merchant_id
+    assert_equal 2, @i.merchant_id
+  end
+
 end
