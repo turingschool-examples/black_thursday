@@ -48,7 +48,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_converts_unit_price_to_dollars_float
-    skip
     assert_equal 10.99, @item.unit_price_to_dollars
   end
 
