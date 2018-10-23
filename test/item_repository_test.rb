@@ -35,7 +35,7 @@ class ItemRepositoryTest < Minitest::Test
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
-      :merchant_id => 2
+      :merchant_id => 3
     }
 
     @item_4 = {
@@ -45,7 +45,7 @@ class ItemRepositoryTest < Minitest::Test
       :unit_price  => BigDecimal.new(5.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
-      :merchant_id => 2
+      :merchant_id => 4
     }
   end
 
@@ -109,5 +109,19 @@ class ItemRepositoryTest < Minitest::Test
 
     assert diff [Item.new(@item_2), Item.new(@item_4)],
     @ir.find_all_by_price_range(5, 10)
+  end
+
+  def find_all_by_merchant_id_returns_empty_array_if_no_items_match
+    create_items
+
+    assert_equal ([]),
+    @ir.find_all_by_mercant_id(5)
+  end
+
+  def find_all_by_merchant_id_returns_matches
+    create_items
+
+    assert diff [Item.new(@item_1), Item.new(@item_2)],
+    @ir.find_all_by_mercant_id(2)
   end
 end
