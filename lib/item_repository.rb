@@ -1,4 +1,6 @@
-class ItemRepository
+require './lib/repository'
+
+class ItemRepository < Repository
   attr_reader :items
 
   def initialize
