@@ -14,14 +14,17 @@ class ItemRepository < Repository
     @instances.find_all {|item| item.unit_price == price}
   end
 
-  def find_all_by_price_range(start_number, end_number)
+  def find_all_by_price_range(range)
+    start_number, end_number = range.first, range.last
+
     @instances.find_all do |item|
       item.unit_price >= start_number && item.unit_price <= end_number
     end
   end
 
-  def find_all_by_merchant_id(id)
-    @instances.find_all {|merchant| merchant.id == id}
+  def find_all_by_merchant_id(merchant_id)
+    # require "pry"; binding.pry
+    @instances.find_all {|item| item.merchant_id == merchant_id}
   end
 
   def update(id, attributes)
