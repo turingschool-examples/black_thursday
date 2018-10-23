@@ -28,6 +28,10 @@ class ItemRepository < Repository
     found_item = find_by_id(id)
     return nil if not found_item
 
+    update_values_with_attributes(found_item, attributes)
+  end
+
+  def update_values_with_attributes(found_item, attributes)
     attributes.each do |attribute, new_value|
       case attribute
         when :name then found_item.name = new_value
