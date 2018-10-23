@@ -2,6 +2,7 @@ require 'csv'
 require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/merchant'
+require './lib/item'
 
 class SalesEngine
   attr_reader :merchants, :items
@@ -35,21 +36,15 @@ class SalesEngine
     skip_first_line = true
     CSV.foreach(file_path) do |row|
       unless skip_first_line
-        ir.add_item(Merchant.new({:id => row[0].to_i, :name => row[1]}))
+        ir.add_item(Item.new({:id => row[0].to_i, :name => row[1],
+              :description => row[2], :unit_price => BigDecimal.new(row[3].to_f,4),
+              :created_at => row[5], :updated_at => row[6],
+              :merchant_id => row[4].to_i}))
       else
         skip_first_line = false
       end
     end
     ir
   end
-
-  # def parse_merchants(merchant_path)
-  #   merchants = []
-  #   CSV.foreach(merchant_path) do |row|
-  #     binding.pry
-  #     merchants << (Merchant.new({:id => row[0].to_i, :name => row[1]}))
-  #   end
-  #   merchants
-  # end
 
 end

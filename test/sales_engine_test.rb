@@ -58,13 +58,13 @@ class SalesEngineTest < Minitest::Test
           :updated_at  => "1993-9-29 11:56:40 UTC",
           :merchant_id => 12334185
         })
-    assert_equal item_1.id, se.items[0].id
-    assert_equal item_1.name, se.items[0].name
-    assert_equal item_1.description[0..10], se.items[0].description[0..10]
-    assert_equal item_1.unit_price, se.items[0].unit_price
-    assert_equal item_2.created_at, se.items[1].created_at
-    assert_equal item_2.updated_at, se.items[1].updated_at
-    assert_equal item_2.merchant_id, se.items[1].merchant_id
+    assert_equal item_1.id, se.items.all[0].id
+    assert_equal item_1.name, se.items.all[0].name
+    assert_equal item_1.description[0..10], se.items.all[0].description[0..10]
+    assert_equal item_1.unit_price, se.items.all[0].unit_price
+    assert_equal item_2.created_at, se.items.all[1].created_at
+    assert_equal item_2.updated_at, se.items.all[1].updated_at
+    assert_equal item_2.merchant_id, se.items.all[1].merchant_id
   end
 
 

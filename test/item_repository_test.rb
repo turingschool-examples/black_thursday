@@ -14,8 +14,8 @@ class ItemRepositoryTest < Minitest::Test
           :name        => "Pencil",
           :description => "You can use it to write things",
           :unit_price  => BigDecimal.new(10.99,4),
-          :created_at  => Time.new(2015),
-          :updated_at  => Time.new(2016),
+          :created_at  => "2016-01-11 12:29:33 UTC",
+          :updated_at  => "1993-08-29 22:53:20 UTC",
           :merchant_id => 2
         })
     item_2 = Item.new({
@@ -23,9 +23,9 @@ class ItemRepositoryTest < Minitest::Test
           :name        => "Marker",
           :description => "You can use it to mark things",
           :unit_price  => BigDecimal.new(12.50,4),
-          :created_at  => Time.new(2017),
-          :updated_at  => Time.new(2018),
-          :merchant_id => 2
+          :created_at  => "2016-01-11 12:02:55 UTC",
+          :updated_at  => "1973-05-29 23:44:48 UTC",
+          :merchant_id => 3
         })
     ir = ItemRepository.new
     ir.add_item(item_1)

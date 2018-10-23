@@ -1,4 +1,4 @@
-class MerchantRepository
+class MerchantRepository 
 
   def initialize
     @merchants = []
@@ -11,9 +11,5 @@ class MerchantRepository
   def all
     @merchants
   end
-
-  # def inspect
-  # "#<#{self.class} #{@merchants.size} rows>"
-  # end
 
 end
