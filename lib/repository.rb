@@ -9,15 +9,15 @@ class Repository
   end
 
   def find_by_id(id)
-    @instances.find{|instance| instance.id == id }
+    @instances.find { |instance| instance.id == id }
   end
 
   def find_by_name(name)
-    @instances.find{|instance| instance.name == name }
+    @instances.find { |instance| instance.name == name }
   end
 
   def find_all_by_name(name)
-    @instances.find_all{|instance| instance.name == name }
+    @instances.find_all { |instance| instance.name == name }
   end
 
   def create(object)
@@ -25,7 +25,7 @@ class Repository
   end
 
   def delete(id)
-    @instances.reject!{|instance| instance.id == id}
+    @instances.reject! { |instance| instance.id == id }
   end
 
   def update(id, attributes)
