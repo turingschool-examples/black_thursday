@@ -32,7 +32,6 @@ class ItemTest < Minitest::Test
 
   def test_it_has_unit_price
     assert_equal BigDecimal.new(10.99,4), @i.unit_price
-    p @i.unit_price
   end
 
   def test_it_has_created_at
