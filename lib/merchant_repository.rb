@@ -27,7 +27,27 @@ class MerchantRepository
 
   def find_by_name(merchant_name)
     @merchants_array.find do |merchant|
-      merchant.name == merchant_name
+      merchant.name.downcase == merchant_name.downcase
+    end
+  end
+
+  def find_all_by_name(merchant_name)
+    @merchants_array.find_all do |merchant|
+      merchant.name.downcase.include?(merchant_name.downcase)
+    end
+  end
+
+  def create(attributes)
+  highest_merchant = @merchants_array.max {|merchant| merchant.id}
+  new_merchant_id = highest_merchant.id + 1
+  attributes[:id] = new_merchant_id
+  new_merchant = Merchant.new(attributes)
+    @merchants_array << new_merchant
+  end
+
+  def update(id, attribute)
+    existing_merchant = @merchants_array.find_by_id do |merchant|
+      
     end
   end
 end
