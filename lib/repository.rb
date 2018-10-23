@@ -12,16 +12,15 @@ class Repository
     find_by_attribute(:id, id)
   end
 
-  def find_by_attribute(attr_key, attr_value)
-    @instances.find do |instance|
+  def find_by_attribute(attr_key, attr_value, all = false)
+    finder = all ? :find_all : :find
+    @instances.public_send(finder) do |instance|
       instance.public_send(attr_key) == attr_value
     end
   end
 
   def find_all_by_attribute(attr_key, attr_value)
-    @instances.find_all do |instance|
-      instance.public_send(attr_key) == attr_value
-    end
+    find_by_attribute(attr_key, attr_value, true)
   end
 
   def find_by_name(name)
