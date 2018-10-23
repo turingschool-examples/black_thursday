@@ -14,19 +14,19 @@ class SalesEngine
   def self.from_csv(file_paths)
     mr = MerchantRepository.new
     ir = ItemRepository.new
-    merchants = parse_merchants(mr, file_paths[:merchants])
-    items = parse_items(ir, file_paths[:items])
+    merchants = self.parse_merchants(mr, file_paths[:merchants])
+    items = self.parse_items(ir, file_paths[:items])
     SalesEngine.new(merchants, items)
   end
 
-  def parse_merchants(mr, file_path)
+  def self.parse_merchants(mr, file_path)
     CSV.foreach(file_path) do |row|
       mr.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1]}))
     end
     mr
   end
 
-  def parse_items(ir, file_path)
+  def self.parse_items(ir, file_path)
     CSV.foreach(file_path) do |row|
       ir.add_item(Merchant.new({:id => row[0].to_i, :name => row[1]}))
     end

@@ -12,11 +12,13 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_load_csv_files_items_and_merchants
-    se = SalesEngine.new.from_csv({
+    se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of ItemRepository, se.items
   end
+
+  
 end

@@ -9,6 +9,10 @@ class ItemRepository
     @items
   end
 
+  def add_item(item)
+    @items << item
+  end
+
   # def inspect
   # "#<#{self.class} #{@items.size} rows>"
   # end
