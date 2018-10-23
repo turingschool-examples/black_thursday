@@ -37,7 +37,6 @@ class MerchantRepositoryTest < Minitest::Test
     @mr.create(name)
     assert_equal expected_merchant.id, @mr.all.last.id
     assert_equal expected_merchant.name, @mr.all.last.name
-    binding.pry
   end
 
 end
