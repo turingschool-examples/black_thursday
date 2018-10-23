@@ -1,3 +1,4 @@
+
 class MerchantRepository
 
   def initialize
@@ -10,6 +11,10 @@ class MerchantRepository
 
   def add_merchant(merchant)
     @merchants << merchant
+  end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
