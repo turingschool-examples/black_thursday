@@ -3,6 +3,7 @@ class ItemRepository
 
   def initialize
     @items = []
+    @collection = @items
   end
 
   def all

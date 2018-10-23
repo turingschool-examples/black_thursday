@@ -25,7 +25,10 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_1 = Merchant.new({:id => 12334123, :name => "Keckenbauer"})
     merchant_2 = Merchant.new({:id => 12334145, :name => "BowlsByChris"})
     merchant_3 = Merchant.new({:id => 12334159, :name => "SassyStrangeArt"})
-    assert_equal merchant_2, mr.find_by_id({id: 12334145})
+    mr.add_merchant(merchant_1)
+    mr.add_merchant(merchant_2)
+    mr.add_merchant(merchant_3)
+    assert_equal merchant_2, mr.find_by_id(12334145)
   end
 
 

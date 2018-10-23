@@ -3,13 +3,8 @@ require './lib/item_repository'
 require './lib/item'
 
 class ItemRepositoryTest < Minitest::Test
-  def test_it_exists
-    ir = ItemRepository.new
-    assert_instance_of ItemRepository, ir
-  end
-
-  def test_it_can_add_items_to_repository
-    item_1 = Item.new({
+  def setup
+    @item_1 = Item.new({
           :id          => 1,
           :name        => "Pencil",
           :description => "You can use it to write things",
@@ -18,7 +13,7 @@ class ItemRepositoryTest < Minitest::Test
           :updated_at  => "1993-08-29 22:53:20 UTC",
           :merchant_id => 2
         })
-    item_2 = Item.new({
+    @item_2 = Item.new({
           :id          => 2,
           :name        => "Marker",
           :description => "You can use it to mark things",
@@ -27,10 +22,19 @@ class ItemRepositoryTest < Minitest::Test
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 3
         })
-    ir = ItemRepository.new
-    ir.add_item(item_1)
-    ir.add_item(item_2)
-    expected = [item_1, item_2]
-    assert_equal expected, ir.all
+    @ir = ItemRepository.new
+    @ir.add_item(@item_1)
+    @ir.add_item(@item_2)
   end
+
+  def test_it_exists
+    ir = ItemRepository.new
+    assert_instance_of ItemRepository, ir
+  end
+
+  def test_it_can_add_items_to_repository
+    expected = [@item_1, @item_2]
+    assert_equal expected, @ir.all
+  end
+
 end
