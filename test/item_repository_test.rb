@@ -49,6 +49,13 @@ class ItemRepositoryTest < Minitest::Test
     }
   end
 
+  def create_items
+    @ir.create(@item_1)
+    @ir.create(@item_2)
+    @ir.create(@item_3)
+    @ir.create(@item_4)
+  end
+
   def test_it_exists
     assert_instance_of ItemRepository, @ir
   end
@@ -56,51 +63,44 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_creates_a_merchant_instance
     assert_empty @ir.instances
 
-    @ir.create(@item_1)
-    @ir.create(@item_2)
-    @ir.create(@item_3)
+    create_items
 
-    assert_equal 3, @ir.instances.count
+    assert_equal 4, @ir.instances.count
     assert diff [Item.new(@item_1), Item.new(@item_2), Item.new(@item_3)], @ir.instances
   end
 
   def test_find_all_with_description_returns_empty_array_if_none_found
-    @ir.create(@item_1)
-    @ir.create(@item_2)
-    @ir.create(@item_3)
-    @ir.create(@item_4)
+    create_items
 
     assert_equal ([]),
     @ir.find_all_with_description("You can use it to eliminate rodents")
   end
 
   def test_find_all_with_description_returns_matching_merchants
-    @ir.create(@item_1)
-    @ir.create(@item_2)
-    @ir.create(@item_3)
-    @ir.create(@item_4)
+    create_items
 
     assert diff [Item.new(@item_3), Item.new(@item_4)],
     @ir.find_all_with_description("You can use it to wear around the house")
   end
 
-  def test_find_all_by_price_returns_empty_array_if_items_match
-    @ir.create(@item_1)
-    @ir.create(@item_2)
-    @ir.create(@item_3)
-    @ir.create(@item_4)
+  def test_find_all_by_price_returns_empty_array_if_no_items_match
+    create_items
 
     assert_equal ([]),
     @ir.find_all_by_price(10.88)
   end
 
   def test_find_all_by_price_returns_matching_items
-    @ir.create(@item_1)
-    @ir.create(@item_2)
-    @ir.create(@item_3)
-    @ir.create(@item_4)
+    create_items
 
     assert diff [Item.new(@item_1), Item.new(@item_3)],
     @ir.find_all_by_price(10.99)
+  end
+
+  def find_all_by_price_range_returns_empty_array_if_no_items_match
+    skip
+    create_items
+
+
   end
 end
