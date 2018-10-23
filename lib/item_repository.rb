@@ -25,7 +25,15 @@ class ItemRepository < Repository
   end
 
   def update(id, attributes)
-    @instances.find_by_id(id)
-    binding.pry
+    found_item = find_by_id(id)
+    return nil if not found_item
+
+    attributes.each do |attribute, new_value|
+      case attribute
+        when :name then found_item.name = new_value
+        when :description then found_item.description = new_value
+        when :unit_price then found_item.unit_price = new_value
+      end
+    end
   end
 end
