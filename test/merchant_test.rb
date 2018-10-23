@@ -1,4 +1,4 @@
-require "./test/test_helper"
+require './test/test_helper'
 
 class MerchantTest < Minitest::Test
 
@@ -17,4 +17,4 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", m.name
   end
 
-end 
+end

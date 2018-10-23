@@ -1,9 +1,9 @@
-require "./test/test_helper"
+require './test/test_helper'
 
 class ItemTest < Minitest::Test
 
   def setup
-    i = Item.new({
+    @i = Item.new({
 	  :id          => 1,
 	  :name        => "Pencil",
 	  :description => "You can use it to write things",
@@ -15,5 +15,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of Item, i
+    assert_instance_of Item, @i
   end
+
+
+end
