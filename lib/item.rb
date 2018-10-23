@@ -1,20 +1,22 @@
 require 'bigdecimal'
-
+require_relative 'equivalency'
 class Item
-  attr_reader :id, :name, :description, :unit_price,
-              :created_at, :updated_at, :merchant_id
+  include Equivalency
+  attr_reader :id, :created_at, :updated_at, :merchant_id
+  attr_accessor :name, :description, :unit_price
 
+  attr_accessor :name, :description, :unit
   def initialize(input_hash)
-    @id = input_hash[:id].to_i
+    @id = input_hash[:id]
     @name = input_hash[:name]
     @description = input_hash[:description]
-    @unit_price = BigDecimal(input_hash[:unit_price]) / 100;
+    @unit_price = input_hash[:unit_price]
     @created_at = input_hash[:created_at]
     @updated_at = input_hash[:updated_at]
     @merchant_id = input_hash[:merchant_id]
   end
 
-  def self.unit_price_to_dollars(unit_price)
-    "$#{unit_price.to_f.round(2)}"
+  def unit_price_to_dollars
+    unit_price.to_f.round(2)
   end
 end
