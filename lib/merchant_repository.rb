@@ -36,20 +36,23 @@ class MerchantRepository
 
     def create(attributes)
       max_id = @merchants.max_by do |merchant|
-        merchant.id.to_i
+        merchant.id
       end
-      new_id = max_id.id.to_i + 1
+      new_id = max_id.id + 1
       name = attributes[:name]
-      new_merchant = Merchant.new({name: name, id: new_id.to_s})
+      new_merchant = Merchant.new({name: name, id: new_id})
       @merchants << new_merchant
       new_merchant
     end
 
     def update(id, attributes)
-      merchant = find_by_id(id)
-      #update merchant with given attribute
-      new_name = attributes[:name]
-      merchant.name = new_name
+      if merchant = find_by_id(id)
+        #update merchant with given attribute
+        new_name = attributes[:name]
+        merchant.name = new_name
+      else
+        nil
+      end 
     end
 
     def delete(id)
