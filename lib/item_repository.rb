@@ -23,10 +23,9 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.select do |item|
-      item.id
+    @items.find do |item|
+      item.id == id
     end
-
   end
 
 end
