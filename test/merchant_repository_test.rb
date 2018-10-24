@@ -14,7 +14,12 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repo_has_merchants
     mr = MerchantRepository.new("./test/merchant_sample.csv")
-    assert_equal 10 , mr.all
+    assert_equal 10, mr.all
+  end
+
+  def test_merchant_repo_can_find_them_by_id
+    mr = MerchantRepository.new("./test/merchant_sample.csv")
+    assert_instance_of Merchant, mr.find_by_id(12334105)
   end
 
 end
