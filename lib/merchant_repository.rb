@@ -1,6 +1,15 @@
+require "csv"
+
 class MerchantRepository
-    def initialize(merchants)
-      @merchants = merchants
+    def initialize(file_path)
+      @merchants = populate_merchants(file_path)
+    end
+
+    def populate_merchants(file_path)
+      file = CSV.read(file_path, headers: true, header_converters: :symbol )
+      file.map do |row|
+        Merchant.new(row)
+      end 
     end
 
     def all

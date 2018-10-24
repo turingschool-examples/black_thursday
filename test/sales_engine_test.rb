@@ -30,6 +30,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_merchant_repo_contains_merchants
+    skip
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
@@ -40,13 +41,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_item_repo_contains_items
-    skip
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     })
 
-    refute_equal 0, se.items.all.size
+    refute_equal 1, se.items.all
   end
 
   def test_that_sales_engine_can_pass_info
