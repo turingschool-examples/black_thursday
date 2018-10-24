@@ -36,4 +36,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_by_name('AaronBrooksRoberts')
     assert_equal 3, ir.find_all_by_name('Oak').count
   end
+
+  def test_it_can_find_all_with_decription
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    assert_equal [], ir.find_all_with_description('bradleyniedt')
+    assert_equal 1, ir.find_all_with_description('ear wire').count
+  end
 end
