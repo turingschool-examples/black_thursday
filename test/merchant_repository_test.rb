@@ -38,11 +38,11 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal [@mr.all[0], @mr.all[2]], @mr.find_all_by_name("iN")
     end
 
-    # def test_it_creates_new_merchant
-    #   new_merchant = @mr.create({name: "Dave"})
-    #   assert_equal 11, new_merchant.id
-    #   assert_equal "Dave", new_merchant.name
-    # end
+    def test_it_creates_new_merchant
+      new_merchant = @mr.create({name: "Dave"})
+      assert_equal "12334124", new_merchant.id
+      assert_equal "Dave", new_merchant.name
+    end
     #
     # def test_it_can_update_merchant_attributes
     #   @mr.update(5, {name: "Joe"})
