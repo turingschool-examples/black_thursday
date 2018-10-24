@@ -4,6 +4,8 @@ require './lib/merchant'
 
 class ItemRepository
 
+  attr_reader :items
+
   def initialize(csv_items)
     @items = []
     create_item(csv_items)
@@ -17,7 +19,14 @@ class ItemRepository
   end
 
   def all
-    @items.count
+    @items
+  end
+
+  def find_by_id(id)
+    @items.select do |item|
+      item.id
+    end
+
   end
 
 end
