@@ -1,7 +1,16 @@
+require 'csv'
+require_relative '../lib/item'
  class ItemRepository
 
-   def initialize(items)
-     @items = items
+   def initialize(file_path)
+     @items = populate_items(file_path)
+   end
+
+   def populate_items(file_path)
+     file = CSV.read(file_path, headers: true, header_converters: :symbol )
+     file.map do |row|
+       Item.new(row)
+     end
    end
 
    def all
