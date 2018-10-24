@@ -43,4 +43,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_with_description('bradleyniedt')
     assert_equal 4, ir.find_all_with_description('ear wire').count
   end
+
+  def test_it_can_find_all_by_price
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    assert_equal [], ir.find_all_by_price('42737')
+    assert_equal 1, ir.find_all_by_price('40000').count
+  end
 end
