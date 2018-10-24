@@ -4,6 +4,7 @@ require_relative 'item'
 class ItemRepository < Repository
   def initialize
     @type = Item
+    @attr_whitelist = [:name, :description, :unit_price]
     super
   end
 
