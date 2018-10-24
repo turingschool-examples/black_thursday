@@ -8,6 +8,7 @@ class Item
               :merchant_id
 
   def initialize(item_data)
+    require'pry';binding.pry
     @id = item_data[:id]
     @name = item_data[:name]
     @description = item_data[:description]
