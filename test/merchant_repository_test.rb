@@ -32,4 +32,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], mr.find_all_by_name('1901')
   end
 
+  def test_merchant_repo_can_create_a_merchant
+    mr = MerchantRepository.new("./test/merchant_sample.csv")
+    assert_instance_of Merchant , mr.create(12334106)
+  end
+
 end
