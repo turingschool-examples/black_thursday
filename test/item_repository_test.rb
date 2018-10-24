@@ -98,9 +98,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
 
-  # def test_it_can_delete_by_id
-  #   assert_equal [@item_1], @ir.delete(2347892358)
-  # end
+  def test_it_can_delete_by_id
+    @ir.delete(2347892358)
+    assert_equal [@item_1], @ir.all
+  end
 
   def test_it_can_find_all_within_a_price_range
     @ir.add_item(@item_3)

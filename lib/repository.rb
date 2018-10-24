@@ -21,9 +21,9 @@ class Repository
     max_id_object.id + 1
   end
 
-  # def delete(id)
-  #   find_by_id.each
-  # end
+  def delete(id)
+    @collection.delete(id)
+  end
 
   def update(id, attributes)
     thing_to_update = find_by_id(id)
