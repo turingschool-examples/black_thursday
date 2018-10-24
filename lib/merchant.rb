@@ -3,7 +3,7 @@ class Merchant
 
   def initialize(merchant_data)
     @id = merchant_data[:id].to_i
-    @name = merchant_data[:name].upcase
+    @name = merchant_data[:name]
   end
 
 end
