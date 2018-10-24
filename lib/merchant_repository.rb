@@ -1,3 +1,4 @@
+
 require_relative './repository'
 
 class MerchantRepository < Repository
@@ -19,6 +20,13 @@ class MerchantRepository < Repository
     add_merchant(Merchant.new({id: find_new_id, name: name}))
   end
 
-  # find all by name - Maddie
-
+  def find_all_by_name(name)
+     merchants_by_name = []
+    @merchants.find_all do |merchant|
+      if merchant.name.downcase.include?(name)
+      merchants_by_name << merchant
+      end
+    end
+    merchants_by_name
+  end
 end

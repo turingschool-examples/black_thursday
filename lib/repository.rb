@@ -23,6 +23,10 @@ class Repository
     max_id_object.id + 1
   end
 
+  # def delete(id)
+  #   find_by_id.each
+  # end
+
   def update(id, attributes)
     thing_to_update = find_by_id(id)
     thing_to_update.name = attributes[:name] if update_name?(attributes)
@@ -41,7 +45,5 @@ class Repository
   def update_unit_price?(attributes)
     attributes.has_key?(:unit_price)
   end
-
-  # delete(id) - Maddie
 
 end
