@@ -48,6 +48,6 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new('./data/items.csv')
     ir.items
     assert_equal [], ir.find_all_by_price('42737')
-    assert_equal 1, ir.find_all_by_price('40000').count
+    assert_equal 7, ir.find_all_by_price('40000').count
   end
 end
