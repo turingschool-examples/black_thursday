@@ -37,4 +37,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 1, mr.find_all_by_name("Golden").count
   end
 
+  def test_it_can_create_merchant_with_attribute
+    mr = MerchantRepository.new('./data/merchants.csv')
+    mr.merchants
+    assert_instance_of Merchant, mr.create("SalsSidekicks")
+    assert_equal "SalsSidekicks", mr.all.last.name
+    assert_equal "12337412", mr.all.last.id
+  end
+
 end
