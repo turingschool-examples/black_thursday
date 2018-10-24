@@ -44,4 +44,9 @@ class MerchantRepository
     @collection << new_merchant
     new_merchant
   end
+
+  def update(id, attribute)
+    find_by_id(id).name = attribute 
+  end
+
 end
