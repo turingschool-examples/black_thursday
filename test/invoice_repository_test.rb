@@ -61,7 +61,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     create_invoices
 
-    expected = [Invoice.new(@invoice_1), Invoice.new(@invoice_2), Invoice.new(@item_3), Invoice.new(@item_4)]
+    expected = [Invoice.new(@invoice_1), Invoice.new(@invoice_2), Invoice.new(@invoice_3), Invoice.new(@invoice_4)]
     result = @ir.instances
 
     result.each_with_index {|invoice, index| assert_equal invoice, expected[index]}
@@ -92,7 +92,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status_returns_matches
     create_invoices
 
-    expected = [Invoice.new(@invoice_1), Invoice.new(@invoice_2)]
+    expected = [Invoice.new(@invoice_3), Invoice.new(@invoice_4)]
     result = @ir.find_all_by_status(:shipped)
 
     result.each_with_index {|invoice, index| assert_equal invoice, expected[index]}
