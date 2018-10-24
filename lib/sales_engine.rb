@@ -1,8 +1,9 @@
 class SalesEngine
+  attr_reader :merchants
 
-  def initialize(mech_repo, item_repo)
-    #@mmerchant repo
-    #item repo
+  def initialize(merch_repo, item_repo)
+    @merchants = merch_repo
+    #@items = item_repo
   end
 
     def self.from_csv(csv_data_paths)

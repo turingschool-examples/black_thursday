@@ -19,7 +19,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_returns_merchants
-    skip
+    assert_instance_of MerchantRepository, @se.merchants
   end
 
 end
