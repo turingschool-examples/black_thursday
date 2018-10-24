@@ -34,4 +34,11 @@ class ItemRepository
       item.name == name
     end
   end
+
+  def find_all_by_name(name)
+    name_case = name.downcase
+    @collection.find_all do |item|
+      item.name.downcase.include?(name_case)
+    end
+  end
 end
