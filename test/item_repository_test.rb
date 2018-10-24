@@ -28,9 +28,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, i.find_by_name('Etre ailleurs')
   end
 
-  def test_merchant_repo_can_find_them_all_with_description
-    i = ItemRepository.new("./test/item_sample.csv")
-    assert_equal [], i.find_all_with_description('1901')
+  def test_it_can_find_all_by_description
+   i = ItemRepository.new("./test/item_sample.csv")
+   assert_equal [], i.find_all_with_description('Disney glitter frames')
   end
 
 end

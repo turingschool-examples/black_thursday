@@ -21,14 +21,10 @@ class ItemRepository
       end
   end
 
-  # def all
-  #   @items
-  # end
-
-  # def find_by_id(id)
-  #   @items.find do |item|
-  #     item.id == id
-  #   end
-  # end
+  def find_all_with_description(item_description)
+    @repository.find_all do |item|
+      item.description.upcase == item_description.upcase
+    end
+  end
 
 end
