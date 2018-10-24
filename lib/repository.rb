@@ -2,6 +2,17 @@ class Repository
   attr_reader :instances
   def initialize
     @instances = []
+    @count = 0
+  end
+
+  def create(args)
+    unless args[:id]
+      @count += 1
+      args[:id] = @count
+    else
+      @count = @count < args[:id] ? args[:id] : @count
+    end
+    @instances << @type.public_send("new", args)
   end
 
   def all
@@ -31,20 +42,19 @@ class Repository
     find_all_by_attribute(:name, name)
   end
 
-  def create(object)
-    @instances << object
-  end
-
   def delete(id)
     @instances.reject! { |instance| instance.id == id }
   end
 
   def update(id, attributes)
+    found_instance = find_by_id(id)
+    return nil if not found_instance
     attributes.delete(:id)
-    instance = find_by_id(id)
     attributes.each do |key, value|
-      instance.public_send(key.to_s + '=', value)
+      found_instance.public_send(key.to_s + '=', value)
     end
+
+    found_instance.updated_at = Time.now
   end
 
   def inspect

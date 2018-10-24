@@ -3,18 +3,8 @@ require_relative 'item'
 
 class ItemRepository < Repository
   def initialize
-    @count = 0
+    @type = Item
     super
-  end
-
-  def create(args)
-    unless args[:id]
-      @count += 1
-      args[:id] = @count
-    else
-      @count = @count < args[:id] ? args[:id] : @count
-    end
-    super(Item.new(args))
   end
 
   def find_all_with_description(description)
@@ -35,23 +25,5 @@ class ItemRepository < Repository
 
   def find_all_by_merchant_id(merchant_id)
     @instances.find_all {|item| item.merchant_id == merchant_id}
-  end
-
-  def update(id, attributes)
-    found_item = find_by_id(id)
-    return nil if not found_item
-
-    update_values_with_attributes(found_item, attributes)
-  end
-
-  def update_values_with_attributes(found_item, attributes)
-    attributes.each do |attribute, new_value|
-      case attribute
-        when :name then found_item.name = new_value
-        when :description then found_item.description = new_value
-        when :unit_price then found_item.unit_price = new_value
-      end
-    end
-    found_item.updated_at = Time.now
   end
 end
