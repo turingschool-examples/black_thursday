@@ -123,7 +123,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], @ir.find_all_by_merchant_id(2463)
   end
 
-  def test_it_can_update_name_attribute
+  def test_it_can_update_attributes
     attributes = {name: "Computer", description: "Awesome",
                   unit_price: BigDecimal.new(1200,4)}
     @ir.update(2347892358, attributes)

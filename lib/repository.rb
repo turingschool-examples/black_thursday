@@ -42,7 +42,6 @@ class Repository
     attributes.has_key?(:unit_price)
   end
 
-  # update(id, attributes) - Justin
   # delete(id) - Maddie
 
 end

@@ -39,4 +39,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected_merchant.name, @mr.all.last.name
   end
 
+  def test_it_can_update_name_attribute
+    attributes = {name: "Big Ben"}
+    @mr.update(12334145, attributes)
+    assert_equal "Big Ben", @mr.find_by_id(12334145).name
+  end
+
 end
