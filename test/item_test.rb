@@ -20,7 +20,6 @@ class ItemTest < Minitest::Test
   end
   def test_item_has_id
     assert_equal 1, @i.id
-    
   end
 
   def test_item_has_name

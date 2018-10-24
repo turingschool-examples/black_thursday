@@ -40,13 +40,12 @@ class MerchantRepository
       merchant.id.to_i
     end
     number = (highest.id.to_i + 1).to_s
-    new_merchant = Merchant.new({id: number, name: attribute})
+    new_merchant = Merchant.new({ id: number, name: attribute })
     @collection << new_merchant
     new_merchant
   end
 
   def update(id, attribute)
-    find_by_id(id).name = attribute 
+    find_by_id(id).name = attribute
   end
-
 end
