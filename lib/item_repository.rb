@@ -17,6 +17,12 @@ class ItemRepository < Repository
     add_item(Item.new(attributes))
   end
 
+  def find_all_by_price_in_range(range)
+    @items.select do |item|
+      item.unit_price >= range.min && item.unit_price <= range.max
+    end
+  end
+
   # find_all_with_description(description) - Jennica
   # find_all_by_price(price) - Jennica
   # find_all_by_price_in_range(range) - Justin
