@@ -15,8 +15,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repo_has_merchants
     mr = MerchantRepository.new("./test/merchant_sample.csv")
-    assert_equal 13 , mr.all.count
-    assert_instance_of Array, mr.all
+    assert_equal 10 , mr.all
   end
 
 end

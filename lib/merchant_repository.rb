@@ -18,6 +18,9 @@ class MerchantRepository
       end
   end
 
+  def all
+    @merchants.count
+  end
 
 
 end
