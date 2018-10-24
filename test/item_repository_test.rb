@@ -64,4 +64,20 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_by_merchant_id('12345678')
     assert_equal 6, ir.find_all_by_merchant_id('12334185').count
   end
+
+
+    def test_it_can_create_new_item
+      ir = ItemRepository.new('./data/items.csv')
+      ir.items
+      actual = ir.create(
+                          'LeahKathrynMiller',
+                          'fun',
+                          '360',
+                          2016-01-11 11:51:37 UTC,
+                          1993-09-29 11:56:40 UTC,
+                          '73922533'
+                        )
+      assert_instance_of Item, actual
+      assert_equal 1, ir.find_by_name('LeahKathrynMiller').count
+    end
 end
