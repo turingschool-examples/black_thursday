@@ -1,6 +1,5 @@
 require 'csv'
-
-
+require './lib/merchant'
 class MerchantRepository
   attr_reader :all
 

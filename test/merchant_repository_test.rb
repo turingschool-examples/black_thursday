@@ -14,10 +14,6 @@ class MerchantRepositoryTest < Minitest::Test
   def test_merchant_reposity_has_merchants
     mr = MerchantRepository.new("./data/merchants.csv")
     assert_instance_of Merchant, mr.all[0]
-  end
-
-  def test_it_can_find_all_merchants
-    mr = MerchantRepository.new("./data/merchants.csv")
     assert_equal 475, mr.all.count
   end
 
