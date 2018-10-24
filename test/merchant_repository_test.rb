@@ -52,4 +52,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'SilverSunPress', mr.find_by_id('12334135').name
   end
 
+  def test_can_delete_id
+    mr = MerchantRepository.new('./data/merchants.csv')
+    mr.merchants
+    assert mr.all.any? { |merchant| merchant.id == '12337411' }
+    mr.delete('12337411')
+    refute mr.all.any? { |merchant| merchant.id == '12337411' }
+  end
 end

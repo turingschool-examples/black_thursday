@@ -48,4 +48,10 @@ class MerchantRepository
   def update(id, attribute)
     find_by_id(id).name = attribute
   end
+
+  def delete(id)
+    @collection.delete_if do |merchant|
+      merchant.id == id
+    end
+  end
 end
