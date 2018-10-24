@@ -34,6 +34,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new('./data/merchants.csv')
     mr.merchants
     assert_equal [], mr.find_all_by_name("Leprechauns")
+    assert_equal true, mr.find_all_by_name("GoldenRayPress").include?("GoldenRayPress")
   end
 
 end
