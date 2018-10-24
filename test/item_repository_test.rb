@@ -22,7 +22,21 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_an_item_by_id
     ir = ItemRepository.new("./data/items.csv")
-    
-    assert_equal ir.all[2], ir.find_by_id("263395721")
+
+    assert_equal ir.all[2], ir.find_by_id(263395721)
   end
+
+  def test_it_can_find_an_item_by_name
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_equal ir.all[2], ir.find_by_name("Disney scrabble frames")
+  end
+
+  def test_it_can_find_all_items_by_description
+    ir = ItemRepository.new("./data/items.csv")
+    expected = [ir.all[2],ir.all[709],ir.all[848],ir.all[991]]
+    assert_equal expected, ir.find_all_with_description("characters")
+  end
+
+
 end

@@ -2,7 +2,7 @@ class Item
   attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
 
   def initialize(items_hash)
-    @id = items_hash[:id]
+    @id = items_hash[:id].to_i
     @name = items_hash[:name]
     @description = items_hash[:description]
     @unit_price = items_hash[:unit_price]
