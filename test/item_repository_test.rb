@@ -36,36 +36,32 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    skip
     assert_equal @item_1, @ir.find_by_id(1)
     assert_nil @ir.find_by_id(10)
   end
 
   def test_it_can_find_by_name
-    skip
     assert_equal @item_2, @ir.find_by_name("PeN")
     assert_equal @item_2, @ir.find_by_name("pen")
     assert_nil  @ir.find_by_name("steve")
   end
 
   def test_it_can_find_all_with_a_description
-    skip
     assert_equal [], @ir.find_all_with_description("find me")
     assert_equal [@item_2], @ir.find_all_with_description("ink")
     assert_equal [@item_1, @item_2], @ir.find_all_with_description("wrIte thIngS")
   end
 
   def test_can_find_all_items_with_same_price
-    skip
     assert_equal [], @ir.find_all_by_price(50)
     assert_equal [@item_1], @ir.find_all_by_price(10.99)
   end
 
   def test_it_can_find_items_within_range_of_price
-    skip
     assert_equal [], @ir.find_all_by_price_in_range((100..102))
     assert_equal [@item_1, @item_2], @ir.find_all_by_price_in_range((0..40))
     assert_equal [@item_1], @ir.find_all_by_price_in_range((0..13))
+    assert_equal [@item_1], @ir.find_all_by_price_in_range((0.0..13.1))
   end
 
   def test_it_can_find_all_items_with_merchant_id
