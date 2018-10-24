@@ -7,13 +7,11 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new(CSV.read("./data/merchants.csv", headers: true, header_converters: :symbol))
     assert_instance_of MerchantRepository, mr
   end
-
-  def test_it_has_no_merchants
+  
+  def test_it_has_merchants
     mr = MerchantRepository.new(CSV.read("./data/merchants.csv", headers: true, header_converters: :symbol))
-    assert_equal [], mr.merchants
-  end
-
-  def 
+    expected = CSV.read("./data/merchants.csv", headers: true, header_converters: :symbol)
+    assert_equal expected, mr.merchants
   end
 
 end
