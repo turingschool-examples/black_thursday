@@ -17,4 +17,10 @@ class ItemRepositoryTest < Minitest::Test
     ir.items
     assert_equal 1367, ir.all.count
   end
+
+  def test_it_can_find_by_id
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    assert_instance_of Item, ir.find_by_id('263399263')
+  end
 end
