@@ -1,7 +1,7 @@
 require "bigdecimal"
 class Item
   attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
-
+  attr_writer :name, :description, :unit_price, :updated_at
   def initialize(stats)
     @id = stats[:id]
     @name = stats[:name]

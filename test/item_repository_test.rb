@@ -65,13 +65,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_with_merchant_id
-    skip
     assert_equal [], @ir.find_all_by_merchant_id(100)
     assert_equal [@item_1], @ir.find_all_by_merchant_id(2)
   end
 
   def test_it_can_create_a_new_item
-    skip
     new_item = @ir.create({
               :name        => "fountain pen",
               :description => "You can use it to write things fancily",
@@ -85,7 +83,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_items
-    skip
     price = BigDecimal.new(9.99,4)
     @ir.update(1, {
               :name        => "mechanical pencil",
@@ -95,11 +92,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 1, @item_1.id
     assert_equal "mechanical pencil", @item_1.name
     assert_equal price, @item_1.unit_price
-    assert_equal "You can use it to write things thinly", @ir.description
+    assert_equal "You can use it to write things thinly", @item_1.description
   end
 
   def test_it_can_delete_item
-    skip
     @ir.delete(1)
     assert_equal [@item_2], @ir.all
   end
