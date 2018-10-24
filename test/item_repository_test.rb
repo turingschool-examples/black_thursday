@@ -77,4 +77,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected_item.name, @ir.all.last.name
   end
 
+  def test_find_item_by_description
+    assert_equal @item_2, @ir.find_all_with_description("You can use it to mark things")
+  end
+  
 end

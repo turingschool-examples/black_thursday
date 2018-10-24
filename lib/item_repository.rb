@@ -17,7 +17,11 @@ class ItemRepository < Repository
     add_item(Item.new(attributes))
   end
 
-  # find_all_with_description(description) - Jennica
+  def find_all_with_description(description) #- Jennica
+    @collection.find do |collection|
+      collection.description == description
+    end
+  end
   # find_all_by_price(price) - Jennica
   # find_all_by_price_in_range(range) - Justin
   # find_all_by_merchant_id(merchant_id) - Justin
