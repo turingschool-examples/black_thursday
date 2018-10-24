@@ -11,8 +11,8 @@ class ItemRepository
 
   def create_item(csv_items)
     row_objects = CSV.read(csv_items, headers: true, header_converters: :symbol)
-      row_objects.map do |row|
-        @items << Item.new(row)
+      @items = row_objects.map do |row|
+        Item.new(row)
       end
   end
 

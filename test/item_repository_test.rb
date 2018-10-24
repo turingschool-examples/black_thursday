@@ -14,7 +14,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repo_has_items
     i = ItemRepository.new('./test/item_sample.csv')
-    assert_equal 1, i.all
+    assert_equal 2, i.all
   end
 
 end
