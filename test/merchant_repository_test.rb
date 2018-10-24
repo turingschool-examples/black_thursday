@@ -1,25 +1,20 @@
 require './test/test_helper'
-require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
 
   def test_it_exists
-    mr = MerchantRepository.new(CSV.read("./data/merchants.csv", headers: true, header_converters: :symbol))
+    mr = MerchantRepository.new('./test/merchant_sample.csv')
     assert_instance_of MerchantRepository, mr
   end
 
-  def test_it_has_merchants
-    mr = MerchantRepository.new(CSV.read("./data/merchants.csv", headers: true, header_converters: :symbol))
-    expected = CSV.read("./data/merchants.csv", headers: true, header_converters: :symbol)
-    assert_equal expected, mr.merchants
+  def test_it_can_create_merchants
+    mr = MerchantRepository.new("./test/merchant_sample.csv")
+    assert_instance_of Array, mr.create_merchant("./test/merchant_sample.csv")
   end
 
-  def test_it_creates_merchant_array
-    # make an array of merchants
-    
-    # use test file
-
-    assert_equal
+  def test_merchant_repo_has_merchants
+    mr = MerchantRepository.new("./test/merchant_sample.csv")
+    assert_equal 10 , mr.all
   end
 
 end
