@@ -42,9 +42,23 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range)
-
     @all.find_all do |item|
        item.unit_price_to_dollars >= price_range.first && item.unit_price_to_dollars <= price_range.last
     end
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def create(attributes)
+    highest_item = @all.max {|item| item.id}
+    attributes[:id] = highest_item.id + 1
+    @all << Item.new(attributes)
+  end
+
+
+
 end
