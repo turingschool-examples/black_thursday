@@ -49,5 +49,42 @@ class SalesEngineTest < Minitest::Test
     refute_equal 0, se.items.all.size
   end
 
+  def test_that_sales_engine_can_pass_info
+    @merchant_1 = Merchant.new({id: 5, name: 'Steve'})
+    @merchant_2 = Merchant.new({id: 10, name: 'Turing School'})
+    @merchant_3 = Merchant.new({id: 7, name: 'Turk'})
+    @merchants = [@merchant_1, @merchant_2, @merchant_3]
+
+    @item_1 = Item.new({
+              :id          => 1,
+              :name        => "Pencil",
+              :description => "You can use it to write things",
+              :unit_price  => BigDecimal.new(10.99,4),
+              :created_at  => @time,
+              :updated_at  => @time,
+              :merchant_id => 2
+            })
+
+    @item_2 = Item.new({
+              :id          => 2,
+              :name        => "Pen",
+              :description => "You can use it to write things in ink!",
+              :unit_price  => BigDecimal.new(32.99,4),
+              :created_at  => Time.now,
+              :updated_at  => Time.now,
+              :merchant_id => 3
+            })
+    @items = [@item_1, @item_2]
+
+
+    se = SalesEngine.from_csv({
+    :items     => @items,
+    :merchants => @merchants,
+    })
+
+    assert_equal @merchants, se.merchants.all
+    assert_equal @items, se.items.all 
+  end
+
 
 end
