@@ -2,20 +2,18 @@ require './test/test_helper.rb'
 require './lib/repository'
 
 class RepositoryTest < Minitest::Test
-  GenericObject = Struct.new(:name, :id)
-
   def setup
-    @rep = Repository.new
+    @rep = MerchantRepository.new
 
-    @ob1 = GenericObject.new("bob", 4)
-    @ob2 = GenericObject.new("deb", 3)
-    @ob3 = GenericObject.new("john", 2)
-    @ob4 = GenericObject.new("john", 1)
-    @ob5 = GenericObject.new("bill", 5)
+    @ob1 = {name: "bob", id: 4}
+    @ob2 = {name: "deb", id: 3}
+    @ob3 = {name: "john", id: 2}
+    @ob4 = {name: "john",  id: 1}
+    @ob5 = {name: "bill",id: 5}
   end
 
   def test_it_exists
-    assert_instance_of Repository, @rep
+    assert Repository === @rep
   end
 
   def test_all_returns_an_empty_array_by_default
@@ -31,7 +29,7 @@ class RepositoryTest < Minitest::Test
     @rep.create(@ob3)
     @rep.create(@ob4)
     @rep.create(@ob5)
-    assert_equal @ob5, @rep.find_by_id(5)
+    assert_equal @obc5, @rep.find_by_id(5)
   end
 
   def test_find_by_name_returns_nil_if_no_items
@@ -44,7 +42,7 @@ class RepositoryTest < Minitest::Test
     @rep.create(@ob3)
     @rep.create(@ob4)
 
-    assert_equal @ob3, @rep.find_by_name("john")
+    assert_equal @obc3, @rep.find_by_name("john")
   end
 
   def test_find_all_by_name_returns_an_empty_array_if_none_found
@@ -57,7 +55,7 @@ class RepositoryTest < Minitest::Test
     @rep.create(@ob3)
     @rep.create(@ob4)
 
-    assert_equal [@ob3, @ob4], @rep.find_all_by_name("john")
+    assert_equal [@obc3, @obc4], @rep.find_all_by_name("john")
   end
 
   def test_create_adds_instances_to_array
@@ -67,7 +65,7 @@ class RepositoryTest < Minitest::Test
     @rep.create(@ob4)
     @rep.create(@ob5)
 
-    expected = [@ob1, @ob2, @ob3, @ob4, @ob5]
+    expected = [@obc1, @obc2, @obc3, @obc4, @obc5]
 
     assert_equal expected, @rep.all
   end
@@ -81,7 +79,7 @@ class RepositoryTest < Minitest::Test
 
     @rep.delete(5)
 
-    expected = [@ob1, @ob2, @ob3, @ob4]
+    expected = [@obc1, @obc2, @obc3, @obc4]
 
     assert_equal expected, @rep.all
   end

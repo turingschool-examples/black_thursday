@@ -3,6 +3,7 @@ require 'Time'
 
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'sales_analyst'
 
 require 'pry'
 
@@ -48,5 +49,9 @@ class SalesEngine
       id: row[:id].to_i,
       name: row[:name]
     }
+  end
+
+  def analyst
+    SalesAnalyst.new(@items, @merchants)
   end
 end
