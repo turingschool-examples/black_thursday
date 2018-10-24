@@ -49,7 +49,11 @@ class Repository
   def update(id, attributes)
     found_instance = find_by_id(id)
     return nil if not found_instance
-    attributes.delete(:id)
+
+    attributes.select! do |attribute|
+      @attr_whitelist.include?(attribute)
+    end
+
     attributes.each do |key, value|
       found_instance.public_send(key.to_s + '=', value)
     end
