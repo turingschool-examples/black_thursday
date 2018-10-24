@@ -1,11 +1,10 @@
 require 'bigdecimal'
-require_relative 'equivalency'
-class Item
-  include Equivalency
+require_relative 'business_data'
+
+class Item < BusinessData
   attr_reader :id, :created_at, :merchant_id
   attr_accessor :name, :description, :unit_price, :updated_at
 
-  attr_accessor :name, :description, :unit
   def initialize(input_hash)
     @id = input_hash[:id]
     @name = input_hash[:name]
