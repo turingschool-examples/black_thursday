@@ -1,15 +1,17 @@
 require './lib/repository'
 
 class ItemRepository < Repository
-  attr_reader :items
 
   def initialize
-    @items = []
-    @collection = @items
+    @collection = {}
   end
 
   def add_item(item)
-    @items << item
+    @collection[item.id] = item
+  end
+
+  def items
+    @collection.values
   end
 
   def create(attributes)
@@ -18,25 +20,25 @@ class ItemRepository < Repository
   end
 
   def find_all_by_price_in_range(range)
-    @items.select do |item|
+    @collection.values.select do |item|
       item.unit_price >= range.min && item.unit_price <= range.max
     end
   end
 
   def find_all_by_merchant_id(id)
-    @items.select do |item|
+    @collection.values.select do |item|
       item.merchant_id == id
     end
   end
 
-  def find_all_with_description(description) 
-    @collection.find do |collection|
+  def find_all_with_description(description)
+    @collection.values.find do |collection|
       collection.description == description
     end
   end
 
-  def find_all_by_price(price) 
-    @collection.find do |collection|
+  def find_all_by_price(price)
+    @collection.values.find_all do |collection|
       collection.unit_price == price
     end
   end

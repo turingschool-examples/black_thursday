@@ -57,12 +57,12 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_item_by_id
     assert_equal @item_2, @ir.find_by_id(2347892358)
-    assert_equal nil, @ir.find_by_id(2385)
+    assert_nil @ir.find_by_id(2385)
   end
 
   def test_find_item_by_name
     assert_equal @item_2, @ir.find_by_name("Marker")
-    assert_equal nil, @ir.find_by_name("Elephant")
+    assert_nil @ir.find_by_name("Elephant")
   end
 
   def test_it_can_create_new_item_from_attributes
@@ -99,7 +99,8 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def test_it_can_delete_by_id
-    assert_equal [@item_1], @ir.delete(2347892358)
+    @ir.delete(2347892358)
+    assert_equal [@item_1], @ir.all
   end
 
   def test_it_can_find_all_within_a_price_range
@@ -142,7 +143,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    assert_equal @item_2, @ir.find_all_by_price(BigDecimal.new(12.50,4))
+    assert_equal [@item_2], @ir.find_all_by_price(BigDecimal.new(12.50,4))
+    assert_equal [], @ir.find_all_by_price(BigDecimal.new(1289223.50,4))
   end
-  
+
 end
