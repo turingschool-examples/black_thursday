@@ -79,4 +79,9 @@
      item = find_by_id(id)
      @items.delete(item)
    end
+
+   def inspect
+     "#<#{self.class} #{@items.size} rows>"
+   end
+
  end
