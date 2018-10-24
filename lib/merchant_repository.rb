@@ -5,11 +5,11 @@ class MerchantRepository
 
   def initialize(csv_merchants)
     @merchants = []
-
+    create_merchant
   end
 
-  # def create_merchant_array(csv_merchants)
-  #   se.merchants.map do |row|
+  # def create_merchant(csv_merchants)
+  #   merchants.map do |row|
   #     row
   #   end
   # end

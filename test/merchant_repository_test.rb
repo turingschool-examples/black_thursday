@@ -13,12 +13,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], mr.merchants
   end
 
-  # def test_it_creates_merchant_array
-  #   # make an array of merchants
-  #
-  #   # use test file
-  #
-  #   assert_equal
-  # end
+  def test_it_can_create_merchants
+    mr = MerchantRepository.new("./test/merchants_sample.csv")
+    assert_instance_of Merchant, mr.create_merchant(("./test/merchants_sample.csv"))
+  end
+
 
 end
