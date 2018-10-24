@@ -20,6 +20,10 @@ class SalesEngine
     SalesEngine.new(merchants, items)
   end
 
+  def analyst
+    SalesAnalyst.new
+  end
+
   def self.parse_merchants(mr, file_path)
     skip_first_line = true
     CSV.foreach(file_path) do |row|
