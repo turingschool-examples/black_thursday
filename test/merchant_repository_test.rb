@@ -45,6 +45,11 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_delete_by_id
     assert_equal [@merchant_2, @merchant_3], @mr.delete(12334123)
+
+  def test_it_can_update_name_attribute
+    attributes = {name: "Big Ben"}
+    @mr.update(12334145, attributes)
+    assert_equal "Big Ben", @mr.find_by_id(12334145).name
   end
 
 end

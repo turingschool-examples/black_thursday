@@ -27,4 +27,23 @@ class Repository
   #   find_by_id.each
   # end
 
+  def update(id, attributes)
+    thing_to_update = find_by_id(id)
+    thing_to_update.name = attributes[:name] if update_name?(attributes)
+    thing_to_update.description = attributes[:description] if update_description?(attributes)
+    thing_to_update.unit_price = attributes[:unit_price] if update_unit_price?(attributes)
+  end
+
+  def update_name?(attributes)
+    attributes.has_key?(:name)
+  end
+
+  def update_description?(attributes)
+    attributes.has_key?(:description)
+  end
+
+  def update_unit_price?(attributes)
+    attributes.has_key?(:unit_price)
+  end
+
 end

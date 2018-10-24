@@ -17,9 +17,28 @@ class ItemRepository < Repository
     add_item(Item.new(attributes))
   end
 
-  # find_all_with_description(description) - Jennica
-  # find_all_by_price(price) - Jennica
-  # find_all_by_price_in_range(range) - Justin
-  # find_all_by_merchant_id(merchant_id) - Justin
+  def find_all_by_price_in_range(range)
+    @items.select do |item|
+      item.unit_price >= range.min && item.unit_price <= range.max
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    @items.select do |item|
+      item.merchant_id == id
+    end
+  end
+
+  def find_all_with_description(description) 
+    @collection.find do |collection|
+      collection.description == description
+    end
+  end
+
+  def find_all_by_price(price) 
+    @collection.find do |collection|
+      collection.unit_price == price
+    end
+  end
 
 end

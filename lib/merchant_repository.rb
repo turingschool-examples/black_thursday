@@ -1,4 +1,6 @@
-require './lib/repository'
+
+require_relative './repository'
+
 class MerchantRepository < Repository
 
   def initialize
