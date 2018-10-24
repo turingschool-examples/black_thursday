@@ -12,7 +12,8 @@ class SalesEngine
     self.new(info[:items], info[:merchants])
   end
 
-
-
+  def analyst
+    SalesAnalyst.new
+  end
 
 end
