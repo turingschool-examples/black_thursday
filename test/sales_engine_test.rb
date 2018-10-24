@@ -11,6 +11,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_exists
+    assert_instance_of SalesEngine, @se
   end
 
   def test_it_returns_items
