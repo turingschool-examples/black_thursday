@@ -9,24 +9,13 @@ module Repository
       object.id == id
     end
   end
-#
-#   def find_by_id(id)
-#     @items.find do |item|
-#       item.id == id
-#     end
-#   end
-#
-#   def find_by_name(name)
-#     @merchants.find do |merchant|
-#       merchant.name.upcase == name.upcase
-#     end
-#   end
-#
-#   def find_all_by_name(name)
-#     @merchants.find_all do |merchant|
-#       merchant.name.upcase == name.upcase
-#     end
-#   end
+
+
+  def find_all_by_name(name)
+    @repository.find_all do |object|
+      object.name.upcase == name.upcase
+    end
+  end
 #
 #
 #   module Repository
