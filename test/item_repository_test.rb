@@ -23,4 +23,10 @@ class ItemRepositoryTest < Minitest::Test
     ir.items
     assert_instance_of Item, ir.find_by_id('263399263')
   end
+
+  def test_it_can_find_by_name
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    assert_instance_of Item, ir.find_by_name('Oak Bowl')
+  end
 end
