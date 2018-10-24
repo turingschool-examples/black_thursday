@@ -8,7 +8,7 @@ class ItemTest < Minitest::Test
                     :id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
+                    :unit_price  => '1099',
                     :created_at  => @time_now,
                     :updated_at  => @update_time,
                     :merchant_id => 2
@@ -31,7 +31,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_unit_price
-    assert_equal BigDecimal.new(10.99,4), @i.unit_price
+    assert_equal BigDecimal.new(1099), @i.unit_price
   end
 
   def test_it_can_be_created_at_a_certain_time
