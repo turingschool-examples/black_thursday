@@ -14,6 +14,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_array_of_all_items
     ir = ItemRepository.new('./data/items.csv')
+    ir.items
     assert_equal 1367, ir.all.count
   end
 end
