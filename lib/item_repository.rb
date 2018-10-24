@@ -22,4 +22,10 @@ class ItemRepository
   def all
     @collection
   end
+
+  def find_by_id(id)
+    @collection.find do |item|
+      item.id == id
+    end
+  end
 end
