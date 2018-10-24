@@ -1,9 +1,7 @@
 require_relative 'repository'
 require_relative 'merchant'
 class MerchantRepository < Repository
-
   def initialize
-    @count = 0
     @type = Merchant
     super
   end
