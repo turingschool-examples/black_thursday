@@ -3,13 +3,13 @@ require_relative "../lib/item_repository"
 class SalesEngine
   attr_reader :items, :merchants
 
-  def initialize
-    @items = ItemRepository.new([])
-    @merchants = MerchantRepository.new([])
+  def initialize(items, merchants)
+    @items = ItemRepository.new(items)
+    @merchants = MerchantRepository.new(merchants)
   end
 
   def self.from_csv(info)
-    self.new
+    self.new(info[:items], info[:merchants])
   end
 
 

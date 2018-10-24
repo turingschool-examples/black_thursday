@@ -6,7 +6,7 @@ require './lib/sales_engine'
 class SalesEngineTest < Minitest::Test
 
   def test_it_exists
-    sales = SalesEngine.new
+    sales = SalesEngine.new([], [])
 
     assert_instance_of SalesEngine, sales
   end
@@ -83,7 +83,7 @@ class SalesEngineTest < Minitest::Test
     })
 
     assert_equal @merchants, se.merchants.all
-    assert_equal @items, se.items.all 
+    assert_equal @items, se.items.all
   end
 
 
