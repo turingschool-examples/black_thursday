@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/item'
 require 'pry'
+require 'bigdecimal'
 
 class ItemRepository
   attr_reader :all
@@ -34,4 +35,16 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price_in_range(price_range)
+
+    @all.find_all do |item|
+       item.unit_price_to_dollars >= price_range.first && item.unit_price_to_dollars <= price_range.last
+    end
+  end
 end

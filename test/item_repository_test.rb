@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
 require './lib/item_repository'
+require 'bigdecimal'
 
 class ItemRepositoryTest < Minitest::Test
 
@@ -35,8 +36,19 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_items_by_description
     ir = ItemRepository.new("./data/items.csv")
     expected = [ir.all[2],ir.all[709],ir.all[848],ir.all[991]]
+
     assert_equal expected, ir.find_all_with_description("characters")
   end
 
+  def test_it_can_find_all_by_price
+    ir = ItemRepository.new("./data/items.csv")
 
+    assert_equal [ir.all[2]], ir.find_all_by_price(13.50)
+  end
+
+  def test_it_can_find_all_by_price_in_range
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_equal 19, ir.find_all_by_price_in_range(1000.00..1500.00).count
+  end
 end
