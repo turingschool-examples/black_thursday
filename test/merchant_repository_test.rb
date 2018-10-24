@@ -19,24 +19,25 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal "12334123", @mr.all[4].id
       assert_equal 5, @mr.all.size
     end
-    #
-    # def test_it_can_find_merchants_by_id
-    #   assert_nil @mr.find_by_id(24)
-    #   assert_equal @merchant_1, @mr.find_by_id(5)
-    # end
-    #
-    # def test_it_can_find_merchants_by_name
-    #   assert_nil @mr.find_by_name("Frank")
-    #   assert_equal @merchant_1, @mr.find_by_name("Steve")
-    #   assert_equal @merchant_2, @mr.find_by_name("turing school")
-    # end
-    #
-    # def test_it_can_find_all_merchants_by_name_fragment
-    #   assert_equal [], @mr.find_all_by_name("Bob")
-    #   assert_equal [@merchant_2, @merchant_3], @mr.find_all_by_name("Tur")
-    #   assert_equal [@merchant_2, @merchant_3], @mr.find_all_by_name("tur")
-    # end
-    #
+
+    def test_it_can_find_merchants_by_id
+      assert_nil @mr.find_by_id(24)
+      assert_equal @mr.all[4], @mr.find_by_id("12334123")
+    end
+
+    def test_it_can_find_merchants_by_name
+      assert_nil @mr.find_by_name("Frank")
+      assert_equal @mr.all[0] , @mr.find_by_name("Shopin1901")
+      assert_equal @mr.all[4], @mr.find_by_name("Keckenbauer")
+      assert_equal @mr.all[2], @mr.find_by_name("MiNiaTureBikEz")
+    end
+
+    def test_it_can_find_all_merchants_by_name_fragment
+      assert_equal [], @mr.find_all_by_name("Bob")
+      assert_equal [@mr.all[0], @mr.all[2]], @mr.find_all_by_name("in")
+      assert_equal [@mr.all[0], @mr.all[2]], @mr.find_all_by_name("iN")
+    end
+
     # def test_it_creates_new_merchant
     #   new_merchant = @mr.create({name: "Dave"})
     #   assert_equal 11, new_merchant.id
