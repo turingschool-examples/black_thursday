@@ -1,13 +1,13 @@
 require "./test/test_helper"
-
+require 'time'
 class ItemTest < Minitest::Test
   def setup
-    @time = Time.now
+    @time = Time.now.to_s
     @item = Item.new({
               :id          => 1,
               :name        => "Pencil",
               :description => "You can use it to write things",
-              :unit_price  => BigDecimal.new(10.99,4),
+              :unit_price  => 1099,
               :created_at  => @time, #Time.now,
               :updated_at  => @time, #Time.now,
               :merchant_id => 2
@@ -32,15 +32,15 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal BigDecimal.new(10.99,4), @item.unit_price
+    assert_equal BigDecimal.new(10.99, 4), @item.unit_price
   end
 
   def test_it_has_start_date
-    assert_equal @time, @item.created_at
+    assert_equal Time.parse(@time), @item.created_at
   end
 
   def test_it_has_updated_date
-    assert_equal @time, @item.updated_at
+    assert_equal Time.parse(@time), @item.updated_at
   end
 
   def test_it_has_merchant_id

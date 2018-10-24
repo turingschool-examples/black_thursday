@@ -57,13 +57,13 @@ class ItemRepositoryTest < Minitest::Test
 #
   def test_can_find_all_items_with_same_price
     assert_equal [], @ir.find_all_by_price(50)
-    assert_equal [@ir.all[2]], @ir.find_all_by_price(2999)
+    assert_equal [@ir.all[2]], @ir.find_all_by_price(29.99)
   end
 #
   def test_it_can_find_items_within_range_of_price
     assert_equal [], @ir.find_all_by_price_in_range((100..102))
-    assert_equal [@ir.all[0], @ir.all[1]], @ir.find_all_by_price_in_range((0..1400))
-    assert_equal [@ir.all[1]], @ir.find_all_by_price_in_range((0..800))
+    assert_equal [@ir.all[0], @ir.all[1]], @ir.find_all_by_price_in_range((0..14.00))
+    assert_equal [@ir.all[1]], @ir.find_all_by_price_in_range((0..8.00))
   end
 #
   def test_it_can_find_all_items_with_merchant_id
@@ -76,8 +76,8 @@ class ItemRepositoryTest < Minitest::Test
               :name        => "fountain pen",
               :description => "You can use it to write things fancily",
               :unit_price  => BigDecimal.new(10.99,4),
-              :created_at  => @time,
-              :updated_at  => @time,
+              :created_at  => "1993-09-29 11:56:40 UTC",
+              :updated_at  => "1993-09-29 11:56:40 UTC",
               :merchant_id => 2
             })
     assert_equal 263396210, new_item.id

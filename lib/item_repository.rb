@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 require_relative '../lib/item'
  class ItemRepository
 
@@ -62,8 +63,8 @@ require_relative '../lib/item'
      name = attributes[:name]
      description = attributes[:description]
      unit_price = attributes[:unit_price]
-     created_at = Time.now
-     updated_at = Time.now
+     created_at = Time.now.to_s
+     updated_at = Time.now.to_s
      merchant_id = attributes[:merchant_id]
      new_item = Item.new({name: name, description: description, id: new_id,
        unit_price: unit_price, created_at: created_at, updated_at: updated_at,
@@ -73,15 +74,17 @@ require_relative '../lib/item'
    end
 
    def update(id, attributes)
-     item = find_by_id(id)
-     new_name = attributes[:name]
-     new_description = attributes[:description]
-     new_unit_price = attributes[:unit_price]
+     if find_by_id(id)
+       item = find_by_id(id)
+       new_name = attributes[:name]
+       new_description = attributes[:description]
+       new_unit_price = attributes[:unit_price]
 
-     item.name = new_name
-     item.description = new_description
-     item.unit_price = new_unit_price
-     item.updated_at = Time.now
+       item.name = new_name if attributes[:name]
+       item.description = new_description if attributes[:description]
+       item.unit_price = new_unit_price if attributes[:unit_price]
+       item.updated_at = Time.now
+     end
    end
 
    def delete(id)
