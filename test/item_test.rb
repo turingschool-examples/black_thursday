@@ -33,4 +33,19 @@ class ItemTest < Minitest::Test
     assert_equal Time.utc(2016, 01, 11, 11, 49, 05), item.updated_at
     assert_equal 2, item.merchant_id
   end
+
+  def test_it_can_return_unit_price_to_dollars
+    item = Item.new({
+          :id          => 1,
+          :name        => "Pencil",
+          :description => "You can use it to write things",
+          :unit_price  => BigDecimal.new(10.993,4),
+          :created_at  => "2016-01-11 11:46:07 UTC",
+          :updated_at  => "2016-01-11 11:46:07 UTC",
+          :merchant_id => 2
+        })
+    assert_equal 10.99, item.unit_price_to_dollars
+    assert_instance_of Float, item.unit_price_to_dollars
+  end
+
 end

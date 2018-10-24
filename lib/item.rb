@@ -1,11 +1,11 @@
 require 'bigdecimal'
-require './lib/time_conversions'
+require_relative './time_conversions'
 
 class Item
   include TimeConversions
 
-  attr_reader :id, :name, :description, :unit_price,
-              :created_at, :updated_at, :merchant_id
+  attr_reader :id, :created_at, :updated_at, :merchant_id
+  attr_accessor :name, :description, :unit_price
 
   def initialize(info)
     @id = info[:id]
@@ -17,6 +17,8 @@ class Item
     @merchant_id = info[:merchant_id]
   end
 
-  # unit_price_to_dollars 
+  def unit_price_to_dollars
+    @unit_price.to_f.round(2)
+  end
 
 end
