@@ -61,7 +61,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_merchant_id
     ir = ItemRepository.new('./data/items.csv')
     ir.items
-    assert_equal [], ir.find_all_by_merchant_id('12345678')    
-    assert_equal 1, ir.find_all_by_merchant_id('12334185').count
+    assert_equal [], ir.find_all_by_merchant_id('12345678')
+    assert_equal 6, ir.find_all_by_merchant_id('12334185').count
   end
 end
