@@ -1,5 +1,4 @@
 require './lib/repository'
-
 class MerchantRepository < Repository
 
   def initialize
@@ -19,6 +18,14 @@ class MerchantRepository < Repository
     add_merchant(Merchant.new({id: find_new_id, name: name}))
   end
 
-  # find all by name - Maddie
-
+  def find_all_by_name(name)
+     name = name.downcase
+     merchants_by_name = []
+    @merchants.find_all do |merchant|
+      if merchant.name.downcase.include?"sassy"
+      merchants_by_name << merchant
+      end
+    end
+    merchants_by_name
+  end
 end

@@ -40,7 +40,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_name
-    assert_equal [] ,@mr.find_all_by_name
+    assert_equal [@merchant_3] ,@mr.find_all_by_name("sassy")
   end
 
 end
