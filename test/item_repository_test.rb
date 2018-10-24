@@ -41,6 +41,6 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new('./data/items.csv')
     ir.items
     assert_equal [], ir.find_all_with_description('bradleyniedt')
-    assert_equal 1, ir.find_all_with_description('ear wire').count
+    assert_equal 4, ir.find_all_with_description('ear wire').count
   end
 end

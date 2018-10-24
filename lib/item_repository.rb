@@ -41,4 +41,11 @@ class ItemRepository
       item.name.downcase.include?(name_case)
     end
   end
+
+  def find_all_with_description(description)
+    description_case = description.downcase
+    @collection.find_all do |item|
+      item.description.downcase.include?(description_case)
+    end
+  end
 end
