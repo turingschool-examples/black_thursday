@@ -31,6 +31,5 @@ class ItemRepository < Repository
 
   # find_all_with_description(description) - Jennica
   # find_all_by_price(price) - Jennica
-  # find_all_by_merchant_id(merchant_id) - Justin
 
 end

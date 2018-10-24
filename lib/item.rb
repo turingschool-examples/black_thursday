@@ -17,6 +17,8 @@ class Item
     @merchant_id = info[:merchant_id]
   end
 
-  # unit_price_to_dollars 
+  def unit_price_to_dollars
+    @unit_price.to_f.round(2)
+  end
 
 end
