@@ -13,8 +13,8 @@ class MerchantRepository
 
   def create_merchant(csv_merchants)
     row_objects = CSV.read(csv_merchants, headers: true, header_converters: :symbol)
-      row_objects.map do |row|
-        @merchants << Merchant.new(row)
+        @merchants = row_objects.map do |row|
+          Merchant.new(row)
       end
   end
 
@@ -33,5 +33,13 @@ class MerchantRepository
       merchant.name.upcase == name.upcase
     end
   end
+
+  def find_all_by_name(name)
+    @merchants.find_all do |merchant|
+      merchant.name.upcase == name.upcase
+    end
+  end
+
+  
 
 end
