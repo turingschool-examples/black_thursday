@@ -30,4 +30,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, mr.find_by_name("GoldenRayPress")
   end
 
+  def test_it_can_find_all_by_name
+    mr = MerchantRepository.new('./data/merchants.csv')
+    mr.merchants
+    assert_equal [], mr.find_all_by_name("Leprechauns")
+  end
+
 end
