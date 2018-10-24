@@ -11,6 +11,13 @@ class StatisticsTest < Minitest::Test
     @rep = Repository.new
   end
   def test_most_basic_standard_deviation
-    @rep.
+    skip
+    assert_equal 1, @rep.stand_deviation(3,4,5)
+
   end
+  def test_average
+    assert_equal 4, @rep.average(3,4,5)
+  end
+
+
 end
