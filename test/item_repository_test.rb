@@ -19,7 +19,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_finds_by_id
     i = ItemRepository.new('./test/item_sample.csv')
-    item = i.items[1]
+    item = i.repository[1]
     assert_equal item, i.find_by_id(263397059)
   end
 
