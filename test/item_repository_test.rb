@@ -23,4 +23,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal item, i.find_by_id(263397059)
   end
 
+  def test_item_repo_can_find_them_by_name
+    i = ItemRepository.new("./test/item_sample.csv")
+    assert_instance_of Item, i.find_by_name('Etre ailleurs')
+  end
+
 end

@@ -10,19 +10,12 @@ module Repository
     end
   end
 
-
-  def find_all_by_name(name)
-    @repository.find_all do |object|
+  def find_by_name(name)
+    @repository.find do |object|
       object.name.upcase == name.upcase
     end
   end
-#
-#
-#   module Repository
-#   def all
-#     @repository
-#   end
-#
+
 #   def find_by_id(id)
 #     all.find { |object| object.id == id }
 #   end
