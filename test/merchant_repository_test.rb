@@ -39,4 +39,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected_merchant.name, @mr.all.last.name
   end
 
+  def test_it_can_find_all_by_name
+    assert_equal [] ,@mr.find_all_by_name
+  end
+
 end
