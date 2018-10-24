@@ -8,10 +8,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of MerchantRepository, mr
   end
 
-  def test_it_has_merchants
-    skip
+  def test_it_has_no_merchants
     mr = MerchantRepository.new("./test/merchants_sample.csv")
-    assert_equal expected, mr.merchants
+    assert_equal [], mr.merchants
   end
 
   # def test_it_creates_merchant_array
