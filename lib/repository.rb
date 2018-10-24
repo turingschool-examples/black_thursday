@@ -23,7 +23,8 @@ class Repository
     max_id_object.id + 1
   end
 
-  # update(id, attributes) - Justin
-  # delete(id) - Maddie
+  # def delete(id)
+  #   find_by_id.each
+  # end
 
 end
