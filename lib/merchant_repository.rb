@@ -35,12 +35,15 @@ class MerchantRepository
   def create(attributes)
     highest_merchant = @all.max {|merchant| merchant.id}
     attributes[:id] = highest_merchant.id + 1
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
     @all << Merchant.new(attributes)
   end
 
-  def update(id, attribute)
+  def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attribute[:name]
+    merchant.name = attributes[:name]
+    merchant.updated_at = Time.now
   end
 
   def delete(id)

@@ -79,4 +79,18 @@ class ItemRepositoryTest < Minitest::Test
     expected = ir.find_by_id(263567475)
     assert_equal expected, actual
   end
+
+  def test_it_can_update_an_existing_item
+    ir = ItemRepository.new("./data/items.csv")
+    ir.update(263395721, {name: "Shopin2018"})
+    updated_item = ir.all[2]
+    actual = updated_item.name
+    assert_equal "Shopin2018" , actual
+  end
+
+  def test_it_can_delete_an_item
+    mr = ItemRepository.new("./data/items.csv")
+    mr.delete(263395721)
+    assert_nil mr.find_by_id(263395721)
+  end
 end
