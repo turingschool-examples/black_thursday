@@ -8,4 +8,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, ir
   end
 
+  def test_it_can_create_items
+    ir = ItemRepository.new('./data/items_mini.csv')
+    assert_equal 3, ir.items.count
+  end
+
 end

@@ -1,4 +1,8 @@
 class ItemRepository
   def initialize(data)
-  end 
+    @item_data = CSV.open(data, headers: true, header_converters: :symbol)
+    @collection = []
+  end
+
+  
 end
