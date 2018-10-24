@@ -10,7 +10,7 @@ class ItemRepository
                                id: row[:id].to_s,
                                name: row[:name].to_s,
                                description: row[:description].to_s,
-                               unit_price: row[:unit_price].to_s,
+                               unit_price: BigDecimal.new(row[:unit_price].to_s),
                                merchant_id: row[:merchant_id].to_s,
                                created_at: row[:created_at].to_s,
                                updated_at: row[:updated_at].to_s
@@ -51,7 +51,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @collection.find_all do |item|
-      item.unit_price == price
+      item.unit_price == price.to_i
     end
   end
 
@@ -65,5 +65,21 @@ class ItemRepository
     @collection.find_all do |item|
       item.merchant_id == id
     end
+  end
+
+  def create(attributes)
+    highest = @collection.max_by do |item|
+      item.id.to_i
+    end
+    number = (highest.id.to_i + 1).to_s
+    new_item = Item.new({ id: number,
+                  name: attributes[:name],
+                  description: attributes[:description],
+                  unit_price: BigDecimal.new(attributes[:unit_price]),
+                  created_at: attributes[:created_at],
+                  updated_at: attributes[:updated_at],
+                  merchant_id: attributes[:merchant_id]})
+    @collection << new_item
+    new_item
   end
 end

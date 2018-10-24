@@ -2,6 +2,10 @@ require_relative './helper'
 require_relative '../lib/item_repository'
 require_relative '../lib/item'
 class ItemRepositoryTest < Minitest::Test
+  def setup
+    @time_now = Time.now
+    @updated_time = Time.now
+  end
   def test_it_exists
     ir = ItemRepository.new('./data/items.csv')
     assert_instance_of ItemRepository, ir
@@ -66,18 +70,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
 
-    def test_it_can_create_new_item
-      ir = ItemRepository.new('./data/items.csv')
-      ir.items
-      actual = ir.create(
-                          'LeahKathrynMiller',
-                          'fun',
-                          '360',
-                          2016-01-11 11:51:37 UTC,
-                          1993-09-29 11:56:40 UTC,
-                          '73922533'
-                        )
-      assert_instance_of Item, actual
-      assert_equal 1, ir.find_by_name('LeahKathrynMiller').count
-    end
+  def test_it_can_create_new_item
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    actual = ir.create({ name: 'LeahKathrynMiller',
+                          description: 'fun',
+                          unit_price: '360',
+                          created_at: @time_now,
+                          updated_at: @updated_time,
+                          merchant_id: '73922533'
+                          })
+    assert_instance_of Item, actual
+    assert_equal '263567475', ir.all.last.id
+  end
 end
