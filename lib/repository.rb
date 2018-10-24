@@ -11,7 +11,7 @@ class Repository
   end
 
   def find_by_name(name)
-    @collection.find do |collection|
+    @collection.find do |collection| #@collection.values.find
       collection.name == name
     end
   end
