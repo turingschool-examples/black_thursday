@@ -48,8 +48,15 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_update_an_existing_merchant
     mr = MerchantRepository.new("./data/merchants.csv")
     mr.update(12334105, {name: "Shopin2018"})
-    new_shop = mr.merchants_array[0]
-    actual = new_shop.name
+    updated_merchant = mr.merchants_array[0]
+    actual = updated_merchant.name
     assert_equal "Shopin2018" , actual
+    binding.pry 
+  end
+
+  def test_it_can_delete_an_existing_merchant
+    mr = MerchantRepository.new("./data/merchants.csv")
+    mr.delete(12334105)
+    assert_nil mr.find_by_id(12334105)
   end
 end

@@ -46,8 +46,12 @@ class MerchantRepository
   end
 
   def update(id, attribute)
-    existing_merchant = @merchants_array.find_by_id do |merchant|
-      
-    end
+    merchant = find_by_id(id)
+    merchant.name = attribute[:name]
+  end
+
+  def delete(id)
+    merchant = find_by_id(id)
+    @merchants_array.delete(merchant)
   end
 end
