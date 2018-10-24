@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require './lib/time_conversions'
+require_relative './time_conversions'
 
 class Item
   include TimeConversions
