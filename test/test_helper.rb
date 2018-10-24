@@ -2,6 +2,7 @@ require 'simplecov'
 require "pry"
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'time'
 require_relative '../lib/merchant'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
