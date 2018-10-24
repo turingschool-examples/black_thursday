@@ -1,5 +1,5 @@
 require 'csv'
-require 'pry'
+
 
 class MerchantRepository
   attr_reader :merchants_array
@@ -38,11 +38,9 @@ class MerchantRepository
   end
 
   def create(attributes)
-  highest_merchant = @merchants_array.max {|merchant| merchant.id}
-  new_merchant_id = highest_merchant.id + 1
-  attributes[:id] = new_merchant_id
-  new_merchant = Merchant.new(attributes)
-    @merchants_array << new_merchant
+    highest_merchant = @merchants_array.max {|merchant| merchant.id}
+    attributes[:id] = highest_merchant.id + 1
+    @merchants_array << Merchant.new(attributes)
   end
 
   def update(id, attribute)

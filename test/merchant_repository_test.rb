@@ -38,9 +38,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_create_a_new_merchant_in_the_array
     mr = MerchantRepository.new("./data/merchants.csv")
-    m = {:name => "Turing School",
-      :created_at => "2012-09-10", :updated_at => "2012-10-10"}
-    actual = mr.create(m).last
+    data = {:name => "Turing School",
+            :created_at => "2012-09-10",
+            :updated_at => "2012-10-10"}
+    actual = mr.create(data).last
     expected = mr.find_by_id(12337412)
     assert_equal expected , actual
   end
@@ -51,7 +52,6 @@ class MerchantRepositoryTest < Minitest::Test
     updated_merchant = mr.merchants_array[0]
     actual = updated_merchant.name
     assert_equal "Shopin2018" , actual
-    binding.pry 
   end
 
   def test_it_can_delete_an_existing_merchant
