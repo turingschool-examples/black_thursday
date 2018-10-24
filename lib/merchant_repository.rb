@@ -25,7 +25,14 @@ class MerchantRepository
   def find_by_name(name)
     @collection.find do |merchant|
       merchant.name == name
-    end 
+    end
+  end
+
+  def find_all_by_name(name)
+    name_case = name.downcase
+    @collection.find_all do |merchant|
+      merchant.name.downcase.include?(name_case)
+    end
   end
 
 end
