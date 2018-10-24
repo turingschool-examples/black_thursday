@@ -4,16 +4,15 @@ require_relative './repository'
 class MerchantRepository < Repository
 
   def initialize
-    @merchants = []
-    @collection = @merchants
+    @collection = {}
   end
 
   def add_merchant(merchant)
-    @merchants << merchant
+    @collection[merchant.id] = merchant
   end
 
   def merchants
-    @merchants
+    @collection.values
   end
 
   def create(name)
@@ -22,9 +21,9 @@ class MerchantRepository < Repository
 
   def find_all_by_name(name)
      merchants_by_name = []
-    @merchants.find_all do |merchant|
+    @collection.values.find_all do |merchant|
       if merchant.name.downcase.include?(name)
-      merchants_by_name << merchant
+        merchants_by_name << merchant
       end
     end
     merchants_by_name
