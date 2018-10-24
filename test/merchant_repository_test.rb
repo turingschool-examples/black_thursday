@@ -3,10 +3,6 @@ require './test/test_helper'
 class MerchantRepositoryTest < Minitest::Test
 
     def setup
-      # @merchant_1 = Merchant.new({id: 5, name: 'Steve'})
-      # @merchant_2 = Merchant.new({id: 10, name: 'Turing School'})
-      # @merchant_3 = Merchant.new({id: 7, name: 'Turk'})
-      # @merchants = [@merchant_1, @merchant_2, @merchant_3]
       @mr = MerchantRepository.new("./data/merchant_test.csv")
     end
 
@@ -44,25 +40,26 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal "Dave", new_merchant.name
     end
     #
-    # def test_it_can_update_merchant_attributes
-    #   @mr.update(5, {name: "Joe"})
-    #   assert_equal 5, @merchant_1.id
-    #   assert_equal "Joe", @merchant_1.name
-    # end
+    def test_it_can_update_merchant_attributes
+      @mr.update("12334113", {name: "Joe"})
+      assert_equal "12334113", @mr.all[2].id
+      assert_equal "Joe", @mr.all[2].name
+    end
     #
-    # def test_it_can_delete_merchants
-    #   @mr.delete(5)
-    #   refute @mr.all.include? @merchant_1
-    # end
-    #
-    # def test_it_populates_array_from_filepath
-    #   new_merchant = MerchantRepository.new("./data/merchants_test.csv")
-    #
-    #   assert_instance_of Merchant, new_merchant.all[0]
-    #   assert_equal 5, new_merchant.all.size
-    #   assert_equal 12334105, new_merchant.all[0].id
-    #   assert_equal "Candisart", new_merchant.all[1].name
-    #   # assert_equal "2010-03-30", new_merchant.all[2].created_at
-    # end
+    def test_it_can_delete_merchants
+      merchant = @mr.all[0]
+      @mr.delete("12334105")
+      refute @mr.all.include? merchant
+    end
+
+    def test_it_populates_array_from_filepath
+      new_merchant = MerchantRepository.new("./data/merchant_test.csv")
+
+      assert_instance_of Merchant, new_merchant.all[0]
+      assert_equal 5, new_merchant.all.size
+      assert_equal "12334105", new_merchant.all[0].id
+      assert_equal "Candisart", new_merchant.all[1].name
+      # assert_equal "2010-03-30", new_merchant.all[2].created_at
+    end
 
 end
