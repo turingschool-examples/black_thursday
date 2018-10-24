@@ -34,7 +34,9 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repo_can_create_a_merchant
     mr = MerchantRepository.new("./test/merchant_sample.csv")
-    assert_instance_of Merchant , mr.create(12334106)
+    new_merchant = mr.create({:name => 'Duck'})
+    assert_instance_of Merchant, new_merchant
+    assert_equal 12334156, new_merchant.id
   end
 
 end
