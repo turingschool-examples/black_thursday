@@ -29,4 +29,11 @@ class ItemRepositoryTest < Minitest::Test
     ir.items
     assert_instance_of Item, ir.find_by_name('Oak Bowl')
   end
+
+  def test_it_can_find_all_by_name
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    assert_equal [], ir.find_all_by_name('AaronBrooksRoberts')
+    assert_equal 1, ir.find_all_by_name('Oak').count
+  end
 end
