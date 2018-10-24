@@ -26,4 +26,22 @@ class MerchantTest < MiniTest::Test
     assert_equal "Turing School", mer.name
     assert_equal "Steve", mer2.name
   end
+
+  def test_it_has_a_created_at
+    mer1 = Merchant.new({:id => 3, :name => "ranger"})
+    mer2 = Merchant.new({:id => 5, :name => "Steve",
+    :created_at => "2010-12-10", :updated_at => "2010-12-11"})
+
+    assert_equal "2010-12-10", mer2.created_at
+    assert_equal Time.now, mer1.created_at
+  end
+
+  def test_it_has_updated_at
+    mer1 = Merchant.new({:id => 3, :name => "ranger"})
+    mer2 = Merchant.new({:id => 5, :name => "Steve",
+    :created_at => "2010-12-10", :updated_at => "2010-12-11"})
+
+    assert_equal "2010-12-11", mer2.updated_at
+    assert_equal Time.now, mer1.updated_at
+  end
 end
