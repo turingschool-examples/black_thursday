@@ -3,6 +3,7 @@ require_relative 'merchant'
 class MerchantRepository < Repository
   def initialize
     @type = Merchant
+    @attr_whitelist = [:name]
     super
   end
 
