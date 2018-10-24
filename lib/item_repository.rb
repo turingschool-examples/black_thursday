@@ -22,7 +22,13 @@ class ItemRepository < Repository
       collection.description == description
     end
   end
-  # find_all_by_price(price) - Jennica
+
+  def find_all_by_price(price) #- Jennica
+    @collection.find do |collection|
+      collection.unit_price == price
+    end
+  end
+
   # find_all_by_price_in_range(range) - Justin
   # find_all_by_merchant_id(merchant_id) - Justin
 

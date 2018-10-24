@@ -80,5 +80,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_item_by_description
     assert_equal @item_2, @ir.find_all_with_description("You can use it to mark things")
   end
-  
+
+  def test_find_all_by_price
+    assert_equal @item_2, @ir.find_all_by_price(BigDecimal.new(12.50,4))
+  end
 end
