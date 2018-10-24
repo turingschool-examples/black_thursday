@@ -6,13 +6,13 @@ class MerchantRepository
 
   attr_reader :merchants
 
-  def initialize(csv_merchant_path)
+  def initialize(csv_merchants)
     @merchants = []
-    create_merchant(csv_merchant_path)
+    create_merchant(csv_merchants)
   end
 
-  def create_merchant(csv_merchant_path)
-    row_objects = CSV.read(csv_merchant_path, headers: true, header_converters: :symbol)
+  def create_merchant(csv_merchants)
+    row_objects = CSV.read(csv_merchants, headers: true, header_converters: :symbol)
       row_objects.map do |row|
         @merchants << Merchant.new(row)
       end
@@ -24,9 +24,10 @@ class MerchantRepository
 
   def find_by_id(id)
     @merchants.find do |merchant|
-    merchant.id == id
+      merchant.id == id
     end
   end
+
 
 
 
