@@ -11,4 +11,10 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new('./data/merchants.csv')
     assert_equal 475, mr.merchants.count
   end
+
+  def test_can_return_array_of_all_merchant_instances
+    mr = MerchantRepository.new('./data/merchants.csv')
+    mr.merchants
+    assert_equal 475, mr.all.count
+  end
 end
