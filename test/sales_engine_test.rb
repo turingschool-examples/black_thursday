@@ -30,10 +30,24 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_merchant_repo_contains_merchants
-    skip
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+
+    refute_equal 0, se.merchants.all.size
+
   end
 
   def test_that_item_repo_contains_items
     skip
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+
+    refute_equal 0, se.items.all.size
   end
+
+
 end
