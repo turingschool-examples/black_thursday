@@ -15,4 +15,11 @@ class ItemRepository
       Item.new(raw_item.to_h)
     end
   end
+
+  def find_by_id(item_id)
+    @all.find do |item|
+      item.id == item_id
+    end
+  end
+
 end
