@@ -117,6 +117,7 @@ class ItemRepositoryTest < Minitest::Test
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 983406
         })
+    @ir.add_item(item_5)
     expected = [@item_2, item_5]
     assert_equal expected, @ir.find_all_by_merchant_id(983406)
     assert_equal [], @ir.find_all_by_merchant_id(2463)

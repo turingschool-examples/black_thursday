@@ -23,9 +23,14 @@ class ItemRepository < Repository
     end
   end
 
+  def find_all_by_merchant_id(id)
+    @items.select do |item|
+      item.merchant_id == id
+    end
+  end
+
   # find_all_with_description(description) - Jennica
   # find_all_by_price(price) - Jennica
-  # find_all_by_price_in_range(range) - Justin
   # find_all_by_merchant_id(merchant_id) - Justin
 
 end
