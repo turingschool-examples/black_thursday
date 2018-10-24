@@ -17,7 +17,6 @@ class ItemRepository < Repository
   end
 
   def find_all_by_price(price)
-    #require 'pry';binding.pry
     @instances.find_all {|item| item.unit_price.to_f == price.to_f}
   end
 
