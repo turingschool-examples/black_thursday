@@ -9,7 +9,7 @@ class Item
     @unit_price = BigDecimal.new(stats[:unit_price],4)
     @created_at = stats[:created_at]
     @updated_at = stats[:updated_at]
-    @merchant_id = stats[:merchant_id]
+    @merchant_id = stats[:merchant_id].to_i
   end
 
   def unit_price_to_dollars

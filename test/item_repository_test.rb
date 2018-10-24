@@ -66,39 +66,40 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [@ir.all[1]], @ir.find_all_by_price_in_range((0..800))
   end
 #
-#   def test_it_can_find_all_items_with_merchant_id
-#     assert_equal [], @ir.find_all_by_merchant_id(100)
-#     assert_equal [@item_1], @ir.find_all_by_merchant_id(2)
-#   end
+  def test_it_can_find_all_items_with_merchant_id
+    assert_equal [], @ir.find_all_by_merchant_id(100)
+    assert_equal [@ir.all[0], @ir.all[1]], @ir.find_all_by_merchant_id(12334185)
+  end
 #
-#   def test_it_can_create_a_new_item
-#     new_item = @ir.create({
-#               :name        => "fountain pen",
-#               :description => "You can use it to write things fancily",
-#               :unit_price  => BigDecimal.new(10.99,4),
-#               :created_at  => @time,
-#               :updated_at  => @time,
-#               :merchant_id => 2
-#             })
-#     assert_equal 3, new_item.id
-#     assert_equal "fountain pen", new_item.name
-#   end
+  def test_it_can_create_a_new_item
+    new_item = @ir.create({
+              :name        => "fountain pen",
+              :description => "You can use it to write things fancily",
+              :unit_price  => BigDecimal.new(10.99,4),
+              :created_at  => @time,
+              :updated_at  => @time,
+              :merchant_id => 2
+            })
+    assert_equal 263396210, new_item.id
+    assert_equal "fountain pen", new_item.name
+  end
 #
-#   def test_it_can_update_items
-#     price = BigDecimal.new(9.99,4)
-#     @ir.update(1, {
-#               :name        => "mechanical pencil",
-#               :description => "You can use it to write things thinly",
-#               :unit_price  => price
-#               })
-#     assert_equal 1, @item_1.id
-#     assert_equal "mechanical pencil", @item_1.name
-#     assert_equal price, @item_1.unit_price
-#     assert_equal "You can use it to write things thinly", @item_1.description
-#   end
+  def test_it_can_update_items
+    price = BigDecimal.new(9.99,4)
+    @ir.update(263396209, {
+              :name        => "mechanical pencil",
+              :description => "You can use it to write things thinly",
+              :unit_price  => price
+              })
+    assert_equal 263396209, @ir.all[2].id
+    assert_equal "mechanical pencil", @ir.all[2].name
+    assert_equal price, @ir.all[2].unit_price
+    assert_equal "You can use it to write things thinly", @ir.all[2].description
+  end
 #
-#   def test_it_can_delete_item
-#     @ir.delete(1)
-#     assert_equal [@item_2], @ir.all
-#   end
+  def test_it_can_delete_item
+    item = @ir.all[2]
+    @ir.delete(263396209)
+    refute @ir.all.include?(item)
+  end
 end
