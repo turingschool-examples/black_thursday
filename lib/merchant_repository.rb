@@ -11,4 +11,9 @@ class MerchantRepository
     end
     @collection
   end
+
+  def all
+    @collection
+  end
+
 end
