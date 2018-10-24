@@ -29,7 +29,16 @@ class ItemRepository < Repository
     end
   end
 
-  # find_all_with_description(description) - Jennica
-  # find_all_by_price(price) - Jennica
+  def find_all_with_description(description) 
+    @collection.find do |collection|
+      collection.description == description
+    end
+  end
+
+  def find_all_by_price(price) 
+    @collection.find do |collection|
+      collection.unit_price == price
+    end
+  end
 
 end
