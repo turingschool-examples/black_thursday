@@ -43,6 +43,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [@merchant_3] ,@mr.find_all_by_name("sassy")
   end
 
+
   def test_it_can_delete_by_id
     @mr.delete(12334123)
     assert_equal [@merchant_2, @merchant_3], @mr.all

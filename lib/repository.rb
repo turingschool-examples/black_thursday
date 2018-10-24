@@ -9,8 +9,10 @@ class Repository
   end
 
   def find_by_name(name)
+
     @collection.values.find do |collection|
       collection.name.downcase == name.downcase
+
     end
   end
 
