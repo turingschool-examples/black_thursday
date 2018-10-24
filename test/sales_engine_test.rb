@@ -66,6 +66,12 @@ class SalesEngineTest < Minitest::Test
     assert_equal item_2.updated_at, se.items.all[1].updated_at
     assert_equal item_2.merchant_id, se.items.all[1].merchant_id
   end
-
-
+  def test_it_can_create_analyst
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    sa = sales_engine.analyst
+    assert_instance_of SalesAnalyst, sa
+  end
 end

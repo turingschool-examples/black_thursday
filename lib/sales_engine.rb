@@ -3,6 +3,7 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './merchant'
 require_relative './item'
+require_relative './sales_analyst'
 
 class SalesEngine
   attr_reader :merchants, :items
@@ -18,6 +19,10 @@ class SalesEngine
     merchants = self.parse_merchants(mr, file_paths[:merchants])
     items = self.parse_items(ir, file_paths[:items])
     SalesEngine.new(merchants, items)
+  end
+
+  def analyst
+    SalesAnalyst.new
   end
 
   def self.parse_merchants(mr, file_path)
