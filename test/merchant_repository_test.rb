@@ -45,4 +45,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "12337412", mr.all.last.id
   end
 
+  def test_it_can_update_merchant_attributes
+    mr = MerchantRepository.new('./data/merchants.csv')
+    mr.merchants
+    mr.update("12334135", "SilverSunPress") 
+    assert_equal "SilverSunPress", mr.find_by_id("12334135").name
+  end
+
 end
