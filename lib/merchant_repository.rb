@@ -1,11 +1,10 @@
 require 'csv'
-
-
+require './lib/merchant'
 class MerchantRepository
-  attr_reader :merchants_array
+  attr_reader :all
 
   def initialize(file_path)
-    @merchants_array = from_csv(file_path)
+    @all = from_csv(file_path)
   end
 
   def from_csv(file_path)
@@ -15,41 +14,40 @@ class MerchantRepository
     end
   end
 
-  def all
-    @merchants_array
-  end
-
   def find_by_id(merchant_id)
-    @merchants_array.find do |merchant|
+    @all.find do |merchant|
       merchant.id == merchant_id
     end
   end
 
   def find_by_name(merchant_name)
-    @merchants_array.find do |merchant|
+    @all.find do |merchant|
       merchant.name.downcase == merchant_name.downcase
     end
   end
 
   def find_all_by_name(merchant_name)
-    @merchants_array.find_all do |merchant|
+    @all.find_all do |merchant|
       merchant.name.downcase.include?(merchant_name.downcase)
     end
   end
 
   def create(attributes)
-    highest_merchant = @merchants_array.max {|merchant| merchant.id}
+    highest_merchant = @all.max {|merchant| merchant.id}
     attributes[:id] = highest_merchant.id + 1
-    @merchants_array << Merchant.new(attributes)
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
+    @all << Merchant.new(attributes)
   end
 
-  def update(id, attribute)
+  def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attribute[:name]
+    merchant.name = attributes[:name]
+    merchant.updated_at = Time.now
   end
 
   def delete(id)
     merchant = find_by_id(id)
-    @merchants_array.delete(merchant)
+    @all.delete(merchant)
   end
 end

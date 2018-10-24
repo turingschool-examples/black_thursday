@@ -2,13 +2,13 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/items'
+require './lib/item'
 require 'bigdecimal'
 require 'time'
 
-class ItemsTest < Minitest::Test
+class ItemTest < Minitest::Test
   def test_items_exists
-    i = Items.new({
+    i = Item.new({
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -17,11 +17,11 @@ class ItemsTest < Minitest::Test
       :updated_at  => Time.now,
       :merchant_id => 2
     })
-    assert_instance_of Items, i
+    assert_instance_of Item, i
   end
 
   def test_check_that_items_has_attributes
-    i = Items.new({
+    i = Item.new({
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -40,7 +40,7 @@ class ItemsTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars_returns_float
-    i = Items.new({
+    i = Item.new({
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
