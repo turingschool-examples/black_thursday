@@ -32,7 +32,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_items
-    skip
     assert_equal @items, @ir.all
   end
 
