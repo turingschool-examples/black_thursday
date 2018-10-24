@@ -10,7 +10,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     @item_1 = {
       :id          => 1,
-      :customer_id => 7,
+      :customer_id => 3,
       :merchant_id => 8,
       :status      => "pending",
       :created_at  => @now,
@@ -19,7 +19,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     @item_2 = {
       :id          => 2,
-      :customer_id => 7,
+      :customer_id => 6,
       :merchant_id => 8,
       :status      => "pending",
       :created_at  => @now,
@@ -59,12 +59,27 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_creates_invoice_instances
     assert_empty @ir.instances
 
-    create_items
+    create_invoices
 
     expected = [Invoice.new(@item_1), Invoice.new(@item_2), Invoice.new(@item_3), Invoice.new(@item_4)]
     result = @ir.instances
 
     result.each_with_index {|invoice, index| assert_equal invoice, expected[index]}
     assert_equal 4, @ir.instances.count
+  end
+
+  def test_find_all_by_customer_id_returns_empty_array_if_none_found
+    create_invoices
+
+    assert_equal [], @ir.find_all_by_customer_id(9)
+  end
+
+  def test_find_all_by_customer_id_returns_matches
+    create_invoices
+
+    expected = [Invoice.new(@item_3), Invoice.new(@item_4)]
+    result = @ir.find_all_by_customer_id(9)
+
+    result.each_with_index {|invoice, index| assert_equal invoice, expected[index]}
   end
 end
