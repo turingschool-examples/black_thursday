@@ -1,6 +1,8 @@
 require './test/test_helper'
+require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
+
   def setup
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
