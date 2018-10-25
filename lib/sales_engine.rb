@@ -33,7 +33,7 @@ class SalesEngine
 
   def create_merchants
     @merchant_data.each do |row|
-      @merchants_collection << Merchant.new({id: "#{row[:id]}", name: "#{row[:name]}"})
+      @merchants_collection << Merchant.new({id: row[:id].to_i, name: "#{row[:name]}"})
     end
     @merchants_collection
   end

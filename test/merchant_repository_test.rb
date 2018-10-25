@@ -20,7 +20,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_id
-    assert_instance_of Merchant, @mr.find_by_id('12334123')
+    assert_instance_of Merchant, @mr.find_by_id(12335971)
   end
 
   def test_it_can_find_by_name
@@ -33,7 +33,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_merchant_with_attribute
-    assert_instance_of Merchant, @mr.create('SalsSidekicks')
+    assert_instance_of Merchant, @mr.create({name:'SalsSidekicks'})
     assert_equal 'SalsSidekicks', @mr.all.last.name
     assert_equal '12337412', @mr.all.last.id
   end
