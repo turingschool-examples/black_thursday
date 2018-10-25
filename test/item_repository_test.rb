@@ -138,7 +138,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_item_by_description
-    assert_equal @item_2, @ir.find_all_with_description("You can use it to mark things")
+    assert_equal [@item_2], @ir.find_all_with_description("You can use it to mark things")
   end
 
   def test_find_all_by_price
