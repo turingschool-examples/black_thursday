@@ -104,7 +104,7 @@ class SalesEngine
   def self.build_invoice_item_from_row(row)
     {
       id: row[:id].to_i,
-      item_id: row[:customer_id].to_i,
+      item_id: row[:item_id].to_i,
       invoice_id: row[:invoice_id].to_i,
       quantity: row[:quantity].to_i,
       unit_price: BigDecimal.new(row[:unit_price]),
