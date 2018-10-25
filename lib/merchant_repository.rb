@@ -1,16 +1,12 @@
 require_relative '../lib/merchant'
+require 'csv'
 class MerchantRepository
 
   def initialize(data)
-    @merchant_data  = CSV.open(data, headers: true, header_converters: :symbol)
-    @collection = []
+    @collection = data
   end
 
-  def merchants
-    @merchant_data.each do |row|
-      @collection << Merchant.new({id: "#{row[:id]}", name: "#{row[:name]}"})
-    end
-    @collection
+  def inspect
   end
 
   def all
@@ -24,6 +20,7 @@ class MerchantRepository
   end
 
   def find_by_name(name)
+    require 'pry'; binding.pry 
     @collection.find do |merchant|
       merchant.name == name
     end
