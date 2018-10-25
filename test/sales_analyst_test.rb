@@ -9,6 +9,10 @@ class SalesAnalystTest < Minitest::Test
     })
     @sales_analyst = @sales_engine.analyst
     @merchant_1 = @sales_engine.merchants.all[0]
+    @merchant_2 = @sales_engine.merchants.all[1]
+    @merchant_3 = @sales_engine.merchants.all[2]
+    @merchant_4 = @sales_engine.merchants.all[3]
+    @merchant_5 = @sales_engine.merchants.all[4]
   end
 
   def test_it_exists
@@ -103,7 +107,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_num_items_per_merchant
-    assert_equal [1, 0, 0, 0, 0], @sales_analyst.num_items_for_each_merchant
+    expected = {@merchant_1 => 1, @merchant_2 => 0, @merchant_3 => 0,
+                @merchant_4 => 0, @merchant_5 => 0}
+    assert_equal expected, @sales_analyst.num_items_for_each_merchant
   end
 
   def test_it_can_calculate_average_items_per_merchant_std_deviation
