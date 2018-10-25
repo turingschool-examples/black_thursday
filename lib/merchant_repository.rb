@@ -1,15 +1,12 @@
+require_relative '../lib/merchant'
+require 'csv'
 class MerchantRepository
 
   def initialize(data)
-    @merchant_data  = CSV.open(data, headers: true, header_converters: :symbol)
-    @collection = []
+    @collection = data
   end
 
-  def merchants
-    @merchant_data.each do |row|
-      @collection << Merchant.new({id: "#{row[:id]}", name: "#{row[:name]}"})
-    end
-    @collection
+  def inspect
   end
 
   def all
@@ -23,8 +20,9 @@ class MerchantRepository
   end
 
   def find_by_name(name)
+    name_case = name.downcase
     @collection.find do |merchant|
-      merchant.name == name
+      merchant.name.downcase.include?(name_case)
     end
   end
 
@@ -37,16 +35,19 @@ class MerchantRepository
 
   def create(attribute)
     highest = @collection.max_by do |merchant|
-      merchant.id.to_i
+      merchant.id
     end
-    number = (highest.id.to_i + 1).to_s
-    new_merchant = Merchant.new({ id: number, name: attribute })
+    number = highest.id + 1
+    new_merchant = Merchant.new({ id: number, name: attribute[:name] })
     @collection << new_merchant
     new_merchant
   end
 
-  def update(id, attribute)
-    find_by_id(id).name = attribute
+  def update(id, data)
+    if find_by_id(id) == nil
+    else
+        find_by_id(id).name = data[:name]
+    end
   end
 
   def delete(id)

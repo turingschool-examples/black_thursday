@@ -12,13 +12,19 @@ class Item
     @id = item_info[:id]
     @name = item_info[:name]
     @description = item_info[:description]
-    @unit_price = BigDecimal.new(item_info[:unit_price])
+    @unit_price = big_decimal_converter(item_info[:unit_price])
     @created_at = item_info[:created_at]
     @updated_at = item_info[:updated_at]
     @merchant_id = item_info[:merchant_id]
   end
 
   def unit_price_to_dollars
-    (@unit_price / 100).to_f
+    @unit_price.to_f
+  end
+
+  def big_decimal_converter(price)
+    significant_digits = price.to_s.length
+    number = price.to_f / 100
+    BigDecimal.new(number, significant_digits)
   end
 end
