@@ -4,9 +4,12 @@ require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    se = SalesEngine.from_csv({
-      items: './data/items.csv',
-      merchants: './data/merchants.csv'})
+    se = SalesEngine.from_csv(
+      {#changed
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      }
+    )
     @sa = se.analyst
   end
 
@@ -37,4 +40,14 @@ class SalesAnalystTest < Minitest::Test
     skip
     assert_equal 5, @sa.golden_items.length
   end
+
+  #Iteration 2
+
+  def test_average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+  end
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, average_invoices_per_merchant_standard_deviation
+  end
+  
 end
