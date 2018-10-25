@@ -65,7 +65,9 @@ class SalesEngine
   def self.build_merchant_args_from_row(row)
     {
       id: row[:id].to_i,
-      name: row[:name]
+      name: row[:name],
+      created_at: row[:created_at],
+      updated_at: row[:updated_at]
     }
   end
 

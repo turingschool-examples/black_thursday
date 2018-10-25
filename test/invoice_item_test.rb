@@ -1,6 +1,5 @@
 require './lib/invoice_item'
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require 'bigdecimal'
 
 class InvoiceItemTest < Minitest::Test

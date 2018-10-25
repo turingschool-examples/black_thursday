@@ -9,6 +9,7 @@ class SalesAnalystTest < Minitest::Test
       merchants: './data/merchants.csv',
       invoices: './data/invoices.csv',
       invoice_items: './data/invoice_items.csv'
+
     })
     @sa = se.analyst
   end
@@ -71,5 +72,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_total_revenue_by_date
     assert_equal 109080, @sa.total_revenue_by_date(Time.parse("2000-04-26"))
+
   end
 end
