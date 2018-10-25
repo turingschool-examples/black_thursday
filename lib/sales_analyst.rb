@@ -2,18 +2,21 @@ require_relative 'statistics'
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices
   include Statistics
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, invoices, invoice_items)
     @items = items
     @merchants = merchants
     @invoices = invoices
+    @invoice_items = invoice_items
   end
 
   def average_type_per_type(type_1, type_2)
     (type_1.all.size.to_f / type_2.all.size).round(2)
   end
+
   def average_items_per_merchant
     average_type_per_type(@items, @merchants)
   end
+
   def average_invoices_per_merchant
     average_type_per_type(@invoices, @merchants)
   end
@@ -99,5 +102,84 @@ class SalesAnalyst
   def days_with_count
     days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
     days.map{|day| [day, each_invoice_day.count(day)]}.to_h
+  end
+
+  def total_revenue_by_date(date)
+    sum = 0
+    invoices = @invoices.find_all_by_date(date)
+
+    invoices.each do |invoice|
+      invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
+      #binding.pry
+      invoice_items.each do |invoice_item|
+        sum += invoice_item.revenue
+      end
+    end
+    sum
+  end
+
+  def top_revenue_earners(x=20)
+    out = []
+    return
+    merchant_ids = @merchants.all.map do |merchant|
+      merchant.id
+    end
+
+    x.times do
+      top = 0
+      add = false
+      #binding.pry
+      merchant_ids.each do |merchant_id|
+        invoices = @invoices.find_all_by_merchant_id(merchant_id)
+        invoices.each do |invoice|
+          invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
+          merchant_revenue = 0
+          invoice_items.each do |invoice_item|
+            merchant_revenue += invoice_item.unit_price * invoice_item.quantity
+          end
+          if merchant_revenue > top
+            top = merchant_revenue
+            add = true
+          end
+        end
+        out << @merchants.find_all_by_merchant_id(merchant_id) if add
+      end
+    end
+  end
+
+  def merchants_ranked_by_revenue
+    @merchants.all.sort do |merchant|
+      revenue_by_merchant(merchant.id)
+    end
+  end
+
+  def merchants_with_pending_invoices
+w
+  end
+
+  def merchants_with_only_one_item
+
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+
+    sum = 0
+    invoices.each do |invoice|
+      invoice_items = @invoice
+      sum += invoice.unit_price * invoice.quantity
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+
+  end
+
+  def best_item_for_merchant(merchant_id)
+
   end
 end
