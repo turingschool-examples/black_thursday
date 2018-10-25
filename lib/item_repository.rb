@@ -1,3 +1,4 @@
+require 'time'
 class ItemRepository
   def initialize(data)
     @item_data = CSV.open(data, headers: true, header_converters: :symbol)
@@ -87,6 +88,6 @@ class ItemRepository
     find_by_id(id).name = attributes[:name]
     find_by_id(id).description = attributes[:description]
     find_by_id(id).unit_price = attributes[:unit_price]
-  end
-
+    find_by_id(id).updated_at = Time.now
+  end 
 end

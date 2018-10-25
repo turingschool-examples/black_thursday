@@ -4,9 +4,9 @@ class Item
   attr_accessor :id,
                 :name,
                 :description,
-                :unit_price
+                :unit_price,
+                :updated_at
   attr_reader :created_at,
-              :updated_at,
               :merchant_id
   def initialize(item_info)
     @id = item_info[:id]

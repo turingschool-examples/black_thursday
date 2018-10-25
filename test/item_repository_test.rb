@@ -90,8 +90,25 @@ class ItemRepositoryTest < Minitest::Test
     ir.update('263397313', { name: 'Super Cool Stuff',
                              description: 'This is really cool',
                              unit_price: '1000000'})
+    time = Time.now
     assert_equal 'Super Cool Stuff', ir.find_by_id('263397313').name
     assert_equal 'This is really cool', ir.find_by_id('263397313').description
     assert_equal '1000000', ir.find_by_id('263397313').unit_price
+    # assert_equal time, ir.find_by_id('263397313').updated_at
+    #ask instructors for clarification on how to test Time.now
+  end
+
+  def test_it_can_delete_an_item
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    actual = ir.create({ name: 'LeahKathrynMiller',
+                          description: 'fun',
+                          unit_price: '360',
+                          created_at: @time_now,
+                          updated_at: @updated_time,
+                          merchant_id: '73922533'
+                          })
+    ir.delete('263567475')
+    refute ir.all.any? { |item| item.id == '263567475' }
   end
 end
