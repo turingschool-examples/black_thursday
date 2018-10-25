@@ -33,4 +33,10 @@ class ItemRepositoryTest < Minitest::Test
    assert_equal [], i.find_all_with_description('Disney glitter frames')
   end
 
+  def test_it_can_find_all_by_price
+   i = ItemRepository.new("./test/item_sample.csv")
+   assert_instance_of Item, i.find_all_by_price('1200').first
+   assert_equal 1200, i.find_all_by_price('1200').first.unit_price.to_i
+  end
+
 end
