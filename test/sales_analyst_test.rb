@@ -103,4 +103,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [item_5], sa.golden_items
   end
 
+  def test_merchants_with_high_item_count
+    assert_equal 52, @sa.merchants_with_high_item_count.length
+  end
+
 end
