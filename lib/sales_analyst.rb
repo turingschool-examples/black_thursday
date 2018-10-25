@@ -1,6 +1,6 @@
 class SalesAnalyst
   def initialize(sales_engine)
-    @sales_engine = sales_engine # maybe inheritance instead? let's change it.............
+    @sales_engine = sales_engine
     @item_repo = sales_engine.items
     @merchant_repo = sales_engine.merchants
   end
@@ -15,13 +15,15 @@ class SalesAnalyst
     @merchant_repo.all.size
   end
 
-
   def average_items_per_merchant
     items = num_items_for_each_merchant
     (sum(items).to_f / count_of_merchants).round(2)
   end
 
-
+  def average_items_per_merchant_standard_deviation
+    items_per_merchant = num_items_for_each_merchant
+    std_dev(items_per_merchant)
+  end
 
   def average_item_price_for_merchant(id)
     list = @item_repo.find_all_by_merchant_id(id)
@@ -34,33 +36,29 @@ class SalesAnalyst
     total / count
   end
 
-  def sum(array)
-    array.inject(0) do |things, stuff|
-      things + stuff
+  # maths
+
+  def sum(nums)
+    nums.inject(0) do |running_count, item|
+      running_count + item
     end
   end
 
-  def mean(array)
-    ar_sum = array.inject(0) do |things, stuff|
-      things + stuff
+  def mean(nums)
+    ar_sum = nums.inject(0) do |running_count, item|
+      running_count + item
     end
-
-    avg = ar_sum.to_f / array.length
+    avg = ar_sum.to_f / nums.length
   end
 
-  def std_dev(array)
-    mean = mean(array)
-
-    array = array.map do |num|
+  def std_dev(nums)
+    mean = mean(nums)
+    nums = nums.map do |num|
       (num - mean) * (num - mean)
     end
-
-    array_sum = sum(array)
-
-    variance = array_sum.to_f / (array.length - 1)
-
+    nums_sum = sum(nums)
+    variance = nums_sum.to_f / (nums.length - 1)
     deviation = Math.sqrt(variance).round(2)
-
   end
 
 
