@@ -10,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_exists
-    sales_analyst = SalesAnalyst.new
+    sales_analyst = SalesAnalyst.new(@sales_engine)
     assert_instance_of SalesAnalyst, sales_analyst
   end
 
@@ -61,7 +61,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_the_average_number_of_items_per_merchant
-    sales_analyst = SalesAnalyst.new
+    sales_analyst = SalesAnalyst.new(@sales_engine)
     items = @sales_engine.items
     merchants = @sales_engine.merchants
     # merchants.all.each do |merchant|

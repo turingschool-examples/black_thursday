@@ -2,7 +2,7 @@ require "bigdecimal"
 require 'time'
 class Item
   attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
-  attr_writer :name, :description, :unit_price, :updated_at
+  attr_accessor :name, :description, :unit_price, :updated_at
   def initialize(stats)
     @id = stats[:id].to_i
     @name = stats[:name]
@@ -23,5 +23,7 @@ class Item
     BigDecimal.new(price, figures)
   end
 
-
+  def name=(new_name)
+    @name = new_name
+  end
 end

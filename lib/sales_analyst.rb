@@ -1,9 +1,8 @@
 class SalesAnalyst
-  def initialize # maybe inheritance instead? let's change it.............
-    @sales_engine = SalesEngine.from_csv({
-    :items     => "./data/item_test.csv",
-    :merchants => "./data/merchant_test.csv",
-    })
+  def initialize(sales_engine)
+    @sales_engine = sales_engine # maybe inheritance instead? let's change it.............
+    @item_repo = sales_engine.items
+    @merchant_repo = sales_engine.merchants
   end
 
   def average_items_per_merchant
@@ -27,7 +26,7 @@ class SalesAnalyst
   # end
 
   def average_item_price_for_merchant(id)
-    list = @items.find_all_by_merchant_id(id)
+    list = @item_repo.find_all_by_merchant_id(id)
     total = 0
     count = 0
     list.each do |item|
