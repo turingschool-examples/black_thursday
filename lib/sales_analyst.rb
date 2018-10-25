@@ -1,4 +1,10 @@
 class SalesAnalyst
+  include Statistics
+
+  def initialize(input)
+    @merchants = input[:merchants]
+    @items = input[:items]
+  end
 
 end
 # sales_analyst.average_items_per_merchant # => 2.88 ~Maddie
