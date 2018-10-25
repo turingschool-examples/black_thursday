@@ -8,11 +8,11 @@ class SalesEngine
   def initialize(items, merchants)
     @items = ItemRepository.new(items)
     @merchants = MerchantRepository.new(merchants)
-    @analyst = SalesAnalyst.new
+    @analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(info)
-    self.new(info[:items], info[:merchants]) 
+    self.new(info[:items], info[:merchants])
   end
 
 
