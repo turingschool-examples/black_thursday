@@ -1,9 +1,10 @@
 require_relative 'statistics'
 class SalesAnalyst
   include Statistics
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def average_items_per_merchant
@@ -43,7 +44,6 @@ class SalesAnalyst
       item.unit_price > average_item_price + item_prices_std_dev * 2
     end
   end
-
 
   def num_items_of_merchant(merchant)
     @items.find_all_by_merchant_id(merchant.id).size
