@@ -23,9 +23,8 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    @repo_array.find_all do |merchant|
-      binding.pry
-      merchant.name.upcase == name.upcase
+    @repo_array.select do |merchant|
+      merchant.name.upcase.include?(name.upcase)
     end
   end
 

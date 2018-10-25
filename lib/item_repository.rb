@@ -30,7 +30,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @repo_array.find_all do |item|
-      item.unit_price ==  BigDecimal.new(price)/100
+      item.unit_price == price
     end
   end
 
