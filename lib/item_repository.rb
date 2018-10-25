@@ -60,9 +60,4 @@ class ItemRepository
     item.updated_at = Time.now
   end
 
-  def delete(id)
-    index = @repo_array.find_index { |item| item.id == id }
-    @repo_array.delete_at(index)
-  end
-
 end

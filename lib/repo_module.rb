@@ -22,4 +22,12 @@ module Repository
     end.id + 1
   end
 
+  def delete(id)
+    index = @repo_array.find_index do |object|
+      object.id == id
+    end
+    @repo_array.delete_at(index)
+  end
+
+
 end
