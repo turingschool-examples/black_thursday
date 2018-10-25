@@ -83,5 +83,10 @@ class ItemRepository
     new_item
   end
 
+  def update(id, attributes)
+    find_by_id(id).name = attributes[:name]
+    find_by_id(id).description = attributes[:description]
+    find_by_id(id).unit_price = attributes[:unit_price]
+  end
 
 end

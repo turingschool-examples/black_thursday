@@ -90,8 +90,8 @@ class ItemRepositoryTest < Minitest::Test
     ir.update('263397313', { name: 'Super Cool Stuff',
                              description: 'This is really cool',
                              unit_price: '1000000'})
-    assert_equal 'Super Cool Stuff', ir.find_by_id().name
-    assert_equal 'This is really cool', ir.find_by_id().description
-    assert_equal '1000000', ir.find_by_id().unit_price
+    assert_equal 'Super Cool Stuff', ir.find_by_id('263397313').name
+    assert_equal 'This is really cool', ir.find_by_id('263397313').description
+    assert_equal '1000000', ir.find_by_id('263397313').unit_price
   end
 end
