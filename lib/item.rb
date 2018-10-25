@@ -17,13 +17,21 @@ class Item
     @name = item_data[:name]
     @description = item_data[:description]
     @unit_price = BigDecimal.new(item_data[:unit_price].to_i)/100
-    @created_at = Time.parse(item_data[:created_at])
-    @updated_at = Time.parse(item_data[:updated_at])
+    @created_at = time_converter(item_data[:created_at])
+    @updated_at = time_converter(item_data[:updated_at])
     @merchant_id = item_data[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
     @unit_price.to_f.round(2)
+  end
+
+  def time_converter(arguement)
+    if arguement.class == String
+      Time.parse(arguement)
+    else
+      arguement
+    end
   end
 
 end

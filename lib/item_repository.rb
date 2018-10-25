@@ -61,6 +61,6 @@ class ItemRepository
     item.updated_at = Time.now
   end
 
-  
+
 
 end
