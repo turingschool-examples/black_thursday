@@ -1,4 +1,4 @@
-require "csv"
+require 'csv'
 require_relative '../lib/merchant'
 require_relative '../lib/repository'
 
@@ -7,10 +7,10 @@ class MerchantRepository
     include Repository
     
     def initialize(file_path)
-      @collection = populate_merchants(file_path)
+      @collection = populate(file_path)
     end
 
-    def populate_merchants(file_path)
+    def populate(file_path)
       file = CSV.read(file_path, headers: true, header_converters: :symbol )
       file.map do |row|
         Merchant.new(row)
@@ -36,10 +36,6 @@ class MerchantRepository
         new_name = attributes[:name]
         merchant.name = new_name
       end 
-    end
-
-    def inspect
-      "#<#{self.class} #{@mcollection.size} rows>"
     end
 
 end
