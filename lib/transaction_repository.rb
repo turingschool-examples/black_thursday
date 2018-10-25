@@ -12,4 +12,8 @@ class TransactionRepository < Repository
   def test_find_all_by_credit_card_number(card_number)
     @instances.find_all {|transaction| transaction.credit_card_number == card_number}
   end
+
+  def test_find_all_by_result(result)
+    @instances.find_all {|transaction| transaction.result == result}
+  end
 end
