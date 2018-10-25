@@ -1,37 +1,25 @@
 require 'csv'
 require 'time'
 require_relative '../lib/item'
+require_relative '../lib/repository'
+
  class ItemRepository
 
+   include Repository
+
    def initialize(file_path)
-     @items = populate_items(file_path)
+     @collection = populate(file_path)
    end
 
-   def populate_items(file_path)
-     file = CSV.read(file_path, headers: true, header_converters: :symbol )
+   def populate(file_path)
+     file = CSV.read(file_path, headers: true, header_converters: :symbol)
      file.map do |row|
        Item.new(row)
      end
    end
 
-   def all
-     @items
-   end
-
-   def find_by_id(id)
-    all.find do |item|
-      item.id == id
-    end
-   end
-
-   def find_by_name(name)
-     @items.find do |item|
-       item.name.upcase == name.upcase
-     end
-   end
-
    def find_all_with_description(desc)
-     @items.find_all do |item|
+     all.find_all do |item|
        item.description.upcase.include?(desc.upcase)
      end
    end
@@ -56,10 +44,7 @@ require_relative '../lib/item'
    end
 
    def create(attributes)
-     max_id = all.max_by do |item|
-       item.id
-     end
-     new_id = max_id.id + 1
+     new_id = max_id + 1
      name = attributes[:name]
      description = attributes[:description]
      unit_price = attributes[:unit_price]
@@ -69,7 +54,7 @@ require_relative '../lib/item'
      new_item = Item.new({name: name, description: description, id: new_id,
        unit_price: unit_price, created_at: created_at, updated_at: updated_at,
        merchant_id: merchant_id})
-     @items << new_item
+     @collection << new_item
      new_item
    end
 
@@ -85,15 +70,6 @@ require_relative '../lib/item'
        item.unit_price = new_unit_price if attributes[:unit_price]
        item.updated_at = Time.now
      end
-   end
-
-   def delete(id)
-     item = find_by_id(id)
-     @items.delete(item)
-   end
-
-   def inspect
-     "#<#{self.class} #{@items.size} rows>"
    end
 
  end

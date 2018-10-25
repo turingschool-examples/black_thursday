@@ -19,6 +19,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, sales_analyst
   end
 
+
   def test_it_can_generate_all_merchants
     merchants = @sales_engine.merchants
 
@@ -70,6 +71,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.2, sales_analyst.average_items_per_merchant
   end
 
+  def test_analyst_can_find_who_sells_the_most
+    skip
 
+  end
 
+  def test_it_can_average_price_of_items_by_merchant
+    sa = @sales_engine.analyst
+    average = sa.average_item_price_for_merchant(12334185)
+
+    assert_equal 0, average
+  end
 end
