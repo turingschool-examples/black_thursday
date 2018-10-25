@@ -14,7 +14,7 @@ class Item
     @unit_price = item_data[:unit_price]
     @created_at = item_data[:created_at]
     @updated_at = item_data[:updated_at]
-    @merchant_id = item_data[:merchant_id]
+    @merchant_id = item_data[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
