@@ -65,8 +65,38 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_items
+    item_5 = Item.new({
+          :id          => 64423432,
+          :name        => "Elf costume",
+          :description => "Be santa's little helper.",
+          :unit_price  => BigDecimal.new(300.65,4),
+          :created_at  => "2016-01-11 12:05:55 UTC",
+          :updated_at  => "1973-05-29 23:44:48 UTC",
+          :merchant_id => 24524
+        })
+    item_6 = Item.new({
+          :id          => 643243352,
+          :name        => "Elf costume",
+          :description => "Be santa's little helper.",
+          :unit_price  => BigDecimal.new(3.65,4),
+          :created_at  => "2016-01-11 12:05:55 UTC",
+          :updated_at  => "1973-05-29 23:44:48 UTC",
+          :merchant_id => 24524
+        })
+    item_7 = Item.new({
+          :id          => 6423532,
+          :name        => "Elf costume",
+          :description => "Be santa's little helper.",
+          :unit_price  => BigDecimal.new(3.65,4),
+          :created_at  => "2016-01-11 12:05:55 UTC",
+          :updated_at  => "1973-05-29 23:44:48 UTC",
+          :merchant_id => 24524
+        })
+    @ir.add_item(item_5)
+    @ir.add_item(item_6)
+    @ir.add_item(item_7)
     sa = SalesAnalyst.new(items: @ir)
-    assert_equal [@item_4], sa.golden_items
+    assert_equal [item_5], sa.golden_items
   end
 
 

@@ -15,6 +15,17 @@ class SalesAnalyst
     tot_of_all_prices / @items.items.count
   end
 
+  def golden_items
+    number_set = @items.items.map do |item|
+      item.unit_price_to_dollars
+    end
+    std_dev = standard_deviation(number_set)
+    @items.items.find_all do |item|
+      item.unit_price_to_dollars > average_price_of_items + 2 * std_dev
+    end
+
+  end
+
 end
 # sales_analyst.average_items_per_merchant # => 2.88 ~Maddie
 # sales_analyst.average_items_per_merchant_standard_deviation # => 3.26 ~JC
