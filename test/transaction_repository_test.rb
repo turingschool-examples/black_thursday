@@ -6,7 +6,7 @@ class TransactionRepositoryTest < Minitest::Test
   def setup
     @tr = TransactionRepository.new
     @now = Time.now
-    @t_1 = {
+    @tr_1 = {
       :id => 6,
       :invoice_id => 8,
       :credit_card_number => "3232323232323232",
@@ -39,7 +39,9 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def create_transactions
-
+    @tr.create(@tr_1)
+    @tr.create(@tr_2)
+    @tr.create(@tr_3)
   end
 
   def test_it_exists
@@ -57,6 +59,8 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_number_returns_empty_array_when_no_matches
+    create_transactions
+
     assert_equal [], @tr.test_find_all_by_credit_card_number("4848484848484848")
   end
 
