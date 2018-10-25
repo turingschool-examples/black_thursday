@@ -9,6 +9,10 @@ module Statistics
   end
 
   def find_mean(number_set)
-    number_set.inject(0) { |sum, n| sum + n } / number_set.length.to_f
+    sum(number_set) / number_set.length.to_f
+  end
+
+  def sum(number_set)
+    number_set.inject(0) { |sum, n| sum + n }
   end
 end
