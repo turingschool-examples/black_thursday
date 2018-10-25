@@ -22,7 +22,7 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new({merchants: @merchants, items: @items})
   end
 
   def self.parse_merchants(mr, file_path)
