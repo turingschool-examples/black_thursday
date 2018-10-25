@@ -46,23 +46,14 @@ class SalesAnalystTest < Minitest::Test
   def test_average_invoices_per_merchant_standard_deviation
     assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
   end
-  # def test_top_merchants_by_invoice_count
-  # end
-  # def test_bottom_merchants_by_invoice_count
-  # end
+  def test_top_merchants_by_invoice_count
+    assert_equal 12, @sa.top_merchants_by_invoice_count.size
+  end
+  def test_bottom_merchants_by_invoice_count
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.size
+  end
   def test_top_days_by_invoice_count
     assert_equal ['Wednesday'], @sa.top_days_by_invoice_count
   end
-
-
-  # def test_invoice_status_pending
-  #   assert_equal 29.55, @sa.invoice_status(:pending)
-  # end
-  # def test_invoice_status_pending
-  #   assert_equal 56.95, @sa.invoice_status(:shipped)
-  # end
-  # def test_invoice_status_pending
-  #   assert_equal 13.5, @sa.invoice_status(:returned)
-  # end
 
 end
