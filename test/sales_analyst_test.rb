@@ -5,9 +5,9 @@ require './lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
-      items: './data/test_items.csv',
-      merchants: './data/test_merchants.csv',
-      invoices: './data/invoices.csv'
+      items: '.test/data/test_items.csv',
+      merchants: '.test/data/test_merchants.csv',
+      invoices: '.test/data/invoices.csv'
     })
     @sa = se.analyst
   end
