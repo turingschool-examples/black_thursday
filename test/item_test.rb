@@ -44,7 +44,7 @@ class ItemTest < Minitest::Test
           :updated_at  => "2016-01-11 11:46:07 UTC",
           :merchant_id => 2
         })
-    assert_equal 10.99, item.unit_price_to_dollars
+    assert_equal 0.11, item.unit_price_to_dollars
     assert_instance_of Float, item.unit_price_to_dollars
   end
 
