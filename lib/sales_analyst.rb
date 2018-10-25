@@ -1,4 +1,5 @@
 class SalesAnalyst
+  include Statistics
 
   def initialize(input)
     @merchants = input[:merchants]
