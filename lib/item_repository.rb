@@ -89,5 +89,11 @@ class ItemRepository
     find_by_id(id).description = attributes[:description]
     find_by_id(id).unit_price = attributes[:unit_price]
     find_by_id(id).updated_at = Time.now
-  end 
+  end
+
+  def delete(id)
+    @collection.delete_if do |item|
+      item.id == id
+    end 
+  end
 end
