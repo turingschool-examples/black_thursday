@@ -74,4 +74,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 3500, updated_item.unit_price
   end
 
+  def test_it_can_delete_by_id
+    ir = ItemRepository.new('./test/item_sample.csv')
+    #binding.pry
+    ir.delete(263397059)
+    assert_equal nil, ir.find_by_id(263397059)
+  end
+
 end
