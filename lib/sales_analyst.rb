@@ -47,23 +47,21 @@ class SalesAnalyst
   def merchants_with_high_item_count
     temp_sd = average_items_per_merchant_standard_deviation
     @merchants.all.select do |merchant|
-      num_items_of_merchant(merchant) > temp_sd + average_items_per_merchant
+      num_items_of_merchant(merchant) > average_items_per_merchant + temp_sd
     end
   end
   def top_merchants_by_invoice_count
     temp_sd = average_invoices_per_merchant_standard_deviation
     @merchants.all.select do |merchant|
-      num_invoices_of_merchant(merchant) > temp_sd + average_invoices_per_merchant
+      num_invoices_of_merchant(merchant) > average_invoices_per_merchant + temp_sd * 2
     end
   end
   def bottom_merchants_by_invoice_count
     temp_sd = average_invoices_per_merchant_standard_deviation
     @merchants.all.select do |merchant|
-      num_items_of_merchant(merchant) < average_items_per_merchant - temp_sd
+      num_invoices_of_merchant(merchant) < average_invoices_per_merchant - temp_sd * 2
     end
   end
-
-
 
   def average_item_price_for_merchant(merchant_id)
     prices = @items.find_all_by_merchant_id(merchant_id).map(&:unit_price)
@@ -91,6 +89,6 @@ class SalesAnalyst
     @items.find_all_by_merchant_id(merchant.id).size
   end
   def num_invoices_of_merchant(merchant)
-    @items.find_all_by_merchant_id(merchant.id).size
+    @invoices.find_all_by_merchant_id(merchant.id).size
   end
 end
