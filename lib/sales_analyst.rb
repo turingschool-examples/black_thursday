@@ -184,4 +184,16 @@ w
   def best_item_for_merchant(merchant_id)
 
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transactions.find_all_by_invoice_id(invoice_id)
+    return false if transactions == []
+    bool = true
+    transactions.each do |transaction|
+      if transaction.result != :success
+        bool = false
+      end
+    end
+    bool
+  end
 end
