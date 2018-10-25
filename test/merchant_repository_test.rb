@@ -32,6 +32,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], mr.find_all_by_name('1901')
   end
 
+  def test_it_can_find_max_id_and_increase_it_by_one
+    mr = MerchantRepository.new("./test/merchant_sample.csv")
+    assert_equal 12334146, mr.new_highest_id
+  end
+
   # def test_merchant_repo_can_create_a_merchant
   #   mr = MerchantRepository.new("./test/merchant_sample.csv")
   #   new_merchant = mr.create({:name => 'Duck'})
