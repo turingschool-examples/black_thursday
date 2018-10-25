@@ -92,7 +92,7 @@ class RepositoryTest < Minitest::Test
 
   def test_update
     create_merchants
-    
+
     assert_equal "bill", @rep.find_by_id(5).name
 
     @rep.update(5, name: 'Alf')
