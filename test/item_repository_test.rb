@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/item_repository'
-require './lib/item'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
@@ -97,13 +96,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected_item.name, @ir.all.last.name
   end
 
-
-
   def test_it_can_delete_by_id
     @ir.delete(2347892358)
     assert_equal [@item_1], @ir.all
   end
-
 
   def test_it_can_find_all_within_a_price_range
     @ir.add_item(@item_3)

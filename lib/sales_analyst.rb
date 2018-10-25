@@ -1,3 +1,5 @@
+require_relative './statistics'
+
 class SalesAnalyst
   include Statistics
 
@@ -5,6 +7,8 @@ class SalesAnalyst
     @merchants = input[:merchants]
     @items = input[:items]
   end
+
+  
 
 end
 # sales_analyst.average_items_per_merchant # => 2.88 ~Maddie

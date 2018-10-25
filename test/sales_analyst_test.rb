@@ -1,4 +1,7 @@
 require './test/test_helper'
+require './lib/item'
+require './lib/sales_engine'
+require './lib/item_repository'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -57,7 +60,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_price_of_items
-
+    sa = SalesAnalyst.new(items: @ir)
+    assert_equal 0.20, sa.average_price_of_items
   end
 
   def test_it_can_find_golden_items
