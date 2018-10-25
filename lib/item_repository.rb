@@ -22,8 +22,17 @@ class ItemRepository < Repository
 
   def find_all_by_price_in_range(range)
     @collection.values.select do |item|
-      item.unit_price >= range.min && item.unit_price <= range.max
+      item.unit_price_to_dollars >= range.min && item.unit_price_to_dollars <= range.max
     end
+  end
+
+  def update(id, attributes)
+    item_to_update = find_by_id(id)
+    return nil if item_to_update == nil
+    item_to_update.name = attributes[:name] if attributes.has_key? (:name)
+    item_to_update.description = attributes[:description] if attributes.has_key? (:description)
+    item_to_update.unit_price = attributes[:unit_price] if attributes.has_key? (:unit_price)
+    item_to_update.updated_at = Time.now
   end
 
   def find_all_by_merchant_id(id)
@@ -33,14 +42,14 @@ class ItemRepository < Repository
   end
 
   def find_all_with_description(description)
-    @collection.values.find do |collection|
-      collection.description == description
+    @collection.values.find_all do |collection|
+      collection.description.downcase == description.downcase
     end
   end
 
   def find_all_by_price(price)
     @collection.values.find_all do |collection|
-      collection.unit_price == price
+      collection.unit_price_to_dollars == price
     end
   end
 

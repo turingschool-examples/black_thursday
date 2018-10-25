@@ -10,7 +10,6 @@ class SalesAnalystTest < Minitest::Test
       :merchants => "./data/merchants.csv",
     })
     @sa = sales_engine.analyst
-
     @item_1 = Item.new({
           :id          => 263397059,
           :name        => "Pencil",

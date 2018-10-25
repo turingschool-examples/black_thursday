@@ -90,7 +90,8 @@ class ItemRepositoryTest < Minitest::Test
           :updated_at  => updated_at,
           :merchant_id => merchant_id,
         }
-    @ir.create(attributes)
+    new_ir = @ir.create(attributes)
+    @ir.add_item(new_ir)
 
     assert_equal expected_item.id, @ir.all.last.id
     assert_equal expected_item.name, @ir.all.last.name
