@@ -12,6 +12,7 @@ class Repository
     else
       @count = @count < args[:id] ? args[:id] : @count
     end
+    args[:created_at] = Time.now unless args[:created_at]
     @instances << @type.public_send("new", args)
   end
 

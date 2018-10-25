@@ -51,9 +51,10 @@ class SalesAnalystTest < Minitest::Test
   # def test_bottom_merchants_by_invoice_count
   # end
   def test_top_days_by_invoice_count
-    ["Sunday", "Saturday"]
+    assert_equal ['Wednesday'], @sa.top_days_by_invoice_count
   end
-  #
+
+
   # def test_invoice_status_pending
   #   assert_equal 29.55, @sa.invoice_status(:pending)
   # end
