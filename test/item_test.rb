@@ -18,6 +18,7 @@ class ItemTest < Minitest::Test
   def test_item_exists
     assert_instance_of Item, @i
   end
+  
   def test_item_has_id
     assert_equal 1, @i.id
   end
@@ -49,6 +50,7 @@ class ItemTest < Minitest::Test
   def test_it_can_convert_to_dollars
     assert_equal 10.99, @i.unit_price_to_dollars
   end
+
   def test_big_decimal_converter
     assert_equal 20.00, @i.big_decimal_converter(2000)
   end
