@@ -12,7 +12,7 @@ require_relative '../lib/repository'
    end
 
    def populate_items(file_path)
-     file = CSV.read(file_path, headers: true, header_converters: :symbol )
+     file = CSV.read(file_path, headers: true, header_converters: :symbol)
      file.map do |row|
        Item.new(row)
      end
@@ -48,10 +48,7 @@ require_relative '../lib/repository'
    end
 
    def create(attributes)
-     max_id = all.max_by do |item|
-       item.id
-     end
-     new_id = max_id.id + 1
+     new_id = max_id + 1
      name = attributes[:name]
      description = attributes[:description]
      unit_price = attributes[:unit_price]

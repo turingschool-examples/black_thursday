@@ -17,4 +17,11 @@ module Repository
     all.delete(x)
   end
   
+  def max_id
+    max_id = all.max_by do |x|
+      x.id
+    end
+    max_id.id
+  end
+  
 end
