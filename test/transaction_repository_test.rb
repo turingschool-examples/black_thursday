@@ -81,7 +81,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_find_all_by_credit_card_number_returns_matching_transactions
     create_transactions
 
-    assert_equal Transaction.new(@tr_2),
+    assert_equal [Transaction.new(@tr_2)],
     @tr.test_find_all_by_result("failure")
   end
 end
