@@ -65,7 +65,23 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_number_returns_matching_transactions
-    skip
+    create_transactions
+
+    expected = [Transaction.new(@tr_2), Transaction.new(@tr_3)]
+
+    assert_equal expected, @tr.test_find_all_by_credit_card_number("4242424242424242")
   end
 
+  def test_find_all_by_result_returns_empty_array_when_no_matches
+    create_transactions
+
+    assert_equal [], @tr.test_find_all_by_result("purgatory")
+  end
+
+  def test_find_all_by_credit_card_number_returns_matching_transactions
+    create_transactions
+
+    assert_equal Transaction.new(@tr_2),
+    @tr.test_find_all_by_result("failure")
+  end
 end
