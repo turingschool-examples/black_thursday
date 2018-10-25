@@ -45,4 +45,9 @@ class ItemRepository
     end
   end
 
+  # def create(attributes)
+  #   attributes[:id] = new_highest_id
+  #   @repository.push(Item.new(attributes))
+  # end
+
 end

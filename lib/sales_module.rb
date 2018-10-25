@@ -16,6 +16,12 @@ module Repository
     end
   end
 
+  def new_highest_id
+    all.max_by do |object|
+      object.id
+    end.id + 1
+  end
+
 
 #   def find_all_by_invoice_id(invoice_id)
 #     all.find_all { |object| object.invoice_id == invoice_id }
