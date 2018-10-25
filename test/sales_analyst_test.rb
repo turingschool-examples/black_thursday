@@ -10,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
       invoices: './data/invoices.csv',
       invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv',
-      customers: './data/customers.csv',
+      customers: './data/customers.csv'
     })
     @sa = se.analyst
   end
