@@ -48,4 +48,13 @@ class SalesAnalyst
   def num_items_of_merchant(merchant)
     @items.find_all_by_merchant_id(merchant.id).size
   end
+
+  def invoice_status(status)
+    invoice_count = @invoices.all.count
+    status_sum = @invoices.all.reduce(0) do |sum, invoice|
+      sum += 1 if invoice.status == status
+      sum
+    end
+    (status_sum.to_f / invoice_count * 100).round(2)
+  end
 end
