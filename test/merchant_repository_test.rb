@@ -9,7 +9,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_create_merchants
     mr = MerchantRepository.new("./test/merchant_sample.csv")
-    assert_instance_of Array, mr.create_merchant("./test/merchant_sample.csv")
+    assert_instance_of Array, mr.create_merchant_array("./test/merchant_sample.csv")
   end
 
   def test_merchant_repo_has_merchants
@@ -49,6 +49,12 @@ class MerchantRepositoryTest < Minitest::Test
     mr.create({:name => 'Larry'})
     updated_merchant = mr.update(12334145, {:name => 'Shiny Larry'})
     assert_equal 'Shiny Larry', updated_merchant.name
+  end
+
+  def test_it_can_delete_by_id
+    mr = MerchantRepository.new('./test/merchant_sample.csv')
+    mr.delete(12334123)
+    assert_equal nil, mr.find_by_id(12334123)
   end
 
 end

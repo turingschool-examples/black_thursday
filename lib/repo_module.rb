@@ -26,8 +26,12 @@ module Repository
     index = @repo_array.find_index do |object|
       object.id == id
     end
+    return nil if index == nil
     @repo_array.delete_at(index)
   end
 
+  def inspect
+    "#<#{self.class} #{@repo_array.size} rows>"
+  end
 
 end

@@ -1,7 +1,8 @@
 require 'pry'
 require 'CSV'
-require './lib/merchant'
-require './lib/repo_module'
+require_relative './merchant'
+require_relative './repo_module'
+require_relative './item'
 
 class ItemRepository
 
@@ -59,5 +60,7 @@ class ItemRepository
     item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     item.updated_at = Time.now
   end
+
+  
 
 end

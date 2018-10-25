@@ -1,8 +1,8 @@
 require 'pry'
 require 'CSV'
 require 'time'
-require './lib/merchant'
-require './lib/repo_module'
+require_relative '../lib/merchant'
+require_relative './repo_module'
 
 class MerchantRepository
 
@@ -12,10 +12,10 @@ class MerchantRepository
 
   def initialize(csv_merchants)
     @repo_array = []
-    create_merchant(csv_merchants)
+    create_merchant_array(csv_merchants)
   end
 
-  def create_merchant(csv_merchants)
+  def create_merchant_array(csv_merchants)
     row_objects = CSV.read(csv_merchants, headers: true, header_converters: :symbol)
         @repo_array = row_objects.map do |row|
           Merchant.new(row)
