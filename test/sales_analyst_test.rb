@@ -4,13 +4,11 @@ require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    se = SalesEngine.from_csv(
-      {
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
-      }
-    )
+    se = SalesEngine.from_csv({
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv'
+    })
     @sa = se.analyst
   end
 
@@ -38,8 +36,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, @sa.golden_items.length
   end
 
-  #Iteration 2
-  #
+  def test_it_finds_percentage_of_invoices_status_returned
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_pending
+    assert_equal 29.55, @sa.invoice_status(:pending)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_shipped
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+  end
+
   def test_average_invoices_per_merchant
     assert_equal 10.49, @sa.average_invoices_per_merchant
   end
@@ -55,5 +63,4 @@ class SalesAnalystTest < Minitest::Test
   def test_top_days_by_invoice_count
     assert_equal ['Wednesday'], @sa.top_days_by_invoice_count
   end
-
 end

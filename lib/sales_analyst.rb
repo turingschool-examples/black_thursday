@@ -67,10 +67,19 @@ class SalesAnalyst
     end
   end
 
-
   def num_items_of_merchant(merchant)
     @items.find_all_by_merchant_id(merchant.id).size
   end
+
+  def invoice_status(status)
+    invoice_count = @invoices.all.count
+    status_sum = @invoices.all.reduce(0) do |sum, invoice|
+      sum += 1 if invoice.status == status
+      sum
+    end
+    (status_sum.to_f / invoice_count * 100).round(2)
+  end
+
   def num_invoices_of_merchant(merchant)
     @invoices.find_all_by_merchant_id(merchant.id).size
   end
@@ -90,5 +99,4 @@ class SalesAnalyst
     days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
     days.map{|day| [day, each_invoice_day.count(day)]}.to_h
   end
-
 end
