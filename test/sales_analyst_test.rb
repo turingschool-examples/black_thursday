@@ -107,5 +107,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [1, 0, 0, 0, 0], @sales_analyst.num_items_for_each_merchant
   end
 
+  def test_it_can_calculate_average_items_per_merchant_std_deviation
+    assert_equal 0.45, @sales_analyst.average_items_per_merchant_standard_deviation
+  end
+  
 
 end

@@ -18,13 +18,10 @@ class SalesAnalyst
 
   def average_items_per_merchant
     items = num_items_for_each_merchant
-    sum(items).to_f / count_of_merchants
+    (sum(items).to_f / count_of_merchants).round(2)
   end
 
 
-  # def merchants_with_high_item_count
-  #
-  # end
 
   def average_item_price_for_merchant(id)
     list = @item_repo.find_all_by_merchant_id(id)
