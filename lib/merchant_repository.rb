@@ -44,7 +44,10 @@ class MerchantRepository
   end
 
   def update(id, data)
-    find_by_id(id).name = data[:name]
+    if find_by_id(id) == nil
+    else
+        find_by_id(id).name = data[:name]
+    end
   end
 
   def delete(id)

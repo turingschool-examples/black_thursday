@@ -3,7 +3,7 @@ require_relative '../lib/item'
 require 'csv'
 class ItemRepository
   def initialize(data)
-    @collection = data 
+    @collection = data
   end
 
   def all

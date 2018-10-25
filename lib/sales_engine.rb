@@ -19,7 +19,7 @@ class SalesEngine
   def create_items
     @item_data.each do |row|
       @items_collection << Item.new( {
-                               id: row[:id].to_s,
+                               id: row[:id].to_i,
                                name: row[:name].to_s,
                                description: row[:description].to_s,
                                unit_price: BigDecimal.new(row[:unit_price].to_s),

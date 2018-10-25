@@ -21,7 +21,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    assert_instance_of Item, @ir.find_by_id('263399263')
+    assert_instance_of Item, @ir.find_by_id(263399263)
   end
 
   def test_it_can_find_by_name
@@ -39,8 +39,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price
-    assert_equal [], @ir.find_all_by_price('42737')
-    assert_equal 7, @ir.find_all_by_price('40000').count
+    assert_equal [], @ir.find_all_by_price(42737)
+    assert_equal 7, @ir.find_all_by_price(40000).count
   end
 
   def test_it_can_find_all_by_price_in_range
