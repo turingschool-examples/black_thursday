@@ -16,7 +16,7 @@ class InvoiceRepository < Repository
   end
 
   def find_all_by_status(status)
-    @instances.find_all {|invoice| invoice.status == status.to_s}
+    @instances.find_all {|invoice| invoice.status == status}
   end
 
 end
