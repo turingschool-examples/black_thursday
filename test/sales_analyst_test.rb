@@ -18,15 +18,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.88, @sales_analyst.average_items_per_merchant
   end
 
+  def test_it_returns_merchant_item_list
+    merchant = @sales_analyst.merchants[4]
+    item_list = @sales_analyst.merchant_item_list(merchant)
+    assert_equal 25, item_list.count
+  end
+
   def test_avg_items_per_merchant_std_dev
-    skip
-    #sales_analyst.average_items_per_merchant_standard_deviation
-    #3.26
+    std_dev = @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, std_dev
   end
 
   def test_merchants_with_high_item_count
     skip
-    #sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant]
+    @sales_analyst.merchants_with_high_item_count
     #[merchant, merchant, merchant]
     #merchants with more than one standard dev above avg item count
   end
