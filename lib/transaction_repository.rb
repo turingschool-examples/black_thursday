@@ -9,11 +9,15 @@ class TransactionRepository < Repository
     super
   end
 
-  def test_find_all_by_credit_card_number(card_number)
-    @instances.find_all {|transaction| transaction.credit_card_number == card_number}
+  def find_all_by_credit_card_number(card_number)
+    @instances.find_all { |transaction| transaction.credit_card_number == card_number}
   end
 
-  def test_find_all_by_result(result)
-    @instances.find_all {|transaction| transaction.result == result}
+  def find_all_by_result(result)
+    @instances.find_all { |transaction| transaction.result == result}
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    @instances.find_all { |transaction| transaction.invoice_id == invoice_id}
   end
 end
