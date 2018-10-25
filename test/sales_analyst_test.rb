@@ -73,9 +73,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.2, sales_analyst.average_items_per_merchant
   end
 
-  def test_analyst_can_find_who_sells_the_most
-    skip
-
+  def test_analyst_can_find_which_merchant_sells_the_most
+    assert_equal [@merchant_1], @sales_analyst.merchants_with_high_item_count
   end
 
   def test_it_can_average_price_of_items_by_merchant
