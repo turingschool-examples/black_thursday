@@ -4,7 +4,7 @@ require_relative 'repository'
 class InvoiceRepository < Repository
   def initialize
     @type = Invoice
-    @attr_whitelist = [:status]
+    @attr_whitelist = [:status, :updated_at]
     super
   end
 
@@ -19,4 +19,7 @@ class InvoiceRepository < Repository
     @instances.find_all {|invoice| invoice.status == status}
   end
 
+  def find_all_by_date(date)
+    @instances.find_all {|invoice| invoice.created_at.to_date == date.to_date}
+  end
 end

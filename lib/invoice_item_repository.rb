@@ -10,10 +10,19 @@ class InvoiceItemRepository < Repository
   end
 
   def find_all_by_item_id(item_id)
-    @instances.find_all {|invoice| invoice.item_id == item_id}
+    @instances.find_all {|invoice_item| invoice_item.item_id == item_id}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @instances.find_all {|invoice| invoice.invoice_id == invoice_id}
+    @instances.find_all {|invoice_item| invoice_item.invoice_id == invoice_id}
+  end
+
+  def find_all_by_date(date)
+    stuff = @instances.find_all do |invoice_item|
+      result = invoice_item.created_at.to_date == date.to_date
+      result
+    end
+
+    stuff
   end
 end
