@@ -13,6 +13,23 @@ class SalesAnalyst
     item_count = items_by_merchant.inject(0) { |sum, n| n[1].count + sum }
     (item_count.to_f / items_by_merchant.count).round(2)
   end
+  
+  def average_price_of_items
+    tot_of_all_prices = @items.items.inject(0) do |sum, item|
+      sum + item.unit_price_to_dollars
+    end
+    tot_of_all_prices / @items.items.count
+  end
+
+  def golden_items
+    number_set = @items.items.map do |item|
+      item.unit_price_to_dollars
+    end
+    std_dev = standard_deviation(number_set)
+    @items.items.find_all do |item|
+      item.unit_price_to_dollars > average_price_of_items + 2 * std_dev
+    end
+  end
 
 end
 
@@ -20,4 +37,3 @@ end
 # sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant] ~Jennica
 # sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal ~Maddie
 # sales_analyst.average_average_price_per_merchant # => BigDecimal ~Jennica
-# sales_analyst.golden_items # => [<item>, <item>, <item>, <item>]  ~JC

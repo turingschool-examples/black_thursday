@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/item'
+require './lib/time_conversions'
 
 class ItemTest < Minitest::Test
   def test_it_exists
@@ -7,9 +8,9 @@ class ItemTest < Minitest::Test
           :id          => 1,
           :name        => "Pencil",
           :description => "You can use it to write things",
-          :unit_price  => BigDecimal.new(10.99,4),
-          :created_at  => "2016-01-11 11:46:07 UTC",
-          :updated_at  => "2016-01-11 11:46:07 UTC",
+          :unit_price  => (BigDecimal.new(10.99,4) / 100),
+          :created_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
+          :updated_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
           :merchant_id => 2
         })
     assert_instance_of Item, item
@@ -20,15 +21,15 @@ class ItemTest < Minitest::Test
           :id          => 1,
           :name        => "Pencil",
           :description => "You can use it to write things",
-          :unit_price  => BigDecimal.new(10.99,4),
-          :created_at  => "2016-01-11 11:46:07 UTC",
-          :updated_at  => "2016-01-11 11:49:05 UTC",
+          :unit_price  => (BigDecimal.new(10.99,4) / 100),
+          :created_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
+          :updated_at  => TimeConversions.to_time("2016-01-11 11:49:05 UTC"),
           :merchant_id => 2
         })
     assert_equal 1, item.id
     assert_equal "Pencil", item.name
     assert_equal "You can use it to write things", item.description
-    assert_equal BigDecimal.new(10.99,4), item.unit_price
+    assert_equal (BigDecimal.new(10.99,4) / 100), item.unit_price
     assert_equal Time.utc(2016, 01, 11, 11, 46, 07), item.created_at
     assert_equal Time.utc(2016, 01, 11, 11, 49, 05), item.updated_at
     assert_equal 2, item.merchant_id
@@ -39,12 +40,12 @@ class ItemTest < Minitest::Test
           :id          => 1,
           :name        => "Pencil",
           :description => "You can use it to write things",
-          :unit_price  => BigDecimal.new(10.993,4),
-          :created_at  => "2016-01-11 11:46:07 UTC",
-          :updated_at  => "2016-01-11 11:46:07 UTC",
+          :unit_price  => (BigDecimal.new(10.993,4) / 100),
+          :created_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
+          :updated_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
           :merchant_id => 2
         })
-    assert_equal 10.99, item.unit_price_to_dollars
+    assert_equal 0.11, item.unit_price_to_dollars
     assert_instance_of Float, item.unit_price_to_dollars
   end
 
