@@ -83,4 +83,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, actual
     assert_equal '263567475', ir.all.last.id
   end
+
+  def test_it_can_update_attributes
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    ir.update('263397313', { name: 'Super Cool Stuff',
+                             description: 'This is really cool',
+                             unit_price: '1000000'})
+    assert_equal 'Super Cool Stuff', ir.find_by_id().name
+    assert_equal 'This is really cool', ir.find_by_id().description
+    assert_equal '1000000', ir.find_by_id().unit_price
+  end
 end

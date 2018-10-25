@@ -1,11 +1,11 @@
 require 'bigdecimal'
 
 class Item
-  attr_accessor :id
-  attr_reader :name,
-              :description,
-              :unit_price,
-              :created_at,
+  attr_accessor :id,
+                :name,
+                :description,
+                :unit_price
+  attr_reader :created_at,
               :updated_at,
               :merchant_id
   def initialize(item_info)
@@ -17,4 +17,6 @@ class Item
     @updated_at = item_info[:updated_at]
     @merchant_id = item_info[:merchant_id]
   end
+
+
 end
