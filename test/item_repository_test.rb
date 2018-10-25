@@ -2,8 +2,8 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item'
-require './lib/item_repository'
+require_relative './item'
+require_relative './item_repository'
 require 'bigdecimal'
 require 'time'
 
