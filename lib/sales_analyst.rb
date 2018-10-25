@@ -1,18 +1,21 @@
 require_relative 'statistics'
 class SalesAnalyst
   include Statistics
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices = nil)
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def average_items_per_merchant
     (@items.all.size.to_f / @merchants.all.size).round(2)
   end
+  def average_invoices_per_merchant
+    (@invoices.all.size.to_f / @merchants.all.size).round(2)
+  end
 
   def average_items_per_merchant_standard_deviation
     items_per_each_merchant = @items.all.group_by{|item|item.merchant_id}.map{|k,v|v.size}
-
     standard_deviation(*items_per_each_merchant).round(2)
   end
 
@@ -25,7 +28,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     prices = @items.find_all_by_merchant_id(merchant_id).map(&:unit_price)
-    average(*prices).round(2)
+    average(*prices).to_f.round(2)
   end
 
   def average_average_price_per_merchant
