@@ -52,4 +52,11 @@ class ItemRepositoryTest < Minitest::Test
    assert_equal [item], ir.find_all_by_merchant_id(12334141)
   end
 
+  def test_we_can_create_new_item_and_incriment_its_id_up_one
+  ir = ItemRepository.new("./test/item_sample.csv")
+  new_item = ir.create({:name => 'New_Item'})
+  assert_equal 'New_Item', new_item.name
+  assert_equal 263397060, new_item.id
+  end
+
 end
