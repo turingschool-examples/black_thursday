@@ -1,3 +1,4 @@
+require_relative '../lib/merchant'
 class MerchantRepository
 
   def initialize(data)

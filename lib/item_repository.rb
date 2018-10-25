@@ -1,4 +1,5 @@
 require 'time'
+require_relative '../lib/item'
 class ItemRepository
   def initialize(data)
     @item_data = CSV.open(data, headers: true, header_converters: :symbol)
@@ -94,6 +95,6 @@ class ItemRepository
   def delete(id)
     @collection.delete_if do |item|
       item.id == id
-    end 
+    end
   end
 end
