@@ -194,4 +194,12 @@ w
     end
     paid_in_full
   end
+
+  def invoice_total(invoice_id)
+    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.revenue
+      sum
+    end
+  end
 end
