@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './item'
+require './lib/item'
 require 'bigdecimal'
 require 'time'
 
@@ -13,8 +13,8 @@ class ItemTest < Minitest::Test
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s,
       :merchant_id => 2
     })
     assert_instance_of Item, i
@@ -25,9 +25,9 @@ class ItemTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :unit_price  => BigDecimal.new(1099.00,4),
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s,
       :merchant_id => 2
     })
   assert_equal 1, i.id
@@ -44,9 +44,9 @@ class ItemTest < Minitest::Test
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99111,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :unit_price  => BigDecimal.new(1099.111,4),
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s,
       :merchant_id => 2
     })
     assert_equal 10.99, i.unit_price_to_dollars

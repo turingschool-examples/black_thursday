@@ -2,8 +2,8 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './merchant_repository'
-require_relative './merchant'
+require './lib/merchant_repository'
+require './lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
   def test_merchant_reposity_exists

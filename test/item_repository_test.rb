@@ -2,8 +2,8 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './item'
-require_relative './item_repository'
+require './lib/item'
+require './lib/item_repository'
 require 'bigdecimal'
 require 'time'
 
@@ -80,12 +80,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_it_can_update_an_existing_item
+  def test_it_can_update_one_attribute_of_an_existing_item
     ir = ItemRepository.new("./data/items.csv")
     ir.update(263395721, {name: "Shopin2018"})
     updated_item = ir.all[2]
-    actual = updated_item.name
-    assert_equal "Shopin2018" , actual
+    assert_equal "Shopin2018" , updated_item.name
   end
 
   def test_it_can_delete_an_item
