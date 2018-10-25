@@ -1,9 +1,10 @@
 require './test/test_helper'
-require './lib/item'
 require './lib/sales_engine'
+require './lib/item'
 require './lib/item_repository'
 
 class SalesAnalystTest < Minitest::Test
+
   def setup
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -53,6 +54,10 @@ class SalesAnalystTest < Minitest::Test
     @ir.add_item(@item_4)
   end
 
+  def test_average_items_per_merchant
+    assert_equal 2.88 , @sa.average_items_per_merchant
+  end
+
   def test_it_can_find_average_items_per_merchant_standard_deviation
     skip
     assert_equal 3.26, @sa.std_dev_ave
@@ -97,7 +102,5 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(items: @ir)
     assert_equal [item_5], sa.golden_items
   end
-
-
 
 end
