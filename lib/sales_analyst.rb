@@ -1,9 +1,29 @@
+require_relative './statistics'
+
 class SalesAnalyst
   include Statistics
 
   def initialize(input)
     @merchants = input[:merchants]
     @items = input[:items]
+  end
+
+  def average_price_of_items
+    tot_of_all_prices = @items.items.inject(0) do |sum, item|
+      sum + item.unit_price_to_dollars
+    end
+    tot_of_all_prices / @items.items.count
+  end
+
+  def golden_items
+    number_set = @items.items.map do |item|
+      item.unit_price_to_dollars
+    end
+    std_dev = standard_deviation(number_set)
+    @items.items.find_all do |item|
+      item.unit_price_to_dollars > average_price_of_items + 2 * std_dev
+    end
+
   end
 
 end

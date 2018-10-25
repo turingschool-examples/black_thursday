@@ -1,5 +1,5 @@
-
 require_relative './repository'
+require_relative './merchant'
 
 class MerchantRepository < Repository
 
@@ -15,8 +15,14 @@ class MerchantRepository < Repository
     @collection.values
   end
 
-  def create(name)
-    add_merchant(Merchant.new({id: find_new_id, name: name}))
+  def create(attributes)
+    attributes[:id] = find_new_id
+    add_merchant(Merchant.new(attributes))
+  end
+
+  def update(id, attributes)
+    merchant_to_update = find_by_id(id)
+    merchant_to_update.name = attributes[:name] unless merchant_to_update == nil
   end
 
   def find_all_by_name(name)

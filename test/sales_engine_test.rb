@@ -4,6 +4,7 @@ require './lib/item_repository'
 require './lib/merchant_repository'
 require './lib/merchant'
 require './lib/item'
+require './lib/time_conversions'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
@@ -44,18 +45,18 @@ class SalesEngineTest < Minitest::Test
           :id          => 263395237,
           :name        => "510+ RealPush Icon Set",
           :description => "You&#39;ve got a...",
-          :unit_price  => BigDecimal.new(1200,4),
-          :created_at  => "2016-1-11 9:34:06 UTC",
-          :updated_at  => "2016-1-11 9:34:06 UTC",
+          :unit_price  => (BigDecimal.new(1200,4) / 100),
+          :created_at  => TimeConversions.to_time("2016-1-11 9:34:06 UTC"),
+          :updated_at  => TimeConversions.to_time("2016-1-11 9:34:06 UTC"),
           :merchant_id => 12334141
         })
     item_2 = Item.new({
           :id          => 263395617,
           :name        => "Glitter scrabble frames",
           :description => "Glitter scrabble frames...",
-          :unit_price  => BigDecimal.new(1300,4),
-          :created_at  => "2016-1-11 11:51:37 UTC",
-          :updated_at  => "1993-9-29 11:56:40 UTC",
+          :unit_price  => (BigDecimal.new(1300,4) / 100),
+          :created_at  => TimeConversions.to_time("2016-1-11 11:51:37 UTC"),
+          :updated_at  => TimeConversions.to_time("1993-9-29 11:56:40 UTC"),
           :merchant_id => 12334185
         })
     assert_equal item_1.id, se.items.all[0].id
