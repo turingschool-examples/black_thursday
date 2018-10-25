@@ -6,7 +6,9 @@ class SalesAnalystTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
       items: './data/items.csv',
-      merchants: './data/merchants.csv'})
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv'
+    })
     @sa = se.analyst
   end
 
@@ -36,5 +38,17 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items
     skip
     assert_equal 5, @sa.golden_items.length
+  end
+
+  def test_it_finds_percentage_of_invoices_status_returned
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_pending
+    assert_equal 29.55, @sa.invoice_status(:pending)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_shipped
+    assert_equal 56.95, @sa.invoice_status(:shipped)
   end
 end
