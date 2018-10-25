@@ -2,7 +2,7 @@ require_relative 'statistics'
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices
   include Statistics
-  def initialize(items, merchants, invoices = nil)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
     @invoices = invoices
