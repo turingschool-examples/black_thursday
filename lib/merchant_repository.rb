@@ -7,7 +7,7 @@ class MerchantRepository
     include Repository
     
     def initialize(file_path)
-      @merchants = populate_merchants(file_path)
+      @collection = populate_merchants(file_path)
     end
 
     def populate_merchants(file_path)
@@ -17,12 +17,8 @@ class MerchantRepository
       end
     end
 
-    def all
-      @merchants
-    end
-
     def find_all_by_name(name)
-      @merchants.find_all do |merchant|
+      all.find_all do |merchant|
         merchant.name.upcase.include?(name.upcase)
       end
     end
@@ -31,7 +27,7 @@ class MerchantRepository
       new_id = max_id + 1
       name = attributes[:name]
       new_merchant = Merchant.new({name: name, id: new_id})
-      @merchants << new_merchant
+      @collection << new_merchant
       new_merchant
     end
 
@@ -43,7 +39,7 @@ class MerchantRepository
     end
 
     def inspect
-      "#<#{self.class} #{@merchants.size} rows>"
+      "#<#{self.class} #{@mcollection.size} rows>"
     end
 
 end

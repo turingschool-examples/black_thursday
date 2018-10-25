@@ -8,7 +8,7 @@ require_relative '../lib/repository'
    include Repository
 
    def initialize(file_path)
-     @items = populate_items(file_path)
+     @collection = populate_items(file_path)
    end
 
    def populate_items(file_path)
@@ -18,12 +18,8 @@ require_relative '../lib/repository'
      end
    end
 
-   def all
-     @items
-   end
-
    def find_all_with_description(desc)
-     @items.find_all do |item|
+     all.find_all do |item|
        item.description.upcase.include?(desc.upcase)
      end
    end
@@ -58,7 +54,7 @@ require_relative '../lib/repository'
      new_item = Item.new({name: name, description: description, id: new_id,
        unit_price: unit_price, created_at: created_at, updated_at: updated_at,
        merchant_id: merchant_id})
-     @items << new_item
+     @collection << new_item
      new_item
    end
 
@@ -77,7 +73,7 @@ require_relative '../lib/repository'
    end
 
    def inspect
-     "#<#{self.class} #{@items.size} rows>"
+     "#<#{self.class} #{@collection.size} rows>"
    end
 
  end
