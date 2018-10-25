@@ -11,4 +11,8 @@ class SalesEngine
   def self.from_csv(file_path_hash)
     SalesEngine.new(file_path_hash)
   end
+
+  def analyst
+    SalesAnalyst.new(@merchants)
+  end
 end
