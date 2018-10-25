@@ -1,13 +1,17 @@
 require 'csv'
-require './lib/item'
-require 'pry'
+require_relative './item'
 require 'bigdecimal'
+require 'time'
 
 class ItemRepository
   attr_reader :all
 
   def initialize(file_path)
     @all = from_csv(file_path)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def from_csv(file_path)
@@ -56,6 +60,8 @@ class ItemRepository
   def create(attributes)
     highest_item = @all.max {|item| item.id}
     attributes[:id] = highest_item.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     @all << Item.new(attributes)
   end
 
@@ -64,7 +70,7 @@ class ItemRepository
     item.name = attributes[:name]
     item.unit_price = attributes[:unit_price]
     item.description = attributes[:description]
-    item.updated_at = Time.now
+    item.updated_at = Time.now.to_s
   end
 
   def delete(id)

@@ -1,10 +1,15 @@
 require 'csv'
-require './lib/merchant'
+require_relative './merchant'
+require 'time'
 class MerchantRepository
   attr_reader :all
 
   def initialize(file_path)
     @all = from_csv(file_path)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def from_csv(file_path)
