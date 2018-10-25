@@ -4,8 +4,8 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
+    :items     => "./data/item_test.csv",
+    :merchants => "./data/merchant_test.csv",
     })
   end
 
@@ -28,7 +28,48 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_count_merchants
     merchants = @sales_engine.merchants
 
-    assert_equal 475, merchants.all.size
+    assert_equal 5, merchants.all.size
   end
+
+  def test_it_can_generate_all_items
+    items = @sales_engine.items
+
+    assert_instance_of ItemRepository, items
+  end
+
+  def test_it_can_count_items
+    items = @sales_engine.items
+
+    assert_equal 3, items.all.size
+  end
+
+  def test_it_can_generate_all_merchants
+    merchants = @sales_engine.merchants
+    ids = merchants.all.map do |merchant|
+      merchant.id
+    end
+
+    assert_equal 12334105, ids[0]
+  end
+
+  def test_it_can_group_items_by_merchant_id_for_avg
+    items = @sales_engine.items
+
+    assert_equal 2, items.find_all_by_merchant_id(12334185).size
+    assert_equal 1, items.find_all_by_merchant_id(12334105).size
+  end
+
+  def test_it_can_calculate_the_average_number_of_items_per_merchant
+    sales_analyst = SalesAnalyst.new
+    items = @sales_engine.items
+    merchants = @sales_engine.merchants
+    # merchants.all.each do |merchant|
+    #   << items.find_all_by_merchant_id(merchant)
+    # end
+
+    assert_equal 0.2, sales_analyst.average_items_per_merchant
+  end
+
+
 
 end
