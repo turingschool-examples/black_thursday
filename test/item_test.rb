@@ -45,4 +45,8 @@ class ItemTest < Minitest::Test
   def test_it_has_merchant_id
     assert_equal 2, @i.merchant_id
   end
+
+  def test_it_can_convert_to_dollars
+    assert_equal 10.99, @i.unit_price_to_dollars
+  end
 end
