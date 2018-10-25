@@ -22,7 +22,4 @@ module Repository
     end.id + 1
   end
 
-
-
-
 end

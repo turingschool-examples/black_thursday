@@ -34,6 +34,13 @@ class MerchantRepository
     new_item
   end
 
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    return merchant if merchant.nil?
+    merchant.name = attributes[:name] unless attributes[:name].nil?
+    merchant
+  end
+
 
 
 end

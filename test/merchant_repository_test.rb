@@ -44,13 +44,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334146, new_merchant.id
   end
 
-  def test_we_can_update_attributes
+  def test_we_can_update_attributes_for_merchant
     mr = MerchantRepository.new("./test/merchant_sample.csv")
     mr.create({:name => 'Larry'})
     updated_merchant = mr.update(12334145, {:name => 'Shiny Larry'})
     assert_equal 'Shiny Larry', updated_merchant.name
   end
-
-
 
 end
