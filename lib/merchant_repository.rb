@@ -5,8 +5,8 @@ class MerchantRepository < Repository
 
   def initialize
     @collection = {}
-
   end
+
   def add_merchant(merchant)
     @collection[merchant.id] = merchant
   end
