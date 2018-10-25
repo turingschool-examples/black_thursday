@@ -5,9 +5,9 @@ require_relative '../lib/sales_engine'
 class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
+      items: './test/data/test_items.csv',
+      merchants: './test/data/test_merchants.csv',
+      invoices: './test/data/test_invoices.csv'
     })
   end
 
@@ -20,15 +20,15 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_parses_items_correctly
-    assert_equal 1367, @se.items.all.length
+    assert_equal 34, @se.items.all.length
   end
 
   def test_it_parses_invoices_correctly
-    assert_equal 4985, @se.invoices.all.length
+    assert_equal 73, @se.invoices.all.length
   end
 
   def test_it_parses_merchants_correctly
-    assert_equal 475, @se.merchants.all.length
+    assert_equal 7, @se.merchants.all.length
   end
 
   def test_it_holds_a_merchant_repository
