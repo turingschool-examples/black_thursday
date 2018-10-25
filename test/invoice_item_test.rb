@@ -1,8 +1,9 @@
 require './lib/invoice_item'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 
-class InvoiceItemTest < Mintest::Test
+class InvoiceItemTest < Minitest::Test
   def setup
     @now = Time.now
     @invoice_item = InvoiceItem.new({
