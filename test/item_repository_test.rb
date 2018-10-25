@@ -3,40 +3,47 @@ require './test/test_helper'
 class ItemRepositoryTest < Minitest::Test
 
   def test_it_exists
-    i = ItemRepository.new('./test/item_sample.csv')
-    assert_instance_of ItemRepository, i
+    ir = ItemRepository.new('./test/item_sample.csv')
+    assert_instance_of ItemRepository, ir
   end
 
   def test_it_can_create_items
-    i = ItemRepository.new('./test/item_sample.csv')
-    assert_instance_of Array, i.create_item("./test/item_sample.csv")
+    ir = ItemRepository.new('./test/item_sample.csv')
+    assert_instance_of Array, ir.create_item("./test/item_sample.csv")
   end
 
   def test_item_repo_has_items
-    i = ItemRepository.new('./test/item_sample.csv')
-    assert_equal 3, i.all.count
+    ir = ItemRepository.new('./test/item_sample.csv')
+    assert_equal 3, ir.all.count
   end
 
   def test_it_finds_by_id
-    i = ItemRepository.new('./test/item_sample.csv')
-    item = i.repository[1]
-    assert_equal item, i.find_by_id(263397059)
+    ir = ItemRepository.new('./test/item_sample.csv')
+    item = ir.repository[1]
+    assert_equal item, ir.find_by_id(263397059)
   end
 
   def test_item_repo_can_find_them_by_name
-    i = ItemRepository.new("./test/item_sample.csv")
-    assert_instance_of Item, i.find_by_name('Etre ailleurs')
+    ir = ItemRepository.new("./test/item_sample.csv")
+    assert_instance_of Item, ir.find_by_name('Etre ailleurs')
   end
 
   def test_it_can_find_all_by_description
-   i = ItemRepository.new("./test/item_sample.csv")
-   assert_equal [], i.find_all_with_description('Disney glitter frames')
+   ir = ItemRepository.new("./test/item_sample.csv")
+   assert_equal [], ir.find_all_with_description('Disney glitter frames')
   end
 
   def test_it_can_find_all_by_price
-   i = ItemRepository.new("./test/item_sample.csv")
-   assert_instance_of Item, i.find_all_by_price('1200').first
-   assert_equal 1200, i.find_all_by_price('1200').first.unit_price.to_i
+   ir = ItemRepository.new("./test/item_sample.csv")
+   assert_instance_of Item, ir.find_all_by_price('1200').first
+   assert_equal 1200, ir.find_all_by_price('1200').first.unit_price.to_i
   end
+
+  def test_it_returns_array_of_items_priced_within_givin_range
+   range = (1000..1500)
+   ir = ItemRepository.new("./test/item_sample.csv")
+   assert_equal [], ir.find_all_by_price_in_range(range)
+  end
+
 
 end
