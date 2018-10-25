@@ -1,7 +1,7 @@
 require 'pry'
 require 'CSV'
 require './lib/merchant'
-require './lib/sales_module'
+require './lib/repo_module'
 
 class MerchantRepository
 

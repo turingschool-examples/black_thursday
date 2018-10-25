@@ -1,7 +1,7 @@
 require 'pry'
 require 'CSV'
 require './lib/merchant'
-require './lib/sales_module'
+require './lib/repo_module'
 
 class ItemRepository
 
@@ -50,5 +50,7 @@ class ItemRepository
     @repository << new_item = Item.new(attributes)
     new_item
   end
+
+  
 
 end

@@ -44,4 +44,5 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334146, new_merchant.id
   end
 
+
 end
