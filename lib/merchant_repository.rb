@@ -1,6 +1,11 @@
 require "csv"
-require_relative "../lib/merchant"
+require_relative '../lib/merchant'
+require_relative '../lib/repository'
+
 class MerchantRepository
+  
+    include Repository
+    
     def initialize(file_path)
       @merchants = populate_merchants(file_path)
     end
@@ -14,18 +19,6 @@ class MerchantRepository
 
     def all
       @merchants
-    end
-
-    def find_by_id(id)
-      @merchants.find do |merchant|
-        merchant.id == id
-      end
-    end
-
-    def find_by_name(name)
-      @merchants.find do |merchant|
-        merchant.name.upcase == name.upcase
-      end
     end
 
     def find_all_by_name(name)
@@ -53,11 +46,6 @@ class MerchantRepository
       else
         nil
       end 
-    end
-
-    def delete(id)
-      merchant = find_by_id(id)
-      @merchants.delete(merchant)
     end
 
     def inspect

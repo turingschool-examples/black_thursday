@@ -1,7 +1,11 @@
 require 'csv'
 require 'time'
 require_relative '../lib/item'
+require_relative '../lib/repository'
+
  class ItemRepository
+
+   include Repository
 
    def initialize(file_path)
      @items = populate_items(file_path)
@@ -16,18 +20,6 @@ require_relative '../lib/item'
 
    def all
      @items
-   end
-
-   def find_by_id(id)
-    all.find do |item|
-      item.id == id
-    end
-   end
-
-   def find_by_name(name)
-     @items.find do |item|
-       item.name.upcase == name.upcase
-     end
    end
 
    def find_all_with_description(desc)
@@ -85,11 +77,6 @@ require_relative '../lib/item'
        item.unit_price = new_unit_price if attributes[:unit_price]
        item.updated_at = Time.now
      end
-   end
-
-   def delete(id)
-     item = find_by_id(id)
-     @items.delete(item)
    end
 
    def inspect
