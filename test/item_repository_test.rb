@@ -35,14 +35,14 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_price
    ir = ItemRepository.new("./test/item_sample.csv")
-   assert_instance_of Item, ir.find_all_by_price('1200').first
-   assert_equal 1200, ir.find_all_by_price('1200').first.unit_price.to_i
+   assert_instance_of Item, ir.find_all_by_price(1200).first
+   assert_equal 12e00, ir.find_all_by_price(1200).first.unit_price.to_i
   end
 
   def test_it_returns_array_of_items_priced_within_givin_range
-   range = (1000..1500)
+   range = (1000.00..1500.00)
    ir = ItemRepository.new("./test/item_sample.csv")
-   assert_equal [], ir.find_all_by_price_in_range(range)
+   assert_equal 0, ir.find_all_by_price_in_range(range).count
   end
 
 

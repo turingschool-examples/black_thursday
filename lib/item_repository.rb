@@ -29,7 +29,13 @@ class ItemRepository
 
   def find_all_by_price(price)
     @repository.find_all do |item|
-      item.unit_price == price
+      item.unit_price ==  BigDecimal.new(price)/100
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @repository.find_all do |item|
+      range.include?(item.unit_price)
     end
   end
 
