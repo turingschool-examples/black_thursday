@@ -14,7 +14,7 @@ class SalesAnalystTest < Minitest::Test
           :id          => 263397059,
           :name        => "Pencil",
           :description => "You can use it to write things",
-          :unit_price  => BigDecimal.new(10.99,4),
+          :unit_price  => (BigDecimal.new(10.99,4) / 100),
           :created_at  => "2016-01-11 12:29:33 UTC",
           :updated_at  => "1993-08-29 22:53:20 UTC",
           :merchant_id => 213567
@@ -23,7 +23,7 @@ class SalesAnalystTest < Minitest::Test
           :id          => 2347892358,
           :name        => "Marker",
           :description => "You can use it to mark things",
-          :unit_price  => BigDecimal.new(12.50,4),
+          :unit_price  => (BigDecimal.new(12.50,4) / 100),
           :created_at  => "2016-01-11 12:02:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 983406
@@ -32,7 +32,7 @@ class SalesAnalystTest < Minitest::Test
           :id          => 2413,
           :name        => "Jump rope",
           :description => "Jump it",
-          :unit_price  => BigDecimal.new(24.50,4),
+          :unit_price  => (BigDecimal.new(24.50,4) / 100),
           :created_at  => "2016-01-11 12:02:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 245
@@ -41,7 +41,7 @@ class SalesAnalystTest < Minitest::Test
           :id          => 6432,
           :name        => "Elf costume",
           :description => "Be santa's little helper.",
-          :unit_price  => BigDecimal.new(30.65,4),
+          :unit_price  => (BigDecimal.new(30.65,4) / 100),
           :created_at  => "2016-01-11 12:05:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 24524
@@ -68,7 +68,7 @@ class SalesAnalystTest < Minitest::Test
           :id          => 64423432,
           :name        => "Elf costume",
           :description => "Be santa's little helper.",
-          :unit_price  => BigDecimal.new(300.65,4),
+          :unit_price  => (BigDecimal.new(300.65,4) / 100),
           :created_at  => "2016-01-11 12:05:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 24524
@@ -77,7 +77,7 @@ class SalesAnalystTest < Minitest::Test
           :id          => 643243352,
           :name        => "Elf costume",
           :description => "Be santa's little helper.",
-          :unit_price  => BigDecimal.new(3.65,4),
+          :unit_price  => (BigDecimal.new(3.65,4) / 100),
           :created_at  => "2016-01-11 12:05:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 24524
@@ -86,7 +86,7 @@ class SalesAnalystTest < Minitest::Test
           :id          => 6423532,
           :name        => "Elf costume",
           :description => "Be santa's little helper.",
-          :unit_price  => BigDecimal.new(3.65,4),
+          :unit_price  => (BigDecimal.new(3.65,4) / 100),
           :created_at  => "2016-01-11 12:05:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
           :merchant_id => 24524
