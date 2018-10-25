@@ -7,23 +7,6 @@ class SalesAnalyst
     @merchants = merchants
     @invoices = invoices
   end
-  # TYPES = %w(item merchant invoice)
-  # TYPES.permutation(2) do |type_1, type_2|
-    # require 'pry'; binding.pry
-    # type_1s = type_1 + 's'; type_2s = type_2 + 's'
-    # type_1_repos
-    # average_name = "average_#{type_1s}_per_#{type_2}".to_sym
-    # define_method(average_name) do
-    #   (type_1.all.size.to_f / type_2.all.size).round(2)
-    # end
-    # standard_deviation_name = "average_#{type_1s}_per_#{type_2}_standard_deviation"
-    # # define_method(standard_deviation_name) do
-    #   array_of_amounts = s
-    # end
-  # end
-
-
-
 
   def average_type_per_type(type_1, type_2)
     (type_1.all.size.to_f / type_2.all.size).round(2)
