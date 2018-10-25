@@ -1,12 +1,12 @@
 require './lib/customer_repository'
 require './lib/customer'
 require 'bigdecimal'
-require 'test/test_helper'
+require './test/test_helper'
 
 class CustomerRepositoryTest < Minitest::Test
   def setup
     @now = @now
-    @cr = CustomerRepositoryTest.new
+    @cr = CustomerRepository.new
 
     @c_1 = {
       :id => 6,
