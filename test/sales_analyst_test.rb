@@ -65,7 +65,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_items
-    
+    sa = SalesAnalyst.new(items: @ir)
+    assert_equal [@item_4], sa.golden_items
   end
 
 
