@@ -8,8 +8,6 @@ class MerchantRepositoryTest < Minitest::Test
         :items      => "./data/items.csv",
         :merchants  => "./data/merchants.csv"
                              } )
-    se.create_merchants
-    se.create_items
     @mr = se.merchants
   end
 

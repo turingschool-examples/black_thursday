@@ -20,7 +20,6 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    require 'pry'; binding.pry 
     @collection.find do |merchant|
       merchant.name == name
     end

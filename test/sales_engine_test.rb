@@ -4,6 +4,7 @@ require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/item'
+require 'csv'
 class SalesEngineTest < Minitest::Test
   def test_it_exists
     se = SalesEngine.from_csv( {
