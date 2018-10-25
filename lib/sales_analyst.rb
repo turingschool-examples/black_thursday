@@ -53,7 +53,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     temp_sd = average_invoices_per_merchant_standard_deviation
     @merchants.all.select do |merchant|
-      num_items_of_merchant(merchant) > temp_sd + average_items_per_merchant
+      num_invoices_of_merchant(merchant) > temp_sd + average_invoices_per_merchant
     end
   end
   def bottom_merchants_by_invoice_count
@@ -88,6 +88,9 @@ class SalesAnalyst
 
 
   def num_items_of_merchant(merchant)
+    @items.find_all_by_merchant_id(merchant.id).size
+  end
+  def num_invoices_of_merchant(merchant)
     @items.find_all_by_merchant_id(merchant.id).size
   end
 end
