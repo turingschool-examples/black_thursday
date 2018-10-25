@@ -1,4 +1,5 @@
 class SalesAnalyst
+
   # def merchants_with_high_item_count
   #
   # end
@@ -13,6 +14,7 @@ class SalesAnalyst
     end
     total / count
   end
+
 
 
 end

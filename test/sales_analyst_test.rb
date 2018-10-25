@@ -15,9 +15,23 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_be_created_by_sales_engine
-      sales_analyst = @sales_engine.analyst
-      assert_instance_of SalesAnalyst, sales_analyst
+    sales_analyst = @sales_engine.analyst
+    assert_instance_of SalesAnalyst, sales_analyst
   end
+
+
+  def test_it_can_generate_all_merchants
+    merchants = @sales_engine.merchants
+
+    assert_instance_of MerchantRepository, merchants
+  end
+
+  def test_it_can_count_merchants
+    merchants = @sales_engine.merchants
+
+    assert_equal 475, merchants.all.size
+  end
+
 
   def test_analyst_can_find_who_sells_the_most
     skip
@@ -30,4 +44,5 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 0, average
   end
+
 end
