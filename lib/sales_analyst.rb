@@ -33,23 +33,23 @@ class SalesAnalyst
 
   #sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant] ~Jennica
   def merchants_with_high_item_count
-    items_by_merchant = @items.items.group_by do |item|
-      item.merchant_id
-    end
-    item_count_by_merchant = items_by_merchant.map do |items|
-      [items[0],items[1].count]
-    end
-    number_set = item_count_by_merchant.map do |item_count|
-      item_count[1]
-    end
+    items_by_merchant = @items.items.group_by { |item| item.merchant_id }
+    item_count_by_merchant = items_by_merchant.map { |items| [items[0],items[1].count] }
+    number_set = item_count_by_merchant.map { |item_count| item_count[1] }
     mean = find_mean(number_set)
     std = standard_deviation(number_set)
-    item_count_by_merchant.find_all do |merchant|
-      merchant[1] > std + mean
-    end
+    item_count_by_merchant.find_all { |merchant| merchant[1] > std + mean }
+  end
+
+  # sales_analyst.average_average_price_per_merchant # => BigDecimal ~Jennica
+  def average_average_price_per_merchant
+    find_mean(average_price_per_merchant)
+  end
+
+  def average_price_per_merchant
+
   end
 end
 
 # sales_analyst.average_items_per_merchant_standard_deviation # => 3.26 ~JC
 # sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal ~Maddie
-# sales_analyst.average_average_price_per_merchant # => BigDecimal ~Jennica
