@@ -5,9 +5,10 @@ require './lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv(
-      {#changed
+      {
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       }
     )
     @sa = se.analyst
@@ -39,19 +40,19 @@ class SalesAnalystTest < Minitest::Test
 
   #Iteration 2
   #
-  # def test_average_invoices_per_merchant
-  #   assert_equal 10.49, @sa.average_invoices_per_merchant
-  # end
-  # def test_average_invoices_per_merchant_standard_deviation
-  #   assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
-  # end
+  def test_average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+  end
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
   # def test_top_merchants_by_invoice_count
   # end
   # def test_bottom_merchants_by_invoice_count
   # end
-  # def test_top_days_by_invoice_count
-  #   ["Sunday", "Saturday"]
-  # end
+  def test_top_days_by_invoice_count
+    ["Sunday", "Saturday"]
+  end
   #
   # def test_invoice_status_pending
   #   assert_equal 29.55, @sa.invoice_status(:pending)
