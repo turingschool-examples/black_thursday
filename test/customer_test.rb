@@ -1,5 +1,5 @@
 require './test/test_helper'
-require './lib/item'
+require './lib/customer'
 
 class CustomerTest < Minitest::Test
   def setup
