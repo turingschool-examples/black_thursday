@@ -25,6 +25,7 @@ class SalesAnalystTest < Minitest::Test
   def test_standard_deviation
     items = ItemRepository.new("./data/items.csv")
     sa = SalesAnalyst.new(items)
+    
     assert_equal 3.26, sa.standard_deviation
   end
 
