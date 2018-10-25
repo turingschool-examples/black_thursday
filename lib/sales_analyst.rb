@@ -197,10 +197,9 @@ w
 
   def invoice_total(invoice_id)
     invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
-    sum = 0
-    invoice_items.each do |invoice_item|
+    invoice_items.reduce(0) do |sum, invoice_item|
       sum += invoice_item.revenue
+      sum
     end
-    sum
   end
 end
