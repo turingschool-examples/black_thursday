@@ -156,7 +156,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-w
+
   end
 
   def merchants_with_only_one_item
