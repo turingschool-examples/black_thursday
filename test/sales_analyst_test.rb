@@ -7,6 +7,7 @@ class SalesAnalystTest < Minitest::Test
     :items     => "./data/item_test.csv",
     :merchants => "./data/merchant_test.csv",
     })
+    @sales_analyst = @sales_engine.analyst
   end
 
   def test_it_exists
@@ -82,4 +83,24 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 0, average
   end
+
+  def test_it_can_calculate_mean
+    array = [1, 2, 3, 4]
+
+    assert_equal 2.5, @sales_analyst.mean(array)
+  end
+
+  def test_it_can_calulate_sum
+    array = [1, 2, 3, 4]
+
+    assert_equal 10, @sales_analyst.sum(array)
+  end
+
+  def test_it_can_calculate_std_deviation
+    array = [1, 2, 3, 4]
+
+    assert_equal 1.29, @sales_analyst.std_dev(array)
+  end
+
+
 end
