@@ -1,4 +1,3 @@
-require 'bigdecimal'
 require_relative 'business_data'
 
 class Item < BusinessData
