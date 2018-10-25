@@ -2,6 +2,10 @@ require_relative './helper'
 require_relative '../lib/item_repository'
 require_relative '../lib/item'
 class ItemRepositoryTest < Minitest::Test
+  def setup
+    @time_now = Time.now
+    @updated_time = Time.now
+  end
   def test_it_exists
     ir = ItemRepository.new('./data/items.csv')
     assert_instance_of ItemRepository, ir
@@ -63,5 +67,48 @@ class ItemRepositoryTest < Minitest::Test
     ir.items
     assert_equal [], ir.find_all_by_merchant_id('12345678')
     assert_equal 6, ir.find_all_by_merchant_id('12334185').count
+  end
+
+
+  def test_it_can_create_new_item
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    actual = ir.create({ name: 'LeahKathrynMiller',
+                          description: 'fun',
+                          unit_price: '360',
+                          created_at: @time_now,
+                          updated_at: @updated_time,
+                          merchant_id: '73922533'
+                          })
+    assert_instance_of Item, actual
+    assert_equal '263567475', ir.all.last.id
+  end
+
+  def test_it_can_update_attributes
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    ir.update('263397313', { name: 'Super Cool Stuff',
+                             description: 'This is really cool',
+                             unit_price: '1000000'})
+    time = Time.now
+    assert_equal 'Super Cool Stuff', ir.find_by_id('263397313').name
+    assert_equal 'This is really cool', ir.find_by_id('263397313').description
+    assert_equal '1000000', ir.find_by_id('263397313').unit_price
+    # assert_equal time, ir.find_by_id('263397313').updated_at
+    #ask instructors for clarification on how to test Time.now
+  end
+
+  def test_it_can_delete_an_item
+    ir = ItemRepository.new('./data/items.csv')
+    ir.items
+    actual = ir.create({ name: 'LeahKathrynMiller',
+                          description: 'fun',
+                          unit_price: '360',
+                          created_at: @time_now,
+                          updated_at: @updated_time,
+                          merchant_id: '73922533'
+                          })
+    ir.delete('263567475')
+    refute ir.all.any? { |item| item.id == '263567475' }
   end
 end
