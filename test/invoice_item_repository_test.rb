@@ -1,7 +1,7 @@
 require './lib/invoice_item_repository'
 require './lib/invoice_item'
 require 'bigdecimal'
-require 'test/test_helper'
+require './test/test_helper'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup

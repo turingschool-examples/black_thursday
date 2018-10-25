@@ -1,12 +1,14 @@
 require_relative 'statistics'
 class SalesAnalyst
-  attr_reader :items, :merchants, :invoices
   include Statistics
-  def initialize(items, merchants, invoices, invoice_items)
+  attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions
+  def initialize(items, merchants, invoices, invoice_items, customers, transactions)
     @items = items
     @merchants = merchants
     @invoices = invoices
     @invoice_items = invoice_items
+    @customers = customers
+    @transactions = transactions
   end
 
   def average_type_per_type(type_1, type_2)
