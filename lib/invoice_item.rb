@@ -1,4 +1,6 @@
-class InvoiceItem
+require_relative 'business_data'
+
+class InvoiceItem < BusinessData
   attr_reader :id, :item_id, :invoice_id, :created_at
   attr_accessor :quantity, :unit_price, :updated_at
   def initialize(input_hash)
