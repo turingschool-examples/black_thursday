@@ -64,14 +64,14 @@ class ItemRepositoryTest < Minitest::Test
   assert_equal 263398204, new_item.id
   end
 
-
-    def test_we_can_update_attributes
-     ir.create({:name => 'Shoes', :description => 'very comfy', :unit_price => 2000})
-     ir.update(263397060, {:name => 'Shiny Shoes', :description => 'even more comfy', :unit_price => 3500})
-     updated_item = ir.find_by_id(263397060)
-     assert_equal 'Shiny Shoes', updated_item.name
-     assert_equal 'even more comfy', updated_item.description
-     assert_equal 3500, updated_item.unit_price
-    end
+  def test_we_can_update_attributes
+    ir = ItemRepository.new("./test/item_sample.csv")
+    ir.create({:name => 'Shoes', :description => 'very comfy', :unit_price => 2000})
+    ir.update(263398203, {:name => 'Shiny Shoes', :description => 'even more comfy', :unit_price => 3500})
+    updated_item = ir.find_by_id(263398203)
+    assert_equal 'Shiny Shoes', updated_item.name
+    assert_equal 'even more comfy', updated_item.description
+    assert_equal 3500, updated_item.unit_price
+  end
 
 end
