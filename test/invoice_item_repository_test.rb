@@ -1,5 +1,6 @@
 require './lib/invoice_item_repository'
 require './lib/invoice_item'
+require 'bigdecimal'
 require 'minitest/autorun'
 require 'minitest/pride'
 
@@ -39,9 +40,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def create_invoice_items
-    @irr.create(@ii_1)
-    @irr.create(@ii_2)
-    @irr.create(@ii_3)
+    @iir.create(@ii_1)
+    @iir.create(@ii_2)
+    @iir.create(@ii_3)
   end
 
   def test_it_exists
@@ -49,38 +50,40 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_a_type
-    assert_instance_of InvoiceItem, @iir.type
+    assert_equal InvoiceItem, @iir.type
   end
 
   def test_it_has_an_attr_whitelist
-    assert_equal [:quantity, :unit_price], @irr.attr_whitelist
+    assert_equal [:quantity, :unit_price], @iir.attr_whitelist
   end
 
   def test_find_all_by_item_id_returns_empty_array_if_no_matches
     create_invoice_items
 
-    assert_equal [], @irr.find_all_by_item_id(12)
+    assert_equal [], @iir.find_all_by_item_id(12)
   end
 
   def test_find_all_by_item_id_returns_matching_instances
     create_invoice_items
 
     expected = [InvoiceItem.new(@ii_2), InvoiceItem.new(@ii_3)]
+    result = @iir.find_all_by_item_id(7)
 
-    assert_equal expected, @irr.find_all_by_item_id(7)
+    assert_equal expected, result
   end
 
-  def test_find_all_by_item_id_returns_empty_array_if_no_matches
+  def test_find_all_by_invoice_id_returns_empty_array_if_no_matches
     create_invoice_items
 
-    assert_equal [], @irr.find_all_by_invoice_id(12)
+    assert_equal [], @iir.find_all_by_invoice_id(12)
   end
 
-  def test_find_all_by_item_id_returns_matching_instances
+  def test_find_all_by_invoice_id_returns_matching_instances
     create_invoice_items
 
     expected = [InvoiceItem.new(@ii_2), InvoiceItem.new(@ii_3)]
+    result = @iir.find_all_by_invoice_id(8)
 
-    assert_equal expected, @irr.find_all_by_invoice_id(8)
+    assert_equal expected, result
   end
 end
