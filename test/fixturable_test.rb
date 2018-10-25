@@ -17,9 +17,9 @@ class FixturableTest < Minitest::Test
     })
     @sa = se.analyst
   end
-  def test_it_can_run
-    skip
-    @sa.sample
-    binding.pry
-  end
+#   def test_it_can_run
+#     skip
+#     @sa.sample
+#     binding.pry
+#   end
 end
