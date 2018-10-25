@@ -8,7 +8,12 @@ class SalesAnalyst
     @items = input[:items]
   end
 
-  
+  def average_price_of_items
+    tot_of_all_prices = @items.items.inject(0) do |sum, item|
+      sum + item.unit_price_to_dollars
+    end
+    tot_of_all_prices / @items.items.count
+  end
 
 end
 # sales_analyst.average_items_per_merchant # => 2.88 ~Maddie

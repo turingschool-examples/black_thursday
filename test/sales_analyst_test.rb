@@ -65,7 +65,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_items
-
+    
   end
 
 
