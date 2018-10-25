@@ -5,19 +5,20 @@ class SalesAnalyst
     @merchant_repo = sales_engine.merchants
   end
 
+  def num_items_for_each_merchant
+    @merchant_repo.all.map do |merchant|
+      @item_repo.find_all_by_merchant_id(merchant.id).size
+    end
+  end
+
+  def count_of_merchants
+    @merchant_repo.all.size
+  end
+
+
   def average_items_per_merchant
-    merchants = @sales_engine.merchants
-    items = @sales_engine.items
-
-    avg_items = merchants.all.map do |merchant|
-      items.find_all_by_merchant_id(merchant.id).size
-    end
-
-    length = avg_items.length
-    avg_items = avg_items.inject(0) do |this, item|
-      this + item
-    end
-    avg_items.to_f / length
+    items = num_items_for_each_merchant
+    sum(items).to_f / count_of_merchants
   end
 
 
@@ -36,6 +37,34 @@ class SalesAnalyst
     total / count
   end
 
+  def sum(array)
+    array.inject(0) do |things, stuff|
+      things + stuff
+    end
+  end
+
+  def mean(array)
+    ar_sum = array.inject(0) do |things, stuff|
+      things + stuff
+    end
+
+    avg = ar_sum.to_f / array.length
+  end
+
+  def std_dev(array)
+    mean = mean(array)
+
+    array = array.map do |num|
+      (num - mean) * (num - mean)
+    end
+
+    array_sum = sum(array)
+
+    variance = array_sum.to_f / (array.length - 1)
+
+    deviation = Math.sqrt(variance).round(2)
+
+  end
 
 
 end

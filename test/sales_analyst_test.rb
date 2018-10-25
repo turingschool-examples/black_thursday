@@ -8,6 +8,7 @@ class SalesAnalystTest < Minitest::Test
     :merchants => "./data/merchant_test.csv",
     })
     @sales_analyst = @sales_engine.analyst
+    @merchant_1 = @sales_engine.merchants.all[0]
   end
 
   def test_it_exists
@@ -100,6 +101,10 @@ class SalesAnalystTest < Minitest::Test
     array = [1, 2, 3, 4]
 
     assert_equal 1.29, @sales_analyst.std_dev(array)
+  end
+
+  def test_it_returns_num_items_per_merchant
+    assert_equal [1, 0, 0, 0, 0], @sales_analyst.num_items_for_each_merchant
   end
 
 
