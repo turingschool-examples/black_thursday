@@ -20,3 +20,12 @@ namespace :sanitation do
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
 end
+
+task default: ["test"]
+
+require 'rake/testtask'
+
+desc "run all tests"
+Rake::TestTask.new do |t|
+  t.pattern = "test/**/*_test.rb"
+end
