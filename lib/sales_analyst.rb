@@ -10,8 +10,12 @@ class SalesAnalyst
   end
 
   def setup_average_type_per_type_methods
-    self.instance_variables.permutation(2) do |type_1, type_2|
-      require 'pry'; binding.pry
+
+    self.instance_variables.permutation(2) do |v_1, v_2|
+        v_1_string = v_1.to_s[1..-1]
+        v_2_string = v_1.to_s[1..-2]
+        q
+
         average_name = "average_#{type_1s}_per_#{type_2}".to_sym
       define_method(average_name) do
         (type_1.all.size.to_f / type_2.all.size).round(2)
@@ -27,7 +31,7 @@ class SalesAnalyst
   def average_type_per_type(type_1, type_2)
     (type_1.all.size.to_f / type_2.all.size).round(2)
   end
-  
+
   def average_items_per_merchant
     average_type_per_type(@items, @merchants)
   end
