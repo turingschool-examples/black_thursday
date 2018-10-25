@@ -41,6 +41,4 @@ class MerchantRepository
     merchant
   end
 
-
-
 end

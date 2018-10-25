@@ -76,9 +76,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_delete_by_id
     ir = ItemRepository.new('./test/item_sample.csv')
-    p ir.repo_array.count
     ir.delete(263397059)
-    p ir.repo_array.count
     assert_equal nil, ir.find_by_id(263397059)
   end
 

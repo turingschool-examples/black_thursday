@@ -65,5 +65,4 @@ class ItemRepository
     @repo_array.delete_at(index)
   end
 
-
 end
