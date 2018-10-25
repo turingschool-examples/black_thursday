@@ -41,7 +41,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new("./test/merchant_sample.csv")
     new_merchant = mr.create({:name => 'Duck'})
     assert_equal 'Duck', new_merchant.name
-    assert_equal 12334156, new_merchant.id
+    assert_equal 12334146, new_merchant.id
   end
 
 end
