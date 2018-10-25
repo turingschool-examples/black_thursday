@@ -188,12 +188,12 @@ w
   def invoice_paid_in_full?(invoice_id)
     transactions = @transactions.find_all_by_invoice_id(invoice_id)
     return false if transactions == []
-    bool = true
+    result = true
     transactions.each do |transaction|
       if transaction.result != :success
-        bool = false
+        result = false
       end
     end
-    bool
+    result
   end
 end
