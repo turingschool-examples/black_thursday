@@ -22,13 +22,19 @@ class SalesEngine
                                id: row[:id].to_i,
                                name: row[:name].to_s,
                                description: row[:description].to_s,
-                               unit_price: BigDecimal.new(row[:unit_price].to_s),
+                               unit_price: big_decimal_converter(row[:unit_price]),
                                merchant_id: row[:merchant_id].to_s,
                                created_at: row[:created_at].to_s,
                                updated_at: row[:updated_at].to_s
                                     } )
     end
     @items_collection
+  end
+
+  def big_decimal_converter(price)
+    significant_digits = price.to_s.length
+    number = price.to_f / 100
+    BigDecimal.new(number, significant_digits)
   end
 
   def create_merchants
