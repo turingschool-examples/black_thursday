@@ -70,7 +70,7 @@ class ItemRepository
     item.name = attributes[:name] if attributes[:name]
     item.unit_price = attributes[:unit_price] if attributes[:unit_price]
     item.description = attributes[:description] if attributes[:description]
-    item.updated_at = Time.new.getutc if item 
+    item.updated_at = Time.new.getutc if item
   end
 
   def delete(id)

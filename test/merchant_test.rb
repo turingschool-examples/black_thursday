@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './merchant'
+require './lib/merchant'
 
 class MerchantTest < Minitest::Test
 
