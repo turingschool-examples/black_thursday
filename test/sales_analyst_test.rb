@@ -21,22 +21,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    skip
-    assert_equal 52, @sa.merchants_with_high_item_count
+    assert_equal 52, @sa.merchants_with_high_item_count.size
   end
 
   def test_average_item_price_for_merchant
-    skip
-    assert_equal 16.66, average_item_price_for_merchant(merchant_id)
+    assert_equal 14.0, @sa.average_item_price_for_merchant(12334135)
   end
 
   def test_average_average_price_per_merchant
-    skip
-    assert_equal 350.29, @sa.average_price_per_merchant
+    assert_equal 350.29, @sa.average_average_price_per_merchant
   end
 
   def test_golden_items
-    skip
     assert_equal 5, @sa.golden_items.length
   end
 
@@ -50,5 +46,21 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_finds_percentage_of_invoices_status_shipped
     assert_equal 56.95, @sa.invoice_status(:shipped)
+  end
+
+  def test_average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+  end
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
+  def test_top_merchants_by_invoice_count
+    assert_equal 12, @sa.top_merchants_by_invoice_count.size
+  end
+  def test_bottom_merchants_by_invoice_count
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.size
+  end
+  def test_top_days_by_invoice_count
+    assert_equal ['Wednesday'], @sa.top_days_by_invoice_count
   end
 end
