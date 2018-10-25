@@ -48,4 +48,8 @@ class InvoiceItemTest < Minitest::Test
   def test_it_has_an_updated_at_time
     assert_equal @now, @invoice_item.updated_at
   end
+
+  def test_it_returns_unit_price_as_float
+    assert_equal 10.99, @invoice_item.unit_price_to_dollars
+  end
 end
