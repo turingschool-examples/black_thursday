@@ -8,7 +8,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal.new(1099, 4),
       :created_at => Time.now,
       :updated_at => Time.now
       })
@@ -36,7 +36,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_has_unit_price
     assert_instance_of BigDecimal, @ii.unit_price
-    # assert_equal BigDecimal.new(10.99, 4), @ii.unit_price
+    assert_equal BigDecimal.new(10.99, 4), @ii.unit_price
   end
 
   def test_it_is_created_at
