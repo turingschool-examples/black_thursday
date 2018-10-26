@@ -1,9 +1,9 @@
 module Fixturable
   def sample(merch_ids = nil)
-    merch_ids = [12334105, 12334141, 12334185, 12334195, 12334207, 12334213, 12334235] unless merch_ids
+    merch_ids = [12334105] unless merch_ids
     instance_variables.each do |var|
       related_array = related_array_get(var, merch_ids)
-      file_name = "test_#{var.to_s.delete('@')}.csv"
+      file_name = "test_#{var.to_s.delete('@')}_one_merchant.csv"
       CSV.open(file_name, "wb") do |csv|
         csv << to_arr_of_hashes(related_array)[0].keys # adds the attributes name on the first line
         to_arr_of_hashes(related_array).each do |hash|
