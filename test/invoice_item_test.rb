@@ -47,5 +47,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Time, @ii.updated_at
   end
 
+  def test_it_converts_unit_price_to_dollars
+    assert_equal 10.99, @ii.unit_price_to_dollars
+  end
 
 end
