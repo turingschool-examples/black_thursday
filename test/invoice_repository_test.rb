@@ -29,6 +29,9 @@ class InvoiceRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
       })
     @inr = InvoiceRepository.new
+    @inr.add_invoice(@invoice_1)
+    @inr.add_invoice(@invoice_2)
+    @inr.add_invoice(@invoice_3)
   end
 
   def test_it_exists
@@ -36,16 +39,15 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_add_invoice
-    @inr.add_invoice(@invoice_1)
-    assert_equal [@invoice_1], @inr.all
+    assert_equal [@invoice_1, @invoice_2, @invoice_3], @inr.all
   end
 
   def test_it_can_find_by_id
     assert_equal @invoice_1, @inr.find_by_id(6)
   end
 
-  def test_it_can_find_all_by_custumer_id
-    assert_equal [@invoice_1, @invoice_2], @inr.find_all_by_custumer_id(7)
+  def test_it_can_find_all_by_customer_id
+    assert_equal [@invoice_1, @invoice_2], @inr.find_all_by_customer_id(7)
   end
 
   def test_it_can_find_all_by_merchant_id
@@ -53,11 +55,11 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_status
-    assert_equal [@invoice_2], @inr.find_all_by_status
+    assert_equal [@invoice_2], @inr.find_all_by_status("shipped")
   end
 
   def test_it_can_create_new_invoice_with_attributes
-    @inr.create({:customer_id => 9,
+    @inr.create({:customer_id => 12,
     :merchant_id => 8,
     :status      => "pending",
     :created_at  => Time.now,
@@ -66,11 +68,15 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_invoice_with_attributes
-
+    attributes = {status: "shipping"}
+    @inr.update(8, attributes)
+    assert_equal "shipping", @inr.find_by_id(8).status
   end
 
   def test_it_can_delete_invoice
-
+    assert_equal @invoice_1, @inr.find_by_id(6)
+    @inr.delete(6)
+    assert_nil @inr.find_by_id(6)
   end
 
 end
