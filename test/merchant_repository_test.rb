@@ -35,17 +35,17 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_create_merchant_with_attribute
     assert_instance_of Merchant, @mr.create({name:'SalsSidekicks'})
     assert_equal 'SalsSidekicks', @mr.all.last.name
-    assert_equal '12337412', @mr.all.last.id
+    assert_equal 12337412, @mr.all.last.id
   end
 
   def test_it_can_update_merchant_attributes
-    @mr.update('12334135', 'SilverSunPress')
-    assert_equal 'SilverSunPress', @mr.find_by_id('12334135').name
+    @mr.update(12334135, {name: 'SilverSunPress'})
+    assert_equal 'SilverSunPress', @mr.find_by_id(12334135).name
   end
 
   def test_can_delete_id
-    assert @mr.all.any? { |merchant| merchant.id == '12337411' }
-    @mr.delete('12337411')
-    refute @mr.all.any? { |merchant| merchant.id == '12337411' }
+    assert @mr.all.any? { |merchant| merchant.id == 12337411 }
+    @mr.delete(12337411)
+    refute @mr.all.any? { |merchant| merchant.id == 12337411 }
   end
 end
