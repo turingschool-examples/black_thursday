@@ -6,7 +6,8 @@ class InvoiceItem
               :item_id,
               :invoice_id,
               :quantity,
-              :unit_price
+              :unit_price,
+              :created_at
 
   def initialize(invoice_item_data)
     @id = invoice_item_data[:id].to_i
@@ -14,7 +15,8 @@ class InvoiceItem
     @invoice_id = invoice_item_data[:invoice_id].to_i
     @quantity = invoice_item_data[:quantity].to_i
     @unit_price = BigDecimal.new(invoice_item_data[:unit_price].to_i)/100
-    
+    @created_at = invoice_item_data[:created_at]
+
   end
 
 end
