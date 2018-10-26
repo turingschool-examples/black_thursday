@@ -25,12 +25,6 @@ class Repository
     end
   end
 
-  def find_by_name(name)
-    @repo_array.find do |object|
-      object.name.upcase == name.upcase
-    end
-  end
-
   def new_highest_id
     all.max_by do |object|
       object.id
