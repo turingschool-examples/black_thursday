@@ -2,7 +2,8 @@ require 'bigdecimal'
 require 'time'
 
 class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
+  attr_reader :id, :customer_id, :merchant_id
+  attr_accessor :status, :updated_at, :created_at
   def initialize(stats)
     @id = stats[:id]
     @customer_id = stats[:customer_id]
