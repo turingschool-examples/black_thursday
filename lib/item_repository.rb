@@ -12,7 +12,7 @@ class ItemRepository
     @all = from_csv(file_path)
   end
 
-    def find_all_with_description(description)
+  def find_all_with_description(description)
     @all.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end
