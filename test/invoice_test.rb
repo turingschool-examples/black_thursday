@@ -17,9 +17,9 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_invoice_exists
-    invoice = Invoice.new("stuff")
+    @invoice
 
-    assert_instance_of Invoice, invoice
+    assert_instance_of Invoice, @invoice
   end
 
   def test_it_has_id
