@@ -113,5 +113,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 6.00, @sales_analyst.average_average_price_per_merchant
   end
   
+  def test_it_can_find_golden_items
+    assert_equal [], @sales_analyst.golden_items
+  end
 
 end

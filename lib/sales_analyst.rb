@@ -57,8 +57,7 @@ class SalesAnalyst
         average_item_price_for_merchant(merchant.id)
       end
     end
-    sum = sum(prices)
-    (sum / prices.length).round(2).to_d
+    mean(prices)
   end
 
   # maths
@@ -71,7 +70,7 @@ class SalesAnalyst
 
   def mean(nums)
     sum = sum(nums)
-    sum.to_f / nums.length
+    (sum.to_f / nums.length).round(2).to_d
   end
 
   def std_dev(nums)
