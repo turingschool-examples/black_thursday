@@ -1,4 +1,4 @@
-require './test/test_helper'
+require_relative 'test_helper'
 require './lib/transaction_repository'
 require './lib/transaction'
 
@@ -78,7 +78,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], @tr.test_find_all_by_result("purgatory")
   end
 
-  def test_find_all_by_credit_card_number_returns_matching_transactions
+  def test_find_all_by_result_returns_matching_transactions
     create_transactions
 
     assert_equal [Transaction.new(@tr_2)],

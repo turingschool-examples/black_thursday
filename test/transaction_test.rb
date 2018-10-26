@@ -1,6 +1,5 @@
+require_relative 'test_helper'
 require './lib/transaction'
-require 'minitest/autorun'
-require 'minitest/pride'
 require 'bigdecimal'
 
 class TransactionTest < Minitest::Test

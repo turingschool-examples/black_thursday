@@ -1,7 +1,6 @@
+require_relative 'test_helper'
 require './lib/sales_engine'
 require './lib/fixturable'
-require 'minitest/autorun'
-require 'minitest/pride'
 require 'pry'
 
 class FixturableTest < Minitest::Test
