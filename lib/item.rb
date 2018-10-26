@@ -1,5 +1,5 @@
 require 'bigdecimal'
-
+require 'time'
 class Item
   attr_accessor :id,
                 :name,
@@ -13,8 +13,8 @@ class Item
     @name = item_info[:name]
     @description = item_info[:description]
     @unit_price = big_decimal_converter(item_info[:unit_price])
-    @created_at = item_info[:created_at]
-    @updated_at = item_info[:updated_at]
+    @created_at = Time.parse(item_info[:created_at])
+    @updated_at = Time.parse(item_info[:updated_at])
     @merchant_id = item_info[:merchant_id]
   end
 
@@ -24,7 +24,7 @@ class Item
 
   def big_decimal_converter(price)
     significant_digits = price.to_s.length
-    number = price.to_f / 100
+    number = price.to_f
     BigDecimal.new(number, significant_digits)
   end
 end

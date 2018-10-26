@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
   def test_item_exists
     assert_instance_of Item, @i
   end
-  
+
   def test_item_has_id
     assert_equal 1, @i.id
   end
