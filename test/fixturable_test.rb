@@ -5,6 +5,7 @@ require 'pry'
 
 class FixturableTest < Minitest::Test
   SalesAnalyst.include(Fixturable)
+  
   def setup
     se = SalesEngine.from_csv({
       items: './data/items.csv',
@@ -12,13 +13,12 @@ class FixturableTest < Minitest::Test
       invoices: './data/invoices.csv',
       invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv',
-      customers: './data/customers.csv',
+      customers: './data/customers.csv'
     })
     @sa = se.analyst
   end
-#   def test_it_can_run
-#     skip
-#     @sa.sample
-#     binding.pry
-#   end
+  
+  def test_it_can_run
+    @sa.sample
+  end
 end

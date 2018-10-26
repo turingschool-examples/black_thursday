@@ -55,14 +55,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_parses_invoice_items_correctly
-    assert_equal 21830, @se.invoice_items.all.length
+    assert_equal 319, @se.invoice_items.all.length
   end
 
   def test_it_parses_customers_correctly
-    assert_equal 1000, @se.customers.all.length
+    assert_equal 68, @se.customers.all.length
   end
 
   def test_it_parses_transactions_correctly
-    assert_equal 4985, @se.transactions.all.length
+    assert_equal 69, @se.transactions.all.length
   end
 end
