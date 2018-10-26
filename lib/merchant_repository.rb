@@ -1,25 +1,13 @@
 require 'pry'
 require 'CSV'
 require 'time'
-require_relative '../lib/merchant'
-require_relative './repo_module'
+require_relative './merchant'
+require_relative './repository'
 
-class MerchantRepository
+class MerchantRepository < Repository
 
-  include Repository
-
-  attr_reader :repo_array
-
-  def initialize(csv_merchants)
-    @repo_array = []
-    create_merchant_array(csv_merchants)
-  end
-
-  def create_merchant_array(csv_merchants)
-    row_objects = CSV.read(csv_merchants, headers: true, header_converters: :symbol)
-        @repo_array = row_objects.map do |row|
-          Merchant.new(row)
-      end
+  def new_record(row)
+    Merchant.new(row)
   end
 
   def find_all_by_name(name)

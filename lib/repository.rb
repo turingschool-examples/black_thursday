@@ -1,4 +1,19 @@
-module Repository
+
+class Repository
+
+  attr_reader :repo_array
+
+  def initialize(csv_filepath)
+    @repo_array  = []
+    create_repo_array(csv_filepath)
+  end
+
+  def create_repo_array(csv_filepath)
+    row_objects = CSV.read(csv_filepath, headers: true, header_converters: :symbol)
+      @repo_array = row_objects.map do |row|
+        new_record(row)
+      end
+  end
 
   def all
     @repo_array

@@ -1,13 +1,15 @@
 require 'bigdecimal'
+require_relative './stats_module'
 
 class SalesAnalyst
   attr_reader :merchants, :items
+
+  include Stats
 
   def initialize(merchant_repo, item_repo)
     @merchants = merchant_repo.repo_array
     @items = item_repo.repo_array
     @m_repo = merchant_repo
-    @i_repo = item_repo
   end
 
   def average_items_per_merchant
@@ -20,65 +22,47 @@ class SalesAnalyst
     end
   end
 
-  def sum_array(elems)
-    sum = 0
-    elems.each { |elem| sum += elem }
-    sum
-  end
-
   def average_items_per_merchant_standard_deviation
-    average = average_items_per_merchant
-    merchs_minus_one = @merchants.count - 1
-    squared_diffs = @merchants.map do |merchant|
-      items = merchant_item_list(merchant).count
-      (items - average) ** 2
+    items_per_merchant_array = @merchants.map do |m|
+      merchant_item_list(m).count
     end
-    (Math.sqrt(sum_array(squared_diffs) / merchs_minus_one)).round(2)
+    (standard_dev(items_per_merchant_array)).round(2)
   end
 
   def merchants_with_high_item_count
     high_items = average_items_per_merchant + average_items_per_merchant_standard_deviation
     high_count_merchs = []
-    @merchants.each do |merch|
-      item_count = merchant_item_list(merch).count
+    @merchants.each do |m|
+      item_count = merchant_item_list(m).count
       if  item_count > high_items
-        high_count_merchs << merch
+        high_count_merchs << m
       end
     end
     high_count_merchs
   end
 
   def average_item_price_for_merchant(id)
-    sum = BigDecimal.new("0")
     merchant = @m_repo.find_by_id(id)
-    list = merchant_item_list(merchant)
-    list.each { |item| sum += item.unit_price }
-    (sum / list.count).round(2)
+    items = merchant_item_list(merchant)
+    prices = items.map { |i| i.unit_price }
+    (mean_value(prices)).round(2)
   end
 
   def average_average_price_per_merchant
-    sum = BigDecimal.new("0")
-    @merchants.each do |merch|
-      avg = average_item_price_for_merchant(merch.id)
-      sum += average_item_price_for_merchant(merch.id)
+    averages = @merchants.map do |m|
+      average_item_price_for_merchant(m.id)
     end
-    (sum / @merchants.count).round(2)
+    (mean_value(averages)).round(2)
   end
 
   def average_item_price
-    sum = BigDecimal.new("0")
-    @items.each { |item| sum += item.unit_price }
-    sum / @items.count
+    item_prices = @items.map { |i| i.unit_price }
+    mean_value(item_prices)
   end
 
   def average_item_price_std_dev
-    squared_diffs_sum = BigDecimal.new ("0")
-    average = average_item_price
-    items_minus_one = @items.count - 1
-    @items.each do |item|
-      squared_diffs_sum += (item.unit_price - average) ** 2
-    end
-    std_dev = (squared_diffs_sum / items_minus_one) ** 0.5
+    item_prices = @items.map { |i| i.unit_price }
+    standard_dev(item_prices)
   end
 
   def golden_items
