@@ -16,7 +16,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :id          => 7,
       :customer_id => 7,
       :merchant_id => 8,
-      :status      => "pending",
+      :status      => "shipped",
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
@@ -39,4 +39,38 @@ class InvoiceRepositoryTest < Minitest::Test
     @inr.add_invoice(@invoice_1)
     assert_equal [@invoice_1], @inr.all
   end
+
+  def test_it_can_find_by_id
+    assert_equal @invoice_1, @inr.find_by_id(6)
+  end
+
+  def test_it_can_find_all_by_custumer_id
+    assert_equal [@invoice_1, @invoice_2], @inr.find_all_by_custumer_id(7)
+  end
+
+  def test_it_can_find_all_by_merchant_id
+    assert_equal [@invoice_2, @invoice_3], @inr.find_all_by_merchant_id(8)
+  end
+
+  def test_it_can_find_all_by_status
+    assert_equal [@invoice_2], @inr.find_all_by_status
+  end
+
+  def test_it_can_create_new_invoice_with_attributes
+    @inr.create({:customer_id => 9,
+    :merchant_id => 8,
+    :status      => "pending",
+    :created_at  => Time.now,
+    :updated_at  => Time.now})
+    assert_equal 9, @inr.all.last.id
+  end
+
+  def test_it_can_update_invoice_with_attributes
+
+  end
+
+  def test_it_can_delete_invoice
+
+  end
+
 end
