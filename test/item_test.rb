@@ -2,15 +2,15 @@ require_relative './helper'
 require_relative '../lib/item'
 class ItemTest < Minitest::Test
   def setup
-    @time_now = Time.now
-    @update_time = Time.now
+    @time_now = Time.parse('2016-01-11 09:34:06 UTC')
+    @update_time = Time.parse('2007-06-04 21:35:10 UTC')
     @i = Item.new({
                     :id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => '1099',
-                    :created_at  => @time_now,
-                    :updated_at  => @update_time,
+                    :created_at  => '2016-01-11 09:34:06 UTC',
+                    :updated_at  => '2007-06-04 21:35:10 UTC',
                     :merchant_id => 2
                   })
   end
