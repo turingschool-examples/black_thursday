@@ -7,10 +7,10 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv({
       items: './test/data/test_items.csv',
       merchants: './test/data/test_merchants.csv',
-      invoices: './test/data/test_invoices.csv'
+      invoices: './test/data/test_invoices.csv',
       invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv',
-      customers: './data/customers.csv',
+      customers: './data/customers.csv'
     })
   end
 
