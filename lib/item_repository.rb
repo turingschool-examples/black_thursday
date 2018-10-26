@@ -14,7 +14,7 @@ require_relative '../lib/repository'
    def populate(file_path)
      file = CSV.read(file_path, headers: true, header_converters: :symbol)
      file.map do |row|
-       Item.new(row)
+       Item.new(row) 
      end
    end
 
