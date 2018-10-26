@@ -1,5 +1,5 @@
 class Repository
-  attr_reader :instances
+  attr_reader :instances, :type
   def initialize
     @instances = []
     @count = 0
