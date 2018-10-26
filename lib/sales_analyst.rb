@@ -61,17 +61,13 @@ class SalesAnalyst
   end
   
   def golden_items
-    # standard deviation of average item prices per merchant
-    # want an array of average item price for each merchant to feed into std_dev method
-    
-    average_item_price_for_each_merchant = []
-    @merchant_repo.all.each do |merchant|
-      average_item_price_for_each_merchant << average_item_price_for_merchant(merchant.id)
+    all_item_prices = @item_repo.all.map do |item|
+      item.unit_price
     end
-    
-    standard_deviation = std_dev(average_item_price_for_each_merchant)
-    
-    two_std_dev_above_average = average_average_price_per_merchant + (standard_deviation * 2)
+    average_item_price = mean(all_item_prices)
+    price_std_dev = std_dev(all_item_prices)
+    two_std_dev_above_average = average_item_price + (price_std_dev * 2)
+
     golden_items = []
     @item_repo.all.each do |item|
       golden_items << item if item.unit_price > two_std_dev_above_average
@@ -79,7 +75,6 @@ class SalesAnalyst
     golden_items 
   end
   
-
   # maths
 
   def sum(nums)
