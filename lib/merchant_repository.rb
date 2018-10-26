@@ -6,8 +6,16 @@ class MerchantRepository
   
     include Repository
     
-    def initialize(file_path)
-      @collection = populate(file_path)
+    def initialize(file_path, merchants)
+      if file_path
+        @collection = populate(file_path)
+      else merchants
+        @collection = merchants
+      end
+    end
+    
+    def self.from_objects(merchants)
+      MerchantRepository.new(nil, merchants)
     end
 
     def populate(file_path)
