@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/item'
-require './lib/time_conversions'
 
 class ItemTest < Minitest::Test
   def test_it_exists
@@ -9,8 +8,8 @@ class ItemTest < Minitest::Test
           :name        => "Pencil",
           :description => "You can use it to write things",
           :unit_price  => (BigDecimal.new(10.99,4) / 100),
-          :created_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
-          :updated_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
+          :created_at  => Time.parse("2016-01-11 11:46:07 UTC"),
+          :updated_at  => Time.parse("2016-01-11 11:46:07 UTC"),
           :merchant_id => 2
         })
     assert_instance_of Item, item
@@ -22,8 +21,8 @@ class ItemTest < Minitest::Test
           :name        => "Pencil",
           :description => "You can use it to write things",
           :unit_price  => (BigDecimal.new(10.99,4) / 100),
-          :created_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
-          :updated_at  => TimeConversions.to_time("2016-01-11 11:49:05 UTC"),
+          :created_at  => Time.parse("2016-01-11 11:46:07 UTC"),
+          :updated_at  => Time.parse("2016-01-11 11:49:05 UTC"),
           :merchant_id => 2
         })
     assert_equal 1, item.id
@@ -41,8 +40,8 @@ class ItemTest < Minitest::Test
           :name        => "Pencil",
           :description => "You can use it to write things",
           :unit_price  => (BigDecimal.new(10.993,4) / 100),
-          :created_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
-          :updated_at  => TimeConversions.to_time("2016-01-11 11:46:07 UTC"),
+          :created_at  => Time.parse("2016-01-11 11:46:07 UTC"),
+          :updated_at  => Time.parse("2016-01-11 11:46:07 UTC"),
           :merchant_id => 2
         })
     assert_equal 0.11, item.unit_price_to_dollars

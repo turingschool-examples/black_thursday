@@ -1,5 +1,4 @@
 require 'csv'
-require_relative './time_conversions'
 
 module CSVReader
   def self.parse_merchants(mr, file_path)
@@ -19,9 +18,9 @@ module CSVReader
     CSV.foreach(file_path) do |row|
       unless skip_first_line
         ir.add_item(Item.new({:id => row[0].to_i, :name => row[1],
-              :description => row[2], :unit_price => (BigDecimal.new(row[3],4)/100),
-              :created_at => TimeConversions.to_time(row[5]),
-              :updated_at => TimeConversions.to_time(row[6]),
+              :description => row[2], :unit_price => (BigDecimal.new(row[3],row[3].length)/100),
+              :created_at => Time.parse(row[5]),
+              :updated_at => Time.parse(row[6]),
               :merchant_id => row[4].to_i}))
       else
         skip_first_line = false
