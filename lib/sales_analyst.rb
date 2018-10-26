@@ -130,7 +130,6 @@ class SalesAnalyst
     x.times do
       top = 0
       add = false
-      #binding.pry
       merchant_ids.each do |merchant_id|
         invoices = @invoices.find_all_by_merchant_id(merchant_id)
         invoices.each do |invoice|
@@ -150,9 +149,9 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    @merchants.all.sort do |merchant|
-      revenue_by_merchant(merchant.id)
-    end
+    # @merchants.all.sort do |merchant|
+    #   revenue_by_merchant(merchant.id)
+    # end
   end
 
   def merchants_with_pending_invoices
@@ -168,13 +167,14 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    invoices = @invoices.find_all_by_merchant_id(merchant_id)
-
-    sum = 0
-    invoices.each do |invoice|
-      invoice_items = @invoice
-      sum += invoice.unit_price * invoice.quantity
+    invoice_ids = @invoices.find_all_by_merchant_id(merchant_id).map(&:id)
+    invoice_items = invoice_ids.map do |iv_id|
+      @invoice_items.find_all_by_invoice_id(iv_id)
     end
+    amounts = invoice_items.flatten.map do |iv_item|
+      iv_item.unit_price * iv_item.quantity
+    end
+    amounts.reduce(&:+)
   end
 
   def most_sold_item_for_merchant(merchant_id)
