@@ -3,17 +3,21 @@ require_relative './item_repository'
 require_relative './merchant'
 require_relative './item'
 require_relative './invoice_repository'
+require_relative './invoice'
+require_relative './transaction_repository'
+require_relative './transaction'
 require_relative './sales_analyst'
 require_relative './csv_reader'
 require_relative './invoice'
 
 class SalesEngine
-  attr_reader :merchants, :items, :invoices
+  attr_reader :merchants, :items, :invoices, :transactions
 
   def initialize(repositories)
     @merchants = repositories[:merchants] if repositories.has_key?(:merchants)
     @items = repositories[:items] if repositories.has_key?(:items)
     @invoices = repositories[:invoices] if repositories.has_key?(:invoices)
+    @transactions = repositories[:transactions] if repositories.has_key?(:transactions)
   end
 
   def self.from_csv(file_paths)
@@ -29,10 +33,17 @@ class SalesEngine
       inr = InvoiceRepository.new
       invoices = CSVReader.parse_invoices(inr, file_paths[:invoices])
     end
-    SalesEngine.new({merchants: merchants, items: items, invoices: invoices})
+
+    if file_paths.has_key?(:transactions)
+      tr = TransactionRepository.new
+      transactions = CSVReader.parse_transactions(tr, file_paths[:transactions])
+    end
+
+    SalesEngine.new({merchants: merchants, items: items, invoices: invoices, transactions: transactions})
+
   end
 
   def analyst
-    SalesAnalyst.new({merchants: @merchants, items: @items, invoices: @invoices})
+    SalesAnalyst.new({merchants: @merchants, items: @items, invoices: @invoices, transactions: @transactions})
   end
 end
