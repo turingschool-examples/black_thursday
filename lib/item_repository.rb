@@ -1,25 +1,12 @@
 require 'pry'
 require 'CSV'
-require_relative './merchant'
-require_relative './repo_module'
 require_relative './item'
+require_relative './repository'
 
-class ItemRepository
+class ItemRepository < Repository
 
-  include Repository
-
-  attr_reader :repo_array
-
-  def initialize(csv_items)
-    @repo_array  = []
-    create_item(csv_items)
-  end
-
-  def create_item(csv_items)
-    row_objects = CSV.read(csv_items, headers: true, header_converters: :symbol)
-      @repo_array = row_objects.map do |row|
-        Item.new(row)
-      end
+  def new_record(row)
+    Item.new(row)
   end
 
   def find_all_with_description(item_description)
@@ -60,7 +47,5 @@ class ItemRepository
     item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     item.updated_at = Time.now
   end
-
-
 
 end
