@@ -24,6 +24,5 @@ class FixturableTest < Minitest::Test
   end
   def test_it_can_run
     @sa.sample
-    binding.pry
   end
 end

@@ -8,9 +8,9 @@ class SalesEngineTest < Minitest::Test
       items: './test/data/test_items.csv',
       merchants: './test/data/test_merchants.csv',
       invoices: './test/data/test_invoices.csv',
-      invoice_items: './data/invoice_items.csv',
-      transactions: './data/transactions.csv',
-      customers: './data/customers.csv',
+      invoice_items: './test/data/test_invoice_items.csv',
+      transactions: './test/data/test_transactions.csv',
+      customers: './test/data/test_customers.csv'
     })
   end
 
@@ -55,14 +55,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_parses_invoice_items_correctly
-    assert_equal 21830, @se.invoice_items.all.length
+    assert_equal 319, @se.invoice_items.all.length
   end
 
   def test_it_parses_customers_correctly
-    assert_equal 1000, @se.customers.all.length
+    assert_equal 68, @se.customers.all.length
   end
 
   def test_it_parses_transactions_correctly
-    assert_equal 4985, @se.transactions.all.length
+    assert_equal 69, @se.transactions.all.length
   end
 end
