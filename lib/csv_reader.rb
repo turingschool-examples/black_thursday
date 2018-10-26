@@ -1,5 +1,6 @@
 require 'csv'
 
+
 module CSVReader
   def self.parse_merchants(mr, file_path)
     skip_first_line = true
@@ -32,11 +33,13 @@ module CSVReader
   def self.parse_invoices(inr, file_path)
     skip_first_line = true
     CSV.foreach(file_path) do |row|
+      require 'pry'
+      binding.pry
       unless skip_first_line
         inr.add_invoice(Invoice.new({:id => row[0].to_i, :costumer_id => row[1],
               :merchant_id => row[2], :status => row[3],
-              :created_at => Time.parse(row[5]),
-              :updated_at => Time.parse(row[6]),
+              :created_at => Time.parse(row[4]),
+              :updated_at => Time.parse(row[5])}))
       else
         skip_first_line = false
       end
@@ -51,12 +54,12 @@ module CSVReader
         tr.add_transaction(Transaction.new({:id => row[0].to_i, :invoice_id => row[1],
               :credit_card_number => row[2], :credit_card_expiration => row[3],
               :result => row[5],
-              :created_at => Time.parse(row[6]),:updated_at=> Time.parse(row[6])
+              :created_at => Time.parse(row[6]),:updated_at=> Time.parse(row[6])}))
       else
         skip_first_line = false
       end
     end
     tr
   end
-  
+
 end

@@ -9,7 +9,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_exists
     mr = MerchantRepository.new
     ir = ItemRepository.new
-    se = SalesEngine.new(mr, ir)
+    se = SalesEngine.new({merchants: mr, items: ir})
     assert_instance_of SalesEngine, se
   end
 

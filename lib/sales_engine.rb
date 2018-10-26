@@ -28,9 +28,9 @@ class SalesEngine
       ir = ItemRepository.new
       items = CSVReader.parse_items(ir, file_paths[:items])
     end
-    if file_paths.has_key?(:items)
+    if file_paths.has_key?(:invoices)
       inr = InvoiceRepository.new
-      invoices = CSVReader.parse_invoices(inr, file_path[:invoices])
+      invoices = CSVReader.parse_invoices(inr, file_paths[:invoices])
     end
 
     if file_paths.has_key?(:transactions)
