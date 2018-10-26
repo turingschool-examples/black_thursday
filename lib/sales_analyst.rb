@@ -235,9 +235,16 @@ class SalesAnalyst
       top << customer unless top.include?(customer)
       top
     end
-
+    require "pry"; binding.pry
     top_customers.slice(0, n)
   end
 
-  def 
+  def top_merchant_for_customer(customer_id)
+    all_invoices = invoices.find_all_by_customer_id(customer_id)
+    all_invoices.reduce(0) do |most_items, invoice|
+      found_items = invoice_items.find_all_by_invoice_id(invoice.id).count
+      most_items = found_items if found_items > most_items
+      most_items
+    end
+  end
 end
