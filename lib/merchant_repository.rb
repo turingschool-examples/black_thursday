@@ -1,36 +1,11 @@
 require_relative '../lib/merchant'
+require_relative './find_methods'
 require 'csv'
-class MerchantRepository
 
+class MerchantRepository
+  include FindMethods
   def initialize(data)
     @collection = data
-  end
-
-  def inspect
-  end
-
-  def all
-    @collection
-  end
-
-  def find_by_id(id)
-    @collection.find do |merchant|
-      merchant.id == id
-    end
-  end
-
-  def find_by_name(name)
-    name_case = name.downcase
-    @collection.find do |merchant|
-      merchant.name.downcase.include?(name_case)
-    end
-  end
-
-  def find_all_by_name(name)
-    name_case = name.downcase
-    @collection.find_all do |merchant|
-      merchant.name.downcase.include?(name_case)
-    end
   end
 
   def create(attribute)
@@ -46,13 +21,7 @@ class MerchantRepository
   def update(id, data)
     if find_by_id(id) == nil
     else
-        find_by_id(id).name = data[:name]
-    end
-  end
-
-  def delete(id)
-    @collection.delete_if do |merchant|
-      merchant.id == id
+      find_by_id(id).name = data[:name]
     end
   end
 end

@@ -40,17 +40,17 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_price
     assert_equal [], @ir.find_all_by_price(42737)
-    assert_equal 7, @ir.find_all_by_price(40000).count
+    assert_equal 7, @ir.find_all_by_price(400).count
   end
 
   def test_it_can_find_all_by_price_in_range
-    assert_equal [], @ir.find_all_by_price_in_range(1..3)
-    assert_equal 110, @ir.find_all_by_price_in_range(300..600).count
+    assert_equal [], @ir.find_all_by_price_in_range(0.01..0.02)
+    assert_equal 110, @ir.find_all_by_price_in_range(3.00..6.00).count
   end
 
   def test_it_can_find_all_by_merchant_id
-    assert_equal [], @ir.find_all_by_merchant_id('12345678')
-    assert_equal 6, @ir.find_all_by_merchant_id('12334185').count
+    assert_equal [], @ir.find_all_by_merchant_id(12345678)
+    assert_equal 6, @ir.find_all_by_merchant_id(12334185).count
   end
 
 
@@ -63,16 +63,16 @@ class ItemRepositoryTest < Minitest::Test
                           merchant_id: '73922533'
                           })
     assert_instance_of Item, actual
-    assert_equal '263567475', @ir.all.last.id
+    assert_equal 263567475, @ir.all.last.id
   end
 
   def test_it_can_update_attributes
-    @ir.update('263397313', { name: 'Super Cool Stuff',
+    @ir.update(263397313, { name: 'Super Cool Stuff',
                              description: 'This is really cool',
                              unit_price: '1000000'})
-    assert_equal 'Super Cool Stuff', @ir.find_by_id('263397313').name
-    assert_equal 'This is really cool', @ir.find_by_id('263397313').description
-    assert_equal '1000000', @ir.find_by_id('263397313').unit_price
+    assert_equal 'Super Cool Stuff', @ir.find_by_id(263397313).name
+    assert_equal 'This is really cool', @ir.find_by_id(263397313).description
+    assert_equal '1000000', @ir.find_by_id(263397313).unit_price
   end
 
   def test_it_can_delete_an_item
@@ -83,7 +83,7 @@ class ItemRepositoryTest < Minitest::Test
                   updated_at: @updated_time,
                   merchant_id: '73922533'
               } )
-    @ir.delete('263567475')
-    refute @ir.all.any? { |item| item.id == '263567475' }
+    @ir.delete(263567475)
+    refute @ir.all.any? { |item| item.id == 263567475 }
   end
 end

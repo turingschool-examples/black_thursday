@@ -1,35 +1,11 @@
 require 'time'
 require_relative '../lib/item'
 require 'csv'
+require_relative './find_methods'
 class ItemRepository
+  include FindMethods
   def initialize(data)
     @collection = data
-  end
-
-  def all
-    @collection
-  end
-
-  def find_by_id(id)
-    @collection.find do |item|
-      item.id == id
-    end
-  end
-
-  def inspect
-  end
-
-  def find_by_name(name)
-    @collection.find do |item|
-      item.name == name
-    end
-  end
-
-  def find_all_by_name(name)
-    name_case = name.downcase
-    @collection.find_all do |item|
-      item.name.downcase.include?(name_case)
-    end
   end
 
   def find_all_with_description(description)
@@ -86,12 +62,6 @@ class ItemRepository
       find_by_id(id).unit_price = attributes[:unit_price]
     end
     find_by_id(id).updated_at = Time.now
-    end 
-  end
-
-  def delete(id)
-    @collection.delete_if do |item|
-      item.id == id
     end
   end
 
