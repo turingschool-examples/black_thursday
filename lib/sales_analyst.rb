@@ -31,7 +31,6 @@ class SalesAnalyst
     end
   end
 
-  #sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant] ~Jennica
   def merchants_with_high_item_count
     item_count_by_merchant = items_by_merchant.map { |items| [items[0],items[1].count] }
     number_set = item_count_by_merchant.map { |item_count| item_count[1] }
@@ -40,7 +39,6 @@ class SalesAnalyst
     item_count_by_merchant.find_all { |merchant| merchant[1] > std + mean }
   end
 
-  # sales_analyst.average_average_price_per_merchant # => BigDecimal ~Jennica
   def average_average_price_per_merchant
     find_mean(average_price_per_merchant).round(2)
   end
@@ -54,7 +52,14 @@ class SalesAnalyst
   def items_by_merchant
     @items.items.group_by { |item| item.merchant_id }
   end
-end
 
-# sales_analyst.average_items_per_merchant_standard_deviation # => 3.26 ~JC
-# sales_analyst.average_item_price_for_merchant(12334159) # => BigDecimal ~Maddie
+  def average_item_price_for_merchant(merchant_id)
+     sum_by_merchant = items_by_merchant.map do |items|
+      [items[0], sum(items[1].map { |also_item| also_item.unit_price }) /items[1].count]
+    end
+    found_merchant = sum_by_merchant.find do |index_0, index_1|
+       index_0 == merchant_id
+    end
+    found_merchant[1].round(2)
+  end
+end
