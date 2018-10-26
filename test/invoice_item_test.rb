@@ -26,5 +26,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 7, @ii.item_id
   end
 
+  def test_it_has_invoice_id
+    assert_equal 8, @ii.invoice_id
+  end
+
 
 end
