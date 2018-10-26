@@ -3,7 +3,7 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_analyst'
 require 'csv'
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :items, :merchants, :analyst
   def initialize(data)
     @item_data = CSV.open(data[:items], headers: true, header_converters: :symbol)
     @merchant_data = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
@@ -11,14 +11,11 @@ class SalesEngine
     @merchants_collection = []
     @items      = ItemRepository.new(create_items)
     @merchants  = MerchantRepository.new(create_merchants)
+    @analyst    = SalesAnalyst.new(@items, @merchants)
   end
 
   def self.from_csv(data)
     SalesEngine.new(data)
-  end
-
-  def analyst
-    SalesAnalyst.new
   end
 
   def create_items
