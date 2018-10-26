@@ -6,17 +6,10 @@ class MerchantRepository
   
     include Repository
     
-    def initialize(file_path)
-      @collection = populate(file_path)
+    def initialize(merchants)
+      @collection = merchants
     end
-
-    def populate(file_path)
-      file = CSV.read(file_path, headers: true, header_converters: :symbol )
-      file.map do |row|
-        Merchant.new(row)
-      end
-    end
-
+    
     def find_all_by_name(name)
       all.find_all do |merchant|
         merchant.name.upcase.include?(name.upcase)
