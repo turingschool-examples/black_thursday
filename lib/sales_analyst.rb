@@ -76,7 +76,7 @@ class SalesAnalyst
     @item_repo.all.each do |item|
       golden_items << item if item.unit_price > two_std_dev_above_average
     end
-    golden_items
+    golden_items 
   end
   
 
