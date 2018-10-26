@@ -1,5 +1,6 @@
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_analyst'
 require 'csv'
 class SalesEngine
   attr_reader :items, :merchants
@@ -14,6 +15,10 @@ class SalesEngine
 
   def self.from_csv(data)
     SalesEngine.new(data)
+  end
+
+  def analyst
+    SalesAnalyst.new
   end
 
   def create_items
