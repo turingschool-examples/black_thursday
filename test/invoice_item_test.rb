@@ -43,5 +43,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Time, @ii.created_at
   end
 
+  def test_it_has_updated_at
+    assert_instance_of Time, @ii.updated_at
+  end
+
 
 end
