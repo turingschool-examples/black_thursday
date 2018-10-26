@@ -197,9 +197,47 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    sum_invoice_items_revenue(invoice_items)
+  end
+
+  def sum_invoice_items_revenue(invoice_items)
     invoice_items.reduce(0) do |sum, invoice_item|
       sum += invoice_item.revenue
       sum
     end
   end
+
+  def invoice_items_grouped_by_invoice_id
+    invoice_items.all.group_by {|invoice_item| invoice_item.invoice_id}
+  end
+
+  def get_invoices_and_total_revenue
+    invoice_items_grouped_by_invoice_id.reduce({}) do |hash, (invoice, items)|
+      hash[invoice] = sum_invoice_items_revenue(items)
+      hash
+    end
+  end
+
+  def get_customer_from_invoice_id(id)
+    invoice = invoices.find_by_id(id)
+    customers.find_by_id(invoice.customer_id)
+  end
+
+  def top_buyers(n = 20)
+    invoices_by_revenue = get_invoices_and_total_revenue
+
+    sorted_by_top_revenue = invoices_by_revenue.sort do |(a_invoice, a_revenue), (b_invoice, b_revenue)|
+      b_revenue <=> a_revenue
+    end
+
+    top_customers = sorted_by_top_revenue.reduce([]) do |top, invoice_and_revenue|
+      customer = get_customer_from_invoice_id(invoice_and_revenue.first)
+      top << customer unless top.include?(customer)
+      top
+    end
+
+    top_customers.slice(0, n)
+  end
+
+  def 
 end
