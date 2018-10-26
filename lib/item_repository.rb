@@ -9,6 +9,12 @@ class ItemRepository < Repository
     Item.new(row)
   end
 
+  def find_by_name(name)
+    @repo_array.find do |object|
+      object.name.upcase == name.upcase
+    end
+  end
+
   def find_all_with_description(item_description)
     @repo_array.find_all do |item|
       item.description.upcase == item_description.upcase
