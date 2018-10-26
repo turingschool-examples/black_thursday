@@ -35,8 +35,8 @@ module CSVReader
       unless skip_first_line
         inr.add_invoice(Invoice.new({:id => row[0].to_i, :costumer_id => row[1],
               :merchant_id => row[2], :status => row[3],
-              :created_at => Time.parse(row[5]),
-              :updated_at => Time.parse(row[6]),
+              :created_at => Time.parse(row[4]),
+              :updated_at => Time.parse(row[5])}))
       else
         skip_first_line = false
       end
