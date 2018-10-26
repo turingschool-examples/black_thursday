@@ -13,6 +13,7 @@ class InvoiceItem < BusinessData
     @updated_at = input_hash[:updated_at]
   end
 
+
   def unit_price_to_dollars
     (unit_price / 100).round(2)
   end

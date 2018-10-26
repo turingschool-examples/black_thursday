@@ -18,11 +18,11 @@ class InvoiceItemRepository < Repository
   end
 
   def find_all_by_date(date)
-    stuff = @instances.find_all do |invoice_item|
+    result = @instances.find_all do |invoice_item|
       result = invoice_item.created_at.to_date == date.to_date
       result
     end
 
-    stuff
+    result
   end
 end
