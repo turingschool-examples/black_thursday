@@ -19,7 +19,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_id
-    assert_equal 6, @i.id
+    assert_equal 6, @ii.id
   end
 
 
