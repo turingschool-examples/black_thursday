@@ -58,31 +58,20 @@ class SalesAnalyst
       end
     end
     sum = sum(prices)
-    
-    mean(sum / prices.length)
+    (sum / prices.length).round(2).to_d
   end
 
   # maths
 
   def sum(nums)
-    # nums.inject(0) do |running_count, item|
-    #   running_count + item
-    # end
-    
-    sum = 0
-    binding.pry
-    nums.each do |num|
-      sum += num
+    nums.inject(0) do |running_count, item|
+      running_count + item
     end
-    sum
   end
 
   def mean(nums)
-    # ar_sum = nums.inject(0) do |running_count, item|
-    #   running_count + item
-    # end
-    ar_sum = sum(nums)
-    avg = ar_sum.to_f / nums.length
+    sum = sum(nums)
+    sum.to_f / nums.length
   end
 
   def std_dev(nums)
@@ -92,7 +81,7 @@ class SalesAnalyst
     end
     nums_sum = sum(nums)
     variance = nums_sum.to_f / (nums.length - 1)
-    deviation = Math.sqrt(variance).round(2)
+    Math.sqrt(variance).round(2)
   end
 
 
