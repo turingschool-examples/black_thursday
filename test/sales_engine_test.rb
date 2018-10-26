@@ -10,7 +10,7 @@ class SalesEngineTest < Minitest::Test
       invoices: './test/data/test_invoices.csv',
       invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv',
-      customers: './data/customers.csv',
+      customers: './data/customers.csv'
     })
   end
 
