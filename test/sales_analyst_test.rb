@@ -146,4 +146,9 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(items: @ir)
     assert_equal 0.33, sa.average_average_price_per_merchant
   end
+
+  def test_it_can_find_average_items_per_merchant_std_dev
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+    assert_instance_of Float, @sa.average_items_per_merchant_standard_deviation
+  end
 end

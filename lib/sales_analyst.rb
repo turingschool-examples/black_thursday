@@ -31,7 +31,6 @@ class SalesAnalyst
     end
   end
 
-  #sales_analyst.merchants_with_high_item_count # => [merchant, merchant, merchant] ~Jennica
   def merchants_with_high_item_count
     item_count_by_merchant = items_by_merchant.map { |items| [items[0],items[1].count] }
     number_set = item_count_by_merchant.map { |item_count| item_count[1] }
@@ -40,7 +39,6 @@ class SalesAnalyst
     item_count_by_merchant.find_all { |merchant| merchant[1] > std + mean }
   end
 
-  # sales_analyst.average_average_price_per_merchant # => BigDecimal ~Jennica
   def average_average_price_per_merchant
     find_mean(average_price_per_merchant).round(2)
   end
