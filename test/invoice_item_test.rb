@@ -39,11 +39,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
     # assert_equal BigDecimal.new(10.99, 4), @ii.unit_price
   end
 
-  def test_it_has_created_at
+  def test_it_is_created_at
     assert_instance_of Time, @ii.created_at
   end
 
-  def test_it_has_updated_at
+  def test_it_is_updated_at
     assert_instance_of Time, @ii.updated_at
   end
 
