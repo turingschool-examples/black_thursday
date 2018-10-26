@@ -8,6 +8,7 @@ require_relative './transaction_repository'
 require_relative './transaction'
 require_relative './sales_analyst'
 require_relative './csv_reader'
+require_relative './invoice'
 
 class SalesEngine
   attr_reader :merchants, :items, :invoices, :transactions
@@ -28,17 +29,18 @@ class SalesEngine
       ir = ItemRepository.new
       items = CSVReader.parse_items(ir, file_paths[:items])
     end
-    if file_paths.has_key?(:items)
+    if file_paths.has_key?(:invoices)
       inr = InvoiceRepository.new
-      invoices = CSVReader.parse_invoices(inr, file_path[:invoices])
+      invoices = CSVReader.parse_invoices(inr, file_paths[:invoices])
     end
 
     if file_paths.has_key?(:transactions)
       tr = TransactionRepository.new
-      transactions = CSVReader.parse_transactions(mr, file_paths[:transactions])
+      transactions = CSVReader.parse_transactions(tr, file_paths[:transactions])
     end
 
-    SalesEngine.new({merchants: merchants, items: items, invoices: invoices, transactions: @transactions})
+    SalesEngine.new({merchants: merchants, items: items, invoices: invoices, transactions: transactions})
+
   end
 
   def analyst

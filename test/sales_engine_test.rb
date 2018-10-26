@@ -9,7 +9,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_exists
     mr = MerchantRepository.new
     ir = ItemRepository.new
-    se = SalesEngine.new(mr, ir)
+    se = SalesEngine.new({merchants: mr, items: ir})
     assert_instance_of SalesEngine, se
   end
 
@@ -17,9 +17,11 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of ItemRepository, se.items
+    assert_instance_of InvoiceRepository, se.invoices
   end
 
   def test_it_can_load_merchants_correctly
