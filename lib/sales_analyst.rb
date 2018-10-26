@@ -1,3 +1,6 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
+
 class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -29,14 +32,11 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    list = @item_repo.find_all_by_merchant_id(id)
-    total = 0
-    count = 0
-    list.each do |item|
-      item.unit_price += total
-      count += 1
+    item_list = @item_repo.find_all_by_merchant_id(id)
+    item_prices = item_list.map do |item|
+      item.unit_price
     end
-    total / count
+    mean(item_prices).round(2).to_d
   end
   
   def merchants_with_high_item_count
@@ -48,19 +48,40 @@ class SalesAnalyst
     end
     high_item_counts
   end
+  
+  def average_average_price_per_merchant
+    prices = @merchant_repo.all.map do |merchant|
+      if (average_item_price_for_merchant(merchant.id)).nan?
+        0
+      else
+        average_item_price_for_merchant(merchant.id)
+      end
+    end
+    sum = sum(prices)
+    
+    mean(sum / prices.length)
+  end
 
   # maths
 
   def sum(nums)
-    nums.inject(0) do |running_count, item|
-      running_count + item
+    # nums.inject(0) do |running_count, item|
+    #   running_count + item
+    # end
+    
+    sum = 0
+    binding.pry
+    nums.each do |num|
+      sum += num
     end
+    sum
   end
 
   def mean(nums)
-    ar_sum = nums.inject(0) do |running_count, item|
-      running_count + item
-    end
+    # ar_sum = nums.inject(0) do |running_count, item|
+    #   running_count + item
+    # end
+    ar_sum = sum(nums)
     avg = ar_sum.to_f / nums.length
   end
 

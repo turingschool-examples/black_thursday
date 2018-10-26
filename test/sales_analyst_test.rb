@@ -25,13 +25,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, sales_analyst
   end
 
-
-  def test_it_can_generate_all_merchants
-    merchants = @sales_engine.merchants
-
-    assert_instance_of MerchantRepository, merchants
-  end
-
   def test_it_can_count_merchants
     merchants = @sales_engine.merchants
 
@@ -82,10 +75,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_average_price_of_items_by_merchant
-    sa = @sales_engine.analyst
-    average = sa.average_item_price_for_merchant(12334185)
-
-    assert_equal 0, average
+    average_1 = @sales_analyst.average_item_price_for_merchant(12334185)
+    average_2 = @sales_analyst.average_item_price_for_merchant(12334105)
+    assert_equal 10.0, average_1
+    assert_equal 29.99, average_2
   end
 
   def test_it_can_calculate_mean
@@ -114,6 +107,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_calculate_average_items_per_merchant_std_deviation
     assert_equal 0.45, @sales_analyst.average_items_per_merchant_standard_deviation
+  end
+  
+  def test_it_can_calculate_average_average_price_per_merchant
+    assert_equal 6.00, @sales_analyst.average_average_price_per_merchant
   end
   
 
