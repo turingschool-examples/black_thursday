@@ -30,23 +30,39 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    skip
-    @sales_analyst.merchants_with_high_item_count
-    #[merchant, merchant, merchant]
-    #merchants with more than one standard dev above avg item count
+    hicmerchs = @sales_analyst.merchants_with_high_item_count
+    assert_instance_of Array, hicmerchs
+    assert_equal 52, hicmerchs.count
   end
 
   def test_avg_price_for_a_merchant
-    skip
-    #sales_analyst.average_item_price_for_merchant(12334159)
-    #returns big decimal
+    actual = @sales_analyst.average_item_price_for_merchant(12334159)
+    assert_instance_of BigDecimal, actual
+    assert_equal 31.50, actual.to_f.round(2)
+  end
+
+  def test_avg_avg_price_per_merchant
+    actual = @sales_analyst.average_average_price_per_merchant
+    assert_instance_of BigDecimal, actual
+    assert_equal 350.29, actual.to_f.round(2)
+  end
+
+  def test_avg_item_price
+    actual = @sales_analyst.average_item_price
+    assert_instance_of BigDecimal, actual
+    assert_equal 251.06, actual.to_f.round(2)
+  end
+
+  def test_avg_item_price_std_dev
+    actual = @sales_analyst.average_item_price_std_dev
+    assert_instance_of BigDecimal, actual
+    assert_equal 2900.99, actual.to_f.round(2)
   end
 
   def test_golden_items
-    skip
-    #sales_analyst.golden_items
-    # => [<item>, <item>, <item>, <item>]
-    #TWO standard devs above avg item price
+    actual = @sales_analyst.golden_items
+    assert_instance_of Array, actual
+    assert_equal 5, actual.count
   end
 
 end
