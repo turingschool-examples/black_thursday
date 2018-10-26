@@ -29,4 +29,20 @@ module CSVReader
     ir
   end
 
+  def self.parse_invoices(inr, file_path)
+    skip_first_line = true
+    CSV.foreach(file_path) do |row|
+      unless skip_first_line
+        inr.add_invoice(Invoice.new({:id => row[0].to_i, :costumer_id => row[1],
+              :merchant_id => row[2], :status => row[3],
+              :created_at => Time.parse(row[5]),
+              :updated_at => Time.parse(row[6]),
+      else
+        skip_first_line = false
+      end
+    end
+    inr
+  end
+
+
 end
