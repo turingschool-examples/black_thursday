@@ -7,15 +7,8 @@ require_relative '../lib/repository'
 
    include Repository
 
-   def initialize(file_path)
-     @collection = populate(file_path)
-   end
-   
-   def populate(file_path)
-     file = CSV.read(file_path, headers: true, header_converters: :symbol )
-     file.map do |row|
-       Item.new(row)
-     end
+   def initialize(items)
+     @collection = items
    end
 
    def find_all_with_description(desc)
@@ -25,14 +18,16 @@ require_relative '../lib/repository'
    end
 
    def find_all_by_price(price)
-     price = BigDecimal.new(price,4)
+     price = BigDecimal.new(price,4) #make this dynamic later
      all.find_all do |item|
-       item.unit_price == price
+       item.unit_price.to_digits == price.to_digits
+       # binding.pry
      end
    end
 
    def find_all_by_price_in_range(range)
      all.find_all do |item|
+       # binding.pry
        range.member?(item.unit_price)
      end
    end
