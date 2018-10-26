@@ -8,4 +8,5 @@ class InvoiceItem
     @invoice_id = invoice_item_data[:invoice_id].to_i
     @quantity = invoice_item_data[:quantity].to_i
   end
+
 end

@@ -34,7 +34,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 1, @ii.quantity
   end
 
-
+  def test_it_has_unit_price
+    assert_equal BigDecimal.new(10.99,4), @ii.unit_price
+  end
 
 
 end
