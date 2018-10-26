@@ -23,7 +23,7 @@ class SalesEngine
                name: row[:name].to_s,
                description: row[:description].to_s,
                unit_price: big_decimal_converter(row[:unit_price]),
-               merchant_id: row[:merchant_id].to_s,
+               merchant_id: row[:merchant_id].to_i,
                created_at: row[:created_at].to_s,
                updated_at: row[:updated_at].to_s
                                       } )

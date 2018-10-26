@@ -47,7 +47,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @collection.find_all do |item|
-      range.include?(item.unit_price.to_i)
+      range.include?(item.unit_price.to_f)
     end
   end
 
@@ -61,28 +61,43 @@ class ItemRepository
     highest = @collection.max_by do |item|
       item.id.to_i
     end
-    number = (highest.id.to_i + 1).to_s
+    number = highest.id.to_i + 1
     new_item = Item.new({ id: number,
                   name: attributes[:name],
-                  description: attributes[:description],
-                  unit_price: BigDecimal.new(attributes[:unit_price]),
-                  created_at: attributes[:created_at],
-                  updated_at: attributes[:updated_at],
-                  merchant_id: attributes[:merchant_id]})
+                  description: attributes[:description].to_s,
+                  unit_price: big_decimal_converter(attributes[:unit_price]),
+                  merchant_id: attributes[:merchant_id].to_i,
+                  created_at: Time.now.to_s,
+                  updated_at: Time.now.to_s
+                  })
     @collection << new_item
     new_item
   end
 
   def update(id, attributes)
-    find_by_id(id).name = attributes[:name]
-    find_by_id(id).description = attributes[:description]
-    find_by_id(id).unit_price = attributes[:unit_price]
+    if find_by_id(id)
+    if attributes.has_key?(:name)
+      find_by_id(id).name = attributes[:name]
+    end
+    if attributes.has_key?(:description)
+      find_by_id(id).description = attributes[:description]
+    end
+    if attributes.has_key?(:unit_price)
+      find_by_id(id).unit_price = attributes[:unit_price]
+    end
     find_by_id(id).updated_at = Time.now
+    end 
   end
 
   def delete(id)
     @collection.delete_if do |item|
       item.id == id
     end
+  end
+
+  def big_decimal_converter(price)
+    significant_digits = price.to_s.length
+    number = price.to_f
+    BigDecimal.new(number, significant_digits)
   end
 end
