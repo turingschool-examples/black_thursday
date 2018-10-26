@@ -57,11 +57,20 @@ class SalesAnalyst
     @items.items.group_by { |item| item.merchant_id }
   end
 
+  def average_item_price_for_merchant(merchant_id)
+     sum_by_merchant = items_by_merchant.map do |items|
+      [items[0], sum(items[1].map { |also_item| also_item.unit_price }) /items[1].count]
+    end
+    found_merchant = sum_by_merchant.find do |index_0, index_1|
+       index_0 == merchant_id
+    end
+    found_merchant[1].round(2)
+  end
+
   def average_items_per_merchant_standard_deviation
       item_array_per_merchant = item_count_by_merchant.map do |items|
         items[1]
       end
       standard_deviation(item_array_per_merchant).to_f.round(2)
   end
-
 end

@@ -58,7 +58,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.88 , @sa.average_items_per_merchant
   end
 
-
   def test_it_can_find_average_price_of_items
     sa = SalesAnalyst.new(items: @ir)
     assert_equal 0.20, sa.average_price_of_items
@@ -144,6 +143,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.33, sa.average_average_price_per_merchant
   end
 
+  def test_average_item_price_for_merchant
+    assert_instance_of BigDecimal, @sa.average_item_price_for_merchant(12334105)
+    assert_equal 16.66, @sa.average_item_price_for_merchant(12334105)
+  end
+  
   def test_it_can_find_average_items_per_merchant_std_dev
     assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
     assert_instance_of Float, @sa.average_items_per_merchant_standard_deviation
