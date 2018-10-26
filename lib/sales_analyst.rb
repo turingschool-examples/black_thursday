@@ -28,10 +28,10 @@ class SalesAnalyst
      Math.sqrt(((squared_difference_array.reduce(:+))/(items_by_merchant.count-1))).round(2)
   end
 
-   def merchants_with_high_item_count
-     items_by_merchant.find_all do |id, items|
-       (items.count - average_items_per_merchant) > 3.26
-     end
-   end
+  def merchants_with_high_item_count
+    items_by_merchant.find_all do |id, items|
+      (items.count - average_items_per_merchant) > 3.26
+    end
+  end
 
 end
