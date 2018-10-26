@@ -7,7 +7,7 @@ class InvoiceRepository < Repository
   end
 
   def add_invoice(invoice)
-
+    @collection[invoice.id] = invoice
   end
 
 end

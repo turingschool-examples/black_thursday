@@ -34,6 +34,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_exists
     assert_instance_of InvoiceRepository, @inr
   end
+
   def test_it_can_add_invoice
     @inr.add_invoice(@invoice_1)
     assert_equal [@invoice_1], @inr.all
