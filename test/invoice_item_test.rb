@@ -3,7 +3,7 @@ require './test/test_helper'
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_exists
-    iir = InvoiceItem.new({
+    ii = InvoiceItem.new({
       :id => 6,
       :item_id => 7,
       :invoice_id => 8,
