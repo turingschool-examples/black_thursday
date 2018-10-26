@@ -1,5 +1,5 @@
+require_relative 'test_helper'
 require './lib/invoice_item'
-require './test/test_helper'
 require 'bigdecimal'
 
 class InvoiceItemTest < Minitest::Test
