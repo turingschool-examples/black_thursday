@@ -3,6 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'simplecov'
 require 'bigdecimal'
+require 'time'
 require 'CSV'
 SimpleCov.start
 # Include future files that are required underneath SimpleCov, so it has started and they are tabulated in the coverage.
@@ -17,3 +18,5 @@ require './lib/sales_engine'
 require './lib/sales_analyst'
 require './lib/transaction'
 require './lib/repository'
+require './lib/invoice_repository'
+require './lib/invoice'
