@@ -68,11 +68,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-@invoices
-    assert_equal 7, @sales_analyst.average_invoices_per_merchant
+    # number of invoices / number of merchants
+    #all method
+    actual = @sales_analyst.average_invoices_per_merchant
+    #@invoices.id.count / 
+    assert_equal 10.49, actual
   end
 
-# Where is it getting # of invoices from?
-# How does is know a merchant needs an invoice?
-#all method
 end
