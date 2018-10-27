@@ -17,7 +17,11 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_has_a_name
-    assert_equal "Joan", @c.name
+    assert_equal "Joan", @c.first_name
+  end
+
+  def test_it_has_a_last_name
+    assert_equal "Clarke", @c.last_name
   end
 
 
