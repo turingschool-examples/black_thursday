@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/invoice'
+require_relative "./test_helper"
 
 class InvoiceTest < MiniTest::Test
 

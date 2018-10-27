@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/invoice_repository'
-require './lib/invoice'
-require './lib/sales_engine'
+require_relative "./test_helper"
 
 class InvoiceRepositoryTest < MiniTest::Test
 
@@ -42,7 +38,6 @@ class InvoiceRepositoryTest < MiniTest::Test
               })
     @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4]
     @invoice_repo = InvoiceRepository.new(@invoices)
-    #gonna contain stuff
   end
 
   def test_invoice_repo_exists
@@ -72,13 +67,13 @@ class InvoiceRepositoryTest < MiniTest::Test
               :merchant_id  => 500,
               :status       => "pending"})
     assert_equal 5, invoice.id
-    assert_equal :pending, invoice.status #test expected pending to be a sym
+    assert_equal :pending, invoice.status
   end
 
   def test_it_can_update_an_invoice
-    @invoice_repo.update(1, {:status => 'shipped'})
+    @invoice_repo.update(1, {:status => :shipped})
 
-    assert_equal 'shipped', @invoice_1.status
+    assert_equal :shipped, @invoice_1.status
   end
 
   def test_it_can_delete_invoice
