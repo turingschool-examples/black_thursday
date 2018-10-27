@@ -1,5 +1,4 @@
 class Transaction
-  
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
@@ -17,6 +16,4 @@ class Transaction
     @created_at = attributes[:created_at]
     @updated_at = attributes[:updated_at]
   end
-  
-  
 end
