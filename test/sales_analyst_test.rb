@@ -6,6 +6,8 @@ class SalesAnalystTest < Minitest::Test
     @sales_engine = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
+        :invoices  => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv"
       })
     @sales_analyst = @sales_engine.analyst
   end
@@ -65,4 +67,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, actual.count
   end
 
+  def test_average_invoices_per_merchant
+@invoices
+    assert_equal 7, @sales_analyst.average_invoices_per_merchant
+  end
+
+# Where is it getting # of invoices from?
+# How does is know a merchant needs an invoice?
+#all method
 end

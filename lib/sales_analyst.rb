@@ -2,14 +2,16 @@ require 'bigdecimal'
 require_relative './stats_module'
 
 class SalesAnalyst
-  attr_reader :merchants, :items
+  attr_reader :merchants, :items, :invoices, :invoice_items
 
   include Stats
 
-  def initialize(merchant_repo, item_repo)
-    @merchants = merchant_repo.repo_array
-    @items = item_repo.repo_array
-    @m_repo = merchant_repo
+  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo)
+    @merchants         = merchant_repo.repo_array
+    @items             = item_repo.repo_array
+    @invoices          = invoice_repo.repo_array
+    @invoice_items     = invoice_item_repo.repo_array
+    @m_repo            = merchant_repo
   end
 
   def average_items_per_merchant
