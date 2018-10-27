@@ -143,12 +143,11 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    invoice_ids = @invoices.all.select{|iv| iv.merchant_id == merchant_id }
-                                  .map(&:id)
 
-    # non_returned_iv_ids = @invoices.all.reject{|iv_id| }
-
-    shipped_iv_ids = invoice_id.select do |invoice_id|
+    merchant_invoices = @invoices.all.select{|iv| iv.merchant_id == merchant_id }
+    # non_returned_invoices = merchant_invoices.reject{|iv| iv.status == :returned}
+    relevant_iv_ids = merchant_invoices.map(&:id)
+    shipped_iv_ids = relevant_iv_ids.select do |invoice_id|
       @transactions.find_all_by_invoice_id(invoice_id).any?{|tr| tr.result == :success}
     end
 
