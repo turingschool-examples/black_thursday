@@ -28,6 +28,10 @@ class CustomerTest < Minitest::Test
     assert_instance_of Time, @c.created_at
   end
 
+  def test_it_is_updated_at
+    assert_instance_of Time, @c.updated_at
+  end
+
 
 
 
