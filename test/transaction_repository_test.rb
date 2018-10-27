@@ -21,4 +21,9 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, tr.find_by_id(2)
   end
 
+  def test_find_all_by_invoice_id
+    tr = TransactionRepository.new('./test/data/invoice_item_sample.csv')
+    assert_equal 2, tr.find_all_by_invoice_id(2).count
+  end
+
 end
