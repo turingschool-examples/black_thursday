@@ -42,77 +42,77 @@ class SalesAnalystTest < Minitest::Test
     @sa = @se.analyst
   end
 
-  # def test_average_items_per_merchant
-  #   setup_fixtures
-  #   assert_equal 4.86, @sa.average_items_per_merchant
-  # end
-  #
-  # def test_average_items_per_merchant_standard_deviation
-  #   setup_fixtures
-  #   assert_equal 6.91, @sa.average_items_per_merchant_standard_deviation
-  # end
-  #
-  # def test_merchants_with_high_item_count
-  #   setup_fixtures
-  #   assert_equal 1, @sa.merchants_with_high_item_count.size
-  # end
-  #
-  # def test_average_item_price_for_merchant
-  #   setup_fixtures
-  #   assert_equal 0.8, @sa.average_item_price_for_merchant(12334235)
-  # end
-  #
-  # def test_average_average_price_per_merchant
-  #   setup_fixtures
-  #   assert_equal 0.88, @sa.average_average_price_per_merchant
-  # end
-  #
-  # def test_golden_items
-  #   setup_fixtures
-  #   assert_equal 0, @sa.golden_items.length
-  # end
-  #
-  # def test_it_finds_percentage_of_invoices_status_returned
-  #   setup_fixtures
-  #   assert_equal 19.18, @sa.invoice_status(:returned)
-  # end
-  #
-  # def test_it_finds_percentage_of_invoices_status_pending
-  #   setup_fixtures
-  #
-  #   assert_equal 39.73, @sa.invoice_status(:pending)
-  # end
-  #
-  # def test_it_finds_percentage_of_invoices_status_shipped
-  #   setup_fixtures
-  #   assert_equal 41.1, @sa.invoice_status(:shipped)
-  # end
-  #
-  # def test_average_invoices_per_merchant
-  #   setup_fixtures
-  #   assert_equal 10.43, @sa.average_invoices_per_merchant
-  # end
-  #
-  # def test_average_invoices_per_merchant_standard_deviation
-  #   setup_fixtures
-  #   assert_equal 4.79, @sa.average_invoices_per_merchant_standard_deviation
-  # end
-  #
-  # def test_top_merchants_by_invoice_count
-  #   setup_fixtures
-  #   assert_equal 0, @sa.top_merchants_by_invoice_count.size
-  # end
-  #
-  # def test_bottom_merchants_by_invoice_count
-  #   setup_fixtures
-  #
-  #   assert_equal 0, @sa.bottom_merchants_by_invoice_count.size
-  # end
-  #
-  # def test_top_days_by_invoice_count
-  #   setup_fixtures
-  #   assert_equal [], @sa.top_days_by_invoice_count
-  # end
+  def test_average_items_per_merchant
+    setup_fixtures
+    assert_equal 4.86, @sa.average_items_per_merchant
+  end
+
+  def test_average_items_per_merchant_standard_deviation
+    setup_fixtures
+    assert_equal 6.91, @sa.average_items_per_merchant_standard_deviation
+  end
+
+  def test_merchants_with_high_item_count
+    setup_fixtures
+    assert_equal 1, @sa.merchants_with_high_item_count.size
+  end
+
+  def test_average_item_price_for_merchant
+    setup_fixtures
+    assert_equal 0.8, @sa.average_item_price_for_merchant(12334235)
+  end
+
+  def test_average_average_price_per_merchant
+    setup_fixtures
+    assert_equal 0.88, @sa.average_average_price_per_merchant
+  end
+
+  def test_golden_items
+    setup_fixtures
+    assert_equal 0, @sa.golden_items.length
+  end
+
+  def test_it_finds_percentage_of_invoices_status_returned
+    setup_fixtures
+    assert_equal 19.18, @sa.invoice_status(:returned)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_pending
+    setup_fixtures
+
+    assert_equal 39.73, @sa.invoice_status(:pending)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_shipped
+    setup_fixtures
+    assert_equal 41.1, @sa.invoice_status(:shipped)
+  end
+
+  def test_average_invoices_per_merchant
+    setup_fixtures
+    assert_equal 10.43, @sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    setup_fixtures
+    assert_equal 4.79, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    setup_fixtures
+    assert_equal 0, @sa.top_merchants_by_invoice_count.size
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    setup_fixtures
+
+    assert_equal 0, @sa.bottom_merchants_by_invoice_count.size
+  end
+
+  def test_top_days_by_invoice_count
+    setup_fixtures
+    assert_equal [], @sa.top_days_by_invoice_count
+  end
 
 
 
@@ -147,7 +147,7 @@ class SalesAnalystTest < Minitest::Test
 
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
 
-    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
 
     @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
@@ -168,8 +168,8 @@ class SalesAnalystTest < Minitest::Test
 
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
 
-    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
-    @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(5), quantity: 5)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
+    @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(1), quantity: 5)
 
     @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
