@@ -150,17 +150,13 @@ class SalesAnalyst
     shipped_iv_ids = relevant_iv_ids.select do |invoice_id|
       @transactions.find_all_by_invoice_id(invoice_id).any?{|tr| tr.result == :success}
     end
-
     invoice_items = shipped_iv_ids.map do |iv_id|
       @invoice_items.find_all_by_invoice_id(iv_id)
     end
     return 0 if invoice_items.empty?
-    invoice_items.flatten.map(&:unit_price).reduce(&:+)
-    # invoice_items.flatten.select { |iv_item|
-    #   @transactions.find_all_by_invoice_id(iv_item.invoice_id)
-    #   require 'pry'; binding.pry
-    #  }
-    #                .map(&:unit_price).reduce(&:+)
+    invoice_items.flatten.map {|iv_item|
+      iv_item.unit_price * iv_item.quantity
+    }.reduce(&:+)
   end
 
   def most_sold_item_for_merchant(merchant_id)

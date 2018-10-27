@@ -129,6 +129,9 @@ class SalesAnalystTest < Minitest::Test
 
     @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
 
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
+
     assert_equal 100_000_00, @sa.revenue_by_merchant(4)
   end
 
@@ -145,6 +148,9 @@ class SalesAnalystTest < Minitest::Test
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
 
     @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
+
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
 
     assert_equal 200_000_00, @sa.revenue_by_merchant(4)
   end
@@ -163,7 +169,10 @@ class SalesAnalystTest < Minitest::Test
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
 
     @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
-    @se.invoice_items.create(id: 1, item_id: 3, invoice_id: 1, unit_price: BigDecimal(5), quantity: 5)
+    @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(5), quantity: 5)
+
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
 
     assert_equal 200_000_05, @sa.revenue_by_merchant(4)
   end
@@ -179,8 +188,10 @@ class SalesAnalystTest < Minitest::Test
 
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
 
-    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
-    @se.invoice_items.create(id: 1, item_id: 3, invoice_id: 1, unit_price: BigDecimal(5), quantity: 5)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
+    @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(1), quantity: 5)
+
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
     actual = @sa.merchants_ranked_by_revenue
     assert_equal 'JC', actual[0].name
@@ -188,11 +199,11 @@ class SalesAnalystTest < Minitest::Test
 
   end
 
-  def test_merchants_ranked_by_revenue_with_large_dataset
-    setup_big_data_set
-    binding.pry
-    assert_equal 7, @sa.merchants_ranked_by_revenue.size
-  end
+  # def test_merchants_ranked_by_revenue_with_large_dataset
+  #   setup_big_data_set
+  #   binding.pry
+  #   assert_equal 7, @sa.merchants_ranked_by_revenue.size
+  # end
 
 
 end
