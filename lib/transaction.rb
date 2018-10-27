@@ -4,7 +4,8 @@ class Transaction
               :invoice_id,
               :credit_card_number,
               :credit_card_expiration_date,
-              :result
+              :result,
+              :created_at
 
   def initialize(transaction_data)
     @id = transaction_data[:id].to_i
@@ -12,5 +13,6 @@ class Transaction
     @credit_card_number = transaction_data[:credit_card_number]
     @credit_card_expiration_date = transaction_data[:credit_card_expiration_date]
     @result = transaction_data[:result]
+    @created_at = transaction_data[:created_at]
   end
 end
