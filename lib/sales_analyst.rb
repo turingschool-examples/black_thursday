@@ -76,4 +76,29 @@ class SalesAnalyst
     golden_array
   end
 
+  # def average_invoices_per_merchant
+  #
+  # end
+
+  # def average_invoices_per_merchant_standard_deviation
+  #   #
+  # end
+
+  # def top_merchants_by_invoice_count
+  #
+  # end
+
+  # def bottom_merchants_by_invoice_count
+  #
+  # end
+
+  # def top_days_by_invoice_count
+  #
+  # end
+
+  # def invoice_status(argument)
+  #
+  # end
+
+
 end
