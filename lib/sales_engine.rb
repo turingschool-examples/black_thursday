@@ -11,8 +11,8 @@ class SalesEngine
   def initialize(items, merchants, invoices = nil)
     @items = ItemRepository.new(populate_items(items))
     @merchants = MerchantRepository.new(populate_merchants(merchants))
-    @invoices = InvoiceRepository.new(populate_invoices(invoices))   #InvoiceRepository.new(invoices)
-    @analyst = SalesAnalyst.new(self)
+    @invoices = InvoiceRepository.new(populate_invoices(invoices))
+    @analyst = SalesAnalyst.new(@items, @merchants, @invoices)
   end
 
   def self.from_csv(info)
