@@ -14,5 +14,10 @@ class TransactionRepository < Repository
     end
   end
 
+  def find_all_by_result(result_status)
+    @repo_array.find_all do |transaction|
+      transaction.result == result_status
+    end
+  end
 
 end
