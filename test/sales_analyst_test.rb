@@ -80,12 +80,29 @@ skip
   end
 
   def test_average_invoices_per_merchant
-    skip
+skip
+    actual = @sales_analyst.average_invoices_per_merchant
     # number of invoices / number of merchants
     #all method
-    actual = @sales_analyst.average_invoices_per_merchant
     #@invoices.id.count /
     assert_equal 10.49, actual
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+skip
+    actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    #
+    assert_equal 3.29, actual
+  end
+
+  def test_top_merchants_by_invoice_count
+skip
+    actual = @sales_analyst.top_merchants_by_invoice_count
+    # Which merchants are more than two standard deviations above the mean?
+    assert_equal [merchant, merchant, merchant]
+  end
+
+  def
   end
 
 end
