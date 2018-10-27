@@ -3,14 +3,15 @@ require_relative './test_helper'
 class TransactionRepositoryTest < Minitest::Test
     
     def setup
+      time = Time.now
       @t_1 = Transaction.new({
                           :id => 6,
                           :invoice_id => 8,
                           :credit_card_number => "4242424242424242",
                           :credit_card_expiration_date => "0220",
                           :result => "success",
-                          :created_at => @time,
-                          :updated_at => @time
+                          :created_at => time,
+                          :updated_at => time
                         })
       @t_2 = Transaction.new({
                           :id => 7,
@@ -18,8 +19,8 @@ class TransactionRepositoryTest < Minitest::Test
                           :credit_card_number => "4613250127567219",
                           :credit_card_expiration_date => "0223",
                           :result => "failed",
-                          :created_at => @time,
-                          :updated_at => @time
+                          :created_at => time,
+                          :updated_at => time
                         })
       @t_3 = Transaction.new({
                           :id => 8,
@@ -27,8 +28,8 @@ class TransactionRepositoryTest < Minitest::Test
                           :credit_card_number => "4558368405929183",
                           :credit_card_expiration_date => "0417",
                           :result => "success",
-                          :created_at => @time,
-                          :updated_at => @time
+                          :created_at => time,
+                          :updated_at => time
                         })
       @transactions = [@t_1, @t_2, @t_3]
       @tr = TransactionRepository.new(@transactions)
@@ -70,7 +71,6 @@ class TransactionRepositoryTest < Minitest::Test
     end
     
     def test_it_can_create_new_transaction
-      skip
       attributes = {
                     :invoice_id => 10,
                     :credit_card_number => "4558368405929183",
@@ -89,7 +89,6 @@ class TransactionRepositoryTest < Minitest::Test
     end
     
     def test_it_can_update_transactions
-      skip
       original_updated_at = @t_1.updated_at
       @tr.update(6, {
                   :credit_card_number => "4558368405929867",
@@ -110,7 +109,6 @@ class TransactionRepositoryTest < Minitest::Test
     end
     
     def test_it_can_delete_transactions
-      skip
       expected = [@t_1, @t_3]
       @tr.delete(7)
       assert_equal expected, @tr.all
