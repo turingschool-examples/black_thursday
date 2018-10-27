@@ -51,11 +51,7 @@ class SalesAnalyst
   
   def average_average_price_per_merchant
     prices = @merchant_repo.all.map do |merchant|
-      if (average_item_price_for_merchant(merchant.id)).nan?
-        0
-      else
-        average_item_price_for_merchant(merchant.id)
-      end
+      average_item_price_for_merchant(merchant.id)
     end
     mean(prices)
   end

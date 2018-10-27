@@ -2,20 +2,7 @@ require_relative './test_helper'
 
 class SalesAnalystTest < Minitest::Test
 
-  def setup
-
-    # @sales_engine = SalesEngine.new("./data/item_test.csv",
-    #                                 "./data/merchant_test.csv",
-    # #                                 "./data/invoices.csv")
-    # @sales_analyst = @sales_engine.analyst
-    # @merchant_1 = @sales_engine.merchants.all[0]
-    # @merchant_2 = @sales_engine.merchants.all[1]
-    # @merchant_3 = @sales_engine.merchants.all[2]
-    # @merchant_4 = @sales_engine.merchants.all[3]
-    # @merchant_5 = @sales_engine.merchants.all[4]
-    
-    # ----------------- ^ old stuff
-    
+  def setup    
     @merchant_1 = Merchant.new({id: 5, name: 'Steve'})
     @merchant_2 = Merchant.new({id: 10, name: 'Turing School'})
     @merchant_3 = Merchant.new({id: 7, name: 'Turk'})
@@ -119,7 +106,6 @@ class SalesAnalystTest < Minitest::Test
     invoice_repo = InvoiceRepository.new(@invoices)
     
     @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
-    
   end
 
   def test_it_exists
@@ -139,22 +125,6 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_count_merchants
     assert_equal 3, @sales_analyst.count_of_merchants
   end
-
-  # def test_it_can_count_items
-  #   items = @sales_engine.items
-  # 
-  #   assert_equal 3, items.all.size
-  #   # assert_equal 5, items.all.size
-  # end
-
-  # def test_it_can_group_items_by_merchant_id_for_avg
-  #   items = @sales_engine.items
-  # 
-  #   assert_equal 2, items.find_all_by_merchant_id(12334185).size
-  #   assert_equal 1, items.find_all_by_merchant_id(12334105).size
-  #   # assert_equal 2, items.find_all_by_merchant_id(10).size
-  #   # assert_equal 1, items.find_all_by_merchant_id(7).size
-  # end
 
   def test_it_can_calculate_the_average_number_of_items_per_merchant
     assert_equal 1.67, @sales_analyst.average_items_per_merchant
@@ -248,8 +218,6 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_num_items_per_merchant
     expected = {@merchant_1 => 2, @merchant_2 => 2, @merchant_3 => 1}
     assert_equal expected, @sales_analyst.num_items_for_each_merchant
-    # expected = {@merchant_1 => 2, @merchant_2 => 2, @merchant_3 => 1}
-    # assert_equal expected, @sales_analyst.num_items_for_each_merchant
   end
 
   def test_it_can_calculate_average_items_per_merchant_std_deviation
