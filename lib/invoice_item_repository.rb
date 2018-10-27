@@ -6,12 +6,12 @@ class InvoiceItemRepository < Repository
     @collection = {}
   end
 
-  def add_invoice(invoice)
-    @collection[item.id] = item
+  def add_invoice_item(invoice_item)
+    @collection[invoice_item.id] = invoice_item
   end
 
   # all?
-  def invoice_items
+  def invoice_item
     @collection.values
   end
 
