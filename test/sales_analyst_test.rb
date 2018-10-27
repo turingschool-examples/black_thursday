@@ -99,10 +99,21 @@ skip
 skip
     actual = @sales_analyst.top_merchants_by_invoice_count
     # Which merchants are more than two standard deviations above the mean?
-    assert_equal [merchant, merchant, merchant]
+    assert_equal # [merchant, merchant, merchant], actual
   end
 
-  def
+  def test_bottom_merchants_by_invoice_count
+skip
+    actual = @sales_analyst.bottom_merchants_by_invoice_count
+    #Which merchants are more than two standard deviations below the mean?
+    assert_equal # [merchant, merchant, merchant], actual
+  end
+
+  def test_top_days_by_invoice_count
+skip
+    actual = @sales_analyst.top_days_by_invoice_count
+    # On which days are invoices created at more than one standard deviation above the mean?
+    assert_equal ["Sunday", "Saturday"], actual
   end
 
 end
