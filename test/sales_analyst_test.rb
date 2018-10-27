@@ -116,8 +116,9 @@ skip
     assert_equal ["Sunday", "Saturday"], actual
   end
 
-  def test_invoice_status(argument)
+  def test_invoice_status
 skip
+ # What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
     actual = @sales_analyst.invoice_status(:pending)
     assert_equal 29.55, actual
 
