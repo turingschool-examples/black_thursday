@@ -6,7 +6,7 @@ require './lib/sales_engine'
 class SalesEngineTest < Minitest::Test
 
   def test_it_exists
-    sales = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
+    sales = SalesEngine.new("./data/items.csv", "./data/merchants.csv", "./data/invoices.csv")
 
     assert_instance_of SalesEngine, sales
   end
@@ -15,6 +15,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
     })
 
     assert_instance_of MerchantRepository, se.merchants
@@ -24,6 +25,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
     })
 
     assert_instance_of ItemRepository, se.items
@@ -33,6 +35,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
     })
 
     refute_equal 0, se.merchants.all.size
@@ -43,6 +46,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
     })
 
     refute_equal 1, se.items.all
