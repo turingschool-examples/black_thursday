@@ -2,7 +2,7 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 
 class SalesEngine
-  attr_reader :merchants, :items
+  attr_reader :items, :merchants
   def initialize(file_path_hash)
     @merchants = MerchantRepository.new(file_path_hash[:merchants])
     @items = ItemRepository.new(file_path_hash[:items])
@@ -13,6 +13,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@merchants)
+    SalesAnalyst.new(@items, @merchants)
   end
 end

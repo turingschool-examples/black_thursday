@@ -28,13 +28,14 @@ class SalesAnalystTest < Minitest::Test
     items = ItemRepository.new("./data/items.csv")
     merchants = MerchantRepository.new("./data/merchants.csv")
     sa = SalesAnalyst.new(items, merchants)
-    assert_equal 3.26, sa.standard_deviation
+    assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_return_merchants_with_high_item_count
     items = ItemRepository.new("./data/items.csv")
     merchants = MerchantRepository.new("./data/merchants.csv")
     sa = SalesAnalyst.new(items, merchants)
+#   binding.pry
     assert_equal 52, sa.merchants_with_high_item_count.length
   end
 
