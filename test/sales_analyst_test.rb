@@ -3,15 +3,31 @@ require_relative 'test_helper'
 require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
+  def setup_big_data_set
+    se = SalesEngine.from_csv(
+      {
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv',
+        customers: './data/customers.csv'
+      }
+    )
+    @sa = se.analyst
+  end
+
   def setup_fixtures
-    se = SalesEngine.from_csv({
-      items: './test/data/test_items.csv',
-      merchants: './test/data/test_merchants.csv',
-      invoices: './test/data/test_invoices.csv',
-      invoice_items: './test/data/test_invoice_items.csv',
-      transactions: './test/data/test_transactions.csv',
-      customers: './test/data/test_customers.csv'
-    })
+    se = SalesEngine.from_csv(
+      {
+        items: './test/data/test_items.csv',
+        merchants: './test/data/test_merchants.csv',
+        invoices: './test/data/test_invoices.csv',
+        invoice_items: './test/data/test_invoice_items.csv',
+        transactions: './test/data/test_transactions.csv',
+        customers: './test/data/test_customers.csv'
+      }
+    )
     @sa = se.analyst
   end
 
@@ -105,12 +121,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_revenue_by_merchant
     setup_empty_sales_engine
-    @se.merchants.create(id: 1, name: "King Soopers")
-    @se.merchants.create(id: 2, name: "Amazon")
-    @se.merchants.create(id: 3, name: "Bob's Burgers")
     @se.merchants.create(id: 4, name: "JC")
 
-    @se.items.create(id: 1, name: 'burger', merchant_id: '3', unit_price: BigDecimal(500), merchant_id: 3)
     @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
 
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
@@ -132,9 +144,54 @@ class SalesAnalystTest < Minitest::Test
 
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
 
-    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
 
     assert_equal 200_000_00, @sa.revenue_by_merchant(4)
+  end
+
+  def test_revenue_by_merchant_double_quantity_and_another_item
+    setup_empty_sales_engine
+    @se.merchants.create(id: 1, name: "King Soopers")
+    @se.merchants.create(id: 2, name: "Amazon")
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "JC")
+
+    @se.items.create(id: 1, name: 'burger', merchant_id: '3', unit_price: BigDecimal(500), merchant_id: 3)
+    @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
+    @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
+    @se.invoice_items.create(id: 1, item_id: 3, invoice_id: 1, unit_price: BigDecimal(5), quantity: 5)
+
+    assert_equal 200_000_05, @sa.revenue_by_merchant(4)
+  end
+
+  def test_merchants_ranked_by_revenue_two_sellers
+    setup_empty_sales_engine
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "JC")
+
+    @se.items.create(id: 1, name: 'burger', merchant_id: '3', unit_price: BigDecimal(500), merchant_id: 3)
+    @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
+    @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(200_000_00), quantity: 2)
+    @se.invoice_items.create(id: 1, item_id: 3, invoice_id: 1, unit_price: BigDecimal(5), quantity: 5)
+
+    actual = @sa.merchants_ranked_by_revenue
+    assert_equal 'JC', actual[0].name
+    assert_equal "Bob's Burgers", actual[1].name
+
+  end
+
+  def test_merchants_ranked_by_revenue_with_large_dataset
+    setup_big_data_set
+    binding.pry
+    assert_equal 7, @sa.merchants_ranked_by_revenue.size
   end
 
 

@@ -5,7 +5,12 @@ class Repository
     @count = 0
   end
 
+  def mark_unsorted
+    self.sorted = false if self.respond_to?(:sorted)
+  end
+
   def create(args)
+    self.mark_unsorted
     unless args[:id]
       @count += 1
       args[:id] = @count
@@ -48,6 +53,7 @@ class Repository
   end
 
   def update(id, attributes)
+    self.mark_unsorted
     found_instance = find_by_id(id)
     return nil if not found_instance
 
