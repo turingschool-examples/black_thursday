@@ -1,12 +1,14 @@
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_analyst'
+require_relative '..lib/invoice_repository'
 require 'csv'
 class SalesEngine
   attr_reader :items, :merchants, :analyst
   def initialize(data)
     @item_data = CSV.open(data[:items], headers: true, header_converters: :symbol)
     @merchant_data = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
+    @invoices = InvoiceRepository.new(create_items)
     @items_collection = []
     @merchants_collection = []
     @items      = ItemRepository.new(create_items)
