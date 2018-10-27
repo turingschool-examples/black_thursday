@@ -122,14 +122,13 @@ class SalesAnalystTest < Minitest::Test
     @sa = @se.analyst
 
     ############ REMOVE AT SOME POINT ##############
-    @se_real = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :transactions => "./data/transactions.csv"
-    })
-    @sa_real = @se_real.analyst
-    binding.pry
+    # @se_real = SalesEngine.from_csv({
+    #   :items     => "./data/items.csv",
+    #   :merchants => "./data/merchants.csv",
+    #   :invoices => "./data/invoices.csv",
+    #   :transactions => "./data/transactions.csv"
+    # })
+    # @sa_real = @se_real.analyst
     ################################################
   end
 
@@ -166,32 +165,42 @@ class SalesAnalystTest < Minitest::Test
 
   ########### FROM REAL DATA, UPDATE TO FAKE DATA ##########
   def test_it_can_find_average_invoices_per_merchant
-    assert_equal 10.49, @sa_real.average_invoices_per_merchant
-    assert_instance_of Float, @sa_real.average_invoices_per_merchant
+    # assert_equal 10.49, @sa_real.average_invoices_per_merchant
+    assert_equal 1.5, @sa.average_invoices_per_merchant
+    assert_instance_of Float, @sa.average_invoices_per_merchant
   end
 
   def test_it_can_find_average_invoices_per_merchant_std_dev
-    assert_equal 3.29, @sa_real.average_invoices_per_merchant_standard_deviation
-    assert_instance_of Float, @sa_real.average_invoices_per_merchant_standard_deviation
+    # assert_equal 3.29, @sa_real.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.71, @sa.average_invoices_per_merchant_standard_deviation
+    assert_instance_of Float, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_top_merchants_by_invoice_count_2_std_dev_above_mean
-    merchant_count = @sa_real.top_merchants_by_invoice_count.count
-    assert_equal 12, merchant_count
+    # merchant_count = @sa_real.top_merchants_by_invoice_count.count
+    # assert_equal 12, merchant_count
+    merchant_count = @sa.top_merchants_by_invoice_count.count
+    assert_equal 0, merchant_count
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count_2_std_dev_bel_mean
-    merchant_count = @sa_real.bottom_merchants_by_invoice_count.count
-    assert_equal 4, merchant_count
+    # merchant_count = @sa_real.bottom_merchants_by_invoice_count.count
+    # assert_equal 4, merchant_count
+    merchant_count = @sa.bottom_merchants_by_invoice_count.count
+    assert_equal 0, merchant_count
   end
 
   def test_it_can_find_top_days_by_invoice_count_1_std_dev_above_mean
-    assert_equal ["Wednesday"], @sa_real.top_days_by_invoice_count
+    # assert_equal ["Wednesday"], @sa_real.top_days_by_invoice_count
+    assert_equal [], @sa.top_days_by_invoice_count
   end
 
   def test_it_can_find_percentages_of_orders_shipped_pending_and_returned
-    assert_equal 29.55, @sa_real.invoice_status(:pending)
-    assert_equal 56.95, @sa_real.invoice_status(:shipped)
-    assert_equal 13.5, @sa_real.invoice_status(:returned)
+    # assert_equal 29.55, @sa_real.invoice_status(:pending)
+    # assert_equal 56.95, @sa_real.invoice_status(:shipped)
+    # assert_equal 13.5, @sa_real.invoice_status(:returned)
+    assert_equal 66.67, @sa.invoice_status(:pending)
+    assert_equal 33.33, @sa.invoice_status(:shipped)
+    assert_equal 0.0, @sa.invoice_status(:returned)
   end
 end
