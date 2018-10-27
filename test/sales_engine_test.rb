@@ -5,46 +5,32 @@ require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
 
-  def test_it_exists
-    sales = SalesEngine.new("./data/item_test.csv", "./data/merchant_test.csv")
+  def setup
+    @se = SalesEngine.new("./data/item_test.csv", "./data/merchant_test.csv", "./data/invoices.csv")
 
+  end
+
+  def test_it_exists
+    sales = SalesEngine.new("./data/items.csv", "./data/merchants.csv", "./data/invoices.csv")
+    sales_engine = SalesEngine.from_csv({items:"./data/item_test.csv", merchants:"./data/merchant_test.csv", invoices:"./data/invoices.csv"})
     assert_instance_of SalesEngine, sales
+    assert_instance_of SalesEngine, sales_engine
   end
 
   def test_it_can_make_merchant_repo_instance
-    se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    })
-
-    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of MerchantRepository, @se.merchants
   end
 
   def test_it_can_make_item_repo_instance
-    se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    })
-
-    assert_instance_of ItemRepository, se.items
+    assert_instance_of ItemRepository, @se.items
   end
 
   def test_that_merchant_repo_contains_merchants
-    se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    })
-
-    refute_equal 0, se.merchants.all.size
+    refute_equal 0, @se.merchants.all.size
 
   end
 
   def test_that_item_repo_contains_items
-    se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    })
-
-    refute_equal 1, se.items.all
+    refute_equal 1, @se.items.all
   end
 end
