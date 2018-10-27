@@ -22,5 +22,9 @@ class TransactionTest < Minitest::Test
     assert_equal 6, @t.id
   end
 
+  def test_it_has_invoice_id
+    assert_equal 8, @t.invoice_id
+  end
+
 
 end
