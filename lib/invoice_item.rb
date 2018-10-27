@@ -14,6 +14,6 @@ class InvoiceItem < BusinessData
   end
 
   def revenue
-    unit_price
+    unit_price * quantity
   end
 end
