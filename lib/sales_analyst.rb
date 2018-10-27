@@ -1,4 +1,5 @@
 require_relative '../lib/sales_engine'
+require 'mathn'
 class SalesAnalyst
   attr_reader     :items, :merchants
   def initialize(items, merchants)
@@ -33,9 +34,35 @@ class SalesAnalyst
     end
   end
 
-  # def average_items_per_merchant_standard_deviation
-  #
-  #   (array_numbers.inject(:+)) / (@items.all.count - 1.00)
-  # end
+  def sum_squares
+    squares = merchant_count_minus_average.map do |num|
+      num * num
+    end
+    # require 'pry'
+    # binding.pry
+    final = 0
+    squares.each do |square|
+      final += square.round(3)
+    end
+    final
+  end
+
+  def average_items_per_merchant_standard_deviation
+    counts = []
+    avg = average_items_per_merchant
+    @merchants.all.map do |merchant|
+      x = merchant.id
+      y = items.find_all_by_merchant_id(x)
+      counts << (y.count - avg).to_f
+    end
+    sum = 0.00
+    squares = counts.map do |num|
+      num * num
+    end
+    squares.each do |square|
+      sum += square
+    end
+    (Math.sqrt(sum / (count_all_merchants - 1))).round(2)
+  end
 
 end
