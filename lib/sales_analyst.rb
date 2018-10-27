@@ -291,10 +291,9 @@ class SalesAnalyst
     one_timers = customers_and_invoices.find_all do |customer, invoices|
       invoices.length == 1
     end
-    r = one_timers.reduce([]) do |broke_customers, (id, invoice)|
+    one_timers.reduce([]) do |broke_customers, (id, invoice)|
       broke_customers << customers.find_by_id(id)
+      broke_customers
     end
-    # binding.pry
-    r
   end
 end
