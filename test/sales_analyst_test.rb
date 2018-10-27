@@ -248,6 +248,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_num_items_per_merchant
     expected = {@merchant_1 => 2, @merchant_2 => 2, @merchant_3 => 1}
     assert_equal expected, @sales_analyst.num_items_for_each_merchant
+    # expected = {@merchant_1 => 2, @merchant_2 => 2, @merchant_3 => 1}
+    # assert_equal expected, @sales_analyst.num_items_for_each_merchant
   end
 
   def test_it_can_calculate_average_items_per_merchant_std_deviation
