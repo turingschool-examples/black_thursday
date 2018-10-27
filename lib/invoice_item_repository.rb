@@ -23,4 +23,9 @@ class InvoiceItemRepository < Repository
     end
   end
 
+  def find_all_by_invoice_id(id)
+    @collection.values.select do |invoice_item|
+      invoice_item.invoice_id == id
+    end
+  end
 end
