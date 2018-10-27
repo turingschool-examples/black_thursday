@@ -8,4 +8,6 @@ class InvoiceItemRepository < Repository
     InvoiceItem.new(row)
   end
 
+  
+
 end

@@ -32,9 +32,4 @@ class CustomerTest < Minitest::Test
     assert_instance_of Time, @c.updated_at
   end
 
-
-
-
-
-
 end

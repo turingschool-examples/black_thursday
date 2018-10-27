@@ -7,5 +7,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItemRepository, iir
   end
 
+  def test_invoice_item_repo_has_repository_array_and_returns_all
+    iir = InvoiceItemRepository.new('./test/data/invoice_item_sample.csv')
+    assert_equal 10, iir.all.count
+    assert_instance_of Array, iir.all
+  end
+
 
 end
