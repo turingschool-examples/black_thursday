@@ -26,5 +26,8 @@ class TransactionTest < Minitest::Test
     assert_equal 8, @t.invoice_id
   end
 
+  def test_it_returns_credit_card_number
+    assert_equal "4242424242424242", @t.credit_card_number
+  end
 
 end
