@@ -38,7 +38,6 @@ class SalesEngine
     end
 
     SalesEngine.new({merchants: merchants, items: items, invoices: invoices, transactions: transactions})
-
   end
 
   def analyst

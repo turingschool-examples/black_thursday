@@ -6,6 +6,7 @@ class SalesAnalyst
   def initialize(input)
     @merchants = input[:merchants]
     @items = input[:items]
+    @invoices = input[:invoices]
   end
 
   def average_items_per_merchant
@@ -68,9 +69,77 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-      item_array_per_merchant = item_count_by_merchant.map do |items|
-        items[1]
-      end
-      standard_deviation(item_array_per_merchant).to_f.round(2)
+    item_array_per_merchant = item_count_by_merchant.map do |items|
+      items[1]
+    end
+    standard_deviation(item_array_per_merchant).to_f.round(2)
   end
+
+  def average_invoices_per_merchant
+    find_mean(invoices_for_merchants.map { |merch, invs| invs.count }).round(2)
+  end
+
+  def invoices_for_merchants
+    @invoices.invoices.group_by { |invoice| invoice.merchant_id }
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoices_for_merchants.map { |merch, invs| invs.count}).to_f.round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchs_w_invoices = invoices_for_merchants.find_all do |merchant, invoices|
+      invoices.count > average_invoices_per_merchant + 2 * average_invoices_per_merchant_standard_deviation
+    end
+    top_merchs_w_invoices.map do |merchant_id, invoices|
+      @merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    top_merchs_w_invoices = invoices_for_merchants.find_all do |merchant, invoices|
+      invoices.count < average_invoices_per_merchant - 2 * average_invoices_per_merchant_standard_deviation
+    end
+    top_merchs_w_invoices.map do |merchant_id, invoices|
+      @merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def top_days_by_invoice_count
+    top_days = invoices_by_day.find_all do |day, invoices|
+      invoices.count > ave_invoices_per_day + std_dev_inv_per_day
+    end
+    top_days.map! { |day, invoices| day }
+    convert_to_day_names(top_days)
+  end
+
+  def convert_to_day_names(days)
+    day_names = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday",
+            3 => "Wednesday", 4 => "Thursday", 5 => "Friday",
+            6 => "Saturday"}
+    days.map { |day| day_names[day.to_i] }
+  end
+
+  def ave_invoices_per_day
+    @invoices.all.count / 7
+  end
+
+  def std_dev_inv_per_day
+    number_set = invoices_by_day.map do |day, invoices|
+      invoices.count
+    end
+    standard_deviation(number_set)
+  end
+
+  def invoices_by_day
+    @invoices.all.group_by do |invoice|
+      invoice.created_at.strftime("%w")
+    end
+  end
+
+  def invoice_status(status)
+    invoices_w_status = @invoices.all.count { |invoice| invoice.status == status }
+    (invoices_w_status / @invoices.all.count.to_f * 100).to_f.round(2)
+  end
+
 end
