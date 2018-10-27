@@ -23,8 +23,21 @@ class InvoiceTest < Minitest::Test
     assert_equal 7, @in.customer_id
   end
 
+  def test_it_has_a_merchant_id
+    assert_equal 8, @in.merchant_id
+  end
 
+  def test_it_has_a_status
+    assert_equal 'pending', @in.status
+  end
 
+  def test_it_is_created_at_a_time
+    assert_equal '2016-01-11 09:34:06 UTC', @in.created_at
+  end
+
+  def test_it_is_updated_at_a_time
+    assert_equal '2007-06-04 21:35:10 UTC', @in.updated_at
+  end
 
 
 
