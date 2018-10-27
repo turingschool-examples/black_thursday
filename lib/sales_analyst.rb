@@ -240,6 +240,15 @@ class SalesAnalyst
     transactions_for_invoice.find {|transaction| transaction.result == :success}
   end
 
+  def all_transactions_successful_for?(invoice_id)
+    transactions_for_invoice = transactions.find_all_by_invoice_id(invoice_id)
+    return false if transactions_for_invoice.length == 0
+    transactions_for_invoice.reduce(true) do|all_success, transaction|
+      all_success = false if transaction.result != :success
+      all_success
+    end
+  end
+
   def top_buyers(n = 20)
     customers_and_invoices = invoices_grouped_by_customer_id
     customers_and_amounts = customers_and_invoices.reduce({}) do |hash, (id, invoices)|
@@ -315,6 +324,7 @@ class SalesAnalyst
     top_invoice_items = []
     one_time_buyers.reduce(0) do |top_item_count, one_timer|
       invoice = invoices.find_all_by_customer_id(one_timer.id)[0]
+      next top_item_count unless all_transactions_successful_for?(invoice.id)
       current_top_invoice_item = get_top_invoice_item_for(invoice.id)
       # binding.pry
       if current_top_invoice_item.quantity >= top_item_count
@@ -323,7 +333,10 @@ class SalesAnalyst
       end
       top_item_count
     end
-    binding.pry
+    top_invoice_items_by_transaction = []
+    top_invoice_items.reduce([]) do |by_transaction, invoice_item|
+
+    end
     items.find_by_id(top_invoice_item.item_id)
   end
 end
