@@ -5,6 +5,7 @@ require 'minitest/pride'
 require './lib/sales_analyst'
 require './lib/merchant_repository'
 require './lib/item_repository'
+require 'bigdecimal'
 
 
 class SalesAnalystTest < Minitest::Test
@@ -32,8 +33,19 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_merchants_with_high_item_count
     items = ItemRepository.new("./data/items.csv")
     sa = SalesAnalyst.new(items)
-    #binding.pry
     assert_equal 52, sa.merchants_with_high_item_count.length
+  end
+
+  def test_it_can_find_average_item_price_for_merchant
+    items = ItemRepository.new("./data/items.csv")
+    sa = SalesAnalyst.new(items)
+    assert_equal 16.66, sa.average_item_price_for_merchant(12334105)
+  end
+
+  def test_it_can_average_average_price_per_merchant
+    items = ItemRepository.new("./data/items.csv")
+    sa = SalesAnalyst.new(items)
+    assert_equal 350.29, sa..average_average_price_per_merchant
   end
 
 end
