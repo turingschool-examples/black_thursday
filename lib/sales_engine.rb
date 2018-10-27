@@ -40,4 +40,10 @@ class SalesEngine
     end
   end
 
+  # def populate_invoice_item(file_path)
+  #   file - CSV.read(file_path, headers: true, header_converters: :symbol)
+  #   file.map do |row|
+  #
+  # end
+  #
 end
