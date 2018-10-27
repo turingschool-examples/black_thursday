@@ -50,14 +50,19 @@ class SalesAnalyst
     count
   end
 
-  # def average_item_price_for_merchant(id)
-  #   item_array = @items.find_all_by_merchant_id(id)
-  #   prices = item_array.map do |item|
-  #     item.unit_price_to_dollars
-  #   end
-  #   x = (prices.inject(:+)).round(2) / prices.count
-  #   BigDecimal.new(x, x.to_s.length)
-  # end
+  def average_item_price_for_merchant(id)
+    item_array = @items.find_all_by_merchant_id(id)
+    prices = item_array.map do |item|
+      item.unit_price_to_dollars
+    end
+    accumulator = 0
+    prices.each do |price|
+      accumulator += price
+    end
+    number = (accumulator / prices.length).round(2)
+    significant_digits = number.to_s.length
+    BigDecimal.new(number, significant_digits)
+  end
 
 
 end
