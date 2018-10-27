@@ -54,7 +54,6 @@ class SalesAnalyst
     item_array = @items.find_all_by_merchant_id(id)
     prices = item_array.map do |item|
       item.unit_price_to_dollars
-      require 'pry'; binding.pry 
     end
     accumulator = 0
     prices.each do |price|
@@ -86,8 +85,9 @@ class SalesAnalyst
   end
 
   def price_standard_deviation
+    average = price_average
     diff_array = @items.all.map do |item|
-      difference = item.unit_price_to_dollars - price_average
+      difference = item.unit_price_to_dollars - average
       difference * difference
     end
     accumulator = 0
@@ -95,5 +95,13 @@ class SalesAnalyst
     accumulator += diff
     end
     (Math.sqrt(accumulator / diff_array.length)).round(2)
+  end
+
+  def golden_items
+    standard_dev = price_standard_deviation
+    average_price = price_average
+    golden_items_array = @items.all.find_all do |item|
+      (item.unit_price_to_dollars - average_price) > (standard_dev * 2)
+    end
   end
 end
