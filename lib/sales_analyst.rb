@@ -77,27 +77,30 @@ class SalesAnalyst
   end
 
   # def average_invoices_per_merchant
-  #
+  ## number of invoices / number of merchants
+  #all method
+  #@invoices.id.count /
   # end
 
   # def average_invoices_per_merchant_standard_deviation
-  #   #
   # end
 
   # def top_merchants_by_invoice_count
+  #     # Which merchants are more than two standard deviations above the mean?
   #
   # end
 
   # def bottom_merchants_by_invoice_count
-  #
+  #    #Which merchants are more than two standard deviations below the mean?
+
   # end
 
   # def top_days_by_invoice_count
-  #
+  # On which days are invoices created at more than one standard deviation above the mean?
   # end
 
   # def invoice_status(argument)
-  #
+  # What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
   # end
 
 

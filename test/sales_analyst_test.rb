@@ -82,43 +82,35 @@ skip
   def test_average_invoices_per_merchant
 skip
     actual = @sales_analyst.average_invoices_per_merchant
-    # number of invoices / number of merchants
-    #all method
-    #@invoices.id.count /
     assert_equal 10.49, actual
   end
 
   def test_average_invoices_per_merchant_standard_deviation
 skip
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
-    #
     assert_equal 3.29, actual
   end
 
   def test_top_merchants_by_invoice_count
 skip
     actual = @sales_analyst.top_merchants_by_invoice_count
-    # Which merchants are more than two standard deviations above the mean?
     assert_equal # [merchant, merchant, merchant], actual
   end
 
   def test_bottom_merchants_by_invoice_count
 skip
     actual = @sales_analyst.bottom_merchants_by_invoice_count
-    #Which merchants are more than two standard deviations below the mean?
     assert_equal # [merchant, merchant, merchant], actual
   end
 
   def test_top_days_by_invoice_count
 skip
     actual = @sales_analyst.top_days_by_invoice_count
-    # On which days are invoices created at more than one standard deviation above the mean?
     assert_equal ["Sunday", "Saturday"], actual
   end
 
   def test_invoice_status
 skip
- # What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
     actual = @sales_analyst.invoice_status(:pending)
     assert_equal 29.55, actual
 
