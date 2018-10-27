@@ -1,76 +1,72 @@
-require './test/test_helper'
+require_relative './test_helper'
+
 
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    ir = InvoiceRepository.new('./data/invoice_test_data.csv')
+    @ir = InvoiceRepository.new('./test/data/invoice_test_data.csv')
   end
 
   def test_it_exists
-    assert_instance_of InvoiceRepository, ir
+    assert_instance_of InvoiceRepository, @ir
   end
 
   def test_it_can_create_repository_array
-    skip
     #this test ignores the setup array
-    assert_instance_of Array, ir.create_repo_array('./data/invoice_test_data.csv')
+    assert_instance_of Array, @ir.create_repo_array('./test/data/invoice_test_data.csv')
   end
 
-  def test_invoice_repo_has_repository array
-    skip
-    assert_equal 25, ir.all.count
+  def test_invoice_repo_has_repository_array_and_returns_all
+    assert_equal 25, @ir.all.count
+    assert_instance_of Array, @ir.all
   end
 
   def test_find_by_id
-    skip
-    item = ir.repo_array[1]
-    assert_equal item, ir.find_by_id(263397059)
+    item = @ir.repo_array[12]
+    assert_equal item, @ir.find_by_id(13)
   end
 
   def test_find_all_by_customer_id
-    skip
-    assert_instance_of Item, ir.find_by_name('Etre ailleurs')
+    assert_equal 4, @ir.find_all_by_customer_id(2).count
   end
 
   def test_it_can_find_all_by_merchant_id
-    skip
-    item = ir.repo_array[0]
-    assert_instance_of Item, ir.find_all_by_merchant_id(12334141).first
-    assert_equal [item], ir.find_all_by_merchant_id(12334141)
+    assert_instance_of Invoice, @ir.find_all_by_merchant_id(12336652).first
+    assert_equal 2, @ir.find_all_by_merchant_id(12336652).count
   end
 
   def test_it_can_find_all_by_status
-    skip
-    assert_equal [], ir.find_all_with_description('Disney glitter frames')
+    assert_equal 10, @ir.find_all_by_status('pending').count
+    assert_equal 1, @ir.find_all_by_status('returned').count
   end
 
   def test_it_can_find_max_id_and_increase_it_by_one
-    skip
-    assert_equal 263398204, ir.new_highest_id
+    assert_equal 26, @ir.new_highest_id
   end
 
   def test_we_can_create_new_invoice_and_increment_its_id_up_one
-    skip
-    new_item = ir.create({:name => 'New_Item'})
-    assert_equal 'New_Item', new_item.name
-    assert_equal 263398204, new_item.id
+    new_invoice = @ir.create({
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        })
+    assert_instance_of Invoice, new_invoice
+    assert_equal 26, new_invoice.id
+    assert_equal 'pending', new_invoice.status
+    assert_equal 26, @ir.all.count
   end
 
   def test_we_can_update_attributes
-    skip
-
-    ir.create({:name => 'Shoes', :description => 'very comfy', :unit_price => 2000})
-    ir.update(263398203, {:name => 'Shiny Shoes', :description => 'even more comfy', :unit_price => 3500})
-    updated_item = ir.find_by_id(263398203)
-    assert_equal 'Shiny Shoes', updated_item.name
-    assert_equal 'even more comfy', updated_item.description
-    assert_equal 3500, updated_item.unit_price
+    original_updated_at = @ir.find_by_id(10).updated_at
+    @ir.update(10, {:status => 'shipped'})
+    updated_invoice = @ir.find_by_id(10)
+    assert_equal 'shipped', updated_invoice.status
+    assert updated_invoice.updated_at > original_updated_at
   end
 
   def test_it_can_delete_by_id
-    skip
-    ir.delete(263397059)
-    assert_equal nil, ir.find_by_id(263397059)
+    @ir.delete(13)
+    assert_equal nil, @ir.find_by_id(13)
   end
 
 end
