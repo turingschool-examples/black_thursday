@@ -1,6 +1,5 @@
 require_relative './test_helper'
 
-
 class TransactionRepositoryTest < Minitest::Test
 
   def test_it_exists
@@ -8,7 +7,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of TransactionRepository, tr
   end
 
-  def test_invoice_item_repo_has_repository_array_and_returns_all
+  def test_transaction_repo_has_repository_array_and_returns_all
     tr = TransactionRepository.new('./test/data/transaction_sample.csv')
     assert_equal 10, tr.all.count
     assert_instance_of Array, tr.all
@@ -35,7 +34,5 @@ class TransactionRepositoryTest < Minitest::Test
     tr = TransactionRepository.new('./test/data/transaction_sample.csv')
     assert_equal 9, tr.find_all_by_result("success").count
   end
-
-
 
 end
