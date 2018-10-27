@@ -71,4 +71,12 @@ class TransactionRepositoryTest < Minitest::Test
       :updated_at=> Time.now})
       assert_equal 15, @tr.all.last.id
   end
+
+  def test_it_can_update
+    assert_equal :failed, @tr.find_by_id(13).result
+    attributes = {result: :success}
+    @tr.update(13, attributes)
+    assert_equal :success, @tr.find_by_id(13).result
+  end
+  
 end
