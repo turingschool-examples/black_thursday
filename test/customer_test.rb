@@ -24,6 +24,11 @@ class CustomerTest < Minitest::Test
     assert_equal "Clarke", @c.last_name
   end
 
+  def test_it_is_created_at
+    assert_instance_of Time, @c.created_at
+  end
+
+
 
 
 
