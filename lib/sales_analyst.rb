@@ -2,7 +2,8 @@ require 'pry'
 
 
 class SalesAnalyst
-  attr_reader :items, :merchants
+  attr_reader :items,
+              :merchants
 
   def initialize(items, merchants)
     @items = items
@@ -17,7 +18,7 @@ class SalesAnalyst
     (items_by_merchant.values.flatten.count.to_f/items_by_merchant.count).round(2)
   end
 
-  def standard_deviation
+  def average_items_per_merchant_standard_deviation
     items_per_merchant_array = items_by_merchant.values
     items_count = items_per_merchant_array.map do |items|
       items.count
@@ -30,9 +31,13 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    items_by_merchant.find_all do |id, items|
+    merchants_hash = items_by_merchant.select do |id, items|
       (items.count - average_items_per_merchant) > 3.26
     end
+    @merchants.all.find_all do |merchant|
+      merchants_hash.include?(merchant.id)
+    end
+
   end
 
   def average_item_price_for_merchant(merchant_id)
