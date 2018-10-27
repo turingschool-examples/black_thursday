@@ -30,4 +30,8 @@ class TransactionTest < Minitest::Test
     assert_equal "4242424242424242", @t.credit_card_number
   end
 
+  def test_it_returns_credit_card_expiration_date
+    assert_equal "02020", @t.credit_card_expiration_date
+  end
+
 end
