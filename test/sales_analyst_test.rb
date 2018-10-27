@@ -46,6 +46,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_golden_items
-      assert_equal 5, @sa.golden_items.length
+    assert_equal 5, @sa.golden_items.length
   end
 end

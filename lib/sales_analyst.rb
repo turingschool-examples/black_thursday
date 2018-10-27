@@ -100,7 +100,7 @@ class SalesAnalyst
   def golden_items
     standard_dev = price_standard_deviation
     average_price = price_average
-    golden_items_array = @items.all.find_all do |item|
+    @items.all.find_all do |item|
       (item.unit_price_to_dollars - average_price) > (standard_dev * 2)
     end
   end
