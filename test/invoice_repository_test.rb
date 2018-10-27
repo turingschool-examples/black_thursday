@@ -30,13 +30,14 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_invoices_by_customer_id
     ir = InvoiceRepository.new("./data/invoices.csv")
-    binding.pry
     assert_equal 10, ir.find_all_by_customer_id(300).count
     assert_equal [], ir.find_all_by_customer_id(1000)
   end
 
   def test_it_can_find_all_invoices_by_merchant_id
-    skip
+    ir = InvoiceRepository.new("./data/invoices.csv")
+    assert_equal 7, ir.find_all_by_merchant_id(12335080).count
+    assert_equal [], ir.find_all_by_merchant_id(1000)
   end
 
   def test_it_can_find_all_invoices_by_status
