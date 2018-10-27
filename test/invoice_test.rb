@@ -14,4 +14,19 @@ class InvoiceTest < Minitest::Test
   def test_invoice_exists
     assert_instance_of Invoice, @in
   end
+
+  def test_item_has_id
+    assert_equal 6, @in.id
+  end
+
+  def test_it_has_customer_id
+    assert_equal 7, @in.customer_id
+  end
+
+
+
+
+
+
+
 end
