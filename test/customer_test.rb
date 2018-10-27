@@ -16,4 +16,12 @@ class CustomerTest < Minitest::Test
     assert_instance_of Customer, @c
   end
 
+  def test_it_has_a_name
+    assert_equal "Joan", @c.name
+  end
+
+
+
+
+
 end
