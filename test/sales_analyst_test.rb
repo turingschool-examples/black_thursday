@@ -199,11 +199,25 @@ class SalesAnalystTest < Minitest::Test
 
   end
 
-  # def test_merchants_ranked_by_revenue_with_large_dataset
-  #   setup_big_data_set
-  #   binding.pry
-  #   assert_equal 7, @sa.merchants_ranked_by_revenue.size
-  # end
+  def test_top_revenue_earners_with_integer_as_argument
+    setup_fixtures
+    actual = @sa.top_revenue_earners(4)
+    first = actual[0]
+    last = actual[-1]
+
+    assert_equal 4, actual.size
+    assert_equal 12334185, first.id
+    assert_equal 12334105, last.id
+  end
+
+  def test_top_revenue_earners_returns_20_as_default
+    for i in 1..30
+      # require 'pry'; binding.pry
+      @se.merchants.create(id: i, name: "Most Unique Merchant#{i}")
+    end
+
+    assert_equal 20, @sa.top_revenue_earners.size
+  end
 
 
 end
