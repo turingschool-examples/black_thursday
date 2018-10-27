@@ -41,7 +41,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
   # find_all_by_item_id - returns either [] or one or more matches which have a matching item ID
   def test_it_can_find_all_by_id
-    skip
     assert_equal [], @iir.find_all_by_item_id(3737373)
     assert_equal [@ii1, @ii2], @iir.find_all_by_item_id(10)
   end

@@ -14,4 +14,10 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_item_id(id)
+    @collection.find_all do |invoice_item|
+      invoice_item.item_id == id
+    end
+  end
+
 end
