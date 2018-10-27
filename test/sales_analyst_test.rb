@@ -3,7 +3,7 @@ require './test/test_helper'
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    binding.pry
+
     @sales_engine = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",

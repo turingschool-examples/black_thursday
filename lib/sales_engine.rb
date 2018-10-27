@@ -17,7 +17,7 @@ class SalesEngine
     merch_repo        = MerchantRepository.new(csv_data_paths[:merchants])
     item_repo         = ItemRepository.new(csv_data_paths[:items])
     invoice_repo      = InvoiceRepository.new(csv_data_paths[:invoices])
-    invoice_item_repo = InvoiceItemRepository.new(csv_data_paths[:invoiceitems])
+    invoice_item_repo = InvoiceItemRepository.new(csv_data_paths[:invoice_items])
     self.new(merch_repo, item_repo, invoice_repo, invoice_item_repo)
   end
 

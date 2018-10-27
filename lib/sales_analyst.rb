@@ -76,11 +76,11 @@ class SalesAnalyst
     golden_array
   end
 
-  def average_invoices_per_merchant
-  # number of invoices / number of merchants
-  @invoices.count / @merchants.count
-  # use #all method?
-  end
+  # def average_invoices_per_merchant
+  # # number of invoices / number of merchants
+  # @invoices.count / @merchants.count
+  # # use #all method?
+  # end
 
   # def average_invoices_per_merchant_standard_deviation
   #   average_invoices_per_merchant
@@ -100,12 +100,13 @@ class SalesAnalyst
   # On which days are invoices created at more than one standard deviation above the mean?
   # end
 
-  def invoice_status(status)
-  # What percentage of invoices are shipped vs pending vs returned?
-  # (total invoices for that status / total invoices) * 100
-  (@invoices[status].count / @invoices.count) * 100
-  # the above line might not be quite right
-  end
+  # def invoice_status(status)
+  # # What percentage of invoices are shipped vs pending vs returned?
+  # # (total invoices for that status / total invoices) * 100
+  # # Need to map through this.
+  # (@invoices[status].count / @invoices.count) * 100
+  # # the above line might not be quite right
+  # end
 
 
 end
