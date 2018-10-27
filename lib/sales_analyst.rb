@@ -91,6 +91,16 @@ class SalesAnalyst
     std_dev(invoice_count)
   end
 
+  def top_merchants_by_invoice_count
+    two_deviations_above = average_invoices_per_merchant +
+              (average_invoices_per_merchant_standard_deviation * 2)
+    top_merchants = []
+    num_invoices_per_merchant.each do |merchant, num|
+      top_merchants << merchant if num > two_deviations_above
+    end
+    top_merchants
+  end
+
   # maths
 
   def sum(nums)

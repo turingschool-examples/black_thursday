@@ -107,13 +107,41 @@ class SalesAnalystTest < Minitest::Test
                 :created_at  => @time,
                 :updated_at  => @time
               })
-    @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5]
+    @invoice_6 = Invoice.new({
+                :id          => 6,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => @time,
+                :updated_at  => @time
+              })
+    @invoice_7 = Invoice.new({
+                :id          => 7,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => @time,
+                :updated_at  => @time
+              })
+    @invoice_8 = Invoice.new({
+                :id          => 8,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => @time,
+                :updated_at  => @time
+              })
 
+
+    @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5]
+    @invoices_2 = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5, @invoice_6, @invoice_7, @invoice_8]
     mr = MerchantRepository.new(@merchants)
     ir = ItemRepository.new(@items)
     invoice_repo = InvoiceRepository.new(@invoices)
+    invoice_repo_2 = InvoiceRepository.new(@invoices_2)
 
     @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
+    @sales_analyst_2 = SalesAnalyst.new(ir, mr, invoice_repo_2)
   end
 
   def test_it_exists
@@ -256,5 +284,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.58, sales
   end
 
+  def test_it_can_get_top_merchant_invoices_two_deviations_above
+    sales = @sales_analyst_2.top_merchants_by_invoice_count
+
+    assert_equal [], sales
+  end
 
 end
