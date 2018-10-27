@@ -106,4 +106,9 @@ class ItemRepositoryTest < Minitest::Test
     @ir.delete(2)
     refute @ir.all.include?(item)
   end
+
+  def test_it_can_return_inpect_data
+    assert_equal "#<ItemRepository 2 rows>", @ir.inspect
+  end
+
 end
