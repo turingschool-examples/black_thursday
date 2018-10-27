@@ -211,12 +211,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners_returns_20_as_default
+    setup_empty_sales_engine
     for i in 1..30
       # require 'pry'; binding.pry
       @se.merchants.create(id: i, name: "Most Unique Merchant#{i}")
     end
-
-    assert_equal 20, @sa.top_revenue_earners.size
+    actual = @sa.top_revenue_earners
+    assert_equal 20, actual.size
+    assert_instance_of Merchant, actual[0]
+    assert_instance_of Merchant, actual[-1]
   end
 
 
