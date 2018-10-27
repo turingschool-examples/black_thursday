@@ -8,4 +8,11 @@ class TransactionRepository < Repository
     Transaction.new(row)
   end
 
+  def find_all_by_credit_card_number(credit_card_number)
+    @repo_array.find_all do |transaction|
+      transaction.credit_card_number == credit_card_number
+    end
+  end
+
+
 end

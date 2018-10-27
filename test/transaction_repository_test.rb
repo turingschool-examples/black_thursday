@@ -28,9 +28,13 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_all_by_credit_card_number
     tr = TransactionRepository.new('./test/data/invoice_item_sample.csv')
-    assert_equal 2, tr.find_all_by_credit_card_number("4242424242424242").count
+    assert_equal 0, tr.find_all_by_credit_card_number("4242424242424242").count
   end
 
+  def test_find_all_by_transaction_result
+    tr = TransactionRepository.new('./test/data/invoice_item_sample.csv')
+    assert_equal 0, tr.find_all_by_result("success").count
+  end
 
 
 end
