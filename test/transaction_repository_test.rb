@@ -10,24 +10,24 @@ class TransactionRepositoryTest < Minitest::Test
       :credit_card_number => 4068631943231473,
       :credit_card_expiration => 0217,
       :result => :success,
-      :created_at => Time.parse("2012-02-26 20:56:56 UTC"),
-      :updated_at=> Time.parse("2012-02-26 20:56:56 UTC")})
+      :created_at => Time.now,
+      :updated_at=> Time.now})
 
     @tran_2 = Transaction.new({:id => 13,
       :invoice_id => 335,
       :credit_card_number => 4068631940004734,
       :credit_card_expiration => 0217,
       :result => :failed,
-      :created_at => Time.parse("2012-02-26 20:56:56 UTC"),
-      :updated_at=> Time.parse("2012-02-26 20:56:56 UTC")})
+      :created_at => Time.now,
+      :updated_at=> Time.now})
 
     @tran_3 = Transaction.new({:id => 14,
       :invoice_id => 3345,
       :credit_card_number => 4068631943231473,
       :credit_card_expiration => 0217,
       :result => :success,
-      :created_at => Time.parse("2012-02-26 20:56:56 UTC"),
-      :updated_at=> Time.parse("2012-02-26 20:56:56 UTC")})
+      :created_at => Time.now,
+      :updated_at=> Time.now})
 
     @tr = TransactionRepository.new
     @tr.add_transaction(@tran_1)
@@ -62,6 +62,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [@tran_2], @tr.find_all_by_result(:failed)
   end
 
-
-
+  def test_it_can_create_transaction_with_attributes
+    @tr.create({:invoice_id => 3345,
+      :credit_card_number => 4068631943231473,
+      :credit_card_expiration => 0217,
+      :result => :success,
+      :created_at => Time.now,
+      :updated_at=> Time.now})
+      assert_equal 15, @tr.all.last.id
+  end
 end
