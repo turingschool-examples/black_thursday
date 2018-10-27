@@ -3,10 +3,10 @@ require_relative './test_helper'
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    @sales_engine = SalesEngine.from_csv({
-    :items     => "./data/item_test.csv",
-    :merchants => "./data/merchant_test.csv",
-    })
+
+    @sales_engine = SalesEngine.new("./data/item_test.csv",
+                                    "./data/merchant_test.csv",
+                                    "./data/invoices.csv")
     @sales_analyst = @sales_engine.analyst
     @merchant_1 = @sales_engine.merchants.all[0]
     @merchant_2 = @sales_engine.merchants.all[1]
@@ -17,7 +17,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_exists
     sales_analyst = SalesAnalyst.new(@sales_engine)
-    assert_instance_of SalesAnalyst, sales_analyst
+    assert_instance_of SalesAnalyst, @sales_analyst
   end
 
   def test_it_can_be_created_by_sales_engine
@@ -108,11 +108,11 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_calculate_average_items_per_merchant_std_deviation
     assert_equal 0.45, @sales_analyst.average_items_per_merchant_standard_deviation
   end
-  
+
   def test_it_can_calculate_average_average_price_per_merchant
     assert_equal 6.00, @sales_analyst.average_average_price_per_merchant
   end
-  
+
   def test_it_can_find_golden_items
     assert_equal [], @sales_analyst.golden_items
   end
