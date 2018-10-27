@@ -34,4 +34,16 @@ class InvoiceItemRepository < Repository
       invoice_item.invoice_id == id
     end
   end
+
+  def create(attributes)
+    attributes[:id] = find_new_id
+    add_invoice_item(InvoiceItem.new(attributes))
+  end
+
+  def update(id, attributes)
+    invoice_item_to_update = find_by_id(id)
+    return nil if invoice_item_to_update == nil
+    invoice_item_to_update.status = attributes[:quantity]
+    invoice_item_to_update.updated_at = Time.now
+  end
 end

@@ -68,4 +68,22 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal [], @iir.find_all_by_item_id(263553176)
   end
 
+
+  def test_it_can_create_new_invoice_item_with_attributes
+    @iir.create({
+    :invoice_id  => 12,
+    :item_id     => 8,
+    :quantity    => 1,
+    :created_at  => Time.now,
+    :updated_at  => Time.now})
+    assert_equal 9, @iir.all.last.id
+  end
+
+  def test_it_can_update_invoice_with_attributes
+    assert_equal :pending, @iir.find_by_id(8).quantity
+    attributes = {quantity: 2}
+    @iir.update(8, attributes)
+    assert_equal 2, @iir.find_by_id(8).quantity
+  end
+
 end
