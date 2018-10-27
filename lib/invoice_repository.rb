@@ -10,4 +10,10 @@ class InvoiceRepository
     @class_name = Invoice
     @all = from_csv(file_path)
   end
+
+  def find_all_by_customer_id(customer_id)
+    @all.find_all do |object|
+      object.customer_id == customer_id
+    end
+  end
 end
