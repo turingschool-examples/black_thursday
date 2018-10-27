@@ -2,10 +2,11 @@ require 'pry'
 
 
 class SalesAnalyst
-  attr_reader :items
+  attr_reader :items, :merchants
 
-  def initialize(items)
+  def initialize(items, merchants)
     @items = items
+    @merchants = merchants
   end
 
   def items_by_merchant
@@ -32,6 +33,25 @@ class SalesAnalyst
     items_by_merchant.find_all do |id, items|
       (items.count - average_items_per_merchant) > 3.26
     end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    total_items_for_merchant = @items.find_all_by_merchant_id(merchant_id).count
+    sum_of_item_prices = @items.find_all_by_merchant_id(merchant_id).reduce(0) do |sum, item|
+      sum + item.unit_price
+    end
+    (sum_of_item_prices / total_items_for_merchant).round(2)
+  end
+
+  def average_average_price_per_merchant
+    merchant_id_array = @merchants.all.map { |merchant| merchant.id }
+    array_of_averages = merchant_id_array.map do |merchant|
+      average_item_price_for_merchant(merchant)
+    end
+    sum_of_averages = array_of_averages.reduce(0) do |sum, average|
+      sum + average
+    end
+    (sum_of_averages / array_of_averages.count).round(2)
   end
 
 end
