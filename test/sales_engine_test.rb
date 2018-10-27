@@ -12,9 +12,10 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv( {
         :items      => './data/items.csv',
         :merchants  => './data/merchants.csv',
-        :invoices => "./data/invoices.csv"
+        :invoices   => './data/invoices.csv'
                                 } )
   end
+
   def test_it_exists
     assert_instance_of SalesEngine, @se
   end
@@ -39,6 +40,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of BigDecimal, @se.big_decimal_converter('200000')
     assert_equal 2000.00, @se.big_decimal_converter('200000')
   end
+
   def test_it_can_create_invoice_repository
     assert_instance_of InvoiceRepository, @se.invoices
   end

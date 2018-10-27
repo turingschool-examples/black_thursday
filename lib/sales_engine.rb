@@ -49,6 +49,7 @@ class SalesEngine
     end
     @merchants_collection
   end
+  
   def create_invoices
     @invoice_data.each do |row|
       @invoice_collection << Invoice.new( {id: row[:id],
@@ -57,7 +58,7 @@ class SalesEngine
                                           status: row[:status],
                                           created_at: row[:created_at],
                                           updated_at: row[:updated_at]
-                                        } )
+                                          } )
     end
     @invoice_collection
   end
