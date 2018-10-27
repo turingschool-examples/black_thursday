@@ -231,35 +231,60 @@ class SalesAnalyst
 
   def get_total_from_all_invoice_items_for(invoice_id)
     matching_invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
-    # binding.pry
     sum_invoice_items_revenue(matching_invoice_items)
+  end
+
+  def at_least_one_succesful_transaction?(invoice_id)
+    transactions_for_invoice = transactions.find_all_by_invoice_id(invoice_id)
+    return false if transactions_for_invoice.length == 0
+    transactions_for_invoice.find {|transaction| transaction.result == :success}
   end
 
   def top_buyers(n = 20)
     customers_and_invoices = invoices_grouped_by_customer_id
-    # require "pry"; binding.pry
     customers_and_amounts = customers_and_invoices.reduce({}) do |hash, (id, invoices)|
       total = invoices.reduce(0) do |sum, invoice|
-        # binding.pry
-        sum += get_total_from_all_invoice_items_for(invoice.id)
-        # binding.pry
+        one_success = at_least_one_succesful_transaction?(invoice.id)
+        sum += get_total_from_all_invoice_items_for(invoice.id) if one_success
         sum
       end
       hash[customers.find_by_id(id)] = total
       hash
     end
-    top_customers = customers_and_amounts.sort do |(customer_a, spent_a),(customer_b, spent_b)|
+    sorted_c_and_a = customers_and_amounts.sort do |(customer_a, spent_a),(customer_b, spent_b)|
       spent_b <=> spent_a
     end
-    binding.pry
+    top_customers = sorted_c_and_a.reduce([]) do |top, (customer, amount)|
+      top << customer
+      top
+    end
+    top_customers.slice(0, n)
+  end
+
+  def get_item_count_for(invoice_id)
+    all_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    all_items.reduce(0) do |item_count, invoice_item|
+      item_count += invoice_item.quantity
+      item_count
+    end
   end
 
   def top_merchant_for_customer(customer_id)
-    all_invoices = invoices.find_all_by_customer_id(customer_id)
-    all_invoices.reduce(0) do |most_items, invoice|
-      found_items = invoice_items.find_all_by_invoice_id(invoice.id).count
-      most_items = found_items if found_items > most_items
-      most_items
+    invoices_for_customer = invoices.find_all_by_customer_id(customer_id)
+    top_invoice = nil
+    invoices_for_customer.reduce(0) do |top_item_count, invoice|
+      one_success = at_least_one_succesful_transaction?(invoice.id)
+      next top_item_count unless one_success
+      invoice_item_count = get_item_count_for(invoice.id)
+      if invoice_item_count > top_item_count
+        top_invoice = invoice
+        top_item_count = invoice_item_count
+      end
+      top_item_count
     end
+    # binding.pry
+    merchants.find_by_id(top_invoice.merchant_id)
   end
+
+  def
 end
