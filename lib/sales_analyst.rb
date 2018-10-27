@@ -17,7 +17,7 @@ class SalesAnalyst
   end
 
   def merchant_item_list(merchant)
-    a = @items.find_all do |item|
+    @items.find_all do |item|
       item.merchant_id == merchant.id
     end
   end
