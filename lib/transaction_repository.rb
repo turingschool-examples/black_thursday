@@ -5,7 +5,7 @@ class TransactionRepository
   end
 
   def add_transaction(transaction)
-    @collection[:insert_real_key_here]
+    @collection[transaction.id] = transaction
   end
 
 end

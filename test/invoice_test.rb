@@ -33,6 +33,6 @@ class InvoiceTest < Minitest::Test
     @i.updated_at = Time.now
     assert_equal "shipped", @i.status
     assert_equal true, @i.updated_at > old_time
-    end
+  end
 
 end

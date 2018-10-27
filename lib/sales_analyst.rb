@@ -18,7 +18,7 @@ class SalesAnalyst
     tot_of_all_prices = @items.items.inject(0) do |sum, item|
       sum + item.unit_price_to_dollars
     end
-    tot_of_all_prices / @items.items.count
+    (tot_of_all_prices / @items.items.count).round(2)
   end
 
   def golden_items
