@@ -78,5 +78,11 @@ class TransactionRepositoryTest < Minitest::Test
     @tr.update(13, attributes)
     assert_equal :success, @tr.find_by_id(13).result
   end
-  
+
+  def test_it_can_delete_transaction
+    assert_equal @tran_1, @tr.find_by_id(12)
+    @tr.delete(12)
+    assert_nil @tr.find_by_id(12)
+  end
+
 end
