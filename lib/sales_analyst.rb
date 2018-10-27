@@ -64,5 +64,15 @@ class SalesAnalyst
     BigDecimal.new(number, significant_digits)
   end
 
-
+  def average_average_price_per_merchant
+    price_array = @merchants.all.map do |merchant|
+      x = merchant.id
+      average_item_price_for_merchant(x)
+    end
+    accumulator = 0
+    price_array.each do |price|
+      accumulator += price
+    end
+    (accumulator / (price_array.length)).round(2)
+  end
 end
