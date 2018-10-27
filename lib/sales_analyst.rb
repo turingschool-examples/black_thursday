@@ -87,9 +87,10 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-
+    invoice_count = num_invoices_per_merchant.values
+    std_dev(invoice_count)
   end
-  
+
   # maths
 
   def sum(nums)

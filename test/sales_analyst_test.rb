@@ -251,7 +251,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_get_standard_deviation_of_invoices
-    
+    sales = @sales_analyst.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 0.58, sales
   end
 
 
