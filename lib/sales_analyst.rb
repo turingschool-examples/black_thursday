@@ -2,10 +2,10 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 
 class SalesAnalyst
-  def initialize(sales_engine)
-    @sales_engine = sales_engine
-    @item_repo = sales_engine.items
-    @merchant_repo = sales_engine.merchants
+  def initialize(items, merchants, invoices)
+    @item_repo = items
+    @merchant_repo = merchants
+    @invoice_repo = invoices
   end
 
   def num_items_for_each_merchant
@@ -51,11 +51,7 @@ class SalesAnalyst
   
   def average_average_price_per_merchant
     prices = @merchant_repo.all.map do |merchant|
-      if (average_item_price_for_merchant(merchant.id)).nan?
-        0
-      else
-        average_item_price_for_merchant(merchant.id)
-      end
+      average_item_price_for_merchant(merchant.id)
     end
     mean(prices)
   end
