@@ -44,18 +44,22 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_id
     assert_equal @invoice_1, @inr.find_by_id(6)
+    assert_nil @inr.find_by_id(243)
   end
 
   def test_it_can_find_all_by_customer_id
     assert_equal [@invoice_1, @invoice_2], @inr.find_all_by_customer_id(7)
+    assert_equal [], @inr.find_all_by_customer_id(24)
   end
 
   def test_it_can_find_all_by_merchant_id
     assert_equal [@invoice_2, @invoice_3], @inr.find_all_by_merchant_id(8)
+    assert_equal [], @inr.find_all_by_merchant_id(428)
   end
 
   def test_it_can_find_all_by_status
     assert_equal [@invoice_2], @inr.find_all_by_status("shipped")
+    assert_equal [], @inr.find_all_by_status("lost")
   end
 
   def test_it_can_create_new_invoice_with_attributes
@@ -68,6 +72,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_invoice_with_attributes
+    assert_equal "pending", @inr.find_by_id(8).status
     attributes = {status: "shipping"}
     @inr.update(8, attributes)
     assert_equal "shipping", @inr.find_by_id(8).status

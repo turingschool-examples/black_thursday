@@ -4,152 +4,152 @@ require './lib/item'
 require './lib/item_repository'
 
 class SalesAnalystTest < Minitest::Test
-
   def setup
-    sales_engine = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
-    @sa = sales_engine.analyst
     @item_1 = Item.new({
-          :id          => 263397059,
+          :id          => 1,
           :name        => "Pencil",
-          :description => "You can use it to write things",
-          :unit_price  => (BigDecimal.new(10.99,4) / 100),
+          :description => "You can use it to pencil things",
+          :unit_price  => (BigDecimal.new(3000,4) / 100),
           :created_at  => "2016-01-11 12:29:33 UTC",
           :updated_at  => "1993-08-29 22:53:20 UTC",
-          :merchant_id => 213567
+          :merchant_id => 1
         })
     @item_2 = Item.new({
-          :id          => 2347892358,
+          :id          => 2,
           :name        => "Marker",
           :description => "You can use it to mark things",
-          :unit_price  => (BigDecimal.new(12.50,4) / 100),
+          :unit_price  => (BigDecimal.new(4000,4) / 100),
           :created_at  => "2016-01-11 12:02:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 983406
+          :merchant_id => 1
         })
     @item_3 = Item.new({
-          :id          => 2413,
+          :id          => 3,
           :name        => "Jump rope",
           :description => "Jump it",
-          :unit_price  => (BigDecimal.new(24.50,4) / 100),
+          :unit_price  => (BigDecimal.new(20000,4) / 100),
           :created_at  => "2016-01-11 12:02:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 245
+          :merchant_id => 1
         })
     @item_4 = Item.new({
-          :id          => 6432,
+          :id          => 4,
           :name        => "Elf costume",
           :description => "Be santa's little helper.",
-          :unit_price  => (BigDecimal.new(30.65,4) / 100),
+          :unit_price  => (BigDecimal.new(5000,4) / 100),
           :created_at  => "2016-01-11 12:05:55 UTC",
           :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 24524
+          :merchant_id => 2
+        })
+    @item_5 = Item.new({
+          :id          => 5,
+          :name        => "Santa costume",
+          :description => "Be santa.",
+          :unit_price  => (BigDecimal.new(6000,4) / 100),
+          :created_at  => "2016-01-11 12:05:55 UTC",
+          :updated_at  => "1973-05-29 23:44:48 UTC",
+          :merchant_id => 2
+        })
+    @item_6 = Item.new({
+          :id          => 6,
+          :name        => "Devil costume",
+          :description => "Be santa's enemy.",
+          :unit_price  => (BigDecimal.new(4000,4) / 100),
+          :created_at  => "2016-01-11 12:05:55 UTC",
+          :updated_at  => "1973-05-29 23:44:48 UTC",
+          :merchant_id => 3
+        })
+    @item_7 = Item.new({
+          :id          => 7,
+          :name        => "Easter Bunny costume",
+          :description => "Be santa's rival.",
+          :unit_price  => (BigDecimal.new(5000,4) / 100),
+          :created_at  => "2016-01-11 12:05:55 UTC",
+          :updated_at  => "1973-05-29 23:44:48 UTC",
+          :merchant_id => 3
         })
     @ir = ItemRepository.new
     @ir.add_item(@item_1)
     @ir.add_item(@item_2)
     @ir.add_item(@item_3)
     @ir.add_item(@item_4)
+    @ir.add_item(@item_5)
+    @ir.add_item(@item_6)
+    @ir.add_item(@item_7)
+
+    @mr = MerchantRepository.new
+    @merchant_1 = Merchant.new({:id => 1, :name => "Keckenbauer"})
+    @merchant_2 = Merchant.new({:id => 2, :name => "BowlsByChris"})
+    @merchant_3 = Merchant.new({:id => 3, :name => "SassyStrangeArt"})
+    @mr.add_merchant(@merchant_1)
+    @mr.add_merchant(@merchant_2)
+    @mr.add_merchant(@merchant_3)
+
+    @invoice_1 = Invoice.new({
+      :id          => 1,
+      :customer_id => 100,
+      :merchant_id => 1,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    @invoice_2 = Invoice.new({
+      :id          => 2,
+      :customer_id => 101,
+      :merchant_id => 2,
+      :status      => "shipped",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    @invoice_3 = Invoice.new({
+      :id          => 3,
+      :customer_id => 102,
+      :merchant_id => 2,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    @inr = InvoiceRepository.new
+    @inr.add_invoice(@invoice_1)
+    @inr.add_invoice(@invoice_2)
+    @inr.add_invoice(@invoice_3)
+
+    #add transactions next after the classes are made for transaction and repository
+    # @transaction_1 = ...
+    # @tr = TransactionRepository.new
+
+    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr})
+    @sa = @se.analyst
   end
 
   def test_average_items_per_merchant
-    assert_equal 2.88 , @sa.average_items_per_merchant
+    assert_equal 2.33 , @sa.average_items_per_merchant
   end
 
   def test_it_can_find_average_price_of_items
-    sa = SalesAnalyst.new(items: @ir)
-    assert_equal 0.20, sa.average_price_of_items
+    assert_equal 67.14, @sa.average_price_of_items
   end
 
   def test_it_can_find_golden_items
-    item_5 = Item.new({
-          :id          => 64423432,
-          :name        => "Elf costume",
-          :description => "Be santa's little helper.",
-          :unit_price  => (BigDecimal.new(300.65,4) / 100),
-          :created_at  => "2016-01-11 12:05:55 UTC",
-          :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 24524
-        })
-    item_6 = Item.new({
-          :id          => 643243352,
-          :name        => "Elf costume",
-          :description => "Be santa's little helper.",
-          :unit_price  => (BigDecimal.new(3.65,4) / 100),
-          :created_at  => "2016-01-11 12:05:55 UTC",
-          :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 24524
-        })
-    item_7 = Item.new({
-          :id          => 6423532,
-          :name        => "Elf costume",
-          :description => "Be santa's little helper.",
-          :unit_price  => (BigDecimal.new(3.65,4) / 100),
-          :created_at  => "2016-01-11 12:05:55 UTC",
-          :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 24524
-        })
-    @ir.add_item(item_5)
-    @ir.add_item(item_6)
-    @ir.add_item(item_7)
-    sa = SalesAnalyst.new(items: @ir)
-    assert_equal [item_5], sa.golden_items
+    assert_equal [@item_3], @sa.golden_items
   end
 
   def test_merchants_with_high_item_count
-    assert_equal 52, @sa.merchants_with_high_item_count.length
-    assert_instance_of Merchant, @sa.merchants_with_high_item_count.first
+    assert_equal [@merchant_1], @sa.merchants_with_high_item_count
   end
 
   def test_avg_avg_per_merchant
-    assert_equal 350.29, @sa.average_average_price_per_merchant
+    assert_equal 63.33, @sa.average_average_price_per_merchant
     assert_instance_of BigDecimal, @sa.average_average_price_per_merchant
   end
 
-  def test_mini_avg_avg_per_merchant
-    item_5 = Item.new({
-          :id          => 64423432,
-          :name        => "Elf costume",
-          :description => "Be santa's little helper.",
-          :unit_price  => (BigDecimal.new(300.65,4) / 100),
-          :created_at  => "2016-01-11 12:05:55 UTC",
-          :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 24524
-        })
-    item_6 = Item.new({
-          :id          => 643243352,
-          :name        => "Elf costume",
-          :description => "Be santa's little helper.",
-          :unit_price  => (BigDecimal.new(3.65,4) / 100),
-          :created_at  => "2016-01-11 12:05:55 UTC",
-          :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 24524
-        })
-    item_7 = Item.new({
-          :id          => 6423532,
-          :name        => "Elf costume",
-          :description => "Be santa's little helper.",
-          :unit_price  => (BigDecimal.new(3.65,4) / 100),
-          :created_at  => "2016-01-11 12:05:55 UTC",
-          :updated_at  => "1973-05-29 23:44:48 UTC",
-          :merchant_id => 24524
-        })
-    @ir.add_item(item_5)
-    @ir.add_item(item_6)
-    @ir.add_item(item_7)
-    sa = SalesAnalyst.new(items: @ir)
-    assert_equal 0.33, sa.average_average_price_per_merchant
+  def test_average_item_price_for_merchant
+    assert_instance_of BigDecimal, @sa.average_item_price_for_merchant(1)
+    assert_equal 90, @sa.average_item_price_for_merchant(1)
   end
 
-  def test_average_item_price_for_merchant
-    assert_instance_of BigDecimal, @sa.average_item_price_for_merchant(12334105)
-    assert_equal 16.66, @sa.average_item_price_for_merchant(12334105)
-  end
-  
   def test_it_can_find_average_items_per_merchant_std_dev
-    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 0.58, @sa.average_items_per_merchant_standard_deviation
     assert_instance_of Float, @sa.average_items_per_merchant_standard_deviation
   end
 end
