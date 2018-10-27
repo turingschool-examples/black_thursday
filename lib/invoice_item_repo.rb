@@ -8,5 +8,10 @@ class InvoiceItemRepository
     @collection
   end
 
+  def find_by_id(ident)
+    @collection.find_all do |item|
+      item.id == ident
+    end
+  end
 
 end
