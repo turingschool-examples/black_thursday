@@ -15,7 +15,7 @@ class TransactionTest < Minitest::Test
   end
   
   def test_it_exists
-    assert_instance_of @t, Transaction
+    assert_instance_of Transaction, @t
   end
   
   def test_it_can_return_id
