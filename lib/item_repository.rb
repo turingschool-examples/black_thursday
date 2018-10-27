@@ -1,6 +1,6 @@
 require 'time'
-require_relative '../lib/item'
 require 'csv'
+require_relative '../lib/item'
 require_relative './find_methods'
 class ItemRepository
   include FindMethods

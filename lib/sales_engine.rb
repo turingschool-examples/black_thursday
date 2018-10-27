@@ -59,5 +59,6 @@ class SalesEngine
                                           updated_at: row[:updated_at]
                                         } )
     end
+    @invoice_collection
   end
 end
