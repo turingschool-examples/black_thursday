@@ -13,5 +13,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Array, iir.all
   end
 
+  def test_it_can_find_by_invoice_item_by_id
+    item = iir.repo_array[1]
+    assert_equal item, iir.find_by_id(13)
+  end
+
 
 end
