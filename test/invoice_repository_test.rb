@@ -74,6 +74,7 @@ class InvoiceRepositoryTest < Minitest::Test
     ir.update(4986, {status: :success})
     updated_invoice = ir.all.last
     assert_equal "success" , updated_invoice.status
+    assert_nil ir.update(5000, {})
   end
 
   def test_it_cannot_update_ids_on_an_invoice
@@ -103,7 +104,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_an_invoice
-    skip
     ir = InvoiceRepository.new("./data/invoices.csv")
     data = ({
       :customer_id => 7,
@@ -113,7 +113,8 @@ class InvoiceRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
       })
     ir.create(data)
-    ir.delete(263395721)
-    assert_nil ir.find_by_id(263395721)
+    ir.delete(4986)
+    assert_nil ir.find_by_id(4986)
+    assert_nil ir.delete(5000)
   end
 end
