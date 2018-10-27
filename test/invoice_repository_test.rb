@@ -41,32 +41,78 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_status
-    skip
+    ir = InvoiceRepository.new("./data/invoices.csv")
+    assert_equal 2839, ir.find_all_by_status(:shipped).count
+    assert_equal 1473, ir.find_all_by_status(:pending).count
+    assert_equal [], ir.find_all_by_status(:sold)
   end
 
   def test_that_it_can_create_an_invoice
-    skip
     ir = InvoiceRepository.new("./data/invoices.csv")
     data = ({
-      :name        => "Pencil",
-
-    })
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
     actual = ir.create(data).last
-    expected = ir.find_by_id(263567475)
+    expected = ir.find_by_id(4986)
     assert_equal expected, actual
   end
 
-  def test_it_can_update_one_attribute_of_an_existing_invoice
-    skip
+  def test_it_can_update_an_existing_invoice
     ir = InvoiceRepository.new("./data/invoices.csv")
-    ir.update(263395721, {name: "Shopin2018"})
-    updated_invoice = ir.all[2]
-    assert_equal "Shopin2018" , updated_invoice.name
+    data = ({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    ir.create(data)
+    ir.update(4986, {status: :success})
+    updated_invoice = ir.all.last
+    assert_equal "success" , updated_invoice.status
+  end
+
+  def test_it_cannot_update_ids_on_an_invoice
+    ir = InvoiceRepository.new("./data/invoices.csv")
+    data = ({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    ir.create(data)
+    attributes = ({
+      id: 5000,
+      customer_id: 2,
+      merchant_id: 3,
+      created_at: Time.now
+      })
+    ir.update(4986, attributes)
+    assert_equal nil, ir.find_by_id(5000)
+    assert_equal ir.all[4985], ir.find_by_id(4986)
+    updated_invoice = ir.all.last
+    assert_equal 7 , updated_invoice.customer_id
+    assert_equal 8 , updated_invoice.merchant_id
+    created_at = ir.find_by_id(4986).created_at != attributes[:created_at]
+    assert_equal true, created_at
   end
 
   def test_it_can_delete_an_invoice
     skip
     ir = InvoiceRepository.new("./data/invoices.csv")
+    data = ({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    ir.create(data)
     ir.delete(263395721)
     assert_nil ir.find_by_id(263395721)
   end
