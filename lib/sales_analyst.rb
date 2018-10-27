@@ -188,7 +188,7 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    transactions = @transactions.find_all_by_invoice_id(invoice_id)
+    transactions = transactions.find_all_by_invoice_id(invoice_id)
     return false if transactions == []
     paid_in_full = true
     transactions.each do |transaction|
@@ -286,5 +286,15 @@ class SalesAnalyst
     merchants.find_by_id(top_invoice.merchant_id)
   end
 
-  def
+  def one_time_buyers
+    customers_and_invoices = invoices_grouped_by_customer_id
+    one_timers = customers_and_invoices.find_all do |customer, invoices|
+      invoices.length == 1
+    end
+    r = one_timers.reduce([]) do |broke_customers, (id, invoice)|
+      broke_customers << customers.find_by_id(id)
+    end
+    # binding.pry
+    r
+  end
 end
