@@ -116,4 +116,16 @@ skip
     assert_equal ["Sunday", "Saturday"], actual
   end
 
+  def test_invoice_status(argument)
+skip
+    actual = @sales_analyst.invoice_status(:pending)
+    assert_equal 29.55, actual
+
+    actual = @sales_analyst.invoice_status(:shipped)
+    assert_equal 56.95, actual
+
+    actual = @sales_analyst.invoice_status(:returned)
+    assert_equal 13.5, actual
+  end
+
 end
