@@ -65,4 +65,16 @@ class SalesAnalyst
     (Math.sqrt(sum / (count_all_merchants - 1))).round(2)
   end
 
+  def merchants_with_high_item_count
+    high_merchants = []
+    @merchants.all.map do |merchant|
+      x = merchant.id
+      y = items.find_all_by_merchant_id(x)
+      if y.count >= 7
+        high_merchants << @merchants.find_by_id(x)
+      end
+    end
+    high_merchants
+  end
+
 end
