@@ -71,24 +71,25 @@ class SalesAnalyst
     golden_items
   end
 
-  def average_invoices_per_merchant
-    merchant_invoices = @merchant_repo.all.map do |merchant|
-                            @invoice_repo.find_all_by_merchant_id(merchant.id)
+  def num_invoices_per_merchant
+    invoices_per_merchant = {}
+    @merchant_repo.all.each do |merchant|
+      invoices_per_merchant[merchant] =
+          @invoice_repo.find_all_by_merchant_id(merchant.id).size
     end
-    count = merchant_invoices.map do |groups|
-      groups.count
-    end
-    (sum(count).to_f / count.length).round(2)
+    invoices_per_merchant
+  end
 
-    #pull up all merchants by id
-    #create a list of invoices that each merchant has
-    #count the list
-    #average them together
+  def average_invoices_per_merchant
+    merchant_invoices = num_invoices_per_merchant
+    count = merchant_invoices.values
+    (sum(count).to_f / count.length).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
 
   end
+  
   # maths
 
   def sum(nums)
