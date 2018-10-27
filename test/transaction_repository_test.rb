@@ -40,7 +40,6 @@ class TransactionRepositoryTest < Minitest::Test
     end
     
     def test_it_can_be_created_by_sales_engine
-      skip
       sales_engine = SalesEngine.from_csv(:transactions => "./data/transactions.csv")
       
       assert_instance_of TransactionRepository, sales_engine.transactions

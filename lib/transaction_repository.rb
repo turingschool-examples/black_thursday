@@ -1,5 +1,5 @@
 require_relative '../lib/repository'
-
+require_relative '../lib/transaction'
 
 class TransactionRepository
     include Repository
