@@ -30,9 +30,4 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 2, iir.find_all_by_invoice_id(2).count
   end
 
-
-
-
-
-
 end
