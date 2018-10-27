@@ -11,7 +11,7 @@ class InvoiceItemRepoTest < Minitest::Test
       created_at:@time,
       updated_at:@time
     }
-    stats1 = {
+    stats2 = {
       id:2,
       item_id:4,
       invoice_id:6,
@@ -28,11 +28,11 @@ class InvoiceItemRepoTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of InvoiceItemRepo, @iir
+    assert_instance_of InvoiceItemRepository, @iir
   end
   # all - returns an array of all known InvoiceItem instances
   def test_it_can_return_all
-    assert_equal
+    assert_equal [@ii1, @ii2], @iir.all
   end
 
   # find_by_id - returns either nil or an instance of InvoiceItem with a matching ID
