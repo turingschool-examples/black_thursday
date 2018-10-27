@@ -2,21 +2,21 @@ require_relative './test_helper'
 
 class SalesAnalystTest < Minitest::Test
 
-  def setup    
+  def setup
     @merchant_1 = Merchant.new({id: 5, name: 'Steve'})
     @merchant_2 = Merchant.new({id: 10, name: 'Turing School'})
     @merchant_3 = Merchant.new({id: 7, name: 'Turk'})
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
     @mr = MerchantRepository.new(@merchants)
-    
+
     @time = Time.now.to_s
     @item_1 = Item.new({
               :id          => 1,
               :name        => "Pencil",
               :description => "You can use it to write things",
               :unit_price  => 1099,
-              :created_at  => @time, 
-              :updated_at  => @time, 
+              :created_at  => @time,
+              :updated_at  => @time,
               :merchant_id => 10
             })
     @item_2 = Item.new({
@@ -66,11 +66,11 @@ class SalesAnalystTest < Minitest::Test
             })
     @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
     @items_2 = [@item_1, @item_2, @item_3, @item_4, @item_5, @item_6]
-    
+
     @invoice_1 = Invoice.new({
                 :id          => 1,
                 :customer_id => 10,
-                :merchant_id => 100,
+                :merchant_id => 5,
                 :status      => "pending",
                 :created_at  => @time,
                 :updated_at  => @time
@@ -78,7 +78,7 @@ class SalesAnalystTest < Minitest::Test
     @invoice_2 = Invoice.new({
                 :id          => 2,
                 :customer_id => 20,
-                :merchant_id => 200,
+                :merchant_id => 10,
                 :status      => "shipped",
                 :created_at  => @time,
                 :updated_at  => @time
@@ -86,7 +86,7 @@ class SalesAnalystTest < Minitest::Test
     @invoice_3 = Invoice.new({
                 :id          => 3,
                 :customer_id => 30,
-                :merchant_id => 300,
+                :merchant_id => 7,
                 :status      => "returned",
                 :created_at  => @time,
                 :updated_at  => @time
@@ -94,17 +94,25 @@ class SalesAnalystTest < Minitest::Test
     @invoice_4 = Invoice.new({
                 :id          => 4,
                 :customer_id => 40,
-                :merchant_id => 400,
+                :merchant_id => 5,
                 :status      => "returned",
                 :created_at  => @time,
                 :updated_at  => @time
               })
-    @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4]
-    
+    @invoice_5 = Invoice.new({
+                :id          => 5,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => @time,
+                :updated_at  => @time
+              })
+    @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5]
+
     mr = MerchantRepository.new(@merchants)
     ir = ItemRepository.new(@items)
     invoice_repo = InvoiceRepository.new(@invoices)
-    
+
     @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
   end
 
@@ -136,15 +144,15 @@ class SalesAnalystTest < Minitest::Test
     merchant_3 = Merchant.new({id: 7, name: 'Turk'})
     merchants = [merchant_1, merchant_2, merchant_3]
     mr = MerchantRepository.new(merchants)
-    
+
     time = Time.now.to_s
     item_1 = Item.new({
               :id          => 1,
               :name        => "Pencil",
               :description => "You can use it to write things",
               :unit_price  => BigDecimal.new(10.99,4),
-              :created_at  => time, 
-              :updated_at  => time, 
+              :created_at  => time,
+              :updated_at  => time,
               :merchant_id => 5
             })
     item_2 = Item.new({
@@ -187,7 +195,7 @@ class SalesAnalystTest < Minitest::Test
     invoices = []
     mr = MerchantRepository.new(merchants)
     ir = ItemRepository.new(items)
-    
+
     sales_analyst = SalesAnalyst.new(ir, mr, invoices)
     expected = [merchant_1]
     assert_equal expected, sales_analyst.merchants_with_high_item_count
@@ -232,9 +240,19 @@ class SalesAnalystTest < Minitest::Test
     mr = MerchantRepository.new(@merchants)
     ir = ItemRepository.new(@items_2)
     invoice_repo = InvoiceRepository.new(@invoices)
-    
+
     @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
     assert_equal [@item_6], @sales_analyst.golden_items
   end
+
+  def test_it_can_get_average_invoices
+    sales = @sales_analyst.average_invoices_per_merchant
+    assert_equal 1.67, sales
+  end
+
+  def test_it_can_get_standard_deviation_of_invoices
+    
+  end
+
 
 end

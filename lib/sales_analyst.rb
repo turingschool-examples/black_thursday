@@ -38,7 +38,7 @@ class SalesAnalyst
     end
     mean(item_prices).round(2).to_d
   end
-  
+
   def merchants_with_high_item_count
     one_std_dev = average_items_per_merchant +
                   average_items_per_merchant_standard_deviation
@@ -48,14 +48,14 @@ class SalesAnalyst
     end
     high_item_counts
   end
-  
+
   def average_average_price_per_merchant
     prices = @merchant_repo.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
     mean(prices)
   end
-  
+
   def golden_items
     all_item_prices = @item_repo.all.map do |item|
       item.unit_price
@@ -68,9 +68,27 @@ class SalesAnalyst
     @item_repo.all.each do |item|
       golden_items << item if item.unit_price > two_std_dev_above_average
     end
-    golden_items 
+    golden_items
   end
-  
+
+  def average_invoices_per_merchant
+    merchant_invoices = @merchant_repo.all.map do |merchant|
+                            @invoice_repo.find_all_by_merchant_id(merchant.id)
+    end
+    count = merchant_invoices.map do |groups|
+      groups.count
+    end
+    (sum(count).to_f / count.length).round(2)
+
+    #pull up all merchants by id
+    #create a list of invoices that each merchant has
+    #count the list
+    #average them together
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+
+  end
   # maths
 
   def sum(nums)
