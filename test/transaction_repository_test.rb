@@ -38,6 +38,12 @@ class TransactionRepositoryTest < Minitest::Test
       assert_instance_of TransactionRepository, @tr
     end
     
+    def test_it_can_be_created_by_sales_engine
+      sales_engine = SalesEngine.from_csv(:transactions => "./data/transactions.csv")
+      
+      assert_instance_of TransactionRepository, sales_engine.transactions
+    end
+    
     def test_it_can_return_all_transactions
       assert_equal @transactions, @tr.all
     end
