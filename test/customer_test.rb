@@ -16,6 +16,10 @@ class CustomerTest < Minitest::Test
     assert_instance_of Customer, @c
   end
 
+  def test_it_has_an_id
+    assert_equal 6, @c.id
+  end
+
   def test_it_has_a_name
     assert_equal "Joan", @c.first_name
   end
