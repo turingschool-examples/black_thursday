@@ -3,19 +3,18 @@ require_relative '../lib/invoice'
 require_relative '../lib/repository'
 
 class InvoiceRepository
+
   include Repository
 
   def initialize(invoices)
     @collection = invoices
   end
-
-
   #I need
   #find_all_by_customer_id
   def find_all_by_customer_id(id)
     all.find_all do |invoice|
       invoice.customer_id == id
-    end.length
+    end
   end
   #find_all_by_merchant_id
   def find_all_by_merchant_id(id)
