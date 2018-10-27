@@ -27,7 +27,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_invoice_id
     iir = InvoiceItemRepository.new('./test/data/invoice_item_sample.csv')
-    assert_equal 1, iir.find_all_by_invoice_id(2).count
+    assert_equal 2, iir.find_all_by_invoice_id(2).count
   end
 
 
