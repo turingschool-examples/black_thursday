@@ -269,6 +269,20 @@ class SalesAnalyst
     end
   end
 
+  def get_top_invoice_item_for(invoice_id)
+    all_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    top_invoice_item = nil
+    all_items.reduce(0) do |top_quantity, invoice_item|
+      current_quantity = invoice_item.quantity
+      if current_quantity > top_quantity
+        top_quantity = current_quantity
+        top_invoice_item = invoice_item
+      end
+      top_quantity
+    end
+    top_invoice_item
+  end
+
   def top_merchant_for_customer(customer_id)
     invoices_for_customer = invoices.find_all_by_customer_id(customer_id)
     top_invoice = nil
@@ -295,5 +309,21 @@ class SalesAnalyst
       broke_customers << customers.find_by_id(id)
       broke_customers
     end
+  end
+
+  def one_time_buyers_top_item
+    top_invoice_items = []
+    one_time_buyers.reduce(0) do |top_item_count, one_timer|
+      invoice = invoices.find_all_by_customer_id(one_timer.id)[0]
+      current_top_invoice_item = get_top_invoice_item_for(invoice.id)
+      # binding.pry
+      if current_top_invoice_item.quantity >= top_item_count
+        top_item_count = current_top_invoice_item.quantity
+        top_invoice_items << current_top_invoice_item
+      end
+      top_item_count
+    end
+    binding.pry
+    items.find_by_id(top_invoice_item.item_id)
   end
 end
