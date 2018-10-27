@@ -15,7 +15,7 @@ class TransactionRepositoryTest < Minitest::Test
 
     @tran_2 = Transaction.new({:id => 13,
       :invoice_id => 335,
-      :credit_card_number => 4068631943237473,
+      :credit_card_number => 4068631940004734,
       :credit_card_expiration => 0217,
       :result => "failed",
       :created_at => Time.parse("2012-02-26 20:56:56 UTC"),
@@ -51,6 +51,11 @@ class TransactionRepositoryTest < Minitest::Test
   def test_find_all_by_invoice_id
     assert_equal [@tran_1, @tran_3], @tr.find_all_by_invoice_id(3345)
     assert_equal [], @tr.find_all_by_invoice_id(24)
+  end
+
+  def test_find_all_by_credit_card_number
+    assert_equal [@tran_1, @tran_3], @tr.find_all_by_credit_card_number(4068631943231473)
+    assert_equal [], @tr.find_all_by_credit_card_number(3)
   end
 
 

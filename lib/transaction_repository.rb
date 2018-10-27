@@ -16,4 +16,10 @@ class TransactionRepository < Repository
     end
   end
 
+  def find_all_by_credit_card_number(credit_card_n)
+    @collection.values.select do |transaction|
+      transaction.credit_card_number == credit_card_n
+    end
+  end
+
 end
