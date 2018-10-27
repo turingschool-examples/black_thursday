@@ -8,10 +8,11 @@ require_relative "./sales_analyst"
 class SalesEngine
   attr_reader :items, :merchants, :invoices, :analyst
 
-  def initialize(items, merchants, invoices = nil)
+  def initialize(items, merchants, invoices, invoice_item = nil)
     @items = ItemRepository.new(populate_items(items))
     @merchants = MerchantRepository.new(populate_merchants(merchants))
     @invoices = InvoiceRepository.new(populate_invoices(invoices))
+    @invoiceitem = InvoiceItemRepository.new(populate_invoice_items(invoiceitem))
     @analyst = SalesAnalyst.new(@items, @merchants, @invoices)
   end
 
@@ -27,23 +28,25 @@ class SalesEngine
   end
 
   def populate_merchants(file_path)
-    file = CSV.read(file_path, headers: true, header_converters: :symbol )
+    file = CSV.read(file_path, headers: true, header_converters: :symbol)
     file.map do |row|
       Merchant.new(row)
     end
   end
 
   def populate_items(file_path)
-    file = CSV.read(file_path, headers: true, header_converters: :symbol )
+    file = CSV.read(file_path, headers: true, header_converters: :symbol)
     file.map do |row|
       Item.new(row)
     end
   end
 
-  # def populate_invoice_item(file_path)
-  #   file - CSV.read(file_path, headers: true, header_converters: :symbol)
-  #   file.map do |row|
-  #
-  # end
-  #
+  def populate_invoice_item(file_path)
+    file - CSV.read(file_path, headers: true, header_converters: :symbol)
+    file.map do |row|
+     InvoiceItem.new(row)
+    end
+  end
+
+  
 end
