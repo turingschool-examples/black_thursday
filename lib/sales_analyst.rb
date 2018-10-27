@@ -320,6 +320,18 @@ class SalesAnalyst
     end
   end
 
+  def find_highest_transaction_count_for(top_invoice_items)
+    top_invoice_items.reduce(0) do |highest, invoice_item|
+      current = get_transaction_count_for(invoice_item)
+      highest = current if current >= highest
+      highest
+    end
+  end
+
+  def get_transaction_count_for(invoice_item)
+    transactions.find_all_by_invoice_id(invoice_item.invoice_id).count
+  end
+
   def one_time_buyers_top_item
     top_invoice_items = []
     one_time_buyers.reduce(0) do |top_item_count, one_timer|
@@ -333,10 +345,14 @@ class SalesAnalyst
       end
       top_item_count
     end
-    top_invoice_items_by_transaction = []
-    top_invoice_items.reduce([]) do |by_transaction, invoice_item|
-
+    top_transaction_count = find_highest_transaction_count_for(top_invoice_items)
+    highest_by_transaction_count = top_invoice_items.reduce([]) do |top, invoice_item|
+      current_transaction_count = get_transaction_count_for(invoice_item)
+      top << invoice_item if current_transaction_count >= top_transaction_count
+      top
     end
-    items.find_by_id(top_invoice_item.item_id)
+    # binding.pry
+    first_item = highest_by_transaction_count.first
+    items.find_by_id(first_item.item_id)
   end
 end
