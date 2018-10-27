@@ -16,4 +16,6 @@ class TransactionTest < Minitest::Test
     assert_instance_of Transaction, @tr
   end
 
+  
+
 end
