@@ -10,6 +10,10 @@ class InvoiceRepository < Repository
     @collection[invoice.id] = invoice
   end
 
+  def invoices
+    @collection.values
+  end
+
   def find_all_by_customer_id(id)
     @collection.values.select do |invoice|
       invoice.customer_id == id

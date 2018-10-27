@@ -129,6 +129,7 @@ class SalesAnalystTest < Minitest::Test
       :transactions => "./data/transactions.csv"
     })
     @sa_real = @se_real.analyst
+    binding.pry
     ################################################
   end
 
@@ -165,32 +166,30 @@ class SalesAnalystTest < Minitest::Test
 
   ########### FROM REAL DATA, UPDATE TO FAKE DATA ##########
   def test_it_can_find_average_invoices_per_merchant
-    skip
     assert_equal 10.49, @sa_real.average_invoices_per_merchant
+    assert_instance_of Float, @sa_real.average_invoices_per_merchant
   end
 
   def test_it_can_find_average_invoices_per_merchant_std_dev
-    skip
     assert_equal 3.29, @sa_real.average_invoices_per_merchant_standard_deviation
+    assert_instance_of Float, @sa_real.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_top_merchants_by_invoice_count_2_std_dev_above_mean
-    skip
-    assert_equal true, true
+    merchant_count = @sa_real.top_merchants_by_invoice_count.count
+    assert_equal 12, merchant_count
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count_2_std_dev_bel_mean
-    skip
-    assert_equal true, true
+    merchant_count = @sa_real.bottom_merchants_by_invoice_count.count
+    assert_equal 4, merchant_count
   end
 
   def test_it_can_find_top_days_by_invoice_count_1_std_dev_above_mean
-    skip
-    assert_equal ["Sunday", "Saturday"], @sa_real.top_days_by_invoice_count
+    assert_equal ["Wednesday"], @sa_real.top_days_by_invoice_count
   end
 
   def test_it_can_find_percentages_of_orders_shipped_pending_and_returned
-    skip
     assert_equal 29.55, @sa_real.invoice_status(:pending)
     assert_equal 56.95, @sa_real.invoice_status(:shipped)
     assert_equal 13.5, @sa_real.invoice_status(:returned)
