@@ -46,7 +46,7 @@ class SalesEngineTest < Minitest::Test
       :id          => 2,
       :customer_id => 1,
       :merchant_id => 12334753,
-      :status      => "shipped",
+      :status      => :shipped,
       :created_at  => Time.parse("2012-11-23"),
       :updated_at  => Time.parse("2013-04-14"),
       })

@@ -6,6 +6,7 @@ class SalesAnalyst
   def initialize(input)
     @merchants = input[:merchants]
     @items = input[:items]
+    @invoices = input[:invoices]
   end
 
   def average_items_per_merchant
@@ -73,4 +74,24 @@ class SalesAnalyst
       end
       standard_deviation(item_array_per_merchant).to_f.round(2)
   end
+
+
+
+# sales_analyst.average_invoices_per_merchant # => 10.49
+#
+# sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
+#
+# sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
+# 2 std dev. above mean
+#
+# sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
+# 2 std dev. below mean
+#
+# sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+# 1 std dev. above mean
+#
+# sales_analyst.invoice_status(:pending) # => 29.55
+# sales_analyst.invoice_status(:shipped) # => 56.95
+# sales_analyst.invoice_status(:returned) # => 13.5
+# percentages shipped, pending, and returned
 end

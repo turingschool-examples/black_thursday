@@ -89,7 +89,7 @@ class SalesAnalystTest < Minitest::Test
       :id          => 1,
       :customer_id => 100,
       :merchant_id => 1,
-      :status      => "pending",
+      :status      => :pending,
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
@@ -97,7 +97,7 @@ class SalesAnalystTest < Minitest::Test
       :id          => 2,
       :customer_id => 101,
       :merchant_id => 2,
-      :status      => "shipped",
+      :status      => :shipped,
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
@@ -105,7 +105,7 @@ class SalesAnalystTest < Minitest::Test
       :id          => 3,
       :customer_id => 102,
       :merchant_id => 2,
-      :status      => "pending",
+      :status      => :pending,
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
@@ -165,26 +165,34 @@ class SalesAnalystTest < Minitest::Test
 
   ########### FROM REAL DATA, UPDATE TO FAKE DATA ##########
   def test_it_can_find_average_invoices_per_merchant
-
+    skip
+    assert_equal 10.49, @sa_real.average_invoices_per_merchant
   end
 
   def test_it_can_find_average_invoices_per_merchant_std_dev
-
+    skip
+    assert_equal 3.29, @sa_real.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_top_merchants_by_invoice_count_2_std_dev_above_mean
-
+    skip
+    assert_equal true, true
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count_2_std_dev_bel_mean
-
+    skip
+    assert_equal true, true
   end
 
   def test_it_can_find_top_days_by_invoice_count_1_std_dev_above_mean
-
+    skip
+    assert_equal ["Sunday", "Saturday"], @sa_real.top_days_by_invoice_count
   end
 
   def test_it_can_find_percentages_of_orders_shipped_pending_and_returned
-
+    skip
+    assert_equal 29.55, @sa_real.invoice_status(:pending)
+    assert_equal 56.95, @sa_real.invoice_status(:shipped)
+    assert_equal 13.5, @sa_real.invoice_status(:returned)
   end
 end
