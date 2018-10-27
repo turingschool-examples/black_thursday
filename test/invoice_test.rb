@@ -20,32 +20,26 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_id
-    skip
     assert_equal 6, @i.id
   end
 
   def test_it_has_customer_id
-    skip
     assert_equal 7, @i.customer_id
   end
 
   def test_it_has_merchant_id
-    skip
     assert_equal 8, @i.merchant_id
   end
 
   def test_it_has_status
-    skip
     assert_equal "pending", @i.status
   end
 
   def test_it_has_created_at
-    skip
     assert_instance_of Time, @i.created_at
   end
 
   def test_it_has_updated_at
-    skip
     assert_instance_of Time, @i.updated_at
   end
 
