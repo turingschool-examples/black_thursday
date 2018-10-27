@@ -54,6 +54,7 @@ class SalesAnalyst
     item_array = @items.find_all_by_merchant_id(id)
     prices = item_array.map do |item|
       item.unit_price_to_dollars
+      require 'pry'; binding.pry 
     end
     accumulator = 0
     prices.each do |price|
@@ -64,5 +65,35 @@ class SalesAnalyst
     BigDecimal.new(number, significant_digits)
   end
 
+  def average_average_price_per_merchant
+    price_array = @merchants.all.map do |merchant|
+      x = merchant.id
+      average_item_price_for_merchant(x)
+    end
+    accumulator = 0
+    price_array.each do |price|
+      accumulator += price
+    end
+    (accumulator / (price_array.length)).round(2)
+  end
 
+  def price_average
+    avg_items = 0
+      avg = @items.all.map do |item|
+          avg_items += item.unit_price_to_dollars
+      end
+      avg_items / avg.length
+  end
+
+  def price_standard_deviation
+    diff_array = @items.all.map do |item|
+      difference = item.unit_price_to_dollars - price_average
+      difference * difference
+    end
+    accumulator = 0
+    diff_array.each do |diff|
+    accumulator += diff
+    end
+    (Math.sqrt(accumulator / diff_array.length)).round(2)
+  end
 end
