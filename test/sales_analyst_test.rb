@@ -26,20 +26,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 475.00, @sa.count_all_merchants
   end
 
-  def test_merchant_item_count
-    assert_equal 475, @sa.all_merchant_item_count.count
-  end
-
-  def test_merchant_count_minus_average
-    assert_equal 475, @sa.merchant_count_minus_average.count
-  end
-
   def test_it_can_calculate_standard_deviation
     assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_return_merchants_with_high_count
-    assert_equal 52, @sa.merchants_with_high_item_count.count 
+    assert_equal 52, @sa.merchants_with_high_item_count.count
   end
+
+  # def test_it_can_return_average_item_price_for_a_merchant
+  #   assert_equal 16.66, @sa.average_item_price_for_merchant(12334105)
+  # end
 
 end

@@ -1,4 +1,5 @@
 require_relative '../lib/sales_engine'
+require 'bigdecimal'
 require 'mathn'
 class SalesAnalyst
   attr_reader     :items, :merchants
@@ -19,37 +20,9 @@ class SalesAnalyst
     (count_all_items / count_all_merchants).round(2)
   end
 
-  def all_merchant_item_count
-    @merchants.all.map do |merchant|
-      x = merchant.id
-      y = items.find_all_by_merchant_id(x)
-      y.count
-    end
-  end
-
-  def merchant_count_minus_average
-    avg = average_items_per_merchant
-    all_merchant_item_count.map do |num|
-      num - avg
-    end
-  end
-
-  def sum_squares
-    squares = merchant_count_minus_average.map do |num|
-      num * num
-    end
-    # require 'pry'
-    # binding.pry
-    final = 0
-    squares.each do |square|
-      final += square.round(3)
-    end
-    final
-  end
-
   def average_items_per_merchant_standard_deviation
-    counts = []
     avg = average_items_per_merchant
+    counts = []
     @merchants.all.map do |merchant|
       x = merchant.id
       y = items.find_all_by_merchant_id(x)
@@ -66,15 +39,25 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_merchants = []
+    count = []
     @merchants.all.map do |merchant|
       x = merchant.id
       y = items.find_all_by_merchant_id(x)
       if y.count >= 7
-        high_merchants << @merchants.find_by_id(x)
+        count << @merchants.find_by_id(x)
       end
     end
-    high_merchants
+    count
   end
+
+  # def average_item_price_for_merchant(id)
+  #   item_array = @items.find_all_by_merchant_id(id)
+  #   prices = item_array.map do |item|
+  #     item.unit_price_to_dollars
+  #   end
+  #   x = (prices.inject(:+)).round(2) / prices.count
+  #   BigDecimal.new(x, x.to_s.length)
+  # end
+
 
 end
