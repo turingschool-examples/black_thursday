@@ -63,7 +63,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def test_it_can_find_all_by_status
     expected = [@invoice_3, @invoice_4]
-    assert_equal expected, @invoice_repo.find_all_by_status("returned")
+    assert_equal expected, @invoice_repo.find_all_by_status(:returned)
   end
 
   def test_it_can_create_an_invoice
@@ -72,7 +72,7 @@ class InvoiceRepositoryTest < MiniTest::Test
               :merchant_id  => 500,
               :status       => "pending"})
     assert_equal 5, invoice.id
-    assert_equal "pending", invoice.status
+    assert_equal :pending, invoice.status #test expected pending to be a sym
   end
 
   def test_it_can_update_an_invoice

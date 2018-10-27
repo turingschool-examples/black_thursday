@@ -33,15 +33,15 @@ class InvoiceTest < MiniTest::Test
     assert_equal 100, @invoice.merchant_id
   end
 
-  def test_it_has_status
-    assert_equal "pending", @invoice.status
+  def test_it_has_status #i changed it to a symbol (test asked I obliged)
+    assert_equal :pending, @invoice.status
   end
 
   def test_it_has_created_at
-    assert_equal @time, @invoice.created_at
+    assert_equal Time.parse(@time), @invoice.created_at
   end
 
   def test_it_has_updated_at
-    assert_equal @time, @invoice.updated_at
+    assert_equal Time.parse(@time), @invoice.updated_at
   end
 end

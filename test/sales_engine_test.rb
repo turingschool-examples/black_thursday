@@ -11,7 +11,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_exists
-    sales = SalesEngine.new("./data/item_test.csv", "./data/merchant_test.csv", "./data/invoices.csv")
+    sales = SalesEngine.new("./data/items.csv", "./data/merchants.csv", "./data/invoices.csv")
 
     assert_instance_of SalesEngine, sales
   end
