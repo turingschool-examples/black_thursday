@@ -42,4 +42,8 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time , @t.created_at
   end
 
+  def test_it_returns_a_time_instance_for_the_date_was_updated
+    assert_instance_of Time , @t.updated_at
+  end
+
 end
