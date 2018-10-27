@@ -1,3 +1,5 @@
+require "pry"
+
 require_relative 'statistics'
 class SalesAnalyst
   include Statistics
@@ -207,8 +209,12 @@ class SalesAnalyst
     end
   end
 
-  def invoice_items_grouped_by_invoice_id
-    invoice_items.all.group_by {|invoice_item| invoice_item.invoice_id}
+  # def invoice_items_grouped_by_invoice_id
+  #   invoice_items.all.group_by {|invoice_item| invoice_item.invoice_id}
+  # end
+
+  def invoices_grouped_by_customer_id
+    invoices.all.group_by {|invoice| invoice.customer_id}
   end
 
   def get_invoices_and_total_revenue
@@ -223,20 +229,29 @@ class SalesAnalyst
     customers.find_by_id(invoice.customer_id)
   end
 
+  def get_total_from_all_invoice_items_for(invoice_id)
+    matching_invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    # binding.pry
+    sum_invoice_items_revenue(matching_invoice_items)
+  end
+
   def top_buyers(n = 20)
-    invoices_by_revenue = get_invoices_and_total_revenue
-
-    sorted_by_top_revenue = invoices_by_revenue.sort do |(a_invoice, a_revenue), (b_invoice, b_revenue)|
-      b_revenue <=> a_revenue
+    customers_and_invoices = invoices_grouped_by_customer_id
+    # require "pry"; binding.pry
+    customers_and_amounts = customers_and_invoices.reduce({}) do |hash, (id, invoices)|
+      total = invoices.reduce(0) do |sum, invoice|
+        # binding.pry
+        sum += get_total_from_all_invoice_items_for(invoice.id)
+        # binding.pry
+        sum
+      end
+      hash[customers.find_by_id(id)] = total
+      hash
     end
-
-    top_customers = sorted_by_top_revenue.reduce([]) do |top, invoice_and_revenue|
-      customer = get_customer_from_invoice_id(invoice_and_revenue.first)
-      top << customer unless top.include?(customer)
-      top
+    top_customers = customers_and_amounts.sort do |(customer_a, spent_a),(customer_b, spent_b)|
+      spent_b <=> spent_a
     end
-    require "pry"; binding.pry
-    top_customers.slice(0, n)
+    binding.pry
   end
 
   def top_merchant_for_customer(customer_id)
