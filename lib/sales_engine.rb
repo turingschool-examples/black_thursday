@@ -1,18 +1,20 @@
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_analyst'
-require_relative '..lib/invoice_repository'
+require_relative '../lib/invoice_repository'
 require 'csv'
 class SalesEngine
-  attr_reader :items, :merchants, :analyst
+  attr_reader :items, :merchants, :analyst, :invoices
   def initialize(data)
     @item_data = CSV.open(data[:items], headers: true, header_converters: :symbol)
     @merchant_data = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
-    @invoices = InvoiceRepository.new(create_items)
+    @invoice_data = CSV.open(data[:invoices], headers: true, header_converters: :symbol)
     @items_collection = []
     @merchants_collection = []
+    @invoice_collection = []
     @items      = ItemRepository.new(create_items)
     @merchants  = MerchantRepository.new(create_merchants)
+    @invoices   = InvoiceRepository.new(create_invoices)
     @analyst    = SalesAnalyst.new(@items, @merchants)
   end
 
@@ -46,5 +48,16 @@ class SalesEngine
       @merchants_collection << Merchant.new({id: row[:id].to_i, name: "#{row[:name]}"})
     end
     @merchants_collection
+  end
+  def create_invoices
+    @invoice_data.each do |row|
+      @invoice_collection << Invoice.new( {id: row[:id],
+                                          customer_id: row[:customer_id],
+                                          merchant_id: row[:merchant_id],
+                                          status: row[:status],
+                                          created_at: row[:created_at],
+                                          updated_at: row[:updated_at]
+                                        } )
+    end
   end
 end
