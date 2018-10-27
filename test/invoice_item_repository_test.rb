@@ -49,9 +49,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItemRepository, @iir
   end
 
-
   def test_it_can_add_invoice
     assert_equal [@invoice_item_1, @invoice_item_2, @invoice_item_3], @iir.all
+  end
+
+  def test_it_can_find_by_id
+    assert_equal @invoice_item_1, @iir.find_by_id(6)
+    assert_nil @iir.find_by_id(263553176)
   end
 
 end
