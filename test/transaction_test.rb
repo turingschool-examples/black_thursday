@@ -2,7 +2,7 @@ require './test/test_helper'
 
 class TransactionTest < Minitest::Test
 
-  def setup 
+  def setup
     @t = Transaction.new({
   :id => 6,
   :invoice_id => 8,
@@ -16,6 +16,10 @@ class TransactionTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of Transaction, @t
+  end
+
+  def test_it_has_id
+    assert_equal 6, @t.id
   end
 
 
