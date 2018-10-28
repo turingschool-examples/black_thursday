@@ -11,7 +11,7 @@ class InvoiceRepositoryTest < Minitest::Test
                                 } )
     @invoices = se.invoices
     @time_now = Time.now
-    @updated_time = Time.now 
+    @updated_time = Time.now
   end
 
   def test_it_exists
@@ -49,5 +49,10 @@ class InvoiceRepositoryTest < Minitest::Test
                                 updated_at:  '@updated_time'})
     assert_instance_of Invoice, actual
     assert_equal 4986, @invoices.all.last.id
+  end
+
+  def test_it_can_update_attributes
+    @invoices.update(31, {status: 'returned'})
+    assert_equal 'returned', @invoices.find_by_id(31).status
   end
 end
