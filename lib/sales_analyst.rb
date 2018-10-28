@@ -6,12 +6,14 @@ class SalesAnalyst
 
   include Stats
 
-  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo)
+  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo,transaction_repo, customer_repo )
     @merchants         = merchant_repo.repo_array
     @items             = item_repo.repo_array
     @invoices          = invoice_repo.repo_array
     @invoice_items     = invoice_item_repo.repo_array
     @m_repo            = merchant_repo
+    @transactions      = transaction_repo.repo_array
+    @customers         = customer_repo
   end
 
   def average_items_per_merchant
@@ -108,6 +110,25 @@ class SalesAnalyst
   # end
 
 
-end
+  def invoice_paid_in_full?(invoice_id)
+      transaction_match = @transactions.find do |transaction|
+        transaction.invoice_id == invoice_id
+      end
+      if transaction_match.result == "success"
+        true
+      else
+      end
+  end
 
+  def invoice_total(invoice_id)
+    invoice_items = @invoice_items.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+    invoice_items.inject(0.0) do |sum, invoice_item|
+      sum + (invoice_item.unit_price * invoice_item.quantity)
+    end
+
+  end
+
+end
 # use #all method?
