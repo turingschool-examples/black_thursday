@@ -67,4 +67,10 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal "Roger", @customer_1.first_name
     assert_equal "Wonders", @customer_1.last_name
   end
+
+  def test_it_can_delete
+    arr = [@customer_2, @customer_3]
+    @custrepo.delete(1)
+    assert_equal arr, @custrepo.all
+  end
 end
