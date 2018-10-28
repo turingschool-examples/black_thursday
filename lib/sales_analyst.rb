@@ -153,8 +153,11 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-
+    invoice_num = (@invoice_repo.all.length).to_f
+    invoice_status_num = (@invoice_repo.find_all_by_status(status)).length
+    ((invoice_status_num / invoice_num) * 100).round(2)
   end
+  
   # maths
 
   def sum(nums)
