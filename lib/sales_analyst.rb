@@ -10,13 +10,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    items_by_merchant = @items.items.group_by { |item| item.merchant_id }
+    items_by_merchant = @items.all.group_by { |item| item.merchant_id }
     item_count = items_by_merchant.inject(0) { |sum, n| n[1].count + sum }
     (item_count.to_f / items_by_merchant.count).round(2)
   end
 
   def average_price_of_items
-    tot_of_all_prices = @items.items.inject(0) do |sum, item|
+    tot_of_all_prices = @items.all.inject(0) do |sum, item|
       sum + item.unit_price_to_dollars
     end
     (tot_of_all_prices / @items.items.count).round(2)
@@ -27,7 +27,7 @@ class SalesAnalyst
       item.unit_price_to_dollars
     end
     std_dev = standard_deviation(number_set)
-    @items.items.find_all do |item|
+    @items.all.find_all do |item|
       item.unit_price_to_dollars > average_price_of_items + 2 * std_dev
     end
   end
@@ -55,7 +55,7 @@ class SalesAnalyst
   end
 
   def items_by_merchant
-    @items.items.group_by { |item| item.merchant_id }
+    @items.all.group_by { |item| item.merchant_id }
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -80,7 +80,7 @@ class SalesAnalyst
   end
 
   def invoices_for_merchants
-    @invoices.invoices.group_by { |invoice| invoice.merchant_id }
+    @invoices.all.group_by { |invoice| invoice.merchant_id }
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -139,7 +139,7 @@ class SalesAnalyst
 
   def invoice_status(status)
     invoices_w_status = @invoices.all.count { |invoice| invoice.status == status }
-    (invoices_w_status / @invoices.all.count.to_f * 100).to_f.round(2)
+    (invoices_w_status / @invoices.all.count.to_f * 100).round(2)
   end
 
 end
