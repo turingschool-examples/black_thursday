@@ -127,8 +127,10 @@ class SalesAnalystTest < Minitest::Test
     assert actual
   end
 
-  # sales_analyst.invoice_paid_in_full?(invoice_id)
-  # returns true if the Invoice with the corresponding id is paid in full
+  def test_it_can_return_the_total_amount_of_the_invoice
+    actual = @sales_analyst.invoice_paid_in_full?(1)
+    assert_equal 50.00, actual
+  end
 
   # sales_analyst.invoice_total(invoice_id)
   # returns the total $ amount of the Invoice with the corresponding id.
