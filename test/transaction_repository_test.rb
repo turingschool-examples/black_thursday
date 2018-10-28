@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './lib/transaction_repository'
+require './lib/transaction_repository'
 
 class TransactionRepositoryTest < Minitest::Test
 
