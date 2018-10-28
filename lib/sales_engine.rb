@@ -7,12 +7,12 @@ require_relative './sales_analyst'
 
 
 class SalesEngine
-  attr_reader :items, 
-              :merchants, 
-              :invoices, 
+  attr_reader :items,
+              :merchants,
+              :invoices,
               :transactions,
               :analyst
-              
+
 
   def initialize(items, merchants, invoices = nil, transactions)
     @items = ItemRepository.new(populate_items(items))
@@ -56,13 +56,13 @@ class SalesEngine
       end
     end
   end
-  
+
   def populate_transactions(file_path)
     if file_path
       file = CSV.read(file_path, headers: true, header_converters: :symbol )
       file.map do |row|
         Transaction.new(row)
-      end 
+      end
     end
   end
 
@@ -71,5 +71,6 @@ class SalesEngine
   #   file.map do |row|
   #
   # end
-  #
+
+  
 end
