@@ -14,6 +14,10 @@ class CustomerRepository < Repository
     end
   end
 
-
+  def find_all_by_last_name(customer_last_name)
+    @repo_array.find_all do |customer|
+      customer.last_name == customer_last_name
+    end
+  end
 
 end
