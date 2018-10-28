@@ -244,4 +244,19 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 1, result.length
   end
+
+  def test_merchants_with_only_one_item
+    setup_empty_sales_engine
+
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "JC")
+
+    @se.items.create(id: 1, name: 'burger', unit_price: BigDecimal(500), merchant_id: '3')
+    @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
+    @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
+
+    result = @sa.merchants_with_only_one_item
+    assert_equal 1, result.length
+    assert_equal 3, result[0].id
+  end
 end
