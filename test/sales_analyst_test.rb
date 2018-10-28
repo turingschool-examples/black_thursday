@@ -74,6 +74,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10.49, actual
   end
 
+  def test_it_returns_merchant_invoice_list
+    merchant = @sales_analyst.merchants[4]
+    invoice_list = @sales_analyst.merchant_invoice_list(merchant)
+    assert_equal 10, invoice_list.count
+  end
+
   def test_average_invoices_per_merchant_standard_deviation
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
     assert_equal 3.29, actual

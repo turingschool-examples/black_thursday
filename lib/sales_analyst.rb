@@ -77,8 +77,22 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-  (@invoices.count / @merchants.count.to_f).round(2)
+    (@invoices.count / @merchants.count.to_f).round(2)
   end
+
+  def merchant_invoice_list(merchant)
+      @invoices.find_all do |invoice|
+        invoice.merchant_id == merchant.id
+      end
+    end
+
+    def average_invoices_per_merchant_standard_deviation
+   # binding.pry
+      invoices_per_merchant_array = @invoices.map do |i|
+        merchant_invoice_list(i).count
+      end
+      (standard_dev(invoices_per_merchant_array)).round(2)
+    end
 
 #   def average_invoices_per_merchant_standard_deviation
 # binding.pry
@@ -106,7 +120,6 @@ class SalesAnalyst
   # (@invoices[status].count / @invoices.count) * 100
   # # the above line might not be quite right
   # end
-
 
 end
 
