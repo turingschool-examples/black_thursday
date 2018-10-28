@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/transaction_repository'
+require './lib/transaction'
 
 class TransactionRepositoryTest < Minitest::Test
 
@@ -58,5 +59,14 @@ class TransactionRepositoryTest < Minitest::Test
       actual = tr.create(data).last
       expected = tr.find_by_id(4986)
     assert_equal expected, actual
+  end
+
+  def test_it_can_update_one_attribute_of_an_existing_item
+    tr = TransactionRepository.new("./data/transactions.csv")
+    tr.update(6, {credit_card_number: "11111111111111",
+      credit_card_expiration_date: "8080"})
+    updated_transaction = tr.all[6]
+    assert_equal "1111111111111111" , updated_transaction.credit_card_number
+    assert_equal "8080" , updated_transaction.credit_card_expiration_date
   end
 end
