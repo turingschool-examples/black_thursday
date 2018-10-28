@@ -144,11 +144,12 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-     @transactions.find_all_by_invoice_id(invoice_id) do |transaction|
-        if transaction.result == :success
-        end
+     transaction_by_invoice = @transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+        transaction.result == :success
      end
   end
-  # sales_analyst.invoice_paid_in_full?(invoice_id)
+
+  # sales_analyst.invoice_total(invoice_id)
+
 
 end
