@@ -76,11 +76,9 @@ class SalesAnalyst
     golden_array
   end
 
-  # def average_invoices_per_merchant
-  # # number of invoices / number of merchants
-  # @invoices.count / @merchants.count
-  # # use #all method?
-  # end
+  def average_invoices_per_merchant
+  (@invoices.count / @merchants.count.to_f).round(2)
+  end
 
   # def average_invoices_per_merchant_standard_deviation
   #   average_invoices_per_merchant
@@ -110,3 +108,5 @@ class SalesAnalyst
 
 
 end
+
+# use #all method?
