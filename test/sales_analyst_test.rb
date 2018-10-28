@@ -93,25 +93,25 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
-skip
+    skip
     actual = @sales_analyst.top_merchants_by_invoice_count
     assert_equal # [merchant, merchant, merchant], actual
   end
 
   def test_bottom_merchants_by_invoice_count
-skip
+    skip
     actual = @sales_analyst.bottom_merchants_by_invoice_count
     assert_equal # [merchant, merchant, merchant], actual
   end
 
   def test_top_days_by_invoice_count
-skip
+    skip
     actual = @sales_analyst.top_days_by_invoice_count
     assert_equal ["Sunday", "Saturday"], actual
   end
 
   def test_invoice_status
-skip
+    skip
     actual = @sales_analyst.invoice_status(:pending)
     assert_equal 29.55, actual
 
@@ -123,7 +123,7 @@ skip
   end
 
   def test_it_can_return_the_invoices_paid_in_full
-    actual = @sales_analyst.invoice_paid_in_full?(invoice_id)
+    actual = @sales_analyst.invoice_paid_in_full?(46)
     assert actual
   end
 

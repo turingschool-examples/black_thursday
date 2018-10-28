@@ -12,7 +12,7 @@ class SalesAnalyst
     @invoices          = invoice_repo.repo_array
     @invoice_items     = invoice_item_repo.repo_array
     @m_repo            = merchant_repo
-    @transactions      = transaction_repo
+    @transactions      = transaction_repo.repo_array
     @customers         = customer_repo
   end
 
@@ -109,7 +109,18 @@ class SalesAnalyst
   # # the above line might not be quite right
   # end
 
-  # sales_analyst.invoice_paid_in_full?(invoice_id) returns true if the Invoice with the corresponding id is paid in full
+
+def invoice_paid_in_full?(invoice_id)
+    transaction_match = @transactions.find do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+    if transaction_match.result == "success"
+      true
+    else
+    end
+end
+
+
   # sales_analyst.invoice_total(invoice_id) returns the total $ amount of the Invoice with the corresponding id.
 
 end
