@@ -90,7 +90,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_merchants_by_invoice_count
     actual = @sales_analyst.top_merchants_by_invoice_count
-    assert_equal  [merchant, merchant, merchant], actual
+    assert_equal  7, actual
   end
 
   def test_bottom_merchants_by_invoice_count
