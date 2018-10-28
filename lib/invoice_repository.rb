@@ -18,4 +18,10 @@ class InvoiceRepository
       element.merchant_id == id
     end
   end
+
+  def find_all_by_status(status)
+    @collection.find_all do |element|
+      element.status.include?(status)
+    end
+  end
 end
