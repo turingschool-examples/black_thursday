@@ -18,6 +18,13 @@ module Finders
     end
   end
 
+  def find_from_invoice(invoice, classname)
+    case classname
+    when Merchant
+      require 'pry'; binding.pry
+    end
+  end
+
   def revenue_from_invoice(invoice)
     return 0 unless @transactions.find_all_by_invoice_id(invoice.id).any?{|tr| tr.result == :success}
     invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
@@ -31,6 +38,7 @@ module Finders
     end
     amounts.reduce(&:+)
   end
+
 
 
 
