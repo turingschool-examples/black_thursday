@@ -33,7 +33,18 @@ class CustomerRepository
     @collection << new_customer
     new_customer
   end
-  #create
+
+  def update(id, attributes)
+    if find_by_id(id)
+      customer = find_by_id(id)
+      new_first_name = attributes[:first_name]
+      new_last_name = attributes[:last_name]
+
+      customer.first_name = new_first_name if attributes[:first_name]
+      customer.last_name = new_last_name if attributes[:last_name]
+      customer.updated_at = Time.now
+    end
+  end
   #update
   #delete
 

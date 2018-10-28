@@ -60,4 +60,11 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal "Marty", new_customer.last_name
     assert_equal time, new_customer.created_at.to_s
   end
+
+  def test_it_can_update_customer
+    @custrepo.update(1, {:first_name => "Roger",
+                                        :last_name => "Wonders"})
+    assert_equal "Roger", @customer_1.first_name
+    assert_equal "Wonders", @customer_1.last_name
+  end
 end
