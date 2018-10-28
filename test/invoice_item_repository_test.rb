@@ -1,8 +1,8 @@
 require './test/test_helper'
-require './lib/invoice_item_repository'
-require './lib/invoice_item'
+require './lib/invoice_items_repository'
+require './lib/invoice_items'
 
-class InvoiceItemRepositoryTest < Minitest::Test
+class InvoiceItemsRepositoryTest < Minitest::Test
   def setup
 
 #id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
@@ -40,9 +40,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
       })
     @iir = InvoiceItemRepository.new
-    @iir.add_invoice_item(@invoice_item_1)
-    @iir.add_invoice_item(@invoice_item_2)
-    @iir.add_invoice_item(@invoice_item_3)
+    @iir.add_invoice_items(@invoice_item_1)
+    @iir.add_invoice_items(@invoice_item_2)
+    @iir.add_invoice_items(@invoice_item_3)
   end
 
   def test_it_exists
@@ -54,8 +54,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    assert_equal @invoice_item_1, @iir.find_by_id(6)
-    assert_equal nil, @iir.find_by_id(218319)
+    assert_equal [@invoice_item_1], @iir.find_by_id(6)
+    assert_equal [], @iir.find_by_id(218319)
   end
 
   def test_it_can_find_all_by_invoice_id
@@ -83,16 +83,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_update_invoice_with_attributes
     array = @iir.find_by_id(8)
-    assert_equal 6, array.quantity
+    assert_equal 6, array[0].quantity
     attributes = {quantity: 7}
     @iir.update(8, attributes)
-    assert_equal 7, array.quantity
+    assert_equal 7, array[0].quantity
   end
 
   def test_it_can_delete_invoice
-    assert_equal @invoice_item_1, @iir.find_by_id(6)
+    assert_equal [@invoice_item_1], @iir.find_by_id(6)
     @iir.delete(6)
-    assert_equal nil, @iir.find_by_id(6)
+    assert_equal [], @iir.find_by_id(6)
   end
 
 end
