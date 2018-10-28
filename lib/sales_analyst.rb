@@ -152,16 +152,14 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    invoice_item = @invoices.select do |invoice|
-      
-    .find_all_by_merchant_id.collect do |invoice|
+    best_invoice_item = @invoices.select do |invoice|
+      @transactions.any_success?(invoice.id)
+    end.find_all_by_merchant_id.collect do |invoice|
       find_from_invoice(invoice, 'InvoiceItem')
-    end.flatten.select |invoice_item|
-
-    max_by do |invoice_item|
+    end.flatten.max_by do |invoice_item|
       invoice_item.revenue
     end
-    @items.find_by_id(invoice_item.item_id)
+    @items.find_by_id(best_invoice_item.item_id)
   end
 
   def invoice_paid_in_full?(invoice_id)
