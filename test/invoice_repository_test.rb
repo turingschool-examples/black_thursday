@@ -25,6 +25,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
   def test_it_can_find_by_customer_id
     assert_equal [], @invoices.find_by_customer_id(12111111)
-    assert_equal 5, @invoices.find_by_customer_id(6)
+    assert_equal 5, @invoices.find_by_customer_id(6).count 
   end
 end

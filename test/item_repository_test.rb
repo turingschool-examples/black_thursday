@@ -12,6 +12,7 @@ class ItemRepositoryTest < Minitest::Test
     @time_now = Time.now
     @updated_time = Time.now
   end
+  
   def test_it_exists
     assert_instance_of ItemRepository, @ir
   end

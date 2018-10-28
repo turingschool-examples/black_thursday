@@ -45,19 +45,20 @@ class SalesEngine
 
   def create_merchants
     @merchant_data.each do |row|
-      @merchants_collection << Merchant.new({id: row[:id].to_i, name: "#{row[:name]}"})
+      @merchants_collection << Merchant.new( {id: row[:id].to_i,
+                                             name: "#{row[:name]}"} )
     end
     @merchants_collection
   end
-  
+
   def create_invoices
     @invoice_data.each do |row|
-      @invoice_collection << Invoice.new( {id: row[:id],
-                                          customer_id: row[:customer_id],
-                                          merchant_id: row[:merchant_id],
-                                          status: row[:status],
-                                          created_at: row[:created_at],
-                                          updated_at: row[:updated_at]
+      @invoice_collection << Invoice.new( {id: row[:id].to_i,
+                                          customer_id: row[:customer_id].to_i,
+                                          merchant_id: row[:merchant_id].to_i,
+                                          status: row[:status].to_s,
+                                          created_at: row[:created_at].to_s,
+                                          updated_at: row[:updated_at].to_s
                                           } )
     end
     @invoice_collection

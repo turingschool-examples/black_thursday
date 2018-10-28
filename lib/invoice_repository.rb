@@ -6,4 +6,10 @@ class InvoiceRepository
   def initialize(data)
     @collection = data
   end
+
+  def find_by_customer_id(id)
+    @collection.find_all do |element|
+      element.customer_id == id
+    end
+  end
 end
