@@ -80,9 +80,10 @@ class SalesAnalyst
   (@invoices.count / @merchants.count.to_f).round(2)
   end
 
-  # def average_invoices_per_merchant_standard_deviation
-  #   average_invoices_per_merchant
-  # end
+#   def average_invoices_per_merchant_standard_deviation
+# binding.pry
+#     standard_dev(average_invoices_per_merchant)
+#   end
 
   # def top_merchants_by_invoice_count
   #     # Which merchants are more than two standard deviations above the mean?
