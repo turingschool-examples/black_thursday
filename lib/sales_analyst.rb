@@ -147,7 +147,12 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-
+    @merchants.all.select do |merchant|
+      @items.all.one? do |item|
+        # require 'pry'; binding.pry
+        item.merchant_id == merchant.id
+      end
+    end
   end
 
   def merchants_with_only_one_item_registered_in_month(month)

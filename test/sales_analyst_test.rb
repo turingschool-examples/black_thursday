@@ -251,7 +251,7 @@ class SalesAnalystTest < Minitest::Test
     @se.merchants.create(id: 3, name: "Bob's Burgers")
     @se.merchants.create(id: 4, name: "JC")
 
-    @se.items.create(id: 1, name: 'burger', unit_price: BigDecimal(500), merchant_id: '3')
+    @se.items.create(id: 1, name: 'burger', unit_price: BigDecimal(500), merchant_id: 3)
     @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
     @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
 
