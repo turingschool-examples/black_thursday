@@ -6,12 +6,14 @@ class SalesAnalyst
 
   include Stats
 
-  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo)
+  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo,transaction_repo, customer_repo )
     @merchants         = merchant_repo.repo_array
     @items             = item_repo.repo_array
     @invoices          = invoice_repo.repo_array
     @invoice_items     = invoice_item_repo.repo_array
     @m_repo            = merchant_repo
+    @transactions      = transaction_repo
+    @customers         = customer_repo
   end
 
   def average_items_per_merchant
@@ -107,6 +109,8 @@ class SalesAnalyst
   # # the above line might not be quite right
   # end
 
+  # sales_analyst.invoice_paid_in_full?(invoice_id) returns true if the Invoice with the corresponding id is paid in full
+  # sales_analyst.invoice_total(invoice_id) returns the total $ amount of the Invoice with the corresponding id.
 
 end
 
