@@ -16,11 +16,15 @@ class TransactionRepository
     end
   end
 
-  def find_all_by_credit_card_number(credit_card_number)
-
+  def find_all_by_credit_card_number(seached_cc)
+    @all.find_all do |invoice|
+      invoice.credit_card_number == seached_cc
+    end
   end
 
-  def find_all_by_result()
-
+  def find_all_by_result(seached_result)
+    @all.find_all do |invoice|
+      invoice.result == seached_result
+    end
   end
 end

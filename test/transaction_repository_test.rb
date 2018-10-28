@@ -29,4 +29,34 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [tr.all[0], tr.all[766]], tr.find_all_by_invoice_id(2179)
     assert_equal [], tr.find_all_by_invoice_id("aaa")
   end
+
+  def test_it_can_find_all_by_credit_card_number
+    tr = TransactionRepository.new("./data/transactions.csv")
+
+    assert_equal [tr.all[0]], tr.find_all_by_credit_card_number("4068631943231473")
+    assert_equal [], tr.find_all_by_credit_card_number("aa")
+  end
+
+  def test_you_can_find_all_by_result
+    tr = TransactionRepository.new("./data/transactions.csv")
+
+    assert_equal 4158, tr.find_all_by_result("success").count
+    assert_equal [], tr.find_all_by_result("adsf")
+  end
+
+  def test_you_can_create_a_new_transaction
+    tr = TransactionRepository.new("./data/transactions.csv")
+    data = {
+      :id => 6,
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
+      }
+      actual = tr.create(data).last
+      expected = tr.find_by_id(4986)
+    assert_equal expected, actual
+  end
 end
