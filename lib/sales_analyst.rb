@@ -84,20 +84,14 @@ class SalesAnalyst
       @invoices.find_all do |invoice|
         invoice.merchant_id == merchant.id
       end
-    end
+  end
 
-    def average_invoices_per_merchant_standard_deviation
-   # binding.pry
-      invoices_per_merchant_array = @invoices.map do |i|
-        merchant_invoice_list(i).count
-      end
-      (standard_dev(invoices_per_merchant_array)).round(2)
+  def average_invoices_per_merchant_standard_deviation
+    invoices_per_merchant_array = @merchants.map do |m|
+        merchant_invoice_list(m).count
     end
-
-#   def average_invoices_per_merchant_standard_deviation
-# binding.pry
-#     standard_dev(average_invoices_per_merchant)
-#   end
+    (standard_dev(invoices_per_merchant_array)).round(2)
+  end
 
   # def top_merchants_by_invoice_count
   #     # Which merchants are more than two standard deviations above the mean?
