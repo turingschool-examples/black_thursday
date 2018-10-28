@@ -6,7 +6,6 @@ class Repository
 
   def find_by_id(id)
     @collection[id]
-
   end
 
   def find_by_name(name)

@@ -144,7 +144,7 @@ class SalesAnalyst
   end
 
 
-  sales_analyst.total_revenue_by_date(date) #=> $$
+  # sales_analyst.total_revenue_by_date(date) #=> $$
   # Note: When calculating revenue the unit_price listed
   #within invoice_items should be used. The
   #invoice_item.unit_price represents the final sale
@@ -169,4 +169,3 @@ class SalesAnalyst
   # sales_analyst.invoice_total(invoice_id)
 
 end
-

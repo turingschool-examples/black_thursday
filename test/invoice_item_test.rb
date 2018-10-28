@@ -1,9 +1,9 @@
 require './test/test_helper'
-require './lib/invoice_items'
+require './lib/invoice_item'
 
-class InvoiceItemsTest < Minitest::Test
+class InvoiceItemTest < Minitest::Test
   def setup
-    @ii = InvoiceItems.new({
+    @ii = InvoiceItem.new({
   :id => 6,
   :item_id => 7,
   :invoice_id => 8,
@@ -15,7 +15,7 @@ class InvoiceItemsTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of InvoiceItems, @ii
+    assert_instance_of InvoiceItem, @ii
   end
 
   def test_it_can_access_data_from_outside
