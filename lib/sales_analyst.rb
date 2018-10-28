@@ -7,7 +7,7 @@ class SalesAnalyst
     @merchants = input[:merchants]
     @items = input[:items]
     @invoices = input[:invoices]
-    @transactions = input[:transaction]
+    @transactions = input[:transactions]
   end
 
   def average_items_per_merchant
@@ -144,8 +144,10 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    true
-
+     @transactions.find_all_by_invoice_id(invoice_id) do |transaction|
+        if transaction.result == :success
+        end
+     end
   end
   # sales_analyst.invoice_paid_in_full?(invoice_id)
 
