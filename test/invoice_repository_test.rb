@@ -19,4 +19,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_return_array_of_all_items
     assert_equal 4985, @invoices.all.count
   end
+
+  def test_it_can_find_by_id
+    assert_instance_of Invoice, @invoices.find_by_id(3)
+  end
 end
+  # def test_it_can_find_by_customer_id
+  #   assert_equal [], @invoices.find_by_customer_id(12111111)
+  # end
