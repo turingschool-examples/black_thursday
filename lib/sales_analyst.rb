@@ -1,4 +1,6 @@
 require_relative 'statistics'
+require 'date'
+
 class SalesAnalyst
   include Statistics
   attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions
@@ -156,7 +158,25 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
+    month_num = Date::MONTHNAMES.find_index(month)
 
+    merchant_id_hash = Hash.new(0)
+
+    @invoices.all.each do |invoice|
+      if invoice.created_at.month == month_num
+        merchant_id_hash[invoice.merchant_id] += 1
+      end
+    end
+
+    merchant_id_hash.map do |merchant_id, count|
+      if count == 1
+        @merchants.find_by_id(merchant_id)
+      else
+        nil
+      end
+    end.compact.select do |merchant|
+      merchant.created_at.month == month_num
+    end
   end
 
   def revenue_by_merchant(merchant_id)
