@@ -103,6 +103,6 @@ class CustomerRepositoryTest < Minitest::Test
     cr.create(data)
     cr.delete(1001)
     assert_nil cr.find_by_id(1001)
-    assert_nil cr.delete(5000)
+    assert_nil cr.delete(2000)
   end
 end
