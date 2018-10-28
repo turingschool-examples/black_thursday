@@ -41,4 +41,23 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal @customer_1, @custrepo.find_by_id(1)
   end
 
+  def test_it_can_find_all_by_first_name
+    name = @custrepo.find_all_by_first_name("Steve")
+    assert_equal [@customer_1], name
+  end
+
+  def test_it_can_find_by_last_name
+    lname = @custrepo.find_all_by_last_name("Morning")
+    assert_equal [@customer_2], lname
+  end
+
+  def test_it_can_create_new_customer
+    time = Time.now.to_s
+    new_customer = @custrepo.create({:first_name => "Max",
+                                    :last_name => "Marty"})
+    assert_equal 4, new_customer.id
+    assert_equal "Max", new_customer.first_name
+    assert_equal "Marty", new_customer.last_name
+    assert_equal time, new_customer.created_at.to_s
+  end
 end
