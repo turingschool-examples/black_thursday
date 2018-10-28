@@ -5,8 +5,15 @@ require './lib/transaction_repository'
 class TransactionRepositoryTest < Minitest::Test
 
   def test_it_exists
-    tr = TransactionRepository.new
+    tr = TransactionRepository.new("./data/transactions.csv")
 
     assert_instance_of TransactionRepository, tr
+  end
+
+  def test_it_has_invoices
+    tr = TransactionRepository.new("./data/transactions.csv")
+
+    assert_instance_of Transaction, tr.all[0]
+    assert_equal 4985,tr.all.count
   end
 end
