@@ -43,7 +43,7 @@ class InvoiceItemsRepository < Repository
   def update(id, attributes)
     invoice_to_update = find_by_id(id)
     return nil if invoice_to_update == nil
-    invoice_to_update[0].quantity = attributes[:quantity]
-    invoice_to_update[0].updated_at = Time.now
+    invoice_to_update.quantity = attributes[:quantity]
+    invoice_to_update.updated_at = Time.now
   end
 end
