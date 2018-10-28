@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/customer_repository'
 require 'time'
+require 'pry'
 
 class CustomerRepositoryTest < Minitest::Test
   def test_customer_repository_exists
@@ -30,26 +31,26 @@ class CustomerRepositoryTest < Minitest::Test
     cr = CustomerRepository.new("./data/customers.csv")
 
     assert_equal 8, cr.find_all_by_first_name("oe").count
+    assert_equal 57, cr.find_all_by_first_name("NN").count
   end
 
   def test_it_can_find_a_customer_by_last_name
     cr = CustomerRepository.new("./data/customers.csv")
 
     assert_equal 85, cr.find_all_by_last_name("On").count
+    assert_equal 85, cr.find_all_by_last_name("oN").count
   end
 
   def test_that_it_can_create_an_customer
-    skip
     cr = CustomerRepository.new("./data/customers.csv")
-    data = ({
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
-    actual = cr.create(data).last
-    expected = cr.find_by_id(4986)
+    attributes = {
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+    actual = cr.create(attributes).last
+    expected = cr.find_by_id(1001)
     assert_equal expected, actual
   end
 

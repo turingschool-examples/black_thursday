@@ -22,4 +22,14 @@ class CustomerRepository
       name.last_name.downcase.include?(last_name.downcase)
     end
   end
+
+  def create(attributes)
+    highest_object = @all.max {|object| object.id}
+    attributes[:id] = highest_object.id + 1
+    attributes[:first_name] = attributes[:first_name]
+    attributes[:last_name] = attributes[:last_name]
+    attributes[:created_at] = Time.new.to_s
+    attributes[:updated_at] = Time.now.to_s
+    @all << @class_name.new(attributes)
+  end
 end
