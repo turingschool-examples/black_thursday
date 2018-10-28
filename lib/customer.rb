@@ -1,3 +1,5 @@
+require_relative './time_convert_module'
+
 class Customer
 
   attr_reader :id,
@@ -6,12 +8,14 @@ class Customer
               :created_at,
               :updated_at
 
+  include TimeConvert
+
   def initialize(customer_data)
     @id         = customer_data[:id]
     @first_name = customer_data[:first_name]
     @last_name  = customer_data[:last_name]
-    @created_at = customer_data[:created_at]
-    @updated_at = customer_data[:updated_at]
+    @created_at = time_converter(customer_data[:created_at])
+    @updated_at = time_converter(customer_data[:updated_at])
   end
 
 end

@@ -1,8 +1,5 @@
-require 'pry'
-require 'CSV'
-require 'time'
-require_relative './merchant'
 require_relative './repository'
+require_relative './merchant'
 
 class MerchantRepository < Repository
 

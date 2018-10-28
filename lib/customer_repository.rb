@@ -1,5 +1,4 @@
-require 'pry'
-require 'CSV'
+require_relative './customer'
 require_relative './repository'
 
 class CustomerRepository < Repository
