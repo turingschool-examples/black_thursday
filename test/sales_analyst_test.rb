@@ -303,4 +303,15 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal days, sales
   end
+
+  def test_it_can_get_invoice_status_percentage
+    stats_1 = @sales_analyst_2.invoice_status(:pending)
+    stats_2 = @sales_analyst_2.invoice_status(:shipped)
+    stats_3 = @sales_analyst_2.invoice_status(:returned)
+    percentage_total = stats_1 + stats_2 + stats_3
+    assert_equal 12.5, stats_1
+    assert_equal 62.5, stats_2
+    assert_equal 25.0, stats_3
+    assert_equal 100.0, percentage_total 
+  end
 end

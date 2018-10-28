@@ -152,6 +152,9 @@ class SalesAnalyst
     top_days
   end
 
+  def invoice_status(status)
+
+  end
   # maths
 
   def sum(nums)
