@@ -31,6 +31,6 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_merchant_id
     assert_equal [], @invoices.find_by_merchant_id(12111111)
-    assert_equal 5, @invoices.find_by_customer_id(12335938).count
+    assert_equal 16, @invoices.find_by_merchant_id(12335938).count
   end
 end

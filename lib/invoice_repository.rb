@@ -12,4 +12,10 @@ class InvoiceRepository
       element.customer_id == id
     end
   end
+
+  def find_by_merchant_id(id)
+    @collection.find_all do |element|
+      element.merchant_id == id
+    end
+  end
 end
