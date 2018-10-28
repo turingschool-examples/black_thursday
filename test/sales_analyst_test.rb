@@ -4,6 +4,8 @@ require './lib/item'
 require './lib/item_repository'
 require './lib/transaction'
 require './lib/transaction_repository'
+require './lib/invoice_item'
+require './lib/invoice_repository'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -145,7 +147,41 @@ class SalesAnalystTest < Minitest::Test
     @tr.add_transaction(@tran_2)
     @tr.add_transaction(@tran_3)
 
-    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr})
+    @invoice_item_1 = InvoiceItem.new({
+      :id          => 6,
+      :item_id     => 263539664,
+      :invoice_id  => 1,
+      :quantity    => 5,
+      :unit_price  => 52100,
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+
+    @invoice_item_2 = InvoiceItem.new({
+      :id          => 7,
+      :item_id     => 263563764,
+      :invoice_id  => 1,
+      :quantity    => 4,
+      :unit_price  => 66747,
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+
+    @invoice_item_3 = InvoiceItem.new({
+      :id          => 8,
+      :item_id     => 263432817,
+      :invoice_id  => 1,
+      :quantity    => 6,
+      :unit_price  => 76941,
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    @iir = InvoiceItemRepository.new
+    @iir.add_invoice_item(@invoice_item_1)
+    @iir.add_invoice_item(@invoice_item_2)
+    @iir.add_invoice_item(@invoice_item_3)
+
+    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr, invoces_item: @iir })
     @sa = @se.analyst
 
     ############ REMOVE AT SOME POINT ##############
@@ -234,6 +270,10 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_check_if_invoice_is_paid_in_full
     assert_equal true, @sa.invoice_paid_in_full?(3345)
     assert_equal false, @sa.invoice_paid_in_full?(335)
+  end
+
+  def test_you_can_calculate_invoice_total
+    assert_instance_of BigDecimal, @sa.invoice_total(1)
   end
 
 end
