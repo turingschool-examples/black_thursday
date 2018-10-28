@@ -1,7 +1,6 @@
+require_relative 'test_helper'
 require './lib/invoice_repository'
 require './lib/invoice'
-require 'minitest/autorun'
-require 'minitest/pride'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup

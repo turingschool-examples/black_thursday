@@ -1,11 +1,11 @@
+require_relative 'test_helper'
 require './lib/customer_repository'
 require './lib/customer'
 require 'bigdecimal'
-require './test/test_helper'
 
 class CustomerRepositoryTest < Minitest::Test
   def setup
-    @now = @now
+    @now = Time.now
     @cr = CustomerRepository.new
 
     @c_1 = {

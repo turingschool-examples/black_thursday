@@ -8,9 +8,9 @@ class SalesEngineTest < Minitest::Test
       items: './test/data/test_items.csv',
       merchants: './test/data/test_merchants.csv',
       invoices: './test/data/test_invoices.csv',
-      invoice_items: './test/data/test_invoice_items.csv',
-      transactions: './test/data/test_transactions.csv',
-      customers: './test/data/test_customers.csv'
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv',
+      customers: './data/customers.csv'
     })
   end
 
