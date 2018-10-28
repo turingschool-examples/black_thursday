@@ -74,6 +74,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     :invoice_id  => 12,
     :item_id     => 8,
     :quantity    => 1,
+    :unit_price  => BigDecimal.new(10.99, 4),
     :created_at  => Time.now,
     :updated_at  => Time.now})
     assert_equal 9, @iir.all.last.id
