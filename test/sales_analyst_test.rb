@@ -147,7 +147,80 @@ class SalesAnalystTest < Minitest::Test
 
     @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr})
     @sa = @se.analyst
-
+    @invoice_item_1 = Item.new({
+          :id          => 2,
+          :invoice_id  => 1,
+          :item_id     => 263454779,
+          :unit_price  => (BigDecimal.new(23324,4) / 100),
+          :created_at  => "2012-03-27 14:54:09 UTC",
+          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :quantity    => 9
+        })
+    @invoice_item_2 = Item.new({
+          :id          => 4,
+          :invoice_id  => 1,
+          :item_id     => 263542298,
+          :unit_price  => (BigDecimal.new(2196,4) / 100),
+          :created_at  => "2012-03-27 14:54:09 UTC",
+          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :quantity    => 3
+        })
+    @invoice_item_3 = Item.new({
+          :id          => 6,
+          :invoice_id  => 1,
+          :item_id     => 263539664,
+          :unit_price  => (BigDecimal.new(52100,4) / 100),
+          :created_at  => "2012-03-27 14:54:09 UTC",
+          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :quantity    => 5
+        })
+        #6,263539664,1,5,52100,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+    @invoice_item_4 = Item.new({
+          :id          => 8,
+          :invoice_id  => 1,
+          :item_id     => 263432817,
+          :unit_price  => (BigDecimal.new(5000,4) / 100),
+          :created_at  => "2012-03-27 14:54:09 UTC",
+          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :quantity    => 6
+        })
+#        8,263432817,1,6,76941,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+#     @invoice_item_5 = Item.new({
+#           :id          => 11,
+#           :invoice_id  => 2,
+#           :item_id     => 263532898,
+#           :unit_price  => (BigDecimal.new(30949,4) / 100),
+#           :created_at  => "2012-03-27 14:54:09 UTC",
+#           :updated_at  => "2012-03-27 14:54:09 UTC",
+#           :quantity    => 3
+#         })
+# #        11,263532898,2,3,30949,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+#     @invoice_item_6 = Item.new({
+#           :id          => 6,
+#           :invoice_id  => "Devil costume",
+#           :item_id     => "Be santa's enemy.",
+#           :unit_price  => (BigDecimal.new(4000,4) / 100),
+#           :created_at  => "2016-01-11 12:05:55 UTC",
+#           :updated_at  => "1973-05-29 23:44:48 UTC",
+#           :quantity    => 3
+#         })
+#     @invoice_item_7 = Item.new({
+#           :id          => 7,
+#           :invoice_id  => "Easter Bunny costume",
+#           :item_id     => "Be santa's rival.",
+#           :unit_price  => (BigDecimal.new(5000,4) / 100),
+#           :created_at  => "2016-01-11 12:05:55 UTC",
+#           :updated_at  => "1973-05-29 23:44:48 UTC",
+#           :quantity    => 3
+#         })
+    @ii = InvoiceItemRepository.new
+    @ii.add_item(@invoice_item_1)
+    @ii.add_item(@invoice_item_2)
+    @ii.add_item(@invoice_item_3)
+    @ii.add_item(@invoice_item_4)
+    # @ii.add_item(@invoice_item_5)
+    # @ii.add_item(@invoice_item_6)
+    # @ii.add_item(@invoice_item_7)
     ############ REMOVE AT SOME POINT ##############
     # @se_real = SalesEngine.from_csv({
     #   :items     => "./data/items.csv",
@@ -229,6 +302,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 66.67, @sa.invoice_status(:pending)
     assert_equal 33.33, @sa.invoice_status(:shipped)
     assert_equal 0.0, @sa.invoice_status(:returned)
+  end
+
+
+  def test_it_can_find_all_by_date
+    @sa.total_unit_price_by_date(date) #=> $$
+    sum(@ii.unit_price)
   end
 
   def test_it_can_check_if_invoice_is_paid_in_full
