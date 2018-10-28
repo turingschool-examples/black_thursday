@@ -292,6 +292,18 @@ class SalesAnalyst
     top_invoice_item
   end
 
+  def get_top_invoice_items_for(invoice_id)
+    top_quantity = find_highest_quantity_for(invoices.find_by_id(invoice_id))
+    all_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    top_invoice_items = all_items.reduce([]) do |top_items, invoice_item|
+      current_quantity = invoice_item.quantity
+      top_items << invoice_item if current_quantity >= top_quantity
+      top_items
+    end
+    # binding.pry
+    top_invoice_items
+  end
+
   def top_merchant_for_customer(customer_id)
     invoices_for_customer = invoices.find_all_by_customer_id(customer_id)
     top_invoice = nil
@@ -328,6 +340,23 @@ class SalesAnalyst
     end
   end
 
+  def find_highest_quantity_for(all_invoices)
+    if all_invoices.class == Array
+      all_invoice_items = all_invoices.reduce([]) do |inv_items, invoice|
+        inv_items << invoice_items.find_all_by_invoice_id(invoice.id)
+        inv_items.flatten
+      end
+    else
+      all_invoice_items = invoice_items.find_all_by_invoice_id(all_invoices.id)
+    end
+
+    all_invoice_items.reduce(0) do |top_quantity, invoice_item|
+      current = invoice_item.quantity
+      top_quantity = current if current > top_quantity
+      top_quantity
+    end
+  end
+
   def get_transaction_count_for(invoice_item)
     transactions.find_all_by_invoice_id(invoice_item.invoice_id).count
   end
@@ -354,5 +383,20 @@ class SalesAnalyst
     # binding.pry
     first_item = highest_by_transaction_count.first
     items.find_by_id(first_item.item_id)
+  end
+
+  def highest_volume_items(customer_id)
+    all_invoices = invoices.find_all_by_customer_id(customer_id)
+    top_quantity = find_highest_quantity_for(all_invoices)
+    all_invoices.reduce([]) do |top_i, invoice|
+      invoice_items = get_top_invoice_items_for(invoice.id)
+      invoice_items.each do |invoice_item|
+        if invoice_item.quantity == top_quantity
+          top_i << items.find_by_id(invoice_item.item_id)
+        end
+      end
+      # binding.pry
+      top_i
+    end
   end
 end
