@@ -1,6 +1,6 @@
 require 'bigdecimal'
 
-class InvoiceItem
+class InvoiceItems
   attr_reader :id, :created_at
   attr_accessor :item_id, :invoice_id, :quantity, :unit_price, :updated_at
 

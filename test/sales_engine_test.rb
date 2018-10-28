@@ -4,6 +4,8 @@ require './lib/item_repository'
 require './lib/merchant_repository'
 require './lib/merchant'
 require './lib/item'
+require './lib/invoice_items_repository'
+require './lib/invoice_items'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -11,8 +13,10 @@ class SalesEngineTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
       :transactions => "./data/transactions.csv"
     })
+    binding.pry
   end
 
   def test_it_exists
