@@ -475,4 +475,38 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_invoice_total_amount
     assert_equal BigDecimal.new(200.00, 5), @sales_analyst_2.invoice_total(2)
   end
+  def test_it_can_find_total_revenue_by_date
+    assert_equal $$$$, @sales_analyst.total_revenue_by_date(DATE HERE)
+  end
+  
+  def test_it_can_find_top_indicated_number_of_merchants_for_revenue
+    assert_equal [MERCHANT, MERCHANT], @sales_analyst.top_revenue_earners(x)
+    assert_equal [MERCHANT * 20], @sales_analyst.top_revenue_earners
+  end
+  
+  def test_it_can_find_which_merchants_have_pending_invoices
+    assert_equal [MERCHANT ETC], @sales_analyst.merchants_with_pending_invoices
+  end
+  
+  def test_it_can_find_which_merchants_only_sell_one_item
+    assert_equal [MERCHANT ETC], @sales_analyst.merchants_with_only_one_item
+  end
+  
+  def test_it_can_find_merchants_that_only_sell_one_item_in_registered_month
+    assert_equal [MERCHANT ETC], @merchants_with_only_one_item_registered_in_month("Month name")
+  end
+  
+  def test_it_can_calculate_total_revenue_for_a_merchant
+    assert_equal $$$$, @sales_analyst.revenue_by_merchant(merchant_id)
+  end
+  
+  def test_it_can_calculate_most_sold_items_for_a_merchant
+    assert_equal [ITEM] or [ITEM, ITEM, ETC], @sales_analyst.most_sold_item_for_merchant(merchant_id)
+  end
+  
+  def test_it_can_find_item_that_generates_most_revenue_for_merchant
+    assert_equal ITEM, @sales_analyst.best_item_for_merchant(merchant_id)
+  end
+  
+  
 end
