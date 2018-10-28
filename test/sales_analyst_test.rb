@@ -1,4 +1,6 @@
 require './test/test_helper'
+require './lib/sales_analyst'
+require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -86,6 +88,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10.49, actual
   end
 
+  def test_it_returns_merchant_invoice_list
+    merchant = @sales_analyst.merchants[4]
+    invoice_list = @sales_analyst.merchant_invoice_list(merchant)
+    assert_equal 10, invoice_list.count
+    #not sure this test is correct .. specifically 10
+  end
+
   def test_average_invoices_per_merchant_standard_deviation
     skip
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
@@ -93,9 +102,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
-    skip
     actual = @sales_analyst.top_merchants_by_invoice_count
-    assert_equal # [merchant, merchant, merchant], actual
+    assert_equal  7, actual
   end
 
   def test_bottom_merchants_by_invoice_count

@@ -79,18 +79,37 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-  (@invoices.count / @merchants.count.to_f).round(2)
+    (@invoices.count / @merchants.count.to_f).round(2)
   end
 
-#   def average_invoices_per_merchant_standard_deviation
-# binding.pry
-#     standard_dev(average_invoices_per_merchant)
-#   end
+  def merchant_invoice_list(merchant)
+      @invoices.find_all do |invoice|
+        invoice.merchant_id == merchant.id
+      end
+  end
 
-  # def top_merchants_by_invoice_count
-  #     # Which merchants are more than two standard deviations above the mean?
-  #
-  # end
+  def average_invoices_per_merchant_standard_deviation
+    invoices_per_merchant_array = @merchants.map do |m|
+        merchant_invoice_list(m).count
+    end
+    (standard_dev(invoices_per_merchant_array)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants_array = []
+    two_deviations_above_mean = (average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant)
+    invoices_per_merchant_array = @merchants.map do |m|
+        merchant_invoice_list(m).count
+    end
+      invoices_per_merchant_array.each do |n|
+        if  n > two_deviations_above_mean
+          top_merchants_array << n
+        end
+      end
+      # this needs to be outputting merchant instances or names... not sure...
+      # not just the number of invoices
+    end
+  end
 
   # def bottom_merchants_by_invoice_count
   #    #Which merchants are more than two standard deviations below the mean?
@@ -129,6 +148,7 @@ class SalesAnalyst
     end
 
   end
+
 
 end
 # use #all method?
