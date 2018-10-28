@@ -35,7 +35,7 @@ class TransactionTest < Minitest::Test
   end
   
   def test_it_can_return_transaction_result
-    assert_equal "success", @t.result
+    assert_equal :success, @t.result
   end
   
   def test_it_can_return_created_at_time
