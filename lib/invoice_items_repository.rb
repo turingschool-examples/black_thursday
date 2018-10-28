@@ -1,43 +1,42 @@
 require_relative './repository'
 
-class InvoiceItemRepository < Repository
+class InvoiceItemsRepository < Repository
 
   def initialize
     @collection = {}
   end
 
-  def add_invoice_item(invoice_item)
-    @collection[invoice_item.id] = invoice_item
+  def add_invoice_items(invoice_items)
+    @collection[invoice_items.id] = invoice_items
   end
 
-  # all?
-  def invoice_item
+  def invoice_items
     @collection.values
   end
 
   #find_by_id - returns either nil or an instance of
-  #InvoiceItem with a matching ID
+  #InvoiceItems with a matching ID
   def find_by_id(id)
-    @collection.values.select do |invoice_item|
-      invoice_item.id == id
+    @collection.values.find do |invoice_items|
+      invoice_items.id == id
     end
   end
 
   def find_all_by_item_id(id)
-    @collection.values.select do |invoice_item|
-      invoice_item.item_id == id
+    @collection.values.select do |invoice_items|
+      invoice_items.item_id == id
     end
   end
 
   def find_all_by_invoice_id(id)
-    @collection.values.select do |invoice_item|
-      invoice_item.invoice_id == id
+    @collection.values.select do |invoice_items|
+      invoice_items.invoice_id == id
     end
   end
 
   def create(attributes)
     attributes[:id] = find_new_id
-    add_invoice_item(InvoiceItem.new(attributes))
+    add_invoice_items(InvoiceItems.new(attributes))
   end
 
 #needs work

@@ -2,6 +2,8 @@ require './test/test_helper'
 require './lib/sales_engine'
 require './lib/item'
 require './lib/item_repository'
+require './lib/transaction'
+require './lib/transaction_repository'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -114,9 +116,34 @@ class SalesAnalystTest < Minitest::Test
     @inr.add_invoice(@invoice_2)
     @inr.add_invoice(@invoice_3)
 
-    #add transactions next after the classes are made for transaction and repository
-    # @transaction_1 = ...
-    # @tr = TransactionRepository.new
+    @tran_1 = Transaction.new({:id => 12,
+      :invoice_id => 3345,
+      :credit_card_number => 4068631943231473,
+      :credit_card_expiration => 0217,
+      :result => :success,
+      :created_at => Time.now,
+      :updated_at=> Time.now})
+
+    @tran_2 = Transaction.new({:id => 13,
+      :invoice_id => 335,
+      :credit_card_number => 4068631940004734,
+      :credit_card_expiration => 0217,
+      :result => :failed,
+      :created_at => Time.now,
+      :updated_at=> Time.now})
+
+    @tran_3 = Transaction.new({:id => 14,
+      :invoice_id => 3345,
+      :credit_card_number => 4068631943231473,
+      :credit_card_expiration => 0217,
+      :result => :success,
+      :created_at => Time.now,
+      :updated_at=> Time.now})
+
+    @tr = TransactionRepository.new
+    @tr.add_transaction(@tran_1)
+    @tr.add_transaction(@tran_2)
+    @tr.add_transaction(@tran_3)
 
     @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr})
     @sa = @se.analyst
@@ -277,8 +304,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.0, @sa.invoice_status(:returned)
   end
 
+
   def test_it_can_find_all_by_date
     @sa.total_unit_price_by_date(date) #=> $$
     sum(@ii.unit_price)
   end
+
+  def test_it_can_check_if_invoice_is_paid_in_full
+    assert_equal true, @sa.invoice_paid_in_full?(3345)
+    assert_equal false, @sa.invoice_paid_in_full?(335)
+  end
+
 end

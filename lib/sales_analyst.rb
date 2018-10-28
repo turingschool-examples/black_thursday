@@ -7,6 +7,7 @@ class SalesAnalyst
     @merchants = input[:merchants]
     @items = input[:items]
     @invoices = input[:invoices]
+    @transactions = input[:transactions]
   end
 
   def average_items_per_merchant
@@ -142,6 +143,7 @@ class SalesAnalyst
     (invoices_w_status / @invoices.all.count.to_f * 100).round(2)
   end
 
+
   sales_analyst.total_revenue_by_date(date) #=> $$
   # Note: When calculating revenue the unit_price listed
   #within invoice_items should be used. The
@@ -157,4 +159,14 @@ class SalesAnalyst
     end
     tot_of_all_prices
   end
+
+  def invoice_paid_in_full?(invoice_id)
+     transaction_by_invoice = @transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+        transaction.result == :success
+     end
+  end
+
+  # sales_analyst.invoice_total(invoice_id)
+
 end
+
