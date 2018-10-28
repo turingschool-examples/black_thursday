@@ -24,4 +24,14 @@ module Finders
     return 0 if invoice_items.empty?
     invoice_items.flatten.map(&:revenue).reduce(&:+)
   end
+
+  def revenue_from_invoices(invoices)
+    amounts = invoices.reduce([]) do |arr, invoice|
+      arr << revenue_from_invoice(invoice)
+    end
+    amounts.reduce(&:+)
+  end
+
+
+
 end

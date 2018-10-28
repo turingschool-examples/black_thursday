@@ -1,6 +1,8 @@
 require_relative 'statistics'
+require_relative 'finders'
 class SalesAnalyst
   include Statistics
+  include Finders
   attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions
   def initialize(items, merchants, invoices, invoice_items, customers, transactions)
     @items = items
@@ -143,19 +145,8 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    merchant_invoices = @invoices.all.select{|iv| iv.merchant_id == merchant_id }
-    # non_returned_invoices = merchant_invoices.reject{|iv| iv.status == :returned}
-    relevant_iv_ids = merchant_invoices.map(&:id)
-    shipped_iv_ids = relevant_iv_ids.select do |invoice_id|
-      @transactions.find_all_by_invoice_id(invoice_id).any?{|tr| tr.result == :success}
-    end
-    invoice_items = shipped_iv_ids.map do |iv_id|
-      @invoice_items.find_all_by_invoice_id(iv_id)
-    end
-    return 0 if invoice_items.empty?
-    invoice_items.flatten.map {|iv_item|
-      iv_item.unit_price * iv_item.quantity
-    }.reduce(&:+)
+    merchant = @merchants.find_by_id(merchant_id)
+    revenue_from_invoices(find_invoices_from(merchant))
   end
 
   def most_sold_item_for_merchant(merchant_id)

@@ -41,5 +41,6 @@ class FindersTest < Minitest::Test
 
 
     assert_equal 21067.77, @sa.revenue_from_invoice(@sa.invoices.all[0])
+
   end
 end
