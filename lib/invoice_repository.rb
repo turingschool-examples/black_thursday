@@ -7,13 +7,13 @@ class InvoiceRepository
     @collection = data
   end
 
-  def find_by_customer_id(id)
+  def find_all_by_customer_id(id)
     @collection.find_all do |element|
       element.customer_id == id
     end
   end
 
-  def find_by_merchant_id(id)
+  def find_all_by_merchant_id(id)
     @collection.find_all do |element|
       element.merchant_id == id
     end

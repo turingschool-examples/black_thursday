@@ -25,12 +25,12 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_customer_id
-    assert_equal [], @invoices.find_by_customer_id(12111111)
-    assert_equal 5, @invoices.find_by_customer_id(6).count
+    assert_equal [], @invoices.find_all_by_customer_id(12111111)
+    assert_equal 5, @invoices.find_all_by_customer_id(6).count
   end
 
   def test_it_can_find_by_merchant_id
-    assert_equal [], @invoices.find_by_merchant_id(12111111)
-    assert_equal 16, @invoices.find_by_merchant_id(12335938).count
+    assert_equal [], @invoices.find_all_by_merchant_id(12111111)
+    assert_equal 16, @invoices.find_all_by_merchant_id(12335938).count
   end
 end
