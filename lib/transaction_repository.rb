@@ -10,8 +10,10 @@ class TransactionRepository
     @all = from_csv(file_path)
   end
 
-  def find_all_by_invoice_id(invoice_id)
-
+  def find_all_by_invoice_id(seached_id)
+    @all.find_all do |invoice|
+      invoice.invoice_id == seached_id
+    end
   end
 
   def find_all_by_credit_card_number(credit_card_number)
