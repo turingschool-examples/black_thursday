@@ -1,15 +1,18 @@
-module Fixturable
-  def sample(merch_ids = nil)
-    merch_ids = [12334105] unless merch_ids
-    instance_variables.each do |var|
-      related_array = related_array_get(var, merch_ids)
-      file_name = "test_#{var.to_s.delete('@')}_one_merchant.csv"
-      CSV.open(file_name, "wb") do |csv|
-        csv << to_arr_of_hashes(related_array)[0].keys # adds the attributes name on the first line
-        to_arr_of_hashes(related_array).each do |hash|
-          csv << hash.values
-        end
-      end
+module Finders
+
+  def find_invoices_from(business_data)
+    class_string = business_data.class.to_s
+    case class_string
+    when 'Merchant', 'Customer'
+      binding.pry
+      method_name = "find_all_by_#{class_string.downcase}_id"
+      @invoices.public_send(method_name, business_data.id)
+    when 'InvoiceItem', 'Transaction'
+      @invoices.find_all_by_invoice_id(business_data.invoice_id)
+    when 'Item'
+      # find_invoices_from()
+    when 'Invoice'
+      self
     end
   end
 

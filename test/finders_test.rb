@@ -20,10 +20,11 @@ class FindersTest < Minitest::Test
     @sa = se.analyst
   end
   def test_it_can_find_invoices_from_anything
-    assert_instance_of Invoice, find_invoices_from(@sa.merchants[0])[0]
-    assert_instance_of Invoice, find_invoices_from(@sa.items[0])[0]
-    assert_instance_of Invoice, find_invoices_from(@sa.invoice_items[0])[0]
-    assert_instance_of Invoice, find_invoices_from(@sa.transactions[0])[0]
-    assert_instance_of Invoice, find_invoices_from(@sa.customers[0])[0]
+    assert_instance_of Invoice, @sa.find_invoices_from(@sa.merchants.all[0])[0]
+    # assert_instance_of Invoice, @sa.find_invoices_from(@sa.items.all[0])[0]
+    assert_instance_of Invoice, @sa.find_invoices_from(@sa.invoice_items.all[0])[0]
+    assert_instance_of Invoice, @sa.find_invoices_from(@sa.transactions.all[0])[0]
+    assert_instance_of Invoice, @sa.find_invoices_from(@sa.customers.all[0])[0]
+    assert_instance_of Invoice, @sa.find_invoices_from(@sa.invoices.all[0])[0]
   end
 end
