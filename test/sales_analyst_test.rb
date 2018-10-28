@@ -341,10 +341,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
-  def test_it_can_find_all_by_date
-    @sa.total_unit_price_by_date(date) #=> $$
-    sum(@ii.unit_price)
-  end
+  # def test_it_can_find_all_by_date
+  #   @sa.total_unit_price_by_date(date) #=> $$
+  #   sum(@ii.unit_price)
+  # end
 
   def test_it_can_check_if_invoice_is_paid_in_full
     assert_equal true, @sa.invoice_paid_in_full?(3345)

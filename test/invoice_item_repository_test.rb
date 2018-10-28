@@ -2,7 +2,7 @@ require './test/test_helper'
 require './lib/invoice_items_repository'
 require './lib/invoice_items'
 
-class InvoiceItemsRepositoryTest < Minitest::Test
+class InvoiceItemRepositoryTest < Minitest::Test
   def setup
 
 #id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
