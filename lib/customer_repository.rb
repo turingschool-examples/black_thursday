@@ -35,6 +35,7 @@ class CustomerRepository
 
   def update(id, attributes)
     object = find_by_id(id)
+    object.first_name = attributes[:first_name].to_s if attributes[:first_name]
     object.last_name = attributes[:last_name].to_s if attributes[:last_name]
     object.updated_at = Time.new.getutc if object
   end

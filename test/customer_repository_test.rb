@@ -66,6 +66,8 @@ class CustomerRepositoryTest < Minitest::Test
     cr.update(1001, {last_name: "Smith"})
     updated_customer = cr.all.last
     assert_equal "Smith" , updated_customer.last_name
+    cr.update(1001, {first_name: "John"})
+    assert_equal "John" , updated_customer.first_name
     assert_nil cr.update(5000, {})
   end
 
@@ -91,26 +93,16 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_an_customer
-    skip
     cr = CustomerRepository.new("./data/customers.csv")
-    data = ({
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
+    data = {
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
     cr.create(data)
-    cr.delete(4986)
-    assert_nil cr.find_by_id(4986)
+    cr.delete(1001)
+    assert_nil cr.find_by_id(1001)
     assert_nil cr.delete(5000)
   end
-
 end
-
-
-# find_all_by_first_name - returns either [] or one or more matches which have a first name matching the substring fragment supplied
-# find_all_by_last_name - returns either [] or one or more matches which have a last name matching the substring fragment supplied
-# create(attributes) - create a new Customer instance with the provided attributes. The new Customer’s id should be the current highest Customer id plus 1.
-# update(id, attribute) - update the Customer instance with the corresponding id with the provided attributes. Only the customer’s first_name and last_name can be updated. This method will also change the customer’s updated_at attribute to the current time.
-# delete(id) - delete the Customer instance with the corresponding id
