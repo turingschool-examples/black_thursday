@@ -16,4 +16,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, tr.all[0]
     assert_equal 4985,tr.all.count
   end
+
+  def test_it_can_find_by_id
+    tr = TransactionRepository.new("./data/transactions.csv")
+
+    assert_equal tr.all[1], tr.find_by_id(2)
+  end
 end
