@@ -2,14 +2,16 @@ require 'bigdecimal'
 require_relative './stats_module'
 
 class SalesAnalyst
-  attr_reader :merchants, :items
+  attr_reader :merchants, :items, :invoices, :invoice_items
 
   include Stats
 
-  def initialize(merchant_repo, item_repo)
-    @merchants = merchant_repo.repo_array
-    @items = item_repo.repo_array
-    @m_repo = merchant_repo
+  def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo)
+    @merchants         = merchant_repo.repo_array
+    @items             = item_repo.repo_array
+    @invoices          = invoice_repo.repo_array
+    @invoice_items     = invoice_item_repo.repo_array
+    @m_repo            = merchant_repo
   end
 
   def average_items_per_merchant
@@ -74,4 +76,38 @@ class SalesAnalyst
     golden_array
   end
 
+  def average_invoices_per_merchant
+  (@invoices.count / @merchants.count.to_f).round(2)
+  end
+
+#   def average_invoices_per_merchant_standard_deviation
+# binding.pry
+#     standard_dev(average_invoices_per_merchant)
+#   end
+
+  # def top_merchants_by_invoice_count
+  #     # Which merchants are more than two standard deviations above the mean?
+  #
+  # end
+
+  # def bottom_merchants_by_invoice_count
+  #    #Which merchants are more than two standard deviations below the mean?
+
+  # end
+
+  # def top_days_by_invoice_count
+  # On which days are invoices created at more than one standard deviation above the mean?
+  # end
+
+  # def invoice_status(status)
+  # # What percentage of invoices are shipped vs pending vs returned?
+  # # (total invoices for that status / total invoices) * 100
+  # # Need to map through this.
+  # (@invoices[status].count / @invoices.count) * 100
+  # # the above line might not be quite right
+  # end
+
+
 end
+
+# use #all method?

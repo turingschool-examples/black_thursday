@@ -3,11 +3,15 @@ require './test/test_helper'
 class SalesAnalystTest < Minitest::Test
 
   def setup
+
     @sales_engine = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
+        :invoices  => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv"
       })
     @sales_analyst = @sales_engine.analyst
+
   end
 
   def test_it_exists
@@ -63,6 +67,46 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.golden_items
     assert_instance_of Array, actual
     assert_equal 5, actual.count
+  end
+
+  def test_average_invoices_per_merchant
+    actual = @sales_analyst.average_invoices_per_merchant
+    assert_equal 10.49, actual
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, actual
+  end
+
+  def test_top_merchants_by_invoice_count
+skip
+    actual = @sales_analyst.top_merchants_by_invoice_count
+    assert_equal # [merchant, merchant, merchant], actual
+  end
+
+  def test_bottom_merchants_by_invoice_count
+skip
+    actual = @sales_analyst.bottom_merchants_by_invoice_count
+    assert_equal # [merchant, merchant, merchant], actual
+  end
+
+  def test_top_days_by_invoice_count
+skip
+    actual = @sales_analyst.top_days_by_invoice_count
+    assert_equal ["Sunday", "Saturday"], actual
+  end
+
+  def test_invoice_status
+skip
+    actual = @sales_analyst.invoice_status(:pending)
+    assert_equal 29.55, actual
+
+    actual = @sales_analyst.invoice_status(:shipped)
+    assert_equal 56.95, actual
+
+    actual = @sales_analyst.invoice_status(:returned)
+    assert_equal 13.5, actual
   end
 
 end
