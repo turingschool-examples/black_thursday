@@ -18,4 +18,10 @@ module Finders
     end
   end
 
+  def revenue_from_invoice(invoice)
+    return 0 unless @transactions.find_all_by_invoice_id(invoice_id).any?{|tr| tr.result == :success}
+    invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
+    return 0 if invoice_items.empty?
+    invoice_items.flatten.map(&:revenue)
+  end
 end
