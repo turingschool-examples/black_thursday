@@ -214,10 +214,10 @@ class SalesAnalystTest < Minitest::Test
 #           :quantity    => 3
 #         })
     @ii = InvoiceItemRepository.new
-    @ii.add_item(@invoice_item_1)
-    @ii.add_item(@invoice_item_2)
-    @ii.add_item(@invoice_item_3)
-    @ii.add_item(@invoice_item_4)
+    @ii.add_invoice_item(@invoice_item_1)
+    @ii.add_invoice_item(@invoice_item_2)
+    @ii.add_invoice_item(@invoice_item_3)
+    @ii.add_invoice_item(@invoice_item_4)
     # @ii.add_item(@invoice_item_5)
     # @ii.add_item(@invoice_item_6)
     # @ii.add_item(@invoice_item_7)

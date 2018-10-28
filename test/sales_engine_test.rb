@@ -4,8 +4,10 @@ require './lib/item_repository'
 require './lib/merchant_repository'
 require './lib/merchant'
 require './lib/item'
-require './lib/invoice_items_repository'
-require './lib/invoice_items'
+require './lib/invoice_item_repository'
+require './lib/invoice_item'
+require './lib/customer'
+require './lib/customer_repository'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -14,7 +16,8 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv"
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
     })
   end
 
@@ -27,6 +30,8 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, @se.items
     assert_instance_of InvoiceRepository, @se.invoices
     assert_instance_of TransactionRepository, @se.transactions
+    assert_instance_of InvoiceItemRepository, @se.invoice_items
+    assert_instance_of CustomerRepository, @se.customers
   end
 
   def test_it_can_load_files_correctly

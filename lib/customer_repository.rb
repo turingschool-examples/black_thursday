@@ -13,11 +13,15 @@ class CustomerRepository < Repository
   end
 
   def find_all_by_first_name(first_name)
-    all.find_all { |customer| customer.first_name == first_name }
+    all.find_all do |customer|
+      customer.first_name.upcase.include?(first_name.upcase)
+    end
   end
 
   def find_all_by_last_name(last_name)
-    all.find_all { |customer| customer.last_name == last_name }
+    all.find_all do |customer|
+      customer.last_name.upcase.include?(last_name.upcase)
+    end
   end
 
   def create(info)
@@ -28,7 +32,9 @@ class CustomerRepository < Repository
 
   def update(id, attributes)
     customer = find_by_id(id)
+    return nil if customer == nil
     customer.first_name = attributes[:first_name] if attributes.has_key?(:first_name)
     customer.last_name = attributes[:last_name] if attributes.has_key?(:last_name)
+    customer.updated_at = Time.now
   end
 end

@@ -49,9 +49,9 @@ module CSVReader
     skip_first_line = true
     CSV.foreach(file_path) do |row|
       unless skip_first_line
-        iir.add_invoice_items(InvoiceItems.new({:id => row[0].to_i, :item_id => row[1].to_i,
+        iir.add_invoice_item(InvoiceItem.new({:id => row[0].to_i, :item_id => row[1].to_i,
               :invoice_id => row[2].to_i, :quantity => row[3].to_sym,
-              :unit_price => row[4],
+              :unit_price => BigDecimal(row[4], row[4].length)/100,
               :created_at => Time.parse(row[5]),
               :updated_at => Time.parse(row[6])}))
       else
@@ -74,6 +74,20 @@ module CSVReader
       end
     end
     tr
+  end
+
+  def self.parse_customers(cr, file_path)
+    skip_first_line = true
+    CSV.foreach(file_path) do |row|
+      unless skip_first_line
+        cr.add_customer(Customer.new({:id => row[0].to_i, :first_name => row[1],
+              :last_name => row[2], :created_at => Time.parse(row[3]),
+              :updated_at => Time.parse(row[4])}))
+      else
+        skip_first_line = false
+      end
+    end
+    cr
   end
 
 end

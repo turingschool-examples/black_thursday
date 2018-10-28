@@ -33,6 +33,8 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_first_name
     expected = [@customer_1, @customer_3]
     assert_equal expected, @cr.find_all_by_first_name("John")
+    assert_equal expected, @cr.find_all_by_first_name("johN")
+    assert_equal expected, @cr.find_all_by_first_name("jo")
     expected = []
     assert_equal expected, @cr.find_all_by_first_name("Cans")
   end
@@ -40,6 +42,8 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_last_name
     expected = [@customer_2, @customer_3]
     assert_equal expected, @cr.find_all_by_last_name("Wonder")
+    assert_equal expected, @cr.find_all_by_last_name("wonDer")
+    assert_equal expected, @cr.find_all_by_last_name("Wo")
     expected = []
     assert_equal expected, @cr.find_all_by_last_name("Soda")
   end
@@ -61,6 +65,7 @@ class CustomerRepositoryTest < Minitest::Test
     @cr.update(id, attributes)
     assert_equal "Mary", @cr.find_by_id(2).first_name
     assert_equal "Logger", @cr.find_by_id(2).last_name
+    assert_equal nil, @cr.update(433, {})
   end
 
   def test_it_can_delete_customer
