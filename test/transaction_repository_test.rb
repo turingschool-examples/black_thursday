@@ -65,8 +65,8 @@ class TransactionRepositoryTest < Minitest::Test
     end
     
     def test_it_can_find_all_by_result_status
-      assert_equal [], @tr.find_all_by_result("test")
-      assert_equal [@t_1, @t_3], @tr.find_all_by_result("success")
+      assert_equal [], @tr.find_all_by_result(:test)
+      assert_equal [@t_1, @t_3], @tr.find_all_by_result(:success)
     end
     
     def test_it_can_create_new_transaction
@@ -81,7 +81,7 @@ class TransactionRepositoryTest < Minitest::Test
       assert_equal 10, transaction.invoice_id
       assert_equal "4558368405929183", transaction.credit_card_number
       assert_equal "0417", transaction.credit_card_expiration_date
-      assert_equal "success", transaction.result
+      assert_equal :success, transaction.result
       assert_equal 9, transaction.id
       assert transaction.created_at
       assert transaction.updated_at
