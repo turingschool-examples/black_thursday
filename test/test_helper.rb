@@ -12,5 +12,7 @@ require_relative '../lib/item_repository'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item'
 require_relative '../lib/transaction'
 require_relative '../lib/transaction_repository'
+

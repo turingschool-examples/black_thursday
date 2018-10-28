@@ -15,7 +15,6 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_invoice_exists
-
     assert_instance_of Invoice, @invoice
   end
 
