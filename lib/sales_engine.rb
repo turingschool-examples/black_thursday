@@ -22,7 +22,7 @@ class SalesEngine
     item_repo         = ItemRepository.new(csv_data_paths[:items])
     invoice_repo      = InvoiceRepository.new(csv_data_paths[:invoices])
     invoice_item_repo = InvoiceItemRepository.new(csv_data_paths[:invoice_items])
-    transaction_repo = TransactionRepository.new(csv_data_paths[:transactions])
+    transaction_repo  = TransactionRepository.new(csv_data_paths[:transactions])
     self.new(merch_repo, item_repo, invoice_repo, invoice_item_repo, transaction_repo)
   end
 
