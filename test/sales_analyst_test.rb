@@ -223,6 +223,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_pending_invoices
+    setup_empty_sales_engine
     @se.merchants.create(id: 3, name: "Bob's Burgers")
     @se.merchants.create(id: 4, name: "JC")
     @se.merchants.create(id: 5, name: "Bret's Blubber")
