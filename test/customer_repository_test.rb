@@ -27,16 +27,95 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_a_customer_by_first_name
-    skip
     cr = CustomerRepository.new("./data/customers.csv")
 
+    assert_equal 8, cr.find_all_by_first_name("oe").count
+  end
 
+  def test_it_can_find_a_customer_by_last_name
+    cr = CustomerRepository.new("./data/customers.csv")
+
+    assert_equal 85, cr.find_all_by_last_name("On").count
+  end
+
+  def test_that_it_can_create_an_customer
+    skip
+    cr = CustomerRepository.new("./data/customers.csv")
+    data = ({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    actual = cr.create(data).last
+    expected = cr.find_by_id(4986)
+    assert_equal expected, actual
+  end
+
+  def test_it_can_update_an_existing_customer
+    skip
+    cr = CustomerRepository.new("./data/customers.csv")
+    data = ({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    cr.create(data)
+    cr.update(4986, {status: :success})
+    updated_customer = cr.all.last
+    assert_equal "success" , updated_customer.status
+    assert_nil cr.update(5000, {})
+  end
+
+  def test_it_cannot_update_ids_on_an_customer
+    skip
+    cr = CustomerRepository.new("./data/customers.csv")
+    data = ({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    cr.create(data)
+    attributes = ({
+      id: 5000,
+      customer_id: 2,
+      merchant_id: 3,
+      created_at: Time.now
+      })
+    cr.update(4986, attributes)
+    assert_equal nil, cr.find_by_id(5000)
+    assert_equal cr.all[4985], cr.find_by_id(4986)
+    updated_customer = cr.all.last
+    assert_equal 7 , updated_customer.customer_id
+    assert_equal 8 , updated_customer.merchant_id
+    created_at = cr.find_by_id(4986).created_at != attributes[:created_at]
+    assert_equal true, created_at
+  end
+
+  def test_it_can_delete_an_customer
+    skip
+    cr = CustomerRepository.new("./data/customers.csv")
+    data = ({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+    cr.create(data)
+    cr.delete(4986)
+    assert_nil cr.find_by_id(4986)
+    assert_nil cr.delete(5000)
   end
 
 end
 
-# all - returns an array of all known Customers instances
-# find_by_id - returns either nil or an instance of Customer with a matching ID
+
 # find_all_by_first_name - returns either [] or one or more matches which have a first name matching the substring fragment supplied
 # find_all_by_last_name - returns either [] or one or more matches which have a last name matching the substring fragment supplied
 # create(attributes) - create a new Customer instance with the provided attributes. The new Customer’s id should be the current highest Customer id plus 1.
