@@ -79,11 +79,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 9, @iir.all.last.id
   end
 
+
   def test_it_can_update_invoice_with_attributes
-    assert_equal :pending, @iir.find_by_id(8).quantity
-    attributes = {quantity: 2}
+    array = @iir.find_by_id(8)
+    assert_equal 6, array[0].quantity
+    attributes = {quantity: 7}
     @iir.update(8, attributes)
-    assert_equal 2, @iir.find_by_id(8).quantity
+    assert_equal 7, array[0].quantity
+  end
+
+  def test_it_can_delete_invoice
+    assert_equal @invoice_item_1, @iir.find_by_id(6)
+    binding.pry
+    @iir.delete(6)
+    assert_nil @iir.find_by_id(6)
   end
 
 end
