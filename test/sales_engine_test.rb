@@ -16,7 +16,6 @@ class SalesEngineTest < Minitest::Test
       :invoice_items => "./data/invoice_items.csv",
       :transactions => "./data/transactions.csv"
     })
-    binding.pry
   end
 
   def test_it_exists
