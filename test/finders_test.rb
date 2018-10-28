@@ -38,5 +38,8 @@ class FindersTest < Minitest::Test
     actual = @sa.find_invoices_from(@sa.invoices.all[0])
     assert_instance_of Invoice, actual[0]
     assert_equal 1, actual[0].id
+
+
+    assert_equal 21067.77, @sa.revenue_from_invoice(@sa.invoices.all[0])
   end
 end
