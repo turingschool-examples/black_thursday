@@ -15,10 +15,10 @@ class InvoiceItem < BusinessData
 
 
   def unit_price_to_dollars
-    (unit_price / 100).round(2)
+    unit_price.round(2).to_f
   end
 
   def revenue
-    unit_price_to_dollars
+    unit_price * quantity
   end
 end
