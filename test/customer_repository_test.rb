@@ -55,46 +55,38 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_an_existing_customer
-    skip
     cr = CustomerRepository.new("./data/customers.csv")
-    data = ({
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
-    cr.create(data)
-    cr.update(4986, {status: :success})
+    attributes = {
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+    cr.create(attributes)
+    cr.update(1001, {last_name: "Smith"})
     updated_customer = cr.all.last
-    assert_equal "success" , updated_customer.status
+    assert_equal "Smith" , updated_customer.last_name
     assert_nil cr.update(5000, {})
   end
 
   def test_it_cannot_update_ids_on_an_customer
-    skip
     cr = CustomerRepository.new("./data/customers.csv")
-    data = ({
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
+    data = {
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
     cr.create(data)
     attributes = ({
-      id: 5000,
-      customer_id: 2,
-      merchant_id: 3,
+      id: 2000,
       created_at: Time.now
       })
-    cr.update(4986, attributes)
-    assert_equal nil, cr.find_by_id(5000)
-    assert_equal cr.all[4985], cr.find_by_id(4986)
+    cr.update(1001, attributes)
+    assert_equal nil, cr.find_by_id(2000)
+    assert_equal cr.all[1000], cr.find_by_id(1001)
     updated_customer = cr.all.last
-    assert_equal 7 , updated_customer.customer_id
-    assert_equal 8 , updated_customer.merchant_id
-    created_at = cr.find_by_id(4986).created_at != attributes[:created_at]
+    created_at = cr.find_by_id(1001).created_at != attributes[:created_at]
     assert_equal true, created_at
   end
 

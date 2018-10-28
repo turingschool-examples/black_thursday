@@ -32,4 +32,10 @@ class CustomerRepository
     attributes[:updated_at] = Time.now.to_s
     @all << @class_name.new(attributes)
   end
+
+  def update(id, attributes)
+    object = find_by_id(id)
+    object.last_name = attributes[:last_name].to_s if attributes[:last_name]
+    object.updated_at = Time.new.getutc if object
+  end
 end
