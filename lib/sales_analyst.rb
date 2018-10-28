@@ -101,6 +101,57 @@ class SalesAnalyst
     top_merchants
   end
 
+  def bottom_merchants_by_invoice_count
+    two_deviations_below = average_invoices_per_merchant -
+              (average_invoices_per_merchant_standard_deviation * 2)
+    top_merchants = []
+    num_invoices_per_merchant.each do |merchant, num|
+      top_merchants << merchant if num < two_deviations_below
+    end
+    top_merchants
+  end
+
+  def top_days_by_invoice_count
+    week = {"Sunday" => 0,
+            "Monday" => 0,
+            "Tuesday" => 0,
+            "Wednesday" => 0,
+            "Thursday" => 0,
+            "Friday" => 0,
+            "Saturday" => 0}
+
+    days = @invoice_repo.all.map do |invoice|
+            invoice.created_at.wday
+    end
+    days.each do |day_num|
+      if day_num == 0
+        week["Sunday"] += 1
+      elsif day_num == 1
+        week["Monday"] += 1
+      elsif day_num == 2
+        week["Tuesday"] += 1
+      elsif day_num == 3
+        week["Wednesday"] += 1
+      elsif day_num == 4
+        week["Thursday"] += 1
+      elsif day_num == 5
+        week["Friday"] += 1
+      elsif day_num == 6
+        week["Saturday"] += 1
+      else
+      end
+    end
+    average_of_week = (sum(week.values) / 7).round(2)
+    deviation_of_week = (average_of_week + (std_dev(week.values))).round(2)
+    top_days = []
+    week.each do |day, num|
+      if num > deviation_of_week
+        top_days << day
+      end
+    end
+    top_days
+  end
+
   # maths
 
   def sum(nums)
@@ -123,6 +174,4 @@ class SalesAnalyst
     variance = nums_sum.to_f / (nums.length - 1)
     Math.sqrt(variance).round(2)
   end
-
-
 end

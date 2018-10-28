@@ -1,4 +1,5 @@
 require_relative './test_helper'
+require 'time'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -290,4 +291,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [], sales
   end
 
+  def test_it_can_find_bottom_merchants_by_invoices_two_deviations_below
+    sales = @sales_analyst_2.bottom_merchants_by_invoice_count
+
+    assert_equal [], sales
+  end
+
+  def test_it_can_get_top_days_by_invoice_count
+    sales = @sales_analyst_2.top_days_by_invoice_count
+    days = ["This test will be wrong due to how time is genrated in tests"]
+
+    assert_equal days, sales
+  end
 end
