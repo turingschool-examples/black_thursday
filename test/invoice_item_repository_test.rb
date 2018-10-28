@@ -46,13 +46,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
   # find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
   def test_it_can_find_item_by_invoice_id
-    skip
     assert_equal [], @iir.find_all_by_invoice_id(151)
     assert_equal [@ii1], @iir.find_all_by_invoice_id(15)
   end
   # create(attributes) - create a new InvoiceItem instance with the provided attributes. The new InvoiceItem’s id should be the current highest InvoiceItem id plus 1.
   def test_it_can_create_invoice_items
-    skip
     ii3 = @iir.create({
       item_id:10,
       invoice_id:6,
@@ -66,16 +64,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
   # update(id, attribute) - update the InvoiceItem instance with the corresponding id with the provided attributes. Only the invoice_item’s quantity and unit_price can be updated. This method will also change the invoice_item’s updated_at attribute to the current time.
   def test_it_can_update_invoice_items
-    skip
-    @iir.update({
+    @iir.update(5, {
       quantity:8,
       unit_price:10,
       updated_at:@time #should be time.now
     })
+    assert_equal 8, @ii1.quantity
+    assert_equal 10, @ii1.unit_price
   end
   # delete(id) - delete the InvoiceItem instance with the corresponding id
   def test_it_can_delete_invoice_items
-    skip
     @iir.delete(5)
 
     refute @iir.all.include? @ii1
