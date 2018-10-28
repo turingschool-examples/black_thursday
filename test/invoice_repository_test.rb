@@ -46,7 +46,7 @@ class InvoiceRepositoryTest < Minitest::Test
                                 merchant_id: '51338418',
                                 status:      'returned',
                                 created_at:  '@time_now',
-                                updated_at:  '@updated_time'})
+                                updated_at:  '@updated_time'} )
     assert_instance_of Invoice, actual
     assert_equal 4986, @invoices.all.last.id
   end
@@ -54,5 +54,16 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_update_attributes
     @invoices.update(31, {status: 'returned'})
     assert_equal 'returned', @invoices.find_by_id(31).status
+  end
+
+  def test_it_can_delete_an_item
+    actual = @invoices.create( { customer_id: '7392',
+                                 merchant_id: '51338418',
+                                 status:      'returned',
+                                 created_at:  '@time_now',
+                                 updated_at:  '@updated_time'} )
+    assert_instance_of Invoice, actual
+    @invoices.delete(4986)
+    refute @invoices.all.any? { |invoice| iinvoice.id == 4986}
   end
 end
