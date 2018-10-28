@@ -54,8 +54,8 @@ class InvoiceItemsRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    assert_equal [@invoice_items_1], @iir.find_by_id(6)
-    assert_equal [], @iir.find_by_id(218319)
+    assert_equal @invoice_items_1, @iir.find_by_id(6)
+    assert_equal nil, @iir.find_by_id(218319)
   end
 
   def test_it_can_find_all_by_invoice_id
@@ -83,16 +83,16 @@ class InvoiceItemsRepositoryTest < Minitest::Test
 
   def test_it_can_update_invoice_with_attributes
     array = @iir.find_by_id(8)
-    assert_equal 6, array[0].quantity
+    assert_equal 6, array.quantity
     attributes = {quantity: 7}
     @iir.update(8, attributes)
-    assert_equal 7, array[0].quantity
+    assert_equal 7, array.quantity
   end
 
   def test_it_can_delete_invoice
-    assert_equal [@invoice_items_1], @iir.find_by_id(6)
+    assert_equal @invoice_items_1, @iir.find_by_id(6)
     @iir.delete(6)
-    assert_equal [], @iir.find_by_id(6)
+    assert_equal nil, @iir.find_by_id(6)
   end
 
 end
