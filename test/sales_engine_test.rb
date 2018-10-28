@@ -1,5 +1,4 @@
 require './test/test_helper'
-
 require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
@@ -9,7 +8,8 @@ class SalesEngineTest < Minitest::Test
     	  :items     => "./data/items.csv",
     	  :merchants => "./data/merchants.csv",
         :invoices  => "./data/invoices.csv",
-        :invoice_items => "./data/invoice_items.csv"
+        :invoice_items => "./data/invoice_items.csv",
+        :transactions => "./test/data/transaction_sample.csv"
     	})
   end
 
@@ -28,8 +28,13 @@ class SalesEngineTest < Minitest::Test
   def test_it_returns_invoices
     assert_instance_of InvoiceRepository, @se.invoices
   end
+
   def test_it_returns_invoice_items
     assert_instance_of InvoiceItemRepository, @se.invoice_items
+  end
+
+  def test_it_returns_invoice_items
+    assert_instance_of TransactionRepository, @se.transactions
   end
 
 end
