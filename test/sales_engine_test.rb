@@ -37,7 +37,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of TransactionRepository, @se.transactions
   end
 
-  def test_it_returns_transactions
+  def test_it_returns_customers
     assert_instance_of CustomerRepository, @se.customers
   end
 
