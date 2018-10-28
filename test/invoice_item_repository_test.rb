@@ -89,10 +89,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_invoice
-    assert_equal @invoice_item_1, @iir.find_by_id(6)
-    binding.pry
+    assert_equal [@invoice_item_1], @iir.find_by_id(6)
     @iir.delete(6)
-    assert_nil @iir.find_by_id(6)
+    assert_equal [], @iir.find_by_id(6)
   end
 
 end
