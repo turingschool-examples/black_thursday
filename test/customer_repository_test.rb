@@ -1,6 +1,6 @@
-require_relative '../test_helper'
-
-class CustomerRepository < MiniTest::Test
+require './test/test_helper'
+require 'time'
+class CustomerRepositoryTest < MiniTest::Test
 
   def setup
     @time = Time.now.to_s
