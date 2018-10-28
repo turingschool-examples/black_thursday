@@ -1,4 +1,4 @@
-
+require_relative './test_setup'
 require './lib/sales_engine'
 require './lib/finders'
 require 'minitest/autorun'
@@ -7,7 +7,9 @@ require 'pry'
 
 
 class FindersTest < Minitest::Test
-  SalesAnalyst.include(Finders)
+
+  include TestSetup
+
   def setup
     se = SalesEngine.from_csv({
       items: './data/items.csv',

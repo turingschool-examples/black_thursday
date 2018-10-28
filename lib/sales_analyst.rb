@@ -1,6 +1,8 @@
+
 require_relative 'statistics'
 require_relative 'finders'
 class SalesAnalyst
+  include TestSetup
   include Statistics
   include Finders
   attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions

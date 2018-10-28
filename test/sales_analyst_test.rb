@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require_relative './test_setup'
 
 require './lib/sales_engine'
 
