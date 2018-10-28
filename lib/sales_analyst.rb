@@ -109,15 +109,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    sum = 0
-    invoices = @invoices.find_all_by_date(date)
-    invoices.each do |invoice|
-      invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
-      invoice_items.each do |invoice_item|
-        sum += invoice_item.unit_price
-      end
-    end
-    sum
+    revenue_from_invoices(@invoices.find_all_by_date(date))
   end
 
   def top_revenue_earners(x=20)
