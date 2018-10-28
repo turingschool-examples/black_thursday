@@ -7,6 +7,7 @@ class SalesAnalyst
     @merchants = input[:merchants]
     @items = input[:items]
     @invoices = input[:invoices]
+    @transactions = input[:transaction]
   end
 
   def average_items_per_merchant
@@ -141,5 +142,11 @@ class SalesAnalyst
     invoices_w_status = @invoices.all.count { |invoice| invoice.status == status }
     (invoices_w_status / @invoices.all.count.to_f * 100).to_f.round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    true
+
+  end
+  # sales_analyst.invoice_paid_in_full?(invoice_id)
 
 end
