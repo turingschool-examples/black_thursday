@@ -10,6 +10,8 @@ class InvoiceRepositoryTest < Minitest::Test
         :invoices   => './data/invoices.csv'
                                 } )
     @invoices = se.invoices
+    @time_now = Time.now
+    @updated_time = Time.now 
   end
 
   def test_it_exists
@@ -37,5 +39,15 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_status
     assert_equal [], @invoices.find_all_by_status('old')
     assert_equal 673, @invoices.find_all_by_status('returned').count
+  end
+
+  def test_it_can_create_new_item
+    actual = @invoices.create( {customer_id: '7392',
+                                merchant_id: '51338418',
+                                status:      'returned',
+                                created_at:  '@time_now',
+                                updated_at:  '@updated_time'})
+    assert_instance_of Invoice, actual
+    assert_equal 4986, @invoices.all.last.id
   end
 end
