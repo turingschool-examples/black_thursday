@@ -152,9 +152,11 @@ class SalesAnalystTest < Minitest::Test
     @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
 
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
-
     @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
     @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(1), quantity: 5)
+
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :shipped)
+    @se.invoice_items.create(id: 1, item_id: 1, invoice_id: 2, unit_price: BigDecimal(500), quantity: 2)
 
     @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
@@ -185,6 +187,32 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 20, actual.size
     assert_instance_of Merchant, actual[0]
     assert_instance_of Merchant, actual[-1]
+  end
+
+  def test_revenue_by_date
+    setup_empty_sales_engine
+    time = Time.parse('2014-03-04')
+    @se.merchants.create(id: 1, name: "King Soopers")
+    @se.merchants.create(id: 2, name: "Amazon")
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "JC")
+    @se.items.create(id: 1, name: 'burger', merchant_id: '3', unit_price: BigDecimal(500), merchant_id: 3)
+    @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
+    @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped, created_at: time)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
+    @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(1), quantity: 5)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
+
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :shipped, created_at: time)
+    @se.invoice_items.create(id: 1, item_id: 1, invoice_id: 2, unit_price: BigDecimal(500), quantity: 200)
+    @se.transactions.create(id:1, invoice_id: 2, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
+
+
+    assert_equal 201_000_05, @sa.total_revenue_by_date(time)
   end
 
 
