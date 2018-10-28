@@ -64,6 +64,6 @@ class InvoiceRepositoryTest < Minitest::Test
                                  updated_at:  '@updated_time'} )
     assert_instance_of Invoice, actual
     @invoices.delete(4986)
-    refute @invoices.all.any? { |invoice| iinvoice.id == 4986}
+    refute @invoices.all.any? { |invoice| invoice.id == 4986}
   end
 end
