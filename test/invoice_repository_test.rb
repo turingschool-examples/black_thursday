@@ -23,7 +23,8 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_by_id
     assert_instance_of Invoice, @invoices.find_by_id(3)
   end
+  def test_it_can_find_by_customer_id
+    assert_equal [], @invoices.find_by_customer_id(12111111)
+    assert_equal 5, @invoices.find_by_customer_id(6)
+  end
 end
-  # def test_it_can_find_by_customer_id
-  #   assert_equal [], @invoices.find_by_customer_id(12111111)
-  # end
