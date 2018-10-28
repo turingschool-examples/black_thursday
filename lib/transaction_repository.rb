@@ -28,8 +28,8 @@ class TransactionRepository
   
   def create(attributes)
     attributes[:id] = max_id + 1
-    attributes[:created_at] = Time.now
-    attributes[:updated_at] = Time.now
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     new_transaction = Transaction.new(attributes)
     @collection << new_transaction
     new_transaction
@@ -37,13 +37,14 @@ class TransactionRepository
   
   def update(id, attributes)
     t = find_by_id(id)
-    
-    t.credit_card_number = 
-            attributes[:credit_card_number] if attributes[:credit_card_number]
-    t.credit_card_expiration_date = 
-            attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
-    t.result = attributes[:result] if attributes[:result]
-    t.updated_at = Time.now
+    if t
+      t.credit_card_number = 
+              attributes[:credit_card_number] if attributes[:credit_card_number]
+      t.credit_card_expiration_date = 
+              attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
+      t.result = attributes[:result] if attributes[:result]
+      t.updated_at = Time.now
+    end
   end
   
 end

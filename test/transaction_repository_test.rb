@@ -3,7 +3,7 @@ require_relative './test_helper'
 class TransactionRepositoryTest < Minitest::Test
     
     def setup
-      time = Time.now
+      time = Time.now.to_s
       @t_1 = Transaction.new({
                           :id => 6,
                           :invoice_id => 8,
