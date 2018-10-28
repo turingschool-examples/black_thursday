@@ -54,9 +54,16 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant)
     end
     sum_of_averages = array_of_averages.reduce(0) do |sum, average|
-      sum + average
+        sum + average
     end
     (sum_of_averages / array_of_averages.count).round(2)
   end
+
+  def golden_items
+
+
+  end
+
+
 
 end

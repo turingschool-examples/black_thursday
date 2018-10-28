@@ -53,4 +53,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 350.29, sa.average_average_price_per_merchant
   end
 
+  def test_golden_items_returns_array_of_items_2_stnd_devs_above_avg
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    sa = SalesAnalyst.new(items, merchants)
+    assert_equal 5, sa.golden_items.count
+    assert_instance_of Item, sa.golden_items.count
+  end
+
 end
