@@ -128,12 +128,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_the_total_amount_of_the_invoice
-    actual = @sales_analyst.invoice_paid_in_full?(1)
-    assert_equal 50.00, actual
+    actual = @sales_analyst.invoice_total(1)
+    assert_equal 21_067.77, actual
+    assert_instance_of BigDecimal, actual
   end
-
-  # sales_analyst.invoice_total(invoice_id)
-  # returns the total $ amount of the Invoice with the corresponding id.
-
 
 end

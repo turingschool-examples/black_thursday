@@ -110,19 +110,25 @@ class SalesAnalyst
   # end
 
 
-def invoice_paid_in_full?(invoice_id)
-    transaction_match = @transactions.find do |transaction|
+  def invoice_paid_in_full?(invoice_id)
+      transaction_match = @transactions.find do |transaction|
+        transaction.invoice_id == invoice_id
+      end
+      if transaction_match.result == "success"
+        true
+      else
+      end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @invoice_items.find_all do |transaction|
       transaction.invoice_id == invoice_id
     end
-    if transaction_match.result == "success"
-      true
-    else
+    invoice_items.inject(0.0) do |sum, invoice_item|
+      sum + (invoice_item.unit_price * invoice_item.quantity)
     end
-end
 
-
-  # sales_analyst.invoice_total(invoice_id) returns the total $ amount of the Invoice with the corresponding id.
+  end
 
 end
-
 # use #all method?
