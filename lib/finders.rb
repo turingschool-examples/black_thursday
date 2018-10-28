@@ -9,41 +9,13 @@ module Finders
     when 'InvoiceItem', 'Transaction'
       [@invoices.find_by_id(business_data.invoice_id)]
     when 'Item'
-      # find_invoices_from()
+      invoice_items = @invoice_items.find_all_by_item_id(business_data.id)
+      invoice_ids = invoice_items.map(&:invoice_id)
+      @invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
+      #could refactor above 3 lines into 1 if there was a find_invoices_from_array method
     when 'Invoice'
       [business_data]
     end
   end
 
-  def related_array_get(var, merch_ids)
-    case var
-    when :@merchants
-      instance_variable_get(var).all.select{|instance| merch_ids.include?(instance.id)}
-    when :@invoice_items
-      invoice_ids = @invoices.all.select{|iv| merch_ids.include?(iv.merchant_id)}.map(&:id)
-      @invoice_items.all.select{|iv_items| invoice_ids.include?(iv_items.invoice_id)}
-    when :@customers
-      customer_ids = @invoices.all.select{|iv| merch_ids.include?(iv.merchant_id)}.map(&:customer_id).uniq
-      @customers.all.select{ |customer| customer_ids.include?(customer.id)}
-    when :@transactions
-      #exact same pattern as when :@invoice_items
-      invoice_ids = @invoices.all.select{|iv| merch_ids.include?(iv.merchant_id)}.map(&:id)
-      @transactions.all.select{ |transaction| invoice_ids.include?(transaction.invoice_id)}
-    else
-      instance_variable_get(var).all.select{|instance| merch_ids.include?(instance.merchant_id)}
-    end
-  end
-
-  def to_arr_of_hashes(arr_of_objects)
-    arr_of_objects.reduce([]) do |arr, ob|
-      arr << to_h(ob)
-    end
-  end
-  def to_h(object)
-    new_hash = {}
-    object.instance_variables.each do |var|
-      new_hash[var.to_s.delete("@")] = object.instance_variable_get(var)
-    end
-    new_hash
-  end
 end
