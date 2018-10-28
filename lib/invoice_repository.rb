@@ -39,6 +39,15 @@ class InvoiceRepository
                                  updated_at: attributes[:updated_at]
                                 } )
     @collection << new_invoice
-    new_invoice 
+    new_invoice
+  end
+
+  def update(id, attributes)
+    if find_by_id(id)
+      if attributes.has_key?(:status)
+        find_by_id(id).status = attributes[:status]
+      end
+      find_by_id(id).updated_at = Time.now
+    end 
   end
 end
