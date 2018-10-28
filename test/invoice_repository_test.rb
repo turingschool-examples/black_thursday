@@ -33,4 +33,9 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], @invoices.find_all_by_merchant_id(12111111)
     assert_equal 16, @invoices.find_all_by_merchant_id(12335938).count
   end
+
+  def test_it_can_find_all_by_status
+    assert_equal [], @invoices.find_all_by_status('old')
+    assert_equal 16, @invoices.find_all_by_status('returned').count
+  end
 end
