@@ -10,17 +10,7 @@ class FindersTest < Minitest::Test
 
   include TestSetup
 
-  def setup
-    se = SalesEngine.from_csv({
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv',
-      invoice_items: './data/invoice_items.csv',
-      transactions: './data/transactions.csv',
-      customers: './data/customers.csv'
-    })
-    @sa = se.analyst
-  end
+
   def test_it_can_find_invoices_from_anything
     skip
     actual = @sa.find_invoices_from(@sa.merchants.all[0])
@@ -45,9 +35,11 @@ class FindersTest < Minitest::Test
   end
 
   def test_it_can_find_anything_from_invoice
-    invoice = @invoices[0]
-    actual = @sa.find_from_invoice(invoice, Merchant)
-
+    setup_big_data_set
+    invoice = @sa.invoices.all[0]
+    actual = @sa.find_from_invoice(invoice, 'InvoiceItem')
+    assert_equal 8, actual.size
+    assert_instance_of InvoiceItem, actual[0]
     # actual = @sa.find_from_invoice(invoice, classname)
     # assert_instance_of Invoice, actual[0]
     # assert_equal 3, actual[0].id

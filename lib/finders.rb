@@ -9,6 +9,8 @@ module Finders
     when 'InvoiceItem', 'Transaction'
       [@invoices.find_by_id(business_data.invoice_id)]
     when 'Item'
+      require 'pry'; binding.pry
+
       invoice_items = @invoice_items.find_all_by_item_id(business_data.id)
       invoice_ids = invoice_items.map(&:invoice_id)
       @invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
@@ -20,8 +22,8 @@ module Finders
 
   def find_from_invoice(invoice, classname)
     case classname
-    when Merchant
-      require 'pry'; binding.pry
+    when 'InvoiceItem'
+      @invoice_items.all.select {|iv_item| iv_item.invoice_id == invoice.id}
     end
   end
 
