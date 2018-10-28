@@ -1,7 +1,8 @@
 require 'bigdecimal'
-require 'time'
+require_relative './time_convert_module'
 
 class Item
+
   attr_reader :id,
               :description,
               :created_at,
@@ -11,6 +12,8 @@ class Item
                 :description,
                 :unit_price,
                 :updated_at
+
+  include TimeConvert
 
   def initialize(item_data)
     @id = item_data[:id].to_i
@@ -24,14 +27,6 @@ class Item
 
   def unit_price_to_dollars
     @unit_price.to_f.round(2)
-  end
-
-  def time_converter(arguement)
-    if arguement.class == String
-      Time.parse(arguement)
-    else
-      arguement
-    end
   end
 
 end

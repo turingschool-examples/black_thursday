@@ -1,6 +1,6 @@
-require 'pry'
-require 'CSV'
 require_relative './repository'
+require_relative './invoice_item'
+
 
 class InvoiceItemRepository < Repository
 
@@ -14,6 +14,6 @@ class InvoiceItemRepository < Repository
     end
   end
 
-  
+
 
 end

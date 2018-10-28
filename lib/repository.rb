@@ -1,3 +1,4 @@
+require 'CSV'
 
 class Repository
 
