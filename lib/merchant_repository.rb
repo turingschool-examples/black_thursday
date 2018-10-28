@@ -2,9 +2,11 @@ require_relative 'repository'
 require_relative 'merchant'
 
 class MerchantRepository < Repository
+  attr_accessor :sorted, :instances
   def initialize
     @type = Merchant
     @attr_whitelist = [:name]
+    @sorted = false
     super
   end
 

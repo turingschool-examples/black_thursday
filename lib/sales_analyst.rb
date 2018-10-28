@@ -109,50 +109,25 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     sum = 0
     invoices = @invoices.find_all_by_date(date)
-
     invoices.each do |invoice|
       invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
-      #binding.pry
       invoice_items.each do |invoice_item|
-        sum += invoice_item.revenue
+        sum += invoice_item.unit_price
       end
     end
     sum
   end
 
   def top_revenue_earners(x=20)
-    out = []
-    return
-    merchant_ids = @merchants.all.map do |merchant|
-      merchant.id
-    end
-
-    x.times do
-      top = 0
-      add = false
-      #binding.pry
-      merchant_ids.each do |merchant_id|
-        invoices = @invoices.find_all_by_merchant_id(merchant_id)
-        invoices.each do |invoice|
-          invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
-          merchant_revenue = 0
-          invoice_items.each do |invoice_item|
-            merchant_revenue += invoice_item.unit_price * invoice_item.quantity
-          end
-          if merchant_revenue > top
-            top = merchant_revenue
-            add = true
-          end
-        end
-        out << @merchants.find_all_by_merchant_id(merchant_id) if add
-      end
-    end
+    merchants_ranked_by_revenue[0..x-1]
   end
 
   def merchants_ranked_by_revenue
-    @merchants.all.sort do |merchant|
+    return @merchants.all if @merchants.sorted == true
+    @merchants.sorted = true
+    @merchants.instances = @merchants.all.sort_by { |merchant|
       revenue_by_merchant(merchant.id)
-    end
+    }.reverse
   end
 
   def merchants_with_pending_invoices
@@ -168,13 +143,19 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    invoices = @invoices.find_all_by_merchant_id(merchant_id)
-
-    sum = 0
-    invoices.each do |invoice|
-      invoice_items = @invoice
-      sum += invoice.unit_price * invoice.quantity
+    merchant_invoices = @invoices.all.select{|iv| iv.merchant_id == merchant_id }
+    # non_returned_invoices = merchant_invoices.reject{|iv| iv.status == :returned}
+    relevant_iv_ids = merchant_invoices.map(&:id)
+    shipped_iv_ids = relevant_iv_ids.select do |invoice_id|
+      @transactions.find_all_by_invoice_id(invoice_id).any?{|tr| tr.result == :success}
     end
+    invoice_items = shipped_iv_ids.map do |iv_id|
+      @invoice_items.find_all_by_invoice_id(iv_id)
+    end
+    return 0 if invoice_items.empty?
+    invoice_items.flatten.map {|iv_item|
+      iv_item.unit_price * iv_item.quantity
+    }.reduce(&:+)
   end
 
   def most_sold_item_for_merchant(merchant_id)
