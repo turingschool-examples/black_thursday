@@ -27,8 +27,18 @@ class CustomerRepositoryTest < MiniTest::Test
       })
     @custrepo = CustomerRepository.new([@customer_1, @customer_2, @customer_3])
   end
+
   def test_it_exists
     assert_instance_of CustomerRepository, @custrepo
+  end
+
+  def test_it_can_return_all_customers
+    arr = [@customer_1, @customer_2, @customer_3]
+    assert_equal arr, @custrepo.all
+  end
+
+  def test_it_can_find_by_id
+    assert_equal @customer_1, @custrepo.find_by_id(1)
   end
 
 end
