@@ -215,5 +215,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 201_000_05, @sa.total_revenue_by_date(time)
   end
 
+  def test_merchants_with_only_one_item_registered_in_month
+    setup_empty_sales_engine
+
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "Bret's Burgers")
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped, created_at: Time.new(2013, 10))
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :pending, created_at: Time.new(2013, 11))
+
+    result = @sa.merchants_with_only_one_item_registered_in_month("October")
+
+    assert_equal 1, result.length
+    assert_equal Merchant, result.first.class
+    assert_equal 4, result.first.id
+end
+
 
 end

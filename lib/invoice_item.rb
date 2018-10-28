@@ -19,10 +19,6 @@ class InvoiceItem < BusinessData
   end
 
   def revenue
-<<<<<<< HEAD
     @quantity * unit_price
-=======
-    @quantity * @unit_price
->>>>>>> f903c857c89088ece50051d9d3cb97493eec5431
   end
 end

@@ -1,8 +1,6 @@
-
 require_relative 'statistics'
 require_relative 'finders'
 class SalesAnalyst
-  include TestSetup
   include Statistics
   include Finders
   attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions
@@ -119,11 +117,11 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    return @merchants.all if @merchants.sorted == true
-    @merchants.sorted = true
-    @merchants.instances = @merchants.all.sort_by { |merchant|
-      revenue_by_merchant(merchant.id)
-    }.reverse
+    # return @merchants.all if @merchants.sorted == true
+    # @merchants.sorted = true
+    # @merchants.instances = @merchants.all.sort_by { |merchant|
+    #   revenue_by_merchant(merchant.id)
+    # }.reverse
   end
 
   def merchants_with_pending_invoices
@@ -135,7 +133,13 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-
+    month_num = Date::MONTHNAMES.find_index(month)
+    @merchants.all.select do |merchant|
+      merchant.created_at.month == month_num && \
+      @items.all.one? do |item|
+        item.merchant_id == merchant.id
+      end
+    end
   end
 
   def revenue_by_merchant(merchant_id)
@@ -148,7 +152,7 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-
+    invoices = find_invoices_from(@merchants.find_by_id(merchant_id))
   end
 
   def invoice_paid_in_full?(invoice_id)
