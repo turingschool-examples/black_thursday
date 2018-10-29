@@ -401,4 +401,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10.53, stats_3
     assert_equal 100.0, percentage_total
   end
+
+  def test_it_can_see_if_invoice_is_paid_in_full
+    assert @sales_analyst.invoice_paid_in_full?(1)
+    refute @sales_engine.invoice_paid_in_full?(2)
+    refute @sales_engine.invoice_paid_in_full(3)
+  end
+
+  def test_it_can_return_invoice_total_amount
+    assert_equal BigDecimal.new(20.00), @sales_analyst.invoice_total(1)
+  end
 end
