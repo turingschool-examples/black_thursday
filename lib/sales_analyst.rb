@@ -98,16 +98,10 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     top_merchants_array = []
     two_deviations_above_mean = (average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant)
-    invoices_per_merchant_array = @merchants.map do |m|
-        merchant_invoice_list(m).count
-    end
-      invoices_per_merchant_array.each do |n|
-        if  n > two_deviations_above_mean
-          top_merchants_array << n
+    @merchants.each do |m|
+        if  merchant_invoice_list(m).count > two_deviations_above_mean
+           top_merchants_array << m
         end
-      end
-      # this needs to be outputting merchant instances or names... not sure...
-      # not just the number of invoices
     end
   end
 
