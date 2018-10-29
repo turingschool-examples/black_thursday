@@ -110,13 +110,14 @@ class SalesAnalyst
   # end
 
 
-  def invoice_paid_in_full?(invoice_id)
+  def invoice_paid_in_full?(trans_id)
       transaction_match = @transactions.find do |transaction|
-        transaction.invoice_id == invoice_id
+        transaction.id == trans_id
       end
-      if transaction_match.result == "success"
+      if transaction_match.result == :success
         true
       else
+        false
       end
   end
 

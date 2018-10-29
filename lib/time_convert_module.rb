@@ -2,11 +2,11 @@ require 'time'
 
 module TimeConvert
 
-def time_converter(arguement)
-  if arguement.class == String
-    Time.parse(arguement)
+def time_converter(argument)
+  if argument.class == String
+    Time.parse(argument)
   else
-    arguement
+    argument
   end
 end
 
