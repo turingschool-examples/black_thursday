@@ -37,17 +37,7 @@ module MerchantIntelligence
   end
 
   def merchants_with_pending_invoices
-    failed = @invoices.all.select do |invoice|
-      !@transactions.any_success?(invoice.id)
-    end
-
-    missing = @invoices.all.select do |invoice|
-      invoice_has_no_transactions?(invoice.id)
-    end
-
-    [missing, failed].flatten.map do |invoice|
-      @merchants.find_by_id(invoice.merchant_id)
-    end.uniq
+    find_from_invoices(unsuccessful_invoices, 'Merchant').uniq
   end
 
   def merchants_with_only_one_item
@@ -74,6 +64,9 @@ module MerchantIntelligence
   end
 
   def most_sold_item_for_merchant(merchant_id)
+    merchant = @merchants.find_by_id(merchant_id)
+    invoice_items = find_type_from_object('InvoiceItem', merchant)
+
     invoices = successful_invoices.select { |invoice|invoice.merchant_id == merchant_id }
     invoice_items = invoices.map do |invoice|
       find_from_invoice(invoice, 'InvoiceItem')
