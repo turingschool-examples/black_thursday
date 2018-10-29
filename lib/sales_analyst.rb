@@ -3,11 +3,13 @@ require 'pry'
 
 class SalesAnalyst
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices = [])
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def items_by_merchant
@@ -73,4 +75,37 @@ class SalesAnalyst
     @items.all.find_all { |item| item.unit_price >= standard_deviation * 2 }
   end
 
+  def invoices_by_merchant
+    @invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def average_invoices_per_merchant
+    (invoices_by_merchant.values.flatten.count.to_f/invoices_by_merchant.count).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    value_array =
+    invoices_by_merchant.values.map do |invoices|
+      invoices.count
+    end
+    standard_deviation(value_array, average_invoices_per_merchant)
+  end
+
+  def top_merchants_by_invoice_count
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    merchant_ids = invoices_by_merchant.select do |merchant_id, invoices|
+      (invoices.count - average_invoices_per_merchant) >= (standard_deviation * 2)
+    end
+    @merchants.all.select {|merchant| merchant_ids.include?(merchant.id)}
+  end
+
+  def bottom_merchants_by_invoice_count
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    merchant_ids = invoices_by_merchant.select do |merchant_id, invoices|
+      (invoices.count - average_invoices_per_merchant) <= (standard_deviation * 2)
+    end
+    @merchants.all.select {|merchant| merchant_ids.include?(merchant.id)}
+  end
 end

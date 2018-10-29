@@ -5,6 +5,7 @@ require 'minitest/pride'
 require './lib/sales_analyst'
 require './lib/merchant_repository'
 require './lib/item_repository'
+require './lib/invoice_repository'
 require 'bigdecimal'
 
 
@@ -102,5 +103,39 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, sa.golden_items[0]
   end
 
+  def test_it_can_calculate_the_avg_invoices_per_merchant
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    sa = SalesAnalyst.new(items, merchants, invoices)
 
+    assert_equal 10.49, sa.average_invoices_per_merchant
+  end
+
+  def test_it_can_calculate_average_invoices_per_merchant_standard_deviation
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    sa = SalesAnalyst.new(items, merchants, invoices)
+
+    assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_calculate_top_merchants_by_invoice_count
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    sa = SalesAnalyst.new(items, merchants, invoices)
+
+    assert_equal 12, sa.top_merchants_by_invoice_count.count
+  end
+
+  def test_it_can_calculate_bottom_merchants_by_invoice_count
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    sa = SalesAnalyst.new(items, merchants, invoices)
+
+    assert_equal 4, sa.bottom_merchants_by_invoice_count.count
+  end
 end
