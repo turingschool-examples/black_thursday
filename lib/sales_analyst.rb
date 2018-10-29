@@ -153,7 +153,6 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     best_invoice_item = collect do |invoice|
-      find_from_invoice(invoice, 'InvoiceItem')
     end.flatten.max_by do |invoice_item|
       invoice_item.revenue
     end
