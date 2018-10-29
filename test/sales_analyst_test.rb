@@ -353,5 +353,31 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 467, actual.length
   end
 
-  
+  def test_it_can_return_merchants_with_one_item
+    actual = @sa_real.merchants_with_only_one_item
+    assert_equal 243, actual.length
+    assert_instance_of Merchant, actual.first
+  end
+
+  def test_it_can_find_merchants_with_only_one_item_registered_in_a_month
+    actual = @sa_real.merchants_with_only_one_item_registered_in_a_month("March")
+    assert_equal 21, actual.length
+    assert_instance_of Merchant, actual.first
+  end
+
+  def test_it_can_find_revenue_by_merchant
+    skip
+    actual = @sa_real.revenue_by_merchant(12334194)
+  end
+
+  def test_it_can_find_most_sold_item_for_merchant
+    actual = @sa_real.most_sold_item_for_merchant(12334189)
+    assert_equal true, actual.map(&:name).include?("Adult Princess Leia Hat")
+  end
+
+  def test_it_can_find_best_item_for_merchant
+    actual = @sa_real.best_item_for_merchant(12334189)
+    assert_equal 263516130, actual.id
+    assert_instance_of Item, actual
+  end
 end
