@@ -7,13 +7,12 @@ class SalesAnalyst
   include Stats
 
   def initialize(merchant_repo, item_repo, invoice_repo, invoice_item_repo,transaction_repo, customer_repo )
-    @merchants         = merchant_repo.repo_array
-    @items             = item_repo.repo_array
-    @invoices          = invoice_repo.repo_array
-    @invoice_items     = invoice_item_repo.repo_array
+    @merchants         = merchant_repo.all
+    @items             = item_repo.all
+    @invoices          = invoice_repo.all
+    @invoice_items     = invoice_item_repo.all
+    @transactions      = transaction_repo.all
     @m_repo            = merchant_repo
-    @transactions      = transaction_repo.repo_array
-    @customers         = customer_repo
   end
 
   def average_items_per_merchant

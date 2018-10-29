@@ -8,39 +8,33 @@ class ItemRepository < Repository
     Item.new(row)
   end
 
-  def find_by_name(name)
-    @repo_array.find do |object|
-      object.name.upcase == name.upcase
-    end
-  end
-
   def find_all_with_description(item_description)
-    @repo_array.find_all do |item|
+    @all.find_all do |item|
       item.description.upcase == item_description.upcase
     end
   end
 
   def find_all_by_price(price)
-    @repo_array.find_all do |item|
+    @all.find_all do |item|
       item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
-    @repo_array.find_all do |item|
+    @all.find_all do |item|
       range.include?(item.unit_price)
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @repo_array.find_all do |item|
+    @all.find_all do |item|
       item.merchant_id == merchant_id
     end
   end
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @repo_array << new_item = Item.new(attributes)
+    @all << new_item = Item.new(attributes)
     new_item
   end
 

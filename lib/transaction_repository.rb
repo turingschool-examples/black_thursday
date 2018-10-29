@@ -8,20 +8,20 @@ class TransactionRepository < Repository
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    @repo_array.find_all do |transaction|
+    @all.find_all do |transaction|
       transaction.credit_card_number == credit_card_number
     end
   end
 
   def find_all_by_result(result_status)
-    @repo_array.find_all do |transaction|
+    @all.find_all do |transaction|
       transaction.result == result_status
     end
   end
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @repo_array << new_item = Transaction.new(attributes)
+    @all << new_item = Transaction.new(attributes)
     new_item
   end
 

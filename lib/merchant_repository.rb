@@ -7,21 +7,9 @@ class MerchantRepository < Repository
     Merchant.new(row)
   end
 
-  def find_by_name(name)
-    @repo_array.find do |object|
-      object.name.upcase == name.upcase
-    end
-  end
-
-  def find_all_by_name(name)
-    @repo_array.select do |merchant|
-      merchant.name.upcase.include?(name.upcase)
-    end
-  end
-
   def create(attributes)
     attributes[:id] = new_highest_id
-    @repo_array << new_item = Merchant.new(attributes)
+    @all << new_item = Merchant.new(attributes)
     new_item
   end
 

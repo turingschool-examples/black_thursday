@@ -20,7 +20,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_finds_by_id
     ir = ItemRepository.new('./test/data/item_sample.csv')
-    item = ir.repo_array[1]
+    item = ir.all[1]
     assert_equal item, ir.find_by_id(263397059)
   end
 
@@ -48,7 +48,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_merchant_id
    ir = ItemRepository.new("./test/data/item_sample.csv")
-   item = ir.repo_array[0]
+   item = ir.all[0]
    assert_instance_of Item, ir.find_all_by_merchant_id(12334141).first
    assert_equal [item], ir.find_all_by_merchant_id(12334141)
   end
