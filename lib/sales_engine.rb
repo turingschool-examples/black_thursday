@@ -2,22 +2,23 @@ require 'csv'
 require_relative "../lib/merchant_repository"
 require_relative "../lib/item_repository"
 require_relative "../lib/invoice_repository"
+require_relative "../lib/invoice_item_repo"
 require_relative "./sales_analyst"
 
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :analyst
+  attr_reader :items, :merchants, :invoices, :analyst, :invoice_items
 
-  def initialize(items, merchants, invoices, invoice_item = nil)
+  def initialize(items, merchants, invoices, invoice_items)
     @items = ItemRepository.new(populate_items(items))
     @merchants = MerchantRepository.new(populate_merchants(merchants))
     @invoices = InvoiceRepository.new(populate_invoices(invoices))
-    @invoiceitem = InvoiceItemRepository.new(populate_invoice_items(invoiceitem))
+    @invoice_items = InvoiceItemRepository.new(populate_invoice_item(invoice_items))
     @analyst = SalesAnalyst.new(@items, @merchants, @invoices)
   end
 
   def self.from_csv(info)
-    self.new(info[:items], info[:merchants], info[:invoices])
+    self.new(info[:items], info[:merchants], info[:invoices], info[:invoice_items])
   end
 
   def populate_invoices(file_path)
@@ -42,11 +43,11 @@ class SalesEngine
   end
 
   def populate_invoice_item(file_path)
-    file - CSV.read(file_path, headers: true, header_converters: :symbol)
+    file = CSV.read(file_path, headers: true, header_converters: :symbol)
     file.map do |row|
      InvoiceItem.new(row)
     end
   end
 
-  
+
 end

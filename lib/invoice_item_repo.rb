@@ -1,5 +1,9 @@
+require_relative "../lib/repository"
+require_relative "../lib/invoice_item"
+require "time"
 class InvoiceItemRepository
-
+  include Repository
+  attr_reader :collection
   def initialize(invoice_items)
     @collection = invoice_items
   end
@@ -9,7 +13,7 @@ class InvoiceItemRepository
   end
 
   def find_by_id(ident)
-    @collection.find_all do |item|
+    found = all.find do |item|
       item.id == ident
     end
   end
@@ -27,25 +31,28 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    item_id = @collection.map do |item|
-       item.id
-    end
-    max_item_id = item_id.max + 1
-    InvoiceItem.new(
-      id:max_item_id,
+    # binding.pry
+    created = InvoiceItem.new({
+      id:max_id + 1,
       item_id:attributes[:item_id],
       quantity:attributes[:invoice_id],
       unit_price:attributes[:unit_price],
       created_at:attributes[:created_at],
       updated_at:attributes[:updated_at]
-    )
+    })
+    all << created
+    created
   end
 
   def update(id, attributes)
+
     updated_item = find_by_id(id)
-    updated_item = updated_item[0]
-    updated_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
-    updated_item.quantity = attributes[:quantity] if attributes[:quantity]
+    if updated_item
+      #   updated_item = updated_item[0]
+      updated_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
+      updated_item.quantity = attributes[:quantity] if attributes[:quantity]
+      updated_item.updated_at = Time.now
+    end 
   end
 
   def delete(item_id)
