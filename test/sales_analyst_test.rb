@@ -121,5 +121,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
   end
 
+  def test_it_can_calculate_top_merchants_by_invoice_count
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    sa = SalesAnalyst.new(items, merchants, invoices)
 
+    assert_equal 12, sa.top_merchants_by_invoice_count.count
+  end
 end
