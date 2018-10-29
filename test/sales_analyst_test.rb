@@ -129,4 +129,13 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 12, sa.top_merchants_by_invoice_count.count
   end
+
+  def test_it_can_calculate_bottom_merchants_by_invoice_count
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    sa = SalesAnalyst.new(items, merchants, invoices)
+
+    assert_equal 4, sa.bottom_merchants_by_invoice_count.count
+  end
 end
