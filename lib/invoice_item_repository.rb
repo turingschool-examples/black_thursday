@@ -16,7 +16,7 @@ class InvoiceItemRepository < Repository
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @repo_array << new_invoice_item = InvoiceItem.new(attributes)
+    @all << new_invoice_item = InvoiceItem.new(attributes)
     new_invoice_item
   end
 
