@@ -233,7 +233,71 @@ class SalesAnalystTest < Minitest::Test
                   @invoice_11, @invoice_12, @invoice_13, @invoice_14, @invoice_15, @invoice_16,
                   @invoice_17, @invoice_18, @invoice_19]
 
-    sales_engine_2 = SalesEngine.new(@items, @merchants_2, @invoices_2, nil, nil, nil)
+
+    @invoice_item_1 = InvoiceItem.new({ id: "1",
+                                        item_id: "10",
+                                        invoice_id: "1",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
+                                      })
+    @invoice_item_2 = InvoiceItem.new({ id: "2",
+                                        item_id: "10",
+                                        invoice_id: "2",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
+                                      })
+    @invoice_item_3 = InvoiceItem.new({ id: "3",
+                                        item_id: "10",
+                                        invoice_id: "2",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
+                                      })
+    @transaction_1 = Transaction.new({
+                        :id => 6,
+                        :invoice_id => 1,
+                        :credit_card_number => "4242424242424242",
+                        :credit_card_expiration_date => "0220",
+                        :result => "success",
+                        :created_at => @time,
+                        :updated_at => @time
+                      })
+    @transaction_2 = Transaction.new({
+                        :id => 7,
+                        :invoice_id => 2,
+                        :credit_card_number => "4613250127567219",
+                        :credit_card_expiration_date => "0223",
+                        :result => "success",
+                        :created_at => @time,
+                        :updated_at => @time
+                      })
+    @transaction_3 = Transaction.new({
+                        :id => 8,
+                        :invoice_id => 2,
+                        :credit_card_number => "4558368405929183",
+                        :credit_card_expiration_date => "0417",
+                        :result => "failed",
+                        :created_at => @time,
+                        :updated_at => @time
+                      })
+    @transaction_4 = Transaction.new({
+                        :id => 9,
+                        :invoice_id => 3,
+                        :credit_card_number => "4558368405929183",
+                        :credit_card_expiration_date => "0417",
+                        :result => "failed",
+                        :created_at => @time,
+                        :updated_at => @time
+                      })
+    @invoice_items = [@invoice_item_1, @invoice_item_2, @invoice_item_3]
+    @transactions = [@transaction_1, @transaction_2, @transaction_3, @transaction_4]
+
+    sales_engine_2 = SalesEngine.new(@items, @merchants_2, @invoices_2, @transactions, nil, @invoice_items)
     @sales_analyst_2 = SalesAnalyst.new(sales_engine_2)
     sales_engine = SalesEngine.new(@items, @merchants, @invoices, nil, nil, nil)
     @sales_analyst = SalesAnalyst.new(sales_engine)
@@ -400,5 +464,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 84.21, stats_2
     assert_equal 10.53, stats_3
     assert_equal 100.0, percentage_total
+  end
+
+  def test_it_can_see_if_invoice_is_paid_in_full
+    assert @sales_analyst_2.invoice_paid_in_full?(2)
+    refute @sales_analyst_2.invoice_paid_in_full?(3)
+    refute @sales_analyst_2.invoice_paid_in_full?(42)
+  end
+
+  def test_it_can_return_invoice_total_amount
+    assert_equal BigDecimal.new(200.00, 5), @sales_analyst_2.invoice_total(2)
   end
 end

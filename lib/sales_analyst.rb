@@ -7,6 +7,7 @@ class SalesAnalyst
     @merchant_repo = sales_engine.merchants
     @invoice_repo = sales_engine.invoices
     @transaction_repo = sales_engine.transactions
+    @invoice_item_repo = sales_engine.invoice_items
   end
 
   def num_items_for_each_merchant
@@ -160,6 +161,29 @@ class SalesAnalyst
     invoice_num = (@invoice_repo.all.length).to_f
     invoice_status_num = (@invoice_repo.find_all_by_status(status)).length
     ((invoice_status_num / invoice_num) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repo.find_all_by_invoice_id(invoice_id)
+    if transactions.empty?
+      false
+    else
+      transactions.any? do |transaction|
+        transaction.result == :success
+      end
+    end
+  end
+
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id)
+      invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+      invoice_items = invoice_items.map do |item|
+        item.unit_price * item.quantity
+      end
+      sum(invoice_items)
+    else
+      0
+    end
   end
 
   # maths
