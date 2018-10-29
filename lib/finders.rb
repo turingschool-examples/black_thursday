@@ -1,4 +1,10 @@
 module Finders
+
+  def find_type_from_object(type, object)
+    invoices = find_invoices_from(object)
+    find_from_invoices(invoices, type)
+  end
+
   def find_invoices_from(business_data)
     class_string = business_data.class.to_s
     case class_string
@@ -8,8 +14,6 @@ module Finders
     when 'InvoiceItem', 'Transaction'
       [@invoices.find_by_id(business_data.invoice_id)]
     when 'Item'
-      require 'pry'; binding.pry
-
       invoice_items = @invoice_items.find_all_by_item_id(business_data.id)
       invoice_ids = invoice_items.map(&:invoice_id)
       @invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
@@ -19,11 +23,37 @@ module Finders
     end
   end
 
-  def find_from_invoice(invoice, classname)
-    case classname
-    when 'InvoiceItem'
-      @invoice_items.all.select {|iv_item| iv_item.invoice_id == invoice.id}
+  def find_from_invoices(invoices, class_string)
+    invoices.compact.reduce([]) do |rslt, invoice|
+      rslt += find_from_invoice(invoice, class_string)
     end
+  end
+
+  def find_from_invoice(invoice, class_string)
+    repository = get_repository(class_string)
+    case class_string
+    when 'InvoiceItem', 'Transaction'
+      repository.all.select {|iv_item| iv_item.invoice_id == invoice.id}
+    when 'Merchant', 'Customer'
+      method_name = "#{class_string.downcase}_id"
+      [repository.find_by_id(invoice.public_send(method_name))]
+    when 'Item'
+      item_ids = find_from_invoice(invoice, 'InvoiceItem').map(&:item_id).uniq
+      item_ids.collect { |item_id| repository.find_by_id(item_id) }
+    when 'Invoice'
+      [invoice]
+    end
+  end
+
+  def get_repository(class_string)
+    repository = underscore("@#{class_string}s")
+    instance_variable_get(repository)
+  end
+
+  def underscore(string)
+    string.gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    downcase
   end
 
   def revenue_from_invoice(invoice)

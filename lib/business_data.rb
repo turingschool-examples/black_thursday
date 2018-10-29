@@ -7,4 +7,8 @@ class BusinessData
     end
     true
   end
+
+  def unit_price_to_dollars
+    unit_price.round(2).to_f
+  end
 end

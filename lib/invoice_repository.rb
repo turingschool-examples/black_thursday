@@ -11,6 +11,7 @@ class InvoiceRepository < Repository
   def find_all_by_customer_id(id)
     @instances.find_all {|invoice| invoice.customer_id == id}
   end
+  
   def find_all_by_merchant_id(id)
     @instances.find_all {|invoice| invoice.merchant_id == id}
   end

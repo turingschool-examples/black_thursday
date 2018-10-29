@@ -2,10 +2,21 @@ require_relative 'test_helper'
 require_relative './test_setup'
 
 require './lib/sales_engine'
+require './test/test_data'
 
 class SalesAnalystTest < Minitest::Test
-  include TestSetup
-
+  include TestData, TestSetup
+  
+  def setup
+    make_some_test_data
+    se = SalesEngine.new(@itemr,@mr,@ir,@iir,@cr,@tr)
+    @sa = se.analyst
+  end
+  
+  def test_top_buyers_passing_number
+    @sa.top_buyers
+  end
+  
   def test_average_items_per_merchant
     setup_fixtures
     assert_equal 4.86, @sa.average_items_per_merchant
@@ -328,5 +339,12 @@ class SalesAnalystTest < Minitest::Test
 
     actual = @sa.invoice_paid_in_full?(204)
     assert_equal false, actual
+  end
+
+
+  def test_customers_with_unpaid_invoices
+    setup_big_data_set
+    actual = @sa.customers_with_unpaid_invoices
+    assert_equal 6, actual.size
   end
 end
