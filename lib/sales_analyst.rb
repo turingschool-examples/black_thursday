@@ -117,9 +117,10 @@ class SalesAnalyst
     bottom_merchants_array
   end
 
-  # def top_days_by_invoice_count
-  # On which days are invoices created at more than one standard deviation above the mean?
-  # end
+  def top_days_by_invoice_count
+  # On which days are invoices created at more than
+  # one standard deviation above the mean?
+  end
 
   # def invoice_status(status)
   # # What percentage of invoices are shipped vs pending vs returned?
