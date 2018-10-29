@@ -53,13 +53,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 350.29, sa.average_average_price_per_merchant
   end
 
-  def test_golden_items_returns_array_of_items_2_stnd_devs_above_avg
-    skip
+  def test_it_returns_average
     items = ItemRepository.new("./data/items.csv")
     merchants = MerchantRepository.new("./data/merchants.csv")
     sa = SalesAnalyst.new(items, merchants)
-    assert_equal 5, sa.golden_items.count
-    assert_instance_of Item, sa.golden_items[0]
+    array = [5, 6, 7, 8, 9, 10]
+    assert_equal 7.5, sa.average(array)
   end
 
   def test_sums_adds_elements_of_array
@@ -87,5 +86,15 @@ class SalesAnalystTest < Minitest::Test
     mean = 7.5
     assert_equal 1.87, sa.standard_deviation(array, mean)
   end
+
+  def test_golden_items_returns_array_of_items_2_stnd_devs_above_avg
+    skip
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    sa = SalesAnalyst.new(items, merchants)
+    assert_equal 5, sa.golden_items.count
+    assert_instance_of Item, sa.golden_items[0]
+  end
+
 
 end
