@@ -1,5 +1,10 @@
 module Finders
 
+  def find_type_from_object(type, object)
+    invoices = find_invoices_from(object)
+    find_from_invoices(invoices, type)
+  end
+
   def find_invoices_from(business_data)
     class_string = business_data.class.to_s
     case class_string
@@ -18,6 +23,12 @@ module Finders
     end
   end
 
+  def find_from_invoices(invoices, class_string)
+    invoices.reduce([]) do |rslt, invoice|
+      rslt += find_from_invoice(invoice, class_string)
+    end
+  end
+
   def find_from_invoice(invoice, class_string)
     repository = get_repository(class_string)
     case class_string
@@ -29,6 +40,8 @@ module Finders
     when 'Item'
       item_ids = find_from_invoice(invoice, 'InvoiceItem').map(&:item_id).uniq
       item_ids.collect { |item_id| repository.find_by_id(item_id) }
+    when 'Invoice'
+      [invoice]
     end
   end
 
