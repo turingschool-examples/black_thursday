@@ -8,9 +8,9 @@ class SalesAnalystTest < Minitest::Test
       items: './test/data/test_items.csv',
       merchants: './test/data/test_merchants.csv',
       invoices: './test/data/test_invoices.csv',
-      invoice_items: './test/data/test_invoice_items.csv',
-      transactions: './test/data/test_transactions.csv',
-      customers: './test/data/test_customers.csv'
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv',
+      customers: './data/customers.csv'
     })
     @sa = se.analyst
   end
@@ -54,16 +54,38 @@ class SalesAnalystTest < Minitest::Test
   def test_average_invoices_per_merchant
     assert_equal 10.43, @sa.average_invoices_per_merchant
   end
+
   def test_average_invoices_per_merchant_standard_deviation
     assert_equal 4.79, @sa.average_invoices_per_merchant_standard_deviation
   end
+
   def test_top_merchants_by_invoice_count
     assert_equal 0, @sa.top_merchants_by_invoice_count.size
   end
+
   def test_bottom_merchants_by_invoice_count
     assert_equal 0, @sa.bottom_merchants_by_invoice_count.size
   end
+
   def test_top_days_by_invoice_count
     assert_equal [], @sa.top_days_by_invoice_count
+  end
+
+  def test_invoice_total
+    assert_equal 21067.77, @sa.invoice_total(1)
+  end
+
+  def test_an_invoice_is_paid_in_full
+    actual = @sa.invoice_paid_in_full?(1)
+    assert_equal true, actual
+
+    actual = @sa.invoice_paid_in_full?(200)
+    assert_equal true, actual
+
+    actual = @sa.invoice_paid_in_full?(203)
+    assert_equal false, actual
+
+    actual = @sa.invoice_paid_in_full?(204)
+    assert_equal false, actual
   end
 end
