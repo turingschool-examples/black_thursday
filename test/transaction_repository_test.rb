@@ -36,7 +36,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 9, tr.find_all_by_result(:success).count
   end
 
-  def test_merchant_repo_can_create_a_transaction
+  def test_transaction_repo_can_create_a_transaction
     tr = TransactionRepository.new('./test/data/transaction_sample.csv')
     attributes = {
      invoice_id: 8,
@@ -50,18 +50,17 @@ class TransactionRepositoryTest < Minitest::Test
    transaction = tr.find_by_id(11)
    assert_equal 8, transaction.invoice_id
   end
-  
-  #
-  # def test_we_can_update_attributes_for_customer
-  #   cr = CustomerRepository.new('./test/data/customer_sample.csv')
-  #   cr.create({:first_name => 'Larry'})
-  #   cr.update(11, {:first_name => 'Larry',:last_name => 'Shiny', :updated_at => Time.now})
-  #   updated_customer = cr.find_by_id(11)
-  #   assert_equal 'Larry', updated_customer.first_name
-  #   assert_equal 'Shiny', updated_customer.last_name
-  #   assert_instance_of Time, updated_customer.updated_at
-  # end
 
 
+  def test_we_can_update_attributes_for_a_transaction
+   tr = TransactionRepository.new('./test/data/transaction_sample.csv')
+   attributes = {:result => 'failed', :credit_card_expiration_date => '0918'}
+   tr.create(attributes)
+   tr.update(11, attributes)
+   transaction = tr.find_by_id(11)
+   assert_equal 'failed', transaction.result
+   assert_equal '0918', transaction.credit_card_expiration_date
+   assert_instance_of Time, transaction.updated_at = Time.now
+  end
 
 end
