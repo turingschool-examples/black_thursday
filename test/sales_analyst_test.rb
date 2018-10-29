@@ -218,21 +218,32 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item_registered_in_month
     setup_empty_sales_engine
 
-    @se.merchants.create(id: 3, name: "Bob's Burgers")
-    @se.merchants.create(id: 4, name: "Bret's Burgers")
+    @se.merchants.create(id: 2, name: "Bart's Burgers", created_at: Time.new(2013, 11))
+    @se.merchants.create(id: 3, name: "Bob's Burgers", created_at: Time.new(2013, 10))
+    @se.merchants.create(id: 4, name: "Bret's Burgers", created_at: Time.new(2013, 10))
 
-    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
-    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
-
-    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped, created_at: Time.new(2013, 10))
-    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :pending, created_at: Time.new(2013, 11))
+    @se.items.create(id: 1, name:"burger", description: "Mmmm", merchant_id: 2)
+    @se.items.create(id: 2, name:"burger", description: "Mmmm", merchant_id: 4)
+    @se.items.create(id: 3, name:"burger", description: "Mmmm", merchant_id: 3)
+    @se.items.create(id: 4, name:"burger", description: "Mmmm", merchant_id: 3)
 
     result = @sa.merchants_with_only_one_item_registered_in_month("October")
 
     assert_equal 1, result.length
     assert_equal Merchant, result.first.class
     assert_equal 4, result.first.id
-end
+  end
+
+
+    def test_successful_invoices
+      setup_empty_sales_engine
+
+      @sa.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
+      @sa.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
+      @sa.transactions.create(id:3, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
+      @sa.successful_invoices
+    end
 
 
 end
