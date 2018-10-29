@@ -13,6 +13,7 @@ class FindersTest < Minitest::Test
 
   def test_it_can_find_invoices_from_anything
     skip
+    setup_big_data_set
     actual = @sa.find_invoices_from(@sa.merchants.all[0])
     assert_instance_of Invoice, actual[0]
     assert_equal 74, actual[0].id
@@ -52,6 +53,6 @@ class FindersTest < Minitest::Test
     actual = @sa.find_from_invoice(invoice, 'Item')
     assert_equal 8, actual.size
     assert_instance_of Item, actual[0]
-
+    
   end
 end

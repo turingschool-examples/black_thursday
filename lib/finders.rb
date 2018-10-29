@@ -20,9 +20,17 @@ module Finders
 
   def find_from_invoice(invoice, classname)
     case classname
-    when 'InvoiceItem'
-      @invoice_items.all.select {|iv_item| iv_item.invoice_id == invoice.id}
+    when 'InvoiceItem', 'Transaction'
+      repository = underscore("@#{classname}s")
+      repository = instance_variable_get(repository)
+      repository.all.select {|iv_item| iv_item.invoice_id == invoice.id}
     end
+  end
+
+  def underscore(string)
+    string.gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    downcase
   end
 
   def revenue_from_invoice(invoice)
