@@ -21,11 +21,11 @@ class SalesAnalyst
     tot_of_all_prices = @items.all.inject(0) do |sum, item|
       sum + item.unit_price_to_dollars
     end
-    (tot_of_all_prices / @items.items.count).round(2)
+    (tot_of_all_prices / @items.all.count).round(2)
   end
 
   def golden_items
-    number_set = @items.items.map do |item|
+    number_set = @items.all.map do |item|
       item.unit_price_to_dollars
     end
     std_dev = standard_deviation(number_set)
@@ -144,13 +144,6 @@ class SalesAnalyst
     (invoices_w_status / @invoices.all.count.to_f * 100).round(2)
   end
 
-
-  # sales_analyst.total_revenue_by_date(date) #=> $$
-  # Note: When calculating revenue the unit_price listed
-  #within invoice_items should be used. The
-  #invoice_item.unit_price represents the final sale
-  #price of an item after sales, discounts or other
-  #intermediary price changes.
   def total_price_per_day(date)
     by_date = @invoice_item.find_all do |item|
       item.created_at == date
@@ -162,9 +155,10 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-     transaction_by_invoice = @transactions.find_by_id(invoice_id).all? do |transaction|
-        transaction.result == :success
-     end
+    return false if @transactions.find_all_by_invoice_id(invoice_id) == []
+    @transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+      transaction.result == :success
+    end
   end
 
   def invoice_total(invoice_id)

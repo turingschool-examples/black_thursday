@@ -11,17 +11,13 @@ class ItemRepository < Repository
     @collection[item.id] = item
   end
 
-  def items
-    @collection.values
-  end
-
   def create(attributes)
     attributes[:id] = find_new_id
     add_item(Item.new(attributes))
   end
 
   def find_all_by_price_in_range(range)
-    @collection.values.select do |item|
+    all.select do |item|
       item.unit_price_to_dollars >= range.min && item.unit_price_to_dollars <= range.max
     end
   end
@@ -36,19 +32,19 @@ class ItemRepository < Repository
   end
 
   def find_all_by_merchant_id(id)
-    @collection.values.select do |item|
+    all.select do |item|
       item.merchant_id == id
     end
   end
 
   def find_all_with_description(description)
-    @collection.values.find_all do |collection|
+    all.find_all do |collection|
       collection.description.downcase == description.downcase
     end
   end
 
   def find_all_by_price(price)
-    @collection.values.find_all do |collection|
+    all.find_all do |collection|
       collection.unit_price_to_dollars == price
     end
   end

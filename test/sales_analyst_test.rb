@@ -258,15 +258,14 @@ class SalesAnalystTest < Minitest::Test
     # @ii.add_item(@invoice_item_6)
     # @ii.add_item(@invoice_item_7)
     ############ REMOVE AT SOME POINT ##############
-    @se_real = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :transactions => "./data/transactions.csv",
-      :invoice_items => "./data/invoice_items.csv"
-    })
-    @sa_real = @se_real.analyst
-    binding.pry
+    # @se_real = SalesEngine.from_csv({
+    #   :items     => "./data/items.csv",
+    #   :merchants => "./data/merchants.csv",
+    #   :invoices => "./data/invoices.csv",
+    #   :transactions => "./data/transactions.csv",
+    #   :invoice_items => "./data/invoice_items.csv"
+    # })
+    # @sa_real = @se_real.analyst
     ################################################@
   end
 
