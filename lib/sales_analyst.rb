@@ -28,6 +28,10 @@ class SalesAnalyst
     sum_squared_differences/array.count
   end
 
+  def standard_deviation(array, mean)
+     Math.sqrt(variance(array)/(array.count-1).round(2)
+  end
+
   def average_items_per_merchant_standard_deviation
     items_per_merchant_array = items_by_merchant.values
     items_count = items_per_merchant_array.map do |items|
