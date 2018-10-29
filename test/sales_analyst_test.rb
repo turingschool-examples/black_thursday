@@ -258,13 +258,14 @@ class SalesAnalystTest < Minitest::Test
     # @ii.add_item(@invoice_item_6)
     # @ii.add_item(@invoice_item_7)
     ############ REMOVE AT SOME POINT ##############
-    # @se_real = SalesEngine.from_csv({
-    #   :items     => "./data/items.csv",
-    #   :merchants => "./data/merchants.csv",
-    #   :invoices => "./data/invoices.csv",
-    #   :transactions => "./data/transactions.csv"
-    # })
-    # @sa_real = @se_real.analyst
+    @se_real = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv",
+      :invoice_items => "./data/invoice_items.csv"
+    })
+    @sa_real = @se_real.analyst
     ################################################
   end
 
@@ -352,7 +353,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_you_can_calculate_invoice_total
-    assert_instance_of BigDecimal, @sa.invoice_total(1)
+    assert_equal 21067.77, @sa_real.invoice_total(1)
+    assert_instance_of BigDecimal, @sa_real.invoice_total(1)
   end
 
 end

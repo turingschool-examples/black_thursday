@@ -1,6 +1,7 @@
 require 'csv'
 require 'pry'
 require 'time'
+
 module CSVReader
   def self.parse_merchants(mr, file_path)
     skip_first_line = true
