@@ -36,8 +36,8 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_price
    ir = ItemRepository.new("./test/data/item_sample.csv")
-   assert_instance_of Item, ir.find_all_by_price(1200).first
-   assert_equal '1200', ir.find_all_by_price(1200).first.to_i
+   price = BigDecimal(12,4)
+   assert_equal 1, ir.find_all_by_price(price).length
   end
 
   def test_it_returns_array_of_items_priced_within_givin_range

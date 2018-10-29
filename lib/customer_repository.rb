@@ -1,5 +1,5 @@
-require_relative './customer'
 require_relative './repository'
+require_relative './customer'
 
 class CustomerRepository < Repository
 
@@ -28,7 +28,7 @@ class CustomerRepository < Repository
   def update(id, attributes)
     customer = find_by_id(id)
     return customer if customer.nil?
-    customer.name = attributes[:first_name] unless attributes[:first_name].nil?
+    customer.first_name = attributes[:first_name] unless attributes[:first_name].nil?
     customer.last_name = attributes[:last_name] unless attributes[:last_name].nil?
     customer.updated_at = Time.now
   end

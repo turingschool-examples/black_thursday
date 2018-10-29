@@ -31,7 +31,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal BigDecimal.new(10.99,4), @i.unit_price
+    assert_equal BigDecimal.new(1), @i.unit_price
   end
 
   def test_it_has_created_at
@@ -47,7 +47,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_converts_unit_price_to_dollars
-    assert_equal 10.99, @i.unit_price_to_dollars
+    assert_equal 0.1, @i.unit_price_to_dollars
   end
 
 end

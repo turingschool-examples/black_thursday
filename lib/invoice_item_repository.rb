@@ -1,7 +1,6 @@
 require_relative './repository'
 require_relative './invoice_item'
 
-
 class InvoiceItemRepository < Repository
 
   def new_record(row)

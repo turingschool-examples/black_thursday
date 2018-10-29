@@ -96,28 +96,30 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     top_merchants_array = []
-    two_deviations_above_mean = (average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant)
-    invoices_per_merchant_array = @merchants.map do |m|
-        merchant_invoice_list(m).count
-    end
-      invoices_per_merchant_array.each do |n|
-        if  n > two_deviations_above_mean
-          top_merchants_array << n
+    two_deviations_above_mean = average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant
+    @merchants.each do |m|
+        if  merchant_invoice_list(m).count > two_deviations_above_mean
+           top_merchants_array << m
         end
-      end
-      # this needs to be outputting merchant instances or names... not sure...
-      # not just the number of invoices
     end
-  #end
+    top_merchants_array
+  end
 
-  # def bottom_merchants_by_invoice_count
-  #    #Which merchants are more than two standard deviations below the mean?
+  def bottom_merchants_by_invoice_count
+    bottom_merchants_array = []
+    two_deviations_below_mean = average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2
+    @merchants.each do |m|
+        if  merchant_invoice_list(m).count < two_deviations_below_mean
+           bottom_merchants_array << m
+        end
+    end
+    bottom_merchants_array
+  end
 
-  # end
-
-  # def top_days_by_invoice_count
-  # On which days are invoices created at more than one standard deviation above the mean?
-  # end
+  def top_days_by_invoice_count
+  # On which days are invoices created at more than
+  # one standard deviation above the mean?
+  end
 
   # def invoice_status(status)
   # # What percentage of invoices are shipped vs pending vs returned?
@@ -128,16 +130,19 @@ class SalesAnalyst
   # end
 
 
-  def invoice_paid_in_full?(trans_id)
-      transaction_match = @transactions.find do |transaction|
-        transaction.id == trans_id
+  def invoice_paid_in_full?(invoice_id)
+      transaction_match = @transactions.find_all do |transaction|
+        transaction.invoice_id == invoice_id
       end
-      if transaction_match.result == :success
-        true
-      else
-        false
+      transaction_match.any? do |transaction|
+        transaction.result==:success
       end
   end
+
+ #  def invoice_paid_in_full?(invoice_id)
+ #   transactions = @parent.transactions.find_all_by_invoice_id(invoice_id)
+ #   transactions.any? { |transaction| transaction.result == :success }
+ # end
 
   def invoice_total(invoice_id)
     invoice_items = @invoice_items.find_all do |transaction|
@@ -146,9 +151,6 @@ class SalesAnalyst
     invoice_items.inject(0.0) do |sum, invoice_item|
       sum + (invoice_item.unit_price * invoice_item.quantity)
     end
-
   end
 
-
 end
-# use #all method?
