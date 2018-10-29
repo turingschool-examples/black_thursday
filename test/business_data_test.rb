@@ -1,8 +1,7 @@
+require_relative 'test_helper'
 require './lib/business_data'
 require './lib/item'
 require 'bigdecimal'
-require 'minitest/autorun'
-require 'minitest/pride'
 
 class BusinessDataTest < Minitest::Test
   def setup

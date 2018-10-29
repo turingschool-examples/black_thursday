@@ -1,4 +1,4 @@
-require './test/test_helper'
+require_relative 'test_helper'
 require './lib/transaction_repository'
 require './lib/transaction'
 
@@ -11,7 +11,7 @@ class TransactionRepositoryTest < Minitest::Test
       :invoice_id => 8,
       :credit_card_number => "3232323232323232",
       :credit_card_expiration_date => "0220",
-      :result => "success",
+      :result => :success,
       :created_at => @now,
       :updated_at => @now
     }
@@ -22,7 +22,7 @@ class TransactionRepositoryTest < Minitest::Test
       :invoice_id => 8,
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
-      :result => "failure",
+      :result => :failed,
       :created_at => @now,
       :updated_at => @now
     }
@@ -32,7 +32,7 @@ class TransactionRepositoryTest < Minitest::Test
       :invoice_id => 8,
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
-      :result => "success",
+      :result => :success,
       :created_at => @now,
       :updated_at => @now
     }
@@ -61,7 +61,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_find_all_by_credit_card_number_returns_empty_array_when_no_matches
     create_transactions
 
-    assert_equal [], @tr.test_find_all_by_credit_card_number("4848484848484848")
+    assert_equal [], @tr.find_all_by_credit_card_number("4848484848484848")
   end
 
   def test_find_all_by_credit_card_number_returns_matching_transactions
@@ -69,19 +69,25 @@ class TransactionRepositoryTest < Minitest::Test
 
     expected = [Transaction.new(@tr_2), Transaction.new(@tr_3)]
 
-    assert_equal expected, @tr.test_find_all_by_credit_card_number("4242424242424242")
+    assert_equal expected, @tr.find_all_by_credit_card_number("4242424242424242")
   end
 
   def test_find_all_by_result_returns_empty_array_when_no_matches
     create_transactions
 
-    assert_equal [], @tr.test_find_all_by_result("purgatory")
+    assert_equal [], @tr.find_all_by_result("purgatory")
   end
 
-  def test_find_all_by_credit_card_number_returns_matching_transactions
+  def test_find_all_by_result_returns_matching_transactions
     create_transactions
 
-    assert_equal [Transaction.new(@tr_2)],
-    @tr.test_find_all_by_result("failure")
+    assert_equal [Transaction.new(@tr_2)], @tr.find_all_by_result(:failed)
+  end
+
+  def test_any_success
+    create_transactions
+
+    assert @tr.any_success?(8)
+    refute @tr.any_success?(3)
   end
 end

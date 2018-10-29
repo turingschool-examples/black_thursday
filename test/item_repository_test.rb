@@ -1,7 +1,6 @@
+require_relative 'test_helper'
 require './lib/item_repository'
 require './lib/item'
-require 'minitest/autorun'
-require 'minitest/pride'
 require 'bigdecimal'
 
 class ItemRepositoryTest < Minitest::Test
@@ -246,5 +245,9 @@ class ItemRepositoryTest < Minitest::Test
     }
 
     assert Item.new(updated_item_2) == @ir.find_by_id(2)
+  end
+
+  def test_find_all_items_by_date
+    #######
   end
 end
