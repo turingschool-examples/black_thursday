@@ -4,8 +4,6 @@ require './lib/item'
 require './lib/item_repository'
 require './lib/transaction'
 require './lib/transaction_repository'
-require './lib/invoice_item'
-require './lib/invoice_repository'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -147,41 +145,7 @@ class SalesAnalystTest < Minitest::Test
     @tr.add_transaction(@tran_2)
     @tr.add_transaction(@tran_3)
 
-    @invoice_item_1 = InvoiceItem.new({
-      :id          => 6,
-      :item_id     => 263539664,
-      :invoice_id  => 1,
-      :quantity    => 5,
-      :unit_price  => BigDecimal(52100, 5),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
-
-    @invoice_item_2 = InvoiceItem.new({
-      :id          => 7,
-      :item_id     => 263563764,
-      :invoice_id  => 1,
-      :quantity    => 4,
-      :unit_price  => BigDecimal(66747, 5),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
-
-    @invoice_item_3 = InvoiceItem.new({
-      :id          => 8,
-      :item_id     => 263432817,
-      :invoice_id  => 1,
-      :quantity    => 6,
-      :unit_price  => BigDecimal(76941, 5),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
-    @iir = InvoiceItemRepository.new
-    @iir.add_invoice_item(@invoice_item_1)
-    @iir.add_invoice_item(@invoice_item_2)
-    @iir.add_invoice_item(@invoice_item_3)
-
-    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr, invoice_items: @iir })
+    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr})
     @sa = @se.analyst
     @invoice_item_1 = Item.new({
           :id          => 2,
@@ -258,15 +222,14 @@ class SalesAnalystTest < Minitest::Test
     # @ii.add_item(@invoice_item_6)
     # @ii.add_item(@invoice_item_7)
     ############ REMOVE AT SOME POINT ##############
-    # @se_real = SalesEngine.from_csv({
-    #   :items     => "./data/items.csv",
-    #   :merchants => "./data/merchants.csv",
-    #   :invoices => "./data/invoices.csv",
-    #   :transactions => "./data/transactions.csv",
-    #   :invoice_items => "./data/invoice_items.csv"
-    # })
-    # @sa_real = @se_real.analyst
-    ################################################@
+    @se_real = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv"
+    })
+    @sa_real = @se_real.analyst
+    ################################################
   end
 
   def test_average_items_per_merchant
@@ -342,19 +305,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
-  # def test_it_can_find_all_by_date
-  #   @sa.total_unit_price_by_date(date) #=> $$
-  #   sum(@ii.unit_price)
-  # end
+  def test_it_can_find_all_by_date
+    @sa.total_unit_price_by_date(date) #=> $$
+    sum(@ii.unit_price)
+  end
 
   def test_it_can_check_if_invoice_is_paid_in_full
     assert_equal true, @sa.invoice_paid_in_full?(3345)
     assert_equal false, @sa.invoice_paid_in_full?(335)
   end
 
-  def test_you_can_calculate_invoice_total
-    assert_equal BigDecimal(989134, 6), @sa.invoice_total(1)
-    assert_instance_of BigDecimal, @sa.invoice_total(1)
+  def test_it_can_get_total_revenue_by_date
+    date = Time.parse("2009-02-07")
+    actual = @sa_real.total_revenue_by_date(date) #=> $$
+    assert_equal 21067.77, actual
+    assert_instance_of BigDecimal, actual
   end
-
 end
