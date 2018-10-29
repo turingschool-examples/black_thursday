@@ -285,6 +285,15 @@ class SalesAnalystTest < Minitest::Test
                         :created_at => @time,
                         :updated_at => @time
                       })
+    @transaction_3 = Transaction.new({
+                        :id => 9,
+                        :invoice_id => 3,
+                        :credit_card_number => "4558368405929183",
+                        :credit_card_expiration_date => "0417",
+                        :result => "failed",
+                        :created_at => @time,
+                        :updated_at => @time
+                      })
     @invoice_items = [@invoice_item_1, @invoice_item_2, @invoice_item_3]
     @transactions = [@transaction_1, @transaction_2, @transaction_3]
 
@@ -458,12 +467,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_see_if_invoice_is_paid_in_full
-    assert @sales_analyst.invoice_paid_in_full?(1)
-    refute @sales_engine.invoice_paid_in_full?(2)
-    refute @sales_engine.invoice_paid_in_full(42)
+    assert @sales_analyst_2.invoice_paid_in_full?(2)
+    refute @sales_analyst_2.invoice_paid_in_full?(3)
+    refute @sales_analyst_2.invoice_paid_in_full?(42)
   end
 
   def test_it_can_return_invoice_total_amount
+    skip
     assert_equal BigDecimal.new(25.00), @sales_analyst.invoice_total(1)
   end
 end

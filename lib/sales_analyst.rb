@@ -162,6 +162,17 @@ class SalesAnalyst
     ((invoice_status_num / invoice_num) * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repo.find_all_by_invoice_id(invoice_id)
+    if transactions.empty?
+      false
+    else
+      transactions.any? do |transaction|
+        transaction.result == :success
+      end
+    end
+  end
+
   # maths
 
   def sum(nums)
