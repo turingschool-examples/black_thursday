@@ -22,4 +22,6 @@ class InvoiceRepository < Repository
   def find_all_by_date(date)
     @instances.find_all {|invoice| invoice.created_at.to_date == date.to_date}
   end
+
+  
 end

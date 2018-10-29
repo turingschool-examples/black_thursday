@@ -28,7 +28,7 @@ module Finders
   end
 
   def revenue_from_invoice(invoice)
-    return 0 unless @transactions.any_success?(invoice_id)
+    return 0 unless @transactions.any_success?(invoice.id)
     invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
     return 0 if invoice_items.empty?
     invoice_items.flatten.map(&:revenue).reduce(&:+)

@@ -242,7 +242,10 @@ class SalesAnalystTest < Minitest::Test
       @sa.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
       @sa.transactions.create(id:3, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
-      @sa.successful_invoices
+      actual = @sa.successful_invoices
+      assert_instance_of Invoice, actual[0]
+      assert_equal 1, actual.size
+      assert_equal 1, actual[0].id
     end
 
 

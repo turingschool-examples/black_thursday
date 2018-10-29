@@ -117,11 +117,11 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    # return @merchants.all if @merchants.sorted == true
-    # @merchants.sorted = true
-    # @merchants.instances = @merchants.all.sort_by { |merchant|
-    #   revenue_by_merchant(merchant.id)
-    # }.reverse
+    return @merchants.all if @merchants.sorted == true
+    @merchants.sorted = true
+    @merchants.instances = @merchants.all.sort_by { |merchant|
+      revenue_by_merchant(merchant.id)
+    }.reverse
   end
 
   def merchants_with_pending_invoices
@@ -152,9 +152,7 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    best_invoice_item = @invoices.select do |invoice|
-      @transactions.any_success?(invoice.id)
-    end.find_all_by_merchant_id.collect do |invoice|
+    best_invoice_item = collect do |invoice|
       find_from_invoice(invoice, 'InvoiceItem')
     end.flatten.max_by do |invoice_item|
       invoice_item.revenue
@@ -179,4 +177,11 @@ class SalesAnalyst
       sum
     end
   end
+
+  def successful_invoices
+    @invoices.all.select do |invoice|
+      @transactions.any_success?(invoice.id)
+    end
+  end
+
 end
