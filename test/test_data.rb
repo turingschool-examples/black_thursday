@@ -8,6 +8,7 @@ require './lib/item_repository'
 require './lib/item'
 require './lib/merchant_repository'
 require './lib/merchant'
+require './lib/transaction_repository'
 require 'bigdecimal'
 
 module TestData
@@ -19,9 +20,13 @@ module TestData
     @ir = InvoiceRepository.new
     @iir = InvoiceItemRepository.new
     @itemr = ItemRepository.new
+    @tr = TransactionRepository.new
 
     @m_1 = Merchant.new({id: 10, name: "Bettys Beans"})
     @m_1 = Merchant.new({id: 11, name: "Freds Fireworks"})
+
+    @mr.instances << @m_1
+    @mr.instances << @m_2
 
     @c_1 = Customer.new({
       :id => 1,
