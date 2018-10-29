@@ -6,17 +6,17 @@ require './test/test_data'
 
 class SalesAnalystTest < Minitest::Test
   include TestData, TestSetup
-  
+
   def setup
     make_some_test_data
     se = SalesEngine.new(@itemr,@mr,@ir,@iir,@cr,@tr)
     @sa = se.analyst
   end
-  
+
   def test_top_buyers_passing_number
     @sa.top_buyers
   end
-  
+
   def test_average_items_per_merchant
     setup_fixtures
     assert_equal 4.86, @sa.average_items_per_merchant
@@ -323,6 +323,8 @@ class SalesAnalystTest < Minitest::Test
     #
     # result = @sa.merchants_with_only_one_item_registered_in_month("June")
     # assert_equal 18, result.length
+  end
+  
   def test_invoice_total
     assert_equal 21067.77, @sa.invoice_total(1)
   end

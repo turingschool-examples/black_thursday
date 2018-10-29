@@ -2,12 +2,16 @@ require "pry"
 
 require_relative 'statistics'
 require_relative 'finders'
+require_relative 'customer_intelligence'
 require 'date'
 
 class SalesAnalyst
   include Statistics
   include Finders
+  include CustomerIntelligence
+
   attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions
+
   def initialize(items, merchants, invoices, invoice_items, customers, transactions)
     @items = items
     @merchants = merchants
@@ -30,7 +34,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    items_per_each_merchant = @items.all.group_by{|item|item.merchant_id}.map{|k,v|v.size}
+    items_per_each_merchant = @items.all.group_by{ |item| item.merchant_id }.map{ |k,v| v.size }
     standard_deviation(*items_per_each_merchant).round(2)
   end
 
@@ -212,7 +216,7 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    transactions = transactions.find_all_by_invoice_id(invoice_id)
+    transactions = @transactions.find_all_by_invoice_id(invoice_id)
     return false if transactions == []
     paid_in_full = true
     transactions.each do |transaction|
@@ -237,20 +241,11 @@ class SalesAnalyst
   #   invoice_items.all.group_by {|invoice_item| invoice_item.invoice_id}
   # end
 
-  def invoices_grouped_by_customer_id
-    invoices.all.group_by {|invoice| invoice.customer_id}
-  end
-
   def get_invoices_and_total_revenue
     invoice_items_grouped_by_invoice_id.reduce({}) do |hash, (invoice, items)|
       hash[invoice] = sum_invoice_items_revenue(items)
       hash
     end
-  end
-
-  def get_customer_from_invoice_id(id)
-    invoice = invoices.find_by_id(id)
-    customers.find_by_id(invoice.customer_id)
   end
 
   def get_total_from_all_invoice_items_for(invoice_id)
@@ -271,27 +266,6 @@ class SalesAnalyst
       all_success = false if transaction.result != :success
       all_success
     end
-  end
-
-  def top_buyers(n = 20)
-    customers_and_invoices = invoices_grouped_by_customer_id
-    customers_and_amounts = customers_and_invoices.reduce({}) do |hash, (id, invoices)|
-      total = invoices.reduce(0) do |sum, invoice|
-        one_success = at_least_one_succesful_transaction?(invoice.id)
-        sum += get_total_from_all_invoice_items_for(invoice.id) if one_success
-        sum
-      end
-      hash[customers.find_by_id(id)] = total
-      hash
-    end
-    sorted_c_and_a = customers_and_amounts.sort do |(customer_a, spent_a),(customer_b, spent_b)|
-      spent_b <=> spent_a
-    end
-    top_customers = sorted_c_and_a.reduce([]) do |top, (customer, amount)|
-      top << customer
-      top
-    end
-    top_customers.slice(0, n)
   end
 
   def get_item_count_for(invoice_id)
@@ -327,33 +301,6 @@ class SalesAnalyst
     top_invoice_items
   end
 
-  def top_merchant_for_customer(customer_id)
-    invoices_for_customer = invoices.find_all_by_customer_id(customer_id)
-    top_invoice = nil
-    invoices_for_customer.reduce(0) do |top_item_count, invoice|
-      one_success = at_least_one_succesful_transaction?(invoice.id)
-      next top_item_count unless one_success
-      invoice_item_count = get_item_count_for(invoice.id)
-      if invoice_item_count > top_item_count
-        top_invoice = invoice
-        top_item_count = invoice_item_count
-      end
-      top_item_count
-    end
-    merchants.find_by_id(top_invoice.merchant_id)
-  end
-
-  def one_time_buyers
-    customers_and_invoices = invoices_grouped_by_customer_id
-    one_timers = customers_and_invoices.find_all do |customer, invoices|
-      invoices.length == 1
-    end
-    one_timers.reduce([]) do |broke_customers, (id, invoice)|
-      broke_customers << customers.find_by_id(id)
-      broke_customers
-    end
-  end
-
   def find_highest_transaction_count_for(top_invoice_items)
     top_invoice_items.reduce(0) do |highest, invoice_item|
       current = get_transaction_count_for(invoice_item)
@@ -383,46 +330,6 @@ class SalesAnalyst
     transactions.find_all_by_invoice_id(invoice_item.invoice_id).count
   end
 
-  def one_time_buyers_top_item
-    top_invoice_items = []
-    one_time_buyers.reduce(0) do |top_item_count, one_timer|
-      invoice = invoices.find_all_by_customer_id(one_timer.id)[0]
-      next top_item_count unless all_transactions_successful_for?(invoice.id)
-      current_top_invoice_item = get_top_invoice_item_for(invoice.id)
-      if current_top_invoice_item.quantity >= top_item_count
-        top_item_count = current_top_invoice_item.quantity
-        top_invoice_items << current_top_invoice_item
-      end
-      top_item_count
-    end
-    top_transaction_count = find_highest_transaction_count_for(top_invoice_items)
-    highest_by_transaction_count = top_invoice_items.reduce([]) do |top, invoice_item|
-      current_transaction_count = get_transaction_count_for(invoice_item)
-      top << invoice_item if current_transaction_count >= top_transaction_count
-      top
-    end
-    first_item = highest_by_transaction_count.first
-    items.find_by_id(first_item.item_id)
-  end
-
-  def highest_volume_items(customer_id)
-    all_invoices = invoices.find_all_by_customer_id(customer_id)
-    top_quantity = find_highest_quantity_for(all_invoices)
-    all_invoices.reduce([]) do |top_i, invoice|
-      invoice_items = get_top_invoice_items_for(invoice.id)
-      invoice_items.each do |invoice_item|
-        if invoice_item.quantity == top_quantity
-          top_i << items.find_by_id(invoice_item.item_id)
-        end
-      end
-      top_i
-    end
-  end
-
-  def customers_with_unpaid_invoices
-    find_from_invoices(unsuccessful_invoices, "Customer").uniq
-  end
-
   def best_invoice_by_quantity
     successful_invoices.max_by{|invoice| quantity_of_invoice(invoice)}
   end
@@ -445,13 +352,4 @@ class SalesAnalyst
   def unsuccessful_invoices
     @invoices.all - successful_invoices
   end
-
-  def items_bought_in_year(customer_id, year)
-    invoices_in_year = @invoices.find_all_by_customer_id(customer_id).select { |invoice| invoice.created_at.year == year}
-    item_ids = invoices_in_year.map do |invoice|
-      @invoice_items.find_all_by_invoice_id(invoice.id).map { |invoice_item| invoice_item.item_id}
-    end.flatten.uniq.compact
-    item_ids.map { |item_id| @items.find_by_id(item_id) }
-  end
-
 end

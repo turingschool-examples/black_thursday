@@ -67,6 +67,7 @@ module Finders
     amounts = invoices.reduce([]) do |arr, invoice|
       arr << revenue_from_invoice(invoice)
     end
-    amounts.reduce(&:+)
+    result = amounts.reduce(&:+)
+    result ? result : 0
   end
 end
