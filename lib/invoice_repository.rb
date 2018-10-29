@@ -30,11 +30,4 @@ class InvoiceRepository < Repository
     invoice
   end
 
-  def find_all_by_updated_at(date)
-    @all.find_all do |invoice|
-      invoice.updated_at == date
-    end
-  end
-
-
 end

@@ -68,8 +68,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal nil, @ir.find_by_id(13)
   end
 
-  def test_it_can_find_all_by_updated_at
-    date = Time.parse("2014-03-15")
-    assert_instance_of Invoice, @ir.find_all_by_updated_at(date).first
-  end
 end

@@ -149,7 +149,12 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-
+     invoices_for_date = @invoices.find_all do |invoice|
+      invoice.created_at == date && invoice_paid_in_full?(invoice.id)
+    end
+    invoices_for_date.inject(0) do |sum, invoice|
+      sum += invoice_total(invoice.id)
+    end
   end
 
 end
