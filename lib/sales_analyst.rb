@@ -300,7 +300,6 @@ class SalesAnalyst
       top_items << invoice_item if current_quantity >= top_quantity
       top_items
     end
-    # binding.pry
     top_invoice_items
   end
 
@@ -317,7 +316,6 @@ class SalesAnalyst
       end
       top_item_count
     end
-    # binding.pry
     merchants.find_by_id(top_invoice.merchant_id)
   end
 
@@ -367,7 +365,6 @@ class SalesAnalyst
       invoice = invoices.find_all_by_customer_id(one_timer.id)[0]
       next top_item_count unless all_transactions_successful_for?(invoice.id)
       current_top_invoice_item = get_top_invoice_item_for(invoice.id)
-      # binding.pry
       if current_top_invoice_item.quantity >= top_item_count
         top_item_count = current_top_invoice_item.quantity
         top_invoice_items << current_top_invoice_item
@@ -380,7 +377,6 @@ class SalesAnalyst
       top << invoice_item if current_transaction_count >= top_transaction_count
       top
     end
-    # binding.pry
     first_item = highest_by_transaction_count.first
     items.find_by_id(first_item.item_id)
   end
@@ -395,8 +391,16 @@ class SalesAnalyst
           top_i << items.find_by_id(invoice_item.item_id)
         end
       end
-      # binding.pry
       top_i
     end
   end
+
+  def items_bought_in_year(customer_id, year)
+    invoices_in_year = @invoices.find_all_by_customer_id(customer_id).select { |invoice| invoice.created_at.year == year}
+    item_ids = invoices_in_year.map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id).map { |invoice_item| invoice_item.item_id}
+    end.flatten.uniq.compact
+    item_ids.map { |item_id| @items.find_by_id(item_id) }
+  end
+
 end
