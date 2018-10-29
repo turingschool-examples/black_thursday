@@ -23,5 +23,5 @@ class InvoiceRepository < Repository
     @instances.find_all {|invoice| invoice.created_at.to_date == date.to_date}
   end
 
-  
+
 end

@@ -1,5 +1,7 @@
 require_relative 'statistics'
 require_relative 'finders'
+require 'date'
+
 class SalesAnalyst
   include Statistics
   include Finders
@@ -29,6 +31,7 @@ class SalesAnalyst
     items_per_each_merchant = @items.all.group_by{|item|item.merchant_id}.map{|k,v|v.size}
     standard_deviation(*items_per_each_merchant).round(2)
   end
+
   def average_invoices_per_merchant_standard_deviation
     invoices_per_each_merchant = @invoices.all.group_by{|iv|iv.merchant_id}.map{|k,v|v.size}
     standard_deviation(*invoices_per_each_merchant).round(2)
@@ -40,12 +43,14 @@ class SalesAnalyst
       num_items_of_merchant(merchant) > average_items_per_merchant + temp_sd
     end
   end
+
   def top_merchants_by_invoice_count
     temp_sd = average_invoices_per_merchant_standard_deviation
     @merchants.all.select do |merchant|
       num_invoices_of_merchant(merchant) > average_invoices_per_merchant + temp_sd * 2
     end
   end
+
   def bottom_merchants_by_invoice_count
     temp_sd = average_invoices_per_merchant_standard_deviation
     @merchants.all.select do |merchant|
@@ -125,11 +130,25 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-
+    invoices = @invoices.find_all_by_status(:pending)
+    # invoices.each do |invoice|
+    #   transactions = @transactions.find_all_by_invoice_id(invoice.id)
+    #   transactions.each do |transaction|
+    #     if transaction.result == :failed
+    #       invoices.delete(invoice)
+    #     end
+    #   end
+    # end
+    invoices
   end
 
   def merchants_with_only_one_item
-
+    @merchants.all.select do |merchant|
+      @items.all.one? do |item|
+        # require 'pry'; binding.pry
+        item.merchant_id == merchant.id
+      end
+    end
   end
 
   def merchants_with_only_one_item_registered_in_month(month)

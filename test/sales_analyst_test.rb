@@ -147,7 +147,7 @@ class SalesAnalystTest < Minitest::Test
     @se.merchants.create(id: 3, name: "Bob's Burgers")
     @se.merchants.create(id: 4, name: "JC")
 
-    @se.items.create(id: 1, name: 'burger', merchant_id: '3', unit_price: BigDecimal(500), merchant_id: 3)
+    @se.items.create(id: 1, name: 'burger', unit_price: BigDecimal(500), merchant_id: '3')
     @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
     @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
 
@@ -189,6 +189,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual[-1]
   end
 
+<<<<<<< HEAD
   def test_revenue_by_date
     setup_empty_sales_engine
     time = Time.parse('2014-03-04')
@@ -248,5 +249,69 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 1, actual[0].id
     end
 
+=======
+  def test_merchants_with_pending_invoices
+    setup_empty_sales_engine
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "JC")
+    @se.merchants.create(id: 5, name: "Bret's Blubber")
 
+    @se.items.create(id: 1, name: 'burger', unit_price: BigDecimal(500), merchant_id: '3')
+    @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
+    @se.items.create(id: 3, name: 'blubber', unit_price: BigDecimal(5000), merchant_id: '5')
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 5, status: :pending)
+
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
+    @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 2, unit_price: BigDecimal(5000), quantity: 1)
+
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
+    result = @sa.merchants_with_pending_invoices
+
+    assert_equal 1, result.length
+  end
+>>>>>>> 2bebb8de53ca1f56cead7cfae84b8293cf4c1849
+
+  def test_merchants_with_only_one_item
+    setup_empty_sales_engine
+
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "JC")
+
+    @se.items.create(id: 1, name: 'burger', unit_price: BigDecimal(500), merchant_id: 3)
+    @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
+    @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
+
+    result = @sa.merchants_with_only_one_item
+    assert_equal 1, result.length
+    assert_equal 3, result[0].id
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    setup_empty_sales_engine
+
+    @se.merchants.create(id: 3, name: "Bob's Burgers")
+    @se.merchants.create(id: 4, name: "Bret's Burgers")
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped, created_at: Time.new(2013, 10))
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :pending, created_at: Time.new(2013, 11))
+
+    result = @sa.merchants_with_only_one_item_registered_in_month("October")
+
+    assert_equal 1, result.length
+    assert_equal Merchant, result.first.class
+    assert_equal 4, result.first.id
+    # setup_big_data_set
+    #
+    # result = @sa.merchants_with_only_one_item_registered_in_month("March")
+    # assert_equal 21, result.length
+    #
+    # result = @sa.merchants_with_only_one_item_registered_in_month("June")
+    # assert_equal 18, result.length
+  end
 end
