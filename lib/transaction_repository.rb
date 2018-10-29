@@ -20,4 +20,8 @@ class TransactionRepository < Repository
   def find_all_by_invoice_id(invoice_id)
     @instances.find_all { |transaction| transaction.invoice_id == invoice_id}
   end
+
+  def any_success?(invoice_id)
+    find_all_by_invoice_id(invoice_id).any?{|tr| tr.result == :success}
+  end
 end
