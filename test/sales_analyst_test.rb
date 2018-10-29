@@ -86,7 +86,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 20,
                 :merchant_id => 10,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-08",
                 :updated_at  => @time
               })
     @invoice_3 = Invoice.new({
@@ -94,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 30,
                 :merchant_id => 7,
                 :status      => "returned",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-09",
                 :updated_at  => @time
               })
     @invoice_4 = Invoice.new({
@@ -102,7 +102,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 5,
                 :status      => "returned",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-10",
                 :updated_at  => @time
               })
     @invoice_5 = Invoice.new({
@@ -110,7 +110,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-11",
                 :updated_at  => @time
               })
     @invoice_6 = Invoice.new({
@@ -118,7 +118,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-12",
                 :updated_at  => @time
               })
     @invoice_7 = Invoice.new({
@@ -126,7 +126,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-13",
                 :updated_at  => @time
               })
     @invoice_8 = Invoice.new({
@@ -229,17 +229,14 @@ class SalesAnalystTest < Minitest::Test
 
     @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5]
     @invoices_2 = [@invoice_1, @invoice_2, @invoice_3, @invoice_4,
-      @invoice_5, @invoice_6, @invoice_7, @invoice_8, @invoice_9, @invoice_10,
-      @invoice_11, @invoice_12, @invoice_13, @invoice_14, @invoice_15, @invoice_16,
-      @invoice_17, @invoice_18, @invoice_19]
-    mr = MerchantRepository.new(@merchants)
-    mr_2 =MerchantRepository.new(@merchants_2)
-    ir = ItemRepository.new(@items)
-    invoice_repo = InvoiceRepository.new(@invoices)
-    invoice_repo_2 = InvoiceRepository.new(@invoices_2)
-    @sales_analyst_2 = SalesAnalyst.new(ir, mr_2, invoice_repo_2)
-    transaction_repo = TransactionRepository.new([])    
-    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo, transaction_repo)
+                  @invoice_5, @invoice_6, @invoice_7, @invoice_8, @invoice_9, @invoice_10,
+                  @invoice_11, @invoice_12, @invoice_13, @invoice_14, @invoice_15, @invoice_16,
+                  @invoice_17, @invoice_18, @invoice_19]
+
+    sales_engine_2 = SalesEngine.new(@items, @merchants_2, @invoices_2, nil, nil, nil)
+    @sales_analyst_2 = SalesAnalyst.new(sales_engine_2)
+    sales_engine = SalesEngine.new(@items, @merchants, @invoices, nil, nil, nil)
+    @sales_analyst = SalesAnalyst.new(sales_engine)
   end
 
   def test_it_exists
@@ -270,8 +267,6 @@ class SalesAnalystTest < Minitest::Test
     merchant_2 = Merchant.new({id: 10, name: 'Turing School'})
     merchant_3 = Merchant.new({id: 7, name: 'Turk'})
     merchants = [merchant_1, merchant_2, merchant_3]
-    mr = MerchantRepository.new(merchants)
-
     time = Time.now.to_s
     item_1 = Item.new({
               :id          => 1,
@@ -319,11 +314,8 @@ class SalesAnalystTest < Minitest::Test
               :merchant_id => 7
             })
     items = [item_1, item_2, item_3, item_4, item_5]
-    invoices = []
-    mr = MerchantRepository.new(merchants)
-    ir = ItemRepository.new(items)
-    transaction_repo = TransactionRepository.new([])    
-    sales_analyst = SalesAnalyst.new(ir, mr, invoices, transaction_repo)
+    sales_engine = SalesEngine.new(items, merchants, nil, nil, nil, nil)
+    sales_analyst = SalesAnalyst.new(sales_engine)
     expected = [merchant_1]
     assert_equal expected, sales_analyst.merchants_with_high_item_count
   end
@@ -364,12 +356,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_items
-    mr = MerchantRepository.new(@merchants)
-    ir = ItemRepository.new(@items_2)
-    invoice_repo = InvoiceRepository.new(@invoices)
-    transaction_repo = TransactionRepository.new([])
-    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo, transaction_repo)
-    assert_equal [@item_6], @sales_analyst.golden_items
+    sales_engine = SalesEngine.new(@items_2, @merchants, @invoices, nil, nil, nil)
+    sales_analyst = SalesAnalyst.new(sales_engine)
+    assert_equal [@item_6], sales_analyst.golden_items
   end
 
   def test_it_can_get_average_invoices

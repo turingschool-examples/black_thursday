@@ -35,9 +35,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal [@ii1, @ii2], @iir.all
   end
   # find_by_id - returns either nil or an instance of InvoiceItem with a matching ID
-  def test_it_can_find_all_by_id
-    assert_equal [], @iir.find_by_id(4646)
-    assert_equal [@ii1], @iir.find_by_id(5)
+  def test_it_can_find_by_id
+    assert_equal nil, @iir.find_by_id(4646)
+    assert_equal @ii1, @iir.find_by_id(5)
   end
   # find_all_by_item_id - returns either [] or one or more matches which have a matching item ID
   def test_it_can_find_all_by_id

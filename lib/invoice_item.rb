@@ -17,7 +17,5 @@ def convert(arg)
     converted = arg.to_f / 100
     length = arg.to_s.length
     BigDecimal.new(converted, length)
-  else
-    arg
   end
 end
