@@ -70,10 +70,23 @@ class ItemTest < Minitest::Test
   :description => "You can use it to write things",
   :unit_price  => BigDecimal.new(10.99,4),
   :created_at  => now,
-  :updated_at  => now,
+  :updated_at  => Time.now,
   :merchant_id => 2
 })
     assert_equal now, i.created_at
   end
 
+  def test_updated_at
+    now = Time.now
+    i = Item.new({
+  :id          => 1,
+  :name        => "Pencil",
+  :description => "You can use it to write things",
+  :unit_price  => BigDecimal.new(10.99,4),
+  :created_at  => Time.now,
+  :updated_at  => now,
+  :merchant_id => 2
+})
+    assert_equal now, i.updated_at
+  end
 end
