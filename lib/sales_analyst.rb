@@ -139,11 +139,6 @@ class SalesAnalyst
       end
   end
 
- #  def invoice_paid_in_full?(invoice_id)
- #   transactions = @parent.transactions.find_all_by_invoice_id(invoice_id)
- #   transactions.any? { |transaction| transaction.result == :success }
- # end
-
   def invoice_total(invoice_id)
     invoice_items = @invoice_items.find_all do |transaction|
       transaction.invoice_id == invoice_id
@@ -151,6 +146,10 @@ class SalesAnalyst
     invoice_items.inject(0.0) do |sum, invoice_item|
       sum + (invoice_item.unit_price * invoice_item.quantity)
     end
+  end
+
+  def total_revenue_by_date(date)
+
   end
 
 end

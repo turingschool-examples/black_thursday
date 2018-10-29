@@ -66,6 +66,8 @@ class Repository
     @all.delete_at(index)
   end
 
+  
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
