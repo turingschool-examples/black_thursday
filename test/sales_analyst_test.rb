@@ -7,8 +7,13 @@ class SalesAnalystTest < Minitest::Test
     @merchant_1 = Merchant.new({id: 5, name: 'Steve'})
     @merchant_2 = Merchant.new({id: 10, name: 'Turing School'})
     @merchant_3 = Merchant.new({id: 7, name: 'Turk'})
+    @merchant_4 = Merchant.new({id: 20, name: 'Margie'})
+    @merchant_5 = Merchant.new({id:420, name: 'Rod'})
+    @merchant_6 = Merchant.new({id: 666, name: 'Satan'})
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
+    @merchants_2 = [@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5, @merchant_6]
     @mr = MerchantRepository.new(@merchants)
+    @mr_2 = MerchantRepository.new(@merchants_2)
 
     @time = Time.now.to_s
     @item_1 = Item.new({
@@ -132,17 +137,109 @@ class SalesAnalystTest < Minitest::Test
                 :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
+    @invoice_9 = Invoice.new({
+                :id          => 9,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_10 = Invoice.new({
+                :id          => 10,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_11 = Invoice.new({
+                :id          => 11,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_12 = Invoice.new({
+                :id          => 12,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_13 = Invoice.new({
+                :id          => 13,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_14 = Invoice.new({
+                :id          => 14,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_15 = Invoice.new({
+                :id          => 15,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_16 = Invoice.new({
+                :id          => 16,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_17 = Invoice.new({
+                :id          => 17,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_18 = Invoice.new({
+                :id          => 18,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
+    @invoice_19 = Invoice.new({
+                :id          => 19,
+                :customer_id => 40,
+                :merchant_id => 7,
+                :status      => "shipped",
+                :created_at  => "2009-02-07",
+                :updated_at  => @time
+              })
 
 
     @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5]
-    @invoices_2 = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5, @invoice_6, @invoice_7, @invoice_8]
+    @invoices_2 = [@invoice_1, @invoice_2, @invoice_3, @invoice_4,
+      @invoice_5, @invoice_6, @invoice_7, @invoice_8, @invoice_9, @invoice_10,
+      @invoice_11, @invoice_12, @invoice_13, @invoice_14, @invoice_15, @invoice_16,
+      @invoice_17, @invoice_18, @invoice_19]
     mr = MerchantRepository.new(@merchants)
+    mr_2 =MerchantRepository.new(@merchants_2)
     ir = ItemRepository.new(@items)
     invoice_repo = InvoiceRepository.new(@invoices)
     invoice_repo_2 = InvoiceRepository.new(@invoices_2)
 
     @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
-    @sales_analyst_2 = SalesAnalyst.new(ir, mr, invoice_repo_2)
+    @sales_analyst_2 = SalesAnalyst.new(ir, mr_2, invoice_repo_2)
   end
 
   def test_it_exists
@@ -288,13 +385,13 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_get_top_merchant_invoices_two_deviations_above
     sales = @sales_analyst_2.top_merchants_by_invoice_count
 
-    assert_equal [], sales
+    assert_equal [@merchant_3], sales
   end
 
   def test_it_can_find_bottom_merchants_by_invoices_two_deviations_below
     sales = @sales_analyst_2.bottom_merchants_by_invoice_count
 
-    assert_equal [], sales
+    assert_equal [@merchant_4, @merchant_5, @merchant_6], sales
   end
 
   def test_it_can_get_top_days_by_invoice_count
@@ -309,9 +406,9 @@ class SalesAnalystTest < Minitest::Test
     stats_2 = @sales_analyst_2.invoice_status(:shipped)
     stats_3 = @sales_analyst_2.invoice_status(:returned)
     percentage_total = stats_1 + stats_2 + stats_3
-    assert_equal 12.5, stats_1
-    assert_equal 62.5, stats_2
-    assert_equal 25.0, stats_3
+    assert_equal 5.26, stats_1
+    assert_equal 84.21, stats_2
+    assert_equal 10.53, stats_3
     assert_equal 100.0, percentage_total
   end
 end

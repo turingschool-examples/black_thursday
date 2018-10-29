@@ -96,7 +96,7 @@ class SalesAnalyst
               (average_invoices_per_merchant_standard_deviation * 2)
     top_merchants = []
     num_invoices_per_merchant.each do |merchant, num|
-      top_merchants << merchant if num > two_deviations_above
+      top_merchants << merchant if num >= two_deviations_above
     end
     top_merchants
   end
@@ -105,8 +105,11 @@ class SalesAnalyst
     two_deviations_below = average_invoices_per_merchant -
               (average_invoices_per_merchant_standard_deviation * 2)
     top_merchants = []
+    if two_deviations_below < 0
+      two_deviations_below = 0
+    end
     num_invoices_per_merchant.each do |merchant, num|
-      top_merchants << merchant if num < two_deviations_below
+      top_merchants << merchant if num <= two_deviations_below
     end
     top_merchants
   end
@@ -157,7 +160,7 @@ class SalesAnalyst
     invoice_status_num = (@invoice_repo.find_all_by_status(status)).length
     ((invoice_status_num / invoice_num) * 100).round(2)
   end
-  
+
   # maths
 
   def sum(nums)
