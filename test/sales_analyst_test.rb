@@ -4,7 +4,6 @@ require_relative './test_setup'
 require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
-
   include TestSetup
 
   def test_average_items_per_merchant
@@ -78,10 +77,6 @@ class SalesAnalystTest < Minitest::Test
     setup_fixtures
     assert_equal [], @sa.top_days_by_invoice_count
   end
-
-
-
-
   #iteration 4 tests
 
   def test_revenue_by_merchant
@@ -317,5 +312,21 @@ class SalesAnalystTest < Minitest::Test
     #
     # result = @sa.merchants_with_only_one_item_registered_in_month("June")
     # assert_equal 18, result.length
+  def test_invoice_total
+    assert_equal 21067.77, @sa.invoice_total(1)
+  end
+
+  def test_an_invoice_is_paid_in_full
+    actual = @sa.invoice_paid_in_full?(1)
+    assert_equal true, actual
+
+    actual = @sa.invoice_paid_in_full?(200)
+    assert_equal true, actual
+
+    actual = @sa.invoice_paid_in_full?(203)
+    assert_equal false, actual
+
+    actual = @sa.invoice_paid_in_full?(204)
+    assert_equal false, actual
   end
 end
