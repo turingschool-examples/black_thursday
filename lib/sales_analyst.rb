@@ -103,6 +103,7 @@ class SalesAnalyst
            top_merchants_array << m
         end
     end
+    top_merchants_array
   end
 
   # def bottom_merchants_by_invoice_count
@@ -144,6 +145,4 @@ class SalesAnalyst
 
   end
 
-
 end
-# use #all method?
