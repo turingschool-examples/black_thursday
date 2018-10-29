@@ -1,16 +1,10 @@
 module Finders
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   def find_type_from_object(type, object)
     invoices = find_invoices_from(object)
     find_from_invoices(invoices, type)
   end
 
-=======
->>>>>>> 9870d4671e4edf79a876446bf93dbb57368408c8
-=======
->>>>>>> a93d97103fa553b7f3a177cded82216fc8d95ed1
   def find_invoices_from(business_data)
     class_string = business_data.class.to_s
     case class_string
