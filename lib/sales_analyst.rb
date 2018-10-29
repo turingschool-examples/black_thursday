@@ -144,13 +144,6 @@ class SalesAnalyst
     (invoices_w_status / @invoices.all.count.to_f * 100).round(2)
   end
 
-
-  # sales_analyst.total_revenue_by_date(date) #=> $$
-  # Note: When calculating revenue the unit_price listed
-  #within invoice_items should be used. The
-  #invoice_item.unit_price represents the final sale
-  #price of an item after sales, discounts or other
-  #intermediary price changes.
   def total_price_per_day(date)
     by_date = @invoice_item.find_all do |item|
       item.created_at == date
@@ -162,9 +155,10 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-     transaction_by_invoice = @transactions.find_by_id(invoice_id).all? do |transaction|
-        transaction.result == :success
-     end
+    return false if @transactions.find_all_by_invoice_id(invoice_id) == []
+    @transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+      transaction.result == :success
+    end
   end
 
   def invoice_total(invoice_id)
