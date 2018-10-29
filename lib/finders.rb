@@ -1,5 +1,4 @@
 module Finders
-
   def find_invoices_from(business_data)
     class_string = business_data.class.to_s
     case class_string
@@ -40,8 +39,4 @@ module Finders
     end
     amounts.reduce(&:+)
   end
-
-
-
-
 end

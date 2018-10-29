@@ -130,22 +130,26 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    invoices = @invoices.find_all_by_status(:pending)
-    # invoices.each do |invoice|
-    #   transactions = @transactions.find_all_by_invoice_id(invoice.id)
-    #   transactions.each do |transaction|
-    #     if transaction.result == :failed
-    #       invoices.delete(invoice)
-    #     end
-    #   end
-    # end
-    invoices
+    failed = @invoices.all.select do |invoice|
+      !@transactions.any_success?(invoice.id)
+    end
+
+    missing = @invoices.all.select do |invoice|
+      invoice_has_no_transactions?(invoice.id)
+    end
+
+    [missing, failed].flattenq.map do |invoice|
+      @merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+  end
+
+  def invoice_has_no_transactions?(invoice_id)
+    @transactions.find_all_by_invoice_id(invoice_id).length == 0
   end
 
   def merchants_with_only_one_item
     @merchants.all.select do |merchant|
       @items.all.one? do |item|
-        # require 'pry'; binding.pry
         item.merchant_id == merchant.id
       end
     end
@@ -167,7 +171,32 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    invoice_items = invoices.map do |invoice|
+      find_from_invoice(invoice, 'InvoiceItem')
+    end.flatten
 
+    item_count = Hash.new(0)
+
+    invoice_items.each do |invoice_item|
+      item_count[invoice_item.item_id] += invoice_item.quantity
+    end
+
+    max = 0
+    result = []
+    item_count.sort_by {|k, v| -v}.each do |k, v|
+      if v > max
+        max = v
+        result = []
+        result << k
+      elsif v == max
+        result << k
+      else
+        break
+      end
+    end
+    binding.pry
+    result.map { |k,v| @items.find_by_id(k) }
   end
 
   def best_item_for_merchant(merchant_id)
