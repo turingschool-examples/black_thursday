@@ -10,7 +10,6 @@ class FindersTest < Minitest::Test
 
   include TestSetup
 
-
   def test_it_can_find_invoices_from_anything
     skip
     setup_big_data_set
@@ -36,6 +35,7 @@ class FindersTest < Minitest::Test
   end
 
   def test_find_from_invoice_can_find_anything_from_invoice
+    skip
     setup_big_data_set
     invoice = @sa.invoices.all[0]
     actual = @sa.find_from_invoice(invoice, 'InvoiceItem')
@@ -53,6 +53,19 @@ class FindersTest < Minitest::Test
     actual = @sa.find_from_invoice(invoice, 'Item')
     assert_equal 8, actual.size
     assert_instance_of Item, actual[0]
+  end
+  def test_find_type_from_object_finds_right_type_of_object
+    setup_big_data_set
+    @sa.instance_variables.permutation do |var_1, var_2|
+      type_string = var_1.to_s
+                         .delete('@')
+                         .split('_')
+                         .collect(&:capitalize)
+                         .join[0..-2]
+
+    end
+
+    invoice = @sa.invoices.all[0]
 
   end
 end
