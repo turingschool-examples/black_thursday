@@ -189,7 +189,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual[-1]
   end
 
-<<<<<<< HEAD
   def test_revenue_by_date
     setup_empty_sales_engine
     time = Time.parse('2014-03-04')
@@ -249,7 +248,6 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 1, actual[0].id
     end
 
-=======
   def test_merchants_with_pending_invoices
     setup_empty_sales_engine
     @se.merchants.create(id: 3, name: "Bob's Burgers")
@@ -272,7 +270,6 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 1, result.length
   end
->>>>>>> 2bebb8de53ca1f56cead7cfae84b8293cf4c1849
 
   def test_merchants_with_only_one_item
     setup_empty_sales_engine
