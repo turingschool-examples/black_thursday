@@ -22,8 +22,10 @@ class SalesAnalyst
     array.reduce(:+)
   end
 
-  def variance(array)
-
+  def variance(values_array, mean)
+    sum_squared_differences =
+    values_array.inject(0) { |sum, value| sum += (value - mean ** 2) }
+    sum_squared_differences/array.count
   end
 
   def average_items_per_merchant_standard_deviation
