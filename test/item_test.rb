@@ -63,16 +63,17 @@ class ItemTest < Minitest::Test
   end
 
   def test_created_at
+    now = Time.now
     i = Item.new({
   :id          => 1,
   :name        => "Pencil",
   :description => "You can use it to write things",
   :unit_price  => BigDecimal.new(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
+  :created_at  => now,
+  :updated_at  => now,
   :merchant_id => 2
 })
-    assert_equal Time.now, i.updated_at
+    assert_equal now, i.created_at
   end
 
 end
