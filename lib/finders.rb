@@ -9,8 +9,6 @@ module Finders
     when 'InvoiceItem', 'Transaction'
       [@invoices.find_by_id(business_data.invoice_id)]
     when 'Item'
-      require 'pry'; binding.pry
-
       invoice_items = @invoice_items.find_all_by_item_id(business_data.id)
       invoice_ids = invoice_items.map(&:invoice_id)
       @invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
