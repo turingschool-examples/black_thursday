@@ -54,11 +54,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items_returns_array_of_items_2_stnd_devs_above_avg
+    skip
     items = ItemRepository.new("./data/items.csv")
     merchants = MerchantRepository.new("./data/merchants.csv")
     sa = SalesAnalyst.new(items, merchants)
     assert_equal 5, sa.golden_items.count
-    assert_instance_of Item, sa.golden_items.count
+    assert_instance_of Item, sa.golden_items[0]
+  end
+
+  def test_sums_adds_elements_of_array
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    sa = SalesAnalyst.new(items, merchants)
+    array = [5, 6, 7, 8, 9, 10]
+    assert_equal 45, sa.sums(array)
   end
 
 end

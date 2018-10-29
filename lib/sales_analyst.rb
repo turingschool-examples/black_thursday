@@ -19,7 +19,7 @@ class SalesAnalyst
   end
 
   def sums(array)
-    array.reduce(0) {|sum, item|sum + item}
+    array.reduce(:+)
   end
 
   def variance(array)
@@ -35,7 +35,7 @@ class SalesAnalyst
      items_count.map do |item_count|
        (item_count - average_items_per_merchant)**2
      end
-     binding.pry
+#     binding.pry
      Math.sqrt(((squared_difference_array.reduce(:+))/(items_by_merchant.count-1))).round(2)
   end
 
