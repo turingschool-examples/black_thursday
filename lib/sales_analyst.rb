@@ -138,7 +138,7 @@ class SalesAnalyst
       invoice_has_no_transactions?(invoice.id)
     end
 
-    [missing, failed].flattenq.map do |invoice|
+    [missing, failed].flatten.map do |invoice|
       @merchants.find_by_id(invoice.merchant_id)
     end.uniq
   end
@@ -171,7 +171,7 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    invoices = successful_invoices.select { |invoice|invoice.merchant_id == merchant_id }
     invoice_items = invoices.map do |invoice|
       find_from_invoice(invoice, 'InvoiceItem')
     end.flatten
@@ -195,7 +195,6 @@ class SalesAnalyst
         break
       end
     end
-    binding.pry
     result.map { |k,v| @items.find_by_id(k) }
   end
 
