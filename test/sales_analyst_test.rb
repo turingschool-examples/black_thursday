@@ -234,29 +234,29 @@ class SalesAnalystTest < Minitest::Test
                   @invoice_17, @invoice_18, @invoice_19]
 
 
-    @invoice_item_1 = InvoiceItem.new({ id:"1",
-                                        item_id:"10",
-                                        invoice_id:"1",
-                                        quantity:"20",
-                                        unit_price:"25",
-                                        created_at:@time,
-                                        updated_at:@time
+    @invoice_item_1 = InvoiceItem.new({ id: "1",
+                                        item_id: "10",
+                                        invoice_id: "1",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
                                       })
-    @invoice_item_2 = InvoiceItem.new({ id:"2",
-                                        item_id:"10",
-                                        invoice_id:"2",
-                                        quantity:"20",
-                                        unit_price:"25",
-                                        created_at:@time,
-                                        updated_at:@time
+    @invoice_item_2 = InvoiceItem.new({ id: "2",
+                                        item_id: "10",
+                                        invoice_id: "2",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
                                       })
-    @invoice_item_3 = InvoiceItem.new({ id:"3",
-                                        item_id:"10",
-                                        invoice_id:"2",
-                                        quantity:"20",
-                                        unit_price:"25",
-                                        created_at:@time,
-                                        updated_at:@time
+    @invoice_item_3 = InvoiceItem.new({ id: "3",
+                                        item_id: "10",
+                                        invoice_id: "2",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
                                       })
     @transaction_1 = Transaction.new({
                         :id => 6,
@@ -285,7 +285,7 @@ class SalesAnalystTest < Minitest::Test
                         :created_at => @time,
                         :updated_at => @time
                       })
-    @transaction_3 = Transaction.new({
+    @transaction_4 = Transaction.new({
                         :id => 9,
                         :invoice_id => 3,
                         :credit_card_number => "4558368405929183",
@@ -295,7 +295,7 @@ class SalesAnalystTest < Minitest::Test
                         :updated_at => @time
                       })
     @invoice_items = [@invoice_item_1, @invoice_item_2, @invoice_item_3]
-    @transactions = [@transaction_1, @transaction_2, @transaction_3]
+    @transactions = [@transaction_1, @transaction_2, @transaction_3, @transaction_4]
 
     sales_engine_2 = SalesEngine.new(@items, @merchants_2, @invoices_2, @transactions, nil, @invoice_items)
     @sales_analyst_2 = SalesAnalyst.new(sales_engine_2)
@@ -473,7 +473,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_invoice_total_amount
-    skip
-    assert_equal BigDecimal.new(25.00), @sales_analyst.invoice_total(1)
+    assert_equal BigDecimal.new(200.00, 5), @sales_analyst_2.invoice_total(2)
   end
 end
