@@ -19,4 +19,19 @@ class TransactionRepository < Repository
     end
   end
 
+  def create(attributes)
+    attributes[:id] = new_highest_id
+    @repo_array << new_item = Transaction.new(attributes)
+    new_item
+  end
+
+  def update(id, attributes)
+    transaction = find_by_id(id)
+    return transaction if transaction.nil?
+    transaction.credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+    transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
+    transaction.result = attributes[:result] unless attributes[:result].nil?
+    transaction.updated_at = Time.now
+  end
+
 end
