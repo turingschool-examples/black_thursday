@@ -64,15 +64,13 @@ class SalesAnalyst
   end
 
   def average_prices_per_merchant_standard_deviation
-    standard_deviation(average_price_per_merchant, average_average_price_per_merchant)
+    prices = @items.all.map {|item| item.unit_price}
+    standard_deviation(prices, average_average_price_per_merchant)
   end
-  #
-  # def golden_items
-  #
-  #
-  #
-  # end
 
-
+  def golden_items
+    standard_deviation = average_prices_per_merchant_standard_deviation
+    @items.all.find_all { |item| item.unit_price >= standard_deviation * 2 }
+  end
 
 end

@@ -87,8 +87,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1.87, sa.standard_deviation(array, mean)
   end
 
+  def test_it_returns_average_items_per_merchant_standard_deviation
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    sa = SalesAnalyst.new(items, merchants)
+    assert_equal 2902.69, sa.average_prices_per_merchant_standard_deviation
+  end
+
   def test_golden_items_returns_array_of_items_2_stnd_devs_above_avg
-    skip
     items = ItemRepository.new("./data/items.csv")
     merchants = MerchantRepository.new("./data/merchants.csv")
     sa = SalesAnalyst.new(items, merchants)
