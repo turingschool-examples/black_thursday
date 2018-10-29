@@ -66,9 +66,9 @@ module CSVReader
     skip_first_line = true
     CSV.foreach(file_path) do |row|
       unless skip_first_line
-        tr.add_transaction(Transaction.new({:id => row[0].to_i, :invoice_id => row[1],
-              :credit_card_number => row[2], :credit_card_expiration => row[3],
-              :result => row[4],
+        tr.add_transaction(Transaction.new({:id => row[0].to_i, :invoice_id => row[1].to_i,
+              :credit_card_number => row[2], :credit_card_expiration_date => row[3],
+              :result => row[4].to_sym,
               :created_at => Time.parse(row[5]),:updated_at=> Time.parse(row[6])}))
       else
         skip_first_line = false

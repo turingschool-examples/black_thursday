@@ -162,7 +162,7 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-     transaction_by_invoice = @transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+     transaction_by_invoice = @transactions.find_by_id(invoice_id).all? do |transaction|
         transaction.result == :success
      end
   end
@@ -173,7 +173,4 @@ class SalesAnalyst
     end
     sum(invoice_total_by_item)
   end
-
-
-
 end
