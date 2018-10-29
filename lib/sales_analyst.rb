@@ -23,26 +23,16 @@ class SalesAnalyst
   end
 
   def variance(values_array, mean)
-    sum_squared_differences =
-    values_array.inject(0) { |sum, value| sum += (value - mean ** 2) }
-    sum_squared_differences/array.count
+    sums(values_array.map {|value|(value - mean)**2})
   end
 
-  def standard_deviation(array, mean)
-     Math.sqrt(variance(array)/(array.count-1).round(2)
+  def standard_deviation(values_array, mean)
+     Math.sqrt(variance(values_array, mean)/(values_array.count-1)).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    items_per_merchant_array = items_by_merchant.values
-    items_count = items_per_merchant_array.map do |items|
-      items.count
-    end
-    squared_difference_array =
-     items_count.map do |item_count|
-       (item_count - average_items_per_merchant)**2
-     end
-#     binding.pry
-     Math.sqrt(((squared_difference_array.reduce(:+))/(items_by_merchant.count-1))).round(2)
+    values_array = items_by_merchant.values.map {|items| items.count}
+    standard_deviation(values_array, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count

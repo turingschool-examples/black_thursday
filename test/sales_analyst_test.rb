@@ -70,4 +70,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 45, sa.sums(array)
   end
 
+  def test_variance_returns_sum_of_squared_differences
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    sa = SalesAnalyst.new(items, merchants)
+    array = [5, 6, 7, 8, 9, 10]
+    mean = 7.5
+    assert_equal 17.5, sa.variance(array, mean)
+  end
+
+  def test_it_returns_standard_deviation
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    sa = SalesAnalyst.new(items, merchants)
+    array = [5, 6, 7, 8, 9, 10]
+    mean = 7.5
+    assert_equal 1.87, sa.standard_deviation(array, mean)
+  end
+
 end
