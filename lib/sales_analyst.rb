@@ -274,24 +274,24 @@ class SalesAnalyst
   end
 
   def top_buyers(n = 20)
-    customers_and_invoices = invoices_grouped_by_customer_id
-    customers_and_amounts = customers_and_invoices.reduce({}) do |hash, (id, invoices)|
-      total = invoices.reduce(0) do |sum, invoice|
-        one_success = at_least_one_succesful_transaction?(invoice.id)
-        sum += get_total_from_all_invoice_items_for(invoice.id) if one_success
-        sum
-      end
-      hash[customers.find_by_id(id)] = total
-      hash
-    end
-    sorted_c_and_a = customers_and_amounts.sort do |(customer_a, spent_a),(customer_b, spent_b)|
-      spent_b <=> spent_a
-    end
-    top_customers = sorted_c_and_a.reduce([]) do |top, (customer, amount)|
-      top << customer
-      top
-    end
-    top_customers.slice(0, n)
+    # customers_and_invoices = invoices_grouped_by_customer_id
+    # customers_and_amounts = customers_and_invoices.reduce({}) do |hash, (id, invoices)|
+    #   total = invoices.reduce(0) do |sum, invoice|
+    #     one_success = at_least_one_succesful_transaction?(invoice.id)
+    #     sum += get_total_from_all_invoice_items_for(invoice.id) if one_success
+    #     sum
+    #   end
+    #   hash[customers.find_by_id(id)] = total
+    #   hash
+    # end
+    # sorted_c_and_a = customers_and_amounts.sort do |(customer_a, spent_a),(customer_b, spent_b)|
+    #   spent_b <=> spent_a
+    # end
+    # top_customers = sorted_c_and_a.reduce([]) do |top, (customer, amount)|
+    #   top << customer
+    #   top
+    # end
+    # top_customers.slice(0, n)
   end
 
   def get_item_count_for(invoice_id)
@@ -424,10 +424,24 @@ class SalesAnalyst
     end
   end
 
+  def customers_with_unpaid_invoices
+    find_from_invoices(unsuccessful_invoices, "Customer").uniq
+  end
+
+  def best_invoice_by_quantity
+    @invoices.reduce(nil) do |best_invoice, invoice|
+      best_invoice = invoice if invoice.quantity > best_invoice.quantity
+    end
+  end
+
   def successful_invoices
     @invoices.all.select do |invoice|
       @transactions.any_success?(invoice.id)
     end
+  end
+
+  def unsuccessful_invoices
+    @invoices.all - successful_invoices
   end
 
 end

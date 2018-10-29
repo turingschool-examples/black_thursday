@@ -406,4 +406,11 @@ class SalesAnalystTest < Minitest::Test
     # result = @sa.merchants_with_only_one_item_registered_in_month("June")
     # assert_equal 18, result.length
   end
+
+
+  def test_customers_with_unpaid_invoices
+    setup_big_data_set
+    actual = @sa.customers_with_unpaid_invoices
+    assert_equal 6, actual.size
+  end
 end

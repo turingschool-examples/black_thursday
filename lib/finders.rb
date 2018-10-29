@@ -24,7 +24,7 @@ module Finders
   end
 
   def find_from_invoices(invoices, class_string)
-    invoices.reduce([]) do |rslt, invoice|
+    invoices.compact.reduce([]) do |rslt, invoice|
       rslt += find_from_invoice(invoice, class_string)
     end
   end
