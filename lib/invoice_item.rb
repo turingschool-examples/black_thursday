@@ -1,6 +1,6 @@
 class InvoiceItem
   attr_accessor :quantity, :unit_price, :updated_at
-  attr_reader :id, :item_id, :invoice_id, :created_at 
+  attr_reader :id, :item_id, :invoice_id, :created_at
   def initialize(stats)
     @id = stats[:id].to_i
     @item_id = stats[:item_id].to_i
@@ -16,8 +16,7 @@ def convert(arg)
   if arg.class != BigDecimal
     converted = arg.to_f / 100
     length = arg.to_s.length
-    conversion = BigDecimal.new(converted, length)
-    conversion
+    BigDecimal.new(converted, length)
   else
     arg
   end
