@@ -167,4 +167,6 @@ class SalesAnalyst
     end
     sum(invoice_total_by_item)
   end
+
+  
 end

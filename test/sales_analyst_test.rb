@@ -321,4 +321,37 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, actual
     assert_instance_of BigDecimal, actual
   end
+
+  def test_top_revenue_earners
+    x = 10
+    actual = @sa_real.top_revenue_earners(x)
+    assert_equal 12334634, actual.first.id
+    assert_equal 12335747, actual.last.id
+    assert_equal 10, actual.length
+    assert_instance_of Merchant, actual.first
+    #=> [merchant, merchant, merchant, merchant, merchant]
+  end
+
+  def test_top_revenue_earners_default
+    actual = @sa_real.top_revenue_earners
+    assert_equal 12334634, actual.first.id
+    assert_equal 12334159, actual.last.id
+    assert_equal 20, actual.length
+    assert_instance_of Merchant, actual.first
+  end
+
+  def test_it_can_rank_merchants_by_revenue
+    actual = @sa_real.merchants_ranked_by_revenue
+    assert_instance_of Merchant, actual.first
+    assert_equal 12334634, actual.first.id
+    assert_equal 12336175, actual.last.id
+  end
+
+  def test_it_can_find_merchants_pending_invoices
+    actual = @sa_real.merchants_with_pending_invoices
+    assert_instance_of Merchant, actual.first
+    assert_equal 467, actual.length
+  end
+
+  
 end
