@@ -1,6 +1,6 @@
 require './test/test_helper'
-require './lib/invoice_items_repository'
-require './lib/invoice_items'
+require './lib/invoice_item_repository'
+require './lib/invoice_item'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
@@ -40,9 +40,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
       })
     @iir = InvoiceItemRepository.new
-    @iir.add_invoice_items(@invoice_item_1)
-    @iir.add_invoice_items(@invoice_item_2)
-    @iir.add_invoice_items(@invoice_item_3)
+    @iir.add_invoice_item(@invoice_item_1)
+    @iir.add_invoice_item(@invoice_item_2)
+    @iir.add_invoice_item(@invoice_item_3)
   end
 
   def test_it_exists
