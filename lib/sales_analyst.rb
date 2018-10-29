@@ -8,6 +8,7 @@ class SalesAnalyst
     @items = input[:items]
     @invoices = input[:invoices]
     @transactions = input[:transactions]
+    @invoice_items = input[:invoice_items]
   end
 
   def average_items_per_merchant
@@ -166,6 +167,13 @@ class SalesAnalyst
      end
   end
 
-  # sales_analyst.invoice_total(invoice_id)
+  def invoice_total(invoice_id)
+    invoice_total_by_item = @invoice_items.find_all_by_invoice_id(invoice_id).map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    sum(invoice_total_by_item)
+  end
+
+
 
 end

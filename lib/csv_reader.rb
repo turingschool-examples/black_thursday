@@ -51,7 +51,7 @@ module CSVReader
     CSV.foreach(file_path) do |row|
       unless skip_first_line
         iir.add_invoice_item(InvoiceItem.new({:id => row[0].to_i, :item_id => row[1].to_i,
-              :invoice_id => row[2].to_i, :quantity => row[3].to_sym,
+              :invoice_id => row[2].to_i, :quantity => row[3].to_i,
               :unit_price => BigDecimal(row[4], row[4].length)/100,
               :created_at => Time.parse(row[5]),
               :updated_at => Time.parse(row[6])}))
