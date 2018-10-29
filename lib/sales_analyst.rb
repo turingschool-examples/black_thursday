@@ -85,4 +85,11 @@ class SalesAnalyst
     (invoices_by_merchant.values.flatten.count.to_f/invoices_by_merchant.count).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    value_array =
+    invoices_by_merchant.values.map do |invoices|
+      invoices.count
+    end
+    standard_deviation(value_array, average_invoices_per_merchant)
+  end
 end
