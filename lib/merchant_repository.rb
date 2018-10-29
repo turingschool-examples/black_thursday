@@ -11,10 +11,6 @@ class MerchantRepository < Repository
     @collection[merchant.id] = merchant
   end
 
-  def merchants
-    @collection.values
-  end
-
   def create(attributes)
     attributes[:id] = find_new_id
     add_merchant(Merchant.new(attributes))
@@ -26,8 +22,8 @@ class MerchantRepository < Repository
   end
 
   def find_all_by_name(name)
-     merchants_by_name = []
-    @collection.values.find_all do |merchant|
+    merchants_by_name = []
+    all.find_all do |merchant|
       if merchant.name.downcase.include?(name)
         merchants_by_name << merchant
       end

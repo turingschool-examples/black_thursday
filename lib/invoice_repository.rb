@@ -10,24 +10,20 @@ class InvoiceRepository < Repository
     @collection[invoice.id] = invoice
   end
 
-  def invoices
-    @collection.values
-  end
-
   def find_all_by_customer_id(id)
-    @collection.values.select do |invoice|
+    all.select do |invoice|
       invoice.customer_id == id
     end
   end
 
   def find_all_by_merchant_id(id)
-    @collection.values.select do |invoice|
+    all.select do |invoice|
       invoice.merchant_id == id
     end
   end
 
   def find_all_by_status(status)
-    @collection.values.select do |invoice|
+    all.select do |invoice|
       invoice.status == status
     end
   end

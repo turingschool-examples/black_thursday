@@ -21,11 +21,11 @@ class SalesAnalyst
     tot_of_all_prices = @items.all.inject(0) do |sum, item|
       sum + item.unit_price_to_dollars
     end
-    (tot_of_all_prices / @items.items.count).round(2)
+    (tot_of_all_prices / @items.all.count).round(2)
   end
 
   def golden_items
-    number_set = @items.items.map do |item|
+    number_set = @items.all.map do |item|
       item.unit_price_to_dollars
     end
     std_dev = standard_deviation(number_set)
