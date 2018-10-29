@@ -3,11 +3,13 @@ require 'pry'
 
 class SalesAnalyst
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices = [])
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def items_by_merchant
@@ -71,6 +73,16 @@ class SalesAnalyst
   def golden_items
     standard_deviation = average_prices_per_merchant_standard_deviation
     @items.all.find_all { |item| item.unit_price >= standard_deviation * 2 }
+  end
+
+  def invoices_by_merchant
+    @invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def average_invoices_per_merchant
+    (invoices_by_merchant.values.flatten.count.to_f/invoices_by_merchant.count).round(2)
   end
 
 end
