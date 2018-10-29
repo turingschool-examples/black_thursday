@@ -73,7 +73,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 10,
                 :merchant_id => 5,
                 :status      => "pending",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
     @invoice_2 = Invoice.new({
@@ -81,7 +81,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 20,
                 :merchant_id => 10,
                 :status      => "shipped",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
     @invoice_3 = Invoice.new({
@@ -89,7 +89,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 30,
                 :merchant_id => 7,
                 :status      => "returned",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
     @invoice_4 = Invoice.new({
@@ -97,7 +97,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 5,
                 :status      => "returned",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
     @invoice_5 = Invoice.new({
@@ -105,7 +105,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
     @invoice_6 = Invoice.new({
@@ -113,7 +113,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
     @invoice_7 = Invoice.new({
@@ -121,7 +121,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
     @invoice_8 = Invoice.new({
@@ -129,7 +129,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => @time,
+                :created_at  => "2009-02-07",
                 :updated_at  => @time
               })
 
@@ -299,7 +299,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_get_top_days_by_invoice_count
     sales = @sales_analyst_2.top_days_by_invoice_count
-    days = ["This test will be wrong due to how time is genrated in tests"]
+    days = ["Saturday"]
 
     assert_equal days, sales
   end
@@ -312,6 +312,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12.5, stats_1
     assert_equal 62.5, stats_2
     assert_equal 25.0, stats_3
-    assert_equal 100.0, percentage_total 
+    assert_equal 100.0, percentage_total
   end
 end
