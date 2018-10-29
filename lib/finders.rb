@@ -25,7 +25,10 @@ module Finders
       repository.all.select {|iv_item| iv_item.invoice_id == invoice.id}
     when 'Merchant', 'Customer'
       method_name = "#{class_string.downcase}_id"
-      repository.find_by_id(invoice.public_send(method_name))
+      [repository.find_by_id(invoice.public_send(method_name))]
+    when 'Item'
+      item_ids = find_from_invoice(invoice, 'InvoiceItem').map(&:item_id).uniq
+      item_ids.collect { |item_id| repository.find_by_id(item_id) }
     end
   end
 

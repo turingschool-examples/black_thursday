@@ -45,9 +45,11 @@ class FindersTest < Minitest::Test
     assert_equal 2, actual.size
     assert_instance_of Transaction, actual[0]
     actual = @sa.find_from_invoice(invoice, 'Merchant')
-    assert_instance_of Merchant, actual
+    assert_equal 1, actual.size
+    assert_instance_of Merchant, actual[0]
     actual = @sa.find_from_invoice(invoice, 'Customer')
-    assert_instance_of Customer, actual
+    assert_equal 1, actual.size
+    assert_instance_of Customer, actual[0]
     actual = @sa.find_from_invoice(invoice, 'Item')
     assert_equal 8, actual.size
     assert_instance_of Item, actual[0]
