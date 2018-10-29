@@ -100,6 +100,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
+    skip
     actual = @sales_analyst.top_days_by_invoice_count
     assert_equal ["Sunday", "Saturday"], actual
   end
@@ -129,6 +130,13 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.invoice_total(1)
     assert_equal 21_067.77, actual
     assert_instance_of BigDecimal, actual
+  end
+
+  def test_it_can_get_total_revenue_by_date
+    date = Time.parse("2009-02-07")
+    actual = @sales_analyst.total_revenue_by_date(date)
+    assert_instance_of BigDecimal, actual
+    assert_equal 21_067.77, actual
   end
 
 end
