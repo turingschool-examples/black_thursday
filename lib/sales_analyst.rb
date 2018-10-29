@@ -2,10 +2,11 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 
 class SalesAnalyst
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, invoices, transactions)
     @item_repo = items
     @merchant_repo = merchants
     @invoice_repo = invoices
+    @transaction_repo = transactions
   end
 
   def num_items_for_each_merchant

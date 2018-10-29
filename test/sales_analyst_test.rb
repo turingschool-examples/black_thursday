@@ -237,9 +237,9 @@ class SalesAnalystTest < Minitest::Test
     ir = ItemRepository.new(@items)
     invoice_repo = InvoiceRepository.new(@invoices)
     invoice_repo_2 = InvoiceRepository.new(@invoices_2)
-
-    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
     @sales_analyst_2 = SalesAnalyst.new(ir, mr_2, invoice_repo_2)
+    transaction_repo = TransactionRepository.new([])    
+    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo, transaction_repo)
   end
 
   def test_it_exists
@@ -250,7 +250,8 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
     :items     => "./data/item_test.csv",
     :merchants => "./data/merchant_test.csv",
-    :invoices => "./data/invoices.csv"
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
     sales_analyst = sales_engine.analyst
     assert_instance_of SalesAnalyst, sales_analyst
@@ -321,8 +322,8 @@ class SalesAnalystTest < Minitest::Test
     invoices = []
     mr = MerchantRepository.new(merchants)
     ir = ItemRepository.new(items)
-
-    sales_analyst = SalesAnalyst.new(ir, mr, invoices)
+    transaction_repo = TransactionRepository.new([])    
+    sales_analyst = SalesAnalyst.new(ir, mr, invoices, transaction_repo)
     expected = [merchant_1]
     assert_equal expected, sales_analyst.merchants_with_high_item_count
   end
@@ -366,8 +367,8 @@ class SalesAnalystTest < Minitest::Test
     mr = MerchantRepository.new(@merchants)
     ir = ItemRepository.new(@items_2)
     invoice_repo = InvoiceRepository.new(@invoices)
-
-    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
+    transaction_repo = TransactionRepository.new([])
+    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo, transaction_repo)
     assert_equal [@item_6], @sales_analyst.golden_items
   end
 
