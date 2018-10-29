@@ -95,9 +95,16 @@ class SalesAnalyst
     (standard_dev(invoices_per_merchant_array)).round(2)
   end
 
+  def two_deviations_above_mean
+    average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant
+  end
+
+  def two_deviations_below_mean
+    average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2
+  end
+
   def top_merchants_by_invoice_count
     top_merchants_array = []
-    two_deviations_above_mean = (average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant)
     @merchants.each do |m|
         if  merchant_invoice_list(m).count > two_deviations_above_mean
            top_merchants_array << m
@@ -106,10 +113,15 @@ class SalesAnalyst
     top_merchants_array
   end
 
-  # def bottom_merchants_by_invoice_count
-  #    #Which merchants are more than two standard deviations below the mean?
-
-  # end
+  def bottom_merchants_by_invoice_count
+    bottom_merchants_array = []
+    @merchants.each do |m|
+        if  merchant_invoice_list(m).count < two_deviations_below_mean
+           bottom_merchants_array << m
+        end
+    end
+    bottom_merchants_array
+  end
 
   # def top_days_by_invoice_count
   # On which days are invoices created at more than one standard deviation above the mean?
