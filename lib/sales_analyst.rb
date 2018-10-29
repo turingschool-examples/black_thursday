@@ -167,4 +167,14 @@ class SalesAnalyst
     end
     sum(invoice_total_by_item)
   end
+
+  def total_revenue_by_date(date)
+    actual = date.strftime("%Y-%m-%d")
+    items_from_date = @invoice_items.all.select do |item|
+      item.created_at.strftime("%Y-%m-%d") == actual
+    end
+    items_from_date.inject(0) do |sum, item_invoice|
+      sum += item_invoice.quantity * item_invoice.unit_price
+    end.round(2)
+  end
 end
