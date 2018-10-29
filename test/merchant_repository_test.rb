@@ -29,7 +29,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repo_can_find_them_all_by_name
     mr = MerchantRepository.new("./test/data/merchant_sample.csv")
-    assert_equal [], mr.find_all_by_name('1901')
+    assert_instance_of Merchant, mr.find_all_by_name('1901').first
   end
 
   def test_it_can_find_max_id_and_increase_it_by_one

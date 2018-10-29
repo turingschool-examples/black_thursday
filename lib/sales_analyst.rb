@@ -129,16 +129,19 @@ class SalesAnalyst
   # end
 
 
-  def invoice_paid_in_full?(trans_id)
-      transaction_match = @transactions.find do |transaction|
-        transaction.id == trans_id
+  def invoice_paid_in_full?(invoice_id)
+      transaction_match = @transactions.find_all do |transaction|
+        transaction.invoice_id == invoice_id
       end
-      if transaction_match.result == :success
-        true
-      else
-        false
+      transaction_match.any? do |transaction|
+        transaction.result==:success
       end
   end
+
+ #  def invoice_paid_in_full?(invoice_id)
+ #   transactions = @parent.transactions.find_all_by_invoice_id(invoice_id)
+ #   transactions.any? { |transaction| transaction.result == :success }
+ # end
 
   def invoice_total(invoice_id)
     invoice_items = @invoice_items.find_all do |transaction|
