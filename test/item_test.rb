@@ -8,4 +8,9 @@ class ItemTest < Minitest::Test
     assert_instance_of Item, i
   end
 
+  def test_it_has_an_id
+    i = Item.new
+    assert_equal 1, i.id
+  end
+
 end
