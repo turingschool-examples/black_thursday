@@ -18,8 +18,4 @@ class TempTest < Minitest::Test
 
   end
 
-  def test_bottom_merchants_by_invoice_count
-    actual = @sales_analyst.bottom_merchants_by_invoice_count.count
-    assert_equal  7, actual
-  end
 end

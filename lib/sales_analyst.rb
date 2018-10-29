@@ -95,16 +95,9 @@ class SalesAnalyst
     (standard_dev(invoices_per_merchant_array)).round(2)
   end
 
-  def two_deviations_above_mean
-    average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant
-  end
-
-  def two_deviations_below_mean
-    average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2
-  end
-
   def top_merchants_by_invoice_count
     top_merchants_array = []
+    two_deviations_above_mean = average_invoices_per_merchant_standard_deviation * 2 + average_invoices_per_merchant
     @merchants.each do |m|
         if  merchant_invoice_list(m).count > two_deviations_above_mean
            top_merchants_array << m
@@ -115,6 +108,7 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     bottom_merchants_array = []
+    two_deviations_below_mean = average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2
     @merchants.each do |m|
         if  merchant_invoice_list(m).count < two_deviations_below_mean
            bottom_merchants_array << m
@@ -154,7 +148,6 @@ class SalesAnalyst
     invoice_items.inject(0.0) do |sum, invoice_item|
       sum + (invoice_item.unit_price * invoice_item.quantity)
     end
-
   end
 
 end

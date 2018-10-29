@@ -95,9 +95,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
-  skip
-    actual = @sales_analyst.bottom_merchants_by_invoice_count
-    assert_equal # [merchant, merchant, merchant], actual
+    actual = @sales_analyst.bottom_merchants_by_invoice_count.count
+    assert_equal  4, actual
   end
 
   def test_top_days_by_invoice_count
