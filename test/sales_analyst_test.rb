@@ -104,8 +104,9 @@ class SalesAnalystTest < Minitest::Test
     mr = MerchantRepository.new(@merchants)
     ir = ItemRepository.new(@items)
     invoice_repo = InvoiceRepository.new(@invoices)
-
-    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
+    transaction_repo = TransactionRepository.new([])
+    
+    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo, transaction_repo)
   end
 
   def test_it_exists
@@ -188,8 +189,9 @@ class SalesAnalystTest < Minitest::Test
     invoices = []
     mr = MerchantRepository.new(merchants)
     ir = ItemRepository.new(items)
-
-    sales_analyst = SalesAnalyst.new(ir, mr, invoices)
+    transaction_repo = TransactionRepository.new([])
+    
+    sales_analyst = SalesAnalyst.new(ir, mr, invoices, transaction_repo)
     expected = [merchant_1]
     assert_equal expected, sales_analyst.merchants_with_high_item_count
   end
@@ -233,8 +235,9 @@ class SalesAnalystTest < Minitest::Test
     mr = MerchantRepository.new(@merchants)
     ir = ItemRepository.new(@items_2)
     invoice_repo = InvoiceRepository.new(@invoices)
-
-    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo)
+    transaction_repo = TransactionRepository.new([])
+    
+    @sales_analyst = SalesAnalyst.new(ir, mr, invoice_repo, transaction_repo)
     assert_equal [@item_6], @sales_analyst.golden_items
   end
 
