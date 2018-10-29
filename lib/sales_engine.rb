@@ -16,7 +16,6 @@ class SalesEngine
               :invoice_items,
               :analyst
 
-
   def initialize(items, merchants, invoices, transactions, customers, invoice_items)
     @items = ItemRepository.new(items)
     @merchants = MerchantRepository.new(merchants)
@@ -28,16 +27,16 @@ class SalesEngine
   end
 
   def self.from_csv(info)
-    items = populate_items(info[:items])
-    merchants = populate_merchants(info[:merchants])
-    invoices = populate_invoices(info[:invoices])
-    transactions = populate_transactions(info[:transactions])
-    customers = populate_customers(info[:customers])
-    invoice_items = populate_invoice_items(info[:invoice_items])
+    items = self.populate_items(info[:items])
+    merchants = self.populate_merchants(info[:merchants])
+    invoices = self.populate_invoices(info[:invoices])
+    transactions = self.populate_transactions(info[:transactions])
+    customers = self.populate_customers(info[:customers])
+    invoice_items = self.populate_invoice_items(info[:invoice_items])
     self.new(items, merchants, invoices, transactions, customers, invoice_items)
   end
 
-  def populate_invoices(file_path)
+  def self.populate_invoices(file_path)
     if file_path
       file = CSV.read(file_path, headers: true, header_converters: :symbol)
       file.map do |row|
@@ -46,7 +45,7 @@ class SalesEngine
     end
   end
 
-  def populate_merchants(file_path)
+  def self.populate_merchants(file_path)
     if file_path
       file = CSV.read(file_path, headers: true, header_converters: :symbol )
       file.map do |row|
@@ -55,7 +54,7 @@ class SalesEngine
     end
   end
 
-  def populate_items(file_path)
+  def self.populate_items(file_path)
     if file_path
       file = CSV.read(file_path, headers: true, header_converters: :symbol )
       file.map do |row|
@@ -64,7 +63,7 @@ class SalesEngine
     end
   end
 
-  def populate_invoice_item(file_path)
+  def self.populate_invoice_items(file_path)
     if file_path
       file = CSV.read(file_path, headers: true, header_converters: :symbol)
       file.map do |row|
@@ -73,7 +72,7 @@ class SalesEngine
     end
   end
 
-  def populate_transactions(file_path)
+  def self.populate_transactions(file_path)
     if file_path
       file = CSV.read(file_path, headers: true, header_converters: :symbol )
       file.map do |row|
@@ -82,7 +81,7 @@ class SalesEngine
     end
   end
 
-  def populate_customers(file_path)
+  def self.populate_customers(file_path)
     if file_path
       file = CSV.read(file_path, headers: true, header_converters: :symbol )
       file.map do |row|
