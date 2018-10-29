@@ -18,13 +18,20 @@ module Finders
     end
   end
 
-  def find_from_invoice(invoice, classname)
-    case classname
+  def find_from_invoice(invoice, class_string)
+    repository = get_repository(class_string)
+    case class_string
     when 'InvoiceItem', 'Transaction'
-      repository = underscore("@#{classname}s")
-      repository = instance_variable_get(repository)
       repository.all.select {|iv_item| iv_item.invoice_id == invoice.id}
+    when 'Merchant', 'Customer'
+      method_name = "#{class_string.downcase}_id"
+      repository.find_by_id(invoice.public_send(method_name))
     end
+  end
+
+  def get_repository(class_string)
+    repository = underscore("@#{class_string}s")
+    instance_variable_get(repository)
   end
 
   def underscore(string)
