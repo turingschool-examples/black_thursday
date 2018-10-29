@@ -5,11 +5,11 @@ class InvoiceItemTest<Minitest::Test
   def setup
     @time = Time.now
     stats = {
-      id:5,
-      item_id:10,
-      invoice_id:15,
-      quantity:20,
-      unit_price:25,
+      id:"5",
+      item_id:"10",
+      invoice_id:"15",
+      quantity:"20",
+      unit_price:"25",
       created_at:@time,
       updated_at:@time
     }
@@ -37,15 +37,15 @@ class InvoiceItemTest<Minitest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal 25, @invoice_item.unit_price
+    assert_instance_of BigDecimal, @invoice_item.unit_price
   end
 
   def test_it_has_a_created_at_time
-    assert_equal @time, @invoice_item.created_at
+    assert_equal @time.to_s, @invoice_item.created_at.to_s
   end
 
   def test_it_has_an_updated_at_time
-    assert_equal @time, @invoice_item.updated_at
+    assert_equal @time.to_s, @invoice_item.updated_at.to_s
   end
 
 end

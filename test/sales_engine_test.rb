@@ -3,7 +3,7 @@ require './test/test_helper'
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @se = SalesEngine.from_csv({items:"./data/item_test.csv", merchants:"./data/merchant_test.csv", invoices:"./data/invoices.csv", customers:"./data/customers.csv"})
+    @se = SalesEngine.from_csv({items:"./data/item_test.csv", merchants:"./data/merchant_test.csv", invoices:"./data/invoices.csv", customers:"./data/customers.csv", invoice_items:"./data/invoice_items.csv"})
   end
 
   def test_it_exists

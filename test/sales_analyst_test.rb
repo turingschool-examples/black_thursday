@@ -2,21 +2,21 @@ require_relative './test_helper'
 
 class SalesAnalystTest < Minitest::Test
 
-  def setup    
+  def setup
     @merchant_1 = Merchant.new({id: 5, name: 'Steve'})
     @merchant_2 = Merchant.new({id: 10, name: 'Turing School'})
     @merchant_3 = Merchant.new({id: 7, name: 'Turk'})
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
     @mr = MerchantRepository.new(@merchants)
-    
+
     @time = Time.now.to_s
     @item_1 = Item.new({
               :id          => 1,
               :name        => "Pencil",
               :description => "You can use it to write things",
               :unit_price  => 1099,
-              :created_at  => @time, 
-              :updated_at  => @time, 
+              :created_at  => @time,
+              :updated_at  => @time,
               :merchant_id => 10
             })
     @item_2 = Item.new({
@@ -66,7 +66,7 @@ class SalesAnalystTest < Minitest::Test
             })
     @items = [@item_1, @item_2, @item_3, @item_4, @item_5]
     @items_2 = [@item_1, @item_2, @item_3, @item_4, @item_5, @item_6]
-    
+
     @invoice_1 = Invoice.new({
                 :id          => 1,
                 :customer_id => 10,
@@ -100,7 +100,7 @@ class SalesAnalystTest < Minitest::Test
                 :updated_at  => @time
               })
     @invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4]
-    
+
     mr = MerchantRepository.new(@merchants)
     ir = ItemRepository.new(@items)
     invoice_repo = InvoiceRepository.new(@invoices)
@@ -117,7 +117,8 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
     :items     => "./data/item_test.csv",
     :merchants => "./data/merchant_test.csv",
-    :invoices => "./data/invoices.csv"
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
     sales_analyst = sales_engine.analyst
     assert_instance_of SalesAnalyst, sales_analyst
@@ -137,15 +138,15 @@ class SalesAnalystTest < Minitest::Test
     merchant_3 = Merchant.new({id: 7, name: 'Turk'})
     merchants = [merchant_1, merchant_2, merchant_3]
     mr = MerchantRepository.new(merchants)
-    
+
     time = Time.now.to_s
     item_1 = Item.new({
               :id          => 1,
               :name        => "Pencil",
               :description => "You can use it to write things",
               :unit_price  => BigDecimal.new(10.99,4),
-              :created_at  => time, 
-              :updated_at  => time, 
+              :created_at  => time,
+              :updated_at  => time,
               :merchant_id => 5
             })
     item_2 = Item.new({

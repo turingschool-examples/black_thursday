@@ -80,7 +80,7 @@ class ItemRepositoryTest < Minitest::Test
               :name        => "fountain pen",
               :description => "You can use it to write things fancily",
               :unit_price  => BigDecimal.new(10.99,4),
-              :created_at  => "1993-09-29 11:56:40 UTC",
+              :created_at  => " ",
               :updated_at  => "1993-09-29 11:56:40 UTC",
               :merchant_id => 2
             })
