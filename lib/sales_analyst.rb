@@ -49,7 +49,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     items_by_merchant_array = @items.find_all_by_merchant_id(merchant_id)
     item_prices_array = items_by_merchant_array.map {|item| item.unit_price}
-    average(item_prices_array)
+    BigDecimal(average(item_prices_array),6)
   end
 
   def average_price_per_merchant
@@ -60,7 +60,7 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average(average_price_per_merchant)
+    BigDecimal(average(average_price_per_merchant),6)
   end
 
   def average_prices_per_merchant_standard_deviation
