@@ -86,7 +86,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 20,
                 :merchant_id => 10,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-08",
                 :updated_at  => @time
               })
     @invoice_3 = Invoice.new({
@@ -94,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 30,
                 :merchant_id => 7,
                 :status      => "returned",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-09",
                 :updated_at  => @time
               })
     @invoice_4 = Invoice.new({
@@ -102,7 +102,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 5,
                 :status      => "returned",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-10",
                 :updated_at  => @time
               })
     @invoice_5 = Invoice.new({
@@ -110,7 +110,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-11",
                 :updated_at  => @time
               })
     @invoice_6 = Invoice.new({
@@ -118,7 +118,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-12",
                 :updated_at  => @time
               })
     @invoice_7 = Invoice.new({
@@ -126,7 +126,7 @@ class SalesAnalystTest < Minitest::Test
                 :customer_id => 40,
                 :merchant_id => 7,
                 :status      => "shipped",
-                :created_at  => "2009-02-07",
+                :created_at  => "2009-02-13",
                 :updated_at  => @time
               })
     @invoice_8 = Invoice.new({
