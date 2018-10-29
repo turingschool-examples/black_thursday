@@ -152,7 +152,7 @@ class SalesAnalystTest < Minitest::Test
       :item_id     => 263539664,
       :invoice_id  => 1,
       :quantity    => 5,
-      :unit_price  => 52100,
+      :unit_price  => BigDecimal(52100, 5),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
@@ -162,7 +162,7 @@ class SalesAnalystTest < Minitest::Test
       :item_id     => 263563764,
       :invoice_id  => 1,
       :quantity    => 4,
-      :unit_price  => 66747,
+      :unit_price  => BigDecimal(66747, 5),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
@@ -172,7 +172,7 @@ class SalesAnalystTest < Minitest::Test
       :item_id     => 263432817,
       :invoice_id  => 1,
       :quantity    => 6,
-      :unit_price  => 76941,
+      :unit_price  => BigDecimal(76941, 5),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
@@ -181,7 +181,7 @@ class SalesAnalystTest < Minitest::Test
     @iir.add_invoice_item(@invoice_item_2)
     @iir.add_invoice_item(@invoice_item_3)
 
-    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr, invoces_item: @iir })
+    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr, invoice_items: @iir })
     @sa = @se.analyst
     @invoice_item_1 = Item.new({
           :id          => 2,
@@ -258,14 +258,16 @@ class SalesAnalystTest < Minitest::Test
     # @ii.add_item(@invoice_item_6)
     # @ii.add_item(@invoice_item_7)
     ############ REMOVE AT SOME POINT ##############
-    # @se_real = SalesEngine.from_csv({
-    #   :items     => "./data/items.csv",
-    #   :merchants => "./data/merchants.csv",
-    #   :invoices => "./data/invoices.csv",
-    #   :transactions => "./data/transactions.csv"
-    # })
-    # @sa_real = @se_real.analyst
-    ################################################
+    @se_real = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv",
+      :invoice_items => "./data/invoice_items.csv"
+    })
+    @sa_real = @se_real.analyst
+    binding.pry
+    ################################################@
   end
 
   def test_average_items_per_merchant
@@ -352,6 +354,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_you_can_calculate_invoice_total
+    assert_equal BigDecimal(989134, 6), @sa.invoice_total(1)
     assert_instance_of BigDecimal, @sa.invoice_total(1)
   end
 
