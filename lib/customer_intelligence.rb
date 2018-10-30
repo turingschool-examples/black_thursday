@@ -1,14 +1,14 @@
 module CustomerIntelligence
-  def one_time_buyers
-    @customers.all.find_all do |customer|
-      invoices.all.one?{|invoice| invoice.customer_id == customer.id}
-    end
-  end
-
   def top_buyers(n = 20)
     customers.all.sort_by do |customer|
       0 - (revenue_from_invoices(find_invoices_from(customer)))
     end.slice(0, n)
+  end
+
+  def one_time_buyers
+    customers.all.find_all do |customer|
+      invoices.all.one?{|invoice| invoice.customer_id == customer.id}
+    end
   end
 
   def one_time_buyers_top_item
@@ -23,10 +23,6 @@ module CustomerIntelligence
     end
 
     items.find_by_id(top_inv_items.first.item_id)
-  end
-
-  def invoices_grouped_by_customer_id
-    invoices.all.group_by {|invoice| invoice.customer_id}
   end
 
   def top_merchant_for_customer(customer_id)
@@ -50,15 +46,13 @@ module CustomerIntelligence
   end
 
   def highest_volume_items(customer_id)
-    all_invoices = find_invoices_from(customers.find_by_id(customer_id))
-    top_quantity = find_highest_quantity_for(all_invoices)
-    
-    all_invoices.reduce([]) do |top_i, invoice|
-      invoice_items = get_top_invoice_items_for(invoice)
-      invoice_items.each do |invoice_item|
-        if invoice_item.quantity == top_quantity
-          top_i << items.find_by_id(invoice_item.item_id)
-        end
+    customer = customers.find_by_id(customer_id)
+    top_quantity = find_highest_quantity_invoice_item_from(customer)
+
+    find_invoices_from(customer).reduce([]) do |top_i, invoice|
+      get_top_invoice_items_for(invoice).each do |invoice_item|
+        current = invoice_item.quantity
+        top_i << items.find_by_id(invoice_item.item_id) if current == top_quantity
       end
       top_i
     end
@@ -70,11 +64,15 @@ module CustomerIntelligence
 
   def items_bought_in_year(customer_id, year)
     all_invoices_for_customers_for_year(customer_id, year).map do |invoice|
-      @invoice_items.find_all_by_invoice_id(invoice.id).map { |invoice_item| invoice_item.item_id}
-    end.flatten.compact.uniq.map { |item_id| @items.find_by_id(item_id) }
+      find_from_invoice(invoice, 'InvoiceItem').map do |invoice_item|
+        items.find_by_id(invoice_item.item_id)
+      end
+    end.flatten.compact.uniq
   end
 
   def all_invoices_for_customers_for_year(customer_id, year)
-    @invoices.find_all_by_customer_id(customer_id).select { |invoice| invoice.created_at.year == year}
+    invoices.find_all_by_customer_id(customer_id).select do |invoice|
+      invoice.created_at.year == year
+    end
   end
 end
