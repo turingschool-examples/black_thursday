@@ -23,7 +23,7 @@ module TestData
     @tr = TransactionRepository.new
 
     @m_1 = Merchant.new({id: 10, name: "Bettys Beans"})
-    @m_1 = Merchant.new({id: 11, name: "Freds Fireworks"})
+    @m_2 = Merchant.new({id: 11, name: "Freds Fireworks"})
 
     @mr.instances << @m_1
     @mr.instances << @m_2

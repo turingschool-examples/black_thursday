@@ -345,12 +345,12 @@ class SalesAnalystTest < Minitest::Test
 
 
   def test_customers_with_unpaid_invoices
-    setup_big_data_set
+    
     actual = @sa.customers_with_unpaid_invoices
     assert_equal 6, actual.size
   end
 
-  
+
 
 
 end
