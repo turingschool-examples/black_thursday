@@ -173,8 +173,17 @@ class SalesAnalyst
       invoice.created_at == date && invoice_paid_in_full?(invoice.id)
     end
     invoices_for_date.inject(0) do |sum, invoice|
-      sum += invoice_total(invoice.id)
+      sum + invoice_total(invoice.id)
     end
+  end
+
+  def top_revenue_earners_for_merchants
+    #access merchants through invoice.merchant_id
+    #get the revenue per merchant
+    #get the revenue for all merchants
+    #look for the highest revenue by sorting merchants
+    #compare that revenue to merchant's revenue
+    #if it's == to highest revenue << into collections of top 20
   end
 
 end
