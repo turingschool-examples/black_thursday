@@ -66,10 +66,12 @@ module CustomerIntelligence
   end
 
   def items_bought_in_year(customer_id, year)
-    invoices_in_year = @invoices.find_all_by_customer_id(customer_id).select { |invoice| invoice.created_at.year == year}
-    item_ids = invoices_in_year.map do |invoice|
+    all_invoices_for_customers_for_year(customer_id, year).map do |invoice|
       @invoice_items.find_all_by_invoice_id(invoice.id).map { |invoice_item| invoice_item.item_id}
-    end.flatten.uniq.compact
-    item_ids.map { |item_id| @items.find_by_id(item_id) }
+    end.flatten.compact.uniq.map { |item_id| @items.find_by_id(item_id) }
+  end
+
+  def all_invoices_for_customers_for_year(customer_id, year)
+    @invoices.find_all_by_customer_id(customer_id).select { |invoice| invoice.created_at.year == year}
   end
 end
