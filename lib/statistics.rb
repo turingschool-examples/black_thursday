@@ -43,4 +43,14 @@ module Statistics
     end
     average(*averages).round(2)
   end
+
+  def sum(*nums)
+    nums.reduce(0) do |sum, object|
+      if block_given?
+        sum += yield( object )
+      else
+        sum += object
+      end
+    end
+  end
 end
