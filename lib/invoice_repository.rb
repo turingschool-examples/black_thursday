@@ -25,7 +25,7 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     @all.find_all do |object|
-      object.status == status.to_s
+      object.status == status
     end
   end
 
@@ -42,7 +42,7 @@ class InvoiceRepository
 
   def update(id, attributes)
     object = find_by_id(id)
-    object.status = attributes[:status].to_s if attributes[:status]
+    object.status = attributes[:status] if attributes[:status]
     object.updated_at = Time.new.getutc if object
   end
 end
