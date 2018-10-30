@@ -117,18 +117,38 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-  # On which days are invoices created at more than
-  # one standard deviation above the mean?
+    numbers_to_days_hash = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
+    invoices_per_day = {"Sunday" => 0, "Monday" => 0, "Tuesday" => 0, "Wednesday" => 0, "Thursday" => 0, "Friday" => 0, "Saturday" => 0}
+
+    @invoices.each do |invoice|
+      day = numbers_to_days_hash[invoice.created_at.wday]
+      invoices_per_day[day] += 1
+    end
+
+    average_invoices_per_day = mean_value(invoices_per_day.values)
+    average_invoices_per_day_standard_deviation = standard_dev(invoices_per_day.values)
+    one_deviation_above_mean = average_invoices_per_day + average_invoices_per_day_standard_deviation
+
+    top_days_created = []
+    invoices_per_day.each do |day, value|
+      if value > one_deviation_above_mean
+        top_days_created << day
+      end
+    end
+
+    top_days_created
   end
 
-  # def invoice_status(status)
-  # # What percentage of invoices are shipped vs pending vs returned?
-  # # (total invoices for that status / total invoices) * 100
-  # # Need to map through this.
-  # (@invoices[status].count / @invoices.count) * 100
-  # # the above line might not be quite right
-  # end
+  def invoice_status(status)
+    status_total = 0
+      @invoices.each do |invoice|
+          if invoice.status == status
+              status_total += 1
+          end
+      end
+   ((status_total.to_f / @invoices.count) * 100).round(2)
 
+  end
 
   def invoice_paid_in_full?(invoice_id)
       transaction_match = @transactions.find_all do |transaction|
