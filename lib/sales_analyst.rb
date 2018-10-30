@@ -131,4 +131,10 @@ class SalesAnalyst
     end.keys
   end
 
+  def invoice_status(status_arg)
+    i_c = @invoices.all.select do |invoice|
+      invoice.status == status_arg
+    end
+    ((i_c.count.to_f / @invoices.all.count )*100).round(2)
+  end
 end
