@@ -18,10 +18,5 @@ class TempTest < Minitest::Test
 
   end
 
-  def test_it_can_return_the_invoices_paid_in_full
-    actual = @sales_analyst.invoice_paid_in_full?(46)
-    assert actual
-    actual_2 = @sales_analyst.invoice_paid_in_full?(1752)
-    refute actual_2
-  end
+
 end

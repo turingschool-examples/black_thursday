@@ -116,17 +116,27 @@ class SalesAnalyst
     bottom_merchants_array
   end
 
-#   def top_days_by_invoice_count
-#     days_created = []
-#     numbers_to_days_hash = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday"}
-#     average_invoices_per_day_standard_deviation =
-#     average_invoices_per_day =
-#     # one_deviation_above_mean = average_invoices_per_day_standard_deviation + average_invoices_per_day
-# binding.pry
-#     grouped_invoice_days = @invoices.group_by do |invoice|
-#                               invoice.created_at
-#                             end
-#   end
+  def top_days_by_invoice_count
+    top_days_created = []
+    numbers_to_days_hash = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
+    invoices_per_day = {"Sunday" => 0, "Monday" => 0, "Tuesday" => 0, "Wednesday" => 0, "Thursday" => 0, "Friday" => 0, "Saturday" => 0}
+    # one_deviation_above_mean = average_invoices_per_day_standard_deviation + average_invoices_per_day
+        @invoices.each do |invoice|
+          day = numbers_to_days_hash[invoice.created_at.wday]
+          invoices_per_day[day] += 1
+        end
+
+      average_invoices_per_day = mean_value(invoices_per_day.values)
+      average_invoices_per_day_standard_deviation = standard_dev(invoices_per_day.values)
+      one_deviation_above_mean = average_invoices_per_day + average_invoices_per_day_standard_deviation
+
+            invoices_per_day.each do |day, value|
+              if value > one_deviation_above_mean
+                  top_days_created << day
+                end
+              end
+    top_days_created
+  end
 
   # def invoice_status(status)
   #   status_counter = 0
