@@ -18,8 +18,8 @@ class Item
   end
 
   def unit_price_to_dollars
-    dollar_value = @unit_price / BigDecimal.new(100)
-    dollar_value.to_f
+    dollar_value = (@unit_price / BigDecimal.new(100)).to_f
+    dollar_value
   end
 
 end
