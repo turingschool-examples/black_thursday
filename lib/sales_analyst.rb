@@ -153,4 +153,12 @@ class SalesAnalyst
       false
     end
   end
+
+  def invoice_total(invoice_id)
+    selected_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items_totals = selected_invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    sums(invoice_items_totals) 
+  end
 end

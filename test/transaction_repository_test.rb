@@ -41,7 +41,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_you_can_find_all_by_result
     tr = TransactionRepository.new("./data/transactions.csv")
 
-    assert_equal 4158, tr.find_all_by_result("success").count
+    assert_equal 4158, tr.find_all_by_result(:success).count
     assert_equal [], tr.find_all_by_result("adsf")
   end
 
