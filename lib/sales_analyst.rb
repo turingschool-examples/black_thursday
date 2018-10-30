@@ -202,6 +202,10 @@ class SalesAnalyst
     end
     sum(totals)
   end
+  
+  def top_revenue_earners(num = 20)
+    
+  end
 
   # maths
 

@@ -524,7 +524,6 @@ class SalesAnalystTest < Minitest::Test
   end
   
   def test_it_can_find_top_indicated_number_of_merchants_for_revenue
-    skip
     expected = [@merchant_3, @merchant_1]
     expected_2 = [@merchant_3, @merchant_1, @merchant_2, @merchant_4,  @merchant_5, @merchant_6, @merchant_7, @merchant_8, @merchant_9,  @merchant_10, @merchant_11, @merchant_12, @merchant_13, @merchant_14,   @merchant_15, @merchant_16, @merchant_17, @merchant_18, @merchant_19,  @merchant_20]
     assert_equal expected, @sales_analyst.top_revenue_earners(2)
