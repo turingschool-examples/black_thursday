@@ -148,4 +148,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 
+  def test_it_can_return_by_invoice_status
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    sa = SalesAnalyst.new(items, merchants, invoices)
+
+    assert_equal 29.55, sa.invoice_status(:pending)
+    assert_equal 56.95, sa.invoice_status(:shipped)
+    assert_equal 13.5, sa.invoice_status(:returned)
+  end
 end
