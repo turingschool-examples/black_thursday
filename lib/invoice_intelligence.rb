@@ -30,7 +30,7 @@ module InvoiceIntelligence
   end
 
   def sum_invoice_items_revenue(invoice_items)
-    sum(*invoice_items) { |invoice_item| invoice_item.revenue }
+    sum(invoice_items) { |invoice_item| invoice_item.revenue }
   end
 
   def get_total_from_all_invoice_items_for(invoice_id)
@@ -49,15 +49,8 @@ module InvoiceIntelligence
     transactions_for_invoice.all? { |tr| tr.result == :success }
   end
 
-<<<<<<< HEAD
-  def get_item_count_for(invoice)
-    .reduce(0) do |item_count, invoice_item|
-      item_count += invoice_item.quantity
-    end
-=======
   def get_item_count_for(invoice_id)
     sum(find_from_invoice(invoice, 'InvoiceItem')) { |invoice_item| invoice_item.quantity }
->>>>>>> d5dea048150a0b5bcb626d9be0e49b84a5f12a19
   end
 
   def best_invoice_by_quantity
