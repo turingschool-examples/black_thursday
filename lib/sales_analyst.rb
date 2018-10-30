@@ -207,4 +207,7 @@ class SalesAnalyst
     top_merchants
   end
 
+
+
+
 end

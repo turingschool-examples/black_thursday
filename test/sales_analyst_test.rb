@@ -148,5 +148,12 @@ class SalesAnalystTest < Minitest::Test
    assert_equal 20, actual.length
   end
 
+  def test_it_can_get_merchants_with_pending_invoices
+   actual = @sales_analyst.merchants_with_pending_invoices
+   assert_instance_of Merchant, actual.first
+   assert_equal 3, actual.length
+  end
+  #   Which merchants have pending invoices:
+  # sales_analyst.merchants_with_pending_invoices #=> [merchant, merchant, merchant]
 
 end
