@@ -287,7 +287,7 @@ class SalesAnalystTest < Minitest::Test
                                         unit_price: "2500",
                                         created_at: @time,
                                         updated_at: @time
-                                      })  
+                                      })
     @invoice_item_6 = InvoiceItem.new({ id: "6",
                                         item_id: "4",
                                         invoice_id: "2",
@@ -295,7 +295,7 @@ class SalesAnalystTest < Minitest::Test
                                         unit_price: "2500",
                                         created_at: @time,
                                         updated_at: @time
-                                      })  
+                                      })
     @transaction_1 = Transaction.new({
                         :id => 6,
                         :invoice_id => 1,
@@ -516,13 +516,13 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_invoice_total_amount
     assert_equal BigDecimal.new(100.00, 5), @sales_analyst_2.invoice_total(2)
   end
-  
+
   def test_it_can_find_total_revenue_by_date
     date  = Time.parse("2012-02-26")
     expected = BigDecimal(200.00, 5)
     assert_equal expected, @sales_analyst_2.total_revenue_by_date(date)
   end
-  
+
   def test_it_can_find_top_indicated_number_of_merchants_for_revenue
     skip
     expected = [@merchant_3, @merchant_1]
@@ -530,38 +530,36 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, @sales_analyst.top_revenue_earners(2)
     assert_equal expected_2, @sales_analyst_3.top_revenue_earners
   end
-  
+
   def test_it_can_find_which_merchants_have_pending_invoices
-    skip
-    expected = [@merchant_2, @merchant_3]
+    expected = [@merchant_3, @merchant_1]
     assert_equal expected, @sales_analyst_2.merchants_with_pending_invoices
   end
-  
+
   def test_it_can_find_which_merchants_only_sell_one_item
     skip
     assert_equal [@merchant_3], @sales_analyst_2.merchants_with_only_one_item
   end
-  
+
   def test_it_can_find_merchants_that_only_sell_one_item_in_registered_month
     skip
     actual = @sales_analyst_2.merchants_with_only_one_item_registered_in_month("February")
     assert_equal [@merchant_2], actual
   end
-  
+
   def test_it_can_calculate_total_revenue_for_a_merchant
     skip
     expected = BigDecimal.new(200.00, 5)
     assert_equal expected, @sales_analyst.revenue_by_merchant(10)
   end
-  
+
   def test_it_can_calculate_most_sold_items_for_a_merchant
     skip
     assert_equal [@item_4], @sales_analyst_3.most_sold_item_for_merchant(10)
   end
-  
+
   def test_it_can_find_item_that_generates_most_revenue_for_merchant
     skip
     assert_equal @item_3, @sales_analyst.best_item_for_merchant(10)
   end
-  
 end
