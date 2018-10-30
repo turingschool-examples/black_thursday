@@ -138,14 +138,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_get_revenue_for_each_merchant
-    actual = @sales_analyst.revenue_per_merchant
-    assert_equal 250, actual
+    actual = @sales_analyst.merchant_revenue(12335938)
+    assert_equal BigDecimal(126300.9, 7), actual
   end
 
   def test_it_can_get_the_top_revenue_earners_for_merchants
-   actual = @sales_analyst.top_revenue_earners(10)
-   assert_instance_of Merchant, actual.first.class
-   assert_equal 10, actual.length
+   actual = @sales_analyst.top_revenue_earners(20)
+   assert_instance_of Merchant, actual.first
+   assert_equal 20, actual.length
   end
 
 

@@ -163,8 +163,13 @@ class SalesAnalyst
     invoice_items = @invoice_items.find_all do |transaction|
       transaction.invoice_id == invoice_id
     end
-    invoice_items.inject(0.0) do |sum, invoice_item|
+    total = invoice_items.inject(0.0) do |sum, invoice_item|
       sum + (invoice_item.unit_price * invoice_item.quantity)
+    end
+    if total == nil
+      return 0
+    else
+      total
     end
   end
 
@@ -177,13 +182,29 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners_for_merchants
-    #access merchants through invoice.merchant_id
-    #get the revenue per merchant
-    #get the revenue for all merchants
-    #look for the highest revenue by sorting merchants
-    #compare that revenue to merchant's revenue
-    #if it's == to highest revenue << into collections of top 20
+  def merchant_revenue(merchant_id)
+    sum = 0
+     @invoices.each do |invoice|
+     if invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
+      sum += invoice_total(invoice.id)
+     end
+    end
+    sum
+  end
+
+  def top_revenue_earners(number = 20)
+    revenue_array = []
+    @merchants.each do |merchant|
+      revenue_array << {merchant: merchant, revenue: merchant_revenue(merchant.id)}
+    end
+    revenue_array.sort_by! do |item|
+      item[:revenue]
+    end
+    top_merchants = []
+    number.times do
+      top_merchants << revenue_array.pop[:merchant]
+    end
+    top_merchants
   end
 
 end
