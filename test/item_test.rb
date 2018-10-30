@@ -116,6 +116,6 @@ class ItemTest < Minitest::Test
   :merchant_id => 2
 })
 
-    assert_equal 10.99, i.unit_price_to_dollars
+    assert_equal 0.1099, i.unit_price_to_dollars
   end
 end
