@@ -104,7 +104,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     standard_deviation = average_invoices_per_merchant_standard_deviation
     merchant_ids = invoices_by_merchant.select do |merchant_id, invoices|
-      (invoices.count - average_invoices_per_merchant) <= (standard_deviation * 2)
+      (invoices.count - average_invoices_per_merchant) < (-standard_deviation * 2)
     end
     @merchants.all.select {|merchant| merchant_ids.include?(merchant.id)}
   end
