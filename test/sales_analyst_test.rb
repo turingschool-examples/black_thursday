@@ -597,26 +597,52 @@ class SalesAnalystTest < Minitest::Test
     invoice_3 = mock
     invoice_3.stubs(:id).returns(3)
     invoice_3.stubs(:merchant_id).returns(3)
+    # item_1 = mock
+    # item_1.stubs(:id).returns(1)
+    # item_1.stubs(:merchant_id).returns(1)
+    # item_2 = mock
+    # item_2.stubs(:id).returns(2)
+    # item_2.stubs(:merchant_id).returns(2)
+    # item_3 = mock
+    # item_3.stubs(:id).returns(3)
+    # item_3.stubs(:merchant_id).returns(3)
+    transaction_1 = mock
+    transaction_1.stubs(:id).returns(1)
+    transaction_1.stubs(:invoice_id).returns(1)
+    transaction_1.stubs(:result).returns(:success)
+    transaction_2 = mock
+    transaction_2.stubs(:id).returns(2)
+    transaction_2.stubs(:invoice_id).returns(2)
+    transaction_2.stubs(:result).returns(:success)
+    transaction_3 = mock
+    transaction_3.stubs(:id).returns(3)
+    transaction_3.stubs(:invoice_id).returns(3)
+    transaction_3.stubs(:result).returns(:success)
     invoice_item_1 = mock
     invoice_item_1.stubs(:id).returns(1)
     invoice_item_1.stubs(:invoice_id).returns(1)
+    invoice_item_1.stubs(:item_id).returns(1)
     invoice_item_1.stubs(:unit_price).returns(BigDecimal.new(10.00, 4))
     invoice_item_1.stubs(:quantity).returns(1)
     invoice_item_2 = mock
     invoice_item_2.stubs(:id).returns(2)
     invoice_item_2.stubs(:invoice_id).returns(2)
+    invoice_item_2.stubs(:item_id).returns(2)
     invoice_item_2.stubs(:unit_price).returns(BigDecimal.new(50.00, 4))
     invoice_item_2.stubs(:quantity).returns(2)
     invoice_item_3 = mock
     invoice_item_3.stubs(:id).returns(3)
+    invoice_item_3.stubs(:item_id).returns(3)
     invoice_item_3.stubs(:invoice_id).returns(3)
     invoice_item_3.stubs(:unit_price).returns(BigDecimal.new(40.00, 4))
     invoice_item_3.stubs(:quantity).returns(1)
     
+    # items = [item_1, item_2, item_3]
     merchants = [merchant_1, merchant_2, merchant_3]
     invoices = [invoice_1, invoice_2, invoice_3]
     invoice_items = [invoice_item_1, invoice_item_2, invoice_item_3]
-    se = SalesEngine.new(nil, merchants, invoices, nil, nil, invoice_items)
+    transactions = [transaction_1, transaction_2, transaction_3]
+    se = SalesEngine.new(nil, merchants, invoices, transactions, nil, invoice_items)
     sales_analyst = se.analyst
     
     expected = [merchant_2, merchant_3, merchant_1]
