@@ -42,6 +42,7 @@ module RepoModule
     object.description = attributes[:description] if attributes[:description]
     object.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
     object.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
+    object.quantity = attributes[:quantity] if attributes[:quantity]
     object.updated_at = Time.new.getutc if object
   end
 
