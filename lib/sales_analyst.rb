@@ -185,22 +185,37 @@ class SalesAnalyst
       0
     end
   end
-  
+
   def total_revenue_by_date(date)
     invoices = @invoice_repo.all.find_all do |invoice|
       Time.strptime(invoice.created_at.to_s, '%Y-%m-%d') == date
     end
-      
+
     invoice_items = []
     invoices.each do |invoice|
       invoice_items << @invoice_item_repo.find_all_by_invoice_id(invoice.id)
     end
     invoice_items.flatten!
-    
+
     totals = invoice_items.map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
     end
     sum(totals)
+  end
+
+  def merchants_with_only_one_item
+    items_per_merchant = @merchant_repo.all.map do |merchant|
+      @item_repo.find_all_by_merchant_id(merchant.id)
+    end
+    # binding.pry
+    items_with_single_owner = items_per_merchant.find_all do |items|
+      items.length == 1
+    end.flatten
+    item_owner = items_with_single_owner.map do |item|
+      @merchant_repo.all.find_all do |merchant|
+        merchant.id == item.merchant_id
+      end
+    end.flatten
   end
 
   # maths
