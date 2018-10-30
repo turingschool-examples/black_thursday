@@ -26,7 +26,7 @@ class SalesAnalystTest < Minitest::Test
     @merchant_20 = Merchant.new({id: 34, name: 'Rod'})
     @merchant_21 = Merchant.new({id: 35, name: 'Satan'})
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
-    @merchants_2 = [@merchant_1, @merchant_2, @merchant_3, @merchant_4,         @merchant_5, @merchant_6]
+    @merchants_2 = [@merchant_1, @merchant_2, @merchant_3, @merchant_4,    @merchant_5, @merchant_6]
     @merchants_3 = [@merchant_1, @merchant_2, @merchant_3, @merchant_4,  @merchant_5, @merchant_6, @merchant_7, @merchant_8, @merchant_9,  @merchant_10, @merchant_11, @merchant_12, @merchant_13, @merchant_14,   @merchant_15, @merchant_16, @merchant_17, @merchant_18, @merchant_19,  @merchant_20, @merchant_21]
     @mr = MerchantRepository.new(@merchants)
     @mr_2 = MerchantRepository.new(@merchants_2)
@@ -340,7 +340,7 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst = sales_engine.analyst
     sales_engine_2 = SalesEngine.new(@items, @merchants_2, @invoices_2, @transactions, nil, @invoice_items)
     @sales_analyst_2 = sales_engine_2.analyst
-    sales_engine_3 = SalesEngine.new(@items, @merchants_3, @invoices, @transactions, nil, @invoice_items_2)
+    sales_engine_3 = SalesEngine.new(@items, @merchants_3, @invoices_2, @transactions, nil, @invoice_items_2)
     @sales_analyst_3 = sales_engine_3.analyst
   end
 
@@ -524,10 +524,10 @@ class SalesAnalystTest < Minitest::Test
   end
   
   def test_it_can_find_top_indicated_number_of_merchants_for_revenue
-    expected = [@merchant_3, @merchant_1]
-    expected_2 = [@merchant_3, @merchant_1, @merchant_2, @merchant_4,  @merchant_5, @merchant_6, @merchant_7, @merchant_8, @merchant_9,  @merchant_10, @merchant_11, @merchant_12, @merchant_13, @merchant_14,   @merchant_15, @merchant_16, @merchant_17, @merchant_18, @merchant_19,  @merchant_20]
-    assert_equal expected, @sales_analyst.top_revenue_earners(2)
-    assert_equal expected_2, @sales_analyst_3.top_revenue_earners
+    expected = [@merchant_2, @merchant_1]
+    expected_2 = [@merchant_2, @merchant_1, @merchant_3, @merchant_4,  @merchant_5, @merchant_6, @merchant_7, @merchant_8, @merchant_9,  @merchant_10, @merchant_11, @merchant_12, @merchant_13, @merchant_14,   @merchant_15, @merchant_16, @merchant_17, @merchant_18, @merchant_19,  @merchant_20]
+    assert_equal expected, @sales_analyst_3.top_revenue_earners(2)
+    assert @sales_analyst_3.top_revenue_earners.all? {|r| expected_2.include? r}
   end
   
   def test_it_can_find_which_merchants_have_pending_invoices
