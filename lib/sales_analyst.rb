@@ -202,6 +202,31 @@ class SalesAnalyst
     end
     sum(totals)
   end
+  
+  def top_revenue_earners(num = 20)
+    merchant_invoices = {}
+    @merchant_repo.all.each do |merchant|
+      invoices = @invoice_repo.find_all_by_merchant_id(merchant.id)
+      merchant_invoices[merchant] = invoices
+    end
+    
+    merchant_revenue = {}
+    merchant_invoices.each do |merchant, invoices|
+      total_revenue = invoices.inject(0) do |total, invoice|
+        total + invoice_total(invoice.id)
+      end
+      merchant_revenue[merchant] = total_revenue
+    end
+    
+    merchants = []
+    sorted = merchant_revenue.sort_by do |merchant, revenue|
+      revenue
+    end
+    num.times do 
+      merchants << sorted.pop[0]
+    end
+    merchants
+  end
 
   def merchants_with_pending_invoices
     pending_merchant_ids = []
