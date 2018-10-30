@@ -210,11 +210,11 @@ class SalesAnalyst
   def merchants_with_only_one_item
     one_item_merchants = []
     @merchants.each do |merchant|
-      if 
-    one_item_merchants << merchant
+      if merchant_item_list(merchant).count == 1
+        one_item_merchants << merchant
+      end
     end
-
-    #return an array of merchant objects
+    one_item_merchants
   end
 
 end

@@ -149,10 +149,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_get_merchants_with_one_item
-    #  Which merchants offer only one item:
-    # sales_analyst.merchants_with_only_one_item #=> [merchant, merchant, merchant]
     actual = @sales_analyst.merchants_with_only_one_item.count
-    assert_equal 4, actual
+    assert_equal 243, actual
+    actual = @sales_analyst.merchants_with_only_one_item
+    assert_instance_of Array, actual
   end
 
 end
