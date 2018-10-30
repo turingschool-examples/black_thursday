@@ -29,10 +29,11 @@ class InvoiceIntelligenceTest < Minitest::Test
   # end
 
 
-  def test_at_least_one_successful_transaction_returns_true
+  def test_all_transactions_successful_for_invoice_id_returns_true
     setup_empty_sales_engine
     invoice = @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
     @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
-    assert @sa.invoice_paid_in_full?(invoice[0].id)
+    assert @sa.all_transactions_successful_for?(invoice[0].id)
   end
+
 end
