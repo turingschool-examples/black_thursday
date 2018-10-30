@@ -120,7 +120,6 @@ class SalesAnalyst
     top_days_created = []
     numbers_to_days_hash = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
     invoices_per_day = {"Sunday" => 0, "Monday" => 0, "Tuesday" => 0, "Wednesday" => 0, "Thursday" => 0, "Friday" => 0, "Saturday" => 0}
-    # one_deviation_above_mean = average_invoices_per_day_standard_deviation + average_invoices_per_day
         @invoices.each do |invoice|
           day = numbers_to_days_hash[invoice.created_at.wday]
           invoices_per_day[day] += 1
@@ -138,20 +137,19 @@ class SalesAnalyst
     top_days_created
   end
 
-  # def invoice_status(status)
-  #   status_counter = 0
-  #   invoice_status = @invoices.each do |invoice|
-  #                     if invoice.status == status
-  #                       status_counter += 1
-  #                     end
-  #                   end
-  #
-  #   total = @invoices.count
-  #   status_counter / total * 100
-  #
-  # # (@invoices[status].count / @invoices.count) * 100
-  #
-  # end
+  def invoice_status(status)
+    # status_hash = {shipped: 0, pending: 0, returned: 0}
+
+    status_total = 0
+      @invoices.each do |invoice|
+          if invoice.status == status
+              status_total += 1
+          end
+      end
+
+   ((status_total.to_f / @invoices.count) * 100).round(2)
+
+  end
 
 
   def invoice_paid_in_full?(invoice_id)

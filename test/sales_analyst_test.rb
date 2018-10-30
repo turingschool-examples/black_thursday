@@ -105,7 +105,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_status
-  skip
     actual = @sales_analyst.invoice_status(:pending)
     assert_equal 29.55, actual
 
