@@ -30,7 +30,7 @@ module InvoiceIntelligence
   end
 
   def sum_invoice_items_revenue(invoice_items)
-    sum(invoice_items) { |invoice_item| invoice_item.revenue }
+    sum(*invoice_items) { |invoice_item| invoice_item.revenue }
   end
 
   def get_total_from_all_invoice_items_for(invoice_id)
