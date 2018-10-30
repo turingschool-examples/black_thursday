@@ -169,12 +169,24 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
+    # date = invoices.created_at
     actual = date.strftime("%Y-%m-%d")
-    items_from_date = @invoice_items.all.select do |item|
-      item.created_at.strftime("%Y-%m-%d") == actual
+    invoice_from_date = @invoices.all.find_all do |invoice|
+      invoice.created_at.strftime("%Y-%m-%d") == actual
     end
-    items_from_date.inject(0) do |sum, item_invoice|
-      sum += item_invoice.quantity * item_invoice.unit_price
+    valid_invoices = invoice_from_date.select do |invoice|
+      @transactions.all.any? do |trans|
+        trans.invoice_id == invoice.id &&
+        trans.result == :success
+      end
+    end
+    items_from_invoice = valid_invoices.map do |invoice|
+      # @invoice_items.all.find_all do |invoice|
+        @invoice_items.find_all_by_invoice_id(invoice.id)
+      # end
+    end.flatten
+    items_from_invoice.inject(0) do |sum, item_invoice|
+      sum + item_invoice.quantity * item_invoice.unit_price
     end.round(2)
   end
 end
