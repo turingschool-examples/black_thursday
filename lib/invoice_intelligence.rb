@@ -65,11 +65,9 @@ module InvoiceIntelligence
     end
   end
 
-  def get_item_count_for(invoice_id)
-    all_items = invoice_items.find_all_by_invoice_id(invoice_id)
-    all_items.reduce(0) do |item_count, invoice_item|
+  def get_item_count_for(invoice)
+    find_from_invoice(invoice, 'InvoiceItem').reduce(0) do |item_count, invoice_item|
       item_count += invoice_item.quantity
-      item_count
     end
   end
 
