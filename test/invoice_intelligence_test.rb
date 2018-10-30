@@ -36,4 +36,12 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert @sa.all_transactions_successful_for?(invoice[0].id)
   end
 
+  def test_all_transactions_successful_for_invoice_id_returns_false_when_one_is_unsuccessful
+    setup_empty_sales_engine
+    invoice = @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :failure, credit_card_expiration_date: Time.now)
+    refute @sa.all_transactions_successful_for?(invoice[0].id)
+  end
+
 end
