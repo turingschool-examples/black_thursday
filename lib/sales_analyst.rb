@@ -185,6 +185,23 @@ class SalesAnalyst
       0
     end
   end
+  
+  def total_revenue_by_date(date)
+    invoices = @invoice_repo.all.find_all do |invoice|
+      Time.strptime(invoice.created_at.to_s, '%Y-%m-%d') == date
+    end
+      
+    invoice_items = []
+    invoices.each do |invoice|
+      invoice_items << @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items.flatten!
+    
+    totals = invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    sum(totals)
+  end
 
   # maths
 
