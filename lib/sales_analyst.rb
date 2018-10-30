@@ -177,4 +177,15 @@ class SalesAnalyst
       sum += item_invoice.quantity * item_invoice.unit_price
     end.round(2)
   end
+
+  def merchants_with_pending_invoices
+    pending_invoices = @invoices.all.select do |invoice|
+      invoice.status == "pending"
+    end
+    a = pending_invoices.inject(Set.new) do |memo, invoice|
+      id = invoice.merchant_id
+       memo << @merchants.find_by_id(id)
+    end
+  end
+  
 end
