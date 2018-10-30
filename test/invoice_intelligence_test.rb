@@ -84,4 +84,13 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert_equal 2, actual.id
   end
 
+  def test_quantity_of_invoice
+    setup_empty_sales_engine
+    invoice = @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 2, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 2, unit_price: BigDecimal(100_000_00), quantity: 2)
+    @se.invoice_items.create(id: 4, item_id: 5, invoice_id: 2, unit_price: BigDecimal(20000), quantity: 4)
+    assert_equal 7, @sa.quantity_of_invoice(invoice[0])
+  end
+
 end
