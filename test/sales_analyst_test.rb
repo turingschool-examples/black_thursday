@@ -296,6 +296,24 @@ class SalesAnalystTest < Minitest::Test
                                         created_at: @time,
                                         updated_at: @time
                                       })
+    @invoice_item_7 = InvoiceItem.new({ id: "6",
+                                        item_id: "1",
+                                        invoice_id: "2",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
+                                      })
+    @invoice_item_8 = InvoiceItem.new({ id: "6",
+                                        item_id: "2",
+                                        invoice_id: "2",
+                                        quantity: "4",
+                                        unit_price: "2500",
+                                        created_at: @time,
+                                        updated_at: @time
+                                      })
+
+
     @transaction_1 = Transaction.new({
                         :id => 6,
                         :invoice_id => 1,
@@ -334,6 +352,7 @@ class SalesAnalystTest < Minitest::Test
                       })
     @invoice_items = [@invoice_item_1, @invoice_item_2, @invoice_item_3]
     @invoice_items_2 = [@invoice_item_1, @invoice_item_2, @invoice_item_3, @invoice_item_4, @invoice_item_5, @invoice_item_6]
+    @invoice_items_3 = [@invoice_item_1, @invoice_item_2, @invoice_item_3, @invoice_item_7, @invoice_item_8]
     @transactions = [@transaction_1, @transaction_2, @transaction_3, @transaction_4]
 
     sales_engine = SalesEngine.new(@items, @merchants, @invoices, nil, nil, nil)
@@ -342,6 +361,8 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst_2 = sales_engine_2.analyst
     sales_engine_3 = SalesEngine.new(@items, @merchants_3, @invoices, @transactions, nil, @invoice_items_2)
     @sales_analyst_3 = sales_engine_3.analyst
+    sales_engine_4 = SalesEngine.new(@items, @merchants_2, @invoices_2, @transactions, nil, @invoice_items_3)
+    @sales_analyst_4 = sales_engine_4.analyst
   end
 
   def test_it_exists
@@ -548,9 +569,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_total_revenue_for_a_merchant
-    skip
     expected = BigDecimal.new(200.00, 5)
-    assert_equal expected, @sales_analyst.revenue_by_merchant(10)
+    assert_equal expected, @sales_analyst_4.revenue_by_merchant(10)
   end
 
   def test_it_can_calculate_most_sold_items_for_a_merchant
