@@ -15,7 +15,7 @@ class Invoice
     @id = invoice_data[:id].to_i
     @customer_id = invoice_data[:customer_id].to_i
     @merchant_id = invoice_data[:merchant_id].to_i
-    @status = invoice_data[:status]
+    @status = invoice_data[:status].to_sym
     @created_at = time_converter(invoice_data[:created_at])
     @updated_at = time_converter(invoice_data[:updated_at])
   end

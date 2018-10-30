@@ -17,9 +17,5 @@ class TempTest < Minitest::Test
     @sales_analyst = @sales_engine.analyst
 
   end
-  
-  def test_top_days_by_invoice_count
-    actual = @sales_analyst.top_days_by_invoice_count
-    assert_equal ["Sunday", "Saturday"], actual
-  end
+
 end
