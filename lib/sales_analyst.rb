@@ -116,18 +116,37 @@ class SalesAnalyst
     bottom_merchants_array
   end
 
+
+
   def top_days_by_invoice_count
-  # On which days are invoices created at more than
-  # one standard deviation above the mean?
+    days_created = []
+    numbers_to_days_hash = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday"}
+    average_invoices_per_day_standard_deviation =
+    average_invoices_per_day =
+    # one_deviation_above_mean = average_invoices_per_day_standard_deviation + average_invoices_per_day
+binding.pry
+    grouped_invoice_days = @invoices.group_by do |invoice|
+                              invoice.created_at
+                            end
+
+
+
   end
 
-  # def invoice_status(status)
-  # # What percentage of invoices are shipped vs pending vs returned?
-  # # (total invoices for that status / total invoices) * 100
-  # # Need to map through this.
+  def invoice_status(status)
+  status_counter = 0
+  invoice_status = @invoices.each do |invoice|
+                    if invoice.status == status
+                      status_counter += 1
+                    end
+                  end
+
+  total = @invoices.count
+  status_counter / total * 100
+
   # (@invoices[status].count / @invoices.count) * 100
-  # # the above line might not be quite right
-  # end
+
+  end
 
 
   def invoice_paid_in_full?(invoice_id)
