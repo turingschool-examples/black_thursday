@@ -59,17 +59,13 @@ module InvoiceIntelligence
   def all_transactions_successful_for?(invoice_id)
     transactions_for_invoice = transactions.find_all_by_invoice_id(invoice_id)
     return false if transactions_for_invoice.length == 0
-    transactions_for_invoice.reduce(true) do|all_success, transaction|
-      all_success = false if transaction.result != :success
-      all_success
-    end
+    transactions_for_invoice.all? { |tr| tr.result == :success }
   end
 
   def get_item_count_for(invoice_id)
     all_items = invoice_items.find_all_by_invoice_id(invoice_id)
     all_items.reduce(0) do |item_count, invoice_item|
       item_count += invoice_item.quantity
-      item_count
     end
   end
 
