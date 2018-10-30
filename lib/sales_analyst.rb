@@ -62,15 +62,9 @@ class SalesAnalyst
     end
   end
 
-  def find_highest_quantity_for(all_invoices)
-    if all_invoices.class == Array
-      all_invoice_items = all_invoices.reduce([]) do |inv_items, invoice|
-        inv_items << invoice_items.find_all_by_invoice_id(invoice.id)
-        inv_items.flatten
-      end
-    else
-      all_invoice_items = invoice_items.find_all_by_invoice_id(all_invoices.id)
-    end
+  def find_highest_quantity_invoice_item_from(customer)
+    all_invoices = find_invoices_from(customer)
+    all_invoice_items = find_from_invoices(all_invoices, 'InvoiceItem')
 
     all_invoice_items.reduce(0) do |top_quantity, invoice_item|
       current = invoice_item.quantity
