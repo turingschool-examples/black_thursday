@@ -4,12 +4,18 @@ require 'pry'
 class SalesAnalyst
   attr_reader :items,
               :merchants,
-              :invoices
+              :invoices,
+              :invoice_items,
+              :customers,
+              :transactions
 
-  def initialize(items, merchants, invoices = [])
+  def initialize(items, merchants, invoices = [], invoice_items = [], customers = [], transactions = [])
     @items = items
     @merchants = merchants
     @invoices = invoices
+    @invoice_items = invoice_items
+    @customers = customers
+    @transactions = transactions
   end
 
   def items_by_merchant
@@ -56,7 +62,7 @@ class SalesAnalyst
 
   def average_price_per_merchant
     merchant_id_array = @merchants.all.map { |merchant| merchant.id }
-    array_of_averages = merchant_id_array.map do |merchant|
+    merchant_id_array.map do |merchant|
       average_item_price_for_merchant(merchant)
     end
   end
