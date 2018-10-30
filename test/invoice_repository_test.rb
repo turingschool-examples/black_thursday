@@ -73,7 +73,7 @@ class InvoiceRepositoryTest < Minitest::Test
     ir.create(data)
     ir.update(4986, {status: :success})
     updated_invoice = ir.all.last
-    assert_equal "success" , updated_invoice.status
+    assert_equal :success , updated_invoice.status
     assert_nil ir.update(5000, {})
   end
 

@@ -108,4 +108,27 @@ class SalesAnalyst
     end
     @merchants.all.select {|merchant| merchant_ids.include?(merchant.id)}
   end
+
+  def invoices_by_day
+    @invoices.all.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def average_invoices_per_day
+    (invoices_by_day.values.flatten.count.to_f/invoices_by_day.count).round(2)
+  end
+
+  def average_invoices_per_day_standard_deviation
+    values_array = invoices_by_day.values.map {|invoices| invoices.count}
+    standard_deviation(values_array, average_invoices_per_day)
+  end
+
+  def top_days_by_invoice_count
+    standard_deviation = average_invoices_per_day_standard_deviation
+    invoices_by_day.select do |day, invoices|
+      (invoices.count - average_invoices_per_day) >= (standard_deviation)
+    end.keys
+  end
+
 end
