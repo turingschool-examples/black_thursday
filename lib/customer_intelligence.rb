@@ -41,7 +41,7 @@ module CustomerIntelligence
     invoices_for_customer = invoices.find_all_by_customer_id(customer_id)
     top_invoice = nil
     invoices_for_customer.reduce(0) do |top_item_count, invoice|
-      one_success = at_least_one_succesful_transaction?(invoice.id)
+      one_success = invoice_paid_in_full?(invoice.id)
       next top_item_count unless one_success
       invoice_item_count = get_item_count_for(invoice.id)
       if invoice_item_count > top_item_count

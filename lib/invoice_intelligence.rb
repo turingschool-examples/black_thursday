@@ -30,13 +30,11 @@ module InvoiceIntelligence
   end
 
   def sum_invoice_items_revenue(invoice_items)
-    sum(invoice_items) { |invoice_item| invoice_item.revenue }
+    sum(*invoice_items) { |invoice_item| invoice_item.revenue }
   end
 
-  def at_least_one_succesful_transaction?(invoice_id)
-    transactions_for_invoice = transactions.find_all_by_invoice_id(invoice_id)
-    return false if transactions_for_invoice.length == 0
-    transactions_for_invoice.find {|transaction| transaction.result == :success}
+  def get_total_from_all_invoice_items_for(invoice_id)
+    sum_invoice_items_revenue(invoice_items.find_all_by_invoice_id(invoice_id))
   end
 
   def all_transactions_successful_for?(invoice_id)
