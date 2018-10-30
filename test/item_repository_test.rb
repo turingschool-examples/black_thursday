@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item_repository'
 
-class ItemRepositoryTest
+class ItemRepositoryTest < Minitest::Test
   def test_it_exists
     ir = ItemRepository.new
 
