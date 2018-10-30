@@ -180,20 +180,19 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }
-    merchant_qtys = merchant_invoices.map do |invoice|
+    all_merchant_invoice_items = merchant_invoices.map do |invoice|
       @invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
-    merchant_qtys = merchant_qtys.group_by do |invoice_item|
+    all_merchant_invoice_items = all_merchant_invoice_items.select do |ii|
+      min_one_transaction_passed(@invoices.find_by_id(ii.invoice_id))
+    end
+    merchant_qtys = all_merchant_invoice_items.group_by do |invoice_item|
       invoice_item.quantity
     end.to_a
     merchant_maxs = merchant_qtys.select { |qty, invoice| qty == merchant_qtys.sort[-1][0] }
     merchant_maxs.map! { |maxs, invoice_item| invoice_item }
     merchant_maxs.flatten!
-    if merchant_maxs.length == 1
-      return @items.find_by_id(merchant_maxs[0].item_id)
-    else
-      return merchant_maxs.map { |ii| @items.find_by_id(ii.item_id) }
-    end
+    merchant_maxs.map { |ii| @items.find_by_id(ii.item_id) }
   end
 
   def best_item_for_merchant(merchant_id)
@@ -225,7 +224,16 @@ class SalesAnalyst
 
   def revenue_by_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }
-    merchant_invoices = merchant_invoices.select { |invoice| min_one_transaction_passed(invoice) }
+    merchant_invoices = merchant_invoices.select do |invoice|
+      min_one_transaction_passed(invoice) && invoice.status != :returned
+    end
+    all_invoice_items_by_merchant = merchant_invoices.map do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    all_invoice_items_by_merchant.reduce(0) do |sum, ii|
+      ii.quantity * ii.unit_price + sum
+    end
 
+  end
 
 end

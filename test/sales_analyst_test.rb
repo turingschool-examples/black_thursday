@@ -370,13 +370,16 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_revenue_by_merchant
     # Justin
-    skip
     actual = @sa_real.revenue_by_merchant(12334194)
   end
 
   def test_it_can_find_most_sold_item_for_merchant
     actual = @sa_real.most_sold_item_for_merchant(12334189)
     assert_equal true, actual.map(&:name).include?("Adult Princess Leia Hat")
+
+    merchant_id = 12337105
+    actual = @sa_real.most_sold_item_for_merchant(merchant_id)
+    assert_equal 4, actual.length
   end
 
   def test_it_can_find_best_item_for_merchant
