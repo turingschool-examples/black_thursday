@@ -138,7 +138,6 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    # status_hash = {shipped: 0, pending: 0, returned: 0}
 
     status_total = 0
       @invoices.each do |invoice|
@@ -161,10 +160,10 @@ class SalesAnalyst
       end
   end
 
- #  def invoice_paid_in_full?(invoice_id)
- #   transactions = @parent.transactions.find_all_by_invoice_id(invoice_id)
- #   transactions.any? { |transaction| transaction.result == :success }
- # end
+  def invoice_paid_in_full?(invoice_id)
+   transactions = @parent.transactions.find_all_by_invoice_id(invoice_id)
+   transactions.any? { |transaction| transaction.result == :success }
+ end
 
   def invoice_total(invoice_id)
     invoice_items = @invoice_items.find_all do |transaction|

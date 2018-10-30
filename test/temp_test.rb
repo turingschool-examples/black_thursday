@@ -18,15 +18,11 @@ class TempTest < Minitest::Test
 
   end
 
-  def test_invoice_status
-    actual = @sales_analyst.invoice_status(:pending)
-    assert_equal 29.55, actual
-
-    actual = @sales_analyst.invoice_status(:shipped)
-    assert_equal 56.95, actual
-
-    actual = @sales_analyst.invoice_status(:returned)
-    assert_equal 13.5, actual
+  def test_it_can_return_the_invoices_paid_in_full
+    actual = @sales_analyst.invoice_paid_in_full?(46)
+    assert actual
+    actual_2 = @sales_analyst.invoice_paid_in_full?(1752)
+    refute actual_2
   end
   
 end
