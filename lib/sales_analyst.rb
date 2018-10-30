@@ -213,6 +213,7 @@ class SalesAnalyst
     pending_merchant_ids.uniq.map do |id|
       @merchant_repo.find_by_id(id)
     end
+  end
   def merchants_with_only_one_item
     items_per_merchant = @merchant_repo.all.map do |merchant|
       @item_repo.find_all_by_merchant_id(merchant.id)
