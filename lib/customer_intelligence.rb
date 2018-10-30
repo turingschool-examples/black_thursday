@@ -30,26 +30,29 @@ module CustomerIntelligence
   end
 
   def top_merchant_for_customer(customer_id)
-    top_invoice = nil
     customer = customers.find_by_id(customer_id)
-    find_invoices_from(customer).reduce(0) do |top_item_count, invoice|
-      next top_item_count unless at_least_one_succesful_transaction?(invoice.id)
-      if get_item_count_for(invoice) > top_item_count
-        top_invoice = invoice
-        top_item_count = invoice_item_count
-      end
-      top_item_count
-    end
+    top_invoice = find_invoice_with_most_items_from(customer)
     merchants.find_by_id(top_invoice.merchant_id)
   end
 
   def find_invoice_with_most_items_from(customer)
-    find_invoices_from(customer, 'Customer').reduce()
+    top_invoice = nil
+    find_invoices_from(customer).reduce(0) do |top_item_count, invoice|
+      next top_item_count unless at_least_one_succesful_transaction?(invoice.id)
+      current_count = get_item_count_for(invoice)
+      if current_count > top_item_count
+        top_invoice = invoice
+        top_item_count = current_count
+      end
+      top_item_count
+    end
+    top_invoice
   end
 
   def highest_volume_items(customer_id)
-    all_invoices = invoices.find_all_by_customer_id(customer_id)
+    all_invoices = find_invoices_from(customers.find_by_id(customer_id))
     top_quantity = find_highest_quantity_for(all_invoices)
+    
     all_invoices.reduce([]) do |top_i, invoice|
       invoice_items = get_top_invoice_items_for(invoice)
       invoice_items.each do |invoice_item|
