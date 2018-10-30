@@ -6,6 +6,9 @@ require './lib/sales_analyst'
 require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/invoice_repository'
+require './lib/invoice_item_repository'
+require './lib/customer_repository'
+require './lib/transaction_repository'
 require 'bigdecimal'
 require 'pry'
 
@@ -157,5 +160,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.95, sa.invoice_status(:shipped)
     assert_equal 29.55, sa.invoice_status(:pending)
     assert_equal 13.5, sa.invoice_status(:returned)
+  end
+
+  def test_it_can_check_invoices_paid_in_full
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv')
+    customers = CustomerRepository.new('./data/customers.csv')
+    transactions = TransactionRepository.new('./data/transactions.csv')
+    sa = SalesAnalyst.new(items, merchants, invoices,invoice_items, customers, transactions)
+
+    assert sa.invoice_paid_in_full?(1)
   end
 end
