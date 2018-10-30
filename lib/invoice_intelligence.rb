@@ -57,12 +57,13 @@ module InvoiceIntelligence
   def best_invoice_by_quantity
     successful_invoices.max_by{|invoice| quantity_of_invoice(invoice)}
   end
+
   def best_invoice_by_revenue
     successful_invoices.max_by{|invoice| revenue_from_invoice(invoice)}
   end
 
   def quantity_of_invoice(invoice)
-    sum(find_from_invoice(invoice, 'InvoiceItem')) {|iitem| iitem.quantity}
+    sum(*find_from_invoice(invoice, 'InvoiceItem')) {|iitem| iitem.quantity}
   end
 
   def successful_invoices
