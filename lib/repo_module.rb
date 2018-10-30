@@ -40,6 +40,7 @@ module RepoModule
     object.name = attributes[:name] if attributes[:name]
     object.unit_price = attributes[:unit_price] if attributes[:unit_price]
     object.description = attributes[:description] if attributes[:description]
+    object.result = attributes[:result] if attributes[:result] 
     object.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
     object.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
     object.quantity = attributes[:quantity] if attributes[:quantity]
