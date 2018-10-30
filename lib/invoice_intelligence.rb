@@ -30,8 +30,7 @@ module InvoiceIntelligence
   end
 
   def invoice_total(invoice_id)
-    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
-    sum_invoice_items_revenue(invoice_items)
+    sum_invoice_items_revenue(@invoice_items.find_all_by_invoice_id(invoice_id))
   end
 
   def sum_invoice_items_revenue(invoice_items)
@@ -39,8 +38,7 @@ module InvoiceIntelligence
   end
 
   def get_total_from_all_invoice_items_for(invoice_id)
-    matching_invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
-    sum_invoice_items_revenue(matching_invoice_items)
+    sum_invoice_items_revenue(invoice_items.find_all_by_invoice_id(invoice_id))
   end
 
   def at_least_one_succesful_transaction?(invoice_id)
