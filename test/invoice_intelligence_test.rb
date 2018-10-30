@@ -20,5 +20,11 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert @sa.invoice_paid_in_full?(invoice[0].id)
   end
 
-
+  # def test_get_total_from_all_invoice_items_for_invoice_id_returns_total
+  #   setup_empty_sales_engine
+  #   @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
+  #   @se.invoice_items.create(id: 2, item_id: 4, invoice_id: 1, unit_price: BigDecimal(10_000_00), quantity: 3)
+  #   invoice = @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+  #   #doesassert @sa.get_total_from_all_invoice_items_for(invoice[0].id)
+  # end
 end
