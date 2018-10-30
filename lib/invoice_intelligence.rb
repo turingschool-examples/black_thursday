@@ -1,11 +1,7 @@
 module InvoiceIntelligence
   def invoice_status(status)
-    invoice_count = @invoices.all.count
-    status_sum = @invoices.all.reduce(0) do |sum, invoice|
-      sum += 1 if invoice.status == status
-      sum
-    end
-    (status_sum.to_f / invoice_count * 100).round(2)
+    status_sum = @invoices.all.count { |invoice| invoice.status == status }
+    (status_sum.to_f / @invoices.all.count * 100).round(2)
   end
 
   def top_days_by_invoice_count
