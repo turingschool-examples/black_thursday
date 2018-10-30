@@ -190,7 +190,16 @@ class SalesAnalyst
     end.round(2)
   end
 
-
+  def merchants_with_pending_invoices
+    pending_invoices = @invoices.all.select do |invoice|
+      invoice.status == "pending"
+    end
+    a = pending_invoices.inject(Set.new) do |memo, invoice|
+      id = invoice.merchant_id
+       memo << @merchants.find_by_id(id)
+    end
+  end
+  
   def most_sold_item_for_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }
     all_merchant_invoice_items = merchant_invoices.map do |invoice|

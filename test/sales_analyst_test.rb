@@ -345,8 +345,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_pending_invoices
-    # maddie
-    skip
     actual = @sa_real.merchants_with_pending_invoices
     assert_instance_of Merchant, actual.first
     assert_equal 467, actual.length
