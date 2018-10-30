@@ -346,6 +346,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_pending_invoices
+    # maddie
     skip
     actual = @sa_real.merchants_with_pending_invoices
     assert_instance_of Merchant, actual.first
@@ -360,6 +361,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_only_one_item_registered_in_a_month
+    # Maddie
     skip
     actual = @sa_real.merchants_with_only_one_item_registered_in_a_month("March")
     assert_equal 21, actual.length
@@ -367,20 +369,22 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_revenue_by_merchant
+    # Justin
     skip
     actual = @sa_real.revenue_by_merchant(12334194)
   end
 
   def test_it_can_find_most_sold_item_for_merchant
-    skip
     actual = @sa_real.most_sold_item_for_merchant(12334189)
     assert_equal true, actual.map(&:name).include?("Adult Princess Leia Hat")
   end
 
   def test_it_can_find_best_item_for_merchant
-    skip
     actual = @sa_real.best_item_for_merchant(12334189)
     assert_equal 263516130, actual.id
     assert_instance_of Item, actual
+
+    actual = @sa_real.best_item_for_merchant(12337105)
+    assert_equal 263463003, actual.id
   end
 end
