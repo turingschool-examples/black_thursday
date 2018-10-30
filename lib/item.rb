@@ -18,7 +18,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    dollar_value = @unit_price.to_f
+    dollar_value = (@unit_price / 100).to_f
     dollar_value
   end
 
