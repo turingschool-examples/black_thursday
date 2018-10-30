@@ -207,4 +207,14 @@ class SalesAnalyst
     top_merchants
   end
 
+  def merchants_with_only_one_item
+    one_item_merchants = []
+    @merchants.each do |merchant|
+      if 
+    one_item_merchants << merchant
+    end
+
+    #return an array of merchant objects
+  end
+
 end

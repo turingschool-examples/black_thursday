@@ -148,5 +148,11 @@ class SalesAnalystTest < Minitest::Test
    assert_equal 20, actual.length
   end
 
+  def test_it_can_get_merchants_with_one_item
+    #  Which merchants offer only one item:
+    # sales_analyst.merchants_with_only_one_item #=> [merchant, merchant, merchant]
+    actual = @sales_analyst.merchants_with_only_one_item.count
+    assert_equal 4, actual
+  end
 
 end
