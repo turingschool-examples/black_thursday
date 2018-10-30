@@ -553,8 +553,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_which_merchants_have_pending_invoices
-    skip
-    expected = [@merchant_2, @merchant_3]
+    expected = [@merchant_3, @merchant_1]
     assert_equal expected, @sales_analyst_2.merchants_with_pending_invoices
   end
 
@@ -582,5 +581,4 @@ class SalesAnalystTest < Minitest::Test
     skip
     assert_equal @item_3, @sales_analyst.best_item_for_merchant(10)
   end
-
 end
