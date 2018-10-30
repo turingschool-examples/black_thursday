@@ -189,4 +189,24 @@ class SalesAnalyst
       sum + item_invoice.quantity * item_invoice.unit_price
     end.round(2)
   end
+
+  def top_revenue_earners(x = 20)
+    rev = @merchants.all.map do |merchant|
+      [revenue_by_merchant_id(merchant_id),merchant]
+    end
+    revenue_array = rev.sort_by do |revenue,merchant|
+      revenue
+    end
+    top = revenue_array.max_by(x) do |revenue, merch|
+      revenue
+    end
+    top_merchants = top.map do |revenue, merchant|
+      merchant
+    end
+    top_merchants
+  end
+
+  def rank_merchants_by_revenue
+    top_revenue_earners(@merchants.all.count)
+  end
 end
