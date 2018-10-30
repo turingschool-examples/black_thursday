@@ -241,18 +241,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
-    def test_successful_invoices
-      setup_empty_sales_engine
+  def test_successful_invoices
+    setup_empty_sales_engine
 
-      @sa.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
-      @sa.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
-      @sa.transactions.create(id:3, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @sa.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
+    @sa.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
+    @sa.transactions.create(id:3, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
-      actual = @sa.successful_invoices
-      assert_instance_of Invoice, actual[0]
-      assert_equal 1, actual.size
-      assert_equal 1, actual[0].id
-    end
+    actual = @sa.successful_invoices
+    assert_instance_of Invoice, actual[0]
+    assert_equal 1, actual.size
+    assert_equal 1, actual[0].id
+  end
 
   def test_merchants_with_pending_invoices
     # setup_empty_sales_engine
@@ -348,9 +348,10 @@ class SalesAnalystTest < Minitest::Test
 
     actual = @sa.customers_with_unpaid_invoices
     assert_equal 6, actual.size
-  enda
+    enda
 
 
 
 
+  end
 end
