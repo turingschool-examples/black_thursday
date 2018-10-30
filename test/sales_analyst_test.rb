@@ -173,4 +173,16 @@ class SalesAnalystTest < Minitest::Test
 
     assert sa.invoice_paid_in_full?(1)
   end
+
+  def test_it_can_check_for_invoice_total_amount
+    items = ItemRepository.new("./data/items.csv")
+    merchants = MerchantRepository.new("./data/merchants.csv")
+    invoices = InvoiceRepository.new("./data/invoices.csv")
+    invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv')
+    customers = CustomerRepository.new('./data/customers.csv')
+    transactions = TransactionRepository.new('./data/transactions.csv')
+    sa = SalesAnalyst.new(items, merchants, invoices,invoice_items, customers, transactions)
+
+    assert_equal 21067.77, sa.invoice_total(1)
+  end
 end
