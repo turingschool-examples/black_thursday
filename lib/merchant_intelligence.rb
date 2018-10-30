@@ -64,19 +64,22 @@ module MerchantIntelligence
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    merchant = @merchants.find_by_id(merchant_id)
-    items = find_type_from_object('Item', merchant)
-    [items.max_by{|item| total_times_item_sold(item)}]
-  end
+    invoices = successful_invoices.select { |invoice|invoice.merchant_id == merchant_id }
+    invoice_items = invoices.map do |invoice|
+      find_from_invoice(invoice, 'InvoiceItem')
+    end.flatten
 
-  def total_times_item_sold(item)
-    sum = 0
-    (find_type_from_object('Invoice', item) & successful_invoices).each do |invoice|
-      find_type_from_object('InvoiceItem', item).each do |iv_item|
-        sum + iv_item.quantity
-      end
+    item_count = Hash.new(0)
+
+    invoice_items.each do |invoice_item|
+      item_count[invoice_item.item_id] += invoice_item.quantity
     end
-    sum
+    max = 0
+    item_count.sort_by {|k, v| -v}.reduce([]) do |result, (k, v)|
+      break result if v < max
+      max = v
+      result << k
+    end.map { |k,v| @items.find_by_id(k) }
   end
 
   def best_item_for_merchant(merchant_id)

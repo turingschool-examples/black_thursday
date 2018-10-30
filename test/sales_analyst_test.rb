@@ -349,4 +349,8 @@ class SalesAnalystTest < Minitest::Test
     actual = @sa.customers_with_unpaid_invoices
     assert_equal 6, actual.size
   end
+
+  
+
+
 end
