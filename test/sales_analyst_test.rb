@@ -537,7 +537,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_which_merchants_only_sell_one_item
-    skip
     assert_equal [@merchant_3], @sales_analyst_2.merchants_with_only_one_item
   end
 

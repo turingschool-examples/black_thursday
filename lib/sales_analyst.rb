@@ -213,6 +213,19 @@ class SalesAnalyst
     pending_merchant_ids.uniq.map do |id|
       @merchant_repo.find_by_id(id)
     end
+  def merchants_with_only_one_item
+    items_per_merchant = @merchant_repo.all.map do |merchant|
+      @item_repo.find_all_by_merchant_id(merchant.id)
+    end
+    # binding.pry
+    items_with_single_owner = items_per_merchant.find_all do |items|
+      items.length == 1
+    end.flatten
+    item_owner = items_with_single_owner.map do |item|
+      @merchant_repo.all.find_all do |merchant|
+        merchant.id == item.merchant_id
+      end
+    end.flatten
   end
 
   # maths
