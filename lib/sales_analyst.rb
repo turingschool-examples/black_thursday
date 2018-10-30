@@ -218,6 +218,19 @@ class SalesAnalyst
     end.flatten
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchants_items = @item_repo.find_all_by_merchant_id(merchant_id)
+    merchants_invoice_items = []
+    merchants_items.each do |item|
+      merchants_invoice_items << @invoice_item_repo.find_all_by_item_id(item.id)
+    end
+    merchants_invoice_items = merchants_invoice_items.flatten
+    merchants_invoice_items = merchants_invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    sum merchants_invoice_items
+  end
+
   # maths
 
   def sum(nums)
