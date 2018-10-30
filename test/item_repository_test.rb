@@ -13,7 +13,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_all_returns_array_of_instances
     ir = ItemRepository.new
 
-     assert_equal 1367, ir.all
+     assert_equal 1367, ir.all.count
   end
 
   def test_find_by_ID
@@ -128,7 +128,7 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new
     i = Item.new({
   :id          => 1,
-  :name        => "Pencil",
+  :name        => "Pen",
   :description => "You can use it to write things",
   :unit_price  => BigDecimal.new(10.99,4),
   :created_at  => Time.now,
@@ -149,6 +149,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_delete
     ir = ItemRepository.new
 
-    assert_equal nil, ir.delete(263395237)
+    assert_equal nil, ir.delete(1)
   end
 end
