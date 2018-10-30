@@ -116,37 +116,32 @@ class SalesAnalyst
     bottom_merchants_array
   end
 
+#   def top_days_by_invoice_count
+#     days_created = []
+#     numbers_to_days_hash = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday"}
+#     average_invoices_per_day_standard_deviation =
+#     average_invoices_per_day =
+#     # one_deviation_above_mean = average_invoices_per_day_standard_deviation + average_invoices_per_day
+# binding.pry
+#     grouped_invoice_days = @invoices.group_by do |invoice|
+#                               invoice.created_at
+#                             end
+#   end
 
-
-  def top_days_by_invoice_count
-    days_created = []
-    numbers_to_days_hash = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday"}
-    average_invoices_per_day_standard_deviation =
-    average_invoices_per_day =
-    # one_deviation_above_mean = average_invoices_per_day_standard_deviation + average_invoices_per_day
-binding.pry
-    grouped_invoice_days = @invoices.group_by do |invoice|
-                              invoice.created_at
-                            end
-
-
-
-  end
-
-  def invoice_status(status)
-  status_counter = 0
-  invoice_status = @invoices.each do |invoice|
-                    if invoice.status == status
-                      status_counter += 1
-                    end
-                  end
-
-  total = @invoices.count
-  status_counter / total * 100
-
-  # (@invoices[status].count / @invoices.count) * 100
-
-  end
+  # def invoice_status(status)
+  #   status_counter = 0
+  #   invoice_status = @invoices.each do |invoice|
+  #                     if invoice.status == status
+  #                       status_counter += 1
+  #                     end
+  #                   end
+  #
+  #   total = @invoices.count
+  #   status_counter / total * 100
+  #
+  # # (@invoices[status].count / @invoices.count) * 100
+  #
+  # end
 
 
   def invoice_paid_in_full?(invoice_id)

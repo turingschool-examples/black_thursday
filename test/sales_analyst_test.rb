@@ -125,7 +125,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_the_total_amount_of_the_invoice
-  skip
     actual = @sales_analyst.invoice_total(1)
     assert_equal 21_067.77, actual
     assert_instance_of BigDecimal, actual

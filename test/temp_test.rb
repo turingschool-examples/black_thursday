@@ -17,9 +17,10 @@ class TempTest < Minitest::Test
     @sales_analyst = @sales_engine.analyst
 
   end
-  
-  def test_top_days_by_invoice_count
-    actual = @sales_analyst.top_days_by_invoice_count
-    assert_equal ["Sunday", "Saturday"], actual
+
+  def test_it_can_return_the_total_amount_of_the_invoice
+    actual = @sales_analyst.invoice_total(1)
+    assert_equal 21_067.77, actual
+    assert_instance_of BigDecimal, actual
   end
 end
