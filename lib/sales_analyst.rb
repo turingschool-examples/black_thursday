@@ -169,14 +169,27 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
+    # date = invoices.created_at
     actual = date.strftime("%Y-%m-%d")
-    items_from_date = @invoice_items.all.select do |item|
-      item.created_at.strftime("%Y-%m-%d") == actual
+    invoice_from_date = @invoices.all.find_all do |invoice|
+      invoice.created_at.strftime("%Y-%m-%d") == actual
     end
-    items_from_date.inject(0) do |sum, item_invoice|
-      sum += item_invoice.quantity * item_invoice.unit_price
+    valid_invoices = invoice_from_date.select do |invoice|
+      @transactions.all.any? do |trans|
+        trans.invoice_id == invoice.id &&
+        trans.result == :success
+      end
+    end
+    items_from_invoice = valid_invoices.map do |invoice|
+      # @invoice_items.all.find_all do |invoice|
+        @invoice_items.find_all_by_invoice_id(invoice.id)
+      # end
+    end.flatten
+    items_from_invoice.inject(0) do |sum, item_invoice|
+      sum + item_invoice.quantity * item_invoice.unit_price
     end.round(2)
   end
+
 
   def most_sold_item_for_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }
@@ -234,6 +247,24 @@ class SalesAnalyst
       ii.quantity * ii.unit_price + sum
     end
 
+  def top_revenue_earners(x = 20)
+    rev = @merchants.all.map do |merchant|
+      [revenue_by_merchant_id(merchant_id),merchant]
+    end
+    revenue_array = rev.sort_by do |revenue,merchant|
+      revenue
+    end
+    top = revenue_array.max_by(x) do |revenue, merch|
+      revenue
+    end
+    top_merchants = top.map do |revenue, merchant|
+      merchant
+    end
+    top_merchants
+  end
+
+  def rank_merchants_by_revenue
+    top_revenue_earners(@merchants.all.count)
   end
 
 end

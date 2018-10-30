@@ -318,7 +318,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners
-    skip
     x = 10
     actual = @sa_real.top_revenue_earners(x)
     assert_equal 12334634, actual.first.id
