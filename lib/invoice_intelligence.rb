@@ -51,7 +51,9 @@ module InvoiceIntelligence
   end
 
   def get_item_count_for(invoice)
-    sum(*find_from_invoice(invoice, 'InvoiceItem')) { |invoice_item| invoice_item.quantity }
+    sum(*find_from_invoice(invoice, 'InvoiceItem')) do |invoice_item|
+      invoice_item.quantity
+    end
   end
 
   def best_invoice_by_quantity
