@@ -13,10 +13,6 @@ class SalesAnalystTest < Minitest::Test
     @sa = se.analyst
   end
 
-  def test_top_buyers_passing_number
-    @sa.top_buyers
-  end
-
   def test_average_items_per_merchant
     setup_fixtures
     assert_equal 4.86, @sa.average_items_per_merchant
@@ -350,7 +346,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 6, actual.size
   end
 
-  
+
 
 
 end
