@@ -56,7 +56,8 @@ class FindersTest < Minitest::Test
   end
   def test_find_type_from_object_finds_right_type_of_object
     setup_big_data_set
-    @sa.instance_variables.permutation do |var_1, var_2|
+    i = 0
+    @sa.instance_variables.permutation(2) do |var_1, var_2|
       type_string = var_1.to_s
                          .delete('@')
                          .split('_')
@@ -65,6 +66,7 @@ class FindersTest < Minitest::Test
       repo_string = var_2.to_s.delete('@')
       object = @sa.public_send(repo_string).all[0]
       actual = @sa.find_type_from_object(type_string, object)
+      i+= 1
       assert_equal type_string, actual[0].class.to_s
     end
   end
