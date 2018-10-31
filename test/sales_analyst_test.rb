@@ -576,10 +576,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_item_that_generates_most_revenue_for_merchant
-    skip
-    assert_equal @item_3, @sales_analyst.best_item_for_merchant(10)
+    assert_equal @item_5, @sales_analyst_3.best_item_for_merchant(10)
   end
-  
+
   def test_it_can_rank_merchants_by_revenue
     merchant_1 = mock
     merchant_1.stubs(:id).returns(1)
@@ -626,21 +625,21 @@ class SalesAnalystTest < Minitest::Test
     invoice_item_3.stubs(:invoice_id).returns(3)
     invoice_item_3.stubs(:unit_price).returns(BigDecimal.new(40.00, 4))
     invoice_item_3.stubs(:quantity).returns(1)
-    
+
     merchants = [merchant_1, merchant_2, merchant_3]
     invoices = [invoice_1, invoice_2, invoice_3]
     invoice_items = [invoice_item_1, invoice_item_2, invoice_item_3]
     transactions = [transaction_1, transaction_2, transaction_3]
     se = SalesEngine.new(nil, merchants, invoices, transactions, nil, invoice_items)
     sales_analyst = se.analyst
-    
+
     expected = [merchant_2, merchant_3, merchant_1]
-    assert_equal expected, sales_analyst.merchants_ranked_by_revenue 
-    expected = {merchant_1 => [invoice_1], 
-                merchant_2 => [invoice_2], 
+    assert_equal expected, sales_analyst.merchants_ranked_by_revenue
+    expected = {merchant_1 => [invoice_1],
+                merchant_2 => [invoice_2],
                 merchant_3 => [invoice_3]}
     assert_equal expected, sales_analyst.invoices_for_each_merchant
-    expected = {merchant_1 => BigDecimal.new(10.00, 4), 
+    expected = {merchant_1 => BigDecimal.new(10.00, 4),
                 merchant_2 => BigDecimal.new(100.00, 5),
                 merchant_3 => BigDecimal.new(40.00, 4)}
     assert_equal expected, sales_analyst.revenue_for_each_merchant
