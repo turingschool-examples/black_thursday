@@ -1,6 +1,4 @@
-require_relative 'test_helper'
-require 'minitest/autorun'
-require 'minitest/pride'
+require 'test_helper'
 require './lib/item_repository'
 require './lib/item'
 
@@ -14,7 +12,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_all_returns_array_of_instances
     ir = ItemRepository.new
 
-     assert_equal 1367, ir.all.count
+     assert_equal 1, ir.all.count
   end
 
   def test_find_by_ID

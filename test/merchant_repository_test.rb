@@ -1,6 +1,4 @@
-require_relative 'test_helper'
-require 'minitest/autorun'
-require 'minitest/pride'
+require 'test_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
 
@@ -14,7 +12,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_all_returns_array_of_known_merchants
     mr = MerchantRepository.new
 
-    assert_equal 475, mr.all.count
+    assert_equal 1, mr.all.count
   end
 
   def test_find_by_id
