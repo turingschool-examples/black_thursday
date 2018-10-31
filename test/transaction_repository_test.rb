@@ -15,7 +15,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_transaction_by_id
     tr = TransactionRepository.new('./test/data/transaction_sample.csv')
-    result = tr.repo_array[1]
+    result = tr.all[1]
     assert_equal result, tr.find_by_id(2)
     assert_instance_of Transaction, tr.find_by_id(2)
   end

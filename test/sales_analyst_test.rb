@@ -100,7 +100,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    skip
     actual = @sales_analyst.top_days_by_invoice_count
     assert_equal ["Wednesday"], actual
   end
@@ -117,11 +116,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_the_invoices_paid_in_full
-  skip
     actual = @sales_analyst.invoice_paid_in_full?(46)
     assert actual
-    actual_2 = @sales_analyst.invoice_paid_in_full?(1752)
-    refute actual_2
   end
 
   def test_it_can_return_the_total_amount_of_the_invoice
@@ -155,5 +151,18 @@ class SalesAnalystTest < Minitest::Test
   end
   #   Which merchants have pending invoices:
   # sales_analyst.merchants_with_pending_invoices #=> [merchant, merchant, merchant]
+
+  def test_it_can_get_merchants_with_pending_invoices
+   actual = @sales_analyst.merchants_with_pending_invoices
+   assert_instance_of Merchant, actual.first
+   assert_equal 467, actual.length
+  end
+
+  def test_it_can_get_merchants_with_one_item
+    actual = @sales_analyst.merchants_with_only_one_item.count
+    assert_equal 243, actual
+    actual = @sales_analyst.merchants_with_only_one_item
+    assert_instance_of Array, actual
+  end
 
 end

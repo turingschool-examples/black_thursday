@@ -21,7 +21,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    item = @ir.repo_array[12]
+    item = @ir.all[12]
     assert_equal item, @ir.find_by_id(13)
   end
 
@@ -35,8 +35,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_status
-    assert_equal 10, @ir.find_all_by_status('pending').count
-    assert_equal 1, @ir.find_all_by_status('returned').count
+    assert_equal 10, @ir.find_all_by_status(:pending).count
+    assert_equal 1, @ir.find_all_by_status(:returned).count
   end
 
   def test_it_can_find_max_id_and_increase_it_by_one
@@ -51,7 +51,7 @@ class InvoiceRepositoryTest < Minitest::Test
         })
     assert_instance_of Invoice, new_invoice
     assert_equal 26, new_invoice.id
-    assert_equal 'pending', new_invoice.status
+    assert_equal :pending, new_invoice.status
     assert_equal 26, @ir.all.count
   end
 

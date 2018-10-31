@@ -141,13 +141,12 @@ class SalesAnalyst
 
   def invoice_status(status)
     status_total = 0
-      @invoices.each do |invoice|
-          if invoice.status == status
-              status_total += 1
-          end
-      end
+    @invoices.each do |invoice|
+        if invoice.status == status
+            status_total += 1
+        end
+    end
    ((status_total.to_f / @invoices.count) * 100).round(2)
-
   end
 
   def invoice_paid_in_full?(invoice_id)
@@ -208,6 +207,35 @@ class SalesAnalyst
   end
 
 
+  def pending_invoice?(invoice_id)
+    @transactions.each do |trans|
+      return false if trans.invoice_id == invoice_id &&
+        trans.result == :success
+    end
+    true # if no transactions or no successful transactions
+  end
 
+  def pending_merchant?(merchant)
+    merchant_invoice_list(merchant).any? do |invoice|
+      pending_invoice?(invoice.id)
+    end #if any merchant-invoice is not pending, then not a pending merchant
+  end
 
+  def merchants_with_pending_invoices
+    pending_merchants = []
+    @merchants.each do |merch|
+      pending_merchants << merch if pending_merchant?(merch)
+    end
+    pending_merchants
+  end
+
+  def merchants_with_only_one_item
+    one_item_merchants = []
+    @merchants.each do |merchant|
+      if merchant_item_list(merchant).count == 1
+        one_item_merchants << merchant
+      end
+    end
+    one_item_merchants
+  end
 end
