@@ -59,6 +59,17 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert_equal %w(Saturday Sunday Monday), @sa.each_invoice_day
   end
 
+  def test_days_with_iv_count
+    setup_invoices_with_different_days_created
+    expected = {"Sunday"=>1, "Monday"=>1, "Tuesday"=>0, "Wednesday"=>0, "Thursday"=>0, "Friday"=>0, "Saturday"=>1}
+    assert_equal expected, @sa.days_with_iv_count
+  end
+
+  def test_days_by_top_invoice_count
+    setup_invoices_with_different_days_created
+    assert_equal %w(Sunday Monday Saturday), @sa.top_days_by_invoice_count
+  end
+
   def test_all_transactions_successful_for_invoice_id_returns_true
     invoice = @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
     @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
