@@ -172,7 +172,21 @@ class SalesAnalyst
     totals_array = invoice_ids.map do |invoice_item|
       invoice_total(invoice_item)
     end
-    # require 'pry'; binding.pry
     sums(totals_array)
+  end
+
+  def top_revenue_earners(x = 20)
+    merchant_invoices = invoices_by_merchant.map do |merchant_id, invoices|
+      array = invoices.map do |invoice|
+        invoice.id
+      end
+      totals_array = array.map do |invoice_item|
+        invoice_total(invoice_item)
+      end
+      totals_array.map do |total|
+        Hash[merchant_id, total]
+      end
+    end
+    require 'pry'; binding.pry
   end
 end
