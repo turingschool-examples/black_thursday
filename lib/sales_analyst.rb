@@ -189,17 +189,28 @@ class SalesAnalyst
       sum + item_invoice.quantity * item_invoice.unit_price
     end.round(2)
   end
-
-  def merchants_with_pending_invoices
-    pending_invoices = @invoices.all.select do |invoice|
-      invoice.status == "pending"
-    end
-    a = pending_invoices.inject(Set.new) do |memo, invoice|
-      id = invoice.merchant_id
-       memo << @merchants.find_by_id(id)
+  def invoice_success?(invoice)
+    @transactions.any? do |trans|
+      trans.result == :success
     end
   end
-  
+   #helper method to return all invoices that have any successful transactions
+
+  def merchants_with_pending_invoices
+
+    pending_invoices = @transactions.find_all do |invoice|
+      transactions.all? do |transaction|
+        transaction.result != :success
+      end
+    end
+    pending_invoices.map(&:invoice_id)
+
+    # a = pending_invoices.inject(Set.new) do |memo, invoice|
+    #   id = invoice.merchant_id
+    #    memo << @merchants.find_by_id(id)
+    # end
+  end
+
   def most_sold_item_for_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }
     all_merchant_invoice_items = merchant_invoices.map do |invoice|
@@ -255,6 +266,7 @@ class SalesAnalyst
     all_invoice_items_by_merchant.reduce(0) do |sum, ii|
       ii.quantity * ii.unit_price + sum
     end
+  end
 
   def top_revenue_earners(x = 20)
     rev = @merchants.all.map do |merchant|
