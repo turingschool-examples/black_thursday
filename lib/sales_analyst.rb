@@ -40,48 +40,28 @@ class SalesAnalyst
     revenue_from_invoices(@invoices.find_all_by_date(date))
   end
 
-  def get_top_invoice_item_for(invoice_id)
-    all_items = invoice_items.find_all_by_invoice_id(invoice_id)
-    top_invoice_item = nil
-    all_items.reduce(0) do |top_quantity, invoice_item|
-      current_quantity = invoice_item.quantity
-      if current_quantity > top_quantity
-        top_quantity = current_quantity
-        top_invoice_item = invoice_item
-      end
-      top_quantity
+  def get_top_invoice_items_for(invoice, multiple = true)
+    top_quantity = find_top_quantity_from(invoice)
+    top_items = find_from_invoice(invoice, 'InvoiceItem').find_all do |invoice_item|
+      invoice_item.quantity == top_quantity
     end
-    top_invoice_item
+    multiple ? top_items : top_items.first
   end
 
-  def get_top_invoice_items_for(invoice_id)
-    top_quantity = find_highest_quantity_for(invoices.find_by_id(invoice_id))
-    all_items = invoice_items.find_all_by_invoice_id(invoice_id)
-    top_invoice_items = all_items.reduce([]) do |top_items, invoice_item|
-      current_quantity = invoice_item.quantity
-      top_items << invoice_item if current_quantity >= top_quantity
-      top_items
-    end
-    top_invoice_items
-  end
-
-  def find_highest_transaction_count_for(top_invoice_items)
-    top_invoice_items.reduce(0) do |highest, invoice_item|
-      current = get_transaction_count_for(invoice_item)
-      highest = current if current >= highest
+  def find_highest_transaction_count_from(one_time_customers)
+    one_time_customers.reduce(0) do |highest, customer|
+      invoice = find_invoices_from(customer)[0]
+      next highest unless all_transactions_successful_for?(invoice.id)
+      top_item = get_top_invoice_items_for(invoice, false)
+      current = get_transaction_count_for(top_item)
+      highest = current if current > highest
       highest
     end
   end
 
-  def find_highest_quantity_for(all_invoices)
-    if all_invoices.class == Array
-      all_invoice_items = all_invoices.reduce([]) do |inv_items, invoice|
-        inv_items << invoice_items.find_all_by_invoice_id(invoice.id)
-        inv_items.flatten
-      end
-    else
-      all_invoice_items = invoice_items.find_all_by_invoice_id(all_invoices.id)
-    end
+  def find_highest_quantity_invoice_item_from(customer)
+    all_invoices = find_invoices_from(customer)
+    all_invoice_items = find_from_invoices(all_invoices, 'InvoiceItem')
 
     all_invoice_items.reduce(0) do |top_quantity, invoice_item|
       current = invoice_item.quantity

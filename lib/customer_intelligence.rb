@@ -1,67 +1,58 @@
 module CustomerIntelligence
-  def one_time_buyers
-    @customers.all.find_all do |customer|
-      invoices.all.one?{|invoice| invoice.customer_id == customer.id}
-    end
-  end
-
   def top_buyers(n = 20)
     customers.all.sort_by do |customer|
       0 - (revenue_from_invoices(find_invoices_from(customer)))
     end.slice(0, n)
   end
 
-  def one_time_buyers_top_item
-    top_invoice_items = []
-    one_time_buyers.reduce(0) do |top_item_count, one_timer|
-      invoice = invoices.find_all_by_customer_id(one_timer.id)[0]
-      next top_item_count unless all_transactions_successful_for?(invoice.id)
-      current_top_invoice_item = get_top_invoice_item_for(invoice.id)
-      if current_top_invoice_item.quantity >= top_item_count
-        top_item_count = current_top_invoice_item.quantity
-        top_invoice_items << current_top_invoice_item
-      end
-      top_item_count
+  def one_time_buyers
+    customers.all.find_all do |customer|
+      invoices.all.one?{|invoice| invoice.customer_id == customer.id}
     end
-    top_transaction_count = find_highest_transaction_count_for(top_invoice_items)
-    highest_by_transaction_count = top_invoice_items.reduce([]) do |top, invoice_item|
-      current_transaction_count = get_transaction_count_for(invoice_item)
-      top << invoice_item if current_transaction_count >= top_transaction_count
-      top
-    end
-    first_item = highest_by_transaction_count.first
-    items.find_by_id(first_item.item_id)
   end
 
-  def invoices_grouped_by_customer_id
-    invoices.all.group_by {|invoice| invoice.customer_id}
+  def one_time_buyers_top_item
+    top_transaction_count = find_highest_transaction_count_from(one_time_buyers)
+
+    top_inv_items = one_time_buyers.reduce([]) do |top, one_timer|
+      invoice = find_invoices_from(one_timer)[0]
+      top_item = get_top_invoice_items_for(invoice, false)
+      current = get_transaction_count_for(top_item)
+      top << top_item if current >= top_transaction_count
+      top
+    end
+
+    items.find_by_id(top_inv_items.first.item_id)
   end
 
   def top_merchant_for_customer(customer_id)
-    invoices_for_customer = invoices.find_all_by_customer_id(customer_id)
-    top_invoice = nil
-    invoices_for_customer.reduce(0) do |top_item_count, invoice|
-      one_success = invoice_paid_in_full?(invoice.id)
-      next top_item_count unless one_success
-      invoice_item_count = get_item_count_for(invoice.id)
-      if invoice_item_count > top_item_count
-        top_invoice = invoice
-        top_item_count = invoice_item_count
-      end
-      top_item_count
-    end
+    customer = customers.find_by_id(customer_id)
+    top_invoice = find_invoice_with_most_items_from(customer)
     merchants.find_by_id(top_invoice.merchant_id)
   end
 
+  def find_invoice_with_most_items_from(customer)
+    top_invoice = nil
+    find_invoices_from(customer).reduce(0) do |top_item_count, invoice|
+      next top_item_count unless at_least_one_succesful_transaction?(invoice.id)
+      current_count = get_item_count_for(invoice)
+      if current_count > top_item_count
+        top_invoice = invoice
+        top_item_count = current_count
+      end
+      top_item_count
+    end
+    top_invoice
+  end
+
   def highest_volume_items(customer_id)
-    all_invoices = invoices.find_all_by_customer_id(customer_id)
-    top_quantity = find_highest_quantity_for(all_invoices)
-    all_invoices.reduce([]) do |top_i, invoice|
-      invoice_items = get_top_invoice_items_for(invoice.id)
-      invoice_items.each do |invoice_item|
-        if invoice_item.quantity == top_quantity
-          top_i << items.find_by_id(invoice_item.item_id)
-        end
+    customer = customers.find_by_id(customer_id)
+    top_quantity = find_highest_quantity_invoice_item_from(customer)
+
+    find_invoices_from(customer).reduce([]) do |top_i, invoice|
+      get_top_invoice_items_for(invoice).each do |invoice_item|
+        current = invoice_item.quantity
+        top_i << items.find_by_id(invoice_item.item_id) if current == top_quantity
       end
       top_i
     end
@@ -73,11 +64,15 @@ module CustomerIntelligence
 
   def items_bought_in_year(customer_id, year)
     all_invoices_for_customers_for_year(customer_id, year).map do |invoice|
-      @invoice_items.find_all_by_invoice_id(invoice.id).map { |invoice_item| invoice_item.item_id}
-    end.flatten.compact.uniq.map { |item_id| @items.find_by_id(item_id) }
+      find_from_invoice(invoice, 'InvoiceItem').map do |invoice_item|
+        items.find_by_id(invoice_item.item_id)
+      end
+    end.flatten.compact.uniq
   end
 
   def all_invoices_for_customers_for_year(customer_id, year)
-    @invoices.find_all_by_customer_id(customer_id).select { |invoice| invoice.created_at.year == year}
+    invoices.find_all_by_customer_id(customer_id).select do |invoice|
+      invoice.created_at.year == year
+    end
   end
 end

@@ -44,9 +44,8 @@ module InvoiceIntelligence
     transactions_for_invoice.all? { |tr| tr.result == :success }
   end
 
-  def get_item_count_for(invoice_id)
-    all_items = invoice_items.find_all_by_invoice_id(invoice_id)
-    sum(*all_items) { |invoice_item| invoice_item.quantity }
+  def get_item_count_for(invoice)
+    sum(*find_from_invoice(invoice, 'InvoiceItem')) { |invoice_item| invoice_item.quantity }
   end
 
   def best_invoice_by_quantity

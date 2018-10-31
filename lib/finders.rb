@@ -12,11 +12,11 @@ module Finders
       method_name = "find_all_by_#{class_string.downcase}_id"
       @invoices.public_send(method_name, business_data.id)
     when 'InvoiceItem', 'Transaction'
-      [@invoices.find_by_id(business_data.invoice_id)]
+      [invoices.find_by_id(business_data.invoice_id)]
     when 'Item'
-      invoice_items = @invoice_items.find_all_by_item_id(business_data.id)
+      invoice_items = invoice_items.find_all_by_item_id(business_data.id)
       invoice_ids = invoice_items.map(&:invoice_id)
-      @invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
+      invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
       #could refactor above 3 lines into 1 if there was a find_invoices_from_array method
     when 'Invoice'
       [business_data]
@@ -24,8 +24,8 @@ module Finders
   end
 
   def find_from_invoices(invoices, class_string)
-    invoices.compact.reduce([]) do |rslt, invoice|
-      rslt += find_from_invoice(invoice, class_string)
+    invoices.reduce([]) do |result, invoice|
+      result += find_from_invoice(invoice, class_string)
     end
   end
 
@@ -45,6 +45,12 @@ module Finders
     end
   end
 
+  def find_top_quantity_from(invoice)
+    find_from_invoice(invoice, 'InvoiceItem').max_by do |invoice_item|
+      invoice_item.quantity
+    end.quantity
+  end
+  
   def get_repository(class_string)
     repository = underscore("@#{class_string}s")
     instance_variable_get(repository)

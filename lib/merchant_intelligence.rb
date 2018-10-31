@@ -32,8 +32,8 @@ module MerchantIntelligence
     return @merchants.all if @merchants.sorted == true
     @merchants.sorted = true
     @merchants.instances = @merchants.all.sort_by { |merchant|
-      revenue_by_merchant(merchant.id)
-    }.reverse
+      0 - revenue_by_merchant(merchant.id)
+    }
   end
 
   def merchants_with_pending_invoices
@@ -52,9 +52,9 @@ module MerchantIntelligence
     month_num = Date::MONTHNAMES.find_index(month)
     @merchants.all.select do |merchant|
       merchant.created_at.month == month_num && \
-      @items.all.one? do |item|
-        item.merchant_id == merchant.id
-      end
+        @items.all.one? do |item|
+          item.merchant_id == merchant.id
+        end
     end
   end
 
@@ -64,7 +64,7 @@ module MerchantIntelligence
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    invoices = successful_invoices.select { |invoice|invoice.merchant_id == merchant_id }
+    invoices = successful_invoices.select { |invoice| invoice.merchant_id == merchant_id }
     invoice_items = invoices.map do |invoice|
       find_from_invoice(invoice, 'InvoiceItem')
     end.flatten
