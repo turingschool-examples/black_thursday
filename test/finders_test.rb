@@ -54,18 +54,18 @@ class FindersTest < Minitest::Test
     assert_equal 8, actual.size
     assert_instance_of Item, actual[0]
   end
-  # def test_find_type_from_object_finds_right_type_of_object
-  #   setup_big_data_set
-  #   @sa.instance_variables.permutation do |var_1, var_2|
-  #     type_string = var_1.to_s
-  #                        .delete('@')
-  #                        .split('_')
-  #                        .collect(&:capitalize)
-  #                        .join[0..-2]
-  #
-  #   end
-  #
-  #   invoice = @sa.invoices.all[0]
-  #
-  # end
+  def test_find_type_from_object_finds_right_type_of_object
+    setup_big_data_set
+    @sa.instance_variables.permutation do |var_1, var_2|
+      type_string = var_1.to_s
+                         .delete('@')
+                         .split('_')
+                         .collect(&:capitalize)
+                         .join[0..-2]
+      # actual = find_type_from_object()
+    end
+
+    invoice = @sa.invoices.all[0]
+
+  end
 end
