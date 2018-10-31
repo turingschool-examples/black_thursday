@@ -14,7 +14,7 @@ module TestSetup
   end
 
   def setup_fixtures
-    se = SalesEngine.from_csv(
+    @se = SalesEngine.from_csv(
       {
         items: './test/data/test_items.csv',
         merchants: './test/data/test_merchants.csv',
@@ -24,7 +24,7 @@ module TestSetup
         customers: './test/data/test_customers.csv'
       }
     )
-    @sa = se.analyst
+    @sa = @se.analyst
   end
 
   def setup_empty_sales_engine

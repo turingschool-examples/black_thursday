@@ -89,7 +89,6 @@ class InvoiceIntelligenceTest < Minitest::Test
     @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
     @se.invoice_items.create(id: 3, item_id: 4, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 3)
     @se.invoice_items.create(id: 4, item_id: 5, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 4)
-    require 'pry'; binding.pry
     assert_equal 10, @sa.get_item_count_for(invoice[0])
   end
 
