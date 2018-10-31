@@ -4,6 +4,8 @@ require "pry"
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'time'
+require 'mocha/minitest'
+
 require_relative '../lib/merchant'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'

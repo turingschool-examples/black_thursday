@@ -26,7 +26,7 @@ class SalesAnalystTest < Minitest::Test
     @merchant_20 = Merchant.new({id: 34, name: 'Rod'})
     @merchant_21 = Merchant.new({id: 35, name: 'Satan'})
     @merchants = [@merchant_1, @merchant_2, @merchant_3]
-    @merchants_2 = [@merchant_1, @merchant_2, @merchant_3, @merchant_4,         @merchant_5, @merchant_6]
+    @merchants_2 = [@merchant_1, @merchant_2, @merchant_3, @merchant_4,    @merchant_5, @merchant_6]
     @merchants_3 = [@merchant_1, @merchant_2, @merchant_3, @merchant_4,  @merchant_5, @merchant_6, @merchant_7, @merchant_8, @merchant_9,  @merchant_10, @merchant_11, @merchant_12, @merchant_13, @merchant_14,   @merchant_15, @merchant_16, @merchant_17, @merchant_18, @merchant_19,  @merchant_20, @merchant_21]
     @mr = MerchantRepository.new(@merchants)
     @mr_2 = MerchantRepository.new(@merchants_2)
@@ -359,7 +359,7 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst = sales_engine.analyst
     sales_engine_2 = SalesEngine.new(@items, @merchants_2, @invoices_2, @transactions, nil, @invoice_items)
     @sales_analyst_2 = sales_engine_2.analyst
-    sales_engine_3 = SalesEngine.new(@items, @merchants_3, @invoices, @transactions, nil, @invoice_items_2)
+    sales_engine_3 = SalesEngine.new(@items, @merchants_3, @invoices_2, @transactions, nil, @invoice_items_2)
     @sales_analyst_3 = sales_engine_3.analyst
     sales_engine_4 = SalesEngine.new(@items, @merchants_2, @invoices_2, @transactions, nil, @invoice_items_3)
     @sales_analyst_4 = sales_engine_4.analyst
@@ -545,11 +545,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_top_indicated_number_of_merchants_for_revenue
-    skip
-    expected = [@merchant_3, @merchant_1]
-    expected_2 = [@merchant_3, @merchant_1, @merchant_2, @merchant_4,  @merchant_5, @merchant_6, @merchant_7, @merchant_8, @merchant_9,  @merchant_10, @merchant_11, @merchant_12, @merchant_13, @merchant_14,   @merchant_15, @merchant_16, @merchant_17, @merchant_18, @merchant_19,  @merchant_20]
-    assert_equal expected, @sales_analyst.top_revenue_earners(2)
-    assert_equal expected_2, @sales_analyst_3.top_revenue_earners
+    expected = [@merchant_2, @merchant_1]
+    expected_2 = [@merchant_2, @merchant_1, @merchant_3, @merchant_4,  @merchant_5, @merchant_6, @merchant_7, @merchant_8, @merchant_9,  @merchant_10, @merchant_11, @merchant_12, @merchant_13, @merchant_14,   @merchant_15, @merchant_16, @merchant_17, @merchant_18, @merchant_19,  @merchant_20]
+    assert_equal expected, @sales_analyst_3.top_revenue_earners(2)
+    assert @sales_analyst_3.top_revenue_earners.all? {|r| expected_2.include? r}
   end
 
   def test_it_can_find_which_merchants_have_pending_invoices
@@ -579,5 +578,71 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_item_that_generates_most_revenue_for_merchant
     skip
     assert_equal @item_3, @sales_analyst.best_item_for_merchant(10)
+  end
+  
+  def test_it_can_rank_merchants_by_revenue
+    merchant_1 = mock
+    merchant_1.stubs(:id).returns(1)
+    merchant_2 = mock
+    merchant_2.stubs(:id).returns(2)
+    merchant_3 = mock
+    merchant_3.stubs(:id).returns(3)
+    invoice_1 = mock
+    invoice_1.stubs(:id).returns(1)
+    invoice_1.stubs(:merchant_id).returns(1)
+    invoice_2 = mock
+    invoice_2.stubs(:id).returns(2)
+    invoice_2.stubs(:merchant_id).returns(2)
+    invoice_3 = mock
+    invoice_3.stubs(:id).returns(3)
+    invoice_3.stubs(:merchant_id).returns(3)
+    transaction_1 = mock
+    transaction_1.stubs(:id).returns(1)
+    transaction_1.stubs(:invoice_id).returns(1)
+    transaction_1.stubs(:result).returns(:success)
+    transaction_2 = mock
+    transaction_2.stubs(:id).returns(2)
+    transaction_2.stubs(:invoice_id).returns(2)
+    transaction_2.stubs(:result).returns(:success)
+    transaction_3 = mock
+    transaction_3.stubs(:id).returns(3)
+    transaction_3.stubs(:invoice_id).returns(3)
+    transaction_3.stubs(:result).returns(:success)
+    invoice_item_1 = mock
+    invoice_item_1.stubs(:id).returns(1)
+    invoice_item_1.stubs(:invoice_id).returns(1)
+    invoice_item_1.stubs(:item_id).returns(1)
+    invoice_item_1.stubs(:unit_price).returns(BigDecimal.new(10.00, 4))
+    invoice_item_1.stubs(:quantity).returns(1)
+    invoice_item_2 = mock
+    invoice_item_2.stubs(:id).returns(2)
+    invoice_item_2.stubs(:invoice_id).returns(2)
+    invoice_item_2.stubs(:item_id).returns(2)
+    invoice_item_2.stubs(:unit_price).returns(BigDecimal.new(50.00, 4))
+    invoice_item_2.stubs(:quantity).returns(2)
+    invoice_item_3 = mock
+    invoice_item_3.stubs(:id).returns(3)
+    invoice_item_3.stubs(:item_id).returns(3)
+    invoice_item_3.stubs(:invoice_id).returns(3)
+    invoice_item_3.stubs(:unit_price).returns(BigDecimal.new(40.00, 4))
+    invoice_item_3.stubs(:quantity).returns(1)
+    
+    merchants = [merchant_1, merchant_2, merchant_3]
+    invoices = [invoice_1, invoice_2, invoice_3]
+    invoice_items = [invoice_item_1, invoice_item_2, invoice_item_3]
+    transactions = [transaction_1, transaction_2, transaction_3]
+    se = SalesEngine.new(nil, merchants, invoices, transactions, nil, invoice_items)
+    sales_analyst = se.analyst
+    
+    expected = [merchant_2, merchant_3, merchant_1]
+    assert_equal expected, sales_analyst.merchants_ranked_by_revenue 
+    expected = {merchant_1 => [invoice_1], 
+                merchant_2 => [invoice_2], 
+                merchant_3 => [invoice_3]}
+    assert_equal expected, sales_analyst.invoices_for_each_merchant
+    expected = {merchant_1 => BigDecimal.new(10.00, 4), 
+                merchant_2 => BigDecimal.new(100.00, 5),
+                merchant_3 => BigDecimal.new(40.00, 4)}
+    assert_equal expected, sales_analyst.revenue_for_each_merchant
   end
 end
