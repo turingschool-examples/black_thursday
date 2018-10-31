@@ -169,7 +169,6 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    # date = invoices.created_at
     actual = date.strftime("%Y-%m-%d")
     invoice_from_date = @invoices.all.find_all do |invoice|
       invoice.created_at.strftime("%Y-%m-%d") == actual
@@ -181,34 +180,23 @@ class SalesAnalyst
       end
     end
     items_from_invoice = valid_invoices.map do |invoice|
-      # @invoice_items.all.find_all do |invoice|
         @invoice_items.find_all_by_invoice_id(invoice.id)
-      # end
     end.flatten
     items_from_invoice.inject(0) do |sum, item_invoice|
       sum + item_invoice.quantity * item_invoice.unit_price
     end.round(2)
   end
-  def invoice_success?(invoice)
-    @transactions.any? do |trans|
-      trans.result == :success
-    end
-  end
-   #helper method to return all invoices that have any successful transactions
 
   def merchants_with_pending_invoices
-
-    pending_invoices = @transactions.find_all do |invoice|
-      transactions.all? do |transaction|
-        transaction.result != :success
-      end
+    pending_invoices = @invoices.all.reject do |invoice|
+      min_one_transaction_passed(invoice)
     end
-    pending_invoices.map(&:invoice_id)
-
-    # a = pending_invoices.inject(Set.new) do |memo, invoice|
-    #   id = invoice.merchant_id
-    #    memo << @merchants.find_by_id(id)
-    # end
+    merchants_and_invoices = pending_invoices.group_by do |invoice|
+      @merchants.find_by_id(invoice.merchant_id)
+    end
+    merchants_and_invoices.map do |merchant, invoices|
+     merchant
+    end
   end
 
   def most_sold_item_for_merchant(merchant_id)
