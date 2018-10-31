@@ -181,7 +181,7 @@ class SalesAnalyst
     end
   end
 
-  def merchant_revenue(merchant_id)
+  def revenue_by_merchant(merchant_id)
     sum = 0
      @invoices.each do |invoice|
      if invoice.merchant_id == merchant_id && invoice_paid_in_full?(invoice.id)
@@ -191,21 +191,22 @@ class SalesAnalyst
     sum
   end
 
-  def top_revenue_earners(number = 20)
+  def merchants_ranked_by_revenue
     revenue_array = []
     @merchants.each do |merchant|
-      revenue_array << {merchant: merchant, revenue: merchant_revenue(merchant.id)}
+      revenue_array << {merchant: merchant, revenue: revenue_by_merchant(merchant.id)}
     end
     revenue_array.sort_by! do |item|
       item[:revenue]
     end
-    top_merchants = []
-    number.times do
-      top_merchants << revenue_array.pop[:merchant]
-    end
-    top_merchants
+    revenue_array.map do |hash|
+      hash[:merchant]
+    end.reverse
   end
 
+  def top_revenue_earners(number = 20)
+    merchants_ranked_by_revenue.first(number)
+  end
 
   def pending_invoice?(invoice_id)
     @transactions.each do |trans|
