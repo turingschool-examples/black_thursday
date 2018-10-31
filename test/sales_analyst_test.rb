@@ -56,7 +56,6 @@ class SalesAnalystTest < Minitest::Test
     setup_fixtures
     assert_equal [], @sa.top_days_by_invoice_count
   end
-  #iteration 4 tests
 
   def test_revenue_by_date
     setup_empty_sales_engine
@@ -65,18 +64,19 @@ class SalesAnalystTest < Minitest::Test
     @se.merchants.create(id: 2, name: "Amazon")
     @se.merchants.create(id: 3, name: "Bob's Burgers")
     @se.merchants.create(id: 4, name: "JC")
-    @se.items.create(id: 1, name: 'burger', merchant_id: '3', unit_price: BigDecimal(500), merchant_id: 3)
+
+    @se.items.create(id: 1, name: "burger", merchant_id: 3, unit_price: BigDecimal(500))
     @se.items.create(id: 2, name: "3D printed Jaguar", unit_price: BigDecimal(100_000_00), merchant_id: 4)
     @se.items.create(id: 3, name: "3D printed packing peanut", unit_price: BigDecimal(1), merchant_id: 4)
 
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped, created_at: time)
     @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
     @se.invoice_items.create(id: 2, item_id: 3, invoice_id: 1, unit_price: BigDecimal(1), quantity: 5)
-    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id: 1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
     @se.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :shipped, created_at: time)
     @se.invoice_items.create(id: 1, item_id: 1, invoice_id: 2, unit_price: BigDecimal(500), quantity: 200)
-    @se.transactions.create(id:1, invoice_id: 2, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id: 1, invoice_id: 2, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
     assert_equal 201_000_05, @sa.total_revenue_by_date(time)
   end
@@ -84,9 +84,9 @@ class SalesAnalystTest < Minitest::Test
   def test_successful_invoices
     setup_empty_sales_engine
 
-    @sa.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
-    @sa.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
-    @sa.transactions.create(id:3, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 3, status: :shipped, created_at: Time.new(2013, 10))
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 3, status: :pending, created_at: Time.new(2013, 10))
+    @se.transactions.create(id: 3, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
 
     actual = @sa.successful_invoices
     assert_instance_of Invoice, actual[0]
@@ -101,14 +101,47 @@ class SalesAnalystTest < Minitest::Test
 
   def test_get_transaction_count_for
     setup_empty_sales_engine
-    @sa.invoices.create(id: 1, customer_id: 1, merchant_id: 1, status: :shipped, created_at: Time.new(2013, 10))
-    @sa.invoices.create(id: 2, customer_id: 1, merchant_id: 1, status: :pending, created_at: Time.new(2013, 10))
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 1, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 1, status: :pending)
 
     @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
 
-    @sa.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
-    @sa.transactions.create(id:2, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id: 1, invoice_id: 1, credit_card_number: 2, result: :success)
+    @se.transactions.create(id: 2, invoice_id: 1, credit_card_number: 2, result: :success)
 
     assert_equal 2, @sa.get_transaction_count_for(@se.invoice_items.find_by_id(1))
+  end
+
+  def test_find_highest_quantity_invoice_item_from
+    setup_empty_sales_engine
+
+    @se.customers.create(id: 1, first_name: "Stirling", last_name: "Archer")
+
+    @sa.invoices.create(id: 1, customer_id: 1, merchant_id: 1, status: :shipped)
+
+    @se.invoice_items.create(id: 1, item_id: 1, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 22)
+    @se.invoice_items.create(id: 2, item_id: 1, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 42)
+    @se.invoice_items.create(id: 3, item_id: 1, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 11)
+
+    assert_equal 42, @sa.find_highest_quantity_invoice_item_from(@se.customers.find_by_id(1))
+  end
+
+  def test_find_highest_transcation_count_from
+    setup_empty_sales_engine
+
+    @se.customers.create(id: 1, first_name: "Stirling", last_name: "Archer")
+    @se.customers.create(id: 2, first_name: "Malory", last_name: "Archer")
+
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 1, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 2, merchant_id: 1, status: :shipped)
+
+    @se.invoice_items.create(id: 1, item_id: 1, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 22)
+    @se.invoice_items.create(id: 2, item_id: 1, invoice_id: 2, unit_price: BigDecimal(100_000_00), quantity: 42)
+
+    @se.transactions.create(id: 1, invoice_id: 1, credit_card_number: 2, result: :success)
+    @se.transactions.create(id: 2, invoice_id: 2, credit_card_number: 2, result: :success)
+    @se.transactions.create(id: 3, invoice_id: 2, credit_card_number: 2, result: :success)
+
+    assert_equal 2, @sa.find_highest_transaction_count_from(@se.customers.find_all_by_last_name("Archer"))
   end
 end
