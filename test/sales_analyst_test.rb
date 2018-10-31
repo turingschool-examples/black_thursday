@@ -185,4 +185,17 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 21067.77, sa.invoice_total(1)
   end
+
+    def test_it_can_return_total_revenue_by_date
+      items = ItemRepository.new("./data/items.csv")
+      merchants = MerchantRepository.new("./data/merchants.csv")
+      invoices = InvoiceRepository.new("./data/invoices.csv")
+      invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv')
+      customers = CustomerRepository.new('./data/customers.csv')
+      transactions = TransactionRepository.new('./data/transactions.csv')
+      sa = SalesAnalyst.new(items, merchants, invoices,invoice_items, customers, transactions)
+      date = Time.parse("2009-02-07")
+      assert_equal BigDecimal(21067.77,6), sa.total_revenue_by_date(date)
+    end
+
 end
