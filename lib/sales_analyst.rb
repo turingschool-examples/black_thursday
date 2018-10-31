@@ -206,6 +206,7 @@ class SalesAnalyst
     top_merchants
   end
 
+
   def pending_invoice?(invoice_id)
     @transactions.each do |trans|
       return false if trans.invoice_id == invoice_id &&
@@ -226,6 +227,16 @@ class SalesAnalyst
       pending_merchants << merch if pending_merchant?(merch)
     end
     pending_merchants
+
+  def merchants_with_only_one_item
+    one_item_merchants = []
+    @merchants.each do |merchant|
+      if merchant_item_list(merchant).count == 1
+        one_item_merchants << merchant
+      end
+    end
+    one_item_merchants
+
   end
 
 end
