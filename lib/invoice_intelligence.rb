@@ -76,9 +76,6 @@ module InvoiceIntelligence
     invoice_total(invoice.id)
   end
 
-
-
-
   def revenue_from_invoices(invoices)
     amounts = invoices.reduce([]) do |arr, invoice|
       arr << revenue_from_invoice(invoice)
