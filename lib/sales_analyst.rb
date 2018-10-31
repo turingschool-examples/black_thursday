@@ -9,6 +9,7 @@ class SalesAnalyst
     @invoices = input[:invoices]
     @transactions = input[:transactions]
     @invoice_items = input[:invoice_items]
+    @customers = input[:customers]
   end
 
   def average_items_per_merchant
@@ -235,10 +236,18 @@ class SalesAnalyst
     invoice_transactions.any? { |transaction| transaction.result == :success }
   end
 
+  # def all_transaction_passed(invoice)
+  #   invoice_transactions = @transactions.all.select do |transaction|
+  #     transaction.invoice_id == invoice.id
+  #   end
+  #   invoice_transactions.all? { |transaction| transaction.result == :success }
+  # end
+
   def revenue_by_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }
     merchant_invoices = merchant_invoices.select do |invoice|
-      min_one_transaction_passed(invoice) && invoice.status != :returned
+      # all_transaction_passed(invoice) && invoice.status != :returned
+      min_one_transaction_passed(invoice)# && invoice.status != :returned
     end
     all_invoice_items_by_merchant = merchant_invoices.map do |invoice|
       @invoice_items.find_all_by_invoice_id(invoice.id)
@@ -246,10 +255,11 @@ class SalesAnalyst
     all_invoice_items_by_merchant.reduce(0) do |sum, ii|
       ii.quantity * ii.unit_price + sum
     end
+  end
 
   def top_revenue_earners(x = 20)
     rev = @merchants.all.map do |merchant|
-      [revenue_by_merchant_id(merchant_id),merchant]
+      [revenue_by_merchant(merchant.id), merchant]
     end
     revenue_array = rev.sort_by do |revenue,merchant|
       revenue
@@ -263,8 +273,26 @@ class SalesAnalyst
     top_merchants
   end
 
-  def rank_merchants_by_revenue
+  def merchants_ranked_by_revenue
     top_revenue_earners(@merchants.all.count)
+  end
+
+  def merchants_with_only_one_item
+    merch_and_items = @items.all.group_by { |item| item.merchant_id }.to_a
+    a = merch_and_items.select { |merch_id, items| items.count == 1 }
+    a.map { |merch_id, items| @merchants.find_by_id(merch_id) }
+  end
+
+  def one_time_buyers
+    customer_and_invoices = @invoices.all.group_by do |invoice|
+      invoice.customer_id
+    end
+    otb = customer_and_invoices.select do |customer, invoices|
+      invoices.length == 1
+    end
+    otb.map do |customer, invoice|
+      @customers.find_by_id(invoice.first.customer_id)
+    end
   end
 
 end

@@ -227,7 +227,8 @@ class SalesAnalystTest < Minitest::Test
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
       :transactions => "./data/transactions.csv",
-      :invoice_items => "./data/invoice_items.csv"
+      :invoice_items => "./data/invoice_items.csv",
+      :customers => "./data/customers.csv"
     })
     @sa_real = @se_real.analyst
     ################################################
@@ -328,7 +329,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners_default
-    skip
     actual = @sa_real.top_revenue_earners
     assert_equal 12334634, actual.first.id
     assert_equal 12334159, actual.last.id
@@ -337,7 +337,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_rank_merchants_by_revenue
-    skip
     actual = @sa_real.merchants_ranked_by_revenue
     assert_instance_of Merchant, actual.first
     assert_equal 12334634, actual.first.id
@@ -353,7 +352,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_merchants_with_one_item
-    skip
     actual = @sa_real.merchants_with_only_one_item
     assert_equal 243, actual.length
     assert_instance_of Merchant, actual.first
@@ -389,4 +387,11 @@ class SalesAnalystTest < Minitest::Test
     actual = @sa_real.best_item_for_merchant(12337105)
     assert_equal 263463003, actual.id
   end
+
+  def test_it_can_find_one_time_buyers
+    otb = @sa_real.one_time_buyers
+    assert_equal 76, otb.length
+    assert_instance_of Customer, otb.first
+  end
+
 end
