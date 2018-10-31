@@ -308,7 +308,10 @@ class SalesAnalyst
     invoices = @invoice_repo.find_all_by_merchant_id(id)
     #totals revenue for each item by transaction
     paid_invoices = find_all_paid_invoices(invoices)
-
+    invoice_items = paid_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    binding.pry
     #sort_by highest number and return the corrosponding items
   end
 
