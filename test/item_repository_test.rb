@@ -103,7 +103,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_create
     ir = ItemRepository.new
-    i = Item.new({
+    ir.create({
   :id          => 100,
   :name        => "Asa",
   :description => "My name",
@@ -112,15 +112,7 @@ class ItemRepositoryTest < Minitest::Test
   :updated_at  => Time.now,
   :merchant_id => 19
 })
-    assert_equal i, ir.create({
-  :id          => 100,
-  :name        => "Asa",
-  :description => "My name",
-  :unit_price  => BigDecimal.new(25.00, 4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  :merchant_id => 19
-})
+    assert ir.all.map(&:id).include?(100)
   end
 
   def test_update
@@ -147,7 +139,8 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_delete
     ir = ItemRepository.new
+     ir.delete(5)
 
-    assert_equal nil, ir.delete(1)
+    refute ir.all.map(&:id).include?(5)
   end
 end
