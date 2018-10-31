@@ -165,4 +165,9 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, actual
   end
 
+  def test_it_can_get_merchs_with_only_one_item_in_month
+    actual = @sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+    assert_equal 21, actual.count
+  end
+
 end

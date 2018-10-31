@@ -239,4 +239,11 @@ class SalesAnalyst
     end
     one_item_merchants
   end
+
+  def merchants_with_only_one_item_registered_in_month(month_string)
+    merchants_with_only_one_item.find_all do |merch|
+      merch.created_at.strftime("%^B") == month_string.upcase
+    end
+  end
+
 end
