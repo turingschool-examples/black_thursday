@@ -207,24 +207,11 @@ class SalesAnalyst
   end
   
   def top_revenue_earners(num = 20)
-    merchant_invoices = {}
-    @merchant_repo.all.each do |merchant|
-      invoices = @invoice_repo.find_all_by_merchant_id(merchant.id)
-      merchant_invoices[merchant] = invoices
-    end
-    
-    merchant_revenue = {}
-    merchant_invoices.each do |merchant, invoices|
-      total_revenue = invoices.inject(0) do |total, invoice|
-        total + invoice_total(invoice.id)
-      end
-      merchant_revenue[merchant] = total_revenue
-    end
-    
-    merchants = []
+    merchant_revenue = revenue_for_each_merchant
     sorted = merchant_revenue.sort_by do |merchant, revenue|
       revenue
     end
+    merchants = []
     num.times do 
       merchants << sorted.pop[0]
     end
@@ -270,4 +257,34 @@ class SalesAnalyst
     end
     sum merchants_invoice_items
   end
+  
+  def merchants_ranked_by_revenue
+    merchant_revenue = revenue_for_each_merchant
+    
+    sorted = merchant_revenue.sort_by { |merchant, revenue| revenue }
+    result = sorted.map { |merchant, revenue| merchant }
+    result.reverse
+  end
+  
+  def invoices_for_each_merchant
+    merchant_invoices = {}
+    @merchant_repo.all.each do |merchant|
+      invoices = @invoice_repo.find_all_by_merchant_id(merchant.id)
+      merchant_invoices[merchant] = invoices
+    end
+    merchant_invoices
+  end
+  
+  def revenue_for_each_merchant
+    merchant_invoices = invoices_for_each_merchant
+    merchant_revenue = {}
+    merchant_invoices.each do |merchant, invoices|
+      total_revenue = invoices.inject(0) do |total, invoice|
+        total + invoice_total(invoice.id)
+      end
+      merchant_revenue[merchant] = total_revenue
+    end
+    merchant_revenue
+  end
+    
 end
