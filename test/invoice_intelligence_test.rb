@@ -176,6 +176,18 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert_equal 1123, actual[0].id
   end
 
+  def test_an_invoice_is_paid_in_full
+    setup_big_data_set
+    actual = @sa.invoice_paid_in_full?(1)
+    assert_equal true, actual
 
+    actual = @sa.invoice_paid_in_full?(200)
+    assert_equal true, actual
 
+    actual = @sa.invoice_paid_in_full?(203)
+    assert_equal false, actual
+
+    actual = @sa.invoice_paid_in_full?(204)
+    assert_equal false, actual
+  end
 end

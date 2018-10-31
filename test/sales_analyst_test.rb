@@ -94,23 +94,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, actual[0].id
   end
 
-  def test_an_invoice_is_paid_in_full
-    actual = @sa.invoice_paid_in_full?(1)
-    assert_equal true, actual
-
-    actual = @sa.invoice_paid_in_full?(200)
-    assert_equal true, actual
-
-    actual = @sa.invoice_paid_in_full?(203)
-    assert_equal false, actual
-
-    actual = @sa.invoice_paid_in_full?(204)
-    assert_equal false, actual
+  def test_customers_with_unpaid_invoices
+    actual = @sa.customers_with_unpaid_invoices
+    assert_equal 2, actual.size
   end
 
-  def test_customers_with_unpaid_invoices
+  def test_get_transaction_count_for
+    setup_empty_sales_engine
+    @sa.invoices.create(id: 1, customer_id: 1, merchant_id: 1, status: :shipped, created_at: Time.new(2013, 10))
+    @sa.invoices.create(id: 2, customer_id: 1, merchant_id: 1, status: :pending, created_at: Time.new(2013, 10))
 
-    actual = @sa.customers_with_unpaid_invoices
-    assert_equal 6, actual.size
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 2)
+
+    @sa.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @sa.transactions.create(id:2, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+
+    assert_equal 2, @sa.get_transaction_count_for(@se.invoice_items.find_by_id(1))
   end
 end
