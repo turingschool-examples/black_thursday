@@ -7,6 +7,38 @@ require './test/test_data'
 class InvoiceIntelligenceTest < Minitest::Test
   include TestData, TestSetup
 
+
+  def setup_invoices_with_different_statuses
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :pending)
+    @se.invoices.create(id: 3, customer_id: 1, merchant_id: 4, status: :pending)
+    @se.invoices.create(id: 4, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 5, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 6, customer_id: 1, merchant_id: 4, status: :returned)
+    @se.invoices.create(id: 7, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 8, customer_id: 1, merchant_id: 4, status: :pending)
+  end
+
+
+  def test_it_finds_percentage_of_invoices_status_returned
+    setup_empty_sales_engine
+    setup_invoices_with_different_statuses
+    assert_equal 12.5, @sa.invoice_status(:returned)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_pending
+    setup_empty_sales_engine
+    setup_invoices_with_different_statuses
+    assert_equal 37.5, @sa.invoice_status(:pending)
+  end
+
+  def test_it_finds_percentage_of_invoices_status_shipped
+    setup_empty_sales_engine
+    setup_invoices_with_different_statuses
+    assert_equal 50.0, @sa.invoice_status(:shipped)
+  end
+
+
   def test_invoice_has_no_transactions
     setup_empty_sales_engine
     invoice = @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)

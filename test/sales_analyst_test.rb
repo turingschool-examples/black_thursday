@@ -47,22 +47,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, @sa.golden_items.length
   end
 
-  def test_it_finds_percentage_of_invoices_status_returned
-    setup_fixtures
-    assert_equal 19.18, @sa.invoice_status(:returned)
-  end
-
-  def test_it_finds_percentage_of_invoices_status_pending
-    setup_fixtures
-
-    assert_equal 39.73, @sa.invoice_status(:pending)
-  end
-
-  def test_it_finds_percentage_of_invoices_status_shipped
-    setup_fixtures
-    assert_equal 41.1, @sa.invoice_status(:shipped)
-  end
-
   def test_average_invoices_per_merchant
     setup_fixtures
     assert_equal 10.43, @sa.average_invoices_per_merchant
@@ -323,10 +307,6 @@ class SalesAnalystTest < Minitest::Test
     #
     # result = @sa.merchants_with_only_one_item_registered_in_month("June")
     # assert_equal 18, result.length
-  end
-
-  def test_invoice_total
-    assert_equal 21067.77, @sa.invoice_total(1)
   end
 
   def test_an_invoice_is_paid_in_full
