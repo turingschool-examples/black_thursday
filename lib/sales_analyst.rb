@@ -296,9 +296,12 @@ class SalesAnalyst
     end
   end
 
-  def merchants_with_only_one_item_registered_in_a_month(month)
+  def merchants_with_only_one_item_registered_in_month(month)
     merchants_in_month = @merchants.all.find_all do |merchant|
-      month == merchant.created_at.strftime("%B") 
+      month == merchant.created_at.strftime("%B")
+    end
+    merchants_in_month.find_all do |merchant|
+       @items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
 
