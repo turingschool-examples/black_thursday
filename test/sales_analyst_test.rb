@@ -185,4 +185,33 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 21067.77, sa.invoice_total(1)
   end
+
+    def test_it_can_return_total_revenue_by_date
+      items = ItemRepository.new("./data/items.csv")
+      merchants = MerchantRepository.new("./data/merchants.csv")
+      invoices = InvoiceRepository.new("./data/invoices.csv")
+      invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv')
+      customers = CustomerRepository.new('./data/customers.csv')
+      transactions = TransactionRepository.new('./data/transactions.csv')
+      sa = SalesAnalyst.new(items, merchants, invoices,invoice_items, customers, transactions)
+      date = Time.parse("2009-02-07")
+      assert_equal BigDecimal(21067.77,7), sa.total_revenue_by_date(date)
+    end
+
+    def test_it_returns_an_array_of_top_revenue_earners
+      items = ItemRepository.new("./data/items.csv")
+      merchants = MerchantRepository.new("./data/merchants.csv")
+      invoices = InvoiceRepository.new("./data/invoices.csv")
+      invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv')
+      customers = CustomerRepository.new('./data/customers.csv')
+      transactions = TransactionRepository.new('./data/transactions.csv')
+      sa = SalesAnalyst.new(items, merchants, invoices,invoice_items, customers, transactions)
+      date = Time.parse("2009-02-07")
+      assert_instance_of Merchant, sa.top_revenue_earners(10).first
+      assert_equal 12334634, sa.top_revenue_earners(10).first.id
+      assert_equal 12335747, sa.top_revenue_earners(10).last.id
+    end
+
+
+
 end

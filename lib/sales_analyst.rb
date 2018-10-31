@@ -159,6 +159,34 @@ class SalesAnalyst
     invoice_items_totals = selected_invoice_items.map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
     end
-    sums(invoice_items_totals) 
+    sums(invoice_items_totals)
+  end
+
+  def total_revenue_by_date(date)
+    selected_invoices = @invoices.all.select do |invoice|
+      invoice.created_at.strftime("%Y%m%d") == date.strftime("%Y%m%d")
+    end
+    invoice_ids = selected_invoices.map do |invoice|
+      invoice.id
+    end
+    totals_array = invoice_ids.map do |invoice_item|
+      invoice_total(invoice_item)
+    end
+    sums(totals_array)
+  end
+
+  def top_revenue_earners(x = 20)
+    merchant_invoices = invoices_by_merchant.map do |merchant_id, invoices|
+      array = invoices.map do |invoice|
+        invoice.id
+      end
+      totals_array = array.map do |invoice_item|
+        invoice_total(invoice_item)
+      end
+      totals_array.map do |total|
+        Hash[merchant_id, total]
+      end
+    end
+    require 'pry'; binding.pry
   end
 end
