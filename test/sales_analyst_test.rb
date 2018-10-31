@@ -636,6 +636,14 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = se.analyst
     
     expected = [merchant_2, merchant_3, merchant_1]
-    assert_equal expected, sales_analyst.merchants_ranked_by_revenue    
+    assert_equal expected, sales_analyst.merchants_ranked_by_revenue 
+    expected = {merchant_1 => [invoice_1], 
+                merchant_2 => [invoice_2], 
+                merchant_3 => [invoice_3]}
+    assert_equal expected, sales_analyst.invoices_for_each_merchant
+    expected = {merchant_1 => BigDecimal.new(10.00, 4), 
+                merchant_2 => BigDecimal.new(100.00, 5),
+                merchant_3 => BigDecimal.new(40.00, 4)}
+    assert_equal expected, sales_analyst.revenue_for_each_merchant
   end
 end
