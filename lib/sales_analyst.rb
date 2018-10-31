@@ -159,6 +159,20 @@ class SalesAnalyst
     invoice_items_totals = selected_invoice_items.map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
     end
-    sums(invoice_items_totals) 
+    sums(invoice_items_totals)
+  end
+
+  def total_revenue_by_date(date)
+    selected_invoices = @invoices.all.select do |invoice|
+      invoice.created_at.strftime("%Y%m%d") == date.strftime("%Y%m%d")
+    end
+    invoice_ids = selected_invoices.map do |invoice|
+      invoice.id
+    end
+    totals_array = invoice_ids.map do |invoice_item|
+      invoice_total(invoice_item)
+    end
+    # require 'pry'; binding.pry
+    sums(totals_array)
   end
 end

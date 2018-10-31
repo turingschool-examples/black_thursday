@@ -195,7 +195,7 @@ class SalesAnalystTest < Minitest::Test
       transactions = TransactionRepository.new('./data/transactions.csv')
       sa = SalesAnalyst.new(items, merchants, invoices,invoice_items, customers, transactions)
       date = Time.parse("2009-02-07")
-      assert_equal BigDecimal(21067.77,6), sa.total_revenue_by_date(date)
+      assert_equal BigDecimal(21067.77,7), sa.total_revenue_by_date(date)
     end
 
 end
