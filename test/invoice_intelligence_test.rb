@@ -129,25 +129,52 @@ class InvoiceIntelligenceTest < Minitest::Test
   end
 
   def test_revenue_from_invoices_returns_0_when_no_transactions
-    invoice_1 = @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
-    invoice_2 = @se.invoice_items.create(id: 2, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
-    assert_equal 0, @sa.revenue_from_invoices(invoice_1 + invoice_2)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.invoice_items.create(id: 2, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
+    assert_equal 0, @sa.revenue_from_invoices(@se.invoices.all)
   end
 
   def test_revenue_from_invoices_returns_0_when_no_successful_transactions
-    invoice_1 = @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
-    invoice_2 = @se.invoice_items.create(id: 2, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :shipped)
     @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :failure, credit_card_expiration_date: Time.now)
     @se.transactions.create(id:1, invoice_id: 2, credit_card_number: 2, result: :failure, credit_card_expiration_date: Time.now)
-    assert_equal 0, @sa.revenue_from_invoices(invoice_1 + invoice_2)
+    assert_equal 0, @sa.revenue_from_invoices(@se.invoices.all)
   end
 
-  def test_revenue_from_invoices_returns_correctly_when_successful_transactions_one_one_invoice
-    invoice_1 = @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
-    invoice_2 = @se.invoice_items.create(id: 2, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
-    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :successful, credit_card_expiration_date: Time.now)
-    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :successful, credit_card_expiration_date: Time.now)
-    assert_equal 0, @sa.revenue_from_invoices(invoice_1 + invoice_2)
+  def test_revenue_from_invoices_returns_correctly_when_successful_transactions_on_one_invoice
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.invoice_items.create(id: 2, item_id: 2, invoice_id: 2, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    assert_equal 100_000_00, @sa.revenue_from_invoices(@se.invoices.all)
   end
+
+  def test_revenue_from_invoices_returns_correctly_when_successful_transactions_on_multiple_invoices
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.invoice_items.create(id: 2, item_id: 2, invoice_id: 2, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id:1, invoice_id: 2, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    assert_equal 200_000_00, @sa.revenue_from_invoices(@se.invoices.all)
+  end
+
+
+  def test_unsuccessful_invoices
+    @se.invoices.create(id: 1123, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.invoices.create(id: 1, customer_id: 1, merchant_id: 4, status: :shipped)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id:2, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    actual = @sa.unsuccessful_invoices
+    assert_equal 1, actual.size
+    assert_equal 1123, actual[0].id
+  end
+
+
 
 end
