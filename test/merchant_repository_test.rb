@@ -34,28 +34,27 @@ class MerchantRepositoryTest < Minitest::Test
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Turing School"})
 
-
-
     assert_equal [m, m2], mr.find_all_by_name("Turing School")
   end
 
-  def create
+  def test_create
     mr = MerchantRepository.new
-    m = Merchant.new({:id => 10, :name => "Asa"})
+    mr.create({:id => 10, :name => "Asa"})
 
-    assert_equal m, mr.create({:id => 10, :name => "Asa"})
+    assert mr.all.map(&:id).include?(10)
   end
 
-  def update
+  def test_update
     mr = MerchantRepository.new
     m = Merchant.new({:id => 5, :name => "Programming"})
 
     assert_equal m, mr.update(5, {:name => "Programming"})
   end
 
-  def delete
+  def test_delete
     mr = MerchantRepository.new
+     mr.delete(5)
 
-    assert_equal nil, mr.delete(5)
+    refute mr.all.map(&:id).include?(5)
   end
 end
