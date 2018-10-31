@@ -561,9 +561,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_that_only_sell_one_item_in_registered_month
-    skip
-    actual = @sales_analyst_2.merchants_with_only_one_item_registered_in_month("February")
-    assert_equal [@merchant_2], actual
+    actual = @sales_analyst_2.merchants_with_only_one_item_registered_in_month("October")
+    assert_equal [@merchant_3], actual
   end
 
   def test_it_can_calculate_total_revenue_for_a_merchant
