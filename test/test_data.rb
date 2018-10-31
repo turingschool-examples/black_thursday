@@ -12,23 +12,109 @@ require './lib/transaction_repository'
 require 'bigdecimal'
 
 module TestData
-  def make_some_test_data
+  def make_repositories
     @now = Time.now
-
     @mr = MerchantRepository.new
     @cr = CustomerRepository.new
     @ir = InvoiceRepository.new
     @iir = InvoiceItemRepository.new
     @itemr = ItemRepository.new
     @tr = TransactionRepository.new
+    # @m_1 = Merchant.new({id: 10, name: "Bettys Beans"})
+    # @m_1 = Merchant.new({id: 11, name: "Freds Fireworks"})
+    #
+    # @mr.instances << @m_1
+    # @mr.instances << @m_2
+    #
+    # @c_1 = Customer.new({
+    #   :id => 1,
+    #   :first_name => "Joan",
+    #   :last_name => "Clarke",
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @c_2 = Customer.new({
+    #   :id => 2,
+    #   :first_name => "Jeff",
+    #   :last_name => "Baconson",
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @cr.instances << @c_1
+    # @cr.instances << @c_2
+    #
+    # @inv_1 = Invoice.new({
+    #   :id          => 4,
+    #   :customer_id => 1,
+    #   :merchant_id => 10,
+    #   :status      => "pending",
+    #   :created_at  => @now,
+    #   :updated_at  => @now,
+    # })
+    #
+    # @inv_2 = Invoice.new({
+    #   :id          => 5,
+    #   :customer_id => 2,
+    #   :merchant_id => 11,
+    #   :status      => "pending",
+    #   :created_at  => @now,
+    #   :updated_at  => @now,
+    # })
+    #
+    # @ir.instances << @inv_1
+    # @ir.instances << @inv_2
+    #
+    # @ii_1 = InvoiceItem.new({
+    #   :id => 6,
+    #   :item_id => 7,
+    #   :invoice_id => 4,
+    #   :quantity => 1,
+    #   :unit_price => BigDecimal.new(15.99, 4),
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @ii_2 = InvoiceItem.new({
+    #   :id => 7,
+    #   :item_id => 8,
+    #   :invoice_id => 5,
+    #   :quantity => 1,
+    #   :unit_price => BigDecimal.new(10.99, 4),
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @iir.instances << @ii_1
+    # @iir.instances << @ii_2
+    #
+    # @i_1 = Item.new({
+    #   :id          => 7,
+    #   :name        => "Pencil",
+    #   :description => "You can use it to write things",
+    #   :unit_price  => BigDecimal.new(10.99,4),
+    #   :created_at  => @now,
+    #   :updated_at  => @now,
+    #   :merchant_id => 10
+    # })
+    #
+    # @i_2 = Item.new({
+    #   :id          => 8,
+    #   :name        => "Bag",
+    #   :description => "You can use it to store things",
+    #   :unit_price  => BigDecimal.new(10.99,4),
+    #   :created_at  => @now,
+    #   :updated_at  => @now,
+    #   :merchant_id => 11
+    # })
+    #
+    # @itemr.instances << @i_1
+    # @itemr.instances << @i_2
+  end
 
-    @m_1 = Merchant.new({id: 10, name: "Bettys Beans"})
-    @m_1 = Merchant.new({id: 11, name: "Freds Fireworks"})
-
-    @mr.instances << @m_1
-    @mr.instances << @m_2
-
-    @c_1 = Customer.new({
+  def make_top_buyers_test_data
+    @customer_1 = Customer.new({
       :id => 1,
       :first_name => "Joan",
       :last_name => "Clarke",
@@ -36,19 +122,28 @@ module TestData
       :updated_at => @now
     })
 
-    @c_2 = Customer.new({
+    @customer_2 = Customer.new({
       :id => 2,
-      :first_name => "Jeff",
-      :last_name => "Baconson",
+      :first_name => "Bob",
+      :last_name => "Ross",
       :created_at => @now,
       :updated_at => @now
     })
 
-    @cr.instances << @c_1
-    @cr.instances << @c_2
+    @customer_3 = Customer.new({
+      :id => 3,
+      :first_name => "Duck",
+      :last_name => "Smith",
+      :created_at => @now,
+      :updated_at => @now
+    })
+
+    @cr.instances << @customer_1
+    @cr.instances << @customer_2
+    @cr.instances << @customer_3
 
     @inv_1 = Invoice.new({
-      :id          => 4,
+      :id          => 1,
       :customer_id => 1,
       :merchant_id => 10,
       :status      => "pending",
@@ -57,7 +152,7 @@ module TestData
     })
 
     @inv_2 = Invoice.new({
-      :id          => 5,
+      :id          => 2,
       :customer_id => 2,
       :merchant_id => 11,
       :status      => "pending",
@@ -65,13 +160,57 @@ module TestData
       :updated_at  => @now,
     })
 
+    @inv_3 = Invoice.new({
+      :id          => 3,
+      :customer_id => 3,
+      :merchant_id => 12,
+      :status      => "pending",
+      :created_at  => @now,
+      :updated_at  => @now,
+    })
+
     @ir.instances << @inv_1
     @ir.instances << @inv_2
+    @ir.instances << @inv_3
+
+    @t_1 = Transaction.new({
+      :id => 1,
+      :invoice_id => 1,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => :success,
+      :created_at => @now,
+      :updated_at => @now
+    })
+
+    @t_2 = Transaction.new({
+      :id => 2,
+      :invoice_id => 2,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => :success,
+      :created_at => @now,
+      :updated_at => @now
+    })
+
+    @t_3 = Transaction.new({
+      :id => 3,
+      :invoice_id => 3,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => :success,
+      :created_at => @now,
+      :updated_at => @now
+    })
+
+    @tr.instances << @t_1
+    @tr.instances << @t_2
+    @tr.instances << @t_3
 
     @ii_1 = InvoiceItem.new({
-      :id => 6,
+      :id => 1,
       :item_id => 7,
-      :invoice_id => 4,
+      :invoice_id => 1,
       :quantity => 1,
       :unit_price => BigDecimal.new(15.99, 4),
       :created_at => @now,
@@ -79,39 +218,155 @@ module TestData
     })
 
     @ii_2 = InvoiceItem.new({
-      :id => 7,
+      :id => 2,
       :item_id => 8,
-      :invoice_id => 5,
-      :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :invoice_id => 2,
+      :quantity => 2,
+      :unit_price => BigDecimal.new(15.99, 4),
+      :created_at => @now,
+      :updated_at => @now
+    })
+
+    @ii_3 = InvoiceItem.new({
+      :id => 3,
+      :item_id => 9,
+      :invoice_id => 3,
+      :quantity => 3,
+      :unit_price => BigDecimal.new(15.99, 4),
       :created_at => @now,
       :updated_at => @now
     })
 
     @iir.instances << @ii_1
     @iir.instances << @ii_2
+    @iir.instances << @ii_3
+  end
 
-    @i_1 = Item.new({
-      :id          => 7,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @now,
-      :updated_at  => @now,
-      :merchant_id => 10
+  def make_one_time_buyers_test_data
+    @customer_1 = Customer.new({
+      :id => 1,
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => @now,
+      :updated_at => @now
     })
 
-    @i_2 = Item.new({
-      :id          => 8,
-      :name        => "Bag",
-      :description => "You can use it to store things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @now,
-      :updated_at  => @now,
-      :merchant_id => 11
+    @customer_2 = Customer.new({
+      :id => 2,
+      :first_name => "Bob",
+      :last_name => "Ross",
+      :created_at => @now,
+      :updated_at => @now
     })
 
-    @itemr.instances << @i_1
-    @itemr.instances << @i_2
+    @cr.instances << @customer_1
+    @cr.instances << @customer_2
+
+    @inv_1 = Invoice.new({
+      :id          => 1,
+      :customer_id => 1,
+      :merchant_id => 10,
+      :status      => "pending",
+      :created_at  => @now,
+      :updated_at  => @now,
+    })
+
+    @inv_2 = Invoice.new({
+      :id          => 2,
+      :customer_id => 2,
+      :merchant_id => 11,
+      :status      => "pending",
+      :created_at  => @now,
+      :updated_at  => @now,
+    })
+
+    @inv_3 = Invoice.new({
+      :id          => 3,
+      :customer_id => 2,
+      :merchant_id => 12,
+      :status      => "pending",
+      :created_at  => @now,
+      :updated_at  => @now,
+    })
+
+    @ir.instances << @inv_1
+    @ir.instances << @inv_2
+    @ir.instances << @inv_3
+
+    # @t_1 = Transaction.new({
+    #   :id => 1,
+    #   :invoice_id => 1,
+    #   :credit_card_number => "4242424242424242",
+    #   :credit_card_expiration_date => "0220",
+    #   :result => :success,
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @t_2 = Transaction.new({
+    #   :id => 2,
+    #   :invoice_id => 2,
+    #   :credit_card_number => "4242424242424242",
+    #   :credit_card_expiration_date => "0220",
+    #   :result => :success,
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @t_3 = Transaction.new({
+    #   :id => 3,
+    #   :invoice_id => 3,
+    #   :credit_card_number => "4242424242424242",
+    #   :credit_card_expiration_date => "0220",
+    #   :result => :success,
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @tr.instances << @t_1
+    # @tr.instances << @t_2
+    # @tr.instances << @t_3
+    #
+    # @ii_1 = InvoiceItem.new({
+    #   :id => 1,
+    #   :item_id => 7,
+    #   :invoice_id => 1,
+    #   :quantity => 1,
+    #   :unit_price => BigDecimal.new(15.99, 4),
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @ii_2 = InvoiceItem.new({
+    #   :id => 2,
+    #   :item_id => 8,
+    #   :invoice_id => 2,
+    #   :quantity => 2,
+    #   :unit_price => BigDecimal.new(15.99, 4),
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @ii_3 = InvoiceItem.new({
+    #   :id => 3,
+    #   :item_id => 9,
+    #   :invoice_id => 3,
+    #   :quantity => 3,
+    #   :unit_price => BigDecimal.new(15.99, 4),
+    #   :created_at => @now,
+    #   :updated_at => @now
+    # })
+    #
+    # @iir.instances << @ii_1
+    # @iir.instances << @ii_2
+    # @iir.instances << @ii_3
+  end
+
+  def make_items_test_data
+
+  end
+
+  def make_customer_test_data
+
   end
 end

@@ -50,7 +50,7 @@ module Finders
       invoice_item.quantity
     end.quantity
   end
-  
+
   def get_repository(class_string)
     repository = underscore("@#{class_string}s")
     instance_variable_get(repository)
