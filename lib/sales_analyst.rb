@@ -244,12 +244,6 @@ class SalesAnalyst
     invoice_transactions.any? { |transaction| transaction.result == :success }
   end
 
-  # def all_transaction_passed(invoice)
-  #   invoice_transactions = @transactions.all.select do |transaction|
-  #     transaction.invoice_id == invoice.id
-  #   end
-  #   invoice_transactions.all? { |transaction| transaction.result == :success }
-  # end
 
   def revenue_by_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }

@@ -362,8 +362,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual.first
   end
 
-  def test_it_can_find_revenue_by_merchant
-    # Justin
+  def test_it_can_find_revenue_by_merchantgi
     actual = @sa_real.revenue_by_merchant(12334194)
   end
 
