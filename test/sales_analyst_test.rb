@@ -576,7 +576,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_item_that_generates_most_revenue_for_merchant
-    assert_equal @item_3, @sales_analyst.best_item_for_merchant(10)
+    assert_equal @item_3, @sales_analyst_3.best_item_for_merchant(5)
   end
 
   def test_it_can_rank_merchants_by_revenue
