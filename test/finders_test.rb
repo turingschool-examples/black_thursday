@@ -1,8 +1,8 @@
+require_relative './test_helper'
 require_relative './test_setup'
 require './lib/sales_engine'
 require './lib/finders'
-require 'minitest/autorun'
-require 'minitest/pride'
+
 require 'pry'
 
 
@@ -11,7 +11,7 @@ class FindersTest < Minitest::Test
   include TestSetup
 
   def test_it_can_find_invoices_from_anything
-    skip
+
     setup_big_data_set
     actual = @sa.find_invoices_from(@sa.merchants.all[0])
     assert_instance_of Invoice, actual[0]
@@ -35,7 +35,7 @@ class FindersTest < Minitest::Test
   end
 
   def test_find_from_invoice_can_find_anything_from_invoice
-    skip
+
     setup_big_data_set
     invoice = @sa.invoices.all[0]
     actual = @sa.find_from_invoice(invoice, 'InvoiceItem')
@@ -62,10 +62,10 @@ class FindersTest < Minitest::Test
                          .split('_')
                          .collect(&:capitalize)
                          .join[0..-2]
-      # actual = find_type_from_object()
+      repo_string = var_2.to_s.delete('@')
+      object = @sa.public_send(repo_string).all[0]
+      actual = @sa.find_type_from_object(type_string, object)
+      assert_equal type_string, actual[0].class.to_s
     end
-
-    invoice = @sa.invoices.all[0]
-
   end
 end
