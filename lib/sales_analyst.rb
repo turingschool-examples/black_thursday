@@ -229,7 +229,7 @@ class SalesAnalyst
       @merchant_repo.find_by_id(id)
     end
   end
-  
+
   def merchants_with_only_one_item
     items_per_merchant = @merchant_repo.all.map do |merchant|
       @item_repo.find_all_by_merchant_id(merchant.id)
@@ -257,6 +257,58 @@ class SalesAnalyst
     end
     sum merchants_invoice_items
   end
+
+  def most_sold_item_for_merchant(id)
+    invoices = @invoice_repo.find_all_by_merchant_id(id)
+    paid_invoices = invoices.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+    invoice_items = paid_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    sorted = invoice_items.sort_by do |i_item|
+      i_item.quantity
+    end
+    item_by_quantity = []
+    max_quantity = sorted.last.quantity
+    sorted.each do |i|
+      if i.quantity == max_quantity
+        item_by_quantity << @item_repo.find_by_id(i.item_id)
+      end
+    end
+    item_by_quantity.compact.uniq
+    #This is the common sense approach that does not meet rspec test
+    # items = Hash.new(0)
+    # invoice_items.each do |i_item|
+    #   items[i_item.item_id] += i_item.quantity
+    # end
+    # sorted = items.sort_by do |item_id, quantity|
+    #       quantity
+    # end
+    # item_by_quantity = []
+    # max_quantity = sorted.last
+    # sorted.each do |item_quant|
+    #   if item_quant.last == max_quantity.last
+    #     item_by_quantity << item_quant.first
+    #   end
+    # end
+    # item_by_quantity.map do |i|
+    #   @item_repo.find_by_id(i)
+    # end.compact
+  end
+
+  def best_item_for_merchant(id)
+    #searchs all invoice by merchant
+    #totals revenue for each item by transaction
+    #sort_by highest number and return the corrosponding items
+  end
+
+  # maths
+
+  def sum(nums)
+    nums.inject(0) do |running_count, item|
+      running_count + item
+    end
   
   def merchants_ranked_by_revenue
     merchant_revenue = revenue_for_each_merchant
