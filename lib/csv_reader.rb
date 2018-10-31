@@ -7,7 +7,8 @@ module CSVReader
     skip_first_line = true
     CSV.foreach(file_path) do |row|
       unless skip_first_line
-        mr.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1]}))
+        mr.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1], :created_at => Time.parse(row[2]),
+          :updated_at => Time.parse(row[3])}))
       else
         skip_first_line = false
       end
@@ -36,7 +37,7 @@ module CSVReader
     CSV.foreach(file_path) do |row|
       unless skip_first_line
         inr.add_invoice(Invoice.new({:id => row[0].to_i, :customer_id => row[1].to_i,
-              :merchant_id => row[2].to_i, :status => row[3],
+              :merchant_id => row[2].to_i, :status => row[3].to_sym,
               :created_at => Time.parse(row[4]),
               :updated_at => Time.parse(row[5])}))
       else

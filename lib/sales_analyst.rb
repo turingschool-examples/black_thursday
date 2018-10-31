@@ -226,7 +226,6 @@ class SalesAnalyst
     merchant_qtys = merchant_qtys.group_by do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
     end.to_a
-
     merchant_maxs = merchant_qtys.select { |qty, invoice| qty == merchant_qtys.sort[-1][0] }
     merchant_maxs.map! { |maxs, invoice_item| invoice_item }
     merchant_maxs.flatten!
@@ -244,12 +243,6 @@ class SalesAnalyst
     invoice_transactions.any? { |transaction| transaction.result == :success }
   end
 
-  # def all_transaction_passed(invoice)
-  #   invoice_transactions = @transactions.all.select do |transaction|
-  #     transaction.invoice_id == invoice.id
-  #   end
-  #   invoice_transactions.all? { |transaction| transaction.result == :success }
-  # end
 
   def revenue_by_merchant(merchant_id)
     merchant_invoices = @invoices.all.select { |invoice| invoice.merchant_id == merchant_id }
@@ -300,6 +293,15 @@ class SalesAnalyst
     end
     otb.map do |customer, invoice|
       @customers.find_by_id(invoice.first.customer_id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_in_month = @merchants.all.find_all do |merchant|
+      month == merchant.created_at.strftime("%B")
+    end
+    merchants_in_month.find_all do |merchant|
+       @items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
 

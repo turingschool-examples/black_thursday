@@ -355,15 +355,13 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual.first
   end
 
-  def test_it_can_find_merchants_with_only_one_item_registered_in_a_month    # Maddie
-    skip
-    actual = @sa_real.merchants_with_only_one_item_registered_in_a_month("March")
+  def test_it_can_find_merchants_with_only_one_item_registered_in_month
+    actual = @sa_real.merchants_with_only_one_item_registered_in_month("March")
     assert_equal 21, actual.length
     assert_instance_of Merchant, actual.first
   end
 
   def test_it_can_find_revenue_by_merchant
-    # Justin
     actual = @sa_real.revenue_by_merchant(12334194)
   end
 
