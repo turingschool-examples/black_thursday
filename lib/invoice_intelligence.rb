@@ -11,6 +11,12 @@ module InvoiceIntelligence
     temp_days_with_iv_count.select{|day,count| count > av + temp_sd}.keys
   end
 
+  def find_top_quantity_from(invoice)
+    find_from_invoice(invoice, 'InvoiceItem').max_by do |invoice_item|
+      invoice_item.quantity
+    end.quantity
+  end
+
   def each_invoice_day
     @invoices.all.map{|iv| iv.created_at.strftime("%A")}
   end

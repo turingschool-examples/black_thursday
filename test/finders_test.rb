@@ -10,7 +10,7 @@ class FindersTest < Minitest::Test
 
   include TestSetup
 
-  def test_it_can_find_invoices_from_anything
+  def test_it_can_find_invoices_from_any_business_data_object
 
     setup_big_data_set
     actual = @sa.find_invoices_from(@sa.merchants.all[0])
