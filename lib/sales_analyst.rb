@@ -299,6 +299,7 @@ class SalesAnalyst
 
   def best_item_for_merchant(id)
     #searchs all invoice by merchant
+    invoices = @invoice_repo.find_all_by_merchant_id(id)
     #totals revenue for each item by transaction
     #sort_by highest number and return the corrosponding items
   end
@@ -309,7 +310,7 @@ class SalesAnalyst
     nums.inject(0) do |running_count, item|
       running_count + item
     end
-  end 
+  end
 
   def merchants_ranked_by_revenue
     merchant_revenue = revenue_for_each_merchant
