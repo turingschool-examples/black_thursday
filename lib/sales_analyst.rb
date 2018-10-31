@@ -297,10 +297,17 @@ class SalesAnalyst
     # end.compact
   end
 
+  def find_all_paid_invoices(invoices)
+    invoices.find_all do |invoice|
+      invoice_paid_in_full?(invoice)
+    end
+  end
+
   def best_item_for_merchant(id)
     #searchs all invoice by merchant
     invoices = @invoice_repo.find_all_by_merchant_id(id)
     #totals revenue for each item by transaction
+
     #sort_by highest number and return the corrosponding items
   end
 
