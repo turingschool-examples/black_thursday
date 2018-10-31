@@ -34,8 +34,6 @@ class SalesAnalyst
     end
   end
 
-  
-
   def total_revenue_by_date(date)
     revenue_from_invoices(@invoices.find_all_by_date(date))
   end
@@ -48,8 +46,8 @@ class SalesAnalyst
     multiple ? top_items : top_items.first
   end
 
-  def find_highest_transaction_count_from(one_time_customers)
-    one_time_customers.reduce(0) do |highest, customer|
+  def find_highest_transaction_count_from(customers)
+    customers.reduce(0) do |highest, customer|
       invoice = find_invoices_from(customer)[0]
       next highest unless all_transactions_successful_for?(invoice.id)
       top_item = get_top_invoice_items_for(invoice, false)
