@@ -291,7 +291,7 @@ class SalesAnalystTest < Minitest::Test
     @invoice_item_6 = InvoiceItem.new({ id: "6",
                                         item_id: "4",
                                         invoice_id: "2",
-                                        quantity: "4",
+                                        quantity: "5",
                                         unit_price: "2500",
                                         created_at: @time,
                                         updated_at: @time
@@ -573,7 +573,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_most_sold_items_for_a_merchant
-    skip
     assert_equal [@item_4], @sales_analyst_3.most_sold_item_for_merchant(10)
   end
 
