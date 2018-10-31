@@ -348,4 +348,20 @@ class SalesAnalyst
     merchant_revenue
   end
 
+  # def find_all_invoices_in_a_month(month)
+  #   invoices_by_month = {}
+  #   @invoice_repo.all.each do |invoice|
+  #
+  # end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    # invoices_by_month = @invoice_repo.all.find_all do |invoice|
+    #   invoice.created_at.strftime("%B") == month
+    # end
+
+    merchants = merchants_with_only_one_item
+    merchants.find_all do |merchant|
+      Time.parse(merchant.created_at).strftime("%B") == month
+    end
+  end
 end
