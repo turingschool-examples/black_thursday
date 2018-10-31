@@ -70,7 +70,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_update
 
-    assert_equal @i, @ir.update(1, {
+    assert_equal @ir.all.map(&:name).include?("Pen"), @ir.update(1, {
   :name        => "Pen",
   :description => "You can use it to write things",
   :unit_price  => BigDecimal.new(10.99,4),
