@@ -67,9 +67,17 @@ module InvoiceIntelligence
     end
   end
 
+  def at_least_one_succesful_transaction?(invoice_id)
+   @transactions.any_success?(invoice_id)
+  end
+
   def revenue_from_invoice(invoice)
+    return 0 unless at_least_one_succesful_transaction?(invoice.id)
     invoice_total(invoice.id)
   end
+
+
+
 
   def revenue_from_invoices(invoices)
     amounts = invoices.reduce([]) do |arr, invoice|
