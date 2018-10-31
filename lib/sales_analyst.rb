@@ -4,7 +4,7 @@ require_relative '../lib/math'
 
 class SalesAnalyst
   include Math
-  
+
   def initialize(sales_engine)
     @item_repo = sales_engine.items
     @merchant_repo = sales_engine.merchants
@@ -205,14 +205,14 @@ class SalesAnalyst
     end
     sum(totals)
   end
-  
+
   def top_revenue_earners(num = 20)
     merchant_revenue = revenue_for_each_merchant
     sorted = merchant_revenue.sort_by do |merchant, revenue|
       revenue
     end
     merchants = []
-    num.times do 
+    num.times do
       merchants << sorted.pop[0]
     end
     merchants
@@ -309,15 +309,16 @@ class SalesAnalyst
     nums.inject(0) do |running_count, item|
       running_count + item
     end
-  
+  end 
+
   def merchants_ranked_by_revenue
     merchant_revenue = revenue_for_each_merchant
-    
+
     sorted = merchant_revenue.sort_by { |merchant, revenue| revenue }
     result = sorted.map { |merchant, revenue| merchant }
     result.reverse
   end
-  
+
   def invoices_for_each_merchant
     merchant_invoices = {}
     @merchant_repo.all.each do |merchant|
@@ -326,7 +327,7 @@ class SalesAnalyst
     end
     merchant_invoices
   end
-  
+
   def revenue_for_each_merchant
     merchant_invoices = invoices_for_each_merchant
     merchant_revenue = {}
@@ -338,5 +339,5 @@ class SalesAnalyst
     end
     merchant_revenue
   end
-    
+
 end
