@@ -14,8 +14,8 @@ module Finders
     when 'InvoiceItem', 'Transaction'
       [invoices.find_by_id(business_data.invoice_id)]
     when 'Item'
-      invoice_items = invoice_items.find_all_by_item_id(business_data.id)
-      invoice_ids = invoice_items.map(&:invoice_id)
+      iv_items = invoice_items.find_all_by_item_id(business_data.id)
+      invoice_ids = iv_items.map(&:invoice_id)
       invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
       #could refactor above 3 lines into 1 if there was a find_invoices_from_array method
     when 'Invoice'
@@ -50,7 +50,7 @@ module Finders
       invoice_item.quantity
     end.quantity
   end
-  
+
   def get_repository(class_string)
     repository = underscore("@#{class_string}s")
     instance_variable_get(repository)

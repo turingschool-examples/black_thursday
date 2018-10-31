@@ -31,7 +31,6 @@ class FindersTest < Minitest::Test
     actual = @sa.find_invoices_from(@sa.invoices.all[0])
     assert_instance_of Invoice, actual[0]
     assert_equal 1, actual[0].id
-    # assert_equal 21067.77, @sa.revenue_from_invoice(@sa.invoices.all[0])
   end
 
   def test_find_from_invoice_can_find_anything_from_invoice
@@ -55,8 +54,8 @@ class FindersTest < Minitest::Test
     assert_instance_of Item, actual[0]
   end
   def test_find_type_from_object_finds_right_type_of_object
+
     setup_big_data_set
-    i = 0
     @sa.instance_variables.permutation(2) do |var_1, var_2|
       type_string = var_1.to_s
                          .delete('@')
@@ -66,7 +65,6 @@ class FindersTest < Minitest::Test
       repo_string = var_2.to_s.delete('@')
       object = @sa.public_send(repo_string).all[0]
       actual = @sa.find_type_from_object(type_string, object)
-      i+= 1
       assert_equal type_string, actual[0].class.to_s
     end
   end
