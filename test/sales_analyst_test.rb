@@ -68,10 +68,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, @sa.bottom_merchants_by_invoice_count.size
   end
 
-  def test_top_days_by_invoice_count
-    setup_fixtures
-    assert_equal [], @sa.top_days_by_invoice_count
-  end
+  
   #iteration 4 tests
 
   def test_revenue_by_merchant

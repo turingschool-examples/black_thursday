@@ -5,14 +5,19 @@ module InvoiceIntelligence
   end
 
   def top_days_by_invoice_count
-    temp_days_with_count = days_with_count
-    av = average(*temp_days_with_count.values)
-    temp_sd = standard_deviation(*temp_days_with_count.values)
-    temp_days_with_count.select{|day,count| count > av + temp_sd}.keys
+    temp_days_with_iv_count = days_with_iv_count
+    av = average(*temp_days_with_iv_count.values)
+    temp_sd = standard_deviation(*temp_days_with_iv_count.values)
+    temp_days_with_iv_count.select{|day,count| count > av + temp_sd}.keys
   end
 
   def each_invoice_day
     @invoices.all.map{|iv| iv.created_at.strftime("%A")}
+  end
+
+  def days_with_iv_count
+    days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
+    days.map{|day| [day, each_invoice_day.count(day)]}.to_h
   end
 
   def invoice_has_no_transactions?(invoice_id)

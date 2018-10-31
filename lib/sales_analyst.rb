@@ -34,10 +34,7 @@ class SalesAnalyst
     end
   end
 
-  def days_with_count
-    days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
-    days.map{|day| [day, each_invoice_day.count(day)]}.to_h
-  end
+  
 
   def total_revenue_by_date(date)
     revenue_from_invoices(@invoices.find_all_by_date(date))
