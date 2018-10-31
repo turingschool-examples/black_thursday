@@ -134,4 +134,12 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert_equal 0, @sa.revenue_from_invoices(invoice_1 + invoice_2)
   end
 
+  def test_revenue_from_invoices_returns_0_when_no_successful_transactions
+    invoice_1 = @se.invoice_items.create(id: 1, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
+    invoice_2 = @se.invoice_items.create(id: 2, item_id: 2, invoice_id: 1, unit_price: BigDecimal(100_000_00), quantity: 1)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :failure, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id:1, invoice_id: 2, credit_card_number: 2, result: :failure, credit_card_expiration_date: Time.now)
+    assert_equal 0, @sa.revenue_from_invoices(invoice_1 + invoice_2)
+  end
+
 end
