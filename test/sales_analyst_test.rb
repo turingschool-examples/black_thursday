@@ -186,5 +186,4 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, actual_2
   end
 
-
 end

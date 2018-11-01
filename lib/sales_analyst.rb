@@ -260,8 +260,7 @@ class SalesAnalyst
         most_sold_items << item_by_id(vii.item_id)
       end
     end
-    most_sold_items.uniq!
-    most_sold_items
+    most_sold_items = most_sold_items.uniq
   end
 
   def best_item_for_merchant(merchant_id)
