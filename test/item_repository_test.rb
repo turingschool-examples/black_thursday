@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/item_repository'
 require './lib/item'
+require 'bigdecimal'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
@@ -25,9 +26,9 @@ class ItemRepositoryTest < Minitest::Test
      assert_instance_of Array, @ir.all
   end
 
-  def test_find_by_ID
+  def test_find_by_id
 
-    assert_equal "Pencil", @ir.test_find_by_id(1).name
+    assert_equal "Pencil", @ir.find_by_id(1).name
   end
 
   def test_find_by_name
@@ -40,17 +41,17 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 1, @ir.find_all_with_description("You can use it to write things").first.id
   end
 
-  def find_all_by_price
+  def test_find_all_by_price
 
-    assert_equal 1, @ir.find_all_by_price(BigDecimal.new(10.99,4)).first.id
+    assert_equal 1, @ir.find_all_by_price(BigDecimal.new(10.99, 4)).first.id
   end
 
-  def find_all_by_price_in_range
+  def test_find_all_by_price_in_range
 
     assert_equal 1, @ir.find_all_by_price_in_range(1..11).first.id
   end
 
-  def find_all_by_merchant_id
+  def test_find_all_by_merchant_id
 
     assert_equal 1, @ir.find_all_by_merchant_id(2).first.id
   end
@@ -69,15 +70,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_update
-
-    assert_equal @ir.all.map(&:name).include?("Pen"), @ir.update(1, {
-  :name        => "Pen",
-  :description => "You can use it to write things",
-  :unit_price  => BigDecimal.new(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  :merchant_id => 11
-})
+    @ir.update(1, {
+    :name        => "Pen",
+    :description => "You can use it to write things",
+    :unit_price  => BigDecimal.new(10.99,4),
+    :created_at  => Time.now,
+    :updated_at  => Time.now,
+    :merchant_id => 11
+    })
+    assert @ir.all.map(&:name).include?("Pen")
+    assert_equal "Pen", @ir.find_by_id(1).name
   end
 
   def test_delete
