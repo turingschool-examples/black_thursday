@@ -1,17 +1,12 @@
-require_relative 'test_helper'
+require './test/test_helper'
 
-require_relative '../lib/sales_engine'
+require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
+
+  include TestSetup
   def setup
-    @se = SalesEngine.from_csv({
-      items: './test/data/test_items.csv',
-      merchants: './test/data/test_merchants.csv',
-      invoices: './test/data/test_invoices.csv',
-      invoice_items: './data/invoice_items.csv',
-      transactions: './data/transactions.csv',
-      customers: './data/customers.csv'
-    })
+    setup_empty_sales_engine
   end
 
   def test_it_exists
@@ -43,26 +38,32 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_parses_items_correctly
+    setup_fixtures
     assert_equal 34, @se.items.all.length
   end
 
   def test_it_parses_invoices_correctly
+    setup_fixtures
     assert_equal 73, @se.invoices.all.length
   end
 
   def test_it_parses_merchants_correctly
+    setup_fixtures
     assert_equal 7, @se.merchants.all.length
   end
 
   def test_it_parses_invoice_items_correctly
+    setup_fixtures
     assert_equal 319, @se.invoice_items.all.length
   end
 
   def test_it_parses_customers_correctly
+    setup_fixtures
     assert_equal 68, @se.customers.all.length
   end
 
   def test_it_parses_transactions_correctly
+    setup_fixtures
     assert_equal 69, @se.transactions.all.length
   end
 end

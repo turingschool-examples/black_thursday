@@ -5,14 +5,25 @@ module InvoiceIntelligence
   end
 
   def top_days_by_invoice_count
-    temp_days_with_count = days_with_count
-    av = average(*temp_days_with_count.values)
-    temp_sd = standard_deviation(*temp_days_with_count.values)
-    temp_days_with_count.select{|day,count| count > av + temp_sd}.keys
+    temp_days_with_iv_count = days_with_iv_count
+    av = average(*temp_days_with_iv_count.values)
+    temp_sd = standard_deviation(*temp_days_with_iv_count.values)
+    temp_days_with_iv_count.select{|day,count| count > av + temp_sd}.keys
+  end
+
+  def find_top_quantity_from(invoice)
+    find_from_invoice(invoice, 'InvoiceItem').max_by do |invoice_item|
+      invoice_item.quantity
+    end.quantity
   end
 
   def each_invoice_day
     @invoices.all.map{|iv| iv.created_at.strftime("%A")}
+  end
+
+  def days_with_iv_count
+    days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
+    days.map{|day| [day, each_invoice_day.count(day)]}.to_h
   end
 
   def invoice_has_no_transactions?(invoice_id)
@@ -33,16 +44,6 @@ module InvoiceIntelligence
     sum(*invoice_items) { |invoice_item| invoice_item.revenue }
   end
 
-  def get_total_from_all_invoice_items_for(invoice_id)
-    sum_invoice_items_revenue(invoice_items.find_all_by_invoice_id(invoice_id))
-  end
-
-  def at_least_one_succesful_transaction?(invoice_id)
-    transactions_for_invoice = transactions.find_all_by_invoice_id(invoice_id)
-    return false if transactions_for_invoice.length == 0
-    transactions_for_invoice.find {|transaction| transaction.result == :success}
-  end
-
   def all_transactions_successful_for?(invoice_id)
     transactions_for_invoice = transactions.find_all_by_invoice_id(invoice_id)
     return false if transactions_for_invoice.length == 0
@@ -50,7 +51,9 @@ module InvoiceIntelligence
   end
 
   def get_item_count_for(invoice)
-    sum(*find_from_invoice(invoice, 'InvoiceItem')) { |invoice_item| invoice_item.quantity }
+    sum(*find_from_invoice(invoice, 'InvoiceItem')) do |invoice_item|
+      invoice_item.quantity
+    end
   end
 
   def best_invoice_by_quantity
@@ -69,6 +72,23 @@ module InvoiceIntelligence
     @invoices.all.select do |invoice|
       @transactions.any_success?(invoice.id)
     end
+  end
+
+  def at_least_one_succesful_transaction?(invoice_id)
+   @transactions.any_success?(invoice_id)
+  end
+
+  def revenue_from_invoice(invoice)
+    return 0 unless at_least_one_succesful_transaction?(invoice.id)
+    invoice_total(invoice.id)
+  end
+
+  def revenue_from_invoices(invoices)
+    amounts = invoices.reduce([]) do |arr, invoice|
+      arr << revenue_from_invoice(invoice)
+    end
+    result = amounts.reduce(&:+)
+    result ? result : 0
   end
 
   def unsuccessful_invoices

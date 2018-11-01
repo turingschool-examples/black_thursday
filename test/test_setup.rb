@@ -1,20 +1,7 @@
 module TestSetup
-  def setup_big_data_set
-    se = SalesEngine.from_csv(
-      {
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv',
-        invoice_items: './data/invoice_items.csv',
-        transactions: './data/transactions.csv',
-        customers: './data/customers.csv'
-      }
-    )
-    @sa = se.analyst
-  end
 
   def setup_fixtures
-    se = SalesEngine.from_csv(
+    @se = SalesEngine.from_csv(
       {
         items: './test/data/test_items.csv',
         merchants: './test/data/test_merchants.csv',
@@ -24,7 +11,7 @@ module TestSetup
         customers: './test/data/test_customers.csv'
       }
     )
-    @sa = se.analyst
+    @sa = @se.analyst
   end
 
   def setup_empty_sales_engine

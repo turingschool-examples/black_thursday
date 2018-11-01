@@ -1,6 +1,7 @@
-require_relative 'test_helper'
+require './test/test_helper'
 require './lib/repository'
 require './lib/merchant_repository'
+require './lib/item_repository'
 require './lib/merchant'
 
 class RepositoryTest < Minitest::Test
@@ -10,8 +11,8 @@ class RepositoryTest < Minitest::Test
     @ob1 = {name: "bob", id: 1}
     @ob2 = {name: "deb", id: 2}
     @ob3 = {name: "john", id: 3}
-    @ob4 = {name: "john",  id: 4}
-    @ob5 = {name: "bill",id: 5}
+    @ob4 = {name: "john", id: 4}
+    @ob5 = {name: "bill", id: 5}
   end
 
   def create_merchants
@@ -98,5 +99,22 @@ class RepositoryTest < Minitest::Test
     @rep.update(5, name: 'Alf')
 
     assert_equal 'Alf', @rep.find_by_id(5).name
+  end
+
+  def test_find_by_name
+    @rep = ItemRepository.new
+    create_merchants
+
+    assert_equal 1, @rep.find_by_name("bob").id
+  end
+
+  def test_find_all_by_name
+    @rep = ItemRepository.new
+    create_merchants
+    assert_equal 2, @rep.find_all_by_name("john").length
+  end
+
+  def test_inspect
+    assert_equal "#<#{@rep.class} #{@rep.all.size} rows>", @rep.inspect
   end
 end

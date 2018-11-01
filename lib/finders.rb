@@ -14,8 +14,8 @@ module Finders
     when 'InvoiceItem', 'Transaction'
       [invoices.find_by_id(business_data.invoice_id)]
     when 'Item'
-      invoice_items = invoice_items.find_all_by_item_id(business_data.id)
-      invoice_ids = invoice_items.map(&:invoice_id)
+      iv_items = invoice_items.find_all_by_item_id(business_data.id)
+      invoice_ids = iv_items.map(&:invoice_id)
       invoices.all.select{ |invoice| invoice_ids.include?(invoice.id)}
       #could refactor above 3 lines into 1 if there was a find_invoices_from_array method
     when 'Invoice'
@@ -62,18 +62,5 @@ module Finders
     downcase
   end
 
-  def revenue_from_invoice(invoice)
-    return 0 unless @transactions.any_success?(invoice.id)
-    invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
-    return 0 if invoice_items.empty?
-    invoice_items.flatten.map(&:revenue).reduce(&:+)
-  end
 
-  def revenue_from_invoices(invoices)
-    amounts = invoices.reduce([]) do |arr, invoice|
-      arr << revenue_from_invoice(invoice)
-    end
-    result = amounts.reduce(&:+)
-    result ? result : 0
-  end
 end

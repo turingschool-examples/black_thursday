@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require './test/test_helper'
 require './lib/customer_repository'
 require './lib/customer'
 require 'bigdecimal'
