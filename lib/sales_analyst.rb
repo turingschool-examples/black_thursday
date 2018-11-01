@@ -267,19 +267,15 @@ class SalesAnalyst
   def best_item_for_merchant(merchant_id)
      valid_invoice_items = valid_invoice_items_for_merchant(merchant_id)
      high_total = 0
-     best_items = []
+     best_item = nil
      valid_invoice_items.each do |vii|
        vii_total = vii.quantity * vii.unit_price
-       if vii_total >= high_total
-         if vii_total > high_total
-           best_items = []
-           high_total = vii_total
-         end
-         best_items << item_by_id(vii.item_id)
+       if vii_total > high_total
+         high_total = vii_total
+         best_item = item_by_id(vii.item_id)
        end
      end
-     best_items.uniq!
-     best_items[0]
+     best_item
    end
 
    ### HELPER METHODS FOR MOST SOLD & BEST ITEMS FOR MERCHANT ###
