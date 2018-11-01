@@ -181,11 +181,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_get_best_item_for_merchant
     actual = @sales_analyst.best_item_for_merchant(12334189)
-    assert_instance_of Item, actual.first
-    assert_equal 1, actual.length
+    assert_instance_of Item, actual
     actual_2 = @sales_analyst.best_item_for_merchant(12337105)
-    assert_instance_of Item, actual_2.first
-    assert_equal 4, actual_2.length
+    assert_instance_of Item, actual_2
   end
 
 
