@@ -53,13 +53,12 @@ class ItemRepository
  def update(id, attributes)
    if find_by_id(id)
      item = find_by_id(id)
-     new_name = attributes[:name]
-     new_description = attributes[:description]
-     new_unit_price = attributes[:unit_price]
-
-     item.name = new_name if attributes[:name]
-     item.description = new_description if attributes[:description]
-     item.unit_price = new_unit_price if attributes[:unit_price]
+     # new_name = attributes[:name]
+     # new_description = attributes[:description]
+     # new_unit_price = attributes[:unit_price]
+     item.name = attributes[:name] if attributes[:name]
+     item.description = attributes[:description] if attributes[:description]
+     item.unit_price = attributes[:unit_price] if attributes[:unit_price]
      item.updated_at = Time.now
    end
  end
