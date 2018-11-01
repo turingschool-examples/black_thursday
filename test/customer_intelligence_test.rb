@@ -86,8 +86,4 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert actual.any? { |customer| customer.id == 4 }
   end
 
-  def test_case_name
-
-  end
-
 end

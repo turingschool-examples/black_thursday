@@ -173,18 +173,22 @@ class InvoiceIntelligenceTest < Minitest::Test
     assert_equal 1123, actual[0].id
   end
 
-  def test_an_invoice_is_paid_in_full
-    setup_big_data_set
-    actual = @sa.invoice_paid_in_full?(1)
-    assert_equal true, actual
+  def test_invoice_is_paid_in_full_returns_true
+    setup_empty_sales_engine
+    @se.invoices.create(id: 1, customer_id: 6, merchant_id: 1, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 6, merchant_id: 1, status: :pending)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    @se.transactions.create(id:2, invoice_id: 2, credit_card_number: 2, result: :success, credit_card_expiration_date: Time.now)
+    assert @sa.invoice_paid_in_full?(1)
+    assert @sa.invoice_paid_in_full?(2)
+  end
 
-    actual = @sa.invoice_paid_in_full?(200)
-    assert_equal true, actual
-
-    actual = @sa.invoice_paid_in_full?(203)
-    assert_equal false, actual
-
-    actual = @sa.invoice_paid_in_full?(204)
-    assert_equal false, actual
+  def test_invoice_is_paid_in_full_returns_false
+    setup_empty_sales_engine
+    @se.invoices.create(id: 1, customer_id: 6, merchant_id: 1, status: :shipped)
+    @se.invoices.create(id: 2, customer_id: 6, merchant_id: 1, status: :pending)
+    @se.transactions.create(id:1, invoice_id: 1, credit_card_number: 2, result: :failure, credit_card_expiration_date: Time.now)
+    refute @sa.invoice_paid_in_full?(1)
+    refute @sa.invoice_paid_in_full?(2)
   end
 end
