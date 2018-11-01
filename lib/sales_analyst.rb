@@ -65,7 +65,6 @@ class SalesAnalyst
     all_item_prices = @item_repo.all.map do |item|
       item.unit_price
     end
-    # average_item_price = mean(all_item_prices)
   end
 
   def golden_items
