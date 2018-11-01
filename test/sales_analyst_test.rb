@@ -165,4 +165,32 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, actual
   end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def test_it_can_get_most_sold_item_for_merchant
+    actual = @sales_analyst.most_sold_item_for_merchant(12334189)
+    assert_instance_of Item, actual.first
+    assert_equal 1, actual.length
+    actual_2 = @sales_analyst.most_sold_item_for_merchant(12337105)
+    assert_instance_of Item, actual_2.first
+    assert_equal 4, actual_2.length
+  end
+
 end
