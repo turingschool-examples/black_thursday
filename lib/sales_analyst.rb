@@ -61,17 +61,19 @@ class SalesAnalyst
     mean(prices)
   end
 
-  def golden_items
+  def all_item_prices
     all_item_prices = @item_repo.all.map do |item|
       item.unit_price
     end
+    # average_item_price = mean(all_item_prices)
+  end
+
+  def golden_items
     average_item_price = mean(all_item_prices)
     price_std_dev = std_dev(all_item_prices)
-    two_std_dev_above_average = average_item_price + (price_std_dev * 2)
-
     golden_items = []
     @item_repo.all.each do |item|
-      golden_items << item if item.unit_price > two_std_dev_above_average
+      golden_items << item if item.unit_price > (average_item_price + (price_std_dev * 2))
     end
     golden_items
   end
