@@ -187,6 +187,22 @@ class SalesAnalyst
         Hash[merchant_id, total]
       end
     end
-    require 'pry'; binding.pry
+
   end
+
+  def invoice_with_all_failed_transactions(invoice_id)
+    transactions_for_invoice = @transactions.find_all_by_invoice_id(invoice_id)
+    if transactions_for_invoice.all? {|transaction| transaction.result == :failed}
+      @invoices.find_by_id(invoice_id)
+    end
+  end
+
+  def merchants_with_pending_invoices
+    invoices = @invoices.all.find_all do |invoice|
+      invoice_with_all_failed_transactions(invoice.id)
+    end
+    (invoices.map {|invoice| @merchants.find_by_id(invoice.merchant_id)}).uniq
+  end
+
+
 end
