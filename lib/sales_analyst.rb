@@ -239,4 +239,38 @@ class SalesAnalyst
     end
     one_item_merchants
   end
+
+
+def most_sold_item_for_merchant(merchant_id)
+  merchant_items = @items.find_all do |item|
+    item.merchant_id == merchant_id
+  end
+  merchant_invoice_items = []
+  merchant_items.each do |item|
+    @invoice_items.each do |invoice_item|
+      if item.id == invoice_item.item_id
+        merchant_invoice_items << invoice_item
+      end
+    end
+  end
+  merchant_invoice_items
+end
+
+
+  #match the items of the merchant vs the id of the item inside of invoice_items
+  #most sold quantity
+  #take quantity and compare and get items with same quantity
+
+  # items = merchant_item_list(@m_repo.find_by_id(merchant_id))
+  # item_count = {}
+  # items.uniq.each do |item|
+  #   binding.pry
+  #   item_count[item] = items.count(item)
+  # end
+  # item_count.sort_by do |item, count|
+  #   count
+  # end
+
+
+
 end
