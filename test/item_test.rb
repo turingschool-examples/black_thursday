@@ -114,6 +114,31 @@ class ItemTest < Minitest::Test
   :merchant_id => 2
 })
 
-    assert_equal 0.1099, i.unit_price_to_dollars
+    assert_equal 10.99, i.unit_price_to_dollars
+  end
+
+  def test_update_item
+    i = Item.new({
+  :id          => 1,
+  :name        => "Pencil",
+  :description => "You can use it to write things",
+  :unit_price  => BigDecimal.new(10.99,4),
+  :created_at  => Time.now,
+  :updated_at  => Time.now,
+  :merchant_id => 2
+})
+    assert_equal i.name, "Pencil"
+
+    i.update({
+  :id          => 1,
+  :name        => "Pen",
+  :unit_price  => BigDecimal.new(10.99,4),
+  :created_at  => Time.now,
+  :updated_at  => Time.now,
+  :merchant_id => 2
+})
+# require 'pry';binding.pry
+    assert_equal i.name, "Pen"
+    assert_equal i.description, "You can use it to write things"
   end
 end
