@@ -248,38 +248,76 @@ class SalesAnalyst
   end
 
 
-
-  def invoice_items_for_merchant(merchant_id)
-    merchant_invoice_items = []
-    @items.each do |item|
-      if item.merchant_id == merchant_id
-        @invoice_items.each do |ii|
-          merchant_invoice_items << ii if item.id == ii.item_id
-        end
-      end
-    end
-    merchant_invoice_items
-  end
-
-  def most_sold_count(merchant_invoice_items)
-    merchant_invoice_items.max_by do |ii|
-      ii.quantity
-    end.quantity
-  end
-
   def most_sold_item_for_merchant(merchant_id)
-    merchant_invoice_items = invoice_items_for_merchant(merchant_id)
-    count = most_sold_count(merchant_invoice_items)
+    valid_invoice_items = valid_invoice_items_for_merchant(merchant_id)
+    count = 0
     most_sold_items = []
-    merchant_invoice_items.each do | mii |
-      if mii.quantity == count
-        most_sold_items << @items.find{ |item| item.id == mii.item_id }
+    valid_invoice_items.each do |vii|
+      if vii.quantity >= count
+        if vii.quantity > count
+          most_sold_items = []
+          count = vii.quantity
+        end
+        most_sold_items << item_by_id(vii.item_id)
       end
     end
-    most_sold_items
+    most_sold_items = most_sold_items.uniq
   end
 
+  def best_item_for_merchant(merchant_id)
+     valid_invoice_items = valid_invoice_items_for_merchant(merchant_id)
+     high_total = 0
+     best_item = nil
+     valid_invoice_items.each do |vii|
+       vii_total = vii.quantity * vii.unit_price
+       if vii_total > high_total
+         high_total = vii_total
+         best_item = item_by_id(vii.item_id)
+       end
+     end
+     best_item
+   end
 
+   ### HELPER METHODS FOR MOST SOLD & BEST ITEMS FOR MERCHANT ###
 
+   def valid_invoice_items_for_merchant(merchant_id)
+     merchant_invoices = get_merchant_invoices(merchant_id)
+     valid_transactions = valid_transactions_from_invoices(merchant_invoices)
+     invoice_items_from_transactions(valid_transactions)
+   end
+
+   def get_merchant_invoices(merchant_id)
+     merchant_invoices = []
+     @invoices.each do |inv|
+       merchant_invoices << inv if inv.merchant_id == merchant_id
+     end
+     merchant_invoices
+   end
+
+   def valid_transactions_from_invoices(merchant_invoices)
+     valid_transactions = []
+     merchant_invoices.each do |m_inv|
+       @transactions.each do |trans|
+         if trans.invoice_id == m_inv.id && trans.result == :success
+           valid_transactions << trans
+         end
+       end
+     end
+     valid_transactions
+   end
+
+   def invoice_items_from_transactions(valid_transactions)
+     valid_invoice_items = []
+     valid_transactions.each do |trans|
+       @invoice_items.each do |ii|
+         valid_invoice_items << ii if trans.invoice_id == ii.invoice_id
+       end
+     end
+     valid_invoice_items
+   end
+
+   def item_by_id(item_id)
+     @items.find{ |item| item.id == item_id }
+   end
 
 end
