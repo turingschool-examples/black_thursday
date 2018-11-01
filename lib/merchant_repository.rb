@@ -30,12 +30,8 @@ class MerchantRepository
   end
 
   def update(id, info)
-    found = @all.find do |merchant|
-      merchant.id == id
-    end
-    new_hash = found.info.merge!(info)
-    new_merchant = Merchant.new(new_hash)
-    @all << new_merchant
+    found = find_by_id(id)
+    found.update(info)
   end
 
   def delete(id)
