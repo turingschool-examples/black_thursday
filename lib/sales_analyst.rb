@@ -233,11 +233,10 @@ class SalesAnalyst
     items_per_merchant = @merchant_repo.all.map do |merchant|
       @item_repo.find_all_by_merchant_id(merchant.id)
     end
-    
     items_with_single_owner = items_per_merchant.find_all do |items|
       items.length == 1
     end.flatten
-    item_owner = items_with_single_owner.map do |item|
+    items_with_single_owner.map do |item|
       @merchant_repo.all.find_all do |merchant|
         merchant.id == item.merchant_id
       end
@@ -258,13 +257,7 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(id)
-    invoices = @invoice_repo.find_all_by_merchant_id(id)
-    paid_invoices = invoices.find_all do |invoice|
-      invoice_paid_in_full?(invoice.id)
-    end
-    invoice_items = paid_invoices.map do |invoice|
-      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
-    end.flatten
+    invoice_items = find_all_paid_invoice_items_for_merchant(id)
     sorted = invoice_items.sort_by do |i_item|
       i_item.quantity
     end
@@ -275,7 +268,7 @@ class SalesAnalyst
         item_by_quantity << @item_repo.find_by_id(i.item_id)
       end
     end
-    item_by_quantity.compact.uniq
+    item_by_quantity.compact.uniq    
     #This is the common sense approach that does not meet rspec test
     # items = Hash.new(0)
     # invoice_items.each do |i_item|
@@ -301,13 +294,17 @@ class SalesAnalyst
       invoice_paid_in_full?(invoice.id)
     end
   end
-
-  def best_item_for_merchant(id)
+  
+  def find_all_paid_invoice_items_for_merchant(id)
     invoices = @invoice_repo.find_all_by_merchant_id(id)
     paid_invoices = find_all_paid_invoices(invoices)
-    invoice_items = paid_invoices.map do |invoice|
+    paid_invoices.map do |invoice|
       @invoice_item_repo.find_all_by_invoice_id(invoice.id)
     end.flatten
+  end
+
+  def best_item_for_merchant(id)
+    invoice_items = find_all_paid_invoice_items_for_merchant(id)
     revenue_per_item = Hash.new(0)
     invoice_items.each do |invoice_item|
       revenue_per_item[invoice_item.item_id] += (invoice_item.unit_price * invoice_item.quantity)
