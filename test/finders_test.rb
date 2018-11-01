@@ -86,7 +86,7 @@ class FindersTest < Minitest::Test
     assert_instance_of Customer, actual[0]
   end
 
-  def test_find_from_invoice_can_find_customers_from_invoice
+  def test_find_from_invoice_can_find_merchants_from_invoice
     invoice = @sa.invoices.all[0]
     actual = @sa.find_from_invoice(invoice, 'Merchant')
     assert_equal 1, actual.size

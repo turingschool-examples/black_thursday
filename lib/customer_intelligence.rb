@@ -63,14 +63,14 @@ module CustomerIntelligence
   end
 
   def items_bought_in_year(customer_id, year)
-    all_invoices_for_customers_for_year(customer_id, year).map do |invoice|
+    all_invoices_for_customer_for_year(customer_id, year).map do |invoice|
       find_from_invoice(invoice, 'InvoiceItem').map do |invoice_item|
         items.find_by_id(invoice_item.item_id)
       end
     end.flatten.compact.uniq
   end
 
-  def all_invoices_for_customers_for_year(customer_id, year)
+  def all_invoices_for_customer_for_year(customer_id, year)
     invoices.find_all_by_customer_id(customer_id).select do |invoice|
       invoice.created_at.year == year
     end
