@@ -246,4 +246,36 @@ class SalesAnalyst
     end
   end
 
+
+
+  def invoice_items_for_merchant(merchant_id)
+    merchant_invoice_items = []
+    @items.each do |item|
+      if item.merchant_id == merchant_id
+        @invoice_items.each do |ii|
+          merchant_invoice_items << ii if item.id == ii.item_id
+        end
+      end
+    end
+    merchant_invoice_items
+  end
+
+  def most_sold_count(merchant_invoice_items)
+    merchant_invoice_items.max_by do |ii|
+      ii.quantity
+    end.quantity
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant_invoice_items = invoice_items_for_merchant(merchant_id)
+    count = most_sold_count(merchant_invoice_items)
+    most_sold_items = []
+    merchant_invoice_items.each do | mii |
+      if mii.quantity == count
+        most_sold_items << @items.find{ |item| item.id == mii.item_id }
+      end
+    end
+    most_sold_items
+  end
+
 end

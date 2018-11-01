@@ -1,0 +1,197 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red241\green241\blue241;\red60\green60\blue59;\red51\green136\blue141;
+\red185\green20\blue31;\red52\green92\blue158;\red95\green124\blue3;\red123\green126\blue121;\red240\green115\blue25;
+}
+{\*\expandedcolortbl;;\cssrgb\c95686\c95686\c95686;\cssrgb\c30196\c30196\c29804;\cssrgb\c24314\c60000\c62353;
+\cssrgb\c78431\c15686\c16078;\cssrgb\c25882\c44314\c68235;\cssrgb\c44314\c54902\c0;\cssrgb\c55686\c56471\c54902;\cssrgb\c96078\c52941\c12157;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
+\margl1440\margr1440\vieww21940\viewh18040\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 \ul \ulc0 BLACK THURSDAY\
+\ulnone \
+\
+HIGHEST LEVEL\
+\
+Class SalesEngine \'97 In Iteration 0, SalesEngine acts mostly as an overall wrapper for our project. It loads in the initial data, and holds the instances of our items & merchants repositories. \
+\
+	@se \'97 this instance variable holds all data used by the classes below.\
+\
+	Method: i\cb2 \expnd0\expndtw0\kerning0
+tems\cb1  - returns an instance of \cb2 ItemRepository\cb1  with all the item instances loaded\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf0 \cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+merchants\cb1  - returns an instance of \cb2 MerchantRepository\cb1  with all the merchant instances loaded\
+\pard\tx720\pardeftab720\partightenfactor0
+\cf0 \
+	According to the spec, an instance of SalesEngine is created as follows:\
+\pard\tx720\pardeftab720\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs31\fsmilli15600 \cf3 \cb2 \expnd0\expndtw0\kerning0
+	
+\fs35\fsmilli17600 se \cf4 =\cf3  \cf5 SalesEngine\cf3 .\cf6 from_csv\cf3 (\{\
+	  \cf7 :items\cf3      \cf4 =>\cf3  \cf7 "./data/items.csv"\cf3 ,\
+	  \cf7 :merchants\cf3  \cf4 =>\cf3  \cf7 "./data/merchants.csv"\cf3 ,\
+	\})
+\f0\fs32 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 \
+\
+MID-LEVEL\
+\
+Class MerchantRepository \'97 where we keep and manage \'93merchants\'94. The project description contains explicit code for creating and using an instance.\
+\
+	@mr \'97 this instance variable holds the entire merchant repository.\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0\cf0 \cb2 		Method: \expnd0\expndtw0\kerning0
+all\cb1  - returns an array of all known \cb2 Merchant\cb1  instances\
+		Method: \cb2 find_by_id(id)\cb1  - returns either \cb2 nil\cb1  or an instance of \cb2 Merchant\cb1  with a matching ID\
+		Method: \cb2 find_by_name(name)\cb1  - returns either \cb2 nil\cb1  or an instance of \cb2 Merchant\cb1  having done a case insensitive search\
+\ls2\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+find_all_by_name(name)\cb1  - returns either \cb2 []\cb1  or one or more matches which contain the supplied name fragment, case insensitive\
+\ls2\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+create(attributes)\cb1  - create a new \cb2 Merchant\cb1  instance with the provided \cb2 attributes\cb1 . The new \cb2 Merchant\cb1 \'92s id should be the current highest \cb2 Merchant\cb1  id plus 1.\
+\ls2\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+update(id, attributes)\cb1  - update the \cb2 Merchant\cb1  instance with the corresponding \cb2 id\cb1  with the provided \cb2 attributes\cb1 . Only the merchant\'92s \cb2 name\cb1  attribute can be updated.\
+\ls2\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+delete(id)\cb1  - delete the \cb2 Merchant\cb1  instance with the corresponding \cb2 id\
+\pard\tx720\pardeftab720\partightenfactor0
+\cf0 \cb1 \
+	According to the spec, here is how to create and interact with the Merchant Repository class:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs31\fsmilli15600 \cf3 \cb2 	se \cf4 =\cf3  \cf5 SalesEngine\cf3 .\cf6 from_csv\cf3 (\{\
+	  \cf7 :items\cf3      \cf4 =>\cf3  \cf7 "./data/items.csv"\cf3 ,\
+	  \cf7 :merchants\cf3  \cf4 =>\cf3  \cf7 "./data/merchants.csv"\cf3 ,\
+	\})\
+\
+	mr \cf4 =\cf3  se.\cf6 merchants\cf3 \
+	merchant \cf4 =\cf3  mr.\cf6 find_by_name\cf3 (\cf7 "CJsDecor"\cf3 )\
+\pard\pardeftab720\partightenfactor0
+\cf8 	# => <Merchant>
+\f0\fs28 \cf0 \cb1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \
+\
+Class ItemRepository -- where we keep and manage \'93items\'94. The project description contains explicit code for creating and using an instance.\
+\
+	@ir\'97this instance variable holds the entire merchant repository\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0\cf0 \cb2 		Method: \expnd0\expndtw0\kerning0
+all\cb1  - returns an array of all known \cb2 Item\cb1  instances\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+find_by_id(id)\cb1  - returns either \cb2 nil\cb1  or an instance of \cb2 Item\cb1  with a matching ID\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+find_by_name(name)\cb1  - returns either \cb2 nil\cb1  or an instance of \cb2 Item\cb1  having done a case insensitive search\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+find_all_with_description(description)\cb1  - returns either \cb2 []\cb1  or instances of \cb2 Item\cb1  where the supplied string appears in the item description (case insensitive)\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+find_all_by_price(price)\cb1  - returns either \cb2 []\cb1  or instances of \cb2 Item\cb1  where the supplied price exactly matches\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+find_all_by_price_in_range(range)\cb1  - returns either \cb2 []\cb1  or instances of \cb2 Item\cb1  where the supplied price is in the supplied range (a single Ruby \cb2 range\cb1  instance is passed in)\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+find_all_by_merchant_id(merchant_id)\cb1  - returns either \cb2 []\cb1  or instances of \cb2 Item\cb1  where the supplied merchant ID matches that supplied\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+create(attributes)\cb1  - create a new \cb2 Item\cb1  instance with the provided \cb2 attributes\cb1 . The new \cb2 Item\cb1 \'92s id should be the current highest \cb2 Item\cb1  id plus 1.\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+update(id, attributes)\cb1  - update the \cb2 Item\cb1  instance with the corresponding \cb2 id\cb1  with the provided \cb2 attributes\cb1 . Only the item\'92s \cb2 name\cb1 , \cb2 desription\cb1 , and \cb2 unit_price\cb1  attributes can be updated. This method will 	also change the items \cb2 updated_at\cb1  attribute to the current time.\
+\ls3\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+delete(id)\cb1  - delete the \cb2 Item\cb1  instance with the corresponding \cb2 id\cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+	From the spec, here is the interaction:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs31\fsmilli15600 \cf3 \cb2 \expnd0\expndtw0\kerning0
+	se \cf4 =\cf3  \cf5 SalesEngine\cf3 .\cf6 from_csv\cf3 (\{\
+	  \cf7 :items\cf3      \cf4 =>\cf3  \cf7 "./data/items.csv"\cf3 ,\
+	  \cf7 :merchants\cf3  \cf4 =>\cf3  \cf7 "./data/merchants.csv"\cf3 \
+	\})\
+\
+	ir   \cf4 =\cf3  se.\cf6 items\cf3 \
+	item \cf4 =\cf3  ir.\cf6 find_by_name\cf3 (\cf7 "Item Repellat Dolorum"\cf3 )\
+\pard\pardeftab720\partightenfactor0
+\cf8 	# => <Item>
+\f0\fs28 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+LOW LEVEL\
+\
+Class Merchant\'97Objects within this class contain individual merchants. Code for creating a merchant is included in the project description.\
+\
+	@id\
+	@name\
+\
+	Interaction from the spec:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs31\fsmilli15600 \cf3 \cb2 \expnd0\expndtw0\kerning0
+	m \cf4 =\cf3  \cf5 Merchant\cf3 .\cf6 new\cf3 (\{\cf7 :id\cf3  \cf4 =>\cf3  \cf9 5\cf3 , \cf7 :name\cf3  \cf4 =>\cf3  \cf7 "Turing School"\cf3 \})
+\f0\fs28 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+Class Item\'97Objects within this class contain items held my each merchant. Since each item has its own merchant id, it seems that each item is sold or held exclusively be one merchant.\
+\
+	@id\
+	@name\
+	@description\
+	@unit_price\
+	@created_at\
+	@updated_at\
+	@merchant_id\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0\cf0 \cb2 		Method: \expnd0\expndtw0\kerning0
+id\cb1  - returns the integer id of the item\
+\ls4\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+name\cb1  - returns the name of the item\
+\ls4\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+description\cb1  - returns the description of the item\
+\ls4\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+unit_price\cb1  - returns the price of the item formatted as a \cb2 BigDecimal\cb1 \
+\ls4\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+created_at\cb1  - returns a \cb2 Time\cb1  instance for the date the item was first created\
+\ls4\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+updated_at\cb1  - returns a \cb2 Time\cb1  instance for the date the item was last modified\
+\ls4\ilvl0\cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+merchant_id\cb1  - returns the integer merchant id of the item\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls5\ilvl0\cf0 \cb2 \kerning1\expnd0\expndtw0 		Method: \expnd0\expndtw0\kerning0
+unit_price_to_dollars\cb1  - returns the price of the item in dollars formatted as a \cb2 Float\cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs31\fsmilli15600 \cf3 \cb2 \expnd0\expndtw0\kerning0
+	i \cf4 =\cf3  \cf5 Item\cf3 .\cf6 new\cf3 (\{\
+	  \cf7 :id\cf3           \cf4 =>\cf3  \cf9 1\cf3 ,\
+	  \cf7 :name\cf3         \cf4 =>\cf3  \cf7 "Pencil"\cf3 ,\
+	  \cf7 :description\cf3  \cf4 =>\cf3  \cf7 "You can use it to write things"\cf3 ,\
+	  \cf7 :unit_price\cf3   \cf4 =>\cf3  \cf5 BigDecimal\cf3 .\cf6 new\cf3 (\cf9 10.99\cf3 ,\cf9 4\cf3 ),\
+	  \cf7 :created_at\cf3   \cf4 =>\cf3  \cf5 Time\cf3 .\cf6 now\cf3 ,\
+	  \cf7 :updated_at\cf3   \cf4 =>\cf3  \cf5 Time\cf3 .\cf6 now\cf3 ,\
+	  \cf7 :merchant_id\cf3  \cf4 =>\cf3  \cf9 2\cf3 \
+	\})
+\f0\fs28 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+Note: It seems all but the last of the Methods above can simply be created through an attr_reader statement.\
+\
+\
+}
