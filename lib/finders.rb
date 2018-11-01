@@ -45,12 +45,6 @@ module Finders
     end
   end
 
-  def find_top_quantity_from(invoice)
-    find_from_invoice(invoice, 'InvoiceItem').max_by do |invoice_item|
-      invoice_item.quantity
-    end.quantity
-  end
-
   def get_repository(class_string)
     repository = underscore("@#{class_string}s")
     instance_variable_get(repository)

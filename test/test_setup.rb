@@ -15,13 +15,14 @@ module TestSetup
   end
 
   def setup_empty_sales_engine
-    item_repository = ItemRepository.new
-    merchant_repository = MerchantRepository.new
-    invoice_repository = InvoiceRepository.new
-    invoice_items_repository = InvoiceItemRepository.new
-    customers_repository = CustomerRepository.new
-    transactions_repository = TransactionRepository.new
-    @se = SalesEngine.new(item_repository, merchant_repository, invoice_repository, invoice_items_repository, customers_repository, transactions_repository)
+    @now = Time.now
+    @items = ItemRepository.new
+    @merchants = MerchantRepository.new
+    @invoices = InvoiceRepository.new
+    @invoice_items = InvoiceItemRepository.new
+    @customers = CustomerRepository.new
+    @transactions = TransactionRepository.new
+    @se = SalesEngine.new(@items, @merchants, @invoices, @invoice_items, @customers, @transactions)
     @sa = @se.analyst
   end
 end

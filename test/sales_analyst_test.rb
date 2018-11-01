@@ -6,9 +6,7 @@ class SalesAnalystTest < Minitest::Test
   include TestData, TestSetup
 
   def setup
-    make_some_test_data
-    @se = SalesEngine.new(@itemr,@mr,@ir,@iir,@cr,@tr)
-    @sa = se.analyst
+    setup_empty_sales_engine
   end
 
   def test_average_items_per_merchant
@@ -192,11 +190,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, actual[0].id
   end
 
-  def test_customers_with_unpaid_invoices
-    actual = @sa.customers_with_unpaid_invoices
-    assert_equal 2, actual.size
-  end
-
   def test_get_transaction_count_for
     setup_empty_sales_engine
     @se.invoices.create(id: 1, customer_id: 1, merchant_id: 1, status: :shipped)
@@ -242,11 +235,4 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 2, @sa.find_highest_transaction_count_from(@se.customers.find_all_by_last_name("Archer"))
   end
-<<<<<<< HEAD
-
-
-
-
-=======
->>>>>>> 0c47ed6edfe84b57a458b1d098870cee8e1fb984
 end

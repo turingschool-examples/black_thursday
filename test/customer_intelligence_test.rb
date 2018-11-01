@@ -3,11 +3,9 @@ require_relative 'test_helper'
 require_relative 'test_data'
 
 class CustomerIntelligenceTest < Minitest::Test
-  include TestData
+  include TestData, TestSetup
   def setup
-    make_repositories
-    @se = SalesEngine.new(@itemr,@mr,@ir,@iir,@cr,@tr)
-    @sa = se.analyst
+    setup_empty_sales_engine
   end
 
   def test_it_finds_top_buyers
