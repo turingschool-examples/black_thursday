@@ -50,4 +50,10 @@ class ItemRepository
     found = find_by_id(id)
     found.update(info)
   end
+
+  def delete(id)
+    @all.delete_if do |item|
+      item.id == id
+    end
+  end
 end
