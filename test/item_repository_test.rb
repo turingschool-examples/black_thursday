@@ -1,4 +1,4 @@
-require 'test_helper'
+require './test/test_helper'
 require './lib/item_repository'
 require './lib/item'
 
@@ -27,7 +27,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_by_ID
 
-    assert_equal "Pencil", @ir.find_by_ID(1).name
+    assert_equal "Pencil", @ir.test_find_by_id(1).name
   end
 
   def test_find_by_name

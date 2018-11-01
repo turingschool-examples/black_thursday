@@ -1,4 +1,4 @@
-require 'test_helper'
+require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
 
@@ -16,6 +16,9 @@ class MerchantRepositoryTest < Minitest::Test
   def test_all_returns_array_of_known_merchants
 
     assert_equal 1, @mr.all.count
+
+    @mr.create({:id => 10, :name => "Asa"})
+    assert_equal 2, @mr.all.count
   end
 
   def test_find_by_id
@@ -40,8 +43,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_update
-
-    assert_equal @mr.all.map(&:name).iclude?("Programming"), @mr.update(5, {:name => "Programming"})
+    @mr.update(5, {:name => "Programming"})
+    
+    assert @mr.all.map(&:name).include?("Programming")
   end
 
   def test_delete
