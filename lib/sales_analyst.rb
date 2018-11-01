@@ -266,7 +266,7 @@ class SalesAnalyst
     end.quantity
   end
 
-  def most_sold_item_for_merchant(merchant_id)
+  def most_sold_item_for_merchant2(merchant_id)
     merchant_invoice_items = invoice_items_for_merchant(merchant_id)
     count = most_sold_count(merchant_invoice_items)
     most_sold_items = []
@@ -275,6 +275,42 @@ class SalesAnalyst
         most_sold_items << @items.find{ |item| item.id == mii.item_id }
       end
     end
+    most_sold_items
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    #get invoices for the merchant
+    merchant_invoices = []
+    @invoices.each do |inv|
+      merchant_invoices << inv if inv.merchant_id == merchant_id
+    end
+    #get the valid transactions corresponding to those invoices
+    valid_transactions = []
+    merchant_invoices.each do |m_inv|
+      @transactions.each do |trans|
+        if trans.invoice_id == m_inv.id && trans.result == :success
+          valid_transactions << trans
+        end
+      end
+    end
+    #get the valid invoice_items corresponding to those valid transactions
+    valid_invoice_items = []
+    valid_transactions.each do |trans|
+      @invoice_items.each do |ii|
+        valid_invoice_items << ii if trans.invoice_id == ii.invoice_id
+      end
+    end
+
+    count = most_sold_count(valid_invoice_items)
+    most_sold_items = []
+    valid_invoice_items.each do | vii |
+      if vii.quantity == count
+        most_sold_items << @items.find{ |item| item.id == vii.item_id }
+      end
+    end
+
+    #binding.pry
+    most_sold_items.uniq!
     most_sold_items
   end
 
