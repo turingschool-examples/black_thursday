@@ -182,7 +182,6 @@ class SalesAnalystTest < Minitest::Test
   def test_top_revenue_earners_returns_20_as_default
     setup_empty_sales_engine
     for i in 1..30
-      # require 'pry'; binding.pry
       @se.merchants.create(id: i, name: "Most Unique Merchant#{i}")
     end
     actual = @sa.top_revenue_earners
