@@ -177,8 +177,10 @@ class SalesAnalystTest < Minitest::Test
     actual_2 = @sales_analyst.most_sold_item_for_merchant(12337105)
     assert_instance_of Item, actual_2.first
     assert_equal 4, actual_2.length
+    assert actual.map(&:id).include?(263524984)
+    assert actual.map(&:name).include?("Adult Princess Leia Hat")
   end
-
+  
   def test_it_can_get_best_item_for_merchant
     actual = @sales_analyst.best_item_for_merchant(12334189)
     assert_instance_of Item, actual
