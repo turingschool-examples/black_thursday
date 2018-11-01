@@ -26,7 +26,7 @@ class MerchantTest < Minitest::Test
     m = Merchant.new({:id => 5, :name => "Turing School"})
     assert_equal m.name, "Turing School"
 
-    i.update({:id => 5, :name => "School of Software and Design"})
-    assert_equal m.name, "Pen"
+    m.update({:id => 5, :name => "School of Software and Design"})
+    assert_equal "School of Software and Design", m.name
   end
 end

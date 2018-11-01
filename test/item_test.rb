@@ -137,7 +137,6 @@ class ItemTest < Minitest::Test
   :updated_at  => Time.now,
   :merchant_id => 2
 })
-# require 'pry';binding.pry
     assert_equal i.name, "Pen"
     assert_equal i.description, "You can use it to write things"
   end
