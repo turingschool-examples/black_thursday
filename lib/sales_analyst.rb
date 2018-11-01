@@ -121,39 +121,16 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    week = {"Sunday" => 0,
-            "Monday" => 0,
-            "Tuesday" => 0,
-            "Wednesday" => 0,
-            "Thursday" => 0,
-            "Friday" => 0,
-            "Saturday" => 0}
-
+    week = Hash.new(0)
     days = @invoice_repo.all.map do |invoice|
-            invoice.created_at.wday
+      invoice.created_at.strftime("%A")
     end
-    days.each do |day_num|
-      if day_num == 0
-        week["Sunday"] += 1
-      elsif day_num == 1
-        week["Monday"] += 1
-      elsif day_num == 2
-        week["Tuesday"] += 1
-      elsif day_num == 3
-        week["Wednesday"] += 1
-      elsif day_num == 4
-        week["Thursday"] += 1
-      elsif day_num == 5
-        week["Friday"] += 1
-      elsif day_num == 6
-        week["Saturday"] += 1
-      else
-      end
+    days.map do |day|
+      week[day] += 1
     end
-    average_of_week = (sum(week.values) / 7).round(2)
-    deviation_of_week = (average_of_week + (std_dev(week.values))).round(2)
+    deviation_of_week = (mean(week.values) + (std_dev(week.values))).round(2)
     top_days = []
-    week.each do |day, num|
+    week.find_all do |day, num|
       if num > deviation_of_week
         top_days << day
       end
@@ -199,7 +176,7 @@ class SalesAnalyst
     end
     sum(totals)
   end
-  
+
   def find_all_invoice_items_for_invoices(invoices)
     invoice_items = []
     invoices.each do |invoice|
@@ -269,7 +246,7 @@ class SalesAnalyst
         item_by_quantity << @item_repo.find_by_id(i.item_id)
       end
     end
-    item_by_quantity.compact.uniq    
+    item_by_quantity.compact.uniq
     #This is the common sense approach that does not meet rspec test
     # items = Hash.new(0)
     # invoice_items.each do |i_item|
@@ -295,7 +272,7 @@ class SalesAnalyst
       invoice_paid_in_full?(invoice.id)
     end
   end
-  
+
   def find_all_paid_invoice_items_for_merchant(id)
     invoices = @invoice_repo.find_all_by_merchant_id(id)
     paid_invoices = find_all_paid_invoices(invoices)

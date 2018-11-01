@@ -561,7 +561,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_that_only_sell_one_item_in_registered_month
-    actual = @sales_analyst_2.merchants_with_only_one_item_registered_in_month("October")
+    actual = @sales_analyst_2.merchants_with_only_one_item_registered_in_month("November")
     assert_equal [@merchant_3], actual
   end
 
@@ -577,7 +577,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_item_that_generates_most_revenue_for_merchant
     assert_equal @item_5, @sales_analyst_3.best_item_for_merchant(10)
   end
-  
+
   def test_it_can_find_invoice_ids_for_invoices
     expected = [@invoice_item_1, @invoice_item_2, @invoice_item_4, @invoice_item_5, @invoice_item_6]
     invoices = [@invoice_1, @invoice_2, @invoice_4, @invoice_5]
