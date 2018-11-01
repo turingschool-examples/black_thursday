@@ -25,5 +25,21 @@ class CustomerIntelligenceTest < Minitest::Test
     assert_equal [@customer_1], @sa.one_time_buyers
   end
 
-  
+  def test_it_finds_one_time_buyers_top_item
+    make_one_time_buyers_top_item_test_data
+
+    assert_equal @item_1, @sa.one_time_buyers_top_item
+  end
+
+  def test_it_finds_top_merchant_for_customer
+    make_top_merchant_and_invoice_items_test_data
+
+    assert_equal @m, @sa.top_merchant_for_customer(@customer_1.id)
+  end
+
+  def test_it_finds_invoice_with_most_items_from_customer
+    make_top_merchant_and_invoice_items_test_data
+
+    assert_equal @inv_1, @sa.find_invoice_with_most_items_from(@customer_1)
+  end
 end
