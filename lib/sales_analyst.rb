@@ -248,37 +248,7 @@ class SalesAnalyst
 
 
 
-  def invoice_items_for_merchant(merchant_id)
-    merchant_invoice_items = []
-    @items.each do |item|
-      if item.merchant_id == merchant_id
-        @invoice_items.each do |ii|
-          merchant_invoice_items << ii if item.id == ii.item_id
-        end
-      end
-    end
-    merchant_invoice_items
-  end
-
-  def most_sold_count(merchant_invoice_items)
-    merchant_invoice_items.max_by do |ii|
-      ii.quantity
-    end.quantity
-  end
-
-  def most_sold_item_for_merchant2(merchant_id)
-    merchant_invoice_items = invoice_items_for_merchant(merchant_id)
-    count = most_sold_count(merchant_invoice_items)
-    most_sold_items = []
-    merchant_invoice_items.each do | mii |
-      if mii.quantity == count
-        most_sold_items << @items.find{ |item| item.id == mii.item_id }
-      end
-    end
-    most_sold_items
-  end
-
-  def most_sold_item_for_merchant(merchant_id)
+  def valid_invoice_items_for_merchant(merchant_id)
     #get invoices for the merchant
     merchant_invoices = []
     @invoices.each do |inv|
@@ -300,18 +270,42 @@ class SalesAnalyst
         valid_invoice_items << ii if trans.invoice_id == ii.invoice_id
       end
     end
+    valid_invoice_items
+  end
 
-    count = most_sold_count(valid_invoice_items)
+  def most_sold_item_for_merchant(merchant_id)
+    valid_invoice_items = valid_invoice_items_for_merchant(merchant_id)
+    count = 0
     most_sold_items = []
-    valid_invoice_items.each do | vii |
-      if vii.quantity == count
+    valid_invoice_items.each do |vii|
+      if vii.quantity >= count
+        if vii.quantity > count
+          most_sold_items = []
+          count = vii.quantity
+        end
         most_sold_items << @items.find{ |item| item.id == vii.item_id }
       end
     end
-
-    #binding.pry
     most_sold_items.uniq!
     most_sold_items
   end
+
+  def best_item_for_merchant(merchant_id)
+     valid_invoice_items = valid_invoice_items_for_merchant(merchant_id)
+     high_total = 0
+     best_items = []
+     valid_invoice_items.each do |vii|
+       vii_total = vii.quantity * vii.unit_price
+       if vii_total >= high_total
+         if vii_total > high_total
+           best_items = []
+           high_total = vii_total
+         end
+         best_items << @items.find{ |item| item.id == vii.item_id }
+       end
+     end
+     best_items.uniq!
+     best_items[0]
+   end
 
 end
