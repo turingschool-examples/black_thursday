@@ -17,7 +17,7 @@ class InvoiceRepositoryTest < MiniTest::Test
                 :customer_id => 20,
                 :merchant_id => 200,
                 :status      => "shipped",
-                :created_at  => @time,
+                :created_at  => '2003-03-07',
                 :updated_at  => @time
               })
     @invoice_3 = Invoice.new({
@@ -25,7 +25,7 @@ class InvoiceRepositoryTest < MiniTest::Test
                 :customer_id => 30,
                 :merchant_id => 300,
                 :status      => "returned",
-                :created_at  => @time,
+                :created_at  => '2003-03-07',
                 :updated_at  => @time
               })
     @invoice_4 = Invoice.new({
@@ -80,5 +80,11 @@ class InvoiceRepositoryTest < MiniTest::Test
     @invoice_repo.delete(1)
     expected = [@invoice_2, @invoice_3, @invoice_4]
     assert_equal expected, @invoice_repo.all
+  end
+  
+  def test_it_can_find_all_invoices_by_date
+    date = Time.parse('2003-03-07')
+    actual = @invoice_repo.find_all_by_date(date)
+    assert_equal [@invoice_2, @invoice_3], actual
   end
 end

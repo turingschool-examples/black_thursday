@@ -51,5 +51,11 @@ class InvoiceRepository
       invoice.updated_at = Time.now
     end
   end
+  
+  def find_all_by_date(date)
+    all.find_all do |invoice|
+     Time.strptime(invoice.created_at.to_s, '%Y-%m-%d') == date
+   end
+  end
 
 end

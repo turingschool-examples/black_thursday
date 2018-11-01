@@ -577,6 +577,12 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_item_that_generates_most_revenue_for_merchant
     assert_equal @item_5, @sales_analyst_3.best_item_for_merchant(10)
   end
+  
+  def test_it_can_find_invoice_ids_for_invoices
+    expected = [@invoice_item_1, @invoice_item_2, @invoice_item_4, @invoice_item_5, @invoice_item_6]
+    invoices = [@invoice_1, @invoice_2, @invoice_4, @invoice_5]
+    assert_equal expected, @sales_analyst_3.find_all_invoice_items_for_invoices(invoices)
+  end
 
   def test_it_can_rank_merchants_by_revenue
     merchant_1 = mock

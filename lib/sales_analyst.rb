@@ -191,20 +191,21 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoices = @invoice_repo.all.find_all do |invoice|
-      Time.strptime(invoice.created_at.to_s, '%Y-%m-%d') == date
-    end
-
-    invoice_items = []
-    invoices.each do |invoice|
-      invoice_items << @invoice_item_repo.find_all_by_invoice_id(invoice.id)
-    end
-    invoice_items.flatten!
+    invoices = @invoice_repo.find_all_by_date(date)
+    invoice_items = find_all_invoice_items_for_invoices(invoices)
 
     totals = invoice_items.map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
     end
     sum(totals)
+  end
+  
+  def find_all_invoice_items_for_invoices(invoices)
+    invoice_items = []
+    invoices.each do |invoice|
+      invoice_items << @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items.flatten
   end
 
   def top_revenue_earners(num = 20)
@@ -222,9 +223,7 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     pending_merchant_ids = []
     @invoice_repo.all.each do |invoice|
-      if invoice_paid_in_full?(invoice.id) == false
-        pending_merchant_ids << invoice.merchant_id
-      end
+      pending_merchant_ids << invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end
     pending_merchant_ids.uniq.map do |id|
       @merchant_repo.find_by_id(id)
@@ -235,11 +234,10 @@ class SalesAnalyst
     items_per_merchant = @merchant_repo.all.map do |merchant|
       @item_repo.find_all_by_merchant_id(merchant.id)
     end
-    # binding.pry
     items_with_single_owner = items_per_merchant.find_all do |items|
       items.length == 1
     end.flatten
-    item_owner = items_with_single_owner.map do |item|
+    items_with_single_owner.map do |item|
       @merchant_repo.all.find_all do |merchant|
         merchant.id == item.merchant_id
       end
@@ -260,13 +258,7 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(id)
-    invoices = @invoice_repo.find_all_by_merchant_id(id)
-    paid_invoices = invoices.find_all do |invoice|
-      invoice_paid_in_full?(invoice.id)
-    end
-    invoice_items = paid_invoices.map do |invoice|
-      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
-    end.flatten
+    invoice_items = find_all_paid_invoice_items_for_merchant(id)
     sorted = invoice_items.sort_by do |i_item|
       i_item.quantity
     end
@@ -277,7 +269,7 @@ class SalesAnalyst
         item_by_quantity << @item_repo.find_by_id(i.item_id)
       end
     end
-    item_by_quantity.compact.uniq
+    item_by_quantity.compact.uniq    
     #This is the common sense approach that does not meet rspec test
     # items = Hash.new(0)
     # invoice_items.each do |i_item|
@@ -303,13 +295,17 @@ class SalesAnalyst
       invoice_paid_in_full?(invoice.id)
     end
   end
-
-  def best_item_for_merchant(id)
+  
+  def find_all_paid_invoice_items_for_merchant(id)
     invoices = @invoice_repo.find_all_by_merchant_id(id)
     paid_invoices = find_all_paid_invoices(invoices)
-    invoice_items = paid_invoices.map do |invoice|
+    paid_invoices.map do |invoice|
       @invoice_item_repo.find_all_by_invoice_id(invoice.id)
     end.flatten
+  end
+
+  def best_item_for_merchant(id)
+    invoice_items = find_all_paid_invoice_items_for_merchant(id)
     revenue_per_item = Hash.new(0)
     invoice_items.each do |invoice_item|
       revenue_per_item[invoice_item.item_id] += (invoice_item.unit_price * invoice_item.quantity)
@@ -349,17 +345,7 @@ class SalesAnalyst
     merchant_revenue
   end
 
-  # def find_all_invoices_in_a_month(month)
-  #   invoices_by_month = {}
-  #   @invoice_repo.all.each do |invoice|
-  #
-  # end
-
   def merchants_with_only_one_item_registered_in_month(month)
-    # invoices_by_month = @invoice_repo.all.find_all do |invoice|
-    #   invoice.created_at.strftime("%B") == month
-    # end
-
     merchants = merchants_with_only_one_item
     merchants.find_all do |merchant|
       Time.parse(merchant.created_at).strftime("%B") == month
