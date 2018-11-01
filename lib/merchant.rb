@@ -5,4 +5,10 @@ class Merchant
     @id = info[:id]
     @name = info[:name]
   end
+
+  def update(info)
+    @id = info[:id] if info[:id]
+    @name = info[:name] if info[:name]
+  end
+
 end
