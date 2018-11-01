@@ -3,15 +3,13 @@ require 'pry'
 require 'time'
 
 module CSVReader
+
   def self.parse_merchants(mr, file_path)
-    skip_first_line = true
-    CSV.foreach(file_path) do |row|
-      unless skip_first_line
-        mr.add_merchant(Merchant.new({:id => row[0].to_i, :name => row[1], :created_at => Time.parse(row[2]),
-          :updated_at => Time.parse(row[3])}))
-      else
-        skip_first_line = false
-      end
+    contents = CSV.open file_path, headers: true, header_converters: :symbol
+    contents.each do |row|
+      mr.add_merchant(Merchant.new({id: row[:id].to_i, name: row[:name],
+        created_at: Time.parse(row[:created_at]),
+        updated_at: Time.parse(row[:updated_at])}))
     end
     mr
   end

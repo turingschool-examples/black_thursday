@@ -1,4 +1,3 @@
-
 class Transaction
   attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :created_at
   attr_accessor :result, :updated_at
@@ -12,7 +11,5 @@ class Transaction
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
   end
-
-
 
 end

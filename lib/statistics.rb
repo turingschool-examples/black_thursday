@@ -15,4 +15,11 @@ module Statistics
   def sum(number_set)
     number_set.inject(0) { |sum, n| sum + n }
   end
+
+  def convert_to_day_names(days)
+    day_names = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday",
+            3 => "Wednesday", 4 => "Thursday", 5 => "Friday",
+            6 => "Saturday"}
+    days.map { |day| day_names[day.to_i] }
+  end
 end

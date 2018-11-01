@@ -4,10 +4,6 @@ require './lib/invoice_item'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
-
-#id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
-#6,263539664,1,5,52100,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-
     @invoice_item_1 = InvoiceItem.new({
       :id          => 6,
       :item_id     => 263539664,
@@ -17,8 +13,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
-#7,263563764,1,4,66747,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-
     @invoice_item_2 = InvoiceItem.new({
       :id          => 7,
       :item_id     => 263563764,
@@ -28,8 +22,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :created_at  => Time.now,
       :updated_at  => Time.now,
       })
-#8,263432817,1,6,76941,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-
     @invoice_item_3 = InvoiceItem.new({
       :id          => 8,
       :item_id     => 263432817,
@@ -68,7 +60,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal [], @iir.find_all_by_item_id(263553176)
   end
 
-
   def test_it_can_create_new_invoice_item_with_attributes
     @iir.create({
     :invoice_id  => 12,
@@ -79,7 +70,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     :updated_at  => Time.now})
     assert_equal 9, @iir.all.last.id
   end
-
 
   def test_it_can_update_invoice_with_attributes
     array = @iir.find_by_id(8)

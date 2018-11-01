@@ -4,6 +4,8 @@ require './lib/item'
 require './lib/item_repository'
 require './lib/transaction'
 require './lib/transaction_repository'
+require './lib/customer'
+require './lib/customer_repository'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -117,7 +119,7 @@ class SalesAnalystTest < Minitest::Test
     @inr.add_invoice(@invoice_3)
 
     @tran_1 = Transaction.new({:id => 12,
-      :invoice_id => 3345,
+      :invoice_id => 2,
       :credit_card_number => 4068631943231473,
       :credit_card_expiration => 0217,
       :result => :success,
@@ -125,7 +127,7 @@ class SalesAnalystTest < Minitest::Test
       :updated_at=> Time.now})
 
     @tran_2 = Transaction.new({:id => 13,
-      :invoice_id => 335,
+      :invoice_id => 1,
       :credit_card_number => 4068631940004734,
       :credit_card_expiration => 0217,
       :result => :failed,
@@ -133,95 +135,72 @@ class SalesAnalystTest < Minitest::Test
       :updated_at=> Time.now})
 
     @tran_3 = Transaction.new({:id => 14,
-      :invoice_id => 3345,
+      :invoice_id => 3,
       :credit_card_number => 4068631943231473,
       :credit_card_expiration => 0217,
       :result => :success,
       :created_at => Time.now,
       :updated_at=> Time.now})
-
     @tr = TransactionRepository.new
     @tr.add_transaction(@tran_1)
     @tr.add_transaction(@tran_2)
     @tr.add_transaction(@tran_3)
-
-    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr, transactions: @tr})
-    @sa = @se.analyst
     @invoice_item_1 = Item.new({
           :id          => 2,
           :invoice_id  => 1,
-          :item_id     => 263454779,
+          :item_id     => 3,
           :unit_price  => (BigDecimal.new(23324,4) / 100),
-          :created_at  => "2012-03-27 14:54:09 UTC",
-          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :created_at  => Time.parse("2012-03-27 14:54:09 UTC"),
+          :updated_at  => Time.parse("2012-03-27 14:54:09 UTC"),
           :quantity    => 9
         })
     @invoice_item_2 = Item.new({
           :id          => 4,
-          :invoice_id  => 1,
-          :item_id     => 263542298,
+          :invoice_id  => 2,
+          :item_id     => 2,
           :unit_price  => (BigDecimal.new(2196,4) / 100),
-          :created_at  => "2012-03-27 14:54:09 UTC",
-          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :created_at  => Time.parse("2012-03-27 14:54:09 UTC"),
+          :updated_at  => Time.parse("2012-03-27 14:54:09 UTC"),
           :quantity    => 3
         })
     @invoice_item_3 = Item.new({
           :id          => 6,
-          :invoice_id  => 1,
-          :item_id     => 263539664,
+          :invoice_id  => 3,
+          :item_id     => 1,
           :unit_price  => (BigDecimal.new(52100,4) / 100),
-          :created_at  => "2012-03-27 14:54:09 UTC",
-          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :created_at  => Time.parse("2012-03-27 14:54:09 UTC"),
+          :updated_at  => Time.parse("2012-03-27 14:54:09 UTC"),
           :quantity    => 5
         })
-        #6,263539664,1,5,52100,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
     @invoice_item_4 = Item.new({
           :id          => 8,
           :invoice_id  => 1,
-          :item_id     => 263432817,
+          :item_id     => 3,
           :unit_price  => (BigDecimal.new(5000,4) / 100),
-          :created_at  => "2012-03-27 14:54:09 UTC",
-          :updated_at  => "2012-03-27 14:54:09 UTC",
+          :created_at  => Time.parse("2012-03-27 14:54:09 UTC"),
+          :updated_at  => Time.parse("2012-03-27 14:54:09 UTC"),
           :quantity    => 6
         })
-#        8,263432817,1,6,76941,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-#     @invoice_item_5 = Item.new({
-#           :id          => 11,
-#           :invoice_id  => 2,
-#           :item_id     => 263532898,
-#           :unit_price  => (BigDecimal.new(30949,4) / 100),
-#           :created_at  => "2012-03-27 14:54:09 UTC",
-#           :updated_at  => "2012-03-27 14:54:09 UTC",
-#           :quantity    => 3
-#         })
-# #        11,263532898,2,3,30949,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-#     @invoice_item_6 = Item.new({
-#           :id          => 6,
-#           :invoice_id  => "Devil costume",
-#           :item_id     => "Be santa's enemy.",
-#           :unit_price  => (BigDecimal.new(4000,4) / 100),
-#           :created_at  => "2016-01-11 12:05:55 UTC",
-#           :updated_at  => "1973-05-29 23:44:48 UTC",
-#           :quantity    => 3
-#         })
-#     @invoice_item_7 = Item.new({
-#           :id          => 7,
-#           :invoice_id  => "Easter Bunny costume",
-#           :item_id     => "Be santa's rival.",
-#           :unit_price  => (BigDecimal.new(5000,4) / 100),
-#           :created_at  => "2016-01-11 12:05:55 UTC",
-#           :updated_at  => "1973-05-29 23:44:48 UTC",
-#           :quantity    => 3
-#         })
     @ii = InvoiceItemRepository.new
     @ii.add_invoice_item(@invoice_item_1)
     @ii.add_invoice_item(@invoice_item_2)
     @ii.add_invoice_item(@invoice_item_3)
     @ii.add_invoice_item(@invoice_item_4)
-    # @ii.add_item(@invoice_item_5)
-    # @ii.add_item(@invoice_item_6)
-    # @ii.add_item(@invoice_item_7)
-    ############ REMOVE AT SOME POINT ##############
+    @customer_1 = Customer.new({id: 100, first_name: "J", last_name: "C",
+                  created_at: Time.now, updated_at: Time.now})
+    @customer_2 = Customer.new({id: 101, first_name: "C", last_name: "J",
+                  created_at: Time.now, updated_at: Time.now})
+    @customer_3 = Customer.new({id: 102, first_name: "JC", last_name: "CJ",
+                  created_at: Time.now, updated_at: Time.now})
+    @cr = CustomerRepository.new
+    @cr.add_customer(@customer_1)
+    @cr.add_customer(@customer_2)
+    @cr.add_customer(@customer_3)
+    @se = SalesEngine.new({merchants: @mr, items: @ir, invoices: @inr,
+                transactions: @tr, invoice_items: @ii, customers: @cr})
+    @sa = @se.analyst
+    
+    ############ REMOVE AT SOME POINT TO IMPROVE RUN SPEED ##############
     @se_real = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -231,7 +210,7 @@ class SalesAnalystTest < Minitest::Test
       :customers => "./data/customers.csv"
     })
     @sa_real = @se_real.analyst
-    ################################################
+    ######################################################################
   end
 
   def test_average_items_per_merchant
@@ -307,8 +286,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_check_if_invoice_is_paid_in_full
-    assert_equal true, @sa.invoice_paid_in_full?(3345)
-    assert_equal false, @sa.invoice_paid_in_full?(335)
+    assert_equal true, @sa_real.invoice_paid_in_full?(1)
+    assert_equal false, @sa_real.invoice_paid_in_full?(204)
   end
 
   def test_it_can_get_total_revenue_by_date
@@ -325,7 +304,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12335747, actual.last.id
     assert_equal 10, actual.length
     assert_instance_of Merchant, actual.first
-    #=> [merchant, merchant, merchant, merchant, merchant]
   end
 
   def test_top_revenue_earners_default
@@ -363,6 +341,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_revenue_by_merchant
     actual = @sa_real.revenue_by_merchant(12334194)
+    assert_equal BigDecimal.new(81572.4, 6), actual
+    assert_instance_of BigDecimal, actual
   end
 
   def test_it_can_find_most_sold_item_for_merchant
@@ -384,9 +364,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_one_time_buyers
-    otb = @sa_real.one_time_buyers
-    assert_equal 76, otb.length
+    otb = @sa.one_time_buyers
+    assert_equal 3, otb.length
     assert_instance_of Customer, otb.first
+    assert_equal [@customer_1, @customer_2, @customer_3], otb
   end
 
 end
