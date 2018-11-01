@@ -39,16 +39,13 @@ class ItemRepository
  end
 
  def create(attributes)
-   new_id = max_id + 1
-   name = attributes[:name]
-   description = attributes[:description]
-   unit_price = attributes[:unit_price]
-   created_at = Time.now.to_s
-   updated_at = Time.now.to_s
-   merchant_id = attributes[:merchant_id]
-   new_item = Item.new({name: name, description: description, id: new_id,
-     unit_price: unit_price, created_at: created_at, updated_at: updated_at,
-     merchant_id: merchant_id})
+   new_item = Item.new({name: attributes[:name],
+                        description: attributes[:description],
+                        id: max_id + 1,
+                        unit_price: attributes[:unit_price],
+                        created_at: Time.now.to_s,
+                        updated_at: Time.now.to_s,
+                        merchant_id: attributes[:merchant_id]})
    @collection << new_item
    new_item
  end
