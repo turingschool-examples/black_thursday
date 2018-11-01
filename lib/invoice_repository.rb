@@ -10,26 +10,25 @@ class InvoiceRepository
   def initialize(invoices)
     @collection = invoices
   end
-  #I need
-  #find_all_by_customer_id
+
   def find_all_by_customer_id(id)
     all.find_all do |invoice|
       invoice.customer_id == id
     end
   end
-  #find_all_by_merchant_id
+
   def find_all_by_merchant_id(id)
     all.find_all do |invoice|
       invoice.merchant_id == id
     end
   end
-  #find_all_by_status
+
   def find_all_by_status(stat)
     all.find_all do |invoice|
       invoice.status == stat
     end
   end
-  #create(attributes) Takes id and invoice)
+
   def create(attributes)
     new_id = max_id + 1
     customer_id = attributes[:customer_id]
@@ -43,7 +42,7 @@ class InvoiceRepository
     @collection << new_invoice
     new_invoice
   end
-  #update(id, attributes)
+
   def update(id, attributes)
     if find_by_id(id)
       invoice = find_by_id(id)

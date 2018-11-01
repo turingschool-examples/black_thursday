@@ -33,7 +33,6 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
-
     updated_item = find_by_id(id)
     if updated_item
       updated_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
