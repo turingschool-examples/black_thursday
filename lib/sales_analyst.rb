@@ -222,9 +222,7 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     pending_merchant_ids = []
     @invoice_repo.all.each do |invoice|
-      if invoice_paid_in_full?(invoice.id) == false
-        pending_merchant_ids << invoice.merchant_id
-      end
+      pending_merchant_ids << invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end
     pending_merchant_ids.uniq.map do |id|
       @merchant_repo.find_by_id(id)
@@ -235,7 +233,7 @@ class SalesAnalyst
     items_per_merchant = @merchant_repo.all.map do |merchant|
       @item_repo.find_all_by_merchant_id(merchant.id)
     end
-    # binding.pry
+    
     items_with_single_owner = items_per_merchant.find_all do |items|
       items.length == 1
     end.flatten
