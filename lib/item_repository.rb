@@ -39,16 +39,13 @@ class ItemRepository
  end
 
  def create(attributes)
-   new_id = max_id + 1
-   name = attributes[:name]
-   description = attributes[:description]
-   unit_price = attributes[:unit_price]
-   created_at = Time.now.to_s
-   updated_at = Time.now.to_s
-   merchant_id = attributes[:merchant_id]
-   new_item = Item.new({name: name, description: description, id: new_id,
-     unit_price: unit_price, created_at: created_at, updated_at: updated_at,
-     merchant_id: merchant_id})
+   new_item = Item.new({name: attributes[:name],
+                        description: attributes[:description],
+                        id: max_id + 1,
+                        unit_price: attributes[:unit_price],
+                        created_at: Time.now.to_s,
+                        updated_at: Time.now.to_s,
+                        merchant_id: attributes[:merchant_id]})
    @collection << new_item
    new_item
  end
@@ -56,13 +53,9 @@ class ItemRepository
  def update(id, attributes)
    if find_by_id(id)
      item = find_by_id(id)
-     new_name = attributes[:name]
-     new_description = attributes[:description]
-     new_unit_price = attributes[:unit_price]
-
-     item.name = new_name if attributes[:name]
-     item.description = new_description if attributes[:description]
-     item.unit_price = new_unit_price if attributes[:unit_price]
+     item.name = attributes[:name] if attributes[:name]
+     item.description = attributes[:description] if attributes[:description]
+     item.unit_price = attributes[:unit_price] if attributes[:unit_price]
      item.updated_at = Time.now
    end
  end
