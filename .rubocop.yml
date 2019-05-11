@@ -1,0 +1,14 @@
+Style/NumericLiterals:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Lint/UnifiedInteger:
+  Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
