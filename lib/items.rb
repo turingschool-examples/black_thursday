@@ -1,3 +1,5 @@
+require 'time'
+require 'bigdecimal/util'
 class Item
 
   attr_reader :id,
@@ -12,9 +14,14 @@ class Item
     @id          = data[:id]
     @name        = data[:name]
     @description = data[:description]
-    @unit_price  = data[:unit_price]
+    @unit_price  = data[:unit_price].to_d
     @merchant_id = data[:merchant_id]
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
+
 end
