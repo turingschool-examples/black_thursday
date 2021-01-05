@@ -14,7 +14,7 @@ class ItemTest < Minitest::Test
       :description => "You can use it to write things",
       :unit_price => BigDecimal.new(10.99,4),
       :merchant_id => 2,
-      :created_at => Time.now,
+      :created_at => "2016-01-11 11:51:37 UTC",
       :updated_at => Time.now})
   end
 
@@ -28,7 +28,8 @@ class ItemTest < Minitest::Test
     assert_equal "You can use it to write things", @data.description
     assert_equal 10.99, @data.unit_price
     assert_equal 2, @data.merchant_id
-    assert_instance_of Time, @data.created_at
+    expected = Time.parse("2016-01-11 11:51:37 UTC")
+    assert_equal expected, @data.created_at
     assert_instance_of Time, @data.updated_at
   end
 
