@@ -1,0 +1,53 @@
+class MerchantRepository
+  attr_reader :data,
+              :all
+
+  def initialize(data)
+    @data = data
+    @all = populate_repo
+  end
+
+  def populate_repo
+    merchant_data = CSV.open @data, headers: true, header_converters: :symbol
+    merchants = merchant_data.map do |row|
+        Merchant.new({:id => row[:id], :name => row[:name]})
+    end
+    merchants
+  end
+
+  def max_id
+    @all.max_by do |record|
+      record.id
+    end
+  end
+
+  def new_id
+    max_id.id.to_i + 1
+  end
+
+  def create(new_name)
+    @all << Merchant.new({:id => new_id.to_s, :name => new_name})
+  end
+
+
+  # def find_by_id(id)
+  #   populate_repo
+  #   @all.find do |merchant_id, merchant_name|
+  #     merchant_id == id
+  #   end
+  # end
+
+
+
+
+
+  # def create(argument1, argument2)
+  # merchant_data = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
+  # @all = merchant_data.map do |row|
+  #     Merchant.new({argument1 => row[argument1], argument2 => row[argument2]})
+  # end
+  # end
+
+  # def find_by_id(argument)
+  # end
+end
