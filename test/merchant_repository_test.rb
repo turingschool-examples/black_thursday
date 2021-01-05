@@ -70,6 +70,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "jesus's tacos", merchant_6.name
   end
 
-  
-
+  def test_it_can_delete_merchants
+    assert_equal 4, @mr.all.length
+    @mr.delete(12334115)
+    assert_equal 3, @mr.all.length
+    assert_nil @mr.find_by_id(12334115)
+  end
 end

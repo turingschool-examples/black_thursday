@@ -60,7 +60,7 @@ class MerchantRepository
   end
 
   def delete(id)
+    delete = find_by_id(id)
+    @merchants.delete(delete)
   end
 end
-
-# repo = MerchantRepository.new("./data/merchants.csv")
