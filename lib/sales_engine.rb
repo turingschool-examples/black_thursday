@@ -10,5 +10,4 @@ attr_reader :items, :merchants
   def self.from_csv(arg1)
     new(arg1)
   end
-
 end
