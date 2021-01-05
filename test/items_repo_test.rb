@@ -32,4 +32,9 @@ class ItemsRepoTest < Minitest::Test
     assert_instance_of BigDecimal, @repo.find_by_price(14900)[0].unit_price
     assert_instance_of Item,  @repo.find_by_price(14900)[-1]
   end
+
+
+  def test_it_can_find_by_name
+  	assert_equal "263399475", @repo.find_by_name("Ironstone Pitcher (Small)").id
+  end
 end
