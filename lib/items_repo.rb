@@ -3,6 +3,7 @@ require './lib/items'
 require 'time'
 require 'bigdecimal'
 require 'bigdecimal/util'
+
 class ItemsRepo
   attr_reader :items
   def initialize(data)
@@ -33,6 +34,10 @@ class ItemsRepo
     @items.find do |item|
       item.id == id
     end
+  end
+
+  def find_by_price (price)
+    @items.find_all{|item| item.unit_price == price}
   end
 
 end
