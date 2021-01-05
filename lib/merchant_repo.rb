@@ -1,5 +1,6 @@
 require 'CSV'
 require './lib/cleaner.rb'
+require './lib/merchant.rb'
 
 class MerchantRepository
 
@@ -17,13 +18,12 @@ class MerchantRepository
   def build_merchants
     @data.map do |merchant|
       cleaner = Cleaner.new
-      @merchant_hash = {
-                  id:   cleaner.clean_id(merchant[:id]),
-                  name: cleaner.clean_name(merchant[:name]),
-                  created_at: cleaner.clean_date(merchant[:created_at]),
-                  updated_at: cleaner.clean_date(merchant[:updated_at])}
-      @merchants << @merchant_hash
-    end
+      merch = Merchant.new({ id: cleaner.clean_id(merchant[:id]),
+                            name: cleaner.clean_name(merchant[:name]),
+                            created_at: cleaner.clean_date(merchant[:created_at]),
+                            updated_at: cleaner.clean_date(merchant[:updated_at])})
+      @merchants << merch
+      end
     @merchants
   end
 end

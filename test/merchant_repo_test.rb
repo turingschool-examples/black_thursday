@@ -12,8 +12,10 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_it_can_build_merchants
     mr = MerchantRepository.new
-    mers = mr.build_merchants
+    mr.build_merchants
 
-    assert_equal 475, mr.build_merchants.count
+    expect = "Shopin1901"
+
+    assert_equal expect, mr.build_merchants[0].name 
   end
 end
