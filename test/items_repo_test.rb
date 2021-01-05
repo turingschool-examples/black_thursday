@@ -25,5 +25,4 @@ class ItemsRepoTest < Minitest::Test
     assert_instance_of Item, @repo.all[-1]
     assert_equal 1367, @repo.all.length
   end
-
 end
