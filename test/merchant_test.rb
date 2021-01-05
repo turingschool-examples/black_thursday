@@ -1,6 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/merchant'
+require_relative 'minitest/autorun'
+require_relative 'minitest/pride'
+require_relative './lib/merchant'
 
 class MerchantTest < MiniTest::Test
 
@@ -14,7 +14,7 @@ class MerchantTest < MiniTest::Test
     merchant = Merchant.new({:id => 5, :name => "Turing School"})
 
     assert_equal 5, merchant.id
-    assert_equal "Turing School", merchant.name 
+    assert_equal "Turing School", merchant.name
 
   end
 
