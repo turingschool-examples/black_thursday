@@ -10,4 +10,9 @@ class Cleaner
     id.to_i
   end
 
+  def clean_name(name)
+    #case insensitive
+    name.capitalize
+  end
+
 end

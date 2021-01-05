@@ -32,4 +32,11 @@ class CleanerTest < MiniTest::Test
     assert_equal expect, cleaner.clean_id("12334105")
   end
 
+  def test_names_are_readable
+    cleaner = Cleaner.new
+    expect = @rows[5][:name].capitalize
+
+    assert_equal expect, cleaner.clean_name("perlesemoi")
+  end
+
 end
