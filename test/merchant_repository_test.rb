@@ -50,7 +50,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal nil, merchant_repo.find_by_id(12)
   end
 
-  # def
+  def test_find_by_name
+    merchant_repo = MerchantRepository.new(@dummy_path)
+    assert_equal "12334141", merchant_repo.find_by_name("jejum").id
+    assert_equal nil, merchant_repo.find_by_name("Caryn")
+  end
 
   # def test_all
   #   merchant_repo = MerchantRepository.new("./data/merchants.csv")
