@@ -7,7 +7,7 @@ require './lib/merchant_repository'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @dummy_path = "./dummy_data/dummy_merchants.csv"
+    @dummy_path = './dummy_data/dummy_merchants.csv'
   end
 
   def test_it_exists
@@ -39,21 +39,21 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_create
     merchant_repo = MerchantRepository.new(@dummy_path)
-    actual = merchant_repo.create("Hank")
+    actual = merchant_repo.create('Hank')
     assert_equal merchant_repo.all[-2].id.to_i + 1, actual[-1].id.to_i
-    assert_equal "Hank", merchant_repo.all[-1].name
+    assert_equal 'Hank', merchant_repo.all[-1].name
   end
 
   def test_find_by_id
     merchant_repo = MerchantRepository.new(@dummy_path)
-    assert_equal "jejum", merchant_repo.find_by_id(12334141).name
+    assert_equal 'jejum', merchant_repo.find_by_id(12334141).name
     assert_equal nil, merchant_repo.find_by_id(12)
   end
 
   def test_find_by_name
     merchant_repo = MerchantRepository.new(@dummy_path)
-    assert_equal "12334141", merchant_repo.find_by_name("jejum").id
-    assert_equal nil, merchant_repo.find_by_name("Caryn")
+    assert_equal '12334141', merchant_repo.find_by_name('jejum').id
+    assert_equal nil, merchant_repo.find_by_name('Caryn')
   end
 
 end
