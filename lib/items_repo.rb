@@ -40,4 +40,10 @@ class ItemsRepo
     @items.find_all{|item| item.unit_price == price}
   end
 
+  def find_by_name(name)
+  	@items.find do |item|
+  		item.name == name
+  	end
+  end
+
 end
