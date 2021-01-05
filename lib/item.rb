@@ -19,11 +19,9 @@ class Item
     @merchant_id  = data[:merchant_id].to_i
     @created_at   = data[:created_at]
     @updated_at   = data[:updated_at]
-
   end
 
   def unit_price_to_dollars
-    (@unit_price.to_f) / 100
+    @unit_price.to_f / 100
   end
-
 end
