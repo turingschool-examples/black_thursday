@@ -1,9 +1,4 @@
-require 'time'
-require 'bigdecimal'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/items'
-
+require './test/test_helper'
 
 class ItemTest < Minitest::Test
 
