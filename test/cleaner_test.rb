@@ -39,4 +39,11 @@ class CleanerTest < MiniTest::Test
     assert_equal expect, cleaner.clean_name("perlesemoi")
   end
 
+  def test_dates_are_time_class
+    cleaner = Cleaner.new
+    expect = Time.new(2010, 12, 10)
+
+    assert_equal expect, cleaner.clean_date("2010-12-10")
+  end
+
 end

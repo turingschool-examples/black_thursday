@@ -15,4 +15,12 @@ class Cleaner
     name.capitalize
   end
 
+  def clean_date(date)
+    #Time.new(year, month, day)
+    year = date[0,4].to_i
+    month = date[5,2].to_i
+    day = date[8,2].to_i
+    Time.new(year, month, day)
+  end
+
 end
