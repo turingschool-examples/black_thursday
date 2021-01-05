@@ -22,13 +22,8 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-     id_found = merchants.find_all do |merchant|
+     id_found = merchants.find do |merchant|
       merchant.id == id
-    end
-    if id_found.empty?
-      return nil
-    else
-      id_found
     end
   end
 
@@ -46,11 +41,22 @@ class MerchantRepository
     found_merchants
   end
 
-  def create(name)
-    @merchants << Merchant.new(highest_merchant_id_plus_one, name)
+  def highest_merchant_id_plus_one
+    highest = @merchants.max do |merchant|
+      merchant.id
+    end
+    highest.id + 1
   end
 
-  def update(id, attributes)
+  def create(name)
+    new_merchant = Merchant.new(highest_merchant_id_plus_one, name)
+    @merchants << new_merchant
+    new_merchant
+  end
+
+  def update(id, name)
+    update_merchant = find_by_id(id)
+    update_merchant.update(name)
   end
 
   def delete(id)

@@ -6,21 +6,13 @@ class Merchant
     @name = name
   end
 
-
-  def highest_merchant_id_plus_one
-    highest = merchants.max do |merchant|
-      merchant[:id]
-    end
-    highest + 1
-  end
-
   # def create(args)
   #   @merchants << merchant.new({:id => highest_merchant_id_plus_one,
   #                 :args[:name] => ?)
   # end
 
-  def update(id, attributes)
-
+  def update(name)
+    @name = name
   end
 
   def delete(id)
