@@ -41,17 +41,4 @@ class MerchantRepository
     end
   end
 
-
-
-
-
-  # def create(argument1, argument2)
-  # merchant_data = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
-  # @all = merchant_data.map do |row|
-  #     Merchant.new({argument1 => row[argument1], argument2 => row[argument2]})
-  # end
-  # end
-
-  # def find_by_id(argument)
-  # end
 end

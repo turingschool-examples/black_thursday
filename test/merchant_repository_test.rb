@@ -56,28 +56,4 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal nil, merchant_repo.find_by_name("Caryn")
   end
 
-  # def test_all
-  #   merchant_repo = MerchantRepository.new("./data/merchants.csv")
-  #   merchant_repo.all = data.map do |row|
-  #     Merchant.new({:id => row[:id], :name => row[:name]})
-  #   end
-  #   assert_instance_of Merchant, merchant_repo.all.sample
-  # end
-
-  # def test_it_has_attributes
-  #   merchant_repo = MerchantRepository.new
-  #   assert_equal [], merchant_repo.all
-  # end
-
-  # def test_it_can_create_new_merchant
-  #   merchant_repo = MerchantRepository.new
-  #   merchant_repo.create(:id, :name)
-  #   assert_instance_of Merchant, merchant_repo.all.sample
-  # end
-
-  # def test_find_by_id
-  #   merchant_repo = MerchantRepository.new
-  #   merchant_repo.create(:id, :name)
-  #   assert_equal 12334144, merchant_repo.find_by_id(12334144)[:id]
-  # end
 end
