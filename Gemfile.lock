@@ -1,0 +1,31 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.1)
+    cane (3.0.0)
+      parallel
+    kwalify (0.7.2)
+    minitest (5.14.2)
+    parallel (1.20.1)
+    parser (2.7.2.0)
+      ast (~> 2.4.1)
+    psych (3.3.0)
+    rainbow (3.0.0)
+    rake (13.0.3)
+    reek (6.0.2)
+      kwalify (~> 0.7.0)
+      parser (>= 2.5.0.0, < 2.8, != 2.5.1.1)
+      psych (~> 3.1)
+      rainbow (>= 2.0, < 4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cane
+  minitest
+  rake
+  reek
+
+BUNDLED WITH
+   2.1.4
