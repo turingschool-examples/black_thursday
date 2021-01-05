@@ -1,8 +1,8 @@
 class Cleaner
   attr_accessor :contents
 
-  def initialize
-    @file = "/Users/alexamsmyth/turing/1mod/projects/black_thursday/data/merchants.csv"
+  def initialize(file = './data/merchants.csv')
+    @file = file 
     @contents = CSV.open(@file, headers: true, header_converters: :symbol)
   end
 

@@ -6,7 +6,7 @@ require 'csv'
 class CleanerTest < MiniTest::Test
 
   def setup
-    @file = "/Users/alexamsmyth/turing/1mod/projects/black_thursday/data/merchants.csv"
+    @file = "./data/merchants.csv"
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
     @rows = @data.map do |row|
       row
