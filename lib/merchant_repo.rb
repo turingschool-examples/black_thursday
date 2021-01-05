@@ -17,7 +17,7 @@ class MerchantRepository
 
   def build_merchants
     @data.map do |merchant|
-      cleaner = Cleaner.new
+      cleaner = Cleaner.new(@file)
       merch = Merchant.new({ id: cleaner.clean_id(merchant[:id]),
                             name: cleaner.clean_name(merchant[:name]),
                             created_at: cleaner.clean_date(merchant[:created_at]),
@@ -25,5 +25,19 @@ class MerchantRepository
       @merchants << merch
       end
     @merchants
+  end
+
+  def find_id(id)
+    build_merchants.select do |merchant|
+          merchant.id == id
+    end
+  end
+
+  def find_by_id(id)
+    if find_id(id).empty?
+      nil
+    else
+      find_id(id)
+    end
   end
 end
