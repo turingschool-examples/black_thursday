@@ -46,7 +46,6 @@ class ItemTest < Minitest::Test
                 :updated_at  => 12,
                 :merchant_id => 2
                 })
-                # require 'pry'; binding.pry
     assert_equal 0.11, item.unit_price_to_dollars
   end
 end
