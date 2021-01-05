@@ -16,9 +16,11 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 12334105, @mr.merchants.first.id
     assert_equal 'Shopin1901', @mr.merchants.first.name
+    assert_equal 12334115, @mr.merchants.last.id
+    assert_equal 'LolaMarleys', @mr.merchants.last.name
   end
 
-  # def test_it_can_have_different_attributes
-  #   skip
-  # end
+  def test_it_can_return_all_merchants
+    assert_equal 4, @mr.all.length
+  end
 end
