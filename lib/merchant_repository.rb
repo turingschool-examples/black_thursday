@@ -29,13 +29,11 @@ class MerchantRepository
     @all << Merchant.new({:id => new_id.to_s, :name => new_name})
   end
 
-
-  # def find_by_id(id)
-  #   populate_repo
-  #   @all.find do |merchant_id, merchant_name|
-  #     merchant_id == id
-  #   end
-  # end
+  def find_by_id(id)
+    @all.find do |merchant|
+      merchant.id == id.to_s
+    end
+  end
 
 
 

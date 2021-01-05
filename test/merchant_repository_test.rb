@@ -44,13 +44,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Hank", merchant_repo.all[-1].name
   end
 
-  # def test_find_by_id
-  #   merchant_repo = MerchantRepository.new("./data/merchants.csv")
-  #   merchant_999999999 = Merchant.new({:id => 999999999, :name => "Test Merchant"})
-  #   merchant_repo.all << merchant_999999999
-  #   require "pry"; binding.pry
-  #   assert_equal merchant_999999999, merchant_repo.find_by_id(999999999)
-  # end
+  def test_find_by_id
+    merchant_repo = MerchantRepository.new(@dummy_path)
+    assert_equal "jejum", merchant_repo.find_by_id(12334141).name
+  end
 
   # def test_all
   #   merchant_repo = MerchantRepository.new("./data/merchants.csv")
