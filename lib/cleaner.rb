@@ -6,4 +6,8 @@ class Cleaner
     @contents = CSV.open(@file, headers: true, header_converters: :symbol)
   end
 
+  def clean_id(id)
+    id.to_i
+  end
+
 end
