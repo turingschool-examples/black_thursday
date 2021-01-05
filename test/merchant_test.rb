@@ -8,14 +8,11 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_exists
-  assert_instance_of Merchant, @merchant
+    assert_instance_of Merchant, @merchant
   end
 
   def test_it_has_attributes
     assert_equal 1, @merchant.id
     assert_equal "Kasey's Pizza", @merchant.name
-
-  end
-  def test_it_can_have_different_attributes
   end
 end
