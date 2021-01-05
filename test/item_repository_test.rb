@@ -78,7 +78,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_create
     test = ItemRepository.new(CSV.readlines("./data/items.csv", headers: true, header_converters: :symbol))
 
-
   end
 
   def test_it_can_update
@@ -89,7 +88,6 @@ class ItemRepositoryTest < Minitest::Test
 
     test.update(263395237, hash1)
     sample = test.items.first
-
 
     assert_equal "Computer", sample[:name]
     assert_equal "This is a computer.", sample[:description]
