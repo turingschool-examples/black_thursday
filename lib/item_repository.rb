@@ -1,8 +1,10 @@
 require 'csv'
 require './lib/item'
+
 class ItemRepository
   attr_reader :filename,
-  :items
+              :items
+
   def initialize(filename)
     @filename = filename
     @items = Array.new
@@ -16,7 +18,14 @@ class ItemRepository
     end
   end
 
-  def unit_price_to_dollars
+  def all
+    @items.length
+  end
+
+  def find_by_id(arg)
+    @items.find do |item|
+      item.id == arg.to_s
+    end
   end
 end
 # row[:id], row[:name], row[:description], row[:unit_price], row[:created_at], row[:updated_at], row[:merchant_id]
