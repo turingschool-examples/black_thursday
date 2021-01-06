@@ -6,29 +6,38 @@ class MerchantRepository
   attr_reader :merchants,
               :path
 
-def initialize(path)
-  @path = path
-  @merchants = []
-  read_merchant
-end
+  def initialize(path)
+    @path = path
+    @merchants = []
+    read_merchant
+  end
 
-def read_merchant
-  CSV.foreach(@path, headers: :true , header_converters: :symbol) do |row|
-     # ;binding.pry
-
-    # Merchant.new(row)
-
-    @merchants << Merchant.new(row)
-
-
-  # first_row = CSV.read(locations) do |line|
-  # rows.map do |row|
-
+  def read_merchant
+    CSV.foreach(@path, headers: :true , header_converters: :symbol) do |row|
+      @merchants << Merchant.new(row)
     end
     return @merchants
   end
 
   def all
     @merchants
-  end  
+  end
+
+  def find_by_id(id)
+    @merchants.find do |merchant|
+      merchant.id == id
+    end
+  end
+
+  def find_by_name(name)
+    @merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_name(name)
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
+  end
 end
