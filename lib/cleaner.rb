@@ -1,7 +1,6 @@
 require 'CSV'
 
 class Cleaner
-
   # attr_accessor :csv
 
   # :merchant_csv,
