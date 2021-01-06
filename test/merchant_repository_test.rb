@@ -27,6 +27,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, merchant_repo.all.sample
   end
 
+  def test_all
+    merchant_repo = MerchantRepository.new(@dummy_path)
+    assert_equal 5, merchant_repo.all.count
+  end
+
   def test_max_id
     merchant_repo = MerchantRepository.new(@dummy_path)
     assert_equal "12334141", merchant_repo.max_id.id
