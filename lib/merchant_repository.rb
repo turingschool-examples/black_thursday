@@ -11,7 +11,8 @@ class MerchantRepository
     merchant = Hash.new{|h,k| h[k] = []}
     merchant_data = CSV.open @data, headers: true, header_converters: :symbol
     merchants = merchant_data.map do |row|
-        merchant[row[:id]] = Merchant.new({:id => row[:id], :name => row[:name]})
+        merchant[row[:id]] = Merchant.new({:id => row[:id],
+                                         :name => row[:name]})
     end
     merchant
   end
@@ -36,7 +37,6 @@ class MerchantRepository
 
   def find_by_id(id)
     all.find do |merchant|
-      # require "pry"; binding.pry
       merchant[0] == id.to_s
     end
   end

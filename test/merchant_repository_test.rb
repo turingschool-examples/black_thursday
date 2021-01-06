@@ -23,7 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_populate_repo
     merchant_repo = MerchantRepository.new(@dummy_path)
-    assert_instance_of 5, merchant_repo.all.count
+    assert_equal 5, merchant_repo.all.count
   end
 
   def test_all
@@ -59,5 +59,4 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal '12334141', merchant_repo.find_by_name('jejum')[1].id
     assert_equal nil, merchant_repo.find_by_name('Caryn')
   end
-
 end
