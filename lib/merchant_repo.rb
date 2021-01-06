@@ -79,9 +79,8 @@ class MerchantRepository
   end
 
   def delete(id)
-  @merchants = @merchants.reject do |merchant|
+    @merchants = @merchants.reject do |merchant|
       merchant.id == id
     end
-
   end
 end
