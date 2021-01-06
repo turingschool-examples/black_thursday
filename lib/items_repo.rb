@@ -60,4 +60,16 @@ class ItemsRepo
   	end
   end
 
+  def update (update_item)
+    name = update_item[:name]
+    description = update_item[:description]
+    unit_price = update_item[:unit_price]
+    id = update_item[:id]
+    item = find_by_id(id)
+    item.update_item_name(name)
+    item.update_item_description(description)
+    item.update_item_unit_price(unit_price)
+    item.updated_at = Time.now
+  end
+
 end
