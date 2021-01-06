@@ -1,24 +1,28 @@
 require 'csv'
 
 class SalesEngine
-  @items = []
-  @merchants = []
+  attr_reader :items,
+              :merchants
 
-  class << self
-    attr_accessor :items,
-                  :merchants
+  @@all_items = []
+  @@all_merchants = []
+
+  def initialize(items, merchants)
+    @items = items
+    @merchants = MerchantRepo.new(@@all_merchants)
   end
 
   def self.from_csv(hash)
     load_items(hash)
     load_merchants(hash)
+    SalesEngine.new(@@all_items, @@all_merchants)
   end
 
   def self.load_items(hash)
     items = CSV.foreach "#{hash[:items]}", headers: true,
     header_converters: :symbol
     items.map do |row|
-      @items.push(row)
+      @@all_items.push(row)
     end
   end
 
@@ -26,7 +30,7 @@ class SalesEngine
     merchants = CSV.foreach "#{hash[:merchants]}", headers: true,
     header_converters: :symbol
     merchants.map do |row|
-      @merchants.push(row)
+      @@all_merchants.push(row)
     end
   end
 end
