@@ -2,13 +2,14 @@ require 'time'
 require 'bigdecimal/util'
 class Item
 
+  attr_accessor :name,
+                :description,
+                :unit_price,
+                :updated_at
   attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
               :merchant_id,
-              :created_at,
-              :updated_at
+              :created_at
+
 
   def initialize (data)
     @id          = data[:id]
@@ -22,6 +23,18 @@ class Item
 
   def unit_price_to_dollars
     @unit_price.to_f
+  end
+
+  def update_item_name (new_name)
+    @name = new_name
+  end
+
+  def update_item_description (new_description)
+    @description = new_description
+  end
+
+  def update_item_unit_price (new_unit_price)
+    @unit_price = new_unit_price
   end
 
 end
