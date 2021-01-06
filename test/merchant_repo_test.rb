@@ -29,4 +29,13 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal [mr.build_merchants[25]], merchant1
     assert_nil merchant0
   end
+
+  def test_find_by_name
+    mr = MerchantRepository.new
+    mr.build_merchants
+    merchant1 = mr.find_by_name("Shopin1901")
+    merchant2 = mr.find_by_name("NERDGEEKs")
+    assert_equal "Shopin1901", merchant1[0].name
+    assert_equal "NERDGEEKs".capitalize, merchant2[0].name
+  end
 end

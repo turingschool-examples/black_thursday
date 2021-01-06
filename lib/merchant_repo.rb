@@ -35,4 +35,15 @@ class MerchantRepository
       find_id(id)
     end
   end
+
+  def find_by_name(name)
+    found_name = []
+    build_merchants.each do |merchant|
+      # require 'pry'; binding.pry
+        if merchant.name.upcase == name.upcase
+          found_name << merchant
+        end
+    end
+    found_name
+  end
 end
