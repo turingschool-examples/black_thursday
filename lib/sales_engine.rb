@@ -4,6 +4,7 @@ require_relative './item_repository'
 class SalesEngine
   attr_reader :item_repository,
               :merchant_repository
+
   def initialize(args)
     @item_repository = ItemRepository.new(args[:items])
     @merchant_repository = MerchantRepository.new(args[:merchants])
