@@ -72,8 +72,8 @@ class MerchantRepositoryTest < MiniTest::Test
     mr = MerchantRepository.new
     mr.build_merchants
 
-    assert_equal "Shopin1901", mr.sort_by_id[0].name
-    assert_equal "Cjsdecor", mr.sort_by_id[-1].name
+    assert_equal "Shopin1901", mr.sort_by_id.name
+    assert_equal "Cjsdecor", mr.sort_by_id.name
   end
 
   def test_update_merchant
