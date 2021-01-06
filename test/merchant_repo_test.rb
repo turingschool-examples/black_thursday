@@ -19,6 +19,14 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal expect, mr.build_merchants[0].name
   end
 
+  def test_all
+    mr = MerchantRepository.new
+    mr.build_merchants
+
+    assert_equal mr.merchants, mr.all 
+  end
+
+
   def test_find_by_id
     #12334207,BloominScents,2004-02-26,2012-08-03
     mr = MerchantRepository.new
