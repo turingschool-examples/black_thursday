@@ -39,6 +39,19 @@ class ItemRepository
       item.description.downcase == description.downcase
     end
   end
+
+  def find_all_by_price(price)
+    price_fix = "#{price}00"
+    @items.find_all do |item|
+      item.unit_price == price_fix
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all do |item|
+      range.include?(item.unit_price.to_f / 100)
+    end
+  end
 end
 # row[:id], row[:name], row[:description], row[:unit_price], row[:created_at], row[:updated_at], row[:merchant_id]
 
