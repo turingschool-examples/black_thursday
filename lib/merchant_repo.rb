@@ -55,4 +55,14 @@ class MerchantRepository
     end
     all_names
   end
+
+  def create(attributes)
+    Merchant.new({id: (sort_by_id[-1].id + 1), name: attributes})
+  end
+
+  def sort_by_id
+    build_merchants.sort_by do |merchant|
+      merchant.id
+    end
+  end
 end

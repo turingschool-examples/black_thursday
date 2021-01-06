@@ -48,4 +48,21 @@ class MerchantRepositoryTest < MiniTest::Test
 
     assert_equal 7, merchant1.count
   end
+
+  def test_create_merchant
+    mr = MerchantRepository.new
+    mr.build_merchants
+    merchant1 = mr.create("alexascodetutoring")
+
+    assert_equal "alexascodetutoring", merchant1.name
+    assert_equal 12337412, merchant1.id
+  end
+
+  def test_sort_by_id
+    mr = MerchantRepository.new
+    mr.build_merchants
+
+    assert_equal "Shopin1901", mr.sort_by_id[0].name
+    assert_equal "Cjsdecor", mr.sort_by_id[-1].name
+  end
 end
