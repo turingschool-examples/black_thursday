@@ -1,5 +1,5 @@
-require_relative './test_helper'
-require './lib/sales_engine'
+require './test/test_helper'
+
 class ItemRepositoryTest < Minitest::Test
   def setup
     item_path = "./data/items.csv"

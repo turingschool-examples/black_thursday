@@ -1,7 +1,5 @@
-require_relative './test_helper'
-require './lib/sales_engine'
-require './lib/merchant'
-require './lib/merchant_repository'
+require './test/test_helper'
+
 class MerchantRepositoryTest < Minitest::Test
   def setup
     args_1 = {id: 12334105, name: "Shopin1901"}
