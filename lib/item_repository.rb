@@ -5,65 +5,80 @@ class ItemRepository
     @items = items
   end
 
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
   def all
     @items
   end
 
   def find_by_id(id)
     @items.find do |item|
-      item[:id].to_i == id
+      item.id.to_i == id
     end
   end
 
   def find_by_name(name)
     @items.find do |item|
-      item[:name] == name
+      item.name == name
     end
   end
 
   def find_all_with_description(description)
     @items.find_all do |item|
-      item[:description].downcase.include?(description.downcase)
+      item.description.downcase.include?(description.downcase)
     end
   end
 
   def find_all_by_price(price)
     @items.find_all do |item|
-      item[:unit_price].to_i == price
+      item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
-      range.include?(item[:unit_price].to_f)
+      range.include?(item.unit_price)
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
-      item[:merchant_id].to_i == merchant_id
+      item.merchant_id.to_i == merchant_id
     end
   end
 
   def max_item_id
     @items.max_by do |item|
-      item[:id]
-    end
+      item.id
+    end.id
   end
 
   def create(attributes)
-    attrributes[:id] = max_item_id + 1
-    attributes[:created_at] = Time.now.to_s
-    attributes[:updated_at] = Time.now.to_s
+    @items.push(Item.new({
+                          id: (max_item_id + 1),
+                          name: attributes[:name],
+                          description: attributes[:description],
+                          unit_price: attributes[:unit_price],
+                          merchant_id: attributes[:merchant_id],
+                          created_at: attributes[:created_at] = Time.now.to_s,
+                          updated_at: attributes[:updated_at] = Time.now.to_s
+                          }))
   end
 
   def update(id, attributes)
+    return nil if find_by_id(id).nil?
     attributes.each do |key, value|
-      if key == :name || key == :description || key == :unit_price
-        find_by_id(id)[key] = attributes[key]
+      if value == attributes[:name]
+        find_by_id(id).name = attributes[key]
+      elsif value == attributes[:description]
+        find_by_id(id).description = attributes[key]
+      elsif value == attributes[:unit_price]
+        find_by_id(id).unit_price = attributes[key]
       end
     end
-    find_by_id(id)[:udated_at] = Time.now.to_s
+    find_by_id(id).updated_at = Time.now
   end
 
   def delete(id)
