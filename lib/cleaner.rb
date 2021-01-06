@@ -1,12 +1,16 @@
 require 'CSV'
 
 class Cleaner
-  attr_accessor :merchant_csv,
-                :items_csv
 
-  def initialize(merchant_csv, items_csv)
-    @merchant_csv = merchant_csv
-    @items_csv = items_csv
+  # attr_accessor :csv
+
+  # :merchant_csv,
+  # :items_csv
+
+  def initialize
+    # @merchant_csv = merchant_csv
+    # @items_csv = items_csv
+    # @csv = csv
   end
 
   def open_csv(data)
