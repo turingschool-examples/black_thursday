@@ -40,4 +40,25 @@ class MerchantRepository
       merchant.name.downcase.include?(name.downcase)
     end
   end
+
+  def highest_id
+     @merchants.max do |merchant|
+      merchant.id
+    end
+  end
+
+  def create(attributes)
+    attributes[:id] = highest_id.id + 1
+    @merchants << Merchant.new(attributes)
+  end
+
+  def update(id, attributes)
+    update = find_by_id(id)
+    update.name = attributes
+  end
+
+  def delete(id)
+    deleted = find_by_id(id)
+    @merchants.delete(deleted)
+  end
 end
