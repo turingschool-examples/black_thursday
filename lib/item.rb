@@ -3,7 +3,6 @@ require 'time'
 class Item
   attr_reader   :id,
                 :merchant_id,
-                :merchant,
                 :created_at
 
   attr_accessor :unit_price,
