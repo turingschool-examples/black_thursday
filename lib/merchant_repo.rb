@@ -4,7 +4,7 @@ require './lib/merchant.rb'
 
 class MerchantRepository
   attr_accessor :merchants
-  
+
   # def all
     # parse the data seperate id and name - Generate merchant entries from cleaner class.
     #  iterate through that
@@ -29,7 +29,7 @@ class MerchantRepository
   end
 
   def find_id(id)
-    build_merchants.select do |merchant|
+    @merchants.select do |merchant|
           merchant.id == id
     end
   end
@@ -72,5 +72,9 @@ class MerchantRepository
     build_merchants.sort_by do |merchant|
       merchant.id
     end
+  end
+
+  def update(id, attributes)
+    find_by_id(id)[0].name = attributes
   end
 end
