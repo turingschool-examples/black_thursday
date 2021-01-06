@@ -1,5 +1,7 @@
 require_relative './test_helper'
 require './lib/sales_engine'
+require 'bigdecimal'
+require 'time'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
@@ -98,6 +100,22 @@ class ItemRepositoryTest < Minitest::Test
 
     result_2 = @ir.find_all_by_merchant_id(12336020)
 
-    assert_equal 2, result_2.length 
+    assert_equal 2, result_2.length
+  end
+
+  def test_create_creates_a_new_item_instance
+    attributes = {
+      name: "Capita Defenders of Awesome 2018",
+      description: "This board both rips and shreds",
+      unit_price: BigDecimal.new(399.99, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+      }
+
+    result_1 = @ir.create(attributes)
+    require "pry"; binding.pry
+    assert_equal 263567475, result_1[-1].id.to_i 
+    assert_equal "Capita Defenders of Awesome 2018", result_1[-1].name
   end
 end
