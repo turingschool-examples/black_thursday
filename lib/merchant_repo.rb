@@ -9,7 +9,7 @@ class MerchantRepository
     #  iterate through that
     #for each line attach data to new merchant object
 
-  def initialize(file = '/Users/alexamsmyth/turing/1mod/projects/black_thursday/data/merchants.csv')
+  def initialize(file = './data/merchants.csv')
     @file = file
     @merchants = []
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
