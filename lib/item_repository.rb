@@ -1,5 +1,3 @@
-# require_relative 'sales_engine'
-
 class ItemRepository
   attr_reader :items
 
@@ -66,7 +64,7 @@ class ItemRepository
                           merchant_id: attributes[:merchant_id],
                           created_at: attributes[:created_at] = Time.now.to_s,
                           updated_at: attributes[:updated_at] = Time.now.to_s
-                        }))
+                          }))
   end
 
   def update(id, attributes)

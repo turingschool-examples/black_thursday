@@ -8,8 +8,8 @@ class SalesEngine
   attr_reader :items, :merchants
 
   def initialize(arg1)
-  @items = things(CSV.readlines(arg1[:items], headers: true, header_converters: :symbol))
-  @merchants = people(CSV.readlines(arg1[:merchants], headers: true, header_converters: :symbol))
+    @items = things(CSV.readlines(arg1[:items], headers: true, header_converters: :symbol))
+    @merchants = people(CSV.readlines(arg1[:merchants], headers: true, header_converters: :symbol))
   end
 
   def self.from_csv(arg1)

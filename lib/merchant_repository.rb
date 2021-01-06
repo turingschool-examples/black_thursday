@@ -1,5 +1,4 @@
 require 'time'
-require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
@@ -8,12 +7,6 @@ class MerchantRepository
   def initialize(merchants)
     @merchants = merchants
   end
-
-  # def to_array(info)
-  #   info.each do |row|
-  #     Merchant.new(row)
-  #   end
-  # end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
@@ -48,14 +41,6 @@ class MerchantRepository
   end
 
   def create(attributes) #needs test
-    # could this be inherited from another method?
-    # wouldn't this call for Merchant.new(attributes)?
-    # attributes[:id] = max_item_id + 1
-    # attributes[:name] = name.to_s
-    # attributes[:created_at] = Time.strftime("%Y-%m-%d")
-    # attributes[:updated_at] = Time.now.to_s #replace with above?
-
-
     @merchants.push(Merchant.new({
                                   id: max_merchant_id + 1,
                                   name: attributes[:name],
