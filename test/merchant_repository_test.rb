@@ -59,4 +59,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal '12334141', merchant_repo.find_by_name('jejum')[1].id
     assert_equal nil, merchant_repo.find_by_name('Caryn')
   end
+
+  def test_update
+    merchant_repo = MerchantRepository.new(@dummy_path)
+    merchant_repo.update("12334115", "New Name")
+    assert_equal "12334115", merchant_repo.all["12334115"].id
+    assert_equal "New Name", merchant_repo.all["12334115"].name
+  end
+
 end

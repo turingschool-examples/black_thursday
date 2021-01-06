@@ -47,4 +47,8 @@ class MerchantRepository
     end
   end
 
+  def update(id, new_name)
+    @merchant_info[id] = Merchant.new({:id => id, :name => new_name})
+  end
+
 end
