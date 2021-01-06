@@ -8,15 +8,15 @@ class SalesEngine
   attr_reader :items, :merchants
 
   def initialize(arg1)
-    @items = things(CSV.readlines(arg1[:items], headers: true, header_converters: :symbol))
-    @merchants = people(CSV.readlines(arg1[:merchants], headers: true, header_converters: :symbol))
+    @items = item_repository(CSV.readlines(arg1[:items], headers: true, header_converters: :symbol))
+    @merchants = merchant_repository(CSV.readlines(arg1[:merchants], headers: true, header_converters: :symbol))
   end
 
   def self.from_csv(arg1)
     new(arg1)
   end
 
-  def people(file)
+  def merchant_repository(file)
     info = []
     file.each do |row|
       info.push(Merchant.new(row))
@@ -24,7 +24,7 @@ class SalesEngine
     MerchantRepository.new(info)
   end
 
-  def things(file)
+  def item_repository(file)
     info = []
     file.each do |row|
       info.push(Item.new(row))
