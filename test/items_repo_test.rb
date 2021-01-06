@@ -4,7 +4,7 @@ require './test/test_helper'
 class ItemsRepoTest < Minitest::Test
 
   def setup
-    @repo = ItemsRepo.new("./data/items.csv")
+    # @repo = ItemsRepo.new("./data/items.csv")
     @dummy_repo = ItemsRepo.new("./dummy_data/dummy_items.csv")
   end
 
@@ -61,10 +61,25 @@ class ItemsRepoTest < Minitest::Test
   	assert_equal [], actual_empty
   end
 
+  def test_update_item
+    @dummy_repo.find_by_name("amazon")
+    assert_equal "amazon", @dummy_repo.all.values[2].name
+    @dummy_repo.find_by_price(4500)
+    assert_equal 4500, @dummy_repo.all.values[2].unit_price
+    @dummy_repo.find_all_with_description("sell things")
+    assert_equal "we sell things", @dummy_repo.all.values[2].description
+    @dummy_repo.update({id: "567", name: "ebay", description: "we use to sell things", unit_price: 6400})
+    @dummy_repo.find_by_name("ebay")
+    assert_equal "ebay", @dummy_repo.all.values[2].name
+    @dummy_repo.find_by_price(6400)
+    assert_equal 6400, @dummy_repo.all.values[2].unit_price
+
+
   def test_it_can_find_merchant_id
   	actual = @dummy_repo.find_all_by_merchant_id("1").flatten
   	assert_equal "1",actual[1].merchant_id
   	assert_instance_of Item, actual[1]
+
   end
 
 end
