@@ -22,9 +22,15 @@ class ItemRepository
     @items.length
   end
 
-  def find_by_id(arg)
+  def find_by_id(id)
     @items.find do |item|
-      item.id == arg.to_s
+      item.id == id.to_s
+    end
+  end
+
+  def find_by_name(name)
+    @items.find do |item|
+      item.name == name
     end
   end
 end
