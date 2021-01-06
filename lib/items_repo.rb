@@ -73,13 +73,32 @@ class ItemsRepo
     item.updated_at = Time.now
   end
 
-end
-
   def find_all_by_merchant_id(id)
   	all.find_all do |key,value|
   		value.merchant_id == id
   	end
   end
+
+  def create(attributes)
+    max_id = (all.values.max_by{|item| item.id}).id.to_i
+    next_id = max_id + 1
+    @items[attributes[:merchant_id]] = Item.new({:id => next_id.to_s,
+                        :name => attributes[:name].downcase,
+                        :description => attributes[:description].downcase,
+                        :unit_price => attributes[:unit_price],
+                        :merchant_id => attributes[:merchant_id],
+                        :created_at => attributes[:created_at],
+                        :updated_at => attributes[:updated_at]
+                       })
+  end
+
+  def delete(arg_id)
+  	index = arg_id.to_s
+  	all.delete_if do |key, item| 
+  		item.id == index
+  	end
+  end
+
 
 end
 
