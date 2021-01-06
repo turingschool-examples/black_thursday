@@ -1,92 +1,116 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'mocha/minitest'
 require './lib/merchant_repository.rb'
 
 class MerchantRepositoryTest < Minitest::Test
+  def setup
+    @merchant1 = Merchant.new({
+      id: '1',
+      name: 'Merchant Number 1',
+      created_at: '2007-12-10',
+      updated_at: '2008-12-04',
+    })
+    @merchant2 = Merchant.new({
+      id: '2',
+      name: 'Merchant Number 2',
+      created_at: '2009-12-10',
+      updated_at: '2010-12-04',
+    })
+    @merchant3 = Merchant.new({
+      id: '3',
+      name: 'Merchant Number 3',
+      created_at: '2011-12-10',
+      updated_at: '2012-12-04',
+    })
+    @merchant4 = Merchant.new({
+      id: '4',
+      name: 'Merchant Number 4',
+      created_at: '2013-12-10',
+      updated_at: '2014-12-04',
+    })
+
+    @sample_data = [@merchant1, @merchant2, @merchant3, @merchant4]
+  end
+
   def test_it_exists
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
+    mr = MerchantRepository.new(@sample_data)
 
     assert_instance_of MerchantRepository, mr
   end
 
-  def test_all #needs to be an array of all merchants
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
+  def test_it_can_inspect
+    mr = MerchantRepository.new(@sample_data)
 
-    assert_instance_of CSV::Table, mr.all
-    assert_equal 475, mr.all.count
-
+    assert_equal "#<MerchantRepository 4 rows>", mr.inspect
   end
 
-  def test_find_by_invalid_id
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
+  def test_all
+    mr = MerchantRepository.new(@sample_data)
 
-    assert_nil mr.find_by_id(000)
+    assert_instance_of Array, mr.all
+    assert_equal [@merchant1, @merchant2, @merchant3, @merchant4], mr.all
   end
 
-  def test_find_by_valid_id
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
-    m = mr.merchants.first
+  def test_find_by_id
+    mr = MerchantRepository.new(@sample_data)
 
-    assert_equal m, mr.find_by_id(12334105)
-  end
-
-  def test_find_by_non_existent_name
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
-
-
-    assert_nil mr.find_by_name("PaidPiper")
+    assert_nil mr.find_by_id(5)
+    assert_equal @merchant2, mr.find_by_id(2)
   end
 
   def test_find_by_name
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
-    m = mr.merchants.first
-    m1 = mr.merchants[7]
+    mr = MerchantRepository.new(@sample_data)
 
-    assert_equal m, mr.find_by_name("Shopin1901")
-    assert_equal m1, mr.find_by_name("jejum")
+    assert_nil mr.find_by_name("Merchant Number 5")
+    assert_equal @merchant1, mr.find_by_name("Merchant Number 1")
   end
 
-  def test_find_all_by_name #returns either [] of one or more matches which contain the supplied name fragment, case insensitive.
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
-    m = mr.merchants[15]
-    m1 = mr.merchants[45]
-    m2 = mr.merchants[119]
-    m3 = mr.merchants[143]
-    m4 = mr.merchants[172]
+  def test_find_all_by_name
+    mr = MerchantRepository.new(@sample_data)
 
-    assert_equal [m, m1, m2, m3, m4], mr.find_all_by_name("just")
+    assert_equal [@merchant1, @merchant2, @merchant3, @merchant4], mr.find_all_by_name("Merchant")
+    assert_equal [@merchant3], mr.find_all_by_name("Number 3")
   end
 
   def test_max_merchant_id
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
+    mr = MerchantRepository.new(@sample_data)
 
-    assert_equal '12337411', mr.max_merchant_id[:id]
+    assert_equal 4, mr.max_merchant_id
+    assert_equal @merchant4, mr.find_by_id(mr.max_merchant_id)
   end
 
-  def test_create_new_merchant #create a new Merchant instance with the provided attributes. The new Merchant’s id should be the current highest Merchant id plus 1.
-    skip
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
-    m = mock("randomProductions")
+  def test_create_new_merchant
+    mr = MerchantRepository.new(@sample_data)
+    @time = Time.now
+    attributes = {
+      id: '5',
+      name: 'Merchant Number 5',
+      created_at: @time,
+      updated_at: @time,
+    }
+    mr.create(attributes)
 
-    assert_equal m, mr.create("randomProductions")
+    assert_equal 'Merchant Number 5', mr.find_by_id(5).name
+    assert_equal [@merchant1, @merchant2, @merchant3, @merchant4, mr.find_by_id(5)], mr.all
   end
 
   def test_update_with_id_and_attributes
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
-    mr.update(12334105, "Shoping1901")
-    m1 = mr.merchants.first
+    mr = MerchantRepository.new(@sample_data)
+    attributes = {name: "This is now a new name"}
+    mr.update(2, attributes)
 
-    assert_equal "Shoping1901", m1[:name]
+
+    assert_equal "This is now a new name", @merchant2.name
   end
 
-  def test_delete_with_id #delete the Merchant instance with the corresponding id
-    skip
-    mr = MerchantRepository.new(CSV.readlines("./data/merchants.csv", headers: true, header_converters: :symbol))
-    # m1 = mr.merchants.first
+  def test_delete_with_id
+    mr = MerchantRepository.new(@sample_data)
+    mr.delete(4)
 
-    mr.delete(12334105)
-
-    assert_nil mr.find_by_id(12334105)
+    assert_nil mr.find_by_id(4)
+    assert_equal [@merchant1, @merchant2, @merchant3], mr.all
   end
 end
