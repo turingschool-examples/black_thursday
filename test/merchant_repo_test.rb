@@ -67,4 +67,30 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal "Shopin1901", mr.sort_by_id[0].name
     assert_equal "Cjsdecor", mr.sort_by_id[-1].name
   end
+
+  def test_update_merchant
+    mr = MerchantRepository.new
+    mr.build_merchants
+    merchant1 = mr.create("alexascodetutoring")
+    mr.update(merchant1.id, "Brainpeeps")
+    mr.update(12334123, "You did it!")
+
+    assert_equal "Brainpeeps", merchant1.name
+    assert_equal 12337412, merchant1.id
+    assert_equal 476, mr.merchants.count
+    assert_equal true, mr.merchants.include?(merchant1)
+    assert_equal "You did it!", (mr.update(12334123, "You did it!"))
+  end
+
+  def test_delete_merchant
+    mr = MerchantRepository.new
+    mr.build_merchants
+    merchant1 = mr.create("alexascodetutoring")
+    mr.delete(merchant1.id)
+    mr.delete(12334123)
+
+    assert_nil mr.find_by_id(12337412)
+    assert_nil mr.find_by_id(12334123)
+  end
+
 end
