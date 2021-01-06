@@ -52,24 +52,10 @@ class MerchantRepository
     end
   end
 
-  # def find_by_name(name)
-  #   found_name = []
-  #   build_merchants.each do |merchant|
-  #       if merchant.name.upcase == name.upcase
-  #         found_name << merchant
-  #       end
-  #   end
-  #   found_name
-  # end
-
   def find_all_by_name(search_term)
-    all_names = []
-    build_merchants.each do |merchant|
-      if merchant.name.upcase.include?(search_term.upcase)
-        all_names << merchant
-      end
+    @merchants.find_all do |merchant|
+      merchant.name.upcase.include?(search_term.upcase)
     end
-    all_names
   end
 
   def create(attributes)
