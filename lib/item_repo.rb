@@ -47,4 +47,10 @@ class ItemRepository
     item_name[0]
   end
 
+  def find_all_with_description(description)
+    item_objects(@items_csv).find_all do |row|
+      row.description.downcase == description.downcase
+    end
+  end
+
 end
