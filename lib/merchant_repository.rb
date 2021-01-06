@@ -51,4 +51,10 @@ class MerchantRepository
     @merchant_info[id] = Merchant.new({:id => id, :name => new_name})
   end
 
+  def delete(id)
+    @merchant_info.delete_if do |key, value|
+      key == id
+    end
+  end
+
 end

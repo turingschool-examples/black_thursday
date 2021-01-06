@@ -67,4 +67,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "New Name", merchant_repo.all["12334115"].name
   end
 
+  def test_delete
+    merchant_repo = MerchantRepository.new(@dummy_path)
+    merchant_repo.delete("12334115")
+    require "pry"; binding.pry
+    assert_equal false, merchant_repo.all.has_key?("12334115")
+  end
+
 end
