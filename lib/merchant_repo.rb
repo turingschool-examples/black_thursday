@@ -5,11 +5,6 @@ require './lib/merchant.rb'
 class MerchantRepository
   attr_accessor :merchants
 
-  # def all
-    # parse the data seperate id and name - Generate merchant entries from cleaner class.
-    #  iterate through that
-    #for each line attach data to new merchant object
-
   def initialize(file = './data/merchants.csv')
     @file = file
     @merchants = []
@@ -65,7 +60,7 @@ class MerchantRepository
   end
 
   def sort_by_id
-    build_merchants.sort_by do |merchant|
+    @merchants.sort_by do |merchant|
       merchant.id
     end
   end
