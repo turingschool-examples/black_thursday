@@ -52,6 +52,12 @@ class ItemRepository
       range.include?(item.unit_price.to_f / 100)
     end
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all do |item|
+      item.merchant_id == merchant_id.to_s
+    end
+  end
 end
 # row[:id], row[:name], row[:description], row[:unit_price], row[:created_at], row[:updated_at], row[:merchant_id]
 
