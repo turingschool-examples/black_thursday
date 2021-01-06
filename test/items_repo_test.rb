@@ -5,6 +5,7 @@ class ItemsRepoTest < Minitest::Test
 
   def setup
     @repo = ItemsRepo.new("./data/items.csv")
+    @dummy_repo = ItemsRepo.new("./dummy_data/dummy_items.csv")
   end
 
   def test_it_is
@@ -49,5 +50,14 @@ class ItemsRepoTest < Minitest::Test
   	data_set.each do |item|
   		assert_equal true, item.description.include?("size") || item.description.include?("3m")
   	end
+  end
+
+  def test_it_can_find_by_price_range
+  	actual = @dummy_repo.find_all_by_price_in_range(100..60000)
+  	actual_empty = @dummy_repo.find_all_by_price_in_range(1000000..2000000)
+  	assert_equal 3, actual.count
+  	assert_equal true, actual.all?{|item| item.class == Item}
+  	assert_equal 0, actual_empty.count
+  	assert_equal [], actual_empty
   end
 end
