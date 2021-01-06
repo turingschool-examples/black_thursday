@@ -74,6 +74,12 @@ class ItemsRepoTest < Minitest::Test
     @dummy_repo.find_by_price(6400)
     assert_equal 6400, @dummy_repo.all.values[2].unit_price
 
+
+  def test_it_can_find_merchant_id
+  	actual = @dummy_repo.find_all_by_merchant_id("1").flatten
+  	assert_equal "1",actual[1].merchant_id
+  	assert_instance_of Item, actual[1]
+
   end
 
 end

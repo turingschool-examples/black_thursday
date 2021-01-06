@@ -60,6 +60,7 @@ class ItemsRepo
   	end
   end
 
+
   def update (update_item)
     name = update_item[:name]
     description = update_item[:description]
@@ -73,3 +74,12 @@ class ItemsRepo
   end
 
 end
+
+  def find_all_by_merchant_id(id)
+  	all.find_all do |key,value|
+  		value.merchant_id == id
+  	end
+  end
+
+end
+
