@@ -33,6 +33,12 @@ class ItemRepository
       item.name == name
     end
   end
+
+  def find_all_with_description(description)
+    @items.find_all do |item|
+      item.description.downcase == description.downcase
+    end
+  end
 end
 # row[:id], row[:name], row[:description], row[:unit_price], row[:created_at], row[:updated_at], row[:merchant_id]
 
