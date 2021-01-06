@@ -1,5 +1,6 @@
 require 'time'
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :merchants
@@ -8,48 +9,67 @@ class MerchantRepository
     @merchants = merchants
   end
 
+  # def to_array(info)
+  #   info.each do |row|
+  #     Merchant.new(row)
+  #   end
+  # end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     merchants
   end
 
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant[:id].to_i == id
+      merchant.id.to_i == id
     end
   end
 
   def find_by_name(name)
     merchants.find do |merchant|
-      merchant[:name] == name
+      merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
     merchants.find_all do |merchant|
-      merchant[:name].downcase.include?(name.downcase)
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
   def max_merchant_id
     merchants.max_by do |merchant|
-      merchant[:id]
-    end
+      merchant.id
+    end.id
   end
 
   def create(attributes) #needs test
     # could this be inherited from another method?
     # wouldn't this call for Merchant.new(attributes)?
-    attributes[:id] = max_item_id + 1
-    attributes[:name] = name.to_s
-    attributes[:created_at] = Time.strftime("%Y-%m-%d")
-    attributes[:updated_at] = Time.now.to_s #replace with above?
+    # attributes[:id] = max_item_id + 1
+    # attributes[:name] = name.to_s
+    # attributes[:created_at] = Time.strftime("%Y-%m-%d")
+    # attributes[:updated_at] = Time.now.to_s #replace with above?
+
+
+    @merchants.push(Merchant.new({
+                                  id: max_merchant_id + 1,
+                                  name: attributes[:name],
+                                  created_at: Time.now, #lookinto sriptime
+                                  updated_at: Time.now
+                                  }))
   end
 
   def update(id, attribute)
-    find_by_id(id)[:name] = attribute
+    return nil if find_by_id(id).nil?
+    find_by_id(id).name = attribute[:name]
   end
 
   def delete(id)
-    merchants.delete(id)
+    merchants.delete(find_by_id(id))
   end
 end
