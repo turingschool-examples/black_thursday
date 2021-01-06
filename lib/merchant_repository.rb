@@ -8,7 +8,7 @@ class MerchantRepository
   end
 
   def populate_repo
-    merchant = Hash.new{|h,k| hsh[key] = []}
+    merchant = Hash.new{|h,k| h[k] = []}
     merchant_data = CSV.open @data, headers: true, header_converters: :symbol
     merchants = merchant_data.map do |row|
         merchant[row[:id]] = Merchant.new({:id => row[:id], :name => row[:name]})
@@ -27,22 +27,23 @@ class MerchantRepository
   end
 
   def new_id
-    max_id.id.to_i + 1
+    max_id[0].to_i + 1
   end
 
   def create(new_name)
-    all << Merchant.new({:id => new_id.to_s, :name => new_name})
+    @merchant_info[:new_id.to_s] = Merchant.new({:id => new_id.to_s, :name => new_name})
   end
 
   def find_by_id(id)
     all.find do |merchant|
-      merchant.id == id.to_s
+      # require "pry"; binding.pry
+      merchant[0] == id.to_s
     end
   end
 
   def find_by_name(name)
     all.find do |merchant|
-      merchant.name.upcase == name.upcase
+      merchant[1].name.upcase == name.upcase
     end
   end
 
