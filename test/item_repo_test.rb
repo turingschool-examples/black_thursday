@@ -31,4 +31,10 @@ class ItemRepositoryTest < Minitest::Test
     # require 'pry'; binding.pry
     assert_equal "Free standing Woden letters", @item_repository.item_objects(csv)[3].name
   end
+
+  def test_it_finds_item_by_name
+    assert_equal "Puppy blankie", @item_repository.find_by_name("Puppy blankie").name
+    assert_equal 263538760, @item_repository.find_by_name("Puppy blankie").id
+    assert_equal nil, @item_repository.find_by_name("SalesEngine")
+  end
 end
