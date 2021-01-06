@@ -57,4 +57,47 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 0, result_3.length
   end
+
+  def test_find_all_by_price_finds_all_items_matching_given_price
+    result_1 = @ir.find_all_by_price(25)
+
+    assert_equal 79, result_1.length
+
+    result_2 = @ir.find_all_by_price(10)
+
+    assert_equal 63, result_2.length
+
+    result_3 = @ir.find_all_by_price(20000)
+
+    assert_equal 0, result_3.length
+  end
+
+  def test_find_all_by_price_in_range_finds_all_items_matching_given_price_range
+    result_1 = @ir.find_all_by_price_in_range(1000.00..1500.00)
+
+    assert_equal 19, result_1.length
+
+    result_2 = @ir.find_all_by_price_in_range(10.00..150.00)
+
+    assert_equal 910, result_2.length
+
+    result_3 = @ir.find_all_by_price_in_range(10.00..15.00)
+
+    assert_equal 205, result_3.length
+
+    result_4 = @ir.find_all_by_price_in_range(0.00..10.00)
+
+    assert_equal 302, result_4.length
+  end
+
+  def test_find_all_by_merchant_id_returns_array_of_items_associated_with_given_merchant_id
+
+    result_1 = @ir.find_all_by_merchant_id(12334326)
+
+    assert_equal 6, result_1.length
+
+    result_2 = @ir.find_all_by_merchant_id(12336020)
+
+    assert_equal 2, result_2.length 
+  end
 end
