@@ -14,27 +14,4 @@ class SalesEngine
     SalesEngine.new(locations)
   end
 
-  # def read_merchant(locations)
-  #   CSV.foreach(locations[:merchants], headers: :true , header_converters: :symbol) do |row|
-  #      # ;binding.pry
-  #
-  #     # Merchant.new(row)
-  #
-  #     @merchants << Merchant.new(row)
-  #
-  #
-  #   # first_row = CSV.read(locations) do |line|
-  #   # rows.map do |row|
-  #
-  #   end
-  #   ;binding.pry
-  #   return @merchants
-  #
-  # end
-
-  def all
-    puts @merchants
-  end
-
-
 end

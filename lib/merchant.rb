@@ -3,7 +3,7 @@ class Merchant
               :name
 
   def initialize(info)
-    @id = info[:id]
+    @id = info[:id].to_i
     @name = info[:name]
   end
 end
