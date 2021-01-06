@@ -1,8 +1,19 @@
+require 'csv'
+
 class MerchantRepo
   attr_reader :merchant_list
 
-  def initialize(merchant_list)
-    @merchant_list = merchant_list
+  def initialize(input)
+    make_merchants(input)
+  end
+
+  def make_merchants(input)
+    merchants = CSV.open(input, headers: true,
+    header_converters: :symbol)
+
+    @merchant_list = merchants.map do |merchant|
+      Merchant.new(merchant)
+    end
   end
 
   def all
