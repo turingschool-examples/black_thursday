@@ -24,7 +24,7 @@ class MerchantRepository
 
   def find_by_name(name)
     merchants.find do |merchant|
-      merchant.name.casecmp(name) == 0
+      merchant.name.casecmp(name).zero?
     end
   end
 
