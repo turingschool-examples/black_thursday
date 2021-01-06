@@ -12,13 +12,17 @@ class ItemsRepoTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_instance_of Array , @repo.items
+    assert_instance_of Hash , @repo.items
+  end
+
+  def test_it_can_populate
+  	assert_instance_of Hash, @repo.populate_items
   end
 
   def test_it_can_gather_all_items
-    assert_instance_of Item, @repo.all[0]
-    assert_instance_of Item, @repo.all[-1]
-    assert_equal 1367, @repo.all.length
+    assert_instance_of Item, @repo.all.values[0]
+    assert_instance_of Item, @repo.all.values[-1]
+    assert_equal 1367, @repo.all.values.length
   end
 
   def test_it_can_find_by_id
@@ -36,5 +40,14 @@ class ItemsRepoTest < Minitest::Test
 
   def test_it_can_find_by_name
   	assert_equal "263399475", @repo.find_by_name("Ironstone Pitcher (Small)").id
+  end
+
+  def test_it_can_find_by_description
+  	data_set = @repo.find_all_with_description("Size 3m")
+
+  	sub_str = ["Size","3m"]
+  	data_set.each do |item|
+  		assert_equal true, item.description.include?("size") || item.description.include?("3m")
+  	end
   end
 end
