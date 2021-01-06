@@ -1,6 +1,3 @@
-# require "./big_decimal"
-# require 'time'
-
 class Item
   attr_reader :id,
               :name,
@@ -11,13 +8,14 @@ class Item
               :merchant_id
 
   def initialize(args)
-    @id = args[:id]
-    @name = args[:name]
-    @description  = args[:description]
-    @unit_price = args[:unit_price]
-    @created_at = args[:created_at]
-    @updated_at = args[:updated_at]
-    @merchant_id = args[:merchant_id]
+    @args = args
+    @id = args[:id].to_s 
+    @name = args[:name].to_s
+    @description  = args[:description].to_s
+    @unit_price = args[:unit_price].to_s
+    @created_at = args[:created_at].to_s
+    @updated_at = args[:updated_at].to_s
+    @merchant_id = args[:merchant_id].to_s
   end
 
 
