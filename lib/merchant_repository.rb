@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 require_relative 'merchant'
 
 class MerchantRepository
@@ -13,29 +14,29 @@ class MerchantRepository
   end
 
   def all
-    merchants
+    @merchants
   end
 
   def find_by_id(id)
-    merchants.find do |merchant|
+    @merchants.find do |merchant|
       merchant.id.to_i == id
     end
   end
 
   def find_by_name(name)
-    merchants.find do |merchant|
+    @merchants.find do |merchant|
       merchant.name.casecmp(name).zero?
     end
   end
 
   def find_all_by_name(name)
-    merchants.find_all do |merchant|
+    @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end
 
   def max_merchant_id
-    merchants.max_by do |merchant|
+    @merchants.max_by do |merchant|
       merchant.id
     end.id
   end
@@ -55,6 +56,6 @@ class MerchantRepository
   end
 
   def delete(id)
-    merchants.delete(find_by_id(id))
+    @merchants.delete(find_by_id(id))
   end
 end
