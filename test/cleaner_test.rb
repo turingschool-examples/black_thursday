@@ -7,18 +7,15 @@ class CleanerTest < MiniTest::Test
   def setup
     @merchant_csv = "./data/merchants.csv"
     @items_csv = "./data/items.csv"
-    @cleaner = Cleaner.new(@merchant_csv, @items_csv)
+    @cleaner = Cleaner.new
     @merchant_data = CSV.open(@merchant_csv, headers: true, header_converters: :symbol)
     @items_data = CSV.open(@items_csv, headers: true, header_converters: :symbol)
     @merchant_rows = @merchant_data.map { |row| row }
     @item_rows = @items_data.map { |row| row }
   end
 
-  def test_it_exists_with_attributes
+  def test_it_exists
     assert_instance_of Cleaner, @cleaner
-
-    assert_equal @merchant_csv, @cleaner.merchant_csv
-    assert_equal @items_csv, @cleaner.items_csv
   end
 
   def test_it_can_open_data
