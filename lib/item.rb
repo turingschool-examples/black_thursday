@@ -23,5 +23,7 @@ class Item
   def unit_price_to_dollars
     unit_price.round * 0.01
   end
+
+  
 end
 

@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
+require './lib/cleaner'
 
 class ItemTest < Minitest::Test
   def setup
@@ -13,6 +14,7 @@ class ItemTest < Minitest::Test
       :updated_at  => 12,
       :merchant_id => 2
       })
+      @cleaner = Cleaner.new
   end
 
   def test_it_exists_with_attributes
@@ -29,4 +31,6 @@ class ItemTest < Minitest::Test
   def test_unit_price_to_dollars
     assert_equal 0.11, @item.unit_price_to_dollars
   end
+
+  
 end
