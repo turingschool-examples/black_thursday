@@ -80,4 +80,13 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal true, mr.merchants.include?(merchant1)
   end
 
+  def test_delete_merchant
+    mr = MerchantRepository.new
+    mr.build_merchants
+    merchant1 = mr.create("alexascodetutoring")
+    mr.delete(merchant1.id)
+
+    assert_nil mr.find_by_id(12337412)
+  end
+
 end
