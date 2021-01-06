@@ -3,10 +3,7 @@ SimpleCov.start
 
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'mocha/minitest'
-require './lib/merchant'
 require './lib/merchant_repository.rb'
-require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
@@ -42,6 +39,12 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new(@sample_data)
 
     assert_instance_of MerchantRepository, mr
+  end
+
+  def test_it_can_inspect
+    mr = MerchantRepository.new(@sample_data)
+
+    assert_equal "#<MerchantRepository 4 rows>", mr.inspect
   end
 
   def test_all
