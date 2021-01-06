@@ -17,13 +17,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_has_attributes
     merchant_repo = MerchantRepository.new(@dummy_path)
-    assert_equal 5, merchant_repo.all.count
     assert_equal @dummy_path, merchant_repo.data
+    assert_instance_of Hash, merchant_repo.merchant_info
   end
 
   def test_populate_repo
     merchant_repo = MerchantRepository.new(@dummy_path)
-    assert_equal 5, merchant_repo.all.count
+    assert_equal 5, merchant_repo.merchant_info.count
   end
 
   def test_all
@@ -59,13 +59,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334142, merchant_repo.new_id
   end
 
-  # def test_create
-  #   merchant_repo = MerchantRepository.new(@dummy_path)
-  #   actual = merchant_repo.create('Hank')
-  #   assert_equal merchant_repo.max_id[0].to_i + 1, merchant_repo.new_id
-  #   assert_equal 'Hank', merchant_repo.all.values.last.name
-  # end
-
   def test_create
     merchant_repo = MerchantRepository.new(@dummy_path)
     actual = merchant_repo.create('Hank')
@@ -73,25 +66,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'Hank', merchant_repo.merchant_info.values.last.name
   end
 
-  # def test_update
-  #   merchant_repo = MerchantRepository.new(@dummy_path)
-  #   merchant_repo.update("12334115", "New Name")
-  #   assert_equal "12334115", merchant_repo.all["12334115"].id
-  #   assert_equal "New Name", merchant_repo.all["12334115"].name
-  # end
-
   def test_update
     merchant_repo = MerchantRepository.new(@dummy_path)
     merchant_repo.update("12334115", "New Name")
     assert_equal "12334115", merchant_repo.merchant_info["12334115"].id
     assert_equal "New Name", merchant_repo.merchant_info["12334115"].name
   end
-
-  # def test_delete
-  #   merchant_repo = MerchantRepository.new(@dummy_path)
-  #   merchant_repo.delete("12334115")
-  #   assert_equal false, merchant_repo.all.has_key?("12334115")
-  # end
 
   def test_delete
     merchant_repo = MerchantRepository.new(@dummy_path)
