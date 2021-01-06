@@ -3,7 +3,8 @@ require './test/test_helper'
 class MerchantTest < Minitest::Test
   def setup
     args = {id: 1, name: "Kasey's Pizza"}
-    @merchant = Merchant.new(args[:id], args[:name])
+    #parent = mock('parent')
+    @merchant = Merchant.new(args[:id], args[:name]) #parent)
   end
 
   def test_it_exists

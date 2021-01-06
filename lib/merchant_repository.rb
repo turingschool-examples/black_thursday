@@ -4,8 +4,9 @@ require "./lib/merchant"
 class MerchantRepository
   attr_reader :filename,
               :merchants
-  def initialize(filename)
+  def initialize(filename) #parent)
     @filename = filename
+    #@parent = parent
     @merchants = Array.new
     generate_merchants(filename)
   end
@@ -13,7 +14,7 @@ class MerchantRepository
   def generate_merchants(filename)
     merchants = CSV.open filename, headers: true, header_converters: :symbol
     merchants.each do |row|
-      @merchants << Merchant.new(row[:id], row[:name])
+      @merchants << Merchant.new(row[:id], row[:name])#, self)
     end
   end
 

@@ -5,17 +5,17 @@ class SalesEngine
   attr_reader :item_repository,
               :merchant_repository
   def initialize(args)
-    @item_repository = ItemRepository.new(args[:items])
-    @merchant_repository = MerchantRepository.new(args[:merchants])
+    @item_repository = ItemRepository.new(args[:items])#, self)
+    @merchant_repository = MerchantRepository.new(args[:merchants])#, self)
   end
 end
 
-  # def from_csv(args)
-  #   args.each do |key, value|
+  # def self.from_csv(args)
+  #   args.each do |key, filepath|
   #     if key == :items
-  #       @item_repository = Item_repository.new(value)
+  #       @item_repository = Item_repository.new(filepath, self)
   #     else key == :merchants
-  #       @merchant_repository = MerchantRepository.new(value)
+  #       @merchant_repository = MerchantRepository.new(filepath, value)
   #     end
   #   end
   # end

@@ -4,7 +4,8 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
     merchant_path = "./data/merchants.csv"
     arguments = merchant_path
-    @mr = MerchantRepository.new(arguments)
+    #parent = mock("parent")
+    @mr = MerchantRepository.new(arguments) #parent)
   end
 
   def test_it_exists_and_has_attributes
