@@ -56,6 +56,8 @@ class MerchantRepositoryTest < MiniTest::Test
 
     assert_equal "alexascodetutoring", merchant1.name
     assert_equal 12337412, merchant1.id
+    assert_equal 476, mr.merchants.count
+    assert_equal true, mr.merchants.include?(merchant1)
   end
 
   def test_sort_by_id

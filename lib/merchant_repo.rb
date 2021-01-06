@@ -3,6 +3,7 @@ require './lib/cleaner.rb'
 require './lib/merchant.rb'
 
 class MerchantRepository
+  attr_accessor :merchants
 
   def initialize(file = './data/merchants.csv')
     @file = file
@@ -57,7 +58,9 @@ class MerchantRepository
   end
 
   def create(attributes)
-    Merchant.new({id: (sort_by_id[-1].id + 1), name: attributes})
+    new_merch = Merchant.new({id: (sort_by_id[-1].id + 1), name: attributes})
+    @merchants << new_merch
+    new_merch
   end
 
   def sort_by_id
