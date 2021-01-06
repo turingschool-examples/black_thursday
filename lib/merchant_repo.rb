@@ -4,6 +4,11 @@ require './lib/merchant.rb'
 
 class MerchantRepository
   attr_accessor :merchants
+  
+  # def all
+    # parse the data seperate id and name - Generate merchant entries from cleaner class.
+    #  iterate through that
+    #for each line attach data to new merchant object
 
   def initialize(file = './data/merchants.csv')
     @file = file
