@@ -6,7 +6,7 @@ class SalesEngine
 
   @@all_items = []
   @@all_merchants = []
-
+  
   def initialize(items, merchants)
     @items = items
     @merchants = MerchantRepo.new(@@all_merchants)
@@ -30,7 +30,10 @@ class SalesEngine
     merchants = CSV.foreach "#{hash[:merchants]}", headers: true,
     header_converters: :symbol
     merchants.map do |row|
-      @@all_merchants.push(row)
+      id = row[:id].to_i
+      name = row[:name]
+      merchant = Merchant.new({id: "#{id}", name: "#{name}"})
+      @@all_merchants.push(merchant)
     end
   end
 end

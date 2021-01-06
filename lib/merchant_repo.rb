@@ -9,7 +9,23 @@ class MerchantRepo
     merchant_list
   end
 
+  def find_by_id(id)
+    if id.nil?
+      nil
+    else
+       @merchant_list.find do |merchant|
+        merchant.id == id
+      end
+    end
+  end
+
   def find_by_name(name)
-    name = nil
+    if name.nil?
+      nil
+    else
+       @merchant_list.find do |merchant|
+        merchant.name.downcase == name.downcase
+      end
+    end
   end
 end
