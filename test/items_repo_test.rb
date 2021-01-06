@@ -60,4 +60,11 @@ class ItemsRepoTest < Minitest::Test
   	assert_equal 0, actual_empty.count
   	assert_equal [], actual_empty
   end
+
+  def test_it_can_find_merchant_id
+  	actual = @dummy_repo.find_all_by_merchant_id("1").flatten
+  	assert_equal "1",actual[1].merchant_id
+  	assert_instance_of Item, actual[1]
+  end
+
 end
