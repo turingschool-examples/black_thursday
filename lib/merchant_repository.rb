@@ -9,6 +9,7 @@ class MerchantRepository
 def initialize(path)
   @path = path
   @merchants = []
+  read_merchant
 end
 
 def read_merchant
@@ -24,7 +25,10 @@ def read_merchant
   # rows.map do |row|
 
     end
-    ;binding.pry
     return @merchants
   end
+
+  def all
+    @merchants
+  end  
 end
