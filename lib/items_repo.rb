@@ -12,9 +12,9 @@ class ItemsRepo
   end
 
   def populate_items
-    items = []
+    items = Hash.new{|h, k| h[k] = [] }
     CSV.foreach(@data, headers: true, header_converters: :symbol) do |row|
-      items << Item.new({:id => row[:id],
+      items[row[:id]] = Item.new({:id => row[:id],
                           :name => row[:name],
                           :description => row[:description],
                           :unit_price => row[:unit_price],
@@ -31,18 +31,26 @@ class ItemsRepo
   end
 
   def find_by_id (id)
-    @items.find do |item|
+    all.values.find do |item|
       item.id == id
     end
   end
 
   def find_by_price (price)
-    @items.find_all{|item| item.unit_price == price}
+    all.values.find_all{|item| item.unit_price == price}
   end
 
   def find_by_name(name)
-  	@items.find do |item|
+  	all.values.find do |item|
   		item.name == name
+  	end
+  end
+
+  def find_all_with_description(description)
+  	desc_str = description.split
+
+  	all.values.find_all do |item|
+  		item if desc_str.any? {|string|  item.description.include? string.downcase}
   	end
   end
 
