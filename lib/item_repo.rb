@@ -2,11 +2,9 @@ require 'CSV'
 require './lib/cleaner'
 
 class ItemRepository
+  attr_reader 
 
-  attr_reader :data
-              :items
-
-  def initialize(file='./data/items.csv')
+  def initialize(file = './data/items.csv')
     @file = file
     @cleaner = Cleaner.new
     @items = []
@@ -18,14 +16,17 @@ class ItemRepository
     File.read(@file)
   end
 
-  def requirements
-    @contents.find_all do |row|
-      row[:id].length == 9
-    end
-  end
-
   def all
-    read_contents
+    @contents.each do |row|
+      @items << row
+    end
+    @items.length
   end
 
+  # def all
+  #   read_contents
+  # end
+
+  def find_item_by_id(id)
+  end
 end
