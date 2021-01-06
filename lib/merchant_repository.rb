@@ -34,11 +34,9 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    found_merchants = []
-    merchants.find do |merchant|
-      found_merchants << merchant if merchant.name.downcase == name.downcase
+    found_merchants = merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
     end
-    found_merchants
   end
 
   def highest_merchant_id_plus_one
@@ -48,15 +46,15 @@ class MerchantRepository
     highest.id + 1
   end
 
-  def create(name)
-    new_merchant = Merchant.new(highest_merchant_id_plus_one, name)
+  def create(hash)
+    new_merchant = Merchant.new(highest_merchant_id_plus_one, hash[:name])
     @merchants << new_merchant
     new_merchant
   end
 
-  def update(id, name)
+  def update(id, name_hash)
     update_merchant = find_by_id(id)
-    update_merchant.update(name)
+    update_merchant.update(name_hash[:name]) if !name_hash[:name].nil?
   end
 
   def delete(id)

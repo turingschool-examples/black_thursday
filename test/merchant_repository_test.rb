@@ -2,76 +2,124 @@ require './test/test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    args_1 = {id: 12334105, name: "Shopin1901"}
-    args_2 = {id: 12334112, name: "Candisart"}
-    args_3 = {id: 12334113, name: "MiniatureBikez"}
-    args_4 = {id: 12334115, name: "LolaMarleys"}
-    @merchant_1 = Merchant.new(args_1[:id], args_1[:name])
-    @merchant_2 = Merchant.new(args_2[:id], args_2[:name])
-    @merchant_3 = Merchant.new(args_3[:id], args_3[:name])
-    @merchant_4 = Merchant.new(args_4[:id], args_4[:name])
-    merchant_path = "./data/merchant_repo_test.csv"
+    merchant_path = "./data/merchants.csv"
     arguments = merchant_path
     @mr = MerchantRepository.new(arguments)
   end
 
   def test_it_exists_and_has_attributes
     assert_instance_of MerchantRepository, @mr
-    assert_equal 4, @mr.merchants.length
-  end
-
-  def test_it_has_attributes
-    assert_equal 12334105, @mr.merchants.first.id
-    assert_equal 'Shopin1901', @mr.merchants.first.name
-    assert_equal 12334115, @mr.merchants.last.id
-    assert_equal 'LolaMarleys', @mr.merchants.last.name
+    assert_equal 475, @mr.merchants.length
   end
 
   def test_it_can_return_all_merchants
-    assert_equal 4, @mr.all.length
+    assert_equal 475, @mr.all.count
   end
 
   def test_it_can_find_merchants_by_id
-    # assert_equal [@merchant_1], @mr.find_by_id(12334105)
-    assert_nil @mr.find_by_id(123341059)
+    id = 12335971
+    expected = @mr.find_by_id(id)
+
+    assert_equal 12335971, expected.id
+    assert_equal "ivegreenleaves", expected.name
+  end
+
+  def test_it_returns_nil_if_no_merchant
+    id = 101
+    expected = @mr.find_by_id(id)
+
+    assert_nil expected
   end
 
   def test_it_can_find_merchants_by_name
-    # assert_equal @merchant_1, @mr.find_by_name("Shopin1901")
-    assert_nil @mr.find_by_name("Shopin1901fg")
+    name = "leaburrot"
+    expected = @mr.find_by_name(name)
+
+    assert_equal 12334411, expected.id
+    assert_equal name, expected.name
+  end
+
+  def test_it_can_find_merchants_by_CAPITAlIZED_name
+    name = "LEABURROT"
+    expected = @mr.find_by_name(name)
+
+    assert_equal 12334411, expected.id
+    assert_equal name.downcase, expected.name
+  end
+
+  def test_it_can_return_nil_if_no_name_exists
+    name = "Turing School of Software and Design"
+    expected = @mr.find_by_name(name)
+
+    assert_nil expected
   end
 
   def test_it_can_find__all_merchants_by_name
-    # assert_equal [@merchant_2], @mr.find_all_by_name("Candisart")
-    assert_equal [], @mr.find_all_by_name("Candisart_2")
+    fragment = "style"
+    expected = @mr.find_all_by_name(fragment)
+
+    assert_equal 3, expected.length
+    assert_equal true, expected.map(&:name).include?("justMstyle")
+    assert_equal true, expected.map(&:id).include?(12337211)
+  end
+
+  def test_find_all_by_name_returns_empty_array_if_no_names
+    name = "Turing School of Software and Design"
+    expected = @mr.find_all_by_name(name)
+
+    assert_equal [], expected
   end
 
   def test_highest_merchant_id_plus_one
-    assert_equal 12334116, @mr.highest_merchant_id_plus_one
+    assert_equal 12337412, @mr.highest_merchant_id_plus_one
   end
 
   def test_it_can_create_new_merchants
-    merchant_5 = @mr.create("jolly's candies")
-    assert_instance_of Merchant, merchant_5
-    assert_equal "jolly's candies", merchant_5.name
-    assert_equal 12334116, merchant_5.id
-    assert_equal 5, @mr.all.length
+    attributes = {name: "Turing School of Software and Design"}
+    @mr.create(attributes)
+    expected = @mr.find_by_id(12337412)
+
+    assert_equal expected.name, "Turing School of Software and Design"
   end
 
   def test_it_can_update_name_of_merchant
-    merchant_6 = @mr.create("jesus's burgers")
+    attributes = {name: "Turing School of Software and Design"}
+    @mr.create(attributes)
+    attributes = {name: "TSSD"}
+    @mr.update(12337412, attributes)
+    expected = @mr.find_by_id(12337412)
 
-    assert_equal "jesus's burgers", merchant_6.name
+    assert_equal "TSSD", expected.name
 
-    @mr.update(12334116, "jesus's tacos")
+    expected = @mr.find_by_name("Turing School of Software and Design")
 
-    assert_equal "jesus's tacos", merchant_6.name
+    assert_nil expected
+  end
+
+  def test_update_can_only_update_name_and_not_id
+    attributes = {id: 13000000}
+    @mr.update(12337412, attributes)
+    expected = @mr.find_by_id(13000000)
+
+    assert_nil expected
+  end
+
+  def test_it_cant_update_unknown_merchant
+    expected = @mr.update(13000000, {})
+
+    assert_nil expected
   end
 
   def test_it_can_delete_merchants
-    assert_equal 4, @mr.all.length
-    @mr.delete(12334115)
-    assert_equal 3, @mr.all.length
-    assert_nil @mr.find_by_id(12334115)
+    @mr.delete(12337412)
+    expected = @mr.find_by_id(12337412)
+
+    assert_nil expected
+  end
+
+  def test_deleting_unknown_merchant_does_nothing
+    expected = @mr.delete(12337412)
+
+    assert_nil expected
   end
 end
