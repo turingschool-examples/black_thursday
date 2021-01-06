@@ -1,4 +1,4 @@
-require "time"
+require 'time'
 
 module TimeStoreable
   def time_store(time_data)
