@@ -1,6 +1,6 @@
 require "csv"
 require "pry"
-
+require_relative "./merchant_repository"
 class SalesEngine
   attr_reader :items_path,
               :merchants_path
@@ -12,18 +12,16 @@ class SalesEngine
 
   def self.from_csv(sales_data)
     SalesEngine.new(sales_data)
-  end 
+  end
 
   def items
-    ItemRepository.new(@items_path)    
-    binding.pry
+    ItemRepository.new(@items_path)
   end
 
   def merchants
     MerchantRepository.new(@merchants_path)
+        binding.pry
   end
 
 
 end
-
-
