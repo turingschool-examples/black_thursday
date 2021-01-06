@@ -9,7 +9,7 @@ class SalesEngine
 
   def self.from_csv(locations)
     first_row = CSV.read("./data/merchants.csv") do |line|
-      p line
+      p line 
     end
   end
 end
