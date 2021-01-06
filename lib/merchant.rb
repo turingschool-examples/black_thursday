@@ -14,5 +14,5 @@ class Merchant
      @name = data[:name]
      @created_at = time_store(data[:created_at])
      @updated_at = time_store(data[:updated_at])
-  end
+  end 
 end
