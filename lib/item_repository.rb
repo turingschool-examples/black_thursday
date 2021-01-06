@@ -58,6 +58,17 @@ class ItemRepository
       item.merchant_id == merchant_id.to_s
     end
   end
+
+  def create(attributes)
+    id = @items[-1].id.to_i
+    id += 1
+    id = id.to_s
+    attributes[:id] = id
+    string_unit_price = attributes[:unit_price].to_f
+    attributes[:unit_price] = string_unit_price
+    item = Item.new(attributes)
+    @items.push(item)
+  end
 end
 # row[:id], row[:name], row[:description], row[:unit_price], row[:created_at], row[:updated_at], row[:merchant_id]
 
