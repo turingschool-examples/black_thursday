@@ -18,4 +18,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sales_analyst
   end
 
+  def test_it_can_return_average_items_per_merchant
+    assert_equal 2.88, @sales_analyst.average_items_per_merchant
+  end
 end
