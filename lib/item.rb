@@ -4,8 +4,8 @@ class Item
   include TimeStoreable
 
   attr_accessor :name,
-               :descripition,
-               :unit_price
+                :description,
+                :unit_price
 
   attr_reader :id,
               :repository,
