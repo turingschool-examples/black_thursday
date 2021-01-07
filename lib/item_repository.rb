@@ -2,20 +2,22 @@ require_relative 'item'
 require_relative 'sales_engine'
 class ItemRepository
   attr_reader:path,
-             :parent,
              :items
-  def initialize(path, parent )
+  def initialize(path)
     @path = path
-    @parent = parent
     @items = []
     read_item
   end
 
   def read_item
     CSV.foreach(@path, headers: :true , header_converters: :symbol) do |row|
-      @items << Item.new(row, self)
+      @items << Item.new(row)
     end
     return @items
+  end
+
+  def inspect
+      "#<#{self.class} #{@items.size} rows>"
   end
 
   def all

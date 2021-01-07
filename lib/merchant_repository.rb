@@ -4,25 +4,27 @@ require 'csv'
 
 class MerchantRepository
   attr_reader :merchants,
-              :path,
-              :parent
+              :path
 
-  def initialize(path, parent)
+  def initialize(path)
     @path = path
-    @parent = parent 
     @merchants = []
     read_merchant
   end
 
   def read_merchant
     CSV.foreach(@path, headers: :true , header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row, self)
+      @merchants << Merchant.new(row)
     end
     return @merchants
   end
 
   def all
     @merchants
+  end
+
+  def inspect
+      "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def find_by_id(id)
@@ -51,12 +53,13 @@ class MerchantRepository
 
   def create(attributes)
     attributes[:id] = highest_id.id + 1
-    @merchants << Merchant.new(attributes, self)
+    @merchants << Merchant.new(attributes)
   end
 
   def update(id, attributes)
+    return nil if attributes.empty?
     update = find_by_id(id)
-    update.name = attributes
+    update.name = attributes[:name]
   end
 
   def delete(id)
