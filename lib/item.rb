@@ -5,14 +5,13 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id,
-
+              :merchant_id
 
   def initialize(info)
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = info[:unit_price].to_f(2)
+    @unit_price = info[:unit_price].to_f
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @merchant_id = info[:merchant_id]

@@ -24,7 +24,11 @@ class MerchantRepository
   end
 
   def inspect
+<<<<<<< HEAD
     "#<#{self.class} #{@merchants.size} rows>"
+=======
+      "#<#{self.class} #{@merchants.size} rows>"
+>>>>>>> 4dc91ba51c3556dd194371de6606bb3775e1311f
   end
 
   def find_by_id(id)
@@ -59,7 +63,7 @@ class MerchantRepository
   def update(id, attributes)
     return nil if attributes.empty?
     update = find_by_id(id)
-      update.name = attributes[:name]
+    update.name = attributes[:name]
   end
 
   def delete(id)
