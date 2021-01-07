@@ -20,7 +20,7 @@ class ItemRepository
                 :unit_price  => BigDecimal.new(item[:unit_price]),
                 :created_at  => item[:created_at],
                 :updated_at  => item[:updated_at],
-                :merchant_id => item[:merchant_id]})
+                :merchant_id => item[:merchant_id].to_i})
     end
     @items
   end
@@ -62,6 +62,12 @@ class ItemRepository
   def find_all_by_price_in_range(range)
     item_objects(@items_csv).find_all do |row|
       range.include?(row.unit_price_to_dollars)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    item_objects(@items_csv).find_all do |row|
+      row if row.merchant_id == merchant_id
     end
   end
 end
