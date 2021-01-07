@@ -9,6 +9,7 @@ class MerchantRepository
     @file = file
     @merchants = []
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
+    build_merchants
   end
 
   def build_merchants
@@ -60,7 +61,7 @@ class MerchantRepository
   end
 
   def sort_by_id
-    @merchants.sort_by do |merchant|
+    merch = @merchants.sort_by do |merchant|
       merchant.id
     end
   end

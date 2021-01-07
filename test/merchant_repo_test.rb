@@ -12,8 +12,6 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_it_can_build_merchants
     mr = MerchantRepository.new
-    mr.build_merchants
-
     expect = "Shopin1901"
 
     assert_equal expect, mr.build_merchants[0].name
@@ -21,16 +19,13 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_all
     mr = MerchantRepository.new
-    mr.build_merchants
 
     assert_equal mr.merchants, mr.all
   end
 
 
   def test_find_by_id
-    #12334207,BloominScents,2004-02-26,2012-08-03
     mr = MerchantRepository.new
-    mr.build_merchants
     merchant1 = mr.find_by_id(12334207)
     merchant0 = mr.find_by_id(1)
 
@@ -40,7 +35,6 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_find_by_name
     mr = MerchantRepository.new
-    mr.build_merchants
     merchant1 = mr.find_by_name("Shopin1901")
     merchant2 = mr.find_by_name("NERDGEEKs")
 
@@ -50,7 +44,6 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_find_all_by_name
     mr = MerchantRepository.new
-    mr.build_merchants
     merchant1 = mr.find_all_by_name("cUStoM")
     merchant2 = mr.find_by_name("NERDGEEKs")
 
@@ -59,7 +52,6 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_create_merchant
     mr = MerchantRepository.new
-    mr.build_merchants
     merchant1 = mr.create("alexascodetutoring")
 
     assert_equal "alexascodetutoring", merchant1.name
@@ -70,15 +62,13 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_sort_by_id
     mr = MerchantRepository.new
-    mr.build_merchants
 
-    assert_equal "Shopin1901", mr.sort_by_id.name
-    assert_equal "Cjsdecor", mr.sort_by_id.name
+    assert_equal "Shopin1901", mr.sort_by_id[0].name
+    assert_equal "Cjsdecor", mr.sort_by_id[-1].name
   end
 
   def test_update_merchant
     mr = MerchantRepository.new
-    mr.build_merchants
     merchant1 = mr.create("alexascodetutoring")
     mr.update(merchant1.id, "Brainpeeps")
     mr.update(12334123, "You did it!")
@@ -92,7 +82,6 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_delete_merchant
     mr = MerchantRepository.new
-    mr.build_merchants
     merchant1 = mr.create("alexascodetutoring")
     mr.delete(merchant1.id)
     mr.delete(12334123)
