@@ -78,4 +78,17 @@ class ItemRepositoryTest < Minitest::Test
       merchant_id_2 = 12336020
       assert_equal 2, @item_repository.find_all_by_merchant_id(merchant_id_2).length
   end
+
+  def test_it_can_create_a_new_item
+    attributes = {
+      name: "Capita Defenders of Awesome 2018",
+      description: "This board both rips and shreds",
+      unit_price: BigDecimal.new(399.99, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+    @item_repository.create(attributes)
+    assert_equal"Capita Defenders of Awesome 2018", @item_repository.find_by_id(263567475).name
+  end
 end
