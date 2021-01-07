@@ -4,8 +4,8 @@ require './test/test_helper'
 class ItemsRepoTest < Minitest::Test
 
   def setup
-    # @repo = ItemsRepo.new("./data/items.csv")
-    @dummy_repo = ItemsRepo.new("./dummy_data/dummy_items.csv")
+    @engine = mock
+    @dummy_repo = ItemsRepo.new("./dummy_data/dummy_items.csv", @engine)
   end
 
   def test_it_is

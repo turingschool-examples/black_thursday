@@ -88,7 +88,7 @@ class ItemsRepo
                         :merchant_id => attributes[:merchant_id],
                         :created_at => attributes[:created_at],
                         :updated_at => attributes[:updated_at]
-                       })
+                       }, @engine)
   end
 
   def delete(arg_id)

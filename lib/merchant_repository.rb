@@ -14,10 +14,7 @@ class MerchantRepository
     merchant = Hash.new{|h,k| h[k] = []}
     merchant_data = CSV.open @data, headers: true, header_converters: :symbol
     merchants = merchant_data.map do |row|
-        merchant[row[:id]] = Merchant.new({
-                                          :id => row[:id],
-                                          :name => row[:name]
-                                          }, self)
+        merchant[row[:id]] = Merchant.new(row, self)
     end
     merchant
   end
@@ -60,12 +57,12 @@ class MerchantRepository
     max_id[0].to_i + 1
   end
 
-  def create(new_name)
-    @merchant_info[:new_id.to_s] = Merchant.new({:id => new_id.to_s, :name => new_name})
+  def create(new_data)
+    @merchant_info[:new_id.to_s] = Merchant.new({:id => new_data[:id].to_s, :name => new_data[:name], :created_at => new_data[:created_at], :updated_at => new_data[:updated_at]}, @repository)
   end
 
   def update(id, new_name)
-    @merchant_info[id] = Merchant.new({:id => id, :name => new_name})
+    @merchant_info[id] = Merchant.new({:id => id, :name => new_name, :created_at => created_at, :updated_at => updated_at}, @repository)
   end
 
   def delete(id)
