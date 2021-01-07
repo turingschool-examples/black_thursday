@@ -78,21 +78,8 @@ class ItemRepo
   end
 
   def delete_id(id)
-    return [] if id.nil?
-
-    item_array = [].uniq
-    @item_list.find_all do |item|
-
-      if item.id == id
-        item_array << item
-        require "pry"; binding.pry
-        item_array.pop
-      end
-      if item_array == []
-        nil
-      end
+    @item_list.reject! do |item|
+      item.id == id
     end
   end
-
-
 end

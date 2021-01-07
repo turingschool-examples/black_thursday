@@ -74,8 +74,8 @@ class ItemRepoTest < Minitest::Test
                               :merchants => "./data/merchants.csv"
                               })
     ir   = se.items
+    ir.delete_id("263397919")
 
-    expected = @ir.delete_id("263399735")
-    assert_equal [], expected[0].id
+    assert_equal 4, ir.item_list.count
   end
 end
