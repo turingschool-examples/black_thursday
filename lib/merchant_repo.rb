@@ -4,8 +4,10 @@ require './lib/merchant.rb'
 
 class MerchantRepository
   attr_accessor :merchants
+  attr_reader :engine
 
-  def initialize(file = './data/merchants.csv')
+  def initialize(file = './data/merchants.csv', engine)
+    @engine = engine
     @file = file
     @merchants = []
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
@@ -18,7 +20,7 @@ class MerchantRepository
       merch = Merchant.new({        id: cleaner.clean_id(merchant[:id]),
                                   name: cleaner.clean_name(merchant[:name]),
                             created_at: cleaner.clean_date(merchant[:created_at]),
-                            updated_at: cleaner.clean_date(merchant[:updated_at])})
+                            updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
       @merchants << merch
       end
     @merchants
@@ -55,7 +57,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_merch = Merchant.new({id: (sort_by_id[-1].id + 1), name: attributes})
+    new_merch = Merchant.new({id: (sort_by_id[-1].id + 1), name: attributes}, self)
     @merchants << new_merch
     new_merch
   end
