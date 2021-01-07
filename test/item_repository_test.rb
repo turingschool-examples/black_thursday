@@ -1,7 +1,7 @@
 require_relative './test_helper'
-require './lib/sales_engine'
-require 'bigdecimal'
-require 'time'
+# require './lib/sales_engine'
+# require 'bigdecimal'
+# require 'time'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
@@ -114,8 +114,34 @@ class ItemRepositoryTest < Minitest::Test
       }
 
     result_1 = @ir.create(attributes)
-    require "pry"; binding.pry
-    assert_equal 263567475, result_1[-1].id.to_i 
+
+    assert_equal 263567475, result_1[-1].id.to_i
     assert_equal "Capita Defenders of Awesome 2018", result_1[-1].name
+
   end
+
+
+  def test_update_updates_an_item
+
+    attributes_1 = {unit_price: BigDecimal.new(379.99, 5)}
+    result_1 = @ir.update(263538760, attributes_1)
+
+    assert_equal  379.99 , result_1.unit_price.to_f
+
+    attributes_2 = {description: "Expensive dog blanket"}
+    result_2 = @ir.update(263538760, attributes_2)
+
+    assert_equal "Expensive dog blanket", result_2.description
+
+    time = Time.parse("2021-01-06 13:52:59 -0500")
+    assert_operator time, :< , Time.parse(result_2.updated_at)
+  end
+
+  def test_delete_deletes_the_specified_item
+  skip
+   engine.items.delete(263567475)
+   expected = engine.items.find_by_id(263567475)
+   expect(expected).to eq nil
+  end
+
 end
