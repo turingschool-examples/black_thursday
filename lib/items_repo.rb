@@ -23,6 +23,10 @@ class ItemsRepo
     @items
   end
 
+  def group_by_merchant_id
+    all.values.group_by{|value| value.merchant_id}
+  end
+
   def find_by_id (id)
     all.values.find do |item|
       item.id == id
