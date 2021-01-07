@@ -1,6 +1,7 @@
 require './test/test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
+
   def setup
     merchant_path = "./data/merchants.csv"
     arguments = merchant_path

@@ -3,6 +3,8 @@ SimpleCov.start
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
+require 'time'
 require 'minitest/unit'
 #require 'mocha/minitest'
 require './lib/merchant'

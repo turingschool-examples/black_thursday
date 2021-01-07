@@ -5,6 +5,7 @@ require 'csv'
 class SalesEngine
   attr_reader :item_repository,
               :merchant_repository
+
   def initialize(args)
     @item_repository = ItemRepository.new(args[:items])#, self)
     @merchant_repository = MerchantRepository.new(args[:merchants])#, self)
