@@ -1,9 +1,12 @@
+require './lib/sales_engine'
+
 class MerchantRepository
   attr_reader :data,
               :merchant_info
 
-  def initialize(data)
+  def initialize(data, engine)
     @data = data
+    @engine = engine
     @merchant_info = populate_repo
   end
 
@@ -11,8 +14,10 @@ class MerchantRepository
     merchant = Hash.new{|h,k| h[k] = []}
     merchant_data = CSV.open @data, headers: true, header_converters: :symbol
     merchants = merchant_data.map do |row|
-        merchant[row[:id]] = Merchant.new({:id => row[:id],
-                                         :name => row[:name]})
+        merchant[row[:id]] = Merchant.new({
+                                          :id => row[:id],
+                                          :name => row[:name]
+                                          }, self)
     end
     merchant
   end

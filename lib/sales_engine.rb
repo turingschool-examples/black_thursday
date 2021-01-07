@@ -1,16 +1,11 @@
 class SalesEngine
-  se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-  })
-end
 
-def items
-  se[:item]
-  output - item_repo
-end
+  def self.from_csv(data)
+    new(data)
+  end
 
-def merchants
-  se[:merchant]
-  output - merchant_repo
+  def initialize(data)
+    @items = ItemsRepo.new(data[:items], self)
+    @merchants = MerchantRepository.new(data[:merchants], self)
+  end
 end
