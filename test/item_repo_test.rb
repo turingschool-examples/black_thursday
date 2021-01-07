@@ -52,9 +52,22 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_by_price
-    # expected = BigDecimal.new(25)
-    assert_equal 79, @item_repository.find_all_by_price(BigDecimal.new(25))
-    assert_equal 63, @item_repository.find_all_by_price(BigDecimal.new(10))
-    assert_equal 0, @item_repository.find_all_by_price(BigDecimal.new(20000))
+    assert_equal 79, @item_repository.find_all_by_price(BigDecimal.new(25)).length
+    assert_equal 63, @item_repository.find_all_by_price(BigDecimal.new(10)).length
+    assert_equal 0, @item_repository.find_all_by_price(BigDecimal.new(20000)).length
+  end
+
+  def test_it_can_find_by_price_in_range
+      range = (1000.00..1500.00)
+      assert_equal 19, @item_repository.find_all_by_price_in_range(range).length
+
+      range2 = (10.00..150.00)
+      assert_equal 910, @item_repository.find_all_by_price_in_range(range).length
+
+      range3 = (10.00..15.00)
+      assert_equal 205, @item_repository.find_all_by_price_in_range(range).length
+
+      range = (0..10.0)
+      assert_equal 302, @item_repository.find_all_by_price_in_range(range).length
   end
 end
