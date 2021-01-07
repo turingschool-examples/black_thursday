@@ -18,6 +18,9 @@ GEM
       parser (>= 2.5.0.0, < 2.8, != 2.5.1.1)
       psych (~> 3.1)
       rainbow (>= 2.0, < 4.0)
+    rspec-core (3.10.1)
+      rspec-support (~> 3.10.0)
+    rspec-support (3.10.1)
     simplecov (0.21.1)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -33,7 +36,8 @@ DEPENDENCIES
   minitest
   rake
   reek
+  rspec-core
   simplecov
 
 BUNDLED WITH
-   2.1.4
+   2.2.4

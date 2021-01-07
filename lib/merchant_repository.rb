@@ -1,5 +1,5 @@
+require_relative "merchant"
 require "csv"
-require "./lib/merchant"
 
 class MerchantRepository
   attr_reader :filename,
@@ -61,5 +61,9 @@ class MerchantRepository
   def delete(id)
     delete = find_by_id(id)
     @merchants.delete(delete)
+  end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 end
