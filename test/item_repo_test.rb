@@ -31,4 +31,70 @@ class ItemRepositoryTest < Minitest::Test
     # require 'pry'; binding.pry
     assert_equal "Free standing Woden letters", @item_repository.item_objects(csv)[3].name
   end
+
+  def test_it_finds_item_by_name
+    assert_equal "Puppy blankie", @item_repository.find_by_name("Puppy blankie").name
+    assert_equal 263538760, @item_repository.find_by_name("Puppy blankie").id
+    assert_equal nil, @item_repository.find_by_name("SalesEngine")
+  end
+
+  def test_it_finds_all_with_description
+    expected = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
+    assert_equal expected, @item_repository.find_all_with_description(expected)[0].description
+    assert_equal 263550472, @item_repository.find_all_with_description(expected).first.id
+
+    bad_case = "A LARGE yeti of SOrtS, casually devoURS a COw as the OTHERS WaTch NUmbly."
+    assert_equal expected, @item_repository.find_all_with_description(bad_case)[0].description
+    assert_equal 263550472, @item_repository.find_all_with_description(expected).first.id
+
+    description = "Sales Engine is a relational database"
+    assert_equal 0, @item_repository.find_all_with_description(description).length
+  end
+
+  def test_it_finds_all_by_price
+    assert_equal 79, @item_repository.find_all_by_price(BigDecimal.new(25)).length
+    assert_equal 63, @item_repository.find_all_by_price(BigDecimal.new(10)).length
+    assert_equal 0, @item_repository.find_all_by_price(BigDecimal.new(20000)).length
+  end
+
+  def test_it_can_find_by_price_in_range
+      range = (1000.00..1500.00)
+      assert_equal 19, @item_repository.find_all_by_price_in_range(range).length
+
+      range2 = (10.00..150.00)
+      assert_equal 910, @item_repository.find_all_by_price_in_range(range2).length
+
+      range3 = (10.00..15.00)
+      assert_equal 205, @item_repository.find_all_by_price_in_range(range3).length
+
+      range4 = (0..10.0)
+      assert_equal 302, @item_repository.find_all_by_price_in_range(range4).length
+  end
+
+  def test_it_can_find_all_by_merchant_id
+      merchant_id = 12334326
+      assert_equal 6, @item_repository.find_all_by_merchant_id(merchant_id).length
+
+      merchant_id_2 = 12336020
+      assert_equal 2, @item_repository.find_all_by_merchant_id(merchant_id_2).length
+  end
+
+  def test_it_can_create_a_new_item
+    attributes = {
+      name: "Capita Defenders of Awesome 2018",
+      description: "This board both rips and shreds",
+      unit_price: BigDecimal.new(399.99, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+    @item_repository.create(attributes)
+    assert_equal "Capita Defenders of Awesome 2018", @item_repository.find_item_by_id(263567475).name
+  end
+
+  def test_it_can_sort_by_id
+    assert_equal 263395237, @item_repository.sort_by_id[0].id
+    assert_equal 263395617, @item_repository.sort_by_id[1].id
+    assert_equal 263395721, @item_repository.sort_by_id[2].id
+  end
 end

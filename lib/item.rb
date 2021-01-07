@@ -9,8 +9,8 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id
-  
-  def initialize(data)  
+
+  def initialize(data)
     @id = data[:id]
     @name = data[:name]
     @description = data[:description]
@@ -23,7 +23,4 @@ class Item
   def unit_price_to_dollars
     unit_price.round * 0.01
   end
-
-  
 end
-

@@ -100,5 +100,4 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_nil mr.find_by_id(12337412)
     assert_nil mr.find_by_id(12334123)
   end
-
 end
