@@ -1,6 +1,6 @@
 require 'csv'
 require 'pry'
-require_relative "./time_store_module"
+require_relative './time_store_module'
 
 class Merchant
   include TimeStoreable
@@ -9,7 +9,8 @@ class Merchant
 
   attr_accessor :name
 
-  def initialize(data)
+  def initialize(data, merchant_repository)
+     @merchant_repository = merchant_repository
      @id = data[:id].to_i
      @name = data[:name]
      @created_at = time_store(data[:created_at])
