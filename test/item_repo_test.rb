@@ -52,14 +52,30 @@ class ItemRepoTest < Minitest::Test
                               })
     ir   = se.items
 
-    expected = @ir.find_all_by_price(50000..500001)
+    expected = @ir.find_all_by_price_in_range(50000..50100)
 
     assert_equal "263397919", expected[0].id
-    #(1..3)
+  end
 
-    #find_all_by_price_in_range(range) - returns either []
-    #or instances of Item where the supplied price is
-     #in the supplied range
-    #(a single Ruby range instance is passed in)
+  def test_find_all_by_merchant_id
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items_sample.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    ir   = se.items
+
+    expected = @ir.find_all_by_merchant_id("12334271")
+    assert_equal "263399735", expected[0].id
+  end
+
+  def test_delete_id
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items_sample.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    ir   = se.items
+
+    expected = @ir.delete_id("263399735")
+    assert_equal [], expected[0].id
   end
 end

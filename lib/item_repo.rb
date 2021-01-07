@@ -59,15 +59,39 @@ class ItemRepo
   end
 
   def find_all_by_price_in_range(range)
+    return [] if range.nil?
 
-    array = []
-    array << range
-    require "pry"; binding.pry
+    range_array = range.to_a
+    @item_list.find_all do |item|
+      (item.unit_price_to_dollars >= range_array.min) &&
+      (item.unit_price_to_dollars <= range_array.max)
+    end
+  end
 
-    
-    return [] if price.nil?
+  def find_all_by_merchant_id(merchant_id)
+    return [] if merchant_id.nil?
 
-    find_all_by_price(price)
+    @item_list.find_all do |item|
+      # require "pry"; binding.pry
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def delete_id(id)
+    return [] if id.nil?
+
+    item_array = [].uniq
+    @item_list.find_all do |item|
+
+      if item.id == id
+        item_array << item
+        require "pry"; binding.pry
+        item_array.pop
+      end
+      if item_array == []
+        nil
+      end
+    end
   end
 
 
