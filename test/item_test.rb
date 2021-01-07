@@ -6,7 +6,7 @@ require 'time'
 
 
 class ItemTest < Minitest::Test
-
+  # Time.stubs(:now).returns(Time.new())
   def test_it_exists_and_has_attributes
     i = Item.new({
   :id          => 1,

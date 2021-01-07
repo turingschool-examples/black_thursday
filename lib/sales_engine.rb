@@ -7,8 +7,8 @@ class SalesEngine
               :items
 
   def initialize(locations)
-    @merchants = MerchantRepository.new(locations[:merchants], self)
-    @items = ItemRepository.new(locations[:items], self)
+    @merchants = MerchantRepository.new(locations[:merchants])
+    @items = ItemRepository.new(locations[:items])
   end
 
   def self.from_csv(locations)
