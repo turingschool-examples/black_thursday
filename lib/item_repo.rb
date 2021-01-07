@@ -3,18 +3,19 @@ require './lib/cleaner'
 require './lib/item'
 
 class ItemRepository
-  attr_reader
+  attr_reader :items
 
   def initialize(file = './data/items.csv')
     @file = file
-    @items = []
     @cleaner = Cleaner.new
     @items_csv = @cleaner.open_csv(@file)
+    @items = []
+    item_objects(@items_csv)
   end
 
   def item_objects(items)
     items.each do |item|
-     @items << Item.new({:id => item[:id].to_i,
+      @items << Item.new({:id => item[:id].to_i,
                 :name        => item[:name],
                 :description => item[:description],
                 :unit_price  => BigDecimal.new(item[:unit_price]),
@@ -26,47 +27,51 @@ class ItemRepository
   end
 
   def all
-    @items_csv.map do |row|
-      row
+    @items
+  end
+
+  def find_id(id)
+    @items.select do |row|
+          row.id == id
     end
   end
 
   def find_item_by_id(id)
-    id_number = []
-    item_objects(@items_csv).each do |item|
-      id_number << item if item.id == id
+    if find_id(id).empty?
+      nil
+    else
+      find_id(id)
     end
-    id_number[0]
   end
 
   def find_by_name(name)
     item_name = []
-    item_objects(@items_csv).each do |row|
+    @items.each do |row|
       item_name << row if row.name == name
     end
     item_name[0]
   end
 
   def find_all_with_description(description)
-    item_objects(@items_csv).find_all do |row|
+    @items.find_all do |row|
       row.description.downcase == description.downcase
     end
   end
 
   def find_all_by_price(price)
-    item_objects(@items_csv).find_all do |row|
+    @items.find_all do |row|
       row.unit_price_to_dollars == price
     end
   end
 
   def find_all_by_price_in_range(range)
-    item_objects(@items_csv).find_all do |row|
+    @items.find_all do |row|
       range.include?(row.unit_price_to_dollars)
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    item_objects(@items_csv).find_all do |row|
+    @items.find_all do |row|
       row.merchant_id == merchant_id
     end
   end
@@ -84,7 +89,7 @@ class ItemRepository
   end
 
   def sort_by_id
-    item_objects(@items_csv).sort_by do |row|
+    @items.sort_by do |row|
       row.id
     end
   end
