@@ -9,4 +9,8 @@ class SalesEngineTest < Minitest::Test
             }
     @engine = SalesEngine.new(data)
   end
+
+  def test_it_exists
+    assert_instance_of SalesEngine, @engine
+  end
 end
