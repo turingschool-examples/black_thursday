@@ -13,15 +13,8 @@ class ItemsRepo
 
   def populate_items
     items = Hash.new{|h, k| h[k] = [] }
-    CSV.foreach(@data, headers: true, header_converters: :symbol) do |row|
-      items[row[:id]] = Item.new({:id => row[:id],
-                          :name => row[:name],
-                          :description => row[:description],
-                          :unit_price => row[:unit_price],
-                          :merchant_id => row[:merchant_id],
-                          :created_at => row[:created_at],
-                          :updated_at => row[:updated_at]
-                         })
+    CSV.foreach(@data, headers: true, header_converters: :symbol) do |data|
+      items[data[:id]] = Item.new(data)
     end
     items
   end
@@ -94,11 +87,10 @@ class ItemsRepo
 
   def delete(arg_id)
   	index = arg_id.to_s
-  	all.delete_if do |key, item| 
+  	all.delete_if do |key, item|
   		item.id == index
   	end
   end
 
 
 end
-
