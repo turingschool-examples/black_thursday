@@ -7,11 +7,15 @@ require './lib/item'
 
 
 class SalesEngineTest < Minitest::Test
-  def test_it_exists_and_has_attributes
-    # expected = ({items: "a", merchants: "b"}, SalesEngine)
-    # sales = SalesEngine.new(expected)
-    sales = SalesEngine.new({items: "a", merchants: "b"})
 
-    assert_instance_of SalesEngine, sales
+  def setup
+    @se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+  end
+
+  def test_it_exists_and_has_attribute
+    assert_instance_of SalesEngine, @se
   end
 end

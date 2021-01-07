@@ -23,6 +23,6 @@ class ItemRepository
                     created_at: row[:created_at],
                     updated_at: row[:updated_at],
                     merchant_id: row[:merchant_id]
-                  },self)
+                  }, self)
   end
 end

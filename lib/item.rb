@@ -21,5 +21,4 @@ class Item
     @updated_at   = time_store(data[:updated_at])
     @merchant_id  = data[:merchant_id]
   end
-
 end
