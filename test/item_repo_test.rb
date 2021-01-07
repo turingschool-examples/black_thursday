@@ -62,12 +62,12 @@ class ItemRepositoryTest < Minitest::Test
       assert_equal 19, @item_repository.find_all_by_price_in_range(range).length
 
       range2 = (10.00..150.00)
-      assert_equal 910, @item_repository.find_all_by_price_in_range(range).length
+      assert_equal 910, @item_repository.find_all_by_price_in_range(range2).length
 
       range3 = (10.00..15.00)
-      assert_equal 205, @item_repository.find_all_by_price_in_range(range).length
+      assert_equal 205, @item_repository.find_all_by_price_in_range(range3).length
 
-      range = (0..10.0)
-      assert_equal 302, @item_repository.find_all_by_price_in_range(range).length
+      range4 = (0..10.0)
+      assert_equal 302, @item_repository.find_all_by_price_in_range(range4).length
   end
 end
