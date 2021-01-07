@@ -39,4 +39,12 @@ class MerchantRepo
       end
     end
   end
+
+  def find_all_by_name(name)
+    name = name.downcase
+    return [] if name.empty?
+      @merchant_list.find_all do |merchant|
+      merchant.name.downcase.include?(name)
+    end
+  end
 end

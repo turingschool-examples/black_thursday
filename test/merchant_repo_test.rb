@@ -71,4 +71,27 @@ class MerchantRepoTest < Minitest::Test
     expected = mr.find_by_name("Shopin1901")
     assert_equal "Shopin1901", expected.name
   end
+
+  def test_it_returns_an_empty_array_when_no_name_matches_the_input
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    mr = se.merchants
+    expected = mr.find_all_by_name("")
+
+    assert_equal [], expected
+  end
+
+  def test_it_can_return_one_or_more_matches_of_the_name
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./fixtures/merchant_sample.csv",
+      })
+    mr = se.merchants
+    merchant_array = mr.find_all_by_name("Mota")
+
+    assert_equal 2, merchant_array.count
+    assert_equal "MotankiDarena", merchant_array[0].name
+  end
 end
