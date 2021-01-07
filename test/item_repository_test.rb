@@ -1,12 +1,7 @@
 require_relative './test_helper'
-# require './lib/sales_engine'
-# require 'bigdecimal'
-# require 'time'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    # item_path = "./data/items.csv"
-    # arguments = {:items => item_path}
     @ir = ItemRepository.new("./data/items.csv")
   end
 
@@ -137,11 +132,29 @@ class ItemRepositoryTest < Minitest::Test
     assert_operator time, :< , Time.parse(result_2.updated_at)
   end
 
+  def test_update_cannot_update_id_update_at_update_merchant_id
+
+    attributes = {
+      id: 270000000,
+      created_at: Time.now,
+      merchant_id: 1
+    }
+      @ir.update(263538760, attributes)
+
+     assert_nil nil, @ir.find_by_id(270000000)
+     # assert_nil nil, @ir.[:created_at]
+     assert_nil nil, @ir.find_all_by_merchant_id(1)
+  end
+
   def test_delete_deletes_the_specified_item
-  skip
-   engine.items.delete(263567475)
-   expected = engine.items.find_by_id(263567475)
-   expect(expected).to eq nil
+    @ir.delete(263538760)
+
+    assert_nil nil,  @ir.find_by_id(263538760)
+  end
+
+  def test_delete_unknown_item_does_nothing
+    @ir.delete(270000000)
+
   end
 
 end
