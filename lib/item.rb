@@ -1,11 +1,15 @@
+require_relative './time_store_module'
+
 class Item
+  include TimeStoreable
   attr_reader :id,
+              :repository,
               :name,
               :description,
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id,
+              :merchant_id
 
   def initialize(data, repository)
     @repository   = repository
@@ -13,13 +17,9 @@ class Item
     @name         = data[:name]
     @description  = data[:description]
     @unit_price   = data[:unit_price]
-    @created_at   = data[:created_at]
-    @updated_at   = data[:updated_at]
+    @created_at   = time_store(data[:created_at])
+    @updated_at   = time_store(data[:updated_at])
     @merchant_id  = data[:merchant_id]
-  end
-
-  def merchant_name
-
   end
 
 end
