@@ -1,6 +1,6 @@
 require 'CSV'
-require './lib/cleaner'
-require './lib/item'
+require_relative './cleaner'
+require_relative './item'
 
 class ItemRepository
   attr_reader :items
@@ -77,7 +77,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_item = Item.new({id: (sort_by_id[-1].id + 1), 
+    new_item = Item.new({id: (sort_by_id[-1].id + 1),
                         name: attributes[:name],
                  description: attributes[:description],
                   unit_price: attributes[:unit_price],

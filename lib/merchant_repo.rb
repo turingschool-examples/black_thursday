@@ -1,6 +1,6 @@
 require 'CSV'
-require './lib/cleaner.rb'
-require './lib/merchant.rb'
+require_relative './cleaner.rb'
+require_relative './merchant.rb'
 
 class MerchantRepository
   attr_accessor :merchants

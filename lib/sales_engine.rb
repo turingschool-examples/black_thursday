@@ -1,4 +1,5 @@
-require './lib/merchant_repo'
+require_relative './merchant_repo'
+require_relative './item_repo'
 
 
 class SalesEngine
