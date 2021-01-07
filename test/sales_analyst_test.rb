@@ -21,8 +21,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesEngine, analyst.engine
   end
 
-
-
   def test_it_can_find_all
     engine = SalesEngine.from_csv({
         :items     => "./data/items.csv",
@@ -41,7 +39,7 @@ class SalesAnalystTest < Minitest::Test
         })
     analyst = SalesAnalyst.new(engine)
 
-    assert_equal 2, analyst.average_item_per_merchant
+    assert_equal 2, analyst.average_items_per_merchant
   end
 
   def test_we_can_find_average_standard_deviation
@@ -51,7 +49,7 @@ class SalesAnalystTest < Minitest::Test
         })
     analyst = SalesAnalyst.new(engine)
 
-    assert_equal 1, analyst.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count
@@ -84,7 +82,7 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(engine)
 
     assert_instance_of BigDecimal, analyst.average_average_price_per_merchant
-    assert_equal 0.3502947e3, analyst.average_average_price_per_merchant
+    assert_equal 0.35029e3, analyst.average_average_price_per_merchant
   end
 
   def test_golden_items
@@ -95,14 +93,28 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(engine)
 
     assert_instance_of Array, analyst.golden_items
-    assert_equal 0, analyst.golden_items.count
+    assert_equal 146, analyst.golden_items.count
   end
 
   def test_average_price
-    skip
+    engine = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        })
+    analyst = SalesAnalyst.new(engine)
+
+    assert_instance_of BigDecimal, analyst.average_price
+    assert_equal 0.2510e3, analyst.average_price
   end
 
   def test_average_price_standard_deviation
-    skip
+    engine = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        })
+    analyst = SalesAnalyst.new(engine)
+
+    assert_instance_of BigDecimal, analyst.average_price_standard_deviation
+    assert_equal 0.1e1, analyst.average_price_standard_deviation
   end
 end

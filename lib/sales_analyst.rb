@@ -1,5 +1,7 @@
 
 class SalesAnalyst
+  include Math
+
   attr_reader :engine
 
   def initialize(engine)
@@ -14,23 +16,23 @@ class SalesAnalyst
     end
   end
 
-  def average_item_per_merchant
+  def average_items_per_merchant
     sum = items_per_merchant.sum
-    sum / @engine.merchants.all.count
+    (sum / @engine.merchants.all.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    aipm = average_item_per_merchant
+    aipm = average_items_per_merchant
     standard = items_per_merchant.map do |number|
       (number - aipm) ** 2
     end
     standard_sum = standard.sum
-    (standard_sum / (@count - 1)) ** (1 / 2)
+    Math.sqrt(standard_sum / (@count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
     aipmsd = average_items_per_merchant_standard_deviation
-    aipm = average_item_per_merchant
+    aipm = average_items_per_merchant
     @engine.merchants.all.find_all do |merchant|
       @engine.items.find_all_by_merchant_id(merchant.id).count >
       (aipm + aipmsd)
@@ -41,14 +43,14 @@ class SalesAnalyst
     prices = @engine.items.find_all_by_merchant_id(id).map do |item|
       item.unit_price
     end
-    prices.sum / prices.count
+    (prices.sum / prices.count).round(2)
   end
 
   def average_average_price_per_merchant
     avg = @engine.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    (avg.sum / avg.count).round(4)
+    (avg.sum / avg.count).round(2)
   end
 
   def average_price
@@ -57,7 +59,7 @@ class SalesAnalyst
       @item_count += 1
       item.unit_price
     end
-    @prices.sum / @prices.count
+    (@prices.sum / @prices.count).round(2)
   end
 
   def average_price_standard_deviation
@@ -66,7 +68,7 @@ class SalesAnalyst
       (number - ap) ** 2
     end
     standard_sum = standard.sum
-    (standard_sum / (@item_count - 1)) ** (1 / 2)
+    Math.sqrt(standard_sum / (@item_count - 1)).round(2)
   end
 
   def golden_items
