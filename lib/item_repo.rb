@@ -17,7 +17,7 @@ class ItemRepository
      @items << Item.new({:id => item[:id].to_i,
                 :name        => item[:name],
                 :description => item[:description],
-                :unit_price  => item[:unit_price],
+                :unit_price  => BigDecimal.new(item[:unit_price]),
                 :created_at  => item[:created_at],
                 :updated_at  => item[:updated_at],
                 :merchant_id => item[:merchant_id]})
@@ -53,4 +53,11 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price(price)
+    units = []
+    item_objects(@items_csv).each do |row|
+      units << row if row.unit_price_to_dollars == price
+    end
+    units.length
+  end
 end
