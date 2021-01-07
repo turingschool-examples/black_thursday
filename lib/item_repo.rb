@@ -72,15 +72,15 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_merch = Item.new({id: (sort_by_id[-1].id + 1), 
+    new_item = Item.new({id: (sort_by_id[-1].id + 1), 
                         name: attributes[:name],
                  description: attributes[:description],
                   unit_price: attributes[:unit_price],
                   created_at: attributes[:created_at],
                   updated_at: attributes[:updated_at],
                  merchant_id: attributes[:merchant_id]})
-    @items << new_merch
-    new_merch
+    @items << new_item
+    new_item
   end
 
   def sort_by_id
