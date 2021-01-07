@@ -4,8 +4,10 @@ require './lib/merchant.rb'
 
 class MerchantRepository
   attr_accessor :merchants
+  attr_reader :engine
 
-  def initialize(file = './data/merchants.csv')
+  def initialize(file = './data/merchants.csv', engine)
+    @engine = engine
     @file = file
     @merchants = []
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
