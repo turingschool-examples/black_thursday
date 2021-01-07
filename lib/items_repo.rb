@@ -3,18 +3,20 @@ require './lib/items'
 require 'time'
 require 'bigdecimal'
 require 'bigdecimal/util'
+require './lib/sales_engine'
 
 class ItemsRepo
   attr_reader :items
-  def initialize(data)
+  def initialize(data, engine)
     @data = data
     @items = populate_items
+    @engine = engine
   end
 
   def populate_items
     items = Hash.new{|h, k| h[k] = [] }
     CSV.foreach(@data, headers: true, header_converters: :symbol) do |data|
-      items[data[:id]] = Item.new(data)
+      items[data[:id]] = Item.new(data, self)
     end
     items
   end
