@@ -54,10 +54,14 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    units = []
-    item_objects(@items_csv).each do |row|
-      units << row if row.unit_price_to_dollars == price
+    item_objects(@items_csv).find_all do |row|
+      row.unit_price_to_dollars == price
     end
-    units.length
+  end
+
+  def find_all_by_price_in_range(range)
+    item_objects(@items_csv).find_all do |row|
+      range.include?(row.unit_price_to_dollars)
+    end
   end
 end
