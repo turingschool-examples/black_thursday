@@ -37,7 +37,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-    require "pry"; binding.pry
     assert_equal 2, @dummy_repo.find_all_by_name("en").count
     assert_equal [], @dummy_repo.find_all_by_name("Burt Reynolds")
   end
@@ -53,12 +52,19 @@ class MerchantRepositoryTest < Minitest::Test
   # end
   #
   # def test_create
-  #   merchant_repo = MerchantRepository.new(@dummy_path)
-  #   actual = merchant_repo.create('Hank')
-  #   assert_equal merchant_repo.max_id[0].to_i + 1, merchant_repo.new_id
-  #   assert_equal 'Hank', merchant_repo.merchant_info.values.last.name
-  # end
+  #   data ={
+  #     :id => "910",
+  #     :name => "chipotle",
+  #     :description => "burritos!",
+  #     :unit_price => "49000",
+  #     :merchant_id =>	"5",
+  #     :created_at => "2125-09-22 09:34:06 UTC",
+  #     :updated_at => "2034-09-04 21:35:10 UTC"
+  #   }
   #
+  #   @dummy_repo.create(data)
+  # end
+
   # def test_update
   #   merchant_repo = MerchantRepository.new(@dummy_path)
   #   merchant_repo.update("12334115", "New Name")

@@ -82,17 +82,20 @@ class ItemsRepoTest < Minitest::Test
   end
 
   def test_it_can_create_new_item
-    data ={
-      :id => "910",
-      :name => "chipotle",
-      :description => "burritos!",
-      :unit_price => "49000",
-      :merchant_id =>	"5",
-      :created_at => "2125-09-22 09:34:06 UTC",
-      :updated_at => "2034-09-04 21:35:10 UTC"
-    }
-    @dummy_repo.create(data)
-  end
+      data ={
+        :id => "910",
+        :name => "chipotle",
+        :description => "burritos!",
+        :unit_price => "49000",
+        :merchant_id =>	"5",
+        :created_at => "2125-09-22 09:34:06 UTC",
+        :updated_at => "2034-09-04 21:35:10 UTC"
+      }
+      @dummy_repo.create(data)
+      assert_instance_of Item, @dummy_repo.all.values[-1]
+      assert_equal true, @dummy_repo.all.keys.last == "910"
+      assert_equal "790", @dummy_repo.all.values[-1].id
+    end
 
   def test_it_can_delete_items
     data ={

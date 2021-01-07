@@ -14,34 +14,12 @@ class MerchantRepository
     items
   end
 
-  # def find_by_name(name)
-  #   @merchant_info.find do |merchant|
-  #     merchant[1].name.upcase == name.upcase
-  #   end
-  # end
-  #
-  def find_all_by_name(search_string)
-    all.values.find_all do |key, value|
-      value.name.upcase.include?(search_string.upcase)
-    end
-  end
-
-  def max_id
-    @merchant_info.max_by do |key, record|
-      record.id
-    end
-  end
-
-  def new_id
-    max_id[0].to_i + 1
-  end
-
-  def create(new_name)
-    @merchant_info[:new_id.to_s] = Merchant.new({:id => new_id.to_s, :name => new_name})
-  end
-
-  def update(id, new_name)
-    @merchant_info[id] = Merchant.new({:id => id, :name => new_name})
+  def create(attributes)
+      @collections[attributes[:id.to_s]] =
+      Merchant.new({:id => new_id.to_s,
+              :name => attributes[:name].downcase,
+        :created_at => attributes[:created_at],
+        :updated_at => attributes[:updated_at]}, @engine)
   end
 
   def delete(id)

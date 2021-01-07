@@ -29,6 +29,12 @@ module Methods
   	end
   end
 
+  def find_all_by_name(search_string)
+    all.values.find_all do |value|
+      value.name.downcase.include?(search_string.downcase)
+    end
+  end
+
   def find_all_by_merchant_id(id)
     all.values.find_all do |value|
       value.merchant_id == id
@@ -51,6 +57,14 @@ module Methods
     id = update[:id]
     id = find_by_id(id)
     id.update_attributes(update)
+  end
+
+  def max_id
+    max_id = (all.values.max_by{|item| item.id}).id.to_i
+  end
+
+  def new_id
+    max_id + 1
   end
 
   def delete(arg_id)

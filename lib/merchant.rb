@@ -2,9 +2,9 @@ require './lib/merchant_repository'
 
 class Merchant
 
-  attr_accessor :updated_at
+  attr_accessor :updated_at,
+                :name
   attr_reader :id,
-              :name,
               :created_at
 
   def initialize(data, repository)
