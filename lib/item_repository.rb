@@ -69,7 +69,21 @@ class ItemRepository
     item = Item.new(attributes)
     @items.push(item)
   end
-end
-# row[:id], row[:name], row[:description], row[:unit_price], row[:created_at], row[:updated_at], row[:merchant_id]
 
-# ir = ItemRepository.new("./data/items.csv")
+  def update(id, attributes)
+    update_item = find_by_id(id)
+
+    update_item.update(attributes) if !attributes[:name].nil?
+    update_item.update(attributes) if !attributes[:description].nil?
+    update_item.update(attributes) if !attributes[:unit_price].nil?
+    update_item.update(attributes) if !attributes[:updated_at].nil?
+
+    update_item
+  end
+
+  def delete(id)
+    delete = find_by_id(id)
+    @items.delete(delete)
+  
+  end
+end
