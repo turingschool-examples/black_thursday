@@ -1,12 +1,10 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'mocha/minitest'
 require './lib/sales_analyst'
 require './lib/sales_engine'
-require './lib/merchant'
-require './lib/merchant_repository.rb'
-require './lib/item_repository'
-require './lib/item'
 require 'pry'
 
 class SalesAnalystTest < Minitest::Test
@@ -39,7 +37,7 @@ class SalesAnalystTest < Minitest::Test
         })
     analyst = SalesAnalyst.new(engine)
 
-    assert_equal 2, analyst.average_items_per_merchant
+    assert_equal 2.88, analyst.average_items_per_merchant
   end
 
   def test_we_can_find_average_standard_deviation
@@ -60,7 +58,7 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(engine)
 
     assert_instance_of Array, analyst.merchants_with_high_item_count
-    assert_equal 114, analyst.merchants_with_high_item_count.count
+    assert_equal 52, analyst.merchants_with_high_item_count.count
   end
 
   def test_average_item_price_for_merchant
@@ -93,7 +91,7 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(engine)
 
     assert_instance_of Array, analyst.golden_items
-    assert_equal 146, analyst.golden_items.count
+    assert_equal 5, analyst.golden_items.count
   end
 
   def test_average_price
@@ -104,7 +102,7 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(engine)
 
     assert_instance_of BigDecimal, analyst.average_price
-    assert_equal 0.2510e3, analyst.average_price
+    assert_equal 0.25106e3, analyst.average_price
   end
 
   def test_average_price_standard_deviation
@@ -114,7 +112,6 @@ class SalesAnalystTest < Minitest::Test
         })
     analyst = SalesAnalyst.new(engine)
 
-    assert_instance_of BigDecimal, analyst.average_price_standard_deviation
-    assert_equal 0.1e1, analyst.average_price_standard_deviation
+    assert_equal 0.290099e4, analyst.average_price_standard_deviation
   end
 end
