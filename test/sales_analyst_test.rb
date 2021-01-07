@@ -23,7 +23,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_average_items_per_merchant
-    skip
     assert_equal 2.88, @sales_analyst.average_items_per_merchant
+  end
+
+  def test_all_items_count_helper
+    assert_equal 1367, @sales_analyst.all_items_count
+  end
+
+  def test_all_merchants_count_helper
+    assert_equal 475, @sales_analyst.all_merchants_count
   end
 end
