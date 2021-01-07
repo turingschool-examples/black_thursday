@@ -3,3 +3,4 @@ id,name,description,unit_price,merchant_id,created_at,updated_at
 345,etsy,we make things,200000,2,2076-02-12 09:34:06 UTC,2015-06-04 21:35:10 UTC
 567,amazon,we sell things,4500,3,2043-04-15 12:14:06 UTC,2019-06-04 21:35:10 UTC
 789,ace hardware,tools n stuff,46000,4,2096-08-22 09:34:06 UTC,2022-06-04 21:35:10 UTC
+256,dunkin,donuts,1000,2,2076-02-12 09:34:16 UTC,2015-06-04 21:35:11 UTC
