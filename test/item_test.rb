@@ -3,10 +3,12 @@ require './lib/item'
 require 'time'
 require 'bigdecimal'
 require 'pry'
+require 'mocha/minitest'
 
 
 class ItemTest < Minitest::Test
   def test_it_exists_and_has_attributes
+    repo = mock
     item = Item.new({
                 :id          => 1,
                 :name        => "Pencil",
@@ -15,7 +17,7 @@ class ItemTest < Minitest::Test
                 :created_at  => Time.now,
                 :updated_at  => Time.now,
                 :merchant_id => 2
-                }, 0)
+                }, repo)
  
     item_test_created_at = item.created_at.strftime("%d/%m/%Y")
     item_test_updated_at = item.updated_at.strftime("%d/%m/%Y")
@@ -27,6 +29,7 @@ class ItemTest < Minitest::Test
     assert_equal Time.now.strftime("%d/%m/%Y"), item_test_created_at
     assert_equal Time.now.strftime("%d/%m/%Y"), item.created_at.strftime("%d/%m/%Y")
     assert_equal 2, item.merchant_id
+    assert_equal repo, item.repository
   end
   
 end

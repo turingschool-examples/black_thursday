@@ -11,7 +11,8 @@ class Item
               :repository,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :repository
 
   def initialize(data, repository)
     @repository   = repository
