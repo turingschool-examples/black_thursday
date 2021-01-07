@@ -1,5 +1,5 @@
+require_relative 'item'
 require 'csv'
-require './lib/item'
 
 class ItemRepository
   attr_reader :filename,
@@ -45,6 +45,10 @@ class ItemRepository
     @items.find_all do |item|
       item.unit_price == price_fix
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def find_all_by_price_in_range(range)

@@ -1,5 +1,4 @@
-require_relative './test_helper'
-require_relative './lib/sales_engine'
+require './test/test_helper'
 
 class SalesEngineTest < Minitest::Test
   # def setup

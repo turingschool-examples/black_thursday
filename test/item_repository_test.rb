@@ -154,7 +154,5 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_delete_unknown_item_does_nothing
     @ir.delete(270000000)
-
   end
-
 end
