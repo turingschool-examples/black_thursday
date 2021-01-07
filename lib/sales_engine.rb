@@ -1,24 +1,18 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
-require 'csv'
+require 'CSV'
 
 class SalesEngine
-  attr_reader :item_repository,
-              :merchant_repository
+  attr_reader :items,
+              :merchants
 
   def initialize(args)
-    @item_repository = ItemRepository.new(args[:items])#, self)
-    @merchant_repository = MerchantRepository.new(args[:merchants])#, self)
+    @items = ItemRepository.new(args[:items])#, self)
+    @merchants = MerchantRepository.new(args[:merchants])#, self)
   end
 
   def self.from_csv(args)
-    args.each do |key, filepath|
-      if key == :items
-        @item_repository = ItemRepository.new(filepath, self)
-      else key == :merchants
-        @merchant_repository = MerchantRepository.new(filepath, value)
-      end
-    end
+    new(args)
   end
 end
 
