@@ -31,4 +31,16 @@ class SalesEngine
     end
     ItemRepository.new(info)
   end
+
+  def merchant_count
+   @merchants.merchant_count
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def item_count
+    @items.item_count
+  end
 end

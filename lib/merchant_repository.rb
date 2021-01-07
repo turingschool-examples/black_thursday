@@ -58,4 +58,8 @@ class MerchantRepository
   def delete(id)
     @merchants.delete(find_by_id(id))
   end
+
+  def merchant_count
+    all.count
+  end 
 end

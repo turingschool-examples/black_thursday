@@ -85,4 +85,8 @@ class ItemRepository
     @items.delete(find_by_id(id))
   end
 
+  def item_count
+    all
+  end 
+
 end
