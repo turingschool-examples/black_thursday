@@ -1,5 +1,7 @@
+require_relative 'item'
 require 'csv'
-require './lib/item'
+
+
 class ItemRepository
   attr_reader :filename,
   :items
@@ -17,6 +19,10 @@ class ItemRepository
   end
 
   def unit_price_to_dollars
+  end
+
+  def inspect
+  "#<#{self.class} #{@items.size} rows>"
   end
 end
 # row[:id], row[:name], row[:description], row[:unit_price], row[:created_at], row[:updated_at], row[:merchant_id]
