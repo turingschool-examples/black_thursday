@@ -3,8 +3,10 @@ class Merchant
               :name,
               :created_at,
               :updated_at
+  attr_reader :repo
 
-  def initialize(data)
+  def initialize(data, repo)
+    @repo = repo
     @id = data[:id]
     @name = data[:name]
     @created_at = data[:created_at]
