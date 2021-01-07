@@ -39,15 +39,22 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_with_description
-      expected = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
-      assert_equal expected, @item_repository.find_all_with_description(expected)[0].description
-      assert_equal 263550472, @item_repository.find_all_with_description(expected).first.id
+    expected = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
+    assert_equal expected, @item_repository.find_all_with_description(expected)[0].description
+    assert_equal 263550472, @item_repository.find_all_with_description(expected).first.id
 
-      bad_case = "A LARGE yeti of SOrtS, casually devoURS a COw as the OTHERS WaTch NUmbly."
-      assert_equal expected, @item_repository.find_all_with_description(bad_case)[0].description
-      assert_equal 263550472, @item_repository.find_all_with_description(expected).first.id
+    bad_case = "A LARGE yeti of SOrtS, casually devoURS a COw as the OTHERS WaTch NUmbly."
+    assert_equal expected, @item_repository.find_all_with_description(bad_case)[0].description
+    assert_equal 263550472, @item_repository.find_all_with_description(expected).first.id
 
-      description = "Sales Engine is a relational database"
-      assert_equal 0, @item_repository.find_all_with_description(description).length
+    description = "Sales Engine is a relational database"
+    assert_equal 0, @item_repository.find_all_with_description(description).length
+  end
+
+  def test_it_finds_all_by_price
+    # expected = BigDecimal.new(25)
+    assert_equal 79, @item_repository.find_all_by_price(BigDecimal.new(25))
+    assert_equal 63, @item_repository.find_all_by_price(BigDecimal.new(10))
+    assert_equal 0, @item_repository.find_all_by_price(BigDecimal.new(20000))
   end
 end
