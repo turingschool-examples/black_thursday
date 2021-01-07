@@ -1,20 +1,22 @@
-require './lib/merchant'
-require './lib/sales_engine'
+require_relative 'merchant'
+require_relative 'sales_engine'
 require 'csv'
 
 class MerchantRepository
   attr_reader :merchants,
-              :path
+              :path,
+              :parent
 
-  def initialize(path)
+  def initialize(path, parent)
     @path = path
+    @parent = parent 
     @merchants = []
     read_merchant
   end
 
   def read_merchant
     CSV.foreach(@path, headers: :true , header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
+      @merchants << Merchant.new(row, self)
     end
     return @merchants
   end
@@ -39,5 +41,26 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def highest_id
+     @merchants.max do |merchant|
+      merchant.id
+    end
+  end
+
+  def create(attributes)
+    attributes[:id] = highest_id.id + 1
+    @merchants << Merchant.new(attributes, self)
+  end
+
+  def update(id, attributes)
+    update = find_by_id(id)
+    update.name = attributes
+  end
+
+  def delete(id)
+    deleted = find_by_id(id)
+    @merchants.delete(deleted)
   end
 end
