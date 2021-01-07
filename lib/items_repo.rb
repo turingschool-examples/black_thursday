@@ -46,7 +46,7 @@ class ItemsRepo
     :unit_price => attributes[:unit_price],
    :merchant_id => attributes[:merchant_id],
     :created_at => attributes[:created_at],
-    :updated_at => attributes[:updated_at]
+    :updated_at => attributes[:updated_at]},self)
 
   end
 
