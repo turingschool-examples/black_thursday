@@ -70,4 +70,12 @@ class ItemRepositoryTest < Minitest::Test
       range4 = (0..10.0)
       assert_equal 302, @item_repository.find_all_by_price_in_range(range4).length
   end
+
+  def test_it_can_find_all_by_merchant_id
+      merchant_id = 12334326
+      assert_equal 6, @item_repository.find_all_by_merchant_id(merchant_id).length
+
+      merchant_id_2 = 12336020
+      assert_equal 2, @item_repository.find_all_by_merchant_id(merchant_id_2).length
+  end
 end
