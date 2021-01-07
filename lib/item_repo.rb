@@ -58,5 +58,17 @@ class ItemRepo
     end
   end
 
+  def find_all_by_price_in_range(range)
+
+    array = []
+    array << range
+    require "pry"; binding.pry
+
+    
+    return [] if price.nil?
+
+    find_all_by_price(price)
+  end
+
 
 end
