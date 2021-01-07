@@ -89,6 +89,12 @@ class ItemRepositoryTest < Minitest::Test
       merchant_id: 25
     }
     @item_repository.create(attributes)
-    assert_equal"Capita Defenders of Awesome 2018", @item_repository.find_by_id(263567475).name
+    assert_equal "Capita Defenders of Awesome 2018", @item_repository.find_item_by_id(263567475).name
+  end
+
+  def test_it_can_sort_by_id
+    assert_equal 263395237, @item_repository.sort_by_id[0].id
+    assert_equal 263395617, @item_repository.sort_by_id[1].id
+    assert_equal 263395721, @item_repository.sort_by_id[2].id
   end
 end
