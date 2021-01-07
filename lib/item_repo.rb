@@ -95,6 +95,6 @@ class ItemRepository
   end
 
   def delete(id)
-    @items = @items - [find_item_by_id(id)]
+    @items = @items.delete(find_item_by_id(id)[0])
   end
 end
