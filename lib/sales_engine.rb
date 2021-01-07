@@ -1,27 +1,18 @@
-require "csv"
-require "pry"
-require_relative "./merchant_repository"
+require 'csv'
+require 'pry'
+require_relative './merchant_repository'
+require_relative './item_repository'
+
 class SalesEngine
-  attr_reader :items_path,
-              :merchants_path
+  attr_reader :items,
+              :merchants
 
   def initialize(sales_data)
-    @items_path = sales_data[:items]
-    @merchants_path = sales_data[:merchants]
+    @items = ItemRepository.new(sales_data[:items], self)
+    @merchants = MerchantRepository.new(sales_data[:merchants], self)
   end
 
   def self.from_csv(sales_data)
     SalesEngine.new(sales_data)
   end
-
-  def items
-    ItemRepository.new(@items_path)
-  end
-
-  def merchants
-    MerchantRepository.new(@merchants_path)
-        binding.pry
-  end
-
-
 end
