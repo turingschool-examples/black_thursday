@@ -19,17 +19,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    # require 'pry'; binding.pry
-      assert_equal 263538760, @item_repository.find_item_by_id(263538760).id
-      assert_equal "Puppy blankie", @item_repository.find_item_by_id(263538760).name
+      assert_equal 263538760, @item_repository.find_item_by_id(263538760)[0].id
+      assert_equal "Puppy blankie", @item_repository.find_item_by_id(263538760)[0].name
       assert_equal nil, @item_repository.find_item_by_id(1)
   end
 
   def test_item_objects
-    csv = (@cleaner.open_csv('./data/items.csv'))
-    assert_equal 1367, @item_repository.item_objects(csv).length
-    # require 'pry'; binding.pry
-    assert_equal "Free standing Woden letters", @item_repository.item_objects(csv)[3].name
+    assert_equal 1367, @item_repository.items.length
+    assert_equal "Free standing Woden letters", @item_repository.items[3].name
   end
 
   def test_it_finds_item_by_name
@@ -89,7 +86,7 @@ class ItemRepositoryTest < Minitest::Test
       merchant_id: 25
     }
     @item_repository.create(attributes)
-    assert_equal "Capita Defenders of Awesome 2018", @item_repository.find_item_by_id(263567475).name
+    assert_equal "Capita Defenders of Awesome 2018", @item_repository.find_item_by_id(263567475)[0].name
   end
 
   def test_it_can_sort_by_id
