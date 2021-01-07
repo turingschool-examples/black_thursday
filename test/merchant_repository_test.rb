@@ -4,7 +4,7 @@ require './test/test_helper'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @engine
+    @engine = mock
     @dummy_repo = MerchantRepository.new('./dummy_data/dummy_merchants.csv', @engine)
   end
 
