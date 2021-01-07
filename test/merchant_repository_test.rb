@@ -16,8 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_has_attributes
     assert_instance_of Hash , @dummy_repo.collections
   end
-
-  #
+  
   def test_populate_repo
     assert_equal 5, @dummy_repo.collections.count
   end
@@ -77,5 +76,6 @@ class MerchantRepositoryTest < Minitest::Test
   #   merchant_repo.delete("12334115")
   #   assert_equal false, merchant_repo.merchant_info.has_key?("12334115")
   # end
+
 
 end

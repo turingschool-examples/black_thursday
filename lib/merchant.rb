@@ -7,6 +7,7 @@ class Merchant
   attr_reader :id,
               :created_at
 
+
   def initialize(data, repository)
     @repository = repository
     @id = data[:id]

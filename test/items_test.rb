@@ -3,6 +3,7 @@ require './test/test_helper'
 class ItemTest < Minitest::Test
 
   def setup
+    @repo = mock
     @data = Item.new({
       :id => 1,
       :name => "Pencil",
@@ -10,7 +11,7 @@ class ItemTest < Minitest::Test
       :unit_price => BigDecimal.new(10.99,4),
       :merchant_id => 2,
       :created_at => "2016-01-11 11:51:37 UTC",
-      :updated_at => Time.now})
+      :updated_at => Time.now}, @repo)
   end
 
   def test_it_exists
