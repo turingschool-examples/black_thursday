@@ -7,9 +7,9 @@ se = SalesEngine.from_csv({
   :merchants => "./data/merchants.csv",
 })
 
-
-binding.pry
-0
+se.items.find_all_with_descripition("design")
+# binding.pry
+# 0
 # item.new for each CSV::ROW
 
 #inside of item repo and merchant repo

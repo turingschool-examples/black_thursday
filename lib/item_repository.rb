@@ -34,25 +34,23 @@ class ItemRepository
     @all.find{|item| item.name.downcase == name.downcase.strip}
   end
 
-  # def find_all_with_descripition(descripition)
-  #   @all.find_all{|item| item.descripition.downcase.include?(descripition.downcase.strip)}
-  # end
-
-  def find_all_by_price(price)
-    @all.find_all{|item| item.unit_price == price}
+  def find_all_with_description(description)
+    @all.find_all do |item|
+      item.description.downcase.include?(description.downcase.strip)
+    end
   end
 
-  # def find_all_by_price_in_range(range)
-    
-  #   result = @all.find_all{|item| item.unit_price >= range.first && item.unit_price <= item.unit_price}
-  #   # @all.map do |item|
-  #   #   if item.unit_price >= range.first && item.unit_price <= item.unit_price
-  #   #     results << item
-  #   #   end
-  #   # end
-  #   # results
-  #   binding.pry
-  # end
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all do |item|
+      range.include?(item.unit_price)
+    end
+  end
 
   def find_all_by_merchant_id(merchant_id)
     @all.find{|item| item.merchant_id == merchant_id}
