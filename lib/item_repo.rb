@@ -67,7 +67,25 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     item_objects(@items_csv).find_all do |row|
-      row if row.merchant_id == merchant_id
+      row.merchant_id == merchant_id
+    end
+  end
+
+  def create(attributes)
+    new_merch = Item.new({id: (sort_by_id[-1].id + 1), 
+                        name: attributes[:name],
+                 description: attributes[:description],
+                  unit_price: attributes[:unit_price],
+                  created_at: attributes[:created_at],
+                  updated_at: attributes[:updated_at],
+                 merchant_id: attributes[:merchant_id]})
+    @items << new_merch
+    new_merch
+  end
+
+  def sort_by_id
+    item_objects(@items_csv).sort_by do |row|
+      row.id
     end
   end
 end
