@@ -139,17 +139,17 @@ class ItemRepositoryTest < Minitest::Test
       created_at: Time.now,
       merchant_id: 1
     }
-      @ir.update(263538760, attributes)
+     x =  @ir.update(263538760, attributes)
 
-     assert_nil nil, @ir.find_by_id(270000000)
-     # assert_nil nil, @ir.[:created_at]
-     assert_nil nil, @ir.find_all_by_merchant_id(1)
+     assert_nil  @ir.find_by_id(270000000)
+     assert_nil  x.updated_at
+     assert_nil  @ir.find_all_by_merchant_id(1)
   end
 
   def test_delete_deletes_the_specified_item
     @ir.delete(263538760)
 
-    assert_nil nil,  @ir.find_by_id(263538760)
+    assert_nil @ir.find_by_id(263538760)
   end
 
   def test_delete_unknown_item_does_nothing
