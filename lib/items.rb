@@ -26,16 +26,11 @@ class Item
     @unit_price.to_f
   end
 
-  def update_item_name (new_name)
-    @name = new_name
-  end
-
-  def update_item_description (new_description)
-    @description = new_description
-  end
-
-  def update_item_unit_price (new_unit_price)
-    @unit_price = new_unit_price
+  def update_attributes (new_attributes)
+    @name = new_attributes[:name]
+    @description = new_attributes[:description].downcase
+    @unit_price = new_attributes[:unit_price]
+    @updated_at = new_attributes[:updated_at] = Time.now
   end
 
 end

@@ -1,69 +1,24 @@
 require './lib/sales_engine'
+require './lib/module'
 
 class MerchantRepository
+  include Methods
   attr_reader :data,
-              :merchant_info
+              :collections
 
-  def initialize(data, engine)
-    @data = data
-    @engine = engine
-    @merchant_info = populate_repo
-  end
+  def populate_collection
+    items = Hash.new{|h, k| h[k] = [] }
+    CSV.foreach(@data, headers: true, header_converters: :symbol) do |data|
+      items[data[:id]] = Merchant.new(data, self)
+      
 
-  def populate_repo
-    merchant = Hash.new{|h,k| h[k] = []}
-    merchant_data = CSV.open @data, headers: true, header_converters: :symbol
-    merchants = merchant_data.map do |row|
-        merchant[row[:id]] = Merchant.new(row, self)
-    end
-    merchant
-  end
-
-  def all
-    @merchant_info.values
-  end
-
-  def find_by_id(id)
-    @merchant_info.find do |merchant|
-      merchant[0] == id.to_s
-    end
-  end
-
-  def find_by_name(name)
-    @merchant_info.find do |merchant|
-      merchant[1].name.upcase == name.upcase
-    end
-  end
-
-  def find_all_by_name(search_string)
-    @merchant_info.find_all do |key, value|
-      value.name.upcase.include?(search_string.upcase)
-    end
-  end
-
-  def find_all_by_name(search_string)
-    @merchant_info.find_all do |key, value|
-      value.name.upcase.include?(search_string.upcase)
-    end
-  end
-
-  def max_id
-    @merchant_info.max_by do |key, record|
-      record.id
-    end
-  end
-
-  def new_id
-    max_id[0].to_i + 1
-  end
-
-  def create(new_data)
-    @merchant_info[:new_id.to_s] = Merchant.new({:id => new_data[:id].to_s, :name => new_data[:name], :created_at => new_data[:created_at], :updated_at => new_data[:updated_at]}, @repository)
-  end
-
-  def update(id, new_name)
-    @merchant_info[id] = Merchant.new({:id => id, :name => new_name, :created_at => created_at, :updated_at => updated_at}, @repository)
-  end
+  def create(attributes)
+      @collections[attributes[:id.to_s]] =
+      Merchant.new({:id => new_id.to_s,
+              :name => attributes[:name].downcase,
+        :created_at => attributes[:created_at],
+        :updated_at => attributes[:updated_at]}, @engine)
+    
 
   def delete(id)
     @merchant_info.delete_if do |key, value|
