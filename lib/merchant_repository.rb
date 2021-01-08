@@ -37,7 +37,9 @@ class MerchantRepository
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @all << Merchant.new(attributes)
+    merchant = Merchant.new(attributes, self)
+    @all << merchant
+    merchant
   end
 
   def update(id, attributes)
