@@ -94,11 +94,4 @@ class ItemRepository
   def delete(id)
     @items.delete(find_by_id(id))
   end
-
 end
-
-
-
-# def initialize(items)
-#   @items = items
-# end

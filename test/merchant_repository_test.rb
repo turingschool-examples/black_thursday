@@ -20,7 +20,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_inspect
     mr = MerchantRepository.new(@sample_data, 'engine')
 
-    assert_equal "#<MerchantRepository 4 rows>", mr.inspect
+    assert_equal '#<MerchantRepository 4 rows>', mr.inspect
   end
 
   def test_all
@@ -40,15 +40,15 @@ class MerchantRepositoryTest < Minitest::Test
   def test_find_by_name
     mr = MerchantRepository.new(@sample_data, 'engine')
 
-    assert_nil mr.find_by_name("Merchant Number 5")
-    assert_equal mr.merchants[0], mr.find_by_name("Merchant Number 1")
+    assert_nil mr.find_by_name('Merchant Number 5')
+    assert_equal mr.merchants[0], mr.find_by_name('Merchant Number 1')
   end
 
   def test_find_all_by_name
     mr = MerchantRepository.new(@sample_data, 'engine')
 
-    assert_equal mr.merchants, mr.find_all_by_name("Merchant")
-    assert_equal [mr.merchants[2]], mr.find_all_by_name("Number 3")
+    assert_equal mr.merchants, mr.find_all_by_name('Merchant')
+    assert_equal [mr.merchants[2]], mr.find_all_by_name('Number 3')
   end
 
   def test_max_merchant_id
@@ -70,11 +70,11 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_update_with_id_and_attributes
     mr = MerchantRepository.new(@sample_data, 'engine')
-    attributes = {name: "This is now a new name"}
+    attributes = { name: 'This is now a new name' }
     mr.update(2, attributes)
 
 
-    assert_equal "This is now a new name", mr.merchants[1].name
+    assert_equal 'This is now a new name', mr.merchants[1].name
   end
 
   def test_delete_with_id
