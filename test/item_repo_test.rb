@@ -68,6 +68,16 @@ class ItemRepoTest < Minitest::Test
     assert_equal "263399735", expected[0].id
   end
 
+  def test_it_can_create_itme_with_attributes
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items_sample.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    ir   = se.items
+    item_1 = ir.create({:name     => "New Item"})
+    assert_equal 263399736, item_1[5].id
+  end
+
   def test_delete_id
     se = SalesEngine.from_csv({
                               :items     => "./data/items_sample.csv",

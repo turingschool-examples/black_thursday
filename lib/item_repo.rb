@@ -77,6 +77,25 @@ class ItemRepo
     end
   end
 
+  def max_item_id
+    item_list.max_by do |item|
+      item.id
+    end.id
+  end
+
+  def create(attributes)
+    item_list.push(Item.new({
+                                      id: max_item_id.to_i + 1,
+                                      name: attributes[:name],
+                                      description: [:description],
+                                      unit_price: [:unit_price],
+                                      merchant_id: [:merchant_id],
+                                      created_at: DateTime.now,
+                                      updated_at: DateTime.now
+                                    }))
+                                    # require 'pry'; binding.pry
+  end
+
   def delete_id(id)
     @item_list.reject! do |item|
       item.id == id
