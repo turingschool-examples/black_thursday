@@ -8,13 +8,13 @@ require 'CSV'
 class AnalystTest < Minitest::Test
 
   def setup
-    data = {
+    data_1 = {
             :items     => "./dummy_data/dummy_items.csv",
-            :merchants => "./dummy_data/dummy_merchants.csv"
+            :merchants => "./dummy_data/dummy_merchants_analyst.csv"
             #Add CSV dummy files
             }
-    sales_engine = SalesEngine.new(data)
-    @sales_analyst = sales_engine.analyst
+    sales_engine_1 = SalesEngine.new(data_1)
+    @sales_analyst = sales_engine_1.analyst
   end
 
   def test_it_exists
@@ -38,5 +38,14 @@ class AnalystTest < Minitest::Test
     assert_equal 0.50, @sales_analyst.standard_deviation
   end
 
+  def test_merchants_with_high_item_count
+    assert_equal ["Keckenbauer"], @sales_analyst.merchants_with_high_item_count
+  end
+
+  def test_average_items_price_per_merchant
+    assert_equal 2, @sales_analyst.items_to_be_averaged("2").count
+    assert_equal 201000, @sales_analyst.sum_item_price_for_merchant("2")
+    assert_equal 100500, @sales_analyst.average_item_price_for_merchant("2")
+  end
 
 end

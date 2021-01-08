@@ -63,4 +63,39 @@ class Analyst
     (sum_and_variance_quotient ** 0.5).round(2)
   end
 
+  def merchants_with_high_item_count
+    collector_array = []
+    items_per_merchant.each do |item_id, items|
+      if items.count.to_f > (standard_deviation + average_items_per_merchant)
+        @engine.merchants.merchant_info.each do |merchant_id, total_merchants|
+          if total_merchants.id == item_id
+            collector_array << total_merchants.name
+          end
+        end
+      end
+    end
+    collector_array
+  end
+
+  def items_to_be_averaged(merchant_number)
+    collector = []
+    items_per_merchant.each do |merchant_id, items|
+      if merchant_id == merchant_number
+        collector << items
+      end
+    end
+    collector.flatten
+  end
+
+  def sum_item_price_for_merchant(merchant_number)
+    total_price = 0
+    items_to_be_averaged(merchant_number).each do |item|
+      total_price += item.unit_price
+    end
+    total_price.to_i
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    sum_item_price_for_merchant(merchant_id) / items_to_be_averaged(merchant_id).count
+  end
 end
