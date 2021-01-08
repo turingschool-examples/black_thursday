@@ -53,17 +53,31 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find{|item| item.merchant_id == merchant_id}
+    @all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
   end
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @all << Item.new(attributes, @engine)
+    @all << Item.new(attributes, self)
   end
 
   def update(id, attributes)
     record = find_by_id(id)
-    record.name = attributes
+    attributes.keys.each do |key|
+      if attributes[:unit_price]
+        record.unit_price = attributes[:unit_price]
+      end
+
+      if attributes[:name]
+        record.name = attributes[:name]
+      end
+
+      if attributes[:description]
+        record.description = attributes[:description]
+      end
+    end
   end
 
   def delete(id)
@@ -76,5 +90,4 @@ class ItemRepository
       instance.id
     end.id + 1
   end
-
 end
