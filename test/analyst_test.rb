@@ -50,8 +50,13 @@ class AnalystTest < Minitest::Test
 
   def test_average_average_price_per_merchant
     assert_equal 4, @sales_analyst.merchant_id_collection.count
-    assert_equal 151200, @sales_analyst.sum_of_average_item_prices
+    assert_equal [200, 100500, 4500, 46000], @sales_analyst.average_item_prices_collection
+    assert_equal 151200, @sales_analyst.sum_average_prices_collections
     assert_equal 37800, @sales_analyst.average_average_price_per_merchant
   end
+
+  def test_golden_items
+  end
+
 
 end
