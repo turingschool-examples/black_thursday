@@ -44,7 +44,13 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items.find_all do |item|
-      item.unit_price == price
+      item.unit_price_to_dollars ==  price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all do |item|
+      range.include?(item.unit_price_to_dollars)
     end
   end
 
@@ -63,5 +69,12 @@ class ItemRepository
   def create(attributes)
     attributes[:id] = highest_id.id + 1
     @items << Item.new(attributes)
+  end
+
+  def update(id, attributes)
+    if find_by_id(id)
+      if attributes.has_key?(:name)
+      end
+    end
   end
 end
