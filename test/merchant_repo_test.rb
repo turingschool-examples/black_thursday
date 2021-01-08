@@ -46,8 +46,8 @@ class MerchantRepoTest < Minitest::Test
                               })
 
     mr = se.merchants
-    expected = mr.find_by_id("12334105")
-    assert_equal "12334105", expected.id
+    expected = mr.find_by_id(12334105)
+    assert_equal 12334105, expected.id
   end
 
   def test_it_returns_nil_if_no_name_is_found
@@ -100,8 +100,31 @@ class MerchantRepoTest < Minitest::Test
       :merchants => "./fixtures/merchant_sample.csv",
       })
     mr = se.merchants
-    merchant_1 = mr.create({:name => "byMarieinLondon"})
+    all_merchants = mr.create({:name => "byMarieinLondon"})
 
-    assert_equal 12334161, merchant_1[5].id
+    assert_equal 12334161, all_merchants[5].id
+  end
+
+  def test_it_can_update_merchant_name_attribute
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./fixtures/merchant_sample.csv",
+      })
+    mr = se.merchants
+    merchant_5 = mr.update(12334160, "Merchant 5")
+
+    assert_equal "Merchant 5", merchant_5.name
+  end
+
+  def test_delete_id
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./fixtures/merchant_sample.csv"
+                              })
+    mr   = se.merchants
+
+    mr.delete_id(12334160)
+
+    assert_equal 4, mr.merchant_list.count
   end
 end
