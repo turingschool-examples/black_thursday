@@ -65,9 +65,25 @@ class ItemRepositoryTest < Minitest::Test
                   :merchant_id => 2
                   })
 
-    assert_equal 79, ir.find_all_by_price(BigDecimal(25)).length
-    require 'pry'; binding.pry
+    assert_equal 79, ir.find_all_by_price(25).length
     assert_equal [], ir.find_all_by_price(BigDecimal(1000000))
+  end
+
+  def test_find_all_by_price_range
+    ir = ItemRepository.new("./data/items.csv")
+
+    i = Item.new({
+                  :id          => 263550472,
+                  :name        => "Pencil",
+                  :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
+                  :unit_price  => BigDecimal(10.99,4),
+                  :created_at  => "#{Time.now}",
+                  :updated_at  => "#{Time.now}",
+                  :merchant_id => 2
+                  })
+
+    assert_equal 19, ir.find_all_by_price_in_range(1_000..1_500).length
+    assert_equal 949, ir.find_all_by_price_in_range(5..80).length
   end
 
   def test_find_merchant_id_returns_item_objects
@@ -92,6 +108,30 @@ class ItemRepositoryTest < Minitest::Test
                   })
     assert_instance_of Item, ir.find_by_name("Pencil")
     assert_equal 263567475, ir.items.last.id
+  end
+
+  def test_update_attributes_can_change_item_objects
+    ir = ItemRepository.new("./data/items.csv")
+    ir.create({
+                  :id          => 1326,
+                  :name        => "Pencil",
+                  :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
+                  :unit_price  => BigDecimal(10.99,4),
+                  :created_at  => "#{Time.now}",
+                  :updated_at  => "#{Time.now}",
+                  :merchant_id => 2
+                })
+    ir.update(263567475,{
+                  :id          => 263567475,
+                  :name        => "New Item",
+                  :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
+                  :unit_price  => BigDecimal(10.99,4),
+                  :created_at  => "#{Time.now}",
+                  :updated_at  => "#{Time.now}",
+                  :merchant_id => 2
+              })
+    assert_equal "New Item" , ir.find_by_id(263567475)
+
 
   end
 
