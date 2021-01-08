@@ -6,17 +6,18 @@ class Merchant
   include TimeStoreable
 
   attr_reader :id,
-            :created_at,
-            :updated_at,
-            :repository
+              :created_at,
+              :updated_at,
+              :repository
 
   attr_accessor :name
 
   def initialize(data, repository)
-    @repository = repository
-    @id = data[:id].to_i
-    @name = data[:name]
+    @id         = data[:id].to_i
+    @name       = data[:name]
     @created_at = time_store(data[:created_at])
     @updated_at = time_store(data[:updated_at])
+    @repository = repository
   end
+  
 end
