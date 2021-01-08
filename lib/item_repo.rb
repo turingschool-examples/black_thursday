@@ -5,13 +5,18 @@ require_relative './item'
 class ItemRepository
   attr_reader :items
 
-  def initialize(file = './data/items.csv')
+  def initialize(file = './data/items.csv', engine)
+    @engine = engine
     @file = file
     @cleaner = Cleaner.new
     @items_csv = CSV.open(@file, headers: true, header_converters: :symbol)
     @items = []
     item_objects(@items_csv)
 
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def item_objects(items)
@@ -37,7 +42,7 @@ class ItemRepository
     end
   end
 
-  def find_item_by_id(id)
+  def find_by_id(id)
     if find_id(id).empty?
       nil
     else
@@ -96,6 +101,6 @@ class ItemRepository
   end
 
   def delete(id)
-    @items.delete(find_item_by_id(id)[0])
+    @items.delete(find_by_id(id)[0])
   end
 end
