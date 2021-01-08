@@ -1,5 +1,5 @@
-require './lib/sales_engine'
-require './lib/module'
+require_relative './sales_engine'
+require_relative './merchant'
 
 class MerchantRepository
   include Methods
@@ -15,11 +15,11 @@ class MerchantRepository
   end
 
   def create(attributes)
-      @collections[attributes[:id.to_s]] =
+      @collections[new_id.to_s] =
       Merchant.new({:id => new_id.to_s,
               :name => attributes[:name].downcase,
         :created_at => attributes[:created_at],
-        :updated_at => attributes[:updated_at]}, @engine)
+        :updated_at => attributes[:updated_at]}, self)
   end
 
   def delete(id)
