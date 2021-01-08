@@ -57,10 +57,23 @@ class MerchantRepo
 
   def create(attributes)
     @merchant_list.push(Merchant.new({
-                                      id: max_merchant_id.to_i + 1,
+                                      id: max_merchant_id + 1,
                                       name: attributes[:name],
-                                      created_at: DateTime.now,
-                                      updated_at: DateTime.now
+                                      created_at: Time.now,
+                                      updated_at: Time.now
                                     }))
+  end
+
+  def update(id, attributes)
+    merchant = @merchant_list.find do |merchant|
+      merchant.id == id
+      merchant.name.replace(attributes)
+    end
+  end
+
+  def delete_id(id)
+    @merchant_list.reject! do |merchant|
+      merchant.id == id
+    end
   end
 end
