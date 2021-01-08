@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/customer'
-require 'pry'
 
 class CustomerTest < MiniTest::Test
 
