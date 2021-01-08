@@ -3,7 +3,6 @@ require 'bigdecimal/util'
 require 'bigdecimal'
 class Transaction
 
-  attr_accessor :unit_price
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
