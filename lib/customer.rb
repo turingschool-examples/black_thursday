@@ -3,14 +3,15 @@ require 'bigdecimal/util'
 require 'bigdecimal'
 class Customer
 
+  attr_accessor :first_name,
+                :last_name
   attr_reader :id,
-              :first_name,
-              :last_name,
               :created_at,
-              :updated_at
+              :updated_at,
+              :repository
 
   def initialize (data, repository)
-    @id          = data[:id]
+    @id          = data[:id].to_i
     @first_name  = data[:first_name]
     @last_name   = data[:last_name]
     @created_at  = Time.parse(data[:created_at].to_s)
@@ -20,6 +21,6 @@ class Customer
 
   def update_attributes (new_attributes)
     @first_name = new_attributes[:first_name]
-    @last_name = new_attributes[:last_name]
+    @last_name  = new_attributes[:last_name]
   end
 end

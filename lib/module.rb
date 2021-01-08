@@ -47,6 +47,12 @@ module Methods
     end
   end
 
+  def find_all_by_invoice_id(id)
+    all.values.find_all do |value|
+      value.invoice_id == id
+    end
+  end
+
   def find_all_by_status(status)
     all.values.find_all do |value|
       value.status == status
@@ -60,7 +66,7 @@ module Methods
   end
 
   def max_id
-    max_id = (all.values.max_by{|item| item.id}).id.to_i
+    max_id = (all.values.max_by{|item| item.id.to_i}).id.to_i
   end
 
   def new_id
