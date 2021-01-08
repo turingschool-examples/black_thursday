@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
                 :updated_at  => Time.now,
                 :merchant_id => 2
                 }, repo)
- 
+
     item_test_created_at = item.created_at.strftime("%d/%m/%Y")
     item_test_updated_at = item.updated_at.strftime("%d/%m/%Y")
     assert_instance_of Item, item
@@ -44,8 +44,22 @@ class ItemTest < Minitest::Test
                 :merchant_id => 2
                 }, repo)
       
-      binding.pry
     assert_equal 10.99, item.unit_price_to_dollars
   end
-  
+
+  def test_unit_price_to_dollars
+    repo = mock
+    item = Item.new({
+                :id          => 1,
+                :name        => "Pencil",
+                :description => "You can use it to write things",
+                :unit_price  => BigDecimal.new(10.99,4),
+                :created_at  => Time.now,
+                :updated_at  => Time.now,
+                :merchant_id => 2
+                }, repo)
+
+    assert_equal 10.99, item.unit_price_to_dollars
+  end
+
 end

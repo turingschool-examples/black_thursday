@@ -34,38 +34,50 @@ class ItemRepository
     @all.find{|item| item.name.downcase == name.downcase.strip}
   end
 
-  # def find_all_with_descripition(descripition)
-  #   @all.find_all{|item| item.descripition.downcase.include?(descripition.downcase.strip)}
-  # end
-
-  def find_all_by_price(price)
-    @all.find_all{|item| item.unit_price == price}
+  def find_all_with_description(description)
+    @all.find_all do |item|
+      item.description.downcase.include?(description.downcase.strip)
+    end
   end
 
-  # def find_all_by_price_in_range(range)
-    
-  #   result = @all.find_all{|item| item.unit_price >= range.first && item.unit_price <= item.unit_price}
-  #   # @all.map do |item|
-  #   #   if item.unit_price >= range.first && item.unit_price <= item.unit_price
-  #   #     results << item
-  #   #   end
-  #   # end
-  #   # results
-  #   binding.pry
-  # end
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all do |item|
+      range.include?(item.unit_price)
+    end
+  end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find{|item| item.merchant_id == merchant_id}
+    @all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
   end
 
   def create(attributes)
     attributes[:id] = new_highest_id
-    @all << Item.new(attributes, @engine)
+    @all << Item.new(attributes, self)
   end
 
   def update(id, attributes)
     record = find_by_id(id)
-    record.name = attributes
+    attributes.keys.each do |key|
+      if attributes[:unit_price]
+        record.unit_price = attributes[:unit_price]
+      end
+
+      if attributes[:name]
+        record.name = attributes[:name]
+      end
+
+      if attributes[:description]
+        record.description = attributes[:description]
+      end
+    end
   end
 
   def delete(id)
@@ -78,5 +90,4 @@ class ItemRepository
       instance.id
     end.id + 1
   end
-
 end

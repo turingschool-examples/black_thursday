@@ -13,10 +13,11 @@ class Merchant
   attr_accessor :name
 
   def initialize(data, repository)
-    @id = data[:id].to_i
-    @name = data[:name]
+    @id         = data[:id].to_i
+    @name       = data[:name]
     @created_at = time_store(data[:created_at])
     @updated_at = time_store(data[:updated_at])
     @repository = repository
   end
+  
 end
