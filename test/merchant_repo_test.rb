@@ -34,7 +34,7 @@ class MerchantRepositoryTest < MiniTest::Test
     merchant1 = mr.find_by_id(12334207)
     merchant0 = mr.find_by_id(1)
 
-    assert_equal [mr.build_merchants[25]], merchant1
+    assert_equal mr.build_merchants[25], merchant1
     assert_nil merchant0
   end
 

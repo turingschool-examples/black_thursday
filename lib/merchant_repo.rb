@@ -37,18 +37,10 @@ class MerchantRepository
     @merchants
   end
 
-  def find_id(id)
+  def find_by_id(id)
     @merchants.select do |merchant|
           merchant.id == id
-    end
-  end
-
-  def find_by_id(id)
-    if find_id(id).empty?
-      nil
-    else
-      find_id(id)
-    end
+    end[0]
   end
 
   def find_by_name(name)
@@ -76,7 +68,7 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    find_by_id(id)[0].update(attributes)
+    find_by_id(id).update(attributes)
   end
 
 
