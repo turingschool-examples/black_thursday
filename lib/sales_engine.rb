@@ -3,12 +3,12 @@ require_relative './item_repo'
 
 
 class SalesEngine
-  attr_reader :items
+  attr_reader :items,
+              :merchants
 
   def initialize(data)
-    @items = data[:items]
-    @merchant_repo = MerchantRepository.new(data[:merchants], self)
-    @item_repo = ItemRepository.new(data[:items])
+    @merchants = MerchantRepository.new(data[:merchants], self)
+    @items = ItemRepository.new(data[:items])
   end
 
   def self.from_csv(data)
