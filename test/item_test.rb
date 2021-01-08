@@ -44,7 +44,7 @@ class ItemTest < Minitest::Test
                 :merchant_id => 2
                 }, repo)
       
-
+      binding.pry
     assert_equal 10.99, item.unit_price_to_dollars
   end
   

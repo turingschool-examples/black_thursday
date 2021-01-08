@@ -1,4 +1,5 @@
 require_relative './time_store_module'
+require 'bigdecimal'
 
 class Item
   include TimeStoreable
@@ -19,7 +20,7 @@ class Item
     @id           = data[:id].to_i
     @name         = data[:name]
     @description  = data[:description]
-    @unit_price   = data[:unit_price]
+    @unit_price   = BigDecimal.new(data[:unit_price],4)
     @created_at   = time_store(data[:created_at])
     @updated_at   = time_store(data[:updated_at])
     @merchant_id  = data[:merchant_id].to_i
