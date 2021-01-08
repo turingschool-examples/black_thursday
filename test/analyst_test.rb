@@ -22,7 +22,14 @@ class AnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant
+    assert_equal 4, @sales_analyst.total_merchants
+    assert_equal 5, @sales_analyst.total_items_across_all_merchants
+    assert_equal ["1", "2", "3", "4"], @sales_analyst.items_per_merchant.keys
     assert_equal 1.25, @sales_analyst.average_items_per_merchant
+  end
+
+  def test_it_can_calculate_standard_deviation
+    assert_equal [1, 2, 1, 1], @sales_analyst.all_items_by_merchant
   end
 
 
