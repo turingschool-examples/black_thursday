@@ -30,10 +30,8 @@ class TransactionRepo
     end
 
     def create(attributes)
-      max_id = (all.values.max_by{|item| item.id}).id.to_i
-      next_id = max_id + 1
       @collections[attributes[:id]] = Transaction.new({
-      :id                           => next_id.to_s,
+      :id                           => new_id,
       :invoice_id                   => attributes[:invoice_id ],
       :credit_card_number           =>   attributes[:credit_card_number],
       :credit_card_expiration_date  => attributes[:credit_card_expiration_date],

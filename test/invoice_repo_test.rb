@@ -41,6 +41,7 @@ class InvoiceRepoTest < Minitest::Test
       :created_at => "2125-09-22 09:34:06 UTC",
       :updated_at => "2034-09-04 21:35:10 UTC"
       }
+      require "pry"; binding.pry
     @dummy_repo.create(data)
     actual = @dummy_repo.find_all_by_merchant_id("22335938").flatten
     assert_equal "22335938", actual[-1].merchant_id

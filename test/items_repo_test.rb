@@ -125,7 +125,7 @@ class ItemsRepoTest < Minitest::Test
     @dummy_repo.create(data)
     @dummy_repo.delete(790)
 
-    assert_equal true, @dummy_repo.all.keys.last == "789"
+    assert_nil nil, @dummy_repo.find_by_id(790)
   end
 
 

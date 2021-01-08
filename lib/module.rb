@@ -66,7 +66,7 @@ module Methods
   end
 
   def max_id
-    max_id = (all.values.max_by{|item| item.id}).id.to_i
+    max_id = (all.values.max_by{|item| item.id.to_i}).id.to_i
   end
 
   def new_id
