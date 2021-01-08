@@ -21,7 +21,7 @@ class Cleaner
   end
 
   def clean_name(name)
-    name.capitalize
+    name
   end
 
   def clean_date(date)
