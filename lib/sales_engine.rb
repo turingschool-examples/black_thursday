@@ -1,4 +1,5 @@
-require './lib/merchant_repo'
+require_relative './merchant_repo'
+require_relative './item_repo'
 
 
 class SalesEngine
@@ -6,8 +7,8 @@ class SalesEngine
 
   def initialize(data)
     @items = data[:items]
-    @file = data[:merchants]
-    @merchant_repo = MerchantRepository.new(@file, self)
+    @merchant_repo = MerchantRepository.new(data[:merchants], self)
+    @item_repo = ItemRepository.new(data[:items])
   end
 
   def self.from_csv(data)
