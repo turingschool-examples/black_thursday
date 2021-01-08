@@ -33,4 +33,10 @@ class SalesAnalystTest < Minitest::Test
   def test_all_merchants_count_helper
     assert_equal 475, @sales_analyst.all_merchants_count
   end
+
+  def test_average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
+  end
+
+
 end

@@ -16,4 +16,8 @@ class SalesAnalyst
   def all_merchants_count
     @parent.merchants.all.length
   end
+
+  def average_item_price_for_merchant(id)
+    @parent.find_merchant_by_id(id)
+  end
 end

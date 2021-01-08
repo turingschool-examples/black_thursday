@@ -9,7 +9,7 @@ class SalesEngine
 
   def initialize(args)
     @items = ItemRepository.new(args[:items])#, self)
-    @merchants = MerchantRepository.new(args[:merchants])#, self)
+    @merchants = MerchantRepository.new(args[:merchants], self)
   end
 
   def self.from_csv(args)
