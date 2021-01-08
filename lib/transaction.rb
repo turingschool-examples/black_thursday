@@ -27,8 +27,8 @@ class Transaction
   end
 
   def update_attributes (new_attributes)
-    @credit_card_number  = data[:credit_card_number]
-    @credit_card_expiration_date = data[:credit_card_expiration_date]
-    @result = data[:result]
+    @credit_card_number  = new_attributes[:credit_card_number]
+    @credit_card_expiration_date = new_attributes[:credit_card_expiration_date]
+    @result = new_attributes[:result]
   end
 end

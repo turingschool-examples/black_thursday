@@ -17,20 +17,28 @@ class TransactionRepo
       items
     end
 
-    def find_all_by_result
+    def test_find_all_by_credit_card_number(credit_card_number)
+      all.values.find_all do |value|
+        value.credit_card_number == credit_card_number
+      end
+    end
 
+    def find_all_by_result (result)
+      all.values.find_all do |value|
+        value.result == result
+      end
     end
 
     def create(attributes)
       max_id = (all.values.max_by{|item| item.id}).id.to_i
       next_id = max_id + 1
       @collections[attributes[:id]] = Transaction.new({
-      :id         => next_id.to_s,
-      :item_id    => attributes[:item_id],
-      :invoice_id => attributes[:invoice_id],
-      :quantity   => attributes[:quantity],
-      :unit_price => attributes[:unit_price],
-      :created_at => attributes[:created_at],
-      :updated_at => attributes[:updated_at]}, self)
+      :id                           => next_id.to_s,
+      :invoice_id                   => attributes[:invoice_id ],
+      :credit_card_number           =>   attributes[:credit_card_number],
+      :credit_card_expiration_date  => attributes[:credit_card_expiration_date],
+      :result                       => attributes[:result],
+      :created_at                   => attributes[:created_at],
+      :updated_at                   => attributes[:updated_at]}, self)
     end
 end
