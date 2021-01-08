@@ -71,10 +71,13 @@ class MerchantRepositoryTest < Minitest::Test
   def test_update_with_id_and_attributes
     mr = MerchantRepository.new(@sample_data, 'engine')
     attributes = { name: 'This is now a new name' }
+    time = Time.now.round
+
     mr.update(2, attributes)
 
 
     assert_equal 'This is now a new name', mr.merchants[1].name
+    assert_equal time, mr.merchants[1].updated_at
   end
 
   def test_delete_with_id
