@@ -14,8 +14,4 @@ class SalesEngine
   def self.from_csv(data)
     new(data)
   end
-
-  def merchants
-    @merchant_repo.build_merchants
-  end
 end
