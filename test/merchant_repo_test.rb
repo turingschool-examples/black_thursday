@@ -74,15 +74,16 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_update_merchant
     mr = MerchantRepository.new(@engine)
+    attributes = {:name => "Brainpeeps"}
     merchant1 = mr.create("alexascodetutoring")
-    mr.update(merchant1.id, "Brainpeeps")
-    mr.update(12334123, "You did it!")
+    mr.update(merchant1.id, attributes)
+    mr.update(12334123, attributes)
 
     assert_equal "Brainpeeps", merchant1.name
     assert_equal 12337412, merchant1.id
     assert_equal 476, mr.merchants.count
     assert_equal true, mr.merchants.include?(merchant1)
-    assert_equal "You did it!", (mr.update(12334123, "You did it!"))
+    assert_equal "Brainpeeps", mr.update(12334123, attributes)
   end
 
   def test_delete_merchant
