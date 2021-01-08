@@ -14,4 +14,9 @@ class InvoiceRepositoryTest < MiniTest::Test
     invoice_repo = InvoiceRepository.new
     assert_equal [], invoice_repo.invoices
   end
+
+  def test_it_can_build_invoices
+    ir = InvoiceRepository.new
+    assert_equal 1, ir.invoices[0].id
+  end
 end
