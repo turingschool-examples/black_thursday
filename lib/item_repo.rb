@@ -101,4 +101,12 @@ class ItemRepo
       item.id == id
     end
   end
+
+  def update(id, attributes)
+    found_item = @item_list.find do |item|
+      item.id. == id
+      item.name.replace(attributes)
+    end
+
+  end
 end
