@@ -48,8 +48,26 @@ class ItemRepositoryTest < Minitest::Test
                   :merchant_id => 2
                   })
 
-    assert_equal 1, ir.find_all_by_description("A large Yeti of sorts, casually devours a cow as the others watch numbly.").count
-    assert_equal [], ir.find_all_by_description("akjhaskjdh223k1jh2hash")
+    assert_equal 1, ir.find_all_with_description("A large Yeti of sorts, casually devours a cow as the others watch numbly.").count
+    assert_equal [], ir.find_all_with_description("akjhaskjdh223k1jh2hash")
+  end
+
+  def test_find_all_by_price
+    ir = ItemRepository.new("./data/items.csv")
+
+    i = Item.new({
+                  :id          => 263550472,
+                  :name        => "Pencil",
+                  :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
+                  :unit_price  => BigDecimal(10.99,4),
+                  :created_at  => "#{Time.now}",
+                  :updated_at  => "#{Time.now}",
+                  :merchant_id => 2
+                  })
+
+    assert_equal 79, ir.find_all_by_price(BigDecimal(25)).length
+    require 'pry'; binding.pry
+    assert_equal [], ir.find_all_by_price(BigDecimal(1000000))
   end
 
 end

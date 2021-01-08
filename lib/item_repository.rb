@@ -36,9 +36,17 @@ class ItemRepository
     end
   end
 
-  def find_all_by_description(description)
+  def find_all_with_description(description)
     @items.find_all do |item|
       item.description.downcase.include?(description.downcase)
+    end
+  end
+
+  def find_all_by_price(price)
+
+    @items.find_all do |item|
+      require 'pry'; binding.pry
+      item.unit_price == price
     end
   end
 end
