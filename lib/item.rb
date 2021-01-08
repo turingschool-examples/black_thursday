@@ -11,7 +11,7 @@ class Item
 
   def initialize(input)
     @input = input
-    @id = input[:id]
+    @id = input[:id].to_i
     @name = input[:name]
     @description = input[:description]
     @unit_price = input[:unit_price]

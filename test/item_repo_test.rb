@@ -37,40 +37,40 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_all_with_description
     expected = @ir.find_all_by_description("Gorgeous hand knitted baby bootees")
-    assert_equal "263399735", expected[0].id
+    assert_equal 263399735, expected[0].id
   end
 
   def test_find_all_with_price
     expected = @ir.find_all_by_price(50000.0)
-    assert_equal "263397919", expected[0].id
+    assert_equal 263397919, expected[0].id
   end
 
   def test_all_by_price_range
     se = SalesEngine.from_csv({
-                              :items     => "./data/items_sample.csv",
+                              :items     => "./fixtures/items_sample.csv",
                               :merchants => "./data/merchants.csv"
                               })
     ir   = se.items
 
     expected = @ir.find_all_by_price_in_range(50000..50100)
 
-    assert_equal "263397919", expected[0].id
+    assert_equal 263397919, expected[0].id
   end
 
   def test_find_all_by_merchant_id
     se = SalesEngine.from_csv({
-                              :items     => "./data/items_sample.csv",
+                              :items     => "./fixtures/items_sample.csv",
                               :merchants => "./data/merchants.csv"
                               })
-    ir   = se.items
+    @ir   = se.items
 
     expected = @ir.find_all_by_merchant_id("12334271")
-    assert_equal "263399735", expected[0].id
+    assert_equal 263399735, expected[0].id
   end
 
-  def test_it_can_create_itme_with_attributes
+  def test_it_can_create_item_with_attributes
     se = SalesEngine.from_csv({
-                              :items     => "./data/items_sample.csv",
+                              :items     => "./fixtures/items_sample.csv",
                               :merchants => "./data/merchants.csv"
                               })
     ir   = se.items
@@ -80,12 +80,23 @@ class ItemRepoTest < Minitest::Test
 
   def test_delete_id
     se = SalesEngine.from_csv({
-                              :items     => "./data/items_sample.csv",
+                              :items     => "./fixtures/items_sample.csv",
                               :merchants => "./data/merchants.csv"
                               })
     ir   = se.items
-    ir.delete_id("263397919")
+    ir.delete_id(263397919)
 
     assert_equal 4, ir.item_list.count
+  end
+
+  def test_update_attributes
+    se = SalesEngine.from_csv({
+                              :items     => "./fixtures/items_sample.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    ir   = se.items
+    expected = ir.update(263397919, "Le whatever")
+
+    assert_equal "Le whatever", expected.name
   end
 end
