@@ -16,7 +16,6 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(engine)
 
     assert_instance_of SalesAnalyst, analyst
-    assert_instance_of SalesEngine, analyst.engine
   end
 
   def test_it_can_find_all

@@ -20,7 +20,7 @@ class SalesEngine
    @merchants.all
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_items_by_merchant_id(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
   end
 
@@ -28,26 +28,3 @@ class SalesEngine
     @items.all
   end
 end
-
-
-
-# require_relative 'merchant'
-# require_relative 'item'
-# @items = item_repository(CSV.readlines(arg1[:items], headers: true, header_converters: :symbol))
-# @merchants = merchant_repository(CSV.readlines(arg1[:merchants], headers: true, header_converters: :symbol))
-
-# def merchant_repository(file)
-#   info = []
-#   file.each do |row|
-#     info.push(Merchant.new(row))
-#   end
-#   MerchantRepository.new(info)
-# end
-#
-# def item_repository(file)
-#   info = []
-#   file.each do |row|
-#     info.push(Item.new(row))
-#   end
-#   ItemRepository.new(info)
-# end
