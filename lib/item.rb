@@ -26,14 +26,14 @@ class Item
 
   def update(args)
 
-    @unit_price  = args[:unit_price].to_f if !args[:unit_price].nil?
+    @unit_price  = (args[:unit_price].to_d)/ 100 if !args[:unit_price].nil?
     @description = args[:description].to_s if !args[:description].nil?
     @name        = args[:name].to_s  if !args[:name].nil?
     @updated_at  = Time.now
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f
+    @unit_price.to_f * 100
   end
 
 end
