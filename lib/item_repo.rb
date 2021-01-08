@@ -9,9 +9,10 @@ class ItemRepository
     @engine = engine
     @file = file
     @cleaner = Cleaner.new
-    @items_csv = @cleaner.open_csv(@file)
+    @items_csv = CSV.open(@file, headers: true, header_converters: :symbol)
     @items = []
     item_objects(@items_csv)
+
   end
 
   def inspect

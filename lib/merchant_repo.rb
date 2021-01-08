@@ -1,6 +1,8 @@
 require 'CSV'
+
 require_relative './cleaner'
 require_relative './merchant'
+
 
 class MerchantRepository
   attr_accessor :merchants
@@ -21,10 +23,11 @@ class MerchantRepository
   def build_merchants
     @data.map do |merchant|
       cleaner = Cleaner.new
-      merch = Merchant.new({        id: cleaner.clean_id(merchant[:id]),
-                                  name: cleaner.clean_name(merchant[:name]),
-                            created_at: cleaner.clean_date(merchant[:created_at]),
-                            updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
+      merch = Merchant.new({
+        id: cleaner.clean_id(merchant[:id]),
+        name: cleaner.clean_name(merchant[:name]),
+        created_at: cleaner.clean_date(merchant[:created_at]),
+        updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
       @merchants << merch
       end
     @merchants

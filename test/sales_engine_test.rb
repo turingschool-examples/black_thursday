@@ -14,13 +14,9 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, @se
   end
 
-  # def test_it_has_readable_attributes
-  #   assert_equal "./data/items.csv", @se.items
-  #   assert_equal "./data/merchants.csv", @se.merchants
-  # end
-
   def test_sales_engine_can_build_merchant_repo
 
-    assert_equal 475, @se.merchants.count
+    assert_equal MerchantRepository, @se.merchants.class
+    assert_equal ItemRepository, @se.items.class
   end
 end
