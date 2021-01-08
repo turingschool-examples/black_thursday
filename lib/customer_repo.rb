@@ -1,0 +1,2 @@
+class CustomerRepository
+end
