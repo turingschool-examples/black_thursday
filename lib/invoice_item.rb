@@ -22,6 +22,10 @@ class InvoiceItem
     @repository  = repository
   end
 
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
+
   def update_attributes (new_attributes)
     @quantity = new_attributes[:quantity]
     @unit_price = new_attributes[:unit_price]
