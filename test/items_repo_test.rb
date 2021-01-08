@@ -1,9 +1,19 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/sales_engine'
+require './lib/items_repo'
 require 'CSV'
-require './test/test_helper'
+require 'mocha/minitest'
 
 class ItemsRepoTest < Minitest::Test
 
   def setup
+    # data = {
+    #         :items     => "./dummy_data/dummy_items.csv",
+    #         :merchants => "./dummy_data/dummy_merchants.csv"
+    #         #Add CSV dummy files
+    #         }
+    # sales_engine = SalesEngine.new(data)
     @engine = mock
     @dummy_repo = ItemsRepo.new("./dummy_data/dummy_items.csv", @engine)
   end
@@ -20,10 +30,14 @@ class ItemsRepoTest < Minitest::Test
     assert_instance_of Hash, @dummy_repo.populate_collection
   end
 
-  def test_it_can_gather_all_items
-    assert_instance_of Item, @dummy_repo.all.values[0]
-    assert_instance_of Item, @dummy_repo.all.values[-1]
-    assert_equal 4, @dummy_repo.all.values.length
+  # def test_it_can_gather_all_items
+  #   assert_instance_of Item, @dummy_repo.all.values[0]
+  #   assert_instance_of Item, @dummy_repo.all.values[-1]
+  #   assert_equal 4, @dummy_repo.all.values.length
+  # end
+
+  def test_it_can_group_by_merchant_id
+    assert_equal ["1", "2", "3", "4"], @dummy_repo.group_by_merchant_id.keys
   end
 
   def test_it_can_find_by_id

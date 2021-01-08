@@ -30,10 +30,8 @@ class InvoiceItemRepo
     end
 
     def create(attributes)
-      max_id = (all.values.max_by{|item| item.id}).id.to_i
-      next_id = max_id + 1
       @collections[attributes[:id]] = InvoiceItem.new({
-      :id         => next_id.to_s,
+      :id         => new_id,
       :item_id    => attributes[:item_id],
       :invoice_id => attributes[:invoice_id],
       :quantity   => attributes[:quantity],

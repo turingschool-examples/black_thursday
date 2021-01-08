@@ -1,11 +1,12 @@
 require 'CSV'
-require './test/test_helper'
+require './test_helper'
 
 class SalesEngineTest < Minitest::Test
   def setup
     data = {
-            :items     => "./data/items.csv",
-            :merchants => "./data/merchants.csv"
+            :items     => "./dummy_data/dummy_items.csv",
+            :merchants => "./dummy_data/dummy_merchants.csv"
+            #Add CSV dummy files
             }
     @engine = SalesEngine.new(data)
   end

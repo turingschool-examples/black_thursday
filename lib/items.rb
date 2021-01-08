@@ -1,5 +1,6 @@
 require 'time'
 require 'bigdecimal/util'
+require 'bigdecimal'
 class Item
 
   attr_accessor :name,
