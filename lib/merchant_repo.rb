@@ -60,7 +60,7 @@ class MerchantRepository
     attributes_final = {:id => new_id}
     attributes.each do |attribute_key, attribute_value|
       attributes_final[attribute_key] = attribute_value
-    end 
+    end
     new_merch = Merchant.new(attributes_final, self)
     @merchants << new_merch
     new_merch
@@ -73,6 +73,7 @@ class MerchantRepository
   end
 
   def update(id, attributes)
+    # if attributes.keys.include?(:id)
     find_by_id(id).update(attributes)
   end
 
