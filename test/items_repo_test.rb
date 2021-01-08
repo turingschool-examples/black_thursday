@@ -37,11 +37,11 @@ class ItemsRepoTest < Minitest::Test
   # end
 
   def test_it_can_group_by_merchant_id
-    assert_equal ["1", "2", "3", "4"], @dummy_repo.group_by_merchant_id.keys
+    assert_equal [1, 2, 3, 4], @dummy_repo.group_by_merchant_id.keys
   end
 
   def test_it_can_find_by_id
-    assert_instance_of Item, @dummy_repo.find_by_id("123")
+    assert_instance_of Item, @dummy_repo.find_by_id(123)
     assert_nil @dummy_repo.find_by_id("111111")
   end
 
@@ -54,7 +54,7 @@ class ItemsRepoTest < Minitest::Test
 
 
   def test_it_can_find_by_name
-    assert_equal "345", @dummy_repo.find_by_name("etsy").id
+    assert_equal 345, @dummy_repo.find_by_name("etsy").id
   end
 
   def test_it_can_find_by_description
@@ -69,7 +69,7 @@ class ItemsRepoTest < Minitest::Test
   def test_it_can_find_by_price_range
     actual = @dummy_repo.find_all_by_price_in_range(100..60000)
     actual_empty = @dummy_repo.find_all_by_price_in_range(1000000..2000000)
-    assert_equal 3, actual.count
+    assert_equal 4, actual.count
     assert_equal true, actual.all?{|item| item.class == Item}
     assert_equal 0, actual_empty.count
     assert_equal [], actual_empty
@@ -82,7 +82,9 @@ class ItemsRepoTest < Minitest::Test
     assert_equal 4500, @dummy_repo.all.values[2].unit_price
     @dummy_repo.find_all_with_description("sell things")
     assert_equal "we sell things", @dummy_repo.all.values[2].description
-    @dummy_repo.update({id: "567", name: "ebay", description: "we use to sell things", unit_price: 6400})
+
+    @dummy_repo.update({id: 567, name: "ebay", description: "we use to sell things", unit_price: 6400})
+    
     @dummy_repo.find_by_name("ebay")
     assert_equal "ebay", @dummy_repo.all.values[2].name
     @dummy_repo.find_by_price(6400)
@@ -90,8 +92,8 @@ class ItemsRepoTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_id
-    actual = @dummy_repo.find_all_by_merchant_id("1").flatten
-    assert_equal "1",actual[0].merchant_id
+    actual = @dummy_repo.find_all_by_merchant_id(1).flatten
+    assert_equal 1,actual[0].merchant_id
     # assert_instance_of Item, actual[1]
   end
 
@@ -108,7 +110,7 @@ class ItemsRepoTest < Minitest::Test
       @dummy_repo.create(data)
       assert_instance_of Item, @dummy_repo.all.values[-1]
       assert_equal true, @dummy_repo.all.keys.last == "910"
-      assert_equal "790", @dummy_repo.all.values[-1].id
+      assert_equal 790, @dummy_repo.all.values[-1].id
     end
 
   def test_it_can_delete_items
