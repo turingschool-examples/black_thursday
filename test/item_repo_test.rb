@@ -94,4 +94,27 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263395617, @item_repository.sort_by_id[1].id
     assert_equal 263395721, @item_repository.sort_by_id[2].id
   end
+
+  def test_it_deletes_items
+    attributes = {
+      name: "Capita Defenders of Awesome 2018",
+      description: "This board both rips and shreds",
+      unit_price: BigDecimal.new(399.99, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+
+    @item_repository.create(attributes)
+    assert_equal "Capita Defenders of Awesome 2018", @item_repository.find_item_by_id(263567475)[0].name
+    assert_equal 1368, @item_repository.items.length
+
+    @item_repository.delete(263567475)
+    assert_equal nil, @item_repository.find_item_by_id(263567475)
+    assert_equal 1367, @item_repository.items.length
+
+    @item_repository.delete(263538760)
+    assert_equal nil, @item_repository.find_item_by_id(263538760)
+    assert_equal 1366, @item_repository.items.length
+  end
 end

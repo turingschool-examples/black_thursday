@@ -77,7 +77,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_item = Item.new({id: (sort_by_id[-1].id + 1), 
+    new_item = Item.new({id: (sort_by_id[-1].id + 1),
                         name: attributes[:name],
                  description: attributes[:description],
                   unit_price: attributes[:unit_price],
@@ -92,5 +92,9 @@ class ItemRepository
     @items.sort_by do |row|
       row.id
     end
+  end
+
+  def delete(id)
+    @items.delete(find_item_by_id(id)[0])
   end
 end
