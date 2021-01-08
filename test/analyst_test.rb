@@ -56,6 +56,16 @@ class AnalystTest < Minitest::Test
   end
 
   def test_golden_items
+    assert_equal [-37600, 62700, -33300, 8200], @sales_analyst.difference_of_item_prices_and_total_average_item_prices
+    assert_equal [0.141376e10, 0.393129e10, 0.110889e10, 0.6724e8], @sales_analyst.squares_of_average_prices_differences
+    assert_equal 6521180000, @sales_analyst.sum_of_square_item_price_differences
+    assert_equal 3, @sales_analyst.std_dev_item_price_variance
+    assert_equal 2173726666, @sales_analyst.item_price_sum_and_variance_quotient
+    assert_equal 46623.24, @sales_analyst.item_price_standard_deviation
+    assert_equal 93246.48, @sales_analyst.double_item_price_standard_deviation
+    assert_equal 131046.48, @sales_analyst.golden_items_critera
+    assert_equal 5, @sales_analyst.item_collection.count
+    assert_equal 1, @sales_analyst.golden_items.count
   end
 
 

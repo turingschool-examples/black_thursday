@@ -117,6 +117,61 @@ class Analyst
     sum_average_prices_collections / merchant_id_collection.count
   end
 
+  def difference_of_item_prices_and_total_average_item_prices
+    average_item_prices_collection.map do |average|
+      average - average_average_price_per_merchant
+    end
+  end
+
+  def squares_of_average_prices_differences
+    difference_of_item_prices_and_total_average_item_prices.map do |number|
+      number ** 2
+    end
+  end
+
+  def sum_of_square_item_price_differences
+    squares_of_average_prices_differences.sum
+  end
+
+  def std_dev_item_price_variance
+    merchant_id_collection.count - 1
+  end
+
+  def item_price_sum_and_variance_quotient
+    sum_of_square_item_price_differences / std_dev_item_price_variance
+  end
+
+  def item_price_standard_deviation
+    (item_price_sum_and_variance_quotient ** 0.5).round(2)
+  end
+
+  def double_item_price_standard_deviation
+    item_price_standard_deviation * 2
+  end
+
+  def golden_items_critera
+    double_item_price_standard_deviation + average_average_price_per_merchant
+  end
+
+  def item_collection
+    items_per_merchant.values.flatten
+  end
+
+  # def golden_items
+  #   golden_items_collector = []
+  #   item_collection.each do |item|
+  #     if item.unit_price > (double_item_price_standard_deviation + average_average_price_per_merchant)
+  #       golden_items_collector << item
+  #     end
+  #   end
+  #   golden_items_collector
+  # end
+
+  def golden_items
+    item_collection.find_all do |item|
+      item.unit_price > golden_items_critera
+    end
+  end
 
 
 end
