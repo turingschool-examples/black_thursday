@@ -31,5 +31,21 @@ class ItemTest < Minitest::Test
     assert_equal 2, item.merchant_id
     assert_equal repo, item.repository
   end
+
+  def test_unit_price_to_dollars
+    repo = mock
+    item = Item.new({
+                :id          => 1,
+                :name        => "Pencil",
+                :description => "You can use it to write things",
+                :unit_price  => BigDecimal.new(10.99,4),
+                :created_at  => Time.now,
+                :updated_at  => Time.now,
+                :merchant_id => 2
+                }, repo)
+      
+
+    assert_equal 10.99, item.unit_price_to_dollars
+  end
   
 end
