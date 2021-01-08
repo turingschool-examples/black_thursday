@@ -9,8 +9,8 @@ se = SalesEngine.from_csv({
 
 
 binding.pry
-
-# item.new for each CSV::ROW 
+0
+# item.new for each CSV::ROW
 
 #inside of item repo and merchant repo
 # itemrepository = []
