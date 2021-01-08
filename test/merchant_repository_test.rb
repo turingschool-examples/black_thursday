@@ -8,31 +8,6 @@ require './lib/merchant_repository.rb'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    # @merchant1 = Merchant.new({
-    #   id: '1',
-    #   name: 'Merchant Number 1',
-    #   created_at: '2007-12-10',
-    #   updated_at: '2008-12-04',
-    # })
-    # @merchant2 = Merchant.new({
-    #   id: '2',
-    #   name: 'Merchant Number 2',
-    #   created_at: '2009-12-10',
-    #   updated_at: '2010-12-04',
-    # })
-    # @merchant3 = Merchant.new({
-    #   id: '3',
-    #   name: 'Merchant Number 3',
-    #   created_at: '2011-12-10',
-    #   updated_at: '2012-12-04',
-    # })
-    # @merchant4 = Merchant.new({
-    #   id: '4',
-    #   name: 'Merchant Number 4',
-    #   created_at: '2013-12-10',
-    #   updated_at: '2014-12-04',
-    # })
-
     @sample_data = './test/fixtures/sample_merchants.csv'
   end
 
@@ -85,13 +60,8 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_create_new_merchant
     mr = MerchantRepository.new(@sample_data, 'engine')
-    # @time = Time.now
-    attributes = {
-      # id: '5',
-      name: 'Merchant Number 5',
-      # created_at: @time,
-      # updated_at: @time,
-    }
+    attributes = {name: 'Merchant Number 5'}
+
     mr.create(attributes)
 
     assert_equal 'Merchant Number 5', mr.find_by_id(5).name

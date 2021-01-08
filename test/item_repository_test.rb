@@ -6,49 +6,11 @@ require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item_repository'
-require './lib/item'
 
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @item1 = Item.new({
-                        id: '1',
-                        name: 'Capita Defenders of Awesome 2018',
-                        description: 'This board both rips and shreds',
-                        unit_price: BigDecimal(399.99, 5),
-                        created_at: '2016-01-11 11:51:37 UTC',
-                        updated_at: '2020-01-13 12:04:41 UTC',
-                        merchant_id: 25
-                        })
-    @item2 = Item.new({
-                        id: '2',
-                        name: 'The Big Book of Stuff',
-                        description: '10,000 pages of stuff',
-                        unit_price: BigDecimal(1200),
-                        created_at: '2000-04-06 11:51:37 UTC',
-                        updated_at: '2016-01-11 11:02:37 UTC',
-                        merchant_id: 17
-                        })
-    @item3 = Item.new({
-                        id: '3',
-                        name: 'Something to do Things',
-                        description: 'It does things for you',
-                        unit_price: BigDecimal(300),
-                        created_at: '2007-06-04 21:35:10 UTC',
-                        updated_at: '2011-01-11 04:51:37 UTC',
-                        merchant_id: 25
-                        })
-    @item4 = Item.new({
-                        id: '4',
-                        name: 'Another Awesome Item',
-                        description: 'you really need this item!',
-                        unit_price: BigDecimal(300),
-                        created_at: '2003-12-21 19:00:37 UTC',
-                        updated_at: '2003-12-21 19:00:37 UTC',
-                        merchant_id: 85
-                        })
-    @sample_data = "./test/fixtures/sample_items.csv"
-    # @file_path =
+    @sample_data = './test/fixtures/sample_items.csv'
   end
 
   def test_it_exists
@@ -136,8 +98,6 @@ class ItemRepositoryTest < Minitest::Test
                   name: 'Yet another Thing!',
                   description: 'Get it now! you must have it!',
                   unit_price: BigDecimal(599.99, 5),
-                  created_at: Time.now,
-                  updated_at: Time.now,
                   merchant_id: 25
                   }
 
