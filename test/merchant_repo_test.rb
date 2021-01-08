@@ -91,7 +91,17 @@ class MerchantRepoTest < Minitest::Test
     mr = se.merchants
     merchant_array = mr.find_all_by_name("Mota")
 
-    assert_equal 2, merchant_array.count
     assert_equal "MotankiDarena", merchant_array[0].name
+  end
+
+  def test_it_can_create_merchants_with_attributes
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./fixtures/merchant_sample.csv",
+      })
+    mr = se.merchants
+    merchant_1 = mr.create({:name => "byMarieinLondon"})
+
+    assert_equal 12334161, merchant_1[5].id
   end
 end
