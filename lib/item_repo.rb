@@ -1,6 +1,6 @@
 require 'CSV'
-require './lib/cleaner'
-require './lib/item'
+require_relative './cleaner'
+require_relative './item'
 
 class ItemRepository
   attr_reader :items
@@ -8,9 +8,10 @@ class ItemRepository
   def initialize(file = './data/items.csv')
     @file = file
     @cleaner = Cleaner.new
-    @items_csv = @cleaner.open_csv(@file)
+    @items_csv = CSV.open(@file, headers: true, header_converters: :symbol)
     @items = []
     item_objects(@items_csv)
+
   end
 
   def item_objects(items)
