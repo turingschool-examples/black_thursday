@@ -5,11 +5,12 @@ require_relative 'item'
 require_relative 'item_repository'
 
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :items, :merchants, :analyst
 
   def initialize(arg1)
     @items = item_repository(CSV.readlines(arg1[:items], headers: true, header_converters: :symbol))
     @merchants = merchant_repository(CSV.readlines(arg1[:merchants], headers: true, header_converters: :symbol))
+    @analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(arg1)
