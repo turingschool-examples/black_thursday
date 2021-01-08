@@ -18,6 +18,16 @@ end
     assert_instance_of Item, @i
   end
 
+  def test_it_has_attributes
+    assert_equal  1, @i.id
+    assert_equal "Pencil", @i.name
+    assert_equal "You can use it to write things", @i.description
+    assert_equal 2, @i.merchant_id.to_i
+    # assert_equal BigDecimal.new(10.99,4), @i.unit_price
+    # assert_equal Time.now, @i.created_at
+    # assert_operator Time.now, :<, @i.description
+    # assert_equal  , @i.unit_price_to_dollars
+  end
 end
 
 
