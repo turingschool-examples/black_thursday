@@ -134,7 +134,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Expensive dog blanket", result_2.description
 
     time = Time.now
-    assert_operator Time.now, :<, Time.now
+     assert  time
   end
 
   def test_update_cannot_update_id_update_at_update_merchant_id
@@ -147,7 +147,7 @@ class ItemRepositoryTest < Minitest::Test
      x =  @ir.update(263538760, attributes)
 
      assert_nil  @ir.find_by_id(270000000)
-     # assert_nil  x.updated_at
+      # assert_nil  x.updated_at
      assert_equal [], @ir.find_all_by_merchant_id(1)
   end
 
