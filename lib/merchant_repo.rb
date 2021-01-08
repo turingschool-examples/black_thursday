@@ -56,7 +56,12 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_merch = Merchant.new({id: (sort_by_id[-1].id + 1), name: attributes}, self)
+    new_id = (sort_by_id[-1].id + 1 )
+    attributes_final = {:id => new_id}
+    attributes.each do |attribute_key, attribute_value|
+      attributes_final[attribute_key] = attribute_value
+    end 
+    new_merch = Merchant.new(attributes_final, self)
     @merchants << new_merch
     new_merch
   end
