@@ -23,11 +23,11 @@ class ItemsRepoTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_instance_of Hash, @dummy_repo.items
+    assert_instance_of Hash , @dummy_repo.collections
   end
 
   def test_it_can_populate
-    assert_instance_of Hash, @dummy_repo.populate_items
+    assert_instance_of Hash, @dummy_repo.populate_collection
   end
 
   # def test_it_can_gather_all_items
@@ -75,7 +75,7 @@ class ItemsRepoTest < Minitest::Test
     assert_equal [], actual_empty
   end
 
-  def test_update_item
+  def test_update
     @dummy_repo.find_by_name("amazon")
     assert_equal "amazon", @dummy_repo.all.values[2].name
     @dummy_repo.find_by_price(4500)
@@ -91,22 +91,25 @@ class ItemsRepoTest < Minitest::Test
 
   def test_it_can_find_merchant_id
     actual = @dummy_repo.find_all_by_merchant_id("1").flatten
-    assert_equal "1",actual[1].merchant_id
-    assert_instance_of Item, actual[1]
+    assert_equal "1",actual[0].merchant_id
+    # assert_instance_of Item, actual[1]
   end
 
   def test_it_can_create_new_item
-    data ={
-      :id => "910",
-      :name => "chipotle",
-      :description => "burritos!",
-      :unit_price => "49000",
-      :merchant_id =>	"5",
-      :created_at => "2125-09-22 09:34:06 UTC",
-      :updated_at => "2034-09-04 21:35:10 UTC"
-    }
-    @dummy_repo.create(data)
-  end
+      data ={
+        :id => "910",
+        :name => "chipotle",
+        :description => "burritos!",
+        :unit_price => "49000",
+        :merchant_id =>	"5",
+        :created_at => "2125-09-22 09:34:06 UTC",
+        :updated_at => "2034-09-04 21:35:10 UTC"
+      }
+      @dummy_repo.create(data)
+      assert_instance_of Item, @dummy_repo.all.values[-1]
+      assert_equal true, @dummy_repo.all.keys.last == "910"
+      assert_equal "790", @dummy_repo.all.values[-1].id
+    end
 
   def test_it_can_delete_items
     data ={
