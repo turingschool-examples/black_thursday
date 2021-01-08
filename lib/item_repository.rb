@@ -1,8 +1,18 @@
+require_relative 'item'
+
 class ItemRepository
   attr_reader :items
 
-  def initialize(items)
-    @items = items
+  def initialize(file_path, engine)
+    @engine = engine
+    @items = create_repository(file_path)
+  end
+
+  def create_repository(file_path)
+    file = CSV.readlines(file_path, headers: true, header_converters: :symbol)
+    file.map do |row|
+      Item.new(row)
+    end
   end
 
   def inspect
@@ -84,5 +94,4 @@ class ItemRepository
   def delete(id)
     @items.delete(find_by_id(id))
   end
-
 end

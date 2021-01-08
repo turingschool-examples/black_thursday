@@ -1,12 +1,19 @@
 require 'time'
-require 'pry'
 require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :merchants
 
-  def initialize(merchants)
-    @merchants = merchants
+  def initialize(file_path, engine)
+    @engine = engine
+    @merchants = create_repository(file_path)
+  end
+
+  def create_repository(file_path)
+    file = CSV.readlines(file_path, headers: true, header_converters: :symbol)
+    file.map do |row|
+      Merchant.new(row)
+    end
   end
 
   def inspect
@@ -58,5 +65,4 @@ class MerchantRepository
   def delete(id)
     @merchants.delete(find_by_id(id))
   end
-
 end
