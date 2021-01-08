@@ -98,4 +98,23 @@ class Analyst
   def average_item_price_for_merchant(merchant_id)
     sum_item_price_for_merchant(merchant_id) / items_to_be_averaged(merchant_id).count
   end
+
+  def merchant_id_collection
+    items_per_merchant.keys
+  end
+
+  def sum_of_average_item_prices
+    sum = 0
+    merchant_id_collection.each do |merchant_id|
+      sum += average_item_price_for_merchant(merchant_id)
+    end
+    sum
+  end
+
+  def average_average_price_per_merchant
+    sum_of_average_item_prices / merchant_id_collection.count
+  end 
+
+
+
 end
