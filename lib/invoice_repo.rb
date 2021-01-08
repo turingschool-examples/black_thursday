@@ -7,8 +7,7 @@ require './lib/invoice'
 
 class InvoiceRepo
   include Methods
-  attr_reader :collections,
-              :data
+  attr_reader :collections
 
   def populate_collection
     items = Hash.new{|h, k| h[k] = [] }

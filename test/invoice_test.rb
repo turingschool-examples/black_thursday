@@ -3,13 +3,14 @@ require './test/test_helper'
 class InvoiceTest < Minitest::Test
 
   def setup
+    @repository = mock
     @data = Invoice.new({
       :id => 1,
       :customer_id => 1,
       :merchant_id => "12335938",
       :status => "pending",
       :created_at => "2016-01-11 11:51:37 UTC",
-      :updated_at => Time.now})
+      :updated_at => Time.now}, @repository)
   end
   def test_it_exists
       assert_instance_of Invoice, @data

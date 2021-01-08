@@ -1,3 +1,5 @@
+require 'time'
+require 'bigdecimal/util'
 class Invoice
 
   attr_reader :id,
