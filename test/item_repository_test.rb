@@ -70,4 +70,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_by_price(BigDecimal(1000000))
   end
 
+  def test_find_merchant_id_returns_item_objects
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_equal 263395237 , ir.find_all_by_merchant_id(12334141)[0].id
+    assert_equal [], ir.find_all_by_merchant_id(345329)
+
+  end
+
 end
