@@ -47,4 +47,10 @@ class ItemRepository
       item.unit_price == price
     end
   end
+
+  def find_all_by_merchant_id(id)
+    @items.find_all do |item|
+      item.merchant_id == id
+    end
+  end
 end
