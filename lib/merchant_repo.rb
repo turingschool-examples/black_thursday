@@ -73,10 +73,10 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    # if attributes.keys.include?(:id)
-    find_by_id(id).update(attributes)
+    if find_by_id(id) != nil
+      find_by_id(id).update(attributes)
+    end
   end
-
 
   def delete(id)
     @merchants = @merchants.reject do |merchant|

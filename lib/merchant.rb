@@ -16,7 +16,6 @@ class Merchant
 
   def update(attribute)
     if attribute[:id] == nil
-      # require 'pry'; binding.pry
       @updated_at = Time.now
       if attribute[:name] != nil
         @name = attribute[:name]
