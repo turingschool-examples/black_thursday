@@ -32,4 +32,33 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal "pending", actual[0].status
   end
 
+  def test_it_can_create_new_item
+    data ={
+      :id => "910",
+      :customer_id => "10",
+      :merchant_id => "22335938",
+      :status => "pending",
+      :created_at => "2125-09-22 09:34:06 UTC",
+      :updated_at => "2034-09-04 21:35:10 UTC"
+      }
+    @dummy_repo.create(data)
+    actual = @dummy_repo.find_all_by_merchant_id("22335938").flatten
+    assert_equal "22335938", actual[-1].merchant_id
+  end
+
+  def test_delete
+    data ={
+      :id => "910",
+      :customer_id => "10",
+      :merchant_id => "22335938",
+      :status => "pending",
+      :created_at => "2125-09-22 09:34:06 UTC",
+      :updated_at => "2034-09-04 21:35:10 UTC"
+      }
+    @dummy_repo.create(data)
+    @dummy_repo.delete("910")
+
+    assert_nil nil, @dummy_repo.find_all_by_merchant_id("22335938").flatten
+  end
+
 end
