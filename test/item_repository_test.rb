@@ -78,4 +78,21 @@ class ItemRepositoryTest < Minitest::Test
 
   end
 
+  def test_create_attributes_us_to_add_items
+    ir = ItemRepository.new("./data/items.csv")
+    assert_equal 263567474, ir.items.last.id
+    ir.create({
+                  :id          => 1326,
+                  :name        => "Pencil",
+                  :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
+                  :unit_price  => BigDecimal(10.99,4),
+                  :created_at  => "#{Time.now}",
+                  :updated_at  => "#{Time.now}",
+                  :merchant_id => 2
+                  })
+    assert_instance_of Item, ir.find_by_name("Pencil")
+    assert_equal 263567475, ir.items.last.id
+
+  end
+
 end
