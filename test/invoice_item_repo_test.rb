@@ -33,7 +33,7 @@ class InvoiceItemRepoTest < Minitest::Test
 
   def test_it_can_create_new_item
     data ={
-      :id => "910",
+      :id => 11,
       :item_id => "11",
       :invoice_id => "6",
       :quantity => "4",
@@ -42,8 +42,8 @@ class InvoiceItemRepoTest < Minitest::Test
       :updated_at => "2034-09-04 21:35:10 UTC"
       }
     @dummy_repo.create(data)
-    actual = @dummy_repo.find_by_id("910")
-    assert_equal "910", actual.id
+    actual = @dummy_repo.find_by_id(11)
+    assert_equal 11, actual.id
   end
 
   def test_update
@@ -60,7 +60,7 @@ class InvoiceItemRepoTest < Minitest::Test
 
   def test_delete
     data ={
-      :id => "910",
+      :id => 11,
       :item_id => "11",
       :invoice_id => "6",
       :quantity => "4",
@@ -69,11 +69,11 @@ class InvoiceItemRepoTest < Minitest::Test
       :updated_at => "2034-09-04 21:35:10 UTC"
       }
     @dummy_repo.create(data)
-    actual = @dummy_repo.find_by_id("910")
+    actual = @dummy_repo.find_by_id(11)
     assert_equal "11", actual.item_id
-    @dummy_repo.delete("910")
+    @dummy_repo.delete(11)
 
-    assert_nil nil, @dummy_repo.find_by_id("910")
+    assert_nil nil, @dummy_repo.find_by_id(11)
   end
 
 end
