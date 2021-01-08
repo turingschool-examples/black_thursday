@@ -18,6 +18,10 @@ class ItemsRepo
     items
   end
 
+  def find_by_price (price)
+    all.values.find_all{|value| value.unit_price == price}
+  end
+
   def group_by_merchant_id
     all.values.group_by{|value| value.merchant_id}
   end

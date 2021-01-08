@@ -19,10 +19,6 @@ module Methods
     end
   end
 
-  def find_by_price (price)
-    all.values.find_all{|value| value.unit_price == price}
-  end
-
   def find_by_name(name)
   	all.values.find do |value|
   		value.name == name
