@@ -6,9 +6,9 @@
   * Genevieve Nuebel
   * Jake Volpe
   
-__What are each of our learning goals for this project? What drives us in this project?__
+1. __What are each of our learning goals for this project? What drives us in this project?__
 
-Learn how to manipulate large sets of data.  Incorporating new gems and tools ie specharness, SimpleCov, Hound CI.
+  * Learn how to manipulate large sets of data.  Incorporating new gems and tools ie specharness, SimpleCov, Hound CI.
 Get better at github collaboration and merging of code base.  Enrichment learning and getting as far as we can.  Everyone
 understands all of the concepts and the code base.
 
