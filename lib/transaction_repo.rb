@@ -31,7 +31,7 @@ class TransactionRepo
 
     def create(attributes)
       @collections[attributes[:id]] = Transaction.new({
-      :id                           => new_id.to_s,
+      :id                           => new_id,
       :invoice_id                   => attributes[:invoice_id ],
       :credit_card_number           =>   attributes[:credit_card_number],
       :credit_card_expiration_date  => attributes[:credit_card_expiration_date],
