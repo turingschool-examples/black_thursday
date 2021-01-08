@@ -7,9 +7,10 @@ class SalesEngine
               :merchants
 
   def initialize(data)
-    @items = data[:items]
+    @it_file = data[:items]
     @file = data[:merchants]
     @merchants = MerchantRepository.new(@file, self)
+    @items = ItemRepository.new(@it_file, self)
   end
 
   def self.from_csv(data)
