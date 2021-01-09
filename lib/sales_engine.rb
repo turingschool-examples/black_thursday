@@ -14,5 +14,4 @@ class SalesEngine
   def self.from_csv(locations)
     SalesEngine.new(locations)
   end
-
 end
