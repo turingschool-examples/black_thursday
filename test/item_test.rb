@@ -60,7 +60,7 @@ class ItemTest < Minitest::Test
     }
 
     ir.create(attributes)
-    target_item = ir.find_by_id(263567475)[0]
+    target_item = ir.find_by_id(263567475)
     target_item.update(updated_attribute_hash)
     # check attributes were updated
     assert_equal "Bleeps", target_item.name
