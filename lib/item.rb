@@ -2,6 +2,7 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
 require 'time'
+
 class Item
   attr_reader :id,
               :name,
@@ -11,6 +12,7 @@ class Item
               :updated_at,
               :merchant_id,
               :parent
+
   def initialize(args, parent)
     @args        = args
     @id          = args[:id].to_i
@@ -22,13 +24,16 @@ class Item
     @merchant_id = args[:merchant_id].to_s
     @parent = parent
   end
+
   def update(args)
     @unit_price  = (args[:unit_price].to_d) if !args[:unit_price].nil?
     @description = args[:description].to_s if !args[:description].nil?
     @name        = args[:name].to_s  if !args[:name].nil?
     @updated_at  = Time.now
   end
+
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
 end

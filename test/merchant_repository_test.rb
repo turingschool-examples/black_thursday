@@ -15,7 +15,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_has_parent
-    # require "pry"; binding.pry
     assert_equal @parent, @mr.parent
   end
 

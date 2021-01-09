@@ -10,7 +10,7 @@ class SalesAnalyst
   end
 
   def all_items_count
-    @parent.items.all #TODO add length
+    @parent.items.all.length
   end
 
   def all_merchants_count
