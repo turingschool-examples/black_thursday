@@ -1,4 +1,3 @@
-
 require_relative './time_store_module'
 require 'bigdecimal'
 
