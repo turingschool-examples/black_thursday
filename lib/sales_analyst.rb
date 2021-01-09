@@ -33,6 +33,28 @@ class SalesAnalyst
     number_of_items.standard_deviation.round(2)
   end
 
+  def average_by_average_merchant_deviation
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
+  end
+
+  def merchant_names_with_high_item_count
+    shops = []
+    item_count_array = reduce_shop_items.select do |shop, item|
+      shops << shop if item.count >= average_by_average_merchant_deviation
+    end
+    shops
+  end
+
+  def merchants_with_high_item_count
+    merchant_array = []
+    merchant_names_with_high_item_count.each do |merchant_name|
+      engine.merchants.all.each do |merchant_object|
+        merchant_array << merchant_object if merchant_object.name == merchant_name
+      end
+    end
+    merchant_array
+  end
+
   def reduce_shop_items_by_unit_price_average
     engine.merchants.all.reduce({}) do |memo, merchant|
       memo[merchant.id] = []
@@ -43,17 +65,40 @@ class SalesAnalyst
       end
       memo
     end
-    # require "pry"; binding.pry
   end
 
   def average_item_price_for_merchant(merchant_id)
-    #   number_of_items = reduce_shop_items_by_unit_price_average.map do |merchant, item|
-    #     item.count
-    #   end
-    #   number_of_items.mean.round(2)
-    # end
     average_price = reduce_shop_items_by_unit_price_average
-    average_price[merchant_id]
-    require "pry"; binding.pry
+    average_price[merchant_id].mean.round(2)
+  end
+
+  def average_average_price_per_merchant
+    average_price = reduce_shop_items_by_unit_price_average
+    average_average = []
+    engine.merchants.all.map do |merchant|
+      average_average << average_price[merchant.id].mean
+    end
+    average_average.mean.round(2)
+  end
+
+  def unit_price_array
+    average_price = reduce_shop_items_by_unit_price_average
+    unit_deviation = []
+    average_price.values.each do |unit_price_array|
+      unit_deviation << unit_price_array
+    end
+    unit_deviation.flatten
+  end
+
+  def second_deviation_above_unit_price
+    (average_average_price_per_merchant) + (unit_price_array.standard_deviation * 2)
+  end
+
+  def golden_items
+    golden = []
+    engine.items.all.each do |item|
+      golden << item if item.unit_price > second_deviation_above_unit_price
+    end
+    golden
   end
 end
