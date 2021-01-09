@@ -43,8 +43,8 @@ class ItemRepositoryTest < Minitest::Test
                   :name        => "Pencil",
                   :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
                   :unit_price  => BigDecimal(10.99,4),
-                  :created_at  => "#{Time.now}",
-                  :updated_at  => "#{Time.now}",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
                   :merchant_id => 2
                   })
 
@@ -60,8 +60,8 @@ class ItemRepositoryTest < Minitest::Test
                   :name        => "Pencil",
                   :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
                   :unit_price  => BigDecimal(10.99,4),
-                  :created_at  => "#{Time.now}",
-                  :updated_at  => "#{Time.now}",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
                   :merchant_id => 2
                   })
 
@@ -77,8 +77,8 @@ class ItemRepositoryTest < Minitest::Test
                   :name        => "Pencil",
                   :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
                   :unit_price  => BigDecimal(10.99,4),
-                  :created_at  => "#{Time.now}",
-                  :updated_at  => "#{Time.now}",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
                   :merchant_id => 2
                   })
 
@@ -126,8 +126,8 @@ class ItemRepositoryTest < Minitest::Test
                   :name        => "New Item",
                   :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
                   :unit_price  => BigDecimal(10.99,4),
-                  :created_at  => "#{Time.now}",
-                  :updated_at  => "#{Time.now}",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
                   :merchant_id => 2
               })
     assert_equal "New Item" , ir.find_by_id(263567475)
