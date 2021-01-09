@@ -6,6 +6,7 @@ class Merchant
   attr_reader :repo
 
   def initialize(data, repo)
+    @data = data
     @repo = repo
     @id = data[:id]
     @name = data[:name]
@@ -13,19 +14,9 @@ class Merchant
     @updated_at = data[:updated_at]
   end
 
-  def update(attribute)
-    instance_var_to_string
-    if @id_1 == attribute.keys[0].to_s
-      @id = attribute.values[0]
-    elsif @name_1 == attribute.keys[0].to_s
-      @name = attribute.values[0]
-    end
+  def update(attributes)
+    @name        = attributes[:name] if attributes[:name]
+    @repo        = attributes[:repo] if attributes[:repo]
+    @updated_at  = Time.now
   end
-
-  def instance_var_to_string
-    @repo_1 = "repo"
-    @id_1 = "id"
-    @name_1 = "name"
-  end
-
 end
