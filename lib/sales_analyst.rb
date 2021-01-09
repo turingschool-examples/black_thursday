@@ -1,4 +1,7 @@
 require_relative './sales_engine'
+require_relative './item_repo'
+require_relative './invoice_repo'
+require_relative './merchant_repo'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -6,7 +9,7 @@ class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
-  
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

@@ -2,10 +2,12 @@ require 'CSV'
 require_relative './cleaner.rb'
 require_relative './invoice.rb'
 
+
 class InvoiceRepository
   attr_reader :invoices
 
-  def initialize(file = './data/invoices.csv')
+  def initialize(file = './data/invoices.csv', engine)
+    @engine = engine
     @file = file
     @invoices = []
     @data = CSV.open(@file, headers: true, header_converters: :symbol)

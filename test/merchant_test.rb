@@ -29,7 +29,7 @@ class MerchantTest < MiniTest::Test
     assert_equal "Turing School of Software and Design", merchant.name
   end
 
-  def test_it_can_have_items
-    assert_instance_of Item, @merchant.
-  end
+  # def test_it_can_have_items
+  #   assert_instance_of Item, @merchant.
+  # end
 end

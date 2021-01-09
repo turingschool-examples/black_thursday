@@ -22,7 +22,7 @@ class Merchant
     @updated_at  = Time.now
   end
 
-  def find_items
-    
-  end
+  # def find_items
+
+  # end
 end
