@@ -26,4 +26,10 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal 1000, @cr.all.length
     assert_equal Customer, @cr.all.first.class
   end
+
+  def test_find_by_id
+    assert_equal "Joey", @cr.find_by_id(1).first_name
+    refute_equal 100, @cr.find_by_id(21).id
+    assert_nil @cr.find_by_id(100001)
+  end
 end

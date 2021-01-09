@@ -27,6 +27,9 @@ class CustomerRepository
       customer.pop
     end
   end
-
   
+  def find_by_id(id)
+    customers[id]
+  end
+
 end
