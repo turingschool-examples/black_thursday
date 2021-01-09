@@ -70,7 +70,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_update
     invoice_repo = InvoiceRepository.new(@sample_data, 'engine')
-    time = Time.now.round
+    original_time = invoice_repo.find_by_id(1).updated_at
     attributes = {
                   :status => :shipped,
                   }
@@ -78,7 +78,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_repo.update(1, attributes)
 
     assert_equal :shipped, invoice_repo.find_by_id(1).status
-    assert_equal time, invoice_repo.find_by_id(1).updated_at
+    assert original_time < invoice_repo.find_by_id(1).updated_at
     assert_nil invoice_repo.update(25, attributes)
   end
 

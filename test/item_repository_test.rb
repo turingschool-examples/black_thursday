@@ -108,7 +108,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_update
     test = ItemRepository.new(@sample_data, 'engine')
-    time = Time.now
+    original_time = test.find_by_id(1).updated_at
     update = {
               name: 'Computer',
               description: 'This is a computer.',
@@ -120,7 +120,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 'Computer', test.items[0].name
     assert_equal 'This is a computer.', test.items[0].description
     assert_equal 125, test.items[0].unit_price
-    assert_equal time, test.find_by_id(1).updated_at
+    assert original_time < test.find_by_id(1).updated_at
   end
 
   def test_it_can_delete

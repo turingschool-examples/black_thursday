@@ -78,17 +78,18 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    return nil if find_by_id(id).nil?
+    item = find_by_id(id)
+    return nil if item.nil?
     attributes.each do |key, value|
       if value == attributes[:name]
-        find_by_id(id).name = attributes[key]
+        item.name = attributes[key]
       elsif value == attributes[:description]
-        find_by_id(id).description = attributes[key]
+        item.description = attributes[key]
       elsif value == attributes[:unit_price]
-        find_by_id(id).unit_price = attributes[key]
+        item.unit_price = attributes[key]
       end
     end
-    find_by_id(id).updated_at = Time.now.round
+    item.updated_at = Time.now
   end
 
   def delete(id)

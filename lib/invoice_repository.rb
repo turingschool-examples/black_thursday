@@ -68,7 +68,7 @@ class InvoiceRepository
     invoice = find_by_id(id)
     return nil if invoice.nil?
     invoice.status = attributes[:status]
-    invoice.updated_at = Time.now.round
+    invoice.updated_at = Time.now
   end
 
   def delete(id)
