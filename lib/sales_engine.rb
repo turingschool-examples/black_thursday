@@ -1,15 +1,19 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'sales_analyst'
+require_relative 'invoice_repository'
 require 'csv'
 
 class SalesEngine
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
   def initialize(args)
-    @items = ItemRepository.new(args[:items], self)
-    @merchants = MerchantRepository.new(args[:merchants], self)
+    # @items = ItemRepository.new(args[:items], self)
+    # @merchants = MerchantRepository.new(args[:merchants], self)
+    @invoices = InvoiceRepository.new(args[:invoices], self)
+
   end
 
   def self.from_csv(args)

@@ -1,5 +1,5 @@
 class Invoice
-  
+
   attr_reader :id,
               :customer_id,
               :merchant_id,
@@ -8,12 +8,12 @@ class Invoice
               :updated_at,
               :parent
 
-  def intialize(args, parent)
-    @id = args[:id]
-    @customer_id = args[:customer_id]
-    @merchant_id = args[:merchant_id]
-    @status = args[:status]
-    @created_at = Time.now
+  def initialize(args, parent)
+    @id = args[:id].to_i
+    @customer_id = args[:customer_id].to_i
+    @merchant_id = args[:merchant_id].to_i
+    @status = args[:status].to_sym
+    @created_at = Time.parse(args[:created_at].to_s)
     @updated_at = Time.now
     @parent = parent
   end
