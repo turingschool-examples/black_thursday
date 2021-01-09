@@ -11,6 +11,10 @@ class InvoiceRepository
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
     build_invoices
   end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def build_invoices
     @data.each do |invoice|

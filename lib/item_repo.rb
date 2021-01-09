@@ -44,7 +44,7 @@ class ItemRepository
   def find_by_merchant_id(merchant_id)
     @items.select do |item|
       item.merchant_id == merchant_id
-    end[0]
+    end
   end
 
   def find_by_name(name)

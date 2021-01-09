@@ -25,4 +25,9 @@ class SalesEngineTest < Minitest::Test
   def test_it_creates_new_analyst
     assert_instance_of SalesAnalyst, @sales_engine.analyst
   end
+
+  def test_it_finds_merchant_items
+    assert_equal 3, @sales_engine.merchant_items(12334105).length
+    assert_equal "Vogue Patterns/Patron 9712", @sales_engine.merchant_items(12334105)[2].name
+  end
 end

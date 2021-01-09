@@ -6,6 +6,10 @@ class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def average_items_per_merchant
     (all_merchant_item_count.sum.to_f / all_merchant_item_count.size).round(2)

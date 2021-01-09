@@ -30,6 +30,10 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(self)
+  end
+
+  def merchant_items(merchant_id)
+    @items.find_by_merchant_id(merchant_id)
   end
 end
