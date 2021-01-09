@@ -11,6 +11,10 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
+  def find_average
+    (items.item_list.count.to_f / merchants.merchant_list.count.to_f).round(2)
+  end
+
   def find_items_by_id(id)
     items.find_all_by_merchant_id(id)
   end
