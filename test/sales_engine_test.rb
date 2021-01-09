@@ -29,4 +29,19 @@ class SalesEngineTest < Minitest::Test
     expected = [merchant]
     assert_equal 1, expected.count
   end
+
+  def test_we_can_get_all_items_by_merchant_id
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./fixtures/items_sample.csv",
+    :merchants => "./fixtures/merchant_sample.csv",
+    })
+
+    mr = sales_engine.merchants
+    # require "pry"; binding.pry
+    found_items = sales_engine.find_items_by_id(12334195)
+    #an array of items in found_items
+    require "pry"; binding.pry
+
+    assert_equal 3, found_items.count
+  end
 end

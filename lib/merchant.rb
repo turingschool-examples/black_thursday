@@ -11,4 +11,8 @@ class Merchant
     @created_at = csv_data[:created_at]
     @updated_at = csv_data[:updated_at]
   end
+
+  def item_name
+    @repository.find_all_items_by_merchant_id(@id)
+  end
 end

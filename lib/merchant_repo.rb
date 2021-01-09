@@ -18,6 +18,10 @@ class MerchantRepo
     end
   end
 
+  def find_all_items_by_merchant_id(id)
+    @sales_engine.find_items_by_id(id)
+  end
+
   def all
     merchant_list
   end
