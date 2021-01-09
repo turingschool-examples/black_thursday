@@ -4,16 +4,17 @@ require 'time'
 class MerchantRepo
   attr_reader :merchant_list
 
-  def initialize(input)
+  def initialize(input, sales_engine)
+    @sales_engine = sales_engine
     make_merchants(input)
   end
-
+  
   def make_merchants(input)
     merchants = CSV.open(input, headers: true,
     header_converters: :symbol)
 
     @merchant_list = merchants.map do |merchant|
-      Merchant.new(merchant)
+      Merchant.new(merchant, self)
     end
   end
 
@@ -61,7 +62,7 @@ class MerchantRepo
                                       name: attributes[:name],
                                       created_at: Time.now,
                                       updated_at: Time.now
-                                    }))
+                                    }, self))
   end
 
   def update(id, attributes)

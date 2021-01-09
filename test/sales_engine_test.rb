@@ -16,4 +16,17 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of SalesEngine, se
   end
+
+
+  def test_we_can_match_items_to_merchant
+    sales_engine = SalesEngine.from_csv({
+    :items     => "./fixtures/items_sample.csv",
+    :merchants => "./fixtures/merchant_sample.csv",
+    })
+
+    ir = sales_engine.items
+    merchant = sales_engine.find_merchant_by_merchant_id(12334195)
+    expected = [merchant]
+    assert_equal 1, expected.count
+  end
 end

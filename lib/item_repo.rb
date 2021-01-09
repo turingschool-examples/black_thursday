@@ -3,8 +3,13 @@ require 'csv'
 class ItemRepo
   attr_reader :item_list
 
-  def initialize(input)
+  def initialize(input, sales_engine)
+    @sales_engine = sales_engine
     make_items(input)
+  end
+
+  def find_merchant_by_id(merchant_id)
+    @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 
   def make_items(input)
@@ -12,7 +17,7 @@ class ItemRepo
     header_converters: :symbol)
 
     @item_list = items.map do |item|
-      Item.new(item)
+      Item.new(item, self)
     end
   end
 
@@ -25,6 +30,7 @@ class ItemRepo
       nil
     else
        @item_list.find do |item|
+         # require "pry"; binding.pry
         item.id == id
       end
     end
@@ -92,8 +98,7 @@ class ItemRepo
                                       merchant_id: [:merchant_id],
                                       created_at: DateTime.now,
                                       updated_at: DateTime.now
-                                    }))
-                                    # require 'pry'; binding.pry
+                                    }, self))
   end
 
   def delete_id(id)
