@@ -6,7 +6,7 @@ require './lib/cleaner'
 # refactor to mock/stubs or traverse vertically to not need to require IR?
 # But in the update test we do need to check on a real item i think?
 require './lib/item_repo'
- 
+
 
 class ItemTest < Minitest::Test
   def setup
@@ -59,11 +59,8 @@ class ItemTest < Minitest::Test
       :created_at => Time.now,
       :merchant_id => 46
     }
-    # updated_time.stubs(:updated_at).returns(2021-01-07 18:03:23 -0700)
-    # Time.stubs(:now).returns(Time.mktime(1970,1,1))
 
     ir.create(attributes)
-    require "pry"; binding.pry
     target_item = ir.find_item_by_id(263567475)[0]
     target_item.update(updated_attribute_hash)
     # check attributes were updated
