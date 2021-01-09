@@ -22,7 +22,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price.round * 0.01
+    @unit_price.round * 0.01
   end
 
   def update(attributes)
