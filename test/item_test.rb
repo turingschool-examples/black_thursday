@@ -1,49 +1,70 @@
-require './test/test_helper'
+require_relative './test_helper'
+# require './lib/item_repository'
+# require './lib/item'
+require 'time'
 
 class ItemTest < Minitest::Test
 
-def setup
-  @i = Item.new({
-  :id          => 1,
-  :name        => "Pencil",
-  :description => "You can use it to write things",
-  :unit_price  => BigDecimal.new(10.99, 4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  :merchant_id => 2
-  })
-end
+  def setup
+    item_path = "./data/items.csv"
+    arguments = {:items => item_path}
+    @engine = SalesEngine.from_csv(arguments)
+  end
 
   def test_it_exists
-    assert_instance_of Item, @i
+    assert_instance_of Item, @engine.items.all.first
   end
 
-  def test_it_has_attributes
-    assert_equal  1, @i.id
-    assert_equal "Pencil", @i.name
-    assert_equal "You can use it to write things", @i.description
-    assert_equal 2, @i.merchant_id.to_i
-    assert 10.99, @i.unit_price
-    assert_equal Time, @i.created_at.class
-    assert_equal 10.99, @i.unit_price_to_dollars
+  def test_id_returns_id
+    item_one = @engine.items.all.first
+
+    assert_equal 263395237, item_one.id
+
+    item_two = @engine.items.all.last
+
+    assert_equal 263567474, item_two.id
   end
 
-  def test_it_can_update
-    skip
-    updated_item = {
-     :name        => "Pen",
-     :description => "You can use it to write things like a boss",
-     :unit_price  => BigDecimal.new(14.50, 4),
-     :updated_at  => Time.now,
-     }
+  def test_name_returns_name
+    item_one = @engine.items.all.first
 
-    @i.update(updated_item)
-    assert_equal  1, @i.id
-    assert_equal "Pen", @i.name
-    assert_equal "You can use it to write things like a boss", @i.description
-    assert_equal 2, @i.merchant_id.to_i
-    assert 14.50, @i.unit_price
-    assert_equal Time, @i.created_at.class
-    # assert_equal 14.50, @i.unit_price_to_dollars
+    assert_equal "510+ RealPush Icon Set", item_one.name
+
+    item_two = @engine.items.all.last
+
+    assert_equal "Minty Green Knit Crochet Infinity Scarf", item_two.name
+  end
+
+  def test_description_returns_description
+    item_one = @engine.items.all.first
+    assert_equal String, item_one.description.class
+    assert_equal 2236, item_one.description.length
+  end
+
+  def test_unit_price_returns_unit_price
+    item_one = @engine.items.all.first
+
+    assert_equal 12.00, item_one.unit_price
+    assert_equal BigDecimal, item_one.unit_price.class
+  end
+
+  def test_created_at_returns_time_item_was_created_at
+    item_one = @engine.items.all.first
+    time = Time.parse("2016-01-11 09:34:06 UTC")
+    assert_equal time, item_one.created_at
+  end
+
+  def test_updated_at_returns_the_time_it_was_last_updated
+    item_one = @engine.items.all.first
+
+    assert_equal Time.parse("2007-06-04 21:35:10 UTC"), item_one.updated_at
+    assert_equal Time, item_one.updated_at.class
+  end
+
+  def test_unit_price_to_dollars_returns_price_as_float
+    expected = @engine.items.find_by_id(263397059)
+
+    assert_equal 130.0, expected.unit_price_to_dollars
+    assert_equal Float, expected.unit_price_to_dollars.class
   end
 end

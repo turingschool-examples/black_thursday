@@ -7,28 +7,17 @@ class SalesEngine
               :merchants
 
   def initialize(args)
-    @items = ItemRepository.new(args[:items])#, self)
-    @merchants = MerchantRepository.new(args[:merchants])#, self)
+    @items = ItemRepository.new(args[:items], self)
+    # @merchants = MerchantRepository.new(args[:merchants])#, self)
   end
 
   def self.from_csv(args)
     new(args)
-  #   args.each do |key, filepath|
-  #     if key == :items
-  #       @item_repository = ItemRepository.new(filepath)
-  #     else key == :merchants
-  #       @merchant_repository = MerchantRepository.new(filepath)
-  #     end
-  #   end
   end
 end
 
 
-# item_path = "./data/items.csv"
-# merchant_path = "./data/merchants.csv"
-# arguments = {
-#               :items     => item_path,
-#               :merchants => merchant_path,
-#             }
+item_path = "./data/items.csv"
+arguments = {:items => item_path}
 # se = SalesEngine.new(arguments)
 # require "pry"; binding.pry

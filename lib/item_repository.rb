@@ -7,10 +7,12 @@ require "csv"
 
 class ItemRepository
   attr_reader :filename,
+              :parent,
               :items
 
-  def initialize(filename)
+  def initialize(filename, parent)
     @filename = filename
+    @parent = parent
     @items = Array.new
 
     generate_items(filename)
@@ -23,7 +25,7 @@ class ItemRepository
   def generate_items(filename)
     items = CSV.open filename, headers: true, header_converters: :symbol
     items.each do |row|
-      @items << Item.new(row)
+      @items << Item.new(row, self)
     end
   end
 
@@ -74,7 +76,7 @@ class ItemRepository
     id = id.to_s
     attributes[:id] = id
     attributes[:unit_price]
-    item = Item.new(attributes)
+    item = Item.new(attributes, self)
     @items.push(item)
   end
 

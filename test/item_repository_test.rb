@@ -3,11 +3,16 @@ require './test/test_helper'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @ir = ItemRepository.new("./data/items.csv")
+    @parent = mock('parent')
+    @ir = ItemRepository.new("./data/items.csv", @parent)
   end
 
   def test_it_exists
     assert_instance_of ItemRepository, @ir
+  end
+
+  def test_it_has_a_parent
+    assert_equal @parent, @ir.parent
   end
 
   def test_all_displays_all_items
@@ -122,6 +127,7 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def test_update_updates_an_item
+
 
     attributes_1 = {unit_price: BigDecimal.new(379.99, 5)}
     result_1 = @ir.update(263538760, attributes_1)
