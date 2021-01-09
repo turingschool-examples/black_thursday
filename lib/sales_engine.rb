@@ -9,17 +9,14 @@ class SalesEngine
               :invoices
 
   def initialize(data)
-    # @merchants = MerchantRepository.new(data[:merchants], self)
-    # @items = ItemRepository.new(data[:items], self)
-    # @invoices = InvoiceRepository.new(data[:invoices], self)
-    data_check(data)
+    process_data(data)
   end
 
   def self.from_csv(data)
     new(data)
   end
 
-  def data_check(data)
+  def process_data(data)
     data.each do |key, value|
       if key == :merchants
         @merchants = MerchantRepository.new(data[:merchants], self)
