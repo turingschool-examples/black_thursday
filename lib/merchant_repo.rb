@@ -37,18 +37,10 @@ class MerchantRepository
     @merchants
   end
 
-  def find_id(id)
+  def find_by_id(id)
     @merchants.select do |merchant|
           merchant.id == id
-    end
-  end
-
-  def find_by_id(id)
-    if find_id(id).empty?
-      nil
-    else
-      find_id(id)
-    end
+    end[0]
   end
 
   def find_by_name(name)
@@ -64,7 +56,12 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_merch = Merchant.new({id: (sort_by_id[-1].id + 1), name: attributes}, self)
+    new_id = (sort_by_id[-1].id + 1 )
+    attributes_final = {:id => new_id}
+    attributes.each do |attribute_key, attribute_value|
+      attributes_final[attribute_key] = attribute_value
+    end
+    new_merch = Merchant.new(attributes_final, self)
     @merchants << new_merch
     new_merch
   end
@@ -76,9 +73,14 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    find_by_id(id)[0].update(attributes)
+    merchant = find_by_id(id)
+    if merchant != nil
+      attributes.each do |attribute_key, attribute_value|
+        merchant.update({attribute_key => attribute_value})
+      end
+    end
+    merchant
   end
-
 
   def delete(id)
     @merchants = @merchants.reject do |merchant|
