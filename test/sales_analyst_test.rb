@@ -46,5 +46,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 475, @sales_analyst.generate_merchant_ids.length
   end
 
-
 end
