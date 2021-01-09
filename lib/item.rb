@@ -7,12 +7,12 @@ class Item
 
   attr_accessor :name,
                 :description,
-                :unit_price
+                :unit_price,
+                :updated_at
 
   attr_reader :id,
               :repository,
               :created_at,
-              :updated_at,
               :merchant_id,
               :repository
 
