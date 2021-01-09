@@ -8,6 +8,7 @@ class SalesEngine
   attr_reader :items, :merchants, :analyst, :invoices
 
   def self.from_csv(arg1)
+
     new(arg1)
   end
 
@@ -28,5 +29,13 @@ class SalesEngine
 
   def all_items
     @items.all
+  end
+
+  def all_invoices
+    @invoices.all
+  end
+
+  def find_all_invoices_by_merchant_id(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
   end
 end
