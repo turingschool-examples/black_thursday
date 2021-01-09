@@ -25,8 +25,8 @@ class ItemRepository
                 :name        => item[:name],
                 :description => item[:description],
                 :unit_price  => BigDecimal.new(item[:unit_price]),
-                :created_at  => item[:created_at],
-                :updated_at  => item[:updated_at],
+                :created_at  => @cleaner.clean_date(item[:created_at]),
+                :updated_at  => @cleaner.clean_date(item[:updated_at]),
                 :merchant_id => item[:merchant_id].to_i})
     end
     @items
