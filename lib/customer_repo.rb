@@ -21,4 +21,12 @@ class CustomerRepository
                                                   updated_at: row[:updated_at].to_i})
     end
   end
+
+  def all
+    customers.map do |customer|
+      customer.pop
+    end
+  end
+
+  
 end
