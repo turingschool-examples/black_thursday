@@ -67,8 +67,10 @@ class ItemRepository
   end
 
   def create(attributes)
+    attributes[:created_at] = Time.new.to_s
+    attributes[:updated_at] = Time.new.to_s
     attributes[:id] = highest_id.id + 1
-    @items << Item.new(attributes)
+    @items.insert(2,Item.new(attributes))
   end
 
   def update(id, attributes)

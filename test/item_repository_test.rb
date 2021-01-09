@@ -102,12 +102,12 @@ class ItemRepositoryTest < Minitest::Test
                   :name        => "Pencil",
                   :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
                   :unit_price  => BigDecimal(10.99,4),
-                  :created_at  => "#{Time.now}",
-                  :updated_at  => "#{Time.now}",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
                   :merchant_id => 2
                   })
     assert_instance_of Item, ir.find_by_name("Pencil")
-    assert_equal 263567475, ir.items.last.id
+    assert_equal 263567475, ir.find_by_name("Pencil").id
   end
 
   def test_update_attributes_can_change_item_objects
@@ -117,8 +117,8 @@ class ItemRepositoryTest < Minitest::Test
                   :name        => "Pencil",
                   :description => "A large Yeti of sorts, casually devours a cow as the others watch numbly.",
                   :unit_price  => BigDecimal(10.99,4),
-                  :created_at  => "#{Time.now}",
-                  :updated_at  => "#{Time.now}",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
                   :merchant_id => 2
                 })
     ir.update(263567475,{
@@ -131,8 +131,6 @@ class ItemRepositoryTest < Minitest::Test
                   :merchant_id => 2
               })
     assert_equal "New Item" , ir.find_by_id(263567475)
-
-
   end
 
 end

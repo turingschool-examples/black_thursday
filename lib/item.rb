@@ -14,8 +14,6 @@ class Item
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-
-    #### fix this haha
     @unit_price = BigDecimal(info[:unit_price]) / 100
     @created_at = Time.parse(info[:created_at])
     @updated_at = Time.parse(info[:updated_at])
