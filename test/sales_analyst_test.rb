@@ -32,6 +32,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, @sales_analyst.merchants_with_high_item_count.last
   end
 
+  def test_average_item_price_for_merchant
+    assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
+  end
+
   def test_it_can_return_total_items
     assert_equal 1367, @sales_analyst.total_items
   end

@@ -22,12 +22,21 @@ class SalesAnalyst
   def merchants_with_high_item_count
     greater_than_sd = average_items_per_merchant + average_items_per_merchant_standard_deviation
     merchants = []
-    merchant_item_count.find_all do |merchant, count|
+    merchant_item_count.find_all do |merchant_id, count|
       if count >= greater_than_sd
-        merchants << @sales_engine.merchants.find_by_id(merchant)
+        merchants << @sales_engine.merchants.find_by_id(merchant_id)
       end
     end
     merchants
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
+    price_total = 0
+    items.each do |item|
+     price_total += item.unit_price
+   end
+    (price_total / items.count).round(2)
   end
 
   def merchant_item_count
