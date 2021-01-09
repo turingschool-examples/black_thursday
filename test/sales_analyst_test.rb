@@ -186,7 +186,7 @@ class SalesAnalystTest < Minitest::Test
                                   })
     analyst = SalesAnalyst.new(engine)
 
-    assert_equal 119, analyst.top_merchants_by_invoice_count.count
+    assert_equal 12, analyst.top_merchants_by_invoice_count.count
   end
 
   # Who are our lowest performing merchants?
@@ -207,7 +207,6 @@ class SalesAnalystTest < Minitest::Test
   # Which days of the week see the most sales?
   # On which days are invoices created at more than one standard deviation above the mean?
   def test_top_days_by_invoice_count
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -216,14 +215,13 @@ class SalesAnalystTest < Minitest::Test
                                   })
     analyst = SalesAnalyst.new(engine)
 
-    assert_equal ["Sunday", "Saturday"], analyst.top_days_by_invoice_count
+    assert_equal ["Wednesday"], analyst.top_days_by_invoice_count
   end
 
   # What percentage of invoices are not shipped?
   # What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
 
   def test_invoice_status
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
