@@ -28,11 +28,19 @@ class InvoiceTest < MiniTest::Test
      assert_equal 12335690, @invoice.merchant_id
      assert_equal Fixnum, @invoice.merchant_id.class
    end
+
    def test_status_returns_the_invoice_status
      assert_equal :pending, @invoice.status
      assert_equal Symbol, @invoice.status.class
    end
+
    def test_created_at_returns_the_time_instance_for_the_date_the_invoice_wasa_created
      assert_equal Time.parse(“2015-07-10 00:00:00 -0600”), @invoice.created_at
      assert_equal Time, @invoice.created_at.class
    end
+
+   def test_updated_at_returns_the_time_instance_for_the_date_the_invoice_wasa_updated
+     assert_equal Time.parse(“2015-12-10 00:00:00 -0700"), @invoice.updated_at
+     assert_equal Time, @invoice.updated_at.class
+   end
+ end
