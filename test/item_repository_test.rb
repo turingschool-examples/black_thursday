@@ -130,7 +130,15 @@ class ItemRepositoryTest < Minitest::Test
                   :updated_at  => Time.now,
                   :merchant_id => 2
               })
-    assert_equal "New Item" , ir.find_by_id(263567475)
+    assert_equal "New Item" , ir.find_by_id(263567475).name
+
   end
 
+  def test_item_is_deleted
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_equal 263399037, ir.find_by_name("Green Footed Ceramic Bowl").id
+    ir.delete(263399037)
+    assert_nil ir.find_by_name("Green Footed Ceramic Bowl")
+  end
 end

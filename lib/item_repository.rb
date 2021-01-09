@@ -74,9 +74,22 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    if find_by_id(id)
-      if attributes.has_key?(:name)
-      end
+    update = find_by_id(id)
+    return nil if update.nil?
+    if attributes.has_key?(:name)
+      update.name = attributes[:name]
     end
+    if attributes.has_key?(:description)
+      update.description = attributes[:description]
+    end
+    if attributes.has_key?(:unit_price)
+      update.unit_price = attributes[:unit_price]
+    end
+    update.updated_at = Time.now
+  end
+
+  def delete(id)
+    delete = find_by_id(id)
+    @items.delete(delete)
   end
 end
