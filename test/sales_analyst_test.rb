@@ -38,5 +38,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
+  def test_it_display_merchants_with_high_item_count
+    assert_equal 52, @sales_analyst.merchants_with_high_item_count.length
+  end
+
 
 end
