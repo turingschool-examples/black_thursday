@@ -58,4 +58,12 @@ class SalesAnalyst
     average_price = all_items_price / item_count.to_f
     average_price.round(2)
   end
+
+  def average_average_price_per_merchant
+    all_merchants_price_averages = generate_merchant_ids.sum do |id|
+      average_item_price_for_merchant(id)
+    end
+    all_merchants_average = all_merchants_price_averages / all_merchants_count
+    all_merchants_average.round(2)
+  end
 end
