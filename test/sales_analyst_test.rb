@@ -84,7 +84,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_average_price_per_merchants
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -98,7 +97,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -112,7 +110,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_price
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -126,7 +123,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_price_standard_deviation
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -139,7 +135,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoices_per_merchant
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -148,11 +143,10 @@ class SalesAnalystTest < Minitest::Test
                                   })
     analyst = SalesAnalyst.new(engine)
 
-    assert_equal 4985, analyst.invoices_per_merchant.count
+    assert_equal 475, analyst.invoices_per_merchant.count
   end
 
   def test_average_invoices_per_merchant
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -165,7 +159,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -192,7 +185,6 @@ class SalesAnalystTest < Minitest::Test
   # Who are our lowest performing merchants?
   # Which merchants are more than two standard deviations below the mean?
   def test_bottom_merchants_by_invoice_count
-    skip
     engine = SalesEngine.from_csv({
                                     :items     => "./data/items.csv",
                                     :merchants => "./data/merchants.csv",
@@ -201,7 +193,7 @@ class SalesAnalystTest < Minitest::Test
                                   })
     analyst = SalesAnalyst.new(engine)
 
-    assert_equal [merchant, merchant, merchant], analyst.bottom_merchants_by_invoice_count
+    assert_equal 4, analyst.bottom_merchants_by_invoice_count.count
   end
 
   # Which days of the week see the most sales?
@@ -234,4 +226,51 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.95, analyst.invoice_status(:shipped)
     assert_equal 13.5, analyst.invoice_status(:returned)
   end
+
+    def test_it_can_return_invoices_per_day
+      engine = SalesEngine.from_csv({
+                                      :items     => "./data/items.csv",
+                                      :merchants => "./data/merchants.csv",
+                                      :invoices => "./data/invoices.csv",
+                                      :customers  => "./data/customers.csv",
+                                    })
+      analyst = SalesAnalyst.new(engine)
+
+      days_of_the_week = [
+                          "Saturday",
+                          "Friday",
+                          "Wednesday",
+                          "Monday",
+                          "Sunday",
+                          "Tuesday",
+                          "Thursday"
+                         ]
+
+      assert_instance_of Hash, analyst.invoices_per_day
+      assert_equal days_of_the_week, analyst.invoices_per_day.keys
+    end
+
+    def test_it_can_return_average_invoices_per_day
+      engine = SalesEngine.from_csv({
+                                      :items     => "./data/items.csv",
+                                      :merchants => "./data/merchants.csv",
+                                      :invoices => "./data/invoices.csv",
+                                      :customers  => "./data/customers.csv",
+                                    })
+      analyst = SalesAnalyst.new(engine)
+
+      assert_equal 712, analyst.average_invoices_per_day
+    end
+
+    def test_it_can_return_standard_deviation
+      engine = SalesEngine.from_csv({
+                                      :items     => "./data/items.csv",
+                                      :merchants => "./data/merchants.csv",
+                                      :invoices => "./data/invoices.csv",
+                                      :customers  => "./data/customers.csv",
+                                    })
+      analyst = SalesAnalyst.new(engine)
+
+      assert_equal 18.06, analyst.average_invoices_per_day_standard_deviation
+    end
 end

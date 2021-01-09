@@ -7,19 +7,15 @@ require 'minitest/pride'
 require './lib/invoice'
 
 class InvoiceTest < Minitest::Test
-    def setup
-      @attributes = {
-        :id          => '6',
-        :customer_id => '7',
-        :merchant_id => '8',
-        :status      => "pending",
-        :created_at  => "2015-03-13"
-        :updated_at  => "2015-04-05"
-      }
-    end
-
   def test_it_has_readable_attributes
-    invoice = Invoice.new(@attributes, 'engine')
+    invoice = Invoice.new({
+                            :id          => '6',
+                            :customer_id => '7',
+                            :merchant_id => '8',
+                            :status      => "pending",
+                            :created_at  => "2015-03-13",
+                            :updated_at  => "2015-04-05"
+                          })
 
     assert_instance_of Invoice, invoice
     assert_equal 6, invoice.id
