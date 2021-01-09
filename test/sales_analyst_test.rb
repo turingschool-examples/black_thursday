@@ -36,6 +36,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 350.29, @sales_analyst.average_average_price_per_merchant
   end
 
+  def test_it_can_resturn_golden_items
+    assert_equal 5, @sales_analyst.golden_items.length
+    assert_instance_of Item, @sales_analyst.golden_items.first
+  end
+
   def test_average_item_price_for_merchant
     assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
   end
@@ -54,6 +59,14 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchant_id_list
     assert_equal 475, @sales_analyst.merchant_id_list.length
+  end
+
+  def test_it_calculates_average_item_price
+    assert_equal 251.06, @sales_analyst.average_item_price
+  end
+
+  def test_it_calculates_item_price_standard_deviation
+    assert_equal 2900.99, @sales_analyst.item_price_standard_deviation
   end
 
 end
