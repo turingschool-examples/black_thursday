@@ -1,11 +1,12 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/item'
 require './lib/cleaner'
-# refactor to mock/stubs to avoid redundancy?
+# refactor to mock/stubs or traverse vertically to not need to require IR?
 # But in the update test we do need to check on a real item i think?
 require './lib/item_repo'
-
+ 
 
 class ItemTest < Minitest::Test
   def setup
@@ -36,7 +37,7 @@ class ItemTest < Minitest::Test
     assert_equal 0.11, @item.unit_price_to_dollars
   end
 
-  def test_update
+  def test_it_updates_item_attributes
     ir = ItemRepository.new
 
     attributes = {
@@ -47,20 +48,32 @@ class ItemTest < Minitest::Test
       updated_at: Time.now,
       merchant_id: 25
     }
+
+    Time.stubs(:now).returns("Black Thursday")
+
     updated_attribute_hash = {
+      :id => 888444555,
       :name => "Bleeps",
       :description => "doop doop doop",
-      :unit_price => BigDecimal.new(599.99, 5)
+      :unit_price => BigDecimal.new(599.99, 5),
+      :created_at => Time.now,
+      :merchant_id => 46
     }
-    # updated_time = mock()
     # updated_time.stubs(:updated_at).returns(2021-01-07 18:03:23 -0700)
-    # allow(Time).to receive(:now).and_return(@time_now)
     # Time.stubs(:now).returns(Time.mktime(1970,1,1))
+
     ir.create(attributes)
-    target_item = ir.find_item_by_id(263567475)[0]
     require "pry"; binding.pry
-    target_item.update(263567475, updated_attribute_hash)
-    assert_equal 263567475, ir.find_by_name("Bleeps").id
+    target_item = ir.find_item_by_id(263567475)[0]
+    target_item.update(updated_attribute_hash)
+    # check attributes were updated
+    assert_equal "Bleeps", target_item.name
+    assert_equal "doop doop doop", target_item.description
+    assert_equal BigDecimal.new(599.99, 5), target_item.unit_price
+    # check permanent attributes are unchanged
+    assert_equal 263567475, target_item.id
+    assert_equal false, "Black Thursday" == target_item.created_at
+    assert_equal false, 46 == target_item.merchant_id
   end
 
 end
