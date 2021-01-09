@@ -55,4 +55,19 @@ class InvoiceRepositoryTest < MiniTest::Test
 
       assert_equal [], expected
   end
+
+  def test_create_creates_a_new_invoice_instance
+    attributes = {
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+    }
+    @engine.invoices.create(attributes)
+    expected = engine.invoices.find_by_id(4986)
+
+    assert_equal 8, expected.merchant_id
+
+  end
 end
