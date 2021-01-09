@@ -29,9 +29,8 @@ class ItemRepo
     if id.nil?
       nil
     else
-       @item_list.find do |item|
-         # require "pry"; binding.pry
-        item.id == id
+      @item_list.find do |item|
+      item.id == id
       end
     end
   end
@@ -78,7 +77,6 @@ class ItemRepo
     return [] if merchant_id.nil?
 
     @item_list.find_all do |item|
-      # require "pry"; binding.pry
       item.merchant_id == merchant_id
     end
   end
@@ -112,6 +110,5 @@ class ItemRepo
       item.id. == id
       item.name.replace(attributes)
     end
-
   end
 end

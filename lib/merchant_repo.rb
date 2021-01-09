@@ -26,7 +26,7 @@ class MerchantRepo
     if id.nil?
       nil
     else
-       @merchant_list.find do |merchant|
+      @merchant_list.find do |merchant|
         merchant.id == id
       end
     end
