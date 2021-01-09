@@ -2,13 +2,14 @@ require 'bigdecimal'
 require 'time'
 
 class Item
-  attr_accessor :id,
-              :name,
-              :description,
-              :unit_price,
+  attr_reader :id,
               :created_at,
-              :updated_at,
               :merchant_id
+
+  attr_accessor :name,
+                :description,
+                :unit_price,
+                :updated_at
 
   def initialize(data)
     @id          = data[:id]
@@ -25,13 +26,6 @@ class Item
   end
 
   def update(attributes)
-    # item = find_item_by_id(id)
-    # unless item.nil?
-    # item[0].name        = attributes[:name] if attributes[:name]
-    # item[0].description = attributes[:description] if attributes[:description]
-    # item[0].unit_price  = attributes[:unit_price] if attributes[:unit_price]
-    # item[0].updated_at  = Time.now
-    # end
     @name        = attributes[:name] if attributes[:name]
     @description = attributes[:description] if attributes[:description]
     @unit_price  = attributes[:unit_price] if attributes[:unit_price]
