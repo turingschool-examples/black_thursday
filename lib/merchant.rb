@@ -1,10 +1,12 @@
 class Merchant
   attr_reader :id,
-              :name
-  def initialize(id, name) #parent)
+              :name,
+              :parent
+
+  def initialize(id, name, parent)
     @id = id.to_i
     @name = name
-    #@parent = parent
+    @parent = parent
   end
 
   def update(name)

@@ -3,10 +3,12 @@ require "csv"
 
 class MerchantRepository
   attr_reader :filename,
-              :merchants
-  def initialize(filename) #parent)
+              :merchants,
+              :parent
+
+  def initialize(filename, parent)
     @filename = filename
-    #@parent = parent
+    @parent = parent
     @merchants = Array.new
     generate_merchants(filename)
   end
@@ -14,7 +16,7 @@ class MerchantRepository
   def generate_merchants(filename)
     merchants = CSV.open filename, headers: true, header_converters: :symbol
     merchants.each do |row|
-      @merchants << Merchant.new(row[:id], row[:name])#, self)
+      @merchants << Merchant.new(row[:id], row[:name], self)
     end
   end
 
@@ -48,7 +50,7 @@ class MerchantRepository
   end
 
   def create(hash)
-    new_merchant = Merchant.new(highest_merchant_id_plus_one, hash[:name])
+    new_merchant = Merchant.new(highest_merchant_id_plus_one, hash[:name], self)
     @merchants << new_merchant
     new_merchant
   end
