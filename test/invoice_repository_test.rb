@@ -83,7 +83,7 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_operator original_time ,:>, expected.updated_at
   end
 
-  def test_update_cannot_update_id_customer_id_merchant_id_or_ dcreated_at
+  def test_update_cannot_update_id_customer_id_merchant_id_or_created_at
     attributes = {
                     id: 5000,
                     customer_id: 2,
@@ -97,8 +97,23 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_nil expected
 
     expected = @engine.invoices.find_by_id(4986)
-    assert_equal attributes[:customer_id], expected.customer_id #not_to on all 3?
-    expected_equal attributes[:merchant_id], expected.customer_id
-    assert_equal attributes[:created_at], expected.created_at)
+    refute attributes[:customer_id], expected.customer_id #not_to on all 3?
+    refute attributes[:merchant_id], expected.customer_id
+    refute attributes[:created_at], expected.created_at
+  end
+
+  def test_update_on_unknonwn_invoice_does_nothing
+    @engine.invoices.update(5000, {})
+  end
+
+  def test_delete_deletes_the_specified_invoice
+    @engine.invoices.delete(4986)
+    expected = @engine.invoices.find_by_id(4986)
+
+    assert_equal nil, expected
+  end
+
+  def test_delete_on_unknown_invoice_does_nothing
+    @engine.invoices.delete(5000)
   end
 end
