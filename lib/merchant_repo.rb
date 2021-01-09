@@ -4,13 +4,13 @@ require 'time'
 class MerchantRepo
   attr_reader :merchant_list
 
-  def initialize(input, sales_engine)
+  def initialize(csv_data, sales_engine)
     @sales_engine = sales_engine
-    make_merchants(input)
+    make_merchants(csv_data)
   end
-  
-  def make_merchants(input)
-    merchants = CSV.open(input, headers: true,
+
+  def make_merchants(csv_data)
+    merchants = CSV.open(csv_data, headers: true,
     header_converters: :symbol)
 
     @merchant_list = merchants.map do |merchant|

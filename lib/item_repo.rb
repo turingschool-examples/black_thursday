@@ -3,17 +3,17 @@ require 'csv'
 class ItemRepo
   attr_reader :item_list
 
-  def initialize(input, sales_engine)
+  def initialize(csv_data, sales_engine)
     @sales_engine = sales_engine
-    make_items(input)
+    make_items(csv_data)
   end
 
   def find_merchant_by_id(merchant_id)
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 
-  def make_items(input)
-    items = CSV.open(input, headers: true,
+  def make_items(csv_data)
+    items = CSV.open(csv_data, headers: true,
     header_converters: :symbol)
 
     @item_list = items.map do |item|

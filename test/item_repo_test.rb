@@ -63,7 +63,6 @@ class ItemRepoTest < Minitest::Test
                               :merchants => "./data/merchants.csv"
                               })
     @ir   = se.items
-    require "pry"; binding.pry
 
     expected = @ir.find_all_by_merchant_id("12334271")
     assert_equal 263399735, expected[0].id

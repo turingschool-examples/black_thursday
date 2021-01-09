@@ -102,7 +102,7 @@ class MerchantRepoTest < Minitest::Test
     mr = se.merchants
     all_merchants = mr.create({:name => "byMarieinLondon"})
 
-    assert_equal 12334161, all_merchants[5].id
+    assert_equal 12334196, all_merchants[5].id
   end
 
   def test_it_can_update_merchant_name_attribute
