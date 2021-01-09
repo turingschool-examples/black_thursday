@@ -37,7 +37,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_updates_item_attributes
-    ir = ItemRepository.new
+    ir = ItemRepository.new("engine")
 
     attributes = {
       name: "Capita Defenders of Awesome 2018",
@@ -60,7 +60,7 @@ class ItemTest < Minitest::Test
     }
 
     ir.create(attributes)
-    target_item = ir.find_item_by_id(263567475)[0]
+    target_item = ir.find_by_id(263567475)[0]
     target_item.update(updated_attribute_hash)
     # check attributes were updated
     assert_equal "Bleeps", target_item.name
