@@ -31,6 +31,7 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal turing, @m_repo.find_by_id(1)
     assert_equal target, @m_repo.find_by_id(2)
+    assert_nil @m_repo.find_by_id(154151554)
   end
 
   def test_find_by_name
@@ -46,8 +47,9 @@ class MerchantRepositoryTest < Minitest::Test
       @m_repo.all << turing
       @m_repo.all << target
 
-      assert_equal turing, @m_repo.find_by_name("Turing School")
-      assert_equal target, @m_repo.find_by_name("target")
+      assert_equal turing, @m_repo.find_by_name("TurInG School")
+      assert_equal target, @m_repo.find_by_name("targeT")
+      assert_nil @m_repo.find_by_name("548947asdoihogihof")
   end
 
   def test_find_all_by_name
@@ -63,12 +65,14 @@ class MerchantRepositoryTest < Minitest::Test
       @m_repo.all << turing
       @m_repo.all << target
 
-      assert_equal [target], @m_repo.find_all_by_name("target")
+      assert_equal [target], @m_repo.find_all_by_name("arget")
+      assert_equal [], @m_repo.find_all_by_name("targetTuring")
   end
 
   def test_new_highest_id
     start = 12337411
     expected = (start + 1)
+
     assert_equal expected, @m_repo.new_highest_id
   end
 
@@ -79,7 +83,17 @@ class MerchantRepositoryTest < Minitest::Test
       updated_at: "01/07/21"}
     @m_repo.create(attributes)
     expected = @m_repo.find_all_by_name("Exciting Store")
+
     assert_equal expected[0].id, @m_repo.all.last.id
+  end
+
+  def test_update
+    @m_repo.update(12337411, "updated store")
+    expected = @m_repo.find_by_id(12337411)
+    merchant_test_updated_at = @m_repo.find_by_id(12337411).updated_at.strftime("%d/%m/%Y")
+
+    assert_equal "updated store", expected.name
+    assert_equal Time.now.strftime("%d/%m/%Y"), merchant_test_updated_at
   end
 
   def test_delete
@@ -88,16 +102,11 @@ class MerchantRepositoryTest < Minitest::Test
       created_at: "01/07/21",
       updated_at: "01/07/21"}
     @m_repo.create(attributes)
+
     assert_equal 476, @m_repo.all.count
 
     @m_repo.delete(12337412)
     assert_equal 475, @m_repo.all.count
+    assert_nil @m_repo.find_by_id(12337412)
   end
-
-  def test_update
-    @m_repo.update(12337411, "updated store")
-    expected = @m_repo.find_by_id(12337411)
-    assert_equal "updated store", expected.name
-  end
-
 end
