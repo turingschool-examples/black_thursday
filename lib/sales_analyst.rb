@@ -17,14 +17,6 @@ class SalesAnalyst
     (items_per_merchant.sum / @engine.all_merchants.count.to_f).round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    aipm = average_items_per_merchant
-    standard = items_per_merchant.map do |number|
-      (number - aipm) ** 2
-    end.sum
-    Math.sqrt(standard / (@count - 1)).round(2)
-  end
-
   def merchants_with_high_item_count
     aipmsd = average_items_per_merchant_standard_deviation
     aipm = average_items_per_merchant
@@ -39,6 +31,14 @@ class SalesAnalyst
       item.unit_price
     end
     (prices.sum / prices.count).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    aipm = average_items_per_merchant
+    standard = items_per_merchant.map do |number|
+      (number - aipm) ** 2
+    end.sum
+    Math.sqrt(standard / (@count - 1)).round(2)
   end
 
   def average_average_price_per_merchant
@@ -73,4 +73,33 @@ class SalesAnalyst
       item.unit_price > (ap + (apsd * 2))
     end
   end
+
+  def invoices_per_merchant
+    @count_inv = 0
+    @engine.all_merchants.map do |merchant|
+      @count_inv += 1
+      @engine.find_all_invoices_by_merchant_id(merchant.id).count
+    end
+  end
+
+  def average_invoices_per_merchant
+    (invoices_per_merchant.sum / @engine.all_merchants.count.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    aipm = average_invoices_per_merchant
+    standard = invoices_per_merchant.map do |number|
+      (number - aipm) ** 2
+    end.sum
+    Math.sqrt(standard / (@engine.all_invoices.count - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    aipm = average_invoices_per_merchant
+    aipmsd = average_invoices_per_merchant_standard_deviation
+    @engine.all_merchants.find_all do |merchant|
+      @engine.find_all_invoices_by_merchant_id(merchant.id).count > (aipm + (aipmsd * 2))
+    end
+  end
+
 end
