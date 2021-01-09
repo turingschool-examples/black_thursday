@@ -26,12 +26,43 @@ class SalesAnalyst
     end
   end
 
-  def average_items_per_merchant_standard_deviation
-    number_of_items = reduce_shop_items.map do |merchant, item|
+  def number_of_items
+    reduce_shop_items.map do |merchant, item|
       item.count
     end
-    number_of_items.standard_deviation.round(2)
   end
+
+  def item_sum
+    BigDecimal(number_of_items.reduce(0) {|memo, item| memo + item})
+  end
+
+  def mean
+    BigDecimal(item_sum / reduce_shop_items.length)
+  end
+
+  def sample_variance
+    new_sum = number_of_items.reduce(0) do |memo, item|
+      memo + (item - mean) ** 2
+    end
+
+    new_sum / (reduce_shop_items.length - 1).to_f
+  end
+
+  def standard_deviation
+    Math.sqrt(sample_variance)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    standard_deviation.round(2)
+  end
+  #
+  # def average_items_per_merchant_standard_deviation
+  #   number_of_items = reduce_shop_items.map do |merchant, item|
+  #     item.count
+  #   end
+  #   require "pry"; binding.pry
+  #   number_of_items.standard_deviation.round(2)
+  # end
 
   def average_by_average_merchant_deviation
     average_items_per_merchant + average_items_per_merchant_standard_deviation
