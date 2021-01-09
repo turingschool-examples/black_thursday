@@ -68,6 +68,18 @@ class InvoiceRepositoryTest < MiniTest::Test
     expected = engine.invoices.find_by_id(4986)
 
     assert_equal 8, expected.merchant_id
+  end
 
+  def test_update_updates_an_invoice
+    original_time = engine.invoices.find_by_id(4986).updated_at
+    attributes = {
+                  status: :success
+                  }
+  @engine.invoices.update(4986, attributes)
+  expected = engine.invoices.find_by_id(4986)
+
+  assert_equal :success, expected.status
+  assert_equal 7, expected.customer_id
+  assert_operator original_time ,:>, expected.updated_at 
   end
 end
