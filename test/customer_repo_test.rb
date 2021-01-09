@@ -30,6 +30,12 @@ class CustomerRepositoryTest < MiniTest::Test
   def test_find_by_id
     assert_equal "Joey", @cr.find_by_id(1).first_name
     refute_equal 100, @cr.find_by_id(21).id
-    assert_nil @cr.find_by_id(100001)
+    assert_nil @cr.find_by_id(100001)    
+    assert_equal Customer, @cr.find_by_id(10).class
+  end
+
+  def test_find_all_by_first_name
+    assert_equal 8, @cr.find_all_by_first_name("OE").length
+    assert_equal "Joey", @cr.find_all_by_first_name("Joey")[0].first_name
   end
 end

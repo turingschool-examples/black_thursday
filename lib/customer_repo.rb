@@ -23,13 +23,16 @@ class CustomerRepository
   end
 
   def all
-    customers.map do |customer|
-      customer.pop
-    end
+    customers.values
   end
   
   def find_by_id(id)
     customers[id]
   end
 
+  def find_all_by_first_name(name)
+    all.find_all do |customer| 
+      customer.first_name.downcase.include?(name.downcase)
+    end
+  end
 end
