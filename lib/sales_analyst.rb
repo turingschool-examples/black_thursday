@@ -91,7 +91,7 @@ class SalesAnalyst
     standard = invoices_per_merchant.map do |number|
       (number - aipm) ** 2
     end.sum
-    Math.sqrt(standard / (@engine.all_invoices.count - 1)).round(2)
+    Math.sqrt(standard / (@count_inv - 1)).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -102,4 +102,50 @@ class SalesAnalyst
     end
   end
 
+  def bottom_merchants_by_invoice_count
+    aipm = average_invoices_per_merchant
+    aipmsd = average_invoices_per_merchant_standard_deviation
+    @engine.all_merchants.find_all do |merchant|
+      @engine.find_all_invoices_by_merchant_id(merchant.id).count < (aipm - (aipmsd * 2))
+    end
+  end
+
+  def invoices_per_day
+    @engine.all_invoices.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def average_invoices_per_day
+    count = invoices_per_day.map do |key, value|
+      value.count
+    end
+    count.sum / 7
+  end
+
+  def average_invoices_per_day_standard_deviation
+    aipd = average_invoices_per_day
+    standard = invoices_per_day.map do |key, value|
+      (value.count - aipd) ** 2
+    end.sum
+    Math.sqrt(standard / 6).round(2)
+  end
+
+  def top_days_by_invoice_count
+    aipd = average_invoices_per_day
+    aipdsd = average_invoices_per_day_standard_deviation
+    array = invoices_per_day.find_all do |key, value|
+      value.count > (aipd + aipdsd)
+    end
+    array.map do |day|
+      day[0]
+    end
+  end
+
+  def invoice_status(status)
+    status_count = @engine.all_invoices.find_all do |invoice|
+      (invoice.status == status)
+    end
+    ((status_count.count / @engine.all_invoices.count.to_f) * 100).round(2)
+  end
 end
