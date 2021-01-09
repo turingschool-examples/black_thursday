@@ -37,11 +37,7 @@ class SalesEngineTest < Minitest::Test
     })
 
     mr = sales_engine.merchants
-    # require "pry"; binding.pry
     found_items = sales_engine.find_items_by_id(12334195)
-    #an array of items in found_items
-    require "pry"; binding.pry
-
     assert_equal 3, found_items.count
   end
 end
