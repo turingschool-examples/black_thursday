@@ -73,9 +73,13 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    if find_by_id(id) != nil
-      find_by_id(id).update(attributes)
+    merchant = find_by_id(id)
+    if merchant != nil
+      attributes.each do |attribute_key, attribute_value|
+        merchant.update({attribute_key => attribute_value})
+      end
     end
+    merchant
   end
 
   def delete(id)

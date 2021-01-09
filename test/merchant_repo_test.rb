@@ -83,7 +83,7 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal 12337412, merchant1.id
     assert_equal 476, mr.merchants.count
     assert_equal true, mr.merchants.include?(merchant1)
-    assert_equal "Brainpeeps", mr.update(12334123, attributes)
+    assert_equal "Brainpeeps", mr.update(12334123, attributes).name
   end
 
   def test_delete_merchant
