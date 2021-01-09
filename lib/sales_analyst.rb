@@ -17,16 +17,16 @@ class SalesAnalyst
     @parent.merchants.all.length
   end
 
-  def average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
-
-    merchant_ids = @parent.merchants.merchants.map do |merchant|
+  def generate_merchant_ids
+    @parent.merchants.merchants.map do |merchant|
       merchant.id
     end
+  end
 
-    items_per_merchant = merchant_ids.map do |id|
+  def average_items_per_merchant_standard_deviation
+    mean = average_items_per_merchant
+    items_per_merchant = generate_merchant_ids.map do |id|
       @parent.items.find_all_by_merchant_id(id).count
-      # if count > mean then push merchant.find_by_id
     end
 
     all_items_minus_one = (items_per_merchant.length) - 1
@@ -42,12 +42,8 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     high_seller_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
-
-    merchant_ids = @parent.merchants.merchants.map do |merchant|
-      merchant.id
-    end
     merchants = []
-    merchant_ids.each do |id|
+    generate_merchant_ids.each do |id|
       item_count = @parent.items.find_all_by_merchant_id(id).count
       if item_count > high_seller_count
         merchants << @parent.merchants.find_by_id(id)
@@ -55,5 +51,4 @@ class SalesAnalyst
     end
     merchants
   end
-
 end
