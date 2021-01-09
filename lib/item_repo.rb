@@ -12,7 +12,6 @@ class ItemRepository
     @items_csv = CSV.open(@file, headers: true, header_converters: :symbol)
     @items = []
     item_objects(@items_csv)
-
   end
 
   def inspect
@@ -39,6 +38,12 @@ class ItemRepository
   def find_by_id(id)
     @items.select do |item|
           item.id == id
+    end[0]
+  end
+
+  def find_by_merchant_id(merchant_id)
+    @items.select do |item|
+      item.merchant_id == merchant_id
     end[0]
   end
 
