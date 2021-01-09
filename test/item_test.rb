@@ -4,9 +4,8 @@ require 'mocha/minitest'
 require './lib/item'
 require './lib/cleaner'
 # refactor to mock/stubs or traverse vertically to not need to require IR?
-# But in the update test we do need to check on a real item i think?
+# But in the update test we do need to check on a real item i think
 require './lib/item_repo'
-
 
 class ItemTest < Minitest::Test
   def setup
