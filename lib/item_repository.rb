@@ -88,7 +88,7 @@ class ItemRepository
         find_by_id(id).unit_price = attributes[key]
       end
     end
-    find_by_id(id).updated_at = Time.now
+    find_by_id(id).updated_at = Time.now.round
   end
 
   def delete(id)

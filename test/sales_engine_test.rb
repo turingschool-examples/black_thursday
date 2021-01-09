@@ -24,6 +24,7 @@ class SalesEngineTest < Minitest::Test
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
                               })
+
     assert_instance_of SalesEngine, sales_engine
   end
 

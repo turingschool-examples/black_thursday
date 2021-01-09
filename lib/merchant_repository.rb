@@ -60,6 +60,7 @@ class MerchantRepository
   def update(id, attribute)
     return nil if find_by_id(id).nil?
     find_by_id(id).name = attribute[:name]
+    find_by_id(id).updated_at = Time.now.round
   end
 
   def delete(id)
