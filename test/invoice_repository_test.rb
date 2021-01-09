@@ -65,21 +65,40 @@ class InvoiceRepositoryTest < MiniTest::Test
       :updated_at  => Time.now,
     }
     @engine.invoices.create(attributes)
-    expected = engine.invoices.find_by_id(4986)
+    expected = @engine.invoices.find_by_id(4986)
 
     assert_equal 8, expected.merchant_id
   end
 
   def test_update_updates_an_invoice
-    original_time = engine.invoices.find_by_id(4986).updated_at
+    original_time = @engine.invoices.find_by_id(4986).updated_at
     attributes = {
                   status: :success
                   }
-  @engine.invoices.update(4986, attributes)
-  expected = engine.invoices.find_by_id(4986)
+    @engine.invoices.update(4986, attributes)
+    expected = @engine.invoices.find_by_id(4986)
 
-  assert_equal :success, expected.status
-  assert_equal 7, expected.customer_id
-  assert_operator original_time ,:>, expected.updated_at 
+    assert_equal :success, expected.status
+    assert_equal 7, expected.customer_id
+    assert_operator original_time ,:>, expected.updated_at
+  end
+
+  def test_update_cannot_update_id_customer_id_merchant_id_or_ dcreated_at
+    attributes = {
+                    id: 5000,
+                    customer_id: 2,
+                    merchant_id: 3,
+                    created_at: Time.now
+                  }
+    @engine.invoices.update(4986, attributes)
+
+    expected = @engine.invoices.find_by_id(5000)
+
+    assert_nil expected
+
+    expected = @engine.invoices.find_by_id(4986)
+    assert_equal attributes[:customer_id], expected.customer_id #not_to on all 3?
+    expected_equal attributes[:merchant_id], expected.customer_id
+    assert_equal attributes[:created_at], expected.created_at)
   end
 end
