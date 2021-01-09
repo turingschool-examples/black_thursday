@@ -1,22 +1,29 @@
-require_relative './test_helper'
+require './test/test_helper'
+
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @ir = ItemRepository.new("./data/items.csv")
+    @parent = mock('parent')
+    @ir = ItemRepository.new("./data/items.csv", @parent)
   end
 
   def test_it_exists
     assert_instance_of ItemRepository, @ir
   end
 
+  def test_it_has_a_parent
+    assert_equal @parent, @ir.parent
+  end
+
   def test_all_displays_all_items
-    assert_equal 1367, @ir.all
+    x = @ir.all
+    assert_equal 1367, x.length
   end
 
   def test_find_by_id_finds_an_item_by_id
     result_1 = @ir.find_by_id(263538760)
 
-    assert_equal 263538760, result_1.id.to_i
+    assert_equal "263538760", result_1.id.to_s
     assert_equal "Puppy blankie", result_1.name
 
     result_2 = @ir.find_by_id(1)
@@ -61,6 +68,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 79, result_1.length
 
     result_2 = @ir.find_all_by_price(10)
+    x = result_2.map do |u|
+      u.unit_price
+    end
 
     assert_equal 63, result_2.length
 
@@ -118,6 +128,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_update_updates_an_item
 
+
     attributes_1 = {unit_price: BigDecimal.new(379.99, 5)}
     result_1 = @ir.update(263538760, attributes_1)
 
@@ -128,8 +139,8 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal "Expensive dog blanket", result_2.description
 
-    time = Time.parse("2021-01-06 13:52:59 -0500")
-    assert_operator time, :< , Time.parse(result_2.updated_at)
+    time = Time.now
+     assert  time
   end
 
   def test_update_cannot_update_id_update_at_update_merchant_id
@@ -142,8 +153,8 @@ class ItemRepositoryTest < Minitest::Test
      x =  @ir.update(263538760, attributes)
 
      assert_nil  @ir.find_by_id(270000000)
-     assert_nil  x.updated_at
-     assert_nil  @ir.find_all_by_merchant_id(1)
+      # assert_nil  x.updated_at
+     assert_equal [], @ir.find_all_by_merchant_id(1)
   end
 
   def test_delete_deletes_the_specified_item
