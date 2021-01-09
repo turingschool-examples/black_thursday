@@ -9,7 +9,8 @@ class Item
               :updated_at,
               :merchant_id
 
-  def initialize(input)
+  def initialize(input, repository)
+    @repository = repository
     @input = input
     @id = input[:id].to_i
     @name = input[:name]
@@ -22,5 +23,9 @@ class Item
 
   def unit_price_to_dollars
     @unit_price.to_f
+  end
+
+  def find_merchant
+    @repository.find_merchant_by_id(@merchant_id)
   end
 end
