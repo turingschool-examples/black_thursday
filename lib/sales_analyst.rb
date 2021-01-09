@@ -42,12 +42,12 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     high_seller_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    merchants = []
     generate_merchant_ids.find_all do |id|
       item_count = @parent.items.find_all_by_merchant_id(id).count
-      if item_count > high_seller_count
-        @parent.merchants.find_by_id(id)
-      end
+      merchants.push(@parent.merchants.find_by_id(id)) if item_count > high_seller_count
     end
+    merchants
   end
 
   def average_item_price_for_merchant(id)
