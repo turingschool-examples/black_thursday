@@ -7,7 +7,7 @@ require 'mocha/minitest'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     @engine = mock
-    @m_repo = MerchantRepository.new("./fixture_data/merchants.csv", @engine)
+    @m_repo = MerchantRepository.new("./fixture_data/merchants_sample.csv", @engine)
   end
 
   def test_it_exists_and_has_attributes
@@ -71,7 +71,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_new_highest_id
-    start = 12337411
+    start = 12334365
     expected = (start + 1)
 
     assert_equal expected, @m_repo.new_highest_id
@@ -98,10 +98,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_delete
-    assert_equal 475, @m_repo.all.count
+    assert_equal 12, @m_repo.all.count
 
     @m_repo.delete(12334141)
-    assert_equal 474, @m_repo.all.count
+    assert_equal 11, @m_repo.all.count
     assert_nil @m_repo.find_by_id(12334141)
   end
 end
