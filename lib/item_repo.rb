@@ -25,8 +25,8 @@ class ItemRepository
                 :name        => item[:name],
                 :description => item[:description],
                 :unit_price  => BigDecimal.new(item[:unit_price]),
-                :created_at  => item[:created_at],
-                :updated_at  => item[:updated_at],
+                :created_at  => @cleaner.clean_date(item[:created_at]),
+                :updated_at  => @cleaner.clean_date(item[:updated_at]),
                 :merchant_id => item[:merchant_id].to_i})
     end
     @items
@@ -36,18 +36,10 @@ class ItemRepository
     @items
   end
 
-  def find_id(id)
-    @items.select do |row|
-          row.id == id
-    end
-  end
-
   def find_by_id(id)
-    if find_id(id).empty?
-      nil
-    else
-      find_id(id)
-    end
+    @items.select do |item|
+          item.id == id
+    end[0]
   end
 
   def find_by_name(name)
@@ -100,7 +92,17 @@ class ItemRepository
     end
   end
 
+  def update(id, attributes)
+    item = find_by_id(id)
+    if item != nil
+      attributes.each do |attribute_key, attribute_value|
+        item.update({attribute_key => attribute_value})
+      end
+    end
+    item
+  end
+
   def delete(id)
-    @items.delete(find_by_id(id)[0])
+    @items.delete(find_by_id(id))
   end
 end
