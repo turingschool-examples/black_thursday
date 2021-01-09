@@ -31,5 +31,4 @@ class Item
     @unit_price  = attributes[:unit_price] if attributes[:unit_price]
     @updated_at  = Time.now
   end
-
 end
