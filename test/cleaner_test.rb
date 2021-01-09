@@ -29,8 +29,8 @@ class CleanerTest < MiniTest::Test
     # 0123-45-67-9
     # 2016-01-11 09:34:06 UTC
     # 2016-01-11 11:51:37 UTC
-    expected = Time.new(2010, 12, 10)
-    expected2 = Time.new(2016, 01, 11, 11, 51, 37)
+    expected = Time.gm(2010, 12, 10)
+    expected2 = Time.gm(2016, 01, 11, 11, 51, 37)
 
 
     assert_equal expected2, @cleaner.clean_date("2016-01-11 11:51:37 UTC")
@@ -38,8 +38,8 @@ class CleanerTest < MiniTest::Test
   end
 
   def test_clean_time_hour_minute_second
-    expected = Time.new(2010, 12, 10)
-    expected2 = Time.new(2016, 01, 11, 11, 51, 37)
+    expected = Time.gm(2010, 12, 10)
+    expected2 = Time.gm(2016, 01, 11, 11, 51, 37)
 
     assert_equal expected2, @cleaner.clean_date_time("2016-01-11 11:51:37 UTC")
     assert_equal expected, @cleaner.clean_date_only("2010-12-10")

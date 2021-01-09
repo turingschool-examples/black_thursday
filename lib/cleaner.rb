@@ -12,7 +12,7 @@ class Cleaner
   end
 
   def clean_date(date)
-    if date.length == 9
+    if date.length == 10
       clean_date_only(date)
     else
       clean_date_time(date)
@@ -23,7 +23,7 @@ class Cleaner
     year = date[0,4].to_i
     month = date[5,2].to_i
     day = date[8,2].to_i
-    Time.new(year, month, day)
+    Time.gm(year, month, day)
   end
 
   def clean_date_time(date)
@@ -33,7 +33,7 @@ class Cleaner
     hour = clean_date_hour(date)
     minute = clean_date_minute(date)
     second = clean_date_second(date)
-    Time.new(year, month, day, hour, minute, second)
+    Time.gm(year, month, day, hour, minute, second)
   end
 
   def clean_date_hour(date)
