@@ -40,7 +40,6 @@ class SalesAnalyst
     standard_deviaton.round(2)
   end
 
-
   def merchants_with_high_item_count
     high_seller_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
     generate_merchant_ids.find_all do |id|
@@ -49,5 +48,14 @@ class SalesAnalyst
         @parent.merchants.find_by_id(id)
       end
     end
+  end
+
+  def average_item_price_for_merchant(id)
+    item_count = @parent.items.find_all_by_merchant_id(id).count
+    all_items_price = @parent.items.find_all_by_merchant_id(id).sum do |item|
+      item.unit_price
+    end
+    average_price = all_items_price / item_count.to_f
+    average_price.round(2)
   end
 end
