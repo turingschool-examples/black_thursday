@@ -1,5 +1,6 @@
 require 'pry'
 require 'csv'
+require 'time'
 require_relative './merchant'
 
 class MerchantRepository
@@ -24,15 +25,21 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @all.find{|merchant| merchant.id == id}
+    @all.find do |merchant|
+      merchant.id == id
+    end
   end
 
   def find_by_name(name)
-    @all.find{|merchant| merchant.name.downcase == name.downcase.strip}
+    @all.find do |merchant|
+      merchant.name.downcase == name.downcase.strip
+    end
   end
 
   def find_all_by_name(name)
-    @all.find_all{|merchant| merchant.name.downcase.include?(name.downcase.strip)}
+    @all.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase.strip)
+    end
   end
 
   def create(attributes)
@@ -43,8 +50,11 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    record = find_by_id(id)
-    record.name = attributes
+    if find_by_id(id) != nil
+      update_merchant = all.find { |merchant| merchant.id == id }
+      update_merchant.name = attributes
+      update_merchant.updated_at = Time.now
+    end
   end
 
   def delete(id)
