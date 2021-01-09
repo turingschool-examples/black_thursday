@@ -1,5 +1,6 @@
-require 'pry'
 require 'csv'
+require 'bigdecimal'
+require 'time'
 require_relative './item'
 
 class ItemRepository
@@ -23,15 +24,19 @@ class ItemRepository
                     created_at: row[:created_at],
                     updated_at: row[:updated_at],
                     merchant_id: row[:merchant_id]
-                  }, self)
+                   }, self)
   end
 
   def find_by_id(id)
-    @all.find{|item| item.id == id}
+    @all.find do |item|
+      item.id == id
+    end
   end
 
   def find_by_name(name)
-    @all.find{|item| item.name.downcase == name.downcase.strip}
+    @all.find do |item|
+      item.name.downcase == name.downcase.strip
+    end
   end
 
   def find_all_with_description(description)
@@ -64,19 +69,12 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    record = find_by_id(id)
-    attributes.keys.each do |key|
-      if attributes[:unit_price]
-        record.unit_price = attributes[:unit_price]
-      end
-
-      if attributes[:name]
-        record.name = attributes[:name]
-      end
-
-      if attributes[:description]
-        record.description = attributes[:description]
-      end
+    if find_by_id(id) != nil
+      update_item = all.find { |item| item.id == id }
+      update_item.name = attributes[:name] if attributes[:name] != nil
+      update_item.description = attributes[:description] if attributes[:description] != nil
+      update_item.unit_price = BigDecimal.new(attributes[:unit_price].to_i)/100 if attributes[:unit_price] != nil
+      update_item.updated_at = Time.now
     end
   end
 
