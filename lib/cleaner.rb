@@ -11,18 +11,6 @@ class Cleaner
     name
   end
 
-  # def clean_date(date)
-  #   year = date[0,4].to_i
-  #   month = date[5,2].to_i
-  #   day = date[8,2].to_i
-
-  #   Time.new(year, month, day)
-  # end
-
-  # def clean_date(date)
-  #   date = DateTime.parse(date)
-  # end
-
   def clean_date(date)
     if date.length == 9
       clean_date_only(date)
@@ -47,7 +35,6 @@ class Cleaner
     second = clean_date_second(date)
     Time.new(year, month, day, hour, minute, second)
   end
-
 
   def clean_date_hour(date)
     if date[11] == 0
