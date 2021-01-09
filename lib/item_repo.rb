@@ -36,20 +36,6 @@ class ItemRepository
     @items
   end
 
-  # def find_id(id)
-  #   @items.select do |row|
-  #         row.id == id
-  #   end
-  # end
-  #
-  # def find_by_id(id)
-  #   if find_id(id).empty?
-  #     nil
-  #   else
-  #     find_id(id)
-  #   end
-  # end
-
   def find_by_id(id)
     @items.select do |item|
           item.id == id
