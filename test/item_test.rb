@@ -52,11 +52,11 @@ class ItemTest < Minitest::Test
     Time.stubs(:now).returns("Black Thursday")
 
     updated_attribute_hash = {
-      :id => 888444555,
-      :name => "Bleeps",
+      :id          => 888444555,
+      :name        => "Bleeps",
       :description => "doop doop doop",
-      :unit_price => BigDecimal.new(599.99, 5),
-      :created_at => Time.now,
+      :unit_price  => BigDecimal.new(599.99, 5),
+      :created_at  => Time.now,
       :merchant_id => 46
     }
 
@@ -72,5 +72,4 @@ class ItemTest < Minitest::Test
     assert_equal false, "Black Thursday" == target_item.created_at
     assert_equal false, 46 == target_item.merchant_id
   end
-
 end
