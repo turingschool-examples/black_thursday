@@ -1,4 +1,5 @@
 require_relative './test_helper'
+require 'time'
 require './lib/merchant'
 require './lib/merchant_repository'
 require 'mocha/minitest'
@@ -6,7 +7,7 @@ require 'mocha/minitest'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     @engine = mock
-    @m_repo = MerchantRepository.new("./data/merchants.csv", @engine)
+    @m_repo = MerchantRepository.new("./fixture_data/merchants.csv", @engine)
   end
 
   def test_it_exists_and_has_attributes
@@ -88,25 +89,19 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_update
-    @m_repo.update(12337411, "updated store")
-    expected = @m_repo.find_by_id(12337411)
-    merchant_test_updated_at = @m_repo.find_by_id(12337411).updated_at.strftime("%d/%m/%Y")
+    @m_repo.update(12334141, "updated store")
+    expected = @m_repo.find_by_id(12334141)
+    merchant_test_updated_at = @m_repo.find_by_id(12334141).updated_at.strftime("%d/%m/%Y")
 
     assert_equal "updated store", expected.name
     assert_equal Time.now.strftime("%d/%m/%Y"), merchant_test_updated_at
   end
 
   def test_delete
-    attributes = {id: 2,
-      name: "Exciting Store",
-      created_at: "01/07/21",
-      updated_at: "01/07/21"}
-    @m_repo.create(attributes)
-
-    assert_equal 476, @m_repo.all.count
-
-    @m_repo.delete(12337412)
     assert_equal 475, @m_repo.all.count
-    assert_nil @m_repo.find_by_id(12337412)
+
+    @m_repo.delete(12334141)
+    assert_equal 474, @m_repo.all.count
+    assert_nil @m_repo.find_by_id(12334141)
   end
 end
