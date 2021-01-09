@@ -13,10 +13,10 @@ class MerchantRepository
   end
 
   def read_merchant
-    CSV.foreach(@path, headers: :true , header_converters: :symbol) do |row|
+    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
       @merchants << Merchant.new(row)
     end
-    return @merchants
+    @merchants
   end
 
   def all
@@ -24,7 +24,6 @@ class MerchantRepository
   end
 
   def inspect
-
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
@@ -47,7 +46,7 @@ class MerchantRepository
   end
 
   def highest_id
-     @merchants.max do |merchant|
+    @merchants.max do |merchant|
       merchant.id
     end
   end
@@ -59,6 +58,7 @@ class MerchantRepository
 
   def update(id, attributes)
     return nil if attributes.empty?
+
     update = find_by_id(id)
     update.name = attributes[:name]
   end

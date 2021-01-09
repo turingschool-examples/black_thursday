@@ -1,8 +1,9 @@
 require_relative 'item'
 require_relative 'sales_engine'
 class ItemRepository
-  attr_reader:path,
-             :items
+  attr_reader :path,
+              :items
+
   def initialize(path)
     @path = path
     @items = []
@@ -10,10 +11,10 @@ class ItemRepository
   end
 
   def read_item
-    CSV.foreach(@path, headers: :true , header_converters: :symbol) do |row|
+    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
       @items << Item.new(row)
     end
-    return @items
+    @items
   end
 
   def inspect
@@ -44,7 +45,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items.find_all do |item|
-      item.unit_price_to_dollars ==  price
+      item.unit_price_to_dollars == price
     end
   end
 
@@ -70,21 +71,16 @@ class ItemRepository
     attributes[:created_at] = Time.new.to_s
     attributes[:updated_at] = Time.new.to_s
     attributes[:id] = highest_id.id + 1
-    @items.insert(2,Item.new(attributes))
+    @items.insert(2, Item.new(attributes))
   end
 
   def update(id, attributes)
     update = find_by_id(id)
     return nil if update.nil?
-    if attributes.has_key?(:name)
-      update.name = attributes[:name]
-    end
-    if attributes.has_key?(:description)
-      update.description = attributes[:description]
-    end
-    if attributes.has_key?(:unit_price)
-      update.unit_price = attributes[:unit_price]
-    end
+
+    update.name = attributes[:name] if attributes.has_key?(:name)
+    update.description = attributes[:description] if attributes.has_key?(:description)
+    update.unit_price = attributes[:unit_price] if attributes.has_key?(:unit_price)
     update.updated_at = Time.now
   end
 
