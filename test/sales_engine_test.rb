@@ -73,4 +73,26 @@ class SalesEngineTest < Minitest::Test
 
         assert_equal 1367, sales_engine.all_items.count
     end
+
+    def test_it_can_find_all_invoices
+      sales_engine = SalesEngine.from_csv({
+                                            :items     => "./data/items.csv",
+                                            :merchants => "./data/merchants.csv",
+                                            :invoices => "./data/invoices.csv",
+                                            :customers => "./data/customers.csv",
+                                          })
+
+        assert_equal 4985, sales_engine.all_invoices.count
+    end
+
+    def test_it_can_find_all_invoices_by_merchant_id
+      sales_engine = SalesEngine.from_csv({
+                                            :items     => "./data/items.csv",
+                                            :merchants => "./data/merchants.csv",
+                                            :invoices => "./data/invoices.csv",
+                                            :customers => "./data/customers.csv",
+                                          })
+
+        assert_equal 7, sales_engine.find_all_invoices_by_merchant_id(12334112).count
+    end
 end
