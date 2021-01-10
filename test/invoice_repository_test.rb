@@ -78,38 +78,52 @@ class InvoiceRepositoryTest < MiniTest::Test
 
 
   def test_update_updates_an_invoice
-    skip
+    attributes = {
+                  :customer_id => 7,
+                  :merchant_id => 8,
+                  :status      => "pending",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
+                  }
+    @engine.invoices.create(attributes)
     original_time = @engine.invoices.find_by_id(4986).updated_at
     attributes = {status: :success}
     @engine.invoices.update(4986, attributes)
     expected = @engine.invoices.find_by_id(4986)
-    assert_equal :success,expected.status
-    # expect(expected.customer_id).to eq 7
-    # expect(expected.updated_at).to be > original_time
+    assert_equal :success, expected.status
+    assert_equal 7, expected.customer_id
+    assert_operator original_time, :<, expected.updated_at
   end
 
   def test_update_cannot_update_id_customer_id_merchant_id_or_created_at
     skip
     attributes = {
+                  :customer_id => 7,
+                  :merchant_id => 8,
+                  :status      => "pending",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
+                  }
+    @engine.invoices.create(attributes)
+
+    attributes_1 = {
                     id: 5000,
                     customer_id: 2,
                     merchant_id: 3,
                     created_at: Time.now
                   }
     @engine.invoices.update(4986, attributes)
-
     expected = @engine.invoices.find_by_id(5000)
 
     assert_nil expected
 
     expected = @engine.invoices.find_by_id(4986)
     refute attributes[:customer_id], expected.customer_id
-    refute attributes[:merchant_id], expected.customer_id
+    refute attributes[:merchant_id], expected.merchant_id
     refute attributes[:created_at], expected.created_at
   end
 
   def test_update_on_unknonwn_invoice_does_nothing
-    skip
     @engine.invoices.update(5000, {})
   end
 
