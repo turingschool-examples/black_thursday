@@ -105,18 +105,23 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
+    invoice_hash = per_merchant_invoice_count_hash
     total = 0
-    # require "pry";binding.pry
-    per_merchant_invoice_count_hash.each do |key, value|
+    invoice_hash.each do |key, value|
       total += (average - value)**2
     end
     Math.sqrt(total/(total_merchants - 1)).round(2)
   end
+
+  def top_merchants_by_invoice_count
+    top_merchant_ids = []
+    invoice_hash = per_merchant_invoice_count_hash
+    top_merchant_invoices = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    invoice_hash.each do |key, value|
+      if value > top_merchant_invoices
+        top_merchant_ids << key
+      end
+    end
+    top_merchant_ids
+  end
 end
-# def item_price_standard_deviation
-#   average = average_item_price
-#   total = sales_engine.items.all.sum do |item|
-#     (average - item.unit_price_to_dollars)**2
-#   end
-#   Math.sqrt(total/(total_items - 1)).round(2)
-# end

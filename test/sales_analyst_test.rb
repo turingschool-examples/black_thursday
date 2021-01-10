@@ -95,6 +95,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
+    skip
     assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    # skip
+    assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
   end
 end
