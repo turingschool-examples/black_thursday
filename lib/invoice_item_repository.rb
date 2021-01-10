@@ -26,4 +26,5 @@ class InvoiceItemRepository
       @invoice_items << InvoiceItem.new(row, self)
     end
   end
+  
 end
