@@ -18,7 +18,7 @@ class InvoiceItemRepository
       precision      = row[:unit_price].length
       value_adjusted = row[:unit_price].to_i * 0.01
       # A module could hold assignment hashes for all classes
-      @invoice_items[row[:id].to_i] = InvoiceItem.new({:id       => row[:id].to_i,
+      @invoice_items[row[:id].to_i] = InvoiceItem.new({:id => row[:id].to_i,
                           :item_id        => row[:item_id].to_i,
                           :invoice_id => row[:invoice_id].to_i,
                           :quantity    => row[:quantity].to_i,
@@ -57,13 +57,21 @@ class InvoiceItemRepository
   def create(attributes)
     new_id = max_id + 1
     @invoice_items[new_id] = InvoiceItem.new({
-                          id: new_id,
-                     item_id: attributes[:item_id],
-                  invoice_id: attributes[:invoice_id],
-                    quantity: attributes[:quantity],
-                  unit_price: attributes[:unit_price],
-                  created_at: attributes[:created_at],
-                  updated_at: attributes[:updated_at]
-                })
+      id: new_id,
+      item_id: attributes[:item_id],
+      invoice_id: attributes[:invoice_id],
+      quantity: attributes[:quantity],
+      unit_price: attributes[:unit_price],
+      created_at: attributes[:created_at],
+      updated_at: attributes[:updated_at]
+    })
+  end
+
+  def update(id, attributes)
+    ii = find_by_id(id)
+    if ii != nil
+      ii.update(attributes)
+    end
+    ii
   end
 end
