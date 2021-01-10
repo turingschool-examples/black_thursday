@@ -31,11 +31,23 @@ class InvoiceRepository
     end
   end
 
-  
+  def find_all_by_customer_id(id)
+    @invoices.find_all do |invoice|
+      invoice.customer_id == id
+    end
+  end
 
   def find_all_by_merchant_id(id)
     @invoices.find_all do |invoice|
       invoice.merchant_id == id
     end
   end
+
+  def find_all_by_status(status)
+    @invoices.find_all do |invoice|
+      invoice.status == status
+      # require 'pry'; binding.pry
+    end
+  end
+
 end

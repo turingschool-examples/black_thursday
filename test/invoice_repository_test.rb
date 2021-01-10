@@ -29,12 +29,22 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 12_335_690, invoice.merchant_id
   end
 
-  
+  def test_find_by_customer_id_returns_correct_invoices
+    invoices = @ir.find_all_by_customer_id(300)
 
-  def test_find_by_merchant_id_returns_correct_invoice
+    assert_equal 10, invoices.length
+  end
+
+  def test_find_by_merchant_id_returns_correct_invoices
     invoices = @ir.find_all_by_merchant_id(12_335_690)
 
     assert_equal 16, invoices.length
+  end
+
+  def test_find_all_by_status
+    invoices = @ir.find_all_by_status(:shipped)
+
+    assert_equal 2839, invoices.length
   end
 
 end
