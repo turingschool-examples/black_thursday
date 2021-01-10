@@ -54,7 +54,7 @@ class TransactionTest < Minitest::Test
     assert_equal Time, @transaction.created_at.class
   end
 
-  def test_updated_at_returns_a_time_instance_for_the_date_the_invoice_item_was_last
+  def test_updated_at_returns_a_time_instance_for_the_date_the_invoice_item_was_last_updated
     assert_equal Time.parse("2012-02-26 20:56:56 UTC"), @transaction.updated_at
     assert_equal Time, @transaction.updated_at.class
   end
