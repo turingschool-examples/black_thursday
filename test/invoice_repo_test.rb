@@ -45,4 +45,14 @@ class InvoiceRepositoryTest < MiniTest::Test
     expected = @invoice_repo.find_all_by_customer_id(customer_id)
     assert_equal [], expected
   end
+
+  def test_it_finds_all_by_merchant_id
+    merchant_id = 12335080
+    expected = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    assert_equal 7, expected.length
+
+    # merchant_id_2 = 1000
+    # assert_equal [], @invoice_repo.find_all_by_merchant_id(merchant_id_2).length
+  end
+
 end
