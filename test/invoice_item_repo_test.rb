@@ -7,7 +7,11 @@ class InvoiceItemRepo < Minitest::Test
     @ii_repo = InvoiceItemRepository.new
   end
 
-  def test_it_exists
+  def test_it_exists_with_attributes
     assert_instance_of InvoiceItemRepository, @ii_repo
+  end
+
+  def test_it_returns_all_iis
+    assert_equal 21830, @ii_repo.all.length
   end
 end
