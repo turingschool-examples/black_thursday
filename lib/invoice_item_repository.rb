@@ -16,7 +16,7 @@ class InvoiceItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{invoice_items.size} rows>"
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
   def all
@@ -65,7 +65,7 @@ class InvoiceItemRepository
     attributes.each do |key, value|
       if value == attributes[:quantity]
         invoice_item.quantity = attributes[key]
-      else value == attributes[:unit_price]
+      elsif value == attributes[:unit_price]
         invoice_item.unit_price = attributes[key]
       end
     end
