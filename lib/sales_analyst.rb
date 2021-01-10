@@ -8,6 +8,8 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+    # require 'pry'; binding.pry
+
   end
 
   def average_items_per_merchant
@@ -44,5 +46,12 @@ class SalesAnalyst
     expected = result.sum(0.00) / result.size
     total_averages = BigDecimal(expected, 5).to_s("F")
     total_averages.to_f.floor(2)
+  end
+
+  def golden_items
+    expected = @sales_engine.items.item_list.find_all do |item|
+      (item.unit_price_to_dollars / 1000.0) >= above_average
+    end
+    expected
   end
 end
