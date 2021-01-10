@@ -94,22 +94,31 @@ class InvoiceRepositoryTest < MiniTest::Test
   #   assert expected.updated_at > original_time
   # end
 
-  def test_update_cannot_update_attributes
-    attributes = {
-      id: 5000,
-      customer_id: 2,
-      merchant_id: 3,
-      created_at: Time.now
-    }
-    @invoice_repo.update(4986, attributes)
-    expected = @invoice_repo.invoices.find_by_id(5000)
+  # def test_update_cannot_update_attributes
+  #   attributes = {
+  #     id: 5000,
+  #     customer_id: 2,
+  #     merchant_id: 3,
+  #     created_at: Time.now
+  #   }
+  #   @invoice_repo.update(4986, attributes)
+  #   expected = @invoice_repo.invoices.find_by_id(5000)
+  #   assert_nil expected
+  #
+  #   expected = @invoice_repo.invoices.find_by_id(4986)
+  #   assert expected.customer_id != attributes[:customer_id]
+  #   assert expected.merchant_id != attributes[:merchant_id]
+  #   assert expected.created_at != attributes[:created_at]
+  # end
+
+  # def test_update_on_unknown_invoice_does_nothing
+  # @invoice_repo.invoices.update(5000, {})
+  # end
+
+  def test_delete_deletes_the_specified_invoice
+    @invoice_repo.delete(4986)
+    expected = @invoice_repo.find_by_id(4986)
     assert_nil expected
-
-    expected = @invoice_repo.invoices.find_by_id(4986)
-    assert expected.customer_id != attributes[:customer_id]
-    assert expected.merchant_id != attributes[:merchant_id]
-    assert expected.created_at != attributes[:created_at]
   end
-
 
 end
