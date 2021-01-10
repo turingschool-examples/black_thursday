@@ -23,9 +23,18 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 4985, @ir.all.count
   end
 
-  def test_find_by_id_returns_an_instance_of_invoice
+  def test_find_by_id_returns_correct_invoice
     invoice = @ir.find_by_id(3452)
-    
+
     assert_equal 12_335_690, invoice.merchant_id
   end
+
+  
+
+  def test_find_by_merchant_id_returns_correct_invoice
+    invoices = @ir.find_all_by_merchant_id(12_335_690)
+
+    assert_equal 16, invoices.length
+  end
+
 end

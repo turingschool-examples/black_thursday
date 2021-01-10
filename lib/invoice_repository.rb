@@ -17,6 +17,10 @@ class InvoiceRepository
     @invoices
   end
 
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
   def all
     @invoices
   end
@@ -24,6 +28,14 @@ class InvoiceRepository
   def find_by_id(id)
     @invoices.find do |invoice|
       invoice.id == id
+    end
+  end
+
+  
+
+  def find_all_by_merchant_id(id)
+    @invoices.find_all do |invoice|
+      invoice.merchant_id == id
     end
   end
 end
