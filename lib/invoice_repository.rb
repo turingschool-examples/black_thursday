@@ -1,4 +1,4 @@
-require 'invoice'
+require_relative 'invoice'
 require 'bigdecimal'
 require 'bigdecimal/util'
 require 'time'
