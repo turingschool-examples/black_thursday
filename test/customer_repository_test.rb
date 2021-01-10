@@ -35,6 +35,12 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal [customer_repo.customers[3]], customer_repo.find_all_by_last_name('Braun')
   end
 
+  def test_max_customer_id
+    customer_repo = CustomerRepository.new(@sample_data, 'engine')
+
+    assert_equal 6, customer_repo.max_customer_id
+  end
+
   def test_it_can_create
     customer_repo = CustomerRepository.new(@sample_data, 'engine')
     attributes = {

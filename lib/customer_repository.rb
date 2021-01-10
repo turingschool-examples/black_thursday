@@ -49,12 +49,12 @@ class CustomerRepository
 
   def create(attributes)
     @customers.push(Customer.new({
-                  :id         => max_customer_id + 1,
-                  :first_name => 'First',
-                  :last_name  => 'Last',
-                  :created_at => Time.now,
-                  :updated_at => Time.now,
-                  }))
+                                    :id         => max_customer_id + 1,
+                                    :first_name => 'First',
+                                    :last_name  => 'Last',
+                                    :created_at => Time.now,
+                                    :updated_at => Time.now,
+                                  }))
   end
 
   def update(id, attributes)
