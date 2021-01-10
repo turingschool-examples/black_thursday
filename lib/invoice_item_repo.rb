@@ -43,4 +43,10 @@ class InvoiceItemRepository
       ii.item_id == id
     end
   end
+
+  def find_all_by_invoice_id(id)
+    all.select do |ii|
+      ii.invoice_id == id
+    end
+  end
 end
