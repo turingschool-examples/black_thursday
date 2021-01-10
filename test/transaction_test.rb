@@ -31,12 +31,13 @@ class TransactionTest < Minitest::Test
 
     def test_invoice_id_returns_the_invoice_id
       assert_equal 2179, @transaction.invoice_id
+      assert_equal Fixnum, @transaction.invoice_id.class
     end
 
-  #     it "#invoice_id returns the invoice id" do
-  #       expect(transaction.invoice_id).to eq 2179
-  #       expect(transaction.invoice_id.class).to eq Fixnum
-  #     end
+    def test_credit_card_number_returns_the_credit_card_number
+      assert_equal "4068631943231473", @transaction.credit_card_number
+      assert_equal Stringexpect, @transaction.credit_card_number.class
+    end
   #
   #     it "#credit_card_number returns the credit card number" do
   #       expect(transaction.credit_card_number).to eq "4068631943231473"
