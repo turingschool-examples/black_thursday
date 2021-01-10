@@ -15,20 +15,33 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (all_merchant_item_count.sum.to_f / all_merchant_item_count.size).round(2)
+    (all_merchant_item_count.values.sum.to_f / all_merchant_item_count.size).round(2)
   end
 
   def all_merchant_item_count
-    @sales_engine.merchants.all.map do |merchant|
-      @sales_engine.merchant_items(merchant.id).length
+    merchant_items = Hash.new(0)
+    @sales_engine.merchants.all.each do |merchant|
+      merchant_items[merchant] = @sales_engine.merchant_items(merchant.id).length
     end
+    merchant_items
   end
 
-  def average_items_per_merchant_standard_deviation(merchant_items)
+  def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
-    variance = merchant_items.inject(0) do |variance, item_count|
-      variance += (item_count - mean) ** 2 
+    variance = all_merchant_item_count.values.inject(0) do |variance, item_count|
+      variance += (item_count - mean) ** 2
     end
-    Math.sqrt(variance / (merchant_items.size - 1)).round(2)
+    Math.sqrt(variance / (all_merchant_item_count.values.size - 1)).round(2)
+  end
+
+  def merchants_with_high_item_count
+    merchants = []
+    all_merchant_item_count.find_all do |merchant, item_count|
+      # if item_count > (average_items_per_merchant_standard_deviation(all_merchant_item_count.values)) + 3
+      if item_count > 6
+        merchants << merchant
+      end
+    end
+    merchants
   end
 end
