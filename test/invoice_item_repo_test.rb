@@ -1,10 +1,11 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_item_repo'
-# make dummy data! this takes 1.5 secs to run
+#  require './test/dummy_data/invoice_item_dummies.csv'
+
 class InvoiceItemRepo < Minitest::Test
   def setup
-    @ii_repo = InvoiceItemRepository.new
+    @ii_repo = InvoiceItemRepository.new('./test/dummy_data/invoice_item_dummies.csv')
   end
 
   def test_it_exists_with_attributes
@@ -12,6 +13,7 @@ class InvoiceItemRepo < Minitest::Test
   end
 
   def test_it_returns_all_iis
-    assert_equal 21830, @ii_repo.all.length
+    assert_equal 17, @ii_repo.all.length
+    assert_equal Array, @ii_repo.all.class
   end
 end
