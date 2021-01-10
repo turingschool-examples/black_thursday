@@ -22,4 +22,12 @@ class TransactionRepository
                                                     updated_at: row[:updated_at].to_i})
     end
   end
+
+  def all
+    transactions.values
+  end
+
+  def find_by_id(id)
+    transactions[id]
+  end
 end

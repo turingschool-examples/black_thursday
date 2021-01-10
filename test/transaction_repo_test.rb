@@ -23,4 +23,14 @@ class TransactionRepoTest < Minitest::Test
     assert_equal "4297222478855497", @tr.transactions[5].credit_card_number
     assert_equal :failed, @tr.transactions[9].result
   end
+
+  def test_all
+    assert_equal 4985, @tr.all.length
+  end
+
+  def test_find_by_id
+    assert_equal 2179, @tr.find_by_id(1).invoice_id
+    assert_equal 3560, @tr.find_by_id(14).invoice_id
+    assert_nil @tr.find_by_id(500000)
+  end
 end
