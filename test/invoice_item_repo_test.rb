@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_item_repo'
-#  require './test/dummy_data/invoice_item_dummies.csv'
 
 class InvoiceItemRepo < Minitest::Test
   def setup
