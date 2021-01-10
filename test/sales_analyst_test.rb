@@ -35,6 +35,6 @@ class TestSalesAnalyst < MiniTest::Test
 
   def test_it_can_find_high_merchant_items
     assert_equal 52, @sales_analyst.merchants_with_high_item_count.length
-    assert_instance_of Merchant, @sales_analyst.merchants_with_high_item_count.first.class
+    assert_equal Merchant, @sales_analyst.merchants_with_high_item_count.first.class
   end
 end
