@@ -49,4 +49,21 @@ class InvoiceItemRepository
       ii.invoice_id == id
     end
   end
+
+  def max_id
+    @invoice_items.keys.max
+  end
+
+  def create(attributes)
+    new_id = max_id + 1
+    @invoice_items[new_id] = InvoiceItem.new({
+                          id: new_id,
+                     item_id: attributes[:item_id],
+                  invoice_id: attributes[:invoice_id],
+                    quantity: attributes[:quantity],
+                  unit_price: attributes[:unit_price],
+                  created_at: attributes[:created_at],
+                  updated_at: attributes[:updated_at]
+                })
+  end
 end
