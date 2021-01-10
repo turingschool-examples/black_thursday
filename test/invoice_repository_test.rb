@@ -11,4 +11,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceRepository, ir
     assert_equal './data/invoices.csv', ir.path
   end
+
+  def test_it_read_items
+    ir = InvoiceRepository.new('./data/invoices.csv')
+
+    assert_equal 4985, ir.invoices.count
+  end
 end
