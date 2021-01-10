@@ -100,7 +100,7 @@ class SalesAnalyst
   end
 
   def per_merchant_invoice_count_hash
-    sales_engine.per_merchant_invoice_count_hash
+    @invoice_hash = sales_engine.per_merchant_invoice_count_hash
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -123,5 +123,17 @@ class SalesAnalyst
       end
     end
     top_merchant_ids
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchant_ids = []
+    invoice_hash = per_merchant_invoice_count_hash
+    bottom_merchant_invoices = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    invoice_hash.each do |key, value|
+      if value < bottom_merchant_invoices
+        bottom_merchant_ids << key
+      end
+    end
+    bottom_merchant_ids
   end
 end
