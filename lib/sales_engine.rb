@@ -14,14 +14,10 @@ class SalesEngine
   def initialize(sales_data)
     @items = ItemRepository.new(sales_data[:items], self)
     @merchants = MerchantRepository.new(sales_data[:merchants], self)
-    # @analyst = SalesAnalyst.new
+    @analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(sales_data)
     SalesEngine.new(sales_data)
-  end
-
-  def self.analyst
-    @analyst = SalesAnalyst.new(@merchants, @items)
   end
 end

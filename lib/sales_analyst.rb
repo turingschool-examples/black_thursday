@@ -26,15 +26,45 @@ class SalesAnalyst
     end
   end
 
-  def average_items_per_merchant_standard_deviation
-    number_of_items = reduce_shop_items.map do |merchant, item|
+  def number_of_items
+    reduce_shop_items.map do |merchant, item|
       item.count
     end
-    number_of_items.standard_deviation.round(2)
   end
 
+  def sum
+    BigDecimal(number_of_items.reduce(0) {|memo, item| memo + item})
+  end
+
+  def mean
+    BigDecimal(sum / reduce_shop_items.length)
+  end
+
+  def sample_variance
+    new_sum = number_of_items.reduce(0) do |memo, item|
+      memo + (item - mean) ** 2
+    end
+
+    new_sum / (reduce_shop_items.length - 1).to_f
+  end
+
+  def average_item_standard_deviation
+    Math.sqrt(sample_variance).round(2)
+  end
+
+  # def average_items_per_merchant_standard_deviation
+  #   average_item_standard_deviation.round(2)
+  # end
+  #
+  # def average_items_per_merchant_standard_deviation
+  #   number_of_items = reduce_shop_items.map do |merchant, item|
+  #     item.count
+  #   end
+  #   require "pry"; binding.pry
+  #   number_of_items.standard_deviation.round(2)
+  # end 
   def average_by_average_merchant_deviation
-    average_items_per_merchant + average_items_per_merchant_standard_deviation
+    average_items_per_merchant + average_item_standard_deviation
   end
 
   def merchant_names_with_high_item_count
@@ -88,6 +118,26 @@ class SalesAnalyst
       unit_deviation << unit_price_array
     end
     unit_deviation.flatten
+  end
+
+  def price_sum
+    BigDecimal(unit_price_array.reduce(0) {|memo, item| memo + item})
+  end
+
+  def price_mean
+    BigDecimal(price_sum / reduce_shop_items.length)
+  end
+
+  def price_sample_variance
+    new_sum = number_of_items.reduce(0) do |memo, item|
+      memo + (item - price_mean) ** 2
+    end
+
+    new_sum / (unit_price_array.length - 1).to_f
+  end
+
+  def average_unit_price_standard_deviation
+    Math.sqrt(price_sample_variance).round(2)
   end
 
   def second_deviation_above_unit_price
