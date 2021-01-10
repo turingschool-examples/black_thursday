@@ -1,4 +1,3 @@
-###Ask about created_at returns the Time the item was created and updated_at returns the Time the item was last updated!!#####
 require 'bigdecimal'
 require 'bigdecimal/util'
 require 'time'
