@@ -37,7 +37,7 @@ class CustomerRepository
 
   def find_all_by_last_name(name)
       @customers.find_all do |customer|
-        customer.last_name.casecmp(name) == 0
+        customer.last_name.casecmp(name).zero?
       end
     end
 
