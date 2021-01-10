@@ -66,13 +66,6 @@ class InvoiceRepository
     @invoices.push(invoice)
   end
 
-  def updates_at(id, attributes)
-    update_item = find_by_id(id)
-    update_item.update(attributes) if !attributes[:status].nil?
-    # update_item.update(attributes) if !attributes[:description].nil?
-    # update_item.update(attributes) if !attributes[:unit_price].nil?
-    update_item
-  end
   #
   # def delete(id)
   #   delete = find_by_id(id)
