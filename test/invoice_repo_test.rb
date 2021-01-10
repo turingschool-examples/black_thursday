@@ -2,12 +2,13 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_repo'
 require './lib/cleaner'
+require './lib/sales_engine'
 
 class InvoiceRepositoryTest < MiniTest::Test
 
   def setup
-    @invoice_repo = InvoiceRepository.new
-    @cleaner = Cleaner.new
+    @sales_engine = SalesEngine.from_csv({items: "./data/items.csv"})
+    @invoice_repo = InvoiceRepository.new(@sales_engine)
   end
 
   def test_it_exists
@@ -53,6 +54,8 @@ class InvoiceRepositoryTest < MiniTest::Test
 
     # merchant_id_2 = 1000
     # assert_equal [], @invoice_repo.find_all_by_merchant_id(merchant_id_2).length
+
+    assert_equal 4985, @invoice_repo.invoices.count
   end
 
   def test_it_finds_all_by_status
