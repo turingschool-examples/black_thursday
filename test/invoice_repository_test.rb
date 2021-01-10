@@ -59,4 +59,10 @@ class InvoiceRepositoryTest < Minitest::Test
   assert_equal 8, @ir.find_by_id(4986).merchant_id
   end
 
+  def test_update_invoice
+    @ir.update(3452, {:status => :shipped})
+
+  assert_equal :shipped, @ir.find_by_id(3452).status
+  end
+
 end

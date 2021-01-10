@@ -56,10 +56,17 @@ class InvoiceRepository
     @invoices.insert(2, Invoice.new(attributes))
   end
 
+  def update(id, attributes)
+    update = find_by_id(id)
+    return nil if update.nil?
+
+    update.status = attributes[:status]
+    update.updated_at = Time.now
+  end
+
   def highest_id
     @invoices.max do |invoice|
       invoice.id
     end
   end
-
 end
