@@ -7,7 +7,8 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :unit_price_to_dollars
 
   def initialize(input, repository)
     @repository = repository
