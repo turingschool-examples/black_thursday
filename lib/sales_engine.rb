@@ -46,7 +46,6 @@ class SalesEngine
     end
   end
 
-
   def analyst
     SalesAnalyst.new(self)
   end

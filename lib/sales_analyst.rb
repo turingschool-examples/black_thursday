@@ -8,8 +8,6 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
-    # require 'pry'; binding.pry
-
   end
 
   def average_items_per_merchant
@@ -49,6 +47,7 @@ class SalesAnalyst
   end
 
   def golden_items
+    above_average = (2 * average_average_price_per_merchant) -1
     expected = @sales_engine.items.item_list.find_all do |item|
       (item.unit_price_to_dollars / 1000.0) >= above_average
     end

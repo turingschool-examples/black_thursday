@@ -3,7 +3,9 @@ require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/sales_analyst'
 require 'pry'
+
 class SalesAnalystTest < Minitest::Test
+
   def test_it_exists
     sales_engine = SalesEngine.from_csv({
                                 :items     => "./fixtures/items_sample.csv",
