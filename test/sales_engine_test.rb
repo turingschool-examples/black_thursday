@@ -8,11 +8,15 @@ class SalesEngineTest < Minitest::Test
   def test_it_exists_and_has_attributes
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
+    invoice_path = './data/invoices.csv'
     locations = { items: item_path,
-                  merchants: merchant_path }
+                  merchants: merchant_path,
+                  invoices: invoice_path
+                }
 
-    se = SalesEngine.from_csv(locations)
-    assert_instance_of SalesEngine, se
+
+    sales_engine = SalesEngine.from_csv(locations)
+    assert_instance_of SalesEngine, sales_engine
   end
 
   def test_it_creates_sales_analyst
@@ -23,5 +27,9 @@ class SalesEngineTest < Minitest::Test
 
     sales_engine = SalesEngine.from_csv(locations)
     assert_instance_of SalesAnalyst, sales_engine.analyst
+  end
+
+  def test_it_creates_invoice
+
   end
 end

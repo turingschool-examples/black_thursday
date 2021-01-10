@@ -1,4 +1,4 @@
-
+require_relative 'invoice'
 class InvoiceRepository
   attr_reader :path,
               :invoices
