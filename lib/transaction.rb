@@ -1,7 +1,9 @@
 class Transaction
-  attr_reader :invoice_id,
+  attr_reader :id,
+              :invoice_id,
               :credit_card_number,
               :credit_card_expiration_date,
+              :result,
               :created_at,
               :updated_at
 
@@ -14,5 +16,5 @@ class Transaction
     @created_at = Time.now
     @updated_at = Time.now
   end
-  
+
 end
