@@ -26,4 +26,9 @@ class TestSalesAnalyst < MiniTest::Test
   def test_it_item_count_of_all_merchants
     assert_equal 475, @sales_analyst.all_merchant_item_count.length
   end
+
+  def test_it_can_find_standard_deviation
+    assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation
+  end
 end
