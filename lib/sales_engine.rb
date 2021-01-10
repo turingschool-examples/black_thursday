@@ -26,4 +26,8 @@ class SalesEngine
   def total_invoices
     invoices.all.length
   end
+
+  def per_merchant_invoice_count_hash
+    invoices.per_merchant_invoice_count
+  end
 end

@@ -98,4 +98,25 @@ class SalesAnalyst
   def average_invoices_per_merchant
     (total_invoices.to_f / total_merchants).round(2)
   end
+
+  def per_merchant_invoice_count_hash
+    sales_engine.per_merchant_invoice_count_hash
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    total = 0
+    # require "pry";binding.pry
+    per_merchant_invoice_count_hash.each do |key, value|
+      total += (average - value)**2
+    end
+    Math.sqrt(total/(total_merchants - 1)).round(2)
+  end
 end
+# def item_price_standard_deviation
+#   average = average_item_price
+#   total = sales_engine.items.all.sum do |item|
+#     (average - item.unit_price_to_dollars)**2
+#   end
+#   Math.sqrt(total/(total_items - 1)).round(2)
+# end

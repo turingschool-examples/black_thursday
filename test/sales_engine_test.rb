@@ -14,7 +14,6 @@ class SalesEngineTest < Minitest::Test
                   invoices: invoice_path
                 }
 
-
     sales_engine = SalesEngine.from_csv(locations, self)
     assert_instance_of SalesEngine, sales_engine
   end
@@ -27,9 +26,5 @@ class SalesEngineTest < Minitest::Test
 
     sales_engine = SalesEngine.from_csv(locations)
     assert_instance_of SalesAnalyst, sales_engine.analyst
-  end
-
-  def test_it_creates_invoice
-
   end
 end
