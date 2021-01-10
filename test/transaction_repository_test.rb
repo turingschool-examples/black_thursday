@@ -52,8 +52,8 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_result
     test = TransactionRepository.new(@sample_data, 'engine')
 
-    assert_equal [test.transactions[4], test.transactions[8]], test.find_all_by_result('failed')
-    assert_equal [], test.find_all_by_result('received')
+    assert_equal [test.transactions[4], test.transactions[8]], test.find_all_by_result(:failed)
+    assert_equal [], test.find_all_by_result(:received)
   end
 
   def test_it_can_find_max_transaction_id
@@ -86,14 +86,14 @@ class TransactionRepositoryTest < Minitest::Test
     attributes = {
                   :credit_card_number => '4000400040004001',
                   :credit_card_expiration_date => '0404',
-                  :result => 'shipped'
+                  :result => :shipped
                   }
 
     test.update(1, attributes)
 
     assert_equal '4000400040004001', test.find_by_id(1).credit_card_number
     assert_equal '0404', test.find_by_id(1).credit_card_expiration_date
-    assert_equal 'shipped', test.find_by_id(1).result
+    assert_equal :shipped, test.find_by_id(1).result
     assert original_time < test.find_by_id(1).updated_at
     assert_nil test.update(25, attributes)
   end

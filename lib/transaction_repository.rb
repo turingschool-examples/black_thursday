@@ -31,7 +31,7 @@ class TransactionRepository
 
   def find_all_by_invoice_id(id)
     @transactions.find_all do |transaction|
-      transaction.id.to_i == id
+      transaction.invoice_id == id
     end
   end
 
@@ -43,7 +43,7 @@ class TransactionRepository
 
   def find_all_by_result(result)
     @transactions.find_all do |transaction|
-      transaction.result == result.to_s
+      transaction.result == result
     end
   end
 
@@ -56,7 +56,7 @@ class TransactionRepository
   def create(attributes)
     @transactions.push(Transaction.new({
                           id: (max_transaction_id + 1),
-                          invpice_id: attributes[:invpice_id],
+                          invoice_id: attributes[:invoice_id],
                           credit_card_number: attributes[:credit_card_number],
                           credit_card_expiration_date: attributes[:credit_card_expiration_date],
                           result: attributes[:result],
