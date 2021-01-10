@@ -69,4 +69,29 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_equal [], expected
   end
 
+  # def test_it_creates_a_new_invoice_instance
+  #   attributes = {
+  #     :customer_id => 7,
+  #     :merchant_id => 8,
+  #     :status      => "pending",
+  #     :created_at  => Time.now,
+  #     :updated_at  => Time.now,
+  #   }
+  #   @invoice_repo.create(attributes)
+  #   expected = @invoice_repo.find_by_id(4986)
+  #   assert_equal 8, expected.merchant_id
+  # end
+
+  # def test_it_updates_an_invoice
+  #   original_time = @invoice_repo.find_by_id(4986).updated_at
+  #   attributes = {
+  #         status: :success
+  #   }
+  #   @invoice_repo.invoices.update(4986, attributes)
+  #   expected = @invoice_repo.invoices.find_by_id(4986)
+  #   assert_equal :success, expected.status
+  #   assert_equal 7, expected.customer_id
+  #   assert expected.updated_at > original_time
+  # end
+
 end
