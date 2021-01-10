@@ -77,9 +77,15 @@ class InvoiceItemRepo < Minitest::Test
     assert_equal 1, ii.quantity
     assert_equal 10.99, ii.unit_price
     assert_equal 12, ii.updated_at
-    @ii_repo.update(2354, ii_attributes)
+    @ii_repo.update(2354, updated_attributes)
+    # check that desired attributes were changed
     assert_equal 2, ii.quantity
     assert_equal 199.99, ii.unit_price
     assert ii.updated_at != 12
+    # check that unchangable attributes didn't change
+    assert_equal 2354, ii.id
+    assert_equal 10, ii.created_at
+    assert_equal 7, ii.item_id
+    assert_equal 8, ii.invoice_id
   end
 end
