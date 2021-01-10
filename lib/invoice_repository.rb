@@ -40,17 +40,14 @@ class InvoiceRepository
   def find_all_by_customer_id(customer_id)
    customer_found = []
     @invoices.find_all do |invoice|
-      customer_found << invoice if invoice.customer_id.to_i == customer_id
+     invoice.customer_id.to_i == customer_id
     end
-    customer_found
   end
 
   def find_all_by_merchant_id(merchant_id)
-   merchant_found = []
     @invoices.find_all do |invoice|
-      merchant_found << invoice if invoice.merchant_id.to_i == merchant_id
+     invoice.merchant_id.to_i == merchant_id
     end
-    merchant_found
   end
 
   def find_all_by_status(status)
@@ -59,24 +56,17 @@ class InvoiceRepository
     end
   end
 
+  def create(attributes)
+    invoice = @invoices[-1].id.to_i
+    invoice += 1
+    invoice = invoice.to_i
+    attributes[:id] = invoice
+    attributes[:unit_price]
+    invoice = Invoice.new(attributes, self)
+    @invoices.push(invoice)
+  end
 
-  # def find_all_with_description(description)
-  #   @items.find_all do |item|
-  #     item.description.downcase == description.downcase
-  #   end
-  # end
-  #
-  # def find_all_by_price(price)
-  #   @items.find_all do |item|
-  #     item.unit_price == price
-  #   end
-  # end
-  #
-  # def find_all_by_price_in_range(range)
-  #   @items.find_all do |item|
-  #     range.include?(item.unit_price)
-  #   end
-  # end
+
   #
   # def find_all_by_merchant_id(merchant_id)
   #   @invoice.find_all do |invoice|
