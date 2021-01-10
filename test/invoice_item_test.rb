@@ -43,12 +43,13 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 857.87, invoice_item.unit_price
     assert_equal BigDecimal, invoice_item.unit_price.class
   end
+
+  def test_created_at_returns_a_time_instance_for_the_date_the_invoice_item_was_created
+    assert_equal  Time.parse("2012-03-27 14:54:35 UTC"), invoice_item.created_at
+    assert_equal Time, invoice_item.created_at.class
+  end
 end
 
-#
-#
-#     expect(invoice_item.unit_price.class).to eq BigDecimal
-#   end
 #
 #   it "#created_at returns a Time instance for the date the invoice item was created" do
 #     expect(invoice_item.created_at).to eq Time.parse("2012-03-27 14:54:35 UTC")
