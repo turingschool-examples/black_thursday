@@ -17,35 +17,9 @@ class SalesEngine
     (items.item_list.count.to_f / merchants.merchant_list.count.to_f).round(2)
   end
 
-  # def find_variance
-    # Calculate Standard Deviation:
-    # 1. Need a set of data to work with: items in item list? merchants in merhcant list?
-    # 2. Take the difference between each number and the mean(our find average method) and square it
-    # 3. Divide the sum by the number of elements minus 1
-    #4. Take the square root of this result
-
-    # @exhibits.reduce({}) do |acc, exhibit|
-    #   exhibit_patrons = @patrons.find_all do |patron|
-    #     patron.interested_in?(exhibit)
-    #     # patron.interests.include?(exhibit.name)
-    #   end
-    #   acc[exhibit] = exhibit_patrons
-    #   acc
-    # end
-    # def standard_deviation
-    # one = find_average
-    # two = merchant_items.map do |merchant|
-    # (one - two) ** 2
-    # end.sum
-    # Math.sqrt (two / (length - 1)).round(2)
-  # end
-
-
-  #to make this hash
 def standard_deviation
 
   total_count = @merchants.merchant_list.reduce([]) do |acc, merchant|
-    # require "pry"; binding.pry
     acc << merchant.item_name.count
     acc
   end
@@ -53,15 +27,18 @@ def standard_deviation
   sum = total_count.sum do |value|
     ((value - find_average)**2)
   end
+  result = (sum / 475)
 
-  # new_sum = ((sum / 475) - 1)
-
-  # summy = (sum / 475) - 1
-  #
-  # sum = total_count.reduce(0) do |acc, val|
-  #   acc += ((val - find_average)**2)
-  (Math.sqrt(sum).round(2) * 2)
+  Math.sqrt(result).round(2)
 end
+
+
+# new_sum = ((sum / 475) - 1)
+
+# summy = (sum / 475) - 1
+#
+# sum = total_count.reduce(0) do |acc, val|
+#   acc += ((val - find_average)**2)
 
 
 
@@ -97,7 +74,6 @@ end
   #
   # def standard_deviation
   #   Math.sqrt(find_variance)
-  # end
 
   def find_items_by_id(id)
     items.find_all_by_merchant_id(id)

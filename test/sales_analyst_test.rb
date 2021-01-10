@@ -35,8 +35,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_for_standard_deviation
       sales_engine = SalesEngine.from_csv({
-                                :items     => "./fixtures/sales_analyst_items_sample.csv",
-                                :merchants => "./fixtures/sales_analyst_merchants_sample.csv"
+                                :items     => "./data/items.csv",
+                                :merchants => "./data/merchants.csv"
                                 })
 
         sales_analyst = sales_engine.analyst
