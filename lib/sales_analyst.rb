@@ -15,10 +15,7 @@ class SalesAnalyst
     # (@sales_engine.items.item_list.count / @sales_engine.merchant.merchant_list.count).to_f.round(2)
   end
 
-
-
-
-
-
-
+  def average_items_per_merchant_standard_deviation
+    @sales_engine.standard_deviation
+  end
 end
