@@ -73,27 +73,20 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal true, mr.all.include?(merchant1)
   end
 #
-#   def test_sort_by_id
-#     mr = MerchantRepository.new(@engine)
-#
-#     assert_equal "Shopin1901", mr.sort_by_id[0].name
-#     assert_equal "CJsDecor", mr.sort_by_id[-1].name
-#   end
-#
-#   def test_update_merchant
-#     mr = MerchantRepository.new(@engine)
-#     attributes = {:name => "Brainpeeps"}
-#     merchant1 = mr.create({:name => "codecodecode"})
-#     mr.update(merchant1.id, attributes)
-#     mr.update(12334123, attributes)
-#
-#     assert_equal "Brainpeeps", merchant1.name
-#     assert_equal 12337412, merchant1.id
-#     assert_equal 476, mr.merchants.count
-#     assert_equal true, mr.merchants.include?(merchant1)
-#     assert_equal "Brainpeeps", mr.update(12334123, attributes).name
-#   end
-#
+  def test_update_merchant
+    mr = MerchantRepository.new(@engine)
+    attributes = {:name => "Brainpeeps"}
+    merchant1 = mr.create({:name => "codecodecode"})
+    mr.update(merchant1.id, attributes)
+    mr.update(12334123, attributes)
+
+    assert_equal "Brainpeeps", merchant1.name
+    assert_equal 12337412, merchant1.id
+    assert_equal 476, mr.merchants.count
+    assert_equal true, mr.all.include?(merchant1)
+    assert_equal "Brainpeeps", mr.update(merchant1.id, attributes).name
+  end
+
 #   def test_delete_merchant
 #     mr = MerchantRepository.new(@engine)
 #     merchant1 = mr.create({:name => "codecodecode"})
