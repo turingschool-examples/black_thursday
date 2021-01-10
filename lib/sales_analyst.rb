@@ -26,12 +26,12 @@ class SalesAnalyst
     merchant_items
   end
 
-  def average_items_per_merchant_standard_deviation(merchant_items)
+  def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
-    variance = merchant_items.inject(0) do |variance, item_count|
+    variance = all_merchant_item_count.values.inject(0) do |variance, item_count|
       variance += (item_count - mean) ** 2
     end
-    Math.sqrt(variance / (merchant_items.size - 1)).round(2)
+    Math.sqrt(variance / (all_merchant_item_count.values.size - 1)).round(2)
   end
 
   def merchants_with_high_item_count
