@@ -79,4 +79,8 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_nil customer_repo.find_by_id(1)
   end
+  def test_it_can_inspect
+    test = CustomerRepository.new(@sample_data, 'engine')
+    assert_equal "#<CustomerRepository 6 rows>", test.inspect
+  end
 end

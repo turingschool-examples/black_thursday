@@ -72,7 +72,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_update_with_id_and_attrs_arg
     invoice_item_repo = InvoiceItemRepository.new(@sample_data, 'engine')
-    original_time = invoice_item_repo.find_by_id(2).updated_at
     update = {
               quantity:   12,
               unit_price: 20
@@ -89,5 +88,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_item_repo.delete(9)
 
     assert_nil invoice_item_repo.find_by_id(9)
+  end
+
+  def test_it_can_inspect
+    test = InvoiceItemRepository.new(@sample_data, 'engine')
+    assert_equal "#<InvoiceItemRepository 10 rows>", test.inspect
   end
 end

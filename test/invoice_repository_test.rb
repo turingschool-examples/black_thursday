@@ -89,4 +89,9 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_nil invoice_repo.find_by_id(1)
   end
+  
+  def test_it_can_inspect
+    test = InvoiceRepository.new(@sample_data, 'engine')
+    assert_equal "#<InvoiceRepository 10 rows>", test.inspect
+  end
 end
