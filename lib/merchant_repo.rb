@@ -11,7 +11,7 @@ class MerchantRepository
   def initialize(file = './data/merchants.csv', engine)
     @engine = engine
     @file = file
-    @merchants = []
+    @merchants = {}
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
     build_merchants
   end
@@ -21,31 +21,30 @@ class MerchantRepository
   end
 
   def build_merchants
-    @data.map do |merchant|
+    @data.each do |merchant|
       cleaner = Cleaner.new
-      merch = Merchant.new({
-        id: cleaner.clean_id(merchant[:id]),
-        name: cleaner.clean_name(merchant[:name]),
-        created_at: cleaner.clean_date(merchant[:created_at]),
-        updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
-      @merchants << merch
+      @merchants[merchant[:id].to_i] = Merchant.new({
+
+                                      id: cleaner.clean_id(merchant[:id]),
+                                      name: cleaner.clean_name(merchant[:name]),
+                                      created_at: cleaner.clean_date(merchant[:created_at]),
+                                      updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
+      # @merchants << merch
       end
-    @merchants
+    # @merchants
   end
 
   def all
-    @merchants
+    @merchants.values
   end
 
   def find_by_id(id)
-    @merchants.select do |merchant|
-          merchant.id == id
-    end[0]
+    @merchants[id]
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
-      merchant.name.upcase == name.upcase
+    all.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
