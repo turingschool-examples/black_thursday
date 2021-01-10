@@ -6,12 +6,14 @@ class SalesAnalystTest < Minitest::Test
   def setup
     item_path = "./data/items.csv"
     merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
     arguments = {
                   :items     => item_path,
                   :merchants => merchant_path,
+                  :invoices  => invoice_path
                 }
-    se = SalesEngine.from_csv(arguments)
-    @sales_analyst = se.analyst
+    @se = SalesEngine.from_csv(arguments)
+    @sales_analyst = @se.analyst
   end
 
   def test_it_exists

@@ -4,10 +4,15 @@ require './lib/invoice'
 
 class InvoiceTest < MiniTest::Test
   def setup
-    # merchant_path = "./data/merchants.csv"
-    # arguments = merchant_path
-    # #parent = mock(“parent”)
-    @engine = SalesEngine.from_csv(:invoices => "./data/invoices.csv")
+    item_path = "./data/items.csv"
+    merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
+    arguments = {
+                  :items     => item_path,
+                  :merchants => merchant_path,
+                  :invoices  => invoice_path
+                }
+    @engine = SalesEngine.from_csv(arguments)
     @invoice = @engine.invoices.find_by_id(3452)
   end
 

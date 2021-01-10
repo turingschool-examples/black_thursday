@@ -3,7 +3,15 @@ require './lib/invoice_repository'
 
 class InvoiceRepositoryTest < MiniTest::Test
   def setup
-    @engine = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+    item_path = "./data/items.csv"
+    merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
+    arguments = {
+                  :items     => item_path,
+                  :merchants => merchant_path,
+                  :invoices  => invoice_path
+                }
+    @engine = SalesEngine.from_csv(arguments)
   end
 
   def test_it_exists_invoice
