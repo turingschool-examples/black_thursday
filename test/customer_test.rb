@@ -37,17 +37,13 @@ class CustomerTest < Minitest::Test
      assert_equal String, @customer.last_name.class
   end
 
-#     expect(customer.last_name).to eq "Veum"
-#     expect(customer.last_name.class).to eq String
-#   end
-#
-#   it "#created_at returns a Time instance for the date the invoice item was created" do
-#     expect(customer.created_at).to eq Time.parse("2012-03-27 14:56:08 UTC")
-#     expect(customer.created_at.class).to eq Time
-#   end
-#
-#   it "#updated_at returns a Time instance for the date the invoice item was last updated" do
-#     expect(customer.updated_at).to eq Time.parse("2012-03-27 14:56:08 UTC")
-#     expect(customer.updated_at.class).to eq Time
-#   end
+  def test_created_at_returns_a_time_instance_for_the_date_the_invoice_item_was_created
+    assert_equal Time.parse("2012-03-27 14:56:08 UTC"), @customer.created_at
+    assert_equal Time, @customer.created_at.class
+  end
+
+  def test_updated_at_returns_a_time_instance_for_the_date_the_invoice_item_was_last_updated
+    assert_equal Time.parse("2012-03-27 14:56:08 UTC"), @customer.updated_at
+    assert_equal Time, @customer.updated_at.class
+  end
 end
