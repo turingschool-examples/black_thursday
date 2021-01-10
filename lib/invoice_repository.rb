@@ -76,5 +76,11 @@ class InvoiceRepository
     end
   end
 
-
+  def per_merchant_invoice_count
+    @invoices.reduce({}) do |acc, invoice|
+      merchant_invoice_count = find_all_by_merchant_id(invoice.merchant_id).length
+      acc[invoice.merchant_id] = merchant_invoice_count
+      acc
+    end
+  end
 end

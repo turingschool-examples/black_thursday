@@ -80,4 +80,8 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_nil @ir.find_by_id(3452)
   end
+
+  def test_returns_per_merchant_invoice_count
+    assert_equal 475, @ir.per_merchant_invoice_count.length
+  end
 end
