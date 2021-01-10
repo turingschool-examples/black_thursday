@@ -8,7 +8,7 @@ class InvoiceItemRepository
   def initialize(file = './data/invoice_items.csv')
     @file = file
     @ii_csv = CSV.open(@file, headers: true, header_converters: :symbol)
-    @invoice_items = []
+    @invoice_items = Hash.new
     @cleaner = Cleaner.new
     ii_objects(@ii_csv)
   end
@@ -18,7 +18,7 @@ class InvoiceItemRepository
       precision      = row[:unit_price].length
       value_adjusted = row[:unit_price].to_i * 0.01
       # A module could hold assignment hashes for all classes
-      @invoice_items << InvoiceItem.new({:id       => row[:id].to_i,
+      @invoice_items[row[:id]] = InvoiceItem.new({:id       => row[:id].to_i,
                           :item_id        => row[:name],
                           :invoice_id => row[:invoice_id],
                           :quantity    => row[:quantity],
@@ -31,6 +31,6 @@ class InvoiceItemRepository
   end
 
   def all
-    @invoice_items
+    @invoice_items.values
   end
 end
