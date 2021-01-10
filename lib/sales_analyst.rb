@@ -50,6 +50,14 @@ class SalesAnalyst
     @sales_engine.merchant_items(merchant_id).each do |item|
       prices << item.unit_price_to_dollars
     end
-    BigDecimal((prices.sum / prices.size).round(2), 4)
+    BigDecimal((prices.sum / prices.size), 4)
+  end
+
+  def average_average_price_per_merchant
+    all_averages = []
+    @sales_engine.merchants.all.each do |merchant|
+      all_averages << average_item_price_for_merchant(merchant.id)
+    end
+    BigDecimal(all_averages.sum / all_averages.size).truncate(2)
   end
 end
