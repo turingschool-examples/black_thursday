@@ -94,4 +94,8 @@ class SalesAnalyst
   def total_invoices
     sales_engine.total_invoices
   end
+
+  def average_invoices_per_merchant
+    (total_invoices.to_f / total_merchants).round(2)
+  end
 end

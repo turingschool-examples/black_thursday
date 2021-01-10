@@ -85,6 +85,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_returns_all_invoices
+    skip
     assert_equal 4985, @sales_analyst.total_invoices
+  end
+
+  def test_average_invoices_per_merchant
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
   end
 end
