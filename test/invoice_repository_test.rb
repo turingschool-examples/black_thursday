@@ -36,18 +36,20 @@ class InvoiceRepositoryTest < MiniTest::Test
 
     customer_id = 1000
     expected = @engine.invoices.find_all_by_customer_id(customer_id)
-    assert_equal [], @expected
+      # require "pry"; binding.pry
+    assert_equal [], expected
   end
-  #
-  # def test_find_all_by_merchant_id
-  #   merchant_id = 12335080
-  #   expected = @engine.invoices.find_all_by_merchant_id(merchant_id)
-  #   assert_equal 7, expected.length
-  #   merchant_id = 1000
-  #   expected = @engine.invoices.find_all_by_merchant_id(merchant_id)
-  #   assert_equal [], expected
-  # end
-  #
+  
+  def test_find_all_by_merchant_id
+    merchant_id = 12335080
+    expected = @engine.invoices.find_all_by_merchant_id(merchant_id)
+    assert_equal 7, expected.length
+
+    merchant_id = 1000
+    expected = @engine.invoices.find_all_by_merchant_id(merchant_id)
+    assert_equal [], expected
+  end
+
   # def test_find_all_by_status_returns_all_invoices_associated_with_given_status
   #   status = :shipped
   #   expected = @engine.invoices.find_all_by_status(status)
