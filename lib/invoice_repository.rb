@@ -46,7 +46,19 @@ class InvoiceRepository
   def find_all_by_status(status)
     @invoices.find_all do |invoice|
       invoice.status == status
-      # require 'pry'; binding.pry
+    end
+  end
+
+  def create(attributes)
+    attributes[:created_at] = Time.new.to_s
+    attributes[:updated_at] = Time.new.to_s
+    attributes[:id] = highest_id.id + 1
+    @invoices.insert(2, Invoice.new(attributes))
+  end
+
+  def highest_id
+    @invoices.max do |invoice|
+      invoice.id
     end
   end
 

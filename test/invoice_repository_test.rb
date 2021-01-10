@@ -47,4 +47,16 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 2839, invoices.length
   end
 
+  def test_create_invoice
+    invoice = @ir.create({
+  :customer_id => 7,
+  :merchant_id => 8,
+  :status      => "pending",
+  :created_at  => Time.now.to_s,
+  :updated_at  => Time.now.to_s,
+  })
+
+  assert_equal 8, @ir.find_by_id(4986).merchant_id
+  end
+
 end
