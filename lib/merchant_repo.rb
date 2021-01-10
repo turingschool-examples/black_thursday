@@ -11,7 +11,7 @@ class MerchantRepository
   def initialize(file = './data/merchants.csv', engine)
     @engine = engine
     @file = file
-    @merchants = []
+    @merchants = {}
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
     build_merchants
   end
@@ -21,55 +21,47 @@ class MerchantRepository
   end
 
   def build_merchants
-    @data.map do |merchant|
+    @data.each do |merchant|
       cleaner = Cleaner.new
-      merch = Merchant.new({
-        id: cleaner.clean_id(merchant[:id]),
-        name: cleaner.clean_name(merchant[:name]),
-        created_at: cleaner.clean_date(merchant[:created_at]),
-        updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
-      @merchants << merch
+      @merchants[merchant[:id].to_i] = Merchant.new({
+
+                                      id: cleaner.clean_id(merchant[:id]),
+                                      name: cleaner.clean_name(merchant[:name]),
+                                      created_at: cleaner.clean_date(merchant[:created_at]),
+                                      updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
+      # @merchants << merch
       end
-    @merchants
+    # @merchants
   end
 
   def all
-    @merchants
+    @merchants.values
   end
 
   def find_by_id(id)
-    @merchants.select do |merchant|
-          merchant.id == id
-    end[0]
+    @merchants[id]
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
-      merchant.name.upcase == name.upcase
-    end
+    all.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end[0]
   end
 
   def find_all_by_name(search_term)
-    @merchants.find_all do |merchant|
+    all.find_all do |merchant|
       merchant.name.upcase.include?(search_term.upcase)
     end
   end
 
-  def create(attributes)
-    new_id = (sort_by_id[-1].id + 1 )
-    attributes_final = {:id => new_id}
-    attributes.each do |attribute_key, attribute_value|
-      attributes_final[attribute_key] = attribute_value
-    end
-    new_merch = Merchant.new(attributes_final, self)
-    @merchants << new_merch
-    new_merch
+  def max_id
+    @merchants.keys.max
   end
 
-  def sort_by_id
-    merch = @merchants.sort_by do |merchant|
-      merchant.id
-    end
+  def create(attributes)
+    new = Merchant.new(attributes, self)
+    new.id = (max_id + 1)
+    @merchants[new.id] = new
   end
 
   def update(id, attributes)
@@ -83,8 +75,6 @@ class MerchantRepository
   end
 
   def delete(id)
-    @merchants = @merchants.reject do |merchant|
-      merchant.id == id
-    end
+    @merchants.delete(id)
   end
 end
