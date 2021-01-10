@@ -64,6 +64,11 @@ class InvoiceRepository
     update.updated_at = Time.now
   end
 
+  def delete(id)
+    delete = find_by_id(id)
+    @invoices.delete(delete)
+  end
+
   def highest_id
     @invoices.max do |invoice|
       invoice.id
