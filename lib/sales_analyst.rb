@@ -24,13 +24,11 @@ class SalesAnalyst
     end
   end
 
-  def find_mean_of_merchant_items(merchant_items)
-    (merchant_items.inject(0) { |sum, x| sum += x } / merchant_items.size.to_f).round(2)
-  end
-
   def average_items_per_merchant_standard_deviation(merchant_items)
-    mean = find_mean_of_merchant_items(merchant_items)
-    variance = merchant_items.inject(0) { |variance, x| variance += (x - mean) ** 2 }
-    standard_deviation = Math.sqrt(variance/(merchant_items.size-1)).round(2)
+    mean = average_items_per_merchant
+    variance = merchant_items.inject(0) do |variance, item_count|
+      variance += (item_count - mean) ** 2 
+    end
+    Math.sqrt(variance / (merchant_items.size - 1)).round(2)
   end
 end
