@@ -32,7 +32,11 @@ class CustomerTest < Minitest::Test
     assert_equal String, @customer.first_name.class
   end
 
-#   it "#last_name returns the last_name" do
+  def test_last_name_returns_the_last_name
+    assert_equal "Veum", @customer.last_name
+     assert_equal String, @customer.last_name.class
+  end
+
 #     expect(customer.last_name).to eq "Veum"
 #     expect(customer.last_name.class).to eq String
 #   end
