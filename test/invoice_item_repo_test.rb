@@ -31,4 +31,9 @@ class InvoiceItemRepo < Minitest::Test
     assert_equal 520, ii[0].invoice_id
     assert_equal [], @ii_repo.find_all_by_item_id(22)
   end
+
+  def test_it_finds_all_by_invoice_id
+    assert_equal 4, @ii_repo.find_all_by_invoice_id(519).length
+    assert_equal [], @ii_repo.find_all_by_invoice_id(22)
+  end
 end
