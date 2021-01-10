@@ -66,31 +66,13 @@ class InvoiceRepository
     @invoices.push(invoice)
   end
 
-
-  #
-  # def find_all_by_merchant_id(merchant_id)
-  #   @invoice.find_all do |invoice|
-  #     invoice.merchant_id == merchant_id.to_s
-  #   end
-  # end
-  #
-  # def create(attributes)
-  #   id = @items[-1].id.to_i
-  #   id += 1
-  #   id = id.to_s
-  #   attributes[:id] = id
-  #   attributes[:unit_price]
-  #   item = Item.new(attributes, self)
-  #   @items.push(item)
-  # end
-  #
-  # def update(id, attributes)
-  #   update_item = find_by_id(id)
-  #   update_item.update(attributes) if !attributes[:name].nil?
-  #   update_item.update(attributes) if !attributes[:description].nil?
-  #   update_item.update(attributes) if !attributes[:unit_price].nil?
-  #   update_item
-  # end
+  def updates_at(id, attributes)
+    update_item = find_by_id(id)
+    update_item.update(attributes) if !attributes[:status].nil?
+    # update_item.update(attributes) if !attributes[:description].nil?
+    # update_item.update(attributes) if !attributes[:unit_price].nil?
+    update_item
+  end
   #
   # def delete(id)
   #   delete = find_by_id(id)
