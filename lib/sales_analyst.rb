@@ -45,4 +45,12 @@ class SalesAnalyst
     total_averages = BigDecimal(expected, 5).to_s("F")
     total_averages.to_f.floor(2)
   end
+
+  def golden_items
+    above_average = (2 * average_average_price_per_merchant) -1
+    expected = @sales_engine.items.item_list.find_all do |item|
+      (item.unit_price_to_dollars / 1000.0) >= above_average
+    end
+    expected
+  end
 end

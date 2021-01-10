@@ -32,7 +32,7 @@ class SalesEngine
     sum = total_count.sum do |value|
       ((value - find_average)**2)
     end
-    result = (sum / 475)
+    result = (sum / (476 - 1))
 
     Math.sqrt(result).round(2)
   end

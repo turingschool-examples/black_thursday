@@ -3,7 +3,9 @@ require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/sales_analyst'
 require 'pry'
+
 class SalesAnalystTest < Minitest::Test
+
   def test_it_exists
     sales_engine = SalesEngine.from_csv({
                                 :items     => "./fixtures/items_sample.csv",
@@ -74,7 +76,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-     skip
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv"
