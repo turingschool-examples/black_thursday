@@ -12,7 +12,7 @@ class SalesEngine
   def initialize(locations)
     @merchants = MerchantRepository.new(locations[:merchants])
     @items = ItemRepository.new(locations[:items])
-    @invoices = InvoiceRepository.new(locations[:invoices])
+    @invoices = InvoiceRepository.new(locations[:invoices], self)
   end
 
   def self.from_csv(locations)
@@ -21,5 +21,9 @@ class SalesEngine
 
   def analyst
     SalesAnalyst.new(self)
+  end
+
+  def total_invoices
+    invoices.all.length
   end
 end

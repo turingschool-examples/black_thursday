@@ -15,7 +15,7 @@ class SalesEngineTest < Minitest::Test
                 }
 
 
-    sales_engine = SalesEngine.from_csv(locations)
+    sales_engine = SalesEngine.from_csv(locations, self)
     assert_instance_of SalesEngine, sales_engine
   end
 

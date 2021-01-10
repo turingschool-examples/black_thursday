@@ -91,4 +91,7 @@ class SalesAnalyst
     sales_engine.merchants.all.length
   end
 
+  def total_invoices
+    sales_engine.total_invoices
+  end
 end

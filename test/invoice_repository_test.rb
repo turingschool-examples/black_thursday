@@ -7,7 +7,15 @@ require './lib/sales_engine'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @ir = InvoiceRepository.new('./data/invoices.csv')
+    @merchant_path = './data/merchants.csv'
+    @item_path = './data/items.csv'
+    @invoice_path = './data/invoices.csv'
+    @locations = { items: @item_path,
+                  merchants: @merchant_path,
+                  invoices: @invoice_path
+                }
+    @engine = SalesEngine.new(@locations)
+    @ir = InvoiceRepository.new('./data/invoices.csv', @engine)
   end
 
   def test_it_has_attributes
