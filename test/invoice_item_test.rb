@@ -48,16 +48,9 @@ class InvoiceItemTest < Minitest::Test
     assert_equal  Time.parse("2012-03-27 14:54:35 UTC"), invoice_item.created_at
     assert_equal Time, invoice_item.created_at.class
   end
-end
 
-#
-#   it "#created_at returns a Time instance for the date the invoice item was created" do
-#     expect(invoice_item.created_at).to eq Time.parse("2012-03-27 14:54:35 UTC")
-#     expect(invoice_item.created_at.class).to eq Time
-#   end
-#
-#   it "#updated_at returns a Time instance for the date the invoice item was last updated" do
-#     expect(invoice_item.updated_at).to eq Time.parse("2012-03-27 14:54:35 UTC")
-#     expect(invoice_item.updated_at.class).to eq Time
-#   end
-# end
+  def test_updated_at_returns_a_time_instance_for_the_date_the_invoce_item_was_last_updated
+    assert_equal Time.parse("2012-03-27 14:54:35 UTC"), invoice_item.updated_at
+    assert_equal Time, invoice_item.updated_at.class
+  end
+end
