@@ -17,7 +17,7 @@ class InvoiceItem
     @unit_price  = (args[:unit_price].to_d) / 100
     @created_at  = Time.parse(args[:created_at].to_s)
     @updated_at  = Time.parse(args[:updated_at].to_s)
-    @parent = parent
+    @parent      = parent
   end
 
   def unit_price_to_dollars
