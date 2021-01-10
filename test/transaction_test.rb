@@ -10,8 +10,8 @@ class TransactionTest < Minitest::Test
     t = Transaction.new({
                                   :id => 6,
                                   :invoice_id => 8,
-                                  :credit_card_number => "4242424242424242",
-                                  :credit_card_expiration_date => "0220",
+                                  :credit_card_number => '4242424242424242',
+                                  :credit_card_expiration_date => '0220',
                                   :result => "success",
                                   :created_at => '2021-01-06 11:29:55 UTC',
                                   :updated_at => '2021-01-06 11:29:55 UTC'
