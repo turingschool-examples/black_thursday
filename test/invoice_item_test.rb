@@ -38,11 +38,15 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 522, invoice_item.invoice_id
     assert_equal Fixnum, invoice_item.invoice_id.class
   end
+
+  def test_unit_price_returns_the_unit_price
+    assert_equal 857.87, invoice_item.unit_price
+    assert_equal BigDecimal, invoice_item.unit_price.class
+  end
 end
 
 #
-#   it "#unit_price returns the unit price" do
-#     expect(invoice_item.unit_price).to eq 847.87
+#
 #     expect(invoice_item.unit_price.class).to eq BigDecimal
 #   end
 #
