@@ -1,3 +1,4 @@
+
 class InvoiceRepository
   attr_reader :path,
               :invoices
@@ -18,5 +19,11 @@ class InvoiceRepository
 
   def all
     @invoices
+  end
+
+  def find_by_id(id)
+    @invoices.find do |invoice|
+      invoice.id == id
+    end
   end
 end
