@@ -102,13 +102,13 @@ class InvoiceRepositoryTest < MiniTest::Test
   #     created_at: Time.now
   #   }
   #   @invoice_repo.update(4986, attributes)
-  #   expected = @invoice_repo.invoices.find_by_id(5000)
+  #   expected = @invoice_repo.find_by_id(5000)
   #   assert_nil expected
   #
-  #   expected = @invoice_repo.invoices.find_by_id(4986)
-  #   assert expected.customer_id != attributes[:customer_id]
-  #   assert expected.merchant_id != attributes[:merchant_id]
-  #   assert expected.created_at != attributes[:created_at]
+  #   expected = @invoice_repo.find_by_id(4986)
+  #   assert_not_equal @invoice_repo.attributes[:customer_id], expected.customer_id
+  #   assert_not_equal attributes[:merchant_id], expected.merchant_id
+  #   assert_not_equal attributes[:created_at], expected.created_at
   # end
 
   # def test_update_on_unknown_invoice_does_nothing

@@ -74,19 +74,19 @@ class InvoiceRepository
     end
   end
 
-#   def update(id, attributes)
-#     invoice = find_by_id(id)
-#     if invoice != nil
-#       attributes.each do |attribute_key, attribute_value|
-#         invoice.update({attribute_key => attribute_value})
-#       end
-#     end
-#     invoice
-#   end
-#
-#   # def updated_at
-#   #   Time now?
-#   # end
+  # def update(id, attributes)
+  #   invoice = find_by_id(id)
+  #   if invoice != nil
+  #     attributes.each do |attribute_key, attribute_value|
+  #       invoice.update({attribute_key => attribute_value})
+  #     end
+  #   end
+  #   invoice
+  # end
+  #
+  # def updated_at
+  #   Time now?
+  # end
 
   def delete(id)
     @invoices.delete(find_by_id(id))
