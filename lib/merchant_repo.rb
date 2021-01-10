@@ -54,22 +54,30 @@ class MerchantRepository
     end
   end
 
-  def create(attributes)
-    new_id = (sort_by_id[-1].id + 1 )
-    attributes_final = {:id => new_id}
-    attributes.each do |attribute_key, attribute_value|
-      attributes_final[attribute_key] = attribute_value
-    end
-    new_merch = Merchant.new(attributes_final, self)
-    @merchants << new_merch
-    new_merch
+  def max_id
+    @merchants.keys.max
   end
 
-  def sort_by_id
-    merch = @merchants.sort_by do |merchant|
-      merchant.id
-    end
+  def create(attributes)
+    new = Merchant.new(attributes, self)
+    new.id = (max_id + 1)
+    @merchants[new.id] = new
   end
+  # def create(attributes)
+  #   new_id = (sort_by_id[-1].id + 1 )
+  #   attributes_final = {:id => new_id}
+  #   attributes.each do |attribute_key, attribute_value|
+  #     attributes_final[attribute_key] = attribute_value
+  #   end
+  #   @merchants[new_id] = Merchant.new(attributes_final, self)
+  #   all.last
+  # end
+  #
+  # def max_id
+  #   merch = @merchants.sort_by do |merchant|
+  #     merchant.id
+  #   end
+  # end
 
   def update(id, attributes)
     merchant = find_by_id(id)

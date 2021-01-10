@@ -45,33 +45,33 @@ class MerchantRepositoryTest < MiniTest::Test
     name = "leabUrrot"
     name2 = "Alexa"
 
-    assert_equal 12334411, mr.find_by_name(name)[0].id
-    assert_equal "leaburrot", mr.find_by_name(name)[0].name
-    assert_equal "Shopin1901", merchant1[0].name
-    assert_equal "NERDGEEKs", merchant2[0].name
-    assert_equal nil, mr.find_by_name(name2)
+    assert_equal 12334411, mr.find_by_name(name).id
+    assert_equal "leaburrot", mr.find_by_name(name).name
+    assert_equal "Shopin1901", merchant1.name
+    assert_equal "NERDGEEKs", merchant2.name
+    assert_nil mr.find_by_name(name2)
   end
 #
-#   def test_find_all_by_name
-#     mr = MerchantRepository.new(@engine)
-#     name1 = mr.find_all_by_name("style")
-#     merchant2 = mr.find_by_name("NERDGEEKs")
-#     name = "g School of Software and Design"
-#     expected = mr.find_all_by_name(name)
+  def test_find_all_by_name
+    mr = MerchantRepository.new(@engine)
+    name1 = mr.find_all_by_name("style")
+    merchant2 = mr.find_by_name("NERDGEEKs")
+    name = "g School of Software and Design"
+    expected = mr.find_all_by_name(name)
+
+    assert_equal [], expected
+    assert_equal 3, name1.length
+  end
 #
-#     assert_equal [], expected
-#     assert_equal 3, name1.length
-#   end
-#
-#   def test_create_merchant
-#     mr = MerchantRepository.new(@engine)
-#     merchant1 = mr.create({:name => "codecodecode"})
-#
-#     assert_equal "codecodecode", merchant1.name
-#     assert_equal 12337412, merchant1.id
-#     assert_equal 476, mr.merchants.count
-#     assert_equal true, mr.merchants.include?(merchant1)
-#   end
+  def test_create_merchant
+    mr = MerchantRepository.new(@engine)
+    merchant1 = mr.create({:name => "codecodecode"})
+
+    assert_equal "codecodecode", merchant1.name
+    assert_equal 12337412, merchant1.id
+    assert_equal 476, mr.merchants.count
+    assert_equal true, mr.all.include?(merchant1)
+  end
 #
 #   def test_sort_by_id
 #     mr = MerchantRepository.new(@engine)
