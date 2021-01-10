@@ -49,7 +49,7 @@ class InvoiceItemTest < Minitest::Test
     assert_equal Time, invoice_item.created_at.class
   end
 
-  def test_updated_at_returns_a_time_instance_for_the_date_the_invoce_item_was_last_updated
+  def test_updated_at_returns_a_time_instance_for_the_date_the_invoice_item_was_last_updated
     assert_equal Time.parse("2012-03-27 14:54:35 UTC"), invoice_item.updated_at
     assert_equal Time, invoice_item.updated_at.class
   end
