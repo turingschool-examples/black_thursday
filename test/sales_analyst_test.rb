@@ -28,13 +28,13 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_can_find_standard_deviation
-    merchant_items = @sales_analyst.all_merchant_item_count
+    merchant_items = @sales_analyst.all_merchant_item_count.values
     assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation(merchant_items)
     assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation(merchant_items)
   end
 
   def test_it_can_find_high_merchant_items
-    assert_equal 52, @sales_analyst.merchants_with_high_item_count
+    assert_equal 52, @sales_analyst.merchants_with_high_item_count.length
     assert_instance_of Merchant, @sales_analyst.merchants_with_high_item_count.first.class
   end
 end
