@@ -39,11 +39,19 @@ class InvoiceRepository
 
   def find_all_by_customer_id(customer_id)
    customer_found = []
-    @invoices.each do |invoice|
-      # require "pry"; binding.pry
+    @invoices.find_all do |invoice|
       customer_found << invoice if invoice.customer_id.to_i == customer_id
     end
     customer_found
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+   merchant_found = []
+    @invoices.find_all do |invoice|
+      # require "pry"; binding.pry
+      merchant_found << invoice if invoice.merchant_id.to_i == merchant_id
+    end
+    merchant_found
   end
 
   # def find_by_name(name)
@@ -71,8 +79,8 @@ class InvoiceRepository
   # end
   #
   # def find_all_by_merchant_id(merchant_id)
-  #   @items.find_all do |item|
-  #     item.merchant_id == merchant_id.to_s
+  #   @invoice.find_all do |invoice|
+  #     invoice.merchant_id == merchant_id.to_s
   #   end
   # end
   #
