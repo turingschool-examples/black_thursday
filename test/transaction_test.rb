@@ -36,13 +36,13 @@ class TransactionTest < Minitest::Test
 
     def test_credit_card_number_returns_the_credit_card_number
       assert_equal "4068631943231473", @transaction.credit_card_number
-      assert_equal Stringexpect, @transaction.credit_card_number.class
+      assert_equal String, @transaction.credit_card_number.class
     end
-  #
-  #     it "#credit_card_number returns the credit card number" do
-  #       expect(transaction.credit_card_number).to eq "4068631943231473"
-  #       expect(transaction.credit_card_number.class).to eq String
-  #     end
+
+    def test_credit_card_expiration_date_returns_the_credit_card_expiration
+      assert_equal "0217", @transaction.credit_card_expiration_date
+      assert_equal String, @transaction.credit_card_expiration_date.class
+    end
   #
   #     it "#credit_card_expiration_date returns the credit card expiration" do
   #       expect(transaction.credit_card_expiration_date).to eq "0217"
