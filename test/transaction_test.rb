@@ -49,11 +49,11 @@ class TransactionTest < Minitest::Test
       assert_equal Symbol, @transaction.result.class
     end
 
-  #     it "#created_at returns a Time instance for the date the invoice item was created" do
-  #       expect(transaction.created_at).to eq Time.parse("2012-02-26 20:56:56 UTC")
-  #       expect(transaction.created_at.class).to eq Time
-  #     end
-  #
+    def test_created_at_returns_a_Time_instance_for_the_date_the_invoice_item_was_created
+      assert_equal  Time.parse("2012-02-26 20:56:56 UTC"), @transaction.created_at
+      assert_equal Time, @transaction.created_at.class
+    end
+
   #     it "#updated_at returns a Time instance for the date the invoice item was last updated" do
   #       expect(transaction.updated_at).to eq Time.parse("2012-02-26 20:56:56 UTC")
   #       expect(transaction.updated_at.class).to eq Time
