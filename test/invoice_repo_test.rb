@@ -94,4 +94,22 @@ class InvoiceRepositoryTest < MiniTest::Test
   #   assert expected.updated_at > original_time
   # end
 
+  def test_update_cannot_update_attributes
+    attributes = {
+      id: 5000,
+      customer_id: 2,
+      merchant_id: 3,
+      created_at: Time.now
+    }
+    @invoice_repo.update(4986, attributes)
+    expected = @invoice_repo.invoices.find_by_id(5000)
+    assert_nil expected
+
+    expected = @invoice_repo.invoices.find_by_id(4986)
+    assert expected.customer_id != attributes[:customer_id]
+    assert expected.merchant_id != attributes[:merchant_id]
+    assert expected.created_at != attributes[:created_at]
+  end
+
+
 end
