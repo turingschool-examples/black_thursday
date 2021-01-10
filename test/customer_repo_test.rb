@@ -44,4 +44,16 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal 14, @cr.find_all_by_last_name("OE").length
     assert_equal 0, @cr.find_all_by_last_name("Ondrike").length
   end
+
+  def test_create
+    cust = {
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => Time.now,
+      :updated_at => Time.now
+      }
+    @cr.create(cust)
+    assert_equal "Joan", @cr.customers[1001].first_name
+    assert_equal 1001, @cr.max_id
+  end
 end

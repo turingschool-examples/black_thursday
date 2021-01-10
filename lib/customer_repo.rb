@@ -41,4 +41,14 @@ class CustomerRepository
       customer.last_name.downcase.include?(name.downcase)
     end
   end
+
+  def max_id
+    customers.keys.max
+  end
+
+  def create(attributes)
+    new = Customer.new(attributes)
+    new.id = (max_id + 1)
+    customers[new.id] = new
+  end
 end
