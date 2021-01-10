@@ -61,7 +61,6 @@ class InvoiceRepository
     invoice += 1
     invoice = invoice.to_i
     attributes[:id] = invoice
-    attributes[:unit_price]
     invoice = Invoice.new(attributes, self)
     @invoices.push(invoice)
   end
