@@ -38,19 +38,19 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_nil merchant0
   end
 
-#   def test_find_by_name
-#     mr = MerchantRepository.new(@engine)
-#     merchant1 = mr.find_by_name("Shopin1901")
-#     merchant2 = mr.find_by_name("NERDGEEKs")
-#     name = "leabUrrot"
-#     name2 = "Alexa"
-#
-#     assert_equal 12334411, mr.find_by_name(name).id
-#     assert_equal name, mr.find_by_name(name).name
-#     assert_equal "Shopin1901", merchant1.name
-#     assert_equal "NERDGEEKs", merchant2.name
-#     assert_nil mr.find_by_name(name2)
-#   end
+  def test_find_by_name
+    mr = MerchantRepository.new(@engine)
+    merchant1 = mr.find_by_name("Shopin1901")
+    merchant2 = mr.find_by_name("NERDGEEKs")
+    name = "leabUrrot"
+    name2 = "Alexa"
+
+    assert_equal 12334411, mr.find_by_name(name)[0].id
+    assert_equal "leaburrot", mr.find_by_name(name)[0].name
+    assert_equal "Shopin1901", merchant1[0].name
+    assert_equal "NERDGEEKs", merchant2[0].name
+    assert_equal nil, mr.find_by_name(name2)
+  end
 #
 #   def test_find_all_by_name
 #     mr = MerchantRepository.new(@engine)

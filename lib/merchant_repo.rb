@@ -45,11 +45,11 @@ class MerchantRepository
   def find_by_name(name)
     all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
-    end
+    end[0]
   end
 
   def find_all_by_name(search_term)
-    @merchants.find_all do |merchant|
+    all.find_all do |merchant|
       merchant.name.upcase.include?(search_term.upcase)
     end
   end
