@@ -149,4 +149,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil @item_repository.find_by_id(263538760)
     assert_equal 1366, @item_repository.items.length
   end
+
+  def test_it_can_find_merchant_id
+    assert_equal 263396209, @item_repository.find_by_merchant_id(12334105).id
+  end
 end

@@ -41,6 +41,12 @@ class ItemRepository
     end[0]
   end
 
+  def find_by_merchant_id(merchant_id)
+    @items.select do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
   def find_by_name(name)
     item_name = []
     @items.each do |row|

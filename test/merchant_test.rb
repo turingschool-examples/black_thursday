@@ -18,6 +18,7 @@ class MerchantTest < MiniTest::Test
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
     assert_equal "repo", merchant.repo
+    assert_equal [], merchant.items
   end
 
   def test_you_can_update_merchant
@@ -26,7 +27,9 @@ class MerchantTest < MiniTest::Test
     merchant.update({:name => "Turing School of Software and Design"})
 
     assert_equal "Turing School of Software and Design", merchant.name
-
   end
 
+  # def test_it_can_have_items
+  #   assert_instance_of Item, @merchant.
+  # end
 end
