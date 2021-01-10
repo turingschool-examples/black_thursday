@@ -43,17 +43,12 @@ class TransactionTest < Minitest::Test
       assert_equal "0217", @transaction.credit_card_expiration_date
       assert_equal String, @transaction.credit_card_expiration_date.class
     end
-  #
-  #     it "#credit_card_expiration_date returns the credit card expiration" do
-  #       expect(transaction.credit_card_expiration_date).to eq "0217"
-  #       expect(transaction.credit_card_expiration_date.class).to eq String
-  #     end
-  #
-  #     it "#result returns the result" do
-  #       expect(transaction.result).to eq :success
-  #       expect(transaction.result.class).to eq Symbol
-  #     end
-  #
+
+    def test_result_returns_the_result
+      assert_equal :success, @transaction.result
+      assert_equal Symbol, @transaction.result.class
+    end
+
   #     it "#created_at returns a Time instance for the date the invoice item was created" do
   #       expect(transaction.created_at).to eq Time.parse("2012-02-26 20:56:56 UTC")
   #       expect(transaction.created_at.class).to eq Time
