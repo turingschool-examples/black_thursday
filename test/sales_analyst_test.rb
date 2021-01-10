@@ -19,7 +19,7 @@ class SalesAnalystTest < Minitest::Test
                                 :merchants => "./fixtures/sales_analyst_merchants_sample.csv"
                                 })
 
-      sales_analyst = sales_engine.analyst
+    sales_analyst = sales_engine.analyst
     assert_equal 1.67, sales_analyst.average_items_per_merchant
   end
 
@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
                                 :merchants => "./data/merchants.csv"
                                 })
 
-        sales_analyst = sales_engine.analyst
+      sales_analyst = sales_engine.analyst
       assert_equal 2.88, sales_analyst.average_items_per_merchant
   end
 
@@ -39,7 +39,17 @@ class SalesAnalystTest < Minitest::Test
                                 :merchants => "./data/merchants.csv"
                                 })
 
-        sales_analyst = sales_engine.analyst
+      sales_analyst = sales_engine.analyst
       assert_equal 3.26, sales_analyst.average_items_per_merchant_standard_deviation
+  end
+
+  def test_for_merchants_with_high_item_count
+      sales_engine = SalesEngine.from_csv({
+                                :items     => "./data/items.csv",
+                                :merchants => "./data/merchants.csv"
+                                })
+      sales_analyst = sales_engine.analyst
+      expected = sales_analyst.merchants_with_high_item_count
+      assert_equal 52, expected.count
   end
 end
