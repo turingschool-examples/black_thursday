@@ -51,4 +51,18 @@ class CustomerRepository
     new.id = (max_id + 1)
     customers[new.id] = new
   end
+
+  def update(id, attributes)
+    if attributes.keys.include?(:first_name) == true && attributes.keys.include?(:last_name) == true
+      customers[id].first_name = attributes[:first_name]
+      customers[id].last_name = attributes[:last_name]
+      customers[id].updated_at = Time.now
+    elsif attributes.keys.include?(:first_name) == true
+      customers[id].first_name = attributes[:first_name]
+      customers[id].updated_at = Time.now
+    elsif attributes.keys.include?(:last_name) == true
+      customers[id].last_name = attributes[:last_name]
+      customers[id].updated_at = Time.now
+    end
+  end
 end

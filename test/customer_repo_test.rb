@@ -57,8 +57,16 @@ class CustomerRepositoryTest < MiniTest::Test
       :created_at => Time.now,
       :updated_at => Time.now
       }
+    assert_equal 1000, @cr.max_id
     @cr.create(cust)
     assert_equal "Joan", @cr.customers[1001].first_name
     assert_equal 1001, @cr.max_id
+  end
+
+  def test_update
+    @cr.update(1, {first_name: "Trevor", last_name: "Suter", created_at: "to"})
+    assert_equal "Trevor", @cr.customers[1].first_name
+    assert_equal "Suter", @cr.customers[1].last_name
+    refute_equal "to", @cr.customers[1].created_at
   end
 end
