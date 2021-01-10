@@ -31,23 +31,4 @@ class SalesEngine
     Math.sqrt(result).round(2)
   end
 
-  def find_items_by_id(id)
-    items.find_all_by_merchant_id(id)
-  end
-
-  def analyst
-    SalesAnalyst.new(self)
-  end
-
-  def self.from_csv(csv_data)
-    SalesEngine.new(csv_data)
-  end
-
-  def make_merchant_repo(csv_data)
-    @merchants = MerchantRepo.new(csv_data[:merchants], self)
-  end
-
-  def make_item_repo(csv_data)
-    @items = ItemRepo.new(csv_data[:items], self)
-  end
-end
+  
