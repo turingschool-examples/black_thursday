@@ -48,17 +48,17 @@ class InvoiceRepository
   def find_all_by_merchant_id(merchant_id)
    merchant_found = []
     @invoices.find_all do |invoice|
-      # require "pry"; binding.pry
       merchant_found << invoice if invoice.merchant_id.to_i == merchant_id
     end
     merchant_found
   end
 
-  # def find_by_name(name)
-  #   @items.find do |item|
-  #     item.name == name
-  #   end
-  # end
+  def find_all_by_status(status)
+    @invoices.find_all do |invoice|
+      invoice.status.to_sym == status
+    end
+  end
+
 
   # def find_all_with_description(description)
   #   @items.find_all do |item|
