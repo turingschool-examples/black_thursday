@@ -16,7 +16,7 @@ class TestTransaction < Minitest::Test
       :updated_at => Time.now
     })
   end
-  
+
   def test_it_exists
     assert_instance_of Transaction, @transaction
   end
