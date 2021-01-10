@@ -1,18 +1,27 @@
 require './test/test_helper'
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @parent = mock('parent')
-    @ir = ItemRepository.new("./data/items.csv", @parent)
+    item_path = "./data/items.csv"
+    merchant_path = "./data/merchants.csv"
+    arguments = {
+                  :items     => item_path,
+                  :merchants => merchant_path,
+                }
+    @se = SalesEngine.new(arguments)
+    @ir = @se.items
   end
 
   def test_it_exists
     assert_instance_of ItemRepository, @ir
   end
 
+<<<<<<< HEAD
   def test_it_has_a_parent
     assert_equal @parent, @ir.parent
   end
 
+=======
+>>>>>>> main
   def test_all_displays_all_items
     x = @ir.all
     assert_equal 1367, x.length
@@ -121,7 +130,11 @@ class ItemRepositoryTest < Minitest::Test
     @ir.delete(263538760)
     assert_nil @ir.find_by_id(263538760)
   end
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> main
   def test_delete_unknown_item_does_nothing
     @ir.delete(270000000)
   end

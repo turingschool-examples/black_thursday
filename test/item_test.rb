@@ -7,7 +7,11 @@ class ItemTest < Minitest::Test
 
   def setup
     item_path = "./data/items.csv"
-    arguments = {:items => item_path}
+    merchant_path = "./data/merchants.csv"
+    arguments = {
+                  :items     => item_path,
+                  :merchants => merchant_path,
+                }
     @engine = SalesEngine.from_csv(arguments)
   end
 
