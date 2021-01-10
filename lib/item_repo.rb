@@ -77,7 +77,7 @@ class ItemRepo
     return [] if merchant_id.nil?
 
     @item_list.find_all do |item|
-      item.merchant_id == merchant_id
+      item.merchant_id.to_i == merchant_id
     end
   end
 
