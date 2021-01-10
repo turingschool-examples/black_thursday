@@ -60,8 +60,8 @@ class TransactionRepository
                           credit_card_number: attributes[:credit_card_number],
                           credit_card_expiration_date: attributes[:credit_card_expiration_date],
                           result: attributes[:result],
-                          created_at: attributes[:created_at] = Time.now.to_s,
-                          updated_at: attributes[:updated_at] = Time.now.to_s
+                          created_at: Time.now.to_s,
+                          updated_at: Time.now.to_s
                           }))
   end
 
