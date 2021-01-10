@@ -3,19 +3,20 @@ require './test/test_helper'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
+    item_path = "./data/items.csv"
     merchant_path = "./data/merchants.csv"
-    arguments = merchant_path
-    @parent = mock("parent")
-    @mr = MerchantRepository.new(arguments, @parent)
+    arguments = {
+                  :items     => item_path,
+                  :merchants => merchant_path,
+                }
+    @se = SalesEngine.new(arguments)
+    @mr = @se.merchants
+
   end
 
   def test_it_exists_and_has_attributes
     assert_instance_of MerchantRepository, @mr
-    assert_equal 475, @mr.merchants.length
-  end
-
-  def test_it_has_parent
-    assert_equal @parent, @mr.parent
+    assert_equal 475, @mr.all.length
   end
 
   def test_it_can_return_all_merchants
