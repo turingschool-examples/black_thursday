@@ -1,11 +1,14 @@
 require './test/test_helper'
+
 class ItemRepositoryTest < Minitest::Test
   def setup
     item_path = "./data/items.csv"
     merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
     arguments = {
                   :items     => item_path,
                   :merchants => merchant_path,
+                  :invoices  => invoice_path
                 }
     @se = SalesEngine.new(arguments)
     @ir = @se.items
@@ -97,11 +100,14 @@ class ItemRepositoryTest < Minitest::Test
     attributes_1 = {unit_price: BigDecimal.new(379.99, 5)}
     result_1 = @ir.update(263538760, attributes_1)
     assert_equal  379.99 , result_1.unit_price.to_f
+
     attributes_2 = {description: "Expensive dog blanket"}
     result_2 = @ir.update(263538760, attributes_2)
+
     assert_equal "Expensive dog blanket", result_2.description
+
     time = Time.now
-     assert  time
+    assert  time
   end
 
   def test_update_cannot_update_id_update_at_update_merchant_id
@@ -112,7 +118,7 @@ class ItemRepositoryTest < Minitest::Test
     }
      x =  @ir.update(263538760, attributes)
      assert_nil  @ir.find_by_id(270000000)
-      # assert_nil  x.updated_at
+     # assert_nil  x.updated_at
      assert_equal [], @ir.find_all_by_merchant_id(1)
   end
 
@@ -120,7 +126,7 @@ class ItemRepositoryTest < Minitest::Test
     @ir.delete(263538760)
     assert_nil @ir.find_by_id(263538760)
   end
-  
+
   def test_delete_unknown_item_does_nothing
     @ir.delete(270000000)
   end

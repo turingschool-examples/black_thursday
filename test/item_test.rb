@@ -8,9 +8,11 @@ class ItemTest < Minitest::Test
   def setup
     item_path = "./data/items.csv"
     merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
     arguments = {
                   :items     => item_path,
                   :merchants => merchant_path,
+                  :invoices  => invoice_path
                 }
     @engine = SalesEngine.from_csv(arguments)
   end
