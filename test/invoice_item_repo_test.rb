@@ -42,7 +42,7 @@ class InvoiceItemRepo < Minitest::Test
   end
 
   def test_it_can_create_a_new_item
-    ii_attr = {
+    ii_attributes = {
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
@@ -51,10 +51,35 @@ class InvoiceItemRepo < Minitest::Test
       :updated_at => 12
     }
     assert_equal 2353, @ii_repo.max_id
-    @ii_repo.create(ii_attr)
+    @ii_repo.create(ii_attributes)
     ii = @ii_repo.find_by_id(2354)
     assert_equal 2354, @ii_repo.max_id
     assert_equal 8, ii.invoice_id
     assert_equal 10.99, ii.unit_price
+  end
+
+  def test_it_can_update_ii_attributes
+    ii_attributes = {
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal(10.99, 4),
+      :created_at => 10,
+      :updated_at => 12
+    }
+
+    updated_attributes = {
+      quantity: 2,
+      unit_price: BigDecimal(199.99, 5)
+    }
+    @ii_repo.create(ii_attributes)
+    ii = @ii_repo.find_by_id(2354)
+    assert_equal 1, ii.quantity
+    assert_equal 10.99, ii.unit_price
+    assert_equal 12, ii.updated_at
+    @ii_repo.update(2354, ii_attributes)
+    assert_equal 2, ii.quantity
+    assert_equal 199.99, ii.unit_price
+    assert ii.updated_at != 12
   end
 end
