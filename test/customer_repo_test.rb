@@ -38,4 +38,10 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal 8, @cr.find_all_by_first_name("OE").length
     assert_equal "Joey", @cr.find_all_by_first_name("Joey")[0].first_name
   end
+
+  def test_find_all_by_last_name
+    assert_equal 3, @cr.find_all_by_last_name("Ondricka").length
+    assert_equal 14, @cr.find_all_by_last_name("OE").length
+    assert_equal 0, @cr.find_all_by_last_name("Ondrike").length
+  end
 end
