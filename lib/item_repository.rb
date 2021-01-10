@@ -19,10 +19,6 @@ class ItemRepository
     generate_items(filename)
   end
 
-  # def inspect
-  #   "#<#{self.class} #{@collection.size} rows>"
-  # end
-
   def generate_items(filename)
     items = CSV.open filename, headers: true, header_converters: :symbol
     items.each do |row|
