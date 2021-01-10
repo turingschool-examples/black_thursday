@@ -1,4 +1,4 @@
-require './lib/invoice'
+require 'invoice'
 require 'bigdecimal'
 require 'bigdecimal/util'
 require 'time'
