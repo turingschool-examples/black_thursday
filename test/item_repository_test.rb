@@ -98,8 +98,9 @@ class ItemRepositoryTest < Minitest::Test
 
     attributes_2 = {description: "Expensive dog blanket"}
     result_2 = @ir.update(263538760, attributes_2)
-    
+
     assert_equal "Expensive dog blanket", result_2.description
+
     time = Time.now
     assert  time
   end
