@@ -18,10 +18,10 @@ class InvoiceItemRepository
       precision      = row[:unit_price].length
       value_adjusted = row[:unit_price].to_i * 0.01
       # A module could hold assignment hashes for all classes
-      @invoice_items[row[:id]] = InvoiceItem.new({:id       => row[:id].to_i,
-                          :item_id        => row[:name],
-                          :invoice_id => row[:invoice_id],
-                          :quantity    => row[:quantity],
+      @invoice_items[row[:id].to_i] = InvoiceItem.new({:id       => row[:id].to_i,
+                          :item_id        => row[:item_id].to_i,
+                          :invoice_id => row[:invoice_id].to_i,
+                          :quantity    => row[:quantity].to_i,
                           :unit_price  => BigDecimal.new(value_adjusted, precision),
                           :created_at  => @cleaner.clean_date(row[:created_at]),
                           :updated_at  => @cleaner.clean_date(row[:updated_at]),
@@ -32,5 +32,15 @@ class InvoiceItemRepository
 
   def all
     @invoice_items.values
+  end
+
+  def find_by_id(id)
+    @invoice_items[id]
+  end
+
+  def find_all_by_item_id(id)
+    all.select do |ii|
+      ii.item_id == id
+    end
   end
 end
