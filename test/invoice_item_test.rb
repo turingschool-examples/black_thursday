@@ -15,7 +15,7 @@ class InvoiceItemTest < Minitest::Test
                   :invoice_item => invoice_item_path
                 }
     @engine = SalesEngine.from_csv(arguments)
-    @invoice_item = engine.invoice_items.find_by_id(2345)
+    @invoice_item = @engine.invoice_items.find_by_id(2345)
   end
   # context "Invoice Item" do
 #   let(:invoice_item) { engine.invoice_items.find_by_id(2345) } #notsure if i need this
