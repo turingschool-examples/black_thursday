@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_item_repo'
-
+# make dummy data! this takes 1.5 secs to run
 class InvoiceItemRepo < Minitest::Test
   def setup
     @ii_repo = InvoiceItemRepository.new
