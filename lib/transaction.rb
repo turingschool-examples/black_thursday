@@ -1,5 +1,5 @@
 class Transaction
-  attr_reader :id,
+  attr_accessor :id,
               :invoice_id,
               :credit_card_number,
               :credit_card_expiration_date,
