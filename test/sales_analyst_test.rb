@@ -46,4 +46,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 475, @sales_analyst.generate_merchant_ids.length
   end
 
+  def test_it_can_returns_the_average_item_price_for_the_given_merchant
+    assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(12334105)
+  end
+
+  def test_it_returns_the_average_price_for_all_merchants
+    assert_equal 350.29, @sales_analyst.average_average_price_per_merchant
+  end
+
+  def test_returns_items_that_are_two_standard_deviations_above_the_average_price
+    assert_equal 5, @sales_analyst.golden_items.length
+  end
 end
