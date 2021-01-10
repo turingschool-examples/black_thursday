@@ -10,7 +10,6 @@ class InvoiceRepository
               :invoices
 
   def initialize(filename, parent)
-    # require "pry"; binding.pry
     @filename = filename
     @parent = parent
     @invoices = Array.new
@@ -29,13 +28,22 @@ class InvoiceRepository
   end
 
   def all
-    @inovices
+    @invoices
   end
 
   def find_by_id(id)
     @invoices.find do |invoice|
       invoice.id.to_i == id
     end
+  end
+
+  def find_all_by_customer_id(customer_id)
+   customer_found = []
+    @invoices.each do |invoice|
+      # require "pry"; binding.pry
+      customer_found << invoice if invoice.customer_id.to_i == customer_id
+    end
+    customer_found
   end
 
   # def find_by_name(name)
