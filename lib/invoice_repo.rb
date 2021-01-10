@@ -2,6 +2,7 @@ require 'CSV'
 require_relative './cleaner.rb'
 require_relative './invoice.rb'
 
+
 class InvoiceRepository
   attr_reader :invoices
 
@@ -11,6 +12,10 @@ class InvoiceRepository
     @invoices = []
     @data = CSV.open(@file, headers: true, header_converters: :symbol)
     build_invoices
+  end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def inspect
