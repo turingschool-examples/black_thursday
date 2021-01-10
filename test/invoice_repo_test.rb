@@ -55,4 +55,18 @@ class InvoiceRepositoryTest < MiniTest::Test
     # assert_equal [], @invoice_repo.find_all_by_merchant_id(merchant_id_2).length
   end
 
+  def test_it_finds_all_by_status
+    status = :shipped
+    expected = @invoice_repo.find_all_by_status(status)
+    assert_equal 2839, expected.length
+
+    status = :pending
+    expected = @invoice_repo.find_all_by_status(status)
+    assert_equal 1473, expected.length
+
+    status = :sold
+    expected = @invoice_repo.find_all_by_status(status)
+    assert_equal [], expected
+  end
+
 end
