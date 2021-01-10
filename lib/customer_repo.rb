@@ -12,6 +12,10 @@ class CustomerRepository
     build_customers(CSV.readlines(@file, headers: true, header_converters: :symbol))
   end
 
+  def inspect
+     "#<#{self.class} #{@merchants.size} rows>"
+   end
+
   def build_customers(data)
     data.each do |row|
       customers[row[:id].to_i] = Customer.new({id: row[:id].to_i,
@@ -25,19 +29,19 @@ class CustomerRepository
   def all
     customers.values
   end
-  
+
   def find_by_id(id)
     customers[id]
   end
 
   def find_all_by_first_name(name)
-    all.find_all do |customer| 
+    all.find_all do |customer|
       customer.first_name.downcase.include?(name.downcase)
     end
   end
 
   def find_all_by_last_name(name)
-    all.find_all do |customer| 
+    all.find_all do |customer|
       customer.last_name.downcase.include?(name.downcase)
     end
   end
