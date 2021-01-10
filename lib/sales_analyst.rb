@@ -28,14 +28,11 @@ class SalesAnalyst
     items_per_merchant = generate_merchant_ids.map do |id|
       @parent.items.find_all_by_merchant_id(id).count
     end
-
     all_items_minus_one = (items_per_merchant.length) - 1
-
     total = 0
     items_per_merchant.each do |item_number|
       total += ((item_number - mean) ** 2)
     end
-
     standard_deviaton = Math.sqrt(total / all_items_minus_one)
     standard_deviaton.round(2)
   end
@@ -68,30 +65,21 @@ class SalesAnalyst
   end
 
   def golden_items
-    # mean = average_items_per_merchant
-    # items_per_merchant = generate_merchant_ids.map do |id|
-    #   @parent.items.find_all_by_merchant_id(id).count
-    # end
-
-    mean_price_per_merchant = generate_merchant_ids.map do |id|
+    mean_prices_per_merchant = generate_merchant_ids.map do |id|
       average_item_price_for_merchant(id)
     end
-
     mean_average_across_all_merchants = average_average_price_per_merchant
-
-    all_means_minus_one = (mean_price.length) - 1
-
+    all_means_minus_one = (mean_prices_per_merchant.length) - 1
     total = 0
-    mean_price_per_merchant.each do |price|
+    mean_prices_per_merchant.each do |price|
       total += ((price - mean_average_across_all_merchants) ** 2)
     end
-
-    standard_price_deviaton = Math.sqrt(total / all_items_minus_one)
-    standard_price_deviaton.round(2)
-
-    require "pry"; binding.pry
-    # all the item prices boolean logic to check for each price to be double deviation
-    # push the item to an array
-
+    square_total_and_divide = Math.sqrt(total / all_means_minus_one)
+    format_price_deviation = square_total_and_divide.round(2)
+    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + format_price_deviation
+    expensive_items = @parent.items.all.find_all do |item|
+      item.unit_price > two_standard_deviations_plus_average
+    end
+    expensive_items
   end
 end
