@@ -31,13 +31,13 @@ class CustomerRepository
 
   def find_all_by_first_name(name)
       @customers.find_all do |customer|
-        customer.first_name.casecmp(name) == 0
+        customer.first_name.downcase.include?(name.downcase)
       end
     end
 
   def find_all_by_last_name(name)
       @customers.find_all do |customer|
-        customer.last_name.casecmp(name).zero?
+        customer.last_name.downcase.include?(name.downcase)
       end
     end
 
@@ -50,8 +50,8 @@ class CustomerRepository
   def create(attributes)
     @customers.push(Customer.new({
                                     :id         => max_customer_id + 1,
-                                    :first_name => 'First',
-                                    :last_name  => 'Last',
+                                    :first_name => attributes[:first_name],
+                                    :last_name  => attributes[:last_name],
                                     :created_at => Time.now,
                                     :updated_at => Time.now,
                                   }))
