@@ -20,9 +20,9 @@ class TransactionTest < Minitest::Test
     assert_instance_of Transaction, t
     assert_equal 6, t.id
     assert_equal 8, t.invoice_id
-    assert_equal "4242424242424242", t.credit_card_number
-    assert_equal "0220", t.credit_card_expiration_date
-    assert_equal "success", t.result
+    assert_equal '4242424242424242', t.credit_card_number
+    assert_equal '0220', t.credit_card_expiration_date
+    assert_equal 'success', t.result
     assert_equal Time.parse('2021-01-06 11:29:55 UTC'), t.created_at
     assert_equal Time.parse('2021-01-06 11:29:55 UTC'), t.updated_at
   end

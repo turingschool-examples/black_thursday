@@ -52,8 +52,8 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_result
     test = TransactionRepository.new(@sample_data, 'engine')
 
-    assert_equal [test.transactions[4], test.transactions[8]], test.find_all_by_result("failed")
-    assert_equal [], test.find_all_by_result("received")
+    assert_equal [test.transactions[4], test.transactions[8]], test.find_all_by_result('failed')
+    assert_equal [], test.find_all_by_result('received')
   end
 
   def test_it_can_find_max_transaction_id
