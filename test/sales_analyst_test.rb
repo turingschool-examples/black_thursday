@@ -1,6 +1,4 @@
-require_relative 'test_helper'
-# require_relative 'sales_engine'
-# require_relative 'sales_analyst'
+require './test/test_helper'
 
 class SalesAnalystTest < Minitest::Test
   def setup

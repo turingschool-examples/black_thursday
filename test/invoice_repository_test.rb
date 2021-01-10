@@ -1,5 +1,5 @@
-require_relative 'test_helper'
-require 'invoice_repository'
+require './test/test_helper'
+
 
 class InvoiceRepositoryTest < MiniTest::Test
   def setup
