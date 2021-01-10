@@ -35,4 +35,14 @@ class InvoiceRepositoryTest < MiniTest::Test
     expected = @invoice_repo.find_by_id(invoice_id)
     assert_nil expected
   end
+
+  def test_it_finds_all_by_customer_id
+    customer_id = 300
+    expected = @invoice_repo.find_all_by_customer_id(customer_id)
+    assert_equal 10, expected.length
+
+    customer_id = 1000
+    expected = @invoice_repo.find_all_by_customer_id(customer_id)
+    assert_equal [], expected
+  end
 end
