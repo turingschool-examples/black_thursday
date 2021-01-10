@@ -56,18 +56,24 @@ class InvoiceRepository
     end
   end
 
-  def create(attributes)
-    invoice = @invoices[-1].id.to_i
-    invoice += 1
-    invoice = invoice.to_i
-    attributes[:id] = invoice
-    invoice = Invoice.new(attributes, self)
-    @invoices.push(invoice)
+
+    def create(attributes)
+      id = @invoices[-1].id.to_i
+      id += 1
+      id = id.to_i
+      attributes[:id] = id
+      invoice = Invoice.new(attributes, self)
+      @invoices << invoice
+    end
+
+  def update(id, attributes)
+    update_invoice = find_by_id(id)
+    update_invoice.update(attributes) if !attributes[:status].nil?
+    update_invoice
   end
 
-  #
-  # def delete(id)
-  #   delete = find_by_id(id)
-  #   @items.delete(delete)
-  # end
+  def delete(id)
+    delete = find_by_id(id)
+    @invoices.delete(delete)
+  end
 end
