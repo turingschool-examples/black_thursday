@@ -151,6 +151,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_id
-    assert_equal 263396209, @item_repository.find_by_merchant_id(12334105).id
+    assert_equal 263396209, @item_repository.find_by_merchant_id(12334105)[0].id
   end
 end
