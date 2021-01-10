@@ -69,4 +69,13 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal "Suter", @cr.customers[1].last_name
     refute_equal "to", @cr.customers[1].created_at
   end
+
+  def test_update
+    customer = @cr.customers[1]
+    assert_equal true, @cr.customers.keys.include?(1)
+    assert_equal customer, @cr.customers[1]
+    @cr.delete(1)
+    refute_equal customer, @cr.customers[1]
+    assert_equal false, @cr.customers.keys.include?(1)
+  end
 end

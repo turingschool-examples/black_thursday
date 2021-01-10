@@ -65,4 +65,8 @@ class CustomerRepository
       customers[id].updated_at = Time.now
     end
   end
+
+  def delete(id)
+    customers.delete(id)
+  end
 end
