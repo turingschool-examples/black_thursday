@@ -55,6 +55,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_returns_items_that_are_two_standard_deviations_above_the_average_price
-    assert_equal 5, @sales_analyst.golden_items
+    assert_equal 5, @sales_analyst.golden_items.length
   end
 end
