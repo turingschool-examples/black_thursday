@@ -15,4 +15,8 @@ class InvoiceRepository
 
     @invoices
   end
+
+  def all
+    @invoices
+  end
 end
