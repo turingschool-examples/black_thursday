@@ -104,14 +104,14 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_nil expected
 
     expected = @engine.invoices.find_by_id(4986)
-    refute attributes[:customer_id], expected.customer_id 
+    refute attributes[:customer_id], expected.customer_id
     refute attributes[:merchant_id], expected.customer_id
     refute attributes[:created_at], expected.created_at
   end
-  #
-  # def test_update_on_unknonwn_invoice_does_nothing
-  #   @engine.invoices.update(5000, {})
-  # end
+  
+  def test_update_on_unknonwn_invoice_does_nothing
+    @engine.invoices.update(5000, {})
+  end
   #
   # def test_delete_deletes_the_specified_invoice
   #   @engine.invoices.delete(4986)
