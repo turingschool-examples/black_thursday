@@ -10,11 +10,9 @@ class SalesEngine
               :invoices
 
   def initialize(args)
-    require "pry"; binding.pry
-    # @items = ItemRepository.new(args[:items], self)
-    # @merchants = MerchantRepository.new(args[:merchants], self)
+    @items = ItemRepository.new(args[:items], self)
+    @merchants = MerchantRepository.new(args[:merchants], self)
     @invoices = InvoiceRepository.new(args[:invoices], self)
-    require "pry"; binding.pry
   end
 
   def self.from_csv(args)
