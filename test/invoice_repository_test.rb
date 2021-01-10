@@ -36,7 +36,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
     customer_id = 1000
     expected = @engine.invoices.find_all_by_customer_id(customer_id)
-  
+
     assert_equal [], expected
   end
 
@@ -66,21 +66,21 @@ class InvoiceRepositoryTest < MiniTest::Test
 
       assert_equal [], expected
   end
-  #
-  # def test_create_creates_a_new_invoice_instance
-  #   attributes = {
-  #     :customer_id => 7,
-  #     :merchant_id => 8,
-  #     :status      => "pending",
-  #     :created_at  => Time.now,
-  #     :updated_at  => Time.now,
-  #   }
-  #   @engine.invoices.create(attributes)
-  #   expected = @engine.invoices.find_by_id(4986)
-  #
-  #   assert_equal 8, expected.merchant_id
-  # end
-  #
+  
+  def test_create_creates_a_new_invoice_instance
+    attributes = {
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+    }
+    @engine.invoices.create(attributes)
+    expected = @engine.invoices.find_by_id(4986)
+
+    assert_equal 8, expected.merchant_id
+  end
+
   # def test_update_updates_an_invoice
   #   original_time = @engine.invoices.find_by_id(4986).updated_at
   #   attributes = {
