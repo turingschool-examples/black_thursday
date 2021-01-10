@@ -6,7 +6,7 @@ class InvoiceItem
               :invoice_id,
               :created_at
 
-attr_accessor :quantity,
+  attr_accessor :quantity,
               :unit_price,
               :updated_at
 
@@ -22,5 +22,11 @@ attr_accessor :quantity,
 
   def unit_price_to_dollars
     @unit_price.to_f
+  end
+
+  def update(attributes)
+    @quantity   = attributes[:quantity] if attributes[:quantity]
+    @unit_price = attributes[:unit_price] if attributes[:unit_price]
+    @updated_at = Time.now
   end
 end
