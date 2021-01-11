@@ -7,7 +7,7 @@ class Invoice
               :updated_at
 
   attr_reader :repo
-              
+
   def initialize(data, repo)
     @id = data[:id]
     @customer_id = data[:customer_id]
@@ -17,4 +17,10 @@ class Invoice
     @updated_at = data[:updated_at]
   end
 
+  def update(attributes)
+    if attributes.keys.include?(:status)
+      @status        = attributes[:status] if attributes[:status]
+      @updated_at  = Time.now
+    end
+  end
 end

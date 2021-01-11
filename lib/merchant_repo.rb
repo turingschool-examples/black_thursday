@@ -24,14 +24,11 @@ class MerchantRepository
     @data.each do |merchant|
       cleaner = Cleaner.new
       @merchants[merchant[:id].to_i] = Merchant.new({
-
                                       id: cleaner.clean_id(merchant[:id]),
                                       name: cleaner.clean_name(merchant[:name]),
                                       created_at: cleaner.clean_date(merchant[:created_at]),
                                       updated_at: cleaner.clean_date(merchant[:updated_at])}, self)
-      # @merchants << merch
-      end
-    # @merchants
+    end
   end
 
   def all
