@@ -33,4 +33,9 @@ class TransactionRepoTest < Minitest::Test
     assert_equal 3560, @tr.find_by_id(14).invoice_id
     assert_nil @tr.find_by_id(500000)
   end
+
+  def test_find_all_by_invoice_id
+    assert_equal 2, @tr.find_all_by_invoice_id(2179).length
+    assert_equal 2, @tr.find_all_by_invoice_id(46).length
+  end
 end

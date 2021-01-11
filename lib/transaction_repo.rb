@@ -30,4 +30,10 @@ class TransactionRepository
   def find_by_id(id)
     transactions[id]
   end
+
+  def find_all_by_invoice_id(invoice)
+    all.find_all do |transaction|
+      invoice == transaction.invoice_id
+    end
+  end
 end
