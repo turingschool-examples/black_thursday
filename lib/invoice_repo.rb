@@ -82,22 +82,11 @@ class InvoiceRepository
     @invoices.delete(id)
   end
 
-  # def count_invoices_per_weekday
-  #   @invoices_per_weekday = {}
-  #   all.map do |invoice|
-  #     @invoices_per_weekday[invoice.created_day] = []
-  #   end
-  #   @invoices_per_weekday.each do |weekday, invoice|
-  #     @invoices_per_weekday[weekday] << invoice
-  #   end
-  #   @invoices_per_weekday
-  # end
-
   def invoices_per_weekday
     invoices_per_weekday = {}
     all.each do |invoice|
       invoices_per_weekday[invoice.created_day] ||= []
-      invoices_per_weekday[invoice.created_day] << invoice 
+      invoices_per_weekday[invoice.created_day] << invoice
     end
     invoices_per_weekday
   end
