@@ -57,4 +57,8 @@ class SalesAnalystTest < Minitest::Test
   def test_returns_items_that_are_two_standard_deviations_above_the_average_price
     assert_equal 5, @sales_analyst.golden_items.length
   end
+
+  def test_items_count_per_merchant_helper
+    assert_equal 475, @sales_analyst.items_count_per_merchant.length 
+  end
 end
