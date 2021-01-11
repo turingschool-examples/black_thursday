@@ -92,30 +92,34 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_operator original_time ,:<, expected.updated_at
   end
 
-    #
-    # it "#update cannot update id or created_at" do
-    #   attributes = {
-    #     id: 2000,
-    #     created_at: Time.now
-    #   }
-    #   engine.customers.update(1001, attributes)
-    #   expected = engine.customers.find_by_id(2000)
-    #   expect(expected).to eq nil
-    #   expected = engine.customers.find_by_id(1001)
-    #   expect(expected.created_at).not_to eq attributes[:created_at]
-    # end
-    #
-    # it "#update on unknown customer does nothing" do
-    #   engine.customers.update(2000, {})
-    # end
-    #
-    # it "#delete deletes the specified customer" do
-    #   engine.customers.delete(1001)
-    #   expected = engine.customers.find_by_id(1001)
-    #   expect(expected).to eq nil
-    # end
-    #
-    # it "#delete on unknown customer does nothing" do
-    #   engine.customers.delete(2000)
-    # end
+  def test_update_cannot_update_id_item_id_invoice_id_or_created_at
+    attributes = {
+                 :first_name => "Joan",
+                 :last_name => "Clarke",
+                 :created_at => Time.now,
+                 :updated_at => Time.now
+                 }
+    @customer.create(attributes)
+    attributes = {
+                 id: 2000,
+                 created_at: Time.now
+                 }
+    @customer.update(1001, attributes)
+    assert_nil expected
+    expected = @customer.find_by_id(1001)
+    assert_equal attributes[:created_at], expected.created_at
   end
+
+  def test_delete_deletes_the_specified_invoice
+    attributes = {
+                 :first_name => "Joan",
+                 :last_name => "Clarke",
+                 :created_at => Time.now,
+                 :updated_at => Time.now
+                 }
+    @customer.create(attributes)
+    @customer.delete(1001)
+    expected = @customer.find_by_id(1001)
+    assert_nil expected
+  end
+end
