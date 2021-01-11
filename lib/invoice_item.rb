@@ -4,9 +4,8 @@ class InvoiceItem
   attr_reader :id,
               :item_id,
               :invoice_id,
-              :created_at
-
-  attr_accessor :quantity,
+              :created_at,
+              :quantity,
               :unit_price,
               :updated_at
 
