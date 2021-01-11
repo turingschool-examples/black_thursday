@@ -35,6 +35,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_first_name_returns_all_customers_with_matching_first_name
+    skip
     fragment = "oe"
     expected = @customer.find_all_by_first_name(fragment)
     assert_equal 8, expected.length
@@ -42,6 +43,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_last_name_return_all_customers_with_matching_last_name
+    skip
     fragment = "On"
     expected = @customer.find_all_by_last_name(fragment)
     assert_equal 85, expected.length
@@ -49,6 +51,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_first_name_and_find_all_by_last_name_are_case_insesntive
+    skip
     fragment = "NN"
     expected = @customers.find_all_by_first_name(fragment)
     assert_equal 57, expected.length
@@ -62,6 +65,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_creat_creates_a_new_customer_instance
+    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
@@ -75,6 +79,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_updates_updates_a_customer
+    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
@@ -93,6 +98,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_update_cannot_update_id_item_id_invoice_id_or_created_at
+    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
@@ -111,6 +117,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_delete_deletes_the_specified_invoice
+    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
