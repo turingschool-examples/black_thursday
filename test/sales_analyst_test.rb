@@ -95,6 +95,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_count_per_merchant_helper
-    assert_equal 475, @sales_analyst.invoice_count_per_merchant.length 
+    assert_equal 475, @sales_analyst.invoice_count_per_merchant.length
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
   end
 end
