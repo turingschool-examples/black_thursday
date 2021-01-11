@@ -61,43 +61,37 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Customer, expected.first.class
   end
 
-    # it "#find_all_by_first_name and #find_all_by_last_name are case insensitive" do
-    #   fragment = "NN"
-    #   expected = engine.customers.find_all_by_first_name(fragment)
-    #
-    #   expect(expected.length).to eq 57
-    #   expect(expected.first.class).to eq Customer
-    #
-    #   fragment = "oN"
-    #   expected = engine.customers.find_all_by_last_name(fragment)
-    #
-    #   expect(expected.length).to eq 85
-    #   expect(expected.first.class).to eq Customer
-    # end
-    #
-    # it "#create creates a new customer instance" do
-    #   attributes = {
-    #     :first_name => "Joan",
-    #     :last_name => "Clarke",
-    #     :created_at => Time.now,
-    #     :updated_at => Time.now
-    #   }
-    #   engine.customers.create(attributes)
-    #   expected = engine.customers.find_by_id(1001)
-    #   expect(expected.first_name).to eq "Joan"
-    # end
-    #
-    # it "#update updates a customer" do
-    #   original_time = engine.customers.find_by_id(1001).updated_at
-    #   attributes = {
-    #     last_name: "Smith"
-    #   }
-    #   engine.customers.update(1001, attributes)
-    #   expected = engine.customers.find_by_id(1001)
-    #   expect(expected.last_name).to eq "Smith"
-    #   expect(expected.first_name).to eq "Joan"
-    #   expect(expected.updated_at).to be > original_time
-    # end
+  def test_creat_creates_a_new_customer_instance
+    attributes = {
+                 :first_name => "Joan",
+                 :last_name => "Clarke",
+                 :created_at => Time.now,
+                 :updated_at => Time.now
+                 }
+   @customer.create(attributes)
+
+   expected = @customer.find_by_id(1001)
+   assert_equal "Joan", expected.first_name
+  end
+
+  def test_updates_updates_a_customer
+    attributes = {
+                 :first_name => "Joan",
+                 :last_name => "Clarke",
+                 :created_at => Time.now,
+                 :updated_at => Time.now
+                 }
+    @customer.create(attributes)
+    original_time = @customer.find_by_id(1001).updated_at
+    attributes = {last_name: "Smith"}
+    @customer.update(1001, attributes)
+
+    expected = engine.customers.find_by_id(1001)
+    assert_equal "Smith", expected.last_name
+    assert_equal "Joan", expected.first_name
+    assert_operator original_time ,:<, expected.updated_at
+  end
+
     #
     # it "#update cannot update id or created_at" do
     #   attributes = {
