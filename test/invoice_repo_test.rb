@@ -12,7 +12,7 @@ class InvoiceRepositoryTest < MiniTest::Test
     @sales_engine = SalesEngine.from_csv({items: "./data/items.csv"})
     @invoice_repo = InvoiceRepository.new(@sales_engine)
   end
-  
+
   def test_it_exists
     assert_instance_of InvoiceRepository, @invoice_repo
   end
@@ -113,5 +113,10 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_equal 701, @invoice_repo.invoices_per_weekday[:friday].count
     assert_equal 729, @invoice_repo.invoices_per_weekday[:saturday].count
     assert_equal 708, @invoice_repo.invoices_per_weekday[:sunday].count
+  end
+
+  def test_pending_status_by_merchant_id
+    assert_equal 2, @invoice_repo.pending_status_by_merchant_id.first.count
+    assert_equal 12335938, @invoice_repo.pending_status_by_merchant_id.keys.first
   end
 end

@@ -60,9 +60,11 @@ class InvoiceRepository
 
   def pending_status_by_merchant_id
     pending_status_by_merchant_id = {}
-    find_all_by_status(:pending).each do |pending_invoice|
-      pending_status_by_merchant_id[pending_invoice.merchant_id] << pending_invoice
-    end 
+    find_all_by_status(:pending).each do |invoice|
+      # require 'pry'; binding.pry
+      (pending_status_by_merchant_id[invoice.merchant_id] ||= []) << invoice
+    end
+    pending_status_by_merchant_id
   end
 
   def create(attributes)
