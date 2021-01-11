@@ -87,8 +87,32 @@ class TransactionRepositoryTest < Minitest::Test
       :updated_at => Time.now
     }
     @engine.transactions.create(attributes)
+    expected = @engine.transactions.find_by_id(4986)
+
+    assert_equal 8, expected.invoice_id
+  end
+
+  def test_update_updates_a_transaction
+    skip
+    attributes = {
+                  :invoice_id => 8,
+                  :credit_card_number => "4242424242424242",
+                  :credit_card_expiration_date => "0220",
+                  :result => "success",
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                  }
+    @engine.transactions.create(attributes)
+    original_time = engine.transactions.find_by_id(4986).updated_at
+    attributes = {result: :failed}
+    @engine.transactions.update(4986, attributes)
+    expected = @engine.transactions.find_by_id(5000)
+
+    assert_nil expected
+
     expected = engine.transactions.find_by_id(4986)
 
-    assert_equal 8, expected.invoice_id 
+    refute attributes[:invoice_id], expected.invoice_id
+    refute attributes[:created_at], expected.created_at
   end
 end
