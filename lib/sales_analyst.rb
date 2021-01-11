@@ -18,7 +18,7 @@ class SalesAnalyst
   end
 
   def generate_merchant_ids
-    @parent.merchants.merchants.map do |merchant|
+    @parent.merchants.all.map do |merchant|
       merchant.id
     end
   end

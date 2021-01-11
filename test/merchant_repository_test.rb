@@ -80,7 +80,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_highest_merchant_id_plus_one
-    assert_equal 12337412, @mr.highest_merchant_id_plus_one
+    assert_equal 12337412, @mr.highest_id_plus_one
   end
 
   def test_it_can_create_new_merchants
