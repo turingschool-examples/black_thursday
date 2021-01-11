@@ -29,8 +29,12 @@ class SalesAnalyst
     end
   end
 
-  def all_items_minus_one
-    items_count_per_merchant.length - 1
+  # def all_items_minus_one
+  #   items_count_per_merchant.length - 1
+  # end
+
+  def all_elements_minus_one(collection)
+    collection.length - 1
   end
 
   def standard_deviaton_calculation(total, collection_minus_one)
@@ -42,7 +46,7 @@ class SalesAnalyst
     total = items_count_per_merchant.reduce(0) do |acc, item_number|
       acc += ((item_number - average_items_per_merchant) ** 2)
     end
-    standard_deviaton_calculation(total, all_items_minus_one)
+    standard_deviaton_calculation(total, all_elements_minus_one(items_count_per_merchant))
   end
 
   def merchants_with_high_item_count
@@ -68,8 +72,7 @@ class SalesAnalyst
     all_merchants_price_averages = generate_merchant_ids.sum do |id|
       average_item_price_for_merchant(id)
     end
-    all_merchants_average = all_merchants_price_averages / all_merchants_count
-    all_merchants_average.round(2)
+    all_merchants_average = (all_merchants_price_averages / all_merchants_count).round(2)
   end
 
   def mean_prices_per_merchant
@@ -79,16 +82,11 @@ class SalesAnalyst
   end
 
   def golden_items
-    # mean_prices_per_merchant = generate_merchant_ids.map do |id|
-    #   average_item_price_for_merchant(id)
-    # end
     mean_average_across_all_merchants = average_average_price_per_merchant
-    all_means_minus_one = (mean_prices_per_merchant.length) - 1
     total = mean_prices_per_merchant.reduce(0) do |total, price|
       total += ((price - mean_average_across_all_merchants) ** 2)
     end
-    format_price_deviation = standard_deviaton_calculation(total, all_means_minus_one)
-    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + format_price_deviation
+    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + standard_deviaton_calculation(total, all_elements_minus_one(mean_prices_per_merchant))
     expensive_items = @parent.items.all.find_all do |item|
       item.unit_price > two_standard_deviations_plus_average
     end
