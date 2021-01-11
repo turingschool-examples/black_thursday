@@ -30,8 +30,8 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    @customers.find_all do |customer|
-      customer.id.to_s == id
+    @customers.find do |customer|
+      customer.id.to_i == id
     end
   end
 

@@ -17,21 +17,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
                   :customers     => customer_path
                 }
     @engine = SalesEngine.from_csv(arguments)
-    @customer = @engine.customers
+    @customers = @engine.customers
   end
 
   def test_all_returns_all_of_the_customers
-    expected = @customer.all
+    expected = @customers.all
     assert_equal 1000, expected.length
     assert_equal Customer, expected.first.class
   end
 
   def test_find_by_id_returns_the_customer_with_matching_id
-    skip
     id = 100
-    expected = @customer.find_by_id(id)
+    expected = @customers.find_by_id(id)
     assert_equal id, expected.id
-    assert_equal Customer, expected.first.class
+    assert_equal Customer, expected.class
   end
 
   def test_find_all_by_first_name_returns_all_customers_with_matching_first_name

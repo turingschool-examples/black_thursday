@@ -8,7 +8,7 @@ class Customer
 
   def initialize(args, parent)
     @args        = args
-    @id          = args[:id].to_s
+    @id          = args[:id].to_i
     @first_name  = args[:first_name].to_s
     @last_name   = args[:last_name].to_s
     @created_at  = Time.parse(args[:created_at].to_s)
