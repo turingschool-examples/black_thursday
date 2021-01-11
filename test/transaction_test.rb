@@ -9,11 +9,12 @@ require './lib/merchant_repo'
 require './lib/item'
 require './lib/item_repo'
 require './lib/transaction'
+require './lib/transaction_repo'
 
 class TransactionTest < MiniTest::Test
 
   def test_it_exists
-    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
     t = Transaction.new({
                         :id => 6,
                         :invoice_id => 8,
@@ -22,13 +23,13 @@ class TransactionTest < MiniTest::Test
                         :result => "success",
                         :created_at => Time.now,
                         :updated_at => Time.now
-                        })
+                        }, self)
     assert_instance_of Transaction, t
   end
 
   def test_transaction_attributes
 
-    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
     t = Transaction.new({
                         :id => 6,
                         :invoice_id => 8,
@@ -37,7 +38,7 @@ class TransactionTest < MiniTest::Test
                         :result => "success",
                         :created_at => Time.now,
                         :updated_at => Time.now
-                        })
+                        }, self)
     expected = t
     assert_equal 6, expected.id
     assert_equal 8, expected.invoice_id
