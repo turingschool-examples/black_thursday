@@ -3,8 +3,6 @@ require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/item'
 require './lib/cleaner'
-# refactor to mock/stubs or traverse vertically to not need to require IR?
-# But in the update test we do need to check on a real item i think
 require './lib/item_repo'
 
 class ItemTest < Minitest::Test
@@ -18,7 +16,7 @@ class ItemTest < Minitest::Test
       :updated_at  => 12,
       :merchant_id => 2
       })
-      @cleaner = Cleaner.new # refactor out?
+      @cleaner = Cleaner.new
   end
 
   def test_it_exists_with_attributes
@@ -26,14 +24,15 @@ class ItemTest < Minitest::Test
     assert_equal 1, @item.id
     assert_equal "Pencil", @item.name
     assert_equal "You can use it to write things", @item.description
-    assert_equal 0.1099e2, @item.unit_price
+    assert_equal 10.99, @item.unit_price
+    assert_equal BigDecimal, @item.unit_price.class
     assert_equal 10, @item.created_at
     assert_equal 12, @item.updated_at
     assert_equal 2, @item.merchant_id
   end
 
   def test_unit_price_to_dollars
-    assert_equal 0.11, @item.unit_price_to_dollars
+    assert_equal 10.99, @item.unit_price_to_dollars
   end
 
   def test_it_updates_item_attributes
