@@ -27,11 +27,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_all_items_count_helper
-    assert_equal 1367, @sales_analyst.all_items_count
+    collection = @se.items
+    assert_equal 1367, @sales_analyst.all_collection_count(collection)
   end
 
   def test_all_merchants_count_helper
-    assert_equal 475, @sales_analyst.all_merchants_count
+    collection = @se.merchants
+    assert_equal 475, @sales_analyst.all_collection_count(collection)
   end
 
   def test_average_items_per_merchant_standard_deviation
@@ -82,5 +84,9 @@ class SalesAnalystTest < Minitest::Test
   def test_total_helper
     set = [3, 4, 5]
     assert_equal 2, @sales_analyst.total(set, 4)
+  end
+
+  def test_it_returns_average_number_of_invoices_per_merchant
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
   end
 end
