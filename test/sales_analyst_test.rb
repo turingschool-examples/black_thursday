@@ -50,7 +50,7 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_finds_those_golden_items
-    assert_equal 5, @sales_analyst.golden_items
+    assert_equal 5, @sales_analyst.golden_items.length
     assert_equal Item, @sales_analyst.golden_items.first.class
   end
 end
