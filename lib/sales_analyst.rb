@@ -124,9 +124,13 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    mean = average_invoices_per_merchant
-    data_set = @sales_engine.invoices.invoices_per_weekday.values
-    @sales_engine.invoices.invoices_per_weekday
+    answer = []
+    @sales_engine.invoices_per_day_count.each do |day, invoice_count|
+      if invoice_count > (average_invoices_per_day + average_invoices_per_day_standard_deviation)
+        answer << day.to_s.capitalize
+      end
+    end
+    answer
   end
 
   def invoice_status(status)

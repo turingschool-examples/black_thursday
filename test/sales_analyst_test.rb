@@ -78,6 +78,12 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 18.07, @sales_analyst.average_invoices_per_day_standard_deviation
   end
 
+  def test_top_days_by_invoice_count
+    assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
+    assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count.first
+    assert_equal String, @sales_analyst.top_days_by_invoice_count.first.class
+  end
+
   def test_percetage_status
     assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
     assert_equal 29.55, @sales_analyst.invoice_status(:pending)
