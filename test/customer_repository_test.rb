@@ -41,21 +41,26 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Customer, expected.first.class
   end
 
-  def test_find_all_by_last_name_returne_all_customers_with_matching_last_name
+  def test_find_all_by_last_name_return_all_customers_with_matching_last_name
     fragment = "On"
     expected = @customer.find_all_by_last_name(fragment)
     assert_equal 85, expected.length
     assert_equal Customer, expected.first.class
   end
-    #
-    # it "#find_all_by_last_name returns all customers with matching last name" do
-    #   fragment = "On"
-    #   expected = engine.customers.find_all_by_last_name(fragment)
-    #
-    #   expect(expected.length).to eq 85
-    #   expect(expected.first.class).to eq Customer
-    # end
-    #
+
+  def test_find_all_by_first_name_and_find_all_by_last_name_are_case_insesntive
+    fragment = "NN"
+    expected = @customers.find_all_by_first_name(fragment)
+    assert_equal 57, expected.length
+    assert_operator Customer, expected.first.class
+
+    fragment = "oN"
+    expected = @customer.find_all_by_last_name(fragment)
+
+    assert_equal 85, expected.length
+    assert_equal Customer, expected.first.class
+  end
+
     # it "#find_all_by_first_name and #find_all_by_last_name are case insensitive" do
     #   fragment = "NN"
     #   expected = engine.customers.find_all_by_first_name(fragment)
