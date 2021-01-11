@@ -44,4 +44,10 @@ class TransactionRepoTest < Minitest::Test
     assert_equal 1, @tr.find_all_by_credit_card_number("4068631943231473")[0].id
     assert_equal [], @tr.find_all_by_credit_card_number("1111111111")
   end
+
+  def test_find_all_by_result
+    assert_equal 4158, @tr.find_all_by_result(:success).length
+    assert_equal 827, @tr.find_all_by_result(:failed).length
+    assert_equal 0, @tr.find_all_by_result(:failure).length
+  end
 end
