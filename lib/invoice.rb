@@ -4,7 +4,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :created_day
 
   attr_reader :repo
 
@@ -15,6 +16,7 @@ class Invoice
     @status = data[:status]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
+    created_day
   end
 
   def update(attributes)
@@ -22,5 +24,17 @@ class Invoice
       @status        = attributes[:status] if attributes[:status]
       @updated_at  = Time.now
     end
+  end
+
+  def created_day
+    weekdays = {0 => :sunday,
+                1 => :monday,
+                2 => :tuesday,
+                3 => :wednesday,
+                4 => :thursday,
+                5 => :friday,
+                6 => :saturday,
+              }
+    weekdays[@created_at.wday]
   end
 end
