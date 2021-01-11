@@ -12,6 +12,47 @@ class SalesEngine
     routes(csv_data)
   end
 
+  def top_day_of_the_week
+    # invoice_hash = @invoices.all.group_by do |invoice|
+    #   invoice.created_at
+    # end.flatten
+    # invoice_hash
+    # require "pry"; binding.pry
+
+    created_at_array = []
+    popular_days = []
+
+    @invoices.all.each do |invoice|
+        created_at_array << invoice.created_at
+    end
+
+    this_is_the_most_popular_day =  created_at_array.max_by{|day|created_at_array.count(day)}
+    # require "pry"; binding.pry
+        # popular_days << this_is_the_most_popular_day
+        # created_at_array.delete(this_is_the_most_popular_day)
+
+  end
+
+  def find_bottom_merchants
+    find_bottoms_merchants_by_invoice_count
+  end
+
+  def find_top_merchants
+    find_top_merchants_by_invoice_count
+  end
+
+  def find_invoice_standard_deviation
+    standard_deviation_for_merchant_invoices
+  end
+
+  def find_invoice_averages
+    find_invoice_per_merchant_average
+  end
+
+  def find_invoices_by_merchant(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
+  end
+
   def find_merchant_by_merchant_id(id)
     @merchants.find_by_id(id)
   end

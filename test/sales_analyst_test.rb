@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/sales_analyst'
+require './lib/invoice_repo'
+require './lib/invoice'
 require 'pry'
 
 class SalesAnalystTest < Minitest::Test
@@ -87,7 +89,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    skip
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
@@ -99,7 +100,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_invoice_per_merchant_standard_deviation
-    skip
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
@@ -111,7 +111,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_top_performing_merchants
-    skip
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
@@ -123,7 +122,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_lowest_performing_merchants
-    skip
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
@@ -135,7 +133,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_which_days_see_the_most_sales
-    skip
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
