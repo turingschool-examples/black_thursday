@@ -101,4 +101,12 @@ class SalesAnalystTest < Minitest::Test
   def test_top_merchants_by_invoice_count
     assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
   end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal , @sales_analyst.top_days_by_invoice_count
+  end
 end
