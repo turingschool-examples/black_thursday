@@ -64,7 +64,7 @@ class ItemRepoTest < Minitest::Test
                               })
     @ir   = se.items
 
-    expected = @ir.find_all_by_merchant_id("12334271")
+    expected = @ir.find_all_by_merchant_id(12334271)
     assert_equal 263399735, expected[0].id
   end
 

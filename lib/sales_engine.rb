@@ -1,51 +1,81 @@
+require_relative 'mathematics'
+
 class SalesEngine
   include Math
+  include Mathematics
 
   attr_reader :merchants,
-              :items
+              :items,
+              :invoices
 
   def initialize(csv_data)
-    make_merchant_repo(csv_data)
-    make_item_repo(csv_data)
+    routes(csv_data)
+  end
+
+  def find_invoice_status_percentage(status)
+    matched_status = @invoices.all.find_all do |invoice|
+      invoice.status == status
+    end
+    percentage = ((matched_status.count.to_f / @invoices.all.count.to_f) * 100)
+    percentage.round(2)
+  end
+
+  def top_day_of_the_week
+    invoice_count = Hash.new(0)
+    the_hash = @invoices.all.reduce(invoice_count) do |acc, invoice|
+      if invoice_count == nil
+        0
+      else
+        acc[invoice.created_at] += 1
+      end
+      acc
+    end
+    top_day = the_hash.select do |day, invoices_count|
+      invoices_count == the_hash.values.max
+    end
+    top_day.keys
+  end
+
+  def find_bottom_merchants
+    find_bottoms_merchants_by_invoice_count
+  end
+
+  def find_top_merchants
+    find_top_merchants_by_invoice_count
+  end
+
+  def find_invoice_standard_deviation
+    standard_deviation_for_merchant_invoices
+  end
+
+  def find_invoice_averages
+    find_invoice_per_merchant_average
+  end
+
+  def find_invoices_by_merchant(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
   end
 
   def find_merchant_by_merchant_id(id)
-    merchants.find_by_id(id)
+    @merchants.find_by_id(id)
   end
 
   def find_items_by_id(id)
     items.find_all_by_merchant_id(id)
   end
 
-  def find_average
-    (items.item_list.count.to_f / merchants.merchant_list.count.to_f).round(2)
-  end
-
-  def standard_deviation
-    total_count = @merchants.merchant_list.reduce([]) do |acc, merchant|
-      acc << merchant.item_name.count
-      acc
-    end
-
-    sum = total_count.sum do |value|
-      ((value - find_average)**2)
-    end
-    result = (sum / 475)
-
-    Math.sqrt(result).round(2)
-  end
-
-  def find_merchants_with_most_items
-    total_count = @merchants.merchant_list.reduce({}) do |acc, merchant|
-      acc[merchant] = merchant.item_name.count
-      acc
-    end
-
-    total_count.select do |key, value|
-      value >= 7
+  def routes(csv_data)
+    csv_data.each_key do |key|
+      case
+      when key == :invoices
+        make_invoice_repo(csv_data)
+      when key == :merchants
+        make_merchant_repo(csv_data)
+      when key == :items
+        make_item_repo(csv_data)
+      end
     end
   end
-
 
   def analyst
     SalesAnalyst.new(self)
@@ -53,6 +83,10 @@ class SalesEngine
 
   def self.from_csv(csv_data)
     SalesEngine.new(csv_data)
+  end
+
+  def make_invoice_repo(csv_data)
+    @invoices = InvoiceRepo.new(csv_data[:invoices], self)
   end
 
   def make_merchant_repo(csv_data)
@@ -63,31 +97,3 @@ class SalesEngine
     @items = ItemRepo.new(csv_data[:items], self)
   end
 end
-
-
-
-
-
-
-
-
-  # most_common_merchant_id_number_array = []
-  # item_list = []
-  # @sales_engine.items.item_list.each do |item|
-  #   item_list << item.merchant_id
-  # end
-  # until most_common_merchant_id_number_array.length == 3
-  #   this_is_the_most_common_merchant =  item_list.max_by {|merchant_id|item_list.count(merchant_id)}
-  #   most_common_merchant_id_number_array << this_is_the_most_common_merchant
-  #   item_list.delete(this_is_the_most_common_merchant)
-  # end
-  # answer = []
-  # @sales_engine.items.item_list.each do |item|
-  #     most_common_merchant_id_number_array.each do |most_common|
-  #     if most_common == item
-  #       answer << item
-  #     end
-  #   end
-  # end
-  # answer.flatten
-  # end

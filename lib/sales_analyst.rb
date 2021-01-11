@@ -10,6 +10,30 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+  def invoice_status(status)
+    @sales_engine.find_invoice_status_percentage(status)
+  end
+
+  def top_days_by_invoice_count
+    @sales_engine.top_day_of_the_week
+  end
+
+  def bottom_merchants_by_invoice_count
+    @sales_engine.find_bottom_merchants
+  end
+
+  def top_merchants_by_invoice_count
+    @sales_engine.find_top_merchants
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    @sales_engine.find_invoice_standard_deviation
+  end
+
+  def average_invoices_per_merchant
+    @sales_engine.find_invoice_averages
+  end
+
   def average_items_per_merchant
     @sales_engine.find_average
   end
@@ -44,5 +68,13 @@ class SalesAnalyst
     expected = result.sum(0.00) / result.size
     total_averages = BigDecimal(expected, 5).to_s("F")
     total_averages.to_f.floor(2)
+  end
+
+  def golden_items
+    above_average = (2 * average_average_price_per_merchant) -1
+    expected = @sales_engine.items.item_list.find_all do |item|
+      (item.unit_price_to_dollars / 1000.0) >= above_average
+    end
+    expected
   end
 end
