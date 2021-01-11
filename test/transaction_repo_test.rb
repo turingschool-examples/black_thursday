@@ -80,4 +80,10 @@ class TransactionRepoTest < Minitest::Test
     refute_equal 1, @tr.transactions[1].created_at
     assert_nil @tr.transactions[10000]
   end
+
+  def test_delete
+    @tr.delete(1)
+    assert_nil @tr.transactions[1]
+    assert_equal 4984, @tr.transactions.length
+  end
 end

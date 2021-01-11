@@ -11,6 +11,10 @@ class TransactionRepository
     make_transactions(CSV.readlines(@file, headers: true, header_converters: :symbol))
   end
 
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
+
   def make_transactions(data)
     data.each do |row|
       transactions[row[:id].to_i] = Transaction.new({id: row[:id].to_i,
@@ -19,7 +23,7 @@ class TransactionRepository
                                                     credit_card_expiration_date: row[:credit_card_expiration_date],
                                                     result: row[:result].to_sym,
                                                     created_at: row[:created_at],
-                                                    updated_at: row[:updated_at].to_i})
+                                                    updated_at: row[:updated_at]})
     end
   end
 
@@ -63,5 +67,9 @@ class TransactionRepository
     transactions[id].credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
     transactions[id].credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
     transactions[id].result = attributes[:result] if attributes[:result]
+  end
+
+  def delete(id)
+    transactions.delete(id)
   end
 end

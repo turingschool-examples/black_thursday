@@ -12,6 +12,11 @@ class CustomerRepository
     build_customers(CSV.readlines(@file, headers: true, header_converters: :symbol))
   end
 
+
+  def inspect
+    "#<#{self.class} #{@mcustomers.size} rows>"
+  end
+
   def build_customers(data)
     data.each do |row|
       customers[row[:id].to_i] = Customer.new({id: row[:id].to_i,
