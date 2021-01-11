@@ -105,12 +105,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
-    # skip
+    skip
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
   end
 
   def test_top_days_by_invoice_count
-
-    assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
+    # skip
+    assert_equal ["Sunday", "Saturday"], @sales_analyst.top_days_by_invoice_count
   end
 end

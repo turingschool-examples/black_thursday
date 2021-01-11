@@ -83,4 +83,23 @@ class InvoiceRepository
       acc
     end
   end
+
+  def invoices_per_day
+    Date::DAYNAMES
+    @invoices.reduce(days_hash) do |acc, invoice|
+      # require "pry";binding.pry
+      acc[invoice.day_of_week] += 1
+      acc
+    end
+  end
+
+  def days_hash
+    days = { "Monday" =>    0,
+             "Tuesday" =>   0,
+             "Wednesday" => 0,
+             "Thursday" =>  0,
+             "Friday" =>    0,
+             "Saturday" =>  0,
+             "Sunday" =>    0}
+  end
 end
