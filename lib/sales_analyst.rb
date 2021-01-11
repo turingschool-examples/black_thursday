@@ -156,5 +156,11 @@ class SalesAnalyst
     end
      golden_items
   end
+
+  def merchants_with_only_one_item
+    @sales_engine.merchants.all.find_all do |merchant|
+      @sales_engine.merchant_items(merchant.id).length == 1
+    end
+  end
 end
 
