@@ -48,11 +48,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_first_name_and_find_all_by_last_name_are_case_insesntive
-    skip
     fragment = "NN"
     expected = @customers.find_all_by_first_name(fragment)
     assert_equal 57, expected.length
-    assert_operator Customer, expected.first.class
+    assert_instance_of Customer, expected.first
 
     fragment = "oN"
     expected = @customers.find_all_by_last_name(fragment)
