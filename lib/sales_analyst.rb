@@ -173,16 +173,17 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(inv_id)
     transacts = @sales_engine.transactions.find_all_by_invoice_id(inv_id)
-    failed = transacts.map do |transact|
-      false if transact.result == :failed
+    success = transacts.map do |transact|
+      true if transact.result == :success
      end
     if transacts.length == 0
       false
-    elsif failed.include?(false) == true
-      false
-    else
+    elsif success.include?(true) == true
       true
+    else
+      false
     end
   end
+
 end
 
