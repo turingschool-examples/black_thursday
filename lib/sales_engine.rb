@@ -1,14 +1,15 @@
+require_relative 'mathematics'
+
 class SalesEngine
   include Math
+  include Mathematics
 
   attr_reader :merchants,
               :items,
               :invoices
 
   def initialize(csv_data)
-    make_invoice_repo(csv_data)
-    make_merchant_repo(csv_data)
-    make_item_repo(csv_data)
+    routes(csv_data)
   end
 
   def find_merchant_by_merchant_id(id)
@@ -19,32 +20,16 @@ class SalesEngine
     items.find_all_by_merchant_id(id)
   end
 
-  def find_average
-    (items.item_list.count.to_f / merchants.merchant_list.count.to_f).round(2)
-  end
-
-  def standard_deviation
-    total_count = @merchants.merchant_list.reduce([]) do |acc, merchant|
-      acc << merchant.item_name.count
-      acc
-    end
-
-    sum = total_count.sum do |value|
-      ((value - find_average)**2)
-    end
-    result = (sum / (476 - 1))
-
-    Math.sqrt(result).round(2)
-  end
-
-  def find_merchants_with_most_items
-    total_count = @merchants.merchant_list.reduce({}) do |acc, merchant|
-      acc[merchant] = merchant.item_name.count
-      acc
-    end
-
-    total_count.select do |key, value|
-      value >= 7
+  def routes(csv_data)
+    csv_data.each_key do |key|
+      case
+      when key == :invoices
+        make_invoice_repo(csv_data)
+      when key == :merchants
+        make_merchant_repo(csv_data)
+      when key == :items
+        make_item_repo(csv_data)
+      end
     end
   end
 
@@ -56,15 +41,15 @@ class SalesEngine
     SalesEngine.new(csv_data)
   end
 
+  def make_invoice_repo(csv_data)
+    @invoices = InvoiceRepo.new(csv_data[:invoices], self)
+  end
+
   def make_merchant_repo(csv_data)
     @merchants = MerchantRepo.new(csv_data[:merchants], self)
   end
 
   def make_item_repo(csv_data)
     @items = ItemRepo.new(csv_data[:items], self)
-  end
-
-  def make_invoice_repo(csv_data)
-    @invoices = InvoiceRepo.new(csv_data[:invoices], self)
   end
 end
