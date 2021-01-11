@@ -96,7 +96,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263395721, @item_repository.sort_by_id[2].id
   end
 
-
   def test_update
     attributes = {
       name: "Capita Defenders of Awesome 2018",
