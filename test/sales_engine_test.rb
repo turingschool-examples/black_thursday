@@ -50,4 +50,8 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1473, @sales_engine.invoice_status_count(:pending)
     assert_equal 2839, @sales_engine.invoice_status_count(:shipped)
   end
+
+  def test_highest_day_for_invoice_creation
+    assert_equal 696, @sales_engine.highest_day_for_invoice_creation
+  end
 end

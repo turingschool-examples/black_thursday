@@ -73,4 +73,10 @@ class SalesEngine
       invoice.status == status
     end
   end
+
+  def highest_day_for_invoice_creation
+    @invoices.invoices_per_weekday.sort_by do |day, invoices|
+      invoices.count
+    end.last 
+  end
 end
