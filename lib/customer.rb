@@ -15,4 +15,12 @@ class Customer
     @updated_at  = Time.parse(args[:updated_at].to_s)
     @parent      = parent
   end
+
+
+
+  def update(args)
+    @first_name = (args[:first_name].to_s) if !args[:first_name].nil?
+    @last_name = (args[:last_name].to_s) if !args[:last_name].nil?
+    @updated_at  = Time.now
+  end
 end

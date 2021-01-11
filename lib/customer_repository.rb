@@ -46,30 +46,25 @@ class CustomerRepository
      customer.last_name.to_s == last_name
     end
   end
-    # def find_all_by_invoice_id(invoice_id)
-    #   @invoice_items.find_all do |invoice_item|
-    #    invoice_item.invoice_id.to_i == invoice_id
-    #   end
-    # end
-    #
-    #   def create(attributes)
-    #     id = @invoice_items[-1].id.to_i
-    #     id += 1
-    #     id = id.to_i
-    #     attributes[:id] = id
-    #     invoice_item = InvoiceItem.new(attributes, self)
-    #     @invoice_items << invoice_item
-    #   end
-    #
-    # def update(id, attributes)
-    #   update_invoice_item = find_by_id(id)
-    #   update_invoice_item.update(attributes) if !attributes[:quantity].nil?
-    #   update_invoice_item.update(attributes) if !attributes[:unit_price].nil?
-    #   update_invoice_item
-    # end
-    #
-    # def delete(id)
-    #   delete = find_by_id(id)
-    #   @invoice_items.delete(delete)
-    # end
+
+  def create(attributes)
+    id = @customers[-1].id.to_i
+    id += 1
+    id = id.to_i
+    attributes[:id] = id
+    customer = customer.new(attributes, self)
+    @customers << customer
   end
+
+  def update(id, attributes)
+    update_customer = find_by_id(id)
+    update_customer.update(attributes) if !attributes[:first_name].nil?
+    update_customer.update(attributes) if !attributes[:last_name].nil?
+    update_customer
+  end
+
+  def delete(id)
+    delete = find_by_id(id)
+    @customers.delete(delete)
+  end
+end
