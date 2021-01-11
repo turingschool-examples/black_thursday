@@ -35,15 +35,20 @@ class TransactionRepository
     end
   end
 
-  def find_all_by_first_name(first_name)
+  def find_all_by_invoice_id(invoice_id)
     @transactions.find_all do |transaction|
-     transaction.first_name.downcase.include?(first_name.downcase)
+     transaction.first_name.downcase.include?(invoice_id.downcase)
     end
   end
 
-  def find_all_by_last_name(last_name)
+  def find_all_by_credit_card_number(credit_card_number)
     @transactions.find_all do |transaction|
-     transaction.last_name.downcase.include?(last_name.downcase)
+     transaction.last_name.downcase.include?(credit_card_number.downcase)
+  end
+
+  def find_all_by_result(result)
+    @transactions.find_all do |transaction|
+     transaction.last_name.downcase.include?(result.downcase)
     end
   end
 
@@ -52,15 +57,16 @@ class TransactionRepository
     id += 1
     id = id.to_i
     attributes[:id] = id
-    transaction = transaction.new(attributes, self)
+    transaction = Transaction.new(attributes, self)
     @transactions << transaction
   end
 
   def update(id, attributes)
     update_transaction = find_by_id(id)
-    update_transaction.update(attributes) if !attributes[:first_name].nil?
-    update_transaction.update(attributes) if !attributes[:last_name].nil?
-    update_transaction
+    update_transaction.update(attributes) if !attributes[:credit_card_number].nil?
+    update_transaction.update(attributes) if !attributes[:credit_card_expiration_date].nil?
+    update_transaction.update(attributes) if !attributes[:result].nil?
+    update_tran
   end
 
   def delete(id)
