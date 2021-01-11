@@ -4,7 +4,7 @@ require_relative './invoice_repo'
 require_relative './sales_analyst'
 # require_relative './invoice_item_repo'
 require_relative './customer_repo'
-require_relative './transaction_repo'
+# require_relative './transaction_repo'
 
 
 class SalesEngine
@@ -36,8 +36,8 @@ class SalesEngine
       #   @invoice_items = InvoiceItemRepository.new(data[:invoice_items], self)
       elsif key == :customers
         @customers = CustomerRepository.new(data[:customers], self)
-      elsif key == :transactions
-        @transactions = TransactionRepository.new(data[:transactions], self)
+      # elsif key == :transactions
+      #   @transactions = TransactionRepository.new(data[:transactions], self)
       end
     end
   end
