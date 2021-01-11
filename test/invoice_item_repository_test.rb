@@ -33,9 +33,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 263523644, expected.item_id
     assert_equal 2, expected.invoice_id
   end
-#
-#     expect(expected.invoice_id).to eq 2
-#   end
+
+  def test_find_by_id_returns_nil_if_the_invoice_item_does_not_exist
+    id = 200000
+    expected = @invoice_item.find_by_id(id)
+    assert_nil expected
+ 
+  end
 #
 #   it "#find_by_id returns nil if the invoice item does not exist" do
 #     id = 200000
