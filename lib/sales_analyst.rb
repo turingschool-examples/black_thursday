@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require 'bigdecimal'
 require_relative './sales_engine'
 require_relative './standard_deviation'
