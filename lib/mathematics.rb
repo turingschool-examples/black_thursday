@@ -20,7 +20,7 @@ module Mathematics
       ((value - find_average)**2)
     end
 
-    result = (sum / (476 - 1))
+    result = (sum / (@merchants.merchant_list.count.to_f - 1))
     Math.sqrt(result).round(2)
   end
 
@@ -35,9 +35,8 @@ module Mathematics
     sum = count_invoices.sum do |value|
       ((value - find_invoice_per_merchant_average)**2)
     end
-    result = (sum / ((4985 + 476) - 1))
-
-    Math.sqrt(result).round(2)
+    result = (sum / ((@invoices.all.count.to_f + @merchants.merchant_list.count.to_f) - 1))
+    Math.sqrt(result).floor(2)
   end
 
   def count_merchants_items
