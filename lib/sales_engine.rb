@@ -74,9 +74,11 @@ class SalesEngine
     end
   end
 
-  def highest_day_for_invoice_creation
-    @invoices.invoices_per_weekday.sort_by do |day, invoices|
-      invoices.count
-    end.last 
+  def invoices_per_day_count
+    invoice_count = {}
+    @invoices.invoices_per_weekday.map do |weekday, invoices|
+      invoice_count[weekday] = invoices.count
+    end
+    invoice_count
   end
 end

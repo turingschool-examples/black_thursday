@@ -51,7 +51,8 @@ class SalesEngineTest < Minitest::Test
     assert_equal 2839, @sales_engine.invoice_status_count(:shipped)
   end
 
-  def test_highest_day_for_invoice_creation
-    assert_equal 696, @sales_engine.highest_day_for_invoice_creation
+  def test_invoices_per_day_count
+    answer = {:saturday=>729, :friday=>701, :wednesday=>741, :monday=>696, :sunday=>708, :tuesday=>692, :thursday=>718}
+    assert_equal answer, @sales_engine.invoices_per_day_count
   end
 end
