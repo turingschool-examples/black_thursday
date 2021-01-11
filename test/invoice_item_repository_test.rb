@@ -15,31 +15,25 @@ class InvoiceItemRepositoryTest < Minitest::Test
                   :invoice_items => invoice_item_path
                 }
     @engine = SalesEngine.from_csv(arguments)
-    @invoice_item = @engine.invoice_items.all
+    @invoice_item = @engine.invoice_items
   end
 
 
 
   def test_all_returns_an_array_of_all_invoice_item_instances
-      expected = @invoice_item
+      expected = @invoice_item.all
       assert_equal 21830, expected.length
   end
 
+  def test_find_by_id_finds_an_invoice_item_by_id
 
-
-
-# context "Invoice Item Repository" do
-#   it "#all returns an array of all invoice item instances" do
-#     expected = engine.invoice_items.all
-#     expect(expected.count).to eq 21830
-#   end
+    id =10
+    expected = @invoice_item.find_by_id(id)
+    assert_equal id, expected.id
+    assert_equal 263523644, expected.item_id
+    assert_equal 2, expected.invoice_id
+  end
 #
-#   it "#find_by_id finds an invoice_item by id" do
-#     id = 10
-#     expected = engine.invoice_items.find_by_id(id)
-#
-#     expect(expected.id).to eq id
-#     expect(expected.item_id).to eq 263523644
 #     expect(expected.invoice_id).to eq 2
 #   end
 #
