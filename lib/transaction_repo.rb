@@ -65,10 +65,9 @@ class TransactionRepository
   end
 
   def update(id, attributes)
-    transactions[id].credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
-    transactions[id].credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
-    transactions[id].result = attributes[:result] if attributes[:result]
-    transactions[id].updated_at = Time.now
+    if find_by_id(id) != nil
+      transactions[id].update(attributes)
+    end
   end
 
   def delete(id)
