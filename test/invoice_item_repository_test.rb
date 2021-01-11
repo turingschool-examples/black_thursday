@@ -38,15 +38,15 @@ class InvoiceItemRepositoryTest < Minitest::Test
     id = 200000
     expected = @invoice_item.find_by_id(id)
     assert_nil expected
- 
   end
-#
-#   it "#find_by_id returns nil if the invoice item does not exist" do
-#     id = 200000
-#     expected = engine.invoice_items.find_by_id(id)
-#
-#     expect(expected).to eq nil
-#   end
+
+  def test_find_all_by_item_id_finds_all_items_matching_given_item_id
+    item_id = 263408101
+    expected = @invoice_item.find_all_by_item_id(item_id)
+    assert_equal 11, expected.length
+    assert_equal InvoiceItem, expected.first.class
+  end
+
 #
 #   it "#find_all_by_item_id finds all items matching given item_id" do
 #     item_id = 263408101
