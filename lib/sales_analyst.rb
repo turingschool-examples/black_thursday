@@ -29,11 +29,13 @@ class SalesAnalyst
     end
   end
 
+  def all_items_minus_one
+    items_count_per_merchant.length - 1
+  end
+
   def average_items_per_merchant_standard_deviation
-    all_items_minus_one = items_count_per_merchant.length - 1
-    total = 0
-    items_count_per_merchant.each do |item_number|
-      total += ((item_number - average_items_per_merchant) ** 2)
+    total = items_count_per_merchant.reduce(0) do |acc, item_number|
+      acc += ((item_number - average_items_per_merchant) ** 2)
     end
     standard_deviaton = Math.sqrt(total / all_items_minus_one)
     standard_deviaton.round(2)
