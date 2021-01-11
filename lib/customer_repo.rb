@@ -1,5 +1,7 @@
 require 'CSV'
+require 'Time'
 require_relative './customer'
+
 
 class CustomerRepository
 
@@ -13,7 +15,7 @@ class CustomerRepository
   end
 
   def inspect
-     "#<#{self.class} #{@merchants.size} rows>"
+     "#<#{self.class} #{@customers.size} rows>"
    end
 
   def build_customers(data)
@@ -21,8 +23,8 @@ class CustomerRepository
       customers[row[:id].to_i] = Customer.new({id: row[:id].to_i,
                                                   first_name: row[:first_name],
                                                   last_name: row[:last_name],
-                                                  created_at: row[:created_at].to_i,
-                                                  updated_at: row[:updated_at].to_i})
+                                                  created_at: Time.parse(row[:created_at]),
+                                                  updated_at: Time.parse(row[:updated_at])})
     end
   end
 
