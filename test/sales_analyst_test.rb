@@ -115,12 +115,19 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_day_standard_deviation
-    # skip
+    skip
     assert_equal 18.07, @sales_analyst.average_invoices_per_day_standard_deviation
   end
 
   def test_top_days_by_invoice_count
-    # skip
+    skip
     assert_equal ["Wednesday"], @sales_analyst.top_days_by_invoice_count
+  end
+
+  def test_invoice_status_returns_percentage
+    # skip
+    assert_equal 29.55, @sales_analyst.invoice_status(:pending)
+    assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
+    assert_equal 13.5, @sales_analyst.invoice_status(:returned)
   end
 end

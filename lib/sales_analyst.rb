@@ -163,4 +163,9 @@ class SalesAnalyst
     end
     top_invoice_days
   end
+
+  def invoice_status(status)
+    all = sales_engine.invoices_per_status[status]
+    ((all / total_invoices.to_f) * 100).round(2)
+  end
 end
