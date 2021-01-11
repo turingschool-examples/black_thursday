@@ -26,7 +26,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_finds_an_invoice_item_by_id
-
     id =10
     expected = @invoice_item.find_by_id(id)
     assert_equal id, expected.id
@@ -41,7 +40,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_item_id_finds_all_items_matching_given_item_id
-    skip
     item_id = 263408101
     expected = @invoice_item.find_all_by_item_id(item_id)
     assert_equal 11, expected.length
@@ -49,7 +47,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_item_id_returns_an_empty_array_if_there_are_no_matches
-    skip
     item_id = 10
     expected = @invoice_item.find_all_by_item_id(item_id)
     assert_equal 0, expected.length
@@ -57,7 +54,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_finds_all_items_matching_given_item_id
-    skip
     invoice_id = 100
     expected = @invoice_item.find_all_by_invoice_id(invoice_id)
     assert_equal 3, expected.length
@@ -65,7 +61,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_returns_an_empty_array_if_there_are_no_matches
-    skip
     invoice_id = 1234567890
     expected = @invoice_item.find_all_by_invoice_id(invoice_id)
     assert_equal 0, expected.length
@@ -96,20 +91,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
         :unit_price => BigDecimal.new(10.99, 4),
         :created_at => Time.now,
         :updated_at => Time.now
-      }
+        }
 
       @engine.invoice_items.create(attributes)
-      original_time = engine.invoice_items.find_by_id(21831).updated_at
+      original_time = @invoice_item.find_by_id(21831).updated_at
+
       attributes = {quantity: 13}
       @invoice_item.update(21831, attributes)
       expected = @invoice_item.find_by_id(21831)
       assert_equal 13,  expected.quantity
       assert_equal 7,   expected.item_id
-      assert_operator original time ,:<, expected.updated_at
+      assert_operator original_time ,:<, expected.updated_at
   end
 
   def test_update_cannot_update_id_item_id_invoice_id_or_created_at
-    skip
     attributes = {
         :item_id => 7,
         :invoice_id => 8,
@@ -132,13 +127,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_nil  expected_1
 
     expected_2 = @invoice_item.find_by_id(21831)
-    refute attributes[:item_id], expected.item_id
-    refute attributes[:invoice_id],expected.invoice_id
-    refute attributes[:created_at], expected.created_at
+    assert_equal attributes[:item_id], expected_2.item_id
+    assert_equal attributes[:invoice_id],expected_2.invoice_id
+    assert       expected_2.created_at
   end
 
   def test_update_on_unkown_invoice_item_does_nothing
-    skip
     @invoice_item.update(22000, {})
   end
 

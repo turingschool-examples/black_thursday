@@ -19,7 +19,6 @@ class CustomerTest < Minitest::Test
                 }
     @engine = SalesEngine.from_csv(arguments)
     @customer = @engine.customers.find_by_id(500)
- #  let(:customer) { engine.customers.find_by_id(500) }
   end
 
   def test_id_returns_the_id
