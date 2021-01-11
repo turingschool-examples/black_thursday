@@ -63,7 +63,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_all_items_minus_one_helper
-    assert_equal 474, @sales_analyst.all_items_minus_one
+    array = [1, 2, 3, 4, 5]
+    assert_equal 4, @sales_analyst.all_elements_minus_one(array)
+    amount_2 = (1..475).to_a
+    assert_equal 474, @sales_analyst.all_elements_minus_one(amount_2)
   end
 
   def test_standard_deviation_calculation_helper
@@ -73,6 +76,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_mean_prices_per_merchant_helper
-    assert_equal 475, @sales_analyst.mean_prices_per_merchant.length 
+    assert_equal 475, @sales_analyst.mean_prices_per_merchant.length
   end
 end
