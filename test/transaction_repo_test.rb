@@ -37,5 +37,11 @@ class TransactionRepoTest < Minitest::Test
   def test_find_all_by_invoice_id
     assert_equal 2, @tr.find_all_by_invoice_id(2179).length
     assert_equal 2, @tr.find_all_by_invoice_id(46).length
+    assert_equal [], @tr.find_all_by_invoice_id(0)
+  end
+
+  def test_find_all_by_credit_card_number
+    assert_equal 1, @tr.find_all_by_credit_card_number("4068631943231473")[0].id
+    assert_equal [], @tr.find_all_by_credit_card_number("1111111111")
   end
 end

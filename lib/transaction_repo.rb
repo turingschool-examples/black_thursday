@@ -36,4 +36,10 @@ class TransactionRepository
       invoice == transaction.invoice_id
     end
   end
+
+  def find_all_by_credit_card_number(num)
+    all.find_all do |transaction|
+      num.to_s == transaction.credit_card_number
+    end
+  end
 end
