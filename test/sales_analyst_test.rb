@@ -57,4 +57,30 @@ class SalesAnalystTest < Minitest::Test
   def test_returns_items_that_are_two_standard_deviations_above_the_average_price
     assert_equal 5, @sales_analyst.golden_items.length
   end
+
+  def test_items_count_per_merchant_helper
+    assert_equal 475, @sales_analyst.items_count_per_merchant.length
+  end
+
+  def test_all_items_minus_one_helper
+    array = [1, 2, 3, 4, 5]
+    assert_equal 4, @sales_analyst.all_elements_minus_one(array)
+    amount_2 = (1..475).to_a
+    assert_equal 474, @sales_analyst.all_elements_minus_one(amount_2)
+  end
+
+  def test_standard_deviation_calculation_helper
+    total = 2
+    collection_length = 2
+    assert_equal 1, @sales_analyst.standard_deviaton_calculation(total, collection_length)
+  end
+
+  def test_mean_prices_per_merchant_helper
+    assert_equal 475, @sales_analyst.mean_prices_per_merchant.length
+  end
+
+  def test_total_helper
+    set = [3, 4, 5]
+    assert_equal 2, @sales_analyst.total(set, 4)
+  end
 end

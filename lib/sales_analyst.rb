@@ -23,18 +23,29 @@ class SalesAnalyst
     end
   end
 
-  def average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
-    items_per_merchant = generate_merchant_ids.map do |id|
+  def items_count_per_merchant
+    generate_merchant_ids.map do |id|
       @parent.items.find_all_by_merchant_id(id).count
     end
-    all_items_minus_one = (items_per_merchant.length) - 1
-    total = 0
-    items_per_merchant.each do |item_number|
-      total += ((item_number - mean) ** 2)
-    end
-    standard_deviaton = Math.sqrt(total / all_items_minus_one)
+  end
+
+  def all_elements_minus_one(collection)
+    collection.length - 1
+  end
+
+  def standard_deviaton_calculation(total, collection_minus_one)
+    standard_deviaton = Math.sqrt(total / collection_minus_one)
     standard_deviaton.round(2)
+  end
+
+  def total(set_collection, average_collection)
+    set_collection.reduce(0) do |total, element|
+      total += ((element - average_collection) ** 2)
+    end
+  end
+
+  def average_items_per_merchant_standard_deviation
+    standard_deviaton_calculation(total(items_count_per_merchant, average_items_per_merchant), all_elements_minus_one(items_count_per_merchant))
   end
 
   def merchants_with_high_item_count
@@ -60,23 +71,18 @@ class SalesAnalyst
     all_merchants_price_averages = generate_merchant_ids.sum do |id|
       average_item_price_for_merchant(id)
     end
-    all_merchants_average = all_merchants_price_averages / all_merchants_count
-    all_merchants_average.round(2)
+    all_merchants_average = (all_merchants_price_averages / all_merchants_count).round(2)
   end
 
-  def golden_items
+  def mean_prices_per_merchant
     mean_prices_per_merchant = generate_merchant_ids.map do |id|
       average_item_price_for_merchant(id)
     end
+  end
+
+  def golden_items
     mean_average_across_all_merchants = average_average_price_per_merchant
-    all_means_minus_one = (mean_prices_per_merchant.length) - 1
-    total = 0
-    mean_prices_per_merchant.each do |price|
-      total += ((price - mean_average_across_all_merchants) ** 2)
-    end
-    square_total_and_divide = Math.sqrt(total / all_means_minus_one)
-    format_price_deviation = square_total_and_divide.round(2)
-    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + format_price_deviation
+    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + standard_deviaton_calculation(total(mean_prices_per_merchant, mean_average_across_all_merchants), all_elements_minus_one(mean_prices_per_merchant))
     expensive_items = @parent.items.all.find_all do |item|
       item.unit_price > two_standard_deviations_plus_average
     end
