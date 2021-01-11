@@ -74,4 +74,8 @@ class InvoiceItemRepository
     end
     ii
   end
+
+  def delete(id)
+    @invoice_items.delete(id)
+  end
 end
