@@ -115,4 +115,31 @@ class TransactionRepositoryTest < Minitest::Test
     refute attributes[:invoice_id], expected.invoice_id
     refute attributes[:created_at], expected.created_at
   end
+
+  def test_update_cannot_update_id_invoice_id_or_created_at
+    skip
+    attributes_1 = {
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+    @engine.transactions.create(attributes_1)
+    attributes = {
+                  id: 5000,
+                  invoice_id: 2,
+                  created_at: Time.now
+                  }
+    @engine.transactions.update(4986, attributes)
+    expected = @engine.transactions.find_by_id(5000)
+
+    assert_nil expected
+
+    expected = @engine.transactions.find_by_id(4986)
+
+    refute attributes[:invoice_id], expected.invoice_id
+    refute attributes[:created_at], expected.created_at
+  end
 end
