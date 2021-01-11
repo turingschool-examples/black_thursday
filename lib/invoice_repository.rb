@@ -38,7 +38,6 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-   customer_found = []
     @invoices.find_all do |invoice|
      invoice.customer_id.to_i == customer_id
     end
