@@ -38,7 +38,7 @@ class SalesAnalyst
   end
 
   def average_by_average_merchant_deviation
-    average_items_per_merchant + average_item_standard_deviation
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
   def merchant_names_with_high_item_count
@@ -72,26 +72,6 @@ class SalesAnalyst
       (average_price[merchant.id].sum / average_price[merchant.id].count)
     end
     BigDecimal(prices.sum / average_price.keys.count).round(2)
-  end
-
-  def price_sum
-    BigDecimal(unit_price_array.reduce(0) {|memo, item| memo + item})
-  end
-
-  def price_mean
-    BigDecimal(price_sum / reduce_shop_items.length)
-  end
-
-  def price_sample_variance
-    new_sum = number_of_items.reduce(0) do |memo, item|
-      memo + (item - price_mean) ** 2
-    end
-
-    new_sum / (unit_price_array.length - 1).to_f
-  end
-
-  def average_unit_price_standard_deviation
-    Math.sqrt(price_sample_variance).round(2)
   end
 
   def second_deviation_above_unit_price
