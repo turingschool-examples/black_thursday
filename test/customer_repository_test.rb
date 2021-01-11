@@ -41,7 +41,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_last_name_return_all_customers_with_matching_last_name
-    skip
     fragment = "On"
     expected = @customers.find_all_by_last_name(fragment)
     assert_equal 85, expected.length
