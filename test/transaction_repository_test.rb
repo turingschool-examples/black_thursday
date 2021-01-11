@@ -17,12 +17,22 @@ class TransactionRepositoryTest < Minitest::Test
                   :customers     => customer_path,
                   :transactions => transaction_path
                 }
-    @se = SalesEngine.from_csv(arguments)
-    @tr = @se.transactions
+    @engine = SalesEngine.from_csv(arguments)
   end
 
   def test_all_returns_all_transactions
-    expected = @tr.all
+    expected = @engine.transactions.all
     assert_equal 4985, expected.count
   end
-end 
+
+  def test_find_by_id_returns_a_transaction_matching_the_given_id
+    skip
+    id = 2
+    expected = @engine.transactions.find_by_id(id)
+
+    assert_equal id, expected.id
+    assert_instance_of Transaction, expected.class
+  end
+
+  
+end
