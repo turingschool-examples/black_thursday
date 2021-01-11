@@ -81,7 +81,7 @@ class ItemRepositoryTest < Minitest::Test
     @ir.update(263397163, attributes)
     item_test_updated_at = @ir.find_by_id(263397163).updated_at.strftime("%d/%m/%Y")
 
-    assert_equal BigDecimal.new("37999".to_i)/100, @ir.find_by_id(263397163).unit_price
+    assert_equal BigDecimal("37999".to_i), @ir.find_by_id(263397163).unit_price
     assert_equal "Oils", @ir.find_by_id(263397163).name
     assert_equal "Smelly", @ir.find_by_id(263397163).description
     assert_equal 263397163, @ir.find_by_id(263397163).id

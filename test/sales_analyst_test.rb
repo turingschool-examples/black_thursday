@@ -1,7 +1,9 @@
 require_relative './test_helper'
 require './lib/sales_analyst'
+require './lib/standard_deviation'
 
 class SalesAnalystTest < Minitest::Test
+  include StandardDeviation
 
   def setup
     @se = SalesEngine.from_csv({
@@ -18,6 +20,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.42, @se.analyst.average_items_per_merchant
   end
 
+  def test_reduce_shop_items
+    assert_equal 1367, @se.analyst.reduce_shop_items.values.flatten.count
+  end
+
   def test_average_items_per_merchant_standard_deviation
     assert_equal 2.84, @se.analyst.average_item_standard_deviation
   end
@@ -31,12 +37,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 29.99, @se.analyst.average_item_price_for_merchant(12334105)
   end
 
+  def test_second_deviation_above_unit_price
+    assert_equal 0.615227e4, @se.analyst.second_deviation_above_unit_price
+  end
+
   def test_average_average_price_per_merchant
     assert_equal 67.40, @se.analyst.average_average_price_per_merchant
   end
 
   def test_golden_items
-    assert_equal 29, @se.analyst.unit_price_array.count
     assert_equal Array, @se.analyst.golden_items.class
     assert_equal Item, @se.analyst.golden_items[1].class
     assert_equal 5, @se.analyst.golden_items.count
