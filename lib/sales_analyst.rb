@@ -82,10 +82,15 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    numerator = @sales_engine.all_merchant_invoices.sum do |merchant_invoice_count|
-      (merchant_invoice_count - mean) ** 2
+    data_set = @sales_engine.all_merchant_invoices
+    standard_deviation(mean, data_set)
+  end
+
+  def standard_deviation (mean, data_set)
+    numerator = data_set.sum do |data_point|
+      (data_point - mean) ** 2
     end
-    (Math.sqrt(numerator / (@sales_engine.all_merchant_invoices.length - 1))).round(2)
+    (Math.sqrt(numerator / (data_set.length - 1))).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -102,6 +107,12 @@ class SalesAnalyst
     @sales_engine.merchants.all.select do |merchant|
       @sales_engine.merchant_invoices(merchant.id).length.to_f < (mean - ( 2 * stan_dev.to_f))
     end
+  end
+
+  def top_days_by_invoice_count
+    mean = average_invoices_per_merchant
+    data_set =
+    @sales_engine.invoices.invoices_per_weekday
   end
 
   def invoice_status(status)
