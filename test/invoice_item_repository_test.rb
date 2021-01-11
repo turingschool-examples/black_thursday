@@ -131,7 +131,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     expected_1 = @invoice_item.find_by_id(22000)
     assert_nil  expected_1
 
-    expected_2 = @invoice_items.find_by_id(21831)
+    expected_2 = @invoice_item.find_by_id(21831)
     refute attributes[:item_id], expected.item_id
     refute attributes[:invoice_id],expected.invoice_id
     refute attributes[:created_at], expected.created_at
@@ -143,17 +143,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_delete_deletes_the_specified_invoice
-
+    @invoice_item.delete(21831)
+    expected = @invoice_item.find_by_id(21831)
+    assert_nil expected
   end
-#
-#   it "#delete deletes the specified invoice" do
-#     engine.invoice_items.delete(21831)
-#     expected = engine.invoice_items.find_by_id(21831)
-#     expect(expected).to eq nil
-#   end
-#
-#   it "#delete on unknown invoice does nothing" do
-#     engine.invoice_items.delete(22000)
-#   end
 
+  def test_delete_on_unknown_invoice_does_nothing
+    @invoice_item.delete(22000)
+  end
 end
