@@ -67,4 +67,17 @@ class TransactionRepoTest < Minitest::Test
     @tr.create(attributes)
     assert_equal 4986, @tr.find_all_by_credit_card_number("4242424242424242")[0].id 
   end
+
+  def test_update
+    attributes = ({credit_card_number: 12, 
+                      credit_card_expiration_date: 14,
+                      created_at: 1,
+                      result: 2,
+                      id: 10000})
+    @tr.update(1, attributes)
+    assert_equal 12, @tr.transactions[1].credit_card_number
+    assert_equal 14, @tr.transactions[1].credit_card_expiration_date
+    refute_equal 1, @tr.transactions[1].created_at
+    assert_nil @tr.transactions[10000]
+  end
 end
