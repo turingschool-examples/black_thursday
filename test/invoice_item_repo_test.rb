@@ -89,7 +89,7 @@ class InvoiceItemRepo < Minitest::Test
     assert_equal 8, ii.invoice_id
   end
 
-  def test_it_deletes_iis_objects
+  def test_it_deletes_ii_objects
     ii = @ii_repo.find_by_id(2352)
     assert_equal 263543976, ii.item_id
     @ii_repo.delete(2352)
