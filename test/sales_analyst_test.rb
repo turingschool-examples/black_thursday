@@ -71,4 +71,8 @@ class SalesAnalystTest < Minitest::Test
     collection_length = 2
     assert_equal 1, @sales_analyst.standard_deviaton_calculation(total, collection_length)
   end
+
+  def test_mean_prices_per_merchant_helper
+    assert_equal 475, @sales_analyst.mean_prices_per_merchant.length 
+  end
 end
