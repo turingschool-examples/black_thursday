@@ -20,10 +20,12 @@ class ItemRepository
 
   def item_objects(items)
     items.each do |item|
+      precision      = item[:unit_price].length
+      value_adjusted = item[:unit_price].to_i * 0.01
       @items << Item.new({:id => item[:id].to_i,
                 :name        => item[:name],
                 :description => item[:description],
-                :unit_price  => BigDecimal.new(item[:unit_price]),
+                :unit_price  => BigDecimal.new(value_adjusted, precision),
                 :created_at  => @cleaner.clean_date(item[:created_at]),
                 :updated_at  => @cleaner.clean_date(item[:updated_at]),
                 :merchant_id => item[:merchant_id].to_i})
