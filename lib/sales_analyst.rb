@@ -74,9 +74,9 @@ class SalesAnalyst
 
   def golden_items
     mean_average_across_all_merchants = average_average_price_per_merchant
-    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + standard_deviaton_calculation(total(mean_prices_per_merchant, mean_average_across_all_merchants), all_elements_minus_one(mean_prices_per_merchant))
+    two_standard_deviations_above_average = (average_average_price_per_merchant * 3) + standard_deviaton_calculation(total(mean_prices_per_merchant, mean_average_across_all_merchants), all_elements_minus_one(mean_prices_per_merchant))
     expensive_items = @parent.items.all.find_all do |item|
-      item.unit_price > two_standard_deviations_plus_average
+      item.unit_price > two_standard_deviations_above_average
     end
     expensive_items
   end
@@ -97,5 +97,23 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     standard_deviaton_calculation(total(invoice_count_per_merchant, average_invoices_per_merchant), all_elements_minus_one(invoice_count_per_merchant))
+  end
+
+  def invoices_by_merchant_id
+    @parent.invoices.all.group_by do |id|
+      id.merchant_id
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    mean_average_across_all_merchants = average_invoices_per_merchant
+    two_standard_deviations_plus_average = (average_invoices_per_merchant_standard_deviation * 2) + mean_average_across_all_merchants
+    top_merchants = []
+    generate_merchant_ids.each do |id|
+      if invoices_by_merchant_id[id].length > two_standard_deviations_plus_average
+        top_merchants << @parent.merchants.find_by_id(id)
+      end
+    end
+    top_merchants
   end
 end
