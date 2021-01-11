@@ -119,10 +119,13 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263567475, @item_repository.find_by_name("Capita Defenders of Awesome 2018").id
 
     @item_repository.update(263567475, updated_attribute_hash)
+    # check desired attributes were updated
     assert_equal 263567475, @item_repository.find_by_name("Bleeps").id
     item = @item_repository.find_by_name("Bleeps")
     assert item.updated_at == 46
     assert_equal "doop doop doop", item.description
+    # check fixed attributes are unchanged
+    assert_equal 263567475, @item_repository.find_by_name("Bleeps").id
   end
 
   def test_it_deletes_items
