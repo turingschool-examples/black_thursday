@@ -12,6 +12,9 @@ class InvoiceRepo
     end
   end
 
+  def find_all_invoices_by_merchant_id(merchant_id)
+    @engine.find_invoices_by_merchant(merchant_id)
+  end
 
 
   def update(id, attributes)
@@ -34,7 +37,7 @@ class InvoiceRepo
                             status: attributes[:status],
                             created_at: Time.now,
                             updated_at: Time.now
-                          }))
+                          }, self))
   end
 
   def find_all_by_status(status)
@@ -66,7 +69,7 @@ class InvoiceRepo
     header_converters: :symbol)
 
     @all = invoices.map do |invoice|
-      Invoice.new(invoice)
+      Invoice.new(invoice, self)
     end
   end
 end

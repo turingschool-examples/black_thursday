@@ -10,6 +10,26 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+  def top_days_by_invoice_count
+    @sales_engine.top_day_of_the_week
+  end
+
+  def bottom_merchants_by_invoice_count
+    @sales_engine.find_bottom_merchants
+  end
+
+  def top_merchants_by_invoice_count
+    @sales_engine.find_top_merchants
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    @sales_engine.find_invoice_standard_deviation
+  end
+
+  def average_invoices_per_merchant
+    @sales_engine.find_invoice_averages
+  end
+
   def average_items_per_merchant
     @sales_engine.find_average
   end
