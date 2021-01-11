@@ -85,7 +85,6 @@ class InvoiceRepository
   end
 
   def invoices_per_day
-    Date::DAYNAMES
     @invoices.reduce(days_hash) do |acc, invoice|
       # require "pry";binding.pry
       acc[invoice.day_of_week] += 1
@@ -102,4 +101,16 @@ class InvoiceRepository
              "Saturday" =>  0,
              "Sunday" =>    0}
   end
+
+  def invoices_per_status
+    status = {pending:  0,
+              shipped:  0,
+              returned: 0}
+    @invoices.reduce(status) do |acc, invoice|
+      acc[invoice.status] += 1
+      acc
+    end
+  end
+
+
 end

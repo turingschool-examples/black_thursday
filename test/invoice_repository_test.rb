@@ -97,6 +97,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_returns_invoices_per_day
+    skip
     days = { "Monday" =>    696,
              "Tuesday" =>   692,
              "Wednesday" => 741,
@@ -106,5 +107,14 @@ class InvoiceRepositoryTest < Minitest::Test
              "Sunday" =>    708}
 
     assert_equal days, @ir.invoices_per_day
+  end
+
+  def test_invoices_per_status
+    # skip
+    status = {pending:  1473,
+              shipped:  2839,
+              returned: 673}
+
+    assert_equal status, @ir.invoices_per_status
   end
 end

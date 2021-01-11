@@ -34,4 +34,8 @@ class SalesEngine
   def invoices_per_day
     invoices.invoices_per_day
   end
+
+  def invoices_per_status
+    invoices.invoices_per_status
+  end
 end

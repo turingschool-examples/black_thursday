@@ -48,4 +48,13 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal days, @sales_engine.invoices_per_day
   end
+
+  def test_invoices_per_status
+    # skip
+    status = {pending:  1473,
+              shipped:  2839,
+              returned: 673}
+
+    assert_equal status, @sales_engine.invoices_per_status
+  end
 end
