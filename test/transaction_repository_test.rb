@@ -34,5 +34,19 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, expected.class
   end
 
+  def find_all_by_invoice_id_returns_all_transactions_matching_the_given_id
+    skip
+    id = 2179
+    expected = @engine.transactions.find_all_by_invoice_id(id)
+
+    assert_equal 2, expected.length
+    assert_equal id, expected.id
+    assert_instance_of Transaction, expected.first.class
+
+    id = 14560
+    expected = engine.transactions.find_all_by_invoice_id(id)
+
+    assert_equal true, expected.empty?
+  end
   
 end
