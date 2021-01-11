@@ -36,6 +36,7 @@ class ItemTest < Minitest::Test
     assert_equal 1, i.id
     assert_equal "Pencil", i.name
     assert_equal "You can use it to write things", i.description
+    assert_equal 10.99, i.unit_price
     assert_instance_of BigDecimal, i.unit_price
     assert_instance_of Time, i.created_at
     assert_instance_of Time, i.updated_at
