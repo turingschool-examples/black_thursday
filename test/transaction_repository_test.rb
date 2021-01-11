@@ -76,4 +76,19 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal result, expected.first.result
   end
 
+  def test_create_creates_a_new_transaction_instance
+    skip
+    attributes = {
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+    @engine.transactions.create(attributes)
+    expected = engine.transactions.find_by_id(4986)
+
+    assert_equal 8, expected.invoice_id 
+  end
 end
