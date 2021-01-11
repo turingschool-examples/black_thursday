@@ -33,12 +33,16 @@ class SalesAnalyst
     items_count_per_merchant.length - 1
   end
 
+  def standard_deviaton_calculation(total, collection_minus_one)
+    standard_deviaton = Math.sqrt(total / collection_minus_one)
+    standard_deviaton.round(2)
+  end
+
   def average_items_per_merchant_standard_deviation
     total = items_count_per_merchant.reduce(0) do |acc, item_number|
       acc += ((item_number - average_items_per_merchant) ** 2)
     end
-    standard_deviaton = Math.sqrt(total / all_items_minus_one)
-    standard_deviaton.round(2)
+    standard_deviaton_calculation(total, all_items_minus_one)
   end
 
   def merchants_with_high_item_count
