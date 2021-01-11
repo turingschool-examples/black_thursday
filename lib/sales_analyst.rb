@@ -137,6 +137,10 @@ class SalesAnalyst
     bottom_merchant_ids
   end
 
+  def average_invoices_per_day
+    total_invoices / 7 
+  end
+
   def top_days_by_invoice_count
 
   end
