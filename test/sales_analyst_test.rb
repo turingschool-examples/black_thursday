@@ -65,4 +65,10 @@ class SalesAnalystTest < Minitest::Test
   def test_all_items_minus_one_helper
     assert_equal 474, @sales_analyst.all_items_minus_one
   end
+
+  def test_standard_deviation_calculation_helper
+    total = 2
+    collection_length = 2
+    assert_equal 1, @sales_analyst.standard_deviaton_calculation(total, collection_length)
+  end
 end
