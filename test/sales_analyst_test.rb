@@ -21,11 +21,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_reduce_shop_items
-    assert_equal 1367, @se.analyst.reduce_shop_items.values.flatten.count
+    assert_equal 29, @se.analyst.reduce_shop_items.values.flatten.count
   end
 
   def test_average_items_per_merchant_standard_deviation
-    assert_equal 2.84, @se.analyst.average_item_standard_deviation
+    assert_equal 2.84, @se.analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count
@@ -38,11 +38,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_second_deviation_above_unit_price
-    assert_equal 0.615227e4, @se.analyst.second_deviation_above_unit_price
+    assert_equal 0.54076e3, @se.analyst.second_deviation_above_unit_price
   end
 
   def test_average_average_price_per_merchant
-    assert_equal 67.40, @se.analyst.average_average_price_per_merchant
+    assert_equal BigDecimal(67.40,3), @se.analyst.average_average_price_per_merchant
   end
 
   def test_golden_items
