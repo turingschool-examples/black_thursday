@@ -12,11 +12,11 @@ class TransactionRepository
     @engine = engine
 
     CSV.foreach(transaction_path, headers: true, header_converters: :symbol) do |row|
-      @all << convert_to_item(row)
+      @all << convert_to_transaction(row)
     end
   end
 
-  def convert_to_item(row)
+  def convert_to_transaction(row)
     row = Transaction.new({
                 id: row[:id],
                 invoice_id: row[:invoice_id],
@@ -89,5 +89,9 @@ class TransactionRepository
   def delete(id)
     remove = find_by_id(id)
     @all.delete(remove)
+  end
+
+  def inspect
+    "<#{self.class} #{@all.size} rows>"
   end
 end
