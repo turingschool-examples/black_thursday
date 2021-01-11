@@ -9,14 +9,6 @@ class SalesAnalyst
     (all_collection_count(@parent.items) / all_collection_count(@parent.merchants).to_f).round(2)
   end
 
-  # def all_items_count
-  #   @parent.items.all.length
-  # end
-  #
-  # def all_merchants_count
-  #   @parent.merchants.all.length
-  # end
-
   def generate_merchant_ids
     @parent.merchants.all.map do |merchant|
       merchant.id
@@ -95,5 +87,15 @@ class SalesAnalyst
 
   def average_invoices_per_merchant
     (all_collection_count(@parent.invoices) / all_collection_count(@parent.merchants).to_f).round(2)
+  end
+
+  def invoice_count_per_merchant
+    generate_merchant_ids.map do |id|
+      @parent.invoices.find_all_by_merchant_id(id).count
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviaton_calculation(total(invoice_count_per_merchant, average_invoices_per_merchant), all_elements_minus_one(invoice_count_per_merchant))
   end
 end
