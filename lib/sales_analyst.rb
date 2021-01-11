@@ -23,15 +23,17 @@ class SalesAnalyst
     end
   end
 
-  def average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
-    items_per_merchant = generate_merchant_ids.map do |id|
+  def items_count_per_merchant
+    generate_merchant_ids.map do |id|
       @parent.items.find_all_by_merchant_id(id).count
     end
-    all_items_minus_one = (items_per_merchant.length) - 1
+  end
+
+  def average_items_per_merchant_standard_deviation
+    all_items_minus_one = items_count_per_merchant.length - 1
     total = 0
-    items_per_merchant.each do |item_number|
-      total += ((item_number - mean) ** 2)
+    items_count_per_merchant.each do |item_number|
+      total += ((item_number - average_items_per_merchant) ** 2)
     end
     standard_deviaton = Math.sqrt(total / all_items_minus_one)
     standard_deviaton.round(2)
