@@ -52,7 +52,7 @@ class CustomerRepository
     id += 1
     id = id.to_i
     attributes[:id] = id
-    customer = customer.new(attributes, self)
+    customer = Customer.new(attributes, self)
     @customers << customer
   end
 

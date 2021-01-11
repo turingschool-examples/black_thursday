@@ -61,7 +61,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_creat_creates_a_new_customer_instance
-    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
