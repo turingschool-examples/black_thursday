@@ -89,4 +89,12 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_average_number_of_invoices_per_merchant
     assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
   end
+
+  def test_it_returns_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_invoice_count_per_merchant_helper
+    assert_equal 475, @sales_analyst.invoice_count_per_merchant.length 
+  end
 end
