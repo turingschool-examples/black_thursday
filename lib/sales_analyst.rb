@@ -76,16 +76,15 @@ class SalesAnalyst
     BigDecimal(all_averages.sum / all_averages.size).truncate(2)
   end
 
-  def numerator_invoices_per_merchant
-    numerator = 0
-    @sales_engine.all_merchant_invoices.each do |merchant_invoice_count|
-      numerator = numerator + merchant_invoice_count
-    end
-    numerator
+  def average_invoices_per_merchant
+    ((@sales_engine.numerator_invoices_per_merchant.to_f) / (@sales_engine.all_merchant_invoices.length)).round(2)
   end
 
-  def average_invoices_per_merchant
-    (numerator_invoices_per_merchant.to_f /
-    (@sales_engine.all_merchant_invoices.length)).round(2)
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    numerator = @sales_engine.all_merchant_invoices.sum do |merchant_invoice_count|
+      (merchant_invoice_count - mean) ** 2
+    end
+    (Math.sqrt(numerator / (@sales_engine.all_merchant_invoices.length - 1))).round(2)
   end
 end

@@ -59,4 +59,12 @@ class SalesEngine
       merchant_invoices(merchant.id).length
     end
   end
+
+  def numerator_invoices_per_merchant
+    numerator = 0
+    all_merchant_invoices.each do |merchant_invoice_count|
+      numerator = numerator + merchant_invoice_count
+    end
+    numerator
+  end
 end

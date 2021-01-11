@@ -55,4 +55,8 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
     assert_equal Float, @sales_analyst.average_invoices_per_merchant.class
   end
+  #
+  def test_invoice_standard_dev_helper_methods
+    assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
 end
