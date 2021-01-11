@@ -69,4 +69,82 @@ class SalesAnalyst
       item.unit_price_to_dollars >= (sales_engine.average_item_price + (item_price_standard_deviation * 2))
     end
   end
+  
+  def total_invoices
+    sales_engine.total_invoices
+  end
+
+  def average_invoices_per_merchant
+    (total_invoices.to_f / total_merchants).round(2)
+  end
+
+  def per_merchant_invoice_count_hash
+    @invoice_hash = sales_engine.per_merchant_invoice_count_hash
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    invoice_hash = per_merchant_invoice_count_hash
+    total = 0
+    invoice_hash.each do |key, value|
+      total += (average - value)**2
+    end
+    Math.sqrt(total/(total_merchants - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchant_ids = []
+    invoice_hash = per_merchant_invoice_count_hash
+    top_merchant_invoices = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    invoice_hash.each do |key, value|
+      if value > top_merchant_invoices
+        top_merchant_ids << key
+      end
+    end
+    top_merchant_ids
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchant_ids = []
+    invoice_hash = per_merchant_invoice_count_hash
+    bottom_merchant_invoices = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    invoice_hash.each do |key, value|
+      if value < bottom_merchant_invoices
+        bottom_merchant_ids << key
+      end
+    end
+    bottom_merchant_ids
+  end
+
+  def average_invoices_per_day
+    total_invoices / 7
+  end
+
+  def average_invoices_per_day_standard_deviation
+    average = average_invoices_per_day
+    per_day_invoice_hash = sales_engine.invoices_per_day
+    total = 0
+    per_day_invoice_hash.each do |key, value|
+      total += (average - value)**2
+    end
+    # require "pry";binding.pry
+    Math.sqrt(total / 6.00).round(2)
+  end
+
+  def top_days_by_invoice_count
+    top_invoice_days = []
+    minimum_for_top = average_invoices_per_day + (average_invoices_per_day_standard_deviation)
+    invoice_hash = sales_engine.invoices_per_day
+    invoice_hash.each do |key, value|
+      if value > minimum_for_top
+        top_invoice_days << key
+      end
+    end
+    top_invoice_days
+  end
+
+  def invoice_status(status)
+    all = sales_engine.invoices_per_status[status]
+    ((all / total_invoices.to_f) * 100).round(2)
+  end
 end

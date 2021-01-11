@@ -9,6 +9,7 @@ class SalesEngine
   def initialize(locations)
     @merchants = MerchantRepository.new(locations[:merchants], self)
     @items = ItemRepository.new(locations[:items], self)
+    @invoices = InvoiceRepository.new(locations[:invoices], self)
     @analyst = SalesAnalyst.new(self)
   end
   def self.from_csv(locations)
@@ -40,5 +41,21 @@ class SalesEngine
   end
   def find_all_by_merchant_id(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def total_invoices
+    invoices.all.length
+  end
+
+  def per_merchant_invoice_count_hash
+    invoices.per_merchant_invoice_count
+  end
+
+  def invoices_per_day
+    invoices.invoices_per_day
+  end
+
+  def invoices_per_status
+    invoices.invoices_per_status
   end
 end

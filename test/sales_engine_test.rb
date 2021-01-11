@@ -5,11 +5,15 @@ require './lib/sales_analyst'
 require 'csv'
 class SalesEngineTest < Minitest::Test
   def setup
-    merchant_path = './data/merchants.csv'
-    item_path = './data/items.csv'
-    locations = { items: item_path,
-                  merchants: merchant_path }
-    @se = SalesEngine.from_csv(locations)
+    @merchant_path = './data/merchants.csv'
+    @item_path = './data/items.csv'
+    @invoice_path = './data/invoices.csv'
+    @locations = { items: @item_path,
+                  merchants: @merchant_path,
+                  invoices: @invoice_path
+                }
+
+    @se = SalesEngine.from_csv(@locations)
   end
   def test_it_exists_and_has_attributes
     assert_instance_of SalesEngine, @se
@@ -47,4 +51,34 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Array, @se.find_all_by_merchant_id(12_334_141)
     assert_equal 263395237, @se.find_all_by_merchant_id(12_334_141)[0].id
   end
+  def test_returns_total_invoices
+    skip
+    assert_equal 4985, @se.total_invoices
+  end
+
+  def test_returns_per_merchant_invoice_count_hash
+    skip
+    assert_equal 475, @se.per_merchant_invoice_count_hash.length
+  end
+
+  def test_returns_invoices_per_day
+    days = { "Monday" =>    696,
+             "Tuesday" =>   692,
+             "Wednesday" => 741,
+             "Thursday" =>  718,
+             "Friday" =>    701,
+             "Saturday" =>  729,
+             "Sunday" =>    708}
+
+    assert_equal days, @se.invoices_per_day
+  end
+
+  def test_invoices_per_status
+    # skip
+    status = {pending:  1473,
+              shipped:  2839,
+              returned: 673}
+
+    assert_equal status, @se.invoices_per_status
+  end  
 end
