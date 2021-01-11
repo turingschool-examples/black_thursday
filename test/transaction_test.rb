@@ -21,7 +21,6 @@ class TransactionTest < Minitest::Test
                 }
     @engine = SalesEngine.from_csv(arguments)
     @transaction = @engine.transactions.find_by_id(1)
-    #let(:transaction) { engine.transactions.find_by_id(1) }
   end
 
   def test_id_returns_the_transaction_id

@@ -142,4 +142,11 @@ class TransactionRepositoryTest < Minitest::Test
     refute attributes[:invoice_id], expected.invoice_id
     refute attributes[:created_at], expected.created_at
   end
+
+  def test_delete_deletes_the_specified_transaction
+    skip
+    @engine.transactions.delete(4986)
+    expected = @engine.transactions.find_by_id(4986)
+
+    assert_nil expected
 end
