@@ -6,16 +6,16 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (all_items_count / all_merchants_count.to_f).round(2)
+    (all_collection_count(@parent.items) / all_collection_count(@parent.merchants).to_f).round(2)
   end
 
-  def all_items_count
-    @parent.items.all.length
-  end
-
-  def all_merchants_count
-    @parent.merchants.all.length
-  end
+  # def all_items_count
+  #   @parent.items.all.length
+  # end
+  #
+  # def all_merchants_count
+  #   @parent.merchants.all.length
+  # end
 
   def generate_merchant_ids
     @parent.merchants.all.map do |merchant|
@@ -71,7 +71,7 @@ class SalesAnalyst
     all_merchants_price_averages = generate_merchant_ids.sum do |id|
       average_item_price_for_merchant(id)
     end
-    all_merchants_average = (all_merchants_price_averages / all_merchants_count).round(2)
+    all_merchants_average = (all_merchants_price_averages / all_collection_count(@parent.merchants)).round(2)
   end
 
   def mean_prices_per_merchant
@@ -87,5 +87,13 @@ class SalesAnalyst
       item.unit_price > two_standard_deviations_plus_average
     end
     expensive_items
+  end
+
+  def all_collection_count(collection)
+    collection.all.length
+  end
+
+  def average_invoices_per_merchant
+    (all_collection_count(@parent.invoices) / all_collection_count(@parent.merchants).to_f).round(2)
   end
 end
