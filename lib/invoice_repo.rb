@@ -58,6 +58,13 @@ class InvoiceRepository
     end
   end
 
+  def pending_status_by_merchant_id
+    pending_status_by_merchant_id = {}
+    find_all_by_status(:pending).each do |pending_invoice|
+      pending_status_by_merchant_id[pending_invoice.merchant_id] << pending_invoice
+    end 
+  end
+
   def create(attributes)
     new = Invoice.new(attributes, self)
     new.id = (max_id + 1)
