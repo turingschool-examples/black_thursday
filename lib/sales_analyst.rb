@@ -27,7 +27,7 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation(merchant_items)
     mean = average_items_per_merchant
     variance = merchant_items.inject(0) do |variance, item_count|
-      variance += (item_count - mean) ** 2 
+      variance += (item_count - mean) ** 2
     end
     Math.sqrt(variance / (merchant_items.size - 1)).round(2)
     (all_merchant_item_count.values.sum.to_f / all_merchant_item_count.size).round(2)
@@ -74,5 +74,9 @@ class SalesAnalyst
       all_averages << average_item_price_for_merchant(merchant.id)
     end
     BigDecimal(all_averages.sum / all_averages.size).truncate(2)
+  end
+
+  def average_invoices_per_merchant
+    @sales_engine.invoices.all.find_all_by_merchant_id(merchant_id)
   end
 end
