@@ -18,6 +18,7 @@ class MerchantTest < MiniTest::Test
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
     assert_equal "repo", merchant.repo
+    assert_equal [], merchant.items
   end
 
   def test_you_can_update_merchant
