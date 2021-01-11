@@ -27,10 +27,11 @@ class SalesEngine
     end
 
     this_is_the_most_popular_day =  created_at_array.max_by{|day|created_at_array.count(day)}
-    # require "pry"; binding.pry
-        # popular_days << this_is_the_most_popular_day
+
+        popular_days << this_is_the_most_popular_day
         # created_at_array.delete(this_is_the_most_popular_day)
 
+  require "pry"; binding.pry
   end
 
   def find_bottom_merchants
