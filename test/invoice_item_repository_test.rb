@@ -81,17 +81,33 @@ class InvoiceItemRepositoryTest < Minitest::Test
         :created_at => Time.now,
         :updated_at => Time.now
       }
+
       @engine.invoice_items.create(attributes)
       expected = @invoice_item.find_by_id(21831)
       assert_equal 7, expected.item_id
   end
 
-#
-#   it "#update updates an invoice item" do
-#     original_time = engine.invoice_items.find_by_id(21831).updated_at
-#     attributes = {
-#       quantity: 13
-#     }
+  def test_update_updates_an_invoice_item
+    attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal.new(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+
+      @engine.invoice_items.create(attributes)
+      original_time = engine.invoice_items.find_by_id(21831).updated_at
+      attributes = {quantity: 13}
+      @invoice_item.update(21831, attributes)
+      expected = @invoice_item.find_by_id(21831)
+      assert_equal 13,  expected.quantity
+      assert_equal 7,   expected.item_id
+      assert_operator original time ,:<, expected.updated_at
+  end
+
+
 #     engine.invoice_items.update(21831, attributes)
 #     expected = engine.invoice_items.find_by_id(21831)
 #     expect(expected.quantity).to eq 13
