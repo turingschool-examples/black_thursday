@@ -19,7 +19,6 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_finds_average_items_per_merchant
-    skip
     assert_equal 2.88, @sales_analyst.average_items_per_merchant
     assert_instance_of Float, @sales_analyst.average_items_per_merchant
   end
@@ -29,7 +28,6 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_can_find_standard_deviation
-    skip
     merchant_items = @sales_analyst.all_merchant_item_count.values
     assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
     assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation
