@@ -162,5 +162,12 @@ class SalesAnalyst
       @sales_engine.merchant_items(merchant.id).length == 1
     end
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_name_to_num = Date::MONTHNAMES.index(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == month_name_to_num
+    end
+  end
 end
 
