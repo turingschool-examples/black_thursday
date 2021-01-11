@@ -56,6 +56,11 @@ class InvoiceRepositoryTest < MiniTest::Test
 
     assert_equal 1473, test.length
 
+    status = :returned
+    test = @invoice_repo.find_all_by_status(status)
+
+    assert_equal 673, test.length
+
     status = :sold
     test = @invoice_repo.find_all_by_status(status)
 
@@ -116,7 +121,7 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_pending_status_by_merchant_id
-    assert_equal 2, @invoice_repo.pending_status_by_merchant_id.first.count
-    assert_equal 12335938, @invoice_repo.pending_status_by_merchant_id.keys.first
+    assert_equal 448, @invoice_repo.status_by_merchant_id(:pending).count
+    assert_equal 12335853, @invoice_repo.status_by_merchant_id(:pending).last
   end
 end

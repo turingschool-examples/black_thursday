@@ -58,19 +58,16 @@ class InvoiceRepository
     end
   end
 
-  def pending_status_by_merchant_id
-    pending_status_by_merchant_id = {}
-    find_all_by_status(:pending).each do |invoice|
-      # require 'pry'; binding.pry
-      (pending_status_by_merchant_id[invoice.merchant_id] ||= []) << invoice
+  def status_by_merchant_id(status)
+    find_all_by_status(:pending).map do |invoice|
+      invoice.merchant_id
     end
-    pending_status_by_merchant_id
   end
 
   def create(attributes)
     new = Invoice.new(attributes, self)
-    new.id = (max_id + 1)
-    @invoices[new.id] = new
+    new_id = (max_id + 1)
+    @invoices[new_id] = new
   end
 
   def update(id, attributes)
