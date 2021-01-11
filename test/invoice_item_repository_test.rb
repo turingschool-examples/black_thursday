@@ -88,6 +88,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_update_updates_an_invoice_item
+    skip
     attributes = {
         :item_id => 7,
         :invoice_id => 8,
@@ -107,33 +108,43 @@ class InvoiceItemRepositoryTest < Minitest::Test
       assert_operator original time ,:<, expected.updated_at
   end
 
+  def test_update_cannot_update_id_item_id_invoice_id_or_created_at
+    skip
+    attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal.new(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+        }
+    @engine.invoice_items.create(attributes)
 
-#     engine.invoice_items.update(21831, attributes)
-#     expected = engine.invoice_items.find_by_id(21831)
-#     expect(expected.quantity).to eq 13
-#     expect(expected.item_id).to eq 7
-#     expect(expected.updated_at).to be > original_time
-#   end
-#
-#   it "#update cannot update id, item_id, invoice_id, or created_at" do
-#     attributes = {
-#       id: 22000,
-#       item_id: 32,
-#       invoice_id: 53,
-#       created_at: Time.now
-#     }
-#     engine.invoice_items.update(21831, attributes)
-#     expected = engine.invoice_items.find_by_id(22000)
-#     expect(expected).to eq nil
-#     expected = engine.invoice_items.find_by_id(21831)
-#     expect(expected.item_id).not_to eq attributes[:item_id]
-#     expect(expected.invoice_id).not_to eq attributes[:invoice_id]
-#     expect(expected.created_at).not_to eq attributes[:created_at]
-#   end
-#
-#   it "#update on unknown invoice item does nothing" do
-#     engine.invoice_items.update(22000, {})
-#   end
+    attributes_1 = {
+         id: 22000,
+         item_id: 32,
+         invoice_id: 53,
+         created_at: Time.now
+          }
+    @engine.invoice_items.update(21831, attributes)
+
+    expected_1 = @invoice_item.find_by_id(22000)
+    assert_nil  expected_1
+
+    expected_2 = @invoice_items.find_by_id(21831)
+    refute attributes[:item_id], expected.item_id
+    refute attributes[:invoice_id],expected.invoice_id
+    refute attributes[:created_at], expected.created_at
+  end
+
+  def test_update_on_unkown_invoice_item_does_nothing
+    skip
+    @invoice_item.update(22000, {})
+  end
+
+  def test_delete_deletes_the_specified_invoice
+
+  end
 #
 #   it "#delete deletes the specified invoice" do
 #     engine.invoice_items.delete(21831)
