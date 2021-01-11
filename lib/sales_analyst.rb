@@ -29,10 +29,6 @@ class SalesAnalyst
     end
   end
 
-  # def all_items_minus_one
-  #   items_count_per_merchant.length - 1
-  # end
-
   def all_elements_minus_one(collection)
     collection.length - 1
   end
@@ -42,11 +38,14 @@ class SalesAnalyst
     standard_deviaton.round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    total = items_count_per_merchant.reduce(0) do |acc, item_number|
-      acc += ((item_number - average_items_per_merchant) ** 2)
+  def total(set_collection, average_collection)
+    set_collection.reduce(0) do |total, element|
+      total += ((element - average_collection) ** 2)
     end
-    standard_deviaton_calculation(total, all_elements_minus_one(items_count_per_merchant))
+  end
+
+  def average_items_per_merchant_standard_deviation
+    standard_deviaton_calculation(total(items_count_per_merchant, average_items_per_merchant), all_elements_minus_one(items_count_per_merchant))
   end
 
   def merchants_with_high_item_count
@@ -83,10 +82,7 @@ class SalesAnalyst
 
   def golden_items
     mean_average_across_all_merchants = average_average_price_per_merchant
-    total = mean_prices_per_merchant.reduce(0) do |total, price|
-      total += ((price - mean_average_across_all_merchants) ** 2)
-    end
-    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + standard_deviaton_calculation(total, all_elements_minus_one(mean_prices_per_merchant))
+    two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + standard_deviaton_calculation(total(mean_prices_per_merchant, mean_average_across_all_merchants), all_elements_minus_one(mean_prices_per_merchant))
     expensive_items = @parent.items.all.find_all do |item|
       item.unit_price > two_standard_deviations_plus_average
     end
