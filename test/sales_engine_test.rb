@@ -42,6 +42,6 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_build_merchant_invoice_count_array
     assert_equal 475, @sales_engine.all_merchant_invoices.length
     assert_equal 4985, @sales_engine.all_merchant_invoices.sum
-    assert_equal 1, @sales_engine.merchants_with_no_invoices
+    assert_equal Array, @sales_engine.all_merchant_invoices.class
   end
 end

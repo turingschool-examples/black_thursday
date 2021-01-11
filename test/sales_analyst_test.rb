@@ -19,6 +19,7 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_finds_average_items_per_merchant
+    skip
     assert_equal 2.88, @sales_analyst.average_items_per_merchant
     assert_instance_of Float, @sales_analyst.average_items_per_merchant
   end
@@ -28,6 +29,7 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_can_find_standard_deviation
+    skip
     merchant_items = @sales_analyst.all_merchant_item_count.values
     assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
     assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation
@@ -47,5 +49,10 @@ class TestSalesAnalyst < MiniTest::Test
   def test_it_can_find_average_average_item_price_for_merchant
     assert_equal 350.29, @sales_analyst.average_average_price_per_merchant
     assert_equal BigDecimal, @sales_analyst.average_average_price_per_merchant.class
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
+    assert_equal Float, @sales_analyst.average_invoices_per_merchant.class
   end
 end
