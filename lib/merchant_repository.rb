@@ -16,6 +16,10 @@ class MerchantRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
   def convert_to_merchant(row)
     row = Merchant.new({id: row[:id],
                         name: row[:name],
@@ -52,7 +56,7 @@ class MerchantRepository
   def update(id, attributes)
     if find_by_id(id) != nil
       update_merchant = all.find { |merchant| merchant.id == id }
-      update_merchant.name = attributes
+      update_merchant.name = attributes[:name]
       update_merchant.updated_at = Time.now
     end
   end

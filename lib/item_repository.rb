@@ -45,6 +45,10 @@ class ItemRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
   def find_all_by_price(price)
     @all.find_all do |item|
       item.unit_price == price
@@ -73,7 +77,7 @@ class ItemRepository
       update_item = all.find { |item| item.id == id }
       update_item.name = attributes[:name] if attributes[:name] != nil
       update_item.description = attributes[:description] if attributes[:description] != nil
-      update_item.unit_price = BigDecimal.new(attributes[:unit_price].to_i)/100 if attributes[:unit_price] != nil
+      update_item.unit_price = BigDecimal(attributes[:unit_price]) if attributes[:unit_price] != nil
       update_item.updated_at = Time.now
     end
   end
