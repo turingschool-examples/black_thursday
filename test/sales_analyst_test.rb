@@ -92,4 +92,8 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 5, @sales_analyst.golden_items.length
     assert_equal Item, @sales_analyst.golden_items.first.class
   end
+
+  def test_merchants_with_pending_invoices
+    assert_equal 467, @sales_analyst.merchants_with_pending_invoices
+  end 
 end
