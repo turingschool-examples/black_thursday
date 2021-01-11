@@ -50,4 +50,21 @@ class TransactionRepoTest < Minitest::Test
     assert_equal 827, @tr.find_all_by_result(:failed).length
     assert_equal 0, @tr.find_all_by_result(:failure).length
   end
+
+  def test_max_id
+    assert_equal 4985, @tr.max_id
+  end
+
+  def test_create
+    attributes = {
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => 10,
+        :updated_at => 10
+      }
+    @tr.create(attributes)
+    assert_equal 4986, @tr.find_all_by_credit_card_number("4242424242424242")[0].id 
+  end
 end

@@ -48,4 +48,14 @@ class TransactionRepository
       result == transaction.result
     end
   end
+
+  def max_id
+    transactions.keys.max
+  end
+
+  def create(attributes)
+    new = Transaction.new(attributes)
+    new.id = (max_id + 1)
+    transactions[new.id] = new
+  end
 end
