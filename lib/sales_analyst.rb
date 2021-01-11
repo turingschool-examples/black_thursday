@@ -72,18 +72,22 @@ class SalesAnalyst
     all_merchants_average.round(2)
   end
 
-  def golden_items
+  def mean_prices_per_merchant
     mean_prices_per_merchant = generate_merchant_ids.map do |id|
       average_item_price_for_merchant(id)
     end
+  end
+
+  def golden_items
+    # mean_prices_per_merchant = generate_merchant_ids.map do |id|
+    #   average_item_price_for_merchant(id)
+    # end
     mean_average_across_all_merchants = average_average_price_per_merchant
     all_means_minus_one = (mean_prices_per_merchant.length) - 1
-    total = 0
-    mean_prices_per_merchant.each do |price|
+    total = mean_prices_per_merchant.reduce(0) do |total, price|
       total += ((price - mean_average_across_all_merchants) ** 2)
     end
-    square_total_and_divide = Math.sqrt(total / all_means_minus_one)
-    format_price_deviation = square_total_and_divide.round(2)
+    format_price_deviation = standard_deviaton_calculation(total, all_means_minus_one)
     two_standard_deviations_plus_average = (average_average_price_per_merchant * 3) + format_price_deviation
     expensive_items = @parent.items.all.find_all do |item|
       item.unit_price > two_standard_deviations_plus_average
