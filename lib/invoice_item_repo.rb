@@ -13,6 +13,10 @@ class InvoiceItemRepository
     ii_objects(@ii_csv)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def ii_objects(ii_rows)
     ii_rows.each do |row|
       precision      = row[:unit_price].length
