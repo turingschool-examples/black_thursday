@@ -1,4 +1,5 @@
 require_relative './time_store_module'
+require 'time'
 require 'bigdecimal'
 
 class Customer
@@ -14,8 +15,8 @@ class Customer
     @id = data[:id]
     @first_name = data[:first_name]
     @last_name = data[:last_name]
-    @created_at = data[:created_at].strftime("%d/%m/%Y")
-    @updated_at = data[:updated_at].strftime("%d/%m/%Y")
+    @created_at = time_store(data[:created_at]).strftime("%d/%m/%Y")
+    @updated_at = time_store(data[:updated_at]).strftime("%d/%m/%Y")
     @repository = repository
   end
 
