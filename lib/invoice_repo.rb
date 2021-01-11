@@ -81,4 +81,13 @@ class InvoiceRepository
   def delete(id)
     @invoices.delete(id)
   end
+
+  def invoices_per_weekday
+    invoices_per_weekday = {}
+    all.each do |invoice|
+      invoices_per_weekday[invoice.created_day] ||= []
+      invoices_per_weekday[invoice.created_day] << invoice
+    end
+    invoices_per_weekday
+  end
 end

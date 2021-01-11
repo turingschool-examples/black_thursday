@@ -49,4 +49,36 @@ class SalesEngine
   def merchant_items(merchant_id)
     @items.find_by_merchant_id(merchant_id)
   end
+
+  def merchant_invoices(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def all_merchant_invoices
+    @merchants.all.map do |merchant|
+      merchant_invoices(merchant.id).length
+    end
+  end
+
+  def numerator_invoices_per_merchant
+    numerator = 0
+    all_merchant_invoices.each do |merchant_invoice_count|
+      numerator = numerator + merchant_invoice_count
+    end
+    numerator
+  end
+
+  def invoice_status_count(status)
+    @invoices.all.count do |invoice|
+      invoice.status == status
+    end
+  end
+
+  def invoices_per_day_count
+    invoice_count = {}
+    @invoices.invoices_per_weekday.map do |weekday, invoices|
+      invoice_count[weekday] = invoices.count
+    end
+    invoice_count
+  end
 end

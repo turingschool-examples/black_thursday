@@ -19,6 +19,7 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_finds_average_items_per_merchant
+    skip
     assert_equal 2.88, @sales_analyst.average_items_per_merchant
     assert_instance_of Float, @sales_analyst.average_items_per_merchant
   end
@@ -28,6 +29,7 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_it_can_find_standard_deviation
+    skip
     merchant_items = @sales_analyst.all_merchant_item_count.values
     assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
     assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation
@@ -47,6 +49,45 @@ class TestSalesAnalyst < MiniTest::Test
   def test_it_can_find_average_average_item_price_for_merchant
     assert_equal 350.29, @sales_analyst.average_average_price_per_merchant
     assert_equal BigDecimal, @sales_analyst.average_average_price_per_merchant.class
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
+    assert_equal Float, @sales_analyst.average_invoices_per_merchant.class
+  end
+  #
+  def test_invoice_standard_dev
+    assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
+    assert_equal Merchant, @sales_analyst.top_merchants_by_invoice_count.first.class
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
+    assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count.first.class
+  end
+
+  def test_average_invoices_per_day
+    assert_equal 712.14, @sales_analyst.average_invoices_per_day
+  end
+
+  def test_standard_dev_invoices_per_day
+    assert_equal 18.07, @sales_analyst.average_invoices_per_day_standard_deviation
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
+    assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count.first
+    assert_equal String, @sales_analyst.top_days_by_invoice_count.first.class
+  end
+
+  def test_percetage_status
+    assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
+    assert_equal 29.55, @sales_analyst.invoice_status(:pending)
+    assert_equal 13.5, @sales_analyst.invoice_status(:returned)
   end
 
   def test_it_finds_those_golden_items
