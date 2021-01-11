@@ -149,10 +149,18 @@ class SalesAnalyst
       total += (average - value)**2
     end
     # require "pry";binding.pry
-    Math.sqrt(total/(total_invoices - 1).to_f).round(2)
+    Math.sqrt(total / 6.00).round(2)
   end
 
   def top_days_by_invoice_count
-
+    top_invoice_days = []
+    minimum_for_top = average_invoices_per_day + (average_invoices_per_day_standard_deviation)
+    invoice_hash = sales_engine.invoices_per_day
+    invoice_hash.each do |key, value|
+      if value > minimum_for_top
+        top_invoice_days << key
+      end
+    end
+    top_invoice_days
   end
 end

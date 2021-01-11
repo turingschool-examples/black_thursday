@@ -109,11 +109,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
   end
 
-  def test_top_days_by_invoice_count
-    skip
-    assert_equal ["Sunday", "Saturday"], @sales_analyst.top_days_by_invoice_count
-  end
-
   def test_average_invoices_per_day
     skip
     assert_equal 712, @sales_analyst.average_invoices_per_day
@@ -121,6 +116,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_invoices_per_day_standard_deviation
     # skip
-    assert_equal 0.63, @sales_analyst.average_invoices_per_day_standard_deviation
+    assert_equal 18.07, @sales_analyst.average_invoices_per_day_standard_deviation
+  end
+
+  def test_top_days_by_invoice_count
+    # skip
+    assert_equal ["Wednesday"], @sales_analyst.top_days_by_invoice_count
   end
 end
