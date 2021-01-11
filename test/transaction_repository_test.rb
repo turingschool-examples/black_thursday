@@ -58,6 +58,22 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, expected.first.class
     assert_equal credit_card_number, expected.first.credit_card_number
   end
-  
+
+  def test_find_all_by_result_returns_all_transactions_matching_given_result
+    skip
+    result = :success
+    expected = @engine.transactions.find_all_by_result(result)
+
+    assert_equal 4158, expected.length
+    assert_instance_of Transaction, expected.first.class
+    assert_equal result, expected.first.result
+
+    result = :failed
+    expected = @engine.transactions.find_all_by_result(result)
+
+    assert_equal 827, expected.length
+    assert_instance_of Transaction, expected.first.class
+    assert_equal result, expected.first.result
+  end
 
 end
