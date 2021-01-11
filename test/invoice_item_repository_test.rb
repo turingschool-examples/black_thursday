@@ -57,41 +57,35 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_finds_all_items_matching_given_item_id
+    skip
     invoice_id = 100
     expected = @invoice_item.find_all_by_invoice_id(invoice_id)
     assert_equal 3, expected.length
     assert_equal InvoiceItem, expected.first.class
   end
-#
-#   it "#find_all_by_invoice_id finds all items matching given item_id" do
-#     invoice_id = 100
-#     expected = engine.invoice_items.find_all_by_invoice_id(invoice_id)
-#
-#     expect(expected.length).to eq 3
-#     expect(expected.first.class).to eq InvoiceItem
-#   end
-#
-#   it "#find_all_by_invoice_id returns an empty array if there are no matches" do
-#     invoice_id = 1234567890
-#     expected = engine.invoice_items.find_all_by_invoice_id(invoice_id)
-#
-#     expect(expected.length).to eq 0
-#     expect(expected.empty?).to eq true
-#   end
-#
-#   it "#create creates a new invoice item instance" do
-#     attributes = {
-#       :item_id => 7,
-#       :invoice_id => 8,
-#       :quantity => 1,
-#       :unit_price => BigDecimal.new(10.99, 4),
-#       :created_at => Time.now,
-#       :updated_at => Time.now
-#     }
-#     engine.invoice_items.create(attributes)
-#     expected = engine.invoice_items.find_by_id(21831)
-#     expect(expected.item_id).to eq 7
-#   end
+
+  def test_find_all_by_invoice_id_returns_an_empty_array_if_there_are_no_matches
+    skip
+    invoice_id = 1234567890
+    expected = @invoice_item.find_all_by_invoice_id(invoice_id)
+    assert_equal 0, expected.length
+    assert_equal true, expected.empty?
+  end
+
+  def test_create_creates_a_new_invoice_item_instance
+    attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal.new(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @engine.invoice_items.create(attributes)
+      expected = @invoice_item.find_by_id(21831)
+      assert_equal 7, expected.item_id
+  end
+
 #
 #   it "#update updates an invoice item" do
 #     original_time = engine.invoice_items.find_by_id(21831).updated_at
