@@ -59,6 +59,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_items_count_per_merchant_helper
-    assert_equal 475, @sales_analyst.items_count_per_merchant.length 
+    assert_equal 475, @sales_analyst.items_count_per_merchant.length
+  end
+
+  def test_all_items_minus_one_helper
+    assert_equal 474, @sales_analyst.all_items_minus_one
   end
 end
