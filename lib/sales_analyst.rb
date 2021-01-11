@@ -2,6 +2,7 @@ require_relative './sales_engine'
 require_relative './item_repo'
 require_relative './invoice_repo'
 require_relative './merchant_repo'
+require_relative './transaction_repo'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -160,6 +161,20 @@ class SalesAnalyst
   def merchants_with_only_one_item
     @sales_engine.merchants.all.find_all do |merchant|
       @sales_engine.merchant_items(merchant.id).length == 1
+    end
+  end
+
+  def invoice_paid_in_full?(inv_id)
+    transacts = @sales_engine.transactions.find_all_by_invoice_id(inv_id)
+    failed = transacts.map do |transact|
+      false if transact.result == :failed
+     end
+    if transacts.length == 0
+      false
+    elsif failed.include?(false) == true
+      false
+    else
+      true
     end
   end
 end

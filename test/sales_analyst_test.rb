@@ -9,8 +9,8 @@ class TestSalesAnalyst < MiniTest::Test
     @sales_engine = SalesEngine.from_csv({
       items:      "./data/items.csv",
       merchants:  "./data/merchants.csv",
-      invoices:   "./data/invoices.csv"
-      })
+      invoices:   "./data/invoices.csv",
+      transactions: "./data/transactions.csv"})
     @sales_analyst = SalesAnalyst.new(@sales_engine)
   end
 
@@ -96,5 +96,12 @@ class TestSalesAnalyst < MiniTest::Test
   def test_it_finds_merchants_with_only_one_item
     assert_equal 243, @sales_analyst.merchants_with_only_one_item.length
     assert_equal Merchant, @sales_analyst.merchants_with_only_one_item.first.class
+  end
+
+  def test_invoice_paid_in_full?
+    assert_equal true, @sales_analyst.invoice_paid_in_full?(1)
+    assert_equal true, @sales_analyst.invoice_paid_in_full?(200)
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(203)
+    assert_equal false, @sales_analyst.invoice_paid_in_full?(204)
   end
 end
