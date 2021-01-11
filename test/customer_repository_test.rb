@@ -14,11 +14,14 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of CustomerRepository, @repository
   end
 
-  # def test_it_has_attributes
-  #   assert_equal "filler", @repository.filler
-  # end
-  #
-  # def test_it_can_have_different_attributes
-  # end
+  def test_it_has_attributes
+    assert_equal 1000, @repository.all.length
+    assert_equal "1", @repository.all[0].id
+    assert_equal "Joey", @repository.all[0].first_name
+    assert_equal "Ondricka", @repository.all[0].last_name
+    assert_equal "27/03/2012", @repository.all[0].updated_at
+    assert_equal "27/03/2012", @repository.all[0].created_at
+  end
+
 
 end
