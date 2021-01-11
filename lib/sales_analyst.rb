@@ -15,7 +15,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (all_merchant_item_count.sum.to_f / all_merchant_item_count.size).round(2)
+    (all_merchant_item_count.values.sum.to_f / all_merchant_item_count.values.size).round(2)
   end
 
   def all_merchant_item_count
