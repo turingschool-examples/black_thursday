@@ -37,19 +37,19 @@ class TransactionRepository
 
   def find_all_by_invoice_id(invoice_id)
     @transactions.find_all do |transaction|
-     transaction.first_name.downcase.include?(invoice_id.downcase)
+     transaction.invoice_id == invoice_id
     end
   end
 
   def find_all_by_credit_card_number(credit_card_number)
     @transactions.find_all do |transaction|
-     transaction.last_name.downcase.include?(credit_card_number.downcase)
+     transaction.credit_card_number.downcase.include?(credit_card_number.downcase)
    end
   end
 
   def find_all_by_result(result)
     @transactions.find_all do |transaction|
-     transaction.last_name.downcase.include?(result.downcase)
+     transaction.result == result
     end
   end
 
@@ -67,7 +67,7 @@ class TransactionRepository
     update_transaction.update(attributes) if !attributes[:credit_card_number].nil?
     update_transaction.update(attributes) if !attributes[:credit_card_expiration_date].nil?
     update_transaction.update(attributes) if !attributes[:result].nil?
-    update_tran
+    update_transaction
   end
 
   def delete(id)

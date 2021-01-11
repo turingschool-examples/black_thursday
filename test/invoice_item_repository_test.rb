@@ -8,11 +8,15 @@ class InvoiceItemRepositoryTest < Minitest::Test
     merchant_path      = "./data/merchants.csv"
     invoice_path       = "./data/invoices.csv"
     invoice_item_path  = "./data/invoice_items.csv"
+    customer_path      = "./data/customers.csv"
+    transaction_path   = "./data/transactions.csv"
     arguments = {
                   :items     => item_path,
                   :merchants => merchant_path,
                   :invoices  => invoice_path,
-                  :invoice_items => invoice_item_path
+                  :invoice_items => invoice_item_path,
+                  :customers     => customer_path,
+                  :transactions => transaction_path
                 }
     @engine = SalesEngine.from_csv(arguments)
     @invoice_item = @engine.invoice_items

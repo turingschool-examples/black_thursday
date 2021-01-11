@@ -23,7 +23,7 @@ class Transaction
   def update(args)
     @credit_card_number = (args[:credit_card_number].to_s) if !args[:credit_card_number].nil?
     @credit_card_expiration_date = (args[:credit_card_expiration_date].to_s) if !args[:credit_card_expiration_date].nil?
-    @result = (args[:result].to_s) if !args[:result].nil?
+    @result = (args[:result].to_sym) if !args[:result].nil?
     @updated_at  = Time.now
   end
 end

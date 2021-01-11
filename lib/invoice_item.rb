@@ -25,8 +25,8 @@ class InvoiceItem
   end
 
   def update(args)
-    @quantity  = (args[quantity].to_i) if !args[:quantity].nil?
-    @unit_price = (args[unit_price].to_f) if !args[:unit_price].nil?
+    @quantity  = (args[:quantity].to_i) if !args[:quantity].nil?
+    @unit_price = (args[:unit_price].to_f) if !args[:unit_price].nil?
     @updated_at  = Time.now
   end
 end
