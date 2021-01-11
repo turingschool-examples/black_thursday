@@ -138,7 +138,18 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    total_invoices / 7 
+    total_invoices / 7
+  end
+
+  def average_invoices_per_day_standard_deviation
+    average = average_invoices_per_day
+    per_day_invoice_hash = sales_engine.invoices_per_day
+    total = 0
+    per_day_invoice_hash.each do |key, value|
+      total += (average - value)**2
+    end
+    # require "pry";binding.pry
+    Math.sqrt(total/(total_invoices - 1).to_f).round(2)
   end
 
   def top_days_by_invoice_count

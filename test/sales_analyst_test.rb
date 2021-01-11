@@ -115,6 +115,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_day
+    skip
     assert_equal 712, @sales_analyst.average_invoices_per_day
+  end
+
+  def test_average_invoices_per_day_standard_deviation
+    # skip
+    assert_equal 0.63, @sales_analyst.average_invoices_per_day_standard_deviation
   end
 end
