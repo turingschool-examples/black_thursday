@@ -7,7 +7,6 @@ class Merchant
               :items
 
   def initialize(data, repo)
-    @data = data
     @repo = repo
     @id = data[:id]
     @name = data[:name]
@@ -17,9 +16,11 @@ class Merchant
   end
 
   def update(attributes)
-    @name        = attributes[:name] if attributes[:name]
-    @repo        = attributes[:repo] if attributes[:repo]
-    @updated_at  = Time.now
+    if !attributes.keys.include?(:id)
+      @name        = attributes[:name] if attributes[:name]
+      @repo        = attributes[:repo] if attributes[:repo]
+      @updated_at  = Time.now
+    end 
   end
 
   # def find_items

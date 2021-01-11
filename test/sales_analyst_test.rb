@@ -37,4 +37,15 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 52, @sales_analyst.merchants_with_high_item_count.length
     assert_equal Merchant, @sales_analyst.merchants_with_high_item_count.first.class
   end
+
+  def test_it_can_find_average_item_price_for_merchant
+    merchant_id = 12334105
+    assert_equal 16.66, @sales_analyst.average_item_price_for_merchant(merchant_id)
+    assert_equal BigDecimal, @sales_analyst.average_item_price_for_merchant(merchant_id).class
+  end
+
+  def test_it_can_find_average_average_item_price_for_merchant
+    assert_equal 350.29, @sales_analyst.average_average_price_per_merchant
+    assert_equal BigDecimal, @sales_analyst.average_average_price_per_merchant.class
+  end
 end
