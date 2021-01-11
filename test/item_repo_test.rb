@@ -96,8 +96,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263395721, @item_repository.sort_by_id[2].id
   end
 
-
   def test_update
+
+
     attributes = {
       name: "Capita Defenders of Awesome 2018",
       description: "This board both rips and shreds",
@@ -107,24 +108,24 @@ class ItemRepositoryTest < Minitest::Test
       merchant_id: 25
     }
 
+    Time.stubs(:now).returns(46)
     updated_attribute_hash = {
       :name => "Bleeps",
       :description => "doop doop doop",
       :unit_price => BigDecimal.new(599.99, 5)
     }
 
-    # updated_time = mock()
-    # updated_time.stubs(:updated_at).returns(2021-01-07 18:03:23 -0700)
-    # allow(Time).to receive(:now).and_return(@time_now)
-    # Time.stubs(:now).returns(Time.mktime(1970,1,1))
-
     @item_repository.create(attributes)
     assert_equal 263567475, @item_repository.find_by_name("Capita Defenders of Awesome 2018").id
 
     @item_repository.update(263567475, updated_attribute_hash)
+    # check desired attributes were updated
     assert_equal 263567475, @item_repository.find_by_name("Bleeps").id
-
-    #assert_equal mock_time, @item_repository.find_by_name("Bleeps").updated_at
+    item = @item_repository.find_by_name("Bleeps")
+    assert item.updated_at == 46
+    assert_equal "doop doop doop", item.description
+    # check fixed attributes are unchanged
+    assert_equal 263567475, @item_repository.find_by_name("Bleeps").id
   end
 
   def test_it_deletes_items

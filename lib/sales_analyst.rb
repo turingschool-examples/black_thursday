@@ -164,6 +164,13 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_name_to_num = Date::MONTHNAMES.index(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == month_name_to_num
+    end
+  end
+
   def invoice_paid_in_full?(inv_id)
     transacts = @sales_engine.transactions.find_all_by_invoice_id(inv_id)
     failed = transacts.map do |transact|
