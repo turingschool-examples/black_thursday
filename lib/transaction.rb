@@ -14,7 +14,7 @@ class Transaction
     @invoice_id                  = args[:invoice_id].to_i
     @credit_card_number          = args[:credit_card_number].to_s
     @credit_card_expiration_date = args[:credit_card_expiration_date].to_s
-    @result                      = args[:result].to_s
+    @result                      = args[:result].to_sym
     @created_at                  = Time.parse(args[:created_at].to_s)
     @updated_at                  = Time.parse(args[:updated_at].to_s)
     @parent                      = parent

@@ -25,7 +25,7 @@ class TransactionTest < Minitest::Test
 
   def test_id_returns_the_transaction_id
     assert_equal 1, @transaction.id
-    assert_equal Fixnum, @transaction.id.clas
+    assert_equal Fixnum, @transaction.id.class
   end
 
   def test_invoice_id_returns_the_invoice_id

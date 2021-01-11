@@ -44,6 +44,7 @@ class TransactionRepository
   def find_all_by_credit_card_number(credit_card_number)
     @transactions.find_all do |transaction|
      transaction.last_name.downcase.include?(credit_card_number.downcase)
+   end
   end
 
   def find_all_by_result(result)
