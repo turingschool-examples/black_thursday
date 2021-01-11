@@ -67,4 +67,10 @@ class SalesEngine
     end
     numerator
   end
+
+  def invoice_status_count(status)
+    @invoices.all.count do |invoice|
+      invoice.status == status
+    end
+  end
 end
