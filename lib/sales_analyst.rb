@@ -116,4 +116,16 @@ class SalesAnalyst
     end
     top_merchants
   end
+
+  def bottom_merchants_by_invoice_count
+    mean_average_across_all_merchants = average_invoices_per_merchant
+    two_standard_deviations_below_average = mean_average_across_all_merchants - (average_invoices_per_merchant_standard_deviation * 2)
+    bottom_merchants = []
+    generate_merchant_ids.each do |id|
+      if invoices_by_merchant_id[id].length < two_standard_deviations_below_average
+        bottom_merchants << @parent.merchants.find_by_id(id)
+      end
+    end
+    bottom_merchants
+  end
 end
