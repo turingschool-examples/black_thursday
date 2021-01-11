@@ -87,4 +87,12 @@ class SalesAnalyst
     end
     (Math.sqrt(numerator / (@sales_engine.all_merchant_invoices.length - 1))).round(2)
   end
+
+  def top_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    stan_dev = average_invoices_per_merchant_standard_deviation
+    @sales_engine.merchants.all.select do |merchant|
+      @sales_engine.merchant_invoices(merchant.id).length > (mean + ( 2 * stan_dev))
+    end
+  end
 end
