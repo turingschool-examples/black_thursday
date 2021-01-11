@@ -26,14 +26,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Customer, expected.first.class
   end
 
+  def test_find_by_id_returns_the_customer_with_matching_id
+    id = 100
+    expected = @customer.find_by_id(id)
+    assert_equal id, expected.id
+    assert_equal Customer, expected.class
+  end
 
-    # it "#find_by_id returns the customer with matching id" do
-    #   id = 100
-    #   expected = engine.customers.find_by_id(id)
-    #
-    #   expect(expected.id).to eq id
-    #   expect(expected.class).to eq Customer
-    # end
     #
     # it "#find_all_by_first_name returns all customers with matching first name" do
     #   fragment = "oe"
