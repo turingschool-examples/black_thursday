@@ -78,4 +78,9 @@ class SalesAnalystTest < Minitest::Test
   def test_mean_prices_per_merchant_helper
     assert_equal 475, @sales_analyst.mean_prices_per_merchant.length
   end
+
+  def test_total_helper
+    set = [3, 4, 5]
+    assert_equal 2, @sales_analyst.total(set, 4)
+  end
 end
