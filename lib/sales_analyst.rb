@@ -1,96 +1,75 @@
 require 'pry'
-
+require_relative './sales_engine'
+require_relative './mathable'
 class SalesAnalyst
+  include Mathable
   attr_reader :sales_engine
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
-
-  def average_items_per_merchant
-    (total_items.to_f / total_merchants).round(2)
+  def total_items
+    sales_engine.count_items
   end
-
+  def total_merchants
+    sales_engine.count_merchants
+  end
+  def average_item_price
+    sales_engine.average_item_price
+  end
+  def average_items_per_merchant
+    average_stuff(total_items.to_f, total_merchants)
+  end
+  def items_per_merchant
+    sales_engine.items
+  end
+  def average_item_price
+    sales_engine.average_item_price
+  end
+  def item_price_standard_deviation
+    average = average_item_price
+    total = sales_engine.pass_item_array.sum do |item|
+      (average - item.unit_price_to_dollars)**2
+      end
+    square_something(total, total_items)
+  end
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
     total = 0
-    merchant_item_count.each do |key, value|
+    sales_engine.merchant_hash_item_count.each do |key, value|
       total += (average - value)**2
     end
-    Math.sqrt(total/(total_merchants - 1)).round(2)
+    square_something(total, total_merchants)
   end
-
   def merchants_with_high_item_count
     greater_than_sd = average_items_per_merchant + average_items_per_merchant_standard_deviation
     merchants = []
-    merchant_item_count.find_all do |merchant_id, count|
+    sales_engine.merchant_hash_item_count.find_all do |merchant_id, count|
       if count >= greater_than_sd
-        merchants << sales_engine.merchants.find_by_id(merchant_id)
+        merchants << sales_engine.find_by_merchant_id(merchant_id)
       end
     end
     merchants
   end
-
   def average_item_price_for_merchant(merchant_id)
-    items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    items = sales_engine.find_all_by_merchant_id(merchant_id)
     price_total = 0
     items.each do |item|
      price_total += item.unit_price
    end
-    (price_total / items.count).round(2)
+    average_stuff(price_total , items.count)
   end
-
   def average_average_price_per_merchant
-    averages = merchant_id_list.map do |merchant_id|
+    averages = sales_engine.merchant_id_list.map do |merchant_id|
       average_item_price_for_merchant(merchant_id)
     end
-    (averages.sum / merchant_id_list.length).round(2)
+    average_stuff(averages.sum, sales_engine.merchant_id_list.length)
   end
-
   def golden_items
-    sales_engine.items.all.find_all do |item|
-      item.unit_price_to_dollars >= (average_item_price + (item_price_standard_deviation * 2))
+    sales_engine.pass_item_array.find_all do |item|
+      item.unit_price_to_dollars >= (sales_engine.average_item_price + (item_price_standard_deviation * 2))
     end
   end
-
-  def average_item_price
-    price_total = sales_engine.items.all.sum do |item|
-      item.unit_price_to_dollars
-    end
-    (price_total/ total_items).round(2)
-  end
-
-  def item_price_standard_deviation
-    average = average_item_price
-    total = sales_engine.items.all.sum do |item|
-      (average - item.unit_price_to_dollars)**2
-    end
-    Math.sqrt(total/(total_items - 1)).round(2)
-  end
-
-  def merchant_id_list
-    merchant_id_list = []
-    sales_engine.items.all.each do |item|
-      merchant_id_list << item.merchant_id
-    end
-    merchant_id_list.uniq
-  end
-
-  def merchant_item_count
-    sales_engine.items.all.reduce({}) do |acc, item|
-      merchant_item_count = sales_engine.items.find_all_by_merchant_id(item.merchant_id).length
-      acc[item.merchant_id] = merchant_item_count
-      acc
-    end
-  end
-
-  def total_items
-    sales_engine.items.all.length
-  end
-
-  def total_merchants
-    sales_engine.merchants.all.length
-  end
-
+  
   def total_invoices
     sales_engine.total_invoices
   end
