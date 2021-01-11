@@ -45,17 +45,17 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def test_find_all_by_status
     status = :shipped
-    test = @sales_engine.invoices.find_all_by_status(status)
+    test = @invoice_repo.find_all_by_status(status)
 
     assert_equal 2839, test.length
 
     status = :pending
-    test = @sales_engine.invoices.find_all_by_status(status)
+    test = @invoice_repo.find_all_by_status(status)
 
     assert_equal 1473, test.length
 
     status = :sold
-    test = @sales_engine.invoices.find_all_by_status(status)
+    test = @invoice_repo.find_all_by_status(status)
 
     assert_equal [], test
   end
@@ -66,10 +66,10 @@ class InvoiceRepositoryTest < MiniTest::Test
         :merchant_id => 8,
         :status      => "pending",
         :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :updated_at  => Time.now
       }
-    @sales_engine.invoices.create(attributes)
-    test = @sales_engine.invoices.find_by_id(4986)
+    @invoice_repo.create(attributes)
+    test = @invoice_repo.find_by_id(4986)
 
     assert_equal 8, test.merchant_id
   end
@@ -81,11 +81,11 @@ class InvoiceRepositoryTest < MiniTest::Test
       :status      => "pending",
       :created_at  => Time.now,
       :updated_at  => Time.now}
-    @sales_engine.invoices.create(attributes)
-    original_time = @sales_engine.find_by_id(4986).updated_at
+    @invoice_repo.create(attributes)
+    original_time = @invoice_repo.find_by_id(4986).updated_at
     attributes = {:status => :success}
-    @sales_engine.invoices.update(4986, attributes)
-    test = @sales_engine.invoices.find_by_id(4986)
+    @invoice_repo.update(4986, attributes)
+    test = @invoice_repo.find_by_id(4986)
 
     assert_equal :success, test.status
     assert_equal 7, test.customer_id
@@ -97,8 +97,8 @@ class InvoiceRepositoryTest < MiniTest::Test
         merchant_id: 3,
         created_at: Time.now
       }
-    @sales_engine.invoices.update(4986, attributes)
-    test = @sales_engine.invoices.find_by_id(5000)
+    @invoice_repo.update(4986, attributes)
+    test = @invoice_repo.find_by_id(5000)
 
     assert_nil test
   end
