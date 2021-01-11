@@ -27,20 +27,26 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_the_customer_with_matching_id
+    skip
     id = 100
     expected = @customer.find_by_id(id)
     assert_equal id, expected.id
-    assert_equal Customer, expected.class
+    assert_equal Customer, expected.first.class
   end
 
-    #
-    # it "#find_all_by_first_name returns all customers with matching first name" do
-    #   fragment = "oe"
-    #   expected = engine.customers.find_all_by_first_name(fragment)
-    #
-    #   expect(expected.length).to eq 8
-    #   expect(expected.first.class).to eq Customer
-    # end
+  def test_find_all_by_first_name_returns_all_customers_with_matching_first_name
+    fragment = "oe"
+    expected = @customer.find_all_by_first_name(fragment)
+    assert_equal 8, expected.length
+    assert_equal Customer, expected.first.class
+  end
+
+  def test_find_all_by_last_name_returne_all_customers_with_matching_last_name
+    fragment = "On"
+    expected = @customer.find_all_by_last_name(fragment)
+    assert_equal 85, expected.length
+    assert_equal Customer, expected.first.class
+  end
     #
     # it "#find_all_by_last_name returns all customers with matching last name" do
     #   fragment = "On"

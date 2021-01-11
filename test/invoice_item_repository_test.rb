@@ -83,7 +83,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_update_updates_an_invoice_item
-    
+
     attributes = {
         :item_id => 7,
         :invoice_id => 8,
