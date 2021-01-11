@@ -35,12 +35,17 @@ class CustomerRepository
     end
   end
 
-    def find_all_by_first_name(fragment)
-      @customers.find_all do |customer|
-       customer.first_name.to_s == fragment
-      end
+  def find_all_by_first_name(first_name)
+    @customers.find_all do |customer|
+     customer.first_name.to_s == first_name
     end
+  end
 
+  def find_all_by_last_name(last_name)
+    @customers.find_all do |customer|
+     customer.last_name.to_s == last_name
+    end
+  end
     # def find_all_by_invoice_id(invoice_id)
     #   @invoice_items.find_all do |invoice_item|
     #    invoice_item.invoice_id.to_i == invoice_id
