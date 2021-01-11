@@ -94,6 +94,6 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_merchants_with_pending_invoices
-    assert_equal 467, @sales_analyst.merchants_with_pending_invoices
-  end 
+    assert_equal 467, @sales_analyst.merchants_with_pending_invoices.count
+  end
 end

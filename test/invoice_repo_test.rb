@@ -121,7 +121,7 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_pending_status_by_merchant_id
-    assert_equal 448, @invoice_repo.status_by_merchant_id(:pending).count
+    assert_equal 1473, @invoice_repo.status_by_merchant_id(:pending).count
     assert_equal 12335853, @invoice_repo.status_by_merchant_id(:pending).last
   end
 end
