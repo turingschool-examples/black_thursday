@@ -20,8 +20,4 @@ class SalesEngine
   def self.from_csv(sales_data)
     SalesEngine.new(sales_data)
   end
-
-  def self.analyst
-    @analyst = SalesAnalyst.new(@merchants, @items)
-  end
 end
