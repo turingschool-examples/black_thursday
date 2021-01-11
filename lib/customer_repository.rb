@@ -37,7 +37,7 @@ class CustomerRepository
 
   def find_all_by_first_name(first_name)
     @customers.find_all do |customer|
-     customer.first_name.to_s == first_name
+     customer.first_name.include?(first_name)
     end
   end
 

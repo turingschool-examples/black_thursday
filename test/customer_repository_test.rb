@@ -34,9 +34,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_first_name_returns_all_customers_with_matching_first_name
-    skip
     fragment = "oe"
-    expected = @customer.find_all_by_first_name(fragment)
+    expected = @customers.find_all_by_first_name(fragment)
     assert_equal 8, expected.length
     assert_equal Customer, expected.first.class
   end
@@ -44,7 +43,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_find_all_by_last_name_return_all_customers_with_matching_last_name
     skip
     fragment = "On"
-    expected = @customer.find_all_by_last_name(fragment)
+    expected = @customers.find_all_by_last_name(fragment)
     assert_equal 85, expected.length
     assert_equal Customer, expected.first.class
   end
@@ -57,7 +56,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_operator Customer, expected.first.class
 
     fragment = "oN"
-    expected = @customer.find_all_by_last_name(fragment)
+    expected = @customers.find_all_by_last_name(fragment)
 
     assert_equal 85, expected.length
     assert_equal Customer, expected.first.class
@@ -71,9 +70,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
                  :created_at => Time.now,
                  :updated_at => Time.now
                  }
-   @customer.create(attributes)
+   @customers.create(attributes)
 
-   expected = @customer.find_by_id(1001)
+   expected = @customers.find_by_id(1001)
    assert_equal "Joan", expected.first_name
   end
 
@@ -85,12 +84,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
                  :created_at => Time.now,
                  :updated_at => Time.now
                  }
-    @customer.create(attributes)
-    original_time = @customer.find_by_id(1001).updated_at
+    @customers.create(attributes)
+    original_time = @customers.find_by_id(1001).updated_at
     attributes = {last_name: "Smith"}
-    @customer.update(1001, attributes)
+    @customers.update(1001, attributes)
 
-    expected = engine.customers.find_by_id(1001)
+    expected = @customers.find_by_id(1001)
     assert_equal "Smith", expected.last_name
     assert_equal "Joan", expected.first_name
     assert_operator original_time ,:<, expected.updated_at
@@ -104,14 +103,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
                  :created_at => Time.now,
                  :updated_at => Time.now
                  }
-    @customer.create(attributes)
+    @customers.create(attributes)
     attributes = {
                  id: 2000,
                  created_at: Time.now
                  }
-    @customer.update(1001, attributes)
+    @customers.update(1001, attributes)
     assert_nil expected
-    expected = @customer.find_by_id(1001)
+    expected = @customers.find_by_id(1001)
     assert_equal attributes[:created_at], expected.created_at
   end
 
@@ -123,9 +122,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
                  :created_at => Time.now,
                  :updated_at => Time.now
                  }
-    @customer.create(attributes)
-    @customer.delete(1001)
-    expected = @customer.find_by_id(1001)
+    @customers.create(attributes)
+    @customers.delete(1001)
+    expected = @customers.find_by_id(1001)
     assert_nil expected
   end
 end
