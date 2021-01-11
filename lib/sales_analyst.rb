@@ -51,7 +51,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     merchants = []
-    all_merchant_item_count.find_all do |merchant, item_count|
+    all_merchant_item_count.each do |merchant, item_count|
       # if item_count > (average_items_per_merchant_standard_deviation(all_merchant_item_count.values)) + 3
       if item_count > 6
         merchants << merchant
@@ -74,5 +74,25 @@ class SalesAnalyst
       all_averages << average_item_price_for_merchant(merchant.id)
     end
     BigDecimal(all_averages.sum / all_averages.size).truncate(2)
+  end
+
+  def golden_items
+    prices = []
+    @sales_engine.items.all.each do |item|
+      prices << item.unit_price        
+    end
+    avg = average_average_price_per_merchant
+    new_prices = []
+    prices.each do |price|
+      new_prices << (price - avg) ** 2
+    end
+    standard_deviation = Math.sqrt(new_prices.reduce(:+) / (new_prices.count)).round(2)
+    standard_deviation_by_two = avg + (2 * standard_deviation)
+    items = @sales_engine.items.all
+    golden_items = []
+    items.each do |item|
+      golden_items << item if item.unit_price > standard_deviation_by_two
+    end
+     golden_items
   end
 end
