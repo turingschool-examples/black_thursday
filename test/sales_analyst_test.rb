@@ -70,6 +70,14 @@ class TestSalesAnalyst < MiniTest::Test
   #   assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count.first.class
   # end
 
+  def test_average_invoices_per_day
+    assert_equal 712.14, @sales_analyst.average_invoices_per_day
+  end
+
+  def test_standard_dev_invoices_per_day
+    assert_equal 18.07, @sales_analyst.average_invoices_per_day_standard_deviation
+  end
+
   def test_percetage_status
     assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
     assert_equal 29.55, @sales_analyst.invoice_status(:pending)

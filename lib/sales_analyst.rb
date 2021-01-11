@@ -109,9 +109,23 @@ class SalesAnalyst
     end
   end
 
+  def average_invoices_per_day
+    numerator = 0
+    @sales_engine.invoices.invoices_per_weekday.values.each do |weekday|
+      numerator = numerator + weekday.count
+    end
+    ((numerator.to_f / @sales_engine.invoices.invoices_per_weekday.keys.count.to_f)).round(2)
+  end
+
+  def average_invoices_per_day_standard_deviation
+    mean = average_invoices_per_day
+    data_set = @sales_engine.invoices_per_day_count.values
+    standard_deviation(mean, data_set)
+  end
+
   def top_days_by_invoice_count
     mean = average_invoices_per_merchant
-    data_set =
+    data_set = @sales_engine.invoices.invoices_per_weekday.values
     @sales_engine.invoices.invoices_per_weekday
   end
 
