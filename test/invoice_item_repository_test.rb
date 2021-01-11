@@ -41,6 +41,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_item_id_finds_all_items_matching_given_item_id
+    skip
     item_id = 263408101
     expected = @invoice_item.find_all_by_item_id(item_id)
     assert_equal 11, expected.length
@@ -48,12 +49,19 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_item_id_returns_an_empty_array_if_there_are_no_matches
+    skip
     item_id = 10
     expected = @invoice_item.find_all_by_item_id(item_id)
-   assert_equal 0, expected.length
-   assert_equal true, expected.empty?
+    assert_equal 0, expected.length
+    assert_equal true, expected.empty?
   end
 
+  def test_find_all_by_invoice_id_finds_all_items_matching_given_item_id
+    invoice_id = 100
+    expected = @invoice_item.find_all_by_invoice_id(invoice_id)
+    assert_equal 3, expected.length
+    assert_equal InvoiceItem, expected.first.class
+  end
 #
 #   it "#find_all_by_invoice_id finds all items matching given item_id" do
 #     invoice_id = 100
