@@ -74,7 +74,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_updates_updates_a_customer
-    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
@@ -93,7 +92,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_update_cannot_update_id_item_id_invoice_id_or_created_at
-    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
@@ -106,9 +104,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
                  created_at: Time.now
                  }
     @customers.update(1001, attributes)
+    expected = @customers.find_by_id(2000)
     assert_nil expected
+
     expected = @customers.find_by_id(1001)
-    assert_equal attributes[:created_at], expected.created_at
+
+    assert_operator attributes[:created_at].to_s, :==, expected.created_at.to_s
   end
 
   def test_delete_deletes_the_specified_invoice
