@@ -60,8 +60,19 @@ class TestSalesAnalyst < MiniTest::Test
   #   assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
   # end
 
-  def test_top_merchants_by_invoice_count
-    assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
-    assert_equal Merchant, @sales_analyst.top_merchants_by_invoice_count.first.class
+  # def test_top_merchants_by_invoice_count
+  #   assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
+  #   assert_equal Merchant, @sales_analyst.top_merchants_by_invoice_count.first.class
+  # end
+  #
+  # def test_bottom_merchants_by_invoice_count
+  #   assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
+  #   assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count.first.class
+  # end
+
+  def test_percetage_status
+    assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
+    assert_equal 29.55, @sales_analyst.invoice_status(:pending)
+    assert_equal 13.5, @sales_analyst.invoice_status(:returned)
   end
 end

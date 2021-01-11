@@ -92,7 +92,19 @@ class SalesAnalyst
     mean = average_invoices_per_merchant
     stan_dev = average_invoices_per_merchant_standard_deviation
     @sales_engine.merchants.all.select do |merchant|
-      @sales_engine.merchant_invoices(merchant.id).length > (mean + ( 2 * stan_dev))
+      @sales_engine.merchant_invoices(merchant.id).length > (mean + ( 2 * stan_dev.to_f))
     end
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    stan_dev = average_invoices_per_merchant_standard_deviation
+    @sales_engine.merchants.all.select do |merchant|
+      @sales_engine.merchant_invoices(merchant.id).length.to_f < (mean - ( 2 * stan_dev.to_f))
+    end
+  end
+
+  def invoice_status(status)
+    (100 * (@sales_engine.invoice_status_count(status).to_f / @sales_engine.invoices.all.length.to_f)).round(2)
   end
 end
