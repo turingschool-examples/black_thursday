@@ -89,4 +89,9 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 29.55, @sales_analyst.invoice_status(:pending)
     assert_equal 13.5, @sales_analyst.invoice_status(:returned)
   end
+
+  def test_it_finds_those_golden_items
+    assert_equal 5, @sales_analyst.golden_items.length
+    assert_equal Item, @sales_analyst.golden_items.first.class
+  end
 end
