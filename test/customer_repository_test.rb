@@ -113,7 +113,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_delete_deletes_the_specified_invoice
-    skip
     attributes = {
                  :first_name => "Joan",
                  :last_name => "Clarke",
