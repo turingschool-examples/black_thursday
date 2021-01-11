@@ -48,5 +48,16 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal true, expected.empty?
   end
+
+  def test_find_all_by_credit_card_number_returns_all_transactions_matching_given_credit_card_number
+    skip
+    credit_card_number = "4848466917766329"
+    expected = @engine.transactions.find_all_by_credit_card_number(credit_card_number)
+
+    assert_equal 1, expected.length
+    assert_instance_of Transaction, expected.first.class
+    assert_equal credit_card_number, expected.first.credit_card_number
+  end
   
+
 end
