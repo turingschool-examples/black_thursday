@@ -113,4 +113,6 @@ class SalesAnalystTest < Minitest::Test
     # skip
     assert_equal ["Sunday", "Saturday"], @sales_analyst.top_days_by_invoice_count
   end
+
+
 end

@@ -5,26 +5,47 @@ require './lib/sales_analyst'
 require 'csv'
 
 class SalesEngineTest < Minitest::Test
-  def test_it_exists_and_has_attributes
-    merchant_path = './data/merchants.csv'
-    item_path = './data/items.csv'
-    invoice_path = './data/invoices.csv'
-    locations = { items: item_path,
-                  merchants: merchant_path,
-                  invoices: invoice_path
+  def setup
+    @merchant_path = './data/merchants.csv'
+    @item_path = './data/items.csv'
+    @invoice_path = './data/invoices.csv'
+    @locations = { items: @item_path,
+                  merchants: @merchant_path,
+                  invoices: @invoice_path
                 }
 
-    sales_engine = SalesEngine.from_csv(locations, self)
-    assert_instance_of SalesEngine, sales_engine
+    @sales_engine = SalesEngine.from_csv(@locations)
+  end
+
+  def test_it_exists_and_has_attributes
+    skip
+    assert_instance_of SalesEngine, @sales_engine
   end
 
   def test_it_creates_sales_analyst
-    merchant_path = './data/merchants.csv'
-    item_path = './data/items.csv'
-    locations = { items: item_path,
-                  merchants: merchant_path }
+    skip
+    assert_instance_of SalesAnalyst, @sales_engine.analyst
+  end
 
-    sales_engine = SalesEngine.from_csv(locations)
-    assert_instance_of SalesAnalyst, sales_engine.analyst
+  def test_returns_total_invoices
+    skip
+    assert_equal 4985, @sales_engine.total_invoices
+  end
+
+  def test_returns_per_merchant_invoice_count_hash
+    skip
+    assert_equal 475, @sales_engine.per_merchant_invoice_count_hash.length
+  end
+
+  def test_returns_invoices_per_day
+    days = { "Monday" =>    696,
+             "Tuesday" =>   692,
+             "Wednesday" => 741,
+             "Thursday" =>  718,
+             "Friday" =>    701,
+             "Saturday" =>  729,
+             "Sunday" =>    708}
+
+    assert_equal days, @sales_engine.invoices_per_day
   end
 end

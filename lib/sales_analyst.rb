@@ -136,4 +136,8 @@ class SalesAnalyst
     end
     bottom_merchant_ids
   end
+
+  def top_days_by_invoice_count
+
+  end
 end

@@ -30,4 +30,8 @@ class SalesEngine
   def per_merchant_invoice_count_hash
     invoices.per_merchant_invoice_count
   end
+
+  def invoices_per_day
+    invoices.invoices_per_day
+  end
 end
