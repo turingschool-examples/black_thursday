@@ -88,4 +88,31 @@ class SalesAnalyst
     end
     golden
   end
+
+  def average_invoices_per_merchant 
+    (engine.invoices.all.count / engine.merchants.all.count).to_f
+  end
+
+  def reduce_merchants_and_invoices
+  end_hash = engine.merchants.all.reduce({}) do |memo, merchant|
+      memo[merchant.id] = []
+      engine.invoices.all.map do |invoice|
+        if invoice.merchant_id == merchant.id
+          memo[merchant.id] << invoice
+        end
+      end
+      memo
+    end
+  end
+
+  def number_of_invoices
+    result = reduce_merchants_and_invoices.map{|merchant, invoice| invoice.count }
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    result = number_of_invoices.extend(StandardDeviation)
+    result.standard_deviation
+  end
+
+ 
 end

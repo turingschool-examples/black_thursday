@@ -10,6 +10,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./fixture_data/items_fixtures_file.csv",
       :merchants => "./fixture_data/merchants_sample.csv",
+      :invoices  => "./fixture_data/invoices_sample.csv"
       })
   end
 
@@ -51,5 +52,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, @se.analyst.golden_items.class
     assert_equal Item, @se.analyst.golden_items[1].class
     assert_equal 5, @se.analyst.golden_items.count
+  end
+
+  def test_average_invoices_per_merchant
+    assert_equal 11.0, @se.analyst.average_invoices_per_merchant
+    assert_equal Float, @se.analyst.average_invoices_per_merchant.class
+  end
+
+  def test_reduce_merchants_and_invoices
+    assert_equal 12, @se.analyst.reduce_merchants_and_invoices.keys.count
+    assert_equal 12, @se.analyst.reduce_merchants_and_invoices.values.count
+    assert_equal Hash, @se.analyst.reduce_merchants_and_invoices.class
+  end
+
+  def test_number_of_invoices
+    assert_equal Array, @se.analyst.number_of_invoices.class
+    assert_equal 12, @se.analyst.number_of_invoices.count
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 4.19, @se.analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal Float, @se.analyst.average_invoices_per_merchant_standard_deviation.class
   end
 end
