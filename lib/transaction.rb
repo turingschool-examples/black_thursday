@@ -13,8 +13,8 @@ class Transaction
     @credit_card_number = data[:credit_card_number]
     @credit_card_expiration_date = data[:credit_card_expiration_date]
     @result = data[:result]
-    @created_at = Time.now
-    @updated_at = Time.now
+    @updated_at = (data[:updated_at])
+    @created_at = (data[:created_at])
   end
 
 end

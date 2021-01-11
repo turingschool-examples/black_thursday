@@ -71,7 +71,7 @@ class TransactionRepoTest < Minitest::Test
   def test_update
     attributes = ({credit_card_number: 12, 
                       credit_card_expiration_date: 14,
-                      created_at: 1,
+                      created_at: "2012-02-26 20:56:56 UTC",
                       result: 2,
                       id: 10000})
     @tr.update(1, attributes)

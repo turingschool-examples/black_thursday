@@ -1,4 +1,5 @@
 require 'CSV'
+require 'Time'
 require_relative './transaction'
 class TransactionRepository
   attr_reader :engine, :file
@@ -22,8 +23,8 @@ class TransactionRepository
                                                     credit_card_number: row[:credit_card_number],
                                                     credit_card_expiration_date: row[:credit_card_expiration_date],
                                                     result: row[:result].to_sym,
-                                                    created_at: row[:created_at],
-                                                    updated_at: row[:updated_at]})
+                                                    created_at: Time.parse(row[:created_at]),
+                                                    updated_at: Time.parse(row[:updated_at])})
     end
   end
 
@@ -67,6 +68,7 @@ class TransactionRepository
     transactions[id].credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
     transactions[id].credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
     transactions[id].result = attributes[:result] if attributes[:result]
+    transactions[id].updated_at = Time.now
   end
 
   def delete(id)
