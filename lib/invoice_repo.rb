@@ -70,6 +70,21 @@ class InvoiceRepository
     end
   end
 
+  def create(attributes)
+    new = Invoice.new(attributes, self)
+    new.id = (max_id + 1)
+    @invoices[new.id] = new
+  end
+
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    if invoice != nil
+      attributes.each do |key, value|
+        invoice.update({key => value})
+      end
+    end
+    invoice
+  end
   # def create(attributes)
   #   new_invoice = Invoice.new({id: (sort_by_id[-1].id + 1),
   #                       customer_id: attributes[:customer_id],
@@ -81,10 +96,8 @@ class InvoiceRepository
   #   new_invoice
   # end
 
-  def sort_by_id
-    @invoices.sort_by do |row|
-      row.id
-    end
+  def max_id
+    @invoices.keys.max
   end
 
   # def update(id, attributes)
@@ -102,6 +115,6 @@ class InvoiceRepository
   # end
 
   def delete(id)
-    @invoices.delete(find_by_id(id))
+    @invoices.delete(id)
   end
 end

@@ -82,7 +82,7 @@ class InvoiceRepositoryTest < MiniTest::Test
       :created_at  => Time.now,
       :updated_at  => Time.now}
     @sales_engine.invoices.create(attributes)
-    original_time = @sales_engine.invoices.find_by_id(4986).updated_at
+    original_time = @sales_engine.find_by_id(4986).updated_at
     attributes = {:status => :success}
     @sales_engine.invoices.update(4986, attributes)
     test = @sales_engine.invoices.find_by_id(4986)
