@@ -4,9 +4,11 @@ require './lib/sales_engine'
 class SalesEngineTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
-                              items:      "./data/items.csv",
-                              merchants:  "./data/merchants.csv",
-                              invoices:   "./data/invoices.csv"
+                                 items:      "./data/items.csv",
+                             merchants:  "./data/merchants.csv",
+                              invoices:   "./data/invoices.csv",
+                          transactions:   "./data/transactions.csv",
+                         invoice_items:   "./data/invoice_items.csv",
                               })
   end
 
@@ -19,8 +21,9 @@ class SalesEngineTest < Minitest::Test
     assert_equal MerchantRepository, @sales_engine.merchants.class
     assert_equal ItemRepository, @sales_engine.items.class
     assert_equal InvoiceRepository, @sales_engine.invoices.class
+    assert_equal TransactionRepository, @sales_engine.transactions.class
   end
-
+  #
   def test_it_creates_new_analyst
     assert_instance_of SalesAnalyst, @sales_engine.analyst
   end
@@ -53,5 +56,14 @@ class SalesEngineTest < Minitest::Test
   def test_invoices_per_day_count
     answer = {:saturday=>729, :friday=>701, :wednesday=>741, :monday=>696, :sunday=>708, :tuesday=>692, :thursday=>718}
     assert_equal answer, @sales_engine.invoices_per_day_count
+  end
+
+  def test_total_revenue_per_day
+  end
+
+  def test_merchants_with_pending_invoices
+    assert_equal 2175, @sales_engine.pending_invoices.count
+    assert_equal 467, @sales_engine.merchants_with_pending_invoices.count
+    assert_equal Merchant, @sales_engine.merchants_with_pending_invoices.first.class
   end
 end
