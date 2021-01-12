@@ -55,7 +55,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    assert_equal 11.0, @se.analyst.average_invoices_per_merchant
+    assert_equal 11.42, @se.analyst.average_invoices_per_merchant
     assert_equal Float, @se.analyst.average_invoices_per_merchant.class
   end
 
@@ -74,4 +74,66 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4.19, @se.analyst.average_invoices_per_merchant_standard_deviation
     assert_equal Float, @se.analyst.average_invoices_per_merchant_standard_deviation.class
   end
+
+  def test_second_deviation_above_invoice_count
+    assert_equal 19.8, @se.analyst.second_deviation_above_average_invoice_count
+    assert_equal Float, @se.analyst.second_deviation_above_average_invoice_count.class
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_equal Array, @se.analyst.top_merchants_by_invoice_count.class
+  end
+
+  def test_second_deviation_below_average_invoice_count
+    assert_equal 3.04, @se.analyst.second_deviation_below_average_invoice_count
+    assert_equal Float, @se.analyst.second_deviation_below_average_invoice_count.class
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_equal Array, @se.analyst.bottom_merchants_by_invoice_count.class
+  end
+
+  def test_reduce_invoices_and_days
+    assert_equal Hash, @se.analyst.reduce_invoices_and_days.class
+    assert_equal 7, @se.analyst.reduce_invoices_and_days.keys.count
+  end
+
+  def test_invoices_by_day_count
+    assert_equal Array, @se.analyst.invoices_by_day_count.class
+    assert_equal 7, @se.analyst.invoices_by_day_count.count
+  end
+
+  def test_average_invoices_per_day_standard_deviation
+    assert_equal Float, @se.analyst.average_invoices_per_day_standard_deviation.class
+    assert_equal 3.26, @se.analyst.average_invoices_per_day_standard_deviation
+  end
+
+  def test_average_invoices_per_day 
+    assert_equal Float, @se.analyst.average_invoices_per_day.class
+    assert_equal 19.57, @se.analyst.average_invoices_per_day
+  end
+
+  def test_one_deviation_above_invoices_per_day
+    assert_equal Float, @se.analyst.one_deviation_above_invoices_per_day.class
+    assert_equal 22.83, @se.analyst.one_deviation_above_invoices_per_day
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal Array, @se.analyst.top_days_by_invoice_count.class
+    assert_equal String, @se.analyst.top_days_by_invoice_count[0].class
+  end
+
+  def test_invoice_status
+    assert_equal Float, @se.analyst.invoice_status(:pending).class
+    assert_equal Float, @se.analyst.invoice_status(:shipped).class
+    assert_equal Float, @se.analyst.invoice_status(:returned).class
+
+    expected = @se.analyst.invoice_status(:pending)
+    expected += @se.analyst.invoice_status(:shipped)
+    expected += @se.analyst.invoice_status(:returned)
+
+    assert_equal expected, 100
+  end
 end
+
+

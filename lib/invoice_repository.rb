@@ -1,5 +1,5 @@
 require 'time'
-require './lib/invoice'
+require_relative './invoice'
 require 'csv'
 require 'pry'
 

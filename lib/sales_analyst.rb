@@ -90,7 +90,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant 
-    (engine.invoices.all.count / engine.merchants.all.count).to_f
+    (engine.invoices.all.count / engine.merchants.all.count.to_f).round(2)
   end
 
   def reduce_merchants_and_invoices
@@ -112,6 +112,81 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     result = number_of_invoices.extend(StandardDeviation)
     result.standard_deviation
+  end
+
+  def second_deviation_above_average_invoice_count
+    invoices_per_merchant = number_of_invoices
+    invoices_per_merchant = invoices_per_merchant.extend(StandardDeviation)
+    ((average_invoices_per_merchant) + (invoices_per_merchant.standard_deviation * 2)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    deviation = second_deviation_above_average_invoice_count
+    merchant_hash = reduce_merchants_and_invoices
+    merchant_hash.map do |merchant, array|
+      if array.count > deviation
+        top_merchants << engine.merchants.find_by_id(merchant)
+      end
+    end
+    top_merchants
+  end
+
+  def second_deviation_below_average_invoice_count
+    invoices_per_merchant = number_of_invoices
+    invoices_per_merchant = invoices_per_merchant.extend(StandardDeviation)
+    ((average_invoices_per_merchant) - (invoices_per_merchant.standard_deviation * 2)).round(2)
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    deviation = second_deviation_below_average_invoice_count
+    merchant_hash = reduce_merchants_and_invoices
+    merchant_hash.map do |merchant, array|
+      if array.count < deviation
+        bottom_merchants << engine.merchants.find_by_id(merchant)
+      end
+    end
+    bottom_merchants
+  end
+
+  def reduce_invoices_and_days
+   final_hash = engine.invoices.all.group_by{|invoice| invoice.created_at.strftime("%A")}
+  end
+
+  def invoices_by_day_count
+    reduce_invoices_and_days.map{|invoice, day| day.count}
+  end
+
+  def average_invoices_per_day_standard_deviation
+    result = invoices_by_day_count.extend(StandardDeviation)
+    result.standard_deviation
+  end
+
+  def average_invoices_per_day
+    result = invoices_by_day_count.extend(StandardDeviation)
+    result.item_mean.round(2)
+  end
+
+  def one_deviation_above_invoices_per_day 
+    work  = invoices_by_day_count.extend(StandardDeviation)
+    work.standard_deviation + average_invoices_per_day
+  end
+
+  def top_days_by_invoice_count
+    result = []
+    deviation = one_deviation_above_invoices_per_day
+    reduce_invoices_and_days.map do |day, invoices|
+      if invoices.count > deviation
+       result << invoices[0].created_at.strftime("%A")
+      end
+    end
+    result
+  end
+
+  def invoice_status(status)
+    total_status = engine.invoices.all.find_all{|invoice| invoice.status == status}.count
+    ((total_status.to_f / engine.invoices.all.count) * 100).round(2)
   end
 
  
