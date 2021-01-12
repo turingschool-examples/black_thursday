@@ -12,6 +12,7 @@ class CustomerRepositoryTest < MiniTest::Test
   def test_it_exists_with_attributes
     assert_instance_of CustomerRepository, @cr
     assert_equal @engine, @cr.engine
+    assert_equal "#<CustomerRepository 1000 rows>", @cr.inspect
   end
 
   def test_building_a_customer
@@ -62,13 +63,12 @@ class CustomerRepositoryTest < MiniTest::Test
   end
 
   def test_update
+    @cr.update(2,{first_name: "Joe"})
+    @cr.update(3,{last_name: "Budina"})
     @cr.update(1, {first_name: "Trevor", last_name: "Suter", created_at: "to"})
     assert_equal "Trevor", @cr.customers[1].first_name
     assert_equal "Suter", @cr.customers[1].last_name
     refute_equal "to", @cr.customers[1].created_at
-  end
-
-  def test_update
     customer = @cr.customers[1]
     assert_equal true, @cr.customers.keys.include?(1)
     assert_equal customer, @cr.customers[1]
