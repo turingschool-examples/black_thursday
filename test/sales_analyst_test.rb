@@ -27,11 +27,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_all_items_count_helper
-    assert_equal 1367, @sales_analyst.all_items_count
+    collection = @se.items
+    assert_equal 1367, @sales_analyst.all_collection_count(collection)
   end
 
   def test_all_merchants_count_helper
-    assert_equal 475, @sales_analyst.all_merchants_count
+    collection = @se.merchants
+    assert_equal 475, @sales_analyst.all_collection_count(collection)
   end
 
   def test_average_items_per_merchant_standard_deviation
@@ -82,5 +84,50 @@ class SalesAnalystTest < Minitest::Test
   def test_total_helper
     set = [3, 4, 5]
     assert_equal 2, @sales_analyst.total(set, 4)
+  end
+
+  def test_it_returns_average_number_of_invoices_per_merchant
+    assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_it_returns_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_invoice_count_per_merchant_helper
+    assert_equal 475, @sales_analyst.invoice_count_per_merchant.length
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
+  end
+
+  def test_average_invoices_per_day_helper
+    assert_equal 712.14, @sales_analyst.average_invoices_per_day
+  end
+
+  def test_invoices_by_days_helper
+    keys = ["Saturday", "Friday", "Wednesday", "Monday", "Sunday", "Tuesday", "Thursday"]
+    assert_equal 7, @sales_analyst.invoices_by_days.length
+    assert_equal keys, @sales_analyst.invoices_by_days.keys
+  end
+
+  def test_invoices_count_per_day_helper
+    assert_equal 7, @sales_analyst.invoices_count_per_day.length
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
+    assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count.first
+  end
+
+  def test_invoice_status
+    assert_equal 29.55, @sales_analyst.invoice_status(:pending)
+    assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
+    assert_equal 13.5, @sales_analyst.invoice_status(:returned)
   end
 end
