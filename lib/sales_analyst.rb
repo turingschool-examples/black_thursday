@@ -181,18 +181,18 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    invoice = parent.invoices.find_by_id(invoice_id)
-    #i think i'm having trouble unstanding what makes it paid in full or successful
-    #An invoice is considered paid in full if it has a successful transaction
-    # with invoice_id we would find the transaction
-    #use find_by_id to get the invoice object
-    #check to see if the transaction.result == "success"
-
+    transactions = parent.transactions.find_all_by_invoice_id(invoice_id)
+    return false if transactions.empty?
+    transactions.all? do |transaction|
+      transaction.result == :success
+    end
   end
 
 
   def invoice_total(invoice_id)
-    #quantity * item.price && transaction == "success"
-    #Failed charges should never be counted in revenue totals or statistics.
+    invoice_items = parent.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
   end
 end
