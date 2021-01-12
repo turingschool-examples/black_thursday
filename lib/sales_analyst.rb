@@ -89,7 +89,7 @@ class SalesAnalyst
     golden
   end
 
-  def average_invoices_per_merchant 
+  def average_invoices_per_merchant
     (engine.invoices.all.count / engine.merchants.all.count.to_f).round(2)
   end
 
@@ -168,7 +168,7 @@ class SalesAnalyst
     result.item_mean.round(2)
   end
 
-  def one_deviation_above_invoices_per_day 
+  def one_deviation_above_invoices_per_day
     work  = invoices_by_day_count.extend(StandardDeviation)
     work.standard_deviation + average_invoices_per_day
   end
@@ -189,5 +189,32 @@ class SalesAnalyst
     ((total_status.to_f / engine.invoices.all.count) * 100).round(2)
   end
 
- 
+  def invoice_paid_in_full?(invoice_id)
+    all_transactions = engine.transactions.all
+
+    transactions = all_transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+
+    if transactions == []
+      return false
+    else
+      transactions.all? { |transaction| transaction.result == :success}
+    end
+  end
+
+  def invoice_total(invoice_id)
+    all_invoice_items = engine.invoice_items.all
+
+    invoices_items = all_invoice_items.find_all do |item|
+      item.invoice_id == invoice_id
+    end
+
+    items_total = invoices_items.map do |item|
+      item.quantity * item.unit_price
+    end
+
+    BigDecimal(items_total.sum).round(2)
+  end
+
 end
