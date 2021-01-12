@@ -7,10 +7,12 @@ class Item
               :merchant_id,
               :unit_price_to_dollars,
               :item_repo
+
   attr_accessor :name,
                 :description,
                 :unit_price,
                 :updated_at
+
   def initialize(info, item_repo)
     @id = info[:id].to_i
     @name = info[:name]

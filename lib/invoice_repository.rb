@@ -1,4 +1,6 @@
 require_relative 'invoice'
+require_relative 'sales_engine'
+require 'csv'
 class InvoiceRepository
   attr_reader :path,
               :invoices,
