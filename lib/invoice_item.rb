@@ -19,7 +19,7 @@ class InvoiceItem
     @item_id    = data[:item_id].to_i
     @invoice_id = data[:invoice_id].to_i
     @quantity   = data[:quantity].to_i
-    @unit_price = BigDecimal(data[:unit_price].to_i)/100
+    @unit_price = BigDecimal(data[:unit_price])
     @created_at = time_store(data[:created_at])
     @updated_at = time_store(data[:updated_at])
     @repository = repository
