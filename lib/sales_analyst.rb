@@ -3,7 +3,6 @@ require_relative './item_repo'
 require_relative './invoice_repo'
 require_relative './merchant_repo'
 require_relative './transaction_repo'
-require 'bigdecimal'
 
 class SalesAnalyst
   attr_reader :sales_engine
