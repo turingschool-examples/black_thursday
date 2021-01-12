@@ -25,10 +25,23 @@ class CustomerRepository
                    }, self)
   end
 
-
   def find_by_id(id)
     @all.find do |customer|
       customer.id == id
+    end
+  end
+
+  def find_all_with_name(first_or_last_name, name)
+    first_or_last_name = first_or_last_name.downcase.strip
+    @all.find_all do |customer|
+      if first_or_last_name == "first name"
+        customer.first_name.downcase.include?(name.downcase.strip)
+      elsif first_or_last_name == "last name"
+        customer.last_name.downcase.include?(name.downcase.strip)
+      else
+        puts "can't sort by that attribute"
+        break
+      end
     end
   end
 
