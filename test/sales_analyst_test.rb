@@ -28,7 +28,7 @@ class TestSalesAnalyst < MiniTest::Test
   def test_it_item_count_of_all_merchants
     assert_equal 475, @sales_analyst.all_merchant_item_count.length
   end
-
+  #
   def test_it_can_find_standard_deviation
     merchant_items = @sales_analyst.all_merchant_item_count.values
     assert_equal 3.26, @sales_analyst.average_items_per_merchant_standard_deviation
@@ -64,7 +64,7 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 12, @sales_analyst.top_merchants_by_invoice_count.length
     assert_equal Merchant, @sales_analyst.top_merchants_by_invoice_count.first.class
   end
-
+  #
   def test_bottom_merchants_by_invoice_count
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
     assert_equal Merchant, @sales_analyst.bottom_merchants_by_invoice_count.first.class
@@ -128,4 +128,3 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal BigDecimal, @sales_analyst.invoice_total(1).class
   end
 end
-

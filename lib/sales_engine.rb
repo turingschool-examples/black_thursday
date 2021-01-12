@@ -82,9 +82,17 @@ class SalesEngine
     invoice_count
   end
 
+  def pending_invoices
+    @invoices.all.select do |invoice|
+      @transactions.find_all_by_invoice_id(invoice.id).none? do |transaction|
+        transaction.result == :success
+      end
+    end
+  end
+
   def merchants_with_pending_invoices
-    @invoices.status_by_merchant_id(:pending).map do |merchant_id|
-      @merchants.find_by_id(merchant_id)
+    pending_invoices.map do |pending_invoice|
+      @merchants.find_by_id(pending_invoice.merchant_id)
     end.uniq
   end
 end
