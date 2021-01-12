@@ -1,5 +1,5 @@
 require 'time'
-require './lib/invoice'
+require_relative './invoice'
 require 'csv'
 require 'pry'
 
@@ -8,12 +8,12 @@ class InvoiceRepository
 
   attr_reader :all
   
-  def initialize(data, engine)
+  def initialize(invoice_path, engine)
     @all    = []
     @engine = engine
 
 
-     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
+     CSV.foreach(invoice_path, headers: true, header_converters: :symbol) do |row|
       @all << convert_to_invoice(row)
     end
   end
@@ -26,6 +26,10 @@ class InvoiceRepository
                     created_at: row[:created_at],
                     updated_at: row[:updated_at]
                    }, self)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_by_id(id)

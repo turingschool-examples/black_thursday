@@ -38,7 +38,7 @@ class SalesAnalyst
   end
 
   def average_by_average_merchant_deviation
-    average_items_per_merchant + average_item_standard_deviation
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
   def merchant_names_with_high_item_count
@@ -74,26 +74,6 @@ class SalesAnalyst
     BigDecimal(prices.sum / average_price.keys.count).round(2)
   end
 
-  def price_sum
-    BigDecimal(unit_price_array.reduce(0) {|memo, item| memo + item})
-  end
-
-  def price_mean
-    BigDecimal(price_sum / reduce_shop_items.length)
-  end
-
-  def price_sample_variance
-    new_sum = number_of_items.reduce(0) do |memo, item|
-      memo + (item - price_mean) ** 2
-    end
-
-    new_sum / (unit_price_array.length - 1).to_f
-  end
-
-  def average_unit_price_standard_deviation
-    Math.sqrt(price_sample_variance).round(2)
-  end
-
   def second_deviation_above_unit_price
     unit_price_array = reduce_shop_items.values.flatten
     unit_price_array = unit_price_array.extend(StandardDeviation)
@@ -108,4 +88,106 @@ class SalesAnalyst
     end
     golden
   end
+
+  def average_invoices_per_merchant 
+    (engine.invoices.all.count / engine.merchants.all.count.to_f).round(2)
+  end
+
+  def reduce_merchants_and_invoices
+  end_hash = engine.merchants.all.reduce({}) do |memo, merchant|
+      memo[merchant.id] = []
+      engine.invoices.all.map do |invoice|
+        if invoice.merchant_id == merchant.id
+          memo[merchant.id] << invoice
+        end
+      end
+      memo
+    end
+  end
+
+  def number_of_invoices
+    result = reduce_merchants_and_invoices.map{|merchant, invoice| invoice.count }
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    result = number_of_invoices.extend(StandardDeviation)
+    result.standard_deviation
+  end
+
+  def second_deviation_above_average_invoice_count
+    invoices_per_merchant = number_of_invoices
+    invoices_per_merchant = invoices_per_merchant.extend(StandardDeviation)
+    ((average_invoices_per_merchant) + (invoices_per_merchant.standard_deviation * 2)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    deviation = second_deviation_above_average_invoice_count
+    merchant_hash = reduce_merchants_and_invoices
+    merchant_hash.map do |merchant, array|
+      if array.count > deviation
+        top_merchants << engine.merchants.find_by_id(merchant)
+      end
+    end
+    top_merchants
+  end
+
+  def second_deviation_below_average_invoice_count
+    invoices_per_merchant = number_of_invoices
+    invoices_per_merchant = invoices_per_merchant.extend(StandardDeviation)
+    ((average_invoices_per_merchant) - (invoices_per_merchant.standard_deviation * 2)).round(2)
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    deviation = second_deviation_below_average_invoice_count
+    merchant_hash = reduce_merchants_and_invoices
+    merchant_hash.map do |merchant, array|
+      if array.count < deviation
+        bottom_merchants << engine.merchants.find_by_id(merchant)
+      end
+    end
+    bottom_merchants
+  end
+
+  def reduce_invoices_and_days
+   final_hash = engine.invoices.all.group_by{|invoice| invoice.created_at.strftime("%A")}
+  end
+
+  def invoices_by_day_count
+    reduce_invoices_and_days.map{|invoice, day| day.count}
+  end
+
+  def average_invoices_per_day_standard_deviation
+    result = invoices_by_day_count.extend(StandardDeviation)
+    result.standard_deviation
+  end
+
+  def average_invoices_per_day
+    result = invoices_by_day_count.extend(StandardDeviation)
+    result.item_mean.round(2)
+  end
+
+  def one_deviation_above_invoices_per_day 
+    work  = invoices_by_day_count.extend(StandardDeviation)
+    work.standard_deviation + average_invoices_per_day
+  end
+
+  def top_days_by_invoice_count
+    result = []
+    deviation = one_deviation_above_invoices_per_day
+    reduce_invoices_and_days.map do |day, invoices|
+      if invoices.count > deviation
+       result << invoices[0].created_at.strftime("%A")
+      end
+    end
+    result
+  end
+
+  def invoice_status(status)
+    total_status = engine.invoices.all.find_all{|invoice| invoice.status == status}.count
+    ((total_status.to_f / engine.invoices.all.count) * 100).round(2)
+  end
+
+ 
 end
