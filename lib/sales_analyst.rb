@@ -1,4 +1,12 @@
 require_relative './sales_engine'
+require_relative './transaction'
+require_relative './transaction_repo'
+require_relative './customer'
+require_relative './customer_repo'
+require_relative './invoice_item'
+require_relative './invoice_item_repo'
+require_relative './invoice'
+require_relative './invoice_repo'
 require_relative './merchant_repo'
 require_relative './item_repo'
 require_relative './merchant'
@@ -8,6 +16,22 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+  end
+
+  def invoice_total(invoice_id)
+    all_invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+
+    all_invoice_items.sum do |invoice_item|
+      invoice_item.unit_price_to_dollars
+    end.round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    all_transactions = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
+
+    all_transactions.any? do |transaction|
+      transaction.result == :success
+    end
   end
 
   def invoice_status(status)

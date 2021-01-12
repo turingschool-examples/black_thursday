@@ -158,4 +158,34 @@ class SalesAnalystTest < Minitest::Test
     returned = sales_analyst.invoice_status(:returned)
     assert_equal 13.5, returned
   end
+
+  def test_if_invoice_is_paid_in_full?
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :transactions => "./data/transactions.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :customers => "./data/customers.csv"
+                              })
+    sales_analyst = sales_engine.analyst
+    assert_equal true, sales_analyst.invoice_paid_in_full?(1)
+    assert_equal true, sales_analyst.invoice_paid_in_full?(200)
+    assert_equal false, sales_analyst.invoice_paid_in_full?(203)
+    assert_equal false, sales_analyst.invoice_paid_in_full?(204)
+  end
+
+  def test_it_returns_total_dollar_amount_if_invoice_is_paid_in_full
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :transactions => "./data/transactions.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :customers => "./data/customers.csv"
+                              })
+    sales_analyst = sales_engine.analyst
+    expected = sales_analyst.invoice_total(1)
+    assert_equal 348956.00, expected
+  end
 end
