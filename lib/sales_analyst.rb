@@ -171,4 +171,12 @@ class SalesAnalyst
     end
     top_days
   end
+
+  def invoice_status_collection(status)
+    @parent.invoices.find_all_by_status(status).length
+  end
+
+  def invoice_status(status)
+    ((invoice_status_collection(status) / all_collection_count(@parent.invoices).to_f) * 100).round(2)
+  end
 end
