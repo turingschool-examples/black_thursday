@@ -104,7 +104,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    all_collection_count(@parent.invoices) / 7
+    (all_collection_count(@parent.invoices) / 7.0).round(2)
   end
 
   def invoices_count_per_day
