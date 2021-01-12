@@ -6,7 +6,9 @@ class SalesEngine
 
   attr_reader :merchants,
               :items,
-              :invoices
+              :invoices,
+              :transactions,
+              :customers
 
   def initialize(csv_data)
     routes(csv_data)
@@ -70,6 +72,10 @@ class SalesEngine
         make_merchant_repo(csv_data)
       when key == :items
         make_item_repo(csv_data)
+      when key == :transactions
+        make_transaction_repo(csv_data)
+      when key == :customers
+        make_customer_repo(csv_data)
       end
     end
   end
@@ -92,5 +98,13 @@ class SalesEngine
 
   def make_item_repo(csv_data)
     @items = ItemRepo.new(csv_data[:items], self)
+  end
+
+  def make_transaction_repo(csv_data)
+    @transactions = TransactionRepo.new(csv_data[:transactions], self)
+  end
+
+  def make_customer_repo(csv_data)
+    @customers = CustomerRepo.new(csv_data[:customers], self)
   end
 end
