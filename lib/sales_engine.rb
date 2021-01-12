@@ -7,7 +7,10 @@ class SalesEngine
   attr_reader :merchants,
               :items,
               :invoices,
-              :invoice_items
+              :invoice_items,
+              :transactions,
+              :customers
+
 
   def initialize(csv_data)
     routes(csv_data)
@@ -21,6 +24,7 @@ class SalesEngine
     percentage = ((matched_status.count.to_f / @invoices.all.count.to_f) * 100)
     percentage.round(2)
   end
+
 
   def top_day_of_the_week
     invoice_count = Hash.new(0)
@@ -69,6 +73,8 @@ class SalesEngine
   def routes(csv_data)
     csv_data.each_key do |key|
       case
+      when key == :transactions
+        make_transaction_repo(csv_data)
       when key == :invoices
         make_invoice_repo(csv_data)
       when key == :merchants
@@ -77,6 +83,10 @@ class SalesEngine
         make_item_repo(csv_data)
       when key == :invoice_items
         make_invoice_items(csv_data)
+      when key == :transactions
+        make_transaction_repo(csv_data)
+      when key == :customers
+        make_customer_repo(csv_data)
       end
     end
   end
@@ -89,8 +99,13 @@ class SalesEngine
     SalesEngine.new(csv_data)
   end
 
+
   def make_invoice_items(csv_data)
     @invoice_items = InvoiceItemRepo.new(csv_data[:invoice_items], self)
+  end
+
+  def make_transaction_repo(csv_data)
+    @transactions = TransactionRepo.new(csv_data[:transactions], self)
   end
 
   def make_invoice_repo(csv_data)
@@ -103,5 +118,13 @@ class SalesEngine
 
   def make_item_repo(csv_data)
     @items = ItemRepo.new(csv_data[:items], self)
+  end
+
+  def make_transaction_repo(csv_data)
+    @transactions = TransactionRepo.new(csv_data[:transactions], self)
+  end
+
+  def make_customer_repo(csv_data)
+    @customers = CustomerRepo.new(csv_data[:customers], self)
   end
 end
