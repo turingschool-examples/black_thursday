@@ -13,7 +13,7 @@ class InvoiceItemTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => BigDecimal(1099, 4),
       :created_at => Time.now,
       :updated_at => Time.now
     }, repo)
@@ -25,7 +25,7 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 7, invoice_item.item_id
     assert_equal 8, invoice_item.invoice_id
     assert_equal 1, invoice_item.quantity
-    assert_equal BigDecimal.new(10.99, 4), invoice_item.unit_price
+    assert_equal BigDecimal(10.99, 4), invoice_item.unit_price
     assert_equal Time.now.strftime("%d/%m/%Y"), invoice_item_test_created_at
     assert_equal Time.now.strftime("%d/%m/%Y"), invoice_item.created_at.strftime("%d/%m/%Y")
     assert_equal Time.now.strftime("%d/%m/%Y"), invoice_item_test_updated_at

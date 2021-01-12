@@ -24,7 +24,5 @@ class CustomerTest < Minitest::Test
     assert_equal 6, @customer.id
     assert_equal "Joan", @customer.first_name
     assert_equal "Clarke", @customer.last_name
-    assert_equal Time.now.strftime("%d/%m/%Y"), @customer.created_at
-    assert_equal Time.now.strftime("%d/%m/%Y"), @customer.updated_at
   end
 end

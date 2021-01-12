@@ -27,7 +27,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id
-    assert_equal 4, @tr.find_all_by_invoice_id(45).count
+    assert_equal 2, @tr.find_all_by_invoice_id(395).count
     assert_equal [], @tr.find_all_by_invoice_id(14105848451)
   end
 
