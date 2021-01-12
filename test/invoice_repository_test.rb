@@ -109,4 +109,8 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal status, @ir.invoices_per_status
   end
+
+  def test_it_can_find_all_by_created_date
+    assert_equal 1, @ir.find_all_by_date(Time.parse("2009-02-07")).length
+  end
 end

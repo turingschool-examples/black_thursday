@@ -99,4 +99,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_invoice_total
     assert_equal 3489.56, @sales_analyst.invoice_total(1)
   end
+
+  def test_it_can_return_revenue_by_date
+
+  end
 end
