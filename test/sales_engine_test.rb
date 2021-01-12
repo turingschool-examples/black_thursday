@@ -1,5 +1,4 @@
-require 'Minitest/autorun'
-require 'Minitest/pride'
+require './test/test_helper'
 require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test

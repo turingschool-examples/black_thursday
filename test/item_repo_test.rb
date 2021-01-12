@@ -1,8 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/item_repo'
 require './lib/cleaner'
-require 'mocha/minitest'
 
 class ItemRepositoryTest < Minitest::Test
 
