@@ -95,4 +95,51 @@ class SalesEngine
       @merchants.find_by_id(pending_invoice.merchant_id)
     end.uniq
   end
+
+  def successful_invoices
+    @invoices.all.select do |invoice|
+      @transactions.find_all_by_invoice_id(invoice.id).any? do |transaction|
+        transaction.result == :success
+      end
+    end
+  end
+
+  def successful_invoice_ids
+    successful_invoices.map do |invoice|
+      invoice.id
+    end.uniq
+  end
+
+  def invoice_item_sucessful_transactions
+    successful_invoice_ids.map do |invoice_id|
+      @invoice_items.find_all_by_invoice_id(invoice_id)
+    end.flatten
+  end
+
+  def total_revenue_by_day(date)
+    revenue = BigDecimal.new(0)
+    # require 'pry'; binding.pry
+    successful_invoice_items_by_day(date).each do |ii|
+      revenue += ii.unit_price
+    end
+    revenue
+  end
+
+  def successful_invoice_items_by_day(date)
+    invoice_item_sucessful_transactions.select do |ii|
+      (date_to_day(ii.created_at)) == date
+    end
+  end
+
+  def date_to_day(date)
+    date.strftime('%Y-%m-%d')
+  end
 end
+
+  # def successful_invoice_item_by_day(day)
+  #   invoice_item_sucessful_transactions.select do |ii|
+  #     # require 'pry'; binding.pry
+  #     ii.created_day == day
+  #   end
+  # end
+# end

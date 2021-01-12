@@ -59,6 +59,16 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_total_revenue_per_day
+    assert_equal 1, @sales_engine.successful_invoice_items_by_day("2009-02-07").count
+    # assert_equal Invoice, @sales_engine.successful_invoices.first.class
+    # assert_equal 1, @sales_engine.successful_invoice_ids.count
+    # assert_equal 10, @sales_engine.successful_invoice_item_by_day(:monday).count
+    # assert_equal 12_101, @sales_engine.successful_invoice_item_by_day(:tuesday).count
+    # assert_equal 7, @sales_engine.successful_invoice_item_by_day(:wednesday).count
+    # assert_equal 15, @sales_engine.successful_invoice_item_by_day(:thursday).count
+    # assert_equal 1, @sales_engine.successful_invoice_item_by_day(:friday).count
+    # assert_equal 1, @sales_engine.successful_invoice_item_by_day(:saturday).count
+    # assert_equal 1, @sales_engine.successful_invoice_item_by_day(:sunday).count
   end
 
   def test_merchants_with_pending_invoices
