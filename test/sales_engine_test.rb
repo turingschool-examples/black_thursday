@@ -109,4 +109,8 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Array, @se.find_all_by_invoice_id(1234567890)
     assert_equal 4, @se.find_all_by_invoice_id(2).count
   end
+
+  def test_it_can_find_all_by_created_date
+    assert_equal 1, @se.find_all_by_date(Time.parse("2009-02-07")).length
+  end
 end

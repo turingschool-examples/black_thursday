@@ -79,4 +79,8 @@ class SalesEngine
   def find_all_by_invoice_id(id)
     @invoice_items.find_all_by_invoice_id(id)
   end
+
+  def find_all_by_created_date(date)
+    @invoices.find_all_by_date(date)
+  end
 end
