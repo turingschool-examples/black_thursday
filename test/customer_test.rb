@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
+require './test/test_helper'
 require './lib/customer'
 
 class CustomerTest < MiniTest::Test

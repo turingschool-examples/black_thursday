@@ -1,8 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/invoice_repo'
 require './lib/sales_engine'
-
 require './lib/cleaner'
 require './lib/sales_engine'
 

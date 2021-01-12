@@ -1,21 +1,22 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/sales_analyst'
 require './lib/sales_engine'
-
 class TestSalesAnalyst < MiniTest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
       items:      "./data/items.csv",
       merchants:  "./data/merchants.csv",
-      invoices:   "./data/invoices.csv"
+      invoices:   "./data/invoices.csv",
+      transactions: "./data/transactions.csv"
       })
     @sales_analyst = SalesAnalyst.new(@sales_engine)
   end
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @sales_analyst
+    assert_equal SalesEngine, @sales_engine
+    assert_equal @sales_engine, @sales_analyst.sales_engine
   end
 
   def test_it_finds_average_items_per_merchant
@@ -53,7 +54,7 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 10.49, @sales_analyst.average_invoices_per_merchant
     assert_equal Float, @sales_analyst.average_invoices_per_merchant.class
   end
-  #
+
   def test_invoice_standard_dev
     assert_equal 3.29, @sales_analyst.average_invoices_per_merchant_standard_deviation
   end
@@ -95,6 +96,7 @@ class TestSalesAnalyst < MiniTest::Test
 
   def test_merchants_with_pending_invoices
     assert_equal 467, @sales_analyst.merchants_with_pending_invoices.count
+  end
 
   def test_it_finds_merchants_with_only_one_item
     assert_equal 243, @sales_analyst.merchants_with_only_one_item.length
@@ -105,4 +107,11 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 18, @sales_analyst.merchants_with_only_one_item_registered_in_month("June").length
     assert_equal Merchant, @sales_analyst.merchants_with_only_one_item_registered_in_month("June").first.class
   end
+
+  # def test_it_returns_revenue_for_given_merchant
+  #   expected = @sales_analyst.revenue_by_merchant(12334194)
+
+  #   assert_equal BigDecimal.new(expected), expected
+  #   assert_equal BigDecimal, expected
+  # end
 end

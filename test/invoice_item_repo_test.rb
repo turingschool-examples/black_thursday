@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/invoice_item_repo'
 
 class InvoiceItemRepo < Minitest::Test
