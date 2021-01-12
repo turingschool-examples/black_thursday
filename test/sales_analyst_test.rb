@@ -2,6 +2,7 @@ require_relative './test_helper'
 require './lib/sales_analyst'
 require './lib/standard_deviation'
 require 'bigdecimal/util'
+require 'time'
 
 class SalesAnalystTest < Minitest::Test
   include StandardDeviation
@@ -147,6 +148,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_total
-      assert_equal 21067.77, @se.analyst.invoice_total(1)
+      assert_equal 22338.81, @se.analyst.invoice_total(55)
+  end
+
+  def test_total_revenue_by_date
+    date = Time.parse("2004-01-25")
+    assert_equal 0.2233881e5, @se.analyst.total_revenue_by_date(date)
   end
 end
