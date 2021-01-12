@@ -145,7 +145,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_percentage_of_unshipped_invoices
-    skip
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",

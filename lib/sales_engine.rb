@@ -14,25 +14,29 @@ class SalesEngine
     routes(csv_data)
   end
 
-  def top_day_of_the_week
-    # invoice_hash = @invoices.all.group_by do |invoice|
-    #   invoice.created_at
-    # end.flatten
-    # invoice_hash
-    # require "pry"; binding.pry
-
-    created_at_array = []
-    popular_days = []
-
-    @invoices.all.each do |invoice|
-        created_at_array << invoice.created_at
+  def find_invoice_status_percentage(status)
+    matched_status = @invoices.all.find_all do |invoice|
+      invoice.status == status
     end
+    percentage = ((matched_status.count.to_f / @invoices.all.count.to_f) * 100)
+    percentage.round(2)
+  end
 
-    this_is_the_most_popular_day =  created_at_array.max_by{|day|created_at_array.count(day)}
-    # require "pry"; binding.pry
-        # popular_days << this_is_the_most_popular_day
-        # created_at_array.delete(this_is_the_most_popular_day)
 
+  def top_day_of_the_week
+    invoice_count = Hash.new(0)
+    the_hash = @invoices.all.reduce(invoice_count) do |acc, invoice|
+      if invoice_count == nil
+        0
+      else
+        acc[invoice.created_at] += 1
+      end
+      acc
+    end
+    top_day = the_hash.select do |day, invoices_count|
+      invoices_count == the_hash.values.max
+    end
+    top_day.keys
   end
 
   def find_bottom_merchants
@@ -66,6 +70,8 @@ class SalesEngine
   def routes(csv_data)
     csv_data.each_key do |key|
       case
+      when key == :transactions
+        make_transaction_repo(csv_data)
       when key == :invoices
         make_invoice_repo(csv_data)
       when key == :merchants
@@ -86,6 +92,10 @@ class SalesEngine
 
   def self.from_csv(csv_data)
     SalesEngine.new(csv_data)
+  end
+
+  def make_transaction_repo(csv_data)
+    @transactions = TransactionRepo.new(csv_data[:transactions], self)
   end
 
   def make_invoice_repo(csv_data)

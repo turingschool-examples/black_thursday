@@ -10,6 +10,10 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+  def invoice_status(status)
+    @sales_engine.find_invoice_status_percentage(status)
+  end
+
   def top_days_by_invoice_count
     @sales_engine.top_day_of_the_week
   end
