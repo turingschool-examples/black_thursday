@@ -97,6 +97,7 @@ class TransactionRepoTest < Minitest::Test
       })
       tr = TransactionRepository.new(@engine)
 
-    assert_equal 2, tr.successful_transactions_by_invoice_id(8).count
+    assert_equal :success, tr.successful_transactions.first.result
+    assert_equal :success, tr.successful_transactions.last.result
   end
 end
