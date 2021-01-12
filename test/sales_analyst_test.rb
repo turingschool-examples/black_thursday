@@ -124,4 +124,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
     assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count.first
   end
+
+  def test_invoice_status
+    assert_equal 29.55, @sales_analyst.invoice_status(:pending)
+    assert_equal 56.95, @sales_analyst.invoice_status(:shipped)
+    assert_equal 13.5, @sales_analyst.invoice_status(:returned)
+  end
 end
