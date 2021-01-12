@@ -7,7 +7,15 @@ require './lib/sales_engine'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @ir = InvoiceRepository.new('./data/invoices.csv')
+    @merchant_path = './data/merchants.csv'
+    @item_path = './data/items.csv'
+    @invoice_path = './data/invoices.csv'
+    @locations = { items: @item_path,
+                  merchants: @merchant_path,
+                  invoices: @invoice_path
+                }
+    @engine = SalesEngine.new(@locations)
+    @ir = InvoiceRepository.new('./data/invoices.csv', @engine)
   end
 
   def test_it_has_attributes
@@ -71,5 +79,29 @@ class InvoiceRepositoryTest < Minitest::Test
     @ir.delete(3452)
 
     assert_nil @ir.find_by_id(3452)
+  end
+
+  def test_returns_per_merchant_invoice_count
+    assert_equal 475, @ir.per_merchant_invoice_count.length
+  end
+
+  def test_returns_invoices_per_day
+    days = { "Monday" =>    696,
+             "Tuesday" =>   692,
+             "Wednesday" => 741,
+             "Thursday" =>  718,
+             "Friday" =>    701,
+             "Saturday" =>  729,
+             "Sunday" =>    708}
+
+    assert_equal days, @ir.invoices_per_day
+  end
+
+  def test_invoices_per_status
+    status = {pending:  1473,
+              shipped:  2839,
+              returned: 673}
+
+    assert_equal status, @ir.invoices_per_status
   end
 end

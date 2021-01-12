@@ -1,9 +1,22 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice'
+require './lib/invoice_repository'
 require 'time'
+require './lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
+  def setup
+    @merchant_path = './data/merchants.csv'
+    @item_path = './data/items.csv'
+    @invoice_path = './data/invoices.csv'
+    @locations = { items: @item_path,
+                  merchants: @merchant_path,
+                  invoices: @invoice_path}
+    @engine = SalesEngine.new(@locations)
+    @ir = InvoiceRepository.new('./data/invoices.csv', @engine)
+  end
+
   def test_it_has_attributes
     invoice = Invoice.new({
   :id          => 6,
@@ -12,7 +25,7 @@ class InvoiceTest < Minitest::Test
   :status      => "pending",
   :created_at  => Time.now.to_s,
   :updated_at  => Time.now.to_s,
-  })
+  }, @ir)
 
   assert_instance_of Invoice, invoice
   assert_equal 6, invoice.id
@@ -21,5 +34,6 @@ class InvoiceTest < Minitest::Test
   assert_equal 8, invoice.merchant_id
   assert_equal 7, invoice.customer_id
   assert_equal :pending, invoice.status
+  assert_equal "Monday", invoice.day_of_week
   end
 end
