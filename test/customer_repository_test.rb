@@ -26,14 +26,17 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_it_finds_by_id
     assert_equal nil, @repository.find_by_id(1001)
-    assert_equal "Logan", @repository.find_by_id(11).first_name
+    assert_equal "Joey", @repository.find_by_id(1).first_name
   end
 
   def test_find_all_by_name
     assert_equal 5, @repository.find_all_with_name("first name", "joe").length
     assert_equal [], @repository.find_all_with_name("first name", "little lord fauntleroy")
+
     assert_equal 2, @repository.find_all_with_name("last name", "toy").length
     assert_equal Customer, @repository.find_all_with_name("last name", "toy")[0].class
+
+    assert_equal nil, @repository.find_all_with_name("middle name", "michael")
   end
 
   def test_new_highest_id
@@ -47,13 +50,20 @@ class CustomerRepositoryTest < Minitest::Test
                        :updated_at => Time.now)
     assert_equal "Jaqob", @repository.all[-1].first_name
   end
-  #
+
   def test_it_can_update_customer
     attributes = {first_name: "Charles",
                   last_name: "Vera"}
 
+    assert_equal "Mariah", @repository.all[2].first_name
+    assert_equal "Toy", @repository.all[2].last_name
+    assert_equal "27/03/2012", @repository.all[2].updated_at
+
     @repository.update(3, attributes)
 
+    assert_equal "Charles", @repository.all[2].first_name
+    assert_equal "Vera", @repository.all[2].last_name
+    assert_equal Time.now.strftime("%d/%m/%Y"), @repository.all[2].updated_at
   end
 
   def test_it_can_delete_customer
