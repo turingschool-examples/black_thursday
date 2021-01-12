@@ -75,4 +75,8 @@ class SalesEngine
   def find_all_by_result(result)
     @transactions.find_all_by_result(result)
   end
+
+  def find_all_by_invoice_id(id)
+    @invoice_items.find_all_by_invoice_id(id)
+  end
 end

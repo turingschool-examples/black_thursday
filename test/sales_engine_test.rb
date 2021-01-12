@@ -101,7 +101,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_all_by_result
-    assert_instance_of Array, @transactions.find_all_by_result(:success)
-    assert_equal  24, @transactions.find_all_by_result(:success).length
+    assert_instance_of Array, @se.find_all_by_result(:success)
+    assert_equal  4158, @se.find_all_by_result(:success).length
+  end
+
+  def test_find_all_by_invoice_id
+    assert_instance_of Array, @se.find_all_by_invoice_id(1234567890)
+    assert_equal 4, @se.find_all_by_invoice_id(2).count
   end
 end
