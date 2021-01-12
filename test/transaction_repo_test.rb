@@ -2,6 +2,7 @@ require 'pry'
 require 'CSV'
 require './test/test_helper'
 require './lib/transaction_repo'
+require './lib/transaction'
 
 
 class TransactionRepoTest < Minitest::Test
@@ -63,11 +64,11 @@ class TransactionRepoTest < Minitest::Test
         :updated_at => 10
       }
     @tr.create(attributes)
-    assert_equal 4986, @tr.find_all_by_credit_card_number("4242424242424242")[0].id 
+    assert_equal 4986, @tr.find_all_by_credit_card_number("4242424242424242")[0].id
   end
 
   def test_update
-    attributes = ({credit_card_number: 12, 
+    attributes = ({credit_card_number: 12,
                       credit_card_expiration_date: 14,
                       created_at: "2012-02-26 20:56:56 UTC",
                       result: 2,
@@ -83,5 +84,19 @@ class TransactionRepoTest < Minitest::Test
     @tr.delete(1)
     assert_nil @tr.transactions[1]
     assert_equal 4984, @tr.transactions.length
+  end
+
+  def test_transaction_successful
+    transaction = Transaction.new(attributes = {
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => 10,
+        :updated_at => 10
+      })
+      tr = TransactionRepository.new(@engine)
+
+    assert_equal 2, tr.successful_transactions_by_invoice_id(8).count
   end
 end

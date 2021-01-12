@@ -7,7 +7,8 @@ class InvoiceItem
               :created_at,
               :quantity,
               :unit_price,
-              :updated_at
+              :updated_at,
+              :created_day
 
   def initialize(attributes)
     @id         = attributes[:id]
@@ -27,5 +28,17 @@ class InvoiceItem
     @quantity   = attributes[:quantity] if attributes[:quantity]
     @unit_price = attributes[:unit_price] if attributes[:unit_price]
     @updated_at = Time.now
+  end
+
+  def created_day
+    weekdays = {0 => :sunday,
+                1 => :monday,
+                2 => :tuesday,
+                3 => :wednesday,
+                4 => :thursday,
+                5 => :friday,
+                6 => :saturday,
+              }
+    weekdays[@created_at.wday]
   end
 end

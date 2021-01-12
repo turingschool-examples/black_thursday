@@ -32,4 +32,24 @@ class InvoiceItemTest < Minitest::Test
   def test_it_returns_unit_price_to_dollar_float
     assert_equal 847.87, @ii.unit_price_to_dollars
   end
+
+  def test_created_day
+    expected = Time.new(2021, 1, 11)
+    expected1 = Time.new(2021, 1, 12)
+    expected2 = Time.new(2021, 1, 13)
+    expected3 = Time.new(2021, 1, 10)
+    i = InvoiceItem.new({
+      :id          => 6,
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => expected3,
+      :updated_at  => Time.now,
+      })
+
+    # assert_equal :monday, expected
+    # assert_equal :tuesday, expected1
+    # assert_equal :wednesday, expected2
+    assert_equal :sunday, i.created_day
+  end
 end
