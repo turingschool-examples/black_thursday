@@ -26,18 +26,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_nil @ii.find_by_id(2631215446511)
   end
 
-  def test_find_by_item_id
-    item = @ii.all.first
-
-    assert_equal item, @ii.find_by_item_id(263519844)
-    assert_nil @ii.find_by_item_id(926459824508723047)
+  def test_find_all_by_item_id
+    assert_equal 164, @ii.find_all_by_item_id(263519844).count
+    assert_equal [], @ii.find_all_by_item_id(926459824508723047)
   end
 
   def test_find_all_by_invoice_id
-    item = @ii.all.first
-
-    assert_equal item, @ii.find_all_by_invoice_id(1)
-    assert_nil @ii.find_all_by_invoice_id(926459824508723047)
+    assert_equal 8, @ii.find_all_by_invoice_id(1).count
+    assert_equal [], @ii.find_all_by_invoice_id(926459824508723047)
   end
 
   def test_new_highest_id

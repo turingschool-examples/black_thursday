@@ -10,7 +10,10 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./fixture_data/items_fixtures_file.csv",
       :merchants => "./fixture_data/merchants_sample.csv",
-      :invoices  => "./fixture_data/invoices_sample.csv"
+      :invoices  => "./fixture_data/invoices_sample.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./fixture_data/transactions_sample.csv",
+      :customers => "./data/customers.csv",
       })
   end
 
@@ -108,7 +111,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, @se.analyst.average_invoices_per_day_standard_deviation
   end
 
-  def test_average_invoices_per_day 
+  def test_average_invoices_per_day
     assert_equal Float, @se.analyst.average_invoices_per_day.class
     assert_equal 19.57, @se.analyst.average_invoices_per_day
   end
@@ -135,5 +138,3 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, 100
   end
 end
-
-

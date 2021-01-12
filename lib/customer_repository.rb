@@ -31,17 +31,15 @@ class CustomerRepository
     end
   end
 
-  def find_all_with_name(first_or_last_name, name)
-    first_or_last_name = first_or_last_name.downcase.strip
+  def find_all_by_first_name(name)
     @all.find_all do |customer|
-      if first_or_last_name == "first name"
-        customer.first_name.downcase.include?(name.downcase.strip)
-      elsif first_or_last_name == "last name"
-        customer.last_name.downcase.include?(name.downcase.strip)
-      else
-        puts "can't sort by that attribute"
-        break
-      end
+      customer.first_name.downcase.include?(name.downcase.strip)
+    end
+  end
+
+  def find_all_by_last_name(name)
+    @all.find_all do |customer|
+      customer.last_name.downcase.include?(name.downcase.strip)
     end
   end
 
@@ -57,16 +55,20 @@ class CustomerRepository
   end
 
   def update(id, attributes)
-    if attributes.keys.include?(:first_name && :last_name) && !find_by_id(id).nil?
-      customer = find_by_id(id)
-      customer.first_name = attributes[:first_name]
-      customer.last_name = attributes[:last_name]
-      customer.updated_at = Time.now.strftime("%d/%m/%Y")
+    if find_by_id(id) != nil
+      update_customer = all.find { |customer| customer.id == id }
+      update_customer.first_name = attributes[:first_name] if attributes[:first_name] != nil
+      update_customer.last_name = attributes[:last_name] if attributes[:last_name] != nil
+      update_customer.updated_at = Time.now
     end
   end
 
   def delete(id)
     remove = find_by_id(id)
     @all.delete(remove)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end
