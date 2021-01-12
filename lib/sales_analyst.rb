@@ -137,10 +137,14 @@ class SalesAnalyst
     (100 * (@sales_engine.invoice_status_count(status).to_f / @sales_engine.invoices.all.length.to_f)).round(2)
   end
 
+  def merchants_with_pending_invoices
+    @sales_engine.merchants_with_pending_invoices
+  end
+
   def golden_items
     prices = []
     @sales_engine.items.all.each do |item|
-      prices << item.unit_price        
+      prices << item.unit_price
     end
     avg = average_average_price_per_merchant
     new_prices = []
@@ -170,4 +174,3 @@ class SalesAnalyst
     end
   end
 end
-

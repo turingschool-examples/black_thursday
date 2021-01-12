@@ -81,4 +81,10 @@ class SalesEngine
     end
     invoice_count
   end
+
+  def merchants_with_pending_invoices
+    @invoices.status_by_merchant_id(:pending).map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end.uniq
+  end
 end
