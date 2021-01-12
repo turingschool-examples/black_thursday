@@ -106,6 +106,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, @sales_analyst.bottom_merchants_by_invoice_count.length
   end
 
+  def test_average_invoices_per_day_helper
+    assert_equal 712.14, @sales_analyst.average_invoices_per_day
+  end
+
+  def test_invoices_by_days_helper
+    keys = ["Saturday", "Friday", "Wednesday", "Monday", "Sunday", "Tuesday", "Thursday"]
+    assert_equal 7, @sales_analyst.invoices_by_days.length
+    assert_equal keys, @sales_analyst.invoices_by_days.keys
+  end
+
+  def test_invoices_count_per_day_helper
+    assert_equal 7, @sales_analyst.invoices_count_per_day.length
+  end
+
   def test_top_days_by_invoice_count
     assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
     assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count.first
