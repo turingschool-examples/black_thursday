@@ -3,6 +3,7 @@ require_relative './item_repo'
 require_relative './invoice_repo'
 require_relative './merchant_repo'
 require_relative './transaction_repo'
+require 'bigdecimal'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -171,19 +172,24 @@ class SalesAnalyst
     end
   end
 
-  def invoice_paid_in_full?(inv_id)
-    transacts = @sales_engine.transactions.find_all_by_invoice_id(inv_id)
+  def invoice_paid_in_full?(invoice_id)
+    transacts = @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
     success = transacts.map do |transact|
       true if transact.result == :success
      end
-    if transacts.length == 0
-      false
-    elsif success.include?(true) == true
+    if success.include?(true) == true
       true
     else
       false
     end
   end
 
+  def invoice_total(invoice_id)
+    all_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    all_prices = all_items.map do |item|
+      (item.unit_price * item.quantity)
+    end
+    all_prices.sum
+  end
 end
 
