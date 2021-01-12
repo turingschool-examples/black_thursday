@@ -45,4 +45,25 @@ class CustomerRepository
     end
   end
 
+  def create(attributes)
+    attributes[:id] = new_highest_id
+    @all << Customer.new(attributes, self)
+  end
+
+  def new_highest_id
+    all.max_by do |instance|
+      instance.id
+    end.id + 1
+  end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    customer.updated_at = Time.now
+    end
+  end
+
+  def delete(id)
+    remove = find_by_id(id)
+    @all.delete(remove)
+  end
 end
