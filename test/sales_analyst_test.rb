@@ -107,6 +107,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    assert_equal , @sales_analyst.top_days_by_invoice_count
+    assert_equal 1, @sales_analyst.top_days_by_invoice_count.length
+    assert_equal "Wednesday", @sales_analyst.top_days_by_invoice_count.first
   end
 end
