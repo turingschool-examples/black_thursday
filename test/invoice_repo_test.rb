@@ -14,11 +14,15 @@ class InvoiceRepoTest < MiniTest::Test
     @se = SalesEngine.from_csv({
                               :invoices => "./data/invoices.csv"
                               })
-    @invoices = @se.invoices
+    # @invoices = @se.invoices
   end
 
   def test_it_exists
-    assert_instance_of InvoiceRepo, @invoices
+    @se = SalesEngine.from_csv({
+                              :invoices => "./data/invoices.csv"
+                              })
+
+    assert_instance_of InvoiceRepo, @se.invoices
   end
 
   def test_item_repo_can_find_all

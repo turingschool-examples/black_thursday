@@ -10,7 +10,7 @@ require './lib/item'
 require './lib/item_repo'
 
 class InvoiceTest < MiniTest::Test
-  
+
   def test_it_exists
     se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
     i = Invoice.new({
@@ -25,7 +25,6 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_invoice_attributes
-    skip
     se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
     i = Invoice.new({
                     :id          => 6,
