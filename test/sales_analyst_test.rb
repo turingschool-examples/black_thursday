@@ -16,8 +16,6 @@ class TestSalesAnalyst < MiniTest::Test
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @sales_analyst
-    assert_equal SalesEngine, @sales_engine
-    assert_equal @sales_engine, @sales_analyst.sales_engine
   end
 
   def test_it_finds_average_items_per_merchant
