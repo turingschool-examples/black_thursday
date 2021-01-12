@@ -97,4 +97,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_new_highest_id
     assert_equal 263399476, @ir.new_highest_id
   end
+
+  def test_inspect
+    assert_equal "<TransactionRepository 128 rows>", @tr.inspect
+  end
 end
