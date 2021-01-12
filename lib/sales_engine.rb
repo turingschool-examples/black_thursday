@@ -2,9 +2,12 @@ require 'csv'
 require 'pry'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
+require_relative 'sales_analyst'
 class SalesEngine
   attr_reader :merchants,
               :items,
+              :invoices,
               :analyst
   def initialize(locations)
     @merchants = MerchantRepository.new(locations[:merchants], self)
@@ -44,18 +47,18 @@ class SalesEngine
   end
 
   def total_invoices
-    invoices.all.length
+    @invoices.all.length
   end
 
   def per_merchant_invoice_count_hash
-    invoices.per_merchant_invoice_count
+    @invoices.per_merchant_invoice_count
   end
 
   def invoices_per_day
-    invoices.invoices_per_day
+    @invoices.invoices_per_day
   end
 
   def invoices_per_status
-    invoices.invoices_per_status
+    @invoices.invoices_per_status
   end
 end

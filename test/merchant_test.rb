@@ -5,11 +5,13 @@ require './lib/merchant_repository'
 require 'csv'
 class MerchantTest < Minitest::Test
   def setup
-    merchant_path = './data/merchants.csv'
-    item_path = './data/items.csv'
-    locations = { items: item_path,
-                  merchants: merchant_path }
-    @engine = SalesEngine.new(locations)
+    @merchant_path = './data/merchants.csv'
+    @item_path = './data/items.csv'
+    @invoice_path = './data/invoices.csv'
+    @locations = { items: @item_path,
+                  merchants: @merchant_path,
+                  invoices: @invoice_path}
+    @engine = SalesEngine.new(@locations)
     @mr = MerchantRepository.new('./data/merchants.csv', @engine)
     @m = Merchant.new({ id: 5, name: 'Turing School' }, @mr)
   end
