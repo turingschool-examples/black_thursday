@@ -99,4 +99,9 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal status, @se.invoices_per_status
   end
+
+  def test_find_all_by_result
+    assert_instance_of Array, @transactions.find_all_by_result(:success)
+    assert_equal  24, @transactions.find_all_by_result(:success).length
+  end
 end

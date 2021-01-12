@@ -71,4 +71,8 @@ class SalesEngine
   def invoices_per_status
     @invoices.invoices_per_status
   end
+
+  def find_all_by_result(result)
+    @transactions.find_all_by_result(result)
+  end
 end

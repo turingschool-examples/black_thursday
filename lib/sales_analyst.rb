@@ -159,4 +159,11 @@ class SalesAnalyst
     all = sales_engine.invoices_per_status[status]
     ((all / total_invoices.to_f) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    successes = sales_engine.find_all_by_result(:success)
+    successes.any? do |success|
+      success.invoice_id == invoice_id
+    end  
+  end
 end
