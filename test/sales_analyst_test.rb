@@ -148,9 +148,16 @@ class SalesAnalystTest < Minitest::Test
 
     expected = @sales_analyst.invoice_paid_in_full?(1)
     assert_equal false, expected
-    
+
 
     expected = @sales_analyst.invoice_paid_in_full?(1)
     assert_equal false, expected
+  end
+
+  def test_total_returns_total_dollar_amount 
+    expected = @sales_analyst.invoice_total(1)
+
+    assert_equal 21067.77, expected
+    assert_equal BigDecimal, expected.class
   end
 end
