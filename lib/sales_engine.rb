@@ -7,12 +7,15 @@ class SalesEngine
   attr_reader :merchants,
               :items,
               :invoices,
+              :invoice_items,
               :transactions,
               :customers
+
 
   def initialize(csv_data)
     routes(csv_data)
   end
+
 
   def find_invoice_status_percentage(status)
     matched_status = @invoices.all.find_all do |invoice|
@@ -78,6 +81,8 @@ class SalesEngine
         make_merchant_repo(csv_data)
       when key == :items
         make_item_repo(csv_data)
+      when key == :invoice_items
+        make_invoice_items(csv_data)
       when key == :transactions
         make_transaction_repo(csv_data)
       when key == :customers
@@ -92,6 +97,11 @@ class SalesEngine
 
   def self.from_csv(csv_data)
     SalesEngine.new(csv_data)
+  end
+
+
+  def make_invoice_items(csv_data)
+    @invoice_items = InvoiceItemRepo.new(csv_data[:invoice_items], self)
   end
 
   def make_transaction_repo(csv_data)
