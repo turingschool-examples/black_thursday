@@ -96,50 +96,38 @@ class SalesEngine
     end.uniq
   end
 
-  def successful_invoices
+  def date_to_day(date)
+    date.strftime('%Y-%m-%d')
+  end
+
+  def invoices_by_date(day)
     @invoices.all.select do |invoice|
-      @transactions.find_all_by_invoice_id(invoice.id).any? do |transaction|
-        transaction.result == :success
+      date_to_day(invoice.created_at) == day
+    end
+  end
+
+  def successful_invoice_transactions(day)
+    invoices_by_date(day).select do |invoice|
+      successful_transactions_invoice_ids.any? do |trans_inv_id|
+        trans_inv_id == invoice.id
       end
     end
   end
 
-  def successful_invoice_ids
-    successful_invoices.map do |invoice|
-      invoice.id
-    end.uniq
-  end
-
-  def invoice_item_sucessful_transactions
-    successful_invoice_ids.map do |invoice_id|
-      @invoice_items.find_all_by_invoice_id(invoice_id)
-    end.flatten
-  end
-
-  def total_revenue_by_day(date)
+  def total_revenue_by_date(day)
     revenue = BigDecimal.new(0)
-    # require 'pry'; binding.pry
-    successful_invoice_items_by_day(date).each do |ii|
-      revenue += ii.unit_price
+    successful_invoice_transactions(day).each do |invoice|
+      @invoice_items.find_all_by_invoice_id(invoice.id).each do |ii|
+        revenue += (ii.unit_price * ii.quantity)
+      end
+      revenue
     end
     revenue
   end
 
-  def successful_invoice_items_by_day(date)
-    invoice_item_sucessful_transactions.select do |ii|
-      (date_to_day(ii.created_at)) == date
+  def successful_transactions_invoice_ids
+    @transactions.successful_transactions.map do |transaction|
+      transaction.invoice_id
     end
   end
-
-  def date_to_day(date)
-    date.strftime('%Y-%m-%d')
-  end
 end
-
-  # def successful_invoice_item_by_day(day)
-  #   invoice_item_sucessful_transactions.select do |ii|
-  #     # require 'pry'; binding.pry
-  #     ii.created_day == day
-  #   end
-  # end
-# end
