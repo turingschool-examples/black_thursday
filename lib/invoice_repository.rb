@@ -1,17 +1,19 @@
 require_relative 'invoice'
 class InvoiceRepository
   attr_reader :path,
-              :invoices
+              :invoices,
+              :engine
 
-  def initialize(path)
+  def initialize(path, engine)
     @path = path
     @invoices = []
+    @engine = engine 
     read_invoice
   end
 
   def read_invoice
     CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      @invoices << Invoice.new(row)
+      @invoices << Invoice.new(row, self)
     end
 
     @invoices

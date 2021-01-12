@@ -48,6 +48,7 @@ class MerchantRepository
     attributes[:id] = highest_id.id + 1
     @merchants << Merchant.new(attributes, self)
   end
+
   def update(id, attributes)
     return nil if attributes.empty?
     update = find_by_id(id)
