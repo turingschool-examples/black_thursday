@@ -14,7 +14,7 @@ class InvoiceItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
   def ii_objects(ii_rows)
