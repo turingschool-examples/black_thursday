@@ -34,9 +34,6 @@ class SalesEngine
   def pass_item_array
     @items.all
   end
-  def pass_merchant_array
-    @merchants.all
-  end
   def merchant_id_list
     @items.merchant_id_list
   end

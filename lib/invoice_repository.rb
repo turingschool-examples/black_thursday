@@ -120,5 +120,13 @@ class InvoiceRepository
     end
   end
 
+  def create_merchant_id_hash
+    starting_hash = Hash.new { |h, k| h[k] = [] }
+    @invoices.each do |invoice|
+      starting_hash[invoice.merchant_id] << invoice.id
+    end
+    starting_hash
+  end
+
 
 end

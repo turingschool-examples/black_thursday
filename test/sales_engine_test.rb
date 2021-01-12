@@ -113,7 +113,4 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_find_all_by_created_date
     assert_equal 1, @se.find_all_by_date(Time.parse("2009-02-07")).length
   end
-  def test_it_can_return_all
-    assert_instance_of Merchant, @se.pass_merchant_array[0]
-  end
 end

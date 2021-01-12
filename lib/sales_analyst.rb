@@ -171,16 +171,22 @@ class SalesAnalyst
 
     invoice_items = sales_engine.find_all_by_invoice_id(invoice_id)
     invoice_items.sum do |invoice_item|
-      invoice_item.unit_price * invoice_item.quantity.to_i
+      invoice_item.unit_price * invoice_item.quantity.to_i if invoice_paid_in_full?(invoice.id)
     end
   end
 
   def total_revenue_by_date(date)
     invoices = sales_engine.find_all_by_created_date(date)
     total = invoices.sum do |invoice|
-      invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+      invoice_total(invoice.id)
     end
     BigDecimal(total).round(2)
+  end
+
+  def top_revenue_earners(count = 20)
+    merchants = @sales_engine.pass_merchant_array
+
+
   end
 
 end
