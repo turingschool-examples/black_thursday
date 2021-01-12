@@ -6,14 +6,14 @@ require 'mocha/minitest'
 
 class CustomerTest < Minitest::Test
   def setup
-    repo = mock
+    @repo = mock
     @customer = Customer.new({
                         :id => 6,
                         :first_name => "Joan",
                         :last_name => 'Clarke',
                         :created_at => Time.now,
                         :updated_at => Time.now
-      }, repo)
+      }, @repo)
   end
 
   def test_it_exists
@@ -27,5 +27,4 @@ class CustomerTest < Minitest::Test
     assert_equal Time.now.strftime("%d/%m/%Y"), @customer.created_at
     assert_equal Time.now.strftime("%d/%m/%Y"), @customer.updated_at
   end
-
 end
