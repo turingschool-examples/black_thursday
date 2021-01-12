@@ -59,8 +59,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_total_revenue_per_day
-    # answer = BigDecimal.new(4727.39)
-    # assert_equal 1, @sales_engine.invoice_total_based_on_invoice_items(3)
     assert_equal "2009-02-07", @sales_engine.invoices_by_date("2009-02-07").first.created_at.strftime('%Y-%m-%d')
     assert_equal 1, @sales_engine.invoices_by_date("2009-02-07").count
     # assert_equal 0.2106777e5, @sales_engine.total_revenue_by_date("2009-02-07")

@@ -123,8 +123,8 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal false, @sales_analyst.invoice_paid_in_full?(204)
   end
 
-  def test_invoice_total
-    assert_equal 21067.77, @sales_analyst.invoice_total(1)
-    assert_equal BigDecimal, @sales_analyst.invoice_total(1).class
+  def test_total_revenue_by_date
+    assert_equal 21067.77, @sales_analyst.total_revenue_by_date("2009-02-07")
+    assert_equal BigDecimal, @sales_analyst.total_revenue_by_date("2009-02-07").class
   end
 end
