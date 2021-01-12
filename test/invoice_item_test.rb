@@ -13,7 +13,7 @@ class InvoiceItemTest < Minitest::Test
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal(10.99, 4),
+      :unit_price => BigDecimal(1099, 4),
       :created_at => Time.now,
       :updated_at => Time.now
     }, repo)
