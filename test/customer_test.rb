@@ -12,15 +12,17 @@ class CustomerTest < Minitest::Test
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
     invoice_items_path = './data/invoice_items.csv'
-    customer_path = './data/mock_customers.csv'
-    transaction_path = './data/transactions.csv'
+    customers_path = "./data/customers.csv"
+    transactions_path = "./data/transactions.csv"
+    invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
                   invoice_items: invoice_items_path,
-                  customer_path: customer_path,
-                  transaction_path: transaction_path}
+                  customers: customers_path,
+                  transactions: transactions_path,
+                  invoices: invoices_path}
     @engine = SalesEngine.new(locations)
-    @customer_repo = CustomerRepository.new('./data/mock_customers', @engine)
+    @customer_repo = CustomerRepository.new('./data/mock_customers.csv', @engine)
     @c = Customer.new({
                        :id => 6,
                        :first_name => "Joan",

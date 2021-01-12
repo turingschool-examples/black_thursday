@@ -6,10 +6,16 @@ class SalesAnalystTest < Minitest::Test
   def setup
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
-    invoice_path = './data/invoices.csv'
+    invoice_items_path = './data/invoice_items.csv'
+    customers_path = "./data/customers.csv"
+    transactions_path = "./data/transactions.csv"
+    invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
-                  invoices: invoice_path}
+                  invoice_items: invoice_items_path,
+                  customers: customers_path,
+                  transactions: transactions_path,
+                  invoices: invoices_path}
     sales_engine = SalesEngine.from_csv(locations)
     @sales_analyst = sales_engine.analyst
   end

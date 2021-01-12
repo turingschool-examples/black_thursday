@@ -6,13 +6,19 @@ require 'time'
 require './lib/item_repository'
 class ItemTest < Minitest::Test
   def setup
-    @merchant_path = './data/merchants.csv'
-    @item_path = './data/items.csv'
-    @invoice_path = './data/invoices.csv'
-    @locations = { items: @item_path,
-                  merchants: @merchant_path,
-                  invoices: @invoice_path}
-    @engine = SalesEngine.new(@locations)
+    merchant_path = './data/merchants.csv'
+    item_path = './data/items.csv'
+    invoice_items_path = './data/invoice_items.csv'
+    customers_path = "./data/customers.csv"
+    transactions_path = "./data/transactions.csv"
+    invoices_path = './data/invoices.csv'
+    locations = { items: item_path,
+                  merchants: merchant_path,
+                  invoice_items: invoice_items_path,
+                  customers: customers_path,
+                  transactions: transactions_path,
+                  invoices: invoices_path}
+    @engine = SalesEngine.new(locations)
     @ir = ItemRepository.new('./data/items.csv', @engine)
   end
   def test_it_exists_and_has_attributes

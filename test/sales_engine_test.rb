@@ -4,6 +4,8 @@ require './lib/sales_engine'
 require './lib/sales_analyst'
 require './lib/invoice_item_repository'
 require 'csv'
+require './lib/customer_repo'
+
 class SalesEngineTest < Minitest::Test
   def setup
     merchant_path = './data/merchants.csv'
@@ -11,7 +13,7 @@ class SalesEngineTest < Minitest::Test
     invoice_items_path = './data/invoice_items.csv'
     customers_path = "./data/customers.csv"
     transactions_path = "./data/transactions.csv"
-    invoices_path = './data.invoices.csv'
+    invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
                   invoice_items: invoice_items_path,
