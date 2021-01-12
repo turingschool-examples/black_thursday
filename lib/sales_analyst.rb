@@ -88,4 +88,8 @@ class SalesAnalyst
     end
     expensive_items
   end
+
+
+#   sales_analyst.invoice_paid_in_full?(invoice_id) returns true if the Invoice with the corresponding id is paid in full
+# sales_analyst.invoice_total(invoice_id) returns the total $ amount of the Invoice with the corresponding id.
 end
