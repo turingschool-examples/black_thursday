@@ -99,9 +99,43 @@ class SalesAnalyst
     standard_deviaton_calculation(total(invoice_count_per_merchant, average_invoices_per_merchant), all_elements_minus_one(invoice_count_per_merchant))
   end
 
+  def average_invoices_per_day_standard_deviation
+    standard_deviaton_calculation(total(invoices_count_per_day, average_invoices_per_day), all_elements_minus_one(invoices_by_days.values))
+  end
+
+  def average_invoices_per_day
+    all_collection_count(@parent.invoices) / 7
+  end
+
+  def invoices_count_per_day
+    invoices_by_days.map do |day, invoices|
+      invoices.length
+    end
+  end
+
   def invoices_by_merchant_id
     @parent.invoices.all.group_by do |id|
       id.merchant_id
+    end
+  end
+
+  def invoices_by_days
+    @parent.invoices.all.group_by do |invoice|
+      if invoice.created_at.wday == 1
+        "Monday"
+      elsif invoice.created_at.wday == 2
+        "Tuesday"
+      elsif invoice.created_at.wday == 3
+        "Wednesday"
+      elsif invoice.created_at.wday == 4
+        "Thursday"
+      elsif invoice.created_at.wday == 5
+        "Friday"
+      elsif invoice.created_at.wday == 6
+        "Saturday"
+      elsif invoice.created_at.wday == 0
+        "Sunday"
+      end
     end
   end
 
@@ -127,5 +161,14 @@ class SalesAnalyst
       end
     end
     bottom_merchants
+  end
+
+  def top_days_by_invoice_count
+    one_standard_deviation_plus_average = average_invoices_per_day_standard_deviation + average_invoices_per_day
+    top_days = []
+    invoices_by_days.each do |day, invoices|
+      top_days << day if invoices.length > one_standard_deviation_plus_average
+    end
+    top_days
   end
 end
