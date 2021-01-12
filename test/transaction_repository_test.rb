@@ -42,13 +42,13 @@ class TransactionRepoTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_number
-    assert_instance_of Array, @transaction_repo.find_all_by_credit_card_number(4068631943231473)
-    assert_equal 1, @transaction_repo.find_all_by_credit_card_number(4068631943231473).count
+    assert_instance_of Array, @transaction_repo.find_all_by_credit_card_number("4068631943231473")
+    assert_equal 1, @transaction_repo.find_all_by_credit_card_number("4068631943231473").count
   end
 
   def test_find_all_by_result
-    assert_instance_of Array, @transaction_repo.find_all_by_result("success")
-    assert_equal  24, @transaction_repo.find_all_by_result("success").length
+    assert_instance_of Array, @transaction_repo.find_all_by_result(:success)
+    assert_equal  24, @transaction_repo.find_all_by_result(:success).length
   end
 
   def test_create_creates_new_invoice_items

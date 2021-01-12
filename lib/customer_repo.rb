@@ -52,6 +52,8 @@ class CustomerRepository
   end
 
   def create(attributes)
+    attributes[:created_at] = Time.new.to_s
+    attributes[:updated_at] = Time.new.to_s
     attributes[:id] = highest_id.id + 1
     @customers << Customer.new(attributes, self)
   end

@@ -33,6 +33,12 @@ class TransactionRepo
     end
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    @transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
+
   def find_all_by_credit_card_number(credit_card)
     @transactions.find_all do |transaction|
       transaction.credit_card_number == credit_card
@@ -52,6 +58,8 @@ class TransactionRepo
   end
 
   def create(attributes)
+    attributes[:created_at] = Time.new.to_s
+    attributes[:updated_at] = Time.new.to_s
     attributes[:id] = highest_id.id + 1
     @transactions << Transaction.new(attributes, self)
   end
