@@ -179,4 +179,20 @@ class SalesAnalyst
   def invoice_status(status)
     ((invoice_status_collection(status) / all_collection_count(@parent.invoices).to_f) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = parent.transactions.find_all_by_invoice_id(invoice_id)
+    return false if transactions.empty?
+    transactions.all? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+
+  def invoice_total(invoice_id)
+    invoice_items = parent.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+  end
 end
