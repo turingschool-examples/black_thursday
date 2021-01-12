@@ -5,11 +5,12 @@ require 'bigdecimal'
 class Customer
   include TimeStoreable
 
-  attr_reader :id,
-              :first_name,
-              :last_name,
-              :created_at,
-              :updated_at
+  attr_reader :id,    
+              :created_at
+
+  attr_accessor :first_name,
+                :last_name,
+                :updated_at
 
   def initialize(data, repository)
     @id = data[:id]
