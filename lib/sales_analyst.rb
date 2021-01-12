@@ -164,6 +164,15 @@ class SalesAnalyst
     successes = sales_engine.find_all_by_result(:success)
     successes.any? do |success|
       success.invoice_id == invoice_id
-    end  
+    end
   end
+
+  def invoice_total(invoice_id)
+    invoice_items = sales_engine.find_all_by_invoice_id(invoice_id)
+    invoice_items.sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity.to_i
+    end
+  end
+
+
 end
