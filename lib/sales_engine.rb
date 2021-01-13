@@ -100,8 +100,6 @@ class SalesEngine
     date.strftime('%Y-%m-%d')
   end
 
-
-
   def total_revenue_by_date(day)
     revenue = BigDecimal.new(0)
     successful_invoice_transactions(day).each do |invoice|
@@ -122,7 +120,7 @@ class SalesEngine
 
   def invoices_by_date(day)
     @invoices.all.select do |invoice|
-      date_to_day(invoice.created_at) == day
+      invoice.created_at == day
     end
   end
 end
