@@ -1,6 +1,7 @@
 require 'csv'
 require 'pry'
 require 'bigdecimal'
+require 'time'
 require_relative './sales_engine'
 require_relative './standard_deviation'
 
@@ -248,11 +249,10 @@ class SalesAnalyst
     transactions = all_transactions.find_all do |transaction|
       transaction.invoice_id == invoice_id
     end
-
     if transactions == []
       return false
     else
-      transactions.all? { |transaction| transaction.result == :success}
+      transactions.any? { |transaction| transaction.result == :success}
     end
   end
 
@@ -269,5 +269,26 @@ class SalesAnalyst
 
     BigDecimal(items_total.sum).round(2)
   end
+
+  def total_revenue_by_date(date)
+    invoices_by_date = engine.invoices.all.find_all do |invoice|
+      invoice.created_at.strftime("%d/%m/%Y") == date.strftime("%d/%m/%Y")
+    end
+    revenue = invoices_by_date.map do  |invoice|
+      invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+    end
+    revenue.compact.sum
+
+    def merchants_top_revenue_earners
+      engine.merchants.sort_by do |merchants|
+        revenue_by_merchant(merchant_id)
+      end.reverse
+    end
+
+    def top_revenue_earners(x = 20)
+
+    end  
+  end
+
 
 end

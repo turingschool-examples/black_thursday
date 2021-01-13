@@ -2,6 +2,7 @@ require_relative './test_helper'
 require './lib/sales_analyst'
 require './lib/standard_deviation'
 require 'bigdecimal/util'
+require 'time'
 require 'mocha/minitest'
 
 class SalesAnalystTest < Minitest::Test
@@ -12,9 +13,9 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./fixture_data/items_fixtures_file.csv",
       :merchants => "./fixture_data/merchants_sample.csv",
       :invoices  => "./fixture_data/invoices_sample.csv",
-      :invoice_items => "./data/invoice_items.csv",
+      :invoice_items => "./fixture_data/invoice_items_sample.csv",
       :transactions => "./fixture_data/transactions_sample.csv",
-      :customers => "./data/customers.csv",
+      :customers => "./fixture_data/customers_sample.csv",
       })
   end
 
@@ -183,6 +184,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_total
-      assert_equal 21067.77, @se.analyst.invoice_total(1)
+      assert_equal 22338.81, @se.analyst.invoice_total(55)
+  end
+
+  def test_total_revenue_by_date
+    date = Time.parse("2004-01-25")
+    assert_equal 0.2233881e5, @se.analyst.total_revenue_by_date(date)
+  end
+
+  def test_top_revenue_earners
+    assert_equal [], @se.analyst.top_revenue_earners
   end
 end
