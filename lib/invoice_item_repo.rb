@@ -83,11 +83,22 @@ class InvoiceItemRepository
     @invoice_items.delete(id)
   end
 
+  def invoice_item_revenue_by_invoice_id
+    ii_by_invoice_id = {}
+    all.each do |ii|
+    invoice_revenue = find_all_by_invoice_id(ii.invoice_id).sum do |ii|
+          ii.total_price
+        end
+    ii_by_invoice_id[ii.invoice_id] = invoice_revenue
+    end
+    ii_by_invoice_id
+  end
+
   def invoice_item_by_invoice_id
     ii_by_invoice_id = {}
     all.each do |ii|
-      ii_invoice_id[ii.id] = find_all_by_invoice_id(ii.id)
+      ii_by_invoice_id[ii.invoice_id] = find_all_by_invoice_id(ii.invoice_id)
     end
-    ii_invoice_id
+    ii_by_invoice_id
   end
 end
