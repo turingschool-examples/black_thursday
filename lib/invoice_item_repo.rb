@@ -82,4 +82,12 @@ class InvoiceItemRepository
   def delete(id)
     @invoice_items.delete(id)
   end
+
+  def invoice_item_by_invoice_id
+    ii_by_invoice_id = {}
+    all.each do |ii|
+      ii_invoice_id[ii.id] = find_all_by_invoice_id(ii.id)
+    end
+    ii_invoice_id
+  end
 end
