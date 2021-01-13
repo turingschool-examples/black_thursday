@@ -5,43 +5,43 @@ require './lib/invoice_repository'
 require 'csv'
 
 class InvoiceRepositoryTest < Minitest::Test
-  
+
   def setup
-    @ir = InvoiceRepository.new("./fixture_data/invoices.csv", "engine")
+    @ir = InvoiceRepository.new("./fixture_data/invoices_sample.csv", "engine")
   end
 
   def test_it_exists_and_has_attributes
     assert_instance_of InvoiceRepository, @ir
-    assert_equal 4985, @ir.all.count
+    assert_equal 137, @ir.all.count
   end
 
   def test_it_finds_by_id
     invoice = @ir.all.first
 
-    assert_equal invoice, @ir.find_by_id(1)
+    assert_equal Invoice, @ir.find_by_id(55).class
     assert_nil @ir.find_by_id(2631215446511)
   end
 
   def test_find_all_by_customer_id
-    
-    assert_equal 9, @ir.find_all_by_customer_id(11).count
+
+    assert_equal 1, @ir.find_all_by_customer_id(11).count
     assert_equal [], @ir.find_all_by_customer_id(1113413133)
   end
 
   def test_find_all_by_merchant_id
-    
+
     assert_equal 11, @ir.find_all_by_merchant_id(12334365).count
     assert_equal [], @ir.find_all_by_merchant_id(1113413133)
   end
 
   def test_find_all_by_status
-    
-    assert_equal 2839, @ir.find_all_by_status(:shipped).count
+
+    assert_equal 71, @ir.find_all_by_status(:shipped).count
     assert_equal [], @ir.find_all_by_status("not a real status suckas")
   end
 
   def test_new_highest_id
-    assert_equal 4986, @ir.new_highest_id
+    assert_equal 4976, @ir.new_highest_id
   end
 
   def test_it_can_create_new_item
@@ -80,7 +80,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "14/10/2008", invoice_test_updated_at
   end
 
-  
+
   def test_it_can_delete_item
     expect = @ir.find_by_id(55)
 
