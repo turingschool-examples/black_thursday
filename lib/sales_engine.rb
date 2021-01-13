@@ -96,10 +96,6 @@ class SalesEngine
     end.uniq
   end
 
-  def date_to_day(date)
-    date.strftime('%Y-%m-%d')
-  end
-
   def total_revenue_by_date(day)
     revenue = BigDecimal.new(0)
     successful_invoice_transactions(day).each do |invoice|
