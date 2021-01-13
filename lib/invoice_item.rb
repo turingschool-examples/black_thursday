@@ -41,4 +41,8 @@ class InvoiceItem
               }
     weekdays[@created_at.wday]
   end
+
+  def total_price
+    @unit_price * @quantity
+  end
 end
