@@ -129,7 +129,6 @@ class TestSalesAnalyst < MiniTest::Test
   end
 
   def test_top_revenue_earners
-    assert_equal 10, @sales_analyst.top_revenue_earners(10).length
     assert_equal Merchant, @sales_analyst.top_revenue_earners.first.class
     assert_equal 12334634, @sales_analyst.top_revenue_earners.first.id
     assert_equal Merchant, @sales_analyst.top_revenue_earners.first.class
@@ -138,4 +137,5 @@ class TestSalesAnalyst < MiniTest::Test
 
   def test_top_revenue_by_merchant
     assert_equal 1, @sales_analyst.revenue_by_merchant(12334194)
+  end
 end
