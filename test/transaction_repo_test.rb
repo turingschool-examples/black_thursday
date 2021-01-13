@@ -99,5 +99,8 @@ class TransactionRepoTest < Minitest::Test
 
     assert_equal :success, tr.successful_transactions.first.result
     assert_equal :success, tr.successful_transactions.last.result
+    assert_equal Array, tr.successful_transactions_invoice_ids.class
+    assert_equal Integer, tr.successful_transactions_invoice_ids.first.class
+    assert_equal 2810, tr.successful_transactions_invoice_ids.count
   end
 end
