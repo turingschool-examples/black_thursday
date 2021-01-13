@@ -21,7 +21,7 @@ class InvoiceRepository
   end
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
   def all
@@ -49,6 +49,12 @@ class InvoiceRepository
   def find_all_by_status(status)
     @invoices.find_all do |invoice|
       invoice.status == status
+    end
+  end
+
+  def find_all_by_date(date)
+    @invoices.find_all do |invoice|
+      invoice.created_at == date
     end
   end
 
@@ -112,6 +118,14 @@ class InvoiceRepository
       acc[invoice.status] += 1
       acc
     end
+  end
+
+  def create_merchant_id_hash
+    starting_hash = Hash.new { |h, k| h[k] = [] }
+    @invoices.each do |invoice|
+      starting_hash[invoice.merchant_id] << invoice.id
+    end
+    starting_hash
   end
 
 

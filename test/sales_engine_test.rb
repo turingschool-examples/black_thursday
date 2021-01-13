@@ -99,4 +99,27 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal status, @se.invoices_per_status
   end
+
+  def test_find_all_by_result
+    assert_instance_of Array, @se.find_all_by_result(:success)
+    assert_equal  4158, @se.find_all_by_result(:success).length
+  end
+
+  def test_find_all_by_invoice_id
+    assert_instance_of Array, @se.find_all_by_invoice_id(1234567890)
+    assert_equal 4, @se.find_all_by_invoice_id(2).count
+  end
+
+  def test_it_can_find_all_by_created_date
+    assert_equal 1, @se.find_all_by_created_date(Time.parse("2009-02-07")).length
+  end
+
+  def test_it_can_create_merchant_id_hash
+    assert_equal 475, @se.create_merchant_id_hash.length
+  end
+  def test_it_can_find_all_by_status
+    invoices = @se.find_all_by_status(:shipped)
+
+    assert_equal 2839, invoices.length
+  end
 end
