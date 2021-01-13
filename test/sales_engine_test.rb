@@ -117,4 +117,9 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_create_merchant_id_hash
     assert_equal 475, @se.create_merchant_id_hash.length
   end
+  def test_it_can_find_all_by_status
+    invoices = @se.find_all_by_status(:shipped)
+
+    assert_equal 2839, invoices.length
+  end
 end

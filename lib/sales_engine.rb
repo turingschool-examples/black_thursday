@@ -87,4 +87,7 @@ class SalesEngine
   def create_merchant_id_hash
     @invoices.create_merchant_id_hash
   end
+  def find_all_by_status(status)
+    @invoices.find_all_by_status(status)
+  end
 end

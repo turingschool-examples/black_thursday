@@ -136,4 +136,12 @@ class SalesAnalystTest < Minitest::Test
     skip
     assert_equal 475, @sales_analyst.all_merchants_with_total_revenues.count
   end
+
+  def test_it_can_find_merchants_with_pending_invoices
+    assert_equal 448, @sales_analyst.merchants_with_pending_invoices.length
+  end
+
+  def test_it_can_get_pending_invoices
+    assert_equal 448, @sales_analyst.pending_invoices.length
+  end
 end

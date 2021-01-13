@@ -69,4 +69,8 @@ class MerchantRepositoryTest < Minitest::Test
     @mr.delete(12_334_112)
     assert_nil @mr.find_by_id(12_334_112)
   end
+
+  def test_it_can_find_merchants_with_pending_invoices
+
+  end
 end

@@ -209,4 +209,19 @@ class SalesAnalyst
     merchant_totals
   end
 
+  def pending_invoices
+    pending_invoices = sales_engine.find_all_by_status(:pending)
+    merchant_ids = []
+    pending_invoices.each do |invoice|
+      merchant_ids << invoice.merchant_id if !merchant_ids.include?(invoice.merchant_id)
+    end
+    merchant_ids
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices.map do |invoice|
+      sales_engine.find_by_merchant_id(invoice)
+    end
+  end
+
 end
