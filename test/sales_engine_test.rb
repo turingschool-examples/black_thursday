@@ -70,4 +70,9 @@ class SalesEngineTest < Minitest::Test
     assert_equal 467, @sales_engine.merchants_with_pending_invoices.count
     assert_equal Merchant, @sales_engine.merchants_with_pending_invoices.first.class
   end
+
+  def test_top_revenue_earners
+    assert_equal 3, @sales_engine.top_invoice_totals(3).count
+    assert_equal Merchant, @sales_engine.top_revenue_earners.first.class
+  end
 end

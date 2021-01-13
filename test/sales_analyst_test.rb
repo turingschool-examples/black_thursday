@@ -127,4 +127,15 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal 21067.77, @sales_analyst.total_revenue_by_date("2009-02-07")
     assert_equal BigDecimal, @sales_analyst.total_revenue_by_date("2009-02-07").class
   end
+
+  def test_top_revenue_earners
+    assert_equal 10, @sales_analyst.top_revenue_earners(10).length
+    assert_equal Merchant, @sales_analyst.top_revenue_earners.first.class
+    assert_equal 12334634, @sales_analyst.top_revenue_earners.first.id
+    assert_equal Merchant, @sales_analyst.top_revenue_earners.first.class
+    assert_equal 12335747, @sales_analyst.top_revenue_earners.last.id
+  end
+
+  def test_top_revenue_by_merchant
+    assert_equal 1, @sales_analyst.revenue_by_merchant(12334194)
 end

@@ -120,7 +120,6 @@ class SalesEngine
       @invoice_items.find_all_by_invoice_id(invoice.id).each do |ii|
         revenue += (ii.unit_price * ii.quantity)
       end
-      revenue
     end
     revenue
   end
@@ -130,4 +129,47 @@ class SalesEngine
       transaction.invoice_id
     end
   end
+
+  def successful_invoice_total(invoice_id)
+    revenue = BigDecimal.new(0)
+    @invoice_items.find_all_by_invoice_id(invoice_id).each do |ii|
+      revenue += (ii.unit_price * ii.quantity)
+    end
+    revenue
+  end
+
+  def merchant_successful_invoice_totals
+    foo = {}
+    successful_transactions_invoice_ids.each do |invoice_id|
+      foo[(@merchants.find_by_id((@invoices.find_by_id(invoice_id).merchant_id)))] = successful_invoice_total(invoice_id)
+    end
+    foo
+  end
+
+  def successful_invoice_totals_merchant
+    foo = {}
+    successful_transactions_invoice_ids.each do |invoice_id|
+      foo[successful_invoice_total(invoice_id)] = (@merchants.find_by_id((@invoices.find_by_id(invoice_id).merchant_id)))
+    end
+    foo
+  end
+
+  def top_invoice_totals(x)
+    (successful_invoice_totals_merchant.keys.sort[0, x]).reverse
+  end
+
+  def top_revenue_earners(x = 20)
+    top_invoice_totals(x).map do |invoice_total|
+      successful_invoice_totals_merchant[invoice_total]
+    end
+  end
+
+  # def top_revenue_earners(x = 20)
+  #   sorted_merchant_earners = successful_invoice_totals_merchant.sort_by do |merchant, invoice_value|
+  #     require 'pry'; binding.pry
+  #     # sorted_merchant_earners[merchant]  = invoice_value
+  #     invoice_value
+  #   end
+  #   sorted_merchant_earners.keys[0, x]
+  # end
 end

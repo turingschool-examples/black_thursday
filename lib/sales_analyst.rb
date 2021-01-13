@@ -197,5 +197,15 @@ class SalesAnalyst
 
   def total_revenue_by_date(day)
     @sales_engine.total_revenue_by_date(day)
-  end 
+  end
+
+  def top_revenue_earners(x = 20)
+    @sales_engine.top_revenue_earners(x)
+  end
+
+  def revenue_by_merchant(id)
+    @sales_engine.successful_invoice_totals_merchant.select do |merchant_id, total|
+      merchant_id == id
+    end
+  end
 end
