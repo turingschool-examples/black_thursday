@@ -7,7 +7,7 @@ require './lib/item_repository'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @ir = ItemRepository.new("./fixture_data/items_fixtures_file.csv", "engine")
+    @ir = ItemRepository.new("./fixture_data/items_sample.csv", "engine")
   end
 
   def test_it_exists_and_has_attributes

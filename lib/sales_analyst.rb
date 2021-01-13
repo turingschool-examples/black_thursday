@@ -191,12 +191,18 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @engine.invoices.all.find_all { |invoice| invoice.status == :pending }
-    updated = pending_invoices.uniq { |invoice| invoice.merchant_id }
-    merchant_array = updated.map { |invoice| invoice.merchant_id }
-    final_array = merchant_array.map do |id|
+    pending_invoices = @engine.invoices.all.find_all do |invoice|
+      invoice.status == :pending
+    end
+
+    updated = pending_invoices.map do |invoice|
+      invoice.merchant_id
+    end.uniq
+
+    final_array = updated.map do |id|
       @engine.merchants.find_by_id(id)
     end
+    final_array
   end
 
   def merchants_with_only_one_item
@@ -212,14 +218,9 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month)
     int_month = Date::MONTHNAMES.index(month)
-    isolated_month = @engine.items.all.find_all { |item| item.created_at.month == int_month }
-    merchant_hash = isolated_month.group_by { |item| item.merchant_id }
-    merchant_array = merchant_hash.select do |key, value|
-      value.count == 1
-    end
-    merchant_ids = merchant_array.keys
-    final_array = merchant_ids.map do |id|
-      @engine.merchants.find_by_id(id)
+
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == int_month
     end
   end
 
@@ -234,13 +235,29 @@ class SalesAnalyst
     all_items.sum { |item| item.unit_price }
   end
 
+  def validate_merchants(merchant_id)
+   merchant_invoices = engine.invoices.all.find_all do |invoice|
+     invoice.merchant_id == merchant_id
+   end
+   merchant_invoices.find_all do |invoice|
+     invoice_paid_in_full?(invoice.id)
+   end
+ end
+
   def revenue_by_merchant(merchant_id)
-    success_array = @engine.transactions.all.find_all do |transaction|
-      invoiced_merchant_id = transaction_to_invoice(transaction).merchant_id
-      transaction.result == :success && invoiced_merchant_id == merchant_id
+    validated_merchant_invoices = validate_merchants(merchant_id)
+    array = []
+    validated_merchant_invoices.each do |invoice|
+      array << invoice_total(invoice.id)
     end
-    result = transaction_dollar_value(success_array[0])
-    success_array.sum { |transaction| transaction_dollar_value(transaction) }
+
+    array.sum
+    # success_array = @engine.transactions.all.find_all do |transaction|
+    #   invoiced_merchant_id = transaction_to_invoice(transaction).merchant_id
+    #   transaction.result == :success && invoiced_merchant_id == merchant_id
+    # end
+    # result = transaction_dollar_value(success_array[0])
+    # success_array.sum { |transaction| transaction_dollar_value(transaction) }
   end
 
   def invoice_paid_in_full?(invoice_id)
@@ -278,17 +295,16 @@ class SalesAnalyst
       invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
     end
     revenue.compact.sum
-
-    def merchants_top_revenue_earners
-      engine.merchants.sort_by do |merchants|
-        revenue_by_merchant(merchant_id)
-      end.reverse
-    end
-
-    def top_revenue_earners(x = 20)
-
-    end  
   end
 
+  def merchants_top_revenue_earners
+    engine.merchants.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end.reverse
+  end
 
+  # WE NEED to get this method working, right now helper method is running too long
+  def top_revenue_earners(x = 20)
+    merchants_top_revenue_earners[0..x-1]
+  end
 end

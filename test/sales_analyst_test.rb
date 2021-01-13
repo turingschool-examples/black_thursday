@@ -10,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./fixture_data/items_fixtures_file.csv",
+      :items     => "./fixture_data/items_sample.csv",
       :merchants => "./fixture_data/merchants_sample.csv",
       :invoices  => "./fixture_data/invoices_sample.csv",
       :invoice_items => "./fixture_data/invoice_items_sample.csv",
@@ -154,24 +154,28 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal Array, @se.analyst.merchants_with_only_one_item_registered_in_month("January").class
-    assert_equal 7, @se.analyst.merchants_with_only_one_item_registered_in_month("January").count
-    assert_equal Merchant, @se.analyst.merchants_with_only_one_item_registered_in_month("January")[0].class
+    assert_equal 1, @se.analyst.merchants_with_only_one_item_registered_in_month("March").count
+    assert_equal Merchant, @se.analyst.merchants_with_only_one_item_registered_in_month("March")[0].class
+  end
+
+  def test_validate_merchants
+    assert_equal Array, @se.analyst.validate_merchants(12334105).class
   end
 
   def test_find_the_total_revenue_for_a_single_merchant
     repo = mock
     transaction = Transaction.new({
                   :id => 6,
-                  :invoice_id => 8,
+                  :invoice_id => 55,
                   :credit_card_number => "4242424242424242",
                   :credit_card_expiration_date => "0220",
                   :result => "success",
                   :created_at => Time.now
                   }, repo)
 
-    assert_equal nil, @se.analyst.transaction_to_invoice(transaction)
-    # assert_equal nil, @se.analyst.transaction_dollar_value(transaction)
-    assert_equal 0.260395e5, @se.analyst.revenue_by_merchant(12334105)
+    assert_equal Invoice, @se.analyst.transaction_to_invoice(transaction).class
+    assert_equal BigDecimal, @se.analyst.transaction_dollar_value(transaction).class
+    assert_equal 0.7377717e5, @se.analyst.revenue_by_merchant(12334105)
     assert_equal BigDecimal, @se.analyst.revenue_by_merchant(12334105).class
   end
 
@@ -193,6 +197,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners
-    assert_equal [], @se.analyst.top_revenue_earners
+    assert_equal 12, @se.analyst.top_revenue_earners.count
+    assert_equal 10, @se.analyst.top_revenue_earners(10).count
   end
 end
