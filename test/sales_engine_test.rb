@@ -58,7 +58,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal answer, @sales_engine.invoices_per_day_count
   end
 
-  def test_total_revenue_per_day
+  def test_total_revenue_by_date
     assert_equal "2009-02-07", @sales_engine.invoices_by_date("2009-02-07").first.created_at.strftime('%Y-%m-%d')
     assert_equal 1, @sales_engine.invoices_by_date("2009-02-07").count
     assert_equal 21067.77, @sales_engine.total_revenue_by_date("2009-02-07")
@@ -69,10 +69,5 @@ class SalesEngineTest < Minitest::Test
     assert_equal 2175, @sales_engine.pending_invoices.count
     assert_equal 467, @sales_engine.merchants_with_pending_invoices.count
     assert_equal Merchant, @sales_engine.merchants_with_pending_invoices.first.class
-  end
-
-  def test_top_revenue_earners
-    assert_equal Hash, @sales_engine.sucessful_invoice_id_revenue.class
-    assert_equal ({1=>0.2106777e5}), @sales_engine.sucessful_invoice_id_revenue.first
   end
 end

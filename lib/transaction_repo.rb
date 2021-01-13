@@ -74,12 +74,6 @@ class TransactionRepository
     transactions.delete(id)
   end
 
-  # def successful_transactions_by_invoice_id(invoice_id)
-  #   find_all_by_invoice_id(invoice_id).select do |transaction|
-  #     transaction.result == :success
-  #   end
-  # end
-
   def successful_transactions
     find_all_by_result(:success)
   end
