@@ -161,14 +161,13 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    successes = sales_engine.find_all_by_result(:success)
-    successes.any? do |success|
-      success.invoice_id == invoice_id
+    transactions_that_succeed = sales_engine.find_all_by_result(:success)
+    transactions_that_succeed.any? do |transaction|
+      transaction.invoice_id == invoice_id
     end
   end
 
   def invoice_total(invoice_id)
-
     invoice_items = sales_engine.find_all_by_invoice_id(invoice_id)
     invoice_items.sum(0) do |invoice_item|
       if invoice_paid_in_full?(invoice_id)
@@ -211,11 +210,23 @@ class SalesAnalyst
 
   def pending_invoices
     pending_invoices = sales_engine.find_all_by_status(:pending)
+    shipped_invoices = sales_engine.find_all_by_status(:shipped)
+    returned_invoices = sales_engine.find_all_by_status(:returned)
     merchant_ids = []
+
     pending_invoices.each do |invoice|
-      merchant_ids << invoice.merchant_id if !merchant_ids.include?(invoice.merchant_id)
+      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
     end
-    merchant_ids
+
+    shipped_invoices.each do |invoice|
+      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
+    end
+
+    returned_invoices.each do |invoice|
+      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
+    end
+
+    merchant_ids.uniq
   end
 
   def merchants_with_pending_invoices
@@ -258,4 +269,69 @@ class SalesAnalyst
     end
     merchant_and_rev[0].to_d
   end
+
+  def item_quantity_for_merchant(merchant_id)
+    merchant_invoice_ids = return_merchant_invoice_ids(merchant_id)
+    empty_hash = {}
+
+    merchant_invoice_ids.each do |invoice_id|
+      item_invoice_array = sales_engine.find_all_by_invoice_id(invoice_id)
+      empty_hash = item_invoice_array.reduce(empty_hash) do |acc, item_invoice|
+        acc[item_invoice.item_id] = item_invoice.quantity.to_i if !acc.include?(item_invoice.item_id)
+        acc[item_invoice.item_id] += item_invoice.quantity.to_i
+        acc
+      end
+    end
+
+    empty_hash
+  end
+
+  def return_merchant_invoice_ids(merchant_id)
+    merchant_id_hash = sales_engine.create_merchant_id_hash
+    merchant_invoice_id_array = merchant_id_hash[merchant_id]
+  end
+
+  def most_sold_item_by_id_for_merchant(merchant_id)
+    item_quantities_hash = item_quantity_for_merchant(merchant_id)
+    max = item_quantities_hash.values.max
+    items = []
+
+    item_quantities_hash.each do |item_id, quantity|
+      items << item_id if quantity == max
+    end
+
+    items
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    item_ids = most_sold_item_by_id_for_merchant(merchant_id)
+
+    item_ids.map do |item_id|
+      sales_engine.find_item_by_id(item_id)
+    end
+  end
+
+  def item_value_totals(merchant_id)
+    item_quantities_hash = item_quantity_for_merchant(merchant_id)
+    item_quantities_hash.reduce({}) do |acc, item_id|
+      item = @sales_engine.find_item_by_id(item_id[0])
+      price = item.unit_price_to_dollars
+      total = price * item_id[1]
+
+      acc[item] = total
+      acc
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    item_revenues = item_value_totals(merchant_id)
+    max = item_revenues.values.max
+
+    answer = item_revenues.select do |item, revenue|
+      max == revenue
+    end
+
+    answer.keys.flatten[0]
+  end
+
 end

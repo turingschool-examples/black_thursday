@@ -138,13 +138,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_pending_invoices
-    skip
-    assert_equal 448, @sales_analyst.merchants_with_pending_invoices.length
+    assert_equal 467, @sales_analyst.merchants_with_pending_invoices.length
   end
 
   def test_it_can_get_pending_invoices
-    skip
-    assert_equal 448, @sales_analyst.pending_invoices.length
+    assert_equal 467, @sales_analyst.pending_invoices.length
   end
 
   def test_find_ids_for_one_item
@@ -165,6 +163,34 @@ class SalesAnalystTest < Minitest::Test
 
   def test_revenue_by_merchant_returns_big_decimal_for_given_merchant
     assert_instance_of BigDecimal, @sales_analyst.revenue_by_merchant(12334194)
+  end
 
+  def test_item_quantity_for_merchant
+    assert_equal 40, @sales_analyst.item_quantity_for_merchant(12334194).length
+  end
+
+  def test_return_merchant_invoice_ids
+    test_ids = [180, 1214, 1666,
+                1785, 2423, 2472,
+                2752, 2999, 3979,
+                4234, 4695, 4955, 4958]
+
+    assert_equal test_ids, @sales_analyst.return_merchant_invoice_ids(12334194)
+  end
+
+  def test_most_sold_item_by_id_for_merchant
+    assert_equal [263545484, 263521128, 263526484], @sales_analyst.most_sold_item_by_id_for_merchant(12334194)
+  end
+
+  def test_most_sold_item_for_merchant
+    assert_equal 3, @sales_analyst.most_sold_item_for_merchant(12334194).length
+  end
+
+  def test_item_value_totals
+    assert_equal 40, @sales_analyst.item_value_totals(12334194).length
+  end
+
+  def test_best_item_for_merchant
+    assert_equal 24995.0, @sales_analyst.best_item_for_merchant(12334194).unit_price_to_dollars
   end
 end
