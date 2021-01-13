@@ -71,4 +71,23 @@ class SalesEngine
   def invoices_per_status
     @invoices.invoices_per_status
   end
+
+  def find_all_by_result(result)
+    @transactions.find_all_by_result(result)
+  end
+
+  def find_all_by_invoice_id(id)
+    @invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def find_all_by_created_date(date)
+    @invoices.find_all_by_date(date)
+  end
+
+  def create_merchant_id_hash
+    @invoices.create_merchant_id_hash
+  end
+  def find_all_by_status(status)
+    @invoices.find_all_by_status(status)
+  end
 end

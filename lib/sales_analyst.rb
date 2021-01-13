@@ -87,7 +87,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (total_invoices.to_f / total_merchants).round(2)
+    average_stuff(total_invoices.to_f, total_merchants)
   end
 
   def per_merchant_invoice_count_hash
@@ -158,5 +158,104 @@ class SalesAnalyst
   def invoice_status(status)
     all = sales_engine.invoices_per_status[status]
     ((all / total_invoices.to_f) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    successes = sales_engine.find_all_by_result(:success)
+    successes.any? do |success|
+      success.invoice_id == invoice_id
+    end
+  end
+
+  def invoice_total(invoice_id)
+
+    invoice_items = sales_engine.find_all_by_invoice_id(invoice_id)
+    invoice_items.sum(0) do |invoice_item|
+      if invoice_paid_in_full?(invoice_id)
+        invoice_item.unit_price * invoice_item.quantity.to_i
+      else
+        0
+      end
+    end
+  end
+
+  def total_revenue_by_date(date)
+    invoices = sales_engine.find_all_by_created_date(date)
+    total = invoices.sum do |invoice|
+      invoice_total(invoice.id)
+    end
+    BigDecimal(total).round(2)
+  end
+
+  def top_revenue_earners(count = 20)
+    sorted_merchants = all_merchants_with_total_revenues.sort_by do |merchant_id|
+      merchant_id[1]
+    end.reverse
+    top_merchant_ids = sorted_merchants[0...count]
+    top_merchant_ids.map do |merchant_id|
+      sales_engine.find_by_merchant_id(merchant_id[0])
+    end
+  end
+
+  def all_merchants_with_total_revenues
+    merchant_ids = sales_engine.create_merchant_id_hash
+    merchant_totals = merchant_ids.reduce({}) do |acc, merchant_id|
+      merchant_sum = merchant_id[1].sum do |invoice_id|
+        invoice_total(invoice_id)
+      end.round(2)
+      acc[merchant_id[0]] = merchant_sum.to_f.round(2)
+      acc
+    end
+    merchant_totals
+  end
+
+  def pending_invoices
+    pending_invoices = sales_engine.find_all_by_status(:pending)
+    merchant_ids = []
+    pending_invoices.each do |invoice|
+      merchant_ids << invoice.merchant_id if !merchant_ids.include?(invoice.merchant_id)
+    end
+    merchant_ids
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices_hold = pending_invoices
+    pending_invoices_hold.map do |invoice|
+      sales_engine.find_by_merchant_id(invoice)
+    end
+  end
+
+  def find_ids_for_one_item
+    merchant_hash = sales_engine.merchant_hash_item_count
+    merchant_hash.find_all do |merchant, count|
+      count == 1
+    end
+  end
+
+  def merchants_with_only_one_item
+    merchants = []
+    ids_selling_one_item = find_ids_for_one_item
+    ids_selling_one_item.each do |merchant, count|
+      merchants << sales_engine.find_by_merchant_id(merchant)
+    end
+    merchants
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+     x = Date::MONTHNAMES.index(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == x
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_and_rev_hash = all_merchants_with_total_revenues
+    merchant_and_rev = []
+    merchant_and_rev_hash.each do |merchant, total_rev|
+      if merchant == merchant_id
+        merchant_and_rev << total_rev
+      end
+    end
+    merchant_and_rev[0].to_d
   end
 end
