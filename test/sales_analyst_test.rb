@@ -3,6 +3,7 @@ require './lib/sales_analyst'
 require './lib/standard_deviation'
 require 'bigdecimal/util'
 require 'time'
+require 'mocha/minitest'
 
 class SalesAnalystTest < Minitest::Test
   include StandardDeviation
@@ -137,6 +138,41 @@ class SalesAnalystTest < Minitest::Test
     expected += @se.analyst.invoice_status(:returned)
 
     assert_equal expected, 100
+  end
+
+  def test_merchants_with_pending_invoices
+    assert_equal Array, @se.analyst.merchants_with_pending_invoices.class
+    assert_equal 12, @se.analyst.merchants_with_pending_invoices.count
+    assert_equal Merchant, @se.analyst.merchants_with_pending_invoices[0].class
+  end
+
+  def test_merchants_with_only_one_item
+    assert_equal Array, @se.analyst.merchants_with_only_one_item.class
+    assert_equal 7, @se.analyst.merchants_with_only_one_item.count
+    assert_equal Merchant, @se.analyst.merchants_with_only_one_item[0].class
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    assert_equal Array, @se.analyst.merchants_with_only_one_item_registered_in_month("January").class
+    assert_equal 7, @se.analyst.merchants_with_only_one_item_registered_in_month("January").count
+    assert_equal Merchant, @se.analyst.merchants_with_only_one_item_registered_in_month("January")[0].class
+  end
+
+  def test_find_the_total_revenue_for_a_single_merchant
+    repo = mock
+    transaction = Transaction.new({
+                  :id => 6,
+                  :invoice_id => 8,
+                  :credit_card_number => "4242424242424242",
+                  :credit_card_expiration_date => "0220",
+                  :result => "success",
+                  :created_at => Time.now
+                  }, repo)
+
+    assert_equal nil, @se.analyst.transaction_to_invoice(transaction)
+    # assert_equal nil, @se.analyst.transaction_dollar_value(transaction)
+    assert_equal 0.260395e5, @se.analyst.revenue_by_merchant(12334105)
+    assert_equal BigDecimal, @se.analyst.revenue_by_merchant(12334105).class
   end
 
   def test_invoice_paid_in_full
