@@ -189,6 +189,59 @@ class SalesAnalyst
     ((total_status.to_f / engine.invoices.all.count) * 100).round(2)
   end
 
+  def merchants_with_pending_invoices
+    pending_invoices = @engine.invoices.all.find_all { |invoice| invoice.status == :pending }
+    updated = pending_invoices.uniq { |invoice| invoice.merchant_id }
+    merchant_array = updated.map { |invoice| invoice.merchant_id }
+    final_array = merchant_array.map do |id|
+      @engine.merchants.find_by_id(id)
+    end
+  end
+
+  def merchants_with_only_one_item
+    grouped_items = @engine.items.all.group_by { |item| item.merchant_id }
+    merchant_array =  grouped_items.select do |key, value|
+      value.count == 1
+    end
+    merchant_ids = merchant_array.keys
+    final_array = merchant_ids.map do |id|
+      @engine.merchants.find_by_id(id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    int_month = Date::MONTHNAMES.index(month)
+    isolated_month = @engine.items.all.find_all { |item| item.created_at.month == int_month }
+    merchant_hash = isolated_month.group_by { |item| item.merchant_id }
+    merchant_array = merchant_hash.select do |key, value|
+      value.count == 1
+    end
+    merchant_ids = merchant_array.keys
+    final_array = merchant_ids.map do |id|
+      @engine.merchants.find_by_id(id)
+    end
+  end
+
+  def transaction_to_invoice(transaction)
+    invoice_id = transaction.invoice_id
+    invoice = @engine.invoices.find_by_id(invoice_id)
+  end
+
+  def transaction_dollar_value(transaction)
+    invoice = transaction_to_invoice(transaction).id
+    all_items = @engine.invoice_items.find_all_by_invoice_id(invoice)
+    all_items.sum { |item| item.unit_price }
+  end
+
+  def revenue_by_merchant(merchant_id)
+    success_array = @engine.transactions.all.find_all do |transaction|
+      invoiced_merchant_id = transaction_to_invoice(transaction).merchant_id
+      transaction.result == :success && invoiced_merchant_id == merchant_id
+    end
+    result = transaction_dollar_value(success_array[0])
+    success_array.sum { |transaction| transaction_dollar_value(transaction) }
+  end
+
   def invoice_paid_in_full?(invoice_id)
     all_transactions = engine.transactions.all
 
