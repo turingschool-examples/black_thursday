@@ -177,4 +177,12 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal test_ids, @sales_analyst.return_merchant_invoice_ids(12334194)
   end
+
+  def test_most_sold_item_by_id_for_merchant
+    assert_equal [263545484, 263521128, 263526484], @sales_analyst.most_sold_item_by_id_for_merchant(12334194)
+  end
+
+  def test_most_sold_item_for_merchant
+    assert_equal 3, @sales_analyst.most_sold_item_for_merchant(12334194).length
+  end
 end

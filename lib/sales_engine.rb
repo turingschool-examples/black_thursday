@@ -56,6 +56,10 @@ class SalesEngine
     @items.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_item_by_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
   def total_invoices
     @invoices.all.length
   end
@@ -87,7 +91,7 @@ class SalesEngine
   def create_merchant_id_hash
     @invoices.create_merchant_id_hash
   end
-  
+
   def find_all_by_status(status)
     @invoices.find_all_by_status(status)
   end

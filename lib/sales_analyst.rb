@@ -290,4 +290,24 @@ class SalesAnalyst
     merchant_id_hash = sales_engine.create_merchant_id_hash
     merchant_invoice_id_array = merchant_id_hash[merchant_id]
   end
+
+  def most_sold_item_by_id_for_merchant(merchant_id)
+    item_quantities_hash = item_quanity_for_merchant(merchant_id)
+    max = item_quantities_hash.values.max
+    items = []
+
+    item_quantities_hash.each do |item_id, quantity|
+      items << item_id if quantity == max
+    end
+
+    items
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    item_ids = most_sold_item_by_id_for_merchant(merchant_id)
+
+    item_ids.map do |item_id|
+      sales_engine.find_item_by_id(item_id)
+    end
+  end
 end
