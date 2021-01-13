@@ -19,7 +19,7 @@ class MerchantTest < Minitest::Test
                   invoices: invoices_path }
     @engine = SalesEngine.new(locations)
     @mr = MerchantRepository.new('./data/merchants.csv', @engine)
-    @m = Merchant.new({ id: 5, name: 'Turing School' }, @mr)
+    @m = Merchant.new({ id: 5, name: 'Turing School', created_at: Time.now.to_s }, @mr)
   end
 
   def test_it_exists_and_has_attributes
@@ -27,5 +27,6 @@ class MerchantTest < Minitest::Test
     assert_equal 5, @m.id
     assert_equal 'Turing School', @m.name
     assert_instance_of MerchantRepository, @m.merchant_repo
+    assert_instance_of Time, @m.created_at
   end
 end

@@ -40,6 +40,6 @@ class InvoiceTest < Minitest::Test
     assert_equal 8, invoice.merchant_id
     assert_equal 7, invoice.customer_id
     assert_equal :pending, invoice.status
-    assert_equal 'Tuesday', invoice.day_of_week
+    assert_equal 'Thursday', invoice.day_of_week
   end
 end

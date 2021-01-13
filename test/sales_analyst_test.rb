@@ -143,7 +143,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_only_item_registered_in_month
-    assert_instance_of Array, @sales_analyst.test_merchants_with_only_item_registered_in_month('March')
+    assert_instance_of Array, @sales_analyst.merchants_with_only_one_item_registered_in_month('March')
   end
 
   def test_revenue_by_merchant_returns_big_decimal_for_given_merchant

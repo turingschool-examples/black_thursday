@@ -21,13 +21,14 @@ class MerchantRepositoryTest < Minitest::Test
     @engine = SalesEngine.new(locations)
     @mr = MerchantRepository.new('./data/merchants.csv', @engine)
     @merchants = []
-    @m = Merchant.new({ id: 12_334_112, name: 'Candisart' }, @mr)
+    @m = Merchant.new({ id: 12_334_112, name: 'Candisart', created_at: Time.now.to_s }, @mr)
   end
 
   def test_it_exists_and_has_attributes
     assert_instance_of MerchantRepository, @mr
     assert_instance_of SalesEngine, @engine
     assert_equal './data/merchants.csv', @mr.path
+    assert_instance_of Time, @m.created_at
   end
 
   def test_it_can_read_merchants
