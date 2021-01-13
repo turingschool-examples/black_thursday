@@ -128,7 +128,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_top_revenue_earners
-
+    skip
     assert_equal 12334634, @sales_analyst.top_revenue_earners.first.id
   end
 
@@ -138,10 +138,33 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_pending_invoices
+    skip
     assert_equal 448, @sales_analyst.merchants_with_pending_invoices.length
   end
 
   def test_it_can_get_pending_invoices
+    skip
     assert_equal 448, @sales_analyst.pending_invoices.length
+  end
+
+  def test_find_ids_for_one_item
+    skip
+    assert_equal 243, @sales_analyst.find_ids_for_one_item.length
+  end
+
+  def test_merchant_with_only_one_item
+    skip
+    assert_instance_of Array, @sales_analyst.merchants_with_only_one_item
+    assert_equal 243, @sales_analyst.merchants_with_only_one_item.length
+  end
+
+  def test_merchants_with_only_item_registered_in_month
+    skip
+    assert_instance_of Array, @sales_analyst.test_merchants_with_only_item_registered_in_month("March")
+  end
+
+  def test_revenue_by_merchant_returns_big_decimal_for_given_merchant
+    assert_instance_of BigDecimal, @sales_analyst.revenue_by_merchant(12334194)
+
   end
 end

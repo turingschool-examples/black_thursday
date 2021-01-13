@@ -87,7 +87,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (total_invoices.to_f / total_merchants).round(2)
+    average_stuff(total_invoices.to_f, total_merchants)
   end
 
   def per_merchant_invoice_count_hash
@@ -219,9 +219,43 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices.map do |invoice|
+    pending_invoices_hold = pending_invoices
+    pending_invoices_hold.map do |invoice|
       sales_engine.find_by_merchant_id(invoice)
     end
   end
 
+  def find_ids_for_one_item
+    merchant_hash = sales_engine.merchant_hash_item_count
+    merchant_hash.find_all do |merchant, count|
+      count == 1
+    end
+  end
+
+  def merchants_with_only_one_item
+    merchants = []
+    ids_selling_one_item = find_ids_for_one_item
+    ids_selling_one_item.each do |merchant, count|
+      merchants << sales_engine.find_by_merchant_id(merchant)
+    end
+    merchants
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+     x = Date::MONTHNAMES.index(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == x
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_and_rev_hash = all_merchants_with_total_revenues
+    merchant_and_rev = []
+    merchant_and_rev_hash.each do |merchant, total_rev|
+      if merchant == merchant_id
+        merchant_and_rev << total_rev
+      end
+    end
+    merchant_and_rev[0].to_d
+  end
 end
