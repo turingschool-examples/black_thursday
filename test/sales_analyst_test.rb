@@ -163,6 +163,18 @@ class SalesAnalystTest < Minitest::Test
 
   def test_revenue_by_merchant_returns_big_decimal_for_given_merchant
     assert_instance_of BigDecimal, @sales_analyst.revenue_by_merchant(12334194)
+  end
 
+  def test_item_quantity_for_merchant
+    assert_equal 40, @sales_analyst.item_quanity_for_merchant(12334194).length
+  end
+
+  def test_return_merchant_invoice_ids
+    test_ids = [180, 1214, 1666,
+                1785, 2423, 2472,
+                2752, 2999, 3979,
+                4234, 4695, 4955, 4958]
+
+    assert_equal test_ids, @sales_analyst.return_merchant_invoice_ids(12334194)
   end
 end

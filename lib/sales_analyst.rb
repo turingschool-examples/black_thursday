@@ -270,5 +270,24 @@ class SalesAnalyst
     merchant_and_rev[0].to_d
   end
 
+  def item_quanity_for_merchant(merchant_id)
+    merchant_invoice_ids = return_merchant_invoice_ids(merchant_id)
+    empty_hash = {}
 
+    merchant_invoice_ids.each do |invoice_id|
+      item_invoice_array = sales_engine.find_all_by_invoice_id(invoice_id)
+      empty_hash = item_invoice_array.reduce(empty_hash) do |acc, item_invoice|
+        acc[item_invoice.item_id] = item_invoice.quantity.to_i if !acc.include?(item_invoice.item_id)
+        acc[item_invoice.item_id] += item_invoice.quantity.to_i
+        acc
+      end
+    end
+
+    empty_hash
+  end
+
+  def return_merchant_invoice_ids(merchant_id)
+    merchant_id_hash = sales_engine.create_merchant_id_hash
+    merchant_invoice_id_array = merchant_id_hash[merchant_id]
+  end
 end
