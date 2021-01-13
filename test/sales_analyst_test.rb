@@ -162,15 +162,15 @@ class SalesAnalystTest < Minitest::Test
     repo = mock
     transaction = Transaction.new({
                   :id => 6,
-                  :invoice_id => 8,
+                  :invoice_id => 55,
                   :credit_card_number => "4242424242424242",
                   :credit_card_expiration_date => "0220",
                   :result => "success",
                   :created_at => Time.now
                   }, repo)
 
-    assert_equal nil, @se.analyst.transaction_to_invoice(transaction)
-    # assert_equal nil, @se.analyst.transaction_dollar_value(transaction)
+    assert_equal Invoice, @se.analyst.transaction_to_invoice(transaction).class
+    assert_equal BigDecimal, @se.analyst.transaction_dollar_value(transaction).class
     assert_equal 0.260395e5, @se.analyst.revenue_by_merchant(12334105)
     assert_equal BigDecimal, @se.analyst.revenue_by_merchant(12334105).class
   end
@@ -193,6 +193,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners
-    assert_equal [], @se.analyst.top_revenue_earners
+    assert_equal 12, @se.analyst.top_revenue_earners.count
+    assert_equal 10, @se.analyst.top_revenue_earners(10).count
   end
 end

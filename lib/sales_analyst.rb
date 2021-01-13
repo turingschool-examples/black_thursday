@@ -278,17 +278,15 @@ class SalesAnalyst
       invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
     end
     revenue.compact.sum
-
-    def merchants_top_revenue_earners
-      engine.merchants.sort_by do |merchants|
-        revenue_by_merchant(merchant_id)
-      end.reverse
-    end
-
-    def top_revenue_earners(x = 20)
-
-    end  
   end
 
+  def merchants_top_revenue_earners
+    engine.merchants.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end.reverse
+  end
 
+  def top_revenue_earners(x = 20)
+    merchants_top_revenue_earners[0..x-1]
+  end
 end
