@@ -10,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./fixture_data/items_fixtures_file.csv",
+      :items     => "./fixture_data/items_sample.csv",
       :merchants => "./fixture_data/merchants_sample.csv",
       :invoices  => "./fixture_data/invoices_sample.csv",
       :invoice_items => "./fixture_data/invoice_items_sample.csv",
@@ -154,8 +154,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal Array, @se.analyst.merchants_with_only_one_item_registered_in_month("January").class
-    assert_equal 7, @se.analyst.merchants_with_only_one_item_registered_in_month("January").count
-    assert_equal Merchant, @se.analyst.merchants_with_only_one_item_registered_in_month("January")[0].class
+    assert_equal 1, @se.analyst.merchants_with_only_one_item_registered_in_month("March").count
+    assert_equal Merchant, @se.analyst.merchants_with_only_one_item_registered_in_month("March")[0].class
   end
 
   def test_find_the_total_revenue_for_a_single_merchant
