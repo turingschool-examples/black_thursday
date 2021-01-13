@@ -83,4 +83,8 @@ class SalesEngine
   def find_all_by_created_date(date)
     @invoices.find_all_by_date(date)
   end
+
+  def create_merchant_id_hash
+    @invoices.create_merchant_id_hash
+  end
 end

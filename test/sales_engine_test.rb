@@ -111,6 +111,10 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_created_date
-    assert_equal 1, @se.find_all_by_date(Time.parse("2009-02-07")).length
+    assert_equal 1, @se.find_all_by_created_date(Time.parse("2009-02-07")).length
+  end
+
+  def test_it_can_create_merchant_id_hash
+    assert_equal 475, @se.create_merchant_id_hash.length
   end
 end
