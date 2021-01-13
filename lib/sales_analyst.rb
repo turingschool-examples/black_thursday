@@ -190,18 +190,19 @@ class SalesAnalyst
     ((total_status.to_f / engine.invoices.all.count) * 100).round(2)
   end
 
-  def merchants_with_pending_invoices
+  def find_all_pending_invoices
     pending_invoices = @engine.invoices.all.find_all do |invoice|
-      invoice.status == :pending
+      !invoice_paid_in_full?(invoice.id)
     end
+  end
 
-    updated = pending_invoices.map do |invoice|
+  def merchants_with_pending_invoices
+    updated = find_all_pending_invoices.map do |invoice|
       invoice.merchant_id
     end.uniq
-
     final_array = updated.map do |id|
       @engine.merchants.find_by_id(id)
-    end
+    end.uniq
     final_array
   end
 
@@ -303,7 +304,6 @@ class SalesAnalyst
     end.reverse
   end
 
-  # WE NEED to get this method working, right now helper method is running too long
   def top_revenue_earners(x = 20)
     merchants_top_revenue_earners[0..x-1]
   end

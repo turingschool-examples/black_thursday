@@ -141,6 +141,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_pending_invoices
+    assert_equal Array, @se.analyst.find_all_pending_invoices.class
     assert_equal Array, @se.analyst.merchants_with_pending_invoices.class
     assert_equal 12, @se.analyst.merchants_with_pending_invoices.count
     assert_equal Merchant, @se.analyst.merchants_with_pending_invoices[0].class
