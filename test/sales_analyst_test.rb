@@ -155,4 +155,8 @@ class SalesAnalystTest < Minitest::Test
     date = Time.parse("2004-01-25")
     assert_equal 0.2233881e5, @se.analyst.total_revenue_by_date(date)
   end
+
+  def test_top_revenue_earners
+    assert_equal [], @se.analyst.top_revenue_earners
+  end
 end
