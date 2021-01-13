@@ -161,14 +161,13 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    successes = sales_engine.find_all_by_result(:success)
-    successes.any? do |success|
-      success.invoice_id == invoice_id
+    transactions_that_succeed = sales_engine.find_all_by_result(:success)
+    transactions_that_succeed.any? do |transaction|
+      transaction.invoice_id == invoice_id
     end
   end
 
   def invoice_total(invoice_id)
-
     invoice_items = sales_engine.find_all_by_invoice_id(invoice_id)
     invoice_items.sum(0) do |invoice_item|
       if invoice_paid_in_full?(invoice_id)
@@ -211,11 +210,23 @@ class SalesAnalyst
 
   def pending_invoices
     pending_invoices = sales_engine.find_all_by_status(:pending)
+    shipped_invoices = sales_engine.find_all_by_status(:shipped)
+    returned_invoices = sales_engine.find_all_by_status(:returned)
     merchant_ids = []
+
     pending_invoices.each do |invoice|
-      merchant_ids << invoice.merchant_id if !merchant_ids.include?(invoice.merchant_id)
+      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
     end
-    merchant_ids
+
+    shipped_invoices.each do |invoice|
+      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
+    end
+
+    returned_invoices.each do |invoice|
+      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
+    end
+
+    merchant_ids.uniq
   end
 
   def merchants_with_pending_invoices
@@ -258,4 +269,6 @@ class SalesAnalyst
     end
     merchant_and_rev[0].to_d
   end
+
+
 end

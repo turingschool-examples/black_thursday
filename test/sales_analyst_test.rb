@@ -138,13 +138,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_pending_invoices
-    skip
-    assert_equal 448, @sales_analyst.merchants_with_pending_invoices.length
+    assert_equal 467, @sales_analyst.merchants_with_pending_invoices.length
   end
 
   def test_it_can_get_pending_invoices
-    skip
-    assert_equal 448, @sales_analyst.pending_invoices.length
+    assert_equal 467, @sales_analyst.pending_invoices.length
   end
 
   def test_find_ids_for_one_item
