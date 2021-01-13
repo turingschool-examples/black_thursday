@@ -45,13 +45,14 @@ class MerchantRepository
     end
   end
   def create(attributes)
+    attributes[:created_at] = Time.new.to_s
     attributes[:id] = highest_id.id + 1
     @merchants << Merchant.new(attributes, self)
   end
 
   def update(id, attributes)
-    return nil if attributes.empty?
     update = find_by_id(id)
+    return nil if update.nil?
     update.name = attributes[:name]
   end
   def delete(id)
