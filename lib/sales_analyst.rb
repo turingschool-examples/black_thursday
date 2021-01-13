@@ -194,4 +194,8 @@ class SalesAnalyst
     end
     all_prices.sum
   end
+
+  def total_revenue_by_date(day)
+    @sales_engine.total_revenue_by_date(day)
+  end
 end

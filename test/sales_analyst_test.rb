@@ -121,8 +121,19 @@ class TestSalesAnalyst < MiniTest::Test
     assert_equal false, @sales_analyst.invoice_paid_in_full?(204)
   end
 
-  def test_invoice_total
-    assert_equal 21067.77, @sales_analyst.invoice_total(1)
-    assert_equal BigDecimal, @sales_analyst.invoice_total(1).class
+  def test_total_revenue_by_date
+    assert_equal 21067.77, @sales_analyst.total_revenue_by_date("2009-02-07")
+    assert_equal BigDecimal, @sales_analyst.total_revenue_by_date("2009-02-07").class
+  end
+
+  def test_top_revenue_earners
+    assert_equal Merchant, @sales_analyst.top_revenue_earners.first.class
+    assert_equal 12334634, @sales_analyst.top_revenue_earners.first.id
+    assert_equal Merchant, @sales_analyst.top_revenue_earners.first.class
+    assert_equal 12335747, @sales_analyst.top_revenue_earners.last.id
+  end
+
+  def test_top_revenue_by_merchant
+    assert_equal 1, @sales_analyst.revenue_by_merchant(12334194)
   end
 end
