@@ -241,4 +241,33 @@ class SalesAnalyst
     result = transaction_dollar_value(success_array[0])
     success_array.sum { |transaction| transaction_dollar_value(transaction) }
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    all_transactions = engine.transactions.all
+
+    transactions = all_transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+
+    if transactions == []
+      return false
+    else
+      transactions.all? { |transaction| transaction.result == :success}
+    end
+  end
+
+  def invoice_total(invoice_id)
+    all_invoice_items = engine.invoice_items.all
+
+    invoices_items = all_invoice_items.find_all do |item|
+      item.invoice_id == invoice_id
+    end
+
+    items_total = invoices_items.map do |item|
+      item.quantity * item.unit_price
+    end
+
+    BigDecimal(items_total.sum).round(2)
+  end
+
 end

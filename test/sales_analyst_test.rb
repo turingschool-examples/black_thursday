@@ -173,4 +173,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.260395e5, @se.analyst.revenue_by_merchant(12334105)
     assert_equal BigDecimal, @se.analyst.revenue_by_merchant(12334105).class
   end
+
+  def test_invoice_paid_in_full
+    assert_equal true, @se.analyst.invoice_paid_in_full?(4966)
+    assert_equal true, @se.analyst.invoice_paid_in_full?(3445)
+
+    assert_equal false, @se.analyst.invoice_paid_in_full?(144)
+    assert_equal false, @se.analyst.invoice_paid_in_full?(204)
+  end
+
+  def test_invoice_total
+      assert_equal 21067.77, @se.analyst.invoice_total(1)
+  end
 end
