@@ -158,6 +158,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, @se.analyst.merchants_with_only_one_item_registered_in_month("March")[0].class
   end
 
+  def test_validate_merchants
+    assert_equal Array, @se.analyst.validate_merchants(12334105).class
+  end
+
   def test_find_the_total_revenue_for_a_single_merchant
     repo = mock
     transaction = Transaction.new({
@@ -171,7 +175,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal Invoice, @se.analyst.transaction_to_invoice(transaction).class
     assert_equal BigDecimal, @se.analyst.transaction_dollar_value(transaction).class
-    assert_equal 0.260395e5, @se.analyst.revenue_by_merchant(12334105)
+    assert_equal 0.7377717e5, @se.analyst.revenue_by_merchant(12334105)
     assert_equal BigDecimal, @se.analyst.revenue_by_merchant(12334105).class
   end
 

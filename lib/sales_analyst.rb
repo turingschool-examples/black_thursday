@@ -235,13 +235,29 @@ class SalesAnalyst
     all_items.sum { |item| item.unit_price }
   end
 
+  def validate_merchants(merchant_id)
+   merchant_invoices = engine.invoices.all.find_all do |invoice|
+     invoice.merchant_id == merchant_id
+   end
+   merchant_invoices.find_all do |invoice|
+     invoice_paid_in_full?(invoice.id)
+   end
+ end
+
   def revenue_by_merchant(merchant_id)
-    success_array = @engine.transactions.all.find_all do |transaction|
-      invoiced_merchant_id = transaction_to_invoice(transaction).merchant_id
-      transaction.result == :success && invoiced_merchant_id == merchant_id
+    validated_merchant_invoices = validate_merchants(merchant_id)
+    array = []
+    validated_merchant_invoices.each do |invoice|
+      array << invoice_total(invoice.id)
     end
-    result = transaction_dollar_value(success_array[0])
-    success_array.sum { |transaction| transaction_dollar_value(transaction) }
+
+    array.sum
+    # success_array = @engine.transactions.all.find_all do |transaction|
+    #   invoiced_merchant_id = transaction_to_invoice(transaction).merchant_id
+    #   transaction.result == :success && invoiced_merchant_id == merchant_id
+    # end
+    # result = transaction_dollar_value(success_array[0])
+    # success_array.sum { |transaction| transaction_dollar_value(transaction) }
   end
 
   def invoice_paid_in_full?(invoice_id)
@@ -281,14 +297,14 @@ class SalesAnalyst
     revenue.compact.sum
   end
 
-  # def merchants_top_revenue_earners
-  #   engine.merchants.all.sort_by do |merchant|
-  #     revenue_by_merchant(merchant.id)
-  #   end.reverse
-  # end
+  def merchants_top_revenue_earners
+    engine.merchants.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end.reverse
+  end
 
   # WE NEED to get this method working, right now helper method is running too long
-  # def top_revenue_earners(x = 20)
-  #   merchants_top_revenue_earners[0..x-1]
-  # end
+  def top_revenue_earners(x = 20)
+    merchants_top_revenue_earners[0..x-1]
+  end
 end
