@@ -270,7 +270,7 @@ class SalesAnalyst
     merchant_and_rev[0].to_d
   end
 
-  def item_quanity_for_merchant(merchant_id)
+  def item_quantity_for_merchant(merchant_id)
     merchant_invoice_ids = return_merchant_invoice_ids(merchant_id)
     empty_hash = {}
 
@@ -292,7 +292,7 @@ class SalesAnalyst
   end
 
   def most_sold_item_by_id_for_merchant(merchant_id)
-    item_quantities_hash = item_quanity_for_merchant(merchant_id)
+    item_quantities_hash = item_quantity_for_merchant(merchant_id)
     max = item_quantities_hash.values.max
     items = []
 
@@ -310,4 +310,28 @@ class SalesAnalyst
       sales_engine.find_item_by_id(item_id)
     end
   end
+
+  def item_value_totals(merchant_id)
+    item_quantities_hash = item_quantity_for_merchant(merchant_id)
+    item_quantities_hash.reduce({}) do |acc, item_id|
+      item = @sales_engine.find_item_by_id(item_id[0])
+      price = item.unit_price_to_dollars
+      total = price * item_id[1]
+
+      acc[item] = total
+      acc
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    item_revenues = item_value_totals(merchant_id)
+    max = item_revenues.values.max
+
+    answer = item_revenues.select do |item, revenue|
+      max == revenue
+    end
+
+    answer.keys.flatten[0]
+  end
+
 end

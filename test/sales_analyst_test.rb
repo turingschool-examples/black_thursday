@@ -166,7 +166,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_item_quantity_for_merchant
-    assert_equal 40, @sales_analyst.item_quanity_for_merchant(12334194).length
+    assert_equal 40, @sales_analyst.item_quantity_for_merchant(12334194).length
   end
 
   def test_return_merchant_invoice_ids
@@ -184,5 +184,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_most_sold_item_for_merchant
     assert_equal 3, @sales_analyst.most_sold_item_for_merchant(12334194).length
+  end
+
+  def test_item_value_totals
+    assert_equal 40, @sales_analyst.item_value_totals(12334194).length
+  end
+
+  def test_best_item_for_merchant
+    assert_equal 24995.0, @sales_analyst.best_item_for_merchant(12334194).unit_price_to_dollars
   end
 end
