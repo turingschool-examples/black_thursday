@@ -85,38 +85,35 @@ class InvoiceRepository
   end
 
   def per_merchant_invoice_count
-    @invoices.reduce({}) do |acc, invoice|
+    @invoices.each_with_object({}) do |invoice, acc|
       merchant_invoice_count = find_all_by_merchant_id(invoice.merchant_id).length
       acc[invoice.merchant_id] = merchant_invoice_count
-      acc
     end
   end
 
   def invoices_per_day
-    @invoices.reduce(days_hash) do |acc, invoice|
+    @invoices.each_with_object(days_hash) do |invoice, acc|
       # require "pry";binding.pry
       acc[invoice.day_of_week] += 1
-      acc
     end
   end
 
   def days_hash
-    days = { "Monday" =>    0,
-             "Tuesday" =>   0,
-             "Wednesday" => 0,
-             "Thursday" =>  0,
-             "Friday" =>    0,
-             "Saturday" =>  0,
-             "Sunday" =>    0}
+    days = { 'Monday' => 0,
+             'Tuesday' => 0,
+             'Wednesday' => 0,
+             'Thursday' => 0,
+             'Friday' => 0,
+             'Saturday' => 0,
+             'Sunday' => 0 }
   end
 
   def invoices_per_status
-    status = {pending:  0,
-              shipped:  0,
-              returned: 0}
-    @invoices.reduce(status) do |acc, invoice|
+    status = { pending: 0,
+               shipped: 0,
+               returned: 0 }
+    @invoices.each_with_object(status) do |invoice, acc|
       acc[invoice.status] += 1
-      acc
     end
   end
 
@@ -127,6 +124,4 @@ class InvoiceRepository
     end
     starting_hash
   end
-
-
 end

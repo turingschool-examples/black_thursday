@@ -1,13 +1,13 @@
 class Transaction
-  attr_reader:id,
-             :invoice_id,
-             :created_at,
-             :transaction_repo
+  attr_reader :id,
+              :invoice_id,
+              :created_at,
+              :transaction_repo
 
-  attr_accessor:credit_card_number,
-               :credit_card_expiration_date,
-               :result,
-               :updated_at
+  attr_accessor :credit_card_number,
+                :credit_card_expiration_date,
+                :result,
+                :updated_at
 
   def initialize(data, transaction_repo)
     @id = data[:id].to_i

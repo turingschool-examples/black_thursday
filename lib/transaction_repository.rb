@@ -2,9 +2,10 @@ require_relative 'transaction'
 require_relative 'sales_engine'
 require 'csv'
 class TransactionRepo
-  attr_reader:path,
-             :engine,
-             :transactions
+  attr_reader :path,
+              :engine,
+              :transactions
+
   def initialize(path, engine)
     @path = path
     @engine = engine
@@ -67,8 +68,11 @@ class TransactionRepo
   def update(id, attributes)
     update = find_by_id(id)
     return nil if update.nil?
+
     update.credit_card_number = attributes[:credit_card_number] if attributes.has_key?(:credit_card_number)
-    update.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes.has_key?(:credit_card_expiration_date)
+    if attributes.has_key?(:credit_card_expiration_date)
+      update.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+    end
     update.result = attributes[:result] if attributes.has_key?(:result)
     update.updated_at = Time.now
   end

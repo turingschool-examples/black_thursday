@@ -11,15 +11,15 @@ class SalesEngineTest < Minitest::Test
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
     invoice_items_path = './data/invoice_items.csv'
-    customers_path = "./data/customers.csv"
-    transactions_path = "./data/transactions.csv"
+    customers_path = './data/customers.csv'
+    transactions_path = './data/transactions.csv'
     invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
                   invoice_items: invoice_items_path,
                   customers: customers_path,
                   transactions: transactions_path,
-                  invoices: invoices_path}
+                  invoices: invoices_path }
     @se = SalesEngine.from_csv(locations)
   end
 
@@ -50,7 +50,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_by_merchant_id
-    assert_equal "Shopin1901", @se.find_by_merchant_id(12334105).name
+    assert_equal 'Shopin1901', @se.find_by_merchant_id(12_334_105).name
   end
 
   def test_average_item_price
@@ -69,7 +69,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_find_all_by_merchant_id
     assert_instance_of Array, @se.find_all_by_merchant_id(12_334_141)
-    assert_equal 263395237, @se.find_all_by_merchant_id(12_334_141)[0].id
+    assert_equal 263_395_237, @se.find_all_by_merchant_id(12_334_141)[0].id
   end
 
   def test_returns_total_invoices
@@ -81,42 +81,43 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_returns_invoices_per_day
-    days = { "Monday" =>    696,
-             "Tuesday" =>   692,
-             "Wednesday" => 741,
-             "Thursday" =>  718,
-             "Friday" =>    701,
-             "Saturday" =>  729,
-             "Sunday" =>    708}
+    days = { 'Monday' => 696,
+             'Tuesday' => 692,
+             'Wednesday' => 741,
+             'Thursday' => 718,
+             'Friday' => 701,
+             'Saturday' => 729,
+             'Sunday' => 708 }
 
     assert_equal days, @se.invoices_per_day
   end
 
   def test_invoices_per_status
-    status = {pending:  1473,
-              shipped:  2839,
-              returned: 673}
+    status = { pending: 1473,
+               shipped: 2839,
+               returned: 673 }
 
     assert_equal status, @se.invoices_per_status
   end
 
   def test_find_all_by_result
     assert_instance_of Array, @se.find_all_by_result(:success)
-    assert_equal  4158, @se.find_all_by_result(:success).length
+    assert_equal 4158, @se.find_all_by_result(:success).length
   end
 
   def test_find_all_by_invoice_id
-    assert_instance_of Array, @se.find_all_by_invoice_id(1234567890)
+    assert_instance_of Array, @se.find_all_by_invoice_id(1_234_567_890)
     assert_equal 4, @se.find_all_by_invoice_id(2).count
   end
 
   def test_it_can_find_all_by_created_date
-    assert_equal 1, @se.find_all_by_created_date(Time.parse("2009-02-07")).length
+    assert_equal 1, @se.find_all_by_created_date(Time.parse('2009-02-07')).length
   end
 
   def test_it_can_create_merchant_id_hash
     assert_equal 475, @se.create_merchant_id_hash.length
   end
+
   def test_it_can_find_all_by_status
     invoices = @se.find_all_by_status(:shipped)
 

@@ -5,20 +5,19 @@ require './lib/invoice_repository'
 require './lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
-
   def setup
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
     invoice_items_path = './data/invoice_items.csv'
-    customers_path = "./data/customers.csv"
-    transactions_path = "./data/transactions.csv"
+    customers_path = './data/customers.csv'
+    transactions_path = './data/transactions.csv'
     invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
                   invoice_items: invoice_items_path,
                   customers: customers_path,
                   transactions: transactions_path,
-                  invoices: invoices_path}
+                  invoices: invoices_path }
     @engine = SalesEngine.new(locations)
     @ir = InvoiceRepository.new('./data/invoices.csv', @engine)
   end
@@ -62,20 +61,20 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_create_invoice
     invoice = @ir.create({
-  :customer_id => 7,
-  :merchant_id => 8,
-  :status      => "pending",
-  :created_at  => Time.now.to_s,
-  :updated_at  => Time.now.to_s,
-  })
+                           customer_id: 7,
+                           merchant_id: 8,
+                           status: 'pending',
+                           created_at: Time.now.to_s,
+                           updated_at: Time.now.to_s
+                         })
 
-  assert_equal 8, @ir.find_by_id(4986).merchant_id
+    assert_equal 8, @ir.find_by_id(4986).merchant_id
   end
 
   def test_update_invoice
-    @ir.update(3452, {:status => :shipped})
+    @ir.update(3452, { status: :shipped })
 
-  assert_equal :shipped, @ir.find_by_id(3452).status
+    assert_equal :shipped, @ir.find_by_id(3452).status
   end
 
   def test_delete_invoice
@@ -91,27 +90,27 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_returns_invoices_per_day
-    days = { "Monday" =>    696,
-             "Tuesday" =>   692,
-             "Wednesday" => 741,
-             "Thursday" =>  718,
-             "Friday" =>    701,
-             "Saturday" =>  729,
-             "Sunday" =>    708}
+    days = { 'Monday' => 696,
+             'Tuesday' => 692,
+             'Wednesday' => 741,
+             'Thursday' => 718,
+             'Friday' => 701,
+             'Saturday' => 729,
+             'Sunday' => 708 }
 
     assert_equal days, @ir.invoices_per_day
   end
 
   def test_invoices_per_status
-    status = {pending:  1473,
-              shipped:  2839,
-              returned: 673}
+    status = { pending: 1473,
+               shipped: 2839,
+               returned: 673 }
 
     assert_equal status, @ir.invoices_per_status
   end
 
   def test_it_can_find_all_by_created_date
-    assert_equal 1, @ir.find_all_by_date(Time.parse("2009-02-07")).length
+    assert_equal 1, @ir.find_all_by_date(Time.parse('2009-02-07')).length
   end
 
   def test_it_can_create_merchant_id_hash

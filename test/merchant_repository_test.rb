@@ -9,15 +9,15 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
     invoice_items_path = './data/invoice_items.csv'
-    customers_path = "./data/customers.csv"
-    transactions_path = "./data/transactions.csv"
+    customers_path = './data/customers.csv'
+    transactions_path = './data/transactions.csv'
     invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
                   invoice_items: invoice_items_path,
                   customers: customers_path,
                   transactions: transactions_path,
-                  invoices: invoices_path}
+                  invoices: invoices_path }
     @engine = SalesEngine.new(locations)
     @mr = MerchantRepository.new('./data/merchants.csv', @engine)
     @merchants = []
@@ -60,7 +60,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_update_changes_merchant_object_names
-    attributes = {name: "Harry's Appliances" }
+    attributes = { name: "Harry's Appliances" }
     @mr.update(12_334_112, attributes)
     assert_equal "Harry's Appliances", @mr.find_by_id(12_334_112).name
   end
@@ -70,7 +70,5 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil @mr.find_by_id(12_334_112)
   end
 
-  def test_it_can_find_merchants_with_pending_invoices
-
-  end
+  def test_it_can_find_merchants_with_pending_invoices; end
 end

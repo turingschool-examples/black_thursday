@@ -4,6 +4,7 @@ require_relative './mathable'
 class SalesAnalyst
   include Mathable
   attr_reader :sales_engine
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
@@ -36,14 +37,14 @@ class SalesAnalyst
     average = average_item_price
     total = sales_engine.pass_item_array.sum do |item|
       (average - item.unit_price_to_dollars)**2
-      end
+    end
     square_something(total, total_items)
   end
 
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
     total = 0
-    sales_engine.merchant_hash_item_count.each do |key, value|
+    sales_engine.merchant_hash_item_count.each do |_key, value|
       total += (average - value)**2
     end
     square_something(total, total_merchants)
@@ -53,9 +54,7 @@ class SalesAnalyst
     greater_than_sd = average_items_per_merchant + average_items_per_merchant_standard_deviation
     merchants = []
     sales_engine.merchant_hash_item_count.find_all do |merchant_id, count|
-      if count >= greater_than_sd
-        merchants << sales_engine.find_by_merchant_id(merchant_id)
-      end
+      merchants << sales_engine.find_by_merchant_id(merchant_id) if count >= greater_than_sd
     end
     merchants
   end
@@ -64,9 +63,9 @@ class SalesAnalyst
     items = sales_engine.find_all_by_merchant_id(merchant_id)
     price_total = 0
     items.each do |item|
-     price_total += item.unit_price
-   end
-    average_stuff(price_total , items.count)
+      price_total += item.unit_price
+    end
+    average_stuff(price_total, items.count)
   end
 
   def average_average_price_per_merchant
@@ -98,10 +97,10 @@ class SalesAnalyst
     average = average_invoices_per_merchant
     invoice_hash = per_merchant_invoice_count_hash
     total = 0
-    invoice_hash.each do |key, value|
+    invoice_hash.each do |_key, value|
       total += (average - value)**2
     end
-    Math.sqrt(total/(total_merchants - 1)).round(2)
+    Math.sqrt(total / (total_merchants - 1)).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -109,9 +108,7 @@ class SalesAnalyst
     invoice_hash = per_merchant_invoice_count_hash
     top_merchant_invoices = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
     invoice_hash.each do |key, value|
-      if value > top_merchant_invoices
-        top_merchants << sales_engine.find_by_merchant_id(key)
-      end
+      top_merchants << sales_engine.find_by_merchant_id(key) if value > top_merchant_invoices
     end
     top_merchants
   end
@@ -121,9 +118,7 @@ class SalesAnalyst
     invoice_hash = per_merchant_invoice_count_hash
     bottom_merchant_invoices = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
     invoice_hash.each do |key, value|
-      if value < bottom_merchant_invoices
-        bottom_merchants << sales_engine.find_by_merchant_id(key)
-      end
+      bottom_merchants << sales_engine.find_by_merchant_id(key) if value < bottom_merchant_invoices
     end
     bottom_merchants
   end
@@ -136,21 +131,18 @@ class SalesAnalyst
     average = average_invoices_per_day
     per_day_invoice_hash = sales_engine.invoices_per_day
     total = 0
-    per_day_invoice_hash.each do |key, value|
+    per_day_invoice_hash.each do |_key, value|
       total += (average - value)**2
     end
-    # require "pry";binding.pry
     Math.sqrt(total / 6.00).round(2)
   end
 
   def top_days_by_invoice_count
     top_invoice_days = []
-    minimum_for_top = average_invoices_per_day + (average_invoices_per_day_standard_deviation)
+    minimum_for_top = average_invoices_per_day + average_invoices_per_day_standard_deviation
     invoice_hash = sales_engine.invoices_per_day
     invoice_hash.each do |key, value|
-      if value > minimum_for_top
-        top_invoice_days << key
-      end
+      top_invoice_days << key if value > minimum_for_top
     end
     top_invoice_days
   end
@@ -198,14 +190,12 @@ class SalesAnalyst
 
   def all_merchants_with_total_revenues
     merchant_ids = sales_engine.create_merchant_id_hash
-    merchant_totals = merchant_ids.reduce({}) do |acc, merchant_id|
+    merchant_ids.each_with_object({}) do |merchant_id, acc|
       merchant_sum = merchant_id[1].sum do |invoice_id|
         invoice_total(invoice_id)
       end.round(2)
       acc[merchant_id[0]] = merchant_sum.to_f.round(2)
-      acc
     end
-    merchant_totals
   end
 
   def pending_invoices
@@ -215,15 +205,15 @@ class SalesAnalyst
     merchant_ids = []
 
     pending_invoices.each do |invoice|
-      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
+      merchant_ids << invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end
 
     shipped_invoices.each do |invoice|
-      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
+      merchant_ids << invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end
 
     returned_invoices.each do |invoice|
-      merchant_ids << invoice.merchant_id if !invoice_paid_in_full?(invoice.id)
+      merchant_ids << invoice.merchant_id unless invoice_paid_in_full?(invoice.id)
     end
 
     merchant_ids.uniq
@@ -238,7 +228,7 @@ class SalesAnalyst
 
   def find_ids_for_one_item
     merchant_hash = sales_engine.merchant_hash_item_count
-    merchant_hash.find_all do |merchant, count|
+    merchant_hash.find_all do |_merchant, count|
       count == 1
     end
   end
@@ -246,14 +236,14 @@ class SalesAnalyst
   def merchants_with_only_one_item
     merchants = []
     ids_selling_one_item = find_ids_for_one_item
-    ids_selling_one_item.each do |merchant, count|
+    ids_selling_one_item.each do |merchant, _count|
       merchants << sales_engine.find_by_merchant_id(merchant)
     end
     merchants
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-     x = Date::MONTHNAMES.index(month)
+    x = Date::MONTHNAMES.index(month)
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.month == x
     end
@@ -263,9 +253,7 @@ class SalesAnalyst
     merchant_and_rev_hash = all_merchants_with_total_revenues
     merchant_and_rev = []
     merchant_and_rev_hash.each do |merchant, total_rev|
-      if merchant == merchant_id
-        merchant_and_rev << total_rev
-      end
+      merchant_and_rev << total_rev if merchant == merchant_id
     end
     merchant_and_rev[0].to_d
   end
@@ -276,10 +264,9 @@ class SalesAnalyst
 
     merchant_invoice_ids.each do |invoice_id|
       item_invoice_array = sales_engine.find_all_by_invoice_id(invoice_id)
-      empty_hash = item_invoice_array.reduce(empty_hash) do |acc, item_invoice|
-        acc[item_invoice.item_id] = item_invoice.quantity.to_i if !acc.include?(item_invoice.item_id)
+      empty_hash = item_invoice_array.each_with_object(empty_hash) do |item_invoice, acc|
+        acc[item_invoice.item_id] = item_invoice.quantity.to_i unless acc.include?(item_invoice.item_id)
         acc[item_invoice.item_id] += item_invoice.quantity.to_i
-        acc
       end
     end
 
@@ -313,13 +300,12 @@ class SalesAnalyst
 
   def item_value_totals(merchant_id)
     item_quantities_hash = item_quantity_for_merchant(merchant_id)
-    item_quantities_hash.reduce({}) do |acc, item_id|
+    item_quantities_hash.each_with_object({}) do |item_id, acc|
       item = @sales_engine.find_item_by_id(item_id[0])
       price = item.unit_price_to_dollars
       total = price * item_id[1]
 
       acc[item] = total
-      acc
     end
   end
 
@@ -327,11 +313,10 @@ class SalesAnalyst
     item_revenues = item_value_totals(merchant_id)
     max = item_revenues.values.max
 
-    answer = item_revenues.select do |item, revenue|
+    answer = item_revenues.select do |_item, revenue|
       max == revenue
     end
 
     answer.keys.flatten[0]
   end
-
 end

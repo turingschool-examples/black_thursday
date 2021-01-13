@@ -12,26 +12,26 @@ class InvoiceItemTest < Minitest::Test
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
     invoice_items_path = './data/invoice_items.csv'
-    customers_path = "./data/customers.csv"
-    transactions_path = "./data/transactions.csv"
+    customers_path = './data/customers.csv'
+    transactions_path = './data/transactions.csv'
     invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
                   invoice_items: invoice_items_path,
                   customers: customers_path,
                   transactions: transactions_path,
-                  invoices: invoices_path}
+                  invoices: invoices_path }
     @engine = SalesEngine.new(locations)
     @invoice_items_repo = InvoiceItemRepository.new('./data/invoice_items.csv', @engine)
     @ii = InvoiceItem.new({
-                          :id => 6,
-                          :item_id => 7,
-                          :invoice_id => 8,
-                          :quantity => 1,
-                          :unit_price => BigDecimal(10.99, 4),
-                          :created_at => "#{Time.now}",
-                          :updated_at => "#{Time.now}"
-                        },@invoice_items_repo)
+                            id: 6,
+                            item_id: 7,
+                            invoice_id: 8,
+                            quantity: 1,
+                            unit_price: BigDecimal(10.99, 4),
+                            created_at: Time.now.to_s,
+                            updated_at: Time.now.to_s
+                          }, @invoice_items_repo)
   end
 
   def test_it_exists_and_has_attributes

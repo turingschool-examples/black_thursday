@@ -8,26 +8,26 @@ class ItemRepositoryTest < Minitest::Test
     merchant_path = './data/merchants.csv'
     item_path = './data/items.csv'
     invoice_items_path = './data/invoice_items.csv'
-    customers_path = "./data/customers.csv"
-    transactions_path = "./data/transactions.csv"
+    customers_path = './data/customers.csv'
+    transactions_path = './data/transactions.csv'
     invoices_path = './data/invoices.csv'
     locations = { items: item_path,
                   merchants: merchant_path,
                   invoice_items: invoice_items_path,
                   customers: customers_path,
                   transactions: transactions_path,
-                  invoices: invoices_path}
+                  invoices: invoices_path }
     @engine = SalesEngine.new(locations)
     @ir = ItemRepository.new('./data/items.csv', @engine)
     @i = Item.new({
-                   id: 263_550_472,
-                   name: 'Pencil',
-                   description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
-                   unit_price: BigDecimal(10.99, 4),
-                   created_at: Time.now.to_s,
-                   updated_at: Time.now.to_s,
-                   merchant_id: 2
-                 }, @ir)
+                    id: 263_550_472,
+                    name: 'Pencil',
+                    description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
+                    unit_price: BigDecimal(10.99, 4),
+                    created_at: Time.now.to_s,
+                    updated_at: Time.now.to_s,
+                    merchant_id: 2
+                  }, @ir)
   end
 
   def test_it_exists_and_has_attributes
@@ -77,37 +77,37 @@ class ItemRepositoryTest < Minitest::Test
   def test_create_attributes_us_to_add_items
     assert_equal 263_567_474, @ir.items.last.id
     @ir.create({
-                id: 1326,
-                name: 'Pencil',
-                description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
-                unit_price: BigDecimal(10.99, 4),
-                created_at: Time.now,
-                updated_at: Time.now,
-                merchant_id: 2
-              }, @ir = @ir)
+                 id: 1326,
+                 name: 'Pencil',
+                 description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
+                 unit_price: BigDecimal(10.99, 4),
+                 created_at: Time.now,
+                 updated_at: Time.now,
+                 merchant_id: 2
+               }, @ir = @ir)
     assert_instance_of Item, @ir.find_by_name('Pencil')
     assert_equal 263_567_475, @ir.find_by_name('Pencil').id
   end
 
   def test_update_attributes_can_change_item_objects
     @ir.create({
-                id: 1326,
-                name: 'Pencil',
-                description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
-                unit_price: BigDecimal(10.99, 4),
-                created_at: Time.now,
-                updated_at: Time.now,
-                merchant_id: 2
-              }, @ir = @ir)
+                 id: 1326,
+                 name: 'Pencil',
+                 description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
+                 unit_price: BigDecimal(10.99, 4),
+                 created_at: Time.now,
+                 updated_at: Time.now,
+                 merchant_id: 2
+               }, @ir = @ir)
     @ir.update(263_567_475, {
-                id: 263_567_475,
-                name: 'New Item',
-                description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
-                unit_price: BigDecimal(10.99, 4),
-                created_at: Time.now,
-                updated_at: Time.now,
-                merchant_id: 2
-              })
+                 id: 263_567_475,
+                 name: 'New Item',
+                 description: 'A large Yeti of sorts, casually devours a cow as the others watch numbly.',
+                 unit_price: BigDecimal(10.99, 4),
+                 created_at: Time.now,
+                 updated_at: Time.now,
+                 merchant_id: 2
+               })
     assert_equal 'New Item', @ir.find_by_id(263_567_475).name
   end
 
@@ -132,7 +132,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_items_sum
-    assert_equal 343192.33, @ir.items_sum
+    assert_equal 343_192.33, @ir.items_sum
   end
 
   def test_total_items

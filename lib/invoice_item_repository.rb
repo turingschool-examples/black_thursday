@@ -3,9 +3,9 @@ require_relative 'invoice_item'
 require 'csv'
 
 class InvoiceItemRepository
-  attr_reader:path,
-             :engine,
-             :invoice_items
+  attr_reader :path,
+              :engine,
+              :invoice_items
 
   def initialize(path, engine)
     @path = path
@@ -63,6 +63,7 @@ class InvoiceItemRepository
   def update(id, attributes)
     update = find_by_id(id)
     return nil if update.nil?
+
     update.quantity = attributes[:quantity] if attributes.has_key?(:quantity)
     update.unit_price = attributes[:unit_price] if attributes.has_key?(:unit_price)
     update.updated_at = Time.now

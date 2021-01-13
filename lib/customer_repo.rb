@@ -2,9 +2,10 @@ require_relative 'customer'
 require_relative 'sales_engine'
 require 'csv'
 class CustomerRepository
-  attr_reader:path,
-             :engine,
-             :customers
+  attr_reader :path,
+              :engine,
+              :customers
+
   def initialize(path, engine)
     @path = path
     @engine = engine
@@ -61,8 +62,9 @@ class CustomerRepository
   def update(id, attributes)
     update = find_by_id(id)
     return nil if update.nil?
+
     update.first_name = attributes[:first_name] if attributes.has_key?(:first_name)
-    update.last_name  = attributes[:last_name] if attributes.has_key?(:last_name )
+    update.last_name  = attributes[:last_name] if attributes.has_key?(:last_name)
     update.updated_at = Time.now
   end
 

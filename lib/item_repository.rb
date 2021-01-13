@@ -6,6 +6,7 @@ class ItemRepository
   attr_reader :path,
               :items,
               :engine
+
   def initialize(path, engine)
     @path = path
     @items = []
@@ -51,6 +52,7 @@ class ItemRepository
       item.unit_price_to_dollars == price
     end
   end
+
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
       range.include?(item.unit_price_to_dollars)
@@ -79,6 +81,7 @@ class ItemRepository
   def update(id, attributes)
     update = find_by_id(id)
     return nil if update.nil?
+
     update.name = attributes[:name] if attributes.has_key?(:name)
     update.description = attributes[:description] if attributes.has_key?(:description)
     update.unit_price = attributes[:unit_price] if attributes.has_key?(:unit_price)
@@ -89,11 +92,11 @@ class ItemRepository
     delete = find_by_id(id)
     @items.delete(delete)
   end
+
   def merchant_item_count
-    @items.reduce({}) do |acc, item|
+    @items.each_with_object({}) do |item, acc|
       merchant_item_count = find_all_by_merchant_id(item.merchant_id).length
       acc[item.merchant_id] = merchant_item_count
-      acc
     end
   end
 
