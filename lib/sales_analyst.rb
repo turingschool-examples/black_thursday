@@ -2,6 +2,7 @@ require 'csv'
 require 'pry'
 require 'bigdecimal'
 require 'time'
+require 'date'
 require_relative './sales_engine'
 require_relative './standard_deviation'
 
@@ -307,4 +308,40 @@ class SalesAnalyst
   def top_revenue_earners(x = 20)
     merchants_top_revenue_earners[0..x-1]
   end
+
+  def best_item_for_merchant(merchant_id)
+    invoices_array = engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoices_paid = invoices_array.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+    final_hash = {} #Hash.new {|h,k| h[k]=[]}
+    invoices_paid.each do |invoice|
+      engine.invoice_items.find_all_by_invoice_id(invoice.id).each do |invoice_item|
+       if final_hash[invoice_item.item_id].nil?
+        final_hash[invoice_item.item_id] = engine.invoice_items.find_all_by_item_id(invoice_item.item_id)
+       else 
+        final_hash[invoice_item.item_id] << engine.invoice_items.find_all_by_item_id(invoice_item.item_id)
+       end
+      end
+    end
+    actual_final_hash = {}
+
+    final_hash.each do |id, items_array|
+      sum = 0
+      items_array.each do |inv_item|
+        if inv_item.class != InvoiceItem
+        else
+        sum += (inv_item.unit_price * inv_item.quantity)
+        end
+        actual_final_hash[id] = sum
+      end
+      
+    end
+
+    result = actual_final_hash.max_by{|k,v| v}
+    item_id = result[0]
+    answer_holy_shit = engine.items.find_by_id(item_id)
+  end
+
+
 end
