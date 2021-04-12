@@ -1,4 +1,4 @@
-#This class births all our repositories
+# This class births all our repositories
 require 'csv'
 require './lib/merchant_repository'
 require './lib/item_repository'
