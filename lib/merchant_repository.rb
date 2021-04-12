@@ -24,4 +24,7 @@ class MerchantRepository
       merchant.name == name
     end
   end
+
+  def delete(id)
+  end
 end

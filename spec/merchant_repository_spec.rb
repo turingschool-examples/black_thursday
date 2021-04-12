@@ -70,4 +70,21 @@ describe MerchantRepository do
       expect(actual_merchants).to eq expected_merchants
     end
   end
+
+  describe '#delete' do
+    it 'deletes a merchant with the given id' do
+      mock_merchant_1 = instance_double('Merchant', :id => 0)
+      mock_merchant_2 = instance_double('Merchant', :id => 1)
+      mock_merchant_3 = instance_double('Merchant', :id => 2)
+      mock_merchant_4 = instance_double('Merchant', :id => 3)
+      mock_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_3, mock_merchant_4]
+
+      m_repo = MerchantRepository.new(mock_merchants)
+
+      expected_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_4]
+      actual_merchants = m_repo.delete(2)
+
+      expect(actual_merchants).to eq expected_merchants
+    end
+  end
 end
