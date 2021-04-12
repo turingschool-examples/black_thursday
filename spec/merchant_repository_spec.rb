@@ -20,4 +20,20 @@ describe MerchantRepository do
       expect(m_repo.all).to eq mock_merchants
     end
   end
+
+  describe '#find_by_id' do
+    it 'finds the merchant by the given id' do
+      mock_merchant_1 = instance_double('Merchant', :id => 1)
+      mock_merchant_2 = instance_double('Merchant', :id => 2)
+      mock_merchant_3 = instance_double('Merchant', :id => 3)
+      mock_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_3]
+
+      m_repo = MerchantRepository.new(mock_merchants)
+
+      expected_merchant = mock_merchant_2
+      actual_merchant = m_repo.find_by_id(2)
+      
+      expect(actual_merchant).to eq expected_merchant
+    end
+  end
 end
