@@ -3,7 +3,7 @@ require 'bigdecimal'
 require './lib/item'
 
 describe Item do
-  describe "#initialize" do 
+  describe "#initialize" do
     it 'exists' do
       details = {
         :id          => 1,
@@ -16,7 +16,7 @@ describe Item do
       }
       item = Item.new(details)
 
-      expect(item).is_a? Item 
+      expect(item).is_a? Item
     end
 
     it 'has an id' do
@@ -84,32 +84,36 @@ describe Item do
     end
 
     it 'has a created_at Time' do
+      time = Time.now
       details = {
         :id          => 1,
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal.new(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => time,
+        :updated_at  => time,
         :merchant_id => 2
       }
       item = Item.new(details)
 
+      expect(item.created_at).to eq(time)
       expect(item.created_at).is_a? Time
     end
 
     it 'has a updated_at Time' do
+      time = Time.now
       details = {
         :id          => 1,
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal.new(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => time,
+        :updated_at  => time,
         :merchant_id => 2
       }
       item = Item.new(details)
 
+      expect(item.updated_at).to eq(time)
       expect(item.updated_at).is_a? Time
     end
 
