@@ -4,6 +4,6 @@ class MerchantRepository
   end
 
   def all
-    
+    @merchants
   end
 end
