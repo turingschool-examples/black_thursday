@@ -65,6 +65,8 @@ Additional Remote Considerations:
 Project management tools we will use (GitHub projects or Trello are popular tools):
   * Github projects
   * whiteboard iterations
+  * [Plan](https://docs.google.com/document/d/1BANr6H0El_vn9xjmhvuPXc00sbHTNU_bX-eBZbL69TM/edit)
+  * [Enumerables](https://docs.google.com/document/d/1WjO_Vo4lSmmtCi8MQqlG4h8hQN2lRe9YgD2-CWyDF6g/edit)
 
 Day 1 Agenda:
 
