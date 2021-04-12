@@ -26,5 +26,9 @@ class MerchantRepository
   end
 
   def delete(id)
+    index = @merchants.index do |merchant|
+      merchant.id == id
+    end
+    @merchants.delete_at(index)
   end
 end
