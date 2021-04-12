@@ -18,4 +18,7 @@ class MerchantRepository
       merchant.name == name
     end
   end
+
+  def find_all_by_name(name)
+  end
 end
