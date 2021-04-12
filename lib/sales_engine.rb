@@ -2,7 +2,6 @@ require 'csv'
 require './lib/merchant_repository'
 
 class SalesEngine
-
   def initialize(file_hash)
     @location_hash = file_hash
   end
