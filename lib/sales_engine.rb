@@ -1,5 +1,5 @@
-require "csv"
-require "./lib/merchant_repository"
+require 'csv'
+require './lib/merchant_repository'
 
 class SalesEngine
 
