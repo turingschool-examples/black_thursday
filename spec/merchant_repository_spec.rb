@@ -82,8 +82,8 @@ describe MerchantRepository do
       m_repo = MerchantRepository.new(mock_merchants)
 
       expected_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_4]
-      actual_merchants = m_repo.delete(2)
-
+      m_repo.delete(2)
+      actual_merchants = m_repo.all
       expect(actual_merchants).to eq expected_merchants
     end
   end
