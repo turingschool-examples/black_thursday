@@ -36,4 +36,20 @@ describe MerchantRepository do
       expect(actual_merchant).to eq expected_merchant
     end
   end
+
+  describe '#find_by_name' do
+    it 'finds a merchant by the given name' do
+      mock_merchant_1 = instance_double('Merchant', :name => 'Mark')
+      mock_merchant_2 = instance_double('Merchant', :name => 'Rich')
+      mock_merchant_3 = instance_double('Merchant', :name => 'Dustin')
+      mock_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_3]
+
+      m_repo = MerchantRepository.new(mock_merchants)
+
+      expected_merchant = mock_merchant_3
+      actual_merchant = m_repo.find_by_name('Dustin')
+
+      expect(actual_merchant).to eq expected_merchant
+    end
+  end
 end
