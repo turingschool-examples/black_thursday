@@ -32,7 +32,7 @@ describe MerchantRepository do
 
       expected_merchant = mock_merchant_2
       actual_merchant = m_repo.find_by_id(2)
-      
+
       expect(actual_merchant).to eq expected_merchant
     end
   end
