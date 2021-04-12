@@ -7,7 +7,7 @@ RSpec.describe 'SalesEngine' do
       se = SalesEngine.from_csv(
         :items => './data/items.csv',
         :merchants => './data/merchants.csv',
-                               )
+      )
 
       expect(se.class).to eq(SalesEngine)
     end
