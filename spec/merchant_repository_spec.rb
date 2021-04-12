@@ -12,4 +12,12 @@ describe MerchantRepository do
       expect(m_repo.all).to eq []
     end
   end
+
+  describe '#all' do
+    it 'returns the list of Merchants' do
+      mock_merchants = ['mock1', 'mock2', 'mock3']
+      m_repo = MerchantRepository.new(mock_merchants)
+      expect(m_repo.all).to eq mock_merchants
+    end
+  end
 end
