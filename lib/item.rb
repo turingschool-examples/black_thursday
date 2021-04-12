@@ -17,4 +17,8 @@ class Item
     @updated_at = details[:updated_at]
     @merchant_id = details[:merchant_id]
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
 end
