@@ -1,20 +1,33 @@
+require 'CSV'
+
 class SalesEngine
   attr_reader :merchants, :items
-  def self.from_csv(csv_data)
+  def initialize(csv_data)
     @merchants = csv_data[:merchants]
     @items = csv_data[:items]
   end
-  #
-  # def items(items_data)
-  #
-  # end
-  #
-  # def merchants(merchants_data)
-  #
-  # end
-  def self.parse_csv(path)
-    
+
+  def self.from_csv(csv_data)
+    SalesEngine.new(csv_data)
   end
+
+  def self.parse_csv(path)
+    parsed_csv = CSV.parse(File.read(path), headers: true, header_converters: :symbol).to_a
+    headers = parsed_csv.shift
+      new_hash = Hash.new
+
+      counter = 0
+      headers.each do |header|
+        parsed_csv.each do |line|
+          new_hash[header] = line[counter]
+          counter += 1
+        end
+      end
+      require "pry"; binding.pry
+
+  end
+
+
 
 
 end

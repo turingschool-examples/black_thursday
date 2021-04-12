@@ -19,5 +19,9 @@ RSpec.describe SalesEngine do
       expect(SalesEngine.parse_csv("./data/merchants.csv")).to be_instance_of(Array)
       expect(SalesEngine.parse_csv("./data/items.csv")).to be_instance_of(Array)
     end
+
+    it 'creates hashes' do
+      expect(SalesEngine.parse_csv("./data/merchants.csv")[0]).to be_instance_of(Hash)
+    end
   end
 end
