@@ -1,3 +1,4 @@
+#This tests the SalesEngine class, it is currently a wip needed for other classes
 require 'csv'
 require './lib/sales_engine'
 
