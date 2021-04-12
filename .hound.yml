@@ -1,0 +1,5 @@
+scss:
+  enabled: false
+
+rubocop:
+  config_file: .rubocop.yml
