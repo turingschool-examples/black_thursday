@@ -1,8 +1,8 @@
-# This class births all our repositories
 require 'csv'
 require './lib/merchant_repository'
 require './lib/item_repository'
 
+# This class births all our repositories
 class SalesEngine
   def initialize(file_hash)
     @location_hash = file_hash
