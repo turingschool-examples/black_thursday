@@ -34,8 +34,7 @@ class SalesEngine
       merchant_array_new << Merchant.new( id: merchant[0],
                                           name: merchant[1],
                                           created_at: merchant[2],
-                                          updated_at: merchant[3]
-                                )
+                                          updated_at: merchant[3])
       end
     MerchantRepository.new(merchant_array_new)
   end
