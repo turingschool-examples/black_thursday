@@ -18,7 +18,7 @@ class MerchantRepository
 
   def find_by_name(name)
     @csv_array.find do |merchant|
-    merchant.name.downcase == name.downcase
+    merchant.name.casecmp == name.case.cmp
     end
   end
 
