@@ -8,7 +8,7 @@ RSpec.describe 'SalesEngine' do
         items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
-      require "pry"; binding.pry
+
       expect(se.class).to eq(SalesEngine)
     end
   end
