@@ -3,14 +3,17 @@ SimpleCov.start
 require './lib/sales_engine'
 require './lib/item_repository'
 
-RSpec.describe ItemRepository do
+RSpec.describe SalesEngine do
   before do
     @se = SalesEngine.new
-    @ir = @se.items
   end
+
   describe '#initialize' do
     it 'exists' do
-      expect(@ir).to be_instance_of(ItemRepository)
+        expect(@se).to be_instance_of(SalesEngine)
+    end
+    it 'creates an ItemRepository' do
+        expect(@se.items).to be_instance_of(ItemRepository)
     end
   end
 end
