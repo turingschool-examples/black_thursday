@@ -15,4 +15,10 @@ class MerchantRepository
       merchant.id == id
     end
   end
+
+  def find_by_name(name)
+    @csv_array.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
+  end
 end
