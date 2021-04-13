@@ -29,16 +29,16 @@ class MerchantRepository
   end
 
   def max_id_plus_one
-    max = @csv_array.max_by do |merchant|
+      max = @csv_array.max_by do |merchant|
           merchant.id
-          end
+      end
     new = max.id.to_i + 1
     new.to_s
   end
 
   def create(name)
-    Merchant.new({ id: max_id_plus_one,
-                  name: name })
+    Merchant.new(id: max_id_plus_one,
+                  name: name)
   end
 
   def update(id, name)
