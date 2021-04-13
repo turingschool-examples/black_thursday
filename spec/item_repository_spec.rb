@@ -168,4 +168,34 @@ RSpec.describe 'ItemRepository' do
        expect(ir.find_all_by_merchant_id('1010101001010101')).to eq([])
      end
    end
+   describe '#max_id_number_new' do
+     it 'returns an id number string one larger than the previous max' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+
+       expect(ir.max_id_number_new).to eq('263567475')
+     end
+   end
+   describe '#create' do
+     it 'creates an instance of an item' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+       item = ir.create(
+         :name        => "Pencil",
+         :description => "You can use it to write things",
+         :unit_price  => BigDecimal.new(10.99,4),
+         :merchant_id => 2
+         )
+
+       expect(item.class).to eq(Item)
+     end
+   end
 end

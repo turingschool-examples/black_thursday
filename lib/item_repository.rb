@@ -1,4 +1,5 @@
 # Basic ItemRepository class
+
 class ItemRepository
   attr_reader :item_array
 
@@ -44,5 +45,25 @@ class ItemRepository
     @item_array.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def max_id_number_new
+    old_max = @item_array.max_by do |item|
+      item.id
+    end.id
+    (old_max.to_i + 1).to_s
+  end
+
+  def create(item_hash)
+    attributes = {
+      id: max_id_number_new,
+      name: item_hash[:name],
+      description: item_hash[:description],
+      unit_price: item_hash[:unit_price],
+      created_at: Time.now.to_s,
+      updated_at: Time.new.to_s,
+      merchant_id: item_hash[:merchant_id]
+    }
+    Item.new(attributes)
   end
 end
