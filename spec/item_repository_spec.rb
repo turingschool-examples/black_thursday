@@ -12,5 +12,16 @@ RSpec.describe 'ItemRepository' do
 
       expect(ir.class).to eq(ItemRepository)
     end
-  end
+    it 'is created with an array of items' do
+      se = SalesEngine.from_csv(
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      )
+
+      ir = se.items
+
+      expect(ir.item_array.class).to eq(Array)
+      expect(ir.item_array[0].class).to eq(Item)
+    end
+   end
 end
