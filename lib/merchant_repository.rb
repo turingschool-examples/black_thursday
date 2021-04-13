@@ -35,6 +35,10 @@ class MerchantRepository
   end
 
   def newest_id
+    merchant = @merchants.max_by do |merchant|
+      merchant.id
+    end
+    merchant.id + 1
   end
 
   def create(attributes)
