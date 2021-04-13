@@ -12,7 +12,7 @@ class ItemRepository
 
   def make_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-        @items << Item.new(row)
+      @items << Item.new(row)
     end
   end
 
