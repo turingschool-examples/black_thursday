@@ -12,15 +12,15 @@ RSpec.describe Item do
     # after do
     #   Timecop.return
     # end
-    i = Item.new(
+    i = Item.new({
                   :id          => 1,
                   :name        => 'Pencil',
                   :description => 'You can use it to write things',
-                  :unit_price  => BigDecimal(10.99,4),
+                  :unit_price  => BigDecimal(10.99, 4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now,
                   :merchant_id => 2
-                  )
+                })
     it 'exists' do
       expect(i).to be_an_instance_of(Item)
     end
@@ -34,7 +34,7 @@ RSpec.describe Item do
       expect(i.description).to eq('You can use it to write things')
     end
     it 'has a unit price' do
-      expect(i.unit_price).to eq(BigDecimal(10.99,4))
+      expect(i.unit_price).to eq(BigDecimal(10.99, 4))
     end
     xit 'has a time created' do
       expect(i.created_at).to eq(Time.now)
@@ -44,6 +44,20 @@ RSpec.describe Item do
     end
     it 'has a merchant id' do
       expect(i.merchant_id).to eq(2)
+    end
+  end
+  describe '#unit_price_to_dollars' do
+    i = Item.new({
+                  :id          => 1,
+                  :name        => 'Pencil',
+                  :description => 'You can use it to write things',
+                  :unit_price  => BigDecimal(10.99, 4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
+                  :merchant_id => 2
+                })
+    it 'converts unit price to dollars' do
+      expect(i.unit_price_to_dollars).to eq(10.99)
     end
   end
 end
