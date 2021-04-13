@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Merchant
   attr_reader :id,
               :name
