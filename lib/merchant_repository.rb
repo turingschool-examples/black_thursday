@@ -27,4 +27,18 @@ class MerchantRepository
       merchant.name.downcase.include?(name.downcase)
     end
   end
+
+  def max_id_plus_one
+      max = @csv_array.max_by do |merchant|
+      merchant.id
+      end
+      new = max.id.to_i + 1
+      new.to_s
+  end
+
+  def create(name)
+    @csv_array << Merchant.new( {id: max_id_plus_one,
+                  name: name})
+  end
+
 end
