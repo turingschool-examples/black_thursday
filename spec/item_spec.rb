@@ -19,6 +19,15 @@ RSpec.describe Item do
     it 'exists' do
       expect(item).to be_instance_of(Item)
     end
-  end
 
+    it 'has attributes available' do
+      expect(item.id).to eq(1)
+      expect(item.name).to eq("Pencil")
+      expect(item.description).to eq("You can use it to write things")
+      expect(item.unit_price).to eq(10.88) #When we use BigDecimal, test bu checking object class 
+      expect(item.created_at.class).to eq(Time)
+      expect(item.updated_at.class).to eq(Time)
+      expect(item.merchant_id).to eq(2)
+    end
+  end
 end
