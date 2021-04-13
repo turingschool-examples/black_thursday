@@ -16,6 +16,3 @@ class ItemRepo
     end
   end
 end
-
-
-# CSV.foreach(csv_files, headers: true, header_converters: :symbol) do |row|
