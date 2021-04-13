@@ -15,7 +15,6 @@ class SalesEngine
     @invoice_items = './data/invoice_items.csv'
     @invoices = './data/invoices.csv'
     @item_repository = ItemRepository.new('./data/items.csv')
-    #item repository stores all the objects
     @merchants = './data/merchants.csv'
     @transactions = './data/transactions.csv'
   end
