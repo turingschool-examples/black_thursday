@@ -18,8 +18,8 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @csv_array.find do |item|
-      item.name.downcase == name.downcase
+    @item_array.find do |item|
+      item.name.casecmp == name.casecmp
     end
   end
 
