@@ -2,12 +2,12 @@ require 'bigdecimal'
 require 'date'
 class Item
   attr_reader :id,
-  :name,
-  :description,
-  :unit_price,
-  :created_at,
-  :updated_at,
-  :merchant_id
+              :name,
+              :description,
+              :unit_price,
+              :created_at,
+              :updated_at,
+              :merchant_id
 
   def initialize(row)
     @id = (row[:id]).to_i

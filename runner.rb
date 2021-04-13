@@ -4,4 +4,4 @@ require './lib/item'
 
 this = SalesEngine.new
 
- puts this.item_repository.items[1].id
+puts this.item_repository.items[1].id
