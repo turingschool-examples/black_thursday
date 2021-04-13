@@ -20,8 +20,8 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.item_array.class).to eq(Array)
-      expect(ir.item_array[0].class).to eq(Item)
+      expect(ir.csv_array.class).to eq(Array)
+      expect(ir.csv_array[0].class).to eq(Item)
     end
    end
    describe '#all' do
@@ -196,6 +196,21 @@ RSpec.describe 'ItemRepository' do
          )
 
        expect(item.class).to eq(Item)
+     end
+   end
+   describe '#update' do
+     it 'changes the attributes of an item identified by its id' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+       actual = ir.update('263430973', { name: 'Basket #18909',
+                                         description: 'A basket',
+                                         unit_price: '200' } )
+
+      expect(ir.find_by_id('263430973').name).to eq('Basket #18909')
      end
    end
 end
