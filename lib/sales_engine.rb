@@ -14,23 +14,38 @@ class SalesEngine
   def self.parse_csv(path)
     parsed_csv = CSV.parse(File.read(path), headers: true, header_converters: :symbol).to_a
     headers = parsed_csv.shift
+    repo = []
+    parsed_csv.each do |data|
       new_hash = Hash.new
-
       counter = 0
       headers.each do |header|
-        parsed_csv.each do |line|
-          new_hash[header] = line[counter]
-          counter += 1
-        end
+        new_hash[header] = data[counter]
+        counter += 1
       end
-      require "pry"; binding.pry
-
+      repo << new_hash
+    end
+        require 'pry'; binding.pry
+    repo
   end
 
 
+      # new_hash = Hash.new
 
 
+      # counter = 0
+      # headers.each do |header|
+      #   parsed_csv.each do |line|
+      #     new_hash[header] = line[counter]
+      #     counter += 1
+      #   end
+      # end
+      # require "pry"; binding.pry
 end
+
+
+
+
+
 
 #
 # needs to intake the files and then make them usable by both merchant repo and item repo. intake files from_csv method.

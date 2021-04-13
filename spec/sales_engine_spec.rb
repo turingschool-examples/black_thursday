@@ -15,8 +15,11 @@ RSpec.describe SalesEngine do
       expect(sales_engine.merchants).to eq("./data/merchants.csv")
     end
 
-    it 'parse csv' do
-      expect(SalesEngine.parse_csv("./data/merchants.csv")).to be_instance_of(Array)
+    # it 'parse csv merchants' do
+    #   expect(SalesEngine.parse_csv("./data/merchants.csv")).to be_instance_of(Array)
+    # end
+
+    it 'parse csv items' do
       expect(SalesEngine.parse_csv("./data/items.csv")).to be_instance_of(Array)
     end
 
