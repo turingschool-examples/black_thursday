@@ -6,13 +6,13 @@ describe Item do
   describe "#initialize" do
     it 'exists' do
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -21,13 +21,13 @@ describe Item do
 
     it 'has an id' do
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -37,13 +37,13 @@ describe Item do
 
     it 'has a name' do
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -53,13 +53,13 @@ describe Item do
 
     it 'has a description' do
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -69,13 +69,13 @@ describe Item do
 
     it 'has a unit price' do
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -86,13 +86,13 @@ describe Item do
     it 'has a created_at Time' do
       time = Time.now
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => time,
-        :updated_at => time,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: time,
+        updated_at: time,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -103,13 +103,13 @@ describe Item do
     it 'has a updated_at Time' do
       time = Time.now
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => time,
-        :updated_at => time,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: time,
+        updated_at: time,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -119,13 +119,13 @@ describe Item do
 
     it 'has a merchant_id' do
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
       }
       item = Item.new(details)
 
@@ -137,13 +137,13 @@ describe Item do
   describe "#unit_price_to_dollars" do
     it 'returns the price in dollars' do
       details = {
-        :id => 1,
-        :name => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price => BigDecimal.new(10.99,4),
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 2
+        id: 1,
+        name: "Pencil",
+        description: "You can use it to write things",
+        unit_price: BigDecimal.new(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
       }
       item = Item.new(details)
 
