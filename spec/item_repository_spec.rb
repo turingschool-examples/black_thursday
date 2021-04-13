@@ -30,7 +30,7 @@ RSpec.describe 'ItemRepository' do
         items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
-      
+
       ir = se.items
       expect(ir.all[3].name).to eq('Free standing Woden letters')
     end
