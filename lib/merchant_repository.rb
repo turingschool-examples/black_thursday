@@ -43,8 +43,8 @@ class MerchantRepository
 
   def create(attributes)
     merchant = Merchant.new({
-      :id => newest_id,
-      :name => attributes[:name]
+      id: newest_id,
+      name: attributes[:name]
     })
     @merchants << merchant
   end
