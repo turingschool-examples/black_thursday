@@ -28,7 +28,16 @@ describe SalesEngine do
     it 'loads items and populates items array' do
       mock_row = instance_double('Row', id: '12345', name: 'Some Name')
       allow(CSV).to receive(:foreach).and_yield(mock_row)
+      mock_file_name = './some_file.csv'
 
+      sales_engine = SalesEngine.new
+      sales_engine.load_items(mock_file_name)
+
+      actual_merchants = sales_engine.items
+
+      expect(actual_merchants).to be_instance_of Array
+      expect(actual_merchants.first.id).to eq '12345'
+      expect(actual_merchants.first.name).to eq 'Smith'
     end
   end
 
