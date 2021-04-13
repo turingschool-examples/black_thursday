@@ -234,7 +234,7 @@ RSpec.describe 'ItemRepository' do
                                         description: 'A basket',
                                         unit_price: '200' } )
 
-     expect(ir.find_by_id('263430973').name).to eq('Basket #18909')
+      expect(ir.find_by_id('263430973').name).to eq('Basket #18909')
     end
   end
 end
