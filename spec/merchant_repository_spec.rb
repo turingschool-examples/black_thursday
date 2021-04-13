@@ -95,4 +95,30 @@ RSpec.describe MerchantRepository do
 
       expect(mr.find_all_by_name('lawrence')).to eq([])
     end
+
+    describe '#max_id_plus_one' do
+      it 'finds the current max id' do
+        se = SalesEngine.from_csv(
+          items: './data/items.csv',
+          merchants: './data/merchants.csv')
+
+        mr = se.merchants
+
+        expect(mr.max_id_plus_one).to eq('12337412')
+      end
+    end
+
+    describe '#create' do
+      it 'creates new merchant with given attributes' do
+        se = SalesEngine.from_csv(
+          items: './data/items.csv',
+          merchants: './data/merchants.csv')
+
+        mr = se.merchants
+
+        mr.create('lawrence')
+
+        expect(mr.find_by_id('12337412').name).to eq('lawrence')
+      end
+    end
 end
