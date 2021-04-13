@@ -85,4 +85,14 @@ RSpec.describe MerchantRepository do
 
       expect(actual).to eq('retropostershop')
     end
+
+    it 'returns empty array by default' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv')
+
+      mr = se.merchants
+
+      expect(mr.find_all_by_name('lawrence')).to eq([])
+    end
 end
