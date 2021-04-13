@@ -24,7 +24,8 @@ class SalesEngine
                                   created_at: item[5],
                                   updated_at: item[6],
                                   merchant_id: item[4])
-      end
+      
+    end
     ItemRepository.new(item_array_new)
   end
 
@@ -35,7 +36,7 @@ class SalesEngine
                                           name: merchant[1],
                                           created_at: merchant[2],
                                           updated_at: merchant[3])
-      end
+    end
     MerchantRepository.new(merchant_array_new)
   end
 end
