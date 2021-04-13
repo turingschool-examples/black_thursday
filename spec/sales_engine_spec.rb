@@ -4,7 +4,6 @@ require './lib/sales_engine'
 
 describe SalesEngine do
   describe '#from_csv' do
-
     it 'creates a new instance of SalesEngine' do
       allow_any_instance_of(SalesEngine).to receive(:load_items)
       allow_any_instance_of(SalesEngine).to receive(:load_merchants)
@@ -30,7 +29,7 @@ describe SalesEngine do
   describe '#load_items' do
     it 'loads items and populates items array' do
       mock_row = {
-        id: 12345,
+        id: 12_345,
         name: 'Smith',
         description: 'Item desc',
         unit_price: '12.23',
@@ -47,14 +46,14 @@ describe SalesEngine do
       actual_merchants = sales_engine.items
 
       expect(actual_merchants).to be_instance_of Array
-      expect(actual_merchants.first.id).to eq 12345
+      expect(actual_merchants.first.id).to eq 12_345
       expect(actual_merchants.first.name).to eq 'Smith'
     end
   end
 
   describe '#load_merchants' do
     it 'loads merchants and populates merchants array' do
-      mock_row = {id: 12345, name: 'Smith'}
+      mock_row = { id: 12_345, name: 'Smith' }
 
       allow(CSV).to receive(:foreach).and_yield(mock_row)
 
@@ -66,7 +65,7 @@ describe SalesEngine do
       actual_merchants = sales_engine.merchants
 
       expect(actual_merchants).to be_instance_of Array
-      expect(actual_merchants.first.id).to eq 12345
+      expect(actual_merchants.first.id).to eq 12_345
       expect(actual_merchants.first.name).to eq 'Smith'
     end
   end

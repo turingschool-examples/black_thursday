@@ -9,7 +9,7 @@ class SalesEngine
     instance = SalesEngine.new
     instance.load_items(files[:items])
     instance.load_merchants(files[:merchants])
-    return instance
+    instance
   end
 
   def load_items(file_name)
