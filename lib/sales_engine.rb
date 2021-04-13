@@ -35,11 +35,10 @@ class SalesEngine
      test = parsed_data.map do |merchant|
       Merchant.new(merchant)
     end
-     require 'pry'; binding.pry
   end
 
   def items
-    ItemRepository.new
+    ItemRepository.new(SalesEngine.parse_csv(@items))
   end
 end
 
