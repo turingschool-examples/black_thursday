@@ -153,8 +153,12 @@ RSpec.describe 'ItemRepository' do
       )
 
       ir = se.items
+      
+      actual = ir.find_all_by_price_in_range('100'..'1000')[5].name
+      
+      expected = 'Two tone blue stoneware pot'
 
-      expect(ir.find_all_by_price_in_range('100'..'1000')[5].name).to eq('Two tone blue stoneware pot')
+      expect(actual).to eq(expected)
     end
     it 'returns an empty array when no items are found' do
       se = SalesEngine.from_csv(
