@@ -1,3 +1,4 @@
+# Basic ItemRepository class
 class ItemRepository
   attr_reader :item_array
   
