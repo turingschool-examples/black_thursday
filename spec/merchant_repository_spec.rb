@@ -9,7 +9,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       expect(mr).to be_an_instance_of(MerchantRepository)
@@ -21,7 +21,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       expect(mr.all[0].id).to eq('12334105')
@@ -33,7 +33,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
 
@@ -44,7 +44,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       expect(mr.find_by_id('2113113113')).to eq(nil)
@@ -56,7 +56,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       expect(mr.find_by_name('retropostershop').id).to eq('12335573')
@@ -66,7 +66,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       expect(mr.find_by_name('lawrencesmeademporium')).to eq(nil)
@@ -78,7 +78,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       actual = mr.find_all_by_name('retro')[1].name
@@ -90,7 +90,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       expect(mr.find_all_by_name('lawrence')).to eq([])
@@ -101,7 +101,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
           items: './data/items.csv',
           merchants: './data/merchants.csv'
-          )
+                               )
       mr = se.merchants
 
       expect(mr.max_id_plus_one).to eq('12337412')
@@ -113,7 +113,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       lawrence = mr.create('lawrence')
@@ -127,7 +127,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       mr.update('12337411', 'Lawrence')
@@ -141,7 +141,7 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-        )
+                               )
       mr = se.merchants
 
       mr.delete('12337411')
