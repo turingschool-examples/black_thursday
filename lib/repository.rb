@@ -9,10 +9,6 @@ class Repository
     @csv_array
   end
 
-  def all
-    @csv_array
-  end
-
   def find_by_id(id)
     @csv_array.find do |item|
       item.id == id
