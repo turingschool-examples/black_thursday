@@ -1,4 +1,3 @@
-#Parent repository class
 class Repository
   
   def initialize(csv_array)
