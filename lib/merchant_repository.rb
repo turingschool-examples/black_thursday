@@ -41,4 +41,19 @@ class MerchantRepository
                   name: name})
   end
 
+  def update(id, name)
+    new = @csv_array.find do |merchant|
+      merchant.id == id
+    end
+
+    new.name = name
+  end
+
+  def delete(id)
+    remove = @csv_array.find do |merchant|
+      merchant.id == id
+    end
+
+    @csv_array.delete(remove)
+  end
 end
