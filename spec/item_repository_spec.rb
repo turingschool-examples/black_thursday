@@ -20,8 +20,8 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.item_array.class).to eq(Array)
-      expect(ir.item_array[0].class).to eq(Item)
+      expect(ir.csv_array.class).to eq(Array)
+      expect(ir.csv_array[0].class).to eq(Item)
     end
   end
   describe '#all' do
@@ -112,16 +112,16 @@ RSpec.describe 'ItemRepository' do
 
       expect(ir.find_all_by_price('4000')[2].name).to eq('Manchette cuir Galet')
     end
-      it 'returns an empty array if no items are found' do
-        se = SalesEngine.from_csv(
-          items: './data/items.csv',
-          merchants: './data/merchants.csv'
-        )
+    it 'returns an empty array if no items are found' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
 
-        ir = se.items
+      ir = se.items
 
-        expect(ir.find_all_by_price('0000000')).to eq([])
-      end
+      expect(ir.find_all_by_price('0000000')).to eq([])
+    end
   end
   describe '#find_all_by_price_in_range' do
     it 'returns an array of all items with a price found in the range' do
@@ -143,6 +143,96 @@ RSpec.describe 'ItemRepository' do
       ir = se.items
 
       expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
+    end
+    end
+    describe '#find_all_by_price_in_range' do
+      it 'returns an array of all items with a price found in the range' do
+        se = SalesEngine.from_csv(
+          :items     => './data/items.csv',
+          :merchants => './data/merchants.csv'
+        )
+
+        ir = se.items
+
+        expect(ir.find_all_by_price_in_range('100'..'1000')[5].name).to eq('Two tone blue stoneware pot')
+      end
+      it 'returns an empty array when no items are found' do
+        se = SalesEngine.from_csv(
+          :items     => './data/items.csv',
+          :merchants => './data/merchants.csv'
+        )
+
+        ir = se.items
+
+        expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
+      end
+    end
+    describe '#find_all_by_merchant_id' do
+      it 'returns all items with that merchant as a seller' do
+        se = SalesEngine.from_csv(
+          :items     => './data/items.csv',
+          :merchants => './data/merchants.csv'
+        )
+
+        ir = se.items
+
+        expect(ir.find_all_by_merchant_id('12334951')[0].name).to eq('The Contender')
+      end
+      it 'returns an empty array when no merchants are found' do
+        se = SalesEngine.from_csv(
+          :items     => './data/items.csv',
+          :merchants => './data/merchants.csv'
+        )
+
+        ir = se.items
+
+        expect(ir.find_all_by_merchant_id('1010101001010101')).to eq([])
+      end
+    end
+    describe '#max_id_number_new' do
+      it 'returns an id number string one larger than the previous max' do
+        se = SalesEngine.from_csv(
+          :items     => './data/items.csv',
+          :merchants => './data/merchants.csv'
+        )
+
+        ir = se.items
+
+        expect(ir.max_id_number_new).to eq('263567475')
+      end
+    end
+    describe '#create' do
+      it 'creates an instance of an item' do
+        se = SalesEngine.from_csv(
+          :items     => './data/items.csv',
+          :merchants => './data/merchants.csv'
+        )
+
+        ir = se.items
+        item = ir.create(
+          :name        => "Pencil",
+          :description => "You can use it to write things",
+          :unit_price  => BigDecimal.new(10.99,4),
+          :merchant_id => 2
+          )
+
+        expect(item.class).to eq(Item)
+      end
+    end
+    describe '#update' do
+      it 'changes the attributes of an item identified by its id' do
+        se = SalesEngine.from_csv(
+          :items     => './data/items.csv',
+          :merchants => './data/merchants.csv'
+        )
+
+        ir = se.items
+        actual = ir.update('263430973', { name: 'Basket #18909',
+                                          description: 'A basket',
+                                          unit_price: '200' } )
+
+       expect(ir.find_by_id('263430973').name).to eq('Basket #18909')
+      end
     end
   end
 end
