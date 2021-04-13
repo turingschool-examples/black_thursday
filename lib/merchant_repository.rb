@@ -33,6 +33,10 @@ class MerchantRepository
     end
     @merchants.delete_at(index)
   end
+
+  def newest_id
+  end
+
   def create(attributes)
     merchant = Merchant.new({
       :id => newest_id,

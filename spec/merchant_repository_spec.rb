@@ -119,4 +119,20 @@ describe MerchantRepository do
       expect(actual_names).to eq merchant_names
     end
   end
+
+  describe '#newest_id' do
+    it 'gets the next id for a new merchant' do
+      merchant_1 = Merchant.new({
+        :id => 1,
+        :name => 'Richard'
+      })
+      merchants = [merchant_1]
+      m_repo = MerchantRepository.new(merchants)
+
+      expect_new_id = 2
+      actual_id = m_repo.newest_id
+      
+      expect(actual_id).to eq expect_new_id
+    end
+  end
 end
