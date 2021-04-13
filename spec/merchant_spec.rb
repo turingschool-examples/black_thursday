@@ -33,4 +33,18 @@ RSpec.describe Merchant do
       expect(m.name).to eq "Turing School"
     end
   end
+
+  describe '#update_name' do
+    it 'updates the name attribute' do
+      details = {
+        :id => 5,
+        :name => "Turing School"
+      }
+
+      m = Merchant.new(details)
+      new_name = "Turing School of Software and Design"
+      m.update_name(new_name)
+      expect(m.name).to eq new_name
+    end
+  end
 end
