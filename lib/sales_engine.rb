@@ -23,8 +23,7 @@ class SalesEngine
                                   unit_price: item[3],
                                   created_at: item[5],
                                   updated_at: item[6],
-                                  merchant_id: item[4]
-                                )
+                                  merchant_id: item[4])
       end
       ItemRepository.new(item_array_new)
   end
