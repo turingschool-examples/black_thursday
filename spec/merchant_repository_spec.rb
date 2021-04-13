@@ -72,4 +72,17 @@ RSpec.describe MerchantRepository do
       expect(mr.find_by_name('lawrencesmeademporium')).to eq(nil)
     end
   end
+
+  describe '#find_all_by_name'
+    it 'find all that includes fragment' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv')
+
+      mr = se.merchants
+
+      actual = mr.find_all_by_name('retro')[1].name
+
+      expect(actual).to eq('retropostershop')
+    end
 end
