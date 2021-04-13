@@ -116,9 +116,37 @@ RSpec.describe MerchantRepository do
 
         mr = se.merchants
 
-        mr.create('lawrence')
+        lawrence = mr.create('lawrence')
 
-        expect(mr.find_by_id('12337412').name).to eq('lawrence')
+        expect(lawrence).to be_an_instance_of(Merchant)
+      end
+    end
+
+    describe '#update' do
+      it 'updates name' do
+        se = SalesEngine.from_csv(
+          items: './data/items.csv',
+          merchants: './data/merchants.csv')
+
+        mr = se.merchants
+
+        mr.update('12337411', 'Lawrence')
+
+        expect(mr.find_by_id('12337411').name).to eq('Lawrence')
+      end
+    end
+
+      describe '#delete' do
+        it 'deletes a merchant via id' do
+        se = SalesEngine.from_csv(
+          items: './data/items.csv',
+          merchants: './data/merchants.csv')
+
+        mr = se.merchants
+
+        mr.delete('12337411')
+
+        expect(mr.find_by_id('12337411')).to eq(nil)
       end
     end
 end
