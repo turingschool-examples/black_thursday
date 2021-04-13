@@ -6,13 +6,16 @@ describe SalesEngine do
   describe '#from_csv' do
 
     it 'creates a new instance of SalesEngine' do
-      sales_engine = SalesEngine.from_csv(items: './data/items.csv', merchants: './data/merchants.csv')
+      allow_any_instance_of(SalesEngine).to receive(:load_items)
+      allow_any_instance_of(SalesEngine).to receive(:load_merchants)
+
+      sales_engine = SalesEngine.from_csv(items: './file1.csv', merchants: './file2.csv')
       expect(sales_engine).to be_instance_of SalesEngine
     end
 
-    it 'initialize calls load_items and load_merchants' do
-      items_file_name = './data/items.csv'
-      merchants_file_name = './data/merchants.csv'
+    it 'calls load_items and load_merchants' do
+      items_file_name = './file1.csv'
+      merchants_file_name = './file2.csv'
 
       allow_any_instance_of(SalesEngine).to receive(:load_items)
       allow_any_instance_of(SalesEngine).to receive(:load_merchants)
@@ -26,8 +29,16 @@ describe SalesEngine do
 
   describe '#load_items' do
     it 'loads items and populates items array' do
-      mock_row = instance_double('Row', id: '12345', name: 'Some Name')
+      mock_row = {
+        id: '12345',
+        name: 'Smith',
+        description: 'Item desc',
+        unit_price: '12.23',
+        merchant_id: '12345'
+      }
+      
       allow(CSV).to receive(:foreach).and_yield(mock_row)
+
       mock_file_name = './some_file.csv'
 
       sales_engine = SalesEngine.new
@@ -43,7 +54,8 @@ describe SalesEngine do
 
   describe '#load_merchants' do
     it 'loads merchants and populates merchants array' do
-      mock_row = instance_double('Row', id: '12345', name: 'Smith')
+      mock_row = {id: '12345', name: 'Smith'}
+
       allow(CSV).to receive(:foreach).and_yield(mock_row)
 
       mock_file_name = './some_file.csv'
