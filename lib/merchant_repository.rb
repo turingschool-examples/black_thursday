@@ -40,9 +40,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    merchant = Merchant.new({
-      id: newest_id,
-      name: attributes[:name]})
+    merchant = Merchant.new(id: newest_id, name: attributes[:name])
     @merchants << merchant
   end
 

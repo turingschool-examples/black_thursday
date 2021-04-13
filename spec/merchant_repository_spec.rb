@@ -91,22 +91,16 @@ describe MerchantRepository do
 
   describe '#create' do
     it 'creates a new Merchant' do
-      merchant1 = Merchant.new({
-        id: 1,
-        name: 'Richard'})
+      merchant1 = Merchant.new(id: 1, name: 'Richard')
 
-      merchant2 = Merchant.new({
-        id: 2,
-        name: 'Dustin'})
+      merchant2 = Merchant.new(id: 2, name: 'Dustin')
 
       merchants = [merchant1, merchant2]
       m_repo = MerchantRepository.new(merchants)
 
       allow(m_repo).to receive(:newest_id).and_return(3)
 
-      m_repo.create({
-        id: 0,
-        name: 'Sami'})
+      m_repo.create(id: 0, name: 'Sami')
 
       merchant_names = [merchant1.name, merchant2.name, 'Sami']
       actual_names = m_repo.all.map do |merchant|
@@ -119,9 +113,7 @@ describe MerchantRepository do
 
   describe '#newest_id' do
     it 'gets the next id for a new merchant' do
-      merchant1 = Merchant.new({
-        id: 1,
-        name: 'Richard'})
+      merchant1 = Merchant.new(id: 1, name: 'Richard')
       merchants = [merchant1]
       m_repo = MerchantRepository.new(merchants)
 
@@ -134,20 +126,12 @@ describe MerchantRepository do
 
   describe '#update' do
     it 'updates a merchant with the given id and attributes' do
-      merchant1 = Merchant.new({
-        id: 1,
-        name: 'Richard'})
-      merchant2 = Merchant.new({
-        id: 2,
-        name: 'Dustin'})
-      merchant3 = Merchant.new({
-        id:  3,
-        name: 'Ashley'})
+      merchant1 = Merchant.new(id: 1, name: 'Richard')
+      merchant2 = Merchant.new(id: 2, name: 'Dustin')
+      merchant3 = Merchant.new(id: 3, name: 'Ashley')
       merchants = [merchant1, merchant2, merchant3]
       m_repo = MerchantRepository.new(merchants)
-      m_repo.update(2, {
-        id: 23,
-        name: 'Dustin Huntsman'})
+      m_repo.update(2, id: 23, name: 'Dustin Huntsman')
 
       expect(merchant2.name).to eq 'Dustin Huntsman'
       expect(merchant2.id).not_to eq 23
