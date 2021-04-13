@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Dir.chdir '/Users/josh/code/jsl/black_thursday/'
 
 require 'csv'
@@ -90,7 +92,7 @@ end
 
 listings_by_shop_id = Dir['tmp/listing*']
                       .map { |filename| Listing.new JSON.parse File.read filename }
-                      .group_by { |listing| listing.shop_id }
+                      .group_by(&:shop_id)
 
 shops = Dir['tmp/shop*'].map do |filename|
   result   = JSON.parse File.read filename

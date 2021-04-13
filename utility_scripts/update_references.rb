@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'pry'
 require 'csv'
 require 'pry'
 
 at_exit do
-  error = $!
+  error = $ERROR_INFO
   binding.pry if error
 end
 
@@ -12,9 +14,7 @@ files_with_item_ids     = %w[data/invoice_items.csv]
 
 def rows_from(csv_filename)
   File.open csv_filename, 'rb' do |f|
-    CSV f, headers: true, header_converters: :symbol do |csv|
-      csv.to_a
-    end
+    CSV f, headers: true, header_converters: :symbol, &:to_a
   end
 end
 
