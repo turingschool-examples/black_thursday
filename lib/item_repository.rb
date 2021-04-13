@@ -5,4 +5,8 @@ class ItemRepository
   def initialize(item_array)
     @item_array = item_array
   end
+
+  def all
+    @item_array
+  end
 end

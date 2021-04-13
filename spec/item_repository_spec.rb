@@ -24,4 +24,16 @@ RSpec.describe 'ItemRepository' do
       expect(ir.item_array[0].class).to eq(Item)
     end
    end
+   describe '#all' do
+     it 'returns an array of all items created so far' do
+       se = SalesEngine.from_csv(
+         :items     => "./data/items.csv",
+         :merchants => "./data/merchants.csv"
+       )
+
+       ir = se.items
+
+       expect(ir.all[3].name).to eq('Free standing Woden letters')
+     end
+   end
 end
