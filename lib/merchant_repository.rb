@@ -35,17 +35,16 @@ class MerchantRepository
   end
 
   def newest_id
-    merchant = @merchants.max_by do |merchant|
-      merchant.id
-    end
+    merchant = @merchants.max_by(&:id)
     merchant.id + 1
   end
 
   def create(attributes)
-    merchant = Merchant.new({
+    merchant = Merchant.new(
+    {
       id: newest_id,
       name: attributes[:name]
-      })
+    })
     @merchants << merchant
   end
 
