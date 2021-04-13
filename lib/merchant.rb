@@ -8,5 +8,6 @@ class Merchant
   end
 
   def update_name(name)
+    @name = name
   end
 end
