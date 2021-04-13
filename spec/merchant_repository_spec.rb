@@ -1,25 +1,151 @@
 require 'SimpleCOV'
 require 'csv'
+require './lib/sales_engine'
 require './lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
-  it 'exists' do
-    mr = MerchantRepository.new
+  describe 'Instance' do
+    it 'exists' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
 
-    expect().to be_an_instance_og(MerchantRepository)
+      expect(mr).to be_an_instance_of(MerchantRepository)
+    end
   end
 
-  it 'returns an array of all merchant instances' do
-    mr = MerchantRepository.new
+  describe '#all' do
+    it 'returns an array of all merchant instances' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
 
-    expected =
-
-    expect(mr.all).to eq(expected)
+      expect(mr.all[0].id).to eq('12334105')
+    end
   end
 
-  it 'finds merchant by id' do
-    mr = MerchantRepository.new
+  describe '#find_by_id' do
+    it 'finds merchant by id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
 
-    expect(mr.find_by_id(1175)).to eq()
+      expect(mr.find_by_id('12335573').name).to eq('retropostershop')
+    end
+
+    it 'returns nil if no id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      expect(mr.find_by_id('2113113113')).to eq(nil)
+    end
+  end
+
+  describe '#find_by_name' do
+    it 'finds a merchant by name' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      expect(mr.find_by_name('retropostershop').id).to eq('12335573')
+    end
+
+    it 'returns nil if no name exists' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      expect(mr.find_by_name('lawrencesmeademporium')).to eq(nil)
+    end
+  end
+
+  describe '#find_all_by_name'
+    it 'find all that includes fragment' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      actual = mr.find_all_by_name('retro')[1].name
+
+      expect(actual).to eq('retropostershop')
+    end
+
+    it 'returns empty array by default' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      expect(mr.find_all_by_name('lawrence')).to eq([])
+    end
+
+  describe '#max_id_plus_one' do
+    it 'finds the current max id' do
+      se = SalesEngine.from_csv(
+          items: './data/items.csv',
+          merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      expect(mr.max_id_plus_one).to eq('12337412')
+    end
+  end
+
+  describe '#create' do
+    it 'creates new merchant with given attributes' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      lawrence = mr.create('lawrence')
+
+      expect(lawrence).to be_an_instance_of(Merchant)
+    end
+  end
+
+  describe '#update' do
+    it 'updates name' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      mr.update('12337411', 'Lawrence')
+
+      expect(mr.find_by_id('12337411').name).to eq('Lawrence')
+    end
+  end
+
+  describe '#delete' do
+    it 'deletes a merchant via id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+                               )
+      mr = se.merchants
+
+      mr.delete('12337411')
+
+      expect(mr.find_by_id('12337411')).to eq(nil)
+    end
   end
 end
