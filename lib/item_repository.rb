@@ -69,7 +69,7 @@ class ItemRepository
 
   def update(id, attributes)
     update_instance = find_by_id(id)
-    if attributes[:name] != nil
+    if !attributes[:name] == nil
       update_instance.name = attributes[:name]
     elsif !attributes[:description] == nil
       update_instance.description = attributes[:description]
