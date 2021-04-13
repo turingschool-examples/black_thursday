@@ -96,57 +96,61 @@ RSpec.describe MerchantRepository do
       expect(mr.find_all_by_name('lawrence')).to eq([])
     end
 
-    describe '#max_id_plus_one' do
-      it 'finds the current max id' do
-        se = SalesEngine.from_csv(
+  describe '#max_id_plus_one' do
+    it 'finds the current max id' do
+      se = SalesEngine.from_csv(
           items: './data/items.csv',
-          merchants: './data/merchants.csv')
+          merchants: './data/merchants.csv'
+        )
 
-        mr = se.merchants
+      mr = se.merchants
 
-        expect(mr.max_id_plus_one).to eq('12337412')
-      end
+      expect(mr.max_id_plus_one).to eq('12337412')
     end
+  end
 
-    describe '#create' do
-      it 'creates new merchant with given attributes' do
-        se = SalesEngine.from_csv(
-          items: './data/items.csv',
-          merchants: './data/merchants.csv')
+  describe '#create' do
+    it 'creates new merchant with given attributes' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
 
-        mr = se.merchants
+      mr = se.merchants
 
-        lawrence = mr.create('lawrence')
+      lawrence = mr.create('lawrence')
 
-        expect(lawrence).to be_an_instance_of(Merchant)
-      end
+      expect(lawrence).to be_an_instance_of(Merchant)
     end
+  end
 
-    describe '#update' do
-      it 'updates name' do
-        se = SalesEngine.from_csv(
-          items: './data/items.csv',
-          merchants: './data/merchants.csv')
+  describe '#update' do
+    it 'updates name' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
 
-        mr = se.merchants
+      mr = se.merchants
 
-        mr.update('12337411', 'Lawrence')
+      mr.update('12337411', 'Lawrence')
 
-        expect(mr.find_by_id('12337411').name).to eq('Lawrence')
-      end
+      expect(mr.find_by_id('12337411').name).to eq('Lawrence')
     end
+  end
 
-      describe '#delete' do
-        it 'deletes a merchant via id' do
-        se = SalesEngine.from_csv(
-          items: './data/items.csv',
-          merchants: './data/merchants.csv')
+  describe '#delete' do
+    it 'deletes a merchant via id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
 
-        mr = se.merchants
+      mr = se.merchants
 
-        mr.delete('12337411')
+      mr.delete('12337411')
 
-        expect(mr.find_by_id('12337411')).to eq(nil)
-      end
+      expect(mr.find_by_id('12337411')).to eq(nil)
     end
+  end
 end
