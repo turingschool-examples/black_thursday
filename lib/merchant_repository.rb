@@ -48,4 +48,7 @@ class MerchantRepository
     })
     @merchants << merchant
   end
+
+  def update(id, attributes)
+  end
 end
