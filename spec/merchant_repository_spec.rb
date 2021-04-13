@@ -16,7 +16,7 @@ describe MerchantRepository do
 
   describe '#all' do
     it 'returns the list of Merchants' do
-      mock_merchants = ['mock1', 'mock2', 'mock3']
+      mock_merchants = %W[MOCK1 MOCK2 MOCK3]
       m_repo = MerchantRepository.new(mock_merchants)
       expect(m_repo.all).to eq mock_merchants
     end
@@ -61,7 +61,8 @@ describe MerchantRepository do
       mock_merchant3 = instance_double('Merchant', name: 'Dustin')
       mock_merchant4 = instance_double('Merchant', name: 'Dustin')
       mock_merchant5 = instance_double('Merchant', name: 'Frank')
-      mock_merchants = [mock_merchant1, mock_merchant2, mock_merchant3, mock_merchant4, mock_merchant5]
+      mock_merchants = [mock_merchant1, mock_merchant2, mock_merchant3,
+        mock_merchant4, mock_merchant5]
 
       m_repo = MerchantRepository.new(mock_merchants)
 
@@ -78,7 +79,8 @@ describe MerchantRepository do
       mock_merchant2 = instance_double('Merchant', id: 1)
       mock_merchant3 = instance_double('Merchant', id: 2)
       mock_merchant4 = instance_double('Merchant', id: 3)
-      mock_merchants = [mock_merchant1, mock_merchant2, mock_merchant3, mock_merchant4]
+      mock_merchants = [mock_merchant1, mock_merchant2,
+        mock_merchant3, mock_merchant4]
 
       m_repo = MerchantRepository.new(mock_merchants)
 
@@ -103,9 +105,7 @@ describe MerchantRepository do
       m_repo.create(id: 0, name: 'Sami')
 
       merchant_names = [merchant1.name, merchant2.name, 'Sami']
-      actual_names = m_repo.all.map do |merchant|
-        merchant.name
-      end
+      actual_names = m_repo.all.map(&:name)
 
       expect(actual_names).to eq merchant_names
     end
