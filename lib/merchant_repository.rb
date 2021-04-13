@@ -17,7 +17,23 @@ class MerchantRepository
 
   def find_by_id(id)
     @merchants.find do |merchant|
-      merchant.id
+      merchant.id == id
     end
+  end
+
+  def find_by_name(name)
+    @merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_name(name)
+    full_names = []
+    @merchants.each do |merchant|
+      if merchant.name.include?(name)
+        full_names.push(merchant)
+      end
+    end
+    full_names
   end
 end
