@@ -37,7 +37,7 @@ RSpec.describe MerchantRepository do
       mr = se.merchants
 
 
-    expect(mr.find_by_id('12335573').name).to eq('retropostershop')
+      expect(mr.find_by_id('12335573').name).to eq('retropostershop')
     end
 
     it 'returns nil if no id' do
