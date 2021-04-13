@@ -24,22 +24,16 @@ class SalesEngine
       end
       repo << new_hash
     end
-        require 'pry'; binding.pry
     repo
   end
 
+  def merchants
+    MerchantRepository.new
+  end
 
-      # new_hash = Hash.new
-
-
-      # counter = 0
-      # headers.each do |header|
-      #   parsed_csv.each do |line|
-      #     new_hash[header] = line[counter]
-      #     counter += 1
-      #   end
-      # end
-      # require "pry"; binding.pry
+  def items
+    ItemRepository.new
+  end
 end
 
 
