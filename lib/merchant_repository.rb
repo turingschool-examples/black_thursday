@@ -1,16 +1,23 @@
-
+require './lib/merchant'
 class MerchantRepository
-
+  attr_reader :merchants
   def initialize(parsed_csv)
-    @merchants = parsed_csv
-
-    # turn parsed data into Ruby objects
+    @merchants = create_merchants(parsed_csv)
   end
+
   def create_merchants(parsed_data)
-     test = parsed_data.map do |merchant|
+     parsed_data.map do |merchant|
       Merchant.new(merchant)
     end
-     require 'pry'; binding.pry
   end
 
+  def all
+    @merchants
+  end
+
+  def find_by_id(id)
+    @merchants.find do |merchant|
+      merchant.id
+    end
+  end
 end

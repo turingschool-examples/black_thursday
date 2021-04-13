@@ -28,7 +28,7 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(parse_csv(@merchants))
+    MerchantRepository.new(SalesEngine.parse_csv(@merchants))
   end
 
   def items
