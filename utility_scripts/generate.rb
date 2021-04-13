@@ -58,7 +58,7 @@ class Shop # rubocop:todo Style/Documentation
   end
 end
 
-class Listing # rubocop:todo Style/Documentation
+class Listing
   include EtsyHelpers
   def initialize(result)
     @result = result

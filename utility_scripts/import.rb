@@ -25,5 +25,5 @@ me     = Etsy.myself(access.token, access.secret)
   end
 end
 
-require 'pry' # rubocop:todo Lint/DuplicateRequire
-binding.pry # rubocop:todo Lint/Debugger
+require 'pry'
+binding.pry

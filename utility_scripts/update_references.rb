@@ -2,7 +2,7 @@
 
 require 'pry'
 require 'csv'
-require 'pry' # rubocop:todo Lint/DuplicateRequire
+require 'pry'
 
 at_exit do
   error = $ERROR_INFO
