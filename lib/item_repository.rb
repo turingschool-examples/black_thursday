@@ -9,4 +9,8 @@ class ItemRepository
       Item.new(item)
    end
   end
+
+  def all
+    @items_array
+  end
 end
