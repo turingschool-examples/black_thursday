@@ -45,7 +45,7 @@ class MerchantRepository
     merchant = Merchant.new({
       id: newest_id,
       name: attributes[:name]
-    })
+      })
     @merchants << merchant
   end
 
