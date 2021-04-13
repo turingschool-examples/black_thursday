@@ -7,7 +7,4 @@ class MerchantRepository
     # turn parsed data into Ruby objects
   end
 
-  def create_merchants
-  end
-
 end

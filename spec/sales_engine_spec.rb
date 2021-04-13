@@ -1,5 +1,7 @@
 require_relative '../lib/sales_engine'
-
+require_relative '../lib/merchant'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
 
 RSpec.describe SalesEngine do
   describe '#initialization' do
@@ -40,6 +42,11 @@ RSpec.describe SalesEngine do
 
     it 'returns an object of class ItemRepository' do
       expect(sales_engine.items).to be_an_instance_of(ItemRepository)
+    end
+
+    it 'can create merchant objects' do
+      merchant_data = SalesEngine.parse_csv("./data/merchants.csv")
+      expect(sales_engine.create_merchants(merchant_data)[0]).to be_instance_of(Merchant)
     end
   end
 end
