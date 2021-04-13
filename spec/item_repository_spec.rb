@@ -244,4 +244,60 @@ describe ItemRepository do
       expect(item_repository.find_all_by_price_in_range(10..25)).to eq items
     end
   end
+
+  describe '#find_all_by_merchant_id' do
+    it 'returns an empty array if no items with merchant_id' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      details2 = {
+        id: 2,
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item2 = Item.new(details2)
+      items = [item1, item2]
+      item_repository = ItemRepository.new(items)
+
+      expect(item_repository.find_all_by_merchant_id(3)).to eq []
+    end
+
+    it 'returns all items with merchant_id' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      details2 = {
+        id: 2,
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item2 = Item.new(details2)
+      items = [item1, item2]
+      item_repository = ItemRepository.new(items)
+
+      expect(item_repository.find_all_by_merchant_id(2)).to eq items
+    end
+  end
 end
