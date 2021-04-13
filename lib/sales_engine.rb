@@ -1,6 +1,7 @@
 require 'CSV'
 require './lib/item'
 require './lib/merchant'
+require './lib/sales_analyst'
 
 class SalesEngine
   attr_reader :items, :merchants
@@ -27,5 +28,6 @@ class SalesEngine
   end
 
   def analyst
-  end 
+    SalesAnalyst.new
+  end
 end
