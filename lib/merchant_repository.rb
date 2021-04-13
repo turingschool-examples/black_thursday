@@ -2,7 +2,7 @@
 
 require './lib/merchant'
 
-class MerchantRepository # rubocop:todo Style/Documentation
+class MerchantRepository
   def initialize(merchants = [])
     @merchants = merchants
   end
