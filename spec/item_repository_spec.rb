@@ -58,4 +58,26 @@ RSpec.describe 'ItemRepository' do
        expect(ir.find_by_id('123')).to eq(nil)
      end
    end
+   describe '#find_by_name' do
+     it 'returns the item instance with a matching name' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+
+       expect(ir.find_by_name('Les raisons').id).to eq('263398653')
+     end
+     it 'returns nil if the name is not found' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+
+       expect(ir.find_by_name('not here')).to eq(nil)
+     end
+   end
 end
