@@ -5,7 +5,7 @@ Dir.chdir '/Users/josh/code/jsl/black_thursday/'
 require 'csv'
 require 'json'
 
-module EtsyHelpers # rubocop:todo Style/Documentation
+module EtsyHelpers
   attr_reader :result
 
   def format_time(seconds_i_think)
@@ -40,7 +40,7 @@ module EtsyHelpers # rubocop:todo Style/Documentation
   end
 end
 
-class Shop # rubocop:todo Style/Documentation
+class Shop
   include EtsyHelpers
   attr_reader :listings
 
@@ -108,7 +108,8 @@ shops.reject! { |s| s.listings.empty? }
 #   1,Schroeder-Jerde,2012-03-27 14:53:59 UTC,2012-03-27 14:53:59 UTC
 # items.csv | 2500
 #   id,name,description,unit_price,merchant_id,created_at,updated_at
-#   1,Item Qui Esse,Nihil autem sit odio inventore deleniti.,75107,1,2012-03-27 14:53:59 UTC,2012-03-27 1
+#   1,Item Qui Esse,Nihil autem sit odio inventore deleniti.,75107,1,2012-03-27
+# 14:53:59 UTC,2012-03-27 1
 
 File.open 'data/merchants.csv', 'wb' do |file|
   CSV file do |csv|
@@ -123,8 +124,8 @@ File.open 'data/items.csv', 'wb' do |file|
   CSV file do |csv|
     csv << %w[id name description unit_price merchant_id created_at updated_at]
     shops.flat_map(&:listings).sort_by(&:id).each do |listing|
-      csv << [listing.id, listing.name, listing.description, listing.unit_price, listing.shop_id, listing.created_at,
-              listing.updated_at]
+      csv << [listing.id, listing.name, listing.description, listing.unit_price,
+              listing.shop_id, listing.created_at,listing.updated_at]
     end
   end
 end

@@ -6,7 +6,7 @@ require 'pry'
 
 at_exit do
   error = $ERROR_INFO
-  binding.pry if error # rubocop:todo Lint/Debugger
+  binding.pry if error
 end
 
 files_with_merchant_ids = %w[data/invoices.csv]

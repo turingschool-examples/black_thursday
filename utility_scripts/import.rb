@@ -9,7 +9,7 @@ request         = Etsy.request_token
 puts "Go here: #{Etsy.verification_url}"
 
 code = 'get this code by visiting the verification url in the browser'
-binding.pry # rubocop:todo Lint/Debugger
+binding.pry
 
 access = Etsy.access_token request.token, request.secret, code
 me     = Etsy.myself(access.token, access.secret)
