@@ -5,7 +5,7 @@ Dir.chdir '/Users/josh/code/jsl/black_thursday/'
 require 'csv'
 require 'json'
 
-module EtsyHelpers
+module EtsyHelpers # rubocop:todo Style/Documentation
   attr_reader :result
 
   def format_time(seconds_i_think)
@@ -40,7 +40,7 @@ module EtsyHelpers
   end
 end
 
-class Shop
+class Shop # rubocop:todo Style/Documentation
   include EtsyHelpers
   attr_reader :listings
 
@@ -58,7 +58,7 @@ class Shop
   end
 end
 
-class Listing
+class Listing # rubocop:todo Style/Documentation
   include EtsyHelpers
   def initialize(result)
     @result = result

@@ -2,11 +2,11 @@
 
 require 'pry'
 require 'csv'
-require 'pry'
+require 'pry' # rubocop:todo Lint/DuplicateRequire
 
 at_exit do
   error = $ERROR_INFO
-  binding.pry if error
+  binding.pry if error # rubocop:todo Lint/Debugger
 end
 
 files_with_merchant_ids = %w[data/invoices.csv]

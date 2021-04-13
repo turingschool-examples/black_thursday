@@ -3,7 +3,7 @@
 require 'rspec'
 require './lib/merchant'
 
-RSpec.describe Merchant do
+RSpec.describe Merchant do # rubocop:todo Metrics/BlockLength
   describe '#initialize' do
     it 'exists' do
       details = {

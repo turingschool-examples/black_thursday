@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Merchant
+class Merchant # rubocop:todo Style/Documentation
   attr_reader :id,
               :name
 
