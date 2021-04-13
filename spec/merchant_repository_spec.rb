@@ -39,5 +39,15 @@ RSpec.describe MerchantRepository do
 
     expect(mr.find_by_id('12335573').name).to eq('retropostershop')
     end
+
+    it 'returns nil if no id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv')
+
+      mr = se.merchants
+
+      expect(mr.find_by_id('2113113113')).to eq(nil)
+    end
   end
 end
