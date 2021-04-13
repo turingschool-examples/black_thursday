@@ -146,4 +146,26 @@ RSpec.describe 'ItemRepository' do
        expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
      end
    end
+   describe '#find_all_by_merchant_id' do
+     it 'returns all items with that merchant as a seller' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+
+       expect(ir.find_all_by_merchant_id('12334951')[0].name).to eq('The Contender')
+     end
+     it 'returns an empty array when no merchants are found' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+
+       expect(ir.find_all_by_merchant_id('1010101001010101')).to eq([])
+     end
+   end
 end
