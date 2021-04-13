@@ -33,4 +33,10 @@ class ItemRepository
       item.unit_price == amount
     end
   end
+
+  def find_all_by_price_in_range(range)
+    @item_array.find_all do |item|
+      range.include?(item.unit_price)
+    end
+  end
 end
