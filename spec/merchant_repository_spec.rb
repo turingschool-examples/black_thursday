@@ -91,25 +91,28 @@ describe MerchantRepository do
 
   describe '#create' do
     it 'creates a new Merchant' do
-      merchant_1 = Merchant.new({
+      merchant_1 = Merchant.new(
+      {
         id: 1,
         name: 'Richard'
-        })
+      })
 
-      merchant_2 = Merchant.new({
+      merchant_2 = Merchant.new(
+      {
         id: 2,
         name: 'Dustin'
-        })
+      })
 
       merchants = [merchant_1, merchant_2]
       m_repo = MerchantRepository.new(merchants)
 
       allow(m_repo).to receive(:newest_id).and_return(3)
 
-      m_repo.create({
+      m_repo.create(
+      {
         id: 0,
         name: 'Sami'
-        })
+      })
 
       merchant_names = [merchant_1.name, merchant_2.name, 'Sami']
       actual_names = m_repo.all.map do |merchant|
@@ -122,10 +125,11 @@ describe MerchantRepository do
 
   describe '#newest_id' do
     it 'gets the next id for a new merchant' do
-      merchant_1 = Merchant.new({
+      merchant_1 = Merchant.new(
+      {
         id: 1,
         name: 'Richard'
-        })
+      })
       merchants = [merchant_1]
       m_repo = MerchantRepository.new(merchants)
 
@@ -138,24 +142,28 @@ describe MerchantRepository do
 
   describe '#update' do
     it 'updates a merchant with the given id and attributes' do
-      merchant_1 = Merchant.new({
+      merchant_1 = Merchant.new(
+      {
         id: 1,
         name: 'Richard'
-        })
-      merchant_2 = Merchant.new({
+      })
+      merchant_2 = Merchant.new(
+      {
         id: 2,
         name: 'Dustin'
-        })
-      merchant_3 = Merchant.new({
+      })
+      merchant_3 = Merchant.new(
+      {
         id:  3,
         name: 'Ashley'
-        })
+      })
       merchants = [merchant_1, merchant_2, merchant_3]
       m_repo = MerchantRepository.new(merchants)
-      m_repo.update(2, {
+      m_repo.update(2,
+      {
         id: 23,
         name: 'Dustin Huntsman'
-        })
+      })
 
       expect(merchant_2.name).to eq 'Dustin Huntsman'
       expect(merchant_2.id).not_to eq 23
