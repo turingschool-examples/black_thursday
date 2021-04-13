@@ -102,4 +102,26 @@ RSpec.describe 'ItemRepository' do
        expect(ir.find_all_with_description('101010100101010101')).to eq([])
      end
    end
+   describe '#find_all_by_price' do
+     it 'returns an array of all items with that price' do
+      se = SalesEngine.from_csv(
+        :items     => './data/items.csv',
+        :merchants => './data/merchants.csv'
+      )
+
+      ir = se.items
+
+      expect(ir.find_all_by_price('4000')[2].name).to eq('Manchette cuir Galet')
+    end
+    it 'returns an empty array if no items are found' do
+      se = SalesEngine.from_csv(
+        :items     => './data/items.csv',
+        :merchants => './data/merchants.csv'
+      )
+
+      ir = se.items
+
+      expect(ir.find_all_by_price('0000000')).to eq([])
+    end
+   end
 end

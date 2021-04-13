@@ -27,4 +27,10 @@ class ItemRepository
       item.description.downcase.include?(string.downcase)
     end
   end
+
+  def find_all_by_price(amount)
+    @item_array.find_all do |item|
+      item.unit_price == amount
+    end
+  end
 end
