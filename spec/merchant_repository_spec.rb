@@ -12,7 +12,7 @@ RSpec.describe MerchantRepository do
 
       mr = se.merchants
 
-      expect(mr).to be_an_instance_og(MerchantRepository)
+      expect(mr).to be_an_instance_of(MerchantRepository)
     end
   end
 
@@ -48,6 +48,28 @@ RSpec.describe MerchantRepository do
       mr = se.merchants
 
       expect(mr.find_by_id('2113113113')).to eq(nil)
+    end
+  end
+
+  describe '#find_by_name' do
+    it 'finds a merchant by name' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv')
+
+      mr = se.merchants
+
+      expect(mr.find_by_name('retropostershop').id).to eq('12335573')
+    end
+
+    it 'returns nil if no name exists' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv')
+
+      mr = se.merchants
+
+      expect(mr.find_by_name('lawrencesmeademporium')).to eq(nil)
     end
   end
 end
