@@ -21,4 +21,10 @@ class ItemRepository
       item.name.downcase == name.downcase
     end
   end
+
+  def find_all_with_description(string)
+    @item_array.find_all do |item|
+      item.description.downcase.include?(string.downcase)
+    end
+  end
 end

@@ -80,4 +80,26 @@ RSpec.describe 'ItemRepository' do
        expect(ir.find_by_name('not here')).to eq(nil)
      end
    end
+   describe '#find_all_with_description' do
+     it 'finds all items whose description includes the string arugument' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+
+       expect(ir.find_all_with_description('format')[2].name).to eq('Course contre la montre')
+     end
+     it 'returns an empty array if no items are found' do
+       se = SalesEngine.from_csv(
+         :items     => './data/items.csv',
+         :merchants => './data/merchants.csv'
+       )
+
+       ir = se.items
+
+       expect(ir.find_all_with_description('101010100101010101')).to eq([])
+     end
+   end
 end
