@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require './lib/merchant'
 
@@ -5,8 +7,8 @@ RSpec.describe Merchant do
   describe '#initialize' do
     it 'exists' do
       details = {
-        :id => 5,
-        :name => "Turing School"
+        id: 5,
+        name: 'Turing School'
       }
 
       m = Merchant.new(details)
@@ -15,8 +17,8 @@ RSpec.describe Merchant do
 
     it 'has an id' do
       details = {
-        :id => 5,
-        :name => "Turing School"
+        id: 5,
+        name: 'Turing School'
       }
 
       m = Merchant.new(details)
@@ -25,24 +27,24 @@ RSpec.describe Merchant do
 
     it 'has a name' do
       details = {
-        :id => 5,
-        :name => "Turing School"
+        id: 5,
+        name: 'Turing School'
       }
 
       m = Merchant.new(details)
-      expect(m.name).to eq "Turing School"
+      expect(m.name).to eq 'Turing School'
     end
   end
 
   describe '#update_name' do
     it 'updates the name attribute' do
       details = {
-        :id => 5,
-        :name => "Turing School"
+        id: 5,
+        name: 'Turing School'
       }
 
       m = Merchant.new(details)
-      new_name = "Turing School of Software and Design"
+      new_name = 'Turing School of Software and Design'
       m.update_name(new_name)
       expect(m.name).to eq new_name
     end

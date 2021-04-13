@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require './lib/merchant'
 require './lib/merchant_repository'
