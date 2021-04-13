@@ -36,4 +36,16 @@ RSpec.describe 'ItemRepository' do
        expect(ir.all[3].name).to eq('Free standing Woden letters')
      end
    end
+   describe '#find_by_id' do
+     it "returns an instance of an item" do
+       se = SalesEngine.from_csv(
+         :items     => "./data/items.csv",
+         :merchants => "./data/merchants.csv"
+       )
+
+       ir = se.items
+
+       expect(ir.find_by_id('263397919').name).to eq('Le câlin')
+     end
+   end
 end
