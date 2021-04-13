@@ -24,20 +24,20 @@ RSpec.describe MerchantRepository do
 
       mr = se.merchants
 
-      merchant_1 = Merchant.new({
-                    id: '12334105',
-                    name: 'Shopin1901',
-                    created_at:	'2010-12-10',
-                    updated_at:	'2011-12-04'
-        })
-
-      expect(mr.all[0]).to eq(merchant_1)
+      expect(mr.all[0].id).to eq('12334105')
     end
   end
 
-  it 'finds merchant by id' do
-    mr = MerchantRepository.new
+  describe '#find_by_id' do
+    it 'finds merchant by id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv')
 
-    expect(mr.find_by_id(1175)).to eq()
+      mr = se.merchants
+
+
+    expect(mr.find_by_id('12335573').name).to eq('retropostershop')
+    end
   end
 end
