@@ -1,3 +1,5 @@
+require './lib/merchant'
+
 class MerchantRepository
   def initialize(merchants = [])
     @merchants = merchants
@@ -30,5 +32,7 @@ class MerchantRepository
       merchant.id == id
     end
     @merchants.delete_at(index)
+  end
+  def create(attributes)
   end
 end

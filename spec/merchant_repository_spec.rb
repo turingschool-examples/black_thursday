@@ -1,4 +1,5 @@
 require 'rspec'
+require './lib/merchant'
 require './lib/merchant_repository'
 
 describe MerchantRepository do
@@ -85,6 +86,37 @@ describe MerchantRepository do
       m_repo.delete(2)
       actual_merchants = m_repo.all
       expect(actual_merchants).to eq expected_merchants
+    end
+  end
+
+  describe '#create' do
+    it 'creates a new Merchant' do
+      merchant_1 = Merchant.new({
+        :id => 1,
+        :name => 'Richard'
+      })
+
+      merchant_2 = Merchant.new({
+        :id => 2,
+        :name => 'Dustin'
+      })
+
+      merchants = [merchant_1, merchant_2]
+      m_repo = MerchantRepository.new(merchants)
+
+      allow(m_repo).to receive(:newest_id).and_return(3)
+
+      m_repo.create({
+        :id => 0,
+        :name => 'Sami'
+      })
+
+      merchant_names = [merchant_1.name, merchant_2.name, 'Sami']
+      actual_names = m_repo.all.map do |merchant|
+        merchant.name
+      end
+
+      expect(actual_names).to eq merchant_names
     end
   end
 end
