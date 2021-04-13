@@ -90,8 +90,8 @@ describe Item do
         name: "Pencil",
         description: "You can use it to write things",
         unit_price: BigDecimal.new(10.99,4),
-        created_at: Time.now,
-        updated_at: Time.now,
+        created_at: time,
+        updated_at: time,
         merchant_id: 2
       }
       item = Item.new(details)
@@ -107,8 +107,8 @@ describe Item do
         name: "Pencil",
         description: "You can use it to write things",
         unit_price: BigDecimal.new(10.99,4),
-        created_at: Time.now,
-        updated_at: Time.now,
+        created_at: time,
+        updated_at: time,
         merchant_id: 2
       }
       item = Item.new(details)
