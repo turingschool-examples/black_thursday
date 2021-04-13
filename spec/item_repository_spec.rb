@@ -4,8 +4,8 @@ RSpec.describe 'ItemRepository' do
   describe '#initialize' do
     it 'creates an instance of ItemRepository' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
@@ -14,8 +14,8 @@ RSpec.describe 'ItemRepository' do
     end
     it 'is created with an array of items' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
