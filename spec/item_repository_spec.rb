@@ -27,10 +27,10 @@ RSpec.describe 'ItemRepository' do
    describe '#all' do
      it 'returns an array of all items created so far' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
-
+       
        ir = se.items
 
        expect(ir.all[3].name).to eq('Free standing Woden letters')
@@ -39,8 +39,8 @@ RSpec.describe 'ItemRepository' do
    describe '#find_by_id' do
      it 'returns an instance of an item' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
 
        ir = se.items
@@ -49,8 +49,8 @@ RSpec.describe 'ItemRepository' do
      end
      it 'returns nil if no item has matching id' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
 
        ir = se.items
@@ -71,8 +71,8 @@ RSpec.describe 'ItemRepository' do
      end
      it 'returns nil if the name is not found' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
 
        ir = se.items
@@ -83,8 +83,8 @@ RSpec.describe 'ItemRepository' do
    describe '#find_all_with_description' do
      it 'finds all items whose description includes the string arugument' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
 
        ir = se.items
@@ -93,8 +93,8 @@ RSpec.describe 'ItemRepository' do
      end
      it 'returns an empty array if no items are found' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
 
        ir = se.items
@@ -105,8 +105,8 @@ RSpec.describe 'ItemRepository' do
    describe '#find_all_by_price' do
      it 'returns an array of all items with that price' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
@@ -115,8 +115,8 @@ RSpec.describe 'ItemRepository' do
     end
     it 'returns an empty array if no items are found' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
@@ -127,8 +127,8 @@ RSpec.describe 'ItemRepository' do
    describe '#find_all_by_price_in_range' do
      it 'returns an array of all items with a price found in the range' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
 
        ir = se.items
@@ -137,8 +137,8 @@ RSpec.describe 'ItemRepository' do
      end
      it 'returns an empty array when no items are found' do
        se = SalesEngine.from_csv(
-         :items     => './data/items.csv',
-         :merchants => './data/merchants.csv'
+         items: './data/items.csv',
+         merchants: './data/merchants.csv'
        )
 
        ir = se.items
