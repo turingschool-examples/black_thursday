@@ -28,14 +28,7 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(create_merchants(parse_csv(@merchants)))
-  end
-
-  def create_merchants(parsed_data)
-     test = parsed_data.map do |merchant|
-      Merchant.new(merchant)
-    end
-     require 'pry'; binding.pry
+    MerchantRepository.new(parse_csv(@merchants))
   end
 
   def items
