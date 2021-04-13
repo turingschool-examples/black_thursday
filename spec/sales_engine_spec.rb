@@ -45,10 +45,5 @@ RSpec.describe SalesEngine do
       expect(sales_engine.items).to be_an_instance_of(ItemRepository)
     end
 
-    it 'can create merchant objects' do
-      merchant_data = SalesEngine.parse_csv("./data/merchants.csv")
-      expect(sales_engine.create_merchants(merchant_data)[0]).to be_instance_of(Merchant)
-    end
-
   end
 end
