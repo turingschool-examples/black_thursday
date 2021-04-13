@@ -36,7 +36,7 @@ describe SalesEngine do
         unit_price: '12.23',
         merchant_id: '12345'
       }
-      
+
       allow(CSV).to receive(:foreach).and_yield(mock_row)
 
       mock_file_name = './some_file.csv'
@@ -47,7 +47,7 @@ describe SalesEngine do
       actual_merchants = sales_engine.items
 
       expect(actual_merchants).to be_instance_of Array
-      expect(actual_merchants.first.id).to eq '12345'
+      expect(actual_merchants.first.id).to eq 12345
       expect(actual_merchants.first.name).to eq 'Smith'
     end
   end
@@ -66,7 +66,7 @@ describe SalesEngine do
       actual_merchants = sales_engine.merchants
 
       expect(actual_merchants).to be_instance_of Array
-      expect(actual_merchants.first.id).to eq '12345'
+      expect(actual_merchants.first.id).to eq 12345
       expect(actual_merchants.first.name).to eq 'Smith'
     end
   end
