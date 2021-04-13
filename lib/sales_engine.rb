@@ -32,7 +32,7 @@ class SalesEngine
   end
 
   def items
-    ItemRepository.new
+    ItemRepository.new(SalesEngine.parse_csv(@items))
   end
 end
 
