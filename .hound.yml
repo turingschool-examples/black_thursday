@@ -3,4 +3,3 @@ scss:
 
 rubocop:
   config_file: .rubocop.yml
-  frozen_string_literal: false
