@@ -125,7 +125,7 @@ File.open 'data/items.csv', 'wb' do |file|
     csv << %w[id name description unit_price merchant_id created_at updated_at]
     shops.flat_map(&:listings).sort_by(&:id).each do |listing|
       csv << [listing.id, listing.name, listing.description, listing.unit_price,
-              listing.shop_id, listing.created_at,listing.updated_at]
+              listing.shop_id, listing.created_at, listing.updated_at]
     end
   end
 end
