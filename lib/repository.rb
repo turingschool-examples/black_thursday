@@ -1,6 +1,5 @@
 #Parent repository class
 class Repository
-
   def initialize(csv_array)
     @csv_array = csv_array
   end
