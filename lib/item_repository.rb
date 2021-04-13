@@ -5,19 +5,15 @@ require 'pry'
 class ItemRepository
   attr_reader :items
 
-  def initialize(hash)
-    @items = make_items(hash)
+  def initialize(path)
+    @items = []
+    make_items(path)
   end
 
-  def make_items(hash)
-    @items = []
-
-    hash.each do |key, value|
-      @items << Item.new(value)
+  def make_items(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+        @items << Item.new(row)
     end
-    @items
   end
 
 end
-
-#

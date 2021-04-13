@@ -7,22 +7,21 @@ class SalesEngine
               :invoices,
               :items,
               :merchants,
-              :transactions
+              :transactions,
+              :item_repository
 
   def initialize
-    @customers = make_hash('./data/customers.csv')
-    @invoice_items = make_hash('./data/invoice_items.csv')
-    @invoices = make_hash('./data/invoices.csv')
-    @items = ItemRepository.new(make_hash('./data/items.csv'))
-    @merchants = make_hash('./data/merchants.csv')
-    @transactions = make_hash('./data/transactions.csv')
+
+    @customers = ('./data/customers.csv')
+    @invoice_items = ('./data/invoice_items.csv')
+    @invoices = ('./data/invoices.csv')
+    @item_repository = ItemRepository.new('./data/items.csv')
+    #item repository stores all the objects
+    @merchants = ('./data/merchants.csv')
+    @transactions = ('./data/transactions.csv')
   end
 
-  def make_hash(path)
-    hash = {}
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-        hash[row[:id].to_i] = row
-    end
-    hash
-  end
+  #send path, don't make hash. Objects add behavior. see below inside each repository. potentially inheritance, perhaps class method
+ # file i/o class.
+
 end

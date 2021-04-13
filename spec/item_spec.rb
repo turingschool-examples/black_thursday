@@ -3,29 +3,38 @@ SimpleCov.start
 require './lib/sales_engine'
 require './lib/item_repository'
 require 'pry'
-# require './lib/item'
 
 RSpec.describe Item do
-  before do
-    @se = SalesEngine.new
-    @ir = @se.items
-    @item = @ir.items.first
-  end
   describe '#initialize' do
     it 'exists' do
-      # binding.pry
-      expect(@item).to be_instance_of(Item)
-    end
-    it 'has attributes' do
-        expect(@item.id).to eq(263395237)
-        expect(@item.name).to eq("510+ RealPush Icon Set")
-        expect(@item.description.length).to eq(2237)
-        expect(@item.unit_price).to eq(0.12e4)
-        expect(@item.created_at.year).to eq(2016)
-        expect(@item.created_at).to be_instance_of(DateTime)
-        expect(@item.updated_at.year).to eq(2007)
-        expect(@item.updated_at).to be_instance_of(DateTime)
-        expect(@item.merchant_id).to eq(12334141)
+      item = Item.new(id:"263395617",
+        name:"Glitter scrabble frames",
+        description:"Glitter scrabble frames",
+        unit_price:"1300",
+        merchant_id:"12334185",
+        created_at:"2016-01-11 11:51:37 UTC",
+        updated_at:"1993-09-29 11:56:40 UTC")
+
+        expect(item).to be_instance_of(Item)
       end
-  end
-end
+      it 'has attributes' do
+        item = Item.new(id: "1",
+          name:"Cool Stuff",
+          description:"supaaa cool",
+          unit_price:"1300",
+          merchant_id:"12334185",
+          created_at:"2016-01-11 11:51:37 UTC",
+          updated_at:"1993-09-29 11:56:40 UTC")
+
+          expect(item.id).to eq(1)
+          expect(item.name).to eq("Cool Stuff")
+          expect(item.description).to eq("supaaa cool")
+          expect(item.unit_price).to eq(0.13e4)
+          expect(item.created_at.year).to eq(2016)
+          expect(item.created_at).to be_instance_of(DateTime)
+          expect(item.updated_at.year).to eq(1993)
+          expect(item.updated_at).to be_instance_of(DateTime)
+          expect(item.merchant_id).to eq(12334185)
+        end
+      end
+    end
