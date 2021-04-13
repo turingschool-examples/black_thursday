@@ -4,7 +4,7 @@ class Item
               :description,
               :unit_price,
               :created_at,
-              :updated_at, 
+              :updated_at,
               :merchant_id
 
   def initialize(info_hash)
@@ -15,6 +15,10 @@ class Item
     @created_at = info_hash[:created_at]
     @updated_at = info_hash[:updated_at]
     @merchant_id = info_hash[:merchant_id]
+  end
+
+  def unit_price_to_dollars
+    (@unit_price.to_f / 100).round(2)
   end
 
 end
