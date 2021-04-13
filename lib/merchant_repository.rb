@@ -29,16 +29,16 @@ class MerchantRepository
   end
 
   def max_id_plus_one
-      max = @csv_array.max_by do |merchant|
-      merchant.id
-      end
-      new = max.id.to_i + 1
-      new.to_s
+    max = @csv_array.max_by do |merchant|
+          merchant.id
+          end
+    new = max.id.to_i + 1
+    new.to_s
   end
 
   def create(name)
-    @csv_array << Merchant.new( {id: max_id_plus_one,
-                  name: name})
+    Merchant.new({ id: max_id_plus_one,
+                  name: name })
   end
 
   def update(id, name)
@@ -50,10 +50,6 @@ class MerchantRepository
   end
 
   def delete(id)
-    remove = @csv_array.find do |merchant|
-      merchant.id == id
-    end
-
-    @csv_array.delete(remove)
+    @csv_array.delete(find_by_id(id))
   end
 end
