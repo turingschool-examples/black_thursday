@@ -1,6 +1,7 @@
 require 'CSV'
 require './lib/item'
 require './lib/merchant'
+require './lib/sales_analyst'
 
 class SalesEngine
   attr_reader :items, :merchants
@@ -24,5 +25,9 @@ class SalesEngine
     CSV.foreach(file_name, headers: true, header_converters: :symbol) do |row|
       @merchants << Merchant.new(row)
     end
+  end
+
+  def analyst
+    SalesAnalyst.new
   end
 end

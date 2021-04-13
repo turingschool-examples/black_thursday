@@ -1,6 +1,7 @@
 require 'rspec'
 require 'CSV'
 require './lib/sales_engine'
+require './lib/sales_analyst'
 
 describe SalesEngine do
   describe '#from_csv' do
@@ -67,6 +68,14 @@ describe SalesEngine do
       expect(actual_merchants).to be_instance_of Array
       expect(actual_merchants.first.id).to eq 12_345
       expect(actual_merchants.first.name).to eq 'Smith'
+    end
+  end
+
+  describe '#analyst' do
+    it 'returns a new instance of SalesAnalyst' do
+      sales_engine = SalesEngine.new
+      sales_analyst = sales_engine.analyst
+      expect(sales_analyst).to be_instance_of SalesAnalyst
     end
   end
 end
