@@ -1,0 +1,55 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/spec/salesengine_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/lib/salesengine.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1618337437
+  }
+}
