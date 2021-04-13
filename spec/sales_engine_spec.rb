@@ -30,7 +30,7 @@ describe SalesEngine do
   describe '#load_items' do
     it 'loads items and populates items array' do
       mock_row = {
-        id: '12345',
+        id: 12345,
         name: 'Smith',
         description: 'Item desc',
         unit_price: '12.23',
@@ -54,7 +54,7 @@ describe SalesEngine do
 
   describe '#load_merchants' do
     it 'loads merchants and populates merchants array' do
-      mock_row = {id: '12345', name: 'Smith'}
+      mock_row = {id: 12345, name: 'Smith'}
 
       allow(CSV).to receive(:foreach).and_yield(mock_row)
 
