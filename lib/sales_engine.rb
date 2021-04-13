@@ -5,5 +5,7 @@ class SalesEngine
   private
 
   def initialize(files)
+    load_items(files[:items])
+    load_merchants(files[:merchants])
   end
 end
