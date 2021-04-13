@@ -143,4 +143,49 @@ describe ItemRepository do
       expect(item_repository.find_all_with_description('write')).to eq items
     end
   end
+
+  describe '#find_all_by_price' do
+    it 'returns an empty array if no items match price' do
+      details = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item = Item.new(details)
+      item_repository = ItemRepository.new([item])
+
+      expect(item_repository.find_all_by_price(5.99)).to eq []
+    end
+
+    it 'returns array of items that match specified price' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      details2 = {
+        id: 2,
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item2 = Item.new(details2)
+      items = [item1, item2]
+      item_repository = ItemRepository.new(items)
+
+      expect(item_repository.find_all_by_price(10.99)).to eq [item1]
+    end
+  end
 end
