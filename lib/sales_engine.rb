@@ -25,4 +25,7 @@ class SalesEngine
       @merchants << Merchant.new(row)
     end
   end
+
+  def analyst
+  end 
 end
