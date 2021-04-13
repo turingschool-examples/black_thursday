@@ -95,7 +95,7 @@ RSpec.describe MerchantRepository do
       expect(mr.find_all_by_name('lawrence')).to eq([])
     end
 
-  describe '#max_id_plus_one' do
+  describe '#max_id_number_new' do
     it 'finds the current max id' do
       se = SalesEngine.from_csv(
           items: './data/items.csv',
@@ -103,7 +103,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      expect(mr.max_id_plus_one).to eq('12337412')
+      expect(mr.max_id_number_new).to eq('12337412')
     end
   end
 
