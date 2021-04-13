@@ -9,7 +9,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -24,7 +24,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -40,7 +40,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -56,7 +56,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -72,14 +72,14 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
       }
       item = Item.new(details)
 
-      expect(item.unit_price).to eq BigDecimal.new(10.99,4)
+      expect(item.unit_price).to eq BigDecimal(10.99,4)
       expect(item.unit_price).is_a? BigDecimal
     end
 
@@ -89,7 +89,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: time,
         updated_at: time,
         merchant_id: 2
@@ -106,7 +106,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: time,
         updated_at: time,
         merchant_id: 2
@@ -122,7 +122,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -140,7 +140,7 @@ describe Item do
         id: 1,
         name: "Pencil",
         description: "You can use it to write things",
-        unit_price: BigDecimal.new(10.99,4),
+        unit_price: BigDecimal(10.99,4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
