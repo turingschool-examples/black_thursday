@@ -142,22 +142,22 @@ describe MerchantRepository do
 
   describe '#update' do
     it 'updates a merchant with the given id and attributes' do
-      merchant_1 = Merchant.new(
+      merchant1 = Merchant.new(
       {
         id: 1,
         name: 'Richard'
       })
-      merchant_2 = Merchant.new(
+      merchant2 = Merchant.new(
       {
         id: 2,
         name: 'Dustin'
       })
-      merchant_3 = Merchant.new(
+      merchant3 = Merchant.new(
       {
         id:  3,
         name: 'Ashley'
       })
-      merchants = [merchant_1, merchant_2, merchant_3]
+      merchants = [merchant1, merchant2, merchant3]
       m_repo = MerchantRepository.new(merchants)
       m_repo.update(2,
       {
@@ -165,8 +165,8 @@ describe MerchantRepository do
         name: 'Dustin Huntsman'
       })
 
-      expect(merchant_2.name).to eq 'Dustin Huntsman'
-      expect(merchant_2.id).not_to eq 23
+      expect(merchant2.name).to eq 'Dustin Huntsman'
+      expect(merchant2.id).not_to eq 23
     end
   end
 end
