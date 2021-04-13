@@ -31,5 +31,4 @@ class SalesEngine
   #     item = Item.new(item_info)
   #     puts "#{item.name} has been created!"
   #   end
-  end
 end

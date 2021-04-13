@@ -1,6 +1,6 @@
 require "CSV"
 require "RSpec"
-require "./lib/salesengine"
+require "./lib/sales_engine"
 require "./lib/item"
 
 RSpec.describe SalesEngine do
