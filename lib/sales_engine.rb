@@ -15,9 +15,9 @@ class SalesEngine
   end
 
   def items
-    item_hash_new = Hash.new
+    item_array_new = []
     CSV.parse(File.read(@location_hash[:items]), headers: true).each do |item|
-      item_hash_new[item[0]] = Item.new( id: item[0],
+      item_array_new << Item.new( id: item[0],
                                   name: item[1],
                                   description: item[2],
                                   unit_price: item[3],
@@ -26,7 +26,7 @@ class SalesEngine
                                   merchant_id: item[4]
                                 )
       end
-      ItemRepository.new(item_hash_new)
+      ItemRepository.new(item_array_new)
   end
 
   def merchants
