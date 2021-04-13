@@ -36,7 +36,6 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-
       expect(mr.find_by_id('12335573').name).to eq('retropostershop')
     end
 
