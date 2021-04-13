@@ -43,4 +43,26 @@ class ItemRepository
       item.merchant_id == merchant_id
     end
   end
+
+  def create_first_item(attributes)
+    item = Item.new(attributes)
+    item.update_id(1)
+    @items << item
+  end
+
+  def find_max_id
+    @items.max_by do |item|
+      item.id
+    end.id
+  end
+
+  def create(attributes)
+    if @items == []
+      create_first_item(attributes)
+    else
+      new_item = Item.new(attributes)
+      new_item.update_id(find_max_id + 1)
+      @items << new_item
+    end
+  end
 end

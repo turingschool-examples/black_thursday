@@ -300,4 +300,47 @@ describe ItemRepository do
       expect(item_repository.find_all_by_merchant_id(2)).to eq items
     end
   end
+
+  describe '#create' do
+    it 'creates an Item class object' do
+      item_repository = ItemRepository.new([])
+
+      details = {
+        id: nil,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      expect(item_repository.create(details)).is_a? Item
+    end
+
+    it 'creates an Item with a new id' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item_repository = ItemRepository.new([item1])
+
+      details2 = {
+        id: nil,
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      new_items = item_repository.create(details2)
+      expect(new_items.last.id).to eq 2
+    end
+  end
 end
