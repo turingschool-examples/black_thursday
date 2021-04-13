@@ -69,11 +69,11 @@ class ItemRepository
 
   def update(id, attributes)
     update_instance = find_by_id(id)
-    if !attributes[:name] == nil
+    if !attributes[:name].nil?
       update_instance.name = attributes[:name]
-    elsif !attributes[:description] == nil
+    elsif !attributes[:description].nil?
       update_instance.description = attributes[:description]
-    elsif !attributes[:unit_price] == nil
+    elsif !attributes[:unit_price].nil?
       update_instance.unit_price = attributes[:unit_price]
     end
   end
