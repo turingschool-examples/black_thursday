@@ -15,7 +15,6 @@ class ItemRepository
     hash.each do |key, value|
       @items << Item.new(value)
     end
-    binding.pry
     @items
   end
 
