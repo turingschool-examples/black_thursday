@@ -102,5 +102,11 @@ RSpec.describe ItemRepository do
 
         expect(repo.find_all_by_price(price)).to eq([])
       end
+
+      it  '#find_all_by_price_in_range returns array of items with price in range' do
+        range = (1000.00..1500.00)
+
+        expect(repo.find_all_by_price_in_range(range).length).to eq(19)
+      end
   end
 end

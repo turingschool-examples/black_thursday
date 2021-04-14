@@ -37,4 +37,11 @@ class ItemRepository
       item.unit_price == price
     end
   end
+
+  def find_all_by_price_in_range(range)
+    test = @items_array.find_all do |item|
+      item.unit_price.to_f <= range.max && item.unit_price.to_f >= range.min
+    end
+    # require 'pry'; binding.pry
+  end
 end
