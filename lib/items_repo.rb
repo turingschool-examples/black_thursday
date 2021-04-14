@@ -24,7 +24,12 @@ class ItemRepo
   def find_by_id(id)
     @item_list.find do |item|
       item.id == id
-      require "pry"; binding.pry
+    end
+  end
+
+  def find_by_name(name)
+    @item_list.find do |item|
+      item.name.downcase == name.downcase
     end
   end
 end
