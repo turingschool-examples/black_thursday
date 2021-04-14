@@ -60,6 +60,7 @@ class ItemRepo
 
   def create(attributes)
     new_item = Item.new(attributes)
+    # refactor potential helper method
     find_max_id = @item_list.max_by do |item|
       item.id
     end
