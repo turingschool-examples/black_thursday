@@ -39,8 +39,14 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    test = @items_array.find_all do |item|
+    @items_array.find_all do |item|
       item.unit_price_to_dollars <= range.max && item.unit_price_to_dollars >= range.min
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items_array.find_all do |item|
+      item.merchant_id == merchant_id
     end
   end
 end
