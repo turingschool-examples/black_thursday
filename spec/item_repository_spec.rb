@@ -394,4 +394,64 @@ describe ItemRepository do
       expect(item1.updated_at).not_to eq Time.new(2021, 01, 02)
     end
   end
+
+  describe '#delete' do
+    it 'deletes the object at specified id' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      details2 = {
+        id: 2,
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item2 = Item.new(details2)
+      items = [item1, item2]
+      item_repository = ItemRepository.new(items)
+
+      item_repository.delete(1)
+
+      expect(item_repository.items).to eq [item2]
+    end
+
+    it 'does not delete anything if no item at id' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      details2 = {
+        id: 2,
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item2 = Item.new(details2)
+      items = [item1, item2]
+      item_repository = ItemRepository.new(items)
+
+      item_repository.delete(3)
+
+      expect(item_repository.items).to eq [item1, item2]
+    end
+  end
 end
