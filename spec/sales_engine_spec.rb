@@ -28,7 +28,7 @@ describe SalesEngine do
   end
 
   describe '#load_items' do
-    xit 'loads items and populates items array' do
+    it 'loads items and populates items array' do
       mock_row = {
         id: 12_345,
         name: 'Smith',
