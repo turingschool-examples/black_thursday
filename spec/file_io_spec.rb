@@ -4,14 +4,14 @@ require './lib/file_io'
 require './lib/item'
 require './lib/merchant'
 
-describe FileIo do 
-  it 'exists' do 
-    file_io = FileIo.new 
+describe FileIo do
+  it 'exists' do
+    file_io = FileIo.new
 
     expect(file_io).is_a? FileIo
   end
 
-  it 'returns an array' do 
+  it 'returns an array' do
     mock_row = {
       id: 12_345,
       name: 'Widget',
