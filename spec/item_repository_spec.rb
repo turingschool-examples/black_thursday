@@ -128,4 +128,26 @@ RSpec.describe ItemRepository do
         expect(repo.find_all_by_merchant_id(merchant_id)).to eq([])
       end
   end
+
+  describe 'create, update, delete methods' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              })
+    repo = sales_engine.items
+
+    it '#create creates new instance with attribute argument' do
+      attributes = {
+                        :id          => 1,
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => "1099",
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2
+                      }
+      repo.create(attributes) 
+      expect(repo.all.count).to eq(1368)
+    end
+  end
 end
