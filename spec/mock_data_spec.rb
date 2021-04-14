@@ -30,17 +30,25 @@ describe MockData do
       expect(mocks.length).to eq 10
       expect(mocks.first).to be_instance_of Hash
     end
-    
+
     it 'returns mock data of items with data' do
       mocks = MockData.get_mock_items(2)
       mocked_item = mocks.first
       expect(mocks.length).to eq 2
       expect(mocked_item[:name]).to eq 'Item 0'
       expect(mocked_item[:id]).to eq 0
-      expect(mocked_item[:merchant_id]).to match /\d+/
+      expect(mocked_item[:merchant_id]).to be_instance_of Integer
+      expect(mocked_item[:unit_price]).to be_instance_of Float
       expect(mocked_item[:description]).to eq 'Item Description'
       expect(mocked_item[:created_at]).to match /\d{4}-\d{2}-\d{2}/
       expect(mocked_item[:updated_at]).to match /\d{4}-\d{2}-\d{2}/
+    end
+  end
+
+  describe '#get_a_random_price' do
+    it 'generates a random price' do
+      random_price = MockData.get_a_random_price
+      expect(random_price).to be_instance_of Float
     end
   end
 
