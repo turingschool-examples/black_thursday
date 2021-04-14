@@ -1,3 +1,5 @@
+require 'Date'
+
 class MockData
 
   def self.get_a_random_date(random = true)
@@ -13,7 +15,7 @@ class MockData
     (rand(1..120) + (rand(100) / 100.0))
   end
 
-  def self.get_mock_merchants(number_of_mocks = 10, random_dates = true)
+  def self.get_mock_merchants(number_of_mocks: 10, random_dates: true)
     mocked_merchants = []
     number_of_mocks.times do |merchant_number|
       merchant = {}
@@ -43,7 +45,13 @@ class MockData
       item[:unit_price] = get_a_random_price
       item[:description] = 'Item Description'
       item[:merchant_id] = item_number % number_of_merchants
-      item[:created_at] = date.prev_year.to_s
+      if block_given?
+        item[:created_at] = yield(date).to_s
+        item[:updated_at] = date.to_s
+      else
+        item[:created_at] = date.prev_year.to_s
+        item[:updated_at] = date.to_s
+      end
       item[:updated_at] = date.to_s
       mocked_items << item
     end
