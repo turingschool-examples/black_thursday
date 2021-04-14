@@ -17,6 +17,6 @@ class Item
     @unit_price = (BigDecimal(attributes[:unit_price])/100)
     @created_at = attributes[:created_at]
     @updated_at = attributes[:created_at]
-    @merchant_id = attributes[:merchant_id]
+    @merchant_id = attributes[:merchant_id].to_i
   end
 end

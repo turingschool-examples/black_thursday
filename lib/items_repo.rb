@@ -51,4 +51,10 @@ class ItemRepo
       price_range.include?(item.unit_price)
     end
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @item_list.find_all do |item|
+      item.merchant_id == merchant_id
+    end 
+  end
 end
