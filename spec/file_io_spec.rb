@@ -3,7 +3,6 @@ require 'CSV'
 require './lib/file_io'
 require './lib/item'
 require './lib/merchant'
-# require './data/merchants'
 
 describe FileIo do 
   it 'exists' do 
