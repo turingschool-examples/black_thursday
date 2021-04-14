@@ -30,7 +30,8 @@ class MerchantRepo
 
   def find_by_name(name)
     @merchants.find do |merchant|
-      merchant.name == name
+      merchant.name.downcase == name.downcase
+      #touch base with dane on this
     end
   end
 
@@ -39,7 +40,15 @@ class MerchantRepo
   end
 
   #this needs to
-  def find_all_by_name
+  def find_all_by_name(name_fragment) #advocate for this place holder!
+    name_matches = []
+    @merchants.find_all do |merchant|
+      if merchant.name.downcase.include?(name_fragment.downcase)
+        name_matches << merchant
+      end
+    end
+  end
+
 
 
 end

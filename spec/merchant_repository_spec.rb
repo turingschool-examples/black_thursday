@@ -55,8 +55,9 @@ RSpec.describe MerchantRepo do
       merchant_repo = MerchantRepo.new
       merchant_repo.populate_information
       merchant_repo.all
-
-      expect(merchant_repo.find_all_by_name("gem")).to eq([])
+      # require "pry"; binding.pry
+      expect(merchant_repo.find_all_by_name("Hogwar")).to eq([])
+      expect(merchant_repo.find_all_by_name("gem").length).to eq(5)
     end
   end
 end

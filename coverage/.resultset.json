@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/spec/merchant_repository_spec.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/spec/merchant_repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -56,10 +56,19 @@
           1,
           null,
           null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
           null
         ]
       },
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/lib/sales_engine.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           null,
@@ -97,46 +106,46 @@
           null
         ]
       },
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/lib/merchant.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           1,
           null,
           null,
           1,
-          1900,
-          1900,
+          2375,
+          2375,
           null,
           null
         ]
       },
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/lib/merchant_repository.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/lib/merchant_repository.rb": {
         "lines": [
           1,
           1,
           null,
           1,
           1,
+          null,
+          1,
+          6,
+          null,
+          null,
+          1,
+          5,
+          5,
+          2375,
+          null,
+          5,
+          2375,
+          null,
+          null,
           null,
           1,
           5,
           null,
           null,
           1,
-          4,
-          4,
-          1900,
-          null,
-          4,
-          1900,
-          null,
-          null,
-          null,
-          1,
-          4,
-          null,
-          null,
-          1,
           2,
           476,
           null,
@@ -145,11 +154,24 @@
           1,
           2,
           476,
+          null,
           null,
           null,
           null,
           1,
           0,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          950,
+          5,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -164,6 +186,6 @@
         ]
       }
     },
-    "timestamp": 1618434860
+    "timestamp": 1618438146
   }
 }
