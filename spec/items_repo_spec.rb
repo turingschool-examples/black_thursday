@@ -74,7 +74,24 @@ RSpec.describe ItemRepo do
     end
 
     it 'can find all items by price in a range' do
+      range = (1000.00..1500.00)
+      expected = ir.find_all_by_price_in_range(range)
+      expect(expected.length).to eq 19
 
+      range = (10.00..150.00)
+      expected = ir.find_all_by_price_in_range(range)
+
+      expect(expected.length).to eq 910
+
+      range = (10.00..15.00)
+      expected = ir.find_all_by_price_in_range(range)
+
+      expect(expected.length).to eq 205
+
+      range = (0..10.0)
+      expected = ir.find_all_by_price_in_range(range)
+
+      expect(expected.length).to eq 302
     end
 
     xit 'can find by merchant id' do

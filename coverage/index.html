@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-14T16:58:00-04:00">2021-04-14T16:58:00-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-14T17:02:52-04:00">2021-04-14T17:02:52-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  100.0%
+  95.33%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         253.26
+         239.07
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>202</b> relevant lines,
-    <span class="green"><b>202</b> lines covered</span> and
-    <span class="red"><b>0</b> lines missed. </span>
+    <b>214</b> relevant lines,
+    <span class="green"><b>204</b> lines covered</span> and
+    <span class="red"><b>10</b> lines missed. </span>
     (<span class="green">
-  100.0%
+  95.33%
 </span>
 )
   </div>
@@ -84,7 +84,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#620509c016780706110ab7e5dac0214d30bea9a0" class="src_link" title="lib/items_repo.rb">lib/items_repo.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">49</td>
+            <td class="cell--number">48</td>
             <td class="cell--number">25</td>
             <td class="cell--number">25</td>
             <td class="cell--number">0</td>
@@ -127,12 +127,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#e2ab06ea96f5ed27557ef565973e3a5fe1327a65" class="src_link" title="spec/items_repo_spec.rb">spec/items_repo_spec.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">96</td>
-            <td class="cell--number">53</td>
-            <td class="cell--number">53</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">1.00</td>
+            <td class="yellow strong cell--number t-file__coverage">84.62 %</td>
+            <td class="cell--number">113</td>
+            <td class="cell--number">65</td>
+            <td class="cell--number">55</td>
+            <td class="cell--number">10</td>
+            <td class="cell--number">0.85</td>
             
           </tr>
         
@@ -981,18 +981,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
-            
-            
-
-            
-
-            <code class="ruby">      </code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4101" data-linenumber="46">
+          <li class="covered" data-hits="4101" data-linenumber="45">
             <span class="hits">4101</span>
             
 
@@ -1003,7 +992,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="47">
+          <li class="never" data-hits="" data-linenumber="46">
             
             
 
@@ -1014,7 +1003,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="48">
+          <li class="never" data-hits="" data-linenumber="47">
             
             
 
@@ -1025,7 +1014,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="49">
+          <li class="never" data-hits="" data-linenumber="48">
             
             
 
@@ -2138,8 +2127,8 @@
   <div class="header">
     <h3>spec/items_repo_spec.rb</h3>
     <h4>
-      <span class="green">
-  100.0%
+      <span class="yellow">
+  84.62%
 </span>
 
       lines covered
@@ -2148,9 +2137,9 @@
     
 
     <div class="t-line-summary">
-      <b>53</b> relevant lines.
-      <span class="green"><b>53</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <b>65</b> relevant lines.
+      <span class="green"><b>55</b> lines covered</span> and
+      <span class="red"><b>10</b> lines missed.</span>
     </div>
 
     
@@ -2992,56 +2981,45 @@
 
             
 
-            <code class="ruby">    xit &#39;can find all items by price in a range&#39; do</code>
+            <code class="ruby">    it &#39;can find all items by price in a range&#39; do</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="77">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="78">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="79">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="80">
+          <li class="covered" data-hits="1" data-linenumber="77">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    xit &#39;can find by merchant id&#39; do</code>
+            <code class="ruby">      range = (1000.00..1500.00)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="81">
+          <li class="covered" data-hits="1" data-linenumber="78">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expected = ir.find_all_by_price_in_range(range)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="79">
+            
+            
+
+            
+
+            <code class="ruby">      expect(expected.length).to eq 19</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="80">
             
             
 
@@ -3052,13 +3030,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="82">
+          <li class="missed" data-hits="0" data-linenumber="81">
             
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      range = (10.00..150.00)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="82">
+            
+            
+
+            
+
+            <code class="ruby">      expected = ir.find_all_by_price_in_range(range)</code>
           </li>
         </div>
       
@@ -3074,13 +3063,13 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="84">
-            <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="84">
+            
             
 
             
 
-            <code class="ruby">    xit &#39;can create a new item&#39; do</code>
+            <code class="ruby">      expect(expected.length).to eq 910</code>
           </li>
         </div>
       
@@ -3096,18 +3085,29 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="86">
+          <li class="missed" data-hits="0" data-linenumber="86">
             
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      range = (10.00..15.00)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="87">
+          <li class="missed" data-hits="0" data-linenumber="87">
+            
+            
+
+            
+
+            <code class="ruby">      expected = ir.find_all_by_price_in_range(range)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="88">
             
             
 
@@ -3118,24 +3118,13 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="88">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    xit &#39;can update an item&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="89">
+          <li class="missed" data-hits="0" data-linenumber="89">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      expect(expected.length).to eq 205</code>
           </li>
         </div>
       
@@ -3146,29 +3135,29 @@
 
             
 
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="91">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="92">
-            <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="91">
+            
             
 
             
 
-            <code class="ruby">    xit &#39;can delete an item&#39; do</code>
+            <code class="ruby">      range = (0..10.0)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="92">
+            
+            
+
+            
+
+            <code class="ruby">      expected = ir.find_all_by_price_in_range(range)</code>
           </li>
         </div>
       
@@ -3184,13 +3173,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="94">
+          <li class="missed" data-hits="0" data-linenumber="94">
             
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      expect(expected.length).to eq 302</code>
           </li>
         </div>
       
@@ -3201,12 +3190,199 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="96">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="97">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    xit &#39;can find by merchant id&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="98">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="99">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="100">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="101">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    xit &#39;can create a new item&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="102">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="103">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="104">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="105">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    xit &#39;can update an item&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="106">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="107">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="108">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="109">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    xit &#39;can delete an item&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="110">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="111">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="112">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="113">
             
             
 
