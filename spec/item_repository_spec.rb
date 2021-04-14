@@ -90,6 +90,13 @@ RSpec.describe ItemRepository do
         expect(repo.find_all_with_description(description)[0].description).to eq("A large Yeti of sorts, casually devours a cow as the others watch numbly.")
       end
 
+      it '#find_all_by_price returns array if item instances with matching price' do
+        price = 3800
+
+        expect(repo.find_all_by_price(price)[0].price).to eq(price)
+        expect(repo.find_all_by_price(price)[0].id).to eq(263567474)
+      end
+
 
   end
 end
