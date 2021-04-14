@@ -10,7 +10,7 @@ RSpec.describe Item do
                       :id          => 1,
                       :name        => "Pencil",
                       :description => "You can use it to write things",
-                      :unit_price  => 10.88, # BigDecimal.new(10.99,4),
+                      :unit_price  => BigDecimal(10.99,4),
                       :created_at  => Time.now,
                       :updated_at  => Time.now,
                       :merchant_id => 2
@@ -24,7 +24,7 @@ RSpec.describe Item do
       expect(item.id).to eq(1)
       expect(item.name).to eq("Pencil")
       expect(item.description).to eq("You can use it to write things")
-      expect(item.unit_price).to eq(10.88) #When we use BigDecimal, test bu checking object class
+      expect(item.unit_price).to eq(BigDecimal(10.99,4))
       expect(item.created_at.class).to eq(Time)
       expect(item.updated_at.class).to eq(Time)
       expect(item.merchant_id).to eq(2)
@@ -36,15 +36,16 @@ RSpec.describe Item do
                       :id          => 1,
                       :name        => "Pencil",
                       :description => "You can use it to write things",
-                      :unit_price  => 1088, # BigDecimal.new(10.99,4),
+                      :unit_price  => BigDecimal(10.99,4),
                       :created_at  => Time.now,
                       :updated_at  => Time.now,
                       :merchant_id => 2
                     })
 
      it 'has a unit price' do
-        expect(item.unit_price_to_dollars).to eq(10.88)
-        expect(item.unit_price_to_dollars.class).to eq(Float)
+      # expected = item.find_by_id(263397059)
+        expect(expected.unit_price_to_dollars).to eq(130.0)
+        expect(expected.unit_price_to_dollars.class).to eq(Float)
      end
   end
 end
