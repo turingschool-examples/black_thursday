@@ -67,4 +67,14 @@ class ItemRepo
     new_item.id = (find_max_id.id + 1)
     item_list << new_item
   end
+
+  def update(id, attributes)
+    item = @item_list.find do |item|
+      item.id == id
+    end
+    item.name = attributes[:name]
+    item.description = attributes[:description]
+    item.unit_price = BigDecimal(attributes[:unit_price])
+    item.updated_at = Time.now 
+  end
 end
