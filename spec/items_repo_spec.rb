@@ -41,8 +41,17 @@ RSpec.describe ItemRepo do
       expect(ir.find_by_name("510+ realpush icon set")).to eq(ir.item_list[0])
     end
 
-    xit 'can find all items by description' do
-
+    it 'can find all items by description' do
+      description = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
+      expected = ir.find_all_with_description(description)
+      expect(expected.first.description).to eq description
+      expect(expected.first.id).to eq 263550472
+      description = "A LARGE yeti of SOrtS, casually devoURS a COw as the OTHERS WaTch NUmbly."
+      expected = ir.find_all_with_description(description)
+      expect(expected.first.id).to eq 263550472
+      description = "Sales Engine is a relational database"
+      expected = ir.find_all_with_description(description)
+      expect(expected.length).to eq 0
     end
 
     xit 'can find all items by price' do

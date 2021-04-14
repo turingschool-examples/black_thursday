@@ -32,4 +32,10 @@ class ItemRepo
       item.name.downcase == name.downcase
     end
   end
+
+  def find_all_with_description(description)
+    @item_list.find_all do |item|
+      item.description.downcase == description.downcase
+    end 
+  end
 end
