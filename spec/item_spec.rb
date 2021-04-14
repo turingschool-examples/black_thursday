@@ -37,4 +37,20 @@ RSpec.describe Item do
       expect(item.merchant_id).to eq(12334185)
     end
   end
+
+
+  describe '#update' do
+    it 'updates the updated_at timestamp' do
+      item = Item.new(id: '1',
+      name: 'Cool Stuff',
+      description: 'supaaa cool',
+      unit_price: '1300',
+      merchant_id: '12334185',
+      created_at: '2016-01-11 11:51:37 UTC',
+      updated_at: '1993-09-29 11:56:40 UTC')
+      item.update
+
+      expect(item.updated_at.year).to eq(2021)
+    end
+  end
 end
