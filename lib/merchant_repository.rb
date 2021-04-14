@@ -24,4 +24,31 @@ class MerchantRepository
       merchant.id == id
     end
   end
+
+  def find_by_name(name)
+    @merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_name(name)
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
+  end
+
+  def create(attributes)
+    max_merchant = @merchants.max_by do |merchant|
+      merchant.id
+    end
+    high_id = max_merchant.id + 1
+    attributes[:id] = high_id
+
+    @merchants << Merchant.new(attributes)
+  end
+
+  def update(id, attributes)
+    updatee = find_by_id(id)
+    updatee.name.replace attributes
+  end
 end
