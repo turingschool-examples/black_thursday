@@ -13,13 +13,13 @@ class ItemRepository < Repository
   def all_items
     @csv_array = []
     CSV.parse(File.read(@location_hash[:items]), headers: true).each do |item|
-      @csv_array << Item.new( { id: item[0],
-                                name: item[1],
-                                description: item[2],
-                                unit_price: item[3],
-                                created_at: item[5],
-                                updated_at: item[6],
-                                merchant_id: item[4] }, self )
+      @csv_array << Item.new({ id: item[0],
+                               name: item[1],
+                               description: item[2],
+                               unit_price: item[3],
+                               created_at: item[5],
+                               updated_at: item[6],
+                               merchant_id: item[4] }, self)
     end
   end
 
