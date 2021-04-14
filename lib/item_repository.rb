@@ -3,8 +3,12 @@
 class ItemRepository
   attr_reader :items
 
-  def initialize(items = [])
-    @items = items
+  def initialize(filename)
+    @items = create_items(filename)
+  end
+
+  def create_items(filename)
+    FileIo.process_csv(filename, Item)
   end
 
   def all
