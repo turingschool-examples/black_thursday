@@ -42,9 +42,9 @@ RSpec.describe ItemRepository do
         unit_price:   '1300',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'}, 
-        ir
-      )
+        updated_at:   '1993-09-29 11:56:40 UTC'
+        }, 
+        ir)
       ir.items << test_item
       expect(ir.find_by_id(1)).to eq(test_item)
       expect(ir.find_by_id(7)).to eq(nil)
@@ -61,9 +61,9 @@ RSpec.describe ItemRepository do
         unit_price:   '1300',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'},
-        ir
-      )
+        updated_at:   '1993-09-29 11:56:40 UTC'
+        },
+        ir)
       ir.items << test_item
       expect(ir.find_by_name('CoOL StUfF')).to eq(test_item)
       expect(ir.find_by_name('neato')).to eq(nil)
@@ -80,9 +80,9 @@ RSpec.describe ItemRepository do
         unit_price:   '1300',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'},
-        ir
-      )
+        updated_at:   '1993-09-29 11:56:40 UTC'
+        },
+        ir)
       ir.items << test_item
       expect(ir.find_all_with_description('sUPaAa')).to eq([test_item])
       expect(ir.find_all_with_description('neato burrito')).to eq([])
@@ -99,9 +99,9 @@ RSpec.describe ItemRepository do
         unit_price:   '1357',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'},
-        ir
-      )
+        updated_at:   '1993-09-29 11:56:40 UTC'
+        },
+        ir)
       ir.items << test_item
       price_1 = BigDecimal(1357)
       price_2 = BigDecimal(7541234541)
@@ -120,9 +120,9 @@ RSpec.describe ItemRepository do
         unit_price:   '1357',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'},
-        ir
-      )
+        updated_at:   '1993-09-29 11:56:40 UTC'
+        },
+        ir)
       ir.items << test_item
       range1 = (1000.00..1500.00)
       range2 = (1..2)
@@ -141,9 +141,9 @@ RSpec.describe ItemRepository do
         unit_price:   '1357',
         merchant_id:  '123456987',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'},
-        ir
-      )
+        updated_at:   '1993-09-29 11:56:40 UTC'
+        },
+        ir)
       ir.items << test_item
       expect(ir.find_all_by_merchant_id(123456987)).to eq([test_item])
       expect(ir.find_all_by_merchant_id(4)).to eq([])
@@ -151,14 +151,14 @@ RSpec.describe ItemRepository do
   end
   describe '#generate_new_id' do
     it 'create a new item id' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.generate_new_id).to eq(263567475)
     end
   end
   describe '#create' do
     it 'create a new item instance' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       attributes = {
         name:         'Cool Stuff',
@@ -175,7 +175,7 @@ RSpec.describe ItemRepository do
   end
   describe '#update' do
     it 'updates items attributes' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       attributes = {
         name:         'Cool Stuff',
@@ -194,7 +194,7 @@ RSpec.describe ItemRepository do
   end
   describe '#delete' do
     it 'delete a specified item from the items array' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       ir.delete(263567292)
       expect(ir.items.count).to eq(1366)

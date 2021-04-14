@@ -14,7 +14,7 @@ class SalesEngine
     @customers = './data/customers.csv'
     @invoice_items = './data/invoice_items.csv'
     @invoices = './data/invoices.csv'
-    @item_repository = ItemRepository.new('./data/items.csv')
+    @items = ItemRepository.new('./data/items.csv', self)
     @merchants = './data/merchants.csv'
     @transactions = './data/transactions.csv'
   end
