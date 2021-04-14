@@ -91,9 +91,8 @@ class ItemRepository
     item_to_update.format_unit_price
     item_to_update.update
   end
-
+  
   def delete(id)
-    delete_index = items.index(find_by_id(id))
-    items.delete_at(delete_index)
+    items.delete(find_by_id(id))
   end
 end
