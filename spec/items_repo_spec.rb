@@ -130,8 +130,32 @@ RSpec.describe ItemRepo do
       expect(expected.updated_at).to be > original_time
     end
 
-    xit 'can delete an item' do
+    it "#update cannot update id, created_at, or merchant_id" do
+      attributes = {
+        id: 270000000,
+        created_at: Time.now,
+        merchant_id: 1
+      }
+      ir.update(263567475, attributes)
+      expected = ir.find_by_id(270000000)
+      expect(expected).to eq nil
+      expected = ir.find_by_id(263567475)
+      expect(expected.created_at).not_to eq attributes[:created_at]
+      expect(expected.merchant_id).not_to eq attributes[:merchant_id]
+    end
 
+    it "#update on unknown item does nothing" do
+      ir.update(270000000, {})
+    end
+
+    it 'can delete an item' do
+      ir.delete(263567475)
+      expected = ir.find_by_id(263567475)
+      expect(expected).to eq nil
+    end
+
+    it "#delete on unknown item does nothing" do
+      ir.delete(270000000)
     end
   end
 end

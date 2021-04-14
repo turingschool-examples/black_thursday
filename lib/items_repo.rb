@@ -68,13 +68,31 @@ class ItemRepo
     item_list << new_item
   end
 
+  def item_exists?(id)
+    item = find_by_id(id)
+    item != nil
+  end
+
+  def unit_price_exists?(attributes)
+    attributes[:unit_price] != nil
+  end
+
   def update(id, attributes)
-    item = @item_list.find do |item|
-      item.id == id
+    item = find_by_id(id)
+    if item_exists?(id)
+      if unit_price_exists?(attributes)
+        item.unit_price = BigDecimal(attributes[:unit_price])
+      end
+      item.name = attributes[:name]
+      item.description = attributes[:description]
+      item.updated_at = Time.now
     end
-    item.name = attributes[:name]
-    item.description = attributes[:description]
-    item.unit_price = BigDecimal(attributes[:unit_price])
-    item.updated_at = Time.now 
+  end
+
+  def delete(id)
+    item = find_by_id(id)
+    if item_exists?(id)
+      @item_list.delete(item)
+    end
   end
 end

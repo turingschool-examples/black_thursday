@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-14T17:38:18-04:00">2021-04-14T17:38:18-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-14T19:16:42-04:00">2021-04-14T19:16:42-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         265.03
+         300.83
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>250</b> relevant lines,
-    <span class="green"><b>250</b> lines covered</span> and
+    <b>275</b> relevant lines,
+    <span class="green"><b>275</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -84,11 +84,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#620509c016780706110ab7e5dac0214d30bea9a0" class="src_link" title="lib/items_repo.rb">lib/items_repo.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">80</td>
-            <td class="cell--number">44</td>
-            <td class="cell--number">44</td>
+            <td class="cell--number">98</td>
+            <td class="cell--number">54</td>
+            <td class="cell--number">54</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">653.91</td>
+            <td class="cell--number">837.56</td>
             
           </tr>
         
@@ -128,9 +128,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#e2ab06ea96f5ed27557ef565973e3a5fe1327a65" class="src_link" title="spec/items_repo_spec.rb">spec/items_repo_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">137</td>
-            <td class="cell--number">82</td>
-            <td class="cell--number">82</td>
+            <td class="cell--number">161</td>
+            <td class="cell--number">97</td>
+            <td class="cell--number">97</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -484,8 +484,8 @@
     
 
     <div class="t-line-summary">
-      <b>44</b> relevant lines.
-      <span class="green"><b>44</b> lines covered</span> and
+      <b>54</b> relevant lines.
+      <span class="green"><b>54</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -772,8 +772,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="6" data-linenumber="26">
-            <span class="hits">6</span>
+          <li class="covered" data-hits="19" data-linenumber="26">
+            <span class="hits">19</span>
             
 
             
@@ -783,8 +783,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="5473" data-linenumber="27">
-            <span class="hits">5473</span>
+          <li class="covered" data-hits="23254" data-linenumber="27">
+            <span class="hits">23254</span>
             
 
             
@@ -1273,29 +1273,29 @@
 
             
 
-            <code class="ruby">  def update(id, attributes)</code>
+            <code class="ruby">  def item_exists?(id)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="72">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="5" data-linenumber="72">
+            <span class="hits">5</span>
             
 
             
 
-            <code class="ruby">    item = @item_list.find do |item|</code>
+            <code class="ruby">    item = find_by_id(id)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1368" data-linenumber="73">
-            <span class="hits">1368</span>
+          <li class="covered" data-hits="5" data-linenumber="73">
+            <span class="hits">5</span>
             
 
             
 
-            <code class="ruby">      item.id == id</code>
+            <code class="ruby">    item != nil</code>
           </li>
         </div>
       
@@ -1306,18 +1306,18 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="75">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="75">
+            
             
 
             
 
-            <code class="ruby">    item.name = attributes[:name]</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1328,34 +1328,23 @@
 
             
 
-            <code class="ruby">    item.description = attributes[:description]</code>
+            <code class="ruby">  def unit_price_exists?(attributes)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="77">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="2" data-linenumber="77">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">    item.unit_price = BigDecimal(attributes[:unit_price])</code>
+            <code class="ruby">    attributes[:unit_price] != nil</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="78">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    item.updated_at = Time.now </code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="79">
+          <li class="never" data-hits="" data-linenumber="78">
             
             
 
@@ -1366,7 +1355,216 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="80">
+          <li class="never" data-hits="" data-linenumber="79">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="80">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def update(id, attributes)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3" data-linenumber="81">
+            <span class="hits">3</span>
+            
+
+            
+
+            <code class="ruby">    item = find_by_id(id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3" data-linenumber="82">
+            <span class="hits">3</span>
+            
+
+            
+
+            <code class="ruby">    if item_exists?(id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="83">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      if unit_price_exists?(attributes)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="84">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        item.unit_price = BigDecimal(attributes[:unit_price])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="85">
+            
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="86">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      item.name = attributes[:name]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="87">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      item.description = attributes[:description]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="88">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      item.updated_at = Time.now</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="89">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="90">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="91">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="92">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def delete(id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="93">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    item = find_by_id(id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="94">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    if item_exists?(id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="95">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      @item_list.delete(item)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="96">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="97">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="98">
             
             
 
@@ -2489,8 +2687,8 @@
     
 
     <div class="t-line-summary">
-      <b>82</b> relevant lines.
-      <span class="green"><b>82</b> lines covered</span> and
+      <b>97</b> relevant lines.
+      <span class="green"><b>97</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -3960,7 +4158,7 @@
 
             
 
-            <code class="ruby">    xit &#39;can delete an item&#39; do</code>
+            <code class="ruby">    it &quot;#update cannot update id, created_at, or merchant_id&quot; do</code>
           </li>
         </div>
       
@@ -3971,18 +4169,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      attributes = {</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="135">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="135">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    end</code>
+            
+
+            <code class="ruby">        id: 270000000,</code>
           </li>
         </div>
       
@@ -3993,12 +4191,276 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">        created_at: Time.now,</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="137">
+            
+            
+
+            
+
+            <code class="ruby">        merchant_id: 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="138">
+            
+            
+
+            
+
+            <code class="ruby">      }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="139">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      ir.update(263567475, attributes)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="140">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expected = ir.find_by_id(270000000)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="141">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(expected).to eq nil</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="142">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expected = ir.find_by_id(263567475)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="143">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(expected.created_at).not_to eq attributes[:created_at]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="144">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(expected.merchant_id).not_to eq attributes[:merchant_id]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="145">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="146">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="147">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    it &quot;#update on unknown item does nothing&quot; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="148">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      ir.update(270000000, {})</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="149">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="150">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="151">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    it &#39;can delete an item&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="152">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      ir.delete(263567475)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="153">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expected = ir.find_by_id(263567475)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="154">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(expected).to eq nil</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="155">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="156">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="157">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    it &quot;#delete on unknown item does nothing&quot; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="158">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      ir.delete(270000000)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="159">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="160">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="161">
             
             
 
