@@ -55,6 +55,15 @@ class ItemRepo
   def find_all_by_merchant_id(merchant_id)
     @item_list.find_all do |item|
       item.merchant_id == merchant_id
-    end 
+    end
+  end
+
+  def create(attributes)
+    new_item = Item.new(attributes)
+    find_max_id = @item_list.max_by do |item|
+      item.id
+    end
+    new_item.id = (find_max_id.id + 1)
+    item_list << new_item
   end
 end
