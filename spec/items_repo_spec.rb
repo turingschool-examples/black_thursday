@@ -1,9 +1,11 @@
 require 'rspec'
+require 'bigdecimal'
 require './lib/sales_engine'
 require './lib/items'
 require './lib/items_repo'
 require './lib/merchants'
 require './lib/merchants_repo'
+
 
 RSpec.describe ItemRepo do
 
@@ -54,8 +56,21 @@ RSpec.describe ItemRepo do
       expect(expected.length).to eq 0
     end
 
-    xit 'can find all items by price' do
+    it 'can find all items by price' do
+      price = BigDecimal(25)
+      expected =ir.find_all_by_price(price)
 
+      expect(expected.length).to eq 79
+
+      price = BigDecimal(10)
+      expected = ir.find_all_by_price(price)
+
+      expect(expected.length).to eq 63
+
+      price = BigDecimal(20000)
+      expected = ir.find_all_by_price(price)
+
+      expect(expected.length).to eq 0
     end
 
     xit 'can find all items by price in a range' do

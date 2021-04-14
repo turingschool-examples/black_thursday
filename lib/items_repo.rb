@@ -1,5 +1,6 @@
 require './lib/items'
 require 'csv'
+require 'bigdecimal'
 
 class ItemRepo
   attr_reader :item_list
@@ -36,6 +37,6 @@ class ItemRepo
   def find_all_with_description(description)
     @item_list.find_all do |item|
       item.description.downcase == description.downcase
-    end 
+    end
   end
 end
