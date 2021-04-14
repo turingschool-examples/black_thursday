@@ -42,7 +42,6 @@ class MerchantRepository
     name = attributes[:name]
     id = new_id_number
     Merchant.new({:id => id, :name => name})
-    # require "pry"; binding.pry
 
   end
 
