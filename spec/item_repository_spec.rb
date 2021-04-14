@@ -41,14 +41,14 @@ RSpec.describe ItemRepository do
     repo = sales_engine.items
 
       it 'find_by_id returns an instance by matching id' do
-        id = "263538760"
+        id = 263538760
 
         expect(repo.find_by_id(id).id).to eq(id)
         expect(repo.find_by_id(id).name).to eq("Puppy blankie")
       end
 
       it 'find_by_id returns a nil if no id match' do
-        id = "10"
+        id = 10
 
         expect(repo.find_by_id(id)).to eq(nil)
       end
@@ -57,7 +57,7 @@ RSpec.describe ItemRepository do
         name = "Puppy blankie"
 
         expect(repo.find_by_name(name).name).to eq("Puppy blankie")
-        expect(repo.find_by_name(name).id).to eq("263538760")
+        expect(repo.find_by_name(name).id).to eq(263538760)
       end
 
       it 'find_by_name handles case insensitive search' do
@@ -76,7 +76,7 @@ RSpec.describe ItemRepository do
         description = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
 
         expect(repo.find_all_with_description(description)[0].description).to eq(description)
-        expect(repo.find_all_with_description(description)[0].id).to eq("263550472")
+        expect(repo.find_all_with_description(description)[0].id).to eq(263550472)
       end
 
       it 'find_all_with_description returns empty array if no match' do
@@ -92,14 +92,14 @@ RSpec.describe ItemRepository do
       end
 
       it '#find_all_by_price returns array if item instances with matching price' do
-        price = "3800"
+        price = 3800
 
         expect(repo.find_all_by_price(price)[0].unit_price).to eq(price)
-        expect(repo.find_all_by_price(price).last.id).to eq("263567474")
+        expect(repo.find_all_by_price(price).last.id).to eq(263567474)
       end
 
       it '#find_all_by_price returns [] if no items match price' do
-        price = "0"
+        price = 0
 
         expect(repo.find_all_by_price(price)).to eq([])
       end
@@ -117,13 +117,13 @@ RSpec.describe ItemRepository do
       end
 
       it '#find_all_by_merchant_id returns array of items with merchant id' do
-        merchant_id = "12334326"
+        merchant_id = 12334326
 
         expect(repo.find_all_by_merchant_id(merchant_id).length).to eq(6)
       end
 
       it '#find_all_by_merchant_id returns array of items with merchant id' do
-        merchant_id = "00000000"
+        merchant_id = 00000000
 
         expect(repo.find_all_by_merchant_id(merchant_id)).to eq([])
       end
