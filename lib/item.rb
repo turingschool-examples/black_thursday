@@ -1,4 +1,6 @@
-class Item 
+# frozen_string_literal: true
+
+class Item
   attr_reader :id,
               :name,
               :description,
@@ -6,7 +8,7 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id
-              
+
   def initialize(details)
     @id = details[:id]
     @name = details[:name]
