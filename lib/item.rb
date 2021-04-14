@@ -1,4 +1,4 @@
-require 'bigdecimal'
+require_relative 'bigdecimal'
 
 class Item
   attr_accessor :name,

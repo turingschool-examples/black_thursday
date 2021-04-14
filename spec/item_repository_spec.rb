@@ -1,4 +1,4 @@
-require './lib/sales_engine'
+require_relative './lib/sales_engine'
 
 RSpec.describe 'ItemRepository' do
   describe '#initialize' do
@@ -153,7 +153,7 @@ RSpec.describe 'ItemRepository' do
       )
 
       ir = se.items
-      
+
       actual = ir.find_all_by_price_in_range('100'..'1000')[5].name
       expected = 'Two tone blue stoneware pot'
 
