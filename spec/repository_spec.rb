@@ -1,4 +1,3 @@
-require 'SimpleCOV'
 require 'csv'
 require './lib/sales_engine'
 require './lib/repository'
