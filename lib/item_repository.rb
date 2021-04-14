@@ -70,7 +70,6 @@ class ItemRepository
 
   def update(id, attributes)
     item_to_update = find_by_id(id)
-    # require "pry"; binding.pry
     attributes.each do |key, new_value|
       iv = key.to_s
       if iv == "name"
@@ -80,8 +79,12 @@ class ItemRepository
       elsif iv == "unit_price"
         item_to_update.unit_price = BigDecimal(new_value)
       end
-      # item_to_update.iv = new_value
     end
     item_to_update.update
+  end
+
+  def delete(id)
+    delete_index = items.index(find_by_id(id))
+    items.delete_at(delete_index)
   end
 end

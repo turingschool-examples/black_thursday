@@ -185,4 +185,12 @@ RSpec.describe ItemRepository do
       expect(test_item.updated_at.year).to eq(2021)
     end
   end
+
+  describe '#delete' do
+    it 'delete a specified item from the items array' do
+      ir = ItemRepository.new('./data/items.csv')
+      ir.delete(263567292)
+      expect(ir.items.count).to eq(1366)
+    end
+  end
 end
