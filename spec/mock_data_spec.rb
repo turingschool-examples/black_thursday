@@ -12,7 +12,7 @@ describe MockData do
     end
 
     it 'returns mock data of merchants with data' do
-      mocks = MockData.get_mock_merchants(2)
+      mocks = MockData.get_mock_merchants(number_of_mocks: 2)
       mocked_merchant = mocks.first
       expect(mocks.length).to eq 2
       expect(mocked_merchant[:name]).to eq 'Merchant 0'
@@ -32,7 +32,7 @@ describe MockData do
     end
 
     it 'returns mock data of items with data' do
-      mocks = MockData.get_mock_items(2)
+      mocks = MockData.get_mock_items(number_of_mocks: 2)
       mocked_item = mocks.first
       expect(mocks.length).to eq 2
       expect(mocked_item[:name]).to eq 'Item 0'
