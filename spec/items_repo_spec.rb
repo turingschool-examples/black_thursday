@@ -103,8 +103,18 @@ RSpec.describe ItemRepo do
       expect(expected.length).to eq 2
     end
 
-    xit 'can create a new item' do
-
+    it 'can create a new item' do
+      attributes = {
+        name: "Capita Defenders of Awesome 2018",
+        description: "This board both rips and shreds",
+        unit_price: BigDecimal(399.99, 5),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 25
+      }
+      ir.create(attributes)
+      expected = ir.find_by_id(263567475)
+      expect(expected.name).to eq "Capita Defenders of Awesome 2018"
     end
 
     xit 'can update an item' do
