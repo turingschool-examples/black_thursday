@@ -1,4 +1,5 @@
-require './lib/merchant'
+require_relative '../lib/merchant'
+
 class MerchantRepository
   attr_reader :merchants
   def initialize(parsed_csv)
@@ -38,10 +39,11 @@ class MerchantRepository
   end
 
   def self.create(attributes)
-    id = attributes[:id]
+    # id = attributes[:id]
     name = attributes[:name]
-    id = new_id_number
-    Merchant.new({:id => id, :name => name})
+    # id = new_id_number
+    # require 'pry'; binding.pry
+    Merchant.new({:id => new_id_number, :name => name})
 
   end
 
