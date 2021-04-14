@@ -54,15 +54,26 @@ RSpec.describe MerchantRepository do
       expect(merch_rep.find_all_by_name("Candi").count).to eq(1)
     end
 
-    xit 'creates new merchants' do
-      merchant = MerchantRepository.create({ :id => 5, :name => "Turing School" })
-      expect(merchant).to be_instance_of(Merchant)
-      # expect(merch_rep.create("WandaPetSupply")).to eq(Merchant.new("WandaPetSupply"))
+    it 'creates new merchants' do
+      expect(merch_rep.create({ :id => 5, :name => "Turing School" }).last).to be_instance_of(Merchant)
     end
 
     it 'makes a new id number' do
       new_number = (merch_rep.merchants.last.id.to_i)+1
       expect(merch_rep.new_id_number).to eq(new_number)
+    end
+
+    it 'can update existing merchant' do
+      attributes = { :id => 5, :name => "Turing School" }
+      merch_rep.update("12334112", attributes)
+      targeted_merchant = merch_rep.find_by_id("12334112")
+      expect(targeted_merchant.name).to eq("Turing School")
+    end
+
+    it 'can delete merchant' do
+      merch_rep.delete("12334112")
+      targeted_merchant = merch_rep.find_by_id("12334112")
+      expect(targeted_merchant).to eq(nil)
     end
   end
 end
