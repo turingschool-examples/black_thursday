@@ -12,7 +12,7 @@ RSpec.describe Item do
                   created_at: Time.now,
                   updated_at: Time.now,
                   merchant_id: 2
-                )
+    )
     it 'exists' do
       expect(i).to be_an_instance_of(Item)
     end
@@ -45,8 +45,7 @@ RSpec.describe Item do
                   created_at: Time.now,
                   updated_at: Time.now,
                   merchant_id: 2
-                  )
-      # time = class_double("Time")
+      )
       expect(i.created_at).to eq('12:58')
     end
     it 'has a time updated' do
@@ -74,7 +73,7 @@ RSpec.describe Item do
                 created_at: Time.now,
                 updated_at: Time.now,
                 merchant_id: 2
-                )
+    )
     it 'converts unit price to dollars' do
       expect(i.unit_price_to_dollars).to eq(10.99)
     end
