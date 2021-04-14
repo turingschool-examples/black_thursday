@@ -39,4 +39,10 @@ class ItemRepo
       item.description.downcase == description.downcase
     end
   end
+
+  def find_all_by_price(price)
+    @item_list.find_all do |item|
+      item.unit_price == price
+    end
+  end
 end

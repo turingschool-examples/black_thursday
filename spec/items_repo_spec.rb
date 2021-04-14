@@ -73,7 +73,7 @@ RSpec.describe ItemRepo do
       expect(expected.length).to eq 0
     end
 
-    xit 'can find all items by price in a range' do
+    it 'can find all items by price in a range' do
 
     end
 
