@@ -7,35 +7,35 @@ require 'bigdecimal'
 RSpec.describe ItemRepository do
   describe '#initialize' do
     it 'exists' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir).to be_instance_of(ItemRepository)
     end
     it 'has items' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.items.count).to eq(1367)
     end
   end
   describe '#make_items' do
     it 'makes_items' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.items.first).to be_instance_of(Item)
     end
   end
   describe '#all' do
     it 'contains all the items' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.all.count).to eq(1367)
     end
   end
   describe '#find_by_id' do
     it 'finds items by id' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new(  {
+      test_item = Item.new({
         id:            '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -52,9 +52,9 @@ RSpec.describe ItemRepository do
   end
   describe '#find_by_name' do
     it 'finds items by name' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new(  {
+      test_item = Item.new({
         id: '1',
         name: 'Cool Stuff',
         description:  'supaaa cool',
@@ -71,9 +71,9 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_with_description' do
     it 'finds items by description' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new(  {
+      test_item = Item.new({
         id:            '1',
         name:          'Cool Stuff',
         description:  'supaaa cool',
@@ -90,9 +90,9 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_by_price' do
     it 'finds items by price' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new(  {
+      test_item = Item.new({
         id:           '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -111,9 +111,9 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_by_price_in_range' do
     it 'finds items by price range' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new(  {
+      test_item = Item.new({
         id: '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -132,9 +132,9 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_by_merchant_id' do
     it 'finds items by merchant id' do
-      mock_sales_engine = instance_double("SalesEngine")
+      mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new(  {
+      test_item = Item.new({
                               id:           '1',
                               name:         'Cool Stuff',
                               description:  'supaaa cool',
