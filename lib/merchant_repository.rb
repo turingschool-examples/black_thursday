@@ -20,7 +20,6 @@ class MerchantRepository < Repository
     end
   end
 
-
   def find_all_by_name(name)
     @csv_array.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
