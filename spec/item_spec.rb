@@ -32,18 +32,15 @@ RSpec.describe Item do
   end
 
   describe '#unit price to dollars' do
-    item = Item.new({
-                      :id          => 1,
-                      :name        => "Pencil",
-                      :description => "You can use it to write things",
-                      :unit_price  => BigDecimal(10.99,4),
-                      :created_at  => Time.now,
-                      :updated_at  => Time.now,
-                      :merchant_id => 2
-                    })
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              })
+    repo = sales_engine.items
 
      it 'has a unit price' do
-      # expected = item.find_by_id(263397059)
+        expected = repo.find_by_id("263397059")
+
         expect(expected.unit_price_to_dollars).to eq(130.0)
         expect(expected.unit_price_to_dollars.class).to eq(Float)
      end

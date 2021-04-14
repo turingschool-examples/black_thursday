@@ -1,6 +1,7 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/item'
+require 'bigdecimal/util'
 
 RSpec.describe ItemRepository do
   describe 'initialization' do
@@ -90,6 +91,41 @@ RSpec.describe ItemRepository do
         expect(repo.find_all_with_description(description)[0].description).to eq("A large Yeti of sorts, casually devours a cow as the others watch numbly.")
       end
 
+      it '#find_all_by_price returns array if item instances with matching price' do
+        price = "3800"
 
+        expect(repo.find_all_by_price(price)[0].unit_price).to eq(price)
+        expect(repo.find_all_by_price(price).last.id).to eq("263567474")
+      end
+
+      it '#find_all_by_price returns [] if no items match price' do
+        price = "0"
+
+        expect(repo.find_all_by_price(price)).to eq([])
+      end
+
+      it  '#find_all_by_price_in_range returns array of items with price in range' do
+        range = (1000.00..1500.00)
+
+        expect(repo.find_all_by_price_in_range(range).length).to eq(19)
+      end
+
+      it  '#find_all_by_price_in_range returns [] if no prices in range' do
+        range = (1000000.00..1500000.00)
+
+        expect(repo.find_all_by_price_in_range(range)).to eq([])
+      end
+
+      it '#find_all_by_merchant_id returns array of items with merchant id' do
+        merchant_id = "12334326"
+
+        expect(repo.find_all_by_merchant_id(merchant_id).length).to eq(6)
+      end
+
+      it '#find_all_by_merchant_id returns array of items with merchant id' do
+        merchant_id = "00000000"
+
+        expect(repo.find_all_by_merchant_id(merchant_id)).to eq([])
+      end
   end
 end
