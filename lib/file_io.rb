@@ -4,5 +4,6 @@ class FileIo
     CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
       elements << type.new(row)
     end
+    elements
   end
 end

@@ -2,11 +2,13 @@ require 'rspec'
 require 'CSV'
 require './lib/file_io'
 require './lib/item'
+require './lib/merchant'
+# require './data/merchants'
 
 describe FileIo do 
   it 'exists' do 
     file_io = FileIo.new 
-  
+
     expect(file_io).is_a? FileIo
   end
 
@@ -22,10 +24,19 @@ describe FileIo do
     allow(CSV).to receive(:foreach).and_yield(mock_row)
 
     mock_file_name = './some_file.csv'
-   
+
     items = FileIo.process_csv(mock_file_name, Item)
 
     expect(items).to be_instance_of(Array)
     expect(items.first.id).to eq(12_345)
   end
-end 
+
+  it 'can handle multiple rows' do
+    filename = './data/merchants.csv'
+
+    merch_ary = FileIo.process_csv(filename, Merchant)
+
+    expect(merch_ary).is_a? Array
+    expect(merch_ary.first).is_a?(Merchant)
+  end
+end
