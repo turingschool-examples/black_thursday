@@ -31,6 +31,7 @@ RSpec.describe ItemRepo do
 
     it 'can find by item id' do
       expect(ir.find_by_id(263395237)).to be_instance_of(Item)
+      expect(ir.find_by_id(192)).to eq(nil)
       expect(ir.find_by_id(263395237)).to eq(ir.item_list[0])
     end
 

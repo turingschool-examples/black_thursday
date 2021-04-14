@@ -21,5 +21,9 @@ class ItemRepo
     @item_list
   end
 
-  
+  def find_by_id(id)
+    @item_list.find do |item|
+      item.id == id
+    end
+  end
 end
