@@ -1,6 +1,8 @@
+# frozen_string_literal: true
 
 class ItemRepository
   attr_reader :items
+
   def initialize(items = [])
     @items = items
   end
@@ -10,7 +12,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find {|item| item.id == id}
+    @items.find { |item| item.id == id }
   end
 
   def find_by_name(name)
@@ -51,9 +53,7 @@ class ItemRepository
   end
 
   def find_max_id
-    @items.max_by do |item|
-      item.id
-    end.id
+    @items.max_by(&:id).id
   end
 
   def create(attributes)

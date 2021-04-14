@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require 'bigdecimal'
 require './lib/item'
@@ -22,8 +24,8 @@ describe ItemRepository do
 
   describe '#all' do
     it 'returns a list of all items' do
-      item1 = instance_double("Item")
-      item2 = instance_double("Item")
+      item1 = instance_double('Item')
+      item2 = instance_double('Item')
       items = [item1, item2]
       item_repository = ItemRepository.new(items)
 
@@ -37,7 +39,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -53,7 +55,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -71,7 +73,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -87,7 +89,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -105,7 +107,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -121,7 +123,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -130,7 +132,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -150,7 +152,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -166,7 +168,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -175,7 +177,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -195,7 +197,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -204,7 +206,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -222,7 +224,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -231,7 +233,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -251,7 +253,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -260,7 +262,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -278,7 +280,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -287,7 +289,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -309,7 +311,7 @@ describe ItemRepository do
         id: nil,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -322,7 +324,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -334,7 +336,7 @@ describe ItemRepository do
         id: nil,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -351,7 +353,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -362,12 +364,12 @@ describe ItemRepository do
       attributes = {
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4)
+        unit_price: BigDecimal(12.99, 4)
       }
       item_repository.update(1, attributes)
       expect(item_repository.items.first.name).to eq 'Pen'
       expect(item_repository.items.first.description).to eq 'Writes with ink'
-      expect(item_repository.items.first.unit_price).to eq BigDecimal(12.99,4)
+      expect(item_repository.items.first.unit_price).to eq BigDecimal(12.99, 4)
     end
 
     it 'updates the item with new attributes' do
@@ -375,9 +377,9 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
-        updated_at: Time.new(2021, 01, 02),
+        updated_at: Time.new(2021, 0o1, 0o2),
         merchant_id: 2
       }
       item1 = Item.new(details1)
@@ -386,12 +388,12 @@ describe ItemRepository do
       attributes = {
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4)
+        unit_price: BigDecimal(12.99, 4)
       }
       item_repository.update(1, attributes)
 
       expect(item1.updated_at).is_a? Time
-      expect(item1.updated_at).not_to eq Time.new(2021, 01, 02)
+      expect(item1.updated_at).not_to eq Time.new(2021, 0o1, 0o2)
     end
   end
 
@@ -401,7 +403,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -410,7 +412,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -430,7 +432,7 @@ describe ItemRepository do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99,4),
+        unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -439,7 +441,7 @@ describe ItemRepository do
         id: 2,
         name: 'Pen',
         description: 'Writes with ink',
-        unit_price: BigDecimal(12.99,4),
+        unit_price: BigDecimal(12.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
