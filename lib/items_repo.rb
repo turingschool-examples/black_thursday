@@ -16,4 +16,10 @@ class ItemRepo
       Item.new(item)
     end
   end
+
+  def all
+    @item_list
+  end
+
+  
 end

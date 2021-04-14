@@ -25,12 +25,13 @@ RSpec.describe ItemRepo do
       expect(ir.item_list.length).to eq(1367)
     end
 
-    xit 'can find all instances of items' do
-
+    it 'can find all instances of items' do
+      expect(ir.all.length).to eq(1367)
     end
 
-    xit 'can find by item id' do
-
+    it 'can find by item id' do
+      expect(ir.find_by_id(263395237)).to be_instance_of(Item)
+      expect(ir.find_by_id(263395237)).to eq(ir.item_list[0])
     end
 
     xit 'can find by item name' do
