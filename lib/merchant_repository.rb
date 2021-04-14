@@ -13,10 +13,10 @@ class MerchantRepository < Repository
   def all_merchants
     @csv_array = []
     CSV.parse(File.read(@location_hash[:merchants]), headers: true).each do |merchant|
-      @csv_array << Merchant.new( {id: merchant[0],
-                                           name: merchant[1],
-                                           created_at: merchant[2],
-                                           updated_at: merchant[3]}, self )
+      @csv_array << Merchant.new({ id: merchant[0],
+                                   name: merchant[1],
+                                   created_at: merchant[2],
+                                   updated_at: merchant[3] }, self)
     end
   end
 
