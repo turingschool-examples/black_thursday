@@ -71,5 +71,25 @@ RSpec.describe ItemRepository do
         expect(repo.find_by_name(name)).to eq(nil)
       end
 
+      it 'find_all_with_description returns array by matching descriptions' do
+        description = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
+
+        expect(repo.find_all_with_description(description)[0].description).to eq(description)
+        expect(repo.find_all_with_description(description)[0].id).to eq("263550472")
+      end
+
+      it 'find_all_with_description returns empty array if no match' do
+        description = "SalesEngine"
+
+        expect(repo.find_all_with_description(description)).to eq([])
+      end
+
+      it 'find_all_with_description handles case insensitive search' do
+        description = "a large yeti of sorts, casually devours a cow as the others watch numbly."
+
+        expect(repo.find_all_with_description(description)[0].description).to eq("A large Yeti of sorts, casually devours a cow as the others watch numbly.")
+      end
+
+
   end
 end
