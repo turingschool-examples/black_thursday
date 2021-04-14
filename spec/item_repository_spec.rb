@@ -269,7 +269,7 @@ describe ItemRepository do
   #   end
   # end
 
-  # describe '#create' do
+  describe '#create' do
     it 'creates an Item class object' do
       filename = "./data/items.csv"
       item_repository = ItemRepository.new(filename)
@@ -303,34 +303,27 @@ describe ItemRepository do
       expect(new_items.last.id).to eq 263567475
       expect(item_repository.items.length).to eq 1368
     end
-  # end
+  end
 
-  # describe '#update_id_and_attributes' do
-  #   it 'updates the item with new attributes' do
-  #     details1 = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item1 = Item.new(details1)
-  #     item_repository = ItemRepository.new([item1])
+  describe '#update_id_and_attributes' do
+    it 'updates the item with new attributes' do
+      filename = "./data/items.csv"
+      item_repository = ItemRepository.new(filename)
 
-  #     attributes = {
-  #       name: 'Pen',
-  #       description: 'Writes with ink',
-  #       unit_price: BigDecimal(12.99, 4)
-  #     }
-  #     item_repository.update(1, attributes)
-  #     expect(item_repository.items.first.name).to eq 'Pen'
-  #     expect(item_repository.items.first.description).to eq 'Writes with ink'
-  #     expect(item_repository.items.first.unit_price).to eq BigDecimal(12.99, 4)
-  #   end
+      attributes = {
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99, 4)
+      }
+      item_repository.update(263567474, attributes)
+      
+      expected = item_repository.find_by_id(263567474)
+      expect(expected.name).to eq 'Pen'
+      expect(expected.description).to eq 'Writes with ink'
+      expect(expected.unit_price).to eq BigDecimal(12.99, 4)
+    end
 
-  #   it 'updates the item with new attributes' do
+  #   it 'updates the item with new time' do
   #     details1 = {
   #       id: 1,
   #       name: 'Pencil',
@@ -353,7 +346,7 @@ describe ItemRepository do
   #     expect(item1.updated_at).is_a? Time
   #     expect(item1.updated_at).not_to eq Time.new(2021, 0o1, 0o2)
   #   end
-  # end
+  end
 
   # describe '#delete' do
   #   it 'deletes the object at specified id' do
