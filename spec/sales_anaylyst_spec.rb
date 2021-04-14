@@ -63,7 +63,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.average_item_price_for_merchant('12334159')).to eq(3150.00)
+      expect(sa.average_item_price_for_merchant('12334159')).to eq(3_150.00)
     end
   end
   describe '#average_average_price_per_merchant' do
@@ -74,7 +74,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.average_average_price_per_merchant).to eq(35029.47)
+      expect(sa.average_average_price_per_merchant).to eq(35_029.47)
     end
   end
   describe '#average_item_price' do
@@ -85,7 +85,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.average_item_price).to eq(25105.51)
+      expect(sa.average_item_price).to eq(25_105.51)
     end
   end
   describe '#item_price_standard_deviation' do
@@ -96,7 +96,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.item_price_standard_deviation).to eq(290099.00)
+      expect(sa.item_price_standard_deviation).to eq(290_099.00)
     end
   end
   describe '#golden_items' do
