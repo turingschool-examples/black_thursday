@@ -8,7 +8,5 @@ require './lib/merchants_repo'
 RSpec.describe ItemRepo do
 
 
-  context 'it exists' do
 
-  end
 end
