@@ -31,7 +31,7 @@ RSpec.describe MerchantRepo do
 
     end
 
-    it '#find Merchant by ID' do
+    it '#find merchant by ID' do
       merchant_repo = MerchantRepo.new
       merchant_repo.populate_information
       merchant_repo.all
@@ -41,13 +41,17 @@ RSpec.describe MerchantRepo do
       expect(merchant_repo.find_by_id("999999999")).to eq(nil)
     end
 
-    it '#find Merchant by name' do
+    it '#find merchant by name' do
       merchant_repo = MerchantRepo.new
-      merchant_repo.populate_information
-      merchant_repo.all
-      # merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+      merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+      # merchant_repo.populate_information
+      # merchant_repo.all
 
-      expect(merchant_repo.find_by_name("Shopin1901").id).to eq("12334105")
+      merchant_repo.add_merchant(merchant1)
+      # require "pry"; binding.pry
+      expect(merchant_repo.find_by_name("Turing School")).to eq(merchant1)
+
+      # expect(merchant_repo.find_by_name("Shopin1901").id).to eq("12334105")
       expect(merchant_repo.find_by_name("Hogwarts School")).to eq(nil)
     end
 
@@ -58,6 +62,22 @@ RSpec.describe MerchantRepo do
       # require "pry"; binding.pry
       expect(merchant_repo.find_all_by_name("Hogwar")).to eq([])
       expect(merchant_repo.find_all_by_name("gem").length).to eq(5)
+    end
+
+    xit '#create merchant' do
+      merchant_repo = MerchantRepo.new
+      merchant_repo.populate_information
+      merchant_repo.all
+
+      expect(merchant_repo.create()).to eq(5)
+    end
+
+    xit '#delete merchant' do
+      merchant_repo = MerchantRepo.new
+      merchant_repo.populate_information
+      merchant_repo.all
+
+      expect(merchant_repo.create()).to eq(5)
     end
   end
 end
