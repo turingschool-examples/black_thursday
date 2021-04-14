@@ -63,9 +63,9 @@ RSpec.describe MerchantRepository do
       mr = MerchantRepository.new('./data/merchants_truncated.csv')
 
       mr.create({
-                name: 'JimmysSubs',
-                created_at: Time.now.to_s,
-                updated_at: Time.now.to_s
+                  name: 'JimmysSubs',
+                  created_at: Time.now.to_s,
+                  updated_at: Time.now.to_s
                 })
 
       expect(mr.find_by_id(12334114)).to eq(mr.merchants[4])
