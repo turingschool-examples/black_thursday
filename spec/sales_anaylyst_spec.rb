@@ -1,4 +1,4 @@
-require './lib/sales_analyst'
+require_relative '../lib/sales_analyst'
 
 RSpec.describe 'SalesAnalyst' do
   describe '#initialize' do
@@ -11,15 +11,14 @@ RSpec.describe 'SalesAnalyst' do
 
       expect(sa).to be_an_instance_of(SalesAnalyst)
     end
-    it 'is passed attributes' do
+    it 'is passed its engine' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
       sa = se.analyst
 
-      expect(sa.merchants).to be_an_instance_of(MerchantRepository)
-      expect(sa.items).to be_an_instance_of(ItemRepository)
+      expect(sa.engine).to be_an_instance_of(SalesEngine)
     end
   end
   describe '#average_items_per_merchant' do

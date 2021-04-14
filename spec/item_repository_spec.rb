@@ -1,4 +1,4 @@
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 
 RSpec.describe 'ItemRepository' do
   describe '#initialize' do
@@ -20,8 +20,8 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.csv_array.class).to eq(Array)
-      expect(ir.csv_array[0].class).to eq(Item)
+      expect(ir.all.class).to eq(Array)
+      expect(ir.all[0].class).to eq(Item)
     end
   end
   describe '#all' do
@@ -153,7 +153,7 @@ RSpec.describe 'ItemRepository' do
       )
 
       ir = se.items
-      
+
       actual = ir.find_all_by_price_in_range('100'..'1000')[5].name
       expected = 'Two tone blue stoneware pot'
 
@@ -213,10 +213,10 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
       item = ir.create(
-        name:         'Pencil',
+        {name:         'Pencil',
         description:  'You can use it to write things',
         unit_price:    BigDecimal(10.99, 4),
-        merchant_id:   2
+        merchant_id:   2}
         )
 
       expect(item.class).to eq(Item)

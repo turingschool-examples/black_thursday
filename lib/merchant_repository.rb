@@ -1,11 +1,23 @@
-# silent hound
-require './lib/merchant'
-require './lib/repository'
+require 'csv'
+require_relative './merchant'
+require_relative './repository'
 class MerchantRepository < Repository
 
-  def initialize(csv_array)
-    super(csv_array)
+  def initialize(location_hash, engine)
+    super(location_hash, engine)
+    all_merchants
   end
+
+  def all_merchants
+    @csv_array = []
+    CSV.parse(File.read(@location_hash[:merchants]), headers: true).each do |merchant|
+      @csv_array << Merchant.new( {id: merchant[0],
+                                           name: merchant[1],
+                                           created_at: merchant[2],
+                                           updated_at: merchant[3]}, self )
+    end
+  end
+
 
   def find_all_by_name(name)
     @csv_array.find_all do |merchant|
@@ -14,8 +26,8 @@ class MerchantRepository < Repository
   end
 
   def create(name)
-    Merchant.new(id: max_id_number_new,
-                 name: name)
+    Merchant.new({id: max_id_number_new,
+                 name: name}, self)
   end
 
   def update(id, name)
@@ -23,5 +35,4 @@ class MerchantRepository < Repository
 
     new.name = name
   end
-
 end

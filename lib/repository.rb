@@ -1,8 +1,9 @@
 class Repository
-  def initialize(csv_array)
-    @csv_array = csv_array
+  def initialize(location_hash, engine)
+    @location_hash = location_hash
+    @engine = engine
   end
-  
+
   def all
     @csv_array
   end
