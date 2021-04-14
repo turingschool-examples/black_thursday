@@ -10,13 +10,13 @@ class Item
               :merchant_id
 
   def initialize(details)
-    @id = details[:id]
+    @id = details[:id].to_i
     @name = details[:name]
     @description = details[:description]
     @unit_price = details[:unit_price]
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
-    @merchant_id = details[:merchant_id]
+    @merchant_id = details[:merchant_id].to_i
   end
 
   def unit_price_to_dollars

@@ -46,7 +46,7 @@ describe ItemRepository do
       item_repository = ItemRepository.new(filename)
 
       expected = item_repository.items.first
-      expect(item_repository.find_by_id("263395237")).to eq expected
+      expect(item_repository.find_by_id(263395237)).to eq expected
     end
   end
 
