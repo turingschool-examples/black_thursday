@@ -24,7 +24,7 @@ class SalesEngine
                                   created_at: item[5],
                                   updated_at: item[6],
                                   merchant_id: item[4])
-      
+
     end
     ItemRepository.new(item_array_new)
   end
@@ -38,5 +38,9 @@ class SalesEngine
                                           updated_at: merchant[3])
     end
     MerchantRepository.new(merchant_array_new)
+  end
+
+  def analyst
+    SalesAnalyst.new(merchants, items)
   end
 end
