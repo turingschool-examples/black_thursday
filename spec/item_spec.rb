@@ -5,13 +5,13 @@ require_relative 'RSpec'
 RSpec.describe Item do
   describe '#initialize' do
     i = Item.new(
-      {id: 1,
+    { id: 1,
       name: 'Pencil',
       description: 'You can use it to write things',
       unit_price: BigDecimal(10.99, 4),
       created_at: Time.now,
       updated_at: Time.now,
-      merchant_id: 2},
+      merchant_id: 2 },
       'repository'
     )
     it 'exists' do
@@ -20,13 +20,13 @@ RSpec.describe Item do
   end
   describe 'instance variables' do
     i = Item.new(
-      {id: 1,
+    { id: 1,
       name: 'Pencil',
       description: 'You can use it to write things',
       unit_price: BigDecimal(10.99, 4),
       created_at: Time.now,
       updated_at: Time.now,
-      merchant_id: 2},
+      merchant_id: 2 },
       'repository'
     )
     it 'has an id' do
@@ -51,13 +51,13 @@ RSpec.describe Item do
         '12:58'
       end
       i = Item.new(
-        {id: 1,
+      { id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
         unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
-        merchant_id: 2},
+        merchant_id: 2 },
         'repository'
       )
       expect(i.created_at).to eq('12:58')
@@ -67,13 +67,13 @@ RSpec.describe Item do
         '12:58'
       end
       i = Item.new(
-        {id: 1,
+      { id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
         unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
         updated_at: Time.now,
-        merchant_id: 2},
+        merchant_id: 2 },
         'repository'
       )
       expect(i.updated_at).to eq('12:58')
@@ -81,13 +81,13 @@ RSpec.describe Item do
   end
   describe '#unit_price_to_dollars' do
     i = Item.new(
-      {id: 1,
+    { id: 1,
       name: 'Pencil',
       description: 'You can use it to write things',
       unit_price: BigDecimal(10.99, 4),
       created_at: Time.now,
       updated_at: Time.now,
-      merchant_id: 2},
+      merchant_id: 2 },
       'repository'
     )
     it 'converts unit price to dollars' do
