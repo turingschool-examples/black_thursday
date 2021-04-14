@@ -91,12 +91,16 @@ RSpec.describe ItemRepository do
       end
 
       it '#find_all_by_price returns array if item instances with matching price' do
-        price = 3800
+        price = "3800"
 
-        expect(repo.find_all_by_price(price)[0].price).to eq(price)
-        expect(repo.find_all_by_price(price)[0].id).to eq(263567474)
+        expect(repo.find_all_by_price(price)[0].unit_price).to eq(price)
+        expect(repo.find_all_by_price(price).last.id).to eq("263567474")
       end
 
+      it '#find_all_by_price returns []] if no items match price' do
+        price = "0"
 
+        expect(repo.find_all_by_price(price)).to eq([])
+      end
   end
 end
