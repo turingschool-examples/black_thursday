@@ -123,4 +123,21 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_price_in_range(range_2)).to eq([])
     end
   end
+
+  describe '#find_all_by_merchant_id' do
+    it 'finds items by merchant id' do
+      ir = ItemRepository.new('./data/items.csv')
+      test_item = Item.new(id: '1',
+      name: 'Cool Stuff',
+      description: 'supaaa cool',
+      unit_price: '1357',
+      merchant_id: '123456987',
+      created_at: '2016-01-11 11:51:37 UTC',
+      updated_at: '1993-09-29 11:56:40 UTC')
+      ir.items << test_item
+
+      expect(ir.find_all_by_merchant_id(123456987)).to eq([test_item])
+      expect(ir.find_all_by_merchant_id(4)).to eq([])
+    end
+  end
 end
