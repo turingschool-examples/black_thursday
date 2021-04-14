@@ -70,23 +70,8 @@ class ItemRepository
 
   def update(id, attributes)
     item_to_update = find_by_id(id)
-    attributes.each do |key, new_value|
-      iv = key.to_s
-      if iv == "name"
-        item_to_update.name = new_value
-      elsif iv == "description"
-        item_to_update.description = new_value
-      elsif iv == "unit_price"
-        item_to_update.unit_price = BigDecimal(new_value)
-      end
-    end
-    item_to_update.update
-  end
-
-  def update(id, attributes)
-    item_to_update = find_by_id(id)
     attributes.each do |iv, new_value|
-      item_to_update.send("#{iv.to_s}=", new_value)
+      item_to_update.send("#{iv}=", new_value)
     end
     item_to_update.format_unit_price
     item_to_update.update
