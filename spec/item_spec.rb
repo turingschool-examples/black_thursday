@@ -35,7 +35,7 @@ RSpec.describe Item do
   describe 'instances of time' do
     it 'has a time created' do
       allow(Time).to receive(:now) do
-        "12:58"
+        '12:58'
       end
       i = Item.new(
                     id: 1,
@@ -47,11 +47,11 @@ RSpec.describe Item do
                     merchant_id: 2
                   )
       # time = class_double("Time")
-      expect(i.created_at).to eq("12:58")
+      expect(i.created_at).to eq('12:58')
     end
     it 'has a time updated' do
       allow(Time).to receive(:now) do
-        "12:58"
+        '12:58'
       end
       i = Item.new(
         id: 1,
@@ -62,7 +62,7 @@ RSpec.describe Item do
         updated_at: Time.now,
         merchant_id: 2
       )
-      expect(i.updated_at).to eq("12:58")
+      expect(i.updated_at).to eq('12:58')
     end
   end
   describe '#unit_price_to_dollars' do
