@@ -1,5 +1,5 @@
-require './lib/repository'
-require './lib/item'
+require_relative './lib/repository'
+require_relative './lib/item'
 # Basic ItemRepository class
 class ItemRepository < Repository
   attr_reader :csv_array

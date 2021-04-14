@@ -1,6 +1,6 @@
 # silent hound
-require './lib/merchant'
-require './lib/repository'
+require_relative './lib/merchant'
+require_relative './lib/repository'
 class MerchantRepository < Repository
 
   def initialize(csv_array)

@@ -1,8 +1,8 @@
-require 'csv'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/item'
-require './lib/merchant'
+require_relative 'csv'
+require_relative './lib/merchant_repository'
+require_relative './lib/item_repository'
+require_relative './lib/item'
+require_relative './lib/merchant'
 
 # This class births all our repositories
 class SalesEngine
@@ -24,7 +24,7 @@ class SalesEngine
                                   created_at: item[5],
                                   updated_at: item[6],
                                   merchant_id: item[4])
-      
+
     end
     ItemRepository.new(item_array_new)
   end

@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/ldwha/Turing/black_thursday/spec/item_repository_spec.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/spec/item_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -245,7 +245,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/lib/sales_engine.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
@@ -291,7 +291,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/lib/merchant_repository.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/lib/merchant_repository.rb": {
         "lines": [
           null,
           1,
@@ -322,7 +322,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/lib/merchant.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/lib/merchant.rb": {
         "lines": [
           null,
           1,
@@ -348,7 +348,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/lib/repository.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/lib/repository.rb": {
         "lines": [
           1,
           1,
@@ -384,7 +384,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/lib/item_repository.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/lib/item_repository.rb": {
         "lines": [
           1,
           1,
@@ -421,8 +421,8 @@
           null,
           null,
           1,
-          1,
           null,
+          1,
           null,
           null,
           null,
@@ -446,7 +446,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/lib/item.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/lib/item.rb": {
         "lines": [
           1,
           null,
@@ -475,7 +475,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/spec/item_spec.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/spec/item_spec.rb": {
         "lines": [
           1,
           1,
@@ -571,7 +571,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/spec/merchant_repository_spec.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/spec/merchant_repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -726,7 +726,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/spec/merchant_spec.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/spec/merchant_spec.rb": {
         "lines": [
           1,
           1,
@@ -757,7 +757,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/spec/repository_spec.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/spec/repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -858,7 +858,7 @@
           null
         ]
       },
-      "/Users/ldwha/Turing/black_thursday/spec/sales_engine_spec.rb": {
+      "/Users/calebwittman/turing/projects/black_thursday/spec/sales_engine_spec.rb": {
         "lines": [
           1,
           null,
@@ -878,6 +878,6 @@
         ]
       }
     },
-    "timestamp": 1618361572
+    "timestamp": 1618361739
   }
 }
