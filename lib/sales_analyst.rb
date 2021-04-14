@@ -9,7 +9,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (@engine.items.all.length).fdiv(@engine.merchants.all.length).round(2)
+    @engine.items.all.length.fdiv(@engine.merchants.all.length).round(2)
   end
 
   # Brant's magic method
