@@ -18,10 +18,16 @@ class MockData
     number_of_mocks.times do |merchant_number|
       merchant = {}
       date = get_a_random_date(random_dates)
+
       merchant[:name] = "Merchant #{merchant_number}"
       merchant[:id] = merchant_number
-      merchant[:created_at] = date.prev_year.to_s
-      merchant[:updated_at] = date.to_s
+      if block_given?
+        merchant[:created_at] = yield(date).to_s
+        merchant[:updated_at] = date.to_s
+      else
+        merchant[:created_at] = date.prev_year.to_s
+        merchant[:updated_at] = date.to_s
+      end
       mocked_merchants << merchant
     end
     mocked_merchants
