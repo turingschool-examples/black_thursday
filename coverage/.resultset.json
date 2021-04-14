@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/spec/merchant_repository_spec.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/spec/merchant_repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -27,10 +27,19 @@
           1,
           null,
           null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
           null
         ]
       },
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/lib/sales_engine.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           null,
@@ -68,37 +77,59 @@
           null
         ]
       },
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/lib/merchant.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           1,
           null,
           null,
           1,
-          476,
-          476,
+          952,
+          952,
           null,
           null
         ]
       },
-      "/Users/heartbeat/Turing/Mod1Stuff/Lesson_Notes/projects/black_thursday/lib/merchant_repository.rb": {
+      "/Users/jcortespomeo/my_turing/projects/black_thursday/lib/merchant_repository.rb": {
         "lines": [
           1,
           1,
           null,
           1,
+          1,
           null,
           1,
+          3,
+          null,
+          null,
+          1,
+          2,
+          2,
+          950,
+          null,
+          2,
+          null,
+          null,
           1,
           1,
           475,
           null,
-          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1618354846
+    "timestamp": 1618364456
   }
 }

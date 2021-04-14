@@ -21,5 +21,14 @@ RSpec.describe MerchantRepo do
 
       expect(mr.populate_information).to be_an_instance_of(Hash)
     end
+
+    it '#all' do
+      mr = MerchantRepo.new
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+
+      mr.add_merchants
+      expect(mr.all.length).to eq(475)
+    end
+
   end
 end
