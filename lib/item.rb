@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class Item
   attr_reader :id,
               :name,
@@ -15,7 +16,7 @@ class Item
     @updated_at = item_info[:updated_at]
     @merchant_id = item_info[:merchant_id]
   end
-  def unit_price_to_dollars
-    @unit_price.to_f
-  end
+  # def unit_price_to_dollars
+  #   @unit_price.to_f
+  # end
 end
