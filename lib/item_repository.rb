@@ -11,6 +11,10 @@ class ItemRepository
     make_items(path)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def make_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       @items << Item.new(row, self)
@@ -77,7 +81,7 @@ class ItemRepository
     item_to_update.format_unit_price
     item_to_update.update
   end
-  
+
   def delete(id)
     items.delete(find_by_id(id))
   end

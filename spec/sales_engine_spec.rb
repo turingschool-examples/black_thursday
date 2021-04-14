@@ -5,7 +5,7 @@ require './lib/item_repository'
 
 RSpec.describe SalesEngine do
   before do
-    @se = SalesEngine.new
+    @se = SalesEngine.from_csv()
   end
 
   describe '#initialize' do
