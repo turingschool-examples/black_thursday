@@ -82,7 +82,7 @@ RSpec.describe MerchantRepository do
       mock_sales_engine = instance_double('SalesEngine')
       mr = MerchantRepository.new('./data/merchants_truncated.csv', mock_sales_engine)
 
-      mr.update(12334105, 'ShopinShopinShopin')
+      mr.update(12334105, {name: 'ShopinShopinShopin'})
 
       expect(mr.merchants[0].name).to eq('ShopinShopinShopin')
       expect(mr.find_by_name('Shopin1901')).to eq(nil)
