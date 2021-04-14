@@ -23,4 +23,9 @@ class Item
   def update
     @updated_at = Time.now 
   end
+
+  def format_unit_price
+    @unit_price = BigDecimal(@unit_price)
+  end
+
 end

@@ -83,6 +83,15 @@ class ItemRepository
     item_to_update.update
   end
 
+  def update(id, attributes)
+    item_to_update = find_by_id(id)
+    attributes.each do |iv, new_value|
+      item_to_update.send("#{iv.to_s}=", new_value)
+    end
+    item_to_update.format_unit_price
+    item_to_update.update
+  end
+
   def delete(id)
     delete_index = items.index(find_by_id(id))
     items.delete_at(delete_index)
