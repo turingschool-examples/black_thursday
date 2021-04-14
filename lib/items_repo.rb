@@ -2,6 +2,7 @@ require './lib/items'
 require 'csv'
 
 class ItemRepo
+  attr_reader :item_list
 
   def initialize(csv_files)
     @item_list = item_instances(csv_files)
