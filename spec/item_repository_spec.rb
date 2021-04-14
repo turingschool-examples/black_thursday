@@ -341,6 +341,57 @@ describe ItemRepository do
       }
       new_items = item_repository.create(details2)
       expect(new_items.last.id).to eq 2
+      expect(item_repository.items.length).to eq 2
+    end
+  end
+
+  describe '#update_id_and_attributes' do
+    it 'updates the item with new attributes' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item_repository = ItemRepository.new([item1])
+
+      attributes = {
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4)
+      }
+      item_repository.update(1, attributes)
+      expect(item_repository.items.first.name).to eq 'Pen'
+      expect(item_repository.items.first.description).to eq 'Writes with ink'
+      expect(item_repository.items.first.unit_price).to eq BigDecimal(12.99,4)
+    end
+
+    it 'updates the item with new attributes' do
+      details1 = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99,4),
+        created_at: Time.now,
+        updated_at: Time.new(2021, 01, 02),
+        merchant_id: 2
+      }
+      item1 = Item.new(details1)
+      item_repository = ItemRepository.new([item1])
+
+      attributes = {
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99,4)
+      }
+      item_repository.update(1, attributes)
+
+      expect(item1.updated_at).is_a? Time
+      expect(item1.updated_at).not_to eq Time.new(2021, 01, 02)
     end
   end
 end

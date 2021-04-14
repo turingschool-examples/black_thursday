@@ -65,4 +65,12 @@ class ItemRepository
       @items << new_item
     end
   end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    item.update_name(attributes[:name])
+    item.update_description(attributes[:description])
+    item.update_unit_price(attributes[:unit_price])
+    item.update_time
+  end
 end

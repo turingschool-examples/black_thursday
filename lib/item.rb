@@ -24,4 +24,20 @@ class Item
   def update_id(id)
     @id = id
   end
+
+  def update_name(name)
+    @name = name
+  end
+
+  def update_description(description)
+    @description = description
+  end
+
+  def update_unit_price(unit_price)
+    @unit_price = unit_price
+  end
+
+  def update_time
+    @updated_at = Time.now
+  end
 end
