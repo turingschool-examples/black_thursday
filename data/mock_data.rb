@@ -33,7 +33,7 @@ class MockData
     mocked_merchants
   end
 
-  def self.get_mock_items(number_of_mocks = 10, number_of_merchants: 2, random_dates: true)
+  def self.get_mock_items(number_of_mocks: 10, number_of_merchants: 2, random_dates: true)
     mocked_items = []
     number_of_mocks.times do |item_number|
       item = {}
