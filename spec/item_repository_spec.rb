@@ -35,7 +35,7 @@ RSpec.describe ItemRepository do
     it 'finds items by id' do
       mock_sales_engine = instance_double("SalesEngine")
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new({
+      test_item = Item.new(  {
         id:            '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -54,7 +54,7 @@ RSpec.describe ItemRepository do
     it 'finds items by name' do
       mock_sales_engine = instance_double("SalesEngine")
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new({
+      test_item = Item.new(  {
         id: '1',
         name: 'Cool Stuff',
         description:  'supaaa cool',
@@ -73,7 +73,7 @@ RSpec.describe ItemRepository do
     it 'finds items by description' do
       mock_sales_engine = instance_double("SalesEngine")
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new({
+      test_item = Item.new(  {
         id:            '1',
         name:          'Cool Stuff',
         description:  'supaaa cool',
@@ -92,7 +92,7 @@ RSpec.describe ItemRepository do
     it 'finds items by price' do
       mock_sales_engine = instance_double("SalesEngine")
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new({
+      test_item = Item.new(  {
         id:           '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -113,7 +113,7 @@ RSpec.describe ItemRepository do
     it 'finds items by price range' do
       mock_sales_engine = instance_double("SalesEngine")
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new({
+      test_item = Item.new(  {
         id: '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -134,15 +134,15 @@ RSpec.describe ItemRepository do
     it 'finds items by merchant id' do
       mock_sales_engine = instance_double("SalesEngine")
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      test_item = Item.new({
-        id: '1',
-        name:         'Cool Stuff',
-        description:  'supaaa cool',
-        unit_price:   '1357',
-        merchant_id:  '123456987',
-        created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'
-        },
+      test_item = Item.new(  {
+                              id:           '1',
+                              name:         'Cool Stuff',
+                              description:  'supaaa cool',
+                              unit_price:   '1357',
+                              merchant_id:  '123456987',
+                              created_at:   '2016-01-11 11:51:37 UTC',
+                              updated_at:   '1993-09-29 11:56:40 UTC'
+                              },
         ir)
       ir.items << test_item
       expect(ir.find_all_by_merchant_id(123456987)).to eq([test_item])
