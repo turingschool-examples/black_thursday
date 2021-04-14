@@ -63,7 +63,7 @@ RSpec.describe Item do
       expect(item.updated_at.year).to eq(2021)
     end
   end
-  describe '#format_unit_price' do
+  describe '#unit_price_to_big_decimal' do
     it 'formats the unit price to a BigDecimal' do
       mock_item_repo = instance_double('ItemRepository')
       item = Item.new(  {
@@ -77,8 +77,25 @@ RSpec.describe Item do
         },
         mock_item_repo)
       item.unit_price = 1300
-      item.format_unit_price
+      item.unit_price_to_big_decimal
       expect(item.unit_price).to eq(0.13e4)
+    end
+  end
+
+  describe '#unit_price_to_dollars' do
+    it 'formats the unit price to a BigDecimal' do
+      mock_item_repo = instance_double('ItemRepository')
+      item = Item.new(  {
+        id: '1',
+        name: 'Cool Stuff',
+        description: 'supaaa cool',
+        unit_price: '1300',
+        merchant_id: '12334185',
+        created_at: '2016-01-11 11:51:37 UTC',
+        updated_at: '1993-09-29 11:56:40 UTC'
+        },
+        mock_item_repo)
+      expect(item.unit_price_to_dollars).to eq(1300.00)
     end
   end
 end

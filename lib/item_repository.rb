@@ -78,7 +78,7 @@ class ItemRepository
     attributes.each do |iv, new_value|
       item_to_update.send("#{iv}=", new_value)
     end
-    item_to_update.format_unit_price
+    item_to_update.unit_price_to_big_decimal
     item_to_update.update
   end
 

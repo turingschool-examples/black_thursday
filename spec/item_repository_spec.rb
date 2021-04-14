@@ -43,7 +43,7 @@ RSpec.describe ItemRepository do
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
         updated_at:   '1993-09-29 11:56:40 UTC'
-        }, 
+        },
         ir)
       ir.items << test_item
       expect(ir.find_by_id(1)).to eq(test_item)

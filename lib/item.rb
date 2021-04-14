@@ -26,7 +26,11 @@ class Item
     @updated_at = Time.now
   end
 
-  def format_unit_price
+  def unit_price_to_big_decimal
     @unit_price = BigDecimal(@unit_price)
+  end
+
+  def unit_price_to_dollars
+    @unit_price = @unit_price.to_f
   end
 end
