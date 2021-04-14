@@ -213,10 +213,10 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
       item = ir.create(
-        {name:         'Pencil',
+      { name:         'Pencil',
         description:  'You can use it to write things',
         unit_price:    BigDecimal(10.99, 4),
-        merchant_id:   2}
+        merchant_id:   2 }
         )
 
       expect(item.class).to eq(Item)
