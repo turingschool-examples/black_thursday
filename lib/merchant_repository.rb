@@ -36,4 +36,20 @@ class MerchantRepository
     end
     full_names
   end
+
+  def self.create(attributes)
+    id = attributes[:id]
+    name = attributes[:name]
+    id = new_id_number
+    Merchant.new({:id => id, :name => name})
+    # require "pry"; binding.pry
+
+  end
+
+  def new_id_number
+    (@merchants.last.id.to_i)+1
+  end
+
 end
+
+# create(attributes) - create a new Merchant instance with the provided attributes. The new Merchant’s id should be the current highest Merchant id plus 1.
