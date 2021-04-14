@@ -44,7 +44,7 @@ class MerchantRepository
   end
 
   def new_id_number
-    (@merchants.last.id.to_i)+1
+    (@merchants.last.id)+1
   end
 
   def update(id, attributes)
