@@ -62,5 +62,12 @@ RSpec.describe MerchantRepository do
       new_number = (merch_rep.merchants.last.id.to_i)+1
       expect(merch_rep.new_id_number).to eq(new_number)
     end
+
+    it 'can update existing merchant' do
+      attributes = { :id => 5, :name => "Turing School" }
+      merch_rep.update("12334112", attributes)
+      targeted_merchant = merch_rep.find_by_id("12334112")
+      expect(targeted_merchant.name).to eq("Turing School")
+    end
   end
 end

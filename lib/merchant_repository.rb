@@ -46,4 +46,9 @@ class MerchantRepository
   def new_id_number
     (@merchants.last.id.to_i)+1
   end
+
+  def update(id, attributes)
+    target = find_by_id(id)
+    target.name = attributes[:name]
+  end
 end
