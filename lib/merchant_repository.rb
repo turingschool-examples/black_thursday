@@ -4,14 +4,15 @@ require_relative 'merchant'
 class MerchantRepository
   attr_reader :merchants
 
-  def initialize(path)
+  def initialize(path, engine)
     @merchants = []
+    @engine = engine
     make_merchants(path)
   end
 
   def make_merchants(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
+      @merchants << Merchant.new(row, self)
     end
   end
 
@@ -42,7 +43,7 @@ class MerchantRepository
       merchant.id
     end
     attributes[:id] = max_id.id + 1
-    @merchants << Merchant.new(attributes)
+    @merchants << Merchant.new(attributes, self)
   end
 
   def update(id, attributes)

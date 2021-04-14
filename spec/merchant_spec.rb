@@ -5,19 +5,25 @@ require './lib/merchant_repository'
 
 RSpec.describe Merchant do
   it 'exists' do
-    merchant = Merchant.new(id: '12334105',
+    mock_merchant_repo = instance_double('MerchantRepository')
+    merchant = Merchant.new({
+                            id: '12334105',
                             name: 'Shopin1901',
                             created_at: '2010-12-10',
-                            updated_at: '2011-12-04')
+                            updated_at: '2011-12-04'
+                            }, mock_merchant_repo)
 
     expect(merchant).to be_a(Merchant)
   end
 
   it 'has attributes' do
-    merchant = Merchant.new(id: '12334105',
-                          name: 'Shopin1901',
-                          created_at: '2010-12-10',
-                          updated_at: '2011-12-04')
+    mock_merchant_repo = instance_double('MerchantRepository')
+    merchant = Merchant.new({
+                            id: '12334105',
+                            name: 'Shopin1901',
+                            created_at: '2010-12-10',
+                            updated_at: '2011-12-04'
+                            }, mock_merchant_repo)
 
     expect(merchant.id).to eq(12334105)
     expect(merchant.name).to eq('Shopin1901')
