@@ -1,4 +1,3 @@
-require 'date'
 class Merchant
   attr_reader :id,
               :name,

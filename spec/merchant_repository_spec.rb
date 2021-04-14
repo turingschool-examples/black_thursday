@@ -62,9 +62,10 @@ RSpec.describe MerchantRepository do
     it 'can create new merchant' do
       mr = MerchantRepository.new('./data/merchants_truncated.csv')
 
-      mr.create({name: 'JimmysSubs',
-                 created_at: Time.now.to_s,
-                 updated_at: Time.now.to_s
+      mr.create({
+                name: 'JimmysSubs',
+                created_at: Time.now.to_s,
+                updated_at: Time.now.to_s
                 })
 
       expect(mr.find_by_id(12334114)).to eq(mr.merchants[4])
@@ -73,12 +74,12 @@ RSpec.describe MerchantRepository do
 
   describe '#update' do
     it 'can update merchants name' do
-       mr = MerchantRepository.new('./data/merchants_truncated.csv')
+      mr = MerchantRepository.new('./data/merchants_truncated.csv')
 
-       mr.update(12334105, 'ShopinShopinShopin')
+      mr.update(12334105, 'ShopinShopinShopin')
 
-       expect(mr.merchants[0].name).to eq('ShopinShopinShopin')
-       expect(mr.find_by_name('Shopin1901')).to eq(nil)
+      expect(mr.merchants[0].name).to eq('ShopinShopinShopin')
+      expect(mr.find_by_name('Shopin1901')).to eq(nil)
     end
   end
 
