@@ -69,5 +69,11 @@ RSpec.describe MerchantRepository do
       targeted_merchant = merch_rep.find_by_id("12334112")
       expect(targeted_merchant.name).to eq("Turing School")
     end
+
+    it 'can delete merchant' do
+      merch_rep.delete("12334112")
+      targeted_merchant = merch_rep.find_by_id("12334112")
+      expect(targeted_merchant).to eq(nil)
+    end
   end
 end
