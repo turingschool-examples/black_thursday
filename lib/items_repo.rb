@@ -45,4 +45,10 @@ class ItemRepo
       item.unit_price == price
     end
   end
+
+  def find_all_by_price_in_range(price_range)
+    @item_list.find_all do |item|
+      price_range.include?(item.unit_price)
+    end
+  end
 end
