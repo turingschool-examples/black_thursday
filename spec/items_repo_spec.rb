@@ -94,8 +94,13 @@ RSpec.describe ItemRepo do
       expect(expected.length).to eq 302
     end
 
-    xit 'can find by merchant id' do
-
+    it 'can find by merchant id' do
+      merchant_id = 12334326
+      expected = ir.find_all_by_merchant_id(merchant_id)
+      expect(expected.length).to eq 6
+      merchant_id = 12336020
+      expected = ir.find_all_by_merchant_id(merchant_id)
+      expect(expected.length).to eq 2
     end
 
     xit 'can create a new item' do
