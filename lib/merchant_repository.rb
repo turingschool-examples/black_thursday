@@ -1,6 +1,8 @@
 require 'csv'
 require_relative './merchant'
 require_relative './repository'
+
+# silent hound
 class MerchantRepository < Repository
 
   def initialize(location_hash, engine)

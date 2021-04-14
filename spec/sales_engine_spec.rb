@@ -1,5 +1,6 @@
 require_relative '../lib/sales_engine'
 
+
 # This tests the SalesEngine class
 RSpec.describe 'SalesEngine' do
   describe 'initialize' do
