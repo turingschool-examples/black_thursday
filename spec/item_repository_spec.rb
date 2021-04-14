@@ -144,34 +144,37 @@ RSpec.describe 'ItemRepository' do
 
       expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
     end
+  end
+  describe '#find_all_by_price_in_range' do
+    it 'returns an array of all items with a price found in the range' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
+
+      ir = se.items
+      
+      actual = ir.find_all_by_price_in_range('100'..'1000')[5].name
+      expected = 'Two tone blue stoneware pot'
+
+      expect(actual).to eq(expected)
     end
-    describe '#find_all_by_price_in_range' do
-      it 'returns an array of all items with a price found in the range' do
-        se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
-        )
+    it 'returns an empty array when no items are found' do
+      se = SalesEngine.from_csv(
+        items:     './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
 
-        ir = se.items
+      ir = se.items
 
-        expect(ir.find_all_by_price_in_range('100'..'1000')[5].name).to eq('Two tone blue stoneware pot')
-      end
-      it 'returns an empty array when no items are found' do
-        se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
-        )
-
-        ir = se.items
-
-        expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
-      end
+      expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
     end
-    describe '#find_all_by_merchant_id' do
+  end
+  describe '#find_all_by_merchant_id' do
       it 'returns all items with that merchant as a seller' do
         se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
+          items:  './data/items.csv',
+          merchants: './data/merchants.csv'
         )
 
         ir = se.items
@@ -180,59 +183,58 @@ RSpec.describe 'ItemRepository' do
       end
       it 'returns an empty array when no merchants are found' do
         se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
+          items:  './data/items.csv',
+          merchants: './data/merchants.csv'
         )
 
         ir = se.items
 
         expect(ir.find_all_by_merchant_id('1010101001010101')).to eq([])
       end
+  end
+  describe '#max_id_number_new' do
+    it 'returns an id number string one larger than the previous max' do
+      se = SalesEngine.from_csv(
+        items:  './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
+
+      ir = se.items
+
+      expect(ir.max_id_number_new).to eq('263567475')
     end
-    describe '#max_id_number_new' do
-      it 'returns an id number string one larger than the previous max' do
-        se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
+  end
+  describe '#create' do
+    it 'creates an instance of an item' do
+      se = SalesEngine.from_csv(
+        items:  './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
+
+      ir = se.items
+      item = ir.create(
+        name:         'Pencil',
+        description:  'You can use it to write things',
+        unit_price:    BigDecimal(10.99, 4),
+        merchant_id:   2
         )
 
-        ir = se.items
-
-        expect(ir.max_id_number_new).to eq('263567475')
-      end
+      expect(item.class).to eq(Item)
     end
-    describe '#create' do
-      it 'creates an instance of an item' do
-        se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
-        )
+  end
+  describe '#update' do
+    it 'changes the attributes of an item identified by its id' do
+      se = SalesEngine.from_csv(
+        items:  './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
 
-        ir = se.items
-        item = ir.create(
-          :name        => "Pencil",
-          :description => "You can use it to write things",
-          :unit_price  => BigDecimal.new(10.99,4),
-          :merchant_id => 2
-          )
+      ir = se.items
+      ir.update('263430973', name: 'Basket #18909',
+                             description: 'A basket',
+                             unit_price: '200')
 
-        expect(item.class).to eq(Item)
-      end
-    end
-    describe '#update' do
-      it 'changes the attributes of an item identified by its id' do
-        se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
-        )
-
-        ir = se.items
-        actual = ir.update('263430973', { name: 'Basket #18909',
-                                          description: 'A basket',
-                                          unit_price: '200' } )
-
-       expect(ir.find_by_id('263430973').name).to eq('Basket #18909')
-      end
+      expect(ir.find_by_id('263430973').name).to eq('Basket #18909')
     end
   end
 end

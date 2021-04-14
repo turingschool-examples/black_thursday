@@ -1,9 +1,9 @@
 # silence hound
 class Merchant
   attr_reader :id,
-              :name,
               :created_at,
               :updated_at
+  attr_accessor :name
 
   def initialize(merchant_info)
     @id = merchant_info[:id]

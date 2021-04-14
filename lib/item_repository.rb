@@ -1,26 +1,11 @@
+require './lib/repository'
+require './lib/item'
 # Basic ItemRepository class
-
-class ItemRepository
+class ItemRepository < Repository
   attr_reader :csv_array
 
   def initialize(csv_array)
-    @csv_array = csv_array
-  end
-
-  def all
-    @csv_array
-  end
-
-  def find_by_id(id)
-    @csv_array.find do |item|
-      item.id == id
-    end
-  end
-
-  def find_by_name(name)
-    @item_array.find do |item|
-      item.name.casecmp == name.casecmp
-    end
+    super(csv_array)
   end
 
   def find_all_with_description(string)
@@ -45,13 +30,6 @@ class ItemRepository
     @csv_array.find_all do |item|
       item.merchant_id == merchant_id
     end
-  end
-
-  def max_id_number_new
-    old_max = @csv_array.max_by do |item|
-      item.id
-    end.id
-    (old_max.to_i + 1).to_s
   end
 
   def create(item_hash)
