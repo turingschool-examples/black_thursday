@@ -24,7 +24,7 @@ RSpec.describe Repository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
       rep = Repository.new(mr.all)
 
@@ -35,7 +35,7 @@ RSpec.describe Repository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
       rep = Repository.new(mr.all)
 
@@ -48,7 +48,7 @@ RSpec.describe Repository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
       rep = Repository.new(mr.all)
 
@@ -59,7 +59,7 @@ RSpec.describe Repository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
       rep = Repository.new(mr.all)
 
@@ -72,7 +72,7 @@ RSpec.describe Repository do
       se = SalesEngine.from_csv(
           items: './data/items.csv',
           merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
       rep = Repository.new(mr.all)
 
@@ -85,7 +85,7 @@ RSpec.describe Repository do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
       rep = Repository.new(mr.all)
 
