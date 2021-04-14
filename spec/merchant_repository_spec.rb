@@ -23,16 +23,13 @@ RSpec.describe MerchantRepo do
 
     it '#all' do
       merchant_repo = MerchantRepo.new
+      merchant_repo.populate_information
 
-      # expect(merchant_repo.all.length).to eq(475)
-      expect(merchant_repo.all).to eq([])
+      expect(merchant_repo.all.length).to eq(475)
+      # Is it acceptable to be testing this?
+      expect(merchant_repo.all).to be_an_instance_of(Array)
+
     end
-
-    #is this necessary - yes, add nil assertion above
-    # it '#returns nil by default' do
-    #   merchant_repo = MerchantRepo.new
-    #   expect(merchant_repo.find_by_id(5)).to eq(nil)
-    # end
 
     it '#find Merchant by ID' do
       merchant_repo = MerchantRepo.new
@@ -41,6 +38,25 @@ RSpec.describe MerchantRepo do
 
       #consider alternative assertion
       expect(merchant_repo.find_by_id("12334105").name).to eq("Shopin1901")
+      expect(merchant_repo.find_by_id("999999999")).to eq(nil)
+    end
+
+    it '#find Merchant by name' do
+      merchant_repo = MerchantRepo.new
+      merchant_repo.populate_information
+      merchant_repo.all
+      # merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+
+      expect(merchant_repo.find_by_name("Shopin1901").id).to eq("12334105")
+      expect(merchant_repo.find_by_name("Hogwarts School")).to eq(nil)
+    end
+
+    it '#find all merchants by name' do
+      merchant_repo = MerchantRepo.new
+      merchant_repo.populate_information
+      merchant_repo.all
+
+      expect(merchant_repo.find_all_by_name("gem")).to eq([])
     end
   end
 end
