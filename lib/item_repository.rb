@@ -13,4 +13,10 @@ class ItemRepository
   def all
     @items_array
   end
+
+  def find_by_id(id)
+    @items_array.find do |item|
+      item.id == id
+    end
+  end
 end

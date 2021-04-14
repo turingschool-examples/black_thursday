@@ -31,4 +31,25 @@ RSpec.describe ItemRepository do
         expect(repo.all.count).to eq(1367)
       end
   end
+
+  describe 'various find methods' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              })
+    repo = sales_engine.items
+
+      it 'returns instance of item by matching id' do
+        id = "263538760"
+
+        expect(repo.find_by_id(id).id).to eq(id)
+        expect(repo.find_by_id(id).name).to eq("Puppy blankie")
+      end
+
+      it 'returns a nil if no id match' do
+        id = "10"
+
+        expect(repo.find_by_id(id)).to eq(nil)
+      end
+  end
 end
