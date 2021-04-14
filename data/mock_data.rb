@@ -50,10 +50,8 @@ class MockData
     end
   end
 
-  def self.mean_prices(items)
-    sum = items.sum do |item|
-      item[:unit_price]
-    end
+  def self.mean_price(items)
+    sum = sum_prices(items)
     (sum / items.length)
   end
 end
