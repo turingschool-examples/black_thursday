@@ -140,4 +140,29 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_merchant_id(4)).to eq([])
     end
   end
+
+  describe '#generate_new_id' do
+    it 'create a new item id' do
+      ir = ItemRepository.new('./data/items.csv')
+
+      expect(ir.generate_new_id).to eq(263567475)
+    end
+  end
+
+  describe '#create' do
+    xit 'create a new item instance' do
+      ir = ItemRepository.new('./data/items.csv')
+      attributes = {
+      name: 'Cool Stuff',
+      description: 'supaaa cool',
+      unit_price: '1357',
+      merchant_id: '123456987',
+      created_at: '2016-01-11 11:51:37 UTC',
+      updated_at: '1993-09-29 11:56:40 UTC'}
+
+      ir.create(attributes)
+      expected = ir.find_by_id(263567475)
+      expect(expected.name).to eq('Cool Stuff')
+    end
+  end
 end
