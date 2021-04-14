@@ -27,8 +27,8 @@ class MerchantRepository < Repository
   end
 
   def create(name)
-    Merchant.new({id: max_id_number_new,
-                 name: name}, self)
+    Merchant.new({ id: max_id_number_new,
+                   name: name }, self)
   end
 
   def update(id, name)
