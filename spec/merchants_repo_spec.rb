@@ -47,6 +47,16 @@ RSpec.describe MerchantRepo do
       expect(expected.length).to eq 3
       expect(expected.map(&:name).include?("justMstyle")).to eq true
       expect(expected.map(&:id).include?(12337211)).to eq true
+      expect(mr.find_all_by_name("corgi")).to eq([])
+    end
+
+    it 'can create a new merchant instance' do
+      attributes = {
+        name: "Turing School of Software and Design"
+      }
+      mr.create(attributes)
+      expected = mr.find_by_id(12337412)
+      expect(expected.name).to eq "Turing School of Software and Design"
     end
   end
 

@@ -38,7 +38,14 @@ class MerchantRepo
     @merchants_list.find_all do |merchant|
       (merchant.name).downcase.include?(fragment.downcase)
     end
-    # require'pry';binding.pry
   end
 
+  def create(attributes)
+    new_merchant = Merchant.new(attributes)
+    find_max_id = @merchants_list.max_by do |merchant|
+      merchant.id
+    end
+    new_merchant.id = (find_max_id.id + 1)
+    merchants_list << new_merchant
+  end
 end
