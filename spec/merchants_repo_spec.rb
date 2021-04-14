@@ -58,6 +58,27 @@ RSpec.describe MerchantRepo do
       expected = mr.find_by_id(12337412)
       expect(expected.name).to eq "Turing School of Software and Design"
     end
-  end
 
+    it 'can update a merchant' do
+      # update the Merchant instance with the corresponding id with the provided attributes.
+      # Only the merchant’s name attribute can be updated.
+      attributes = {
+        name: "TSSD"
+      }
+
+      mr.update(12337412, attributes)
+
+      expected = mr.find_by_id(12337412)
+      expect(expected.name).to eq "TSSD"
+
+      expected = mr.find_by_name("Turing School of Software and Design")
+      expect(expected).to eq nil
+    end
+
+    it 'can delete a specific merchant' do
+      mr.delete(12337412)
+      expected = mr.find_by_id(12337412)
+      expect(expected).to eq nil
+    end
+  end
 end

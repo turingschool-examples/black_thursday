@@ -48,4 +48,19 @@ class MerchantRepo
     new_merchant.id = (find_max_id.id + 1)
     merchants_list << new_merchant
   end
+
+  def update(id, attributes)
+    merchant = @merchants_list.find do |merchant|
+      merchant.id == id
+    end
+    merchant.name = attributes[:name]
+  end
+
+  def delete(id)
+    merchant = @merchants_list.find do |merchant|
+      merchant.id == id
+    end
+    @merchants_list.delete(merchant)
+  end
+
 end
