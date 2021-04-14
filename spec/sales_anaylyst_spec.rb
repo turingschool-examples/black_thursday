@@ -44,4 +44,15 @@ RSpec.describe 'SalesAnalyst' do
       expect(sa.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
   end
+  describe '#average_item_price_for_merchant' do
+    it "returns the average prices for the merchant identified by their id" do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
+      sa = se.analyst
+
+      expect(sa.average_item_price_for_merchant('12334159')).to eq(3150.0)
+    end
+  end
 end
