@@ -1,6 +1,7 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/item'
+require 'bigdecimal/util'
 
 RSpec.describe ItemRepository do
   describe 'initialization' do
