@@ -150,7 +150,7 @@ RSpec.describe ItemRepository do
   end
 
   describe '#create' do
-    xit 'create a new item instance' do
+    it 'create a new item instance' do
       ir = ItemRepository.new('./data/items.csv')
       attributes = {
       name: 'Cool Stuff',
