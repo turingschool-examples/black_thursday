@@ -148,8 +148,8 @@ RSpec.describe 'ItemRepository' do
   describe '#find_all_by_price_in_range' do
     it 'returns an array of all items with a price found in the range' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
@@ -161,8 +161,8 @@ RSpec.describe 'ItemRepository' do
     end
     it 'returns an empty array when no items are found' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items:     './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
@@ -173,8 +173,8 @@ RSpec.describe 'ItemRepository' do
   describe '#find_all_by_merchant_id' do
       it 'returns all items with that merchant as a seller' do
         se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
+          items:  './data/items.csv',
+          merchants: './data/merchants.csv'
         )
 
         ir = se.items
@@ -183,8 +183,8 @@ RSpec.describe 'ItemRepository' do
       end
       it 'returns an empty array when no merchants are found' do
         se = SalesEngine.from_csv(
-          :items     => './data/items.csv',
-          :merchants => './data/merchants.csv'
+          items:  './data/items.csv',
+          merchants: './data/merchants.csv'
         )
 
         ir = se.items
@@ -195,8 +195,8 @@ RSpec.describe 'ItemRepository' do
   describe '#max_id_number_new' do
     it 'returns an id number string one larger than the previous max' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items:  './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
@@ -207,16 +207,16 @@ RSpec.describe 'ItemRepository' do
   describe '#create' do
     it 'creates an instance of an item' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items:  './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
       item = ir.create(
-        :name        => 'Pencil',
-        :description => 'You can use it to write things',
-        :unit_price  => BigDecimal(10.99, 4),
-        :merchant_id => 2
+        name:         'Pencil',
+        description:  'You can use it to write things',
+        unit_price:    BigDecimal(10.99, 4),
+        merchant_id:   2
         )
 
       expect(item.class).to eq(Item)
@@ -225,8 +225,8 @@ RSpec.describe 'ItemRepository' do
   describe '#update' do
     it 'changes the attributes of an item identified by its id' do
       se = SalesEngine.from_csv(
-        :items     => './data/items.csv',
-        :merchants => './data/merchants.csv'
+        items:  './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       ir = se.items
