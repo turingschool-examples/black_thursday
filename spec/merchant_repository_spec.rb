@@ -17,17 +17,30 @@ RSpec.describe MerchantRepo do
   describe '#methods' do
     it '#populates information' do
       mr = MerchantRepo.new
-      m = Merchant.new({:id => 5, :name => "Turing School"})
 
       expect(mr.populate_information).to be_an_instance_of(Hash)
     end
 
     it '#all' do
       mr = MerchantRepo.new
-      m = Merchant.new({:id => 5, :name => "Turing School"})
 
       mr.add_merchants
       expect(mr.all.length).to eq(475)
+    end
+
+    #is this necessary
+    # it '#returns nil by default' do
+    #   mr = MerchantRepo.new
+    #   expect(mr.find_by_id(5)).to eq(nil)
+    # end
+
+    it '#returns a Merchant with matching ID' do
+      mr = MerchantRepo.new
+      mr.populate_information
+      mr.add_merchants
+
+      #consider alternative assertion
+      expect(mr.find_by_id("12334105").name).to eq("Shopin1901")
     end
 
   end
