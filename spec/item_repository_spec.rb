@@ -270,47 +270,39 @@ describe ItemRepository do
   # end
 
   # describe '#create' do
-  #   it 'creates an Item class object' do
-  #     item_repository = ItemRepository.new([])
+    it 'creates an Item class object' do
+      filename = "./data/items.csv"
+      item_repository = ItemRepository.new(filename)
+      details = {
+        id: nil,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      expect(item_repository.create(details)).is_a? Item
+    end
 
-  #     details = {
-  #       id: nil,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     expect(item_repository.create(details)).is_a? Item
-  #   end
+    it 'creates an Item with a new id' do
+      filename = "./data/items.csv"
+      item_repository = ItemRepository.new(filename)
 
-  #   it 'creates an Item with a new id' do
-  #     details1 = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item1 = Item.new(details1)
-  #     item_repository = ItemRepository.new([item1])
+      details = {
+        id: nil,
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+      new_items = item_repository.create(details)
 
-  #     details2 = {
-  #       id: nil,
-  #       name: 'Pen',
-  #       description: 'Writes with ink',
-  #       unit_price: BigDecimal(12.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     new_items = item_repository.create(details2)
-  #     expect(new_items.last.id).to eq 2
-  #     expect(item_repository.items.length).to eq 2
-  #   end
+      expect(new_items.last.id).to eq 263567475
+      expect(item_repository.items.length).to eq 1368
+    end
   # end
 
   # describe '#update_id_and_attributes' do
