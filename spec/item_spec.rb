@@ -7,26 +7,30 @@ require 'pry'
 RSpec.describe Item do
   describe '#initialize' do
     it 'exists' do
-      item = Item.new(
+      mock_item_repo = instance_double("ItemRepository")
+      item = Item.new({
         id: '263395617 ',
         name: 'Glitter scrabble frames ',
         description: 'Glitter scrabble frames ',
         unit_price: '1300 ',
         merchant_id: '12334185 ',
         created_at: '2016-01-11 11:51:37 UTC ',
-        updated_at: '1993-09-29 11:56:40 UTC '
+        updated_at: '1993-09-29 11:56:40 UTC '},
+        mock_item_repo
       )
       expect(item).to be_instance_of(Item)
       end
     it 'has attributes' do
-      item = Item.new(
+      mock_item_repo = instance_double("ItemRepository")
+      item = Item.new({
         id: '1',
         name: 'Cool Stuff',
         description: 'supaaa cool',
         unit_price: '1300',
         merchant_id: '12334185',
         created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
+        updated_at: '1993-09-29 11:56:40 UTC'},
+        mock_item_repo
       )
       expect(item.id).to eq(1)
       expect(item.name).to eq('Cool Stuff')
@@ -41,14 +45,16 @@ RSpec.describe Item do
   end
   describe '#update' do
     it 'updates the updated_at timestamp' do
-      item = Item.new(
+      mock_item_repo = instance_double("ItemRepository")
+      item = Item.new({
         id: '1',
         name: 'Cool Stuff',
         description: 'supaaa cool',
         unit_price: '1300',
         merchant_id: '12334185',
         created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
+        updated_at: '1993-09-29 11:56:40 UTC'},
+        mock_item_repo
       )
       item.update
       expect(item.updated_at.year).to eq(2021)
@@ -56,15 +62,16 @@ RSpec.describe Item do
   end
   describe '#format_unit_price' do
     it 'formats the unit price to a BigDecimal' do
+      mock_item_repo = instance_double("ItemRepository")
       item = Item.new(
-        id: '1',
+        {id: '1',
         name: 'Cool Stuff',
         description: 'supaaa cool',
         unit_price: '1300',
         merchant_id: '12334185',
         created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
-      )
+        updated_at: '1993-09-29 11:56:40 UTC'},
+        mock_item_repo)
       item.unit_price = 1300
       item.format_unit_price
       expect(item.unit_price).to eq(0.13e4)

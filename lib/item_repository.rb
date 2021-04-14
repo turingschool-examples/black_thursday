@@ -5,14 +5,15 @@ require 'pry'
 class ItemRepository
   attr_reader :items
 
-  def initialize(path)
+  def initialize(path, engine)
     @items = []
+    @engine = engine
     make_items(path)
   end
 
   def make_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      @items << Item.new(row)
+      @items << Item.new(row, self)
     end
   end
 
@@ -65,7 +66,7 @@ class ItemRepository
 
   def create(attributes)
     attributes[:id] = generate_new_id
-    @items << Item.new(attributes)
+    @items << Item.new(attributes, self)
   end
 
   def update(id, attributes)

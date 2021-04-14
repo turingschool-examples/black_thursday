@@ -7,37 +7,44 @@ require 'bigdecimal'
 RSpec.describe ItemRepository do
   describe '#initialize' do
     it 'exists' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir).to be_instance_of(ItemRepository)
     end
     it 'has items' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.items.count).to eq(1367)
     end
   end
   describe '#make_items' do
     it 'makes_items' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.items.first).to be_instance_of(Item)
     end
   end
   describe '#all' do
     it 'contains all the items' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.all.count).to eq(1367)
     end
   end
   describe '#find_by_id' do
     it 'finds items by id' do
-      ir = ItemRepository.new('./data/items.csv')
-      test_item = Item.new(
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+      test_item = Item.new({
         id:            '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
         unit_price:   '1300',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC')
+        updated_at:   '1993-09-29 11:56:40 UTC'}, 
+        ir
+      )
       ir.items << test_item
       expect(ir.find_by_id(1)).to eq(test_item)
       expect(ir.find_by_id(7)).to eq(nil)
@@ -45,15 +52,17 @@ RSpec.describe ItemRepository do
   end
   describe '#find_by_name' do
     it 'finds items by name' do
-      ir = ItemRepository.new('./data/items.csv')
-      test_item = Item.new(
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+      test_item = Item.new({
         id: '1',
         name: 'Cool Stuff',
         description:  'supaaa cool',
         unit_price:   '1300',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'
+        updated_at:   '1993-09-29 11:56:40 UTC'},
+        ir
       )
       ir.items << test_item
       expect(ir.find_by_name('CoOL StUfF')).to eq(test_item)
@@ -62,15 +71,17 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_with_description' do
     it 'finds items by description' do
-      ir = ItemRepository.new('./data/items.csv')
-      test_item = Item.new(
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+      test_item = Item.new({
         id:            '1',
         name:          'Cool Stuff',
         description:  'supaaa cool',
         unit_price:   '1300',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'
+        updated_at:   '1993-09-29 11:56:40 UTC'},
+        ir
       )
       ir.items << test_item
       expect(ir.find_all_with_description('sUPaAa')).to eq([test_item])
@@ -79,15 +90,17 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_by_price' do
     it 'finds items by price' do
-      ir = ItemRepository.new('./data/items.csv')
-      test_item = Item.new(
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+      test_item = Item.new({
         id:           '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
         unit_price:   '1357',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'
+        updated_at:   '1993-09-29 11:56:40 UTC'},
+        ir
       )
       ir.items << test_item
       price_1 = BigDecimal(1357)
@@ -98,15 +111,17 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_by_price_in_range' do
     it 'finds items by price range' do
-      ir = ItemRepository.new('./data/items.csv')
-      test_item = Item.new(
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+      test_item = Item.new({
         id: '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
         unit_price:   '1357',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'
+        updated_at:   '1993-09-29 11:56:40 UTC'},
+        ir
       )
       ir.items << test_item
       range1 = (1000.00..1500.00)
@@ -117,15 +132,17 @@ RSpec.describe ItemRepository do
   end
   describe '#find_all_by_merchant_id' do
     it 'finds items by merchant id' do
-      ir = ItemRepository.new('./data/items.csv')
-      test_item = Item.new(
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+      test_item = Item.new({
         id: '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
         unit_price:   '1357',
         merchant_id:  '123456987',
         created_at:   '2016-01-11 11:51:37 UTC',
-        updated_at:   '1993-09-29 11:56:40 UTC'
+        updated_at:   '1993-09-29 11:56:40 UTC'},
+        ir
       )
       ir.items << test_item
       expect(ir.find_all_by_merchant_id(123456987)).to eq([test_item])
@@ -134,13 +151,15 @@ RSpec.describe ItemRepository do
   end
   describe '#generate_new_id' do
     it 'create a new item id' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       expect(ir.generate_new_id).to eq(263567475)
     end
   end
   describe '#create' do
     it 'create a new item instance' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       attributes = {
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -156,7 +175,8 @@ RSpec.describe ItemRepository do
   end
   describe '#update' do
     it 'updates items attributes' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       attributes = {
         name:         'Cool Stuff',
         description:  'supaaa cool',
@@ -174,7 +194,8 @@ RSpec.describe ItemRepository do
   end
   describe '#delete' do
     it 'delete a specified item from the items array' do
-      ir = ItemRepository.new('./data/items.csv')
+      mock_sales_engine = instance_double("SalesEngine")
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       ir.delete(263567292)
       expect(ir.items.count).to eq(1366)
     end
