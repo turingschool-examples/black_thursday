@@ -22,4 +22,8 @@ class MockData
     end
     mocked_merchants
   end
+
+  def self.get_mock_items(number_of_mocks = 10, random_prices = true)
+    
+  end
 end
