@@ -3,10 +3,12 @@ require './lib/merchants_repo'
 require 'csv'
 
 class SalesEngine
+  attr_reader :items,
+              :merchants
 
   def initialize(csv_files)
-    @items_repo = ItemRepo.new(csv_files[:items])
-    @merchant_repo = MerchantRepo.new(csv_files[:merchants])
+    @items = ItemRepo.new(csv_files[:items])
+    @merchants = MerchantRepo.new(csv_files[:merchants])
   end
 
   def self.from_csv(csv_files)

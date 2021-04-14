@@ -12,8 +12,17 @@ RSpec.describe SalesEngine do
   :merchants => "./data/merchants.csv",
   })
 
-  it 'it exists' do
-    expect(se).to be_instance_of(SalesEngine)
+  context 'it exists' do
+    it 'exists' do
+      expect(se).to be_instance_of(SalesEngine)
+    end
+  end  
+
+  context 'methods' do
+    it 'has attributes' do
+      expect(se.items).to be_instance_of(ItemRepo)
+      expect(se.merchants).to be_instance_of(MerchantRepo)
+    end
   end
-  
+
 end

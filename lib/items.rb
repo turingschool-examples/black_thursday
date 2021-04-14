@@ -17,4 +17,4 @@ class Item
     @updated_at = attributes[:created_at]
     @merchant_id = attributes[:merchant_id]
   end
-end  
+end
