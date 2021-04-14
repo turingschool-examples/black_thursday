@@ -63,4 +63,24 @@ describe MockData do
       expect(first_date.to_s).to eq second_date.to_s
     end
   end
+
+  describe '#sum_prices' do
+    it 'sums prices' do
+      allow(MockData).to receive(:get_a_random_price).and_return(1)
+      mock_items = MockData.get_mock_items
+      expected_sum = 10
+      actual_sum = MockData.sum_prices(mock_items)
+      expect(actual_sum).to eq expected_sum
+    end
+  end
+
+  describe '#mean_price' do
+    it 'sums prices' do
+      allow(MockData).to receive(:get_a_random_price).and_return(5)
+      mock_items = MockData.get_mock_items
+      expected_mean = 5
+      actual_mean = MockData.mean_price(mock_items)
+      expect(actual_mean).to eq expected_mean
+    end
+  end
 end
