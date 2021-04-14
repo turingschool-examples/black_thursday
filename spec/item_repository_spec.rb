@@ -165,4 +165,24 @@ RSpec.describe ItemRepository do
       expect(expected.name).to eq('Cool Stuff')
     end
   end
+
+  describe '#update' do
+    it 'updates items attributes' do
+      ir = ItemRepository.new('./data/items.csv')
+      attributes = {
+      name: 'Cool Stuff',
+      description: 'supaaa cool',
+      unit_price: '1357'
+      }
+      test_item = ir.find_by_id(263567292)
+      ir.update(263567292, attributes)
+
+      expect(test_item.name).to eq('Cool Stuff')
+      expect(test_item.description).to eq('supaaa cool')
+      expect(test_item.unit_price).to eq(BigDecimal(1357))
+      expect(test_item.merchant_id).to eq(12336050)
+      expect(test_item.created_at.year).to eq(2016)
+      expect(test_item.updated_at.year).to eq(2021)
+    end
+  end
 end

@@ -67,4 +67,21 @@ class ItemRepository
     attributes[:id] = generate_new_id
     @items << Item.new(attributes)
   end
+
+  def update(id, attributes)
+    item_to_update = find_by_id(id)
+    # require "pry"; binding.pry
+    attributes.each do |key, new_value|
+      iv = key.to_s
+      if iv == "name"
+        item_to_update.name = new_value
+      elsif iv == "description"
+        item_to_update.description = new_value
+      elsif iv == "unit_price"
+        item_to_update.unit_price = BigDecimal(new_value)
+      end
+      # item_to_update.iv = new_value
+    end
+    item_to_update.update
+  end
 end
