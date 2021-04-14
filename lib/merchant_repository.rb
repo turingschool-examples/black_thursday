@@ -1,3 +1,4 @@
+# silent hound
 require './lib/merchant'
 require './lib/repository'
 class MerchantRepository < Repository
