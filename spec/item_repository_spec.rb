@@ -10,33 +10,33 @@ RSpec.describe ItemRepo do
   describe 'instantiation' do
 
     it '::new' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
 
-    expect(ir).to be_an_instance_of(ItemRepo)
+    expect(item_repo).to be_an_instance_of(ItemRepo)
     end
 
     it 'has attributes' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
 
-      expect(ir.items).to eq ([])
+      expect(item_repo.items).to eq ([])
     end
   end
 
   describe '#methods' do
     it '#populates information' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
 
-      expect(ir.populate_information).to be_an_instance_of(Hash)
+      expect(item_repo.populate_information).to be_an_instance_of(Hash)
     end
 
     it '#all' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
 
-      expect(ir.all).to be_an_instance_of(Array)
+      expect(item_repo.all).to be_an_instance_of(Array)
     end
 
     it '#find by id' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
       i = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
@@ -45,14 +45,14 @@ RSpec.describe ItemRepo do
                     :updated_at  => Time.now,
                     :merchant_id => 2
                   })
-      ir.add_item(i)
+      item_repo.add_item(i)
 
-      expect(ir.find_by_id(1)).to eq(i)
-      expect(ir.find_by_id(45)).to eq(nil)
+      expect(item_repo.find_by_id(1)).to eq(i)
+      expect(item_repo.find_by_id(45)).to eq(nil)
     end
 
     it '#find by name' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
       i = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
@@ -61,14 +61,14 @@ RSpec.describe ItemRepo do
                     :updated_at  => Time.now,
                     :merchant_id => 2
                   })
-      ir.add_item(i)
+      item_repo.add_item(i)
 
-      expect(ir.find_by_name("Pencil")).to eq(i)
-      expect(ir.find_by_name("not exist")).to eq(nil)
+      expect(item_repo.find_by_name("Pencil")).to eq(i)
+      expect(item_repo.find_by_name("not exist")).to eq(nil)
     end
 
     it '#find by description' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
       i = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
@@ -77,14 +77,14 @@ RSpec.describe ItemRepo do
                     :updated_at  => Time.now,
                     :merchant_id => 2
                   })
-      ir.add_item(i)
+      item_repo.add_item(i)
 
-      expect(ir.find_all_with_description("You can use it to write things")).to eq([i])
-      expect(ir.find_all_with_description("not exist")).to eq([])
+      expect(item_repo.find_all_with_description("You can use it to write things")).to eq([i])
+      expect(item_repo.find_all_with_description("not exist")).to eq([])
     end
 
-    it '#find by price' do
-      ir = ItemRepo.new
+    it '#find all by price' do
+      item_repo = ItemRepo.new
       i = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
@@ -93,14 +93,14 @@ RSpec.describe ItemRepo do
                     :updated_at  => Time.now,
                     :merchant_id => 2
                   })
-      ir.add_item(i)
+      item_repo.add_item(i)
 
-      expect(ir.find_all_by_price(10.99)).to eq([i])
-      expect(ir.find_all_by_price(0)).to eq([])
+      expect(item_repo.find_all_by_price(10.99)).to eq([i])
+      expect(item_repo.find_all_by_price(0)).to eq([])
     end
 
-    it '#find by price' do
-      ir = ItemRepo.new
+    it '#find all by price by range' do
+      item_repo = ItemRepo.new
       i = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
@@ -109,30 +109,14 @@ RSpec.describe ItemRepo do
                     :updated_at  => Time.now,
                     :merchant_id => 2
                   })
-      ir.add_item(i)
+      item_repo.add_item(i)
 
-      expect(ir.find_all_by_price_in_range(10.97..10.99)).to eq([i])
-      expect(ir.find_all_by_price_in_range(0..0.1)).to eq([])
-    end
-
-    it '#find by price' do
-      ir = ItemRepo.new
-      i = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2
-                  })
-      ir.add_item(i)
-
-      expect(ir.find_all_by_price_in_range(10.97..10.99)).to eq([i])
-      expect(ir.find_all_by_price_in_range(0..0.1)).to eq([])
+      expect(item_repo.find_all_by_price_in_range(10.97..10.99)).to eq([i])
+      expect(item_repo.find_all_by_price_in_range(0..0.1)).to eq([])
     end
 
     it '#find by merchant' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
       i = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
@@ -141,14 +125,14 @@ RSpec.describe ItemRepo do
                     :updated_at  => Time.now,
                     :merchant_id => 2
                   })
-      ir.add_item(i)
+      item_repo.add_item(i)
 
-      expect(ir.find_all_by_merchant_id(2)).to eq([i])
-      expect(ir.find_all_by_merchant_id(0)).to eq([])
+      expect(item_repo.find_all_by_merchant_id(2)).to eq([i])
+      expect(item_repo.find_all_by_merchant_id(0)).to eq([])
     end
 
     it '#creates item' do
-      ir = ItemRepo.new
+      item_repo = ItemRepo.new
       item_info = {:id          => 0,
                     :name        => nil,
                     :description => nil,
@@ -158,14 +142,14 @@ RSpec.describe ItemRepo do
                     :merchant_id => 0
                   }
 
-      ir.populate_information
-      ir.all
+      item_repo.populate_information
+      item_repo.all
 
-      expect(ir.create(item_info)).to be_an_instance_of(Item)
+      expect(item_repo.create(item_info)).to be_an_instance_of(Item)
     end
 
-    xit '#update attributes' do
-      ir = ItemRepo.new
+    it '#update attributes' do
+      item_repo = ItemRepo.new
       i = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
@@ -174,19 +158,38 @@ RSpec.describe ItemRepo do
                     :updated_at  => Time.now,
                     :merchant_id => 2
                   })
-      ir.add_item(i)
+      item_repo.add_item(i)
       updated_attributes = {:name => "knife",
                             :description => "You can use it to stab things",
-                            :unit_price  => BigDecimal(15.99,4),
+                            :unit_price  => BigDecimal(15.99, 4),
                             :updated_at  => Time.now,
                           }
-      ir.update(1, updated_attributes)
+      item_repo.update(1, updated_attributes)
 
       expect(i.id).to eq(1)
       expect(i.name).to eq("knife")
       expect(i.description).to eq("You can use it to stab things")
-      expect(i.unit_price).to eq(15.99,4)
+      expect(i.unit_price).to eq(15.99)
       expect(i.updated_at).to be_an_instance_of(Time)
+    end
+
+    it '#delete by id' do
+      item_repo = ItemRepo.new
+      i = Item.new({:id          => 1,
+                    :name        => "Pencil",
+                    :description => "You can use it to write things",
+                    :unit_price  => BigDecimal(10.99,4),
+                    :created_at  => Time.now,
+                    :updated_at  => Time.now,
+                    :merchant_id => 2
+                  })
+      item_repo.add_item(i)
+
+      expect(item_repo.find_by_id(1)).to eq(i)
+
+      item_repo.delete(1)
+      
+      expect(item_repo.find_by_id(1)).to eq(nil)
     end
   end
 end
