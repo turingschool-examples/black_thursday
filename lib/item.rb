@@ -7,8 +7,7 @@ class Item
                 :updated_at
   attr_reader :id,
               :created_at,
-              :merchant_id,
-              :updated_at
+              :merchant_id
 
   def initialize(item_info)
     @id = item_info[:id]
