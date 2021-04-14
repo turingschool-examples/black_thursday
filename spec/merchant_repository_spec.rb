@@ -1,6 +1,7 @@
-require './lib/sales_engine'
-require './lib/merchant_repository'
-# require 'simplecov'
+require_relative '../lib/sales_engine'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
+
 RSpec.describe MerchantRepository do
 
   # Parameter (array of hashes) should be passed
