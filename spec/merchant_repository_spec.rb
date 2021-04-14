@@ -54,11 +54,11 @@ RSpec.describe MerchantRepository do
       expect(merch_rep.find_all_by_name("Candi").count).to eq(1)
     end
 
-    # it 'creates new merchants' do
-    #   merchant = MerchantRepository.create({ :id => 5, :name => "Turing School" })
-    #   expect(merchant).to be_instance_of(Merchant)
-    #   # expect(merch_rep.create("WandaPetSupply")).to eq(Merchant.new("WandaPetSupply"))
-    # end
+    xit 'creates new merchants' do
+      merchant = MerchantRepository.create({ :id => 5, :name => "Turing School" })
+      expect(merchant).to be_instance_of(Merchant)
+      # expect(merch_rep.create("WandaPetSupply")).to eq(Merchant.new("WandaPetSupply"))
+    end
 
     it 'makes a new id number' do
       new_number = (merch_rep.merchants.last.id.to_i)+1
