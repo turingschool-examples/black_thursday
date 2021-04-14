@@ -35,14 +35,18 @@ class MockData
     mocked_merchants
   end
 
-  def self.get_mock_items(number_of_mocks: 10, number_of_merchants: 2, random_dates: true)
+  def self.get_mock_items(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
     mocked_items = []
     number_of_mocks.times do |item_number|
       item = {}
       date = get_a_random_date(random_dates)
       item[:name] = "Item #{item_number}"
       item[:id] = item_number
-      item[:unit_price] = get_a_random_price
+      if price_of == 0
+        item[:unit_price] = get_a_random_price
+      else
+        item[:unit_price] = price_of
+      end
       item[:description] = 'Item Description'
       item[:merchant_id] = item_number % number_of_merchants
       if block_given?
