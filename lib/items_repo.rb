@@ -24,6 +24,7 @@ class ItemRepo
   def find_by_id(id)
     @item_list.find do |item|
       item.id == id
+      require "pry"; binding.pry
     end
   end
 end

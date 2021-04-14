@@ -35,8 +35,10 @@ RSpec.describe ItemRepo do
       expect(ir.find_by_id(263395237)).to eq(ir.item_list[0])
     end
 
-    xit 'can find by item name' do
-
+    it 'can find by item name' do
+      expect(ir.find_by_name("510+ RealPush Icon Set")).to be_instance_of(Item)
+      expect(ir.find_by_name("510+ RealPush Icon Set")).to eq(ir.item_list[0])
+      expect(ir.find_by_name("510+ realpush icon set")).to eq(ir.item_list[0])
     end
 
     xit 'can find all items by description' do
