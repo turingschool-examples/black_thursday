@@ -10,6 +10,10 @@ class MerchantRepository
     make_merchants(path)
   end
 
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def make_merchants(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       @merchants << Merchant.new(row, self)
