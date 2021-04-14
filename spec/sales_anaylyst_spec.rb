@@ -107,7 +107,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.golden_items[0].name).to eq('Pants')
+      expect(sa.golden_items.length).to eq(5)
     end
   end
 end

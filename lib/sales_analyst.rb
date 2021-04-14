@@ -72,6 +72,9 @@ class SalesAnalyst
   end
 
   def golden_items
-
+    two_standard = average_item_price + item_price_standard_deviation * 2
+    @items.all.find_all do |item|
+      item.unit_price.to_f > two_standard
+    end
   end
 end
