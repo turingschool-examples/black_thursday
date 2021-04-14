@@ -1,4 +1,4 @@
-require './lib/sales_engine'
+require_relative './lib/sales_engine'
 
 # This tests the SalesEngine class
 RSpec.describe 'SalesEngine' do
