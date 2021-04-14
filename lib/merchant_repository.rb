@@ -1,4 +1,5 @@
-require './lib/merchant'
+require_relative '../lib/merchant'
+
 class MerchantRepository
   attr_reader :merchants
   def initialize(parsed_csv)
