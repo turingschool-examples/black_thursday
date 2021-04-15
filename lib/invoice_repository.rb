@@ -30,6 +30,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_customer_id(customer_id)
+    @invoices.find_all do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
+
 #   def find_by_name(name)
 #     @items.find do |item|
 #       item.name.downcase == name.downcase
