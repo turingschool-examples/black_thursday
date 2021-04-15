@@ -116,4 +116,13 @@ class InvoiceRepository
     sum = modified_hash.values.sum
     Math.sqrt(sum / divisor).round(2)
   end
+
+  def top_sales_days
+    hash = invoices_by_days
+    hash.each_with_object([]) do |(day, number_of_invoices), array|
+      if number_of_invoices > (average(hash) + standard_deviation(hash))
+        array << day
+      end
+    end
+  end
 end

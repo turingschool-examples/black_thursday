@@ -236,4 +236,13 @@ RSpec.describe InvoiceRepository do
       expect(ir.standard_deviation(ir.invoices_by_days)).to eq(18.07)
     end
   end
+
+  describe '#top_sales_days' do
+    it 'shows standard deviation' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.top_sales_days).to eq(["wednesday"])
+    end
+  end
 end
