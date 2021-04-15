@@ -1,9 +1,5 @@
 require 'Date'
 
-module ItemMock
-
-end
-
 class MockData
   def self.get_a_random_date(random = true)
     if random
