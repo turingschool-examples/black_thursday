@@ -21,10 +21,10 @@ class MockData
       raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
       eg = yield
       merchant_mock = eg.instance_double('Merchant',
-        name: item_hash[:name],
-        id: item_hash[:id],
-        created_at: item_hash[:created_at],
-        updated_at: item_hash[:updated_at]
+        name: merchant_hash[:name],
+        id: merchant_hash[:id],
+        created_at: merchant_hash[:created_at],
+        updated_at: merchant_hash[:updated_at]
       )
       mocked_merchants << merchant_mock
     end
