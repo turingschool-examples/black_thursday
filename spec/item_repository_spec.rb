@@ -92,10 +92,10 @@ RSpec.describe ItemRepository do
       end
 
       it '#find_all_by_price returns array if item instances with matching price' do
-        price = 3800
+        price = BigDecimal(25)
 
-        expect(repo.find_all_by_price(price)[0].unit_price).to eq(price)
-        expect(repo.find_all_by_price(price).last.id).to eq(263567474)
+        expect(repo.find_all_by_price(price)[0].unit_price_to_dollars).to eq(price)
+        expect(repo.find_all_by_price(price).length).to eq(79)
       end
 
       it '#find_all_by_price returns [] if no items match price' do
@@ -141,6 +141,8 @@ RSpec.describe ItemRepository do
                       :name        => "Pencil",
                       :description => "You can use it to write things",
                       :unit_price  => "1099",
+                      :created_at  => Time.now,
+                      :updated_at  => Time.now,
                       :merchant_id => 2
                     }
     repo.create(attributes)
@@ -153,12 +155,24 @@ RSpec.describe ItemRepository do
     end
 
     it '#creates test for new id to be incremented by one' do
-      second_to_last_item_id = repo.all[-2].id
-      last_item_id = repo.all[-1].id
-      expected = last_item_id - second_to_last_item_id
-      expect(expected).to eq(1)
+      # second_to_last_item_id = repo.all[-2].id
+      # last_item_id = repo.all[-1].id
+      # expected = last_item_id - second_to_last_item_id
+      # expect(expected).to eq(1)
+      expect(repo.all.last.id).to eq(263567475)
     end
 
+    it 'can update existing item' do
+      repo.update(263567474, attributes)
+      expected = repo.find_by_id(263567474)
+      expect(expected.name).to eq("Pencil")
+      expect(expected.updated_at).not_to eq(expected.created_at)
+    end
 
+    it 'can delete item' do
+      repo.delete(263567474)
+      expected = repo.find_by_id(263567474)
+      expect(expected).to eq(nil)
+    end
   end
 end

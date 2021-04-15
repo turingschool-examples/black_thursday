@@ -1,4 +1,7 @@
+require_relative '../lib/sales_engine'
 require_relative '../lib/item'
+require 'bigdecimal/util'
+
 class ItemRepository
 
   def initialize(parsed_data)
@@ -39,7 +42,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items_array.find_all do |item|
-      item.unit_price == price
+      item.unit_price_to_dollars == price
     end
   end
 
@@ -56,13 +59,25 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_item = Item.new(attributes)
     max_id = @items_array.max_by do |item|
       item.id
     end.id
+    new_item = Item.new(attributes)
     new_item.id = max_id + 1
     @items_array << new_item
   end
 
+  def update(id, attributes)
+    target = find_by_id(id)
+    target.name = attributes[:name]
+    target.description = attributes[:description]
+    target.unit_price = attributes[:unit_price]
+    target.updated_at = Time.now
+  end
+
+  def delete(id)
+    target = find_by_id(id)
+    @items_array.delete(target)
+  end
 
 end

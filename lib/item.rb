@@ -1,12 +1,15 @@
+require_relative '../lib/sales_engine'
+require_relative '../lib/item_repository'
+require 'bigdecimal/util'
 
 class Item
-  attr_reader :name,
-              :description,
-              :unit_price,
-              :created_at,
-              :updated_at,
+attr_reader  :created_at,
               :merchant_id
-  attr_accessor :id
+attr_accessor :id,
+              :updated_at,
+              :name,
+              :description,
+              :unit_price
 
   def initialize(info_hash)
     @id = info_hash[:id].to_i
@@ -19,7 +22,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    (@unit_price / 100).round(2)
+    (@unit_price.to_f / 100).round(4)
   end
 
 end
