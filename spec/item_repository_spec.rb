@@ -19,7 +19,7 @@ describe ItemRepository do
     it 'has an items array' do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.items_as_hash)
       item_repository = ItemRepository.new('fake.csv')
-      
+
       expect(item_repository.items).is_a? Array
     end
   end
@@ -199,17 +199,31 @@ describe ItemRepository do
 
   describe '#update_id_and_attributes' do
     it 'updates the item with new attributes' do
-      filename = "./data/items.csv"
-      item_repository = ItemRepository.new(filename)
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
+      item_repository = ItemRepository.new('fake.csv')
+      new_item = {
+        id: nil,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 2
+      }
+
+      item_repository.create(new_item)
 
       attributes = {
         name: 'Pen',
         description: 'Writes with ink',
         unit_price: BigDecimal(12.99, 4)
       }
-      item_repository.update(263567474, attributes)
-      
-      expected = item_repository.find_by_id(263567474)
+
+      item_repository.update(10, attributes)
+
+      expected = item_repository.find_by_id(10)
       expect(expected.name).to eq 'Pen'
       expect(expected.description).to eq 'Writes with ink'
       expect(expected.unit_price).to eq BigDecimal(12.99, 4)
