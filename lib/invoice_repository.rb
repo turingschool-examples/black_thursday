@@ -68,7 +68,7 @@ class InvoiceRepository
     invoice_to_update.update_time_stamp
   end
 
-#   def delete(id)
-#     items.delete(find_by_id(id))
-#   end
+  def delete(id)
+    invoices.delete(find_by_id(id))
+  end
 end

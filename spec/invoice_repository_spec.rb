@@ -157,12 +157,12 @@ RSpec.describe InvoiceRepository do
       expect(test_invoice.updated_at.year).to eq(2021)
     end
   end
-#   describe '#delete' do
-#     it 'delete a specified item from the items array' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-#       ir.delete(263567292)
-#       expect(ir.items.count).to eq(1366)
-#     end
-#   end
+  describe '#delete' do
+    it 'delete a specified invoice from the invoices array' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      ir.delete(1)
+      expect(ir.invoices.count).to eq(4984)
+    end
+  end
 end
