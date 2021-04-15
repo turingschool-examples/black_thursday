@@ -89,6 +89,12 @@ describe MockData do
       expect(first_item_hash[:created_at]).to match /\d{4}-\d{2}-\d{2}/
       expect(first_item_hash[:updated_at]).to match /\d{4}-\d{2}-\d{2}/
     end
+    it 'returns mock data of items with given number_of_merchants' do
+      items_as_hash = MockData.items_as_hash(number_of_mocks: 2, number_of_merchants: 1)
+      
+      expect(items_as_hash.first[:merchant_id]).to eq 0
+      expect(items_as_hash.last[:merchant_id]).to eq 0
+    end
   end
 
   describe '#get_a_random_price' do
