@@ -23,61 +23,74 @@ RSpec.describe MerchantRepo do
 
     it '#all' do
       merchant_repo = MerchantRepo.new
-      merchant_repo.populate_information
 
-      expect(merchant_repo.all.length).to eq(475)
-      # Is it acceptable to be testing this?
       expect(merchant_repo.all).to be_an_instance_of(Array)
+    end
 
+    it 'can add a merchant' do
+      merchant_repo = MerchantRepo.new
+      merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+
+      expect(merchant_repo.find_by_id(5)).to eq(nil)
+      merchant_repo.add_merchant(merchant1)
+      expect(merchant_repo.find_by_id(5)).to eq(merchant1)
     end
 
     it '#find merchant by ID' do
       merchant_repo = MerchantRepo.new
-      merchant_repo.populate_information
-      merchant_repo.all
+      merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+      merchant_repo.add_merchant(merchant1)
 
-      #consider alternative assertion
-      expect(merchant_repo.find_by_id("12334105").name).to eq("Shopin1901")
-      expect(merchant_repo.find_by_id("999999999")).to eq(nil)
+      expect(merchant_repo.find_by_id(5)).to eq(merchant1)
+      expect(merchant_repo.find_by_id(999999999)).to eq(nil)
     end
 
     it '#find merchant by name' do
       merchant_repo = MerchantRepo.new
       merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
-      # merchant_repo.populate_information
-      # merchant_repo.all
-
       merchant_repo.add_merchant(merchant1)
-      # require "pry"; binding.pry
-      expect(merchant_repo.find_by_name("Turing School")).to eq(merchant1)
 
-      # expect(merchant_repo.find_by_name("Shopin1901").id).to eq("12334105")
+      expect(merchant_repo.find_by_name("Turing School")).to eq(merchant1)
       expect(merchant_repo.find_by_name("Hogwarts School")).to eq(nil)
     end
 
     it '#find all merchants by name' do
       merchant_repo = MerchantRepo.new
-      merchant_repo.populate_information
-      merchant_repo.all
-      # require "pry"; binding.pry
+      merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+      merchant_repo.add_merchant(merchant1)
+
+      expect(merchant_repo.find_by_name("Turing School")).to eq(merchant1)
       expect(merchant_repo.find_all_by_name("Hogwar")).to eq([])
-      expect(merchant_repo.find_all_by_name("gem").length).to eq(5)
     end
 
-    xit '#create merchant' do
+    it '#create merchant' do
       merchant_repo = MerchantRepo.new
+      merchant1 = {:id => 5, :name => "Turing School"}
       merchant_repo.populate_information
       merchant_repo.all
 
-      expect(merchant_repo.create()).to eq(5)
+      expect(merchant_repo.create(merchant1)).to be_an_instance_of(Merchant)
     end
 
-    xit '#delete merchant' do
+    it 'updates attributes' do
       merchant_repo = MerchantRepo.new
-      merchant_repo.populate_information
-      merchant_repo.all
+      merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+      merchant_repo.add_merchant(merchant1)
 
-      expect(merchant_repo.create()).to eq(5)
+      updated_attributes = {:name => "School of Life"}
+
+      merchant_repo.update(5, updated_attributes)
+      expect(merchant1.name).to eq("School of Life")
+    end
+
+    it '#delete merchant' do
+      merchant_repo = MerchantRepo.new
+      merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
+      merchant_repo.add_merchant(merchant1)
+
+      expect(merchant_repo.find_by_id(5)).to eq(merchant1)
+      merchant_repo.delete(5)
+      expect(merchant_repo.find_by_id(5)).to eq(nil)
     end
   end
 end
