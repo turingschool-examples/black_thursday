@@ -52,10 +52,10 @@ class ItemRepository < Repository
       id: max_id_number_new,
       name: item_hash[:name],
       description: item_hash[:description],
-      unit_price: item_hash[:unit_price],
+      unit_price: BigDecimal(item_hash[:unit_price], 2),
       created_at: Time.now.to_s,
       updated_at: Time.new.to_s,
-      merchant_id: item_hash[:merchant_id]
+      merchant_id: item_hash[:merchant_id].to_i
     }
     Item.new(attributes, self)
   end

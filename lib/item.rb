@@ -10,17 +10,17 @@ class Item
               :merchant_id
 
   def initialize(item_info, repository)
-    @id = item_info[:id]
+    @id = item_info[:id].to_i
     @name = item_info[:name]
     @description = item_info[:description]
-    @unit_price = item_info[:unit_price]
+    @unit_price = BigDecimal(item_info[:unit_price], 2)
     @created_at = item_info[:created_at]
     @updated_at = item_info[:updated_at]
-    @merchant_id = item_info[:merchant_id]
+    @merchant_id = item_info[:merchant_id].to_i
     @repository = repository
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f.round(2)
+    @unit_price
   end
 end
