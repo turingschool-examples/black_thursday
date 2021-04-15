@@ -3,11 +3,11 @@ require './lib/merchant'
 
 RSpec.describe Merchant do
   it 'exists' do
-    m = Merchant.new({ id: 5,
-                       name: 'Turing School',
-                       repository: 'repository',
-                       created_at: Time.now,
-                       updated_at: Time.now})
+    m = Merchant.new( id: 5,
+                      name: 'Turing School',
+                      repository: 'repository',
+                      created_at: Time.now,
+                      updated_at: Time.now )
 
     expect(m).to be_instance_of(Merchant)
   end
