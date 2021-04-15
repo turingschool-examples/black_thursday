@@ -9,7 +9,6 @@ class ItemRepository
 
   def create_items(filename)
     FileIo.process_csv(filename, Item)
- 
   end
 
   def all
