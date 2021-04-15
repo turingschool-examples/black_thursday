@@ -10,6 +10,7 @@
           1,
           1,
           1,
+          1,
           null,
           null,
           1,
@@ -189,6 +190,7 @@
       },
       "/Users/rcasias/turing-mod1/projects/black_thursday/lib/items_repo.rb": {
         "lines": [
+          1,
           1,
           1,
           1,
@@ -613,6 +615,6 @@
         ]
       }
     },
-    "timestamp": 1618519336
+    "timestamp": 1618521531
   }
 }

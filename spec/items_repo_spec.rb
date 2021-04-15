@@ -1,5 +1,6 @@
 require 'rspec'
 require 'bigdecimal'
+require 'time'
 require './lib/sales_engine'
 require './lib/items'
 require './lib/items_repo'
