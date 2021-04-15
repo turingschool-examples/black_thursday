@@ -28,4 +28,16 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_items_per_merchant).to eq(0.75)
     end
   end
+
+  describe '#average_items_per_merchant_standard_deviation' do
+    it 'can find the average item per merchant standard deviation' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv'
+      })
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.50)
+    end
+  end
 end
