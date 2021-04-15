@@ -12,8 +12,8 @@ RSpec.describe Item do
       created_at: Time.now,
       updated_at: Time.now,
       merchant_id: 2
-    },
-    'repository'
+      },
+      'repository'
     )
     it 'exists' do
       expect(i).to be_an_instance_of(Item)
