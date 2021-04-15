@@ -1,4 +1,6 @@
 require 'CSV'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item_repository'
 
 class SalesEngine
   attr_reader :merchants, :items
@@ -8,7 +10,7 @@ class SalesEngine
   end
 
   def self.from_csv(csv_data)
-    SalesEngine.new(csv_data)
+     SalesEngine.new(csv_data)
   end
 
   def self.parse_csv(path)

@@ -1,7 +1,12 @@
+require_relative '../lib/item'
 class ItemRepository
 
   def initialize(parsed_data)
     create_items(parsed_data)
+  end
+  #add so spec harness would run successfully.
+  def inspect
+  "#<#{self.class} #{@items_array.size} rows>"
   end
 
   def create_items(parsed_data)
