@@ -22,7 +22,7 @@ class Item
   end
 
   def unit_price
-    @cent_price/100
+    @cent_price / 100
   end
 
   def unit_price_to_dollars
