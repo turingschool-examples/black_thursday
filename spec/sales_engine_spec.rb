@@ -14,6 +14,9 @@ RSpec.describe SalesEngine do
     end
     it 'creates an ItemRepository' do
         expect(@se.items).to be_instance_of(ItemRepository)
+    end    
+    it 'creates an InvoiceRepository' do
+        expect(@se.invoices).to be_instance_of(InvoiceRepository)
     end
   end
 end
