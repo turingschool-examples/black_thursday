@@ -1,6 +1,6 @@
 require 'csv'
-require_relative './merchant'
-require_relative './repository'
+require_relative 'merchant'
+require_relative 'repository'
 
 # silent hound
 class MerchantRepository < Repository
@@ -35,5 +35,9 @@ class MerchantRepository < Repository
     new = find_by_id(id)
 
     new.name = name
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

@@ -1,4 +1,4 @@
-require './merchant_repository'
+require_relative 'merchant_repository'
 # silence hound
 class Merchant
   attr_reader :id,

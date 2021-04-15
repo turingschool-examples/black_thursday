@@ -1,6 +1,6 @@
 require 'csv'
-require_relative './repository'
-require_relative './item'
+require_relative 'repository'
+require_relative 'item'
 
 # Basic ItemRepository class
 class ItemRepository < Repository
@@ -69,5 +69,9 @@ class ItemRepository < Repository
     elsif !attributes[:unit_price].nil?
       update_instance.unit_price = attributes[:unit_price]
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
