@@ -44,20 +44,22 @@ class SalesAnalyst
     items_by_merchant_array = @engine.items.find_all_by_merchant_id(id)
     test = items_by_merchant_array.sum do |item|
       item.unit_price
-    end.fdiv(items_by_merchant_array.length)
+    end / (items_by_merchant_array.length)
     test.round(2)
   end
 
   def average_average_price_per_merchant
-    @engine.merchants.all.sum do |merchant|
+    test = @engine.merchants.all.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.fdiv(@engine.merchants.all.length).round(2)
+    end / (@engine.merchants.all.length)
+    test.round(2)
   end
 
   def average_item_price
-    @engine.items.all.sum do |item|
+    test = @engine.items.all.sum do |item|
       item.unit_price
-    end.fdiv(@engine.items.all.length).round(2)
+    end / (@engine.items.all.length)
+    test.round(2)
   end
 
   def item_price_standard_deviation
@@ -65,7 +67,7 @@ class SalesAnalyst
     denominator = @engine.items.all.sum do |item|
       (item.unit_price - item_average)**2
     end
-    (denominator.fdiv(@engine.items.all.length - 1)**0.5).round(2)
+    ((denominator / (@engine.items.all.length - 1))**0.5).round(2)
   end
 
   def golden_items

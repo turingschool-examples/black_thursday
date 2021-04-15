@@ -8,7 +8,7 @@ RSpec.describe Item do
       id: 1,
       name: 'Pencil',
       description: 'You can use it to write things',
-      unit_price: BigDecimal(10.99, 4),
+      cent_price: 1099,
       created_at: Time.now.to_s,
       updated_at: Time.now.to_s,
       merchant_id: 2,
@@ -23,7 +23,7 @@ RSpec.describe Item do
       id: 1,
       name: 'Pencil',
       description: 'You can use it to write things',
-      unit_price: BigDecimal(10.99, 4),
+      cent_price: 1099,
       created_at: Time.now.to_s,
       updated_at: Time.now.to_s,
       merchant_id: 2,
@@ -39,7 +39,7 @@ RSpec.describe Item do
       expect(i.description).to eq('You can use it to write things')
     end
     it 'has a unit price' do
-      expect(i.unit_price).to eq(BigDecimal(10.99, 4))
+      expect(i.unit_price).to eq(10.99)
     end
     it 'has a merchant id' do
       expect(i.merchant_id).to eq(2)
@@ -54,7 +54,7 @@ RSpec.describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        cent_price: 1099,
         created_at: Time.now.to_s,
         updated_at: Time.now.to_s,
         merchant_id: 2,
@@ -70,9 +70,9 @@ RSpec.describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        cent_price: 1099,
         created_at: Time.now.to_s,
-        updated_at: Time.now.to_s,
+        updated_at: '12:58',
         merchant_id: 2,
         repository: 'repository'
       )
@@ -84,7 +84,7 @@ RSpec.describe Item do
       id: 1,
       name: 'Pencil',
       description: 'You can use it to write things',
-      unit_price: BigDecimal(10.99, 4),
+      cent_price: 1099,
       created_at: Time.now.to_s,
       updated_at: Time.now.to_s,
       merchant_id: 2,

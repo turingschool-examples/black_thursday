@@ -16,7 +16,7 @@ class ItemRepository < Repository
       @csv_array << Item.new( id: item[0],
                               name: item[1],
                               description: item[2],
-                              unit_price: item[3],
+                              cent_price: item[3],
                               created_at: item[5],
                               updated_at: item[6],
                               merchant_id: item[4],
@@ -53,9 +53,9 @@ class ItemRepository < Repository
       id: max_id_number_new,
       name: item_hash[:name],
       description: item_hash[:description],
-      unit_price: BigDecimal(item_hash[:unit_price], 2),
-      created_at: Time.now.to_s,
-      updated_at: Time.new.to_s,
+      cent_price: item_hash[:unit_price]*100,
+      created_at: Time.now,
+      updated_at: Time.now,
       merchant_id: item_hash[:merchant_id].to_i,
       repository: self
     }
@@ -74,7 +74,7 @@ class ItemRepository < Repository
       update_instance.description = attributes[:description]
       update_instance.updated_at =Time.now.to_s
     elsif !attributes[:unit_price].nil?
-      update_instance.unit_price = BigDecimal(attributes[:unit_price])
+      update_instance.cent_price = BigDecimal(attributes[:unit_price]*100, 10)
       update_instance.updated_at =Time.now.to_s
     end
   end

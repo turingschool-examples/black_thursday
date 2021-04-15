@@ -110,7 +110,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.find_all_by_price(4000.00)[2].name).to eq('Manchette cuir Galet')
+      expect(ir.find_all_by_price(40.00)[2].name).to eq('Manchette cuir Galet')
     end
     it 'returns an empty array if no items are found' do
       se = SalesEngine.from_csv(
@@ -154,7 +154,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      actual = ir.find_all_by_price_in_range(100..1000)[5].name
+      actual = ir.find_all_by_price_in_range(1.00..10.00)[5].name
       expected = 'Two tone blue stoneware pot'
 
       expect(actual).to eq(expected)
@@ -232,7 +232,7 @@ RSpec.describe 'ItemRepository' do
       ir = se.items
       ir.update(263430973, name: 'Basket #18909',
                              description: 'A basket',
-                             unit_price: 200)
+                             unit_price: 2.00)
 
       expect(ir.find_by_id(263430973).name).to eq('Basket #18909')
     end
