@@ -5,6 +5,7 @@ require 'bigdecimal'
 require './lib/item'
 require './lib/item_repository'
 require './lib/file_io'
+require './data/mock_data'
 
 describe ItemRepository do
   describe '#initialize' do
@@ -26,11 +27,11 @@ describe ItemRepository do
   describe '#all' do
     it 'returns a list of all items' do
       filename = "./data/items.csv"
-      # allow_any_instance_of(ItemRepository).to receive(:create_items).and_return {MockData.get_mock_items}
-# require 'pry'; binding.pry 
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.get_mock_items)
+
       item_repository = ItemRepository.new(filename)
 
-      expect(item_repository.all.length).to eq 1367
+      expect(item_repository.all.length).to eq 10
       expect(item_repository.all).is_a? Array
     end
   end
