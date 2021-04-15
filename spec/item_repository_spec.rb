@@ -197,7 +197,7 @@ describe ItemRepository do
     end
   end
 
-  describe '#update_id_and_attributes' do
+  describe '#update' do
     it 'updates the item with new attributes' do
       details = MockData.items_as_hash
       mock_data = MockData.items_as_mocks(details) {self}
@@ -229,29 +229,34 @@ describe ItemRepository do
       expect(expected.unit_price).to eq BigDecimal(12.99, 4)
     end
 
-  #   it 'updates the item with new time' do
-  #     details1 = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.new(2021, 0o1, 0o2),
-  #       merchant_id: 2
-  #     }
-  #     item1 = Item.new(details1)
-  #     item_repository = ItemRepository.new([item1])
+    it 'updates the item with new time' do
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
+      item_repository = ItemRepository.new('fake.csv')
+      new_item = {
+        id: nil,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.new(2021, 0o1, 0o2),
+        merchant_id: 2
+      }
+      item_repository.create(new_item)
 
-  #     attributes = {
-  #       name: 'Pen',
-  #       description: 'Writes with ink',
-  #       unit_price: BigDecimal(12.99, 4)
-  #     }
-  #     item_repository.update(1, attributes)
 
-  #     expect(item1.updated_at).is_a? Time
-  #     expect(item1.updated_at).not_to eq Time.new(2021, 0o1, 0o2)
-  #   end
+      attributes = {
+        name: 'Pen',
+        description: 'Writes with ink',
+        unit_price: BigDecimal(12.99, 4)
+      }
+      item_repository.update(10, attributes)
+      item = item_repository.find_by_id(10)
+
+      expect(item.updated_at).is_a? Time
+      expect(item.updated_at).not_to eq Time.new(2021, 0o1, 0o2)
+    end
   end
 
   # describe '#delete' do
