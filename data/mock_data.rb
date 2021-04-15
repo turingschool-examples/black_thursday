@@ -20,13 +20,12 @@ class MockData
     merchant_hashes.each do |merchant_hash|
       raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
       eg = yield
-      merchant_mock = eg.instance_double('Merchant Mock')
-      eg.allow(merchant_mock).to eg.receive(:name).and_return(merchant_hash[:name])
-      eg.allow(merchant_mock).to eg.receive(:id).and_return(merchant_hash[:id])
-
-      eg.allow(merchant_mock).to eg.receive(:created_at).and_return(merchant_hash[:created_at])
-      eg.allow(merchant_mock).to eg.receive(:updated_at).and_return(merchant_hash[:updated_at])
-
+      merchant_mock = eg.instance_double('Merchant',
+        name: item_hash[:name],
+        id: item_hash[:id],
+        created_at: item_hash[:created_at],
+        updated_at: item_hash[:updated_at]
+      )
       mocked_merchants << merchant_mock
     end
     mocked_merchants
@@ -57,18 +56,15 @@ class MockData
     item_hashes.each do |item_hash|
       raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
       eg = yield
-      item = eg.instance_double('Item Mock')
-      eg.allow(item).to eg.receive(:name).and_return(item_hash[:name])
-      eg.allow(item).to eg.receive(:id).and_return(item_hash[:id])
-
-      eg.allow(item).to eg.receive(:unit_price).and_return(item_hash[:unit_price])
-
-      eg.allow(item).to eg.receive(:description).and_return(item_hash[:description])
-      eg.allow(item).to eg.receive(:merchant_id).and_return(item_hash[:merchant_id])
-
-      eg.allow(item).to eg.receive(:created_at).and_return(item_hash[:created_at])
-      eg.allow(item).to eg.receive(:updated_at).and_return(item_hash[:updated_at])
-
+      item = eg.instance_double('Item',
+        name: item_hash[:name],
+        id: item_hash[:id],
+        unit_price: item_hash[:unit_price],
+        description: item_hash[:description],
+        merchant_id: item_hash[:merchant_id],
+        created_at: item_hash[:created_at],
+        updated_at: item_hash[:updated_at]
+      )
       mocked_items << item
     end
     mocked_items
