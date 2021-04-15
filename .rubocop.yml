@@ -9,7 +9,7 @@ Style/Documentation:
   Enabled: false
 Metrics/BlockLength:
   Max: 150
-Layout/LineLength:
+Metrics/LineLength:
   Max: 100
 Style/WordArray:
   Enabled: false
