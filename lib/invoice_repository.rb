@@ -125,4 +125,10 @@ class InvoiceRepository
       end
     end
   end
+
+  def invoices_per_merchant
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+      hash[invoice.merchant_id] += 1
+    end
+  end
 end

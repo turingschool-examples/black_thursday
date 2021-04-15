@@ -245,4 +245,13 @@ RSpec.describe InvoiceRepository do
       expect(ir.top_sales_days).to eq(["wednesday"])
     end
   end
+
+  describe '#invoices_per_merchant' do
+    it 'shows invoices by merchant' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.invoices_per_merchant.keys.count).to eq(475)
+    end
+  end
 end
