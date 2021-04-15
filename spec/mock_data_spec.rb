@@ -36,6 +36,21 @@ describe MockData do
     end
   end
 
+  describe '#invoices_as_mocks' do
+    it 'returns mock data of invoices' do
+      invoice_hashs = MockData.invoices_as_hash(number_of_mocks: 2)
+      invoices_as_mocks = MockData.invoices_as_mocks(invoice_hashs) { self }
+      mocked_invoice = invoices_as_mocks.first
+      
+      expect(invoices_as_mocks.length).to eq 2
+      expect(mocked_invoice.id).to eq 0
+      expect(mocked_invoice.merchant_id).to be_instance_of Integer
+      expect(mocked_invoice.customer_id).to be_instance_of Integer
+      expect(mocked_invoice.created_at).to match(/\d{4}-\d{2}-\d{2}/)
+      expect(mocked_invoice.updated_at).to match(/\d{4}-\d{2}-\d{2}/)
+    end
+  end
+
   describe '#get_a_random_status' do
     it 'returns a random status' do
       actual_status = MockData.get_a_random_status
