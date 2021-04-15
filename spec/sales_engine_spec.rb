@@ -5,7 +5,10 @@ require './lib/item_repository'
 
 RSpec.describe SalesEngine do
   before do
-    @se = SalesEngine.from_csv()
+    @se = SalesEngine.from_csv({
+      items: './data/items.csv',
+      merchants: './data/merchants.csv'
+    })
   end
 
   describe '#initialize' do

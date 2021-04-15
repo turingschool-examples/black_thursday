@@ -43,7 +43,7 @@ RSpec.describe ItemRepository do
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
         updated_at:   '1993-09-29 11:56:40 UTC'
-        }, 
+        },
         ir)
       ir.items << test_item
       expect(ir.find_by_id(1)).to eq(test_item)
@@ -96,14 +96,14 @@ RSpec.describe ItemRepository do
         id:           '1',
         name:         'Cool Stuff',
         description:  'supaaa cool',
-        unit_price:   '1357',
+        unit_price:   '12365451',
         merchant_id:  '12334185',
         created_at:   '2016-01-11 11:51:37 UTC',
         updated_at:   '1993-09-29 11:56:40 UTC'
         },
         ir)
       ir.items << test_item
-      price_1 = BigDecimal(1357)
+      price_1 = BigDecimal(12365451) / 100
       price_2 = BigDecimal(7541234541)
       expect(ir.find_all_by_price(price_1)).to eq([test_item])
       expect(ir.find_all_by_price(7541234541)).to eq([])
@@ -125,8 +125,8 @@ RSpec.describe ItemRepository do
         ir)
       ir.items << test_item
       range1 = (1000.00..1500.00)
-      range2 = (1..2)
-      expect(ir.find_all_by_price_in_range(range1).count).to eq(206)
+      range2 = (154503..245754)
+      expect(ir.find_all_by_price_in_range(range1).count).to eq(19)
       expect(ir.find_all_by_price_in_range(range2)).to eq([])
     end
   end
@@ -186,12 +186,30 @@ RSpec.describe ItemRepository do
       ir.update(263567292, attributes)
       expect(test_item.name).to eq('Cool Stuff')
       expect(test_item.description).to eq('supaaa cool')
-      expect(test_item.unit_price).to eq(BigDecimal(1357))
+      expect(test_item.unit_price).to eq(0.1357e2)
       expect(test_item.merchant_id).to eq(12336050)
       expect(test_item.created_at.year).to eq(2016)
       expect(test_item.updated_at.year).to eq(2021)
     end
   end
+
+  describe '#variable_assigner' do
+    it 'it updates name, description and/or unit price of an item' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+      attributes = {
+        name:         'Cool Stuff',
+        description:  'supaaa cool',
+        unit_price:   '1357'
+      }
+      test_item = ir.find_by_id(263567292)
+      ir.variable_assigner(attributes, test_item)
+      expect(test_item.name).to eq('Cool Stuff')
+      expect(test_item.description).to eq('supaaa cool')
+      expect(test_item.unit_price).to eq('1357')     
+    end
+  end
+
   describe '#delete' do
     it 'delete a specified item from the items array' do
       mock_sales_engine = instance_double('SalesEngine')
