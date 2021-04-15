@@ -58,7 +58,7 @@ class SalesAnalyst
   def average_item_price
     test = @engine.items.all.sum do |item|
       item.unit_price
-    end / (@engine.items.all.length)
+    end / @engine.items.all.length
     test.round(2)
   end
 
