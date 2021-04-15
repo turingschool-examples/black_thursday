@@ -1,4 +1,4 @@
-require_relative '../lib/sales_engine'
+require_relative 'sales_engine'
 
 
 # This tests the SalesEngine class

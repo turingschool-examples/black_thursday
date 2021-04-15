@@ -1,6 +1,6 @@
-require_relative 'csv'
-require_realative './lib/sales_engine'
-require_relative './lib/repository'
+require 'csv'
+require_realative 'sales_engine'
+require_relative 'repository'
 
 RSpec.describe Repository do
   describe 'Instance' do
