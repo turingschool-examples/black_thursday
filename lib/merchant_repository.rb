@@ -9,7 +9,7 @@ class MerchantRepository
   def inspect
   "#<#{self.class} #{@merchants.size} rows>"
   end
-  
+
   def create_merchants(parsed_data)
      parsed_data.map do |merchant|
       Merchant.new(merchant)
@@ -35,7 +35,7 @@ class MerchantRepository
   def find_all_by_name(name)
     full_names = []
     @merchants.each do |merchant|
-      if merchant.name.include?(name)
+      if merchant.name.downcase.include?(name.downcase)
         full_names.push(merchant)
       end
     end
