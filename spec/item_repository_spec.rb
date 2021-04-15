@@ -230,9 +230,12 @@ RSpec.describe 'ItemRepository' do
       )
 
       ir = se.items
-      ir.update(263430973, name: 'Basket #18909',
-                             description: 'A basket',
-                             unit_price: 2.00)
+      ir.update(
+        263430973,
+        name: 'Basket #18909',
+        description: 'A basket',
+        unit_price: 2.00
+      )
 
       expect(ir.find_by_id(263430973).name).to eq('Basket #18909')
     end
