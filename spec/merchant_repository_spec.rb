@@ -64,10 +64,18 @@ RSpec.describe MerchantRepository do
     end
 
     it 'can update existing merchant' do
-      attributes = { :id => 5, :name => "Turing School" }
-      merch_rep.update(12334112, attributes)
-      targeted_merchant = merch_rep.find_by_id(12334112)
-      expect(targeted_merchant.name).to eq("Turing School")
+      # attributes = { :id => 5, :name => "Turing School" }
+      # merch_rep.update(12334112, attributes)
+      # targeted_merchant = merch_rep.find_by_id(12334112)
+      # expect(targeted_merchant.name).to eq("Turing School")
+      attributes = {
+      name: "TSSD"
+      }
+      merch_rep.update(12337412, attributes)
+      expected = merch_rep.find_by_id(12337412)
+      expect(expected.name).to eq "TSSD"
+      expected = merch_rep.find_by_name("Turing School of Software and Design")
+    expect(expected).to eq nil
     end
 
     it 'can delete merchant' do
