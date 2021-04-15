@@ -1,6 +1,13 @@
 require './lib/sales_analyst'
 
 RSpec.describe 'SalesAnalyst' do
+  before :all do
+    se = SalesEngine.from_csv(
+      items: './data/items.csv',
+      merchants: './data/merchants.csv'
+    )
+    sa = se.analyst
+  end
   describe '#initialize' do
     it 'creates an instance of SalesAnalyst' do
       se = SalesEngine.from_csv(
@@ -51,7 +58,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.merchants_with_high_item_count[0].id).to eq('12334123')
+      expect(sa.merchants_with_high_item_count[0].id).to eq(12334123)
     end
   end
   describe '#average_item_price_for_merchant' do
@@ -62,7 +69,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.average_item_price_for_merchant('12334159')).to eq(3_150.00)
+      expect(sa.average_item_price_for_merchant(12334159)).to eq(31.50)
     end
   end
   describe '#average_average_price_per_merchant' do
@@ -73,7 +80,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.average_average_price_per_merchant).to eq(35_029.47)
+      expect(sa.average_average_price_per_merchant).to eq(350.29)
     end
   end
   describe '#average_item_price' do
@@ -84,7 +91,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.average_item_price).to eq(25_105.51)
+      expect(sa.average_item_price).to eq(BigDecimal(251.06, 10))
     end
   end
   describe '#item_price_standard_deviation' do
@@ -95,7 +102,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.item_price_standard_deviation).to eq(290_099.00)
+      expect(sa.item_price_standard_deviation).to eq(2_900.99)
     end
   end
   describe '#golden_items' do

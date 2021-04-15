@@ -13,10 +13,11 @@ class MerchantRepository < Repository
   def all_merchants
     @csv_array = []
     CSV.parse(File.read(@location_hash[:merchants]), headers: true).each do |merchant|
-      @csv_array << Merchant.new({ id: merchant[0],
-                                   name: merchant[1],
-                                   created_at: merchant[2],
-                                   updated_at: merchant[3] }, self)
+      @csv_array << Merchant.new(id: merchant[0],
+                                 name: merchant[1],
+                                 created_at: Time.parse(merchant[2]),
+                                 updated_at: Time.parse(merchant[3]),
+                                 repository: self)
     end
   end
 
@@ -26,15 +27,24 @@ class MerchantRepository < Repository
     end
   end
 
-  def create(name)
-    Merchant.new({ id: max_id_number_new,
-                   name: name }, self)
+  def create(attributes)
+    merchant_new = Merchant.new(id: max_id_number_new,
+                                name: attributes[:name],
+                                created_at: Time.now,
+                                updated_at: Time.now,
+                                repository: self)
+    @csv_array << merchant_new
+    merchant_new
   end
 
-  def update(id, name)
+  def update(id, name_hash)
     new = find_by_id(id)
-
-    new.name = name
+    if new.nil?
+      nil
+    else
+      new.name = name_hash[:name]
+      new.updated_at = Time.now
+    end
   end
 
   def inspect

@@ -44,7 +44,7 @@ RSpec.describe 'ItemRepository' do
 
      ir = se.items
 
-      expect(ir.find_by_id('263397919').name).to eq('Le câlin')
+      expect(ir.find_by_id(263397919).name).to eq('Le câlin')
     end
     it 'returns nil if no item has matching id' do
       se = SalesEngine.from_csv(
@@ -54,7 +54,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.find_by_id('123')).to eq(nil)
+      expect(ir.find_by_id(123)).to eq(nil)
     end
   end
   describe '#find_by_name' do
@@ -66,7 +66,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.find_by_name('Les raisons').id).to eq('263398653')
+      expect(ir.find_by_name('Les raisons').id).to eq(263398653)
     end
     it 'returns nil if the name is not found' do
       se = SalesEngine.from_csv(
@@ -110,7 +110,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.find_all_by_price('4000')[2].name).to eq('Manchette cuir Galet')
+      expect(ir.find_all_by_price(40.00)[2].name).to eq('Manchette cuir Galet')
     end
     it 'returns an empty array if no items are found' do
       se = SalesEngine.from_csv(
@@ -120,9 +120,31 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.find_all_by_price('0000000')).to eq([])
+      expect(ir.find_all_by_price(-123.45)).to eq([])
     end
   end
+  # describe '#find_all_by_price_in_range' do
+  #   it 'returns an array of all items with a price found in the range' do
+  #     se = SalesEngine.from_csv(
+  #       items: './data/items.csv',
+  #       merchants: './data/merchants.csv'
+  #     )
+  #
+  #     ir = se.items
+  #
+  #   expect(ir.find_all_by_price_in_range(100..1000)[5].name).to eq('Two tone blue stoneware pot')
+  #   end
+  #   it 'returns an empty array when no items are found' do
+  #     se = SalesEngine.from_csv(
+  #       items: './data/items.csv',
+  #       merchants: './data/merchants.csv'
+  #     )
+  #
+  #     ir = se.items
+  #
+  #     expect(ir.find_all_by_price_in_range(-3..-1)).to eq([])
+  #   end
+  # end
   describe '#find_all_by_price_in_range' do
     it 'returns an array of all items with a price found in the range' do
       se = SalesEngine.from_csv(
@@ -132,29 +154,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-    expect(ir.find_all_by_price_in_range('100'..'1000')[5].name).to eq('Two tone blue stoneware pot')
-    end
-    it 'returns an empty array when no items are found' do
-      se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv'
-      )
-
-      ir = se.items
-
-      expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
-    end
-  end
-  describe '#find_all_by_price_in_range' do
-    it 'returns an array of all items with a price found in the range' do
-      se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv'
-      )
-
-      ir = se.items
-
-      actual = ir.find_all_by_price_in_range('100'..'1000')[5].name
+      actual = ir.find_all_by_price_in_range(1.00..10.00)[5].name
       expected = 'Two tone blue stoneware pot'
 
       expect(actual).to eq(expected)
@@ -167,7 +167,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.find_all_by_price_in_range('-3'..'-1')).to eq([])
+      expect(ir.find_all_by_price_in_range(-3..-1)).to eq([])
     end
   end
   describe '#find_all_by_merchant_id' do
@@ -179,7 +179,7 @@ RSpec.describe 'ItemRepository' do
 
         ir = se.items
 
-        expect(ir.find_all_by_merchant_id('12334951')[0].name).to eq('The Contender')
+        expect(ir.find_all_by_merchant_id(12334951)[0].name).to eq('The Contender')
       end
       it 'returns an empty array when no merchants are found' do
         se = SalesEngine.from_csv(
@@ -189,11 +189,11 @@ RSpec.describe 'ItemRepository' do
 
         ir = se.items
 
-        expect(ir.find_all_by_merchant_id('1010101001010101')).to eq([])
+        expect(ir.find_all_by_merchant_id(1010101001010101)).to eq([])
       end
   end
   describe '#max_id_number_new' do
-    it 'returns an id number string one larger than the previous max' do
+    it 'returns an id number one larger than the previous max' do
       se = SalesEngine.from_csv(
         items:  './data/items.csv',
         merchants: './data/merchants.csv'
@@ -201,7 +201,7 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.max_id_number_new).to eq('263567475')
+      expect(ir.max_id_number_new).to eq(263567475)
     end
   end
   describe '#create' do
@@ -215,7 +215,7 @@ RSpec.describe 'ItemRepository' do
       item = ir.create(
         name:         'Pencil',
         description:  'You can use it to write things',
-        unit_price:    BigDecimal(10.99, 4),
+        unit_price:    10.99,
         merchant_id:   2
         )
 
@@ -230,11 +230,14 @@ RSpec.describe 'ItemRepository' do
       )
 
       ir = se.items
-      ir.update('263430973', name: 'Basket #18909',
-                             description: 'A basket',
-                             unit_price: '200')
+      ir.update(
+        263430973,
+        name: 'Basket #18909',
+        description: 'A basket',
+        unit_price: 2.00
+      )
 
-      expect(ir.find_by_id('263430973').name).to eq('Basket #18909')
+      expect(ir.find_by_id(263430973).name).to eq('Basket #18909')
     end
   end
 end

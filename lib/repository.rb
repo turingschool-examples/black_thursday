@@ -24,7 +24,7 @@ class Repository
     old_max = @csv_array.max_by do |item|
       item.id
     end.id
-    (old_max.to_i + 1).to_s
+    (old_max + 1)
   end
 
   def delete(id)

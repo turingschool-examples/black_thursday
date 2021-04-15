@@ -24,7 +24,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      expect(mr.all[0].id).to eq('12334105')
+      expect(mr.all[0].id).to eq(12334105)
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      expect(mr.find_by_id('12335573').name).to eq('retropostershop')
+      expect(mr.find_by_id(12335573).name).to eq('retropostershop')
     end
 
     it 'returns nil if no id' do
@@ -46,7 +46,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      expect(mr.find_by_id('2113113113')).to eq(nil)
+      expect(mr.find_by_id(2113113113)).to eq(nil)
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      expect(mr.find_by_name('retropostershop').id).to eq('12335573')
+      expect(mr.find_by_name('retropostershop').id).to eq(12335573)
     end
 
     it 'returns nil if no name exists' do
@@ -103,7 +103,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      expect(mr.max_id_number_new).to eq('12337412')
+      expect(mr.max_id_number_new).to eq(12337412)
     end
   end
 
@@ -115,7 +115,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      lawrence = mr.create('lawrence')
+      lawrence = mr.create(name: 'lawrence')
 
       expect(lawrence).to be_an_instance_of(Merchant)
     end
@@ -129,9 +129,9 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      mr.update('12337411', 'Lawrence')
+      mr.update(12337411, name: 'lawrence')
 
-      expect(mr.find_by_id('12337411').name).to eq('Lawrence')
+      expect(mr.find_by_id(12337411).name).to eq('lawrence')
     end
   end
 
@@ -143,9 +143,9 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      mr.delete('12337411')
+      mr.delete(12337411)
 
-      expect(mr.find_by_id('12337411')).to eq(nil)
+      expect(mr.find_by_id(12337411)).to eq(nil)
     end
   end
 end
