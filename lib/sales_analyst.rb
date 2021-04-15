@@ -44,14 +44,14 @@ class SalesAnalyst
     items_by_merchant_array = @engine.items.find_all_by_merchant_id(id)
     test = items_by_merchant_array.sum do |item|
       item.unit_price
-    end / (items_by_merchant_array.length)
+    end / items_by_merchant_array.length
     test.round(2)
   end
 
   def average_average_price_per_merchant
     test = @engine.merchants.all.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end / (@engine.merchants.all.length)
+    end / @engine.merchants.all.length
     test.round(2)
   end
 
