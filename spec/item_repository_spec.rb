@@ -259,65 +259,55 @@ describe ItemRepository do
     end
   end
 
-  # describe '#delete' do
-  #   it 'deletes the object at specified id' do
-  #     details1 = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     details2 = {
-  #       id: 2,
-  #       name: 'Pen',
-  #       description: 'Writes with ink',
-  #       unit_price: BigDecimal(12.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item1 = Item.new(details1)
-  #     item2 = Item.new(details2)
-  #     items = [item1, item2]
-  #     item_repository = ItemRepository.new(items)
+  describe '#delete' do
+    it 'deletes the object at specified id' do
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
+      item_repository = ItemRepository.new('fake.csv')
 
-  #     item_repository.delete(1)
+      new_item = {
+        id: nil,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.new(2021, 0o1, 0o2),
+        merchant_id: 2
+      }
+      item_repository.create(new_item)
 
-  #     expect(item_repository.items).to eq [item2]
-  #   end
+      expect(item_repository.items.length).to eq 11
 
-  #   it 'does not delete anything if no item at id' do
-  #     details1 = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     details2 = {
-  #       id: 2,
-  #       name: 'Pen',
-  #       description: 'Writes with ink',
-  #       unit_price: BigDecimal(12.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item1 = Item.new(details1)
-  #     item2 = Item.new(details2)
-  #     items = [item1, item2]
-  #     item_repository = ItemRepository.new(items)
+      item_repository.delete(10)
 
-  #     item_repository.delete(3)
+      expect(item_repository.items.length).to eq 10
+    end
 
-  #     expect(item_repository.items).to eq [item1, item2]
-  #   end
-  # end
+    it 'does not delete anything if no item at id' do
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
+      item_repository = ItemRepository.new('fake.csv')
+
+      new_item = {
+        id: nil,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.new(2021, 0o1, 0o2),
+        merchant_id: 2
+      }
+      item_repository.create(new_item)
+
+      expect(item_repository.items.length).to eq 11
+
+      item_repository.delete(24)
+
+      expect(item_repository.items.length).to eq 11
+    end
+  end
 end
 
 
