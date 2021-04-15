@@ -1,10 +1,12 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/item'
+require_relative '../lib/parsable'
 require 'bigdecimal/util'
 
 RSpec.describe ItemRepository do
   describe 'initialization' do
+    include Parsable
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
@@ -16,8 +18,7 @@ RSpec.describe ItemRepository do
     end
 
     it 'can create item objects' do
-      item_data = SalesEngine.parse_csv("./data/items.csv")
-      expect(repo.create_items(item_data)[0]).to be_instance_of(Item)
+      expect(repo.create_items("./data/items.csv")[0]).to be_instance_of(Item)
     end
   end
 

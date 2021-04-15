@@ -1,12 +1,12 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/parsable'
 
 RSpec.describe MerchantRepository do
 
-  # Parameter (array of hashes) should be passed
-  # into new instance
   describe 'initialization' do
+    include Parsable
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./data/items.csv",
                                         :merchants => "./data/merchants.csv",
@@ -22,8 +22,7 @@ RSpec.describe MerchantRepository do
     end
 
     it 'can create merchant objects' do
-      merchant_data = SalesEngine.parse_csv("./data/merchants.csv")
-      expect(merch_rep.create_merchants(merchant_data)[0]).to be_instance_of(Merchant)
+      expect(merch_rep.create_merchants("./data/merchants.csv")[0]).to be_instance_of(Merchant)
     end
   end
 

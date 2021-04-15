@@ -1,16 +1,21 @@
 require_relative '../lib/merchant'
+require_relative 'parsable'
 
 class MerchantRepository
+  include Parsable
   attr_reader :merchants
-  def initialize(parsed_csv)
-    @merchants = create_merchants(parsed_csv)
+
+  def initialize(data)
+    @merchants = create_merchants(data)
   end
+
   #add so spec harness would run successfully.
   def inspect
   "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  def create_merchants(parsed_data)
+  def create_merchants(merchant_data)
+    parsed_data = parse_csv(merchant_data)
      parsed_data.map do |merchant|
       Merchant.new(merchant)
     end

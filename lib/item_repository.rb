@@ -1,18 +1,23 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/item'
+require_relative 'parsable'
 require 'bigdecimal/util'
 
-class ItemRepository
 
-  def initialize(parsed_data)
-    create_items(parsed_data)
+class ItemRepository
+  include Parsable
+
+  def initialize(data)
+    create_items(data)
   end
+
   #add so spec harness would run successfully.
   def inspect
   "#<#{self.class} #{@items_array.size} rows>"
   end
 
-  def create_items(parsed_data)
+  def create_items(item_data)
+    parsed_data = parse_csv(item_data)
     @items_array = parsed_data.map do |item|
       Item.new(item)
    end
