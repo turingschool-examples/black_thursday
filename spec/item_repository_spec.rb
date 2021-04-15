@@ -10,26 +10,24 @@ require './data/mock_data'
 describe ItemRepository do
   describe '#initialize' do
     it 'exists' do 
-      filename = './data/items.csv'
-      item_repository = ItemRepository.new(filename)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.get_mock_items)
+      item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository).is_a? ItemRepository 
     end
 
     it 'has an items array' do
-      filename = './data/items.csv'
-      item_repository = ItemRepository.new(filename)
-
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.get_mock_items)
+      item_repository = ItemRepository.new('fake.csv')
+      
       expect(item_repository.items).is_a? Array
     end
   end
 
   describe '#all' do
     it 'returns a list of all items' do
-      filename = "./data/items.csv"
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.get_mock_items)
-
-      item_repository = ItemRepository.new(filename)
+      item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository.all.length).to eq 10
       expect(item_repository.all).is_a? Array
@@ -41,6 +39,8 @@ describe ItemRepository do
       filename = './data/items.csv'
       item_repository = ItemRepository.new(filename)
 
+      # mock_item = Item.new(item_repository.items.first)
+      # item_repository.items.unshift(mock_item)
       expect(item_repository.find_by_id(2)).to eq nil
     end
 
