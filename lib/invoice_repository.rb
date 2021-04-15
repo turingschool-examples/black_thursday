@@ -48,47 +48,17 @@ class InvoiceRepository
     end
   end
 
-#   def find_by_name(name)
-#     @items.find do |item|
-#       item.name.downcase == name.downcase
-#     end
-#   end
+  def generate_new_id
+    highest_id_invoice = @invoices.max_by do |invoice|
+      invoice.id
+    end
+    new_id = highest_id_invoice.id + 1
+  end
 
-#   def find_all_with_description(description)
-#     @items.find_all do |item|
-#       item.description.downcase.include?(description.downcase)
-#     end
-#   end
-
-#   def find_all_by_price(price)
-#     @items.find_all do |item|
-#       item.unit_price == price
-#     end
-#   end
-
-#   def find_all_by_price_in_range(range)
-#     @items.find_all do |item|
-#       range.include?(item.unit_price)
-#     end
-#   end
-
-#   def find_all_by_merchant_id(merchant_id)
-#     @items.find_all do |item|
-#       item.merchant_id == merchant_id
-#     end
-#   end
-
-#   def generate_new_id
-#     highest_id_item = @items.max_by do |item|
-#       item.id
-#     end
-#     new_id = highest_id_item.id + 1
-#   end
-
-#   def create(attributes)
-#     attributes[:id] = generate_new_id
-#     @items << Item.new(attributes, self)
-#   end
+  def create(attributes)
+    attributes[:id] = generate_new_id
+    @invoices << Invoice.new(attributes, self)
+  end
 
 #   def update(id, attributes)
 #     item_to_update = find_by_id(id)
