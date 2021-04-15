@@ -20,3 +20,4 @@ Case | Convention
 * Advice/tips/resources on traversing verticals?
    * Additional visuals? (e.g. with Futbol)
 * Naming convention input?   
+* Recommended benchmarks for progress? 
