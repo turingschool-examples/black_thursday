@@ -8,6 +8,7 @@ class Item
               :created_at,
               :merchant_id,
               :repository
+  attr_writer :cent_price
 
   def initialize(item_info)
     @id = item_info[:id].to_i

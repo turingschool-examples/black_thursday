@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'repository'
 require_relative 'item'
+require 'time'
 
 # Basic ItemRepository class
 class ItemRepository < Repository
@@ -17,8 +18,8 @@ class ItemRepository < Repository
                               name: item[1],
                               description: item[2],
                               cent_price: item[3],
-                              created_at: item[5],
-                              updated_at: item[6],
+                              created_at: Time.parse(item[5]),
+                              updated_at: Time.parse(item[6]),
                               merchant_id: item[4],
                               repository: self )
     end
@@ -69,13 +70,13 @@ class ItemRepository < Repository
       nil
     elsif !attributes[:name].nil?
       update_instance.name = attributes[:name]
-      update_instance.updated_at =Time.now.to_s
+      update_instance.updated_at =Time.now
     elsif !attributes[:description].nil?
       update_instance.description = attributes[:description]
-      update_instance.updated_at =Time.now.to_s
+      update_instance.updated_at =Time.now
     elsif !attributes[:unit_price].nil?
       update_instance.cent_price = BigDecimal(attributes[:unit_price]*100, 10)
-      update_instance.updated_at =Time.now.to_s
+      update_instance.updated_at =Time.now
     end
   end
 
