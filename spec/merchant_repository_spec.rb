@@ -55,7 +55,12 @@ RSpec.describe MerchantRepository do
     end
 
     it 'creates new merchants' do
-      expect(merch_rep.create({ :id => 5, :name => "Turing School" }).last).to be_instance_of(Merchant)
+      expected = {
+        :id => 12337412,
+        :name => "Turing School of Software and Design"
+      }
+      # expect(merch_rep.create({ :id => 5, :name => "Turing School" }).last).to be_instance_of(Merchant)
+      expect(merch_rep.create({name: "Turing School of Software and Design"}))
     end
 
     it 'makes a new id number' do
