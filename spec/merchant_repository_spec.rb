@@ -117,17 +117,19 @@ describe MerchantRepository do
     end
   end
 
-  # describe '#update' do
-  #   it 'updates a merchant with the given id and attributes' do
-  #     merchant1 = Merchant.new(id: 1, name: 'Richard')
-  #     merchant2 = Merchant.new(id: 2, name: 'Dustin')
-  #     merchant3 = Merchant.new(id: 3, name: 'Ashley')
-  #     merchants = [merchant1, merchant2, merchant3]
-  #     m_repo = MerchantRepository.new(merchants)
-  #     m_repo.update(2, id: 23, name: 'Dustin Huntsman')
-  #
-  #     expect(merchant2.name).to eq 'Dustin Huntsman'
-  #     expect(merchant2.id).not_to eq 23
-  #   end
-  # end
+  describe '#update' do
+    it 'updates a merchant with the given id and attributes' do
+      details = MockData.merchants_as_hash
+      mock_data = MockData.merchants_as_mocks(details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
+      m_repo = MerchantRepository.new('fake.csv')
+
+      m_repo.create(id: 0, name: 'Sami')
+      new_merchant = m_repo.merchants.last
+      m_repo.update(10, { id: 23, name: 'Dustin Huntsman' })
+
+      expect(new_merchant.name).to eq 'Dustin Huntsman'
+      expect(new_merchant.id).not_to eq 23
+    end
+  end
 end
