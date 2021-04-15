@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-14T20:34:53-04:00">2021-04-14T20:34:53-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-15T10:06:11-04:00">2021-04-15T10:06:11-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         323.95
+         323.92
        </span>
     </span> hits/line
     )
@@ -73,7 +73,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#7bfec004c61345ba5cf4930828f2b1187a4adcc3" class="src_link" title="lib/items.rb">lib/items.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">34</td>
+            <td class="cell--number">35</td>
             <td class="cell--number">18</td>
             <td class="cell--number">18</td>
             <td class="cell--number">0</td>
@@ -88,7 +88,7 @@
             <td class="cell--number">54</td>
             <td class="cell--number">54</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">888.65</td>
+            <td class="cell--number">888.46</td>
             
           </tr>
         
@@ -510,7 +510,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="27">
+          <li class="never" data-hits="" data-linenumber="27">
+            
+            
+
+            
+
+            <code class="ruby"># talk to instructor about using these helper methods </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="28">
             <span class="hits">1</span>
             
 
@@ -521,7 +532,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="28">
+          <li class="covered" data-hits="2" data-linenumber="29">
             <span class="hits">2</span>
             
 
@@ -532,7 +543,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="29">
+          <li class="never" data-hits="" data-linenumber="30">
             
             
 
@@ -543,7 +554,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="30">
+          <li class="never" data-hits="" data-linenumber="31">
             
             
 
@@ -554,7 +565,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="31">
+          <li class="covered" data-hits="1" data-linenumber="32">
             <span class="hits">1</span>
             
 
@@ -565,7 +576,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="32">
+          <li class="covered" data-hits="2" data-linenumber="33">
             <span class="hits">2</span>
             
 
@@ -576,18 +587,18 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="33">
+          <li class="never" data-hits="" data-linenumber="34">
             
             
 
             
 
-            <code class="ruby">  end </code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="34">
+          <li class="never" data-hits="" data-linenumber="35">
             
             
 
@@ -860,8 +871,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="22">
-            <span class="hits">9</span>
+          <li class="covered" data-hits="10" data-linenumber="22">
+            <span class="hits">10</span>
             
 
             
@@ -904,8 +915,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="20" data-linenumber="26">
-            <span class="hits">20</span>
+          <li class="covered" data-hits="19" data-linenumber="26">
+            <span class="hits">19</span>
             
 
             
@@ -915,8 +926,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="23264" data-linenumber="27">
-            <span class="hits">23264</span>
+          <li class="covered" data-hits="23254" data-linenumber="27">
+            <span class="hits">23254</span>
             
 
             
@@ -4761,7 +4772,7 @@
 
             
 
-            <code class="ruby">      it &quot;#id returns the id&quot; do</code>
+            <code class="ruby">      it &quot;can return id&quot; do</code>
           </li>
         </div>
       
@@ -4772,7 +4783,7 @@
 
             
 
-            <code class="ruby">        first_item = ir.all.first</code>
+            <code class="ruby">        first_item = ir.all[0]</code>
           </li>
         </div>
       
@@ -4783,7 +4794,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.id).to eq 263395237</code>
+            <code class="ruby">        expect(first_item.id).to eq(263395237)</code>
           </li>
         </div>
       
@@ -4794,7 +4805,7 @@
 
             
 
-            <code class="ruby">        last_item = ir.all.last</code>
+            <code class="ruby">        second_item = ir.all[1]</code>
           </li>
         </div>
       
@@ -4805,7 +4816,7 @@
 
             
 
-            <code class="ruby">        expect(last_item.id).to eq 263567474</code>
+            <code class="ruby">        expect(second_item.id).to eq(263395617)</code>
           </li>
         </div>
       
@@ -4838,7 +4849,7 @@
 
             
 
-            <code class="ruby">      it &quot;#name returns the name&quot; do</code>
+            <code class="ruby">      it &quot;can return name&quot; do</code>
           </li>
         </div>
       
@@ -4849,7 +4860,7 @@
 
             
 
-            <code class="ruby">        first_item = ir.all.first</code>
+            <code class="ruby">        first_item = ir.all[0]</code>
           </li>
         </div>
       
@@ -4860,7 +4871,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.name).to eq &quot;510+ RealPush Icon Set&quot;</code>
+            <code class="ruby">        expect(first_item.name).to eq(&quot;510+ RealPush Icon Set&quot;)</code>
           </li>
         </div>
       
@@ -4871,7 +4882,7 @@
 
             
 
-            <code class="ruby">        last_item = ir.all.last</code>
+            <code class="ruby">        second_item = ir.all[1]</code>
           </li>
         </div>
       
@@ -4882,7 +4893,7 @@
 
             
 
-            <code class="ruby">        expect(last_item.name).to eq &quot;Minty Green Knit Crochet Infinity Scarf&quot;</code>
+            <code class="ruby">        expect(second_item.name).to eq(&quot;Glitter scrabble frames&quot;)</code>
           </li>
         </div>
       
@@ -4915,7 +4926,7 @@
 
             
 
-            <code class="ruby">      it &quot;#description returns the description&quot; do</code>
+            <code class="ruby">      it &quot;can return description&quot; do</code>
           </li>
         </div>
       
@@ -4926,7 +4937,7 @@
 
             
 
-            <code class="ruby">        first_item = ir.all.first</code>
+            <code class="ruby">        first_item = ir.all[0]</code>
           </li>
         </div>
       
@@ -4937,7 +4948,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.description.class).to eq String</code>
+            <code class="ruby">        expect(first_item.description.class).to eq(String)</code>
           </li>
         </div>
       
@@ -4948,7 +4959,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.description.length).to eq 2237</code>
+            <code class="ruby">        expect(first_item.description.length).to eq(2237)</code>
           </li>
         </div>
       
@@ -4981,7 +4992,7 @@
 
             
 
-            <code class="ruby">      it &quot;#unit_price returns the unit price&quot; do</code>
+            <code class="ruby">      it &quot;can return unit price&quot; do</code>
           </li>
         </div>
       
@@ -4992,7 +5003,7 @@
 
             
 
-            <code class="ruby">        first_item = ir.all.first</code>
+            <code class="ruby">        first_item = ir.all[0]</code>
           </li>
         </div>
       
@@ -5003,7 +5014,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.unit_price).to eq 12.00</code>
+            <code class="ruby">        expect(first_item.unit_price).to eq(12.00)</code>
           </li>
         </div>
       
@@ -5014,7 +5025,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.unit_price.class).to eq BigDecimal</code>
+            <code class="ruby">        expect(first_item.unit_price.class).to eq(BigDecimal)</code>
           </li>
         </div>
       
@@ -5047,7 +5058,7 @@
 
             
 
-            <code class="ruby">      it &quot;#created_at returns the Time the item was created&quot; do</code>
+            <code class="ruby">      it &quot;can return time created at&quot; do</code>
           </li>
         </div>
       
@@ -5058,7 +5069,7 @@
 
             
 
-            <code class="ruby">        first_item = ir.all.first</code>
+            <code class="ruby">        first_item = ir.all[0]</code>
           </li>
         </div>
       
@@ -5069,7 +5080,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.created_at_to_time).to eq Time.parse(&quot;2016-01-11 09:34:06 UTC&quot;)</code>
+            <code class="ruby">        expect(first_item.created_at_to_time).to eq(Time.parse(&quot;2016-01-11 09:34:06 UTC&quot;))</code>
           </li>
         </div>
       
@@ -5080,7 +5091,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.created_at_to_time.class).to eq Time</code>
+            <code class="ruby">        expect(first_item.created_at_to_time.class).to eq(Time)</code>
           </li>
         </div>
       
@@ -5113,7 +5124,7 @@
 
             
 
-            <code class="ruby">      it &quot;#updated_at returns the Time the item was last updated&quot; do</code>
+            <code class="ruby">      it &quot;can return time updated at&quot; do</code>
           </li>
         </div>
       
@@ -5124,7 +5135,7 @@
 
             
 
-            <code class="ruby">        first_item = ir.all.first</code>
+            <code class="ruby">        first_item = ir.all[0]</code>
           </li>
         </div>
       
@@ -5135,7 +5146,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.updated_at_to_time).to eq Time.parse(&quot;2007-06-04 21:35:10 UTC&quot;)</code>
+            <code class="ruby">        expect(first_item.updated_at_to_time).to eq(Time.parse(&quot;2007-06-04 21:35:10 UTC&quot;))</code>
           </li>
         </div>
       
@@ -5146,7 +5157,7 @@
 
             
 
-            <code class="ruby">        expect(first_item.updated_at_to_time.class).to eq Time</code>
+            <code class="ruby">        expect(first_item.updated_at_to_time.class).to eq(Time)</code>
           </li>
         </div>
       
@@ -5179,7 +5190,7 @@
 
             
 
-            <code class="ruby">      it &quot;#unit_price_to_dollars returns price as Float&quot; do</code>
+            <code class="ruby">      it &quot;unit_price_to_dollars returns unit price as a float&quot; do</code>
           </li>
         </div>
       
@@ -5190,7 +5201,7 @@
 
             
 
-            <code class="ruby">        expected = ir.find_by_id(263397059)</code>
+            <code class="ruby">        expected = ir.all[0]</code>
           </li>
         </div>
       
@@ -5201,7 +5212,7 @@
 
             
 
-            <code class="ruby">        expect(expected.unit_price_to_dollars).to eq 130.0</code>
+            <code class="ruby">        expect(expected.unit_price_to_dollars).to eq(12.0)</code>
           </li>
         </div>
       
@@ -5212,7 +5223,7 @@
 
             
 
-            <code class="ruby">        expect(expected.unit_price_to_dollars.class).to eq Float</code>
+            <code class="ruby">        expect(expected.unit_price_to_dollars.class).to eq(Float)</code>
           </li>
         </div>
       
