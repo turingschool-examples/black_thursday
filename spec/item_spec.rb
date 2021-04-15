@@ -28,7 +28,7 @@ RSpec.describe Item do
       created_at: Time.now,
       updated_at: Time.now,
       merchant_id: 2
-    },
+      },
       'repository'
     )
     it 'has an id' do
