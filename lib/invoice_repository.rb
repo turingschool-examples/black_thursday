@@ -103,4 +103,10 @@ class InvoiceRepository
     total_invoices = all.count.to_f
     (total_invoices / number_of_keys).round(2)
   end
+
+  def hash_variance_from_mean(hash)
+    hash.each_with_object({}) do |original_hash, modified_hash|
+      modified_hash[original_hash.first] = original_hash.last - average(hash)
+    end
+  end
 end
