@@ -75,10 +75,19 @@ class MerchantRepository
       all_items.count do |item|
         merchant.id == item.merchant_id
       end
-    end.uniq
+    end
   end
 
   def average_items_per_merchant
-    merchant_total_items.sum.to_f / @merchants.count
+    avg = merchant_total_items.sum.to_f / @merchants.count
+    avg.round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    numerator = merchant_total_items.inject(0) do |summation, item|
+      summation + (item - average_items_per_merchant) ** 2
+    end
+    sample_variance = numerator / (merchant_total_items.length - 1).to_f
+    (Math.sqrt(sample_variance)).round(2)
   end
 end
