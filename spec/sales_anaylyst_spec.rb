@@ -51,7 +51,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.merchants_with_high_item_count[0].id).to eq('12334123')
+      expect(sa.merchants_with_high_item_count[0].id).to eq(12334123)
     end
   end
   describe '#average_item_price_for_merchant' do
@@ -62,7 +62,7 @@ RSpec.describe 'SalesAnalyst' do
       )
       sa = se.analyst
 
-      expect(sa.average_item_price_for_merchant('12334159')).to eq(3_150.00)
+      expect(sa.average_item_price_for_merchant(12334159)).to eq(3_150.00)
     end
   end
   describe '#average_average_price_per_merchant' do
