@@ -135,4 +135,8 @@ class InvoiceRepository
   def average_invoices_per_merchant
     (average(invoices_per_merchant)).round(2)
   end
+
+  def stdev_invoices_per_merchant
+    (standard_deviation(invoices_per_merchant)).round(2)
+  end
 end

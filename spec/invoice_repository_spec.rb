@@ -261,4 +261,11 @@ RSpec.describe InvoiceRepository do
       expect(ir.average_invoices_per_merchant).to eq(10.49)
     end
   end
+  describe '#stdev_invoices_per_merchant' do
+    it 'shows standard deviation of invoices by merchant' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      expect(ir.stdev_invoices_per_merchant).to eq(3.29)
+    end
+  end
 end
