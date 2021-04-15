@@ -1,4 +1,4 @@
-require_relative 'sales_engine'
+require './lib/sales_engine'
 
 RSpec.describe 'ItemRepository' do
   describe '#initialize' do

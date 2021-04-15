@@ -1,5 +1,5 @@
 require 'timecop'
-require_relative 'merchant'
+require './lib/merchant'
 
 RSpec.describe Merchant do
   it 'exists' do

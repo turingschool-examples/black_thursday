@@ -1,4 +1,4 @@
-require_relative 'item'
+require './lib/item'
 require 'bigdecimal'
 require 'RSpec'
 

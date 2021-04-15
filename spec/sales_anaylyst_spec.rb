@@ -1,4 +1,4 @@
-require_relative 'sales_analyst'
+require './lib/sales_analyst'
 
 RSpec.describe 'SalesAnalyst' do
   describe '#initialize' do

@@ -23,7 +23,7 @@ class SalesAnalyst
     sum_of_squares = items_per_merchant.map do |wares|
       (wares - average_items_per_merchant)**2
     end.sum
-    sum_of_squares.fdiv(merchant_ids.length - 1)**0.5.round(2)
+    (sum_of_squares.fdiv(merchant_ids.length - 1)**0.5).round(2)
   end
 
   def merchants_with_high_item_count

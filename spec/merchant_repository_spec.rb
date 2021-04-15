@@ -1,7 +1,7 @@
 require 'SimpleCOV'
 require 'csv'
-require_relative 'sales_engine'
-require_relative 'merchant_repository'
+require './lib/sales_engine'
+require './lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   describe 'Instance' do
