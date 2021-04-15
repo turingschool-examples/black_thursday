@@ -16,7 +16,7 @@ RSpec.describe SalesEngine do
     it 'exists' do
       expect(se).to be_instance_of(SalesEngine)
     end
-  end  
+  end
 
   context 'methods' do
     it 'has attributes' do
