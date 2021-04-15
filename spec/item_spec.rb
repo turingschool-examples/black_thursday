@@ -42,7 +42,7 @@ RSpec.describe Item do
         expected = repo.find_by_id(263397059)
 
         expect(expected.unit_price_to_dollars).to eq(130.0)
-        expect(expected.unit_price_to_dollars.class).to eq(BigDecimal)
+        expect(expected.unit_price_to_dollars.class).to eq(Float)
      end
   end
 end

@@ -1,3 +1,6 @@
+require_relative '../lib/sales_engine'
+require_relative '../lib/item_repository'
+require 'bigdecimal/util'
 
 class Item
 attr_reader  :created_at,
@@ -19,7 +22,7 @@ attr_accessor :id,
   end
 
   def unit_price_to_dollars
-    (@unit_price / 100).round(2)
+    (@unit_price.to_f / 100).round(4)
   end
 
 end
