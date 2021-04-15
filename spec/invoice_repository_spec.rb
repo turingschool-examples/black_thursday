@@ -192,39 +192,48 @@ RSpec.describe InvoiceRepository do
   describe '#invoices_by_days' do
     it 'shows count of invoices per day of week' do
       mock_sales_engine = instance_double('SalesEngine')
-      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
 
-      expect(ir.invoices_by_days).to eq({"friday"=>2,
-                                         "monday"=>1,
-                                         "saturday"=>2,
-                                         "sunday"=>0,
-                                         "thursday"=>0,
-                                         "tuesday"=>0,
-                                         "wednesday"=>1})
+      expect(ir.invoices_by_days).to eq({"friday"=>701,
+                                         "monday"=>696,
+                                         "saturday"=>729,
+                                         "sunday"=>708,
+                                         "thursday"=>718,
+                                         "tuesday"=>692,
+                                         "wednesday"=>741})
     end
   end
 
   describe '#average' do
     it 'shows average' do
       mock_sales_engine = instance_double('SalesEngine')
-      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
 
-      expect(ir.average(ir.invoices_by_days)).to eq(0.86)
+      expect(ir.average(ir.invoices_by_days)).to eq(712.1428571428571)
     end
   end
 
   describe '#hash_variance_from_mean' do
     it 'shows variance from mean' do
       mock_sales_engine = instance_double('SalesEngine')
-      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
 
-      expect(ir.hash_variance_from_mean(ir.invoices_by_days)).to eq({"friday"=>1.1400000000000001,
-                                                                "monday"=>0.14,
-                                                                "saturday"=>1.1400000000000001,
-                                                                "sunday"=>-0.86,
-                                                                "thursday"=>-0.86,
-                                                                "tuesday"=>-0.86,
-                                                                "wednesday"=>0.14})
+      expect(ir.hash_variance_from_mean(ir.invoices_by_days)).to eq({"friday"=> 124.16326530612173,
+                                                                "monday"=> 260.59183673469283,
+                                                                "saturday"=> 284.16326530612355,
+                                                                "sunday"=> 17.16326530612218,
+                                                                "thursday"=> 34.30612244897997,
+                                                                "tuesday"=> 405.7346938775497,
+                                                                "wednesday"=> 832.7346938775529})
+    end
+  end
+
+  describe '#standard_deviation' do
+    it 'shows standard deviation' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.standard_deviation(ir.invoices_by_days)).to eq(18.07)
     end
   end
 end
