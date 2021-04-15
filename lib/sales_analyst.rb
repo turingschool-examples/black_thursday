@@ -14,7 +14,6 @@ class SalesAnalyst
 
   # Brant's magic method
   def average_items_per_merchant_standard_deviation
-    average_wares = average_items_per_merchant
     merchant_ids = @engine.merchants.all.map do |merchant|
       merchant.id
     end
