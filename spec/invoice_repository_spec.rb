@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require './lib/sales_engine'
 require './lib/invoice_repository'
+require './lib/invoice'
 require 'bigdecimal'
 
 RSpec.describe InvoiceRepository do
@@ -14,7 +15,7 @@ RSpec.describe InvoiceRepository do
     it 'has items' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      expect(ir.invoices.count).to eq(1367)
+      expect(ir.invoices.count).to eq(4985)
     end
   end
   describe '#make_invoices' do
@@ -24,13 +25,13 @@ RSpec.describe InvoiceRepository do
       expect(ir.invoices.first).to be_instance_of(Invoice)
     end
   end
-#   describe '#all' do
-#     it 'contains all the items' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-#       expect(ir.all.count).to eq(1367)
-#     end
-#   end
+  describe '#all' do
+    it 'contains all the invoices' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      expect(ir.all.count).to eq(4985)
+    end
+  end
 #   describe '#find_by_id' do
 #     it 'finds items by id' do
 #       mock_sales_engine = instance_double('SalesEngine')
