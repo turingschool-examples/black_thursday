@@ -41,6 +41,7 @@ class MerchantRepository < Repository
       nil
     else
       new.name = name_hash[:name]
+      new.updated_at = Time.now.to_s
     end
   end
 

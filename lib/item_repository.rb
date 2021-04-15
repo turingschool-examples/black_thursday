@@ -69,10 +69,13 @@ class ItemRepository < Repository
       nil
     elsif !attributes[:name].nil?
       update_instance.name = attributes[:name]
+      update_instance.updated_at =Time.now.to_s
     elsif !attributes[:description].nil?
       update_instance.description = attributes[:description]
+      update_instance.updated_at =Time.now.to_s
     elsif !attributes[:unit_price].nil?
       update_instance.unit_price = BigDecimal(attributes[:unit_price])
+      update_instance.updated_at =Time.now.to_s
     end
   end
 
