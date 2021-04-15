@@ -25,7 +25,7 @@ RSpec.describe SalesAnalyst do
       })
       sales_analyst = se.analyst
 
-      expect(sales_analyst.average_items_per_merchant).to eq(0.75)
+      expect(sales_analyst.average_items_per_merchant).to eq(1.0)
     end
   end
 
@@ -37,7 +37,19 @@ RSpec.describe SalesAnalyst do
       })
       sales_analyst = se.analyst
 
-      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.50)
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.82)
+    end
+  end
+
+  describe '#merchants_with_high_item_count' do
+    it 'can find which merchants sell the most items' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv'
+      })
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.merchants_with_high_item_count).to eq([])
     end
   end
 end
