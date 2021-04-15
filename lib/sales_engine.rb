@@ -1,4 +1,5 @@
 require 'csv'
+require_relative 'sales_analyst'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 
@@ -24,6 +25,10 @@ class SalesEngine
     item_csv_location = csv_hash[:items]
     merchant_csv_location = csv_hash[:merchants]
     SalesEngine.new(item_csv_location, merchant_csv_location)
+  end
+
+  def analyst
+    sales_analyst = SalesAnalyst.new(self)
   end
 
 
