@@ -129,7 +129,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      mr.update(12337411, {name: 'lawrence'})
+      mr.update(12337411, name: 'lawrence')
 
       expect(mr.find_by_id(12337411).name).to eq('lawrence')
     end
