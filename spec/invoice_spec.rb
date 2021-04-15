@@ -93,7 +93,7 @@ describe Invoice do
         :updated_at  => Time.now,
       })
 
-      expect(i.updated_at).to eq time 
+      expect(i.updated_at).to eq(time) 
     end
   end
 end
