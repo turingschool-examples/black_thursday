@@ -76,95 +76,45 @@ describe ItemRepository do
     end
   end
 
-  # describe '#find_all_with_description' do
-  #   it 'returns empty array if description does not match' do
-  #     details = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item = Item.new(details)
-  #     item_repository = ItemRepository.new([item])
+  describe '#find_all_with_description' do
+    it 'returns empty array if description does not match' do
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
-  #     expect(item_repository.find_all_with_description('cooking')).to eq []
-  #   end
+      expect(item_repository.find_all_with_description('cooking')).to eq []
+    end
 
-  #   it 'returns array of items with matching descriptions' do
-  #     details1 = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     details2 = {
-  #       id: 2,
-  #       name: 'Pen',
-  #       description: 'Writes with ink',
-  #       unit_price: BigDecimal(12.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item1 = Item.new(details1)
-  #     item2 = Item.new(details2)
-  #     items = [item1, item2]
-  #     item_repository = ItemRepository.new(items)
+    it 'returns array of items with matching descriptions' do
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
-  #     expect(item_repository.find_all_with_description('write')).to eq items
-  #   end
-  # end
+      expect(item_repository.find_all_with_description('Item Description').length).to eq 10
+    end
+  end
 
-  # describe '#find_all_by_price' do
-  #   it 'returns an empty array if no items match price' do
-  #     details = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item = Item.new(details)
-  #     item_repository = ItemRepository.new([item])
+  describe '#find_all_by_price' do
+    it 'returns an empty array if no items match price' do
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
-  #     expect(item_repository.find_all_by_price(5.99)).to eq []
-  #   end
+      expect(item_repository.find_all_by_price(5.99)).to eq []
+    end
 
-  #   it 'returns array of items that match specified price' do
-  #     details1 = {
-  #       id: 1,
-  #       name: 'Pencil',
-  #       description: 'You can use it to write things',
-  #       unit_price: BigDecimal(10.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     details2 = {
-  #       id: 2,
-  #       name: 'Pen',
-  #       description: 'Writes with ink',
-  #       unit_price: BigDecimal(12.99, 4),
-  #       created_at: Time.now,
-  #       updated_at: Time.now,
-  #       merchant_id: 2
-  #     }
-  #     item1 = Item.new(details1)
-  #     item2 = Item.new(details2)
-  #     items = [item1, item2]
-  #     item_repository = ItemRepository.new(items)
+    it 'returns array of items that match specified price' do
+      details = MockData.items_as_hash(price_of: 10.99)
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
-  #     expect(item_repository.find_all_by_price(10.99)).to eq [item1]
-  #   end
-  # end
+      expect(item_repository.find_all_by_price(10.99).length).to eq 10
+    end
+  end
 
   # describe '#find_all_by_price_in_range(range)' do
   #   it 'returns empty array if no items in price range' do
