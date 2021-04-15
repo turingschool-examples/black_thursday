@@ -65,19 +65,19 @@ describe SalesEngine do
       expect(sales_engine.merchants).is_a? MerchantRepository
     end
 
-    # it 'has Merchants in the MerchantRepository' do
-    #   item_details = MockData.items_as_hash
-    #   mock_items = MockData.items_as_mocks(item_details) { self }
-    #   allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-    #   merchant_details = MockData.merchants_as_hash
-    #   mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
-    #   allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
-    #   files = { items: './file1.csv', merchants: './file2.csv' }
-    #   sales_engine = SalesEngine.from_csv(files)
-    #
-    #   merchant_repo = sales_engine.merchants
-    #   expect(merchant_repo.merchants.first).is_a? Merchant
-    # end
+    it 'has Merchants in the MerchantRepository' do
+      item_details = MockData.items_as_hash
+      mock_items = MockData.items_as_mocks(item_details) { self }
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
+      merchant_details = MockData.merchants_as_hash
+      mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
+      files = { items: './file1.csv', merchants: './file2.csv' }
+      sales_engine = SalesEngine.from_csv(files)
+
+      merchant_repo = sales_engine.merchants
+      expect(merchant_repo.merchants.first).is_a? Merchant
+    end
   end
 
 
