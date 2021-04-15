@@ -2,7 +2,7 @@ require 'rspec'
 require './lib/invoice'
 
 describe Invoice do
-  describe '#initiale' do
+  describe '#initialize' do
     it 'exists' do
       i = Invoice.new({
         :id          => 6,
