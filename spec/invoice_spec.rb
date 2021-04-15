@@ -67,5 +67,19 @@ describe Invoice do
 
       expect(i.status).to eq 'pending'
     end
+
+    it 'time stamps when created' do
+      time = Time.now
+      i = Invoice.new({
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+      })
+
+      expect(i.created_at).to eq time
+    end
   end
 end
