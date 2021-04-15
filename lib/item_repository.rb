@@ -74,12 +74,20 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    item_to_update = find_by_id(id)
-    attributes.each do |iv, new_value|
-      item_to_update.send("#{iv}=", new_value)
+    if find_by_id(id) != nil
+      item_to_update = find_by_id(id)
+      variable_assigner(attributes, item_to_update)
+      item_to_update.unit_price_to_big_decimal
+      item_to_update.update_time_stamp
     end
-    item_to_update.unit_price_to_big_decimal
-    item_to_update.update
+  end
+
+  def variable_assigner(attributes, item_to_update)
+    attributes.each do |iv, new_value|
+      if iv.to_s == 'name' || iv.to_s == 'description' || iv.to_s == 'unit_price'
+        item_to_update.send("#{iv}=", new_value)
+      end
+    end
   end
 
   def delete(id)

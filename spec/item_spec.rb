@@ -37,7 +37,7 @@ RSpec.describe Item do
       expect(item.id).to eq(1)
       expect(item.name).to eq('Cool Stuff')
       expect(item.description).to eq('supaaa cool')
-      expect(item.unit_price).to eq(0.13e4)
+      expect(item.unit_price).to eq(0.13e2)
       expect(item.created_at.year).to eq(2016)
       expect(item.created_at).to be_instance_of(Time)
       expect(item.updated_at.year).to eq(1993)
@@ -45,7 +45,7 @@ RSpec.describe Item do
       expect(item.merchant_id).to eq(12334185)
     end
   end
-  describe '#update' do
+  describe '#update_time_stamp' do
     it 'updates the updated_at timestamp' do
       mock_item_repo = instance_double('ItemRepository')
       item = Item.new(  {
@@ -59,10 +59,11 @@ RSpec.describe Item do
         },
         mock_item_repo
       )
-      item.update
+      item.update_time_stamp
       expect(item.updated_at.year).to eq(2021)
     end
   end
+
   describe '#unit_price_to_big_decimal' do
     it 'formats the unit price to a BigDecimal' do
       mock_item_repo = instance_double('ItemRepository')
@@ -78,7 +79,7 @@ RSpec.describe Item do
         mock_item_repo)
       item.unit_price = 1300
       item.unit_price_to_big_decimal
-      expect(item.unit_price).to eq(0.13e4)
+      expect(item.unit_price).to eq(0.13e2)
     end
   end
 
@@ -95,7 +96,7 @@ RSpec.describe Item do
         updated_at: '1993-09-29 11:56:40 UTC'
         },
         mock_item_repo)
-      expect(item.unit_price_to_dollars).to eq(1300.00)
+      expect(item.unit_price_to_dollars).to eq(13.0)
     end
   end
 end
