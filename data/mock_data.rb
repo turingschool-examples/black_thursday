@@ -14,42 +14,42 @@ class MockData
     (rand(1..120) + (rand(100) / 100.0))
   end
 
-  def self.merchants_as_mocks(merchant_hashes)
-    mocked_merchants = []
+  # def self.merchants_as_mocks(merchant_hashes)
+  #   mocked_merchants = []
 
-    merchant_hashes.each do |merchant_hash|
-      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
-      eg = yield
-      merchant_mock = eg.instance_double('Merchant',
-        name: item_hash[:name],
-        id: item_hash[:id],
-        created_at: item_hash[:created_at],
-        updated_at: item_hash[:updated_at]
-      )
-      mocked_merchants << merchant_mock
-    end
-    mocked_merchants
-  end
+    # merchant_hashes.each do |merchant_hash|
+    #   raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+    #   eg = yield
+    #   merchant_mock = eg.instance_double('Merchant',
+    #     name: item_hash[:name],
+    #     id: item_hash[:id],
+    #     created_at: item_hash[:created_at],
+    #     updated_at: item_hash[:updated_at]
+    #   )
+    #   mocked_merchants << merchant_mock
+    # end
+    # mocked_merchants
+  # end
 
-  def self.merchants_as_hash(number_of_mocks: 10, random_dates: true)
-    mocked_merchants = []
-    number_of_mocks.times do |merchant_number|
-      merchant = {}
-      date = get_a_random_date(random_dates)
+  # def self.merchants_as_hash(number_of_mocks: 10, random_dates: true)
+  #   mocked_merchants = []
+  #   number_of_mocks.times do |merchant_number|
+  #     merchant = {}
+  #     date = get_a_random_date(random_dates)
 
-      merchant[:name] = "Merchant #{merchant_number}"
-      merchant[:id] = merchant_number
-      if block_given?
-        merchant[:created_at] = yield(date).to_s
-        merchant[:updated_at] = date.to_s
-      else
-        merchant[:created_at] = date.prev_year.to_s
-        merchant[:updated_at] = date.to_s
-      end
-      mocked_merchants << merchant
-    end
-    mocked_merchants
-  end
+  #     merchant[:name] = "Merchant #{merchant_number}"
+  #     merchant[:id] = merchant_number
+  #     if block_given?
+  #       merchant[:created_at] = yield(date).to_s
+  #       merchant[:updated_at] = date.to_s
+  #     else
+  #       merchant[:created_at] = date.prev_year.to_s
+  #       merchant[:updated_at] = date.to_s
+  #     end
+  #     mocked_merchants << merchant
+  #   end
+  #   mocked_merchants
+  # end
 
   def self.items_as_mocks(item_hashes)
     mocked_items = []

@@ -10,14 +10,14 @@ require './data/mock_data'
 describe ItemRepository do
   describe '#initialize' do
     it 'exists' do 
-      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.get_mock_items)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.items_as_hash)
       item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository).is_a? ItemRepository 
     end
 
     it 'has an items array' do
-      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.get_mock_items)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.items_as_hash)
       item_repository = ItemRepository.new('fake.csv')
       
       expect(item_repository.items).is_a? Array
@@ -26,7 +26,7 @@ describe ItemRepository do
 
   describe '#all' do
     it 'returns a list of all items' do
-      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.get_mock_items)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.items_as_hash)
       item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository.all.length).to eq 10
@@ -36,20 +36,22 @@ describe ItemRepository do
 
   describe '#find_by_id' do
     it 'returns nil if no item has the specified id' do
-      filename = './data/items.csv'
-      item_repository = ItemRepository.new(filename)
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
-      # mock_item = Item.new(item_repository.items.first)
-      # item_repository.items.unshift(mock_item)
-      expect(item_repository.find_by_id(2)).to eq nil
+      expect(item_repository.find_by_id(500)).to eq nil
     end
 
     it 'returns the item with the specified id' do
-      filename = './data/items.csv'
-      item_repository = ItemRepository.new(filename)
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
       expected = item_repository.items.first
-      expect(item_repository.find_by_id(263395237)).to eq expected
+      expect(item_repository.find_by_id(0)).to eq expected
     end
   end
 

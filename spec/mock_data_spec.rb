@@ -2,46 +2,46 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
-  describe '#merchants_as_mocks' do
-    it 'returns mock data as an array of mocks' do
-      merchant_hashs = MockData.merchants_as_hash
-      merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
+  # describe '#merchants_as_mocks' do
+  #   it 'returns mock data as an array of mocks' do
+  #     merchant_hashs = MockData.merchants_as_hash
+  #     merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
 
-      expect(merchants_as_mocks).to be_instance_of Array
-      expect(merchants_as_mocks.length).to eq 10
-    end
+  #     expect(merchants_as_mocks).to be_instance_of Array
+  #     expect(merchants_as_mocks.length).to eq 10
+  #   end
 
-    it 'returns mock data of merchants with data' do
-      merchant_hashs = MockData.merchants_as_hash(number_of_mocks: 2)
-      merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
-      mocked_merchant = merchants_as_mocks.first
-      expect(merchants_as_mocks.length).to eq 2
-      expect(mocked_merchant.name).to eq 'Merchant 0'
-      expect(mocked_merchant.id).to eq 0
-      expect(mocked_merchant.created_at).to match(/\d{4}-\d{2}-\d{2}/)
-      expect(mocked_merchant.updated_at).to match(/\d{4}-\d{2}-\d{2}/)
-    end
-  end
+  #   it 'returns mock data of merchants with data' do
+  #     merchant_hashs = MockData.merchants_as_hash(number_of_mocks: 2)
+  #     merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
+  #     mocked_merchant = merchants_as_mocks.first
+  #     expect(merchants_as_mocks.length).to eq 2
+  #     expect(mocked_merchant.name).to eq 'Merchant 0'
+  #     expect(mocked_merchant.id).to eq 0
+  #     expect(mocked_merchant.created_at).to match(/\d{4}-\d{2}-\d{2}/)
+  #     expect(mocked_merchant.updated_at).to match(/\d{4}-\d{2}-\d{2}/)
+  #   end
+  # end
 
-  describe '#mechants_as_hash' do
-    it 'returns mock data as an array of hashes' do
-      merchants_as_hash = MockData.merchants_as_hash { self }
+  # describe '#mechants_as_hash' do
+  #   it 'returns mock data as an array of hashes' do
+  #     merchants_as_hash = MockData.merchants_as_hash { self }
 
-      expect(merchants_as_hash).to be_instance_of Array
-      expect(merchants_as_hash.length).to eq 10
-      expect(merchants_as_hash.first).to be_instance_of Hash
-    end
+  #     expect(merchants_as_hash).to be_instance_of Array
+  #     expect(merchants_as_hash.length).to eq 10
+  #     expect(merchants_as_hash.first).to be_instance_of Hash
+  #   end
 
-    it 'returns mock data of merchants with data' do
-      mocked_hash_data = MockData.merchants_as_hash(number_of_mocks: 2)
-      mocked_merchant = mocked_hash_data.first
-      expect(mocked_hash_data.length).to eq 2
-      expect(mocked_merchant[:name]).to eq 'Merchant 0'
-      expect(mocked_merchant[:id]).to eq 0
-      expect(mocked_merchant[:created_at]).to match(/\d{4}-\d{2}-\d{2}/)
-      expect(mocked_merchant[:updated_at]).to match(/\d{4}-\d{2}-\d{2}/)
-    end
-  end
+  #   it 'returns mock data of merchants with data' do
+  #     mocked_hash_data = MockData.merchants_as_hash(number_of_mocks: 2)
+  #     mocked_merchant = mocked_hash_data.first
+  #     expect(mocked_hash_data.length).to eq 2
+  #     expect(mocked_merchant[:name]).to eq 'Merchant 0'
+  #     expect(mocked_merchant[:id]).to eq 0
+  #     expect(mocked_merchant[:created_at]).to match(/\d{4}-\d{2}-\d{2}/)
+  #     expect(mocked_merchant[:updated_at]).to match(/\d{4}-\d{2}-\d{2}/)
+  #   end
+  # end
 
   describe '#items_as_mocks' do
     it 'returns mock items as an array of mocks' do
