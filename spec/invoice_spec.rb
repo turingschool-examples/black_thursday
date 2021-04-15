@@ -1,5 +1,5 @@
 require 'rspec'
-require '.lib/invoice'
+require './lib/invoice'
 
 describe Invoice do
   describe '#initiale' do
@@ -14,5 +14,6 @@ describe Invoice do
       })
 
       expect(i).is_a? Invoice
+    end
   end
 end
