@@ -2,9 +2,31 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
+
+  describe '#merchants_as_mocks' do
+    it 'returns mock data as an array of mocks' do
+      merchant_hashs = MockData.merchants_as_hash
+      mocks = MockData.merchants_as_mocks(merchant_hashs) {self}
+
+      expect(mocks).to be_instance_of Array
+      expect(mocks.length).to eq 10
+    end
+
+    it 'returns mock data of merchants with data' do
+      merchant_hashs = MockData.merchants_as_hash(number_of_mocks: 2)
+      mocks = MockData.merchants_as_mocks(merchant_hashs) {self}
+      mocked_merchant = mocks.first
+      expect(mocks.length).to eq 2
+      expect(mocked_merchant.name).to eq 'Merchant 0'
+      expect(mocked_merchant.id).to eq 0
+      expect(mocked_merchant.created_at).to match /\d{4}-\d{2}-\d{2}/
+      expect(mocked_merchant.updated_at).to match /\d{4}-\d{2}-\d{2}/
+    end
+  end
+
   describe '#mechants_as_hash' do
     it 'returns mock data as an array of hashes' do
-      mocks = MockData.mechants_as_hash
+      mocks = MockData.merchants_as_hash {self}
 
       expect(mocks).to be_instance_of Array
       expect(mocks.length).to eq 10
@@ -12,13 +34,35 @@ describe MockData do
     end
 
     it 'returns mock data of merchants with data' do
-      mocks = MockData.mechants_as_hash(number_of_mocks: 2)
+      mocks = MockData.merchants_as_hash(number_of_mocks: 2)
       mocked_merchant = mocks.first
       expect(mocks.length).to eq 2
       expect(mocked_merchant[:name]).to eq 'Merchant 0'
       expect(mocked_merchant[:id]).to eq 0
       expect(mocked_merchant[:created_at]).to match /\d{4}-\d{2}-\d{2}/
       expect(mocked_merchant[:updated_at]).to match /\d{4}-\d{2}-\d{2}/
+    end
+  end
+
+  describe '#items_as_mocks' do
+    it 'returns mock items as an array of mocks' do
+      mocks = MockData.items_as_mocks {self}
+
+      expect(mocks).to be_instance_of Array
+      expect(mocks.length).to eq 10
+    end
+
+    it 'returns mock data of items with expected attributes' do
+      mocks = MockData.items_as_mocks(number_of_mocks: 2) {self}
+      mocked_item = mocks.first
+      expect(mocks.length).to eq 2
+      expect(mocked_item.name).to eq 'Item 0'
+      expect(mocked_item.id).to eq 0
+      expect(mocked_item.merchant_id).to be_instance_of Integer
+      expect(mocked_item.unit_price).to be_instance_of Float
+      expect(mocked_item.description).to eq 'Item Description'
+      expect(mocked_item.created_at).to match /\d{4}-\d{2}-\d{2}/
+      expect(mocked_item.updated_at).to match /\d{4}-\d{2}-\d{2}/
     end
   end
 
