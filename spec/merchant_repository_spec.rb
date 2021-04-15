@@ -61,26 +61,21 @@ describe MerchantRepository do
       expect(actual).to eq expected
     end
   end
-  #
-  # describe '#find_all_by_name' do
-  #   it 'finds all merchants by the given name' do
-  #     mock_merchant1 = instance_double('Merchant', name: 'Mark')
-  #     mock_merchant2 = instance_double('Merchant', name: 'Rich')
-  #     mock_merchant3 = instance_double('Merchant', name: 'Dustin')
-  #     mock_merchant4 = instance_double('Merchant', name: 'Dustin')
-  #     mock_merchant5 = instance_double('Merchant', name: 'Frank')
-  #     mock_merchants = [mock_merchant1, mock_merchant2, mock_merchant3,
-  #                       mock_merchant4, mock_merchant5]
-  #
-  #     m_repo = MerchantRepository.new(mock_merchants)
-  #
-  #     expected_merchants = [mock_merchant3, mock_merchant4]
-  #     actual_merchants = m_repo.find_all_by_name('Dustin')
-  #
-  #     expect(actual_merchants).to eq expected_merchants
-  #   end
-  # end
-  #
+
+  describe '#find_all_by_name' do
+    it 'finds all merchants by the given name' do
+      details = MockData.merchants_as_hash
+      mock_data = MockData.merchants_as_mocks(details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
+      m_repo = MerchantRepository.new('fake.csv')
+
+      expected = [m_repo.merchants.first]
+      actual = m_repo.find_all_by_name('Merchant 0')
+
+      expect(actual).to eq expected
+    end
+  end
+
   # describe '#delete' do
   #   it 'deletes a merchant with the given id' do
   #     mock_merchant1 = instance_double('Merchant', id: 0)
