@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 require './lib/merchant'
+attr_reader :merchants
 
 class MerchantRepository
-  def initialize(merchants = [])
-    @merchants = merchants
+  def initialize(filename)
+    @merchants = create_merchants(filename)
+  end
+
+  def create_merchants(filename)
+    FileIo.process_csv(filename, Merchant)
   end
 
   def all
