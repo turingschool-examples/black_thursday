@@ -1,7 +1,6 @@
 require 'Date'
 
 class MockData
-
   def self.get_a_random_date(random = true)
     if random
       date_s = "20#{rand(10..21)}-#{rand(1..12)}-#{rand(1..28)}"
@@ -15,7 +14,24 @@ class MockData
     (rand(1..120) + (rand(100) / 100.0))
   end
 
-  def self.get_mock_merchants(number_of_mocks: 10, random_dates: true)
+  def self.merchants_as_mocks(merchant_hashes)
+    mocked_merchants = []
+
+    merchant_hashes.each do |merchant_hash|
+      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      eg = yield
+      merchant_mock = eg.instance_double('Merchant',
+        name: item_hash[:name],
+        id: item_hash[:id],
+        created_at: item_hash[:created_at],
+        updated_at: item_hash[:updated_at]
+      )
+      mocked_merchants << merchant_mock
+    end
+    mocked_merchants
+  end
+
+  def self.merchants_as_hash(number_of_mocks: 10, random_dates: true)
     mocked_merchants = []
     number_of_mocks.times do |merchant_number|
       merchant = {}
@@ -35,7 +51,26 @@ class MockData
     mocked_merchants
   end
 
-  def self.get_mock_items(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
+  def self.items_as_mocks(item_hashes)
+    mocked_items = []
+    item_hashes.each do |item_hash|
+      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      eg = yield
+      item = eg.instance_double('Item',
+        name: item_hash[:name],
+        id: item_hash[:id],
+        unit_price: item_hash[:unit_price],
+        description: item_hash[:description],
+        merchant_id: item_hash[:merchant_id],
+        created_at: item_hash[:created_at],
+        updated_at: item_hash[:updated_at]
+      )
+      mocked_items << item
+    end
+    mocked_items
+  end
+
+  def self.items_as_hash(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
     mocked_items = []
     number_of_mocks.times do |item_number|
       item = {}
@@ -56,20 +91,19 @@ class MockData
         item[:created_at] = date.prev_year.to_s
         item[:updated_at] = date.to_s
       end
-      item[:updated_at] = date.to_s
       mocked_items << item
     end
     mocked_items
   end
 
-  def self.sum_prices(items)
+  def self.sum_item_prices_from_hash(items)
     items.sum do |item|
       item[:unit_price]
     end
   end
 
-  def self.mean_price(items)
-    sum = sum_prices(items)
+  def self.mean_of_item_prices_from_hash(items)
+    sum = sum_item_prices_from_hash(items)
     (sum / items.length)
   end
 end
