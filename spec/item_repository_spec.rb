@@ -1,5 +1,4 @@
 require 'CSV'
-require 'RSpec'
 require './lib/sales_engine'
 require './lib/item'
 require './lib/item_repository'

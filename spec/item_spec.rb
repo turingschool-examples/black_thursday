@@ -1,4 +1,3 @@
-require 'RSpec'
 require './lib/item'
 require 'bigdecimal'
 
@@ -8,7 +7,7 @@ RSpec.describe Item do
       item1 = Item.new({:id          => 1,
                         :name        => "Pencil",
                         :description => "You can use it to write things",
-                        :unit_price  => BigDecimal.new(10.99,4),
+                        :unit_price  => BigDecimal(10.99,4),
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
                         :merchant_id => 2})
@@ -32,6 +31,7 @@ RSpec.describe Item do
       expect(item1.created_at).to be_an_instance_of(Time)
       expect(item1.updated_at).to be_an_instance_of(Time)
     end
+  end
 
   describe '#methods' do
     it '#unit price to dollars' do
