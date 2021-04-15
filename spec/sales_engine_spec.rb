@@ -7,19 +7,20 @@ RSpec.describe SalesEngine do
   before do
     @se = SalesEngine.from_csv({
       items: './data/items.csv',
-      merchants: './data/merchants.csv'
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv'
     })
   end
 
   describe '#initialize' do
     it 'exists' do
-        expect(@se).to be_instance_of(SalesEngine)
+      expect(@se).to be_instance_of(SalesEngine)
     end
     it 'creates an ItemRepository' do
-        expect(@se.items).to be_instance_of(ItemRepository)
-    end    
+      expect(@se.items).to be_instance_of(ItemRepository)
+    end
     it 'creates an InvoiceRepository' do
-        expect(@se.invoices).to be_instance_of(InvoiceRepository)
+      expect(@se.invoices).to be_instance_of(InvoiceRepository)
     end
   end
 end
