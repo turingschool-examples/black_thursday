@@ -3,8 +3,14 @@
 require './lib/merchant'
 
 class MerchantRepository
-  def initialize(merchants = [])
-    @merchants = merchants
+  attr_reader :merchants
+
+  def initialize(filename)
+    @merchants = create_merchants(filename)
+  end
+
+  def create_merchants(filename)
+    FileIo.process_csv(filename, Merchant)
   end
 
   def all
