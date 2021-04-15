@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-15T10:10:11-04:00">2021-04-15T10:10:11-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-15T10:24:13-04:00">2021-04-15T10:24:13-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         323.92
+         327.44
        </span>
     </span> hits/line
     )
@@ -110,7 +110,7 @@
             <td class="cell--number">35</td>
             <td class="cell--number">35</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">191.74</td>
+            <td class="cell--number">225.17</td>
             
           </tr>
         
@@ -150,7 +150,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#03c46f73690501e664c98e82038d55752744774c" class="src_link" title="spec/merchants_repo_spec.rb">spec/merchants_repo_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">84</td>
+            <td class="cell--number">81</td>
             <td class="cell--number">48</td>
             <td class="cell--number">48</td>
             <td class="cell--number">0</td>
@@ -2143,8 +2143,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="5" data-linenumber="26">
-            <span class="hits">5</span>
+          <li class="covered" data-hits="8" data-linenumber="26">
+            <span class="hits">8</span>
             
 
             
@@ -2154,8 +2154,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1429" data-linenumber="27">
-            <span class="hits">1429</span>
+          <li class="covered" data-hits="2120" data-linenumber="27">
+            <span class="hits">2120</span>
             
 
             
@@ -2275,8 +2275,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="38">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="3" data-linenumber="38">
+            <span class="hits">3</span>
             
 
             
@@ -2286,8 +2286,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="950" data-linenumber="39">
-            <span class="hits">950</span>
+          <li class="covered" data-hits="1425" data-linenumber="39">
+            <span class="hits">1425</span>
             
 
             
@@ -5782,7 +5782,7 @@
 
             
 
-            <code class="ruby">      fragment = &quot;style&quot;</code>
+            <code class="ruby">      merchant_1 = mr.find_by_id(12334281)</code>
           </li>
         </div>
       
@@ -5793,18 +5793,18 @@
 
             
 
-            <code class="ruby">      expected = mr.find_all_by_name(fragment)</code>
+            <code class="ruby">      merchant_2 = mr.find_by_id(12334904)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="46">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="46">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">      merchant_3 = mr.find_by_id(12337211)</code>
           </li>
         </div>
       
@@ -5815,7 +5815,7 @@
 
             
 
-            <code class="ruby">      expect(expected.length).to eq 3</code>
+            <code class="ruby">      expect(mr.find_all_by_name(&quot;style&quot;).length).to eq 3</code>
           </li>
         </div>
       
@@ -5826,7 +5826,7 @@
 
             
 
-            <code class="ruby">      expect(expected.map(&amp;:name).include?(&quot;justMstyle&quot;)).to eq true</code>
+            <code class="ruby">      expect(mr.find_all_by_name(&quot;style&quot;)).to eq([merchant_1, merchant_2, merchant_3])</code>
           </li>
         </div>
       
@@ -5837,18 +5837,18 @@
 
             
 
-            <code class="ruby">      expect(expected.map(&amp;:id).include?(12337211)).to eq true</code>
+            <code class="ruby">      expect(mr.find_all_by_name(&quot;corgi&quot;)).to eq([])</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="50">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="50">
+            
             
 
             
 
-            <code class="ruby">      expect(mr.find_all_by_name(&quot;corgi&quot;)).to eq([])</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -5859,23 +5859,12 @@
 
             
 
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="52">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="53">
+          <li class="covered" data-hits="1" data-linenumber="52">
             <span class="hits">1</span>
             
 
@@ -5886,7 +5875,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="54">
+          <li class="never" data-hits="" data-linenumber="53">
             
             
 
@@ -5897,18 +5886,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="55">
+          <li class="covered" data-hits="1" data-linenumber="54">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">        name: &quot;Turing School of Software and Design&quot;</code>
+            <code class="ruby">        name: &quot;Regina is cool&quot;</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="56">
+          <li class="never" data-hits="" data-linenumber="55">
             
             
 
@@ -5919,7 +5908,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="57">
+          <li class="covered" data-hits="1" data-linenumber="56">
             <span class="hits">1</span>
             
 
@@ -5930,7 +5919,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="58">
+          <li class="covered" data-hits="1" data-linenumber="57">
             <span class="hits">1</span>
             
 
@@ -5941,18 +5930,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="59">
+          <li class="covered" data-hits="1" data-linenumber="58">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">      expect(expected.name).to eq &quot;Turing School of Software and Design&quot;</code>
+            <code class="ruby">      expect(expected.name).to eq(&quot;Regina is cool&quot;)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="60">
+          <li class="never" data-hits="" data-linenumber="59">
             
             
 
@@ -5963,7 +5952,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="61">
+          <li class="never" data-hits="" data-linenumber="60">
             
             
 
@@ -5974,7 +5963,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="62">
+          <li class="covered" data-hits="1" data-linenumber="61">
             <span class="hits">1</span>
             
 
@@ -5985,29 +5974,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="63">
-            
-            
-
-            
-
-            <code class="ruby">      # update the Merchant instance with the corresponding id with the provided attributes.</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="64">
-            
-            
-
-            
-
-            <code class="ruby">      # Only the merchant’s name attribute can be updated.</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="65">
+          <li class="never" data-hits="" data-linenumber="62">
             
             
 
@@ -6018,18 +5985,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="66">
+          <li class="covered" data-hits="1" data-linenumber="63">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">        name: &quot;TSSD&quot;</code>
+            <code class="ruby">        name: &quot;NewStore67&quot;</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="67">
+          <li class="never" data-hits="" data-linenumber="64">
             
             
 
@@ -6040,7 +6007,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="68">
+          <li class="never" data-hits="" data-linenumber="65">
             
             
 
@@ -6051,13 +6018,46 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="69">
+          <li class="covered" data-hits="1" data-linenumber="66">
             <span class="hits">1</span>
             
 
             
 
             <code class="ruby">      mr.update(12337412, attributes)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="67">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="68">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expected = mr.find_by_id(12337412)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="69">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(expected.name).to eq(&quot;NewStore67&quot;)</code>
           </li>
         </div>
       
@@ -6079,7 +6079,7 @@
 
             
 
-            <code class="ruby">      expected = mr.find_by_id(12337412)</code>
+            <code class="ruby">      expected = mr.find_by_name(&quot;Regina is cool&quot;)</code>
           </li>
         </div>
       
@@ -6090,7 +6090,7 @@
 
             
 
-            <code class="ruby">      expect(expected.name).to eq &quot;TSSD&quot;</code>
+            <code class="ruby">      expect(expected).to eq(nil)</code>
           </li>
         </div>
       
@@ -6101,18 +6101,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="74">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="74">
+            
             
 
             
 
-            <code class="ruby">      expected = mr.find_by_name(&quot;Turing School of Software and Design&quot;)</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -6123,45 +6123,12 @@
 
             
 
-            <code class="ruby">      expect(expected).to eq nil</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="76">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="77">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="78">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">    it &#39;can delete a specific merchant&#39; do</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="79">
+          <li class="covered" data-hits="1" data-linenumber="76">
             <span class="hits">1</span>
             
 
@@ -6172,7 +6139,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="80">
+          <li class="covered" data-hits="1" data-linenumber="77">
             <span class="hits">1</span>
             
 
@@ -6183,18 +6150,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="81">
+          <li class="covered" data-hits="1" data-linenumber="78">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">      expect(expected).to eq nil</code>
+            <code class="ruby">      expect(expected).to eq(nil)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="82">
+          <li class="never" data-hits="" data-linenumber="79">
             
             
 
@@ -6205,7 +6172,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="83">
+          <li class="never" data-hits="" data-linenumber="80">
             
             
 
@@ -6216,7 +6183,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="84">
+          <li class="never" data-hits="" data-linenumber="81">
             
             
 

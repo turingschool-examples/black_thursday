@@ -41,44 +41,41 @@ RSpec.describe MerchantRepo do
     end
 
     it 'can find all by name' do
-      fragment = "style"
-      expected = mr.find_all_by_name(fragment)
-
-      expect(expected.length).to eq 3
-      expect(expected.map(&:name).include?("justMstyle")).to eq true
-      expect(expected.map(&:id).include?(12337211)).to eq true
+      merchant_1 = mr.find_by_id(12334281)
+      merchant_2 = mr.find_by_id(12334904)
+      merchant_3 = mr.find_by_id(12337211)
+      expect(mr.find_all_by_name("style").length).to eq 3
+      expect(mr.find_all_by_name("style")).to eq([merchant_1, merchant_2, merchant_3])
       expect(mr.find_all_by_name("corgi")).to eq([])
     end
 
     it 'can create a new merchant instance' do
       attributes = {
-        name: "Turing School of Software and Design"
+        name: "Regina is cool"
       }
       mr.create(attributes)
       expected = mr.find_by_id(12337412)
-      expect(expected.name).to eq "Turing School of Software and Design"
+      expect(expected.name).to eq("Regina is cool")
     end
 
     it 'can update a merchant' do
-      # update the Merchant instance with the corresponding id with the provided attributes.
-      # Only the merchant’s name attribute can be updated.
       attributes = {
-        name: "TSSD"
+        name: "NewStore67"
       }
 
       mr.update(12337412, attributes)
 
       expected = mr.find_by_id(12337412)
-      expect(expected.name).to eq "TSSD"
+      expect(expected.name).to eq("NewStore67")
 
-      expected = mr.find_by_name("Turing School of Software and Design")
-      expect(expected).to eq nil
+      expected = mr.find_by_name("Regina is cool")
+      expect(expected).to eq(nil)
     end
 
     it 'can delete a specific merchant' do
       mr.delete(12337412)
       expected = mr.find_by_id(12337412)
-      expect(expected).to eq nil
+      expect(expected).to eq(nil)
     end
   end
 end
