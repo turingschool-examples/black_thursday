@@ -21,11 +21,11 @@ RSpec.describe Merchant do
   end
 
   it 'has attributes' do
-    m = Merchant.new({ id: 5,
-                       name: 'Turing School',
-                       repository: 'repository',
-                       created_at: Time.now,
-                       updated_at: Time.now})
+    m = Merchant.new( id: 5,
+                      name: 'Turing School',
+                      repository: 'repository',
+                      created_at: Time.now,
+                      updated_at: Time.now )
 
     expect(m.id).to eq(5)
     expect(m.name).to eq( 'Turing School' )
