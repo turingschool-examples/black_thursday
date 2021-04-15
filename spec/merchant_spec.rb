@@ -21,7 +21,7 @@ RSpec.describe Merchant do
 
     expect(m.id).to eq(5)
     expect(m.name).to eq( 'Turing School' )
-    expect(m.created_at).to eq(Time.now)
-    expect(m.updated_at).to eq(Time.now)
+    expect(m.created_at).to eq(Time.now.to_s)
+    expect(m.updated_at).to eq(Time.now.to_s)
   end
 end
