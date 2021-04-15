@@ -5,44 +5,45 @@ require 'bigdecimal'
 RSpec.describe Item do
   describe 'instantiation' do
     it '::new' do
-      i = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2
-                  })
-      expect(i).to be_an_instance_of(Item)
+      item1 = Item.new({:id          => 1,
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal.new(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2})
+
+      expect(item1).to be_an_instance_of(Item)
     end
 
     it 'has attributes' do
-      i = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2})
+      item1 = Item.new({:id          => 1,
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2})
       
-      expect(i.id).to eq(1)
-      expect(i.name).to eq("Pencil")
-      expect(i.description).to eq("You can use it to write things")
-      expect(i.unit_price).to be_an_instance_of(BigDecimal)
-      expect(i.created_at).to be_an_instance_of(Time)
-      expect(i.updated_at).to be_an_instance_of(Time)
+      expect(item1.id).to eq(1)
+      expect(item1.name).to eq("Pencil")
+      expect(item1.description).to eq("You can use it to write things")
+      expect(item1.unit_price).to be_an_instance_of(BigDecimal)
+      expect(item1.created_at).to be_an_instance_of(Time)
+      expect(item1.updated_at).to be_an_instance_of(Time)
     end
+
   describe '#methods' do
     it '#unit price to dollars' do
-      i = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2})
-      require 'pry'; binding.pry
-      expect(i.unit_price_to_dollars).to eq 
+      item1 = Item.new({:id          => 1,
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2})
+  
+      expect(item1.unit_price_to_dollars).to eq(10.99)
     end
   end
 end
