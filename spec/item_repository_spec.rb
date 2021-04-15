@@ -136,18 +136,29 @@ RSpec.describe ItemRepository do
                               })
     repo = sales_engine.items
 
+    attributes = {
+                      :id          => 1,
+                      :name        => "Pencil",
+                      :description => "You can use it to write things",
+                      :unit_price  => "1099",
+                      :merchant_id => 2
+                    }
+    repo.create(attributes)
+
     it '#create creates new instance with attribute argument' do
-      attributes = {
-                        :id          => 1,
-                        :name        => "Pencil",
-                        :description => "You can use it to write things",
-                        :unit_price  => "1099",
-                        :created_at  => Time.now,
-                        :updated_at  => Time.now,
-                        :merchant_id => 2
-                      }
-      repo.create(attributes) 
+
       expect(repo.all.count).to eq(1368)
+      expect(repo.all.last).to be_an_instance_of(Item)
+      expect(repo.all.last.name).to eq("Pencil")
     end
+
+    it '#creates test for new id to be incremented by one' do
+      second_to_last_item_id = repo.all[-2].id
+      last_item_id = repo.all[-1].id
+      expected = last_item_id - second_to_last_item_id
+      expect(expected).to eq(1)
+    end
+
+
   end
 end
