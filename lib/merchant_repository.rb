@@ -78,6 +78,24 @@ class MerchantRepository
     end
   end
 
+  def merchant_items
+    merchant_items = {}
+    merchants.map do |merchant|
+      merchant_items[merchant.name] = []
+    end
+    merchant_items.group_by do |key, item|
+      merchants.each do |merchant|
+        all_items.find_all do |item|
+          if merchant.id == item.merchant_id && merchant_items[key].include?(item) == false
+            merchant_items[key] << item
+          end
+        end
+      end
+    end
+    merchant_items
+    # require 'pry'; binding.pry
+  end
+
   def average_items_per_merchant
     avg = merchant_total_items.sum.to_f / @merchants.count
     avg.round(2)
@@ -89,5 +107,9 @@ class MerchantRepository
     end
     sample_variance = numerator / (merchant_total_items.length - 1).to_f
     (Math.sqrt(sample_variance)).round(2)
+  end
+
+  def merchants_with_high_item_count
+
   end
 end

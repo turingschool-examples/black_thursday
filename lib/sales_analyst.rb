@@ -16,6 +16,7 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    @sales_engine.merchants.merchant_items
     #return an array of merchant objects > 1 std deviation above avg # of
     #products offered
     # 1 std deviation = standard_deviation + avg
