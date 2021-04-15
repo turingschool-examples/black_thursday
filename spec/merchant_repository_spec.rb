@@ -33,22 +33,20 @@ describe MerchantRepository do
       expect(m_repo.all.length).to eq 10
     end
   end
-  #
-  # describe '#find_by_id' do
-  #   it 'finds the merchant by the given id' do
-  #     mock_merchant1 = instance_double('Merchant', id: 1)
-  #     mock_merchant2 = instance_double('Merchant', id: 2)
-  #     mock_merchant3 = instance_double('Merchant', id: 3)
-  #     mock_merchants = [mock_merchant1, mock_merchant2, mock_merchant3]
-  #
-  #     m_repo = MerchantRepository.new(mock_merchants)
-  #
-  #     expected_merchant = mock_merchant2
-  #     actual_merchant = m_repo.find_by_id(2)
-  #
-  #     expect(actual_merchant).to eq expected_merchant
-  #   end
-  # end
+
+  describe '#find_by_id' do
+    it 'finds the merchant by the given id' do
+      details = MockData.merchants_as_hash
+      mock_data = MockData.merchants_as_mocks(details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
+      m_repo = MerchantRepository.new('fake.csv')
+
+      expected = m_repo.merchants.first
+      actual = m_repo.find_by_id(0)
+
+      expect(actual).to eq expected
+    end
+  end
   #
   # describe '#find_by_name' do
   #   it 'finds a merchant by the given name' do
