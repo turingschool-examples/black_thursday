@@ -99,25 +99,24 @@ describe MerchantRepository do
       allow(m_repo).to receive(:newest_id).and_return(10)
 
       m_repo.create(id: 0, name: 'Sami')
+      new_merchant = m_repo.merchants.last.name
 
       expect(m_repo.merchants.length).to eq 11
-      expect(m_repo.merchants.last.name).to eq 'Sami'
+      expect(new_merchant).to eq 'Sami'
     end
   end
 
-  # describe '#newest_id' do
-  #   it 'gets the next id for a new merchant' do
-  #     merchant1 = Merchant.new(id: 1, name: 'Richard')
-  #     merchants = [merchant1]
-  #     m_repo = MerchantRepository.new(merchants)
-  #
-  #     expect_new_id = 2
-  #     actual_id = m_repo.newest_id
-  #
-  #     expect(actual_id).to eq expect_new_id
-  #   end
-  # end
-  #
+  describe '#newest_id' do
+    it 'gets the next id for a new merchant' do
+      details = MockData.merchants_as_hash
+      mock_data = MockData.merchants_as_mocks(details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
+      m_repo = MerchantRepository.new('fake.csv')
+
+      expect(m_repo.newest_id).to eq 10
+    end
+  end
+
   # describe '#update' do
   #   it 'updates a merchant with the given id and attributes' do
   #     merchant1 = Merchant.new(id: 1, name: 'Richard')
