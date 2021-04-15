@@ -43,7 +43,6 @@ describe MerchantRepository do
 
       expected = m_repo.merchants.first
       actual = m_repo.find_by_id(0)
-
       expect(actual).to eq expected
     end
   end
@@ -57,7 +56,6 @@ describe MerchantRepository do
 
       expected = m_repo.merchants.first
       actual = m_repo.find_by_name('Merchant 0')
-
       expect(actual).to eq expected
     end
   end
@@ -71,7 +69,6 @@ describe MerchantRepository do
 
       expected = [m_repo.merchants.first]
       actual = m_repo.find_all_by_name('Merchant 0')
-
       expect(actual).to eq expected
     end
   end
@@ -95,7 +92,6 @@ describe MerchantRepository do
       mock_data = MockData.merchants_as_mocks(details) { self }
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
-
       allow(m_repo).to receive(:newest_id).and_return(10)
 
       m_repo.create(id: 0, name: 'Sami')
