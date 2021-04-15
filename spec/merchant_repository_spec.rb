@@ -67,7 +67,11 @@ describe MerchantRepository do
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
-      expected = [m_repo.merchants.first]
+      m_repo.create(id: 0, name: 'Merchant 0')
+      new_merchant = m_repo.merchants.last
+      # m_repo.update(10, { id: 23, name: 'Dustin Huntsman' })
+
+      expected = [m_repo.merchants.first, m_repo.merchants.last]
       actual = m_repo.find_all_by_name('Merchant 0')
       expect(actual).to eq expected
     end
