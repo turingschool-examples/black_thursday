@@ -42,40 +42,21 @@ RSpec.describe Invoice do
       expect(invoice.updated_at).to be_instance_of(Time)
     end
   end
-#   describe '#update' do
-#     it 'updates the updated_at timestamp' do
-#       mock_item_repo = instance_double('ItemRepository')
-#       item = Item.new(  {
-#         id: '1',
-#         name: 'Cool Stuff',
-#         description: 'supaaa cool',
-#         unit_price: '1300',
-#         merchant_id: '12334185',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#         },
-#         mock_item_repo
-#       )
-#       item.update
-#       expect(item.updated_at.year).to eq(2021)
-#     end
-#   end
-#   describe '#format_unit_price' do
-#     it 'formats the unit price to a BigDecimal' do
-#       mock_item_repo = instance_double('ItemRepository')
-#       item = Item.new(  {
-#         id: '1',
-#         name: 'Cool Stuff',
-#         description: 'supaaa cool',
-#         unit_price: '1300',
-#         merchant_id: '12334185',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#         },
-#         mock_item_repo)
-#       item.unit_price = 1300
-#       item.format_unit_price
-#       expect(item.unit_price).to eq(0.13e4)
-#     end
-#   end
+  describe '#update_time_stamp' do
+    it 'updates the updated_at timestamp' do
+      mock_invoice_repo = instance_double('InvoiceRepository')
+      invoice = Invoice.new(  {
+        id: '263395617',
+            customer_id: '456789',
+            merchant_id: '234567890',
+            status: 'pending',
+            created_at: '2016-01-11 11:51:37 UTC',
+            updated_at: '1993-09-29 11:56:40 UTC'
+        },
+        mock_invoice_repo
+      )
+      invoice.update_time_stamp
+      expect(invoice.updated_at.year).to eq(2021)
+    end
+  end
 end
