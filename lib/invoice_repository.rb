@@ -80,7 +80,27 @@ class InvoiceRepository
 
   def days_by_invoice_count(day)
     @invoices.find_all do |invoice|
-      invoice.created_at.strftime("%A").downcase == day.downcase
-    end.count 
+      invoice.day_created == day.downcase
+    end.count
+  end
+
+  def invoices_by_days
+    hash = {'sunday' => 0,
+            'monday' => 0,
+            'tuesday' => 0,
+            'wednesday' => 0,
+            'thursday' => 0,
+            'friday' => 0,
+            'saturday' => 0}
+    @invoices.each do |invoice|
+      hash[invoice.day_created] += 1
+    end
+    hash
+  end
+
+  def average(hash)
+    number_of_keys = hash.keys.count
+    total_invoices = all.count.to_f
+    (total_invoices / number_of_keys).round(2)
   end
 end

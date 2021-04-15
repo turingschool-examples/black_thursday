@@ -188,4 +188,28 @@ RSpec.describe InvoiceRepository do
       expect(ir.days_by_invoice_count('Tuesday')).to eq(0)
     end
   end
+
+  describe '#invoices_by_days' do
+    it 'shows count of invoices per day of week' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+
+      expect(ir.invoices_by_days).to eq({"friday"=>2,
+                                         "monday"=>1,
+                                         "saturday"=>2,
+                                         "sunday"=>0,
+                                         "thursday"=>0,
+                                         "tuesday"=>0,
+                                         "wednesday"=>1})
+    end
+  end
+
+  describe '#average' do
+    it 'shows average' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+
+      expect(ir.average(ir.invoices_by_days)).to eq(0.86)
+    end
+  end
 end
