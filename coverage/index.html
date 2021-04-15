@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-15T10:06:11-04:00">2021-04-15T10:06:11-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-15T10:10:11-04:00">2021-04-15T10:10:11-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -5201,7 +5201,7 @@
 
             
 
-            <code class="ruby">        expected = ir.all[0]</code>
+            <code class="ruby">        first_item = ir.all[0]</code>
           </li>
         </div>
       
@@ -5212,7 +5212,7 @@
 
             
 
-            <code class="ruby">        expect(expected.unit_price_to_dollars).to eq(12.0)</code>
+            <code class="ruby">        expect(first_item.unit_price_to_dollars).to eq(12.0)</code>
           </li>
         </div>
       
@@ -5223,7 +5223,7 @@
 
             
 
-            <code class="ruby">        expect(expected.unit_price_to_dollars.class).to eq(Float)</code>
+            <code class="ruby">        expect(first_item.unit_price_to_dollars.class).to eq(Float)</code>
           </li>
         </div>
       
@@ -6396,7 +6396,7 @@
 
             
 
-            <code class="ruby">    it &quot;#id returns the merchant id&quot; do</code>
+            <code class="ruby">    it &quot;can return id&quot; do</code>
           </li>
         </div>
       
@@ -6407,7 +6407,7 @@
 
             
 
-            <code class="ruby">      merchant = mr.all.first</code>
+            <code class="ruby">      merchant = mr.all[0]</code>
           </li>
         </div>
       
@@ -6418,7 +6418,7 @@
 
             
 
-            <code class="ruby">      expect(merchant.id).to eq 12334105</code>
+            <code class="ruby">      expect(merchant.id).to eq(12334105)</code>
           </li>
         </div>
       
@@ -6440,7 +6440,7 @@
 
             
 
-            <code class="ruby">    it &quot;#name returns the merchant name&quot; do</code>
+            <code class="ruby">    it &quot;can return name&quot; do</code>
           </li>
         </div>
       
@@ -6451,7 +6451,7 @@
 
             
 
-            <code class="ruby">      merchant_one = mr.all.first</code>
+            <code class="ruby">      first_merchant = mr.all[0]</code>
           </li>
         </div>
       
@@ -6462,7 +6462,7 @@
 
             
 
-            <code class="ruby">      expect(merchant_one.name).to eq &quot;Shopin1901&quot;</code>
+            <code class="ruby">      expect(first_merchant.name).to eq(&quot;Shopin1901&quot;)</code>
           </li>
         </div>
       
@@ -6473,7 +6473,7 @@
 
             
 
-            <code class="ruby">      merchant_two = mr.all.last</code>
+            <code class="ruby">      second_merchant = mr.all[1]</code>
           </li>
         </div>
       
@@ -6484,7 +6484,7 @@
 
             
 
-            <code class="ruby">      expect(merchant_two.name).to eq &quot;CJsDecor&quot;</code>
+            <code class="ruby">      expect(second_merchant.name).to eq(&quot;Candisart&quot;)</code>
           </li>
         </div>
       

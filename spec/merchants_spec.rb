@@ -10,15 +10,15 @@ RSpec.describe Merchant do
   mr = se.merchants
 
   context "Merchant" do
-    it "#id returns the merchant id" do
-      merchant = mr.all.first
-      expect(merchant.id).to eq 12334105
+    it "can return id" do
+      merchant = mr.all[0]
+      expect(merchant.id).to eq(12334105)
     end
-    it "#name returns the merchant name" do
-      merchant_one = mr.all.first
-      expect(merchant_one.name).to eq "Shopin1901"
-      merchant_two = mr.all.last
-      expect(merchant_two.name).to eq "CJsDecor"
+    it "can return name" do
+      first_merchant = mr.all[0]
+      expect(first_merchant.name).to eq("Shopin1901")
+      second_merchant = mr.all[1]
+      expect(second_merchant.name).to eq("Candisart")
     end
   end
 
