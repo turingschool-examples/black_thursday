@@ -12,30 +12,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    item_merchant_ids = @sales_engine.items.all.map do |item|
-      item.merchant_id
-    end
-
-    merchant_item_matches = @sales_engine.merchants.all.map do |merchant|
-      item_merchant_ids.map do |item_id|
-        merchant.id == item_id
-      end
-    end
-
-    count = merchant_item_matches.map do |array|
-      array.count(true)
-    end
-    avg = average_items_per_merchant
-    #sample variance
-    sum = count.inject(0) do |accum, i|
-      accum + (i - avg) ** 2
-    end
-    sample_variance = sum / (count.length - 1).to_f
-    #std deviation
-    standard_deviation = (Math.sqrt(sample_variance)).round(2)
+    @sales_engine.merchants.average_items_per_merchant_standard_deviation
   end
 
   def merchants_with_high_item_count
+    @sales_engine.merchants.merchant_items
     #return an array of merchant objects > 1 std deviation above avg # of
     #products offered
     # 1 std deviation = standard_deviation + avg
