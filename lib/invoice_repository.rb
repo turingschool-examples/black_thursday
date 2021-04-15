@@ -131,4 +131,8 @@ class InvoiceRepository
       hash[invoice.merchant_id] += 1
     end
   end
+
+  def average_invoices_per_merchant
+    (average(invoices_per_merchant)).round(2)
+  end
 end

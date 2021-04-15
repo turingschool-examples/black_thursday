@@ -254,4 +254,11 @@ RSpec.describe InvoiceRepository do
       expect(ir.invoices_per_merchant.keys.count).to eq(475)
     end
   end
+  describe '#average_invoices_per_merchant' do
+    it 'shows average number of invoices by merchant' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      expect(ir.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
 end
