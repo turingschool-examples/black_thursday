@@ -40,13 +40,13 @@ RSpec.describe MerchantRepository do
     end
 
     it 'can find by id' do
-      expect(merch_rep.find_by_id("500000")).to eq(nil)
-      expect(merch_rep.find_by_id("12334105").name).to eq("Shopin1901")
+      expect(merch_rep.find_by_id(500000)).to eq(nil)
+      expect(merch_rep.find_by_id(12334105).name).to eq("Shopin1901")
     end
 
     it 'can find by name' do
-      expect(merch_rep.find_by_name("Candisart").id).to eq("12334112")
-      expect(merch_rep.find_by_name("candISart").id).to eq("12334112")
+      expect(merch_rep.find_by_name("Candisart").id).to eq(12334112)
+      expect(merch_rep.find_by_name("candISart").id).to eq(12334112)
     end
 
     it 'find all by name' do
@@ -59,20 +59,20 @@ RSpec.describe MerchantRepository do
     end
 
     it 'makes a new id number' do
-      new_number = (merch_rep.merchants.last.id.to_i)+1
+      new_number = (merch_rep.merchants.last.id)+1
       expect(merch_rep.new_id_number).to eq(new_number)
     end
 
     it 'can update existing merchant' do
       attributes = { :id => 5, :name => "Turing School" }
-      merch_rep.update("12334112", attributes)
-      targeted_merchant = merch_rep.find_by_id("12334112")
+      merch_rep.update(12334112, attributes)
+      targeted_merchant = merch_rep.find_by_id(12334112)
       expect(targeted_merchant.name).to eq("Turing School")
     end
 
     it 'can delete merchant' do
-      merch_rep.delete("12334112")
-      targeted_merchant = merch_rep.find_by_id("12334112")
+      merch_rep.delete(12334112)
+      targeted_merchant = merch_rep.find_by_id(12334112)
       expect(targeted_merchant).to eq(nil)
     end
   end

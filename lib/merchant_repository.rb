@@ -5,7 +5,11 @@ class MerchantRepository
   def initialize(parsed_csv)
     @merchants = create_merchants(parsed_csv)
   end
-
+  #add so spec harness would run successfully.
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
+  
   def create_merchants(parsed_data)
      parsed_data.map do |merchant|
       Merchant.new(merchant)
@@ -44,7 +48,7 @@ class MerchantRepository
   end
 
   def new_id_number
-    (@merchants.last.id.to_i)+1
+    (@merchants.last.id)+1
   end
 
   def update(id, attributes)
