@@ -176,4 +176,16 @@ RSpec.describe InvoiceRepository do
       expect(ir.percentage_by_status(:returned)).to eq(16.67)
     end
   end
+
+  describe '#days_by_invoice_count' do
+    it 'shows count of invoices per day of week' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+
+      expect(ir.days_by_invoice_count('Friday')).to eq(2)
+      expect(ir.days_by_invoice_count('Wednesday')).to eq(1)
+      expect(ir.days_by_invoice_count('SatUrDay')).to eq(2)
+      expect(ir.days_by_invoice_count('Tuesday')).to eq(0)
+    end
+  end
 end

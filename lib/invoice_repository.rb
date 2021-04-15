@@ -74,7 +74,13 @@ class InvoiceRepository
 
   def percentage_by_status(status)
     invoices_found = find_all_by_status(status).count.to_f
-    total_invoices = all.count    
+    total_invoices = all.count
     (invoices_found / total_invoices * 100).round(2)
+  end
+
+  def days_by_invoice_count(day)
+    @invoices.find_all do |invoice|
+      invoice.created_at.strftime("%A").downcase == day.downcase
+    end.count 
   end
 end
