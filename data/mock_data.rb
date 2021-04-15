@@ -1,7 +1,10 @@
 require 'Date'
 
-class MockData
+module ItemMock
 
+end
+
+class MockData
   def self.get_a_random_date(random = true)
     if random
       date_s = "20#{rand(10..21)}-#{rand(1..12)}-#{rand(1..28)}"
@@ -13,6 +16,24 @@ class MockData
 
   def self.get_a_random_price
     (rand(1..120) + (rand(100) / 100.0))
+  end
+
+  def self.merchants_as_mocks(merchant_hashes)
+    mocked_merchants = []
+
+    merchant_hashes.each do |merchant_hash|
+      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      eg = yield
+      merchant_mock = eg.instance_double('Merchant Mock')
+      eg.allow(merchant_mock).to eg.receive(:name).and_return(merchant_hash[:name])
+      eg.allow(merchant_mock).to eg.receive(:id).and_return(merchant_hash[:id])
+
+      eg.allow(merchant_mock).to eg.receive(:created_at).and_return(merchant_hash[:created_at])
+      eg.allow(merchant_mock).to eg.receive(:updated_at).and_return(merchant_hash[:updated_at])
+
+      mocked_merchants << merchant_mock
+    end
+    mocked_merchants
   end
 
   def self.merchants_as_hash(number_of_mocks: 10, random_dates: true)
@@ -33,6 +54,32 @@ class MockData
       mocked_merchants << merchant
     end
     mocked_merchants
+  end
+
+  def self.items_as_mocks(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
+    mocked_items = []
+    item_hashes = items_as_hash(number_of_mocks: number_of_mocks,
+                                number_of_merchants: number_of_merchants,
+                                random_dates: random_dates,
+                                price_of: price_of)
+    item_hashes.each do |item_hash|
+      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      eg = yield
+      item = eg.instance_double('Item Mock')
+      eg.allow(item).to eg.receive(:name).and_return(item_hash[:name])
+      eg.allow(item).to eg.receive(:id).and_return(item_hash[:id])
+
+      eg.allow(item).to eg.receive(:unit_price).and_return(item_hash[:unit_price])
+
+      eg.allow(item).to eg.receive(:description).and_return(item_hash[:description])
+      eg.allow(item).to eg.receive(:merchant_id).and_return(item_hash[:merchant_id])
+
+      eg.allow(item).to eg.receive(:created_at).and_return(item_hash[:created_at])
+      eg.allow(item).to eg.receive(:updated_at).and_return(item_hash[:updated_at])
+
+      mocked_items << item
+    end
+    mocked_items
   end
 
   def self.items_as_hash(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
@@ -56,7 +103,6 @@ class MockData
         item[:created_at] = date.prev_year.to_s
         item[:updated_at] = date.to_s
       end
-      item[:updated_at] = date.to_s
       mocked_items << item
     end
     mocked_items
@@ -69,7 +115,7 @@ class MockData
   end
 
   def self.mean_of_item_prices(items)
-    sum = sum_prices(items)
+    sum = sum_item_prices(items)
     (sum / items.length)
   end
 end
