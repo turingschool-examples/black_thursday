@@ -41,5 +41,18 @@ describe Invoice do
 
       expect(i.customer_id).to eq 7
     end
+
+    it 'has a merchant id' do
+      i = Invoice.new({
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+      })
+
+      expect(i.merchant_id).to eq 8 
+    end
   end
 end
