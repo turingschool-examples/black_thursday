@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/spec/items_repo_spec.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/spec/items_repo_spec.rb": {
         "lines": [
           1,
           1,
@@ -109,7 +109,6 @@
           null,
           null,
           1,
-          null,
           1,
           null,
           null,
@@ -117,6 +116,20 @@
           null,
           null,
           null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
           1,
           1,
           1,
@@ -125,19 +138,6 @@
           1,
           1,
           null,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
           null,
           null,
           null,
@@ -166,7 +166,7 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/sales_engine.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
@@ -187,7 +187,7 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/items_repo.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/items_repo.rb": {
         "lines": [
           1,
           1,
@@ -210,7 +210,7 @@
           null,
           null,
           1,
-          10,
+          8,
           null,
           null,
           1,
@@ -278,6 +278,7 @@
           2,
           2,
           null,
+          3,
           null,
           null,
           1,
@@ -289,7 +290,7 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/items.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/items.rb": {
         "lines": [
           1,
           1,
@@ -316,19 +317,10 @@
           1,
           2,
           null,
-          null,
-          null,
-          1,
-          2,
-          null,
-          null,
-          1,
-          2,
-          null,
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/merchants_repo.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/merchants_repo.rb": {
         "lines": [
           1,
           1,
@@ -398,7 +390,7 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/merchants.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/merchants.rb": {
         "lines": [
           1,
           1,
@@ -410,26 +402,20 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/spec/items_spec.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/spec/items_spec.rb": {
         "lines": [
           1,
           1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
           1,
           null,
           1,
           1,
-          1,
-          1,
-          1,
-          1,
           null,
           null,
+          null,
+          1,
+          null,
+          1,
           1,
           1,
           1,
@@ -437,6 +423,7 @@
           1,
           null,
           null,
+          1,
           1,
           1,
           1,
@@ -455,10 +442,18 @@
           1,
           null,
           null,
-          1,
-          1,
-          1,
-          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           1,
@@ -471,7 +466,7 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/spec/merchants_repo_spec.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/spec/merchants_repo_spec.rb": {
         "lines": [
           1,
           1,
@@ -525,17 +520,17 @@
           null,
           null,
           1,
-          null,
-          1,
-          null,
-          1,
-          1,
           1,
           null,
           null,
           1,
+          1,
+          1,
+          null,
           null,
           1,
+          1,
+          null,
           null,
           null,
           1,
@@ -556,7 +551,7 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/spec/merchants_spec.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/spec/merchants_spec.rb": {
         "lines": [
           1,
           1,
@@ -585,7 +580,7 @@
           null
         ]
       },
-      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/spec/sales_engine_spec.rb": {
+      "/Users/rcasias/turing-mod1/projects/black_thursday/spec/sales_engine_spec.rb": {
         "lines": [
           1,
           1,
@@ -618,6 +613,6 @@
         ]
       }
     },
-    "timestamp": 1618496653
+    "timestamp": 1618519336
   }
 }

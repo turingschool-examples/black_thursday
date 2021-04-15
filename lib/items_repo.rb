@@ -87,6 +87,7 @@ class ItemRepo
       item.description = attributes[:description]
       item.updated_at = Time.now
     end
+    item
   end
 
   def delete(id)
