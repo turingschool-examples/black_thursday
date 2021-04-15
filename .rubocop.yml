@@ -17,8 +17,6 @@ Style/SymbolProc:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
-Layout/SpaceBeforeBrackets: # (new in 1.7)
-  Enabled: true
 Lint/AmbiguousAssignment: # (new in 1.7)
   Enabled: true
 Lint/DeprecatedConstants: # (new in 1.8)
