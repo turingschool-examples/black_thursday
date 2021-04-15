@@ -2,6 +2,8 @@ require 'simplecov'
 SimpleCov.start
 require './lib/sales_engine'
 require './lib/merchant_repository'
+require './lib/item_repository'
+
 
 RSpec.describe MerchantRepository do
   describe '#initialize' do
@@ -97,6 +99,46 @@ RSpec.describe MerchantRepository do
       mr.delete(12334105)
 
       expect(mr.find_by_id(12334105)).to eq(nil)
+    end
+  end
+
+  describe '#all_items' do
+    it 'can grab all the items' do
+       se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
+
+      expect(mr.all_items[0]).to be_a(Item)
+      expect(mr.all_items.count).to eq(5)
+    end
+  end
+
+  describe '#merchant_total_items' do
+    it 'merchant item counts' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
+
+      expect(mr.merchant_total_items).to eq([2, 0, 1])
+    end
+  end
+
+  describe '#average_items_per_merchant' do
+    it 'can find the average number of items per merchant' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
+
+      expect(mr.average_items_per_merchant).to eq(0.75)
     end
   end
 end

@@ -27,7 +27,7 @@ RSpec.describe SalesAnalyst do
       })
       sales_analyst = se.analyst
 
-      expect(sales_analyst.average_items_per_merchant).to eq(1.0)
+      expect(sales_analyst.average_items_per_merchant).to eq(0.75)
     end
   end
 

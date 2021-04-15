@@ -2,7 +2,7 @@ require_relative 'sales_engine'
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :merchants
+  attr_reader :merchants, :engine
 
   def initialize(path, engine)
     @merchants = []
@@ -64,5 +64,21 @@ class MerchantRepository
   def delete(id)
     deletee = find_by_id(id)
     @merchants.delete(deletee)
+  end
+
+  def all_items
+    @engine.items.all
+  end
+
+  def merchant_total_items
+    merchants.map do |merchant|
+      all_items.count do |item|
+        merchant.id == item.merchant_id
+      end
+    end.uniq
+  end
+
+  def average_items_per_merchant
+    merchant_total_items.sum.to_f / @merchants.count
   end
 end
