@@ -24,11 +24,11 @@ class InvoiceRepository
     @invoices
   end
 
-#   def find_by_id(id)
-#     @items.find do |item|
-#       item.id == id
-#     end
-#   end
+  def find_by_id(id)
+    @invoices.find do |invoice|
+      invoice.id == id
+    end
+  end
 
 #   def find_by_name(name)
 #     @items.find do |item|
