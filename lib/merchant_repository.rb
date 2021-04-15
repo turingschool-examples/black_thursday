@@ -28,11 +28,11 @@ class MerchantRepository < Repository
   end
 
   def create(attributes)
-    merchant_new = Merchant.new(id: max_id_number_new,
-                                name: attributes[:name],
-                                created_at: Time.now,
-                                updated_at: Time.now,
-                                repository: self )
+    merchant_new = Merchant.new( id: max_id_number_new,
+                                 name: attributes[:name],
+                                 created_at: Time.now,
+                                 updated_at: Time.now,
+                                 repository: self )
     @csv_array << merchant_new
     merchant_new
   end
