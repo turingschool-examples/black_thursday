@@ -43,8 +43,8 @@ class MerchantRepository
   end
 
   def create(attributes)
-    name = attributes[:name]
-    @merchants.push(Merchant.new({:id => new_id_number, :name => name}))
+    @name = attributes[:name]
+    @merchants.push(Merchant.new({:id => new_id_number, :name => @name}))
   end
 
   def new_id_number
@@ -53,7 +53,11 @@ class MerchantRepository
 
   def update(id, attributes)
     target = find_by_id(id)
-    target.name = attributes[:name]
+    if !target.nil?
+      target.name = attributes[:name]
+    else
+      nil
+    end
   end
 
   def delete(id)
