@@ -56,12 +56,8 @@ class MockData
     mocked_merchants
   end
 
-  def self.items_as_mocks(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
+  def self.items_as_mocks(item_hashes)
     mocked_items = []
-    item_hashes = items_as_hash(number_of_mocks: number_of_mocks,
-                                number_of_merchants: number_of_merchants,
-                                random_dates: random_dates,
-                                price_of: price_of)
     item_hashes.each do |item_hash|
       raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
       eg = yield
@@ -108,14 +104,14 @@ class MockData
     mocked_items
   end
 
-  def self.sum_item_prices(items)
+  def self.sum_item_prices_from_hash(items)
     items.sum do |item|
       item[:unit_price]
     end
   end
 
-  def self.mean_of_item_prices(items)
-    sum = sum_item_prices(items)
+  def self.mean_of_item_prices_from_hash(items)
+    sum = sum_item_prices_from_hash(items)
     (sum / items.length)
   end
 end
