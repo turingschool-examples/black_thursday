@@ -13,13 +13,14 @@ class ItemRepository < Repository
   def all_items
     @csv_array = []
     CSV.parse(File.read(@location_hash[:items]), headers: true).each do |item|
-      @csv_array << Item.new({ id: item[0],
-                               name: item[1],
-                               description: item[2],
-                               unit_price: item[3],
-                               created_at: item[5],
-                               updated_at: item[6],
-                               merchant_id: item[4] }, self)
+      @csv_array << Item.new( id: item[0],
+                              name: item[1],
+                              description: item[2],
+                              unit_price: item[3],
+                              created_at: item[5],
+                              updated_at: item[6],
+                              merchant_id: item[4],
+                              repository: self )
     end
   end
 
@@ -55,19 +56,23 @@ class ItemRepository < Repository
       unit_price: BigDecimal(item_hash[:unit_price], 2),
       created_at: Time.now.to_s,
       updated_at: Time.new.to_s,
-      merchant_id: item_hash[:merchant_id].to_i
+      merchant_id: item_hash[:merchant_id].to_i,
+      repository: self
     }
-    Item.new(attributes, self)
+    @csv_array << Item.new(attributes)
+    Item.new(attributes)
   end
 
   def update(id, attributes)
     update_instance = find_by_id(id)
-    if !attributes[:name].nil?
+    if update_instance.nil?
+      nil
+    elsif !attributes[:name].nil?
       update_instance.name = attributes[:name]
     elsif !attributes[:description].nil?
       update_instance.description = attributes[:description]
     elsif !attributes[:unit_price].nil?
-      update_instance.unit_price = attributes[:unit_price]
+      update_instance.unit_price = BigDecimal(attributes[:unit_price])
     end
   end
 

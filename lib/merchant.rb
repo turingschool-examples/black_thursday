@@ -8,7 +8,7 @@ class Merchant
               :name
   attr_writer :name
 
-  def initialize(merchant_info, repository)
+  def initialize(merchant_info)
     @id = merchant_info[:id].to_i
     @name = merchant_info[:name]
     @created_at = if merchant_info[:created_at] != nil
@@ -21,6 +21,6 @@ class Merchant
     else
       Time.now
     end
-    @repository = repository
+    @repository = merchant_info[:repository]
   end
 end

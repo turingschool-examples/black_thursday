@@ -115,7 +115,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      lawrence = mr.create('lawrence')
+      lawrence = mr.create({name: 'lawrence'})
 
       expect(lawrence).to be_an_instance_of(Merchant)
     end
@@ -129,9 +129,9 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      mr.update(12337411, 'Lawrence')
+      mr.update(12337411, {name: 'lawrence'})
 
-      expect(mr.find_by_id(12337411).name).to eq('Lawrence')
+      expect(mr.find_by_id(12337411).name).to eq('lawrence')
     end
   end
 

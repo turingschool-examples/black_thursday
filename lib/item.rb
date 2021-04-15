@@ -7,9 +7,10 @@ class Item
                 :updated_at
   attr_reader :id,
               :created_at,
-              :merchant_id
+              :merchant_id,
+              :repository
 
-  def initialize(item_info, repository)
+  def initialize(item_info)
     @id = item_info[:id].to_i
     @name = item_info[:name]
     @description = item_info[:description]
@@ -21,6 +22,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    @unit_price
+    BigDecimal(@unit_price).truncate(2)
   end
 end
