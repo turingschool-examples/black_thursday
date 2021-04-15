@@ -25,4 +25,8 @@ class Invoice
     @updated_at = Time.now
   end
 
+  def day_created
+    @created_at.strftime('%A').downcase
+  end
+
 end
