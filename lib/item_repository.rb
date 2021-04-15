@@ -14,14 +14,13 @@ class ItemRepo
     CSV.foreach('./data/items.csv', headers: true, header_converters: :symbol) do |item_info|
       items[item_info[:id]] = Item.new(item_info)
     end
-      items
+    items.each_value do |item|
+      @items << item  
+    end
   end
 
   def all
-    #returns array of all known item instances
-   @items = populate_information.map do |item|
-      item[1]
-    end
+   @items
   end
 
   def add_item(item)
@@ -58,6 +57,7 @@ class ItemRepo
     end
   end
 
+  # This method needs to be refactored
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
       item.merchant_id == merchant_id
@@ -76,6 +76,11 @@ class ItemRepo
 
   def update(id, attributes)
     new_item = find_by_id(id)
+    # new_item.assign_attributes(attributes)
+
+    #   attributes.each do |key, value|
+    #     if new_item.(key) = value 
+    #   end
     new_item.name = attributes[:name]
     new_item.description = attributes[:description]
     new_item.unit_price = attributes[:unit_price]
@@ -84,7 +89,7 @@ class ItemRepo
   end
 
   def delete(id)
-    #delete item from csv
+    @items.delete(find_by_id(id))
   end
 
 end
