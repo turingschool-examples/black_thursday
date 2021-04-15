@@ -2,7 +2,6 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
-
   describe '#invoices_as_hash' do
     it 'returns mock data of invoices' do
       invoices_as_hash = MockData.invoices_as_hash
@@ -41,7 +40,7 @@ describe MockData do
       invoice_hashs = MockData.invoices_as_hash(number_of_mocks: 2)
       invoices_as_mocks = MockData.invoices_as_mocks(invoice_hashs) { self }
       mocked_invoice = invoices_as_mocks.first
-      
+
       expect(invoices_as_mocks.length).to eq 2
       expect(mocked_invoice.id).to eq 0
       expect(mocked_invoice.merchant_id).to be_instance_of Integer
