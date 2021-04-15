@@ -111,6 +111,14 @@ RSpec.describe InvoiceRepository do
       expect(ir.find_all_by_merchant_id(123456789099999999)).to eq([])
     end
   end
+  describe '#find_all_by_status' do
+    it 'finds invoices by status' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      expect(ir.find_all_by_status('pending').count).to eq(1473)
+      expect(ir.find_all_by_status('hot dog!')).to eq([])
+    end
+  end
 #   describe '#find_by_name' do
 #     it 'finds items by name' do
 #       mock_sales_engine = instance_double('SalesEngine')
