@@ -61,11 +61,11 @@ class InvoiceRepository
   end
 
   def update(id, attributes)
-    invoice_to_update = find_by_id(id)
-    if attributes[:status] != nil
-        invoice_to_update.status = attributes[:status]
+    if find_by_id(id) != nil && attributes[:status] != nil
+      invoice_to_update = find_by_id(id)
+      invoice_to_update.status = attributes[:status].to_sym
+      invoice_to_update.update_time_stamp
     end
-    invoice_to_update.update_time_stamp
   end
 
   def delete(id)

@@ -35,7 +35,7 @@ RSpec.describe Invoice do
       expect(invoice.id).to eq(263395617)
       expect(invoice.customer_id).to eq(456789)
       expect(invoice.merchant_id).to eq(234567890)
-      expect(invoice.status).to eq('pending')
+      expect(invoice.status).to eq(:pending)
       expect(invoice.created_at.year).to eq(2016)
       expect(invoice.created_at).to be_instance_of(Time)
       expect(invoice.updated_at.year).to eq(1993)

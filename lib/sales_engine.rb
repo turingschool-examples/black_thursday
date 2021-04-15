@@ -12,7 +12,7 @@ class SalesEngine
               :transactions,
               :item_repository
 
-  def initialize(item_csv_location, merchant_csv_location)
+  def initialize(item_csv_location, merchant_csv_location, invoice_csv_location)
     # @customers = './data/customers.csv'
     # @invoice_items = './data/invoice_items.csv'
     @invoices = InvoiceRepository.new(invoice_csv_location, self)
@@ -24,7 +24,7 @@ class SalesEngine
   def self.from_csv(csv_hash)
     item_csv_location = csv_hash[:items]
     merchant_csv_location = csv_hash[:merchants]
-    invoice_csv_location = csv_hash[:invoice]
-    SalesEngine.new(item_csv_location, merchant_csv_location)
+    invoice_csv_location = csv_hash[:invoices]
+    SalesEngine.new(item_csv_location, merchant_csv_location, invoice_csv_location)
   end
 end

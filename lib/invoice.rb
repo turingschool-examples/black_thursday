@@ -15,13 +15,13 @@ class Invoice
     @id = (row[:id]).to_i
     @customer_id = row[:customer_id].to_i
     @merchant_id = (row[:merchant_id]).to_i
-    @status = (row[:status])
-    @created_at = Time.parse(row[:created_at])
-    @updated_at = Time.parse(row[:updated_at])
+    @status = (row[:status]).to_sym
+    @created_at = Time.parse(row[:created_at].to_s)
+    @updated_at = Time.parse(row[:updated_at].to_s)
     @invoice_repo = invoice_repo
   end
 
-  def update
+  def update_time_stamp
     @updated_at = Time.now
   end
 
