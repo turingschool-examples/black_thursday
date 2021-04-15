@@ -40,8 +40,8 @@ class InvoiceRepository
     @invoices.find_all do |invoice|
       invoice.merchant_id == merchant_id
     end
-  end  
-  
+  end
+
   def find_all_by_status(status)
     @invoices.find_all do |invoice|
       invoice.status == status.to_sym
@@ -70,5 +70,11 @@ class InvoiceRepository
 
   def delete(id)
     invoices.delete(find_by_id(id))
+  end
+
+  def percentage_by_status(status)
+    invoices_found = find_all_by_status(status).count.to_f
+    total_invoices = all.count    
+    (invoices_found / total_invoices * 100).round(2)
   end
 end

@@ -165,4 +165,15 @@ RSpec.describe InvoiceRepository do
       expect(ir.invoices.count).to eq(4984)
     end
   end
+
+  describe '#percentage_by_status' do
+    it 'shows percent of invoices by status' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+
+      expect(ir.percentage_by_status(:pending)).to eq(50.00)
+      expect(ir.percentage_by_status(:shipped)).to eq(33.33)
+      expect(ir.percentage_by_status(:returned)).to eq(16.67)
+    end
+  end
 end
