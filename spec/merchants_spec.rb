@@ -1,7 +1,7 @@
 require 'rspec'
 require './lib/merchants'
 
-RSpec.describe do
+RSpec.describe Merchant do
 
   se = SalesEngine.from_csv({
   :items     => "./data/items.csv",

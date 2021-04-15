@@ -1,4 +1,4 @@
-require './lib/items'
+require_relative './items'
 require 'csv'
 require 'bigdecimal'
 

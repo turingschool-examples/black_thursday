@@ -1,4 +1,4 @@
-require './lib/merchants'
+require_relative './merchants'
 require 'csv'
 
 class MerchantRepo
