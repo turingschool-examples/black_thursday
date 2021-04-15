@@ -5,17 +5,14 @@ require 'time'
 class ItemRepo
 
   attr_reader :items
-  def initialize
+  def initialize(path, engine)
     @items = []
+    populate_information(path)
   end
 
-  def populate_information
-    items = Hash.new{|h, k| h[k] = [] }
-    CSV.foreach('./data/items.csv', headers: true, header_converters: :symbol) do |item_info|
-      items[item_info[:id]] = Item.new(item_info)
-    end
-    items.each_value do |item|
-      @items << item  
+  def populate_information(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |item_info|
+      @items << Item.new(item_info)
     end
   end
 
@@ -23,9 +20,9 @@ class ItemRepo
    @items
   end
 
-  def add_item(item)
-    @items << item
-  end
+  # def add_item(item)
+  #   @items << item
+  # end
 
   def find_by_id(id)
     @items.find do |item|
@@ -73,7 +70,8 @@ class ItemRepo
     add_item(item)
     return item
   end
-
+  
+  # the code logic doesn't belong here, what happens when only one gets updated 
   def update(id, attributes)
     new_item = find_by_id(id)
     # new_item.assign_attributes(attributes)
@@ -91,5 +89,4 @@ class ItemRepo
   def delete(id)
     @items.delete(find_by_id(id))
   end
-
 end

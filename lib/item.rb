@@ -17,6 +17,7 @@ class Item
     @merchant_id = item_info[:merchant_id]
   end
 
+  #check spec harness 
   def unit_price_to_dollars
     @unit_price.to_f
   end

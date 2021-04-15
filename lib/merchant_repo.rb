@@ -2,15 +2,17 @@ require './lib/merchant'
 require 'CSV'
 
 class MerchantRepo
-  attr_reader :all
+  attr_reader :merchants,
+              :data
 
-  def initialize
+  def initialize(data)
+    @data = data
     @merchants = []
   end
 
   def populate_information
     merchants = Hash.new{|h, k| h[k] = [] }
-    CSV.foreach('./data/merchants.csv', headers: true, header_converters: :symbol) do |merchant_info|
+    CSV.foreach(@data, headers: true, header_converters: :symbol) do |merchant_info|
       merchants[merchant_info[:id]] = Merchant.new(merchant_info)
     end
     merchants.each_value do |merchant|
@@ -22,7 +24,7 @@ class MerchantRepo
     @merchants
   end
 
-  def add_merchant(merchant) #helper method for merchant class (later, add new merchant)
+  def add_merchant(merchant) 
     @merchants << merchant
   end
 
@@ -38,12 +40,9 @@ class MerchantRepo
     end
   end
 
-  def find_all_by_name(name_fragment) #advocate for this place holder!
-    name_matches = []
+  def find_all_by_name(name_fragment) 
     @merchants.find_all do |merchant|
-      if merchant.name.downcase.include?(name_fragment.downcase)
-        name_matches << merchant
-      end
+      merchant.name.downcase.include?(name_fragment.downcase)
     end
   end
 
@@ -63,9 +62,6 @@ class MerchantRepo
   end
 
   def delete(id)
-  merchant = find_by_id(id)
-  @merchants.delete(merchant)
+  @merchants.delete(find_by_id(id))
   end
-
-
 end

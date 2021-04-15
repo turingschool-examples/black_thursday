@@ -2,13 +2,13 @@ require 'CSV'
 require 'RSpec'
 require './lib/sales_engine'
 require './lib/merchant'
-require './lib/merchant_repository'
+require './lib/merchant_repo'
 # require './data/merchants.csv'
 
 RSpec.describe MerchantRepo do
   describe 'instantiation' do
     it '::new' do
-      merchant_repo = MerchantRepo.new
+      merchant_repo = MerchantRepo.new('./data/merchants.csv')
 
     expect(merchant_repo).to be_an_instance_of(MerchantRepo)
     end
@@ -16,19 +16,18 @@ RSpec.describe MerchantRepo do
 
   describe '#methods' do
     it '#populates information' do
-      merchant_repo = MerchantRepo.new
-
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
       expect(merchant_repo.populate_information).to be_an_instance_of(Hash)
     end
 
     it '#all' do
-      merchant_repo = MerchantRepo.new
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
 
       expect(merchant_repo.all).to be_an_instance_of(Array)
     end
 
-    it 'can add a merchant' do
-      merchant_repo = MerchantRepo.new
+    it '#can add a merchant' do
+      merchant_repo = MerchantRepo.new('./data/merchants.csv')
       merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
 
       expect(merchant_repo.find_by_id(5)).to eq(nil)
@@ -37,7 +36,7 @@ RSpec.describe MerchantRepo do
     end
 
     it '#find merchant by ID' do
-      merchant_repo = MerchantRepo.new
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
       merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
       merchant_repo.add_merchant(merchant1)
 
@@ -46,7 +45,7 @@ RSpec.describe MerchantRepo do
     end
 
     it '#find merchant by name' do
-      merchant_repo = MerchantRepo.new
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
       merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
       merchant_repo.add_merchant(merchant1)
 
@@ -55,7 +54,7 @@ RSpec.describe MerchantRepo do
     end
 
     it '#find all merchants by name' do
-      merchant_repo = MerchantRepo.new
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
       merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
       merchant_repo.add_merchant(merchant1)
 
@@ -64,7 +63,7 @@ RSpec.describe MerchantRepo do
     end
 
     it '#create merchant' do
-      merchant_repo = MerchantRepo.new
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
       merchant1 = {:id => 5, :name => "Turing School"}
       merchant_repo.populate_information
       merchant_repo.all
@@ -72,8 +71,8 @@ RSpec.describe MerchantRepo do
       expect(merchant_repo.create(merchant1)).to be_an_instance_of(Merchant)
     end
 
-    it 'updates attributes' do
-      merchant_repo = MerchantRepo.new
+    it '#updates attributes' do
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
       merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
       merchant_repo.add_merchant(merchant1)
 
@@ -84,7 +83,7 @@ RSpec.describe MerchantRepo do
     end
 
     it '#delete merchant' do
-      merchant_repo = MerchantRepo.new
+    merchant_repo = MerchantRepo.new('./data/merchants.csv')
       merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
       merchant_repo.add_merchant(merchant1)
 

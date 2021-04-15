@@ -42,7 +42,7 @@ RSpec.describe Item do
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
                         :merchant_id => 2})
-  
+    
       expect(item1.unit_price_to_dollars).to eq(10.99)
     end
   end
