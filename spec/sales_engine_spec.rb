@@ -80,7 +80,6 @@ describe SalesEngine do
     end
   end
 
-
   describe '#analyst' do
     it 'returns a new instance of SalesAnalyst' do
       item_details = MockData.items_as_hash
