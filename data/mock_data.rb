@@ -1,6 +1,9 @@
 require 'Date'
 
 class MockData
+
+  NO_SELF_ERROR_MESSAGE = 'use {self} at the end of your *_as_mocks method'
+
   def self.get_a_random_date(random = true)
     if random
       date_s = "20#{rand(10..21)}-#{rand(1..12)}-#{rand(1..28)}"
@@ -23,6 +26,23 @@ class MockData
       when 2
         return 'returned'
     end
+  end
+
+  def self.invoices_as_mocks(invoice_hashes)
+    mocked_invoices = []
+    invoice_hashes.each do |invoice_hash|
+      raise NO_SELF_ERROR_MESSAGE if not block_given?
+      eg = yield
+      invoice_mock = eg.instance_double('Invoice',
+        id: invoice_hash[:id],
+        customer_id: invoice_hash[:customer_id],
+        merchant_id: invoice_hash[:merchant_id],
+        created_at: invoice_hash[:created_at],
+        updated_at: invoice_hash[:updated_at]
+      )
+      mocked_invoices << invoice_mock
+    end
+    mocked_invoices
   end
 
   def self.invoices_as_hash(number_of_mocks: 10, random_dates: true,
@@ -52,7 +72,7 @@ class MockData
     mocked_merchants = []
 
     merchant_hashes.each do |merchant_hash|
-      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
       merchant_mock = eg.instance_double('Merchant',
         name: merchant_hash[:name],
@@ -88,7 +108,7 @@ class MockData
   def self.items_as_mocks(item_hashes)
     mocked_items = []
     item_hashes.each do |item_hash|
-      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
       item = eg.instance_double('Item',
         name: item_hash[:name],
