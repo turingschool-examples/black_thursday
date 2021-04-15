@@ -7,6 +7,7 @@ class Repository
 
   def initialize(path)
     @parsed_csv_data = parse_csv(path)
+    @array_of_objects = [] #consider a rename #NEED TO UPDATE CHILD CLASSES TO USE THIS NAME
   end
 
   def parse_csv(path)
