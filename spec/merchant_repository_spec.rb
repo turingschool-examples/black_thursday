@@ -115,7 +115,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = se.merchants
 
-      lawrence = mr.create({name: 'lawrence'})
+      lawrence = mr.create(name: 'lawrence')
 
       expect(lawrence).to be_an_instance_of(Merchant)
     end
