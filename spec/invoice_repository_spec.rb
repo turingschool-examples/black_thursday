@@ -136,25 +136,27 @@ RSpec.describe InvoiceRepository do
       expect(expected.merchant_id).to eq(234567890)
     end
   end
-#   describe '#update' do
-#     it 'updates items attributes' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-#       attributes = {
-#         name:         'Cool Stuff',
-#         description:  'supaaa cool',
-#         unit_price:   '1357'
-#       }
-#       test_item = ir.find_by_id(263567292)
-#       ir.update(263567292, attributes)
-#       expect(test_item.name).to eq('Cool Stuff')
-#       expect(test_item.description).to eq('supaaa cool')
-#       expect(test_item.unit_price).to eq(BigDecimal(1357))
-#       expect(test_item.merchant_id).to eq(12336050)
-#       expect(test_item.created_at.year).to eq(2016)
-#       expect(test_item.updated_at.year).to eq(2021)
-#     end
-#   end
+  describe '#update' do
+    it 'updates invoices attributes' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      attributes = {
+        status: :success,
+        id: 5000,
+        customer_id: 2,
+        merchant_id: 3,
+        created_at: Time.now
+        }
+      test_invoice = ir.find_by_id(1)
+      ir.update(1, attributes)
+      expect(test_invoice.id).to eq(1)
+      expect(test_invoice.customer_id).to eq(1)
+      expect(test_invoice.merchant_id).to eq(12335938)
+      expect(test_invoice.status).to eq(:success)
+      expect(test_invoice.created_at.year).to eq(2009)
+      expect(test_invoice.updated_at.year).to eq(2021)
+    end
+  end
 #   describe '#delete' do
 #     it 'delete a specified item from the items array' do
 #       mock_sales_engine = instance_double('SalesEngine')

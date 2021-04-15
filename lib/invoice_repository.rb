@@ -60,14 +60,13 @@ class InvoiceRepository
     @invoices << Invoice.new(attributes, self)
   end
 
-#   def update(id, attributes)
-#     item_to_update = find_by_id(id)
-#     attributes.each do |iv, new_value|
-#       item_to_update.send("#{iv}=", new_value)
-#     end
-#     item_to_update.format_unit_price
-#     item_to_update.update
-#   end
+  def update(id, attributes)
+    invoice_to_update = find_by_id(id)
+    if attributes[:status] != nil
+        invoice_to_update.status = attributes[:status]
+    end
+    invoice_to_update.update_time_stamp
+  end
 
 #   def delete(id)
 #     items.delete(find_by_id(id))
