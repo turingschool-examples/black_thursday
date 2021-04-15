@@ -64,5 +64,17 @@ class ItemRepository
     @items_array << new_item
   end
 
+  def update(id, attributes)
+    target = find_by_id(id)
+    target.name = attributes[:name]
+    target.description = attributes[:description]
+    target.unit_price = attributes[:unit_price]
+    target.updated_at = Time.now
+  end
+
+  def delete(id)
+    target = find_by_id(id)
+    @items_array.delete(target)
+  end
 
 end

@@ -141,6 +141,8 @@ RSpec.describe ItemRepository do
                       :name        => "Pencil",
                       :description => "You can use it to write things",
                       :unit_price  => "1099",
+                      :created_at  => Time.now,
+                      :updated_at  => Time.now,
                       :merchant_id => 2
                     }
     repo.create(attributes)
@@ -159,6 +161,17 @@ RSpec.describe ItemRepository do
       expect(expected).to eq(1)
     end
 
+    it 'can update existing item' do
+      repo.update(263567474, attributes)
+      expected = repo.find_by_id(263567474)
+      expect(expected.name).to eq("Pencil")
+      expect(expected.updated_at).not_to eq(expected.created_at)
+    end
 
+    it 'can delete item' do
+      repo.delete(263567474)
+      expected = repo.find_by_id(263567474)
+      expect(expected).to eq(nil)
+    end
   end
 end
