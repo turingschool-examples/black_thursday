@@ -54,7 +54,7 @@ class ItemRepository < Repository
       id: max_id_number_new,
       name: item_hash[:name],
       description: item_hash[:description],
-      cent_price: item_hash[:unit_price]*100,
+      cent_price: item_hash[:unit_price] * 100,
       created_at: Time.now,
       updated_at: Time.now,
       merchant_id: item_hash[:merchant_id].to_i,
