@@ -2,6 +2,13 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
+
+  describe '#get_a_random_status' do
+    it 'returns a random status' do
+      actual_status = MockData.get_a_random_status
+    end
+  end
+
   describe '#merchants_as_mocks' do
     it 'returns mock data as an array of mocks' do
       merchant_hashs = MockData.merchants_as_hash
