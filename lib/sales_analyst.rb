@@ -63,9 +63,9 @@ class SalesAnalyst
   def item_price_standard_deviation
     item_average = average_item_price
     denominator = @engine.items.all.sum do |item|
-      (item.unit_price.to_f - item_average) ** 2
+      (item.unit_price.to_f - item_average)**2
     end
-    (denominator.fdiv(@engine.items.all.length - 1) ** 0.5).round(2)
+    (denominator.fdiv(@engine.items.all.length - 1)**0.5).round(2)
   end
 
   def golden_items
