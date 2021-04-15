@@ -12,8 +12,8 @@ RSpec.describe Repository do
       expect(repository).to be_instance_of(Repository)
     end
 
-    xit 'parses csv items upon instantiation' do
-      expect(repository.parse_csv(csv_path)).to be_instance_of(Array)
+    it 'parses csv items upon instantiation' do
+      expect(repository.parsed_csv_data).to be_instance_of(Array)
     end
   end
 end
