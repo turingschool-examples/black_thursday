@@ -60,6 +60,10 @@ class SalesAnalyst
     # so anything greater than the number above will work
     # I added an item called Pixie Dust to the items csv so 1 merchant has 2 items. merchant_id = 12334105
 
-    #need assistance with pulling down the merchant objects that match >1 std deviation criteria 
+    #need assistance with pulling down the merchant objects that match >1 std deviation criteria
+  end
+
+  def invoice_status(status)
+    @sales_engine.invoice_percentage_by_status(status)
   end
 end

@@ -32,4 +32,8 @@ class SalesEngine
   def analyst
     sales_analyst = SalesAnalyst.new(self)
   end
+
+  def invoice_percentage_by_status(status)
+    @invoices.invoice_percentage_by_status(status)
+  end
 end
