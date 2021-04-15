@@ -12,7 +12,7 @@ class ItemRepo
   def populate_information
     items = Hash.new{|h, k| h[k] = [] }
     CSV.foreach('./data/items.csv', headers: true, header_converters: :symbol) do |item_info|
-      items[item_info[:id]] = Item.new(item_info, self)
+      items[item_info[:id]] = Item.new(item_info)
     end
     items.each_value do |item|
       @items << item  
@@ -89,7 +89,6 @@ class ItemRepo
   end
 
   def delete(id)
-    #delete item from csv
     @items.delete(find_by_id(id))
   end
 

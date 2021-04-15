@@ -32,6 +32,18 @@ RSpec.describe Item do
       expect(i.created_at).to be_an_instance_of(Time)
       expect(i.updated_at).to be_an_instance_of(Time)
     end
+  describe '#methods' do
+    it '#unit price to dollars' do
+      i = Item.new({:id          => 1,
+                    :name        => "Pencil",
+                    :description => "You can use it to write things",
+                    :unit_price  => BigDecimal(10.99,4),
+                    :created_at  => Time.now,
+                    :updated_at  => Time.now,
+                    :merchant_id => 2})
+      require 'pry'; binding.pry
+      expect(i.unit_price_to_dollars).to eq 
+    end
   end
 end
 
