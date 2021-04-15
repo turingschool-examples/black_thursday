@@ -57,18 +57,22 @@ describe ItemRepository do
 
   describe '#find_by_name' do
     it 'returns nil if no item has name specified' do
-      filename = './data/items.csv'
-      item_repository = ItemRepository.new(filename)
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository.find_by_name('Name')).to eq nil
     end
 
     it 'returns the item with the specified name' do
-      filename = './data/items.csv'
-      item_repository = ItemRepository.new(filename)
+      details = MockData.items_as_hash
+      mock_data = MockData.items_as_mocks(details) {self}
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data) 
+      item_repository = ItemRepository.new('fake.csv')
 
       expected = item_repository.items.first
-      expect(item_repository.find_by_name('510+ RealPush Icon Set')).to eq expected
+      expect(item_repository.find_by_name('Item 0')).to eq expected
     end
   end
 
