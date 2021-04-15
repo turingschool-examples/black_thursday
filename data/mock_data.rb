@@ -15,7 +15,7 @@ class MockData
     (rand(1..120) + (rand(100) / 100.0))
   end
 
-  def self.get_mock_merchants(number_of_mocks: 10, random_dates: true)
+  def self.merchants_as_hash(number_of_mocks: 10, random_dates: true)
     mocked_merchants = []
     number_of_mocks.times do |merchant_number|
       merchant = {}
@@ -35,7 +35,7 @@ class MockData
     mocked_merchants
   end
 
-  def self.get_mock_items(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
+  def self.items_as_hash(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
     mocked_items = []
     number_of_mocks.times do |item_number|
       item = {}
@@ -62,13 +62,13 @@ class MockData
     mocked_items
   end
 
-  def self.sum_prices(items)
+  def self.sum_item_prices(items)
     items.sum do |item|
       item[:unit_price]
     end
   end
 
-  def self.mean_price(items)
+  def self.mean_of_item_prices(items)
     sum = sum_prices(items)
     (sum / items.length)
   end
