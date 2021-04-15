@@ -14,6 +14,40 @@ class MockData
     (rand(1..120) + (rand(100) / 100.0))
   end
 
+  def self.get_a_random_status
+    case rand(3)
+      when 0
+        return 'pending'
+      when 1
+        return 'shipped'
+      when 2
+        return 'returned'
+    end
+  end
+
+  def self.invoices_as_hash(number_of_mocks: 10, random_dates: true,
+                            custom_status: nil, customer_id_range: (1..4),
+                            merchant_id_range: (1..4))
+    mocked_invoices = []
+    number_of_mocks.times do |invoice_number|
+      invoice = {}
+      date = get_a_random_date(random_dates)
+      invoice[:status] = (custom_status.nil?)? get_a_random_status : custom_status
+      invoice[:id] = invoice_number
+      invoice[:customer_id] = rand(customer_id_range)
+      invoice[:merchant_id] = rand(merchant_id_range)
+      if block_given?
+        invoice[:created_at] = yield(date).to_s
+        invoice[:updated_at] = date.to_s
+      else
+        invoice[:created_at] = date.prev_month.to_s
+        invoice[:updated_at] = date.to_s
+      end
+      mocked_invoices << invoice
+    end
+    mocked_invoices
+  end
+
   def self.merchants_as_mocks(merchant_hashes)
     mocked_merchants = []
 
