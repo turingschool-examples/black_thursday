@@ -1,4 +1,4 @@
-require_relative './lib/sales_engine'
+require_relative '../lib/sales_engine'
 
 RSpec.describe 'ItemRepository' do
   describe '#initialize' do
@@ -20,8 +20,8 @@ RSpec.describe 'ItemRepository' do
 
       ir = se.items
 
-      expect(ir.csv_array.class).to eq(Array)
-      expect(ir.csv_array[0].class).to eq(Item)
+      expect(ir.all.class).to eq(Array)
+      expect(ir.all[0].class).to eq(Item)
     end
   end
   describe '#all' do

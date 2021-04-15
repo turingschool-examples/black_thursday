@@ -5,7 +5,7 @@ require_relative './lib/repository'
 RSpec.describe Repository do
   describe 'Instance' do
     it 'exists' do
-      rep = Repository.new([])
+      rep = Repository.new([], 'engine')
 
       expect(rep).to be_an_instance_of(Repository)
     end
@@ -13,9 +13,13 @@ RSpec.describe Repository do
 
   describe '#all' do
     it 'returns everything in its array' do
-      rep = Repository.new([1, 2, 3, 4, 5, 6, 7])
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
+      )
+      mr = se.merchants
 
-      expect(rep.all).to eq([1, 2, 3, 4, 5, 6, 7])
+      expect(mr.all[0].name).to eq('Shopin1901')
     end
   end
 
@@ -26,9 +30,8 @@ RSpec.describe Repository do
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
-      rep = Repository.new(mr.all)
 
-      expect(rep.find_by_id('12335573').name).to eq('retropostershop')
+      expect(mr.find_by_id('12335573').name).to eq('retropostershop')
     end
 
     it 'returns nil if no id' do
@@ -37,9 +40,8 @@ RSpec.describe Repository do
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
-      rep = Repository.new(mr.all)
 
-      expect(rep.find_by_id('2113113113')).to eq(nil)
+      expect(mr.find_by_id('2113113113')).to eq(nil)
     end
   end
 
@@ -50,9 +52,8 @@ RSpec.describe Repository do
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
-      rep = Repository.new(mr.all)
 
-      expect(rep.find_by_name('retropostershop').id).to eq('12335573')
+      expect(mr.find_by_name('retropostershop').id).to eq('12335573')
     end
 
     it 'returns nil if no name exists' do
@@ -61,9 +62,8 @@ RSpec.describe Repository do
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
-      rep = Repository.new(mr.all)
 
-      expect(rep.find_by_name('lawrencesmeademporium')).to eq(nil)
+      expect(mr.find_by_name('lawrencesmeademporium')).to eq(nil)
     end
   end
 
@@ -74,9 +74,8 @@ RSpec.describe Repository do
           merchants: './data/merchants.csv'
       )
       mr = se.merchants
-      rep = Repository.new(mr.all)
 
-      expect(rep.max_id_number_new).to eq('12337412')
+      expect(mr.max_id_number_new).to eq('12337412')
     end
   end
 
@@ -87,11 +86,10 @@ RSpec.describe Repository do
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
-      rep = Repository.new(mr.all)
 
-      rep.delete('12337411')
+      mr.delete('12337411')
 
-      expect(rep.find_by_id('12337411')).to eq(nil)
+      expect(mr.find_by_id('12337411')).to eq(nil)
     end
   end
 end

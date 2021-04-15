@@ -1,11 +1,26 @@
-require_relative './lib/repository'
-require_relative './lib/item'
+require 'csv'
+require_relative './repository'
+require_relative './item'
+
 # Basic ItemRepository class
 class ItemRepository < Repository
-  attr_reader :csv_array
 
-  def initialize(csv_array)
-    super(csv_array)
+  def initialize(location_hash, engine)
+    super(location_hash, engine)
+    all_items
+  end
+
+  def all_items
+    @csv_array = []
+    CSV.parse(File.read(@location_hash[:items]), headers: true).each do |item|
+      @csv_array << Item.new({ id: item[0],
+                               name: item[1],
+                               description: item[2],
+                               unit_price: item[3],
+                               created_at: item[5],
+                               updated_at: item[6],
+                               merchant_id: item[4] }, self)
+    end
   end
 
   def find_all_with_description(string)
@@ -42,7 +57,7 @@ class ItemRepository < Repository
       updated_at: Time.new.to_s,
       merchant_id: item_hash[:merchant_id]
     }
-    Item.new(attributes)
+    Item.new(attributes, self)
   end
 
   def update(id, attributes)
