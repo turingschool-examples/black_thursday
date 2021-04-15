@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require './lib/merchant'
-attr_reader :merchants
 
 class MerchantRepository
+  attr_reader :merchants
+
   def initialize(filename)
     @merchants = create_merchants(filename)
   end
