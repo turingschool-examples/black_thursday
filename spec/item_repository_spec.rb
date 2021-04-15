@@ -212,7 +212,7 @@ RSpec.describe 'ItemRepository' do
       )
 
       ir = se.items
-      item = ir.create( 
+      item = ir.create(
         name:         'Pencil',
         description:  'You can use it to write things',
         unit_price:    BigDecimal(10.99, 4),
