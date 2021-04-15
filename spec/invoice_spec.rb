@@ -27,6 +27,7 @@ describe Invoice do
       })
 
       expect(i.id).to eq 6
+      expect(i.id).is_a? Integer
     end
 
     it 'has a customer id' do
@@ -40,6 +41,7 @@ describe Invoice do
       })
 
       expect(i.customer_id).to eq 7
+      expect(i.customer_id).is_a? Integer
     end
 
     it 'has a merchant id' do
@@ -53,6 +55,7 @@ describe Invoice do
       })
 
       expect(i.merchant_id).to eq 8
+      expect(i.merchant_id).is_a? Integer
     end
 
     it 'has a status' do
@@ -66,6 +69,7 @@ describe Invoice do
       })
 
       expect(i.status).to eq 'pending'
+      expect(i.status).is_a? String
     end
 
     it 'time stamps when created' do
@@ -80,6 +84,7 @@ describe Invoice do
       })
 
       expect(i.created_at).to eq time
+      expect(i.created_at).is_a? Time
     end
 
     it 'time stamps when updated' do
@@ -93,7 +98,8 @@ describe Invoice do
         :updated_at  => Time.now,
       })
 
-      expect(i.updated_at).to eq(time) 
+      expect(i.updated_at).to eq(time)
+      expect(i.updated_at).is_a? Time 
     end
   end
 end
