@@ -1,6 +1,9 @@
 require 'Date'
 
 class MockData
+
+  NO_SELF_ERROR_MESSAGE = 'use {self} at the end of your *_as_mocks method'
+
   def self.get_a_random_date(random = true)
     if random
       date_s = "20#{rand(10..21)}-#{rand(1..12)}-#{rand(1..28)}"
@@ -14,17 +17,68 @@ class MockData
     (rand(1..120) + (rand(100) / 100.0))
   end
 
+  def self.get_a_random_status
+    case rand(3)
+      when 0
+        return 'pending'
+      when 1
+        return 'shipped'
+      when 2
+        return 'returned'
+    end
+  end
+
+  def self.invoices_as_mocks(invoice_hashes)
+    mocked_invoices = []
+    invoice_hashes.each do |invoice_hash|
+      raise NO_SELF_ERROR_MESSAGE if not block_given?
+      eg = yield
+      invoice_mock = eg.instance_double('Invoice',
+        id: invoice_hash[:id],
+        customer_id: invoice_hash[:customer_id],
+        merchant_id: invoice_hash[:merchant_id],
+        created_at: invoice_hash[:created_at],
+        updated_at: invoice_hash[:updated_at]
+      )
+      mocked_invoices << invoice_mock
+    end
+    mocked_invoices
+  end
+
+  def self.invoices_as_hash(number_of_mocks: 10, random_dates: true,
+                            custom_status: nil, customer_id_range: (1..4),
+                            merchant_id_range: (1..4))
+    mocked_invoices = []
+    number_of_mocks.times do |invoice_number|
+      invoice = {}
+      date = get_a_random_date(random_dates)
+      invoice[:status] = (custom_status.nil?)? get_a_random_status : custom_status
+      invoice[:id] = invoice_number
+      invoice[:customer_id] = rand(customer_id_range)
+      invoice[:merchant_id] = rand(merchant_id_range)
+      if block_given?
+        invoice[:created_at] = yield(date).to_s
+        invoice[:updated_at] = date.to_s
+      else
+        invoice[:created_at] = date.prev_month.to_s
+        invoice[:updated_at] = date.to_s
+      end
+      mocked_invoices << invoice
+    end
+    mocked_invoices
+  end
+
   def self.merchants_as_mocks(merchant_hashes)
     mocked_merchants = []
 
     merchant_hashes.each do |merchant_hash|
-      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
       merchant_mock = eg.instance_double('Merchant',
-        name: item_hash[:name],
-        id: item_hash[:id],
-        created_at: item_hash[:created_at],
-        updated_at: item_hash[:updated_at]
+        name: merchant_hash[:name],
+        id: merchant_hash[:id],
+        created_at: merchant_hash[:created_at],
+        updated_at: merchant_hash[:updated_at]
       )
       mocked_merchants << merchant_mock
     end
@@ -54,7 +108,7 @@ class MockData
   def self.items_as_mocks(item_hashes)
     mocked_items = []
     item_hashes.each do |item_hash|
-      raise 'Bind self of ExampleGroup to your mocks. use {self}' if not block_given?
+      raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
       item = eg.instance_double('Item',
         name: item_hash[:name],
