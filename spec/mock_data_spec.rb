@@ -17,7 +17,7 @@ describe MockData do
     end
 
     it 'returns mocks with custom status' do
-      invoices_as_hashes = MockData.invoices_as_hashes(custom_status: 'pending')
+      invoices_as_hashes = MockData.invoices_as_hashes(status: 'pending')
 
       invoices_as_hashes.each do |invoice_hash|
         expect(invoice_hash[:status]).to eq 'pending'

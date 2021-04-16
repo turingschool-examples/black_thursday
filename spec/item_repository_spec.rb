@@ -107,7 +107,7 @@ describe ItemRepository do
     end
 
     it 'returns array of items that match specified price' do
-      details = MockData.items_as_hashes(price_of: 10.99)
+      details = MockData.items_as_hashes(unit_price: 10.99)
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
@@ -118,7 +118,7 @@ describe ItemRepository do
 
   describe '#find_all_by_price_in_range(range)' do
     it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hashes(price_of: 10)
+      details = MockData.items_as_hashes(unit_price: 10)
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
@@ -127,7 +127,7 @@ describe ItemRepository do
     end
 
     it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hashes(price_of: 10.88)
+      details = MockData.items_as_hashes(unit_price: 10.88)
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
