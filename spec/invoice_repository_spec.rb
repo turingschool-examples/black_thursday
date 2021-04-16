@@ -246,6 +246,7 @@ RSpec.describe InvoiceRepository do
     it 'shows average number of invoices by merchant' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      
       expect(ir.average_invoices_per_merchant).to eq(10.49)
     end
   end
@@ -253,6 +254,7 @@ RSpec.describe InvoiceRepository do
     it 'shows standard deviation of invoices by merchant' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      
       expect(ir.stdev_invoices_per_merchant).to eq(3.29)
     end
   end
@@ -268,6 +270,7 @@ RSpec.describe InvoiceRepository do
                               }, mock_merchant_repo)
       allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      
       expect(ir.top_merchants_by_invoice_count.count).to eq(12)
       expect(ir.top_merchants_by_invoice_count.first).to be_a(Merchant)
     end
@@ -285,6 +288,7 @@ RSpec.describe InvoiceRepository do
                               }, mock_merchant_repo)
       allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+     
       expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
