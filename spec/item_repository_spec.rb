@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative 'bigdecimal'
-require_relative './lib/item'
-require_relative './lib/item_repository'
-require_relative './lib/file_io'
-require_relative './data/mock_data'
+require 'bigdecimal'
+require './lib/item'
+require './lib/item_repository'
+require './lib/file_io'
+require './data/mock_data'
 
 describe ItemRepository do
   describe '#initialize' do
@@ -103,16 +103,16 @@ describe ItemRepository do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price(5.99)).to eq []
+      expect(item_repository.find_all_by_price(BigDecimal(25))).to eq []
     end
 
     it 'returns array of items that match specified price' do
-      details = MockData.items_as_hash(price_of: 10.99)
+      details = MockData.items_as_hash(price_of: BigDecimal(25))
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price(10.99).length).to eq 10
+      expect(item_repository.find_all_by_price(BigDecimal(25)).length).to eq 10
     end
   end
 
@@ -123,16 +123,16 @@ describe ItemRepository do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price_in_range(15..25)).to eq []
+      expect(item_repository.find_all_by_price_in_range(15.00..25.00)).to eq []
     end
 
     it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hash(price_of: 10.88)
+      details = MockData.items_as_hash(price_of: BigDecimal(10, 4))
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price_in_range(10..25).length).to eq 10
+      expect(item_repository.find_all_by_price_in_range(10.00..25.00).length).to eq 10
     end
   end
 
