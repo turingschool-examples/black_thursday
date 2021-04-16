@@ -12,13 +12,15 @@ class InvoiceRepository < Repository
   def all_invoices
     @csv_array = []
     CSV.parse(File.read(@location_hash[:invoices]), headers: true).each do |invoice|
-      @csv_array << Invoice.new(id: invoice[0],
-                             customer_id: invoice[1],
-                             merchant_id: invoice[2],
-                             status:      invoice[3],
-                             created_at:  Time.parse(invoice[4]),
-                             updated_at:  Time.parse(invoice[5]),
-                             repository:  self)
+      @csv_array << Invoice.new(
+        id: invoice[0],
+        customer_id: invoice[1],
+        merchant_id: invoice[2],
+        status:      invoice[3],
+        created_at:  Time.parse(invoice[4]),
+        updated_at:  Time.parse(invoice[5]),
+        repository:  self
+      )
     end
   end
 
