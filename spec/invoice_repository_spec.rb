@@ -49,13 +49,14 @@ RSpec.describe InvoiceRepository do
 
   describe '#create' do
     it 'creates an invoice' do
-      se = SalesEngine.from_csv(:invoices => './data/invoices.csv')
+      se = SalesEngine.from_csv(invoices: './data/invoices.csv')
 
       ir = se.invoices
-      actual = {customer_id: '8',
-                merchant_id: '10',
-                status: 'shipped'
-              }
+      actual = {
+        customer_id: '8',
+        merchant_id: '10',
+        status: 'shipped'
+      }
       expect(ir.create(actual)).to be_an_instance_of(Invoice)
     end
   end
