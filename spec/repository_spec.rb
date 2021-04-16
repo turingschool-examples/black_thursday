@@ -28,6 +28,11 @@ RSpec.describe Repository do
 
       expect(repository.all).to eq([1, 2, 3, 4])
     end
+  end
+
+  describe '#find_by_id' do
+    csv_path = "./data/items.csv"
+    repository = Repository.new(csv_path)
 
     it 'find_by_id returns an instance by matching id' do
       # mock = double('Item')
@@ -44,6 +49,7 @@ RSpec.describe Repository do
       end
 
       expect(repository.find_by_id(1234)).to eq(merchant1)
+      expect(repository.find_by_id(1234).name).to eq("Repository class")
       expect(repository.find_by_id(5678)).to eq(merchant2)
     end
 
@@ -55,6 +61,22 @@ RSpec.describe Repository do
       end
 
       expect(repository.find_by_id(2345)).to eq(nil)
+    end
+  end
+
+  describe `#delete` do
+    csv_path = "./data/items.csv"
+    repository = Repository.new(csv_path)
+
+    it 'can delete item' do
+      merchant1 = Merchant.new({id: 1234, name: "Repository class"})
+      merchant2 = Merchant.new({id: 5678, name: "Test data"})
+
+      allow(repository).to receive(:array_of_objects) do
+        [merchant1, merchant2]
+      end
+
+      expect(repository.delete(1234)).to eq(merchant1)
     end
   end
 
