@@ -23,4 +23,33 @@ RSpec.describe SalesEngine do
       expect(@se.invoices).to be_instance_of(InvoiceRepository)
     end
   end
+
+
+  # def invoice_percentage_by_status(status)
+  #   @invoices.percentage_by_status(status)
+  # end
+
+  # def find_merchant_by_id(merchant_id)
+  #   @merchants.find_by_id(merchant_id)
+  # end
+
+  # def average_invoices_per_merchant
+  #   @invoices.average_invoices_per_merchant
+  # end
+
+  # def stdev_invoices_per_merchant
+  #   @invoices.stdev_invoices_per_merchant
+  # end
+
+  # def top_merchants_by_invoice_count
+  #   @invoices.top_merchants_by_invoice_count
+  # end
+
+  # def bottom_merchants_by_invoice_count
+  #   @invoices.bottom_merchants_by_invoice_count
+  # end
+
+  # def top_days_by_invoice_count
+  #   @invoices.top_sales_days
+  # end
 end

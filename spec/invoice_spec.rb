@@ -74,7 +74,7 @@ RSpec.describe Invoice do
         mock_invoice_repo
       )
       invoice.day_created
-      expect(invoice.day_created).to eq('monday')
+      expect(invoice.day_created).to eq('Monday')
     end
   end
 end

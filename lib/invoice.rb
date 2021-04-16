@@ -26,7 +26,7 @@ class Invoice
   end
 
   def day_created
-    @created_at.strftime('%A').downcase
+    @created_at.strftime('%A').capitalize
   end
 
 end
