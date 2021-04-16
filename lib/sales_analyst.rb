@@ -99,7 +99,7 @@ class SalesAnalyst
 
     merchant_invoice.sum do |merchant|
       (merchant - average)**2
-    end.fdiv(merchant_ids.length -1)**0.5
+    end.fdiv(merchant_ids.length - 1)**0.5
   end
 
   def invoices_per_merchant
@@ -153,8 +153,8 @@ class SalesAnalyst
     average = invoice_per_day.sum.fdiv(7)
 
     standard_div = invoice_per_day.sum do |day|
-      (day - average) ** 2
-    end.fdiv(6) ** 0.5
+      (day - average)**2
+    end.fdiv(6)**0.5
     days_invoice = days_of_week.zip(invoice_per_day)
 
     golden_days = days_invoice.find_all do |day|
