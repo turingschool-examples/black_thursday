@@ -13,7 +13,6 @@ RSpec.describe InvoiceRepository do
     end
     it 'is created with an array of invoices' do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
-      invoice = se.invoices.find_by_id(6)
 
       ir = se.invoices
 
