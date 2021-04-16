@@ -2,9 +2,9 @@ require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
-require_relative 'item'
-require_relative 'merchant'
-require_relative 'invoice'
+require_relative 'invoice_items_repository'
+require_relative 'transactions_repository'
+require_relative 'customer_repository'
 
 # This class births all our repositories
 class SalesEngine
@@ -18,6 +18,15 @@ class SalesEngine
     end
     if !@location_hash[:invoices].nil?
       @invoices_instance = InvoiceRepository.new(@location_hash, self)
+    end
+    if !@location_hash[:invoiceitem].nil?
+      @invoice_items_instance = InvoiceItemRepository.new(@location_hash, self)
+    end
+    if !@location_hash[:transaction].nil?
+      @transactions_instance = TransactionRepository.new(@location_hash, self)
+    end
+    if !@location_hash[:customer].nil?
+      @customers_instance = CustomerRepository.new(@location_hash, self)
     end
   end
 
@@ -33,12 +42,24 @@ class SalesEngine
     @merchants_instance
   end
 
-  def analyst
-    SalesAnalyst.new(self)
-  end
-
   def invoices
     @invoices_instance
+  end
+
+  def invoice_items
+    @invoice_items_instance
+  end
+
+  def transactions
+    @transactions_instance
+  end
+
+  def customers
+    @customers_instance
+  end
+
+  def analyst
+    SalesAnalyst.new(self)
   end
 
   def all_merchant_ids
