@@ -76,4 +76,101 @@ class SalesAnalyst
       item.unit_price > two_standard
     end
   end
+
+  def average_invoices_per_merchant
+    merchant_ids = @engine.all_merchant_ids
+
+    merchant_ids.map do |merchant|
+      @engine.invoices.all.sum do |invoice|
+        invoice.merchant_id == merchant
+      end
+    end
+  end
+
+  def average_invoice_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    merchant_ids = @engine.all_merchant_ids
+
+    merchant_invoice = merchant_ids.map do |merchant|
+      @engine.invoices.all.sum do |invoice|
+        invoice.merchant_id == merchant
+      end
+    end
+
+    merchant_invoice.sum do |merchant|
+      (merchant - average) ** 2
+    end.fdiv(merchant_ids.length -1) ** 0.5
+  end
+
+  def invoices_per_merchant
+    merchant_ids = @engine.all_merchant_ids
+
+    invoice_count = merchant_ids.map do |merchant|
+      @engine.invoice.all.sum do |invoice|
+        invoice.merchant_id == merchant
+      end
+    end
+    merchant_ids.zip(invoice_count)
+  end
+
+  def invoices_per_day
+    days = [0, 1, 2, 3, 4, 5, 6]
+
+    days.sum do |day|
+      @engine.invoices.all.created_at.wday == day
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    deviation = average_invoices_per_merchant + (average_invoice_per_merchant_standard_deviation * 2)
+    merchant_invoice_array = invoices_per_merchant
+
+    top_merchant = merchant_invoice_array.find_all do |invoice|
+      invoice[1] > deviation
+    end
+
+    @engine.merchants.all.find_all do |merchant|
+      top_merchant[0].include?(merchant.id)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    deviation = average_invoices_per_merchant - (average_invoice_per_merchant_standard_deviation * 2)
+    merchant_invoice_array = invoices_per_merchant
+
+    top_merchant = merchant_invoice_array.find_all do |invoice|
+      invoice[1] < deviation
+    end
+
+    @engine.merchants.all.find_all do |merchant|
+      top_merchant[0].include?(merchant.id)
+    end
+  end
+
+  def top_days_by_invoice_count
+    days_of_week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    invoice_per_day = invoices_per_day
+    average = invoice_per_day.sum.fdiv(7)
+
+    standard_div = invoice_per_day.sum do |day|
+      (day - average) ** 2
+    end.fdiv(6) ** 0.5
+    days_invoice = days_of_week.zip(invoice_per_day)
+
+    golden_days = days_invoice.find_all do |day|
+      day[1] > average + standard_div
+    end
+
+    golden_days.map do |day|
+      day[0]
+    end
+  end
+
+  def invoice_status(status_arg)
+    invoice_count = @engine.invoices.all.count do |invoice|
+      invoice.status == status_arg
+    end
+
+    invoice_count.fdiv(@engine.invoices.all.length)
+  end
 end
