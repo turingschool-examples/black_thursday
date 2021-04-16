@@ -135,7 +135,7 @@ describe Item do
     end
   end
 
-  describe '#to_dollars' do
+  describe '#unit_price_to_dollars' do
     it 'returns the price in dollars' do
       details = {
         id: 1,
@@ -148,7 +148,7 @@ describe Item do
       }
       item = Item.new(details)
 
-      expect(item.to_dollars(details[:unit_price])).to eq(25.00)
+      expect(item.unit_price_to_dollars(details[:unit_price])).to eq(25.00)
     end
   end
 end
