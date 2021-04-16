@@ -37,7 +37,7 @@ RSpec.describe Invoice do
       expect(i.merchant_id).to eq(8)
     end
     it 'has a status' do
-      expect(i.status).to eq('pending')
+      expect(i.status).to eq(:pending)
     end
     # it 'has a repository' do
     #   expect(i.repository).to eq('repository')

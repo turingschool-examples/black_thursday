@@ -42,7 +42,7 @@ class SalesEngine
   end
 
   def all_merchant_ids
-    @merchants_instance.map do |merchant|
+    @merchants_instance.all.map do |merchant|
       merchant.id
     end
   end

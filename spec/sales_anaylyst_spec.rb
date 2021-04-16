@@ -149,12 +149,12 @@ RSpec.describe 'SalesAnalyst' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv'
+        invoices: './data/invoices.csv'
       )
 
       sa = se.analyst
 
-      expect(sa.invoices_per_merchant.length).to eq(@engine.merchants.all.length)
+      expect(sa.invoices_per_merchant.length).to eq(se.merchants.all.length)
     end
   end
 
@@ -163,12 +163,12 @@ RSpec.describe 'SalesAnalyst' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv'
+        invoices: './data/invoices.csv'
       )
 
       sa = se.analyst
 
-      expect(sa.top_merchants_by_invoice_count).to eq([])
+      expect(sa.top_merchants_by_invoice_count[0].name).to eq('jejum')
     end
   end
 
@@ -177,12 +177,12 @@ RSpec.describe 'SalesAnalyst' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv'
+        invoices: './data/invoices.csv'
       )
 
       sa = se.analyst
 
-      expect(sa.bottom_merchants_by_invoice_count).to eq([])
+      expect(sa.bottom_merchants_by_invoice_count[0].name).to eq('WellnessNeelsen')
     end
   end
 
@@ -191,12 +191,12 @@ RSpec.describe 'SalesAnalyst' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv'
+        invoices: './data/invoices.csv'
       )
 
       sa = se.analyst
 
-      expect(sa.invoices_per_day).to eq(4)
+      expect(sa.invoices_per_day.sum).to eq(se.invoices.all.length)
     end
   end
 
@@ -205,12 +205,12 @@ RSpec.describe 'SalesAnalyst' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv'
+        invoices: './data/invoices.csv'
       )
 
       sa = se.analyst
 
-      expect(sa.top_days_by_invoice_count).to eq([])
+      expect(sa.top_days_by_invoice_count).to eq(["Wednesday"])
     end
   end
 
@@ -219,7 +219,7 @@ RSpec.describe 'SalesAnalyst' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv'
+        invoices: './data/invoices.csv'
       )
 
       sa = se.analyst
