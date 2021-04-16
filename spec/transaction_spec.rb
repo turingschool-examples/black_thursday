@@ -35,6 +35,53 @@ describe Transaction do
       expect(transaction.id).to eq 6
     end
 
+    it 'has an invoice id' do
+      details = ({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+          })
+
+      transaction = Transaction.new(details)
+
+      expect(transaction.invoice_id).to eq 8
+    end
+
+    it 'has a credit card number' do
+      details = ({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+          })
+
+      transaction = Transaction.new(details)
+
+      expect(transaction.credit_card_number).to eq 4242424242424242
+    end
+
+    it 'has a credit card expiration date' do
+      details = ({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+          })
+
+      transaction = Transaction.new(details)
+
+      expect(transaction.credit_card_expiration_date).to eq '02/20'
+
   end
 
 end
