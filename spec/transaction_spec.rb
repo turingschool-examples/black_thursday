@@ -64,7 +64,7 @@ describe Transaction do
 
       transaction = Transaction.new(details)
 
-      expect(transaction.credit_card_number).to eq 4242424242424242
+      expect(transaction.credit_card_number).to eq '4242424242424242'
     end
 
     it 'has a credit card expiration date' do
@@ -80,8 +80,24 @@ describe Transaction do
 
       transaction = Transaction.new(details)
 
-      expect(transaction.credit_card_expiration_date).to eq '02/20'
+      expect(transaction.credit_card_expiration_date).to eq '0220'
+    end
 
+    it 'returns the result as a symbol' do
+      details = ({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+          })
+
+      transaction = Transaction.new(details)
+
+      expect(transaction.result).to eq :success
+    end
   end
 
 end
