@@ -210,7 +210,7 @@ RSpec.describe 'SalesAnalyst' do
 
       sa = se.analyst
 
-      expect(sa.top_days_by_invoice_count).to eq(["Wednesday"])
+      expect(sa.top_days_by_invoice_count).to eq(['Wednesday'])
     end
   end
 
