@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'bigdecimal'
 require 'time'
 
@@ -32,21 +33,15 @@ class Item
   end
 
   def update_name(name)
-    unless name.nil?
-      @name = name
-    end
+    @name = name unless name.nil?
   end
 
   def update_description(description)
-    unless description.nil?
-      @description = description
-    end
+    @description = description unless description.nil?
   end
 
   def update_unit_price(unit_price)
-    unless unit_price.nil?
-      @unit_price = unit_price
-    end
+    @unit_price = unit_price unless unit_price.nil?
   end
 
   def update_time
@@ -54,7 +49,7 @@ class Item
   end
 
   def created_at
-    if @created_at.class == Time
+    if @created_at.instance_of?(Time)
       @created_at
     else
       Time.parse(@created_at)
@@ -62,7 +57,7 @@ class Item
   end
 
   def updated_at
-    if @updated_at.class == Time
+    if @updated_at.instance_of?(Time)
       @updated_at
     else
       Time.parse(@updated_at)
