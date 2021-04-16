@@ -8,12 +8,6 @@ class MockData
     end
   end
 
-  def self.get_a_random_quantity
-    rand(1..20)
-  end
-
-  def self.get_a_random_price
-    (rand(1..120) + (rand(100) / 100.0))
   def self.invoices_as_mocks(eg, invoice_hashes = invoices_as_hashes)
     mock_generator(eg, 'Invoice', invoice_hashes)
   end
@@ -117,6 +111,10 @@ class MockData
     else
       return Date.strptime('2020-01-01', '%Y-%m-%d')
     end
+  end
+
+  def self.get_a_random_quantity
+    rand(1..20)
   end
 
   def self.get_a_random_price
