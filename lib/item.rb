@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'bigdecimal'
+require 'time'
 
 class Item
   attr_reader :id,
