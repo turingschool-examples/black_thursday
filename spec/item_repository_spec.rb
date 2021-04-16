@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require 'bigdecimal'
 require './lib/item'
 require './lib/item_repository'
 require './lib/file_io'

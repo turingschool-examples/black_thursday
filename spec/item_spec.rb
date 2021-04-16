@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative 'bigdecimal'
 require_relative './lib/item'
 
 describe Item do

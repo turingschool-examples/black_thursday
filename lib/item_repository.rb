@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'bigdecimal'
 
 class ItemRepository
   attr_reader :items
