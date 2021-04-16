@@ -94,6 +94,7 @@ describe InvoiceItem do
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.unit_price).to eq 10.99
+      expect(invoice_item.unit_price).is_a? BigDecimal
     end
 
     it 'returns a Time instance for date invoice_item was created' do
