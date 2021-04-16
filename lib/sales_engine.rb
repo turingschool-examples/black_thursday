@@ -10,6 +10,7 @@ class SalesEngine
     @location_hash = file_hash
     @items_instance = ItemRepository.new(@location_hash, self)
     @merchants_instance = MerchantRepository.new(@location_hash, self)
+    @invoice_instance = InvoiceRepository.new(@location_hash, self)
   end
 
   def self.from_csv(file_hash)
@@ -26,5 +27,15 @@ class SalesEngine
 
   def analyst
     SalesAnalyst.new(self)
+  end
+
+  def invoices
+    @invoice_instance
+  end
+
+  def all_merchant_ids
+    @merchants_instance.map do |merchant|
+      merchant.id
+    end
   end
 end
