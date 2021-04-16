@@ -4,15 +4,15 @@ require './lib/transaction'
 describe Transaction do
   describe '#initialize' do
     it 'exists' do
-      details = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
-          })
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       transaction = Transaction.new(details)
 
@@ -20,15 +20,15 @@ describe Transaction do
     end
 
     it 'has an id' do
-      details = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
-          })
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       transaction = Transaction.new(details)
 
@@ -36,15 +36,15 @@ describe Transaction do
     end
 
     it 'has an invoice id' do
-      details = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
-          })
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       transaction = Transaction.new(details)
 
@@ -52,15 +52,15 @@ describe Transaction do
     end
 
     it 'has a credit card number' do
-      details = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
-          })
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       transaction = Transaction.new(details)
 
@@ -68,15 +68,15 @@ describe Transaction do
     end
 
     it 'has a credit card expiration date' do
-      details = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
-          })
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       transaction = Transaction.new(details)
 
@@ -84,15 +84,15 @@ describe Transaction do
     end
 
     it 'returns the result as a symbol' do
-      details = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
-          })
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       transaction = Transaction.new(details)
 
@@ -100,15 +100,15 @@ describe Transaction do
     end
 
     it 'returns time objects for created and updated at' do
-      details = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
-          })
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       transaction = Transaction.new(details)
 
@@ -116,5 +116,4 @@ describe Transaction do
       expect(transaction.updated_at).is_a? Time
     end
   end
-
 end

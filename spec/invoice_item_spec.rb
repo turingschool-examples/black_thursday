@@ -132,7 +132,7 @@ describe InvoiceItem do
         item_id: 7,
         invoice_id: 8,
         quantity: 1,
-        unit_price: "1099",
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now
       }
