@@ -109,8 +109,6 @@ describe MockData do
       mocks = MockData.items_as_mocks(self)
       mocked_item = mocks.first
 
-      expect(mocks).to be_instance_of Array
-      expect(mocks.length).to eq 10
       expect(mocked_item.name).to eq 'Item 0'
       expect(mocked_item.id).to eq 0
       expect(mocked_item.merchant_id).to be_an Integer
