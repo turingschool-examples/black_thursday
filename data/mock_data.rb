@@ -1,9 +1,6 @@
 require 'Date'
 
 class MockData
-
-  NO_SELF_ERROR_MESSAGE = 'use {self} at the end of your *_as_mocks method'
-
   def self.get_a_random_date(random = true)
     if random
       date_s = "20#{rand(10..21)}-#{rand(1..12)}-#{rand(1..28)}"
