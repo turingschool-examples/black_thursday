@@ -65,7 +65,7 @@ describe InvoiceItem do
     end
 
     it 'returns the quantity' do
-            ii_details = {
+      ii_details = {
         :id => 6,
         :item_id => 7,
         :invoice_id => 8,
@@ -77,6 +77,21 @@ describe InvoiceItem do
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.quantity).to eq 1
+    end
+
+    it 'returns the unit price' do
+      ii_details = {
+        :id => 6,
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+            }
+      invoice_item = InvoiceItem.new(ii_details)
+
+      expect(invoice_item.unit_price).to eq 10.99
     end
   end
 end
