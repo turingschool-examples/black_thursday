@@ -126,7 +126,7 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    deviation = average_invoices_per_merchant + (average_invoice_per_merchant_standard_deviation * 2)
+    deviation = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
     merchant_invoice_array = invoices_per_merchant
 
     top_merchant = merchant_invoice_array.find_all do |invoice|
@@ -139,7 +139,7 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    deviation = average_invoices_per_merchant - (average_invoice_per_merchant_standard_deviation * 2)
+    deviation = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
     merchant_invoice_array = invoices_per_merchant
 
     top_merchant = merchant_invoice_array.find_all do |invoice|
