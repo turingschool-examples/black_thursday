@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require 'bigdecimal'
-require './lib/item'
-require './lib/item_repository'
-require './lib/file_io'
-require './data/mock_data'
+require_relative 'bigdecimal'
+require_relative './lib/item'
+require_relative './lib/item_repository'
+require_relative './lib/file_io'
+require_relative './data/mock_data'
 
 describe ItemRepository do
   describe '#initialize' do

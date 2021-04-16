@@ -3,6 +3,10 @@
 class ItemRepository
   attr_reader :items
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def initialize(filename)
     @items = create_items(filename)
   end

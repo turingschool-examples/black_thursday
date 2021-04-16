@@ -3,6 +3,7 @@
 require 'rspec'
 require './lib/merchant'
 require './lib/merchant_repository'
+require './data/mock_data'
 
 describe MerchantRepository do
   describe '#initialize' do
@@ -44,6 +45,16 @@ describe MerchantRepository do
       expected = m_repo.merchants.first
       actual = m_repo.find_by_id(0)
       expect(actual).to eq expected
+    end
+
+    it 'retunrs nil if no merchant exists for id' do
+      details = MockData.merchants_as_hash
+      mock_data = MockData.merchants_as_mocks(details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
+      m_repo = MerchantRepository.new('fake.csv')
+
+      actual = m_repo.find_by_id(30)
+      expect(actual).to be_nil
     end
   end
 

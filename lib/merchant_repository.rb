@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
-require './lib/merchant'
+require_relative './merchant'
 
 class MerchantRepository
   attr_reader :merchants
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def initialize(filename)
     @merchants = create_merchants(filename)
