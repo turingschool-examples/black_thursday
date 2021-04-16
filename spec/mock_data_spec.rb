@@ -2,33 +2,33 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
-  describe '#invoices_as_hash' do
+  describe '#invoices_as_hashes' do
     it 'returns mock data of invoices' do
-      invoices_as_hash = MockData.invoices_as_hash
+      invoices_as_hashes = MockData.invoices_as_hashes
 
-      expect(invoices_as_hash).to be_instance_of Array
-      expect(invoices_as_hash.length).to eq 10
-      expect(invoices_as_hash.first).to be_instance_of Hash
+      expect(invoices_as_hashes).to be_instance_of Array
+      expect(invoices_as_hashes.length).to eq 10
+      expect(invoices_as_hashes.first).to be_instance_of Hash
     end
 
     it 'returns mock custom number of data of invoices' do
-      invoices_as_hash = MockData.invoices_as_hash(number_of_mocks: 2)
-      expect(invoices_as_hash.length).to eq 2
+      invoices_as_hashes = MockData.invoices_as_hashes(number_of_mocks: 2)
+      expect(invoices_as_hashes.length).to eq 2
     end
 
     it 'returns mocks with custom status' do
-      invoices_as_hash = MockData.invoices_as_hash(custom_status: 'pending')
+      invoices_as_hashes = MockData.invoices_as_hashes(custom_status: 'pending')
 
-      invoices_as_hash.each do |invoice_hash|
+      invoices_as_hashes.each do |invoice_hash|
         expect(invoice_hash[:status]).to eq 'pending'
       end
     end
 
     it 'returns mocks with non-random ids' do
-      invoices_as_hash = MockData.invoices_as_hash(customer_id_range: (1..1),
+      invoices_as_hashes = MockData.invoices_as_hashes(customer_id_range: (1..1),
                                                    merchant_id_range: (5..5))
 
-      invoices_as_hash.each do |invoice_hash|
+      invoices_as_hashes.each do |invoice_hash|
         expect(invoice_hash[:customer_id]).to eq 1
         expect(invoice_hash[:merchant_id]).to eq 5
       end
@@ -37,7 +37,7 @@ describe MockData do
 
   describe '#invoices_as_mocks' do
     it 'returns mock data of invoices' do
-      invoice_hashs = MockData.invoices_as_hash(number_of_mocks: 2)
+      invoice_hashs = MockData.invoices_as_hashes(number_of_mocks: 2)
       invoices_as_mocks = MockData.invoices_as_mocks(invoice_hashs) { self }
       mocked_invoice = invoices_as_mocks.first
 
@@ -60,7 +60,7 @@ describe MockData do
 
   describe '#merchants_as_mocks' do
     it 'returns mock data as an array of mocks' do
-      merchant_hashs = MockData.merchants_as_hash
+      merchant_hashs = MockData.merchants_as_hashes
       merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
 
       expect(merchants_as_mocks).to be_instance_of Array
@@ -68,7 +68,7 @@ describe MockData do
     end
 
     it 'returns mock data of merchants' do
-      merchant_hashs = MockData.merchants_as_hash(number_of_mocks: 2)
+      merchant_hashs = MockData.merchants_as_hashes(number_of_mocks: 2)
       merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
       mocked_merchant = merchants_as_mocks.first
       expect(merchants_as_mocks.length).to eq 2
@@ -79,17 +79,17 @@ describe MockData do
     end
   end
 
-  describe '#mechants_as_hash' do
+  describe '#mechants_as_hashes' do
     it 'returns mock data as an array of hashes' do
-      merchants_as_hash = MockData.merchants_as_hash
+      merchants_as_hashes = MockData.merchants_as_hashes
 
-      expect(merchants_as_hash).to be_instance_of Array
-      expect(merchants_as_hash.length).to eq 10
-      expect(merchants_as_hash.first).to be_instance_of Hash
+      expect(merchants_as_hashes).to be_instance_of Array
+      expect(merchants_as_hashes.length).to eq 10
+      expect(merchants_as_hashes.first).to be_instance_of Hash
     end
 
     it 'returns mock data of merchants' do
-      mocked_hash_data = MockData.merchants_as_hash(number_of_mocks: 2)
+      mocked_hash_data = MockData.merchants_as_hashes(number_of_mocks: 2)
       mocked_merchant = mocked_hash_data.first
       expect(mocked_hash_data.length).to eq 2
       expect(mocked_merchant[:name]).to eq 'Merchant 0'
@@ -101,16 +101,16 @@ describe MockData do
 
   describe '#items_as_mocks' do
     it 'returns mock items as an array of mocks' do
-      items_as_hash = MockData.items_as_hash
-      items_as_mocks = MockData.items_as_mocks(items_as_hash) { self }
+      items_as_hashes = MockData.items_as_hashes
+      items_as_mocks = MockData.items_as_mocks(items_as_hashes) { self }
 
       expect(items_as_mocks).to be_instance_of Array
       expect(items_as_mocks.length).to eq 10
     end
 
     it 'returns mock data of items with expected attributes' do
-      items_as_hash = MockData.items_as_hash(number_of_mocks: 2)
-      mocks = MockData.items_as_mocks(items_as_hash) { self }
+      items_as_hashes = MockData.items_as_hashes(number_of_mocks: 2)
+      mocks = MockData.items_as_mocks(items_as_hashes) { self }
       mocked_item = mocks.first
       expect(mocks.length).to eq 2
       expect(mocked_item.name).to eq 'Item 0'
@@ -123,19 +123,19 @@ describe MockData do
     end
   end
 
-  describe '#items_as_hash' do
+  describe '#items_as_hashes' do
     it 'returns mock data as an array of hashes' do
-      items_as_hash = MockData.items_as_hash
+      items_as_hashes = MockData.items_as_hashes
 
-      expect(items_as_hash).to be_instance_of Array
-      expect(items_as_hash.length).to eq 10
-      expect(items_as_hash.first).to be_instance_of Hash
+      expect(items_as_hashes).to be_instance_of Array
+      expect(items_as_hashes.length).to eq 10
+      expect(items_as_hashes.first).to be_instance_of Hash
     end
 
     it 'returns mock data of items with expected attributes' do
-      items_as_hash = MockData.items_as_hash(number_of_mocks: 2)
-      first_item_hash = items_as_hash.first
-      expect(items_as_hash.length).to eq 2
+      items_as_hashes = MockData.items_as_hashes(number_of_mocks: 2)
+      first_item_hash = items_as_hashes.first
+      expect(items_as_hashes.length).to eq 2
       expect(first_item_hash[:name]).to eq 'Item 0'
       expect(first_item_hash[:id]).to eq 0
       expect(first_item_hash[:merchant_id]).to be_instance_of Integer
@@ -145,10 +145,10 @@ describe MockData do
       expect(first_item_hash[:updated_at]).to match(/\d{4}-\d{2}-\d{2}/)
     end
     it 'returns mock data of items with given number_of_merchants' do
-      items_as_hash = MockData.items_as_hash(number_of_mocks: 2, number_of_merchants: 1)
+      items_as_hashes = MockData.items_as_hashes(number_of_mocks: 2, number_of_merchants: 1)
 
-      expect(items_as_hash.first[:merchant_id]).to eq 0
-      expect(items_as_hash.last[:merchant_id]).to eq 0
+      expect(items_as_hashes.first[:merchant_id]).to eq 0
+      expect(items_as_hashes.last[:merchant_id]).to eq 0
     end
   end
 
@@ -174,7 +174,7 @@ describe MockData do
   describe '#sum_item_prices_from_hash' do
     it 'sums prices' do
       allow(MockData).to receive(:get_a_random_price).and_return(1)
-      mock_items = MockData.items_as_hash
+      mock_items = MockData.items_as_hashes
       expected_sum = 10
       actual_sum = MockData.sum_item_prices_from_hash(mock_items)
       expect(actual_sum).to eq expected_sum
@@ -185,7 +185,7 @@ describe MockData do
     it 'gets the mean value of item prices' do
       allow(MockData).to receive(:get_a_random_price).and_return(5)
       allow(MockData).to receive(:sum_item_prices_from_hash).and_return(50)
-      mock_items = MockData.items_as_hash
+      mock_items = MockData.items_as_hashes
       expected_mean = 5
       actual_mean = MockData.mean_of_item_prices_from_hash(mock_items)
       expect(actual_mean).to eq expected_mean

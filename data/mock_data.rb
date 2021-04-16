@@ -45,7 +45,7 @@ class MockData
     mocked_invoices
   end
 
-  def self.invoices_as_hash(number_of_mocks: 10, random_dates: true,
+  def self.invoices_as_hashes(number_of_mocks: 10, random_dates: true,
                             custom_status: nil, customer_id_range: (1..4),
                             merchant_id_range: (1..4))
     mocked_invoices = []
@@ -85,7 +85,7 @@ class MockData
     mocked_merchants
   end
 
-  def self.merchants_as_hash(number_of_mocks: 10, random_dates: true)
+  def self.merchants_as_hashes(number_of_mocks: 10, random_dates: true)
     mocked_merchants = []
     number_of_mocks.times do |merchant_number|
       merchant = {}
@@ -124,7 +124,7 @@ class MockData
     mocked_items
   end
 
-  def self.items_as_hash(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
+  def self.items_as_hashes(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
     mocked_items = []
     number_of_mocks.times do |item_number|
       item = {}
