@@ -12,8 +12,9 @@ RSpec.describe Repository do
       expect(repository).to be_instance_of(Repository)
     end
 
-    it 'parses csv items upon instantiation' do
+    it 'parses csv items upon instantiation to an array of hashes' do
       expect(repository.parsed_csv_data).to be_instance_of(Array)
+      expect(repository.parsed_csv_data[0]).to be_instance_of(Hash)
     end
   end
 
@@ -81,21 +82,3 @@ RSpec.describe Repository do
   end
 
 end
-
-
-##ADDITIONAL PARSED CSV TESTS##
-  # xit 'makes a hash' do
-  #   expect(sales_engine.merchants).to eq("./data/merchants.csv")
-  # end
-  #
-  # xit 'parse csv merchants' do
-  #   expect(SalesEngine.parse_csv("./data/merchants.csv")).to be_instance_of(Array)
-  # end
-  #
-  # # it 'parse csv items' do
-  # #   expect(SalesEngine.parse_csv("./data/items.csv")).to be_instance_of(Array)
-  # # end
-  #
-  # it 'creates hashes' do
-  #   expect(SalesEngine.parse_csv("./data/merchants.csv")[0]).to be_instance_of(Hash)
-  # end

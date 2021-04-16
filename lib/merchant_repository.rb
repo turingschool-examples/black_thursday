@@ -18,13 +18,6 @@ class MerchantRepository < Repository
   "#<#{self.class} #{@array_of_objects.size} rows>"
   end
 
-  #IN PARENT
-  # def find_by_id(id)
-  #   @array_of_objects.find do |merchant|
-  #     merchant.id == id
-  #   end
-  # end
-
   def find_by_name(name)
     @array_of_objects.find do |merchant|
       merchant.name.downcase == name.downcase
@@ -59,9 +52,4 @@ class MerchantRepository < Repository
     end
   end
 
-  #IN PARENT 
-  # def delete(id)
-  #   target = find_by_id(id)
-  #   @array_of_objects.delete(target)
-  # end
 end
