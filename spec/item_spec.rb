@@ -141,14 +141,14 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "2500",
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
       }
       item = Item.new(details)
 
-      expect(item.unit_price_to_dollars).to eq(10.99)
+      expect(item.unit_price_to_dollars).to eq(25.00)
     end
   end
 end
