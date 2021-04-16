@@ -2,6 +2,7 @@ require 'Date'
 
 class MockData
 
+
   DEFAULT_CREATED_AT_PROC = Proc.new {|date| date.next_year}
   DEFAULT_UPDATED_AT_PROC = Proc.new {|date| date}
 
@@ -22,7 +23,7 @@ class MockData
   def self.items_as_mocks(eg, item_hashes = items_as_hashes)
     mock_generator(eg, 'Item', item_hashes)
   end
-
+  
   def self.invoice_items_as_mocks(eg, invoice_item_hashes = invoice_items_as_hashes)
     mock_generator(eg, 'InvoiceItem', invoice_item_hashes)
   end

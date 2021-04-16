@@ -162,7 +162,7 @@ describe MockData do
         expect(invoice_hash[:merchant_id]).to eq 5
       end
     end
-
+    
     it 'returns non-random dates' do
       invoices_as_hashes = MockData.invoices_as_hashes(random_dates: false)
       invoices_as_hashes.each do |invoice_hash|
@@ -183,6 +183,7 @@ describe MockData do
         expect(merchant_mock.updated_at).to match MockData.date_format
       end
     end
+
     it 'accepts custom hashes' do
       merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 2)
       merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
