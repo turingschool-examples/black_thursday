@@ -20,7 +20,7 @@ class ItemRepository < Repository
   "#<#{self.class} #{@array_of_objects.size} rows>"
   end
 
-
+  #IN PARENT 
   # def find_by_id(id)
   #   @array_of_objects.find do |item|
   #     item.id == id
@@ -74,9 +74,10 @@ class ItemRepository < Repository
     target.updated_at = Time.now
   end
 
-  def delete(id)
-    target = find_by_id(id)
-    @array_of_objects.delete(target)
-  end
+  #IN PARENT
+  # def delete(id)
+  #   target = find_by_id(id)
+  #   @array_of_objects.delete(target)
+  # end
 
 end

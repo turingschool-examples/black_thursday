@@ -39,4 +39,10 @@ class Repository
       object.id == id
     end
   end
+
+  def delete(id)
+    target = find_by_id(id)
+    array_of_objects.delete(target)
+  end
+
 end
