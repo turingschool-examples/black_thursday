@@ -13,22 +13,6 @@ RSpec.describe SalesEngine do
     end
   end
 
-    # xit 'makes a hash' do
-    #   expect(sales_engine.merchants).to eq("./data/merchants.csv")
-    # end
-    #
-    # xit 'parse csv merchants' do
-    #   expect(SalesEngine.parse_csv("./data/merchants.csv")).to be_instance_of(Array)
-    # end
-    #
-    # # it 'parse csv items' do
-    # #   expect(SalesEngine.parse_csv("./data/items.csv")).to be_instance_of(Array)
-    # # end
-    #
-    # it 'creates hashes' do
-    #   expect(SalesEngine.parse_csv("./data/merchants.csv")[0]).to be_instance_of(Hash)
-    # end
-
   describe '#items & #merchants' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./data/items.csv",

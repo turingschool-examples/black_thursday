@@ -12,12 +12,4 @@ class SalesEngine
   def self.from_csv(csv_data)
      SalesEngine.new(csv_data)
   end
-
-  # def merchants
-  #   MerchantRepository.new(SalesEngine.parse_csv(@merchants))
-  # end
-  #
-  # def items
-  #   ItemRepository.new(SalesEngine.parse_csv(@items))
-  # end
 end
