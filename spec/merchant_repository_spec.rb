@@ -66,7 +66,7 @@ describe MerchantRepository do
       m_repo = MerchantRepository.new('fake.csv')
 
       expected = m_repo.merchants.first
-      actual = m_repo.find_by_name('Merchant 0')
+      actual = m_repo.find_by_name('MerCHant 0')
       expect(actual).to eq expected
     end
   end
