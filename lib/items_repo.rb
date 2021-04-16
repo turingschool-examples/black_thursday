@@ -80,12 +80,17 @@ class ItemRepo
 
   def update(id, attributes)
     item = find_by_id(id)
-    if item_exists?(id)
-      if unit_price_exists?(attributes)
-        item.unit_price = BigDecimal(attributes[:unit_price])
-      end
+    if item.nil?
+      nil
+      #attributes.each_key do |key|
+    elsif !attributes[:name].nil?
       item.name = attributes[:name]
+      item.updated_at = Time.now
+    elsif !attributes[:description].nil?
       item.description = attributes[:description]
+      item.updated_at = Time.now
+    elsif !attributes[:unit_price].nil?
+      item.unit_price = BigDecimal(attributes[:unit_price], 5) 
       item.updated_at = Time.now
     end
     item
