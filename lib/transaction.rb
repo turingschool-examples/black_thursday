@@ -10,7 +10,7 @@ class Transaction
 
   def initialize(details)
     @id = details[:id]
-    @invoice_id = details[:invoice_id]
+    @invoice_id = details[:invoice_id]b
     @credit_card_number = details[:credit_card_number].to_i
     @credit_card_expiration_date = details[:credit_card_expiration_date]
     @result = details[:result]
