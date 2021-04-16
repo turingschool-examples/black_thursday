@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative './merchant'
-
 class MerchantRepository
   attr_reader :merchants
 
