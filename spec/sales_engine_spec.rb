@@ -23,12 +23,15 @@ RSpec.describe SalesEngine do
       expect(@se.invoices).to be_instance_of(InvoiceRepository)
     end
   end
+  describe '#invoice_percentage_by_status'
 
-
-  # def invoice_percentage_by_status(status)
-  #   @invoices.percentage_by_status(status)
-  # end
-
+  def invoice_percentage_by_status(status)
+    it 'shows percent of invoices by status' do
+      expect(@se.invoice_percentage_by_status(:pending)).to eq(50.00)
+      expect(@se.invoice_percentage_by_status(:shipped)).to eq(33.33)
+      expect(@se.invoice_percentage_by_status(:returned)).to eq(16.67)
+    end
+  end
   # def find_merchant_by_id(merchant_id)
   #   @merchants.find_by_id(merchant_id)
   # end
