@@ -66,7 +66,7 @@ RSpec.describe MerchantRepo do
      
       merchant_info = {:id => 5, :name => "Turing School"}
 
-      expect(merchant_repo.create(merchant1)).to be_an_instance_of(Merchant)
+      expect(merchant_repo.create(merchant_info)).to be_an_instance_of(Merchant)
     end
 
     it '#updates attributes' do

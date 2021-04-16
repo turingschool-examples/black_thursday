@@ -49,6 +49,7 @@ class MerchantRepo
       merchant.id
     end
     merchant.id = max.id + 1
+    add_merchant(merchant)
     return merchant
   end
 
@@ -59,6 +60,6 @@ class MerchantRepo
   end
 
   def delete(id)
-  @merchants.delete(find_by_id(id))
+    @merchants.delete(find_by_id(id))
   end
 end
