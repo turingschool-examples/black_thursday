@@ -1,18 +1,20 @@
 require 'bigdecimal'
 require 'CSV'
 require 'time'
+require 'item'
 
 class ItemRepo
-
   attr_reader :items
   def initialize(path, engine)
     @items = []
+    @engine = engine
     populate_information(path)
+   
   end
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |item_info|
-      @items << Item.new(item_info)
+      @items << Item.new(item_info, @engine)
     end
   end
 
@@ -20,9 +22,9 @@ class ItemRepo
    @items
   end
 
-  # def add_item(item)
-  #   @items << item
-  # end
+  def add_item(item)
+    @items << item
+  end
 
   def find_by_id(id)
     @items.find do |item|
@@ -62,7 +64,7 @@ class ItemRepo
   end
 
   def create(attributes)
-    item = Item.new(attributes)
+    item = Item.new(attributes, @engine)
     max = @items.max_by do |item|
       item.id
     end
