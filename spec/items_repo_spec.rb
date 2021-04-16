@@ -121,12 +121,12 @@ RSpec.describe ItemRepo do
     it 'can update an item' do
       original_time = ir.find_by_id(263567475).updated_at
       attributes = {
-        unit_price: BigDecimal(379.99, 5),
-        name: "Capita Defenders of Awesome 2018"
+        unit_price: 379.99,
+        # name: "Capita Defenders of Awesome 2018"
       }
       ir.update(263567475, attributes)
       expected = ir.find_by_id(263567475)
-      expect(expected.unit_price).to eq 379.99
+      expect(expected.unit_price.to_f).to eq 379.99
       expect(expected.name).to eq "Capita Defenders of Awesome 2018"
       expect(expected.updated_at).to be > original_time
     end

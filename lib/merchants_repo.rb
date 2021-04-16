@@ -49,11 +49,19 @@ class MerchantRepo
     merchants_list << new_merchant
   end
 
+  def merchant_exists?(id)
+    merchants = find_by_id(id)
+    merchants != nil
+  end
+
   def update(id, attributes)
-    merchant = @merchants_list.find do |merchant|
-      merchant.id == id
+    merchant = find_by_id(id)
+    if merchant_exists?(id)
+      merchant.name = attributes[:name]
     end
-    merchant.name = attributes[:name]
+    # merchant = @merchants_list.find do |merchant|
+    #   merchant.id == id
+    # end
   end
 
   def delete(id)
