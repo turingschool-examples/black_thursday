@@ -81,11 +81,13 @@ class ItemRepository
       item.update_description(attributes[:description])
       item.update_unit_price(attributes[:unit_price])
       item.update_time
-    end 
+    end
   end
 
   def delete(id)
     item = find_by_id(id)
-    @items.delete(item)
+    unless item.nil?
+      @items.delete(item)
+    end 
   end
 end
