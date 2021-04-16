@@ -29,14 +29,22 @@ RSpec.describe Repository do
       expect(repository.all).to eq([1, 2, 3, 4])
     end
 
-    xit 'find_by_id returns an instance by matching id' do
-      mock = double('Item')
-      allow(mock).to receive(:new) do
-
+    it 'find_by_id returns an instance by matching id' do
+      # mock = double('Item')
+      # allow(mock).to receive(:new) do
+      #
+      # end
+      # id = 263538760
+      # expect(repository.find_by_id(id).id).to eq(id)
+      # expect(repository.find_by_id(id).name).to eq("Puppy blankie")
+      merchant1 = Merchant.new({id: 1234, name: "Repository class"})
+      merchant2 = Merchant.new({id: 5678, name: "Test data"})
+      allow(repository).to receive(:array_of_objects) do
+        [merchant1, merchant2]
       end
-      id = 263538760
-      expect(repository.find_by_id(id).id).to eq(id)
-      expect(repository.find_by_id(id).name).to eq("Puppy blankie")
+
+      expect(repository.find_by_id(1234)).to eq(merchant1)
+      expect(repository.find_by_id(5678)).to eq(merchant2)
     end
   end
 
