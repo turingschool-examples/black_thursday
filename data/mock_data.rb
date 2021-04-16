@@ -44,13 +44,13 @@ class MockData
   end
 
   def self.invoices_as_hashes(number_of_hashes: 10, random_dates: true,
-                            custom_status: nil, customer_id_range: (1..4),
+                            status: get_a_random_status, customer_id_range: (1..4),
                             merchant_id_range: (1..4))
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |invoice_number, hashes|
       invoice = {}
 
-      invoice[:status] = (custom_status.nil?)? get_a_random_status : custom_status
+      invoice[:status] = status
       invoice[:id] = invoice_number
       invoice[:customer_id] = rand(customer_id_range)
       invoice[:merchant_id] = rand(merchant_id_range)
@@ -120,14 +120,15 @@ class MockData
     end
   end
 
-  def self.items_as_hashes(number_of_hashes: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
+  def self.items_as_hashes(number_of_hashes: 10, number_of_merchants: 2,
+                           random_dates: true, unit_price: get_a_random_price)
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |item_number, hashes|
       item = {}
 
       item[:name] = "Item #{item_number}"
       item[:id] = item_number
-      item[:unit_price] = (price_of == 0)? get_a_random_price : price_of
+      item[:unit_price] = unit_price
       item[:description] = 'Item Description'
       item[:merchant_id] = item_number % number_of_merchants
 
