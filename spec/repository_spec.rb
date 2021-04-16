@@ -16,4 +16,18 @@ RSpec.describe Repository do
       expect(repository.parsed_csv_data).to be_instance_of(Array)
     end
   end
+
+  describe 'all method' do
+    csv_path = "./data/items.csv"
+    repository = Repository.new(csv_path)
+
+
+    xit 'returns array of all items' do
+      allow(repository).to receive(:array_of_objects) do
+        [1, 2, 3, 4]
+      end
+
+      expect(repository.all.count).to eq([1, 2, 3, 4])
+    end
+  end
 end
