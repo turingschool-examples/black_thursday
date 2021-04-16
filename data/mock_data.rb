@@ -2,6 +2,9 @@ require 'Date'
 
 class MockData
 
+  DEFAULT_CREATED_AT_PROC = Proc.new {|date| date.next_year}
+  DEFAULT_UPDATED_AT_PROC = Proc.new {|date| date}
+
   def self.mock_generator(eg, mock_name, data_hashes)
     data_hashes.each_with_object([]) do |hash, mocks|
       mocks << eg.instance_double(mock_name, hash)
@@ -27,7 +30,9 @@ class MockData
   def self.invoice_items_as_hashes(number_of_hashes: 10, random_dates: true,
                                    item_id_range: (1..10), invoice_id_range: (1..10),
                                    quantity: get_a_random_quantity,
-                                   unit_price: get_a_random_price)
+                                   unit_price: get_a_random_price,
+                                   created_at: DEFAULT_CREATED_AT_PROC,
+                                   updated_at: DEFAULT_UPDATED_AT_PROC)
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |invoice_item_number, hashes|
       invoice_item = {}
@@ -39,13 +44,8 @@ class MockData
       invoice_item[:unit_price] = unit_price
 
       date = get_a_random_date(random_dates)
-      if block_given?
-        invoice_item[:created_at] = yield(date).to_s
-        invoice_item[:updated_at] = date.to_s
-      else
-        invoice_item[:created_at] = date.prev_month.to_s
-        invoice_item[:updated_at] = date.to_s
-      end
+      invoice_item[:created_at] = created_at.call(date).to_s
+      invoice_item[:updated_at] = updated_at.call(date).to_s
 
       hashes << invoice_item
     end
@@ -53,7 +53,9 @@ class MockData
 
   def self.invoices_as_hashes(number_of_hashes: 10, random_dates: true,
                               status: get_a_random_status, customer_id_range: (1..4),
-                              merchant_id_range: (1..4))
+                              merchant_id_range: (1..4),
+                              created_at: DEFAULT_CREATED_AT_PROC,
+                              updated_at: DEFAULT_UPDATED_AT_PROC)
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |invoice_number, hashes|
       invoice = {}
@@ -64,18 +66,16 @@ class MockData
       invoice[:merchant_id] = rand(merchant_id_range)
 
       date = get_a_random_date(random_dates)
-      if block_given?
-        invoice[:created_at] = yield(date).to_s
-        invoice[:updated_at] = date.to_s
-      else
-        invoice[:created_at] = date.prev_month.to_s
-        invoice[:updated_at] = date.to_s
-      end
+      invoice[:created_at] = created_at.call(date).to_s
+      invoice[:updated_at] = updated_at.call(date).to_s
+
       hashes << invoice
     end
   end
 
-  def self.merchants_as_hashes(number_of_hashes: 10, random_dates: true)
+  def self.merchants_as_hashes(number_of_hashes: 10, random_dates: true,
+                               created_at: DEFAULT_CREATED_AT_PROC,
+                               updated_at: DEFAULT_UPDATED_AT_PROC)
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |merchant_number, hashes|
       merchant = {}
@@ -84,20 +84,17 @@ class MockData
       merchant[:id] = merchant_number
 
       date = get_a_random_date(random_dates)
+      merchant[:created_at] = created_at.call(date).to_s
+      merchant[:updated_at] = updated_at.call(date).to_s
 
-      if block_given?
-        merchant[:created_at] = yield(date).to_s
-        merchant[:updated_at] = date.to_s
-      else
-        merchant[:created_at] = date.prev_year.to_s
-        merchant[:updated_at] = date.to_s
-      end
       hashes << merchant
     end
   end
 
   def self.items_as_hashes(number_of_hashes: 10, number_of_merchants: 2,
-                           random_dates: true, unit_price: get_a_random_price)
+                           random_dates: true, unit_price: get_a_random_price,
+                           created_at: DEFAULT_CREATED_AT_PROC,
+                           updated_at: DEFAULT_UPDATED_AT_PROC)
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |item_number, hashes|
       item = {}
@@ -109,13 +106,9 @@ class MockData
       item[:merchant_id] = item_number % number_of_merchants
 
       date = get_a_random_date(random_dates)
-      if block_given?
-        item[:created_at] = yield(date).to_s
-        item[:updated_at] = date.to_s
-      else
-        item[:created_at] = date.prev_year.to_s
-        item[:updated_at] = date.to_s
-      end
+      item[:created_at] = created_at.call(date).to_s
+      item[:updated_at] = updated_at.call(date).to_s
+
       hashes << item
     end
   end

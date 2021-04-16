@@ -69,7 +69,7 @@ describe MockData do
     it 'returns non random dates' do
       invoice_items_as_hashes = MockData.invoice_items_as_hashes(random_dates: false)
       invoice_items_as_hashes.each do |invoice_item_hash|
-        expect(invoice_item_hash[:created_at]).to eq '2019-12-01'
+        expect(invoice_item_hash[:created_at]).to eq '2021-01-01'
       end
     end
     it 'returns custom ids for item_id' do
@@ -166,7 +166,7 @@ describe MockData do
     it 'returns non-random dates' do
       invoices_as_hashes = MockData.invoices_as_hashes(random_dates: false)
       invoices_as_hashes.each do |invoice_hash|
-        expect(invoice_hash[:created_at]).to eq '2019-12-01'
+        expect(invoice_hash[:created_at]).to eq '2021-01-01'
       end
     end
   end
@@ -213,7 +213,7 @@ describe MockData do
     it 'returns non random dates' do
       merchants_as_hashes = MockData.merchants_as_hashes(random_dates: false)
       merchants_as_hashes.each do |merchant_hash|
-        expect(merchant_hash[:created_at]).to eq '2019-01-01'
+        expect(merchant_hash[:created_at]).to eq '2021-01-01'
       end
     end
 
@@ -276,7 +276,7 @@ describe MockData do
     it 'allows non-random dates' do
       items_as_hashes = MockData.items_as_hashes(random_dates: false)
       items_as_hashes.each do |item_hash|
-        expect(item_hash[:created_at]).to eq '2019-01-01'
+        expect(item_hash[:created_at]).to eq '2021-01-01'
       end
     end
 
