@@ -55,6 +55,7 @@ class MerchantRepo
 
   def update(id, attributes)
     new_merchant = find_by_id(id)
+    return if !new_merchant
     new_merchant.name = attributes[:name]
     return new_merchant
   end
