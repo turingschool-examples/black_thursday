@@ -10,7 +10,7 @@ RSpec.describe Item do
                         :unit_price  => BigDecimal(10.99,4),
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
-                        :merchant_id => 2})
+                        :merchant_id => 2}, @repo)
 
       expect(item1).to be_an_instance_of(Item)
     end
@@ -22,7 +22,7 @@ RSpec.describe Item do
                         :unit_price  => BigDecimal(10.99,4),
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
-                        :merchant_id => 2})
+                        :merchant_id => 2}, @repo)
       
       expect(item1.id).to eq(1)
       expect(item1.name).to eq("Pencil")
@@ -41,7 +41,7 @@ RSpec.describe Item do
                         :unit_price  => BigDecimal(10.99,4),
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
-                        :merchant_id => 2})
+                        :merchant_id => 2}, @repo)
     
       expect(item1.unit_price_to_dollars).to eq(10.99)
     end

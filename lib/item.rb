@@ -7,7 +7,7 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id
-  def initialize(item_info) 
+  def initialize(item_info, engine) 
     @id = item_info[:id].to_i
     @name = item_info[:name]
     @description = item_info[:description]
