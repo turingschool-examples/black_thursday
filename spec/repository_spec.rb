@@ -46,6 +46,16 @@ RSpec.describe Repository do
       expect(repository.find_by_id(1234)).to eq(merchant1)
       expect(repository.find_by_id(5678)).to eq(merchant2)
     end
+
+    it 'find_by_id returns a nil if no id match' do
+      merchant1 = Merchant.new({id: 1234, name: "Repository class"})
+      merchant2 = Merchant.new({id: 5678, name: "Test data"})
+      allow(repository).to receive(:array_of_objects) do
+        [merchant1, merchant2]
+      end
+
+      expect(repository.find_by_id(2345)).to eq(nil)
+    end
   end
 
 end
