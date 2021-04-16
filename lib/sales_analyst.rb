@@ -4,6 +4,15 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    require 'pry'; binding.pry 
   end
+
+  def find_all_merchants
+    @engine.merchants.merchants
+  end
+
+  def find_all_items
+    @engine.items.array_of_objects
+    
+  end
+
 end
