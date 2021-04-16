@@ -27,7 +27,7 @@ class ItemRepository
 
   def find_by_name(name)
     @items.find do |item|
-      item.name.downcase == name.downcase
+      item.name.casecmp?(name)
     end
   end
 

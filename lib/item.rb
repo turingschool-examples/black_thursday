@@ -7,7 +7,6 @@ class Item
               :name,
               :description,
               :unit_price,
-              :created_at,
               :merchant_id
 
   def initialize(details)
