@@ -22,12 +22,12 @@ RSpec.describe Repository do
     repository = Repository.new(csv_path)
 
 
-    xit 'returns array of all items' do
+    it 'returns array of all items' do
       allow(repository).to receive(:array_of_objects) do
         [1, 2, 3, 4]
       end
 
-      expect(repository.all.count).to eq([1, 2, 3, 4])
+      expect(repository.all).to eq([1, 2, 3, 4])
     end
   end
 end

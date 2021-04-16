@@ -26,6 +26,5 @@ RSpec.describe SalesEngine do
     it 'returns an object of class ItemRepository' do
       expect(sales_engine.items).to be_an_instance_of(ItemRepository)
     end
-
   end
 end
