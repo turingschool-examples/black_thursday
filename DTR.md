@@ -21,11 +21,13 @@ How do you communicate best? How do you appreciate receiving communication from 
 * Open and honest communication with direct feedback which assumes positive intent (Leigh), 
 * Balance between context with examples and being direct (Aliya), 
 * Coming from a teaching background and sometimes over-teaching, prefer zoom/in-person to Slack (Jamison)
+* We should celebrate each other's successes more explictly (as individuals and as a team)! We are all contributing a lot. (Perhaps in our meetings)
 
 How would you describe your work style?
 * Organized, sequential, planned, and detail-oriented; harder to skip steps or jump in the middle of something (Leigh, Aliya, Matt)
 * Intuition (Jamison)
 * "ADHD/Shotgun" method, covers a lot of ground, can help others move on (Alex)
+* We can learn from each other's work styles to help increase our own capacities.
 
 What are each of our strengths? How can our strengths complement each other?
 * Alex is not invested in any particular point; willing to change gears. Open to trying multiple things, creative, fosters growth.
@@ -37,7 +39,8 @@ What’s gone well or poorly in your previous projects?
 
 How will we set direction and make decisions as a team?
 * This DTR a good start
-* Daily stand-ups and stand-downs to assure mission-alignment of tasks and focus.
+* Daily stand-ups and stand-downs (when first person to leave for night is signing off) to assure mission-alignment of tasks and focus.
+* Please pay attention to Slack channel for e.g. pull requests, so we can have fast turn-around.
 
 How will we overcome obstacles?
 * Scheduling, stress, volume of material, and novel topics
@@ -57,11 +60,6 @@ What scheduling restraints do you have? What are your scheduling preferences?
 * Alex not available on Saturday, or Tue night. Dog requires attention periodically (~30min).
 * Aliya 4-5 Wed, hope for Friday chill. Prefer 8a-8p for work times. Sunday off (but flexible).
 * Leigh has several requirements; see Slack. Prefer finish 10p Mountain.
-    Tuesday the 13th: 6:30p-8:30p - can cancel this if need be
-    Wednesday the 14th: 4:30p-5:30p
-    Thursday the 15th: 6:30p-8:30p - can cancel this if need be
-    Friday the 16th: 4p-5p
-    Saturday the 17th: 8:30a-10:30a - can cancel this if need be
     Tuesday the 20th: 6:30p-8:30p - can cancel this if need be
     Wednesday the 21st: 4:30p-5:30p
 * Jamison 8:30-9:00a available. 4:00-4:45; 5:30-6:00 off. 
@@ -73,12 +71,11 @@ What do you identify as being your biggest strength(s) technically, as they rela
 * Jamison has done data parsion with .csv, built web apps, git version control. Wants to focus on mocks and stubs.
 * Alex has done similar project before. Wants to learn more about how classes interact.
 * Aliya has experience (remote) with data analysis, comfortable with .csv and parsing data in other languages. Wants to focus on mocks and stubs.
-* Matt feels like he does not have a technical strength to contribute, would like to get more comfortable with methods.
+* Matt is working on tapping into his technical strengths, would like to get more comfortable with methods.
 * Leigh has done a similar project, but getting into a part of mod where she struggled before. Comfortable with TDD/OOP, want to learn more about data analysis and parsing.
 
 What tools do you want to use to manage the project?
 * Leigh paid for Zoom (Sweet!) and can make rooms. (Try whiteboard feature)
-* PM using Github. (Tickets linked to PR and commits)
 * Lucid Chart (help visualize)
 
 How do you want the group to solve problems when members run into issues with features of the project?
