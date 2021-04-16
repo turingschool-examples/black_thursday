@@ -10,7 +10,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -25,7 +25,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -41,7 +41,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -57,7 +57,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -73,7 +73,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -90,7 +90,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: time,
         updated_at: time,
         merchant_id: 2
@@ -107,7 +107,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: time,
         updated_at: time,
         merchant_id: 2
@@ -123,7 +123,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: "1099",
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -135,7 +135,7 @@ describe Item do
     end
   end
 
-  describe '#unit_price_to_dollars' do
+  describe '#to_dollars' do
     it 'returns the price in dollars' do
       details = {
         id: 1,
@@ -148,7 +148,7 @@ describe Item do
       }
       item = Item.new(details)
 
-      expect(item.unit_price_to_dollars).to eq(25.00)
+      expect(item.to_dollars(details[:unit_price])).to eq(25.00)
     end
   end
 end
