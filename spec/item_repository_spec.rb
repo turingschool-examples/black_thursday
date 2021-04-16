@@ -36,7 +36,7 @@ describe ItemRepository do
 
   describe '#find_by_id' do
     it 'returns nil if no item has the specified id' do
-      mock_data = MockData.items_as_mocks(details) { self }
+      mock_data = MockData.items_as_mocks { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
