@@ -78,13 +78,15 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
+    # merchant_ids = @engine.all_merchant_ids
+    #
+    # merchant_ids.map do |merchant|
+    #   @engine.invoices.all.count do |invoice|
+    #     invoice.merchant_id == merchant
+    #   end
+    # end.sum.fdiv(merchant_ids.length)
     merchant_ids = @engine.all_merchant_ids
-
-    merchant_ids.map do |merchant|
-      @engine.invoices.all.sum do |invoice|
-        invoice.merchant_id == merchant
-      end
-    end
+    @engine.invoices.all.length.fdiv(merchant_ids.length).round(2)
   end
 
   def average_invoice_per_merchant_standard_deviation
@@ -92,21 +94,21 @@ class SalesAnalyst
     merchant_ids = @engine.all_merchant_ids
 
     merchant_invoice = merchant_ids.map do |merchant|
-      @engine.invoices.all.sum do |invoice|
+      @engine.invoices.all.count do |invoice|
         invoice.merchant_id == merchant
       end
     end
 
-    merchant_invoice.sum do |merchant|
+    final_deviation = merchant_invoice.sum do |merchant|
       (merchant - average)**2
     end.fdiv(merchant_ids.length - 1)**0.5
+    final_deviation.round(2)
   end
 
   def invoices_per_merchant
     merchant_ids = @engine.all_merchant_ids
-
     invoice_count = merchant_ids.map do |merchant|
-      @engine.invoice.all.sum do |invoice|
+      @engine.invoices.all.count do |invoice|
         invoice.merchant_id == merchant
       end
     end
@@ -116,8 +118,10 @@ class SalesAnalyst
   def invoices_per_day
     days = [0, 1, 2, 3, 4, 5, 6]
 
-    days.sum do |day|
-      @engine.invoices.all.created_at.wday == day
+    days.map do |day|
+      @engine.invoices.all.count do |invoice|
+        invoice.created_at.wday == day
+      end
     end
   end
 
@@ -171,6 +175,6 @@ class SalesAnalyst
       invoice.status == status_arg
     end
 
-    invoice_count.fdiv(@engine.invoices.all.length)
+    (invoice_count.fdiv(@engine.invoices.all.length) * 100).round(2)
   end
 end
