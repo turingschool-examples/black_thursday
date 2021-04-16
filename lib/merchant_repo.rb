@@ -1,22 +1,19 @@
-require './lib/merchant'
+require_relative 'merchant'
 require 'CSV'
 
 class MerchantRepo
   attr_reader :merchants,
               :data
 
-  def initialize(data)
-    @data = data
+  def initialize(path, engine)
+    @repo = engine
     @merchants = []
+    populate_information(path)
   end
 
-  def populate_information
-    merchants = Hash.new{|h, k| h[k] = [] }
-    CSV.foreach(@data, headers: true, header_converters: :symbol) do |merchant_info|
-      merchants[merchant_info[:id]] = Merchant.new(merchant_info)
-    end
-    merchants.each_value do |merchant|
-      @merchants << merchant
+  def populate_information(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant_info|
+      @merchants << Merchant.new(merchant_info, @engine)
     end
   end
 
@@ -47,7 +44,7 @@ class MerchantRepo
   end
 
   def create(attributes)
-    merchant = Merchant.new(attributes)
+    merchant = Merchant.new(attributes, @engine)
     max = @merchants.max_by do |merchant|
       merchant.id
     end
