@@ -2,17 +2,16 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
-
   describe '#mock_generator' do
     it 'builds mocks with given hashes' do
       hashes = [{
-          id: 10,
-          name: 'Example 1'
-        },
-        {
-          id: 11,
-          name: 'Example 2'
-        }]
+        id: 10,
+        name: 'Example 1'
+      },
+                {
+                  id: 11,
+                  name: 'Example 2'
+                }]
       mocks = MockData.mock_generator(self, 'MockExample', hashes)
       expect(mocks.length).to eq 2
       expect(mocks.first.name).to eq 'Example 1'
@@ -64,11 +63,11 @@ describe MockData do
     end
 
     it 'returns custom number of data' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes(number_of_hashes:2)
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes(number_of_hashes: 2)
       expect(invoice_items_as_hashes.length).to eq 2
     end
     it 'returns non random dates' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes(random_dates:false)
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes(random_dates: false)
       invoice_items_as_hashes.each do |invoice_item_hash|
         expect(invoice_item_hash[:created_at]).to eq '2019-12-01'
       end
@@ -165,7 +164,7 @@ describe MockData do
     end
 
     it 'returns non-random dates' do
-      invoices_as_hashes = MockData.invoices_as_hashes(random_dates:false)
+      invoices_as_hashes = MockData.invoices_as_hashes(random_dates: false)
       invoices_as_hashes.each do |invoice_hash|
         expect(invoice_hash[:created_at]).to eq '2019-12-01'
       end
@@ -212,14 +211,14 @@ describe MockData do
     end
 
     it 'returns non random dates' do
-      merchants_as_hashes = MockData.merchants_as_hashes(random_dates:false)
+      merchants_as_hashes = MockData.merchants_as_hashes(random_dates: false)
       merchants_as_hashes.each do |merchant_hash|
         expect(merchant_hash[:created_at]).to eq '2019-01-01'
       end
     end
 
     it 'returns custom number of hashes' do
-      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes:20)
+      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 20)
       expect(merchants_as_hashes.length).to eq 20
     end
   end
@@ -275,7 +274,7 @@ describe MockData do
     end
 
     it 'allows non-random dates' do
-      items_as_hashes = MockData.items_as_hashes(random_dates:false)
+      items_as_hashes = MockData.items_as_hashes(random_dates: false)
       items_as_hashes.each do |item_hash|
         expect(item_hash[:created_at]).to eq '2019-01-01'
       end
