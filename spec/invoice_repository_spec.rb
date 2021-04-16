@@ -23,7 +23,6 @@ RSpec.describe InvoiceRepository do
   describe '#find_all_by_customer_id' do
     it 'finds all customers with passed id' do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
-      invoice = se.invoices.find_by_id(6)
 
       ir = se.invoices
       expect(ir.find_all_by_customer_id(6)[2].id).to eq(26)
@@ -33,7 +32,6 @@ RSpec.describe InvoiceRepository do
   describe '#find_all_by_merchant_id' do
     it 'finds all merchants with passed id' do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
-      invoice = se.invoices.find_by_id(6)
 
       ir = se.invoices
       expect(ir.find_all_by_merchant_id(12335938)[0].id).to eq(1)
@@ -43,7 +41,6 @@ RSpec.describe InvoiceRepository do
   describe '#find_all_by_status' do
     it 'finds all with passed status' do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
-      invoice = se.invoices.find_by_id(6)
 
       ir = se.invoices
       expect(ir.find_all_by_status(:returned)[0].id).to eq(25)
@@ -53,7 +50,6 @@ RSpec.describe InvoiceRepository do
   describe '#create' do
     it 'creates an invoice' do
       se = SalesEngine.from_csv(:invoices => './data/invoices.csv')
-      invoice = se.invoices.find_by_id(6)
 
       ir = se.invoices
       actual = {customer_id: '8',
