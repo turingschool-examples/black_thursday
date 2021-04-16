@@ -34,7 +34,19 @@ RSpec.describe Item do
   end
 
   describe '#methods' do
-    it '#unit price to dollars' do
+    xit '#unit price to dollars' do
+      item1 = Item.new({:id          => 1,
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99, 4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2}, @repo)
+    
+      expect(item1.unit_price_to_dollars).to eq(10.99)
+    end
+    # reconfirm with Bob/other resources 
+    it '::updates item' do
       item1 = Item.new({:id          => 1,
                         :name        => "Pencil",
                         :description => "You can use it to write things",
@@ -42,8 +54,19 @@ RSpec.describe Item do
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
                         :merchant_id => 2}, @repo)
-    
-      expect(item1.unit_price_to_dollars).to eq(10.99)
+
+      attributes = {:name => "knife",
+                    :description => "You can use it to stab things",
+                    :unit_price  => BigDecimal(15.99, 4),
+                    :updated_at  => Time.now}
+
+      Item.update(1, attributes)
+   
+      expect(item1.id).to eq(1)
+      expect(item1.name).to eq("knife")
+      expect(item1.description).to eq("You can use it to stab things")
+      expect(item1.unit_price).to eq(15.99)
+      expect(item1.updated_at).to be_an_instance_of(Time)
     end
   end
 end

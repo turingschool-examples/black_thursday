@@ -49,16 +49,18 @@ class MerchantRepo
       merchant.id
     end
     merchant.id = max.id + 1
+    add_merchant(merchant)
     return merchant
   end
 
   def update(id, attributes)
     new_merchant = find_by_id(id)
+    return if !new_merchant
     new_merchant.name = attributes[:name]
     return new_merchant
   end
 
   def delete(id)
-  @merchants.delete(find_by_id(id))
+    @merchants.delete(find_by_id(id))
   end
 end

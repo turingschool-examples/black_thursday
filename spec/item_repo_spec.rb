@@ -37,12 +37,12 @@ RSpec.describe ItemRepo do
     it '#add item' do
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                      :name        => "Pencil",
-                      :description => "You can use it to write things",
-                      :unit_price  => BigDecimal(10.99,4),
-                      :created_at  => Time.now,
-                      :updated_at  => Time.now,
-                      :merchant_id => 2}, @repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2}, @repo)
       item_repo.add_item(item1)
 
       expect(item_repo.items.include?(item1)).to eq true
@@ -51,12 +51,12 @@ RSpec.describe ItemRepo do
     it '#find by id' do
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2},@repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -67,12 +67,12 @@ RSpec.describe ItemRepo do
     it '#find by name' do
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2},@repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -83,12 +83,12 @@ RSpec.describe ItemRepo do
     it '#find by description' do
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2},@repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -97,14 +97,15 @@ RSpec.describe ItemRepo do
     end
 
     it '#find all by price' do
+      #mock and stubs 
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2},@repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => 1099,
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -115,12 +116,12 @@ RSpec.describe ItemRepo do
     it '#find all by price by range' do
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2},@repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => 1099,
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -131,12 +132,12 @@ RSpec.describe ItemRepo do
     it '#find by merchant' do
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2},@repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
       item_repo.add_item(item1)
 
       expect(item_repo.find_all_by_merchant_id(2)).to eq([item1])
@@ -186,14 +187,14 @@ RSpec.describe ItemRepo do
     it '#delete by id' do
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now,
-                    :merchant_id => 2},@repo)
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
       
-     item_repo.add_item(item1)
+      item_repo.add_item(item1)
 
       expect(item_repo.find_by_id(1)).to eq(item1)
 

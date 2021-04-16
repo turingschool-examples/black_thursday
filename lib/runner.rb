@@ -7,5 +7,5 @@ se = SalesEngine.new({
   :items => './data/items.csv',
   :merchants => './data/merchants.csv'
 })
-require 'pry'; binding.pry
+
 puts merchant_repo = se.merchant
