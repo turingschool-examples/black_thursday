@@ -32,6 +32,8 @@ class MockData
     invoice_hashes.each_with_object([]) do |invoice_hash, hashes|
       raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
+  def self.invoices_as_mocks(eg, invoice_hashes = invoices_as_hashes)
+    invoice_hashes.each_with_object([]) do |invoice_hash, hashes|
       invoice_mock = eg.instance_double('Invoice',
         id: invoice_hash[:id],
         customer_id: invoice_hash[:customer_id],
@@ -67,11 +69,8 @@ class MockData
     end
   end
 
-  def self.merchants_as_mocks(merchant_hashes = merchants_as_hashes)
+  def self.merchants_as_mocks(eg, merchant_hashes = merchants_as_hashes)
     merchant_hashes.each_with_object([]) do |merchant_hash, mocks|
-      raise NO_SELF_ERROR_MESSAGE if not block_given?
-      eg = yield
-
       merchant_mock = eg.instance_double('Merchant',
         name: merchant_hash[:name],
         id: merchant_hash[:id],
@@ -103,10 +102,8 @@ class MockData
     end
   end
 
-  def self.items_as_mocks(item_hashes = items_as_hashes)
-    item_hashes.each_with_object([]) do |item_hash, mocks|
-      raise NO_SELF_ERROR_MESSAGE if not block_given?
-      eg = yield
+  def self.items_as_mocks(eg, item_hashes = items_as_hashes)
+    item_hashes.each_with_object([]) do |item_hash, mocks|\
       item = eg.instance_double('Item',
         name: item_hash[:name],
         id: item_hash[:id],

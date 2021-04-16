@@ -36,7 +36,7 @@ describe ItemRepository do
 
   describe '#find_by_id' do
     it 'returns nil if no item has the specified id' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -44,7 +44,7 @@ describe ItemRepository do
     end
 
     it 'returns the item with the specified id' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -55,7 +55,7 @@ describe ItemRepository do
 
   describe '#find_by_name' do
     it 'returns nil if no item has name specified' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -63,7 +63,7 @@ describe ItemRepository do
     end
 
     it 'returns the item with the specified name' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -74,7 +74,7 @@ describe ItemRepository do
 
   describe '#find_all_with_description' do
     it 'returns empty array if description does not match' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -82,7 +82,7 @@ describe ItemRepository do
     end
 
     it 'returns array of items with matching descriptions' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -92,7 +92,7 @@ describe ItemRepository do
 
   describe '#find_all_by_price' do
     it 'returns an empty array if no items match price' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -101,7 +101,7 @@ describe ItemRepository do
 
     it 'returns array of items that match specified price' do
       details = MockData.items_as_hashes(unit_price: 10.99)
-      mock_data = MockData.items_as_mocks(details) { self }
+      mock_data = MockData.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -112,7 +112,7 @@ describe ItemRepository do
   describe '#find_all_by_price_in_range(range)' do
     it 'returns empty array if no items in price range' do
       details = MockData.items_as_hashes(unit_price: 10)
-      mock_data = MockData.items_as_mocks(details) { self }
+      mock_data = MockData.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -121,7 +121,7 @@ describe ItemRepository do
 
     it 'returns empty array if no items in price range' do
       details = MockData.items_as_hashes(unit_price: 10.88)
-      mock_data = MockData.items_as_mocks(details) { self }
+      mock_data = MockData.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -131,7 +131,7 @@ describe ItemRepository do
 
   describe '#find_all_by_merchant_id' do
     it 'returns an empty array if no items with merchant_id' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -139,7 +139,7 @@ describe ItemRepository do
     end
 
     it 'returns all items with merchant_id' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -149,7 +149,7 @@ describe ItemRepository do
 
   describe '#create' do
     it 'creates an Item class object' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -166,7 +166,7 @@ describe ItemRepository do
     end
 
     it 'creates an Item with a new id' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -188,7 +188,7 @@ describe ItemRepository do
 
   describe '#update' do
     it 'updates the item with new attributes' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
       new_item = {
@@ -218,7 +218,7 @@ describe ItemRepository do
     end
 
     it 'updates the item with new time' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
       new_item = {
@@ -247,7 +247,7 @@ describe ItemRepository do
 
   describe '#delete' do
     it 'deletes the object at specified id' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -270,7 +270,7 @@ describe ItemRepository do
     end
 
     it 'does not delete anything if no item at id' do
-      mock_data = MockData.items_as_mocks { self }
+      mock_data = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
