@@ -8,9 +8,10 @@ RSpec.describe SalesEngine do
                                         :items     => "./data/items.csv",
                                         :merchants => "./data/merchants.csv",
                                         })
-    xit 'exists' do
+    it 'exists' do
       expect(sales_engine).to be_instance_of(SalesEngine)
     end
+  end
 
     # xit 'makes a hash' do
     #   expect(sales_engine.merchants).to eq("./data/merchants.csv")
@@ -27,7 +28,6 @@ RSpec.describe SalesEngine do
     # it 'creates hashes' do
     #   expect(SalesEngine.parse_csv("./data/merchants.csv")[0]).to be_instance_of(Hash)
     # end
-  end
 
   describe '#items & #merchants' do
     sales_engine = SalesEngine.from_csv({
@@ -35,7 +35,7 @@ RSpec.describe SalesEngine do
                                         :merchants => "./data/merchants.csv",
                                         })
 
-    xit 'returns an object of class MerchantRepository' do
+    it 'returns an object of class MerchantRepository' do
       expect(sales_engine.merchants).to be_an_instance_of(MerchantRepository)
     end
 
