@@ -1,6 +1,5 @@
 require 'CSV'
-require_relative '../lib/merchant_repository'
-require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class Repository
   attr_reader :parsed_csv_data
@@ -25,5 +24,9 @@ class Repository
     end
     @parsed_csv_data
   end
+
+  # def all
+  #   @array_of_objects
+  # end
 
 end
