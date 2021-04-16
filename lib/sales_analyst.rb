@@ -67,7 +67,7 @@ class SalesAnalyst
     @sales_engine.average_invoices_per_merchant
   end
 
-  def average_invoices_per_merchant_standard_deviation 
+  def average_invoices_per_merchant_standard_deviation
     @sales_engine.stdev_invoices_per_merchant
   end
 
