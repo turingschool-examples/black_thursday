@@ -18,7 +18,7 @@ RSpec.describe Repository do
     end
   end
 
-  describe 'all method' do
+  describe '#all method' do
     csv_path = "./data/items.csv"
     repository = Repository.new(csv_path)
 
@@ -36,13 +36,6 @@ RSpec.describe Repository do
     repository = Repository.new(csv_path)
 
     it 'find_by_id returns an instance by matching id' do
-      # mock = double('Item')
-      # allow(mock).to receive(:new) do
-      #
-      # end
-      # id = 263538760
-      # expect(repository.find_by_id(id).id).to eq(id)
-      # expect(repository.find_by_id(id).name).to eq("Puppy blankie")
       merchant1 = Merchant.new({id: 1234, name: "Repository class"})
       merchant2 = Merchant.new({id: 5678, name: "Test data"})
       allow(repository).to receive(:array_of_objects) do
