@@ -238,8 +238,8 @@ describe ItemRepository do
         name: 'Pencil',
         description: 'You can use it to write things',
         unit_price: BigDecimal(10.99, 4),
-        created_at: Time.now,
-        updated_at: Time.new(2021, 0o1, 0o2),
+        created_at: "2007-06-04 21:35:10 UTC",
+        updated_at: "2007-06-04 21:35:10 UTC",
         merchant_id: 2
       }
       item_repository.create(new_item)
@@ -253,7 +253,7 @@ describe ItemRepository do
       item = item_repository.find_by_id(10)
 
       expect(item.updated_at).is_a? Time
-      expect(item.updated_at).not_to eq Time.new(2021, 0o1, 0o2)
+      expect(item.updated_at).not_to eq Time.parse("2007-06-04 21:35:10 UTC")
     end
   end
 
