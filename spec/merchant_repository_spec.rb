@@ -18,12 +18,11 @@ RSpec.describe MerchantRepository do
     end
 
     it 'can access merchants' do
-      expect(merch_rep.merchants[0]).to be_instance_of(Merchant)
+      expect(merch_rep.array_of_objects[0]).to be_instance_of(Merchant)
     end
 
     it 'can create merchant objects' do
-      merchant_data = SalesEngine.parse_csv("./data/merchants.csv")
-      expect(merch_rep.create_merchants(merchant_data)[0]).to be_instance_of(Merchant)
+      expect(merch_rep.array_of_objects[0]).to be_instance_of(Merchant)
     end
   end
 
@@ -35,7 +34,7 @@ RSpec.describe MerchantRepository do
     merch_rep = sales_engine.merchants
 
     it 'returns array of all merchants' do
-      merchant_count = merch_rep.merchants.count
+      merchant_count = merch_rep.array_of_objects.count
       expect(merch_rep.all.count).to eq(merchant_count)
     end
 
@@ -55,11 +54,16 @@ RSpec.describe MerchantRepository do
     end
 
     it 'creates new merchants' do
-      expect(merch_rep.create({ :id => 5, :name => "Turing School" }).last).to be_instance_of(Merchant)
+      expected = {
+        :id => 12337412,
+        :name => "Turing School of Software and Design"
+      }
+      # expect(merch_rep.create({ :id => 5, :name => "Turing School" }).last).to be_instance_of(Merchant)
+      expect(merch_rep.create({name: "Turing School of Software and Design"}))
     end
 
     it 'makes a new id number' do
-      new_number = (merch_rep.merchants.last.id)+1
+      new_number = (merch_rep.array_of_objects.last.id)+1
       expect(merch_rep.new_id_number).to eq(new_number)
     end
 
