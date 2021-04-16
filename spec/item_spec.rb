@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative './lib/item'
+require './lib/item'
 
 describe Item do
   describe '#initialize' do

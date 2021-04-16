@@ -1,8 +1,8 @@
 require 'rspec'
 require 'CSV'
-require_relative './lib/file_io'
-require_relative './lib/item'
-require_relative './lib/merchant'
+require './lib/file_io'
+require './lib/item'
+require './lib/merchant'
 
 describe FileIo do
   it 'exists' do

@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative './data/mock_data'
+require './data/mock_data'
 
 describe MockData do
   describe '#merchants_as_mocks' do

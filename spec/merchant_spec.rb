@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative './lib/merchant'
+require './lib/merchant'
 
 RSpec.describe Merchant do
   describe '#initialize' do
