@@ -21,7 +21,6 @@ RSpec.describe Repository do
     csv_path = "./data/items.csv"
     repository = Repository.new(csv_path)
 
-
     it 'returns array of all items' do
       allow(repository).to receive(:array_of_objects) do
         [1, 2, 3, 4]
@@ -29,8 +28,20 @@ RSpec.describe Repository do
 
       expect(repository.all).to eq([1, 2, 3, 4])
     end
+
+    xit 'find_by_id returns an instance by matching id' do
+      mock = double('Item')
+      allow(mock).to receive(:new) do
+
+      end
+      id = 263538760
+      expect(repository.find_by_id(id).id).to eq(id)
+      expect(repository.find_by_id(id).name).to eq("Puppy blankie")
+    end
   end
+
 end
+
 
 ##ADDITIONAL PARSED CSV TESTS##
   # xit 'makes a hash' do

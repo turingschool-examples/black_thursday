@@ -33,4 +33,10 @@ class Repository
   def all
     array_of_objects
   end
+
+  def find_by_id(id)
+    @array_of_objects.find do |object|
+      object.id == id
+    end
+  end
 end

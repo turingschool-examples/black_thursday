@@ -37,11 +37,11 @@ RSpec.describe MerchantRepository do
       merchant_count = merch_rep.array_of_objects.count
       expect(merch_rep.all.count).to eq(merchant_count)
     end
-
-    it 'can find by id' do
-      expect(merch_rep.find_by_id(500000)).to eq(nil)
-      expect(merch_rep.find_by_id(12334105).name).to eq("Shopin1901")
-    end
+    # 
+    # it 'can find by id' do
+    #   expect(merch_rep.find_by_id(500000)).to eq(nil)
+    #   expect(merch_rep.find_by_id(12334105).name).to eq("Shopin1901")
+    # end
 
     it 'can find by name' do
       expect(merch_rep.find_by_name("Candisart").id).to eq(12334112)

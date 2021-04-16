@@ -21,11 +21,11 @@ class ItemRepository < Repository
   end
 
 
-  def find_by_id(id)
-    @array_of_objects.find do |item|
-      item.id == id
-    end
-  end
+  # def find_by_id(id)
+  #   @array_of_objects.find do |item|
+  #     item.id == id
+  #   end
+  # end
 
   def find_by_name(name)
     @array_of_objects.find do |item|
