@@ -1,5 +1,6 @@
 require_relative './items_repo'
 require_relative './merchants_repo'
+require_relative './sales_analyst'
 require 'csv'
 
 class SalesEngine
@@ -13,5 +14,9 @@ class SalesEngine
 
   def self.from_csv(csv_files)
     SalesEngine.new(csv_files)
+  end
+
+  def self.analyst
+    SalesAnalyst.new
   end
 end

@@ -172,6 +172,7 @@
           1,
           1,
           1,
+          1,
           null,
           1,
           1,
@@ -184,6 +185,10 @@
           null,
           1,
           5,
+          null,
+          null,
+          1,
+          0,
           null,
           null
         ]
@@ -417,6 +422,15 @@
           null
         ]
       },
+      "/Users/dee/turing/1module/projects/black_thursday/lib/sales_analyst.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
       "/Users/dee/turing/1module/projects/black_thursday/spec/items_spec.rb": {
         "lines": [
           1,
@@ -628,6 +642,6 @@
         ]
       }
     },
-    "timestamp": 1618533986
+    "timestamp": 1618595130
   }
 }
