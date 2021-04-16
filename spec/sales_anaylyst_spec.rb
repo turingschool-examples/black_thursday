@@ -116,4 +116,117 @@ RSpec.describe 'SalesAnalyst' do
       expect(sa.golden_items.length).to eq(5)
     end
   end
+
+  describe '#average_invoices_per_merchant' do
+    it 'shows the average number of invoices per merchant' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
+      sa = se.analyst
+
+      expect(sa.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
+
+  describe '#average_invoice_per_merchant_standard_deviation' do
+    it 'returns standard deviation of above ^^^' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.average_invoice_per_merchant_standard_deviation).to eq(3.29)
+    end
+  end
+
+  describe '#invoices_per_merchant' do
+    it 'returns invoices per each merchant id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.invoices_per_merchant.length).to eq(@engine.merchants.all.length)
+    end
+  end
+
+  describe '#top_merchants_by_invoice_count' do
+    it 'returns merchants more tahn two standard deviations above the mean' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.top_merchants_by_invoice_count).to eq([])
+    end
+  end
+
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'returns merchants two standard deviations below the mean' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.bottom_merchants_by_invoice_count).to eq([])
+    end
+  end
+
+  describe '#invoices_per_day' do
+    it 'returns the number of invocies per day' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.invoices_per_day).to eq(4)
+    end
+  end
+
+  describe '#top_days_by_invoice_count' do
+    it 'returns days one standard deviation above mean' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.top_days_by_invoice_count).to eq([])
+    end
+  end
+
+  describe '#invoice_status' do
+    it 'returns the percentage of invoices in that state' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.invoice_status(:pending)).to eq(29.55)
+      expect(sa.invoice_status(:shipped)).to eq(56.95)
+      expect(sa.invoice_status(:returned)).to eq(13.5)
+    end
+  end
 end
