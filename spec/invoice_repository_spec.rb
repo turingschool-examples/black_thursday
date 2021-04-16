@@ -165,4 +165,132 @@ RSpec.describe InvoiceRepository do
       expect(ir.invoices.count).to eq(4984)
     end
   end
+
+  describe '#percentage_by_status' do
+    it 'shows percent of invoices by status' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+
+      expect(ir.percentage_by_status(:pending)).to eq(50.00)
+      expect(ir.percentage_by_status(:shipped)).to eq(33.33)
+      expect(ir.percentage_by_status(:returned)).to eq(16.67)
+    end
+  end
+
+  describe '#invoices_by_days' do
+    it 'shows count of invoices per day of week' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.invoices_by_days).to eq({ 'Friday' => 701,
+                                          'Monday' => 696,
+                                          'Saturday' => 729,
+                                          'Sunday' => 708,
+                                          'Thursday' => 718,
+                                          'Tuesday' => 692,
+                                          'Wednesday' => 741 })
+    end
+  end
+
+  describe '#average' do
+    it 'shows average' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.average(ir.invoices_by_days)).to eq(712.1428571428571)
+    end
+  end
+
+  describe '#hash_variance_from_mean' do
+    it 'shows variance from mean' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.hash_variance_from_mean(ir.invoices_by_days)).to eq({ 'Friday' => 124.16326530612173,
+                                                                      'Monday' => 260.59183673469283,
+                                                                      'Saturday' => 284.16326530612355,
+                                                                      'Sunday' => 17.16326530612218,
+                                                                      'Thursday' => 34.30612244897997,
+                                                                      'Tuesday' => 405.7346938775497,
+                                                                      'Wednesday' => 832.7346938775529 })
+    end
+  end
+
+  describe '#standard_deviation' do
+    it 'shows standard deviation' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.standard_deviation(ir.invoices_by_days)).to eq(18.07)
+    end
+  end
+
+  describe '#top_sales_days' do
+    it 'shows standard deviation' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.top_sales_days).to eq(['Wednesday'])
+    end
+  end
+
+  describe '#invoices_per_merchant' do
+    it 'shows invoices by merchant' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.invoices_per_merchant.keys.count).to eq(475)
+    end
+  end
+  describe '#average_invoices_per_merchant' do
+    it 'shows average number of invoices by merchant' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      
+      expect(ir.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
+  describe '#stdev_invoices_per_merchant' do
+    it 'shows standard deviation of invoices by merchant' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      
+      expect(ir.stdev_invoices_per_merchant).to eq(3.29)
+    end
+  end
+  describe '#top_merchants_by_invoice_count' do
+    it 'tells which merchants are more than two std deviation above the mean' do
+      mock_sales_engine = instance_double('SalesEngine')
+      mock_merchant_repo = instance_double('MerchantRepository')
+      merchant = Merchant.new({
+                                id: '1',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
+                              }, mock_merchant_repo)
+      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      
+      expect(ir.top_merchants_by_invoice_count.count).to eq(12)
+      expect(ir.top_merchants_by_invoice_count.first).to be_a(Merchant)
+    end
+  end
+
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'tells which merchants are more than two std deviation below the mean' do
+      mock_sales_engine = instance_double('SalesEngine')
+      mock_merchant_repo = instance_double('MerchantRepository')
+      merchant = Merchant.new({
+                                id: '1',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
+                              }, mock_merchant_repo)
+      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+     
+      expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
+      expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
+    end
+  end
 end
