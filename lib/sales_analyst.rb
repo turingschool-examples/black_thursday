@@ -175,6 +175,6 @@ class SalesAnalyst
       invoice.status == status_arg
     end
 
-    (invoice_count.fdiv(@engine.invoices.all.length)*100).round(2)
+    (invoice_count.fdiv(@engine.invoices.all.length) * 100).round(2)
   end
 end
