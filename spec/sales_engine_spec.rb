@@ -25,37 +25,41 @@ RSpec.describe SalesEngine do
   end
   describe '#invoice_percentage_by_status' do
     it 'shows percent of invoices by status' do
-      expect(@se.invoice_percentage_by_status(:pending)).to eq(50.00)
-      expect(@se.invoice_percentage_by_status(:shipped)).to eq(33.33)
-      expect(@se.invoice_percentage_by_status(:returned)).to eq(16.67)
+      expect(@se.invoice_percentage_by_status(:pending)).to eq(29.55)
+      expect(@se.invoice_percentage_by_status(:shipped)).to eq(56.95)
+      expect(@se.invoice_percentage_by_status(:returned)).to eq(13.5)
     end
   end
-  describe 'find_merchant_by_id' do
+  describe '#find_merchant_by_id' do
     it 'returns a merchant_object when given a merchant_id' do
-      expect(@se.find_merchant_by_id(1)).to be_a(Merchant)
+      expect(@se.find_merchant_by_id(12334105)).to be_a(Merchant)
     end
   end
-  # def find_merchant_by_id(merchant_id)
-  #   @merchants.find_by_id(merchant_id)
-  # end
-
-  # def average_invoices_per_merchant
-  #   @invoices.average_invoices_per_merchant
-  # end
-
-  # def stdev_invoices_per_merchant
-  #   @invoices.stdev_invoices_per_merchant
-  # end
-
-  # def top_merchants_by_invoice_count
-  #   @invoices.top_merchants_by_invoice_count
-  # end
-
-  # def bottom_merchants_by_invoice_count
-  #   @invoices.bottom_merchants_by_invoice_count
-  # end
-
-  # def top_days_by_invoice_count
-  #   @invoices.top_sales_days
-  # end
+  describe '#average_invoices_per_merchant' do
+    it 'shows average invoices per merchant' do
+      expect(@se.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
+  describe '#stdev_invoices_per_merchant' do
+    it 'shows standard deviation of invoices per merchant' do
+      expect(@se.stdev_invoices_per_merchant).to eq(3.29)
+    end
+  end
+  describe '#top_merchants_by_invoice_count' do
+    it 'shows top merchants by invoice count' do
+      expect(@se.top_merchants_by_invoice_count.count).to eq(12)
+      expect(@se.top_merchants_by_invoice_count.first).to be_a(Merchant)
+    end
+  end
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'shows bottom merchants by invoice count' do
+      expect(@se.bottom_merchants_by_invoice_count.count).to eq(4)
+      expect(@se.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
+    end
+  end
+  describe '#top_days_by_invoice_count' do
+    it 'shows top days by invoice count' do
+      expect(@se.top_days_by_invoice_count).to eq(["Wednesday"])
+    end
+  end
 end
