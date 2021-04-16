@@ -9,11 +9,9 @@ require './lib/file_io'
 describe SalesEngine do
   describe '#from_csv' do
     it 'creates a new instance of SalesEngine' do
-      item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(self, item_details)
+      mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
+      mock_merchants = MockData.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -24,11 +22,9 @@ describe SalesEngine do
 
   describe '#items' do
     it 'has an ItemRepository' do
-      item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(self, item_details)
+      mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
+      mock_merchants = MockData.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -37,11 +33,9 @@ describe SalesEngine do
     end
 
     it 'has Items in the ItemRepository' do
-      item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(self, item_details)
+      mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
+      mock_merchants = MockData.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -55,8 +49,7 @@ describe SalesEngine do
     it 'has an MerchantRepository' do
       mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
+      mock_merchants = MockData.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -67,8 +60,7 @@ describe SalesEngine do
     it 'has Merchants in the MerchantRepository' do
       mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
+      mock_merchants = MockData.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -82,8 +74,7 @@ describe SalesEngine do
     it 'returns a new instance of SalesAnalyst' do
       mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
+      mock_merchants = MockData.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
