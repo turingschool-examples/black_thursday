@@ -56,13 +56,13 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_with_high_item_count).to eq([])
     end
   end
-####Zach started here
+
   describe '#average_invoices_per_merchant' do
     it 'shows average number of invoices by merchant' do
       mock_sales_engine = instance_double('SalesEngine')
       sa = SalesAnalyst.new(mock_sales_engine)
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:average_invoices_per_merchant){ ir.average_invoices_per_merchant }
+      allow(mock_sales_engine).to receive(:average_invoices_per_merchant) { ir.average_invoices_per_merchant }
       expect(sa.average_invoices_per_merchant).to eq(10.49)
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe SalesAnalyst do
       mock_sales_engine = instance_double('SalesEngine')
       sa = SalesAnalyst.new(mock_sales_engine)
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:stdev_invoices_per_merchant){ ir.stdev_invoices_per_merchant }
+      allow(mock_sales_engine).to receive(:stdev_invoices_per_merchant) { ir.stdev_invoices_per_merchant }
       expect(sa.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
   end
@@ -88,7 +88,7 @@ RSpec.describe SalesAnalyst do
                               }, mock_merchant_repo)
       allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:top_merchants_by_invoice_count){ ir.top_merchants_by_invoice_count }
+      allow(mock_sales_engine).to receive(:top_merchants_by_invoice_count) { ir.top_merchants_by_invoice_count }
       expect(sa.top_merchants_by_invoice_count.count).to eq(12)
       expect(sa.top_merchants_by_invoice_count.first).to be_a(Merchant)
     end
@@ -106,7 +106,7 @@ RSpec.describe SalesAnalyst do
                               }, mock_merchant_repo)
       allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:bottom_merchants_by_invoice_count){ ir.bottom_merchants_by_invoice_count }
+      allow(mock_sales_engine).to receive(:bottom_merchants_by_invoice_count) { ir.bottom_merchants_by_invoice_count }
       expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end

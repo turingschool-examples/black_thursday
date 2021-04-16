@@ -59,7 +59,7 @@ RSpec.describe SalesEngine do
   end
   describe '#top_days_by_invoice_count' do
     it 'shows top days by invoice count' do
-      expect(@se.top_days_by_invoice_count).to eq(["Wednesday"])
+      expect(@se.top_days_by_invoice_count).to eq(['Wednesday'])
     end
   end
 end
