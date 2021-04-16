@@ -43,7 +43,7 @@ RSpec.describe Invoice do
     #   expect(i.repository).to eq('repository')
     # end
   end
-  
+
   describe 'instances of time' do
     it 'has a time created' do
       allow(Time).to receive(:now) do
