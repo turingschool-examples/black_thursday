@@ -126,15 +126,17 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    deviation = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    deviation = (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2).round(2)
     merchant_invoice_array = invoices_per_merchant
 
     top_merchant = merchant_invoice_array.find_all do |invoice|
       invoice[1] > deviation
     end
-
+    top_merchant_id = top_merchant.map do |merchant|
+      merchant[0]
+    end
     @engine.merchants.all.find_all do |merchant|
-      top_merchant[0].include?(merchant.id)
+      top_merchant_id.include?(merchant.id)
     end
   end
 
@@ -142,12 +144,14 @@ class SalesAnalyst
     deviation = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
     merchant_invoice_array = invoices_per_merchant
 
-    top_merchant = merchant_invoice_array.find_all do |invoice|
+    bottom_merchant = merchant_invoice_array.find_all do |invoice|
       invoice[1] < deviation
     end
-
+    bottom_merchant_id = bottom_merchant.map do |merchant|
+      merchant[0]
+    end
     @engine.merchants.all.find_all do |merchant|
-      top_merchant[0].include?(merchant.id)
+      bottom_merchant_id.include?(merchant.id)
     end
   end
 
