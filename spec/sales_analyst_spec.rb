@@ -62,7 +62,7 @@ RSpec.describe SalesAnalyst do
       mock_sales_engine = instance_double('SalesEngine')
       sa = SalesAnalyst.new(mock_sales_engine)
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:average_invoices_per_merchant){ir.average_invoices_per_merchant}
+      allow(mock_sales_engine).to receive(:average_invoices_per_merchant){ ir.average_invoices_per_merchant }
       expect(sa.average_invoices_per_merchant).to eq(10.49)
     end
   end
@@ -71,42 +71,42 @@ RSpec.describe SalesAnalyst do
       mock_sales_engine = instance_double('SalesEngine')
       sa = SalesAnalyst.new(mock_sales_engine)
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:stdev_invoices_per_merchant){ir.stdev_invoices_per_merchant}
+      allow(mock_sales_engine).to receive(:stdev_invoices_per_merchant){ ir.stdev_invoices_per_merchant }
       expect(sa.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
   end
   describe '#top_merchants_by_invoice_count' do
-    it 'tells which merchants are more than two standard deviations above the mean' do
+    it 'tells which merchants are more than two std devs above the mean' do
       mock_sales_engine = instance_double('SalesEngine')
       mock_merchant_repo = instance_double('MerchantRepository')
       sa = SalesAnalyst.new(mock_sales_engine)
       merchant = Merchant.new({
-                              id: '1',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                               id: '1',
+                               name: 'Shopin1901',
+                               created_at: '2010-12-10',
+                               updated_at: '2011-12-04'
                               }, mock_merchant_repo)
-      allow(mock_sales_engine).to receive(:find_merchant_by_id) {merchant}
+      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:top_merchants_by_invoice_count){ir.top_merchants_by_invoice_count}
+      allow(mock_sales_engine).to receive(:top_merchants_by_invoice_count){ ir.top_merchants_by_invoice_count }
       expect(sa.top_merchants_by_invoice_count.count).to eq(12)
       expect(sa.top_merchants_by_invoice_count.first).to be_a(Merchant)
     end
   end
 
   describe '#bottom_merchants_by_invoice_count' do
-    it 'tells which merchants are more than two standard deviations below the mean' do
+    it 'tells which merchants are more than two std devs below the mean' do
       mock_sales_engine = instance_double('SalesEngine')
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '1',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                               id: '1',
+                               name: 'Shopin1901',
+                               created_at: '2010-12-10',
+                               updated_at: '2011-12-04'
                               }, mock_merchant_repo)
-      allow(mock_sales_engine).to receive(:find_merchant_by_id) {merchant}
+      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:bottom_merchants_by_invoice_count){ir.bottom_merchants_by_invoice_count}
+      allow(mock_sales_engine).to receive(:bottom_merchants_by_invoice_count){ ir.bottom_merchants_by_invoice_count }
       expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
