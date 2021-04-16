@@ -89,7 +89,7 @@ class SalesAnalyst
     @engine.invoices.all.length.fdiv(merchant_ids.length).round(2)
   end
 
-  def average_invoice_per_merchant_standard_deviation
+  def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
     merchant_ids = @engine.all_merchant_ids
 

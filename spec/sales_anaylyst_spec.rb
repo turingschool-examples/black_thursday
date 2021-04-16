@@ -130,7 +130,7 @@ RSpec.describe 'SalesAnalyst' do
     end
   end
 
-  describe '#average_invoice_per_merchant_standard_deviation' do
+  describe '#average_invoices_per_merchant_standard_deviation' do
     it 'returns standard deviation of above ^^^' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
@@ -140,7 +140,7 @@ RSpec.describe 'SalesAnalyst' do
 
       sa = se.analyst
 
-      expect(sa.average_invoice_per_merchant_standard_deviation).to eq(3.29)
+      expect(sa.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
   end
 
