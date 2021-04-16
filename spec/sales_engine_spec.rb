@@ -53,8 +53,7 @@ describe SalesEngine do
 
   describe '#merchants' do
     it 'has an MerchantRepository' do
-      item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(self, item_details)
+      mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
       mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
@@ -66,8 +65,7 @@ describe SalesEngine do
     end
 
     it 'has Merchants in the MerchantRepository' do
-      item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(self, item_details)
+      mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
       mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
@@ -82,8 +80,7 @@ describe SalesEngine do
 
   describe '#analyst' do
     it 'returns a new instance of SalesAnalyst' do
-      item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(self, item_details)
+      mock_items = MockData.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
       mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
