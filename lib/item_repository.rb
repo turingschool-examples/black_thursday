@@ -10,7 +10,7 @@ class ItemRepository < Repository
     @array_of_objects = create_items(@parsed_csv_data)
   end
 
-  def create_items(parsed_csv_data)
+  def   create_items(parsed_csv_data)
     parsed_csv_data.map do |item|
       Item.new(item)
     end
@@ -20,15 +20,12 @@ class ItemRepository < Repository
   "#<#{self.class} #{@array_of_objects.size} rows>"
   end
 
-  def all
-    @array_of_objects
-  end
 
-  def find_by_id(id)
-    @array_of_objects.find do |item|
-      item.id == id
-    end
-  end
+  # def find_by_id(id)
+  #   @array_of_objects.find do |item|
+  #     item.id == id
+  #   end
+  # end
 
   def find_by_name(name)
     @array_of_objects.find do |item|

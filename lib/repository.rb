@@ -7,7 +7,11 @@ class Repository
 
   def initialize(path)
     @parsed_csv_data = parse_csv(path)
-    @array_of_objects = [] #consider a rename #NEED TO UPDATE CHILD CLASSES TO USE THIS NAME
+    @array_of_objects = []
+  end
+
+  def inspect
+  "#<#{self.class} #{@array_of_objects.size} rows>"
   end
 
   def parse_csv(path)
@@ -26,8 +30,13 @@ class Repository
     @parsed_csv_data
   end
 
-  # def all
-  #   @array_of_objects
-  # end
+  def all
+    array_of_objects
+  end
 
+  def find_by_id(id)
+    @array_of_objects.find do |object|
+      object.id == id
+    end
+  end
 end
