@@ -4,7 +4,6 @@ require_relative 'invoice'
 require 'time'
 
 class InvoiceRepository < Repository
-
   def initialize(location_hash, engine)
     super(location_hash, engine)
     all_invoices
