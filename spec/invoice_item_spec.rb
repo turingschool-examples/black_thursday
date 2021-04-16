@@ -31,7 +31,7 @@ describe InvoiceItem do
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.id).to eq 6
-      expect(invoice_item.id).is_a? Integer
+      expect(invoice_item.id).is_a? Fixnum
     end
 
     it 'returns the item id' do
@@ -47,6 +47,7 @@ describe InvoiceItem do
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.item_id).to eq 7
+      expect(invoice_item.item_id).is_a? Fixnum
     end
 
     it 'returns the invoice id' do
@@ -62,6 +63,7 @@ describe InvoiceItem do
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.invoice_id).to eq 8
+      expect(invoice_item.invoice_id).is_a? Fixnum
     end
 
     it 'returns the quantity' do
