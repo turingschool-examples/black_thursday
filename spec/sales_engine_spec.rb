@@ -1,6 +1,7 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_analyst'
 
 RSpec.describe SalesEngine do
   describe '#initialization' do
@@ -26,6 +27,10 @@ RSpec.describe SalesEngine do
 
     it 'creates hashes' do
       expect(SalesEngine.parse_csv("./data/merchants.csv")[0]).to be_instance_of(Hash)
+    end
+
+    it 'creates instance of SalesAnalyst' do
+      expect(sales_engine.analyst).to be_an_instance_of(SalesAnalyst)
     end
   end
 

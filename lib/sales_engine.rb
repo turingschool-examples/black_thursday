@@ -1,15 +1,17 @@
 require 'CSV'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
+require_relative '../lib/sales_analyst'
 
 class SalesEngine
-  attr_reader :merchants, :items
+  attr_reader :merchants, :items, :analyst
   def initialize(csv_data)
     @merchants = csv_data[:merchants]
     @items = csv_data[:items]
+    @analyst = SalesAnalyst.new(self)
   end
 
-  def self.from_csv(csv_data)
+  def self.from_csv(csv_data) #needs to be parsed here; should not need to call e.g. salesenging.merchants
      SalesEngine.new(csv_data)
   end
 
@@ -30,11 +32,11 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(SalesEngine.parse_csv(@merchants))
+    MerchantRepository.new(SalesEngine.parse_csv(@merchants)) # need class method
   end
 
   def items
-    ItemRepository.new(SalesEngine.parse_csv(@items))
+    ItemRepository.new(SalesEngine.parse_csv(@items)) # need class method
   end
 end
 
