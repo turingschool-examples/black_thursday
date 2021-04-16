@@ -2,6 +2,79 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
+
+  describe '#invoice_items_as_hashes' do
+    it 'returns mock data of invoice_items' do
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes
+
+      expect(invoice_items_as_hashes).to be_an Array
+      expect(invoice_items_as_hashes.length).to eq 10
+      expect(invoice_items_as_hashes.first).to be_a Hash
+    end
+    it 'has expected attributes' do
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes
+      invoice_item_hash = invoice_items_as_hashes.first
+      expect(invoice_item_hash[:id]).to be_an Integer
+      expect(invoice_item_hash[:item_id]).to be_an Integer
+      expect(invoice_item_hash[:invoice_id]).to be_an Integer
+      expect(invoice_item_hash[:quantity]).to be_an Integer
+      expect(invoice_item_hash[:unit_price]).to be_an Float
+      expect(invoice_item_hash[:created_at]).to match MockData.date_format
+      expect(invoice_item_hash[:updated_at]).to match MockData.date_format
+    end
+    it 'allows different number of hashes' do
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes(number_of_hashes:2)
+
+      expect(invoice_items_as_hashes).to be_an Array
+      expect(invoice_items_as_hashes.length).to eq 2
+      expect(invoice_items_as_hashes.first).to be_a Hash
+    end
+    it 'allows non-random dates' do
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes(random_dates:false)
+
+      invoice_items_as_hashes.each do |hash|
+        expect(hash[:created_at]).to eq '2019-12-01'
+      end
+    end
+    it 'allows custom quantities' do
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes(quantity:5)
+
+      invoice_items_as_hashes.each do |hash|
+        expect(hash[:quantity]).to eq 5
+      end
+    end
+    it 'allows ranges for item ids' do
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes(item_id_range: (1..1))
+      first_invoice_item = invoice_items_as_hashes.first
+      second_invoice_item = invoice_items_as_hashes.last
+
+      invoice_items_as_hashes.each do |hash|
+        expect(hash[:item_id]).to eq 1
+      end
+    end
+    it 'allows ranges for invoice ids' do
+      invoice_items_as_hashes = MockData.invoice_items_as_hashes(invoice_id_range: (1..1))
+
+      invoice_items_as_hashes.each do |hash|
+        expect(hash[:invoice_id]).to eq 1
+      end
+    end
+  end
+
+  describe '#invoices_as_mocks' do
+    it 'returns mocks of invoices' do
+      invoice_items_as_mocks = MockData.invoice_items_as_mocks(self)
+      invoice_item_mock = invoice_items_as_mocks.first
+      expect(invoice_item_mock.id).to be_an Integer
+      expect(invoice_item_mock.item_id).to be_an Integer
+      expect(invoice_item_mock.invoice_id).to be_an Integer
+      expect(invoice_item_mock.quantity).to be_an Integer
+      expect(invoice_item_mock.unit_price).to be_an Float
+      expect(invoice_item_mock.created_at).to match MockData.date_format
+      expect(invoice_item_mock.updated_at).to match MockData.date_format
+    end
+  end
+
   describe '#invoices_as_hashes' do
     it 'returns mock data of invoices' do
       invoices_as_hashes = MockData.invoices_as_hashes
@@ -201,6 +274,13 @@ describe MockData do
       actual_status = MockData.get_a_random_status
       possible_statuses = ['pending', 'shipped', 'returned']
       expect(possible_statuses.include?(actual_status)).to be true
+    end
+  end
+
+  describe '#get_a_random_quantity' do
+    it 'returns a random status' do
+      actual_quantity = MockData.get_a_random_quantity
+      expect(actual_quantity).to be_an Integer
     end
   end
 end
