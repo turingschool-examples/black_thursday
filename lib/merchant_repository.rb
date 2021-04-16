@@ -58,6 +58,8 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.update_name(attributes[:name])
+    unless merchant == nil
+      merchant.update_name(attributes[:name])
+    end 
   end
 end

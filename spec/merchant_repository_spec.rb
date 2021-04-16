@@ -141,5 +141,16 @@ describe MerchantRepository do
       expect(new_merchant.name).to eq 'Dustin Huntsman'
       expect(new_merchant.id).not_to eq 23
     end
+
+    it 'does nothing if no merchant with given id and attributes' do
+      details = MockData.merchants_as_hash
+      mock_data = MockData.merchants_as_mocks(details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
+      m_repo = MerchantRepository.new('fake.csv')
+
+      m_repo.create(id: 0, name: 'Sami')
+      new_merchant = m_repo.merchants.last
+      m_repo.update(56, { id: 23, name: 'Dustin Huntsman' })
+    end
   end
 end
