@@ -182,13 +182,13 @@ RSpec.describe InvoiceRepository do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
 
-      expect(ir.invoices_by_days).to eq({"Friday"=>701,
-                                         "Monday"=>696,
-                                         "Saturday"=>729,
-                                         "Sunday"=>708,
-                                         "Thursday"=>718,
-                                         "Tuesday"=>692,
-                                         "Wednesday"=>741})
+      expect(ir.invoices_by_days).to eq({ 'Friday' => 701,
+                                          'Monday' => 696,
+                                          'Saturday' => 729,
+                                          'Sunday' => 708,
+                                          'Thursday' => 718,
+                                          'Tuesday' => 692,
+                                          'Wednesday' => 741 })
     end
   end
 
@@ -206,13 +206,13 @@ RSpec.describe InvoiceRepository do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
 
-      expect(ir.hash_variance_from_mean(ir.invoices_by_days)).to eq({"Friday"=> 124.16326530612173,
-                                                                "Monday"=> 260.59183673469283,
-                                                                "Saturday"=> 284.16326530612355,
-                                                                "Sunday"=> 17.16326530612218,
-                                                                "Thursday"=> 34.30612244897997,
-                                                                "Tuesday"=> 405.7346938775497,
-                                                                "Wednesday"=> 832.7346938775529})
+      expect(ir.hash_variance_from_mean(ir.invoices_by_days)).to eq({ 'Friday' => 124.16326530612173,
+                                                                     'Monday' => 260.59183673469283,
+                                                                     'Saturday' => 284.16326530612355,
+                                                                     'Sunday' => 17.16326530612218,
+                                                                     'Thursday' => 34.30612244897997,
+                                                                     'Tuesday' => 405.7346938775497,
+                                                                     'Wednesday' => 832.7346938775529 })
     end
   end
 
@@ -230,7 +230,7 @@ RSpec.describe InvoiceRepository do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
 
-      expect(ir.top_sales_days).to eq(["Wednesday"])
+      expect(ir.top_sales_days).to eq(['Wednesday'])
     end
   end
 
