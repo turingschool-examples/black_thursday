@@ -133,9 +133,9 @@ RSpec.describe 'SalesAnalyst' do
   describe '#average_invoice_per_merchant_standard_deviation' do
     it 'returns standard deviation of above ^^^' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv',
-         invoices: './data/invoices.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
 
       sa = se.analyst
@@ -147,9 +147,9 @@ RSpec.describe 'SalesAnalyst' do
   describe '#invoices_per_merchant' do
     it 'returns invoices per each merchant id' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv',
-         invoice: './data/invoices.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
       )
 
       sa = se.analyst
@@ -161,9 +161,9 @@ RSpec.describe 'SalesAnalyst' do
   describe '#top_merchants_by_invoice_count' do
     it 'returns merchants more tahn two standard deviations above the mean' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv',
-         invoice: './data/invoices.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
       )
 
       sa = se.analyst
@@ -175,9 +175,9 @@ RSpec.describe 'SalesAnalyst' do
   describe '#bottom_merchants_by_invoice_count' do
     it 'returns merchants two standard deviations below the mean' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv',
-         invoice: './data/invoices.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
       )
 
       sa = se.analyst
@@ -189,23 +189,23 @@ RSpec.describe 'SalesAnalyst' do
   describe '#invoices_per_day' do
     it 'returns the number of invocies per day' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv',
-         invoice: './data/invoices.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
       )
 
       sa = se.analyst
 
-      expect(sa.invoices_per_day).to eq()
+      expect(sa.invoices_per_day).to eq(4)
     end
   end
 
   describe '#top_days_by_invoice_count' do
     it 'returns days one standard deviation above mean' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv',
-         invoice: './data/invoices.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
       )
 
       sa = se.analyst
@@ -217,9 +217,9 @@ RSpec.describe 'SalesAnalyst' do
   describe '#invoice_status' do
     it 'returns the percentage of invoices in that state' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv',
-         invoice: './data/invoices.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoice: './data/invoices.csv'
       )
 
       sa = se.analyst
