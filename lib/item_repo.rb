@@ -9,7 +9,6 @@ class ItemRepo
     @items = []
     @engine = engine
     populate_information(path)
-   
   end
 
   def populate_information(path)
@@ -76,15 +75,11 @@ class ItemRepo
   # the code logic doesn't belong here, what happens when only one gets updated 
   def update(id, attributes)
     new_item = find_by_id(id)
-    # new_item.assign_attributes(attributes)
-
-    #   attributes.each do |key, value|
-    #     if new_item.(key) = value 
-    #   end
-    new_item.name = attributes[:name]
-    new_item.description = attributes[:description]
-    new_item.unit_price = attributes[:unit_price]
-    new_item.updated_at = attributes[:updated_at]
+    return if !new_item
+    new_item.name = attributes[:name] if  attributes[:name]
+    new_item.description = attributes[:description] if attributes[:description]
+    new_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
+    new_item.updated_at = Time.now
     return new_item
   end
 
