@@ -58,7 +58,7 @@ describe MockData do
       expect(mocked_invoice.updated_at).to match MockData.date_format
     end
     it 'accepts custom hashes' do
-      invoices_as_hashes = MockData.invoices_as_hashes(number_of_hashes:2)
+      invoices_as_hashes = MockData.invoices_as_hashes(number_of_hashes: 2)
       invoices_as_mocks = MockData.invoices_as_mocks(self, invoices_as_hashes)
       expect(invoices_as_mocks.length).to eq 2
     end
@@ -77,7 +77,7 @@ describe MockData do
       expect(mocked_merchant.updated_at).to match MockData.date_format
     end
     it 'accepts custom hashes' do
-      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes:2)
+      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 2)
       merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
       expect(merchants_as_mocks.length).to eq 2
     end
@@ -121,7 +121,7 @@ describe MockData do
     end
 
     it 'accepts custom hashes' do
-      items_as_hashes = MockData.items_as_hashes(number_of_hashes:2)
+      items_as_hashes = MockData.items_as_hashes(number_of_hashes: 2)
       items_as_mocks = MockData.items_as_mocks(self, items_as_hashes)
       expect(items_as_mocks.length).to eq 2
     end
