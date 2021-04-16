@@ -2,7 +2,8 @@ require 'CSV'
 require_relative '../lib/sales_engine'
 
 class Repository
-  attr_reader :parsed_csv_data
+  attr_reader :parsed_csv_data,
+              :array_of_objects
 
   def initialize(path)
     @parsed_csv_data = parse_csv(path)

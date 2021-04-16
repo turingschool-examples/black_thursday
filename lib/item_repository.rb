@@ -20,9 +20,9 @@ class ItemRepository < Repository
   "#<#{self.class} #{@array_of_objects.size} rows>"
   end
 
-  # def all
-  #   @array_of_objects
-  # end
+  def all
+    @array_of_objects
+  end
 
   def find_by_id(id)
     @array_of_objects.find do |item|
