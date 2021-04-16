@@ -55,7 +55,7 @@ class InvoiceRepository < Repository
     @csv_array << Invoice.new(attributes)
     Invoice.new(attributes)
   end
-  #
+  
   def update(id, attribute)
     update_instance = find_by_id(id)
     if update_instance.nil?
