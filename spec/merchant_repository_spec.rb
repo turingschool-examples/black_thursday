@@ -98,6 +98,17 @@ describe MerchantRepository do
       m_repo.delete(2)
       expect(m_repo.merchants.length).to eq 9
     end
+
+    it 'does nothing if no merchant with given id' do
+      details = MockData.merchants_as_hash
+      mock_data = MockData.merchants_as_mocks(details) { self }
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
+      m_repo = MerchantRepository.new('fake.csv')
+
+      expect(m_repo.merchants.length).to eq 10
+      m_repo.delete(56)
+      expect(m_repo.merchants.length).to eq 10
+    end
   end
 
   describe '#create' do

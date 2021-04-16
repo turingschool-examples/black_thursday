@@ -43,7 +43,9 @@ class MerchantRepository
     index = @merchants.index do |merchant|
       merchant.id == id
     end
-    @merchants.delete_at(index)
+    unless index == nil
+      @merchants.delete_at(index)
+    end
   end
 
   def newest_id
@@ -60,6 +62,6 @@ class MerchantRepository
     merchant = find_by_id(id)
     unless merchant == nil
       merchant.update_name(attributes[:name])
-    end 
+    end
   end
 end
