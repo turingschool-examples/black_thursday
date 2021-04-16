@@ -8,21 +8,19 @@ require 'bigdecimal'
 
 RSpec.describe ItemRepo do
   describe 'instantiation' do
+    before(:each) do
+      @repo = SalesEngine.from_csv({:items => "./data/items.csv",
+                                    :merchants => "./data/merchants.csv"})
+    end
 
     it '::new' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv", @repo)
      
       expect(item_repo).to be_an_instance_of(ItemRepo)
     end
 
     it 'has attributes' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
 
       expect(item_repo.items).to be_an_instance_of(Array)
     end
@@ -31,43 +29,34 @@ RSpec.describe ItemRepo do
   describe '#methods' do
 
     it '#all' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
 
       expect(item_repo.all).to be_an_instance_of(Array)
     end
 
     it '#add item' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                       :name        => "Pencil",
                       :description => "You can use it to write things",
                       :unit_price  => BigDecimal(10.99,4),
                       :created_at  => Time.now,
                       :updated_at  => Time.now,
-                      :merchant_id => 2}, se)
+                      :merchant_id => 2},@repo)
       item_repo.add_item(item1)
 
       expect(item_repo.items.include?(item1)).to eq true
     end
 
     it '#find by id' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
-                    :merchant_id => 2}, se)
+                    :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -76,17 +65,14 @@ RSpec.describe ItemRepo do
     end
 
     it '#find by name' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
-                    :merchant_id => 2}, se)
+                    :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -95,17 +81,14 @@ RSpec.describe ItemRepo do
     end
 
     it '#find by description' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
-                    :merchant_id => 2}, se)
+                    :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -114,17 +97,14 @@ RSpec.describe ItemRepo do
     end
 
     it '#find all by price' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
-                    :merchant_id => 2}, se)
+                    :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -133,17 +113,14 @@ RSpec.describe ItemRepo do
     end
 
     it '#find all by price by range' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
-                    :merchant_id => 2}, se)
+                    :merchant_id => 2},@repo)
 
       item_repo.add_item(item1)
 
@@ -152,17 +129,14 @@ RSpec.describe ItemRepo do
     end
 
     it '#find by merchant' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
-                    :merchant_id => 2}, se)
+                    :merchant_id => 2},@repo)
       item_repo.add_item(item1)
 
       expect(item_repo.find_all_by_merchant_id(2)).to eq([item1])
@@ -170,10 +144,7 @@ RSpec.describe ItemRepo do
     end
 
     it '#creates item' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item_info = ({:id          => 0,
                     :name        => nil,
                     :description => nil,
@@ -188,17 +159,14 @@ RSpec.describe ItemRepo do
     end
 
     it '#update attributes' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                         :name        => "Pencil",
                         :description => "You can use it to write things",
                         :unit_price  => BigDecimal(10.99,4),
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
-                        :merchant_id => 2}, se)
+                        :merchant_id => 2},@repo)
       item_repo.add_item(item1)
       
       updated_attributes = {:name => "knife",
@@ -216,17 +184,14 @@ RSpec.describe ItemRepo do
     end
 
     it '#delete by id' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv"})
-      
-      item_repo = ItemRepo.new("./data/items.csv", se)
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
-                    :merchant_id => 2}, se)
+                    :merchant_id => 2},@repo)
       
      item_repo.add_item(item1)
 
