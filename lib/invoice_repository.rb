@@ -78,12 +78,6 @@ class InvoiceRepository
     (invoices_found / total_invoices * 100).round(2)
   end
 
-  def days_by_invoice_count(day)
-    @invoices.find_all do |invoice|
-      invoice.day_created == day.downcase
-    end.count
-  end
-
   def invoices_by_days
     hash = {'Sunday' => 0,
             'Monday' => 0,
