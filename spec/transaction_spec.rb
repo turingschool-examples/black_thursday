@@ -98,6 +98,23 @@ describe Transaction do
 
       expect(transaction.result).to eq :success
     end
+
+    it 'returns time objects for created and updated at' do
+      details = ({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+          })
+
+      transaction = Transaction.new(details)
+
+      expect(transaction.created_at).is_a? Time
+      expect(transaction.updated_at).is_a? Time
+    end
   end
 
 end
