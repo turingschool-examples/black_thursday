@@ -5,29 +5,29 @@ describe InvoiceItem do
   describe '#initialize' do
     it 'exists' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item).is_a? InvoiceItem
     end
 
-    it 'returns the integer id' do 
+    it 'returns the integer id' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.id).to eq 6
@@ -36,14 +36,14 @@ describe InvoiceItem do
 
     it 'returns the item id' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.item_id).to eq 7
@@ -51,14 +51,14 @@ describe InvoiceItem do
 
     it 'returns the invoice id' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.invoice_id).to eq 8
@@ -66,14 +66,14 @@ describe InvoiceItem do
 
     it 'returns the quantity' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.quantity).to eq 1
@@ -81,14 +81,14 @@ describe InvoiceItem do
 
     it 'returns the unit price' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.unit_price).to eq 10.99
@@ -96,14 +96,14 @@ describe InvoiceItem do
 
     it 'returns a Time instance for date invoice_item was created' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.created_at).is_a? Time
@@ -111,14 +111,14 @@ describe InvoiceItem do
 
     it 'returns a Time instance for date invoice_item updated' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.updated_at).is_a? Time
@@ -128,14 +128,14 @@ describe InvoiceItem do
   describe '#unit price to dollars' do
     it 'returns the price of the invoice_item in dollars as Float' do
       ii_details = {
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-            }
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
       invoice_item = InvoiceItem.new(ii_details)
 
       expect(invoice_item.unit_price_to_dollars).is_a? Float
