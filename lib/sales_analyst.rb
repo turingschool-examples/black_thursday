@@ -98,8 +98,8 @@ class SalesAnalyst
     end
 
     merchant_invoice.sum do |merchant|
-      (merchant - average) ** 2
-    end.fdiv(merchant_ids.length -1) ** 0.5
+      (merchant - average)**2
+    end.fdiv(merchant_ids.length -1)**0.5
   end
 
   def invoices_per_merchant
