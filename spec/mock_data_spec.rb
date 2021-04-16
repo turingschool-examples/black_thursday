@@ -47,7 +47,7 @@ describe MockData do
 
   describe '#invoices_as_mocks' do
     it 'returns mock data of invoices' do
-      invoices_as_mocks = MockData.invoices_as_mocks { self }
+      invoices_as_mocks = MockData.invoices_as_mocks(self)
       mocked_invoice = invoices_as_mocks.first
 
       expect(invoices_as_mocks.length).to eq 10
@@ -57,11 +57,16 @@ describe MockData do
       expect(mocked_invoice.created_at).to match MockData.date_format
       expect(mocked_invoice.updated_at).to match MockData.date_format
     end
+    it 'accepts custom hashes' do
+      invoices_as_hashes = MockData.invoices_as_hashes(number_of_hashes:2)
+      invoices_as_mocks = MockData.invoices_as_mocks(self, invoices_as_hashes)
+      expect(invoices_as_mocks.length).to eq 2
+    end
   end
 
   describe '#merchants_as_mocks' do
     it 'returns mocks of merchants' do
-      merchants_as_mocks = MockData.merchants_as_mocks { self }
+      merchants_as_mocks = MockData.merchants_as_mocks(self)
       mocked_merchant = merchants_as_mocks.first
 
       expect(merchants_as_mocks).to be_instance_of Array
@@ -70,6 +75,11 @@ describe MockData do
       expect(mocked_merchant.id).to eq 0
       expect(mocked_merchant.created_at).to match MockData.date_format
       expect(mocked_merchant.updated_at).to match MockData.date_format
+    end
+    it 'accepts custom hashes' do
+      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes:2)
+      merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
+      expect(merchants_as_mocks.length).to eq 2
     end
   end
 
@@ -96,7 +106,7 @@ describe MockData do
 
   describe '#items_as_mocks' do
     it 'returns mocks items with expected attributes' do
-      mocks = MockData.items_as_mocks { self }
+      mocks = MockData.items_as_mocks(self)
       mocked_item = mocks.first
 
       expect(mocks).to be_instance_of Array
@@ -108,6 +118,12 @@ describe MockData do
       expect(mocked_item.description).to eq 'Item Description'
       expect(mocked_item.created_at).to match MockData.date_format
       expect(mocked_item.updated_at).to match MockData.date_format
+    end
+
+    it 'accepts custom hashes' do
+      items_as_hashes = MockData.items_as_hashes(number_of_hashes:2)
+      items_as_mocks = MockData.items_as_mocks(self, items_as_hashes)
+      expect(items_as_mocks.length).to eq 2
     end
   end
 

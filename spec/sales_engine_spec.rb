@@ -10,10 +10,10 @@ describe SalesEngine do
   describe '#from_csv' do
     it 'creates a new instance of SalesEngine' do
       item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(item_details) { self }
+      mock_items = MockData.items_as_mocks(self, item_details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
+      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -25,10 +25,10 @@ describe SalesEngine do
   describe '#items' do
     it 'has an ItemRepository' do
       item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(item_details) { self }
+      mock_items = MockData.items_as_mocks(self, item_details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
+      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -38,10 +38,10 @@ describe SalesEngine do
 
     it 'has Items in the ItemRepository' do
       item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(item_details) { self }
+      mock_items = MockData.items_as_mocks(self, item_details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
+      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -54,10 +54,10 @@ describe SalesEngine do
   describe '#merchants' do
     it 'has an MerchantRepository' do
       item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(item_details) { self }
+      mock_items = MockData.items_as_mocks(self, item_details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
+      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -67,10 +67,10 @@ describe SalesEngine do
 
     it 'has Merchants in the MerchantRepository' do
       item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(item_details) { self }
+      mock_items = MockData.items_as_mocks(self, item_details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
+      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -83,10 +83,10 @@ describe SalesEngine do
   describe '#analyst' do
     it 'returns a new instance of SalesAnalyst' do
       item_details = MockData.items_as_hashes
-      mock_items = MockData.items_as_mocks(item_details) { self }
+      mock_items = MockData.items_as_mocks(self, item_details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       merchant_details = MockData.merchants_as_hashes
-      mock_merchants = MockData.merchants_as_mocks(merchant_details) { self }
+      mock_merchants = MockData.merchants_as_mocks(self, merchant_details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
