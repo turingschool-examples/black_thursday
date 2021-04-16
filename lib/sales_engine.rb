@@ -1,6 +1,8 @@
 require 'CSV'
 require './lib/item'
 require './lib/merchant'
+require './lib/item_repository'
+require './lib/merchant_repository'
 require './lib/sales_analyst'
 require './lib/merchant_repository'
 require './lib/item_repository'
@@ -8,27 +10,13 @@ require './lib/item_repository'
 class SalesEngine
   attr_reader :items, :merchants
 
+  def initialize(files)
+    @items = ItemRepository.new(files[:items])
+    @merchants = MerchantRepository.new(files[:merchants])
+  end
+
   def self.from_csv(files)
-    instance = SalesEngine.new
-    instance.load_items(files[:items])
-    instance.load_merchants(files[:merchants])
-    instance
-  end
-
-  def load_items(file_name)
-    loaded_items = []
-    CSV.foreach(file_name, headers: true, header_converters: :symbol) do |row|
-      @items << Item.new(row)
-    end
-    @items = ItemRepository(loaded_items)
-  end
-
-  def load_merchants(file_name)
-    loaded_merchants = []
-    CSV.foreach(file_name, headers: true, header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
-    end
-    @merchants = MerchantRepository(loaded_merchants)
+    instance = SalesEngine.new(files)
   end
 
   def analyst

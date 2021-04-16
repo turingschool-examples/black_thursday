@@ -9,7 +9,7 @@ Style/Documentation:
   Enabled: false
 Metrics/BlockLength:
   Max: 150
-Layout/LineLength:
+Metrics/LineLength:
   Max: 100
 Style/WordArray:
   Enabled: false
@@ -17,10 +17,6 @@ Style/SymbolProc:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
-Gemspec/DateAssignment: # (new in 1.10)
-  Enabled: true
-Layout/SpaceBeforeBrackets: # (new in 1.7)
-  Enabled: true
 Lint/AmbiguousAssignment: # (new in 1.7)
   Enabled: true
 Lint/DeprecatedConstants: # (new in 1.8)
