@@ -148,7 +148,7 @@ describe Item do
       }
       item = Item.new(details)
 
-      expect(item.unit_price_to_dollars(details[:unit_price])).to eq(25.00)
+      expect(item.unit_price_to_dollars).to eq(25.00)
     end
   end
 end

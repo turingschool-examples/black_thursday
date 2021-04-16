@@ -15,14 +15,14 @@ class Item
     @id = details[:id].to_i
     @name = details[:name]
     @description = details[:description]
-    @unit_price = unit_price_to_dollars(details[:unit_price])
+    @unit_price = BigDecimal(details[:unit_price]) / 100
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
     @merchant_id = details[:merchant_id].to_i
   end
 
-  def unit_price_to_dollars(price)
-    BigDecimal(price) / 100
+  def unit_price_to_dollars
+    @unit_price.to_f
   end
 
   def update_id(id)
