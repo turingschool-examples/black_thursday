@@ -2,14 +2,9 @@ require 'Date'
 
 class MockData
 
-  NO_SELF_ERROR_MESSAGE = 'use {self} at the end of your *_as_mocks method'
-
-  def self.get_a_random_date(random = true)
-    if random
-      date_s = "20#{rand(10..21)}-#{rand(1..12)}-#{rand(1..28)}"
-      return Date.strptime(date_s, '%Y-%m-%d')
-    else
-      return Date.strptime('2020-01-01', '%Y-%m-%d')
+  def self.mock_generator(eg, mock_name, data_hashes)
+    data_hashes.each_with_object([]) do |hash, mocks|
+      mocks << eg.instance_double(mock_name, hash)
     end
   end
 
@@ -19,71 +14,16 @@ class MockData
 
   def self.get_a_random_price
     (rand(1..120) + (rand(100) / 100.0))
-  end
-
-  def self.get_a_random_status
-    case rand(3)
-      when 0
-        return 'pending'
-      when 1
-        return 'shipped'
-      when 2
-        return 'returned'
-    end
-  end
-
-  def self.invoice_items_as_mocks(eg, invoice_item_hashes = invoice_items_as_hashes)
-    invoice_item_hashes.each_with_object([]) do |invoice_item_hash, hashes|
-      invoice_item_mock = eg.instance_double('Invoice',
-        id: invoice_item_hash[:id],
-        item_id: invoice_item_hash[:item_id],
-        invoice_id: invoice_item_hash[:invoice_id],
-        quantity: invoice_item_hash[:quantity],
-        unit_price: invoice_item_hash[:unit_price],
-        created_at: invoice_item_hash[:created_at],
-        updated_at: invoice_item_hash[:updated_at]
-      )
-      hashes << invoice_item_mock
-    end
-  end
-
-  def self.invoice_items_as_hashes(number_of_hashes: 10, random_dates: true,
-                            quantity: get_a_random_quantity, invoice_id_range: (1..10),
-                            item_id_range: (1..10),
-                            unit_price: get_a_random_price)
-    generator = (0...number_of_hashes).to_a
-    generator.each_with_object([]) do |invoice_item_number, hashes|
-      invoice_item_hash = {}
-
-      invoice_item_hash[:id] = invoice_item_number
-      invoice_item_hash[:item_id] = rand(item_id_range)
-      invoice_item_hash[:invoice_id] = rand(invoice_id_range)
-      invoice_item_hash[:quantity] = quantity
-      invoice_item_hash[:unit_price] = unit_price
-
-      date = get_a_random_date(random_dates)
-      if block_given?
-        invoice_item_hash[:created_at] = yield(date).to_s
-        invoice_item_hash[:updated_at] = date.to_s
-      else
-        invoice_item_hash[:created_at] = date.prev_month.to_s
-        invoice_item_hash[:updated_at] = date.to_s
-      end
-      hashes << invoice_item_hash
-    end
-  end
-
   def self.invoices_as_mocks(eg, invoice_hashes = invoices_as_hashes)
-    invoice_hashes.each_with_object([]) do |invoice_hash, hashes|
-      invoice_mock = eg.instance_double('Invoice',
-        id: invoice_hash[:id],
-        customer_id: invoice_hash[:customer_id],
-        merchant_id: invoice_hash[:merchant_id],
-        created_at: invoice_hash[:created_at],
-        updated_at: invoice_hash[:updated_at]
-      )
-      hashes << invoice_mock
-    end
+    mock_generator(eg, 'Invoice', invoice_hashes)
+  end
+
+  def self.merchants_as_mocks(eg, merchant_hashes = merchants_as_hashes)
+    mock_generator(eg, 'Merchant', merchant_hashes)
+  end
+
+  def self.items_as_mocks(eg, item_hashes = items_as_hashes)
+    mock_generator(eg, 'Item', item_hashes)
   end
 
   def self.invoices_as_hashes(number_of_hashes: 10, random_dates: true,
@@ -110,18 +50,6 @@ class MockData
     end
   end
 
-  def self.merchants_as_mocks(eg, merchant_hashes = merchants_as_hashes)
-    merchant_hashes.each_with_object([]) do |merchant_hash, mocks|
-      merchant_mock = eg.instance_double('Merchant',
-        name: merchant_hash[:name],
-        id: merchant_hash[:id],
-        created_at: merchant_hash[:created_at],
-        updated_at: merchant_hash[:updated_at]
-      )
-      mocks << merchant_mock
-    end
-  end
-
   def self.merchants_as_hashes(number_of_hashes: 10, random_dates: true)
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |merchant_number, hashes|
@@ -140,21 +68,6 @@ class MockData
         merchant[:updated_at] = date.to_s
       end
       hashes << merchant
-    end
-  end
-
-  def self.items_as_mocks(eg, item_hashes = items_as_hashes)
-    item_hashes.each_with_object([]) do |item_hash, mocks|\
-      item = eg.instance_double('Item',
-        name: item_hash[:name],
-        id: item_hash[:id],
-        unit_price: item_hash[:unit_price],
-        description: item_hash[:description],
-        merchant_id: item_hash[:merchant_id],
-        created_at: item_hash[:created_at],
-        updated_at: item_hash[:updated_at]
-      )
-      mocks << item
     end
   end
 
@@ -195,5 +108,29 @@ class MockData
 
   def self.date_format
     /\d{4}-\d{2}-\d{2}/
+  end
+
+  def self.get_a_random_date(random = true)
+    if random
+      date_s = "20#{rand(10..21)}-#{rand(1..12)}-#{rand(1..28)}"
+      return Date.strptime(date_s, '%Y-%m-%d')
+    else
+      return Date.strptime('2020-01-01', '%Y-%m-%d')
+    end
+  end
+
+  def self.get_a_random_price
+    (rand(1..120) + (rand(100) / 100.0))
+  end
+
+  def self.get_a_random_status
+    case rand(3)
+      when 0
+        return 'pending'
+      when 1
+        return 'shipped'
+      when 2
+        return 'returned'
+    end
   end
 end

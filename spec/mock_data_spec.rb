@@ -3,75 +3,19 @@ require './data/mock_data'
 
 describe MockData do
 
-  describe '#invoice_items_as_hashes' do
-    it 'returns mock data of invoice_items' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes
-
-      expect(invoice_items_as_hashes).to be_an Array
-      expect(invoice_items_as_hashes.length).to eq 10
-      expect(invoice_items_as_hashes.first).to be_a Hash
-    end
-    it 'has expected attributes' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes
-      invoice_item_hash = invoice_items_as_hashes.first
-      expect(invoice_item_hash[:id]).to be_an Integer
-      expect(invoice_item_hash[:item_id]).to be_an Integer
-      expect(invoice_item_hash[:invoice_id]).to be_an Integer
-      expect(invoice_item_hash[:quantity]).to be_an Integer
-      expect(invoice_item_hash[:unit_price]).to be_an Float
-      expect(invoice_item_hash[:created_at]).to match MockData.date_format
-      expect(invoice_item_hash[:updated_at]).to match MockData.date_format
-    end
-    it 'allows different number of hashes' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes(number_of_hashes:2)
-
-      expect(invoice_items_as_hashes).to be_an Array
-      expect(invoice_items_as_hashes.length).to eq 2
-      expect(invoice_items_as_hashes.first).to be_a Hash
-    end
-    it 'allows non-random dates' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes(random_dates:false)
-
-      invoice_items_as_hashes.each do |hash|
-        expect(hash[:created_at]).to eq '2019-12-01'
-      end
-    end
-    it 'allows custom quantities' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes(quantity:5)
-
-      invoice_items_as_hashes.each do |hash|
-        expect(hash[:quantity]).to eq 5
-      end
-    end
-    it 'allows ranges for item ids' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes(item_id_range: (1..1))
-      first_invoice_item = invoice_items_as_hashes.first
-      second_invoice_item = invoice_items_as_hashes.last
-
-      invoice_items_as_hashes.each do |hash|
-        expect(hash[:item_id]).to eq 1
-      end
-    end
-    it 'allows ranges for invoice ids' do
-      invoice_items_as_hashes = MockData.invoice_items_as_hashes(invoice_id_range: (1..1))
-
-      invoice_items_as_hashes.each do |hash|
-        expect(hash[:invoice_id]).to eq 1
-      end
-    end
-  end
-
-  describe '#invoices_as_mocks' do
-    it 'returns mocks of invoices' do
-      invoice_items_as_mocks = MockData.invoice_items_as_mocks(self)
-      invoice_item_mock = invoice_items_as_mocks.first
-      expect(invoice_item_mock.id).to be_an Integer
-      expect(invoice_item_mock.item_id).to be_an Integer
-      expect(invoice_item_mock.invoice_id).to be_an Integer
-      expect(invoice_item_mock.quantity).to be_an Integer
-      expect(invoice_item_mock.unit_price).to be_an Float
-      expect(invoice_item_mock.created_at).to match MockData.date_format
-      expect(invoice_item_mock.updated_at).to match MockData.date_format
+  describe '#mock_generator' do
+    it 'builds mocks with given hashes' do
+      hashes = [{
+          id: 10,
+          name: 'Example 1'
+        },
+        {
+          id: 11,
+          name: 'Example 2'
+        }]
+      mocks = MockData.mock_generator(self, 'MockExample', hashes)
+      expect(mocks.length).to eq 2
+      expect(mocks.first.name).to eq 'Example 1'
     end
   end
 
@@ -131,7 +75,7 @@ describe MockData do
       expect(mocked_invoice.updated_at).to match MockData.date_format
     end
     it 'accepts custom hashes' do
-      invoices_as_hashes = MockData.invoices_as_hashes(number_of_hashes:2)
+      invoices_as_hashes = MockData.invoices_as_hashes(number_of_hashes: 2)
       invoices_as_mocks = MockData.invoices_as_mocks(self, invoices_as_hashes)
       expect(invoices_as_mocks.length).to eq 2
     end
@@ -150,7 +94,7 @@ describe MockData do
       expect(mocked_merchant.updated_at).to match MockData.date_format
     end
     it 'accepts custom hashes' do
-      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes:2)
+      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 2)
       merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
       expect(merchants_as_mocks.length).to eq 2
     end
@@ -182,8 +126,6 @@ describe MockData do
       mocks = MockData.items_as_mocks(self)
       mocked_item = mocks.first
 
-      expect(mocks).to be_instance_of Array
-      expect(mocks.length).to eq 10
       expect(mocked_item.name).to eq 'Item 0'
       expect(mocked_item.id).to eq 0
       expect(mocked_item.merchant_id).to be_an Integer
@@ -194,7 +136,7 @@ describe MockData do
     end
 
     it 'accepts custom hashes' do
-      items_as_hashes = MockData.items_as_hashes(number_of_hashes:2)
+      items_as_hashes = MockData.items_as_hashes(number_of_hashes: 2)
       items_as_mocks = MockData.items_as_mocks(self, items_as_hashes)
       expect(items_as_mocks.length).to eq 2
     end
