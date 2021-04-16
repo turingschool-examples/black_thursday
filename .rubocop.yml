@@ -3,7 +3,7 @@ AllCops:
     - 'utility_scripts/**/*'
     - 'data/**/*'
     - '.git/**/*'
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 2.7.2
   SuggestExtensions: false
 Style/Documentation:
   Enabled: false
