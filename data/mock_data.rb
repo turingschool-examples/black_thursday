@@ -28,10 +28,6 @@ class MockData
     end
   end
 
-  def self.invoices_as_mocks(invoice_hashes = invoices_as_hashes)
-    invoice_hashes.each_with_object([]) do |invoice_hash, hashes|
-      raise NO_SELF_ERROR_MESSAGE if not block_given?
-      eg = yield
   def self.invoices_as_mocks(eg, invoice_hashes = invoices_as_hashes)
     invoice_hashes.each_with_object([]) do |invoice_hash, hashes|
       invoice_mock = eg.instance_double('Invoice',
