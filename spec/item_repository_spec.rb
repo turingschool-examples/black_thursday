@@ -16,8 +16,7 @@ RSpec.describe ItemRepository do
     end
 
     it 'can create item objects' do
-      item_data = SalesEngine.parse_csv("./data/items.csv")
-      expect(repo.create_items(item_data)[0]).to be_instance_of(Item)
+      expect(repo.array_of_objects[0]).to be_instance_of(Item)
     end
   end
 

@@ -1,40 +1,42 @@
 require_relative '../lib/merchant'
+require_relative '../lib/repository'
 
-class MerchantRepository
-  attr_reader :merchants
-  def initialize(parsed_csv)
-    @merchants = create_merchants(parsed_csv)
-  end
-  #add so spec harness would run successfully.
-  def inspect
-  "#<#{self.class} #{@merchants.size} rows>"
+class MerchantRepository < Repository
+
+  def initialize(path)
+    super(path)
+    @array_of_objects = create_merchants(@parsed_csv_data)
   end
 
-  def create_merchants(parsed_data)
-     parsed_data.map do |merchant|
+  def create_merchants(parsed_csv_data)
+    parsed_csv_data.map do |merchant|
       Merchant.new(merchant)
     end
   end
 
+  def inspect
+  "#<#{self.class} #{@array_of_objects.size} rows>"
+  end
+
   def all
-    @merchants
+    @array_of_objects
   end
 
   def find_by_id(id)
-    @merchants.find do |merchant|
+    @array_of_objects.find do |merchant|
       merchant.id == id
     end
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
+    @array_of_objects.find do |merchant|
       merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
     full_names = []
-    @merchants.each do |merchant|
+    @array_of_objects.each do |merchant|
       if merchant.name.downcase.include?(name.downcase)
         full_names.push(merchant)
       end
@@ -44,11 +46,11 @@ class MerchantRepository
 
   def create(attributes)
     @name = attributes[:name]
-    @merchants.push(Merchant.new({:id => new_id_number, :name => @name}))
+    @array_of_objects.push(Merchant.new({:id => new_id_number, :name => @name}))
   end
 
   def new_id_number
-    (@merchants.last.id)+1
+    (@array_of_objects.last.id)+1
   end
 
   def update(id, attributes)
@@ -62,6 +64,6 @@ class MerchantRepository
 
   def delete(id)
     target = find_by_id(id)
-    @merchants.delete(target)
+    @array_of_objects.delete(target)
   end
 end

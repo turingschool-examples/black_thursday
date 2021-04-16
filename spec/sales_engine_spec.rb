@@ -9,28 +9,8 @@ RSpec.describe SalesEngine do
                                         :items     => "./data/items.csv",
                                         :merchants => "./data/merchants.csv",
                                         })
-    xit 'exists' do
+    it 'exists' do
       expect(sales_engine).to be_instance_of(SalesEngine)
-    end
-
-    xit 'makes a hash' do
-      expect(sales_engine.merchants).to eq("./data/merchants.csv")
-    end
-
-    it 'parse csv merchants' do
-      expect(SalesEngine.parse_csv("./data/merchants.csv")).to be_instance_of(Array)
-    end
-
-    it 'parse csv items' do
-      expect(SalesEngine.parse_csv("./data/items.csv")).to be_instance_of(Array)
-    end
-
-    it 'creates hashes' do
-      expect(SalesEngine.parse_csv("./data/merchants.csv")[0]).to be_instance_of(Hash)
-    end
-
-    it 'creates instance of SalesAnalyst' do
-      expect(sales_engine.analyst).to be_an_instance_of(SalesAnalyst)
     end
   end
 
@@ -40,7 +20,11 @@ RSpec.describe SalesEngine do
                                         :merchants => "./data/merchants.csv",
                                         })
 
-    xit 'returns an object of class MerchantRepository' do
+    it 'creates instance of SalesAnalyst' do
+      expect(sales_engine.analyst).to be_an_instance_of(SalesAnalyst)
+    end
+    
+    it 'returns an object of class MerchantRepository' do
       expect(sales_engine.merchants).to be_an_instance_of(MerchantRepository)
     end
 
