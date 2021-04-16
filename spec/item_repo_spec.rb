@@ -42,7 +42,7 @@ RSpec.describe ItemRepo do
                       :unit_price  => BigDecimal(10.99,4),
                       :created_at  => Time.now,
                       :updated_at  => Time.now,
-                      :merchant_id => 2},@repo)
+                      :merchant_id => 2}, @repo)
       item_repo.add_item(item1)
 
       expect(item_repo.items.include?(item1)).to eq true
