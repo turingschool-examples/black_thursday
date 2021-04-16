@@ -257,16 +257,16 @@ RSpec.describe InvoiceRepository do
     end
   end
   describe '#top_merchants_by_invoice_count' do
-    it 'tells which merchants are more than two standard deviations above the mean' do
+    it 'tells which merchants are more than two std deviation above the mean' do
       mock_sales_engine = instance_double('SalesEngine')
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '1',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                                id: '1',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
                               }, mock_merchant_repo)
-      allow(mock_sales_engine).to receive(:find_merchant_by_id) {merchant}
+      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
       expect(ir.top_merchants_by_invoice_count.count).to eq(12)
       expect(ir.top_merchants_by_invoice_count.first).to be_a(Merchant)
@@ -274,16 +274,16 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#bottom_merchants_by_invoice_count' do
-    it 'tells which merchants are more than two standard deviations below the mean' do
+    it 'tells which merchants are more than two std deviation below the mean' do
       mock_sales_engine = instance_double('SalesEngine')
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '1',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                                id: '1',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
                               }, mock_merchant_repo)
-      allow(mock_sales_engine).to receive(:find_merchant_by_id) {merchant}
+      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
       expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)

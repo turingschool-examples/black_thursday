@@ -79,13 +79,13 @@ class InvoiceRepository
   end
 
   def invoices_by_days
-    hash = {'Sunday' => 0,
-            'Monday' => 0,
-            'Tuesday' => 0,
-            'Wednesday' => 0,
-            'Thursday' => 0,
-            'Friday' => 0,
-            'Saturday' => 0}
+    hash = { 'Sunday' => 0,
+             'Monday' => 0,
+             'Tuesday' => 0,
+             'Wednesday' => 0,
+             'Thursday' => 0,
+             'Friday' => 0,
+             'Saturday' => 0 }
     @invoices.each do |invoice|
       hash[invoice.day_created] += 1
     end
@@ -127,17 +127,17 @@ class InvoiceRepository
   end
 
   def average_invoices_per_merchant
-    (average(invoices_per_merchant)).round(2)
+    average(invoices_per_merchant).round(2)
   end
 
   def stdev_invoices_per_merchant
-    (standard_deviation(invoices_per_merchant)).round(2)
+    standard_deviation(invoices_per_merchant).round(2)
   end
 
   def top_merchants_by_invoice_count
     hash = invoices_per_merchant
     hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
-      if number_of_invoices > average(hash) + (standard_deviation(hash) *2)
+      if number_of_invoices > average(hash) + (standard_deviation(hash) * 2)
         array << @engine.find_merchant_by_id(merchant_id)
       end
     end
@@ -146,7 +146,7 @@ class InvoiceRepository
   def bottom_merchants_by_invoice_count
     hash = invoices_per_merchant
     hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
-      if number_of_invoices < average(hash) - (standard_deviation(hash) *2)
+      if number_of_invoices < average(hash) - (standard_deviation(hash) * 2)
         array << @engine.find_merchant_by_id(merchant_id)
       end
     end

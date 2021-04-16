@@ -28,5 +28,4 @@ class Invoice
   def day_created
     @created_at.strftime('%A').capitalize
   end
-
 end
