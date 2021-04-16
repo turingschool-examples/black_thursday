@@ -6,13 +6,13 @@ describe MockData do
     it 'returns mock data of invoices' do
       invoices_as_hashes = MockData.invoices_as_hashes
 
-      expect(invoices_as_hashes).to be_instance_of Array
+      expect(invoices_as_hashes).to be_an Array
       expect(invoices_as_hashes.length).to eq 10
-      expect(invoices_as_hashes.first).to be_instance_of Hash
+      expect(invoices_as_hashes.first).to be_a Hash
     end
 
     it 'returns mock custom number of data of invoices' do
-      invoices_as_hashes = MockData.invoices_as_hashes(number_of_mocks: 2)
+      invoices_as_hashes = MockData.invoices_as_hashes(number_of_hashes: 2)
       expect(invoices_as_hashes.length).to eq 2
     end
 
@@ -33,49 +33,43 @@ describe MockData do
         expect(invoice_hash[:merchant_id]).to eq 5
       end
     end
+
+    it 'generates expected attributes' do
+      invoices_as_hashes = MockData.invoices_as_hashes
+      invoice_hash = invoices_as_hashes.first
+      expect(invoice_hash[:id]).to eq 0
+      expect(invoice_hash[:customer_id]).to be_an Integer
+      expect(invoice_hash[:merchant_id]).to be_an Integer
+      expect(invoice_hash[:created_at]).to match MockData.date_format
+      expect(invoice_hash[:updated_at]).to match MockData.date_format
+    end
   end
 
   describe '#invoices_as_mocks' do
     it 'returns mock data of invoices' do
-      invoice_hashs = MockData.invoices_as_hashes(number_of_mocks: 2)
-      invoices_as_mocks = MockData.invoices_as_mocks(invoice_hashs) { self }
+      invoices_as_mocks = MockData.invoices_as_mocks { self }
       mocked_invoice = invoices_as_mocks.first
 
-      expect(invoices_as_mocks.length).to eq 2
+      expect(invoices_as_mocks.length).to eq 10
       expect(mocked_invoice.id).to eq 0
-      expect(mocked_invoice.merchant_id).to be_instance_of Integer
-      expect(mocked_invoice.customer_id).to be_instance_of Integer
-      expect(mocked_invoice.created_at).to match(/\d{4}-\d{2}-\d{2}/)
-      expect(mocked_invoice.updated_at).to match(/\d{4}-\d{2}-\d{2}/)
-    end
-  end
-
-  describe '#get_a_random_status' do
-    it 'returns a random status' do
-      actual_status = MockData.get_a_random_status
-      possible_statuses = ['pending', 'shipped', 'returned']
-      expect(possible_statuses.include?(actual_status)).to be true
+      expect(mocked_invoice.merchant_id).to be_an Integer
+      expect(mocked_invoice.customer_id).to be_an Integer
+      expect(mocked_invoice.created_at).to match MockData.date_format
+      expect(mocked_invoice.updated_at).to match MockData.date_format
     end
   end
 
   describe '#merchants_as_mocks' do
-    it 'returns mock data as an array of mocks' do
-      merchant_hashs = MockData.merchants_as_hashes
-      merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
+    it 'returns mocks of merchants' do
+      merchants_as_mocks = MockData.merchants_as_mocks { self }
+      mocked_merchant = merchants_as_mocks.first
 
       expect(merchants_as_mocks).to be_instance_of Array
       expect(merchants_as_mocks.length).to eq 10
-    end
-
-    it 'returns mock data of merchants' do
-      merchant_hashs = MockData.merchants_as_hashes(number_of_mocks: 2)
-      merchants_as_mocks = MockData.merchants_as_mocks(merchant_hashs) { self }
-      mocked_merchant = merchants_as_mocks.first
-      expect(merchants_as_mocks.length).to eq 2
       expect(mocked_merchant.name).to eq 'Merchant 0'
       expect(mocked_merchant.id).to eq 0
-      expect(mocked_merchant.created_at).to match(/\d{4}-\d{2}-\d{2}/)
-      expect(mocked_merchant.updated_at).to match(/\d{4}-\d{2}-\d{2}/)
+      expect(mocked_merchant.created_at).to match MockData.date_format
+      expect(mocked_merchant.updated_at).to match MockData.date_format
     end
   end
 
@@ -83,43 +77,37 @@ describe MockData do
     it 'returns mock data as an array of hashes' do
       merchants_as_hashes = MockData.merchants_as_hashes
 
-      expect(merchants_as_hashes).to be_instance_of Array
+      expect(merchants_as_hashes).to be_an Array
       expect(merchants_as_hashes.length).to eq 10
-      expect(merchants_as_hashes.first).to be_instance_of Hash
+      expect(merchants_as_hashes.first).to be_a Hash
     end
 
-    it 'returns mock data of merchants' do
-      mocked_hash_data = MockData.merchants_as_hashes(number_of_mocks: 2)
+    it 'returns mocks of Merchant' do
+      mocked_hash_data = MockData.merchants_as_hashes(number_of_hashes: 2)
       mocked_merchant = mocked_hash_data.first
+
       expect(mocked_hash_data.length).to eq 2
       expect(mocked_merchant[:name]).to eq 'Merchant 0'
       expect(mocked_merchant[:id]).to eq 0
-      expect(mocked_merchant[:created_at]).to match(/\d{4}-\d{2}-\d{2}/)
-      expect(mocked_merchant[:updated_at]).to match(/\d{4}-\d{2}-\d{2}/)
+      expect(mocked_merchant[:created_at]).to match MockData.date_format
+      expect(mocked_merchant[:updated_at]).to match MockData.date_format
     end
   end
 
   describe '#items_as_mocks' do
-    it 'returns mock items as an array of mocks' do
-      items_as_hashes = MockData.items_as_hashes
-      items_as_mocks = MockData.items_as_mocks(items_as_hashes) { self }
-
-      expect(items_as_mocks).to be_instance_of Array
-      expect(items_as_mocks.length).to eq 10
-    end
-
-    it 'returns mock data of items with expected attributes' do
-      items_as_hashes = MockData.items_as_hashes(number_of_mocks: 2)
-      mocks = MockData.items_as_mocks(items_as_hashes) { self }
+    it 'returns mocks items with expected attributes' do
+      mocks = MockData.items_as_mocks { self }
       mocked_item = mocks.first
-      expect(mocks.length).to eq 2
+
+      expect(mocks).to be_instance_of Array
+      expect(mocks.length).to eq 10
       expect(mocked_item.name).to eq 'Item 0'
       expect(mocked_item.id).to eq 0
-      expect(mocked_item.merchant_id).to be_instance_of Integer
-      expect(mocked_item.unit_price).to be_instance_of Float
+      expect(mocked_item.merchant_id).to be_an Integer
+      expect(mocked_item.unit_price).to be_a Float
       expect(mocked_item.description).to eq 'Item Description'
-      expect(mocked_item.created_at).to match(/\d{4}-\d{2}-\d{2}/)
-      expect(mocked_item.updated_at).to match(/\d{4}-\d{2}-\d{2}/)
+      expect(mocked_item.created_at).to match MockData.date_format
+      expect(mocked_item.updated_at).to match MockData.date_format
     end
   end
 
@@ -127,25 +115,25 @@ describe MockData do
     it 'returns mock data as an array of hashes' do
       items_as_hashes = MockData.items_as_hashes
 
-      expect(items_as_hashes).to be_instance_of Array
+      expect(items_as_hashes).to be_an Array
       expect(items_as_hashes.length).to eq 10
-      expect(items_as_hashes.first).to be_instance_of Hash
+      expect(items_as_hashes.first).to be_a Hash
     end
 
     it 'returns mock data of items with expected attributes' do
-      items_as_hashes = MockData.items_as_hashes(number_of_mocks: 2)
+      items_as_hashes = MockData.items_as_hashes(number_of_hashes: 2)
       first_item_hash = items_as_hashes.first
       expect(items_as_hashes.length).to eq 2
       expect(first_item_hash[:name]).to eq 'Item 0'
       expect(first_item_hash[:id]).to eq 0
-      expect(first_item_hash[:merchant_id]).to be_instance_of Integer
-      expect(first_item_hash[:unit_price]).to be_instance_of Float
+      expect(first_item_hash[:merchant_id]).to be_an Integer
+      expect(first_item_hash[:unit_price]).to be_a Float
       expect(first_item_hash[:description]).to eq 'Item Description'
-      expect(first_item_hash[:created_at]).to match(/\d{4}-\d{2}-\d{2}/)
-      expect(first_item_hash[:updated_at]).to match(/\d{4}-\d{2}-\d{2}/)
+      expect(first_item_hash[:created_at]).to match MockData.date_format
+      expect(first_item_hash[:updated_at]).to match MockData.date_format
     end
     it 'returns mock data of items with given number_of_merchants' do
-      items_as_hashes = MockData.items_as_hashes(number_of_mocks: 2, number_of_merchants: 1)
+      items_as_hashes = MockData.items_as_hashes(number_of_hashes: 2, number_of_merchants: 1)
 
       expect(items_as_hashes.first[:merchant_id]).to eq 0
       expect(items_as_hashes.last[:merchant_id]).to eq 0
@@ -155,14 +143,14 @@ describe MockData do
   describe '#get_a_random_price' do
     it 'generates a random price' do
       random_price = MockData.get_a_random_price
-      expect(random_price).to be_instance_of Float
+      expect(random_price).to be_a Float
     end
   end
 
   describe '#get_a_random_date' do
     it 'gets a random date with expected format' do
       date = MockData.get_a_random_date
-      expect(date.to_s).to match(/\d{4}-\d{2}-\d{2}/)
+      expect(date.to_s).to match MockData.date_format
     end
     it 'gets a non-random date' do
       first_date = MockData.get_a_random_date false
@@ -189,6 +177,14 @@ describe MockData do
       expected_mean = 5
       actual_mean = MockData.mean_of_item_prices_from_hash(mock_items)
       expect(actual_mean).to eq expected_mean
+    end
+  end
+
+  describe '#get_a_random_status' do
+    it 'returns a random status' do
+      actual_status = MockData.get_a_random_status
+      possible_statuses = ['pending', 'shipped', 'returned']
+      expect(possible_statuses.include?(actual_status)).to be true
     end
   end
 end

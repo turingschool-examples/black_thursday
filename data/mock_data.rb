@@ -28,9 +28,8 @@ class MockData
     end
   end
 
-  def self.invoices_as_mocks(invoice_hashes)
-    mocked_invoices = []
-    invoice_hashes.each do |invoice_hash|
+  def self.invoices_as_mocks(invoice_hashes = invoices_as_hashes)
+    invoice_hashes.each_with_object([]) do |invoice_hash, hashes|
       raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
       invoice_mock = eg.instance_double('Invoice',
@@ -40,22 +39,23 @@ class MockData
         created_at: invoice_hash[:created_at],
         updated_at: invoice_hash[:updated_at]
       )
-      mocked_invoices << invoice_mock
+      hashes << invoice_mock
     end
-    mocked_invoices
   end
 
-  def self.invoices_as_hashes(number_of_mocks: 10, random_dates: true,
+  def self.invoices_as_hashes(number_of_hashes: 10, random_dates: true,
                             custom_status: nil, customer_id_range: (1..4),
                             merchant_id_range: (1..4))
-    mocked_invoices = []
-    number_of_mocks.times do |invoice_number|
+    generator = (0...number_of_hashes).to_a
+    generator.each_with_object([]) do |invoice_number, hashes|
       invoice = {}
-      date = get_a_random_date(random_dates)
+
       invoice[:status] = (custom_status.nil?)? get_a_random_status : custom_status
       invoice[:id] = invoice_number
       invoice[:customer_id] = rand(customer_id_range)
       invoice[:merchant_id] = rand(merchant_id_range)
+
+      date = get_a_random_date(random_dates)
       if block_given?
         invoice[:created_at] = yield(date).to_s
         invoice[:updated_at] = date.to_s
@@ -63,36 +63,35 @@ class MockData
         invoice[:created_at] = date.prev_month.to_s
         invoice[:updated_at] = date.to_s
       end
-      mocked_invoices << invoice
+      hashes << invoice
     end
-    mocked_invoices
   end
 
-  def self.merchants_as_mocks(merchant_hashes)
-    mocked_merchants = []
-
-    merchant_hashes.each do |merchant_hash|
+  def self.merchants_as_mocks(merchant_hashes = merchants_as_hashes)
+    merchant_hashes.each_with_object([]) do |merchant_hash, mocks|
       raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
+
       merchant_mock = eg.instance_double('Merchant',
         name: merchant_hash[:name],
         id: merchant_hash[:id],
         created_at: merchant_hash[:created_at],
         updated_at: merchant_hash[:updated_at]
       )
-      mocked_merchants << merchant_mock
+      mocks << merchant_mock
     end
-    mocked_merchants
   end
 
-  def self.merchants_as_hashes(number_of_mocks: 10, random_dates: true)
-    mocked_merchants = []
-    number_of_mocks.times do |merchant_number|
+  def self.merchants_as_hashes(number_of_hashes: 10, random_dates: true)
+    generator = (0...number_of_hashes).to_a
+    generator.each_with_object([]) do |merchant_number, hashes|
       merchant = {}
-      date = get_a_random_date(random_dates)
 
       merchant[:name] = "Merchant #{merchant_number}"
       merchant[:id] = merchant_number
+
+      date = get_a_random_date(random_dates)
+
       if block_given?
         merchant[:created_at] = yield(date).to_s
         merchant[:updated_at] = date.to_s
@@ -100,14 +99,12 @@ class MockData
         merchant[:created_at] = date.prev_year.to_s
         merchant[:updated_at] = date.to_s
       end
-      mocked_merchants << merchant
+      hashes << merchant
     end
-    mocked_merchants
   end
 
-  def self.items_as_mocks(item_hashes)
-    mocked_items = []
-    item_hashes.each do |item_hash|
+  def self.items_as_mocks(item_hashes = items_as_hashes)
+    item_hashes.each_with_object([]) do |item_hash, mocks|
       raise NO_SELF_ERROR_MESSAGE if not block_given?
       eg = yield
       item = eg.instance_double('Item',
@@ -119,25 +116,22 @@ class MockData
         created_at: item_hash[:created_at],
         updated_at: item_hash[:updated_at]
       )
-      mocked_items << item
+      mocks << item
     end
-    mocked_items
   end
 
-  def self.items_as_hashes(number_of_mocks: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
-    mocked_items = []
-    number_of_mocks.times do |item_number|
+  def self.items_as_hashes(number_of_hashes: 10, number_of_merchants: 2, random_dates: true, price_of: 0)
+    generator = (0...number_of_hashes).to_a
+    generator.each_with_object([]) do |item_number, hashes|
       item = {}
-      date = get_a_random_date(random_dates)
+
       item[:name] = "Item #{item_number}"
       item[:id] = item_number
-      if price_of == 0
-        item[:unit_price] = get_a_random_price
-      else
-        item[:unit_price] = price_of
-      end
+      item[:unit_price] = (price_of == 0)? get_a_random_price : price_of
       item[:description] = 'Item Description'
       item[:merchant_id] = item_number % number_of_merchants
+
+      date = get_a_random_date(random_dates)
       if block_given?
         item[:created_at] = yield(date).to_s
         item[:updated_at] = date.to_s
@@ -145,9 +139,8 @@ class MockData
         item[:created_at] = date.prev_year.to_s
         item[:updated_at] = date.to_s
       end
-      mocked_items << item
+      hashes << item
     end
-    mocked_items
   end
 
   def self.sum_item_prices_from_hash(items)
@@ -159,5 +152,9 @@ class MockData
   def self.mean_of_item_prices_from_hash(items)
     sum = sum_item_prices_from_hash(items)
     (sum / items.length)
+  end
+
+  def self.date_format
+    /\d{4}-\d{2}-\d{2}/
   end
 end
