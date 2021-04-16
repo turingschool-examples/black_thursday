@@ -86,8 +86,6 @@ class ItemRepository
 
   def delete(id)
     item = find_by_id(id)
-    unless item.nil?
-      @items.delete(item)
-    end 
+    @items.delete(item)
   end
 end
