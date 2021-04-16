@@ -32,19 +32,25 @@ class Item
   end
 
   def update_name(name)
-    @name = name
+    unless name.nil?
+      @name = name
+    end
   end
 
   def update_description(description)
-    @description = description
+    unless description.nil?
+      @description = description
+    end
   end
 
   def update_unit_price(unit_price)
-    @unit_price = unit_price
+    unless unit_price.nil?
+      @unit_price = unit_price
+    end
   end
 
   def update_time
-    @updated_at = Time.now.to_s
+    @updated_at = Time.now
   end
 
   def created_at
