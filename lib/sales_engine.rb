@@ -3,7 +3,7 @@ require_relative 'item_repo'
 require_relative 'merchant_repo'
 
 class SalesEngine
-  attr_reader :items
+  attr_reader :items,
               :merchants
   def initialize(paths)
     @items = ItemRepo.new(paths[:items], self)
