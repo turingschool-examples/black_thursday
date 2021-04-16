@@ -2,6 +2,23 @@ require 'rspec'
 require './data/mock_data'
 
 describe MockData do
+
+  describe '#mock_generator' do
+    it 'builds mocks with given hashes' do
+      hashes = [{
+          id: 10,
+          name: 'Example 1'
+        },
+        {
+          id: 11,
+          name: 'Example 2'
+        }]
+      mocks = MockData.mock_generator(self, 'MockExample', hashes)
+      expect(mocks.length).to eq 2
+      expect(mocks.first.name).to eq 'Example 1'
+    end
+  end
+
   describe '#invoices_as_hashes' do
     it 'returns mock data of invoices' do
       invoices_as_hashes = MockData.invoices_as_hashes
