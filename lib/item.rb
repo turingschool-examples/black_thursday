@@ -8,7 +8,6 @@ class Item
               :description,
               :unit_price,
               :created_at,
-              # :updated_at,
               :merchant_id
 
   def initialize(details)
@@ -17,9 +16,7 @@ class Item
     @description = details[:description]
     @unit_price = BigDecimal(details[:unit_price]) / 100
     @created_at = details[:created_at]
-    # @created_at = Time.parse(details[:created_at])
     @updated_at = details[:updated_at]
-    # @updated_at = Time.parse(details[:updated_at])
     @merchant_id = details[:merchant_id].to_i
   end
 
