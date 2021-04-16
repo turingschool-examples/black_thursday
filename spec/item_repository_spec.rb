@@ -97,21 +97,19 @@ describe ItemRepository do
 
   describe '#find_all_by_price' do
     it 'returns an empty array if no items match price' do
-      details = MockData.items_as_hash(price_of: "1000")
+      details = MockData.items_as_hash(price_of: 10.00)
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
-      allow_any_instance_of(RSpec::Mocks::InstanceVerifyingDouble).to receive(:unit_price_to_dollars).and_return(10.00)
 
       expect(item_repository.find_all_by_price(BigDecimal(25))).to eq []
     end
 
     it 'returns array of items that match specified price' do
-      details = MockData.items_as_hash(price_of: "2500")
+      details = MockData.items_as_hash(price_of: 25.00)
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
-      allow_any_instance_of(RSpec::Mocks::InstanceVerifyingDouble).to receive(:unit_price_to_dollars).and_return(25.00)
 
       expect(item_repository.find_all_by_price(BigDecimal(25)).length).to eq 10
     end
@@ -119,21 +117,19 @@ describe ItemRepository do
 
   describe '#find_all_by_price_in_range(range)' do
     it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hash(price_of: "800")
+      details = MockData.items_as_hash(price_of: 8.00)
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
-      allow_any_instance_of(RSpec::Mocks::InstanceVerifyingDouble).to receive(:unit_price_to_dollars).and_return(8.00)
 
       expect(item_repository.find_all_by_price_in_range(15.00..25.00)).to eq []
     end
 
     it 'returns array of all items in price range' do
-      details = MockData.items_as_hash(price_of: "2500")
+      details = MockData.items_as_hash(price_of: 25.00)
       mock_data = MockData.items_as_mocks(details) { self }
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
-      allow_any_instance_of(RSpec::Mocks::InstanceVerifyingDouble).to receive(:unit_price_to_dollars).and_return(25.00)
 
       expect(item_repository.find_all_by_price_in_range(10.00..25.00).length).to eq 10
     end
