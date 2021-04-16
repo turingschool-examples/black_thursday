@@ -22,7 +22,22 @@ RSpec.describe SalesAnalyst do
       mr = se.merchants
       ir = se.items
 
-      expect(sales_analyst.average_items_per_merchant).to eq(2.88) 
+      expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+    end
+  end
+
+  context '#average_items_per_merchant_standard_deviation' do
+    it 'can return standard deviation of items per merchant' do
+      se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+
+      sales_analyst = SalesEngine.analyst
+      mr = se.merchants
+      ir = se.items
+
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
   end
 end
