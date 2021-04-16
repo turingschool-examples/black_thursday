@@ -26,7 +26,7 @@ describe MockData do
 
     it 'returns mocks with non-random ids' do
       invoices_as_hashes = MockData.invoices_as_hashes(customer_id_range: (1..1),
-                                                   merchant_id_range: (5..5))
+                                                       merchant_id_range: (5..5))
 
       invoices_as_hashes.each do |invoice_hash|
         expect(invoice_hash[:customer_id]).to eq 1
