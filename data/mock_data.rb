@@ -20,6 +20,37 @@ class MockData
     mock_generator(eg, 'Item', item_hashes)
   end
 
+  def self.invoice_items_as_mocks(eg, invoice_item_hashes = invoice_items_as_hashes)
+    mock_generator(eg, 'InvoiceItem', invoice_item_hashes)
+  end
+
+  def self.invoice_items_as_hashes(number_of_hashes: 10, random_dates: true,
+                            item_id_range: (1..10), invoice_id_range: (1..10),
+                            quantity: get_a_random_quantity,
+                            unit_price: get_a_random_price)
+    generator = (0...number_of_hashes).to_a
+    generator.each_with_object([]) do |invoice_item_number, hashes|
+      invoice_item = {}
+
+      invoice_item[:id] = invoice_item_number
+      invoice_item[:item_id] = rand(item_id_range)
+      invoice_item[:invoice_id] = rand(invoice_id_range)
+      invoice_item[:quantity] = quantity
+      invoice_item[:unit_price] = unit_price
+
+      date = get_a_random_date(random_dates)
+      if block_given?
+        invoice_item[:created_at] = yield(date).to_s
+        invoice_item[:updated_at] = date.to_s
+      else
+        invoice_item[:created_at] = date.prev_month.to_s
+        invoice_item[:updated_at] = date.to_s
+      end
+
+      hashes << invoice_item
+    end
+  end
+
   def self.invoices_as_hashes(number_of_hashes: 10, random_dates: true,
                             status: get_a_random_status, customer_id_range: (1..4),
                             merchant_id_range: (1..4))
@@ -111,6 +142,10 @@ class MockData
     else
       return Date.strptime('2020-01-01', '%Y-%m-%d')
     end
+  end
+
+  def self.get_a_random_quantity
+    rand(1..20)
   end
 
   def self.get_a_random_price
