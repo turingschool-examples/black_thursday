@@ -25,9 +25,9 @@ class MockData
   end
 
   def self.invoice_items_as_hashes(number_of_hashes: 10, random_dates: true,
-                            item_id_range: (1..10), invoice_id_range: (1..10),
-                            quantity: get_a_random_quantity,
-                            unit_price: get_a_random_price)
+                                   item_id_range: (1..10), invoice_id_range: (1..10),
+                                   quantity: get_a_random_quantity,
+                                   unit_price: get_a_random_price)
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |invoice_item_number, hashes|
       invoice_item = {}
@@ -52,8 +52,8 @@ class MockData
   end
 
   def self.invoices_as_hashes(number_of_hashes: 10, random_dates: true,
-                            status: get_a_random_status, customer_id_range: (1..4),
-                            merchant_id_range: (1..4))
+                              status: get_a_random_status, customer_id_range: (1..4),
+                              merchant_id_range: (1..4))
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |invoice_number, hashes|
       invoice = {}
