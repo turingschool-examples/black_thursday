@@ -43,8 +43,8 @@ RSpec.describe 'SalesEngine' do
   describe '#analyst' do
     it 'creates an instance of an analyst' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       sa = se.analyst
@@ -56,8 +56,8 @@ RSpec.describe 'SalesEngine' do
   describe '#all_merchant_ids' do
     it 'returns an array of merchant ids' do
       se = SalesEngine.from_csv(
-         items: './data/items.csv',
-         merchants: './data/merchants.csv'
+        items: './data/items.csv',
+        merchants: './data/merchants.csv'
       )
 
       expect(se.all_merchant_ids.length).to eq(425)
