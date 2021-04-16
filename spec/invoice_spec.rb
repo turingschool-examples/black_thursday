@@ -63,16 +63,15 @@ RSpec.describe Invoice do
   describe '#day_created' do
     it 'shows day of week that invoice was created' do
       mock_invoice_repo = instance_double('InvoiceRepository')
-      invoice = Invoice.new(  {
-        id: '263395617',
-            customer_id: '456789',
-            merchant_id: '234567890',
-            status: 'pending',
-            created_at: '2016-01-11 11:51:37 UTC',
-            updated_at: '1993-09-29 11:56:40 UTC'
-        },
-        mock_invoice_repo
-      )
+      invoice = Invoice.new({
+                              id: '263395617',
+                              customer_id: '456789',
+                              merchant_id: '234567890',
+                              status: 'pending',
+                              created_at: '2016-01-11 11:51:37 UTC',
+                              updated_at: '1993-09-29 11:56:40 UTC'
+                            },
+                            mock_invoice_repo)
       invoice.day_created
       expect(invoice.day_created).to eq('Monday')
     end
