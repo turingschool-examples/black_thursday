@@ -29,4 +29,8 @@ class SalesEngine
     invoice_csv_location = csv_hash[:invoices]
     SalesEngine.new(item_csv_location, merchant_csv_location, invoice_csv_location)
   end
+
+  def all_items
+    @items.all
+  end
 end

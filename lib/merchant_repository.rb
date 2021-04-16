@@ -67,7 +67,7 @@ class MerchantRepository
   end
 
   def all_items
-    @engine.items.all
+    @engine.all_items
   end
 
   def merchant_total_items
@@ -79,21 +79,17 @@ class MerchantRepository
   end
 
   def merchant_items
-    merchant_items = {}
-    merchants.map do |merchant|
-      merchant_items[merchant.name] = []
+    merchant_id_hash = merchants.each_with_object({}) do |merchant, hash|
+      hash[merchant] = []
     end
-    merchant_items.group_by do |key, item|
-      merchants.each do |merchant|
-        all_items.find_all do |item|
-          if merchant.id == item.merchant_id && merchant_items[key].include?(item) == false
-            merchant_items[key] << item
-          end
+    merchant_id_hash.group_by do |key, value|
+      all_items.each do |item|
+        if item.merchant_id == key.id
+          merchant_id_hash[key] << item
         end
       end
     end
-    merchant_items
-    # require 'pry'; binding.pry
+    merchant_id_hash
   end
 
   def average_items_per_merchant
@@ -110,6 +106,12 @@ class MerchantRepository
   end
 
   def merchants_with_high_item_count
-
+    merchants_with_high_item_count = []
+    merchant_items.each do |key, value|
+      if value.count > average_items_per_merchant_standard_deviation + average_items_per_merchant
+        merchants_with_high_item_count << key
+      end
+    end
+    merchants_with_high_item_count
   end
 end

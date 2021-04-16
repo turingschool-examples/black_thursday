@@ -125,7 +125,7 @@ RSpec.describe MerchantRepository do
       })
       mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
 
-      expect(mr.merchant_total_items).to eq([2, 0, 1])
+      expect(mr.merchant_total_items).to eq([2, 0, 1, 1])
     end
   end
 
@@ -138,7 +138,33 @@ RSpec.describe MerchantRepository do
       })
       mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
 
-      expect(mr.average_items_per_merchant).to eq(0.75)
+      expect(mr.average_items_per_merchant).to eq(1.00)
+    end
+  end
+
+  describe '#merchant_items' do
+    it 'creates a hash with merchants and their items' do
+        se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
+
+      expect(mr.merchant_items).to be_a(Hash)
+    end
+  end
+
+  describe '#merchants_with_high_item_count' do
+    it 'can list merchants with high item count' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
+
+      expect(mr.merchants_with_high_item_count.count).to eq(1)
     end
   end
 end
