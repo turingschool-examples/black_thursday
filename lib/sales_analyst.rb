@@ -1,16 +1,28 @@
-require './lib/sales_engine'
+require_relative './sales_engine'
 
 class SalesAnalyst
-end
 
-  def initialize(items, merchants)
-    @items = items
-    @merchants = merchants
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
+  end
+
+  def num_of_items_per_merchant
+    all_items = @sales_engine.items.all
+    all_merchants = @sales_engine.merchants.all
+
+    all_merchants.each_with_object({}) do |merchant, total_per_merchant|
+      total_items = all_items.count do |item|
+        item.merchant_id == merchant.id
+      end
+      total_per_merchant[merchant] = total_items
+    end
   end
 
   def average_items_per_merchant
-    total_number_items = @items.all.length
-    total_number_merchants = @merchants.all.length
-    total_number_items / total_number_merchants
+    items = @sales_engine.items.all
+    merchants = @sales_engine.merchants.all
+
+    items.length / merchants.length
+  end
   end
 end
