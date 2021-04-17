@@ -51,4 +51,10 @@ class InvoiceItemRepository
       @invoice_items << new_invoice_item
     end
   end
+
+  def update(id, attributes)
+    invoice_item = find_by_id(id)
+    invoice_item.update_quantity(attributes[:quantity])
+    invoice_item.update_unit_price(attributes[:unit_price])
+  end
 end

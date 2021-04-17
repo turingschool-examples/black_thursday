@@ -24,4 +24,12 @@ class InvoiceItem
   def update_id(id)
     @id = id
   end
+
+  def update_quantity(quantity)
+    @quantity = quantity
+  end
+
+  def update_unit_price(unit_price)
+    @unit_price = unit_price
+  end
 end
