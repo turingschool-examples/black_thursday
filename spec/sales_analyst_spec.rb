@@ -2,6 +2,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_analyst'
+require 'bigdecimal/util'
 
 RSpec.describe do
 
@@ -47,7 +48,7 @@ RSpec.describe do
       expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
       first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
       allow(sales_analyst.find_all_merchants).to receive(:sample) do
-        first_ten_merchants
+        sales_analyst.merchants.array_of_objects
       end
 
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to be_between(5.2, 5.4)
@@ -65,6 +66,9 @@ RSpec.describe do
     end
 
     it 'returns average item price per merchant' do
-      end
+      expected_price = 0.101470588235294117647e3.to_d
+
+      expect(sales_analyst.average_item_price_for_merchant(12334123)).to eq(expected_price)
     end
   end
+end
