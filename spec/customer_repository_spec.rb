@@ -11,7 +11,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
@@ -25,7 +25,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
@@ -39,7 +39,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
@@ -53,7 +53,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
@@ -67,7 +67,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
@@ -86,7 +86,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
@@ -100,7 +100,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+       )
 
       cr = se.customers
 
@@ -114,7 +114,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+       )
 
       cr = se.customers
 
@@ -128,7 +128,7 @@ RSpec.describe CustomerRepository do
           items: './data/items.csv',
           merchants: './data/merchants.csv',
           customers: './data/customers.csv'
-                                 )
+        )
 
         cr = se.customers
 
@@ -142,7 +142,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
@@ -156,7 +156,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-                               )
+      )
 
       cr = se.customers
 
