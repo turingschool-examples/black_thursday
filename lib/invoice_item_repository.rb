@@ -1,4 +1,4 @@
-require_relative '../lib/invoice_items'
+require_relative '../lib/invoice_item'
 require_relative '../lib/repository'
 require 'bigdecimal/util'
 
