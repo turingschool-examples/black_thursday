@@ -14,7 +14,10 @@ class SalesEngine
               :transactions,
               :analyst
 
-  def initialize(item_csv_location, merchant_csv_location, invoice_csv_location, customer_csv_location)
+  def initialize(item_csv_location,
+                 merchant_csv_location,
+                 invoice_csv_location,
+                 customer_csv_location)
     @customers = CustomerRepository.new(customer_csv_location, self)
     # @invoice_items = './data/invoice_items.csv'
     @invoices = InvoiceRepository.new(invoice_csv_location, self)

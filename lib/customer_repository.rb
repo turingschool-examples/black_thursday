@@ -44,11 +44,11 @@ class CustomerRepository
     end
   end
 
-   def generate_new_id
+  def generate_new_id
     highest_id_item = @customers.max_by do |customer|
       customer.id
     end
-    new_id = highest_id_item.id + 1
+    highest_id_item.id + 1
   end
 
   def create(attributes)

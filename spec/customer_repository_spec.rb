@@ -7,14 +7,16 @@ RSpec.describe CustomerRepository do
   describe '#initialize' do
     it 'exists' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       expect(cr).to be_a(CustomerRepository)
     end
 
     it 'has customers' do
-       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       expect(cr.customers[0]).to be_a(Customer)
     end
@@ -23,7 +25,8 @@ RSpec.describe CustomerRepository do
   describe '#all' do
     it 'returns all customers' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       expect(cr.all).to be_a(Array)
       expect(cr.all.count).to eq(12)
@@ -34,7 +37,8 @@ RSpec.describe CustomerRepository do
   describe '#find_by_id' do
     it 'finds by id or returns nil' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       expect(cr.find_by_id(14)).to eq(nil)
       expect(cr.find_by_id(1)).to eq(cr.customers[0])
@@ -44,29 +48,34 @@ RSpec.describe CustomerRepository do
   describe '#find_all_by_first_name' do
     it 'returns array of all first name matches' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       expect(cr.find_all_by_first_name('Ji')).to eq([])
       expect(cr.find_all_by_first_name('Ce')).to eq([cr.customers[1]])
-      expect(cr.find_all_by_first_name('ey')).to eq([cr.customers[0], cr.customers[6]])
+      expect(cr.find_all_by_first_name('Joey')).to eq([cr.customers[0],
+                                                       cr.customers[6]])
     end
   end
 
   describe '#find_all_by_last_name' do
     it 'returns array of all last name matches' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       expect(cr.find_all_by_first_name('Peterson')).to eq([])
       expect(cr.find_all_by_last_name('Ondricka')).to eq([cr.customers[0]])
-      expect(cr.find_all_by_last_name('Braun')).to eq([cr.customers[3], cr.customers[8]])
+      expect(cr.find_all_by_last_name('Braun')).to eq([cr.customers[3],
+                                                       cr.customers[8]])
     end
   end
 
   describe '#create' do
     it 'creates a new customer with their id one higher than the highest' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
       attributes = {
         first_name: 'Jimmy',
         last_name: 'Johns',
@@ -82,7 +91,8 @@ RSpec.describe CustomerRepository do
   describe '#update' do
     it 'can update the customers name and updated at time' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       attributes = {
         first_name: 'Jimmy',
@@ -101,7 +111,8 @@ RSpec.describe CustomerRepository do
   describe '#delete' do
     it 'can delete customer with given id' do
       mock_sales_engine = instance_double('SalesEngine')
-      cr = CustomerRepository.new('./spec/truncated_data/customers_truncated.csv', mock_sales_engine)
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       cr.delete(1)
       expect(cr.find_by_id(1)).to eq(nil)

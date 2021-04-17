@@ -1,6 +1,3 @@
-require 'bigdecimal'
-require 'date'
-require 'time'
 class Customer
   attr_reader :id,
               :first_name,
@@ -24,15 +21,13 @@ class Customer
   end
 
   def update_first_name(attributes)
-    if attributes[:first_name] != nil
-      @first_name.replace(attributes[:first_name])
-    end
+    return if attributes[:first_name] == nil
+    @first_name.replace(attributes[:first_name])
   end
 
   def update_last_name(attributes)
-    if attributes[:last_name] != nil
-      @last_name.replace(attributes[:last_name])
-    end
+    return if attributes[:last_name] == nil
+    @last_name.replace(attributes[:last_name])
   end
 
   def update_time_stamp
