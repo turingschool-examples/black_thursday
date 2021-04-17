@@ -32,5 +32,11 @@ class InvoiceRepository < Repository
     end
   end
 
+  def find_all_by_customer_id(customer_id)
+    @array_of_objects.find_all do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
+
 
 end

@@ -53,9 +53,11 @@ RSpec.describe InvoiceRepository do
     end
 
     it '#find_all_by_customer_id returns array of invoices with customer id' do
-      customer_id = 300
+      real_customer_id = 300
+      fake_customer_id = 10000
 
-      expect(invoice_repo.find_all_by_customer_id(customer_id).length).to eq(10)
+      expect(invoice_repo.find_all_by_customer_id(real_customer_id).length).to eq(10)
+      expect(invoice_repo.find_all_by_customer_id(fake_customer_id)).to eq([])
     end
 
   end
