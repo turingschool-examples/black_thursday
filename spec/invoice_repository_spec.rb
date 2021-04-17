@@ -53,4 +53,17 @@ RSpec.describe InvoiceRepository do
     end
   end
 
+  describe '#delete' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv"
+                              })
+    invoice_repo = sales_engine.invoices
+
+    it 'can delete invoice' do
+      invoice_repo.delete(3452)
+      expected = invoice_repo.find_by_id(3452)
+      expect(expected).to eq(nil)
+    end
 end

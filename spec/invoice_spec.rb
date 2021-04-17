@@ -41,16 +41,18 @@ RSpec.describe Invoice do
                               :merchants => "./data/merchants.csv",
                               :invoices => "./data/invoices.csv"
                               })
-    item = sales_engine.items.all[0]
+    invoice = sales_engine.invoices.all[0]
 
     it 'returns input as originally passed in if input is class Time' do
       time_object = Time.parse("2007-06-04 21:35:10 UTC")
-      expect(item.time_check(time_object)).to eq(time_object)
+      expect(invoice.time_check(time_object)).to eq(time_object)
     end
 
     it 'returns input converted to Time object if input is not class Time' do
-      expect(item.time_check("2007-06-04 21:35:10 UTC")).to eq(Time.parse("2007-06-04 21:35:10 UTC"))
+      expect(invoice.time_check("2007-06-04 21:35:10 UTC")).to eq(Time.parse("2007-06-04 21:35:10 UTC"))
     end
+  end
+
   end
 
 end
