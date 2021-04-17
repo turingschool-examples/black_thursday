@@ -10,7 +10,7 @@ class ItemRepository < Repository
     @array_of_objects = create_items(@parsed_csv_data)
   end
 
-  def   create_items(parsed_csv_data)
+  def create_items(parsed_csv_data)
     parsed_csv_data.map do |item|
       Item.new(item)
     end
