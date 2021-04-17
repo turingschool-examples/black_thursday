@@ -65,12 +65,12 @@ describe TransactionRepository do
   end
 
   describe '#find_all_by_invoice_id' do
-    it 'returns nil if no Transactions have invoice_id specified' do
+    it 'returns empty array if no Transactions have invoice_id specified' do
       mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
-      expect(t_repo.find_all_by_invoice_id(10)).to eq nil
+      expect(t_repo.find_all_by_invoice_id(10)).to eq []
     end
 
     it 'returns all Transactions with invoice_id specified' do
