@@ -45,7 +45,8 @@ RSpec.describe TransactionRepository do
     it 'finds all invoices with passed id' do
       se = SalesEngine.from_csv(
         invoices:     './data/invoices.csv',
-        transactions: './data/transactions.csv')
+        transactions: './data/transactions.csv'
+      )
 
       tr = se.transactions
       expect(tr.find_all_by_invoice_id(8)[0].id).to eq(535)
