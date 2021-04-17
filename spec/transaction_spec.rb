@@ -195,13 +195,13 @@ describe Transaction do
         credit_card_expiration_date: '0220',
         result: 'failure',
         created_at: Time.now,
-        updated_at: Time.new(2021, 04, 01)
+        updated_at: Time.new(2021, 0o4, 0o1)
       }
       transaction = Transaction.new(details)
 
       transaction.update_time
 
-      expect(transaction.updated_at).to be > Time.new(2021, 02, 04)
+      expect(transaction.updated_at).to be > Time.new(2021, 0o2, 0o4)
     end
   end
 end

@@ -4,7 +4,6 @@ require './lib/transaction'
 require './lib/transaction_repository'
 require './data/mock_data'
 
-
 describe TransactionRepository do
   details = {
     id: 6,
@@ -16,7 +15,7 @@ describe TransactionRepository do
     updated_at: Time.now
   }
   data_hashes = []
-  10.times { data_hashes <<  details }
+  10.times { data_hashes << details }
 
   describe '#initialize' do
     it 'exists' do
@@ -182,8 +181,8 @@ describe TransactionRepository do
         credit_card_number: '1212121212121212',
         credit_card_expiration_date: '0222',
         result: 'failure',
-        created_at: Time.new(2021, 03, 01),
-        updated_at: Time.new(2021, 03, 01)
+        created_at: Time.new(2021, 0o3, 0o1),
+        updated_at: Time.new(2021, 0o3, 0o1)
       }
       new_transactions = t_repo.create(attributes)
       new_info = {
@@ -192,16 +191,16 @@ describe TransactionRepository do
         credit_card_number: '1212121212124444',
         credit_card_expiration_date: '0224',
         result: 'success',
-        created_at: Time.new(2021, 02, 04),
-        updated_at: Time.new(2021, 02, 04)
+        created_at: Time.new(2021, 0o2, 0o4),
+        updated_at: Time.new(2021, 0o2, 0o4)
       }
       t_repo.update(7, new_info)
       updated_item = t_repo.transactions.last
 
       expect(updated_item.id).to eq 7
       expect(updated_item.invoice_id).to eq 8
-      expect(updated_item.created_at).to eq Time.new(2021, 03, 01)
-      expect(updated_item.updated_at).to be > Time.new(2021, 03, 01)
+      expect(updated_item.created_at).to eq Time.new(2021, 0o3, 0o1)
+      expect(updated_item.updated_at).to be > Time.new(2021, 0o3, 0o1)
     end
   end
 
@@ -217,8 +216,8 @@ describe TransactionRepository do
         credit_card_number: '1212121212121212',
         credit_card_expiration_date: '0222',
         result: 'failure',
-        created_at: Time.new(2021, 03, 01),
-        updated_at: Time.new(2021, 03, 01)
+        created_at: Time.new(2021, 0o3, 0o1),
+        updated_at: Time.new(2021, 0o3, 0o1)
       }
       new_transactions = t_repo.create(attributes)
 
