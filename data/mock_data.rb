@@ -2,7 +2,6 @@ require 'Date'
 
 class MockData
 
-  DEFAULT_MERCHANT_ID = Proc.new { |item_id, number_of_merchants| item_id % number_of_merchants}
   DEFAULT_CREATED_AT_PROC = Proc.new { |date| date.prev_year }
   DEFAULT_UPDATED_AT_PROC = Proc.new { |date| date }
 
@@ -93,8 +92,7 @@ class MockData
   end
 
   def self.items_as_hashes(number_of_hashes: 10,
-                           number_of_merchants: 2,
-                           merchant_id: DEFAULT_MERCHANT_ID,
+                           merchant_id_range: (1..2),
                            random_dates: true, unit_price: nil,
                            created_at: DEFAULT_CREATED_AT_PROC,
                            updated_at: DEFAULT_UPDATED_AT_PROC)
@@ -107,7 +105,7 @@ class MockData
       item[:id] = item_number
       item[:unit_price] = unit_price.nil?? get_a_random_price : unit_price
       item[:description] = 'Item Description'
-      item[:merchant_id] = merchant_id.call(item_number, number_of_merchants)
+      item[:merchant_id] = rand(merchant_id_range)
 
       date = get_a_random_date(random_dates)
       item[:created_at] = created_at.call(date).to_s
