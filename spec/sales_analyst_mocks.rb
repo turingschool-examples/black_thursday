@@ -1,4 +1,5 @@
 require './lib/sales_analyst'
+require './lib/item_repository'
 
 class SalesAnalystMocks
 
@@ -9,13 +10,6 @@ class SalesAnalystMocks
   def self.sales_engine_mock(eg)
     sales_engine = eg.instance_double('SalesEngine')
     eg.allow(sales_engine).to eg.receive(:analyst).and_return SalesAnalyst.new(sales_engine)
-
-    mock_item_repository = eg.instance_double('ItemRepository')
-    mock_merchant_repository = eg.instance_double('MerchantRepository')
-
-    eg.allow(sales_engine).to eg.receive(:items).and_return mock_item_repository
-    eg.allow(sales_engine).to eg.receive(:merchants).and_return mock_merchant_repository
-
     sales_engine
   end
 
@@ -41,9 +35,14 @@ class SalesAnalystMocks
 
     items_as_mocks = MockData.items_as_mocks(eg, items_as_hashes)
 
-    eg.allow(sales_engine.items).to eg.receive(:all).and_return items_as_mocks
-    eg.allow(sales_engine.merchants).to eg.receive(:all).and_return merchants_as_mocks
+    eg.allow_any_instance_of(ItemRepository).to eg.receive(:create_items).and_return(items_as_mocks)
+    eg.allow_any_instance_of(MerchantRepository).to eg.receive(:create_merchants).and_return(merchants_as_mocks)
 
+    item_repository = ItemRepository.new('fake_file')
+    merchant_repository = MerchantRepository.new('fake_file')
+
+    eg.allow(sales_engine).to eg.receive(:items).and_return item_repository
+    eg.allow(sales_engine).to eg.receive(:merchants).and_return merchant_repository
     sales_analyst
   end
 end

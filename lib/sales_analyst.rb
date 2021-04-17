@@ -58,10 +58,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    all_items = @sales_engine.items.all
-    items = all_items.find_all do |item|
-      merchant_id == item.merchant_id
-    end
+    items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
     items_sum = items.sum(&:unit_price)
     items_sum / items.length
   end
