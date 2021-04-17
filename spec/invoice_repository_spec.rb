@@ -66,4 +66,5 @@ RSpec.describe InvoiceRepository do
       expected = invoice_repo.find_by_id(3452)
       expect(expected).to eq(nil)
     end
+  end
 end

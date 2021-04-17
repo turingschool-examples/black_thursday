@@ -52,7 +52,4 @@ RSpec.describe Invoice do
       expect(invoice.time_check("2007-06-04 21:35:10 UTC")).to eq(Time.parse("2007-06-04 21:35:10 UTC"))
     end
   end
-
-  end
-
 end
