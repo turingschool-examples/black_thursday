@@ -14,33 +14,52 @@ class SalesAnalyst
     @engine.items.array_of_objects
   end
 
-  def average_items_per_merchant
-    avg = find_all_items.length / find_all_merchants.length.to_f
+  def get_merchant_ids(merchants)
+    merchants.map do |merchant|
+      merchant.id
+    end
+
+  def average_items_per_merchant(merchants)
+    merchant_ids = get_merchant_ids(merchants)
+    item_counter = 0
+    merchant_ids.each do |merchant_id|
+      if find_all_by_merchant_id.include?(merchant_id)
+        item_counter += 1
+        require 'pry'; binding.pry
+      end
+    end
+    #average_items_per_merchant (array of merchant ids)
+    #iterate through array of merchant ids
+    #item counter = 0
+    #for each id, compare against merchant ids in items
+    #each time id is matched, add += 1 to counter
+
+    # counter / merchants.length.to_f
+
+    avg = find_all_items.length / merchants.length.to_f
     avg.truncate(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    std_dev_arry = []
-    counter = 0
+  def sample_merchants_return_id
     merch_sample = find_all_merchants.sample(10)
-    merchant_ids = merch_sample.map do |merchant|
-      merchant.id
-    end
+    get_merchant_ids(merch_sample)
+  end
+
+  def stnd_dev_of_merch_items
     merchant_items = []
-    random_items = merchant_ids.each do |merchant_id|
+    sample_merchants_return_id.each do |merchant_id|
       merchant_items << find_all_by_merchant_id(merchant_id).length
     end
-    # range = 1..10
-    # sample = range.to_a.sample(5)
-    # find_all_merchants each
-    # find their items (count)
-    # std_dev_arry << items
-      merchant_items.each do |number|
-        i = (number - average_items_per_merchant)**2
-        counter += i
-      end
-    test = Math.sqrt(counter / 2)
-    require 'pry'; binding.pry
+
+    sample_size_minus_one = merchant_items.length - 1
+    counter = 0
+    merchant_items.each do |number|
+      running_total = (number - average_items_per_merchant)
+require 'pry'; binding.pry
+      counter += running_total
+    end
+    Math.sqrt(counter / sample_size_minus_one)
+
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -53,3 +72,4 @@ class SalesAnalyst
     #         (std_dev_arry[2, et cetera]-average_items_per_merchant)**2)
     #       /2)
 end
+end 
