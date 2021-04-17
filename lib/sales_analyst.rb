@@ -6,32 +6,37 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
+    @merchant_id_array = @engine.all_merchant_ids
+    @merchant_length
   end
 
   def average_items_per_merchant
-    @engine.items.all.length.fdiv(@engine.merchants.all.length).round(2)
+    @engine.number_of_class(:items).fdiv(@engine.number_of_class(:merchants)).round(2)
+  end
+
+  def standard_deviation(array, average)
+    sum_of_squares = array.sum do |object|
+      (object - average)**2
+    end
+    (sum_of_squares.fdiv(array.length - 1)**0.5).round(2)
   end
 
   # Brant's magic method
   def average_items_per_merchant_standard_deviation
-    merchant_ids = @engine.merchants.all.map do |merchant|
-      merchant.id
-    end
-    items_per_merchant = merchant_ids.map do |id|
+    items_average = average_items_per_merchant
+    items_per_merchant = @merchant_id_array.map do |id|
       @engine.items.find_all_by_merchant_id(id).length
     end
-    sum_of_squares = items_per_merchant.map do |wares|
-      (wares - average_items_per_merchant)**2
-    end.sum
-    (sum_of_squares.fdiv(merchant_ids.length - 1)**0.5).round(2)
+    standard_deviation(items_per_merchant, items_average)
+    # sum_of_squares = items_per_merchant.sum do |wares|
+    #   (wares - items_average)**2
+    # end
+    # (sum_of_squares.fdiv(@merchant_id_array.length - 1)**0.5).round(2)
   end
 
   def merchants_with_high_item_count
     one_standard = average_items_per_merchant + average_items_per_merchant_standard_deviation
-    merchant_ids = @engine.merchants.all.map do |merchant|
-      merchant.id
-    end
-    merchant_ids_high_count = merchant_ids.find_all do |id|
+    merchant_ids_high_count = @merchant_id_array.find_all do |id|
       number_of_items = @engine.items.find_all_by_merchant_id(id).length
       number_of_items > one_standard
     end
@@ -51,23 +56,27 @@ class SalesAnalyst
   def average_average_price_per_merchant
     test = @engine.merchants.all.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end / @engine.merchants.all.length
+    end / @engine.number_of_class(:merchants)
     test.round(2)
   end
 
   def average_item_price
     test = @engine.items.all.sum do |item|
       item.unit_price
-    end / @engine.items.all.length
+    end / @engine.number_of_class(:items)
     test.round(2)
   end
 
   def item_price_standard_deviation
     item_average = average_item_price
-    denominator = @engine.items.all.sum do |item|
-      (item.unit_price - item_average)**2
+    item_array = @engine.items.all.map do |item|
+      item.unit_price
     end
-    ((denominator / (@engine.items.all.length - 1))**0.5).round(2)
+    # denominator = @engine.items.all.sum do |item|
+    #   (item.unit_price - item_average)**2
+    # end
+    # ((denominator / (@engine.number_of_class(:items) - 1))**0.5).round(2)
+    standard_deviation(item_array, item_average)
   end
 
   def golden_items
@@ -78,41 +87,32 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    # merchant_ids = @engine.all_merchant_ids
-    #
-    # merchant_ids.map do |merchant|
-    #   @engine.invoices.all.count do |invoice|
-    #     invoice.merchant_id == merchant
-    #   end
-    # end.sum.fdiv(merchant_ids.length)
-    merchant_ids = @engine.all_merchant_ids
-    @engine.invoices.all.length.fdiv(merchant_ids.length).round(2)
+    @engine.number_of_class(:invoices).fdiv(@merchant_id_array.length).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
-    merchant_ids = @engine.all_merchant_ids
 
-    merchant_invoice = merchant_ids.map do |merchant|
+    merchant_invoice = @merchant_id_array.map do |merchant|
       @engine.invoices.all.count do |invoice|
         invoice.merchant_id == merchant
       end
     end
 
-    final_deviation = merchant_invoice.sum do |merchant|
-      (merchant - average)**2
-    end.fdiv(merchant_ids.length - 1)**0.5
-    final_deviation.round(2)
+    # final_deviation = merchant_invoice.sum do |merchant|
+    #   (merchant - average)**2
+    # end.fdiv(@merchant_id_array.length - 1)**0.5
+    # final_deviation.round(2)
+    standard_deviation(merchant_invoice, average)
   end
 
   def invoices_per_merchant
-    merchant_ids = @engine.all_merchant_ids
-    invoice_count = merchant_ids.map do |merchant|
+    invoice_count = @merchant_id_array.map do |merchant|
       @engine.invoices.all.count do |invoice|
         invoice.merchant_id == merchant
       end
     end
-    merchant_ids.zip(invoice_count)
+    @merchant_id_array.zip(invoice_count)
   end
 
   def invoices_per_day
@@ -179,6 +179,6 @@ class SalesAnalyst
       invoice.status == status_arg
     end
 
-    (invoice_count.fdiv(@engine.invoices.all.length) * 100).round(2)
+    (invoice_count.fdiv(@engine.number_of_class(:invoices)) * 100).round(2)
   end
 end

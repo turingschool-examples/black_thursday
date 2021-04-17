@@ -229,4 +229,17 @@ RSpec.describe 'SalesAnalyst' do
       expect(sa.invoice_status(:returned)).to eq(13.5)
     end
   end
+  describe '#standard_deviation' do
+    it 'uses an array and average to calculate standard div' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.standard_deviation([1,2,3], 2)).to eq(1)
+    end
+  end
 end

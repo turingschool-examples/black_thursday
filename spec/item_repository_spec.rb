@@ -123,28 +123,7 @@ RSpec.describe 'ItemRepository' do
       expect(ir.find_all_by_price(-123.45)).to eq([])
     end
   end
-  # describe '#find_all_by_price_in_range' do
-  #   it 'returns an array of all items with a price found in the range' do
-  #     se = SalesEngine.from_csv(
-  #       items: './data/items.csv',
-  #       merchants: './data/merchants.csv'
-  #     )
-  #
-  #     ir = se.items
-  #
-  #   expect(ir.find_all_by_price_in_range(100..1000)[5].name).to eq('Two tone blue stoneware pot')
-  #   end
-  #   it 'returns an empty array when no items are found' do
-  #     se = SalesEngine.from_csv(
-  #       items: './data/items.csv',
-  #       merchants: './data/merchants.csv'
-  #     )
-  #
-  #     ir = se.items
-  #
-  #     expect(ir.find_all_by_price_in_range(-3..-1)).to eq([])
-  #   end
-  # end
+
   describe '#find_all_by_price_in_range' do
     it 'returns an array of all items with a price found in the range' do
       se = SalesEngine.from_csv(

@@ -25,9 +25,7 @@ class SalesEngine
     if !@location_hash[:transactions].nil?
       @transactions_instance = TransactionRepository.new(@location_hash, self)
     end
-    if !@location_hash[:customers].nil?
-      @customers_instance = CustomerRepository.new(@location_hash, self)
-    end
+      @customers_instance = CustomerRepository.new(@location_hash, self) unless @location_hash[:customers].nil?
   end
 
   def self.from_csv(file_hash)
