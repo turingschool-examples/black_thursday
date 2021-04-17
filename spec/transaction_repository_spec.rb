@@ -54,7 +54,7 @@ RSpec.describe TransactionRepository do
 
   describe '#find_all_by_credit_card_number' do
     it 'finds all credit card numbers' do
-     se = SalesEngine.from_csv(transactions: './data/transactions.csv')
+      se = SalesEngine.from_csv(transactions: './data/transactions.csv')
 
       tr = se.transactions
       expect(tr.find_all_by_credit_card_number(4035885351912165)[0].id).to eq(14)
