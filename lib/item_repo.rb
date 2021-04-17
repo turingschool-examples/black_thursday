@@ -70,14 +70,14 @@ class ItemRepo
     add_item(item)
     return item
   end
-  
-  # the code logic doesn't belong here, what happens when only one gets updated 
+
+  # the code logic doesn't belong here, what happens when only one gets updated
   def update(id, attributes)
     new_item = find_by_id(id)
     # new_item.assign_attributes(attributes)
 
     #   attributes.each do |key, value|
-    #     if new_item.(key) = value 
+    #     if new_item.(key) = value
     #   end
     new_item.name = attributes[:name]
     new_item.description = attributes[:description]
