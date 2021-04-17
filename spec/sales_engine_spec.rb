@@ -29,7 +29,7 @@ RSpec.describe 'SalesEngine' do
 
     it 'has an invoice repository' do
       se = SalesEngine.from_csv(
-        invoice: './data/invoices.csv'
+        invoices: './data/invoices.csv'
       )
       expect(se.invoices).to be_an_instance_of(InvoiceRepository)
     end
@@ -80,6 +80,15 @@ RSpec.describe 'SalesEngine' do
       )
 
       expect(se.all_merchant_ids.length).to eq(475)
+    end
+  end
+
+  describe '#number_of_class' do
+    it 'returns how many of a instance exist' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv')
+
+      expect(se.number_of_class(:items)).to eq(1367)
     end
   end
 end
