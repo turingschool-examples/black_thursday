@@ -7,6 +7,10 @@ class SalesAnalystMocks
     @@price_sums_for_each_merchant
   end
 
+  def self.average_prices_for_each_merchant
+    @@average_prices_for_each_merchant
+  end
+
   def self.sales_engine_mock(eg)
     sales_engine = eg.instance_double('SalesEngine')
     eg.allow(sales_engine).to eg.receive(:analyst).and_return SalesAnalyst.new(sales_engine)
@@ -31,6 +35,14 @@ class SalesAnalystMocks
       end
       sum_of_prices = MockData.sum_item_prices_from_hash(item_hashes)
       sums_by_merchant[merchant.id] = sum_of_prices
+    end
+
+    @@average_prices_for_each_merchant = merchants_as_mocks.each_with_object({}) do |merchant, avgs_by_merchant|
+      item_hashes = items_as_hashes.find_all do |item_hash|
+        item_hash[:merchant_id] == merchant.id
+      end
+      avg_price = MockData.mean_of_item_prices_from_hash(item_hashes)
+      avgs_by_merchant[merchant.id] = avg_price
     end
 
     items_as_mocks = MockData.items_as_mocks(eg, items_as_hashes)
