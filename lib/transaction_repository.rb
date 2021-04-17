@@ -12,4 +12,8 @@ class TransactionRepository
   def create_transactions(filename)
     FileIo.process_csv(filename, Transaction)
   end
+
+  def all
+    @transactions
+  end
 end
