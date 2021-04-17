@@ -21,8 +21,8 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item_repo).to be_instance_of(InvoiceItemRepository)
     end
 
-    xit 'can create invoice item objects' do
-      expect(invoice_item_repo.array_of_objects[0]).to be_instance_of(InvoiceItems)
+    it 'can create invoice item objects' do
+      expect(invoice_item_repo.array_of_objects[0]).to be_instance_of(InvoiceItem)
     end
   end
 end
