@@ -41,11 +41,10 @@ class InvoiceItemRepository
     @invoice_items.max_by(&:id).id
   end
 
-
   def create(attributes)
     if @invoice_items == []
       create_first_invoice_item(attributes)
-    else 
+    else
       new_invoice_item = InvoiceItem.new(attributes)
       new_invoice_item.update_id(find_max_id + 1)
       @invoice_items << new_invoice_item
@@ -53,7 +52,8 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
-    return nil if find_by_id(id) == nil
+    return nil if find_by_id(id).nil?
+
     invoice_item = find_by_id(id)
     invoice_item.update_quantity(attributes[:quantity])
     invoice_item.update_unit_price(attributes[:unit_price])
@@ -61,7 +61,8 @@ class InvoiceItemRepository
   end
 
   def delete(id)
-    return nil if find_by_id(id) == nil
+    return nil if find_by_id(id).nil?
+
     invoice_item = find_by_id(id)
     @invoice_items.delete(invoice_item)
   end

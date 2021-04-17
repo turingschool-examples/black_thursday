@@ -34,6 +34,6 @@ class InvoiceItem
   end
 
   def new_updated_at_time
-    @updated_at = Time.now 
+    @updated_at = Time.now
   end
 end

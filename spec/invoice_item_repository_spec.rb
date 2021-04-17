@@ -3,7 +3,7 @@ require 'csv'
 require './lib/file_io'
 require './lib/invoice_item_repository'
 
-describe InvoiceItemRepository do 
+describe InvoiceItemRepository do
   describe '#initialize' do
     it 'exists' do
       allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(MockData.invoice_items_as_hashes)
@@ -68,14 +68,14 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       attributes = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(attributes)
 
@@ -90,14 +90,14 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       attributes = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(attributes)
 
@@ -123,14 +123,14 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       attributes = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       expected = ii_repo.create(attributes)
 
@@ -146,21 +146,21 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       new_invoice_item = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(new_invoice_item)
 
-      attributes = { 
-        :quantity => 17,
-        :unit_price => BigDecimal(51.19, 4)
-        }
+      attributes = {
+        quantity: 17,
+        unit_price: BigDecimal(51.19, 4)
+      }
       ii_repo.update(10, attributes)
 
       expected = ii_repo.invoice_items.last
@@ -175,21 +175,21 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       new_invoice_item = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(new_invoice_item)
 
-      attributes = { 
-        :quantity => 17,
-        :unit_price => BigDecimal(51.19, 4)
-        }
+      attributes = {
+        quantity: 17,
+        unit_price: BigDecimal(51.19, 4)
+      }
       ii_repo.update(100, attributes)
 
       expected = ii_repo.invoice_items.last
@@ -204,23 +204,23 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       new_invoice_item = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(new_invoice_item)
       originial_invoice_item = ii_repo.find_by_id(10)
       original_time = originial_invoice_item.updated_at
 
-      attributes = { 
-        :quantity => 17,
-        :unit_price => BigDecimal(51.19, 4)
-        }
+      attributes = {
+        quantity: 17,
+        unit_price: BigDecimal(51.19, 4)
+      }
       ii_repo.update(10, attributes)
 
       updated_invoice_item = ii_repo.find_by_id(10)
@@ -234,23 +234,23 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       new_invoice_item = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(new_invoice_item)
 
-      attributes = { 
-        :item_id => 18,
-        :invoice_id => 82,
-        :quantity => 200,
-        :unit_price => BigDecimal(51.19, 4)
-        }
+      attributes = {
+        item_id: 18,
+        invoice_id: 82,
+        quantity: 200,
+        unit_price: BigDecimal(51.19, 4)
+      }
       ii_repo.update(10, attributes)
 
       expected = ii_repo.invoice_items.last
@@ -267,14 +267,14 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       new_invoice_item = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(new_invoice_item)
 
@@ -292,14 +292,14 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       new_invoice_item = {
-        :id => nil,
-        :item_id => 17,
-        :invoice_id => 81,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
-              }
+        id: nil,
+        item_id: 17,
+        invoice_id: 81,
+        quantity: 1,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
       ii_repo.create(new_invoice_item)
 
