@@ -38,5 +38,10 @@ class InvoiceRepository < Repository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    @array_of_objects.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
+  end
 
 end

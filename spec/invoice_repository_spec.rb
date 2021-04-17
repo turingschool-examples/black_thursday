@@ -67,6 +67,13 @@ RSpec.describe InvoiceRepository do
       expect(invoice_repo.find_all_by_merchant_id(real_merchant_id).length).to eq(7)
       expect(invoice_repo.find_all_by_merchant_id(fake_merchant_id)).to eq([])
     end
+
+    it '#find_all_by_status returns array of invoices with matching status' do
+
+      expect(invoice_repo.find_all_by_status(:shipped).length).to eq(2839)
+      expect(invoice_repo.find_all_by_status(:pending).length).to eq(1473)
+      expect(invoice_repo.find_all_by_status(:sold)).to eq([])
+    end
   end
 
   describe '#delete' do
