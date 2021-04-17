@@ -56,4 +56,9 @@ class TransactionRepository
     transaction.update_result(attributes[:result])
     transaction.update_time
   end
+
+  def delete(id)
+    transaction = find_by_id(id)
+    @transactions.delete(transaction)
+  end
 end

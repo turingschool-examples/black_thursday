@@ -222,11 +222,11 @@ describe TransactionRepository do
       }
       new_transactions = t_repo.create(attributes)
 
-      expect(t_repo.length).to eq 11
+      expect(t_repo.transactions.length).to eq 11
 
       t_repo.delete(7)
 
-      expect(t_repo.length).to eq 10
+      expect(t_repo.transactions.length).to eq 10
     end
 
     it 'does not delete anything if no item at id' do
@@ -234,11 +234,11 @@ describe TransactionRepository do
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
-      expect(t_repo.length).to eq 10
+      expect(t_repo.transactions.length).to eq 10
 
       t_repo.delete(7)
 
-      expect(t_repo.length).to eq 10
+      expect(t_repo.transactions.length).to eq 10
     end
   end
 end
