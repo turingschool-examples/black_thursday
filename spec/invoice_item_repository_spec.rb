@@ -31,28 +31,18 @@ RSpec.describe InvoiceItemRepository do
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
       expect(iir.all.count).to eq(50)
     end
-  end 
+  end
+  describe '#find_by_id' do
+    it 'finds all InvoiceItems by id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      expect(iir.find_by_id(1)).to be_instance_of(InvoiceItem)
+      expect(iir.find_by_id(987654321)).to eq(nil)
+    end
+  end
 end
 
-# describe '#find_by_id' do
-# it 'finds invoices by id' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   test_invoice = Invoice.new({
-#     id: '1234567890',
-#     customer_id: '456789',
-#     merchant_id: '234567890',
-#     status: 'pending',
-#     created_at: '2016-01-11 11:51:37 UTC',
-#     updated_at: '1993-09-29 11:56:40 UTC'
-# },
-# ir
-# )
-#   ir.invoices << test_invoice
-#   expect(ir.find_by_id(1234567890)).to eq(test_invoice)
-#   expect(ir.find_by_id(123456789099999999)).to eq(nil)
-# end
-# end
+
 # describe '#find_all_by_customer_id' do
 # it 'finds invoices by customer id' do
 #   mock_sales_engine = instance_double('SalesEngine')
