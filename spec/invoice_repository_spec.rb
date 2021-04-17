@@ -42,4 +42,22 @@ describe InvoiceRepository do
       expect(invoice_repository.find_by_id(0)).to eq expected
     end
   end
+
+  describe '#find_all_by_customer_id' do
+    it 'returns empty array for no results' do
+      mock_data = MockData.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      expect(invoice_repository.find_all_by_customer_id(500)).to eq []
+    end
+
+    it 'returns invoices by customer id' do
+      mock_data = MockData.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      expect(invoice_repository.find_all_by_customer_id(2).length).to eq 4
+    end
+  end
 end
