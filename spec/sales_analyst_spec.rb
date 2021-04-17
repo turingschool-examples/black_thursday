@@ -56,10 +56,10 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_average_price_per_merchant).to eq(0.35029e3)
     end
 
-    # it 'can return items 2 standard deviations above average item price' do
-    #   expect(sales_analyst.golden_items.class).to eq(Array)
-    #   expect(sales_analyst.golden_items.length).to eq(5)
-    # end
+    it 'can return items 2 standard deviations above average item price' do
+      expect(sales_analyst.golden_items.class).to eq(Array)
+      expect(sales_analyst.golden_items.length).to eq(5)
+    end
   end
 
 end
