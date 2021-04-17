@@ -21,7 +21,7 @@ RSpec.describe InvoiceItems do
       expect(invoice_items).to be_instance_of(InvoiceItems)
     end
 
-    it 'has attributes available' do
+    xit 'has attributes available' do
       # expect(item.id).to eq()
       expect(invoice_items.item_id).to eq(7)
       expect(invoice_items.invoice_id).to eq(8)
