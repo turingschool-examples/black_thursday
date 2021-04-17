@@ -18,6 +18,11 @@ class Item
     @created_at = Time.parse(attributes[:created_at].to_s)
     @updated_at = Time.parse(attributes[:updated_at].to_s)
     @merchant_id = attributes[:merchant_id].to_i
+    @repository = attributes[:repository]
+  end
+
+  def merchants(id)
+    @repository.find_merchant_by_id(@merchant_id)
   end
 
   def unit_price_to_dollars

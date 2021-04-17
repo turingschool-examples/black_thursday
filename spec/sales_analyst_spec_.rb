@@ -1,18 +1,15 @@
 require './lib/sales_analyst'
 require './lib/sales_engine'
+require './lib/items'
+require './lib/merchants'
+require './items_repo'
+require './merchants_repo'
 require 'rspec'
 
 RSpec.describe SalesAnalyst do
+
   context 'Instanstiation' do
     it 'exists' do
-      sales_analyst = SalesEngine.analyst
-
-      expect(sales_analyst).to be_instance_of(SalesAnalyst)
-    end
-  end
-
-  context '#average_items_per_merchant' do
-    xit 'can return average items per merchant' do
       se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -22,6 +19,21 @@ RSpec.describe SalesAnalyst do
       mr = se.merchants
       ir = se.items
 
+      expect(sales_analyst).to be_instance_of(SalesAnalyst)
+    end
+  end
+
+  context '#sales_analyst' do
+    it 'can return average items per merchant' do
+      se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+
+      sales_analyst = SalesEngine.analyst
+      mr = se.merchants
+      ir = se.items
+      
       expect(sales_analyst.average_items_per_merchant).to eq(2.88)
     end
   end
@@ -57,7 +69,7 @@ RSpec.describe SalesAnalyst do
   end
 
   context '#average_item_price_for_merchant' do
-    it 'can find the average price of a merchants items' do
+    xit 'can find the average price of a merchants items' do
       se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -72,7 +84,7 @@ RSpec.describe SalesAnalyst do
   end
 
   context '#average_average_price_per_merchant' do
-    it 'can find the average of average price' do
+    xit 'can find the average of average price' do
       se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -87,7 +99,7 @@ RSpec.describe SalesAnalyst do
   end
 
   context '#golden_items' do
-    it 'can return items 2 standard deviations above average item price' do
+    xit 'can return items 2 standard deviations above average item price' do
       se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",

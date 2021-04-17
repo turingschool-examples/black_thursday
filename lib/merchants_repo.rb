@@ -4,9 +4,13 @@ require 'csv'
 class MerchantRepo
   attr_reader :merchants_list
 
-  def initialize(csv_files)
+  def initialize(csv_files, engine)
     @merchants_list = merchant_instances(csv_files)
-    # require'pry';binding.pry
+    @engine         = engine
+  end
+
+  def find_items_by_id(id)
+    @engine.find_items_by_id(id)
   end
 
   def merchant_instances(csv_files)
