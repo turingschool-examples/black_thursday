@@ -7,7 +7,7 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id
-  def initialize(item_info) 
+  def initialize(item_info)
     @id = item_info[:id].to_i
     @name = item_info[:name]
     @description = item_info[:description]
@@ -17,7 +17,7 @@ class Item
     @merchant_id = item_info[:merchant_id]
   end
 
-  #check spec harness 
+  #check spec harness
   def unit_price_to_dollars
     @unit_price.to_f
   end
