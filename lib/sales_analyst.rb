@@ -73,9 +73,8 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items_for_current_merchant = @items_repo.find_all_by_merchant_id(merchant_id)
-    prices_of_items_for_current_merchant = []
-    items_for_current_merchant.each do |item|
-      prices_of_items_for_current_merchant << item.unit_price
+    prices_of_items_for_current_merchant = items_for_current_merchant.map do |item|
+      item.unit_price
     end
     total_unit_price = prices_of_items_for_current_merchant.sum
     average_unit_price = total_unit_price / items_for_current_merchant.length
