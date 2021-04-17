@@ -48,7 +48,7 @@ RSpec.describe SalesAnalyst do
     it 'can find the average price of a merchants items' do
 
       expect(sales_analyst.average_item_price_for_merchant(12334105).class).to eq(BigDecimal)
-      expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(1.666e1)
+      expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(0.1666e2)
     end
   end
   #

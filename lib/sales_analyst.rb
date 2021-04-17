@@ -46,6 +46,7 @@ class SalesAnalyst
     square_root = ((divided_sum)**0.5).to_f
     square_root.round(2)
   end
+
   def z_score(value)
     ((value - average_items_per_merchant) / average_items_per_merchant_standard_deviation).to_f
   end
@@ -68,5 +69,16 @@ class SalesAnalyst
     merchant_ids_with_high_item_count.map do |merchant_id|
       @merchants_repo.find_by_id(merchant_id)
     end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items_for_current_merchant = @items_repo.find_all_by_merchant_id(merchant_id)
+    prices_of_items_for_current_merchant = []
+    items_for_current_merchant.each do |item|
+      prices_of_items_for_current_merchant << item.unit_price
+    end
+    total_unit_price = prices_of_items_for_current_merchant.sum
+    average_unit_price = total_unit_price / items_for_current_merchant.length
+    result = BigDecimal(average_unit_price).round(2)
   end
 end
