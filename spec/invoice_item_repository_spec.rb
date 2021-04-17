@@ -68,14 +68,14 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       attributes = {
-          :id => nil,
-          :item_id => 17,
-          :invoice_id => 81,
-          :quantity => 1,
-          :unit_price => BigDecimal(10.99, 4),
-          :created_at => Time.now,
-          :updated_at => Time.now
-               }
+        :id => nil,
+        :item_id => 17,
+        :invoice_id => 81,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+              }
 
       ii_repo.create(attributes)
 
@@ -90,14 +90,14 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       attributes = {
-          :id => nil,
-          :item_id => 17,
-          :invoice_id => 81,
-          :quantity => 1,
-          :unit_price => BigDecimal(10.99, 4),
-          :created_at => Time.now,
-          :updated_at => Time.now
-               }
+        :id => nil,
+        :item_id => 17,
+        :invoice_id => 81,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+              }
 
       ii_repo.create(attributes)
 
@@ -113,6 +113,29 @@ describe InvoiceItemRepository do
       ii_repo = InvoiceItemRepository.new('fake.csv')
 
       expect(ii_repo.find_max_id).to eq 9
+    end
+  end
+
+  describe '#create_first_invoice_item' do
+    it 'can create an invoice item when InvoiceRepository has empty array of InvoiceItems' do
+      mock_data = MockData.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return([])
+      ii_repo = InvoiceItemRepository.new('fake.csv')
+
+      attributes = {
+        :id => nil,
+        :item_id => 17,
+        :invoice_id => 81,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+              }
+
+      expected = ii_repo.create(attributes)
+
+      expect(ii_repo.invoice_items).to eq expected
+      expect(ii_repo.invoice_items.first.id).to eq 1
     end
   end
 end
