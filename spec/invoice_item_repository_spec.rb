@@ -103,7 +103,7 @@ RSpec.describe 'ItemRepository' do
         item_id: 263_519_844,
         invoice_id: 4_986,
         quantity: 3,
-        unit_price: 136.35,
+        unit_price: 136.35
       )
 
       expect(invoice_item.class).to eq(InvoiceItem)
