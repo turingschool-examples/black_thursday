@@ -19,27 +19,27 @@ class SalesAnalyst
     avg.truncate(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    std_dev_arry = []
-    counter = 0
+  def sample_merchants_return_id
     merch_sample = find_all_merchants.sample(10)
-    merchant_ids = merch_sample.map do |merchant|
+    merch_sample.map do |merchant|
+      # require 'pry'; binding pry
       merchant.id
     end
+  end
+
+  def average_items_per_merchant_standard_deviation
     merchant_items = []
-    random_items = merchant_ids.each do |merchant_id|
+    sample_merchants_return_id.each do |merchant_id|
       merchant_items << find_all_by_merchant_id(merchant_id).length
     end
-    # range = 1..10
-    # sample = range.to_a.sample(5)
-    # find_all_merchants each
-    # find their items (count)
-    # std_dev_arry << items
-      merchant_items.each do |number|
-        i = (number - average_items_per_merchant)**2
-        counter += i
-      end
-    test = Math.sqrt(counter / 2)
+
+    sample_size_minus_one = merchant_items.length - 1
+    counter = 0
+    merchant_items.each do |number|
+      running_total = (number - average_items_per_merchant)**2
+      counter += running_total
+    end
+    Math.sqrt(counter / sample_size_minus_one)
     require 'pry'; binding.pry
   end
 
