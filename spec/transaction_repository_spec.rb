@@ -81,4 +81,23 @@ describe TransactionRepository do
       expect(t_repo.find_all_by_invoice_id(8).length).to eq 10
     end
   end
+
+  describe '#find_all_by_credit_card_number' do
+    it 'returns empty array if no Transactions have specified cc number' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      expect(t_repo.find_all_by_credit_card_number('1212121212121212')).to eq []
+    end
+
+    it 'returns all Transactions with specified cc number' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      all_for_cc_number = t_repo.find_all_by_credit_card_number('4242424242424242')
+      expect(all_for_cc_number.length).to eq 10
+    end
+  end
 end
