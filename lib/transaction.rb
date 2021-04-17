@@ -13,9 +13,9 @@ class Transaction
   def initialize(row, transaction_repo)
     @id = (row[:id]).to_i
     @invoice_id = row[:invoice_id].to_i
-    @credit_card_number = (row[:credit_card_number]).to_i
-    @credit_card_expiration_date = Time.parse(row[:credit_card_expiration_date])
-    @result = row[:result]
+    @credit_card_number = (row[:credit_card_number])
+    @credit_card_expiration_date = row[:credit_card_expiration_date]
+    @result = row[:result].to_sym
     @created_at = Time.parse(row[:created_at])
     @updated_at = Time.parse(row[:updated_at])
     @transaction_repo = transaction_repo
@@ -30,27 +30,23 @@ class Transaction
 
   def update_credit_card_number(attributes)
     if attributes[:credit_card_number] != nil
-        @credit_card_number = attributes[:credit_card_number].to_i
+        @credit_card_number = attributes[:credit_card_number]
     end 
   end
 
   def update_credit_card_expiration_date(attributes)
     if attributes[:credit_card_expiration_date] != nil
-        @credit_card_expiration_date = Time.parse(attributes[:credit_card_expiration_date])
+        @credit_card_expiration_date = attributes[:credit_card_expiration_date]
     end 
   end
 
   def update_result(attributes)
     if attributes[:result] != nil
-        @result = attributes[:result]
+        @result = attributes[:result].to_sym
     end 
   end
 
   def update_time_stamp
     @updated_at = Time.now
   end
-
-#   def day_created
-#     @created_at.strftime('%A').capitalize
-#   end
 end

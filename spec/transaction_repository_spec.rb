@@ -92,7 +92,7 @@ RSpec.describe TransactionRepository do
                                             id: '263395617',
                                             invoice_id: '456789',
                                             credit_card_number: '4297222479999999',
-                                            credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                            credit_card_expiration_date: '0220',
                                             result: 'success',
                                             created_at: '2016-01-11 11:51:37 UTC',
                                             updated_at: '1993-09-29 11:56:40 UTC'
@@ -103,7 +103,7 @@ RSpec.describe TransactionRepository do
                                             id: '263395617999',
                                             invoice_id: '456789',
                                             credit_card_number: '4297222479999999',
-                                            credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                            credit_card_expiration_date: '0220',
                                             result: 'success',
                                             created_at: '2016-01-11 11:51:37 UTC',
                                             updated_at: '1993-09-29 11:56:40 UTC'
@@ -112,15 +112,15 @@ RSpec.describe TransactionRepository do
                                          )
     tr.transactions << test_transaction1
     tr.transactions << test_transaction2
-    expect(tr.find_all_by_credit_card_number(4297222479999999)).to eq([test_transaction1, test_transaction2])
-    expect(tr.find_all_by_credit_card_number(123456789099999999)).to eq([])
+    expect(tr.find_all_by_credit_card_number('4297222479999999')).to eq([test_transaction1, test_transaction2])
+    expect(tr.find_all_by_credit_card_number('123456789099999999')).to eq([])
     end
   end
   describe '#find_all_by_result' do
     it 'finds transactions by result' do
       mock_sales_engine = instance_double('SalesEngine')
       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-      expect(tr.find_all_by_result('success').count).to eq(40)
+      expect(tr.find_all_by_result(:success).count).to eq(40)
       expect(tr.find_all_by_result('hot dog!')).to eq([])
     end
   end
@@ -146,7 +146,7 @@ RSpec.describe TransactionRepository do
                    }
       tr.create(attributes)
       expected = tr.find_by_id(51)
-      expect(expected.credit_card_number).to eq(4297222479999999)
+      expect(expected.credit_card_number).to eq("4297222479999999")
     end
   end
   describe '#update' do
@@ -157,8 +157,8 @@ RSpec.describe TransactionRepository do
                       id: '263395617',
                       invoice_id: '456789',
                       credit_card_number: '4297222479999999',
-                      credit_card_expiration_date: '2021-01-11 11:51:37 UTC',
-                      result: 'hot dog',
+                      credit_card_expiration_date: '0220',
+                      result: 'hot_dog',
                       created_at: '2016-01-11 11:51:37 UTC',
                       updated_at: '1993-09-29 11:56:40 UTC'
                     }
@@ -166,9 +166,9 @@ RSpec.describe TransactionRepository do
       tr.update(1, attributes)
       expect(test_transaction.id).to eq(1)
       expect(test_transaction.invoice_id).to eq(2179)
-      expect(test_transaction.credit_card_number).to eq(4297222479999999)
-      expect(test_transaction.credit_card_expiration_date.year).to eq(2021)
-      expect(test_transaction.result).to eq('hot dog')
+      expect(test_transaction.credit_card_number).to eq("4297222479999999")
+      expect(test_transaction.credit_card_expiration_date).to eq('0220')
+      expect(test_transaction.result).to eq(:hot_dog)
       expect(test_transaction.created_at.year).to eq(2012)
       expect(test_transaction.updated_at.year).to eq(2021)
     end
