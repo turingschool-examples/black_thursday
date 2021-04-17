@@ -19,9 +19,13 @@ class InvoiceItem
     @item_id = row[:item_id].to_i
     @invoice_id = (row[:invoice_id]).to_i
     @quantity = (row[:quantity]).to_i
-    @unit_price = (row[:unit_price]).to_i
+    @unit_price = BigDecimal(row[:unit_price]) / 100
     @created_at = Time.parse(row[:created_at].to_s)
     @updated_at = Time.parse(row[:updated_at].to_s)
     @invoice_item_repo = invoice_item_repo
+  end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
   end
 end
