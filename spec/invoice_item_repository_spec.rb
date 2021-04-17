@@ -198,5 +198,36 @@ describe InvoiceItemRepository do
 
       expect(updated_invoice_item.updated_at).to be > original_time
     end
+
+    it 'can not change immutable attributes' do
+      mock_data = MockData.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
+      ii_repo = InvoiceItemRepository.new('fake.csv')
+
+      new_invoice_item = {
+        :id => nil,
+        :item_id => 17,
+        :invoice_id => 81,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+              }
+
+      ii_repo.create(new_invoice_item)
+
+      attributes = { 
+        :item_id => 18,
+        :invoice_id => 82,
+        :quantity => 200,
+        :unit_price => BigDecimal(51.19, 4)
+        }
+      ii_repo.update(10, attributes)
+
+      expected = ii_repo.invoice_items.last
+
+      expect(expected.item_id).to eq 17
+      expect(expected.invoice_id).to eq 81
+    end
   end
 end
