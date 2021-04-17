@@ -14,4 +14,14 @@ class CustomerRepository < Repository
     end
   end
 
+  def create(attributes)
+    max_id = @array_of_objects.max_by do |customer|
+      customer.id
+    end.id
+
+    new_customer = Customer.new(attributes)
+    new_customer.id = max_id + 1
+    @array_of_objects << new_customer
+  end
+
 end

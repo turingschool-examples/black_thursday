@@ -44,7 +44,7 @@ RSpec.describe CustomerRepository do
     it 'creates new instance with attribute argument' do
       expect(customer_repo.all.length).to eq(1001)
       expect(customer_repo.all.last).to be_an_instance_of(Customer)
-      expect(customer_repo.all.last.status).to eq("Clarke")
+      expect(customer_repo.all.last.last_name).to eq("Clarke")
     end
 
     it 'new instance id is the highest id incremented by one' do
