@@ -46,5 +46,28 @@ class SalesAnalyst
     square_root = ((divided_sum)**0.5).to_f
     square_root.round(2)
   end
-  # require'pry';binding.pry
+  def z_score(value)
+    ((value - average_items_per_merchant) / average_items_per_merchant_standard_deviation).to_f
+  end
+
+  def merchants_num_items_hash
+    merchant_hash = {}
+    all_merchants.each do |merchant|
+      items_per_merchant.each do |num|
+        merchant_hash[merchant] = num
+      end
+    end
+    merchant_hash
+  end
+
+  def merchants_with_high_item_count
+    merchants_with_high_item_count = []
+    merchants_num_items_hash.each do |merchant, num|
+      # require'pry';binding.pry
+      if z_score(num) >= 1.0 || z_score(num) <= -1.0
+        merchants_with_high_item_count << merchant
+      end
+    end
+    merchants_with_high_item_count
+  end
 end

@@ -37,7 +37,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
 
-    xit "merhcants with the most items" do
+    it "merhcants with the most items" do
       expected = sales_analyst.merchants_with_high_item_count
 
       expect(expected.length).to eq(52)
