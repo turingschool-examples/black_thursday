@@ -60,6 +60,13 @@ RSpec.describe InvoiceRepository do
       expect(invoice_repo.find_all_by_customer_id(fake_customer_id)).to eq([])
     end
 
+    it '#find_all_by_merchant_id returns array of invoices with merchant id' do
+      real_merchant_id = 12335080
+      fake_merchant_id = 10000
+
+      expect(invoice_repo.find_all_by_merchant_id(real_merchant_id).length).to eq(7)
+      expect(invoice_repo.find_all_by_merchant_id(fake_merchant_id)).to eq([])
+    end
   end
 
   describe '#delete' do
