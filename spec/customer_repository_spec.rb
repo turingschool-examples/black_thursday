@@ -53,6 +53,24 @@ RSpec.describe CustomerRepository do
   end
 
   describe '#update' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :customers => "./data/customers.csv"
+                              })
+    customer_repo = sales_engine.customers
+    attributes = {
+                  :first_name => "Joan",
+                  :last_name => "Clarke"
+                }
+
+    it 'can update existing customer' do
+      customer_repo.update(100, attributes)
+      expected = customer_repo.find_by_id(100)
+      expect(expected.last_name).to eq("Clarke")
+      expect(expected.updated_at).not_to eq(expected.created_at)
+    end
 
   end
 
