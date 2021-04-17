@@ -26,4 +26,19 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item_repo.array_of_objects[0]).to be_instance_of(InvoiceItem)
     end
   end
+
+  describe 'all method' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :customers => "./data/customers.csv"
+                              })
+    invoice_item_repo = sales_engine.invoice_items
+
+    it 'returns array of all invoice items' do
+      expect(invoice_item_repo.all.count).to eq(21830)
+    end
+  end
 end
