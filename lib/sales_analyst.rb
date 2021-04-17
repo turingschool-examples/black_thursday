@@ -18,25 +18,16 @@ class SalesAnalyst
     merchants.map do |merchant|
       merchant.id
     end
+  end
 
-  def average_items_per_merchant(merchants)
-    merchant_ids = get_merchant_ids(merchants)
+  def average_items_per_merchant(merchant_ids)
     item_counter = 0
     merchant_ids.each do |merchant_id|
-      if find_all_by_merchant_id.include?(merchant_id)
-        item_counter += 1
-      end
+      item_counter += find_all_items_by_merchant_id(merchant_id).length
     end
-    #average_items_per_merchant (array of merchant ids)
-    #iterate through array of merchant ids
-    #item counter = 0
-    #for each id, compare against merchant ids in items
-    #each time id is matched, add += 1 to counter
 
-    # counter / merchants.length.to_f
-
-    avg = find_all_items.length / merchants.length.to_f
-    avg.truncate(2)
+    average = item_counter / merchant_ids.length.to_f
+    average.truncate(2)
   end
 
   def sample_merchants_return_id
@@ -47,28 +38,21 @@ class SalesAnalyst
   def stnd_dev_of_merch_items
     merchant_items = []
     sample_merchants_return_id.each do |merchant_id|
-      merchant_items << find_all_by_merchant_id(merchant_id).length
+      merchant_items << find_all_items_by_merchant_id(merchant_id).length
     end
-
     sample_size_minus_one = merchant_items.length - 1
     counter = 0
     merchant_items.each do |number|
-      running_total = (number - average_items_per_merchant)
-require 'pry'; binding.pry
+      running_total = (number - average_items_per_merchant(sample_merchants_return_id))**2 
       counter += running_total
     end
     Math.sqrt(counter / sample_size_minus_one)
-
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_items_by_merchant_id(merchant_id)
     find_all_items.find_all do |item|
       item.merchant_id == merchant_id
     end
   end
-    # sqrt (((std_dev_arry[0]-average_items_per_merchant)**2)+
-    #         (std_dev_arry[1]-average_items_per_merchant)**2)+
-    #         (std_dev_arry[2, et cetera]-average_items_per_merchant)**2)
-    #       /2)
-end
+
 end

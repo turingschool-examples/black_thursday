@@ -25,8 +25,9 @@ RSpec.describe do
     end
 
     it 'calculates average_items_per_merchant' do
-      #Need to decide how to test this. Stub? Fixture data set?
-      expect(sales_analyst.average_items_per_merchant(sales_engine.merchants.array_of_objects)).to be_an_instance_of(Float)
+      # Average of 2.5 was verified by searching fixture file with first 10 ID's
+      expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
+      expect(sales_analyst.average_items_per_merchant(expected_array)).to eq(2.5)
     end
 
     it 'returns set of ten merchant ids' do
@@ -41,14 +42,12 @@ RSpec.describe do
 
     it 'returns standard deviation of merchant item count' do
       expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
-      allow(sales_analyst.stnd_dev_of_merch_items).to receive(:sample_merchants_return_id) do
-        expected_array
+      first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      allow(sales_analyst.find_all_merchants).to receive(:sample) do
+        first_ten_merchants
       end
-      # expected =   sqrt (((std_dev_arry[0]-average_items_per_merchant)**2)+
-      #            (std_dev_arry[1]-average_items_per_merchant)**2)+
-      #            (std_dev_arry[2, et cetera]-average_items_per_merchant)**2)
-      #          /2)
-      expect(sales_analyst.stnd_dev_of_merch_items).to eq(7.486283754)
+
+      expect(sales_analyst.stnd_dev_of_merch_items).to be_between(5.1, 5.3)
     end
   end
 end
