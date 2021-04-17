@@ -60,4 +60,19 @@ class TransactionRepo
     return transaction
   end
 
+  def update(id, attributes)
+    new_transaction = find_by_id(id)
+    return if !new_transaction
+    new_transaction.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
+    new_transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
+    new_transaction.result = attributes[:result] if attributes[:result]
+    new_transaction.updated_at = Time.now
+    return new_transaction
+  end
+
+  def delete(id)
+    @transactions.delete(find_by_id(id))
+  end
+
+
 end

@@ -136,7 +136,8 @@ RSpec.describe TransactionRepo do
 
       updated_attributes = {:credit_card_number => "9999999999999999",
                             :credit_card_expiration_date => "0930",
-                            :result => "sweet success"
+                            :result => "sweet success",
+                            :updated_at  => Time.now
                             }
 
       transaction_repo.update(6, updated_attributes)
@@ -159,7 +160,7 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
       transaction_repo.add_transaction(transaction1)
-      
+
       expect(transaction_repo.find_by_id(6)).to eq(transaction1)
 
       transaction_repo.delete(6)
