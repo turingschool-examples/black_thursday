@@ -64,5 +64,10 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
+    merchants = @sales_engine.merchants.all
+    sum_of_averages = merchants.sum do |merchant|
+      average_item_price_for_merchant(merchant) unless num_of_items_per_merchant[merchant] == 0
+    end
+    sum_of_averages / merchants.length
   end
 end

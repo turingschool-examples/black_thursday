@@ -85,10 +85,8 @@ RSpec.describe SalesAnalyst do
   describe '#average_average_price_per_merchant' do
     it 'get the average of all the averages for each merchant' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
-      # sum_for_test = SalesAnalystMocks.price_sums_for_each_merchant
-      sum_of_averages = SalesAnalystMocks.average_prices_for_each_merchant.sum do |merchant, avg|
-        avg
-      end
+      allow(sales_analyst).to receive(:average_item_price_for_merchant) {50.0}
+      sum_of_averages = 200.0
 
       actual_avg_of_averages = sales_analyst.average_average_price_per_merchant
       expected_avg_of_averages = sum_of_averages / 4.0
