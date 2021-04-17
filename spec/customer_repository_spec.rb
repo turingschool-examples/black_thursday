@@ -25,7 +25,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-      )
+       )
 
       cr = se.customers
 
@@ -132,9 +132,9 @@ RSpec.describe CustomerRepository do
 
         cr = se.customers
 
-      expect(cr.all[1].first_name).to eq('Cecelia')
+        expect(cr.all[1].first_name).to eq('Cecelia')
+      end
     end
-  end
 
   describe 'find_by_id' do
     it 'finds customer by given id' do
