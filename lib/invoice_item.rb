@@ -30,4 +30,7 @@ attr_accessor :item_id,
     end
   end
 
+  def unit_price_to_dollars
+    (@unit_price.to_f).round(4)
+  end
 end
