@@ -36,12 +36,14 @@ RSpec.describe Invoice do
   end
 
   describe '#time_check' do
-    sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv"
-                              })
-    invoice = sales_engine.invoices.all[0]
+    invoice = Invoice.new({
+                            :id          => 6,
+                            :customer_id => 7,
+                            :merchant_id => 8,
+                            :status      => "pending",
+                            :created_at  => Time.now,
+                            :updated_at  => Time.now,
+                          })
 
     it 'returns input as originally passed in if input is class Time' do
       time_object = Time.parse("2007-06-04 21:35:10 UTC")
