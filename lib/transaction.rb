@@ -22,15 +22,15 @@ class Transaction
   end
 
   def update_credit_card_number(credit_card_number)
-    @credit_card_number = credit_card_number
+    @credit_card_number = credit_card_number unless credit_card_number.nil?
   end
 
   def update_credit_card_exp_date(credit_card_expiration_date)
-    @credit_card_expiration_date = credit_card_expiration_date
+    @credit_card_expiration_date = credit_card_expiration_date unless credit_card_expiration_date.nil?
   end
 
   def update_result(result)
-    @result = result
+    @result = result unless result.nil?
   end
 
   def update_time
