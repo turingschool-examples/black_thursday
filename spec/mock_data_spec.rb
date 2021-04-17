@@ -5,13 +5,13 @@ describe MockData do
   describe '#mock_generator' do
     it 'builds mocks with given hashes' do
       hashes = [{
-        id: 10,
-        name: 'Example 1'
-      },
-                {
-                  id: 11,
-                  name: 'Example 2'
-                }]
+                 id: 10,
+                 name: 'Example 1'
+               },
+               {
+                 id: 11,
+                 name: 'Example 2'
+               }]
       mocks = MockData.mock_generator(self, 'MockExample', hashes)
       expect(mocks.length).to eq 2
       expect(mocks.first.name).to eq 'Example 1'
