@@ -24,4 +24,13 @@ class CustomerRepository < Repository
     @array_of_objects << new_customer
   end
 
+  def update(id, attributes)
+    target = find_by_id(id)
+    if target != nil
+      target.first_name = attributes[:first_name] if attributes[:first_name] != nil
+      target.last_name = attributes[:last_name] if attributes[:last_name] != nil
+      target.updated_at = Time.now
+    end
+  end
+
 end

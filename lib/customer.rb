@@ -1,9 +1,9 @@
 class Customer
-  attr_reader :first_name,
-              :last_name,
-              :created_at
+  attr_reader :created_at
   attr_accessor :id,
-                :updated_at
+                :updated_at,
+                :first_name,
+                :last_name
 
   def initialize(info_hash)
     @id = info_hash[:id].to_i
