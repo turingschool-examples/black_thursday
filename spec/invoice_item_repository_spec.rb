@@ -1,6 +1,7 @@
 require 'rspec'
 require 'csv'
-require './lib/invoice_item'
+require './lib/file_io'
+require './lib/invoice_item_repository'
 
 describe InvoiceItemRepository do 
   describe '#initialize' do
