@@ -14,4 +14,8 @@ class Invoice
     @created_at = transaction_details[:created_at]
     @updated_at = transaction_details[:updated_at]
   end
+
+  def update_id(id)
+    @id = id
+  end
 end
