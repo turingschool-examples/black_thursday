@@ -87,4 +87,16 @@ class SalesAnalyst
     end
     (items_sum / merchant_count).round(2)
   end
+
+  def golden_items
+    sum = find_all_items.sum do |item_object|
+      item_object.unit_price
+    end
+    mean = sum / find_all_items.length
+    twice_half_stnd_dev = (average_items_per_merchant_standard_deviation / 2)*2
+    greater_than_2sd = mean + twice_half_stnd_dev
+    test = find_all_items.find_all do |item|
+      item.unit_price > greater_than_2sd
+    end
+  end
 end

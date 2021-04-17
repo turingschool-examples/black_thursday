@@ -83,5 +83,15 @@ RSpec.describe do
 
       expect(sales_analyst.average_average_price_per_merchant).to eq(0.3335e2)
     end
+
+    it 'has special golden items for funny reasons' do
+      first_20_items = sales_engine.items.array_of_objects[0..19]
+      allow(sales_analyst).to receive(:find_all_items) do
+        first_20_items
+      end
+
+      expect(sales_analyst.golden_items.length).to eq(5)
+
+    end
   end
 end
