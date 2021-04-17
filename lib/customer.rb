@@ -21,12 +21,12 @@ class Customer
   end
 
   def update_first_name(attributes)
-    return if attributes[:first_name] == nil
+    return if attributes[:first_name].nil?
     @first_name.replace(attributes[:first_name])
   end
 
   def update_last_name(attributes)
-    return if attributes[:last_name] == nil
+    return if attributes[:last_name].nil?
     @last_name.replace(attributes[:last_name])
   end
 
