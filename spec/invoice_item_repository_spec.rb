@@ -36,7 +36,7 @@ describe InvoiceItemRepository do
   end
 
   describe '#find_all_by_item_id' do
-    it 'returns either [] or array of invoice_items with matching item ID' do
+    it 'returns either [] or array of InvoiceItems with matching item ID' do
       details = MockData.invoice_items_as_hashes(item_id_range: (1..1))
       mock_data = MockData.invoice_items_as_mocks(self, details)
       allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
@@ -45,6 +45,19 @@ describe InvoiceItemRepository do
       expect(ii_repo.find_all_by_item_id(59)).to eq []
       expect(ii_repo.find_all_by_item_id(1).length).to eq 10
       expect(ii_repo.find_all_by_item_id(1).first.class).is_a? InvoiceItem
+    end
+  end
+
+  describe '#find_all_by_invoice_id' do
+    it 'returns either [] or array of InvoiceItems with matching invoice ID' do
+      details = MockData.invoice_items_as_hashes(invoice_id_range: (1..1))
+      mock_data = MockData.invoice_items_as_mocks(self, details)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
+      ii_repo = InvoiceItemRepository.new('fake.csv')
+
+      expect(ii_repo.find_all_by_invoice_id(59)).to eq []
+      expect(ii_repo.find_all_by_invoice_id(1).length).to eq 10
+      expect(ii_repo.find_all_by_invoice_id(1).first.class).is_a? InvoiceItem
     end
   end
 end
