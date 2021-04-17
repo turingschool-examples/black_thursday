@@ -67,4 +67,36 @@ RSpec.describe InvoiceRepository do
       expect(expected).to eq(nil)
     end
   end
+
+  describe '#create' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv"
+                              })
+    invoice_repo = sales_engine.invoices
+
+    attributes = {
+                  :customer_id => 7,
+                  :merchant_id => 8,
+                  :status      => "pending",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now,
+                }
+
+    invoice_repo.create(attributes)
+
+    it 'creates new instance with attribute argument' do
+
+      expect(invoice_repo.all.length).to eq(4986)
+      expect(invoice_repo.all.last).to be_an_instance_of(Invoice)
+      expect(invoice_repo.all.last.status).to eq(:pending)
+    end
+
+    it 'new instance id is the highest id incremented by one' do
+
+      expect(invoice_repo.all.last.id).to eq(4986)
+    end
+
+  end
 end
