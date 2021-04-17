@@ -40,7 +40,6 @@ class SalesAnalyst
         counter += i
       end
     test = Math.sqrt(counter / 2)
-    require 'pry'; binding.pry
   end
 
   def find_all_by_merchant_id(merchant_id)

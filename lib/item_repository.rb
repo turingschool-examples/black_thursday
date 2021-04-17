@@ -61,9 +61,9 @@ class ItemRepository < Repository
 
   def update(id, attributes)
     target = find_by_id(id)
-    target.name = attributes[:name]
-    target.description = attributes[:description]
-    target.unit_price = attributes[:unit_price]
+    target.name = attributes[:name] if attributes[:name] != nil
+    target.description = attributes[:description] if attributes[:description] != nil
+    target.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
     target.updated_at = Time.now
   end
 
