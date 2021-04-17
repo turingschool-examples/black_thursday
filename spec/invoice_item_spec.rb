@@ -61,10 +61,10 @@ RSpec.describe InvoiceItem do
                               :customers => "./data/customers.csv"
                               })
 
-    invoice_item = sales_engine.invoice_items.all[0]
+    invoice_item = sales_engine.invoice_items.all[1]
 
     it 'has a unit price' do
-      # expect(invoice_item.unit_price_to_dollars).to eq(10.99)
+      expect(invoice_item.unit_price_to_dollars).to eq(233.24)
       expect(invoice_item.unit_price_to_dollars.class).to eq(Float)
     end
   end
