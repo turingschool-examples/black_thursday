@@ -1,8 +1,9 @@
 require_relative 'sales_engine'
 require_relative 'item'
-require 'pry'
+require_relative 'mathable'
 
 class ItemRepository
+  include Mathable
   attr_reader :items
 
   def initialize(path, engine)
@@ -92,5 +93,37 @@ class ItemRepository
 
   def delete(id)
     items.delete(find_by_id(id))
+  end
+
+  def items_per_merchant
+    @items.each_with_object(Hash.new(0)) do |item, hash|
+      hash[item.merchant_id] += 1
+    end
+  end
+
+  def average_items_per_merchant
+    average(items_per_merchant).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    standard_deviation(items_per_merchant).round(2)
+  end
+
+  def merchants_with_high_item_count
+    hash = items_per_merchant
+    hash.each_with_object([]) do |(merchant_id, number_of_items), array|
+      if number_of_items > average(hash) + (standard_deviation(hash))
+        array << @engine.find_merchant_by_id(merchant_id)
+      end
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    hash = @items.each_with_object({}) do |item, hash|
+      if item.merchant_id == merchant_id
+        hash[item.id] = item.unit_price
+      end
+    end
+    avg = (hash.values.sum / hash.keys.count).round(2)
   end
 end

@@ -206,7 +206,7 @@ RSpec.describe ItemRepository do
       ir.variable_assigner(attributes, test_item)
       expect(test_item.name).to eq('Cool Stuff')
       expect(test_item.description).to eq('supaaa cool')
-      expect(test_item.unit_price).to eq('1357')     
+      expect(test_item.unit_price).to eq('1357')
     end
   end
 
@@ -216,6 +216,58 @@ RSpec.describe ItemRepository do
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       ir.delete(263567292)
       expect(ir.items.count).to eq(1366)
+    end
+  end
+
+  describe '#average_items_per_merchant' do
+    it 'can find the average number of items per merchant' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.average_items_per_merchant).to eq(1.25)
+    end
+  end
+
+  describe '#average_items_per_merchant_standard_deviation' do
+    it 'can find the average item per merchant standard deviation' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.average_items_per_merchant_standard_deviation).to eq(0.5)
+    end
+  end
+
+  describe '#merchants_with_high_item_count' do
+    it 'can find which merchants sell the most items' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.merchants_with_high_item_count[0].name).to eq("Shopin1901")
+    end
+  end
+
+  describe '#average_item_price_for_merchant' do
+    it 'averages the item price for merchant' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.average_item_price_for_merchant(12334105)).to eq(14)
     end
   end
 end

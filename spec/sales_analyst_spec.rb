@@ -8,7 +8,7 @@ require './lib/item'
 require './lib/merchant'
 
 RSpec.describe SalesAnalyst do
-  
+
   describe '#initialize' do
     it 'exists' do
       se = SalesEngine.from_csv({
@@ -17,7 +17,7 @@ RSpec.describe SalesAnalyst do
         invoices: './spec/truncated_data/invoices_truncated.csv'
       })
       sales_analyst = se.analyst
-    
+
       expect(sales_analyst).to be_a(SalesAnalyst)
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe SalesAnalyst do
       })
       sales_analyst = se.analyst
 
-      expect(sales_analyst.average_items_per_merchant).to eq(1.00)
+      expect(sales_analyst.average_items_per_merchant).to eq(1.25)
     end
   end
 
@@ -44,12 +44,12 @@ RSpec.describe SalesAnalyst do
       })
       sales_analyst = se.analyst
 
-      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.82)
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.5)
     end
   end
 
   describe '#merchants_with_high_item_count' do
-    xit 'can find which merchants sell the most items' do
+    it 'can find which merchants sell the most items' do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
@@ -57,7 +57,20 @@ RSpec.describe SalesAnalyst do
       })
       sales_analyst = se.analyst
 
-      expect(sales_analyst.merchants_with_high_item_count).to eq([])
+      expect(sales_analyst.merchants_with_high_item_count[0].name).to eq("Shopin1901")
+    end
+  end
+
+  describe '#average_item_price_for_merchant' do
+    it 'averages the item price for merchant' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      sales_analyst = se.analyst
+      # require 'pry'; binding.pry
+      expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(14)
     end
   end
 
@@ -67,22 +80,22 @@ RSpec.describe SalesAnalyst do
       sa = SalesAnalyst.new(mock_sales_engine)
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
       allow(mock_sales_engine).to receive(:average_invoices_per_merchant) { ir.average_invoices_per_merchant }
-     
+
       expect(sa.average_invoices_per_merchant).to eq(10.49)
     end
   end
- 
+
   describe '#average_invoices_per_merchant_standard_deviation' do
     it 'shows standard deviation of invoices by merchant' do
       mock_sales_engine = instance_double('SalesEngine')
       sa = SalesAnalyst.new(mock_sales_engine)
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
       allow(mock_sales_engine).to receive(:stdev_invoices_per_merchant) { ir.stdev_invoices_per_merchant }
-     
+
       expect(sa.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
   end
- 
+
   describe '#top_merchants_by_invoice_count' do
     it 'tells which merchants are more than two std devs above the mean' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -97,7 +110,7 @@ RSpec.describe SalesAnalyst do
       allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
       allow(mock_sales_engine).to receive(:top_merchants_by_invoice_count) { ir.top_merchants_by_invoice_count }
-     
+
       expect(sa.top_merchants_by_invoice_count.count).to eq(12)
       expect(sa.top_merchants_by_invoice_count.first).to be_a(Merchant)
     end
@@ -116,7 +129,7 @@ RSpec.describe SalesAnalyst do
       allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
       allow(mock_sales_engine).to receive(:bottom_merchants_by_invoice_count) { ir.bottom_merchants_by_invoice_count }
-    
+
       expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end

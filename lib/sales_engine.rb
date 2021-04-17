@@ -61,4 +61,20 @@ class SalesEngine
   def top_days_by_invoice_count
     @invoices.top_sales_days
   end
+
+  def average_items_per_merchant
+    @items.average_items_per_merchant
+  end
+
+  def average_items_per_merchant_standard_deviation
+    @items.average_items_per_merchant_standard_deviation
+  end
+
+  def merchants_with_high_item_count
+    @items.merchants_with_high_item_count
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    @items.average_item_price_for_merchant(merchant_id)
+  end
 end
