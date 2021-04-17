@@ -83,5 +83,36 @@ describe InvoiceItemRepository do
       expect(ii_repo.all.length).to eq 11
       expect(expected.invoice_id).to eq 81
     end
+
+    it 'sets id to current highest InvoiceItem id plus 1' do
+      mock_data = MockData.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
+      ii_repo = InvoiceItemRepository.new('fake.csv')
+
+      attributes = {
+          :id => nil,
+          :item_id => 17,
+          :invoice_id => 81,
+          :quantity => 1,
+          :unit_price => BigDecimal(10.99, 4),
+          :created_at => Time.now,
+          :updated_at => Time.now
+               }
+
+      ii_repo.create(attributes)
+
+      expected = ii_repo.invoice_items.last
+      expect(expected.id).to eq 10
+    end
+  end
+
+  describe '#find_max_id' do
+    it 'finds the highest id and returns it as an integer' do
+      mock_data = MockData.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
+      ii_repo = InvoiceItemRepository.new('fake.csv')
+
+      expect(ii_repo.find_max_id).to eq 9
+    end
   end
 end

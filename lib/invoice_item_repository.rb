@@ -31,9 +31,11 @@ class InvoiceItemRepository
     end
   end
 
-  # def create_first_invoice_item(attributes)
-  #   new_invoice_item = InvoiceItem.new(attributes)
-  # end 
+  def create_first_invoice_item(attributes)
+    new_invoice_item = InvoiceItem.new(attributes)
+    new_invoice_item.update_id(1)
+    @invoice_items << new_invoice_item
+  end
 
   def find_max_id
     @invoice_items.max_by(&:id).id
@@ -41,12 +43,12 @@ class InvoiceItemRepository
 
 
   def create(attributes)
-    # if @invoice_items == []
-    #   create_first_invoice_item(attributes)
-    # else 
+    if @invoice_items == []
+      create_first_invoice_item(attributes)
+    else 
       new_invoice_item = InvoiceItem.new(attributes)
       new_invoice_item.update_id(find_max_id + 1)
       @invoice_items << new_invoice_item
-    # end
+    end
   end
 end
