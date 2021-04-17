@@ -40,7 +40,7 @@ RSpec.describe InvoiceItem do
                               :invoice_items => "./data/invoice_items.csv",
                               :customers => "./data/customers.csv"
                               })
-    invoice_item = sales_engine.items.all[0]
+    invoice_item = sales_engine.invoice_items.all[0]
 
     it 'returns input as originally passed in if input is class Time' do
       time_object = Time.parse("2007-06-04 21:35:10 UTC")
@@ -49,6 +49,23 @@ RSpec.describe InvoiceItem do
 
     it 'returns input converted to Time object if input is not class Time' do
       expect(invoice_item.time_check("2007-06-04 21:35:10 UTC")).to eq(Time.parse("2007-06-04 21:35:10 UTC"))
+    end
+  end
+
+  describe '#unit price to dollars' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :customers => "./data/customers.csv"
+                              })
+
+    invoice_item = sales_engine.invoice_items.all[0]
+
+    xit 'has a unit price' do
+      expect(invoice_item.unit_price).to eq(10.99)
+      expect(invoice_item.unit_price.class).to eq(Float)
     end
   end
 end
