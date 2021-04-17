@@ -18,4 +18,12 @@ class Invoice
   def update_id(id)
     @id = id
   end
+
+  def update_status(status)
+    @status = status unless status.nil?
+  end
+
+  def update_time
+    @updated_at = Time.now
+  end
 end
