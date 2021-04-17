@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-17T13:59:45-06:00">2021-04-17T13:59:45-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-17T14:22:05-06:00">2021-04-17T14:22:05-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  69.59%
+  68.34%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         3518.64
+         3430.24
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>194</b> relevant lines,
-    <span class="green"><b>135</b> lines covered</span> and
-    <span class="red"><b>59</b> lines missed. </span>
+    <b>199</b> relevant lines,
+    <span class="green"><b>136</b> lines covered</span> and
+    <span class="red"><b>63</b> lines missed. </span>
     (<span class="red">
-  69.59%
+  68.34%
 </span>
 )
   </div>
@@ -138,12 +138,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#605169ee5fee073d7eab38320db9564a9f3657cf" class="src_link" title="spec/sales_analyst_spec_.rb">spec/sales_analyst_spec_.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">100</td>
-            <td class="cell--number">20</td>
-            <td class="cell--number">20</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">1.00</td>
+            <td class="yellow strong cell--number t-file__coverage">84.00 %</td>
+            <td class="cell--number">108</td>
+            <td class="cell--number">25</td>
+            <td class="cell--number">21</td>
+            <td class="cell--number">4</td>
+            <td class="cell--number">0.84</td>
             
           </tr>
         
@@ -3313,7 +3313,7 @@
 
             
 
-            <code class="ruby">    first = items_per_merchant.map do |num|</code>
+            <code class="ruby">    squared_differences = items_per_merchant.map do |num|</code>
           </li>
         </div>
       
@@ -3335,18 +3335,18 @@
 
             
 
-            <code class="ruby">      # require&#39;pry&#39;;binding.pry</code>
+            <code class="ruby">    end.sum</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="45">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    end.sum</code>
+            
+
+            <code class="ruby">    divided_sum = ((squared_differences) / (merchant_id_array.length - 1))</code>
           </li>
         </div>
       
@@ -3357,7 +3357,7 @@
 
             
 
-            <code class="ruby">    second = ((first) / (merchant_id_array.length - 1))</code>
+            <code class="ruby">    square_root = ((divided_sum)**0.5).to_f</code>
           </li>
         </div>
       
@@ -3368,18 +3368,18 @@
 
             
 
-            <code class="ruby">    third = ((second)**0.5).to_f</code>
+            <code class="ruby">    square_root.round(2)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="48">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="48">
+            
             
 
             
 
-            <code class="ruby">    third.round(2)</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -3390,7 +3390,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">  # require&#39;pry&#39;;binding.pry</code>
           </li>
         </div>
       
@@ -3775,8 +3775,8 @@
   <div class="header">
     <h3>spec/sales_analyst_spec_.rb</h3>
     <h4>
-      <span class="green">
-  100.0%
+      <span class="yellow">
+  84.0%
 </span>
 
       lines covered
@@ -3785,9 +3785,9 @@
     
 
     <div class="t-line-summary">
-      <b>20</b> relevant lines.
-      <span class="green"><b>20</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <b>25</b> relevant lines.
+      <span class="green"><b>21</b> lines covered</span> and
+      <span class="red"><b>4</b> lines missed.</span>
     </div>
 
     
@@ -4222,29 +4222,29 @@
 
             
 
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="40">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="41">
+          <li class="covered" data-hits="1" data-linenumber="40">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    xit &quot;merhcants with the most items&quot; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="41">
             
             
 
             
 
-            <code class="ruby">  # context &#39;#merchants_with_high_item_count&#39; do</code>
+            <code class="ruby">      expected = sales_analyst.merchants_with_high_item_count</code>
           </li>
         </div>
       
@@ -4255,40 +4255,40 @@
 
             
 
-            <code class="ruby">  #   xit &#39;can return merchants with number of items higher than standard deviation&#39; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="43">
+          <li class="missed" data-hits="0" data-linenumber="43">
             
             
 
             
 
-            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
+            <code class="ruby">      expect(expected.length).to eq(52)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="44">
+          <li class="missed" data-hits="0" data-linenumber="44">
             
             
 
             
 
-            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
+            <code class="ruby">      expect(expected.first.class).to eq(Merchant)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="missed" data-hits="0" data-linenumber="45">
             
             
 
             
 
-            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
+            <code class="ruby">      expect(expected.class).to eq(Array)</code>
           </li>
         </div>
       
@@ -4299,7 +4299,7 @@
 
             
 
-            <code class="ruby">  #     })</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -4310,7 +4310,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -4321,7 +4321,7 @@
 
             
 
-            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -4332,7 +4332,7 @@
 
             
 
-            <code class="ruby">  #     mr = se.merchants</code>
+            <code class="ruby">  # context &#39;#merchants_with_high_item_count&#39; do</code>
           </li>
         </div>
       
@@ -4343,7 +4343,7 @@
 
             
 
-            <code class="ruby">  #     ir = se.items</code>
+            <code class="ruby">  #   xit &#39;can return merchants with number of items higher than standard deviation&#39; do</code>
           </li>
         </div>
       
@@ -4354,7 +4354,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
           </li>
         </div>
       
@@ -4365,7 +4365,7 @@
 
             
 
-            <code class="ruby">  #     expect(sales_analyst.merchants_with_high_item_count.class).to eq(Array) #Use mock or stub</code>
+            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
           </li>
         </div>
       
@@ -4376,7 +4376,7 @@
 
             
 
-            <code class="ruby">  #   end</code>
+            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
           </li>
         </div>
       
@@ -4387,7 +4387,7 @@
 
             
 
-            <code class="ruby">  # end</code>
+            <code class="ruby">  #     })</code>
           </li>
         </div>
       
@@ -4409,7 +4409,7 @@
 
             
 
-            <code class="ruby">  # context &#39;#average_item_price_for_merchant&#39; do</code>
+            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
           </li>
         </div>
       
@@ -4420,7 +4420,7 @@
 
             
 
-            <code class="ruby">  #   xit &#39;can find the average price of a merchants items&#39; do</code>
+            <code class="ruby">  #     mr = se.merchants</code>
           </li>
         </div>
       
@@ -4431,7 +4431,7 @@
 
             
 
-            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
+            <code class="ruby">  #     ir = se.items</code>
           </li>
         </div>
       
@@ -4442,7 +4442,7 @@
 
             
 
-            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -4453,7 +4453,7 @@
 
             
 
-            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
+            <code class="ruby">  #     expect(sales_analyst.merchants_with_high_item_count.class).to eq(Array) #Use mock or stub</code>
           </li>
         </div>
       
@@ -4464,7 +4464,7 @@
 
             
 
-            <code class="ruby">  #     })</code>
+            <code class="ruby">  #   end</code>
           </li>
         </div>
       
@@ -4475,7 +4475,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  # end</code>
           </li>
         </div>
       
@@ -4486,7 +4486,7 @@
 
             
 
-            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -4497,7 +4497,7 @@
 
             
 
-            <code class="ruby">  #     mr = se.merchants</code>
+            <code class="ruby">  # context &#39;#average_item_price_for_merchant&#39; do</code>
           </li>
         </div>
       
@@ -4508,7 +4508,7 @@
 
             
 
-            <code class="ruby">  #     ir = se.items</code>
+            <code class="ruby">  #   xit &#39;can find the average price of a merchants items&#39; do</code>
           </li>
         </div>
       
@@ -4519,7 +4519,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
           </li>
         </div>
       
@@ -4530,7 +4530,7 @@
 
             
 
-            <code class="ruby">  #     expect(sales_analyst.average_item_price_for_merchant(12334159.class)).to eq(BigDecimal)</code>
+            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
           </li>
         </div>
       
@@ -4541,7 +4541,7 @@
 
             
 
-            <code class="ruby">  #   end</code>
+            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
           </li>
         </div>
       
@@ -4552,7 +4552,7 @@
 
             
 
-            <code class="ruby">  # end</code>
+            <code class="ruby">  #     })</code>
           </li>
         </div>
       
@@ -4574,7 +4574,7 @@
 
             
 
-            <code class="ruby">  # context &#39;#average_average_price_per_merchant&#39; do</code>
+            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
           </li>
         </div>
       
@@ -4585,7 +4585,7 @@
 
             
 
-            <code class="ruby">  #   xit &#39;can find the average of average price&#39; do</code>
+            <code class="ruby">  #     mr = se.merchants</code>
           </li>
         </div>
       
@@ -4596,7 +4596,7 @@
 
             
 
-            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
+            <code class="ruby">  #     ir = se.items</code>
           </li>
         </div>
       
@@ -4607,7 +4607,7 @@
 
             
 
-            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -4618,7 +4618,7 @@
 
             
 
-            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
+            <code class="ruby">  #     expect(sales_analyst.average_item_price_for_merchant(12334159.class)).to eq(BigDecimal)</code>
           </li>
         </div>
       
@@ -4629,7 +4629,7 @@
 
             
 
-            <code class="ruby">  #     })</code>
+            <code class="ruby">  #   end</code>
           </li>
         </div>
       
@@ -4640,7 +4640,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  # end</code>
           </li>
         </div>
       
@@ -4651,7 +4651,7 @@
 
             
 
-            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -4662,7 +4662,7 @@
 
             
 
-            <code class="ruby">  #     mr = se.merchants</code>
+            <code class="ruby">  # context &#39;#average_average_price_per_merchant&#39; do</code>
           </li>
         </div>
       
@@ -4673,7 +4673,7 @@
 
             
 
-            <code class="ruby">  #     ir = se.items</code>
+            <code class="ruby">  #   xit &#39;can find the average of average price&#39; do</code>
           </li>
         </div>
       
@@ -4684,7 +4684,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
           </li>
         </div>
       
@@ -4695,7 +4695,7 @@
 
             
 
-            <code class="ruby">  #     expect(sales_analyst.average_average_price_per_merchant.class).to eq(BigDecimal)</code>
+            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
           </li>
         </div>
       
@@ -4706,7 +4706,7 @@
 
             
 
-            <code class="ruby">  #   end</code>
+            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
           </li>
         </div>
       
@@ -4717,7 +4717,7 @@
 
             
 
-            <code class="ruby">  # end</code>
+            <code class="ruby">  #     })</code>
           </li>
         </div>
       
@@ -4739,7 +4739,7 @@
 
             
 
-            <code class="ruby">  # context &#39;#golden_items&#39; do</code>
+            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
           </li>
         </div>
       
@@ -4750,7 +4750,7 @@
 
             
 
-            <code class="ruby">  #   xit &#39;can return items 2 standard deviations above average item price&#39; do</code>
+            <code class="ruby">  #     mr = se.merchants</code>
           </li>
         </div>
       
@@ -4761,7 +4761,7 @@
 
             
 
-            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
+            <code class="ruby">  #     ir = se.items</code>
           </li>
         </div>
       
@@ -4772,7 +4772,7 @@
 
             
 
-            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -4783,7 +4783,7 @@
 
             
 
-            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
+            <code class="ruby">  #     expect(sales_analyst.average_average_price_per_merchant.class).to eq(BigDecimal)</code>
           </li>
         </div>
       
@@ -4794,7 +4794,7 @@
 
             
 
-            <code class="ruby">  #     })</code>
+            <code class="ruby">  #   end</code>
           </li>
         </div>
       
@@ -4805,7 +4805,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  # end</code>
           </li>
         </div>
       
@@ -4816,7 +4816,7 @@
 
             
 
-            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -4827,7 +4827,7 @@
 
             
 
-            <code class="ruby">  #     mr = se.merchants</code>
+            <code class="ruby">  # context &#39;#golden_items&#39; do</code>
           </li>
         </div>
       
@@ -4838,7 +4838,7 @@
 
             
 
-            <code class="ruby">  #     ir = se.items</code>
+            <code class="ruby">  #   xit &#39;can return items 2 standard deviations above average item price&#39; do</code>
           </li>
         </div>
       
@@ -4849,7 +4849,7 @@
 
             
 
-            <code class="ruby">  #</code>
+            <code class="ruby">  #     se = SalesEngine.from_csv({</code>
           </li>
         </div>
       
@@ -4860,7 +4860,7 @@
 
             
 
-            <code class="ruby">  #     expect(sales_analyst.golden_items.class).to eq(Array)</code>
+            <code class="ruby">  #     :items     =&gt; &quot;./data/items.csv&quot;,</code>
           </li>
         </div>
       
@@ -4871,7 +4871,7 @@
 
             
 
-            <code class="ruby">  #   end</code>
+            <code class="ruby">  #     :merchants =&gt; &quot;./data/merchants.csv&quot;,</code>
           </li>
         </div>
       
@@ -4882,12 +4882,100 @@
 
             
 
-            <code class="ruby">  # end</code>
+            <code class="ruby">  #     })</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="100">
+            
+            
+
+            
+
+            <code class="ruby">  #</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="101">
+            
+            
+
+            
+
+            <code class="ruby">  #     sales_analyst = SalesEngine.analyst</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="102">
+            
+            
+
+            
+
+            <code class="ruby">  #     mr = se.merchants</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="103">
+            
+            
+
+            
+
+            <code class="ruby">  #     ir = se.items</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="104">
+            
+            
+
+            
+
+            <code class="ruby">  #</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="105">
+            
+            
+
+            
+
+            <code class="ruby">  #     expect(sales_analyst.golden_items.class).to eq(Array)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="106">
+            
+            
+
+            
+
+            <code class="ruby">  #   end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="107">
+            
+            
+
+            
+
+            <code class="ruby">  # end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="108">
             
             
 

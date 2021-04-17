@@ -36,6 +36,14 @@ RSpec.describe SalesAnalyst do
     it 'can return standard deviation of items per merchant' do
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
+
+    xit "merhcants with the most items" do
+      expected = sales_analyst.merchants_with_high_item_count
+
+      expect(expected.length).to eq(52)
+      expect(expected.first.class).to eq(Merchant)
+      expect(expected.class).to eq(Array)
+    end
   end
 
   # context '#merchants_with_high_item_count' do
