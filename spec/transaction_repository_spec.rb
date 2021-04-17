@@ -63,4 +63,22 @@ describe TransactionRepository do
       expect(t_repo.find_by_id(6)).to eq t_repo.transactions.first
     end
   end
+
+  describe '#find_all_by_invoice_id' do
+    it 'returns nil if no Transactions have invoice_id specified' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      expect(t_repo.find_all_by_invoice_id(10)).to eq nil
+    end
+
+    it 'returns all Transactions with invoice_id specified' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      expect(t_repo.find_all_by_invoice_id(8).length).to eq 10
+    end
+  end
 end
