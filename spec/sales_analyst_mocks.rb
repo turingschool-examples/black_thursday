@@ -2,8 +2,8 @@ require './lib/sales_analyst'
 
 class SalesAnalystMocks
 
-  def self.sum_of_prices_merchant3
-    @@sum_of_prices_merchant3
+  def self.price_sums_for_each_merchant
+    @@price_sums_for_each_merchant
   end
 
   def self.sales_engine_mock(eg)
@@ -23,17 +23,23 @@ class SalesAnalystMocks
     sales_engine = sales_engine_mock(eg)
     sales_analyst = sales_engine.analyst
 
+    merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 4)
+    merchants_as_mocks = MockData.merchants_as_mocks(eg, merchants_as_hashes)
+
     items_as_hashes = MockData.items_as_hashes(number_of_hashes: 3, merchant_id_range: (0..0))
     items_as_hashes += MockData.items_as_hashes(number_of_hashes: 7, merchant_id_range: (1..1))
     items_as_hashes += MockData.items_as_hashes(number_of_hashes: 4, merchant_id_range: (2..2))
-    items_as_hashes_merchant3 = MockData.items_as_hashes(number_of_hashes: 12, merchant_id_range: (3..3))
-    items_as_hashes += items_as_hashes_merchant3
+    items_as_hashes += MockData.items_as_hashes(number_of_hashes: 12, merchant_id_range: (3..3))
 
-    @@sum_of_prices_merchant3 = MockData.sum_item_prices_from_hash(items_as_hashes_merchant3)
+    @@price_sums_for_each_merchant = merchants_as_mocks.each_with_object({}) do |merchant, sums_by_merchant|
+      item_hashes = items_as_hashes.find_all do |item_hash|
+        item_hash[:merchant_id] == merchant.id
+      end
+      sum_of_prices = MockData.sum_item_prices_from_hash(item_hashes)
+      sums_by_merchant[merchant.id] = sum_of_prices
+    end
 
     items_as_mocks = MockData.items_as_mocks(eg, items_as_hashes)
-    merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 4)
-    merchants_as_mocks = MockData.merchants_as_mocks(eg, merchants_as_hashes)
 
     eg.allow(sales_engine.items).to eg.receive(:all).and_return items_as_mocks
     eg.allow(sales_engine.merchants).to eg.receive(:all).and_return merchants_as_mocks
