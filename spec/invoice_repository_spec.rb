@@ -45,12 +45,19 @@ RSpec.describe InvoiceRepository do
                               })
     invoice_repo = sales_engine.invoices
 
-    it 'find_by_id returns an instance by matching id' do
+    it '#find_by_id returns an instance by matching id' do
       id = 3452
 
       expect(invoice_repo.find_by_id(id).id).to eq(id)
       expect(invoice_repo.find_by_id(id).status).to eq(:pending)
     end
+
+    it '#find_all_by_customer_id returns array of invoices with customer id' do
+      customer_id = 300
+
+      expect(invoice_repo.find_all_by_customer_id(customer_id).length).to eq(10)
+    end
+
   end
 
   describe '#delete' do
