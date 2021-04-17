@@ -7,7 +7,7 @@ require './lib/invoice_repository'
 describe InvoiceRepository do
   describe '#initialize' do
     it 'exists' do
-      allow_any_instance_of(InvoiceRepository).to receive(:create_invoice).and_return(MockData.invoices_as_hash)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(MockData.invoices_as_hashes)
       invoice_repository = InvoiceRepository.new('fake.csv')
 
       expect(invoice_repository).is_a? InvoiceRepository
