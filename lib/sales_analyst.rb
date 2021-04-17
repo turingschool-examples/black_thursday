@@ -24,5 +24,17 @@ class SalesAnalyst
 
     items.length / merchants.length
   end
+
+  def average_items_per_merchant_standard_deviation
+    item_count_per_merchant = num_of_items_per_merchant
+    mean = average_items_per_merchant
+
+    item_counts = item_count_per_merchant.values
+
+    sums = item_counts.sum do |item_count|
+      (item_count - mean)**2
+    end
+
+    Math.sqrt(sums / (item_counts.length - 1).to_f)
   end
 end
