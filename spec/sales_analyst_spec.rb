@@ -49,5 +49,16 @@ RSpec.describe do
 
       expect(sales_analyst.stnd_dev_of_merch_items).to be_between(5.1, 5.3)
     end
+
+    it 'returns merchants with high item count' do
+      expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
+      first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      expected_merchant = first_ten_merchants[4]
+      allow(sales_analyst).to receive(:find_all_merchants) do
+        first_ten_merchants
+      end
+
+      expect(sales_analyst.merchants_with_high_item_count).to eq([expected_merchant])
+    end
   end
 end
