@@ -8,4 +8,8 @@ class InvoiceItemRepository
   def create_invoice_items
     FileIo.process_csv(filename, InvoiceItem)
   end
+
+  def all
+    @invoice_items
+  end
 end
