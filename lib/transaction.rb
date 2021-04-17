@@ -20,4 +20,16 @@ class Transaction
   def update_id(id)
     @id = id
   end
+
+  def update_credit_card_number(credit_card_number)
+    @credit_card_number = credit_card_number
+  end
+
+  def update_credit_card_exp_date(credit_card_expiration_date)
+    @credit_card_expiration_date = credit_card_expiration_date
+  end
+
+  def update_result(result)
+    @result = result
+  end
 end
