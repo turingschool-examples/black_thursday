@@ -80,4 +80,14 @@ class SalesAnalyst
     average_unit_price = total_unit_price / items_for_current_merchant.length
     result = BigDecimal(average_unit_price).round(2)
   end
+
+  def average_average_price_per_merchant
+    array_of_average_item_prices = all_merchants.map do |merchant|
+      merchant_id = merchant.id
+      average_item_price_for_merchant(merchant_id)
+    end
+    sum = array_of_average_item_prices.sum
+    average = sum / array_of_average_item_prices.length
+    result = BigDecimal(average).round(2)
+  end
 end
