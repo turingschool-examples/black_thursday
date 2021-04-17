@@ -1,7 +1,7 @@
-# require 'bigdecimal'
-# require 'time'
+require 'bigdecimal'
+require 'time'
 
-# class Invoice
+class Transaction
 #   attr_reader   :id,
 #                 :customer_id,
 #                 :merchant_id,
@@ -11,15 +11,16 @@
 #   attr_accessor :status,
 #                 :updated_at
 
-#   def initialize(row, invoice_repo)
-#     @id = (row[:id]).to_i
-#     @customer_id = row[:customer_id].to_i
-#     @merchant_id = (row[:merchant_id]).to_i
-#     @status = (row[:status]).to_sym
-#     @created_at = Time.parse(row[:created_at].to_s)
-#     @updated_at = Time.parse(row[:updated_at].to_s)
-#     @invoice_repo = invoice_repo
-#   end
+  def initialize(row, transaction_repo)
+    @id = (row[:id]).to_i
+    @invoice_id = row[:invoice_id].to_i
+    @credit_card_number = (row[:credit_card_number]).to_i
+    @credit_card_expiration_date = Time.parse(row[:credit_card_expiration_date].to_s)
+    @result = row[:result]
+    @created_at = Time.parse(row[:created_at].to_s)
+    @updated_at = Time.parse(row[:updated_at].to_s)
+    @transaction_repo = transaction_repo
+  end
 
 #   def update_time_stamp
 #     @updated_at = Time.now
@@ -28,4 +29,4 @@
 #   def day_created
 #     @created_at.strftime('%A').capitalize
 #   end
-# end
+end
