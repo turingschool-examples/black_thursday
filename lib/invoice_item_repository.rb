@@ -58,4 +58,9 @@ class InvoiceItemRepository
     invoice_item.update_unit_price(attributes[:unit_price])
     invoice_item.new_updated_at_time
   end
+
+  def delete(id)
+    invoice_item = find_by_id(id)
+    @invoice_items.delete(invoice_item)
+  end
 end
