@@ -1,11 +1,13 @@
+require 'bigdecimal'
+
 class InvoiceItem
   attr_reader :id,
               :item_id,
               :invoice_id,
-              :quantity,
               :created_at,
               :repository
-  attr_accessor :updated_at
+  attr_accessor :updated_at,
+                :quantity
   attr_writer :cent_price
 
   def initialize(invoice_item_info)
