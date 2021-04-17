@@ -2,6 +2,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_analyst'
+require 'bigdecimal/util'
 
 RSpec.describe do
 
@@ -25,9 +26,12 @@ RSpec.describe do
     end
 
     it 'calculates average_items_per_merchant' do
+      first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      allow(sales_analyst).to receive(:find_all_merchants) do
+        first_ten_merchants
+      end
       # Average of 2.5 was verified by searching fixture file with first 10 ID's
-      expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
-      expect(sales_analyst.average_items_per_merchant(expected_array)).to eq(2.5)
+      expect(sales_analyst.average_items_per_merchant).to eq(2.5)
     end
 
     it 'returns set of ten merchant ids' do
@@ -43,11 +47,51 @@ RSpec.describe do
     it 'returns standard deviation of merchant item count' do
       expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
       first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      allow(sales_analyst).to receive(:average_items_per_merchant) do
+        2.5
+      end
       allow(sales_analyst.find_all_merchants).to receive(:sample) do
+        sales_engine.merchants.array_of_objects
+      end
+
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to be_between(3, 6)
+      #Check above expected ranges after we figure out the standard deviation sample size issue
+    end
+
+    it 'returns merchants with high item count' do
+      expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
+      first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      expected_merchant = first_ten_merchants[4]
+      allow(sales_analyst).to receive(:find_all_merchants) do
         first_ten_merchants
       end
 
-      expect(sales_analyst.stnd_dev_of_merch_items).to be_between(5.1, 5.3)
+      expect(sales_analyst.merchants_with_high_item_count).to eq([expected_merchant])
+    end
+
+    it 'returns average item price per merchant' do
+      expected_price = 0.10147e3.to_d
+
+      expect(sales_analyst.average_item_price_for_merchant(12334123)).to eq(expected_price)
+    end
+
+    it 'averages all average prices per merchant' do
+      first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      allow(sales_analyst).to receive(:find_all_merchants) do
+        first_ten_merchants
+      end
+
+      expect(sales_analyst.average_average_price_per_merchant).to eq(0.3335e2)
+    end
+
+    it 'has special golden items for funny reasons' do
+      first_20_items = sales_engine.items.array_of_objects[0..19]
+      allow(sales_analyst).to receive(:find_all_items) do
+        first_20_items
+      end
+
+      expect(sales_analyst.golden_items.length).to eq(5)
+
     end
   end
 end
