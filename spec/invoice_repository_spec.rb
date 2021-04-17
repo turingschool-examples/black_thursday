@@ -97,6 +97,27 @@ RSpec.describe InvoiceRepository do
 
       expect(invoice_repo.all.last.id).to eq(4986)
     end
+  end
 
+  describe '#update' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv"
+                              })
+    invoice_repo = sales_engine.invoices
+
+    attributes = {
+                  :status => "paid"
+                }
+
+    invoice_repo.update(id, attributes)
+
+    it 'can update existing invoice' do
+      invoice_repo.update(3452, attributes)
+      expected = invoice_repo.find_by_id(3452)
+      expect(expected.status).to eq("paid")
+      expect(expected.updated_at).not_to eq(expected.created_at)
+    end
   end
 end
