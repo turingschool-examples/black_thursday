@@ -26,11 +26,11 @@ class TransactionRepository
     @transactions
   end
 
-#   def find_by_id(id)
-#     @invoices.find do |invoice|
-#       invoice.id == id
-#     end
-#   end
+  def find_by_id(id)
+    @transactions.find do |transaction|
+      transaction.id == id
+    end
+  end
 
 #   def find_all_by_customer_id(customer_id)
 #     @invoices.find_all do |invoice|
