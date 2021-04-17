@@ -1,6 +1,7 @@
 require_relative './sales_engine'
 
 class SalesAnalyst
+  attr_reader :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -44,6 +45,15 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    mean = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
 
+    z = standard_deviations_of_mean(mean, std_dev)
+
+    merchants = []
+    num_of_items_per_merchant.each_pair do |merchant, item_count|
+      merchants << merchant if item_count >= z
+    end
+    merchants
   end
 end
