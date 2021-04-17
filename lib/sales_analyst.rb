@@ -20,7 +20,9 @@ class SalesAnalyst
     end
   end
 
-  def average_items_per_merchant(merchant_ids)
+  def average_items_per_merchant
+    merchants = find_all_merchants
+    merchant_ids = get_merchant_ids(merchants)
     item_counter = 0
     merchant_ids.each do |merchant_id|
       item_counter += find_all_items_by_merchant_id(merchant_id).length
@@ -34,7 +36,7 @@ class SalesAnalyst
     get_merchant_ids(merch_sample)
   end
 
-  def stnd_dev_of_merch_items
+  def average_items_per_merchant_standard_deviation
     merchant_items = []
     sample_merchants_return_id.each do |merchant_id|
       merchant_items << find_all_items_by_merchant_id(merchant_id).length
@@ -42,7 +44,7 @@ class SalesAnalyst
     sample_size_minus_one = merchant_items.length - 1
     counter = 0
     merchant_items.each do |number|
-      running_total = (number - average_items_per_merchant(sample_merchants_return_id))**2
+      running_total = (number - average_items_per_merchant)**2
       counter += running_total
     end
     Math.sqrt(counter / sample_size_minus_one)
@@ -57,13 +59,13 @@ class SalesAnalyst
   def merchants_with_high_item_count
     merchants = find_all_merchants
     merchant_ids = get_merchant_ids(merchants)
-    mean = average_items_per_merchant(merchant_ids)
-    half_stnd_dev = stnd_dev_of_merch_items / 2
+    mean = average_items_per_merchant
+    half_stnd_dev = average_items_per_merchant_standard_deviation / 2
     greater_than_1sd = mean + half_stnd_dev
     merchants.find_all do |merchant|
       find_all_items_by_merchant_id(merchant.id).length > greater_than_1sd
     end
   end
 
-  
+
 end
