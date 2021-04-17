@@ -20,7 +20,7 @@ class ItemRepo
     header_converters: :symbol)
 
     @item_list = items.map do |item|
-      Item.new(item)
+      Item.new(item, self)
     end
   end
 
@@ -65,7 +65,7 @@ class ItemRepo
   end
 
   def create(attributes)
-    new_item = Item.new(attributes)
+    new_item = Item.new(attributes, self)
     # refactor potential helper method
     find_max_id = @item_list.max_by do |item|
       item.id

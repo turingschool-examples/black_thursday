@@ -10,7 +10,7 @@ class Item
                 :updated_at,
                 :merchant_id
 
-  def initialize(attributes)
+  def initialize(attributes, repository)
     @id = attributes[:id].to_i
     @name = attributes[:name]
     @description = attributes[:description]
@@ -18,7 +18,7 @@ class Item
     @created_at = Time.parse(attributes[:created_at].to_s)
     @updated_at = Time.parse(attributes[:updated_at].to_s)
     @merchant_id = attributes[:merchant_id].to_i
-    @repository = attributes[:repository]
+    @repository = repository
   end
 
   def merchants(id)

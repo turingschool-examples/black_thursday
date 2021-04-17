@@ -15,13 +15,13 @@ class SalesEngine
     SalesEngine.new(csv_files)
   end
 
-  def self.analyst
+  def analyst
     SalesAnalyst.new(@items, @merchants)
+    # require "pry"; binding.pry
   end
 
   def find_items_by_id(id)
     @items.find_by_id(id)
-    require "pry"; binding.pry
   end
 
   def find_merchants_by_id(id)

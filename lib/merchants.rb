@@ -3,10 +3,10 @@ class Merchant
                 :name,
                 :repository
 
-  def initialize(attributes)
+  def initialize(attributes, repository)
     @id = attributes[:id].to_i
     @name = attributes[:name]
-    @repository = attributes[:repository]
+    @repository = repository
   end
 
   def items(id)
