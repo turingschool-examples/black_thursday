@@ -169,6 +169,35 @@ describe InvoiceItemRepository do
       expect(expected.unit_price).to eq 51.19
     end
 
+    it 'does nothing if id not found' do
+      mock_data = MockData.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
+      ii_repo = InvoiceItemRepository.new('fake.csv')
+
+      new_invoice_item = {
+        :id => nil,
+        :item_id => 17,
+        :invoice_id => 81,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+              }
+
+      ii_repo.create(new_invoice_item)
+
+      attributes = { 
+        :quantity => 17,
+        :unit_price => BigDecimal(51.19, 4)
+        }
+      ii_repo.update(100, attributes)
+
+      expected = ii_repo.invoice_items.last
+
+      expect(expected.quantity).not_to eq 17
+      expect(expected.unit_price).not_to eq 51.19
+    end
+
     it 'updates the updated_at time' do
       mock_data = MockData.invoice_items_as_mocks(self)
       allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)

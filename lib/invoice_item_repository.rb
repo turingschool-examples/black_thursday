@@ -53,6 +53,7 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
+    return nil if find_by_id(id) == nil
     invoice_item = find_by_id(id)
     invoice_item.update_quantity(attributes[:quantity])
     invoice_item.update_unit_price(attributes[:unit_price])
