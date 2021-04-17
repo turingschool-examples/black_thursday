@@ -25,22 +25,15 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.invoice_items.first).to be_instance_of(InvoiceItem)
     end
   end
+  describe '#all' do
+    it 'finds all InvoiceItems' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      expect(iir.all.count).to eq(50)
+    end
+  end 
 end
 
-# describe '#make_invoices' do
-# it 'makes_invoices' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   expect(ir.invoices.first).to be_instance_of(Invoice)
-# end
-# end
-# describe '#all' do
-# it 'contains all the invoices' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   expect(ir.all.count).to eq(4985)
-# end
-# end
 # describe '#find_by_id' do
 # it 'finds invoices by id' do
 #   mock_sales_engine = instance_double('SalesEngine')
