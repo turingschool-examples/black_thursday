@@ -178,5 +178,26 @@ describe InvoiceRepository do
 
       expect(invoice_repository.invoices.length).to eq 10
     end
+
+    it 'does not delete anything without a valid id' do
+      mock_data = MockData.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      new_invoice = {
+        id: nil,
+        customer_id: 1,
+        merchant_id: 1,
+        status: "pending",
+        created_at: Time.now,
+        updated_at: Time.new(2020, 12, 31)
+      }
+
+      expect(invoice_repository.invoices.length).to eq 10
+
+      invoice_repository.delete(17)
+
+      expect(invoice_repository.invoices.length).to eq 10
+    end
   end
 end
