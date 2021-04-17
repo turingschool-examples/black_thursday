@@ -38,9 +38,12 @@ class SalesAnalyst
     Math.sqrt(sums / (item_counts.length - 1).to_f)
   end
 
-  def n_standard_deviations_of_mean_items_per_merchant(n)
-    mean = average_items_per_merchant
-    sd = average_items_per_merchant_standard_deviation * n
-    ((mean - sd)..(mean + sd))
+  def standard_deviations_of_mean(mean, std_dev, n = 1)
+    std_dev_n = std_dev * n
+    mean + std_dev_n
+  end
+
+  def merchants_with_high_item_count
+
   end
 end
