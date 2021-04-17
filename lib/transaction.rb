@@ -16,4 +16,8 @@ class Transaction
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
   end
+
+  def update_id(id)
+    @id = id
+  end
 end

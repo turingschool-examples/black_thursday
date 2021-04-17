@@ -13,7 +13,6 @@ describe Transaction do
         created_at: Time.now,
         updated_at: Time.now
       }
-
       transaction = Transaction.new(details)
 
       expect(transaction).is_a? Transaction
@@ -29,7 +28,6 @@ describe Transaction do
         created_at: Time.now,
         updated_at: Time.now
       }
-
       transaction = Transaction.new(details)
 
       expect(transaction.id).to eq 6
@@ -45,7 +43,6 @@ describe Transaction do
         created_at: Time.now,
         updated_at: Time.now
       }
-
       transaction = Transaction.new(details)
 
       expect(transaction.invoice_id).to eq 8
@@ -61,7 +58,6 @@ describe Transaction do
         created_at: Time.now,
         updated_at: Time.now
       }
-
       transaction = Transaction.new(details)
 
       expect(transaction.credit_card_number).to eq '4242424242424242'
@@ -77,7 +73,6 @@ describe Transaction do
         created_at: Time.now,
         updated_at: Time.now
       }
-
       transaction = Transaction.new(details)
 
       expect(transaction.credit_card_expiration_date).to eq '0220'
@@ -93,7 +88,6 @@ describe Transaction do
         created_at: Time.now,
         updated_at: Time.now
       }
-
       transaction = Transaction.new(details)
 
       expect(transaction.result).to eq :success
@@ -109,11 +103,28 @@ describe Transaction do
         created_at: Time.now,
         updated_at: Time.now
       }
-
       transaction = Transaction.new(details)
 
       expect(transaction.created_at).is_a? Time
       expect(transaction.updated_at).is_a? Time
+    end
+  end
+
+  describe '#update_id' do
+    it 'updates Transaction id' do
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      transaction = Transaction.new(details)
+
+      transaction.update_id(7)
+      expect(transaction.id).to eq 7
     end
   end
 end
