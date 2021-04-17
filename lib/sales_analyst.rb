@@ -90,4 +90,5 @@ class SalesAnalyst
     average = sum / array_of_average_item_prices.length
     result = BigDecimal(average).round(2)
   end
+
 end
