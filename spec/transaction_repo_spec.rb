@@ -89,6 +89,58 @@ RSpec.describe ItemRepo do
       expect(transaction1.find_all_by_credit_card_number("0000000000000000")).to eq([])
     end
 
+    it '#find all by result' do
+      transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
+      transaction1 = Transaction.new({:id => 6,
+                                      :invoice_id => 8,
+                                      :credit_card_number => "4242424242424242",
+                                      :credit_card_expiration_date => "0220",
+                                      :result => "success",
+                                      :created_at => Time.now,
+                                      :updated_at => Time.now
+                                    })
+
+      #SOMETHING LIKE transaction_repo.add_invoice(invoice1)
+
+      expect(transaction1.find_all_by_result("success")).to eq([transaction1])
+      expect(transaction1.find_all_by_result("sweet success")).to eq([])
+    end
+
+    it '#creates transaction' do
+      transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
+      transaction1 = Transaction.new({:id => 6,
+                                      :invoice_id => 8,
+                                      :credit_card_number => "4242424242424242",
+                                      :credit_card_expiration_date => "0220",
+                                      :result => "success",
+                                      :created_at => Time.now,
+                                      :updated_at => Time.now
+                                    })
+
+      # transaction_repo.all
+
+      expect(transaction_repo.create(transaction1)).to be_an_instance_of(Transaction)
+    end
+
+    it '#delete by id' do
+      transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
+      transaction1 = Transaction.new({:id => 6,
+                                      :invoice_id => 8,
+                                      :credit_card_number => "4242424242424242",
+                                      :credit_card_expiration_date => "0220",
+                                      :result => "success",
+                                      :created_at => Time.now,
+                                      :updated_at => Time.now
+                                    })
+      #transaction_repo.add_invoice(invoice1)
+
+      expect(transaction_repo.find_by_id(6)).to eq(transaction1)
+
+      transaction_repo.delete(6)
+
+      expect(transaction_repo.find_by_id(6)).to eq(nil)
+    end
+
   end
 
 end
