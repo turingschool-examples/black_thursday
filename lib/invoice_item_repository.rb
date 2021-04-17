@@ -56,5 +56,6 @@ class InvoiceItemRepository
     invoice_item = find_by_id(id)
     invoice_item.update_quantity(attributes[:quantity])
     invoice_item.update_unit_price(attributes[:unit_price])
+    invoice_item.new_updated_at_time
   end
 end

@@ -32,4 +32,8 @@ class InvoiceItem
   def update_unit_price(unit_price)
     @unit_price = unit_price
   end
+
+  def new_updated_at_time
+    @updated_at = Time.now 
+  end
 end
