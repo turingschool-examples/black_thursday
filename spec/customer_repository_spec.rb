@@ -5,6 +5,9 @@ require_relative '../lib/customer_repository'
 RSpec.describe CustomerRepository do
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
                               :customers => "./data/customers.csv"
                               })
     customer_repo = sales_engine.customers
