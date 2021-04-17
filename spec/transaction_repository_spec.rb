@@ -32,60 +32,63 @@ RSpec.describe TransactionRepository do
       expect(tr.all.count).to eq(50)
     end
   end
-#   describe '#find_by_id' do
-#     it 'finds invoices by id' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       test_invoice = Invoice.new({
-#         id: '1234567890',
-#         customer_id: '456789',
-#         merchant_id: '234567890',
-#         status: 'pending',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#     },
-#     tr
-#     )
-#       tr.invoices << test_invoice
-#       expect(tr.find_by_id(1234567890)).to eq(test_invoice)
-#       expect(tr.find_by_id(123456789099999999)).to eq(nil)
-#     end
-#   end
-#   describe '#find_all_by_customer_id' do
-#     it 'finds invoices by customer id' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       test_invoice1 = Invoice.new({
-#         id: '1234567890',
-#         customer_id: '456789',
-#         merchant_id: '234567890',
-#         status: 'pending',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#     },
-#     tr
-#     )
-#     test_invoice2 = Invoice.new({
-#         id: '1234567890',
-#         customer_id: '456789',
-#         merchant_id: '234567890',
-#         status: 'pending',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#     },
-#     tr
-#     )
-#       tr.invoices << test_invoice1
-#       tr.invoices << test_invoice2
-#       expect(tr.find_all_by_customer_id(456789)).to eq([test_invoice1, test_invoice2])
-#       expect(tr.find_all_by_customer_id(123456789099999999)).to eq([])
-#     end
-#   end
+  describe '#find_by_id' do
+    it 'finds transactions by id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      test_transaction = Transaction.new({
+                                            id: '263395617',
+                                            invoice_id: '456789',
+                                            credit_card_number: '4297222479999999',
+                                            credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                            result: 'success',
+                                            created_at: '2016-01-11 11:51:37 UTC',
+                                            updated_at: '1993-09-29 11:56:40 UTC'
+                                         },
+                                         tr
+                                        )
+      tr.transactions << test_transaction
+      expect(tr.find_by_id(263395617)).to eq(test_transaction)
+      expect(tr.find_by_id(123456789099999999)).to eq(nil)
+    end
+  end
+  describe '#find_all_by_invoice_id' do
+    it 'finds transactions by invoice id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      test_transaction1 = Transaction.new({
+        id: '263395617',
+        invoice_id: '456789',
+        credit_card_number: '4297222479999999',
+        credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+        result: 'success',
+        created_at: '2016-01-11 11:51:37 UTC',
+        updated_at: '1993-09-29 11:56:40 UTC'
+     },
+     tr
+    )
+    test_transaction2 = Transaction.new({
+        id: '263395617999',
+        invoice_id: '456789',
+        credit_card_number: '4297222479999999',
+        credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+        result: 'success',
+        created_at: '2016-01-11 11:51:37 UTC',
+        updated_at: '1993-09-29 11:56:40 UTC'
+     },
+     tr
+    )
+      tr.transactions << test_transaction1
+      tr.transactions << test_transaction2
+      expect(tr.find_all_by_invoice_id(456789)).to eq([test_transaction1, test_transaction2])
+      expect(tr.find_all_by_invoice_id(123456789099999999)).to eq([])
+    end
+  end
 #   describe '#find_all_by_merchant_id' do
-#     it 'finds invoices by merchant id' do
+#     it 'finds transactions by merchant id' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       test_invoice1 = Invoice.new({
+#       test_transaction1 = Transaction.new({
 #         id: '1234567890',
 #         customer_id: '456789',
 #         merchant_id: '234567890',
@@ -95,7 +98,7 @@ RSpec.describe TransactionRepository do
 #     },
 #     tr
 #     )
-#     test_invoice2 = Invoice.new({
+#     test_transaction2 = Transaction.new({
 #         id: '1234567890',
 #         customer_id: '456789',
 #         merchant_id: '234567890',
@@ -105,14 +108,14 @@ RSpec.describe TransactionRepository do
 #     },
 #     tr
 #     )
-#       tr.invoices << test_invoice1
-#       tr.invoices << test_invoice2
-#       expect(tr.find_all_by_merchant_id(234567890)).to eq([test_invoice1, test_invoice2])
+#       tr.transactions << test_transaction1
+#       tr.transactions << test_transaction2
+#       expect(tr.find_all_by_merchant_id(234567890)).to eq([test_transaction1, test_transaction2])
 #       expect(tr.find_all_by_merchant_id(123456789099999999)).to eq([])
 #     end
 #   end
 #   describe '#find_all_by_status' do
-#     it 'finds invoices by status' do
+#     it 'finds transactions by status' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 #       expect(tr.find_all_by_status('pending').count).to eq(1473)
@@ -137,7 +140,7 @@ RSpec.describe TransactionRepository do
 #     end
 #   end
 #   describe '#update' do
-#     it 'updates invoices attributes' do
+#     it 'updates transactions attributes' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 #       attributes = {
@@ -147,29 +150,29 @@ RSpec.describe TransactionRepository do
 #         merchant_id: 3,
 #         created_at: Time.now
 #         }
-#       test_invoice = tr.find_by_id(1)
+#       test_transaction = tr.find_by_id(1)
 #       tr.update(1, attributes)
-#       expect(test_invoice.id).to eq(1)
-#       expect(test_invoice.customer_id).to eq(1)
-#       expect(test_invoice.merchant_id).to eq(12335938)
-#       expect(test_invoice.status).to eq(:success)
-#       expect(test_invoice.created_at.year).to eq(2009)
-#       expect(test_invoice.updated_at.year).to eq(2021)
+#       expect(test_transaction.id).to eq(1)
+#       expect(test_transaction.customer_id).to eq(1)
+#       expect(test_transaction.merchant_id).to eq(12335938)
+#       expect(test_transaction.status).to eq(:success)
+#       expect(test_transaction.created_at.year).to eq(2009)
+#       expect(test_transaction.updated_at.year).to eq(2021)
 #     end
 #   end
 #   describe '#delete' do
-#     it 'delete a specified invoice from the invoices array' do
+#     it 'delete a specified invoice from the transactions array' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 #       tr.delete(1)
-#       expect(tr.invoices.count).to eq(4984)
+#       expect(tr.transactions.count).to eq(4984)
 #     end
 #   end
 
 #   describe '#percentage_by_status' do
-#     it 'shows percent of invoices by status' do
+#     it 'shows percent of transactions by status' do
 #       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 
 #       expect(tr.percentage_by_status(:pending)).to eq(50.00)
 #       expect(tr.percentage_by_status(:shipped)).to eq(33.33)
@@ -177,12 +180,12 @@ RSpec.describe TransactionRepository do
 #     end
 #   end
 
-#   describe '#invoices_by_days' do
-#     it 'shows count of invoices per day of week' do
+#   describe '#transactions_by_days' do
+#     it 'shows count of transactions per day of week' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 
-#       expect(tr.invoices_by_days).to eq({ 'Friday' => 701,
+#       expect(tr.transactions_by_days).to eq({ 'Friday' => 701,
 #                                           'Monday' => 696,
 #                                           'Saturday' => 729,
 #                                           'Sunday' => 708,
@@ -197,7 +200,7 @@ RSpec.describe TransactionRepository do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 
-#       expect(tr.average(tr.invoices_by_days)).to eq(712.1428571428571)
+#       expect(tr.average(tr.transactions_by_days)).to eq(712.1428571428571)
 #     end
 #   end
 
@@ -206,7 +209,7 @@ RSpec.describe TransactionRepository do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 
-#       expect(tr.hash_variance_from_mean(tr.invoices_by_days)).to eq({ 'Friday' => 124.16326530612173,
+#       expect(tr.hash_variance_from_mean(tr.transactions_by_days)).to eq({ 'Friday' => 124.16326530612173,
 #                                                                       'Monday' => 260.59183673469283,
 #                                                                       'Saturday' => 284.16326530612355,
 #                                                                       'Sunday' => 17.16326530612218,
@@ -221,7 +224,7 @@ RSpec.describe TransactionRepository do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 
-#       expect(tr.standard_deviation(tr.invoices_by_days)).to eq(18.07)
+#       expect(tr.standard_deviation(tr.transactions_by_days)).to eq(18.07)
 #     end
 #   end
 
@@ -234,28 +237,28 @@ RSpec.describe TransactionRepository do
 #     end
 #   end
 
-#   describe '#invoices_per_merchant' do
-#     it 'shows invoices by merchant' do
+#   describe '#transactions_per_merchant' do
+#     it 'shows transactions by merchant' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
 
-#       expect(tr.invoices_per_merchant.keys.count).to eq(475)
+#       expect(tr.transactions_per_merchant.keys.count).to eq(475)
 #     end
 #   end
-#   describe '#average_invoices_per_merchant' do
-#     it 'shows average number of invoices by merchant' do
+#   describe '#average_transactions_per_merchant' do
+#     it 'shows average number of transactions by merchant' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
       
-#       expect(tr.average_invoices_per_merchant).to eq(10.49)
+#       expect(tr.average_transactions_per_merchant).to eq(10.49)
 #     end
 #   end
-#   describe '#stdev_invoices_per_merchant' do
-#     it 'shows standard deviation of invoices by merchant' do
+#   describe '#stdev_transactions_per_merchant' do
+#     it 'shows standard deviation of transactions by merchant' do
 #       mock_sales_engine = instance_double('SalesEngine')
 #       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
       
-#       expect(tr.stdev_invoices_per_merchant).to eq(3.29)
+#       expect(tr.stdev_transactions_per_merchant).to eq(3.29)
 #     end
 #   end
 #   describe '#top_merchants_by_invoice_count' do

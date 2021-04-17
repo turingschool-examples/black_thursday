@@ -12,9 +12,9 @@ class TransactionRepository
     make_transactions(path)
   end
 
-#   def inspect
-#     "#<#{self.class} #{@invoices.size} rows>"
-#   end
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
 
   def make_transactions(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
@@ -32,11 +32,11 @@ class TransactionRepository
     end
   end
 
-#   def find_all_by_customer_id(customer_id)
-#     @invoices.find_all do |invoice|
-#       invoice.customer_id == customer_id
-#     end
-#   end
+  def find_all_by_invoice_id(invoice_id)
+    @transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
 
 #   def find_all_by_merchant_id(merchant_id)
 #     @invoices.find_all do |invoice|
