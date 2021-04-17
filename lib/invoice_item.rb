@@ -28,4 +28,26 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def update(attributes)
+    update_quantity(attributes)
+    update_unit_price(attributes)
+    update_time_stamp
+  end
+
+  def update_quantity(attributes)
+    if attributes[:quantity] != nil
+      @quantity = attributes[:quantity].to_i
+    end
+  end
+
+  def update_unit_price(attributes)
+    if attributes[:unit_price] != nil
+      @unit_price = BigDecimal(attributes[:unit_price])
+    end
+  end
+
+  def update_time_stamp
+    @updated_at = Time.now
+  end
 end

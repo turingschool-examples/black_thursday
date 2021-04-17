@@ -74,25 +74,28 @@ RSpec.describe InvoiceItemRepository do
       expect(expected.invoice_id).to eq(654123)
     end
   end
+  describe '#update' do
+    it 'updates invoice item attributes' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      attributes = {
+            id: '1',
+            item_id: '263519844',
+            invoice_id: '1',
+            quantity: '6',
+            unit_price: '13000',
+            created_at: '2012-03-27 14:54:09 UTC',
+            updated_at: Time.now
+        }
+      iir.update(1, attributes)
+      expected = iir.find_by_id(1)
+      expect(expected.invoice_id).to eq(1)
+      expect(expected.quantity).to eq(6)
+      expect(expected.unit_price).to eq(13000)
+      expect(expected.updated_at.year).to eq(2021)
+    end
+  end
 end
-
-# describe '#create' do
-# it 'create a new invoice instance' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   attributes = {
-#     id: '1234567890',
-#     customer_id: '456789',
-#     merchant_id: '234567890',
-#     status: 'pending',
-#     created_at: '2016-01-11 11:51:37 UTC',
-#     updated_at: '1993-09-29 11:56:40 UTC'
-#   }
-#   ir.create(attributes)
-#   expected = ir.find_by_id(4986)
-#   expect(expected.merchant_id).to eq(234567890)
-# end
-# end
 # describe '#update' do
 # it 'updates invoices attributes' do
 #   mock_sales_engine = instance_double('SalesEngine')

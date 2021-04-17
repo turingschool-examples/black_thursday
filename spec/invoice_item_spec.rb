@@ -61,4 +61,35 @@ RSpec.describe InvoiceItem do
       expect(invoice_item.unit_price_to_dollars).to eq(13.0)
     end
   end
+  describe '#update' do
+    it 'updates invoice item attributes' do
+      mock_invoice_item_repository = instance_double('InvoiceItemRepository')
+      invoice_item = InvoiceItem.new({
+            id: '1 ',
+            item_id: '263519844',
+            invoice_id: '1',
+            quantity: '5',
+            unit_price: '1300',
+            created_at: '2012-03-27 14:54:09 UTC',
+            updated_at: '2013-03-27 14:54:09 UTC'
+        },
+        mock_invoice_item_repository
+      )
+      attributes = {
+            id: '1',
+            item_id: '263519844',
+            invoice_id: '1',
+            quantity: '6',
+            unit_price: '13000',
+            created_at: '2012-03-27 14:54:09 UTC',
+            updated_at: Time.now
+        }
+      invoice_item.update(attributes)
+      expected = invoice_item
+      expect(expected.invoice_id).to eq(1)
+      expect(expected.quantity).to eq(6)
+      expect(expected.unit_price).to eq(13000)
+      expect(expected.updated_at.year).to eq(2021)
+    end
+  end
 end
