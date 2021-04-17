@@ -118,4 +118,26 @@ describe TransactionRepository do
       expect(t_repo.find_all_by_result('success').length).to eq 10
     end
   end
+
+  describe '#create' do
+    it 'creates a Transaction' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      attributes = {
+        id: nil,
+        invoice_id: 8,
+        credit_card_number: '1212121212121212',
+        credit_card_expiration_date: '0222',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      new_items = t_repo.create(attributes)
+
+      expect(new_items.last.id).to eq 7
+      expect(new_items.length).to eq 11
+    end
+  end
 end
