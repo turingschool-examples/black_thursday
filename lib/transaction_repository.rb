@@ -62,13 +62,12 @@ class TransactionRepository
     @transactions << Transaction.new(attributes, self)
   end
 
-#   def update(id, attributes)
-#     if find_by_id(id) != nil && attributes[:status] != nil
-#       invoice_to_update = find_by_id(id)
-#       invoice_to_update.status = attributes[:status].to_sym
-#       invoice_to_update.update_time_stamp
-#     end
-#   end
+  def update(id, attributes)
+    if find_by_id(id) != nil 
+      invoice_to_update = find_by_id(id)
+      invoice_to_update.update(attributes)
+    end
+  end
 
 #   def delete(id)
 #     invoices.delete(find_by_id(id))

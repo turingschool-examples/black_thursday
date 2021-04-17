@@ -149,35 +149,38 @@ RSpec.describe TransactionRepository do
       expect(expected.credit_card_number).to eq(4297222479999999)
     end
   end
-#   describe '#update' do
-#     it 'updates transactions attributes' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       attributes = {
-#         status: :success,
-#         id: 5000,
-#         customer_id: 2,
-#         merchant_id: 3,
-#         created_at: Time.now
-#         }
-#       test_transaction = tr.find_by_id(1)
-#       tr.update(1, attributes)
-#       expect(test_transaction.id).to eq(1)
-#       expect(test_transaction.customer_id).to eq(1)
-#       expect(test_transaction.merchant_id).to eq(12335938)
-#       expect(test_transaction.status).to eq(:success)
-#       expect(test_transaction.created_at.year).to eq(2009)
-#       expect(test_transaction.updated_at.year).to eq(2021)
-#     end
-#   end
-#   describe '#delete' do
-#     it 'delete a specified invoice from the transactions array' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       tr.delete(1)
-#       expect(tr.transactions.count).to eq(4984)
-#     end
-#   end
+  describe '#update' do
+    it 'updates transactions attributes' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      attributes = {
+                      id: '263395617',
+                      invoice_id: '456789',
+                      credit_card_number: '4297222479999999',
+                      credit_card_expiration_date: '2021-01-11 11:51:37 UTC',
+                      result: 'hot dog',
+                      created_at: '2016-01-11 11:51:37 UTC',
+                      updated_at: '1993-09-29 11:56:40 UTC'
+                    }
+      test_transaction = tr.find_by_id(1)
+      tr.update(1, attributes)
+      expect(test_transaction.id).to eq(1)
+      expect(test_transaction.invoice_id).to eq(2179)
+      expect(test_transaction.credit_card_number).to eq(4297222479999999)
+      expect(test_transaction.credit_card_expiration_date.year).to eq(2021)
+      expect(test_transaction.result).to eq('hot dog')
+      expect(test_transaction.created_at.year).to eq(2012)
+      expect(test_transaction.updated_at.year).to eq(2021)
+    end
+  end
+  describe '#delete' do
+    it 'delete a specified invoice from the transactions array' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      tr.delete(1)
+      expect(tr.transactions.count).to eq(4984)
+    end
+  end
 
 #   describe '#percentage_by_status' do
 #     it 'shows percent of transactions by status' do
