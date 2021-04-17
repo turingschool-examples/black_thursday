@@ -166,4 +166,23 @@ describe Transaction do
       expect(transaction.credit_card_expiration_date).to eq '0322'
     end
   end
+
+  describe '#update_result' do
+    it 'updates Transaction result' do
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'failure',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      transaction = Transaction.new(details)
+
+      transaction.update_result('success')
+
+      expect(transaction.result).to eq 'success'
+    end
+  end
 end
