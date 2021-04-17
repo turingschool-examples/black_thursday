@@ -28,4 +28,14 @@ class InvoiceRepository
   def find_all_by_status(status)
     @invoices.find_all { |invoice| invoice.status == status }
   end
+
+  def find_max_id
+    @invoices.max_by(&:id).id
+  end
+
+  def create(attributes)
+    new_invoice = Invoice.new(attributes)
+    new_invoice.update_id(find_max_id + 1)
+    @invoices << new_invoice
+  end
 end
