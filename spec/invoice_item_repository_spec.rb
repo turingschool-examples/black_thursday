@@ -48,77 +48,34 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.find_all_by_item_id(987654321)).to eq([])
     end
   end
+  describe '#find_all_by_invoice_id' do
+    it 'finds all InvoiceItems by id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      expect(iir.find_all_by_invoice_id(1).count).to eq(8)
+      expect(iir.find_all_by_invoice_id(987654321)).to eq([])
+    end
+  end
+  describe '#create' do
+    it 'creates a new invoice item instance' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      attributes = {
+            id: '951753',
+            item_id: '123654',
+            invoice_id: '654123',
+            quantity: '999',
+            unit_price: '1300',
+            created_at: '2012-03-27 14:54:09 UTC',
+            updated_at: '2013-03-27 14:54:09 UTC'
+        }
+      iir.create(attributes)
+      expected = iir.find_by_id(51)
+      expect(expected.invoice_id).to eq(654123)
+    end
+  end
 end
 
-
-# describe '#find_all_by_customer_id' do
-# it 'finds invoices by customer id' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   test_invoice1 = Invoice.new({
-#     id: '1234567890',
-#     customer_id: '456789',
-#     merchant_id: '234567890',
-#     status: 'pending',
-#     created_at: '2016-01-11 11:51:37 UTC',
-#     updated_at: '1993-09-29 11:56:40 UTC'
-# },
-# ir
-# )
-# test_invoice2 = Invoice.new({
-#     id: '1234567890',
-#     customer_id: '456789',
-#     merchant_id: '234567890',
-#     status: 'pending',
-#     created_at: '2016-01-11 11:51:37 UTC',
-#     updated_at: '1993-09-29 11:56:40 UTC'
-# },
-# ir
-# )
-#   ir.invoices << test_invoice1
-#   ir.invoices << test_invoice2
-#   expect(ir.find_all_by_customer_id(456789)).to eq([test_invoice1, test_invoice2])
-#   expect(ir.find_all_by_customer_id(123456789099999999)).to eq([])
-# end
-# end
-# describe '#find_all_by_merchant_id' do
-# it 'finds invoices by merchant id' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   test_invoice1 = Invoice.new({
-#     id: '1234567890',
-#     customer_id: '456789',
-#     merchant_id: '234567890',
-#     status: 'pending',
-#     created_at: '2016-01-11 11:51:37 UTC',
-#     updated_at: '1993-09-29 11:56:40 UTC'
-# },
-# ir
-# )
-# test_invoice2 = Invoice.new({
-#     id: '1234567890',
-#     customer_id: '456789',
-#     merchant_id: '234567890',
-#     status: 'pending',
-#     created_at: '2016-01-11 11:51:37 UTC',
-#     updated_at: '1993-09-29 11:56:40 UTC'
-# },
-# ir
-# )
-#   ir.invoices << test_invoice1
-#   ir.invoices << test_invoice2
-#   expect(ir.find_all_by_merchant_id(234567890)).to eq([test_invoice1, test_invoice2])
-#   expect(ir.find_all_by_merchant_id(123456789099999999)).to eq([])
-# end
-# end
-# describe '#find_all_by_status' do
-# it 'finds invoices by status' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   expect(ir.find_all_by_status('pending').count).to eq(1473)
-#   expect(ir.find_all_by_status('hot dog!')).to eq([])
-# end
-# end
 # describe '#create' do
 # it 'create a new invoice instance' do
 #   mock_sales_engine = instance_double('SalesEngine')
