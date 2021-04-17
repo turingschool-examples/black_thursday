@@ -51,20 +51,20 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  describe '#n_standard_deviations_of_mean_items_per_merchant' do
+  describe '#standard_deviations_of_mean' do
     it 'calculates the n standard deviation of the mean of items per merchant' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
       std_dev = Math.sqrt( ( ((3-6)**2)+((7-6)**2)+((4-6)**2)+((12-6)**2) ) / 3.0 )
       mean = 6
-      expected_range = ((mean - std_dev)..(mean + std_dev))
-      actual_range = sales_analyst.n_standard_deviations_of_mean_items_per_merchant(1)
+      expected_range = mean + std_dev
+      actual_range = sales_analyst.standard_deviations_of_mean(mean, std_dev)
 
       expect(actual_range).to eq expected_range
     end
   end
 
   describe '#merchants_with_high_item_count' do
-    it 'returns the merchants number of items that are more than 1 std dev of the mean' do
+    it 'returns the merchants with a high number of items that are more than 1 std dev above of the mean' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
       merchant_ids = [2, 4]
       actual_merchants = sales_analyst.merchants_with_high_item_count
