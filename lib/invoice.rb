@@ -1,11 +1,11 @@
 class Invoice
   attr_reader :customer_id,
               :merchant_id,
-              :status,
-              :created_at,
-              :updated_at
+              :created_at
 
-  attr_accessor :id
+  attr_accessor :id,
+                :status,
+                :updated_at
 
   def initialize(info_hash)
     @id = info_hash[:id].to_i

@@ -18,10 +18,18 @@ class InvoiceRepository < Repository
     max_id = @array_of_objects.max_by do |invoice|
       invoice.id
     end.id
-  
+
     new_invoice = Invoice.new(attributes)
     new_invoice.id = max_id + 1
     @array_of_objects << new_invoice
+  end
+
+  def update(id, attributes)
+    target = find_by_id(id)
+    if target != nil
+      target.status = attributes[:status] if attributes[:status] != nil
+      target.updated_at = Time.now
+    end
   end
 
 
