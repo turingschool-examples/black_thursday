@@ -74,5 +74,14 @@ RSpec.describe do
 
       expect(sales_analyst.average_item_price_for_merchant(12334123)).to eq(expected_price)
     end
+
+    it 'averages all average prices per merchant' do
+      first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      allow(sales_analyst).to receive(:find_all_merchants) do
+        first_ten_merchants
+      end
+
+      expect(sales_analyst.average_average_price_per_merchant).to eq(0.3335e2)
+    end
   end
 end
