@@ -289,14 +289,12 @@ describe MockData do
     end
 
     it 'allows for custom merchant distribution' do
-      items_as_hashes = MockData.items_as_hashes(number_of_merchants: 5,
-                                                 number_of_hashes: 25)
+      items_as_hashes = MockData.items_as_hashes(merchant_id_range: (1..1),
+                                                 number_of_hashes: 5)
 
-      number_of_merchants = items_as_hashes.count do |item_hash|
-        item_hash[:merchant_id] == 0
+      items_as_hashes.each do |item_hash|
+        item_hash[:merchant_id] == 1
       end
-
-      expect(number_of_merchants).to eq 5
     end
   end
 
