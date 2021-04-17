@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rspec'
 require './lib/item'
 require './lib/item_repository'
