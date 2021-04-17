@@ -134,10 +134,10 @@ describe TransactionRepository do
         created_at: Time.now,
         updated_at: Time.now
       }
-      new_items = t_repo.create(attributes)
+      new_transactions = t_repo.create(attributes)
 
-      expect(new_items.last.id).to eq 7
-      expect(new_items.length).to eq 11
+      expect(new_transactions.last.id).to eq 7
+      expect(new_transactions.length).to eq 11
     end
   end
 end

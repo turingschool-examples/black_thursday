@@ -38,4 +38,14 @@ class TransactionRepository
       transaction.result == result
     end
   end
+
+  def find_max_id
+    @transactions.max_by(&:id).id
+  end
+
+  def create(attributes)
+    new_transaction = Transaction.new(attributes)
+    new_transaction.update_id(find_max_id + 1)
+    @transactions << new_transaction
+  end 
 end
