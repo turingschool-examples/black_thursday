@@ -32,14 +32,14 @@ class InvoiceItemRepository
       invoice_item.id == id
     end
   end
+
+  def find_all_by_item_id(item_id)
+    @invoice_items.find_all do |invoice_item|
+      invoice_item.item_id == item_id
+    end
+  end
 end
 
-# def find_all_by_customer_id(customer_id)
-#   @invoices.find_all do |invoice|
-#     invoice.customer_id == customer_id
-#   end
-# end
-#
 # def find_all_by_merchant_id(merchant_id)
 #   @invoices.find_all do |invoice|
 #     invoice.merchant_id == merchant_id

@@ -40,6 +40,14 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.find_by_id(987654321)).to eq(nil)
     end
   end
+  describe '#find_all_by_item_id' do
+    it 'finds all InvoiceItems by id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      expect(iir.find_all_by_item_id(263539664).count).to eq(1)
+      expect(iir.find_all_by_item_id(987654321)).to eq([])
+    end
+  end
 end
 
 
