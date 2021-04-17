@@ -21,6 +21,42 @@ RSpec.describe CustomerRepository do
     end
   end
 
+  describe '#find_all_by methods' do
+
+  end
+
+  describe '#create' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :customers => "./data/customers.csv"
+                              })
+    customer_repo = sales_engine.customers
+    attributes = {
+                  :first_name => "Joan",
+                  :last_name => "Clarke",
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                }
+    customer_repo.create(attributes)
+
+    it 'creates new instance with attribute argument' do
+      expect(customer_repo.all.length).to eq(1001)
+      expect(customer_repo.all.last).to be_an_instance_of(Customer)
+      expect(customer_repo.all.last.status).to eq("Clarke")
+    end
+
+    it 'new instance id is the highest id incremented by one' do
+      expect(customer_repo.all.last.id).to eq(1001)
+    end
+  end
+
+  describe '#update' do
+
+  end
+
+
   describe 'parent class methods' do
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
