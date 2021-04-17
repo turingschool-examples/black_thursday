@@ -241,8 +241,8 @@ RSpec.describe 'SalesAnalyst' do
 
       sa = se.analyst
 
-      expect(sa.invoice_paid_in_full?(2179)).to eq(true)
-      expect(sa.invoice_paid_in_full?(2179390)).to eq(false)
+      expect(sa.invoice_paid_in_full?(2_179)).to eq(true)
+      expect(sa.invoice_paid_in_full?(2_179_390)).to eq(false)
     end
   end
 
@@ -258,7 +258,7 @@ RSpec.describe 'SalesAnalyst' do
 
       sa = se.analyst
 
-      expect(sa.invoice_total(2179)).to eq(31075.11)
+      expect(sa.invoice_total(2_179)).to eq(31_075.11)
     end
   end
 end
