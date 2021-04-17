@@ -86,7 +86,8 @@ RSpec.describe 'SalesEngine' do
   describe '#number_of_class' do
     it 'returns how many of a instance exist' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv')
+        items: './data/items.csv'
+      )
 
       expect(se.number_of_class(:items)).to eq(1367)
     end
