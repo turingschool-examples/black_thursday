@@ -9,7 +9,7 @@ class Invoice
   def initialize(info_hash)
     @id = info_hash[:id].to_i
     @customer_id = info_hash[:customer_id].to_i
-    @merchant_id = info_hash[:merchant_id]
+    @merchant_id = info_hash[:merchant_id].to_i
     @status = info_hash[:status]
     @created_at = time_check(info_hash[:created_at])
     @updated_at = time_check(info_hash[:updated_at])
