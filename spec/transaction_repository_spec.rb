@@ -54,5 +54,13 @@ describe TransactionRepository do
 
       expect(t_repo.find_by_id(10)).to eq nil
     end
+
+    it 'returns first Transaction with id specified' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      expect(t_repo.find_by_id(6)).to eq t_repo.transactions.first
+    end
   end
 end
