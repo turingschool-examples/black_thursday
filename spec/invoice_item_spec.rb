@@ -5,13 +5,13 @@ require 'RSpec'
 RSpec.describe InvoiceItem do
   describe '#initialize' do
     ii = InvoiceItem.new(
-      :id => 6,
-      :item_id => 7,
-      :invoice_id => 8,
-      :quantity => 1,
-      :cent_price => 1099,
-      :created_at => Time.now,
-      :updated_at => Time.now
+      id: 6,
+      item_id: 7,
+      invoice_id: 8,
+      quantity: 1,
+      cent_price: 1099,
+      created_at: Time.now,
+      updated_at: Time.now
     )
     it 'exists' do
       expect(ii).to be_an_instance_of(InvoiceItem)
@@ -19,13 +19,13 @@ RSpec.describe InvoiceItem do
   end
   describe 'instance variables' do
     ii = InvoiceItem.new(
-      :id => 6,
-      :item_id => 7,
-      :invoice_id => 8,
-      :quantity => 1,
-      :cent_price => 1099,
-      :created_at => Time.now,
-      :updated_at => Time.now
+      id: 6,
+      item_id: 7,
+      invoice_id: 8,
+      quantity: 1,
+      cent_price: 1099,
+      created_at: Time.now,
+      updated_at: Time.now
     )
     it 'has an id' do
       expect(ii.id).to eq(6)
@@ -49,13 +49,13 @@ RSpec.describe InvoiceItem do
         '12:58'
       end
       ii = InvoiceItem.new(
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :cent_price => 1099,
-        :created_at => Time.now,
-        :updated_at => Time.now
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        cent_price: 1099,
+        created_at: Time.now,
+        updated_at: Time.now
       )
       expect(ii.created_at).to eq('12:58')
     end
@@ -64,13 +64,13 @@ RSpec.describe InvoiceItem do
         '12:58'
       end
       ii = InvoiceItem.new(
-        :id => 6,
-        :item_id => 7,
-        :invoice_id => 8,
-        :quantity => 1,
-        :cent_price => 1099,
-        :created_at => Time.now,
-        :updated_at => Time.now
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        cent_price: 1099,
+        created_at: Time.now,
+        updated_at: Time.now
       )
       expect(ii.updated_at).to eq('12:58')
     end
