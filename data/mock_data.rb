@@ -2,9 +2,9 @@ require 'Date'
 
 class MockData
 
-
-  DEFAULT_CREATED_AT_PROC = Proc.new {|date| date.next_year}
-  DEFAULT_UPDATED_AT_PROC = Proc.new {|date| date}
+  DEFAULT_MERCHANT_ID = Proc.new { |item_id, number_of_merchants| item_id % number_of_merchants}
+  DEFAULT_CREATED_AT_PROC = Proc.new { |date| date.prev_year }
+  DEFAULT_UPDATED_AT_PROC = Proc.new { |date| date }
 
   def self.mock_generator(eg, mock_name, data_hashes)
     data_hashes.each_with_object([]) do |hash, mocks|
@@ -23,7 +23,7 @@ class MockData
   def self.items_as_mocks(eg, item_hashes = items_as_hashes)
     mock_generator(eg, 'Item', item_hashes)
   end
-  
+
   def self.invoice_items_as_mocks(eg, invoice_item_hashes = invoice_items_as_hashes)
     mock_generator(eg, 'InvoiceItem', invoice_item_hashes)
   end
@@ -92,19 +92,22 @@ class MockData
     end
   end
 
-  def self.items_as_hashes(number_of_hashes: 10, number_of_merchants: 2,
-                           random_dates: true, unit_price: get_a_random_price,
+  def self.items_as_hashes(number_of_hashes: 10,
+                           number_of_merchants: 2,
+                           merchant_id: DEFAULT_MERCHANT_ID,
+                           random_dates: true, unit_price: nil,
                            created_at: DEFAULT_CREATED_AT_PROC,
                            updated_at: DEFAULT_UPDATED_AT_PROC)
+
     generator = (0...number_of_hashes).to_a
     generator.each_with_object([]) do |item_number, hashes|
       item = {}
 
       item[:name] = "Item #{item_number}"
       item[:id] = item_number
-      item[:unit_price] = unit_price
+      item[:unit_price] = unit_price.nil?? get_a_random_price : unit_price
       item[:description] = 'Item Description'
-      item[:merchant_id] = item_number % number_of_merchants
+      item[:merchant_id] = merchant_id.call(item_number, number_of_merchants)
 
       date = get_a_random_date(random_dates)
       item[:created_at] = created_at.call(date).to_s
