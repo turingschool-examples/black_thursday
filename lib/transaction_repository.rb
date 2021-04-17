@@ -69,9 +69,9 @@ class TransactionRepository
     end
   end
 
-#   def delete(id)
-#     invoices.delete(find_by_id(id))
-#   end
+  def delete(id)
+    transactions.delete(find_by_id(id))
+  end
 
 #   def percentage_by_status(status)
 #     invoices_found = find_all_by_status(status).count.to_f
