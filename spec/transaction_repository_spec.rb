@@ -204,4 +204,41 @@ describe TransactionRepository do
       expect(updated_item.updated_at).to be > Time.new(2021, 03, 01)
     end
   end
+
+  describe '#delete' do
+    it 'deletes the object at specified id' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      attributes = {
+        id: nil,
+        invoice_id: 8,
+        credit_card_number: '1212121212121212',
+        credit_card_expiration_date: '0222',
+        result: 'failure',
+        created_at: Time.new(2021, 03, 01),
+        updated_at: Time.new(2021, 03, 01)
+      }
+      new_transactions = t_repo.create(attributes)
+
+      expect(t_repo.length).to eq 11
+
+      t_repo.delete(7)
+
+      expect(t_repo.length).to eq 10
+    end
+
+    it 'does not delete anything if no item at id' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      expect(t_repo.length).to eq 10
+
+      t_repo.delete(7)
+
+      expect(t_repo.length).to eq 10
+    end
+  end
 end
