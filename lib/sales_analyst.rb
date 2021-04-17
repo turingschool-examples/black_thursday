@@ -51,23 +51,22 @@ class SalesAnalyst
   end
 
   def merchants_num_items_hash
-    merchant_hash = {}
+    merchant_id_hash_keys = []
     all_merchants.each do |merchant|
-      items_per_merchant.each do |num|
-        merchant_hash[merchant] = num
-      end
+      merchant_id_hash_keys << merchant.id
     end
-    merchant_hash
+    merchants_num_items_hash = Hash[merchant_id_hash_keys.zip(items_per_merchant)]
   end
 
   def merchants_with_high_item_count
-    merchants_with_high_item_count = []
-    merchants_num_items_hash.each do |merchant, num|
-      # require'pry';binding.pry
+    merchant_ids_with_high_item_count = []
+    merchants_num_items_hash.each do |merchant_id, num|
       if z_score(num) >= 1.0 || z_score(num) <= -1.0
-        merchants_with_high_item_count << merchant
+        merchant_ids_with_high_item_count << merchant_id
       end
     end
-    merchants_with_high_item_count
+    merchant_ids_with_high_item_count.map do |merchant_id|
+      @merchants_repo.find_by_id(merchant_id)
+    end
   end
 end

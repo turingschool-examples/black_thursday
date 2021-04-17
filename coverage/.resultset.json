@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/rcasias/turing-mod1/projects/black_thursday/spec/sales_analyst_spec_.rb": {
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/spec/sales_analyst_spec.rb": {
         "lines": [
           1,
           1,
@@ -46,8 +46,8 @@
           1,
           null,
           1,
-          0,
-          0,
+          1,
+          1,
           null,
           null,
           null,
@@ -113,7 +113,7 @@
           null
         ]
       },
-      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/sales_analyst.rb": {
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/sales_analyst.rb": {
         "lines": [
           1,
           1,
@@ -132,65 +132,65 @@
           null,
           null,
           1,
-          452676,
+          427924,
           null,
           null,
           1,
-          455054,
+          429724,
           null,
           null,
           1,
-          452676,
+          427924,
           null,
           null,
           1,
-          2377,
-          1129075,
-          null,
-          null,
-          null,
-          1,
-          1426,
-          677350,
+          1799,
+          854525,
           null,
           null,
           null,
           1,
-          951,
-          451725,
+          900,
+          427500,
           null,
-          951,
-          951,
-          951,
+          null,
           null,
           1,
-          950,
+          899,
+          427025,
+          null,
+          899,
+          899,
+          899,
+          null,
+          1,
+          898,
           null,
           null,
           1,
           1,
           1,
           475,
-          225625,
-          null,
           null,
           1,
           null,
           null,
-          1,
-          1,
-          1,
           null,
+          1,
+          1,
+          1,
           475,
-          0,
+          52,
           null,
           null,
           1,
+          52,
+          null,
           null,
           null
         ]
       },
-      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/sales_engine.rb": {
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
@@ -224,7 +224,7 @@
           null
         ]
       },
-      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/items_repo.rb": {
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/items_repo.rb": {
         "lines": [
           1,
           1,
@@ -253,7 +253,7 @@
           null,
           null,
           1,
-          452676,
+          427924,
           null,
           null,
           1,
@@ -287,8 +287,8 @@
           null,
           null,
           1,
-          677350,
-          925937450,
+          427500,
+          584392500,
           null,
           null,
           null,
@@ -338,7 +338,7 @@
           null
         ]
       },
-      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/items.rb": {
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/items.rb": {
         "lines": [
           1,
           1,
@@ -373,7 +373,7 @@
           null
         ]
       },
-      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/merchants_repo.rb": {
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/merchants_repo.rb": {
         "lines": [
           1,
           1,
@@ -400,12 +400,12 @@
           null,
           null,
           1,
-          455054,
+          429724,
           null,
           null,
           1,
-          0,
-          0,
+          52,
+          10617,
           null,
           null,
           null,
@@ -452,7 +452,7 @@
           null
         ]
       },
-      "/Users/rcasias/turing-mod1/projects/black_thursday/lib/merchants.rb": {
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/merchants.rb": {
         "lines": [
           1,
           1,
@@ -472,6 +472,6 @@
         ]
       }
     },
-    "timestamp": 1618693022
+    "timestamp": 1618700291
   }
 }
