@@ -100,4 +100,22 @@ describe TransactionRepository do
       expect(all_for_cc_number.length).to eq 10
     end
   end
+
+  describe '#find_all_by_result' do
+    it 'return empty array if no Transactions with matching status' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      expect(t_repo.find_all_by_result('failure')).to eq []
+    end
+
+    it 'returns all Transactions with matching status' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      expect(t_repo.find_all_by_result('success').length).to eq 10
+    end
+  end
 end
