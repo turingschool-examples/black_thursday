@@ -74,9 +74,10 @@ RSpec.describe SalesAnalyst do
   describe '#average_item_price_for_merchant' do
     it 'gets the average price for the given merchant' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
-      sum_for_test = SalesAnalystMocks.sum_of_prices_merchant3
+      sum_for_test = SalesAnalystMocks.price_sums_for_each_merchant[3]
       actual_average = sales_analyst.average_item_price_for_merchant(3)
       expected_average = sum_for_test / 12.0
+      
       expect(actual_average).to eq expected_average
     end
   end
