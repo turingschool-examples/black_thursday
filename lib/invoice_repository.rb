@@ -44,4 +44,9 @@ class InvoiceRepository < Repository
     end
   end
 
+  def find_all_by_status(status)
+    @array_of_objects.find_all do |invoice|
+      invoice.status == status
+    end
+  end
 end
