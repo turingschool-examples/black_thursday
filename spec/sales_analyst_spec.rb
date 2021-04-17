@@ -8,20 +8,16 @@ require 'pry'
 RSpec.describe SalesAnalyst do
   describe '#num_of_items_per_merchant' do
     it 'returns a hash with each merchant as key and number of items as value' do
-      sales_engine_mock = SalesAnalystMocks.sales_engine_mock(self)
-      sales_analyst = sales_engine_mock.analyst
+      sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
 
-      items_as_hashes = MockData.items_as_hashes(number_of_hashes: 30, merchant_id_range: (0..0))
-      items_as_mocks = MockData.items_as_mocks(self, items_as_hashes)
-
-      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes:1)
-      merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
-
-      allow(sales_engine_mock.items).to receive(:all).and_return items_as_mocks
-      allow(sales_engine_mock.merchants).to receive(:all).and_return merchants_as_mocks
+      sales_engine = sales_analyst.sales_engine
+      merchants_as_mocks = sales_engine.merchants.all
 
       expected_hash = {
-        merchants_as_mocks[0] => 30
+        merchants_as_mocks[0] => 3,
+        merchants_as_mocks[1] => 7,
+        merchants_as_mocks[2] => 4,
+        merchants_as_mocks[3] => 12
       }
 
       actual = sales_analyst.num_of_items_per_merchant
@@ -66,7 +62,7 @@ RSpec.describe SalesAnalyst do
   describe '#merchants_with_high_item_count' do
     it 'returns the merchants with a high number of items that are more than 1 std dev above of the mean' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
-      merchant_ids = [2, 4]
+      merchant_ids = [1, 3]
       actual_merchants = sales_analyst.merchants_with_high_item_count
 
       actual_merchants.each do |merchant|
