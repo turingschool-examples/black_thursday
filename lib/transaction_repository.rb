@@ -47,5 +47,13 @@ class TransactionRepository
     new_transaction = Transaction.new(attributes)
     new_transaction.update_id(find_max_id + 1)
     @transactions << new_transaction
-  end 
+  end
+
+  def update(id, attributes)
+    transaction = find_by_id(id)
+    transaction.update_credit_card_number(attributes[:credit_card_number])
+    transaction.update_credit_card_exp_date(attributes[:credit_card_expiration_date])
+    transaction.update_result(attributes[:result])
+    transaction.update_time
+  end
 end

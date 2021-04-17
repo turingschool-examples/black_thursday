@@ -163,8 +163,8 @@ describe TransactionRepository do
         credit_card_expiration_date: '0224',
         result: 'success'
       }
-      new_transactions = t_repo.update(7, new_info)
-      updated_item = new_transactions.find_by_id(7)
+      t_repo.update(7, new_info)
+      updated_item = t_repo.find_by_id(7)
 
       expect(updated_item.credit_card_number).to eq '1212121212124444'
       expect(updated_item.credit_card_expiration_date).to eq '0224'
@@ -195,8 +195,8 @@ describe TransactionRepository do
         created_at: Time.new(2021, 02, 04),
         updated_at: Time.new(2021, 02, 04)
       }
-      new_transactions = t_repo.update(7, new_info)
-      updated_item = new_transactions.last
+      t_repo.update(7, new_info)
+      updated_item = t_repo.transactions.last
 
       expect(updated_item.id).to eq 7
       expect(updated_item.invoice_id).to eq 8
