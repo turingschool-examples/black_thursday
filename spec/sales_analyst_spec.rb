@@ -51,4 +51,27 @@ RSpec.describe SalesAnalyst do
       expect(actual_average).to eq expected_average
     end
   end
+
+  describe '#average_items_per_merchant_standard_deviation' do
+    it 'calculates standard deviation for average items per merchant' do
+      sales_engine_mock = SalesAnalystMocks.sales_engine_mock(self)
+      sales_analyst = sales_engine_mock.analyst
+
+      items_as_hashes = MockData.items_as_hashes(number_of_hashes: 3, merchant_id: Proc.new { 1 })
+      items_as_hashes += MockData.items_as_hashes(number_of_hashes: 7, merchant_id: Proc.new { 2 })
+      items_as_hashes += MockData.items_as_hashes(number_of_hashes: 4, merchant_id: Proc.new { 3 })
+      items_as_hashes += MockData.items_as_hashes(number_of_hashes: 12, merchant_id: Proc.new { 4 })
+
+      items_as_mocks = MockData.items_as_mocks(self, items_as_hashes)
+      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 4)
+      merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
+
+      allow(sales_engine_mock.items).to receive(:all).and_return items_as_mocks
+      allow(sales_engine_mock.merchants).to receive(:all).and_return merchants_as_mocks
+
+      expected_deviation = Math.sqrt( ( ((3-6)**2)+((7-6)**2)+((4-6)**2)+((12-6)**2) ) / 3.0 )
+      actual_deviation = sales_analyst.average_items_per_merchant_standard_deviation
+      expect(actual_deviation).to eq expected_deviation
+    end
+  end
 end
