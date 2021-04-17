@@ -1,89 +1,53 @@
 require 'rspec'
+require './data/mock_data'
 require './lib/sales_analyst'
 require './lib/sales_engine'
+require './spec/sales_analyst_mocks'
+require 'pry'
 
 RSpec.describe SalesAnalyst do
+  describe '#num_of_items_per_merchant' do
+    it 'returns a hash with each merchant as key and number of items as value' do
+      sales_engine_mock = SalesAnalystMocks.sales_engine_mock(self)
+      sales_analyst = sales_engine_mock.analyst
+
+      items_as_hashes = MockData.items_as_hashes(number_of_hashes: 30, number_of_merchants: 3)
+      items_as_mocks = MockData.items_as_mocks(self, items_as_hashes)
+
+      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes:3)
+      merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
+
+      allow(sales_engine_mock.items).to receive(:all).and_return items_as_mocks
+      allow(sales_engine_mock.merchants).to receive(:all).and_return merchants_as_mocks
+
+      expected_hash = {
+        merchants_as_mocks[0] => 10,
+        merchants_as_mocks[1] => 10,
+        merchants_as_mocks[2] => 10
+      }
+
+      actual = sales_analyst.num_of_items_per_merchant
+
+      expect(actual).to be_a Hash
+      expect(actual).to eq expected_hash
+    end
+  end
+
   describe '#average_items_per_merchant' do
     it 'averages the items per merchant' do
+      sales_engine_mock = SalesAnalystMocks.sales_engine_mock(self)
+      sales_analyst = sales_engine_mock.analyst
 
-      sales_engine = SalesEngine.new
+      items_as_mocks = MockData.items_as_mocks(self)
+      merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes:2)
+      merchants_as_mocks = MockData.merchants_as_mocks(self, merchants_as_hashes)
 
-      mock_files = {
-        items: './fake_items.csv',
-        merchants: './fake_merchants.csv'
-      }
+      allow(sales_engine_mock.items).to receive(:all).and_return items_as_mocks
+      allow(sales_engine_mock.merchants).to receive(:all).and_return merchants_as_mocks
 
-      mock_item_row1_merch1 = {
-        id: 12_345,
-        name: 'Item 1',
-        description: 'Item desc 1',
-        unit_price: '12.23',
-        merchant_id: '1'
-      }
-      mock_item_row2_merch1 = {
-        id: 12_346,
-        name: 'Item 2',
-        description: 'Item desc 2',
-        unit_price: '22.50',
-        merchant_id: '1'
-      }
-      mock_item_row3_merch1 = {
-        id: 12_347,
-        name: 'Item 3',
-        description: 'Item desc 3',
-        unit_price: '50.25',
-        merchant_id: '1'
-      }
-
-      mock_item_row1_merch2 = {
-        id: 12_348,
-        name: 'Item 1',
-        description: 'Item desc 1',
-        unit_price: '47.53',
-        merchant_id: '2'
-      }
-      mock_item_row2_merch2 = {
-        id: 12_349,
-        name: 'Item 2',
-        description: 'Item desc 2',
-        unit_price: '12.72',
-        merchant_id: '2'
-      }
-      mock_item_row3_merch2 = {
-        id: 12_350,
-        name: 'Item 3',
-        description: 'Item desc 3',
-        unit_price: '31.48',
-        merchant_id: '2'
-      }
-
-      allow(CSV).to receive(:foreach).and_yield(mock_item_row1_merch1)
-                                     .and_yield(mock_item_row2_merch1)
-                                     .and_yield(mock_item_row3_merch1)
-                                     .and_yield(mock_item_row1_merch2)
-                                     .and_yield(mock_item_row2_merch2)
-                                     .and_yield(mock_item_row3_merch2)
-
-      sales_engine.load_items('./fake_items.csv')
-
-      mock_merch1 = {
-        id: 1,
-        name: 'Dustin'
-      }
-      mock_merch2 = {
-        id: 2,
-        name: 'Sami'
-      }
-
-      allow(CSV).to receive(:foreach).and_yield(mock_merch1)
-                                     .and_yield(mock_merch2)
-
-      sales_engine.load_merchants('./fake_items.csv')
-
-      sales_analyst = sales_engine.analyst
-
-      expected_average = 3
+      expected_average = 5
       actual_average = sales_analyst.average_items_per_merchant
+
       expect(actual_average).to eq expected_average
     end
   end
