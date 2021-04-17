@@ -112,8 +112,8 @@ describe Invoice do
                         updated_at: Time.now
                       })
 
-      i.update_status("shipped")
-      expect(i.status).to eq "shipped"
+      i.update_status('shipped')
+      expect(i.status).to eq 'shipped'
     end
 
     it 'updates time updated' do

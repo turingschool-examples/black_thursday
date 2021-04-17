@@ -3,7 +3,6 @@ require './lib/invoice'
 require './data/mock_data'
 require './lib/invoice_repository'
 
-
 describe InvoiceRepository do
   describe '#initialize' do
     it 'exists' do
@@ -85,7 +84,7 @@ describe InvoiceRepository do
 
   describe '#find_all_by_status' do
     it 'returns empty array for no results' do
-      invoice_hashes = MockData.invoices_as_hashes(status: ('pending'))
+      invoice_hashes = MockData.invoices_as_hashes(status: 'pending')
       mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')
@@ -94,7 +93,7 @@ describe InvoiceRepository do
     end
 
     it 'returns invoices by status' do
-      invoice_hashes = MockData.invoices_as_hashes(status: ('pending'))
+      invoice_hashes = MockData.invoices_as_hashes(status: 'pending')
       mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')
@@ -113,7 +112,7 @@ describe InvoiceRepository do
         id: nil,
         customer_id: 1,
         merchant_id: 1,
-        status: "pending",
+        status: 'pending',
         created_at: Time.now,
         updated_at: Time.now
       }
@@ -136,7 +135,7 @@ describe InvoiceRepository do
         id: nil,
         customer_id: 1,
         merchant_id: 1,
-        status: "pending",
+        status: 'pending',
         created_at: Time.now,
         updated_at: Time.new(2020, 12, 31)
       }
@@ -144,13 +143,13 @@ describe InvoiceRepository do
       invoice_repository.create(new_invoice)
 
       attributes = {
-        status: "shipped"
+        status: 'shipped'
       }
 
       invoice_repository.update(10, attributes)
       expected = invoice_repository.find_by_id(10)
 
-      expect(expected.status).to eq "shipped"
+      expect(expected.status).to eq 'shipped'
       expect(expected.updated_at).to be > Time.new(2020, 12, 31)
     end
   end
@@ -165,7 +164,7 @@ describe InvoiceRepository do
         id: nil,
         customer_id: 1,
         merchant_id: 1,
-        status: "pending",
+        status: 'pending',
         created_at: Time.now,
         updated_at: Time.new(2020, 12, 31)
       }
@@ -188,7 +187,7 @@ describe InvoiceRepository do
         id: nil,
         customer_id: 1,
         merchant_id: 1,
-        status: "pending",
+        status: 'pending',
         created_at: Time.now,
         updated_at: Time.new(2020, 12, 31)
       }
