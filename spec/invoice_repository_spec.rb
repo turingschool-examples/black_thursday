@@ -45,7 +45,8 @@ describe InvoiceRepository do
 
   describe '#find_all_by_customer_id' do
     it 'returns empty array for no results' do
-      mock_data = MockData.invoices_as_mocks(self)
+      invoice_hashes = MockData.invoices_as_hashes(customer_id_range: (1..1))
+      mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')
 
@@ -53,11 +54,52 @@ describe InvoiceRepository do
     end
 
     it 'returns invoices by customer id' do
-      mock_data = MockData.invoices_as_mocks(self)
+      invoice_hashes = MockData.invoices_as_hashes(customer_id_range: (1..1))
+      mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')
 
-      expect(invoice_repository.find_all_by_customer_id(2).length).to eq 4
+      expect(invoice_repository.find_all_by_customer_id(1).length).to eq 10
+    end
+  end
+
+  describe '#find_all_by_merchant_id' do
+    it 'returns empty array for no results' do
+      invoice_hashes = MockData.invoices_as_hashes(merchant_id_range: (1..1))
+      mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      expect(invoice_repository.find_all_by_merchant_id(500)).to eq []
+    end
+
+    it 'returns invoices by merchant id' do
+      invoice_hashes = MockData.invoices_as_hashes(merchant_id_range: (1..1))
+      mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      expect(invoice_repository.find_all_by_merchant_id(1).length).to eq 10
+    end
+  end
+
+  describe '#find_all_by_status' do
+    it 'returns empty array for no results' do
+      invoice_hashes = MockData.invoices_as_hashes(status: ('pending'))
+      mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      expect(invoice_repository.find_all_by_status('Unknown Status')).to eq []
+    end
+
+    it 'returns invoices by status' do
+      invoice_hashes = MockData.invoices_as_hashes(status: ('pending'))
+      mock_data = MockData.invoices_as_mocks(self, invoice_hashes)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      expect(invoice_repository.find_all_by_status('pending').length).to eq 10
     end
   end
 end
