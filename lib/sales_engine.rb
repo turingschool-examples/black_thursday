@@ -2,9 +2,9 @@ require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
-# require_relative 'invoice_items_repository'
-# require_relative 'transactions_repository'
-# require_relative 'customer_repository'
+require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
+require_relative 'customer_repository'
 
 # This class births all our repositories
 class SalesEngine
