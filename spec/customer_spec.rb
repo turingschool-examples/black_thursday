@@ -46,7 +46,7 @@ RSpec.describe Customer do
                                 updated_at: '2013-03-27 14:54:09 UTC}'
                               }, mock_customer_repo)
 
-      attributes = {first_name: 'Jimmy'}
+      attributes = { first_name: 'Jimmy' }
 
       customer.update_first_name(attributes)
 
@@ -65,7 +65,7 @@ RSpec.describe Customer do
                                 updated_at: '2013-03-27 14:54:09 UTC}'
                               }, mock_customer_repo)
 
-      attributes = {last_name: 'Johns'}
+      attributes = { last_name: 'Johns' }
 
       customer.update_last_name(attributes)
 
@@ -101,7 +101,7 @@ RSpec.describe Customer do
                                 updated_at: '2013-03-27 14:54:09 UTC}'
                               }, mock_customer_repo)
 
-      attributes = {first_name: 'Jimmy', last_name: 'John'}
+      attributes = { first_name: 'Jimmy', last_name: 'John' }
 
       customer.update(attributes)
       expect(customer.first_name).to eq('Jimmy')
