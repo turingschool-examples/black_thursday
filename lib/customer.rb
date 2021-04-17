@@ -17,16 +17,25 @@ class Customer
     @customer_repo = customer_repo
   end
 
-  def update_time_stamp
-    @updated_at = Time.now
+  def update(attributes)
+    update_first_name(attributes)
+    update_last_name(attributes)
+    update_time_stamp
   end
 
-  def update_name(attributes)
+  def update_first_name(attributes)
     if attributes[:first_name] != nil
       @first_name.replace(attributes[:first_name])
     end
+  end
+
+  def update_last_name(attributes)
     if attributes[:last_name] != nil
       @last_name.replace(attributes[:last_name])
     end
+  end
+
+  def update_time_stamp
+    @updated_at = Time.now
   end
 end

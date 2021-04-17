@@ -57,10 +57,9 @@ class CustomerRepository
   end
 
   def update(id, attributes)
-      if find_by_id(id) != nil
+    if find_by_id(id) != nil
       customer_to_update = find_by_id(id)
-      customer_to_update.update_name(attributes)
-      customer_to_update.update_time_stamp
+      customer_to_update.update(attributes)
     end
   end
 
