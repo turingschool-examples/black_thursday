@@ -4,7 +4,7 @@ require './lib/merchant_repo'
 require './lib/merchant'
 require './lib/item'
 require './lib/item_repo'
-# require './lib/invoice_item'
+# require './lib/invoice'
 # require './lib/invoice_item_repo'
 require './lib/transaction'
 require 'bigdecimal'
@@ -41,7 +41,7 @@ RSpec.describe ItemRepo do
     it '#find by id' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
-                                      :invoice_id => 8,
+                                      :transaction_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -55,10 +55,10 @@ RSpec.describe ItemRepo do
       expect(transaction1.find_by_id(999999999)).to eq(nil)
     end
 
-    it '#find all by invoice id' do
+    it '#find all by transaction id' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
-                                      :invoice_id => 8,
+                                      :transaction_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -66,16 +66,16 @@ RSpec.describe ItemRepo do
                                       :updated_at => Time.now
                                     })
 
-      #SOMETHING LIKE transaction_repo.add_invoice(invoice1)
+      #SOMETHING LIKE transaction_repo.add_transaction(transaction1)
 
-      expect(transaction1.find_all_by_invoice_id(8)).to eq([transaction1])
-      expect(transaction1.find_all_by_invoice_id(0)).to eq([])
+      expect(transaction1.find_all_by_transaction_id(8)).to eq([transaction1])
+      expect(transaction1.find_all_by_transaction_id(0)).to eq([])
     end
 
     it '#find all by credit card number' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
-                                      :invoice_id => 8,
+                                      :transaction_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -83,7 +83,7 @@ RSpec.describe ItemRepo do
                                       :updated_at => Time.now
                                     })
 
-      #SOMETHING LIKE transaction_repo.add_invoice(invoice1)
+      #SOMETHING LIKE transaction_repo.add_transaction(transaction1)
 
       expect(transaction1.find_all_by_credit_card_number("4242424242424242")).to eq([transaction1])
       expect(transaction1.find_all_by_credit_card_number("0000000000000000")).to eq([])
@@ -92,7 +92,7 @@ RSpec.describe ItemRepo do
     it '#find all by result' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
-                                      :invoice_id => 8,
+                                      :transaction_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -100,7 +100,7 @@ RSpec.describe ItemRepo do
                                       :updated_at => Time.now
                                     })
 
-      #SOMETHING LIKE transaction_repo.add_invoice(invoice1)
+      #SOMETHING LIKE transaction_repo.add_transaction(transaction1)
 
       expect(transaction1.find_all_by_result("success")).to eq([transaction1])
       expect(transaction1.find_all_by_result("sweet success")).to eq([])
@@ -109,7 +109,7 @@ RSpec.describe ItemRepo do
     it '#creates transaction' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
-                                      :invoice_id => 8,
+                                      :transaction_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -125,14 +125,14 @@ RSpec.describe ItemRepo do
     it '#updates attributes' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
-                                      :invoice_id => 8,
+                                      :transaction_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
                                       :created_at => Time.now,
                                       :updated_at => Time.now
                                     })
-      # transaction_repo.add_invoice(invoice1)
+      # transaction_repo.add_transaction(transaction1)
 
       updated_attributes = {:credit_card_number => "9999999999999999",
                             :credit_card_expiration_date => "0930",
@@ -151,14 +151,14 @@ RSpec.describe ItemRepo do
     it '#delete by id' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
-                                      :invoice_id => 8,
+                                      :transaction_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
                                       :created_at => Time.now,
                                       :updated_at => Time.now
                                     })
-      #transaction_repo.add_invoice(invoice1)
+      #transaction_repo.add_transaction(transaction1)
 
       expect(transaction_repo.find_by_id(6)).to eq(transaction1)
 
