@@ -88,5 +88,18 @@ describe Invoice do
       expect(invoice.created_at).to eq created_at
       expect(invoice.updated_at).to eq updated_at
     end
+
+    it 'updates id' do
+      i = Invoice.new({
+                        id: 6,
+                        customer_id: 7,
+                        merchant_id: 8,
+                        status: 'pending',
+                        created_at: Time.now,
+                        updated_at: Time.now
+                      })
+      i.update_id(7)
+      expect(i.id).to eq 7
+    end 
   end
 end
