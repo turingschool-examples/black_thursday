@@ -1,11 +1,10 @@
 require 'CSV'
-require './lib/item'
-require './lib/merchant'
-require './lib/item_repository'
-require './lib/merchant_repository'
-require './lib/sales_analyst'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative './item'
+require_relative './merchant'
+require_relative './item_repository'
+require_relative './merchant_repository'
+require_relative './file_io'
+require_relative './sales_analyst'
 
 class SalesEngine
   attr_reader :items, :merchants
