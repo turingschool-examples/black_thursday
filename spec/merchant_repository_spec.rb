@@ -60,7 +60,6 @@ RSpec.describe MerchantRepository do
         :id => 12337412,
         :name => "Turing School of Software and Design"
       }
-      # expect(merch_rep.create({ :id => 5, :name => "Turing School" }).last).to be_instance_of(Merchant)
       expect(merch_rep.create({name: "Turing School of Software and Design"}))
     end
 
@@ -70,10 +69,6 @@ RSpec.describe MerchantRepository do
     end
 
     it 'can update existing merchant' do
-      # attributes = { :id => 5, :name => "Turing School" }
-      # merch_rep.update(12334112, attributes)
-      # targeted_merchant = merch_rep.find_by_id(12334112)
-      # expect(targeted_merchant.name).to eq("Turing School")
       attributes = {
       name: "TSSD"
       }
