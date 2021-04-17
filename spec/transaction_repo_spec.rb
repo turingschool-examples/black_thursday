@@ -9,7 +9,7 @@ require './lib/item_repo'
 require './lib/transaction'
 require 'bigdecimal'
 
-RSpec.describe ItemRepo do
+RSpec.describe TransactionRepo do
   describe 'instantiation' do
     before(:each) do
       # @repo = SalesEngine.from_csv({:items => "./data/items.csv",
