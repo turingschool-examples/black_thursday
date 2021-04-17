@@ -30,6 +30,7 @@ RSpec.describe Transaction do
       expect(transaction1.transaction_id).to eq(8)
       expect(transaction1.credit_card_number).to eq("4242424242424242")
       expect(transaction1.credit_card_expiration_date).to eq("0220")
+      expect(transaction1.result).to eq("success")
       expect(transaction1.created_at).to be_an_instance_of(Time)
       expect(transaction1.updated_at).to be_an_instance_of(Time)
     end
