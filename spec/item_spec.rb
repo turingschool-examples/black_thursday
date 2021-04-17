@@ -24,7 +24,7 @@ RSpec.describe Item do
       expect(item.id).to eq(1)
       expect(item.name).to eq("Pencil")
       expect(item.description).to eq("You can use it to write things")
-      expect(item.unit_price).to eq(0.1099e4)
+      expect(item.unit_price).to eq(10.99)
       expect(item.created_at.class).to eq(Time)
       expect(item.updated_at.class).to eq(Time)
       expect(item.merchant_id).to eq(2)
