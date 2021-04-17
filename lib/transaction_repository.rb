@@ -9,18 +9,18 @@ class TransactionRepository
   def initialize(path, engine)
     @transactions = []
     @engine = engine
-    # make_invoices(path)
+    make_transactions(path)
   end
 
 #   def inspect
 #     "#<#{self.class} #{@invoices.size} rows>"
 #   end
 
-#   def make_invoices(path)
-#     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-#       @invoices << Invoice.new(row, self)
-#     end
-#   end
+  def make_transactions(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      @transactions << Transaction.new(row, self)
+    end
+  end
 
 #   def all
 #     @invoices

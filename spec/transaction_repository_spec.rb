@@ -12,11 +12,11 @@ RSpec.describe TransactionRepository do
       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
       expect(tr).to be_instance_of(TransactionRepository)
     end
-    # it 'has transactions' do
-    #   mock_sales_engine = instance_double('SalesEngine')
-    #   tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-    #   expect(tr.transactions.count).to eq(4985)
-    # end
+    it 'has transactions' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      expect(tr.transactions.count).to eq(50)
+    end
   end
 #   describe '#make_invoices' do
 #     it 'makes_invoices' do
