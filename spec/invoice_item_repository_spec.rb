@@ -95,33 +95,12 @@ RSpec.describe InvoiceItemRepository do
       expect(expected.updated_at.year).to eq(2021)
     end
   end
+  describe '#delete' do
+    it 'deletes an invoice item by id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      iir.delete(1)
+      expect(iir.invoice_items.count).to eq(49)
+    end
+  end
 end
-# describe '#update' do
-# it 'updates invoices attributes' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   attributes = {
-#     status: :success,
-#     id: 5000,
-#     customer_id: 2,
-#     merchant_id: 3,
-#     created_at: Time.now
-#     }
-#   test_invoice = ir.find_by_id(1)
-#   ir.update(1, attributes)
-#   expect(test_invoice.id).to eq(1)
-#   expect(test_invoice.customer_id).to eq(1)
-#   expect(test_invoice.merchant_id).to eq(12335938)
-#   expect(test_invoice.status).to eq(:success)
-#   expect(test_invoice.created_at.year).to eq(2009)
-#   expect(test_invoice.updated_at.year).to eq(2021)
-# end
-# end
-# describe '#delete' do
-# it 'delete a specified invoice from the invoices array' do
-#   mock_sales_engine = instance_double('SalesEngine')
-#   ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-#   ir.delete(1)
-#   expect(ir.invoices.count).to eq(4984)
-# end
-# end
