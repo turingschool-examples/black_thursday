@@ -37,44 +37,20 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
 
-    it "can return merchants with the most items" do
+    xit "can return merchants with the most items" do
       expected = sales_analyst.merchants_with_high_item_count
 
       expect(expected.length).to eq(52)
       expect(expected.first.class).to eq(Merchant)
       expect(expected.class).to eq(Array)
     end
-  end
 
-  # context '#merchants_with_high_item_count' do
-  #   xit 'can return merchants with number of items higher than standard deviation' do
-  #     se = SalesEngine.from_csv({
-  #     :items     => "./data/items.csv",
-  #     :merchants => "./data/merchants.csv",
-  #     })
-  #
-  #     sales_analyst = SalesEngine.analyst
-  #     mr = se.merchants
-  #     ir = se.items
-  #
-  #     expect(sales_analyst.merchants_with_high_item_count.class).to eq(Array) #Use mock or stub
-  #   end
-  # end
-  #
-  # context '#average_item_price_for_merchant' do
-  #   xit 'can find the average price of a merchants items' do
-  #     se = SalesEngine.from_csv({
-  #     :items     => "./data/items.csv",
-  #     :merchants => "./data/merchants.csv",
-  #     })
-  #
-  #     sales_analyst = SalesEngine.analyst
-  #     mr = se.merchants
-  #     ir = se.items
-  #
-  #     expect(sales_analyst.average_item_price_for_merchant(12334159.class)).to eq(BigDecimal)
-  #   end
-  # end
+    it 'can find the average price of a merchants items' do
+
+      expect(sales_analyst.average_item_price_for_merchant(12334105).class).to eq(BigDecimal)
+      expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(1.666e1)
+    end
+  end
   #
   # context '#average_average_price_per_merchant' do
   #   xit 'can find the average of average price' do
