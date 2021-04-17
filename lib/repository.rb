@@ -17,15 +17,15 @@ class Repository
   def parse_csv(path)
     parsed_csv = CSV.parse(File.read(path), headers: true, header_converters: :symbol).to_a
     headers = parsed_csv.shift
-    @parsed_csv_data = []
-    parsed_csv.each do |data|
+    @parsed_csv_data = parsed_csv.reduce([]) do |parsed_data, raw_data|
       new_hash = Hash.new
       counter = 0
       headers.each do |header|
-        new_hash[header] = data[counter]
+        new_hash[header] = raw_data[counter]
         counter += 1
       end
-      @parsed_csv_data << new_hash
+      parsed_data << new_hash
+      parsed_data
     end
     @parsed_csv_data
   end
@@ -35,8 +35,14 @@ class Repository
   end
 
   def find_by_id(id)
-    @array_of_objects.find do |object|
+    array_of_objects.find do |object|
       object.id == id
     end
   end
+
+  def delete(id)
+    target = find_by_id(id)
+    array_of_objects.delete(target)
+  end
+
 end
