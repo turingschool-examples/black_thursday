@@ -30,16 +30,16 @@ RSpec.describe CustomerRepository do
                               })
     customer_repo = sales_engine.customers
 
-    it '#find_all_by_first_name returns array of customers with given first name' do
-      real_first_name = "Damian"
+    it '#find_all_by_first_name returns array of customers with given first name, case insensitive' do
+      real_first_name = "DAMIAN"
       fake_first_name = "Aliya"
 
       expect(customer_repo.find_all_by_first_name(real_first_name).length).to eq(1)
       expect(customer_repo.find_all_by_first_name(fake_first_name)).to eq([])
     end
 
-    it '#find_all_by_last_name returns array of customers with given last name' do
-      real_last_name = "Barrows"
+    it '#find_all_by_last_name returns array of customers with given last name, case insensitive' do
+      real_last_name = "BARROWS"
       fake_last_name = "Merali"
 
       expect(customer_repo.find_all_by_last_name(real_last_name).length).to eq(3)

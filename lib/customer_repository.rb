@@ -35,13 +35,13 @@ class CustomerRepository < Repository
 
   def find_all_by_first_name(first_name)
     @array_of_objects.find_all do |customer|
-      customer.first_name == first_name
+      customer.first_name.downcase.include?(first_name.downcase)
     end
   end
 
   def find_all_by_last_name(last_name)
     @array_of_objects.find_all do |customer|
-      customer.last_name == last_name
+      customer.last_name.downcase.include?(last_name.downcase)
     end
   end
 end
