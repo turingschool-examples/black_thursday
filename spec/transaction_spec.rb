@@ -130,7 +130,7 @@ describe Transaction do
   end
 
   describe '#update_credit_card_number' do
-    it 'updates Transaction id' do
+    it 'updates Transaction credit card number' do
       details = {
         id: 6,
         invoice_id: 8,
@@ -145,6 +145,25 @@ describe Transaction do
       transaction.update_credit_card_number('1212121212121212')
 
       expect(transaction.credit_card_number).to eq '1212121212121212'
+    end
+  end
+
+  describe '#update_credit_card_exp_date' do
+    it 'updates Transaction credit card expiration date' do
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      transaction = Transaction.new(details)
+
+      transaction.update_credit_card_exp_date('0322')
+
+      expect(transaction.credit_card_expiration_date).to eq '0322'
     end
   end
 end
