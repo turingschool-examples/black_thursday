@@ -60,4 +60,28 @@ describe InvoiceItemRepository do
       expect(ii_repo.find_all_by_invoice_id(1).first.class).is_a? InvoiceItem
     end
   end
+
+  describe '#create' do
+    it 'creates a new InvoiceItem with provided attributes' do
+      mock_data = MockData.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
+      ii_repo = InvoiceItemRepository.new('fake.csv')
+
+      attributes = {
+          :id => nil,
+          :item_id => 17,
+          :invoice_id => 81,
+          :quantity => 1,
+          :unit_price => BigDecimal(10.99, 4),
+          :created_at => Time.now,
+          :updated_at => Time.now
+               }
+
+      ii_repo.create(attributes)
+
+      expected = ii_repo.invoice_items.last
+      expect(ii_repo.all.length).to eq 11
+      expect(expected.invoice_id).to eq 81
+    end
+  end
 end
