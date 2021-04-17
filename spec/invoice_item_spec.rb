@@ -63,9 +63,9 @@ RSpec.describe InvoiceItem do
 
     invoice_item = sales_engine.invoice_items.all[0]
 
-    xit 'has a unit price' do
-      expect(invoice_item.unit_price).to eq(10.99)
-      expect(invoice_item.unit_price.class).to eq(Float)
+    it 'has a unit price' do
+      # expect(invoice_item.unit_price_to_dollars).to eq(10.99)
+      expect(invoice_item.unit_price_to_dollars.class).to eq(Float)
     end
   end
 end
