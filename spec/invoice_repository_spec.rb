@@ -102,4 +102,27 @@ describe InvoiceRepository do
       expect(invoice_repository.find_all_by_status('pending').length).to eq 10
     end
   end
+
+  describe '#create' do
+    it 'creates an Invoice class object' do
+      mock_data = MockData.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
+      invoice_repository = InvoiceRepository.new('fake.csv')
+
+      new_invoice = {
+        id: nil,
+        customer_id: 1,
+        merchant_id: 1,
+        status: "pending",
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+
+      invoice_repository.create(new_invoice)
+      created_invoice = invoice_repository.invoices.last
+
+      expect(created_invoice).is_a? Invoice
+      expect(created_invoice.id).to eq 10
+    end
+  end
 end
