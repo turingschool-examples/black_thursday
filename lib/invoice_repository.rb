@@ -38,4 +38,17 @@ class InvoiceRepository
     new_invoice.update_id(find_max_id + 1)
     @invoices << new_invoice
   end
+
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    unless invoice.nil?
+      invoice.update_status(attributes[:status])
+      invoice.update_time
+    end
+  end
+
+  def delete(id)
+    invoice = find_by_id(id)
+    @invoices.delete(invoice)
+  end
 end
