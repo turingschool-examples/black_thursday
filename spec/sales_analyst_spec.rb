@@ -81,4 +81,10 @@ RSpec.describe SalesAnalyst do
       expect(actual_average).to eq expected_average
     end
   end
+
+  describe '#average_average_price_per_merchant' do
+    it 'get the average of all the averages for each merchant' do
+
+    end
+  end
 end

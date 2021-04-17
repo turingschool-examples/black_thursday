@@ -65,4 +65,7 @@ class SalesAnalyst
     items_sum = items.sum(&:unit_price)
     items_sum / items.length
   end
+
+  def average_average_price_per_merchant
+  end
 end
