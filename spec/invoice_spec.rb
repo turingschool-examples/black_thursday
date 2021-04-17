@@ -29,7 +29,7 @@ RSpec.describe Invoice do
       expect(invoice.id).to eq(6)
       expect(invoice.customer_id).to eq(7)
       expect(invoice.merchant_id).to eq(8)
-      expect(invoice.status).to eq("pending")
+      expect(invoice.status).to eq(:pending)
       expect(invoice.created_at.class).to eq(Time)
       expect(invoice.updated_at.class).to eq(Time)
     end
@@ -39,6 +39,7 @@ RSpec.describe Invoice do
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv"
                               })
     item = sales_engine.items.all[0]
 
