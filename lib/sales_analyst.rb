@@ -18,6 +18,7 @@ class SalesAnalyst
     merchants.map do |merchant|
       merchant.id
     end
+  end
 
   def average_items_per_merchant(merchants)
     merchant_ids = get_merchant_ids(merchants)
@@ -25,18 +26,15 @@ class SalesAnalyst
     merchant_ids.each do |merchant_id|
       if find_all_by_merchant_id.include?(merchant_id)
         item_counter += 1
+        require 'pry'; binding.pry
       end
     end
-    #average_items_per_merchant (array of merchant ids)
-    #iterate through array of merchant ids
-    #item counter = 0
     #for each id, compare against merchant ids in items
     #each time id is matched, add += 1 to counter
 
     # counter / merchants.length.to_f
 
-    avg = find_all_items.length / merchants.length.to_f
-    avg.truncate(2)
+    #avg.truncate(2)
   end
 
   def sample_merchants_return_id
@@ -53,8 +51,7 @@ class SalesAnalyst
     sample_size_minus_one = merchant_items.length - 1
     counter = 0
     merchant_items.each do |number|
-      running_total = (number - average_items_per_merchant)
-require 'pry'; binding.pry
+      running_total = (number)**2 # add in average subtracted here
       counter += running_total
     end
     Math.sqrt(counter / sample_size_minus_one)

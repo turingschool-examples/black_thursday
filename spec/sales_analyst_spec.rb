@@ -26,7 +26,8 @@ RSpec.describe do
 
     it 'calculates average_items_per_merchant' do
       #Need to decide how to test this. Stub? Fixture data set?
-      expect(sales_analyst.average_items_per_merchant(sales_engine.merchants.array_of_objects)).to be_an_instance_of(Float)
+      first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
+      expect(sales_analyst.average_items_per_merchant(first_ten_merchants)).to eq(4.4)
     end
 
     it 'returns set of ten merchant ids' do
