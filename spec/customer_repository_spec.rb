@@ -25,7 +25,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-       )
+      )
 
       cr = se.customers
 
@@ -100,7 +100,7 @@ RSpec.describe CustomerRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-       )
+      )
 
       cr = se.customers
 
@@ -122,7 +122,7 @@ RSpec.describe CustomerRepository do
     end
   end
 
-  describe '#all' do
+    describe '#all' do
       it 'returns an array of all customers' do
         se = SalesEngine.from_csv(
           items: './data/items.csv',
