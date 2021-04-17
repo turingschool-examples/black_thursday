@@ -57,63 +57,65 @@ RSpec.describe TransactionRepository do
       mock_sales_engine = instance_double('SalesEngine')
       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
       test_transaction1 = Transaction.new({
-        id: '263395617',
-        invoice_id: '456789',
-        credit_card_number: '4297222479999999',
-        credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
-        result: 'success',
-        created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
-     },
-     tr
-    )
-    test_transaction2 = Transaction.new({
-        id: '263395617999',
-        invoice_id: '456789',
-        credit_card_number: '4297222479999999',
-        credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
-        result: 'success',
-        created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
-     },
-     tr
-    )
+                                             id: '263395617',
+                                             invoice_id: '456789',
+                                             credit_card_number: '4297222479999999',
+                                             credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                             result: 'success',
+                                             created_at: '2016-01-11 11:51:37 UTC',
+                                             updated_at: '1993-09-29 11:56:40 UTC'
+                                          },
+                                          tr
+                                         )
+      test_transaction2 = Transaction.new({
+                                             id: '263395617999',
+                                             invoice_id: '456789',
+                                             credit_card_number: '4297222479999999',
+                                             credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                             result: 'success',
+                                             created_at: '2016-01-11 11:51:37 UTC',
+                                             updated_at: '1993-09-29 11:56:40 UTC'
+                                          },
+                                          tr
+                                         )
       tr.transactions << test_transaction1
       tr.transactions << test_transaction2
       expect(tr.find_all_by_invoice_id(456789)).to eq([test_transaction1, test_transaction2])
       expect(tr.find_all_by_invoice_id(123456789099999999)).to eq([])
     end
   end
-#   describe '#find_all_by_merchant_id' do
-#     it 'finds transactions by merchant id' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       test_transaction1 = Transaction.new({
-#         id: '1234567890',
-#         customer_id: '456789',
-#         merchant_id: '234567890',
-#         status: 'pending',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#     },
-#     tr
-#     )
-#     test_transaction2 = Transaction.new({
-#         id: '1234567890',
-#         customer_id: '456789',
-#         merchant_id: '234567890',
-#         status: 'pending',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#     },
-#     tr
-#     )
-#       tr.transactions << test_transaction1
-#       tr.transactions << test_transaction2
-#       expect(tr.find_all_by_merchant_id(234567890)).to eq([test_transaction1, test_transaction2])
-#       expect(tr.find_all_by_merchant_id(123456789099999999)).to eq([])
-#     end
-#   end
+  describe '#find_all_by_credit_card_number' do
+    it 'finds transactions by credit card number' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      test_transaction1 = Transaction.new({
+                                            id: '263395617',
+                                            invoice_id: '456789',
+                                            credit_card_number: '4297222479999999',
+                                            credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                            result: 'success',
+                                            created_at: '2016-01-11 11:51:37 UTC',
+                                            updated_at: '1993-09-29 11:56:40 UTC'
+                                          },
+                                          tr
+                                         )
+      test_transaction2 = Transaction.new({
+                                            id: '263395617999',
+                                            invoice_id: '456789',
+                                            credit_card_number: '4297222479999999',
+                                            credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                            result: 'success',
+                                            created_at: '2016-01-11 11:51:37 UTC',
+                                            updated_at: '1993-09-29 11:56:40 UTC'
+                                          },
+                                          tr
+                                         )
+tr.transactions << test_transaction1
+tr.transactions << test_transaction2
+expect(tr.find_all_by_credit_card_number(4297222479999999)).to eq([test_transaction1, test_transaction2])
+expect(tr.find_all_by_credit_card_number(123456789099999999)).to eq([])
+end
+  end
 #   describe '#find_all_by_status' do
 #     it 'finds transactions by status' do
 #       mock_sales_engine = instance_double('SalesEngine')
