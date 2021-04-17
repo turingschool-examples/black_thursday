@@ -19,6 +19,11 @@ RSpec.describe InvoiceItemRepository do
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
       expect(iir.invoice_items.count).to eq(50)
     end
+    it 'makes invoice items' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+      expect(iir.invoice_items.first).to be_instance_of(InvoiceItem)
+    end
   end
 end
 

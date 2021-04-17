@@ -10,14 +10,14 @@ class InvoiceItemRepository
   def initialize(path, engine)
     @invoice_items = []
     @engine = engine
-    make_invoices_items(path)
+    make_invoice_items(path)
   end
 
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
 
-  def make_invoices_items(path)
+  def make_invoice_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       @invoice_items << InvoiceItem.new(row, self)
     end
