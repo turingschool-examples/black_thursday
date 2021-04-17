@@ -110,20 +110,20 @@ RSpec.describe TransactionRepository do
                                           },
                                           tr
                                          )
-tr.transactions << test_transaction1
-tr.transactions << test_transaction2
-expect(tr.find_all_by_credit_card_number(4297222479999999)).to eq([test_transaction1, test_transaction2])
-expect(tr.find_all_by_credit_card_number(123456789099999999)).to eq([])
-end
+    tr.transactions << test_transaction1
+    tr.transactions << test_transaction2
+    expect(tr.find_all_by_credit_card_number(4297222479999999)).to eq([test_transaction1, test_transaction2])
+    expect(tr.find_all_by_credit_card_number(123456789099999999)).to eq([])
+    end
   end
-#   describe '#find_all_by_status' do
-#     it 'finds transactions by status' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       expect(tr.find_all_by_status('pending').count).to eq(1473)
-#       expect(tr.find_all_by_status('hot dog!')).to eq([])
-#     end
-#   end
+  describe '#find_all_by_result' do
+    it 'finds transactions by result' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      expect(tr.find_all_by_result('success').count).to eq(40)
+      expect(tr.find_all_by_result('hot dog!')).to eq([])
+    end
+  end
 #   describe '#create' do
 #     it 'create a new invoice instance' do
 #       mock_sales_engine = instance_double('SalesEngine')

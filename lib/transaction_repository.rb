@@ -44,11 +44,11 @@ class TransactionRepository
     end
   end
 
-#   def find_all_by_status(status)
-#     @invoices.find_all do |invoice|
-#       invoice.status == status.to_sym
-#     end
-#   end
+  def find_all_by_result(result)
+    @transactions.find_all do |transaction|
+      transaction.result == result
+    end
+  end
 
 #   def generate_new_id
 #     highest_id_invoice = @invoices.max_by do |invoice|
