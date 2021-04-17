@@ -124,23 +124,31 @@ RSpec.describe TransactionRepository do
       expect(tr.find_all_by_result('hot dog!')).to eq([])
     end
   end
-#   describe '#create' do
-#     it 'create a new invoice instance' do
-#       mock_sales_engine = instance_double('SalesEngine')
-#       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-#       attributes = {
-#         id: '1234567890',
-#         customer_id: '456789',
-#         merchant_id: '234567890',
-#         status: 'pending',
-#         created_at: '2016-01-11 11:51:37 UTC',
-#         updated_at: '1993-09-29 11:56:40 UTC'
-#       }
-#       tr.create(attributes)
-#       expected = tr.find_by_id(4986)
-#       expect(expected.merchant_id).to eq(234567890)
-#     end
-#   end
+  describe '#generate_new_id' do
+    it 'created a new transaction id one higher than current highest' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      expect(tr.generate_new_id).to eq(51)
+    end
+  end
+  describe '#create' do
+    it 'create a new transaction instance' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      attributes = {
+                     id: '263395617',
+                     invoice_id: '456789',
+                     credit_card_number: '4297222479999999',
+                     credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                     result: 'success',
+                     created_at: '2016-01-11 11:51:37 UTC',
+                     updated_at: '1993-09-29 11:56:40 UTC'
+                   }
+      tr.create(attributes)
+      expected = tr.find_by_id(51)
+      expect(expected.credit_card_number).to eq(4297222479999999)
+    end
+  end
 #   describe '#update' do
 #     it 'updates transactions attributes' do
 #       mock_sales_engine = instance_double('SalesEngine')

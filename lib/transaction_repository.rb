@@ -50,17 +50,17 @@ class TransactionRepository
     end
   end
 
-#   def generate_new_id
-#     highest_id_invoice = @invoices.max_by do |invoice|
-#       invoice.id
-#     end
-#     new_id = highest_id_invoice.id + 1
-#   end
+  def generate_new_id
+    highest_id_transaction = @transactions.max_by do |transaction|
+      transaction.id
+    end
+    highest_id_transaction.id + 1
+  end
 
-#   def create(attributes)
-#     attributes[:id] = generate_new_id
-#     @invoices << Invoice.new(attributes, self)
-#   end
+  def create(attributes)
+    attributes[:id] = generate_new_id
+    @transactions << Transaction.new(attributes, self)
+  end
 
 #   def update(id, attributes)
 #     if find_by_id(id) != nil && attributes[:status] != nil
