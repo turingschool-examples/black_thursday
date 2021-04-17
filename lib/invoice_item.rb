@@ -3,8 +3,9 @@ require_relative '../lib/invoice_item_repository'
 require 'bigdecimal/util'
 require 'time'
 
-class InvoiceItems
-attr_reader  :created_at
+class InvoiceItem
+attr_reader :id,
+              :created_at
 attr_accessor :item_id,
               :invoice_id,
               :quantity,
@@ -12,6 +13,7 @@ attr_accessor :item_id,
               :updated_at
 
   def initialize(info_hash)
+    @id = info_hash[:id]
     @item_id = info_hash[:item_id].to_i
     @invoice_id = info_hash[:invoice_id].to_i
     @quantity = info_hash[:quantity]
