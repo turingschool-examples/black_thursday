@@ -72,9 +72,9 @@ class SalesAnalyst
     merchant_items = find_all_items_by_merchant_id(merchant_id)
     sum_of_merchant_prices = merchant_items.sum do |item|
       item.unit_price
-
     end
-
-    (sum_of_merchant_prices / merchant_items.length) 
+    (sum_of_merchant_prices / merchant_items.length).round(2)
   end
+
+  def 
 end
