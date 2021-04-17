@@ -29,7 +29,7 @@ RSpec.describe 'ItemRepository' do
       )
 
       iir = se.invoice_items
-      expect(iir.all[3].item_id).to eq(263542298)
+      expect(iir.all[3].item_id).to eq(263_542_298)
     end
   end
   describe '#find_by_id' do
@@ -40,7 +40,7 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
 
-      expect(iir.find_by_id(460).item_id).to eq(263421679)
+      expect(iir.find_by_id(460).item_id).to eq(263_421_679)
     end
     it 'returns nil if no item has matching id' do
       se = SalesEngine.from_csv(
@@ -49,7 +49,7 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
 
-      expect(iir.find_by_id(123000)).to eq(nil)
+      expect(iir.find_by_id(123_000)).to eq(nil)
     end
   end
   describe '#find_all_by_item_id' do
@@ -60,7 +60,7 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
 
-      expect(iir.find_all_by_item_id(263511296).length).to eq(25)
+      expect(iir.find_all_by_item_id(263_511_296).length).to eq(25)
     end
     it 'returns an empty array if the item id is not found' do
       se = SalesEngine.from_csv(
@@ -69,7 +69,7 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
 
-      expect(iir.find_all_by_item_id(363567475)).to eq([])
+      expect(iir.find_all_by_item_id(363_567_475)).to eq([])
     end
   end
   describe '#find_all_by_invoice_id' do
@@ -89,7 +89,7 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
 
-      expect(iir.find_all_by_invoice_id(36000)).to eq([])
+      expect(iir.find_all_by_invoice_id(36_000)).to eq([])
     end
   end
   describe '#create' do
@@ -100,8 +100,8 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
       invoice_item = iir.create(
-        item_id: 263519844,
-        invoice_id: 4986,
+        item_id: 263_519_844,
+        invoice_id: 4_986,
         quantity: 3,
         unit_price: 136.35,
       )
@@ -117,12 +117,12 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
       iir.update(
-        21830,
+        21_830,
         quantity: 5,
         unit_price: 586.55
       )
-      expect(iir.find_by_id(21830).quantity).to eq(5)
-      expect(iir.find_by_id(21830).unit_price_to_dollars).to eq(586.55)
+      expect(iir.find_by_id(21_830).quantity).to eq(5)
+      expect(iir.find_by_id(21_830).unit_price_to_dollars).to eq(586.55)
     end
   end
   describe '#delete' do
@@ -132,8 +132,8 @@ RSpec.describe 'ItemRepository' do
       )
 
       iir = se.invoice_items
-      iir.delete(21830)
-      expect(iir.find_by_id(21830)).to eq(nil)
+      iir.delete(21_830)
+      expect(iir.find_by_id(21_830)).to eq(nil)
     end
   end
 end
