@@ -49,7 +49,7 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      # item_repo.add_item(item1)
+      transaction_repo.add_transaction(transaction1)
 
       expect(transaction1.find_by_id(6)).to eq(transaction1)
       expect(transaction1.find_by_id(999999999)).to eq(nil)
@@ -66,7 +66,7 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      #SOMETHING LIKE transaction_repo.add_transaction(transaction1)
+      transaction_repo.add_transaction(transaction1)
 
       expect(transaction1.find_all_by_transaction_id(8)).to eq([transaction1])
       expect(transaction1.find_all_by_transaction_id(0)).to eq([])
@@ -83,7 +83,7 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      #SOMETHING LIKE transaction_repo.add_transaction(transaction1)
+      transaction_repo.add_transaction(transaction1)
 
       expect(transaction1.find_all_by_credit_card_number("4242424242424242")).to eq([transaction1])
       expect(transaction1.find_all_by_credit_card_number("0000000000000000")).to eq([])
@@ -100,7 +100,7 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      #SOMETHING LIKE transaction_repo.add_transaction(transaction1)
+      transaction_repo.add_transaction(transaction1)
 
       expect(transaction1.find_all_by_result("success")).to eq([transaction1])
       expect(transaction1.find_all_by_result("sweet success")).to eq([])
@@ -117,7 +117,7 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      # transaction_repo.all
+      transaction_repo.all
 
       expect(transaction_repo.create(transaction1)).to be_an_instance_of(Transaction)
     end
@@ -132,7 +132,7 @@ RSpec.describe TransactionRepo do
                                       :created_at => Time.now,
                                       :updated_at => Time.now
                                     })
-      # transaction_repo.add_transaction(transaction1)
+      transaction_repo.add_transaction(transaction1)
 
       updated_attributes = {:credit_card_number => "9999999999999999",
                             :credit_card_expiration_date => "0930",
@@ -158,8 +158,8 @@ RSpec.describe TransactionRepo do
                                       :created_at => Time.now,
                                       :updated_at => Time.now
                                     })
-      #transaction_repo.add_transaction(transaction1)
-
+      transaction_repo.add_transaction(transaction1)
+      
       expect(transaction_repo.find_by_id(6)).to eq(transaction1)
 
       transaction_repo.delete(6)

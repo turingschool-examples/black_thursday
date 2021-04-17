@@ -2,6 +2,7 @@ require 'bigdecimal'
 require 'CSV'
 require 'time'
 require 'item'
+require_relative './spec/transaction'
 
 class TransactionRepo
   attr_reader :transactions
@@ -19,6 +20,10 @@ class TransactionRepo
 
   def all
     @transactions
+  end
+
+  def add_transaction(transaction)
+    @transactions << transaction
   end
 
   def find_by_id(id) #clarify passing in id
@@ -43,6 +48,16 @@ class TransactionRepo
     @transactions.find_all do |transaction|
       transaction.result == result
     end
+  end
+
+  def create(attributes)
+    transaction = Transaction.new(attributes, @engine)
+    max = @transactions.max_by do |transaction|
+      transaction.id
+    end
+    transaction.id = max.id + 1
+    add_transaction(transaction)
+    return transaction
   end
 
 end
