@@ -61,6 +61,7 @@ class InvoiceItemRepository
   end
 
   def delete(id)
+    return nil if find_by_id(id) == nil
     invoice_item = find_by_id(id)
     @invoice_items.delete(invoice_item)
   end
