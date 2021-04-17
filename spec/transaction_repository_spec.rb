@@ -136,8 +136,72 @@ describe TransactionRepository do
       }
       new_transactions = t_repo.create(attributes)
 
+      expect(new_transactions.last).is_a? Transaction
       expect(new_transactions.last.id).to eq 7
       expect(new_transactions.length).to eq 11
+    end
+  end
+
+  describe '#update' do
+    it 'updates the correct Transaction and attributes' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      attributes = {
+        id: nil,
+        invoice_id: 8,
+        credit_card_number: '1212121212121212',
+        credit_card_expiration_date: '0222',
+        result: 'failure',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      new_transactions = t_repo.create(attributes)
+      new_info = {
+        credit_card_number: '1212121212124444',
+        credit_card_expiration_date: '0224',
+        result: 'success'
+      }
+      new_transactions = t_repo.update(7, new_info)
+      updated_item = new_transactions.find_by_id(7)
+
+      expect(updated_item.credit_card_number).to eq '1212121212124444'
+      expect(updated_item.credit_card_expiration_date).to eq '0224'
+      expect(updated_item.result).to eq 'success'
+    end
+
+    it 'does not update immutable attributes' do
+      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
+      t_repo = TransactionRepository.new('fake.csv')
+
+      attributes = {
+        id: nil,
+        invoice_id: 8,
+        credit_card_number: '1212121212121212',
+        credit_card_expiration_date: '0222',
+        result: 'failure',
+        created_at: Time.new(2021, 03, 01),
+        updated_at: Time.new(2021, 03, 01)
+      }
+      new_transactions = t_repo.create(attributes)
+      new_info = {
+        id: 10,
+        invoice_id: 12,
+        credit_card_number: '1212121212124444',
+        credit_card_expiration_date: '0224',
+        result: 'success',
+        created_at: Time.new(2021, 02, 04),
+        updated_at: Time.new(2021, 02, 04)
+      }
+      new_transactions = t_repo.update(7, new_info)
+      updated_item = new_transactions.last
+
+      expect(updated_item.id).to eq 7
+      expect(updated_item.invoice_id).to eq 8
+      expect(updated_item.created_at).to eq Time.new(2021, 03, 01)
+      expect(updated_item.updated_at).to be > Time.new(2021, 03, 01)
     end
   end
 end
