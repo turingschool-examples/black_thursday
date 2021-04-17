@@ -185,4 +185,23 @@ describe Transaction do
       expect(transaction.result).to eq 'success'
     end
   end
+
+  describe '#update_time' do
+    it 'updates Transaction updated_at time' do
+      details = {
+        id: 6,
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'failure',
+        created_at: Time.now,
+        updated_at: Time.new(2021, 04, 01)
+      }
+      transaction = Transaction.new(details)
+
+      transaction.update_time
+
+      expect(transaction.updated_at).to be > Time.new(2021, 02, 04)
+    end
+  end
 end
