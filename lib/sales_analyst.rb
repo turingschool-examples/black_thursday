@@ -25,7 +25,6 @@ class SalesAnalyst
     merchant_ids.each do |merchant_id|
       if find_all_by_merchant_id.include?(merchant_id)
         item_counter += 1
-        require 'pry'; binding.pry
       end
     end
     #average_items_per_merchant (array of merchant ids)
