@@ -13,7 +13,7 @@ class MerchantRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant_info|
-      @merchants << Merchant.new(merchant_info, @engine)
+      @merchants << Merchant.new(merchant_info, self)
     end
   end
 
