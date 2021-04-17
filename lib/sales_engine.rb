@@ -19,6 +19,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants)
+    SalesAnalyst.new(self)
   end
 end
