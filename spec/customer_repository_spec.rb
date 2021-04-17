@@ -21,5 +21,36 @@ RSpec.describe CustomerRepository do
     end
   end
 
+  describe 'parent class methods' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :customers => "./data/customers.csv"
+                              })
+    customer_repo = sales_engine.customers
+
+    describe '#all' do
+      it 'returns array of all customers' do
+        expect(customer_repo.all.length).to eq(1000)
+      end
+    end
+
+    it '#find_by_id returns an instance by matching id' do
+      id = 50
+
+      expect(customer_repo.find_by_id(id).id).to eq(id)
+      expect(customer_repo.find_by_id(id).first_name).to eq("Brent")
+    end
+
+    describe '#delete' do
+      it 'can delete customer' do
+        customer_repo.delete(50)
+        expected = customer_repo.find_by_id(50)
+        expect(expected).to eq(nil)
+      end
+    end
+  end
+
 
 end
