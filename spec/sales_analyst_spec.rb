@@ -34,16 +34,6 @@ RSpec.describe do
       expect(sales_analyst.average_items_per_merchant).to eq(2.5)
     end
 
-    # it 'returns set of ten merchant ids' do
-    #   first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
-    #   expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
-    #   allow(sales_analyst.find_all_merchants).to receive(:sample) do
-    #     first_ten_merchants
-    #   end
-    #
-    #   expect(sales_analyst.sample_merchants_return_id).to eq(expected_array)
-    # end
-
     it 'returns standard deviation of merchant item count' do
       expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
       first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]

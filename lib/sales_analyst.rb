@@ -49,7 +49,7 @@ class SalesAnalyst
       counter += running_total
     end
     Math.sqrt(counter / population_size_minus_one).round(2)
-    #Matt wonders if the division should be by the whole sample size, not minus one
+
   end
 
   def find_all_items_by_merchant_id(merchant_id)
@@ -62,8 +62,7 @@ class SalesAnalyst
     merchants = find_all_merchants
     merchant_ids = get_merchant_ids(merchants)
     mean = average_items_per_merchant
-    # half_stnd_dev = average_items_per_merchant_standard_deviation / 2
-    greater_than_1sd = mean + average_items_per_merchant_standard_deviation#half_stnd_dev
+    greater_than_1sd = mean + average_items_per_merchant_standard_deviation
     merchants.find_all do |merchant|
       find_all_items_by_merchant_id(merchant.id).length > greater_than_1sd
     end
@@ -102,7 +101,6 @@ class SalesAnalyst
       counter += running_total
     end
     Math.sqrt(counter / population_size_minus_one).round(2)
-    #Matt wonders if the division should be by the whole sample size, not minus one
   end
 
   def golden_items
@@ -110,8 +108,6 @@ class SalesAnalyst
       item_object.unit_price
     end
     mean = sum / find_all_items.length
-
-    #twice_half_stnd_dev = (average_items_per_merchant_standard_deviation / 2)*2
     two_sd = average_price_per_item_standard_deviation * 2
     greater_than_2sd = mean + two_sd
     accumulator = []
@@ -120,12 +116,6 @@ class SalesAnalyst
         accumulator << item
       end
     end
-    # test = find_all_items.find_all do |item|
-    #   item.unit_price > greater_than_2sd
-    # end
-    #
-    # test.length
     accumulator
-
   end
 end
