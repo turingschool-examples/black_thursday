@@ -122,6 +122,32 @@ RSpec.describe ItemRepo do
       expect(transaction_repo.create(transaction1)).to be_an_instance_of(Transaction)
     end
 
+    it '#updates attributes' do
+      transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
+      transaction1 = Transaction.new({:id => 6,
+                                      :invoice_id => 8,
+                                      :credit_card_number => "4242424242424242",
+                                      :credit_card_expiration_date => "0220",
+                                      :result => "success",
+                                      :created_at => Time.now,
+                                      :updated_at => Time.now
+                                    })
+      # transaction_repo.add_invoice(invoice1)
+
+      updated_attributes = {:credit_card_number => "9999999999999999",
+                            :credit_card_expiration_date => "0930",
+                            :result => "sweet success"
+                            })
+
+      transaction_repo.update(6, updated_attributes)
+
+      expect(transaction1.id).to eq(6)
+      expect(transaction1.credit_card_number).to eq("9999999999999999")
+      expect(transaction1.credit_card_expiration_date).to eq("0930")
+      expect(transaction1.result).to eq("sweet success")
+      expect(transaction1.updated_at).to be_an_instance_of(Time)
+    end
+
     it '#delete by id' do
       transaction_repo = TransactionRepo.new("./data/transactions.csv", @repo)
       transaction1 = Transaction.new({:id => 6,
