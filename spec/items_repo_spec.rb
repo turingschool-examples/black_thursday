@@ -116,7 +116,7 @@ RSpec.describe ItemRepo do
       ir.create(attributes)
       expected = ir.find_by_id(263567475)
       expect(expected.name).to eq "Capita Defenders of Awesome 2018"
-    end
+      end
 
     it 'can update an item' do
       original_time = ir.find_by_id(263567475).updated_at

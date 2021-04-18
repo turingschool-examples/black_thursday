@@ -73,5 +73,17 @@ RSpec.describe InvoiceRepo do
       expect(expected.merchant_id).to eq(12335541)
       expect(expected.status).to eq("pending")
     end
+
+    it 'can update an invoice' do
+      original_time = invoice_repository.find_by_id(1).updated_at
+      attributes = {
+        status: "shipped",
+        updated_at: Time.now
+      }
+      expected = invoice_repository.update(1, attributes)
+
+      expect(expected.status).to eq("shipped")
+      expect(expected.updated_at).to be > original_time
+    end
   end
 end

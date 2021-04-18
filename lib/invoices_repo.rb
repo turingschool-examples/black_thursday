@@ -48,12 +48,21 @@ class InvoiceRepo
     end
   end
 
-def create(attributes)
-  new_invoice = Invoice.new(attributes, self)
-  find_max_id = @invoice_list.max_by do |invoice|
-    invoice.id
-  end
-  new_invoice.id = (find_max_id.id + 1)
+  def create(attributes)
+    new_invoice = Invoice.new(attributes, self)
+    find_max_id = @invoice_list.max_by do |invoice|
+      invoice.id
+    end
+    new_invoice.id = (find_max_id.id + 1)
     invoice_list << new_invoice
+  end
+
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    if !invoice.nil?
+      invoice.status = attributes[:status] unless attributes[:status].nil?
+      invoice.updated_at = Time.now
+    end
+    invoice
   end
 end
