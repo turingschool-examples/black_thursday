@@ -27,7 +27,7 @@ RSpec.describe InvoiceRepo do
   context 'methods' do
     it 'can return all invoices' do
       expect(invoice_repository.all.class).to eq(Array)
-      expect(invoice_repository.all.length).to eq(1)
+      expect(invoice_repository.all.length).to eq(4985)
     end
   end
 end

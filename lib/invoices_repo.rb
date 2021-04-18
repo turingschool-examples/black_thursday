@@ -19,4 +19,8 @@ class InvoiceRepo
       Invoice.new(invoice, self)
     end
   end
+
+  def all
+    @invoice_list
+  end
 end
