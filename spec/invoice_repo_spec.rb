@@ -1,9 +1,7 @@
 require 'CSV'
-require './lib/sales_engine'
-require './lib/invoice'
-require './lib/invoice_repo'
+require 'sales_engine'
 
-RSpec.describe ItemRepo do
+RSpec.describe InvoiceRepo do
   before(:each) do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                           :merchants => './data/merchants.csv',
