@@ -1,14 +1,17 @@
 require_relative './items_repo'
 require_relative './merchants_repo'
+require_relative './invoices_repo'
 require 'csv'
 
 class SalesEngine
   attr_accessor :items,
-                :merchants
+                :merchants,
+                :invoices
 
   def initialize(csv_files)
     @items = ItemRepo.new(csv_files[:items], self)
     @merchants = MerchantRepo.new(csv_files[:merchants], self)
+    @invoices = InvoiceRepo.new(csv_files[:invoices], self)
   end
 
   def self.from_csv(csv_files)
@@ -16,8 +19,7 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants)
-    # require "pry"; binding.pry
+    SalesAnalyst.new(@items, @merchants, @invoices)
   end
 
   def find_items_by_id(id)

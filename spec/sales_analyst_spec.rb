@@ -4,6 +4,8 @@ require './lib/items'
 require './lib/merchants'
 require './items_repo'
 require './merchants_repo'
+require './invoices'
+require './invoices_repo'
 require 'rspec'
 
 RSpec.describe SalesAnalyst do
@@ -13,6 +15,7 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
       })
       sales_analyst = se.analyst
 
@@ -25,6 +28,7 @@ RSpec.describe SalesAnalyst do
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
     })
 
     sales_analyst = se.analyst

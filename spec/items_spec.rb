@@ -1,11 +1,13 @@
 require 'rspec'
 require './lib/items'
+require './lib/sales_engine'
 require 'time'
 
 RSpec.describe do
   se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
+  :invoices => "./data/invoices.csv"
   })
   ir = se.items
 
@@ -36,19 +38,19 @@ RSpec.describe do
         expect(first_item.unit_price.class).to eq(BigDecimal)
       end
 
-      # it "can return time created at" do
-      #   first_item = ir.all[0]
-      #   expected = Time.parse("2016-01-11 09:34:06 UTC")
-      #   expect(first_item.created_at).to eq(expected)
-      #   expect(first_item.created_at.class).to eq(Time)
-      # end
-      #
-      # it "can return time updated at" do
-      #   first_item = ir.all[0]
-      #   expected = Time.parse("2007-06-04 21:35:10 UTC")
-      #   expect(first_item.updated_at).to eq(expected)
-      #   expect(first_item.updated_at.class).to eq(Time)
-      # end
+      it "can return time created at" do
+        first_item = ir.all[0]
+        expected = Time.parse("2016-01-11 09:34:06 UTC")
+        expect(first_item.created_at).to eq(expected)
+        expect(first_item.created_at.class).to eq(Time)
+      end
+
+      it "can return time updated at" do
+        first_item = ir.all[0]
+        expected = Time.parse("2007-06-04 21:35:10 UTC")
+        expect(first_item.updated_at).to eq(expected)
+        expect(first_item.updated_at.class).to eq(Time)
+      end
 
       it "unit_price_to_dollars returns unit price as a float" do
         first_item = ir.all[0]

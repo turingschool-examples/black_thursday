@@ -3,15 +3,19 @@ require_relative './items'
 require_relative './merchants'
 require_relative './items_repo'
 require_relative './merchants_repo'
+require_relative './invoices'
+require_relative './invoices_repo'
 require 'csv'
 
 class SalesAnalyst
   attr_reader :items_repo,
-              :merchants_repo
+              :merchants_repo,
+              :invoices_repo
 
-  def initialize(items_repo, merchants_repo)
+  def initialize(items_repo, merchants_repo, invoices_repo)
     @items_repo     = items_repo
     @merchants_repo = merchants_repo
+    @invoices_repo  = invoices_repo
   end
 
   def all_items

@@ -7,12 +7,12 @@ require './lib/items_repo'
 require './lib/merchants'
 require './lib/merchants_repo'
 
-
 RSpec.describe ItemRepo do
 
   se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
+  :invoices => "./data/invoices.csv"
   })
   ir = se.items
 
@@ -116,7 +116,7 @@ RSpec.describe ItemRepo do
       ir.create(attributes)
       expected = ir.find_by_id(263567475)
       expect(expected.name).to eq "Capita Defenders of Awesome 2018"
-    end
+      end
 
     it 'can update an item' do
       original_time = ir.find_by_id(263567475).updated_at
