@@ -4,7 +4,7 @@ require './lib/invoice'
 require './lib/invoice_repo'
 
 RSpec.describe ItemRepo do
-  before(:each) do
+  before(:each) 
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                           :merchants => './data/merchants.csv',
                                           :invoices => './data/invoices.csv'})
