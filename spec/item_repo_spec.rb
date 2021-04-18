@@ -152,7 +152,7 @@ RSpec.describe ItemRepo do
       expect(item.updated_at).to be_an_instance_of(Time)
     end
 
-    it '#delete by id' do
+   it '#delete by id' do
     item_repo = @sales_engine.items
     item = item_repo.create({:id        => 1,
                            :name        => "Pencil",
@@ -167,6 +167,21 @@ RSpec.describe ItemRepo do
       item_repo.delete(item.id)
       
       expect(item_repo.find_by_id(item.id)).to eq(nil)
+
     end
+
+    it '#item merchant count' do
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
+      item1 = Item.new({:id          => 1,
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
+
+     expect(item_repo.item_count_per_merchant).to be_a(Hash)
+   end
+
   end
 end
