@@ -1,9 +1,11 @@
 require 'CSV'
 require 'rspec'
 
+require './data/invoice_mocks'
 require './data/item_mocks'
 require './data/merchant_mocks'
 require './lib/file_io'
+require './lib/invoice_repository'
 require './lib/item_repository'
 require './lib/merchant_repository'
 require './lib/sales_engine'
