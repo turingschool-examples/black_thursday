@@ -22,15 +22,18 @@ class SalesAnalyst
     end
   end
 
-  def average_items_per_merchant
-    merchants = find_all_merchants
-    merchant_ids = get_merchant_ids(merchants)
-    item_counter = 0
-    merchant_ids.each do |merchant_id|
-      item_counter += find_all_items_by_merchant_id(merchant_id).length
+  def items_per_merchant
+    items_per_merchant =  []
+    find_all_merchants.each do |merchant|
+      if
+        items_per_merchant << find_all_items_by_merchant_id(merchant.id).length
+      end
     end
-    average = item_counter / merchant_ids.length.to_f
-    average.round(2)
+    items_per_merchant
+  end
+
+  def average_items_per_merchant
+    Compute.mean(items_per_merchant.sum, items_per_merchant.length)
   end
 
   def average_items_per_merchant_standard_deviation
