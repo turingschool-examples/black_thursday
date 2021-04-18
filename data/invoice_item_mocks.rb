@@ -1,6 +1,6 @@
 require './data/mockable'
 
-class InvoiceItem
+class InvoiceItemMocks
   extend Mockable
 
   def self.invoice_items_as_mocks(eg, invoice_item_hashes = invoice_items_as_hashes)

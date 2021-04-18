@@ -1,5 +1,5 @@
 require 'rspec'
-require './data/ivoice_item_mocks'
+require './data/invoice_item_mocks'
 
 RSpec.describe InvoiceItemMocks do
   describe '#invoice_items_as_mocks' do
