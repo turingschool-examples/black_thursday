@@ -106,7 +106,7 @@ RSpec.describe TransactionRepo do
       expect(transaction1.find_all_by_result("sweet success")).to eq([])
     end
 
-    xit '#creates transaction' do
+    xit '#creates a new transaction instance' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
@@ -149,7 +149,7 @@ RSpec.describe TransactionRepo do
       expect(transaction1.updated_at).to be_an_instance_of(Time)
     end
 
-    xit '#delete by id' do
+    xit '#deletes by id' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,

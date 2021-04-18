@@ -32,6 +32,5 @@ RSpec.describe Transaction do
       expect(transaction1.created_at).to be_an_instance_of(Time)
       expect(transaction1.updated_at).to be_an_instance_of(Time)
     end
-
   end
 end
