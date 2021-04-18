@@ -79,7 +79,8 @@ RSpec.describe CustomerRepo do
                                         :created_at => Time.now,
                                         :updated_at => Time.now
                                       })
-      fragment = "arKe"
+
+      fragment = "arKe" #test case sensitive
       expected = customer_repo.find_by_last_name(fragment)
 
       expect(expected).to eq([customer1])
@@ -88,7 +89,57 @@ RSpec.describe CustomerRepo do
       expect(customer_repo.find_by_last_name("doge")).to eq([])
     end
 
+    it '#create creates a new customer instance' do
+      customer_repo = @sales_engine.customers
+      customer1 = customer_repo.create({:id => 6,
+                                        :first_name => "Joan",
+                                        :last_name => "Clarke",
+                                        :created_at => Time.now,
+                                        :updated_at => Time.now
+                                      })
+      customer_repo.all
+      expected = customer_repo.create(customer1)
+
+      expect(expected).to be_an_instance_of(Customer)
+      expect(expected.last_name).to eq("Clarke")
+    end
+
+    it '#updates attributes' do
+      customer_repo = @sales_engine.customers
+      customer1 = customer_repo.create({ :id => 6,
+                                         :first_name => "Joan",
+                                         :last_name => "Clarke",
+                                         :created_at => Time.now,
+                                         :updated_at => Time.now
+                                      })
+      customer_repo.add_customer(customer1)
+
+      updated_attributes = ({ :first_name => "Alan",
+                              :last_name => "Turing",
+                              :updated_at => Time.now
+                            })
+
+      expect(customer1.first_name).to eq("Alan")
+      expect(customer1.last_name).to eq("Turing")
+      expect(customer1.updated_at).to be_an_instance_of(Time)
+    end
+
+    it '#deletes by id' do
+      customer_repo = @sales_engine.customers
+      customer1 = customer_repo.create({ :id => 6,
+                                         :first_name => "Joan",
+                                         :last_name => "Clarke",
+                                         :created_at => Time.now,
+                                         :updated_at => Time.now
+                                      })
+
+      customer_repo.add_transaction(customer1)
+
+      expect(customer_repo.find_by_id(6)).to eq(customer1)
+
+      customer_repo.delete(6)
+
+      expect(customer1.find_by_id(6)).to eq(nil)
+    end
   end
-
-
 end
