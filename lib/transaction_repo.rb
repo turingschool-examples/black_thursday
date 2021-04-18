@@ -2,7 +2,7 @@ require 'bigdecimal'
 require 'CSV'
 require 'time'
 require 'item'
-require_relative './spec/transaction'
+# require_relative 'transaction'
 
 class TransactionRepo
   attr_reader :transactions

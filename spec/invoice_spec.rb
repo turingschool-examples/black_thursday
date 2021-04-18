@@ -8,7 +8,7 @@ RSpec.describe Invoice do
                              :merchant_ir => 8,
                              :status => 'pending',
                              :created_at => Time.now,
-                             :updated_at => Time.now}, @repo)
+                             :updated_at => Time.now}, @sales_engine)
 
       expect(invoice).to be_an_instance_of(Invoice)
     end
@@ -19,7 +19,7 @@ RSpec.describe Invoice do
                              :merchant_id => 8,
                              :status => 'pending',
                              :created_at => Time.now,
-                             :updated_at => Time.now}, @repo)
+                             :updated_at => Time.now}, @sales_engine)
 
       expect(invoice.id).to eq(6)
       expect(invoice.customer_id).to eq(7)

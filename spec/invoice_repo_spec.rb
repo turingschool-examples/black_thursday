@@ -1,6 +1,7 @@
 require 'CSV'
 require 'sales_engine'
 
+
 RSpec.describe InvoiceRepo do
   before(:each) do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
