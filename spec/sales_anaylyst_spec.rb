@@ -131,7 +131,7 @@ RSpec.describe 'SalesAnalyst' do
       expect(@sa.top_days_by_invoice_count).to eq(['Wednesday'])
     end
   end
-  
+
   describe '#invoice_status' do
     it 'returns the percentage of invoices in that state' do
 
