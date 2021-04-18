@@ -16,7 +16,9 @@ describe SalesEngine do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
-      files = { items: './file1.csv', merchants: './file2.csv' }
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine).to be_instance_of SalesEngine
@@ -29,7 +31,9 @@ describe SalesEngine do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
-      files = { items: './file1.csv', merchants: './file2.csv' }
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine.items).is_a? ItemRepository
@@ -40,7 +44,9 @@ describe SalesEngine do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
-      files = { items: './file1.csv', merchants: './file2.csv' }
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       item_repo = sales_engine.items
@@ -54,7 +60,9 @@ describe SalesEngine do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
-      files = { items: './file1.csv', merchants: './file2.csv' }
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine.merchants).is_a? MerchantRepository
@@ -65,11 +73,42 @@ describe SalesEngine do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
-      files = { items: './file1.csv', merchants: './file2.csv' }
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       merchant_repo = sales_engine.merchants
       expect(merchant_repo.merchants.first).is_a? Merchant
+    end
+  end
+
+  describe '#invoices' do
+    it 'has an InvoiceRepository' do
+      mock_items = ItemMocks.items_as_mocks(self)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
+      sales_engine = SalesEngine.from_csv(files)
+
+      expect(sales_engine.invoices).is_a? InvoiceRepository
+    end
+
+    it 'has Invoices in the InvoiceRepository' do
+      mock_items = ItemMocks.items_as_mocks(self)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
+      sales_engine = SalesEngine.from_csv(files)
+
+      invoice_repo = sales_engine.invoices
+      expect(invoice_repo.invoices.first).is_a? Invoice
     end
   end
 
@@ -79,7 +118,9 @@ describe SalesEngine do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
       mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
-      files = { items: './file1.csv', merchants: './file2.csv' }
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       sales_analyst = sales_engine.analyst
