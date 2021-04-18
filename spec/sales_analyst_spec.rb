@@ -93,7 +93,7 @@ RSpec.describe SalesAnalyst do
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
         invoices: './spec/truncated_data/invoices_truncated.csv'
-      })
+                                })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
       expect(ir.golden_items).to eq([])
