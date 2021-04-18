@@ -87,7 +87,7 @@ RSpec.describe do
         first_20_items
       end
 
-      expect(sales_analyst.golden_items.length).to eq(5)
+      expect(sales_analyst.golden_items.length).to eq(1)
 
     end
   end

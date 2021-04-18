@@ -116,8 +116,8 @@ class SalesAnalyst
   ##### INVOICE ITERATION 2 ######
 
   def average_invoices_per_merchant
-    average = number_of_all_invoices / get_merchant_ids(merchants)
-    average.length.to_f.round(2)
+    average = number_of_all_invoices / get_merchant_ids(find_all_merchants).length
+    average.to_f.round(2)
   end
 
   def find_all_invoices
