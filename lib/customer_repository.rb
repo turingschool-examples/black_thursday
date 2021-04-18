@@ -49,4 +49,9 @@ class CustomerRepository
       customer.update_time
     end
   end
+
+  def delete(id)
+    customer = find_by_id(id)
+    @customers.delete(customer)
+  end
 end
