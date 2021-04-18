@@ -70,8 +70,8 @@ class ItemRepo
     add_item(item)
     item
   end
-  
-  # the code logic doesn't belong here, what happens when only one gets updated 
+
+  # the code logic doesn't belong here, what happens when only one gets updated
   def update(id, attributes)
     new_item = find_by_id(id)
     return if !new_item
