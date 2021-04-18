@@ -96,7 +96,7 @@ RSpec.describe do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
-                                        :invoices => "./spec/fixtures/invoices_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
                                         :invoice_items => "./spec/fixtures/invoice_items_fixtures.csv",                                        :customers => "./data/customers.csv",
                                         :transactions => "./data/transactions.csv"
                                         })
@@ -106,5 +106,9 @@ RSpec.describe do
       expect(sales_analyst.average_invoices_per_merchant).to eq(4)
     end
 
+    it 'calculates invoices per merchant standard deviation' do
+      sales_analyst.find_all_invoices_by_merchant_id(12334123)
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3)
+    end
   end
 end
