@@ -61,9 +61,14 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item_repo.find_by_id(200000)).to eq(nil)
     end
 
-    it 'find all by item id' do
+    it 'find all by item id returns correct invoice id' do
       expect(invoice_item_repo.find_all_by_item_id(263408101).length).to eq(11)
       expect(invoice_item_repo.find_all_by_item_id(263408101).first.class).to eq(InvoiceItem)
+    end
+
+    it 'find all by item id will return an empty array if there are no matches' do
+      expect(invoice_item_repo.find_all_by_item_id(10).length).to eq(0)
+      expect(invoice_item_repo.find_all_by_item_id(10).empty?).to eq(true)
     end
 
   end
