@@ -1,11 +1,7 @@
 require_relative '../lib/sales_engine'
-require_relative '../lib/merchant'
-require_relative '../lib/merchant_repository'
-require_relative '../lib/item_repository'
-require_relative '../lib/item'
 require_relative '../lib/invoice_item_repository'
-require_relative '../lib/invoice_item'
-require_relative '../lib/invoice_repository'
+# require_relative '../lib/invoice_item'
+# require_relative '../lib/invoice_repository'
 require 'bigdecimal/util'
 
 RSpec.describe InvoiceItemRepository do
@@ -54,7 +50,7 @@ RSpec.describe InvoiceItemRepository do
     invoice_item_repo = sales_engine.invoice_items
 
 #REPEATED IN REPOSITORY TESTS
-    xit 'find by id returns an instance by matching id' do
+    it 'find by id returns an instance by matching id' do
       expect(invoice_item_repo.find_by_id(10).id).to eq(10)
       expect(invoice_item_repo.find_by_id(10).item_id).to eq(263523644)
       expect(invoice_item_repo.find_by_id(10).invoice_id).to eq(2)
