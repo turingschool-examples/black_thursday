@@ -81,7 +81,7 @@ class SalesAnalyst
     items_sum = find_all_merchants.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    Compute.mean(items_sum / merchant_count).round(2)
+    Compute.mean(items_sum, merchant_count)
   end
 
   def average_price_per_item_standard_deviation
