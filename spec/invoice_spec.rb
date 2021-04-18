@@ -85,8 +85,8 @@ describe Invoice do
                               updated_at: updated_at
                             })
 
-      expect(invoice.created_at).to eq created_at
-      expect(invoice.updated_at).to eq updated_at
+      expect(invoice.created_at).to eq Time.parse(created_at)
+      expect(invoice.updated_at).to eq Time.parse(updated_at)
     end
 
     it 'updates id' do
