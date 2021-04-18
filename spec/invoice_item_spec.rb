@@ -30,6 +30,7 @@ RSpec.describe InvoiceItem do
                                        }, @repo)
       expect(invoice_items.id).to eq(6)
       expect(invoice_items.item_id).to eq(7)
+      expect(invoice_items.invoice_id).to eq(8)
     end
   end
 
