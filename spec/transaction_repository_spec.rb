@@ -55,5 +55,54 @@ RSpec.describe TransactionRepository do
     end
   end
 
+  describe '#create & #update' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :customers => "./data/customers.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :transactions => "./data/transactions.csv"
+                              })
+    transaction_repo = sales_engine.transactions
+
+    describe '#create' do
+      attributes = {
+                    :invoice_id => 8,
+                    :credit_card_number => "4242424242424242",
+                    :credit_card_expiration_date => "0220",
+                    :result => "success",
+                    :created_at => Time.now,
+                    :updated_at => Time.now
+                  }
+      transaction_repo.create(attributes)
+
+      it 'creates new instance with attribute argument' do
+        expect(transaction_repo.all.length).to eq(4986)
+        expect(transaction_repo.all.last).to be_an_instance_of(Transaction)
+        expect(transaction_repo.all.last.credit_card_expiration_date).to eq("0220")
+      end
+
+      it 'new instance id is the highest id incremented by one' do
+        expect(transaction_repo.all.last.id).to eq(4986)
+      end
+    end
+
+    describe '#update' do
+      attributes = {
+                    :credit_card_number => "4242424242424242",
+                    :credit_card_expiration_date => "0220",
+                    :result => "success",
+                  }
+
+      it 'can update existing transaction' do
+        transaction_repo.update(100, attributes)
+        expected = transaction_repo.find_by_id(100)
+        expect(expected.credit_card_number).to eq("4242424242424242")
+        expect(expected.updated_at).not_to eq(expected.created_at)
+      end
+
+    end
+  end
 
 end
