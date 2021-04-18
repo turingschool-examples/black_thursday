@@ -83,12 +83,27 @@ RSpec.describe TransactionRepository do
                               })
     transaction_repo = sales_engine.transactions
 
-    it '#find_all_by_invoice_id returns array of customers with given last name, case insensitive' do
+    it '#find_all_by_invoice_id returns array of transactions with matching invoice id' do
       test_id = 2179
       empty_id = 1000
 
       expect(transaction_repo.find_all_by_invoice_id(test_id).length).to eq(2)
       expect(transaction_repo.find_all_by_invoice_id(empty_id)).to eq([])
+    end
+
+    it '#find_all_by_credit_card_number returns array of transactions with matching cc no' do
+      test_cc = 4116848067642966
+      empty_cc = 000000000000
+
+      expect(transaction_repo.find_all_by_credit_card_number(test_cc).length).to eq(1)
+      expect(transaction_repo.find_all_by_credit_card_number(empty_cc)).to eq([])
+    end
+
+    it '#find_all_by_result returns array of transactions with matching status' do
+
+      expect(transaction_repo.find_all_by_result(:success).length).to eq(4158)
+      expect(transaction_repo.find_all_by_result(:failed).length).to eq(827)
+      expect(transaction_repo.find_all_by_result(:other)).to eq([])
     end
   end
 
