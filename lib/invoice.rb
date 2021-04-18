@@ -8,8 +8,8 @@ class Invoice
 
   def initialize(transaction_details)
     @id = transaction_details[:id].to_i
-    @customer_id = transaction_details[:customer_id]
-    @merchant_id = transaction_details[:merchant_id]
+    @customer_id = transaction_details[:customer_id].to_i
+    @merchant_id = transaction_details[:merchant_id].to_i
     @status = transaction_details[:status]
     @created_at = transaction_details[:created_at]
     @updated_at = transaction_details[:updated_at]
