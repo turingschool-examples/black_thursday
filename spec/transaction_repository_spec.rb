@@ -22,39 +22,6 @@ RSpec.describe TransactionRepository do
     end
   end
 
-  describe 'parent class methods' do
-    sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv",
-                              :customers => "./data/customers.csv",
-                              :invoice_items => "./data/invoice_items.csv",
-                              :transactions => "./data/transactions.csv"
-                              })
-    transaction_repo = sales_engine.transactions
-
-    describe '#all' do
-      it 'returns array of all transactions' do
-        expect(transaction_repo.all.length).to eq(4985)
-      end
-    end
-
-    it '#find_by_id returns an instance by matching id' do
-      id = 50
-
-      expect(transaction_repo.find_by_id(id).id).to eq(id)
-      expect(transaction_repo.find_by_id(id).result).to eq(:success)
-    end
-
-    describe '#delete' do
-      it 'can delete transaction' do
-        transaction_repo.delete(50)
-        expected = transaction_repo.find_by_id(50)
-        expect(expected).to eq(nil)
-      end
-    end
-  end
-
   describe '#create & #update' do
     sales_engine = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
@@ -104,5 +71,60 @@ RSpec.describe TransactionRepository do
 
     end
   end
+
+  describe 'find_all_by methods' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :customers => "./data/customers.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :transactions => "./data/transactions.csv"
+                              })
+    transaction_repo = sales_engine.transactions
+
+    it '#find_all_by_invoice_id returns array of customers with given last name, case insensitive' do
+      test_id = 2179
+      empty_id = 1000
+
+      expect(transaction_repo.find_all_by_invoice_id(test_id).length).to eq(2)
+      expect(transaction_repo.find_all_by_invoice_id(empty_id)).to eq([])
+    end
+  end
+
+  describe 'parent class methods' do
+    sales_engine = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                              :invoices => "./data/invoices.csv",
+                              :customers => "./data/customers.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :transactions => "./data/transactions.csv"
+                              })
+    transaction_repo = sales_engine.transactions
+
+    describe '#all' do
+      it 'returns array of all transactions' do
+        expect(transaction_repo.all.length).to eq(4985)
+      end
+    end
+
+    it '#find_by_id returns an instance by matching id' do
+      id = 50
+
+      expect(transaction_repo.find_by_id(id).id).to eq(id)
+      expect(transaction_repo.find_by_id(id).result).to eq(:success)
+    end
+
+    describe '#delete' do
+      it 'can delete transaction' do
+        transaction_repo.delete(50)
+        expected = transaction_repo.find_by_id(50)
+        expect(expected).to eq(nil)
+      end
+    end
+  end
+
+
 
 end
