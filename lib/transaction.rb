@@ -29,21 +29,18 @@ class Transaction
   end
 
   def update_credit_card_number(attributes)
-    if attributes[:credit_card_number] != nil
+    return nil if attributes[:credit_card_number] == nil
         @credit_card_number = attributes[:credit_card_number]
-    end 
   end
 
   def update_credit_card_expiration_date(attributes)
-    if attributes[:credit_card_expiration_date] != nil
-        @credit_card_expiration_date = attributes[:credit_card_expiration_date]
-    end 
+    return nil if attributes[:credit_card_expiration_date] == nil
+    @credit_card_expiration_date = attributes[:credit_card_expiration_date]
   end
 
   def update_result(attributes)
-    if attributes[:result] != nil
-        @result = attributes[:result].to_sym
-    end 
+    return nil if attributes[:result] == nil
+    @result = attributes[:result].to_sym
   end
 
   def update_time_stamp

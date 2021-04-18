@@ -14,9 +14,14 @@ class SalesEngine
               :transactions,
               :analyst
 
-  def initialize(item_csv_location, merchant_csv_location, invoice_csv_location, transaction_csv_location)
-    # @customers = './data/customers.csv'
-    # @invoice_items = './data/invoice_items.csv'
+  def initialize(item_csv_location, 
+                 merchant_csv_location, 
+                 invoice_csv_location, 
+                 transaction_csv_location,
+                 customer_csv_location,
+                 invoice_item_csv_location)
+    @customers = CustomerRepository.new(customer_csv_location, self)
+    @invoice_items = InvoiceItemRepository.new(invoice_item_csv_location, self)
     @invoices = InvoiceRepository.new(invoice_csv_location, self)
     @items = ItemRepository.new(item_csv_location, self)
     @merchants = MerchantRepository.new(merchant_csv_location, self)
@@ -29,7 +34,14 @@ class SalesEngine
     merchant_csv_location = csv_hash[:merchants]
     invoice_csv_location = csv_hash[:invoices]
     transaction_csv_location = csv_hash[:transactions]
-    SalesEngine.new(item_csv_location, merchant_csv_location, invoice_csv_location, transaction_csv_location)
+    customer_csv_location = csv_hash[:customers]
+    invoice_item_csv_location = csv_hash[:invoice_items]
+    SalesEngine.new(item_csv_location, 
+                    merchant_csv_location, 
+                    invoice_csv_location, 
+                    transaction_csv_location,
+                    customer_csv_location,
+                    invoice_item_csv_location)
   end
 
   def all_items
