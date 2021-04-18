@@ -15,7 +15,7 @@ RSpec.describe ItemRepo do
 
     it '::new' do
       item_repo = ItemRepo.new("./data/items.csv", @repo)
-     
+
       expect(item_repo).to be_an_instance_of(ItemRepo)
     end
 
@@ -97,7 +97,7 @@ RSpec.describe ItemRepo do
     end
 
     it '#find all by price' do
-      #mock and stubs 
+      #mock and stubs
       item_repo = ItemRepo.new("./data/items.csv",@repo)
       item1 = Item.new({:id          => 1,
                         :name        => "Pencil",
@@ -169,12 +169,12 @@ RSpec.describe ItemRepo do
                         :updated_at  => Time.now,
                         :merchant_id => 2},@repo)
       item_repo.add_item(item1)
-      
+
       updated_attributes = {:name => "knife",
                             :description => "You can use it to stab things",
                             :unit_price  => BigDecimal(15.99, 4),
                             :updated_at  => Time.now}
-      
+
       item_repo.update(1, updated_attributes)
 
       expect(item1.id).to eq(1)
@@ -193,14 +193,28 @@ RSpec.describe ItemRepo do
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
                         :merchant_id => 2},@repo)
-      
+
       item_repo.add_item(item1)
 
       expect(item_repo.find_by_id(1)).to eq(item1)
 
       item_repo.delete(1)
-      
+
       expect(item_repo.find_by_id(1)).to eq(nil)
     end
+
+    it '#item merchant count' do
+      item_repo = ItemRepo.new("./data/items.csv",@repo)
+      item1 = Item.new({:id          => 1,
+                        :name        => "Pencil",
+                        :description => "You can use it to write things",
+                        :unit_price  => BigDecimal(10.99,4),
+                        :created_at  => Time.now,
+                        :updated_at  => Time.now,
+                        :merchant_id => 2},@repo)
+
+     expect(item_repo.item_count_per_merchant).to be_a(Hash)
+   end
+
   end
 end
