@@ -103,7 +103,7 @@ class ItemRepository
   def merchants_with_high_item_count
     hash = items_per_merchant
     hash.each_with_object([]) do |(merchant_id, number_of_items), array|
-      if number_of_items > average(hash) + (standard_deviation(hash))
+      if number_of_items > average(hash) + standard_deviation(hash)
         array << @engine.find_merchant_by_id(merchant_id)
       end
     end
@@ -120,7 +120,7 @@ class ItemRepository
 
   def average_average_price_per_merchant
     hash = @items.each_with_object({}) do |item, hash|
-      hash[item.merchant_id] = average_item_price_for_merchant(item.merchant_id) #want average unit price here
+      hash[item.merchant_id] = average_item_price_for_merchant(item.merchant_id)
     end
     BigDecimal(average(hash), 6).truncate(2)
   end
@@ -133,9 +133,9 @@ class ItemRepository
 
   def golden_items
     hash = item_price_hash
-    std_dev_times_2 = (average(hash) + (standard_deviation(hash) * 2))
+    std_dev_times2 = (average(hash) + (standard_deviation(hash) * 2))
     @items.each_with_object([]) do |item, array|
-      if item.unit_price > std_dev_times_2
+      if item.unit_price > std_dev_times2
         array << item
       end
     end

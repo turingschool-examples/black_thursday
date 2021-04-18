@@ -69,5 +69,4 @@ class MerchantRepository
   def all_items
     @engine.all_items
   end
-  
 end
