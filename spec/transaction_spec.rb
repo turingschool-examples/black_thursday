@@ -17,7 +17,7 @@ RSpec.describe Transaction do
 
     it 'has attributes' do
       transaction1 = Transaction.new({:id => 6,
-                                      :transaction_id => 8,
+                                      :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -25,7 +25,7 @@ RSpec.describe Transaction do
                                       :updated_at => Time.now})
 
       expect(transaction1.id).to eq(6)
-      expect(transaction1.transaction_id).to eq(8)
+      expect(transaction1.invoice_id).to eq(8)
       expect(transaction1.credit_card_number).to eq("4242424242424242")
       expect(transaction1.credit_card_expiration_date).to eq("0220")
       expect(transaction1.result).to eq("success")
