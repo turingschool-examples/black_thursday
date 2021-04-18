@@ -74,4 +74,12 @@ describe CustomerRepository do
       expect(c_repo.find_all_by_last_name('Lewis')).to eq []
     end
   end
+
+  # describe '#create' do
+  #   it 'creates a new Customer instance with provided attributes' do
+  #     mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+  #     allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
+  #     c_repo = CustomerRepository.new('fake.csv')
+
+      
 end

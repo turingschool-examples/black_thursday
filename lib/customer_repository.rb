@@ -21,13 +21,13 @@ class CustomerRepository
 
   def find_all_by_first_name(name)
     @customers.select do |customer|
-      customer.first_name.include?(name)
+      customer.first_name.downcase.include?(name.downcase)
     end
   end
 
   def find_all_by_last_name(name)
     @customers.select do |customer|
-      customer.last_name.include?(name)
+      customer.last_name.downcase.include?(name.downcase)
     end
   end
 end
