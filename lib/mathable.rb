@@ -2,7 +2,7 @@ module Mathable
 
   def average(hash)
     number_of_keys = hash.keys.count
-    total_records = all.count.to_f
+    total_records = hash.values.sum.to_f
     (total_records / number_of_keys)
   end
 

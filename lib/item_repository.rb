@@ -1,8 +1,10 @@
 require_relative 'sales_engine'
 require_relative 'item'
-require 'pry'
+require_relative 'mathable'
+require 'bigdecimal'
 
 class ItemRepository
+  include Mathable
   attr_reader :items
 
   def initialize(path, engine)
@@ -76,21 +78,66 @@ class ItemRepository
   def update(id, attributes)
     if find_by_id(id) != nil
       item_to_update = find_by_id(id)
-      variable_assigner(attributes, item_to_update)
-      item_to_update.unit_price_to_big_decimal
-      item_to_update.update_time_stamp
-    end
-  end
-
-  def variable_assigner(attributes, item_to_update)
-    attributes.each do |iv, new_value|
-      if iv.to_s == 'name' || iv.to_s == 'description' || iv.to_s == 'unit_price'
-        item_to_update.send("#{iv}=", new_value)
-      end
+      item_to_update.update(attributes)
     end
   end
 
   def delete(id)
     items.delete(find_by_id(id))
+  end
+
+  def items_per_merchant
+    @items.each_with_object(Hash.new(0)) do |item, hash|
+      hash[item.merchant_id] += 1
+    end
+  end
+
+  def average_items_per_merchant
+    average(items_per_merchant).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    standard_deviation(items_per_merchant).round(2)
+  end
+
+  def merchants_with_high_item_count
+    hash = items_per_merchant
+    hash.each_with_object([]) do |(merchant_id, number_of_items), array|
+      if number_of_items > average(hash) + standard_deviation(hash)
+        array << @engine.find_merchant_by_id(merchant_id)
+      end
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    hash = @items.each_with_object({}) do |item, hash|
+      if item.merchant_id == merchant_id
+        hash[item.id] = item.unit_price
+      end
+    end
+    BigDecimal(average(hash), 4).round(2)
+  end
+
+  def average_average_price_per_merchant
+    hash = @items.each_with_object({}) do |item, hash|
+      hash[item.merchant_id] = average_item_price_for_merchant(item.merchant_id)
+    end
+    BigDecimal(average(hash), 6).truncate(2)
+  end
+
+  def item_price_hash
+    @items.each_with_object({}) do |item, hash|
+      hash[item.id] = item.unit_price
+    end
+  end
+
+  def golden_items
+    hash = item_price_hash
+    std_dev_times2 = (average(hash) + (standard_deviation(hash) * 2))
+    @items.each_with_object([]) do |item, array|
+      if item.unit_price > std_dev_times2
+        array << item
+      end
+    end
   end
 end
