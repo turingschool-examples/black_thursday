@@ -1,8 +1,9 @@
 require 'rspec'
+
+require './data/mockable'
 require './lib/item'
 require './lib/item_repository'
 require './lib/file_io'
-require './data/mockable'
 
 describe ItemRepository do
   describe '#initialize' do
@@ -137,7 +138,8 @@ describe ItemRepository do
     end
 
     it 'returns all items with merchant_id' do
-      mock_data = ItemMocks.items_as_mocks(self)
+      items_as_hashes = ItemMocks.items_as_hashes(merchant_id_range: (1..1))
+      mock_data = ItemMocks.items_as_mocks(self, items_as_hashes)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 

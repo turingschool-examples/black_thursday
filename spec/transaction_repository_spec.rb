@@ -1,6 +1,6 @@
+require './data/mockable'
 require './lib/transaction'
 require './lib/transaction_repository'
-require './data/mockable'
 
 describe TransactionRepository do
   details = {
