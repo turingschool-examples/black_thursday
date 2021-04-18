@@ -15,4 +15,9 @@ class InvoiceItemRepository < Repository
     end
   end
 
+  def find_all_by_item_id(item_id)
+    @array_of_objects.find_all do |item|
+      item.item_id == item_id
+    end
+  end
 end
