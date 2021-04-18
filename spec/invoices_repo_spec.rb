@@ -75,15 +75,34 @@ RSpec.describe InvoiceRepo do
     end
 
     it 'can update an invoice' do
-      original_time = invoice_repository.find_by_id(1).updated_at
+      se_update = SalesEngine.from_csv({
+      :invoices => "./data/invoices.csv",
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+      invoice_repository_update = se_update.invoices
+
+      original_time = invoice_repository_update.find_by_id(1).updated_at
       attributes = {
         status: "shipped",
         updated_at: Time.now
       }
-      expected = invoice_repository.update(1, attributes)
+      expected = invoice_repository_update.update(1, attributes)
 
       expect(expected.status).to eq("shipped")
       expect(expected.updated_at).to be > original_time
+    end
+
+    it 'can delete an invoice' do
+      se_delete = SalesEngine.from_csv({
+      :invoices => "./data/invoices.csv",
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+      invoice_repository_delete = se_delete.invoices
+      invoice_repository_delete.delete(1)
+
+      expect(invoice_repository_delete.find_by_id(1)).to eq(nil)
     end
   end
 end
