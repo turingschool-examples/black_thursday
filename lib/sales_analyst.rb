@@ -29,9 +29,8 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     average_items = average_items_per_merchant
-    sum = 0
-    sales_engine.item_count_per_merchant.each do |merchant, count|
-      sum += (average_items - count)**2
+    sum = sales_engine.item_count_per_merchant.sum do |merchant, count|
+      (average_items - count)**2
     end
     sum = (sum / total_merchants).round(2)
     (sum ** 0.5).round(2)
@@ -46,14 +45,15 @@ class SalesAnalyst
     (sum ** 0.5).round(2)
   end
 
+  # refactor to return merchant object
   def merchants_with_high_item_count
     one_deviation = average_items_per_merchant_standard_deviation + average_items_per_merchant
     merchants = item_count_per_merchant.select do |id, count|
 
       sales_engine.find_merchant_id(id) if count > one_deviation
     end
-    merchants     # = []
-  end             # sales_engine.merchants.each do |merchant|
+    merchants
+  end
 
 
   def average_item_price_for_merchant(merchant_id)
@@ -64,17 +64,10 @@ class SalesAnalyst
     (sum / all_items.length).round(2)
   end
 
-  def merchant_item_total
-    item_count_per_merchant.sum do |id, count|
-      count
-    end
-  end
-
   def average_average_price_per_merchant
     all_items = item_count_per_merchant.length
     all_averages = sales_engine.all_merchants.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
-      #require "pry"; binding.pry
     end
 
     (all_averages / all_items).round(2)
