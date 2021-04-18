@@ -106,5 +106,9 @@ RSpec.describe do
       expect(sales_analyst.average_invoices_per_merchant).to eq(4)
     end
 
+    it '#top days by invoice count' do
+      expect(sales_analyst.top_days_by_invoice_count).to eq("Sunday")
+    end
+
   end
 end
