@@ -1,9 +1,9 @@
 require 'rspec'
+
 require './data/mock_data'
 require './lib/sales_analyst'
 require './lib/sales_engine'
 require './spec/sales_analyst_mocks'
-require 'pry'
 
 RSpec.describe SalesAnalyst do
   describe '#num_of_items_per_merchant' do

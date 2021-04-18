@@ -1,10 +1,11 @@
-require 'rspec'
 require 'CSV'
-require './lib/sales_engine'
-require './lib/sales_analyst'
+require 'rspec'
+
+require './lib/file_io'
 require './lib/item_repository'
 require './lib/merchant_repository'
-require './lib/file_io'
+require './lib/sales_engine'
+require './lib/sales_analyst'
 
 describe SalesEngine do
   describe '#from_csv' do

@@ -1,5 +1,5 @@
-require './lib/sales_analyst'
 require './lib/item_repository'
+require './lib/sales_analyst'
 
 class SalesAnalystMocks
 
