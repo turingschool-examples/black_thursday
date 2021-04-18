@@ -8,7 +8,6 @@ class InvoiceRepo
 
   def initialize(csv_files, engine)
     @invoice_list = invoice_instances(csv_files)
-    require'pry';binding.pry
     @engine    = engine
   end
 

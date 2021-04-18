@@ -15,7 +15,7 @@ class SalesAnalyst
   def initialize(items_repo, merchants_repo, invoices_repo)
     @items_repo     = items_repo
     @merchants_repo = merchants_repo
-    @invoices_repo = invoices_repo
+    @invoices_repo  = invoices_repo
   end
 
   def all_items
