@@ -177,4 +177,14 @@ RSpec.describe TransactionRepository do
       expect(tr.find_by_id(1)).to eq(nil)
     end
   end
+
+  describe '#invoice_paid_in_full?' do
+    it 'returns true if invoice with the corresponding id is paid in full' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      expect(tr.invoice_paid_in_full?(1)).to eq(true)
+      expect(tr.invoice_paid_in_full?(1485)).to eq(false)
+      expect(tr.invoice_paid_in_full?(3242342342)).to eq(false)
+    end
+  end
 end

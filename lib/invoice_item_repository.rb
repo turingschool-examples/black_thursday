@@ -65,4 +65,12 @@ class InvoiceItemRepository
   def delete(id)
     invoice_items.delete(find_by_id(id))
   end
+
+  def invoice_total(invoice_id)
+    @invoice_items.each_with_object([]) do |invoice_item, array|
+      if invoice_item.invoice_id == invoice_id
+        array << invoice_item.quantity * invoice_item.unit_price
+      end
+    end.sum
+  end
 end

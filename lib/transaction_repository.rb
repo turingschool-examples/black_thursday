@@ -65,7 +65,7 @@ class TransactionRepository
   end
 
   def update(id, attributes)
-    if find_by_id(id) != nil 
+    if find_by_id(id) != nil
       invoice_to_update = find_by_id(id)
       invoice_to_update.update(attributes)
     end
@@ -73,5 +73,13 @@ class TransactionRepository
 
   def delete(id)
     transactions.delete(find_by_id(id))
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    @transactions.each_with_object([]) do |transaction, array|
+      if transaction.invoice_id == invoice_id
+        array << transaction.result
+      end
+    end.include?(:success)
   end
 end
