@@ -30,7 +30,7 @@ RSpec.describe SalesAnalyst do
   describe '#average_items_per_merchant' do
     it 'averages the items per merchant' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
-      expected_average = 6
+      expected_average = 6.5
       actual_average = sales_analyst.average_items_per_merchant
 
       expect(actual_average).to eq expected_average
@@ -40,7 +40,7 @@ RSpec.describe SalesAnalyst do
   describe '#average_items_per_merchant_standard_deviation' do
     it 'calculates standard deviation for average items per merchant' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
-      expected_deviation = Math.sqrt( ( ((3-6)**2)+((7-6)**2)+((4-6)**2)+((12-6)**2) ) / 3.0 )
+      expected_deviation = (Math.sqrt( ( ((3-6.5)**2)+((7-6.5)**2)+((4-6.5)**2)+((12-6.5)**2) ) / 3.0 )).round(2)
       actual_deviation = sales_analyst.average_items_per_merchant_standard_deviation
 
       expect(actual_deviation).to eq expected_deviation
@@ -50,8 +50,8 @@ RSpec.describe SalesAnalyst do
   describe '#standard_deviations_of_mean' do
     it 'calculates the n standard deviation of the mean of items per merchant' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
-      std_dev = Math.sqrt( ( ((3-6)**2)+((7-6)**2)+((4-6)**2)+((12-6)**2) ) / 3.0 )
-      mean = 6
+      std_dev = Math.sqrt( ( ((3-6.5)**2)+((7-6.5)**2)+((4-6.5)**2)+((12-6.5)**2) ) / 3.0 )
+      mean = 6.5
       expected_range = mean + std_dev
       actual_range = sales_analyst.standard_deviations_of_mean(mean, std_dev)
 
@@ -78,7 +78,7 @@ RSpec.describe SalesAnalyst do
       actual_average = sales_analyst.average_item_price_for_merchant(3)
       expected_average = sum_for_test / 12.0
 
-      expect(actual_average).to eq expected_average
+      expect(actual_average).to eq (expected_average).round(2)
     end
   end
 

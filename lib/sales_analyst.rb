@@ -73,11 +73,7 @@ class SalesAnalyst
   def average_average_price_per_merchant
     merchants = @sales_engine.merchants.all
     sum_of_averages = merchants.sum do |merchant|
-      if num_of_items_per_merchant[merchant] == 0
-        0
-      else
-        average_item_price_for_merchant(merchant.id)
-      end
+      average_item_price_for_merchant(merchant.id) unless num_of_items_per_merchant[merchant] == 0
     end
     average_average_price = sum_of_averages / merchants.length
     average_average_price.round(2)
