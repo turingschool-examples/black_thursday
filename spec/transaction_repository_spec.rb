@@ -97,8 +97,7 @@ RSpec.describe TransactionRepository do
                                             created_at: '2016-01-11 11:51:37 UTC',
                                             updated_at: '1993-09-29 11:56:40 UTC'
                                           },
-                                          tr
-                                         )
+                                          tr)
       test_transaction2 = Transaction.new({
                                             id: '263395617999',
                                             invoice_id: '456789',
@@ -108,12 +107,11 @@ RSpec.describe TransactionRepository do
                                             created_at: '2016-01-11 11:51:37 UTC',
                                             updated_at: '1993-09-29 11:56:40 UTC'
                                           },
-                                          tr
-                                         )
-    tr.transactions << test_transaction1
-    tr.transactions << test_transaction2
-    expect(tr.find_all_by_credit_card_number('4297222479999999')).to eq([test_transaction1, test_transaction2])
-    expect(tr.find_all_by_credit_card_number('123456789099999999')).to eq([])
+                                          tr)
+      tr.transactions << test_transaction1
+      tr.transactions << test_transaction2
+      expect(tr.find_all_by_credit_card_number('4297222479999999')).to eq([test_transaction1, test_transaction2])
+      expect(tr.find_all_by_credit_card_number('123456789099999999')).to eq([])
     end
   end
   describe '#find_all_by_result' do
@@ -136,13 +134,13 @@ RSpec.describe TransactionRepository do
       mock_sales_engine = instance_double('SalesEngine')
       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
       attributes = {
-                     id: '263395617',
-                     invoice_id: '456789',
-                     credit_card_number: '4297222479999999',
-                     credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
-                     result: 'success',
-                     created_at: '2016-01-11 11:51:37 UTC',
-                     updated_at: '1993-09-29 11:56:40 UTC'
+                      id: '263395617',
+                      invoice_id: '456789',
+                      credit_card_number: '4297222479999999',
+                      credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                      result: 'success',
+                      created_at: '2016-01-11 11:51:37 UTC',
+                      updated_at: '1993-09-29 11:56:40 UTC'
                    }
       tr.create(attributes)
       expected = tr.find_by_id(51)
