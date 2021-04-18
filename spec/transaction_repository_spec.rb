@@ -146,7 +146,7 @@ RSpec.describe TransactionRepository do
                    }
       tr.create(attributes)
       expected = tr.find_by_id(51)
-      expect(expected.credit_card_number).to eq("4297222479999999")
+      expect(expected.credit_card_number).to eq('4297222479999999')
     end
   end
   describe '#update' do
@@ -161,12 +161,12 @@ RSpec.describe TransactionRepository do
                       result: 'hot_dog',
                       created_at: '2016-01-11 11:51:37 UTC',
                       updated_at: '1993-09-29 11:56:40 UTC'
-                    }
+                   }
       test_transaction = tr.find_by_id(1)
       tr.update(1, attributes)
       expect(test_transaction.id).to eq(1)
       expect(test_transaction.invoice_id).to eq(2179)
-      expect(test_transaction.credit_card_number).to eq("4297222479999999")
+      expect(test_transaction.credit_card_number).to eq('4297222479999999')
       expect(test_transaction.credit_card_expiration_date).to eq('0220')
       expect(test_transaction.result).to eq(:hot_dog)
       expect(test_transaction.created_at.year).to eq(2012)

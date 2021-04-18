@@ -14,9 +14,9 @@ class SalesEngine
               :transactions,
               :analyst
 
-  def initialize(item_csv_location, 
-                 merchant_csv_location, 
-                 invoice_csv_location, 
+  def initialize(item_csv_location,
+                 merchant_csv_location,
+                 invoice_csv_location,
                  transaction_csv_location,
                  customer_csv_location,
                  invoice_item_csv_location)
@@ -36,9 +36,9 @@ class SalesEngine
     transaction_csv_location = csv_hash[:transactions]
     customer_csv_location = csv_hash[:customers]
     invoice_item_csv_location = csv_hash[:invoice_items]
-    SalesEngine.new(item_csv_location, 
-                    merchant_csv_location, 
-                    invoice_csv_location, 
+    SalesEngine.new(item_csv_location,
+                    merchant_csv_location,
+                    invoice_csv_location,
                     transaction_csv_location,
                     customer_csv_location,
                     invoice_item_csv_location)

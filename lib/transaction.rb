@@ -30,7 +30,7 @@ class Transaction
 
   def update_credit_card_number(attributes)
     return nil if attributes[:credit_card_number] == nil
-        @credit_card_number = attributes[:credit_card_number]
+    @credit_card_number = attributes[:credit_card_number]
   end
 
   def update_credit_card_expiration_date(attributes)
