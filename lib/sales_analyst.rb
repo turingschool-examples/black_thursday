@@ -48,11 +48,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    merchants = find_all_merchants
-    merchant_ids = get_merchant_ids(merchants)
     mean = average_items_per_merchant
     greater_than_1sd = mean + average_items_per_merchant_standard_deviation
-    merchants.find_all do |merchant|
+    find_all_merchants.find_all do |merchant|
       find_all_items_by_merchant_id(merchant.id).length > greater_than_1sd
     end
   end
