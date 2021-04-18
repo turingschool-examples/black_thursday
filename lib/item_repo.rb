@@ -13,7 +13,7 @@ class ItemRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |item_info|
-      @items << Item.new(item_info, @engine)
+      @items << Item.new(item_info, self)
     end
   end
 
