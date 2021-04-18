@@ -107,7 +107,7 @@ RSpec.describe do
     end
 
     it 'calculates invoices per merchant standard deviation' do
-      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(4.03)
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(4.02)
     end
   end
 end
