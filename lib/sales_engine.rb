@@ -105,4 +105,12 @@ class SalesEngine
   def golden_items
     @items.golden_items
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    @transactions.invoice_paid_in_full?(invoice_id)
+  end
+
+  def invoice_total(invoice_id)
+    @invoice_items.invoice_total(invoice_id)
+  end
 end

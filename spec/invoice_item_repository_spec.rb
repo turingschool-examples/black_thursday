@@ -103,4 +103,12 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.invoice_items.count).to eq(49)
     end
   end
+  describe '#invoice_total' do
+    it 'returns total dollar amount of invoice of corresponding id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
+      expect(iir.invoice_total(1)).to eq(21067.77)
+    end
+  end
 end
