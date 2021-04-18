@@ -163,4 +163,36 @@ RSpec.describe 'SalesAnalyst' do
       expect(@sa.invoice_total(2_179)).to eq(31_075.11)
     end
   end
+
+  describe '#invoice_paid_in_full' do
+    it 'returns the successful transactions' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.invoice_paid_in_full?(2_179)).to eq(true)
+      expect(sa.invoice_paid_in_full?(2_179_390)).to eq(false)
+    end
+  end
+
+  describe '#invoice_total' do
+    it 'returns total of invoice' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.invoice_total(2_179)).to eq(31_075.11)
+    end
+  end
 end

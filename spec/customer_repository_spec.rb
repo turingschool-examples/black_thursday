@@ -23,7 +23,6 @@ RSpec.describe CustomerRepository do
         customers: './data/customers.csv'
       )
 
-
       cr = se.customers
 
       expect(cr.all[1].first_name).to eq('Cecelia')
@@ -35,7 +34,6 @@ RSpec.describe CustomerRepository do
       se = SalesEngine.from_csv(
         customers: './data/customers.csv'
       )
-
 
       cr = se.customers
 
@@ -49,7 +47,6 @@ RSpec.describe CustomerRepository do
         customers: './data/customers.csv'
       )
 
-
       cr = se.customers
 
       expect(cr.find_all_by_last_name('Ondricka')[0].first_name).to eq('Joey')
@@ -61,7 +58,6 @@ RSpec.describe CustomerRepository do
       se = SalesEngine.from_csv(
         customers: './data/customers.csv'
       )
-
 
       cr = se.customers
 
@@ -92,7 +88,6 @@ RSpec.describe CustomerRepository do
         customers: './data/customers.csv'
       )
 
-
       cr = se.customers
 
       cr.update(1, last_name: 'Lando')
@@ -104,7 +99,6 @@ RSpec.describe CustomerRepository do
       se = SalesEngine.from_csv(
         customers: './data/customers.csv'
       )
-
 
       cr = se.customers
 
@@ -129,8 +123,7 @@ RSpec.describe CustomerRepository do
       se = SalesEngine.from_csv(
         customers: './data/customers.csv'
       )
-
-
+      
       cr = se.customers
 
       expect(cr.find_by_id(1).first_name).to eq('Joey')
@@ -142,7 +135,6 @@ RSpec.describe CustomerRepository do
       se = SalesEngine.from_csv(
         customers: './data/customers.csv'
       )
-
 
       cr = se.customers
 

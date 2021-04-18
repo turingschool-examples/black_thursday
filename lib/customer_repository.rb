@@ -51,6 +51,5 @@ class CustomerRepository < Repository
       new.first_name = attribute[:first_name] unless attribute[:first_name].nil?
       new.last_name = attribute[:last_name] unless attribute[:last_name].nil?
       new.updated_at = Time.now
-    end
   end
 end
