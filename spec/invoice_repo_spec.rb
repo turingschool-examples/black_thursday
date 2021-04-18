@@ -1,10 +1,11 @@
+require'rspec'
 require 'CSV'
 require './lib/sales_engine'
 require './lib/invoice'
 require './lib/invoice_repo'
 
 RSpec.describe ItemRepo do
-  before(:each) 
+  before(:each) do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                           :merchants => './data/merchants.csv',
                                           :invoices => './data/invoices.csv'})
@@ -147,7 +148,7 @@ RSpec.describe ItemRepo do
                                      :updated_at => Time.now})
    
       expect(invoice_repo.all.length).to eq(4986)
-      
+  
       invoice_repo.delete(invoice.id)
 
       expect(invoice_repo.all.length).to eq(4985)
