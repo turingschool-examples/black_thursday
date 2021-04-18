@@ -68,26 +68,25 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    merchant_count = find_all_merchants.length
     items_sum = find_all_merchants.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    Compute.mean(items_sum, merchant_count)
+    Compute.mean(items_sum, find_all_merchants.length)
   end
 
-  def average_price_per_item_standard_deviation
+  def total_item_price
     sum = find_all_items.sum do |item_object|
       item_object.unit_price
     end
-    mean = Compute.mean(sum, find_all_items.length)
+  end
 
-    population_size_minus_one = find_all_items.length - 1
-    counter = 0
-    find_all_items.each do |item|
-      running_total = (item.unit_price - mean)**2
-      counter += running_total
+  def average_price_per_item_standard_deviation
+    total_number_of_items = find_all_items.length
+    mean = Compute.mean(total_item_price, total_number_of_items)
+    adder_counter = find_all_items.sum do |item|
+      (item.unit_price - mean)**2
     end
-    Math.sqrt(counter / population_size_minus_one).round(2)
+    Math.sqrt(adder_counter / (total_number_of_items - 1)).round(2)
   end
 
   def golden_items
