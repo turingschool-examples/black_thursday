@@ -96,7 +96,6 @@ describe CustomerRepository do
       expect(c_repo.all.length).to eq 11
       expect(expected.first_name).to eq 'Yan'
     end
-  
 
     it 'new customer has an id equal to max_id plus 1' do
       mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
@@ -137,7 +136,7 @@ describe CustomerRepository do
 
       changed_customer_attributes = {
         first_name: 'Johnny',
-        last_name: 'Greenwood',
+        last_name: 'Greenwood'
       }
 
       c_repo.update(2, changed_customer_attributes)
@@ -165,11 +164,11 @@ describe CustomerRepository do
 
       changed_customer_attributes = {
         first_name: 'Johnny',
-        last_name: 'Greenwood',
+        last_name: 'Greenwood'
       }
 
       c_repo.update(1000, changed_customer_attributes)
-      expected = c_repo.customers.map {|customer| customer.first_name }
+      expected = c_repo.customers.map { |customer| customer.first_name }
       expect(expected.include?('Johnny')).to eq false
     end
   end
