@@ -2,7 +2,7 @@
 
 require './lib/transaction'
 require './lib/transaction_repository'
-require './data/mock_data'
+require './data/mockable'
 
 describe TransactionRepository do
   details = {
@@ -19,7 +19,7 @@ describe TransactionRepository do
 
   describe '#initialize' do
     it 'exists' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -27,7 +27,7 @@ describe TransactionRepository do
     end
 
     it 'has an array of Transactions' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -37,7 +37,7 @@ describe TransactionRepository do
 
   describe '#all' do
     it 'returns a list of all Transactions' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -47,7 +47,7 @@ describe TransactionRepository do
 
   describe '#find_by_id' do
     it 'returns nil if no Transaction has id specified' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -55,7 +55,7 @@ describe TransactionRepository do
     end
 
     it 'returns first Transaction with id specified' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -65,7 +65,7 @@ describe TransactionRepository do
 
   describe '#find_all_by_invoice_id' do
     it 'returns empty array if no Transactions have invoice_id specified' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -73,7 +73,7 @@ describe TransactionRepository do
     end
 
     it 'returns all Transactions with invoice_id specified' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -83,7 +83,7 @@ describe TransactionRepository do
 
   describe '#find_all_by_credit_card_number' do
     it 'returns empty array if no Transactions have specified cc number' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -91,7 +91,7 @@ describe TransactionRepository do
     end
 
     it 'returns all Transactions with specified cc number' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -102,7 +102,7 @@ describe TransactionRepository do
 
   describe '#find_all_by_result' do
     it 'return empty array if no Transactions with matching status' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -110,7 +110,7 @@ describe TransactionRepository do
     end
 
     it 'returns all Transactions with matching status' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -120,7 +120,7 @@ describe TransactionRepository do
 
   describe '#create' do
     it 'creates a Transaction' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -143,7 +143,7 @@ describe TransactionRepository do
 
   describe '#update' do
     it 'updates the correct Transaction and attributes' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -171,7 +171,7 @@ describe TransactionRepository do
     end
 
     it 'does not update immutable attributes' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -206,7 +206,7 @@ describe TransactionRepository do
 
   describe '#delete' do
     it 'deletes the object at specified id' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 
@@ -229,7 +229,7 @@ describe TransactionRepository do
     end
 
     it 'does not delete anything if no item at id' do
-      mock_data = MockData.mock_generator(self, 'Transaction', data_hashes)
+      mock_data = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
 

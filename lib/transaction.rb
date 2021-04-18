@@ -26,7 +26,9 @@ class Transaction
   end
 
   def update_credit_card_exp_date(credit_card_expiration_date)
-    @credit_card_expiration_date = credit_card_expiration_date unless credit_card_expiration_date.nil?
+    unless credit_card_expiration_date.nil?
+      @credit_card_expiration_date = credit_card_expiration_date
+    end
   end
 
   def update_result(result)
