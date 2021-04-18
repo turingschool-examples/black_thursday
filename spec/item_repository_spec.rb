@@ -141,7 +141,7 @@ describe ItemRepository do
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_merchant_id(1).length).to eq 5
+      expect(item_repository.find_all_by_merchant_id(1).length).to eq 10
     end
   end
 
