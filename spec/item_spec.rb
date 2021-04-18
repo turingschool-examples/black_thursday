@@ -17,8 +17,7 @@ RSpec.describe Item do
         created_at: '2016-01-11 11:51:37 UTC ',
         updated_at: '1993-09-29 11:56:40 UTC '
         },
-        mock_item_repo
-      )
+        mock_item_repo)
       expect(item).to be_instance_of(Item)
       end
     it 'has attributes' do
@@ -32,8 +31,7 @@ RSpec.describe Item do
         created_at: '2016-01-11 11:51:37 UTC',
         updated_at: '1993-09-29 11:56:40 UTC'
         },
-        mock_item_repo
-      )
+        mock_item_repo)
       expect(item.id).to eq(1)
       expect(item.name).to eq('Cool Stuff')
       expect(item.description).to eq('supaaa cool')
@@ -57,8 +55,7 @@ RSpec.describe Item do
                         created_at: '2016-01-11 11:51:37 UTC',
                         updated_at: '1993-09-29 11:56:40 UTC'
                         },
-                        mock_item_repo
-                      )
+                        mock_item_repo)
       item.update_time_stamp
       expect(item.updated_at.year).to eq(2021)
     end

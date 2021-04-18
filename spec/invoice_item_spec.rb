@@ -16,7 +16,7 @@ RSpec.describe InvoiceItem do
                                        unit_price: '987456',
                                        created_at: '2016-01-11 11:51:37 UTC',
                                        updated_at: '1993-09-29 11:56:40 UTC'
-                                     },
+                                      },
                                        mock_invoice_item_repository)
       expect(invoice_item).to be_instance_of(InvoiceItem)
     end
@@ -30,7 +30,7 @@ RSpec.describe InvoiceItem do
                                        unit_price: '1300',
                                        created_at: '2012-03-27 14:54:09 UTC',
                                        updated_at: '2013-03-27 14:54:09 UTC'
-                                     },
+                                      },
                                       mock_invoice_item_repository)
       expect(invoice_item.id).to eq(21854)
       expect(invoice_item.item_id).to eq(123654)
@@ -68,17 +68,17 @@ RSpec.describe InvoiceItem do
                                        unit_price: '1300',
                                        created_at: '2012-03-27 14:54:09 UTC',
                                        updated_at: '2013-03-27 14:54:09 UTC'
-                                      },
+                                       },
                                         mock_invoice_item_repository)
       attributes = {
-                     id: '1',
-                     item_id: '263519844',
-                     invoice_id: '1',
-                     quantity: '6',
-                     unit_price: '13000',
-                     created_at: '2012-03-27 14:54:09 UTC',
-                     updated_at: Time.now
-                   }
+                      id: '1',
+                      item_id: '263519844',
+                      invoice_id: '1',
+                      quantity: '6',
+                      unit_price: '13000',
+                      created_at: '2012-03-27 14:54:09 UTC',
+                      updated_at: Time.now
+                    }
       invoice_item.update(attributes)
       expected = invoice_item
       expect(expected.invoice_id).to eq(1)
