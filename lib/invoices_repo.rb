@@ -47,4 +47,13 @@ class InvoiceRepo
       invoice.status == status
     end
   end
+
+def create(attributes)
+  new_invoice = Invoice.new(attributes, self)
+  find_max_id = @invoice_list.max_by do |invoice|
+    invoice.id
+  end
+  new_invoice.id = (find_max_id.id + 1)
+    invoice_list << new_invoice
+  end
 end
