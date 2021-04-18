@@ -42,6 +42,10 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def find_item_by_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
   def average_invoices_per_merchant
     @invoices.average_invoices_per_merchant
   end
@@ -60,5 +64,29 @@ class SalesEngine
 
   def top_days_by_invoice_count
     @invoices.top_sales_days
+  end
+
+  def average_items_per_merchant
+    @items.average_items_per_merchant
+  end
+
+  def average_items_per_merchant_standard_deviation
+    @items.average_items_per_merchant_standard_deviation
+  end
+
+  def merchants_with_high_item_count
+    @items.merchants_with_high_item_count
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    @items.average_item_price_for_merchant(merchant_id)
+  end
+
+  def average_average_price_per_merchant
+    @items.average_average_price_per_merchant
+  end
+
+  def golden_items
+    @items.golden_items
   end
 end

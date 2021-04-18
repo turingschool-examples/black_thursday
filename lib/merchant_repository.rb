@@ -69,49 +69,4 @@ class MerchantRepository
   def all_items
     @engine.all_items
   end
-
-  def merchant_total_items
-    merchants.map do |merchant|
-      all_items.count do |item|
-        merchant.id == item.merchant_id
-      end
-    end
-  end
-
-  def merchant_items
-    merchant_id_hash = merchants.each_with_object({}) do |merchant, hash|
-      hash[merchant] = []
-    end
-    merchant_id_hash.group_by do |key, value|
-      all_items.each do |item|
-        if item.merchant_id == key.id
-          merchant_id_hash[key] << item
-        end
-      end
-    end
-    merchant_id_hash
-  end
-
-  def average_items_per_merchant
-    avg = merchant_total_items.sum.to_f / @merchants.count
-    avg.round(2)
-  end
-
-  def average_items_per_merchant_standard_deviation
-    numerator = merchant_total_items.inject(0) do |summation, item|
-      summation + (item - average_items_per_merchant) ** 2
-    end
-    sample_variance = numerator / (merchant_total_items.length - 1).to_f
-    (Math.sqrt(sample_variance)).round(2)
-  end
-
-  def merchants_with_high_item_count
-    merchants_with_high_item_count = []
-    merchant_items.each do |key, value|
-      if value.count > average_items_per_merchant_standard_deviation + average_items_per_merchant
-        merchants_with_high_item_count << key
-      end
-    end
-    merchants_with_high_item_count
-  end
 end

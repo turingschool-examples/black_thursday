@@ -22,6 +22,29 @@ class Item
     @item_repo = item_repo
   end
 
+  def update(attributes)
+    update_name(attributes)
+    update_description(attributes)
+    update_unit_price(attributes)
+    update_time_stamp
+  end
+
+  def update_name(attributes)
+    return nil if attributes[:name] == nil
+    @name = attributes[:name]
+  end
+
+  def update_description(attributes)
+    return nil if attributes[:description] == nil
+    @description = attributes[:description]
+  end
+
+  def update_unit_price(attributes)
+    return nil if attributes[:unit_price] == nil
+    @unit_price = attributes[:unit_price]
+    unit_price_to_big_decimal
+  end
+
   def update_time_stamp
     @updated_at = Time.now
   end
