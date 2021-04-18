@@ -33,9 +33,13 @@ RSpec.describe Item do
 
   describe '#unit price to dollars' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     repo = sales_engine.items
 
      it 'has a unit price' do
@@ -47,11 +51,16 @@ RSpec.describe Item do
   end
 
   describe '#time_check' do
-    sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              })
-    item = sales_engine.items.all[0]
+
+    item = Item.new({
+                      :id          => 1,
+                      :name        => "Pencil",
+                      :description => "You can use it to write things",
+                      :unit_price  => "1099",
+                      :created_at  => Time.now,
+                      :updated_at  => Time.now,
+                      :merchant_id => 2
+                    })
 
     it 'returns input as originally passed in if input is class Time' do
       time_object = Time.parse("2007-06-04 21:35:10 UTC")

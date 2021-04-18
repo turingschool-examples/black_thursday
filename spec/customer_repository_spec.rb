@@ -5,11 +5,13 @@ require_relative '../lib/customer_repository'
 RSpec.describe CustomerRepository do
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv",
-                              :customers => "./data/customers.csv"
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     customer_repo = sales_engine.customers
 
     it 'exists' do
@@ -26,7 +28,9 @@ RSpec.describe CustomerRepository do
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
                               :invoices => "./data/invoices.csv",
-                              :customers => "./data/customers.csv"
+                              :customers => "./data/customers.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :transactions => "./data/transactions.csv"
                               })
     customer_repo = sales_engine.customers
 
@@ -53,7 +57,9 @@ RSpec.describe CustomerRepository do
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
                               :invoices => "./data/invoices.csv",
-                              :customers => "./data/customers.csv"
+                              :customers => "./data/customers.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :transactions => "./data/transactions.csv"
                               })
     customer_repo = sales_engine.customers
     attributes = {
@@ -80,7 +86,9 @@ RSpec.describe CustomerRepository do
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
                               :invoices => "./data/invoices.csv",
-                              :customers => "./data/customers.csv"
+                              :customers => "./data/customers.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :transactions => "./data/transactions.csv"
                               })
     customer_repo = sales_engine.customers
     attributes = {
@@ -103,7 +111,9 @@ RSpec.describe CustomerRepository do
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
                               :invoices => "./data/invoices.csv",
-                              :customers => "./data/customers.csv"
+                              :customers => "./data/customers.csv",
+                              :invoice_items => "./data/invoice_items.csv",
+                              :transactions => "./data/transactions.csv"
                               })
     customer_repo = sales_engine.customers
 
