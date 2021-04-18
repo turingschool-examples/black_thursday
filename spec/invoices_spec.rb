@@ -40,5 +40,9 @@ RSpec.describe Invoice do
     it 'can return time created at' do
       expect(invoice_repo.invoice_list[0].created_at).to eq(Time.parse("2009-02-07 00:00:00 -0700"))
     end
+
+    it 'can return time updated at' do
+      expect(invoice_repo.invoice_list[0].updated_at).to eq(Time.parse("2014-03-15 00:00:00 -0600"))
+    end
   end
 end
