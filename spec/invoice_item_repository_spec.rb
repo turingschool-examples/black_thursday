@@ -63,6 +63,7 @@ RSpec.describe InvoiceItemRepository do
 
     it 'find all by item id' do
       expect(invoice_item_repo.find_all_by_item_id(263408101).length).to eq(11)
+      expect(invoice_item_repo.find_all_by_item_id(263408101).first.class).to eq(InvoiceItem)
     end
 
   end
