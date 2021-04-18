@@ -1,5 +1,6 @@
 require 'rspec'
 require 'csv'
+require './data/mockable'
 require './lib/file_io'
 require './lib/customer_repository'
 
@@ -16,7 +17,7 @@ describe CustomerRepository do
 
   describe '#initialize' do
     it 'exists' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -24,7 +25,7 @@ describe CustomerRepository do
     end
 
     it 'has a customers array' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -34,7 +35,7 @@ describe CustomerRepository do
 
   describe '#all' do
     it 'returns an array of all customers' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -44,7 +45,7 @@ describe CustomerRepository do
 
   describe '#find_by_id' do
     it 'returns a Customer with matching id' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -55,7 +56,7 @@ describe CustomerRepository do
 
   describe '#find_all_by_first_name' do
     it 'returns all customers with matching first name' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -66,7 +67,7 @@ describe CustomerRepository do
 
   describe '#find_all_by_last_name' do
     it 'returns all customers with matching last name' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -77,7 +78,7 @@ describe CustomerRepository do
 
   describe '#create' do
     it 'creates a new Customer instance with provided attributes' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -98,7 +99,7 @@ describe CustomerRepository do
     end
 
     it 'new customer has an id equal to max_id plus 1' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -119,7 +120,7 @@ describe CustomerRepository do
 
   describe '#update' do
     it 'updates the customer with corresponding id' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -148,7 +149,7 @@ describe CustomerRepository do
     end
 
     it 'does not update unknown customer' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -175,7 +176,7 @@ describe CustomerRepository do
 
   describe '#delete' do
     it 'deletes customer with provided id' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
@@ -197,7 +198,7 @@ describe CustomerRepository do
     end
 
     it 'does nothing with unknown id' do
-      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      mock_data = Mockable.mock_generator(self, 'Customer', customer_hashes)
       allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
       c_repo = CustomerRepository.new('fake.csv')
 
