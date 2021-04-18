@@ -58,8 +58,8 @@ class InvoiceItemRepository
 
   def update(id, attributes)
     return nil if find_by_id(id) == nil
-      invoice_item_to_update = find_by_id(id)
-      invoice_item_to_update.update(attributes)
+    invoice_item_to_update = find_by_id(id)
+    invoice_item_to_update.update(attributes)
   end
 
   def delete(id)

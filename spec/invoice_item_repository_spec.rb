@@ -61,13 +61,13 @@ RSpec.describe InvoiceItemRepository do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
       attributes = {
-            id: '951753',
-            item_id: '123654',
-            invoice_id: '654123',
-            quantity: '999',
-            unit_price: '1300',
-            created_at: '2012-03-27 14:54:09 UTC',
-            updated_at: '2013-03-27 14:54:09 UTC'
+                     id: '951753',
+                     item_id: '123654',
+                     invoice_id: '654123',
+                     quantity: '999',
+                     unit_price: '1300',
+                     created_at: '2012-03-27 14:54:09 UTC',
+                     updated_at: '2013-03-27 14:54:09 UTC'
                     }
       iir.create(attributes)
       expected = iir.find_by_id(51)
@@ -79,13 +79,13 @@ RSpec.describe InvoiceItemRepository do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
       attributes = {
-            id: '1',
-            item_id: '263519844',
-            invoice_id: '1',
-            quantity: '6',
-            unit_price: '13000',
-            created_at: '2012-03-27 14:54:09 UTC',
-            updated_at: Time.now
+                     id: '1',
+                     item_id: '263519844',
+                     invoice_id: '1',
+                     quantity: '6',
+                     unit_price: '13000',
+                     created_at: '2012-03-27 14:54:09 UTC',
+                     updated_at: Time.now
                     }
       iir.update(1, attributes)
       expected = iir.find_by_id(1)
