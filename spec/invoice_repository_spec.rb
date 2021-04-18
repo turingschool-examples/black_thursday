@@ -293,6 +293,45 @@ RSpec.describe InvoiceRepository do
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
   end
+
+  describe '#total_revenue_by_date' do
+    it 'returns the total revenue for date given' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', se)
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', se)
+      date = Time.parse('2015-03-13')
+
+      expect(ir.total_revenue_by_date(date)).to eq(4774.75)
+    end
+  end
+
+  describe '#top_revenue_earners' do
+    it 'returns the top revenue earners' do
+      se = SalesEngine.from_csv({
+          items: './data/items.csv',
+          merchants: './data/merchants.csv',
+          invoices: './data/invoices.csv',
+          customers: './data/customers.csv',
+          invoice_items: './data/invoice_items.csv',
+          transactions: './data/transactions.csv'
+                                  })
+      ir = InvoiceRepository.new('./data/invoices.csv', se)
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+
+      expect(ir.top_revenue_earners(1)[0]).to be_a(Merchant)
+      expect(ir.top_revenue_earners(1).count).to eq(1)
+      expect(ir.top_revenue_earners.count).to eq(20)
+    end
+  end
+
   describe '#total_spent_by_customer' do 
     it 'creates an array of unique customer ids and their total spends' do
       sales_engine = SalesEngine.from_csv({

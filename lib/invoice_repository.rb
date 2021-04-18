@@ -137,6 +137,36 @@ class InvoiceRepository
     end
   end
 
+
+  def total_revenue_by_date(date)
+    @invoices.each_with_object([]) do |invoice, array|
+      if invoice.created_at.strftime('%y%m%d') == date.strftime('%y%m%d')
+        array << @engine.invoice_total(invoice.id)
+      end
+    end.sum
+  end
+
+  def top_revenue_earners(x = 20)
+    hash = @invoices.each_with_object({}) do |invoice, hash|
+      hash[invoice.merchant_id] = invoice.id
+    end
+    merchant_invoice_hash = hash.each do |merchant_id, invoice_id|
+      hash[merchant_id] = @engine.invoice_total(invoice_id)
+    end
+    sorted_merchants = merchant_invoice_hash.sort_by {|k, v| -v}.flatten
+    keys = sorted_merchants.select{|x| x % 1 == 0}
+    top_merchants = []
+    keys.each do |key|
+      if top_merchants.count == x
+        break
+      elsif
+        top_merchants << @engine.find_merchant_by_id(key)
+      end
+    end
+    top_merchants
+  end
+end
+
   def total_spent_by_customer
     invoice_total_hash = @engine.invoice_total_hash
     array = @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
@@ -155,3 +185,4 @@ class InvoiceRepository
     top_buyers
   end
 end
+

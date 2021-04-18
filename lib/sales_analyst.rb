@@ -62,4 +62,8 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     @sales_engine.invoice_total(invoice_id)
   end
+
+  def total_revenue_by_date(date)
+    @sales_engine.total_revenue_by_date(date)
+  end
 end

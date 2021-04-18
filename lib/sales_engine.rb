@@ -118,6 +118,10 @@ class SalesEngine
     @invoice_items.invoice_total(invoice_id)
   end
 
+  def total_revenue_by_date(date)
+    @invoices.total_revenue_by_date(date)
+  end
+  
   def invoice_total_hash
     @invoice_items.invoice_total_hash
   end
