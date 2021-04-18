@@ -47,8 +47,31 @@ class SalesAnalyst
     square_root.round(2)
   end
 
-  def z_score(value)
+  def z_score_items(value)
     ((value - average_items_per_merchant) / average_items_per_merchant_standard_deviation).to_f
+  end
+
+  def z_score_price(value)
+    ((value - average_average_price_per_merchant) /average_unit_price_standard_deviation).to_f
+  end
+
+  def average_unit_price
+    prices = all_items.map do |item|
+      item.unit_price
+    end
+    average = (prices.sum) / all_items.length
+  end
+
+  def average_unit_price_standard_deviation
+    prices = all_items.map do |item|
+      item.unit_price
+    end
+    squared_differences = prices.map do |price|
+      ((price - average_unit_price)**2).to_f
+    end.sum
+    divided_sum = ((squared_differences) / (prices.length - 1))
+    square_root = ((divided_sum)**0.5).to_f
+    square_root.round(2)
   end
 
   def merchants_num_items_hash
@@ -62,7 +85,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     merchant_ids_with_high_item_count = []
     merchants_num_items_hash.each do |merchant_id, num|
-      if z_score(num) >= 1.0 || z_score(num) <= -1.0
+      if z_score(num) >= 1.0
         merchant_ids_with_high_item_count << merchant_id
       end
     end
@@ -91,4 +114,13 @@ class SalesAnalyst
     result = BigDecimal(average).round(2)
   end
 
+  def golden_items
+    sorted_items = all_items.sort_by do |item|
+      item.unit_price
+    end.reverse!
+    top_items_by_price = sorted_items.take(10)
+    top_items_by_price.find_all do |item|
+      z_score_price(item.unit_price) >= 2.0
+    end
+  end
 end
