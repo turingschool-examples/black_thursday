@@ -43,11 +43,13 @@ class Item
 
   def created_at
     return @created_at if @created_at.instance_of?(Time)
+
     Time.parse(@created_at)
   end
 
   def updated_at
     return @updated_at if @updated_at.instance_of?(Time)
+
     Time.parse(@updated_at)
   end
 end

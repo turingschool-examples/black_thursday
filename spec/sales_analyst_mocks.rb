@@ -7,14 +7,9 @@ class SalesAnalystMocks
     @@price_sums_for_each_merchant
   end
 
-  def self.sales_engine_mock(eg)
+  def self.sales_analyst_mock(eg)
     sales_engine = eg.instance_double('SalesEngine')
     eg.allow(sales_engine).to eg.receive(:analyst).and_return SalesAnalyst.new(sales_engine)
-    sales_engine
-  end
-
-  def self.sales_analyst_mock(eg)
-    sales_engine = sales_engine_mock(eg)
     sales_analyst = sales_engine.analyst
 
     merchants_as_hashes = MockData.merchants_as_hashes(number_of_hashes: 4)
