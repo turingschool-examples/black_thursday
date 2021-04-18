@@ -111,4 +111,12 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.invoice_total(1)).to eq(21067.77)
     end
   end
+  describe '#invoice_total_hash' do
+    it 'makes a hash of unique invoices ids and their total value' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
+      expect(iir.invoice_total_hash.keys.count).to eq(10)
+    end
+  end
 end

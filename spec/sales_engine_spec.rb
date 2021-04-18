@@ -52,6 +52,13 @@ RSpec.describe SalesEngine do
     end
   end
 
+  describe '#find_customer_by_id' do
+    it 'returns a customer_object when given a customer_id' do
+
+      expect(@se.find_customer_by_id(1)).to be_a(Customer)
+    end
+  end
+
   describe '#find_item_by_id' do
     it 'returns a item_object when given a item_id' do
 
@@ -137,6 +144,13 @@ RSpec.describe SalesEngine do
 
       expect(@se.golden_items.count).to eq(5)
       expect(@se.golden_items.first).to be_a(Item)
+    end
+  end
+
+  describe '#invoice_total_hash' do
+    it 'passes the invoice_total_hash from invoice_item repo to other repos' do
+
+      expect(@se.invoice_total_hash.keys.count).to eq(4985)
     end
   end
 end

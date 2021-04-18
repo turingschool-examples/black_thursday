@@ -171,7 +171,7 @@ RSpec.describe InvoiceRepository do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
 
-      expect(ir.percentage_by_status(:pending)).to eq(50.00)
+      expect(ir.percentage_by_status('pending')).to eq(50.00)
       expect(ir.percentage_by_status(:shipped)).to eq(33.33)
       expect(ir.percentage_by_status(:returned)).to eq(16.67)
     end
@@ -293,4 +293,38 @@ RSpec.describe InvoiceRepository do
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
   end
+  describe '#total_spent_by_customer' do 
+    it 'creates an array of unique customer ids and their total spends' do
+      sales_engine = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                      })     
+      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
+
+      expect(ir.total_spent_by_customer.count).to eq(901)
+    end 
+  end 
+  describe '#top_buyers' do 
+    it 'creates an array of unique customer ids and their total spends' do
+      sales_engine = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                      })     
+      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
+
+      expect(ir.top_buyers.count).to eq(20)
+      expect(ir.top_buyers(10).count).to eq(10)
+      expect(ir.top_buyers.first).to be_a(Customer)
+    end 
+  end 
 end
