@@ -65,4 +65,16 @@ class InvoiceRepo
     end
     invoice
   end
+
+  def delete(id)
+    invoice = find_by_id(id)
+    if invoice_exists?(id)
+      @invoice_list.delete(invoice)
+    end
+  end
+
+  def invoice_exists?(id)
+    invoice = find_by_id(id)
+    invoice != nil
+  end
 end
