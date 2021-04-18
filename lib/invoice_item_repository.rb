@@ -6,7 +6,6 @@ class InvoiceItemRepository
   include Mathable
   attr_reader :invoice_items
 
-
   def initialize(path, engine)
     @invoice_items = []
     @engine = engine
@@ -49,7 +48,7 @@ class InvoiceItemRepository
     highest_id_invoice_item = @invoice_items.max_by do |invoice_item|
       invoice_item.id
     end
-    new_id = highest_id_invoice_item.id + 1
+    highest_id_invoice_item.id + 1
   end
 
   def create(attributes)
@@ -58,10 +57,9 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
-    if find_by_id(id) != nil
+    return nil if find_by_id(id) == nil
       invoice_item_to_update = find_by_id(id)
       invoice_item_to_update.update(attributes)
-    end
   end
 
   def delete(id)

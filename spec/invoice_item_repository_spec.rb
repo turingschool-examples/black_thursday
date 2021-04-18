@@ -68,7 +68,7 @@ RSpec.describe InvoiceItemRepository do
             unit_price: '1300',
             created_at: '2012-03-27 14:54:09 UTC',
             updated_at: '2013-03-27 14:54:09 UTC'
-        }
+                    }
       iir.create(attributes)
       expected = iir.find_by_id(51)
       expect(expected.invoice_id).to eq(654123)
@@ -86,7 +86,7 @@ RSpec.describe InvoiceItemRepository do
             unit_price: '13000',
             created_at: '2012-03-27 14:54:09 UTC',
             updated_at: Time.now
-        }
+                    }
       iir.update(1, attributes)
       expected = iir.find_by_id(1)
       expect(expected.invoice_id).to eq(1)

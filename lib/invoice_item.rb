@@ -11,10 +11,9 @@ class InvoiceItem
                 :updated_at,
                 :invoice_item_repo
 
-  attr_accessor :status,
-                :updated_at
+  attr_accessor :status
 
-  def initialize(row, invoice_repo)
+  def initialize(row, invoice_item_repo)
     @id = (row[:id]).to_i
     @item_id = row[:item_id].to_i
     @invoice_id = (row[:invoice_id]).to_i
@@ -36,15 +35,13 @@ class InvoiceItem
   end
 
   def update_quantity(attributes)
-    if attributes[:quantity] != nil
+    return nil if attributes[:quantity] == nil
       @quantity = attributes[:quantity].to_i
-    end
   end
 
   def update_unit_price(attributes)
-    if attributes[:unit_price] != nil
+    return nil if attributes[:unit_price] == nil
       @unit_price = BigDecimal(attributes[:unit_price])
-    end
   end
 
   def update_time_stamp

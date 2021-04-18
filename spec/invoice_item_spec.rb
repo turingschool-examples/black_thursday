@@ -21,7 +21,6 @@ RSpec.describe InvoiceItem do
       )
       expect(invoice_item).to be_instance_of(InvoiceItem)
     end
-
     it 'has attributes' do
       mock_invoice_item_repository = instance_double('InvoiceItemRepository')
       invoice_item = InvoiceItem.new({
