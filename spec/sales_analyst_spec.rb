@@ -96,19 +96,22 @@ RSpec.describe do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
-                                        :invoices => "./spec/fixtures/invoices_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
                                         :invoice_items => "./spec/fixtures/invoice_items_fixtures.csv",                                        :customers => "./data/customers.csv",
                                         :transactions => "./data/transactions.csv"
                                         })
     sales_analyst = sales_engine.analyst
 
-    xit '#average_invoices_per_merchant' do
-      expect(sales_analyst.average_invoices_per_merchant).to eq(4)
+    it '#average_invoices_per_merchant' do
+      expect(sales_analyst.average_invoices_per_merchant).to eq(11.25)
+    end
+
+    it 'calculates invoices per merchant standard deviation' do
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(4.02)
     end
 
     it '#top days by invoice count' do
       expect(sales_analyst.top_days_by_invoice_count).to eq("Sunday")
     end
-
   end
 end

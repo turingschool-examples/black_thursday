@@ -1,8 +1,8 @@
 class Compute
 
   def self.mean(sum, num_of_elements)
-    mean = sum / num_of_elements
-    mean.to_f.round(2)
+    mean = sum.to_f / num_of_elements
+    mean.round(2)
   end
 
 end
