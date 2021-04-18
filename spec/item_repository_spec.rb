@@ -3,7 +3,7 @@ require './lib/sales_engine'
 RSpec.describe 'ItemRepository' do
   before(:all) do
     se = SalesEngine.from_csv(
-      items: './data/items.csv',
+      items: './data/items.csv'
     )
 
     @ir = se.items
