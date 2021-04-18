@@ -102,8 +102,8 @@ RSpec.describe do
                                         })
     sales_analyst = sales_engine.analyst
 
-    xit '#average_invoices_per_merchant' do
-      expect(sales_analyst.average_invoices_per_merchant).to eq(11.0)
+    it '#average_invoices_per_merchant' do
+      expect(sales_analyst.average_invoices_per_merchant).to eq(11.25)
     end
 
     it 'calculates invoices per merchant standard deviation' do
