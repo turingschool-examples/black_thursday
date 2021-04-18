@@ -117,9 +117,9 @@ class SalesAnalyst
 
   ##### INVOICE ITERATION 2 ######
 
-  def average_invoices_per_merchant
-    Compute.mean(number_of_all_invoices, find_all_merchants.length)
-  end
+  # def average_invoices_per_merchant
+  #   Compute.mean(number_of_all_invoices, find_all_merchants.length)
+  # end
 
   def find_all_invoices
     @engine.invoices.array_of_objects
@@ -130,21 +130,16 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    number_of_all_invoices
-    average_invoices_per_merchant
-
     invoices_per_merchant =  []
     find_all_merchants.each do |merchant|
       invoices_per_merchant << find_all_invoices_by_merchant_id(merchant.id).length
     end
     mean = Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
-    population_size_minus_one = merchant_items.length - 1
-    counter = 0
-    merchant_items.each do |number|
-      running_total = (number - average_items_per_merchant)**2
-      counter += running_total
+    population_size_minus_one = invoices_per_merchant.length - 1
+    adder_counter = invoices_per_merchant.sum do |number_of_invoices|
+      (number_of_invoices - mean)**2
     end
-    Math.sqrt(counter / population_size_minus_one).round(2)
+    Math.sqrt(adder_counter / population_size_minus_one).round(2)
   end
 
   def find_all_invoices_by_merchant_id(merchant_id)
