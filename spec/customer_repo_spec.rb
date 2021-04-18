@@ -1,11 +1,11 @@
 require 'CSV'
 require './lib/sales_engine'
-require './lib/invoice_repo'
-require './lib/invoice'
-require './lib/invoice_item_repo'
-require './lib/invoice_item'
-require './lib/transaction_repo'
-require './lib/transaction'
+# require './lib/invoice_repo'
+# require './lib/invoice'
+# require './lib/invoice_item_repo'
+# require './lib/invoice_item'
+# require './lib/transaction_repo'
+# require './lib/transaction'
 require './lib/customer_repo'
 require './lib/customer'
 
@@ -14,19 +14,19 @@ RSpec.describe CustomerRepo do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                          :merchants => './data/merchants.csv',
                                          :invoices => "./data/invoices.csv",
-                                         :invoice_items => "./data/invoice_items.csv",
+                                         #:invoice_items => "./data/invoice_items.csv",
                                          :transactions => "./data/transactions.csv",
                                          :customers => "./data/customers.csv"})
   end
 
   describe 'instantiation' do
-    it '::new' do
+    it'::new' do
       customer_repo = @sales_engine.customers
 
       expect(customer_repo).to be_an_instance_of(CustomerRepo)
     end
 
-    it 'has attributes' do
+    xit'has attributes' do
       customer_repo = @sales_engine.customers
 
       expect(customer_repo.customers).to be_an_instance_of(Array)
@@ -35,13 +35,13 @@ RSpec.describe CustomerRepo do
 
   describe '#methods' do
 
-    it '#all' do
+    xit'#all' do
       customer_repo = @sales_engine.customers
 
       expect(customer_repo.all).to be_an_instance_of(Array)
     end
 
-    it '#find by id' do
+    xit'#find by id' do
       customer_repo = @sales_engine.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
@@ -54,7 +54,7 @@ RSpec.describe CustomerRepo do
       expect(customer_repo.find_by_id(999999999)).to eq(nil)
     end
 
-    it '#find by first name' do
+    xit'#find all by first name' do
       customer_repo = @sales_engine.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
@@ -71,7 +71,7 @@ RSpec.describe CustomerRepo do
       expect(customer_repo.find_by_first_name("doge")).to eq([])
     end
 
-    it '#find by last name' do
+    xit'#find all by last name' do
       customer_repo = @sales_engine.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
@@ -89,7 +89,7 @@ RSpec.describe CustomerRepo do
       expect(customer_repo.find_by_last_name("doge")).to eq([])
     end
 
-    it '#create creates a new customer instance' do
+    xit'# creates a new customer instance' do
       customer_repo = @sales_engine.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
@@ -104,7 +104,7 @@ RSpec.describe CustomerRepo do
       expect(expected.last_name).to eq("Clarke")
     end
 
-    it '#updates attributes' do
+    xit'#updates attributes' do
       customer_repo = @sales_engine.customers
       customer1 = customer_repo.create({ :id => 6,
                                          :first_name => "Joan",
@@ -124,7 +124,7 @@ RSpec.describe CustomerRepo do
       expect(customer1.updated_at).to be_an_instance_of(Time)
     end
 
-    it '#deletes by id' do
+    xit'#deletes by id' do
       customer_repo = @sales_engine.customers
       customer1 = customer_repo.create({ :id => 6,
                                          :first_name => "Joan",
