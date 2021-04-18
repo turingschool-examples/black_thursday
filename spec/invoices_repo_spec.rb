@@ -16,11 +16,18 @@ RSpec.describe InvoiceRepo do
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"
   })
-  invoice = se.invoices
+  invoice_repository = se.invoices
 
   context 'it exists' do
     it 'exists' do
-      expect(invoice).to be_instance_of(InvoiceRepo)
+      expect(invoice_repository).to be_instance_of(InvoiceRepo)
+    end
+  end
+
+  context 'methods' do
+    it 'can return all invoices' do
+      expect(invoice_repository.all.class).to eq(Array)
+      expect(invoice_repository.all.length).to eq(1)
     end
   end
 end
