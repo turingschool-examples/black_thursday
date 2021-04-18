@@ -45,8 +45,7 @@ RSpec.describe TransactionRepository do
                                             created_at: '2016-01-11 11:51:37 UTC',
                                             updated_at: '1993-09-29 11:56:40 UTC'
                                          },
-                                         tr
-                                        )
+                                         tr)
       tr.transactions << test_transaction
       expect(tr.find_by_id(263395617)).to eq(test_transaction)
       expect(tr.find_by_id(123456789099999999)).to eq(nil)
@@ -65,8 +64,7 @@ RSpec.describe TransactionRepository do
                                              created_at: '2016-01-11 11:51:37 UTC',
                                              updated_at: '1993-09-29 11:56:40 UTC'
                                           },
-                                          tr
-                                         )
+                                          tr)
       test_transaction2 = Transaction.new({
                                              id: '263395617999',
                                              invoice_id: '456789',
@@ -76,8 +74,7 @@ RSpec.describe TransactionRepository do
                                              created_at: '2016-01-11 11:51:37 UTC',
                                              updated_at: '1993-09-29 11:56:40 UTC'
                                           },
-                                          tr
-                                         )
+                                          tr)
       tr.transactions << test_transaction1
       tr.transactions << test_transaction2
       expect(tr.find_all_by_invoice_id(456789)).to eq([test_transaction1, test_transaction2])
