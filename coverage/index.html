@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-18T13:29:57-06:00">2021-04-18T13:29:57-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-18T13:33:58-06:00">2021-04-18T13:33:58-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  67.8%
+  69.23%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         288.73
+         356.5
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>205</b> relevant lines,
-    <span class="green"><b>139</b> lines covered</span> and
-    <span class="red"><b>66</b> lines missed. </span>
+    <b>208</b> relevant lines,
+    <span class="green"><b>144</b> lines covered</span> and
+    <span class="red"><b>64</b> lines missed. </span>
     (<span class="red">
-  67.8%
+  69.23%
 </span>
 )
   </div>
@@ -84,11 +84,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#a1f414258085e5564873231eed750ea9f7e3a03e" class="src_link" title="lib/invoices_repo.rb">lib/invoices_repo.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">32</td>
-            <td class="cell--number">18</td>
-            <td class="cell--number">18</td>
+            <td class="cell--number">38</td>
+            <td class="cell--number">21</td>
+            <td class="cell--number">21</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">555.06</td>
+            <td class="cell--number">1188.10</td>
             
           </tr>
         
@@ -149,12 +149,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#8038c1e45358f9244b449cbf5fb407181d30b80f" class="src_link" title="spec/invoices_repo_spec.rb">spec/invoices_repo_spec.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">92.86 %</td>
+            <td class="green strong cell--number t-file__coverage">100.00 %</td>
             <td class="cell--number">43</td>
             <td class="cell--number">28</td>
-            <td class="cell--number">26</td>
-            <td class="cell--number">2</td>
-            <td class="cell--number">0.93</td>
+            <td class="cell--number">28</td>
+            <td class="cell--number">0</td>
+            <td class="cell--number">1.00</td>
             
           </tr>
         
@@ -451,8 +451,8 @@
     
 
     <div class="t-line-summary">
-      <b>18</b> relevant lines.
-      <span class="green"><b>18</b> lines covered</span> and
+      <b>21</b> relevant lines.
+      <span class="green"><b>21</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -806,6 +806,72 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="32">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="33">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def find_all_by_customer_id(id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3" data-linenumber="34">
+            <span class="hits">3</span>
+            
+
+            
+
+            <code class="ruby">    @invoice_list.find_all do |invoice|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="14955" data-linenumber="35">
+            <span class="hits">14955</span>
+            
+
+            
+
+            <code class="ruby">      invoice.customer_id == id</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="36">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="37">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="38">
             
             
 
@@ -3873,7 +3939,7 @@
     <h3>spec/invoices_repo_spec.rb</h3>
     <h4>
       <span class="green">
-  92.86%
+  100.0%
 </span>
 
       lines covered
@@ -3883,8 +3949,8 @@
 
     <div class="t-line-summary">
       <b>28</b> relevant lines.
-      <span class="green"><b>26</b> lines covered</span> and
-      <span class="red"><b>2</b> lines missed.</span>
+      <span class="green"><b>28</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
 
     
@@ -4308,29 +4374,29 @@
 
             
 
-            <code class="ruby">      expect(invoice_repository.find_all_by_customer_id(12335938).class).to eq(Array)</code>
+            <code class="ruby">      expect(invoice_repository.find_all_by_customer_id(1).class).to eq(Array)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="39">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="39">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">      expect(invoice_repository.find_all_by_customer_id(12335938).length).to eq(16)</code>
+            
+
+            <code class="ruby">      expect(invoice_repository.find_all_by_customer_id(1).length).to eq(8)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="40">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="40">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">      expect(invoice_repository.find_all_by_customer_id(12335938).first).to eq(invoice_repository.invoice_list[0])</code>
+            
+
+            <code class="ruby">      expect(invoice_repository.find_all_by_customer_id(1).first).to eq(invoice_repository.invoice_list[0])</code>
           </li>
         </div>
       
