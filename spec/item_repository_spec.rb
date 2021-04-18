@@ -1,23 +1,20 @@
-# frozen_string_literal: true
-
 require 'rspec'
-require 'bigdecimal'
 require './lib/item'
 require './lib/item_repository'
 require './lib/file_io'
-require './data/mock_data'
+require './data/mockable'
 
 describe ItemRepository do
   describe '#initialize' do
     it 'exists' do
-      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.items_as_hashes)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(ItemMocks.items_as_hashes)
       item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository).is_a? ItemRepository
     end
 
     it 'has an items array' do
-      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.items_as_hashes)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(ItemMocks.items_as_hashes)
       item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository.items).is_a? Array
@@ -26,7 +23,7 @@ describe ItemRepository do
 
   describe '#all' do
     it 'returns a list of all items' do
-      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(MockData.items_as_hashes)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(ItemMocks.items_as_hashes)
       item_repository = ItemRepository.new('fake.csv')
 
       expect(item_repository.all.length).to eq 10
@@ -36,7 +33,7 @@ describe ItemRepository do
 
   describe '#find_by_id' do
     it 'returns nil if no item has the specified id' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -44,7 +41,7 @@ describe ItemRepository do
     end
 
     it 'returns the item with the specified id' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -55,7 +52,7 @@ describe ItemRepository do
 
   describe '#find_by_name' do
     it 'returns nil if no item has name specified' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -63,7 +60,7 @@ describe ItemRepository do
     end
 
     it 'returns the item with the specified name' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -74,7 +71,7 @@ describe ItemRepository do
 
   describe '#find_all_with_description' do
     it 'returns empty array if description does not match' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -82,7 +79,7 @@ describe ItemRepository do
     end
 
     it 'returns array of items with matching descriptions' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -92,46 +89,47 @@ describe ItemRepository do
 
   describe '#find_all_by_price' do
     it 'returns an empty array if no items match price' do
-      mock_data = MockData.items_as_mocks(self)
+      details = ItemMocks.items_as_hashes(unit_price: 10.00)
+      mock_data = ItemMocks.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price(5.99)).to eq []
+      expect(item_repository.find_all_by_price(BigDecimal(25))).to eq []
     end
 
     it 'returns array of items that match specified price' do
-      details = MockData.items_as_hashes(unit_price: 10.99)
-      mock_data = MockData.items_as_mocks(self, details)
+      details = ItemMocks.items_as_hashes(unit_price: 25.00)
+      mock_data = ItemMocks.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price(10.99).length).to eq 10
+      expect(item_repository.find_all_by_price(BigDecimal(25)).length).to eq 10
     end
   end
 
   describe '#find_all_by_price_in_range(range)' do
     it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hashes(unit_price: 10)
-      mock_data = MockData.items_as_mocks(self, details)
+      details = ItemMocks.items_as_hashes(unit_price: 8.00)
+      mock_data = ItemMocks.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price_in_range(15..25)).to eq []
+      expect(item_repository.find_all_by_price_in_range(15.00..25.00)).to eq []
     end
 
-    it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hashes(unit_price: 10.88)
-      mock_data = MockData.items_as_mocks(self, details)
+    it 'returns array of all items in price range' do
+      details = ItemMocks.items_as_hashes(unit_price: 25.00)
+      mock_data = ItemMocks.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price_in_range(10..25).length).to eq 10
+      expect(item_repository.find_all_by_price_in_range(10.00..25.00).length).to eq 10
     end
   end
 
   describe '#find_all_by_merchant_id' do
     it 'returns an empty array if no items with merchant_id' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -139,7 +137,7 @@ describe ItemRepository do
     end
 
     it 'returns all items with merchant_id' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -149,7 +147,7 @@ describe ItemRepository do
 
   describe '#create' do
     it 'creates an Item class object' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -166,7 +164,7 @@ describe ItemRepository do
     end
 
     it 'creates an Item with a new id' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -188,7 +186,7 @@ describe ItemRepository do
 
   describe '#update' do
     it 'updates the item with new attributes' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
       new_item = {
@@ -218,7 +216,7 @@ describe ItemRepository do
     end
 
     it 'updates the item with new time' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
       new_item = {
@@ -226,8 +224,8 @@ describe ItemRepository do
         name: 'Pencil',
         description: 'You can use it to write things',
         unit_price: BigDecimal(10.99, 4),
-        created_at: Time.now,
-        updated_at: Time.new(2021, 0o1, 0o2),
+        created_at: '2007-06-04 21:35:10 UTC',
+        updated_at: '2007-06-04 21:35:10 UTC',
         merchant_id: 2
       }
       item_repository.create(new_item)
@@ -241,13 +239,13 @@ describe ItemRepository do
       item = item_repository.find_by_id(10)
 
       expect(item.updated_at).is_a? Time
-      expect(item.updated_at).not_to eq Time.new(2021, 0o1, 0o2)
+      expect(item.updated_at).not_to eq Time.parse('2007-06-04 21:35:10 UTC')
     end
   end
 
   describe '#delete' do
     it 'deletes the object at specified id' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
@@ -270,7 +268,7 @@ describe ItemRepository do
     end
 
     it 'does not delete anything if no item at id' do
-      mock_data = MockData.items_as_mocks(self)
+      mock_data = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 

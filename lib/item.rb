@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
+require 'time'
+
 class Item
   attr_reader :id,
               :name,
               :description,
               :unit_price,
-              :created_at,
-              :updated_at,
               :merchant_id
 
   def initialize(details)
     @id = details[:id].to_i
     @name = details[:name]
     @description = details[:description]
-    @unit_price = details[:unit_price]
+    @unit_price = BigDecimal(details[:unit_price]) / 100
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
     @merchant_id = details[:merchant_id].to_i
@@ -28,18 +28,30 @@ class Item
   end
 
   def update_name(name)
-    @name = name
+    @name = name unless name.nil?
   end
 
   def update_description(description)
-    @description = description
+    @description = description unless description.nil?
   end
 
   def update_unit_price(unit_price)
-    @unit_price = unit_price
+    @unit_price = unit_price unless unit_price.nil?
   end
 
   def update_time
     @updated_at = Time.now
+  end
+
+  def created_at
+    return @created_at if @created_at.instance_of?(Time)
+
+    Time.parse(@created_at)
+  end
+
+  def updated_at
+    return @updated_at if @updated_at.instance_of?(Time)
+
+    Time.parse(@updated_at)
   end
 end

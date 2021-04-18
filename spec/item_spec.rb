@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-
 require 'rspec'
-require 'bigdecimal'
 require './lib/item'
 
 describe Item do
@@ -11,7 +8,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -26,7 +23,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -42,7 +39,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -58,7 +55,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -74,7 +71,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -86,36 +83,34 @@ describe Item do
     end
 
     it 'has a created_at Time' do
-      time = Time.now
       details = {
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
-        created_at: time,
-        updated_at: time,
+        unit_price: '1099',
+        created_at: '2007-06-04 21:35:10 UTC',
+        updated_at: '2007-06-04 21:35:10 UTC',
         merchant_id: 2
       }
       item = Item.new(details)
 
-      expect(item.created_at).to eq(time)
+      expect(item.created_at).to eq(Time.parse('2007-06-04 21:35:10 UTC'))
       expect(item.created_at).is_a? Time
     end
 
     it 'has a updated_at Time' do
-      time = Time.now
       details = {
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
-        created_at: time,
-        updated_at: time,
+        unit_price: '1099',
+        created_at: '2007-06-04 21:35:10 UTC',
+        updated_at: '2007-06-04 21:35:10 UTC',
         merchant_id: 2
       }
       item = Item.new(details)
 
-      expect(item.updated_at).to eq(time)
+      expect(item.updated_at).to eq(Time.parse('2007-06-04 21:35:10 UTC'))
       expect(item.updated_at).is_a? Time
     end
 
@@ -124,7 +119,7 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
@@ -142,14 +137,14 @@ describe Item do
         id: 1,
         name: 'Pencil',
         description: 'You can use it to write things',
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '2500',
         created_at: Time.now,
         updated_at: Time.now,
         merchant_id: 2
       }
       item = Item.new(details)
 
-      expect(item.unit_price_to_dollars).to eq(10.99)
+      expect(item.unit_price_to_dollars).to eq(25.00)
     end
   end
 end

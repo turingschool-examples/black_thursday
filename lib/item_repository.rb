@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
+
 class ItemRepository
   attr_reader :items
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 
   def initialize(filename)
     @items = create_items(filename)
@@ -21,7 +27,7 @@ class ItemRepository
 
   def find_by_name(name)
     @items.find do |item|
-      item.name.downcase == name.downcase
+      item.name.casecmp?(name)
     end
   end
 
@@ -72,10 +78,12 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    item.update_name(attributes[:name])
-    item.update_description(attributes[:description])
-    item.update_unit_price(attributes[:unit_price])
-    item.update_time
+    unless item.nil?
+      item.update_name(attributes[:name])
+      item.update_description(attributes[:description])
+      item.update_unit_price(attributes[:unit_price])
+      item.update_time
+    end
   end
 
   def delete(id)
