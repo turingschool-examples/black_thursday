@@ -35,4 +35,12 @@ class InvoiceItemRepository < Repository
     new_invoice_item.id = max_id + 1
     @array_of_objects << new_invoice_item
   end
+
+  def update(id, attributes)
+    target = find_by_id(id)
+    if target != nil
+      target.quantity = attributes[:quantity] if attributes[:quantity] != nil
+      target.updated_at = Time.now
+    end
+  end
 end
