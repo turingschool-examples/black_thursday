@@ -30,4 +30,9 @@ class CustomerRepository
       customer.last_name.downcase.include?(name.downcase)
     end
   end
+
+  def create(attributes)
+    new_customer = Customer.new(attributes)
+    @customers << new_customer
+  end
 end
