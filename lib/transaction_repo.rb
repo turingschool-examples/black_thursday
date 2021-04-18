@@ -1,4 +1,3 @@
-require 'bigdecimal'
 require 'CSV'
 require 'time'
 require 'item'
@@ -33,11 +32,18 @@ class TransactionRepo
     end
   end
 
-  def find_by_id_invoice_id(invoice_id)
-    @transactions.find do |transaction|
-      transaction.invoice_id == invoice_id
+  def find_all_by_invoice_id(id)
+    @transactions.find_all do |transaction|
+      require "pry"; binding.pry
+      transaction.invoice_id == id
     end
   end
+
+  # def find_all_by_invoice_id(invoice_id)
+  #   @transactions.find do |transaction|
+  #     transaction.invoice_id == invoice_id
+  #   end
+  # end
 
   def find_all_by_credit_card_number(number)
     @transactions.find_all do |transaction|

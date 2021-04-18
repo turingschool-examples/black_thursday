@@ -2,14 +2,17 @@ require 'CSV'
 require './lib/sales_engine'
 require './lib/transaction_repo'
 require './lib/transaction'
-require 'bigdecimal'
+require './lib/invoice_repo'
+require './lib/invoice'
+require './lib/invoice_item_repo'
+require './lib/invoice_item'
 
 RSpec.describe TransactionRepo do
   before(:each) do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                          :merchants => './data/merchants.csv',
-                                         # :invoices => "./data/invoices.csv",
-                                         # :invoice_items => "./data/invoice_items.csv",
+                                         :invoices => "./data/invoices.csv",
+                                         :invoice_items => "./data/invoice_items.csv",
                                          :transactions => "./data/transactions.csv"})
   end
 
@@ -38,7 +41,23 @@ RSpec.describe TransactionRepo do
     it '#find by id' do
       transaction_repo = @sales_engine.transactions
       transaction1 = transaction_repo.create({:id => 6,
-                                      :transaction_id => 8,
+                                      :invoice_id => 8,
+                                      :credit_card_number => "4242424242424242",
+                                      :credit_card_expiration_date => "0220",
+                                      :result => "success",
+                                      :created_at => Time.now,
+                                      :updated_at => Time.now
+                                    })
+
+
+      expect(transaction_repo.find_by_id(transaction1.id)).to eq(transaction1)
+      expect(transaction_repo.find_by_id(999999999)).to eq(nil)
+    end
+
+    it '#find all by invoice id' do
+      transaction_repo = @sales_engine.transactions
+      transaction1 = transaction_repo.create({:id => 6,
+                                      :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -48,31 +67,15 @@ RSpec.describe TransactionRepo do
 
       # transaction_repo.add_transaction(transaction1)
 
-      expect(transaction_repo.find_by_id(transaction1.id)).to eq(transaction1)
-      expect(transaction_repo.find_by_id(999999999)).to eq(nil)
-    end
-
-    xit '#find all by transaction id' do
-      transaction_repo = @sales_engine.transactions
-      transaction1 = Transaction.create({:id => 6,
-                                      :transaction_id => 8,
-                                      :credit_card_number => "4242424242424242",
-                                      :credit_card_expiration_date => "0220",
-                                      :result => "success",
-                                      :created_at => Time.now,
-                                      :updated_at => Time.now
-                                    })
-
-      transaction_repo.add_transaction(transaction1)
-
-      expect(transaction1.find_all_by_transaction_id(8)).to eq([transaction1])
-      expect(transaction1.find_all_by_transaction_id(0)).to eq([])
+      expect(transaction_repo.find_all_by_invoice_id(transaction1.id)).to eq([transaction])
+      # expect(transaction_repo.find_all_by_invoice_id).to eq([transaction1])
+      expect(transaction_repo.find_all_by_invoice_id(0)).to eq([])
     end
 
     xit '#find all by credit card number' do
       transaction_repo = @sales_engine.transactions
-      transaction1 = Transaction.create({:id => 6,
-                                      :transaction_id => 8,
+      transaction1 = transaction_repo.create({:id => 6,
+                                      :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -89,7 +92,7 @@ RSpec.describe TransactionRepo do
     xit '#find all by result' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
-                                      :transaction_id => 8,
+                                      :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -106,7 +109,7 @@ RSpec.describe TransactionRepo do
     xit '#creates transaction' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
-                                      :transaction_id => 8,
+                                      :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -122,7 +125,7 @@ RSpec.describe TransactionRepo do
     xit '#updates attributes' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
-                                      :transaction_id => 8,
+                                      :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
@@ -149,7 +152,7 @@ RSpec.describe TransactionRepo do
     xit '#delete by id' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
-                                      :transaction_id => 8,
+                                      :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
                                       :result => "success",
