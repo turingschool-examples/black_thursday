@@ -68,14 +68,10 @@ class SalesAnalyst
 
   def golden_items
     mean = all_items.sum(&:unit_price) / all_items.length
-
     item_prices = all_items.map {|item| item.unit_price}
     std_dev = standard_deviation(item_prices, mean)
     min_price = standard_deviations_of_mean(mean, std_dev, 2)
-
-    all_items.find_all do |item|
-      item.unit_price > min_price
-    end
+    all_items.find_all {|item| item.unit_price > min_price }
   end
 
   def standard_deviation(values, mean)
