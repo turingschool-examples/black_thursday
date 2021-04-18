@@ -4,9 +4,13 @@ require 'csv'
 class MerchantRepo
   attr_reader :merchants_list
 
-  def initialize(csv_files)
+  def initialize(csv_files, engine)
     @merchants_list = merchant_instances(csv_files)
-    # require'pry';binding.pry
+    @engine         = engine
+  end
+
+  def find_items_by_id(id)
+    @engine.find_items_by_id(id)
   end
 
   def merchant_instances(csv_files)
@@ -14,7 +18,7 @@ class MerchantRepo
     header_converters: :symbol)
 
     @merchants_list = merchants.map do |merchant|
-      Merchant.new(merchant)
+      Merchant.new(merchant, self)
     end
   end
 
@@ -41,7 +45,7 @@ class MerchantRepo
   end
 
   def create(attributes)
-    new_merchant = Merchant.new(attributes)
+    new_merchant = Merchant.new(attributes, self)
     find_max_id = @merchants_list.max_by do |merchant|
       merchant.id
     end
@@ -59,9 +63,6 @@ class MerchantRepo
     if merchant_exists?(id)
       merchant.name = attributes[:name]
     end
-    # merchant = @merchants_list.find do |merchant|
-    #   merchant.id == id
-    # end
   end
 
   def delete(id)

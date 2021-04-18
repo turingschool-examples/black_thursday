@@ -6,8 +6,13 @@ require 'bigdecimal'
 class ItemRepo
   attr_reader :item_list
 
-  def initialize(csv_files)
+  def initialize(csv_files, engine)
     @item_list = item_instances(csv_files)
+    @engine    = engine
+  end
+
+  def find_merchants_by_id(id)
+    @engine.find_merchants_by_id(id)
   end
 
   def item_instances(csv_files)
@@ -15,7 +20,7 @@ class ItemRepo
     header_converters: :symbol)
 
     @item_list = items.map do |item|
-      Item.new(item)
+      Item.new(item, self)
     end
   end
 
@@ -60,7 +65,7 @@ class ItemRepo
   end
 
   def create(attributes)
-    new_item = Item.new(attributes)
+    new_item = Item.new(attributes, self)
     # refactor potential helper method
     find_max_id = @item_list.max_by do |item|
       item.id
@@ -90,7 +95,7 @@ class ItemRepo
       item.description = attributes[:description]
       item.updated_at = Time.now
     elsif !attributes[:unit_price].nil?
-      item.unit_price = BigDecimal(attributes[:unit_price], 5) 
+      item.unit_price = BigDecimal(attributes[:unit_price], 5)
       item.updated_at = Time.now
     end
     item

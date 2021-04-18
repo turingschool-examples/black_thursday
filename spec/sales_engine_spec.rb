@@ -1,5 +1,6 @@
 require 'rspec'
 require './lib/sales_engine'
+require './lib/sales_analyst'
 require './lib/items'
 require './lib/items_repo'
 require './lib/merchants'
@@ -22,6 +23,7 @@ RSpec.describe SalesEngine do
     it 'has attributes' do
       expect(se.items).to be_instance_of(ItemRepo)
       expect(se.merchants).to be_instance_of(MerchantRepo)
+      expect(se.analyst).to be_instance_of(SalesAnalyst)
     end
   end
 
