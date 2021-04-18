@@ -19,7 +19,8 @@ RSpec.describe InvoiceItemMocks do
     end
     it 'accepts custom hashes' do
       invoice_items_as_hashes = InvoiceItemMocks.invoice_items_as_hashes(number_of_hashes: 2)
-      invoice_items_as_mocks = InvoiceItemMocks.invoice_items_as_mocks(self, invoice_items_as_hashes)
+      invoice_items_as_mocks = InvoiceItemMocks.invoice_items_as_mocks(self,
+                                                                       invoice_items_as_hashes)
       expect(invoice_items_as_mocks.length).to eq 2
     end
   end
