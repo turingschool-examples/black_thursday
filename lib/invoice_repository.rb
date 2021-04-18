@@ -136,4 +136,12 @@ class InvoiceRepository
       end
     end
   end
+
+  def total_revenue_by_date(date)
+    @invoices.each_with_object([]) do |invoice, array|
+      if invoice.created_at.strftime('%y%m%d') == date.strftime('%y%m%d')
+        array << @engine.invoice_total(invoice.id)
+      end
+    end.sum
+  end
 end

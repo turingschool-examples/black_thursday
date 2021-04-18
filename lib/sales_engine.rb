@@ -113,4 +113,8 @@ class SalesEngine
   def invoice_total(invoice_id)
     @invoice_items.invoice_total(invoice_id)
   end
+
+  def total_revenue_by_date(date)
+    @invoices.total_revenue_by_date(date)
+  end
 end

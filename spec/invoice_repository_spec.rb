@@ -293,4 +293,14 @@ RSpec.describe InvoiceRepository do
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
   end
+
+  describe '#total_revenue_by_day' do
+    it 'returns the total revenue for date given' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
+      date = Time.parse('2012-03-27')
+
+      expect(ir.total_revenue_by_date(date)).to eq(21067.77)
+    end
+  end
 end
