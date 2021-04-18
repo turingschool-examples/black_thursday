@@ -14,8 +14,11 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv'
-      })
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
       sales_analyst = se.analyst
 
       expect(sales_analyst).to be_a(SalesAnalyst)
@@ -27,8 +30,11 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv'
-      })
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_items_per_merchant).to eq(1.25)
@@ -40,8 +46,11 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv'
-      })
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.5)
@@ -53,8 +62,11 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv'
-      })
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
       sales_analyst = se.analyst
 
       expect(sales_analyst.merchants_with_high_item_count[0].name).to eq("Shopin1901")
@@ -66,8 +78,11 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv'
-      })
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(14)
@@ -79,8 +94,11 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv'
-      })
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
       expect(ir.average_average_price_per_merchant).to eq(0.1862e2)
@@ -92,8 +110,11 @@ RSpec.describe SalesAnalyst do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
       expect(ir.golden_items).to eq([])

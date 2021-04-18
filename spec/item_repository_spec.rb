@@ -203,12 +203,8 @@ RSpec.describe ItemRepository do
 
   describe '#items_per_merchant' do
     it 'creates a hash of merchant id keys and an item count for values' do
-      se = SalesEngine.from_csv({
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       hash = {
               12334105 => 2,
@@ -222,12 +218,8 @@ RSpec.describe ItemRepository do
 
   describe '#average_items_per_merchant' do
     it 'can find the average number of items per merchant' do
-      se = SalesEngine.from_csv({
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       expect(ir.average_items_per_merchant).to eq(1.25)
     end
@@ -235,12 +227,8 @@ RSpec.describe ItemRepository do
 
   describe '#average_items_per_merchant_standard_deviation' do
     it 'can find the average item per merchant standard deviation' do
-      se = SalesEngine.from_csv({
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       expect(ir.average_items_per_merchant_standard_deviation).to eq(0.5)
     end
@@ -251,9 +239,13 @@ RSpec.describe ItemRepository do
       se = SalesEngine.from_csv({
           items: './spec/truncated_data/items_truncated.csv',
           merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
+          invoices: './spec/truncated_data/invoices_truncated.csv',
+          customers: './spec/truncated_data/customers_truncated.csv',
+          invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+          transactions: './spec/truncated_data/transactions_truncated.csv'
                                 })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
+      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
 
       expect(ir.merchants_with_high_item_count[0].name).to eq("Shopin1901")
     end
@@ -261,12 +253,8 @@ RSpec.describe ItemRepository do
 
   describe '#average_item_price_for_merchant' do
     it 'averages the item price for merchant' do
-      se = SalesEngine.from_csv({
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       expect(ir.average_item_price_for_merchant(12334105)).to eq(14)
     end
@@ -274,12 +262,8 @@ RSpec.describe ItemRepository do
 
   describe '#average_average_price_per_merchant' do
     it 'sum the averages and finds average price across all merchants' do
-      se = SalesEngine.from_csv({
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       expect(ir.average_average_price_per_merchant).to eq(0.1862e2)
     end
@@ -287,12 +271,8 @@ RSpec.describe ItemRepository do
 
   describe '#item_price_hash' do
     it 'creates a hash of item id keys and unit price values' do
-      se = SalesEngine.from_csv({
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       hash ={
               263395617 => 0.13e2,
@@ -307,12 +287,8 @@ RSpec.describe ItemRepository do
 
   describe '#golden_items' do
     it 'finds items greater than 2 std dev above average item price' do
-      se = SalesEngine.from_csv({
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv'
-                                })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       expect(ir.golden_items).to eq([])
     end
