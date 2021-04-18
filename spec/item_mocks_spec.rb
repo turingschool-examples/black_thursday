@@ -68,7 +68,7 @@ RSpec.describe ItemMocks do
 
     it 'allows for custom merchant distribution' do
       items_as_hashes = ItemMocks.items_as_hashes(number_of_merchants: 5,
-                                                 number_of_hashes: 25)
+                                                  number_of_hashes: 25)
 
       number_of_merchants = items_as_hashes.count do |item_hash|
         item_hash[:merchant_id] == 0
