@@ -293,4 +293,21 @@ RSpec.describe InvoiceRepository do
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
   end
+  describe '#cust_invoices' do 
+    it 'gives us a count of customer ids' do
+      sales_engine = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                      })     
+      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
+      # allow(mock_sales_engine).to receive(:invoice_total) { iir.invoice_total(invoice.id)}
+
+      expect(ir.top_buyers(10).count).to eq(901)
+    end 
+  end 
 end

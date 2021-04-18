@@ -136,4 +136,28 @@ class InvoiceRepository
       end
     end
   end
+
+  def total_spent_by_customer
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+      # require 'pry'; binding.pry 
+      hash[invoice.customer_id] += @engine.invoice_total(invoice.id)
+    end 
+  end 
+
+  def top_buyers(num_buyers = 20)
+    hash = total_spent_by_customer
+    top_buyers = []
+    array = []
+    num_buyers.times do       
+      array << (hash.max_by{ |customer_id, total_spent| total_spent }).first
+      hash.delete(array.last)
+      top_buyers << @engine.find_customer_by_id(array.first)
+      array.delete(0)
+      
+    end
+    top_buyers
+  end
+
+
 end
+# require 'pry'; binding.pry
