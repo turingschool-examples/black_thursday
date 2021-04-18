@@ -16,36 +16,34 @@ class SalesEngine
   def self.from_csv(paths)
     new(paths)
   end
-  # self.from_csv(hash from i0 directions) => paths
-  # from csv method will call initialize to pass
-  # the hash through, should return the instance of itself
-  def all_items
+
+  def all_items #Needs spec
     @items.all
   end
 
-  def all_merchants
+  def all_merchants #Needs spec
     @merchants.all
   end
 
-  def item_count
+  def item_count #Needs spec
     count = @items.all.length
     count.to_f
   end
 
-  def merchant_count
+  def merchant_count #Needs spec
     count = @merchants.all.length
     count.to_f
   end
 
-  def average_item_price
+  def average_item_price #Needs spec
     @items.average_price
   end
 
-  def item_count_per_merchant
+  def item_count_per_merchant #Needs spec
     @items.item_count_per_merchant
   end
 
-  def find_merchant_id(id)
+  def find_merchant_id(id) #Needs spec
     @items.find_all_by_merchant_id(id)
   end
 end
