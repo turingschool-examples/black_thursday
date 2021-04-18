@@ -42,6 +42,10 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def find_item_by_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
   def average_invoices_per_merchant
     @invoices.average_invoices_per_merchant
   end
@@ -76,5 +80,13 @@ class SalesEngine
 
   def average_item_price_for_merchant(merchant_id)
     @items.average_item_price_for_merchant(merchant_id)
+  end
+
+  def average_average_price_per_merchant
+    @items.average_average_price_per_merchant
+  end
+
+  def golden_items
+    @items.golden_items
   end
 end

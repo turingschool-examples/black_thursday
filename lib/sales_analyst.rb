@@ -23,6 +23,14 @@ class SalesAnalyst
     @sales_engine.average_item_price_for_merchant(merchant_id)
   end
 
+  def average_average_price_per_merchant
+    @sales_engine.average_average_price_per_merchant
+  end
+
+  def golden_items
+    @sales_engine.golden_items
+  end
+
   def average_invoices_per_merchant
     @sales_engine.average_invoices_per_merchant
   end
@@ -45,6 +53,5 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     @sales_engine.top_days_by_invoice_count
-    @sales_engine.merchants.merchants_with_high_item_count
   end
 end

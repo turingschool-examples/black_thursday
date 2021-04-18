@@ -69,8 +69,34 @@ RSpec.describe SalesAnalyst do
         invoices: './spec/truncated_data/invoices_truncated.csv'
       })
       sales_analyst = se.analyst
-      # require 'pry'; binding.pry
+
       expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(14)
+    end
+  end
+
+  describe '#average_average_price_per_merchant' do
+    it 'sum the averages and finds average price across all merchants' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.average_average_price_per_merchant).to eq(0.1862e2)
+    end
+  end
+
+  describe '#golden_items' do
+    it 'finds items greater than 2 std dev above average item price' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.golden_items).to eq([])
     end
   end
 

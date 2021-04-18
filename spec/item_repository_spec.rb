@@ -142,8 +142,7 @@ RSpec.describe ItemRepository do
                               merchant_id:  '123456987',
                               created_at:   '2016-01-11 11:51:37 UTC',
                               updated_at:   '1993-09-29 11:56:40 UTC'
-                              },
-        ir)
+                              }, ir)
       ir.items << test_item
       expect(ir.find_all_by_merchant_id(123456987)).to eq([test_item])
       expect(ir.find_all_by_merchant_id(4)).to eq([])
@@ -193,29 +192,31 @@ RSpec.describe ItemRepository do
     end
   end
 
-  describe '#variable_assigner' do
-    it 'it updates name, description and/or unit price of an item' do
-      mock_sales_engine = instance_double('SalesEngine')
-      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      attributes = {
-        name:         'Cool Stuff',
-        description:  'supaaa cool',
-        unit_price:   '1357'
-      }
-      test_item = ir.find_by_id(263567292)
-      ir.variable_assigner(attributes, test_item)
-      expect(test_item.name).to eq('Cool Stuff')
-      expect(test_item.description).to eq('supaaa cool')
-      expect(test_item.unit_price).to eq('1357')
-    end
-  end
-
   describe '#delete' do
     it 'delete a specified item from the items array' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       ir.delete(263567292)
       expect(ir.items.count).to eq(1366)
+    end
+  end
+
+  describe '#items_per_merchant' do
+    it 'creates a hash of merchant id keys and an item count for values' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      hash ={
+              12334105 => 2,
+              12345678 => 1,
+              12334113 => 1,
+              12333333 => 1
+             }
+      expect(ir.items_per_merchant).to eq(hash)
     end
   end
 
@@ -268,6 +269,52 @@ RSpec.describe ItemRepository do
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
       expect(ir.average_item_price_for_merchant(12334105)).to eq(14)
+    end
+  end
+
+  describe '#average_average_price_per_merchant' do
+    it 'sum the averages and finds average price across all merchants' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.average_average_price_per_merchant).to eq(0.1862e2)
+    end
+  end
+
+  describe '#item_price_hash' do
+    it 'creates a hash of item id keys and unit price values' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      hash ={
+              263395617 => 0.13e2,
+              263395618 => 0.15e2,
+              263395721 => 0.135e2,
+              263396013 => 0.7e1,
+              263397843 => 0.4e2
+             }
+      expect(ir.item_price_hash).to eq(hash)
+    end
+  end
+
+  describe '#golden_items' do
+    it 'finds items greater than 2 std dev above average item price' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv'
+      })
+      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.golden_items).to eq([])
     end
   end
 end

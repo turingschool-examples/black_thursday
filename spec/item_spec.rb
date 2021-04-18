@@ -45,6 +45,37 @@ RSpec.describe Item do
       expect(item.merchant_id).to eq(12334185)
     end
   end
+
+  it 'updates attributes' do
+    mock_item_repo = instance_double('ItemRepository')
+    item = Item.new(  {
+      id: '1',
+      name: 'Cool Stuff',
+      description: 'supaaa cool',
+      unit_price: '1300',
+      merchant_id: '12334185',
+      created_at: '2016-01-11 11:51:37 UTC',
+      updated_at: '1993-09-29 11:56:40 UTC'
+      },
+      mock_item_repo
+    )
+    expect(item.id).to eq(1)
+    expect(item.name).to eq('Cool Stuff')
+    expect(item.description).to eq('supaaa cool')
+    expect(item.unit_price).to eq(0.13e2)
+
+    mock_item_repo = instance_double('ItemRepository')
+    attributes = {
+      name:         'Cyborg',
+      description:  'machine',
+      unit_price:   '2000'
+    }
+
+    expect(item.update_name(attributes)).to eq('Cyborg')
+    expect(item.update_description(attributes)).to eq('machine')
+    expect(item.update_unit_price(attributes)).to eq(0.2e2)
+  end
+
   describe '#update_time_stamp' do
     it 'updates the updated_at timestamp' do
       mock_item_repo = instance_double('ItemRepository')
