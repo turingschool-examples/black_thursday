@@ -210,12 +210,12 @@ RSpec.describe ItemRepository do
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
-      hash ={
+      hash = {
               12334105 => 2,
               12345678 => 1,
               12334113 => 1,
               12333333 => 1
-             }
+              }
       expect(ir.items_per_merchant).to eq(hash)
     end
   end
