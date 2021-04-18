@@ -33,6 +33,8 @@ RSpec.describe InvoiceItem do
       expect(invoice_items.invoice_id).to eq(8)
       expect(invoice_items.quantity).to eq(1)
       expect(invoice_items.unit_price).to be_an_instance_of(BigDecimal)
+      expect(invoice_items.created_at).to be_an_instance_of(Time)
+      expect(invoice_items.updated_at).to be_an_instance_of(Time)
     end
   end
 
