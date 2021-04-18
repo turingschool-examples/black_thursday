@@ -60,7 +60,7 @@ class TransactionRepository < Repository
 
   def update(id, attributes)
     update_instance = find_by_id(id)
-    if !update_instance.nil?
+    unless update_instance.nil?
       update_instance.credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
       update_instance.credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
       update_instance.result = attributes[:result].to_sym unless attributes[:result].nil?
