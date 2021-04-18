@@ -75,10 +75,9 @@ class SalesAnalyst
 
   def golden_items
     all_items = @sales_engine.items.all
-    sum_all_item_prices = all_items.sum(&:unit_price)
     mean = all_items.sum(&:unit_price) / all_items.length
 
-    item_prices = @sales_engine.items.all.map {|item| item.unit_price}
+    item_prices = all_items.map {|item| item.unit_price}
     std_dev = standard_deviation(item_prices, mean)
     min_price = standard_deviations_of_mean(mean, std_dev, 2)
 
