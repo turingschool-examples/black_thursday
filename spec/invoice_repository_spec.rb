@@ -9,10 +9,13 @@ require 'bigdecimal/util'
 RSpec.describe InvoiceRepository do
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv"
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     invoice_repo = sales_engine.invoices
 
     it 'exists' do
@@ -26,10 +29,13 @@ RSpec.describe InvoiceRepository do
 
   describe 'all method' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv"
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     invoice_repo = sales_engine.invoices
 
     it 'returns array of all invoices' do
@@ -39,10 +45,13 @@ RSpec.describe InvoiceRepository do
 
   describe 'various find methods' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv"
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     invoice_repo = sales_engine.invoices
 
     it '#find_by_id returns an instance by matching id' do
@@ -78,10 +87,13 @@ RSpec.describe InvoiceRepository do
 
   describe '#delete' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv"
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     invoice_repo = sales_engine.invoices
 
     it 'can delete invoice' do
@@ -93,10 +105,13 @@ RSpec.describe InvoiceRepository do
 
   describe '#create' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv"
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     invoice_repo = sales_engine.invoices
 
     attributes = {
@@ -124,10 +139,13 @@ RSpec.describe InvoiceRepository do
 
   describe '#update' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              :invoices => "./data/invoices.csv"
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     invoice_repo = sales_engine.invoices
 
     attributes = {

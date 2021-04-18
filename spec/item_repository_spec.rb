@@ -6,9 +6,13 @@ require 'bigdecimal/util'
 RSpec.describe ItemRepository do
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     item_repo = sales_engine.items
 
     it 'exists' do
@@ -23,9 +27,13 @@ RSpec.describe ItemRepository do
 #REPEATED IN REPOSITORY TESTS
   describe 'all method' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     item_repo = sales_engine.items
 
       it 'returns array of all items' do
@@ -35,9 +43,13 @@ RSpec.describe ItemRepository do
 
   describe 'various find methods' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     item_repo = sales_engine.items
 
 #REPEATED IN REPOSITORY TESTS
@@ -133,9 +145,13 @@ RSpec.describe ItemRepository do
 
   describe 'create, update, delete methods' do
     sales_engine = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                              })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     item_repo = sales_engine.items
 
     attributes = {

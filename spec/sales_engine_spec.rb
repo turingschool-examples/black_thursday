@@ -6,9 +6,13 @@ require_relative '../lib/sales_analyst'
 RSpec.describe SalesEngine do
   describe '#initialization' do
     sales_engine = SalesEngine.from_csv({
-                                        :items     => "./data/items.csv",
-                                        :merchants => "./data/merchants.csv",
-                                        })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     it 'exists' do
       expect(sales_engine).to be_instance_of(SalesEngine)
     end
@@ -16,14 +20,18 @@ RSpec.describe SalesEngine do
 
   describe '#items & #merchants' do
     sales_engine = SalesEngine.from_csv({
-                                        :items     => "./data/items.csv",
-                                        :merchants => "./data/merchants.csv",
-                                        })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
 
     it 'creates instance of SalesAnalyst' do
       expect(sales_engine.analyst).to be_an_instance_of(SalesAnalyst)
     end
-    
+
     it 'returns an object of class MerchantRepository' do
       expect(sales_engine.merchants).to be_an_instance_of(MerchantRepository)
     end
