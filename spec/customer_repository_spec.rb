@@ -96,5 +96,25 @@ describe CustomerRepository do
       expect(c_repo.all.length).to eq 11
       expect(expected.first_name).to eq 'Yan'
     end
+  
+
+    it 'new customer has an id equal to max_id plus 1' do
+      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
+      c_repo = CustomerRepository.new('fake.csv')
+
+      new_customer_attributes = {
+        id: nil,
+        first_name: 'Yan',
+        last_name: 'Cancook',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+
+      c_repo.create(new_customer_attributes)
+
+      expected = c_repo.find_by_id(2)
+      expect(expected.first_name).to eq 'Yan'
+    end
   end
 end

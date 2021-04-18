@@ -31,8 +31,13 @@ class CustomerRepository
     end
   end
 
+  def find_max_id
+    @customers.max_by(&:id).id
+  end
+
   def create(attributes)
     new_customer = Customer.new(attributes)
+    new_customer.update_id(find_max_id + 1)
     @customers << new_customer
   end
 end
