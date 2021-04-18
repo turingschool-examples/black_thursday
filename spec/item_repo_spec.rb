@@ -1,8 +1,6 @@
 require 'CSV'
 require 'bigdecimal'
 require 'sales_engine'
-require 'item'
-
 
 RSpec.describe ItemRepo do
   before(:each) do
