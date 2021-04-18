@@ -22,12 +22,16 @@ class SalesAnalyst
     end
   end
 
+  def find_all_items_by_merchant_id(merchant_id)
+    find_all_items.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
   def items_per_merchant
     items_per_merchant =  []
     find_all_merchants.each do |merchant|
-      if
-        items_per_merchant << find_all_items_by_merchant_id(merchant.id).length
-      end
+      items_per_merchant << find_all_items_by_merchant_id(merchant.id).length
     end
     items_per_merchant
   end
@@ -41,12 +45,6 @@ class SalesAnalyst
       (number - average_items_per_merchant)**2
     end
     Math.sqrt(adder_counter / (items_per_merchant.length - 1)).round(2)
-  end
-
-  def find_all_items_by_merchant_id(merchant_id)
-    find_all_items.find_all do |item|
-      item.merchant_id == merchant_id
-    end
   end
 
   def merchants_with_high_item_count
