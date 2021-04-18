@@ -7,7 +7,6 @@ require './lib/items_repo'
 require './lib/merchants'
 require './lib/merchants_repo'
 
-
 RSpec.describe ItemRepo do
 
   se = SalesEngine.from_csv({
