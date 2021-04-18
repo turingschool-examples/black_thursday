@@ -29,11 +29,9 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-    items_per_merchant =  []
-    find_all_merchants.each do |merchant|
-      items_per_merchant << find_all_items_by_merchant_id(merchant.id).length
+    find_all_merchants.map do |merchant|
+      find_all_items_by_merchant_id(merchant.id).length
     end
-    items_per_merchant
   end
 
   def average_items_per_merchant
@@ -118,13 +116,9 @@ class SalesAnalyst
   end
 
   def invoices_per_merchant
-    invoices_per_merchant =  []
-    find_all_merchants.each do |merchant|
-      if
-        invoices_per_merchant << find_all_invoices_by_merchant_id(merchant.id).length
-      end
+    find_all_merchants.map do |merchant|
+      find_all_invoices_by_merchant_id(merchant.id).length
     end
-    invoices_per_merchant
   end
 
   def average_invoices_per_merchant_standard_deviation
