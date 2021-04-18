@@ -8,11 +8,13 @@ require './lib/transaction_repository'
 RSpec.describe SalesEngine do
   before do
     @se = SalesEngine.from_csv({
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv',
-      transactions: './data/transactions.csv'
-    })
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                      })
   end
 
   describe '#initialize' do
@@ -29,7 +31,7 @@ RSpec.describe SalesEngine do
       expect(@se.invoices).to be_instance_of(InvoiceRepository)
     end
     it 'creates an TransactionRepository' do
-     
+
       expect(@se.transactions).to be_instance_of(TransactionRepository)
     end
   end
