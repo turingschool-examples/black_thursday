@@ -31,24 +31,25 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def sample_merchants_return_id
-    # Need to revisit based on instructor input; seems to require full data set
-    merch_sample = find_all_merchants.sample(10)
-    get_merchant_ids(merch_sample)
-  end
+  # def sample_merchants_return_id
+  #   # Need to revisit based on instructor input; seems to require full data set
+  #   merch_sample = find_all_merchants.sample(10)
+  #   get_merchant_ids(merch_sample)
+  # end
 
   def average_items_per_merchant_standard_deviation
     merchant_items = []
-    sample_merchants_return_id.each do |merchant_id|
-      merchant_items << find_all_items_by_merchant_id(merchant_id).length
+    find_all_merchants.each do |merchant|
+      merchant_items << find_all_items_by_merchant_id(merchant.id).length
     end
-    sample_size_minus_one = merchant_items.length - 1
+    population_size_minus_one = merchant_items.length - 1
     counter = 0
     merchant_items.each do |number|
       running_total = (number - average_items_per_merchant)**2
       counter += running_total
     end
-    Math.sqrt(counter / sample_size_minus_one)
+    Math.sqrt(counter / population_size_minus_one).round(2)
+
   end
 
   def find_all_items_by_merchant_id(merchant_id)
@@ -61,8 +62,7 @@ class SalesAnalyst
     merchants = find_all_merchants
     merchant_ids = get_merchant_ids(merchants)
     mean = average_items_per_merchant
-    half_stnd_dev = average_items_per_merchant_standard_deviation / 2
-    greater_than_1sd = mean + half_stnd_dev
+    greater_than_1sd = mean + average_items_per_merchant_standard_deviation
     merchants.find_all do |merchant|
       find_all_items_by_merchant_id(merchant.id).length > greater_than_1sd
     end
@@ -88,15 +88,34 @@ class SalesAnalyst
     (items_sum / merchant_count).round(2)
   end
 
+  def average_price_per_item_standard_deviation
+    sum = find_all_items.sum do |item_object|
+      item_object.unit_price
+    end
+    mean = sum / find_all_items.length
+
+    population_size_minus_one = find_all_items.length - 1
+    counter = 0
+    find_all_items.each do |item|
+      running_total = (item.unit_price - mean)**2
+      counter += running_total
+    end
+    Math.sqrt(counter / population_size_minus_one).round(2)
+  end
+
   def golden_items
     sum = find_all_items.sum do |item_object|
       item_object.unit_price
     end
     mean = sum / find_all_items.length
-    twice_half_stnd_dev = (average_items_per_merchant_standard_deviation / 2)*2
-    greater_than_2sd = mean + twice_half_stnd_dev
-    test = find_all_items.find_all do |item|
-      item.unit_price > greater_than_2sd
+    two_sd = average_price_per_item_standard_deviation * 2
+    greater_than_2sd = mean + two_sd
+    accumulator = []
+    find_all_items.each do |item|
+      if item.unit_price >= greater_than_2sd
+        accumulator << item
+      end
     end
+    accumulator
   end
 end
