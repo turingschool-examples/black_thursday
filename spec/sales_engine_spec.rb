@@ -194,6 +194,44 @@ describe SalesEngine do
     end
   end
 
+  describe '#invoice_items' do
+    it 'has an InvoiceItemRepository' do
+      mock_items = ItemMocks.items_as_mocks(self)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
+      mock_invoice_items = InvoiceItemMocks.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_invoice_items)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv', invoice_items: './file5.csv' }
+      sales_engine = SalesEngine.from_csv(files)
+
+      invoice_item_repo = sales_engine.invoice_items
+      expect(invoice_item_repo).is_a? InvoiceItemRepository
+    end
+
+    it 'has invoice items' do
+      mock_items = ItemMocks.items_as_mocks(self)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
+      allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
+      mock_invoices = InvoiceMocks.invoices_as_mocks(self)
+      allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
+      mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
+      allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
+      mock_invoice_items = InvoiceItemMocks.invoice_items_as_mocks(self)
+      allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_invoice_items)
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv', invoice_items: './file5.csv' }
+      sales_engine = SalesEngine.from_csv(files)
+
+      invoice_item_repo = sales_engine.invoice_items
+      expect(invoice_item_repo.invoice_items.first).is_a? InvoiceItem 
+    end
+  end
+
   describe '#analyst' do
     it 'returns a new instance of SalesAnalyst' do
       mock_items = ItemMocks.items_as_mocks(self)

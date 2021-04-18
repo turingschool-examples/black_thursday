@@ -13,7 +13,7 @@ require_relative './invoice_item'
 require_relative './invoice_item_repository'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :transactions
+  attr_reader :items, :merchants, :invoices, :transactions, :invoice_items
 
   def initialize(files)
     @invoices = InvoiceRepository.new(files[:invoices])
