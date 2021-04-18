@@ -109,5 +109,9 @@ RSpec.describe do
     it 'calculates invoices per merchant standard deviation' do
       expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(4.02)
     end
+
+    it '#top days by invoice count' do
+      expect(sales_analyst.top_days_by_invoice_count).to eq("Sunday")
+    end
   end
 end

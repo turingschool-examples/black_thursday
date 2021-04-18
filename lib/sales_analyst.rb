@@ -1,4 +1,5 @@
 require_relative 'compute'
+require 'date'
 
 class SalesAnalyst
 
@@ -128,7 +129,12 @@ class SalesAnalyst
     Math.sqrt(adder_counter.to_f / (invoices_per_merchant.length - 1)).round(2)
   end
 
-
+  def top_days_by_invoice_count
+    invoices = find_all_invoices
+    days_array = invoices.map do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+  end
 ###THIS IS FOR THE NEXT PART OF ITERATION 2###
   # def merchants_with_high_item_count
   #   mean = average_items_per_merchant
