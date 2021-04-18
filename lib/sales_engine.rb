@@ -1,9 +1,9 @@
 require 'CSV'
-require_relative './item'
-require_relative './merchant'
-require_relative './item_repository'
-require_relative './merchant_repository'
 require_relative './file_io'
+require_relative './item'
+require_relative './item_repository'
+require_relative './merchant'
+require_relative './merchant_repository'
 require_relative './sales_analyst'
 
 class SalesEngine
@@ -19,6 +19,14 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(self)
+  end
+
+  def all_items
+    @items.all
+  end
+
+  def all_merchants
+    @merchants.all
   end
 end

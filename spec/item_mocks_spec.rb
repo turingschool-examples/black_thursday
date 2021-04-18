@@ -67,14 +67,12 @@ RSpec.describe ItemMocks do
     end
 
     it 'allows for custom merchant distribution' do
-      items_as_hashes = ItemMocks.items_as_hashes(number_of_merchants: 5,
+      items_as_hashes = ItemMocks.items_as_hashes(merchant_id_range: (2..2),
                                                   number_of_hashes: 25)
 
-      number_of_merchants = items_as_hashes.count do |item_hash|
-        item_hash[:merchant_id] == 0
+      items_as_hashes.each do |item_hash|
+        expect(item_hash[:merchant_id]).to eq 2
       end
-
-      expect(number_of_merchants).to eq 5
     end
   end
 end

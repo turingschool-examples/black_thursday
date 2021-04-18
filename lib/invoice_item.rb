@@ -20,4 +20,23 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f / 100
   end
+
+  def update_id(id)
+    return false if id.nil?
+    @id = id
+  end
+
+  def update_quantity(quantity)
+    return false if quantity.nil?
+    @quantity = quantity
+  end
+
+  def update_unit_price(unit_price)
+    return false if unit_price.nil?
+    @unit_price = unit_price
+  end
+
+  def new_updated_at_time
+    @updated_at = Time.now
+  end
 end
