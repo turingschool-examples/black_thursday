@@ -94,4 +94,15 @@ RSpec.describe SalesAnalyst do
       expect(actual_avg_of_averages).to eq expected_avg_of_averages
     end
   end
+
+  # describe '#golden_items' do
+  #   it 'returns all items 2+ std deviations above the mean price' do
+  #     sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
+  #
+  #     actual_items = sales_analyst.average_average_price_per_merchant
+  #     expected_items = sum_of_averages / 4.0
+  #
+  #     expect(expected_items.length).to eq 0
+  #   end
+  # end
 end

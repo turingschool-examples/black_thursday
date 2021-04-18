@@ -23,7 +23,8 @@ class SalesAnalyst
     items = @sales_engine.items.all
     merchants = @sales_engine.merchants.all
 
-    items.length.to_f / merchants.length
+    average = items.length.to_f / merchants.length
+    average.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -36,7 +37,8 @@ class SalesAnalyst
       (item_count - mean)**2
     end
 
-    Math.sqrt(sums / (item_counts.length - 1).to_f)
+    std_dev = Math.sqrt(sums / (item_counts.length - 1).to_f)
+    std_dev.round(2)
   end
 
   def standard_deviations_of_mean(mean, std_dev, n = 1)
@@ -59,16 +61,26 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
-    items_sum = items.sum(&:unit_price)
-    items_sum / items.length
+    if items.empty?
+      nil
+    else
+      items_sum = items.sum(&:unit_price)
+      average_price = items_sum / items.length
+      average_price.round(2)
+    end
   end
 
   def average_average_price_per_merchant
     merchants = @sales_engine.merchants.all
     sum_of_averages = merchants.sum do |merchant|
-      average_item_price_for_merchant(merchant) unless num_of_items_per_merchant[merchant] == 0
+      if num_of_items_per_merchant[merchant] == 0
+        0
+      else
+        average_item_price_for_merchant(merchant.id)
+      end
     end
-    sum_of_averages / merchants.length
+    average_average_price = sum_of_averages / merchants.length
+    average_average_price.round(2)
   end
 
   # def golden_items
