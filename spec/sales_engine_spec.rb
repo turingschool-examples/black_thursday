@@ -139,4 +139,11 @@ RSpec.describe SalesEngine do
       expect(@se.golden_items.first).to be_a(Item)
     end
   end
+
+  describe '#invoice_total_hash' do
+    it 'passes the invoice_total_hash from invoice_item repo to other repos' do
+
+      expect(@se.invoice_total_hash.keys.count).to eq(4985)
+    end
+  end
 end

@@ -117,4 +117,8 @@ class SalesEngine
   def invoice_total(invoice_id)
     @invoice_items.invoice_total(invoice_id)
   end
+
+  def invoice_total_hash
+    @invoice_items.invoice_total_hash
+  end
 end
