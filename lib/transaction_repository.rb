@@ -33,4 +33,10 @@ class TransactionRepository < Repository
       target.updated_at = Time.now
     end
   end
+
+  def find_all_by_invoice_id(invoice_id)
+    @array_of_objects.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
 end
