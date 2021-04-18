@@ -27,3 +27,5 @@ RSpec.describe Customer do
       expect(customer1.created_at).to be_an_instance_of(Time)
       expect(customer1.updated_at).to be_an_instance_of(Time)
     end
+  end
+end
