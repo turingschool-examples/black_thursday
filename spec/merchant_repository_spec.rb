@@ -1,12 +1,12 @@
 require 'rspec'
+require './data/merchant_mocks'
 require './lib/merchant'
 require './lib/merchant_repository'
-require './data/mock_data'
 
 describe MerchantRepository do
   describe '#initialize' do
     it 'exists' do
-      mock_data = MockData.merchants_as_hashes
+      mock_data = MerchantMocks.merchants_as_hashes
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -14,7 +14,7 @@ describe MerchantRepository do
     end
 
     it 'has a merchants array' do
-      mock_data = MockData.merchants_as_hashes
+      mock_data = MerchantMocks.merchants_as_hashes
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -24,7 +24,7 @@ describe MerchantRepository do
 
   describe '#all' do
     it 'returns the list of Merchants' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -34,7 +34,7 @@ describe MerchantRepository do
 
   describe '#find_by_id' do
     it 'finds the merchant by the given id' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -44,8 +44,8 @@ describe MerchantRepository do
     end
 
     it 'retunrs nil if no merchant exists for id' do
-      details = MockData.merchants_as_hashes
-      mock_data = MockData.merchants_as_mocks(self, details)
+      details = MerchantMocks.merchants_as_hashes
+      mock_data = MerchantMocks.merchants_as_mocks(self, details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -56,7 +56,7 @@ describe MerchantRepository do
 
   describe '#find_by_name' do
     it 'finds a merchant by the given name' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -68,7 +68,7 @@ describe MerchantRepository do
 
   describe '#find_all_by_name' do
     it 'finds all merchants by the given name' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -83,7 +83,7 @@ describe MerchantRepository do
 
   describe '#delete' do
     it 'deletes a merchant with the given id' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -93,8 +93,8 @@ describe MerchantRepository do
     end
 
     it 'does nothing if no merchant with given id' do
-      details = MockData.merchants_as_hashes
-      mock_data = MockData.merchants_as_mocks(self, details)
+      details = MerchantMocks.merchants_as_hashes
+      mock_data = MerchantMocks.merchants_as_mocks(self, details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -106,7 +106,7 @@ describe MerchantRepository do
 
   describe '#create' do
     it 'creates a new Merchant' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
       allow(m_repo).to receive(:newest_id).and_return(10)
@@ -121,7 +121,7 @@ describe MerchantRepository do
 
   describe '#newest_id' do
     it 'gets the next id for a new merchant' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -131,7 +131,7 @@ describe MerchantRepository do
 
   describe '#update' do
     it 'updates a merchant with the given id and attributes' do
-      mock_data = MockData.merchants_as_mocks(self)
+      mock_data = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 
@@ -144,8 +144,8 @@ describe MerchantRepository do
     end
 
     it 'does nothing if no merchant with given id and attributes' do
-      details = MockData.merchants_as_hashes
-      mock_data = MockData.merchants_as_mocks(self, details)
+      details = MerchantMocks.merchants_as_hashes
+      mock_data = MerchantMocks.merchants_as_mocks(self, details)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_data)
       m_repo = MerchantRepository.new('fake.csv')
 

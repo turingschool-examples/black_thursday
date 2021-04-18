@@ -1,6 +1,8 @@
 require 'CSV'
 require 'rspec'
 
+require './data/item_mocks'
+require './data/merchant_mocks'
 require './lib/file_io'
 require './lib/item_repository'
 require './lib/merchant_repository'
@@ -10,9 +12,9 @@ require './lib/sales_analyst'
 describe SalesEngine do
   describe '#from_csv' do
     it 'creates a new instance of SalesEngine' do
-      mock_items = MockData.items_as_mocks(self)
+      mock_items = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      mock_merchants = MockData.merchants_as_mocks(self)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -23,9 +25,9 @@ describe SalesEngine do
 
   describe '#items' do
     it 'has an ItemRepository' do
-      mock_items = MockData.items_as_mocks(self)
+      mock_items = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      mock_merchants = MockData.merchants_as_mocks(self)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -34,9 +36,9 @@ describe SalesEngine do
     end
 
     it 'has Items in the ItemRepository' do
-      mock_items = MockData.items_as_mocks(self)
+      mock_items = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      mock_merchants = MockData.merchants_as_mocks(self)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -48,9 +50,9 @@ describe SalesEngine do
 
   describe '#merchants' do
     it 'has an MerchantRepository' do
-      mock_items = MockData.items_as_mocks(self)
+      mock_items = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      mock_merchants = MockData.merchants_as_mocks(self)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -59,9 +61,9 @@ describe SalesEngine do
     end
 
     it 'has Merchants in the MerchantRepository' do
-      mock_items = MockData.items_as_mocks(self)
+      mock_items = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      mock_merchants = MockData.merchants_as_mocks(self)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
@@ -73,9 +75,9 @@ describe SalesEngine do
 
   describe '#analyst' do
     it 'returns a new instance of SalesAnalyst' do
-      mock_items = MockData.items_as_mocks(self)
+      mock_items = ItemMocks.items_as_mocks(self)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_items)
-      mock_merchants = MockData.merchants_as_mocks(self)
+      mock_merchants = MerchantMocks.merchants_as_mocks(self)
       allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(mock_merchants)
       files = { items: './file1.csv', merchants: './file2.csv' }
       sales_engine = SalesEngine.from_csv(files)
