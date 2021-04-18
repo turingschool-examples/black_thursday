@@ -90,19 +90,12 @@ class SalesAnalyst
   end
 
   def golden_items
-    sum = find_all_items.sum do |item_object|
-      item_object.unit_price
-    end
-    mean = sum / find_all_items.length
+    mean = Compute.mean(total_item_price, find_all_items.length)
     two_sd = average_price_per_item_standard_deviation * 2
     greater_than_2sd = mean + two_sd
-    accumulator = []
-    find_all_items.each do |item|
-      if item.unit_price >= greater_than_2sd
-        accumulator << item
-      end
+    find_all_items.find_all do |item|
+      item.unit_price >= greater_than_2sd
     end
-    accumulator
   end
 
   ##### INVOICE ITERATION 2 ######
