@@ -14,4 +14,23 @@ class TransactionRepository < Repository
     end
   end
 
+  def create(attributes)
+    max_id = @array_of_objects.max_by do |transaction|
+      transaction.id
+    end.id
+
+    new_transaction = Transaction.new(attributes)
+    new_transaction.id = max_id + 1
+    @array_of_objects << new_transaction
+  end
+
+  def update(id, attributes)
+    target = find_by_id(id)
+    if target != nil
+      target.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number] != nil
+      target.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date] != nil
+      target.result = attributes[:result] if attributes[:result] != nil
+      target.updated_at = Time.now
+    end
+  end
 end
