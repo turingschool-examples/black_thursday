@@ -1,5 +1,7 @@
 require 'rspec'
 
+require './data/item_mocks'
+require './data/merchant_mocks'
 require './lib/sales_analyst'
 require './lib/sales_engine'
 require './spec/sales_analyst_mocks'
@@ -98,10 +100,9 @@ RSpec.describe SalesAnalyst do
     it 'returns all items 2+ std deviations above the mean price' do
       sales_analyst = SalesAnalystMocks.sales_analyst_mock(self)
 
-      expected_items = []
       actual_items = sales_analyst.golden_items
 
-      expect(actual_items).to eq expected_items
+      expect(actual_items.length).to eq 3
     end
   end
 end
