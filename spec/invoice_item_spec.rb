@@ -31,6 +31,7 @@ RSpec.describe InvoiceItem do
       expect(invoice_items.id).to eq(6)
       expect(invoice_items.item_id).to eq(7)
       expect(invoice_items.invoice_id).to eq(8)
+      expect(invoice_items.quantity).to eq(1)
     end
   end
 
