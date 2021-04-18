@@ -112,11 +112,28 @@ RSpec.describe InvoiceItemRepository do
       attributes = {
                           quantity: 13
                           }
-
+      invoice_item_repo.update(21831, attributes)
       expect(invoice_item_repo.find_by_id(21831).quantity).to eq(13)
       expect(invoice_item_repo.find_by_id(21831).item_id).to eq(7)
       expect(invoice_item_repo.find_by_id(21831).updated_at).to be > original_time
-      
+    end
+
+    it 'update does not update id, item id invoice id or created at' do
+      attributes = {
+                          id: 22000,
+                          item_id: 32,
+                          invoice_id: 53,
+                          created_at: Time.now
+                        }
+      invoice_item_repo.update(21831, attributes)
+      expect(invoice_item_repo.find_by_id(22000)).to eq(nil)
+      expect(invoice_item_repo.find_by_id(21831).item_id).not_to eq(attributes[:item_id])
+      expect(invoice_item_repo.find_by_id(21831).invoice_id).not_to eq(attributes[:invoice_id])
+      expect(invoice_item_repo.find_by_id(21831).created_at).not_to eq(attributes[:created_at])
+    end
+
+    it 'update does not update an unknown item' do
+      invoice_item_repo.update(22000, {})
     end
 
     it "delete deletes the specified invoice" do
