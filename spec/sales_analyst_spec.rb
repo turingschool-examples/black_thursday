@@ -11,8 +11,8 @@ RSpec.describe do
   describe 'initialize' do
     # require 'pry';binding.pry
     sales_engine = SalesEngine.from_csv({
-                                        :items     => "./spec/fixtures/item_fixtures.csv",
-                                        :merchants => "./spec/fixtures/merchant_fixtures.csv",
+                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
                                         :invoices => "./data/invoices.csv",
                                         :invoice_items => "./data/invoice_items.csv",
                                         :customers => "./data/customers.csv",
@@ -94,8 +94,8 @@ RSpec.describe do
 
   describe 'iteration 2 functionality' do
     sales_engine = SalesEngine.from_csv({
-                                        :items     => "./spec/fixtures/item_fixtures.csv",
-                                        :merchants => "./spec/fixtures/merchant_fixtures.csv",
+                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
                                         :invoices => "./data/invoices.csv",
                                         :invoice_items => "./data/invoice_items.csv",
                                         :customers => "./data/customers.csv",
