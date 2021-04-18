@@ -23,4 +23,10 @@ class InvoiceRepo
   def all
     @invoice_list
   end
+
+  def find_by_id(id)
+    @invoice_list.find do |invoice|
+      invoice.id == id
+    end
+  end
 end
