@@ -1,6 +1,5 @@
-require 'bigdecimal'
 require 'CSV'
-require 'time'
+require 'bigdecimal'
 require 'item'
 
 class ItemRepo
@@ -12,8 +11,8 @@ class ItemRepo
   end
 
   def populate_information(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |item_info|
-      @items << Item.new(item_info, @engine)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @items << Item.new(data, self)
     end
   end
 
@@ -69,7 +68,7 @@ class ItemRepo
     end
     item.id = max.id + 1
     add_item(item)
-    return item
+    item
   end
 
   # the code logic doesn't belong here, what happens when only one gets updated
@@ -80,7 +79,7 @@ class ItemRepo
     new_item.description = attributes[:description] if attributes[:description]
     new_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
     new_item.updated_at = Time.now
-    return new_item
+    new_item
   end
 
   def delete(id)
