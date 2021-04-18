@@ -1,7 +1,5 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/invoice_item_repository'
-# require_relative '../lib/invoice_item'
-# require_relative '../lib/invoice_repository'
 require 'bigdecimal/util'
 
 RSpec.describe InvoiceItemRepository do
@@ -69,6 +67,16 @@ RSpec.describe InvoiceItemRepository do
     it 'find all by item id will return an empty array if there are no matches' do
       expect(invoice_item_repo.find_all_by_item_id(10).length).to eq(0)
       expect(invoice_item_repo.find_all_by_item_id(10).empty?).to eq(true)
+    end
+
+    it 'find all by invoice id finds all items with matching id' do
+      expect(invoice_item_repo.find_all_by_invoice_id(100).length).to eq(3)
+      expect(invoice_item_repo.find_all_by_invoice_id(100).first.class).to eq(InvoiceItem)
+    end
+
+    it 'find all by invoice id returns an empty array if there are no matches' do
+      expect(invoice_item_repo.find_all_by_invoice_id(253961).length).to eq(0)
+      expect(invoice_item_repo.find_all_by_invoice_id(253961).empty?).to eq(true)
     end
 
   end
