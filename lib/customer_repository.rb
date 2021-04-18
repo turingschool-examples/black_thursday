@@ -8,4 +8,8 @@ class CustomerRepository
   def create_customers(filename)
     FileIo.process_csv(filename, Customer)
   end
+
+  def all
+    @customers
+  end
 end
