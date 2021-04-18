@@ -43,14 +43,14 @@ RSpec.describe 'SalesEngine' do
 
     it 'has an transaction repository' do
       se = SalesEngine.from_csv(
-        transaction: './data/transactions.csv'
+        transactions: './data/transactions.csv'
       )
       expect(se.transactions).to be_an_instance_of(TransactionRepository)
     end
 
     it 'has an customers repository' do
       se = SalesEngine.from_csv(
-        customer: './data/customers.csv'
+        customers: './data/customers.csv'
       )
       expect(se.customers).to be_an_instance_of(CustomerRepository)
     end
@@ -61,10 +61,10 @@ RSpec.describe 'SalesEngine' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv',
+        invoices: './data/invoices.csv',
         invoice_items: './data/invoice_items.csv',
-        transaction: './data/transactions.csv',
-        customer: './data/customers.csv'
+        transactions: './data/transactions.csv',
+        customers: './data/customers.csv'
       )
 
       sa = se.analyst

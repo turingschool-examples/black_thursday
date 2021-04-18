@@ -7,7 +7,6 @@ RSpec.describe MerchantRepository do
   describe 'Instance' do
     it 'exists' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -19,7 +18,6 @@ RSpec.describe MerchantRepository do
   describe '#all' do
     it 'returns an array of all merchant instances' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -31,7 +29,6 @@ RSpec.describe MerchantRepository do
   describe '#find_by_id' do
     it 'finds merchant by id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -41,7 +38,6 @@ RSpec.describe MerchantRepository do
 
     it 'returns nil if no id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -53,7 +49,6 @@ RSpec.describe MerchantRepository do
   describe '#find_by_name' do
     it 'finds a merchant by name' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -63,7 +58,6 @@ RSpec.describe MerchantRepository do
 
     it 'returns nil if no name exists' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -75,7 +69,6 @@ RSpec.describe MerchantRepository do
   describe '#find_all_by_name'
     it 'find all that includes fragment' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -87,7 +80,6 @@ RSpec.describe MerchantRepository do
 
     it 'returns empty array by default' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -110,7 +102,6 @@ RSpec.describe MerchantRepository do
   describe '#create' do
     it 'creates new merchant with given attributes' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -124,7 +115,6 @@ RSpec.describe MerchantRepository do
   describe '#update' do
     it 'updates name' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
@@ -138,7 +128,6 @@ RSpec.describe MerchantRepository do
   describe '#delete' do
     it 'deletes a merchant via id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
                                )
       mr = se.merchants
