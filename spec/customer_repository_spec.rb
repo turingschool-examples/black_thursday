@@ -89,8 +89,12 @@ describe CustomerRepository do
         updated_at: Time.now
       }
 
-      expect(c_repo.create(new_customer_attributes)).is_a? Customer
+      c_repo.create(new_customer_attributes)
+
+      expected = c_repo.customers.last
+      expect(expected).is_a? Customer
       expect(c_repo.all.length).to eq 11
+      expect(expected.first_name).to eq 'Yan'
     end
   end
 end
