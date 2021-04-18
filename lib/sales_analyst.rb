@@ -1,4 +1,5 @@
 require_relative 'compute'
+require 'date'
 
 class SalesAnalyst
 
@@ -127,6 +128,14 @@ class SalesAnalyst
 
   def number_of_all_invoices
     find_all_invoices.length
+  end
+
+  def top_days_by_invoice_count
+    invoices = find_all_invoices
+    days_array = invoices.map do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+    require "pry"; binding.pry
   end
 
 end
