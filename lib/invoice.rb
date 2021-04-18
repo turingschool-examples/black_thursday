@@ -14,6 +14,6 @@ class Invoice
     @status = invoice_info[:status]
     @created_at = Time.parse(invoice_info[:created_at].to_s)
     @updated_at = Time.parse(invoice_info[:updated_at].to_s)
-    # @repo = repo
+    @repo = repo
   end
 end
