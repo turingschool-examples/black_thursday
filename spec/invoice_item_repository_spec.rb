@@ -107,6 +107,18 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item_repo.find_by_id(21831).item_id).to eq(7)
     end
 
+    it 'update can update an invoice item' do
+      original_time = invoice_item_repo.find_by_id(21831).updated_at
+      attributes = {
+                          quantity: 13
+                          }
+
+      expect(invoice_item_repo.find_by_id(21831).quantity).to eq(13)
+      expect(invoice_item_repo.find_by_id(21831).item_id).to eq(7)
+      expect(invoice_item_repo.find_by_id(21831).updated_at).to be > original_time
+      
+    end
+
     it "delete deletes the specified invoice" do
       invoice_item_repo.delete(21831)
       expect(invoice_item_repo.find_by_id(21831)).to eq nil
