@@ -26,4 +26,13 @@ class InvoiceItemRepository < Repository
       invoice.invoice_id == invoice_id
     end
   end
+
+  def create(attributes)
+    max_id = @array_of_objects.max_by do |invoice_item|
+      invoice_item.id
+    end.id
+    new_invoice_item = InvoiceItem.new(attributes)
+    new_invoice_item.id = max_id + 1
+    @array_of_objects << new_invoice_item
+  end
 end

@@ -4,9 +4,9 @@ require 'bigdecimal/util'
 require 'time'
 
 class InvoiceItem
-attr_reader :id,
-              :created_at
-attr_accessor :item_id,
+  attr_reader :created_at
+attr_accessor :id,
+              :item_id,
               :invoice_id,
               :quantity,
               :unit_price,
