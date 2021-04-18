@@ -52,6 +52,13 @@ RSpec.describe SalesEngine do
     end
   end
 
+  describe '#find_customer_by_id' do
+    it 'returns a customer_object when given a customer_id' do
+
+      expect(@se.find_customer_by_id(1)).to be_a(Customer)
+    end
+  end
+
   describe '#find_item_by_id' do
     it 'returns a item_object when given a item_id' do
 
