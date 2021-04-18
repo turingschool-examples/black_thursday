@@ -12,4 +12,10 @@ class CustomerRepository
   def all
     @customers
   end
+
+  def find_by_id(id)
+    @customers.find do |customer|
+      customer.id == id
+    end
+  end
 end

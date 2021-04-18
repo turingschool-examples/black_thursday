@@ -41,4 +41,15 @@ describe CustomerRepository do
       expect(c_repo.all.length).to eq 10
     end
   end
+
+  describe '#find_by_id' do
+    it 'returns a Customer with matching id' do
+      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
+      c_repo = CustomerRepository.new('fake.csv')
+
+      expected = c_repo.customers.first
+      expect(c_repo.find_by_id(1)).to eq expected
+    end
+  end
 end
