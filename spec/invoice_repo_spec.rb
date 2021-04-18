@@ -1,4 +1,3 @@
-require'rspec'
 require 'CSV'
 require './lib/sales_engine'
 require './lib/invoice'
