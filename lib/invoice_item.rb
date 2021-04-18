@@ -1,7 +1,4 @@
-require 'RSpec'
-require 'CSV'
 require 'bigdecimal'
-require 'time'
 
 class InvoiceItem
   attr_accessor :id,
@@ -22,5 +19,9 @@ class InvoiceItem
     @created_at = Time.parse(invoice_item_info[:created_at].to_s)
     @updated_at = Time.parse(invoice_item_info[:updated_at].to_s)
     @repo = repo
+  end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
   end
 end
