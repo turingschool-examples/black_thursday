@@ -54,7 +54,24 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repository.find_all_by_status("pending").class).to eq(Array)
       expect(invoice_repository.find_all_by_status("pending").length).to eq(1473)
       expect(invoice_repository.find_all_by_status("pending").first).to eq(invoice_repository.invoice_list[0])
-        expect(invoice_repository.find_all_by_status("BlahBlah")).to eq([])
+      expect(invoice_repository.find_all_by_status("BlahBlah")).to eq([])
+    end
+
+    it 'can create new invoices' do
+      attributes = {
+        id: 4986,
+        customer_id: 999,
+        merchant_id: 12335541,
+        status: "pending",
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+
+      invoice_repository.create(attributes)
+      expected = invoice_repository.find_by_id(4986)
+      expect(expected.customer_id).to eq(999)
+      expect(expected.merchant_id).to eq(12335541)
+      expect(expected.status).to eq("pending")
     end
   end
 end

@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-18T14:19:50-06:00">2021-04-18T14:19:50-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-18T14:29:05-06:00">2021-04-18T14:29:05-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  71.56%
+  70.69%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         529.06
+         513.11
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>225</b> relevant lines,
-    <span class="green"><b>161</b> lines covered</span> and
-    <span class="red"><b>64</b> lines missed. </span>
+    <b>232</b> relevant lines,
+    <span class="green"><b>164</b> lines covered</span> and
+    <span class="red"><b>68</b> lines missed. </span>
     (<span class="red">
-  71.56%
+  70.69%
 </span>
 )
   </div>
@@ -149,12 +149,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#8038c1e45358f9244b449cbf5fb407181d30b80f" class="src_link" title="spec/invoices_repo_spec.rb">spec/invoices_repo_spec.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">60</td>
-            <td class="cell--number">39</td>
-            <td class="cell--number">39</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">1.00</td>
+            <td class="green strong cell--number t-file__coverage">91.30 %</td>
+            <td class="cell--number">77</td>
+            <td class="cell--number">46</td>
+            <td class="cell--number">42</td>
+            <td class="cell--number">4</td>
+            <td class="cell--number">0.91</td>
             
           </tr>
         
@@ -4071,7 +4071,7 @@
     <h3>spec/invoices_repo_spec.rb</h3>
     <h4>
       <span class="green">
-  100.0%
+  91.3%
 </span>
 
       lines covered
@@ -4080,9 +4080,9 @@
     
 
     <div class="t-line-summary">
-      <b>39</b> relevant lines.
-      <span class="green"><b>39</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <b>46</b> relevant lines.
+      <span class="green"><b>42</b> lines covered</span> and
+      <span class="red"><b>4</b> lines missed.</span>
     </div>
 
     
@@ -4715,7 +4715,7 @@
 
             
 
-            <code class="ruby">        expect(invoice_repository.find_all_by_status(&quot;BlahBlah&quot;)).to eq([])</code>
+            <code class="ruby">      expect(invoice_repository.find_all_by_status(&quot;BlahBlah&quot;)).to eq([])</code>
           </li>
         </div>
       
@@ -4737,12 +4737,199 @@
 
             
 
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="60">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    it &#39;can create new invoices&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="61">
+            
+            
+
+            
+
+            <code class="ruby">      attributes = {</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="62">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        id: 4986,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="63">
+            
+            
+
+            
+
+            <code class="ruby">        customer_id: 999,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="64">
+            
+            
+
+            
+
+            <code class="ruby">        merchant_id: 12335541,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="65">
+            
+            
+
+            
+
+            <code class="ruby">        status: &quot;pending&quot;,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="66">
+            
+            
+
+            
+
+            <code class="ruby">        created_at: Time.now,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="67">
+            
+            
+
+            
+
+            <code class="ruby">        updated_at: Time.now</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="68">
+            
+            
+
+            
+
+            <code class="ruby">      }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="69">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="70">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      invoice_repository.create(attributes)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="71">
+            
+            
+
+            
+
+            <code class="ruby">      expected = invoice_repository.find_by_id(4986)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="72">
+            
+            
+
+            
+
+            <code class="ruby">      expect(expected.customer_id).to eq(999)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="73">
+            
+            
+
+            
+
+            <code class="ruby">      expect(expected.merchant_id).to eq(12335541)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="74">
+            
+            
+
+            
+
+            <code class="ruby">      expect(expected.status).to eq(&quot;pending&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="75">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="76">
+            
+            
+
+            
+
             <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="60">
+          <li class="never" data-hits="" data-linenumber="77">
             
             
 
