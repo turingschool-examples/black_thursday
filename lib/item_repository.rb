@@ -66,16 +66,10 @@ class ItemRepository < Repository
 
   def update(id, attributes)
     update_instance = find_by_id(id)
-    if update_instance.nil?
-      nil
-    elsif !attributes[:name].nil?
-      update_instance.name = attributes[:name]
-      update_instance.updated_at = Time.now
-    elsif !attributes[:description].nil?
-      update_instance.description = attributes[:description]
-      update_instance.updated_at = Time.now
-    elsif !attributes[:unit_price].nil?
-      update_instance.cent_price = BigDecimal(attributes[:unit_price] * 100, 10)
+    if !update_instance.nil?
+      update_instance.name = attributes[:name] unless attributes[:name].nil?
+      update_instance.description = attributes[:description] unless attributes[:description].nil?
+      update_instance.cent_price = BigDecimal(attributes[:unit_price] * 100, 10) unless attributes[:unit_price].nil?
       update_instance.updated_at = Time.now
     end
   end

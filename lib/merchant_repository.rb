@@ -39,10 +39,8 @@ class MerchantRepository < Repository
 
   def update(id, name_hash)
     new = find_by_id(id)
-    if new.nil?
-      nil
-    else
-      new.name = name_hash[:name]
+    if !new.nil?
+      new.name = name_hash[:name] unless name_hash[:name].nil?
       new.updated_at = Time.now
     end
   end

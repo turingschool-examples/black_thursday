@@ -47,18 +47,10 @@ class CustomerRepository < Repository
 
   def update(id, attribute)
     new = find_by_id(id)
-
-    if new.nil?
-      nil
-    else
-      if !attribute[:first_name].nil?
-        new.first_name = attribute[:first_name]
-        new.updated_at = Time.now
-      end
-      if !attribute[:last_name].nil?
-        new.last_name = attribute[:last_name]
-        new.updated_at = Time.now
-      end
+    if !new.nil?
+      new.first_name = attribute[:first_name] unless attribute[:first_name].nil?
+      new.last_name = attribute[:last_name] unless attribute[:last_name].nil?
+      new.updated_at = Time.now
     end
   end
 end

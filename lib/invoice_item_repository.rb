@@ -54,17 +54,10 @@ class InvoiceItemRepository < Repository
 
   def update(id, attributes)
     update_instance = find_by_id(id)
-    if update_instance.nil?
-      nil
-    else
-      if !attributes[:quantity].nil?
-        update_instance.quantity = attributes[:quantity]
-        update_instance.updated_at = Time.now
-      end
-      if !attributes[:unit_price].nil?
-        update_instance.cent_price = BigDecimal(attributes[:unit_price] * 100, 10)
-        update_instance.updated_at = Time.now
-      end
+    if !update_instance.nil?
+      update_instance.quantity = attributes[:quantity] unless attributes[:quantity].nil?
+      update_instance.cent_price = BigDecimal(attributes[:unit_price] * 100, 10) unless attributes[:unit_price].nil?
+      update_instance.updated_at = Time.now
     end
   end
 
