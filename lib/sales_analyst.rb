@@ -31,12 +31,6 @@ class SalesAnalyst
     average.round(2)
   end
 
-  # def sample_merchants_return_id
-  #   # Need to revisit based on instructor input; seems to require full data set
-  #   merch_sample = find_all_merchants.sample(10)
-  #   get_merchant_ids(merch_sample)
-  # end
-
   def average_items_per_merchant_standard_deviation
     merchant_items = []
     find_all_merchants.each do |merchant|
@@ -118,4 +112,20 @@ class SalesAnalyst
     end
     accumulator
   end
+
+  ##### INVOICE ITERATION 2 ######
+
+  def average_invoices_per_merchant
+    average = number_of_all_invoices / get_merchant_ids(merchants)
+    average.length.to_f.round(2)
+  end
+
+  def find_all_invoices
+    @engine.invoices.array_of_objects
+  end
+
+  def number_of_all_invoices
+    find_all_invoices.length
+  end
+
 end

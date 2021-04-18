@@ -2,19 +2,22 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_analyst'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/invoice'
 require 'bigdecimal/util'
 
 RSpec.describe do
 
   describe 'initialize' do
+    # require 'pry';binding.pry
     sales_engine = SalesEngine.from_csv({
-                                          :items     => "./data/items.csv",
-                                          :merchants => "./data/merchants.csv",
-                                          :invoices => "./data/invoices.csv",
-                                          :customers => "./data/customers.csv",
-                                          :invoice_items => "./data/invoice_items.csv",
-                                          :transactions => "./data/transactions.csv"
-                                          })
+                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
+                                        :invoice_items => "./data/invoice_items.csv",
+                                        :customers => "./data/customers.csv",
+                                        :transactions => "./data/transactions.csv"
+                                        })
     sales_analyst = sales_engine.analyst
 
     it 'exists' do
@@ -87,5 +90,22 @@ RSpec.describe do
       expect(sales_analyst.golden_items.length).to eq(5)
 
     end
+  end
+
+  describe 'iteration 2 functionality' do
+    sales_engine = SalesEngine.from_csv({
+                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
+                                        :invoice_items => "./data/invoice_items.csv",
+                                        :customers => "./data/customers.csv",
+                                        :transactions => "./data/transactions.csv"
+                                        })
+    sales_analyst = sales_engine.analyst
+
+    it '#average_invoices_per_merchant' do
+      expect(sales_analyst.average_invoices_per_merchant).to eq(4)
+    end
+
   end
 end
