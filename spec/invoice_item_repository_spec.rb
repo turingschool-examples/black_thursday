@@ -4,7 +4,6 @@ require './data/invoice_item_mocks'
 require './lib/file_io'
 require './lib/invoice_item_repository'
 
-
 describe InvoiceItemRepository do
   describe '#initialize' do
     it 'exists' do

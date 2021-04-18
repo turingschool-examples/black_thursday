@@ -36,7 +36,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine).to be_instance_of SalesEngine
@@ -53,7 +54,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine.items).is_a? ItemRepository
@@ -68,7 +70,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       item_repo = sales_engine.items
@@ -86,7 +89,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine.merchants).is_a? MerchantRepository
@@ -101,7 +105,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       merchant_repo = sales_engine.merchants
@@ -119,7 +124,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine.invoices).is_a? InvoiceRepository
@@ -134,7 +140,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       invoice_repo = sales_engine.invoices
@@ -152,7 +159,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       expect(sales_engine.invoices).is_a? InvoiceRepository
@@ -167,7 +175,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       transaction_repo = sales_engine.transactions
@@ -185,7 +194,8 @@ describe SalesEngine do
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_invoices)
       mock_transactions = Mockable.mock_generator(self, 'Transaction', data_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_transactions)
-      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv', transactions: './file4.csv' }
+      files = { items: './file1.csv', merchants: './file2.csv', invoices: './file3.csv',
+                transactions: './file4.csv' }
       sales_engine = SalesEngine.from_csv(files)
 
       sales_analyst = sales_engine.analyst

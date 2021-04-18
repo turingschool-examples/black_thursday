@@ -15,16 +15,19 @@ class Customer
 
   def update_id(id)
     return false if id.nil?
+
     @id = id
   end
 
   def update_first_name(name)
     return false if name.nil?
+
     @first_name = name
   end
 
   def update_last_name(name)
     return false if name.nil?
+
     @last_name = name
   end
 
