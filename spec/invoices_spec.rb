@@ -19,4 +19,26 @@ RSpec.describe Invoice do
       expect(invoice_repo.invoice_list[0]).to be_instance_of(Invoice)
     end
   end
+
+  context 'attr_accessor' do
+    it 'can return id' do
+      expect(invoice_repo.invoice_list[0].id).to eq(1)
+    end
+
+    it 'can return customer id' do
+      expect(invoice_repo.invoice_list[0].customer_id).to eq(1)
+    end
+
+    it 'can return merchant id' do
+      expect(invoice_repo.invoice_list[0].merchant_id).to eq(12335938)
+    end
+
+    it 'can return status' do
+      expect(invoice_repo.invoice_list[0].status).to eq("pending")
+    end
+
+    it 'can return time created at' do
+      expect(invoice_repo.invoice_list[0].created_at).to eq(Time.parse("2009-02-07 00:00:00 -0700"))
+    end
+  end
 end
