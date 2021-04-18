@@ -78,10 +78,11 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item_repo.find_all_by_invoice_id(253961).length).to eq(0)
       expect(invoice_item_repo.find_all_by_invoice_id(253961).empty?).to eq(true)
     end
-
   end
 
-  describe 'delete method' do
+
+
+  describe 'create, update & delete method' do
     sales_engine = SalesEngine.from_csv({
                                                           :items     => "./data/items.csv",
                                                           :merchants => "./data/merchants.csv",
@@ -91,11 +92,24 @@ RSpec.describe InvoiceItemRepository do
                                                           })
     invoice_item_repo = sales_engine.invoice_items
 
+
+    it 'create can create a new instance with attributes' do
+      attributes = {
+                          :item_id => 7,
+                          :invoice_id => 8,
+                          :quantity => 1,
+                          :unit_price => ("1099"),
+                          :created_at => Time.now,
+                          :updated_at => Time.now
+                          }
+
+      invoice_item_repo.create(attributes)
+      expect(invoice_item_repo.find_by_id(21831).item_id).to eq(7)
+    end
+
     it "delete deletes the specified invoice" do
       invoice_item_repo.delete(21831)
-
-      expected = invoice_item_repo.find_by_id(21831)
-      expect(expected).to eq nil
+      expect(invoice_item_repo.find_by_id(21831)).to eq nil
     end
 
     it "delete on unknown invoice does nothing" do
