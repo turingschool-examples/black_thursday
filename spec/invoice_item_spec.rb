@@ -1,5 +1,3 @@
-require 'RSpec'
-require 'CSV'
 require 'bigdecimal'
 require 'invoice_item_repository'
 require 'invoice_item'
@@ -38,5 +36,18 @@ RSpec.describe InvoiceItem do
     end
   end
 
+  describe '#methods' do
+    it '#unit price to dollars' do
+      invoice_items = InvoiceItem.new({:id          => 6,
+                                       :item_id     => 7,
+                                       :invoice_id  => 8,
+                                       :quantity    => 1,
+                                       :unit_price  => BigDecimal(10.99,4),
+                                       :created_at  => Time.now,
+                                       :updated_at  => Time.now,
+                                       }, @repo)
+      expect(invoice_items.unit_price_to_dollars).to eq(10.99)
+    end
+  end
 
 end
