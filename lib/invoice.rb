@@ -7,7 +7,7 @@ class Invoice
               :updated_at
 
   def initialize(transaction_details)
-    @id = transaction_details[:id]
+    @id = transaction_details[:id].to_i
     @customer_id = transaction_details[:customer_id]
     @merchant_id = transaction_details[:merchant_id]
     @status = transaction_details[:status]
