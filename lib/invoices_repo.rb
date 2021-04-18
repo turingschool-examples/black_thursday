@@ -31,14 +31,32 @@ class InvoiceRepo
   end
 
   def find_all_by_customer_id(id)
-    @invoice_list.find_all do |invoice|
+    @all_by_customer_id = @invoice_list.find_all do |invoice|
       invoice.customer_id == id
     end
+    customer_id_check
   end
 
   def find_all_by_merchant_id(id)
-    @invoice_list.find_all do |invoice|
+    @all_by_merchant_id = @invoice_list.find_all do |invoice|
       invoice.merchant_id == id
+    end
+    merchant_id_check
+  end
+
+  def customer_id_check
+    if @all_by_customer_id == []
+      nil
+    else
+      @all_by_customer_id
+    end
+  end
+
+  def merchant_id_check
+    if @all_by_merchant_id == []
+      nil
+    else
+      @all_by_merchant_id
     end
   end
 end
