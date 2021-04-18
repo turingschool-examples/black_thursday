@@ -29,8 +29,9 @@ RSpec.describe InvoiceItem do
                                        :updated_at  => Time.now,
                                        }, @repo)
       expect(invoice_items.id).to eq(6)
+      expect(invoice_items.item_id).to eq(7)
     end
   end
 
-  
+
 end
