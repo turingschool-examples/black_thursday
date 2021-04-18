@@ -79,10 +79,31 @@ class SalesAnalyst
     average_average_price.round(2)
   end
 
-  # def golden_items
-  #   mean = average_average_price_per_merchant
-  #   std_dev =
+  # item_counts = item_count_per_merchant.values
   #
-  #   min_price = standard_deviations_of_mean(mean, std_dev, 2)
+  # sums = item_counts.sum do |item_count|
+  #   (item_count - mean)**2
   # end
+  #
+  # std_dev = Math.sqrt(sums / (item_counts.length - 1).to_f)
+  # std_dev.round(2)
+
+  def golden_items
+    all_items = @sales_engine.items.all
+    sum_all_item_prices = all_items.sum(&:unit_price)
+    mean = all_items.sum(&:unit_price) / all_items.length
+
+    item_prices = @sales_engine.items.all.map {|item| item.unit_price}
+    sums = item_prices.sum do |price|
+      (price - mean)**2
+    end
+
+    std_dev =  Math.sqrt(sums / (item_prices.length - 1).to_f)
+
+    min_price = standard_deviations_of_mean(mean, std_dev, 2)
+
+    all_items.find_all do |item|
+      item.unit_price > min_price
+    end
+  end
 end
