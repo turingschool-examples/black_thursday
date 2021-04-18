@@ -4,16 +4,16 @@ require 'bigdecimal/util'
 require 'time'
 
 class InvoiceItem
-attr_reader :id,
-              :created_at
-attr_accessor :item_id,
+  attr_reader :created_at
+attr_accessor :id,
+              :item_id,
               :invoice_id,
               :quantity,
               :unit_price,
               :updated_at
 
   def initialize(info_hash)
-    @id = info_hash[:id]
+    @id = info_hash[:id].to_i
     @item_id = info_hash[:item_id].to_i
     @invoice_id = info_hash[:invoice_id].to_i
     @quantity = info_hash[:quantity]
@@ -30,4 +30,7 @@ attr_accessor :item_id,
     end
   end
 
+  def unit_price_to_dollars
+    (@unit_price.to_f).round(4)
+  end
 end
