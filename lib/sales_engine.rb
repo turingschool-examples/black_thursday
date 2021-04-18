@@ -58,6 +58,10 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def find_customer_by_id(customer_id)
+    @customers.find_by_id(customer_id)
+  end
+
   def find_item_by_id(item_id)
     @items.find_by_id(item_id)
   end
@@ -116,5 +120,9 @@ class SalesEngine
 
   def total_revenue_by_date(date)
     @invoices.total_revenue_by_date(date)
+  end
+  
+  def invoice_total_hash
+    @invoice_items.invoice_total_hash
   end
 end
