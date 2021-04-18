@@ -5,9 +5,9 @@ describe MockData do
   describe '#mock_generator' do
     it 'builds mocks with given hashes' do
       hashes = [{
-        id: 10,
-        name: 'Example 1'
-      },
+                  id: 10,
+                  name: 'Example 1'
+                },
                 {
                   id: 11,
                   name: 'Example 2'
