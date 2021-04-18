@@ -53,7 +53,6 @@ class InvoiceItemRepository
 
   def update(id, attributes)
     return nil if find_by_id(id).nil?
-
     invoice_item = find_by_id(id)
     invoice_item.update_quantity(attributes[:quantity])
     invoice_item.update_unit_price(attributes[:unit_price])
@@ -62,7 +61,6 @@ class InvoiceItemRepository
 
   def delete(id)
     return nil if find_by_id(id).nil?
-
     invoice_item = find_by_id(id)
     @invoice_items.delete(invoice_item)
   end
