@@ -46,6 +46,6 @@ module Mockable
   end
 
   def get_a_random_price
-    (rand(1..120) + (rand(100) / 100.0))
+    (rand(1..2000) + (rand(100) / 100.0))
   end
 end
