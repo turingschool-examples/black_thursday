@@ -11,8 +11,8 @@ class InvoiceRepo
   end
 
   def populate_information(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |invoice_info|
-      @invoices << Invoice.new(invoice_info, self)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @invoices << Invoice.new(data, self)
     end
   end
 
@@ -37,7 +37,7 @@ class InvoiceRepo
     end
     invoice.id = max.id + 1
     add_invoice(invoice)
-    return invoice
+    invoice
   end
 
   def find_all_by_customer_id(customer_id)
@@ -63,7 +63,7 @@ class InvoiceRepo
     return if !new_invoice
     new_invoice.status = attributes[:status]
     new_invoice.updated_at = Time.now
-    return new_invoice
+    new_invoice
   end
 
   def delete(id)
