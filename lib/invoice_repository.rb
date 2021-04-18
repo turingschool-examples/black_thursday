@@ -139,9 +139,22 @@ class InvoiceRepository
 
   def total_revenue_by_date(date)
     @invoices.each_with_object([]) do |invoice, array|
+      # require 'pry'; binding.pry
       if invoice.created_at.strftime('%y%m%d') == date.strftime('%y%m%d')
         array << @engine.invoice_total(invoice.id)
       end
     end.sum
   end
+
+  # def top_revenue_earners(x)
+  #   hash = Hash.new
+  #   # @invoices.each do |invoice|
+  #   #   hash[invoice.merchant_id] = []
+  #   # end
+  #   # @invoices.group_by do |invoice|
+  #   #   if
+  #   hash = @invoices.each_with_object({}) do |(merchant_id, invoice_id), hash|
+  #     hash[invoice.merchant_id] = invoice.invoice_id
+  #     end
+  # end
 end

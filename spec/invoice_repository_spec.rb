@@ -294,13 +294,30 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#total_revenue_by_day' do
+  describe '#total_revenue_by_date' do
     it 'returns the total revenue for date given' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+      ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', se)
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', se)
+      date = Time.parse('2015-03-13')
+
+      expect(ir.total_revenue_by_date(date)).to eq(4774.75)
+    end
+  end
+
+  describe '#top_revenue_earners' do
+    xit 'returns the top revenue earners' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./spec/truncated_data/invoices_truncated.csv', mock_sales_engine)
-      date = Time.parse('2012-03-27')
 
-      expect(ir.total_revenue_by_date(date)).to eq(21067.77)
+      expect(ir.top_revenue_earners(1)).to eq(21067.77)
     end
   end
 end
