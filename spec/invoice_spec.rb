@@ -68,7 +68,7 @@ describe Invoice do
                         updated_at: Time.now
                       })
 
-      expect(i.status).to eq 'pending'
+      expect(i.status).to eq :pending
       expect(i.status).is_a? String
     end
 

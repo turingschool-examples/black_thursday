@@ -10,7 +10,7 @@ class Invoice
     @id = transaction_details[:id].to_i
     @customer_id = transaction_details[:customer_id].to_i
     @merchant_id = transaction_details[:merchant_id].to_i
-    @status = transaction_details[:status]
+    @status = transaction_details[:status].to_sym
     @created_at = transaction_details[:created_at]
     @updated_at = transaction_details[:updated_at]
   end
