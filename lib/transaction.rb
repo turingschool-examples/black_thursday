@@ -3,9 +3,7 @@ class Transaction
               :invoice_id,
               :credit_card_number,
               :credit_card_expiration_date,
-              :result,
-              :created_at,
-              :updated_at
+              :result
 
   def initialize(details)
     @id = details[:id].to_i
@@ -37,5 +35,17 @@ class Transaction
 
   def update_time
     @updated_at = Time.now
+  end
+
+  def created_at
+    return @created_at if @created_at.instance_of?(Time)
+
+    Time.parse(@created_at)
+  end
+
+  def updated_at
+    return @updated_at if @updated_at.instance_of?(Time)
+
+    Time.parse(@updated_at)
   end
 end
