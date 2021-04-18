@@ -204,9 +204,9 @@ RSpec.describe ItemRepository do
   describe '#items_per_merchant' do
     it 'creates a hash of merchant id keys and an item count for values' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
@@ -223,9 +223,9 @@ RSpec.describe ItemRepository do
   describe '#average_items_per_merchant' do
     it 'can find the average number of items per merchant' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
@@ -236,9 +236,9 @@ RSpec.describe ItemRepository do
   describe '#average_items_per_merchant_standard_deviation' do
     it 'can find the average item per merchant standard deviation' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
@@ -249,9 +249,9 @@ RSpec.describe ItemRepository do
   describe '#merchants_with_high_item_count' do
     it 'can find which merchants sell the most items' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
@@ -262,9 +262,9 @@ RSpec.describe ItemRepository do
   describe '#average_item_price_for_merchant' do
     it 'averages the item price for merchant' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
@@ -275,9 +275,9 @@ RSpec.describe ItemRepository do
   describe '#average_average_price_per_merchant' do
     it 'sum the averages and finds average price across all merchants' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
@@ -288,9 +288,9 @@ RSpec.describe ItemRepository do
   describe '#item_price_hash' do
     it 'creates a hash of item id keys and unit price values' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
@@ -300,7 +300,7 @@ RSpec.describe ItemRepository do
               263395721 => 0.135e2,
               263396013 => 0.7e1,
               263397843 => 0.4e2
-             }
+            }
       expect(ir.item_price_hash).to eq(hash)
     end
   end
@@ -308,9 +308,9 @@ RSpec.describe ItemRepository do
   describe '#golden_items' do
     it 'finds items greater than 2 std dev above average item price' do
       se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv'
+          items: './spec/truncated_data/items_truncated.csv',
+          merchants: './spec/truncated_data/merchants_truncated.csv',
+          invoices: './spec/truncated_data/invoices_truncated.csv'
                                 })
       ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
 
