@@ -40,4 +40,13 @@ class CustomerRepository
     new_customer.update_id(find_max_id + 1)
     @customers << new_customer
   end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    unless customer.nil?
+      customer.update_first_name(attributes[:first_name])
+      customer.update_last_name(attributes[:last_name])
+      customer.update_time
+    end
+  end
 end

@@ -17,4 +17,15 @@ class Customer
     @id = id
   end
 
+  def update_first_name(name)
+    @first_name = name unless name.nil?
+  end
+
+  def update_last_name(name)
+    @last_name = name unless name.nil?
+  end
+
+  def update_time
+    @updated_at = Time.now
+  end
 end
