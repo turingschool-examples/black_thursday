@@ -92,8 +92,8 @@ RSpec.describe TransactionRepository do
     end
 
     it '#find_all_by_credit_card_number returns array of transactions with matching cc no' do
-      test_cc = 4116848067642966
-      empty_cc = 000000000000
+      test_cc = "4184649339029337"
+      empty_cc = "000000000000"
 
       expect(transaction_repo.find_all_by_credit_card_number(test_cc).length).to eq(1)
       expect(transaction_repo.find_all_by_credit_card_number(empty_cc)).to eq([])
