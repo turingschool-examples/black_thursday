@@ -15,7 +15,7 @@ RSpec.describe ItemRepo do
 
     it '::new' do
       item_repo = ItemRepo.new("./data/items.csv", @repo)
-     
+      
       expect(item_repo).to be_an_instance_of(ItemRepo)
     end
 
