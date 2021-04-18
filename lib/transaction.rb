@@ -9,7 +9,7 @@ class Transaction
                 :created_at,
                 :updated_at
 
-  def initialize(transaction_info, repo)
+  def initialize(transaction_info, repo) #why does this pass argument error???
     @id = transaction_info[:id].to_i
     @transaction_id = transaction_info[:transaction_id].to_i
     @credit_card_number = transaction_info[:credit_card_number]

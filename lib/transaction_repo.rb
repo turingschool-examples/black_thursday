@@ -2,10 +2,11 @@ require 'bigdecimal'
 require 'CSV'
 require 'time'
 require 'item'
-require_relative './lib/transaction'
+require_relative 'transaction'
 
 class TransactionRepo
   attr_reader :transactions
+
   def initialize(path, engine)
     @transactions = []
     @engine = engine
@@ -14,7 +15,7 @@ class TransactionRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |transaction_info|
-      @transactions << Transaction.new(transaction_info, @engine)
+      @transactions << Transaction.new(transaction_info, self)
     end
   end
 
