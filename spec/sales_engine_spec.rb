@@ -2,13 +2,16 @@ require 'simplecov'
 SimpleCov.start
 require './lib/sales_engine'
 require './lib/item_repository'
+require './lib/invoice_repository'
+require './lib/transaction_repository'
 
 RSpec.describe SalesEngine do
   before do
     @se = SalesEngine.from_csv({
       items: './data/items.csv',
       merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
+      invoices: './data/invoices.csv',
+      transactions: './data/transactions.csv'
     })
   end
 
@@ -24,6 +27,10 @@ RSpec.describe SalesEngine do
     it 'creates an InvoiceRepository' do
 
       expect(@se.invoices).to be_instance_of(InvoiceRepository)
+    end
+    it 'creates an TransactionRepository' do
+     
+      expect(@se.transactions).to be_instance_of(TransactionRepository)
     end
   end
 
