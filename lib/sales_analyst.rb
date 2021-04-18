@@ -1,3 +1,5 @@
+require_relative 'compute'
+
 class SalesAnalyst
 
   attr_reader :engine
@@ -70,7 +72,7 @@ class SalesAnalyst
     if merchant_items.length == 0
       0
     else
-      (sum_of_merchant_prices / merchant_items.length).round(2)
+      Compute.mean(sum_of_merchant_prices, merchant_items.length)
     end
   end
 
@@ -79,14 +81,14 @@ class SalesAnalyst
     items_sum = find_all_merchants.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    (items_sum / merchant_count).round(2)
+    Compute.mean(items_sum / merchant_count).round(2)
   end
 
   def average_price_per_item_standard_deviation
     sum = find_all_items.sum do |item_object|
       item_object.unit_price
     end
-    mean = sum / find_all_items.length
+    mean = Compute.mean(sum, find_all_items.length)
 
     population_size_minus_one = find_all_items.length - 1
     counter = 0
@@ -116,8 +118,7 @@ class SalesAnalyst
   ##### INVOICE ITERATION 2 ######
 
   def average_invoices_per_merchant
-    average = number_of_all_invoices / get_merchant_ids(find_all_merchants).length
-    average.to_f.round(2)
+    Compute.mean(number_of_all_invoices, get_merchant_ids(find_all_merchants).length)
   end
 
   def find_all_invoices
