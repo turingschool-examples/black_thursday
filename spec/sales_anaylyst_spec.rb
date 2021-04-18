@@ -131,7 +131,7 @@ RSpec.describe 'SalesAnalyst' do
       expect(@sa.top_days_by_invoice_count).to eq(['Wednesday'])
     end
   end
-
+  
   describe '#invoice_status' do
     it 'returns the percentage of invoices in that state' do
 
@@ -144,10 +144,9 @@ RSpec.describe 'SalesAnalyst' do
   describe '#standard_deviation' do
     it 'uses an array and average to calculate standard div' do
 
-      expect(@sa.standard_deviation([1,2,3], 2)).to eq(1)
+      expect(@sa.standard_deviation([1, 2, 3], 2)).to eq(1)
     end
   end
-
 
   describe '#invoice_paid_in_full' do
     it 'returns the successful transactions' do
