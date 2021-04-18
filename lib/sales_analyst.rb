@@ -116,10 +116,17 @@ class SalesAnalyst
   end
 
   ##### INVOICE ITERATION 2 ######
+  def average_items_per_merchant ### Delete, this is a repeat###
+    merchants = find_all_merchants
+    merchant_ids = get_merchant_ids(merchants)
+    item_counter = 0
+    merchant_ids.each do |merchant_id|
+      item_counter += find_all_items_by_merchant_id(merchant_id).length
+    end
+    average = item_counter / merchant_ids.length.to_f
+    average.round(2)
+  end
 
-  # def average_invoices_per_merchant
-  #   Compute.mean(number_of_all_invoices, find_all_merchants.length)
-  # end
 
   def find_all_invoices
     @engine.invoices.array_of_objects
@@ -129,17 +136,8 @@ class SalesAnalyst
     find_all_invoices.length
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    invoices_per_merchant =  []
-    find_all_merchants.each do |merchant|
-      invoices_per_merchant << find_all_invoices_by_merchant_id(merchant.id).length
-    end
-    mean = Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
-    population_size_minus_one = invoices_per_merchant.length - 1
-    adder_counter = invoices_per_merchant.sum do |number_of_invoices|
-      (number_of_invoices - mean)**2
-    end
-    Math.sqrt(adder_counter / population_size_minus_one).round(2)
+  def average_invoices_per_merchant
+    test = Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
   end
 
   def find_all_invoices_by_merchant_id(merchant_id)
@@ -147,4 +145,28 @@ class SalesAnalyst
       invoice.merchant_id == merchant_id
     end
   end
+
+  def invoices_per_merchant
+    invoices_per_merchant =  []
+    find_all_merchants.each do |merchant|
+      if
+        invoices_per_merchant << find_all_invoices_by_merchant_id(merchant.id).length
+      end
+    end
+    invoices_per_merchant
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    # invoices_per_merchant =  []
+    # find_all_merchants.each do |merchant|
+    #   invoices_per_merchant << find_all_invoices_by_merchant_id(merchant.id).length
+    # end
+    # mean = Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
+    adder_counter = invoices_per_merchant.sum do |number_of_invoices|
+      (number_of_invoices - average_invoices_per_merchant)**2
+    end
+    Math.sqrt(adder_counter / (number_of_all_invoices - 1)).round(2)
+  end
+
+
 end
