@@ -3,9 +3,9 @@ require_relative 'sales_analyst'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
 require_relative 'customer_repository'
-
 
 class SalesEngine
   attr_reader :customers,
@@ -24,7 +24,6 @@ class SalesEngine
                  invoice_item_csv_location)
     @customers = CustomerRepository.new(customer_csv_location, self)
     @invoice_items = InvoiceItemRepository.new(invoice_item_csv_location, self)
-    # @invoice_items = './data/invoice_items.csv'
     @invoices = InvoiceRepository.new(invoice_csv_location, self)
     @items = ItemRepository.new(item_csv_location, self)
     @merchants = MerchantRepository.new(merchant_csv_location, self)
@@ -36,9 +35,9 @@ class SalesEngine
     item_csv_location = csv_hash[:items]
     merchant_csv_location = csv_hash[:merchants]
     invoice_csv_location = csv_hash[:invoices]
+    invoice_item_csv_location = csv_hash[:invoice_items]
     transaction_csv_location = csv_hash[:transactions]
     customer_csv_location = csv_hash[:customers]
-    invoice_item_csv_location = csv_hash[:invoice_items]
     SalesEngine.new(item_csv_location,
                     merchant_csv_location,
                     invoice_csv_location,

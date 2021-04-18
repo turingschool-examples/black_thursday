@@ -9,31 +9,29 @@ RSpec.describe Item do
     it 'exists' do
       mock_item_repo = instance_double('ItemRepository')
       item = Item.new(  {
-        id: '263395617 ',
-        name: 'Glitter scrabble frames ',
-        description: 'Glitter scrabble frames ',
-        unit_price: '1300 ',
-        merchant_id: '12334185 ',
-        created_at: '2016-01-11 11:51:37 UTC ',
-        updated_at: '1993-09-29 11:56:40 UTC '
-        },
-        mock_item_repo
-      )
+                          id: '263395617 ',
+                          name: 'Glitter scrabble frames ',
+                          description: 'Glitter scrabble frames ',
+                          unit_price: '1300 ',
+                          merchant_id: '12334185 ',
+                          created_at: '2016-01-11 11:51:37 UTC ',
+                          updated_at: '1993-09-29 11:56:40 UTC '
+                        },
+                          mock_item_repo)
       expect(item).to be_instance_of(Item)
       end
     it 'has attributes' do
       mock_item_repo = instance_double('ItemRepository')
       item = Item.new(  {
-        id: '1',
-        name: 'Cool Stuff',
-        description: 'supaaa cool',
-        unit_price: '1300',
-        merchant_id: '12334185',
-        created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
-        },
-        mock_item_repo
-      )
+                          id: '1',
+                          name: 'Cool Stuff',
+                          description: 'supaaa cool',
+                          unit_price: '1300',
+                          merchant_id: '12334185',
+                          created_at: '2016-01-11 11:51:37 UTC',
+                          updated_at: '1993-09-29 11:56:40 UTC'
+                        },
+                        mock_item_repo)
       expect(item.id).to eq(1)
       expect(item.name).to eq('Cool Stuff')
       expect(item.description).to eq('supaaa cool')
@@ -78,17 +76,16 @@ RSpec.describe Item do
   describe '#update_time_stamp' do
     it 'updates the updated_at timestamp' do
       mock_item_repo = instance_double('ItemRepository')
-      item = Item.new(  {
-        id: '1',
-        name: 'Cool Stuff',
-        description: 'supaaa cool',
-        unit_price: '1300',
-        merchant_id: '12334185',
-        created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
-        },
-        mock_item_repo
-      )
+      item = Item.new({
+                        id: '1',
+                        name: 'Cool Stuff',
+                        description: 'supaaa cool',
+                        unit_price: '1300',
+                        merchant_id: '12334185',
+                        created_at: '2016-01-11 11:51:37 UTC',
+                        updated_at: '1993-09-29 11:56:40 UTC'
+                      },
+                        mock_item_repo)
       item.update_time_stamp
       expect(item.updated_at.year).to eq(2021)
     end
@@ -97,16 +94,16 @@ RSpec.describe Item do
   describe '#unit_price_to_big_decimal' do
     it 'formats the unit price to a BigDecimal' do
       mock_item_repo = instance_double('ItemRepository')
-      item = Item.new(  {
-        id: '1',
-        name: 'Cool Stuff',
-        description: 'supaaa cool',
-        unit_price: '1300',
-        merchant_id: '12334185',
-        created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
-        },
-        mock_item_repo)
+      item = Item.new({
+                        id: '1',
+                        name: 'Cool Stuff',
+                        description: 'supaaa cool',
+                        unit_price: '1300',
+                        merchant_id: '12334185',
+                        created_at: '2016-01-11 11:51:37 UTC',
+                        updated_at: '1993-09-29 11:56:40 UTC'
+                      },
+                        mock_item_repo)
       item.unit_price = 1300
       item.unit_price_to_big_decimal
       expect(item.unit_price).to eq(0.13e2)
@@ -116,16 +113,16 @@ RSpec.describe Item do
   describe '#unit_price_to_dollars' do
     it 'formats the unit price to a BigDecimal' do
       mock_item_repo = instance_double('ItemRepository')
-      item = Item.new(  {
-        id: '1',
-        name: 'Cool Stuff',
-        description: 'supaaa cool',
-        unit_price: '1300',
-        merchant_id: '12334185',
-        created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '1993-09-29 11:56:40 UTC'
-        },
-        mock_item_repo)
+      item = Item.new({
+                        id: '1',
+                        name: 'Cool Stuff',
+                        description: 'supaaa cool',
+                        unit_price: '1300',
+                        merchant_id: '12334185',
+                        created_at: '2016-01-11 11:51:37 UTC',
+                        updated_at: '1993-09-29 11:56:40 UTC'
+                      },
+                        mock_item_repo)
       expect(item.unit_price_to_dollars).to eq(13.0)
     end
   end
