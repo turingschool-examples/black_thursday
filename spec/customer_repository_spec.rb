@@ -123,7 +123,7 @@ RSpec.describe CustomerRepository do
       se = SalesEngine.from_csv(
         customers: './data/customers.csv'
       )
-      
+
       cr = se.customers
 
       expect(cr.find_by_id(1).first_name).to eq('Joey')
