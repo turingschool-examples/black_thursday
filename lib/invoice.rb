@@ -7,6 +7,7 @@ class Invoice
                 :created_at,
                 :updated_at,
                 :repo
+                
   def initialize(invoice_info, repo)
     @id = invoice_info[:id].to_i
     @customer_id = invoice_info[:customer_id]

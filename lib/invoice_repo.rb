@@ -4,6 +4,7 @@ require 'invoice'
 
 class InvoiceRepo
   attr_reader :invoices
+  
   def initialize(path, engine)
     @invoices = []
     @engine = engine
