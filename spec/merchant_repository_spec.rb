@@ -8,9 +8,13 @@ RSpec.describe MerchantRepository do
   # into new instance
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
-                                        :items     => "./data/items.csv",
-                                        :merchants => "./data/merchants.csv",
-                                        })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     merch_rep = sales_engine.merchants
 
     it 'exists' do
@@ -28,9 +32,13 @@ RSpec.describe MerchantRepository do
 
   describe 'database functionality' do
     sales_engine = SalesEngine.from_csv({
-                                        :items     => "./data/items.csv",
-                                        :merchants => "./data/merchants.csv",
-                                        })
+                                          :items     => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :customers => "./data/customers.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                          })
     merch_rep = sales_engine.merchants
 
 #REPEATED IN REPOSITORY TESTS

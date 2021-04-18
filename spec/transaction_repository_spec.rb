@@ -9,7 +9,7 @@ RSpec.describe TransactionRepository do
                               :invoices => "./data/invoices.csv",
                               :customers => "./data/customers.csv",
                               :invoice_items => "./data/invoice_items.csv",
-                              :transaction_repository => "./data/transactions.csv"
+                              :transactions => "./data/transactions.csv"
                               })
     transaction_repo = sales_engine.transactions
 
