@@ -45,7 +45,7 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    @invoices.find_all do |invoice|
+    i = @invoices.find_all do |invoice|
       invoice.status == status.to_sym
     end
   end
@@ -138,26 +138,20 @@ class InvoiceRepository
   end
 
   def total_spent_by_customer
-    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
-      # require 'pry'; binding.pry 
-      hash[invoice.customer_id] += @engine.invoice_total(invoice.id)
-    end 
+    invoice_total_hash = @engine.invoice_total_hash
+    array = @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+      hash[invoice.customer_id] += invoice_total_hash[invoice.id]
+    end.to_a 
+    array.sort_by { |sub_array| sub_array[1] }
   end 
 
   def top_buyers(num_buyers = 20)
-    hash = total_spent_by_customer
+    array = total_spent_by_customer
     top_buyers = []
-    array = []
-    num_buyers.times do       
-      array << (hash.max_by{ |customer_id, total_spent| total_spent }).first
-      hash.delete(array.last)
-      top_buyers << @engine.find_customer_by_id(array.first)
-      array.delete(0)
-      
+    num_buyers.times do      
+      top_buyers << @engine.find_customer_by_id(array.last[0])
+      array.pop
     end
     top_buyers
   end
-
-
 end
-# require 'pry'; binding.pry
