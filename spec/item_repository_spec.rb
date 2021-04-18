@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require 'bigdecimal'
 require './lib/item'
 require './lib/item_repository'
 require './lib/file_io'
@@ -92,40 +91,41 @@ describe ItemRepository do
 
   describe '#find_all_by_price' do
     it 'returns an empty array if no items match price' do
-      mock_data = MockData.items_as_mocks(self)
-      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
-      item_repository = ItemRepository.new('fake.csv')
-
-      expect(item_repository.find_all_by_price(5.99)).to eq []
-    end
-
-    it 'returns array of items that match specified price' do
-      details = MockData.items_as_hashes(unit_price: 10.99)
+      details = MockData.items_as_hashes(unit_price: 10.00)
       mock_data = MockData.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price(10.99).length).to eq 10
+      expect(item_repository.find_all_by_price(BigDecimal(25))).to eq []
+    end
+
+    it 'returns array of items that match specified price' do
+      details = MockData.items_as_hashes(unit_price: 25.00)
+      mock_data = MockData.items_as_mocks(self, details)
+      allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
+      item_repository = ItemRepository.new('fake.csv')
+
+      expect(item_repository.find_all_by_price(BigDecimal(25)).length).to eq 10
     end
   end
 
   describe '#find_all_by_price_in_range(range)' do
     it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hashes(unit_price: 10)
+      details = MockData.items_as_hashes(unit_price: 8.00)
       mock_data = MockData.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price_in_range(15..25)).to eq []
+      expect(item_repository.find_all_by_price_in_range(15.00..25.00)).to eq []
     end
 
-    it 'returns empty array if no items in price range' do
-      details = MockData.items_as_hashes(unit_price: 10.88)
+    it 'returns array of all items in price range' do
+      details = MockData.items_as_hashes(unit_price: 25.00)
       mock_data = MockData.items_as_mocks(self, details)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')
 
-      expect(item_repository.find_all_by_price_in_range(10..25).length).to eq 10
+      expect(item_repository.find_all_by_price_in_range(10.00..25.00).length).to eq 10
     end
   end
 
@@ -226,8 +226,8 @@ describe ItemRepository do
         name: 'Pencil',
         description: 'You can use it to write things',
         unit_price: BigDecimal(10.99, 4),
-        created_at: Time.now,
-        updated_at: Time.new(2021, 0o1, 0o2),
+        created_at: '2007-06-04 21:35:10 UTC',
+        updated_at: '2007-06-04 21:35:10 UTC',
         merchant_id: 2
       }
       item_repository.create(new_item)
@@ -241,7 +241,7 @@ describe ItemRepository do
       item = item_repository.find_by_id(10)
 
       expect(item.updated_at).is_a? Time
-      expect(item.updated_at).not_to eq Time.new(2021, 0o1, 0o2)
+      expect(item.updated_at).not_to eq Time.parse('2007-06-04 21:35:10 UTC')
     end
   end
 
