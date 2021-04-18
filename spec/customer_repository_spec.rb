@@ -60,6 +60,18 @@ describe CustomerRepository do
       c_repo = CustomerRepository.new('fake.csv')
 
       expect(c_repo.find_all_by_first_name('Julia').length).to eq 10
+      expect(c_repo.find_all_by_first_name('Tim')).to eq []
+    end
+  end
+
+  describe '#find_all_by_last_name' do
+    it 'returns all customers with matching last name' do
+      mock_data = MockData.mock_generator(self, 'Customer', customer_hashes)
+      allow_any_instance_of(CustomerRepository).to receive(:create_customers).and_return(mock_data)
+      c_repo = CustomerRepository.new('fake.csv')
+
+      expect(c_repo.find_all_by_last_name('Child').length).to eq 10
+      expect(c_repo.find_all_by_last_name('Lewis')).to eq []
     end
   end
 end

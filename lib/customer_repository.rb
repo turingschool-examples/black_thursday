@@ -24,4 +24,10 @@ class CustomerRepository
       customer.first_name.include?(name)
     end
   end
+
+  def find_all_by_last_name(name)
+    @customers.select do |customer|
+      customer.last_name.include?(name)
+    end
+  end
 end
