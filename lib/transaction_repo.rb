@@ -1,6 +1,5 @@
 require 'CSV'
 require 'time'
-require 'item'
 require_relative 'transaction'
 
 class TransactionRepo
