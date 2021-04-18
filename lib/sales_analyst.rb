@@ -23,7 +23,7 @@ class SalesAnalyst
     items = @sales_engine.items.all
     merchants = @sales_engine.merchants.all
 
-    items.length / merchants.length
+    items.length.to_f / merchants.length
   end
 
   def average_items_per_merchant_standard_deviation
@@ -70,4 +70,11 @@ class SalesAnalyst
     end
     sum_of_averages / merchants.length
   end
+
+  # def golden_items
+  #   mean = average_average_price_per_merchant
+  #   std_dev =
+  #
+  #   min_price = standard_deviations_of_mean(mean, std_dev, 2)
+  # end
 end
