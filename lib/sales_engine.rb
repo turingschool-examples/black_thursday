@@ -21,4 +21,12 @@ class SalesEngine
   def analyst
     SalesAnalyst.new(self)
   end
+
+  def all_items
+    @items.all
+  end
+
+  def all_merchants
+    @merchants.all
+  end
 end

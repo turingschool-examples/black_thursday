@@ -38,6 +38,8 @@ class SalesAnalystMocks
 
     eg.allow(sales_engine).to eg.receive(:items).and_return item_repository
     eg.allow(sales_engine).to eg.receive(:merchants).and_return merchant_repository
+    eg.allow(sales_engine).to eg.receive(:all_items).and_return item_repository.items
+    eg.allow(sales_engine).to eg.receive(:all_merchants).and_return merchant_repository.merchants
     sales_analyst
   end
 end

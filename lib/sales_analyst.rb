@@ -8,9 +8,6 @@ class SalesAnalyst
   end
 
   def num_of_items_per_merchant
-    all_items = @sales_engine.items.all
-    all_merchants = @sales_engine.merchants.all
-
     all_merchants.each_with_object({}) do |merchant, total_per_merchant|
       total_items = all_items.count do |item|
         item.merchant_id == merchant.id
@@ -20,10 +17,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    items = @sales_engine.items.all
-    merchants = @sales_engine.merchants.all
-
-    average = items.length.to_f / merchants.length
+    average = all_items.length.to_f / all_merchants.length
     average.round(2)
   end
 
@@ -65,16 +59,14 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    merchants = @sales_engine.merchants.all
-    sum_of_averages = merchants.sum do |merchant|
+    sum_of_averages = all_merchants.sum do |merchant|
       average_item_price_for_merchant(merchant.id) unless num_of_items_per_merchant[merchant] == 0
     end
-    average_average_price = sum_of_averages / merchants.length
+    average_average_price = sum_of_averages / all_merchants.length
     average_average_price.round(2)
   end
 
   def golden_items
-    all_items = @sales_engine.items.all
     mean = all_items.sum(&:unit_price) / all_items.length
 
     item_prices = all_items.map {|item| item.unit_price}
@@ -90,5 +82,13 @@ class SalesAnalyst
     sums = values.sum {|value| (value - mean)**2 }
     std_dev =  Math.sqrt(sums / (values.length - 1).to_f)
     std_dev.round(2)
+  end
+
+  def all_items
+    @sales_engine.all_items
+  end
+
+  def all_merchants
+    @sales_engine.all_merchants
   end
 end
