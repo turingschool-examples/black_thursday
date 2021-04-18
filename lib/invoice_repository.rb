@@ -119,8 +119,9 @@ class InvoiceRepository
 
   def top_merchants_by_invoice_count
     hash = invoices_per_merchant
+    top_standard = average(hash) + (standard_deviation(hash) * 2)
     hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
-      if number_of_invoices > average(hash) + (standard_deviation(hash) * 2)
+      if number_of_invoices > top_standard
         array << @engine.find_merchant_by_id(merchant_id)
       end
     end
@@ -128,8 +129,9 @@ class InvoiceRepository
 
   def bottom_merchants_by_invoice_count
     hash = invoices_per_merchant
+    bottom_standard = average(hash) - (standard_deviation(hash) * 2)
     hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
-      if number_of_invoices < average(hash) - (standard_deviation(hash) * 2)
+      if number_of_invoices < bottom_standard
         array << @engine.find_merchant_by_id(merchant_id)
       end
     end
