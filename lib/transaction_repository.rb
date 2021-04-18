@@ -3,6 +3,10 @@ require_relative './transaction'
 class TransactionRepository
   attr_reader :transactions
 
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
+
   def initialize(filename)
     @transactions = create_transactions(filename)
   end
