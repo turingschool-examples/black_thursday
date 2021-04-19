@@ -48,4 +48,18 @@ class InvoiceItemRepo
     new_invoice_item.id = (@invoice_item_list.last.id + 1)
     @invoice_item_list << new_invoice_item
   end
+
+  def update(id, attributes)
+    invoice_item = find_by_id(id)
+    if !invoice_item.nil?
+      invoice_item.quantity = attributes[:quantity] unless attributes[:quantity].nil?
+      invoice_item.unit_price = BigDecimal(attributes[:unit_price]/100, 5) unless attributes[:unit_price].nil?
+      invoice_item.updated_at = Time.now
+    end
+    invoice_item
+  end
+
+  def delete(id)
+
+  end
 end
