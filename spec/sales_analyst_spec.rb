@@ -132,29 +132,31 @@ RSpec.describe do
   #   end
   # end
   #
-  # describe 'iteration 3 functionality' do
-  #   sales_engine = SalesEngine.from_csv({
-  #                                       :items     => "./spec/fixtures/items_fixtures.csv",
-  #                                       :merchants => "./spec/fixtures/merchants_fixtures.csv",
-  #                                       :invoices => "./data/invoices.csv",
-  #                                       :invoice_items => "./spec/fixtures/invoice_items_fixtures.csv",                                        :customers => "./data/customers.csv",
-  #                                       :transactions => "./data/transactions.csv",
-  #                                       :customers => "./data/customers.csv"
-  #                                       })
-  #   sales_analyst = sales_engine.analyst
-  #
-  #   it '#invoice_paid_in_full? returns true if invoice is paid in full' do
-  #
-  #     expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
-  #     expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
-  #   end
-  #
-  #   it '#invoice_total returns total dollar amount of invoice by id' do
-  #
-  #     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
-  #     expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
-  #   end
-  # end
+  describe 'iteration 3 functionality' do
+    sales_engine = SalesEngine.from_csv({
+                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
+                                        :invoice_items => "./spec/fixtures/invoice_items_fixtures.csv",                                        :customers => "./data/customers.csv",
+                                        :transactions => "./data/transactions.csv",
+                                        :customers => "./data/customers.csv"
+                                        })
+    sales_analyst = sales_engine.analyst
+
+    it '#invoice_paid_in_full? returns true if invoice is paid in full' do
+
+      expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
+      expect(sales_analyst.invoice_paid_in_full?(200)).to eq(true)
+      expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
+      expect(sales_analyst.invoice_paid_in_full?(204)).to eq(false)
+    end
+
+    it '#invoice_total returns total dollar amount of invoice by id IF the invoice is paid in full' do
+
+      expect(sales_analyst.invoice_total(1)).to eq(21067.77)
+      expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
+    end
+  end
 
   describe 'iteration 4 functionality' do
     sales_engine = SalesEngine.from_csv({
