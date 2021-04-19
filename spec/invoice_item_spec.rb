@@ -106,7 +106,7 @@ describe InvoiceItem do
         invoice_id: 8,
         quantity: 1,
         unit_price: '1099',
-        created_at: Time.now,
+        created_at: Time.parse('2007-06-04 21:35:10 UTC'),
         updated_at: Time.now
       }
       invoice_item = InvoiceItem.new(ii_details)
@@ -123,7 +123,7 @@ describe InvoiceItem do
         quantity: 1,
         unit_price: BigDecimal(10.99, 4),
         created_at: Time.now,
-        updated_at: Time.now
+        updated_at: Time.parse('2007-06-04 21:35:10 UTC')
       }
       invoice_item = InvoiceItem.new(ii_details)
 
