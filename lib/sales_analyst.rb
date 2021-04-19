@@ -3,13 +3,15 @@ require 'date'
 
 class SalesAnalyst
 
-  attr_reader :engine, :merchants, :items, :invoices
+  attr_reader :engine, :merchants, :items, :invoices, :transactions
+  #Do we need this attr_reader?
 
   def initialize(engine)
     @engine = engine
     @merchants = engine.merchants.array_of_objects
     @items = engine.items.array_of_objects
     @invoices = engine.invoices.array_of_objects
+    @transactions = engine.transactions.array_of_objects
   end
 
   def get_merchant_ids(merchants)
@@ -139,5 +141,16 @@ class SalesAnalyst
     end
   end
 
-  
+  def invoice_paid_in_full?(invoice_id)
+    all_transactions = @transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+    if all_transactions.length != 0
+      all_transactions.all? do |transaction|
+        transaction.result == :success
+      end
+    else
+      false
+    end
+  end
 end
