@@ -38,5 +38,19 @@ RSpec.describe InvoiceItemRepo do
     it 'can find all invoice items by invoice id' do
       expect(invoice_item_repo.find_all_by_invoice_id(1).length).to eq(8)
     end
+
+    it 'can create a new InvoiceItem' do
+      attributes = {
+        item_id: 263519844,
+        invoice_id: 2,
+        quantity: 5,
+        created_at: Time.now,
+        unit_price: 12.99,
+        updated_at: Time.now
+      }
+      invoice_item_repo.create(attributes)
+      expected = invoice_item_repo.find_by_id(21831)
+      expect(expected.item_id).to eq(263519844)
+    end
   end
 end
