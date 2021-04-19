@@ -11,6 +11,10 @@ module Mockable
     return Proc.new { |date| next date }
   end
 
+  def generator(number_of_hashes)
+    (0...number_of_hashes).to_a
+  end
+
   def mock_generator(eg, mock_name, data_hashes)
     data_hashes.each_with_object([]) do |hash, mocks|
       mocks << eg.instance_double(mock_name, hash)

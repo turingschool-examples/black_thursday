@@ -10,8 +10,8 @@ class MerchantMocks
   def self.merchants_as_hashes(number_of_hashes: 10, random_dates: true,
                                created_at: created_at_proc,
                                updated_at: updated_at_proc)
-    generator = (0...number_of_hashes).to_a
-    generator.each_with_object([]) do |merchant_number, hashes|
+
+    generator(number_of_hashes).each_with_object([]) do |merchant_number, hashes|
       merchant = {}
 
       merchant[:name] = "Merchant #{merchant_number}"

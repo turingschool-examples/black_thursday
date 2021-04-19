@@ -13,8 +13,8 @@ class InvoiceItemMocks
                                    unit_price: get_a_random_price,
                                    created_at: created_at_proc,
                                    updated_at: updated_at_proc)
-    generator = (0...number_of_hashes).to_a
-    generator.each_with_object([]) do |invoice_item_number, hashes|
+
+    generator(number_of_hashes).each_with_object([]) do |invoice_item_number, hashes|
       invoice_item = {}
 
       invoice_item[:id] = invoice_item_number

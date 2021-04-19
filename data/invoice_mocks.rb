@@ -12,8 +12,8 @@ class InvoiceMocks
                               merchant_id_range: (1..4),
                               created_at: created_at_proc,
                               updated_at: updated_at_proc)
-    generator = (0...number_of_hashes).to_a
-    generator.each_with_object([]) do |invoice_number, hashes|
+
+    generator(number_of_hashes).each_with_object([]) do |invoice_number, hashes|
       invoice = {}
 
       invoice[:status] = status
