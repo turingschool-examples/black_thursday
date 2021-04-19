@@ -16,4 +16,9 @@ class Invoice
     @updated_at = invoice_info[:updated_at]
     @repository = repository
   end
+
+  def update(attributes)
+    @status = attributes[:status].to_sym unless attributes[:status].nil?
+    @updated_at = Time.now
+  end
 end

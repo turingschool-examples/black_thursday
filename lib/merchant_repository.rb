@@ -37,16 +37,6 @@ class MerchantRepository < Repository
     merchant_new
   end
 
-  def update(id, name_hash)
-    new = find_by_id(id)
-    if new.nil?
-      nil
-    else
-      new.name = name_hash[:name]
-      new.updated_at = Time.now
-    end
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
