@@ -3,6 +3,10 @@ require_relative './transaction'
 class TransactionRepository
   attr_reader :transactions
 
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
+
   def initialize(filename)
     @transactions = create_transactions(filename)
   end
@@ -49,10 +53,12 @@ class TransactionRepository
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    transaction.update_credit_card_number(attributes[:credit_card_number])
-    transaction.update_credit_card_exp_date(attributes[:credit_card_expiration_date])
-    transaction.update_result(attributes[:result])
-    transaction.update_time
+    unless transaction.nil?
+      transaction.update_credit_card_number(attributes[:credit_card_number])
+      transaction.update_credit_card_exp_date(attributes[:credit_card_expiration_date])
+      transaction.update_result(attributes[:result])
+      transaction.update_time
+    end
   end
 
   def delete(id)

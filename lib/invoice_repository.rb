@@ -1,11 +1,15 @@
 class InvoiceRepository
   attr_reader :invoices
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+
   def initialize(filename)
     @invoices = create_invoices(filename)
   end
 
-  def create_invoies(filename)
+  def create_invoices(filename)
     FileIo.process_csv(filename, Invoice)
   end
 
