@@ -209,4 +209,8 @@ class SalesAnalyst
     end.sum
     BigDecimal(total, 10)
   end
+
+  def total_revenue_by_date(date)
+    
+  end
 end

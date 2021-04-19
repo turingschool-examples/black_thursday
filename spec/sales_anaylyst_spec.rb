@@ -194,4 +194,21 @@ RSpec.describe 'SalesAnalyst' do
       expect(sa.invoice_total(2_179)).to eq(31_075.11)
     end
   end
+
+  describe '#total_revenue_by_date' do
+    it 'returns the total revenue for that date' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sa = se.analyst
+      date = Time.parse('2016-01-11')
+      
+      expect(sa.total_revenue_by_date(date)).to eq(5)
+    end
+  end
 end
