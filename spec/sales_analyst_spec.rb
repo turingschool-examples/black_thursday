@@ -317,12 +317,12 @@ RSpec.describe SalesAnalyst do
   describe '#merchants_with_only_one_item_registered_in_month' do
     it 'returns merchants with only one item for sale in a given month' do
       se = SalesEngine.from_csv({
-        items: './spec/truncated_data/items_truncated.csv',
-        merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './data/invoices.csv',
-        customers: './spec/truncated_data/customers_truncated.csv',
-        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
-        transactions: './spec/truncated_data/transactions_truncated.csv'
+                                  items: './spec/truncated_data/items_truncated.csv',
+                                  merchants: './spec/truncated_data/merchants_truncated.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './spec/truncated_data/customers_truncated.csv',
+                                  invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+                                  transactions: './spec/truncated_data/transactions_truncated.csv'
                               })
         sales_analyst = se.analyst
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").count).to eq(1)
