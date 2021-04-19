@@ -140,4 +140,14 @@ class ItemRepository
       end
     end
   end
+
+  def merchants_with_only_one_item
+    items_per_merchant.each_with_object([]) do |(merchant_id, num_items), array|
+      if num_items == 1
+        array << @engine.find_merchant_by_id(merchant_id)
+      end
+    end
+  end
 end
+
+

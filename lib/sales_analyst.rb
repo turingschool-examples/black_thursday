@@ -78,4 +78,8 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     @sales_engine.merchants_with_pending_invoices
   end
+
+  def merchants_with_only_one_item
+    @sales_engine.merchants_with_only_one_item
+  end
 end
