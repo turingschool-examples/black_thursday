@@ -152,8 +152,6 @@ RSpec.describe InvoiceRepository do
                   :status => "paid"
                 }
 
-    invoice_repo.update(id, attributes)
-
     it 'can update existing invoice' do
       invoice_repo.update(3452, attributes)
       expected = invoice_repo.find_by_id(3452)
