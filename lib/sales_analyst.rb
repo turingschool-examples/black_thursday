@@ -7,20 +7,20 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
-  def total_items
+  def item_count
     sales_engine.item_count
   end
 
-  def total_merchants
+  def merchant_count
     sales_engine.merchant_count
   end
 
   def average_items_per_merchant
-     ( total_items/ total_merchants).round(2)
+     ( item_count / merchant_count).round(2)
   end
 
-  def average_item_price
-    sales_engine.average_item_price
+  def average_price
+    sales_engine.average_price
   end
 
   def item_count_per_merchant
@@ -32,32 +32,32 @@ class SalesAnalyst
     sum = sales_engine.item_count_per_merchant.sum do |merchant, count|
       (average_items - count)**2
     end
-    sum = (sum / total_merchants).round(2)
+    sum = (sum / merchant_count).round(2)
     (sum ** 0.5).round(2)
   end
 
   def average_item_price_standard_deviation
-    average = average_item_price
+    average = average_price
     sum = sales_engine.all_items.sum do |item|
       (average - item.unit_price_to_dollars)**2
     end
-    sum = (sum / total_items).round(2)
+    sum = (sum / item_count).round(2)
     (sum ** 0.5).round(2)
   end
 
   # refactor to return merchant object
   def merchants_with_high_item_count
     one_deviation = average_items_per_merchant_standard_deviation + average_items_per_merchant
-    merchants = item_count_per_merchant.select do |id, count|
-
-      sales_engine.find_merchant_id(id) if count > one_deviation
+    high_merchants = []
+    item_count_per_merchant.find_all do |id, count|
+      high_merchants << sales_engine.find_by_id(id) if count > one_deviation
     end
-    merchants
+    high_merchants
   end
 
 
   def average_item_price_for_merchant(merchant_id)
-    all_items = sales_engine.find_merchant_id(merchant_id)
+    all_items = sales_engine.find_all_by_merchant_id(merchant_id)
     sum = all_items.sum do |item|
       item.unit_price
     end
@@ -74,7 +74,7 @@ class SalesAnalyst
   end
 
   def golden_items
-    two_deviation = (average_item_price_standard_deviation * 2) + average_item_price
+    two_deviation = (average_item_price_standard_deviation * 2) + average_price
     sales_engine.all_items.find_all do |item|
       item.unit_price_to_dollars > two_deviation
     end
