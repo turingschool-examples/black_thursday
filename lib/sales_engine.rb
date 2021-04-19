@@ -90,7 +90,7 @@ class SalesEngine
     @transactions.invoice_paid_in_full?(invoice_id)
   end
 
-  def invoice_percentage_by_status(status)
+  def invoice_status(status)
     @invoices.percentage_by_status(status)
   end
 

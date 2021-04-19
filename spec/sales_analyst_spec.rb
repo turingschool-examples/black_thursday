@@ -1,5 +1,5 @@
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 require './lib/sales_engine'
 require './lib/sales_analyst'
 require './lib/item_repository'
@@ -173,7 +173,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#invoice_percentage_by_status' do
-    it 'returns the status of an invoice' do
+    it 'returns the status invoice by percentage' do
       se = SalesEngine.from_csv({
         items: './spec/truncated_data/items_truncated.csv',
         merchants: './spec/truncated_data/merchants_truncated.csv',
@@ -184,7 +184,7 @@ RSpec.describe SalesAnalyst do
                               })
         sales_analyst = se.analyst
       
-        expect(sales_analyst.invoice_percentage_by_status('pending')).to eq(50.0)
+        expect(sales_analyst.invoice_status('pending')).to eq(50.0)
     end
   end
 

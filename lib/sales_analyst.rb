@@ -43,8 +43,8 @@ class SalesAnalyst
     @sales_engine.invoice_paid_in_full?(invoice_id)
   end
 
-  def invoice_percentage_by_status(status)
-    @sales_engine.invoice_percentage_by_status(status)
+  def invoice_status(status)
+    @sales_engine.invoice_status(status)
   end
 
   def invoice_total(invoice_id)

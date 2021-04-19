@@ -1,5 +1,5 @@
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 require './lib/sales_engine'
 require './lib/item_repository'
 require './lib/invoice_repository'
@@ -119,6 +119,13 @@ RSpec.describe SalesEngine do
       expect(@se.invoice_percentage_by_status(:pending)).to eq(50.0)
       expect(@se.invoice_percentage_by_status(:shipped)).to eq(33.33)
       expect(@se.invoice_percentage_by_status(:returned)).to eq(16.67)
+    end
+  end
+
+  describe '#invoice_status' do
+    it 'shows status of an invoice' do
+
+      expect(@se.invoice_status(1)).to eq(:pending)
     end
   end
 
