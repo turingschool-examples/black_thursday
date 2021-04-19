@@ -32,6 +32,12 @@ class SalesAnalyst
     @invoices_repo.all
   end
 
+  def item_prices
+   all_items.sum do |item|
+      item.unit_price
+    end
+  end
+
   def average_items_per_merchant
     average(all_items.count.to_f, all_merchants.count.to_f).round(2)
   end
@@ -49,12 +55,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    squared_differences = items_per_merchant.map do |num|
-      ((num - average_items_per_merchant)**2).to_f
-    end.sum
-    divided_sum = ((squared_differences) / (merchant_id_array.length - 1))
-    square_root = ((divided_sum)**0.5).to_f
-    square_root.round(2)
+    standard_deviation(items_per_merchant, average_items_per_merchant)
   end
 
   def z_score_items(value)
@@ -66,22 +67,11 @@ class SalesAnalyst
   end
 
   def average_unit_price
-    prices = all_items.sum do |item|
-      item.unit_price
-    end
-    average(prices.to_f, all_items.length.to_f)
+    average(item_prices.to_f, all_items.length.to_f)
   end
 
   def average_unit_price_standard_deviation
-    prices = all_items.map do |item|
-      item.unit_price
-    end
-    squared_differences = prices.sum do |price|
-      ((price - average_unit_price)**2).to_f
-    end
-    divided_sum = ((squared_differences) / (prices.length - 1))
-    square_root = ((divided_sum)**0.5).to_f
-    square_root.round(2)
+    standard_deviation(item_prices, average_unit_price)
   end
 
   def merchants_num_items_hash
@@ -106,11 +96,10 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items_for_current_merchant = @items_repo.find_all_by_merchant_id(merchant_id)
-    prices_of_items_for_current_merchant = items_for_current_merchant.map do |item|
+    total_unit_price = items_for_current_merchant.sum do |item|
       item.unit_price
     end
-    total_unit_price = prices_of_items_for_current_merchant.sum
-    result = average(total_unit_price, items_for_current_merchant.length).round(2)
+    average(total_unit_price, items_for_current_merchant.length).round(2)
   end
 
   def average_average_price_per_merchant
@@ -142,12 +131,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    squared_differences = invoices_per_merchant.sum do |num|
-      ((num - average_invoices_per_merchant)**2).to_f
-    end
-    divided_sum = ((squared_differences) / (merchant_id_array.length - 1))
-    square_root = ((divided_sum)**0.5).to_f
-    square_root.round(2)
+    standard_deviation(invoices_per_merchant, average_invoices_per_merchant)
   end
 
   def z_score_invoices(value)
@@ -208,12 +192,7 @@ class SalesAnalyst
   end
 
   def days_by_invoice_standard_deviation
-    squared_diff = invoices_per_day.sum do |day|
-      (day - average_invoices_per_day)**2
-    end
-    divided_sum = (squared_diff) / (days.length - 1)
-    square_root = divided_sum**0.5.to_f
-    standard_deviation = square_root.round(2)
+    standard_deviation(invoices_per_day, average_invoices_per_day)
   end
 
   def z_score_days(value)

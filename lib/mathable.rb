@@ -8,7 +8,7 @@ module Mathable
     value / total
   end
 
-  def standard_deviation(values)
+  def standard_deviation(values, average)
     squared_differences = values.sum do |value|
       ((value - average)**2).to_f
     end
