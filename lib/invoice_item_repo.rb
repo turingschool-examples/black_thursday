@@ -1,4 +1,4 @@
-require_relative './invoice_items'
+require_relative './invoice_item'
 require 'time'
 require 'csv'
 require 'bigdecimal'
@@ -17,11 +17,11 @@ class InvoiceItemRepo
     header_converters: :symbol)
 
     @invoice_items_list = invoice_items.map do |invoice_item|
-      Invoice.new(invoice_item, self)
+      InvoiceItem.new(invoice_item, self)
     end
   end
 
   def all
     @invoice_item_list
-  end 
+  end
 end

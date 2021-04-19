@@ -1,4 +1,4 @@
-require_relative './transactions'
+require_relative './transaction'
 require 'time'
 require 'csv'
 require 'bigdecimal'
