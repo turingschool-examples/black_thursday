@@ -10,7 +10,7 @@ RSpec.describe Item do
                         :unit_price  => BigDecimal(10.99,4),
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
-                        :merchant_id => 2}, @repo)
+                        :merchant_id => 2})
 
       expect(item1).to be_an_instance_of(Item)
     end
@@ -22,7 +22,7 @@ RSpec.describe Item do
                         :unit_price  => BigDecimal(10.99,4),
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
-                        :merchant_id => 2}, @repo)
+                        :merchant_id => 2})
       
       expect(item1.id).to eq(1)
       expect(item1.name).to eq("Pencil")
@@ -34,39 +34,16 @@ RSpec.describe Item do
   end
 
   describe '#methods' do
-    xit '#unit price to dollars' do
-      item1 = Item.new({:id          => 1,
+    it '#unit price to dollars' do
+      item = Item.new({:id          => 1,
                         :name        => "Pencil",
                         :description => "You can use it to write things",
-                        :unit_price  => BigDecimal(10.99, 4),
+                        :unit_price  => 1099,
                         :created_at  => Time.now,
                         :updated_at  => Time.now,
-                        :merchant_id => 2}, @repo)
+                        :merchant_id => 2})
     
-      expect(item1.unit_price_to_dollars).to eq(10.99)
-    end
-    # reconfirm with Bob/other resources 
-    it '::updates item' do
-      item1 = Item.new({:id          => 1,
-                        :name        => "Pencil",
-                        :description => "You can use it to write things",
-                        :unit_price  => BigDecimal(10.99,4),
-                        :created_at  => Time.now,
-                        :updated_at  => Time.now,
-                        :merchant_id => 2}, @repo)
-
-      attributes = {:name => "knife",
-                    :description => "You can use it to stab things",
-                    :unit_price  => BigDecimal(15.99, 4),
-                    :updated_at  => Time.now}
-
-      Item.update(1, attributes)
-   
-      expect(item1.id).to eq(1)
-      expect(item1.name).to eq("knife")
-      expect(item1.description).to eq("You can use it to stab things")
-      expect(item1.unit_price).to eq(15.99)
-      expect(item1.updated_at).to be_an_instance_of(Time)
+      expect(item.unit_price_to_dollars).to eq(10.99)
     end
   end
 end

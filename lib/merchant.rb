@@ -1,11 +1,9 @@
 class Merchant
   attr_accessor :id,
-                :name,
-                :repo
+                :name
 
-  def initialize(merchant_info, repo)
+  def initialize(merchant_info)
     @id = merchant_info[:id].to_i
     @name = merchant_info[:name]
-    @repo = repo
   end
 end

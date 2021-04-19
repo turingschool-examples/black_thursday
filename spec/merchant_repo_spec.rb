@@ -6,9 +6,13 @@ RSpec.describe MerchantRepo do
   before(:each) do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                           :merchants => './data/merchants.csv',
-                                          :invoices => './data/invoices.csv'})
+                                          :invoices => './data/invoices.csv',
+                                          :invoice_items => './data/invoice_items.csv',
+                                          :transactions  => './data/transactions.csv',
+                                          :customers => './data/customers.csv'
+                                        })
   end
-
+  
   describe 'instantiation' do
     it '::new' do
       merchant_repo = @sales_engine.merchants
@@ -72,13 +76,13 @@ RSpec.describe MerchantRepo do
     end
 
     it '#delete merchant' do
-      merchant_repo = MerchantRepo.new('./data/merchants.csv', @repo)
-      merchant1 = Merchant.new({:id => 5, :name => "Turing School"}, @repo)
-      merchant_repo.add_merchant(merchant1)
-
-      expect(merchant_repo.find_by_id(5)).to eq(merchant1)
-      merchant_repo.delete(5)
-      expect(merchant_repo.find_by_id(5)).to eq(nil)
+      merchant_repo = @sales_engine.merchants
+      merchant = merchant_repo.create({:id => 5,
+                                       :name => "Turing School"})
+      
+      expect(merchant_repo.find_by_id(merchant.id)).to eq(merchant)
+      merchant_repo.delete(merchant.id)
+      expect(merchant_repo.find_by_id(merchant.id)).to eq(nil)
     end
   end
 end

@@ -1,12 +1,15 @@
 require 'CSV'
 require 'sales_engine'
 
-
 RSpec.describe InvoiceRepo do
   before(:each) do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                           :merchants => './data/merchants.csv',
-                                          :invoices => './data/invoices.csv'})
+                                          :invoices => './data/invoices.csv',
+                                          :invoice_items => './data/invoice_items.csv',
+                                          :transactions  => './data/transactions.csv',
+                                          :customers => './data/customers.csv'
+                                        })
   end
   
   describe 'instantiation' do
@@ -58,20 +61,20 @@ RSpec.describe InvoiceRepo do
     it '#find all by customer id' do
       invoice_repo = @sales_engine.invoices
       invoice_1 = invoice_repo.create({:id => 0,
-                                       :customer_id => 7,
+                                       :customer_id => 90000,
                                        :merchant_id => 8,
                                        :status => 'pending',
                                        :created_at => Time.now,
                                        :updated_at => Time.now})
 
       invoice_2 = invoice_repo.create({:id => 0,
-                                       :customer_id => 7,
+                                       :customer_id => 90000,
                                        :merchant_id => 8,
                                        :status => 'pending',
                                        :created_at => Time.now,
                                        :updated_at => Time.now})
 
-      expect(invoice_repo.find_all_by_customer_id(7)).to eq([invoice_1, invoice_2])
+      expect(invoice_repo.find_all_by_customer_id(90000)).to eq([invoice_1, invoice_2])
       expect(invoice_repo.find_all_by_customer_id(7000000)).to eq([])
     end
 
@@ -118,8 +121,8 @@ RSpec.describe InvoiceRepo do
                                        :created_at => Time.now,
                                        :updated_at => Time.now})
 
-      expect(invoice_repo.find_all_by_status('pending').length).to eq(1475)
-      expect(invoice_repo.find_all_by_status('processing')).to eq([])
+      expect(invoice_repo.find_all_by_status(:pending).length).to eq(1475)
+      expect(invoice_repo.find_all_by_status(:processing)).to eq([])
     end
 
     it '#update' do

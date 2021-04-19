@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require 'invoice_item_repository'
+require 'invoice_item_repo'
 require 'invoice_item'
 
 RSpec.describe InvoiceItem do
@@ -12,7 +12,7 @@ RSpec.describe InvoiceItem do
                                       :unit_price  => BigDecimal(10.99,4),
                                       :created_at  => Time.now,
                                       :updated_at  => Time.now,
-                                      }, @repo)
+                                      })
 
       expect(invoice_items).to be_an_instance_of(InvoiceItem)
     end
@@ -25,7 +25,7 @@ RSpec.describe InvoiceItem do
                                        :unit_price  => BigDecimal(10.99,4),
                                        :created_at  => Time.now,
                                        :updated_at  => Time.now,
-                                       }, @repo)
+                                       })
       expect(invoice_items.id).to eq(6)
       expect(invoice_items.item_id).to eq(7)
       expect(invoice_items.invoice_id).to eq(8)
@@ -42,12 +42,12 @@ RSpec.describe InvoiceItem do
                                        :item_id     => 7,
                                        :invoice_id  => 8,
                                        :quantity    => 1,
-                                       :unit_price  => BigDecimal(10.99,4),
+                                       :unit_price  => 1099,
                                        :created_at  => Time.now,
                                        :updated_at  => Time.now,
-                                       }, @repo)
+                                       })
+
       expect(invoice_items.unit_price_to_dollars).to eq(10.99)
     end
   end
-
 end

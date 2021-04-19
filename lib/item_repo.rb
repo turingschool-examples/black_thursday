@@ -4,6 +4,7 @@ require 'item'
 
 class ItemRepo
   attr_reader :items
+  
   def initialize(path, engine)
     @items = []
     @engine = engine
@@ -12,7 +13,7 @@ class ItemRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data, self)
+      @items << Item.new(data)
     end
   end
 
@@ -62,7 +63,7 @@ class ItemRepo
   end
 
   def create(attributes)
-    item = Item.new(attributes, @engine)
+    item = Item.new(attributes)
     max = @items.max_by do |item|
       item.id
     end

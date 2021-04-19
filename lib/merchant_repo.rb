@@ -11,7 +11,7 @@ class MerchantRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data, self)
+      @merchants << Merchant.new(data)
     end
   end
 
@@ -42,7 +42,7 @@ class MerchantRepo
   end
 
   def create(attributes)
-    merchant = Merchant.new(attributes, @engine)
+    merchant = Merchant.new(attributes)
     max = @merchants.max_by do |merchant|
       merchant.id
     end

@@ -6,7 +6,7 @@ require_relative 'customer'
 class CustomerRepo
   attr_reader :customers
 
-  def initialize(path)
+  def initialize(path, engine)
     @customers = []
     @engine = engine
     populate_information(path)
@@ -14,7 +14,7 @@ class CustomerRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |customer_info|
-      @customers << Customer.new(customer_info, self)
+      @customers << Customer.new(customer_info)
     end
   end
 

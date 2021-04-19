@@ -1,4 +1,4 @@
-require './lib/customer'
+require 'customer'
 
 RSpec.describe Customer do
   describe 'instantiation' do

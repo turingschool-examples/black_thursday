@@ -1,19 +1,19 @@
-require 'bigdecimal'
 require 'CSV'
-require 'time'
+require 'bigdecimal'
+require 'invoice_item'
 
-class InvoiceItemRepository
+class InvoiceItemRepo
   attr_reader :invoice_items
 
   def initialize(path, engine)
     @invoice_items = []
+    @engine = engine
     populate_information(path)
   end
 
-
   def populate_information(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |item_info|
-      @invoice_items << InvoiceItem.new(item_info)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @invoice_items << InvoiceItem.new(data)
     end
   end
 

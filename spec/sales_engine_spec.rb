@@ -7,15 +7,20 @@ require "./lib/merchant_repo"
 require "./lib/sales_analyst"
 
 RSpec.describe SalesEngine do
+  before(:each) do
+    @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
+                                          :merchants => './data/merchants.csv',
+                                          :invoices => './data/invoices.csv',
+                                          :invoice_items => './data/invoice_items.csv',
+                                          :transactions  => './data/transactions.csv',
+                                          :customers => './data/customers.csv'
+                                        })
+  end
+  
   describe 'instantiation' do
-    it '::new' do
-      se = SalesEngine.from_csv({:items => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv",
-                                 :transactions => "./data/transactions.csv"})
-
-      expect(se).to be_an_instance_of(SalesEngine)
+    it 'exists' do
+      expect(@sales_engine).to be_an_instance_of(SalesEngine)
     end
-
     xit 'has attributes' do
       se = SalesEngine.from_csv({:items => "./data/items.csv",
                                  :merchants => "./data/merchants.csv"})

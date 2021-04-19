@@ -6,7 +6,11 @@ RSpec.describe ItemRepo do
   before(:each) do
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                           :merchants => './data/merchants.csv',
-                                          :invoices => './data/invoices.csv'})
+                                          :invoices => './data/invoices.csv',
+                                          :invoice_items => './data/invoice_items.csv',
+                                          :transactions  => './data/transactions.csv',
+                                          :customers => './data/customers.csv'
+                                        })
   end
 
   describe 'instantiation' do
@@ -171,16 +175,18 @@ RSpec.describe ItemRepo do
     end
 
     it '#item merchant count' do
-      item_repo = ItemRepo.new("./data/items.csv",@repo)
-      item1 = Item.new({:id          => 1,
-                        :name        => "Pencil",
-                        :description => "You can use it to write things",
-                        :unit_price  => BigDecimal(10.99,4),
-                        :created_at  => Time.now,
-                        :updated_at  => Time.now,
-                        :merchant_id => 2},@repo)
+      item_repo = @sales_engine.items
+      item = item_repo.create({:id        => 1,
+                               :name        => "Pencil",
+                               :description => "You can use it to write things",
+                               :unit_price  => 1099,
+                               :created_at  => Time.now,
+                               :updated_at  => Time.now,
+                               :merchant_id => 2})
 
+     
      expect(item_repo.item_count_per_merchant).to be_a(Hash)
+     expect(item_repo.item_count_per_merchant.length).to eq(476)
    end
 
   end

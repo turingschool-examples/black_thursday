@@ -12,8 +12,8 @@ class TransactionRepo
   end
 
   def populate_information(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |transaction_info|
-      @transactions << Transaction.new(transaction_info, self)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @transactions << Transaction.new(data)
     end
   end
 
@@ -50,7 +50,7 @@ class TransactionRepo
   end
 
   def create(attributes)
-    transaction = Transaction.new(attributes, @engine)
+    transaction = Transaction.new(attributes)
     max = @transactions.max_by do |transaction|
       transaction.id
     end
