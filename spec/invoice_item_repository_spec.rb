@@ -12,7 +12,7 @@ RSpec.describe InvoiceItemRepository do
                                         :invoice_items => "./data/invoice_items.csv",
                                         :transactions => "./data/transactions.csv"
                                           })
-    
+
     invoice_item_repo = sales_engine.invoice_items
 
     it 'exists' do
@@ -30,7 +30,8 @@ RSpec.describe InvoiceItemRepository do
                                                           :merchants => "./data/merchants.csv",
                                                           :invoices => "./data/invoices.csv",
                                                           :invoice_items => "./data/invoice_items.csv",
-                                                          :customers => "./data/customers.csv"
+                                                          :customers => "./data/customers.csv",
+                                                          :transactions => "./data/transactions.csv"
                                                           })
     invoice_item_repo = sales_engine.invoice_items
 
@@ -45,7 +46,8 @@ RSpec.describe InvoiceItemRepository do
                                                           :merchants => "./data/merchants.csv",
                                                           :invoices => "./data/invoices.csv",
                                                           :invoice_items => "./data/invoice_items.csv",
-                                                          :customers => "./data/customers.csv"
+                                                          :customers => "./data/customers.csv",
+                                                          :transactions => "./data/transactions.csv"
                                                           })
     invoice_item_repo = sales_engine.invoice_items
 
@@ -90,7 +92,8 @@ RSpec.describe InvoiceItemRepository do
                                                           :merchants => "./data/merchants.csv",
                                                           :invoices => "./data/invoices.csv",
                                                           :invoice_items => "./data/invoice_items.csv",
-                                                          :customers => "./data/customers.csv"
+                                                          :customers => "./data/customers.csv",
+                                                          :transactions => "./data/transactions.csv"
                                                           })
     invoice_item_repo = sales_engine.invoice_items
 
