@@ -38,6 +38,10 @@ class SalesEngine
     @merchants.all
   end
 
+  def all_invoices #Needs spec
+    @invoices.all
+  end
+
   def item_count #Needs spec
     count = @items.all.length
     count.to_f
@@ -45,6 +49,11 @@ class SalesEngine
 
   def merchant_count #Needs spec
     count = @merchants.all.length
+    count.to_f
+  end
+
+  def invoice_count #Needs spec
+    count = @invoices.all.length
     count.to_f
   end
 
@@ -56,11 +65,19 @@ class SalesEngine
     @items.item_count_per_merchant
   end
 
+  def invoice_count_per_merchant
+    @invoices.invoice_count_per_merchant
+  end
+
   def find_all_by_merchant_id(id) #Needs spec
     @items.find_all_by_merchant_id(id)
   end
 
   def find_by_id(id)
     @merchants.find_by_id(id)
+  end
+
+  def find_all_by_status(status)
+    @invoices.find_all_by_status(status)
   end
 end

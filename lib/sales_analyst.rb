@@ -29,7 +29,7 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     average_items = average_items_per_merchant
-    sum = sales_engine.item_count_per_merchant.sum do |merchant, count|
+    sum = item_count_per_merchant.sum do |merchant, count|
       (average_items - count)**2
     end
     sum = (sum / merchant_count).round(2)
@@ -80,7 +80,57 @@ class SalesAnalyst
     end
   end
 
-  def
+  def invoice_count
+    sales_engine.invoice_count
+  end
 
+  def average_invoices_per_merchant
+    ( invoice_count / merchant_count).round(2)
+ end
+
+ def average_invoices_per_merchant_standard_deviation
+   average_invoice = average_invoices_per_merchant
+   sum = sales_engine.invoice_count_per_merchant.sum do |invoice, count|
+     (average_invoice - count)**2
+   end
+   sum = (sum / merchant_count).round(2)
+   (sum ** 0.5).round(2)
+ end
+
+ def invoice_count_per_merchant
+   sales_engine.invoice_count_per_merchant
+ end
+
+ def top_merchants_by_invoice_count
+   two_deviation = (average_items_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+   high_merchants = []
+   invoice_count_per_merchant.find_all do |id, count|
+     high_merchants << sales_engine.find_by_id(id) if count > two_deviation
+   end
+   high_merchants
+ end
+
+ def bottom_merchants_by_invoice_count
+   two_deviation = average_invoices_per_merchant - (average_items_per_merchant_standard_deviation * 2)
+   low_merchants = []
+   invoice_count_per_merchant.find_all do |id, count|
+     low_merchants << sales_engine.find_by_id(id) if count < two_deviation
+   end
+   low_merchants
+ end
+
+ def top_days_by_invoice_count
+   one_deviation = average_invoices_per_merchant + average_items_per_merchant_standard_deviation
+   top_days = []
+   invoice_count_per_merchant.find_all do |id, count|
+     top_days << sales_engine.find_by_id(id) if count > one_deviation
+   end
+   top_days
+ end
+ end
+
+ def invoice_status(status)
+   ((sales_engine.find_all_by_status(status).length / invoice_count) * 100).round(2)
+ end
 
 end

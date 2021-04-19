@@ -4,7 +4,7 @@ require 'invoice'
 
 class InvoiceRepo
   attr_reader :invoices
-  
+
   def initialize(path, engine)
     @invoices = []
     @engine = engine
@@ -70,4 +70,23 @@ class InvoiceRepo
   def delete(id)
     @invoices.delete(find_by_id(id))
   end
+
+  def invoice_count_per_merchant #Needs spec
+    merchant_invoices = {}
+    @invoices.each do |invoice|
+      merchant_invoices[invoice.merchant_id] = find_all_by_merchant_id(invoice.merchant_id).length
+    end
+      merchant_invoices
+  end
+
+  def invoice_count_per_day #Needs spec
+    merchant_invoices = {}
+    @invoices.each do |invoice|
+      merchant_invoices[invoice.merchant_id] = find_all_by_merchant_id(invoice.merchant_id)
+    end
+      merchant_invoices
+  end
+
+
+
 end
