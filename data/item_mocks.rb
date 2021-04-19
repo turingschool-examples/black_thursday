@@ -7,7 +7,7 @@ class ItemMocks
     mock_generator(eg, 'Item', item_hashes)
   end
 
-  def self.items_as_hashes(number_of_hashes: 10, merchant_id_range: (1..2),
+  def self.items_as_hashes(number_of_hashes: 10, merchant_id: (1..2),
                            random_dates: true, unit_price: get_a_random_price,
                            created_at: created_at_proc,
                            updated_at: updated_at_proc)
@@ -19,7 +19,7 @@ class ItemMocks
       item[:id] = item_number
       item[:unit_price] = unit_price
       item[:description] = 'Item Description'
-      item[:merchant_id] = rand(merchant_id_range)
+      item[:merchant_id] = (merchant_id.is_a? Range)? rand(merchant_id) : merchant_id
 
       date = get_a_random_date(random_dates)
       item[:created_at] = created_at.call(date).to_s

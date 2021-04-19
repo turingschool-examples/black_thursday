@@ -8,7 +8,7 @@ class TransactionMocks
   end
 
   def self.transactions_as_hashes(number_of_hashes: 10,
-                                  invoice_id_range: (1..10),
+                                  invoice_id: (1..10),
                                   credit_card_number: get_random_credit_card,
                                   credit_card_expiration_date: get_random_expiration,
                                   result: get_a_random_result,
@@ -20,7 +20,7 @@ class TransactionMocks
       transaction = {}
 
       transaction[:id] = transaction_number
-      transaction[:invoice_id] = rand(invoice_id_range)
+      transaction[:invoice_id] = (invoice_id.is_a? Range)? rand(invoice_id) : invoice_id
       transaction[:credit_card_number] = credit_card_number
       transaction[:credit_card_expiration_date] = credit_card_expiration_date
       transaction[:result] = result
