@@ -133,4 +133,8 @@ class SalesEngine
   def top_buyers(x)
     @invoices.top_buyers(x)
   end
+
+  def merchants_with_pending_invoices
+    @invoices.merchants_with_pending_invoices
+  end
 end

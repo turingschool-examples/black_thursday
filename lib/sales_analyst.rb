@@ -74,4 +74,8 @@ class SalesAnalyst
   def top_buyers(x = 20)
     @sales_engine.top_buyers
   end
+
+  def merchants_with_pending_invoices
+    @sales_engine.merchants_with_pending_invoices
+  end
 end

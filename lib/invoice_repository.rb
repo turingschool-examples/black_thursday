@@ -179,5 +179,13 @@ class InvoiceRepository
     end
     top_buyers
   end
+
+  def merchants_with_pending_invoices
+    @invoices.each_with_object([]) do |invoice, array|
+      if !@engine.invoice_paid_in_full?(invoice.id)
+        array << @engine.find_merchant_by_id(invoice.merchant_id)
+      end
+    end.uniq
+  end
 end
 
