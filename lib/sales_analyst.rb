@@ -60,7 +60,7 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     sum_of_averages = all_merchants.sum do |merchant|
-      average_item_price_for_merchant(merchant.id) unless num_of_items_per_merchant[merchant] == 0
+      average_item_price_for_merchant(merchant.id) unless num_of_items_per_merchant[merchant].zero?
     end
     average_average_price = sum_of_averages / all_merchants.length
     average_average_price.round(2)
@@ -68,15 +68,15 @@ class SalesAnalyst
 
   def golden_items
     mean = all_items.sum(&:unit_price) / all_items.length
-    item_prices = all_items.map {|item| item.unit_price}
+    item_prices = all_items.map { |item| item.unit_price }
     std_dev = standard_deviation(item_prices, mean)
     min_price = standard_deviations_of_mean(mean, std_dev, 2)
-    all_items.find_all {|item| item.unit_price > min_price }
+    all_items.find_all { |item| item.unit_price > min_price }
   end
 
   def standard_deviation(values, mean)
-    sums = values.sum {|value| (value - mean)**2 }
-    std_dev =  Math.sqrt(sums / (values.length - 1).to_f)
+    sums = values.sum { |value| (value - mean)**2 }
+    std_dev = Math.sqrt(sums / (values.length - 1).to_f)
     std_dev.round(2)
   end
 

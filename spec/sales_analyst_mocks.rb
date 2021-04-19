@@ -2,7 +2,6 @@ require './lib/item_repository'
 require './lib/sales_analyst'
 
 class SalesAnalystMocks
-
   def self.price_sums_for_each_merchant
     @@price_sums_for_each_merchant
   end
@@ -27,7 +26,7 @@ class SalesAnalystMocks
       sum_of_prices = Mockable.sum_item_prices_from_hash(item_hashes)
       sums_by_merchant[merchant.id] = sum_of_prices
     end
-    
+
     items_as_mocks = ItemMocks.items_as_mocks(eg, items_as_hashes)
 
     eg.allow_any_instance_of(ItemRepository).to eg.receive(:create_items).and_return(items_as_mocks)
