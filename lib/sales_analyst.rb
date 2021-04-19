@@ -174,4 +174,16 @@ class SalesAnalyst
       @merchants_repo.find_by_id(merchant_id)
     end
   end
+
+  def bottom_merchants_by_invoice_count
+    merchant_ids_with_low_invoice_count = []
+    merchants_num_invoices_hash.each do |merchant_id, num|
+      if z_score_invoices(num) <= -2.0
+        merchant_ids_with_low_invoice_count << merchant_id
+      end
+    end
+    merchant_ids_with_low_invoice_count.map do |merchant_id|
+      @merchants_repo.find_by_id(merchant_id)
+    end
+  end
 end
