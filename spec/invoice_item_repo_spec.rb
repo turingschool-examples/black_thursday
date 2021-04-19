@@ -34,5 +34,9 @@ RSpec.describe InvoiceItemRepo do
     it 'can find all invoice items by item id' do
       expect(invoice_item_repo.find_all_by_item_id(263519844).length).to eq(164)
     end
+
+    it 'can find all invoice items by invoice id' do
+      expect(invoice_item_repo.find_all_by_invoice_id(1).length).to eq(8)
+    end
   end
 end
