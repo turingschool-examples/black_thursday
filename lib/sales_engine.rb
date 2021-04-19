@@ -141,4 +141,20 @@ class SalesEngine
   def merchants_with_only_one_item
     @items.merchants_with_only_one_item
   end
+
+  def total_revenue_by_merchant_by_month(month)
+    @invoices.total_revenue_by_merchant_by_month(month)
+  end
+
+  def items_created_in_month(month)
+    @items.items_created_in_month(month)
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    @merchants.merchants_with_only_one_item_registered_in_month(month)
+  end
+
+  def revenue_by_merchant(merchant_id)
+    @invoices.revenue_by_merchant(merchant_id)
+  end
 end

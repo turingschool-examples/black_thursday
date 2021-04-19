@@ -148,6 +148,12 @@ class ItemRepository
       end
     end
   end
+
+  def items_created_in_month(month)
+    @items.each_with_object(Hash.new(0)) do |item, hash|
+      hash[item.merchant_id] += 1
+    end
+  end
 end
 
 

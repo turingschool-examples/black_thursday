@@ -82,4 +82,12 @@ class SalesAnalyst
   def merchants_with_only_one_item
     @sales_engine.merchants_with_only_one_item
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    @sales_engine.merchants_with_only_one_item_registered_in_month(month)
+  end
+
+  def revenue_by_merchant(merchant_id)
+    @sales_engine.revenue_by_merchant(merchant_id)
+  end
 end

@@ -153,6 +153,15 @@ class InvoiceRepository
     end.sort_by {|k, v| -v}.flatten
   end
 
+  def total_revenue_by_merchant_by_month(month)
+    invoice_total_hash = @engine.invoice_total_hash
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+      if invoice.created_at.month == month
+       hash[invoice.merchant_id] += invoice_total_hash[invoice.id]
+      end
+    end
+  end
+
   def top_revenue_earners(x) 
     array = total_revenue_by_merchant.select{|x| x % 1 == 0}
     top_merchants = []
@@ -186,6 +195,11 @@ class InvoiceRepository
         array << @engine.find_merchant_by_id(invoice.merchant_id)
       end
     end.uniq
+  end
+
+  def revenue_by_merchant(merchant_id)
+    index = total_revenue_by_merchant.index(merchant_id)
+    return_value = total_revenue_by_merchant[index + 1]
   end
 end
 
