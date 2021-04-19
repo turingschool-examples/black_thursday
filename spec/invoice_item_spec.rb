@@ -1,5 +1,7 @@
 require 'rspec'
 require './lib/invoice_item'
+require 'bigdecimal'
+require 'time'
 
 describe InvoiceItem do
   describe '#initialize' do
@@ -87,13 +89,13 @@ describe InvoiceItem do
         item_id: 7,
         invoice_id: 8,
         quantity: 1,
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now
       }
       invoice_item = InvoiceItem.new(ii_details)
 
-      expect(invoice_item.unit_price).to eq 10.99
+      expect(invoice_item.unit_price).to eq BigDecimal(10.99, 4)
       expect(invoice_item.unit_price).is_a? BigDecimal
     end
 
@@ -103,12 +105,13 @@ describe InvoiceItem do
         item_id: 7,
         invoice_id: 8,
         quantity: 1,
-        unit_price: BigDecimal(10.99, 4),
+        unit_price: '1099',
         created_at: Time.now,
         updated_at: Time.now
       }
       invoice_item = InvoiceItem.new(ii_details)
 
+      expect(invoice_item.created_at).to eq(Time.parse('2007-06-04 21:35:10 UTC'))
       expect(invoice_item.created_at).is_a? Time
     end
 
@@ -124,6 +127,7 @@ describe InvoiceItem do
       }
       invoice_item = InvoiceItem.new(ii_details)
 
+      expect(invoice_item.updated_at).to eq(Time.parse('2007-06-04 21:35:10 UTC'))
       expect(invoice_item.updated_at).is_a? Time
     end
   end
