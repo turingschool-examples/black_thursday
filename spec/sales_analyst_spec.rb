@@ -31,11 +31,11 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_items_per_merchant).to eq(2.88)
     end
 
-    it 'can return standard deviation of items per merchant' do
+    xit 'can return standard deviation of items per merchant' do
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
 
-    it "can return merchants with the most items" do
+    xit "can return merchants with the most items" do
       expected = sales_analyst.merchants_with_high_item_count
 
       expect(expected.length).to eq(52)
@@ -43,13 +43,13 @@ RSpec.describe SalesAnalyst do
       expect(expected.class).to eq(Array)
     end
 
-    it 'can find the average price of a merchants items' do
+    xit 'can find the average price of a merchants items' do
 
       expect(sales_analyst.average_item_price_for_merchant(12334105).class).to eq(BigDecimal)
       expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(0.1666e2)
     end
 
-    it 'can find the average of average price' do
+    xit 'can find the average of average price' do
       expect(sales_analyst.average_average_price_per_merchant.class).to eq(BigDecimal)
       expect(sales_analyst.average_average_price_per_merchant).to eq(0.35029e3)
     end
@@ -59,11 +59,11 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.golden_items.length).to eq(5)
     end
 
-    it 'can return average invoices per merchant' do
+    xit 'can return average invoices per merchant' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
 
-    it 'can return average invoice per merchant with standard deviation' do
+    xit 'can return average invoice per merchant with standard deviation' do
       expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
 
@@ -79,11 +79,11 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq(Merchant)
     end
 
-    it 'can return top days by invoice count' do
+    xit 'can return top days by invoice count' do
       expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
     end
 
-    it 'can return percentage of invoices matching a status' do
+    xit 'can return percentage of invoices matching a status' do
       expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
       expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
       expect(sales_analyst.invoice_status(:returned)).to eq(13.5)

@@ -38,17 +38,17 @@ class SalesAnalyst
     @all_invoices ||= @invoices_repo.all
   end
 
-  # def all_invoice_items
-  #   @all_invoice_items ||= @invoice_items_repo.all
-  # end
-  #
-  # def all_transactions
-  #   @all_transactions ||= @transactions_repo.all
-  # end
-  #
-  # def all_customers
-  #   @all_customers ||= @customers_repo.all
-  # end
+  def all_invoice_items
+    @all_invoice_items ||= @invoice_items_repo.all
+  end
+
+  def all_transactions
+    @all_transactions ||= @transactions_repo.all
+  end
+
+  def all_customers
+    @all_customers ||= @customers_repo.all
+  end
 
   def item_prices
    all_items.sum do |item|
@@ -227,5 +227,19 @@ class SalesAnalyst
     end.length
     rough = ((num_of_matching_invoices.to_f / all_invoices.length.to_f) * 100)
     result = rough.round(2)
+  end
+
+  def find_transaction(invoice_id)
+    all_transactions.find do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    if find_transaction(invoice_id).result == "success"
+      true
+    else
+      false
+    end
   end
 end
