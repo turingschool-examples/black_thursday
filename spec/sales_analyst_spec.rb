@@ -119,5 +119,15 @@ RSpec.describe do
       expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
       expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
     end
+
+    it 'returns top merchants by invoice count' do
+      expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(2)
+      expect(sales_analyst.top_merchants_by_invoice_count.first.class).to eq(Merchant)
+    end
+
+    it 'returns bottom merchants by invoice count' do
+      expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(1)
+      expect(sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq(Merchant)
+    end
   end
 end
