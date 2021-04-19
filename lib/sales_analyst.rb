@@ -150,4 +150,28 @@ class SalesAnalyst
     square_root = ((divided_sum)**0.5).to_f
     square_root.round(2)
   end
+
+  def z_score_invoices(value)
+    ((value - average_invoices_per_merchant) / average_invoices_per_merchant_standard_deviation).to_f
+  end
+
+  def merchants_num_invoices_hash
+    merchant_id_hash_keys = []
+    all_merchants.each do |merchant|
+      merchant_id_hash_keys << merchant.id
+    end
+    merchants_num_invoices_hash = Hash[merchant_id_hash_keys.zip(invoices_per_merchant)]
+  end
+
+  def top_merchants_by_invoice_count
+    merchant_ids_with_high_invoice_count = []
+    merchants_num_invoices_hash.each do |merchant_id, num|
+      if z_score_invoices(num) >= 2.0
+        merchant_ids_with_high_invoice_count << merchant_id
+      end
+    end
+    merchant_ids_with_high_invoice_count.map do |merchant_id|
+      @merchants_repo.find_by_id(merchant_id)
+    end
+  end
 end
