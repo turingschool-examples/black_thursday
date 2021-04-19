@@ -1,11 +1,15 @@
 class InvoiceItemRepository
   attr_reader :invoice_items
 
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
+  end
+
   def initialize(filename)
     @invoice_items = create_invoice_items(filename)
   end
 
-  def create_invoice_items
+  def create_invoice_items(filename)
     FileIo.process_csv(filename, InvoiceItem)
   end
 
@@ -52,12 +56,12 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
-    return nil if find_by_id(id).nil?
-
     invoice_item = find_by_id(id)
-    invoice_item.update_quantity(attributes[:quantity])
-    invoice_item.update_unit_price(attributes[:unit_price])
-    invoice_item.new_updated_at_time
+    unless invoice_item.nil?
+      invoice_item.update_quantity(attributes[:quantity])
+      invoice_item.update_unit_price(attributes[:unit_price])
+      invoice_item.new_updated_at_time
+    end
   end
 
   def delete(id)
