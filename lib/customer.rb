@@ -6,7 +6,7 @@ class Customer
                :updated_at
 
   def initialize(details)
-    @id = details[:id]
+    @id = details[:id].to_i
     @first_name = details[:first_name]
     @last_name = details[:last_name]
     @created_at = details[:created_at]
