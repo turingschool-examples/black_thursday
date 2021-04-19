@@ -1,11 +1,10 @@
-require 'bigdecimal'
 require 'CSV'
 require 'time'
-require 'item'
-require_relative './spec/transaction'
+require_relative 'transaction'
 
 class TransactionRepo
   attr_reader :transactions
+
   def initialize(path, engine)
     @transactions = []
     @engine = engine
@@ -13,8 +12,8 @@ class TransactionRepo
   end
 
   def populate_information(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |transaction_info|
-      @transactions << Transaction.new(transaction_info, @engine)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @transactions << Transaction.new(data)
     end
   end
 
@@ -26,15 +25,15 @@ class TransactionRepo
     @transactions << transaction
   end
 
-  def find_by_id(id) #clarify passing in id
+  def find_by_id(id)
     @transactions.find do |transaction|
       transaction.id == id
     end
   end
 
-  def find_by_id_invoice_id(invoice_id)
-    @transactions.find do |transaction|
-      transaction.invoice_id == invoice_id
+  def find_all_by_invoice_id(id)
+    @transactions.find_all do |transaction|
+      transaction.invoice_id == id
     end
   end
 
@@ -51,7 +50,7 @@ class TransactionRepo
   end
 
   def create(attributes)
-    transaction = Transaction.new(attributes, @engine)
+    transaction = Transaction.new(attributes)
     max = @transactions.max_by do |transaction|
       transaction.id
     end

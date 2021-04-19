@@ -4,6 +4,7 @@ require 'invoice'
 
 class InvoiceRepo
   attr_reader :invoices
+  
   def initialize(path, engine)
     @invoices = []
     @engine = engine
@@ -12,7 +13,7 @@ class InvoiceRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @invoices << Invoice.new(data, self)
+      @invoices << Invoice.new(data)
     end
   end
 
@@ -31,7 +32,7 @@ class InvoiceRepo
   end
 
   def create(attributes)
-    invoice = Invoice.new(attributes, self)
+    invoice = Invoice.new(attributes)
     max = @invoices.max_by do |invoice|
       invoice.id
     end
