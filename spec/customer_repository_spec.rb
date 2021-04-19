@@ -2,6 +2,7 @@ require 'csv'
 require 'rspec'
 
 require './data/customer_mocks'
+require './lib/customer'
 require './lib/customer_repository'
 require './lib/file_io'
 
