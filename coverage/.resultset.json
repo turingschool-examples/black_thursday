@@ -1,7 +1,8 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/dee/turing/1module/projects/black_thursday/spec/customer_repo_spec.rb": {
+
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/spec/invoice_item_repo_spec.rb": {
         "lines": [
           1,
           1,
@@ -10,14 +11,7 @@
           1,
           1,
           1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
+
           1,
           null,
           null,
@@ -33,12 +27,6 @@
           1,
           1,
           1,
-          null,
-          null,
-          1,
-          1,
-          0,
-          0,
           null,
           null,
           null
@@ -496,7 +484,36 @@
           null
         ]
       },
-      "/Users/dee/turing/1module/projects/black_thursday/lib/transaction_repo.rb": {
+
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/invoice_item.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          21830,
+          21830,
+          21830,
+          21830,
+          21830,
+          21830,
+          21830,
+          21830,
+          null,
+          null
+        ]
+      },
+      "/Users/jacqwhitmer/REPOS/turing/mod1/projects/black_thursday/lib/transaction_repo.rb": {
         "lines": [
           1,
           1,
@@ -603,6 +620,7 @@
         ]
       }
     },
-    "timestamp": 1618854960
+
+    "timestamp": 1618851713
   }
 }
