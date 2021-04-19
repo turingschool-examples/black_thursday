@@ -1,6 +1,10 @@
 class CustomerRepository
   attr_reader :customers
 
+  def inspect
+    "#<#{self.class} #{@customers.size} rows>"
+  end
+
   def initialize(filename)
     @customers = create_customers(filename)
   end
