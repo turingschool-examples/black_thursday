@@ -26,44 +26,25 @@ class InvoiceItemRepository
     @invoice_items
   end
 
-  def find_by_id(id)
-    @invoice_items.find do |invoice_item|
-      invoice_item.id == id
-    end
-  end
-
-  def find_all_by_item_id(item_id)
-    @invoice_items.find_all do |invoice_item|
-      invoice_item.item_id == item_id
-    end
-  end
-
-  def find_all_by_invoice_id(invoice_id)
-    @invoice_items.find_all do |invoice_item|
-      invoice_item.invoice_id == invoice_id
-    end
-  end
-
-  def generate_new_id
-    highest_id_invoice_item = @invoice_items.max_by do |invoice_item|
-      invoice_item.id
-    end
-    highest_id_invoice_item.id + 1
-  end
-
   def create(attributes)
-    attributes[:id] = generate_new_id
+    attributes[:id] = RepoBrain.generate_new_id(@invoice_items)
     @invoice_items << InvoiceItem.new(attributes, self)
-  end
-
-  def update(id, attributes)
-    return nil if find_by_id(id) == nil
-    invoice_item_to_update = find_by_id(id)
-    invoice_item_to_update.update(attributes)
   end
 
   def delete(id)
     invoice_items.delete(find_by_id(id))
+  end
+
+  def find_all_by_item_id(item_id)
+    RepoBrain.find_all_by_id(item_id, 'item_id', @invoice_items)
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    RepoBrain.find_all_by_id(invoice_id, 'invoice_id', @invoice_items)
+  end
+
+  def find_by_id(id)
+    RepoBrain.find_by_id(id, 'id', @invoice_items)
   end
 
   def invoice_total(invoice_id)
@@ -80,5 +61,11 @@ class InvoiceItemRepository
         hash[invoice_item.invoice_id] += invoice_item.quantity * invoice_item.unit_price
       end
     end
+  end
+
+  def update(id, attributes)
+    return nil if find_by_id(id) == nil
+    invoice_item_to_update = find_by_id(id)
+    invoice_item_to_update.update(attributes)
   end
 end
