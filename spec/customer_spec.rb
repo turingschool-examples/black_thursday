@@ -8,7 +8,7 @@ require './lib/sales_engine'
 RSpec.describe Customer do
 
   se = SalesEngine.from_csv({
-  :customers => "./data/invoices.csv",
+  :customers => "./data/customers.csv",
   })
   customer_repo = se.customers
 
@@ -21,6 +21,14 @@ RSpec.describe Customer do
   context 'attr_accessor' do
     it 'can return id' do
       expect(customer_repo.customer_list[0].id).to eq(1)
+    end
+
+    it 'can return customer first name' do
+      expect(customer_repo.customer_list[0].first_name).to eq("Joey")
+    end
+
+    it 'can return customer last name' do
+      expect(customer_repo.customer_list[0].last_name).to eq("Ondricka")
     end
   end
 end
