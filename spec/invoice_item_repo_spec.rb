@@ -22,5 +22,13 @@ RSpec.describe InvoiceItemRepo do
       expect(invoice_item_repo.invoice_item_list[0]).to be_instance_of(InvoiceItem)
       expect(invoice_item_repo.invoice_item_list.length).to eq(21830)
     end
+
+    it 'can return all invoice items' do
+      expect(invoice_item_repo.all.length).to eq(21830)
+    end
+
+    it 'can find invoice items by id' do
+      expect(invoice_item_repo.find_by_id(6)).to eq(invoice_item_repo.all[6])
+    end
   end
 end
