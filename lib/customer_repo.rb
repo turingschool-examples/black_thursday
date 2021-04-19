@@ -22,4 +22,10 @@ class CustomerRepo
   def all
     @customer_list
   end
-end 
+
+  def find_by_id(id)
+    @customer_list.find do |customer|
+      customer.id == id
+    end
+  end
+end
