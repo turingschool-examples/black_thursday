@@ -45,4 +45,12 @@ RSpec.describe InvoiceItem do
       expect(invoice_item_repo.invoice_item_list[0].updated_at).to eq(Time.parse("2012-03-27 14:54:09 UTC"))
     end
   end
+
+  context 'methods' do
+    it 'can convert unit price to dollars' do
+      first_invoice_item = invoice_item_repo.all[0]
+      expect(first_invoice_item.unit_price_to_dollars).to eq(136.35)
+      expect(first_invoice_item.unit_price_to_dollars.class).to eq(Float)
+    end
+  end
 end
