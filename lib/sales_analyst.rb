@@ -190,4 +190,6 @@ class SalesAnalyst
     end
     total
   end
+
+  
 end

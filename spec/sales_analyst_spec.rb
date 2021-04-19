@@ -7,7 +7,7 @@ require_relative '../lib/invoice'
 require 'bigdecimal/util'
 
 RSpec.describe do
-  
+
   describe 'initialize' do
     # require 'pry';binding.pry
     sales_engine = SalesEngine.from_csv({
@@ -153,6 +153,12 @@ RSpec.describe do
 
       expect(sales_analyst.invoice_total(1)).to eq(21067.77)
       expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
+    end
+
+    it '#merchants_with_pending_invoices returns those merchants' do
+
+      expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
+      expect(expected.merchants_with_pending_invoices.class).to eq(Merchant)
     end
   end
 end
