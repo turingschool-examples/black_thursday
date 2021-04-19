@@ -55,4 +55,15 @@ class TransactionRepo
     new_transaction.id = (find_max_id.id + 1)
     transaction_list << new_transaction
   end
+
+  def update(id, attributes)
+    transaction = find_by_id(id)
+    if !transaction.nil?
+      transaction.credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+      transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
+      transaction.result = attributes[:result] unless attributes[:result].nil?
+      transaction.updated_at = Time.now
+    end
+    transaction
+  end
 end
