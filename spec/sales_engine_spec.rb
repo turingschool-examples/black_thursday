@@ -14,7 +14,7 @@ RSpec.describe SalesEngine do
       customers: './spec/truncated_data/customers_truncated.csv',
       invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
       transactions: './spec/truncated_data/transactions_truncated.csv'
-                            })               
+                            })
   end
 
   describe '#initialize' do
@@ -29,7 +29,7 @@ RSpec.describe SalesEngine do
     it 'creates an InvoiceRepository' do
       expect(@se.invoices).to be_instance_of(InvoiceRepository)
     end
-    
+
     it 'creates an TransactionRepository' do
       expect(@se.transactions).to be_instance_of(TransactionRepository)
     end
@@ -115,16 +115,9 @@ RSpec.describe SalesEngine do
   describe '#invoice_percentage_by_status' do
     it 'shows percent of invoices by status' do
 
-      expect(@se.invoice_percentage_by_status(:pending)).to eq(50.0)
-      expect(@se.invoice_percentage_by_status(:shipped)).to eq(33.33)
-      expect(@se.invoice_percentage_by_status(:returned)).to eq(16.67)
-    end
-  end
-
-  describe '#invoice_status' do
-    it 'shows status of an invoice' do
-
-      expect(@se.invoice_status(1)).to eq(:pending)
+      expect(@se.invoice_status(:pending)).to eq(50.0)
+      expect(@se.invoice_status(:shipped)).to eq(33.33)
+      expect(@se.invoice_status(:returned)).to eq(16.67)
     end
   end
 
@@ -148,7 +141,7 @@ RSpec.describe SalesEngine do
       expect(@se.items_created_in_month("March").count).to eq(4)
     end
   end
- 
+
   describe '#merchants_with_only_one_item' do
     it 'returns merchants with only one item' do
 

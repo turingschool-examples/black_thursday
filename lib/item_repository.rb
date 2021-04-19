@@ -28,15 +28,11 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find do |item|
-      item.id == id
-    end
+    RepoBrain.find_by_id(id, 'id', @items)
   end
 
   def find_by_name(name)
-    @items.find do |item|
-      item.name.downcase == name.downcase
-    end
+    RepoBrain.find_by_full_string(name, 'name', @items)
   end
 
   def find_all_with_description(description)
@@ -63,15 +59,15 @@ class ItemRepository
     end
   end
 
-  def generate_new_id
-    highest_id_item = @items.max_by do |item|
-      item.id
-    end
-    new_id = highest_id_item.id + 1
-  end
+  # def generate_new_id
+  #   highest_id_item = @items.max_by do |item|
+  #     item.id
+  #   end
+  #   new_id = highest_id_item.id + 1
+  # end
 
   def create(attributes)
-    attributes[:id] = generate_new_id
+    attributes[:id] = RepoBrain.generate_new_id(@items)
     @items << Item.new(attributes, self)
   end
 
@@ -87,9 +83,7 @@ class ItemRepository
   end
 
   def items_per_merchant
-    @items.each_with_object(Hash.new(0)) do |item, hash|
-      hash[item.merchant_id] += 1
-    end
+    RepoBrain.key_by_added_value_hash(@items, 'merchant_id', 1)
   end
 
   def average_items_per_merchant

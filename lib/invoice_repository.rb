@@ -100,12 +100,6 @@ class InvoiceRepository
         array << invoice.id
       end
     end
-
-    # array of successful invoices, for the merchant_id
-    # iterate over successful invoice array
-    # make hash of item id's & total quantity
-    # hash key with highest value is item
-    # get item object from sales engine
   end
 
   def percentage_by_status(status)

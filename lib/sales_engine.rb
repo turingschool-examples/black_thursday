@@ -102,16 +102,16 @@ class SalesEngine
     @invoice_items.invoice_total(invoice_id)
   end
 
+  def items_created_in_month(month)
+    @items.items_created_in_month(month)
+  end
+
   def merchants_with_high_item_count
     @items.merchants_with_high_item_count
   end
 
   def merchant_successful_invoice_array(merchant_id)
     @invoices.merchant_successful_invoice_array(merchant_id)
-  end
-
-  def items_created_in_month(month)
-    @items.items_created_in_month(month)
   end
 
   def merchants_with_only_one_item
