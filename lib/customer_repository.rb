@@ -44,12 +44,4 @@ class CustomerRepository < Repository
     @csv_array << new
     new
   end
-
-  def update(id, attribute)
-    new = find_by_id(id)
-    if !new.nil?
-      new.first_name = attribute[:first_name] unless attribute[:first_name].nil?
-      new.last_name = attribute[:last_name] unless attribute[:last_name].nil?
-      new.updated_at = Time.now
-  end
 end

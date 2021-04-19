@@ -16,4 +16,9 @@ class Merchant
     @updated_at = merchant_info[:updated_at]
     @repository = merchant_info[:repository]
   end
+
+  def update(attributes)
+    @name = attributes[:name] unless attributes[:name].nil?
+    @updated_at = Time.now
+  end
 end

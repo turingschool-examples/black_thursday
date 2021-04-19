@@ -142,6 +142,16 @@ class SalesAnalyst
     end
   end
 
+  def invoices_per_day
+    days = [0, 1, 2, 3, 4, 5, 6]
+
+    days.map do |day|
+      @engine.invoices.all.count do |invoice|
+        invoice.created_at.wday == day
+      end
+    end
+  end
+
   def top_days_by_invoice_count
     days_of_week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     invoice_per_day = invoices_per_day

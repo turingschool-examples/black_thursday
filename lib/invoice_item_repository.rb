@@ -52,15 +52,6 @@ class InvoiceItemRepository < Repository
     InvoiceItem.new(attributes)
   end
 
-  def update(id, attributes)
-    update_instance = find_by_id(id)
-    unless update_instance.nil?
-      update_instance.quantity = attributes[:quantity] unless attributes[:quantity].nil?
-      update_instance.cent_price = BigDecimal(attributes[:unit_price] * 100, 10) unless attributes[:unit_price].nil?
-      update_instance.updated_at = Time.now
-    end
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
     # should this be @merchants or @invoices

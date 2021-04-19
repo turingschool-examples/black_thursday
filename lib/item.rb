@@ -28,4 +28,11 @@ class Item
   def unit_price_to_dollars
     unit_price.to_f.round(2)
   end
+
+  def update(attributes)
+    @name = attributes[:name] unless attributes[:name].nil?
+    @description = attributes[:description] unless attributes[:description].nil?
+    @cent_price = BigDecimal(attributes[:unit_price] * 100, 10) unless attributes[:unit_price].nil?
+    @updated_at = Time.now
+  end
 end
