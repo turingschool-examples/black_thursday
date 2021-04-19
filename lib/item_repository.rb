@@ -14,7 +14,7 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def make_items(path)
@@ -28,15 +28,11 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find do |item|
-      item.id == id
-    end
+    RepoBrain.find_by_id(id, 'id', @items)
   end
 
   def find_by_name(name)
-    @items.find do |item|
-      item.name.downcase == name.downcase
-    end
+    RepoBrain.find_by_full_string(name, 'name', @items)
   end
 
   def find_all_with_description(description)
@@ -63,15 +59,15 @@ class ItemRepository
     end
   end
 
-  def generate_new_id
-    highest_id_item = @items.max_by do |item|
-      item.id
-    end
-    new_id = highest_id_item.id + 1
-  end
+  # def generate_new_id
+  #   highest_id_item = @items.max_by do |item|
+  #     item.id
+  #   end
+  #   new_id = highest_id_item.id + 1
+  # end
 
   def create(attributes)
-    attributes[:id] = generate_new_id
+    attributes[:id] = RepoBrain.generate_new_id(@items)
     @items << Item.new(attributes, self)
   end
 
@@ -87,9 +83,7 @@ class ItemRepository
   end
 
   def items_per_merchant
-    @items.each_with_object(Hash.new(0)) do |item, hash|
-      hash[item.merchant_id] += 1
-    end
+    RepoBrain.key_by_added_value_hash(@items, 'merchant_id', 1)
   end
 
   def average_items_per_merchant
@@ -138,6 +132,20 @@ class ItemRepository
       if item.unit_price > std_dev_times2
         array << item
       end
+    end
+  end
+
+  def merchants_with_only_one_item
+    items_per_merchant.each_with_object([]) do |(merchant_id, num_items), array|
+      if num_items == 1
+        array << @engine.find_merchant_by_id(merchant_id)
+      end
+    end
+  end
+
+  def items_created_in_month(month)
+    @items.each_with_object(Hash.new(0)) do |item, hash|
+      hash[item.merchant_id] += 1
     end
   end
 end

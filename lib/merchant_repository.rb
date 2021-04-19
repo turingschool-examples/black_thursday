@@ -69,4 +69,24 @@ class MerchantRepository
   def all_items
     @engine.all_items
   end
+
+  def merchants_created_in_month(month)
+    @merchants.each_with_object([]) do |merchant, array|
+      if merchant.created_at.strftime("%B") == month
+        array << merchant
+      end
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    items_hash = @engine.items_created_in_month(month)
+
+    array = @merchants.each_with_object([]) do |merchant, array|
+      if merchants_created_in_month(month).include?(merchant)
+        if  items_hash[merchant.id]!= nil && items_hash[merchant.id] == 1
+          array << merchant
+        end
+      end
+    end
+  end
 end

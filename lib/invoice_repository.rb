@@ -1,6 +1,7 @@
 require_relative 'sales_engine'
 require_relative 'invoice'
 require_relative 'mathable'
+require_relative 'repo_brain'
 
 class InvoiceRepository
   include Mathable
@@ -26,58 +27,43 @@ class InvoiceRepository
     @invoices
   end
 
-  def find_by_id(id)
-    @invoices.find do |invoice|
-      invoice.id == id
-    end
+  def average_invoices_per_merchant
+    average(invoices_per_merchant).round(2)
   end
 
-  def find_all_by_customer_id(customer_id)
-    @invoices.find_all do |invoice|
-      invoice.customer_id == customer_id
+  def bottom_merchants_by_invoice_count
+    hash = invoices_per_merchant
+    bottom_standard = average(hash) - (standard_deviation(hash) * 2)
+    hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
+      if number_of_invoices < bottom_standard
+        array << @engine.find_merchant_by_id(merchant_id)
+      end
     end
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @invoices.find_all do |invoice|
-      invoice.merchant_id == merchant_id
-    end
-  end
-
-  def find_all_by_status(status)
-    i = @invoices.find_all do |invoice|
-      invoice.status == status.to_sym
-    end
-  end
-
-  def generate_new_id
-    highest_id_invoice = @invoices.max_by do |invoice|
-      invoice.id
-    end
-    new_id = highest_id_invoice.id + 1
   end
 
   def create(attributes)
-    attributes[:id] = generate_new_id
+    attributes[:id] = RepoBrain.generate_new_id(@invoices)
     @invoices << Invoice.new(attributes, self)
-  end
-
-  def update(id, attributes)
-    if find_by_id(id) != nil && attributes[:status] != nil
-      invoice_to_update = find_by_id(id)
-      invoice_to_update.status = attributes[:status].to_sym
-      invoice_to_update.update_time_stamp
-    end
   end
 
   def delete(id)
     invoices.delete(find_by_id(id))
   end
 
-  def percentage_by_status(status)
-    invoices_found = find_all_by_status(status).count.to_f
-    total_invoices = all.count
-    (invoices_found / total_invoices * 100).round(2)
+  def find_all_by_customer_id(customer_id)
+    RepoBrain.find_all_by_id(customer_id, 'customer_id', @invoices)
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @invoices)
+  end
+
+  def find_all_by_status(status)
+    RepoBrain.find_all_by_symbol(status, 'status', @invoices)
+  end
+
+  def find_by_id(id)
+    RepoBrain.find_by_id(id, 'id', @invoices)
   end
 
   def invoices_by_days
@@ -94,27 +80,52 @@ class InvoiceRepository
     hash
   end
 
-  def top_sales_days
-    hash = invoices_by_days
-    hash.each_with_object([]) do |(day, number_of_invoices), array|
-      if number_of_invoices > (average(hash) + standard_deviation(hash))
-        array << day
-      end
-    end
-  end
-
   def invoices_per_merchant
     @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
       hash[invoice.merchant_id] += 1
     end
   end
 
-  def average_invoices_per_merchant
-    average(invoices_per_merchant).round(2)
+  def merchants_with_pending_invoices
+    @invoices.each_with_object([]) do |invoice, array|
+      if !@engine.invoice_paid_in_full?(invoice.id)
+        array << @engine.find_merchant_by_id(invoice.merchant_id)
+      end
+    end.uniq
+  end
+
+  def merchant_successful_invoice_array(merchant_id)
+    @invoices.each_with_object([]) do |invoice, array|
+      if invoice.merchant_id == merchant_id && @engine.invoice_paid_in_full?(invoice.id)
+        array << invoice.id
+      end
+    end
+  end
+
+  def percentage_by_status(status)
+    invoices_found = find_all_by_status(status).count.to_f
+    total_invoices = all.count
+    (invoices_found / total_invoices * 100).round(2)
+  end
+
+  def revenue_by_merchant(merchant_id)
+    return nil if total_revenue_by_merchant.index(merchant_id).nil?
+    index = total_revenue_by_merchant.index(merchant_id)
+    return_value = total_revenue_by_merchant[index + 1]
   end
 
   def stdev_invoices_per_merchant
     standard_deviation(invoices_per_merchant).round(2)
+  end
+
+  def top_buyers(x)
+    array = total_spent_by_customer.select{|x| x % 1 == 0}
+    top_buyers = []
+    x.times do
+      top_buyers << @engine.find_customer_by_id(array.first)
+      array.shift
+    end
+    top_buyers
   end
 
   def top_merchants_by_invoice_count
@@ -127,16 +138,24 @@ class InvoiceRepository
     end
   end
 
-  def bottom_merchants_by_invoice_count
-    hash = invoices_per_merchant
-    bottom_standard = average(hash) - (standard_deviation(hash) * 2)
-    hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
-      if number_of_invoices < bottom_standard
-        array << @engine.find_merchant_by_id(merchant_id)
+  def top_revenue_earners(x)
+    array = total_revenue_by_merchant.select{|x| x % 1 == 0}
+    top_merchants = []
+    x.times do
+        top_merchants << @engine.find_merchant_by_id(array.first)
+        array.shift
+    end
+    top_merchants
+  end
+
+  def top_sales_days
+    hash = invoices_by_days
+    hash.each_with_object([]) do |(day, number_of_invoices), array|
+      if number_of_invoices > (average(hash) + standard_deviation(hash))
+        array << day
       end
     end
   end
-
 
   def total_revenue_by_date(date)
     @invoices.each_with_object([]) do |invoice, array|
@@ -146,43 +165,34 @@ class InvoiceRepository
     end.sum
   end
 
-  def top_revenue_earners(x = 20)
-    hash = @invoices.each_with_object({}) do |invoice, hash|
-      hash[invoice.merchant_id] = invoice.id
-    end
-    merchant_invoice_hash = hash.each do |merchant_id, invoice_id|
-      hash[merchant_id] = @engine.invoice_total(invoice_id)
-    end
-    sorted_merchants = merchant_invoice_hash.sort_by {|k, v| -v}.flatten
-    keys = sorted_merchants.select{|x| x % 1 == 0}
-    top_merchants = []
-    keys.each do |key|
-      if top_merchants.count == x
-        break
-      elsif
-        top_merchants << @engine.find_merchant_by_id(key)
+  def total_revenue_by_merchant
+    invoice_total_hash = @engine.invoice_total_hash
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+      hash[invoice.merchant_id] += invoice_total_hash[invoice.id]
+    end.sort_by {|k, v| -v}.flatten
+  end
+
+  def total_revenue_by_merchant_by_month(month)
+    invoice_total_hash = @engine.invoice_total_hash
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+      if invoice.created_at.month == month
+       hash[invoice.merchant_id] += invoice_total_hash[invoice.id]
       end
     end
-    top_merchants
   end
-end
 
   def total_spent_by_customer
     invoice_total_hash = @engine.invoice_total_hash
-    array = @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
       hash[invoice.customer_id] += invoice_total_hash[invoice.id]
-    end.to_a 
-    array.sort_by { |sub_array| sub_array[1] }
-  end 
+    end.sort_by {|k, v| -v}.flatten
+  end
 
-  def top_buyers(num_buyers = 20)
-    array = total_spent_by_customer
-    top_buyers = []
-    num_buyers.times do      
-      top_buyers << @engine.find_customer_by_id(array.last[0])
-      array.pop
+  def update(id, attributes)
+    if find_by_id(id) != nil && attributes[:status] != nil
+      invoice_to_update = find_by_id(id)
+      invoice_to_update.status = attributes[:status].to_sym
+      invoice_to_update.update_time_stamp
     end
-    top_buyers
   end
 end
-

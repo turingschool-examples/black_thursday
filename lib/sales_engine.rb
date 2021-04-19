@@ -46,44 +46,16 @@ class SalesEngine
                     invoice_item_csv_location)
   end
 
-  def all_items
-    @items.all
-  end
-
-  def invoice_percentage_by_status(status)
-    @invoices.percentage_by_status(status)
-  end
-
-  def find_merchant_by_id(merchant_id)
-    @merchants.find_by_id(merchant_id)
-  end
-
-  def find_customer_by_id(customer_id)
-    @customers.find_by_id(customer_id)
-  end
-
-  def find_item_by_id(item_id)
-    @items.find_by_id(item_id)
+  def average_average_price_per_merchant
+    @items.average_average_price_per_merchant
   end
 
   def average_invoices_per_merchant
     @invoices.average_invoices_per_merchant
   end
 
-  def stdev_invoices_per_merchant
-    @invoices.stdev_invoices_per_merchant
-  end
-
-  def top_merchants_by_invoice_count
-    @invoices.top_merchants_by_invoice_count
-  end
-
-  def bottom_merchants_by_invoice_count
-    @invoices.bottom_merchants_by_invoice_count
-  end
-
-  def top_days_by_invoice_count
-    @invoices.top_sales_days
+  def average_item_price_for_merchant(merchant_id)
+    @items.average_item_price_for_merchant(merchant_id)
   end
 
   def average_items_per_merchant
@@ -94,16 +66,20 @@ class SalesEngine
     @items.average_items_per_merchant_standard_deviation
   end
 
-  def merchants_with_high_item_count
-    @items.merchants_with_high_item_count
+  def bottom_merchants_by_invoice_count
+    @invoices.bottom_merchants_by_invoice_count
   end
 
-  def average_item_price_for_merchant(merchant_id)
-    @items.average_item_price_for_merchant(merchant_id)
+  def find_customer_by_id(customer_id)
+    @customers.find_by_id(customer_id)
   end
 
-  def average_average_price_per_merchant
-    @items.average_average_price_per_merchant
+  def find_item_by_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
+  def find_merchant_by_id(merchant_id)
+    @merchants.find_by_id(merchant_id)
   end
 
   def golden_items
@@ -114,15 +90,71 @@ class SalesEngine
     @transactions.invoice_paid_in_full?(invoice_id)
   end
 
+  def invoice_status(status)
+    @invoices.percentage_by_status(status)
+  end
+
+  def invoice_total_hash
+    @invoice_items.invoice_total_hash
+  end
+
   def invoice_total(invoice_id)
     @invoice_items.invoice_total(invoice_id)
+  end
+
+  def items_created_in_month(month)
+    @items.items_created_in_month(month)
+  end
+
+  def merchants_with_high_item_count
+    @items.merchants_with_high_item_count
+  end
+
+  def merchant_successful_invoice_array(merchant_id)
+    @invoices.merchant_successful_invoice_array(merchant_id)
+  end
+
+  def merchants_with_only_one_item
+    @items.merchants_with_only_one_item
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    @merchants.merchants_with_only_one_item_registered_in_month(month)
+  end
+
+  def merchants_with_pending_invoices
+    @invoices.merchants_with_pending_invoices
+  end
+
+  def revenue_by_merchant(merchant_id)
+    @invoices.revenue_by_merchant(merchant_id)
+  end
+
+  def stdev_invoices_per_merchant
+    @invoices.stdev_invoices_per_merchant
+  end
+
+  def top_buyers(x)
+    @invoices.top_buyers(x)
+  end
+
+  def top_days_by_invoice_count
+    @invoices.top_sales_days
+  end
+
+  def top_merchants_by_invoice_count
+    @invoices.top_merchants_by_invoice_count
   end
 
   def total_revenue_by_date(date)
     @invoices.total_revenue_by_date(date)
   end
-  
-  def invoice_total_hash
-    @invoice_items.invoice_total_hash
+
+  def total_revenue_by_merchant_by_month(month)
+    @invoices.total_revenue_by_merchant_by_month(month)
+  end
+
+  def top_revenue_earners(x)
+    @invoices.top_revenue_earners(x)
   end
 end

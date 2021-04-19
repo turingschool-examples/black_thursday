@@ -148,13 +148,7 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_merchant_id(4)).to eq([])
     end
   end
-  describe '#generate_new_id' do
-    it 'create a new item id' do
-      mock_sales_engine = instance_double('SalesEngine')
-      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
-      expect(ir.generate_new_id).to eq(263567475)
-    end
-  end
+
   describe '#create' do
     it 'create a new item instance' do
       mock_sales_engine = instance_double('SalesEngine')
