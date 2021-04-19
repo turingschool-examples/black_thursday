@@ -351,7 +351,7 @@ RSpec.describe InvoiceRepository do
       expect(ir.top_sales_days).to eq(['Wednesday'])
     end
   end
-  
+
   describe '#total_revenue_by_date' do
     it 'returns the total revenue for date given' do
       se = SalesEngine.from_csv({
@@ -371,7 +371,7 @@ RSpec.describe InvoiceRepository do
   end
 
     describe '#total_revenue_by_merchant' do
-    it 'creates an array of unique merchant ids and their total revenue' do
+    it 'creates an array of unique merchant id\'s and their total revenue' do
       sales_engine = SalesEngine.from_csv({
         items: './data/items.csv',
         merchants: './data/merchants.csv',
@@ -388,7 +388,7 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#total_revenue_by_merchant_by_month' do
-    it 'creates a hash of merchant ids and total revenue by month' do
+    it 'creates a hash of merchant id\'s and total revenue by month' do
       sales_engine = SalesEngine.from_csv({
         items: './data/items.csv',
         merchants: './data/merchants.csv',
@@ -405,7 +405,7 @@ RSpec.describe InvoiceRepository do
   end
 
     describe '#total_spent_by_customer' do
-    it 'creates an array of unique customer ids and their total spends' do
+    it 'creates an array of unique customer id\'s and their total spends' do
       sales_engine = SalesEngine.from_csv({
         items: './data/items.csv',
         merchants: './data/merchants.csv',
