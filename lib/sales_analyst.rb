@@ -218,4 +218,13 @@ class SalesAnalyst
     end
     top_days
   end
+
+  def invoice_status(status)
+    s_status = status.to_s
+    num_of_matching_invoices = all_invoices.find_all do |invoice|
+      invoice.status == s_status
+    end.length
+    rough = ((num_of_matching_invoices.to_f / all_invoices.length.to_f) * 100)
+    result = rough.round(2)
+  end 
 end
