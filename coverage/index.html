@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-19T14:09:24-06:00">2021-04-19T14:09:24-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-19T14:16:10-06:00">2021-04-19T14:16:10-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  56.0%
+  56.71%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         245.97
+         274.13
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>325</b> relevant lines,
-    <span class="green"><b>182</b> lines covered</span> and
-    <span class="red"><b>143</b> lines missed. </span>
+    <b>328</b> relevant lines,
+    <span class="green"><b>186</b> lines covered</span> and
+    <span class="red"><b>142</b> lines missed. </span>
     (<span class="red">
-  56.0%
+  56.71%
 </span>
 )
   </div>
@@ -205,22 +205,22 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#c3e245482241a6db768024405a75f97197bc1eb3" class="src_link" title="lib/transaction_repo.rb">lib/transaction_repo.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">43</td>
-            <td class="cell--number">24</td>
-            <td class="cell--number">24</td>
+            <td class="cell--number">49</td>
+            <td class="cell--number">27</td>
+            <td class="cell--number">27</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1662.88</td>
+            <td class="cell--number">1847.48</td>
             
           </tr>
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#55a58251576b4d2ba93b23c2613d238bf6ddf5fb" class="src_link" title="spec/transaction_repo_spec.rb">spec/transaction_repo_spec.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">96.77 %</td>
+            <td class="green strong cell--number t-file__coverage">100.00 %</td>
             <td class="cell--number">46</td>
             <td class="cell--number">31</td>
-            <td class="cell--number">30</td>
-            <td class="cell--number">1</td>
-            <td class="cell--number">0.97</td>
+            <td class="cell--number">31</td>
+            <td class="cell--number">0</td>
+            <td class="cell--number">1.00</td>
             
           </tr>
         
@@ -5918,8 +5918,8 @@
     
 
     <div class="t-line-summary">
-      <b>24</b> relevant lines.
-      <span class="green"><b>24</b> lines covered</span> and
+      <b>27</b> relevant lines.
+      <span class="green"><b>27</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -6399,6 +6399,72 @@
 
             
 
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="44">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def find_all_by_result(status)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="45">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @transaction_list.find_all do |transaction|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="9970" data-linenumber="46">
+            <span class="hits">9970</span>
+            
+
+            
+
+            <code class="ruby">      transaction.result == status</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="47">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="48">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="49">
+            
+            
+
+            
+
             <code class="ruby">end</code>
           </li>
         </div>
@@ -6413,7 +6479,7 @@
     <h3>spec/transaction_repo_spec.rb</h3>
     <h4>
       <span class="green">
-  96.77%
+  100.0%
 </span>
 
       lines covered
@@ -6423,8 +6489,8 @@
 
     <div class="t-line-summary">
       <b>31</b> relevant lines.
-      <span class="green"><b>30</b> lines covered</span> and
-      <span class="red"><b>1</b> lines missed.</span>
+      <span class="green"><b>31</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
 
     
@@ -6892,18 +6958,18 @@
 
             
 
-            <code class="ruby">      expect(transaction_repo.find_all_by_result(&quot;pending&quot;).class).to eq(Array)</code>
+            <code class="ruby">      expect(transaction_repo.find_all_by_result(&quot;success&quot;).class).to eq(Array)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="43">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="43">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">      expect(transaction_repo.find_all_by_reslut(&quot;pending&quot;).length).to eq(2)</code>
+            
+
+            <code class="ruby">      expect(transaction_repo.find_all_by_result(&quot;failed&quot;).length).to eq(827)</code>
           </li>
         </div>
       

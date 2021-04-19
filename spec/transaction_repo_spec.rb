@@ -39,8 +39,8 @@ RSpec.describe TransactionRepo do
     end
 
     it "can find all by result" do
-      expect(transaction_repo.find_all_by_result("pending").class).to eq(Array)
-      expect(transaction_repo.find_all_by_reslut("pending").length).to eq(2)
+      expect(transaction_repo.find_all_by_result("success").class).to eq(Array)
+      expect(transaction_repo.find_all_by_result("failed").length).to eq(827)
     end
   end
 end

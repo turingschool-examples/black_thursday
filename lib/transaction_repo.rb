@@ -40,4 +40,10 @@ class TransactionRepo
       transaction.credit_card_number == number
     end
   end
+
+  def find_all_by_result(status)
+    @transaction_list.find_all do |transaction|
+      transaction.result == status
+    end
+  end
 end
