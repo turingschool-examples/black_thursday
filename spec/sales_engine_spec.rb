@@ -20,9 +20,7 @@ require './lib/transaction'
 
 require './spec/sales_engine_mocks'
 
-
 describe SalesEngine do
-
   describe '#from_csv' do
     it 'creates a new instance of SalesEngine' do
       sales_engine = SalesEngineMocks.sales_engine(self)

@@ -3,7 +3,6 @@ require './data/item_mocks'
 require './data/mockable'
 
 describe Mockable do
-
   describe '#generator' do
     it 'creates an array with specified length' do
       gen = Mockable.generator(10)

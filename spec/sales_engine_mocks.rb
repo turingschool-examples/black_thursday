@@ -1,4 +1,3 @@
-
 require './data/invoice_mocks'
 require './data/invoice_item_mocks'
 require './data/item_mocks'
@@ -13,7 +12,6 @@ require './lib/sales_engine'
 require './lib/transaction_repository'
 
 class SalesEngineMocks
-
   def self.sales_engine(eg)
     mock_items = ItemMocks.items_as_mocks(eg)
     eg.allow_any_instance_of(ItemRepository).to eg.receive(:create_items).and_return(mock_items)

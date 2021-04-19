@@ -3,7 +3,6 @@ require './lib/transaction'
 require './lib/transaction_repository'
 
 describe TransactionRepository do
-
   describe '#initialize' do
     it 'exists' do
       mock_data = TransactionMocks.transactions_as_mocks(self)
@@ -63,7 +62,8 @@ describe TransactionRepository do
 
     it 'returns all Transactions with invoice_id specified' do
       mock_hashes = TransactionMocks.transactions_as_hashes(number_of_hashes: 4, invoice_id: 8)
-      mock_hashes += TransactionMocks.transactions_as_hashes(number_of_hashes: 10, invoice_id: (9..27))
+      mock_hashes += TransactionMocks.transactions_as_hashes(number_of_hashes: 10,
+                                                             invoice_id: (9..27))
       mock_data = TransactionMocks.transactions_as_mocks(self, mock_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
@@ -82,7 +82,8 @@ describe TransactionRepository do
     end
 
     it 'returns all Transactions with specified cc number' do
-      mock_hashes = TransactionMocks.transactions_as_hashes(number_of_hashes: 4, credit_card_number: '1212121212121212')
+      mock_hashes = TransactionMocks.transactions_as_hashes(number_of_hashes: 4,
+                                                            credit_card_number: '1212121212121212')
       mock_hashes += TransactionMocks.transactions_as_hashes
       mock_data = TransactionMocks.transactions_as_mocks(self, mock_hashes)
 
@@ -106,7 +107,8 @@ describe TransactionRepository do
 
     it 'returns all Transactions with matching a success status' do
       mock_hashes = TransactionMocks.transactions_as_hashes(number_of_hashes: 4, result: 'failed')
-      mock_hashes += TransactionMocks.transactions_as_hashes(number_of_hashes: 10, result: 'success')
+      mock_hashes += TransactionMocks.transactions_as_hashes(number_of_hashes: 10,
+                                                             result: 'success')
       mock_data = TransactionMocks.transactions_as_mocks(self, mock_hashes)
 
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
