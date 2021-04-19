@@ -19,16 +19,63 @@ RSpec.describe TransactionRepo do
       expect(transaction_repo.all.class).to eq(Array)
       expect(transaction_repo.all.length).to eq(4985)
     end
+
     it "can find invoice by id" do
-      expect(invoice_repository.find_all_by_invoice_id(1)).to be_instance_of(Transaction)
-      expect(invoice_repository.find_all_by_invoice_id(10000)).to eq(nil)
-      expect(invoice_repository.find_all_by_invoice_id(1)).to eq(transaction_repo.transaction_list[0])
+      expect(transaction_repo.find_by_id(1)).to be_instance_of(Transaction)
+      expect(transaction_repo.find_by_id(10000)).to eq(nil)
+      expect(transaction_repo.find_by_id(1)).to eq(transaction_repo.transaction_list[0])
     end
-    it 'can find all by credit_card_number' do
-      expect(invoice_repository.find_all_by_credit_card_number(1).class).to eq(Array)
-      expect(invoice_repository.find_all_by_credit_card_number(4068631943231473).length).to eq(1)
-      expect(invoice_repository.find_all_by_credit_card_number(1).first).to eq(transaction_repo.transaction_list[0])
-      expect(invoice_repository.find_all_by_credit_card_number(9999999)).to eq([])
+
+    it "can find invoice by id" do
+      expect(transaction_repo.find_all_by_invoice_id(10000)).to eq([])
+      expect(transaction_repo.find_all_by_invoice_id(2179).length).to eq(2)
+    end
+
+    it "can find all by credit_card_number" do
+      expect(transaction_repo.find_all_by_credit_card_number(4068631943231473).class).to eq(Array)
+      expect(transaction_repo.find_all_by_credit_card_number(4068631943231473).length).to eq(1)
+      expect(transaction_repo.find_all_by_credit_card_number(4068631943231473).first).to eq(transaction_repo.transaction_list[0])
+      expect(transaction_repo.find_all_by_credit_card_number(9999999)).to eq([])
+    end
+
+    it "can find all by result" do
+      expect(transaction_repo.find_all_by_result("success").class).to eq(Array)
+      expect(transaction_repo.find_all_by_result("failed").length).to eq(827)
+    end
+
+    it "can create a transaction" do
+      attributes = {
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "failed",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+
+      transaction_repo.create(attributes)
+      expected = transaction_repo.find_by_id(4986)
+
+      expect(expected.class).to eq(Transaction)
+      expect(expected.invoice_id).to eq(8)
+      expect(expected.credit_card_number).to eq(4242424242424242)
+      expect(expected.credit_card_expiration_date).to eq(220)
+      expect(expected.result).to eq("failed")
+    end
+
+    it "can update transaction" do
+      attributes = {
+        result: "success",
+      }
+      transaction_repo.update(4986, attributes)
+      updated_transaction = transaction_repo.find_by_id(4986)
+      expect(updated_transaction.result).to eq("success")
+    end
+
+    it 'can delete a transaction' do
+      transaction_repo.delete(4986)
+      expected = transaction_repo.find_by_id(4986)
+      expect(expected).to eq nil
     end
   end
 end

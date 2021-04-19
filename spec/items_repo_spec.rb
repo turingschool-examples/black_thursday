@@ -118,7 +118,6 @@ RSpec.describe ItemRepo do
       original_time = ir.find_by_id(263567475).updated_at
       attributes = {
         unit_price: 379.99,
-        # name: "Capita Defenders of Awesome 2018"
       }
       ir.update(263567475, attributes)
       expected = ir.find_by_id(263567475)
