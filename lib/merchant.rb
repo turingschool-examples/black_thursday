@@ -11,4 +11,18 @@ class Merchant
     @updated_at = Time.parse(row[:updated_at])
     @merchant_repo = merchant_repo
   end
+
+  def update(attributes)
+    update_name(attributes)
+    update_time_stamp
+  end
+
+  def update_name(attributes)
+    return if attributes[:name].nil?
+    @name.replace(attributes[:name])
+  end
+
+  def update_time_stamp
+    @updated_at = Time.now
+  end
 end

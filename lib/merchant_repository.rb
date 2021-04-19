@@ -25,49 +25,37 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants.find do |merchant|
-      merchant.id == id
-    end
+    RepoBrain.find_by_id(id, 'id', @merchants)
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
+    RepoBrain.find_by_full_string(name, 'name', @merchants)
   end
 
   def find_all_by_name(name)
-    @merchants.find_all do |merchant|
-      merchant.name.downcase.include?(name.downcase)
-    end
+    RepoBrain.find_all_by_partial_string(name, 'name', @merchants)
+  end
+
+  def generate_new_id
+    RepoBrain.generate_new_id(@merchants)
   end
 
   def create(attributes)
-    max_id = @merchants.max_by do |merchant|
-      merchant.id
-    end
-    attributes[:id] = max_id.id + 1
+    attributes[:id] = generate_new_id
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     @merchants << Merchant.new(attributes, self)
   end
 
   def update(id, attributes)
-    if attributes.keys[0] != :name
-      return
-    else
-      updatee = find_by_id(id)
-      updatee.name.replace(attributes[:name])
+    if find_by_id(id) != nil
+      customer_to_update = find_by_id(id)
+      customer_to_update.update(attributes)
     end
   end
 
   def delete(id)
-    deletee = find_by_id(id)
-    @merchants.delete(deletee)
-  end
-
-  def all_items
-    @engine.all_items
+    @merchants.delete(find_by_id(id))
   end
 
   def merchants_created_in_month(month)
@@ -81,9 +69,9 @@ class MerchantRepository
   def merchants_with_only_one_item_registered_in_month(month)
     items_hash = @engine.items_created_in_month(month)
 
-    array = @merchants.each_with_object([]) do |merchant, array|
+    @merchants.each_with_object([]) do |merchant, array|
       if merchants_created_in_month(month).include?(merchant)
-        if  items_hash[merchant.id]!= nil && items_hash[merchant.id] == 1
+        if items_hash[merchant.id] != nil && items_hash[merchant.id] == 1
           array << merchant
         end
       end
