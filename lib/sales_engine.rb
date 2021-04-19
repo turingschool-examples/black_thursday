@@ -1,4 +1,6 @@
 require 'csv'
+require_relative './customer'
+require_relative './customer_repository'
 require_relative './file_io'
 require_relative './invoice'
 require_relative './invoice_repository'
