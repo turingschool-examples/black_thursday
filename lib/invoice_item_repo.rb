@@ -31,5 +31,9 @@ class InvoiceItemRepo
     end
   end
 
-  
+  def find_all_by_item_id(item_id)
+    @invoice_item_list.find_all do |invoice_item|
+      invoice_item.item_id == item_id
+    end
+  end
 end
