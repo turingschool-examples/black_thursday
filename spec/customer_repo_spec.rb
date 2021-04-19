@@ -29,5 +29,16 @@ RSpec.describe Customer do
       expect(customer_repository.find_by_id(1001)).to eq(nil)
       expect(customer_repository.find_by_id(1)).to eq(customer_repository.customer_list[0])
     end
+
+    it 'can find customers by first name' do
+      expect(customer_repository.find_all_by_first_name("bi").class).to eq(Array)
+      expect(customer_repository.find_all_by_first_name("bi").length).to eq(8)
+      expect(customer_repository.find_all_by_first_name("nj")).to eq([])
+    end
+
+    # it 'can find customers by last name' do
+    #   expect(customer_repository.find_all_by_first_name("bi").class).to eq(Array)
+    #   expect(customer_repository.find_all_by_first_name("bi").length).to eq(8)
+    # end
   end
 end
