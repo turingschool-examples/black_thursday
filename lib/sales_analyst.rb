@@ -26,6 +26,10 @@ class SalesAnalyst
     @merchants_repo.all
   end
 
+  def all_invoices
+    @invoices_repo.all
+  end
+
   def average_items_per_merchant
     total = (all_items.count / all_merchants.count.to_f).round(2)
   end
@@ -126,5 +130,9 @@ class SalesAnalyst
     top_items_by_price.find_all do |item|
       z_score_price(item.unit_price) >= 2.0
     end
+  end
+
+  def average_invoices_per_merchant
+    total = (all_invoices.count / all_merchants.count.to_f).round(2)
   end
 end
