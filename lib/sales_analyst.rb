@@ -12,12 +12,18 @@ class SalesAnalyst
   include Mathable
   attr_reader :items_repo,
               :merchants_repo,
-              :invoices_repo
+              :invoices_repo,
+              :invoice_items_repo,
+              :transactions_repo,
+              :customers_repo
 
-  def initialize(items_repo, merchants_repo, invoices_repo)
+  def initialize(items_repo, merchants_repo, invoices_repo, invoice_items_repo, transactions_repo, customers_repo)
     @items_repo     = items_repo
     @merchants_repo = merchants_repo
     @invoices_repo  = invoices_repo
+    @invoice_items_repo = invoice_items_repo
+    @transactions_repo = transactions_repo
+    @customers_repo = customers_repo
   end
 
   def all_items
@@ -31,6 +37,18 @@ class SalesAnalyst
   def all_invoices
     @all_invoices ||= @invoices_repo.all
   end
+
+  # def all_invoice_items
+  #   @all_invoice_items ||= @invoice_items_repo.all
+  # end
+  #
+  # def all_transactions
+  #   @all_transactions ||= @transactions_repo.all
+  # end
+  #
+  # def all_customers
+  #   @all_customers ||= @customers_repo.all
+  # end
 
   def item_prices
    all_items.sum do |item|
