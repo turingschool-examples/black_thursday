@@ -159,19 +159,18 @@ RSpec.describe ItemRepo do
    it '#delete by id' do
     item_repo = @sales_engine.items
     item = item_repo.create({:id        => 1,
-                           :name        => "Pencil",
-                           :description => "You can use it to write things",
-                           :unit_price  => 1099,
-                           :created_at  => Time.now,
-                           :updated_at  => Time.now,
-                           :merchant_id => 2})
+                             :name        => "Pencil",
+                             :description => "You can use it to write things",
+                             :unit_price  => 1099,
+                             :created_at  => Time.now,
+                             :updated_at  => Time.now,
+                             :merchant_id => 2})
 
       expect(item_repo.find_by_id(item.id)).to eq(item)
 
       item_repo.delete(item.id)
 
       expect(item_repo.find_by_id(item.id)).to eq(nil)
-
     end
 
     it '#item merchant count' do

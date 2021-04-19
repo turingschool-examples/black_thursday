@@ -72,21 +72,15 @@ class ItemRepo
     item
   end
 
-  # the code logic doesn't belong here, what happens when only one gets updated
   def update(id, attributes)
-    new_item = find_by_id(id)
-    return if !new_item
-    new_item.name = attributes[:name] if  attributes[:name]
-    new_item.description = attributes[:description] if attributes[:description]
-    new_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
-    new_item.updated_at = Time.now
-    new_item
+    item = find_by_id(id)
+    return if !item
+    item.update_all(attributes)
   end
 
   def delete(id)
     @items.delete(find_by_id(id))
   end
-
 
   def average_price #Needs spec
     price_total = @items.sum do |item|
