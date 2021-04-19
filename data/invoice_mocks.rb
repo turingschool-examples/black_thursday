@@ -8,18 +8,18 @@ class InvoiceMocks
   end
 
   def self.invoices_as_hashes(number_of_hashes: 10, random_dates: true,
-                              status: get_a_random_status, customer_id_range: (1..4),
-                              merchant_id_range: (1..4),
+                              status: get_a_random_status, customer_id: (1..4),
+                              merchant_id: (1..4),
                               created_at: created_at_proc,
                               updated_at: updated_at_proc)
-    generator = (0...number_of_hashes).to_a
-    generator.each_with_object([]) do |invoice_number, hashes|
+
+    generator(number_of_hashes).each_with_object([]) do |invoice_number, hashes|
       invoice = {}
 
       invoice[:status] = status
       invoice[:id] = invoice_number
-      invoice[:customer_id] = rand(customer_id_range)
-      invoice[:merchant_id] = rand(merchant_id_range)
+      invoice[:customer_id] = (customer_id.is_a? Range)? rand(customer_id) : customer_id
+      invoice[:merchant_id] = (merchant_id.is_a? Range)? rand(merchant_id) : merchant_id
 
       date = get_a_random_date(random_dates)
       invoice[:created_at] = created_at.call(date).to_s

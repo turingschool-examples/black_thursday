@@ -8,18 +8,18 @@ class InvoiceItemMocks
   end
 
   def self.invoice_items_as_hashes(number_of_hashes: 10, random_dates: true,
-                                   item_id_range: (1..10), invoice_id_range: (1..10),
+                                   item_id: (1..10), invoice_id: (1..10),
                                    quantity: get_a_random_quantity,
                                    unit_price: get_a_random_price,
                                    created_at: created_at_proc,
                                    updated_at: updated_at_proc)
-    generator = (0...number_of_hashes).to_a
-    generator.each_with_object([]) do |invoice_item_number, hashes|
+
+    generator(number_of_hashes).each_with_object([]) do |invoice_item_number, hashes|
       invoice_item = {}
 
       invoice_item[:id] = invoice_item_number
-      invoice_item[:item_id] = rand(item_id_range)
-      invoice_item[:invoice_id] = rand(invoice_id_range)
+      invoice_item[:item_id] = (item_id.is_a? Range)? rand(item_id) : item_id
+      invoice_item[:invoice_id] = (invoice_id.is_a? Range)? rand(invoice_id) : invoice_id
       invoice_item[:quantity] = quantity
       invoice_item[:unit_price] = unit_price
 
