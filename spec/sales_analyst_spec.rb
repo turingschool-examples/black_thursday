@@ -25,16 +25,16 @@ RSpec.describe do
     end
 
     it 'looks up all merchants' do
-      expect(sales_analyst.find_all_merchants[1]).to be_an_instance_of(Merchant)
+      expect(sales_analyst.merchants[1]).to be_an_instance_of(Merchant)
     end
 
     it 'looks up all items' do
-      expect(sales_analyst.find_all_items[1]).to be_an_instance_of(Item)
+      expect(sales_analyst.items[1]).to be_an_instance_of(Item)
     end
 
     it 'calculates average_items_per_merchant' do
       first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
-      allow(sales_analyst).to receive(:find_all_merchants) do
+      allow(sales_analyst).to receive(:merchants) do
         first_ten_merchants
       end
       # Average of 2.5 was verified by searching fixture file with first 10 ID's
@@ -47,7 +47,7 @@ RSpec.describe do
       allow(sales_analyst).to receive(:average_items_per_merchant) do
         2.5
       end
-      allow(sales_analyst).to receive(:find_all_merchants) do
+      allow(sales_analyst).to receive(:merchants) do
         first_ten_merchants
       end
 
@@ -59,7 +59,7 @@ RSpec.describe do
       expected_array = [12334105,12334112,12334113,12334115,12334123,12334132,12334135,12334141,12334144,12334145]
       first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
       expected_merchant = first_ten_merchants[4]
-      allow(sales_analyst).to receive(:find_all_merchants) do
+      allow(sales_analyst).to receive(:merchants) do
         first_ten_merchants
       end
 
@@ -74,7 +74,7 @@ RSpec.describe do
 
     it 'averages all average prices per merchant' do
       first_ten_merchants = sales_engine.merchants.array_of_objects[0..9]
-      allow(sales_analyst).to receive(:find_all_merchants) do
+      allow(sales_analyst).to receive(:merchants) do
         first_ten_merchants
       end
 
@@ -83,7 +83,7 @@ RSpec.describe do
 
     it 'has special golden items for funny reasons' do
       first_20_items = sales_engine.items.array_of_objects[0..19]
-      allow(sales_analyst).to receive(:find_all_items) do
+      allow(sales_analyst).to receive(:items) do
         first_20_items
       end
 
