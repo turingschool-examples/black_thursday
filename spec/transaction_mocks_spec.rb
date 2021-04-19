@@ -17,7 +17,6 @@ RSpec.describe TransactionMocks do
       expect(tas_as_hashes).to be_an Array
       tas_as_hashes.each do |ta_hash|
         expect(ta_hash[:id]).to be_an Integer
-        expect(ta_hash[:transsaction_id]).to be_an Integer
         expect(ta_hash[:credit_card_number]).to be_a String
         expect(ta_hash[:credit_card_expiration_date]).to be_a String
         expect(ta_hash[:result]).to be_a String
@@ -32,11 +31,11 @@ RSpec.describe TransactionMocks do
       expect(tas_as_hashes.length).to eq 3
     end
 
-    it 'returns mocks with custom transsaction_id_range' do
-      tas_as_hashes = TransactionMocks.transactions_as_hashes(transsaction_id_range: (1..1))
+    it 'returns mocks with custom invoice_id_range' do
+      tas_as_hashes = TransactionMocks.transactions_as_hashes(invoice_id_range: (1..1))
 
       tas_as_hashes.each do |ta_hash|
-        expect(ta_hash[:transsaction_id]).to eq 1
+        expect(ta_hash[:invoice_id]).to eq 1
       end
     end
 
@@ -52,7 +51,7 @@ RSpec.describe TransactionMocks do
       tas_as_hashes = TransactionMocks.transactions_as_hashes(credit_card_expiration_date: '0217')
 
       tas_as_hashes.each do |ta_hash|
-        expect(ta_hash[:credit_card_number]).to eq '0217'
+        expect(ta_hash[:credit_card_expiration_date]).to eq '0217'
       end
     end
 
@@ -74,10 +73,10 @@ RSpec.describe TransactionMocks do
 
   describe '#transions_as_mocks' do
     it 'returns mock data of transsactions' do
-      transsactions_as_mocks = InvoiceMocks.transsactions_as_mocks(self)
+      transactions_as_mocks = TransactionMocks.transactions_as_mocks(self)
 
-      expect(transsactions_as_mocks).to be_an Array
-      transsactions_as_mocks.each do |ta_mock|
+      expect(transactions_as_mocks).to be_an Array
+      transactions_as_mocks.each do |ta_mock|
         expect(ta_mock.id).to be_an Integer
         expect(ta_mock.invoice_id).to be_an Integer
         expect(ta_mock.credit_card_number).to be_a String
@@ -88,9 +87,9 @@ RSpec.describe TransactionMocks do
       end
     end
     it 'accepts custom hashes' do
-      transactions_as_hashes = InvoiceMocks.transsactions_as_hashes(number_of_hashes: 2)
-      transactions_as_mocks = InvoiceMocks.transsactions_as_mocks(self, transactions_as_hashes)
-      expect(transactions_as_mocks.length).to eq 2
+      transaction_hashes = TransactionMocks.transactions_as_hashes(number_of_hashes: 2)
+      transaction_mocks = TransactionMocks.transactions_as_mocks(self, transaction_hashes)
+      expect(transaction_mocks.length).to eq 2
     end
   end
 end
