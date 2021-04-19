@@ -233,4 +233,18 @@ class SalesAnalyst
       @engine.merchants.find_by_id(merchant[0])
     end
   end
+
+  def merchants_with_pending_invoices
+    @engine.invoices.all.find_all do |invoice|
+      !invoice_paid_in_full?(invoice.id)
+    end
+    # pending_invoice.find_all do |invoice|
+    #   !invoice_paid_in_full?(invoice.id)
+    # end
+    # pending_invoice.find_all do |invoice|
+    #   !@engine.transactions.find_all_by_invoice_id(invoice.id).map do |transaction|
+    #     transaction.result
+    #   end.include?(:success)
+    # end
+  end
 end

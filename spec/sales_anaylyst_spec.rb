@@ -231,5 +231,20 @@ RSpec.describe 'SalesAnalyst' do
     end
   end
 
-  
+  describe '#merchants_with_pending_invoices' do
+    it 'returns the merchants with pending invoices' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.merchants_with_pending_invoices).to eq([])
+    end
+  end
+
 end
