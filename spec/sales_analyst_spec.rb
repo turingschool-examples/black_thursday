@@ -93,5 +93,9 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_paid_in_full?(2179)).to eq(true)
       expect(sales_analyst.invoice_paid_in_full?(1752)).to eq(false)
     end
+
+    it 'can get the total of the invoice' do
+      expect(sales_analyst.invoice_total(2179)).to eq()
+    end
   end
 end
