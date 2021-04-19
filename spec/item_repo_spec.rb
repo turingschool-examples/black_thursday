@@ -16,7 +16,7 @@ RSpec.describe ItemRepo do
   describe 'instantiation' do
     it '::new' do
       item_repo = @sales_engine.items
-      
+
       expect(item_repo).to be_an_instance_of(ItemRepo)
     end
 
@@ -57,7 +57,7 @@ RSpec.describe ItemRepo do
                                :created_at  => Time.now,
                                :updated_at  => Time.now,
                                :merchant_id => 2})
-    
+
       expect(item_repo.find_by_name("Pencil")).to eq(item)
       expect(item_repo.find_by_name("not exist")).to eq(nil)
     end
@@ -77,7 +77,7 @@ RSpec.describe ItemRepo do
     end
 
     it '#find all by price' do
-      #mock and stubs 
+      #mock and stubs
       item_repo = @sales_engine.items
       item = item_repo.create({:id          => 1,
                                :name        => "Pencil",
@@ -86,7 +86,7 @@ RSpec.describe ItemRepo do
                                :created_at  => Time.now,
                                :updated_at  => Time.now,
                                :merchant_id => 2})
-      
+
       expect(item_repo.find_all_by_price(10.99)).to eq([item])
       expect(item_repo.find_all_by_price(0)).to eq([])
     end
@@ -146,7 +146,7 @@ RSpec.describe ItemRepo do
                             :description => "You can use it to stab things",
                             :unit_price  => BigDecimal(15.99, 4),
                             :updated_at  => Time.now}
-      
+
       item_repo.update(item.id, updated_attributes)
 
       expect(item.id).to eq(263567475)
@@ -169,7 +169,7 @@ RSpec.describe ItemRepo do
       expect(item_repo.find_by_id(item.id)).to eq(item)
 
       item_repo.delete(item.id)
-      
+
       expect(item_repo.find_by_id(item.id)).to eq(nil)
 
     end
@@ -184,10 +184,9 @@ RSpec.describe ItemRepo do
                                :updated_at  => Time.now,
                                :merchant_id => 2})
 
-     
+
      expect(item_repo.item_count_per_merchant).to be_a(Hash)
      expect(item_repo.item_count_per_merchant.length).to eq(476)
    end
-
   end
 end

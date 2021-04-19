@@ -20,7 +20,7 @@ RSpec.describe SalesAnalyst do
   describe 'instantiation' do
     it '::new' do
       sales_analyst = @sales_engine.analyst
-      
+
       expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
     end
   end
@@ -30,13 +30,13 @@ RSpec.describe SalesAnalyst do
     it '#total items' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.total_items).to eq(1367.0)
+      expect(sales_analyst.item_count).to eq(1367.0)
     end
 
     it '#total merchant' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.total_merchants).to eq(475.0)
+      expect(sales_analyst.merchant_count).to eq(475.0)
     end
 
     it '#average items per merchant' do
@@ -47,8 +47,8 @@ RSpec.describe SalesAnalyst do
 
     it '#average items price' do
       sales_analyst = @sales_engine.analyst
-      
-      expect(sales_analyst.average_item_price.class).to eq(Float)
+
+      expect(sales_analyst.average_price.class).to eq(Float)
     end
 
     it '#item count per merchant' do
@@ -65,14 +65,14 @@ RSpec.describe SalesAnalyst do
 
     it '#standard deviation items price' do
       sales_analyst = @sales_engine.analyst
-      
+
       expect(sales_analyst.average_item_price_standard_deviation).to eq(2899.93)
     end
 
     it '#merchant with highest item count' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.merchants_with_high_item_count.length).to eq(52)
+      expect(sales_analyst.merchants_with_high_item_count.first.class).to eq(Merchant)
     end
 
     it '#average item price for merchant' do

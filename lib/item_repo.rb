@@ -4,7 +4,7 @@ require 'item'
 
 class ItemRepo
   attr_reader :items
-  
+
   def initialize(path, engine)
     @items = []
     @engine = engine

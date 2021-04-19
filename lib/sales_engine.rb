@@ -29,7 +29,7 @@ class SalesEngine
   def self.from_csv(paths)
     new(paths)
   end
-  
+
   def all_items #Needs spec
     @items.all
   end
@@ -48,7 +48,7 @@ class SalesEngine
     count.to_f
   end
 
-  def average_item_price #Needs spec
+  def average_price #Needs spec
     @items.average_price
   end
 
@@ -56,7 +56,11 @@ class SalesEngine
     @items.item_count_per_merchant
   end
 
-  def find_merchant_id(id) #Needs spec
+  def find_all_by_merchant_id(id) #Needs spec
     @items.find_all_by_merchant_id(id)
+  end
+
+  def find_by_id(id)
+    @merchants.find_by_id(id)
   end
 end
