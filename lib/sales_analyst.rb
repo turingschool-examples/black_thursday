@@ -189,7 +189,6 @@ class SalesAnalyst
 
   def invoices_per_day
     days_of_week = [0, 1, 2, 3, 4, 5, 6]
-
     days_of_week.map do |day|
       all_invoices.count do |invoice|
         invoice.created_at.wday == day
@@ -197,22 +196,35 @@ class SalesAnalyst
     end
   end
 
-  def top_days_by_invoice_count
-    days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    average_invoices_per_day = (invoices_per_day.sum) / days.length
+  def average_invoices_per_day
+    average = (invoices_per_day.sum) / days.length
+  end
 
+  def days
+    days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  end
+
+  def days_invoices_hash
+    days_invoices_hash = days.zip(invoices_per_day)
+  end
+
+  def days_by_invoice_standard_deviation
     squared_diff = invoices_per_day.sum do |day|
       (day - average_invoices_per_day)**2
     end
     divided_sum = (squared_diff) / (days.length - 1)
     square_root = divided_sum**0.5.to_f
     standard_deviation = square_root.round(2)
+  end
 
-    days_invoices_hash = days.zip(invoices_per_day)
+  def z_score_days(value)
+    ((value - average_invoices_per_day) / days_by_invoice_standard_deviation)
+  end
 
+  def top_days_by_invoice_count
     top_days = []
     days_invoices_hash.each do |day, num_of_invoices|
-      if ((num_of_invoices - average_invoices_per_day) / standard_deviation) > 1
+      if z_score_days(num_of_invoices) > 1
         top_days << day
       end
     end
@@ -226,5 +238,5 @@ class SalesAnalyst
     end.length
     rough = ((num_of_matching_invoices.to_f / all_invoices.length.to_f) * 100)
     result = rough.round(2)
-  end 
+  end
 end
