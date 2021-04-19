@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 require 'rspec'
 
 require './data/invoice_mocks'
