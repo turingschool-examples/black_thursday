@@ -121,12 +121,21 @@ class SalesAnalyst
       invoice_object.created_at.strftime('%A')
     end
   end
-###THIS IS FOR THE NEXT PART OF ITERATION 2###
-  # def merchants_with_high_item_count
-  #   mean = average_items_per_merchant
-  #   greater_than_1sd = mean + average_items_per_merchant_standard_deviation
-  #   @merchants.find_all do |merchant|
-  #     find_all_items_by_merchant_id(merchant.id).length > greater_than_1sd
-  #   end
-  # end
+
+
+  def top_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    upper_bound = mean + average_invoices_per_merchant_standard_deviation * 2
+    merchants.find_all do |merchant|
+      find_all_invoices_by_merchant_id(merchant.id).length > upper_bound
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    lower_bound = mean - average_invoices_per_merchant_standard_deviation * 2
+    merchants.find_all do |merchant|
+      find_all_invoices_by_merchant_id(merchant.id).length < lower_bound
+    end
+  end
 end
