@@ -52,5 +52,9 @@ RSpec.describe InvoiceItemRepo do
       expected = invoice_item_repo.find_by_id(21831)
       expect(expected.item_id).to eq(263519844)
     end
+
+    it 'can update an invoice item' do
+      
+    end
   end
 end

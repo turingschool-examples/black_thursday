@@ -45,11 +45,7 @@ class InvoiceItemRepo
 
   def create(attributes)
     new_invoice_item = InvoiceItem.new(attributes, self)
-    # refactor potential helper method
-    find_max_id = @invoice_item_list.max_by do |invoice_item|
-      invoice_item.id
-    end
-    new_invoice_item.id = (find_max_id.id + 1)
+    new_invoice_item.id = (@invoice_item_list.last.id + 1)
     @invoice_item_list << new_invoice_item
   end
 end
