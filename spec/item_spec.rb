@@ -120,4 +120,68 @@ describe Item do
       expect(item.id).not_to be_nil
     end
   end
+
+  describe '#updated_at' do
+    it 'returns updated_at time with String input' do
+      details = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: '2500',
+        created_at: '2007-06-04 21:35:10 UTC',
+        updated_at: '2007-06-04 21:35:10 UTC',
+        merchant_id: 2
+      }
+      item = Item.new(details)
+
+      expect(item.updated_at).to eq Time.parse('2007-06-04 21:35:10 UTC')
+    end
+
+    it 'returns updated_at time with Time input' do
+      details = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: '2500',
+        created_at: '2007-06-04 21:35:10 UTC',
+        updated_at: Time.parse('2007-06-04 21:35:10 UTC'),
+        merchant_id: 2
+      }
+      item = Item.new(details)
+
+      expect(item.updated_at).to eq Time.parse('2007-06-04 21:35:10 UTC')
+    end
+  end
+
+  describe '#created_at' do
+    it 'returns created_at time with String input' do
+      details = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: '2500',
+        created_at: '2007-06-04 21:35:10 UTC',
+        created_at: '2007-06-04 21:35:10 UTC',
+        merchant_id: 2
+      }
+      item = Item.new(details)
+
+      expect(item.created_at).to eq Time.parse('2007-06-04 21:35:10 UTC')
+    end
+
+    it 'returns created_at time with Time input' do
+      details = {
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        unit_price: '2500',
+        created_at: Time.parse('2007-06-04 21:35:10 UTC'),
+        created_at: '2007-06-04 21:35:10 UTC',
+        merchant_id: 2
+      }
+      item = Item.new(details)
+
+      expect(item.created_at).to eq Time.parse('2007-06-04 21:35:10 UTC')
+    end
+  end
 end
