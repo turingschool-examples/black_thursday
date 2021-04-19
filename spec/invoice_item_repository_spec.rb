@@ -1,6 +1,8 @@
 require 'rspec'
+require 'bigdecimal'
 require 'csv'
 require './data/invoice_item_mocks'
+require './lib/invoice_item'
 require './lib/file_io'
 require './lib/invoice_item_repository'
 
