@@ -71,12 +71,14 @@ class SalesAnalyst
     end
   end
 
-  def average_price_per_item_standard_deviation
-    mean = Compute.mean(total_item_price, items.length)
-    adder_counter = items.sum do |item_object|
-      (item_object.unit_price - mean)**2
+  def price_per_item
+    test = items.map do |item_object|
+      item_object.unit_price
     end
-    Math.sqrt(adder_counter / (items.length - 1)).round(2)
+  end
+
+  def average_price_per_item_standard_deviation
+    Compute.standard_deviation(price_per_item)
   end
 
   def golden_items
