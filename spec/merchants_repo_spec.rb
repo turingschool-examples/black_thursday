@@ -8,9 +8,7 @@ require './lib/merchants_repo'
 RSpec.describe MerchantRepo do
 
   se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-  :invoices => "./data/invoices.csv"
+  :merchants => "./data/merchants.csv"
   })
   mr = se.merchants
 

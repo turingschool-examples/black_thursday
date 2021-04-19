@@ -12,9 +12,7 @@ require './lib/invoices_repo'
 RSpec.describe InvoiceRepo do
 
   se = SalesEngine.from_csv({
-  :invoices => "./data/invoices.csv",
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv"
+  :invoices => "./data/invoices.csv"
   })
   invoice_repository = se.invoices
 

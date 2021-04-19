@@ -4,9 +4,7 @@ require './lib/merchants'
 RSpec.describe Merchant do
 
   se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-  :invoices => "./data/invoices.csv"
+  :merchants => "./data/merchants.csv"
   })
   mr = se.merchants
 

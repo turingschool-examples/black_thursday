@@ -9,9 +9,9 @@ class SalesEngine
                 :invoices
 
   def initialize(csv_files)
-    @items = ItemRepo.new(csv_files[:items], self)
-    @merchants = MerchantRepo.new(csv_files[:merchants], self)
-    @invoices = InvoiceRepo.new(csv_files[:invoices], self)
+    @items = ItemRepo.new(csv_files[:items], self) unless csv_files[:items] == nil
+    @merchants = MerchantRepo.new(csv_files[:merchants], self) unless csv_files[:merchants] == nil
+    @invoices = InvoiceRepo.new(csv_files[:invoices], self) unless csv_files[:invoices] == nil
   end
 
   def self.from_csv(csv_files)
