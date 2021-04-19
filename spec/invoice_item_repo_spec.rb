@@ -45,7 +45,7 @@ RSpec.describe InvoiceItemRepo do
         invoice_id: 2,
         quantity: 5,
         created_at: Time.now,
-        unit_price: 12.99,
+        unit_price: 1299,
         updated_at: Time.now
       }
       invoice_item_repo.create(attributes)
