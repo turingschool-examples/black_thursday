@@ -66,4 +66,11 @@ class TransactionRepo
     end
     transaction
   end
+
+  def delete(id)
+    transaction = find_by_id(id)
+    if transaction != nil
+      @transaction_list.delete(transaction)
+    end
+  end
 end

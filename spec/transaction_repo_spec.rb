@@ -71,5 +71,11 @@ RSpec.describe TransactionRepo do
       updated_transaction = transaction_repo.find_by_id(4986)
       expect(updated_transaction.result).to eq("success")
     end
+
+    it 'can delete a transaction' do
+      transaction_repo.delete(4986)
+      expected = transaction_repo.find_by_id(4986)
+      expect(expected).to eq nil
+    end
   end
 end
