@@ -35,10 +35,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    adder_counter = items_per_merchant.sum do |number|
-      (number - average_items_per_merchant)**2
-    end
-    Math.sqrt(adder_counter / (items_per_merchant.length - 1)).round(2)
+    Compute.standard_deviation(items_per_merchant)
   end
 
   def merchants_with_high_item_count
@@ -74,12 +71,14 @@ class SalesAnalyst
     end
   end
 
-  def average_price_per_item_standard_deviation
-    mean = Compute.mean(total_item_price, items.length)
-    adder_counter = items.sum do |item_object|
-      (item_object.unit_price - mean)**2
+  def price_per_item
+    test = items.map do |item_object|
+      item_object.unit_price
     end
-    Math.sqrt(adder_counter / (items.length - 1)).round(2)
+  end
+
+  def average_price_per_item_standard_deviation
+    Compute.standard_deviation(price_per_item)
   end
 
   def golden_items
@@ -110,10 +109,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    adder_counter = invoices_per_merchant.sum do |number_of_invoices|
-      (number_of_invoices - average_invoices_per_merchant)**2
-    end
-    Math.sqrt(adder_counter.to_f / (invoices_per_merchant.length - 1)).round(2)
+    Compute.standard_deviation(invoices_per_merchant)
   end
 
   def top_days_by_invoice_count
