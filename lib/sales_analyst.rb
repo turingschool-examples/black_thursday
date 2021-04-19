@@ -3,15 +3,18 @@ require 'date'
 
 class SalesAnalyst
 
-  attr_reader :engine
+  attr_reader :engine, :merchants, :items, :invoices
 
   def initialize(engine)
     @engine = engine
+    @merchants = engine.merchants.array_of_objects
+    @items = engine.merchants.array_of_objects
+    @invoices = engine.invoices.array_of_objects
   end
 
-  def find_all_merchants
-    @engine.merchants.array_of_objects
-  end
+  # def find_all_merchants
+  #   @engine.merchants.array_of_objects
+  # end
 
   def find_all_items
     @engine.items.array_of_objects
@@ -30,7 +33,7 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-    find_all_merchants.map do |merchant|
+    merchants.map do |merchant|
       find_all_items_by_merchant_id(merchant.id).length
     end
   end
@@ -49,7 +52,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     mean = average_items_per_merchant
     greater_than_1sd = mean + average_items_per_merchant_standard_deviation
-    find_all_merchants.find_all do |merchant|
+    merchants.find_all do |merchant|
       find_all_items_by_merchant_id(merchant.id).length > greater_than_1sd
     end
   end
@@ -67,10 +70,10 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    items_sum = find_all_merchants.sum do |merchant|
+    items_sum = merchants.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    Compute.mean(items_sum, find_all_merchants.length)
+    Compute.mean(items_sum, merchants.length)
   end
 
   def total_item_price
@@ -117,7 +120,7 @@ class SalesAnalyst
   end
 
   def invoices_per_merchant
-    find_all_merchants.map do |merchant|
+    @merchants.map do |merchant|
       find_all_invoices_by_merchant_id(merchant.id).length
     end
   end
@@ -139,7 +142,7 @@ class SalesAnalyst
   # def merchants_with_high_item_count
   #   mean = average_items_per_merchant
   #   greater_than_1sd = mean + average_items_per_merchant_standard_deviation
-  #   find_all_merchants.find_all do |merchant|
+  #   @merchants.find_all do |merchant|
   #     find_all_items_by_merchant_id(merchant.id).length > greater_than_1sd
   #   end
   # end
