@@ -1,8 +1,10 @@
 require 'rspec'
 require 'csv'
+
 require './data/mockable'
-require './lib/file_io'
+require './lib/customer'
 require './lib/customer_repository'
+require './lib/file_io'
 
 describe CustomerRepository do
   details = {
