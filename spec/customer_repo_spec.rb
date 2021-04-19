@@ -50,11 +50,32 @@ RSpec.describe Customer do
         created_at: Time.now,
         updated_at: Time.now
       }
-      
+
       customer_repository.create(attributes)
       expected = customer_repository.find_by_id(1001)
       expect(expected.first_name).to eq("Brandon")
       expect(expected.last_name).to eq("Ingram")
+    end
+
+    it 'can update customers' do
+
+      original_time = customer_repository.find_by_id(15).updated_at
+      attributes = {
+        first_name: "Nikola",
+        last_name: "Jokic",
+        updated_at: Time.now
+      }
+      expected = customer_repository.update(15, attributes)
+
+      expect(expected.first_name).to eq("Nikola")
+      expect(expected.last_name).to eq("Jokic")
+      expect(expected.updated_at).to be > original_time
+    end
+
+    it 'can delete customers' do
+      customer_repository.delete(1001)
+      expected = customer_repository.find_by_id(1001)
+      expect(expected).to eq(nil)
     end
   end
 end
