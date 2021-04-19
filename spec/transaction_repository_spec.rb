@@ -22,6 +22,16 @@ RSpec.describe TransactionRepository do
     end
   end
 
+  describe '#inspect' do
+    it 'inspects transactions' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+
+      expect(tr).to be_a(TransactionRepository)
+      expect(tr.transactions.size).to eq(50)
+    end
+  end
+
   describe '#make_transactions' do
     it 'makes_transactions' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -178,6 +188,11 @@ RSpec.describe TransactionRepository do
       expect(test_transaction.result).to eq(:hot_dog)
       expect(test_transaction.created_at.year).to eq(2012)
       expect(test_transaction.updated_at.year).to eq(2021)
+
+      test_transaction = tr.find_by_id(333333333)
+      tr.update(333333333, attributes)
+
+      expect(test_transaction).to eq(nil)
     end
   end
 
@@ -196,6 +211,7 @@ RSpec.describe TransactionRepository do
     it 'returns true if invoice with the corresponding id is paid in full' do
       mock_sales_engine = instance_double('SalesEngine')
       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      
       expect(tr.invoice_paid_in_full?(1)).to eq(true)
       expect(tr.invoice_paid_in_full?(1485)).to eq(false)
       expect(tr.invoice_paid_in_full?(3242342342)).to eq(false)
