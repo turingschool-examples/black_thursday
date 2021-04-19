@@ -10,29 +10,23 @@ require 'rspec'
 
 RSpec.describe SalesAnalyst do
 
+  se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+  :invoices  => "./data/invoices.csv",
+  :invoice_items => "./data/invoice_items.csv",
+  :transactions => "./data/transactions.csv",
+  :customers => "./data/customers.csv"
+  })
+  sales_analyst = se.analyst
+
   context 'Instanstiation' do
     it 'exists' do
-      se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
-      })
-      sales_analyst = se.analyst
-
       expect(sales_analyst).to be_instance_of(SalesAnalyst)
     end
   end
 
   context 'methods' do
-
-    se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
-    })
-
-    sales_analyst = se.analyst
-
     it 'can return average items per merchant' do
       expect(sales_analyst.average_items_per_merchant).to eq(2.88)
     end
