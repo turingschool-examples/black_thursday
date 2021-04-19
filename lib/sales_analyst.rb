@@ -193,8 +193,9 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
 
-    items.map do |item|
+    total = items.map do |item|
       item.quantity * item.unit_price_to_dollars
     end.sum
+    BigDecimal(total, 10)
   end
 end
