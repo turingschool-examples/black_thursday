@@ -32,7 +32,7 @@ RSpec.describe TransactionMocks do
     end
 
     it 'returns mocks with custom invoice_id_range' do
-      tas_as_hashes = TransactionMocks.transactions_as_hashes(invoice_id_range: (1..1))
+      tas_as_hashes = TransactionMocks.transactions_as_hashes(invoice_id: 1)
 
       tas_as_hashes.each do |ta_hash|
         expect(ta_hash[:invoice_id]).to eq 1

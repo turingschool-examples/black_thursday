@@ -53,7 +53,7 @@ describe TransactionRepository do
 
   describe '#find_all_by_invoice_id' do
     it 'returns empty array if no Transactions have invoice_id specified' do
-      mock_hashes = TransactionMocks.transactions_as_hashes(invoice_id_range: (1..1))
+      mock_hashes = TransactionMocks.transactions_as_hashes(invoice_id: 1)
       mock_data = TransactionMocks.transactions_as_mocks(self, mock_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')
@@ -62,8 +62,8 @@ describe TransactionRepository do
     end
 
     it 'returns all Transactions with invoice_id specified' do
-      mock_hashes = TransactionMocks.transactions_as_hashes(number_of_hashes: 4, invoice_id_range: (8..8))
-      mock_hashes += TransactionMocks.transactions_as_hashes(number_of_hashes: 10, invoice_id_range: (9..27))
+      mock_hashes = TransactionMocks.transactions_as_hashes(number_of_hashes: 4, invoice_id: 8)
+      mock_hashes += TransactionMocks.transactions_as_hashes(number_of_hashes: 10, invoice_id: (9..27))
       mock_data = TransactionMocks.transactions_as_mocks(self, mock_hashes)
       allow_any_instance_of(TransactionRepository).to receive(:create_transactions).and_return(mock_data)
       t_repo = TransactionRepository.new('fake.csv')

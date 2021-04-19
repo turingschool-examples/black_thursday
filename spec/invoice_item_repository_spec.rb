@@ -38,7 +38,7 @@ describe InvoiceItemRepository do
 
   describe '#find_all_by_item_id' do
     it 'returns either [] or array of InvoiceItems with matching item ID' do
-      details = InvoiceItemMocks.invoice_items_as_hashes(item_id_range: (1..1))
+      details = InvoiceItemMocks.invoice_items_as_hashes(item_id: 1)
       mock_data = InvoiceItemMocks.invoice_items_as_mocks(self, details)
       allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
       ii_repo = InvoiceItemRepository.new('fake.csv')
@@ -51,7 +51,7 @@ describe InvoiceItemRepository do
 
   describe '#find_all_by_invoice_id' do
     it 'returns either [] or array of InvoiceItems with matching invoice ID' do
-      details = InvoiceItemMocks.invoice_items_as_hashes(invoice_id_range: (1..1))
+      details = InvoiceItemMocks.invoice_items_as_hashes(invoice_id: 1)
       mock_data = InvoiceItemMocks.invoice_items_as_mocks(self, details)
       allow_any_instance_of(InvoiceItemRepository).to receive(:create_invoice_items).and_return(mock_data)
       ii_repo = InvoiceItemRepository.new('fake.csv')
