@@ -61,10 +61,10 @@ RSpec.describe 'SalesEngine' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoice: './data/invoices.csv',
+        invoices: './data/invoices.csv',
         invoice_items: './data/invoice_items.csv',
-        transaction: './data/transactions.csv',
-        customer: './data/customers.csv'
+        transactions: './data/transactions.csv',
+        customers: './data/customers.csv'
       )
 
       sa = se.analyst

@@ -5,6 +5,8 @@ require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
 require_relative 'customer_repository'
+require_relative 'sales_analyst'
+
 
 # This class births all our repositories
 class SalesEngine
@@ -52,6 +54,10 @@ class SalesEngine
 
   def number_of_class(class_test)
     send(class_test).all.length
+  end
+
+  def csv_array(array_type)
+    send(array_type).all
   end
 
   def all_merchant_ids

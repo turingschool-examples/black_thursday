@@ -14,7 +14,6 @@ RSpec.describe Repository do
   describe '#all' do
     it 'returns everything in its array' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
@@ -26,7 +25,6 @@ RSpec.describe Repository do
   describe '#find_by_id' do
     it 'finds merchant by id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
@@ -36,7 +34,6 @@ RSpec.describe Repository do
 
     it 'returns nil if no id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
@@ -48,7 +45,6 @@ RSpec.describe Repository do
   describe '#find_by_name' do
     it 'finds a merchant by name' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
@@ -58,7 +54,6 @@ RSpec.describe Repository do
 
     it 'returns nil if no name exists' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
       mr = se.merchants
@@ -70,8 +65,7 @@ RSpec.describe Repository do
   describe '#max_id_number_new' do
     it 'finds the current max id' do
       se = SalesEngine.from_csv(
-          items: './data/items.csv',
-          merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv'
       )
       mr = se.merchants
 
@@ -82,7 +76,6 @@ RSpec.describe Repository do
   describe '#delete' do
     it 'deletes a merchant via id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
       mr = se.merchants

@@ -8,8 +8,6 @@ RSpec.describe CustomerRepository do
   describe 'initialize' do
     it 'exists' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -22,8 +20,6 @@ RSpec.describe CustomerRepository do
   describe '#all_customers' do
     it 'creates an array of customers' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -36,8 +32,6 @@ RSpec.describe CustomerRepository do
   describe '#find_all_by_first_name' do
     it 'finds all with that first name' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -50,8 +44,6 @@ RSpec.describe CustomerRepository do
   describe '#find_all_by_last_name' do
     it 'finds all with same last name' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -64,8 +56,6 @@ RSpec.describe CustomerRepository do
   describe '#create' do
     it 'creates a new customer' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -83,8 +73,6 @@ RSpec.describe CustomerRepository do
   describe '#update' do
     it 'updates the first_name' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -97,8 +85,6 @@ RSpec.describe CustomerRepository do
 
     it 'updates last name' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -111,10 +97,8 @@ RSpec.describe CustomerRepository do
 
     it 'doesnt update if id does not exist' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
-       )
+      )
 
       cr = se.customers
 
@@ -125,8 +109,6 @@ RSpec.describe CustomerRepository do
     describe '#all' do
       it 'returns an array of all customers' do
         se = SalesEngine.from_csv(
-          items: './data/items.csv',
-          merchants: './data/merchants.csv',
           customers: './data/customers.csv'
         )
 
@@ -139,8 +121,6 @@ RSpec.describe CustomerRepository do
   describe 'find_by_id' do
     it 'finds customer by given id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 
@@ -153,8 +133,6 @@ RSpec.describe CustomerRepository do
   describe '#delete' do
     it 'deletes a customer with given id' do
       se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
         customers: './data/customers.csv'
       )
 

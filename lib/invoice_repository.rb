@@ -58,10 +58,8 @@ class InvoiceRepository < Repository
 
   def update(id, attribute)
     update_instance = find_by_id(id)
-    if update_instance.nil?
-      nil
-    elsif !attribute[:status].nil?
-      update_instance.status = attribute[:status].to_sym
+    unless update_instance.nil?
+      update_instance.status = attribute[:status].to_sym unless attribute[:status].nil?
       update_instance.updated_at = Time.now
     end
   end
