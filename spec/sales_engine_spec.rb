@@ -1,9 +1,9 @@
 require 'csv'
 require 'rspec'
-
 require './data/invoice_mocks'
 require './data/item_mocks'
 require './data/merchant_mocks'
+require './data/invoice_item_mocks'
 require './data/Mockable'
 require './lib/file_io'
 require './lib/invoice_repository'
@@ -13,6 +13,8 @@ require './lib/sales_engine'
 require './lib/sales_analyst'
 require './lib/transaction_repository'
 require './lib/invoice_item_repository'
+require './lib/customer_repository'
+require './lib/customer'
 
 describe SalesEngine do
   details = {
