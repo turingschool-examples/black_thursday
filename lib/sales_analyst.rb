@@ -136,6 +136,23 @@ class SalesAnalyst
     end
   end
 
+  def top_days_by_invoice_count
+    days_hash = invoices_per_day.select do |key, value|
+      value > average_invoices_per_day_standard_deviation + (invoices.length/7)
+    end
+    days_hash.keys
+  end
+
+  def invoice_status(status_symbol)
+    sorted_invoices = []
+     @invoices.each do |invoice|
+       if invoice.status == status_symbol
+      sorted_invoices.push(invoice)
+      end
+    end
+    (sorted_invoices.length/@invoices.length.to_f*100).round(2)
+  end
+
 ###THIS IS FOR THE NEXT PART OF ITERATION 2###
   # def merchants_with_high_item_count
   #   mean = average_items_per_merchant
