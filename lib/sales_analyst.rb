@@ -211,6 +211,26 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    
+    #total revenue = quantity sold * price
+    total_revenue = @engine.invoice_items.find_all_by_date(date).sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+    total_revenue.round(2)
+  end
+
+  def top_revenue_earners(search_range = 20)
+    merchant_invoice_hash = @engine.invoices.invoices_by_merchant
+
+    merchant_invoice_hash.each do |merchant, invoices|
+        merchant_invoice_hash[merchant] = invoices.sum do |invoice|
+        invoice_total(invoice.id)
+      end
+    end
+    top_merchant_invoice = merchant_invoice_hash.sort_by do |key, value|
+      value
+    end.reverse
+    top_merchant_invoice[0..(search_range - 1)].map do |merchant|
+      @engine.merchants.find_by_id(merchant[0])
+    end
   end
 end

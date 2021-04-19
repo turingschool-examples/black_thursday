@@ -64,6 +64,13 @@ class InvoiceRepository < Repository
     end
   end
 
+  def invoices_by_merchant
+    #returns a hash of all merchant ids key to their invoices
+    hash = @engine.invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
     # should this be @merchants or @invoices

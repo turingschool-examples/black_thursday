@@ -70,4 +70,14 @@ RSpec.describe InvoiceRepository do
       expect(ir.find_by_id(38).status).to eq(:shipped)
     end
   end
+
+  describe '#invoices_by_merchant' do
+    it "returns a hash of all merchant ids key to their invoices" do
+      se = SalesEngine.from_csv(invoices: './data/invoices.csv')
+
+      ir = se.invoices
+
+      expect(ir.invoices_by_merchant).to be_an_instance_of(Hash)
+    end
+  end
 end

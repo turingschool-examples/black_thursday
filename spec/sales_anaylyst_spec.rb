@@ -206,9 +206,30 @@ RSpec.describe 'SalesAnalyst' do
       )
 
       sa = se.analyst
-      date = Time.parse('2016-01-11')
-      
-      expect(sa.total_revenue_by_date(date)).to eq(5)
+      date = Time.parse('2009-12-09')
+
+      expect(sa.total_revenue_by_date(date)).to eq(1363.5)
     end
   end
+
+  describe '#top_revenue_earners' do
+    it 'returns the top revenue earner' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sa = se.analyst
+
+      expect(sa.top_revenue_earners(5).length).to eq(5)
+      expect(sa.top_revenue_earners(5)[0]).to be_an_instance_of(Merchant)
+      expect(sa.top_revenue_earners.length).to eq(20)
+      expect(sa.top_revenue_earners[0]).to be_an_instance_of(Merchant)
+    end
+  end
+
+  
 end
