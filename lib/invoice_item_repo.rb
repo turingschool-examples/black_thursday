@@ -59,7 +59,15 @@ class InvoiceItemRepo
     invoice_item
   end
 
+  def invoice_item_exists?(id)
+    invoice_item = find_by_id(id)
+    invoice_item != nil
+  end
+  
   def delete(id)
-
+    invoice_item = find_by_id(id)
+    if invoice_item_exists?(id)
+      @invoice_item_list.delete(invoice_item)
+    end
   end
 end
