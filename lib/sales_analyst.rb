@@ -8,16 +8,8 @@ class SalesAnalyst
   def initialize(engine)
     @engine = engine
     @merchants = engine.merchants.array_of_objects
-    @items = engine.merchants.array_of_objects
+    @items = engine.items.array_of_objects
     @invoices = engine.invoices.array_of_objects
-  end
-
-  # def find_all_merchants
-  #   @engine.merchants.array_of_objects
-  # end
-
-  def find_all_items
-    @engine.items.array_of_objects
   end
 
   def get_merchant_ids(merchants)
@@ -27,8 +19,8 @@ class SalesAnalyst
   end
 
   def find_all_items_by_merchant_id(merchant_id)
-    find_all_items.find_all do |item|
-      item.merchant_id == merchant_id
+    items.find_all do |item_object|
+      item_object.merchant_id == merchant_id
     end
   end
 
@@ -59,8 +51,8 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     merchant_items = find_all_items_by_merchant_id(merchant_id)
-    sum_of_prices = merchant_items.sum do |item|
-      item.unit_price
+    sum_of_prices = merchant_items.sum do |item_object|
+      item_object.unit_price
     end
     if merchant_items.length != 0
       Compute.mean(sum_of_prices, merchant_items.length)
@@ -77,50 +69,42 @@ class SalesAnalyst
   end
 
   def total_item_price
-    sum = find_all_items.sum do |item_object|
+    items.sum do |item_object|
       item_object.unit_price
     end
   end
 
   def average_price_per_item_standard_deviation
-    total_number_of_items = find_all_items.length
-    mean = Compute.mean(total_item_price, total_number_of_items)
-    adder_counter = find_all_items.sum do |item|
-      (item.unit_price - mean)**2
+    mean = Compute.mean(total_item_price, items.length)
+    adder_counter = items.sum do |item_object|
+      (item_object.unit_price - mean)**2
     end
-    Math.sqrt(adder_counter / (total_number_of_items - 1)).round(2)
+    Math.sqrt(adder_counter / (items.length - 1)).round(2)
   end
 
   def golden_items
-    mean = Compute.mean(total_item_price, find_all_items.length)
+    mean = Compute.mean(total_item_price, items.length)
     two_sd = average_price_per_item_standard_deviation * 2
     greater_than_2sd = mean + two_sd
-    find_all_items.find_all do |item|
-      item.unit_price >= greater_than_2sd
+    items.find_all do |item_object|
+      item_object.unit_price >= greater_than_2sd
     end
   end
 
   ##### INVOICE ITERATION 2 ######
-  def find_all_invoices
-    @engine.invoices.array_of_objects
-  end
-
-  def number_of_all_invoices
-    find_all_invoices.length
-  end
 
   def average_invoices_per_merchant
-    test = Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
+    Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
   end
 
   def find_all_invoices_by_merchant_id(merchant_id)
-    find_all_invoices.find_all do |invoice|
+    invoices.find_all do |invoice|
       invoice.merchant_id == merchant_id
     end
   end
 
   def invoices_per_merchant
-    @merchants.map do |merchant|
+    merchants.map do |merchant|
       find_all_invoices_by_merchant_id(merchant.id).length
     end
   end
@@ -133,9 +117,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    invoices = find_all_invoices
-    days_array = invoices.map do |invoice|
-      invoice.created_at.strftime('%A')
+    days_array = invoices.map do |invoice_object|
+      invoice_object.created_at.strftime('%A')
     end
   end
 ###THIS IS FOR THE NEXT PART OF ITERATION 2###

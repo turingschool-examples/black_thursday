@@ -29,7 +29,7 @@ RSpec.describe do
     end
 
     it 'looks up all items' do
-      expect(sales_analyst.find_all_items[1]).to be_an_instance_of(Item)
+      expect(sales_analyst.items[1]).to be_an_instance_of(Item)
     end
 
     it 'calculates average_items_per_merchant' do
@@ -83,7 +83,7 @@ RSpec.describe do
 
     it 'has special golden items for funny reasons' do
       first_20_items = sales_engine.items.array_of_objects[0..19]
-      allow(sales_analyst).to receive(:find_all_items) do
+      allow(sales_analyst).to receive(:items) do
         first_20_items
       end
 
