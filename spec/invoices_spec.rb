@@ -9,8 +9,6 @@ RSpec.describe Invoice do
 
   se = SalesEngine.from_csv({
   :invoices => "./data/invoices.csv",
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv"
   })
   invoice_repo = se.invoices
 
@@ -38,11 +36,11 @@ RSpec.describe Invoice do
     end
 
     it 'can return time created at' do
-      expect(invoice_repo.invoice_list[0].created_at).to eq(Time.parse("2009-02-07 00:00:00 -0700"))
+      expect(invoice_repo.invoice_list[0].created_at).to eq(Time.parse("2009-02-07 00:00:00 -0500"))
     end
 
     it 'can return time updated at' do
-      expect(invoice_repo.invoice_list[0].updated_at).to eq(Time.parse("2014-03-15 00:00:00 -0600"))
+      expect(invoice_repo.invoice_list[0].updated_at).to eq(Time.parse("2014-03-15 00:00:00 -0400"))
     end
   end
 end
