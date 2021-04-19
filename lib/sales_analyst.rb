@@ -92,8 +92,6 @@ class SalesAnalyst
     end
   end
 
-  ##### INVOICE ITERATION 2 ######
-
   def average_invoices_per_merchant
     Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
   end
@@ -190,4 +188,6 @@ class SalesAnalyst
     end
     total
   end
+
+
 end
