@@ -22,4 +22,10 @@ class TransactionRepo
   def all
     @transaction_list
   end
+
+  def find_by_id(id)
+    @transaction_list.find do |transaction|
+      transaction.id == id
+    end
+  end
 end
