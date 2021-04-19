@@ -64,22 +64,6 @@ class ItemRepository < Repository
     Item.new(attributes)
   end
 
-  def update(id, attributes)
-    update_instance = find_by_id(id)
-    if update_instance.nil?
-      nil
-    elsif !attributes[:name].nil?
-      update_instance.name = attributes[:name]
-      update_instance.updated_at = Time.now
-    elsif !attributes[:description].nil?
-      update_instance.description = attributes[:description]
-      update_instance.updated_at = Time.now
-    elsif !attributes[:unit_price].nil?
-      update_instance.cent_price = BigDecimal(attributes[:unit_price] * 100, 10)
-      update_instance.updated_at = Time.now
-    end
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

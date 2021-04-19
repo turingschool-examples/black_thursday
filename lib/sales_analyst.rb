@@ -115,16 +115,6 @@ class SalesAnalyst
     merchant_ids.zip(invoice_count)
   end
 
-  def invoices_per_day
-    days = [0, 1, 2, 3, 4, 5, 6]
-
-    days.map do |day|
-      @engine.invoices.all.count do |invoice|
-        invoice.created_at.wday == day
-      end
-    end
-  end
-
   def top_merchants_by_invoice_count
     deviation = (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2).round(2)
     merchant_invoice_array = invoices_per_merchant
@@ -152,6 +142,16 @@ class SalesAnalyst
     end
     @engine.merchants.all.find_all do |merchant|
       bottom_merchant_id.include?(merchant.id)
+    end
+  end
+
+  def invoices_per_day
+    days = [0, 1, 2, 3, 4, 5, 6]
+
+    days.map do |day|
+      @engine.invoices.all.count do |invoice|
+        invoice.created_at.wday == day
+      end
     end
   end
 

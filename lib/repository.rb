@@ -31,6 +31,12 @@ class Repository
     @csv_array.delete(find_by_id(id))
   end
 
+  def update(id, attributes)
+    unless find_by_id(id).nil?
+      find_by_id(id).update(attributes)
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
