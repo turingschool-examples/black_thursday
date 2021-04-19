@@ -21,19 +21,25 @@ class SalesAnalyst
   end
 
   def all_items
-    @items_repo.all
+    @all_items ||= @items_repo.all
   end
 
   def all_merchants
-    @merchants_repo.all
+    @all_merchants ||= @merchants_repo.all
   end
 
   def all_invoices
-    @invoices_repo.all
+    @all_invoices ||= @invoices_repo.all
   end
 
   def item_prices
    all_items.sum do |item|
+      item.unit_price
+    end
+  end
+
+  def item_prices_array
+   all_items.map do |item|
       item.unit_price
     end
   end
@@ -58,20 +64,12 @@ class SalesAnalyst
     standard_deviation(items_per_merchant, average_items_per_merchant)
   end
 
-  def z_score_items(value)
-    ((value - average_items_per_merchant) / average_items_per_merchant_standard_deviation).to_f
-  end
-
-  def z_score_price(value)
-    ((value - average_average_price_per_merchant) /average_unit_price_standard_deviation).to_f
-  end
-
   def average_unit_price
     average(item_prices.to_f, all_items.length.to_f)
   end
 
   def average_unit_price_standard_deviation
-    standard_deviation(item_prices, average_unit_price)
+    standard_deviation(item_prices_array, average_unit_price)
   end
 
   def merchants_num_items_hash
@@ -85,7 +83,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     merchant_ids_with_high_item_count = []
     merchants_num_items_hash.each do |merchant_id, num|
-      if z_score(num) >= 1.0
+      if z_score(num, average_items_per_merchant, average_items_per_merchant_standard_deviation) >= 1.0
         merchant_ids_with_high_item_count << merchant_id
       end
     end
@@ -116,7 +114,7 @@ class SalesAnalyst
     end.reverse!
     top_items_by_price = sorted_items.take(10)
     top_items_by_price.find_all do |item|
-      z_score_price(item.unit_price) >= 2.0
+      z_score(item.unit_price, average_average_price_per_merchant, average_unit_price_standard_deviation) >= 2.0
     end
   end
 
@@ -134,10 +132,6 @@ class SalesAnalyst
     standard_deviation(invoices_per_merchant, average_invoices_per_merchant)
   end
 
-  def z_score_invoices(value)
-    ((value - average_invoices_per_merchant) / average_invoices_per_merchant_standard_deviation).to_f
-  end
-
   def merchants_num_invoices_hash
     merchant_id_hash_keys = []
     all_merchants.each do |merchant|
@@ -149,7 +143,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     merchant_ids_with_high_invoice_count = []
     merchants_num_invoices_hash.each do |merchant_id, num|
-      if z_score_invoices(num) >= 2.0
+      if z_score(num, average_invoices_per_merchant, average_invoices_per_merchant_standard_deviation) >= 2.0
         merchant_ids_with_high_invoice_count << merchant_id
       end
     end
@@ -161,7 +155,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     merchant_ids_with_low_invoice_count = []
     merchants_num_invoices_hash.each do |merchant_id, num|
-      if z_score_invoices(num) <= -2.0
+      if z_score(num, average_invoices_per_merchant, average_invoices_per_merchant_standard_deviation) <= -2.0
         merchant_ids_with_low_invoice_count << merchant_id
       end
     end
@@ -195,14 +189,10 @@ class SalesAnalyst
     standard_deviation(invoices_per_day, average_invoices_per_day)
   end
 
-  def z_score_days(value)
-    ((value - average_invoices_per_day) / days_by_invoice_standard_deviation)
-  end
-
   def top_days_by_invoice_count
     top_days = []
     days_invoices_hash.each do |day, num_of_invoices|
-      if z_score_days(num_of_invoices) > 1
+      if z_score(num_of_invoices, average_invoices_per_day, days_by_invoice_standard_deviation) > 1
         top_days << day
       end
     end
@@ -210,9 +200,8 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    s_status = status.to_s
     num_of_matching_invoices = all_invoices.find_all do |invoice|
-      invoice.status == s_status
+      invoice.status == status
     end.length
     rough = ((num_of_matching_invoices.to_f / all_invoices.length.to_f) * 100)
     result = rough.round(2)
