@@ -5,9 +5,11 @@ require_relative './items_repo'
 require_relative './merchants_repo'
 require_relative './invoices'
 require_relative './invoices_repo'
+require_relative './mathable'
 require 'csv'
 
 class SalesAnalyst
+  include Mathable
   attr_reader :items_repo,
               :merchants_repo,
               :invoices_repo
@@ -31,7 +33,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    total = (all_items.count / all_merchants.count.to_f).round(2)
+    average(all_items.count, all_merchants.count).round(2)
   end
 
   def merchant_id_array
@@ -64,10 +66,10 @@ class SalesAnalyst
   end
 
   def average_unit_price
-    prices = all_items.map do |item|
+    prices = all_items.sum do |item|
       item.unit_price
     end
-    average = (prices.sum) / all_items.length
+    average(prices, all_items.length)
   end
 
   def average_unit_price_standard_deviation
