@@ -68,10 +68,10 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    @sales_engine.top_revenue_earners(x = 20)
+    @sales_engine.top_revenue_earners(x)
   end
 
-  def top_buyers(num_buyers = 20)
-    @sales_engine.top_buyers(num_buyers = 20)
+  def top_buyers(x = 20)
+    @sales_engine.top_buyers
   end
 end

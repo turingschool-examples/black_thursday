@@ -76,7 +76,9 @@ class InvoiceItemRepository
 
   def invoice_total_hash
     @invoice_items.each_with_object(Hash.new(0)) do |invoice_item, hash|
-      hash[invoice_item.invoice_id] += invoice_item.quantity * invoice_item.unit_price
+      if @engine.invoice_paid_in_full?(invoice_item.invoice_id)
+        hash[invoice_item.invoice_id] += invoice_item.quantity * invoice_item.unit_price
+      end
     end
   end
 end

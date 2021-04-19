@@ -126,11 +126,11 @@ class SalesEngine
     @invoice_items.invoice_total_hash
   end
 
-  def top_revenue_earners(x = 20)
-    @invoices.top_revenue_earners(x = 20)
+  def top_revenue_earners(x)
+    @invoices.top_revenue_earners(x)
   end
 
-  def top_buyers(num_buyers = 20)
-    @invoices.top_buyers(num_buyers = 20)
+  def top_buyers(x)
+    @invoices.top_buyers(x)
   end
 end

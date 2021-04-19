@@ -153,12 +153,12 @@ class InvoiceRepository
     end.sort_by {|k, v| -v}.flatten
   end
 
-  def top_revenue_earners(x = 20) 
-    keys = total_revenue_by_merchant.select{|x| x % 1 == 0}
+  def top_revenue_earners(x) 
+    array = total_revenue_by_merchant.select{|x| x % 1 == 0}
     top_merchants = []
     x.times do 
-        top_merchants << @engine.find_merchant_by_id(keys.last)
-        keys.pop
+        top_merchants << @engine.find_merchant_by_id(array.first)
+        array.shift
     end
     top_merchants
   end
@@ -170,12 +170,12 @@ class InvoiceRepository
     end.sort_by {|k, v| -v}.flatten
   end 
 
-  def top_buyers(num_buyers = 20)
-    array = total_spent_by_customer
+  def top_buyers(x)
+    array = total_spent_by_customer.select{|x| x % 1 == 0}
     top_buyers = []
-    num_buyers.times do      
-      top_buyers << @engine.find_customer_by_id(array.last[0])
-      array.pop
+    x.times do      
+      top_buyers << @engine.find_customer_by_id(array.first)
+      array.shift
     end
     top_buyers
   end
