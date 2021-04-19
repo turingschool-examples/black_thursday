@@ -79,4 +79,8 @@ class SalesAnalyst
       item.unit_price_to_dollars > two_deviation
     end
   end
+
+  def
+
+
 end

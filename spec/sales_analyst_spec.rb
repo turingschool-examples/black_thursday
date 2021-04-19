@@ -93,5 +93,45 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.golden_items.length).to eq 5
       expect(sales_analyst.golden_items.first.class).to eq Item
     end
+
+    xit '#average invoices per merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+
+    xit '#average invoices per merchant standard deviation' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
+
+    xit '#top merchants by invoice count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+    end
+
+    xit '#bottom merchants by invoice count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
+    end
+
+    xit '#top_days_by_invoice_count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.average_average_price_per_merchant.length).to eq 1
+      expect(sales_analyst.average_average_price_per_merchant.first).to eq "Wednesday"
+      expect(sales_analyst.average_average_price_per_merchant.first.class).to eq String
+    end
+
+    xit '#invoice_status' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.invoice_status(:pending)).to eq 29.55
+      expect(sales_analyst.invoice_status(:shipped)).to eq 56.95
+      expect(sales_analyst.invoice_status(:returned)).to eq 13.5
+    end
   end
 end
