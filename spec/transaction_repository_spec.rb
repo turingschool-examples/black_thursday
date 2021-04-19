@@ -58,7 +58,7 @@ RSpec.describe TransactionRepository do
       se = SalesEngine.from_csv(transactions: './data/transactions.csv')
 
       tr = se.transactions
-      expect(tr.find_all_by_credit_card_number(4035885351912165)[0].id).to eq(14)
+      expect(tr.find_all_by_credit_card_number('4035885351912165')[0].id).to eq(14)
     end
   end
 
@@ -93,8 +93,8 @@ RSpec.describe TransactionRepository do
       tr = se.transactions
       tr.update(
         1,
-        credit_card_number: 406863194323147,
-        credit_card_expiration_date: 0217,
+        credit_card_number: '406863194323147',
+        credit_card_expiration_date: '0217',
         result: 'success'
       )
       expect(tr.find_by_id(1).result).to eq(:success)
