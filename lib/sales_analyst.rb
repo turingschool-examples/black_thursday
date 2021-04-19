@@ -186,4 +186,6 @@ class SalesAnalyst
       @merchants_repo.find_by_id(merchant_id)
     end
   end
+
+
 end
