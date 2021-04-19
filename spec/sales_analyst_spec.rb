@@ -68,5 +68,9 @@ RSpec.describe SalesAnalyst do
     it 'can return average invoices per merchant' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
+
+    it 'can return average invoice per merchant with standard deviation' do
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
   end
 end
