@@ -34,4 +34,10 @@ class CustomerRepo
       (customer.first_name).downcase.include?(fragment.downcase)
     end
   end
+
+  def find_all_by_last_name(fragment)
+    @customer_list.find_all do |customer|
+      (customer.last_name).downcase.include?(fragment.downcase)
+    end
+  end
 end
