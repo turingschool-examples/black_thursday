@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/dee/turing/1module/projects/black_thursday/spec/customer_spec.rb": {
+      "/Users/dee/turing/1module/projects/black_thursday/spec/customer_repo_spec.rb": {
         "lines": [
           1,
           1,
@@ -9,91 +9,24 @@
           1,
           1,
           1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
           1,
           1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/dee/turing/1module/projects/black_thursday/lib/customer.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          1000,
-          1000,
-          1000,
-          1000,
-          1000,
-          1000,
-          null,
-          null
-        ]
-      },
-      "/Users/dee/turing/1module/projects/black_thursday/lib/customer_repo.rb": {
-        "lines": [
           1,
           1,
           1,
           1,
           null,
           1,
+          null,
+          1,
+          null,
+          null,
           1,
           null,
           1,
           1,
           1,
           null,
-          null,
-          1,
-          1,
-          null,
-          1,
-          1000,
-          null,
-          null,
-          null,
-          1,
-          0,
           null,
           null
         ]
@@ -604,8 +537,59 @@
           null,
           null
         ]
+      },
+      "/Users/dee/turing/1module/projects/black_thursday/lib/customer_repo.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1000,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/dee/turing/1module/projects/black_thursday/lib/customer.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1618854061
+    "timestamp": 1618854422
   }
 }
