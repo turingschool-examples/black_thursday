@@ -135,4 +135,19 @@ class SalesAnalyst
   def average_invoices_per_merchant
     total = (all_invoices.count / all_merchants.count.to_f).round(2)
   end
+
+  def invoices_per_merchant
+    merchant_id_array.map do |id|
+      @invoices_repo.find_all_by_merchant_id(id).length
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    squared_differences = invoices_per_merchant.map do |num|
+      ((num - average_invoices_per_merchant)**2).to_f
+    end.sum
+    divided_sum = ((squared_differences) / (merchant_id_array.length - 1))
+    square_root = ((divided_sum)**0.5).to_f
+    square_root.round(2)
+  end
 end
