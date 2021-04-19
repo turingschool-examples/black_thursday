@@ -6,6 +6,7 @@ require_relative './merchants_repo'
 require_relative './invoices'
 require_relative './invoices_repo'
 require_relative './mathable'
+require 'bigdecimal'
 require 'csv'
 
 class SalesAnalyst
@@ -240,6 +241,20 @@ class SalesAnalyst
       true
     else
       false
+    end
+  end
+
+  def find_invoice_items(id)
+    all_invoice_items.find_all do |invoice|
+        invoice.invoice_id == id
+    end
+  end
+
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id)
+      total = find_invoice_items(invoice_id).map do |invoice|
+        invoice.unit_price * invoice.quantity
+      end.sum
     end
   end
 end

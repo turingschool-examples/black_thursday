@@ -95,7 +95,8 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can get the total of the invoice' do
-      expect(sales_analyst.invoice_total(2179)).to eq()
+      expect(sales_analyst.invoice_total(46)).to eq(BigDecimal(98668)/100)
+      expect(sales_analyst.invoice_total(46).class).to eq(BigDecimal)
     end
   end
 end
