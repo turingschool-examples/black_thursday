@@ -107,6 +107,8 @@ class SalesAnalyst
     end
     merchant_ids_with_high_item_count.map do |merchant_id|
       @merchants_repo.find_by_id(merchant_id)
+      #where you are iterating more than once in one method
+      # split off into other method?
     end
   end
 
@@ -157,6 +159,7 @@ class SalesAnalyst
     end
     merchants_num_invoices_hash = Hash[merchant_id_hash_keys.zip(invoices_per_merchant)]
   end
+  #know which keys we have grab those ten keys and make a new hash that we test
 
   def top_merchants_by_invoice_count
     merchant_ids_with_high_invoice_count = []
@@ -169,6 +172,7 @@ class SalesAnalyst
       @merchants_repo.find_by_id(merchant_id)
     end
   end
+  #stub helpers allow them to recive helper and tell it
 
   def bottom_merchants_by_invoice_count
     merchant_ids_with_low_invoice_count = []
