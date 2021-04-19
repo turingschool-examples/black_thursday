@@ -74,9 +74,9 @@ class SalesAnalyst
     prices = all_items.map do |item|
       item.unit_price
     end
-    squared_differences = prices.map do |price|
+    squared_differences = prices.sum do |price|
       ((price - average_unit_price)**2).to_f
-    end.sum
+    end
     divided_sum = ((squared_differences) / (prices.length - 1))
     square_root = ((divided_sum)**0.5).to_f
     square_root.round(2)
@@ -143,9 +143,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    squared_differences = invoices_per_merchant.map do |num|
+    squared_differences = invoices_per_merchant.sum do |num|
       ((num - average_invoices_per_merchant)**2).to_f
-    end.sum
+    end
     divided_sum = ((squared_differences) / (merchant_id_array.length - 1))
     square_root = ((divided_sum)**0.5).to_f
     square_root.round(2)
@@ -187,5 +187,35 @@ class SalesAnalyst
     end
   end
 
+  def invoices_per_day
+    days_of_week = [0, 1, 2, 3, 4, 5, 6]
 
+    days_of_week.map do |day|
+      all_invoices.count do |invoice|
+        invoice.created_at.wday == day
+      end
+    end
+  end
+
+  def top_days_by_invoice_count
+    days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    average_invoices_per_day = (invoices_per_day.sum) / days.length
+
+    squared_diff = invoices_per_day.sum do |day|
+      (day - average_invoices_per_day)**2
+    end
+    divided_sum = (squared_diff) / (days.length - 1)
+    square_root = divided_sum**0.5.to_f
+    standard_deviation = square_root.round(2)
+
+    days_invoices_hash = days.zip(invoices_per_day)
+
+    top_days = []
+    days_invoices_hash.each do |day, num_of_invoices|
+      if ((num_of_invoices - average_invoices_per_day) / standard_deviation) > 1
+        top_days << day
+      end
+    end
+    top_days
+  end
 end
