@@ -2,7 +2,6 @@ require './lib/item_repository'
 require './lib/sales_analyst'
 
 class SalesAnalystMocks
-
   def self.price_sums_for_each_merchant
     @@price_sums_for_each_merchant
   end
