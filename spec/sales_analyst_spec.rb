@@ -98,7 +98,8 @@ RSpec.describe do
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
                                         :invoices => "./data/invoices.csv",
                                         :invoice_items => "./spec/fixtures/invoice_items_fixtures.csv",                                        :customers => "./data/customers.csv",
-                                        :transactions => "./data/transactions.csv"
+                                        :transactions => "./data/transactions.csv",
+                                        :customers => "./data/customers.csv"
                                         })
     sales_analyst = sales_engine.analyst
 
@@ -123,5 +124,24 @@ RSpec.describe do
       expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(1)
       expect(sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq(Merchant)
     end
+  end
+
+  describe 'iteration 3 functionality' do
+    sales_engine = SalesEngine.from_csv({
+                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
+                                        :invoice_items => "./spec/fixtures/invoice_items_fixtures.csv",                                        :customers => "./data/customers.csv",
+                                        :transactions => "./data/transactions.csv",
+                                        :customers => "./data/customers.csv"
+                                        })
+    sales_analyst = sales_engine.analyst
+
+    it '#invoice_paid_in_full? returns true if invoice is paid in full' do
+
+      expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
+      expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
+    end
+
   end
 end

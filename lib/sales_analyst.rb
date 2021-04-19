@@ -138,4 +138,6 @@ class SalesAnalyst
       find_all_invoices_by_merchant_id(merchant.id).length < lower_bound
     end
   end
+
+  
 end
