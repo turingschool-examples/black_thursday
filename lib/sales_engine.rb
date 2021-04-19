@@ -142,7 +142,6 @@ class SalesEngine
     @invoices.top_merchants_by_invoice_count
   end
 
-
   def total_revenue_by_date(date)
     @invoices.total_revenue_by_date(date)
   end
