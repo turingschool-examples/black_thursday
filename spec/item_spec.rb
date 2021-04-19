@@ -18,6 +18,7 @@ RSpec.describe Item do
                           updated_at: '1993-09-29 11:56:40 UTC '
                         },
                           mock_item_repo)
+
       expect(item).to be_instance_of(Item)
       end
     it 'has attributes' do
@@ -32,6 +33,7 @@ RSpec.describe Item do
                           updated_at: '1993-09-29 11:56:40 UTC'
                         },
                         mock_item_repo)
+
       expect(item.id).to eq(1)
       expect(item.name).to eq('Cool Stuff')
       expect(item.description).to eq('supaaa cool')
@@ -87,6 +89,7 @@ RSpec.describe Item do
                       },
                         mock_item_repo)
       item.update_time_stamp
+
       expect(item.updated_at.year).to eq(2021)
     end
   end
@@ -106,7 +109,12 @@ RSpec.describe Item do
                         mock_item_repo)
       item.unit_price = 1300
       item.unit_price_to_big_decimal
+
       expect(item.unit_price).to eq(0.13e2)
+
+      item.unit_price = 1300
+
+      expect(item.unit_price).to be_a(Integer)
     end
   end
 
@@ -123,6 +131,7 @@ RSpec.describe Item do
                         updated_at: '1993-09-29 11:56:40 UTC'
                       },
                         mock_item_repo)
+
       expect(item.unit_price_to_dollars).to eq(13.0)
     end
   end
