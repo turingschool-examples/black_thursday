@@ -112,12 +112,42 @@ class SalesAnalyst
     Compute.standard_deviation(invoices_per_merchant)
   end
 
-  def top_days_by_invoice_count
-    days_array = invoices.map do |invoice_object|
+  def average_invoices_per_day_standard_deviation
+    average_invoices_per_day = Compute.mean(invoices.length, 7)
+    adder_counter = invoices_per_day.values.sum do |number_of_invoices|
+      (number_of_invoices - average_invoices_per_day)**2
+    end
+    Math.sqrt(adder_counter.to_f / 6).round(2)
+  end
+
+  def invoices_per_day
+    days = invoices.map do |invoice_object|
       invoice_object.created_at.strftime('%A')
+    end
+    sorted_days = days.group_by do |day|
+      day
+    end
+    sorted_days.transform_values do |value|
+      value.length
     end
   end
 
+  def top_days_by_invoice_count
+    days_hash = invoices_per_day.select do |key, value|
+      value > average_invoices_per_day_standard_deviation + (invoices.length/7)
+    end
+    days_hash.keys
+  end
+
+  def invoice_status(status_symbol)
+    sorted_invoices = []
+     @invoices.each do |invoice|
+       if invoice.status == status_symbol
+      sorted_invoices.push(invoice)
+      end
+    end
+    (sorted_invoices.length/@invoices.length.to_f*100).round(2)
+  end
 
   def top_merchants_by_invoice_count
     mean = average_invoices_per_merchant
