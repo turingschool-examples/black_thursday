@@ -54,7 +54,16 @@ RSpec.describe InvoiceItemRepo do
     end
 
     it 'can update an invoice item' do
-      
+      attributes = {
+        quantity: 8,
+        unit_price: 13537,
+        updated_at: Time.now
+      }
+      invoice_item_repo.update(1, attributes)
+
+      expected = invoice_item_repo.find_by_id(1)
+      expect(expected.quantity).to eq(8)
+      expect(expected.unit_price).to eq(BigDecimal(13537)/100)
     end
   end
 end
