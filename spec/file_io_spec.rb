@@ -1,5 +1,5 @@
 require 'rspec'
-require 'CSV'
+require 'csv'
 require './lib/file_io'
 require './lib/item'
 require './lib/merchant'
