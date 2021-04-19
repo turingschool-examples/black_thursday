@@ -40,4 +40,13 @@ class CustomerRepo
       (customer.last_name).downcase.include?(fragment.downcase)
     end
   end
+
+  def create(attributes)
+    new_customer = Customer.new(attributes, self)
+    find_max_id = @customer_list.max_by do |customer|
+      customer.id
+    end
+    new_customer.id = (find_max_id.id + 1)
+    customer_list << new_customer
+  end
 end

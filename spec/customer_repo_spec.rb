@@ -41,5 +41,20 @@ RSpec.describe Customer do
       expect(customer_repository.find_all_by_last_name("ad").length).to eq(18)
       expect(customer_repository.find_all_by_last_name("nj")).to eq([])
     end
+
+    it 'can create new customers' do
+      attributes = {
+        id: 10001,
+        first_name: "Brandon",
+        last_name: "Ingram",
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      
+      customer_repository.create(attributes)
+      expected = customer_repository.find_by_id(1001)
+      expect(expected.first_name).to eq("Brandon")
+      expect(expected.last_name).to eq("Ingram")
+    end
   end
 end
