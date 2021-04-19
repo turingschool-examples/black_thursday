@@ -71,8 +71,8 @@ RSpec.describe TransactionMocks do
     end
   end
 
-  describe '#transions_as_mocks' do
-    it 'returns mock data of transsactions' do
+  describe '#transactions_as_mocks' do
+    it 'returns mock data of transactions' do
       transactions_as_mocks = TransactionMocks.transactions_as_mocks(self)
 
       expect(transactions_as_mocks).to be_an Array
