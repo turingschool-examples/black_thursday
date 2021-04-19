@@ -47,8 +47,8 @@ class TransactionRepository < Repository
     attributes = {
       id: max_id_number_new,
       invoice_id: transaction_hash[:invoice_id].to_i,
-      credit_card_number: transaction_hash[:credit_card_number].to_i,
-      credit_card_expiration_date: transaction_hash[:credit_card_expiration_date].to_i,
+      credit_card_number: transaction_hash[:credit_card_number],
+      credit_card_expiration_date: transaction_hash[:credit_card_expiration_date],
       result: transaction_hash[:result].to_sym,
       created_at: Time.now,
       updated_at: Time.now,
