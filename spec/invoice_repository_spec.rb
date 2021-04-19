@@ -44,7 +44,7 @@ describe InvoiceRepository do
 
   describe '#find_all_by_customer_id' do
     it 'returns empty array for no results' do
-      invoice_hashes = InvoiceMocks.invoices_as_hashes(customer_id_range: (1..1))
+      invoice_hashes = InvoiceMocks.invoices_as_hashes(customer_id: 1)
       mock_data = InvoiceMocks.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')
@@ -53,7 +53,7 @@ describe InvoiceRepository do
     end
 
     it 'returns invoices by customer id' do
-      invoice_hashes = InvoiceMocks.invoices_as_hashes(customer_id_range: (1..1))
+      invoice_hashes = InvoiceMocks.invoices_as_hashes(customer_id: 1)
       mock_data = InvoiceMocks.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')
@@ -64,7 +64,7 @@ describe InvoiceRepository do
 
   describe '#find_all_by_merchant_id' do
     it 'returns empty array for no results' do
-      invoice_hashes = InvoiceMocks.invoices_as_hashes(merchant_id_range: (1..1))
+      invoice_hashes = InvoiceMocks.invoices_as_hashes(merchant_id: 1)
       mock_data = InvoiceMocks.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')
@@ -73,7 +73,7 @@ describe InvoiceRepository do
     end
 
     it 'returns invoices by merchant id' do
-      invoice_hashes = InvoiceMocks.invoices_as_hashes(merchant_id_range: (1..1))
+      invoice_hashes = InvoiceMocks.invoices_as_hashes(merchant_id: 1)
       mock_data = InvoiceMocks.invoices_as_mocks(self, invoice_hashes)
       allow_any_instance_of(InvoiceRepository).to receive(:create_invoices).and_return(mock_data)
       invoice_repository = InvoiceRepository.new('fake.csv')

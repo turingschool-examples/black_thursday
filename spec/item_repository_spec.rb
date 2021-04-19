@@ -138,7 +138,7 @@ describe ItemRepository do
     end
 
     it 'returns all items with merchant_id' do
-      items_as_hashes = ItemMocks.items_as_hashes(merchant_id_range: (1..1))
+      items_as_hashes = ItemMocks.items_as_hashes(merchant_id: 1)
       mock_data = ItemMocks.items_as_mocks(self, items_as_hashes)
       allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(mock_data)
       item_repository = ItemRepository.new('fake.csv')

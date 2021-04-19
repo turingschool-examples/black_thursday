@@ -58,13 +58,13 @@ RSpec.describe InvoiceItemMocks do
       end
     end
     it 'returns custom ids for item_id' do
-      invoice_items_as_hashes = InvoiceItemMocks.invoice_items_as_hashes(item_id_range: (1..1))
+      invoice_items_as_hashes = InvoiceItemMocks.invoice_items_as_hashes(item_id: 1)
       invoice_items_as_hashes.each do |invoice_item_hash|
         expect(invoice_item_hash[:item_id]).to eq 1
       end
     end
     it 'returns custom ids for invoice_id' do
-      invoice_items_as_hashes = InvoiceItemMocks.invoice_items_as_hashes(invoice_id_range: (1..1))
+      invoice_items_as_hashes = InvoiceItemMocks.invoice_items_as_hashes(invoice_id: 1)
       invoice_items_as_hashes.each do |invoice_item_hash|
         expect(invoice_item_hash[:invoice_id]).to eq 1
       end

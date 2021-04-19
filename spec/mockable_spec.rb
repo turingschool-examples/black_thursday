@@ -3,6 +3,15 @@ require './data/item_mocks'
 require './data/mockable'
 
 describe Mockable do
+  describe '#generator' do
+    it 'creates an array with specified length' do
+      gen = Mockable.generator(10)
+
+      expect(gen).to be_an Array
+      expect(gen.length).to eq 10
+    end
+  end
+
   describe '#mock_generator' do
     it 'builds mocks with given hashes' do
       hashes = [{ id: 10, name: 'Example 1' }, { id: 11, name: 'Example 2' }]
