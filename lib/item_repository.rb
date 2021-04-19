@@ -14,7 +14,7 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def make_items(path)
@@ -155,5 +155,3 @@ class ItemRepository
     end
   end
 end
-
-

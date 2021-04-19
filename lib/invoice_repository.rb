@@ -94,6 +94,20 @@ class InvoiceRepository
     end.uniq
   end
 
+  def merchant_successful_invoice_array(merchant_id)
+    @invoices.each_with_object([]) do |invoice, array|
+      if invoice.merchant_id == merchant_id && @engine.invoice_paid_in_full?(invoice.id)
+        array << invoice.id
+      end
+    end
+
+    # array of successful invoices, for the merchant_id
+    # iterate over successful invoice array
+    # make hash of item id's & total quantity
+    # hash key with highest value is item
+    # get item object from sales engine
+  end
+
   def percentage_by_status(status)
     invoices_found = find_all_by_status(status).count.to_f
     total_invoices = all.count
@@ -113,7 +127,7 @@ class InvoiceRepository
   def top_buyers(x)
     array = total_spent_by_customer.select{|x| x % 1 == 0}
     top_buyers = []
-    x.times do      
+    x.times do
       top_buyers << @engine.find_customer_by_id(array.first)
       array.shift
     end
@@ -130,10 +144,10 @@ class InvoiceRepository
     end
   end
 
-  def top_revenue_earners(x) 
+  def top_revenue_earners(x)
     array = total_revenue_by_merchant.select{|x| x % 1 == 0}
     top_merchants = []
-    x.times do 
+    x.times do
         top_merchants << @engine.find_merchant_by_id(array.first)
         array.shift
     end
@@ -178,7 +192,7 @@ class InvoiceRepository
     @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
       hash[invoice.customer_id] += invoice_total_hash[invoice.id]
     end.sort_by {|k, v| -v}.flatten
-  end 
+  end
 
   def update(id, attributes)
     if find_by_id(id) != nil && attributes[:status] != nil
@@ -188,4 +202,3 @@ class InvoiceRepository
     end
   end
 end
-

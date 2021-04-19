@@ -63,6 +63,25 @@ class InvoiceItemRepository
     end
   end
 
+  def item_quantity_hash(merchant_id)
+    merchant_successful_invoice_array = @engine.merchant_successful_invoice_array(merchant_id)
+    @invoice_items.each_with_object(Hash.new(0)) do |invoice_item, hash|
+      if merchant_successful_invoice_array.include?(invoice_item.invoice_id)
+        hash[invoice_item.item_id] += invoice_item.quantity
+      end
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    hash = item_quantity_hash(merchant_id)
+    highest_item_quantity = hash.values.max
+    hash.each_with_object([]) do |(invoice_id, quantity), array|
+      if quantity == highest_item_quantity
+        array << @engine.find_item_by_id(invoice_id)
+      end
+    end
+  end
+
   def update(id, attributes)
     return nil if find_by_id(id) == nil
     invoice_item_to_update = find_by_id(id)

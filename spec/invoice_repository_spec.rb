@@ -19,7 +19,7 @@ RSpec.describe InvoiceRepository do
       expect(ir.invoices.count).to eq(4985)
     end
   end
-  
+
   describe '#make_invoices' do
     it 'makes_invoices' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -204,12 +204,13 @@ RSpec.describe InvoiceRepository do
         transactions: './spec/truncated_data/transactions_truncated.csv'
                               })
       sales_analyst = se.analyst
-      
+
       ir = InvoiceRepository.new('./data/invoices.csv', se)
-      
+
       expect(ir.merchants_with_pending_invoices.count).to eq(4)
     end
   end
+
   describe '#percentage_by_status' do
     it 'shows percent of invoices by status' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -220,21 +221,21 @@ RSpec.describe InvoiceRepository do
       expect(ir.percentage_by_status(:returned)).to eq(16.67)
     end
   end
-  # describe '#revenue_by_merchant' do
-  #   it 'returns the total revenue for given merchant' do
-  #     se = SalesEngine.from_csv({
-  #       items: './spec/truncated_data/items_truncated.csv',
-  #       merchants: './spec/truncated_data/merchants_truncated.csv',
-  #       invoices: './data/invoices.csv',
-  #       customers: './spec/truncated_data/customers_truncated.csv',
-  #       invoice_items: './data/invoice_items.csv',
-  #       transactions: './data/transactions.csv'
-  #                     })     
-  #        ir = InvoiceRepository.new('./data/invoices.csv', se)
+  describe '#revenue_by_merchant' do
+    it 'returns the total revenue for given merchant' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './data/invoices.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                      })
+         ir = InvoiceRepository.new('./data/invoices.csv', se)
 
-  #     expect(ir.revenue_by_merchant(12334105)).to eq(73777.17)
-  #   end
-  # end
+      expect(ir.revenue_by_merchant(12334105)).to eq(73777.17)
+    end
+  end
   describe '#stdev_invoices_per_merchant' do
     it 'shows standard deviation of invoices by merchant' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -321,7 +322,7 @@ RSpec.describe InvoiceRepository do
       expect(ir.total_revenue_by_date(date)).to eq(4774.75)
     end
   end
-    describe '#total_revenue_by_merchant' do 
+    describe '#total_revenue_by_merchant' do
     it 'creates an array of unique merchant ids and their total revenue' do
       sales_engine = SalesEngine.from_csv({
         items: './data/items.csv',
@@ -330,14 +331,14 @@ RSpec.describe InvoiceRepository do
         customers: './data/customers.csv',
         invoice_items: './data/invoice_items.csv',
         transactions: './data/transactions.csv'
-                      })     
+                      })
       ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
       iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
 
       expect(ir.total_revenue_by_merchant.count).to eq(950)
-    end 
-  end 
-    describe '#total_spent_by_customer' do 
+    end
+  end
+    describe '#total_spent_by_customer' do
     it 'creates an array of unique customer ids and their total spends' do
       sales_engine = SalesEngine.from_csv({
         items: './data/items.csv',
@@ -346,13 +347,13 @@ RSpec.describe InvoiceRepository do
         customers: './data/customers.csv',
         invoice_items: './data/invoice_items.csv',
         transactions: './data/transactions.csv'
-                      })     
+                      })
       ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
       iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
 
       expect(ir.total_spent_by_customer.count).to eq(1802)
-    end 
-  end 
+    end
+  end
   describe '#update' do
     it 'updates invoices attributes' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -374,4 +375,5 @@ RSpec.describe InvoiceRepository do
       expect(test_invoice.updated_at.year).to eq(2021)
     end
   end
+
 end

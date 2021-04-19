@@ -106,6 +106,10 @@ class SalesEngine
     @items.merchants_with_high_item_count
   end
 
+  def merchant_successful_invoice_array(merchant_id)
+    @invoices.merchant_successful_invoice_array(merchant_id)
+  end
+
   def items_created_in_month(month)
     @items.items_created_in_month(month)
   end
@@ -120,8 +124,8 @@ class SalesEngine
 
   def merchants_with_pending_invoices
     @invoices.merchants_with_pending_invoices
-  end  
-  
+  end
+
   def revenue_by_merchant(merchant_id)
     @invoices.revenue_by_merchant(merchant_id)
   end
@@ -145,7 +149,7 @@ class SalesEngine
   def total_revenue_by_date(date)
     @invoices.total_revenue_by_date(date)
   end
-  
+
   def total_revenue_by_merchant_by_month(month)
     @invoices.total_revenue_by_merchant_by_month(month)
   end
