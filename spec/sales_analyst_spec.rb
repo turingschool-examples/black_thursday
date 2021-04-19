@@ -181,4 +181,34 @@ RSpec.describe SalesAnalyst do
       expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
   end
+
+  describe '#top_revenue_earners' do
+    it 'returns the specified number of top-earning merchants' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+      ir = InvoiceRepository.new('./data/invoices.csv', se)
+      expect(se.top_revenue_earners.count).to eq(20)
+    end
+  end
+
+  describe '#top_buyers' do
+    it 'returns the specified number of top buyers' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './data/invoices.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+      ir = InvoiceRepository.new('./data/invoices.csv', se)
+      expect(se.top_buyers.count).to eq(20)
+    end
+  end
 end

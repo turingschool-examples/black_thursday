@@ -153,4 +153,18 @@ RSpec.describe SalesEngine do
       expect(@se.invoice_total_hash.keys.count).to eq(4985)
     end
   end
+
+  describe '#top_revenue_earners' do
+    it 'returns the specified number of top-earning merchants' do
+
+      expect(@se.top_revenue_earners.count).to eq(20)
+    end
+  end
+
+  describe '#top_buyers' do
+    it 'returns the specified number of top buyers' do
+
+      expect(@se.top_buyers.count).to eq(20)
+    end
+  end
 end

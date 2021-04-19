@@ -312,6 +312,23 @@ RSpec.describe InvoiceRepository do
     end
   end
 
+  describe '#total_revenue_by_merchant' do 
+    it 'creates an array of unique merchant ids and their total revenue' do
+      sales_engine = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                      })     
+      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
+
+      expect(ir.total_revenue_by_merchant.count).to eq(950)
+    end 
+  end 
+
   describe '#top_revenue_earners' do
     it 'returns the top revenue earners' do
       se = SalesEngine.from_csv({
@@ -348,6 +365,7 @@ RSpec.describe InvoiceRepository do
       expect(ir.total_spent_by_customer.count).to eq(901)
     end 
   end 
+
   describe '#top_buyers' do 
     it 'creates an array of unique customer ids and their total spends' do
       sales_engine = SalesEngine.from_csv({

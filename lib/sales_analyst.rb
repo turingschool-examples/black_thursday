@@ -66,4 +66,12 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     @sales_engine.total_revenue_by_date(date)
   end
+
+  def top_revenue_earners(x = 20)
+    @sales_engine.top_revenue_earners(x = 20)
+  end
+
+  def top_buyers(num_buyers = 20)
+    @sales_engine.top_buyers(num_buyers = 20)
+  end
 end

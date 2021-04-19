@@ -146,33 +146,28 @@ class InvoiceRepository
     end.sum
   end
 
-  def top_revenue_earners(x = 20)
-    hash = @invoices.each_with_object({}) do |invoice, hash|
-      hash[invoice.merchant_id] = invoice.id
-    end
-    merchant_invoice_hash = hash.each do |merchant_id, invoice_id|
-      hash[merchant_id] = @engine.invoice_total(invoice_id)
-    end
-    sorted_merchants = merchant_invoice_hash.sort_by {|k, v| -v}.flatten
-    keys = sorted_merchants.select{|x| x % 1 == 0}
+  def total_revenue_by_merchant
+    invoice_total_hash = @engine.invoice_total_hash
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+      hash[invoice.merchant_id] += invoice_total_hash[invoice.id]
+    end.sort_by {|k, v| -v}.flatten
+  end
+
+  def top_revenue_earners(x = 20) 
+    keys = total_revenue_by_merchant.select{|x| x % 1 == 0}
     top_merchants = []
-    keys.each do |key|
-      if top_merchants.count == x
-        break
-      elsif
-        top_merchants << @engine.find_merchant_by_id(key)
-      end
+    x.times do 
+        top_merchants << @engine.find_merchant_by_id(keys.last)
+        keys.pop
     end
     top_merchants
   end
-end
 
   def total_spent_by_customer
     invoice_total_hash = @engine.invoice_total_hash
-    array = @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
+    @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
       hash[invoice.customer_id] += invoice_total_hash[invoice.id]
-    end.to_a 
-    array.sort_by { |sub_array| sub_array[1] }
+    end.sort_by {|k, v| -v}.flatten
   end 
 
   def top_buyers(num_buyers = 20)
