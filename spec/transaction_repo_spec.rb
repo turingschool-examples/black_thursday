@@ -42,5 +42,24 @@ RSpec.describe TransactionRepo do
       expect(transaction_repo.find_all_by_result("success").class).to eq(Array)
       expect(transaction_repo.find_all_by_result("failed").length).to eq(827)
     end
+
+    it "can create" do
+      attributes = {
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+
+      transaction_repo.create(attributes)
+      expected = transaction_repo.find_by_id(4986)
+      expect(expected.class).to eq(Transaction)
+      expect(expected.invoice_id).to eq(8)
+      expect(expected.credit_card_number).to eq(4242424242424242)
+      expect(expected.credit_card_expiration_date).to eq(220)
+      expect(expected.result).to eq("success")
+    end
   end
 end

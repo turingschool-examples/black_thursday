@@ -46,4 +46,13 @@ class TransactionRepo
       transaction.result == status
     end
   end
+
+  def create(attributes)
+    new_transaction = Transaction.new(attributes, self)
+    find_max_id = @transaction_list.max_by do |transaction|
+      transaction.id
+    end
+    new_transaction.id = (find_max_id.id + 1)
+    transaction_list << new_transaction
+  end
 end
