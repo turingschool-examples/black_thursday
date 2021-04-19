@@ -33,7 +33,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    average(all_items.count, all_merchants.count).round(2)
+    average(all_items.count.to_f, all_merchants.count.to_f).round(2)
   end
 
   def merchant_id_array
@@ -69,7 +69,7 @@ class SalesAnalyst
     prices = all_items.sum do |item|
       item.unit_price
     end
-    average(prices, all_items.length)
+    average(prices.to_f, all_items.length.to_f)
   end
 
   def average_unit_price_standard_deviation
@@ -110,8 +110,7 @@ class SalesAnalyst
       item.unit_price
     end
     total_unit_price = prices_of_items_for_current_merchant.sum
-    average_unit_price = total_unit_price / items_for_current_merchant.length
-    result = BigDecimal(average_unit_price).round(2)
+    result = average(total_unit_price, items_for_current_merchant.length).round(2)
   end
 
   def average_average_price_per_merchant
@@ -119,9 +118,7 @@ class SalesAnalyst
       merchant_id = merchant.id
       average_item_price_for_merchant(merchant_id)
     end
-    sum = array_of_average_item_prices.sum
-    average = sum / array_of_average_item_prices.length
-    result = BigDecimal(average).round(2)
+   BigDecimal(average(array_of_average_item_prices.sum, array_of_average_item_prices.length)).round(2)
   end
 
   def golden_items
@@ -135,7 +132,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    total = (all_invoices.count / all_merchants.count.to_f).round(2)
+    average(all_invoices.count, all_merchants.count.to_f).round(2)
   end
 
   def invoices_per_merchant
@@ -199,7 +196,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    average = (invoices_per_day.sum) / days.length
+    average(invoices_per_day.sum, days.length)
   end
 
   def days

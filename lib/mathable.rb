@@ -5,7 +5,7 @@ module Mathable
   end
 
   def average(value, total)
-    value.to_f / total.to_f
+    value / total
   end
 
   def standard_deviation(values)
