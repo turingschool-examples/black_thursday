@@ -89,22 +89,6 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  describe '#average_average_price_per_merchant' do
-    it 'sum the averages and finds average price across all merchants' do
-      se = SalesEngine.from_csv({
-        items: './spec/truncated_data/items_truncated.csv',
-        merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv',
-        customers: './spec/truncated_data/customers_truncated.csv',
-        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
-        transactions: './spec/truncated_data/transactions_truncated.csv'
-                              })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
-
-      expect(ir.average_average_price_per_merchant).to eq(0.1862e2)
-    end
-  end
-
   describe '#golden_items' do
     it 'finds items greater than 2 std dev above average item price' do
       se = SalesEngine.from_csv({
@@ -115,20 +99,25 @@ RSpec.describe SalesAnalyst do
         invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
         transactions: './spec/truncated_data/transactions_truncated.csv'
                               })
-      ir = ItemRepository.new('./spec/truncated_data/items_truncated.csv', se)
-
-      expect(ir.golden_items).to eq([])
+      sales_analyst = se.analyst
+      
+      expect(sales_analyst.golden_items).to eq([])
     end
   end
 
   describe '#average_invoices_per_merchant' do
     it 'shows average number of invoices by merchant' do
-      mock_sales_engine = instance_double('SalesEngine')
-      sa = SalesAnalyst.new(mock_sales_engine)
-      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      allow(mock_sales_engine).to receive(:average_invoices_per_merchant) { ir.average_invoices_per_merchant }
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+      sales_analyst = se.analyst
 
-      expect(sa.average_invoices_per_merchant).to eq(10.49)
+      expect(sales_analyst.average_invoices_per_merchant).to eq(1.0)
     end
   end
 
@@ -167,6 +156,7 @@ RSpec.describe SalesAnalyst do
     it 'tells which merchants are more than two std devs below the mean' do
       mock_sales_engine = instance_double('SalesEngine')
       mock_merchant_repo = instance_double('MerchantRepository')
+      sa = SalesAnalyst.new(mock_sales_engine)
       merchant = Merchant.new({
                                id: '1',
                                name: 'Shopin1901',
@@ -177,8 +167,88 @@ RSpec.describe SalesAnalyst do
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
       allow(mock_sales_engine).to receive(:bottom_merchants_by_invoice_count) { ir.bottom_merchants_by_invoice_count }
 
-      expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
-      expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
+      expect(sa.bottom_merchants_by_invoice_count.count).to eq(4)
+      expect(sa.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
+    end
+  end
+
+  describe '#invoice_percentage_by_status' do
+    it 'returns the status of an invoice' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+      
+        expect(sales_analyst.invoice_percentage_by_status('pending')).to eq(50.0)
+    end
+  end
+
+  describe '#top_days_by_invoice_count' do
+    it 'returns the top sales days' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+
+      expect(sales_analyst.top_days_by_invoice_count).to eq(['Friday', 'Saturday'])
+    end
+  end
+
+  describe '#invoice_paid_in_full?' do
+    it 'tells you if an invoice has been paid in full' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+
+      expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
+    end
+  end
+
+  describe '#invoice_total' do
+    it 'tells you the total price of an invoice' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+
+      expect(sales_analyst.invoice_total(1)).to eq(21067.77)
+    end
+  end
+
+  describe '#total_revenue_by_date' do
+    it 'tells you the total revenue on a specific date' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+
+      expect(sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))).to eq(21067.77)
     end
   end
 
@@ -192,8 +262,8 @@ RSpec.describe SalesAnalyst do
         invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
         transactions: './spec/truncated_data/transactions_truncated.csv'
                               })
-      ir = InvoiceRepository.new('./data/invoices.csv', se)
-      expect(se.top_revenue_earners.count).to eq(20)
+      sales_analyst = se.analyst
+      expect(sales_analyst.top_revenue_earners(5).count).to eq(5)
     end
   end
 
@@ -207,8 +277,71 @@ RSpec.describe SalesAnalyst do
         invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
         transactions: './spec/truncated_data/transactions_truncated.csv'
                               })
-      ir = InvoiceRepository.new('./data/invoices.csv', se)
-      expect(se.top_buyers.count).to eq(20)
+        sales_analyst = se.analyst
+      expect(sales_analyst.top_buyers(7).count).to eq(7)
+    end
+  end
+
+  describe '#merchants_with_pending_invoices' do
+    it 'returns merchants with pending invoices' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './data/invoices.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+      expect(sales_analyst.merchants_with_pending_invoices.count).to eq(4)
+      expect(sales_analyst.merchants_with_pending_invoices.last).to be_a(Merchant)
+    end
+  end
+
+  describe '#merchants_with_only_one_item' do
+    it 'returns merchants with only one item for sale' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './data/invoices.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+      expect(sales_analyst.merchants_with_only_one_item.count).to eq(3)
+      expect(sales_analyst.merchants_with_only_one_item.last).to be_a(Merchant)
+    end
+  end
+
+  describe '#merchants_with_only_one_item_registered_in_month' do
+    it 'returns merchants with only one item for sale in a given month' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './data/invoices.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+      expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").count).to eq(1)
+    end
+  end
+
+  describe '#revenue_by_merchant' do
+    it 'returns total revenue for a given merchant' do
+      se = SalesEngine.from_csv({
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './data/invoices.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                              })
+        sales_analyst = se.analyst
+      expect(sales_analyst.revenue_by_merchant(1)).to eq(nil)
+      expect(sales_analyst.revenue_by_merchant(12334113)).to eq(0)
     end
   end
 end

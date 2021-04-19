@@ -198,6 +198,7 @@ class InvoiceRepository
   end
 
   def revenue_by_merchant(merchant_id)
+    return nil if total_revenue_by_merchant.index(merchant_id).nil?
     index = total_revenue_by_merchant.index(merchant_id)
     return_value = total_revenue_by_merchant[index + 1]
   end
