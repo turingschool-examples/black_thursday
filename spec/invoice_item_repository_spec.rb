@@ -100,12 +100,12 @@ RSpec.describe 'ItemRepository' do
       )
 
       iir = se.invoice_items
-      date =  Time.parse('2016-01-11')
+      date = Time.parse('2008-06-29')
 
-      expect(iir.find_all_by_date(date).length).to eq(5)
+      expect(iir.find_all_by_date(date).length).to eq(1)
     end
   end
-  
+
   describe '#create' do
     it 'creates an instance of an invoice item' do
       se = SalesEngine.from_csv(
