@@ -53,7 +53,7 @@ class InvoiceItemRepo
     invoice_item = find_by_id(id)
     if !invoice_item.nil?
       invoice_item.quantity = attributes[:quantity] unless attributes[:quantity].nil?
-      invoice_item.unit_price = BigDecimal(attributes[:unit_price]/100, 5) unless attributes[:unit_price].nil?
+      invoice_item.unit_price = BigDecimal(attributes[:unit_price], 5) unless attributes[:unit_price].nil?
       invoice_item.updated_at = Time.now
     end
     invoice_item
@@ -63,7 +63,7 @@ class InvoiceItemRepo
     invoice_item = find_by_id(id)
     invoice_item != nil
   end
-  
+
   def delete(id)
     invoice_item = find_by_id(id)
     if invoice_item_exists?(id)

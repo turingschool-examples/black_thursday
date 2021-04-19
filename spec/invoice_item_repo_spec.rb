@@ -56,14 +56,14 @@ RSpec.describe InvoiceItemRepo do
     it 'can update an invoice item' do
       attributes = {
         quantity: 8,
-        unit_price: 13995,
+        unit_price: 139.95,
         updated_at: Time.now
       }
       invoice_item_repo.update(1, attributes)
 
       expected = invoice_item_repo.find_by_id(1)
       expect(expected.quantity).to eq(8)
-      expect(expected.unit_price.to_f).to eq(139.0)
+      expect(expected.unit_price.to_f).to eq(139.95)
     end
 
     it 'can delete an invoice item' do
