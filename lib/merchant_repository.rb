@@ -24,6 +24,10 @@ class MerchantRepository
     @merchants
   end
 
+  def find_all_by_name(name)
+    RepoBrain.find_all_by_partial_string(name, 'name', @merchants)
+  end
+
   def find_by_id(id)
     RepoBrain.find_by_id(id, 'id', @merchants)
   end
@@ -32,26 +36,11 @@ class MerchantRepository
     RepoBrain.find_by_full_string(name, 'name', @merchants)
   end
 
-  def find_all_by_name(name)
-    RepoBrain.find_all_by_partial_string(name, 'name', @merchants)
-  end
-
-  def generate_new_id
-    RepoBrain.generate_new_id(@merchants)
-  end
-
   def create(attributes)
-    attributes[:id] = generate_new_id
+    attributes[:id] = RepoBrain.generate_new_id(@merchants)
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     @merchants << Merchant.new(attributes, self)
-  end
-
-  def update(id, attributes)
-    if !find_by_id(id).nil?
-      customer_to_update = find_by_id(id)
-      customer_to_update.update(attributes)
-    end
   end
 
   def delete(id)
@@ -78,6 +67,13 @@ class MerchantRepository
     array = @engine.total_revenue_by_merchant.select{|x| x % 1 == 0}.first(num_earners)
     array.map do |merchant_id|
       find_by_id(merchant_id)
+    end
+  end
+
+  def update(id, attributes)
+    if !find_by_id(id).nil?
+      customer_to_update = find_by_id(id)
+      customer_to_update.update(attributes)
     end
   end
 end

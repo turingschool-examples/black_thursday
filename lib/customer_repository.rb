@@ -24,8 +24,13 @@ class CustomerRepository
     @customers
   end
 
-  def find_by_id(id)
-    RepoBrain.find_by_id(id, 'id', @customers)
+  def create(attributes)
+    attributes[:id] = RepoBrain.generate_new_id(@customers)
+    @customers << Customer.new(attributes, self)
+  end
+
+  def delete(id)
+    customers.delete(find_by_id(id))
   end
 
   def find_all_by_first_name(fragment)
@@ -36,13 +41,8 @@ class CustomerRepository
     RepoBrain.find_all_by_partial_string(fragment, 'last_name', @customers)
   end
 
-  def generate_new_id
-    RepoBrain.generate_new_id(@customers)
-  end
-
-  def create(attributes)
-    attributes[:id] = generate_new_id
-    @customers << Customer.new(attributes, self)
+  def find_by_id(id)
+    RepoBrain.find_by_id(id, 'id', @customers)
   end
 
   def update(id, attributes)
@@ -50,9 +50,5 @@ class CustomerRepository
       customer_to_update = find_by_id(id)
       customer_to_update.update(attributes)
     end
-  end
-
-  def delete(id)
-    customers.delete(find_by_id(id))
   end
 end

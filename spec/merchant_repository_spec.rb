@@ -36,6 +36,45 @@ RSpec.describe MerchantRepository do
     end
   end
 
+  describe '#create' do
+    it 'can create new merchant' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
+      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
+      mr.create({
+                  name: 'JimmysSubs',
+                  created_at: Time.now.to_s,
+                  updated_at: Time.now.to_s
+                })
+
+      expect(mr.find_by_id(12334114)).to eq(mr.merchants[4])
+    end
+  end
+
+  describe '#delete' do
+    it 'can delete merchant object' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
+      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
+
+      mr.delete(12334105)
+
+      expect(mr.find_by_id(12334105)).to eq(nil)
+    end
+  end
+
+  describe '#find_all_by_name' do
+    it 'finds all names containing fragment or empty array' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
+      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
+
+      expect(mr.find_all_by_name('Rtpdsfsd')).to eq([])
+      expect(mr.find_all_by_name('Can')).to eq([mr.merchants[1]])
+      expect(mr.find_all_by_name('Min')).to eq([mr.merchants[2], mr.merchants[3]])
+    end
+  end
+
   describe '#find_by_id' do
     it 'finds by id or returns nil' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -55,58 +94,6 @@ RSpec.describe MerchantRepository do
 
       expect(mr.find_by_name('JimmysSubs')).to eq(nil)
       expect(mr.find_by_name('Shopin1901')).to eq(mr.merchants[0])
-    end
-  end
-
-  describe '#find_all_by_name' do
-    it 'finds all names containing fragment or empty array' do
-      mock_sales_engine = instance_double('SalesEngine')
-      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
-      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
-
-      expect(mr.find_all_by_name('Rtpdsfsd')).to eq([])
-      expect(mr.find_all_by_name('Can')).to eq([mr.merchants[1]])
-      expect(mr.find_all_by_name('Min')).to eq([mr.merchants[2], mr.merchants[3]])
-    end
-  end
-
-  describe '#create' do
-    it 'can create new merchant' do
-      mock_sales_engine = instance_double('SalesEngine')
-      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
-      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
-      mr.create({
-                  name: 'JimmysSubs',
-                  created_at: Time.now.to_s,
-                  updated_at: Time.now.to_s
-                })
-
-      expect(mr.find_by_id(12334114)).to eq(mr.merchants[4])
-    end
-  end
-
-  describe '#update' do
-    it 'can update merchants name' do
-      mock_sales_engine = instance_double('SalesEngine')
-      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
-      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
-
-      mr.update(12334105, {name: 'ShopinShopinShopin'})
-
-      expect(mr.merchants[0].name).to eq('ShopinShopinShopin')
-      expect(mr.find_by_name('Shopin1901')).to eq(nil)
-    end
-  end
-
-  describe '#delete' do
-    it 'can delete merchant object' do
-      mock_sales_engine = instance_double('SalesEngine')
-      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
-      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
-
-      mr.delete(12334105)
-
-      expect(mr.find_by_id(12334105)).to eq(nil)
     end
   end
 
@@ -153,6 +140,19 @@ RSpec.describe MerchantRepository do
 
       expect(mr.top_revenue_earners(1)[0]).to be_a(Merchant)
       expect(mr.top_revenue_earners(1).count).to eq(1)
+    end
+  end
+
+  describe '#update' do
+    it 'can update merchants name' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
+      mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
+
+      mr.update(12334105, {name: 'ShopinShopinShopin'})
+
+      expect(mr.merchants[0].name).to eq('ShopinShopinShopin')
+      expect(mr.find_by_name('Shopin1901')).to eq(nil)
     end
   end
 end

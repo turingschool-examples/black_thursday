@@ -34,14 +34,33 @@ RSpec.describe CustomerRepository do
     end
   end
 
-  describe '#find_by_id' do
-    it 'finds by id or returns nil' do
+  describe '#create' do
+    it 'creates a new customer with their id one higher than the highest' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
+      attributes = {
+        first_name: 'Jimmy',
+        last_name: 'Johns',
+        created_at: '2012-03-27 14:54:10 UTC',
+        updated_at: '2012-03-27 14:54:12 UTC'
+      }
+      cr.create(attributes)
+      expected = cr.find_by_id(13)
+
+      expect(expected.first_name).to eq('Jimmy')
+    end
+  end
+
+  describe '#delete' do
+    it 'can delete customer with given id' do
       mock_sales_engine = instance_double('SalesEngine')
       truncated_data = './spec/truncated_data/customers_truncated.csv'
       cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
-      expect(cr.find_by_id(14)).to eq(nil)
-      expect(cr.find_by_id(1)).to eq(cr.customers[0])
+      cr.delete(1)
+
+      expect(cr.find_by_id(1)).to eq(nil)
     end
   end
 
@@ -71,21 +90,14 @@ RSpec.describe CustomerRepository do
     end
   end
 
-  describe '#create' do
-    it 'creates a new customer with their id one higher than the highest' do
+  describe '#find_by_id' do
+    it 'finds by id or returns nil' do
       mock_sales_engine = instance_double('SalesEngine')
       truncated_data = './spec/truncated_data/customers_truncated.csv'
       cr = CustomerRepository.new(truncated_data, mock_sales_engine)
-      attributes = {
-        first_name: 'Jimmy',
-        last_name: 'Johns',
-        created_at: '2012-03-27 14:54:10 UTC',
-        updated_at: '2012-03-27 14:54:12 UTC'
-      }
-      cr.create(attributes)
-      expected = cr.find_by_id(13)
 
-      expect(expected.first_name).to eq('Jimmy')
+      expect(cr.find_by_id(14)).to eq(nil)
+      expect(cr.find_by_id(1)).to eq(cr.customers[0])
     end
   end
 
@@ -106,18 +118,6 @@ RSpec.describe CustomerRepository do
       expect(cr.customers[0].last_name).to eq('Johns')
       expect(cr.customers[0].created_at.year).to eq(2012)
       expect(cr.customers[0].updated_at.year).to eq(2021)
-    end
-  end
-
-  describe '#delete' do
-    it 'can delete customer with given id' do
-      mock_sales_engine = instance_double('SalesEngine')
-      truncated_data = './spec/truncated_data/customers_truncated.csv'
-      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
-
-      cr.delete(1)
-
-      expect(cr.find_by_id(1)).to eq(nil)
     end
   end
 end
