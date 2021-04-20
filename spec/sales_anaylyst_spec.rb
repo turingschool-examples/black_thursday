@@ -209,7 +209,7 @@ RSpec.describe 'SalesAnalyst' do
       sa = se.analyst
       date = Time.parse('2009-02-07')
 
-      expect(sa.total_revenue_by_date(date)).to eq(21067.77)
+      expect(sa.total_revenue_by_date(date)).to eq(21_067.77)
     end
   end
 
