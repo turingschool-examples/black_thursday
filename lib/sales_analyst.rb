@@ -269,4 +269,21 @@ class SalesAnalyst
     end
     tallied_items
   end
+
+  def invoices_per_month
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+    require "pry"; binding.pry
+
+    ##YOU WANT ITEMS NOT INVOICES
+    # days = invoices.map do |invoice_object|
+    #   invoice_object.created_at.strftime('%A')
+    # end
+    # sorted_days = days.group_by do |day|
+    #   day
+    # end
+    # sorted_days.transform_values do |value|
+    #   value.length
+    # end
+  end
 end
