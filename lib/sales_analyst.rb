@@ -236,17 +236,24 @@ class SalesAnalyst
     end
   end
 
+  def transactions_exist?(invoice_id)
+    @transactions = find_transaction(invoice_id)
+    @transactions != []
+  end
+
+  def failed_transactions
+    @transactions.map do |transaction|
+      if transaction.result == :failed
+        false
+      else
+        true
+      end
+    end
+  end
 
   def invoice_paid_in_full?(invoice_id)
-    transactions = find_transaction(invoice_id)
-    if transactions != []
-      transactions.map do |transaction|
-        if transaction.result == :failed
-          false
-        else
-          true
-        end
-      end.uniq.first
+    if transactions_exist?(invoice_id)
+      failed_transactions.uniq.first
     else
       false
     end
