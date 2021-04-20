@@ -63,7 +63,7 @@ RSpec.describe InvoiceItemRepository do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
       attributes = {
-                    id: '951753',
+                     id: '951753',
                      item_id: '123654',
                      invoice_id: '654123',
                      quantity: '999',
