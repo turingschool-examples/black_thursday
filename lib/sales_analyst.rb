@@ -170,7 +170,7 @@ class SalesAnalyst
       transaction.invoice_id == invoice_id
     end
     if all_transactions.length != 0
-      all_transactions.all? do |transaction|
+      all_transactions.any? do |transaction|
         transaction.result == :success
       end
     else
