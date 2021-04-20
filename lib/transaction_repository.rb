@@ -27,38 +27,25 @@ class TransactionRepository
   end
 
   def find_by_id(id)
-    @transactions.find do |transaction|
-      transaction.id == id
-    end
+    RepoBrain.find_by_id(id, 'id', @transactions)
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @transactions.find_all do |transaction|
-      transaction.invoice_id == invoice_id
-    end
+    RepoBrain.find_all_by_id(invoice_id, 'invoice_id', @transactions)
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    @transactions.find_all do |transaction|
-      transaction.credit_card_number == credit_card_number
-    end
+    RepoBrain.find_all_by_id(credit_card_number,
+                             'credit_card_number',
+                             @transactions)
   end
 
   def find_all_by_result(result)
-    @transactions.find_all do |transaction|
-      transaction.result == result
-    end
-  end
-
-  def generate_new_id
-    highest_id_transaction = @transactions.max_by do |transaction|
-      transaction.id
-    end
-    highest_id_transaction.id + 1
+    RepoBrain.find_all_by_id(result, 'result', @transactions)
   end
 
   def create(attributes)
-    attributes[:id] = generate_new_id
+    attributes[:id] = RepoBrain.generate_new_id(@transactions)
     attributes[:created_at] = attributes[:created_at].to_s
     attributes[:updated_at] = attributes[:created_at].to_s
     @transactions << Transaction.new(attributes, self)

@@ -5,7 +5,6 @@ require './lib/transaction_repository'
 require './lib/transaction'
 
 RSpec.describe Transaction do
- 
   describe '#initialize' do
     it 'exists' do
       mock_transaction_repo = instance_double('TransactionRepository')
@@ -20,10 +19,10 @@ RSpec.describe Transaction do
                                     },
                                     mock_transaction_repo
                                    )
-    
+
       expect(transaction).to be_instance_of(Transaction)
     end
-  
+
     it 'has attributes' do
         mock_transaction_repo = instance_double('TransactionRepository')
         transaction = Transaction.new({
@@ -37,7 +36,7 @@ RSpec.describe Transaction do
                                       },
                                       mock_transaction_repo
                                      )
-    
+
       expect(transaction.id).to eq(263395617)
       expect(transaction.invoice_id).to eq(456789)
       expect(transaction.credit_card_number).to eq('4297222479999999')
@@ -76,6 +75,7 @@ RSpec.describe Transaction do
                     }
 
       test_transaction.update(attributes)
+
       expect(test_transaction.id).to eq(263395617)
       expect(test_transaction.invoice_id).to eq(456789)
       expect(test_transaction.credit_card_number).to eq('429999')
@@ -132,6 +132,7 @@ RSpec.describe Transaction do
 
       test_transaction1.update_credit_card_number(attributes1)
       test_transaction2.update_credit_card_number(attributes2)
+
       expect(test_transaction1.credit_card_number).to eq ('429999')
       expect(test_transaction2.credit_card_number).to eq ('4297222479999999')
     end
@@ -183,11 +184,12 @@ RSpec.describe Transaction do
 
       test_transaction1.update_credit_card_expiration_date(attributes1)
       test_transaction2.update_credit_card_expiration_date(attributes2)
+
       expect(test_transaction1.credit_card_expiration_date).to eq('0520')
       expect(test_transaction2.credit_card_expiration_date).to eq('0420')
     end
   end
-  
+
   describe '#update_result' do
     it 'updates credit card result' do
       mock_transaction_repo = instance_double('TransactionRepository')
@@ -233,6 +235,7 @@ RSpec.describe Transaction do
 
       test_transaction1.update_result(attributes1)
       test_transaction2.update_result(attributes2)
+
       expect(test_transaction1.result).to eq (:hot_dog)
       expect(test_transaction2.result).to eq (:success)
     end
@@ -252,6 +255,7 @@ RSpec.describe Transaction do
                                     mock_transaction_repo
                                   )
       transaction.update_time_stamp
+
       expect(transaction.updated_at.year).to eq(2021)
     end
   end
