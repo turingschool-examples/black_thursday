@@ -82,4 +82,22 @@ RSpec.describe Invoice do
       expect(invoice.day_created).to eq('Monday')
     end
   end
+######ZT below
+  describe '#total_value' do
+    it 'totals each invoice' do
+      sales_engine = SalesEngine.from_csv({
+                                            items: './data/items.csv',
+                                            merchants: './data/merchants.csv',
+                                            invoices: './data/invoices.csv',
+                                            customers: './data/customers.csv',
+                                            invoice_items: './data/invoice_items.csv',
+                                            transactions: './data/transactions.csv'
+                                          })
+      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
+
+
+      expect(invoice.total_value). to eq(4)
+    end
+  end
 end
