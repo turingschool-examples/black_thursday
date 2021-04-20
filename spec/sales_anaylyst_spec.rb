@@ -258,9 +258,9 @@ RSpec.describe 'SalesAnalyst' do
         invoice_items: './data/invoice_items.csv'
       )
 
-    sa = se.analyst
+      sa = se.analyst
 
-    expect(sa.merchants_with_only_one_item.length).to eq(243)
+      expect(sa.merchants_with_only_one_item.length).to eq(243)
     end
   end
 
@@ -274,9 +274,9 @@ RSpec.describe 'SalesAnalyst' do
         invoice_items: './data/invoice_items.csv'
       )
 
-    sa = se.analyst
+      sa = se.analyst
 
-    expect(sa.merchants_with_only_one_item_registered_in_month('March').length).to eq(21)
+      expect(sa.merchants_with_only_one_item_registered_in_month('March').length).to eq(21)
     end
   end
 
@@ -290,9 +290,9 @@ RSpec.describe 'SalesAnalyst' do
         invoice_items: './data/invoice_items.csv'
       )
 
-    sa = se.analyst
+      sa = se.analyst
 
-    expect(sa.revenue_by_merchant(12334194)).to eq(BigDecimal(81572.4, 8))
+      expect(sa.revenue_by_merchant(12334194)).to eq(BigDecimal(81572.4, 8))
     end
   end
 
@@ -306,9 +306,9 @@ RSpec.describe 'SalesAnalyst' do
         invoice_items: './data/invoice_items.csv'
       )
 
-    sa = se.analyst
+      sa = se.analyst
 
-    expect(sa.all_revenue_by_merchant.class).to eq(Array)
+      expect(sa.all_revenue_by_merchant.class).to eq(Array)
     end
   end
 end
