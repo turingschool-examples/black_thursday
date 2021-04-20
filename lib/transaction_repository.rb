@@ -26,12 +26,15 @@ class TransactionRepository
     @transactions
   end
 
-  def find_by_id(id)
-    RepoBrain.find_by_id(id, 'id', @transactions)
+  def create(attributes)
+    attributes[:id] = RepoBrain.generate_new_id(@transactions)
+    attributes[:created_at] = attributes[:created_at].to_s
+    attributes[:updated_at] = attributes[:created_at].to_s
+    @transactions << Transaction.new(attributes, self)
   end
 
-  def find_all_by_invoice_id(invoice_id)
-    RepoBrain.find_all_by_id(invoice_id, 'invoice_id', @transactions)
+  def delete(id)
+    transactions.delete(find_by_id(id))
   end
 
   def find_all_by_credit_card_number(credit_card_number)
@@ -40,26 +43,16 @@ class TransactionRepository
                              @transactions)
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    RepoBrain.find_all_by_id(invoice_id, 'invoice_id', @transactions)
+  end
+
   def find_all_by_result(result)
     RepoBrain.find_all_by_id(result, 'result', @transactions)
   end
 
-  def create(attributes)
-    attributes[:id] = RepoBrain.generate_new_id(@transactions)
-    attributes[:created_at] = attributes[:created_at].to_s
-    attributes[:updated_at] = attributes[:created_at].to_s
-    @transactions << Transaction.new(attributes, self)
-  end
-
-  def update(id, attributes)
-    if find_by_id(id) != nil
-      invoice_to_update = find_by_id(id)
-      invoice_to_update.update(attributes)
-    end
-  end
-
-  def delete(id)
-    transactions.delete(find_by_id(id))
+  def find_by_id(id)
+    RepoBrain.find_by_id(id, 'id', @transactions)
   end
 
   def invoice_paid_in_full?(invoice_id)
@@ -68,5 +61,12 @@ class TransactionRepository
         array << transaction.result
       end
     end.include?(:success)
+  end
+
+  def update(id, attributes)
+    if find_by_id(id) != nil
+      invoice_to_update = find_by_id(id)
+      invoice_to_update.update(attributes)
+    end
   end
 end
