@@ -5,14 +5,7 @@ class MerchantRepository < Repository
 
   def initialize(path)
     super(path, Merchant)
-    # @array_of_objects = create_merchants(@parsed_csv_data)
   end
-
-  # def create_merchants(parsed_csv_data)
-  #   parsed_csv_data.map do |merchant|
-  #     Merchant.new(merchant)
-  #   end
-  # end
 
   def inspect
   "#<#{self.class} #{@array_of_objects.size} rows>"

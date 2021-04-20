@@ -5,7 +5,7 @@ require 'bigdecimal/util'
 RSpec.describe InvoiceItemRepository do
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
-                                        # :items     => "./data/items.csv",
+                                        :items     => "./data/items.csv",
                                         :merchants => "./data/merchants.csv",
                                         # :invoices => "./data/invoices.csv",
                                         # :customers => "./data/customers.csv",

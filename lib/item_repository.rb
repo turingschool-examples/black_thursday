@@ -6,14 +6,7 @@ require 'bigdecimal/util'
 class ItemRepository < Repository
 
   def initialize(path)
-    super(path)
-    @array_of_objects = create_items(@parsed_csv_data)
-  end
-
-  def create_items(parsed_csv_data)
-    parsed_csv_data.map do |item|
-      Item.new(item)
-    end
+    super(path, Item)
   end
 
   def inspect
