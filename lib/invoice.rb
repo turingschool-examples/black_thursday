@@ -16,4 +16,17 @@ class Invoice
     @created_at = Time.parse(invoice_info[:created_at].to_s)
     @updated_at = Time.parse(invoice_info[:updated_at].to_s)
   end
+
+  def update_all(attributes)
+    update_status(attributes)
+    update_updated_at(attributes)
+  end
+
+  def update_status(attributes)
+    @status = attributes[:status] if attributes[:status]
+  end
+
+  def update_updated_at(attributes)
+    @updated_at = attributes[:updated_at] if attributes[:updated_at]
+  end
 end

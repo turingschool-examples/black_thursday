@@ -137,6 +137,7 @@ RSpec.describe InvoiceRepo do
       invoice_repo.update(invoice.id, {:status => 'shipped'})
 
       expect(invoice.status).to eq('shipped')
+      expect(invoice.updated_at).to be_an_instance_of(Time)
     end
 
     it '#delete' do
