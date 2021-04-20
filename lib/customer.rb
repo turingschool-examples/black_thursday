@@ -33,4 +33,10 @@ class Customer
   def update_time_stamp
     @updated_at = Time.now
   end
+
+  #items
+  #spend
+  #items/quanity hash
+  #items/revenue hash
+  
 end

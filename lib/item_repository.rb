@@ -9,6 +9,7 @@ class ItemRepository
 
   def initialize(path, engine)
     @items = []
+    @items_hash = {}
     @engine = engine
     make_items(path)
   end
@@ -19,8 +20,14 @@ class ItemRepository
 
   def make_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      @items << Item.new(row, self)
+      item =Item.new(row, self)
+      @items << item
+      @items_hash[row[:id]] = item
     end
+  end
+
+  def find_by_id_hash(id)
+    @items_hash[id].value
   end
 
   def all
@@ -122,6 +129,7 @@ class ItemRepository
       end
     end
   end
+
 
   def merchants_with_only_one_item
     items_per_merchant.each_with_object([]) do |(merchant_id, num_items), array|

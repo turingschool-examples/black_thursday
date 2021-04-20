@@ -28,4 +28,9 @@ class Invoice
   def day_created
     @created_at.strftime('%A').capitalize
   end
+
+  #total_value
+  #items
+  #paid_in_fill?
+  
 end

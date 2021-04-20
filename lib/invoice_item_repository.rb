@@ -55,13 +55,16 @@ class InvoiceItemRepository
     end.sum
   end
 
-  def invoice_total_hash
-    return @invoice_total_hash unless @invoice_total_hash.nil?
-    @invoice_total_hash = @invoice_items.each_with_object(Hash.new(0)) do |invoice_item, hash|
+  def generate_invoice_total_hash
+    @invoice_items.each_with_object(Hash.new(0)) do |invoice_item, hash|
       if @engine.invoice_paid_in_full?(invoice_item.invoice_id)
         hash[invoice_item.invoice_id] += invoice_item.quantity * invoice_item.unit_price
       end
     end
+  end
+
+  def invoice_total_hash
+    @_invoice_total_hash ||= generate_invoice_total_hash
   end
 
   def item_quantity_hash(merchant_id)
@@ -73,8 +76,9 @@ class InvoiceItemRepository
     end
   end
 
+
   def item_revenue_hash(merchant_id)
-    merchant_successful_invoice_array = @engine.merchant_successful_invoice_array(merchant_id)
+    merchant_successful_invoice_array ||= @engine.merchant_successful_invoice_array(merchant_id)
     @invoice_items.each_with_object(Hash.new(0)) do |invoice_item, hash|
       if merchant_successful_invoice_array.include?(invoice_item.invoice_id)
         hash[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
