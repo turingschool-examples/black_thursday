@@ -3,7 +3,7 @@ require 'date'
 
 class SalesAnalyst
 
-  attr_reader :engine, :merchants, :items, :invoices
+  attr_reader :engine, :merchants, :items, :invoices, :transactions
 
   def initialize(engine)
     @engine = engine
@@ -222,6 +222,29 @@ class SalesAnalyst
       invoice_id_matching_date
       invoices_total_by_date = invoice_total(invoice_id_matching_date)
       return invoices_total_by_date
+    end
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
+
+  def check_pending_invoice(invoice)
+    transactions = find_transactions_by_invoice_id(invoice.id)
+    failed_transactions = transactions.none? do |transaction|
+      transaction.result == :success
+    end
+    failed_transactions
+  end
+
+  def merchants_with_pending_invoices
+    all_merchants = merchants.find_all do |merchant|
+      merchant_invoices = find_all_invoices_by_merchant_id(merchant.id)
+      merchant_invoices.any? do |invoice|
+        check_pending_invoice(invoice)
+      end
     end
   end
 end

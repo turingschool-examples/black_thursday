@@ -213,5 +213,11 @@ RSpec.describe do
       expect(sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))).to eq(21067.77)
       expect(sales_analyst.total_revenue_by_date(Time.parse("2009-02-07")).class).to eq(BigDecimal)
     end
+
+    it '#merchants_with_pending_invoices returns those merchants' do
+
+      expect(sales_analyst.merchants_with_pending_invoices.length).to eq(39)
+      expect(sales_analyst.merchants_with_pending_invoices[0].class).to eq(Merchant)
+    end
   end
 end
