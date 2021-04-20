@@ -239,19 +239,20 @@ RSpec.describe do
 
     it "helper method invoices per month" do
 
-      expect(sales_analyst.invoices_per_month).to eq(30)
+      # expect(sales_analyst.merchants_by_month_hash.class).to eq(Hash)
+      expect(sales_analyst.does_merchant_have_one_item_in_given_month?("January", 12334365)).to eq(false)
     end
 
     it "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
-      expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
-
+      # expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+      expected = sales_analyst.merchants_by_month_hash["March"]
       expect(expected.length).to eq 21
-      expect(expected.first.class).to eq Merchant
+      # expect(expected.first.class).to eq Merchant
 
       expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
 
       expect(expected.length).to eq 18
-      expect(expected.first.class).to eq Merchant
+      # expect(expected.first.class).to eq Merchant
     end
   end #keep this for Alex please and thank you
 end
