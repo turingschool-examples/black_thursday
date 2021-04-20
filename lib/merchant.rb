@@ -1,4 +1,5 @@
 class Merchant
+  include Mathable
   attr_reader :id,
               :name,
               :created_at,
@@ -42,31 +43,37 @@ class Merchant
     invoice_ids.count
   end
 
-  def item_ids
-    merchant_items.map do |item|
-      item.id
+  def merchants_with_pending_invoices
+    merchant_invoices.find_all do |invoice|
+      invoice.status == (:pending)
     end
   end
 
   def items_quantity_hash
-    item_ids.each_with_object({}) do |id, hash|
-      hash[id] = @merchant_repo.grab_invoice_item(id).quantity
+    merchant_items.each_with_object({}) do |item, hash|
+      hash[item] = @merchant_repo.grab_invoice_item(item.id).quantity
     end
   end
 
-  # def
+  def items_revenue_hash
+    items_quantity_hash.each_with_object({}) do |(item, quantity), hash|
+      hash[item] = item.unit_price * quantity
+    end
+  end
+
+  def best_item
+    items_quantity_hash.max_by do |item, quantity|
+      item.unit_price * quantity
+    end
+  end
+
+  def average_item_price
+    average(items_revenue_hash)
+  end
 
   #pull from MR from Engine From IR the items - put in an instance varibale
 
-
   #revenue S
-  #items/quantity hash !!
-  #items/revenue hash
-  #avg item price
-  #pending invoices S
   #months/items hash *
-  #best item (item with most revenue)
   #most sold item (item with most qty sold)
-
-
 end
