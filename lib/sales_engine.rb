@@ -150,11 +150,15 @@ class SalesEngine
     @invoices.total_revenue_by_date(date)
   end
 
+  def total_revenue_by_merchant
+    @invoices.total_revenue_by_merchant
+  end
+
   def total_revenue_by_merchant_by_month(month)
     @invoices.total_revenue_by_merchant_by_month(month)
   end
 
   def top_revenue_earners(x)
-    @invoices.top_revenue_earners(x)
+    @merchants.top_revenue_earners(x)
   end
 end
