@@ -6,7 +6,7 @@ require_relative '../lib/repository'
 RSpec.describe Repository do
   describe 'initialization' do
     csv_path = "./data/items.csv"
-    repository = Repository.new(csv_path)
+    repository = Repository.new(csv_path, Item)
 
     it 'exists' do
       expect(repository).to be_instance_of(Repository)
@@ -18,9 +18,18 @@ RSpec.describe Repository do
     end
   end
 
+  describe '#create method' do
+    csv_path = "./data/items.csv"
+    repository = Repository.new(csv_path, Item)
+
+    it 'create objects can create objects' do
+      expect(repository.array_of_objects[0]).to be_instance_of(Item)
+    end
+  end
+
   describe '#all method' do
     csv_path = "./data/items.csv"
-    repository = Repository.new(csv_path)
+    repository = Repository.new(csv_path, Item)
 
     it 'returns array of all items' do
       allow(repository).to receive(:array_of_objects) do
@@ -33,7 +42,7 @@ RSpec.describe Repository do
 
   describe '#find_by_id' do
     csv_path = "./data/items.csv"
-    repository = Repository.new(csv_path)
+    repository = Repository.new(csv_path, Item)
 
     it 'find_by_id returns an instance by matching id' do
       merchant1 = Merchant.new({id: 1234, name: "Repository class"})
@@ -60,7 +69,7 @@ RSpec.describe Repository do
 
   describe `#delete` do
     csv_path = "./data/items.csv"
-    repository = Repository.new(csv_path)
+    repository = Repository.new(csv_path, Item)
 
     it 'can delete item' do
       merchant1 = Merchant.new({id: 1234, name: "Repository class"})
