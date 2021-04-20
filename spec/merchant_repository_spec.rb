@@ -130,7 +130,7 @@ RSpec.describe MerchantRepository do
         customers: './data/customers.csv',
         invoice_items: './data/invoice_items.csv',
         transactions: './data/transactions.csv'
-                                )
+                               )
 
       mr = MerchantRepository.new('./data/merchants.csv', se)
 
