@@ -93,5 +93,63 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.golden_items.length).to eq 5
       expect(sales_analyst.golden_items.first.class).to eq Item
     end
+
+    it '#invoice count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.invoice_count).to eq(4985.0)
+    end
+
+    it '#average invoices per merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+
+    it '#invoice count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.invoice_count).to eq(4985.0)
+    end
+
+    it '#average invoices per merchant standard deviation' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
+
+    it '#invoice count per merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.invoice_count_per_merchant.class).to eq(Hash)
+    end
+
+    it '#top merchants by invoice count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+    end
+
+    it '#bottom merchants by invoice count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
+    end
+
+    it '#top days by invoice count' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.top_days_by_invoice_count.length).to eq 1
+      expect(sales_analyst.top_days_by_invoice_count.first).to eq "Wednesday"
+      expect(sales_analyst.top_days_by_invoice_count.first.class).to eq String
+    end
+
+    it '#invoice_status' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.invoice_status(:pending)).to eq 29.55
+      expect(sales_analyst.invoice_status(:shipped)).to eq 56.95
+      expect(sales_analyst.invoice_status(:returned)).to eq 13.5
+    end
   end
 end

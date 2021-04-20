@@ -11,7 +11,7 @@ RSpec.describe InvoiceRepo do
                                           :customers => './data/customers.csv'
                                         })
   end
-  
+
   describe 'instantiation' do
     it '::new' do
       invoice_repo = @sales_engine.invoices
@@ -53,7 +53,7 @@ RSpec.describe InvoiceRepo do
                                      :status => 'shipped',
                                      :created_at => Time.now,
                                      :updated_at => Time.now})
-                                      
+
       expect(invoice_repo.find_by_id(invoice.id)).to eq(invoice)
       expect(invoice_repo.find_by_id(999999999)).to eq(nil)
     end
@@ -113,7 +113,7 @@ RSpec.describe InvoiceRepo do
                                        :status => 'pending',
                                        :created_at => Time.now,
                                        :updated_at => Time.now})
-      
+
       invoice_3 = invoice_repo.create({:id => 0,
                                        :customer_id => 7,
                                        :merchant_id => 8,
@@ -133,7 +133,7 @@ RSpec.describe InvoiceRepo do
                                      :status => 'pending',
                                      :created_at => Time.now,
                                      :updated_at => Time.now})
-      
+
       invoice_repo.update(invoice.id, {:status => 'shipped'})
 
       expect(invoice.status).to eq('shipped')
@@ -148,12 +148,31 @@ RSpec.describe InvoiceRepo do
                                      :status => 'pending',
                                      :created_at => Time.now,
                                      :updated_at => Time.now})
-   
+
       expect(invoice_repo.all.length).to eq(4986)
-  
+
       invoice_repo.delete(invoice.id)
 
       expect(invoice_repo.all.length).to eq(4985)
+    end
+
+    it '#find_all_by_day_created' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.find_all_by_day_created("Saturday")).to be_a(Array)
+    end
+
+
+    it '#invoice_count_per_merchant' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.invoice_count_per_merchant).to be_a(Hash)
+    end
+
+    it '#invoice count per day' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.invoice_count_per_day.class).to be_a(Hash)
     end
   end
 end
