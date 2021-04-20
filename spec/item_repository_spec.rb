@@ -312,7 +312,7 @@ RSpec.describe ItemRepository do
               263396013 => 0.7e1,
               263397843 => 0.4e2
             }
-            
+
       expect(ir.item_price_hash).to eq(hash)
     end
   end

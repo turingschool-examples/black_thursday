@@ -55,13 +55,6 @@ class ItemRepository
     RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
   end
 
-  # def generate_new_id
-  #   highest_id_item = @items.max_by do |item|
-  #     item.id
-  #   end
-  #   new_id = highest_id_item.id + 1
-  # end
-
   def create(attributes)
     attributes[:id] = RepoBrain.generate_new_id(@items)
     @items << Item.new(attributes, self)
