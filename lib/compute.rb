@@ -1,3 +1,5 @@
+require 'BigDecimal/util'
+
 class Compute
 
   def self.mean(sum, num_of_elements)
