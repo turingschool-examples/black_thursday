@@ -7,11 +7,11 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    @merchants = engine.merchants.array_of_objects
-    @items = engine.items.array_of_objects
-    @invoices = engine.invoices.array_of_objects
-    @transactions = engine.transactions.array_of_objects
-    @invoice_items = engine.invoice_items.array_of_objects
+    @merchants = engine.get_all_merchants
+    @items = engine.get_all_items
+    @invoices = engine.get_all_invoices
+    @transactions = engine.get_all_transactions
+    @invoice_items = engine.get_all_invoice_items
   end
 
   def get_merchant_ids(merchants)
