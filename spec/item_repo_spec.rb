@@ -171,22 +171,18 @@ RSpec.describe ItemRepo do
       item_repo.delete(item.id)
 
       expect(item_repo.find_by_id(item.id)).to eq(nil)
+    end
 
+    it '#average price' do
+      item_repo = @sales_engine.items
+
+      expect(item_repo.average_price).to be_a(Float)
     end
 
     it '#item merchant count' do
       item_repo = @sales_engine.items
-      item = item_repo.create({:id        => 1,
-                               :name        => "Pencil",
-                               :description => "You can use it to write things",
-                               :unit_price  => 1099,
-                               :created_at  => Time.now,
-                               :updated_at  => Time.now,
-                               :merchant_id => 2})
 
-
-     expect(item_repo.item_count_per_merchant).to be_a(Hash)
-     expect(item_repo.item_count_per_merchant.length).to eq(476)
-   end
+      expect(item_repo.item_count_per_merchant).to be_a(Hash)
+    end
   end
 end
