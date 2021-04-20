@@ -254,7 +254,7 @@ class SalesAnalyst
     end
   end
 
-  def items_per_merchant #alex
+  def items_per_merchant_hash #alex
     stripped_items = @items.map do |item|
       item.merchant_id
     end
