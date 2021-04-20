@@ -169,8 +169,8 @@ class SalesAnalyst
       invoice_number > average + days_div
     end
 
-    golden_days.map do |day|
-      day[0]
+    golden_days.map do |day, invoice_number|
+      day
     end
   end
 
