@@ -27,7 +27,7 @@ class SalesAnalyst
     sales_engine.item_count_per_merchant
   end
 
-  def average_items_per_merchant_standard_deviation
+  def average_items_per_merchant_standard_deviation #merchant repo
     average_items = average_items_per_merchant
     sum = item_count_per_merchant.sum do |merchant, count|
       (average_items - count)**2
@@ -36,7 +36,7 @@ class SalesAnalyst
     (sum ** 0.5).round(2)
   end
 
-  def average_item_price_standard_deviation
+  def average_item_price_standard_deviation #item repo
     average = average_price
     sum = sales_engine.all_items.sum do |item|
       (average - item.unit_price_to_dollars)**2
@@ -45,7 +45,7 @@ class SalesAnalyst
     (sum ** 0.5).round(2)
   end
 
-  def merchants_with_high_item_count
+  def merchants_with_high_item_count #merchants
     one_deviation = average_items_per_merchant_standard_deviation + average_items_per_merchant
     high_merchants = []
     item_count_per_merchant.find_all do |id, count|
@@ -54,7 +54,7 @@ class SalesAnalyst
     high_merchants
   end
 
-  def average_item_price_for_merchant(merchant_id)
+  def average_item_price_for_merchant(merchant_id) #item repo
     all_items = sales_engine.find_all_by_merchant_id(merchant_id)
     sum = all_items.sum do |item|
       item.unit_price
@@ -62,7 +62,7 @@ class SalesAnalyst
     (sum / all_items.length).round(2)
   end
 
-  def average_average_price_per_merchant
+  def average_average_price_per_merchant # merchant repo
     all_items = item_count_per_merchant.length
     all_averages = sales_engine.all_merchants.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
@@ -78,15 +78,15 @@ class SalesAnalyst
     end
   end
 
-  def invoice_count
+  def invoice_count #invoice repo
     sales_engine.invoice_count
   end
 
-  def average_invoices_per_merchant
+  def average_invoices_per_merchant #invoice repo
     ( invoice_count / merchant_count).round(2)
  end
 
- def average_invoices_per_merchant_standard_deviation
+ def average_invoices_per_merchant_standard_deviation #invoice repo
    average_invoice = average_invoices_per_merchant
    sum = sales_engine.invoice_count_per_merchant.sum do |invoice, count|
      (average_invoice - count)**2
@@ -95,11 +95,11 @@ class SalesAnalyst
    (sum ** 0.5).round(2)
  end
 
- def invoice_count_per_merchant
+ def invoice_count_per_merchant #invoice_repo
    sales_engine.invoice_count_per_merchant
  end
 
- def top_merchants_by_invoice_count
+ def top_merchants_by_invoice_count #
    two_deviation = (average_items_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
    high_merchants = []
    invoice_count_per_merchant.find_all do |id, count|
@@ -137,6 +137,19 @@ class SalesAnalyst
 
  def invoice_status(status)
    ((sales_engine.find_all_by_status(status).length / invoice_count) * 100).round(2)
+ end
+
+ def invoice_paid_in_full?(id)
+   sales_engine.find_all_by_result("success").any? do |transaction|
+     transaction.id == id
+   end
+ end
+
+ def invoice_total(id)
+   total = sales_engine.find_all_by_invoice_id(id).sum do |invoice|
+     (invoice.unit_price * invoice.quantity) if invoice_paid_in_full?(id)
+   end
+   total.round(2)
  end
 
 end
