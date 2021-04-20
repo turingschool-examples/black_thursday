@@ -131,7 +131,7 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
       iir.update(
-        21_830,
+        21830,
         quantity: 5,
         unit_price: 586.55
       )

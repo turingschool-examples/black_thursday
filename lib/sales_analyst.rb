@@ -230,15 +230,7 @@ class SalesAnalyst
 
   def top_revenue_earners(search_range = 20)
     merchant_invoice_array = @engine.invoices.invoices_by_merchant
-    merchant_revenue_array = merchant_invoice_array.map do |pair|
-      [pair[0], pair[1].sum do |invoice_id|
-        if invoice_paid_in_full?(invoice_id)
-          invoice_total(invoice_id)
-        else
-          0
-        end
-      end]
-    end
+    merchant_revenue_array = all_revenue_by_merchant
 
     sorted_merchant_array = merchant_revenue_array.sort_by do |pair|
       pair[1]
@@ -286,5 +278,31 @@ class SalesAnalyst
     merchant_id_one_item.map do |merchant_id|
       @engine.merchants.find_by_id(merchant_id)
     end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_numeral = Time.parse(month).mon
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.mon == month_numeral
+    end
+  end
+
+  def all_revenue_by_merchant
+    merchant_invoice_array = @engine.invoices.invoices_by_merchant
+    merchant_invoice_array.map do |pair|
+      [pair[0], pair[1].sum do |invoice_id|
+        if invoice_paid_in_full?(invoice_id)
+          invoice_total(invoice_id)
+        else
+          0
+        end
+      end]
+    end
+  end
+
+  def revenue_by_merchant(merchant_id_wanted)
+    all_revenue_by_merchant.find do |(merchant_id, revenue)|
+      merchant_id == merchant_id_wanted
+    end[1]
   end
 end

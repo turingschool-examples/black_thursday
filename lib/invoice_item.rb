@@ -28,4 +28,10 @@ class InvoiceItem
   def unit_price_to_dollars
     unit_price.to_f.round(2)
   end
+
+  def update(attributes)
+    @quantity = attributes[:quantity] unless attributes[:quantity].nil?
+    @cent_price = (attributes[:unit_price] * 100) unless attributes[:unit_price].nil?
+    @updated_at = Time.now
+  end
 end

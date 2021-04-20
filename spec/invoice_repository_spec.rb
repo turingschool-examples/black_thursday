@@ -72,12 +72,12 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#invoices_by_merchant' do
-    it "returns a hash of all merchant ids key to their invoices" do
+    it "returns an array of all merchant ids paired to their invoices" do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
 
       ir = se.invoices
 
-      expect(ir.invoices_by_merchant).to be_an_instance_of(Hash)
+      expect(ir.invoices_by_merchant).to be_an_instance_of(Array)
     end
   end
 
