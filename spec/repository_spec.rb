@@ -18,7 +18,7 @@ RSpec.describe Repository do
     end
   end
 
-  describe '#create method' do
+  describe '#create_objects method' do
     csv_path = "./data/items.csv"
     repository = Repository.new(csv_path, Item)
 
@@ -64,6 +64,34 @@ RSpec.describe Repository do
       end
 
       expect(repository.find_by_id(2345)).to eq(nil)
+    end
+  end
+
+  describe '#create' do
+    csv_path = "./data/items.csv"
+    repository = Repository.new(csv_path, Item)
+
+    attributes = {
+                      :id          => 1,
+                      :name        => "Pencil",
+                      :description => "You can use it to write things",
+                      :unit_price  => "1099",
+                      :created_at  => Time.now,
+                      :updated_at  => Time.now,
+                      :merchant_id => 2
+                    }
+
+    repository.create(attributes, Item)
+
+    it 'can create an item based on the attributes passed in' do
+
+      expect(repository.all.count).to eq(1368)
+      expect(repository.all.last).to be_an_instance_of(Item)
+      expect(repository.all.last.name).to eq("Pencil")
+    end
+
+    it 'newly created item id is incremented by one' do
+      expect(repository.all.last.id).to eq(263567475)
     end
   end
 
