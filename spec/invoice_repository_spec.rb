@@ -122,7 +122,7 @@ RSpec.describe InvoiceRepository do
                   :updated_at  => Time.now,
                 }
 
-    invoice_repo.create(attributes)
+    invoice_repo.create(attributes, Invoice)
 
     it 'creates new instance with attribute argument' do
 

@@ -163,7 +163,7 @@ RSpec.describe ItemRepository do
                       :updated_at  => Time.now,
                       :merchant_id => 2
                     }
-    item_repo.create(attributes)
+    item_repo.create(attributes, Item)
 
     it '#create creates new instance with attribute argument' do
 
@@ -173,10 +173,6 @@ RSpec.describe ItemRepository do
     end
 
     it '#creates test for new id to be incremented by one' do
-      # second_to_last_item_id = item_repo.all[-2].id
-      # last_item_id = item_repo.all[-1].id
-      # expected = last_item_id - second_to_last_item_id
-      # expect(expected).to eq(1)
       expect(item_repo.all.last.id).to eq(263567475)
     end
 

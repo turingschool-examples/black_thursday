@@ -108,7 +108,7 @@ RSpec.describe InvoiceItemRepository do
                           :updated_at => Time.now
                           }
 
-      invoice_item_repo.create(attributes)
+      invoice_item_repo.create(attributes, InvoiceItem)
       expect(invoice_item_repo.find_by_id(21831).item_id).to eq(7)
     end
 

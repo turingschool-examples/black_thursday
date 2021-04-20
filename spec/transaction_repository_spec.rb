@@ -42,7 +42,7 @@ RSpec.describe TransactionRepository do
                     :created_at => Time.now,
                     :updated_at => Time.now
                   }
-      transaction_repo.create(attributes)
+      transaction_repo.create(attributes, Transaction)
 
       it 'creates new instance with attribute argument' do
         expect(transaction_repo.all.length).to eq(4986)
