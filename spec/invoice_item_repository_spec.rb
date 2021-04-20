@@ -171,7 +171,7 @@ RSpec.describe InvoiceItemRepository do
                                   invoice_items: './data/invoice_items.csv',
                                   transactions: './data/transactions.csv'
                                 })
-    iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
 
       expect(iir.item_revenue_hash(12334105)).to be_a(Hash)
       expect(iir.item_revenue_hash(12334105).values.sum).to eq(0.7377717e5)

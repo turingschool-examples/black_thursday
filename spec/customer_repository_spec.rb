@@ -84,6 +84,7 @@ RSpec.describe CustomerRepository do
       }
       cr.create(attributes)
       expected = cr.find_by_id(13)
+
       expect(expected.first_name).to eq('Jimmy')
     end
   end
@@ -115,6 +116,7 @@ RSpec.describe CustomerRepository do
       cr = CustomerRepository.new(truncated_data, mock_sales_engine)
 
       cr.delete(1)
+
       expect(cr.find_by_id(1)).to eq(nil)
     end
   end

@@ -189,8 +189,8 @@ RSpec.describe ItemRepository do
         updated_at:   '1993-09-29 11:56:40 UTC'
       }
       ir.create(attributes)
-
       expected = ir.find_by_id(263567475)
+      
       expect(expected.name).to eq('Cool Stuff')
     end
   end

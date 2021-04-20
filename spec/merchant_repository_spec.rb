@@ -75,7 +75,6 @@ RSpec.describe MerchantRepository do
       mock_sales_engine = instance_double('SalesEngine')
       truncated_merchants = './spec/truncated_data/merchants_truncated.csv'
       mr = MerchantRepository.new(truncated_merchants, mock_sales_engine)
-
       mr.create({
                   name: 'JimmysSubs',
                   created_at: Time.now.to_s,
@@ -131,10 +130,9 @@ RSpec.describe MerchantRepository do
         invoice_items: './data/invoice_items.csv',
         transactions: './data/transactions.csv'
                                )
-
       mr = MerchantRepository.new('./data/merchants.csv', se)
-
       expected = mr.merchants_with_only_one_item_registered_in_month('March').count
+
       expect(expected).to eq(21)
     end
   end

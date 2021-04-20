@@ -21,6 +21,7 @@ RSpec.describe Item do
 
       expect(item).to be_instance_of(Item)
       end
+
     it 'has attributes' do
       mock_item_repo = instance_double('ItemRepository')
       item = Item.new(  {

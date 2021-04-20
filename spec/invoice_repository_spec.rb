@@ -123,8 +123,8 @@ RSpec.describe InvoiceRepository do
     ir.invoices << test_invoice1
     ir.invoices << test_invoice2
 
-      expect(ir.find_all_by_customer_id(456789)).to eq([test_invoice1, test_invoice2])
-      expect(ir.find_all_by_customer_id(123456789099999999)).to eq([])
+    expect(ir.find_all_by_customer_id(456789)).to eq([test_invoice1, test_invoice2])
+    expect(ir.find_all_by_customer_id(123456789099999999)).to eq([])
     end
   end
 
