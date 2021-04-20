@@ -303,7 +303,7 @@ class SalesAnalyst
     wanted_merchant = all_revenue_by_merchant.find do |(merchant_id, revenue)|
       merchant_id == merchant_id_wanted
     end
-    wanted_merchant.map do |(merchant, -revenue)|
+    wanted_merchant.map do |(merchant, _revenue)|
       merchant
     end
   end
