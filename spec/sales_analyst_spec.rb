@@ -159,11 +159,59 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
     end
 
-    it '#invoice_total' do
+    it '#total revenue by date' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.invoice_total(1)).to eq(21067.77)
-      expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
+      expect(sales_analyst.total_revenue_by_date(date)).to eq
+    end
+
+    xit '#top revenue earners' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.top_revenue_earners(x)).to eq
+      expect(sales_analyst.top_revenue_earners).to eq
+    end
+
+    xit '#merchants with pending invoices' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.merchants_with_pending_invoices).to eq
+    end
+
+    xit '#merchants with only one item' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.merchants_with_only_one_item).to eq
+    end
+
+    xit '#merchants with only one item registered in month' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.merchants_with_only_one_item_registered_in_month(Feb)).to eq
+    end
+
+    xit '#revenue by merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.revenue_by_merchant(merchant_id)).to eq
+    end
+
+    xit '#most sold item for merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq
+    end
+
+    xit '#merchants with only one item' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.merchants_with_only_one_item).to eq
+    end
+
+    xit '#best item for merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq
     end
   end
 end

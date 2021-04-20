@@ -152,4 +152,29 @@ class SalesAnalyst
    total.round(2)
  end
 
+ def total_revenue_by_date(date)
+   
+ end
+
+ def top_revenue_earners(x)
+ end
+
+ def merchants_with_pending_invoices
+ end
+
+ def merchants_with_only_one_item
+ end
+
+ def merchants_with_only_one_item_registered_in_month(Month)
+ end
+
+ def revenue_by_merchant(merchant_id)
+ end
+
+ def merchants_with_only_one_item
+ end
+
+ def best_item_for_merchant(merchant_id)
+ end
+
 end
