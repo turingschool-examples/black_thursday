@@ -276,19 +276,25 @@ class SalesAnalyst
 
       months.each do |month|
         merchants_by_month_hash[month] = []
-require "pry"; binding.pry
         @merchants.each do |merchant|
-          if does_item_exist_in_month?(month, merchant.id)
+          if does_merchant_have_one_item_in_given_month?(month, merchant.id)
             merchants_by_month_hash[month].push(merchant.id)
           end
         end
       end
+      merchants_by_month_hash
   end
 
-def does_item_exist_in_month?(month, merchant_id)
-  items_by_merch = find_all_items_by_merchant_id(merchant_id)
-    items_by_merch.one? do |item|
-    item.created_at.strftime('%B') == month
+  def does_merchant_have_one_item_in_given_month?(month, merchant_id)
+    merchants_items = find_all_items_by_merchant_id(merchant_id)
+    items_created_in_month = merchants_items.find_all do |item|
+      item.created_at.strftime('%B') == month
+      # require "pry"; binding.pry
+    end
+    if items_created_in_month.length == 1
+      true
+    else
+      false
     end
   end
 end
