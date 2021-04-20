@@ -274,7 +274,7 @@ RSpec.describe ItemRepository do
           customers: './spec/truncated_data/customers_truncated.csv',
           invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
           transactions: './spec/truncated_data/transactions_truncated.csv'
-                                )
+                               )
       ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
       mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
 
@@ -329,13 +329,13 @@ RSpec.describe ItemRepository do
   describe '#merchants_with_only_one_item' do
     it 'finds merchants with only 1 item and returns item object' do
       se = SalesEngine.from_csv(
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv',
-          customers: './spec/truncated_data/customers_truncated.csv',
-          invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
-          transactions: './spec/truncated_data/transactions_truncated.csv'
-                                )
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                               )
       ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
 
       expect(ir.merchants_with_only_one_item.count).to eq(3)
@@ -346,13 +346,13 @@ RSpec.describe ItemRepository do
   describe '#items_created_in_month' do
     it 'creates a hash of number of items created in given month ' do
       se = SalesEngine.from_csv(
-          items: './spec/truncated_data/items_truncated.csv',
-          merchants: './spec/truncated_data/merchants_truncated.csv',
-          invoices: './spec/truncated_data/invoices_truncated.csv',
-          customers: './spec/truncated_data/customers_truncated.csv',
-          invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
-          transactions: './spec/truncated_data/transactions_truncated.csv'
-                                )
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                               )
       ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
 
       expect(ir.items_created_in_month('January')).to be_a(Hash)
