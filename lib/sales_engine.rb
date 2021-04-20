@@ -161,4 +161,16 @@ class SalesEngine
   def top_revenue_earners(x)
     @merchants.top_revenue_earners(x)
   end
+
+  def merchant_items(merchant_id)
+    @items.merchant_items(merchant_id)
+  end
+
+  def merchant_invoices(merchant_id)
+    @invoices.merchant_invoices(merchant_id)
+  end
+
+  def grab_invoice_item(item_id)
+    @invoice_items.grab_invoice_item(item_id)
+  end
 end

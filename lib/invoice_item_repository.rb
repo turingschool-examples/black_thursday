@@ -35,6 +35,10 @@ class InvoiceItemRepository
     invoice_items.delete(find_by_id(id))
   end
 
+  def grab_invoice_item(item_id)
+    RepoBrain.find_by_id(item_id, 'item_id', @invoice_items)
+  end
+
   def find_all_by_item_id(item_id)
     RepoBrain.find_all_by_id(item_id, 'item_id', @invoice_items)
   end

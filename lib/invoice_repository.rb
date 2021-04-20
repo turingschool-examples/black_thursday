@@ -54,9 +54,12 @@ class InvoiceRepository
     RepoBrain.find_all_by_id(customer_id, 'customer_id', @invoices)
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def merchant_invoices(merchant_id)
     RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @invoices)
   end
+
+  # def find_all_by_merchant_id(merchant_id)
+  # end
 
   def find_all_by_status(status)
     RepoBrain.find_all_by_symbol(status, 'status', @invoices)

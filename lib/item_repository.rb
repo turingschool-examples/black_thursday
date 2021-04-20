@@ -67,9 +67,13 @@ class ItemRepository
     items.delete(find_by_id(id))
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def merchant_items(merchant_id)
     RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
   end
+
+  # def find_all_by_merchant_id(merchant_id)
+  #   RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
+  # end
 
   def find_all_by_price(price)
     @items.find_all do |item|

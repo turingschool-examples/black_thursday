@@ -26,18 +26,47 @@ class Merchant
     @updated_at = Time.now
   end
 
+  def merchant_items
+    @merchant_repo.merchant_items(@id)
+  end
+
+  def items_count
+    merchant_items.count
+  end
+
+  def merchant_invoices
+    @merchant_repo.merchant_invoices(@id)
+  end
+
+  def invoices_count
+    invoice_ids.count
+  end
+
+  def item_ids
+    merchant_items.map do |item|
+      item.id
+    end
+  end
+
+  def items_quantity_hash
+    item_ids.each_with_object({}) do |id, hash|
+      hash[id] = @merchant_repo.grab_invoice_item(id).quantity
+    end
+  end
+
+  # def
+
   #pull from MR from Engine From IR the items - put in an instance varibale
 
-  #wants items array
-  #revenue
-  #items/quantity hash
+
+  #revenue S
+  #items/quantity hash !!
   #items/revenue hash
-  #num items
   #avg item price
-  #pending invoices
-  #months/items hash
+  #pending invoices S
+  #months/items hash *
   #best item (item with most revenue)
   #most sold item (item with most qty sold)
-  #num invoices
+
 
 end

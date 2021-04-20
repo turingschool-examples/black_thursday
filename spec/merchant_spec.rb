@@ -82,4 +82,74 @@ RSpec.describe Merchant do
       expect(merchant.updated_at.year).to eq(2021)
     end
   end
+
+  describe '#merchant_items' do
+    it 'has items' do
+      se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                                })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+
+      expect(merchant.merchant_items[0]).to be_a(Item)
+      expect(merchant.merchant_items.count).to eq(3)
+    end
+  end
+
+  describe '#items_count' do
+    it 'can count the amount of items a merchant has' do
+      se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                                })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+        merchant.items_quantity_hash
+      expect(merchant.items_count).to eq(3)
+    end
+  end
+
+  describe '#invoice_ids' do
+    it 'can list invoice ids' do
+      se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                                })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+
+    expect(merchant.merchant_invoices.count).to eq(10)
+    end
+  end
+
+  describe '#items_quantity_hash' do
+    it 'returns a hash with item_id and quantity' do
 end

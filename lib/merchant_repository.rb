@@ -76,4 +76,16 @@ class MerchantRepository
       customer_to_update.update(attributes)
     end
   end
+
+  def merchant_items(merchant_id)
+    @engine.merchant_items(merchant_id)
+  end
+
+  def merchant_invoices(merchant_id)
+    @engine.merchant_invoices(merchant_id)
+  end
+
+  def grab_invoice_item(item_id)
+    @engine.grab_invoice_item(item_id)
+  end
 end
