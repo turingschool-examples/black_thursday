@@ -165,11 +165,11 @@ class SalesAnalyst
     days_div = standard_deviation(invoice_per_day, average)
     days_invoice = days_of_week.zip(invoice_per_day)
 
-    golden_days = days_invoice.find_all do |(day, invoice_number)|
+    golden_days = days_invoice.find_all do |(_day, invoice_number)|
       invoice_number > average + days_div
     end
 
-    golden_days.map do |day, _|
+    golden_days.map do |day, _invoice_number|
       day
     end
   end
