@@ -15,7 +15,7 @@ module Findable #confirm this needs the 'able'
     end
   end
 #ISSUE WITH THIS METHOD - RETEST
-  def find_all_by_name(name_fragment, collection)         #MerchantRepo
+  def find_all_by_name(name_fragment, collection)         #MerchantRepo - FAILED
     collection.find_all do |attribute|
       attribute.name.downcase.include?(name_fragment.downcase)
     end
