@@ -136,7 +136,7 @@ RSpec.describe InvoiceItemRepository do
                                   customers: './spec/truncated_data/customers_truncated.csv',
                                   invoice_items: 'data/invoice_items.csv',
                                   transactions: 'data/transactions.csv'
-                              })
+                                })
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', se)
 
       expect(iir.invoice_total_hash.keys.count).to eq(7)

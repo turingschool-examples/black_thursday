@@ -110,7 +110,7 @@ RSpec.describe InvoiceRepository do
                                   },
                                     ir
                                  )
-    test_invoice2 = Invoice.new({
+      test_invoice2 = Invoice.new({
                                   id: '1234567890',
                                   customer_id: '456789',
                                   merchant_id: '234567890',
@@ -142,7 +142,7 @@ RSpec.describe InvoiceRepository do
                                   },
                                     ir
                                  )
-    test_invoice2 = Invoice.new({
+      test_invoice2 = Invoice.new({
                                   id: '1234567890',
                                   customer_id: '456789',
                                   merchant_id: '234567890',
@@ -271,7 +271,7 @@ RSpec.describe InvoiceRepository do
                                   invoice_items: './data/invoice_items.csv',
                                   transactions: './data/transactions.csv'
                                 })
-         ir = InvoiceRepository.new('./data/invoices.csv', se)
+      ir = InvoiceRepository.new('./data/invoices.csv', se)
 
       expect(ir.revenue_by_merchant(12334105)).to eq(73777.17)
     end
