@@ -231,23 +231,27 @@ RSpec.describe do
     sales_analyst = sales_engine.analyst
 
     it "#merchants_with_only_one_item returns merchants with only one item" do
-        expected = sales_analyst.merchants_with_only_one_item
+      expected = sales_analyst.merchants_with_only_one_item
 
-        expect(expected.length).to eq 243
-        expect(expected.first.class).to eq Merchant
-      end
+      expect(expected.length).to eq 243
+      expect(expected.first.class).to eq Merchant
+    end
 
+    it "helper method invoices per month" do
 
-      # it "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
-      #   expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
-      #
-      #   expect(expected.length).to eq 21
-      #   expect(expected.first.class).to eq Merchant
-      #
-      #   expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
-      #
-      #   expect(expected.length).to eq 18
-      #   expect(expected.first.class).to eq Merchant
-      # end
-    end #keep this for Alex please and thank you
+      expect(sales_analyst.invoices_per_month).to eq(30)
+    end
+
+    it "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
+      expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+
+      expect(expected.length).to eq 21
+      expect(expected.first.class).to eq Merchant
+
+      expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
+
+      expect(expected.length).to eq 18
+      expect(expected.first.class).to eq Merchant
+    end
+  end #keep this for Alex please and thank you
 end
