@@ -27,13 +27,13 @@ RSpec.describe SalesAnalyst do
 
   describe 'methods' do
 
-    xit '#total items' do
+    xit '#item count' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.item_count).to eq(1367.0)
     end
 
-    xit '#total merchant' do
+    xit '#merchant count' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.merchant_count).to eq(475.0)
@@ -106,12 +106,6 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
 
-    xit '#invoice count' do
-      sales_analyst = @sales_engine.analyst
-
-      expect(sales_analyst.invoice_count).to eq(4985.0)
-    end
-
     xit '#average invoices per merchant standard deviation' do
       sales_analyst = @sales_engine.analyst
 
@@ -134,6 +128,12 @@ RSpec.describe SalesAnalyst do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
+    end
+
+    xit '#average_invoice_per_day_standard_deviation' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.average_invoice_per_day_standard_deviation).to eq(18.07)
     end
 
     xit '#top days by invoice count' do
