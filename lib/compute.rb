@@ -20,3 +20,5 @@ class Compute
   end
 
 end
+
+#MAKE TESTS! 
