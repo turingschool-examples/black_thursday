@@ -5,7 +5,7 @@
 module Findable #confirm this needs the 'able'
   def find_by_id(id, collection)                            #ItemRepo - PASSED
     collection.find do |attribute|                          #MerchantRepo - PASSED
-      attribute.id == id
+      attribute.id == id                                    #InvoiceRepo - PASSED
     end
   end
 
@@ -41,8 +41,20 @@ module Findable #confirm this needs the 'able'
 
   # This method needs to be refactored
   def find_all_by_merchant_id(merchant_id, collection)   #ItemRepo - PASSED
-    collection.find_all do |attribute|
+    collection.find_all do |attribute|                   #InvoiceRepo - PASSED
       attribute.merchant_id == merchant_id
+    end
+  end
+
+  def find_all_by_customer_id(customer_id, collection)  #InvoiceRepo - PASSED
+    collection.find_all do |collection|
+      collection.customer_id == customer_id
+    end
+  end
+
+  def find_all_by_status(status, collection)            #InvoiceRepo - PASSED
+    collection.find_all do |collection|
+      collection.status == status
     end
   end
 

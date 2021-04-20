@@ -27,12 +27,6 @@ class InvoiceRepo
     @invoices << invoice
   end
 
-  def find_by_id(id)
-    @invoices.find do |invoice|
-      invoice.id == id
-    end
-  end
-
   def create(attributes)
     invoice = Invoice.new(attributes)
     max = @invoices.max_by do |invoice|
@@ -41,24 +35,6 @@ class InvoiceRepo
     invoice.id = max.id + 1
     add_invoice(invoice)
     invoice
-  end
-
-  def find_all_by_customer_id(customer_id)
-    @invoices.find_all do |invoice|
-      invoice.customer_id == customer_id
-    end
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @invoices.find_all do |invoice|
-      invoice.merchant_id == merchant_id
-    end
-  end
-
-  def find_all_by_status(status)
-    @invoices.find_all do |invoice|
-      invoice.status == status
-    end
   end
 
   def update(id, attributes)
