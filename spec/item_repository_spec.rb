@@ -9,28 +9,44 @@ RSpec.describe ItemRepository do
     it 'exists' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+
       expect(ir).to be_instance_of(ItemRepository)
     end
     it 'has items' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+
       expect(ir.items.count).to eq(1367)
     end
   end
+
+  describe '#inspect' do
+    it 'inspects items' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+
+      expect(ir.items.size).to eq(1367)
+    end
+  end
+
   describe '#make_items' do
     it 'makes_items' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+
       expect(ir.items.first).to be_instance_of(Item)
     end
   end
+
   describe '#all' do
     it 'contains all the items' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
+
       expect(ir.all.count).to eq(1367)
     end
   end
+
   describe '#find_by_id' do
     it 'finds items by id' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -46,10 +62,12 @@ RSpec.describe ItemRepository do
         },
         ir)
       ir.items << test_item
+
       expect(ir.find_by_id(1)).to eq(test_item)
       expect(ir.find_by_id(7)).to eq(nil)
     end
   end
+
   describe '#find_by_name' do
     it 'finds items by name' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -65,10 +83,12 @@ RSpec.describe ItemRepository do
         },
         ir)
       ir.items << test_item
+
       expect(ir.find_by_name('CoOL StUfF')).to eq(test_item)
       expect(ir.find_by_name('neato')).to eq(nil)
     end
   end
+
   describe '#find_all_with_description' do
     it 'finds items by description' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -84,10 +104,12 @@ RSpec.describe ItemRepository do
         },
         ir)
       ir.items << test_item
+
       expect(ir.find_all_with_description('sUPaAa')).to eq([test_item])
       expect(ir.find_all_with_description('neato burrito')).to eq([])
     end
   end
+
   describe '#find_all_by_price' do
     it 'finds items by price' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -105,10 +127,12 @@ RSpec.describe ItemRepository do
       ir.items << test_item
       price_1 = BigDecimal(12365451) / 100
       price_2 = BigDecimal(7541234541)
+
       expect(ir.find_all_by_price(price_1)).to eq([test_item])
       expect(ir.find_all_by_price(7541234541)).to eq([])
     end
   end
+
   describe '#find_all_by_price_in_range' do
     it 'finds items by price range' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -126,10 +150,12 @@ RSpec.describe ItemRepository do
       ir.items << test_item
       range1 = (1000.00..1500.00)
       range2 = (154503..245754)
+
       expect(ir.find_all_by_price_in_range(range1).count).to eq(19)
       expect(ir.find_all_by_price_in_range(range2)).to eq([])
     end
   end
+
   describe '#find_all_by_merchant_id' do
     it 'finds items by merchant id' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -144,6 +170,7 @@ RSpec.describe ItemRepository do
                               updated_at:   '1993-09-29 11:56:40 UTC'
                             }, ir)
       ir.items << test_item
+
       expect(ir.find_all_by_merchant_id(123456987)).to eq([test_item])
       expect(ir.find_all_by_merchant_id(4)).to eq([])
     end
@@ -162,10 +189,12 @@ RSpec.describe ItemRepository do
         updated_at:   '1993-09-29 11:56:40 UTC'
       }
       ir.create(attributes)
+
       expected = ir.find_by_id(263567475)
       expect(expected.name).to eq('Cool Stuff')
     end
   end
+
   describe '#update' do
     it 'updates items attributes' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -177,12 +206,18 @@ RSpec.describe ItemRepository do
       }
       test_item = ir.find_by_id(263567292)
       ir.update(263567292, attributes)
+
       expect(test_item.name).to eq('Cool Stuff')
       expect(test_item.description).to eq('supaaa cool')
       expect(test_item.unit_price).to eq(0.1357e2)
       expect(test_item.merchant_id).to eq(12336050)
       expect(test_item.created_at.year).to eq(2016)
       expect(test_item.updated_at.year).to eq(2021)
+
+      test_item = ir.find_by_id(333333333)
+      ir.update(333333333, attributes)
+
+      expect(test_item).to eq(nil)
     end
   end
 
@@ -191,6 +226,7 @@ RSpec.describe ItemRepository do
       mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('./data/items.csv', mock_sales_engine)
       ir.delete(263567292)
+
       expect(ir.items.count).to eq(1366)
     end
   end
@@ -206,6 +242,7 @@ RSpec.describe ItemRepository do
               12334113 => 1,
               12333333 => 1
               }
+
       expect(ir.items_per_merchant).to eq(hash)
     end
   end
@@ -230,14 +267,14 @@ RSpec.describe ItemRepository do
 
   describe '#merchants_with_high_item_count' do
     it 'can find which merchants sell the most items' do
-      se = SalesEngine.from_csv({
+      se = SalesEngine.from_csv(
           items: './spec/truncated_data/items_truncated.csv',
           merchants: './spec/truncated_data/merchants_truncated.csv',
           invoices: './spec/truncated_data/invoices_truncated.csv',
           customers: './spec/truncated_data/customers_truncated.csv',
           invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
           transactions: './spec/truncated_data/transactions_truncated.csv'
-                                })
+                               )
       ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
       mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
 
@@ -275,6 +312,7 @@ RSpec.describe ItemRepository do
               263396013 => 0.7e1,
               263397843 => 0.4e2
             }
+
       expect(ir.item_price_hash).to eq(hash)
     end
   end
@@ -285,6 +323,40 @@ RSpec.describe ItemRepository do
       ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
       expect(ir.golden_items).to eq([])
+    end
+  end
+
+  describe '#merchants_with_only_one_item' do
+    it 'finds merchants with only 1 item and returns item object' do
+      se = SalesEngine.from_csv(
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                               )
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.merchants_with_only_one_item.count).to eq(3)
+      expect(ir.merchants_with_only_one_item[1].name).to eq('MiniatureBikez')
+    end
+  end
+
+  describe '#items_created_in_month' do
+    it 'creates a hash of number of items created in given month ' do
+      se = SalesEngine.from_csv(
+        items: './spec/truncated_data/items_truncated.csv',
+        merchants: './spec/truncated_data/merchants_truncated.csv',
+        invoices: './spec/truncated_data/invoices_truncated.csv',
+        customers: './spec/truncated_data/customers_truncated.csv',
+        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
+        transactions: './spec/truncated_data/transactions_truncated.csv'
+                               )
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
+
+      expect(ir.items_created_in_month('January')).to be_a(Hash)
+      expect(ir.items_created_in_month('January').values.sum).to eq(5)
     end
   end
 end

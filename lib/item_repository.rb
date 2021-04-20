@@ -36,9 +36,7 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @items.find_all do |item|
-      item.description.downcase.include?(description.downcase)
-    end
+    RepoBrain.find_all_by_partial_string(description, 'description', @items)
   end
 
   def find_all_by_price(price)
@@ -54,17 +52,8 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @items.find_all do |item|
-      item.merchant_id == merchant_id
-    end
+    RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
   end
-
-  # def generate_new_id
-  #   highest_id_item = @items.max_by do |item|
-  #     item.id
-  #   end
-  #   new_id = highest_id_item.id + 1
-  # end
 
   def create(attributes)
     attributes[:id] = RepoBrain.generate_new_id(@items)
