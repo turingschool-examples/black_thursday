@@ -9,9 +9,9 @@ RSpec.describe MerchantRepository do
                                           :items     => "./data/items.csv",
                                           :merchants => "./data/merchants.csv",
                                           :invoices => "./data/invoices.csv",
-                                          # :customers => "./data/customers.csv",
+                                          :customers => "./data/customers.csv",
                                           :invoice_items => "./data/invoice_items.csv",
-                                          # :transactions => "./data/transactions.csv"
+                                          :transactions => "./data/transactions.csv"
                                           })
     merch_rep = sales_engine.merchants
 
