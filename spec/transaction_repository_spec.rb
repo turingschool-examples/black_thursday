@@ -51,56 +51,35 @@ RSpec.describe TransactionRepository do
     end
   end
 
-  describe '#find_by_id' do
-    it 'finds transactions by id' do
+  describe '#create' do
+    it 'create a new transaction instance' do
       mock_sales_engine = instance_double('SalesEngine')
       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-      test_transaction = Transaction.new({
-                                            id: '263395617',
-                                            invoice_id: '456789',
-                                            credit_card_number: '4297222479999999',
-                                            credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
-                                            result: 'success',
-                                            created_at: '2016-01-11 11:51:37 UTC',
-                                            updated_at: '1993-09-29 11:56:40 UTC'
-                                         },
-                                         tr)
-      tr.transactions << test_transaction
+      attributes = {
+                      id: '263395617',
+                      invoice_id: '456789',
+                      credit_card_number: '4297222479999999',
+                      credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                      result: 'success',
+                      created_at: '2016-01-11 11:51:37 UTC',
+                      updated_at: '1993-09-29 11:56:40 UTC'
+                   }
+      tr.create(attributes)
+      expected = tr.find_by_id(51)
 
-      expect(tr.find_by_id(263395617)).to eq(test_transaction)
-      expect(tr.find_by_id(123456789099999999)).to eq(nil)
+      expect(expected.credit_card_number).to eq('4297222479999999')
     end
   end
 
-  describe '#find_all_by_invoice_id' do
-    it 'finds transactions by invoice id' do
+  describe '#delete' do
+    it 'delete a specified transaction from the transactions array' do
       mock_sales_engine = instance_double('SalesEngine')
-      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-      test_transaction1 = Transaction.new({
-                                             id: '263395617',
-                                             invoice_id: '456789',
-                                             credit_card_number: '4297222479999999',
-                                             credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
-                                             result: 'success',
-                                             created_at: '2016-01-11 11:51:37 UTC',
-                                             updated_at: '1993-09-29 11:56:40 UTC'
-                                          },
-                                          tr)
-      test_transaction2 = Transaction.new({
-                                             id: '263395617999',
-                                             invoice_id: '456789',
-                                             credit_card_number: '4297222479999999',
-                                             credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
-                                             result: 'success',
-                                             created_at: '2016-01-11 11:51:37 UTC',
-                                             updated_at: '1993-09-29 11:56:40 UTC'
-                                          },
-                                          tr)
-      tr.transactions << test_transaction1
-      tr.transactions << test_transaction2
+      truncated_transact = './spec/truncated_data/transactions_truncated.csv'
+      tr = TransactionRepository.new(truncated_transact, mock_sales_engine)
+      tr.delete(1)
 
-      expect(tr.find_all_by_invoice_id(456789)).to eq([test_transaction1, test_transaction2])
-      expect(tr.find_all_by_invoice_id(123456789099999999)).to eq([])
+      expect(tr.transactions.count).to eq(49)
+      expect(tr.find_by_id(1)).to eq(nil)
     end
   end
 
@@ -136,6 +115,38 @@ RSpec.describe TransactionRepository do
     end
   end
 
+  describe '#find_all_by_invoice_id' do
+    it 'finds transactions by invoice id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
+      test_transaction1 = Transaction.new({
+                                             id: '263395617',
+                                             invoice_id: '456789',
+                                             credit_card_number: '4297222479999999',
+                                             credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                             result: 'success',
+                                             created_at: '2016-01-11 11:51:37 UTC',
+                                             updated_at: '1993-09-29 11:56:40 UTC'
+                                          },
+                                          tr)
+      test_transaction2 = Transaction.new({
+                                             id: '263395617999',
+                                             invoice_id: '456789',
+                                             credit_card_number: '4297222479999999',
+                                             credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                             result: 'success',
+                                             created_at: '2016-01-11 11:51:37 UTC',
+                                             updated_at: '1993-09-29 11:56:40 UTC'
+                                          },
+                                          tr)
+      tr.transactions << test_transaction1
+      tr.transactions << test_transaction2
+
+      expect(tr.find_all_by_invoice_id(456789)).to eq([test_transaction1, test_transaction2])
+      expect(tr.find_all_by_invoice_id(123456789099999999)).to eq([])
+    end
+  end
+
   describe '#find_all_by_result' do
     it 'finds transactions by result' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -146,23 +157,36 @@ RSpec.describe TransactionRepository do
     end
   end
 
-  describe '#create' do
-    it 'create a new transaction instance' do
+  describe '#find_by_id' do
+    it 'finds transactions by id' do
       mock_sales_engine = instance_double('SalesEngine')
       tr = TransactionRepository.new('./spec/truncated_data/transactions_truncated.csv', mock_sales_engine)
-      attributes = {
-                      id: '263395617',
-                      invoice_id: '456789',
-                      credit_card_number: '4297222479999999',
-                      credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
-                      result: 'success',
-                      created_at: '2016-01-11 11:51:37 UTC',
-                      updated_at: '1993-09-29 11:56:40 UTC'
-                   }
-      tr.create(attributes)
-      expected = tr.find_by_id(51)
+      test_transaction = Transaction.new({
+                                            id: '263395617',
+                                            invoice_id: '456789',
+                                            credit_card_number: '4297222479999999',
+                                            credit_card_expiration_date: '2016-01-11 11:51:37 UTC',
+                                            result: 'success',
+                                            created_at: '2016-01-11 11:51:37 UTC',
+                                            updated_at: '1993-09-29 11:56:40 UTC'
+                                         },
+                                         tr)
+      tr.transactions << test_transaction
 
-      expect(expected.credit_card_number).to eq('4297222479999999')
+      expect(tr.find_by_id(263395617)).to eq(test_transaction)
+      expect(tr.find_by_id(123456789099999999)).to eq(nil)
+    end
+  end
+
+  describe '#invoice_paid_in_full?' do
+    it 'returns true if invoice with the corresponding id is paid in full' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_transact = './spec/truncated_data/transactions_truncated.csv'
+      tr = TransactionRepository.new(truncated_transact, mock_sales_engine)
+
+      expect(tr.invoice_paid_in_full?(1)).to eq(true)
+      expect(tr.invoice_paid_in_full?(1485)).to eq(false)
+      expect(tr.invoice_paid_in_full?(3242342342)).to eq(false)
     end
   end
 
@@ -194,30 +218,6 @@ RSpec.describe TransactionRepository do
       tr.update(333333333, attributes)
 
       expect(test_transaction).to eq(nil)
-    end
-  end
-
-  describe '#delete' do
-    it 'delete a specified transaction from the transactions array' do
-      mock_sales_engine = instance_double('SalesEngine')
-      truncated_transact = './spec/truncated_data/transactions_truncated.csv'
-      tr = TransactionRepository.new(truncated_transact, mock_sales_engine)
-      tr.delete(1)
-
-      expect(tr.transactions.count).to eq(49)
-      expect(tr.find_by_id(1)).to eq(nil)
-    end
-  end
-
-  describe '#invoice_paid_in_full?' do
-    it 'returns true if invoice with the corresponding id is paid in full' do
-      mock_sales_engine = instance_double('SalesEngine')
-      truncated_transact = './spec/truncated_data/transactions_truncated.csv'
-      tr = TransactionRepository.new(truncated_transact, mock_sales_engine)
-
-      expect(tr.invoice_paid_in_full?(1)).to eq(true)
-      expect(tr.invoice_paid_in_full?(1485)).to eq(false)
-      expect(tr.invoice_paid_in_full?(3242342342)).to eq(false)
     end
   end
 end

@@ -25,4 +25,19 @@ class Merchant
   def update_time_stamp
     @updated_at = Time.now
   end
+
+  #pull from MR from Engine From IR the items - put in an instance varibale
+
+  #wants items array
+  #revenue
+  #items/quantity hash
+  #items/revenue hash
+  #num items
+  #avg item price
+  #pending invoices
+  #months/items hash
+  #best item (item with most revenue)
+  #most sold item (item with most qty sold)
+  #num invoices
+
 end

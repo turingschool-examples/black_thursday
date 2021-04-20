@@ -8,7 +8,6 @@ require './lib/item'
 require './lib/merchant'
 
 RSpec.describe SalesAnalyst do
-
   describe '#initialize' do
     it 'exists' do
       se = SalesEngine.from_csv({
@@ -100,7 +99,7 @@ RSpec.describe SalesAnalyst do
         transactions: './spec/truncated_data/transactions_truncated.csv'
                               })
       sales_analyst = se.analyst
-      
+
       expect(sales_analyst.golden_items).to eq([])
     end
   end
@@ -183,7 +182,7 @@ RSpec.describe SalesAnalyst do
         transactions: './spec/truncated_data/transactions_truncated.csv'
                               })
         sales_analyst = se.analyst
-      
+
         expect(sales_analyst.invoice_status('pending')).to eq(50.0)
     end
   end
