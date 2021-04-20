@@ -273,7 +273,7 @@ class SalesAnalyst
   def invoices_per_month
     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
 
     ##YOU WANT ITEMS NOT INVOICES
     # days = invoices.map do |invoice_object|
