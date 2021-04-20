@@ -2,6 +2,7 @@ require 'SimpleCOV'
 require 'csv'
 require './lib/sales_engine'
 require './lib/transaction_repository'
+require './lib/invoice_repository'
 
 RSpec.describe TransactionRepository do
   describe 'Instance' do
@@ -110,6 +111,19 @@ RSpec.describe TransactionRepository do
       tr.delete(6)
 
       expect(tr.find_by_id(6)).to eq(nil)
+    end
+  end
+
+  describe '#transactions_by_invoice' do
+    it 'creates an array of all transactions paired with their transactions' do
+      se = SalesEngine.from_csv(
+        invoices:     './data/invoices.csv',
+        transactions: './data/transactions.csv'
+      )
+
+      tr = se.transactions
+
+      expect(tr.transactions_by_invoice.class).to eq(Array)
     end
   end
 end

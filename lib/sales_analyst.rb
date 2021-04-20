@@ -99,6 +99,7 @@ class SalesAnalyst
         invoice.merchant_id == merchant
       end
     end
+
     @merchant_id_array.zip(invoice_count)
   end
 
@@ -119,9 +120,11 @@ class SalesAnalyst
     top_merchant = merchant_invoice_array.find_all do |invoice|
       invoice[1] > deviation
     end
+
     top_merchant_id = top_merchant.map do |merchant|
       merchant[0]
     end
+
     @engine.csv_array(:merchants).find_all do |merchant|
       top_merchant_id.include?(merchant.id)
     end
@@ -134,9 +137,11 @@ class SalesAnalyst
     bottom_merchant = merchant_invoice_array.find_all do |invoice|
       invoice[1] < deviation
     end
+
     bottom_merchant_id = bottom_merchant.map do |merchant|
       merchant[0]
     end
+
     @engine.csv_array(:merchants).find_all do |merchant|
       bottom_merchant_id.include?(merchant.id)
     end
@@ -160,12 +165,12 @@ class SalesAnalyst
     days_div = standard_deviation(invoice_per_day, average)
     days_invoice = days_of_week.zip(invoice_per_day)
 
-    golden_days = days_invoice.find_all do |day|
-      day[1] > average + days_div
+    golden_days = days_invoice.find_all do |(_day, invoice_number)|
+      invoice_number > average + days_div
     end
 
-    golden_days.map do |day|
-      day[0]
+    golden_days.map do |day, _invoice_number|
+      day
     end
   end
 
@@ -208,5 +213,98 @@ class SalesAnalyst
       item.quantity * item.unit_price_to_dollars
     end.sum
     BigDecimal(total, 10)
+  end
+
+  def total_revenue_by_date(date)
+    invoice_on_date = @engine.invoices.find_all_by_date(date)
+    invoice_items_from_date = @engine.csv_array(:invoice_items).find_all do |invoice_item|
+      invoice_on_date.include?(invoice_item.invoice_id)
+    end
+
+    total_revenue = invoice_items_from_date.sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+
+    total_revenue.round(2)
+  end
+
+  def top_revenue_earners(search_range = 20)
+    merchant_revenue_array = all_revenue_by_merchant
+
+    sorted_merchant_array = merchant_revenue_array.sort_by do |(_merchant, revenue)|
+      revenue
+    end.reverse
+
+    sorted_merchant_array.map do |(merchant, _revenue)|
+      @engine.merchants.find_by_id(merchant)
+    end[0..(search_range - 1)]
+  end
+
+  def merchants_with_pending_invoices
+    transaction_per_invoice_id = @engine.transactions.transactions_by_invoice
+    result_per_invoice = transaction_per_invoice_id.each_with_object([]) do |(invoice_wanted, transaction_array), array|
+      if transaction_array != []
+        transaction_result_array = transaction_array.map {|transaction| transaction.result}
+        array << [invoice_wanted, c]
+      else
+        array << [invoice_wanted, [:failed]]
+      end
+    end
+
+    invoice_id_pending = result_per_invoice.map do |(invoice_id, transaction_result)|
+      if !transaction_result.include?(:success)
+        invoice_id
+      end
+    end.compact
+
+    invoice_id_pending.map do |invoice|
+      @engine.merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+  end
+
+  def merchants_with_only_one_item
+    items_grouped_by_merchant = @engine.items.all.group_by do |item|
+      item.merchant_id
+    end
+
+    merchant_id_one_item = []
+    items_grouped_by_merchant.each do |merchant_id, items_array|
+      if items_array.length == 1
+        merchant_id_one_item << merchant_id
+      end
+    end
+
+    merchant_id_one_item.map do |merchant_id|
+      @engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_numeral = Time.parse(month).mon
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.mon == month_numeral
+    end
+  end
+
+  def all_revenue_by_merchant
+    merchant_invoice_array = @engine.invoices.invoices_by_merchant
+    merchant_invoice_array.map do |(merchant, invoice_array)|
+      [merchant, invoice_array.sum do |invoice_id|
+        if invoice_paid_in_full?(invoice_id)
+          invoice_total(invoice_id)
+        else
+          0
+        end
+      end]
+    end
+  end
+
+  def revenue_by_merchant(merchant_id_wanted)
+    wanted_merchant = all_revenue_by_merchant.find do |(merchant_id, revenue)|
+      merchant_id == merchant_id_wanted
+    end
+    wanted_merchant.map do |(merchant, _revenue)|
+      merchant
+    end
   end
 end

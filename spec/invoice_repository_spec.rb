@@ -70,4 +70,27 @@ RSpec.describe InvoiceRepository do
       expect(ir.find_by_id(38).status).to eq(:shipped)
     end
   end
+
+  describe '#invoices_by_merchant' do
+    it 'returns an array of all merchant ids paired to their invoices' do
+      se = SalesEngine.from_csv(invoices: './data/invoices.csv')
+
+      ir = se.invoices
+
+      expect(ir.invoices_by_merchant).to be_an_instance_of(Array)
+    end
+  end
+
+  describe '#find_all_by_date' do
+    it 'returns the inventory item with the matching date' do
+      se = SalesEngine.from_csv(
+        invoices: './data/invoices.csv'
+      )
+
+      ir = se.invoices
+      date = Time.parse('2008-06-29')
+
+      expect(ir.find_all_by_date(date).length).to eq(2)
+    end
+  end
 end

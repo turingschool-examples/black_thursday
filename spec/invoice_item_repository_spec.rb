@@ -92,6 +92,20 @@ RSpec.describe 'ItemRepository' do
       expect(iir.find_all_by_invoice_id(36_000)).to eq([])
     end
   end
+
+  describe '#find_all_by_date' do
+    it 'returns the inventory item with the matching date' do
+      se = SalesEngine.from_csv(
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      iir = se.invoice_items
+      date = Time.parse('2008-06-29')
+
+      expect(iir.find_all_by_date(date).length).to eq(1)
+    end
+  end
+
   describe '#create' do
     it 'creates an instance of an invoice item' do
       se = SalesEngine.from_csv(

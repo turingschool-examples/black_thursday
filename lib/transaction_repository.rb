@@ -58,6 +58,12 @@ class TransactionRepository < Repository
     Transaction.new(attributes)
   end
 
+  def transactions_by_invoice
+    @engine.csv_array(:invoices).each_with_object([]) do |invoice, array|
+      array << [invoice, find_all_by_invoice_id(invoice.id)]
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
     # should this be @merchants or @invoices

@@ -37,6 +37,13 @@ class InvoiceItemRepository < Repository
     end
   end
 
+  def find_all_by_date(date)
+    string_date = date.to_s.split(' ')[0]
+    @csv_array.find_all do |invoice_item|
+      invoice_item.created_at.to_s.include?(string_date)
+    end
+  end
+
   def create(invoice_item_hash)
     attributes = {
       id: max_id_number_new,
