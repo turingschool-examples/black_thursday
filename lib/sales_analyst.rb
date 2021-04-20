@@ -211,28 +211,48 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    #total revenue = quantity sold * price
-    total_revenue = @engine.invoice_items.find_all_by_date(date).sum do |invoice_item|
+    invoice_on_date = @engine.invoices.find_all_by_date(date)
+    invoice_items_from_date = @engine.csv_array(:invoice_items).find_all do |invoice_item|
+      invoice_on_date.include?(invoice_item.invoice_id)
+    end
+    total_revenue = invoice_items_from_date.sum do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end
     total_revenue.round(2)
   end
 
   def top_revenue_earners(search_range = 20)
-    merchant_invoice_hash = @engine.invoices.invoices_by_merchant
-
-    merchant_invoice_hash.each do |merchant, invoices|
-        merchant_invoice_hash[merchant] = invoices.sum do |invoice|
-        invoice_total(invoice.id)
-      end
+    merchant_invoice_array = @engine.invoices.invoices_by_merchant
+    merchant_revenue_array = merchant_invoice_array.map do |pair|
+      [pair[0], pair[1].sum do |invoice_id|
+        if invoice_paid_in_full?(invoice_id)
+          invoice_total(invoice_id)
+        else
+          0
+        end
+      end]
     end
-    top_merchant_invoice = merchant_invoice_hash.sort_by do |key, value|
-      value
+    sorted_merchant_array = merchant_revenue_array.sort_by do |pair|
+      pair[1]
     end.reverse
-    top_merchant_invoice[0..(search_range - 1)].map do |merchant|
-      @engine.merchants.find_by_id(merchant[0])
-    end
+    sorted_merchant_array.map do |pair|
+      @engine.merchants.find_by_id(pair[0])
+    end[0..(search_range - 1)]
   end
+
+  # merchant_invoice_hash.each do |merchant, invoices|
+  #   merchant_invoice_hash[merchant] = invoices.sum do |invoice|
+  #     invoice_total(invoice.id)
+  #   end
+  # end
+  # top_merchant_invoice = merchant_invoice_hash.sort_by do |key, value|
+  #   value
+  # end.reverse
+  # top_merchant_invoice[0..(search_range - 1)].map do |merchant|
+  #   @engine.merchants.find_by_id(merchant[0])
+  # end
+
+
 
   def merchants_with_pending_invoices
     @engine.invoices.all.find_all do |invoice|

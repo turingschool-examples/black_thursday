@@ -112,4 +112,14 @@ RSpec.describe TransactionRepository do
       expect(tr.find_by_id(6)).to eq(nil)
     end
   end
+
+  describe '#transactions_by_invoice' do
+    it 'deletes a transaction via id' do
+      se = SalesEngine.from_csv(transactions: './data/transactions.csv')
+
+      tr = se.transactions
+
+      expect(tr.transactions_by_invoice).to eq(nil)
+    end
+  end
 end
