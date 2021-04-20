@@ -1,10 +1,12 @@
 require 'CSV'
 require 'time'
 require 'invoice'
+require_relative 'findable'
 
+include Findable
 class InvoiceRepo
   attr_reader :invoices
-  
+
   def initialize(path, engine)
     @invoices = []
     @engine = engine
