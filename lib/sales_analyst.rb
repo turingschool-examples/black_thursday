@@ -229,7 +229,6 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(search_range = 20)
-    merchant_invoice_array = @engine.invoices.invoices_by_merchant
     merchant_revenue_array = all_revenue_by_merchant
 
     sorted_merchant_array = merchant_revenue_array.sort_by do |(_merchant, revenue)|
