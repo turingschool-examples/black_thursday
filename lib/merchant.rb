@@ -6,4 +6,8 @@ class Merchant
     @id = merchant_info[:id].to_i
     @name = merchant_info[:name]
   end
+
+  def update_name(attributes)
+    @name = attributes[:name]
+  end
 end

@@ -60,18 +60,16 @@ class InvoiceRepo
   end
 
   def update(id, attributes)
-    new_invoice = find_by_id(id)
-    return if !new_invoice
-    new_invoice.status = attributes[:status]
-    new_invoice.updated_at = Time.now
-    new_invoice
+    invoice = find_by_id(id)
+    return if !invoice
+    invoice.update_all(attributes)
   end
 
   def delete(id)
     @invoices.delete(find_by_id(id))
   end
-
-  def invoice_count_per_merchant #Needs spec
+  
+  def invoice_count_per_merchant
     merchant_invoices = {}
     @invoices.each do |invoice|
       merchant_invoices[invoice.merchant_id] = find_all_by_merchant_id(invoice.merchant_id).length
@@ -85,14 +83,11 @@ class InvoiceRepo
     end
   end
 
-  def invoice_count_per_day #Needs spec
+  def invoice_count_per_day
     day_count = {}
     @invoices.each do |invoice|
       day_count[invoice.created_at.strftime("%A")] = find_all_by_day_created(invoice.created_at.strftime("%A")).length
     end
       day_count
   end
-
-
-
 end
