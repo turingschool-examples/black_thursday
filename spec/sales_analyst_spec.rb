@@ -157,8 +157,8 @@ RSpec.describe do
 
     it '#merchants_with_pending_invoices returns those merchants' do
 
-      expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
-      expect(expected.merchants_with_pending_invoices.class).to eq(Merchant)
+      expect(sales_analyst.merchants_with_pending_invoices.length).to eq(39)
+      expect(sales_analyst.merchants_with_pending_invoices[0].class).to eq(Merchant)
     end
   end
 end

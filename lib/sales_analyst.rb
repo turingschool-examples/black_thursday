@@ -3,7 +3,7 @@ require 'date'
 
 class SalesAnalyst
 
-  attr_reader :engine, :merchants, :items, :invoices
+  attr_reader :engine, :merchants, :items, :invoices, :transactions
 
   def initialize(engine)
     @engine = engine
@@ -191,22 +191,26 @@ class SalesAnalyst
     total
   end
 
+  def find_transactions_by_invoice_id(invoice_id)
+    transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
+
+  def check_pending_invoice(invoice)
+    transactions = find_transactions_by_invoice_id(invoice.id)
+    failed_transactions = transactions.none? do |transaction|
+      transaction.result == :success
+    end
+    failed_transactions
+  end
+
   def merchants_with_pending_invoices
-    all_pending = []
-    merchants.each do |merchant|
+    all_merchants = merchants.find_all do |merchant|
       merchant_invoices = find_all_invoices_by_merchant_id(merchant.id)
-      merchant_invoices.each do |invoice|
-        if invoice.status == :pending
-          all_pending << merchant
-        end
+      merchant_invoices.any? do |invoice|
+        check_pending_invoice(invoice)
       end
     end
-    # all_merchants = merchants.find_all do |merchant|
-    #   merchant_invoices = find_all_invoices_by_merchant_id(merchant.id)
-    #   merchant_invoices.any? do |invoice|
-    #     invoice.status == :pending
-    #   end
-    # end
-  all_pending.uniq
   end
 end
