@@ -65,7 +65,7 @@ class InvoiceRepository < Repository
   end
 
   def invoices_by_merchant
-    test = @csv_array.each_with_object({}) do |invoice, hash|
+    @csv_array.each_with_object({}) do |invoice, hash|
       if hash[invoice.merchant_id].nil?
         hash[invoice.merchant_id] = [invoice.id]
       else
