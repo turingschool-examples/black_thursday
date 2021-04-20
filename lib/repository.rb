@@ -29,7 +29,11 @@ class Repository
     end
     @parsed_csv_data
   end
+  #foreach in CSV. instead of reading it takes the file and does the reading/formating for you. gives you a row object that behaves like a hash.
 
+  #send the path and class and as we iterate over csv we create object. OR send create method the type of object we want to create. (with capital letter(class not instance))
+
+  
   def all
     array_of_objects
   end

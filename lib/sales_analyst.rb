@@ -6,14 +6,14 @@ class SalesAnalyst
   attr_reader :engine, :merchants, :items, :invoices, :transactions
 
   def initialize(engine)
-    @engine = engine
+
     @merchants = engine.merchants.array_of_objects
     @items = engine.items.array_of_objects
     @invoices = engine.invoices.array_of_objects
     @transactions = engine.transactions.array_of_objects
     @invoice_items = engine.invoice_items.array_of_objects
   end
-
+  #law of demeter violation! Put it in sales engine. FIX ME
   def get_merchant_ids(merchants)
     merchants.map do |merchant|
       merchant.id
@@ -258,7 +258,7 @@ class SalesAnalyst
   end
 
   def items_per_merchant_hash
-    stripped_items = @items.map do |item|
+    stripped_items ||= @items.map do |item| #if instance variable has been created, use it if not then create it
       item.merchant_id
     end
     grouped_items = stripped_items.group_by do |item|
@@ -270,20 +270,54 @@ class SalesAnalyst
     tallied_items
   end
 
-  def invoices_per_month
+  def merchants_by_month_hash
     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    merchants_by_month_hash = Hash.new
 
-    # require "pry"; binding.pry
+      months.each do |month|
+        merchants_by_month_hash[month] = []
+require "pry"; binding.pry
+        @merchants.each do |merchant|
+          if does_item_exist_in_month?(month, merchant.id)
+            merchants_by_month_hash[month].push(merchant.id)
+          end
+        end
+      end
+  end
 
-    ##YOU WANT ITEMS NOT INVOICES
-    # days = invoices.map do |invoice_object|
-    #   invoice_object.created_at.strftime('%A')
-    # end
-    # sorted_days = days.group_by do |day|
-    #   day
-    # end
-    # sorted_days.transform_values do |value|
-    #   value.length
-    # end
+def does_item_exist_in_month?(month, merchant_id)
+  items_by_merch = find_all_items_by_merchant_id(merchant_id)
+    items_by_merch.one? do |item|
+    item.created_at.strftime('%B') == month
+    end
   end
 end
+
+    # grouped_items = @items.group_by do |item|
+    #   item.created_at.strftime('%B')
+    # end
+    #
+    # merchant_ids_of_items_in_month = grouped_items.transform_values do |value|
+    #   value.map do |item_info|
+    #     item_info.merchant_id
+    #     end
+    #
+    # end
+    # require "pry"; binding.pry
+
+  # def merchants_with_only_one_item_registered_in_month(month)
+  #   merchant_ids_of_items_in_month = grouped_items.transform_values do |value|
+  #     value.map do |item_info|
+  #         item_info.merchant_id
+  #       end
+  #     end
+  # end
+
+
+#find item per merchant in sales engine? or merchant repo gets merchants with their items. (use self?)
+#memoization(sp?) iterating more than we need to means we should trim the iterations as much as possible. The first time we iterate it will
+#contatin the information and then we can reuse the iterated information. Example on items_per_merchant_hash
+
+
+#all methods on spec harness working, refactor, THEN blog post. Put blog post in readme
+#just how to I say in english how I would solve the issue.
