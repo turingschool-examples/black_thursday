@@ -3,7 +3,7 @@ require 'date'
 
 class SalesAnalyst
 
-  attr_reader :engine, :merchants, :items, :invoices
+  attr_reader :engine, :merchants, :items, :invoices, :transactions
 
   def initialize(engine)
     @engine = engine
@@ -91,8 +91,6 @@ class SalesAnalyst
       item_object.unit_price >= greater_than_2sd
     end
   end
-
-  ##### INVOICE ITERATION 2 ######
 
   def average_invoices_per_merchant
     Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
@@ -182,13 +180,72 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     all_invoice_items = @invoice_items.find_all do |invoice_item|
-      invoice_item.invoice_id == invoice_id
+      invoice_item.invoice_id == invoice_id &&
+      invoice_paid_in_full?(invoice_item.invoice_id)
     end
-    total = 0
-    all_invoice_items.each do |invoice_item|
-      total += (invoice_item.quantity * invoice_item.unit_price)
+
+    all_invoice_items.sum do |invoice_item|
+      (invoice_item.quantity * invoice_item.unit_price)
     end
-    total
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_invoices = find_all_invoices_by_merchant_id(merchant_id)
+    merchant_invoices.sum do |invoice|
+      invoice_total(invoice.id)
+    end
+  end
+
+  def top_revenue_earners(count=20)
+    merchants_by_revenue = @merchants.reduce({}) do |merchants_by_revenue, merchant|
+      merchants_by_revenue[merchant] = revenue_by_merchant(merchant.id)
+      merchants_by_revenue
+    end
+
+    merchants_by_revenue = merchants_by_revenue.sort_by do |merchant, revenue|
+      revenue
+    end.reverse!
+
+    top_merchants_with_totals = merchants_by_revenue.first(count)
+
+    top_merchants = top_merchants_with_totals.flat_map do |merchant_with_total|
+      merchant_with_total[0]
+    end
+  end
+
+  def total_revenue_by_date(date)
+    invoice_id_matching_date = 0
+    @invoices.each do |invoice|
+      if invoice.created_at == date
+        invoice_id_matching_date += invoice.id
+      end
+      invoice_id_matching_date
+      invoices_total_by_date = invoice_total(invoice_id_matching_date)
+      return invoices_total_by_date
+    end
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
+
+  def check_pending_invoice(invoice)
+    transactions = find_transactions_by_invoice_id(invoice.id)
+    failed_transactions = transactions.none? do |transaction|
+      transaction.result == :success
+    end
+    failed_transactions
+  end
+
+  def merchants_with_pending_invoices
+    all_merchants = merchants.find_all do |merchant|
+      merchant_invoices = find_all_invoices_by_merchant_id(merchant.id)
+      merchant_invoices.any? do |invoice|
+        check_pending_invoice(invoice)
+      end
+    end
   end
 
   def merchants_with_only_one_item #alex
