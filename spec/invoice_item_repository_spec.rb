@@ -94,7 +94,7 @@ RSpec.describe 'ItemRepository' do
   end
 
   describe '#find_all_by_date' do
-    it "returns the inventory item with the matching date" do
+    it 'returns the inventory item with the matching date' do
       se = SalesEngine.from_csv(
         invoice_items: './data/invoice_items.csv'
       )
@@ -131,7 +131,7 @@ RSpec.describe 'ItemRepository' do
 
       iir = se.invoice_items
       iir.update(
-        21830,
+        21_830,
         quantity: 5,
         unit_price: 586.55
       )
