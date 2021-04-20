@@ -13,18 +13,21 @@ RSpec.describe InvoiceItemRepository do
     it 'exists' do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
       expect(iir).to be_instance_of(InvoiceItemRepository)
     end
 
     it 'has invoice items' do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
       expect(iir.invoice_items.count).to eq(50)
     end
 
     it 'makes invoice items' do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
       expect(iir.invoice_items.first).to be_instance_of(InvoiceItem)
     end
   end
@@ -33,6 +36,7 @@ RSpec.describe InvoiceItemRepository do
     it 'finds all InvoiceItems' do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
       expect(iir.all.count).to eq(50)
     end
   end
@@ -40,12 +44,12 @@ RSpec.describe InvoiceItemRepository do
   describe '#best_item_for_merchant' do
     it 'finds best items for merchant in terms of revenue generated' do
       se = SalesEngine.from_csv({
-          items: './data/items.csv',
-          merchants: './data/merchants.csv',
-          invoices: './data/invoices.csv',
-          customers: './data/customers.csv',
-          invoice_items: './data/invoice_items.csv',
-          transactions: './data/transactions.csv'
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
                                   })
       iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
 
@@ -69,6 +73,7 @@ RSpec.describe InvoiceItemRepository do
                     }
       iir.create(attributes)
       expected = iir.find_by_id(51)
+
       expect(expected.invoice_id).to eq(654123)
     end
   end
@@ -78,6 +83,7 @@ RSpec.describe InvoiceItemRepository do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
       iir.delete(1)
+
       expect(iir.invoice_items.count).to eq(49)
     end
   end
@@ -86,6 +92,7 @@ RSpec.describe InvoiceItemRepository do
     it 'finds all InvoiceItems by id' do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
       expect(iir.find_all_by_item_id(263539664).count).to eq(1)
       expect(iir.find_all_by_item_id(987654321)).to eq([])
     end
@@ -95,6 +102,7 @@ RSpec.describe InvoiceItemRepository do
     it 'finds all InvoiceItems by id' do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
       expect(iir.find_all_by_invoice_id(1).count).to eq(8)
       expect(iir.find_all_by_invoice_id(987654321)).to eq([])
     end
@@ -104,6 +112,7 @@ RSpec.describe InvoiceItemRepository do
     it 'finds all InvoiceItems by id' do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
       expect(iir.find_by_id(1)).to be_instance_of(InvoiceItem)
       expect(iir.find_by_id(987654321)).to eq(nil)
     end
@@ -121,28 +130,63 @@ RSpec.describe InvoiceItemRepository do
   describe '#invoice_total_hash' do
     it 'makes a hash of unique invoices ids and their total value' do
       se = SalesEngine.from_csv({
-        items: './spec/truncated_data/items_truncated.csv',
-        merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv',
-        customers: './spec/truncated_data/customers_truncated.csv',
-        invoice_items: 'data/invoice_items.csv',
-        transactions: 'data/transactions.csv'
-                              })
+                                  items: './spec/truncated_data/items_truncated.csv',
+                                  merchants: './spec/truncated_data/merchants_truncated.csv',
+                                  invoices: './spec/truncated_data/invoices_truncated.csv',
+                                  customers: './spec/truncated_data/customers_truncated.csv',
+                                  invoice_items: 'data/invoice_items.csv',
+                                  transactions: 'data/transactions.csv'
+                                })
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', se)
 
       expect(iir.invoice_total_hash.keys.count).to eq(7)
     end
   end
 
+  describe '#item_quantity_hash' do
+    it 'makes a hash of successful invoice id\'s and quantities' do
+      se = SalesEngine.from_csv({
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
+                                })
+    iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+    mr = MerchantRepository.new('./data/merchants.csv', se)
+
+      expect(iir.item_quantity_hash(12334105)).to be_a(Hash)
+      expect(iir.item_quantity_hash(12334105).count).to eq(28)
+    end
+  end
+
+  describe '#item_revenue_hash' do
+    it 'makes a hash of successful invoice id\'s and quantities' do
+      se = SalesEngine.from_csv({
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
+                                })
+    iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+
+      expect(iir.item_revenue_hash(12334105)).to be_a(Hash)
+      expect(iir.item_revenue_hash(12334105).values.sum).to eq(0.7377717e5)
+    end
+  end
+
   describe '#most_sold_item_for_merchant' do
     it 'finds most sold items for merchant' do
       se = SalesEngine.from_csv({
-          items: './data/items.csv',
-          merchants: './data/merchants.csv',
-          invoices: './data/invoices.csv',
-          customers: './data/customers.csv',
-          invoice_items: './data/invoice_items.csv',
-          transactions: './data/transactions.csv'
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
                                   })
       iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
 
@@ -167,6 +211,7 @@ RSpec.describe InvoiceItemRepository do
                     }
       iir.update(1, attributes)
       expected = iir.find_by_id(1)
+
       expect(expected.invoice_id).to eq(1)
       expect(expected.quantity).to eq(6)
       expect(expected.unit_price).to eq(13000)
