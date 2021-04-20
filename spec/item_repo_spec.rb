@@ -4,12 +4,12 @@ require 'sales_engine'
 
 RSpec.describe ItemRepo do
   before(:each) do
-    @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
-                                          :merchants => './data/merchants.csv',
-                                          :invoices => './data/invoices.csv',
-                                          :invoice_items => './data/invoice_items.csv',
-                                          :transactions  => './data/transactions.csv',
-                                          :customers => './data/customers.csv'
+    @sales_engine = SalesEngine.from_csv({:items => './data/mock_items.csv',
+                                          :merchants => './data/mock_merchants.csv',
+                                          :invoices => './data/mock_invoices.csv',
+                                          :invoice_items => './data/mock_invoice_items.csv',
+                                          :transactions  => './data/mock_transactions.csv',
+                                          :customers => './data/mock_customers.csv'
                                         })
   end
 
@@ -159,19 +159,18 @@ RSpec.describe ItemRepo do
    it '#delete by id' do
     item_repo = @sales_engine.items
     item = item_repo.create({:id        => 1,
-                           :name        => "Pencil",
-                           :description => "You can use it to write things",
-                           :unit_price  => 1099,
-                           :created_at  => Time.now,
-                           :updated_at  => Time.now,
-                           :merchant_id => 2})
+                             :name        => "Pencil",
+                             :description => "You can use it to write things",
+                             :unit_price  => 1099,
+                             :created_at  => Time.now,
+                             :updated_at  => Time.now,
+                             :merchant_id => 2})
 
       expect(item_repo.find_by_id(item.id)).to eq(item)
 
       item_repo.delete(item.id)
 
       expect(item_repo.find_by_id(item.id)).to eq(nil)
-
     end
 
     it '#item merchant count' do

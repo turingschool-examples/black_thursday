@@ -22,4 +22,27 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def update_all(attributes)
+    update_name(attributes)
+    update_description(attributes)
+    update_unit_price(attributes)
+    update_updated_at(attributes)
+  end
+
+  def update_name(attributes)
+    @name = attributes[:name] if attributes[:name]
+  end
+
+  def update_description(attributes)
+    @description = attributes[:description] if attributes[:description]
+  end
+
+  def update_unit_price(attributes)
+    @unit_price = attributes[:unit_price] if attributes[:unit_price]
+  end
+
+  def update_updated_at(attributes)
+    @updated_at = attributes[:updated_at] if attributes[:updated_at]
+  end
 end

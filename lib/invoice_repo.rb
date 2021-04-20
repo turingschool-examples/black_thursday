@@ -60,11 +60,9 @@ class InvoiceRepo
   end
 
   def update(id, attributes)
-    new_invoice = find_by_id(id)
-    return if !new_invoice
-    new_invoice.status = attributes[:status]
-    new_invoice.updated_at = Time.now
-    new_invoice
+    invoice = find_by_id(id)
+    return if !invoice
+    invoice.update_all(attributes)
   end
 
   def delete(id)

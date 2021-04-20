@@ -29,4 +29,31 @@ RSpec.describe Invoice do
       expect(invoice.updated_at).to be_an_instance_of(Time)
     end
   end
+
+  describe '#methods' do
+    it '#updates status' do
+      invoice = Invoice.new({:id => 6,
+                            :customer_id => 7,
+                            :merchant_id => 8,
+                            :status => 'pending',
+                            :created_at => Time.now,
+                            :updated_at => Time.now})  
+
+      invoice.update_status({:status => :shipped})
+      expect(invoice.status).to eq(:shipped)
+    end
+
+    it '#updates updated at time' do
+    invoice = Invoice.new({:id => 6,
+                           :customer_id => 7,
+                           :merchant_id => 8,
+                           :status => 'pending',
+                           :created_at => Time.now,
+                           :updated_at => Time.now})
+  
+    invoice.update_updated_at({:updated_at => Time.now})
+  
+    expect(invoice.updated_at).to be_an_instance_of(Time)
+  end
+  end
 end
