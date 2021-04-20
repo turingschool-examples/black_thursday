@@ -5,9 +5,9 @@ class Repository
   attr_reader :parsed_csv_data,
               :array_of_objects
 
-  def initialize(path)
+  def initialize(path, object)
     @parsed_csv_data = parse_csv(path)
-    @array_of_objects = []
+    @array_of_objects = create_objects(@parsed_csv_data, object)
   end
 
   def inspect
@@ -22,6 +22,12 @@ class Repository
       @parsed_csv_data << row.to_h
     end
     @parsed_csv_data
+  end
+
+  def create_objects(parsed_csv_data, object)
+    @parsed_csv_data.map do |object_data|
+      object.new(object_data)
+    end
   end
 
   def all
