@@ -138,16 +138,6 @@ class InvoiceRepository
     end
   end
 
-  def top_revenue_earners(x)
-    array = total_revenue_by_merchant.select{|x| x % 1 == 0}
-    top_merchants = []
-    x.times do
-        top_merchants << @engine.find_merchant_by_id(array.first)
-        array.shift
-    end
-    top_merchants
-  end
-
   def top_sales_days
     hash = invoices_by_days
     hash.each_with_object([]) do |(day, number_of_invoices), array|

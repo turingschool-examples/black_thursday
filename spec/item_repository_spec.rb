@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 require './lib/sales_engine'
 require './lib/item_repository'
 require 'bigdecimal'
@@ -190,7 +190,7 @@ RSpec.describe ItemRepository do
       }
       ir.create(attributes)
       expected = ir.find_by_id(263567475)
-      
+
       expect(expected.name).to eq('Cool Stuff')
     end
   end

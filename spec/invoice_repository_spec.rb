@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 require './lib/sales_engine'
 require './lib/invoice_repository'
 require './lib/invoice'
@@ -320,25 +320,6 @@ RSpec.describe InvoiceRepository do
 
       expect(ir.top_merchants_by_invoice_count.count).to eq(12)
       expect(ir.top_merchants_by_invoice_count.first).to be_a(Merchant)
-    end
-  end
-
-  describe '#top_revenue_earners' do
-    it 'returns the top revenue earners' do
-      se = SalesEngine.from_csv({
-                                  items: './data/items.csv',
-                                  merchants: './data/merchants.csv',
-                                  invoices: './data/invoices.csv',
-                                  customers: './data/customers.csv',
-                                  invoice_items: './data/invoice_items.csv',
-                                  transactions: './data/transactions.csv'
-                                })
-      ir = InvoiceRepository.new('./data/invoices.csv', se)
-      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
-      mr = MerchantRepository.new('./data/merchants.csv', se)
-
-      expect(ir.top_revenue_earners(1)[0]).to be_a(Merchant)
-      expect(ir.top_revenue_earners(1).count).to eq(1)
     end
   end
 

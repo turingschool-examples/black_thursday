@@ -73,4 +73,11 @@ class MerchantRepository
       !items_hash[merchant.id].nil? && items_hash[merchant.id] == 1
     end
   end
+
+  def top_revenue_earners(num_earners)
+    array = @engine.total_revenue_by_merchant.select{|x| x % 1 == 0}.first(num_earners)
+    array.map do |merchant_id|
+      find_by_id(merchant_id)
+    end
+  end
 end
