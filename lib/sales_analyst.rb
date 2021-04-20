@@ -191,38 +191,29 @@ class SalesAnalyst
     end
   end
 
-  def merchant_revenue_by_id(merchant_id)
-    merchant_invoices = find_all_invoices_by_merchant_id(merchant.id)
-    merchant_invoice_total = merchant_invoices.map do |invoice|
+  def revenue_by_merchant(merchant_id)
+    merchant_invoices = find_all_invoices_by_merchant_id(merchant_id)
+    merchant_invoices.sum do |invoice|
       invoice_total(invoice.id)
     end
-
   end
 
   def top_revenue_earners(count=20)
-    all_merchant_invoices = @merchants.reduce({}) do |all_merchant_invoices, merchant|
-      all_merchant_invoices[merchant] = find_all_invoices_by_merchant_id(merchant.id)
-      all_merchant_invoices
+    merchants_by_revenue = @merchants.reduce({}) do |merchants_by_revenue, merchant|
+      merchants_by_revenue[merchant] = revenue_by_merchant(merchant.id)
+      merchants_by_revenue
     end
 
-    merchant_invoice_totals = {}
-
-    all_merchant_invoices.map do |merchant, all_invoices|
-      merchant_invoice_totals[merchant] = all_invoices.reduce([]) do |total, invoice|
-        total << invoice_total(invoice.id)
-      end.sum
-    end
-
-    merchant_invoice_totals = merchant_invoice_totals.sort_by do |merchant, revenue|
+    merchants_by_revenue = merchants_by_revenue.sort_by do |merchant, revenue|
       revenue
     end.reverse!
 
-    top_merchants_with_totals = merchant_invoice_totals.first(count)
+    top_merchants_with_totals = merchants_by_revenue.first(count)
 
     top_merchants = top_merchants_with_totals.flat_map do |merchant_with_total|
       merchant_with_total[0]
     end
 
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 end
