@@ -48,7 +48,7 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    if find_by_id(id) != nil
+    if !find_by_id(id).nil?
       customer_to_update = find_by_id(id)
       customer_to_update.update(attributes)
     end
@@ -68,13 +68,9 @@ class MerchantRepository
 
   def merchants_with_only_one_item_registered_in_month(month)
     items_hash = @engine.items_created_in_month(month)
-
-    @merchants.each_with_object([]) do |merchant, array|
-      if merchants_created_in_month(month).include?(merchant)
-        if items_hash[merchant.id] != nil && items_hash[merchant.id] == 1
-          array << merchant
-        end
-      end
+    merchants_month_hash = merchants_created_in_month(month)
+    merchants_month_hash.find_all do |merchant|
+      !items_hash[merchant.id].nil? && items_hash[merchant.id] == 1
     end
   end
 end

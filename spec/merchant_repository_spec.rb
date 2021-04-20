@@ -123,19 +123,18 @@ RSpec.describe MerchantRepository do
 
   describe '#merchants_with_only_one_item_registered_in_month' do
     it 'can return all merchants with only one item the month registered' do
-      se = SalesEngine.from_csv({
-          items: './data/items.csv',
-          merchants: './data/merchants.csv',
-          invoices: './data/invoices.csv',
-          customers: './data/customers.csv',
-          invoice_items: './data/invoice_items.csv',
-          transactions: './data/transactions.csv'
-                                })
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                                )
 
       mr = MerchantRepository.new('./data/merchants.csv', se)
-      ir = ItemRepository.new('./data/items.csv', se)
 
-      expected = mr.merchants_with_only_one_item_registered_in_month("March").count
+      expected = mr.merchants_with_only_one_item_registered_in_month('March').count
       expect(expected).to eq(21)
     end
   end

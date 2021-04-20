@@ -8,10 +8,10 @@ RSpec.describe Merchant do
     it 'exists' do
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '12334105',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                                id: '12334105',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
                               }, mock_merchant_repo)
 
       expect(merchant).to be_a(Merchant)
@@ -20,10 +20,10 @@ RSpec.describe Merchant do
     it 'has attributes' do
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '12334105',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                                id: '12334105',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
                               }, mock_merchant_repo)
 
       expect(merchant.id).to eq(12334105)
@@ -37,10 +37,10 @@ RSpec.describe Merchant do
     it 'updates name with givin attributes' do
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '12334105',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                                id: '12334105',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
                               }, mock_merchant_repo)
 
       expect(merchant.name).to eq('Shopin1901')
@@ -53,10 +53,10 @@ RSpec.describe Merchant do
     it 'can update updated_at time stamp' do
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '12334105',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                                id: '12334105',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
                               }, mock_merchant_repo)
 
       expect(merchant.updated_at.year).to eq(2011)
@@ -69,10 +69,10 @@ RSpec.describe Merchant do
     it 'can update the entire merchant object' do
       mock_merchant_repo = instance_double('MerchantRepository')
       merchant = Merchant.new({
-                              id: '12334105',
-                              name: 'Shopin1901',
-                              created_at: '2010-12-10',
-                              updated_at: '2011-12-04'
+                                id: '12334105',
+                                name: 'Shopin1901',
+                                created_at: '2010-12-10',
+                                updated_at: '2011-12-04'
                               }, mock_merchant_repo)
 
       expect(merchant.name).to eq('Shopin1901')
