@@ -139,4 +139,10 @@ class SalesAnalyst
    ((sales_engine.find_all_by_status(status).length / invoice_count) * 100).round(2)
  end
 
+ def invoice_paid_in_full?(id)
+ end
+
+ def invoice_total(id)
+ end
+
 end
