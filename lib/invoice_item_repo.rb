@@ -12,6 +12,7 @@ class InvoiceItemRepo
   end
 
   def populate_information(path)
+
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
       @invoice_items << InvoiceItem.new(data)
     end
@@ -20,4 +21,20 @@ class InvoiceItemRepo
   def all
     @invoice_items
   end
+end
+
+def find_by_id(id)
+  @invoice_items.find do |invoice_item|
+    invoice_item.id == id
+  end
+end
+
+def create(attributes)
+  invoice_item = InvoiceItem.new(attributes)
+  max = @invoice_items.max_by do |invoice_item|
+    invoice_item.id
+  end
+  invoice_item.id = max.id + 1
+  add_invoice_item(invoice_item)
+  invoice_item
 end
