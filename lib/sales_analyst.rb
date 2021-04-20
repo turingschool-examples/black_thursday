@@ -247,4 +247,23 @@ class SalesAnalyst
       end
     end
   end
+
+  def merchants_with_only_one_item #alex
+    one_item_merchants = items_per_merchant.select do |key, value|
+      value == 1
+    end
+  end
+
+  def items_per_merchant #alex
+    stripped_items = @items.map do |item|
+      item.merchant_id
+    end
+    grouped_items = stripped_items.group_by do |item|
+      item
+    end
+    tallied_items = grouped_items.transform_values do |value|
+      value.length
+    end
+    tallied_items
+  end
 end

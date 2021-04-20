@@ -220,4 +220,36 @@ RSpec.describe do
       expect(sales_analyst.merchants_with_pending_invoices[0].class).to eq(Merchant)
     end
   end
+
+  describe 'alex describe block yo' do
+    sales_engine = SalesEngine.from_csv({
+                                        :items     => "./data/items.csv",
+                                        :merchants => "./data/merchants.csv",
+                                        :invoices => "./data/invoices.csv",
+                                        :invoice_items => "./data/invoice_items.csv",
+                                        :transactions => "./data/transactions.csv",
+                                        :customers => "./data/customers.csv"
+                                        })
+    sales_analyst = sales_engine.analyst
+
+    it "#merchants_with_only_one_item returns merchants with only one item" do
+        expected = sales_analyst.merchants_with_only_one_item
+
+        expect(expected.length).to eq 243
+        expect(expected.first.class).to eq Merchant
+      end
+
+
+      # it "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
+      #   expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+      #
+      #   expect(expected.length).to eq 21
+      #   expect(expected.first.class).to eq Merchant
+      #
+      #   expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
+      #
+      #   expect(expected.length).to eq 18
+      #   expect(expected.first.class).to eq Merchant
+      # end
+    end #keep this for Alex please and thank you
 end
