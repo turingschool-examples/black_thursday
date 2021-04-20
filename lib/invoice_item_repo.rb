@@ -20,4 +20,6 @@ class InvoiceItemRepo
   def all
     @invoice_items
   end
+
+  
 end

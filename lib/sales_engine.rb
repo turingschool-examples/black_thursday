@@ -84,4 +84,12 @@ class SalesEngine
   def find_all_by_status(status)
     @invoices.find_all_by_status(status)
   end
+
+  def find_all_by_result(result)
+    @transactions.find_all_by_result(result)
+  end
+
+  def find_by_invoice_id
+    @transactions.find_by_id(id)
+  end
 end

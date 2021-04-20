@@ -85,8 +85,6 @@ class InvoiceRepo
     end
   end
 
-
-
   def invoice_count_per_day #Needs spec
     day_count = {}
     @invoices.each do |invoice|

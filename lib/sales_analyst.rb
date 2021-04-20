@@ -140,9 +140,16 @@ class SalesAnalyst
  end
 
  def invoice_paid_in_full?(id)
+   sales_engine.find_all_by_result("success").any? do |transaction|
+     transaction.id == id
+   end
  end
 
  def invoice_total(id)
+   sales_engine.find_all_by_result("success").sum do |transaction|
+     require "pry"; binding.pry
+     transaction.id == id
+   end
  end
 
 end
