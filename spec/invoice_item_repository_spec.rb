@@ -146,32 +146,38 @@ RSpec.describe InvoiceItemRepository do
   describe '#item_quantity_hash' do
     it 'makes a hash of successful invoice id\'s and quantities' do
       se = SalesEngine.from_csv({
-        items: './spec/truncated_data/items_truncated.csv',
-        merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv',
-        customers: './spec/truncated_data/customers_truncated.csv',
-        invoice_items: 'data/invoice_items.csv',
-        transactions: 'data/transactions.csv'
-                              })
-      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', se)
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                                })
+    ir = InvoiceRepository.new('./data/invoices.csv', se)
+    iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+    mr = MerchantRepository.new('./data/merchants.csv', se)
 
       expect(iir.item_quantity_hash(12334105)).to be_a(Hash)
+      expect(iir.item_quantity_hash(12334105).count).to eq(28)
     end
   end
 
   describe '#item_revenue_hash' do
     it 'makes a hash of successful invoice id\'s and quantities' do
       se = SalesEngine.from_csv({
-        items: './spec/truncated_data/items_truncated.csv',
-        merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv',
-        customers: './spec/truncated_data/customers_truncated.csv',
-        invoice_items: 'data/invoice_items.csv',
-        transactions: 'data/transactions.csv'
-                              })
-      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', se)
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                                })
+    ir = InvoiceRepository.new('./data/invoices.csv', se)
+    iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+    mr = MerchantRepository.new('./data/merchants.csv', se)
 
       expect(iir.item_revenue_hash(12334105)).to be_a(Hash)
+      expect(iir.item_revenue_hash(12334105).values.sum).to eq(0.7377717e5)
     end
   end
 
