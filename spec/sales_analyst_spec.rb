@@ -173,9 +173,7 @@ RSpec.describe do
                                         })
     sales_analyst = sales_engine.analyst
 
-    it '#revenue_by_merchant returns total revenut for a given merchant' do
-      # expect(sales_analyst.revenue_by_merchant(12334634)).to eq(0.19252887e6)
-      # expect(sales_analyst.revenue_by_merchant(12334105)).to eq(106170.51)
+    it '#revenue_by_merchant returns total revenue for a given merchant' do
       expect(sales_analyst.revenue_by_merchant(12334634).class).to eq(BigDecimal)
     end
 

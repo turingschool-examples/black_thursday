@@ -15,17 +15,11 @@ class Repository
   end
 
   def parse_csv(path)
-    parsed_csv = CSV.parse(File.read(path), headers: true, header_converters: :symbol).to_a
-    headers = parsed_csv.shift
-    @parsed_csv_data = parsed_csv.reduce([]) do |parsed_data, raw_data|
-      new_hash = Hash.new
-      counter = 0
-      headers.each do |header|
-        new_hash[header] = raw_data[counter]
-        counter += 1
-      end
-      parsed_data << new_hash
-      parsed_data
+    @parsed_csv_data = []
+    headers = nil
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      headers ||= row.headers
+      @parsed_csv_data << row.to_h
     end
     @parsed_csv_data
   end

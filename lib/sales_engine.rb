@@ -29,4 +29,24 @@ class SalesEngine
   def self.from_csv(csv_data)
      SalesEngine.new(csv_data)
   end
+
+  def get_all_merchants
+    @merchants.array_of_objects
+  end
+
+  def get_all_items
+    @items.array_of_objects
+  end
+
+  def get_all_invoices
+    @invoices.array_of_objects
+  end
+
+  def get_all_invoice_items
+    @invoice_items.array_of_objects
+  end
+
+  def get_all_transactions
+    @transactions.array_of_objects
+  end
 end

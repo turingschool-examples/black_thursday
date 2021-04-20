@@ -6,12 +6,12 @@ class SalesAnalyst
   attr_reader :engine, :merchants, :items, :invoices, :transactions
 
   def initialize(engine)
-
-    @merchants = engine.merchants.array_of_objects
-    @items = engine.items.array_of_objects
-    @invoices = engine.invoices.array_of_objects
-    @transactions = engine.transactions.array_of_objects
-    @invoice_items = engine.invoice_items.array_of_objects
+    @engine = engine
+    @merchants = engine.get_all_merchants
+    @items = engine.get_all_items
+    @invoices = engine.get_all_invoices
+    @transactions = engine.get_all_transactions
+    @invoice_items = engine.get_all_invoice_items
   end
   #law of demeter violation! Put it in sales engine. FIX ME
   def get_merchant_ids(merchants)
@@ -170,7 +170,7 @@ class SalesAnalyst
       transaction.invoice_id == invoice_id
     end
     if all_transactions.length != 0
-      all_transactions.all? do |transaction|
+      all_transactions.any? do |transaction|
         transaction.result == :success
       end
     else
