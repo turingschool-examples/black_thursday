@@ -232,23 +232,23 @@ class SalesAnalyst
     merchant_invoice_array = @engine.invoices.invoices_by_merchant
     merchant_revenue_array = all_revenue_by_merchant
 
-    sorted_merchant_array = merchant_revenue_array.sort_by do |pair|
-      pair[1]
+    sorted_merchant_array = merchant_revenue_array.sort_by do |(_merchant, revenue)|
+      revenue
     end.reverse
 
-    sorted_merchant_array.map do |pair|
-      @engine.merchants.find_by_id(pair[0])
+    sorted_merchant_array.map do |(merchant, _revenue)|
+      @engine.merchants.find_by_id(merchant)
     end[0..(search_range - 1)]
   end
 
   def merchants_with_pending_invoices
     transaction_per_invoice_id = @engine.transactions.transactions_by_invoice
-    result_per_invoice = transaction_per_invoice_id.each_with_object([]) do |(a, b), array|
-      if b != []
-        c = b.map {|transaction| transaction.result}
-        array << [a, c]
+    result_per_invoice = transaction_per_invoice_id.each_with_object([]) do |(invoice_wanted, transaction_array), array|
+      if transaction_array != []
+        transaction_result_array = transaction_array.map {|transaction| transaction.result}
+        array << [invoice_wanted, c]
       else
-        array << [a, [:failed]]
+        array << [invoice_wanted, [:failed]]
       end
     end
 
@@ -289,8 +289,8 @@ class SalesAnalyst
 
   def all_revenue_by_merchant
     merchant_invoice_array = @engine.invoices.invoices_by_merchant
-    merchant_invoice_array.map do |pair|
-      [pair[0], pair[1].sum do |invoice_id|
+    merchant_invoice_array.map do |(merchant, invoice_array)|
+      [merchant, invoice_array.sum do |invoice_id|
         if invoice_paid_in_full?(invoice_id)
           invoice_total(invoice_id)
         else
@@ -301,8 +301,11 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id_wanted)
-    all_revenue_by_merchant.find do |(merchant_id, revenue)|
+    wanted_merchant = all_revenue_by_merchant.find do |(merchant_id, revenue)|
       merchant_id == merchant_id_wanted
-    end[1]
+    end
+    wanted_merchant.map do |(merchant, -revenue)|
+      merchant
+    end
   end
 end
