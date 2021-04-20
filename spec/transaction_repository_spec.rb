@@ -35,8 +35,8 @@ RSpec.describe TransactionRepository do
   describe '#make_transactions' do
     it 'makes_transactions' do
       mock_sales_engine = instance_double('SalesEngine')
-      truncated_transactions = './spec/truncated_data/transactions_truncated.csv'
-      ir = TransactionRepository.new(truncated_transactions, mock_sales_engine)
+      truncated_transact = './spec/truncated_data/transactions_truncated.csv'
+      ir = TransactionRepository.new(truncated_transact, mock_sales_engine)
 
       expect(ir.transactions.first).to be_instance_of(Transaction)
     end
@@ -200,8 +200,8 @@ RSpec.describe TransactionRepository do
   describe '#delete' do
     it 'delete a specified transaction from the transactions array' do
       mock_sales_engine = instance_double('SalesEngine')
-      truncated_transactions = './spec/truncated_data/transactions_truncated.csv'
-      tr = TransactionRepository.new(truncated_transactions, mock_sales_engine)
+      truncated_transact = './spec/truncated_data/transactions_truncated.csv'
+      tr = TransactionRepository.new(truncated_transact, mock_sales_engine)
       tr.delete(1)
 
       expect(tr.transactions.count).to eq(49)
@@ -212,8 +212,8 @@ RSpec.describe TransactionRepository do
   describe '#invoice_paid_in_full?' do
     it 'returns true if invoice with the corresponding id is paid in full' do
       mock_sales_engine = instance_double('SalesEngine')
-      truncated_transactions = './spec/truncated_data/transactions_truncated.csv'
-      tr = TransactionRepository.new(truncated_transactions, mock_sales_engine)
+      truncated_transact = './spec/truncated_data/transactions_truncated.csv'
+      tr = TransactionRepository.new(truncated_transact, mock_sales_engine)
 
       expect(tr.invoice_paid_in_full?(1)).to eq(true)
       expect(tr.invoice_paid_in_full?(1485)).to eq(false)

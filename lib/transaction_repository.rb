@@ -35,7 +35,9 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    RepoBrain.find_all_by_id(credit_card_number, 'credit_card_number', @transactions)
+    RepoBrain.find_all_by_id(credit_card_number,
+                            'credit_card_number',
+                             @transactions)
   end
 
   def find_all_by_result(result)
