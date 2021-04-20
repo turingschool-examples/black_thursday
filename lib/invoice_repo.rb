@@ -79,12 +79,20 @@ class InvoiceRepo
       merchant_invoices
   end
 
-  def invoice_count_per_day #Needs spec
-    merchant_invoices = {}
-    @invoices.each do |invoice|
-      merchant_invoices[invoice.merchant_id] = find_all_by_merchant_id(invoice.merchant_id)
+  def find_all_by_day_created(day)
+    @invoices.find_all do |invoice|
+      invoice.created_at.strftime("%A") == day
     end
-      merchant_invoices
+  end
+
+
+
+  def invoice_count_per_day #Needs spec
+    day_count = {}
+    @invoices.each do |invoice|
+      day_count[invoice.created_at.strftime("%A")] = find_all_by_day_created(invoice.created_at.strftime("%A")).length
+    end
+      day_count
   end
 
 

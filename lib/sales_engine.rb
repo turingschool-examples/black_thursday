@@ -69,6 +69,10 @@ class SalesEngine
     @invoices.invoice_count_per_merchant
   end
 
+  def invoice_count_per_day
+    @invoices.invoice_count_per_day
+  end
+
   def find_all_by_merchant_id(id) #Needs spec
     @items.find_all_by_merchant_id(id)
   end

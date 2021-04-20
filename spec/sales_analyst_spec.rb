@@ -136,12 +136,12 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
     end
 
-    xit '#top days by invoice count' do
+    it '#top days by invoice count' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.average_average_price_per_merchant.length).to eq 1
-      expect(sales_analyst.average_average_price_per_merchant.first).to eq "Wednesday"
-      expect(sales_analyst.average_average_price_per_merchant.first.class).to eq String
+      expect(sales_analyst.top_days_by_invoice_count.length).to eq 1
+      expect(sales_analyst.top_days_by_invoice_count.first).to eq "Wednesday"
+      expect(sales_analyst.top_days_by_invoice_count.first.class).to eq String
     end
 
     it '#invoice_status' do
