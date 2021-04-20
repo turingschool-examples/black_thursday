@@ -191,5 +191,22 @@ class SalesAnalyst
     total
   end
 
-  
+  def merchants_with_pending_invoices
+    all_pending = []
+    merchants.each do |merchant|
+      merchant_invoices = find_all_invoices_by_merchant_id(merchant.id)
+      merchant_invoices.each do |invoice|
+        if invoice.status == :pending
+          all_pending << merchant
+        end
+      end
+    end
+    # all_merchants = merchants.find_all do |merchant|
+    #   merchant_invoices = find_all_invoices_by_merchant_id(merchant.id)
+    #   merchant_invoices.any? do |invoice|
+    #     invoice.status == :pending
+    #   end
+    # end
+  all_pending.uniq
+  end
 end
