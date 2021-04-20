@@ -5,7 +5,6 @@ require './lib/transaction_repository'
 require './lib/transaction'
 
 RSpec.describe Transaction do
-
   describe '#initialize' do
     it 'exists' do
       mock_transaction_repo = instance_double('TransactionRepository')
