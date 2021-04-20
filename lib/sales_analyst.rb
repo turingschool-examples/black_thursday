@@ -239,13 +239,17 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice_id)
     transactions = find_transaction(invoice_id)
-    transactions.map do |transaction|
-      if transaction.result == :failed
-        false
-      else
-        true
-      end
-    end.uniq
+    if transactions != []
+      transactions.map do |transaction|
+        if transaction.result == :failed
+          false
+        else
+          true
+        end
+      end.uniq.first
+    else
+      false
+    end
   end
 
   def find_invoice_items(id)
