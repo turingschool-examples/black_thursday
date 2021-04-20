@@ -44,12 +44,12 @@ RSpec.describe InvoiceItemRepository do
   describe '#best_item_for_merchant' do
     it 'finds best items for merchant in terms of revenue generated' do
       se = SalesEngine.from_csv({
-          items: './data/items.csv',
-          merchants: './data/merchants.csv',
-          invoices: './data/invoices.csv',
-          customers: './data/customers.csv',
-          invoice_items: './data/invoice_items.csv',
-          transactions: './data/transactions.csv'
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
                                   })
       iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
 
@@ -63,7 +63,7 @@ RSpec.describe InvoiceItemRepository do
       mock_sales_engine = instance_double('SalesEngine')
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
       attributes = {
-                     id: '951753',
+                    id: '951753',
                      item_id: '123654',
                      invoice_id: '654123',
                      quantity: '999',
@@ -130,12 +130,12 @@ RSpec.describe InvoiceItemRepository do
   describe '#invoice_total_hash' do
     it 'makes a hash of unique invoices ids and their total value' do
       se = SalesEngine.from_csv({
-        items: './spec/truncated_data/items_truncated.csv',
-        merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv',
-        customers: './spec/truncated_data/customers_truncated.csv',
-        invoice_items: 'data/invoice_items.csv',
-        transactions: 'data/transactions.csv'
+                                  items: './spec/truncated_data/items_truncated.csv',
+                                  merchants: './spec/truncated_data/merchants_truncated.csv',
+                                  invoices: './spec/truncated_data/invoices_truncated.csv',
+                                  customers: './spec/truncated_data/customers_truncated.csv',
+                                  invoice_items: 'data/invoice_items.csv',
+                                  transactions: 'data/transactions.csv'
                               })
       iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', se)
 
@@ -146,14 +146,13 @@ RSpec.describe InvoiceItemRepository do
   describe '#item_quantity_hash' do
     it 'makes a hash of successful invoice id\'s and quantities' do
       se = SalesEngine.from_csv({
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv',
-        customers: './data/customers.csv',
-        invoice_items: './data/invoice_items.csv',
-        transactions: './data/transactions.csv'
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
                                 })
-    ir = InvoiceRepository.new('./data/invoices.csv', se)
     iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
     mr = MerchantRepository.new('./data/merchants.csv', se)
 
@@ -165,16 +164,14 @@ RSpec.describe InvoiceItemRepository do
   describe '#item_revenue_hash' do
     it 'makes a hash of successful invoice id\'s and quantities' do
       se = SalesEngine.from_csv({
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv',
-        customers: './data/customers.csv',
-        invoice_items: './data/invoice_items.csv',
-        transactions: './data/transactions.csv'
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
                                 })
-    ir = InvoiceRepository.new('./data/invoices.csv', se)
     iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
-    mr = MerchantRepository.new('./data/merchants.csv', se)
 
       expect(iir.item_revenue_hash(12334105)).to be_a(Hash)
       expect(iir.item_revenue_hash(12334105).values.sum).to eq(0.7377717e5)
@@ -184,12 +181,12 @@ RSpec.describe InvoiceItemRepository do
   describe '#most_sold_item_for_merchant' do
     it 'finds most sold items for merchant' do
       se = SalesEngine.from_csv({
-          items: './data/items.csv',
-          merchants: './data/merchants.csv',
-          invoices: './data/invoices.csv',
-          customers: './data/customers.csv',
-          invoice_items: './data/invoice_items.csv',
-          transactions: './data/transactions.csv'
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
                                   })
       iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
 
