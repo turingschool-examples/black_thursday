@@ -99,6 +99,7 @@ class SalesAnalyst
         invoice.merchant_id == merchant
       end
     end
+
     @merchant_id_array.zip(invoice_count)
   end
 
@@ -119,9 +120,11 @@ class SalesAnalyst
     top_merchant = merchant_invoice_array.find_all do |invoice|
       invoice[1] > deviation
     end
+
     top_merchant_id = top_merchant.map do |merchant|
       merchant[0]
     end
+
     @engine.csv_array(:merchants).find_all do |merchant|
       top_merchant_id.include?(merchant.id)
     end
@@ -134,9 +137,11 @@ class SalesAnalyst
     bottom_merchant = merchant_invoice_array.find_all do |invoice|
       invoice[1] < deviation
     end
+
     bottom_merchant_id = bottom_merchant.map do |merchant|
       merchant[0]
     end
+
     @engine.csv_array(:merchants).find_all do |merchant|
       bottom_merchant_id.include?(merchant.id)
     end
@@ -160,8 +165,8 @@ class SalesAnalyst
     days_div = standard_deviation(invoice_per_day, average)
     days_invoice = days_of_week.zip(invoice_per_day)
 
-    golden_days = days_invoice.find_all do |day|
-      day[1] > average + days_div
+    golden_days = days_invoice.find_all do |(day, invoice_number)|
+      invoice_number > average + days_div
     end
 
     golden_days.map do |day|
@@ -215,9 +220,11 @@ class SalesAnalyst
     invoice_items_from_date = @engine.csv_array(:invoice_items).find_all do |invoice_item|
       invoice_on_date.include?(invoice_item.invoice_id)
     end
+
     total_revenue = invoice_items_from_date.sum do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end
+
     total_revenue.round(2)
   end
 
@@ -232,39 +239,52 @@ class SalesAnalyst
         end
       end]
     end
+
     sorted_merchant_array = merchant_revenue_array.sort_by do |pair|
       pair[1]
     end.reverse
+
     sorted_merchant_array.map do |pair|
       @engine.merchants.find_by_id(pair[0])
     end[0..(search_range - 1)]
   end
 
-  # merchant_invoice_hash.each do |merchant, invoices|
-  #   merchant_invoice_hash[merchant] = invoices.sum do |invoice|
-  #     invoice_total(invoice.id)
-  #   end
-  # end
-  # top_merchant_invoice = merchant_invoice_hash.sort_by do |key, value|
-  #   value
-  # end.reverse
-  # top_merchant_invoice[0..(search_range - 1)].map do |merchant|
-  #   @engine.merchants.find_by_id(merchant[0])
-  # end
-
-
-
   def merchants_with_pending_invoices
-    @engine.invoices.all.find_all do |invoice|
-      !invoice_paid_in_full?(invoice.id)
+    transaction_per_invoice_id = @engine.transactions.transactions_by_invoice
+    result_per_invoice = transaction_per_invoice_id.each_with_object([]) do |(a, b), array|
+      if b != []
+        c = b.map {|transaction| transaction.result}
+        array << [a, c]
+      else
+        array << [a, [:failed]]
+      end
     end
-    # pending_invoice.find_all do |invoice|
-    #   !invoice_paid_in_full?(invoice.id)
-    # end
-    # pending_invoice.find_all do |invoice|
-    #   !@engine.transactions.find_all_by_invoice_id(invoice.id).map do |transaction|
-    #     transaction.result
-    #   end.include?(:success)
-    # end
+
+    invoice_id_pending = result_per_invoice.map do |(invoice_id, transaction_result)|
+      if !transaction_result.include?(:success)
+        invoice_id
+      end
+    end.compact
+
+    invoice_id_pending.map do |invoice|
+      @engine.merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+  end
+
+  def merchants_with_only_one_item
+    items_grouped_by_merchant = @engine.items.all.group_by do |item|
+      item.merchant_id
+    end
+
+    merchant_id_one_item = []
+    items_grouped_by_merchant.each do |merchant_id, items_array|
+      if items_array.length == 1
+        merchant_id_one_item << merchant_id
+      end
+    end
+
+    merchant_id_one_item.map do |merchant_id|
+      @engine.merchants.find_by_id(merchant_id)
+    end
   end
 end

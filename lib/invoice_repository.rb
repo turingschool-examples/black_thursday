@@ -65,10 +65,6 @@ class InvoiceRepository < Repository
   end
 
   def invoices_by_merchant
-    #returns a hash of all merchant ids key to their invoices
-    # hash = @engine.invoices.all.group_by do |invoice|
-    #   invoice.merchant_id
-    # end
     test = @csv_array.each_with_object({}) do |invoice, hash|
       if hash[invoice.merchant_id].nil?
         hash[invoice.merchant_id] = [invoice.id]

@@ -178,7 +178,7 @@ RSpec.describe 'SalesAnalyst' do
   #     expect(sa.invoice_paid_in_full?(2_179_390)).to eq(false)
   #   end
   # end
-
+  #
   # describe '#invoice_total' do
   #   it 'returns total of invoice' do
   #     se = SalesEngine.from_csv(
@@ -211,26 +211,26 @@ RSpec.describe 'SalesAnalyst' do
   #     expect(sa.total_revenue_by_date(date)).to eq(21067.77)
   #   end
   # end
-
-  describe '#top_revenue_earners' do
-    it 'returns the top revenue earner' do
-      se = SalesEngine.from_csv(
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv',
-        transactions: './data/transactions.csv',
-        invoice_items: './data/invoice_items.csv'
-      )
-
-      sa = se.analyst
-
-      expect(sa.top_revenue_earners(5).length).to eq(5)
-      expect(sa.top_revenue_earners(5)[0]).to be_an_instance_of(Merchant)
-      expect(sa.top_revenue_earners.length).to eq(20)
-      expect(sa.top_revenue_earners[0]).to be_an_instance_of(Merchant)
-    end
-  end
-
+  #
+  # describe '#top_revenue_earners' do
+  #   it 'returns the top revenue earner' do
+  #     se = SalesEngine.from_csv(
+  #       items: './data/items.csv',
+  #       merchants: './data/merchants.csv',
+  #       invoices: './data/invoices.csv',
+  #       transactions: './data/transactions.csv',
+  #       invoice_items: './data/invoice_items.csv'
+  #     )
+  #
+  #     sa = se.analyst
+  #
+  #     expect(sa.top_revenue_earners(5).length).to eq(5)
+  #     expect(sa.top_revenue_earners(5)[0]).to be_an_instance_of(Merchant)
+  #     expect(sa.top_revenue_earners.length).to eq(20)
+  #     expect(sa.top_revenue_earners[0]).to be_an_instance_of(Merchant)
+  #   end
+  # end
+  #
   # describe '#merchants_with_pending_invoices' do
   #   it 'returns the merchants with pending invoices' do
   #     se = SalesEngine.from_csv(
@@ -243,8 +243,25 @@ RSpec.describe 'SalesAnalyst' do
   #
   #     sa = se.analyst
   #
-  #     expect(sa.merchants_with_pending_invoices).to eq([])
+  #     expect(sa.merchants_with_pending_invoices.length).to eq(467)
   #   end
   # end
+
+  describe '#merchants_with_only_one_item' do
+    it 'returns all merchants with only one item for sale' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+    sa = se.analyst
+
+    expect(sa.merchants_with_only_one_item.length).to eq(243)
+    end
+  end
+
 
 end

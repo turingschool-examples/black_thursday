@@ -58,15 +58,11 @@ class TransactionRepository < Repository
     Transaction.new(attributes)
   end
 
-  # def transactions_by_invoice
-  #   hash = @csv_array.group_by do |transaction|
-  #     transaction.invoice_id
-  #   end
-  #   test = hash.map do |key|
-  #     require "pry"; binding.pry
-  #     hash[key] unless hash[key].include?(:success)
-  #   end
-  # end
+  def transactions_by_invoice
+    @engine.csv_array(:invoices).each_with_object([]) do |invoice, array|
+      array << [invoice, find_all_by_invoice_id(invoice.id)]
+    end
+  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
