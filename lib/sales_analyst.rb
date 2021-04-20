@@ -213,7 +213,5 @@ class SalesAnalyst
     top_merchants = top_merchants_with_totals.flat_map do |merchant_with_total|
       merchant_with_total[0]
     end
-
-    # require 'pry'; binding.pry
   end
 end
