@@ -248,13 +248,16 @@ class SalesAnalyst
     end
   end
 
-  def merchants_with_only_one_item #alex
-    one_item_merchants = items_per_merchant.select do |key, value|
+  def merchants_with_only_one_item
+    one_item_merchants = items_per_merchant_hash.select do |key, value|
       value == 1
+    end
+    final = @merchants.select do |merchant|
+      one_item_merchants.keys.include?(merchant.id)
     end
   end
 
-  def items_per_merchant #alex
+  def items_per_merchant_hash
     stripped_items = @items.map do |item|
       item.merchant_id
     end
