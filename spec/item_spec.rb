@@ -1,5 +1,4 @@
 require 'bigdecimal'
-require 'rspec'
 
 require './lib/item'
 

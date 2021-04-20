@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/customer_mocks'
 
 RSpec.describe CustomerMocks do

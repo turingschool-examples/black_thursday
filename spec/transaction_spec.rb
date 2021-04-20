@@ -1,4 +1,3 @@
-require 'rspec'
 require './lib/transaction'
 
 describe Transaction do

@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/invoice_item_mocks'
 
 RSpec.describe InvoiceItemMocks do

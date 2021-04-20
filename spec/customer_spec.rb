@@ -1,4 +1,3 @@
-require 'rspec'
 require './lib/customer'
 
 describe Customer do

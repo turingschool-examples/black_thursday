@@ -1,5 +1,3 @@
-require 'rspec'
-
 require './data/item_mocks'
 require './data/merchant_mocks'
 require './lib/sales_analyst'

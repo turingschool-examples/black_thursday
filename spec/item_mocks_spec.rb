@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/item_mocks'
 
 RSpec.describe ItemMocks do

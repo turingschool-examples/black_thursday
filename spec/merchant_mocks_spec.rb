@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/merchant_mocks'
 
 RSpec.describe MerchantMocks do

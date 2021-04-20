@@ -1,4 +1,3 @@
-require 'rspec'
 require './lib/merchant'
 
 RSpec.describe Merchant do

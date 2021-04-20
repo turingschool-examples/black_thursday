@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/invoice_mocks'
 require './lib/invoice'
 require './lib/invoice_repository'

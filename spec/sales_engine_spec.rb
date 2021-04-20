@@ -1,5 +1,4 @@
 require 'csv'
-require 'rspec'
 
 require './data/customer_mocks'
 require './data/invoice_mocks'

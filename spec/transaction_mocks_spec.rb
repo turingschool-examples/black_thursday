@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/transaction_mocks'
 
 RSpec.describe TransactionMocks do

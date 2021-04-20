@@ -1,4 +1,3 @@
-require 'rspec'
 require './lib/invoice_item'
 require 'bigdecimal'
 require 'time'

@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/item_mocks'
 require './data/mockable'
 require './lib/item'

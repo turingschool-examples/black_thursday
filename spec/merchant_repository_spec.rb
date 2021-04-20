@@ -1,4 +1,3 @@
-require 'rspec'
 require './data/merchant_mocks'
 require './lib/merchant'
 require './lib/merchant_repository'

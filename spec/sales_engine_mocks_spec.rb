@@ -1,4 +1,3 @@
-require 'rspec'
 require './spec/sales_engine_mocks'
 
 RSpec.describe SalesEngineMocks do

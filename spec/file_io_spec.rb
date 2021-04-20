@@ -1,4 +1,3 @@
-require 'rspec'
 require 'csv'
 require './lib/file_io'
 require './lib/item'

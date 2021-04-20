@@ -1,4 +1,3 @@
-require 'rspec'
 require './lib/invoice'
 
 describe Invoice do

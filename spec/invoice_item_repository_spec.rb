@@ -1,4 +1,3 @@
-require 'rspec'
 require 'bigdecimal'
 require 'csv'
 require './data/invoice_item_mocks'
