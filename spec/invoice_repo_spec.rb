@@ -13,13 +13,13 @@ RSpec.describe InvoiceRepo do
   end
 
   describe 'instantiation' do
-    xit'::new' do
+    it '::new' do
       invoice_repo = @sales_engine.invoices
 
       expect(invoice_repo).to be_an_instance_of(InvoiceRepo)
     end
 
-    xit'has attributes' do
+    it 'has attributes' do
       invoice_repo = @sales_engine.invoices
 
       expect(invoice_repo.invoices).to be_an_instance_of(Array)
@@ -27,13 +27,13 @@ RSpec.describe InvoiceRepo do
   end
 
   describe '#methods' do
-    xit'#all' do
+    it '#all' do
       invoice_repo = @sales_engine.invoices
 
       expect(invoice_repo.all).to be_an_instance_of(Array)
     end
 
-    xit'#create' do
+    it '#create' do
       invoice_repo = @sales_engine.invoices
       invoice_info = {:id => 0,
                       :customer_id => 7,
@@ -45,23 +45,20 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.create(invoice_info)).to be_an_instance_of(Invoice)
     end
 
-    xit '#find by id' do
-      item_repo = @sales_engine.items
-      collection = item_repo.items
-      item = item_repo.create({:id          => 1,
-                               :name        => "Pencil",
-                               :description => "You can use it to write things",
-                               :unit_price  => 1099,
-                               :created_at  => Time.now,
-                               :updated_at  => Time.now,
-                               :merchant_id => 2})
+    it '#find by id' do
+      invoice_repo = @sales_engine.invoices
+      invoice = invoice_repo.create({:id => 0,
+                                     :customer_id => 7,
+                                     :merchant_id => 8,
+                                     :status => 'shipped',
+                                     :created_at => Time.now,
+                                     :updated_at => Time.now})
 
-      #PASSING IN THE COLLECTION (NOT IDENTICAL TO SPEC)
-      expect(item_repo.find_by_id(item.id, collection)).to eq(item)
-      expect(item_repo.find_by_id(999999999, colleciton)).to eq(nil)
+      expect(invoice_repo.find_by_id(invoice.id)).to eq(invoice)
+      expect(invoice_repo.find_by_id(999999999)).to eq(nil)
     end
 
-    xit'#find all by customer id' do
+    it '#find all by customer id' do
       invoice_repo = @sales_engine.invoices
       invoice_1 = invoice_repo.create({:id => 0,
                                        :customer_id => 90000,
@@ -81,7 +78,7 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.find_all_by_customer_id(7000000)).to eq([])
     end
 
-    xit'#find all by merchant id' do
+    it '#find all by merchant id' do
       invoice_repo = @sales_engine.invoices
       invoice_1 = invoice_repo.create({:id => 0,
                                        :customer_id => 7,
@@ -101,7 +98,7 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.find_all_by_merchant_id(700000)).to eq([])
     end
 
-    xit'#find all by status' do
+    it '#find all by status' do
       invoice_repo = @sales_engine.invoices
       invoice_1 = invoice_repo.create({:id => 0,
                                        :customer_id => 7,
@@ -128,7 +125,7 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.find_all_by_status(:processing)).to eq([])
     end
 
-    xit'#update' do
+    it '#update' do
       invoice_repo = @sales_engine.invoices
       invoice = invoice_repo.create({:id => 0,
                                      :customer_id => 7,
@@ -142,7 +139,7 @@ RSpec.describe InvoiceRepo do
       expect(invoice.status).to eq('shipped')
     end
 
-    xit'#delete' do
+    it '#delete' do
       invoice_repo = @sales_engine.invoices
       invoice = invoice_repo.create({:id => 0,
                                      :customer_id => 7,
