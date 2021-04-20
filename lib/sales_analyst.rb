@@ -146,10 +146,10 @@ class SalesAnalyst
  end
 
  def invoice_total(id)
-   sales_engine.find_all_by_result("success").sum do |transaction|
-     require "pry"; binding.pry
-     transaction.id == id
+   total = sales_engine.find_all_by_invoice_id(id).sum do |invoice|
+     (invoice.unit_price * invoice.quantity) if invoice_paid_in_full?(id)
    end
+   total.round(2)
  end
 
 end

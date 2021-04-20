@@ -163,7 +163,7 @@ RSpec.describe SalesAnalyst do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.invoice_total(1)).to eq(21067.77)
-      expect(expecte.invoice_total(1).class).to eq(BigDecimal)
+      expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
     end
   end
 end
