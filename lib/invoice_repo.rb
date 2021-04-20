@@ -71,7 +71,13 @@ class InvoiceRepo
     @invoices.delete(find_by_id(id))
   end
 
-  def invoice_count_per_merchant #Needs spec
+  def find_all_by_day_created(day)
+    @invoices.find_all do |invoice|
+      invoice.created_at.strftime("%A") == day
+    end
+  end
+
+  def invoice_count_per_merchant
     merchant_invoices = {}
     @invoices.each do |invoice|
       merchant_invoices[invoice.merchant_id] = find_all_by_merchant_id(invoice.merchant_id).length
@@ -79,15 +85,7 @@ class InvoiceRepo
       merchant_invoices
   end
 
-  def find_all_by_day_created(day)
-    @invoices.find_all do |invoice|
-      invoice.created_at.strftime("%A") == day
-    end
-  end
-
-
-
-  def invoice_count_per_day #Needs spec
+  def invoice_count_per_day
     day_count = {}
     @invoices.each do |invoice|
       day_count[invoice.created_at.strftime("%A")] = find_all_by_day_created(invoice.created_at.strftime("%A")).length
