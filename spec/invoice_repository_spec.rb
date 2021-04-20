@@ -111,15 +111,15 @@ RSpec.describe InvoiceRepository do
                                     ir
                                  )
       test_invoice2 = Invoice.new({
-                                  id: '1234567890',
-                                  customer_id: '456789',
-                                  merchant_id: '234567890',
-                                  status: 'pending',
-                                  created_at: '2016-01-11 11:51:37 UTC',
-                                  updated_at: '1993-09-29 11:56:40 UTC'
-                                },
-                                  ir
-                               )
+                                    id: '1234567890',
+                                    customer_id: '456789',
+                                    merchant_id: '234567890',
+                                    status: 'pending',
+                                    created_at: '2016-01-11 11:51:37 UTC',
+                                    updated_at: '1993-09-29 11:56:40 UTC'
+                                  },
+                                    ir
+                                 )
     ir.invoices << test_invoice1
     ir.invoices << test_invoice2
 
@@ -149,9 +149,9 @@ RSpec.describe InvoiceRepository do
                                   status: 'pending',
                                   created_at: '2016-01-11 11:51:37 UTC',
                                   updated_at: '1993-09-29 11:56:40 UTC'
-                                },
+                                  },
                                   ir
-                               )
+                                 )
       ir.invoices << test_invoice1
       ir.invoices << test_invoice2
 
