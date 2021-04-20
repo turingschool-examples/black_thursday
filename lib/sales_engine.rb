@@ -30,38 +30,38 @@ class SalesEngine
     new(paths)
   end
 
-  def all_items #Needs spec
+  def all_items
     @items.all
   end
 
-  def all_merchants #Needs spec
+  def all_merchants
     @merchants.all
   end
 
-  def all_invoices #Needs spec
+  def all_invoices
     @invoices.all
   end
 
-  def item_count #Needs spec
+  def item_count
     count = @items.all.length
     count.to_f
   end
 
-  def merchant_count #Needs spec
+  def merchant_count
     count = @merchants.all.length
     count.to_f
   end
 
-  def invoice_count #Needs spec
+  def invoice_count
     count = @invoices.all.length
     count.to_f
   end
 
-  def average_price #Needs spec
+  def average_price
     @items.average_price
   end
 
-  def item_count_per_merchant #Needs spec
+  def item_count_per_merchant
     @items.item_count_per_merchant
   end
 
@@ -73,7 +73,7 @@ class SalesEngine
     @invoices.invoice_count_per_day
   end
 
-  def find_all_by_merchant_id(id) #Needs spec
+  def find_all_by_merchant_id(id)
     @items.find_all_by_merchant_id(id)
   end
 
