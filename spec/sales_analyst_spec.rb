@@ -9,12 +9,11 @@ require 'bigdecimal/util'
 RSpec.describe do
 
   describe 'initialize' do
-    # require 'pry';binding.pry
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
-                                        :invoices => "./spec/fixtures/invoices_fixtures.csv",
-                                        :invoice_items => "./spec/fixtures/invoice_items_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
+                                        :invoice_items => "./data/invoice_items.csv",
                                         :customers => "./data/customers.csv",
                                         :transactions => "./data/transactions.csv"
                                         })
@@ -101,6 +100,7 @@ RSpec.describe do
                                         :transactions => "./data/transactions.csv",
                                         :customers => "./data/customers.csv"
                                         })
+    
     sales_analyst = sales_engine.analyst
 
     it '#average_invoices_per_merchant' do
@@ -141,6 +141,7 @@ RSpec.describe do
                                         :transactions => "./data/transactions.csv",
                                         :customers => "./data/customers.csv"
                                         })
+
     sales_analyst = sales_engine.analyst
 
     it '#invoice_paid_in_full? returns true if invoice is paid in full' do
@@ -194,6 +195,23 @@ RSpec.describe do
       expect(expected.length).to eq(20)
       expect(expected[0].id).to eq(12334634)
       expect(expected.last.id).to eq(12334159)
+    end
+  end
+
+  describe 'iteration 4 functionality' do
+    sales_engine = SalesEngine.from_csv({
+                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
+                                        :invoices => "./data/invoices.csv",
+                                        :invoice_items => "./data/invoice_items.csv",
+                                        :customers => "./data/customers.csv",
+                                        :transactions => "./data/transactions.csv"
+                                        })
+    sales_analyst = sales_engine.analyst
+
+    it 'populates total revenue by date' do
+      expect(sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))).to eq(21067.77)
+      expect(sales_analyst.total_revenue_by_date(Time.parse("2009-02-07")).class).to eq(BigDecimal)
     end
   end
 end

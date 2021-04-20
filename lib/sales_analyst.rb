@@ -92,8 +92,6 @@ class SalesAnalyst
     end
   end
 
-  ##### INVOICE ITERATION 2 ######
-
   def average_invoices_per_merchant
     Compute.mean(invoices_per_merchant.sum, invoices_per_merchant.length)
   end
@@ -212,6 +210,18 @@ class SalesAnalyst
 
     top_merchants = top_merchants_with_totals.flat_map do |merchant_with_total|
       merchant_with_total[0]
+    end
+  end
+
+  def total_revenue_by_date(date)
+    invoice_id_matching_date = 0
+    @invoices.each do |invoice|
+      if invoice.created_at == date
+        invoice_id_matching_date += invoice.id
+      end
+      invoice_id_matching_date
+      invoices_total_by_date = invoice_total(invoice_id_matching_date)
+      return invoices_total_by_date
     end
   end
 end
