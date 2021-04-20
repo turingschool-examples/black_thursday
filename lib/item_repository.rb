@@ -43,15 +43,6 @@ class ItemRepository < Repository
     end
   end
 
-  def create(attributes)
-    max_id = @array_of_objects.max_by do |item|
-      item.id
-    end.id
-    new_item = Item.new(attributes)
-    new_item.id = max_id + 1
-    @array_of_objects << new_item
-  end
-
   def update(id, attributes)
     target = find_by_id(id)
     if target != nil

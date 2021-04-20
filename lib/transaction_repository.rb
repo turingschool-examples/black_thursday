@@ -7,16 +7,6 @@ class TransactionRepository < Repository
     super(path, Transaction)
   end
 
-  def create(attributes)
-    max_id = @array_of_objects.max_by do |transaction|
-      transaction.id
-    end.id
-
-    new_transaction = Transaction.new(attributes)
-    new_transaction.id = max_id + 1
-    @array_of_objects << new_transaction
-  end
-
   def update(id, attributes)
     target = find_by_id(id)
     if target != nil

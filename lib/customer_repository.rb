@@ -7,16 +7,6 @@ class CustomerRepository < Repository
     super(path, Customer)
   end
 
-  def create(attributes)
-    max_id = @array_of_objects.max_by do |customer|
-      customer.id
-    end.id
-
-    new_customer = Customer.new(attributes)
-    new_customer.id = max_id + 1
-    @array_of_objects << new_customer
-  end
-
   def update(id, attributes)
     target = find_by_id(id)
     if target != nil

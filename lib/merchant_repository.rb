@@ -27,15 +27,6 @@ class MerchantRepository < Repository
     full_names
   end
 
-  def create(attributes)
-    @name = attributes[:name]
-    @array_of_objects.push(Merchant.new({:id => new_id_number, :name => @name}))
-  end
-
-  def new_id_number
-    (@array_of_objects.last.id)+1
-  end
-
   def update(id, attributes)
     target = find_by_id(id)
     if !target.nil?

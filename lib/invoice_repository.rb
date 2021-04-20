@@ -7,16 +7,6 @@ class InvoiceRepository < Repository
     super(path, Invoice)
   end
 
-  def create(attributes)
-    max_id = @array_of_objects.max_by do |invoice|
-      invoice.id
-    end.id
-
-    new_invoice = Invoice.new(attributes)
-    new_invoice.id = max_id + 1
-    @array_of_objects << new_invoice
-  end
-
   def update(id, attributes)
     target = find_by_id(id)
     if target != nil

@@ -40,6 +40,16 @@ class Repository
     end
   end
 
+  def create(attributes, object)
+    max_id = @array_of_objects.max_by do |instance_of_object|
+      instance_of_object.id
+    end.id
+
+    new_object = object.new(attributes)
+    new_object.id = max_id + 1
+    @array_of_objects << new_object
+  end
+
   def delete(id)
     target = find_by_id(id)
     array_of_objects.delete(target)
