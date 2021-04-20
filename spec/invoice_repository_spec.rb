@@ -243,7 +243,6 @@ RSpec.describe InvoiceRepository do
                                   invoice_items: './data/invoice_items.csv',
                                   transactions: './data/transactions.csv'
                                 })
-      sales_analyst = se.analyst
 
       ir = InvoiceRepository.new('./data/invoices.csv', se)
 
