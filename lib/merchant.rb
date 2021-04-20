@@ -9,6 +9,5 @@ class Merchant
 
   def update_name(attributes)
     @name = attributes[:name]
-    require 'pry'; binding.pry
   end
 end
