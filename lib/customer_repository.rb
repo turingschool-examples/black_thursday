@@ -25,30 +25,19 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    @customers.find do |customer|
-      customer.id == id
-    end
+    RepoBrain.find_by_id(id, 'id', @customers)
   end
 
   def find_all_by_first_name(fragment)
-    @customers.find_all do |customer|
-      name = customer.first_name.downcase
-      name.include?(fragment.downcase)
-    end
+    RepoBrain.find_all_by_partial_string(fragment, 'first_name', @customers)
   end
 
   def find_all_by_last_name(fragment)
-    @customers.find_all do |customer|
-      name = customer.last_name.downcase
-      name.include?(fragment.downcase)
-    end
+    RepoBrain.find_all_by_partial_string(fragment, 'last_name', @customers)
   end
 
   def generate_new_id
-    highest_id_item = @customers.max_by do |customer|
-      customer.id
-    end
-    highest_id_item.id + 1
+    RepoBrain.generate_new_id(@customers)
   end
 
   def create(attributes)
