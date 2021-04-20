@@ -72,7 +72,7 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#invoices_by_merchant' do
-    it "returns an array of all merchant ids paired to their invoices" do
+    it 'returns an array of all merchant ids paired to their invoices' do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
 
       ir = se.invoices
@@ -82,7 +82,7 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#find_all_by_date' do
-    it "returns the inventory item with the matching date" do
+    it 'returns the inventory item with the matching date' do
       se = SalesEngine.from_csv(
         invoices: './data/invoices.csv'
       )
