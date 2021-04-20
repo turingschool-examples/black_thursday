@@ -17,7 +17,7 @@ class SalesEngine
               :analyst
 
   def initialize(csv_data)
-    # @merchants = MerchantRepository.new(csv_data[:merchants])
+    @merchants = MerchantRepository.new(csv_data[:merchants])
     # @items = ItemRepository.new(csv_data[:items])
     # @invoices = InvoiceRepository.new(csv_data[:invoices])
     @invoice_items = InvoiceItemRepository.new(csv_data[:invoice_items])

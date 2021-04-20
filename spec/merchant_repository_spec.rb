@@ -4,16 +4,14 @@ require_relative '../lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
 
-  # Parameter (array of hashes) should be passed
-  # into new instance
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
-                                          :items     => "./data/items.csv",
+                                          # :items     => "./data/items.csv",
                                           :merchants => "./data/merchants.csv",
-                                          :invoices => "./data/invoices.csv",
-                                          :customers => "./data/customers.csv",
+                                          # :invoices => "./data/invoices.csv",
+                                          # :customers => "./data/customers.csv",
                                           :invoice_items => "./data/invoice_items.csv",
-                                          :transactions => "./data/transactions.csv"
+                                          # :transactions => "./data/transactions.csv"
                                           })
     merch_rep = sales_engine.merchants
 

@@ -6,7 +6,6 @@ class InvoiceItemRepository < Repository
 
   def initialize(path)
     super(path, InvoiceItem)
-    # @array_of_objects = create_objects(@parsed_csv_data)
   end
 
   def find_all_by_item_id(item_id)
