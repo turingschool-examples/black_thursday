@@ -245,7 +245,7 @@ class SalesAnalyst
     result_per_invoice = transaction_per_invoice_id.each_with_object([]) do |(invoice_wanted, transaction_array), array|
       if transaction_array != []
         transaction_result_array = transaction_array.map {|transaction| transaction.result}
-        array << [invoice_wanted, c]
+        array << [invoice_wanted, transaction_result_array]
       else
         array << [invoice_wanted, [:failed]]
       end
@@ -303,8 +303,6 @@ class SalesAnalyst
     wanted_merchant = all_revenue_by_merchant.find do |(merchant_id, revenue)|
       merchant_id == merchant_id_wanted
     end
-    wanted_merchant.map do |(merchant, _revenue)|
-      merchant
-    end
+    wanted_merchant[1]
   end
 end
