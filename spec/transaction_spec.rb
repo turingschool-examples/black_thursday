@@ -19,13 +19,13 @@ RSpec.describe Transaction do
       expect(transaction_repo.transaction_list[0].invoice_id).to eq(2179)
     end
     it 'can return a credit card number' do
-      expect(transaction_repo.transaction_list[0].credit_card_number).to eq(4068631943231473)
+      expect(transaction_repo.transaction_list[0].credit_card_number).to eq("4068631943231473")
     end
     it 'can return a credit card expiration date' do
-      expect(transaction_repo.transaction_list[0].credit_card_expiration_date).to eq(217)
+      expect(transaction_repo.transaction_list[0].credit_card_expiration_date).to eq("0217")
     end
     it 'can return a result' do
-      expect(transaction_repo.transaction_list[0].result).to eq("success")
+      expect(transaction_repo.transaction_list[0].result).to eq(:success)
     end
     it 'can return time created at' do
       expect(transaction_repo.transaction_list[0].created_at).to eq(Time.parse("2012-02-26 20:56:56.000000000 +0000"))

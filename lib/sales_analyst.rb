@@ -230,18 +230,22 @@ class SalesAnalyst
     result = rough.round(2)
   end
 
-  def find_transaction(invoice_id)
-    all_transactions.find do |transaction|
-      transaction.invoice_id == invoice_id
+  def find_transaction(id)
+    all_transactions.find_all do |transaction|
+      transaction.invoice_id == id
     end
   end
 
+
   def invoice_paid_in_full?(invoice_id)
-    if find_transaction(invoice_id).result == "success"
-      true
-    else
-      false
-    end
+    transactions = find_transaction(invoice_id)
+    transactions.map do |transaction|
+      if transaction.result == :failed
+        false
+      else
+        true
+      end
+    end.uniq
   end
 
   def find_invoice_items(id)
