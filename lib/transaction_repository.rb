@@ -4,24 +4,7 @@ require_relative '../lib/repository'
 class TransactionRepository < Repository
 
   def initialize(path)
-    super(path)
-    @array_of_objects = create_transactions(@parsed_csv_data)
-  end
-
-  def create_transactions(parsed_csv_data)
-    parsed_csv_data.map do |transaction|
-      Transaction.new(transaction)
-    end
-  end
-
-  def create(attributes)
-    max_id = @array_of_objects.max_by do |transaction|
-      transaction.id
-    end.id
-
-    new_transaction = Transaction.new(attributes)
-    new_transaction.id = max_id + 1
-    @array_of_objects << new_transaction
+    super(path, Transaction)
   end
 
   def update(id, attributes)

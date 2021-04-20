@@ -5,9 +5,9 @@ class Repository
   attr_reader :parsed_csv_data,
               :array_of_objects
 
-  def initialize(path)
+  def initialize(path, object)
     @parsed_csv_data = parse_csv(path)
-    @array_of_objects = []
+    @array_of_objects = create_objects(@parsed_csv_data, object)
   end
 
   def inspect
@@ -23,11 +23,13 @@ class Repository
     end
     @parsed_csv_data
   end
-  #foreach in CSV. instead of reading it takes the file and does the reading/formating for you. gives you a row object that behaves like a hash.
 
-  #send the path and class and as we iterate over csv we create object. OR send create method the type of object we want to create. (with capital letter(class not instance))
+  def create_objects(parsed_csv_data, object)
+    @parsed_csv_data.map do |object_data|
+      object.new(object_data)
+    end
+  end
 
-  
   def all
     array_of_objects
   end
@@ -36,6 +38,16 @@ class Repository
     array_of_objects.find do |object|
       object.id == id
     end
+  end
+
+  def create(attributes, object)
+    max_id = @array_of_objects.max_by do |instance_of_object|
+      instance_of_object.id
+    end.id
+
+    new_object = object.new(attributes)
+    new_object.id = max_id + 1
+    @array_of_objects << new_object
   end
 
   def delete(id)

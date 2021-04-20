@@ -4,8 +4,6 @@ require_relative '../lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
 
-  # Parameter (array of hashes) should be passed
-  # into new instance
   describe 'initialization' do
     sales_engine = SalesEngine.from_csv({
                                           :items     => "./data/items.csv",
@@ -64,16 +62,12 @@ RSpec.describe MerchantRepository do
     end
 
     it 'creates new merchants' do
-      expected = {
-        :id => 12337412,
-        :name => "Turing School of Software and Design"
-      }
-      expect(merch_rep.create({name: "Turing School of Software and Design"}))
-    end
+      attributes = {:name => "Turing School of Software and Design"}
+      expected = "Turing School of Software and Design"
 
-    it 'makes a new id number' do
-      new_number = (merch_rep.array_of_objects.last.id)+1
-      expect(merch_rep.new_id_number).to eq(new_number)
+      merch_rep.create(attributes, Merchant)
+
+      expect(merch_rep.all.last.name).to eq(expected)
     end
 
     it 'can update existing merchant' do

@@ -6,14 +6,7 @@ require 'bigdecimal/util'
 class ItemRepository < Repository
 
   def initialize(path)
-    super(path)
-    @array_of_objects = create_items(@parsed_csv_data)
-  end
-
-  def create_items(parsed_csv_data)
-    parsed_csv_data.map do |item|
-      Item.new(item)
-    end
+    super(path, Item)
   end
 
   def inspect
@@ -48,15 +41,6 @@ class ItemRepository < Repository
     @array_of_objects.find_all do |item|
       item.merchant_id == merchant_id
     end
-  end
-
-  def create(attributes)
-    max_id = @array_of_objects.max_by do |item|
-      item.id
-    end.id
-    new_item = Item.new(attributes)
-    new_item.id = max_id + 1
-    @array_of_objects << new_item
   end
 
   def update(id, attributes)

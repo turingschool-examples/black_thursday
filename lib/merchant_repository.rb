@@ -4,14 +4,7 @@ require_relative '../lib/repository'
 class MerchantRepository < Repository
 
   def initialize(path)
-    super(path)
-    @array_of_objects = create_merchants(@parsed_csv_data)
-  end
-
-  def create_merchants(parsed_csv_data)
-    parsed_csv_data.map do |merchant|
-      Merchant.new(merchant)
-    end
+    super(path, Merchant)
   end
 
   def inspect
@@ -32,15 +25,6 @@ class MerchantRepository < Repository
       end
     end
     full_names
-  end
-
-  def create(attributes)
-    @name = attributes[:name]
-    @array_of_objects.push(Merchant.new({:id => new_id_number, :name => @name}))
-  end
-
-  def new_id_number
-    (@array_of_objects.last.id)+1
   end
 
   def update(id, attributes)

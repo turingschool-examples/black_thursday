@@ -1,6 +1,5 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/customer_repository'
-# require 'bigdecimal/util'
 
 RSpec.describe CustomerRepository do
   describe 'initialization' do
@@ -68,7 +67,7 @@ RSpec.describe CustomerRepository do
                   :created_at => Time.now,
                   :updated_at => Time.now
                 }
-    customer_repo.create(attributes)
+    customer_repo.create(attributes, Customer)
 
     it 'creates new instance with attribute argument' do
       expect(customer_repo.all.length).to eq(1001)
