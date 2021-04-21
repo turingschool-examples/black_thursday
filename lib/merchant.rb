@@ -28,13 +28,7 @@ class Merchant
   end
 
   def invoices_count
-    invoice_ids.count
-  end
-
-  def items_revenue_hash
-    items_quantity_hash.each_with_object({}) do |(item, quantity), hash|
-      hash[item] = item.unit_price * quantity
-    end
+    @merchant_repo.merchant_invoices(@id).count
   end
 
   def items
@@ -71,6 +65,10 @@ class Merchant
 
   def successful_invoices
     @merchant_repo.merchant_successful_invoice_array(@id)
+  end
+
+  def total_revenue
+    sold_items_revenue_hash.values.sum
   end
 
   def update(attributes)

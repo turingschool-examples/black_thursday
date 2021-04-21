@@ -1,7 +1,9 @@
 require_relative 'sales_engine'
 require_relative 'merchant'
+require_relative 'mathable'
 
 class MerchantRepository
+  include Mathable
   attr_reader :merchants, :engine
 
   def initialize(path, engine)
@@ -27,7 +29,17 @@ class MerchantRepository
   def average_invoices_per_merchant
     average(invoices_per_merchant).round(2)
   end
-  
+
+  def bottom_merchants_by_invoice_count
+    hash = invoices_per_merchant
+    bottom_standard = average(hash) - (standard_deviation(hash) * 2)
+    hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
+      if number_of_invoices < bottom_standard
+        array << find_by_id(merchant_id)
+      end
+    end
+  end
+
   def best_item_for_merchant(merchant_id)
     find_by_id(merchant_id).best_item
   end
@@ -57,6 +69,16 @@ class MerchantRepository
 
   def delete(id)
     @merchants.delete(find_by_id(id))
+  end
+
+  def invoices_per_merchant
+    @merchants.each_with_object({}) do |merchant, hash|
+      hash[merchant.id] = merchant.invoices_count
+    end
+  end
+
+  def merchant_invoices(merchant_id)
+    @engine.merchant_invoices(merchant_id)
   end
 
   def merchant_invoice_items(invoice_id)
@@ -103,12 +125,37 @@ class MerchantRepository
     find_by_id(merchant_id).most_sold_item
   end
 
+  def revenue_by_merchant(merchant_id)
+    return nil if total_revenue_by_merchant.index(merchant_id).nil?
+    index = total_revenue_by_merchant.index(merchant_id)
+    return_value = total_revenue_by_merchant[index + 1]
+  end
+
+  def stdev_invoices_per_merchant
+    standard_deviation(invoices_per_merchant).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    hash = invoices_per_merchant
+    top_standard = average(hash) + (standard_deviation(hash) * 2)
+    hash.each_with_object([]) do |(merchant_id, number_of_invoices), array|
+      if number_of_invoices > top_standard
+        array << find_by_id(merchant_id)
+      end
+    end
+  end
 
   def top_revenue_earners(num_earners)
-    array = @engine.total_revenue_by_merchant.select{|x| x % 1 == 0}.first(num_earners)
+    array = total_revenue_by_merchant.select{|x| x % 1 == 0}.first(num_earners)
     array.map do |merchant_id|
       find_by_id(merchant_id)
     end
+  end
+
+  def total_revenue_by_merchant
+    @merchants.each_with_object(Hash.new(0)) do |merchant, hash|
+      hash[merchant.id] += merchant.total_revenue
+    end.sort_by {|k, v| -v}.flatten
   end
 
   def update(id, attributes)
@@ -116,11 +163,5 @@ class MerchantRepository
       customer_to_update = find_by_id(id)
       customer_to_update.update(attributes)
     end
-  end
-
-
-
-  def grab_invoice_item(item_id)
-    @engine.grab_invoice_item(item_id)
   end
 end

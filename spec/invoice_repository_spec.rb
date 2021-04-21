@@ -40,33 +40,6 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#average_invoices_per_merchant' do
-    it 'shows average number of invoices by merchant' do
-      mock_sales_engine = instance_double('SalesEngine')
-      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-
-      expect(ir.average_invoices_per_merchant).to eq(10.49)
-    end
-  end
-
-  describe '#bottom_merchants_by_invoice_count' do
-    it 'tells which merchants are more than two std deviation below the mean' do
-      mock_sales_engine = instance_double('SalesEngine')
-      mock_merchant_repo = instance_double('MerchantRepository')
-      merchant = Merchant.new({
-                                id: '1',
-                                name: 'Shopin1901',
-                                created_at: '2010-12-10',
-                                updated_at: '2011-12-04'
-                              }, mock_merchant_repo)
-      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
-      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-
-      expect(ir.bottom_merchants_by_invoice_count.count).to eq(4)
-      expect(ir.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
-    end
-  end
-
   describe '#create' do
     it 'create a new invoice instance' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -206,15 +179,6 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#invoices_per_merchant' do
-    it 'shows invoices by merchant' do
-      mock_sales_engine = instance_double('SalesEngine')
-      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-
-      expect(ir.invoices_per_merchant.keys.count).to eq(475)
-    end
-  end
-
   describe '#merchants_with_pending_invoices' do
     it 'returns merchants with pending invoices' do
       se = SalesEngine.from_csv({
@@ -261,68 +225,6 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#revenue_by_merchant' do
-    it 'returns the total revenue for given merchant' do
-      se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './data/invoices.csv',
-                                  customers: './spec/truncated_data/customers_truncated.csv',
-                                  invoice_items: './data/invoice_items.csv',
-                                  transactions: './data/transactions.csv'
-                                })
-      ir = InvoiceRepository.new('./data/invoices.csv', se)
-
-      expect(ir.revenue_by_merchant(12334105)).to eq(73777.17)
-    end
-  end
-
-  describe '#stdev_invoices_per_merchant' do
-    it 'shows standard deviation of invoices by merchant' do
-      mock_sales_engine = instance_double('SalesEngine')
-      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-
-      expect(ir.stdev_invoices_per_merchant).to eq(3.29)
-    end
-  end
-
-  describe '#top_buyers' do
-    it 'returns the top buyers' do
-      se = SalesEngine.from_csv({
-                                  items: './data/items.csv',
-                                  merchants: './data/merchants.csv',
-                                  invoices: './data/invoices.csv',
-                                  customers: './data/customers.csv',
-                                  invoice_items: './data/invoice_items.csv',
-                                  transactions: './data/transactions.csv'
-                                })
-      ir = InvoiceRepository.new('./data/invoices.csv', se)
-      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
-      mr = MerchantRepository.new('./data/merchants.csv', se)
-
-      expect(ir.top_buyers(1)[0]).to be_a(Customer)
-      expect(ir.top_buyers(1).count).to eq(1)
-    end
-  end
-
-  describe '#top_merchants_by_invoice_count' do
-    it 'tells which merchants are more than two std deviation above the mean' do
-      mock_sales_engine = instance_double('SalesEngine')
-      mock_merchant_repo = instance_double('MerchantRepository')
-      merchant = Merchant.new({
-                                id: '1',
-                                name: 'Shopin1901',
-                                created_at: '2010-12-10',
-                                updated_at: '2011-12-04'
-                              }, mock_merchant_repo)
-      allow(mock_sales_engine).to receive(:find_merchant_by_id) { merchant }
-      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-
-      expect(ir.top_merchants_by_invoice_count.count).to eq(12)
-      expect(ir.top_merchants_by_invoice_count.first).to be_a(Merchant)
-    end
-  end
-
   describe '#top_sales_days' do
     it 'shows standard deviation' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -347,39 +249,6 @@ RSpec.describe InvoiceRepository do
       date = Time.parse('2015-03-13')
 
       expect(ir.total_revenue_by_date(date)).to eq(4774.75)
-    end
-  end
-
-    describe '#total_revenue_by_merchant' do
-    it 'creates an array of unique merchant id\'s and their total revenue' do
-      sales_engine = SalesEngine.from_csv({
-                                            items: './data/items.csv',
-                                            merchants: './data/merchants.csv',
-                                            invoices: './data/invoices.csv',
-                                            customers: './data/customers.csv',
-                                            invoice_items: './data/invoice_items.csv',
-                                            transactions: './data/transactions.csv'
-                                         })
-      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
-      iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
-
-      expect(ir.total_revenue_by_merchant.count).to eq(950)
-    end
-  end
-
-  describe '#total_revenue_by_merchant_by_month' do
-    it 'creates a hash of merchant id\'s and total revenue by month' do
-      sales_engine = SalesEngine.from_csv({
-                                            items: './data/items.csv',
-                                            merchants: './data/merchants.csv',
-                                            invoices: './data/invoices.csv',
-                                            customers: './data/customers.csv',
-                                            invoice_items: './data/invoice_items.csv',
-                                            transactions: './data/transactions.csv'
-                                          })
-      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
-
-      expect(ir.total_revenue_by_merchant_by_month('January')).to be_a(Hash)
     end
   end
 

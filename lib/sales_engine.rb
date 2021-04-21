@@ -51,7 +51,7 @@ class SalesEngine
   end
 
   def average_invoices_per_merchant
-    @invoices.average_invoices_per_merchant
+    @merchants.average_invoices_per_merchant
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -71,7 +71,7 @@ class SalesEngine
   end
 
   def bottom_merchants_by_invoice_count
-    @invoices.bottom_merchants_by_invoice_count
+    @merchants.bottom_merchants_by_invoice_count
   end
 
   def find_customer_by_id(customer_id)
@@ -146,10 +146,6 @@ class SalesEngine
     @merchants.most_sold_item(merchant_id)
   end
 
-  def grab_invoice_item(item_id)
-    @invoice_items.grab_invoice_item(item_id)
-  end
-
   def merchants_with_high_item_count
     @items.merchants_with_high_item_count
   end
@@ -171,11 +167,11 @@ class SalesEngine
   end
 
   def revenue_by_merchant(merchant_id)
-    @invoices.revenue_by_merchant(merchant_id)
+    @merchants.revenue_by_merchant(merchant_id)
   end
 
   def stdev_invoices_per_merchant
-    @invoices.stdev_invoices_per_merchant
+    @merchants.stdev_invoices_per_merchant
   end
 
   def top_buyers(x)
@@ -187,7 +183,7 @@ class SalesEngine
   end
 
   def top_merchants_by_invoice_count
-    @invoices.top_merchants_by_invoice_count
+    @merchants.top_merchants_by_invoice_count
   end
 
   def total_revenue_by_date(date)
@@ -195,7 +191,7 @@ class SalesEngine
   end
 
   def total_revenue_by_merchant
-    @invoices.total_revenue_by_merchant
+    @merchants.total_revenue_by_merchant
   end
 
   def total_revenue_by_merchant_by_month(month)
