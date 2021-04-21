@@ -1,7 +1,9 @@
 require 'CSV'
 require 'time'
 require 'item'
-require_relative 'customer'
+require_relative 'customer' #is this necessary
+require_relative 'findable'
+include Findable
 
 class CustomerRepo
   attr_reader :customers,
@@ -25,24 +27,6 @@ class CustomerRepo
 
   def add_customer(customer)
     @customers << customer
-  end
-
-  def find_by_id(id)
-    @customers.find do |customer|
-      customer.id == id
-    end
-  end
-
-  def find_all_by_first_name(name_fragment)
-    @customers.find_all do |customer|
-      customer.first_name.include?(name_fragment)
-    end
-  end
-
-  def find_all_by_last_name(name_fragment)
-    @customers.find_all do |customer|
-      customer.last_name.include?(name_fragment)
-    end
   end
 
   def create(attributes)

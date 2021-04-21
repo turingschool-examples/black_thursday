@@ -46,8 +46,8 @@ RSpec.describe CustomerRepo do
                                         :updated_at => Time.now
                                       })
 
-      expect(customer_repo.find_by_id(customer1.id)).to eq(transaction1)
-      expect(customer_repo.find_by_id(999999999)).to eq(nil)
+      expect(customer_repo.find_by_id(customer1.id, collection)).to eq(transaction1)
+      expect(customer_repo.find_by_id(999999999, collection)).to eq(nil)
     end
 
     xit'#find all by first name' do
