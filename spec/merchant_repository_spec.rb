@@ -533,7 +533,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = MerchantRepository.new('./data/merchants.csv', se)
 
-      expect(mr.total_revenue_by_merchant.count).to eq(950)
+      expect(mr.total_revenue_by_merchant.count).to eq(475)
     end
   end
 
