@@ -8,7 +8,7 @@ RSpec.describe MerchantRepository do
     it 'exists' do
       se = SalesEngine.from_csv(
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
 
       expect(mr).to be_an_instance_of(MerchantRepository)
@@ -19,7 +19,7 @@ RSpec.describe MerchantRepository do
     it 'returns an array of all merchant instances' do
       se = SalesEngine.from_csv(
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
 
       expect(mr.all[0].id).to eq(12334105)
@@ -29,7 +29,8 @@ RSpec.describe MerchantRepository do
   describe '#all_merchants' do
     it 'creates all of the merchant instances' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
 
       mr = se.merchants
       mr.all_merchants
@@ -41,7 +42,8 @@ RSpec.describe MerchantRepository do
   describe '#find_by_id' do
     it 'finds merchant by id' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -50,7 +52,8 @@ RSpec.describe MerchantRepository do
 
     it 'returns nil if no id' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -61,7 +64,8 @@ RSpec.describe MerchantRepository do
   describe '#find_by_name' do
     it 'finds a merchant by name' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -70,7 +74,8 @@ RSpec.describe MerchantRepository do
 
     it 'returns nil if no name exists' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -81,7 +86,8 @@ RSpec.describe MerchantRepository do
   describe '#find_all_by_name' do
     it 'find all that includes fragment' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -93,7 +99,8 @@ RSpec.describe MerchantRepository do
     it 'returns empty array by default' do
       se = SalesEngine.from_csv(
         merchants: './data/merchants.csv'
-                               )
+      )
+      
       mr = se.merchants
 
       expect(mr.find_all_by_name('lawrence')).to eq([])
@@ -104,7 +111,8 @@ RSpec.describe MerchantRepository do
     it 'finds the current max id' do
       se = SalesEngine.from_csv(
           items: './data/items.csv',
-         merchants: './data/merchants.csv')
+         merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -115,7 +123,8 @@ RSpec.describe MerchantRepository do
   describe '#create' do
     it 'creates new merchant with given attributes' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -128,7 +137,8 @@ RSpec.describe MerchantRepository do
   describe '#update' do
     it 'updates name' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
@@ -141,7 +151,8 @@ RSpec.describe MerchantRepository do
   describe '#delete' do
     it 'deletes a merchant via id' do
       se = SalesEngine.from_csv(
-        merchants: './data/merchants.csv')
+        merchants: './data/merchants.csv'
+      )
       
       mr = se.merchants
 
