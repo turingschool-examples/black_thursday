@@ -52,11 +52,11 @@ class ItemRepo
   end
 
   def item_count_per_merchant
-    merchant_item = {}
+    items_per_merchant = {}
     @items.each do |item|
-      merchant_item[item.merchant_id] = find_all_by_merchant_id(item.merchant_id, @items).length
+      items_per_merchant[item.merchant_id] = find_all_by_merchant_id(item.merchant_id, @items).length
     end
-      merchant_item
+      items_per_merchant
   end
 
   def average_item_price_standard_deviation

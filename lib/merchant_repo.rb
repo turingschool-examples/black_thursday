@@ -73,7 +73,7 @@ class MerchantRepo
     one_deviation = average_items_per_merchant_standard_deviation + average_items_per_merchant
     high_merchants = []
     item_count_per_merchant.find_all do |id, count|
-      high_merchants << find_by_id(id) if count > one_deviation
+      high_merchants << find_by_id(id, @merchants) if count > one_deviation
     end
     high_merchants
   end
@@ -83,7 +83,7 @@ class MerchantRepo
     all_averages = all.sum do |merchant|
       @engine.average_item_price_for_merchant(merchant.id)
     end
-    (all_averages / all_items).round(2)
+    (all_averages / all_items.to_f).round(2)
   end
   
   def revenue_by_merchant_id
@@ -117,14 +117,14 @@ class MerchantRepo
   
   def merchants_with_pending_invoices
     merchants = sales_engine.find_all_pending.map do |invoice|
-      sales_engine.find_by_id(invoice.merchant_id) if invoice_paid_in_full?(invoice.id) == false
+      sales_engine.find_by_id(invoice.merchant_id, @merchants) if invoice_paid_in_full?(invoice.id) == false
     end
     merchants.compact.uniq
   end
   
   def merchants_with_only_one_item
     merchants = item_count_per_merchant.map do |merchant, count|
-      sales_engine.find_by_id(merchant) if count == 1
+      @engine.find_by_id(merchant, @merchants) if count == 1
     end
     merchants.compact.uniq
   end
