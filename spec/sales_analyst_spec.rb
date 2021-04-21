@@ -8,7 +8,7 @@ require 'bigdecimal/util'
 
 RSpec.describe do
 
-  xdescribe 'initialize' do
+  describe 'initialize' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -91,7 +91,7 @@ RSpec.describe do
     end
   end
 
-  xdescribe 'iteration 2 functionality' do
+  describe 'iteration 2 functionality' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -132,7 +132,7 @@ RSpec.describe do
     end
   end
 
-  xdescribe 'iteration 3 functionality' do
+  describe 'iteration 3 functionality' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -160,9 +160,9 @@ RSpec.describe do
     end
   end
 
-  xdescribe 'AM iteration 4 functionality: revenue_by_merchant + top_revenue_earners' do
+  describe 'AM iteration 4 functionality: revenue_by_merchant + top_revenue_earners' do
     sales_engine = SalesEngine.from_csv({
-                                        :items     => "./spec/fixtures/items_fixtures.csv",
+                                        :items     => "./data/items.csv",
                                         # :merchants => "./spec/fixtures/merchants_fixtures.csv",
                                         :merchants => "./data/merchants.csv",
                                         :invoices => "./data/invoices.csv",
@@ -194,18 +194,7 @@ RSpec.describe do
       expect(expected[0].id).to eq(12334634)
       expect(expected.last.id).to eq(12334159)
     end
-  end
 
-  xdescribe 'iteration 4 functionality' do
-    sales_engine = SalesEngine.from_csv({
-                                        :items     => "./spec/fixtures/items_fixtures.csv",
-                                        :merchants => "./spec/fixtures/merchants_fixtures.csv",
-                                        :invoices => "./data/invoices.csv",
-                                        :invoice_items => "./data/invoice_items.csv",
-                                        :customers => "./data/customers.csv",
-                                        :transactions => "./data/transactions.csv"
-                                        })
-    sales_analyst = sales_engine.analyst
 
     it 'populates total revenue by date' do
       expect(sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))).to eq(21067.77)
@@ -214,21 +203,9 @@ RSpec.describe do
 
     it '#merchants_with_pending_invoices returns those merchants' do
 
-      expect(sales_analyst.merchants_with_pending_invoices.length).to eq(39)
+      expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
       expect(sales_analyst.merchants_with_pending_invoices[0].class).to eq(Merchant)
     end
-  end
-
-  describe 'alex describe block yo' do
-    sales_engine = SalesEngine.from_csv({
-                                        :items     => "./data/items.csv",
-                                        :merchants => "./data/merchants.csv",
-                                        :invoices => "./data/invoices.csv",
-                                        :invoice_items => "./data/invoice_items.csv",
-                                        :transactions => "./data/transactions.csv",
-                                        :customers => "./data/customers.csv"
-                                        })
-    sales_analyst = sales_engine.analyst
 
     it "#merchants_with_only_one_item returns merchants with only one item" do
       expected = sales_analyst.merchants_with_only_one_item
@@ -244,5 +221,5 @@ RSpec.describe do
       expect(march_expected.length).to eq 21
       expect(expected.length).to eq 18
     end
-  end #keep this for Alex please and thank you
-end
+  end
+end #keep this for Alex please and thank you
