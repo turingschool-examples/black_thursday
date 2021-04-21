@@ -108,14 +108,18 @@ class SalesAnalyst
     @invoices.top_merchants_by_invoice_count
   end
 
- def bottom_merchants_by_invoice_count
-   two_deviation = average_invoices_per_merchant - (average_items_per_merchant_standard_deviation * 2)
-   low_merchants = []
-   invoice_count_per_merchant.find_all do |id, count|
-     low_merchants << sales_engine.find_by_id(id) if count < two_deviation
-   end
-   low_merchants
- end
+#  def bottom_merchants_by_invoice_count
+#    two_deviation = average_invoices_per_merchant - (average_items_per_merchant_standard_deviation * 2)
+#    low_merchants = []
+#    invoice_count_per_merchant.find_all do |id, count|
+#      low_merchants << sales_engine.find_by_id(id) if count < two_deviation
+#    end
+#    low_merchants
+#  end
+
+  def bottom_merchants_by_invoice_count
+    @invoices.bottom_merchants_by_invoice_count
+  end 
 
  def average_invoice_per_day_standard_deviation
    average_per_day = invoice_count / 7

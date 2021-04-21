@@ -189,7 +189,7 @@ RSpec.describe MerchantRepo do
                                           :transactions  => './fixtures/mock_transactions.csv',
                                           :customers => './fixtures/mock_customers.csv'})
       merchant_repo = sales_engine.merchants 
-
+    
       expect(merchant_repo.average_average_price_per_merchant).to eq(350.29)
     end
   end
