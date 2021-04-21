@@ -29,10 +29,10 @@ RSpec.describe Merchant do
                        repository: 'boo')
 
       expect(m.id).to eq(5)
-      expect(m.name).to eq( 'Turing School' )
+      expect(m.name).to eq('Turing School')
       expect(m.created_at).to eq(Time.now)
       expect(m.updated_at).to eq(Time.now)
-      expect(m.repository).to eq( 'boo' )
+      expect(m.repository).to eq('boo')
     end
   end
 
@@ -50,7 +50,7 @@ RSpec.describe Merchant do
       expect(m.id).to eq(5)
       expect(m.created_at).not_to eq(Time.now)
       expect(m.updated_at).not_to eq(Time.now)
-      expect(m.repository).to eq( 'boo' )
+      expect(m.repository).to eq('boo')
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe Merchant do
       m.name = 'bob'
       m.updated_at = 'bob'
 
-      expect(m.name).to eq( 'bob' )
+      expect(m.name).to eq('bob')
       expect(m.updated_at).to eq('bob')
     end
   end
