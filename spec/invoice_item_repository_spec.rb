@@ -41,23 +41,6 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
-  describe '#best_item_for_merchant' do
-    it 'finds best items for merchant in terms of revenue generated' do
-      se = SalesEngine.from_csv({
-                                  items: './data/items.csv',
-                                  merchants: './data/merchants.csv',
-                                  invoices: './data/invoices.csv',
-                                  customers: './data/customers.csv',
-                                  invoice_items: './data/invoice_items.csv',
-                                  transactions: './data/transactions.csv'
-                                  })
-      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
-
-      expect(iir.best_item_for_merchant(12335311)).to be_a(Item)
-      expect(iir.best_item_for_merchant(12335311).id).to eq(263431293)
-    end
-  end
-
   describe '#create' do
     it 'creates a new invoice item instance' do
       mock_sales_engine = instance_double('SalesEngine')

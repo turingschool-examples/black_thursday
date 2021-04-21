@@ -51,7 +51,7 @@ class InvoiceItemRepository
     RepoBrain.find_by_id(id, 'id', @invoice_items)
   end
 
-  def invoice_items(invoice_id)
+  def items_on_invoice(invoice_id)
     @invoice_items.each_with_object([]) do |invoice_item, array|
       if invoice_item.invoice_id == invoice_id
         array << @engine.find_item_by_id(invoice_item.item_id)
@@ -88,7 +88,6 @@ class InvoiceItemRepository
     end
   end
 
-
   def item_revenue_hash(merchant_id)
     merchant_successful_invoice_array ||= @engine.merchant_successful_invoice_array(merchant_id)
     @invoice_items.each_with_object(Hash.new(0)) do |invoice_item, hash|
@@ -100,17 +99,7 @@ class InvoiceItemRepository
 
   def best_item_for_merchant(merchant_id)
     hash = item_revenue_hash(merchant_id)
-    @engine.find_item_by_id(hash.max_by{|k, v| v}[0])
-  end
 
-  def most_sold_item_for_merchant(merchant_id)
-    hash = item_quantity_hash(merchant_id)
-    highest_item_quantity = hash.values.max
-    hash.each_with_object([]) do |(invoice_id, quantity), array|
-      if quantity == highest_item_quantity
-        array << @engine.find_item_by_id(invoice_id)
-      end
-    end
   end
 
   def update(id, attributes)

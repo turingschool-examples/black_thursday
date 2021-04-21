@@ -27,10 +27,6 @@ class InvoiceRepository
     @invoices
   end
 
-  def average_invoices_per_merchant
-    average(invoices_per_merchant).round(2)
-  end
-
   def bottom_merchants_by_invoice_count
     hash = invoices_per_merchant
     bottom_standard = average(hash) - (standard_deviation(hash) * 2)
@@ -58,8 +54,9 @@ class InvoiceRepository
     RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @invoices)
   end
 
-  # def find_all_by_merchant_id(merchant_id)
-  # end
+  def find_all_by_merchant_id(merchant_id)
+    RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @invoices)
+  end
 
   def find_all_by_status(status)
     RepoBrain.find_all_by_symbol(status, 'status', @invoices)
@@ -110,8 +107,9 @@ class InvoiceRepository
   end
 
   def merchant_successful_invoice_array(merchant_id)
-    @invoices.each_with_object([]) do |invoice, array|
-      if invoice.merchant_id == merchant_id && @engine.invoice_paid_in_full?(invoice.id)
+    x = @invoices.each_with_object([]) do |invoice, array|
+      # require 'pry'; binding.pry
+      if invoice.merchant_id == merchant_id && invoice.paid_in_full?
         array << invoice.id
       end
     end

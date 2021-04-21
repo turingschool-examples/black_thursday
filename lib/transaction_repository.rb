@@ -59,6 +59,7 @@ class TransactionRepository
     @transactions.map do |transaction|
       if transaction.invoice_id == invoice_id
         transaction.result
+
       end
     end.include?(:success)
   end

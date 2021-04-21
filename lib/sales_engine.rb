@@ -66,6 +66,10 @@ class SalesEngine
     @items.average_items_per_merchant_standard_deviation
   end
 
+  def best_item_for_merchant(merchant_id)
+    @merchants.best_item_for_merchant(merchant_id)
+  end
+
   def bottom_merchants_by_invoice_count
     @invoices.bottom_merchants_by_invoice_count
   end
@@ -88,10 +92,6 @@ class SalesEngine
 
   def golden_items
     @items.golden_items
-  end
-
-  def invoice_items(invoice_id)
-    @invoice_items.invoice_items(invoice_id)
   end
 
   def invoice_paid_in_full?(invoice_id)
@@ -119,7 +119,35 @@ class SalesEngine
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @transaction_repository.invoice_paid_in_full?(invoice_id)
+    @transactions.invoice_paid_in_full?(invoice_id)
+  end
+
+  def merchant_invoice_items(invoice_id)
+    @invoice_items.invoice_items(invoice_id)
+  end
+
+  def merchant_sold_item_quantity_hash(merchant_id)
+    @invoice_items.item_quantity_hash(merchant_id)
+  end
+
+  def merchant_sold_item_revenue_hash(merchant_id)
+    @invoice_items.item_revenue_hash(merchant_id)
+  end
+
+  def merchant_items(merchant_id)
+    @items.merchant_items(merchant_id)
+  end
+
+  def merchant_invoices(merchant_id)
+    @invoices.merchant_invoices(merchant_id)
+  end
+
+  def most_sold_item
+    @merchants.most_sold_item(merchant_id)
+  end
+
+  def grab_invoice_item(item_id)
+    @invoice_items.grab_invoice_item(item_id)
   end
 
   def merchants_with_high_item_count
@@ -176,17 +204,5 @@ class SalesEngine
 
   def top_revenue_earners(x)
     @merchants.top_revenue_earners(x)
-  end
-
-  def merchant_items(merchant_id)
-    @items.merchant_items(merchant_id)
-  end
-
-  def merchant_invoices(merchant_id)
-    @invoices.merchant_invoices(merchant_id)
-  end
-
-  def grab_invoice_item(item_id)
-    @invoice_items.grab_invoice_item(item_id)
   end
 end

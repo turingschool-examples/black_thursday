@@ -31,6 +31,10 @@ class SalesAnalyst
     @sales_engine.stdev_invoices_per_merchant
   end
 
+  def best_item_for_merchant(merchant_id)
+    @engine.best_item_for_merchant(merchant_id)
+  end
+
   def bottom_merchants_by_invoice_count
     @sales_engine.bottom_merchants_by_invoice_count
   end
@@ -65,6 +69,10 @@ class SalesAnalyst
 
   def merchants_with_pending_invoices
     @sales_engine.merchants_with_pending_invoices
+  end
+
+  def most_sold_item
+    @sales_engine.most_sold_item(merchant_id)
   end
 
   def revenue_by_merchant(merchant_id)

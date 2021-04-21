@@ -71,9 +71,9 @@ class ItemRepository
     RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
   end
 
-  # def find_all_by_merchant_id(merchant_id)
-  #   RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
-  # end
+  def find_all_by_merchant_id(merchant_id)
+    RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
+  end
 
   def find_all_by_price(price)
     @items.find_all do |item|
@@ -133,7 +133,6 @@ class ItemRepository
       end
     end
   end
-
 
   def merchants_with_only_one_item
     items_per_merchant.each_with_object([]) do |(merchant_id, num_items), array|
