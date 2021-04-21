@@ -305,4 +305,55 @@ class SalesAnalyst
     end
     wanted_merchant[1]
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoice_array = @engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoice_item_array = invoice_array.flat_map do |invoice|
+      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+
+    items_by_quantity_sold = invoice_item_array.each_with_object({}) do |invoice_item, hash|
+      if hash[invoice_item.item_id].nil?
+        hash[invoice_item.item_id] = invoice_item.quantity
+      else
+        hash[invoice_item.item_id] + invoice_item.quantity
+      end
+    end.to_a
+
+    hightest_quantity_sold = items_by_quantity_sold.max_by {|(item_id, quantity)| quantity}[1]
+
+    most_sold_item_id = items_by_quantity_sold.find_all do |(item, quantity)|
+      quantity == hightest_quantity_sold
+    end
+
+    most_sold_item_id.map do |(item_id_test, _quantity)|
+      @engine.items.find_by_id(item_id_test)
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoice_array = @engine.invoices.find_all_by_merchant_id(merchant_id)
+
+    paid_invoice_array = invoice_array.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+
+    invoice_item_array = paid_invoice_array.flat_map do |invoice|
+      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+
+    items_by_quantity_sold = invoice_item_array.each_with_object({}) do |invoice_item, hash|
+      if hash[invoice_item.item_id].nil?
+        hash[invoice_item.item_id] = invoice_item.quantity * invoice_item.unit_price_to_dollars
+      else
+        hash[invoice_item.item_id] + invoice_item.quantity * invoice_item.unit_price_to_dollars
+      end
+    end.to_a
+
+    hight_grossing_item_array = items_by_quantity_sold.max_by do |(item_id, revenue)|
+      revenue
+    end
+
+    @engine.items.find_by_id(hight_grossing_item_array[0])
+  end
 end
