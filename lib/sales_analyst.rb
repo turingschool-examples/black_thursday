@@ -113,48 +113,34 @@ class SalesAnalyst
     end
   end
 
-  def top_merchants_by_invoice_count
-    deviation = (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2).round(2)
+  def find_extreme_merchants(top_or_bottom)
     merchant_invoice_array = invoices_per_merchant
-
-    top_merchant = merchant_invoice_array.find_all do |invoice|
-      invoice[1] > deviation
+    if top_or_bottom == 'top'
+      deviation = (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2).round(2)
+      extreme_merchant_count_pair = merchant_invoice_array.find_all do |invoice|
+        invoice[1] > deviation
+      end
+    else
+      deviation = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+      extreme_merchant_count_pair = merchant_invoice_array.find_all do |invoice|
+        invoice[1] < deviation
+      end
     end
-
-    top_merchant_id = top_merchant.map do |merchant|
+    extreme_merchant_ids = extreme_merchant_count_pair.map do |merchant|
       merchant[0]
     end
 
     @engine.csv_array(:merchants).find_all do |merchant|
-      top_merchant_id.include?(merchant.id)
+      extreme_merchant_ids.include?(merchant.id)
     end
+  end
+
+  def top_merchants_by_invoice_count
+    find_extreme_merchants('top')
   end
 
   def bottom_merchants_by_invoice_count
-    deviation = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
-    merchant_invoice_array = invoices_per_merchant
-
-    bottom_merchant = merchant_invoice_array.find_all do |invoice|
-      invoice[1] < deviation
-    end
-
-    bottom_merchant_id = bottom_merchant.map do |merchant|
-      merchant[0]
-    end
-
-    @engine.csv_array(:merchants).find_all do |merchant|
-      bottom_merchant_id.include?(merchant.id)
-    end
-  end
-
-  def invoices_per_day
-    days = [0, 1, 2, 3, 4, 5, 6]
-
-    days.map do |day|
-      @engine.invoices.all.count do |invoice|
-        invoice.created_at.wday == day
-      end
-    end
+    find_extreme_merchants('bottom')
   end
 
   def top_days_by_invoice_count
