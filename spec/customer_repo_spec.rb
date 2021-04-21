@@ -34,8 +34,9 @@ RSpec.describe CustomerRepo do
       expect(customer_repo.all).to be_an_instance_of(Array)
     end
 
-    xit'#find by id' do
+    it'#find by id' do
       customer_repo = @sales_engine.customers
+      collection = customer_repo.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
                                         :last_name => "Clarke",
@@ -43,8 +44,8 @@ RSpec.describe CustomerRepo do
                                         :updated_at => Time.now
                                       })
 
-      expect(customer_repo.find_by_id(customer1.id)).to eq(transaction1)
-      expect(customer_repo.find_by_id(999999999)).to eq(nil)
+      expect(customer_repo.find_by_id(customer1.id, collection)).to eq(transaction1)
+      expect(customer_repo.find_by_id(999999999, collection)).to eq(nil)
     end
 
     xit'#find all by first name' do

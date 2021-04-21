@@ -90,7 +90,7 @@ RSpec.describe TransactionRepo do
       expect(transaction1.find_all_by_credit_card_number("0000000000000000", collection)).to eq([])
     end
 
-    it'#find all by result' do
+    xit'#find all by result' do
       transaction_repo = @sales_engine.transactions
       collection = transaction_repo.transactions
       transaction1 = transaction_repo.create({:id => 6,

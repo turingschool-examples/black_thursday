@@ -8,7 +8,7 @@ module Findable #confirm this needs the 'able'
       attribute.id == id                                    #InvoiceRepo - PASSED
     end                                                     #InvoiceItemRepo - PASSED
   end                                                       #TrasnactionRepo = PASSED
-
+                                                            #CustomerRepo = TBD
   def find_by_name(name, collection)                       #ItemRepo - PASSED
     collection.find do |attribute|                         #MerchantRepo - PASSED
       attribute.name.downcase == name.downcase
@@ -79,6 +79,18 @@ module Findable #confirm this needs the 'able'
   def find_all_by_result(result, collection)             #TrasnactionRepo - PASSED
     collection.find_all do |attribute|
       attribute.result == result
+    end
+  end
+
+  def find_all_by_first_name(name_fragment, collection)  #CustomerRepo = TBD
+    collection.find_all do |attribute|
+      attribute.first_name.include?(name_fragment)
+    end
+  end
+
+  def find_all_by_last_name(name_fragment)               #CustomerRepo = TBD
+    collection.find_all do |attribute|
+      attribute.last_name.include?(name_fragment)
     end
   end
 
