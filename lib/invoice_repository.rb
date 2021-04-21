@@ -85,7 +85,7 @@ class InvoiceRepository < Repository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
     # should this be @merchants or @invoices
     # same with item repo
   end

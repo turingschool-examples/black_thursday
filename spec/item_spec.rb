@@ -41,8 +41,14 @@ RSpec.describe Item do
     it 'has a unit price' do
       expect(i.unit_price).to eq(10.99)
     end
+    it 'has a cent_price' do
+      expect(i.cent_price).to eq(1099)
+    end
     it 'has a merchant id' do
       expect(i.merchant_id).to eq(2)
+    end
+    it 'has a repository' do
+      expect(i.repository).to eq('repository')
     end
   end
   describe 'instances of time' do
@@ -92,6 +98,36 @@ RSpec.describe Item do
     )
     it 'converts unit price to dollars' do
       expect(i.unit_price_to_dollars).to eq(10.99)
+    end
+  end
+
+  describe '#update' do
+    it 'updates' do
+
+      i = Item.new(
+        id: 1,
+        name: 'Pencil',
+        description: 'You can use it to write things',
+        cent_price: 1099,
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s,
+        merchant_id: 2,
+        repository: 'repository'
+      )
+
+      expect(i.name).to eq('Pencil')
+      i.update(name: 'Lightsaber')
+      expect(i.name).to eq('Lightsaber')
+
+      expect(i.description).to eq('You can use it to write things')
+      i.update(description: 'The key to the dark side')
+      expect(i.description).to eq('The key to the dark side')
+
+      expect(i.cent_price).to eq(1099)
+      i.update(unit_price: 7000)
+      expect(i.unit_price).to eq(7000)
+
+      expect(i.updated_at).not_to eq(i.created_at)
     end
   end
 end

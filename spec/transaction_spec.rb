@@ -43,9 +43,9 @@ RSpec.describe Transaction do
     it 'has a result' do
       expect(t.result).to eq(:success)
     end
-    # it 'has a repository' do
-    #   expect(i.repository).to eq('repository')
-    # end
+    it 'has a repository' do
+      expect(t.repository).to eq('repository')
+    end
   end
   describe 'instances of time' do
     it 'has a time created' do
@@ -80,6 +80,61 @@ RSpec.describe Transaction do
         repository:                   'repository'
       )
       expect(t.updated_at).to eq('12:58')
+    end
+  end
+
+  describe 'update' do
+    it 'updates credit card number' do
+      t = Transaction.new(
+        id:                           6,
+        invoice_id:                   8,
+        credit_card_number:           4242424242424242,
+        credit_card_expiration_date:  0220,
+        result:                       'success',
+        created_at:                   Time.now.to_s,
+        updated_at:                   Time.now.to_s,
+        repository:                   'repository'
+      )
+
+      t.update(credit_card_number: 4242424242424253)
+
+      expect(t.credit_card_number).to eq(4242424242424253)
+      expect(t.updated_at).not_to eq(t.created_at)
+    end
+
+    it 'updates credit card experation date' do
+      t = Transaction.new(
+        id:                           6,
+        invoice_id:                   8,
+        credit_card_number:           4242424242424242,
+        credit_card_expiration_date:  0220,
+        result:                       'success',
+        created_at:                   Time.now.to_s,
+        updated_at:                   Time.now.to_s,
+        repository:                   'repository'
+      )
+
+      t.update(credit_card_expiration_date: 0221)
+
+      expect(t.credit_card_expiration_date).to eq(0221)
+      expect(t.updated_at).not_to eq(t.created_at)
+    end
+    it 'updates result' do
+      t = Transaction.new(
+        id:                           6,
+        invoice_id:                   8,
+        credit_card_number:           4242424242424242,
+        credit_card_expiration_date:  0220,
+        result:                       'success',
+        created_at:                   Time.now.to_s,
+        updated_at:                   Time.now.to_s,
+        repository:                   'repository'
+      )
+
+      t.update(result: 'failure')
+
+      expect(t.result).to eq(:failure)
+      expect(t.updated_at).not_to eq(t.created_at)
     end
   end
 end

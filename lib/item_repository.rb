@@ -3,7 +3,6 @@ require_relative 'repository'
 require_relative 'item'
 require 'time'
 
-# Basic ItemRepository class
 class ItemRepository < Repository
 
   def initialize(location_hash, engine)

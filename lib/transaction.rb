@@ -16,7 +16,7 @@ class Transaction
     @result = transaction_info[:result].to_sym
     @created_at = transaction_info[:created_at]
     @updated_at = transaction_info[:updated_at]
-    @repository = repository
+    @repository = transaction_info[:repository]
   end
 
   def update(attributes)

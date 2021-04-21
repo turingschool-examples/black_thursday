@@ -7,8 +7,6 @@ require_relative 'transaction_repository'
 require_relative 'customer_repository'
 require_relative 'sales_analyst'
 
-
-# This class births all our repositories
 class SalesEngine
   def initialize(file_hash)
     @location_hash = file_hash

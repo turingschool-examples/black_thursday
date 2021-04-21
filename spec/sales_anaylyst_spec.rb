@@ -13,6 +13,7 @@ RSpec.describe 'SalesAnalyst' do
 
     @sa = @se.analyst
   end
+
   describe '#initialize' do
     it 'creates an instance of SalesAnalyst' do
 
@@ -335,6 +336,7 @@ RSpec.describe 'SalesAnalyst' do
       expect(sa.most_sold_item_for_merchant(12334194).length).to eq(3)
     end
   end
+
   describe '#best_item_for_merchant' do
     it 'returns the item with the highest revenue for that merchant' do
       se = SalesEngine.from_csv(
