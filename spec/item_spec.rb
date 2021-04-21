@@ -47,33 +47,35 @@ RSpec.describe Item do
     end
   end
 
-  it 'updates attributes' do
-    mock_item_repo = instance_double('ItemRepository')
-    item = Item.new(  {
-      id: '1',
-      name: 'Cool Stuff',
-      description: 'supaaa cool',
-      unit_price: '1300',
-      merchant_id: '12334185',
-      created_at: '2016-01-11 11:51:37 UTC',
-      updated_at: '1993-09-29 11:56:40 UTC'
-                      },
-      mock_item_repo)
+  describe '#update' do
+    it 'updates attributes' do
+      mock_item_repo = instance_double('ItemRepository')
+      item = Item.new(  {
+        id: '1',
+        name: 'Cool Stuff',
+        description: 'supaaa cool',
+        unit_price: '1300',
+        merchant_id: '12334185',
+        created_at: '2016-01-11 11:51:37 UTC',
+        updated_at: '1993-09-29 11:56:40 UTC'
+                        },
+        mock_item_repo)
 
-    expect(item.id).to eq(1)
-    expect(item.name).to eq('Cool Stuff')
-    expect(item.description).to eq('supaaa cool')
-    expect(item.unit_price).to eq(0.13e2)
+      expect(item.id).to eq(1)
+      expect(item.name).to eq('Cool Stuff')
+      expect(item.description).to eq('supaaa cool')
+      expect(item.unit_price).to eq(0.13e2)
 
-    attributes = {
-      name:         'Cyborg',
-      description:  'machine',
-      unit_price:   '2000'
-    }
+      attributes = {
+        name:         'Cyborg',
+        description:  'machine',
+        unit_price:   '2000'
+      }
 
-    expect(item.update_name(attributes)).to eq('Cyborg')
-    expect(item.update_description(attributes)).to eq('machine')
-    expect(item.update_unit_price(attributes)).to eq(0.2e2)
+      expect(item.update_name(attributes)).to eq('Cyborg')
+      expect(item.update_description(attributes)).to eq('machine')
+      expect(item.update_unit_price(attributes)).to eq(0.2e2)
+    end
   end
 
   describe '#update_time_stamp' do
@@ -134,6 +136,78 @@ RSpec.describe Item do
                         mock_item_repo)
 
       expect(item.unit_price_to_dollars).to eq(13.0)
+    end
+  end
+
+  describe '#update_name' do
+    it 'updates the name' do
+      mock_item_repo = instance_double('ItemRepository')
+      item = Item.new({
+                        id: '1',
+                        name: 'Cool Stuff',
+                        description: 'supaaa cool',
+                        unit_price: '1300',
+                        merchant_id: '12334185',
+                        created_at: '2016-01-11 11:51:37 UTC',
+                        updated_at: '1993-09-29 11:56:40 UTC'
+                      },
+                        mock_item_repo)
+      attributes = {
+                          name:         'Cyborg',
+                          description:  'machine',
+                          unit_price:   '2000'
+                   }
+      item.update_name(attributes)
+
+      expect(item.name).to eq('Cyborg')
+    end
+  end
+
+  describe '#update_description' do
+    it 'updates the description' do
+      mock_item_repo = instance_double('ItemRepository')
+      item = Item.new({
+                        id: '1',
+                        name: 'Cool Stuff',
+                        description: 'supaaa cool',
+                        unit_price: '1300',
+                        merchant_id: '12334185',
+                        created_at: '2016-01-11 11:51:37 UTC',
+                        updated_at: '1993-09-29 11:56:40 UTC'
+                      },
+                        mock_item_repo)
+      attributes = {
+                          name:         'Cyborg',
+                          description:  'machine',
+                          unit_price:   '2000'
+                   }
+      item.update_description(attributes)
+
+      expect(item.description).to eq('machine')
+    end
+  end
+
+  describe '#update_unit_price' do
+    it 'updates the unit price' do
+      mock_item_repo = instance_double('ItemRepository')
+      item = Item.new({
+                        id: '1',
+                        name: 'Cool Stuff',
+                        description: 'supaaa cool',
+                        unit_price: '1300',
+                        merchant_id: '12334185',
+                        created_at: '2016-01-11 11:51:37 UTC',
+                        updated_at: '1993-09-29 11:56:40 UTC'
+                      },
+                        mock_item_repo)
+      attributes = {
+                          name:         'Cyborg',
+                          description:  'machine',
+                          unit_price:   '2000'
+                   }
+      item.update_unit_price(attributes)
+
+      expect(item.unit_price).to eq(20.00)
     end
   end
 end
