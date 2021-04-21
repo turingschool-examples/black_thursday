@@ -1,9 +1,12 @@
 require 'CSV'
 require 'bigdecimal'
 require 'invoice_item'
+require_relative 'findable'
+include Findable
 
 class InvoiceItemRepo
-  attr_reader :invoice_items
+  attr_reader :invoice_items,
+              :engine
 
   def initialize(path, engine)
     @invoice_items = []
@@ -19,12 +22,6 @@ class InvoiceItemRepo
 
   def all
     @invoice_items
-  end
-
-  def find_by_id(id)
-    @invoice_items.find do |invoice_item|
-      invoice_item.id == id
-    end
   end
 
   def create(attributes)
@@ -47,3 +44,4 @@ class InvoiceItemRepo
     @invoice_items.delete(find_by_id(id))
   end
 end
+

@@ -5,6 +5,7 @@ require 'invoice_item'
 RSpec.describe InvoiceItem do
   describe 'instantiation' do
     it '::new' do
+      mock_repo = double('InvoiceItemRepo')
       invoice_items = InvoiceItem.new({:id         => 6,
                                       :item_id     => 7,
                                       :invoice_id  => 8,
@@ -12,12 +13,13 @@ RSpec.describe InvoiceItem do
                                       :unit_price  => BigDecimal(10.99,4),
                                       :created_at  => Time.now,
                                       :updated_at  => Time.now,
-                                      })
+                                      }, mock_repo)
 
       expect(invoice_items).to be_an_instance_of(InvoiceItem)
     end
 
     it 'has attributes' do
+      mock_repo = double('InvoiceItemRepo')
       invoice_items = InvoiceItem.new({:id          => 6,
                                        :item_id     => 7,
                                        :invoice_id  => 8,
@@ -25,7 +27,7 @@ RSpec.describe InvoiceItem do
                                        :unit_price  => BigDecimal(10.99,4),
                                        :created_at  => Time.now,
                                        :updated_at  => Time.now,
-                                       })
+                                       }, mock_repo)
       expect(invoice_items.id).to eq(6)
       expect(invoice_items.item_id).to eq(7)
       expect(invoice_items.invoice_id).to eq(8)
@@ -38,6 +40,7 @@ RSpec.describe InvoiceItem do
 
   describe '#methods' do
     it '#unit price to dollars' do
+      mock_repo = double('InvoiceItemRepo')
       invoice_items = InvoiceItem.new({:id          => 6,
                                        :item_id     => 7,
                                        :invoice_id  => 8,
@@ -45,7 +48,7 @@ RSpec.describe InvoiceItem do
                                        :unit_price  => 1099,
                                        :created_at  => Time.now,
                                        :updated_at  => Time.now,
-                                       })
+                                       }, mock_repo)
 
       expect(invoice_items.unit_price_to_dollars).to eq(10.99)
     end

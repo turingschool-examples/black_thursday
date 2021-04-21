@@ -1,10 +1,13 @@
 require 'CSV'
 require 'time'
 require 'item'
-require_relative 'customer'
+require_relative 'customer' #is this necessary
+require_relative 'findable'
+include Findable
 
 class CustomerRepo
-  attr_reader :customers
+  attr_reader :customers,
+              :engine
 
   def initialize(path, engine)
     @customers = []
@@ -14,7 +17,7 @@ class CustomerRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |customer_info|
-      @customers << Customer.new(customer_info)
+      @customers << Customer.new(customer_info, self)
     end
   end
 
@@ -26,26 +29,8 @@ class CustomerRepo
     @customers << customer
   end
 
-  def find_by_id(id)
-    @customers.find do |customer|
-      customer.id == id
-    end
-  end
-
-  def find_all_by_first_name(name_fragment)
-    @customers.find_all do |customer|
-      customer.first_name.include?(name_fragment)
-    end
-  end
-
-  def find_all_by_last_name(name_fragment)
-    @customers.find_all do |customer|
-      customer.last_name.include?(name_fragment)
-    end
-  end
-
   def create(attributes)
-    customer = Customer.new(attributes, @engine)
+    customer = Customer.new(attributes, self)
     max = @customers.max_by do |customer|
       customer.id
     end

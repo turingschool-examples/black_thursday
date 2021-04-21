@@ -7,6 +7,8 @@ RSpec.describe InvoiceItemRepo do
   describe 'instantiation' do
     it '::new' do
       invoice_item_repo = InvoiceItemRepo.new('./data/invoice_items.csv', nil)
+      mock_repo = double('InvoiceItemRepo')
+      invoice_item_repo = @sales_engine.invoice_items
 
       expect(invoice_item_repo).to be_an_instance_of(InvoiceItemRepo)
     end
@@ -15,6 +17,8 @@ RSpec.describe InvoiceItemRepo do
   describe '#methods' do
     it '#all returns an array of all invoice item instances' do
       invoice_item_repo = InvoiceItemRepo.new('./data/invoice_items.csv', nil)
+      mock_repo = double('InvoiceItemRepo')
+      invoice_item_repo = @sales_engine.invoice_items
 
       expect(invoice_item_repo.all).to be_an_instance_of(Array)
     end
@@ -31,6 +35,20 @@ RSpec.describe InvoiceItemRepo do
                                                :updated_at => Time.now
                                         })
       expect(invoice_item_repo.find_by_id(invoice_item.id)).to eq(invoice_item)
+    end
+      
+    xit '#find_by_id finds an invoice_item by id' do
+      # id = 10
+      mock_repo = double('InvoiceItemRepo')
+      invoice_item_repo = @sales_engine.invoice_items
+      invoice_item = InvoiceItem.new({:id          => 9000,
+                                      :item_id     => 7,
+                                      :invoice_id  => 8,
+                                      :quantity    => 1,
+                                      :unit_price  => BigDecimal(10.99,4),
+                                      :created_at  => Time.now,
+                                      :updated_at  => Time.now
+                                      })
     end
 
     # xit '#find_by_id finds an invoice_item by id' do
@@ -89,6 +107,9 @@ RSpec.describe InvoiceItemRepo do
     it '#create creates a new invoice item instance' do
       mock_engine = double("SalesEngine")
       invoice_item_repo = InvoiceItemRepo.new('./data/invoice_items.csv', mock_engine)
+      mock_repo = double('InvoiceItemRepo')
+      invoice_item_repo = @sales_engine.invoice_items
+
       attributes = {
                     :item_id => 7,
                     :invoice_id => 8,
@@ -115,6 +136,7 @@ RSpec.describe InvoiceItemRepo do
     #   require 'pry'; binding.pry
     #   expect(invoice_item_repo.create(attributes)).to be_an_instance_of(InvoiceItem)
     # end
+
 
     it '#update attributes' do
       mock_engine = double("SalesEngine")
