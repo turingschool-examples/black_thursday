@@ -1,4 +1,5 @@
 class Merchant
+  include Mathable
   attr_reader :id,
               :name,
               :created_at,
@@ -10,6 +11,56 @@ class Merchant
     @created_at = Time.parse(row[:created_at])
     @updated_at = Time.parse(row[:updated_at])
     @merchant_repo = merchant_repo
+  end
+
+  def average_item_price
+    average(items_revenue_hash)
+  end
+
+  def best_item
+    items_quantity_hash.max_by do |item, quantity|
+      item.unit_price * quantity
+    end
+  end
+
+  def items_count
+    merchant_items.count
+  end
+
+  def invoices_count
+    invoice_ids.count
+  end
+
+  def items_quantity_hash
+    merchant_items.each_with_object({}) do |item, hash|
+      hash[item] = @merchant_repo.grab_invoice_item(item.id).quantity
+    end
+  end
+
+  def items_revenue_hash
+    items_quantity_hash.each_with_object({}) do |(item, quantity), hash|
+      hash[item] = item.unit_price * quantity
+    end
+  end
+
+  def items
+    @merchant_repo.merchant_items(@id)
+  end
+
+  def invoices
+    @merchant_repo.merchant_invoices(@id)
+  end
+
+  def pending_invoices
+    merchant_invoices.find_all do |invoice|
+      invoice.status == (:pending)
+    end
+  end
+
+  def succesful_invoices
+    merchant_invoices.find_all do |invoice|
+      invoice.status == (:pending)
+    end
   end
 
   def update(attributes)
@@ -28,16 +79,7 @@ class Merchant
 
   #pull from MR from Engine From IR the items - put in an instance varibale
 
-  #wants items array
-  #revenue
-  #items/quantity hash
-  #items/revenue hash
-  #num items
-  #avg item price
-  #pending invoices
-  #months/items hash
-  #best item (item with most revenue)
+  #revenue S
+  #months/items hash *
   #most sold item (item with most qty sold)
-  #num invoices
-
 end
