@@ -32,7 +32,7 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    @engine.best_item_for_merchant(merchant_id)
+    @sales_engine.best_item_for_merchant(merchant_id)
   end
 
   def bottom_merchants_by_invoice_count
@@ -52,7 +52,7 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
-    @sales_engine.invoice_total(invoice_id)
+    @sales_engine.invoice_total_value(invoice_id)
   end
 
   def merchants_with_high_item_count
@@ -71,16 +71,12 @@ class SalesAnalyst
     @sales_engine.merchants_with_pending_invoices
   end
 
-  def most_sold_item
+  def most_sold_item(merchant_id)
     @sales_engine.most_sold_item(merchant_id)
   end
 
   def revenue_by_merchant(merchant_id)
     @sales_engine.revenue_by_merchant(merchant_id)
-  end
-
-  def top_buyers(x = 20)
-    @sales_engine.top_buyers(x)
   end
 
   def top_days_by_invoice_count
