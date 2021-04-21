@@ -26,6 +26,19 @@ RSpec.describe MerchantRepository do
     end
   end
 
+  describe '#all_merchants' do
+    it 'creates all of the merchant instances' do
+      se = SalesEngine.from_csv(
+        merchants: './data/merchants.csv'
+                               )
+
+      mr = se.merchants
+      mr.all_merchants
+
+      expect(mr.all.class).to equal(Array)
+    end
+  end
+
   describe '#find_by_id' do
     it 'finds merchant by id' do
       se = SalesEngine.from_csv(
@@ -66,7 +79,7 @@ RSpec.describe MerchantRepository do
     end
   end
 
-  describe '#find_all_by_name'
+  describe '#find_all_by_name' do
     it 'find all that includes fragment' do
       se = SalesEngine.from_csv(
         merchants: './data/merchants.csv'
@@ -86,6 +99,7 @@ RSpec.describe MerchantRepository do
 
       expect(mr.find_all_by_name('lawrence')).to eq([])
     end
+  end
 
   describe '#max_id_number_new' do
     it 'finds the current max id' do

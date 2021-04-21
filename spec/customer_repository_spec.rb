@@ -25,7 +25,7 @@ RSpec.describe CustomerRepository do
 
       cr = se.customers
 
-      expect(cr.all[1].first_name).to eq('Cecelia')
+      expect(cr.all_customers.class).to eq(CSV::Table)
     end
   end
 
@@ -106,17 +106,17 @@ RSpec.describe CustomerRepository do
     end
   end
 
-    describe '#all' do
-      it 'returns an array of all customers' do
-        se = SalesEngine.from_csv(
-          customers: './data/customers.csv'
-        )
+  describe '#all' do
+    it 'returns an array of all customers' do
+      se = SalesEngine.from_csv(
+        customers: './data/customers.csv'
+      )
 
-        cr = se.customers
+      cr = se.customers
 
-        expect(cr.all[1].first_name).to eq('Cecelia')
-      end
+      expect(cr.all[1].first_name).to eq('Cecelia')
     end
+  end
 
   describe 'find_by_id' do
     it 'finds customer by given id' do
