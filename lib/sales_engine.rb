@@ -94,6 +94,10 @@ class SalesEngine
     @items.golden_items
   end
 
+  def invoice_items(invoice_id)
+    @invoice_items.items_on_invoice(invoice_id)
+  end
+
   def invoice_paid_in_full?(invoice_id)
     @transactions.invoice_paid_in_full?(invoice_id)
   end
@@ -110,10 +114,6 @@ class SalesEngine
     @invoice_items.invoice_total_hash
   end
 
-  def invoice_total(invoice_id)
-    @invoice_items.invoice_total(invoice_id)
-  end
-
   def items_created_in_month(month)
     @items.items_created_in_month(month)
   end
@@ -123,7 +123,7 @@ class SalesEngine
   end
 
   def merchant_invoice_items(invoice_id)
-    @invoice_items.invoice_items(invoice_id)
+    @invoice_items.items_on_invoice(invoice_id)
   end
 
   def merchant_sold_item_quantity_hash(merchant_id)
@@ -135,14 +135,14 @@ class SalesEngine
   end
 
   def merchant_items(merchant_id)
-    @items.merchant_items(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
   end
 
   def merchant_invoices(merchant_id)
-    @invoices.merchant_invoices(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  def most_sold_item
+  def most_sold_item(merchant_id)
     @merchants.most_sold_item(merchant_id)
   end
 
@@ -172,10 +172,6 @@ class SalesEngine
 
   def stdev_invoices_per_merchant
     @merchants.stdev_invoices_per_merchant
-  end
-
-  def top_buyers(x)
-    @invoices.top_buyers(x)
   end
 
   def top_days_by_invoice_count

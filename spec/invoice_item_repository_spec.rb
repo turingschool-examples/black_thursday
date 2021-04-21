@@ -41,6 +41,22 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+  describe '#best_item_for_merchant' do
+    it 'returns best item for merchant id' do
+      se = SalesEngine.from_csv({
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './spec/truncated_data/customers_truncated.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
+                                })
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+
+      expect(iir.best_item_for_merchant(12334112)).to be_a(Hash)
+    end
+  end
+
   describe '#create' do
     it 'creates a new invoice item instance' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -71,6 +87,15 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+  describe '#grab_invoice_item' do
+    it 'finds an item by item id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
+      expect(iir.grab_invoice_item(263519844).class).to eq(InvoiceItem)
+    end
+  end
+
   describe '#find_all_by_item_id' do
     it 'finds all InvoiceItems by id' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -98,6 +123,31 @@ RSpec.describe InvoiceItemRepository do
 
       expect(iir.find_by_id(1)).to be_instance_of(InvoiceItem)
       expect(iir.find_by_id(987654321)).to eq(nil)
+    end
+  end
+
+  describe '#generate_invoice_total_hash' do
+    it 'returns hash with invoice totals' do
+      se = SalesEngine.from_csv({
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './spec/truncated_data/customers_truncated.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
+                                })
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+
+      expect(iir.generate_invoice_total_hash).to be_a(Hash)
+    end
+  end
+
+  describe '#grab_invoice_item' do
+    it 'returns an invoice item by item id' do
+      mock_sales_engine = instance_double('SalesEngine')
+      iir = InvoiceItemRepository.new('./spec/truncated_data/invoice_items_truncated.csv', mock_sales_engine)
+
+      expect(iir.grab_invoice_item(263539664).class).to eq(InvoiceItem)
     end
   end
 
@@ -158,6 +208,22 @@ RSpec.describe InvoiceItemRepository do
 
       expect(iir.item_revenue_hash(12334105)).to be_a(Hash)
       expect(iir.item_revenue_hash(12334105).values.sum).to eq(0.7377717e5)
+    end
+  end
+
+  describe '#items_on_invoice' do
+    it 'returns items on invoice by id' do
+      se = SalesEngine.from_csv({
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './spec/truncated_data/customers_truncated.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
+                              })
+      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+
+      expect(iir.items_on_invoice(1).count).to eq(8)
     end
   end
 
