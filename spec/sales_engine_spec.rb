@@ -92,4 +92,66 @@ RSpec.describe 'SalesEngine' do
       expect(se.number_of_class(:items)).to eq(1367)
     end
   end
+  describe '#self.from_csv' do
+    it 'creates an instance of sales engine' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv'
+      )
+
+      expect(se.class).to eq(SalesEngine)
+    end
+  end
+  describe '#csv_array' do
+    it 'returns the csv array of the passed repository' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv'
+      )
+
+      expect(se.csv_array(:items)).to eq(se.items.all)
+    end
+  end
+  describe '#instance accessor methods' do
+    it 'items accesses an items repository' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv'
+      )
+
+      expect(se.items.class).to eq(ItemRepository)
+    end
+    it 'merchants accesses an merchants repository' do
+      se = SalesEngine.from_csv(
+        merchants: './data/merchants.csv'
+      )
+
+      expect(se.merchants.class).to eq(MerchantRepository)
+    end
+    it 'invoices accesses an invoices repository' do
+      se = SalesEngine.from_csv(
+        invoices: './data/invoices.csv'
+      )
+
+      expect(se.invoices.class).to eq(InvoiceRepository)
+    end
+    it 'invoice_items accesses an invoice_items repository' do
+      se = SalesEngine.from_csv(
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      expect(se.invoice_items.class).to eq(InvoiceItemRepository)
+    end
+    it 'transactions accesses an transactions repository' do
+      se = SalesEngine.from_csv(
+        transactions: './data/transactions.csv'
+      )
+
+      expect(se.transactions.class).to eq(TransactionRepository)
+    end
+    it 'customers accesses an customers repository' do
+      se = SalesEngine.from_csv(
+        customers: './data/customers.csv'
+      )
+
+      expect(se.customers.class).to eq(CustomerRepository)
+    end
+  end
 end

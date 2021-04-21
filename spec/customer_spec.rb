@@ -82,4 +82,24 @@ RSpec.describe Customer do
       end
     end
   end
+
+  describe '#update' do
+    it 'updates name attributes' do
+      c = Customer.new(
+        id: 6,
+        first_name: 'Joan',
+        last_name: 'Clarke',
+        created_at: Time.now,
+        udated_at: Time.now
+      )
+
+      c.update(
+        first_name: 'Joan2',
+        last_name: 'Clarke2'
+      )
+
+      expect(c.first_name).to eq('Joan2')
+      expect(c.last_name).to eq('Clarke2')
+    end
+  end
 end
