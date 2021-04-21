@@ -156,7 +156,7 @@ RSpec.describe ItemRepo do
 
       item_repo.update(item.id, updated_attributes)
 
-      expect(item.id).to eq(263567475)
+      expect(item.id).to eq(263400306)
       expect(item.name).to eq("knife")
       expect(item.description).to eq("You can use xitto stab things")
       expect(item.unit_price).to eq(15.99)
@@ -164,8 +164,9 @@ RSpec.describe ItemRepo do
     end
 
    it'#delete by id' do
-     mock_engine = double('ItemRepo')
+    mock_engine = double('ItemRepo')
     item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
+    collection = item_repo.items
     item = item_repo.create({:id        => 1,
                              :name        => "Pencil",
                              :description => "You can use it to write things",
@@ -174,11 +175,11 @@ RSpec.describe ItemRepo do
                              :updated_at  => Time.now,
                              :merchant_id => 2})
 
-      expect(item_repo.find_by_id(item.id)).to eq(item)
+      expect(item_repo.find_by_id(item.id,collection)).to eq(item)
 
       item_repo.delete(item.id)
 
-      expect(item_repo.find_by_id(item.id)).to eq(nil)
+      expect(item_repo.find_by_id(item.id, collection)).to eq(nil)
    end
 
     it '#average price' do

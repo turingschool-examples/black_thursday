@@ -2,9 +2,9 @@ require 'CSV'
 require 'bigdecimal'
 require 'item'
 require_relative 'findable'
-include Findable
 
 class ItemRepo
+  include Findable
   attr_reader :items,
               :engine
 
@@ -44,7 +44,7 @@ class ItemRepo
     @items.delete(find_by_id(id, @items))
   end
 
-  def average_price 
+  def average_price
     price_total = @items.sum do |item|
       item.unit_price_to_dollars
     end

@@ -1,11 +1,11 @@
 require 'CSV'
 require 'time'
 require 'item'
-require_relative 'customer' #is this necessary
+require_relative 'customer' 
 require_relative 'findable'
-include Findable
 
 class CustomerRepo
+  include Findable
   attr_reader :customers,
               :engine
 
@@ -35,13 +35,13 @@ class CustomerRepo
     customer
   end
 
-    def update(id, attributes)
-    customer = find_by_id(id)
+  def update(id, attributes)
+    customer = find_by_id(id, @customers)
     return if !customer
     customer.update_all(attributes)
   end
 
   def delete(id)
-    @customers.delete(find_by_id(id))
+    @customers.delete(find_by_id(id, @customers))
   end
 end

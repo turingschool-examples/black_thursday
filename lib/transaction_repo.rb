@@ -1,10 +1,10 @@
 require 'CSV'
 require 'time'
-require_relative 'transaction' #is this necessary
+require_relative 'transaction' 
 require_relative 'findable'
-include Findable
 
 class TransactionRepo
+  include Findable
   attr_reader :transactions,
               :engine
 
@@ -45,6 +45,6 @@ class TransactionRepo
   end
 
   def delete(id)
-    @transactions.delete(find_by_id(id))
+    @transactions.delete(find_by_id(id, @transactions))
   end
 end

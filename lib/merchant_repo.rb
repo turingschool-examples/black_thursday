@@ -1,7 +1,8 @@
 require 'merchant'
-include Findable 
+require_relative 'findable'
 
 class MerchantRepo
+  include Findable
   attr_reader :merchants,
               :engine
 
@@ -21,12 +22,6 @@ class MerchantRepo
     @merchants
   end
 
-  # def find_all_by_name(name_fragment)
-  #   @merchants.find_all do |merchant|
-  #     merchant.name.downcase.include?(name_fragment.downcase)
-  #   end
-  # end
-
   def create(attributes)
     merchant = Merchant.new(attributes, self)
     max = @merchants.max_by do |merchant|
@@ -38,13 +33,13 @@ class MerchantRepo
   end
 
   def update(id, attributes)
-    merchant = find_by_id(id)
+    merchant = find_by_id(id, @merchants)
     return if !merchant
     merchant.update_name(attributes)
   end
 
   def delete(id)
-    @merchants.delete(find_by_id(id))
+    @merchants.delete(find_by_id(id, @merchants))
   end
 
   def item_count

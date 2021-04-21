@@ -2,12 +2,11 @@ require 'CSV'
 require 'invoice_item_repo'
 
 RSpec.describe InvoiceItemRepo do
-
   describe 'instantiation' do
     it '::new' do
       mock_engine = double('InvoiceItemRepo')
       invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
-      
+
       expect(invoice_item_repo).to be_an_instance_of(InvoiceItemRepo)
     end
   end
@@ -21,34 +20,9 @@ RSpec.describe InvoiceItemRepo do
     end
 
     it '#find_by_id' do
-      mock_engine = double("SalesEngine")
+      mock_engine = double('InvoiceItemRepo')
       invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
-      invoice_item = invoice_item_repo.create({:item_id => 7,
-                                               :invoice_id => 8,
-                                               :quantity => 1,
-                                               :unit_price => BigDecimal(10.99, 4),
-                                               :created_at => Time.now,
-                                               :updated_at => Time.now
-                                        })
-      expect(invoice_item_repo.find_by_id(invoice_item.id)).to eq(invoice_item)
-    end
-      
-    xit '#find_by_id' do
-      mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
-      invoice_item = invoice_item_repo.create({:id          => 9000,
-                                               :item_id     => 7,
-                                               :invoice_id  => 8,
-                                               :quantity    => 1,
-                                               :unit_price  => BigDecimal(10.99,4),
-                                               :created_at  => Time.now,
-                                               :updated_at  => Time.now})
-      expect(invoice_item_repo(9000)).to eq ()
-    end
-
-    xit '#find_by_id' do
-      mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
+      collection = invoice_item_repo.invoice_items
       invoice_item = invoice_item_repo.create({:id          => 9000,
                                                :item_id     => 7,
                                                :invoice_id  => 8,
@@ -58,46 +32,46 @@ RSpec.describe InvoiceItemRepo do
                                                :updated_at  => Time.now
                                           })
 
-      expect(invoice_item_repo.find_by_id(9000)).to eq(invoice_item)
-      expect(invoice_item_repo.find_by_id(1000)).to eq(nil)
+      expect(invoice_item_repo.find_by_id(invoice_item.id, collection)).to eq(invoice_item)
+      expect(invoice_item_repo.find_by_id(1000, collection)).to eq(nil)
     end
-    
-    xit '#find_all_by_item_id' do
-        mock_engine = double("SalesEngine")
-        invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
-    
-       expect(invoice_item_repo.length).to eq 11
-       expect(invoice_item_repo.first.class).to eq InvoiceItem
-     end
-    
-    xit '#find_all_by_item_id returns an empty array if there are no matches' do
-      mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
 
-      expect(invoice_item_repo.length).to eq 0
-      expect(invoice_item_repo.empty?).to eq true
-    end
-    
-    xit '#find_all_by_invoice_id finds all items matching a given item_id' do
-      mock_engine = double("SalesEngine")
+    it '#find_all_by_item_id' do
+      mock_engine = double('InvoiceItemRepo')
       invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
+      collection = invoice_item_repo.invoice_items
+      invoice_item = invoice_item_repo.create({:id          => 9000,
+                                               :item_id     => 7,
+                                               :invoice_id  => 8,
+                                               :quantity    => 1,
+                                               :unit_price  => BigDecimal(10.99,4),
+                                               :created_at  => Time.now,
+                                               :updated_at  => Time.now
+                                          })
 
-      expected = invoice_items.find_all_by_invoice_id(invoice_id)
-    
-      expect(expected.length).to eq 3
-      expect(expected.first.class).to eq InvoiceItem
+      expect(invoice_item_repo.find_all_by_item_id(7, collection)).to eq([invoice_item])
+      expect(invoice_item_repo.find_all_by_item_id(999999999, collection)).to eq([])
     end
-    
-    xit '#find_all_by_invoice_id returns an empty array if there are no matches' do
-      mock_engine = double("SalesEngine")
+
+    it '#find_all_by_invoice_id' do
+      mock_engine = double('InvoiceItemRepo')
       invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
-    
-      expect(invoice_item_repo.length).to eq 0
-      expect(invoice_item_repo.empty?).to eq true
-    end
+      collection = invoice_item_repo.invoice_items
+      invoice_item = invoice_item_repo.create({:id          => 9000,
+                                              :item_id     => 7,
+                                              :invoice_id  => 8,
+                                              :quantity    => 1,
+                                              :unit_price  => BigDecimal(10.99,4),
+                                              :created_at  => Time.now,
+                                              :updated_at  => Time.now
+                                              })
+
+       expect(invoice_item_repo.find_all_by_invoice_id(8, collection)).to eq([invoice_item])
+       expect(invoice_item_repo.find_all_by_invoice_id(999999999, collection)).to eq([])
+      end
 
     it '#create' do
-      mock_engine = double("SalesEngine")
+      mock_engine = double('InvoiceItemRepo')
       invoice_item_repo = InvoiceItemRepo.new('./data/invoice_items.csv', mock_engine)
       attributes = {
                     :item_id => 7,
@@ -106,13 +80,13 @@ RSpec.describe InvoiceItemRepo do
                     :unit_price => BigDecimal(10.99, 4),
                     :created_at => Time.now,
                     :updated_at => Time.now
-      }
+                  }
 
       expect(invoice_item_repo.create(attributes)).to be_an_instance_of(InvoiceItem)
     end
- 
+
     it '#update' do
-      mock_engine = double("SalesEngine")
+      mock_engine = double('InvoiceItemRepo')
       invoice_item_repo = InvoiceItemRepo.new('./data/invoice_items.csv', mock_engine)
       invoice_item = invoice_item_repo.create({:item_id => 7,
                                                :invoice_id => 8,
@@ -125,7 +99,7 @@ RSpec.describe InvoiceItemRepo do
                             :unit_price => BigDecimal(15.99, 4),
                             :updated_at  => Time.now}
 
-      invoice_item_repo.update(item.id, updated_attributes)
+      invoice_item_repo.update(invoice_item.id, updated_attributes)
 
       expect(invoice_item.quantity).to eq(10)
       expect(invoice_item.unit_price).to eq(15.99)
@@ -133,8 +107,8 @@ RSpec.describe InvoiceItemRepo do
     end
 
     it '#delete' do
-      mock_engine = double('InvoiceRepo')
-      invoice_item_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
+      mock_engine = double('InvoiceItemRepo')
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoices.csv', mock_engine)
       invoice_item = invoice_item_repo.create({:id => 0,
                                    :customer_id => 7,
                                    :merchant_id => 8,
@@ -142,11 +116,11 @@ RSpec.describe InvoiceItemRepo do
                                    :created_at => Time.now,
                                    :updated_at => Time.now})
 
-      expect(invoice_repo.all.length).to eq(4986)
+      expect(invoice_item_repo.all.length).to eq(11)
 
-      invoice_item_repo.delete(invoice.id)
+      invoice_item_repo.delete(invoice_item.id)
 
-      expect(invoice_repo.all.length).to eq(4985)
+      expect(invoice_item_repo.all.length).to eq(10)
     end
   end
 end
