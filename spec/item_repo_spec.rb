@@ -77,7 +77,6 @@ RSpec.describe ItemRepo do
     end
 
     it '#find all by price' do
-      #mock and stubs
       mock_engine = double('ItemRepo')
       item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = item_repo.items
@@ -165,8 +164,8 @@ RSpec.describe ItemRepo do
     end
 
    it'#delete by id' do
-   mock_engine = double('ItemRepo')
-   item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
+     mock_engine = double('ItemRepo')
+    item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
     item = item_repo.create({:id        => 1,
                              :name        => "Pencil",
                              :description => "You can use it to write things",

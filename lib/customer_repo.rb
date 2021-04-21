@@ -25,31 +25,23 @@ class CustomerRepo
     @customers
   end
 
-  def add_customer(customer)
-    @customers << customer
-  end
-
   def create(attributes)
     customer = Customer.new(attributes, self)
     max = @customers.max_by do |customer|
       customer.id
     end
-    customer.id = max.id + 1
-    add_customer(customer)
-    return customer
+    customer.update_id(max.id)
+    @customers << customer
+    customer
   end
 
-  def update(id, attributes)
-    new_customer = find_by_id(id)
-    return if !new_customer
-    new_customer.first_name = attributes[:first_name] if attributes[:first_name]
-    new_customer.last_name = attributes[:last_name] if attributes[:last_name]
-    new_customer.updated_at = Time.now
-    return new_customer
+    def update(id, attributes)
+    customer = find_by_id(id)
+    return if !customer
+    customer.update_all(attributes)
   end
 
   def delete(id)
     @customers.delete(find_by_id(id))
   end
-
 end

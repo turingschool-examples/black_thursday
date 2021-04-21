@@ -33,7 +33,7 @@ attr_reader :invoices,
     max = @invoices.max_by do |invoice|
       invoice.id
     end
-    invoice.id = max.id + 1
+    invoice.update_id(max.id)
     add_invoice(invoice)
     invoice
   end

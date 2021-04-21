@@ -47,17 +47,32 @@ RSpec.describe Invoice do
     end
 
     it '#updates updated at time' do
-    mock_repo = double('InvoiceRepo')
-    invoice = Invoice.new({:id => 6,
-                           :customer_id => 7,
-                           :merchant_id => 8,
-                           :status => 'pending',
-                           :created_at => Time.now,
-                           :updated_at => Time.now}, mock_repo)
+      mock_repo = double('InvoiceRepo')
+      invoice = Invoice.new({:id => 6,
+                             :customer_id => 7,
+                             :merchant_id => 8,
+                             :status => 'pending',
+                             :created_at => Time.now,
+                             :updated_at => Time.now}, mock_repo)
   
-    invoice.update_updated_at({:updated_at => Time.now})
+      invoice.update_updated_at({:updated_at => Time.now})
   
-    expect(invoice.updated_at).to be_an_instance_of(Time)
-  end
+      expect(invoice.updated_at).to be_an_instance_of(Time)
+    end
+
+    it '#updates id' do
+      mock_repo = double('ItemRepo')
+      invoice = Invoice.new({:id => 6,
+                             :customer_id => 7,
+                             :merchant_id => 8,
+                             :status => 'pending',
+                             :created_at => Time.now,
+                             :updated_at => Time.now}, mock_repo)
+                             
+      new_id = 10000
+      invoice.update_id(10000)
+
+      expect(invoice.id).to eq 10001
+    end
   end
 end
