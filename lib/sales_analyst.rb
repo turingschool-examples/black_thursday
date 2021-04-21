@@ -322,7 +322,7 @@ class SalesAnalyst
 
     hightest_quantity_sold = items_by_quantity_sold.max_by { |(_item_id, quantity)| quantity }[1]
 
-    most_sold_item_id = items_by_quantity_sold.find_all do |(item, quantity)|
+    most_sold_item_id = items_by_quantity_sold.find_all do |(_item, quantity)|
       quantity == hightest_quantity_sold
     end
 
