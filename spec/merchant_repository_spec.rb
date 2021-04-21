@@ -113,7 +113,7 @@ RSpec.describe MerchantRepository do
     it 'finds the current max id' do
       se = SalesEngine.from_csv(
           items: './data/items.csv',
-         merchants: './data/merchants.csv'
+          merchants: './data/merchants.csv'
       )
 
       mr = se.merchants
