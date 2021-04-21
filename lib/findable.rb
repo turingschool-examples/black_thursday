@@ -6,7 +6,7 @@ module Findable #confirm this needs the 'able'
   def find_by_id(id, collection)                            #ItemRepo - PASSED
     collection.find do |attribute|                          #MerchantRepo - PASSED
       attribute.id == id                                    #InvoiceRepo - PASSED
-    end
+    end                                                     #InvoiceItemRepo - PASSED
   end
 
   def find_by_name(name, collection)                       #ItemRepo - PASSED
@@ -47,14 +47,26 @@ module Findable #confirm this needs the 'able'
   end
 
   def find_all_by_customer_id(customer_id, collection)  #InvoiceRepo - PASSED
-    collection.find_all do |collection|
-      collection.customer_id == customer_id
+    collection.find_all do |attribute|
+      attribute.customer_id == customer_id
     end
   end
 
   def find_all_by_status(status, collection)            #InvoiceRepo - PASSED
-    collection.find_all do |collection|
-      collection.status == status
+    collection.find_all do |attribute|
+      attribute.status == status
+    end
+  end
+
+  def find_all_by_item_id(id, collection)               #InvoiceItemRepo - FAILED - BigDecie?
+    collection.find_all do |attribute|
+      attribute.item_id == id
+    end
+  end
+
+  def find_all_by_invoice_id(id, collection)          ##InvoiceItemRepo - FAILED
+    collection.find_all do |attribute|
+      attribute.invoice_id == id
     end
   end
 

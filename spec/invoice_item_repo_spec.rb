@@ -29,21 +29,62 @@ RSpec.describe InvoiceItemRepo do
   end
 
   describe '#methods' do
-    xit '#all returns an array of all invoice item instances' do
+    xit '#all' do
       invoice_item_repo = sales_engine.invoice_items
 
       expect(invoice_item_repo.all).to be_an_instance_of(Array)
     end
 
-    xit '#find_by_id finds an invoice_item by id' do
-      expect(invoice_item_repo.id).to_eq(id)
-      expect(invoice_item_repo.item_id).to eq 263523644
-      expect(invoice_item_repo.invoice_id).to eq 2
+    it 'can find an invoice item by id' do
+      invoice_item_repo = @sales_engine.invoice_items
+      collection = invoice_item_repo.invoice_items
+      invoice_item = invoice_item_repo.create({
+                                                :id => 6,
+                                                :item_id => 7,
+                                                :invoice_id => 8,
+                                                :quantity => 1,
+                                                # :unit_price => BigDecimal.new(10.99, 4),
+                                                :created_at => Time.now,
+                                                :updated_at => Time.now
+                                              })
+
+      expect(invoice_item_repo.find_by_id(invoice_item.id, collection)).to eq(invoice_item)
+      expect(invoice_item_repo.find_by_id(999999999, collection)).to eq(nil)
     end
 
-    xit 'find_all_by_item_id finds all items matching given item_id' do
+    xit '#find all but item id ' do
+      invoice_item_repo = @sales_engine.invoice_items
+      collection = invoice_item_repo.invoice_items
+      invoice_item = invoice_item_repo.create({
+                                                :id => 6,
+                                                :item_id => 7,
+                                                :invoice_id => 8,
+                                                :quantity => 1,
+                                                :unit_price => 0.0,
+                                                :created_at => Time.now,
+                                                :updated_at => Time.now
+                                              })
 
-      expect(invoice_item_repo.length).to eq 11
+      # expect(invoice_item_repo.find_all_by_item_id(invoice_item.item_id, collection)).to eq(invoice_item)
+      expect(invoice_item_repo.find_all_by_item_id(999999999, collection)).to eq([])
+    end
+
+    it '#find all by invoice id' do
+      invoice_item_repo = @sales_engine.invoice_items
+      collection = invoice_item_repo.invoice_items
+      invoice_item = invoice_item_repo.create({
+                                                :id => 6,
+                                                :item_id => 7,
+                                                :invoice_id => 8,
+                                                :quantity => 1,
+                                                # :unit_price => BigDecimal.new(10.99, 4),
+                                                :created_at => Time.now,
+                                                :updated_at => Time.now
+                                              })
+
+
+      expect(invoice_item_repo.find_all_by_invoice_id(invoice_item.id)).to eq([invoice_id])
+      expect(InvoiceRepo.find_all_by_invoice_id(0)).to eq([])
     end
   end
 end
