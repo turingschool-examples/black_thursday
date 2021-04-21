@@ -188,23 +188,6 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#invoice_items' do
-    xit 'tells you which items are on the invoice' do
-      se = SalesEngine.from_csv(
-                                  items: './data/items.csv',
-                                  merchants: './data/merchants.csv',
-                                  invoices: './data/invoices.csv',
-                                  customers: './data/customers.csv',
-                                  invoice_items: './data/invoice_items.csv',
-                                  transactions: './data/transactions.csv'
-                               )
-
-      ir = InvoiceRepository.new('./data/invoices.csv', se)
-
-      expect(ir.invoice_items(3)).to eq(4985)
-    end
-  end
-
   describe '#invoice_paid_in_full?' do
     it 'returns true if invoice with the corresponding id is paid in full' do
       se = SalesEngine.from_csv({

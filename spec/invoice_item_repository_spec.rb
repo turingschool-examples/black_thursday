@@ -227,24 +227,6 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
-  describe '#most_sold_item_for_merchant' do
-    it 'finds most sold items for merchant' do
-      se = SalesEngine.from_csv({
-                                  items: './data/items.csv',
-                                  merchants: './data/merchants.csv',
-                                  invoices: './data/invoices.csv',
-                                  customers: './data/customers.csv',
-                                  invoice_items: './data/invoice_items.csv',
-                                  transactions: './data/transactions.csv'
-                                  })
-      iir = InvoiceItemRepository.new('./data/invoice_items.csv', se)
-
-      expect(iir.most_sold_item_for_merchant(12335311)[0]).to be_a(Item)
-      expect(iir.most_sold_item_for_merchant(12335311)[0].id).to eq(263557908)
-      expect(iir.most_sold_item_for_merchant(12335311).count).to eq(2)
-    end
-  end
-
   describe '#update' do
     it 'updates invoice item attributes' do
       mock_sales_engine = instance_double('SalesEngine')

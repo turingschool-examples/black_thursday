@@ -82,6 +82,10 @@ class SalesEngine
     @items.find_by_id(item_id)
   end
 
+  def find_invoice_items(invoice_id)
+    @invoice_items.grab_invoice_item(invoice_id)
+  end
+
   def find_invoice_by_id(invoice_id)
     @invoices.find_by_id(invoice_id)
   end
@@ -92,10 +96,6 @@ class SalesEngine
 
   def golden_items
     @items.golden_items
-  end
-
-  def invoice_items(invoice_id)
-    @invoice_items.items_on_invoice(invoice_id)
   end
 
   def invoice_paid_in_full?(invoice_id)

@@ -76,7 +76,7 @@ class ItemRepository
     std_dev_times2 = (average(hash) + (standard_deviation(hash) * 2))
     hash.each_with_object([]) do |(item_id, price), array|
       if price > std_dev_times2
-        array << find_by_id(item)
+        array << find_by_id(item_id)
       end
     end
   end

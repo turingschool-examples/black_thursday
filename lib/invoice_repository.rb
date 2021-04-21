@@ -66,8 +66,8 @@ class InvoiceRepository
     hash
   end
 
-  def invoice_items(invoice_id)
-    @engine.invoice_items(invoice_id)
+  def find_invoice_items(invoice_id)
+    @engine.find_invoice_items(invoice_id)
   end
 
   def invoice_paid_in_full?(invoice_id)

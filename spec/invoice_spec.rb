@@ -64,23 +64,6 @@ RSpec.describe Invoice do
     end
   end
 
-  describe '#items' do
-    xit 'tells you which items are on the invoice' do
-      se = SalesEngine.from_csv({
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv',
-        customers: './data/customers.csv',
-        invoice_items: './data/invoice_items.csv',
-        transactions: './data/transactions.csv'
-      })
-
-      invoice = se.find_invoice_by_id(1)
-
-      expect(invoice.items[0]).to be_a(Item)
-    end
-  end
-
   describe '#paid_in_full?' do
     it 'tells you if the invoice was paid in full' do
       mock_sales_engine = instance_double('SalesEngine')
