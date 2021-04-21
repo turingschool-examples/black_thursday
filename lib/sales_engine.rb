@@ -146,6 +146,34 @@ class SalesEngine
     @invoices.top_merchants_by_invoice_count
   end
 
+  def bottom_merchants_by_invoice_count
+    @invoices.bottom_merchants_by_invoice_count
+  end
+
+  def top_days_by_invoice_count
+    @invoices.top_days_by_invoice_count
+  end
+  
+  def invoice_status
+    @invoices.invoice_status
+  end
+
+  def revenue_by_merchant_id 
+    @merchants.revenue_by_merchant_id
+  end
+
+  def top_revenue_earners(range)
+    @merchants.top_revenue_earners
+  end
+
+  def merchants_with_pending_invoices
+    @merchants.merchants_with_pending_invoices
+  end
+
+  def merchants_ranked_by_revenue
+    @merchants.merchants_ranked_by_revenue
+  end
+  
   def invoice_paid_in_full?(invoice_id)
     @transactions.invoice_paid_in_full?(invoice_id)
   end
@@ -169,7 +197,4 @@ class SalesEngine
   def revenue_by_merchant(merchant_id)
     @merchants.revenue_by_merchant(merchant_id)
   end
-
-
-
 end

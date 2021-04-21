@@ -34,24 +34,6 @@ RSpec.describe SalesEngine do
   end
 
   describe 'methods' do
-    it 'all_items' do
-      sales_engine = @sales_engine
-
-      expect(sales_engine.all_items).to be_a(Array)
-    end
-
-    it 'all_merchants' do
-      sales_engine = @sales_engine
-
-      expect(sales_engine.all_merchants).to be_a(Array)
-    end
-
-    it 'all_invoices' do
-      sales_engine = @sales_engine
-
-      expect(sales_engine.all_invoices).to be_a(Array)
-    end
-
     # it 'item count' do
     #   sales_engine = @sales_engine
 
@@ -152,6 +134,54 @@ RSpec.describe SalesEngine do
       sales_engine = @sales_engine
 
       expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+    end
+
+    it '#bottom merchants by invoice count' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.bottom_merchants_by_invoice_count.length).to eq(4)
+    end
+
+    it '#top days by invoice count' do
+      sales_engine = @sales_engine
+
+      expect(sales_engein.top_days_by_invoice_count.length).to eq 1
+      expect(sales_engine.top_days_by_invoice_count.first).to eq "Wednesday"
+      expect(sales_engine.top_days_by_invoice_count.first.class).to eq String
+    end
+
+    it '#invoice status' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.invoice_status(:pending)).to eq 29.55
+      expect(sales_engine.invoice_status(:shipped)).to eq 56.95
+      expect(sales_engine.invoice_status(:returned)).to eq 13.5
+    end
+
+    it '#revenue by merchant_id' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.revenue_by_merchant_id).to be_a(Hash)
+    end
+
+    it '#top revenue earners' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.top_revenue_earners.first).to be_a(Merchant)
+      expect(sales_engine.top_revenue_earners(10).length).to eq(10)
+    end
+
+    xit '#ranked by revenue' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.merchants_ranked_by_revenue.first).to be_a(Merchant)
+      expect(sales_engine.merchants_ranked_by_revenue.first.id).to eq(12334634)
+    end
+
+    xit '#revenue by merchant' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.revenue_by_merchant(12334194)).to be_a(BigDecimal)
     end
   end
 end
