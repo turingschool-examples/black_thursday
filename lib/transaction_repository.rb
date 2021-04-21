@@ -56,9 +56,9 @@ class TransactionRepository
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @transactions.each_with_object([]) do |transaction, array|
+    @transactions.map do |transaction|
       if transaction.invoice_id == invoice_id
-        array << transaction.result
+        transaction.result
       end
     end.include?(:success)
   end

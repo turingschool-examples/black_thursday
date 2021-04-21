@@ -78,6 +78,10 @@ class SalesEngine
     @items.find_by_id(item_id)
   end
 
+  def find_invoice_by_id(invoice_id)
+    @invoices.find_by_id(invoice_id)
+  end
+
   def find_merchant_by_id(merchant_id)
     @merchants.find_by_id(merchant_id)
   end
@@ -86,12 +90,20 @@ class SalesEngine
     @items.golden_items
   end
 
+  def invoice_items(invoice_id)
+    @invoice_items.invoice_items(invoice_id)
+  end
+
   def invoice_paid_in_full?(invoice_id)
     @transactions.invoice_paid_in_full?(invoice_id)
   end
 
   def invoice_status(status)
     @invoices.percentage_by_status(status)
+  end
+
+  def invoice_total_value(invoice_id)
+    @invoice_items.invoice_total(invoice_id)
   end
 
   def invoice_total_hash
@@ -104,6 +116,10 @@ class SalesEngine
 
   def items_created_in_month(month)
     @items.items_created_in_month(month)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    @transaction_repository.invoice_paid_in_full?(invoice_id)
   end
 
   def merchants_with_high_item_count
