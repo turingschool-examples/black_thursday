@@ -3,7 +3,8 @@ require 'bigdecimal'
 require 'invoice_item'
 
 class InvoiceItemRepo
-  attr_reader :invoice_items
+  attr_reader :invoice_items,
+              :engine
 
   def initialize(path, engine)
     @invoice_items = []
@@ -12,9 +13,10 @@ class InvoiceItemRepo
   end
 
   def populate_information(path)
-
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @invoice_items << InvoiceItem.new(data)
+# does the object in the bars and the first param for invoiceitem.new need
+#to be invoice_item_info from invoice_item's parameter??
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      @invoice_items << InvoiceItem.new(row, self)
     end
   end
 

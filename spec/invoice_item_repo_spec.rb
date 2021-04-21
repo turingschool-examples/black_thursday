@@ -15,6 +15,7 @@ RSpec.describe InvoiceItemRepo do
 
   describe 'instantiation' do
     it '::new' do
+      mock_repo = double('InvoiceItemRepo')
       invoice_item_repo = @sales_engine.invoice_items
 
       expect(invoice_item_repo).to be_an_instance_of(InvoiceItemRepo)
@@ -23,6 +24,7 @@ RSpec.describe InvoiceItemRepo do
 
   describe '#methods' do
     it '#all returns an array of all invoice item instances' do
+      mock_repo = double('InvoiceItemRepo')
       invoice_item_repo = @sales_engine.invoice_items
 
       expect(invoice_item_repo.all).to be_an_instance_of(Array)
@@ -30,6 +32,7 @@ RSpec.describe InvoiceItemRepo do
 
     xit '#find_by_id finds an invoice_item by id' do
       # id = 10
+      mock_repo = double('InvoiceItemRepo')
       invoice_item_repo = @sales_engine.invoice_items
       invoice_item = InvoiceItem.new({:id          => 9000,
                                       :item_id     => 7,
@@ -94,6 +97,7 @@ RSpec.describe InvoiceItemRepo do
     # end
 
     it '#create creates a new invoice item instance' do
+      mock_repo = double('InvoiceItemRepo')
       invoice_item_repo = @sales_engine.invoice_items
       attributes = {
         :item_id => 7,
@@ -140,12 +144,14 @@ RSpec.describe InvoiceItemRepo do
     # end
 
     xit '#delete deletes the specified invoice' do
+
       invoice_items.delete(21831)
       expected = invoice_items.find_by_id(21831)
       expect(invoice_items).to eq nil
     end
 
     xit 'delete on unknown invoice does nothing' do
+
       invoice_items.delete(22000)
     end
   end
