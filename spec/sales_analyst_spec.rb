@@ -144,7 +144,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.top_days_by_invoice_count.first.class).to eq String
     end
 
-    xit '#invoice_status' do
+    xit '#invoice status' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.invoice_status(:pending)).to eq 29.55
@@ -159,6 +159,12 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
     end
 
+    xit '#invoice total' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.invoice_total(1)).to eq(21067.77)
+    end
+
     xit '#total revenue by date' do
       sales_analyst = @sales_engine.analyst
       date = Time.parse("2009-02-07")
@@ -166,47 +172,62 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.total_revenue_by_date(date)).to eq(21067.77)
     end
 
+    xit '#revenue by merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.revenue_by_merchant_id).to be_a(Hash)
+    end
+
     it '#top revenue earners' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.top_revenue_earners(x)).to eq
-      expect(sales_analyst.top_revenue_earners).to eq
+      expect(sales_analyst.top_revenue_earners.first).to be_a(Merchant)
+      expect(sales_analyst.top_revenue_earners(10).length).to eq(10)
     end
 
-    it '#merchants with pending invoices' do
+    xit '#ranked by revenue' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.merchants_ranked_by_revenue.first).to be_a(Merchant)
+      expect(sales_analyst.merchants_ranked_by_revenue.first.id).to eq(12334634)
+    end
+
+    xit '#merchants with pending invoices' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
     end
 
-    it '#merchants with only one item' do
+    xit '#merchants with only one item' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.merchants_with_only_one_item).to eq
+      expect(sales_analyst.merchants_with_only_one_item.length).to eq(243)
     end
 
-    it '#merchants with only one item registered in month' do
+    xit '#merchants with only one item registered in month' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.merchants_with_only_one_item_registered_in_month(Feb)).to eq
+      expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").length).to eq(21)
     end
 
-    it '#revenue by merchant' do
+    xit '#revenue by merchant' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.revenue_by_merchant(merchant_id)).to eq
+      expect(sales_analyst.revenue_by_merchant(12334194)).to be_a(BigDecimal)
     end
 
-    it '#most sold item for merchant' do
+    #blog items
+
+    xit '#most sold item for merchant' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq
+      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to be_an(Array)
     end
 
-    it '#best item for merchant' do
+    xit '#best item for merchant' do
       sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq
+      expect(sales_analyst.best_item_for_merchant(merchant_id)).to be_an(Item)
     end
   end
 end

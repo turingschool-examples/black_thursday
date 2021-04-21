@@ -102,4 +102,10 @@ class InvoiceRepo
       invoice.status != "success"
     end
   end
+
+  def invoices_by_merchant
+    @invoices.group_by do |invoice|
+      invoice.merchant_id
+    end.compact
+  end
 end

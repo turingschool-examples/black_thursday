@@ -182,10 +182,16 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.find_all_by_date(date)).to be_a(Array)
     end
 
-    it '#find_all_pending' do
+    xit '#find_all_pending' do
       invoice_repo = @sales_engine.invoices
 
       expect(invoice_repo.find_all_pending).to be_a(Array)
+    end
+
+    it '#invoices by merchant' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.invoices_by_merchant).to be_a(Hash)
     end
   end
 end

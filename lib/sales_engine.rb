@@ -42,6 +42,10 @@ class SalesEngine
     @invoices.all
   end
 
+  def all_invoice_items
+    @invoice_items.all
+  end
+
   def item_count
     count = @items.all.length
     count.to_f
@@ -103,6 +107,10 @@ class SalesEngine
 
   def find_all_pending#spec
     @invoices.find_all_pending
+  end
+
+  def invoices_by_merchant#spec
+    @invoices.invoices_by_merchant
   end
 
 
