@@ -8,7 +8,7 @@ require 'bigdecimal/util'
 
 RSpec.describe do
 
-  describe 'initialize' do
+  xdescribe 'initialize' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -91,7 +91,7 @@ RSpec.describe do
     end
   end
 
-  describe 'iteration 2 functionality' do
+  xdescribe 'iteration 2 functionality' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -132,7 +132,7 @@ RSpec.describe do
     end
   end
 
-  describe 'iteration 3 functionality' do
+  xdescribe 'iteration 3 functionality' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -160,7 +160,7 @@ RSpec.describe do
     end
   end
 
-  describe 'AM iteration 4 functionality: revenue_by_merchant + top_revenue_earners' do
+  xdescribe 'AM iteration 4 functionality: revenue_by_merchant + top_revenue_earners' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         # :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -196,7 +196,7 @@ RSpec.describe do
     end
   end
 
-  describe 'iteration 4 functionality' do
+  xdescribe 'iteration 4 functionality' do
     sales_engine = SalesEngine.from_csv({
                                         :items     => "./spec/fixtures/items_fixtures.csv",
                                         :merchants => "./spec/fixtures/merchants_fixtures.csv",
@@ -237,22 +237,12 @@ RSpec.describe do
       expect(expected.first.class).to eq Merchant
     end
 
-    it "helper method invoices per month" do
-
-      # expect(sales_analyst.merchants_by_month_hash.class).to eq(Hash)
-      expect(sales_analyst.does_merchant_have_one_item_in_given_month?("January", 12334365)).to eq(false)
-    end
-
     it "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
-      # expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
-      expected = sales_analyst.merchants_by_month_hash["March"]
-      expect(expected.length).to eq 21
-      # expect(expected.first.class).to eq Merchant
-
+      march_expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
       expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
 
+      expect(march_expected.length).to eq 21
       expect(expected.length).to eq 18
-      # expect(expected.first.class).to eq Merchant
     end
   end #keep this for Alex please and thank you
 end

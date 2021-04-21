@@ -270,55 +270,19 @@ class SalesAnalyst
     tallied_items
   end
 
-  def merchants_by_month_hash
-    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    merchants_by_month_hash = Hash.new
-
-      months.each do |month|
-        merchants_by_month_hash[month] = []
-        @merchants.each do |merchant|
-          if does_merchant_have_one_item_in_given_month?(month, merchant.id)
-            merchants_by_month_hash[month].push(merchant.id)
-          end
-        end
-      end
-      merchants_by_month_hash
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_selling_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime('%B') == month
+    end
   end
 
-  def does_merchant_have_one_item_in_given_month?(month, merchant_id)
-    merchants_items = find_all_items_by_merchant_id(merchant_id)
-    items_created_in_month = merchants_items.find_all do |item|
-      item.created_at.strftime('%B') == month
-      # require "pry"; binding.pry
-    end
-    if items_created_in_month.length == 1
-      true
-    else
-      false
+  def merchants_selling_only_one_item
+    @merchants.find_all do |merchant|
+      merchants_items = find_all_items_by_merchant_id(merchant.id)
+      merchants_items.length == 1
     end
   end
 end
-
-    # grouped_items = @items.group_by do |item|
-    #   item.created_at.strftime('%B')
-    # end
-    #
-    # merchant_ids_of_items_in_month = grouped_items.transform_values do |value|
-    #   value.map do |item_info|
-    #     item_info.merchant_id
-    #     end
-    #
-    # end
-    # require "pry"; binding.pry
-
-  # def merchants_with_only_one_item_registered_in_month(month)
-  #   merchant_ids_of_items_in_month = grouped_items.transform_values do |value|
-  #     value.map do |item_info|
-  #         item_info.merchant_id
-  #       end
-  #     end
-  # end
-
 
 #find item per merchant in sales engine? or merchant repo gets merchants with their items. (use self?)
 #memoization(sp?) iterating more than we need to means we should trim the iterations as much as possible. The first time we iterate it will
