@@ -139,7 +139,7 @@ class SalesEngine
   end
 
   def merchant_invoices(merchant_id)
-    @invoices.merchant_invoices(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
   end
 
   def most_sold_item(merchant_id)
