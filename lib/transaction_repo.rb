@@ -1,6 +1,6 @@
 require 'CSV'
 require 'time'
-require_relative 'transaction' 
+require_relative 'transaction'
 require_relative 'findable'
 
 class TransactionRepo
@@ -46,5 +46,11 @@ class TransactionRepo
 
   def delete(id)
     @transactions.delete(find_by_id(id, @transactions))
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    sales_engine.find_all_by_result("success").any? do |transaction|
+      transaction.invoice_id.to_i == invoice_id
+    end
   end
 end

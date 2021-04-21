@@ -58,7 +58,7 @@ class ItemRepo
     end
       merchant_item
   end
-  
+
   def average_item_price_standard_deviation
     average = average_price
     sum = all.sum do |item|
@@ -68,7 +68,7 @@ class ItemRepo
     (sum ** 0.5).round(2)
   end
 
-  def average_item_price_for_merchant(merchant_id) 
+  def average_item_price_for_merchant(merchant_id)
     all_items = find_all_by_merchant_id(merchant_id, @items)
     sum = all.sum do |item|
       item.unit_price
