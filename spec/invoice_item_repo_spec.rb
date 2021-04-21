@@ -2,7 +2,6 @@ require 'CSV'
 require 'invoice_item_repo'
 
 RSpec.describe InvoiceItemRepo do
-
   describe 'instantiation' do
     it '::new' do
       mock_engine = double('InvoiceItemRepo')
@@ -52,20 +51,20 @@ RSpec.describe InvoiceItemRepo do
 
       expect(invoice_item_repo.find_all_by_item_id(7, collection)).to eq([invoice_item])
       expect(invoice_item_repo.find_all_by_item_id(999999999, collection)).to eq([])
-     end
+    end
 
-     it '#find_all_by_invoice_id' do
-       mock_engine = double('InvoiceItemRepo')
-       invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
-       collection = invoice_item_repo.invoice_items
-       invoice_item = invoice_item_repo.create({:id          => 9000,
-                                                :item_id     => 7,
-                                                :invoice_id  => 8,
-                                                :quantity    => 1,
-                                                :unit_price  => BigDecimal(10.99,4),
-                                                :created_at  => Time.now,
-                                                :updated_at  => Time.now
-                                           })
+    it '#find_all_by_invoice_id' do
+      mock_engine = double('InvoiceItemRepo')
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
+      collection = invoice_item_repo.invoice_items
+      invoice_item = invoice_item_repo.create({:id          => 9000,
+                                              :item_id     => 7,
+                                              :invoice_id  => 8,
+                                              :quantity    => 1,
+                                              :unit_price  => BigDecimal(10.99,4),
+                                              :created_at  => Time.now,
+                                              :updated_at  => Time.now
+                                              })
 
        expect(invoice_item_repo.find_all_by_invoice_id(8, collection)).to eq([invoice_item])
        expect(invoice_item_repo.find_all_by_invoice_id(999999999, collection)).to eq([])
@@ -81,7 +80,7 @@ RSpec.describe InvoiceItemRepo do
                     :unit_price => BigDecimal(10.99, 4),
                     :created_at => Time.now,
                     :updated_at => Time.now
-      }
+                  }
 
       expect(invoice_item_repo.create(attributes)).to be_an_instance_of(InvoiceItem)
     end

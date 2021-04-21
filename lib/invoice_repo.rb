@@ -3,9 +3,9 @@ require 'time'
 require 'invoice'
 require_relative 'findable'
 
-include Findable
 class InvoiceRepo
-attr_reader :invoices,
+  include Findable
+  attr_reader :invoices,
             :engine
 
   def initialize(path, engine)

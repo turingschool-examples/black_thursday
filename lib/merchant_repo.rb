@@ -1,5 +1,8 @@
 require 'merchant'
+require_relative 'findable'
+
 class MerchantRepo
+  include Findable
   attr_reader :merchants,
               :engine
 
@@ -18,12 +21,6 @@ class MerchantRepo
   def all
     @merchants
   end
-
-  # def find_all_by_name(name_fragment)
-  #   @merchants.find_all do |merchant|
-  #     merchant.name.downcase.include?(name_fragment.downcase)
-  #   end
-  # end
 
   def create(attributes)
     merchant = Merchant.new(attributes, self)

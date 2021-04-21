@@ -2,9 +2,9 @@ require 'CSV'
 require 'bigdecimal'
 require 'item'
 require_relative 'findable'
-include Findable
 
 class ItemRepo
+  include Findable
   attr_reader :items,
               :engine
 
