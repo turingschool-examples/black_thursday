@@ -17,7 +17,7 @@ RSpec.describe Item do
     end
 
     it 'has attributes' do
-      mock_repo = double("repo")
+      mock_repo = double('ItemRepo'))
       item1 = Item.new({:id          => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
@@ -37,7 +37,7 @@ RSpec.describe Item do
 
   describe '#methods' do
     it '#unit price to dollars' do
-      mock_repo = double("repo")
+      mock_repo = double('ItemRepo'))
       item = Item.new({:id           => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
@@ -50,7 +50,7 @@ RSpec.describe Item do
     end
 
     it '#updates name if new name' do
-      mock_repo = double("repo")
+      mock_repo = double('ItemRepo'))
       item = Item.new({:id          => 1,
                        :name        => 'Pencil',
                        :description => 'You can use it to write things',
@@ -63,7 +63,6 @@ RSpec.describe Item do
      
       expect(item.name).to eq('Knife')
 
-      # mock_repo = double("repo")
       item2 = Item.new({:id          => 1,
                        :name        => 'Pencil',
                        :description => 'You can use it to write things',
@@ -78,7 +77,7 @@ RSpec.describe Item do
     end
 
     it '#updates description if new description' do
-      mock_repo = double("repo")
+      mock_repo = double('ItemRepo'))
       item = Item.new({:id          => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
@@ -91,7 +90,7 @@ RSpec.describe Item do
     
       expect(item.description).to eq('You can use it to stab things')
 
-      mock_repo = double("repo")
+      mock_repo = double('ItemRepo')
       item2 = Item.new({:id          => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
@@ -101,12 +100,14 @@ RSpec.describe Item do
                         :merchant_id => 2}, mock_repo) 
 
       item2.update_description({:id => 1})
+      item2.update_description({:house => 'Lannister'})
 
-      expect(item2.name).to eq('Pencil')
+      expect(item2.description).to eq('You can use it to write things')
+      expect(item2.description).to eq('You can use it to write things')
     end
 
     it '#updates unit price if new unit price' do
-      mock_repo = double("repo")
+      mock_repo = double('ItemRepo')
       item = Item.new({:id          => 1,
                        :name        => 'Pencil',
                        :description => 'You can use it to write things',
@@ -132,8 +133,8 @@ RSpec.describe Item do
       expect(item2.unit_price).to eq(10.99)
     end
 
-    it '#updates updated at time' do
-      mock_repo = double("repo")
+    it '#updates updated at' do
+      mock_repo = double('ItemRepo'))
       item = Item.new({:id          => 1,
                       :name        => 'Pencil',
                       :description => 'You can use it to write things',
@@ -148,7 +149,7 @@ RSpec.describe Item do
     end
 
     it '#updates id' do
-      mock_repo = double("repo")
+      mock_repo = double('ItemRepo')
       item = Item.new({:id          => 1,
                        :name        => 'Pencil',
                        :description => 'You can use it to write things',
