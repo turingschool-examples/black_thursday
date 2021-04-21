@@ -153,25 +153,31 @@ class SalesAnalyst
  end
 
  def total_revenue_by_date(date)
-   
+   sales_engine.find_all_by_date(date).sum do |invoice|
+     invoice_total(invoice.id).round(2)
+   end
  end
 
  def top_revenue_earners(x)
+
  end
 
  def merchants_with_pending_invoices
+   sales_engine.find_all_pending.map do |invoice|
+     sales_engine.find_by_id(invoice) if invoice_paid_in_full?(invoice) == false
+   end
  end
 
  def merchants_with_only_one_item
  end
 
- def merchants_with_only_one_item_registered_in_month(Month)
+ def merchants_with_only_one_item_registered_in_month(month)
  end
 
  def revenue_by_merchant(merchant_id)
  end
 
- def merchants_with_only_one_item
+ def most_sold_item_for_merchant(merchant_id)
  end
 
  def best_item_for_merchant(merchant_id)

@@ -96,4 +96,14 @@ class SalesEngine
   def find_all_by_invoice_id(id)
     @invoice_items.find_all_by_invoice_id(id)
   end
+
+  def find_all_by_date(date)#spec
+    @invoices.find_all_by_date(date)
+  end
+
+  def find_all_pending#spec
+    @invoices.find_all_pending
+  end
+
+
 end
