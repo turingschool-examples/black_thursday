@@ -30,7 +30,7 @@ class Invoice
   end
 
   def items
-    @invoice_repo.invoice_items(id)
+    @invoice_repo.invoice_items(@id)
   end
 
   def paid_in_full?
