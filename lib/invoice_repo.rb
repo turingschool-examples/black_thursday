@@ -53,11 +53,11 @@ class InvoiceRepo
     count.to_f
   end
 
-  def average_invoices_per_merchant 
+  def average_invoices_per_merchant
     (invoice_count / @engine.merchant_count).round(2)
   end
 
-  def average_invoices_per_merchant_standard_deviation 
+  def average_invoices_per_merchant_standard_deviation
     average_invoice = average_invoices_per_merchant
     sum = invoice_count_per_merchant.sum do |invoice, count|
       (average_invoice - count)**2
@@ -106,7 +106,7 @@ class InvoiceRepo
     end.compact
   end
 
-  def top_merchants_by_invoice_count 
+  def top_merchants_by_invoice_count
     two_deviation = (@engine.average_items_per_merchant_standard_deviation * 2) + @engine.average_invoices_per_merchant
     high_merchants = []
     invoice_count_per_merchant.find_all do |id, count|
@@ -145,4 +145,28 @@ class InvoiceRepo
   def invoice_status(status)
     ((find_all_by_status(status).length / invoice_count) * 100).round(2)
   end
+  def invoice_total(id)
+    return 0 if !(invoice_paid_in_full?(id))
+    total = find_all_by_invoice_id(id).sum do |invoice|
+      (invoice.unit_price * invoice.quantity) if invoice_paid_in_full?(id)
+    end
+    total.round(2)
+  end
+
+  def total_revenue_by_date(date)
+    sales_engine.find_all_by_date(date).sum do |invoice|
+      invoice_total(invoice.id).round(2)
+    end
+  end
+
+  def revenue_by_merchant_id
+     merchants = Hash.new(0)
+     invoices_by_merchant.each do |merchant, invoice|
+       merchants[merchant] = invoice.sum do |invoice|
+         invoice_total(invoice.id)
+       end
+     end
+     merchants
+   end
+
 end

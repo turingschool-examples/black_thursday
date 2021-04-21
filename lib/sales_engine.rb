@@ -114,11 +114,11 @@ class SalesEngine
     @merchants.average_items_per_merchant
   end
 
-  def average_items_per_merchant_standard_deviation 
+  def average_items_per_merchant_standard_deviation
     @merchants.average_items_per_merchant_standard_deviation
   end
-  
-  def average_item_price_standard_deviation 
+
+  def average_item_price_standard_deviation
     @items.average_items_per_merchant_standard_deviation
   end
 
@@ -172,5 +172,29 @@ class SalesEngine
 
   def merchants_ranked_by_revenue
     @merchants.merchants_ranked_by_revenue
+  end
+  
+  def invoice_paid_in_full?(invoice_id)
+    @transactions.invoice_paid_in_full?(invoice_id)
+  end
+
+  def invoice_total(id)
+    @invoices.invoice_total(id)
+  end
+
+  def total_revenue_by_date(date)
+    @invoices.total_revenue_by_date(date)
+  end
+
+  def merchants_with_only_one_item
+    @merchants.merchants_with_only_one_item
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    @merchants.merchants_with_only_one_item_registered_in_month(month)
+  end
+
+  def revenue_by_merchant(merchant_id)
+    @merchants.revenue_by_merchant(merchant_id)
   end
 end
