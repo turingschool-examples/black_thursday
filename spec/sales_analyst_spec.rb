@@ -1,10 +1,7 @@
-require "CSV"
-require "RSpec"
-require "./lib/sales_engine"
-require "./lib/item"
-require "./lib/item_repo"
-require "./lib/merchant_repo"
-require "./lib/sales_analyst"
+require 'CSV'
+require 'RSpec'
+require 'sales_engine'
+require 'sales_analyst'
 
 RSpec.describe SalesAnalyst do
   before(:each) do
@@ -18,7 +15,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe 'instantiation' do
-    xit '::new' do
+    it '::new' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
@@ -27,31 +24,31 @@ RSpec.describe SalesAnalyst do
 
   describe 'methods' do
 
-    xit '#average items per merchant' do
+    it '#average items per merchant' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.average_items_per_merchant).to eq(2.88)
     end
 
-    xit '#standard deviation items per merchant' do
+    it '#standard deviation items per merchant' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
 
-    xit '#average_item_price_standard_deviation' do
+    it '#average_item_price_standard_deviation' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.average_item_price_standard_deviation).to eq(2899.93)
     end
 
-    xit '#merchant with highest item count' do
+    it '#merchant with highest item count' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.merchants_with_high_item_count.first.class).to eq(Merchant)
     end
 
-    xit '#average item price for merchant' do
+    it '#average item price for merchant' do
       sales_analyst = @sales_engine.analyst
 
       expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)

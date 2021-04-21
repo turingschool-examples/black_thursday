@@ -21,7 +21,7 @@ class SalesAnalyst
   end
 
   def average_price
-    sales_engine.average_price
+    @sales_engine.average_price
   end
 
   def average_items_per_merchant_standard_deviation
@@ -84,55 +84,54 @@ class SalesAnalyst
   end
  
   def invoice_status(status)
-    @invoices.invoice_status
+    @sales_engine.invoice_status
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    @sales_engine.invoice_paid_in_full?(invoice_id)
+  end
+    
+  def invoice_total(id)
+    @sales_engine.invoice_total(id)
+  end
+
+  def total_revenue_by_date(date)
+    @sales_engine.total_revenue_by_date(date)
+  end
+    
+  def revenue_by_merchant_id
+    @sales_engine.revenue_by_merchant_id
   end
 
 
- def invoice_paid_in_full?(invoice_id)
-   @sales_engine.invoice_paid_in_full?(invoice_id)
- end
-  
- def invoice_total(id)
-   @sales_engine.invoice_total(id)
- end
+  def top_revenue_earners
+    @sales_engine.top_revenue_earners
+  end
 
- def total_revenue_by_date(date)
-   @sales_engine.total_revenue_by_date(date)
- end
-  
- def revenue_by_merchant_id
-   @sales_engine.revenue_by_merchant_id
- end
-
-
- def top_revenue_earners
-   @sales_engine.top_revenue_earners
- end
-
- def merchants_ranked_by_revenue
+  def merchants_ranked_by_revenue
     @sales_engine.merchants_ranked_by_revenue
- end
+  end
 
- def merchants_with_pending_invoices
+  def merchants_with_pending_invoices
     @sales_engine.merchants_ranked_by_revenue
- end
+  end
 
- def merchants_with_only_one_item
+  def merchants_with_only_one_item
     @sales_engine.merchants_with_only_one_item
- end
+  end
 
- def merchants_with_only_one_item_registered_in_month(month)
-   @sales_engine.merchants_with_only_one_item_registered_in_month(month)
- end
+  def merchants_with_only_one_item_registered_in_month(month)
+    @sales_engine.merchants_with_only_one_item_registered_in_month(month)
+  end
 
- def revenue_by_merchant(merchant_id)
-   @sales_engine.revenue_by_merchant(merchant_id)
- end
-
+  def revenue_by_merchant(merchant_id)
+    @sales_engine.revenue_by_merchant(merchant_id)
+  end
+end
 #  def most_sold_item_for_merchant(merchant_id)
 #  end
 
 #  def best_item_for_merchant(merchant_id)
 #  end
 
-end
+
