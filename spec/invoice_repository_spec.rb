@@ -197,7 +197,7 @@ RSpec.describe InvoiceRepository do
                                   customers: './data/customers.csv',
                                   invoice_items: './data/invoice_items.csv',
                                   transactions: './data/transactions.csv'
-                                )
+                               )
 
       ir = InvoiceRepository.new('./data/invoices.csv', se)
 
