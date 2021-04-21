@@ -159,8 +159,9 @@ RSpec.describe Item do
                        :merchant_id => 2}, mock_repo)  
   
       new_id = 10000
+      item.update_id(10000)
   
-      expect(item.update_id(10000)).to eq 10001
+      expect(item.id).to eq 10001
     end
   end
 end

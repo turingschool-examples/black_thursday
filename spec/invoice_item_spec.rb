@@ -90,7 +90,7 @@ RSpec.describe InvoiceItem do
       expect(invoice_item.unit_price).to eq(15.99)
     end
 
-    it '#updates updated at' do
+    it '#update updated at' do
       mock_repo = double("InvoiceRepo")
       invoice_item = InvoiceItem.new({:id          => 6,
                                       :item_id     => 7,
@@ -105,7 +105,7 @@ RSpec.describe InvoiceItem do
       expect(invoice_item.updated_at).to be_an_instance_of(Time)
     end
 
-    it '#updates id' do
+    it '#update id' do
       mock_repo = double('ItemRepo')
       invoice_item = InvoiceItem.new({:id          => 6,
                                       :item_id     => 7,

@@ -127,7 +127,7 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.find_all_by_status(:processing, collection)).to eq([])
     end
 
-    xit'#update' do
+    it'#update' do
       mock_engine = double('InvoiceRepo')
       invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
       invoice = invoice_repo.create({:id => 0,
@@ -160,14 +160,14 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.all.length).to eq(4985)
     end
 
-    it '#find_all_by_day_created' do
+    it '#find all by day created' do
       mock_engine = double('InvoiceRepo')
       invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
 
       expect(invoice_repo.find_all_by_day_created("Saturday")).to be_a(Array)
     end
 
-    xit '#invoice_count_per_merchant' do
+    xit '#invoice count per merchant' do
       mock_engine = double('InvoiceRepo')
       invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
       collection = invoice_repo.invoices
