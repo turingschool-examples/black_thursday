@@ -56,6 +56,10 @@ class MerchantRepository
     average(invoices_per_merchant).round(2)
   end
 
+  def best_item_for_merchant(merchant_id)
+    find_by_id(merchant_id).best_item
+  end
+
   def bottom_merchants_by_invoice_count
     hash = invoices_per_merchant
     bottom_standard = average(hash) - (standard_deviation(hash) * 2)
@@ -66,9 +70,17 @@ class MerchantRepository
     end
   end
 
-  def best_item_for_merchant(merchant_id)
-    find_by_id(merchant_id).best_item
+  def create(attributes)
+    attributes[:id] = RepoBrain.generate_new_id(@merchants)
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    @merchants << Merchant.new(attributes, self)
   end
+
+  def delete(id)
+    @merchants.delete(find_by_id(id))
+  end
+
 
   def find_all_by_name(name)
     RepoBrain.find_all_by_partial_string(name, 'name', @merchants)
@@ -86,16 +98,6 @@ class MerchantRepository
     @engine.find_item_by_id(item_id)
   end
 
-  def create(attributes)
-    attributes[:id] = RepoBrain.generate_new_id(@merchants)
-    attributes[:created_at] = Time.now.to_s
-    attributes[:updated_at] = Time.now.to_s
-    @merchants << Merchant.new(attributes, self)
-  end
-
-  def delete(id)
-    @merchants.delete(find_by_id(id))
-  end
 
   def invoices_per_merchant
     @merchants.each_with_object({}) do |merchant, hash|
@@ -119,10 +121,6 @@ class MerchantRepository
 
   def merchant_items(merchant_id)
     @engine.merchant_items(merchant_id)
-  end
-
-  def merchant_invoices(merchant_id)
-    @engine.merchant_invoices(merchant_id)
   end
 
   def merchants_created_in_month(month)
