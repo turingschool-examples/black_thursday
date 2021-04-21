@@ -40,10 +40,14 @@ class InvoiceItem
   end
 
   def update_unit_price(attributes)
-    @unit_price = attirbutes[:unit_price] if attirbutes[:unit_price]
+    @unit_price = attributes[:unit_price] if attributes[:unit_price]
   end
 
   def update_updated_at(attributes)
     @updated_at = attributes[:updated_at] if attributes[:updated_at]
+  end
+
+  def update_id(new_id)
+    @id = new_id + 1 
   end
 end

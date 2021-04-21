@@ -5,8 +5,8 @@ RSpec.describe InvoiceItemRepo do
 
   describe 'instantiation' do
     it '::new' do
-      mock_repo = double('InvoiceItemRepo')
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+      mock_engine = double('InvoiceItemRepo')
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
       
       expect(invoice_item_repo).to be_an_instance_of(InvoiceItemRepo)
     end
@@ -14,16 +14,15 @@ RSpec.describe InvoiceItemRepo do
 
   describe '#methods' do
     it '#all' do
-      mock_repo = double('InvoiceItemRepo')
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
-
+      mock_engine = double('InvoiceItemRepo')
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
 
       expect(invoice_item_repo.all).to be_an_instance_of(Array)
     end
 
     it '#find_by_id' do
       mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
       invoice_item = invoice_item_repo.create({:item_id => 7,
                                                :invoice_id => 8,
                                                :quantity => 1,
@@ -36,7 +35,7 @@ RSpec.describe InvoiceItemRepo do
       
     xit '#find_by_id' do
       mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
       invoice_item = invoice_item_repo.create({:id          => 9000,
                                                :item_id     => 7,
                                                :invoice_id  => 8,
@@ -49,7 +48,7 @@ RSpec.describe InvoiceItemRepo do
 
     xit '#find_by_id' do
       mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
       invoice_item = invoice_item_repo.create({:id          => 9000,
                                                :item_id     => 7,
                                                :invoice_id  => 8,
@@ -65,7 +64,7 @@ RSpec.describe InvoiceItemRepo do
     
     xit '#find_all_by_item_id' do
         mock_engine = double("SalesEngine")
-        invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+        invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
     
        expect(invoice_item_repo.length).to eq 11
        expect(invoice_item_repo.first.class).to eq InvoiceItem
@@ -73,7 +72,7 @@ RSpec.describe InvoiceItemRepo do
     
     xit '#find_all_by_item_id returns an empty array if there are no matches' do
       mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
 
       expect(invoice_item_repo.length).to eq 0
       expect(invoice_item_repo.empty?).to eq true
@@ -81,7 +80,7 @@ RSpec.describe InvoiceItemRepo do
     
     xit '#find_all_by_invoice_id finds all items matching a given item_id' do
       mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
 
       expected = invoice_items.find_all_by_invoice_id(invoice_id)
     
@@ -91,7 +90,7 @@ RSpec.describe InvoiceItemRepo do
     
     xit '#find_all_by_invoice_id returns an empty array if there are no matches' do
       mock_engine = double("SalesEngine")
-      invoice_item_repo = InvoiceItemRepo.new('./fixtures/invoice_items.csv', mock_engine)
+      invoice_item_repo = InvoiceItemRepo.new('./fixtures/mock_invoice_items.csv', mock_engine)
     
       expect(invoice_item_repo.length).to eq 0
       expect(invoice_item_repo.empty?).to eq true
