@@ -69,7 +69,7 @@ RSpec.describe MerchantRepo do
     xit'#updates attributes' do
       merchant_repo = @sales_engine.merchants
       merchant = merchant_repo.create({:id => 5,
-                                     :name => "Turing School"})
+                                       :name => "Turing School"})
 
       updated_attributes = {:name => "School of Life"}
 

@@ -9,6 +9,7 @@ require './lib/invoice_item'
 
 RSpec.describe TransactionRepo do
   before(:each) do
+    mock_engine = double('SalesAnalyst')
     @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
                                           :merchants => './data/merchants.csv',
                                           :invoices => './data/invoices.csv',
@@ -19,13 +20,17 @@ RSpec.describe TransactionRepo do
   end
 
   describe 'instantiation' do
-    xit'::new' do
+    it '::new' do
+      mock_engine = double('SalesAnalyst')
+
       transaction_repo = @sales_engine.transactions
 
       expect(transaction_repo).to be_an_instance_of(TransactionRepo)
     end
 
-    xit'has attributes' do
+    it 'has attributes' do
+      mock_engine = double('SalesAnalyst')
+
       transaction_repo = @sales_engine.transactions
 
       expect(transaction_repo.transactions).to be_an_instance_of(Array)
@@ -33,14 +38,17 @@ RSpec.describe TransactionRepo do
   end
 
   describe '#methods' do
+    it '#all' do
+      mock_engine = double('SalesAnalyst')
 
-    xit'#all' do
       transaction_repo = @sales_engine.transactions
 
       expect(transaction_repo.all).to be_an_instance_of(Array)
     end
 
-    xit'#find by id' do
+    it '#find by id' do
+      mock_engine = double('SalesAnalyst')
+
       transaction_repo = @sales_engine.transactions
       collection = transaction_repo.transactions
       transaction1 = transaction_repo.create({:id => 6,
@@ -68,7 +76,6 @@ RSpec.describe TransactionRepo do
                                       :created_at => Time.now,
                                       :updated_at => Time.now
                                     })
-
 
       expect(transaction_repo.find_all_by_invoice_id(transaction1.invoice_id, collection)).to eq([transaction1])
       expect(transaction_repo.find_all_by_invoice_id(999999999, collection)).to eq([])
@@ -108,6 +115,10 @@ RSpec.describe TransactionRepo do
 
     xit'#creates a new transaction instance' do
       transaction_repo = @sales_engine.transactions
+
+    it '#creates a new transaction instance' do
+      mock_engine = double('SalesAnalyst')
+
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
@@ -122,8 +133,9 @@ RSpec.describe TransactionRepo do
       expect(transaction_repo.create(transaction1)).to be_an_instance_of(Transaction)
     end
 
-    xit'#updates attributes' do
-      transaction_repo = @sales_engine.transactions
+    xit '#updates attributes' do
+      mock_engine = double('SalesAnalyst')
+
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
@@ -149,8 +161,9 @@ RSpec.describe TransactionRepo do
       expect(transaction1.updated_at).to be_an_instance_of(Time)
     end
 
-    xit'#deletes by id' do
-      transaction_repo = @sales_engine.transactions
+    xit '#deletes by id' do
+      mock_engine = double('SalesAnalyst')
+
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",

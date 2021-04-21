@@ -6,7 +6,8 @@ require_relative 'findable'
 include Findable
 
 class CustomerRepo
-  attr_reader :customers
+  attr_reader :customers,
+              :engine
 
   def initialize(path, engine)
     @customers = []
@@ -16,7 +17,7 @@ class CustomerRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |customer_info|
-      @customers << Customer.new(customer_info)
+      @customers << Customer.new(customer_info, self)
     end
   end
 
@@ -29,7 +30,7 @@ class CustomerRepo
   end
 
   def create(attributes)
-    customer = Customer.new(attributes, @engine)
+    customer = Customer.new(attributes, self)
     max = @customers.max_by do |customer|
       customer.id
     end

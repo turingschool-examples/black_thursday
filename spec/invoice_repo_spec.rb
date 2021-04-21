@@ -55,8 +55,8 @@ RSpec.describe InvoiceRepo do
                                      :created_at => Time.now,
                                      :updated_at => Time.now})
 
-      expect(invoice_repo.find_by_id(invoice.id, collection)).to eq(invoice)
-      expect(invoice_repo.find_by_id(999999999, collection)).to eq(nil)
+      expect(invoice_repo.find_by_id(invoice.id)).to eq(invoice)
+      expect(invoice_repo.find_by_id(999999999)).to eq(nil)
     end
 
     xit'#find all by customer id' do
@@ -141,6 +141,7 @@ RSpec.describe InvoiceRepo do
       invoice_repo.update(invoice.id, {:status => 'shipped'})
 
       expect(invoice.status).to eq('shipped')
+      expect(invoice.updated_at).to be_an_instance_of(Time)
     end
 
     xit'#delete' do
@@ -157,6 +158,24 @@ RSpec.describe InvoiceRepo do
       invoice_repo.delete(invoice.id)
 
       expect(invoice_repo.all.length).to eq(4985)
+    end
+
+    it '#find_all_by_day_created' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.find_all_by_day_created("Saturday")).to be_a(Array)
+    end
+
+    it '#invoice_count_per_merchant' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.invoice_count_per_merchant).to be_a(Hash)
+    end
+
+    it '#invoice count per day' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.invoice_count_per_day.class).to be_a(Hash)
     end
   end
 end
