@@ -42,24 +42,24 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     items_by_merchant_array = @engine.items.find_all_by_merchant_id(id)
-    test = items_by_merchant_array.sum do |item|
+    average_item_price = items_by_merchant_array.sum do |item|
       item.unit_price
     end / items_by_merchant_array.length
-    test.round(2)
+    average_item_price.round(2)
   end
 
   def average_average_price_per_merchant
-    test = @engine.csv_array(:merchants).sum do |merchant|
+    average_item_price = @engine.csv_array(:merchants).sum do |merchant|
       average_item_price_for_merchant(merchant.id)
     end / @engine.number_of_class(:merchants)
-    test.round(2)
+    average_item_price.round(2)
   end
 
   def average_item_price
-    test = @engine.csv_array(:items).sum do |item|
+    average_item_price = @engine.csv_array(:items).sum do |item|
       item.unit_price
     end / @engine.number_of_class(:items)
-    test.round(2)
+    average_item_price.round(2)
   end
 
   def item_price_standard_deviation
@@ -113,21 +113,14 @@ class SalesAnalyst
     end
   end
 
-  def find_extreme_merchants(top_or_bottom)
+  def find_extreme_merchants(operator, comparison)
     merchant_invoice_array = invoices_per_merchant
-    if top_or_bottom == 'top'
-      deviation = (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2).round(2)
-      extreme_merchant_count_pair = merchant_invoice_array.find_all do |invoice|
-        invoice[1] > deviation
-      end
-    else
-      deviation = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
-      extreme_merchant_count_pair = merchant_invoice_array.find_all do |invoice|
-        invoice[1] < deviation
-      end
+    deviation = (average_invoices_per_merchant.send(operator, average_invoices_per_merchant_standard_deviation * 2).round(2))
+    extreme_merchant_count_pair = merchant_invoice_array.find_all do |(_merchant, invoice)|
+      invoice.send(comparison, deviation)
     end
-    extreme_merchant_ids = extreme_merchant_count_pair.map do |merchant|
-      merchant[0]
+    extreme_merchant_ids = extreme_merchant_count_pair.map do |(merchant, _invoice)|
+      merchant
     end
 
     @engine.csv_array(:merchants).find_all do |merchant|
@@ -136,11 +129,11 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    find_extreme_merchants('top')
+    find_extreme_merchants(:+, :>)
   end
 
   def bottom_merchants_by_invoice_count
-    find_extreme_merchants('bottom')
+    find_extreme_merchants(:-, :<)
   end
 
   def top_days_by_invoice_count
@@ -161,7 +154,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status_arg)
-    invoice_count = @engine.invoices.all.count do |invoice|
+    invoice_count = @engine.csv_array(:invoices).count do |invoice|
       invoice.status == status_arg
     end
 
@@ -249,7 +242,7 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    items_grouped_by_merchant = @engine.items.all.group_by do |item|
+    items_grouped_by_merchant = @engine.csv_array(:items).group_by do |item|
       item.merchant_id
     end
 
@@ -294,17 +287,10 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     invoice_array = @engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoice_item_array = invoice_array.flat_map do |invoice|
-      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
-    end
 
-    items_by_quantity_sold = invoice_item_array.each_with_object({}) do |invoice_item, hash|
-      if hash[invoice_item.item_id].nil?
-        hash[invoice_item.item_id] = invoice_item.quantity
-      else
-        hash[invoice_item.item_id] + invoice_item.quantity
-      end
-    end.to_a
+    invoice_item_array = find_all_invoice_item_by_invoice_id(invoice_array)
+
+    items_by_quantity_sold = items_sold_method(invoice_item_array)
 
     hightest_quantity_sold = items_by_quantity_sold.max_by { |(_item_id, quantity)| quantity }[1]
 
@@ -317,6 +303,22 @@ class SalesAnalyst
     end
   end
 
+  def items_sold_method(item_linked_array, revenue = false)
+    item_linked_array.each_with_object({}) do |invoice_item, hash|
+      if hash[invoice_item.item_id].nil?
+        hash[invoice_item.item_id] = (revenue ? (invoice_item.quantity * invoice_item.unit_price_to_dollars) : invoice_item.quantity)
+      else
+        hash[invoice_item.item_id] + (revenue ? (invoice_item.quantity * invoice_item.unit_price_to_dollars) : invoice_item.quantity)
+      end
+    end.to_a
+  end
+
+  def find_all_invoice_item_by_invoice_id(invoice_array)
+    invoice_array.flat_map do |invoice|
+      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+  end
+
   def best_item_for_merchant(merchant_id)
     invoice_array = @engine.invoices.find_all_by_merchant_id(merchant_id)
 
@@ -324,19 +326,11 @@ class SalesAnalyst
       invoice_paid_in_full?(invoice.id)
     end
 
-    invoice_item_array = paid_invoice_array.flat_map do |invoice|
-      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
-    end
+    invoice_item_array = find_all_invoice_item_by_invoice_id(paid_invoice_array)
 
-    items_by_quantity_sold = invoice_item_array.each_with_object({}) do |invoice_item, hash|
-      if hash[invoice_item.item_id].nil?
-        hash[invoice_item.item_id] = invoice_item.quantity * invoice_item.unit_price_to_dollars
-      else
-        hash[invoice_item.item_id] + invoice_item.quantity * invoice_item.unit_price_to_dollars
-      end
-    end.to_a
+    items_by_revenue_generated = items_sold_method(invoice_item_array, true)
 
-    hight_grossing_item_array = items_by_quantity_sold.max_by do |(_item_id, revenue)|
+    hight_grossing_item_array = items_by_revenue_generated.max_by do |(_item_id, revenue)|
       revenue
     end
 

@@ -103,8 +103,8 @@ RSpec.describe 'SalesAnalyst' do
   describe '#find_extreme_merchants' do
     it 'returns merchants more than two standard deviations above or below the mean' do
 
-      expect(@sa.find_extreme_merchants('top')[0].name).to eq('jejum')
-      expect(@sa.find_extreme_merchants('bottom')[0].name).to eq('WellnessNeelsen')
+      expect(@sa.find_extreme_merchants(:+, :>)[0].name).to eq('jejum')
+      expect(@sa.find_extreme_merchants(:-, :<)[0].name).to eq('WellnessNeelsen')
     end
   end
 
@@ -234,11 +234,13 @@ RSpec.describe 'SalesAnalyst' do
       )
 
       sa = se.analyst
+      top_revenue_array = sa.top_revenue_earners(5)
+      top_revenue_array_default = sa.top_revenue_earners
 
-      expect(sa.top_revenue_earners(5).length).to eq(5)
-      expect(sa.top_revenue_earners(5)[0]).to be_an_instance_of(Merchant)
-      expect(sa.top_revenue_earners.length).to eq(20)
-      expect(sa.top_revenue_earners[0]).to be_an_instance_of(Merchant)
+      expect(top_revenue_array.length).to eq(5)
+      expect(top_revenue_array[0]).to be_an_instance_of(Merchant)
+      expect(top_revenue_array_default.length).to eq(20)
+      expect(top_revenue_array_default[0]).to be_an_instance_of(Merchant)
     end
   end
 
@@ -350,6 +352,54 @@ RSpec.describe 'SalesAnalyst' do
       sa = se.analyst
 
       expect(sa.best_item_for_merchant(12334194).name).to eq('Thukdokhin wax cord')
+    end
+  end
+
+  describe '#items_sold_method' do
+    it 'returns the number of an item sold linked to item_id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sa = se.analyst
+      invoice_item_1 = InvoiceItem.new(cent_price: '42306', created_at: Time.now, id: '5397', invoice_id: '1214', item_id: '263523316', quantity: '6', repository: nil, updated_at: Time.now)
+
+      expect(sa.items_sold_method([invoice_item_1])).to eq([[263523316, 6]])
+    end
+    it 'returns the revenue an item generated if revenue is passed true' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sa = se.analyst
+      invoice_item_1 = InvoiceItem.new(cent_price: '42306', created_at: Time.now, id: '5397', invoice_id: '1214', item_id: '263523316', quantity: '6', repository: nil, updated_at: Time.now)
+
+      expect(sa.items_sold_method([invoice_item_1], true)).to eq([[263523316, 2538.36]])
+    end
+  end
+
+  describe '#find_all_invoice_item_by_invoice_id' do
+    it 'returns an array of all invoice_items linked to the passed invoice_id' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sa = se.analyst
+      invoice_1 = Invoice.new({created_at: Time.now, customer_id: '35', id: '180', merchant_id: '12334194', repository: nil, status: 'pending', updated_at: Time.now})
+
+      expect(sa.find_all_invoice_item_by_invoice_id([invoice_1]).length).to eq(4)
     end
   end
 end
