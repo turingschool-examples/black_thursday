@@ -242,6 +242,19 @@ RSpec.describe InvoiceRepo do
 
     it '#average invoices per merchant standard deviation' do
       sales_engine = SalesEngine.from_csv({:items => './fixtures/mock_items.csv',
+                                           :merchants => './fixtures/mock_merchants.csv',
+                                           :invoices => './fixtures/mock_invoices.csv',
+                                           :invoice_items => './fixtures/mock_invoice_items.csv',
+                                           :transactions  => './fixtures/mock_transactions.csv',
+                                           :customers => './fixtures/mock_customers.csv'})
+
+      invoice_repo = sales_engine.invoices      
+
+      expect(invoice_repo.average_invoices_per_merchant_standard_deviation).to eq(0.12)
+    end    
+
+    it '#top_merchants_by_invoice_count' do
+      sales_engine = SalesEngine.from_csv({:items => './fixtures/mock_items.csv',
                                           :merchants => './fixtures/mock_merchants.csv',
                                           :invoices => './fixtures/mock_invoices.csv',
                                           :invoice_items => './fixtures/mock_invoice_items.csv',
@@ -249,21 +262,21 @@ RSpec.describe InvoiceRepo do
                                           :customers => './fixtures/mock_customers.csv'})
 
       invoice_repo = sales_engine.invoices      
-
-      expect(invoice_repo.average_invoices_per_merchant_standard_deviation).to eq(3.29)
-    end    
-
-    it '#top_merchants_by_invoice_count' do
-      sales_engine = SalesEngine.from_csv({:items => './fixtures/mock_items.csv',
-                                         :merchants => './fixtures/mock_merchants.csv',
-                                         :invoices => './fixtures/mock_invoices.csv',
-                                         :invoice_items => './fixtures/mock_invoice_items.csv',
-                                         :transactions  => './fixtures/mock_transactions.csv',
-                                         :customers => './fixtures/mock_customers.csv'})
-
-      invoice_repo = sales_engine.invoices      
       
       expect(invoice_repo.top_merchants_by_invoice_count.length).to eq(12)  
+    end
+
+    it '#bottom_merchants_by_invoice_count' do
+      sales_engine = SalesEngine.from_csv({:items => './fixtures/mock_items.csv',
+                                          :merchants => './fixtures/mock_merchants.csv',
+                                          :invoices => './fixtures/mock_invoices.csv',
+                                          :invoice_items => './fixtures/mock_invoice_items.csv',
+                                          :transactions  => './fixtures/mock_transactions.csv',
+                                          :customers => './fixtures/mock_customers.csv'})
+
+      invoice_repo = sales_engine.invoices      
+   
+      expect(invoice_repo.bottom_merchants_by_invoice_count.length).to eq(4)
     end
   end
 end

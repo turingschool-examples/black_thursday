@@ -200,7 +200,7 @@ RSpec.describe ItemRepo do
       mock_engine = double('ItemRepo')
       item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
 
-      expect(item_repo.average_item_price_standard_deviation).to eq(2899.93)
+      expect(item_repo.average_item_price_standard_deviation).to eq(220.99)
     end
   end
 end

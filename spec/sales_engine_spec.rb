@@ -153,4 +153,5 @@ RSpec.describe SalesEngine do
 
       expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
     end
+  end
 end

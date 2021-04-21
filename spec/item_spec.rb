@@ -17,7 +17,7 @@ RSpec.describe Item do
     end
 
     it 'has attributes' do
-      mock_repo = double('ItemRepo'))
+      mock_repo = double('ItemRepo')
       item1 = Item.new({:id          => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
@@ -37,7 +37,7 @@ RSpec.describe Item do
 
   describe '#methods' do
     it '#unit price to dollars' do
-      mock_repo = double('ItemRepo'))
+      mock_repo = double('ItemRepo')
       item = Item.new({:id           => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
@@ -50,7 +50,7 @@ RSpec.describe Item do
     end
 
     it '#updates name if new name' do
-      mock_repo = double('ItemRepo'))
+      mock_repo = double('ItemRepo')
       item = Item.new({:id          => 1,
                        :name        => 'Pencil',
                        :description => 'You can use it to write things',
@@ -77,7 +77,7 @@ RSpec.describe Item do
     end
 
     it '#updates description if new description' do
-      mock_repo = double('ItemRepo'))
+      mock_repo = double('ItemRepo')
       item = Item.new({:id          => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
@@ -134,7 +134,7 @@ RSpec.describe Item do
     end
 
     it '#updates updated at' do
-      mock_repo = double('ItemRepo'))
+      mock_repo = double('ItemRepo')
       item = Item.new({:id          => 1,
                       :name        => 'Pencil',
                       :description => 'You can use it to write things',

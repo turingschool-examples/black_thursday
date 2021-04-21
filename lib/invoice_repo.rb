@@ -6,7 +6,7 @@ require_relative 'findable'
 class InvoiceRepo
   include Findable
   attr_reader :invoices,
-            :engine
+              :engine
 
   def initialize(path, engine)
     @invoices = []
@@ -107,14 +107,20 @@ class InvoiceRepo
   end
 
   def top_merchants_by_invoice_count 
-    two_deviation = (@engine.average_items_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+    two_deviation = (@engine.average_items_per_merchant_standard_deviation * 2) + @engine.average_invoices_per_merchant
     high_merchants = []
     invoice_count_per_merchant.find_all do |id, count|
-      high_merchants << @engine.merchants.find_by_id(id) if count > two_deviation
+      high_merchants << @engine.merchants.all.find_by_id(id, @engine.merchants.all) if count > two_deviation
     end
     high_merchants
   end
- 
 
-
+  def bottom_merchants_by_invoice_count
+    two_deviation = @engine.average_invoices_per_merchant - (@engine.average_items_per_merchant_standard_deviation * 2)
+    low_merchants = []
+    invoice_count_per_merchant.find_all do |id, count|
+      low_merchants << @engine.merchants.all.find_by_id(id, @engine.merchants.all) if count < two_deviation
+    end
+    low_merchants
+  end
 end
