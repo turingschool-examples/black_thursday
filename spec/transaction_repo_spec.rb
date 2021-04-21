@@ -8,30 +8,17 @@ require './lib/invoice_item_repo'
 require './lib/invoice_item'
 
 RSpec.describe TransactionRepo do
-  before(:each) do
-    mock_engine = double('SalesAnalyst')
-    @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
-                                          :merchants => './data/merchants.csv',
-                                          :invoices => './data/invoices.csv',
-                                          :invoice_items => './data/invoice_items.csv',
-                                          :transactions  => './data/transactions.csv',
-                                          :customers => './data/customers.csv'
-                                        })
-  end
-
   describe 'instantiation' do
     it '::new' do
-      mock_engine = double('SalesAnalyst')
-
-      transaction_repo = @sales_engine.transactions
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
 
       expect(transaction_repo).to be_an_instance_of(TransactionRepo)
     end
 
     it 'has attributes' do
-      mock_engine = double('SalesAnalyst')
-
-      transaction_repo = @sales_engine.transactions
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
 
       expect(transaction_repo.transactions).to be_an_instance_of(Array)
     end
@@ -39,17 +26,15 @@ RSpec.describe TransactionRepo do
 
   describe '#methods' do
     it '#all' do
-      mock_engine = double('SalesAnalyst')
-
-      transaction_repo = @sales_engine.transactions
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
 
       expect(transaction_repo.all).to be_an_instance_of(Array)
     end
 
     it '#find by id' do
-      mock_engine = double('SalesAnalyst')
-
-      transaction_repo = @sales_engine.transactions
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
       transaction1 = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
@@ -66,7 +51,8 @@ RSpec.describe TransactionRepo do
     end
 
     xit'#find all by invoice id' do
-      transaction_repo = @sales_engine.transactions
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
       transaction1 = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
@@ -82,7 +68,8 @@ RSpec.describe TransactionRepo do
     end
 
     xit'#find all by credit card number' do
-      transaction_repo = @sales_engine.transactions
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
       transaction1 = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
@@ -99,7 +86,8 @@ RSpec.describe TransactionRepo do
 
 
     it'#find all by result' do
-      transaction_repo = @sales_engine.transactions
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
       transaction1 = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
@@ -116,30 +104,27 @@ RSpec.describe TransactionRepo do
 
 
     it'#creates a new transaction instance' do
-
-      transaction_repo = @sales_engine.transactions
-
-    it '#creates a new transaction instance' do
-      mock_engine = double('SalesAnalyst')
-
-      transaction1 = Transaction.create({:id => 6,
-                                      :invoice_id => 8,
-                                      :credit_card_number => "4242424242424242",
-                                      :credit_card_expiration_date => "0220",
-                                      :result => "success",
-                                      :created_at => Time.now,
-                                      :updated_at => Time.now
-                                    })
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
+      attributes = {:id => 6,
+                    :invoice_id => 8,
+                    :credit_card_number => "4242424242424242",
+                    :credit_card_expiration_date => "0220",
+                    :result => "success",
+                    :created_at => Time.now,
+                    :updated_at => Time.now
+                  }
 
       transaction_repo.all
 
-      expect(transaction_repo.create(transaction1)).to be_an_instance_of(Transaction)
+      expect(transaction_repo.create(attributes)).to be_an_instance_of(Transaction)
     end
 
 
     it '#updates attributes' do
-      mock_engine = double('SalesAnalyst')
-      transaction1 = Transaction.create({:id => 6,
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
+      transaction1 =  transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
@@ -165,15 +150,16 @@ RSpec.describe TransactionRepo do
     end
 
    xit '#deletes by id' do
-      mock_engine = double('SalesAnalyst')
-      transaction1 = Transaction.create({:id => 6,
-                                      :invoice_id => 8,
-                                      :credit_card_number => "4242424242424242",
-                                      :credit_card_expiration_date => "0220",
-                                      :result => "success",
-                                      :created_at => Time.now,
-                                      :updated_at => Time.now
-                                    })
+     mock_engine = double('TransactionRepo')
+     transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
+     transaction1 = transaction_repo.create({:id => 6,
+                                       :invoice_id => 8,
+                                       :credit_card_number => "4242424242424242",
+                                       :credit_card_expiration_date => "0220",
+                                       :result => "success",
+                                       :created_at => Time.now,
+                                       :updated_at => Time.now
+                                      })
       transaction_repo.add_transaction(transaction1)
 
       expect(transaction_repo.find_by_id(6)).to eq(transaction1)

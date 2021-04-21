@@ -39,7 +39,7 @@ class TransactionRepo
   end
 
   def update(id, attributes)
-    new_transaction = find_by_id(id)
+    new_transaction = find_by_id(id, @transactions)
     return if !new_transaction
     new_transaction.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
     new_transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
