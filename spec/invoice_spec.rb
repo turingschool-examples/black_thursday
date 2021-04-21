@@ -39,9 +39,6 @@ RSpec.describe Invoice do
     it 'has a status' do
       expect(i.status).to eq(:pending)
     end
-    # it 'has a repository' do
-    #   expect(i.repository).to eq('repository')
-    # end
   end
 
   describe 'instances of time' do
@@ -75,6 +72,23 @@ RSpec.describe Invoice do
         repository:   'repository'
       )
       expect(i.updated_at).to eq('12:58')
+    end
+  end
+
+  describe 'updates atrributes' do
+    it 'has updated status' do
+      i = Invoice.new(
+        id:           6,
+        customer_id:  7,
+        merchant_id:  8,
+        status:       'pending',
+        created_at:   Time.now.to_s,
+        updated_at:   Time.now.to_s,
+        repository:   'repository'
+      )
+      i.update({status: 'success'})
+
+      expect(i.status).not_to eq('pending')
     end
   end
 end

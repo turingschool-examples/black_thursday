@@ -212,7 +212,7 @@ RSpec.describe 'SalesAnalyst' do
   #     expect(sa.total_revenue_by_date(date)).to eq(21_067.77)
   #   end
   # end
-  #
+
   # describe '#top_revenue_earners' do
   #   it 'returns the top revenue earner' do
   #     se = SalesEngine.from_csv(

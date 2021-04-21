@@ -20,6 +20,7 @@ RSpec.describe InvoiceRepository do
       expect(ir.all[0].class).to eq(Invoice)
     end
   end
+  
   describe '#find_all_by_customer_id' do
     it 'finds all customers with passed id' do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
@@ -62,12 +63,16 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#update' do
-    it 'updates the status' do
+    it 'updates the status and time ' do
       se = SalesEngine.from_csv(invoices: './data/invoices.csv')
 
       ir = se.invoices
       ir.update(38, status: 'shipped')
+      ir.update(49, status: 'pending')
+      ir.update(51, status: 'returned')
       expect(ir.find_by_id(38).status).to eq(:shipped)
+      expect(ir.find_by_id(49).status).to eq(:pending)
+      expect(ir.find_by_id(51).status).to eq(:returned)
     end
   end
 
@@ -89,8 +94,13 @@ RSpec.describe InvoiceRepository do
 
       ir = se.invoices
       date = Time.parse('2008-06-29')
+      date1 = Time.parse('2016-01-11')
+      date2 = Time.parse('2005-12-19')
+
 
       expect(ir.find_all_by_date(date).length).to eq(2)
+      expect(ir.find_all_by_date(date1).length).to eq(1)
+      expect(ir.find_all_by_date(date2).length).to eq(1)
     end
   end
 end
