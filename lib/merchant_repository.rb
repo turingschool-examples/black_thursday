@@ -99,13 +99,13 @@ class MerchantRepository
 
 
   def invoices_per_merchant
-    @merchants.each_with_object({}) do |merchant, hash|
+    @_invoices_per_merchant ||= @merchants.each_with_object({}) do |merchant, hash|
       hash[merchant.id] = merchant.invoices_count
     end
   end
 
   def items_per_merchant
-    @merchants.each_with_object({}) do |merchant, hash|
+    @_items_per_merchant ||= @merchants.each_with_object({}) do |merchant, hash|
       hash[merchant.id] = merchant.items_count
     end
   end
@@ -179,9 +179,8 @@ class MerchantRepository
   end
 
   def revenue_by_merchant(merchant_id)
-    return nil if total_revenue_by_merchant.index(merchant_id).nil?
-    index = total_revenue_by_merchant.index(merchant_id)
-    return_value = total_revenue_by_merchant[index + 1]
+    return nil if total_revenue_by_merchant.has_key?(merchant_id) == false
+    total_revenue_by_merchant.fetch(merchant_id)
   end
 
   def stdev_invoices_per_merchant
@@ -198,17 +197,22 @@ class MerchantRepository
     end
   end
 
+  def total_revenue_by_merchant_hash_to_array
+    array = total_revenue_by_merchant.sort_by {|key, value| -value}.flatten
+    array.select{|key| key % 1 == 0}
+  end
+
   def top_revenue_earners(num_earners)
-    array = total_revenue_by_merchant.select{|key| key % 1 == 0}.first(num_earners)
+    array = total_revenue_by_merchant_hash_to_array.first(num_earners)
     array.map do |merchant_id|
       find_by_id(merchant_id)
     end
   end
 
   def total_revenue_by_merchant
-    @merchants.each_with_object(Hash.new(0)) do |merchant, hash|
+    @_total_revenue_by_merchant ||= @merchants.each_with_object(Hash.new(0)) do |merchant, hash|
       hash[merchant.id] += merchant.total_revenue
-    end.sort_by {|key, value| -value}.flatten
+    end
   end
 
   def update(id, attributes)

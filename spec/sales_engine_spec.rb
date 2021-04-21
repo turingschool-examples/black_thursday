@@ -7,14 +7,6 @@ require './lib/transaction_repository'
 
 RSpec.describe SalesEngine do
   before do
-    # @se = SalesEngine.from_csv({
-    #   items: './spec/truncated_data/items_truncated.csv',
-    #   merchants: './spec/truncated_data/merchants_truncated.csv',
-    #   invoices: './spec/truncated_data/invoices_truncated.csv',
-    #   customers: './spec/truncated_data/customers_truncated.csv',
-    #   invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
-    #   transactions: './spec/truncated_data/transactions_truncated.csv'
-    #                         })
     @se = SalesEngine.from_csv({
       items: './data/items.csv',
       merchants: './data/merchants.csv',
@@ -264,15 +256,9 @@ RSpec.describe SalesEngine do
 
   describe '#total_revenue_by_merchant' do
     it 'returns array of merchant id\'s and total revenue' do
-      expect(@se.total_revenue_by_merchant.count).to eq(950)
+      expect(@se.total_revenue_by_merchant.count).to eq(475)
     end
   end
-
-  # describe '#total_revenue_by_merchant_by_month' do
-  #   it 'returns the total revenue for a specified merchant by month' do
-  #     expect(@se.total_revenue_by_merchant_by_month('March')).to eq({})
-  #   end
-  # end
 
   describe '#top_revenue_earners' do
     it 'returns array of merchant id\'s and total revenue' do
