@@ -141,15 +141,85 @@ class SalesAnalyst
 
  def invoice_paid_in_full?(id)
    sales_engine.find_all_by_result("success").any? do |transaction|
-     transaction.id == id
+     transaction.invoice_id.to_i == id
    end
  end
 
  def invoice_total(id)
+   return 0 if !(invoice_paid_in_full?(id))
    total = sales_engine.find_all_by_invoice_id(id).sum do |invoice|
      (invoice.unit_price * invoice.quantity) if invoice_paid_in_full?(id)
    end
    total.round(2)
+ end
+
+ def total_revenue_by_date(date)
+   sales_engine.find_all_by_date(date).sum do |invoice|
+     invoice_total(invoice.id).round(2)
+   end
+ end
+
+ def revenue_by_merchant_id
+    merchants = Hash.new(0)
+    sales_engine.invoices_by_merchant.each do |merchant, invoice|
+      merchants[merchant] = invoice.sum do |invoice|
+        invoice_total(invoice.id)
+      end
+    end
+    merchants
+  end
+
+ def top_revenue_earners(x = 20)
+   descending = revenue_by_merchant_id.sort_by do |merchant_id|
+      merchant_id[1]
+    end.reverse
+    high_merchants = descending[0...x]
+    high_merchants.map do |merchant|
+      sales_engine.find_by_id(merchant[0])
+    end
+ end
+
+ def merchants_ranked_by_revenue
+   descending = revenue_by_merchant_id.sort_by do |merchant_id|
+      merchant_id[1]
+    end.reverse
+   descending.map do |merchant|
+     sales_engine.find_by_id(merchant[0])
+   end
+ end
+
+ def merchants_with_pending_invoices
+   merchants = sales_engine.find_all_pending.map do |invoice|
+     sales_engine.find_by_id(invoice.merchant_id) if invoice_paid_in_full?(invoice.id) == false
+   end
+   merchants.compact.uniq
+ end
+
+ def merchants_with_only_one_item
+   merchants = item_count_per_merchant.map do |merchant, count|
+     sales_engine.find_by_id(merchant) if count == 1
+   end
+   merchants.compact.uniq
+ end
+
+ def merchants_with_only_one_item_registered_in_month(month)
+   merchants_with_only_one_item.find_all do |merchant|
+     merchant.created_at.strftime("%B") == month
+   end
+ end
+
+ def revenue_by_merchant(merchant_id)
+   total = []
+   revenue_by_merchant_id.each do |merchant, revenue|
+     total << revenue if merchant == merchant_id
+   end
+   total[0]
+ end
+
+ def most_sold_item_for_merchant(merchant_id)
+ end
+
+ def best_item_for_merchant(merchant_id)
  end
 
 end

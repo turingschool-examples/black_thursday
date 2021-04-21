@@ -23,8 +23,9 @@ RSpec.describe Merchant do
     it '#update name' do
       mock_repo = double("MerchantRepo") 
       merchant = Merchant.new({:id => 5, :name => 'Turing School'}, mock_repo) 
+
       merchant.update_name({:name => 'George Washington University'})
-      
+
       expect(merchant.name).to eq('George Washington University')
     end
 

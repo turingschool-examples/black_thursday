@@ -171,7 +171,7 @@ RSpec.describe InvoiceRepo do
       mock_engine = double('InvoiceRepo')
       invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
       collection = invoice_repo.invoices
-      
+
       expect(invoice_repo.invoice_count_per_merchant).to be_a(Hash)
     end
 
@@ -179,7 +179,26 @@ RSpec.describe InvoiceRepo do
       mock_engine = double('InvoiceRepo')
       invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
 
-      expect(invoice_repo.invoice_count_per_day.class).to be_a(Hash)
+      expect(invoice_repo.invoice_count_per_day).to be_a(Hash)
+    end
+
+    xit '#find all by date' do
+      invoice_repo = @sales_engine.invoices
+      date = Time.parse("2009-02-07")
+
+      expect(invoice_repo.find_all_by_date(date)).to be_a(Array)
+    end
+
+    xit '#find_all_pending' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.find_all_pending).to be_a(Array)
+    end
+
+    it '#invoices by merchant' do
+      invoice_repo = @sales_engine.invoices
+
+      expect(invoice_repo.invoices_by_merchant).to be_a(Hash)
     end
   end
 end
