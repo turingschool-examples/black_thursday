@@ -7,7 +7,7 @@ module Findable #confirm this needs the 'able'
     collection.find do |attribute|                          #MerchantRepo - PASSED
       attribute.id == id                                    #InvoiceRepo - PASSED
     end                                                     #InvoiceItemRepo - PASSED
-  end
+  end                                                       #TrasnactionRepo = PASSED
 
   def find_by_name(name, collection)                       #ItemRepo - PASSED
     collection.find do |attribute|                         #MerchantRepo - PASSED
@@ -64,9 +64,21 @@ module Findable #confirm this needs the 'able'
     end
   end
 
-  def find_all_by_invoice_id(id, collection)          ##InvoiceItemRepo - FAILED
-    collection.find_all do |attribute|
+  def find_all_by_invoice_id(id, collection)            #InvoiceItemRepo - FAILED
+    collection.find_all do |attribute|                  #TrasnactionRepo - PASSED
       attribute.invoice_id == id
+    end
+  end
+
+  def find_all_by_credit_card_number(number, collection) #TrasnactionRepo - PASSED
+    collection.find_all do |attribute|
+      attribute.credit_card_number == number
+    end
+  end
+
+  def find_all_by_result(result, collection)             #TrasnactionRepo - PASSED
+    collection.find_all do |attribute|
+      attribute.result == result
     end
   end
 

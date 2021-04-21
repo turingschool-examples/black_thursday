@@ -1,6 +1,8 @@
 require 'CSV'
 require 'time'
-require_relative 'transaction'
+require_relative 'transaction' #is this necessary
+require_relative 'findable'
+include Findable
 
 class TransactionRepo
   attr_reader :transactions
@@ -23,30 +25,6 @@ class TransactionRepo
 
   def add_transaction(transaction)
     @transactions << transaction
-  end
-
-  def find_by_id(id)
-    @transactions.find do |transaction|
-      transaction.id == id
-    end
-  end
-
-  def find_all_by_invoice_id(id)
-    @transactions.find_all do |transaction|
-      transaction.invoice_id == id
-    end
-  end
-
-  def find_all_by_credit_card_number(number)
-    @transactions.find_all do |transaction|
-      transaction.number == number
-    end
-  end
-
-  def find_all_by_result(result)
-    @transactions.find_all do |transaction|
-      transaction.result == result
-    end
   end
 
   def create(attributes)
