@@ -135,7 +135,7 @@ class SalesEngine
   end
 
   def merchant_items(merchant_id)
-    @items.merchant_items(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
   end
 
   def merchant_invoices(merchant_id)
@@ -172,10 +172,6 @@ class SalesEngine
 
   def stdev_invoices_per_merchant
     @merchants.stdev_invoices_per_merchant
-  end
-
-  def top_buyers(x)
-    @invoices.top_buyers(x)
   end
 
   def top_days_by_invoice_count
