@@ -65,6 +65,20 @@ RSpec.describe SalesEngine do
     end
   end
 
+  describe '#best_item_for_merchant' do
+    it 'shows best item for a merchant' do
+      @se = SalesEngine.from_csv({
+                                   items: './data/items.csv',
+                                   merchants: './data/merchants.csv',
+                                   invoices: './data/invoices.csv',
+                                   customers: './data/customers.csv',
+                                   invoice_items: './data/invoice_items.csv',
+                                   transactions: './data/transactions.csv'
+                                 })
+      expect(@se.best_item_for_merchant(12334113).id).to eq(263422571)
+    end
+  end
+
   describe '#bottom_merchants_by_invoice_count' do
     it 'shows bottom merchants by invoice count' do
       expect(@se.bottom_merchants_by_invoice_count.count).to eq(0)
@@ -74,6 +88,12 @@ RSpec.describe SalesEngine do
   describe '#find_customer_by_id' do
     it 'returns a customer_object when given a customer_id' do
       expect(@se.find_customer_by_id(1)).to be_a(Customer)
+    end
+  end
+
+  describe '#find_invoice_by_id' do
+    it 'finds and invoice by invoice_id' do
+      expect(@se.find_invoice_by_id(1)).to be_a(Invoice)
     end
   end
 
@@ -101,7 +121,7 @@ RSpec.describe SalesEngine do
     end
   end
 
-  describe '#invoice_percentage_by_status' do
+  describe '#invoice_status' do
     it 'shows percent of invoices by status' do
       expect(@se.invoice_status(:pending)).to eq(50.0)
       expect(@se.invoice_status(:shipped)).to eq(33.33)
@@ -114,16 +134,51 @@ RSpec.describe SalesEngine do
       expect(@se.invoice_total_hash.keys.count).to eq(1)
     end
   end
-
-  describe '#invoice_total' do
+  describe '#invoice_total_value' do
     it 'returns the total value of an invoice' do
-      expect(@se.invoice_total(1)).to eq(21067.77)
+      expect(@se.invoice_total_value(1)).to eq(21067.77)
+    end
+  end
+
+  describe '#invoice_paid_in_full?' do
+    it 'shows if an invoice is paid in full' do
+      expect(@se.invoice_paid_in_full?(1)).to eq(true)
     end
   end
 
   describe '#items_created_in_month' do
     it 'returns invoices created in a specified month' do
       expect(@se.items_created_in_month("March").count).to eq(4)
+    end
+  end
+
+  describe '#merchant_invoice_items' do
+    it 'returns items by invoice id' do
+      expect(@se.merchant_invoice_items(12335938).count).to eq(0)
+    end
+  end
+
+  describe '#merchant_sold_item_quantity_hash' do
+    it 'returns hash of sold items' do
+      expect(@se.merchant_sold_item_quantity_hash(12334105).count).to eq(0)
+    end
+  end
+
+  describe '#merchant_sold_item_revenue_hash' do
+    it 'returns hash of sold items' do
+      expect(@se.merchant_sold_item_quantity_hash(12334105).count).to eq(0)
+    end
+  end
+
+  describe '#merchant_items' do
+    it 'returns hash of merchant items' do
+      expect(@se.merchant_items(12334105).count).to eq(2)
+    end
+  end
+
+  describe '#merchant_invoices' do
+    it 'returns merchant invoices by merchant id' do
+      expect(@se.merchant_invoices(12334105).count).to eq(0)
     end
   end
 
@@ -142,6 +197,24 @@ RSpec.describe SalesEngine do
   describe '#merchants_with_pending_invoices' do
     it 'returns merchants with pending invoices' do
       expect(@se.merchants_with_pending_invoices.count).to eq(1)
+    end
+  end
+
+  describe '#most_sold_item' do
+    it 'returns most sold item by merchant id' do
+      expect(@se.most_sold_item(12334105).count).to eq(0)
+    end
+  end
+
+  describe '#merchants_with_high_item_count' do
+    it 'returns merchants with high item counts' do
+      expect(@se.merchants_with_high_item_count.count).to eq(1)
+    end
+  end
+
+  describe '#merchant_successful_invoice_array' do
+    it 'returns array of successful invoices by merchant id' do
+      expect(@se.merchant_successful_invoice_array(12334105).count).to eq(0)
     end
   end
 
@@ -187,9 +260,21 @@ RSpec.describe SalesEngine do
     end
   end
 
+  describe '#total_revenue_by_merchant' do
+    it 'returns array of merchant id\'s and total revenue' do
+      expect(@se.total_revenue_by_merchant.count).to eq(8)
+    end
+  end
+
   describe '#total_revenue_by_merchant_by_month' do
     it 'returns the total revenue for a specified merchant by month' do
       expect(@se.total_revenue_by_merchant_by_month('March')).to eq({})
+    end
+  end
+
+  describe '#top_revenue_earners' do
+    it 'returns array of merchant id\'s and total revenue' do
+      expect(@se.top_revenue_earners(2).count).to eq(2)
     end
   end
 end
