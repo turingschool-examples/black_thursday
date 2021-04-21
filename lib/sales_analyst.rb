@@ -128,10 +128,4 @@ class SalesAnalyst
     @sales_engine.revenue_by_merchant(merchant_id)
   end
 end
-#  def most_sold_item_for_merchant(merchant_id)
-#  end
-
-#  def best_item_for_merchant(merchant_id)
-#  end
-
 
