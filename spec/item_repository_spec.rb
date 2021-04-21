@@ -214,37 +214,22 @@ RSpec.describe ItemRepository do
     end
   end
 
-  describe '#items_created_in_month' do
-    it 'creates a hash of number of items created in given month ' do
-      se = SalesEngine.from_csv(
-        items: './spec/truncated_data/items_truncated.csv',
-        merchants: './spec/truncated_data/merchants_truncated.csv',
-        invoices: './spec/truncated_data/invoices_truncated.csv',
-        customers: './spec/truncated_data/customers_truncated.csv',
-        invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
-        transactions: './spec/truncated_data/transactions_truncated.csv'
-                               )
-      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
-
-      expect(ir.items_created_in_month('January')).to be_a(Hash)
-      expect(ir.items_created_in_month('January').values.sum).to eq(5)
-    end
-  end
-
   describe '#item_price_hash' do
-    it 'creates a hash of item id keys and unit price values' do
+    it 'creates a hash of item ids and unit prices' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
 
-      hash ={
-              263395617 => 0.13e2,
-              263395618 => 0.15e2,
-              263395721 => 0.135e2,
-              263396013 => 0.7e1,
-              263397843 => 0.4e2
-            }
+      expect(ir.item_price_hash.count).to eq(5)
+    end
+  end
 
-      expect(ir.item_price_hash).to eq(hash)
+  describe '#items_created_in_month' do
+    it 'creates a hash of number of items created in given month ' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', mock_sales_engine)
+
+      expect(ir.items_created_in_month('January')).to be_a(Hash)
+      expect(ir.items_created_in_month('January').values.sum).to eq(5)
     end
   end
 

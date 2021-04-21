@@ -4,6 +4,7 @@ require './lib/mathable'
 require './lib/invoice_repository'
 
 RSpec.describe Mathable do
+  
   describe '#average' do
     it 'can find an average' do
 

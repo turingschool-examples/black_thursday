@@ -43,10 +43,6 @@ class ItemRepository
     items.delete(find_by_id(id))
   end
 
-  def merchant_items(merchant_id)
-    RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
-  end
-
   def find_all_by_merchant_id(merchant_id)
     RepoBrain.find_all_by_id(merchant_id, 'merchant_id', @items)
   end
@@ -78,15 +74,15 @@ class ItemRepository
   def golden_items
     hash = item_price_hash
     std_dev_times2 = (average(hash) + (standard_deviation(hash) * 2))
-    @items.each_with_object([]) do |item, array|
-      if item.unit_price > std_dev_times2
-        array << item
+    hash.each_with_object([]) do |(item_id, price), array|
+      if price > std_dev_times2
+        array << find_by_id(item)
       end
     end
   end
 
   def item_price_hash
-    @items.each_with_object({}) do |item, hash|
+    @_item_price_hash ||= @items.each_with_object({}) do |item, hash|
       hash[item.id] = item.unit_price
     end
   end
