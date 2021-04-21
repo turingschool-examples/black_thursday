@@ -2,39 +2,33 @@ require 'CSV'
 require 'sales_engine'
 
 RSpec.describe InvoiceRepo do
-  before(:each) do
-    @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
-                                          :merchants => './data/merchants.csv',
-                                          :invoices => './data/invoices.csv',
-                                          :invoice_items => './data/invoice_items.csv',
-                                          :transactions  => './data/transactions.csv',
-                                          :customers => './data/customers.csv'
-                                        })
-  end
-
   describe 'instantiation' do
-    xit '::new' do
-      invoice_repo = @sales_engine.invoices
+    it'::new' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
 
       expect(invoice_repo).to be_an_instance_of(InvoiceRepo)
     end
 
-    xit 'has attributes' do
-      invoice_repo = @sales_engine.invoices
+    it'has attributes' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
 
       expect(invoice_repo.invoices).to be_an_instance_of(Array)
     end
   end
 
   describe '#methods' do
-    xit '#all' do
-      invoice_repo = @sales_engine.invoices
+    it'#all' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
 
       expect(invoice_repo.all).to be_an_instance_of(Array)
     end
 
-    xit '#create' do
-      invoice_repo = @sales_engine.invoices
+    xit'#create' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
       invoice_info = {:id => 0,
                       :customer_id => 7,
                       :merchant_id => 8,
@@ -45,8 +39,10 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.create(invoice_info)).to be_an_instance_of(Invoice)
     end
 
-    xit '#find by id' do
-      invoice_repo = @sales_engine.invoices
+    xit'#find by id' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
+      collection = invoice_repo.invoices
       invoice = invoice_repo.create({:id => 0,
                                      :customer_id => 7,
                                      :merchant_id => 8,
@@ -58,8 +54,10 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.find_by_id(999999999)).to eq(nil)
     end
 
-    xit '#find all by customer id' do
-      invoice_repo = @sales_engine.invoices
+    xit'#find all by customer id' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
+      collection = invoice_repo.invoices
       invoice_1 = invoice_repo.create({:id => 0,
                                        :customer_id => 90000,
                                        :merchant_id => 8,
@@ -74,12 +72,14 @@ RSpec.describe InvoiceRepo do
                                        :created_at => Time.now,
                                        :updated_at => Time.now})
 
-      expect(invoice_repo.find_all_by_customer_id(90000)).to eq([invoice_1, invoice_2])
-      expect(invoice_repo.find_all_by_customer_id(7000000)).to eq([])
+      expect(invoice_repo.find_all_by_customer_id(90000, collection)).to eq([invoice_1, invoice_2])
+      expect(invoice_repo.find_all_by_customer_id(7000000, collection)).to eq([])
     end
 
-    xit '#find all by merchant id' do
-      invoice_repo = @sales_engine.invoices
+    xit'#find all by merchant id' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
+      collection = invoice_repo.invoices
       invoice_1 = invoice_repo.create({:id => 0,
                                        :customer_id => 7,
                                        :merchant_id => 8,
@@ -94,12 +94,14 @@ RSpec.describe InvoiceRepo do
                                        :created_at => Time.now,
                                        :updated_at => Time.now})
 
-      expect(invoice_repo.find_all_by_merchant_id(8)).to eq([invoice_1, invoice_2])
-      expect(invoice_repo.find_all_by_merchant_id(700000)).to eq([])
+      expect(invoice_repo.find_all_by_merchant_id(8, collection)).to eq([invoice_1, invoice_2])
+      expect(invoice_repo.find_all_by_merchant_id(700000, collection)).to eq([])
     end
 
-    xit '#find all by status' do
-      invoice_repo = @sales_engine.invoices
+    xit'#find all by status' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
+      collection = invoice_repo.invoices
       invoice_1 = invoice_repo.create({:id => 0,
                                        :customer_id => 7,
                                        :merchant_id => 8,
@@ -121,12 +123,13 @@ RSpec.describe InvoiceRepo do
                                        :created_at => Time.now,
                                        :updated_at => Time.now})
 
-      expect(invoice_repo.find_all_by_status(:pending).length).to eq(1475)
-      expect(invoice_repo.find_all_by_status(:processing)).to eq([])
+      expect(invoice_repo.find_all_by_status(:pending, collection).length).to eq(1475)
+      expect(invoice_repo.find_all_by_status(:processing, collection)).to eq([])
     end
 
-    xit '#update' do
-      invoice_repo = @sales_engine.invoices
+    it'#update' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
       invoice = invoice_repo.create({:id => 0,
                                      :customer_id => 7,
                                      :merchant_id => 8,
@@ -140,8 +143,9 @@ RSpec.describe InvoiceRepo do
       expect(invoice.updated_at).to be_an_instance_of(Time)
     end
 
-    xit '#delete' do
-      invoice_repo = @sales_engine.invoices
+    xit'#delete' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
       invoice = invoice_repo.create({:id => 0,
                                      :customer_id => 7,
                                      :merchant_id => 8,
@@ -156,21 +160,24 @@ RSpec.describe InvoiceRepo do
       expect(invoice_repo.all.length).to eq(4985)
     end
 
-    xit '#find_all_by_day_created' do
-      invoice_repo = @sales_engine.invoices
+    it '#find all by day created' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
 
       expect(invoice_repo.find_all_by_day_created("Saturday")).to be_a(Array)
     end
 
-
-    xit '#invoice_count_per_merchant' do
-      invoice_repo = @sales_engine.invoices
+    xit '#invoice count per merchant' do
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
+      collection = invoice_repo.invoices
 
       expect(invoice_repo.invoice_count_per_merchant).to be_a(Hash)
     end
 
     xit '#invoice count per day' do
-      invoice_repo = @sales_engine.invoices
+      mock_engine = double('InvoiceRepo')
+      invoice_repo = InvoiceRepo.new('./fixtures/mock_invoices.csv', mock_engine) 
 
       expect(invoice_repo.invoice_count_per_day).to be_a(Hash)
     end

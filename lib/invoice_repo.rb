@@ -1,10 +1,13 @@
 require 'CSV'
 require 'time'
 require 'invoice'
+require_relative 'findable'
 
+include Findable
 class InvoiceRepo
-  attr_reader :invoices
-
+attr_reader :invoices,
+            :engine
+  
   def initialize(path, engine)
     @invoices = []
     @engine = engine
@@ -13,7 +16,7 @@ class InvoiceRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @invoices << Invoice.new(data)
+      @invoices << Invoice.new(data, self)
     end
   end
 
@@ -25,38 +28,14 @@ class InvoiceRepo
     @invoices << invoice
   end
 
-  def find_by_id(id)
-    @invoices.find do |invoice|
-      invoice.id == id
-    end
-  end
-
   def create(attributes)
-    invoice = Invoice.new(attributes)
+    invoice = Invoice.new(attributes, self)
     max = @invoices.max_by do |invoice|
       invoice.id
     end
-    invoice.id = max.id + 1
+    invoice.update_id(max.id)
     add_invoice(invoice)
     invoice
-  end
-
-  def find_all_by_customer_id(customer_id)
-    @invoices.find_all do |invoice|
-      invoice.customer_id == customer_id
-    end
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @invoices.find_all do |invoice|
-      invoice.merchant_id == merchant_id
-    end
-  end
-
-  def find_all_by_status(status)
-    @invoices.find_all do |invoice|
-      invoice.status == status
-    end
   end
 
   def update(id, attributes)

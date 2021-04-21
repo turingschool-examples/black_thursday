@@ -1,10 +1,13 @@
 require 'CSV'
 require 'time'
 require 'item'
-require_relative 'customer'
+require_relative 'customer' #is this necessary
+require_relative 'findable'
+include Findable
 
 class CustomerRepo
-  attr_reader :customers
+  attr_reader :customers,
+              :engine
 
   def initialize(path, engine)
     @customers = []
@@ -14,7 +17,7 @@ class CustomerRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |customer_info|
-      @customers << Customer.new(customer_info)
+      @customers << Customer.new(customer_info, self)
     end
   end
 
@@ -22,49 +25,23 @@ class CustomerRepo
     @customers
   end
 
-  def add_customer(customer)
-    @customers << customer
-  end
-
-  def find_by_id(id)
-    @customers.find do |customer|
-      customer.id == id
-    end
-  end
-
-  def find_all_by_first_name(name_fragment)
-    @customers.find_all do |customer|
-      customer.first_name.include?(name_fragment)
-    end
-  end
-
-  def find_all_by_last_name(name_fragment)
-    @customers.find_all do |customer|
-      customer.last_name.include?(name_fragment)
-    end
-  end
-
   def create(attributes)
-    customer = Customer.new(attributes, @engine)
+    customer = Customer.new(attributes, self)
     max = @customers.max_by do |customer|
       customer.id
     end
-    customer.id = max.id + 1
-    add_customer(customer)
-    return customer
+    customer.update_id(max.id)
+    @customers << customer
+    customer
   end
 
-  def update(id, attributes)
-    new_customer = find_by_id(id)
-    return if !new_customer
-    new_customer.first_name = attributes[:first_name] if attributes[:first_name]
-    new_customer.last_name = attributes[:last_name] if attributes[:last_name]
-    new_customer.updated_at = Time.now
-    return new_customer
+    def update(id, attributes)
+    customer = find_by_id(id)
+    return if !customer
+    customer.update_all(attributes)
   end
 
   def delete(id)
     @customers.delete(find_by_id(id))
   end
-
 end

@@ -8,13 +8,14 @@ class Invoice
                 :updated_at,
                 :repo
                 
-  def initialize(invoice_info)
+  def initialize(invoice_info, repo)
     @id = invoice_info[:id].to_i
     @customer_id = invoice_info[:customer_id].to_i
     @merchant_id = invoice_info[:merchant_id].to_i
     @status = invoice_info[:status].to_sym
     @created_at = Time.parse(invoice_info[:created_at].to_s)
     @updated_at = Time.parse(invoice_info[:updated_at].to_s)
+    @repo = repo
   end
 
   def update_all(attributes)
@@ -28,5 +29,9 @@ class Invoice
 
   def update_updated_at(attributes)
     @updated_at = attributes[:updated_at] if attributes[:updated_at]
+  end
+
+  def update_id(new_id)
+    @id = new_id + 1
   end
 end
