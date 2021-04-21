@@ -158,5 +158,30 @@ RSpec.describe SalesEngine do
       expect(sales_engine.invoice_status(:returned)).to eq 13.5
     end
 
+    it '#revenue by merchant_id' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.revenue_by_merchant_id).to be_a(Hash)
+    end
+
+    it '#top revenue earners' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.top_revenue_earners.first).to be_a(Merchant)
+      expect(sales_engine.top_revenue_earners(10).length).to eq(10)
+    end
+
+    xit '#ranked by revenue' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.merchants_ranked_by_revenue.first).to be_a(Merchant)
+      expect(sales_engine.merchants_ranked_by_revenue.first.id).to eq(12334634)
+    end
+
+    xit '#revenue by merchant' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.revenue_by_merchant(12334194)).to be_a(BigDecimal)
+    end
   end
 end

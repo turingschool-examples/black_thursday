@@ -155,6 +155,22 @@ class SalesEngine
   end
   
   def invoice_status
-    
+    @invoices.invoice_status
+  end
+
+  def revenue_by_merchant_id 
+    @merchants.revenue_by_merchant_id
+  end
+
+  def top_revenue_earners(range)
+    @merchants.top_revenue_earners
+  end
+
+  def merchants_with_pending_invoices
+    @merchants.merchants_with_pending_invoices
+  end
+
+  def merchants_ranked_by_revenue
+    @merchants.merchants_ranked_by_revenue
   end
 end
