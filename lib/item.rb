@@ -8,7 +8,7 @@ class Item
               :created_at,
               :merchant_id,
               :repository
-  attr_writer :cent_price
+  attr_accessor :cent_price
 
   def initialize(item_info)
     @id = item_info[:id].to_i
@@ -18,7 +18,7 @@ class Item
     @created_at = item_info[:created_at]
     @updated_at = item_info[:updated_at]
     @merchant_id = item_info[:merchant_id].to_i
-    @repository = repository
+    @repository = item_info[:repository]
   end
 
   def unit_price

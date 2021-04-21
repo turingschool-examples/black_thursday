@@ -55,7 +55,7 @@ RSpec.describe TransactionRepository do
   end
 
   describe '#find_all_by_credit_card_number' do
-    it 'finds all credit card numbers' do
+    it 'finds all credit card number' do
       se = SalesEngine.from_csv(transactions: './data/transactions.csv')
 
       tr = se.transactions
@@ -85,6 +85,26 @@ RSpec.describe TransactionRepository do
       }
       expect(tr.create(actual)).to be_an_instance_of(Transaction)
     end
+
+    it 'has attributes' do
+      se = SalesEngine.from_csv(transactions: './data/transactions.csv')
+
+      tr = se.transactions
+      actual = {
+        invoice_id:                   '72',
+        credit_card_number:           '17354',
+        credit_card_expiration_date:  '0220',
+        result:                       'success'
+      }
+
+      tr.create(actual)
+
+      expect(tr.all[-1].id).to eq(4986)
+      expect(tr.all[-1].invoice_id).to eq(72)
+      expect(tr.all[-1].credit_card_number).to eq('17354')
+      expect(tr.all[-1].credit_card_expiration_date).to eq('0220')
+      expect(tr.all[-1].result).to eq(:success)
+    end
   end
 
   describe '#update' do
@@ -99,6 +119,9 @@ RSpec.describe TransactionRepository do
         result: 'success'
       )
       expect(tr.find_by_id(1).result).to eq(:success)
+      expect(tr.find_by_id(1).credit_card_number).to eq('406863194323147')
+      expect(tr.find_by_id(1).credit_card_expiration_date).to eq('0217')
+      expect(tr.find_by_id(1).updated_at).not_to eq(tr.find_by_id(1).created_at)
     end
   end
 

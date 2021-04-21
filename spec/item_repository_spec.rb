@@ -107,6 +107,10 @@ RSpec.describe 'ItemRepository' do
         )
 
       expect(item.class).to eq(Item)
+      expect(item.name).to eq('Pencil')
+      expect(item.description).to eq('You can use it to write things')
+      expect(item.unit_price).to eq(10.99)
+      expect(item.merchant_id).to eq(2)
     end
   end
   describe '#update' do
@@ -120,6 +124,9 @@ RSpec.describe 'ItemRepository' do
       )
 
       expect(@ir.find_by_id(263430973).name).to eq('Basket #18909')
+      expect(@ir.find_by_id(263430973).description).to eq('A basket')
+      expect(@ir.find_by_id(263430973).unit_price).to eq(2.00)
+      expect(@ir.find_by_id(263430973).updated_at).not_to eq(@ir.find_by_id(263430973).created_at)
     end
   end
 end
