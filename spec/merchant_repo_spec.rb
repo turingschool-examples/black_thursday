@@ -4,7 +4,7 @@ require 'merchant'
 
 RSpec.describe MerchantRepo do
   describe 'instantiation' do
-    xit'::new' do
+    it'::new' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
 
@@ -54,7 +54,7 @@ RSpec.describe MerchantRepo do
       expect(merchant_repo.find_all_by_name("Hogwar", collection)).to eq([])
     end
 
-    it '#create merchant' do
+    xit '#create merchant' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
       merchant_info = {:id => 5,
@@ -63,7 +63,7 @@ RSpec.describe MerchantRepo do
       expect(merchant_repo.create(merchant_info)).to be_an_instance_of(Merchant)
     end
 
-    it '#updates attributes' do
+    xit '#updates attributes' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
       merchant = merchant_repo.create({:id => 5,
@@ -75,7 +75,7 @@ RSpec.describe MerchantRepo do
       expect(merchant.name).to eq("School of Life")
     end
 
-    it '#delete merchant' do
+    xit '#delete merchant' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
       merchant = merchant_repo.create({:id => 5,
