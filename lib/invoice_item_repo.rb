@@ -10,7 +10,7 @@ class InvoiceItemRepo
 
   def initialize(path, engine)
     @invoice_items = []
-    @engine = engine
+    @engine = engine 
     populate_information(path)
   end
 
@@ -23,4 +23,25 @@ class InvoiceItemRepo
   def all
     @invoice_items
   end
+
+  def create(attributes)
+    invoice_item = InvoiceItem.new(attributes, self)
+    max = @invoice_items.max_by do |invoice_item|
+      invoice_item.id
+    end
+    invoice_item.update_id(max.id)
+    @invoice_items << invoice_item
+    invoice_item
+  end
+
+  def update(id, attributes)
+    item_invoice = find_by_id(id)
+    return if !item_invoice
+    invoice_item.update_all(atrributes)
+  end
+
+  def delete(id)
+    @invoice_items.delete(find_by_id(id))
+  end
 end
+

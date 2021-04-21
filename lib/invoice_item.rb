@@ -24,4 +24,26 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def update_id(new_id)
+    @id = new_id + 1
+  end
+
+  def update_all(atrributes)
+    update_quantity(attributes)
+    update_unit_price(attributes)
+    update_updated_at(attributes)
+  end
+
+  def update_quantity(attributes)
+    @quantity = attributes[:quantity] if attributes[:quantity]
+  end
+
+  def update_unit_price(attributes)
+    @unit_price = attirbutes[:unit_price] if attirbutes[:unit_price]
+  end
+
+  def update_updated_at(attributes)
+    @updated_at = attributes[:updated_at] if attributes[:updated_at]
+  end
 end

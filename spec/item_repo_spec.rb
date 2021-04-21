@@ -12,6 +12,8 @@ RSpec.describe ItemRepo do
                                           :customers => './data/customers.csv'
                                         })
   end
+  
+  item_repo = ItemRepo.new('./', nil)
 
   describe 'instantiation' do
     xit'::new' do

@@ -4,7 +4,7 @@ require 'bigdecimal'
 RSpec.describe Item do
   describe 'instantiation' do
     it '::new' do
-      mock_repo = double("repo")
+      mock_repo = double("ItemRepo")
       item1 = Item.new({:id          => 1,
                         :name        => 'Pencil',
                         :description => 'You can use it to write things',
