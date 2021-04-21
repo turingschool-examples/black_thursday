@@ -49,7 +49,7 @@ class TransactionRepo
   end
 
   def invoice_paid_in_full?(invoice_id)
-    sales_engine.find_all_by_result("success").any? do |transaction|
+    find_all_by_result("success", @transactions).any? do |transaction|
       transaction.invoice_id.to_i == invoice_id
     end
   end

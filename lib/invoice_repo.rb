@@ -143,18 +143,19 @@ class InvoiceRepo
   end
 
   def invoice_status(status)
-    ((find_all_by_status(status).length / invoice_count) * 100).round(2)
+    ((find_all_by_status(status, @invoices).length / invoice_count) * 100).round(2)
   end
+
   def invoice_total(id)
-    return 0 if !(invoice_paid_in_full?(id))
-    total = find_all_by_invoice_id(id).sum do |invoice|
-      (invoice.unit_price * invoice.quantity) if invoice_paid_in_full?(id)
+    return 0 if !(@engine.invoice_paid_in_full?(id))
+    total = find_all_by_invoice_id(id, @invoices).sum do |invoice|
+      (invoice.unit_price * invoice.quantity) if @engine.invoice_paid_in_full?(id)
     end
     total.round(2)
   end
 
   def total_revenue_by_date(date)
-    sales_engine.find_all_by_date(date).sum do |invoice|
+    @engine.find_all_by_date(date).sum do |invoice|
       invoice_total(invoice.id).round(2)
     end
   end
@@ -167,6 +168,5 @@ class InvoiceRepo
        end
      end
      merchants
-   end
-
+  end
 end

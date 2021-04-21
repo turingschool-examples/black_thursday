@@ -1,5 +1,6 @@
 require 'CSV'
 require 'transaction_repo'
+require 'sales_engine'
 
 RSpec.describe TransactionRepo do
   describe 'instantiation' do
@@ -74,8 +75,8 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      expect(transaction.find_all_by_credit_card_number("4242424242424242", collection)).to eq([transaction])
-      expect(transaction.find_all_by_credit_card_number("0000000000000000", collection)).to eq([])
+      expect(transaction_repo.find_all_by_credit_card_number("4242424242424242", collection)).to eq([transaction])
+      expect(transaction_repo.find_all_by_credit_card_number("0000000000000000", collection)).to eq([])
     end
 
 
@@ -92,8 +93,8 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      expect(transaction.find_all_by_result("sweet success", collection)).to eq([transaction])
-      expect(transaction.find_all_by_result("sweetsuccess", collection)).to eq([])
+      expect(transaction_repo.find_all_by_result("sweet success", collection)).to eq([transaction])
+      expect(transaction_repo.find_all_by_result("sweetsuccess", collection)).to eq([])
     end
 
 
@@ -159,12 +160,17 @@ RSpec.describe TransactionRepo do
     end
 
     it '#invoice paid in full?' do
-      mock_engine = double('TransactionRepo')
-      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
-
-
-      expect(transaction_repo.invoice_paid_in_full?(200)).to eq(true)
-      expect(transaction_repo.invoice_paid_in_full?(203)).to eq(false)
+    sales_engine = SalesEngine.from_csv({:items => './fixtures/mock_items.csv',
+                                         :merchants => './fixtures/mock_merchants.csv',
+                                         :invoices => './fixtures/mock_invoices.csv',
+                                         :invoice_items => './fixtures/mock_invoice_items.csv',
+                                         :transactions  => './fixtures/mock_transactions.csv',
+                                         :customers => './fixtures/mock_customers.csv'})
+      
+      transaction_repo = sales_engine.transactions
+   
+      expect(transaction_repo.invoice_paid_in_full?(2179)).to eq(true)
+      expect(transaction_repo.invoice_paid_in_full?(2)).to eq(false)
     end
   end
 end
