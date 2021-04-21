@@ -13,40 +13,22 @@ class Merchant
     @merchant_repo = merchant_repo
   end
 
-  def update(attributes)
-    update_name(attributes)
-    update_time_stamp
+  def average_item_price
+    average(items_revenue_hash)
   end
 
-  def update_name(attributes)
-    return if attributes[:name].nil?
-    @name.replace(attributes[:name])
-  end
-
-  def update_time_stamp
-    @updated_at = Time.now
-  end
-
-  def merchant_items
-    @merchant_repo.merchant_items(@id)
+  def best_item
+    items_quantity_hash.max_by do |item, quantity|
+      item.unit_price * quantity
+    end
   end
 
   def items_count
     merchant_items.count
   end
 
-  def merchant_invoices
-    @merchant_repo.merchant_invoices(@id)
-  end
-
   def invoices_count
     invoice_ids.count
-  end
-
-  def merchants_with_pending_invoices
-    merchant_invoices.find_all do |invoice|
-      invoice.status == (:pending)
-    end
   end
 
   def items_quantity_hash
@@ -61,14 +43,38 @@ class Merchant
     end
   end
 
-  def best_item
-    items_quantity_hash.max_by do |item, quantity|
-      item.unit_price * quantity
+  def items
+    @merchant_repo.merchant_items(@id)
+  end
+
+  def invoices
+    @merchant_repo.merchant_invoices(@id)
+  end
+
+  def pending_invoices
+    merchant_invoices.find_all do |invoice|
+      invoice.status == (:pending)
     end
   end
 
-  def average_item_price
-    average(items_revenue_hash)
+  def succesful_invoices
+    merchant_invoices.find_all do |invoice|
+      invoice.status == (:pending)
+    end
+  end
+
+  def update(attributes)
+    update_name(attributes)
+    update_time_stamp
+  end
+
+  def update_name(attributes)
+    return if attributes[:name].nil?
+    @name.replace(attributes[:name])
+  end
+
+  def update_time_stamp
+    @updated_at = Time.now
   end
 
   #pull from MR from Engine From IR the items - put in an instance varibale
