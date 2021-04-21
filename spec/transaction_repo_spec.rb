@@ -157,5 +157,14 @@ RSpec.describe TransactionRepo do
 
       expect(transaction_repo.all.length).to eq(9)
     end
+
+    it '#invoice paid in full?' do
+      mock_engine = double('TransactionRepo')
+      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
+
+
+      expect(transaction_repo.invoice_paid_in_full?(200)).to eq(true)
+      expect(transaction_repo.invoice_paid_in_full?(203)).to eq(false)
+    end
   end
 end
