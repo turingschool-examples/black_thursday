@@ -14,21 +14,28 @@ class Merchant
   end
 
   def average_item_price
-    average(sold_items_revenue_hash).round(2)
+    # require 'pry'; binding.pry
+    BigDecimal(average(item_price_hash), 4).round(2)
   end
 
   def best_item
     hash = sold_items_revenue_hash
-    best_item_id = hash.max_by{|k, v| v}[0]
+    best_item_id = hash.max_by{|key, value| value}[0]
     @merchant_repo.find_item_by_id(best_item_id)
   end
 
   def items_count
-    merchant_items.count
+    items.count
   end
 
   def invoices_count
     @merchant_repo.merchant_invoices(@id).count
+  end
+
+  def item_price_hash
+    items.each_with_object({}) do |item, hash|
+      hash[item.id] = item.unit_price
+    end
   end
 
   def items
@@ -49,10 +56,8 @@ class Merchant
     end
   end
 
-  def pending_invoices
-    invoices.find_all do |invoice|
-      invoice.status == (:pending)
-    end
+  def pending_invoices?
+    invoices.count - successful_invoices.count > 0
   end
 
   def sold_items_quantity_hash

@@ -179,24 +179,6 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#merchants_with_pending_invoices' do
-    it 'returns merchants with pending invoices' do
-      se = SalesEngine.from_csv({
-                                  items: './spec/truncated_data/items_truncated.csv',
-                                  merchants: './spec/truncated_data/merchants_truncated.csv',
-                                  invoices: './spec/truncated_data/invoices_truncated.csv',
-                                  customers: './spec/truncated_data/customers_truncated.csv',
-                                  invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
-                                  transactions: './spec/truncated_data/transactions_truncated.csv'
-                                })
-      sales_analyst = se.analyst
-
-      ir = InvoiceRepository.new('./data/invoices.csv', se)
-
-      expect(ir.merchants_with_pending_invoices.count).to eq(4)
-    end
-  end
-
   describe '#merchant_successful_invoice_array' do
     it 'returns array of successful invoices per merchant' do
       se = SalesEngine.from_csv({
@@ -249,23 +231,6 @@ RSpec.describe InvoiceRepository do
       date = Time.parse('2015-03-13')
 
       expect(ir.total_revenue_by_date(date)).to eq(4774.75)
-    end
-  end
-
-    describe '#total_spent_by_customer' do
-    it 'creates an array of unique customer id\'s and their total spends' do
-      sales_engine = SalesEngine.from_csv({
-                                            items: './data/items.csv',
-                                            merchants: './data/merchants.csv',
-                                            invoices: './data/invoices.csv',
-                                            customers: './data/customers.csv',
-                                            invoice_items: './data/invoice_items.csv',
-                                            transactions: './data/transactions.csv'
-                                          })
-      ir = InvoiceRepository.new('./data/invoices.csv', sales_engine)
-      iir = InvoiceItemRepository.new('./data/invoice_items.csv', sales_engine)
-
-      expect(ir.total_spent_by_customer.count).to eq(1802)
     end
   end
 

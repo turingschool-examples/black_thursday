@@ -47,7 +47,7 @@ class SalesEngine
   end
 
   def average_average_price_per_merchant
-    @items.average_average_price_per_merchant
+    @merchants.average_average_price_per_merchant
   end
 
   def average_invoices_per_merchant
@@ -55,15 +55,15 @@ class SalesEngine
   end
 
   def average_item_price_for_merchant(merchant_id)
-    @items.average_item_price_for_merchant(merchant_id)
+    @merchants.average_item_price_for_merchant(merchant_id)
   end
 
   def average_items_per_merchant
-    @items.average_items_per_merchant
+    @merchants.average_items_per_merchant
   end
 
   def average_items_per_merchant_standard_deviation
-    @items.average_items_per_merchant_standard_deviation
+    @merchants.average_items_per_merchant_standard_deviation
   end
 
   def best_item_for_merchant(merchant_id)
@@ -147,7 +147,7 @@ class SalesEngine
   end
 
   def merchants_with_high_item_count
-    @items.merchants_with_high_item_count
+    @merchants.merchants_with_high_item_count
   end
 
   def merchant_successful_invoice_array(merchant_id)
@@ -155,7 +155,7 @@ class SalesEngine
   end
 
   def merchants_with_only_one_item
-    @items.merchants_with_only_one_item
+    @merchants.merchants_with_only_one_item
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
@@ -163,7 +163,7 @@ class SalesEngine
   end
 
   def merchants_with_pending_invoices
-    @invoices.merchants_with_pending_invoices
+    @merchants.merchants_with_pending_invoices
   end
 
   def revenue_by_merchant(merchant_id)

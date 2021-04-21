@@ -38,5 +38,5 @@ class Customer
   #spend
   #items/quanity hash
   #items/revenue hash
-  
+
 end
