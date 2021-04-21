@@ -189,11 +189,18 @@ RSpec.describe ItemRepo do
       expect(item_repo.average_price).to be_a(Float)
     end
 
-    it'#item merchant count' do
+    it'#item count per merchant' do
       mock_engine = double('ItemRepo')
       item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
 
       expect(item_repo.item_count_per_merchant).to be_a(Hash)
+    end
+
+    it '#average_item_price_standard_deviation' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
+
+      expect(item_repo.average_item_price_standard_deviation).to eq(2899.93)
     end
   end
 end

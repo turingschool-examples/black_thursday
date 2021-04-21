@@ -48,6 +48,24 @@ class InvoiceRepo
     @invoices.delete(find_by_id(id, @invoices))
   end
 
+  def invoice_count
+    count = all.length
+    count.to_f
+  end
+
+  def average_invoices_per_merchant 
+    (invoice_count / @engine.merchant_count).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation 
+    average_invoice = average_invoices_per_merchant
+    sum = invoice_count_per_merchant.sum do |invoice, count|
+      (average_invoice - count)**2
+    end
+    sum = (sum / (@engine.merchant_count - 1))
+    (sum ** 0.5).round(2)
+  end
+
   def invoice_count_per_merchant
     merchant_invoices = {}
     @invoices.each do |invoice|
@@ -87,4 +105,16 @@ class InvoiceRepo
       invoice.merchant_id
     end.compact
   end
+
+  def top_merchants_by_invoice_count 
+    two_deviation = (@engine.average_items_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+    high_merchants = []
+    invoice_count_per_merchant.find_all do |id, count|
+      high_merchants << @engine.merchants.find_by_id(id) if count > two_deviation
+    end
+    high_merchants
+  end
+ 
+
+
 end

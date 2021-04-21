@@ -30,35 +30,32 @@ class SalesEngine
     new(paths)
   end
 
-  def all_items
-    @items.all
-  end
+  # def all_items
+  #   @items.all
+  # end
 
-  def all_merchants
-    @merchants.all
-  end
+  # def all_merchants
+  #   @merchants.all
+  # end
 
-  def all_invoices
-    @invoices.all
-  end
+  # def all_invoices
+  #   @invoices.all
+  # end
 
-  def all_invoice_items
-    @invoice_items.all
-  end
+  # def all_invoice_items
+  #   @invoice_items.all
+  # end
 
   def item_count
-    count = @items.all.length
-    count.to_f
+    @items.item_count
   end
 
   def merchant_count
-    count = @merchants.all.length
-    count.to_f
+     @merchants.merchant_count
   end
 
   def invoice_count
-    count = @invoices.all.length
-    count.to_f
+    @invoices.invoice_count
   end
 
   def average_price
@@ -113,5 +110,40 @@ class SalesEngine
     @invoices.invoices_by_merchant
   end
 
+  def average_items_per_merchant
+    @merchants.average_items_per_merchant
+  end
+
+  def average_items_per_merchant_standard_deviation 
+    @merchants.average_items_per_merchant_standard_deviation
+  end
+  
+  def average_item_price_standard_deviation 
+    @items.average_items_per_merchant_standard_deviation
+  end
+
+  def merchants_with_high_item_count
+    @merchants.merchants_with_high_item_count
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    @items.average_item_price_for_merchant(merchant_id)
+  end
+
+  def average_average_price_per_merchant
+    @merchants.average_average_price_per_merchant
+  end
+
+  def average_invoices_per_merchant
+    @invoices.average_invoices_per_merchant
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    @invoices.average_invoices_per_merchant_standard_deviation
+  end
+  
+  def top_merchants_by_invoice_count
+    @invoices.top_merchants_by_invoice_count
+  end
 
 end
