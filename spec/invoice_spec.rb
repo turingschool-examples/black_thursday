@@ -32,8 +32,7 @@ RSpec.describe Invoice do
           created_at: '2016-01-11 11:51:37 UTC',
           updated_at: '1993-09-29 11:56:40 UTC'
         },
-        mock_invoice_repo
-      )
+          mock_invoice_repo)
 
       expect(invoice.id).to eq(263395617)
       expect(invoice.customer_id).to eq(456789)

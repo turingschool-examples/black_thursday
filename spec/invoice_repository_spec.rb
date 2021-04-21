@@ -190,14 +190,14 @@ RSpec.describe InvoiceRepository do
 
   describe '#invoice_items' do
     xit 'tells you which items are on the invoice' do
-      se = SalesEngine.from_csv({
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv',
-        customers: './data/customers.csv',
-        invoice_items: './data/invoice_items.csv',
-        transactions: './data/transactions.csv'
-      })
+      se = SalesEngine.from_csv(
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
+                                )
 
       ir = InvoiceRepository.new('./data/invoices.csv', se)
 
@@ -266,7 +266,7 @@ RSpec.describe InvoiceRepository do
       ir.invoices << test_invoice2
 
       expect(ir.merchant_invoices(234567890)).to eq([test_invoice1,
-                                                    test_invoice2])
+                                                     test_invoice2])
       expect(ir.merchant_invoices(123456789099999999)).to eq([])
     end
   end
