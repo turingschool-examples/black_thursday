@@ -3,26 +3,17 @@ require 'sales_engine'
 require 'customer_repo'
 
 RSpec.describe CustomerRepo do
-  before(:each) do
-    @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
-                                         :merchants => './data/merchants.csv',
-                                         :invoices => "./data/invoices.csv",
-                                         :invoice_items => "./data/invoice_items.csv",
-                                         :transactions => "./data/transactions.csv",
-                                         :customers => "./data/customers.csv"})
-  end
-
   describe 'instantiation' do
     it'::new' do
-      mock_repo = double('CustomerRepo')
-      customer_repo = @sales_engine.customers
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
 
       expect(customer_repo).to be_an_instance_of(CustomerRepo)
     end
 
-    xit'has attributes' do
-      mock_repo = double('CustomerRepo')
-      customer_repo = @sales_engine.customers
+    it'has attributes' do
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
 
       expect(customer_repo.customers).to be_an_instance_of(Array)
     end
@@ -30,15 +21,17 @@ RSpec.describe CustomerRepo do
 
   describe '#methods' do
 
-    xit'#all' do
-      mock_engine = double('SalesEngine')
-      customer_repo = @sales_engine.customers
+    it'#all' do
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
 
       expect(customer_repo.all).to be_an_instance_of(Array)
     end
 
     xit'#find by id' do
-      mock_engine = double('SalesEngine')
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
+      collection = customer_repo.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
                                         :last_name => "Clarke",
@@ -51,8 +44,9 @@ RSpec.describe CustomerRepo do
     end
 
     xit'#find all by first name' do
-      mock_engine = double('SalesEngine')
-      customer_repo = @sales_engine.customers
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
+      collection = customer_repo.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
                                         :last_name => "Clarke",
@@ -69,7 +63,9 @@ RSpec.describe CustomerRepo do
     end
 
     xit'#find all by last name' do
-      mock_engine = double('SalesEngine')
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
+      collection = customer_repo.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
                                         :last_name => "Clarke",
@@ -87,7 +83,9 @@ RSpec.describe CustomerRepo do
     end
 
     xit'# creates a new customer instance' do
-      mock_engine = double('SalesEngine')
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
+      collection = customer_repo.customers
       customer1 = customer_repo.create({:id => 6,
                                         :first_name => "Joan",
                                         :last_name => "Clarke",
@@ -102,8 +100,8 @@ RSpec.describe CustomerRepo do
     end
 
     xit'#updates attributes' do
-      mock_repo = double('CustomerRepo')
-      customer_repo = @sales_engine.customers
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
       customer1 = customer_repo.create({ :id => 6,
                                          :first_name => "Joan",
                                          :last_name => "Clarke",
@@ -123,8 +121,8 @@ RSpec.describe CustomerRepo do
     end
 
     xit'#deletes by id' do
-      mock_repo = double('CustomerRepo')
-      customer_repo = @sales_engine.customers
+      mock_engine = double('CustomerRepo')
+      customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
       customer1 = customer_repo.create({ :id => 6,
                                          :first_name => "Joan",
                                          :last_name => "Clarke",
