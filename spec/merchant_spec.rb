@@ -44,7 +44,7 @@ RSpec.describe Merchant do
                        updated_at: Time.now,
                        repository: 'boo')
 
-      m.update({name: 'TUS'})
+      m.update(name: 'TUS')
 
       expect(m.name).to eq('TUS')
       expect(m.id).to eq(5)
