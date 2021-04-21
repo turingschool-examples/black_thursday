@@ -29,7 +29,7 @@ class InvoiceItem
     @id = new_id + 1
   end
 
-  def update_all(atrributes)
+  def update_all(attributes)
     update_quantity(attributes)
     update_unit_price(attributes)
     update_updated_at(attributes)
@@ -48,6 +48,6 @@ class InvoiceItem
   end
 
   def update_id(new_id)
-    @id = new_id + 1 
+    @id = new_id + 1
   end
 end

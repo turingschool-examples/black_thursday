@@ -10,7 +10,7 @@ class InvoiceItemRepo
 
   def initialize(path, engine)
     @invoice_items = []
-    @engine = engine 
+    @engine = engine
     populate_information(path)
   end
 
@@ -35,13 +35,12 @@ class InvoiceItemRepo
   end
 
   def update(id, attributes)
-    item_invoice = find_by_id(id)
+    item_invoice = find_by_id(id, @invoice_items)
     return if !item_invoice
-    invoice_item.update_all(atrributes)
+    item_invoice.update_all(attributes)
   end
 
   def delete(id)
-    @invoice_items.delete(find_by_id(id))
+    @invoice_items.delete(find_by_id(id, @invoice_items))
   end
 end
-
