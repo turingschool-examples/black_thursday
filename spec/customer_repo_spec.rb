@@ -28,7 +28,7 @@ RSpec.describe CustomerRepo do
       expect(customer_repo.all).to be_an_instance_of(Array)
     end
 
-    xit'#find by id' do
+    it'#find by id' do
       mock_engine = double('CustomerRepo')
       customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
       collection = customer_repo.customers
@@ -39,11 +39,11 @@ RSpec.describe CustomerRepo do
                                         :updated_at => Time.now
                                       })
 
-      expect(customer_repo.find_by_id(customer.id, collection)).to eq(transaction1)
+      expect(customer_repo.find_by_id(customer.id, collection)).to eq(customer)
       expect(customer_repo.find_by_id(999999999, collection)).to eq(nil)
     end
 
-    xit'#find all by first name' do
+    it'#find all by first name' do
       mock_engine = double('CustomerRepo')
       customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
       collection = customer_repo.customers
@@ -53,8 +53,9 @@ RSpec.describe CustomerRepo do
                                         :created_at => Time.now,
                                         :updated_at => Time.now
                                       })
+                                      
       fragment = "JoA"
-      expected = customer_repo.find_by_first_name(fragment)
+      expected = customer_repo.find_all_by_first_name(fragment, collection)
 
       expect(expected).to eq([customer])
       expect(expected.length).to eq(4)
@@ -62,7 +63,7 @@ RSpec.describe CustomerRepo do
       expect(customer_repo.find_by_first_name("doge")).to eq([])
     end
 
-    xit'#find all by last name' do
+    it'#find all by last name' do
       mock_engine = double('CustomerRepo')
       customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
       collection = customer_repo.customers
@@ -73,7 +74,7 @@ RSpec.describe CustomerRepo do
                                        :updated_at => Time.now})
 
       fragment = "arKe" #test case sensitive
-      expected = customer_repo.find_by_last_name(fragment)
+      expected = customer_repo.find_all_by_last_name(fragment, collection)
 
       expect(expected).to eq([customer])
       expect(expected.length).to eq(6)
@@ -95,17 +96,19 @@ RSpec.describe CustomerRepo do
       expect(customer.last_name).to eq("Clarke")
     end
 
-    xit'#updates attributes' do
+    it'#updates attributes' do
       mock_engine = double('CustomerRepo')
       customer_repo = CustomerRepo.new('./fixtures/mock_customers.csv', mock_engine)
       customer = customer_repo.create({ :id => 6,
-                                         :first_name => "Joan",
-                                         :last_name => "Clarke",
-                                         :created_at => Time.now,
-                                         :updated_at => Time.now
+                                        :first_name => "Joan",
+                                        :last_name => "Clarke",
+                                        :created_at => Time.now,
+                                        :updated_at => Time.now
                                       })
+                                      
+      updated_attributes = {:first_name => 'Alan'}      
 
-      customer_repo.update(customer.first_name, {:first_name => 'Alan'})
+      customer_repo.update(customer.id, updated_attributes)
 
       expect(customer.first_name).to eq("Alan")
       expect(customer.updated_at).to be_an_instance_of(Time)
