@@ -123,4 +123,26 @@ class InvoiceRepo
     end
     low_merchants
   end
+
+  def average_invoice_per_day_standard_deviation
+    average_per_day = invoice_count / 7
+    sum = invoice_count_per_day.sum do |invoice, count|
+      (average_per_day - count)**2
+    end
+    sum = (sum / (7 - 1))
+    (sum ** 0.5).round(2)
+  end
+
+  def top_days_by_invoice_count
+    one_deviation = (invoice_count / 7) + average_invoice_per_day_standard_deviation
+    top_days = []
+    invoice_count_per_day.find_all do |day, count|
+      top_days << day if count > one_deviation
+    end
+    top_days
+  end
+
+  def invoice_status(status)
+    ((find_all_by_status(status).length / invoice_count) * 100).round(2)
+  end
 end

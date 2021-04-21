@@ -121,23 +121,27 @@ class SalesAnalyst
     @invoices.bottom_merchants_by_invoice_count
   end 
 
- def average_invoice_per_day_standard_deviation
-   average_per_day = invoice_count / 7
-   sum = sales_engine.invoice_count_per_day.sum do |invoice, count|
-     (average_per_day - count)**2
-   end
-   sum = (sum / (7 - 1))
-   (sum ** 0.5).round(2)
- end
+#  def average_invoice_per_day_standard_deviation
+#    average_per_day = invoice_count / 7
+#    sum = sales_engine.invoice_count_per_day.sum do |invoice, count|
+#      (average_per_day - count)**2
+#    end
+#    sum = (sum / (7 - 1))
+#    (sum ** 0.5).round(2)
+#  end
 
- def top_days_by_invoice_count
-   one_deviation = (invoice_count / 7) + average_invoice_per_day_standard_deviation
-   top_days = []
-   sales_engine.invoice_count_per_day.find_all do |day, count|
-     top_days << day if count > one_deviation
-   end
-   top_days
- end
+def average_invoice_per_day_standard_deviation
+  @invoice.average_invoice_per_day_standard_deviation
+end
+
+#  def top_days_by_invoice_count
+#    one_deviation = (invoice_count / 7) + average_invoice_per_day_standard_deviation
+#    top_days = []
+#    sales_engine.invoice_count_per_day.find_all do |day, count|
+#      top_days << day if count > one_deviation
+#    end
+#    top_days
+#  end
 
  def invoice_status(status)
    ((sales_engine.find_all_by_status(status).length / invoice_count) * 100).round(2)
