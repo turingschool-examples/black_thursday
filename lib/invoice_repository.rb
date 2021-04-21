@@ -80,10 +80,22 @@ class InvoiceRepository
     hash
   end
 
+  def invoice_items(invoice_id)
+    @engine.invoice_items(invoice_id)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    @engine.invoice_paid_in_full?(invoice_id)
+  end
+
   def invoices_per_merchant
     @invoices.each_with_object(Hash.new(0)) do |invoice, hash|
       hash[invoice.merchant_id] += 1
     end
+  end
+
+  def invoice_total_value(invoice_id)
+    @engine.invoice_total_value(invoice_id)
   end
 
   def merchants_with_pending_invoices

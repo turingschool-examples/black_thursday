@@ -29,8 +29,15 @@ class Invoice
     @created_at.strftime('%A').capitalize
   end
 
-  #total_value
-  #items
-  #paid_in_fill?
-  
+  def items
+    @invoice_repo.invoice_items(id)
+  end
+
+  def paid_in_full?
+    @invoice_repo.invoice_paid_in_full?(id)
+  end
+
+  def total_value
+    @invoice_repo.invoice_total_value(id)
+  end
 end

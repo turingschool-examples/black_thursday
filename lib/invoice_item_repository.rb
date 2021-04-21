@@ -13,7 +13,7 @@ class InvoiceItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
   def make_invoice_items(path)
@@ -45,6 +45,14 @@ class InvoiceItemRepository
 
   def find_by_id(id)
     RepoBrain.find_by_id(id, 'id', @invoice_items)
+  end
+
+  def invoice_items(invoice_id)
+    @invoice_items.each_with_object([]) do |invoice_item, array|
+      if invoice_item.invoice_id == invoice_id
+        array << @engine.find_item_by_id(invoice_item.item_id)
+      end
+    end
   end
 
   def invoice_total(invoice_id)
