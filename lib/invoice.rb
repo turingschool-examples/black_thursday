@@ -34,7 +34,7 @@ class Invoice
   end
 
   def paid_in_full?
-    @invoice_repo.invoice_paid_in_full?(id)
+    @invoice_repo.invoice_paid_in_full?(@id)
   end
 
   def total_value

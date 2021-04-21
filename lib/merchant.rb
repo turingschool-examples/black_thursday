@@ -14,32 +14,27 @@ class Merchant
   end
 
   def average_item_price
-    average(items_revenue_hash)
+    # require 'pry'; binding.pry
+    BigDecimal(average(item_price_hash), 4).round(2)
   end
 
   def best_item
-    items_quantity_hash.max_by do |item, quantity|
-      item.unit_price * quantity
-    end
+    hash = sold_items_revenue_hash
+    best_item_id = hash.max_by{|key, value| value}[0]
+    @merchant_repo.find_item_by_id(best_item_id)
   end
 
   def items_count
-    merchant_items.count
+    items.count
   end
 
   def invoices_count
-    invoice_ids.count
+    @merchant_repo.merchant_invoices(@id).count
   end
 
-  def items_quantity_hash
-    merchant_items.each_with_object({}) do |item, hash|
-      hash[item] = @merchant_repo.grab_invoice_item(item.id).quantity
-    end
-  end
-
-  def items_revenue_hash
-    items_quantity_hash.each_with_object({}) do |(item, quantity), hash|
-      hash[item] = item.unit_price * quantity
+  def item_price_hash
+    items.each_with_object({}) do |item, hash|
+      hash[item.id] = item.unit_price
     end
   end
 
@@ -51,16 +46,34 @@ class Merchant
     @merchant_repo.merchant_invoices(@id)
   end
 
-  def pending_invoices
-    merchant_invoices.find_all do |invoice|
-      invoice.status == (:pending)
+  def most_sold_item
+    hash = sold_items_quantity_hash
+    highest_item_quantity = hash.values.max
+    hash.each_with_object([]) do |(invoice_id, quantity), array|
+      if quantity == highest_item_quantity
+        array << @engine.find_item_by_id(invoice_id)
+      end
     end
   end
 
-  def succesful_invoices
-    merchant_invoices.find_all do |invoice|
-      invoice.status == (:pending)
-    end
+  def pending_invoices?
+    invoices.count - successful_invoices.count > 0
+  end
+
+  def sold_items_quantity_hash
+    @merchant_repo.merchant_sold_item_quantity_hash(@id)
+  end
+
+  def sold_items_revenue_hash
+    @merchant_repo.merchant_sold_item_revenue_hash(@id)
+  end
+
+  def successful_invoices
+    @merchant_repo.merchant_successful_invoice_array(@id)
+  end
+
+  def total_revenue
+    sold_items_revenue_hash.values.sum
   end
 
   def update(attributes)
@@ -77,9 +90,6 @@ class Merchant
     @updated_at = Time.now
   end
 
-  #pull from MR from Engine From IR the items - put in an instance varibale
-
-  #revenue S
   #months/items hash *
-  #most sold item (item with most qty sold)
+
 end
