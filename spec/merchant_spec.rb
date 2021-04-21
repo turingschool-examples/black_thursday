@@ -3,15 +3,16 @@ require './lib/merchant'
 
 RSpec.describe Merchant do
   describe 'instantiation' do
-    
     it '::new' do
-      merchant = Merchant.new({:id => 5, :name => 'Turing School'})
+      mock_repo = double('MerchantRepo') 
+      merchant = Merchant.new({:id => 5, :name => 'Turing School'}, mock_repo)
 
-    expect(merchant).to be_an_instance_of(Merchant)
+      expect(merchant).to be_an_instance_of(Merchant)
     end
 
     it 'has attributes' do
-      merchant = Merchant.new({:id => 5, :name => 'Turing School'})
+      mock_repo = double("MerchantRepo") 
+      merchant = Merchant.new({:id => 5, :name => 'Turing School'}, mock_repo)
 
       expect(merchant.id).to eq(5)
       expect(merchant.name).to eq('Turing School')
@@ -20,7 +21,8 @@ RSpec.describe Merchant do
 
   describe '#methods' do
     it '#update name' do
-      merchant = Merchant.new({:id => 5, :name => 'Turing School'}) 
+      mock_repo = double("MerchantRepo") 
+      merchant = Merchant.new({:id => 5, :name => 'Turing School'}, mock_repo) 
       merchant.update_name({:name => 'George Washington University'})
       
       expect(merchant.name).to eq('George Washington University')
