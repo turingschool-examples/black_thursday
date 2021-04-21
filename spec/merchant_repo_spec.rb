@@ -4,7 +4,7 @@ require 'merchant'
 
 RSpec.describe MerchantRepo do
   describe 'instantiation' do
-    xit'::new' do
+    it'::new' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
 
@@ -25,7 +25,10 @@ RSpec.describe MerchantRepo do
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = merchant_repo.merchants
       merchant = merchant_repo.create({:id => 5,
-                                     :name => "Turing School"})
+                                     :name => "Turing School",
+                                     :created_at => Time.now,
+                                     :updated_at => Time.now
+                                     })
 
 
       expect(merchant_repo.find_by_id(merchant.id, collection)).to eq(merchant)
@@ -37,37 +40,49 @@ RSpec.describe MerchantRepo do
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = merchant_repo.merchants
       merchant = merchant_repo.create({:id => 5,
-                                     :name => "Turing School"})
+                                     :name => "Turing School",
+                                     :created_at => Time.now,
+                                     :updated_at => Time.now
+                                    })
 
       expect(merchant_repo.find_by_name("Turing School", collection)).to eq(merchant)
       expect(merchant_repo.find_by_name("Hogwarts School", collection)).to eq(nil)
     end
 
-    it '#find all merchants by name' do #FIX THIS!!!
+    it '#find all merchants by name' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = merchant_repo.merchants
       merchant = merchant_repo.create({:id => 5,
-                                       :name => "Turing School"})
-    #******************to check on, Wed, 21st a.m.********************
-      expect(merchant_repo.find_by_name("Turing Scho", collection)).to eq(merchant)
+                                       :name => "Turing School",
+                                       :created_at => Time.now,
+                                       :updated_at => Time.now
+                                       })
+
+      expect(merchant_repo.find_all_by_name("Turing Scho", collection)).to eq([merchant])
       expect(merchant_repo.find_all_by_name("Hogwar", collection)).to eq([])
     end
 
     it '#create merchant' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
-      merchant_info = {:id => 5,
-                       :name => "Turing School"}
+      merchant = merchant_repo.create({:id => 5,
+                                       :name => "Turing School",
+                                       :created_at => Time.now,
+                                       :updated_at => Time.now
+                                       })
 
-      expect(merchant_repo.create(merchant_info)).to be_an_instance_of(Merchant)
+      expect(merchant).to be_an_instance_of(Merchant)
     end
 
     it '#updates attributes' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
       merchant = merchant_repo.create({:id => 5,
-                                       :name => "Turing School"})
+                                       :name => "Turing School",
+                                       :created_at => Time.now,
+                                       :updated_at => Time.now
+                                       })
 
       updated_attributes = {:name => "School of Life"}
 
@@ -78,12 +93,16 @@ RSpec.describe MerchantRepo do
     it '#delete merchant' do
       mock_engine = double('MerchantRepo')
       merchant_repo = MerchantRepo.new('./fixtures/mock_items.csv', mock_engine)
+      collection = merchant_repo.merchants
       merchant = merchant_repo.create({:id => 5,
-                                       :name => "Turing School"})
+                                       :name => "Turing School",
+                                       :created_at => Time.now,
+                                       :updated_at => Time.now
+                                       })
 
-      expect(merchant_repo.find_by_id(merchant.id)).to eq(merchant)
+      expect(merchant_repo.find_by_id(merchant.id, collection)).to eq(merchant)
       merchant_repo.delete(merchant.id)
-      expect(merchant_repo.find_by_id(merchant.id)).to eq(nil)
+      expect(merchant_repo.find_by_id(merchant.id, collection)).to eq(nil)
     end
   end
 end

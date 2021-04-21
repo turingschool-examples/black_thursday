@@ -3,11 +3,11 @@ require 'time'
 require 'invoice'
 require_relative 'findable'
 
-include Findable
 class InvoiceRepo
-attr_reader :invoices,
+  include Findable
+  attr_reader :invoices,
             :engine
-  
+
   def initialize(path, engine)
     @invoices = []
     @engine = engine
@@ -39,19 +39,19 @@ attr_reader :invoices,
   end
 
   def update(id, attributes)
-    invoice = find_by_id(id)
+    invoice = find_by_id(id, @invoices)
     return if !invoice
     invoice.update_all(attributes)
   end
 
   def delete(id)
-    @invoices.delete(find_by_id(id))
+    @invoices.delete(find_by_id(id, @invoices))
   end
 
   def invoice_count_per_merchant
     merchant_invoices = {}
     @invoices.each do |invoice|
-      merchant_invoices[invoice.merchant_id] = find_all_by_merchant_id(invoice.merchant_id).length
+      merchant_invoices[invoice.merchant_id] = find_all_by_merchant_id(invoice.merchant_id, @invoices).length
     end
       merchant_invoices
   end

@@ -2,9 +2,9 @@ require 'CSV'
 require 'bigdecimal'
 require 'item'
 require_relative 'findable'
-include Findable
 
 class ItemRepo
+  include Findable
   attr_reader :items,
               :engine
 
@@ -39,17 +39,17 @@ class ItemRepo
   end
 
   def update(id, attributes)
-    item = find_by_id(id)
+    item = find_by_id(id, @items)
     return if !item
     item.update_all(attributes)
   end
 
   def delete(id)
-    @items.delete(find_by_id(id))
+    @items.delete(find_by_id(id, @items))
   end
 
 
-  def average_price 
+  def average_price
     price_total = @items.sum do |item|
       item.unit_price_to_dollars
     end
@@ -59,7 +59,7 @@ class ItemRepo
   def item_count_per_merchant
     merchant_item = {}
     @items.each do |item|
-      merchant_item[item.merchant_id] = find_all_by_merchant_id(item.merchant_id).length
+      merchant_item[item.merchant_id] = find_all_by_merchant_id(item.merchant_id, @items).length
     end
       merchant_item
   end

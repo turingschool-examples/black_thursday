@@ -44,7 +44,7 @@ RSpec.describe TransactionRepo do
       expect(transaction_repo.find_by_id(999999999, collection)).to eq(nil)
     end
 
-    xit'#find all by invoice id' do
+    it'#find all by invoice id' do
       mock_engine = double('TransactionRepo')
       transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
@@ -61,7 +61,7 @@ RSpec.describe TransactionRepo do
       expect(transaction_repo.find_all_by_invoice_id(999999999, collection)).to eq([])
     end
 
-    xit'#find all by credit card number' do
+    it'#find all by credit card number' do
       mock_engine = double('TransactionRepo')
       transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
@@ -140,7 +140,7 @@ RSpec.describe TransactionRepo do
       expect(transaction.updated_at).to be_an_instance_of(Time)
     end
 
-   xit '#deletes by id' do
+   it '#deletes by id' do
      mock_engine = double('TransactionRepo')
      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
      transaction = transaction_repo.create({:id => 6,
@@ -148,16 +148,14 @@ RSpec.describe TransactionRepo do
                                             :credit_card_number => "4242424242424242",
                                             :credit_card_expiration_date => "0220",
                                             :result => "success",
-                                           :created_at => Time.now,
-                                           :updated_at => Time.now})
+                                            :created_at => Time.now,
+                                            :updated_at => Time.now})
 
-      transaction_repo.add_transaction(transaction)
+      expect(transaction_repo.all.length).to eq(10)
 
-      expect(transaction_repo.find_by_id(6)).to eq(transaction)
+      transaction_repo.delete(transaction.id)
 
-      transaction_repo.delete(6)
-
-      expect(transaction_repo.find_by_id(6)).to eq(nil)
+      expect(transaction_repo.all.length).to eq(9)
     end
   end
 end
