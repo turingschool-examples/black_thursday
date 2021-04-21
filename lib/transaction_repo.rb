@@ -33,19 +33,15 @@ class TransactionRepo
     max = @transactions.max_by do |transaction|
       transaction.id
     end
-    transaction.id = max.id + 1
+    transaction.update_id(max.id)
     add_transaction(transaction)
     return transaction
   end
 
   def update(id, attributes)
-    new_transaction = find_by_id(id, @transactions)
-    return if !new_transaction
-    new_transaction.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
-    new_transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
-    new_transaction.result = attributes[:result] if attributes[:result]
-    new_transaction.updated_at = Time.now
-    return new_transaction
+    transaction = find_by_id(id, @transactions)
+    return if !transaction
+    transaction.update_all(attributes)
   end
 
   def delete(id)

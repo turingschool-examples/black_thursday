@@ -1,11 +1,5 @@
 require 'CSV'
-require './lib/sales_engine'
-require './lib/transaction_repo'
-require './lib/transaction'
-require './lib/invoice_repo'
-require './lib/invoice'
-require './lib/invoice_item_repo'
-require './lib/invoice_item'
+require 'transaction_repo'
 
 RSpec.describe TransactionRepo do
   describe 'instantiation' do
@@ -36,7 +30,7 @@ RSpec.describe TransactionRepo do
       mock_engine = double('TransactionRepo')
       transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
-      transaction1 = transaction_repo.create({:id => 6,
+      transaction = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
@@ -46,7 +40,7 @@ RSpec.describe TransactionRepo do
                                     })
 
 
-      expect(transaction_repo.find_by_id(transaction1.id, collection)).to eq(transaction1)
+      expect(transaction_repo.find_by_id(transaction.id, collection)).to eq(transaction)
       expect(transaction_repo.find_by_id(999999999, collection)).to eq(nil)
     end
 
@@ -54,7 +48,7 @@ RSpec.describe TransactionRepo do
       mock_engine = double('TransactionRepo')
       transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
-      transaction1 = transaction_repo.create({:id => 6,
+      transaction = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
@@ -63,7 +57,7 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      expect(transaction_repo.find_all_by_invoice_id(transaction1.invoice_id, collection)).to eq([transaction1])
+      expect(transaction_repo.find_all_by_invoice_id(transaction.invoice_id, collection)).to eq([transaction])
       expect(transaction_repo.find_all_by_invoice_id(999999999, collection)).to eq([])
     end
 
@@ -71,7 +65,7 @@ RSpec.describe TransactionRepo do
       mock_engine = double('TransactionRepo')
       transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
-      transaction1 = transaction_repo.create({:id => 6,
+      transaction = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
@@ -80,8 +74,8 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      expect(transaction1.find_all_by_credit_card_number("4242424242424242", collection)).to eq([transaction1])
-      expect(transaction1.find_all_by_credit_card_number("0000000000000000", collection)).to eq([])
+      expect(transaction.find_all_by_credit_card_number("4242424242424242", collection)).to eq([transaction])
+      expect(transaction.find_all_by_credit_card_number("0000000000000000", collection)).to eq([])
     end
 
 
@@ -89,7 +83,7 @@ RSpec.describe TransactionRepo do
       mock_engine = double('TransactionRepo')
       transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
       collection = transaction_repo.transactions
-      transaction1 = transaction_repo.create({:id => 6,
+      transaction = transaction_repo.create({:id => 6,
                                       :invoice_id => 8,
                                       :credit_card_number => "4242424242424242",
                                       :credit_card_expiration_date => "0220",
@@ -98,8 +92,8 @@ RSpec.describe TransactionRepo do
                                       :updated_at => Time.now
                                     })
 
-      expect(transaction1.find_all_by_result("sweet success", collection)).to eq([transaction1])
-      expect(transaction1.find_all_by_result("sweetsuccess", collection)).to eq([])
+      expect(transaction.find_all_by_result("sweet success", collection)).to eq([transaction])
+      expect(transaction.find_all_by_result("sweetsuccess", collection)).to eq([])
     end
 
 
@@ -124,45 +118,42 @@ RSpec.describe TransactionRepo do
     it '#updates attributes' do
       mock_engine = double('TransactionRepo')
       transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
-      transaction1 =  transaction_repo.create({:id => 6,
-                                      :invoice_id => 8,
-                                      :credit_card_number => "4242424242424242",
-                                      :credit_card_expiration_date => "0220",
-                                      :result => "success",
-                                      :created_at => Time.now,
-                                      :updated_at => Time.now
-                                    })
-      transaction_repo.add_transaction(transaction1)
+      transaction =  transaction_repo.create({:id => 9,
+                                              :invoice_id => 8,
+                                              :credit_card_number => '4242424242424242',
+                                              :credit_card_expiration_date => '0220',
+                                              :result => "success",
+                                              :created_at => Time.now,
+                                              :updated_at => Time.now })
 
-      updated_attributes = {:credit_card_number => "9999999999999999",
-                            :credit_card_expiration_date => "0930",
-                            :result => "sweet success",
-                            :updated_at  => Time.now
-                            }
+      updated_attributes = {:credit_card_number => '9999999999999999',
+                            :credit_card_expiration_date => '0930',
+                            :result => 'sweet success',
+                            :updated_at  => Time.now}
 
-      transaction_repo.update(6, updated_attributes)
+      transaction_repo.update(transaction.id, updated_attributes)
 
-      expect(transaction1.id).to eq(6)
-      expect(transaction1.credit_card_number).to eq("9999999999999999")
-      expect(transaction1.credit_card_expiration_date).to eq("0930")
-      expect(transaction1.result).to eq("sweet success")
-      expect(transaction1.updated_at).to be_an_instance_of(Time)
+      expect(transaction.id).to eq(10)
+      expect(transaction.credit_card_number).to eq('9999999999999999')
+      expect(transaction.credit_card_expiration_date).to eq('0930')
+      expect(transaction.result).to eq("sweet success")
+      expect(transaction.updated_at).to be_an_instance_of(Time)
     end
 
    xit '#deletes by id' do
      mock_engine = double('TransactionRepo')
      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
-     transaction1 = transaction_repo.create({:id => 6,
-                                       :invoice_id => 8,
-                                       :credit_card_number => "4242424242424242",
-                                       :credit_card_expiration_date => "0220",
-                                       :result => "success",
-                                       :created_at => Time.now,
-                                       :updated_at => Time.now
-                                      })
-      transaction_repo.add_transaction(transaction1)
+     transaction = transaction_repo.create({:id => 6,
+                                            :invoice_id => 8,
+                                            :credit_card_number => "4242424242424242",
+                                            :credit_card_expiration_date => "0220",
+                                            :result => "success",
+                                           :created_at => Time.now,
+                                           :updated_at => Time.now})
 
-      expect(transaction_repo.find_by_id(6)).to eq(transaction1)
+      transaction_repo.add_transaction(transaction)
+
+      expect(transaction_repo.find_by_id(6)).to eq(transaction)
 
       transaction_repo.delete(6)
 

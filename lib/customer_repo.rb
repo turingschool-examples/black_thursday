@@ -44,5 +44,4 @@ class CustomerRepo
   def delete(id)
     @customers.delete(find_by_id(id))
   end
-
 end
