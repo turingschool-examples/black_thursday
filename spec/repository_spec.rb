@@ -45,8 +45,8 @@ RSpec.describe Repository do
     repository = Repository.new(csv_path, Item)
 
     it 'find_by_id returns an instance by matching id' do
-      merchant1 = Merchant.new({id: 1234, name: "Repository class"})
-      merchant2 = Merchant.new({id: 5678, name: "Test data"})
+      merchant1 = Merchant.new({id: 1234, name: "Repository class", created_at: "2000-03-28"})
+      merchant2 = Merchant.new({id: 5678, name: "Test data", created_at: "2000-03-28"})
       allow(repository).to receive(:array_of_objects) do
         [merchant1, merchant2]
       end
@@ -57,8 +57,8 @@ RSpec.describe Repository do
     end
 
     it 'find_by_id returns a nil if no id match' do
-      merchant1 = Merchant.new({id: 1234, name: "Repository class"})
-      merchant2 = Merchant.new({id: 5678, name: "Test data"})
+      merchant1 = Merchant.new({id: 1234, name: "Repository class", created_at: "2000-03-28"})
+      merchant2 = Merchant.new({id: 5678, name: "Test data", created_at: "2000-03-28"})
       allow(repository).to receive(:array_of_objects) do
         [merchant1, merchant2]
       end
@@ -100,8 +100,8 @@ RSpec.describe Repository do
     repository = Repository.new(csv_path, Item)
 
     it 'can delete item' do
-      merchant1 = Merchant.new({id: 1234, name: "Repository class"})
-      merchant2 = Merchant.new({id: 5678, name: "Test data"})
+      merchant1 = Merchant.new({id: 1234, name: "Repository class", created_at: "2000-03-28"})
+      merchant2 = Merchant.new({id: 5678, name: "Test data", created_at: "2000-03-28"})
 
       allow(repository).to receive(:array_of_objects) do
         [merchant1, merchant2]

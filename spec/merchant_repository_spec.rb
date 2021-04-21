@@ -62,7 +62,10 @@ RSpec.describe MerchantRepository do
     end
 
     it 'creates new merchants' do
-      attributes = {:name => "Turing School of Software and Design"}
+      attributes = {
+                    name: "Turing School of Software and Design",
+                    created_at: "2000-03-28"
+                    }
       expected = "Turing School of Software and Design"
 
       merch_rep.create(attributes, Merchant)
@@ -72,8 +75,9 @@ RSpec.describe MerchantRepository do
 
     it 'can update existing merchant' do
       attributes = {
-      name: "TSSD"
-      }
+                    name: "TSSD",
+                    created_at: "2000-03-28"
+                    }
       merch_rep.update(12337412, attributes)
       expected = merch_rep.find_by_id(12337412)
       expect(expected.name).to eq "TSSD"
