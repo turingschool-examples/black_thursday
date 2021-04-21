@@ -225,15 +225,14 @@ RSpec.describe InvoiceRepository do
 
   describe '#invoice_total_value' do
     it 'returns total dollar amount of invoice of corresponding id' do
-
-      se = SalesEngine.from_csv({
-        items: './data/items.csv',
-        merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv',
-        customers: './data/customers.csv',
-        invoice_items: './data/invoice_items.csv',
-        transactions: './data/transactions.csv'
-      })
+      se = SalesEngine.from_csv(
+                                  items: './data/items.csv',
+                                  merchants: './data/merchants.csv',
+                                  invoices: './data/invoices.csv',
+                                  customers: './data/customers.csv',
+                                  invoice_items: './data/invoice_items.csv',
+                                  transactions: './data/transactions.csv'
+                               )
 
       ir = InvoiceRepository.new('./data/invoices.csv', se)
 
@@ -253,8 +252,7 @@ RSpec.describe InvoiceRepository do
                                     created_at: '2016-01-11 11:51:37 UTC',
                                     updated_at: '1993-09-29 11:56:40 UTC'
                                   },
-                                    ir
-                                 )
+                                    ir)
       test_invoice2 = Invoice.new({
                                     id: '1234567890',
                                     customer_id: '456789',
@@ -263,13 +261,13 @@ RSpec.describe InvoiceRepository do
                                     created_at: '2016-01-11 11:51:37 UTC',
                                     updated_at: '1993-09-29 11:56:40 UTC'
                                   },
-                                    ir
-                                 )
-    ir.invoices << test_invoice1
-    ir.invoices << test_invoice2
+                                    ir)
+      ir.invoices << test_invoice1
+      ir.invoices << test_invoice2
 
-    expect(ir.merchant_invoices(234567890)).to eq([test_invoice1, test_invoice2])
-    expect(ir.merchant_invoices(123456789099999999)).to eq([])
+      expect(ir.merchant_invoices(234567890)).to eq([test_invoice1,
+                                                    test_invoice2])
+      expect(ir.merchant_invoices(123456789099999999)).to eq([])
     end
   end
 
