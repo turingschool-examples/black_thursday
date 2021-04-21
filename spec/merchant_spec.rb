@@ -27,5 +27,14 @@ RSpec.describe Merchant do
       
       expect(merchant.name).to eq('George Washington University')
     end
+
+    it '#update id' do
+      mock_repo = double('ItemRepo')
+      merchant = Merchant.new({:id => 5, :name => 'Turing School'}, mock_repo)
+
+      new_id = 10000
+
+      expect(merchant.update_id(10000)).to eq 10001
+    end
   end
 end

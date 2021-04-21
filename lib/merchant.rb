@@ -11,4 +11,8 @@ class Merchant
   def update_name(attributes)
     @name = attributes[:name]
   end
+
+  def update_id(new_id)
+    @id = new_id + 1 
+  end
 end
