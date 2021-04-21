@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require './lib/sales_engine'
 require './lib/customer_repository'
+require './lib/customer'
 
 RSpec.describe Customer do
   describe '#initialize' do
@@ -104,7 +105,7 @@ RSpec.describe Customer do
       attributes = { first_name: 'Jimmy', last_name: 'John' }
 
       customer.update(attributes)
-      
+
       expect(customer.first_name).to eq('Jimmy')
       expect(customer.last_name).to eq('John')
       expect(customer.created_at.year).to eq(2012)

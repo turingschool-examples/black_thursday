@@ -1,5 +1,5 @@
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 require './lib/sales_engine'
 require './lib/invoice_repository'
 require './lib/invoice'
@@ -14,7 +14,7 @@ RSpec.describe InvoiceRepository do
       expect(ir).to be_instance_of(InvoiceRepository)
     end
 
-    it 'has items' do
+    it 'has invoices' do
       mock_sales_engine = instance_double('SalesEngine')
       ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
 
@@ -164,6 +164,15 @@ RSpec.describe InvoiceRepository do
     end
   end
 
+  describe '#inspect' do
+    it 'inspects invoices' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+
+      expect(ir.invoices.size).to eq(4985)
+    end
+  end
+
   describe '#invoices_by_days' do
     it 'shows count of invoices per day of week' do
       mock_sales_engine = instance_double('SalesEngine')
@@ -176,6 +185,91 @@ RSpec.describe InvoiceRepository do
                                           'Thursday' => 718,
                                           'Tuesday' => 692,
                                           'Wednesday' => 741 })
+    end
+  end
+
+  describe '#invoice_items' do
+    xit 'tells you which items are on the invoice' do
+      se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+      })
+
+      ir = InvoiceRepository.new('./data/invoices.csv', se)
+
+      expect(ir.invoice_items(3)).to eq(4985)
+    end
+  end
+
+  describe '#invoice_paid_in_full?' do
+    it 'returns true if invoice with the corresponding id is paid in full' do
+      se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+      })
+
+      ir = InvoiceRepository.new('./data/invoices.csv', se)
+
+      expect(ir.invoice_paid_in_full?(1)).to eq(true)
+      expect(ir.invoice_paid_in_full?(5000000000)).to eq(false)
+    end
+  end
+
+  describe '#invoice_total_value' do
+    it 'returns total dollar amount of invoice of corresponding id' do
+
+      se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+      })
+
+      ir = InvoiceRepository.new('./data/invoices.csv', se)
+
+      expect(ir.invoice_total_value(1)).to eq(21067.77)
+    end
+  end
+
+  describe '#merchant_invoices' do
+    it 'finds all merchant invoices' do
+      mock_sales_engine = instance_double('SalesEngine')
+      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
+      test_invoice1 = Invoice.new({
+                                    id: '1234567890',
+                                    customer_id: '456789',
+                                    merchant_id: '234567890',
+                                    status: 'pending',
+                                    created_at: '2016-01-11 11:51:37 UTC',
+                                    updated_at: '1993-09-29 11:56:40 UTC'
+                                  },
+                                    ir
+                                 )
+      test_invoice2 = Invoice.new({
+                                    id: '1234567890',
+                                    customer_id: '456789',
+                                    merchant_id: '234567890',
+                                    status: 'pending',
+                                    created_at: '2016-01-11 11:51:37 UTC',
+                                    updated_at: '1993-09-29 11:56:40 UTC'
+                                  },
+                                    ir
+                                 )
+    ir.invoices << test_invoice1
+    ir.invoices << test_invoice2
+
+    expect(ir.merchant_invoices(234567890)).to eq([test_invoice1, test_invoice2])
+    expect(ir.merchant_invoices(123456789099999999)).to eq([])
     end
   end
 

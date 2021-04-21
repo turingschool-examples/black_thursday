@@ -101,6 +101,26 @@ RSpec.describe CustomerRepository do
     end
   end
 
+  describe '#inspect' do
+    it 'inspects items' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
+
+      expect(cr.customers.size).to eq(12)
+    end
+  end
+
+  describe '#make_items' do
+    it 'makes_items' do
+      mock_sales_engine = instance_double('SalesEngine')
+      truncated_data = './spec/truncated_data/customers_truncated.csv'
+      cr = CustomerRepository.new(truncated_data, mock_sales_engine)
+
+      expect(cr.customers.first).to be_instance_of(Customer)
+    end
+  end
+
   describe '#update' do
     it 'can update the customers name and updated at time' do
       mock_sales_engine = instance_double('SalesEngine')
