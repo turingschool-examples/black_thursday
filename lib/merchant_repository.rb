@@ -81,7 +81,6 @@ class MerchantRepository
     @merchants.delete(find_by_id(id))
   end
 
-
   def find_all_by_name(name)
     RepoBrain.find_all_by_partial_string(name, 'name', @merchants)
   end

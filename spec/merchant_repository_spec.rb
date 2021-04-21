@@ -379,10 +379,10 @@ RSpec.describe MerchantRepository do
           invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
           transactions: './spec/truncated_data/transactions_truncated.csv'
                                )
-      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
-      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
+      merchants_truncated = './spec/truncated_data/merchants_truncated.csv'
+      mr = MerchantRepository.new(merchants_truncated, se)
 
-      expect(mr.merchants_with_high_item_count[0].name).to eq("Shopin1901")
+      expect(mr.merchants_with_high_item_count[0].name).to eq('Shopin1901')
     end
   end
 
@@ -396,8 +396,8 @@ RSpec.describe MerchantRepository do
         invoice_items: './spec/truncated_data/invoice_items_truncated.csv',
         transactions: './spec/truncated_data/transactions_truncated.csv'
                                )
-      ir = ItemRepository.new('spec/truncated_data/items_truncated.csv', se)
-      mr = MerchantRepository.new('./spec/truncated_data/merchants_truncated.csv', se)
+      merchants_truncated = './spec/truncated_data/merchants_truncated.csv'
+      mr = MerchantRepository.new(merchants_truncated, se)
 
       expect(mr.merchants_with_only_one_item.count).to eq(2)
       expect(mr.merchants_with_only_one_item[1].name).to eq('MiniatureGolfzz')
@@ -449,7 +449,7 @@ RSpec.describe MerchantRepository do
                                )
       mr = MerchantRepository.new('./data/merchants.csv', se)
 
-      expected = "Frosty Queen Anne&#39;s Lace"
+      expected = 'Frosty Queen Anne&#39;s Lace'
 
       expect(mr.most_sold_item(12334105)[1].name).to eq(expected)
     end
