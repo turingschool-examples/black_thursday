@@ -8,8 +8,7 @@ RSpec.describe Merchant do
                        name: 'Turing School',
                        repository: 'repository',
                        created_at: Time.now,
-                       updated_at: Time.now,
-                       repository: 'boo')
+                       updated_at: Time.now)
 
       expect(m).to be_instance_of(Merchant)
     end
@@ -25,7 +24,6 @@ RSpec.describe Merchant do
     it 'has attributes' do
       m = Merchant.new(id: 5,
                        name: 'Turing School',
-                       repository: 'repository',
                        created_at: Time.now,
                        updated_at: Time.now,
                        repository: 'boo')
@@ -42,7 +40,6 @@ RSpec.describe Merchant do
     it 'updates an instance' do
       m = Merchant.new(id: 5,
                        name: 'Turing School',
-                       repository: 'repository',
                        created_at: Time.now,
                        updated_at: Time.now,
                        repository: 'boo')
@@ -63,8 +60,7 @@ RSpec.describe Merchant do
                        name: 'Turing School',
                        repository: 'repository',
                        created_at: Time.now,
-                       updated_at: Time.now,
-                       repository: 'boo')
+                       updated_at: Time.now)
 
       m.name = 'bob'
       m.updated_at = 'bob'
