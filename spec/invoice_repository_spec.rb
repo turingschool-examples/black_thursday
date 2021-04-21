@@ -240,37 +240,6 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#merchant_invoices' do
-    it 'finds all merchant invoices' do
-      mock_sales_engine = instance_double('SalesEngine')
-      ir = InvoiceRepository.new('./data/invoices.csv', mock_sales_engine)
-      test_invoice1 = Invoice.new({
-                                    id: '1234567890',
-                                    customer_id: '456789',
-                                    merchant_id: '234567890',
-                                    status: 'pending',
-                                    created_at: '2016-01-11 11:51:37 UTC',
-                                    updated_at: '1993-09-29 11:56:40 UTC'
-                                  },
-                                    ir)
-      test_invoice2 = Invoice.new({
-                                    id: '1234567890',
-                                    customer_id: '456789',
-                                    merchant_id: '234567890',
-                                    status: 'pending',
-                                    created_at: '2016-01-11 11:51:37 UTC',
-                                    updated_at: '1993-09-29 11:56:40 UTC'
-                                  },
-                                    ir)
-      ir.invoices << test_invoice1
-      ir.invoices << test_invoice2
-
-      expect(ir.merchant_invoices(234567890)).to eq([test_invoice1,
-                                                     test_invoice2])
-      expect(ir.merchant_invoices(123456789099999999)).to eq([])
-    end
-  end
-
   describe '#merchant_successful_invoice_array' do
     it 'returns array of successful invoices per merchant' do
       se = SalesEngine.from_csv({
