@@ -94,31 +94,31 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_count_per_merchant.class).to eq(Hash)
     end
 
-    xit '#top merchants by invoice count' do
-      sales_analyst = @sales_engine.analyst
+    # xit '#top merchants by invoice count' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
-    end
+    #   expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+    # end
 
-    xit '#bottom merchants by invoice count' do
-      sales_analyst = @sales_engine.analyst
+    # xit '#bottom merchants by invoice count' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
-    end
+    #   expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
+    # end
 
-    xit '#average_invoice_per_day_standard_deviation' do
-      sales_analyst = @sales_engine.analyst
+    # xit '#average_invoice_per_day_standard_deviation' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.average_invoice_per_day_standard_deviation).to eq(18.07)
-    end
+    #   expect(sales_analyst.average_invoice_per_day_standard_deviation).to eq(18.07)
+    # end
 
-    xit '#top days by invoice count' do
-      sales_analyst = @sales_engine.analyst
+    # xit '#top days by invoice count' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.top_days_by_invoice_count.length).to eq 1
-      expect(sales_analyst.top_days_by_invoice_count.first).to eq "Wednesday"
-      expect(sales_analyst.top_days_by_invoice_count.first.class).to eq String
-    end
+    #   expect(sales_analyst.top_days_by_invoice_count.length).to eq 1
+    #   expect(sales_analyst.top_days_by_invoice_count.first).to eq "Wednesday"
+    #   expect(sales_analyst.top_days_by_invoice_count.first.class).to eq String
+    # end
 
     xit '#invoice status' do
       sales_analyst = @sales_engine.analyst
