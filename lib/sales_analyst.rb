@@ -7,59 +7,48 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
-  def item_count
+  def item_count 
     sales_engine.item_count
   end
 
-  def merchant_count
+  def merchant_count #needed
     sales_engine.merchant_count
   end
 
   def average_items_per_merchant
-     ( item_count / merchant_count).round(2)
+    @sales_engine.average_items_per_merchant
   end
 
   def average_price
     sales_engine.average_price
   end
 
+  def average_items_per_merchant_standard_deviation 
+    @sales_engine.average_items_per_merchant_standard_deviation
+  end
+
   def item_count_per_merchant
     sales_engine.item_count_per_merchant
   end
 
-  def average_items_per_merchant_standard_deviation #merchant repo
-    average_items = average_items_per_merchant
-    sum = item_count_per_merchant.sum do |merchant, count|
-      (average_items - count)**2
-    end
-    sum = (sum / (merchant_count - 1))
-    (sum ** 0.5).round(2)
+  def merchants_with_high_item_count
+    @sales_engine.merchants_with_high_item_count
   end
 
-  def average_item_price_standard_deviation #item repo
-    average = average_price
-    sum = sales_engine.all_items.sum do |item|
-      (average - item.unit_price_to_dollars)**2
-    end
-    sum = (sum / item_count)
-    (sum ** 0.5).round(2)
+  # def average_item_price_for_merchant(merchant_id) #item repo
+  #   all_items = sales_engine.find_all_by_merchant_id(merchant_id)
+  #   sum = all_items.sum do |item|
+  #     item.unit_price
+  #   end
+  #   (sum / all_items.length).round(2)
+  # end
+
+  def average_item_price_for_merchant(merchant_id)
+    @sales_engine.average_item_price_for_merchant(merchant_id)
   end
 
-  def merchants_with_high_item_count #merchants
-    one_deviation = average_items_per_merchant_standard_deviation + average_items_per_merchant
-    high_merchants = []
-    item_count_per_merchant.find_all do |id, count|
-      high_merchants << sales_engine.find_by_id(id) if count > one_deviation
-    end
-    high_merchants
-  end
-
-  def average_item_price_for_merchant(merchant_id) #item repo
-    all_items = sales_engine.find_all_by_merchant_id(merchant_id)
-    sum = all_items.sum do |item|
-      item.unit_price
-    end
-    (sum / all_items.length).round(2)
+  def average_item_price_standard_deviation 
+    @sales_engine.average_items_per_merchant_standard_deviation
   end
 
   def average_average_price_per_merchant # merchant repo

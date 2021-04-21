@@ -52,17 +52,17 @@ RSpec.describe SalesEngine do
       expect(sales_engine.all_invoices).to be_a(Array)
     end
 
-    it 'item count' do
-      sales_engine = @sales_engine
+    # it 'item count' do
+    #   sales_engine = @sales_engine
 
-      expect(sales_engine.item_count).to be_a(Float)
-    end
+    #   expect(sales_engine.item_count).to be_a(Float)
+    # end
 
-    it 'merchant count' do
-      sales_engine = @sales_engine
+    # it 'merchant count' do
+    #   sales_engine = @sales_engine
 
-      expect(sales_engine.merchant_count).to be_a(Float)
-    end
+    #   expect(sales_engine.merchant_count).to be_a(Float)
+    # end
 
     it 'invoice count' do
       sales_engine = @sales_engine
@@ -105,5 +105,19 @@ RSpec.describe SalesEngine do
 
       expect(sales_engine.find_all_by_status("success")).to be_a(Array)
     end
+
+    it '#average items per merchant' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.average_items_per_merchant).to be_a(Array)
+    end
+
+    it '#average items per merchant standard deviation' do
+      sales_engine = @sales_engine
+
+      expect(sales_engine.find_all_by_status("success")).to be_a(Array)
+    end
+
+
   end
 end
