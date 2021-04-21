@@ -36,12 +36,12 @@ class MerchantRepo
   end
 
   def update(id, attributes)
-    merchant = find_by_id(id)
+    merchant = find_by_id(id, @merchants)
     return if !merchant
     merchant.update_name(attributes)
   end
 
   def delete(id)
-    @merchants.delete(find_by_id(id))
+    @merchants.delete(find_by_id(id, @merchants))
   end
 end

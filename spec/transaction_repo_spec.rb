@@ -143,7 +143,6 @@ RSpec.describe TransactionRepo do
    it '#deletes by id' do
      mock_engine = double('TransactionRepo')
      transaction_repo = TransactionRepo.new('./fixtures/mock_transactions.csv', mock_engine)
-     collection = transaction_repo.transactions
      transaction = transaction_repo.create({:id => 6,
                                             :invoice_id => 8,
                                             :credit_card_number => "4242424242424242",

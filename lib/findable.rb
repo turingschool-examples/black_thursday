@@ -3,8 +3,8 @@
 #testing with ItemRepo
 #CONFIRM STYLE GUIDE AROUND SPACEING
 module Findable #confirm this needs the 'able'
-  def find_by_id(id, collection)                            #ItemRepo - PASSED
-    collection.find do |attribute|                          #MerchantRepo - PASSED
+  def find_by_id(id, collection)                          #ItemRepo - PASSED
+    collection.find do |attribute|
       attribute.id == id                                    #InvoiceRepo - PASSED
     end                                                     #InvoiceItemRepo - PASSED
   end                                                       #TrasnactionRepo = PASSED
