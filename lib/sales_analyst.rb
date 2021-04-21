@@ -350,7 +350,7 @@ class SalesAnalyst
       end
     end.to_a
 
-    hight_grossing_item_array = items_by_quantity_sold.max_by do |(item_id, revenue)|
+    hight_grossing_item_array = items_by_quantity_sold.max_by do |(_item_id, revenue)|
       revenue
     end
 
