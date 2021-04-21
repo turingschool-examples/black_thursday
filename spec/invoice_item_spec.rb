@@ -170,8 +170,8 @@ RSpec.describe InvoiceItem do
                                        unit_price: '1300',
                                        created_at: '2012-03-27 14:54:09 UTC',
                                        updated_at: '2013-03-27 14:54:09 UTC'
-                                       },
-                                        mock_invoice_item_repository)
+                                     },
+                                       mock_invoice_item_repository)
       attributes = {
                       id: '1',
                       item_id: '263519844',
