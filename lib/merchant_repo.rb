@@ -1,17 +1,17 @@
 require 'merchant'
 class MerchantRepo
   attr_reader :merchants,
-              :data
+              :engine
 
   def initialize(path, engine)
-    @repo = engine
     @merchants = []
+    @engine = engine
     populate_information(path)
   end
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data)
+      @merchants << Merchant.new(data, self)
     end
   end
 
@@ -42,7 +42,7 @@ class MerchantRepo
   end
 
   def create(attributes)
-    merchant = Merchant.new(attributes)
+    merchant = Merchant.new(attributes, self)
     max = @merchants.max_by do |merchant|
       merchant.id
     end

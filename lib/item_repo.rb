@@ -3,7 +3,8 @@ require 'bigdecimal'
 require 'item'
 
 class ItemRepo
-  attr_reader :items
+  attr_reader :items,
+              :engine
 
   def initialize(path, engine)
     @items = []
@@ -13,7 +14,7 @@ class ItemRepo
 
   def populate_information(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data)
+      @items << Item.new(data, self)
     end
   end
 
@@ -63,13 +64,13 @@ class ItemRepo
   end
 
   def create(attributes)
-    item = Item.new(attributes)
-    max = @items.max_by do |item|
-      item.id
-    end
-    item.id = max.id + 1
-    add_item(item)
-    item
+     item = Item.new(attributes, self)
+     max = @items.max_by do |item|
+       item.id
+     end
+     item.update_id(max.id)
+     @items << item
+     item
   end
 
   def update(id, attributes)

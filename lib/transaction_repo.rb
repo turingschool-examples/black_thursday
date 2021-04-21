@@ -3,7 +3,8 @@ require 'time'
 require_relative 'transaction'
 
 class TransactionRepo
-  attr_reader :transactions
+  attr_reader :transactions,
+              :engine
 
   def initialize(path, engine)
     @transactions = []
@@ -12,8 +13,8 @@ class TransactionRepo
   end
 
   def populate_information(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @transactions << Transaction.new(data)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      @transactions << Transaction.new(row, self)
     end
   end
 
@@ -50,7 +51,7 @@ class TransactionRepo
   end
 
   def create(attributes)
-    transaction = Transaction.new(attributes)
+    transaction = Transaction.new(attributes, self)
     max = @transactions.max_by do |transaction|
       transaction.id
     end
@@ -72,6 +73,4 @@ class TransactionRepo
   def delete(id)
     @transactions.delete(find_by_id(id))
   end
-
-
 end
