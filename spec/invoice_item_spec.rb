@@ -89,4 +89,21 @@ RSpec.describe InvoiceItem do
       expect(ii.unit_price_to_dollars).to eq(10.99)
     end
   end
+
+  describe '#update' do
+    it 'changes the attributes' do
+      ii = InvoiceItem.new(
+        id: 6,
+        item_id: 7,
+        invoice_id: 8,
+        quantity: 1,
+        cent_price: 1099,
+        created_at: Time.now,
+        updated_at: Time.now
+      )
+      ii.update({quantity: 3})
+
+      expect(ii.quantity).not_to eq(1)
+    end
+  end
 end
