@@ -83,22 +83,15 @@ class ItemRepo
     @items.delete(find_by_id(id))
   end
 
-  def average_price #Needs spec
+
+  def average_price 
     price_total = @items.sum do |item|
       item.unit_price_to_dollars
     end
     price_total / all.length
   end
 
-  def item_count_per_merchant #Needs spec
-    merchant_item = {}
-    @items.each do |item|
-      merchant_item[item.merchant_id] = find_all_by_merchant_id(item.merchant_id).length
-    end
-      merchant_item
-  end
-
-  def item_count_per_merchant #Needs spec
+  def item_count_per_merchant
     merchant_item = {}
     @items.each do |item|
       merchant_item[item.merchant_id] = find_all_by_merchant_id(item.merchant_id).length
