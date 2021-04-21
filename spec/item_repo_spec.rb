@@ -3,41 +3,33 @@ require 'bigdecimal'
 require 'sales_engine'
 
 RSpec.describe ItemRepo do
-  before(:each) do
-    @sales_engine = SalesEngine.from_csv({:items => './data/items.csv',
-                                          :merchants => './data/merchants.csv',
-                                          :invoices => './data/invoices.csv',
-                                          :invoice_items => './data/invoice_items.csv',
-                                          :transactions  => './data/transactions.csv',
-                                          :customers => './data/customers.csv'
-                                        })
-  end
-  
-  item_repo = ItemRepo.new('./', nil)
-
   describe 'instantiation' do
-    xit'::new' do
-      item_repo = @sales_engine.items
+    it '::new' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
 
       expect(item_repo).to be_an_instance_of(ItemRepo)
     end
 
-    xit'has attributes' do
-      item_repo = @sales_engine.items
+    it 'has attributes' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
 
       expect(item_repo.items).to be_an_instance_of(Array)
     end
   end
 
   describe '#methods' do
-    xit'#all' do
-      item_repo = @sales_engine.items
+    it '#all' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
 
       expect(item_repo.all).to be_an_instance_of(Array)
     end
 
-    xit '#find by id' do
-      item_repo = @sales_engine.items
+    it '#find by id' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = item_repo.items
       item = item_repo.create({:id          => 1,
                                :name        => "Pencil",
@@ -52,8 +44,9 @@ RSpec.describe ItemRepo do
       expect(item_repo.find_by_id(999999999, collection)).to eq(nil)
     end
 
-    xit '#find by name' do
-      item_repo = @sales_engine.items
+    it '#find by name' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = item_repo.items
       item = item_repo.create({:id          => 1,
                                :name        => "Pencil",
@@ -67,8 +60,9 @@ RSpec.describe ItemRepo do
       expect(item_repo.find_by_name("not exist", collection)).to eq(nil)
     end
 
-    xit '#find by description' do
-      item_repo = @sales_engine.items
+    it '#find by description' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = item_repo.items
       item = item_repo.create({:id          => 1,
                               :name        => "Pencil",
@@ -82,9 +76,10 @@ RSpec.describe ItemRepo do
       expect(item_repo.find_all_with_description("not exist", collection)).to eq([])
     end
 
-    xit '#find all by price' do
+    it '#find all by price' do
       #mock and stubs
-      item_repo = @sales_engine.items
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = item_repo.items
       item = item_repo.create({:id          => 1,
                                :name        => "Pencil",
@@ -98,8 +93,9 @@ RSpec.describe ItemRepo do
       expect(item_repo.find_all_by_price(0, collection)).to eq([])
     end
 
-    xit '#find all by price by range' do
-      item_repo = @sales_engine.items
+    it '#find all by price by range' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = item_repo.items
       item = item_repo.create({:id          => 1,
                               :name        => "Pencil",
@@ -114,7 +110,8 @@ RSpec.describe ItemRepo do
     end
 
     it '#find by merchant id' do
-      item_repo = @sales_engine.items
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       collection = item_repo.items
       item = item_repo.create({:id          => 1,
                               :name        => "Pencil",
@@ -128,8 +125,9 @@ RSpec.describe ItemRepo do
       expect(item_repo.find_all_by_merchant_id(0, collection)).to eq([])
     end
 
-   xit'#creates item' do
-    item_repo = @sales_engine.items
+   it'#creates item' do
+    mock_engine = double('ItemRepo')
+    item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
     item = item_repo.create({:id          => 1,
                              :name        => "Pencil",
                              :description => "You can use xitto write things",
@@ -141,8 +139,9 @@ RSpec.describe ItemRepo do
       expect(item).to be_an_instance_of(Item)
     end
 
-   xit'#update attributes' do
-      item_repo = @sales_engine.items
+   it'#update attributes' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
       item = item_repo.create({:id          => 1,
                              :name        => "Pencil",
                              :description => "You can use xitto write things",
@@ -165,8 +164,9 @@ RSpec.describe ItemRepo do
       expect(item.updated_at).to be_an_instance_of(Time)
     end
 
-   xit'#delete by id' do
-    item_repo = @sales_engine.items
+   it'#delete by id' do
+   mock_engine = double('ItemRepo')
+   item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
     item = item_repo.create({:id        => 1,
                              :name        => "Pencil",
                              :description => "You can use it to write things",
@@ -181,15 +181,17 @@ RSpec.describe ItemRepo do
 
       expect(item_repo.find_by_id(item.id)).to eq(nil)
    end
-      
+
     it '#average price' do
-      item_repo = @sales_engine.items
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
 
       expect(item_repo.average_price).to be_a(Float)
     end
 
-    xit'#item merchant count' do
-      item_repo = @sales_engine.items
+    it'#item merchant count' do
+      mock_engine = double('ItemRepo')
+      item_repo = ItemRepo.new('./fixtures/mock_items.csv', mock_engine)
 
       expect(item_repo.item_count_per_merchant).to be_a(Hash)
     end
