@@ -91,7 +91,7 @@ RSpec.describe TransactionRepo do
       expect(transaction1.find_all_by_credit_card_number("0000000000000000")).to eq([])
     end
 
-    xit '#find all by result' do
+    it '#find all by result' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
@@ -108,7 +108,7 @@ RSpec.describe TransactionRepo do
       expect(transaction1.find_all_by_result("sweet success")).to eq([])
     end
 
-    xit '#creates a new transaction instance' do
+    it '#creates a new transaction instance' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
@@ -124,7 +124,7 @@ RSpec.describe TransactionRepo do
       expect(transaction_repo.create(transaction1)).to be_an_instance_of(Transaction)
     end
 
-    xit '#updates attributes' do
+    it '#updates attributes' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
@@ -151,7 +151,7 @@ RSpec.describe TransactionRepo do
       expect(transaction1.updated_at).to be_an_instance_of(Time)
     end
 
-    xit '#deletes by id' do
+    it '#deletes by id' do
       transaction_repo = @sales_engine.transactions
       transaction1 = Transaction.create({:id => 6,
                                       :invoice_id => 8,
