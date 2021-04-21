@@ -14,7 +14,6 @@ class Merchant
   end
 
   def average_item_price
-    # require 'pry'; binding.pry
     BigDecimal(average(item_price_hash), 4).round(2)
   end
 
@@ -49,9 +48,9 @@ class Merchant
   def most_sold_item
     hash = sold_items_quantity_hash
     highest_item_quantity = hash.values.max
-    hash.each_with_object([]) do |(invoice_id, quantity), array|
+    hash.each_with_object([]) do |(item_id, quantity), array|
       if quantity == highest_item_quantity
-        array << @engine.find_item_by_id(invoice_id)
+        array << @merchant_repo.find_item_by_id(item_id)
       end
     end
   end
@@ -89,7 +88,4 @@ class Merchant
   def update_time_stamp
     @updated_at = Time.now
   end
-
-  #months/items hash *
-
 end

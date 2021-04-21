@@ -100,8 +100,8 @@ RSpec.describe Merchant do
     end
   end
 
-  describe '#merchant_items' do
-    xit 'has items' do
+  describe '#items' do
+    it 'returns merchants items' do
       se = SalesEngine.from_csv({
         items: './data/items.csv',
         merchants: './data/merchants.csv',
@@ -118,13 +118,13 @@ RSpec.describe Merchant do
                               updated_at: '2011-12-04'
                             }, mr)
 
-      expect(merchant.merchant_items[0]).to be_a(Item)
-      expect(merchant.merchant_items.count).to eq(3)
+      expect(merchant.items[0]).to be_a(Item)
+      expect(merchant.items.count).to eq(3)
     end
   end
 
   describe '#items_count' do
-    xit 'can count the amount of items a merchant has' do
+    it 'can count the amount of items a merchant has' do
       se = SalesEngine.from_csv({
         items: './data/items.csv',
         merchants: './data/merchants.csv',
@@ -140,13 +140,13 @@ RSpec.describe Merchant do
                               created_at: '2010-12-10',
                               updated_at: '2011-12-04'
                             }, mr)
-        merchant.items_quantity_hash
+
       expect(merchant.items_count).to eq(3)
     end
   end
 
-  describe '#invoice_ids' do
-    xit 'can list invoice ids' do
+  describe '#invoices' do
+    it 'returns the merchants invoices' do
       se = SalesEngine.from_csv({
         items: './data/items.csv',
         merchants: './data/merchants.csv',
@@ -163,7 +163,29 @@ RSpec.describe Merchant do
                               updated_at: '2011-12-04'
                             }, mr)
 
-      expect(merchant.merchant_invoices.count).to eq(10)
+      expect(merchant.invoices.count).to eq(10)
+    end
+  end
+
+  describe '#invoices_count' do
+    it 'can count the number of invoices' do
+      se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        customers: './data/customers.csv',
+        invoice_items: './data/invoice_items.csv',
+        transactions: './data/transactions.csv'
+                                })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+
+      expect(merchant.invoices_count).to eq(10)
     end
   end
 
@@ -189,8 +211,8 @@ RSpec.describe Merchant do
     end
   end
 
-  describe '#merchants_with_pending_invoices' do
-    xit 'returns list of merchants with pending invoices' do
+  describe '#pending_invoices?' do
+    it 'checks if merchant has pending invoices' do
       se = SalesEngine.from_csv({
         items: './data/items.csv',
         merchants: './data/merchants.csv',
@@ -206,12 +228,12 @@ RSpec.describe Merchant do
                               created_at: '2010-12-10',
                               updated_at: '2011-12-04'
                             }, mr)
-    expect(merchant.merchants_with_pending_invoices.count).to eq(4)
+    expect(merchant.pending_invoices?).to eq(true)
     end
   end
 
-   describe '#items_revenue_hash' do
-    xit 'returns a hash with item and revenue' do
+   describe '#sold_items_revenue_hash' do
+    it 'returns a hash with items sold and their revenue' do
       se = SalesEngine.from_csv({
       items: './data/items.csv',
       merchants: './data/merchants.csv',
@@ -228,12 +250,13 @@ RSpec.describe Merchant do
                               updated_at: '2011-12-04'
                             }, mr)
 
-      expect(merchant.items_revenue_hash).to be_a(Hash)
+      expect(merchant.sold_items_revenue_hash).to be_a(Hash)
+      expect(merchant.sold_items_revenue_hash[263506360]).to eq(879.09)
     end
   end
 
   describe '#best_item' do
-    xit 'finds the item with the most revenue' do
+    it 'finds the item with the most revenue' do
       se = SalesEngine.from_csv({
       items: './data/items.csv',
       merchants: './data/merchants.csv',
@@ -250,7 +273,7 @@ RSpec.describe Merchant do
                               updated_at: '2011-12-04'
                             }, mr)
 
-      expect(merchant.best_item[0].id).to eq(263396209)
+      expect(merchant.best_item.id).to eq(263561102)
     end
   end
 
@@ -272,7 +295,97 @@ RSpec.describe Merchant do
                               updated_at: '2011-12-04'
                             }, mr)
 
-      expect(merchant.average_item_price).to eq(2634.9)
+      expect(merchant.average_item_price).to eq(0.1666e2)
+    end
+  end
+
+  describe '#item_price_hash' do
+    it 'returns a hash with the item and its price' do
+      se = SalesEngine.from_csv({
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+                              })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+
+      expect(merchant.item_price_hash).to eq({263396209=>0.2999e2,
+                                              263500440=>0.999e1,
+                                              263501394=>0.999e1})
+    end
+  end
+
+  describe '#most_sold_item' do
+    it 'returns the item that sold the most' do
+      se = SalesEngine.from_csv({
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+                              })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+
+      expect(merchant.most_sold_item[0]).to be_a(Item)
+    end
+  end
+
+  describe '#successful_invoices' do
+    it 'returns the merchants successful invoices' do
+      se = SalesEngine.from_csv({
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+                              })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+
+      expect(merchant.successful_invoices).to eq([74, 139, 1195, 3248, 3485])
+    end
+  end
+
+  describe '#total_revenue' do
+    it 'returns the merchants total revenue' do
+      se = SalesEngine.from_csv({
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      customers: './data/customers.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
+                              })
+      mr = MerchantRepository.new('./data/merchants.csv', se)
+      merchant = Merchant.new({
+                              id: '12334105',
+                              name: 'Shopin1901',
+                              created_at: '2010-12-10',
+                              updated_at: '2011-12-04'
+                            }, mr)
+
+      expect(merchant.total_revenue).to eq(73777.17)
     end
   end
 end
