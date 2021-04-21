@@ -86,7 +86,7 @@ class MerchantRepo
   def average_average_price_per_merchant 
     all_items = item_count_per_merchant.length
     all_averages = all.sum do |merchant|
-      average_item_price_for_merchant(merchant.id)
+     @engine.average_item_price_for_merchant(merchant.id)
     end
     (all_averages / all_items).round(2)
   end

@@ -57,11 +57,11 @@ RSpec.describe SalesAnalyst do
     #   expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
     # end
 
-    xit '#average average price per merchant' do
-      sales_analyst = @sales_engine.analyst
+    # it '#average average price per merchant' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
-    end
+    #   expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
+    # end
 
     xit '#golden items' do
       sales_analyst = @sales_engine.analyst
@@ -70,23 +70,23 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.golden_items.first.class).to eq Item
     end
 
-    xit '#invoice count' do
-      sales_analyst = @sales_engine.analyst
+    # xit '#invoice count' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.invoice_count).to eq(4985.0)
-    end
+    #   expect(sales_analyst.invoice_count).to eq(4985.0)
+    # end
 
-    xit '#average invoices per merchant' do
-      sales_analyst = @sales_engine.analyst
+    # it '#average invoices per merchant' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
-    end
+    #   expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    # end
 
-    xit '#average invoices per merchant standard deviation' do
-      sales_analyst = @sales_engine.analyst
+    # xit '#average invoices per merchant standard deviation' do
+    #   sales_analyst = @sales_engine.analyst
 
-      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
-    end
+    #   expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    # end
 
     xit '#invoice count per merchant' do
       sales_analyst = @sales_engine.analyst

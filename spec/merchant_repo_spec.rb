@@ -150,7 +150,7 @@ RSpec.describe MerchantRepo do
       expect(merchant_repo.average_items_per_merchant_standard_deviation).to eq(0)
     end
 
-    it '#merchants_with_high_item_count.first' do
+    it '#merchants with high item count' do
       sales_engine = SalesEngine.from_csv({:items => './fixtures/mock_items.csv',
                                           :merchants => './fixtures/mock_merchants.csv',
                                           :invoices => './fixtures/mock_invoices.csv',
@@ -160,6 +160,18 @@ RSpec.describe MerchantRepo do
       merchant_repo = sales_engine.merchants 
 
       expect(merchant_repo.merchants_with_high_item_count.first).to be_a(Merchant)
+    end
+
+    it '#average average price per merchant ' do
+      sales_engine = SalesEngine.from_csv({:items => './fixtures/mock_items.csv',
+                                          :merchants => './fixtures/mock_merchants.csv',
+                                          :invoices => './fixtures/mock_invoices.csv',
+                                          :invoice_items => './fixtures/mock_invoice_items.csv',
+                                          :transactions  => './fixtures/mock_transactions.csv',
+                                          :customers => './fixtures/mock_customers.csv'})
+      merchant_repo = sales_engine.merchants 
+
+      expect(merchant_repo.average_average_price_per_merchant).to eq(350.29)
     end
   end
 end
