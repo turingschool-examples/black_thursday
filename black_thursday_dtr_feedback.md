@@ -54,7 +54,7 @@ Guiding Questions to Define The Relationship:
   friday 9-10pm - white boarding
   saturday 8am - 10?
   sunday - scheduling some time
-  monday - nonwork day
+  monday - non-work day
 * What is your style for giving feedback? Does anything ever hold you back from * giving feedback?
 * What do you identify as being your biggest strength(s) technically, as they * relate to this project? Where do you feel you could use improvement in your * technical skills, as they relate to this project? How can our team help support * you in improving these skills?
 * What tools do you want to use to manage the project?
