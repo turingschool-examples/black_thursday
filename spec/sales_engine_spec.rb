@@ -30,4 +30,13 @@ RSpec.describe SalesEngine do
 
     expect(se.merchants).to be_an_instance_of(MerchantRepository)
   end
+
+  xit 'can create a sales analyst' do
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+
+    expect(se.analyst).to be_a(SalesAnalyst)
+  end
 end
