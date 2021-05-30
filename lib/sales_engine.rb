@@ -3,10 +3,14 @@ require_relative 'merchant_repository'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants
-  def initialize(data)
-    @items = data[:items]
-    @merchants = data[:merchants]
+  def initialize
+  end
+
+  def self.from_csv(path)
+    @items = path[:items]
+    @merchants = path[:merchants]
+
+    SalesEngine.new
   end
 
   def items

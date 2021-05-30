@@ -5,7 +5,7 @@ require 'csv'
 
 RSpec.describe SalesEngine do
   it 'exists' do
-    se = SalesEngine.new({
+    se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
@@ -32,7 +32,7 @@ RSpec.describe SalesEngine do
   end
 
   xit 'can create a sales analyst' do
-    se = SalesEngine.new({
+    se = SalesEngine.from_csv{
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
