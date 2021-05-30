@@ -11,7 +11,7 @@ RSpec.describe ItemRepository do
   it "calls and reads correct file path" do
     se = SalesEngine.new
     ir = ItemRepository.new(se.library[:items])
-    ir_csv_data = ir.read_csv
+    ir_csv_data = ir.all
 
     expect(ir_csv_data.class).to eq(Array)
     expect(ir_csv_data.length).to eq(1367)

@@ -11,7 +11,7 @@ RSpec.describe MerchantRepository do
   it "calls and reads correct file path" do
     se = SalesEngine.new
     mr = MerchantRepository.new(se.library[:merchants])
-    mr_csv_data = mr.read_csv
+    mr_csv_data = mr.all
 
     expect(mr_csv_data.class).to eq(Array)
     expect(mr_csv_data.length).to eq(475)

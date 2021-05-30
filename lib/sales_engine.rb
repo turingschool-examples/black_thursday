@@ -11,12 +11,12 @@ class SalesEngine
 
   def items
     ir = ItemRepository.new(@library[:items])
-    ir.read_csv
+    ir.all
   end
 
   def merchants
     mr = MerchantRepository.new(@library[:merchants])
-    mr.read_csv
+    mr.all
   end
 
 end
