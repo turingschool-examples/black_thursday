@@ -15,7 +15,7 @@ RSpec.describe MerchantRepository do
 
     expect(mr_csv_data.class).to eq(Array)
     expect(mr_csv_data.length).to eq(475)
-    # require 'pry'; binding.pry
+    require 'pry'; binding.pry
     data_validation = mr_csv_data.all? do |line|
       line.class == Hash
       line.keys.length == 4

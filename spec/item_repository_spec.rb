@@ -15,7 +15,7 @@ RSpec.describe ItemRepository do
 
     expect(ir_csv_data.class).to eq(Array)
     expect(ir_csv_data.length).to eq(1367)
-
+    require 'pry'; binding.pry
     data_validation = ir_csv_data.all? do |line|
       line.class == Hash
       line.keys.length == 7
