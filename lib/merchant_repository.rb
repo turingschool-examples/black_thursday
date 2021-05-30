@@ -1,20 +1,22 @@
-require_relative 'sales_engine'
+require_relative 'helper_methods'
 
 class MerchantRepository
-  # attr_reader :all_merchants
+  include HelperMethods
+  attr_reader :all
 
   def initialize(file_path)
     @file_path = file_path.to_s
-    # @all_merchants = Array.new
+    @all = Array.new
+    data = CSV.parse(File.read(@file_path), headers: true) do |line|
+      @all << line.to_h
+    end
   end
 
-  def read_csv
-    collection_array = []
-    data = CSV.parse(File.read(@file_path), headers: true) do |line|
-      collection_array << line.to_h
-    end
-    # require "pry"; binding.pry
-    collection_array
-  end
+  # def find_by_id(id)
+  #   @all.find_all do |merchant|
+  #     merchant.id
+  #   end
+  # end
+
 
 end

@@ -1,18 +1,15 @@
-require_relative 'sales_engine'
+require_relative 'helper_methods'
 
 class ItemRepository
+  include HelperMethods
+  attr_reader :all
 
   def initialize(file_path)
     @file_path = file_path.to_s
-  end
-
-  def read_csv
-    collection_array = []
+    @all = Array.new
     data = CSV.parse(File.read(@file_path), headers: true) do |line|
-      collection_array << line.to_h
+      @all << line.to_h
     end
-    # require "pry"; binding.pry
-    collection_array
   end
 
 end
