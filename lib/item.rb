@@ -34,8 +34,4 @@ class Item
     value = hash[:unit_price]
     value.to_f
   end
-
-
-
-
 end
