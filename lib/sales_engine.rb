@@ -10,10 +10,8 @@ class SalesEngine
   end
 
   def items
-    #access value from library hash to get filepath
-    #open csv file
-    #call ItemRepository.new(file_path - value from library hash)
-    #return items
+    ir = ItemRepository.new(@library[:items])
+    ir.read_csv
   end
 
   def merchants

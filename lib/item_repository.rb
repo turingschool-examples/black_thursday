@@ -1,4 +1,4 @@
-require_relative './sales_engine'
+require_relative 'sales_engine'
 
 class ItemRepository
 
@@ -11,6 +11,7 @@ class ItemRepository
     data = CSV.parse(File.read(@file_path), headers: true) do |line|
       collection_array << line.to_h
     end
+    # require "pry"; binding.pry
     collection_array
   end
 

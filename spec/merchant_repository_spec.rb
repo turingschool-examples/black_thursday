@@ -1,9 +1,7 @@
-require_relative './spec_helper'
+require_relative 'spec_helper'
 
 RSpec.describe MerchantRepository do
-
   it "exists" do
-
     se = SalesEngine.new
     mr = MerchantRepository.new(se.library[:merchants])
 
@@ -11,14 +9,14 @@ RSpec.describe MerchantRepository do
   end
 
   it "calls and reads correct file path" do
-
     se = SalesEngine.new
     mr = MerchantRepository.new(se.library[:merchants])
+    mr_csv_data = mr.read_csv
 
-    expect(mr.read_csv.class).to eq(Array)
-    expect(mr.read_csv.length).to eq(475)
+    expect(mr_csv_data.class).to eq(Array)
+    expect(mr_csv_data.length).to eq(475)
 
-    data_validation = mr.read_csv.all? do |line|
+    data_validation = mr_csv_data.all? do |line|
       line.class == Hash
       line.keys.length == 4
       line.values.length == 4

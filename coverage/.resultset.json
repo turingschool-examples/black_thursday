@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jacob/turing/black_thursday_2105/lib/sales_engine.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/sales_engine.rb": {
         "lines": [
           1,
           null,
@@ -9,112 +9,107 @@
           1,
           null,
           1,
-          5,
-          5,
-          5,
+          8,
+          8,
+          8,
           null,
           null,
           1,
+          1,
+          1,
           null,
           null,
+          1,
+          1,
+          1,
           null,
           null,
+          null
+        ]
+      },
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/item_repository.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          1,
+          3,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2734,
+          null,
+          null,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/merchant_repository.rb": {
+        "lines": [
+          1,
+          null,
+          1,
           null,
           null,
           1,
           3,
-          3,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          950,
+          null,
+          null,
+          2,
           null,
           null,
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday_2105/lib/item_repository.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/item_repository_spec.rb": {
         "lines": [
           1,
           null,
           1,
+          1,
+          1,
+          1,
           null,
           1,
-          0,
           null,
           null,
           1,
-          0,
-          0,
-          0,
+          1,
+          1,
+          1,
           null,
-          0,
+          1,
+          1,
           null,
+          1,
+          1367,
+          1367,
+          1367,
+          null,
+          null,
+          1,
           null,
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday_2105/lib/merchant_repository.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/merchant_repository_spec.rb": {
         "lines": [
           1,
           null,
           1,
-          null,
-          null,
           1,
-          5,
-          null,
-          null,
-          null,
-          1,
-          6,
-          6,
-          2850,
-          null,
-          null,
-          6,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/jacob/turing/black_thursday_2105/spec/item_repository_spec.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/jacob/turing/black_thursday_2105/spec/merchant_repository_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
           1,
           1,
           null,
@@ -122,7 +117,7 @@
           null,
           null,
           1,
-          null,
+          1,
           1,
           1,
           null,
@@ -140,21 +135,18 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday_2105/spec/sales_engine_spec.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/sales_engine_spec.rb": {
         "lines": [
           1,
           null,
           1,
-          null,
           1,
-          null,
           1,
           null,
           1,
           null,
           null,
           1,
-          null,
           1,
           null,
           1,
@@ -166,6 +158,7 @@
           1,
           null,
           null,
+          1,
           1,
           1,
           null,
@@ -181,11 +174,25 @@
           1,
           null,
           null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1367,
+          1367,
+          1367,
+          null,
+          null,
+          1,
           null,
           null
         ]
       }
     },
-    "timestamp": 1622305297
+    "timestamp": 1622334813
   }
 }
