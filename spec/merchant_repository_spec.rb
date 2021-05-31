@@ -34,5 +34,27 @@ RSpec.describe MerchantRepository do
 
       expect(mr.find_all_by_name('turIng')).to eq([m, m2])
     end
+
+    it 'creates new Merchant with attributes' do
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m2 = Merchant.new({:id => 4, :name => "Turing Bakery"})
+      mr = MerchantRepository.new
+      allow(mr).to receive(:all).and_return([m, m2])
+      m3 = mr.create("Bob's Burgers")
+
+      expect(m3.id).to eq(6)
+      expect(m3.name).to eq("Bob's Burgers")
+      expect(m3).to be_a(Merchant)
+    end
+
+    it 'updates Merchant attributes' do
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m2 = Merchant.new({:id => 4, :name => "Turing Bakery"})
+      mr = MerchantRepository.new
+      allow(mr).to receive(:all).and_return([m, m2])
+      m3 = mr.create("Bob's Burgers")
+
+      expect()
+    end
   end
 end
