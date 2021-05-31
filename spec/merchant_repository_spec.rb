@@ -26,5 +26,13 @@ RSpec.describe MerchantRepository do
       expect(mr.find_by_name('TuriNg schOOl')).to eq(m)
     end
 
+    it 'finds all merchants by partial match' do
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m2 = Merchant.new({:id => 4, :name => "Turing Bakery"})
+      mr = MerchantRepository.new
+      allow(mr).to receive(:all).and_return([m, m2])
+
+      expect(mr.find_all_by_name('turIng')).to eq([m, m2])
+    end
   end
 end
