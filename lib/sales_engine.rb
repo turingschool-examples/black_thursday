@@ -1,3 +1,5 @@
+require 'csv'
+
 class SalesEngine
   attr_reader :items, :merchants
 
@@ -10,5 +12,7 @@ class SalesEngine
   def self.from_csv(data_hash)
     SalesEngine.new(data_hash)
   end 
+
+
 
 end 
