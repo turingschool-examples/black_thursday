@@ -15,13 +15,16 @@ RSpec.describe MerchantRepository do
   end
 
   describe 'Methods' do
-    it 'finds merchant by id' do
+    it 'finds merchant by attributes' do
       m = Merchant.new({:id => 5, :name => "Turing School"})
       mr = MerchantRepository.new
       allow(mr).to receive(:all).and_return([m])
       # mr.all = [m]
 
       expect(mr.find_by_id(5)).to eq(m)
+      expect(mr.find_by_name('Turing School')).to eq(m)
+      expect(mr.find_by_name('TuriNg schOOl')).to eq(m)
     end
+
   end
 end

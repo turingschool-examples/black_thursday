@@ -10,4 +10,10 @@ class MerchantRepository
       merchant.id == id
     end
   end
+
+  def find_by_name(name)
+    all.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
+  end
 end
