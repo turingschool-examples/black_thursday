@@ -11,7 +11,6 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv",
       })
-
       mr = se.merchants
 
       expect(mr).to be_an_instance_of(MerchantRepository)
@@ -24,11 +23,23 @@ RSpec.describe MerchantRepository do
       se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv",
       })
-
       mr = se.merchants
 
-      expect(mr.find_by_id(12337411)).to eq([nil])
+      expect(mr.find_by_id(2)).to eq(nil)
+      expect(mr.find_by_id(12337411)).to eq()
     end
+
+    it 'can find a merchant by name' do
+      se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      })
+      mr = se.merchants
+
+      expect(mr.find_by_name("Helen")).to eq(nil)
+      expect(mr.find_by_name("CJsDecor")).to eq()
+    end
+
+    it 'can find all '
 
   end
 end
