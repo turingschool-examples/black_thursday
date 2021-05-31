@@ -2,8 +2,11 @@ require 'CSV'
 require_relative 'merchant'
 
 class MerchantRepository
+  attr_reader :id, :name
 
   def initialize(file_path)
+    # @id = file_path[].to_i
+    # @id = id.to_i
     create_repo(file_path)
 #filepath of CSV, rather than create csv within initialize, just call additional
 #helper method(create repo)
@@ -11,7 +14,8 @@ class MerchantRepository
 
   def create_repo(file_path)
       #could this be its own class?
-    @merchants = {} #info access down the road, processing speed
+    @merchants = Hash.new(nil)
+    # @merchants = {} #info access down the road, processing speed
     #iteratres through the given CSV, allows for headers to be symbols
     #isolates each row.  each row is a hash made up of KV pairs.  Within the row,
     #headers are keys, values are what is in the row.
@@ -20,6 +24,7 @@ class MerchantRepository
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       #key is "something", value is merchant object
       @merchants[row[:id]] = Merchant.new(row)
+      # require "pry"; binding.pry
       #instantiating a merchant object
     end
 
@@ -36,14 +41,31 @@ class MerchantRepository
     #expecting instances of merchants
     @merchants
   end
-
+  #
   def find_by_id(id)
+    @merchants.keys.find { |id| id } #????
+    # found = []
+    #
+    # if @merchants.find(id) == id
+    #   found << id
+    # end
+    # id = id.to_i
+    # @merchants.select[:id]
+
+   # @merchants.select {|merchant| merchant.id == 12335971 }
+   # @merchants.select {|merchant| merchant[“id”]}
+
+   # # require "pry";binding.pry
+   # p found[0]
   end
+
 
   def find_by_name(name)
+    @merchants[name]
   end
 
-  def find_alL_by_name(name)
+  def find_all_by_name(name)
+    @merchants.keys.find_all(name)
   end
 
   def create(attributes)
