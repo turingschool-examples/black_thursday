@@ -1,10 +1,10 @@
 class Item
-  attr_reader :id, 
-              :name, 
-              :description, 
-              :unit_price, 
-              :created_at, 
-              :updated_at, 
+  attr_reader :id,
+              :name,
+              :description,
+              :unit_price,
+              :created_at,
+              :updated_at,
               :merchant_id
 
   def initialize(data_hash)
@@ -15,9 +15,18 @@ class Item
     @created_at  = data_hash[:created_at]
     @updated_at  = data_hash[:updated_at]
     @merchant_id = data_hash[:merchant_id]
-  end 
+  end
 
   def unit_price_to_dollars
     unit_price.to_f
-  end 
+  end
+
+  def update(attributes)
+    attributes[:updated_at] = Time.now
+    @name = attributes[:name] || @name
+    @description = attributes[:description] || @description
+    @unit_price = attributes[:unit_price] || @unit_price
+    @updated_at = attributes[:updated_at]
+  end
+
 end
