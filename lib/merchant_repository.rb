@@ -32,4 +32,12 @@ class MerchantRepository
     new_id = max_id.id + 1
     Merchant.new({:id => new_id, :name => attributes})
   end
+
+  def update(id, attributes)
+     find_by_id(id).name = attributes
+  end
+
+  def delete(id)
+    all.delete(find_by_id(id))
+  end
 end

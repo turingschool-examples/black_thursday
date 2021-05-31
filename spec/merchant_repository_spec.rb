@@ -52,9 +52,20 @@ RSpec.describe MerchantRepository do
       m2 = Merchant.new({:id => 4, :name => "Turing Bakery"})
       mr = MerchantRepository.new
       allow(mr).to receive(:all).and_return([m, m2])
-      m3 = mr.create("Bob's Burgers")
+      mr.update(5, "turingschool.edu")
 
-      expect()
+      expect(m.id).to eq(5)
+      expect(m.name).to eq("turingschool.edu")
+    end
+
+    it 'deletes Merchant by id' do
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m2 = Merchant.new({:id => 4, :name => "Turing Bakery"})
+      mr = MerchantRepository.new
+      allow(mr).to receive(:all).and_return([m, m2])
+      mr.delete(4)
+      
+      expect(mr.all).to eq([m])
     end
   end
 end
