@@ -37,4 +37,13 @@ class ItemRepository
     (all << item).last
   end
 
+  def update(id, attributes)
+    find_by_id(id).update(attributes)
+  end
+
+  def delete(id)
+    item = find_by_id(id)
+    all.delete(item)
+  end
+
 end

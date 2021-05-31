@@ -104,6 +104,27 @@ RSpec.describe ItemRepository do
       expect(i2.merchant_id).to eq(3)
     end
 
+    it 'can update Item instance with provided attributes' do
+      attributes = {
+        name: "Mechanical Pencil",
+        description: "You can use it to write things and refill it with lead",
+        unit_price: BigDecimal(1.99,3)
+      }
+
+      @ir.update(1, attributes)
+
+      expect(@i.id).to eq(1)
+      expect(@i.merchant_id).to eq(2)
+      expect(@i.name).to eq("Mechanical Pencil")
+      expect(@i.description).to eq("You can use it to write things and refill it with lead")
+      expect(@i.unit_price).to eq(1.99)
+    end
+
+    it 'can delete Item instance by id' do
+      @ir.delete(1)
+      expect(@ir.all.empty?).to be true
+    end
+
   end
 
 end
