@@ -22,4 +22,19 @@ class ItemRepository
     all.find_all { |item| price == item.unit_price }
   end
 
+  def find_all_by_price_in_range(range)
+    all.find_all { |item| range.include?(item.unit_price) }
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    all.find_all { |item| merchant_id == item.merchant_id }
+  end
+
+  def create(attributes)
+    new_id = all.max_by { |item| item.id }.id + 1
+    attributes[:id] = new_id
+    item = Item.new(attributes)
+    (all << item).last
+  end
+
 end

@@ -71,10 +71,38 @@ RSpec.describe ItemRepository do
       expect(@ir.find_all_by_price(9.99)).to eq([])
     end
 
-    # it 'can return all Items by price range' do
-    #   expect(@ir.find_all_by_price_in_range(/[10-11]/)).to eq([@i])
-    #   expect(@ir.find_all_by_price_in_range(BigDecimal(9.99,3))).to eq([])
-    # end
+    it 'can return all Items by price range' do
+      expect(@ir.find_all_by_price_in_range(10..11)).to eq([@i])
+      expect(@ir.find_all_by_price_in_range(1..10)).to eq([])
+    end
+
+    it 'can return all Items by merchant id' do
+      expect(@ir.find_all_by_merchant_id(2)).to eq([@i])
+      expect(@ir.find_all_by_merchant_id(1)).to eq([])
+    end
+
+    it 'can create a new Item instance' do
+      attributes = {
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(0.99,3),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      }
+
+      i2 = @ir.create(attributes)
+
+      expect(@ir.all).to eq([@i, i2])
+      expect(i2.id).to eq(2)
+      expect(i2).to be_a(Item)
+      expect(i2.name).to eq("Pen")
+      expect(i2.description).to eq("You can use it to write things")
+      expect(i2.unit_price).to eq(0.99)
+      expect(i2.created_at).to be_a(Time)
+      expect(i2.updated_at).to be_a(Time)
+      expect(i2.merchant_id).to eq(3)
+    end
 
   end
 
