@@ -12,7 +12,7 @@ RSpec.describe Item do
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal::new(10.99,4),
+      :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
@@ -21,11 +21,24 @@ RSpec.describe Item do
     expect(i).to be_an_instance_of(Item)
   end
 
-  xit 'initializes with attributes' do
-    data = {:id => 5, :name => "Turing School"}
-    m = Merchant.new(data)
+  it 'initializes with attributes' do
+    data = {
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    }
+    i = Item.new(data)
 
-    expect(m.id).to eq(data[:id])
-    expect(m.name).to eq(data[:name])
+    expect(i.id).to eq(data[:id])
+    expect(i.name).to eq(data[:name])
+    expect(i.description).to eq(data[:description])
+    expect(i.unit_price).to eq(data[:unit_price])
+    expect(i.created_at).to eq(data[:created_at])
+    expect(i.updated_at).to eq(data[:updated_at])
+    expect(i.merchant_id).to eq(data[:merchant_id])
   end
 end
