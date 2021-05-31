@@ -1,10 +1,27 @@
 require 'CSV'
+require '/Users/bfl3tch/turing/mod_1/black_thursday/lib/item.rb'
+
 class ItemRepository
 
-  def initialize
+  def initialize(file_path)
+    create_repo(file_path)
+  end
+
+  def create_repo(file_path)
+      #could this be its own class?
+    @items = {}
+
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      @items[row[:id]] = Item.new(row)
+    end
+
+  end
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def all
+    @items
   end
 
   def find_by_id(id)
