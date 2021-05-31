@@ -26,4 +26,13 @@ class MerchantRepository
       merchant.name.downcase == name.downcase
     end
   end
+
+  def create(attribute)
+    new_id = @merchants.max_by do |merchant|
+      merchant.id
+    end
+    merchant = Merchant.new({:id => new_id.id + 1, :name => attribute})
+    @merchants << merchant
+    merchant
+  end
 end

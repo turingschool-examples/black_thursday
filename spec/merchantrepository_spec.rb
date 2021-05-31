@@ -86,4 +86,18 @@ RSpec.describe MerchantRepository do
     expect(mr.find_all_by_name("Turing School")).to eq([m, m2])
     expect(mr.find_all_by_name("Something Else")).to eq([])
   end
+
+  it 'creates a new merchant with attributes' do
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 6, :name => "Something Else"})
+    mr = MerchantRepository.new([m, m2])
+    m3 = mr.create("Another Merchant")
+
+    expect(mr.merchants).to eq([m, m2, m3])
+  end
 end
