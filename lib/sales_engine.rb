@@ -1,7 +1,9 @@
 class SalesEngine
 
-  def initalize
+  def initialize
   end
 
-  sales_engine = SalesEngin.new
+
 end
+
+  sales_engine = SalesEngine.new
