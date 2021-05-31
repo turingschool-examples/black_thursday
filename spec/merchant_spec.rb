@@ -1,5 +1,7 @@
 require 'csv'
 require './lib/merchant'
+require 'simplecov'
+SimpleCov.start
 
 RSpec.describe Merchant do
   it 'exists' do

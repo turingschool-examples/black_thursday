@@ -1,6 +1,8 @@
 require 'csv'
 require './lib/merchant'
 require './lib/merchant_repository'
+require 'simplecov'
+SimpleCov.start
 
 RSpec.describe MerchantRepository do
   it 'exists' do
@@ -64,7 +66,7 @@ RSpec.describe MerchantRepository do
       mr = MerchantRepository.new
       allow(mr).to receive(:all).and_return([m, m2])
       mr.delete(4)
-      
+
       expect(mr.all).to eq([m])
     end
   end
