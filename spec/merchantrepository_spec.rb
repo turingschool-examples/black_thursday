@@ -116,4 +116,19 @@ RSpec.describe MerchantRepository do
     expect(m.name).to eq("Turing School of Coding")
     expect(m.id).to eq(5)
   end
+
+  it "finds and deletes merchant by id" do
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 6, :name => "Something Else"})
+    mr = MerchantRepository.new([m, m2])
+
+    mr.delete(6)
+
+    expect(mr.merchants).to eq([m])
+  end
 end
