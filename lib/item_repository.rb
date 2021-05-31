@@ -1,5 +1,5 @@
 require 'CSV'
-require '/Users/bfl3tch/turing/mod_1/black_thursday/lib/item.rb'
+require_relative 'item'
 
 class ItemRepository
 
