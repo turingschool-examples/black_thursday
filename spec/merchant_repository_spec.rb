@@ -39,7 +39,15 @@ RSpec.describe MerchantRepository do
       expect(mr.find_by_name("CJsDecor")).to eq()
     end
 
-    it 'can find all '
+    it 'can find all matches to the name fragment' do
+      se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      })
+      mr = se.merchants
+
+      expect(mr.find_all_by_name("Helen")).to eq([])
+      expect(mr.find_all_by_name("Bee")).to eq()
+    end
 
   end
 end

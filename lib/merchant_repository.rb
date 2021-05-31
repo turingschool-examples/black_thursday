@@ -12,24 +12,27 @@ class MerchantRepository < SalesEngine
 
   def find_by_id(id)
     @merchant_instances.select do |merchant|
-      merchant.id.include?(id)
+      merchant.id == id
     end
   end
 
   def find_by_name(name)
     @merchant_instances.select do |merchant|
-      merchant.name.downcase
+      merchant.name.downcase == name.downcase
     end
   end
-  
-  # def find_all_by_name(name)
-  #   if @merchant_instances.select do |merchant|
-  #     merchant(id)
-  #     end
-  #   else
-  #     nil
-  #   end
-  # end
+
+  def find_all_by_name(name)
+    @merchant_instances.select do |merchant|
+      if merchant.name.downcase.include?name.downcase.nil?
+        []
+      else
+        merchant.name.downcase.include?name.downcase
+      end
+    end
+  end
+
+  def
 
 
 end
