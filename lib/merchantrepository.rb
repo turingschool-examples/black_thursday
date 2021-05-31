@@ -35,4 +35,10 @@ class MerchantRepository
     @merchants << merchant
     merchant
   end
+
+  def update(id, new_name)
+    name_edit = find_by_id(id)
+    name_edit.name = new_name
+    # require 'pry'; binding.pry 
+  end
 end

@@ -100,4 +100,20 @@ RSpec.describe MerchantRepository do
 
     expect(mr.merchants).to eq([m, m2, m3])
   end
+
+  it 'finds merchant by id and updates name' do
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 6, :name => "Something Else"})
+    mr = MerchantRepository.new([m, m2])
+
+    mr.update(5, "Turing School of Coding")
+
+    expect(m.name).to eq("Turing School of Coding")
+    expect(m.id).to eq(5)
+  end
 end
