@@ -5,5 +5,6 @@ class SalesEngine
   def initialize(data)
     @items     = data[:items]
     @merchants = data[:merchants]
+    require "pry"; binding.pry
   end
 end

@@ -5,17 +5,23 @@ require_relative '../lib/salesengine'
 
 RSpec.describe SalesEngine do
   it 'exists' do
-    se = SalesEngine.from_csv({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
 
-    # ir   = se.items
-    # item = ir.find_by_name("Item Repellat Dolorum")
     expect(se).to be_an_instance_of(SalesEngine)
   end
 
   it 'initializes with attributes' do
+    data = {
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    }
 
+    se = SalesEngine.new(data)
+
+    expect(se.items).to eq(data[:items])
+    expect(se.merchants).to eq(data[:merchants])
   end
 end
