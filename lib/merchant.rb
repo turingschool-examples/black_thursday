@@ -1,5 +1,5 @@
 require 'CSV'
-class Merchant < MerchantRepository
+class Merchant 
   attr_reader :id, :name
 
   def initialize(hash)
