@@ -6,5 +6,3 @@ class SalesEngine
 
 
 end
-
-  sales_engine = SalesEngine.new
