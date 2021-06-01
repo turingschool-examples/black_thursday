@@ -38,4 +38,8 @@ class ItemRepository
   def find_all_by_price(price)
     @all.find_all { |item| item.price == price }
   end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all { |item| range.include?(item.price) }
+  end
 end
