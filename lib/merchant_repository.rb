@@ -1,14 +1,16 @@
-class MerchantRepository < SalesEngine
+require 'CSV'
 
-  def initialize(merchants)
-    @merchants = merchants
-    #for each merchant in csv
-    @merchant_instances = []
-    CSV.foreach(merchants, headers: true, header_converters: :symbol).each do |row|
-      @merchant_instances << Merchant.new(row)
-       require "pry"; binding.pry
-     end
+class MerchantRepository
+
+  def initialize(path)
+    @all_merchants = create_merchants(path)
   end
+
+  def create_merchants(path)
+  @merchants = CSV.foreach(merchants, headers: true, header_converters: :symbol).map do |merchant|
+    Merchant.new(merchant, self)
+    end
+  end 
 
   def find_by_id(id)
     @merchant_instances.select do |merchant|
@@ -33,6 +35,6 @@ class MerchantRepository < SalesEngine
   end
 
   def
-
+  end
 
 end
