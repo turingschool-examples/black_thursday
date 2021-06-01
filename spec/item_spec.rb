@@ -41,4 +41,19 @@ RSpec.describe Item do
     expect(i.updated_at).to eq(data[:updated_at])
     expect(i.merchant_id).to eq(data[:merchant_id])
   end
+
+  it 'Returns the item price in dollars' do
+    data = {
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    }
+    i = Item.new(data)
+
+    expect(i.unit_price_to_dollars).to eq(10.99)
+  end
 end
