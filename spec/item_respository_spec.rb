@@ -18,11 +18,22 @@ RSpec.describe ItemRepository do
     expect(@items_repo.all).to eq([@item1, @item2, @item3])
   end
 
-  it 'returns all by id' do
+  it 'returns item by id number' do
     allow(@item1).to receive(:id).and_return(3)
     allow(@item2).to receive(:id).and_return(5)
     allow(@item3).to receive(:id).and_return(10)
 
     expect(@items_repo.find_by_id(5)).to eq(@item2)
+    expect(@items_repo.find_by_id(20)).to eq(nil)
+  end
+
+  it 'returns item by name' do
+    allow(@item1).to receive(:name).and_return('baseball')
+    allow(@item2).to receive(:name).and_return('baseball bat')
+    allow(@item3).to receive(:name).and_return('baseball glove')
+
+    expect(@items_repo.find_by_name('baseball')).to eq(@item1)
+    expect(@items_repo.find_by_name('BASEBALL BAT')).to eq(@item2)
+    expect(@items_repo.find_by_name('baseball hat')).to eq(nil)
   end
 end
