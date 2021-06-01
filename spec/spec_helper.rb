@@ -4,5 +4,6 @@ require 'simplecov'
 SimpleCov.start do
 end
 
-require './lib/item'
 require 'bigdecimal'
+require './lib/item'
+require './lib/item_repository'
