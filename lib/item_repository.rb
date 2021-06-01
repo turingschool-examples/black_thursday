@@ -9,7 +9,7 @@ class ItemRepository
   end
 
   def create_items(path)
-    items = CSV.load(path)
+    items = CSV.foreach(path, headers: true, header_converters: :symbol)
     items.map do |item|
       Item.new(item, self)
     end
