@@ -1,3 +1,4 @@
+require 'CSV'
 require './lib/merchant'
 
 class MerchantRepository
@@ -31,5 +32,12 @@ class MerchantRepository
 
   def delete(id)
     all.delete(find_by_id(id))
+  end
+
+  def populate_repository(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row| 
+      data_hash = {id: row[:id].to_i, name: row[:name]}
+      @all << Merchant.new(data_hash)
+    end
   end
 end

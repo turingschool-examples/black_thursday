@@ -1,4 +1,4 @@
-require 'csv'
+require 'CSV'
 require './lib/merchant_repository'
 require 'simplecov'
 SimpleCov.start
@@ -64,5 +64,13 @@ RSpec.describe MerchantRepository do
 
       expect(@mr.all).to eq([@m])
     end
+
+    it 'populates repository' do
+      path = "./data/merchants.csv"
+      @mr.populate_repository(path)
+
+      expect(@mr.all.count).to eq(475)
+    end 
+
   end
 end
