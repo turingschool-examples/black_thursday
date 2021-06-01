@@ -6,11 +6,10 @@ class SalesEngine
 
   def initialize(data_hash)
     @items     = data_hash[:items]
-    @merchants = data_hash[:merchants]
+    @merchants = MerchantRepository.new(data_hash[:merchants])
   end
 
   def self.from_csv(data_hash)
     SalesEngine.new(data_hash)
-  end 
-end 
-
+  end
+end

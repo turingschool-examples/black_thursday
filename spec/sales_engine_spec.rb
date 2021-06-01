@@ -21,6 +21,6 @@ RSpec.describe SalesEngine do
 
       expect(se).to be_a(SalesEngine)
       expect(se.items).to eq("./data/items.csv")
-      expect(se.merchants).to eq("./data/merchants.csv")
-    end 
+      expect(se.merchants).to be_a(MerchantRepository)
+    end
 end
