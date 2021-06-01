@@ -42,4 +42,8 @@ class ItemRepository
   def find_all_by_price_in_range(range)
     @all.find_all { |item| range.include?(item.price) }
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all { |item| item.merchant_id == merchant_id }
+  end
 end
