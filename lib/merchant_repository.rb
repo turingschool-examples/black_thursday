@@ -1,3 +1,5 @@
+require './lib/merchant'
+
 class MerchantRepository
   attr_reader :all
 
@@ -21,5 +23,21 @@ class MerchantRepository
     all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def create(attributes)
+    max_id = all.max_by do |merchant|
+      merchant.id
+    end
+    new_id = max_id.id + 1
+    Merchant.new({:id => new_id, :name => attributes})
+  end
+
+  def update(id, attributes)
+     find_by_id(id).name = attributes
+  end
+
+  def delete(id)
+    all.delete(find_by_id(id))
   end
 end
