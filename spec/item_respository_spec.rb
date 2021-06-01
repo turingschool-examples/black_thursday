@@ -88,7 +88,7 @@ RSpec.describe ItemRepository do
     expect(@items_repo.find_all_by_merchant_id(50)).to eq([])
   end
 
-  # Test blocked until item class merged
+  # Tests blocked until item class merged
   xit 'creates new item instance' do
     attributes = {name: 'baseball jersey', description: 'clothing', unit_price: 15, merchant_id: 5}
 
@@ -100,24 +100,34 @@ RSpec.describe ItemRepository do
 
     @items_repo.create(attributes)
 
-    expect(@item_repo.length).to eq(4)
-    expect(@items_repo[3].id).to eq(16)
-    expect(@items_repo[3].name).to eq('baseball jersey')
+    expect(@item_repo.all.length).to eq(4)
+    expect(@items_repo.all[3].id).to eq(16)
+    expect(@items_repo.all[3].name).to eq('baseball jersey')
   end
 
-  # Test blocked until item class merged
   xit 'updates item attributes by id' do
-    new_attributes = {name: 'baseball jersey', description: 'clothing', unit_price: 15}
-
+    new_attributes = {name: 'changed name', description: 'clothing', unit_price: 15}
     id = 'number from csv'
+    old_time = @real_rep.find_by_id(id).updated_at
 
+    @real_repo.update(id, new_attributes)
+
+    expect(@real_rep.find_by_id(id).name).to eq('changed name')
+    expect(@real_rep.find_by_id(id).updated_at).not_to eq(old_time)
+    expect(@real_rep.all.length).to eq()
+  end
+
+  xit 'updates single item attribute by id' do
+    new_attributes = {name: 'new name'}
+    id = 'number from csv'
+    og_price = @real_rep.find_by_id(id).price
     old_time = @real_rep.find_by_id(id).updated_at
 
     @real_repo.update(id, new_attributes)
 
     expect(@real_rep.find_by_id(id).name).to eq()
+    expect(@real_rep.find_by_id(id).price).to eq(og_price)
     expect(@real_rep.find_by_id(id).updated_at).not_to eq(old_time)
     expect(@real_rep.all.length).to eq()
   end
-
 end
