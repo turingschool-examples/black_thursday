@@ -24,4 +24,29 @@ RSpec.describe MerchantRepository do
 
     expect(data_validation).to be(true)
   end
+
+  it 'can find merchant by id' do
+    se = SalesEngine.new
+    mr = MerchantRepository.new(se.library[:merchants])
+    result = mr.find_by_id(mr.all[0]['id'])
+
+    expect(result['name']).to eq('Shopin1901')
+  end
+
+  it 'can find merchant by case insensitive name' do
+    se = SalesEngine.new
+    mr = MerchantRepository.new(se.library[:merchants])
+    result = mr.find_by_name(mr.all[0]['name'].upcase)
+
+    expect(result['name']).to eq('Shopin1901')
+  end
+
+  it 'can find all by name' do
+    se = SalesEngine.new
+    mr = MerchantRepository.new(se.library[:merchants])
+    result = mr.find_all_by_name('by'.upcase)
+
+    expect(result.length).to eq(24)
+  end
+
 end
