@@ -3,7 +3,10 @@ require_relative '../lib/item_repository'
 
 RSpec.describe ItemRepository do
   before (:each) do
-    @items = []
+    @item1 = instance_double('item1')
+    @item2 = instance_double('item2')
+    @item3 = instance_double('item3')
+    @items = [@item1, @item2, @item3]
     @items_repo = ItemRepository.new(@items)
   end
 
