@@ -57,4 +57,15 @@ RSpec.describe ItemRepository do
     expect(@items_repo.find_all_by_price(10)).to eq([@item2])
     expect(@items_repo.find_all_by_price(20)).to eq([])
   end
+
+  it 'returns items by price in a range' do
+    allow(@item1).to receive(:price).and_return(5)
+    allow(@item2).to receive(:price).and_return(7)
+    allow(@item3).to receive(:price).and_return(15)
+
+    expect(@items_repo.find_all_by_price_in_range(0..5)).to eq([@item1])
+    expect(@items_repo.find_all_by_price_in_range(0..8)).to eq([@item1, @item2])
+    expect(@items_repo.find_all_by_price_in_range(0..20)).to eq([@item1, @item2, @item3])
+    expect(@items_repo.find_all_by_price_in_range(0..4)).to eq([])
+  end
 end
