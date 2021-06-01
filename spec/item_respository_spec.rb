@@ -13,4 +13,8 @@ RSpec.describe ItemRepository do
   it 'exists' do
     expect(@items_repo).to be_a(ItemRepository)
   end
+
+  it 'returns all' do
+    expect(@items_repo.all).to eq([@item1, @item2, @item3])
+  end
 end
