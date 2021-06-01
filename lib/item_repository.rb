@@ -16,19 +16,11 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    if @all.one? { |item| item.id == id } == true
-      @all.find { |item| item.id == id }
-    else
-      nil
-    end
+    @all.find { |item| item.id == id }
   end
 
   def find_by_name(name)
-    if @all.one? { |item| item.name.upcase == name.upcase } == true
-      @all.find { |item| item.name.upcase == name.upcase }
-    else
-      nil
-    end
+    @all.find { |item| item.name.upcase == name.upcase }
   end
 
   def find_all_with_description(description)
