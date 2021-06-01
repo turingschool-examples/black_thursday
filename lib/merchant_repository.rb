@@ -34,7 +34,7 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-     find_by_id(id).name = attributes
+     find_by_id(id).update(attributes)
   end
 
   def delete(id)
