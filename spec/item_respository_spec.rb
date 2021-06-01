@@ -19,6 +19,15 @@ RSpec.describe ItemRepository do
     expect(@items_repo.all).to eq([@item1, @item2, @item3])
   end
 
+  xit 'creates real items from csv' do
+    @real_repo = ItemRepository.new('Sample CSV')
+
+    expect(@real_repo.all[1].id).to eq()
+    expect(@real_repo.all[2].name).to eq()
+    expect(@real_repo.all[3].price).to eq()
+    expect(@real_rep.all.length).to eq()
+  end
+
   it 'returns item by id number' do
     allow(@item1).to receive(:id).and_return(3)
     allow(@item2).to receive(:id).and_return(5)
@@ -81,7 +90,7 @@ RSpec.describe ItemRepository do
 
   # Test blocked until item class merged
   xit 'creates new item instance' do
-    attributes = {id: 1, name: 'baseball jersey', description: 'clothing', unit_price: 15, created_at: Time.now, updated_at: Time.now, merchant_id: 5}
+    attributes = {name: 'baseball jersey', description: 'clothing', unit_price: 15, merchant_id: 5}
 
     allow(@item1).to receive(:id).and_return(5)
     allow(@item2).to receive(:id).and_return(7)
@@ -95,4 +104,20 @@ RSpec.describe ItemRepository do
     expect(@items_repo[3].id).to eq(16)
     expect(@items_repo[3].name).to eq('baseball jersey')
   end
+
+  # Test blocked until item class merged
+  xit 'updates item attributes by id' do
+    new_attributes = {name: 'baseball jersey', description: 'clothing', unit_price: 15}
+
+    id = 'number from csv'
+
+    old_time = @real_rep.find_by_id(id).updated_at
+
+    @real_repo.update(id, new_attributes)
+
+    expect(@real_rep.find_by_id(id).name).to eq()
+    expect(@real_rep.find_by_id(id).updated_at).not_to eq(old_time)
+    expect(@real_rep.all.length).to eq()
+  end
+
 end
