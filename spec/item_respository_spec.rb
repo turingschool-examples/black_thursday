@@ -17,4 +17,12 @@ RSpec.describe ItemRepository do
   it 'returns all' do
     expect(@items_repo.all).to eq([@item1, @item2, @item3])
   end
+
+  it 'returns all by id' do
+    allow(@item1).to receive(:id).and_return(3)
+    allow(@item2).to receive(:id).and_return(5)
+    allow(@item3).to receive(:id).and_return(10)
+
+    expect(@items_repo.find_by_id(5)).to eq(@item2)
+  end
 end
