@@ -4,8 +4,9 @@ require './lib/merchant'
 class MerchantRepository
   attr_reader :all
 
-  def initialize
+  def initialize(path)
     @all = []
+    populate_repository(path)
   end
 
   def find_by_id(id)
@@ -35,7 +36,7 @@ class MerchantRepository
   end
 
   def populate_repository(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |row| 
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       data_hash = {id: row[:id].to_i, name: row[:name]}
       @all << Merchant.new(data_hash)
     end

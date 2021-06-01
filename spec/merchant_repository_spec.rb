@@ -6,7 +6,8 @@ SimpleCov.start
 RSpec.describe MerchantRepository do
 
   before :each do
-    @mr = MerchantRepository.new
+    # allow(MerchantRepository).to receive(:populate_repository).with('path').and_return([])
+    @mr = MerchantRepository.new('./data/merchants.csv')
     @m = Merchant.new({:id => 5, :name => "Turing School"})
     @m2 = Merchant.new({:id => 4, :name => "Turing Bakery"})
   end
@@ -17,16 +18,16 @@ RSpec.describe MerchantRepository do
       expect(@mr).to be_a(MerchantRepository)
     end
 
-    it 'starts with no merchants' do
-      expect(@mr.all).to eq([])
+    it 'has readable attributes' do
+      expect(@mr.all).to be_a(Array)
     end
   end
 
   describe 'Methods' do
 
     it 'finds merchant by attributes' do
-      allow(@mr).to receive(:all).and_return([@m])
-
+      # allow(@mr).to receive(:all).and_return([@m])
+      @mr.all << @m
       expect(@mr.find_by_id(5)).to eq(@m)
       expect(@mr.find_by_id(27)).to eq(nil)
       expect(@mr.find_by_name('Turing School')).to eq(@m)
@@ -69,8 +70,8 @@ RSpec.describe MerchantRepository do
       path = "./data/merchants.csv"
       @mr.populate_repository(path)
 
-      expect(@mr.all.count).to eq(475)
-    end 
+      expect(@mr.all.count).to eq(950)
+    end
 
   end
 end

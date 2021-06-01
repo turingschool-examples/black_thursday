@@ -1,10 +1,10 @@
-require 'csv'
+require 'CSV'
 require './lib/merchant'
 require 'simplecov'
 SimpleCov.start
 
 RSpec.describe Merchant do
-  
+
   describe 'instantiation' do
     it 'exists' do
       m = Merchant.new({:id => 5, :name => "Turing School"})
