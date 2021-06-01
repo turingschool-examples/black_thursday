@@ -9,6 +9,8 @@ RSpec.describe ItemRepository do
     @items = [@item1, @item2, @item3]
     allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(@items)
     @items_repo = ItemRepository.new('path')
+
+    @real_repo = ItemRepository.new('Sample CSV')
   end
 
   it 'exists' do
@@ -20,8 +22,6 @@ RSpec.describe ItemRepository do
   end
 
   xit 'creates real items from csv' do
-    @real_repo = ItemRepository.new('Sample CSV')
-
     expect(@real_repo.all[1].id).to eq()
     expect(@real_repo.all[2].name).to eq()
     expect(@real_repo.all[3].price).to eq()
@@ -88,7 +88,7 @@ RSpec.describe ItemRepository do
     expect(@items_repo.find_all_by_merchant_id(50)).to eq([])
   end
 
-  # Tests blocked until item class merged
+  # Blocked tests are awaiting item class merge and sample csv
   xit 'creates new item instance' do
     attributes = {name: 'baseball jersey', description: 'clothing', unit_price: 15, merchant_id: 5}
 
@@ -129,5 +129,15 @@ RSpec.describe ItemRepository do
     expect(@real_rep.find_by_id(id).price).to eq(og_price)
     expect(@real_rep.find_by_id(id).updated_at).not_to eq(old_time)
     expect(@real_rep.all.length).to eq()
+  end
+
+  it 'deletes item by id' do
+    allow(@item1).to receive(:id).and_return(3)
+    allow(@item2).to receive(:id).and_return(5)
+    allow(@item3).to receive(:id).and_return(10)
+
+    @items_repo.delete(5)
+
+    expect(@items_repo.find_by_id(5)).to eq(nil)
   end
 end
