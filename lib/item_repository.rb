@@ -27,7 +27,11 @@ class ItemRepository
     if @all.one? { |item| item.name.upcase == name.upcase } == true
       @all.find { |item| item.name.upcase == name.upcase }
     else
-      []
+      nil
     end
+  end
+
+  def find_all_with_description(description)
+    @all.find_all { |item| item.description == description }
   end
 end
