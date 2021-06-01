@@ -36,4 +36,20 @@ RSpec.describe Item do
       expect(item.merchant_id).to eq(2)
     end
   end
+
+  describe 'methods' do
+    it 'returns unit price to dollars as a float' do
+      item = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+        })
+
+        expect(item.unit_price_to_dollars).to eq(10.99)
+    end
+  end
 end
