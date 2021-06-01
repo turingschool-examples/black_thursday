@@ -62,4 +62,8 @@ class ItemRepository
     item[:unit_price] = attributes[:unit_price]
     item[:updated_at] = Time.now
   end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 end
