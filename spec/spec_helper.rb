@@ -7,3 +7,4 @@ end
 
 require './lib/sales_engine'
 require './lib/item'
+require './lib/item_repository'
