@@ -139,5 +139,6 @@ RSpec.describe ItemRepository do
     @items_repo.delete(5)
 
     expect(@items_repo.find_by_id(5)).to eq(nil)
+    expect(@items_repo.all.length).to eq(2)
   end
 end
