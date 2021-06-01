@@ -7,3 +7,4 @@ end
 require 'bigdecimal'
 require './lib/item'
 require './lib/item_repository'
+require './lib/merchant'
