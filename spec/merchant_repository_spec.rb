@@ -8,7 +8,8 @@ RSpec.describe MerchantRepository do
     @merchant_2 = double('merchant_2')
     @merchant_3 = double('merchant_3')
     @merchant_4 = double('merchant_4')
-    allow_any_instance_of(MerchantRepository).to recieve(:create_merchants).and_return(@items)
+    @merchants = [@merchant_1, @merchant_2, @merchant_3, @merchant_4]
+    allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(@merchants)
     @merchant_repo = MerchantRepository.new('path')
   end
 
@@ -16,42 +17,82 @@ RSpec.describe MerchantRepository do
       expect(@merchant_repo).to be_an_instance_of(MerchantRepository)
     end
 
-    it 'can find a merchant by id' do
-      allow(@merchant_1).to recieve(:id).and_return(12)
-      allow(@merchant_2).to recieve(:id).and_return(18)
-      allow(@merchant_3).to recieve(:id).and_return(72)
-      allow(@merchant_4).to recieve(:id).and_return(2)
+    it 'returns all merchants' do
+      expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4])
+    end
 
-      expect(@merchant_repo.find_by_id(12)).to eq(@merchant_1)
+    it 'can find a merchant by id' do
+      allow(@merchant_1).to receive(:id).and_return(100)
+      allow(@merchant_2).to receive(:id).and_return(101)
+      allow(@merchant_3).to receive(:id).and_return(102)
+      allow(@merchant_4).to receive(:id).and_return(103)
+
+      expect(@merchant_repo.find_by_id(100)).to eq(@merchant_1)
       expect(@merchant_repo.find_by_id(27)).to eq(nil)
-      expect(@merchant_repo.find_by_id(72)).to eq(@merchant_3)
+      expect(@merchant_repo.find_by_id(102)).to eq(@merchant_3)
       expect(@merchant_repo.find_by_id(2021)).to eq(nil)
     end
 
     it 'can find a merchant by name' do
-      allow(@merchant_1).to recieve(:name).and_return(12)
-      allow(@merchant_2).to recieve(:name).and_return(18)
-      allow(@merchant_3).to recieve(:name).and_return(72)
-      allow(@merchant_4).to recieve(:name).and_return(2)
+      allow(@merchant_1).to receive(:name).and_return("Lee")
+      allow(@merchant_2).to receive(:name).and_return("Marla")
+      allow(@merchant_3).to receive(:name).and_return("Miriam")
+      allow(@merchant_4).to receive(:name).and_return("Lee")
 
-      expect(@merchant_repo.find_by_id(12)).to eq(@merchant_1)
-      expect(@merchant_repo.find_by_id(27)).to eq(nil)
-      expect(@merchant_repo.find_by_id(72)).to eq(@merchant_3)
-      expect(@merchant_repo.find_by_id(2021)).to eq(nil)
-
-
-
+      expect(@merchant_repo.find_by_name("Lee")).to eq(@merchant_1)
+      expect(@merchant_repo.find_by_name("Carina")).to eq(nil)
+      expect(@merchant_repo.find_by_name("Miriam")).to eq(@merchant_3)
     end
 
     it 'can find all matches to the name fragment' do
-      se = SalesEngine.from_csv({
-      :merchants => "./data/merchants.csv",
-      })
-      mr = se.merchants
+      allow(@merchant_1).to receive(:name).and_return("Lee H")
+      allow(@merchant_2).to receive(:name).and_return("Marla")
+      allow(@merchant_3).to receive(:name).and_return("Miriam")
+      allow(@merchant_4).to receive(:name).and_return("Lee W")
 
-      expect(mr.find_all_by_name("Helen")).to eq([])
-      expect(mr.find_all_by_name("CJsDecor")).to eq()
+      expect(@merchant_repo.find_all_by_name("Lee")).to eq([@merchant_1, @merchant_4])
+      expect(@merchant_repo.find_all_by_name("Carina")).to eq([])
     end
 
-  end
+    it 'creates the next highest merchant id' do
+      allow(@merchant_1).to receive(:id).and_return(100)
+      allow(@merchant_2).to receive(:id).and_return(101)
+      allow(@merchant_3).to receive(:id).and_return(102)
+      allow(@merchant_4).to receive(:id).and_return(103)
+
+      expect(@merchant_repo.next_highest_merchant_id).to eq(104)
+    end
+
+    # it 'can create a new merchant instance' do
+    #   allow(@merchant_1).to receive(:id).and_return(100)
+    #   allow(@merchant_2).to receive(:id).and_return(101)
+    #   allow(@merchant_3).to receive(:id).and_return(102)
+    #   allow(@merchant_4).to receive(:id).and_return(103)
+    #
+    #   @merchant_repo.next_highest_merchant_id
+    #   @merchant_repo.create("Koop")
+    #
+    #   expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5])
+    # end
+
+    # it 'can update an exsisting merchants name' do
+    #   allow(@merchant_1).to receive(:name).and_return("Lee")
+    #   allow(@merchant_2).to receive(:name).and_return("Marla")
+    #   allow(@merchant_3).to receive(:name).and_return("Miriam")
+    #   allow(@merchant_4).to receive(:name).and_return("Lee")
+    #
+    #
+    # end
+
+    it 'can delete the merchant by id' do
+      allow(@merchant_1).to receive(:id).and_return(100)
+      allow(@merchant_2).to receive(:id).and_return(101)
+      allow(@merchant_3).to receive(:id).and_return(102)
+      allow(@merchant_4).to receive(:id).and_return(103)
+
+      @merchant_repo.delete(102)
+
+      expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_4])
+    end
+
 end
