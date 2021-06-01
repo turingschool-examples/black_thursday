@@ -34,4 +34,8 @@ class ItemRepository
   def find_all_with_description(description)
     @all.find_all { |item| item.description == description }
   end
+
+  def find_all_by_price(price)
+    @all.find_all { |item| item.price == price }
+  end
 end
