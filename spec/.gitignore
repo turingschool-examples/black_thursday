@@ -1,1 +1,1 @@
-echo "./coverage/*" >> .gitignore
+echo "./coverage" >> .gitignore
