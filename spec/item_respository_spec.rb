@@ -68,4 +68,14 @@ RSpec.describe ItemRepository do
     expect(@items_repo.find_all_by_price_in_range(0..20)).to eq([@item1, @item2, @item3])
     expect(@items_repo.find_all_by_price_in_range(0..4)).to eq([])
   end
+
+  it 'returns items by merchant id' do
+    allow(@item1).to receive(:merchant_id).and_return(10)
+    allow(@item2).to receive(:merchant_id).and_return(20)
+    allow(@item3).to receive(:merchant_id).and_return(10)
+
+    expect(@items_repo.merchant_id(10)).to eq([@item1, @item3])
+    expect(@items_repo.merchant_id(20)).to eq([@item2])
+    expect(@items_repo.merchant_id(50)).to eq([])
+  end
 end
