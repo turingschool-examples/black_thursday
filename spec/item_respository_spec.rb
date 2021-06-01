@@ -36,4 +36,14 @@ RSpec.describe ItemRepository do
     expect(@items_repo.find_by_name('BASEBALL BAT')).to eq(@item2)
     expect(@items_repo.find_by_name('baseball hat')).to eq(nil)
   end
+
+  it 'returns item by description' do
+    allow(@item1).to receive(:description).and_return('for baseball')
+    allow(@item2).to receive(:description).and_return('for baseball')
+    allow(@item3).to receive(:description).and_return('clothing')
+
+    expect(@items_repo.find_all_with_description('for baseball')).to eq([@item1, @item2])
+    expect(@items_repo.find_all_with_description('clothing')).to eq([@item3])
+    expect(@items_repo.find_all_with_description('for basketball')).to eq(nil)
+  end
 end
