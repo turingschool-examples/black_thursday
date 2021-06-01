@@ -7,11 +7,6 @@ require_relative '../lib/merchantrepository'
 
 RSpec.describe MerchantRepository do
   it 'exists' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
@@ -20,11 +15,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'initializes with attributes' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
@@ -33,11 +23,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'returns a list of known merchants' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
@@ -46,11 +31,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'returns a merchant with a matching id' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
@@ -60,11 +40,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'returns a merchant by name' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
@@ -74,11 +49,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'returns all merchants by name' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "TURING SCHOOL"})
     mr = MerchantRepository.new([m, m2])
@@ -88,11 +58,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'creates a new merchant with attributes' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
@@ -102,11 +67,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'finds merchant by id and updates name' do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
@@ -118,11 +78,6 @@ RSpec.describe MerchantRepository do
   end
 
   it "finds and deletes merchant by id" do
-    se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
     m = Merchant.new({:id => 5, :name => "Turing School"})
     m2 = Merchant.new({:id => 6, :name => "Something Else"})
     mr = MerchantRepository.new([m, m2])
