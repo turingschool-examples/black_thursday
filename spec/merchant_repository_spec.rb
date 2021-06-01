@@ -49,4 +49,15 @@ RSpec.describe MerchantRepository do
     expect(result.length).to eq(24)
   end
 
+  it 'can create new instance with attributes' do
+    se = SalesEngine.new
+    mr = MerchantRepository.new(se.library[:merchants])
+    new_merchant = {:id => mr.create_new_id, :name => 'Turing School'}
+    result = mr.create(new_merchant)
+
+    expect(result.class).to eq(Merchant)
+    expect(result.name).to eq('Turing School')
+    expect(result.id).to eq(12337412)
+  end
+
 end

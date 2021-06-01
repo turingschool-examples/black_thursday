@@ -12,4 +12,12 @@ class MerchantRepository
     end
   end
 
+  def create(attributes)
+    create_new_id
+    Merchant.new({
+      :id => create_new_id,
+      :name => attributes[:name]
+      })
+  end
+
 end

@@ -21,4 +21,11 @@ module HelperMethods
     return result
   end
 
+  def create_new_id
+    result = all.max_by do |line|
+      line['id'].to_i
+    end
+    result['id'].to_i + 1
+  end
+
 end
