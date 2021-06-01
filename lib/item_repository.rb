@@ -1,3 +1,4 @@
+require 'CSV'
 class ItemRepository
 
   attr_reader :all
@@ -46,4 +47,18 @@ class ItemRepository
     all.delete(item)
   end
 
+  def populate_repository(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row| 
+      data_hash = {
+        id: row[:id].to_i, 
+        name: row[:name],
+        description: row[:description],
+        unit_price: row[:unit_price],
+        created_at: Time.parse(row[:created_at]),
+        updated_at: Time.parse(row[:updated_at]),
+        merchant_id: row[:merchant_id].to_i
+      }
+      @all << Item.new(data_hash)
+    end
+  end 
 end

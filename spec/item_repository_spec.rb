@@ -1,3 +1,4 @@
+require 'CSV'
 require './lib/item_repository'
 require './lib/item'
 require 'rspec'
@@ -126,6 +127,12 @@ RSpec.describe ItemRepository do
       expect(@ir.all.empty?).to be true
     end
 
-  end
+    it 'populates repository' do
+      path = "./data/items.csv"
+      @ir.populate_repository(path)
+      @ir.delete(1)
 
+      expect(@ir.all.count).to eq(1367)
+    end 
+  end 
 end
