@@ -254,5 +254,119 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_merchant_id(2)).to eq([i])
     end
 
+    it 'Creates a new instance with attributes' do
+      data = {
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      }
+      data2 = {
+        :id          => 2,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(12.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      }
+      data3 = {
+        :id          => 3,
+        :name        => "Fountain Pen",
+        :description => "You can write fancy things",
+        :unit_price  => BigDecimal(20.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      }
+      data4 = {
+        :name        => "Fountain Pen",
+        :description => "You can write fancy things",
+        :unit_price  => 20.99,
+        :merchant_id => 3
+      }
+      i = Item.new(data)
+      i2 = Item.new(data2)
+      i3 = Item.new(data3)
+      ir = ItemRepository.new([i, i2, i3])
+      i4 = ir.create(data4)
+
+      expect(ir.items).to eq([i, i2, i3, i4])
+      expect(i4.id).to eq(4)
+    end
+
+    it 'Finds item by ID and update attributes' do
+      data = {
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      }
+      data2 = {
+        :id          => 2,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(12.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      }
+      data3 = {
+        :id          => 3,
+        :name        => "Fountain Pen",
+        :description => "You can write fancy things",
+        :unit_price  => BigDecimal(20.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      }
+      data4 = {
+        :name        => "Gold Fountain Pen",
+        :description => "You can write REALLY fancy things",
+        :unit_price  => 12009,
+      }
+      i = Item.new(data)
+      i2 = Item.new(data2)
+      i3 = Item.new(data3)
+      ir = ItemRepository.new([i, i2, i3])
+
+    ir.update(3, data4)
+    expect(i3.name).to eq("Gold Fountain Pen")
+    expect(i3.description).to eq("You can write REALLY fancy things")
+    expect(i3.unit_price_to_dollars).to eq(12009)
+    end
+
+    it 'Finds and deletes item by ID' do
+      data = {
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      }
+      data2 = {
+        :id          => 2,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(12.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      }
+      i = Item.new(data)
+      i2 = Item.new(data2)
+      ir = ItemRepository.new([i, i2])
+
+      ir.delete(2)
+      expect(ir.all).to eq([i])
+    end
 
 end
