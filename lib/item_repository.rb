@@ -11,11 +11,11 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    all.find { |item| name == item.name }
+    all.find { |item| name.downcase == item.name.downcase }
   end
 
   def find_all_with_description(description)
-    all.find_all { |item| description == item.description }
+    all.find_all { |item| description.downcase == item.description.downcase }
   end
 
   def find_all_by_price(price)
@@ -34,7 +34,7 @@ class ItemRepository
     new_id = all.max_by { |item| item.id }.id + 1
     attributes[:id] = new_id
     item = Item.new(attributes)
-    (all << item).last
+    all << item
   end
 
   def update(id, attributes)

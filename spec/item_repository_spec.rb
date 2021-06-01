@@ -55,12 +55,12 @@ RSpec.describe ItemRepository do
     end
 
     it 'can return Item by item name' do
-      expect(@ir.find_by_name("Pencil")).to eq(@i)
+      expect(@ir.find_by_name("PeNcil")).to eq(@i)
       expect(@ir.find_by_name("Pen")).to eq(nil)
     end
 
     it 'can return all Items by item description' do
-      expect(@ir.find_all_with_description("You can use it to write things")).to eq([@i])
+      expect(@ir.find_all_with_description("YoU cAn use iT to wrItE thIngs")).to eq([@i])
       expect(@ir.find_all_with_description("You can eat it")).to eq([])
     end
 
@@ -91,7 +91,8 @@ RSpec.describe ItemRepository do
         :merchant_id => 3
       }
 
-      i2 = @ir.create(attributes)
+      @ir.create(attributes)
+      i2 = @ir.all.last
 
       expect(@ir.all).to eq([@i, i2])
       expect(i2.id).to eq(2)
