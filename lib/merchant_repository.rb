@@ -22,7 +22,7 @@ class MerchantRepository
   def create(attributes)
     max_id = all.max_by { |merchant| merchant.id }
     new_id = max_id.id + 1
-    Merchant.new({:id => new_id, :name => attributes})
+    @all << Merchant.new({:id => new_id, :name => attributes})
   end
 
   def update(id, attributes)

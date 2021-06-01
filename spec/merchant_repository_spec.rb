@@ -43,7 +43,7 @@ RSpec.describe MerchantRepository do
 
     it 'creates new Merchant with attributes' do
       allow(@mr).to receive(:all).and_return([@m, @m2])
-      m3 = @mr.create("Bob's Burgers")
+      m3 = @mr.create("Bob's Burgers").last
 
       expect(m3.id).to eq(6)
       expect(m3.name).to eq("Bob's Burgers")
