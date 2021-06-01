@@ -74,8 +74,25 @@ RSpec.describe ItemRepository do
     allow(@item2).to receive(:merchant_id).and_return(20)
     allow(@item3).to receive(:merchant_id).and_return(10)
 
-    expect(@items_repo.merchant_id(10)).to eq([@item1, @item3])
-    expect(@items_repo.merchant_id(20)).to eq([@item2])
-    expect(@items_repo.merchant_id(50)).to eq([])
+    expect(@items_repo.find_all_by_merchant_id(10)).to eq([@item1, @item3])
+    expect(@items_repo.find_all_by_merchant_id(20)).to eq([@item2])
+    expect(@items_repo.find_all_by_merchant_id(50)).to eq([])
+  end
+
+  # Test blocked until item class merged
+  xit 'creates new item instance' do
+    attributes = {id: 1, name: 'baseball jersey', description: 'clothing', unit_price: 15, created_at: Time.now, updated_at: Time.now, merchant_id: 5}
+
+    allow(@item1).to receive(:id).and_return(5)
+    allow(@item2).to receive(:id).and_return(7)
+    allow(@item3).to receive(:id).and_return(15)
+
+    expect(@item_repo.length).to eq(3)
+
+    @items_repo.create(attributes)
+
+    expect(@item_repo.length).to eq(4)
+    expect(@items_repo[3].id).to eq(16)
+    expect(@items_repo[3].name).to eq('baseball jersey')
   end
 end
