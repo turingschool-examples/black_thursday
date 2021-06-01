@@ -48,9 +48,18 @@ class ItemRepository
   end
 
   def create(attributes)
-    max = @all.max_by { |item| item.id }
-    new_id = max.id + 1
-    attributes[:id] = new_id
+    biggest = @all.max_by { |item| item.id }
+    attributes[:id] = biggest.id + 1
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
     @all << Item.new(attributes)
+  end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    item[:name] = attributes[:name]
+    item[:description] = attributes[:description]
+    item[:unit_price] = attributes[:unit_price]
+    item[:updated_at] = Time.now
   end
 end
