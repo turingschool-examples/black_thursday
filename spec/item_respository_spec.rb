@@ -1,13 +1,13 @@
 require_relative 'spec_helper'
-require_relative '../lib/item_respository'
+require_relative '../lib/item_repository'
 
-Rspec.describe ItemRespository do
+RSpec.describe ItemRepository do
   before (:each) do
-    @items = double('item.csv')
-    @items_repo = ItemRespository.new(@items)
+    @items = []
+    @items_repo = ItemRepository.new(@items)
   end
 
   it 'exists' do
-    expect(@items_repo).to be_a(ItemRespository)
+    expect(@items_repo).to be_a(ItemRepository)
   end
 end
