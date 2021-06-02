@@ -15,7 +15,7 @@ RSpec.describe MerchantRepository do
 
     expect(mr_csv_data.class).to eq(Array)
     expect(mr_csv_data.length).to eq(475)
-    # require 'pry'; binding.pry
+
     data_validation = mr_csv_data.all? do |line|
       line.class == Hash
       line.keys.length == 4
@@ -46,6 +46,7 @@ RSpec.describe MerchantRepository do
     mr = MerchantRepository.new(se.library[:merchants])
     result = mr.find_all_by_name('by'.upcase)
 
+    expect(result.class).to eq(Array)
     expect(result.length).to eq(24)
   end
 
@@ -56,8 +57,28 @@ RSpec.describe MerchantRepository do
     result = mr.create(new_merchant)
 
     expect(result.class).to eq(Merchant)
-    expect(result.name).to eq('Turing School')
     expect(result.id).to eq(12337412)
+    expect(result.name).to eq('Turing School')
   end
 
+  it 'can update an existing Merchant instance name' do
+    se = SalesEngine.new
+    mr = MerchantRepository.new(se.library[:merchants])
+    merchant_update = {:name => 'Cohort2105'}
+
+    result = mr.update(mr.all[0]['id'], merchant_update)
+
+    expect(result['name']).to eq(merchant_update[:name])
+  end
+
+  it 'can delete an existing Merchant instance' do
+    se = SalesEngine.new
+    mr = MerchantRepository.new(se.library[:merchants])
+
+    old_length = mr.all.length
+    result = mr.delete(mr.all[0]['id'])
+    new_length = mr.all.length
+
+    expect(old_length - new_length).to eq(1)
+  end
 end

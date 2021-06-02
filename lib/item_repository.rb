@@ -12,4 +12,19 @@ class ItemRepository
     end
   end
 
+  # add more attributes to method
+  def create(attributes)
+    Item.new({
+      :id => create_new_id,
+      :name => attributes[:name]
+      })
+  end
+
+  def update(id, attributes)
+    result = find_by_id(id)
+    result['name'] = attributes[:name]
+    result['description'] = attributes[:description]
+    result['unit_price'] = attributes[:unit_price]
+  end
+
 end

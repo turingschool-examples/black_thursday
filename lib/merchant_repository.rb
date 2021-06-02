@@ -13,11 +13,16 @@ class MerchantRepository
   end
 
   def create(attributes)
-    create_new_id
     Merchant.new({
       :id => create_new_id,
       :name => attributes[:name]
       })
+  end
+
+  def update(id, attributes)
+    result = find_by_id(id)
+    result['name'] = attributes[:name]
+    result
   end
 
 end
