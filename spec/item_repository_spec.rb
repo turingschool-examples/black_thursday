@@ -16,7 +16,7 @@ RSpec.describe ItemRepository do
 
     expect(ir_csv_data.class).to eq(Array)
     expect(ir_csv_data.length).to eq(1367)
-    # require 'pry'; binding.pry
+
     data_validation = ir_csv_data.all? do |line|
       line.class == Hash
       line.keys.length == 7
@@ -58,7 +58,7 @@ RSpec.describe ItemRepository do
             :id => ir.create_new_id,
             :name => 'Pencil',
             :description => 'Ticonderoga',
-            :unit_price => BigDecimal.new(2.99, 3),
+            :unit_price => BigDecimal(2.99, 3),
             :created_at => Time.now,
             :updated_at => Time.now,
             :merchant_id => 2}
@@ -80,7 +80,7 @@ RSpec.describe ItemRepository do
     item_update = {
                 :name => 'Pen',
                 :description => 'Pentel R.S.V.P. Fine' ,
-                :unit_price => BigDecimal.new(5.99, 3)
+                :unit_price => BigDecimal(5.99, 3)
               }
 
     result = ir.update(ir.all[0]['id'], item_update)
@@ -99,5 +99,44 @@ RSpec.describe ItemRepository do
     new_length = ir.all.length
 
     expect(old_length - new_length).to eq(1)
+  end
+
+  it 'can find all by description' do
+    se = SalesEngine.new
+    ir = ItemRepository.new(se.library[:items])
+    result = ir.find_all_with_description('hoop'.upcase)
+
+    expect(result.class).to eq(Array)
+    expect(result.length).to eq(9)
+  end
+
+  it 'can find all by price' do
+    se = SalesEngine.new
+    ir = ItemRepository.new(se.library[:items])
+    result = ir.find_all_by_price(6900)
+
+    expect(result.class).to eq(Array)
+    expect(result.length).to eq(1)
+  end
+
+  it 'can find all by price range' do
+    se = SalesEngine.new
+    ir = ItemRepository.new(se.library[:items])
+
+    test_range = (1000..1050)
+    result = ir.find_all_by_price_in_range(test_range)
+
+    expect(result.class).to eq(Array)
+    expect(result.length).to eq(64)
+  end
+
+  it 'can find all merchants by merchant id' do
+    se = SalesEngine.new
+    ir = ItemRepository.new(se.library[:items])
+
+    result = ir.find_all_by_merchant_id(12334280)
+
+    expect(result.class).to eq(Array)
+    expect(result.length).to eq(3)
   end
 end

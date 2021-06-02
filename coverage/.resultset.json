@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/lib/sales_engine.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/sales_engine.rb": {
         "lines": [
           1,
           null,
@@ -9,9 +9,9 @@
           1,
           null,
           1,
-          20,
-          20,
-          20,
+          24,
+          24,
+          24,
           null,
           null,
           1,
@@ -27,7 +27,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/lib/item_repository.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/item_repository.rb": {
         "lines": [
           1,
           null,
@@ -36,10 +36,34 @@
           1,
           null,
           1,
-          9,
-          9,
-          9,
-          12303,
+          13,
+          13,
+          13,
+          17771,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1367,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1367,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1367,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1367,
           null,
           null,
           null,
@@ -68,7 +92,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/lib/helper_methods.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/helper_methods.rb": {
         "lines": [
           1,
           null,
@@ -105,7 +129,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/lib/merchant_repository.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/merchant_repository.rb": {
         "lines": [
           1,
           null,
@@ -137,7 +161,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/lib/item.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/item.rb": {
         "lines": [
           1,
           1,
@@ -178,7 +202,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/lib/merchant.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/lib/merchant.rb": {
         "lines": [
           1,
           1,
@@ -198,7 +222,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/spec/item_repository_spec.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/item_repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -256,30 +280,9 @@
           1,
           1,
           1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           null,
           1,
           null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
           null,
           null,
           null,
@@ -290,6 +293,27 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
           null,
           null,
           1,
@@ -300,18 +324,72 @@
           1,
           1,
           null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
           1,
           null,
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/spec/item_spec.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/item_spec.rb": {
         "lines": [
           1,
           1,
           null,
           1,
+          1,
+          1,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
           1,
           null,
           1,
@@ -325,26 +403,9 @@
           null,
           null,
           1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           1,
           1,
           1,
-          1,
-          1,
-          null,
           1,
           1,
           1,
@@ -352,16 +413,9 @@
           null,
           1,
           1,
-          null,
-          null,
-          null,
           1,
           null,
           1,
-          1,
-          null,
-          null,
-          null,
           null,
           null,
           null,
@@ -385,7 +439,6 @@
           null,
           null,
           1,
-          null,
           1,
           null,
           null,
@@ -397,13 +450,12 @@
           null,
           null,
           1,
-          null,
           null,
           null,
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/spec/merchant_repository_spec.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/merchant_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -491,7 +543,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/spec/merchant_spec.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/merchant_spec.rb": {
         "lines": [
           1,
           1,
@@ -535,7 +587,7 @@
           null
         ]
       },
-      "/Users/katherinemcconnell/Turing/1mod/projects/projects/black_thursday_2105/spec/sales_engine_spec.rb": {
+      "/Users/taylorvaroglu/Desktop/DesktopFiles/mod1/projects/black_thursday_2105/spec/sales_engine_spec.rb": {
         "lines": [
           1,
           null,
@@ -593,6 +645,6 @@
         ]
       }
     },
-    "timestamp": 1622602818
+    "timestamp": 1622668487
   }
 }

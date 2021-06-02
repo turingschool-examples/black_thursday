@@ -12,6 +12,30 @@ class ItemRepository
     end
   end
 
+  def find_all_with_description(description)
+    result = @all.select do |line|
+      line['description'].to_s.downcase.include?(description.to_s.downcase)
+    end
+  end
+
+  def find_all_by_price(price)
+    result = @all.select do |line|
+      line['unit_price'].to_i == price.to_i
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    result = @all.select do |line|
+      range.include?(line['unit_price'].to_i)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    result = @all.select do |line|
+      line['merchant_id'].to_s.downcase == merchant_id.to_s.downcase
+    end
+  end
+
   def create(attributes)
     Item.new({
       :id => create_new_id,
