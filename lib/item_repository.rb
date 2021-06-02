@@ -13,15 +13,14 @@ class ItemRepository
   end
 
   def create_items(path)
-    # @all = []
-    # CSV.foreach(path, headers: true, header_converters: :symbol).each do |item|
-    #   require "pry"; binding.pry
-    #   @all << Item.new(item, self)
-    # end
-    item = CSV.load(path)
-    item.map do |item_data|
-      Item.new(item_data)
+    @all = []
+    CSV.foreach(path, headers: true, header_converters: :symbol).each do |item|
+      @all << Item.new(item, self)
     end
+    # item = CSV.load(path)
+    # item.map do |item_data|
+    #   Item.new(item_data)
+    # end
   end
 
   def find_by_id(id)
