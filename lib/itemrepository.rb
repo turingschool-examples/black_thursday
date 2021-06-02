@@ -2,54 +2,65 @@ require 'csv'
 require './lib/item'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :all
 
-  def initialize(item)
-    @items = item
+  def initialize(path)
+    @all = path #create_items(path) - will need to update but tests need updated for mocks and specs
   end
 
-  def all
-    @items
+  def create_items(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      item = Item.new({
+                        :id           => row[:id].to_i,
+                        :name         => row[:name].capitalize,
+                        :description  => row[:description],
+                        :unit_price   => BigDecimal(row[:unit_price],4),
+                        :merchant_id  => row[:merchant_id],
+                        :created_at   => Time.now,
+                        :updated_at   => Time.now
+                        })
+      @all << item #will be removed after test update
+    end
   end
 
   def find_by_id(id)
-    @items.find do |item|
+    @all.find do |item|
       item.id == id
     end
   end
 
   def find_by_name(name)
-    @items.find do |item|
+    @all.find do |item|
       item.name.casecmp?(name)
     end
   end
 
   def find_all_with_description(description)
-    @items.find_all do |item|
+    @all.find_all do |item|
       item.description.casecmp?(description)
     end
   end
 
   def find_all_by_price(price)
-    @items.find_all do |item|
+    @all.find_all do |item|
       item.unit_price_to_dollars == price
     end
   end
 
   def find_all_by_price_in_range(range)
-    @items.find_all do |item|
+    @all.find_all do |item|
       range.include?(item.unit_price_to_dollars)
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @items.find_all do |item|
+    @all.find_all do |item|
       item.merchant_id == merchant_id
     end
   end
 
   def create(attributes)
-    new_id = @items.max_by do |item|
+    new_id = @all.max_by do |item|
       item.id
     end
     item = Item.new({
@@ -61,7 +72,7 @@ class ItemRepository
                       :updated_at   => Time.now,
                       :merchant_id  => attributes[:merchant_id]
                     })
-    @items << item
+    @all << item
     item
   end
 
@@ -75,6 +86,6 @@ class ItemRepository
 
   def delete(id)
     delete_item = find_by_id(id)
-    @items.delete(delete_item)
+    @all.delete(delete_item)
   end
 end

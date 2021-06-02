@@ -11,7 +11,6 @@ class SalesEngine
   end
 
   def self.from_csv(paths)
-    # require 'pry'; binding.pry
     new(paths)
   end
 end

@@ -14,12 +14,11 @@ RSpec.describe MerchantRepository do
     expect(mr).to be_an_instance_of(MerchantRepository)
   end
 
-  it 'initializes with attributes' do
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    m2 = Merchant.new({:id => 6, :name => "Something Else"})
-    mr = MerchantRepository.new([m, m2])
+  it 'can create item objects' do
+    mr = MerchantRepository.new([])
+    mr.create_merchants("./data/merchants.csv")
 
-    expect(mr.merchants).to eq([m, m2])
+    expect(mr.all[0]).to be_an_instance_of(Merchant)
   end
 
   it 'returns a list of known merchants' do
@@ -63,7 +62,7 @@ RSpec.describe MerchantRepository do
     mr = MerchantRepository.new([m, m2])
     m3 = mr.create("Another Merchant")
 
-    expect(mr.merchants).to eq([m, m2, m3])
+    expect(mr.all).to eq([m, m2, m3])
   end
 
   it 'finds merchant by id and updates name' do
@@ -84,6 +83,6 @@ RSpec.describe MerchantRepository do
 
     mr.delete(6)
 
-    expect(mr.merchants).to eq([m])
+    expect(mr.all).to eq([m])
   end
 end

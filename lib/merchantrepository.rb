@@ -2,40 +2,46 @@ require 'csv'
 require './lib/merchant'
 
 class MerchantRepository
-  attr_reader :merchants
+  attr_reader :all
 
-  def initialize(merchants)
-    @merchants = merchants
+  def initialize(path)
+    @all = path #create_items(path) - will need to update but tests need updated for mocks and specs
   end
 
-  def all
-    @merchants
+  def create_merchants(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      merchant = Merchant.new({
+                                :id   => row[:id].to_i,
+                                :name => row[:name].capitalize
+                                })
+      @all << merchant
+    end
   end
 
   def find_by_id(id)
-    @merchants.find do |merchant|
+    @all.find do |merchant|
       merchant.id == id
     end
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
+    @all.find do |merchant|
       merchant.name.casecmp?(name)
     end
   end
 
   def find_all_by_name(name)
-    @merchants.find_all do |merchant|
+    @all.find_all do |merchant|
       merchant.name.casecmp?(name)
     end
   end
 
   def create(attribute)
-    new_id = @merchants.max_by do |merchant|
+    new_id = @all.max_by do |merchant|
       merchant.id
     end
     merchant = Merchant.new({:id => new_id.id + 1, :name => attribute})
-    @merchants << merchant
+    @all << merchant
     merchant
   end
 
@@ -46,6 +52,6 @@ class MerchantRepository
 
   def delete(id)
     delete_merchant = find_by_id(id)
-    @merchants.delete(delete_merchant)
+    @all.delete(delete_merchant)
   end
 end
