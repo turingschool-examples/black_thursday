@@ -13,7 +13,7 @@ RSpec.describe Item do
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
-      })
+      }, nil)
     expect(i).to be_a(Item)
   end
 
@@ -26,7 +26,7 @@ RSpec.describe Item do
       :created_at  => "2021-06-01 18:37:52.006093 -0400",
       :updated_at  => "2021-06-01 18:45:18.245169000 -0400",
       :merchant_id => 2
-      })
+      }, nil)
 
     expect(i.id).to eq(1)
     expect(i.name).to eq("Pencil")
@@ -46,7 +46,7 @@ RSpec.describe Item do
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
-      })
+      }, nil)
 
     expect(i.unit_price_to_dollars).to eq(10.99)
   end

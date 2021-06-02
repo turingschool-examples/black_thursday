@@ -14,7 +14,7 @@ RSpec.describe SalesEngine do
     expect(@se).to be_an_instance_of(SalesEngine)
   end
 
-  xit 'can create an items repository' do
+  it 'can create an items repository' do
     expect(@se.items).to be_an_instance_of(ItemRepository)
   end
 

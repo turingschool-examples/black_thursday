@@ -10,7 +10,7 @@ RSpec.describe ItemRepository do
     allow_any_instance_of(ItemRepository).to receive(:create_items).and_return(@items)
     @items_repo = ItemRepository.new('path')
 
-    @real_repo = ItemRepository.new('Sample CSV')
+    @real_repo = ItemRepository.new('./fixtures/mock_items')
   end
 
   it 'exists' do
@@ -21,11 +21,8 @@ RSpec.describe ItemRepository do
     expect(@items_repo.all).to eq([@item1, @item2, @item3])
   end
 
-  xit 'creates real items from csv' do
-    expect(@real_repo.all[1].id).to eq()
-    expect(@real_repo.all[2].name).to eq()
-    expect(@real_repo.all[3].price).to eq()
-    expect(@real_rep.all.length).to eq()
+  it 'creates real items from csv' do
+    expect(@real_repo.all.length).to eq(3)
   end
 
   it 'returns item by id number' do

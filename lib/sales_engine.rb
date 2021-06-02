@@ -3,18 +3,21 @@ require_relative 'merchant_repository'
 require 'csv'
 
 class SalesEngine
-  def self.from_csv(path)
+  def initialize(path)
     @items = path[:items]
     @merchants = path[:merchants]
-    SalesEngine.new
+  end
+
+  def self.from_csv(path)
+    SalesEngine.new(path)
   end
 
   def items
-    item_repository = ItemRepository.new(@items)
+    ItemRepository.new(@items)
   end
 
   def merchants
-    merchant_repository = MerchantRepository.new(@merchants)
+    MerchantRepository.new(@merchants)
   end
 
   # def analyst
