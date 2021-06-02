@@ -19,7 +19,17 @@ class ItemRepository
     return nil unless
     @all.find_all do |item|
       if item.id == id
-        return item.name
+        # require 'pry'; binding.pry
+        return item
+      end
+    end
+  end
+
+  def find_by_name(name)
+    return nil unless
+    @all.find_all do |item|
+      if item.name.downcase == name.downcase
+        return item
       end
     end
   end
