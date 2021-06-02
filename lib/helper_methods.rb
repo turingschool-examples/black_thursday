@@ -27,7 +27,7 @@ module HelperMethods
 
   def delete(id)
     result = find_by_id(id)
-    all.delete_if { |hash| hash['id'] == result['id'] }
+    all.delete_if { |hash| hash['id'].to_s == result['id'] }
   end
 
 end

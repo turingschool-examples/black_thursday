@@ -12,11 +12,16 @@ class ItemRepository
     end
   end
 
-  # add more attributes to method
   def create(attributes)
     Item.new({
       :id => create_new_id,
-      :name => attributes[:name]
+      :name => attributes[:name],
+      :description => attributes[:description],
+      :unit_price => attributes[:unit_price],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at],
+      #update value to call helper method once built. Placeholder for now.
+      :merchant_id => attributes[:merchant_id]
       })
   end
 
@@ -25,6 +30,8 @@ class ItemRepository
     result['name'] = attributes[:name]
     result['description'] = attributes[:description]
     result['unit_price'] = attributes[:unit_price]
+    result['updated_at'] = Time.now
+    result
   end
 
 end
