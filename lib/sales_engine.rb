@@ -7,7 +7,7 @@ class SalesEngine
 
   def initialize(file_location)
     # @merchants = Merchants.new(file_location[:merchant], self)
-    @item_repository = ItemRepository.new(file_location[:items], self)
+    @item_repository = ItemRepository.new(file_location[:items], self).create_repo
     @merchant_repository = MerchantRepository.new(file_location[:merchants], self).create_repo
   end
 
@@ -21,6 +21,14 @@ class SalesEngine
 
   def find_merchant_by_id(id)
     @merchant_repository.find_by_id(id)
+  end
+
+  def items
+    @item_repository
+  end
+
+  def find_item_by_id(id)
+    @item_repository.find_by_id(id)
   end
 
 
