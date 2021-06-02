@@ -1,10 +1,10 @@
 require 'rspec'
 require 'simplecov'
+require 'csv'
 
 SimpleCov.start do
 end
 
-require 'CSV'
 require 'bigdecimal'
 require './lib/item'
 require './lib/item_repository'
