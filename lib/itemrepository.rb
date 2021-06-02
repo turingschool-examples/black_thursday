@@ -17,13 +17,13 @@ class ItemRepository
 
   def find_by_name(name)
     @items.find do |item|
-      item.name.downcase == name.downcase
+      item.name.casecmp?(name)
     end
   end
 
   def find_all_with_description(description)
     @items.find_all do |item|
-      item.description.downcase == description.downcase
+      item.description.casecmp?(description)
     end
   end
 
@@ -50,14 +50,14 @@ class ItemRepository
       item.id
     end
     item = Item.new({
-      :id => new_id.id + 1,
-      :name => attributes[:name],
-      :description => attributes[:description],
-      :unit_price => BigDecimal(attributes[:unit_price],4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => attributes[:merchant_id]
-      })
+                      :id           => new_id.id + 1,
+                      :name         => attributes[:name],
+                      :description  => attributes[:description],
+                      :unit_price   => BigDecimal(attributes[:unit_price],4),
+                      :created_at   => Time.now,
+                      :updated_at   => Time.now,
+                      :merchant_id  => attributes[:merchant_id]
+                    })
     @items << item
     item
   end
@@ -66,7 +66,7 @@ class ItemRepository
     info_edit = find_by_id(id)
     info_edit.name = attributes[:name]
     info_edit.description = attributes[:description]
-    info_edit.unit_price = BigDecimal(attributes[:unit_price],4)
+    info_edit.unit_price = BigDecimal(attributes[:unit_price], 4)
     info_edit.updated_at = Time.now
   end
 
