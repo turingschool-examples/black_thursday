@@ -30,7 +30,27 @@
       },
       "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/item_repository.rb": {
         "lines": [
-
+          1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       },
       "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/merchant.rb": {
@@ -48,11 +68,12 @@
       "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
+          1,
           null,
           null
         ]
       }
     },
-    "timestamp": 1622589918
+    "timestamp": 1622607472
   }
 }
