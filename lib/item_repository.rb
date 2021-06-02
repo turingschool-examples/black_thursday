@@ -19,7 +19,6 @@ class ItemRepository
     return nil unless
     @all.find_all do |item|
       if item.id == id
-        # require 'pry'; binding.pry
         return item
       end
     end
@@ -33,5 +32,15 @@ class ItemRepository
       end
     end
   end
+
+  def find_all_with_description(description)
+    @all.find_all do |item|
+      if item.description.downcase.include?(description.downcase)
+        return item
+      end
+    end
+  end
+
+
 
 end

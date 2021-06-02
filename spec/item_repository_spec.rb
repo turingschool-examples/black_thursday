@@ -56,5 +56,21 @@ RSpec.describe ItemRepository do
 
       expect(expected).to eq(nil)
     end
+
+    it 'finds all items matching given description' do
+      path = "fixture/item_fixture.csv"
+      item_repo = ItemRepository.new(path)
+      description = "Vogue Paris Original 2307; ca. 1980; Givenchy - Dress, fitted through the bustline with back-lapped bodice and straight front-wrapped lined skirt, four inches below mid-knee or evening length, has bodice pleated at right shoulder (no shoulder seam) and bodice front and skirt front and back gathered into waistline seam. Left side of skirt has draped waistline extension. Skirt lining has side zipper closing and deep left side hemline slit. Skirt has shaped hemline.\n\nFeatured in Vogue Patterns May/June 1980\n\nSize 14\n\nRefer to image for size info\n\nEnvelope shows storage wear and crumpling, opened to one side."
+      expected = item_repo.find_all_with_description("dRESS, fitted through the bustline with back-lapped bodice and straight front-wrapped lined skirt")
+
+      expect(expected.description).to eq(description)
+      expect(expected.id).to eq(263396209)
+
+      description = "llama smiles"
+      expected = item_repo.find_all_with_description(description)
+
+      expect(expected).to eq([])
+      expect(expected.length).to eq(0)
+    end
   end
 end
