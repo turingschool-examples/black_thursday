@@ -40,7 +40,7 @@ RSpec.describe Item do
   describe 'Object Methods' do
 
     it 'returns the unit price to dollars' do
-      expect(@i.unit_price_to_dollars).to eq(10.99)
+      expect(@i.unit_price_to_dollars).to eq(0.11)
       expect(@i.unit_price_to_dollars).to be_a(Float)
     end
 

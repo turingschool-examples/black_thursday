@@ -6,7 +6,6 @@ SimpleCov.start
 RSpec.describe MerchantRepository do
 
   before :each do
-    # allow(MerchantRepository).to receive(:populate_repository).with('path').and_return([])
     @mr = MerchantRepository.new('./data/merchants.csv')
     @m = Merchant.new({:id => 5, :name => "Turing School"})
     @m2 = Merchant.new({:id => 4, :name => "Turing Bakery"})
