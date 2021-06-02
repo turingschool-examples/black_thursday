@@ -56,6 +56,10 @@ RSpec.describe MerchantRepository do
       expect(@m.name).to eq("turingschool.edu")
     end
 
+    it "#update on unknown merchant does nothing" do
+      @mr.update(13000000, {})
+    end
+
     it 'deletes Merchant by id' do
       expect(@mr.find_by_id(12334105)).to be_a Merchant
 
