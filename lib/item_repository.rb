@@ -6,9 +6,8 @@ class ItemRepository
   attr_reader :all
 
   def initialize(path)
-    create_items(path)
     @all = [] #path create_items(path) - will need to update but tests need updated for mocks and specs
-    @engine = engine
+    create_items(path)
   end
 
   def create_items(path)
@@ -31,7 +30,6 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    require 'pry'; binding.pry
     @all.find do |item|
       item.id == id
     end
