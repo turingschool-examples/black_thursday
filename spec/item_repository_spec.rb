@@ -26,7 +26,7 @@ RSpec.describe ItemRepository do
     it 'returns item with matching ID or nil' do
       expect(@ir.find_by_id(263395295)).to eq(@item1)
       expect(@ir.find_by_id(268716492)).to eq(@item2)
-      expect(@ir.find_by_id(26866642)).to eq(nil)
+      expect(@ir.find_by_id(268666423)).to eq(nil)
     end
 
     it 'returns item with matching name or nil' do
@@ -51,6 +51,40 @@ RSpec.describe ItemRepository do
       expect(@ir.find_all_by_price_in_range(11..13)).to eq([@item1])
       expect(@ir.find_all_by_price_in_range(350..450)).to eq([@item2])
       expect(@ir.find_all_by_price_in_range(2000..3000)).to eq([])
+    end
+
+    it 'returns items by merchant id' do
+      expect(@ir.find_all_by_merchant_id(123346512)).to eq([@item1])
+      expect(@ir.find_all_by_merchant_id(123341356)).to eq([@item2])
+      expect(@ir.find_all_by_merchant_id(111111111)).to eq([])
+    end
+
+    it 'creates a new id' do
+      expect(@ir.new_id).to eq(268716493)
+    end
+
+    it 'creates a new item instance with given attributes' do
+      attributes = {
+        :id          => nil,
+        :name        => "Airplanes",
+        :description => "They fly super dooper",
+        :unit_price  => BigDecimal(1000),
+        :created_at  => '1993-09-29 11:56:40 UTC',
+        :updated_at  => '2016-01-11 11:51:37 UTC',
+        :merchant_id => 928374653
+      }
+      # Ask about testing for this method
+      expected = Item.new({
+        :id          => 268716493,
+        :name        => "Airplanes",
+        :description => "They fly super dooper",
+        :unit_price  => BigDecimal(1000),
+        :created_at  => '1993-09-29 11:56:40 UTC',
+        :updated_at  => '2016-01-11 11:51:37 UTC',
+        :merchant_id => 928374653
+      })
+      require "pry"; binding.pry
+      expect(@ir.create(attributes)).to be_a(Item)
     end
   end
 end
