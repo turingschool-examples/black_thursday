@@ -1,15 +1,12 @@
 require 'SimpleCov'
 SimpleCov.start
 
-require_relative '../lib/sales_engine'
 require_relative '../lib/merchant'
-require_relative '../lib/merchantrepository'
+require_relative '../lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   it 'exists' do
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    m2 = Merchant.new({:id => 6, :name => "Something Else"})
-    mr = MerchantRepository.new([m, m2])
+    mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
 
     expect(mr).to be_an_instance_of(MerchantRepository)
   end

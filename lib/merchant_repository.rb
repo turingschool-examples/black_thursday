@@ -1,21 +1,26 @@
 require 'csv'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 class MerchantRepository
   attr_reader :all
 
   def initialize(path)
-    @all = path #create_items(path) - will need to update but tests need updated for mocks and specs
+    @all = [] #path create_items(path) - will need to update but tests need updated for mocks and specs
+    create_merchants(path)
   end
 
   def create_merchants(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       merchant = Merchant.new({
                                 :id   => row[:id].to_i,
-                                :name => row[:name].capitalize
+                                :name => row[:name]
                                 })
       @all << merchant
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def find_by_id(id)

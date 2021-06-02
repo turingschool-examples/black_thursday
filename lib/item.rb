@@ -19,6 +19,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f        # might need $
+    @unit_price.to_f
   end
 end

@@ -1,7 +1,7 @@
 require 'SimpleCov'
 SimpleCov.start
 
-require_relative '../lib/itemrepository'
+require_relative '../lib/item_repository'
 require_relative '../lib/item'
 
 RSpec.describe ItemRepository do
