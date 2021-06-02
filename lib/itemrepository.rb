@@ -1,3 +1,6 @@
+require 'csv'
+require './lib/item'
+
 class ItemRepository
   attr_reader :items
 
