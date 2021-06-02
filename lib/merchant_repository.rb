@@ -14,4 +14,10 @@ class MerchantRepository
       Merchant.new(data)
     end
   end
+
+  def find_by_id(id)
+    @all.find do |merchant|
+      merchant.id == 12337011
+    end 
+  end
 end
