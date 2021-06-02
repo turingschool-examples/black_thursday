@@ -28,5 +28,17 @@ RSpec.describe ItemRepository do
       expect(@ir.find_by_id(268716492)).to eq(@item2)
       expect(@ir.find_by_id(26866642)).to eq(nil)
     end
+
+    it 'returns item with matching name or nil' do
+      expect(@ir.find_by_name('pencils')).to eq(@item1)
+      expect(@ir.find_by_name('mattress')).to eq(@item2)
+      expect(@ir.find_by_name('footballs')).to eq(nil)
+    end
+
+    it 'returns all items that match provided description' do
+      expect(@ir.find_all_with_description('You can write with them')).to eq([@item1])
+      expect(@ir.find_all_with_description('You can sleep on it')).to eq([@item2])
+      expect(@ir.find_all_with_description('You can fight lions with them')).to eq([])
+    end
   end
 end
