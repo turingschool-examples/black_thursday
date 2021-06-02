@@ -1,19 +1,19 @@
-require './lib/item'
+require './item'
 require 'CSV'
 
 class ItemRepository
-  attr_reader :path,
-              :engine
-
-  def initialize(path, engine)
-    @path = path
-    @engine = engine
+  attr_reader :all
+  
+  def initialize(path)
+    @all = create_items(path)
+    # @engine = engine
   end
 
-  # def create_items(path)
-  #   items = CSV.read("./data/items.csv")
-  #   items.map do |item_data|
-  #     Item.new(item_data, self)
-  #   end
-  # end
+  def create_items(path)
+    items = CSV.read(path, headers: true, header_converters: :symbol)
+    items.map do |item_data|
+      Item.new(item_data)
+    end
+  end
+
 end
