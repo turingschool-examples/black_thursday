@@ -3,19 +3,19 @@ require_relative 'item'
 
 class ItemRepository
 
-  def initialize(file_path)
+  def initialize(file_path, engine)
     create_repo(file_path)
+    @engine = engine
   end
 
   def create_repo(file_path)
-      #could this be its own class?
-    @items = {}
-
+    @items = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @items[row[:id]] = Item.new(row)
+      item = Item.new(row, self)
+      @items << item
     end
-
   end
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end

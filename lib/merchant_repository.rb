@@ -2,58 +2,76 @@ require 'CSV'
 require_relative 'merchant'
 
 class MerchantRepository
+  attr_reader :id, :name, :all, :merchants, :file_path
 
-  def initialize(file_path)
-    create_repo(file_path)
-#filepath of CSV, rather than create csv within initialize, just call additional
-#helper method(create repo)
+  def initialize(file_path, engine)
+    @file_path = file_path
+    @engine = engine
   end
 
-  def create_repo(file_path)
-      #could this be its own class?
-    @merchants = {} #info access down the road, processing speed
-    #iteratres through the given CSV, allows for headers to be symbols
-    #isolates each row.  each row is a hash made up of KV pairs.  Within the row,
-    #headers are keys, values are what is in the row.
-    #from there, we are adding a KV pair to the merchants hash where
-    #the key is the ID# and the value is the merchant object
+  def create_repo
+    @merchants = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      #key is "something", value is merchant object
-      @merchants[row[:id]] = Merchant.new(row)
-      #instantiating a merchant object
+      merchant = Merchant.new(row, self)
+      @merchants << merchant
     end
-
-  end
-
-  def inspect
-    # override inspect method is written in spec_harness
-    #if you stick with the ruby way it causes issues
-    #grabbed this code from the error message itself
-    "#<#{self.class} #{@merchants.size} rows>"
+    self
   end
 
   def all
-    #expecting instances of merchants
-    @merchants
+    merchants
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def find_by_id(id)
+    merchants.find do |merchant|
+      merchant.id == id
+    end
   end
 
   def find_by_name(name)
+    merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
   end
 
-  def find_alL_by_name(name)
+  def find_all_by_name(name)
+    merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
 
   def create(attributes)
+    merchant_id = merchants.max { |merchant| merchant.id }
+    attributes[:id] = merchant_id.id + 1
+    attributes[:created_at] = Time.now.strftime("%Y-%m-%d")
+    attributes[:updated_at] = Time.now.strftime("%Y-%m-%d")
+    @merchants << Merchant.new(attributes, self)
   end
 
   def update(id, attributes)
+    #for any given ID value, we are looking through the merchants
+    # if that ID exists, execute following code
+    # if it doesnt, return nil
+    merchant_by_id = find_by_id(id)
+    if merchant_by_id != nil
+      merchant_by_id.change_name(attributes[:name])
+    end
   end
 
   def delete(id)
+    #for any given ID value, we are looking through the merchants
+    # if that ID exists, delete it
+    # if it doesnt, return nil
+    chopping_block = merchants.index { |merchant| merchant.id == id }
+    if chopping_block != nil
+      merchants.delete_at(chopping_block)
+    end
+    # require "pry";binding.pry
+    # .delete_at()
   end
-
 
 end
