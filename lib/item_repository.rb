@@ -34,6 +34,18 @@ class ItemRepository
   def find_all_with_description(description)
     @all.find_all do |item|
       item.description.include?(description)
-    end 
+    end
+  end
+
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all do |item|
+      range === item.unit_price
+    end
   end
 end

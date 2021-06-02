@@ -40,5 +40,17 @@ RSpec.describe ItemRepository do
       expect(@ir.find_all_with_description('You can sleep on it')).to eq([@item2])
       expect(@ir.find_all_with_description('You can fight lions with them')).to eq([])
     end
+
+    it 'returns items by unit price' do
+      expect(@ir.find_all_by_price(12)).to eq([@item1])
+      expect(@ir.find_all_by_price(400)).to eq([@item2])
+      expect(@ir.find_all_by_price(2000)).to eq([])
+    end
+
+    it 'returns items within given price range' do
+      expect(@ir.find_all_by_price_in_range(11..13)).to eq([@item1])
+      expect(@ir.find_all_by_price_in_range(350..450)).to eq([@item2])
+      expect(@ir.find_all_by_price_in_range(2000..3000)).to eq([])
+    end
   end
 end
