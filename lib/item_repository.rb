@@ -13,9 +13,14 @@ class ItemRepository
   end
 
   def create_items(path)
-    items = CSV.foreach(path, headers: true, header_converters: :symbol)
-    items.map do |item|
-      Item.new(item, self)
+    # @all = []
+    # CSV.foreach(path, headers: true, header_converters: :symbol).each do |item|
+    #   require "pry"; binding.pry
+    #   @all << Item.new(item, self)
+    # end
+    item = CSV.load(path)
+    item.map do |item_data|
+      Item.new(item_data)
     end
   end
 
