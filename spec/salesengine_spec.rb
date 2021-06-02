@@ -1,7 +1,7 @@
 require 'SimpleCov'
 SimpleCov.start
 
-require_relative '../lib/salesengine'
+require_relative '../lib/sales_engine'
 
 RSpec.describe SalesEngine do
   it 'exists' do
