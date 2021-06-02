@@ -16,6 +16,7 @@ RSpec.describe ItemRepository do
     it 'generates Item instances' do
       item1 = @ir.all[1]
       item2 = @ir.all[-1]
+
       expect(item1.id).to eq(263395295)
       expect(item1.name).to eq('pencils')
       expect(item2.id).to eq(268716492)
