@@ -10,17 +10,18 @@ RSpec.describe ItemRepository do
       expect(item_repo).to be_a(ItemRepository)
     end
 
-    it "returns array of all items" do
+    it "returns array of all items and has readable attributes" do
       path = "fixture/item_fixture.csv"
       item_repo = ItemRepository.new(path)
-
-      expect(item_repo.all.length).to eq(4)
+      all = item_repo.all
+      expect(all.length).to eq(4)
+      expect(all.first.id).to eq(263395617)
+      expect(all.first.name).to eq("Glitter scrabble frames")
+      expect(all.first.description).to be_a(String)
+      expect(all.first.unit_price).to eq(1300)
+      expect(all.first.created_at).to be_a(String)
+      expect(all.first.updated_at).to be_a(String)
+      expect(all.first.merchant_id).to eq(12334185)
     end
-
-    xit 'has readable attributes'
-    path = "fixture/item_fixture.csv"
-    item_repo = ItemRepository.new(path)
-
-    expect(item_repo.all.first.id).to eq(263395617)
   end
 end
