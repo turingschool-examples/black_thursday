@@ -14,7 +14,7 @@ RSpec.describe ItemRepository do
     end
 
     it 'generates Item instances' do
-      
+      expect(@ir.all).to be_a(Array)
     end
   end
 end
