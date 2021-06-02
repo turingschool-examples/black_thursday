@@ -5,7 +5,7 @@ class SalesEngine
               :merchants
 
   def initialize(data_hash)
-    @items     = data_hash[:items]
+    @items     = ItemRepository.new(data_hash[:items])
     @merchants = MerchantRepository.new(data_hash[:merchants])
   end
 
