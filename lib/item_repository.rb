@@ -15,4 +15,13 @@ class ItemRepository
     end
   end
 
+  def find_by_id(id)
+    return nil unless
+    @all.find_all do |item|
+      if item.id == id
+        return item.name
+      end
+    end
+  end
+
 end

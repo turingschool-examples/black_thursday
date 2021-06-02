@@ -24,4 +24,13 @@ RSpec.describe ItemRepository do
       expect(all.first.merchant_id).to eq(12334185)
     end
   end
+  describe 'methods' do
+    it 'finds items with matching id' do
+      path = "fixture/item_fixture.csv"
+      item_repo = ItemRepository.new(path)
+
+      expect(item_repo.find_by_id(263395721)).to eq("Disney scrabble frames")
+      expect(item_repo.find_by_id(1)).to eq(nil)
+    end
+  end
 end
