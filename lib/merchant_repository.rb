@@ -1,5 +1,5 @@
-require 'CSV'
-# require './lib/merchant'
+require_relative 'CSV'
+require_relative '../lib/merchant'
 
 class MerchantRepository
   attr_reader :all_merchants
@@ -9,7 +9,7 @@ class MerchantRepository
   end
 
   def create_merchants(path)
-  @merchants = CSV.foreach(merchants, headers: true, header_converters: :symbol).map do |merchant|
+  merchants = CSV.foreach(path, headers: true, header_converters: :symbol).map do |merchant|
     Merchant.new(merchant, self)
     end
   end
@@ -22,7 +22,7 @@ class MerchantRepository
 
   def find_by_name(name)
     @all_merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
+      merchant.name.upcase == name.upcase
     end
   end
 
