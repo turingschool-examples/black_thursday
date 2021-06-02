@@ -6,14 +6,14 @@ class ItemRepository
               :engine
 
   def initialize(path, engine)
-    @all = create_items(path)
+    @path = path
     @engine = engine
   end
 
-  def create_items(path)
-    items = CSV.load("item_fixture.csv")
-    items.map do |item_data|
-      Item.new(item_data, self)
-    end
-  end
+  # def create_items(path)
+  #   items = CSV.read("./data/items.csv")
+  #   items.map do |item_data|
+  #     Item.new(item_data, self)
+  #   end
+  # end
 end
