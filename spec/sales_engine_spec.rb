@@ -1,14 +1,13 @@
 require_relative 'spec_helper'
-require 'CSV'
 
 RSpec.describe SalesEngine do
   describe 'instantiation' do
     it 'exists' do
-      paths = ({
+      library = ({
         :items     => "./data/items.csv"
         # :merchants => "./data/merchants.csv"
       })
-      sales_engine = SalesEngine.new(paths)
+      sales_engine = SalesEngine.new(library)
 
       expect(sales_engine).to be_a(SalesEngine)
     end
