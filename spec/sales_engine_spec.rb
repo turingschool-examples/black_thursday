@@ -1,5 +1,5 @@
 require 'rspec'
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 
 RSpec.describe SalesEngine do
 

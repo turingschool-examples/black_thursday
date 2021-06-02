@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative '../lib/item'
 require 'rspec'
 require 'simplecov'
 require 'bigdecimal'

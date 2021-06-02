@@ -1,6 +1,6 @@
 require 'CSV'
-require './lib/item_repository'
-require './lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/item'
 require 'rspec'
 require 'simplecov'
 require 'bigdecimal'

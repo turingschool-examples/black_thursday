@@ -1,5 +1,5 @@
 require 'CSV'
-require './lib/merchant_repository'
+require_relative '../lib/merchant_repository'
 require 'simplecov'
 SimpleCov.start
 

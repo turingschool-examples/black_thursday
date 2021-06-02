@@ -1,4 +1,8 @@
 require 'CSV'
+require_relative '../lib/item'
+require 'bigdecimal'
+require 'time'
+
 class ItemRepository
 
   attr_reader :all
@@ -61,5 +65,9 @@ class ItemRepository
       }
       @all << Item.new(data_hash)
     end
+  end
+
+  def inspect
+   "#<#{self.class} #{@items.size} rows>"
   end
 end
