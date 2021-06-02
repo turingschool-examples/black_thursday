@@ -10,3 +10,5 @@ require './lib/sales_engine'
 require './lib/item'
 require './lib/item_repository'
 require './lib/merchant'
+
+#test_setup_data
