@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/item.rb": {
+      "/Users/matttoensing/turing/1module/projects/black_thursday_main/black_thursday/lib/item.rb": {
         "lines": [
           1,
           1,
@@ -13,35 +13,35 @@
           null,
           null,
           1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          43,
+          43,
+          43,
+          43,
+          43,
+          43,
+          43,
           null,
           null,
           1,
-          0,
+          1,
           null,
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/item_repository.rb": {
+      "/Users/matttoensing/turing/1module/projects/black_thursday_main/black_thursday/lib/item_repository.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          0,
-          0,
+          2,
+          2,
           null,
           null,
           1,
-          0,
-          0,
-          0,
+          2,
+          40,
+          40,
           null,
           null,
           null,
@@ -53,27 +53,114 @@
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/merchant.rb": {
+      "/Users/matttoensing/turing/1module/projects/black_thursday_main/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          0,
-          0,
+          2,
+          2,
           null,
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/sales_engine.rb": {
+      "/Users/matttoensing/turing/1module/projects/black_thursday_main/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
+          null,
+          null
+        ]
+      },
+      "/Users/matttoensing/turing/1module/projects/black_thursday_main/black_thursday/spec/item_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/matttoensing/turing/1module/projects/black_thursday_main/black_thursday/spec/merchant_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/matttoensing/turing/1module/projects/black_thursday_main/black_thursday/spec/sales_engine_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
           null,
           null
         ]
       }
     },
-    "timestamp": 1622608551
+    "timestamp": 1622609272
   }
 }
