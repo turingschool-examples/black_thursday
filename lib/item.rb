@@ -8,7 +8,7 @@ class Item
               :merchant_id
 
   def initialize(item_data)
-    @id = item_data[:id]
+    @id = item_data[:id].to_i
     @name = item_data[:name]
     @description = item_data[:description]
     @unit_price = item_data[:unit_price]
