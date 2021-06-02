@@ -10,11 +10,11 @@ class SalesEngine
   end
 
   def items
-    item_repository = ItemRepository.new(@items)
+    ItemRepository.new(@items)
   end
 
   def merchants
-    merchant_repository = MerchantRepository.new(@merchants)
+    MerchantRepository.new(@merchants)
   end
 
   # def analyst
