@@ -1,11 +1,15 @@
-require_relative 'CSV'
-require_relative '../lib/merchant'
+require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :all_merchants
 
   def initialize(path)
     @all_merchants = create_merchants(path)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def create_merchants(path)

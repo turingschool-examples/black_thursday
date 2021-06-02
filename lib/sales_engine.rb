@@ -17,8 +17,8 @@ class SalesEngine
     merchant_repository = MerchantRepository.new(@merchants)
   end
 
-  def analyst
-    SalesAnalyst.new
-  end
+  # def analyst
+  #   SalesAnalyst.new
+  # end
 
 end
