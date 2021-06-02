@@ -18,4 +18,10 @@ class ItemRepository
           })
     end
   end
+
+  def find_by_id(id)
+    @all.find do |item|
+      item.id == id
+    end 
+  end
 end
