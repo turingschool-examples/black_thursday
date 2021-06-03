@@ -1,10 +1,11 @@
 class Item
-  attr_accessor :id
-  attr_reader :name,
-              :description,
-              :unit_price,
-              :created_at,
-              :updated_at,
+  attr_accessor :id,
+                :name,
+                :description,
+                :unit_price,
+                :updated_at
+
+  attr_reader :created_at,
               :merchant_id
 
   def initialize(info)
