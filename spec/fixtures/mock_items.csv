@@ -1,4 +1,4 @@
 id,name,description,unit_price,merchant_id,created_at,updated_at
 3,baseball,for baseball,5,10,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
 5,baseball bat,for baseball,10,20,2016-01-11 11:51:37 UTC,1993-09-29 11:56:40 UTC
-10,baseball glove,clothing,5,10,2016-01-11 11:51:37 UTC,2008-04-02 13:48:57 UTC
+10,baseball glove,clothing,10,10,2016-01-11 11:51:37 UTC,2008-04-02 13:48:57 UTC
