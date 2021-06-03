@@ -1,7 +1,6 @@
 require 'SimpleCov'
 SimpleCov.start
 
-require_relative '../lib/salesengine'
 require_relative '../lib/merchant'
 
 RSpec.describe Merchant do
