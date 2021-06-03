@@ -108,47 +108,34 @@ RSpec.describe ItemRepository do
     @repo.create(attributes)
 
     expect(@repo.all.length).to eq(4)
-    @repo.all.each do |item|
-      expect(item).to be_a(Item)
-    end
+    expect(@repo.find_by_id(11).name).to eq('jersey')
+    expect(@repo.find_by_id(11).description).to eq('clothing')
+    expect(@repo.find_by_id(11).unit_price).to eq(20)
+    expect(@repo.find_by_id(11).merchant_id).to eq(5)
   end
 
   xit 'updates item attributes by id' do
-    new_attributes = {name: 'changed name', description: 'clothing', unit_price: 15}
-    id = 'number from csv'
-    old_time = @real_rep.find_by_id(id).updated_at
+    new_attributes = {name: 'metal bat', description: 'for practice', unit_price: 20}
+    @repo.update(5, new_attributes)
 
-    @real_repo.update(id, new_attributes)
-
-    expect(@real_rep.find_by_id(id).name).to eq('changed name')
-    expect(@real_rep.find_by_id(id).updated_at).not_to eq(old_time)
-    expect(@real_rep.all.length).to eq()
+    expect(@repo.find_by_id(5).name).to eq('metal bat')
+    expect(@repo.find_by_id(5).description).to eq('for practice')
+    expect(@repo.find_by_id(5).unit_price).to eq(20)
   end
 
   xit 'updates single item attribute by id' do
-    new_attributes = {name: 'new name'}
-    id = 'number from csv'
-    og_price = @real_rep.find_by_id(id).price
-    old_time = @real_rep.find_by_id(id).updated_at
+    new_attribute = {name: 'mlb regulation baseball'}
+    @repo.update(3, new_attribute)
 
-    @real_repo.update(id, new_attributes)
-
-    expect(@real_rep.find_by_id(id).name).to eq()
-    expect(@real_rep.find_by_id(id).price).to eq(og_price)
-    expect(@real_rep.find_by_id(id).updated_at).not_to eq(old_time)
-    expect(@real_rep.all.length).to eq()
+    expect(@repo.find_by_id(3).name).to eq('mlb regulation baseball')
+    expect(@repo.find_by_id(3).description).to eq('for baseball')
+    expect(@repo.find_by_id(3).unit_price).to eq(5)
   end
 
   it 'deletes item by id' do
     @repo.delete(5)
 
     expect(@repo.all.length).to eq(2)
-
-    item_names = []
-    @repo.all.each do |item|
-      item_names << item.name
-    end
-
-    expect(item_names).to eq(['baseball', 'baseball glove'])
+    expect(@repo.find_by_id(5)).to eq(nil)
   end
 end
