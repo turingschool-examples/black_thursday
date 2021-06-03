@@ -74,16 +74,6 @@ RSpec.describe ItemRepository do
         :merchant_id => 928374653
       }
       # Ask about testing for this method
-      expected = Item.new({
-        :id          => 268716493,
-        :name        => "Airplanes",
-        :description => "They fly super dooper",
-        :unit_price  => BigDecimal(1000),
-        :created_at  => '1993-09-29 11:56:40 UTC',
-        :updated_at  => '2016-01-11 11:51:37 UTC',
-        :merchant_id => 928374653
-      })
-
       expect(@ir.create(attributes)).to be_a(Item)
     end
 
