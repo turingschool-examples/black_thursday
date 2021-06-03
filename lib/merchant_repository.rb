@@ -31,13 +31,13 @@ class MerchantRepository
 
   def find_by_name(name)
     @all.find do |merchant|
-      merchant.name.casecmp?(name)
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-      merchant.name.casecmp?(name)
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
@@ -45,7 +45,7 @@ class MerchantRepository
     new_id = @all.max_by do |merchant|
       merchant.id
     end
-    merchant = Merchant.new({:id => new_id.id + 1, :name => attribute})
+    merchant = Merchant.new({:id => new_id.id + 1, :name => attribute[:name]})
     @all << merchant
     merchant
   end
