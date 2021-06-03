@@ -14,8 +14,8 @@ class MerchantRepository
   end
 
   def create_items
-    data = CSV.parse(File.read(@file_path), headers: true) do |line|
-      @all << Merchant.new(line.to_h, self).to_hash
+    data = CSV.parse(File.read(@file_path), headers: true, header_converters: :symbol) do |line|
+      @all << Merchant.new(line.to_h, self)
     end
   end
 
@@ -24,18 +24,21 @@ class MerchantRepository
   end
 
   def create(attributes)
-    Merchant.new(
+    @all << Merchant.new(
       {
-        'id' => create_new_id,
-        'name' => attributes[:name]
+        :id => create_new_id,
+        :name => attributes[:name]
         }, self
       )
   end
 
   def update(id, attributes)
     result = find_by_id(id)
-    result[:name] = attributes[:name]
-    result
+    unless result == nil
+      @all.delete(result)
+      result.name = attributes[:name] if attributes[:name] != nil
+      @all << result
+    end
   end
 
 end
