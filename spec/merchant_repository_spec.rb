@@ -11,60 +11,72 @@ RSpec.describe MerchantRepository do
     end
 
     it 'returns all merchants' do
-      expect(@repo.all_merchants).to eq([nil])
+      expect(@repo.all_merchants.length).to eq(3)
     end
 
     it 'creates real items from csv' do
-      expect(@repo.all_merchants.length).to eq(3)
       @repo.all_merchants.each do |merchant|
         expect(merchant).to be_an_instance_of(Merchant)
       end
     end
 
     it 'can find a merchant by id' do
-      expect(@repo.find_by_id(12334105).name).to eq('Shopin1901')
+      expect(@repo.find_by_id(101).name).to eq("KoopShop")
       expect(@repo.find_by_id(1)).to eq(nil)
-      expect(@repo.find_by_id(12334113).name).to eq('MiniatureBikez')
+      expect(@repo.find_by_id(103).name).to eq("SparkyShop")
     end
 
-    xit 'can find a merchant by name' do
-      expect(@mock_repo.find_by_name('Shopin1901')).to eq(@merchant_1)
-      expect(@mock_repo.find_by_name('Koop')).to eq(nil)
-      expect(@mock_repo.find_by_name('MiniatureBikez')).to eq(@merchant_3)
+    it 'can find a merchant by name' do
+      expect(@repo.find_by_name("KoopShop").id).to eq(101)
+      expect(@repo.find_by_name("AlfieHouse")).to eq(nil)
+      expect(@repo.find_by_name("SparkyShop").id).to eq(103)
     end
 
-    xit 'can find all matches to the name fragment' do
+    it 'can find all matches to the name fragment' do
+      shop_ids = []
+      @repo.find_all_by_name("shop").each do |shop|
+        shop_ids << shop.id
+      end
+      expect(shop_ids).to eq([101, 103])
 
-      expect(@mock_repo.find_all_by_name('in')).to eq([@merchant_1, @merchant_4])
-      expect(@mock_repo.find_all_by_name("Koop")).to eq([])
+      @repo.find_all_by_name("Alfie").each do |shop|
+        expect(shop.id).to eq([])
+      end
     end
 
-    xit 'creates the next highest merchant id' do
-      expect(@mock_repo.next_highest_merchant_id).to eq(12334114)
+    it 'creates the next highest merchant id' do
+      expect(@repo.next_highest_merchant_id).to eq(104)
     end
 
-    xit 'can create a new merchant instance' do
-      attributes = {name: 'Koop'}
+    it 'can create a new merchant instance' do
+      attributes = 'AlfieHouse'
 
-      @mock_repo.next_highest_merchant_id
+      @repo.create(attributes)
 
-      @mock_repo.create(attributes)
+      updated_all_merchants = []
+      @repo.all_merchants.each do |merchant|
+        updated_all_merchants << merchant.name
+      end
 
-      expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5])
+      expect(updated_all_merchants).to eq(["KoopShop", "CookieCounter", "SparkyShop", "AlfieHouse"])
     end
 
-    xit 'can update an exsisting merchants name' do
-      attributes = {name: 'Sparky'}
+    it 'can update an exsisting merchants name' do
+      attributes = "NolaHouse"
 
-      @mock_repo.update(12334114, attributes)
+      @repo.update(101, attributes)
 
-      expect(@mock_repo.merchant(dfle)).to be({id: 12334114, name: 'Sparky'})
+      expect(@repo.find_by_id(101).name).to eq("NolaHouse")
     end
 
-    xit 'can delete the merchant by id' do
-      @mock_repo.delete()
+    it 'can delete the merchant by id' do
+      @repo.delete(101)
 
-      expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_4])
+      updated_all_merchants = []
+      @repo.all_merchants.each do |merchant|
+        updated_all_merchants << merchant.name
+      end
+        expect(updated_all_merchants).to eq(["CookieCounter", "SparkyShop"])
     end
 
 end

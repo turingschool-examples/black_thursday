@@ -16,7 +16,6 @@ class MerchantRepository
   def create_merchants(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant|
     @all_merchants << Merchant.new(merchant, self)
-      # require "pry"; binding.pry
     end
   end
 
@@ -46,13 +45,13 @@ class MerchantRepository
 
   def create(attributes)
     new_merchant = Merchant.new({id: next_highest_merchant_id,
-                                 name: attributes})
+                                 name: attributes}, self)
     @all_merchants << new_merchant
   end
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant[:name] = attributes[:name]
+    merchant.name.replace(attributes)
   end
 
   def delete(id)
