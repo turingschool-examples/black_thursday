@@ -56,8 +56,8 @@ class ItemRepository
   end
 
   def new_id_number
-    id = (@all.max_by { |item| item.id }).id
-    id + 1
+    item = @all.max_by { |item| item.id }
+    item.id + 1
   end
 
   def create(attributes)
@@ -65,11 +65,7 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    item = find_by_id(id)
-    item[:name] = attributes[:name]
-    item[:description] = attributes[:description]
-    item[:unit_price] = attributes[:unit_price]
-    item[:updated_at] = Time.now
+    find_by_id(id).update(attributes)
   end
 
   def delete(id)
