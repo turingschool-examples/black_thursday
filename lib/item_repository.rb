@@ -1,8 +1,9 @@
 class ItemRepository
-  attr_reader :all
+  attr_reader :all, :sales_engine
 
-  def initialize(path)
+  def initialize(path, sales_engine)
     @file_path = path
+    @sales_engine = sales_engine
     @all = generate
   end
 

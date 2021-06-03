@@ -3,14 +3,14 @@ require_relative './spec_helper'
 RSpec.describe MerchantRepository do
   context 'instantiation' do
     it 'exists' do
-      mr = MerchantRepository.new('spec/fixtures/merchants.csv')
+      mr = MerchantRepository.new('spec/fixtures/merchants.csv', sales_engine)
       expect(mr).to be_a(MerchantRepository)
     end
   end
 
   context 'methods' do
     before :each do
-      @mr = MerchantRepository.new('spec/fixtures/merchants.csv')
+      @mr = MerchantRepository.new('spec/fixtures/merchants.csv', sales_engine)
       @merchant1 = @mr.all[1]
       @merchant2 = @mr.all[-1]
     end

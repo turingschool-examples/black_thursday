@@ -1,8 +1,9 @@
 class MerchantRepository
-  attr_reader :all
+  attr_reader :all, :sales_engine
 
-  def initialize(path)
+  def initialize(path, sales_engine)
     @path = path
+    @sales_engine = sales_engine
     @all = generate
   end
 
