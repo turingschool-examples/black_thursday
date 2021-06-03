@@ -100,10 +100,31 @@ RSpec.describe ItemRepository do
       range = 1300..1350
 
       expected = item_repo.find_all_by_price_in_range(range)
-require "pry"; binding.pry
+
       expect(expected).to be_an(Array)
       expect(expected.length).to eq(2)
       expect(expected.first.id).to eq(263395617)
+
+      range = 234879032890..234879032891
+      expected = item_repo.find_all_by_price_in_range(range)
+
+      expect(expected).to eq([])
+    end
+
+    it 'can return item with supplied, matching merchant_id' do
+      path = "fixture/item_fixture.csv"
+      item_repo = ItemRepository.new(path)
+      merchant_id = 12334185
+      expected = item_repo.find_all_by_merchant_id(merchant_id)
+
+      expect(expected).to be_an(Array)
+      expect(expected.length).to eq(3)
+      expect(expected.last.id).to eq(263396013)
+
+      merchant_id = 1
+      expected = item_repo.find_all_by_merchant_id(merchant_id)
+
+      expect(expected).to eq([])
     end
   end
 end
