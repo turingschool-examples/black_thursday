@@ -3,25 +3,28 @@ require_relative '../lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   before :each do
-    @mock_repo = MerchantRepository.new('./spec/fixtures/mock_merchants.csv')
+    @repo = MerchantRepository.new('./spec/fixtures/mock_merchants.csv')
   end
 
     it 'exists' do
-      expect(@mock_repo).to be_an_instance_of(MerchantRepository)
+      expect(@repo).to be_an_instance_of(MerchantRepository)
     end
 
-    xit 'returns all merchants' do
-      expect(@mock_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3])
+    it 'returns all merchants' do
+      expect(@repo.all_merchants).to eq([nil])
     end
 
-    xit 'creates real items from csv' do
-      expect(@mock_repo.all_merchants.length).to eq(3)
+    it 'creates real items from csv' do
+      expect(@repo.all_merchants.length).to eq(3)
+      @repo.all_merchants.each do |merchant|
+        expect(merchant).to be_an_instance_of(Merchant)
+      end
     end
 
-    xit 'can find a merchant by id' do
-      expect(@mock_repo.find_by_id(12334105)).to eq(@merchant_1)
-      expect(@mock_repo.find_by_id(12334112)).to eq(nil)
-      expect(@mock_repo.find_by_id(12334113)).to eq(@merchant_3)
+    it 'can find a merchant by id' do
+      expect(@repo.find_by_id(12334105).name).to eq('Shopin1901')
+      expect(@repo.find_by_id(1)).to eq(nil)
+      expect(@repo.find_by_id(12334113).name).to eq('MiniatureBikez')
     end
 
     xit 'can find a merchant by name' do
@@ -55,11 +58,11 @@ RSpec.describe MerchantRepository do
 
       @mock_repo.update(12334114, attributes)
 
-      expect(@mock_repo.merchant(dfle)).to be({id: 12334114, name: 'Sparky')
+      expect(@mock_repo.merchant(dfle)).to be({id: 12334114, name: 'Sparky'})
     end
 
     xit 'can delete the merchant by id' do
-      @mock_repo.delete(#####)
+      @mock_repo.delete()
 
       expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_4])
     end
