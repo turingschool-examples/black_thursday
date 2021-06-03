@@ -1,8 +1,10 @@
 require_relative './spec_helper'
 
 RSpec.describe Item do
-  context 'instantiation' do  
+  context 'instantiation' do
     before :each do
+      @ir = ItemRepository.new('spec/fixtures/items.csv', @sales_engine)
+      @sales_engine = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
       @item = Item.new({
         :id          => 1,
         :name        => "Pencil",
@@ -11,9 +13,9 @@ RSpec.describe Item do
         :created_at  => '1993-09-29 11:56:40 UTC',
         :updated_at  => '2016-01-11 11:51:37 UTC',
         :merchant_id => 2
-      })
-    end  
-    
+      }, @ir)
+    end
+
     it 'exists' do
       expect(@item).to be_a(Item)
     end
@@ -31,6 +33,8 @@ RSpec.describe Item do
 
   context 'methods' do
     it 'returns the price of the item in dollars formatted as a Float' do
+      ir = ItemRepository.new('spec/fixtures/items.csv', sales_engine)
+      sales_engine = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
       item = Item.new({
         :id          => 1,
         :name        => "Pencil",
@@ -39,7 +43,7 @@ RSpec.describe Item do
         :created_at  => '1993-09-29 11:56:40 UTC',
         :updated_at  => '2016-01-11 11:51:37 UTC',
         :merchant_id => 2
-      })
+      }, ir)
 
       expect(item.unit_price_to_dollars).to eq("$10.99")
     end

@@ -8,7 +8,7 @@ class Item
   attr_reader :created_at,
               :merchant_id
 
-  def initialize(info)
+  def initialize(info, repo)
     @id = info[:id]
     @name = info[:name]
     @description = info[:description]
@@ -16,6 +16,7 @@ class Item
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @merchant_id = info[:merchant_id]
+    @repo = repo
   end
 
   def unit_price_to_dollars

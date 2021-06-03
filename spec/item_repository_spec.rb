@@ -3,6 +3,8 @@ require_relative './spec_helper'
 RSpec.describe ItemRepository do
   context 'instantiation' do
     it 'exists' do
+      
+      sales_engine = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
       ir = ItemRepository.new('spec/fixtures/items.csv', sales_engine)
       expect(ir).to be_a(ItemRepository)
     end
@@ -10,7 +12,8 @@ RSpec.describe ItemRepository do
 
   context 'methods' do
     before :each do
-      @ir = ItemRepository.new('spec/fixtures/items.csv',sales_engine)
+      @sales_engine = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
+      @ir = ItemRepository.new('spec/fixtures/items.csv',@sales_engine)
       @item1 = @ir.all[1]
       @item2 = @ir.all[-1]
     end
