@@ -5,7 +5,8 @@ class MerchantRepository
   attr_reader :all_merchants
 
   def initialize(path)
-    @all_merchants = create_merchants(path)
+    @all_merchants = []
+    create_merchants(path)
   end
 
   def inspect
@@ -13,15 +14,10 @@ class MerchantRepository
   end
 
   def create_merchants(path)
-    @all_merchants = []
-    merchants = CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant|
-      @all_merchants << Merchant.new(merchant, self)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant|
+    @all_merchants << Merchant.new(merchant, self)
+      # require "pry"; binding.pry
     end
-
-    # merchant = CSV.load(path)
-    # merchant.map do |merchant_data|
-    #   Merchant.new(merchant_data)
-    # end
   end
 
   def find_by_id(id)

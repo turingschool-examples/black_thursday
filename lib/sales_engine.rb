@@ -4,21 +4,21 @@ require 'csv'
 
 class SalesEngine
   def initialize(path)
-    @items = path[:items]
-    @merchants = path[:merchants]
+    @items = ItemRepository.new(path[:items])
+    @merchants = MerchantRepository.new(path[:merchants])
   end
 
   def self.from_csv(path)
-    SalesEngine.new(path)
+    new(path)
   end
 
-  def items
-    ItemRepository.new(@items)
-  end
+  # def items
+  #
+  # end
 
-  def merchants
-    MerchantRepository.new(@merchants)
-  end
+  # def merchants
+  #   (@merchants)
+  # end
 
   # def analyst
   #   SalesAnalyst.new
