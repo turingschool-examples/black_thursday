@@ -72,5 +72,20 @@ RSpec.describe ItemRepository do
       expect(expected).to eq([])
       expect(expected.length).to eq(0)
     end
+
+    it 'finds all items with that has a matching price' do
+    path = "fixture/item_fixture.csv"
+    item_repo = ItemRepository.new(path)
+    price = 2999
+    expected = item_repo.find_all_by_price(price)
+
+    expect(expected.unit_price).to eq(price)
+
+    price = 10
+    expected = item_repo.find_all_by_price(price)
+
+    expect(expected).to eq([])
+    expect(expected.length).to eq(0)
+    end
   end
 end
