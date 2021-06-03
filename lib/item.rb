@@ -1,4 +1,5 @@
 require 'CSV'
+require 'bigdecimal'
 class Item
 
   attr_reader :id,
@@ -10,10 +11,10 @@ class Item
               :updated_at
 
   def initialize(item_data, repo)
-    @id = item_data[:id]
+    @id = item_data[:id].to_i
     @name = item_data[:name]
     @description = item_data[:description]
-    @unit_price = item_data[:unit_price]
+    @unit_price = BigDecimal(item_data[:unit_price].to_i / 100)
     @merchant_id = item_data[:merchant_id]
     @created_at = item_data[:created_at]
     @updated_at = item_data[:updated_at]
