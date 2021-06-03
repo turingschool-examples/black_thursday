@@ -70,8 +70,6 @@ class MerchantRepository
     if chopping_block != nil
       merchants.delete_at(chopping_block)
     end
-    # require "pry";binding.pry
-    # .delete_at()
   end
 
 end
