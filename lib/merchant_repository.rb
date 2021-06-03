@@ -2,15 +2,15 @@ require 'CSV'
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :id, :name, :all, :merchants, :file_path
+  attr_reader :id, :name, :all, :merchants, :file_path, :engine
 
   def initialize(file_path, engine)
     @file_path = file_path
     @engine = engine
+    @merchants = []
   end
 
   def create_repo
-    @merchants = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       merchant = Merchant.new(row, self)
       @merchants << merchant
@@ -53,9 +53,6 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    #for any given ID value, we are looking through the merchants
-    # if that ID exists, execute following code
-    # if it doesnt, return nil
     merchant_by_id = find_by_id(id)
     if merchant_by_id != nil
       merchant_by_id.change_name(attributes[:name])
@@ -63,15 +60,10 @@ class MerchantRepository
   end
 
   def delete(id)
-    #for any given ID value, we are looking through the merchants
-    # if that ID exists, delete it
-    # if it doesnt, return nil
     chopping_block = merchants.index { |merchant| merchant.id == id }
     if chopping_block != nil
       merchants.delete_at(chopping_block)
     end
-    # require "pry";binding.pry
-    # .delete_at()
   end
 
 end

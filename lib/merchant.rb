@@ -1,6 +1,6 @@
 require 'CSV'
 class Merchant
-  attr_reader :id, :name, :created_at, :updated_at
+  attr_reader :id, :name, :created_at, :updated_at, :repo
 
   def initialize(merchant_data, repo)
     @id = merchant_data[:id].to_i
@@ -13,5 +13,4 @@ class Merchant
   def change_name(name)
     @name = name
   end
-
 end
