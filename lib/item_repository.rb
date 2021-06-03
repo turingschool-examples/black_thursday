@@ -6,7 +6,7 @@ class ItemRepository
   attr_reader :all
 
   def initialize(path)
-    @all = [] #path create_items(path) - will need to update but tests need updated for mocks and specs
+    @all = []
     create_items(path)
   end
 
@@ -17,11 +17,11 @@ class ItemRepository
                         :name         => row[:name],
                         :description  => row[:description],
                         :unit_price   => BigDecimal(row[:unit_price],4),
-                        :merchant_id  => row[:merchant_id],
+                        :merchant_id  => row[:merchant_id].to_i,
                         :created_at   => Time.now,
                         :updated_at   => Time.now
                         })
-      @all << item #will be removed after test update
+      @all << item
     end
   end
 

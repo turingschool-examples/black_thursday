@@ -19,8 +19,7 @@ RSpec.describe MerchantRepository do
 
   it 'returns a list of known merchants' do
     mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
-    require 'pry'; binding.pry
-    expect(mr.all.count).to eq(2)
+    expect(mr.all.count).to eq(3)
   end
 
   it 'returns a merchant with a matching id' do
@@ -32,50 +31,42 @@ RSpec.describe MerchantRepository do
   end
 
   it 'returns a merchant by name' do
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    m2 = Merchant.new({:id => 6, :name => "Something Else"})
-    mr = MerchantRepository.new([m, m2])
+    mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
+    expected  = mr.find_by_name("TuRing ScHool")
 
-    expect(mr.find_by_name("TuRing ScHool")).to eq(m)
-    expect(mr.find_by_name("Something Else")).to eq(m2)
+    expect(expected.name).to eq("Turing School")
   end
 
   it 'returns all merchants by name' do
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    m2 = Merchant.new({:id => 6, :name => "TURING SCHOOL"})
-    mr = MerchantRepository.new([m, m2])
+    mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
+    expected = mr.find_all_by_name("Turing School")
+    expected2 = mr.find_all_by_name("Something Else")
 
-    expect(mr.find_all_by_name("Turing School")).to eq([m, m2])
-    expect(mr.find_all_by_name("Something Else")).to eq([])
+    expect(expected.count).to eq(1)
+    expect(expected2.count).to eq(2)
   end
 
   it 'creates a new merchant with attributes' do
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    m2 = Merchant.new({:id => 6, :name => "Something Else"})
-    mr = MerchantRepository.new([m, m2])
-    m3 = mr.create("Another Merchant")
+    mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
+    mr.create("Another Merchant")
+    expected = mr.find_by_id(8)
 
-    expect(mr.all).to eq([m, m2, m3])
+    expect(mr.all.count).to eq(4)
+    expect(expected.name).to eq("Another Merchant")
   end
 
   it 'finds merchant by id and updates name' do
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    m2 = Merchant.new({:id => 6, :name => "Something Else"})
-    mr = MerchantRepository.new([m, m2])
-
+    mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
     mr.update(5, "Turing School of Coding")
+    expected = mr.find_by_id(5)
 
-    expect(m.name).to eq("Turing School of Coding")
-    expect(m.id).to eq(5)
+    expect(expected.name).to eq("Turing School of Coding")
   end
 
   it "finds and deletes merchant by id" do
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    m2 = Merchant.new({:id => 6, :name => "Something Else"})
-    mr = MerchantRepository.new([m, m2])
-
+    mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
     mr.delete(6)
 
-    expect(mr.all).to eq([m])
+    expect(mr.all.count).to eq(2)
   end
 end

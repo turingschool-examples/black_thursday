@@ -5,7 +5,7 @@ class MerchantRepository
   attr_reader :all
 
   def initialize(path)
-    @all = [] #path create_items(path) - will need to update but tests need updated for mocks and specs
+    @all = []
     create_merchants(path)
   end
 
