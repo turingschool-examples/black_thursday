@@ -83,8 +83,25 @@ RSpec.describe ItemRepository do
         :updated_at  => '2016-01-11 11:51:37 UTC',
         :merchant_id => 928374653
       })
-      require "pry"; binding.pry
+
       expect(@ir.create(attributes)).to be_a(Item)
+    end
+
+    it 'updates item by id with given attributes' do
+
+      allow(Time).to receive(:now).and_return("current time")
+
+      attributes = {
+        :name        => "pens",
+        :description => "They cant be erased",
+        :unit_price  => BigDecimal(5)
+      }
+      @ir.update(263395295, attributes)
+
+      expect(@item1.name).to eq("pens")
+      expect(@item1.description).to eq("They cant be erased")
+      expect(@item1.unit_price).to eq(5)
+      expect(@item1.updated_at).to eq("current time")
     end
   end
 end

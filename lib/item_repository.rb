@@ -14,7 +14,9 @@ class ItemRepository
           :name => name,
           :description => description,
           :unit_price => unit_price.to_f,
-          :merchant_id => merchant_id.to_i
+          :merchant_id => merchant_id.to_i,
+          :created_at => created_at,
+          :updated_at => updated_at
           })
     end
   end
@@ -62,6 +64,7 @@ class ItemRepository
     max_id.id += 1
   end
 
+#Do we need to add this item that is created to @all?
   def create(attributes)
     Item.new({:id => new_id,
               :name => attributes[:name],
@@ -71,6 +74,14 @@ class ItemRepository
               :updated_at => attributes[:updated_at],
               :merchant_id => attributes[:merchant_id]
               })
+  end
+
+  def update(id, attributes)
+    update_item = find_by_id(id)
+    update_item.name = attributes[:name]
+    update_item.description = attributes[:description]
+    update_item.unit_price = attributes[:unit_price]
+    update_item.updated_at = Time.now
   end
 end
 
