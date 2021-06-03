@@ -12,15 +12,7 @@ class ItemRepository
 
   def create_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      item = Item.new({
-                        :id           => row[:id].to_i,
-                        :name         => row[:name],
-                        :description  => row[:description],
-                        :unit_price   => BigDecimal(row[:unit_price],4),
-                        :merchant_id  => row[:merchant_id].to_i,
-                        :created_at   => Time.now,
-                        :updated_at   => Time.now
-                        })
+      item = Item.new(row)
       @all << item
     end
   end
@@ -49,7 +41,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @all.find_all do |item|
-      item.unit_price_to_dollars == price
+      item.unit_price == price
     end
   end
 
@@ -69,25 +61,17 @@ class ItemRepository
     new_id = @all.max_by do |item|
       item.id
     end
-    item = Item.new({
-                      :id           => new_id.id + 1,
-                      :name         => attributes[:name],
-                      :description  => attributes[:description],
-                      :unit_price   => BigDecimal(attributes[:unit_price],4),
-                      :created_at   => Time.now,
-                      :updated_at   => Time.now,
-                      :merchant_id  => attributes[:merchant_id]
-                    })
+
+    attributes[:id] = new_id.id + 1
+
+    item = Item.new(attributes)
     @all << item
     item
   end
 
   def update(id, attributes)
-    info_edit             = find_by_id(id)
-    info_edit.name        = attributes[:name]
-    info_edit.description = attributes[:description]
-    info_edit.unit_price  = BigDecimal(attributes[:unit_price], 4)
-    info_edit.updated_at  = Time.now
+    info_edit = find_by_id(id)
+    info_edit.update(id, attributes)
   end
 
   def delete(id)
