@@ -83,6 +83,11 @@ class ItemRepository
     update_item.unit_price = attributes[:unit_price]
     update_item.updated_at = Time.now
   end
+
+  def delete(id)
+    deleted_item = find_by_id(id)
+    @all.delete(deleted_item)
+  end
 end
 
 # @ir.all.max_by {|item| item.id}

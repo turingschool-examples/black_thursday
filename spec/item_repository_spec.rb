@@ -88,7 +88,6 @@ RSpec.describe ItemRepository do
     end
 
     it 'updates item by id with given attributes' do
-
       allow(Time).to receive(:now).and_return("current time")
 
       attributes = {
@@ -102,6 +101,12 @@ RSpec.describe ItemRepository do
       expect(@item1.description).to eq("They cant be erased")
       expect(@item1.unit_price).to eq(5)
       expect(@item1.updated_at).to eq("current time")
+    end
+
+    it 'delete item by id' do
+      expect(@ir.all.length).to eq(20)
+      expect(@ir.delete(263395295)).to eq(@item1)
+      expect(@ir.all.length).to eq(19)
     end
   end
 end
