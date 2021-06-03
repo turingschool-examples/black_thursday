@@ -15,7 +15,7 @@ RSpec.describe MerchantRepository do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
 
-      expect(merchant_repo.all.length).to eq(4)
+      expect(merchant_repo.all.length).to eq(5)
     end
   end
 
@@ -24,19 +24,45 @@ RSpec.describe MerchantRepository do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
 
+      # creates new object instance of merchant objects?
       all = merchant_repo.all
 
       expect(all.first.id).to eq(12334471)
-      expect(all.last.name).to eq('MittenUpCanada')
+      expect(all.last.name).to eq('FrenchyTrendy')
     end
 
-    it 'can find by Merchant ID' do
+    it 'can find Merchant by ID' do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
 
       merchant_repo.create_merchants(path)
 
-      expect(merchant_repo.find_by_id(12337011)).to eq(merchant_repo.all[2])
+      id = 12337011
+      expected = merchant_repo.find_by_id(id)
+
+      expect(expected.id).to eq(id)
+    end
+
+    it 'can find Merchant by name' do
+      path = 'fixture/merchant_fixture.csv'
+      merchant_repo = MerchantRepository.new(path)
+
+      merchant_repo.create_merchants(path)
+
+      expect(merchant_repo.find_by_name('hollipoop')).to eq(merchant_repo.all.first)
+      expect(merchant_repo.find_by_name('HOLLIPOOP')).to eq(merchant_repo.all.first)
+    end
+
+    it 'can find all merchants by name fragment' do
+      path = 'fixture/merchant_fixture.csv'
+      merchant_repo = MerchantRepository.new(path)
+
+      merchant_repo.create_merchants(path)
+      name = 'french'
+      expected = merchant_repo.find_all_by_name(name)
+
+      expect(expected.length).to eq(2)
+      expect(expected.first.id).to eq(12334473)
     end
   end
 end
