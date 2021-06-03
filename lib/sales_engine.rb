@@ -1,22 +1,23 @@
-require 'csv'
+require_relative 'item_repository'
+require_relative 'merchant_repository'
 
 class SalesEngine
-  attr_reader :library
 
-  def initialize
-    @library = Hash.new
-    @library[:items] = "./data/items.csv"
-    @library[:merchants] = "./data/merchants.csv"
+  def initialize(paths)
+    @item_repo = ItemRepository.new(paths[:items], self)
+    @merchant_repo = MerchantRepository.new(paths[:merchants], self)
+  end
+
+  def self.from_csv(paths)
+    new(paths)
   end
 
   def items
-    ir = ItemRepository.new(@library[:items])
-    ir.all
+    @item_repo
   end
 
   def merchants
-    mr = MerchantRepository.new(@library[:merchants])
-    mr.all
+    @merchant_repo
   end
 
 end

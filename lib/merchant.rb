@@ -1,10 +1,12 @@
 class Merchant
   attr_reader :id,
-              :name
+              :name,
+              :repo
 
-  def initialize(merchant_hash)
-    @id = merchant_hash[:id]
-    @name = merchant_hash[:name]
+  def initialize(merchant_hash, repo)
+    @id = merchant_hash['id'].to_i
+    @name = merchant_hash['name']
+    @repo = repo
   end
 
   def to_hash

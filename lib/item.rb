@@ -5,16 +5,18 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :repo
 
-  def initialize(item_hash)
-    @id = item_hash[:id]
-    @name = item_hash[:name]
-    @description = item_hash[:description]
-    @unit_price = item_hash[:unit_price]
-    @created_at = item_hash[:created_at]
-    @updated_at = item_hash[:updated_at]
-    @merchant_id = item_hash[:merchant_id]
+  def initialize(item_hash, repo)
+    @id = item_hash['id'].to_i
+    @name = item_hash['name']
+    @description = item_hash['description']
+    @unit_price = item_hash['unit_price']
+    @created_at = item_hash['created_at']
+    @updated_at = item_hash['updated_at']
+    @merchant_id = item_hash['merchant_id']
+    @repo = repo
   end
 
   def to_hash

@@ -2,6 +2,16 @@ require 'bigdecimal'
 require_relative 'spec_helper'
 
 RSpec.describe Item do
+
+  before(:each) do
+    @paths = {
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    }
+    @se = SalesEngine.from_csv(@paths)
+    @ir = @se.items
+  end
+
   it 'exists' do
     i = Item.new({
     :id          => 1,
@@ -11,7 +21,7 @@ RSpec.describe Item do
     :created_at  => Time.now,
     :updated_at  => Time.now,
     :merchant_id => 2
-    })
+    }, @ir)
 
     expect(i).to be_a(Item)
   end
@@ -21,14 +31,14 @@ RSpec.describe Item do
     allow(Time).to receive(:now).and_return(time_stub)
 
     i = Item.new({
-    :id          => 1,
-    :name        => 'Pencil',
-    :description => 'You can use it to write things',
-    :unit_price  => BigDecimal(10.99, 4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 2
-    })
+    'id'          => 1,
+    'name'        => 'Pencil',
+    'description' => 'You can use it to write things',
+    'unit_price'  => BigDecimal(10.99, 4),
+    'created_at'  => Time.now,
+    'updated_at'  => Time.now,
+    'merchant_id' => 2
+    }, @ir)
 
     expect(i.id).to eq(1)
     expect(i.name).to eq('Pencil')
@@ -44,15 +54,14 @@ RSpec.describe Item do
     allow(Time).to receive(:now).and_return(time_stub)
 
     i = Item.new({
-    :id          => 1,
-    :name        => 'Pencil',
-    :description => 'You can use it to write things',
-    :unit_price  => BigDecimal(10.99, 4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 2
-    })
-
+    'id'          => 1,
+    'name'        => 'Pencil',
+    'description' => 'You can use it to write things',
+    'unit_price'  => BigDecimal(10.99, 4),
+    'created_at'  => Time.now,
+    'updated_at'  => Time.now,
+    'merchant_id' => 2
+    }, @ir)
     i_hash = i.to_hash
 
     expect(i_hash).to be_a(Hash)
@@ -68,14 +77,14 @@ RSpec.describe Item do
 
   it 'can convert unit price into dollars' do
     i = Item.new({
-    :id          => 1,
-    :name        => 'Pencil',
-    :description => 'You can use it to write things',
-    :unit_price  => BigDecimal(10.99, 4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 2
-    })
+    'id'          => 1,
+    'name'        => 'Pencil',
+    'description' => 'You can use it to write things',
+    'unit_price'  => BigDecimal(10.99, 4),
+    'created_at'  => Time.now,
+    'updated_at'  => Time.now,
+    'merchant_id' => 2
+    }, @ir)
 
     expect(i.unit_price_to_dollars).to eq(10.99)
   end
