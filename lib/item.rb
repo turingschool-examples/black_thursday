@@ -1,6 +1,6 @@
 class Item
-  attr_reader :id,
-              :name,
+  attr_accessor :id
+  attr_reader :name,
               :description,
               :unit_price,
               :created_at,

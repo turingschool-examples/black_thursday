@@ -17,5 +17,5 @@ id,name,description,unit_price,merchant_id,created_at,updated_at
 263048391,microwave,10000000 watts of straight power,110,123342342,2008-09-22 01:14:16 UTC,2002-10-30 10:15:50 UTC
 263948171,refrigerator,They keep your food chilled or frozen,1200,123348934,2010-06-16 09:34:06 UTC,2001-02-22 22:15:42 UTC
 260391837,doors,They close,250,123349019,2013-06-23 03:44:56 UTC,2003-09-11 02:35:20 UTC
-261876153,lights,Lights for all of your needs,30,123341356,2013-10-08 04:35:36 UTC,2001-11-19 05:23:09 UTC
+261876153,lights,Lights for all of your needs,30,123341281,2013-10-08 04:35:36 UTC,2001-11-19 05:23:09 UTC
 268716492,mattress,You can sleep on it,400,123341356,2014-05-13 01:14:08 UTC,2007-06-04 01:19:48 UTC
