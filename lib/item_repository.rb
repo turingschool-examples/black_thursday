@@ -61,7 +61,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    Item.add_item(attributes, new_id_number)
+    @all << Item.add_item(attributes, new_id_number)
   end
 
   def update(id, attributes)
