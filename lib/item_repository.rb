@@ -34,7 +34,7 @@ class ItemRepository
   def find_all_with_description(description)
     @all.find_all do |item|
       item.description == description
-    end 
+    end
   end
 
   def find_all_by_price(price)
@@ -50,15 +50,18 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find_all { |item| item.merchant_id == merchant_id }
+    @all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def new_id_number
+    id = (@all.max_by { |item| item.id }).id
+    id + 1
   end
 
   def create(attributes)
-    biggest = @all.max_by { |item| item.id }
-    attributes[:id] = biggest.id + 1
-    attributes[:created_at] = Time.now
-    attributes[:updated_at] = Time.now
-    @all << Item.new(attributes)
+    Item.add_item(attributes, new_id_number)
   end
 
   def update(id, attributes)
