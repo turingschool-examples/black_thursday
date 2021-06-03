@@ -11,11 +11,11 @@ RSpec.describe MerchantRepository do
     end
 
     it 'returns all merchants' do
-      expect(@repo.all_merchants.length).to eq(3)
+      expect(@repo.all.length).to eq(3)
     end
 
     it 'creates real items from csv' do
-      @repo.all_merchants.each do |merchant|
+      @repo.all.each do |merchant|
         expect(merchant).to be_an_instance_of(Merchant)
       end
     end
@@ -53,12 +53,12 @@ RSpec.describe MerchantRepository do
 
       @repo.create(attributes)
 
-      updated_all_merchants = []
-      @repo.all_merchants.each do |merchant|
-        updated_all_merchants << merchant.name
+      updated_all = []
+      @repo.all.each do |merchant|
+        updated_all << merchant.name
       end
 
-      expect(updated_all_merchants).to eq(["KoopShop", "CookieCounter", "SparkyShop", "AlfieHouse"])
+      expect(updated_all).to eq(["KoopShop", "CookieCounter", "SparkyShop", "AlfieHouse"])
     end
 
     it 'can update an exsisting merchants name' do
@@ -72,11 +72,11 @@ RSpec.describe MerchantRepository do
     it 'can delete the merchant by id' do
       @repo.delete(101)
 
-      updated_all_merchants = []
-      @repo.all_merchants.each do |merchant|
+      updated_all = []
+      @repo.all.each do |merchant|
         updated_all_merchants << merchant.name
       end
-        expect(updated_all_merchants).to eq(["CookieCounter", "SparkyShop"])
+        expect(updated_all).to eq(["CookieCounter", "SparkyShop"])
     end
 
 end
