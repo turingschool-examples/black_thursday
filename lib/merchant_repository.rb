@@ -13,9 +13,14 @@ class MerchantRepository
   end
 
   def create_merchants(path)
-  merchants = CSV.foreach(path, headers: true, header_converters: :symbol).map do |merchant|
-    Merchant.new(merchant, self)
+    merchants = CSV.foreach(path, headers: true, header_converters: :symbol).map do |merchant|
+      Merchant.new(merchant, self)
     end
+
+    # merchant = CSV.load(path)
+    # merchant.map do |merchant_data|
+    #   Merchant.new(merchant_data)
+    # end
   end
 
   def find_by_id(id)

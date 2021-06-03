@@ -10,6 +10,7 @@ RSpec.describe MerchantRepository do
     @merchants = [@merchant_1, @merchant_2, @merchant_3, @merchant_4]
     allow_any_instance_of(MerchantRepository).to receive(:create_merchants).and_return(@merchants)
     @merchant_repo = MerchantRepository.new('path')
+    @mock_repo = MerchantRepository.new('./fixtures/mock_merchant')
   end
 
     it 'exsits' do
@@ -18,6 +19,10 @@ RSpec.describe MerchantRepository do
 
     it 'returns all merchants' do
       expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4])
+    end
+
+    it 'creates real items from csv' do
+      expect(@mock_repo.all_merchants.length).to eq(3)
     end
 
     it 'can find a merchant by id' do
@@ -62,17 +67,20 @@ RSpec.describe MerchantRepository do
       expect(@merchant_repo.next_highest_merchant_id).to eq(104)
     end
 
-    # it 'can create a new merchant instance' do
-    #   allow(@merchant_1).to receive(:id).and_return(100)
-    #   allow(@merchant_2).to receive(:id).and_return(101)
-    #   allow(@merchant_3).to receive(:id).and_return(102)
-    #   allow(@merchant_4).to receive(:id).and_return(103)
-    #
-    #   @merchant_repo.next_highest_merchant_id
-    #   @merchant_repo.create("Koop")
-    #
-    #   expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5])
-    # end
+    it 'can create a new merchant instance' do
+      attributes = {name: 'Koop'}
+
+      allow(@merchant_1).to receive(:id).and_return(100)
+      allow(@merchant_2).to receive(:id).and_return(101)
+      allow(@merchant_3).to receive(:id).and_return(102)
+      allow(@merchant_4).to receive(:id).and_return(103)
+
+      @merchant_repo.next_highest_merchant_id
+
+      @merchant_repo.create(attributes)
+
+      expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5])
+    end
 
     # it 'can update an exsisting merchants name' do
     #   allow(@merchant_1).to receive(:name).and_return("Lee")
