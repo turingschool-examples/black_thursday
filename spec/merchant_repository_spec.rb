@@ -61,8 +61,11 @@ RSpec.describe MerchantRepository do
       name = 'french'
       expected = merchant_repo.find_all_by_name(name)
 
+      expect(expected).to be_a(Array)
       expect(expected.length).to eq(2)
+      expect(expected.first).to be_a(Merchant)
       expect(expected.first.id).to eq(12334473)
+      expect(merchant_repo.find_all_by_name('hasasldkjf')).to eq([])
     end
   end
 end
