@@ -14,6 +14,7 @@ class ItemRepository
     items = CSV.read(path, headers: true, header_converters: :symbol)
     items.map do |item_data|
       Item.new(item_data)
+
     end
   end
 
@@ -70,22 +71,23 @@ class ItemRepository
     new_item = Item.new(attributes)
     new_item.new_id(highest_id.id + 1)
     @all << new_item
-    CSV.open(@path, 'ab') do |csv|
-      csv << [new_item.id, new_item.name, new_item.description, new_item.unit_price, new_item.merchant_id, new_item.created_at, new_item.updated_at]
-    end
   end
 
   def update(id, attributes)
     @all.find do |item|
       if item.id == id
-        attributes[:name] = item.name
-        attributes[:description] = item.description
-        attributes[:unit_price] = item.unit_price
-        attributes[:updated_at] = item.updated_at
-        CSV.open(@path, 'a+') do |csv|
-          csv << [item.id, item.name, item.description, item.unit_price, item.merchant_id, item.created_at, item.updated_at]
-        end
+        item.update_name(attributes[:name])
+        item.update_description(attributes[:description])
+        item.update_unit_price(attributes[:unit_price])
+        item.update_updated_at
       end
     end
+  end
+
+  def delete(id, attributes)
+    to_delete = @all.find do |item|
+      item.id == id
+    end
+    @all.delete(to_delete)
   end
 end

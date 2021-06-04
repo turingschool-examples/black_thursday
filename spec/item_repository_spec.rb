@@ -16,7 +16,7 @@ RSpec.describe ItemRepository do
       all = item_repo.all
 
       expect(all).to be_an(Array)
-      expect(all.length).to eq(5)
+      expect(all.length).to eq(4)
       expect(all.first.id).to eq(263395617)
       expect(all.first.name).to eq("Glitter scrabble frames")
       expect(all.first.description).to be_a(String)
@@ -127,7 +127,7 @@ RSpec.describe ItemRepository do
       expect(expected).to eq([])
     end
 
-    xit 'can create a new item' do
+    it 'can create a new item' do
       path = "fixture/item_fixture.csv"
       item_repo = ItemRepository.new(path)
       attributes = {:id          => nil,
@@ -145,26 +145,36 @@ RSpec.describe ItemRepository do
       expect(item_repo.all.last.merchant_id).to eq(114488)
     end
 
-    it 'can update an item with the corresponding id with the provided attributes' do
+    it 'can update an item with the corresponding id that has the provided attributes' do
       path = "fixture/item_fixture.csv"
       item_repo = ItemRepository.new(path)
       attributes = {
-                   # :id          => nil,
                     :name        => "llama wink bikini",
                     :description => "It's like, a bikini with a llama on it that winks at you. Buy it.",
                     :unit_price  => 962,
-                    # :merchant_id => 114488,
-                    # :created_at  => @created_at,
-                    :updated_at  => Time.now
                     }
-      id = 263396210
-      item_repo.update(id, attributes)
 
-      expect(item_repo.all.last.id).to eq(263396210)
+      id = 263396209
+      item_repo.update(id, attributes)
+      expect(item_repo.all.last.id).to eq(263396209)
       expect(item_repo.all.last.name).to eq("llama wink bikini")
       expect(item_repo.all.last.description).to eq("It's like, a bikini with a llama on it that winks at you. Buy it.")
       expect(item_repo.all.last.unit_price).to eq(962)
+    end
 
+    it 'can delete an item with the corresponding id and attributes' do
+      path = "fixture/item_fixture.csv"
+      item_repo = ItemRepository.new(path)
+      attributes = {
+                    :name        => "llama wink bikini",
+                    :description => "It's like, a bikini with a llama on it that winks at you. Buy it.",
+                    :unit_price  => 962,
+                    }
+
+      id = 263396209
+      item_repo.delete(id, attributes)
+      expect(item_repo.all.last.id).to eq(263396013)
+      expect(item_repo.all.last.name).to eq("Free standing Woden letters")
     end
   end
 end
