@@ -32,6 +32,10 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.merch_items_hash).to eq(expected)
   end
 
+  it 'can return items by merchant count' do
+    expect(@sales_analyst.items_by_merch_count).to eq([1,1,2])
+  end
+
   it 'can return average items per merchant standard deviation' do
     # 1.33 is the mean
     # set = [1, 1, 2]
@@ -42,9 +46,9 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.58)
   end
 
-  xit 'can return merchants with high item count' do
+  it 'can return merchants with high item count' do
     expect(@sales_analyst.merchants_with_high_item_count.length).to eq(1)
-    expect(@sales_analyst.merchants_with_high_item_count).to eq(@engine.merchants.find_by_id(4))
+    expect(@sales_analyst.merchants_with_high_item_count).to eq([@se.merchants.find_by_id(7)])
   end
 
   xit 'can return the average item price for a specific merchant' do

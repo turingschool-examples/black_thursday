@@ -13,7 +13,7 @@ class SalesAnalyst
 
     @engine.merchants.all.map do |merchant|
       merch_items[merchant.id] = @engine.items.find_all_by_merchant_id(merchant.id)
-    end
+    end # could use merchant as the key instead of the ID in case we need to call upon the object in the future?
 
     merch_items
   end
@@ -33,8 +33,11 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    merch_items_hash.select do |merch_id, items|
+    merch_high_count = merch_items_hash.select do |merch_id, items|
       items.length > (average_items_per_merchant + average_items_per_merchant_standard_deviation) # 6 items > 1.33 mean + .58 std dev
+    end
+    merch_high_count.keys.map do |merch_id|
+      @engine.merchants.find_by_id(merch_id)
     end
   end
 end
