@@ -38,7 +38,7 @@ RSpec.describe ItemRepository do
     expect(item_names).to eq(['baseball', 'baseball bat'])
 
     item_names = []
-    @repo.find_all_with_description('clothing').each do |item|
+    @repo.find_all_with_description('clOTHing').each do |item|
       item_names << item.name
     end
     expect(item_names).to eq(['baseball glove'])
