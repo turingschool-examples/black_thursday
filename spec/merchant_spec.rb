@@ -15,8 +15,8 @@ RSpec.describe Merchant do
   it "exists" do
 
     m = Merchant.new({
-    'id'          => 5,
-    'name'        => "Turing School"
+    :id          => 5,
+    :name        => "Turing School"
     }, @mr)
 
     expect(m).to be_a(Merchant)
@@ -24,8 +24,8 @@ RSpec.describe Merchant do
 
   it "has attributes" do
     m = Merchant.new({
-    'id'          => 5,
-    'name'        => "Turing School"
+    :id          => 5,
+    :name        => "Turing School"
     }, @mr)
 
     expect(m.id).to eq(5)
@@ -34,8 +34,8 @@ RSpec.describe Merchant do
 
   it "stores its states in a hash" do
     m = Merchant.new({
-    'id'          => 5,
-    'name'        => "Turing School"
+    :id          => 5,
+    :name        => "Turing School"
     }, @mr)
 
     m_hash = m.to_hash
