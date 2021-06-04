@@ -62,10 +62,6 @@ RSpec.describe ItemRepository do
       expect(@ir.find_all_by_merchant_id(111111111)).to eq([])
     end
 
-    it 'creates a new id' do
-      expect(@ir.new_id).to eq(268716493)
-    end
-
     it 'creates a new item instance with given attributes' do
       attributes = {
         :id          => nil,

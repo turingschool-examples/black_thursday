@@ -27,9 +27,19 @@ RSpec.describe Item do
        item1 = @ir.all[1]
       expect(item1.unit_price_to_dollars).to eq("12.00")
     end
-    
+
     it 'creates a new id' do
-      expect(@ir.new_id).to eq(268716493)
+      attributes = {
+        :id          => nil,
+        :name        => "Airplanes",
+        :description => "They fly super dooper",
+        :unit_price  => BigDecimal(1000),
+        :created_at  => '1993-09-29 11:56:40 UTC',
+        :updated_at  => '2016-01-11 11:51:37 UTC',
+        :merchant_id => 928374653
+      }
+      item = Item.new(attributes, @ir)
+      expect(item.new_id).to eq(268716493)
     end
   end
 end

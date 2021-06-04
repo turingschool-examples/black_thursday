@@ -24,10 +24,10 @@ class Item
   end
 
   def new_id
-    max_id = @all.max_by do |item|
+    item_with_max_id = @repo.all.max_by do |item|
       item.id
     end
-    x = (max_id.id + 1)
-    x
+    require "pry"; binding.pry
+    item_with_max_id.id += 1
   end
 end
