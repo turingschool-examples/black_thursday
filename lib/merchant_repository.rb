@@ -44,8 +44,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_merchant = Merchant.new({id: next_highest_merchant_id,
-                                 name: attributes}, self)
+    new_merchant = Merchant.new({id: next_highest_merchant_id, name: attributes}, self)
     @all << new_merchant
   end
 

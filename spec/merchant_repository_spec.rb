@@ -74,7 +74,7 @@ RSpec.describe MerchantRepository do
 
       updated_all = []
       @repo.all.each do |merchant|
-        updated_all_merchants << merchant.name
+        updated_all << merchant.name
       end
         expect(updated_all).to eq(["CookieCounter", "SparkyShop"])
     end
