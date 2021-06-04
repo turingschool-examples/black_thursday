@@ -3,7 +3,7 @@ require_relative './spec_helper'
 RSpec.describe ItemRepository do
   context 'instantiation' do
     it 'exists' do
-      
+
       sales_engine = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
       ir = ItemRepository.new('spec/fixtures/items.csv', sales_engine)
       expect(ir).to be_a(ItemRepository)
@@ -14,58 +14,59 @@ RSpec.describe ItemRepository do
     before :each do
       @sales_engine = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
       @ir = ItemRepository.new('spec/fixtures/items.csv',@sales_engine)
+      @ir.generate
       @item1 = @ir.all[1]
       @item2 = @ir.all[-1]
     end
 
-    xit 'generates Item instances' do
+    it 'generates Item instances' do
       expect(@item1.id).to eq(263395295)
       expect(@item1.name).to eq('pencils')
       expect(@item2.id).to eq(268716492)
       expect(@item2.name).to eq('mattress')
     end
 
-    xit 'returns item with matching ID or nil' do
+    it 'returns item with matching ID or nil' do
       expect(@ir.find_by_id(263395295)).to eq(@item1)
       expect(@ir.find_by_id(268716492)).to eq(@item2)
       expect(@ir.find_by_id(268666423)).to eq(nil)
     end
 
-    xit 'returns item with matching name or nil' do
+    it 'returns item with matching name or nil' do
       expect(@ir.find_by_name('pencils')).to eq(@item1)
       expect(@ir.find_by_name('mattress')).to eq(@item2)
       expect(@ir.find_by_name('footballs')).to eq(nil)
     end
 
-    xit 'returns all items that match provided description' do
+    it 'returns all items that match provided description' do
       expect(@ir.find_all_with_description('You can write with them')).to eq([@item1])
       expect(@ir.find_all_with_description('You can sleep on it')).to eq([@item2])
       expect(@ir.find_all_with_description('You can fight lions with them')).to eq([])
     end
 
-    xit 'returns items by unit price' do
+    it 'returns items by unit price' do
       expect(@ir.find_all_by_price(12)).to eq([@item1])
       expect(@ir.find_all_by_price(400)).to eq([@item2])
       expect(@ir.find_all_by_price(2000)).to eq([])
     end
 
-    xit 'returns items within given price range' do
+    it 'returns items within given price range' do
       expect(@ir.find_all_by_price_in_range(11..13)).to eq([@item1])
       expect(@ir.find_all_by_price_in_range(350..450)).to eq([@item2])
       expect(@ir.find_all_by_price_in_range(2000..3000)).to eq([])
     end
 
-    xit 'returns items by merchant id' do
+    it 'returns items by merchant id' do
       expect(@ir.find_all_by_merchant_id(123346512)).to eq([@item1])
       expect(@ir.find_all_by_merchant_id(123341356)).to eq([@item2])
       expect(@ir.find_all_by_merchant_id(111111111)).to eq([])
     end
 
-   xit 'creates a new id' do
+    it 'creates a new id' do
       expect(@ir.new_id).to eq(268716493)
     end
 
-    xit 'creates a new item instance with given attributes' do
+    it 'creates a new item instance with given attributes' do
       attributes = {
         :id          => nil,
         :name        => "Airplanes",
@@ -75,8 +76,9 @@ RSpec.describe ItemRepository do
         :updated_at  => '2016-01-11 11:51:37 UTC',
         :merchant_id => 928374653
       }
-      # Ask about testing for this method
-      expect(@ir.create(attributes)).to be_a(Item)
+      @ir.create(attributes)
+      new_item = @ir.all[-1]
+      expect(new_item.id).to eq(268716493)
     end
 
     xit 'updates item by id with given attributes' do

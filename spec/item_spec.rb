@@ -17,15 +17,19 @@ RSpec.describe Item do
       # expect(@item.id).to eq(1)
       expect(@item.name).to eq('pencils')
       expect(@item.description).to eq("You can write with them")
-      expect(@item.unit_price).to eq("12")
+      expect(@item.unit_price).to eq(12.0)
       expect(@item.created_at).to eq("2011-02-11 07:44:36 UTC")
       expect(@item.updated_at).to eq("2004-03-24 10:25:11 UTC")
-      expect(@item.merchant_id).to eq("123346512")
+      expect(@item.merchant_id).to eq(123346512)
     end
 
     it 'returns the price of the item in dollars formatted as a Float' do
-       item3 = @ir.all[9]
-      expect(item3.unit_price_to_dollars).to eq("$10.99")
+       item1 = @ir.all[1]
+      expect(item1.unit_price_to_dollars).to eq("12.00")
+    end
+    
+    it 'creates a new id' do
+      expect(@ir.new_id).to eq(268716493)
     end
   end
 end
