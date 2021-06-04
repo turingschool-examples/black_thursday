@@ -2,9 +2,11 @@ require './merchant'
 require 'CSV'
 
 class MerchantRepository
-  attr_reader :all
+  attr_reader :all,
+              :path
 
   def initialize(path)
+    @path = path
     @all = create_merchants(path)
   end
 
@@ -31,5 +33,15 @@ class MerchantRepository
     @all.find_all do |merchant|
       merchant.name.downcase.include?(name)
     end 
+  end
+
+  def create(attributes)
+    highest_id = @all.max_by { |merchant| merchant.id }
+    merchant = Merchant.new(attributes)
+    merchant.new_id(highest_id.id + 1)
+    @all << merchant 
+    CSV.open(@path, 'ab') do |csv|
+      csv << [merchant.id, merchant.name, merchant.created_at, merchant.updated_at]
+    end
   end
 end

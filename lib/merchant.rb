@@ -1,9 +1,17 @@
 class Merchant
   attr_reader :id,
-              :name
+              :name, 
+              :created_at,
+              :updated_at
 
-  def initialize(data)
-    @id   = data[:id].to_i
-    @name = data[:name]
+  def initialize(attributes)
+    @id         = attributes[:id].to_i
+    @name       = attributes[:name]
+    @created_at = attributes[:created_at]
+    @updated_at = attributes[:updated_at]
+  end
+
+  def new_id(rule)
+    @id = rule 
   end
 end

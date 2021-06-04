@@ -28,7 +28,7 @@ RSpec.describe MerchantRepository do
       all = merchant_repo.all
 
       expect(all.first.id).to eq(12334471)
-      expect(all.last.name).to eq('FrenchyTrendy')
+      expect(all.first.name).to eq('Hollipoop')
     end
 
     it 'can find Merchant by ID' do
@@ -66,6 +66,24 @@ RSpec.describe MerchantRepository do
       expect(expected.first).to be_a(Merchant)
       expect(expected.first.id).to eq(12334473)
       expect(merchant_repo.find_all_by_name('hasasldkjf')).to eq([])
+    end
+  end
+
+  describe 'creates attributes' do
+    it 'creates a merchant' do
+      path = 'fixture/merchant_fixture.csv'
+      merchant_repo = MerchantRepository.new(path)
+
+      attributes = {:id => nil, 
+                    :name => 'Elliotpooped', 
+                    :created_at => '1989-03-14', 
+                    :updated_at => '1995-09-14'
+                  }
+      merchant_repo.create(attributes)
+      # merchant_repo = MerchantRepository.new(path)
+      expect(merchant_repo.all.length).to eq(6)
+      expect(merchant_repo.all.last.name).to eq('Elliotpooped')
+      expect(merchant_repo.all.last.id).to eq(12337012)
     end
   end
 end
