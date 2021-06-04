@@ -40,8 +40,14 @@ class MerchantRepository
     merchant = Merchant.new(attributes)
     merchant.new_id(highest_id.id + 1)
     @all << merchant 
-    CSV.open(@path, 'ab') do |csv|
-      csv << [merchant.id, merchant.name, merchant.created_at, merchant.updated_at]
-    end
   end
+
+  def update(id, attributes)
+    update1 = @all.find do |merchant|
+      merchant.id == id
+    end
+    require "pry"; binding.pry
+    update1.update_name(attributes)
+  end
+
 end

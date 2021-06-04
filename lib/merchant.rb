@@ -14,4 +14,8 @@ class Merchant
   def new_id(rule)
     @id = rule 
   end
+
+  def update_name(new_name)
+    @name = new_name
+  end
 end

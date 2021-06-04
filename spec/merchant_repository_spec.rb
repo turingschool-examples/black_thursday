@@ -80,10 +80,24 @@ RSpec.describe MerchantRepository do
                     :updated_at => '1995-09-14'
                   }
       merchant_repo.create(attributes)
-      # merchant_repo = MerchantRepository.new(path)
       expect(merchant_repo.all.length).to eq(6)
       expect(merchant_repo.all.last.name).to eq('Elliotpooped')
       expect(merchant_repo.all.last.id).to eq(12337012)
+    end
+
+    it 'updates attributes' do
+      path = 'fixture/merchant_fixture.csv'
+      merchant_repo = MerchantRepository.new(path)
+
+      merchant_repo.update(12335150, 'ShestheMan')
+      # require "pry"; binding.pry
+
+      expect(merchant_repo.all[4].name).to eq('ShestheMan')
+    end
+
+    it 'deletes a merchant using id' do
+      path = 'fixture/merchant_fixture.csv'
+      merchant_repo = MerchantRepository.new(path)
     end
   end
 end
