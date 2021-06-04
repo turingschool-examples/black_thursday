@@ -33,7 +33,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     @all.find_all do |item|
-      item.description == description
+      item.description.upcase == description.upcase
     end
   end
 
