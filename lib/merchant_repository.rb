@@ -46,8 +46,13 @@ class MerchantRepository
     update1 = @all.find do |merchant|
       merchant.id == id
     end
-    require "pry"; binding.pry
     update1.update_name(attributes)
   end
 
+  def delete(id)
+    merchant = @all.find do |merchant|
+      merchant.id == id 
+    end
+    @all.delete(merchant)
+  end
 end

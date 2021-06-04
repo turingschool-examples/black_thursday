@@ -90,7 +90,6 @@ RSpec.describe MerchantRepository do
       merchant_repo = MerchantRepository.new(path)
 
       merchant_repo.update(12335150, 'ShestheMan')
-      # require "pry"; binding.pry
 
       expect(merchant_repo.all[4].name).to eq('ShestheMan')
     end
@@ -98,6 +97,10 @@ RSpec.describe MerchantRepository do
     it 'deletes a merchant using id' do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
+
+      merchant_repo.delete(12337012)
+
+      expect(merchant_repo.all.length).to eq(5)
     end
   end
 end
