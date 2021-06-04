@@ -1,4 +1,5 @@
 require 'csv'
+require 'bigdecimal'
 require_relative 'item'
 
 class ItemRepository
@@ -39,6 +40,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @all.find_all do |item|
+      require "pry"; binding.pry
       item.unit_price == price
     end
   end
