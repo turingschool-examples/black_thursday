@@ -9,9 +9,19 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    0.58 # come back to later
-    # average_items_per_merchant
-    #create a hash here and pull out arrays of info
+    items_by_merchant = @engine.items.all.group_by do |item|
+      item.merchant_id
+    end
+
+    count = items_by_merchant.values.map do |item|
+      item.count
+    end #=> [1, 1, 2]
+
+    numerator = count.map do |num|
+      (num-average_items_per_merchant)**2
+    end.sum
+
+    std_dev = Math.sqrt((numerator / 2)).to_f.round(2)
   end
 
   def merchants_with_high_item_count
