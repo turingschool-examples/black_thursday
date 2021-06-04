@@ -8,23 +8,33 @@ class SalesAnalyst
     (@engine.items.all.length / @engine.merchants.all.length.to_f).round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    items_by_merchant = @engine.items.all.group_by do |item|
-      item.merchant_id
+  def merch_items_hash
+    merch_items = {}
+
+    @engine.merchants.all.map do |merchant|
+      merch_items[merchant.id] = @engine.items.find_all_by_merchant_id(merchant.id)
     end
 
-    count = items_by_merchant.values.map do |item|
+    merch_items
+  end
+
+  def items_by_merch_count
+    merch_items_hash.values.map do |item|
       item.count
-    end #=> [1, 1, 2]
+    end
+  end
 
-    numerator = count.map do |num|
+  def average_items_per_merchant_standard_deviation
+    numerator = items_by_merch_count.sum do |num|
       (num-average_items_per_merchant)**2
-    end.sum
+    end
 
-    std_dev = Math.sqrt((numerator / 2)).to_f.round(2)
+    std_dev = Math.sqrt(numerator / 2.0).round(2)
   end
 
   def merchants_with_high_item_count
-    #we need to create a method with a hash of merchant id keys and num of item values
+    merch_items_hash.select do |merch_id, items|
+      items.length > (average_items_per_merchant + average_items_per_merchant_standard_deviation) # 6 items > 1.33 mean + .58 std dev
+    end
   end
 end
