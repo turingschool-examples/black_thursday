@@ -12,14 +12,14 @@ class Item
     @id = item_info[:id].to_i
     @name = item_info[:name]
     @description = item_info[:description]
-    @unit_price = item_info[:unit_price]
+    @unit_price = item_info[:unit_price].to_f
     @created_at = item_info[:created_at]
     @updated_at = item_info[:updated_at]
-    @merchant_id = item_info[:merchant_id]
+    @merchant_id = item_info[:merchant_id].to_i
     @repo = repo
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f
+    "$#{@unit_price}"
   end
 end
