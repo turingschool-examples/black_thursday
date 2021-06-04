@@ -29,4 +29,9 @@ class SalesEngine
   def find_item_by_id(id)
     @item_repository.find_by_id(id)
   end
+
+  def analyst
+    SalesAnalyst.new(self)
+  end
+  
 end
