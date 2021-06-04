@@ -8,10 +8,10 @@ class ItemRepository
   def initialize(file_path, engine)
     @file_path = file_path
     @engine = engine
+    @items = []
   end
 
   def create_repo
-    @items = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       item = Item.new(row, self)
       @items << item
