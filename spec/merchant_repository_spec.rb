@@ -1,6 +1,4 @@
-require './lib/merchant'
-require './lib/merchant_repository'
-require 'CSV'
+require 'spec_helper'
 
 RSpec.describe MerchantRepository do
   describe '#initialize' do
@@ -97,7 +95,6 @@ RSpec.describe MerchantRepository do
     it 'deletes a merchant using id' do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
-
       merchant_repo.delete(12337012)
 
       expect(merchant_repo.all.length).to eq(5)

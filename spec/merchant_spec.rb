@@ -1,5 +1,5 @@
-require "rspec"
-require "./lib/merchant"
+require 'spec_helper'
+
 
 RSpec.describe Merchant do
   describe '#initialize' do
