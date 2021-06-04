@@ -20,4 +20,8 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def new_id(id_number)
+    @id = id_number
+  end
 end

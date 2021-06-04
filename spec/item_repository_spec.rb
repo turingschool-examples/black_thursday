@@ -126,5 +126,24 @@ RSpec.describe ItemRepository do
 
       expect(expected).to eq([])
     end
+
+    it 'can create a new item' do
+      path = "fixture/item_fixture.csv"
+      item_repo = ItemRepository.new(path)
+
+      attributes = {:id          => nil,
+                    :name        => "llama smile sweater",
+                    :description => "White sweater with a smiling llama",
+                    :unit_price  => 1999,
+                    :merchant_id => 114488,
+                    :created_at  => Time.now,
+                    :updated_at  => Time.now
+                    }
+
+      item_repo.create(attributes)
+      expect(item_repo.all.length).to eq(5)
+      expect(item_repo.all.last.id).to eq(263396210)
+      expect(item_repo.all.last.merchant_id).to eq(114488)
+    end
   end
 end
