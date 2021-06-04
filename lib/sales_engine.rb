@@ -6,7 +6,6 @@ class SalesEngine
   attr_reader :items, :merchants
 
   def initialize(file_location)
-    # @merchants = Merchants.new(file_location[:merchant], self)
     @item_repository = ItemRepository.new(file_location[:items], self).create_repo
     @merchant_repository = MerchantRepository.new(file_location[:merchants], self).create_repo
   end
