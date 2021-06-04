@@ -2,7 +2,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    bigdecimal (3.0.2)
     cane (3.0.0)
       parallel
     diff-lcs (1.4.4)
@@ -43,7 +42,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bigdecimal
   cane
   rake
   reek
