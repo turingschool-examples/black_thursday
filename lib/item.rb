@@ -27,7 +27,6 @@ class Item
     item_with_max_id = @repo.all.max_by do |item|
       item.id
     end
-    require "pry"; binding.pry
-    item_with_max_id.id += 1
+    item_with_max_id.id + 1
   end
 end
