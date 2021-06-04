@@ -51,15 +51,31 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.merchants_with_high_item_count).to eq([@se.merchants.find_by_id(7)])
   end
 
-  xit 'can return the average item price for a specific merchant' do
-    expect(@sales_analyst.average_item_price_for_merchant(4)).to eq(16) # => BigDecimal
+  it 'can return the average item price for a specific merchant' do
+    expect(@sales_analyst.price_of_items_for_merch(7)).to eq([12.0, 20.0]) # => BigDecimal
   end
 
-  xit 'can return the average price per merchant' do
+  it 'can return the average item price for a specific merchant' do
+    expect(@sales_analyst.average_item_price_for_merchant(7)).to eq(16) # => BigDecimal
+  end
+
+  it 'can return the average price per merchant' do
     expect(@sales_analyst.average_average_price_per_merchant).to eq(12.67) # => BigDecimal
   end
 
-  xit 'can return golden items' do
+  it 'can return a set of item prices' do
+    expect(@sales_analyst.item_price_set).to eq([10, 12, 12, 20])
+  end
+
+  it 'can average prices of items' do
+    expect(@sales_analyst.average_price_per_item).to eq(13.50)
+  end
+
+  it 'can average prices of items by standard deviation' do
+    expect(@sales_analyst.average_price_per_item_standard_deviation).to eq(5.43)
+  end
+
+  it 'can return golden items' do
     expect(@sales_analyst.golden_items).to eq([]) # => [<item>, <item>, <item>, <item>]
     # find average item price
     # find the standard deviation of the item price

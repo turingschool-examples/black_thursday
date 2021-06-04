@@ -40,4 +40,46 @@ class SalesAnalyst
       @engine.merchants.find_by_id(merch_id)
     end
   end
+
+  def price_of_items_for_merch(merchant_id)
+    merch_items_hash[merchant_id].map do |item|
+      item.unit_price_to_dollars
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    price_of_items_for_merch(merchant_id).sum / price_of_items_for_merch(merchant_id).length
+  end
+
+  def average_average_price_per_merchant
+    avg_price_per_merch = merch_items_hash.keys.map do |id|
+      average_item_price_for_merchant(id)
+    end
+    (avg_price_per_merch.sum / avg_price_per_merch.length).round(2)
+  end
+
+  def item_price_set
+    @engine.items.all.map do |item|
+      item.unit_price_to_dollars
+    end
+  end
+
+  def average_price_per_item
+    (item_price_set.sum / item_price_set.length).round(2)
+  end
+
+  def average_price_per_item_standard_deviation
+    numerator = item_price_set.sum do |num|
+      (num-average_price_per_item)**2
+    end
+
+    std_dev = Math.sqrt(numerator / 2.0).round(2)
+  end
+
+  def golden_items
+    @engine.items.all.select do |item|
+      item.unit_price_to_dollars > (average_price_per_item +
+        (average_price_per_item_standard_deviation * 2)) # 28 items > 13.5 mean + 10.86 std dev times 2
+    end
+  end
 end
