@@ -74,4 +74,18 @@ class ItemRepository
       csv << [new_item.id, new_item.name, new_item.description, new_item.unit_price, new_item.merchant_id, new_item.created_at, new_item.updated_at]
     end
   end
+
+  def update(id, attributes)
+    @all.find do |item|
+      if item.id == id
+        attributes[:name] = item.name
+        attributes[:description] = item.description
+        attributes[:unit_price] = item.unit_price
+        attributes[:updated_at] = item.updated_at
+        CSV.open(@path, 'a+') do |csv|
+          csv << [item.id, item.name, item.description, item.unit_price, item.merchant_id, item.created_at, item.updated_at]
+        end
+      end
+    end
+  end
 end
