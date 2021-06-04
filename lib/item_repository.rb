@@ -1,27 +1,18 @@
 class ItemRepository
-  attr_reader :all, :sales_engine
+  attr_reader :sales_engine, :all, :file_path
 
-  def initialize(path, sales_engine)
-    @file_path = path
+  def initialize(file_path, sales_engine)
+    @file_path = file_path
     @sales_engine = sales_engine
     @all = []
   end
 
   def generate
-    CSV.foreach(@file_path, headers: true) do |row|
-      @all << row.to_hash
-      Item.new(row, self)
-      require 'pry'; binding.pry
-    end
+    info = CSV.open("#{@file_path}", headers: true)
+     info.each do |row|
+       @all << Item.new(row, self) 
+     end 
   end
-
-
-    # CSV.readlines(@file_path).drop(1).map do |line|
-    #   id,name,description,unit_price,merchant_id,created_at,updated_at = line
-    #   Item.new(line, self)
-    #   require 'pry'; binding.pry
-    # end
-  # end
 
   def find_by_id(id)
     @all.find do |item|
