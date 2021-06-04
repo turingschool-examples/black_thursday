@@ -23,6 +23,15 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.average_items_per_merchant).to eq(1.33)
   end
 
+  it 'can return a hash of the merchant ids and items' do
+    expected = {
+      5 => @se.items.find_all_by_merchant_id(5),
+      6 => @se.items.find_all_by_merchant_id(6),
+      7 => @se.items.find_all_by_merchant_id(7)
+    }
+    expect(@sales_analyst.merch_items_hash).to eq(expected)
+  end
+
   it 'can return average items per merchant standard deviation' do
     # 1.33 is the mean
     # set = [1, 1, 2]
