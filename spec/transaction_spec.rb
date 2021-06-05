@@ -24,11 +24,30 @@ RSpec.describe Transaction do
 
     expect(@t.id).to eq(6)
     expect(@t.invoice_id).to eq(8)
-    expect(@t.credit_card_number).to eq(4242424242424242)
+    expect(@t.credit_card_number).to eq('4242424242424242')
     expect(@t.credit_card_expiration_date).to eq("0220")
     expect(@t.result).to eq('success')
     expect(@t.created_at).to eq(2021)
   end
 
-  
+  it 'can create a new transaction' do
+    attributes = {:invoice_id => 123,
+                  :credit_card_number => "10101010101010",
+                  :credit_card_expiration_date => "0422",
+                  :result => "failed",
+                  }
+
+    allow(@repo).to receive(:next_highest_id).and_return(7)
+
+    expect(Transaction.create(attributes, @repo)).to be_a(Transaction)
+  end
+
+  it 'can update an old transaction' do
+    attributes = {:credit_card_number => "10101010101010",
+                  :credit_card_expiration_date => "0422",
+                  :result => "failed",
+                  }
+    expect(@t.update(attributes).credit_card_expiration_date).to eq('0422')
+  end
+
 end
