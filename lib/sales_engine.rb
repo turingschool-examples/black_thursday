@@ -1,30 +1,25 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
+require_relative 'sales_analyst'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants, :transactions
+  attr_reader :items, :merchants, :invoice_items, :transactions
+
   def initialize(path)
-    @items = path[:items]
-    @merchants = path[:merchants]
+    @items = ItemRepository.new(path[:items])
+    @merchants = MerchantRepository.new(path[:merchants])
+    @invoice_items = InvoiceItemRepository.new(path[:invoice_items])
     @transactions = TransactionRepository.new(path[:transactions])
-  end
+    end
 
   def self.from_csv(path)
-    SalesEngine.new(path)
+    new(path)
   end
 
-  def items
-    ItemRepository.new(@items)
+  def analyst
+    SalesAnalyst.new
   end
-
-  def merchants
-    MerchantRepository.new(@merchants)
-  end
-
-  # def analyst
-  #   SalesAnalyst.new
-  # end
-
 end
