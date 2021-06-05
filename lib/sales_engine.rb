@@ -1,6 +1,7 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_item_repository'
+require_relative 'sales_analyst'
 require 'csv'
 
 class SalesEngine
@@ -14,5 +15,9 @@ class SalesEngine
 
   def self.from_csv(path)
     new(path)
+  end
+
+  def analyst
+    SalesAnalyst.new
   end
 end

@@ -49,7 +49,7 @@ RSpec.describe MerchantRepository do
     end
 
     it 'can create a new merchant instance' do
-      attributes = 'AlfieHouse'
+      attributes = {name: "AlfieHouse"}
 
       @repo.create(attributes)
 
@@ -58,15 +58,27 @@ RSpec.describe MerchantRepository do
         updated_all << merchant.name
       end
 
+      updated_all_id = []
+      @repo.all.each do |merchant|
+        updated_all_id << merchant.id
+      end
+
       expect(updated_all).to eq(["KoopShop", "CookieCounter", "SparkyShop", "AlfieHouse"])
+
+      expect(updated_all_id).to eq([101, 102, 103, 104])
     end
 
     it 'can update an exsisting merchants name' do
-      attributes = "NolaHouse"
+      attributes_1 = {name: "NolaHouse"}
 
-      @repo.update(101, attributes)
+      @repo.update(101, attributes_1)
 
       expect(@repo.find_by_id(101).name).to eq("NolaHouse")
+
+      attributes_2 = {id: 200}
+      @repo.update(101, attributes_2)
+
+      expect(@repo.find_by_id(200)).to eq(nil)
     end
 
     it 'can delete the merchant by id' do

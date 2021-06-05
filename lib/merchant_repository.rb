@@ -44,13 +44,14 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_merchant = Merchant.new({id: next_highest_merchant_id, name: attributes}, self)
+    new_merchant = Merchant.create_merchant(attributes, self)
     @all << new_merchant
   end
 
   def update(id, attributes)
-    merchant = find_by_id(id)
-    merchant.name.replace(attributes)
+    unless find_by_id(id).nil?
+      find_by_id(id).update_merchant(attributes)
+    end
   end
 
   def delete(id)
