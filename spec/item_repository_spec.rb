@@ -106,14 +106,17 @@ RSpec.describe ItemRepository do
     data = {
       # :name        => "Gold Fountain Pen",
       :description => "You can write REALLY fancy things",
-      :unit_price  => 12009,
+      :unit_price  => BigDecimal(5000),
     }
+    # require "pry"; binding.pry
     ir.update(3, data)
     expected = ir.find_by_id(3)
 
     expect(expected.name).to eq("Marker")
     expect(expected.description).to eq("You can write REALLY fancy things")
-    expect(expected.unit_price_to_dollars).to eq(12009)
+    # require "pry"; binding.pry
+    expect(expected.unit_price_to_dollars).to eq(5000)
+
   end
 
   it 'finds and deletes item by ID' do

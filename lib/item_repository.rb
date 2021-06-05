@@ -71,7 +71,11 @@ class ItemRepository
 
   def update(id, attributes)
     info_edit = find_by_id(id)
-    info_edit.update(id, attributes)
+
+    info_edit.description = attributes[:description] if attributes[:description] != nil
+    info_edit.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
+    info_edit.name = attributes[:name] if attributes[:name] != nil
+    info_edit.updated_at = Time.now if info_edit != nil
   end
 
   def delete(id)

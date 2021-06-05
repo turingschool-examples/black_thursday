@@ -1,3 +1,5 @@
+require 'time'
+
 class Item
   attr_reader   :id,
                 :created_at,
@@ -12,18 +14,18 @@ class Item
     @id          = data[:id].to_i
     @name        = data[:name]
     @description = data[:description]
-    @unit_price  = BigDecimal(data[:unit_price])
-    @created_at  = data[:created_at]
-    @updated_at  = data[:updated_at]
+    @unit_price  = BigDecimal(data[:unit_price].to_f / 100, 4)
+    @created_at  = set_time(data[:created_at].to_s)
+    @updated_at  = set_time(data[:updated_at].to_s)
     @merchant_id = data[:merchant_id].to_i
   end
 
-  def update(id, attributes)
-    return @name = attributes[:name] if attributes[:name] != nil
-
-    return @description = attributes[:description] if attributes[:description] != nil
-    return @unit_price  = (attributes[:unit_price]) if attributes[:unit_price] != nil
-    @updated_at = Time.now
+  def set_time(time)
+    if time
+      Time.parse(time)
+    else
+      Time.now
+    end
   end
 
   def unit_price_to_dollars
