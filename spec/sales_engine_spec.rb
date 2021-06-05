@@ -8,7 +8,7 @@ RSpec.describe SalesEngine do
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoice => "./data/invoices.csv"
+      :invoice => "./data/invoices.csv",
       :transactions => "./data/transactions.csv"
     })
   end
