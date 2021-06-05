@@ -52,10 +52,11 @@ class MerchantRepository
   end
 
   def update(id, attributes)
+    return nil unless
     update1 = @all.find do |merchant|
       merchant.id == id
     end
-    update1.update_name(attributes)
+    update1.update_name(attributes[:name])
   end
 
   def delete(id)

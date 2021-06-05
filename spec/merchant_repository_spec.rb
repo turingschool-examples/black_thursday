@@ -85,8 +85,9 @@ RSpec.describe MerchantRepository do
     it 'updates attributes' do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
+      attributes = {name: 'ShestheMan'}
 
-      merchant_repo.update(12335150, 'ShestheMan')
+      merchant_repo.update(12335150, attributes)
 
       expect(merchant_repo.all[4].name).to eq('ShestheMan')
     end
