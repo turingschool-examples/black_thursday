@@ -4,7 +4,7 @@ class MerchantRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-  
+
   attr_reader :all
 
   def initialize(path)

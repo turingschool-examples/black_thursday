@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'time' 
 
 class ItemRepository
   def inspect
@@ -7,14 +8,14 @@ class ItemRepository
   attr_reader :all
 
   def initialize(path)
-    @all = []     
+    @all = []
     create_items(path)
   end
 
   def create_items(path)
     items = CSV.foreach(path, headers: true, header_converters: :symbol) do |item_data|
     # items.map do |item_data|
-      data_hash = { 
+      data_hash = {
         id:           item_data[:id],
         name:         item_data[:name],
         description:  item_data[:description],

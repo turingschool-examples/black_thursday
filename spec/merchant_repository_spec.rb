@@ -71,9 +71,9 @@ RSpec.describe MerchantRepository do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
 
-      attributes = {:id => nil, 
-                    :name => 'Elliotpooped', 
-                    :created_at => '1989-03-14', 
+      attributes = {:id => nil,
+                    :name => 'Elliotpooped',
+                    :created_at => '1989-03-14',
                     :updated_at => '1995-09-14'
                   }
       merchant_repo.create(attributes)
