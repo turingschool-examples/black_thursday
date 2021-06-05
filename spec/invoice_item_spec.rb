@@ -4,14 +4,14 @@ require 'bigdecimal'
 
 RSpec.describe InvoiceItem do
   before (:each) do
-    @time = Time.now
+    @time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
     @repo = double('repo')
     @attributes = {
       :id => 6,
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
-      :unit_price => BigDecimal(10.99, 4),
+      :unit_price => 1099,
       :created_at => @time,
       :updated_at => @time
     }
@@ -28,8 +28,8 @@ RSpec.describe InvoiceItem do
     expect(@ii.invoice_id).to eq(8)
     expect(@ii.quantity).to eq(1)
     expect(@ii.unit_price).to eq(0.1099e2)
-    expect(@ii.created_at).to eq(@time)
-    expect(@ii.updated_at).to eq(@time)
+    expect(@ii.created_at).to eq(Time.parse(@time))
+    expect(@ii.updated_at).to eq(Time.parse(@time))
     expect(@ii.repo).to eq(@repo)
   end
 
