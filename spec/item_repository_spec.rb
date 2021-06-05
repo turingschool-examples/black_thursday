@@ -63,23 +63,23 @@ RSpec.describe ItemRepository do
     end
 
     it 'creates a new item instance with given attributes' do
-      # allow(Time).to receive(:strftime).with('%Y-%m-%d').and_return("current time")
+      allow(Time).to receive(:strftime).and_return("current time")
       # allow(Time).to receive(:now).and_return("current time")
       attributes = {
         'id'         => nil,
         'name'        => "Airplanes",
         'description' => "They fly super dooper",
         'unit_price'  => BigDecimal(1000),
-        'created_at'  => 2020-06-04,
-        'updated_at'  => 2021-06-04,
+        'created_at'  => nil,
+        'updated_at'  => nil,
         'merchant_id' => 21
       }
       @ir.create(attributes)
       new_item = @ir.all[-1]
       expect(new_item.id).to eq(21)
       expect(@ir.all.length).to eq(21)
-      # expect(new_item.created_at.class).to eq("current time")
-      # expect(new_item.updated_at).to eq("current time")
+      expect(new_item.created_at.class).to eq(String)
+      expect(new_item.updated_at).to eq(new_item.created_at)
       expect(@ir.find_by_id(21).name).to eq("Airplanes")
       @ir.create(attributes)
       newer_item = @ir.all.last
@@ -94,12 +94,14 @@ RSpec.describe ItemRepository do
         'description' => "They cant be erased",
         'unit_price'  => BigDecimal(5)
       }
+      variable_name = @item1.updated_at
       @ir.update(2, attributes)
 
       expect(@item1.name).to eq("pens")
       expect(@item1.description).to eq("They cant be erased")
       expect(@item1.unit_price).to eq(5)
       expect(@item1.updated_at).to eq("current time")
+      expect(variable_name).to_not eq(@item1.updated_at)
     end
 
     it 'delete item by id' do
