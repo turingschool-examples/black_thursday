@@ -51,7 +51,7 @@ RSpec.describe MerchantRepository do
 
     it 'creates a new merchant instance with given attributes' do
       attributes = {
-        'name'        => "Bob's Airplanes"
+        :name        => "Bob's Airplanes"
       }
       @mr.create(attributes)
 
@@ -63,7 +63,7 @@ RSpec.describe MerchantRepository do
     it 'updates merchant by id with given attributes' do
 
       attributes = {
-        'name'        => 'Candismath'
+        :name        => 'Candismath'
       }
       @mr.update(02, attributes)
 

@@ -8,7 +8,7 @@ class MerchantRepository
   end
 
   def generate
-    info = CSV.open("#{@file_path}", headers: true)
+    info = CSV.open("#{@file_path}", headers: true, :header_converters => :symbol)
     info.each do |row|
       @all << Merchant.new(row, self)
     end
@@ -41,7 +41,7 @@ class MerchantRepository
 
   def create(attributes)
     merchant_id = @all.max { |merchant| merchant.id}
-    attributes['id'] = merchant_id.id + 1
+    attributes[:id] = merchant_id.id + 1
     @all << Merchant.new(attributes, self)
   end
 

@@ -4,12 +4,12 @@ class Merchant
                 :repo
 
   def initialize(info, repo)
-    @id = info['id'].to_i
-    @name = info['name']
+    @id = info[:id].to_i
+    @name = info[:name]
     @repo = repo
   end
 
   def update_merchant(attributes)
-    @name = attributes['name'] unless attributes['name'].nil?
+    @name = attributes[:name] unless attributes[:name].nil?
   end
 end

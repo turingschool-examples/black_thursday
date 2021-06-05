@@ -9,13 +9,13 @@ class Item
                :repo
 
   def initialize(info, repo)
-    @id = info['id'].to_i
-    @name = info['name']
-    @description = info['description']
-    @unit_price = info['unit_price'].to_f
-    @created_at = info['created_at']
-    @updated_at = info['updated_at']
-    @merchant_id = info['merchant_id'].to_i
+    @id = info[:id].to_i
+    @name = info[:name]
+    @description = info[:description]
+    @unit_price = info[:unit_price].to_f
+    @created_at = info[:created_at]
+    @updated_at = info[:updated_at]
+    @merchant_id = info[:merchant_id].to_i
     @repo = repo
   end
 
@@ -24,9 +24,9 @@ class Item
   end
 
   def update_item(attributes)
-    @name = attributes['name'] unless attributes['name'].nil?
-    @description = attributes['description'] unless attributes['description'].nil?
-    @unit_price = attributes['unit_price'] unless attributes['unit_price'].nil?
+    @name = attributes[:name] unless attributes[:name].nil?
+    @description = attributes[:description] unless attributes[:description].nil?
+    @unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
     @updated_at = Time.now
   end
 end

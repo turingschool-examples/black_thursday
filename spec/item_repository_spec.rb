@@ -66,13 +66,13 @@ RSpec.describe ItemRepository do
       allow(Time).to receive(:strftime).and_return("current time")
       # allow(Time).to receive(:now).and_return("current time")
       attributes = {
-        'id'         => nil,
-        'name'        => "Airplanes",
-        'description' => "They fly super dooper",
-        'unit_price'  => BigDecimal(1000),
-        'created_at'  => nil,
-        'updated_at'  => nil,
-        'merchant_id' => 21
+        :id          => nil,
+        :name        => "Airplanes",
+        :description => "They fly super dooper",
+        :unit_price  => BigDecimal(1000),
+        :created_at  => nil,
+        :updated_at  => nil,
+        :merchant_id => 21
       }
       @ir.create(attributes)
       new_item = @ir.all[-1]
@@ -90,9 +90,9 @@ RSpec.describe ItemRepository do
       allow(Time).to receive(:now).and_return("current time")
 
       attributes = {
-        'name'        => "pens",
-        'description' => "They cant be erased",
-        'unit_price'  => BigDecimal(5)
+        :name        => "pens",
+        :description => "They cant be erased",
+        :unit_price  => BigDecimal(5)
       }
       variable_name = @item1.updated_at
       @ir.update(2, attributes)
