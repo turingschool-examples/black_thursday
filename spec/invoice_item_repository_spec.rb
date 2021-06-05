@@ -97,7 +97,7 @@ RSpec.describe InvoiceItemRepository do
     expect(@repo.find_by_id(2)).to eq(nil)
   end
 
-  it 'can access invoie item unit price to dollars method' do
+  it 'can access invoice item unit price to dollars method' do
     dollars = @repo.find_by_id(1).unit_price_to_dollars
     expect(dollars).to eq(10)
   end
