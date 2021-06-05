@@ -32,5 +32,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    # require "pry"; binding.pry
+    @all.select do |invoice|
+      invoice.merchant_id == merchant_id
+    end
+  end
+
 
 end
