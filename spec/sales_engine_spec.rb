@@ -22,7 +22,7 @@ RSpec.describe SalesEngine do
     expect(@se.merchants).to be_an_instance_of(MerchantRepository)
   end
 
-  xit 'can create a sales analyst' do
+  it 'can create a sales analyst' do
     expect(@se.analyst).to be_a(SalesAnalyst)
   end
 end
