@@ -26,7 +26,6 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    # require "pry"; binding.pry
     @all.select do |invoice|
       invoice.customer_id == customer_id
     end
@@ -51,14 +50,14 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    new_invoice = Invoice.create_new(attributes)
+    new_invoice = Invoice.create_new(attributes, self)
     @all << new_invoice
   end
 
   def update(id, attributes)
     unless find_by_id(id).nil?
       find_by_id(id).update_invoice(attributes)
-    end 
+    end
   end
 
   def delete(id)

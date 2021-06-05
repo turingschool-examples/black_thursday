@@ -56,7 +56,7 @@ RSpec.describe InvoiceRepository do
     expect(@repo.next_highest_id).to eq(4)
   end
 
-  xit 'can create a new invoice' do
+  it 'can create a new invoice' do
     attributes = {
       :customer_id => 2,
       :merchant_id => 104,
@@ -88,7 +88,6 @@ RSpec.describe InvoiceRepository do
     }
 
   end
-
 
   it 'can delete the merchant by id' do
       @repo.delete(2)
