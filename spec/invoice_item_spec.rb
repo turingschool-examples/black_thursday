@@ -14,7 +14,7 @@ RSpec.describe InvoiceItem do
       :unit_price => BigDecimal(10.99, 4),
       :created_at => @time,
       :updated_at => @time
-      }
+    }
     @ii = InvoiceItem.new(@attributes, @repo)
   end
 
@@ -43,9 +43,20 @@ RSpec.describe InvoiceItem do
       :invoice_id => 3,
       :quantity => 20,
       :unit_price => BigDecimal(11.99, 4),
-      }
+    }
 
     allow(@repo).to receive(:new_invoice_item_id).and_return(7)
     expect(InvoiceItem.create_invoice_item(attributes, @repo)).to be_a(InvoiceItem)
+  end
+
+  it 'can update existing invoice items' do
+    new_attributes = {
+      :quantity => 10,
+      :unit_price => BigDecimal(14.55, 4)
+    }
+    @ii.update_invoice_item(new_attributes)
+
+    expect(@ii.quantity).to eq(10)
+    expect(@ii.unit_price).to eq(0.1455e2)
   end
 end
