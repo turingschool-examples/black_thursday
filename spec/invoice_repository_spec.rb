@@ -35,6 +35,18 @@ RSpec.describe InvoiceRepository do
     expect(@repo.find_all_by_status("sent")).to eq([])
   end
 
+  it 'creates the next highest merchant id' do
+    expect(@repo.next_highest_id).to eq(4)
+  end
 
+  xit 'can create a new invoice' do
+    attributes = {name: 'Koop'}
+
+    @mock_repo.next_highest_merchant_id
+
+    @mock_repo.create(attributes)
+
+    expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5])
+  end
 
 end

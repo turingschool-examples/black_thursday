@@ -26,26 +26,33 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    # require "pry"; binding.pry
     @all.select do |invoice|
       invoice.customer_id == customer_id
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    # require "pry"; binding.pry
     @all.select do |invoice|
       invoice.merchant_id == merchant_id
     end
   end
 
   def find_all_by_status(status)
-    # require "pry"; binding.pry
     @all.select do |invoice|
       invoice.status == status
     end
   end
 
+  def next_highest_id
+    @all.max_by do |invoice|
+      invoice.id
+    end.id + 1
+  end
+
+  def create(attributes)
+    new_merchant = Merchant.create_new(attributes)
+    @all_merchants << new_merchant
+  end
 
 
 end
