@@ -11,7 +11,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    # stuff
+    # look at ItemRepo
+    # groupBy MerchantId OR use find_all_by_merchant_id
+    # a bunch of arrays by merchant
+    # average of all of the array lengths = final average
   end
 
   def average_items_per_merchant_standard_deviation
