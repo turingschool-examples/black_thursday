@@ -1,12 +1,12 @@
 class Item
   attr_reader  :id,
-  :name,
-  :description,
-  :unit_price,
-  :updated_at,
-  :created_at,
-  :merchant_id,
-  :repo
+               :name,
+               :description,
+               :unit_price,
+               :updated_at,
+               :created_at,
+               :merchant_id,
+               :repo
 
   def initialize(info, repo)
     @id = info['id'].to_i
@@ -24,9 +24,9 @@ class Item
   end
 
   def update_item(attributes)
-    @name = attributes['name']
-    @description = attributes['description']
-    @unit_price = attributes['unit_price']
+    @name = attributes['name'] unless attributes['name'].nil?
+    @description = attributes['description'] unless attributes['description'].nil?
+    @unit_price = attributes['unit_price'] unless attributes['unit_price'].nil?
     @updated_at = Time.now
   end
 end

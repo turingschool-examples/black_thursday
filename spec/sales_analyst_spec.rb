@@ -1,1 +1,1 @@
-require_relative 'rspec'
+require_relative './spec_helper'

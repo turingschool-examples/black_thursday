@@ -70,16 +70,16 @@ RSpec.describe ItemRepository do
         'name'        => "Airplanes",
         'description' => "They fly super dooper",
         'unit_price'  => BigDecimal(1000),
-        'created_at'  => nil,
-        'updated_at'  => nil,
+        'created_at'  => 2020-06-04,
+        'updated_at'  => 2021-06-04,
         'merchant_id' => 21
       }
       @ir.create(attributes)
       new_item = @ir.all[-1]
       expect(new_item.id).to eq(21)
       expect(@ir.all.length).to eq(21)
-      # expect(new_item.created_at).to eq("current time")
-      # expect(new_item.updated_at).to eq("current time")
+      expect(new_item.created_at.class).to eq("current time")
+      expect(new_item.updated_at.class).to eq("current time")
       expect(@ir.find_by_id(21).name).to eq("Airplanes")
       @ir.create(attributes)
       newer_item = @ir.all.last
