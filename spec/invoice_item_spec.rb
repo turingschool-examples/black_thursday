@@ -25,9 +25,13 @@ RSpec.describe InvoiceItem do
     expect(@ii.item_id).to eq(7)
     expect(@ii.invoice_id).to eq(8)
     expect(@ii.quantity).to eq(1)
-    expect(@ii.unit_price).to eq(BigDecimal(10.99, 4))
+    expect(@ii.unit_price).to eq(0.1099e2)
     expect(@ii.created_at).to eq(@time)
     expect(@ii.updated_at).to eq(@time)
     expect(@repo).to eq(nil)
+  end
+
+  it '.unit_price_to_dollars' do
+    expect(@ii.unit_price_to_dollars).to eq(10.99)
   end
 end
