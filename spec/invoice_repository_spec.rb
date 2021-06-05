@@ -26,22 +26,21 @@ RSpec.describe InvoiceRepository do
     expect(ir_csv_data.length).to eq(4985)
 
     data_validation = ir_csv_data.all? do |line|
-      line.class == Item
+      line.class == Invoice
     end
 
     expect(data_validation).to be(true)
   end
 
-  it 'can find all invoices by a invoice_id' do
+  it 'can find all invoices by id' do
     ir = @se.invoices
     invoice_id = 3452
     result = ir.find_by_id(invoice_id)
 
-
     expect(result.id).to eq(invoice_id)
     expect(result.merchant_id).to eq(12335690)
     expect(result.customer_id).to eq(679)
-    expect(result.result.status).to eq(:pending)
+    expect(result.status).to eq(:pending)
   end
 
   it 'can find all invoice by a given customer_id' do
@@ -74,13 +73,13 @@ RSpec.describe InvoiceRepository do
     status = :sold
     result = ir.find_all_by_status(status)
 
-    expect(result.length).to eq([])
+    expect(result.length).to eq(0)
   end
 
   it 'can create new instance with attributes' do
     ir = @se.invoices
-    new_item = {
-          :id => create_new_id,
+    new_invoice = {
+          :id => ir.create_new_id,
           :customer_id => 7,
           :merchant_id => 8,
           :status => "pending",
@@ -88,7 +87,7 @@ RSpec.describe InvoiceRepository do
           :updated_at => Time.now
         }
 
-    ir.create(attributes)
+    ir.create(new_invoice)
     result = ir.find_by_id(4986)
 
     expect(result.merchant_id).to eq(8)
@@ -96,7 +95,7 @@ RSpec.describe InvoiceRepository do
 
   it 'can update an existing Invoice instance' do
     ir = @se.invoices
-    original_time = ir.find_by_id(4986).updated_at
+    original_time = ir.find_by_id(4985).updated_at
     time_stub = '2021-05-30 11:30:51.343158 -050'
     allow(Time).to receive(:now).and_return(time_stub)
     attributes = {
@@ -108,14 +107,14 @@ RSpec.describe InvoiceRepository do
         updated_at: Time.now
       }
 
-      ir.update(4986, attributes)
-      result = ir.find_by_id(4986)
+      ir.update(4985, attributes)
+      result = ir.find_by_id(4985)
 
       expect(result.status).to eq :success
-      expect(result.updated_at).to be > original_time
+      expect(Time.parse(result.updated_at)).to be > original_time
       expect(result.customer_id).not_to eq attributes[:customer_id]
       expect(result.customer_id).not_to eq attributes[:merchant_id]
-      expect(result.created_at).not_to eq attributes[:created_at]
+      expect(result.created_at).not_to eq (Time.parse(attributes[:created_at].to_s))
 
       result = ir.find_by_id(5000)
       expect(result).to eq nil

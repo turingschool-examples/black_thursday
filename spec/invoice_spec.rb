@@ -15,13 +15,12 @@ RSpec.describe Invoice do
 
   it 'exists' do
     i = Invoice.new({
-    :id          => 1,
-    :name        => 'Pencil',
-    :description => 'You can use it to write things',
-    :unit_price  => BigDecimal(10.99, 4),
+    :id          => 3452,
+    :customer_id        => 679,
+    :merchant_id => 12335690,
+    :status  => :pending,
     :created_at  => Time.now,
     :updated_at  => Time.now,
-    :merchant_id => 2
     }, @ir)
 
     expect(i).to be_a(Invoice)
@@ -32,20 +31,18 @@ RSpec.describe Invoice do
     allow(Time).to receive(:now).and_return(time_stub)
 
     i = Invoice.new({
-    :id          => 1,
-    :name        => 'Pencil',
-    :description => 'You can use it to write things',
-    :unit_price  => BigDecimal(10.99, 4),
+    :id          => 3452,
+    :customer_id        => 679,
+    :merchant_id => 12335690,
+    :status  => :pending,
     :created_at  => Time.now,
     :updated_at  => Time.now,
-    :merchant_id => 2
     }, @ir)
 
-    expect(i.id).to eq(1)
-    expect(i.name).to eq('Pencil')
-    expect(i.description).to eq('You can use it to write things')
-    expect(i.unit_price).to eq((BigDecimal(10.99, 4)) / 100)
-    expect(i.merchant_id).to eq(2)
+    expect(i.id).to eq(3452)
+    expect(i.customer_id).to eq(679)
+    expect(i.merchant_id).to eq(12335690)
+    expect(i.status).to eq(:pending)
     expect(i.created_at.to_s).to eq(Time.now)
     expect(i.updated_at.to_s).to eq(Time.now)
   end
@@ -55,40 +52,23 @@ RSpec.describe Invoice do
     allow(Time).to receive(:now).and_return(time_stub)
 
     i = Invoice.new({
-    :id          => 1,
-    :name        => 'Pencil',
-    :description => 'You can use it to write things',
-    :unit_price  => BigDecimal(10.99, 4),
+    :id          => 3452,
+    :customer_id        => 679,
+    :merchant_id => 12335690,
+    :status  => :pending,
     :created_at  => Time.now,
     :updated_at  => Time.now,
-    :merchant_id => 2
     }, @ir)
     i_hash = i.to_hash
 
     expect(i_hash).to be_a(Hash)
-    expect(i_hash.keys.length).to eq(7)
-    expect(i_hash.values.length).to eq(7)
+    expect(i_hash.keys.length).to eq(6)
+    expect(i_hash.values.length).to eq(6)
     expect(i_hash[:id]).to eq(i.id)
-    expect(i_hash[:name]).to eq(i.name)
-    expect(i_hash[:description]).to eq(i.description)
-    expect(i_hash[:unit_price]).to eq(i.unit_price)
+    expect(i_hash[:customer_id]).to eq(i.customer_id)
+    expect(i_hash[:merchant_id]).to eq(i.merchant_id)
+    expect(i_hash[:status]).to eq(i.status)
     expect(i_hash[:created_at]).to eq(i.created_at)
     expect(i_hash[:updated_at]).to eq(i.updated_at)
   end
-
-  it 'can convert unit price into dollars' do
-
-    i = Invoice.new({
-    :id          => 1,
-    :name        => 'Pencil',
-    :description => 'You can use it to write things',
-    :unit_price  => BigDecimal(10.99, 4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 2
-    }, @ir)
-
-    expect(i.unit_price_to_dollars).to eq(10.99 / 100)
-  end
-
 end
