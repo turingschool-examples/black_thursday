@@ -23,8 +23,6 @@ class Item
     '%.2f' % "#{@unit_price}"
   end
 
-  # def self.make_item()
-  # end
   def update_item(attributes)
     @name = attributes['name']
     @description = attributes['description']
