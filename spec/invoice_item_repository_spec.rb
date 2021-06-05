@@ -56,4 +56,8 @@ RSpec.describe InvoiceItemRepository do
     expect(@repo.find_all_by_invoice_id(50)).to eq([])
   end
 
+  it 'creates new invoice item id number' do
+    expect(@repo.new_id_number).to eq(4)
+  end
+
 end
