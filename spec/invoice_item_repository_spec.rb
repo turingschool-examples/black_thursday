@@ -89,4 +89,11 @@ RSpec.describe InvoiceItemRepository do
     expect(@repo.find_by_id(2).unit_price).to eq(0.1455e2)
     expect(@repo.find_by_id(2).updated_at).to_not eq(og_time)
   end
+
+  it 'deletes invoice item by id' do
+    @repo.delete(2)
+
+    expect(@repo.all.length).to eq(2)
+    expect(@repo.find_by_id(2)).to eq(nil)
+  end
 end
