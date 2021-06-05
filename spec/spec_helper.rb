@@ -1,14 +1,12 @@
 require 'rspec'
-require 'simplecov'
+# require 'simplecov'
+# SimpleCov.start
 require 'bigdecimal'
 require 'CSV'
 
-SimpleCov.start do
-end
-
-require './lib/sales_engine'
-require './lib/item'
-require './lib/item_repository'
-require './lib/merchant'
-require './lib/merchant_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
 #test_setup_data
