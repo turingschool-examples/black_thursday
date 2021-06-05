@@ -31,7 +31,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return items by merchant count' do
-    expect(@sales_analyst.items_by_merch_count).to eq([1,1,2])
+    expect(@sales_analyst.items_by_merch_count).to eq([1, 1, 2])
   end
 
   it 'can return average items per merchant standard deviation' do
