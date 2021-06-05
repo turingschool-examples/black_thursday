@@ -48,7 +48,9 @@ RSpec.describe MerchantRepository do
 
   it 'creates a new merchant with attributes' do
     mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
-    mr.create("Another Merchant")
+    attributes = {:name => "Another Merchant"}
+
+    mr.create(attributes)
     expected = mr.find_by_id(8)
 
     expect(mr.all.count).to eq(4)
@@ -57,10 +59,12 @@ RSpec.describe MerchantRepository do
 
   it 'finds merchant by id and updates name' do
     mr = MerchantRepository.new("./spec/fixture_files/merchant_fixture.csv")
-    mr.update(5, "Turing School of Coding")
+    attributes = {:name => "Another Merchant"}
+
+    mr.update(5, attributes)
     expected = mr.find_by_id(5)
 
-    expect(expected.name).to eq("Turing School of Coding")
+    expect(expected.name).to eq("Another Merchant")
   end
 
   it "finds and deletes merchant by id" do

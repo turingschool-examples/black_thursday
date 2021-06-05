@@ -11,10 +11,7 @@ class MerchantRepository
 
   def create_merchants(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      merchant = Merchant.new({
-                                :id   => row[:id].to_i,
-                                :name => row[:name]
-                                })
+      merchant = Merchant.new(row)
       @all << merchant
     end
   end
@@ -31,13 +28,13 @@ class MerchantRepository
 
   def find_by_name(name)
     @all.find do |merchant|
-      merchant.name.casecmp?(name)
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-      merchant.name.casecmp?(name)
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
@@ -45,14 +42,16 @@ class MerchantRepository
     new_id = @all.max_by do |merchant|
       merchant.id
     end
-    merchant = Merchant.new({:id => new_id.id + 1, :name => attribute})
+    merchant = Merchant.new({:id => new_id.id + 1, :name => attribute[:name]})
     @all << merchant
     merchant
   end
 
   def update(id, new_name)
     name_edit = find_by_id(id)
-    name_edit.name = new_name
+    if name_edit != nil
+      name_edit.name = new_name[:name]
+    end
   end
 
   def delete(id)
