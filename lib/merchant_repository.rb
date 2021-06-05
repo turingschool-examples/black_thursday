@@ -44,14 +44,14 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_merchant = Merchant.create_merchants(attributes, self)
+    new_merchant = Merchant.create_merchant(attributes, self)
     @all << new_merchant
   end
 
   def update(id, attributes)
-    # require "pry"; binding.pry
-    # if find_by_id(id) !nil?
-    find_by_id(id).update(attributes)
+    unless find_by_id(id).nil?
+      find_by_id(id).update_merchant(attributes)
+    end
   end
 
   def delete(id)
