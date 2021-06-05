@@ -9,10 +9,10 @@ class InvoiceItem
               :repo
 
   def initialize(item, repo)
-    @id = item[:id]
-    @item_id = item[:item_id]
-    @invoice_id = item[:invoice_id]
-    @quantity = item[:quantity]
+    @id = item[:id].to_i
+    @item_id = item[:item_id].to_i
+    @invoice_id = item[:invoice_id].to_i
+    @quantity = item[:quantity].to_i
     @unit_price = item[:unit_price]
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]
