@@ -29,7 +29,7 @@ class SalesAnalyst
       (num-average_items_per_merchant) ** 2
     end
     denominator = (items_by_merch_count.length - 1).to_f
-    std_dev = Math.sqrt(numerator / denominator).round(2)
+    Math.sqrt(numerator / denominator).round(2)
   end
 
   def merchants_with_high_item_count
@@ -70,10 +70,10 @@ class SalesAnalyst
 
   def average_price_per_item_standard_deviation
     numerator = item_price_set.sum do |num|
-      (num-average_price_per_item)**2
+      (num-average_price_per_item) ** 2
     end
     denominator = (item_price_set.length - 1).to_f
-    std_dev = Math.sqrt(numerator / denominator).round(2)
+    Math.sqrt(numerator / denominator).round(2)
   end
 
   def golden_items

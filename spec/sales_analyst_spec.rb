@@ -23,10 +23,10 @@ RSpec.describe SalesEngine do
 
   it 'can return a hash of the merchant ids and items' do
     expected = {
-      5 => @se.items.find_all_by_merchant_id(5),
-      6 => @se.items.find_all_by_merchant_id(6),
-      7 => @se.items.find_all_by_merchant_id(7)
-    }
+                5 => @se.items.find_all_by_merchant_id(5),
+                6 => @se.items.find_all_by_merchant_id(6),
+                7 => @se.items.find_all_by_merchant_id(7)
+               }
     expect(@sales_analyst.merch_items_hash).to eq(expected)
   end
 
