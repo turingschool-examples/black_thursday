@@ -118,7 +118,6 @@ RSpec.describe ItemRepository do
       description: 'for practice',
       unit_price: BigDecimal(20, 4)
     }
-    require "pry"; binding.pry
     og_time = @repo.find_by_id(5).updated_at
     @repo.update(5, new_attributes)
 
