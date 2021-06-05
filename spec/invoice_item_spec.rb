@@ -38,7 +38,7 @@ RSpec.describe InvoiceItem do
   end
 
   it 'can create new invoice items' do
-    attributes = {
+    attr = {
       :item_id => 21,
       :invoice_id => 3,
       :quantity => 20,
@@ -46,7 +46,7 @@ RSpec.describe InvoiceItem do
     }
 
     allow(@repo).to receive(:new_invoice_item_id).and_return(7)
-    expect(InvoiceItem.create_invoice_item(attributes, @repo)).to be_a(InvoiceItem)
+    expect(InvoiceItem.create_invoice_item(attr, @repo)).to be_a(InvoiceItem)
   end
 
   it 'can update existing invoice items' do
