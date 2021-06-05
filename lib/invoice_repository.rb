@@ -55,6 +55,12 @@ class InvoiceRepository
     @all << new_invoice
   end
 
+  def update(id, attributes)
+    unless find_by_id(id).nil?
+      find_by_id(id).update_invoice(attributes)
+    end 
+  end
+
   def delete(id)
     @all.delete(find_by_id(id))
   end

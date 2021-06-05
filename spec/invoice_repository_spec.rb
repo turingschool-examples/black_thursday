@@ -73,14 +73,20 @@ RSpec.describe InvoiceRepository do
     expect(updated_all).to eq([1, 2, 3, 4])
   end
 
-  xit 'can only update status and nothing else' do
-      attributes_1 = {status: :success}
-      attributes_2 = {
-        id: 50,
-        customer_id: 22,
-        merchant_id: 200,
-        created_at: Time.now
-      }
+  it 'can only update status and nothing else' do
+    attributes_1 = {status: :shipped}
+
+    @repo.update(1, attributes_1)
+
+    expect(@repo.find_by_id(1).status).to eq(:shipped)
+
+    attributes_2 = {
+      id: 50,
+      customer_id: 22,
+      merchant_id: 200,
+      created_at: Time.now
+    }
+
   end
 
 
