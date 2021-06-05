@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/invoice_item'
+require 'bigdecimal'
 
 RSpec.describe InvoiceItemRepository do
   before (:each) do
@@ -57,7 +58,22 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it 'creates new invoice item id number' do
-    expect(@repo.new_id_number).to eq(4)
+    expect(@repo.new_invoice_item_id).to eq(4)
   end
 
+  it 'creates new invoice item instance' do
+    attributes = {
+      :item_id => 21,
+      :invoice_id => 3,
+      :quantity => 20,
+      :unit_price => BigDecimal(11.99, 4),
+      }
+    @repo.create(attributes)
+
+    expect(@repo.all.length).to eq(4)
+    expect(@repo.find_by_id(4).item_id).to eq(21)
+    expect(@repo.find_by_id(4).invoice_id).to eq(3)
+    expect(@repo.find_by_id(4).quantity).to eq(20)
+    expect(@repo.find_by_id(4).unit_price).to eq(0.1199e2)
+  end
 end
