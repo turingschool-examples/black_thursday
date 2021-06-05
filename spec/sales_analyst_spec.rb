@@ -7,11 +7,9 @@ require_relative '../lib/sales_analyst'
 RSpec.describe SalesEngine do
   before :each do
     @se = SalesEngine.from_csv({
-      :items => './spec/fixture_files/item_fixture.csv',
-      :merchants => './spec/fixture_files/merchant_fixture.csv'
-      # :items     => './data/items.csv',
-      # :merchants => './data/merchants.csv'
-    })
+                                :items => './spec/fixture_files/item_fixture.csv',
+                                :merchants => './spec/fixture_files/merchant_fixture.csv'
+                              })
     @sales_analyst = @se.analyst
   end
 
