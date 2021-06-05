@@ -50,8 +50,8 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    new_merchant = Merchant.create_new(attributes)
-    @all_merchants << new_merchant
+    new_invoice = Invoice.create_new(attributes)
+    @all << new_invoice
   end
 
 

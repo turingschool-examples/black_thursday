@@ -40,13 +40,11 @@ RSpec.describe InvoiceRepository do
   end
 
   xit 'can create a new invoice' do
-    attributes = {name: 'Koop'}
+    attributes = { }
 
-    @mock_repo.next_highest_merchant_id
+    @repo.create(attributes)
 
-    @mock_repo.create(attributes)
-
-    expect(@merchant_repo.all_merchants).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5])
+    expect(@repo.all.length).to eq(4)
   end
 
 end
