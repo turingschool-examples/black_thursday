@@ -26,6 +26,7 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
+    # require "pry"; binding.pry
     @all.select do |invoice|
       invoice.customer_id == customer_id
     end
@@ -54,5 +55,8 @@ class InvoiceRepository
     @all << new_invoice
   end
 
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 
 end

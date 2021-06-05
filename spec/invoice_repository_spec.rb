@@ -20,19 +20,36 @@ RSpec.describe InvoiceRepository do
   expect(@repo.find_by_id(3).merchant_id).to eq(103)
   end
 
-  xit 'can find all invoices by customer id' do
-    expect(@repo.find_all_by_customer_id(1).id).to eq([1, 3])
+  it 'can find all invoices by customer id' do
+    merchant_id = []
+    @repo.find_all_by_customer_id(1).each do |invoice|
+      merchant_id << invoice.merchant_id
+    end
+
+    expect(merchant_id).to eq([101, 103])
+
     expect(@repo.find_all_by_customer_id(200)).to eq([])
   end
 
-  xit 'can find all invoices by merchant id' do
-    expect(@repo.find_all_by_merchant_id(101).customer_id).to eq([1])
+  it 'can find all invoices by merchant id' do
+    invoice_id = []
+    @repo.find_all_by_merchant_id(101).each do |invoice|
+      invoice_id << invoice.id
+    end
+
+    expect(invoice_id).to eq([1])
+
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
 
-  xit 'can find all invoices by merchant id' do
-    expect(@repo.find_all_by_status("pending")).to eq([1])
-    expect(@repo.find_all_by_status("sent")).to eq([])
+  it 'can find all invoices by merchant id' do
+    invoice_id = []
+    @repo.find_all_by_status(:pending).each do |invoice|
+      invoice_id << invoice.id
+    end
+    expect(invoice_id).to eq([1])
+
+    expect(@repo.find_all_by_status(:sent)).to eq([])
   end
 
   it 'creates the next highest merchant id' do
@@ -40,11 +57,41 @@ RSpec.describe InvoiceRepository do
   end
 
   xit 'can create a new invoice' do
-    attributes = { }
+    attributes = {
+      :customer_id => 2,
+      :merchant_id => 104,
+      :status      => "pending"
+    }
 
     @repo.create(attributes)
 
-    expect(@repo.all.length).to eq(4)
+    updated_all = []
+    @repo.all.each do |invoice|
+      updated_all << invoice.id
+    end
+
+    expect(updated_all).to eq([1, 2, 3, 4])
+  end
+
+  xit 'can only update status and nothing else' do
+      attributes_1 = {status: :success}
+      attributes_2 = {
+        id: 50,
+        customer_id: 22,
+        merchant_id: 200,
+        created_at: Time.now
+      }
+  end
+
+
+  it 'can delete the merchant by id' do
+      @repo.delete(2)
+
+      updated_all = []
+      @repo.all.each do |invoice|
+        updated_all << invoice.merchant_id
+      end
+        expect(updated_all).to eq([101, 103])
   end
 
 end
