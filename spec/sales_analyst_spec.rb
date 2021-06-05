@@ -49,7 +49,7 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.merchants_with_high_item_count).to eq([@se.merchants.find_by_id(7)])
   end
 
-  it 'can return the average item price for a specific merchant' do
+  it 'can return the item prices for a specific merchant' do
     expect(@sales_analyst.price_of_items_for_merch(7)).to eq([12.0, 20.0]) # => BigDecimal
   end
 

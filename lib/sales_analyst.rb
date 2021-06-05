@@ -5,6 +5,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
+    require "pry"; binding.pry
     (@engine.items.all.length / @engine.merchants.all.length.to_f).round(2)
   end
 
@@ -43,19 +44,19 @@ class SalesAnalyst
 
   def price_of_items_for_merch(merchant_id)
     merch_items_hash[merchant_id].map do |item|
-      item.unit_price_to_dollars
+      item.unit_price
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
-    price_of_items_for_merch(merchant_id).sum / price_of_items_for_merch(merchant_id).length
+    (price_of_items_for_merch(merchant_id).sum / price_of_items_for_merch(merchant_id).length).round(2)
   end
 
   def average_average_price_per_merchant
     avg_price_per_merch = merch_items_hash.keys.map do |id|
       average_item_price_for_merchant(id)
     end
-    (avg_price_per_merch.sum / avg_price_per_merch.length).round(2)
+    (avg_price_per_merch.sum / avg_price_per_merch.length).floor(2)
   end
 
   def item_price_set
