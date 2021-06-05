@@ -8,9 +8,9 @@ RSpec.describe Item do
   it 'exists' do
     i = Item.new({
       :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10,4),
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => BigDecimal(10, 4),
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s,
       :merchant_id => 2
@@ -22,9 +22,9 @@ RSpec.describe Item do
   it 'initializes with attributes' do
     data = {
       :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => BigDecimal(10.99, 4),
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s,
       :merchant_id => 2
@@ -40,12 +40,11 @@ RSpec.describe Item do
     expect(i.merchant_id).to eq(data[:merchant_id])
   end
 
-
   it 'Returns the item price in dollars' do
     data = {
       :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
       :unit_price  => BigDecimal(6000, 4),
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s,
