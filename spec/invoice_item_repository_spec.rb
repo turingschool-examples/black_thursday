@@ -10,4 +10,11 @@ RSpec.describe InvoiceItemRepository do
   it 'exists' do
     expect(@repo).to be_a(InvoiceItemRepository)
   end
+
+  it 'returns all' do
+    expect(@repo.all.length).to eq(3)
+    @repo.all.each do |item|
+      expect(item).to be_a(InvoiceItem)
+    end
+  end
 end
