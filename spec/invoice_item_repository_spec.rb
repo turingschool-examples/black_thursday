@@ -66,7 +66,7 @@ RSpec.describe InvoiceItemRepository do
       :item_id => 21,
       :invoice_id => 3,
       :quantity => 20,
-      :unit_price => BigDecimal(11.99, 4),
+      :unit_price => 1199,
     }
     @repo.create(attributes)
 
