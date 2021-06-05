@@ -26,7 +26,7 @@ RSpec.describe do
   end
 
   it 'can update old merchants' do
-    @merchant.update_merchant(5, {name: 'New Turing'})
+    @merchant.update_merchant({name: 'New Turing'})
     expect(@merchant.id).to eq(5)
     expect(@merchant.name).to eq('New Turing')
   end

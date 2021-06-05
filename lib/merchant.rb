@@ -14,7 +14,7 @@ class Merchant
     new(data_hash, merchant_repo)
   end
 
-  def update_merchant(id, attributes)
+  def update_merchant(attributes)
     @name = attributes[:name]
   end
 end
