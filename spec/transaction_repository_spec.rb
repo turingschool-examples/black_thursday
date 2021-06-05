@@ -58,6 +58,19 @@ RSpec.describe TransactionRepository do
 
     expect(@repo.all.length).to eq(5)
     expect(@repo.find_by_id(2).credit_card_number).to eq('1111111')
+    expect(@repo.update(99999, attributes)).to eq(nil)
+  end
+
+  it "#update updates a transaction" do
+      original_time = @repo.find_by_id(2).updated_at
+      attributes = {
+        result: :failed
+      }
+      @repo.update(2, attributes)
+      expected = @repo.find_by_id(2)
+      expect(expected.result).to eq :failed
+      expect(expected.credit_card_expiration_date).to eq "0202"
+      # expect(expected.updated_at).to be > original_time
   end
 
   it 'can delete a transaction' do

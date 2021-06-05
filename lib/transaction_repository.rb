@@ -1,3 +1,5 @@
+require_relative '../lib/transaction'
+
 class TransactionRepository
   attr_reader :all
   def initialize(path)
@@ -31,7 +33,7 @@ class TransactionRepository
 
   def find_all_by_result(result)
     @all.find_all do |transaction|
-      transaction.result == result
+      transaction.result == result.to_sym
     end
   end
 
@@ -47,10 +49,16 @@ class TransactionRepository
   end
 
   def update(id, attributes)
-    self.find_by_id(id).update(attributes)
+    unless find_by_id(id).nil?
+      find_by_id(id).update(attributes)
+    end
   end
 
   def delete(id)
     @all.delete(self.find_by_id(id))
+  end
+
+  def inspect
+    "#{self.class} #{@transactions.size} rows"
   end
 end
