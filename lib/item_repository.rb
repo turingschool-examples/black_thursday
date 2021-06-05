@@ -58,7 +58,7 @@ class ItemRepository
   end
 
   def create(attributes, new_id)
-    new_item = Item.make_item(attributes, self)
+    new_item = Item.make_item(attributes, new_id)
     @all << new_item
   end
 #Do we need to add this item that is created to @all?

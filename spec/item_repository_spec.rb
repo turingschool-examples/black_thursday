@@ -70,13 +70,13 @@ RSpec.describe ItemRepository do
         :unit_price  => BigDecimal(1000),
         :created_at  => '1993-09-29 11:56:40 UTC',
         :updated_at  => '2016-01-11 11:51:37 UTC',
-        :merchant_id => 928374653
+        :merchant_id => 21
       }
-      @ir.create(attributes)
+      @ir.create(attributes, 21)
       new_item = @ir.all[-1]
-      expect(new_item.id).to eq(268716493)
+      expect(new_item.id).to eq(21)
       expect(@ir.all.length).to eq(21)
-      expect(@ir.find_by_id(268716493).name).to eq("Airplanes")
+      expect(@ir.find_by_id(21).name).to eq("Airplanes")
     end
 
     xit 'updates item by id with given attributes' do
