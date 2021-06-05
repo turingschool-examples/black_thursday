@@ -4,6 +4,7 @@ require_relative 'transaction_repository'
 require 'csv'
 
 class SalesEngine
+  attr_reader :items, :merchants, :transactions
   def initialize(path)
     @items = path[:items]
     @merchants = path[:merchants]
