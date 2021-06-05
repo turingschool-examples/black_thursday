@@ -63,34 +63,38 @@ RSpec.describe ItemRepository do
     end
 
     it 'creates a new item instance with given attributes' do
+      # allow(Time).to receive(:strftime).with('%Y-%m-%d').and_return("current time")
+      # allow(Time).to receive(:now).and_return("current time")
       attributes = {
         'id'         => nil,
         'name'        => "Airplanes",
         'description' => "They fly super dooper",
         'unit_price'  => BigDecimal(1000),
-        'created_at'  => '1993-09-29 11:56:40 UTC',
-        'updated_at'  => '2016-01-11 11:51:37 UTC',
+        'created_at'  => nil,
+        'updated_at'  => nil,
         'merchant_id' => 21
       }
       @ir.create(attributes)
       new_item = @ir.all[-1]
       expect(new_item.id).to eq(21)
       expect(@ir.all.length).to eq(21)
+      # expect(new_item.created_at).to eq("current time")
+      # expect(new_item.updated_at).to eq("current time")
       expect(@ir.find_by_id(21).name).to eq("Airplanes")
       @ir.create(attributes)
       newer_item = @ir.all.last
       expect(newer_item.id).to eq(22)
     end
 
-    xit 'updates item by id with given attributes' do
+    it 'updates item by id with given attributes' do
       allow(Time).to receive(:now).and_return("current time")
 
       attributes = {
-        :name        => "pens",
-        :description => "They cant be erased",
-        :unit_price  => BigDecimal(5)
+        'name'        => "pens",
+        'description' => "They cant be erased",
+        'unit_price'  => BigDecimal(5)
       }
-      @ir.update(263395295, attributes)
+      @ir.update(2, attributes)
 
       expect(@item1.name).to eq("pens")
       expect(@item1.description).to eq("They cant be erased")

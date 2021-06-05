@@ -25,4 +25,10 @@ class Item
 
   # def self.make_item()
   # end
+def update_item(attributes)
+  update_item.name = attributes['name']
+  update_item.description = attributes['description']
+  update_item.unit_price = attributes['unit_price']
+  update_item.updated_at = Time.now
+end
 end

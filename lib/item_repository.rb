@@ -53,15 +53,14 @@ class ItemRepository
   def create(attributes)
     item_id = @all.max { |item| item.id}
     attributes['id'] = item_id.id + 1
+    # attributes['created_at'] = Time.now.strftime("%Y-%m-%d")
+    # attributes['updated_at'] = Time.now.strftime("%Y-%m-%d")
     @all << Item.new(attributes, self)
   end
 
   def update(id, attributes)
-    update_item = find_by_id(id)
-    update_item.name = attributes[:name]
-    update_item.description = attributes[:description]
-    update_item.unit_price = attributes[:unit_price]
-    update_item.updated_at = Time.now
+    item = find_by_id(id)
+    item.update_item(attributes)
   end
 
   def delete(id)
