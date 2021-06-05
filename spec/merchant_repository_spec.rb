@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative 'spec_helper'
 
 RSpec.describe MerchantRepository do
   describe '#initialize' do
@@ -55,7 +55,6 @@ RSpec.describe MerchantRepository do
       path = 'fixture/merchant_fixture.csv'
       merchant_repo = MerchantRepository.new(path)
 
-      merchant_repo.create_merchants(path)
       name = 'french'
       expected = merchant_repo.find_all_by_name(name)
 

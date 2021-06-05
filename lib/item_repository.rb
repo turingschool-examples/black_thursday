@@ -1,20 +1,29 @@
-require './item'
-require 'CSV'
+require 'spec_helper'
 
 class ItemRepository
-  attr_reader :all,
-              :path
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+  attr_reader :all
 
   def initialize(path)
-    @all = create_items(path)
-    @path = path
+    @all = []     
+    create_items(path)
   end
 
   def create_items(path)
-    items = CSV.read(path, headers: true, header_converters: :symbol)
-    items.map do |item_data|
-      Item.new(item_data)
-
+    items = CSV.foreach(path, headers: true, header_converters: :symbol) do |item_data|
+    # items.map do |item_data|
+      data_hash = { 
+        id:           item_data[:id],
+        name:         item_data[:name],
+        description:  item_data[:description],
+        unit_price:   BigDecimal(item_data[:unit_price]),
+        created_at:   Time.parse(item_data[:created_at]),
+        updated_at:   Time.parse(item_data[:updated_at]),
+        merchant_id:  item_data[:merchant_id].to_i
+      }
+      @all << Item.new(data_hash)
     end
   end
 

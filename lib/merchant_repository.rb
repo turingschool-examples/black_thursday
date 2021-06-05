@@ -1,19 +1,25 @@
-require './merchant'
-require 'CSV'
+require 'spec_helper'
 
 class MerchantRepository
-  attr_reader :all,
-              :path
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+  attr_reader :all
 
   def initialize(path)
-    @path = path
-    @all = create_merchants(path)
+    @all = []
+    create_merchants(path)
   end
 
   def create_merchants(path)
-    merchants = CSV.read(path, headers: true, header_converters: :symbol)
-    merchants.map do |data|
-      Merchant.new(data)
+    merchants = CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant_data|
+      merchant_hash = {
+        id:         merchant_data[:id].to_i,
+        name:       merchant_data[:name],
+        created_at: merchant_data[:created_at],
+        updated_at: merchant_data[:updated_at]
+      }
+      @all << Merchant.new(merchant_hash)
     end
   end
 
