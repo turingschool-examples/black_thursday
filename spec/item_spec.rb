@@ -10,7 +10,7 @@ RSpec.describe Item do
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal(10.99,4),
-      :created_at  => Time.now,
+      :created_at  => "2021-06-01 18:37:52.006093 -0400",
       :updated_at  => Time.now,
       :merchant_id => 2
       }, nil)
@@ -24,7 +24,7 @@ RSpec.describe Item do
       :description => "You can use it to write things",
       :unit_price  => BigDecimal(10.99,4),
       :created_at  => "2021-06-01 18:37:52.006093 -0400",
-      :updated_at  => "2021-06-01 18:45:18.245169000 -0400",
+      :updated_at  => Time.now,
       :merchant_id => 2
       }, nil)
 
@@ -33,7 +33,8 @@ RSpec.describe Item do
     expect(i.description).to eq("You can use it to write things")
     expect(i.unit_price).to eq(BigDecimal(10.99,4))
     expect(i.created_at).to eq("2021-06-01 18:37:52.006093 -0400")
-    expect(i.updated_at).to eq("2021-06-01 18:45:18.245169000 -0400")
+    result = i.updated_at.to_s[0..3]
+    expect(result).to eq("2021")
     expect(i.merchant_id).to eq(2)
   end
 
@@ -43,11 +44,13 @@ RSpec.describe Item do
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal(10.99,4),
-      :created_at  => Time.now,
+      :created_at  => "2021-06-01 18:37:52.006093 -0400",
       :updated_at  => Time.now,
       :merchant_id => 2
       }, nil)
 
-    expect(i.unit_price_to_dollars).to eq(10.99)
+    expect(i.unit_price_to_dollars).to eq("$10.99")
   end
+
+
 end

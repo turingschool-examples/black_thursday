@@ -17,5 +17,4 @@ class SalesEngine
   def analyst
     SalesAnalyst.new
   end
-
 end
