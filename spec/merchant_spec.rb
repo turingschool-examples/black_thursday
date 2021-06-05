@@ -17,4 +17,12 @@ RSpec.describe Merchant do
     expect(m.id).to eq(data[:id])
     expect(m.name).to eq(data[:name])
   end
+
+  it 'can update name' do
+    m = Merchant.new({:id => 5, :name => 'Turing School'})
+
+    m.update({:name => 'Turing School of Witchcraft and Wizardry'})
+
+    expect(m.name).to eq('Turing School of Witchcraft and Wizardry')
+  end
 end

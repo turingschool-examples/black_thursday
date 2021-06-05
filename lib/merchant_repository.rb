@@ -47,10 +47,10 @@ class MerchantRepository
     merchant
   end
 
-  def update(id, new_name)
-    name_edit = find_by_id(id)
-    if name_edit != nil
-      name_edit.name = new_name[:name]
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    if !merchant.nil?
+      merchant.update(attributes)
     end
   end
 
