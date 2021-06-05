@@ -40,4 +40,20 @@ RSpec.describe InvoiceItemRepository do
     expect(@repo.find_all_by_item_id(50)).to eq([])
   end
 
+  it 'returns invoice item by invoice id number' do
+    ids = []
+    @repo.find_all_by_invoice_id(1).each do |invoice_item|
+      ids << invoice_item.id
+    end
+    expect(ids).to eq([1, 2])
+
+    ids = []
+    @repo.find_all_by_invoice_id(2).each do |invoice_item|
+      ids << invoice_item.id
+    end
+    expect(ids).to eq([3])
+
+    expect(@repo.find_all_by_invoice_id(50)).to eq([])
+  end
+
 end
