@@ -70,7 +70,6 @@ RSpec.describe TransactionRepository do
       expected = @repo.find_by_id(2)
       expect(expected.result).to eq :failed
       expect(expected.credit_card_expiration_date).to eq "0202"
-      # expect(expected.updated_at).to be > original_time
   end
 
   it 'can delete a transaction' do
