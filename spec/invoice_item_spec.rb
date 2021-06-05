@@ -43,20 +43,10 @@ RSpec.describe InvoiceItem do
     expect(@ii.quantity).to eq(2)
     expect(@ii.unit_price_to_dollars).to eq(25.99)
     expect(@ii.updated_at).to be_a(Time)
-
   end
-  it 'Can change unit price to dollars' do
-    ii = InvoiceItem.new({
-      :id           => 6,
-      :item_id      => 7,
-      :invoice_id   => 8,
-      :quantity     => 1,
-      :unit_price   => BigDecimal(1099),
-      :created_at   => '2021-06-11 09:34:06 UTC',
-      :updated_at   => '2021-06-11 09:34:06 UTC'
-    })
 
-    expect(ii.unit_price).to be_a(BigDecimal)
-    expect(ii.unit_price_to_dollars).to eq(10.99)
+  it 'Can change unit price to dollars' do
+    expect(@ii.unit_price).to be_a(BigDecimal)
+    expect(@ii.unit_price_to_dollars).to eq(10.99)
   end
 end
