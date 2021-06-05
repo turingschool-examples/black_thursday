@@ -58,7 +58,9 @@ class TransactionRepository
     @all.delete(self.find_by_id(id))
   end
 
+  # :nocov:
   def inspect
     "#{self.class} #{@transactions.size} rows"
   end
+  # :nocov:
 end
