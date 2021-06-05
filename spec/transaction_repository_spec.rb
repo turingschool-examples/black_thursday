@@ -11,7 +11,9 @@ RSpec.describe TransactionRepository do
   end
 
   it 'can create transaction instances' do
-    expect(@repo.all.length).to eq(5)
+    @repo.all.each do |transaction|
+      expect(transaction).to be_a(Transaction)
+    end
   end
 
   it 'can find transactions by id' do
