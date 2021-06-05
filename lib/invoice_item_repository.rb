@@ -42,4 +42,10 @@ class InvoiceItemRepository
     @all << InvoiceItem.create_invoice_item(attributes, self)
   end
 
+  def update(id, attributes)
+    unless find_by_id(id).nil?
+      find_by_id(id).update_invoice_item(attributes)
+    end
+  end
+
 end
