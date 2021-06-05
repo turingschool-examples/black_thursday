@@ -10,6 +10,6 @@ class Merchant
   end
 
   def update_merchant(attributes)
-    @name = attributes['name']
+    @name = attributes['name'] unless attributes['name'].nil?
   end
 end

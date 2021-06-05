@@ -53,8 +53,8 @@ class ItemRepository
   def create(attributes)
     item_id = @all.max { |item| item.id}
     attributes['id'] = item_id.id + 1
-    attributes['created_at'] = Time.now.strftime("%Y-%m-%d")
-    attributes['updated_at'] = Time.now.strftime("%Y-%m-%d")
+    # attributes['created_at'] = Time.now.strftime("%Y-%m-%d")
+    # attributes['updated_at'] = Time.now.strftime("%Y-%m-%d")
     @all << Item.new(attributes, self)
   end
 
