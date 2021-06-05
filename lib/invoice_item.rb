@@ -33,4 +33,9 @@ class InvoiceItem
     end
     new(data_hash, repo)
   end
+
+  def update_invoice_item(attributes)
+    @quantity = attributes[:quantity].to_i
+    @unit_price = attributes[:unit_price]
+  end
 end
