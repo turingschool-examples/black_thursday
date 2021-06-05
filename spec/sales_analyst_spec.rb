@@ -18,7 +18,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return average items per merchant' do
-    expect(@sales_analyst.average_items_per_merchant).to eq(1.33)
+    expect(@sales_analyst.average_items_per_merchant).to eq(1.67)
   end
 
   it 'can return a hash of the merchant ids and items' do
@@ -31,7 +31,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return items by merchant count' do
-    expect(@sales_analyst.items_by_merch_count).to eq([1, 1, 2])
+    expect(@sales_analyst.items_by_merch_count).to eq([1, 1, 3])
   end
 
   it 'can return average items per merchant standard deviation' do
@@ -41,7 +41,7 @@ RSpec.describe SalesEngine do
     # std_dev = sqrt( ( .6667 / 2 )
     # std_dev = sqrt( ( .33335 )
     # std_dev = .578
-    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.58)
+    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.15)
   end
 
   it 'can return merchants with high item count' do
@@ -49,28 +49,28 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.merchants_with_high_item_count).to eq([@se.merchants.find_by_id(7)])
   end
 
-  it 'can return the average item price for a specific merchant' do
-    expect(@sales_analyst.price_of_items_for_merch(7)).to eq([12.0, 20.0]) # => BigDecimal
+  it 'can return the item prices for a specific merchant' do
+    expect(@sales_analyst.price_of_items_for_merch(7)).to eq([12.0, 20.0, 10_000.0]) # => BigDecimal
   end
 
   it 'can return the average item price for a specific merchant' do
-    expect(@sales_analyst.average_item_price_for_merchant(7)).to eq(16) # => BigDecimal
+    expect(@sales_analyst.average_item_price_for_merchant(7)).to eq(3_344) # => BigDecimal
   end
 
   it 'can return the average price per merchant' do
-    expect(@sales_analyst.average_average_price_per_merchant).to eq(12.67) # => BigDecimal
+    expect(@sales_analyst.average_average_price_per_merchant).to eq(1_122) # => BigDecimal
   end
 
   it 'can return a set of item prices' do
-    expect(@sales_analyst.item_price_set).to eq([10, 12, 12, 20])
+    expect(@sales_analyst.item_price_set).to eq([10, 12, 12, 20, 10_000])
   end
 
   it 'can average prices of items' do
-    expect(@sales_analyst.average_price_per_item).to eq(13.50)
+    expect(@sales_analyst.average_price_per_item).to eq(2_010.80)
   end
 
   it 'can average prices of items by standard deviation' do
-    expect(@sales_analyst.average_price_per_item_standard_deviation).to eq(5.43)
+    expect(@sales_analyst.average_price_per_item_standard_deviation).to eq(4_466.10)
   end
 
   it 'can return golden items' do
