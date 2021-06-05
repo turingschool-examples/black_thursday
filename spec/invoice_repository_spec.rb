@@ -14,10 +14,15 @@ RSpec.describe InvoiceRepository do
     expect(@repo.all.length).to eq(3)
   end
 
-  it 'can find a merchant by id' do
+  it 'can find an invoice by id' do
   expect(@repo.find_by_id(1).merchant_id).to eq(101)
   expect(@repo.find_by_id(200)).to eq(nil)
   expect(@repo.find_by_id(3).merchant_id).to eq(103)
+  end
+
+  it 'can find all invoices by customer_id' do
+    expect(@repo.find_all_by_customer_id(1).id).to eq([1, 3])
+    expect(@repo.find_all_by_customer_id(200)).to eq([])
   end
 
 end

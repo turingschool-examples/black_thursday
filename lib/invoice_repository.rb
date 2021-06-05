@@ -24,12 +24,13 @@ class InvoiceRepository
       invoice.id == id
     end
   end
-  #
-  # def find_all_by_customer_id(id)
-  #   @all_merchants.find do |merchant|
-  #     merchant.id == id
-  #   end
-  # end
+
+  def find_all_by_customer_id(customer_id)
+    # require "pry"; binding.pry
+    @all.select do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
 
 
 end
