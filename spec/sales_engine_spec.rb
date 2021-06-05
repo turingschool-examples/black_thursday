@@ -10,6 +10,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'has attributes' do
+    #Change to 'items' / 'merchants'
     expect(@se.items_repo).to be_an_instance_of(ItemRepository)
 
     expect(@se.merchants_repo).to be_an_instance_of(MerchantRepository)
