@@ -1,5 +1,4 @@
 require_relative 'spec_helper'
-require 'CSV'
 
 RSpec.describe Item do
   before :each do

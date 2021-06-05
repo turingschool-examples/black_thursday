@@ -1,5 +1,4 @@
 require_relative 'spec_helper'
-require 'CSV'
 
 RSpec.describe ItemRepository do
   describe 'instantiation' do
@@ -21,8 +20,8 @@ RSpec.describe ItemRepository do
       expect(all.first.name).to eq("Glitter scrabble frames")
       expect(all.first.description).to be_a(String)
       expect(all.first.unit_price).to eq(1300)
-      expect(all.first.created_at).to be_a(String)
-      expect(all.first.updated_at).to be_a(String)
+      expect(all.first.created_at).to be_a(Time)
+      expect(all.first.updated_at).to be_a(Time)
       expect(all.first.merchant_id).to eq(12334185)
     end
   end
