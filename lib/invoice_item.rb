@@ -18,4 +18,8 @@ class InvoiceItem
     @updated_at = item[:updated_at]
     @repo = repo
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
 end
