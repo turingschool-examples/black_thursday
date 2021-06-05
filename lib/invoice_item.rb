@@ -22,4 +22,15 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def self.create_invoice_item(attributes, repo)
+    data_hash = Hash.new
+    data_hash[:id] = repo.new_invoice_item_id
+    data_hash[:created_at] = Time.now
+    data_hash[:updated_at] = Time.now
+    attributes.each do |att, value|
+      data_hash[att] = value
+    end
+    new(data_hash, repo)
+  end
 end
