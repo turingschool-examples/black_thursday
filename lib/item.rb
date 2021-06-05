@@ -21,14 +21,13 @@ class Item
   end
 
   def set_time(time)
-    if time == nil
+    if time.nil?
       Time.now
     elsif time.empty?
       Time.now
     else
       Time.parse(time)
     end
-    # require "pry"; binding.pry
   end
 
   def unit_price_to_dollars
