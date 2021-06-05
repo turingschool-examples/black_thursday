@@ -9,9 +9,11 @@ class ItemRepository
     create_items(path)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
+  # :nocov:
 
   def create_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol).each do |item|
@@ -33,7 +35,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     @all.find_all do |item|
-      item.description == description
+      item.description.upcase == description.upcase
     end
   end
 
@@ -55,17 +57,19 @@ class ItemRepository
     end
   end
 
-  def new_id_number
+  def new_item_id_number
     item = @all.max_by { |item| item.id }
     item.id + 1
   end
 
   def create(attributes)
-    @all << Item.add_item(attributes, new_id_number)
+    @all << Item.create_item(attributes, self)
   end
 
   def update(id, attributes)
-    find_by_id(id).update(attributes)
+    unless find_by_id(id).nil?
+      find_by_id(id).update_item(attributes)
+    end
   end
 
   def delete(id)
