@@ -37,5 +37,6 @@ class InvoiceItem
   def update_invoice_item(attributes)
     @quantity = attributes[:quantity].to_i
     @unit_price = attributes[:unit_price]
+    @updated_at = Time.now
   end
 end
