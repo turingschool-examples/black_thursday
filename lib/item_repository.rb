@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'time' 
+require 'time'
 
 class ItemRepository
   def inspect
@@ -14,12 +14,12 @@ class ItemRepository
 
   def create_items(path)
     items = CSV.foreach(path, headers: true, header_converters: :symbol) do |item_data|
-    # items.map do |item_data|
       data_hash = {
         id:           item_data[:id],
         name:         item_data[:name],
         description:  item_data[:description],
-        unit_price:   BigDecimal(item_data[:unit_price]),
+        #bigdecimal goes in front of item data with a parens after
+        unit_price:   item_data[:unit_price],
         created_at:   Time.parse(item_data[:created_at]),
         updated_at:   Time.parse(item_data[:updated_at]),
         merchant_id:  item_data[:merchant_id].to_i
@@ -47,18 +47,15 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @all.find_all do |item|
-      if item.description.downcase.include?(description.downcase)
-        return item
-      end
+    found_items = @all.find_all do |item|
+      item.description.downcase.include?(description.downcase)
     end
+    found_items
   end
 
   def find_all_by_price(price)
     @all.find_all do |item|
-      if item.unit_price == price
-        return item
-      end
+      item.unit_price == price
     end
   end
 
@@ -84,14 +81,15 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    @all.find do |item|
-      if item.id == id
-        item.update_name(attributes[:name])
-        item.update_description(attributes[:description])
-        item.update_unit_price(attributes[:unit_price])
-        item.update_updated_at
-      end
+    found_item = @all.find do |item|
+      item.id == id
     end
+    # attributes.each do |key, value| #{this is a hash} lol jk
+    #   if found_item.item_data.has_key?(key) == true
+    #     item.item_hash[key] = value
+    #       puts true
+    #   end
+    # end
   end
 
   def delete(id, attributes)

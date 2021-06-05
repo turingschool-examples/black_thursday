@@ -5,7 +5,8 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :item_data
 
   def initialize(item_data)
     @id = item_data[:id].to_i
@@ -15,6 +16,7 @@ class Item
     @created_at = item_data[:created_at]
     @updated_at = item_data[:updated_at]
     @merchant_id = item_data[:merchant_id].to_i
+    @item_data = item_data
   end
 
   def unit_price_to_dollars
@@ -39,5 +41,9 @@ class Item
 
   def update_updated_at
     @updated_at = Time.now
+  end
+
+  def item_hash
+    @item_data
   end
 end

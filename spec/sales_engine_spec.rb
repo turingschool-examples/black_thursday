@@ -16,10 +16,15 @@ RSpec.describe SalesEngine do
     end
   end
 
-  describe 'merchant repository' do
+  describe 'Access to repositories' do
     it 'has access to MerchantRepository' do
       expect(@engine.merchants).to be_a(MerchantRepository)
       expect(@engine.all_merchants).to be_an(Array)
+    end
+
+    it 'has access to ItemRepository' do
+      expect(@engine.items).to be_a(ItemRepository)
+      expect(@engine.all_items).to be_an(Array)
     end
   end
 end

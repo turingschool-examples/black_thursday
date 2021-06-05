@@ -1,11 +1,11 @@
 require_relative '../spec/spec_helper'
 
 class SalesEngine
-  attr_reader :item_repo,
+  attr_reader :items,
               :merchants
 
   def initialize(paths)
-    @item_repo = ItemRepository.new(paths[:items])
+    @items = ItemRepository.new(paths[:items])
     @merchants = MerchantRepository.new(paths[:merchants])
   end
 
@@ -15,5 +15,9 @@ class SalesEngine
 
   def all_merchants
     @merchants.all
+  end
+
+  def all_items
+    @items.all
   end
 end

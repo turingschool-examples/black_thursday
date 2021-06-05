@@ -66,9 +66,9 @@ RSpec.describe ItemRepository do
       description = "Vogue Paris Original 2307; ca. 1980; Givenchy - Dress, fitted through the bustline with back-lapped bodice and straight front-wrapped lined skirt, four inches below mid-knee or evening length, has bodice pleated at right shoulder (no shoulder seam) and bodice front and skirt front and back gathered into waistline seam. Left side of skirt has draped waistline extension. Skirt lining has side zipper closing and deep left side hemline slit. Skirt has shaped hemline.\n\nFeatured in Vogue Patterns May/June 1980\n\nSize 14\n\nRefer to image for size info\n\nEnvelope shows storage wear and crumpling, opened to one side."
       expected = item_repo.find_all_with_description("dRESS, fitted through the bustline with back-lapped bodice and straight front-wrapped lined skirt")
 
-      expect(expected).to be_an(Item)
-      expect(expected.description).to eq(description)
-      expect(expected.id).to eq(263396209)
+      expect(expected).to be_an(Array)
+      expect(expected.first.description).to eq(description)
+      expect(expected.first.id).to eq(263396209)
 
       description = "llama smiles"
       expected = item_repo.find_all_with_description(description)
@@ -83,8 +83,8 @@ RSpec.describe ItemRepository do
     price = 2999
     expected = item_repo.find_all_by_price(price)
 
-    expect(expected).to be_an(Item)
-    expect(expected.unit_price).to eq(price)
+    expect(expected).to be_an(Array)
+    expect(expected.first.unit_price).to eq(price)
 
     price = 10
     expected = item_repo.find_all_by_price(price)
@@ -159,6 +159,13 @@ RSpec.describe ItemRepository do
       expect(item_repo.all.last.name).to eq("llama wink bikini")
       expect(item_repo.all.last.description).to eq("It's like, a bikini with a llama on it that winks at you. Buy it.")
       expect(item_repo.all.last.unit_price).to eq(962)
+
+      attributes = {:unit_price  => 42069}
+
+      id = 263395617
+      item_repo.update(id, attributes)
+      expect(item_repo.all.first.unit_price).to eq(42069)
+      expect(item_repo.all.first.name).to eq('Glitter scrabble frames')
     end
 
     it 'can delete an item with the corresponding id and attributes' do

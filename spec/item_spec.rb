@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 RSpec.describe Item do
   before :each do
-    item_data = {
+    @item_data = {
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -11,7 +11,7 @@ RSpec.describe Item do
       :updated_at  => Time.now,
       :merchant_id => 2
     }
-    @item = Item.new(item_data)
+    @item = Item.new(@item_data)
   end
 
   describe 'instantiation' do
@@ -32,6 +32,7 @@ RSpec.describe Item do
 
   describe 'methods' do
     it 'returns unit price to dollars as a float' do
+      require "pry"; binding.pry
       expect(@item.unit_price_to_dollars).to eq(10.99)
     end
   end
