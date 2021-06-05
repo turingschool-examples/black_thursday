@@ -8,8 +8,9 @@ RSpec.describe SalesEngine do
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoice => "./data/invoices.csv",
-      :transactions => "./data/transactions.csv"
+      :invoices => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv",
+      :invoice_items => "./data/invoice_items.csv"
     })
   end
   it 'exists' do
