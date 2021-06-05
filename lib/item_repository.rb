@@ -50,11 +50,22 @@ class ItemRepository
     end
   end
 
-#Do we need to add this item that is created to @all?
   def create(attributes)
+    item_with_max_id = @all.max_by do |item|
+      item.id
+    end
+    attributes = Hash.new
+    attributes[:id] = item_with_max_id.id + 1
+    require "pry"; binding.pry
     new_item = Item.new(attributes, self)
     @all << new_item
   end
+#Do we need to add this item that is created to @all?
+  # def create(attributes)
+  #   new_item = Item.new(attributes, self)
+  #   new_id = new_item.id
+  #   @all << new_id
+  # end
 
   def update(id, attributes)
     update_item = find_by_id(id)

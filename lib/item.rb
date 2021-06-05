@@ -23,10 +23,6 @@ class Item
     '%.2f' % "#{@unit_price}"
   end
 
-  def new_id
-    item_with_max_id = @repo.all.max_by do |item|
-      item.id
-    end
-    item_with_max_id.id + 1
+  def make_item
   end
 end

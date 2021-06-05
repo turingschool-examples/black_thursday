@@ -20,15 +20,15 @@ RSpec.describe ItemRepository do
     end
 
     it 'generates Item instances' do
-      expect(@item1.id).to eq(263395295)
+      expect(@item1.id).to eq(2)
       expect(@item1.name).to eq('pencils')
-      expect(@item2.id).to eq(268716492)
+      expect(@item2.id).to eq(20)
       expect(@item2.name).to eq('mattress')
     end
 
     it 'returns item with matching ID or nil' do
-      expect(@ir.find_by_id(263395295)).to eq(@item1)
-      expect(@ir.find_by_id(268716492)).to eq(@item2)
+      expect(@ir.find_by_id(2)).to eq(@item1)
+      expect(@ir.find_by_id(20)).to eq(@item2)
       expect(@ir.find_by_id(268666423)).to eq(nil)
     end
 
@@ -57,8 +57,8 @@ RSpec.describe ItemRepository do
     end
 
     it 'returns items by merchant id' do
-      expect(@ir.find_all_by_merchant_id(123346512)).to eq([@item1])
-      expect(@ir.find_all_by_merchant_id(123341356)).to eq([@item2])
+      expect(@ir.find_all_by_merchant_id(02)).to eq([@item1])
+      expect(@ir.find_all_by_merchant_id(20)).to eq([@item2])
       expect(@ir.find_all_by_merchant_id(111111111)).to eq([])
     end
 
@@ -75,6 +75,8 @@ RSpec.describe ItemRepository do
       @ir.create(attributes)
       new_item = @ir.all[-1]
       expect(new_item.id).to eq(268716493)
+      expect(@ir.all.length).to eq(21)
+      expect(@ir.find_by_id(268716493).name).to eq("Airplanes")
     end
 
     xit 'updates item by id with given attributes' do
