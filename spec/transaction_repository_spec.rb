@@ -49,7 +49,7 @@ RSpec.describe TransactionRepository do
     expect(@repo.all.last.id).to eq(6)
   end
 
-  xit 'can update old transactions' do
+  it 'can update old transactions' do
     attributes = {:invoice_id => 789,
                 :credit_card_number => "1111111",
                 :credit_card_expiration_date => "0707",
