@@ -1,3 +1,5 @@
+require 'time'
+
 class Invoice
   attr_reader :id,
               :customer_id,
