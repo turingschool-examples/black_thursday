@@ -23,57 +23,22 @@ RSpec.describe InvoiceRepository do
     expect(@ir.find_by_id(2)).to eq(@ir.all[1])
   end
 
-  it 'finds an invoice by name' do
+  it 'finds all invoices by customer_id' do
     expect(@ir.find_all_by_customer_id(1)).to eq([@ir.all[0], @ir.all[1]])
     expect(@ir.find_all_by_customer_id(2)).to eq([@ir.all[2]])
     expect(@ir.find_all_by_customer_id(4)).to eq([])
   end
 
-  xit 'finds invoice by description' do
-    ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
-    expected = ir.find_all_with_description('You can use it to write things')
-    expected2 = ir.find_all_with_description('Help me')
-
-    expect(expected.length).to eq(3)
-    expect(expected2.length).to eq(0)
+  it 'finds all invoices by merchant_id' do
+    expect(@ir.find_all_by_merchant_id(5)).to eq([@ir.all[0], @ir.all[2]])
+    expect(@ir.find_all_by_merchant_id(6)).to eq([@ir.all[1]])
+    expect(@ir.find_all_by_merchant_id(8)).to eq([])
   end
 
-  xit 'finds all instances of an invoice by price' do
-    ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
-    price = BigDecimal(10)
-    price2 = BigDecimal(12)
-    price3 = BigDecimal(15)
-
-    expected = ir.find_all_by_price(price)
-    expected2 = ir.find_all_by_price(price2)
-    expected3 = ir.find_all_by_price(price3)
-
-    expect(expected.length).to eq(1)
-    expect(expected2.length).to eq(2)
-    expect(expected3.length).to eq(0)
-  end
-
-  xit 'can find all instances in price range' do
-    ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
-    expected = ir.find_all_by_price_in_range(8..15)
-    expected2 = ir.find_all_by_price_in_range(0..7)
-    expected3 = ir.find_all_by_price_in_range(16.00..25.00)
-
-    expect(expected.length).to eq(3)
-    expect(expected2.length).to eq(0)
-    expect(expected3.length).to eq(1)
-  end
-
-  xit 'finds all instances based on merchant ID' do
-    ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
-    expected = ir.find_all_by_merchant_id(6)
-    expected2 = ir.find_all_by_merchant_id(9)
-    expected3 = ir.find_all_by_merchant_id(7)
-
-
-    expect(expected.length).to eq(1)
-    expect(expected2.length).to eq(0)
-    expect(expected3.length).to eq(3)
+  it 'finds all invoices by status' do
+    expect(@ir.find_all_by_status('pending')).to eq([@ir.all[0], @ir.all[3], @ir.all[4]])
+    expect(@ir.find_all_by_status('shipped')).to eq([@ir.all[1], @ir.all[2]])
+    expect(@ir.find_all_by_status('returned')).to eq([])
   end
 
   xit 'creates a new instance with attributes' do
