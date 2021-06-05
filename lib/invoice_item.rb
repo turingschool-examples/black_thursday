@@ -1,3 +1,5 @@
+require 'time'
+
 class InvoiceItem
   attr_reader :id,
               :item_id,
@@ -13,9 +15,9 @@ class InvoiceItem
     @item_id = item[:item_id].to_i
     @invoice_id = item[:invoice_id].to_i
     @quantity = item[:quantity].to_i
-    @unit_price = item[:unit_price]
-    @created_at = item[:created_at]
-    @updated_at = item[:updated_at]
+    @unit_price = BigDecimal(item[:unit_price]) / 100
+    @created_at = Time.parse(item[:created_at])
+    @updated_at = Time.parse(item[:updated_at])
     @repo = repo
   end
 
@@ -25,12 +27,14 @@ class InvoiceItem
 
   def self.create_invoice_item(attributes, repo)
     data_hash = Hash.new
+    time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
     data_hash[:id] = repo.new_invoice_item_id
-    data_hash[:created_at] = Time.now
-    data_hash[:updated_at] = Time.now
-    attributes.each do |att, value|
-      data_hash[att] = value
-    end
+    data_hash[:item_id] = attributes[:item_id]
+    data_hash[:invoice_id] = attributes[:invoice_id]
+    data_hash[:quantity] = attributes[:quantity]
+    data_hash[:unit_price] = attributes[:unit_price]
+    data_hash[:created_at] = time
+    data_hash[:updated_at] = time
     new(data_hash, repo)
   end
 
