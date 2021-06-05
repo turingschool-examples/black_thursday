@@ -5,7 +5,6 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    require "pry"; binding.pry
     (@engine.items.all.length / @engine.merchants.all.length.to_f).round(2)
   end
 
@@ -79,7 +78,7 @@ class SalesAnalyst
 
   def golden_items
     @engine.items.all.select do |item|
-      # 28 items > 13.5 mean + 10.86 std dev times 2
+      # 5 items > 2,010.80 mean + 4,466.10 std dev times 2
       item.unit_price_to_dollars > (average_price_per_item +
         (average_price_per_item_standard_deviation * 2))
     end
