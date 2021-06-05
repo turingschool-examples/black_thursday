@@ -23,6 +23,6 @@ class Item
     '%.2f' % "#{@unit_price}"
   end
 
-  def make_item
+  def self.make_item()
   end
 end

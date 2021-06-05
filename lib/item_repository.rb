@@ -50,14 +50,15 @@ class ItemRepository
     end
   end
 
-  def create(attributes)
-    item_with_max_id = @all.max_by do |item|
+  def new_id
+    item_with_max_id = @repo.all.max_by do |item|
       item.id
     end
-    attributes = Hash.new
-    attributes[:id] = item_with_max_id.id + 1
-    require "pry"; binding.pry
-    new_item = Item.new(attributes, self)
+    item_with_max_id.id + 1
+  end
+
+  def create(attributes, new_id)
+    new_item = Item.make_item(attributes, self)
     @all << new_item
   end
 #Do we need to add this item that is created to @all?
