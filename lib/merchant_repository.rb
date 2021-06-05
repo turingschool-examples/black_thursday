@@ -5,11 +5,13 @@ class MerchantRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  attr_reader :all
+  attr_reader :all,
+              :engine
 
   def initialize(path)
     @all = []
     create_merchants(path)
+    @engine = engine
   end
 
   def create_merchants(path)
