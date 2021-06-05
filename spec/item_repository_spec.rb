@@ -46,15 +46,15 @@ RSpec.describe ItemRepository do
     expect(@repo.find_all_with_description('for basketball')).to eq([])
   end
 
-  xit 'returns items by price' do
+  it 'returns items by price' do
     item_names = []
-    @repo.find_all_by_price(0.1e0).each do |item|
+    @repo.find_all_by_price(0.1e2).each do |item|
       item_names << item.name
     end
     expect(item_names).to eq(['baseball bat', 'baseball glove'])
 
     item_names = []
-    @repo.find_all_by_price(0.5e-1).each do |item|
+    @repo.find_all_by_price(0.5e1).each do |item|
       item_names << item.name
     end
     expect(item_names).to eq(['baseball'])
@@ -62,20 +62,20 @@ RSpec.describe ItemRepository do
     expect(@repo.find_all_by_price(0.2e0)).to eq([])
   end
 
-  xit 'returns items by price in a range' do
+  it 'returns items by price in a range' do
     item_names = []
-    @repo.find_all_by_price_in_range(0.0..0.5e-1).each do |item|
+    @repo.find_all_by_price_in_range(0.0..0.5e1).each do |item|
       item_names << item.name
     end
     expect(item_names).to eq(['baseball'])
 
     item_names = []
-    @repo.find_all_by_price_in_range(0.0..0.11e0).each do |item|
+    @repo.find_all_by_price_in_range(0.0..0.11e2).each do |item|
       item_names << item.name
     end
     expect(item_names).to eq(['baseball', 'baseball bat', 'baseball glove'])
 
-    expect(@repo.find_all_by_price_in_range(0.0..0.4e-1)).to eq([])
+    expect(@repo.find_all_by_price_in_range(0.0..0.4e1)).to eq([])
   end
 
   it 'returns items by merchant id' do
@@ -98,29 +98,28 @@ RSpec.describe ItemRepository do
     expect(@repo.new_item_id_number).to eq(11)
   end
 
-  xit 'creates new item instance' do
+  it 'creates new item instance' do
     attributes = {
       :name        => 'jersey',
       :description => 'clothing',
       :unit_price  => 20,
-      :merchant_id => 5
       }
     @repo.create(attributes)
 
     expect(@repo.all.length).to eq(4)
     expect(@repo.find_by_id(11).name).to eq('jersey')
     expect(@repo.find_by_id(11).description).to eq('clothing')
-    expect(@repo.find_by_id(11).unit_price).to eq(0.2e2)
-    expect(@repo.find_by_id(11).merchant_id).to eq(5)
+    expect(@repo.find_by_id(11).unit_price).to eq(0.2e0)
   end
 
-  xit 'updates item attributes by id' do
+  it 'updates item attributes by id' do
     new_attributes = {
       name: 'metal bat',
       description: 'for practice',
       unit_price: BigDecimal(20, 4)
     }
-    og_time = @repo.find_by_id(2).updated_at
+    require "pry"; binding.pry
+    og_time = @repo.find_by_id(5).updated_at
     @repo.update(5, new_attributes)
 
     expect(@repo.find_by_id(5).name).to eq('metal bat')
@@ -136,7 +135,7 @@ RSpec.describe ItemRepository do
     expect(@repo.find_by_id(5)).to eq(nil)
   end
 
-  xit 'can access item unit price to dollars method' do
+  it 'can access item unit price to dollars method' do
     dollars = @repo.find_by_id(3).unit_price_to_dollars
     expect(dollars).to eq(5)
   end
