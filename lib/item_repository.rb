@@ -70,7 +70,7 @@ class ItemRepository
     @all.delete(deleted_item)
   end
 
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@items.size} rows>"
+  # end
 end
