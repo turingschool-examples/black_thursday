@@ -3,6 +3,6 @@ class SalesEngine
   def initialize(paths)
     @items_repo = ItemRepository.new(paths[:items], self)
     @merchants_repo = MerchantRepository.new(paths[:merchants], self)
-
+    @analyst = SalesAnalyst.new
   end
 end
