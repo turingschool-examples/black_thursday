@@ -6,12 +6,12 @@ class Merchant
     @repo = repo
   end
 
-  def self.create_merchant(attributes)
+  def self.create_merchant(attributes, merchant_repo)
     data_hash = {}
     #require "pry"; binding.pry
-    data_hash[:id] = @repo.next_highest_merchant_id
+    data_hash[:id] = merchant_repo.next_highest_merchant_id
     data_hash[:name] = attributes[:name]
-    new(data_hash, @repo)
+    new(data_hash, merchant_repo)
   end
 
   def update_merchant(id, attributes)

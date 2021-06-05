@@ -6,8 +6,8 @@ require 'csv'
 RSpec.describe do
   before(:each) do
     @data = {id: 5, name: 'Turing'}
-    # @repo = double('repo')
-    @repo = MerchantRepository.new('./spec/fixtures/mock_merchants.csv')
+    @repo = double('repo')
+    # @repo = MerchantRepository.new('./spec/fixtures/mock_merchants.csv')
     @merchant = Merchant.new(@data, @repo)
   end
   it 'exists' do
@@ -19,10 +19,10 @@ RSpec.describe do
     expect(@merchant.name).to eq('Turing')
   end
 
-  xit 'can create new merchants' do
+  it 'can create new merchants' do
     # allow(@merchant).to receive(:repo.next_highest_merchant_id).and_return(6)
     allow(@repo).to receive(:next_highest_merchant_id).and_return(6)
-    expect(Merchant.create_merchant({name: 'Marla'})).to be_a(Merchant)
+    expect(Merchant.create_merchant({name: 'Marla'}, @repo)).to be_a(Merchant)
   end
 
   it 'can update old merchants' do
