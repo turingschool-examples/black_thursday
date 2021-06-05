@@ -46,24 +46,14 @@ RSpec.describe Item do
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
-      :created_at  => Time.now.to_s,
-      :updated_at  => Time.now.to_s,
-      :merchant_id => 2
-    }
-    data2 = {
-      :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal(12000),
+      :unit_price  => BigDecimal(6000, 4),
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s,
       :merchant_id => 2
     }
 
     i = Item.new(data)
-    i2 = Item.new(data2)
-    expect(i2.unit_price).to eq(12000)
-    expect(i.unit_price_to_dollars).to eq(10.99)
+    expect(i.unit_price).to be_a(BigDecimal)
+    expect(i.unit_price_to_dollars).to eq(60)
   end
 end

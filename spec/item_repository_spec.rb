@@ -20,7 +20,7 @@ RSpec.describe ItemRepository do
   it 'returns a list of items' do
     ir = ItemRepository.new("./spec/fixture_files/item_fixture.csv")
 
-    expect(ir.all.length).to eq(4)
+    expect(ir.all.length).to eq(5)
   end
 
   it 'can find item by ID' do
@@ -78,14 +78,14 @@ RSpec.describe ItemRepository do
 
   it 'finds all instances based on merchant ID' do
     ir = ItemRepository.new("./spec/fixture_files/item_fixture.csv")
-    expected = ir.find_all_by_merchant_id(3)
-    expected2 = ir.find_all_by_merchant_id(7)
-    expected3 = ir.find_all_by_merchant_id(4)
+    expected = ir.find_all_by_merchant_id(6)
+    expected2 = ir.find_all_by_merchant_id(9)
+    expected3 = ir.find_all_by_merchant_id(7)
 
 
     expect(expected.length).to eq(1)
     expect(expected2.length).to eq(0)
-    expect(expected3.length).to eq(2)
+    expect(expected3.length).to eq(3)
   end
 
   it 'creates a new instance with attributes' do
@@ -97,32 +97,28 @@ RSpec.describe ItemRepository do
       :merchant_id => 4
     })
 
-    expect(ir.all.length).to eq(5)
-    expect(expected.id).to eq(5)
+    expect(ir.all.length).to eq(6)
+    expect(expected.id).to eq(6)
   end
 
   it 'finds item by ID and update attributes' do
     ir = ItemRepository.new("./spec/fixture_files/item_fixture.csv")
     data = {
-      # :name        => "Gold Fountain Pen",
       :description => "You can write REALLY fancy things",
-      :unit_price  => BigDecimal(5000),
+      :unit_price  => BigDecimal(379.99, 5),
     }
-    # require "pry"; binding.pry
     ir.update(3, data)
     expected = ir.find_by_id(3)
 
     expect(expected.name).to eq("Marker")
     expect(expected.description).to eq("You can write REALLY fancy things")
-    # require "pry"; binding.pry
-    expect(expected.unit_price_to_dollars).to eq(5000)
-
+    expect(expected.unit_price_to_dollars).to eq(379.99)
   end
 
   it 'finds and deletes item by ID' do
     ir = ItemRepository.new("./spec/fixture_files/item_fixture.csv")
 
     ir.delete(2)
-    expect(ir.all.length).to eq(3)
+    expect(ir.all.length).to eq(4)
   end
 end
