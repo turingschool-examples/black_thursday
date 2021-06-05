@@ -1,3 +1,5 @@
+# require_relative 'csv'
+
 class ItemRepository
   attr_reader :sales_engine, :all, :file_path
 
@@ -66,5 +68,9 @@ class ItemRepository
   def delete(id)
     deleted_item = find_by_id(id)
     @all.delete(deleted_item)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
