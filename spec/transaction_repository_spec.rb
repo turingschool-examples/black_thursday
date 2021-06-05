@@ -26,18 +26,19 @@ RSpec.describe TransactionRepository do
     expect(@repo.find_all_by_invoice_id(9999999)).to eq([])
   end
 
-  xit 'can find transactions by credit card' do
+  it 'can find transactions by credit card' do
     expect(@repo.find_all_by_credit_card_number(1234567).length).to eq(2)
     expect(@repo.find_all_by_credit_card_number(7654321)[0].id).to eq(4)
     expect(@repo.find_all_by_credit_card_number(9999999)).to eq([])
   end
 
-  xit 'can find all by transaction result' do
+  it 'can find all by transaction result' do
     expect(@repo.find_all_by_result('success').length).to eq(3)
     expect(@repo.find_all_by_result('failed').length).to eq(2)
     expect(@repo.find_all_by_result('maybe')).to eq([])
   end
-  xit 'can create a new transaction' do
+
+  it 'can create a new transaction' do
     attributes = {:invoice_id => 789,
                 :credit_card_number => "9876543",
                 :credit_card_expiration_date => "0606",

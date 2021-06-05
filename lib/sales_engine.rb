@@ -7,7 +7,7 @@ class SalesEngine
   def initialize(path)
     @items = path[:items]
     @merchants = path[:merchants]
-    @transactions = path[:transactions]
+    @transactions = TransactionRepository.new(path[:transactions])
   end
 
   def self.from_csv(path)

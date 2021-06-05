@@ -22,4 +22,20 @@ class TransactionRepository
       transaction.invoice_id == invoice_id
     end
   end
+
+  def find_all_by_credit_card_number(credit_card)
+    @all.find_all do |transaction|
+      transaction.credit_card_number == credit_card
+    end
+  end
+
+  def find_all_by_result(result)
+    @all.find_all do |transaction|
+      transaction.result == result
+    end
+  end
+
+  def create(attributes)
+    new_transaction = Transaction.create(attributes)
+  end
 end
