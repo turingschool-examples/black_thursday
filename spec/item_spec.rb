@@ -32,9 +32,5 @@ RSpec.describe Item do
 
       expect(@item.new_id).to eq(268716493)
     end
-
-    it 'can create a new item' do
-
-    end
   end
 end

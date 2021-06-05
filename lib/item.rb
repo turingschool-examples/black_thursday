@@ -1,12 +1,12 @@
 class Item
-   attr_reader  :id,
-                :name,
-                :description,
-                :unit_price,
-                :updated_at,
-                :created_at,
-                :merchant_id,
-                :repo
+  attr_reader  :id,
+  :name,
+  :description,
+  :unit_price,
+  :updated_at,
+  :created_at,
+  :merchant_id,
+  :repo
 
   def initialize(info, repo)
     @id = info['id'].to_i
@@ -25,10 +25,10 @@ class Item
 
   # def self.make_item()
   # end
-def update_item(attributes)
-  update_item.name = attributes['name']
-  update_item.description = attributes['description']
-  update_item.unit_price = attributes['unit_price']
-  update_item.updated_at = Time.now
-end
+  def update_item(attributes)
+    @name = attributes['name']
+    @description = attributes['description']
+    @unit_price = attributes['unit_price']
+    @updated_at = Time.now
+  end
 end

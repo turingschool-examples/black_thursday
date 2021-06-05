@@ -102,9 +102,9 @@ RSpec.describe ItemRepository do
       expect(@item1.updated_at).to eq("current time")
     end
 
-    xit 'delete item by id' do
+    it 'delete item by id' do
       expect(@ir.all.length).to eq(20)
-      expect(@ir.delete(263395295)).to eq(@item1)
+      expect(@ir.delete(02)).to eq(@item1)
       expect(@ir.all.length).to eq(19)
     end
   end
