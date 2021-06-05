@@ -18,7 +18,7 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it 'returns a list of invoice items' do
-    expect(@iir.all.length).to eq(7)
+    expect(@iir.all.length).to eq(15)
   end
 
   it 'can find invoice item by id' do
@@ -26,8 +26,8 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it 'can find all invoice items by item id' do
-    expect(@iir.find_all_by_item_id(5).length).to eq(1)
-    expect(@iir.find_all_by_item_id(1).length).to eq(2)
+    expect(@iir.find_all_by_item_id(5).length).to eq(2)
+    expect(@iir.find_all_by_item_id(1).length).to eq(4)
   end
 
   it 'can find all invoice items by invoice id' do
@@ -43,8 +43,8 @@ RSpec.describe InvoiceItemRepository do
                         :unit_price => 1875
                       })
 
-    expect(@iir.all.length).to eq(8)
-    expect(data.id).to eq(8)
+    expect(@iir.all.length).to eq(16)
+    expect(data.id).to eq(16)
   end
 
   it 'can update invoice item attributes by id' do
@@ -58,6 +58,6 @@ RSpec.describe InvoiceItemRepository do
   it 'can delete invoice item by id' do
     @iir.delete(6)
 
-    expect(@iir.all.length).to eq(6)
+    expect(@iir.all.length).to eq(14)
   end
 end
