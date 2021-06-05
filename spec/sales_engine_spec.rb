@@ -11,8 +11,17 @@ RSpec.describe SalesEngine do
 
   it 'has attributes' do
     #Change to 'items' / 'merchants'
-    expect(@se.items_repo).to be_an_instance_of(ItemRepository)
+    expect(@se.items).to be_an_instance_of(ItemRepository)
+    expect(@se.merchants).to be_an_instance_of(MerchantRepository)
+  end
 
-    expect(@se.merchants_repo).to be_an_instance_of(MerchantRepository)
+  it 'returns instance of item repo with all items' do
+    expect(@se.items).to be_a(ItemRepository)
+    expect(@se.items.all[0]).to be_a(Item)
+  end
+
+  it 'returns instance of merchant repo with all merchants' do
+    expect(@se.merchants).to be_a(MerchantRepository)
+    expect(@se.merchants.all[0]).to be_a(Merchant)
   end
 end

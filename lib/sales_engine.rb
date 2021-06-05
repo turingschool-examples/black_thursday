@@ -5,19 +5,28 @@ require_relative './merchant'
 require 'csv'
 
 class SalesEngine
-  attr_reader :merchants_repo, :items_repo
+  attr_reader :merchants, :items
+
   def initialize(paths)
     if !paths[:items].nil?
-      @items_repo = ItemRepository.new(paths[:items], self)
-      @items_repo.generate
+      @items = ItemRepository.new(paths[:items], self)
+      @items.generate
     end
     if !paths[:merchants].nil?
-      @merchants_repo = MerchantRepository.new(paths[:merchants], self)
-      @merchants_repo.generate
+      @merchants = MerchantRepository.new(paths[:merchants], self)
+      @merchants.generate
     end
   end
 
   def self.from_csv(paths)
     SalesEngine.new(paths)
   end
+
+  # def items
+  #   @items_repo
+  # end
+
+  # def merchants
+  #   @merchants_repo
+  # end
 end
