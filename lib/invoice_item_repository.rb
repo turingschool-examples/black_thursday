@@ -1,4 +1,6 @@
 require 'csv'
+require 'bigdecimal'
+require 'time'
 require_relative 'invoice_item'
 
 class InvoiceItemRepository
@@ -8,6 +10,12 @@ class InvoiceItemRepository
     @all = []
     create_invoice_items(path)
   end
+
+  # :nocov:
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
+  end
+  # :nocov:
 
   def create_invoice_items(path)
     CSV.foreach(path, headers: true, header_converters: :symbol).each do |invoice_item|
