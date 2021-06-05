@@ -1,5 +1,6 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'sales_analyst'
 
 class SalesEngine
 
@@ -18,6 +19,10 @@ class SalesEngine
 
   def merchants
     @merchant_repo
+  end
+
+  def analyst
+    SalesAnalyst.new(@item_repo, @merchant_repo, self)
   end
 
 end
