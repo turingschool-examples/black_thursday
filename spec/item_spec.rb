@@ -47,8 +47,8 @@ RSpec.describe Item do
       :unit_price => BigDecimal(12.00,4),
     }
 
-    allow(@repo).to receive(:new_id_number).and_return(5)
-    expect(Item.create(attributes, @repo)).to be_a(Item)
+    allow(@repo).to receive(:new_item_id_number).and_return(5)
+    expect(Item.create_item(attributes, @repo)).to be_a(Item)
   end
 
   it 'can update an item' do
@@ -59,7 +59,7 @@ RSpec.describe Item do
         :unit_price  => BigDecimal(11.99,4)
         }
 
-      @i.update(new_attributes)
+      @i.update_item(new_attributes)
 
       expect(@i.name).to eq("Pen")
       expect(@i.description).to eq("You can write important things")
