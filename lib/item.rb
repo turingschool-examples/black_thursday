@@ -25,10 +25,10 @@ class Item
     unit_price.to_f
   end
 
-  def self.create(attributes, repo)
+  def self.create_item(attributes, repo)
     item = Hash.new
     time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
-    item[:id] = repo.new_id_number
+    item[:id] = repo.new_item_id_number
     item[:name] = attributes[:name]
     item[:description] = attributes[:description]
     item[:unit_price] = attributes[:unit_price]
@@ -37,7 +37,7 @@ class Item
     new(item, repo)
   end
 
-  def update(attributes)
+  def update_item(attributes)
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = attributes[:unit_price]
