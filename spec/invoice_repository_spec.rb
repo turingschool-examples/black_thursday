@@ -41,18 +41,19 @@ RSpec.describe InvoiceRepository do
     expect(@ir.find_all_by_status('returned')).to eq([])
   end
 
-  xit 'creates a new instance with attributes' do
-    ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
-    expected = ir.create({
-      :name        => 'Golden Fountain Pen',
-      :description => 'You can write REALLY fancy things',
-      :unit_price  => 12009,
-      :merchant_id => 4
-    })
+  it 'creates a new instance with attributes' do
+    expected = @ir.create({
+                            :customer_id => 3,
+                            :merchant_id => 5,
+                            :status      => 'pending',
+                            :created_at  => Time.now.to_s,
+                            :updated_at  => Time.now.to_s,
+                         })
 
-    expect(ir.all.length).to eq(6)
+    expect(@ir.all.length).to eq(6)
     expect(expected.id).to eq(6)
   end
+
 
   xit 'finds invoice by ID and update attributes' do
     ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
