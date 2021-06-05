@@ -14,7 +14,7 @@ class InvoiceItem
     @item_id    = data[:item_id].to_i
     @invoice_id = data[:invoice_id].to_i
     @quantity   = data[:quantity].to_i
-    @unit_price = BigDecimal(data[:unit_price].to_f / 100, 4)
+    @unit_price = BigDecimal(data[:unit_price].to_f / 100, 5)
     @created_at = update_time(data[:created_at].to_s)
     @updated_at = update_time(data[:updated_at].to_s)
   end
