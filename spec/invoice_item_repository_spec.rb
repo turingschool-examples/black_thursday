@@ -67,7 +67,7 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 3,
       :quantity => 20,
       :unit_price => BigDecimal(11.99, 4),
-      }
+    }
     @repo.create(attributes)
 
     expect(@repo.all.length).to eq(4)
@@ -75,5 +75,18 @@ RSpec.describe InvoiceItemRepository do
     expect(@repo.find_by_id(4).invoice_id).to eq(3)
     expect(@repo.find_by_id(4).quantity).to eq(20)
     expect(@repo.find_by_id(4).unit_price).to eq(0.1199e2)
+  end
+
+  it 'updates invoice item attributes by id' do
+    new_attributes = {
+      :quantity => 50,
+      :unit_price => BigDecimal(14.55, 4)
+    }
+    og_time = @repo.find_by_id(2).updated_at
+    @repo.update(2, new_attributes)
+
+    expect(@repo.find_by_id(2).quantity).to eq(50)
+    expect(@repo.find_by_id(2).unit_price).to eq(0.1455e2)
+    expect(@repo.find_by_id(2).updated_at).to_not eq(og_time)
   end
 end
