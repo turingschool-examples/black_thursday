@@ -47,6 +47,10 @@ class TransactionRepository
   end
 
   def update(id, attributes)
-    self.find_by_id(id).update
+    self.find_by_id(id).update(attributes)
+  end
+
+  def delete(id)
+    @all.delete(self.find_by_id(id))
   end
 end

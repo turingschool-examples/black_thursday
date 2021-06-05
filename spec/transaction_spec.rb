@@ -47,7 +47,8 @@ RSpec.describe Transaction do
                   :credit_card_expiration_date => "0422",
                   :result => "failed",
                   }
-    expect(@t.update(attributes).credit_card_expiration_date).to eq('0422')
-  end
 
+    @t.update(attributes)
+    expect(@t.credit_card_expiration_date).to eq('0422')
+  end
 end

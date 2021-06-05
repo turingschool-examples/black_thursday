@@ -27,9 +27,9 @@ RSpec.describe TransactionRepository do
   end
 
   it 'can find transactions by credit card' do
-    expect(@repo.find_all_by_credit_card_number(1234567).length).to eq(2)
-    expect(@repo.find_all_by_credit_card_number(7654321)[0].id).to eq(4)
-    expect(@repo.find_all_by_credit_card_number(9999999)).to eq([])
+    expect(@repo.find_all_by_credit_card_number('1234567').length).to eq(2)
+    expect(@repo.find_all_by_credit_card_number('7654321')[0].id).to eq(4)
+    expect(@repo.find_all_by_credit_card_number('9999999')).to eq([])
   end
 
   it 'can find all by transaction result' do
@@ -54,13 +54,13 @@ RSpec.describe TransactionRepository do
                 :credit_card_number => "1111111",
                 :credit_card_expiration_date => "0707",
                 :result => "success"}
-    @repo.update(2, attributtes)
+    @repo.update(2, attributes)
 
     expect(@repo.all.length).to eq(5)
     expect(@repo.find_by_id(2).credit_card_number).to eq('1111111')
   end
 
-  xit 'can delete a transaction' do
+  it 'can delete a transaction' do
     @repo.delete(5)
 
     expect(@repo.all.length).to eq(4)
