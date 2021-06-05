@@ -48,7 +48,7 @@ RSpec.describe MerchantRepository do
       expect(@repo.next_highest_merchant_id).to eq(104)
     end
 
-    xit 'can create a new merchant instance' do
+    it 'can create a new merchant instance' do
       attributes = {name: "AlfieHouse"}
 
       @repo.create(attributes)
@@ -68,7 +68,7 @@ RSpec.describe MerchantRepository do
       expect(updated_all_id).to eq([101, 102, 103, 104])
     end
 
-    xit 'can update an exsisting merchants name' do
+    it 'can update an exsisting merchants name' do
       attributes_1 = {name: "NolaHouse"}
 
       @repo.update(101, attributes_1)
