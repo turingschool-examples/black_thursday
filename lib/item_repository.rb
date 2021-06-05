@@ -9,9 +9,9 @@ class ItemRepository
 
   def generate
     info = CSV.open("#{@file_path}", headers: true)
-     info.each do |row|
-       @all << Item.new(row, self)
-     end
+    info.each do |row|
+      @all << Item.new(row, self)
+    end
   end
 
   def find_by_id(id)
@@ -50,23 +50,11 @@ class ItemRepository
     end
   end
 
-  def new_id
-    item_with_max_id = @repo.all.max_by do |item|
-      item.id
-    end
-    item_with_max_id.id + 1
+  def create(attributes)
+    item_id = @all.max { |item| item.id}
+    attributes['id'] = item_id.id + 1
+    @all << Item.new(attributes, self)
   end
-
-  def create(attributes, new_id)
-    new_item = Item.make_item(attributes, new_id)
-    @all << new_item
-  end
-#Do we need to add this item that is created to @all?
-  # def create(attributes)
-  #   new_item = Item.new(attributes, self)
-  #   new_id = new_item.id
-  #   @all << new_id
-  # end
 
   def update(id, attributes)
     update_item = find_by_id(id)
@@ -81,5 +69,3 @@ class ItemRepository
     @all.delete(deleted_item)
   end
 end
-
-# @ir.all.max_by {|item| item.id}

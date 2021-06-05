@@ -64,19 +64,22 @@ RSpec.describe ItemRepository do
 
     it 'creates a new item instance with given attributes' do
       attributes = {
-        :id          => nil,
-        :name        => "Airplanes",
-        :description => "They fly super dooper",
-        :unit_price  => BigDecimal(1000),
-        :created_at  => '1993-09-29 11:56:40 UTC',
-        :updated_at  => '2016-01-11 11:51:37 UTC',
-        :merchant_id => 21
+        'id'         => nil,
+        'name'        => "Airplanes",
+        'description' => "They fly super dooper",
+        'unit_price'  => BigDecimal(1000),
+        'created_at'  => '1993-09-29 11:56:40 UTC',
+        'updated_at'  => '2016-01-11 11:51:37 UTC',
+        'merchant_id' => 21
       }
-      @ir.create(attributes, 21)
+      @ir.create(attributes)
       new_item = @ir.all[-1]
       expect(new_item.id).to eq(21)
       expect(@ir.all.length).to eq(21)
       expect(@ir.find_by_id(21).name).to eq("Airplanes")
+      @ir.create(attributes)
+      newer_item = @ir.all.last
+      expect(newer_item.id).to eq(22)
     end
 
     xit 'updates item by id with given attributes' do
