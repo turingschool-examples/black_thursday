@@ -60,11 +60,7 @@ class InvoiceRepository
     result = find_by_id(id)
     unless result == nil
       @all.delete(result)
-      result.customer_id = attributes[:customer_id] if attributes[:customer_id] != nil
-      result.merchant_id = attributes[:merchant_id] if attributes[:merchant_id] != nil
       result.status = attributes[:status] if attributes[:status] != nil
-      #may require modification (doesn't currently align with #Invoice.initialize)
-      result.created_at = Time.now
       result.updated_at = Time.now
       @all << result
     end

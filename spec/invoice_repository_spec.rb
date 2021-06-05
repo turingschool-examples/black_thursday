@@ -5,8 +5,9 @@ RSpec.describe InvoiceRepository do
 
   before(:each) do
     @paths = {
-      :invoices => "./data/invoices.csv",
-      :merchants => "./data/merchants.csv"
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     }
     @se = SalesEngine.from_csv(@paths)
   end
@@ -32,8 +33,9 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find all invoices by a invoice_id' do
+    ir = @se.invoices
     invoice_id = 3452
-    result = engine.invoices.find_by_id(invoice_id)
+    result = ir.find_by_id(invoice_id)
 
 
     expect(result.id).to eq(invoice_id)
@@ -43,31 +45,34 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find all invoice by a given customer_id' do
+    ir = @se.invoices
     customer_id = 300
-    result = engine.invoices.find_all_by_customer_id(customer_id)
+    result = ir.find_all_by_customer_id(customer_id)
 
     expect(result.length).to eq(10)
   end
 
 
   it 'can find all invoice by a given merchant_id' do
+    ir = @se.invoices
     merchant_id = 12335080
-    result = engine.invoices.find_all_by_merchant_id(merchant_id)
+    result = ir.find_all_by_merchant_id(merchant_id)
 
     expect(result.length).to eq(7)
   end
 
   it 'can find all by status' do
+    ir = @se.invoices
     status = :shipped
-    result = engine.invoices.find_all_by_status(status)
+    result = ir.find_all_by_status(status)
 
     expect(result.length).to eq(2839)
     status = :pending
-    result = engine.invoices.find_all_by_status(status)
+    result = ir.find_all_by_status(status)
 
     expect(result.length).to eq(1473)
     status = :sold
-    result = engine.invoices.find_all_by_status(status)
+    result = ir.find_all_by_status(status)
 
     expect(result.length).to eq([])
   end
@@ -83,33 +88,41 @@ RSpec.describe InvoiceRepository do
           :updated_at => Time.now
         }
 
-    engine.invoices.create(attributes)
-    result = engine.invoices.find_by_id(4986)
+    ir.create(attributes)
+    result = ir.find_by_id(4986)
 
-    expect(result.merchant_id).to eq(8)      
+    expect(result.merchant_id).to eq(8)
   end
 
-  it 'can update an existing Item instance name' do
+  it 'can update an existing Invoice instance' do
     ir = @se.invoices
+    original_time = ir.find_by_id(4986).updated_at
     time_stub = '2021-05-30 11:30:51.343158 -050'
     allow(Time).to receive(:now).and_return(time_stub)
-    item_update = {
-                :name => 'Pen',
-                :description => 'Pentel R.S.V.P. Fine' ,
-                :unit_price => BigDecimal(5.99, 3)
-              }
+    attributes = {
+        id: 5000,
+        customer_id: 2,
+        merchant_id: 3,
+        status: :success,
+        created_at: Time.now,
+        updated_at: Time.now
+      }
 
-    ir.update(ir.all[0].id, item_update)
-    result = ir.all[-1]
+      ir.update(4986, attributes)
+      result = ir.find_by_id(4986)
 
-    expect(result.name).to eq(item_update[:name])
-    expect(result.description).to eq(item_update[:description])
-    expect(result.unit_price).to eq(item_update[:unit_price])
-    expect(result.updated_at).to eq(Time.now)
+      expect(result.status).to eq :success
+      expect(result.updated_at).to be > original_time
+      expect(result.customer_id).not_to eq attributes[:customer_id]
+      expect(result.customer_id).not_to eq attributes[:merchant_id]
+      expect(result.created_at).not_to eq attributes[:created_at]
+
+      result = ir.find_by_id(5000)
+      expect(result).to eq nil
 
   end
 
-  it 'can delete an existing Item instance' do
+  it 'can delete an existing Invoice instance' do
     ir = @se.invoices
 
     old_length = ir.all.length
@@ -117,40 +130,5 @@ RSpec.describe InvoiceRepository do
     new_length = ir.all.length
 
     expect(old_length - new_length).to eq(1)
-  end
-
-  it 'can find all by description' do
-    ir = @se.invoices
-    result = ir.find_all_with_description('hoop'.upcase)
-
-    expect(result.class).to eq(Array)
-    expect(result.length).to eq(9)
-  end
-
-  it 'can find all by price' do
-    ir = @se.invoices
-    result = ir.find_all_by_price(BigDecimal(25))
-
-    expect(result.class).to eq(Array)
-    expect(result.length).to eq(79)
-  end
-
-  it 'can find all by price range' do
-    ir = @se.invoices
-
-    test_range = (0..10.0)
-    result = ir.find_all_by_price_in_range(test_range)
-
-    expect(result.class).to eq(Array)
-    expect(result.length).to eq(302)
-  end
-
-  it 'can find all merchants by merchant id' do
-    ir = @se.invoices
-
-    result = ir.find_all_by_merchant_id(12334280)
-
-    expect(result.class).to eq(Array)
-    expect(result.length).to eq(3)
   end
 end
