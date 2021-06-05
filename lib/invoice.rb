@@ -11,7 +11,7 @@ class Invoice
     @id          = invoice_info[:id].to_i
     @customer_id = invoice_info[:customer_id].to_i
     @merchant_id = invoice_info[:merchant_id].to_i
-    @status      = invoice_info[:status]
+    @status      = invoice_info[:status].to_sym
     @created_at  = invoice_info[:created_at]
     @updated_at  = invoice_info[:updated_at]
     @repo        = repo
@@ -24,6 +24,7 @@ class Invoice
     data_hash[:merchant_id] = attributes[:merchant_id]
     data_hash[:status] = attributes[:status]
     data_hash[:created_at] = Time.now
+    data_hash[:updated_at] = Time.now
     new(data_hash, invoice_repo)
   end
 
