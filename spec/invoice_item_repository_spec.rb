@@ -4,7 +4,7 @@ require_relative '../lib/invoice_item'
 
 RSpec.describe InvoiceItemRepository do
   before (:each) do
-    @repo = InvoiceItemRepository.new('./spec/fixtures/mock_items.csv')
+    @repo = InvoiceItemRepository.new('./spec/fixtures/mock_invoice_items.csv')
   end
 
   it 'exists' do
