@@ -8,6 +8,7 @@ RSpec.describe SalesEngine do
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoice => "./data/invoices.csv"
       :transactions => "./data/transactions.csv"
     })
   end
@@ -21,6 +22,10 @@ RSpec.describe SalesEngine do
 
   it 'can create a merchant repository' do
     expect(@se.merchants).to be_an_instance_of(MerchantRepository)
+  end
+
+  it 'can create an invoice repository' do
+    expect(@se.invoices).to be_an_instance_of(InvoiceRepository)
   end
 
   it 'can create a sales analyst' do
