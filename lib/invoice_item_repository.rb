@@ -33,8 +33,13 @@ class InvoiceItemRepository
     end
   end
 
-  def new_id_number
+  def new_invoice_item_id
     invoice_item = @all.max_by { |item| item.id }
     invoice_item.id + 1
   end
+
+  def create(attributes)
+    @all << InvoiceItem.create_invoice_item(attributes, self)
+  end
+
 end
