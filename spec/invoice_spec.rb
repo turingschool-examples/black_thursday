@@ -5,14 +5,16 @@ require 'csv'
 RSpec.describe Invoice do
   before :each do
     @time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
-    @i = Invoice.new({
+    @repo = double('repo')
+    @attributes = {
       :id          => 6,
       :customer_id    => 7,
       :merchant_id => 8,
       :status      => "pending",
       :created_at  => @time,
       :updated_at  => @time,
-      }, nil)
+      }
+    @i = Invoice.new(@attributes, @repo)
   end
 
   it 'exists' do
