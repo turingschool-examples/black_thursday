@@ -10,8 +10,10 @@ RSpec.describe InvoiceRepository do
     expect(@repo).to be_an_instance_of(InvoiceRepository)
   end
 
-  it 'returns all merchants' do
-    expect(@repo.all.length).to eq(3)
+  it 'cna create invoice instances' do
+    @repo.all.each do |invoice|
+      expect(invoice).to be_an_instance_of(Invoice)
+    end 
   end
 
   it 'can find an invoice by id' do

@@ -9,10 +9,6 @@ class InvoiceRepository
     create_invoice(path)
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def create_invoice(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |invoice|
     @all << Invoice.new(invoice, self)
@@ -63,5 +59,11 @@ class InvoiceRepository
   def delete(id)
     @all.delete(find_by_id(id))
   end
+  
+  # :nocov:
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+  # :nocov:
 
 end
