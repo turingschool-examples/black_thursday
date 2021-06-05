@@ -15,12 +15,12 @@ class Item
     @name        = data[:name]
     @description = data[:description]
     @unit_price  = BigDecimal(data[:unit_price].to_f / 100, 4)
-    @created_at  = set_time(data[:created_at].to_s)
-    @updated_at  = set_time(data[:updated_at].to_s)
+    @created_at  = update_time(data[:created_at].to_s)
+    @updated_at  = update_time(data[:updated_at].to_s)
     @merchant_id = data[:merchant_id].to_i
   end
 
-  def set_time(time)
+  def update_time(time)
     if time.nil?
       Time.now
     elsif time.empty?
