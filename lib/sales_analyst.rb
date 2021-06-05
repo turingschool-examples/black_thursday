@@ -26,7 +26,7 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     numerator = items_by_merch_count.sum do |num|
-      (num-average_items_per_merchant) ** 2
+      (num - average_items_per_merchant) ** 2
     end
     denominator = (items_by_merch_count.length - 1).to_f
     Math.sqrt(numerator / denominator).round(2)
@@ -70,7 +70,7 @@ class SalesAnalyst
 
   def average_price_per_item_standard_deviation
     numerator = item_price_set.sum do |num|
-      (num-average_price_per_item) ** 2
+      (num - average_price_per_item) ** 2
     end
     denominator = (item_price_set.length - 1).to_f
     Math.sqrt(numerator / denominator).round(2)
