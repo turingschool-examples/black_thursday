@@ -4,8 +4,7 @@ RSpec.describe MerchantRepository do
   context 'instantiation' do
     it 'exists' do
       se = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
-
-      mr = MerchantRepository.new('spec/fixtures/merchants.csv', @sales_engine)
+      mr = MerchantRepository.new('spec/fixtures/merchants.csv', se)
       expect(mr).to be_a(MerchantRepository)
     end
   end
@@ -13,24 +12,24 @@ RSpec.describe MerchantRepository do
   context 'methods' do
     before :each do
       @se = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
-      
-      @mr = MerchantRepository.new('spec/fixtures/merchants.csv', @sales_engine)
+      @mr = MerchantRepository.new('spec/fixtures/merchants.csv', @se)
+      @mr.generate
       @merchant1 = @mr.all[1]
       @merchant2 = @mr.all[-1]
     end
 
     it 'generates merchant instances' do
-      expect(@merchant1.id).to eq(12334112)
+      expect(@merchant1.id).to eq(02)
       expect(@merchant1.name).to eq('Candisart')
-      expect(@merchant2.id).to eq(12334185)
+      expect(@merchant2.id).to eq(20)
       expect(@merchant2.name).to eq('Madewithgitterxx')
       expect(@mr.all).to be_a(Array)
     end
 
 
     it 'returns merchant with matching ID or nil' do
-      expect(@mr.find_by_id(12334112)).to eq(@merchant1)
-      expect(@mr.find_by_id(12334185)).to eq(@merchant2)
+      expect(@mr.find_by_id(02)).to eq(@merchant1)
+      expect(@mr.find_by_id(20)).to eq(@merchant2)
       expect(@mr.find_by_id(26866642)).to eq(nil)
     end
 
@@ -47,32 +46,33 @@ RSpec.describe MerchantRepository do
     end
 
     it 'creates a new merchant' do
-      expect(@mr.new_id).to eq(12334186)
+      expect(@mr.new_id).to eq(21)
     end
 
     it 'creates a new merchant instance with given attributes' do
       attributes = {
-        :id          => nil,
-        :name        => "Bob's Airplanes"
+        'name'        => "Bob's Airplanes"
       }
-      expect(@mr.create(attributes)).to be_a(Merchant)
+      @mr.create(attributes)
+
+      expect(@mr.find_by_id(21).name).to eq("Bob's Airplanes")
+      @mr.create(attributes)
+      expect(@mr.find_by_id(22).name).to eq("Bob's Airplanes")
     end
 
     it 'updates merchant by id with given attributes' do
 
       attributes = {
-        :id          => 12334102,
-        :name        => 'Candismath'
+        'name'        => 'Candismath'
       }
-      @mr.update(12334112, attributes)
+      @mr.update(02, attributes)
 
-      expect(@merchant1.id).to eq(12334102)
       expect(@merchant1.name).to eq('Candismath')
     end
 
     it 'delete merchant by id' do
       expect(@mr.all.length).to eq(20)
-      expect(@mr.delete(12334112)).to eq(@merchant1)
+      expect(@mr.delete(02)).to eq(@merchant1)
       expect(@mr.all.length).to eq(19)
     end
   end

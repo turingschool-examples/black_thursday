@@ -1,21 +1,16 @@
 class MerchantRepository
   attr_reader :all, :sales_engine
 
-  def initialize(path, sales_engine)
-    @path = path
+  def initialize(file_path, sales_engine)
+    @file_path = file_path
     @sales_engine = sales_engine
-    @all = generate
+    @all = []
   end
 
   def generate
-    CSV.readlines(@path).drop(1).map do |line|
-      id,name,created_at,updated_at = line
-      Merchant.new({
-          :id => id.to_i,
-          :name => name,
-          :created_at => created_at,
-          :updated_at => updated_at
-          })
+    info = CSV.open("#{@file_path}", headers: true)
+    info.each do |row|
+      @all << Merchant.new(row, self)
     end
   end
 
@@ -45,15 +40,14 @@ class MerchantRepository
   end
 
   def create(attributes)
-    Merchant.new({:id => new_id,
-              :name => attributes[:name]
-              })
+    merchant_id = @all.max { |merchant| merchant.id}
+    attributes['id'] = merchant_id.id + 1
+    @all << Merchant.new(attributes, self)
   end
 
   def update(id, attributes)
-    update_merchant = find_by_id(id)
-    update_merchant.id = attributes[:id]
-    update_merchant.name = attributes[:name]
+    merchant = find_by_id(id)
+    merchant.update_merchant(attributes)
   end
 
   def delete(id)
