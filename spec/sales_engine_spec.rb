@@ -30,9 +30,9 @@ RSpec.describe SalesEngine do
 
   it 'can initialize sales analyst' do
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+                               :items     => "./data/items.csv",
+                               :merchants => "./data/merchants.csv"
+                             })
     sales_analyst = se.analyst
 
     expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
