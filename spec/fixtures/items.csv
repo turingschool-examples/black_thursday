@@ -1,13 +1,13 @@
 id,name,description,unit_price,merchant_id,created_at,updated_at
-01,shoes,Amazing shoes the best,50,1,2003-02-12 09:34:06 UTC,2001-06-04 18:15:12 UTC
-02,pencils,You can write with them,12,2,2011-02-11 07:44:36 UTC,2004-03-24 10:25:11 UTC
-03,helmets,They protect your dome,80,3,2013-04-04 02:24:36 UTC,2002-03-12 20:55:19 UTC
-04,art,Sick art,1100,4,2012-11-11 01:24:33 UTC,2002-04-24 22:45:34 UTC
-05,tv's,Nice resolution,550,5,2010-08-31 01:24:15 UTC,2005-04-13 23:22:34 UTC
-06,wood,Yep it's wood,40,6,2013-06-22 05:44:22 UTC,2004-12-24 18:25:11 UTC
-07,t-shirts,They are real nice,25,7,2012-11-14 05:54:44 UTC,2002-03-24 17:25:33 UTC
-08,pants,Tight jeans,50,8,2014-03-14 10:14:33 UTC,2007-02-19 16:25:11 UTC
-09,skis,Good rocker,950,9,2015-07-06 11:22:07 UTC,2008-03-12 17:15:55 UTC
+01,shoes,Amazing shoes the best,50,01,2003-02-12 09:34:06 UTC,2001-06-04 18:15:12 UTC
+02,pencils,You can write with them,12,02,2011-02-11 07:44:36 UTC,2004-03-24 10:25:11 UTC
+03,helmets,They protect your dome,80,03,2013-04-04 02:24:36 UTC,2002-03-12 20:55:19 UTC
+04,art,Sick art,1100,04,2012-11-11 01:24:33 UTC,2002-04-24 22:45:34 UTC
+05,tv's,Nice resolution,550,05,2010-08-31 01:24:15 UTC,2005-04-13 23:22:34 UTC
+06,wood,Yep it's wood,40,06,2013-06-22 05:44:22 UTC,2004-12-24 18:25:11 UTC
+07,t-shirts,They are real nice,25,07,2012-11-14 05:54:44 UTC,2002-03-24 17:25:33 UTC
+08,pants,Tight jeans,50,08,2014-03-14 10:14:33 UTC,2007-02-19 16:25:11 UTC
+09,skis,Good rocker,950,09,2015-07-06 11:22:07 UTC,2008-03-12 17:15:55 UTC
 10,snowboards,Splitboards for days,850,10,2011-04-18 04:44:56 UTC,2002-09-12 20:11:44 UTC
 11,books,Used books of all sorts,5,11,2009-05-09 03:04:46 UTC,2002-09-01 12:33:22 UTC
 12,head phones,Now with bluetooth,35,12,2012-02-09 01:32:26 UTC,2009-04-09 09:22:14 UTC
