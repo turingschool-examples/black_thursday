@@ -20,7 +20,6 @@ class SalesAnalyst
 
   def items_by_merch_count
     merch_items_hash.values.map do |item|
-      require "pry"; binding.pry
       item.count
     end
   end
