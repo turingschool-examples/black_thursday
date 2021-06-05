@@ -38,9 +38,15 @@ class Item
   end
 
   def update_item(attributes)
-    @name = attributes[:name]
-    @description = attributes[:description]
-    @unit_price = attributes[:unit_price]
+    unless attributes[:name].nil?
+      @name = attributes[:name]
+    end
+    unless attributes[:description].nil?
+      @description = attributes[:description]
+    end
+    unless attributes[:unit_price].nil?
+      @unit_price = attributes[:unit_price]
+    end
     @updated_at = Time.now
   end
 end

@@ -39,8 +39,12 @@ class InvoiceItem
   end
 
   def update_invoice_item(attributes)
-    @quantity = attributes[:quantity].to_i
-    @unit_price = attributes[:unit_price]
+    unless attributes[:quantity].nil?
+      @quantity = attributes[:quantity].to_i
+    end
+    unless attributes[:unit_price].nil?
+      @unit_price = attributes[:unit_price]
+    end
     @updated_at = Time.now
   end
 end
