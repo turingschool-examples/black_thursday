@@ -24,8 +24,17 @@ RSpec.describe InvoiceRepository do
 
   describe 'methods' do
     it 'can find an invoice by its id' do
-      # require "pry"; binding.pry
       expect(@invoice_repo.find_by_id(25)).to eq(@invoice_repo.all.first)
+    end
+
+    it 'can find all by customer_id' do
+      expected = @invoice_repo.all[-1..2]
+      expect(@invoice_repo.find_all_by_customer_id(7)).to eq(expected)
+      expect(@invoice_repo.find_all_by_customer_id(9)).to eq([])
+    end
+
+    it 'can find all invoices by merchant_id' do
+      
     end
   end
 end
