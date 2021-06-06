@@ -71,9 +71,7 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    if !item.nil?
-      item.update(attributes)
-    end
+    return item.update(attributes) unless item.nil?
   end
 
   # def update(id, attributes)

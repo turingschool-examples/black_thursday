@@ -4,25 +4,21 @@ SimpleCov.start
 require_relative '../lib/merchant'
 
 RSpec.describe Merchant do
+  before(:each) do
+    @m = Merchant.new({:id => 5, :name => 'Turing School'})
+  end
   it 'exists' do
-    m = Merchant.new({:id => 5, :name => 'Turing School'})
-
-    expect(m).to be_an_instance_of(Merchant)
+    expect(@m).to be_an_instance_of(Merchant)
   end
 
   it 'initializes with attributes' do
-    data = {:id => 5, :name => 'Turing School'}
-    m = Merchant.new(data)
-
-    expect(m.id).to eq(data[:id])
-    expect(m.name).to eq(data[:name])
+    expect(@m.id).to eq(5)
+    expect(@m.name).to eq('Turing School')
   end
 
-  it 'can update name' do
-    m = Merchant.new({:id => 5, :name => 'Turing School'})
+  it 'can update attributes' do
+    @m.update({:name => 'Turing School of Witchcraft and Wizardry'})
 
-    m.update({:name => 'Turing School of Witchcraft and Wizardry'})
-
-    expect(m.name).to eq('Turing School of Witchcraft and Wizardry')
+    expect(@m.name).to eq('Turing School of Witchcraft and Wizardry')
   end
 end
