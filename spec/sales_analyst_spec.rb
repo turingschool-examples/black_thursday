@@ -15,4 +15,20 @@ RSpec.describe SalesAnalyst do
       expect(@analyst.engine).to eq(@se)
     end
   end
+
+  context 'methods' do
+    before :each do
+      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
+      @analyst = SalesAnalyst.new(@se)
+    end
+
+    it 'can calculate average items per merchant' do
+      expect(@analyst.average_items_per_merchant).to eq(1.0)
+    end
+
+    it 'can calculate number of items per merchant' do
+      expected = 
+      expect(@analyst.items_per_merchant).to eq(expected)
+    end
+  end
 end
