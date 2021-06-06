@@ -1,7 +1,7 @@
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_item_repository'
-# require_relative '../lib/customer_repository'
+require_relative '../lib/customer_repository'
 require_relative '../lib/sales_analyst'
 
 class SalesEngine
@@ -15,7 +15,7 @@ class SalesEngine
     @items     = ItemRepository.new(paths[:items])
     @merchants = MerchantRepository.new(paths[:merchants])
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items])
-    # @customers = CustomerRepository.new(paths[:customers])
+    @customers = CustomerRepository.new(paths[:customers])
     @analyst   = SalesAnalyst.new(self)
   end
 

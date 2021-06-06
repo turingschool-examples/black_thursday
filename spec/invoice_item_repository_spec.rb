@@ -36,7 +36,7 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it 'can create a new invoice item object' do
-    data = @iir.create({
+    new = @iir.create({
                         :item_id => 4,
                         :invoice_id => 4,
                         :quantity => 250,
@@ -44,7 +44,7 @@ RSpec.describe InvoiceItemRepository do
                       })
 
     expect(@iir.all.length).to eq(16)
-    expect(data.id).to eq(16)
+    expect(new.id).to eq(16)
   end
 
   it 'can update invoice item attributes by id' do
@@ -53,6 +53,7 @@ RSpec.describe InvoiceItemRepository do
 
     expect(@iir.find_by_id(4).quantity).to eq(5000)
     expect(@iir.find_by_id(4).unit_price_to_dollars).to eq(20.00)
+    expect(@iir.find_by_id(4).updated_at).to_not eq(@iir.find_by_id(4).created_at)
   end
 
   it 'can delete invoice item by id' do
