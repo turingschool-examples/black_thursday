@@ -25,7 +25,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.engine.class).to eq(SalesEngine)
     end
 
-    xit 'returns average items per merchant' do
+    it 'returns average items per merchant' do
       sales_analyst = @se.analyst
       result = sales_analyst.average_items_per_merchant
 
