@@ -6,11 +6,11 @@ require 'csv'
 RSpec.describe SalesEngine do
   before(:each) do
     @se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :transactions => "./data/transactions.csv",
-      :invoice_items => "./data/invoice_items.csv"
+      :items     => './spec/fixtures/mock_items.csv',
+      :merchants => './spec/fixtures/mock_merchants.csv',
+      :invoices => './spec/fixtures/mock_invoices.csv',
+      :transactions => './spec/fixtures/mock_transactions.csv',
+      :invoice_items => './spec/fixtures/mock_invoice_items.csv'
     })
   end
   it 'exists' do
