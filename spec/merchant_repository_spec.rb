@@ -75,5 +75,9 @@ RSpec.describe MerchantRepository do
       expect(@mr.delete(02)).to eq(@merchant1)
       expect(@mr.all.length).to eq(19)
     end
+
+    it 'can inspect rows' do
+      expect(@mr.inspect).to eq("#<MerchantRepository 20 rows>")
+    end
   end
 end

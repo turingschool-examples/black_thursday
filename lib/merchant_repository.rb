@@ -5,13 +5,13 @@ class MerchantRepository
   def initialize(file_path, sales_engine)
     @file_path = file_path
     @sales_engine = sales_engine
-    @all = []
+    @all = generate
   end
 
   def generate
     info = CSV.open("#{@file_path}", headers: true, :header_converters => :symbol)
-    info.each do |row|
-      @all << Merchant.new(row, self)
+    info.map do |row|
+      Merchant.new(row, self)
     end
   end
 
@@ -34,9 +34,7 @@ class MerchantRepository
   end
 
   def new_id
-    max_id = @all.max_by do |merchant|
-      merchant.id
-    end
+    max_id = @all.max_by(&:id) 
     max_id.id += 1
   end
 
@@ -61,6 +59,6 @@ class MerchantRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

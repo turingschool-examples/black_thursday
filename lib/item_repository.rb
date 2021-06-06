@@ -4,13 +4,13 @@ class ItemRepository
   def initialize(file_path, sales_engine)
     @file_path = file_path
     @sales_engine = sales_engine
-    @all = []
+    @all = generate
   end
 
   def generate
     info = CSV.open("#{@file_path}", headers: true, :header_converters => :symbol)
-    info.each do |row|
-      @all << Item.new(row, self)
+    info.map do |row|
+      Item.new(row, self)
     end
   end
 
@@ -51,20 +51,14 @@ class ItemRepository
   end
 
   def create(attributes)
-    item_id = @all.max { |item| item.id}
-    attributes[:id] = item_id.id + 1
-    attributes[:created_at] = Time.now.strftime("%Y-%m-%d")
-    attributes[:updated_at] = Time.now.strftime("%Y-%m-%d")
+    attributes[:id] = @all.last.id + 1
     @all << Item.new(attributes, self)
   end
 
   def update(id, attributes)
     item = find_by_id(id)
-    if !item.nil?
-      item.update_item(attributes)
-    else
-      nil
-    end
+    return nil if item.nil?
+    item.update_item(attributes)
   end
 
   def delete(id)
@@ -73,6 +67,6 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

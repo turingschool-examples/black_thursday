@@ -72,22 +72,22 @@ RSpec.describe ItemRepository do
     end
 
     it 'creates a new item instance with given attributes' do
-      allow(Time).to receive(:strftime).and_return("current time")
+      # allow(Time).to receive(:strftime).and_return("current time")
       # allow(Time).to receive(:now).and_return("current time")
       attributes = {
-        :id          => nil,
         :name        => "Airplanes",
         :description => "They fly super dooper",
         :unit_price  => BigDecimal(1000),
-        :created_at  => nil,
-        :updated_at  => nil,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 21
       }
+
       @ir.create(attributes)
-      new_item = @ir.all[-1]
+      new_item = @ir.all.last
       expect(new_item.id).to eq(21)
       expect(@ir.all.length).to eq(21)
-      expect(new_item.created_at.class).to eq(String)
+      expect(new_item.created_at.class).to eq(Time)
       expect(new_item.updated_at).to eq(new_item.created_at)
       expect(@ir.find_by_id(21).name).to eq("Airplanes")
       @ir.create(attributes)
@@ -106,12 +106,13 @@ RSpec.describe ItemRepository do
     end
 
     it 'updates item by id with given attributes' do
-      allow(Time).to receive(:now).and_return("current time")
+      # allow(Time).to receive(:strftime).and_return("current time")
 
       attributes = {
         :name        => "pens",
         :description => "They cant be erased",
         :unit_price  => BigDecimal(5)
+
       }
       variable_name = @item1.updated_at
       @ir.update(2, attributes)
@@ -119,7 +120,7 @@ RSpec.describe ItemRepository do
       expect(@item1.name).to eq("pens")
       expect(@item1.description).to eq("They cant be erased")
       expect(@item1.unit_price).to eq(5)
-      expect(@item1.updated_at).to eq("current time")
+      expect(@item1.updated_at).to be_an_instance_of(Time)
       expect(variable_name).to_not eq(@item1.updated_at)
     end
 
@@ -127,6 +128,10 @@ RSpec.describe ItemRepository do
       expect(@ir.all.length).to eq(20)
       expect(@ir.delete(02)).to eq(@item1)
       expect(@ir.all.length).to eq(19)
+    end
+
+    it 'can inspect rows' do
+      expect(@ir.inspect).to eq("#<ItemRepository 20 rows>")
     end
   end
 end
