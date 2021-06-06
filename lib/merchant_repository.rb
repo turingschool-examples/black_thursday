@@ -1,20 +1,17 @@
+require 'merchant'
 class MerchantRepository
-  attr_reader :all
+  attr_reader :all, :sales_engine
 
-  def initialize(path)
-    @path = path
+  def initialize(file_path, sales_engine)
+    @file_path = file_path
+    @sales_engine = sales_engine
     @all = generate
   end
 
   def generate
-    CSV.readlines(@path).drop(1).map do |line|
-      id,name,created_at,updated_at = line
-      Merchant.new({
-          :id => id.to_i,
-          :name => name,
-          :created_at => created_at,
-          :updated_at => updated_at
-          })
+    info = CSV.open(@file_path.to_s, headers: true, header_converters: :symbol)
+    info.map do |row|
+      Merchant.new(row, self)
     end
   end
 
@@ -37,26 +34,27 @@ class MerchantRepository
   end
 
   def new_id
-    max_id = @all.max_by do |merchant|
-      merchant.id
-    end
+    max_id = @all.max_by(&:id)
     max_id.id += 1
   end
 
   def create(attributes)
-    Merchant.new({:id => new_id,
-              :name => attributes[:name]
-              })
+    merchant_id = @all.max { |merchant| merchant.id }
+    attributes[:id] = merchant_id.id + 1
+    @all << Merchant.new(attributes, self)
   end
 
   def update(id, attributes)
-    update_merchant = find_by_id(id)
-    update_merchant.id = attributes[:id]
-    update_merchant.name = attributes[:name]
+    merchant = find_by_id(id)
+    merchant.update_merchant(attributes) unless merchant.nil?
   end
 
   def delete(id)
     deleted_merchant = find_by_id(id)
     @all.delete(deleted_merchant)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

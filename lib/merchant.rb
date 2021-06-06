@@ -1,9 +1,15 @@
 class Merchant
   attr_accessor :id,
-                :name
+                :name,
+                :repo
 
-  def initialize(info)
-    @id = info[:id]
+  def initialize(info, repo)
+    @id = info[:id].to_i
     @name = info[:name]
+    @repo = repo
+  end
+
+  def update_merchant(attributes)
+    @name = attributes[:name] unless attributes[:name].nil?
   end
 end

@@ -1,23 +1,16 @@
 class ItemRepository
-  attr_reader :all
+  attr_reader :sales_engine, :all, :file_path
 
-  def initialize(path)
-    @file_path = path
+  def initialize(file_path, sales_engine)
+    @file_path = file_path
+    @sales_engine = sales_engine
     @all = generate
   end
 
   def generate
-    CSV.readlines(@file_path).drop(1).map do |line|
-      id,name,description,unit_price,merchant_id,created_at,updated_at = line
-      Item.new({
-          :id => id.to_i,
-          :name => name,
-          :description => description,
-          :unit_price => unit_price.to_f,
-          :merchant_id => merchant_id.to_i,
-          :created_at => created_at,
-          :updated_at => updated_at
-          })
+    info = CSV.open(@file_path.to_s, headers: true, header_converters: :symbol)
+    info.map do |row|
+      Item.new(row, self)
     end
   end
 
@@ -35,7 +28,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     @all.find_all do |item|
-      item.description.include?(description)
+      item.description.downcase.include?(description.downcase)
     end
   end
 
@@ -47,7 +40,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @all.find_all do |item|
-      range === item.unit_price
+      range.include? item.unit_price
     end
   end
 
@@ -57,37 +50,24 @@ class ItemRepository
     end
   end
 
-  def new_id
-    max_id = @all.max_by do |item|
-      item.id
-    end
-    max_id.id += 1
-  end
-
-#Do we need to add this item that is created to @all?
   def create(attributes)
-    Item.new({:id => new_id,
-              :name => attributes[:name],
-              :description => attributes[:description],
-              :unit_price => attributes[:unit_price],
-              :created_at => attributes[:created_at],
-              :updated_at => attributes[:updated_at],
-              :merchant_id => attributes[:merchant_id]
-              })
+    attributes[:id] = @all.last.id + 1
+    @all << Item.new(attributes, self)
   end
 
   def update(id, attributes)
-    update_item = find_by_id(id)
-    update_item.name = attributes[:name]
-    update_item.description = attributes[:description]
-    update_item.unit_price = attributes[:unit_price]
-    update_item.updated_at = Time.now
+    item = find_by_id(id)
+    return nil if item.nil?
+
+    item.update_item(attributes)
   end
 
   def delete(id)
     deleted_item = find_by_id(id)
     @all.delete(deleted_item)
   end
-end
 
-# @ir.all.max_by {|item| item.id}
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+end
