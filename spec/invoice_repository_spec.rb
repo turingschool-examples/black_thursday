@@ -59,8 +59,29 @@ RSpec.describe InvoiceRepository do
       expect(@ivr.find_all_by_status('returned')).to eq([])
     end
 
+    it 'creates new invoice instance with given attributes' do
+      attributes = {
+        customer_id: 6,
+        merchant_id: 6,
+        status: 'pending',
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s,
+      }
+
+      @ivr.create(attributes)
+      new_invoice = @ivr.all.last
+      expect(new_invoice.id).to eq(6)
+      expect(@ivr.all.length).to eq(6)
+      expect(new_invoice.created_at.class).to be_a(Time)
+      expect(new_invoice.updated_at).to eq(new_invoice.created_at)
+      expect(@ivr.find_by_id(6).merchant_id).to eq(6)
+      @ivr.create(attributes)
+      newer_item = @ivr.all.last
+      expect(newer_item.id).to eq(7)
+    end
+
     it 'can inspect rows' do
-      expect(@ivr.inspect).to eq('#<InvoiceRepository 50 rows>')
+      expect(@ivr.inspect).to eq('#<InvoiceRepository 5 rows>')
     end
   end
 end
