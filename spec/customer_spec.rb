@@ -7,12 +7,12 @@ require 'bigdecimal'
 RSpec.describe Customer do
   before(:each) do
     @c = Customer.new({
-      :id          => 1,
-      :first_name  => 'Jennifer',
-      :last_name   => 'Flowers',
-      :created_at  => '2021-06-11 09:34:06 UTC',
-      :updated_at  => '2021-06-11 09:34:06 UTC',
-    })
+                        :id          => 1,
+                        :first_name  => 'Jennifer',
+                        :last_name   => 'Flowers',
+                        :created_at  => '2021-06-11 09:34:06 UTC',
+                        :updated_at  => '2021-06-11 09:34:06 UTC',
+                      })
   end
 
   it 'exists' do
@@ -28,12 +28,12 @@ RSpec.describe Customer do
 
   it 'can parse time or create time' do
     c = Customer.new({
-                        :id          => 1,
-                        :first_name  => 'Jennifer',
-                        :last_name   => 'Flowers',
-                        :created_at  => '',
-                        :updated_at  => nil,
-                      })
+                      :id          => 1,
+                      :first_name  => 'Jennifer',
+                      :last_name   => 'Flowers',
+                      :created_at  => '',
+                      :updated_at  => nil,
+                    })
 
     expect(c.created_at).to be_a(Time)
     expect(c.updated_at).to be_a(Time)
@@ -41,17 +41,17 @@ RSpec.describe Customer do
 
   it 'can update attributes' do
     @c.update({
-      :first_name => 'Dan',
-      :last_name  => 'Spring'
-      })
+                :first_name => 'Dan',
+                :last_name  => 'Spring'
+              })
 
     expect(@c.first_name).to eq('Dan')
     expect(@c.last_name).to eq('Spring')
     expect(@c.updated_at).to be_a(Time)
 
     @c.update({
-      :first_name => 'Sam',
-      })
+                :first_name => 'Sam',
+              })
 
     expect(@c.first_name).to eq('Sam')
     expect(@c.last_name).to eq('Spring')
