@@ -6,7 +6,8 @@ RSpec.describe Item do
   before(:each) do
     @paths = {
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     }
     @se = SalesEngine.from_csv(@paths)
     @ir = @se.items
