@@ -1,5 +1,4 @@
 class Customer
-
   attr_reader :id,
               :first_name,
               :last_name,
@@ -25,9 +24,8 @@ class Customer
   end
 
   def update(attributes)
-    @first_name = attributes[:first_name] if !attributes[:first_name].nil?
-    @last_name = attributes[:last_name] if !attributes[:last_name].nil?
-    @updated_at  = update_time("")
+    @first_name = attributes[:first_name] unless attributes[:first_name].nil?
+    @last_name = attributes[:last_name] unless attributes[:last_name].nil?
+    @updated_at = update_time('')
   end
-
 end

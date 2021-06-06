@@ -42,9 +42,7 @@ class CustomerRepository
     new_id = @all.max_by do |customer|
       customer.id
     end
-
     attributes[:id] = new_id.id + 1
-  
     customer = Customer.new(attributes)
     @all << customer
     customer
@@ -52,7 +50,7 @@ class CustomerRepository
 
   def update(id, attributes)
     customer = find_by_id(id)
-    if !customer.nil?
+    unless customer.nil?
       customer.update(attributes)
     end
   end
