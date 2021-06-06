@@ -35,10 +35,9 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     solution = []
-    average = average_items_per_merchant
-    std_deviation_mean = average_items_per_merchant_standard_deviation
+    std_deviation_mean = (average_items_per_merchant * 1) + average_items_per_merchant_standard_deviation
     items_per_merchant.each do |merchant, number_of_items|
-      solution << merchant if number_of_items >= (average + std_deviation_mean)
+      solution << merchant if number_of_items >= std_deviation_mean
     end
     solution
   end

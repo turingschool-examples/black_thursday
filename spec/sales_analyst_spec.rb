@@ -65,7 +65,8 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can calculate the merchants with high item count' do
-      expect(@analyst.merchants_with_high_item_count).to eq([])
+      expected = @se.merchants.all
+      expect(@analyst.merchants_with_high_item_count).to eq(expected)
     end
   end
 end
