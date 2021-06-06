@@ -7,10 +7,11 @@ require_relative '../lib/sales_analyst'
 RSpec.describe SalesEngine do
   before :each do
     @se = SalesEngine.from_csv({
-                                :items => './spec/fixture_files/item_fixture.csv',
-                                :merchants => './spec/fixture_files/merchant_fixture.csv',
-                                :invoices => './spec/fixture_files/invoice_fixture.csv'
-                              })
+                                  :items => './spec/fixture_files/item_fixture.csv',
+                                  :merchants => './spec/fixture_files/merchant_fixture.csv',
+                                  :invoices => './spec/fixture_files/invoice_fixture.csv'
+                               })
+
     @sales_analyst = @se.analyst
   end
 
@@ -24,10 +25,11 @@ RSpec.describe SalesEngine do
 
   it 'can return a hash of the merchant ids and items' do
     expected = {
-                5 => @se.items.find_all_by_merchant_id(5),
-                6 => @se.items.find_all_by_merchant_id(6),
-                7 => @se.items.find_all_by_merchant_id(7)
+                  5 => @se.items.find_all_by_merchant_id(5),
+                  6 => @se.items.find_all_by_merchant_id(6),
+                  7 => @se.items.find_all_by_merchant_id(7)
                }
+
     expect(@sales_analyst.merch_items_hash).to eq(expected)
   end
 
@@ -108,9 +110,45 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.bottom_merchants_by_invoice_count).to eq(@se.merchants.all)
   end
 
-  it 'can return the top days invoices are created' do
-    expect(@sales_analyst.top_days_by_invoice_count).to eq() # => [Saturday"] ?
+  #top_days_by_invoice_count
+  it 'can return average invoices by days of the week' do
+    expect(@sales_analyst.average_invoices_per_day).to eq(0.71)
   end
+
+  it 'returns date stamps for inovices' do
+    expect(@sales_analyst.pull_day_from_invoice).to eq([6, 5, 3, 1, 6])
+  end
+
+  it 'returns array of weekday invoice counts' do
+    # day_of_week_hash = {
+    #                       'Sunday'    => 0,
+    #                       'Monday'    => 1,
+    #                       'Tuesday'   => 0,
+    #                       'Wednesday' => 1,
+    #                       'Thursday'  => 0,
+    #                       'Friday'    => 1,
+    #                       'Saturday'  => 2
+    #                    }
+
+    expect(@sales_analyst.invoice_by_day_count).to eq([0, 1, 0, 1, 0, 1, 2])
+  end
+
+  it 'can return standard deviation for days of the week' do
+    # .71
+    # set = [1, 0, 1, 0, 1, 2, 0] # number of invoices per day
+    # std_dev = sqrt( ( (1-0.71)^2+(0-0.71)^2+(1-0.71)^2+(0-0.71)^2+(1-0.71)^2+(2-0.71)^2+(0-0.71)^2 ) / 6 )
+    # std_dev = sqrt( ( 0.0841 + 0.5041 + 0.0841 + 0.5041 + 0.0841 + 1.6641 + 0.5041) / 6 )
+    # std_dev = sqrt( ( 3.4287 / 6 ) )
+    # std_dev = sqrt( 0.57145 )
+    # std_dev = 0.75594
+    expect(@sales_analyst.avg_inv_per_day_std_dev).to eq(0.76)
+  end
+
+  it 'can return the top days for invoices' do
+   expect(@sales_analyst.top_days_by_invoice_count.length).to eq 1
+   expect(@sales_analyst.top_days_by_invoice_count.first.class).to eq String
+   expect(@sales_analyst.top_days_by_invoice_count).to eq(['Saturday'])
+ end
 
   it 'can return the percentage of invoice shipped vs pending vs returned' do
     expect(@sales_analyst.invoice_status(:pending)).to eq(60.0)
