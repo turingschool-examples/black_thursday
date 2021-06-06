@@ -80,6 +80,17 @@ RSpec.describe InvoiceRepository do
       expect(newer_item.id).to eq(7)
     end
 
+    it 'updates invoice by id with given status' do
+      new_status = { status: 'shipped' }
+      prev_updated_at = @invoice1.updated_at
+      @ivr.update(1, new_status)
+
+      expect(@invoice1.merchant_id).to eq(12335938)
+      expect(@invoice1.updated_at).to be_an_instance_of(Time)
+      expect(@invoice1.status).to eq('shipped')
+      expect(prev_updated_at).to_not eq(@invoice1.updated_at)
+    end
+
     it 'can inspect rows' do
       expect(@ivr.inspect).to eq('#<InvoiceRepository 5 rows>')
     end
