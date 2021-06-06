@@ -27,8 +27,16 @@ RSpec.describe Customer do
   end
 
   it 'can parse time or create time' do
-    expect(@c.created_at).to be_a(Time)
-    expect(@c.updated_at).to be_a(Time)
+    c = Customer.new({
+                        :id          => 1,
+                        :first_name  => 'Jennifer',
+                        :last_name   => 'Flowers',
+                        :created_at  => '',
+                        :updated_at  => nil,
+                      })
+
+    expect(c.created_at).to be_a(Time)
+    expect(c.updated_at).to be_a(Time)
   end
 
   it 'can update attributes' do
