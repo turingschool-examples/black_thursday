@@ -15,4 +15,9 @@ class Invoice
     @updated_at  = Time.parse(info[:updated_at])
     @repo = repo
   end
+
+  def update_invoice(attributes)
+    @status = attributes[:status] unless attributes[:status].nil?
+    @updated_at = Time.now
+  end
 end

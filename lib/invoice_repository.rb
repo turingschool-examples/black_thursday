@@ -43,6 +43,13 @@ class InvoiceRepository
     @all << Invoice.new(attributes, self)
   end
 
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    return nil if invoice.nil?
+
+    invoice.update_invoice(attributes)
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
