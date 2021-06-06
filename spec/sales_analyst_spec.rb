@@ -9,7 +9,10 @@ RSpec.describe SalesEngine do
     @se = SalesEngine.from_csv({
                                   :items => './spec/fixture_files/item_fixture.csv',
                                   :merchants => './spec/fixture_files/merchant_fixture.csv',
-                                  :invoices => './spec/fixture_files/invoice_fixture.csv'
+                                  :invoices => './spec/fixture_files/invoice_fixture.csv',
+                                  :invoice_items => './spec/fixture_files/invoice_fixture.csv',
+                                  :customers => './spec/fixture_files/invoice_fixture.csv',
+                                  :transactions => './spec/fixture_files/invoice_fixture.csv'
                                })
 
     @sales_analyst = @se.analyst
@@ -38,12 +41,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return average items per merchant standard deviation' do
-    # 1.33 is the mean
-    # set = [1, 1, 2]
-    # std_dev = sqrt( ( (1-1.33)^2+(1-1.33)^2+(2-1.33)^2 ) / 2 )
-    # std_dev = sqrt( ( .6667 / 2 )
-    # std_dev = sqrt( ( .33335 )
-    # std_dev = .578
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.15)
   end
 
@@ -78,13 +75,6 @@ RSpec.describe SalesEngine do
 
   it 'can return golden items' do
     expect(@sales_analyst.golden_items).to eq([])
-    # 13.5 is the mean item price
-    # set = [10, 12, 12, 20]
-    # std_dev = sqrt( ( (10-13.5)^2+(12-13.5)^2+(12-13.5)^2+(20-13.5)^2 ) / 2 )
-    # std_dev = sqrt( ( 12.25 + 2.25 + 2.25 + 42.25 ) / 2 )
-    # std_dev = sqrt( ( 59 / 2 )
-    # std_dev = sqrt( ( 29.5 )
-    # std_dev = 5.43
   end
 
   it 'can return average invoices per merchant' do
@@ -92,13 +82,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return average invoices per merchant standard deviation' do
-  # 1.67 is the mean
-  # set = [2, 1, 2] # number of invoices per merchant
-  # std_dev = sqrt( ( (2-1.67)^2+(1-1.67)^2+(2-1.67)^2 ) / 2 )
-  # std_dev = sqrt( ( 0.1089 + 0.4489 + 0.1089 ) / 2 )
-  # std_dev = sqrt( ( .6667 / 2 ) )
-  # std_dev = sqrt( 0.33335 )
-  # std_dev = 0.57736
     expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.58)
   end
 
@@ -110,7 +93,6 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.bottom_merchants_by_invoice_count).to eq(@se.merchants.all)
   end
 
-  #top_days_by_invoice_count
   it 'can return average invoices by days of the week' do
     expect(@sales_analyst.average_invoices_per_day).to eq(0.71)
   end
@@ -120,27 +102,10 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns array of weekday invoice counts' do
-    # day_of_week_hash = {
-    #                       'Sunday'    => 0,
-    #                       'Monday'    => 1,
-    #                       'Tuesday'   => 0,
-    #                       'Wednesday' => 1,
-    #                       'Thursday'  => 0,
-    #                       'Friday'    => 1,
-    #                       'Saturday'  => 2
-    #                    }
-
     expect(@sales_analyst.invoice_by_day_count).to eq([0, 1, 0, 1, 0, 1, 2])
   end
 
   it 'can return standard deviation for days of the week' do
-    # .71
-    # set = [1, 0, 1, 0, 1, 2, 0] # number of invoices per day
-    # std_dev = sqrt( ( (1-0.71)^2+(0-0.71)^2+(1-0.71)^2+(0-0.71)^2+(1-0.71)^2+(2-0.71)^2+(0-0.71)^2 ) / 6 )
-    # std_dev = sqrt( ( 0.0841 + 0.5041 + 0.0841 + 0.5041 + 0.0841 + 1.6641 + 0.5041) / 6 )
-    # std_dev = sqrt( ( 3.4287 / 6 ) )
-    # std_dev = sqrt( 0.57145 )
-    # std_dev = 0.75594
     expect(@sales_analyst.avg_inv_per_day_std_dev).to eq(0.76)
   end
 
@@ -154,5 +119,29 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.invoice_status(:pending)).to eq(60.0)
     expect(@sales_analyst.invoice_status(:shipped)).to eq(40.0)
     expect(@sales_analyst.invoice_status(:returned)).to eq(0)
+  end
+
+  it 'can find out the total revenue for a given date' do
+    expect(@sales_analyst.total_revenue_by_date(date).to eq($$)
+    # Note: When calculating revenue the unit_price listed within invoice_items should be used. The invoice_item.unit_price represents the final sale price of an item after sales, discounts or other intermediary price changes.
+  end
+  it 'find the top x performing merchants in terms of revenue' do
+    expect(@sales_analyst.top_revenue_earners(x).to eq([merchant, merchant, merchant, merchant, merchant])
+  end
+  it 'takes the top 20 merchants by default if no number is given for top_revenue_earners' do
+    expect(@sales_analyst.top_revenue_earners.to eq([merchant * 20])
+  end
+  it 'can return which merchants have pending invoices' do
+    expect(@sales_analyst.merchants_with_pending_invoices.to eq([merchant, merchant, merchant])
+    # Note: an invoice is considered pending if none of its transactions are successful.
+  end
+  it 'can return which merchants offer only one item' do
+    expect(@sales_analyst.merchants_with_only_one_item.to eq([merchant, merchant, merchant])
+  end
+  it 'can return merchants that only sell one item by the month they registered (merchant.created_at)' do
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("Month name").to eq([merchant, merchant, merchant])
+  end
+  it 'can find the total revenue for a single merchant' do
+    expect(@sales_analyst.revenue_by_merchant(merchant_id).to eq($)
   end
 end
