@@ -23,31 +23,40 @@ RSpec.describe InvoiceRepository do
       })
       @ivr = InvoiceRepository.new('spec/fixtures/invoices.csv', @se)
       @invoice1 = @ivr.all[0]
-      @invoice2 = @ivr.all[-1]
+      @invoice2 = @ivr.all[1]
+      @invoice3 = @ivr.all[2]
+      @invoice4 = @ivr.all[3]
+      @invoice5 = @ivr.all[4]
     end
 
     it 'generates invoice instances' do
       @ivr.generate
       expect(@invoice1.id).to eq(1)
-      expect(@invoice2.id).to eq(50)
+      expect(@invoice2.id).to eq(2)
     end
 
     it 'finds invoice by id or return nil' do
       expect(@ivr.find_by_id(1)).to eq(@invoice1)
-      expect(@ivr.find_by_id(50)).to eq(@invoice2)
+      expect(@ivr.find_by_id(2)).to eq(@invoice2)
       expect(@ivr.find_by_id(1000000)).to eq(nil)
     end
 
     it 'finds all invoices by customer id or return []' do
       expect(@ivr.find_all_by_customer_id(1)).to eq([@invoice1])
-      expect(@ivr.find_all_by_customer_id(10)).to eq([@invoice2])
+      expect(@ivr.find_all_by_customer_id(2)).to eq([@invoice2, @invoice3])
       expect(@ivr.find_all_by_customer_id(1000000)).to eq([])
     end
 
     it 'finds all invoices by merchant id or return []' do
       expect(@ivr.find_all_by_merchant_id(12335938)).to eq([@invoice1])
-      expect(@ivr.find_all_by_merchant_id(12336299)).to eq([@invoice2])
+      expect(@ivr.find_all_by_merchant_id(12336299)).to eq([@invoice2, @invoice5])
       expect(@ivr.find_all_by_merchant_id(0)).to eq([])
+    end
+
+    it 'finds all invoices by status' do
+      expect(@ivr.find_all_by_status('pending')).to eq([@invoice1, @invoice4, @invoice5])
+      expect(@ivr.find_all_by_status('shipped')).to eq([@invoice2, @invoice3])
+      expect(@ivr.find_all_by_status('returned')).to eq([])
     end
 
     it 'can inspect rows' do
