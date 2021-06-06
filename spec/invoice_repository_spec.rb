@@ -10,7 +10,7 @@ RSpec.describe InvoiceRepository do
       expect(@invoice_repo).to be_an(InvoiceRepository)
     end
 
-    it 'has attributes' do
+    it 'returns an array of all known invoices with readable attributes' do
       expect(@invoice_repo.all).to be_an(Array)
       expect(@invoice_repo.all.length).to eq(6)
       expect(@invoice_repo.all.first.id).to eq(25)
@@ -19,6 +19,13 @@ RSpec.describe InvoiceRepository do
       expect(@invoice_repo.all.first.status).to eq('returned')
       expect(@invoice_repo.all.first.created_at).to be_a(Time)
       expect(@invoice_repo.all.first.updated_at).to be_a(Time)
+    end
+  end
+
+  describe 'methods' do
+    it 'can find an invoice by its id' do
+      # require "pry"; binding.pry
+      expect(@invoice_repo.find_by_id(25)).to eq(@invoice_repo.all.first)
     end
   end
 end
