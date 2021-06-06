@@ -29,5 +29,5 @@ class SalesEngine
   def analyst
     SalesAnalyst.new(@item_repo, @merchant_repo, @invoice_repo, self)
   end
-  
+
 end
