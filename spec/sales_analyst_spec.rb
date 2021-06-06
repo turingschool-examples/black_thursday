@@ -21,7 +21,7 @@ RSpec.describe 'SalesAnalyst' do
 
     describe 'methods' do
       it 'can return the average items per merchant' do
-        expect(@sales_analyst.items_per_merchant).to eq(2.88)
+        expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
       end
     end
   end
