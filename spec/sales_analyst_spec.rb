@@ -8,7 +8,8 @@ RSpec.describe SalesEngine do
   before :each do
     @se = SalesEngine.from_csv({
                                 :items => './spec/fixture_files/item_fixture.csv',
-                                :merchants => './spec/fixture_files/merchant_fixture.csv'
+                                :merchants => './spec/fixture_files/merchant_fixture.csv',
+                                :invoices => './spec/fixture_files/invoice_fixture.csv'
                               })
     @sales_analyst = @se.analyst
   end
@@ -86,4 +87,33 @@ RSpec.describe SalesEngine do
     # std_dev = sqrt( ( 29.5 )
     # std_dev = 5.43
   end
+
+  it 'can return average invoices per merchant' do
+    expect(@sales_analyst.average_invoices_per_merchant).to eq(1.67)
+  end
+
+  it 'can return average invoices per merchant standard deviation' do
+  # 1.67 is the mean
+  # set = [2, 1, 2] # number of invoices per merchant
+
+  # std_dev = sqrt( ( (2-1.67)^2+(1-1.67)^2+(2-1.67)^2 ) / 2 )
+  # std_dev = sqrt( ( 0.1089 + 0.4489 + 0.1089 ) / 2 )
+  # std_dev = sqrt( ( .6667 / 2 ) )
+  # std_dev = sqrt( 0.33335 )
+  # std_dev = 0.57736
+    expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.58)
+  end
+
+  it 'can return merchants with high invoice count' do
+  # Which merchants are more than two standard deviations above the mean?
+  # look at each merchant
+    # num of invoices
+    # ( std_dev = 0.58 ) * 2
+    expect(@sales_analyst.top_merchants_by_invoice_count).to eq([])
+  end
+
+  it 'can return merchants with low invoice count' do
+    expect(@sales_analyst.bottom_merchants_by_invoice_count).to eq(@se.merchants.all)
+  end
+
 end
