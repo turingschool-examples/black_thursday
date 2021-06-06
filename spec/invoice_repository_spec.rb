@@ -31,5 +31,11 @@ RSpec.describe InvoiceRepository do
       expect(@invoice1.id).to eq(1)
       expect(@invoice2.id).to eq(50)
     end
+
+    it 'finds invoice by id or return nil' do
+      expect(@ivr.find_by_id(1)).to eq(@invoice1)
+      expect(@ivr.find_by_id(50)).to eq(@invoice2)
+      expect(@ivr.find_by_id(1000000)).to eq(nil)
+    end
   end
 end
