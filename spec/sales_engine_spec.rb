@@ -6,64 +6,55 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe do
+  before(:each) do
+    @se = SalesEngine.from_csv({
+      :items => './spec/fixtures/item_fixtures.csv',
+      :merchants => './spec/fixtures/merchant_fixtures.csv',
+      :invoices => './data/invoices.csv'
+      })
+  end
+
   describe 'instantiation' do
     it 'creates a new sales engine' do
-      se = SalesEngine.from_csv({
-        :items => './spec/fixtures/item_fixtures.csv',
-        :merchants => './spec/fixtures/merchant_fixtures.csv'
-        })
 
-      expect(se).to be_an_instance_of(SalesEngine)
+      expect(@se).to be_an_instance_of(SalesEngine)
     end
   end
 
   describe 'its methods' do
-    it 'can list all merchants' do
-      item_repository = ItemRepository.new('./data/items.csv', self).create_repo
-      merchant_repository = MerchantRepository.new('./spec/fixtures/merchant_fixtures.csv', self).create_repo
-      se = SalesEngine.from_csv({
-        :items => './spec/fixtures/item_fixtures.csv',
-        :merchants => './spec/fixtures/merchant_fixtures.csv'
-        })
+    it 'can return an instance of a merchant repository' do
 
-      expect(se.merchants) == (merchant_repository)
+      expect(@se.merchants).to be_an_instance_of(MerchantRepository)
+    end
+
+    it 'can return an instance of a item repository' do
+
+      expect(@se.items).to be_an_instance_of(ItemRepository)
+    end
+
+    it 'can list all merchants' do
+
+      expect(@se.merchants.all.count).to eq(10)
     end
 
     it 'can find merchant by id' do
-      se = SalesEngine.from_csv({
-        :items => './spec/fixtures/item_fixtures.csv',
-        :merchants => './spec/fixtures/merchant_fixtures.csv'
-        })
 
-        expect(se.find_merchant_by_id(12334382).name).to eq("Keckenbauer")
+      expect(@se.find_merchant_by_id(12334382).name).to eq("Keckenbauer")
     end
 
     it 'can list all the items' do
-      @item_repository = ItemRepository.new('./data/items.csv', self).create_repo
-      se = SalesEngine.from_csv({
-        :items => './spec/fixtures/item_fixtures.csv',
-        :merchants => './spec/fixtures/merchant_fixtures.csv'
-        })
-        expect(se.items) == (@item_repository)
+
+      expect(@se.items.all.count).to eq(12)
     end
 
     it 'can find items by id' do
-      se = SalesEngine.from_csv({
-        :items => './spec/fixtures/item_fixtures.csv',
-        :merchants => './spec/fixtures/merchant_fixtures.csv'
-        })
 
-        expect(se.find_item_by_id(263408574).name).to eq("Adidas Azteca Fußballschuh")
+      expect(@se.find_item_by_id(263408574).name).to eq("Adidas Azteca Fußballschuh")
     end
 
     it 'can create a sales analyst class' do
-      se = SalesEngine.from_csv({
-        :items => './spec/fixtures/item_fixtures.csv',
-        :merchants => './spec/fixtures/merchant_fixtures.csv'
-        })
 
-      expect(se.analyst).to be_an_instance_of(SalesAnalyst)
-
+      expect(@se.analyst).to be_an_instance_of(SalesAnalyst)
     end
   end
 end
