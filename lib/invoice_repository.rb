@@ -52,4 +52,11 @@ class InvoiceRepository
     new_invoice.new_id(highest_id.id + 1)
     @all << new_invoice
   end
+
+  def update(id, attributes)
+    @all.find do |invoice|
+      invoice.new_status(attributes[:status])
+      invoice.update_updated_at
+    end
+  end
 end

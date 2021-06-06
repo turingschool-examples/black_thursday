@@ -62,5 +62,19 @@ RSpec.describe InvoiceRepository do
       expect(@invoice_repo.all.last.merchant_id).to eq(12335319)
       expect(@invoice_repo.all.last.status).to eq('returned')
     end
+
+    it 'can update provided attributes with id' do
+      attributes = {
+                      :id => nil,
+                      :customer_id => 13,
+                      :merchant_id => 12335319,
+                      :status => 'pending',
+                      :created_at => Time.now,
+                      :updated_at => Time.now
+                    }
+
+      @invoice_repo.update(31, attributes)
+      expect(@invoice_repo.all.last.status).to eq('pending')
+    end
   end
 end

@@ -18,4 +18,12 @@ class Invoice
   def new_id(num)
     @id = num
   end
+
+  def new_status(new_stat)
+    @status = new_stat
+  end
+
+  def update_updated_at
+    @updated_at = Time.now
+  end
 end
