@@ -19,8 +19,8 @@ class SalesAnalyst
   end
 
   def items_by_merch_count
-    merch_items_hash.values.map do |item|
-      item.count
+    merch_items_hash.values.map do |item_array|
+      item_array.count
     end
   end
 
@@ -33,9 +33,11 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    merch_high_count = merch_items_hash.select do |merch_id, items|
-      items.length > (average_items_per_merchant + average_items_per_merchant_standard_deviation) # 6 items > 1.33 mean + .58 std dev
+    merch_high_count = merch_items_hash.select do |merch_id, items| # |keys, values|
+       # 6 items > 1.33 mean + .58 std dev
+      items.length > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
+
     merch_high_count.keys.map do |merch_id|
       @engine.merchants.find_by_id(merch_id)
     end
@@ -81,6 +83,59 @@ class SalesAnalyst
       # 5 items > 2,010.80 mean + 4,466.10 std dev times 2
       item.unit_price_to_dollars > (average_price_per_item +
         (average_price_per_item_standard_deviation * 2))
+    end
+  end
+
+  def average_invoices_per_merchant
+    (@engine.invoices.all.length / @engine.merchants.all.length.to_f).round(2)
+  end
+
+  def merch_invoices_hash
+    merch_invoices = {}
+
+    # could use merchant as the key instead of the ID in case we need to call upon the object in the future?
+    @engine.merchants.all.map do |merchant|
+      merch_invoices[merchant.id] = @engine.invoices.find_all_by_merchant_id(merchant.id)
+    end
+
+    merch_invoices
+# merch id = > [inv, inv]
+  end
+
+  def invoices_by_merch_count
+    count = merch_invoices_hash.values.map do |invoice_array|
+      invoice_array.count
+    end
+    count
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    numerator = invoices_by_merch_count.sum do |num|
+      (num - average_invoices_per_merchant) ** 2
+    end
+    denominator = (invoices_by_merch_count.length - 1).to_f
+    Math.sqrt(numerator / denominator).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    merch_high_count = merch_invoices_hash.select do |merch_id, invoices| # |keys, values|
+       # 5 invoices > 1.67 mean + (2 * .58 std dev))
+      invoices.length > (average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation))
+    end
+
+    merch_high_count.keys.map do |merch_id|
+      @engine.merchants.find_by_id(merch_id)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    merch_high_count = merch_invoices_hash.select do |merch_id, invoices| # |keys, values|
+       # 5 invoices > 1.67 mean + (2 * .58 std dev))
+      invoices.length < (average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation))
+    end
+
+    merch_high_count.keys.map do |merch_id|
+      @engine.merchants.find_by_id(merch_id)
     end
   end
 end
