@@ -20,7 +20,7 @@ RSpec.describe InvoiceItem do
     :item_id       => 263562118,
     :invoice_id => 522,
     :quantity  => 9,
-    :unit_price  => 847.87,
+    :unit_price  => BigDecimal(84787, 4),
     :created_at  => Time.now,
     :updated_at  => Time.now
     }, @ir)
@@ -37,7 +37,7 @@ RSpec.describe InvoiceItem do
       :item_id       => 263562118,
       :invoice_id => 522,
       :quantity  => 9,
-      :unit_price  => 847.87,
+      :unit_price  => BigDecimal(84787, 4),
       :created_at  => Time.now,
       :updated_at  => Time.now
       }, @ir)
@@ -60,7 +60,7 @@ RSpec.describe InvoiceItem do
       :item_id       => 263562118,
       :invoice_id => 522,
       :quantity  => 9,
-      :unit_price  => 847.87,
+      :unit_price  => BigDecimal(84787, 4),
       :created_at  => Time.now,
       :updated_at  => Time.now
       }, @ir)
@@ -79,18 +79,17 @@ RSpec.describe InvoiceItem do
   end
 
   it 'can convert unit price into dollars' do
-
     i = InvoiceItem.new({
       :id          => 2345,
       :item_id       => 263562118,
       :invoice_id => 522,
       :quantity  => 9,
-      :unit_price  => BigDecimal.new(84787),
+      :unit_price  => BigDecimal(84787, 4),
       :created_at  => Time.now,
       :updated_at  => Time.now
       }, @ir)
 
-    expect(i.unit_price_to_dollars).to eq(84747 / 100)
+    expect(i.unit_price_to_dollars).to eq(847.87)
   end
 
 end

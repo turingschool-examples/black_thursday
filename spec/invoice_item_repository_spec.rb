@@ -27,7 +27,7 @@ RSpec.describe InvoiceItemRepository do
     expect(ir_csv_data.length).to eq(21830)
 
     data_validation = ir_csv_data.all? do |line|
-      line.class == Invoice
+      line.class == InvoiceItem
     end
 
     expect(data_validation).to be(true)
@@ -55,7 +55,7 @@ RSpec.describe InvoiceItemRepository do
   it 'can find all invoice matching given invoice item id' do
     ir = @se.invoice_items
     invoice_item_id = 100
-    result = ir.find_all_by_invoice_id(invoice_id)
+    result = ir.find_all_by_invoice_id(invoice_item_id)
 
     expect(result.length).to eq(3)
     expect(result.first.class).to eq(InvoiceItem)
@@ -67,7 +67,7 @@ RSpec.describe InvoiceItemRepository do
           :item_id => 7,
           :invoice_id => 8,
           :quantity => 1,
-          :unit_price => BigDecimal.new(10.99,4),
+          :unit_price => BigDecimal(10.99,4),
           :created_at => Time.now,
           :updated_at => Time.now
         }
@@ -78,28 +78,28 @@ RSpec.describe InvoiceItemRepository do
     expect(result.item_id).to eq(7)
   end
 
-  it 'can update an existing Invoice instance' do
+  it 'can update an existing InvoiceItem instance' do
     ir = @se.invoice_items
-    original_time = ir.find_by_id(21831).updated_at
+    original_time = ir.find_by_id(21830).updated_at
     time_stub = '2021-05-30 11:30:51.343158 -050'
     allow(Time).to receive(:now).and_return(time_stub)
     attributes = {
           :item_id => 7,
           :invoice_id => 8,
           :quantity => 13,
-          :unit_price => BigDecimal.new(10.99,4),
+          :unit_price => BigDecimal(10.99,4),
           #not getting testing but believe we should test
           :created_at => Time.now,
           :updated_at => Time.now
       }
 
-      ir.update(21831, attributes)
-      result = ir.find_by_id(21831)
+      ir.update(21830, attributes)
+      result = ir.find_by_id(21830)
 
       expect(result.quantity).to eq(13)
-      expect(result.item_id).to eq attributes[:item_id]
+      expect(result.unit_price).to eq attributes[:unit_price]
       expect(Time.parse(result.updated_at)).to be > original_time
-      result = ir.find_by_item_id(5000)
+      result = ir.find_by_id(21831)
       expect(result).to eq nil
     end
 
