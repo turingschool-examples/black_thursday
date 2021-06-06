@@ -2,6 +2,7 @@ require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
 
 class SalesEngine
 
@@ -10,6 +11,7 @@ class SalesEngine
     @merchant_repo = MerchantRepository.new(paths[:merchants], self)
     @invoice_repo = InvoiceRepository.new(paths[:invoices], self)
     @invoice_item_repo = InvoiceItemRepository.new(paths[:invoice_items], self)
+    @transaction_repo = TransactionRepository.new(paths[:transactions], self)
   end
 
   def self.from_csv(paths)
@@ -30,6 +32,10 @@ class SalesEngine
 
   def invoice_items
     @invoice_item_repo
+  end
+
+  def transactions
+    @transaction_repo
   end
 
   def analyst

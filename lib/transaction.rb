@@ -28,7 +28,7 @@ class Transaction
     self_hash[:invoice_id] = @invoice_id
     self_hash[:credit_card_number] = @credit_card_number
     self_hash[:credit_card_expiration_date] = @credit_card_expiration_date
-    self_hash[:result] = @result
+    self_hash[:result] = @result.to_sym
     self_hash[:created_at] = @created_at
     self_hash[:updated_at] = @updated_at
     self_hash

@@ -63,7 +63,7 @@ class TransactionRepository
       @all.delete(result)
       result.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number] != nil
       result.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date] != nil
-      result.result = attributes[:result] if attributes[:result] != nil
+      result.result = attributes[:result].to_sym if attributes[:result] != nil
       result.updated_at = Time.now
       @all << result
     end

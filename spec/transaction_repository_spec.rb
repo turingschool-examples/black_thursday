@@ -77,7 +77,7 @@ RSpec.describe TransactionRepository do
   it 'can create new instance with attributes' do
     tr = @se.transactions
     attributes= {
-          :id => create_new_id,
+          :id => tr.create_new_id,
           :invoice_id => 8,
           :credit_card_number => "4242424242424242",
           :credit_card_expiration_date => "0220",
@@ -98,7 +98,7 @@ RSpec.describe TransactionRepository do
     time_stub = '2021-05-30 11:30:51.343158 -050'
     allow(Time).to receive(:now).and_return(time_stub)
     attributes = {
-          :id => create_new_id,
+          :id => tr.create_new_id,
           :invoice_id => 3791,
           :credit_card_number => "4772428113593836",
           :credit_card_expiration_date => "0913",
