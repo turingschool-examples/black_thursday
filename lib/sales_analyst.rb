@@ -4,10 +4,10 @@ class SalesAnalyst
   include HelperMethods
   attr_reader :items, :merchants, :invoices, :engine, :all
 
-  def initialize(item_repo, merchant_repo, engine)
+  def initialize(item_repo, merchant_repo, invoice_repo, engine)
     @items = item_repo
     @merchants = merchant_repo
-    # @invoices = invoice_repo
+    @invoices = invoice_repo
     @engine = engine
     @all = nil
   end
