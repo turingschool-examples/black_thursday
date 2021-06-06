@@ -8,10 +8,12 @@ SimpleCov.start
 RSpec.describe do
   before(:each) do
     @se = SalesEngine.from_csv({
-      :items => './spec/fixtures/item_fixtures.csv',
-      :merchants => './spec/fixtures/merchant_fixtures.csv',
-      :invoices => './data/invoices.csv'
-      })
+      :items => './spec/fixtures/item_mock.csv',
+      :merchants => './spec/fixtures/merchant_mock.csv',
+      :invoices => './spec/fixtures/invoices_mock.csv',
+      :invoice_items => './spec/fixtures/invoice_items_mock.csv',
+      :customers => './spec/fixtures/customers_mock.csv',
+      :transactions => './spec/fixtures/transactions_mock.csv'})
   end
 
   describe 'instantiation' do
@@ -34,22 +36,22 @@ RSpec.describe do
 
     it 'can list all merchants' do
 
-      expect(@se.merchants.all.count).to eq(10)
+      expect(@se.merchants.all.count).to eq(5)
     end
 
     it 'can find merchant by id' do
 
-      expect(@se.find_merchant_by_id(12334382).name).to eq("Keckenbauer")
+      expect(@se.find_merchant_by_id(12334123).name).to eq("Keckenbauer")
     end
 
     it 'can list all the items' do
 
-      expect(@se.items.all.count).to eq(12)
+      expect(@se.items.all.count).to eq(29)
     end
 
     it 'can find items by id' do
 
-      expect(@se.find_item_by_id(263408574).name).to eq("Adidas Azteca Fußballschuh")
+      expect(@se.find_item_by_id(263558510).name).to eq("Tupac")
     end
 
     it 'can create a sales analyst class' do
