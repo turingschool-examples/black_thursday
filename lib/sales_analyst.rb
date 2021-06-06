@@ -20,15 +20,15 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-      all_items = @engine.items
-      all_merchants = @engine.merchants
-      all_merchants.all.map do |merchant|
-        all_items.find_all_by_merchant_id(merchant.id).count
-      end
+    all_items = @engine.items
+    all_merchants = @engine.merchants
+    all_merchants.all.map do |merchant|
+      all_items.find_all_by_merchant_id(merchant.id).count
+    end
   end
 
   def average_items_per_merchant
-    average(items_per_merchant)
+    average(items_per_merchant).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -40,40 +40,37 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_item_merchs = []
     all_items = @engine.items
     all_merchants = @engine.merchants.all
-    all_merchants.each do |merchant|
+    all_merchants.map do |merchant|
       if all_items.find_all_by_merchant_id(merchant.id).count >= high_item_count
-        high_item_merchs << merchant
+        merchant
       end
-    end
-    high_item_merchs
+    end.compact
   end
 
   def average_item_price_for_merchant(merchant_id)
-    unit_prices = []
     all_items = @engine.items
-    (all_items.find_all_by_merchant_id(merchant_id)).each do |item|
-      unit_prices << item.unit_price
+    unit_prices = all_items.find_all_by_merchant_id(merchant_id).map do |item|
+      item.unit_price
     end
-    average(unit_prices)
+    average(unit_prices).round(2)
   end
 
   def average_average_price_per_merchant
     all_merchants = @engine.merchants.all
-    all_merchant_averages = []
-    all_merchants.each do |merchant|
-      all_merchant_averages << average_item_price_for_merchant(merchant.id)
+    all_merchant_averages = all_merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
     end
     average(all_merchant_averages).round(2)
   end
 
   def golden_items
     all_items_unit_prices = @engine.items.all.map { |item| item.unit_price }
-    formula = (standard_deviation(all_items_unit_prices) * 2) + average(all_items_unit_prices)
+    stan_div = standard_deviation(all_items_unit_prices) * 2
+    avg = average(all_items_unit_prices)
     @engine.items.all.find_all do |item|
-      item.unit_price >= formula
+      item.unit_price >= (stan_div + avg)
     end
   end
 end
