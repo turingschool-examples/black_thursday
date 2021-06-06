@@ -8,6 +8,7 @@ class SalesEngine
     @item_repo = ItemRepository.new(paths[:items], self)
     @merchant_repo = MerchantRepository.new(paths[:merchants], self)
     @invoice_repo = InvoiceRepository.new(paths[:invoices], self)
+    @invoice_item_repo = InvoiceItemRepository.new(paths[:invoices], self)
   end
 
   def self.from_csv(paths)
@@ -26,8 +27,12 @@ class SalesEngine
     @invoice_repo
   end
 
+  def invoice_items
+    @invoice_item_repo
+  end
+
   def analyst
     SalesAnalyst.new(@item_repo, @merchant_repo, @invoice_repo, self)
   end
-  
+
 end

@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jacob/turing/black_thursday/lib/sales_engine.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
@@ -31,10 +31,14 @@
           15,
           null,
           null,
+          1,
+          0,
+          null,
+          null,
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/item_repository.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/item_repository.rb": {
         "lines": [
           1,
           1,
@@ -118,7 +122,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/item.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/item.rb": {
         "lines": [
           1,
           1,
@@ -163,7 +167,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/helper_methods.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/helper_methods.rb": {
         "lines": [
           1,
           null,
@@ -202,7 +206,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/merchant_repository.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/merchant_repository.rb": {
         "lines": [
           1,
           1,
@@ -250,7 +254,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/merchant.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           1,
@@ -271,7 +275,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/invoice_repository.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/invoice_repository.rb": {
         "lines": [
           1,
           1,
@@ -344,7 +348,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/invoice.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/invoice.rb": {
         "lines": [
           1,
           1,
@@ -382,12 +386,12 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/lib/sales_analyst.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/lib/sales_analyst.rb": {
         "lines": [
 
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/invoice_repository_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/invoice_repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -524,7 +528,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/invoice_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/invoice_spec.rb": {
         "lines": [
           1,
           1,
@@ -602,7 +606,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/item_repository_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/item_repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -752,7 +756,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/item_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/item_spec.rb": {
         "lines": [
           1,
           1,
@@ -850,7 +854,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/merchant_repository_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/merchant_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -941,7 +945,7 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/merchant_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/merchant_spec.rb": {
         "lines": [
           1,
           1,
@@ -995,12 +999,12 @@
           null
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/sales_analyst_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/sales_analyst_spec.rb": {
         "lines": [
 
         ]
       },
-      "/Users/jacob/turing/black_thursday/spec/sales_engine_spec.rb": {
+      "/Users/katherinemcconnell/Turing/1mod/projects/black_thursday/spec/sales_engine_spec.rb": {
         "lines": [
           1,
           null,
@@ -1031,6 +1035,6 @@
         ]
       }
     },
-    "timestamp": 1622938312
+    "timestamp": 1622939590
   }
 }
