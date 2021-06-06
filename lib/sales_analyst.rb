@@ -1,3 +1,4 @@
+require 'date'
 require_relative 'helper_methods'
 
 class SalesAnalyst
@@ -23,6 +24,12 @@ class SalesAnalyst
   def group_items_by_merchant_id
     @items.all.group_by do |item|
       item.merchant_id
+    end
+  end
+
+  def group_invoices_by_merchant_id
+    @invoices.all.group_by do |invoice|
+      invoice.merchant_id
     end
   end
 
@@ -89,23 +96,57 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    # do stuff
+    grouping = group_invoices_by_merchant_id
+    total = group_invoices_by_merchant_id.values.sum do |invoices_array|
+      invoices_array.length
+    end
+    (total / grouping.values.length.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    # do stuff
+    grouping = group_invoices_by_merchant_id
+    mean = average_invoices_per_merchant
+    result = grouping.values.reduce(0) do |total, invoices|
+      total + ((invoices.length - mean)**2)
+    end
+    (Math.sqrt(result/(grouping.values.length.to_f - 1))).round(2)
   end
 
   def top_merchants_by_invoice_count
-    # do stuff
+    collection_arr = []
+    group_invoices_by_merchant_id.each do |merchant_id, invoices|
+      if invoices.length >= (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+        collection_arr << merchant_id
+      end
+    end
+    set_all(@merchants)
+    result = collection_arr.map { |merchant_id| find_by_id(merchant_id) }
+    reset_all
+    result
   end
 
   def bottom_merchants_by_invoice_count
-    # do stuff
+    collection_arr = []
+    group_invoices_by_merchant_id.each do |merchant_id, invoices|
+      if invoices.length <= (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+        collection_arr << merchant_id
+      end
+    end
+    set_all(@merchants)
+    result = collection_arr.map { |merchant_id| find_by_id(merchant_id) }
+    reset_all
+    result
   end
 
   def top_days_by_invoice_count
-    # do stuff
+    @invoices.all[0]
+    grouping = @invoices.all.group_by do |invoice|
+      Date.parse(invoice.created_at.to_s).strftime("%A")
+    end
+    require "pry"; binding.pry
+    # mean from grouping
+    # stdev from the mean
+    # call .select on grouping to return more than 1 stdev
   end
 
   def invoice_status
