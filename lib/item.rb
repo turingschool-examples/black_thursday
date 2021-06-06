@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class Item
   attr_reader  :id,
                :name,
@@ -12,7 +13,7 @@ class Item
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = info[:unit_price].to_f
+    @unit_price = BigDecimal(info[:unit_price], 4).to_f
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @merchant_id = info[:merchant_id].to_i
@@ -20,13 +21,13 @@ class Item
   end
 
   def unit_price_to_dollars
-    '%.2f' % "#{@unit_price}"
+    (@unit_price/100)
   end
 
   def update_item(attributes)
     @name = attributes[:name] unless attributes[:name].nil?
     @description = attributes[:description] unless attributes[:description].nil?
     @unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
-    @updated_at = Time.now
+    @updated_at = "#{Time.now}"
   end
 end

@@ -1,5 +1,3 @@
-# require_relative 'csv'
-
 class ItemRepository
   attr_reader :sales_engine, :all, :file_path
 
@@ -30,7 +28,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     @all.find_all do |item|
-      item.description.include?(description)
+      item.description.downcase.include?(description.downcase)
     end
   end
 
@@ -42,7 +40,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @all.find_all do |item|
-      range === item.unit_price
+      range.include? item.unit_price_to_dollars
     end
   end
 
@@ -62,7 +60,11 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    item.update_item(attributes)
+    if !item.nil?
+      item.update_item(attributes)
+    else
+      nil
+    end
   end
 
   def delete(id)

@@ -1,3 +1,4 @@
+require 'merchant'
 class MerchantRepository
   attr_reader :all, :sales_engine
 
@@ -47,7 +48,11 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.update_merchant(attributes)
+    if !merchant.nil?
+      merchant.update_merchant(attributes)
+    else
+      nil
+    end
   end
 
   def delete(id)

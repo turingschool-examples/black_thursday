@@ -24,7 +24,7 @@ RSpec.describe Item do
 
     it 'returns the price of the item in dollars formatted as a Float' do
        item1 = @ir.all[1]
-      expect(item1.unit_price_to_dollars).to eq("12.00")
+      expect(item1.unit_price_to_dollars).to eq(0.12)
     end
   end
 end

@@ -39,20 +39,28 @@ RSpec.describe ItemRepository do
     end
 
     it 'returns all items that match provided description' do
-      expect(@ir.find_all_with_description('You can write with them')).to eq([@item1])
-      expect(@ir.find_all_with_description('You can sleep on it')).to eq([@item2])
-      expect(@ir.find_all_with_description('You can fight lions with them')).to eq([])
+      description = 'You can write with them'
+      expected = @ir.find_all_with_description(description)
+      expect(@ir.find_all_with_description(description)).to eq([@item1])
+      expect(expected.first.id).to eq(2)
+
     end
 
     it 'returns items by unit price' do
-      expect(@ir.find_all_by_price(12)).to eq([@item1])
-      expect(@ir.find_all_by_price(400)).to eq([@item2])
+      price = BigDecimal(12)
+      expected = @ir.find_all_by_price(price)
+
+      expect(expected).to eq([@item1])
       expect(@ir.find_all_by_price(2000)).to eq([])
     end
 
     it 'returns items within given price range' do
-      expect(@ir.find_all_by_price_in_range(11..13)).to eq([@item1])
-      expect(@ir.find_all_by_price_in_range(350..450)).to eq([@item2])
+      range = (11.00..13.00)
+      expected = @ir.find_all_by_price_in_range(range)
+      item3 = @ir.all[3]
+      item4 = @ir.all[-4]
+
+      expect(expected).to eq([item3, item4])
       expect(@ir.find_all_by_price_in_range(2000..3000)).to eq([])
     end
 
@@ -84,6 +92,16 @@ RSpec.describe ItemRepository do
       @ir.create(attributes)
       newer_item = @ir.all.last
       expect(newer_item.id).to eq(22)
+    end
+
+    it 'cannot update id if id does not exist' do
+      attributes = {
+        :id => 13000000
+      }
+
+      expected = @ir.update(123456, attributes)
+
+      expect(expected).to eq(nil)
     end
 
     it 'updates item by id with given attributes' do
