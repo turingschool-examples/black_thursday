@@ -50,6 +50,11 @@ class InvoiceRepository
     invoice.update_invoice(attributes)
   end
 
+  def delete(id)
+    deleted_invoice = find_by_id(id)
+    @all.delete(deleted_invoice)
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
