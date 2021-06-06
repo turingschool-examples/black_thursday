@@ -37,5 +37,15 @@ RSpec.describe InvoiceRepository do
       expect(@ivr.find_by_id(50)).to eq(@invoice2)
       expect(@ivr.find_by_id(1000000)).to eq(nil)
     end
+
+    it 'finds all invoices by customer id or return []' do
+      expect(@ivr.find_all_by_customer_id(1)).to eq(@invoice1)
+      expect(@ivr.find_all_by_customer_id(10)).to eq(@invoice2)
+      expect(@ivr.find_all_by_customer_id(1000000)).to eq([])
+    end
+
+    it 'can inspect rows' do
+      expect(@ivr.inspect).to eq('#<InvoiceRepository 50 rows>')
+    end
   end
 end
