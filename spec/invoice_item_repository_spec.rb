@@ -7,8 +7,8 @@ RSpec.describe InvoiceItemRepository do
     @paths = {
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :item => "./data/items.csv",
-      :invoice_item => "./data/invoice_items.csv"
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
     }
     @se = SalesEngine.from_csv(@paths)
   end
@@ -93,7 +93,7 @@ RSpec.describe InvoiceItemRepository do
           :updated_at => Time.now
       }
 
-      ir.update(21831 attributes)
+      ir.update(21831, attributes)
       result = ir.find_by_id(21831)
 
       expect(result.quantity).to eq(13)
@@ -101,8 +101,7 @@ RSpec.describe InvoiceItemRepository do
       expect(Time.parse(result.updated_at)).to be > original_time
       result = ir.find_by_item_id(5000)
       expect(result).to eq nil
-
-  end
+    end
 
   it 'can delete an existing InvoiceItem instance' do
     ir = @se.invoice_items

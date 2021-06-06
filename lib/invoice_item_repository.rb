@@ -17,7 +17,7 @@ class InvoiceItemRepository
 
   def create_items
     data = CSV.parse(File.read(@file_path), headers: true, header_converters: :symbol) do |line|
-      @all << InvoiceItemRepository.new(line.to_h, self)
+      @all << InvoiceItem.new(line.to_h, self)
     end
   end
 
@@ -38,7 +38,7 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    @all << InvoiceItemRepository.new(
+    @all << InvoiceItem.new(
       {
         :id => create_new_id,
         :item_id => attributes[:item_id],

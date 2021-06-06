@@ -7,7 +7,9 @@ RSpec.describe Invoice do
     @paths = {
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
+
     }
     @se = SalesEngine.from_csv(@paths)
     @ir = @se.invoices
