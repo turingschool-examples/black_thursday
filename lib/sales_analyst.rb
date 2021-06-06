@@ -20,6 +20,10 @@ class SalesAnalyst
       items_per_merchant_count[merchant] = count_num
     end
     items_per_merchant_count
-    require "pry"; binding.pry
+  end
+
+  def standard_dev(nums, average)
+    total_sum = nums.sum {|nums| (nums - average) **2 }
+    std_dev = Math.sqrt(total_sum / (nums.length - 1).to_f).round(2)
   end
 end

@@ -27,8 +27,37 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can calculate number of items per merchant' do
-      expected = 
+      expected = {
+        @se.merchants.all[0] => 1,
+        @se.merchants.all[1] => 1,
+        @se.merchants.all[2] => 1,
+        @se.merchants.all[3] => 1,
+        @se.merchants.all[4] => 1,
+        @se.merchants.all[5] => 1,
+        @se.merchants.all[6] => 1,
+        @se.merchants.all[7] => 1,
+        @se.merchants.all[8] => 1,
+        @se.merchants.all[9] => 1,
+        @se.merchants.all[10] => 1,
+        @se.merchants.all[11] => 1,
+        @se.merchants.all[12] => 1,
+        @se.merchants.all[13] => 1,
+        @se.merchants.all[14] => 1,
+        @se.merchants.all[15] => 1,
+        @se.merchants.all[16] => 1,
+        @se.merchants.all[17] => 1,
+        @se.merchants.all[18] => 1,
+        @se.merchants.all[19] => 1
+      }
+
       expect(@analyst.items_per_merchant).to eq(expected)
+    end
+
+    it 'can calculate standard deviation for items per merchant' do
+      numbers = [4, 5, 6]
+      average = 5
+
+      expect(@analyst.standard_dev(numbers, average)).to eq(1.00)
     end
   end
 end
