@@ -1,4 +1,5 @@
 require 'csv'
+require 'bigdecimal'
 require_relative '../lib/invoice'
 
 class InvoiceRepository
@@ -44,16 +45,24 @@ class InvoiceRepository
     new_invoice_id = @all.max_by do |invoice|
       invoice.id
     end
+
     attributes[:id] = new_invoice_id.id + 1
+
     invoice = Invoice.new(attributes)
     @all << invoice
     invoice
   end
 
-  # def update(id, attributes)
-  #   item = find_by_id(id)
-  #   if !item.nil?
-  #     item.update(attributes)
-  #   end
-  # end
+  def update(id, attributes)
+    invoice = find_by_id(id)
+
+    if !invoice.nil?
+      invoice.update(attributes)
+    end
+  end
+
+  def delete(id)
+    delete_item = find_by_id(id)
+    @all.delete(delete_item)
+  end
 end
