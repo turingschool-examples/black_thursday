@@ -11,8 +11,8 @@ class Invoice
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i
     @status = data[:status].to_s
-    @created_at = data[:created_at].to_s
-    @updated_at = data[:updated_at].to_s
+    @created_at = update_time(data[:created_at])
+    @updated_at = update_time(data[:updated_at])
   end
 
   def update_time(time)
