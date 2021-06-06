@@ -34,13 +34,13 @@ RSpec.describe TransactionRepository do
   end
 
   it 'finds an transaction by credit card number' do
-    expect(@tr.find_all_by_credit_card_number(4177816490204479)).to eq([@tr.all[1]])
-    expect(@tr.find_all_by_credit_card_number(4048033451067370)).to eq([@tr.all[3]])
+    expect(@tr.find_all_by_credit_card_number('4177816490204479')).to eq([@tr.all[1]])
+    expect(@tr.find_all_by_credit_card_number('4048033451067370')).to eq([@tr.all[3]])
   end
 
   it 'can return tranaction items by result' do
-    expect(@tr.find_all_by_result('success')).to eq([@tr.all[0], @tr.all[1], @tr.all[2], @tr.all[3], @tr.all[4]])
-    expect(@tr.find_all_by_result('failed')).to eq([])
+    expect(@tr.find_all_by_result(:success)).to eq([@tr.all[0], @tr.all[1], @tr.all[2], @tr.all[3], @tr.all[4]])
+    expect(@tr.find_all_by_result(:failed)).to eq([])
   end
 
   it 'creates a new transaction instance with attributes' do
@@ -54,7 +54,7 @@ RSpec.describe TransactionRepository do
     expect(@tr.all.length).to eq(6)
     expect(expected.credit_card_number).to eq('1234631943231473')
     expect(expected.credit_card_expiration_date).to eq('0825')
-    expect(expected.result).to eq('failed')
+    expect(expected.result).to eq(:failed)
   end
 
   it 'finds transactions by ID and update attributes' do

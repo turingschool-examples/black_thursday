@@ -12,7 +12,7 @@ class Transaction
     @invoice_id = data[:invoice_id].to_i
     @credit_card_number = data[:credit_card_number]
     @credit_card_expiration_date = data[:credit_card_expiration_date]
-    @result = data[:result]
+    @result = data[:result].to_sym
     @created_at = update_time(data[:created_at].to_s)
     @updated_at = update_time(data[:updated_at].to_s)
   end
@@ -30,7 +30,7 @@ class Transaction
   def update(attributes)
     @credit_card_number = attributes[:credit_card_number] if !attributes[:credit_card_number].nil?
     @credit_card_expiration_date = attributes[:credit_card_expiration_date] if !attributes[:credit_card_expiration_date].nil?
-    @result  = attributes[:result] if !attributes[:result].nil?
+    @result  = attributes[:result].to_sym if !attributes[:result].nil?
     @updated_at  = update_time("")
   end
 

@@ -18,7 +18,7 @@ class SalesEngine
     @merchants = MerchantRepository.new(paths[:merchants])
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items])
     @customers = CustomerRepository.new(paths[:customers])
-    @transactions = TransactionRepository.new(path[:transactions])
+    @transactions = TransactionRepository.new(paths[:transactions])
     @analyst   = SalesAnalyst.new(self)
   end
 
