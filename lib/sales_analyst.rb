@@ -58,20 +58,34 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     total = group_items_by_merchant_id[merchant_id.to_s].sum { |item| item.unit_price }
-    mean = (total.to_f / (group_items_by_merchant_id[merchant_id.to_s].length))
-    BigDecimal(mean, 4)
+    mean = (total / (group_items_by_merchant_id[merchant_id.to_s].length))
+    BigDecimal(mean.to_f, 4)
   end
 
   def average_average_price_per_merchant
-    total = group_items_by_merchant_id.reduce(0) do |total, items|
-      total + 
-    # mean = (total.to_f / (group_items_by_merchant_id[merchant_id.to_s].length))
+    total = 0
+    group_items_by_merchant_id.each do |merchant_id, items|
+      total += (average_item_price_for_merchant(merchant_id) / 100)
+    end
+    mean = (total / group_items_by_merchant_id.values.length)
     # BigDecimal(mean, 4)
-    # do stuff
+  end
+
+  def average_item_price_standard_deviation
+    total = @items.all.sum { |item| item.unit_price }
+    mean = total / @items.all.length
+    result = @items.all.reduce(0) do |total, item|
+      total + ((item.unit_price - mean)**2)
+    end
+    Math.sqrt(result/(@items.all.length - 1))
   end
 
   def golden_items
-    # do stuff
+    total = @items.all.sum { |item| item.unit_price }
+    mean = total / @items.all.length
+    @items.all.select do |item|
+      item.unit_price >= (mean + (average_item_price_standard_deviation * 2))
+    end
   end
 
   def average_invoices_per_merchant

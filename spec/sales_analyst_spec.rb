@@ -66,7 +66,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq BigDecimal
     end
 
-    xit 'returns items that are two standard deviations above the average price' do
+    it 'returns items that are two standard deviations above the average price' do
       sales_analyst = @se.analyst
       result = sales_analyst.golden_items
 
