@@ -4,7 +4,10 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/invoice_repository'
 
 class SalesEngine
-  attr_reader :items, :merchants, :analyst, :invoices
+  attr_reader :items,
+              :merchants,
+              :analyst,
+              :invoices
 
   def initialize(paths)
     @items     = ItemRepository.new(paths[:items])

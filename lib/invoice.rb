@@ -7,12 +7,12 @@ class Invoice
               :updated_at
 
   def initialize(data)
-    @id = data[:id].to_i
+    @id          = data[:id].to_i
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i
-    @status = data[:status].to_s
-    @created_at = update_time(data[:created_at])
-    @updated_at = update_time(data[:updated_at])
+    @status      = data[:status].to_s
+    @created_at  = update_time(data[:created_at].to_s)
+    @updated_at  = update_time(data[:updated_at].to_s)
   end
 
   def update_time(time)
@@ -27,6 +27,6 @@ class Invoice
 
   def update(attributes)
     @status = attributes[:status] if !attributes[:status].nil?
-    @updated_at  = update_time("")
+    @updated_at = update_time("")
   end
 end

@@ -17,7 +17,7 @@ RSpec.describe Invoice do
 
     @i = Invoice.new(@data)
   end
-  
+
   it 'exists' do
     expect(@i).to be_an_instance_of(Invoice)
   end
@@ -27,7 +27,7 @@ RSpec.describe Invoice do
     expect(@i.customer_id).to eq(@data[:customer_id])
     expect(@i.merchant_id).to eq(@data[:merchant_id])
     expect(@i.status).to eq(@data[:status])
-    expect(@i.created_at).to eq(@data[:created_at])
-    expect(@i.updated_at).to eq(@data[:updated_at])
+    expect(@i.created_at).to eq(Time.parse(@data[:created_at]))
+    expect(@i.updated_at).to eq(Time.parse(@data[:updated_at]))
   end
 end

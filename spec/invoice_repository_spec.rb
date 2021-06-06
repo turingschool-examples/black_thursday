@@ -55,7 +55,7 @@ RSpec.describe InvoiceRepository do
   end
 
 
-  it 'finds invoice by ID and update attributes' do
+  it 'finds invoice by ID and updates attributes' do
     data = {
               :status => 'shipped',
               :updated_at  => Time.now.to_s,
@@ -70,7 +70,7 @@ RSpec.describe InvoiceRepository do
 
   it 'finds and deletes invoice by ID' do
     @ir.delete(2)
-    
+
     expect(@ir.all.length).to eq(4)
   end
 end
