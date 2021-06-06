@@ -1,5 +1,4 @@
 require_relative './sales_engine'
-require 'descriptive_statistics'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -18,11 +17,20 @@ class SalesAnalyst
     end
   end
 
-  def std_dev 
-
+  def avg(data)
+    data.sum.fdiv(data.count)
   end
 
+  def std_dev(data)
+    numerator = data.reduce(0) do |sum, num|
+      sum + (num - avg(data))**2
+    end
+    Math.sqrt(numerator/(data.count - 1)).round(2)
+  end
+  #why the -1 ??? 
+
+# Ian, can we use this?  
   def average_items_per_merchant_standard_deviation
-    self.number_items_per_merchant.standard_deviation.round(2)
+    std_dev(self.number_items_per_merchant).round(2)
   end
 end
