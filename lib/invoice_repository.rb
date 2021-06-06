@@ -19,4 +19,14 @@ class InvoiceRepository
       invoice.id == id
     end
   end
+
+  def find_all_by_customer_id(customer_id)
+    @all.find_all do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
 end
