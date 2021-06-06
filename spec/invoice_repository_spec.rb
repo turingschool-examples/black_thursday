@@ -44,5 +44,23 @@ RSpec.describe InvoiceRepository do
       expect(@invoice_repo.find_all_by_status('pending')).to eq([@invoice_repo.all.last])
       expect(@invoice_repo.find_all_by_status('returned')).to eq([@invoice_repo.all.first])
     end
+
+    it 'can create a new invoice with provided attributes' do
+      attributes = {
+                      :id => nil,
+                      :customer_id => 11,
+                      :merchant_id => 12335319,
+                      :status => 'returned',
+                      :created_at => Time.now,
+                      :updated_at => Time.now
+                    }
+
+      @invoice_repo.create(attributes)
+
+      expect(@invoice_repo.all.last.id).to eq(31)
+      expect(@invoice_repo.all.last.customer_id).to eq(11)
+      expect(@invoice_repo.all.last.merchant_id).to eq(12335319)
+      expect(@invoice_repo.all.last.status).to eq('returned')
+    end
   end
 end

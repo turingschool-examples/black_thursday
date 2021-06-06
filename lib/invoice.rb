@@ -12,6 +12,10 @@ class Invoice
     @merchant_id = invoice_data[:merchant_id].to_i
     @status = invoice_data[:status]
     @created_at = invoice_data[:created_at]
-    @updated_at = invoice_data[:updated_at] 
+    @updated_at = invoice_data[:updated_at]
+  end
+
+  def new_id(num)
+    @id = num
   end
 end
