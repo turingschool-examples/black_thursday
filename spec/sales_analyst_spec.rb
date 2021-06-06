@@ -8,8 +8,10 @@ RSpec.describe 'SalesAnalyst' do
     @se = SalesEngine.from_csv({
       :items => './spec/fixtures/item_mock.csv',
       :merchants => './spec/fixtures/merchant_mock.csv',
-      :invoices => './data/invoices.csv'
-      })
+      :invoices => './spec/fixtures/invoices_mock.csv',
+      :invoice_items => './spec/fixtures/invoice_items_mock.csv',
+      :customers => './spec/fixtures/customers_mock.csv',
+      :transactions => './spec/fixtures/transactions_mock.csv'})
     @sa = SalesAnalyst.new(@se)
   end
   describe 'instantiation' do
