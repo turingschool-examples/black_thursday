@@ -41,4 +41,27 @@ class SalesAnalyst
     end
     solution
   end
+
+  def average_item_price_for_merchant(id)
+    merchant_items = []
+    @engine.items.all.each do |item|
+      merchant_items << item if item.merchant_id == id
+    end
+    total_sum = merchant_items.sum {|item| item.unit_price}
+    solution = (total_sum / merchant_items.length).round(2)
+  end
+
+  def average_item_price_per_merchant
+    average = {}
+    @engine.merchants.all.each do |merchant|
+      average[merchant] = average_item_price_for_merchant(merchant.id)
+    end
+    average
+  end
+
+  def average_average_price_per_merchant
+    x = average_item_price_per_merchant.values.sum
+    y = average_item_price_per_merchant.values.length
+    solution = (x / y).round(2)
+  end
 end

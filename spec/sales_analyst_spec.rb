@@ -68,5 +68,41 @@ RSpec.describe SalesAnalyst do
       expected = @se.merchants.all
       expect(@analyst.merchants_with_high_item_count).to eq(expected)
     end
+
+    it 'can find the average price for a merchant by it' do
+      merchant_id = @se.merchants.all[0].id
+      expect(@analyst.average_item_price_for_merchant(merchant_id)).to eq(0.50)
+    end
+
+    it 'can determine average price for each merchant' do
+      expected = {
+        @se.merchants.all[0] => BigDecimal(0.50, 4),
+        @se.merchants.all[1] => BigDecimal(0.12, 4),
+        @se.merchants.all[2] => BigDecimal(0.80, 4),
+        @se.merchants.all[3] => BigDecimal(11.00, 4),
+        @se.merchants.all[4] => BigDecimal(5.50, 4),
+        @se.merchants.all[5] => BigDecimal(0.40, 4),
+        @se.merchants.all[6] => BigDecimal(0.25, 4),
+        @se.merchants.all[7] => BigDecimal(0.50, 4),
+        @se.merchants.all[8] => BigDecimal(9.50, 4),
+        @se.merchants.all[9] => BigDecimal(8.50, 4),
+        @se.merchants.all[10] => BigDecimal(0.05, 4),
+        @se.merchants.all[11] => BigDecimal(0.35, 4),
+        @se.merchants.all[12] => BigDecimal(0.05, 4),
+        @se.merchants.all[13] => BigDecimal(0.10, 4),
+        @se.merchants.all[14] => BigDecimal(0.60, 4),
+        @se.merchants.all[15] => BigDecimal(1.10, 4),
+        @se.merchants.all[16] => BigDecimal(12.00, 4),
+        @se.merchants.all[17] => BigDecimal(2.50, 4),
+        @se.merchants.all[18] => BigDecimal(0.30, 4),
+        @se.merchants.all[19] => BigDecimal(4.00, 4)
+      }
+
+      expect(@analyst.average_item_price_per_merchant).to eq(expected)
+    end
+
+    it 'can calculate the average for the average price for each items per merchant' do
+      expect(@analyst.average_average_price_per_merchant).to eq(100)
+    end
   end
 end
