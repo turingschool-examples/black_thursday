@@ -91,6 +91,12 @@ RSpec.describe InvoiceRepository do
       expect(prev_updated_at).to_not eq(@invoice1.updated_at)
     end
 
+    it 'delete invoice by id' do
+      expect(@ivr.all.length).to eq(5)
+      expect(@ivr.delete(1)).to eq(@invoice1)
+      expect(@ivr.all.length).to eq(4)
+    end
+
     it 'can inspect rows' do
       expect(@ivr.inspect).to eq('#<InvoiceRepository 5 rows>')
     end
