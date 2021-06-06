@@ -8,7 +8,7 @@ class ItemRepository
   end
 
   def generate
-    info = CSV.open("#{@file_path}", headers: true, :header_converters => :symbol)
+    info = CSV.open(@file_path.to_s, headers: true, header_converters: :symbol)
     info.map do |row|
       Item.new(row, self)
     end
@@ -58,6 +58,7 @@ class ItemRepository
   def update(id, attributes)
     item = find_by_id(id)
     return nil if item.nil?
+
     item.update_item(attributes)
   end
 

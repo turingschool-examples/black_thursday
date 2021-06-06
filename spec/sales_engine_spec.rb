@@ -2,7 +2,7 @@ require_relative './spec_helper'
 
 RSpec.describe SalesEngine do
   before :each do
-    @se = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
+    @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
   end
 
   it 'exists' do
@@ -10,7 +10,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'has attributes' do
-    #Change to 'items' / 'merchants'
+    # Change to 'items' / 'merchants'
     expect(@se.items).to be_an_instance_of(ItemRepository)
     expect(@se.merchants).to be_an_instance_of(MerchantRepository)
   end

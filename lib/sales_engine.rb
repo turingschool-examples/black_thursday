@@ -8,8 +8,8 @@ class SalesEngine
   attr_reader :merchants, :items
 
   def initialize(paths)
-      @items = ItemRepository.new(paths[:items], self)
-      @merchants = MerchantRepository.new(paths[:merchants], self)
+    @items = ItemRepository.new(paths[:items], self)
+    @merchants = MerchantRepository.new(paths[:merchants], self)
   end
 
   def self.from_csv(paths)

@@ -9,7 +9,7 @@ class MerchantRepository
   end
 
   def generate
-    info = CSV.open("#{@file_path}", headers: true, :header_converters => :symbol)
+    info = CSV.open(@file_path.to_s, headers: true, header_converters: :symbol)
     info.map do |row|
       Merchant.new(row, self)
     end
@@ -34,23 +34,19 @@ class MerchantRepository
   end
 
   def new_id
-    max_id = @all.max_by(&:id) 
+    max_id = @all.max_by(&:id)
     max_id.id += 1
   end
 
   def create(attributes)
-    merchant_id = @all.max { |merchant| merchant.id}
+    merchant_id = @all.max { |merchant| merchant.id }
     attributes[:id] = merchant_id.id + 1
     @all << Merchant.new(attributes, self)
   end
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    if !merchant.nil?
-      merchant.update_merchant(attributes)
-    else
-      nil
-    end
+    merchant.update_merchant(attributes) unless merchant.nil?
   end
 
   def delete(id)

@@ -4,7 +4,7 @@ RSpec.describe Item do
   context 'instantiation' do
     before :each do
       @ir = ItemRepository.new('spec/fixtures/items.csv', @sales_engine)
-      @sales_engine = SalesEngine.new({items:'spec/fixtures/items.csv', merchants:'spec/fixtures/merchants.csv'})
+      @sales_engine = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
       @ir.generate
       @item = @ir.all[1]
     end
@@ -15,7 +15,7 @@ RSpec.describe Item do
 
     it 'has attributes' do
       expect(@item.name).to eq('pencils')
-      expect(@item.description).to eq("You can write with them")
+      expect(@item.description).to eq('You can write with them')
       expect(@item.unit_price_to_dollars).to eq(0.12)
       # expect(@item.created_at).to eq("2011-02-11 07:44:36 UTC")
       # expect(@item.updated_at).to eq("2004-03-24 10:25:11 UTC")
@@ -23,7 +23,7 @@ RSpec.describe Item do
     end
 
     it 'returns the price of the item in dollars formatted as a Float' do
-       item1 = @ir.all[1]
+      item1 = @ir.all[1]
       expect(item1.unit_price_to_dollars).to eq(0.12)
     end
   end
