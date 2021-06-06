@@ -2,13 +2,12 @@ require 'time'
 
 class Item
   attr_reader   :id,
-                :created_at,
-                :merchant_id
-
-  attr_accessor :name,
+                :name,
                 :description,
                 :unit_price,
-                :updated_at
+                :created_at,
+                :updated_at,
+                :merchant_id
 
   def initialize(data)
     @id          = data[:id].to_i
@@ -28,6 +27,13 @@ class Item
     else
       Time.parse(time)
     end
+  end
+
+  def update(attributes)
+    @name = attributes[:name] unless attributes[:name].nil?
+    @description = attributes[:description] unless attributes[:description].nil?
+    @unit_price  = BigDecimal(attributes[:unit_price]) unless attributes[:unit_price].nil?
+    @updated_at  = update_time('')
   end
 
   def unit_price_to_dollars
