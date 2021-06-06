@@ -76,5 +76,10 @@ RSpec.describe InvoiceRepository do
       @invoice_repo.update(31, attributes)
       expect(@invoice_repo.all.last.status).to eq('pending')
     end
+
+    it 'can delete the invoice with the provided id' do
+      @invoice_repo.delete(31)
+      expect(@invoice_repo.all.last.id).to eq(30)
+    end
   end
 end

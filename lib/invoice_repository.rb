@@ -59,4 +59,11 @@ class InvoiceRepository
       invoice.update_updated_at
     end
   end
+
+  def delete(id)
+    to_delete = @all.find do |invoice|
+      invoice.id == id
+    end
+    @all.delete(to_delete)
+  end
 end
