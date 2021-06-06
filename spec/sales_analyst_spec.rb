@@ -51,15 +51,15 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return the item prices for a specific merchant' do
-    expect(@sales_analyst.price_of_items_for_merch(7)).to eq([12.0, 20.0, 10_000.0]) # => BigDecimal
+    expect(@sales_analyst.price_of_items_for_merch(7)).to eq([12.0, 20.0, 10_000.0])
   end
 
   it 'can return the average item price for a specific merchant' do
-    expect(@sales_analyst.average_item_price_for_merchant(7)).to eq(3_344) # => BigDecimal
+    expect(@sales_analyst.average_item_price_for_merchant(7)).to eq(3_344)
   end
 
   it 'can return the average price per merchant' do
-    expect(@sales_analyst.average_average_price_per_merchant).to eq(1_122) # => BigDecimal
+    expect(@sales_analyst.average_average_price_per_merchant).to eq(1_122)
   end
 
   it 'can return a set of item prices' do
@@ -75,11 +75,8 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return golden items' do
-    expect(@sales_analyst.golden_items).to eq([]) # => [<item>, <item>, <item>, <item>]
-    # find average item price
-    # find the standard deviation of the item price
-    # array will be items that are 2+ std dev above the average item price
-    # 13.5 is the mean
+    expect(@sales_analyst.golden_items).to eq([])
+    # 13.5 is the mean item price
     # set = [10, 12, 12, 20]
     # std_dev = sqrt( ( (10-13.5)^2+(12-13.5)^2+(12-13.5)^2+(20-13.5)^2 ) / 2 )
     # std_dev = sqrt( ( 12.25 + 2.25 + 2.25 + 42.25 ) / 2 )
@@ -95,7 +92,6 @@ RSpec.describe SalesEngine do
   it 'can return average invoices per merchant standard deviation' do
   # 1.67 is the mean
   # set = [2, 1, 2] # number of invoices per merchant
-
   # std_dev = sqrt( ( (2-1.67)^2+(1-1.67)^2+(2-1.67)^2 ) / 2 )
   # std_dev = sqrt( ( 0.1089 + 0.4489 + 0.1089 ) / 2 )
   # std_dev = sqrt( ( .6667 / 2 ) )
@@ -105,10 +101,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return merchants with high invoice count' do
-  # Which merchants are more than two standard deviations above the mean?
-  # look at each merchant
-    # num of invoices
-    # ( std_dev = 0.58 ) * 2
     expect(@sales_analyst.top_merchants_by_invoice_count).to eq([])
   end
 
@@ -116,4 +108,13 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.bottom_merchants_by_invoice_count).to eq(@se.merchants.all)
   end
 
+  it 'can return the top days invoices are created' do
+    expect(@sales_analyst.top_days_by_invoice_count).to eq() # => [Saturday"] ?
+  end
+
+  it 'can return the percentage of invoice shipped vs pending vs returned' do
+    expect(@sales_analyst.invoice_status(:pending)).to eq(60.0)
+    expect(@sales_analyst.invoice_status(:shipped)).to eq(40.0)
+    expect(@sales_analyst.invoice_status(:returned)).to eq(0)
+  end
 end
