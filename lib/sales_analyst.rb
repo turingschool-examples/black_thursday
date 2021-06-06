@@ -57,10 +57,16 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    # do stuff
+    total = group_items_by_merchant_id[merchant_id.to_s].sum { |item| item.unit_price }
+    mean = (total.to_f / (group_items_by_merchant_id[merchant_id.to_s].length))
+    BigDecimal(mean, 4)
   end
 
   def average_average_price_per_merchant
+    total = group_items_by_merchant_id.reduce(0) do |total, items|
+      total + 
+    # mean = (total.to_f / (group_items_by_merchant_id[merchant_id.to_s].length))
+    # BigDecimal(mean, 4)
     # do stuff
   end
 

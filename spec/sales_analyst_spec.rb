@@ -49,7 +49,7 @@ RSpec.describe SalesAnalyst do
       expect(result.first.class).to eq Merchant
     end
 
-    xit 'returns the average item price for a given merchant' do
+    it 'returns the average item price for a given merchant' do
       sales_analyst = @se.analyst
       merchant_id = 12334105
       result = sales_analyst.average_item_price_for_merchant(merchant_id)
@@ -58,7 +58,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq BigDecimal
     end
 
-    xit 'returns the average price for all merchants' do
+    it 'returns the average price for all merchants' do
       sales_analyst = @se.analyst
       result = sales_analyst.average_average_price_per_merchant
 
