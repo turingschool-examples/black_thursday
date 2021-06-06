@@ -6,7 +6,9 @@ RSpec.describe ItemRepository do
   before(:each) do
     @paths = {
       :items => "./data/items.csv",
+      :invoices => "./data/invoices.csv",
       :merchants => "./data/merchants.csv"
+
     }
     @se = SalesEngine.from_csv(@paths)
   end
