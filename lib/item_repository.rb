@@ -1,14 +1,16 @@
-require 'spec_helper'
+require_relative '../spec/spec_helper'
 require 'time'
 
 class ItemRepository
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
-  attr_reader :all
+  attr_reader :all,
+              :engine
 
-  def initialize(path)
+  def initialize(path, engine)
     @all = []
+    @engine = engine
     create_items(path)
   end
 
@@ -24,7 +26,7 @@ class ItemRepository
         updated_at:   Time.parse(item_data[:updated_at]),
         merchant_id:  item_data[:merchant_id].to_i
       }
-      @all << Item.new(data_hash)
+      @all << Item.new(data_hash, self)
     end
   end
 
@@ -75,7 +77,7 @@ class ItemRepository
     highest_id = @all.max_by do |item|
       item.id
     end
-    new_item = Item.new(attributes)
+    new_item = Item.new(attributes, self)
     new_item.new_id(highest_id.id + 1)
     @all << new_item
   end
