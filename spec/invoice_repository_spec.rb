@@ -28,13 +28,21 @@ RSpec.describe InvoiceRepository do
     end
 
     it 'can find all by customer_id' do
-      expected = @invoice_repo.all[-1..2]
+      expected = @invoice_repo.all[-2..-1]
       expect(@invoice_repo.find_all_by_customer_id(7)).to eq(expected)
       expect(@invoice_repo.find_all_by_customer_id(9)).to eq([])
     end
 
     it 'can find all invoices by merchant_id' do
-      
+      expected = @invoice_repo.all[2]
+      expect(@invoice_repo.find_all_by_merchant_id(12335319)).to eq([expected])
+    end
+
+    it 'can find all invoices by status' do
+      expected = @invoice_repo.all[1..4]
+      expect(@invoice_repo.find_all_by_status('shipped')).to eq(expected)
+      expect(@invoice_repo.find_all_by_status('pending')).to eq([@invoice_repo.all.last])
+      expect(@invoice_repo.find_all_by_status('returned')).to eq([@invoice_repo.all.first])
     end
   end
 end
