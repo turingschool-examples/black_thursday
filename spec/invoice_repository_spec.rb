@@ -39,8 +39,8 @@ RSpec.describe InvoiceRepository do
     end
 
     it 'finds all invoices by customer id or return []' do
-      expect(@ivr.find_all_by_customer_id(1)).to eq(@invoice1)
-      expect(@ivr.find_all_by_customer_id(10)).to eq(@invoice2)
+      expect(@ivr.find_all_by_customer_id(1)).to eq([@invoice1])
+      expect(@ivr.find_all_by_customer_id(10)).to eq([@invoice2])
       expect(@ivr.find_all_by_customer_id(1000000)).to eq([])
     end
 
