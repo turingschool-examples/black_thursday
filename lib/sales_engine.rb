@@ -15,12 +15,4 @@ class SalesEngine
   def self.from_csv(paths)
     SalesEngine.new(paths)
   end
-
-  # def items
-  #   @items_repo
-  # end
-
-  # def merchants
-  #   @merchants_repo
-  # end
 end
