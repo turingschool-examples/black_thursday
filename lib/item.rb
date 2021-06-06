@@ -13,7 +13,7 @@ class Item
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = BigDecimal(info[:unit_price], 4).to_f
+    @unit_price = ((BigDecimal(info[:unit_price], 4))/100)
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @merchant_id = info[:merchant_id].to_i
@@ -21,7 +21,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    (@unit_price/100)
+    @unit_price.to_f
   end
 
   def update_item(attributes)

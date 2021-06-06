@@ -49,8 +49,9 @@ RSpec.describe ItemRepository do
     it 'returns items by unit price' do
       price = BigDecimal(12)
       expected = @ir.find_all_by_price(price)
+      item4 = @ir.all[-4]
 
-      expect(expected).to eq([@item1])
+      expect(expected).to eq([item4])
       expect(@ir.find_all_by_price(2000)).to eq([])
     end
 

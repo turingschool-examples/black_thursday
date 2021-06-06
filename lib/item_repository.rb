@@ -40,7 +40,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @all.find_all do |item|
-      range.include? item.unit_price_to_dollars
+      range.include? item.unit_price
     end
   end
 
