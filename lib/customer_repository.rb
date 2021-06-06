@@ -50,9 +50,7 @@ class CustomerRepository
 
   def update(id, attributes)
     customer = find_by_id(id)
-    unless customer.nil?
-      customer.update(attributes)
-    end
+    return customer.update(attributes) unless customer.nil?
   end
 
   def delete(id)
