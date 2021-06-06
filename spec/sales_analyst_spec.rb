@@ -33,7 +33,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq Float
     end
 
-    xit 'returns standard deviation from average items per merchant' do
+    it 'returns standard deviation from average items per merchant' do
       sales_analyst = @se.analyst
       result = sales_analyst.average_items_per_merchant_standard_deviation
 
@@ -41,7 +41,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq Float
     end
 
-    xit 'returns merchants more than one standard deviation above the average' do
+    it 'returns merchants more than one standard deviation above the average' do
       sales_analyst = @se.analyst
       result = sales_analyst.merchants_with_high_item_count
 

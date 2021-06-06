@@ -2,12 +2,22 @@ require_relative 'helper_methods'
 
 class SalesAnalyst
   include HelperMethods
-  attr_reader :items, :merchants, :engine
+  attr_reader :items, :merchants, :invoices, :engine, :all
 
   def initialize(item_repo, merchant_repo, engine)
     @items = item_repo
     @merchants = merchant_repo
+    # @invoices = invoice_repo
     @engine = engine
+    @all = nil
+  end
+
+  def set_all(repo)
+    @all = repo.all
+  end
+
+  def reset_all
+    @all = nil
   end
 
   def group_items_by_merchant_id
@@ -26,15 +36,24 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     grouping = group_items_by_merchant_id
-    average = average_items_per_merchant
-    result = grouping.values.reduce(0) do |total, array_length|
-      total + ((array_length.length - average)**2)
+    mean = average_items_per_merchant
+    result = grouping.values.reduce(0) do |total, items|
+      total + ((items.length - mean)**2)
     end
-    (Math.sqrt(result/grouping.values.length.to_f - 1)).round(2)
+    (Math.sqrt(result/(grouping.values.length.to_f - 1))).round(2)
   end
 
   def merchants_with_high_item_count
-    # do stuff
+    collection_arr = []
+    group_items_by_merchant_id.each do |merchant_id, items|
+      if items.length >= (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+        collection_arr << merchant_id
+      end
+    end
+    set_all(@merchants)
+    result = collection_arr.map { |merchant_id| find_by_id(merchant_id) }
+    reset_all
+    result
   end
 
   def average_item_price_for_merchant(merchant_id)
