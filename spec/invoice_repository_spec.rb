@@ -55,24 +55,22 @@ RSpec.describe InvoiceRepository do
   end
 
 
-  xit 'finds invoice by ID and update attributes' do
-    ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
+  it 'finds invoice by ID and update attributes' do
     data = {
-      :description => 'You can write REALLY fancy things',
-      :unit_price  => BigDecimal(379.99, 5)
-    }
-    ir.update(3, data)
-    expected = ir.find_by_id(3)
+              :status => 'shipped',
+              :updated_at  => Time.now.to_s,
+           }
+    @ir.update(1, data)
+    expected = @ir.find_by_id(1)
 
-    expect(expected.name).to eq('Marker')
-    expect(expected.description).to eq('You can write REALLY fancy things')
-    expect(expected.unit_price_to_dollars).to eq(379.99)
+    expect(expected.customer_id).to eq(1)
+    expect(expected.merchant_id).to eq(5)
+    expect(expected.status).to eq('shipped')
   end
 
-  xit 'finds and deletes invoice by ID' do
-    ir = ItemRepository.new('./spec/fixture_files/item_fixture.csv')
-
-    ir.delete(2)
-    expect(ir.all.length).to eq(4)
+  it 'finds and deletes invoice by ID' do
+    @ir.delete(2)
+    
+    expect(@ir.all.length).to eq(4)
   end
 end
