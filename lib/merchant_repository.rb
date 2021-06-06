@@ -52,6 +52,13 @@ class MerchantRepository
     return merchant.update(attributes) unless merchant.nil?
   end
 
+  # def update(id, new_name)
+    # name_edit = find_by_id(id)
+    # if name_edit != nil
+    #   name_edit.name = new_name[:name]
+    # end
+  # end
+
   def delete(id)
     delete_merchant = find_by_id(id)
     @all.delete(delete_merchant)

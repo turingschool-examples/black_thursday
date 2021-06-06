@@ -4,10 +4,12 @@ require_relative '../lib/invoice_item_repository'
 require_relative '../lib/customer_repository'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/sales_analyst'
+require_relative '../lib/invoice_repository'
 
 class SalesEngine
   attr_reader :items,
               :merchants,
+              :invoices,
               :invoice_items,
               :customers,
               :transactions,
@@ -16,9 +18,11 @@ class SalesEngine
   def initialize(paths)
     @items     = ItemRepository.new(paths[:items])
     @merchants = MerchantRepository.new(paths[:merchants])
+    @invoices  = InvoiceRepository.new(paths[:invoices])
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items])
     @customers = CustomerRepository.new(paths[:customers])
     @transactions = TransactionRepository.new(paths[:transactions])
+
     @analyst   = SalesAnalyst.new(self)
   end
 
