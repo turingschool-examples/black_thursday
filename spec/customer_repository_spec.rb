@@ -9,6 +9,7 @@ RSpec.describe CustomerRepository do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv",
+      :transactions => ".data/transactions.csv",
       :customers => "./data/customers.csv"
     }
     @se = SalesEngine.from_csv(@paths)
@@ -52,7 +53,7 @@ RSpec.describe CustomerRepository do
     expect(result.first.class).to eq(Customer)
   end
 
-  it 'can find all customers b y last name' do
+  it 'can find all customers by last name' do
     cr = @se.customers
     fragment = "On"
     result = cr.find_all_by_last_name(fragment)
