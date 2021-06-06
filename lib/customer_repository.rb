@@ -44,7 +44,7 @@ class CustomerRepository
     end
 
     attributes[:id] = new_id.id + 1
-
+  
     customer = Customer.new(attributes)
     @all << customer
     customer
