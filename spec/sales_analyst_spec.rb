@@ -53,11 +53,19 @@ RSpec.describe SalesAnalyst do
       expect(@analyst.items_per_merchant).to eq(expected)
     end
 
-    it 'can calculate standard deviation for items per merchant' do
+    it 'can calculate standard deviation' do
       numbers = [4, 5, 6]
       average = 5
 
       expect(@analyst.standard_dev(numbers, average)).to eq(1.00)
+    end
+
+    it 'can calculate standard deviation for items per merchant' do
+      expect(@analyst.average_items_per_merchant_standard_deviation).to eq(0.0)
+    end
+
+    it 'can calculate the merchants with high item count' do
+      expect(@analyst.merchants_with_high_item_count).to eq([])
     end
   end
 end
