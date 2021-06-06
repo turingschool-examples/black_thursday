@@ -9,4 +9,5 @@ require_relative '../lib/item'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice'
 #test_setup_data
