@@ -59,7 +59,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq BigDecimal
     end
 
-    it 'returns the average price for all merchants' do
+    xit 'returns the average price for all merchants' do
       sales_analyst = @se.analyst
       result = sales_analyst.average_average_price_per_merchant
 
@@ -86,7 +86,7 @@ RSpec.describe SalesAnalyst do
       @se = SalesEngine.from_csv(@paths)
     end
 
-    xit 'returns average number of invoices per merchant' do
+    it 'returns average number of invoices per merchant' do
       sales_analyst = @se.analyst
       result = sales_analyst.average_invoices_per_merchant
 
@@ -94,7 +94,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq Float
     end
 
-    xit 'returns the standard deviation from average invoices per merchant' do
+    it 'returns the standard deviation from average invoices per merchant' do
       sales_analyst = @se.analyst
       result = sales_analyst.average_invoices_per_merchant_standard_deviation
 
@@ -102,7 +102,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq Float
     end
 
-    xit 'returns merchants that are two standard deviations above average' do
+    it 'returns merchants that are two standard deviations above average' do
       sales_analyst = @se.analyst
       result = sales_analyst.top_merchants_by_invoice_count
 
@@ -110,7 +110,7 @@ RSpec.describe SalesAnalyst do
       expect(result.first.class).to eq Merchant
     end
 
-    xit 'returns merchants that are two standard deviations below average' do
+    it 'returns merchants that are two standard deviations below average' do
       sales_analyst = @se.analyst
       result = sales_analyst.bottom_merchants_by_invoice_count
 
@@ -118,7 +118,7 @@ RSpec.describe SalesAnalyst do
       expect(result.first.class).to eq Merchant
     end
 
-    xit 'returns days with an invoice count more than one standard deviation above average' do
+    it 'returns days with an invoice count more than one standard deviation above average' do
       sales_analyst = @se.analyst
       result = sales_analyst.top_days_by_invoice_count
 
