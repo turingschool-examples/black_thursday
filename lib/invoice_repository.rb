@@ -38,6 +38,11 @@ class InvoiceRepository
     end
   end
 
+  def create(attributes)
+    attributes[:id] = @all.last.id + 1
+    @all << Invoice.new(attributes, self)
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end

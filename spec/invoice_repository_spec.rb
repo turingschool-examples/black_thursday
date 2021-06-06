@@ -72,7 +72,7 @@ RSpec.describe InvoiceRepository do
       new_invoice = @ivr.all.last
       expect(new_invoice.id).to eq(6)
       expect(@ivr.all.length).to eq(6)
-      expect(new_invoice.created_at.class).to be_a(Time)
+      expect(new_invoice.created_at.class).to eq(Time)
       expect(new_invoice.updated_at).to eq(new_invoice.created_at)
       expect(@ivr.find_by_id(6).merchant_id).to eq(6)
       @ivr.create(attributes)
