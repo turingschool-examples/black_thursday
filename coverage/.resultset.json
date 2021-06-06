@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/item.rb": {
+      "/Users/mattkragen/turing/1mod/projects/black_thursday_project/black_thursday/lib/item.rb": {
         "lines": [
           1,
           1,
@@ -40,7 +40,7 @@
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/item_repository.rb": {
+      "/Users/mattkragen/turing/1mod/projects/black_thursday_project/black_thursday/lib/item_repository.rb": {
         "lines": [
           1,
           1,
@@ -117,7 +117,7 @@
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/merchant.rb": {
+      "/Users/mattkragen/turing/1mod/projects/black_thursday_project/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           1,
@@ -136,7 +136,7 @@
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/sales_engine.rb": {
+      "/Users/mattkragen/turing/1mod/projects/black_thursday_project/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
@@ -158,7 +158,7 @@
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/merchant_repository.rb": {
+      "/Users/mattkragen/turing/1mod/projects/black_thursday_project/black_thursday/lib/merchant_repository.rb": {
         "lines": [
           1,
           1,
@@ -222,12 +222,33 @@
           null
         ]
       },
-      "/Users/mattkragen/turing/projects/black_thursday_project/black_thursday/lib/sales_analyst.rb": {
+      "/Users/mattkragen/turing/1mod/projects/black_thursday_project/black_thursday/lib/sales_analyst.rb": {
         "lines": [
 
         ]
+      },
+      "/Users/mattkragen/turing/1mod/projects/black_thursday_project/black_thursday/lib/invoice.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1623006730
+    "timestamp": 1623009266
   }
 }
