@@ -1,4 +1,7 @@
 class InvoiceRepository
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
   attr_reader :all
 
   def initialize(path)
