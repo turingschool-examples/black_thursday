@@ -59,9 +59,7 @@ class TransactionRepository
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    if !transaction.nil?
-      transaction.update(attributes)
-    end
+    return transaction.update(attributes) unless transaction.nil?
   end
 
   def delete(id)

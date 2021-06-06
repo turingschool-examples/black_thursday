@@ -35,16 +35,16 @@ RSpec.describe CustomerRepository do
 
   it 'can create a new customer' do
     new = @cr.create({
-                :first_name => 'Jennifer',
-                :last_name => 'Flowers'
-              })
+                      :first_name => 'Jennifer',
+                      :last_name => 'Flowers'
+                    })
 
     expect(@cr.all.length).to eq(11)
     expect(new.id).to eq(11)
   end
 
   it 'can update attributes of a customer' do
-    @cr.update(5, {:first_name => 'Dileep'})
+    @cr.update(5, { :first_name => 'Dileep' })
 
     expect(@cr.find_by_id(5).first_name).to eq('Dileep')
     expect(@cr.find_by_id(5).last_name).to eq('Bosch')
