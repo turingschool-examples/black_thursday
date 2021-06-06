@@ -8,9 +8,9 @@ RSpec.describe InvoiceRepository do
          :merchants => 'spec/fixtures/merchants.csv',
          :invoices => 'spec/fixtures/invoices.csv'
        })
-      ivr = InvoiceRepository.new('spec/fixtures/invoices.csv')
+      ivr = InvoiceRepository.new('spec/fixtures/invoices.csv', se)
       
-       expect(ivr).to be_a(InvoiceRepository)
+      expect(ivr).to be_a(InvoiceRepository)
     end
   end
 
@@ -21,11 +21,15 @@ RSpec.describe InvoiceRepository do
         :merchants => 'spec/fixtures/merchants.csv',
         :invoices => 'spec/fixtures/invoices.csv'
       })
-      @ivr = InvoiceRepository.new('spec/fixtures/invoices.csv')
+      @ivr = InvoiceRepository.new('spec/fixtures/invoices.csv', @se)
+      @invoice1 = @ivr.all[0]
+      @invoice2 = @ivr.all[-1]
     end
 
-    it '' do
-      
+    it 'generates invoice instances' do
+      @ivr.generate
+      expect(@invoice1.id).to eq(1)
+      expect(@invoice2.id).to eq(50)
     end
   end
 end
