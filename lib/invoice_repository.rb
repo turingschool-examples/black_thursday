@@ -66,7 +66,10 @@ class InvoiceRepository
   end
 
   def delete(id)
-    
+    chopping_block = invoices.index { |invoice| invoice.id == id }
+    if chopping_block != nil
+      invoices.delete_at(chopping_block)
+    end
   end
 
 end
