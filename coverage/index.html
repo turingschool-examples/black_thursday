@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-06-06T15:36:42-06:00">2021-06-06T15:36:42-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-06-06T15:53:43-06:00">2021-06-06T15:53:43-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  71.03%
+  70.14%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         27.3
+         26.65
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>145</b> relevant lines,
-    <span class="green"><b>103</b> lines covered</span> and
-    <span class="red"><b>42</b> lines missed. </span>
+    <b>144</b> relevant lines,
+    <span class="green"><b>101</b> lines covered</span> and
+    <span class="red"><b>43</b> lines missed. </span>
     (<span class="red">
-  71.03%
+  70.14%
 </span>
 )
   </div>
@@ -105,23 +105,23 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#d80f39177f1d720745035966ac0b233d713fbf95" class="src_link" title="lib/merchant_repository.rb">lib/merchant_repository.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">57.14 %</td>
+            <td class="red strong cell--number t-file__coverage">54.29 %</td>
             <td class="cell--number">60</td>
             <td class="cell--number">35</td>
-            <td class="cell--number">20</td>
-            <td class="cell--number">15</td>
-            <td class="cell--number">8.80</td>
+            <td class="cell--number">19</td>
+            <td class="cell--number">16</td>
+            <td class="cell--number">5.37</td>
             
           </tr>
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#f1d7a6777d83ff467177ac0dea661aae0ae4965f" class="src_link" title="lib/sales_analyst.rb">lib/sales_analyst.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">45</td>
-            <td class="cell--number">28</td>
-            <td class="cell--number">28</td>
+            <td class="cell--number">44</td>
+            <td class="cell--number">27</td>
+            <td class="cell--number">27</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">67.11</td>
+            <td class="cell--number">69.56</td>
             
           </tr>
         
@@ -1604,7 +1604,7 @@
     <h3>lib/merchant_repository.rb</h3>
     <h4>
       <span class="red">
-  57.14%
+  54.29%
 </span>
 
       lines covered
@@ -1614,8 +1614,8 @@
 
     <div class="t-line-summary">
       <b>35</b> relevant lines.
-      <span class="green"><b>20</b> lines covered</span> and
-      <span class="red"><b>15</b> lines missed.</span>
+      <span class="green"><b>19</b> lines covered</span> and
+      <span class="red"><b>16</b> lines missed.</span>
     </div>
 
     
@@ -2253,8 +2253,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="120" data-linenumber="58">
-            <span class="hits">120</span>
+          <li class="missed" data-hits="0" data-linenumber="58">
+            
             
 
             
@@ -2304,8 +2304,8 @@
     
 
     <div class="t-line-summary">
-      <b>28</b> relevant lines.
-      <span class="green"><b>28</b> lines covered</span> and
+      <b>27</b> relevant lines.
+      <span class="green"><b>27</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -2730,7 +2730,7 @@
 
             
 
-            <code class="ruby">    average = average_items_per_merchant</code>
+            <code class="ruby">    std_deviation_mean = (average_items_per_merchant * 1) + average_items_per_merchant_standard_deviation</code>
           </li>
         </div>
       
@@ -2741,34 +2741,23 @@
 
             
 
-            <code class="ruby">    std_deviation_mean = average_items_per_merchant_standard_deviation</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="40">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">    items_per_merchant.each do |merchant, number_of_items|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="20" data-linenumber="41">
+          <li class="covered" data-hits="20" data-linenumber="40">
             <span class="hits">20</span>
             
 
             
 
-            <code class="ruby">      solution &lt;&lt; merchant if number_of_items &gt;= (average + std_deviation_mean)</code>
+            <code class="ruby">      solution &lt;&lt; merchant if number_of_items &gt;= std_deviation_mean</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="42">
+          <li class="never" data-hits="" data-linenumber="41">
             
             
 
@@ -2779,7 +2768,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="43">
+          <li class="covered" data-hits="1" data-linenumber="42">
             <span class="hits">1</span>
             
 
@@ -2790,7 +2779,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="44">
+          <li class="never" data-hits="" data-linenumber="43">
             
             
 
@@ -2801,7 +2790,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="never" data-hits="" data-linenumber="44">
             
             
 
