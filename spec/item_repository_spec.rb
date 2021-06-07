@@ -161,9 +161,9 @@ RSpec.describe ItemRepository do
       expect(@item_repo.all.last.name).to eq("Free standing Woden letters")
     end
 
-    # xit 'returns all items via merchant id' do
-    #
-    #   expect(@item_repo.item_count_per_merchant).to be_a(Hash)
-    # end
+    it 'returns all items via merchant id' do
+      
+      expect(@item_repo.item_count_per_merchant).to be_a(Hash)
+    end
   end
 end

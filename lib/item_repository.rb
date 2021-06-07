@@ -101,8 +101,8 @@ class ItemRepository
 
   def item_count_per_merchant
     items_per_merchant = {}
-    @all_items.each do |item|
-      items_per_merchant[item.merchant_id] = find_all_by_merchant_id(merchant_id).length
+    @all.each do |item|
+      items_per_merchant[item.merchant_id] = find_all_by_merchant_id(item.merchant_id).length
     end
     items_per_merchant
   end
