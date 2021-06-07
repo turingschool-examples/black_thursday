@@ -27,7 +27,7 @@ class InvoiceItem
 
   def self.create_invoice_item(attributes, repo)
     data_hash = Hash.new
-    time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
+    time = Time.now.utc.strftime("%d-%m-%Y %H:%M:%S %Z")
     data_hash[:id] = repo.new_invoice_item_id
     data_hash[:item_id] = attributes[:item_id]
     data_hash[:invoice_id] = attributes[:invoice_id]

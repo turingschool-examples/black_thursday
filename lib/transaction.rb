@@ -22,7 +22,7 @@ class Transaction
 
   def self.create(attributes, repo)
     data_hash = {}
-    time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
+    time = Time.now.utc.strftime("%d-%m-%Y %H:%M:%S %Z")
     data_hash[:id] = repo.next_highest_id
     data_hash[:invoice_id] = attributes[:invoice_id].to_i
     data_hash[:credit_card_number] = attributes[:credit_card_number]
@@ -34,6 +34,7 @@ class Transaction
   end
 
   def update(attributes)
+    # time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
     unless attributes[:credit_card_number].nil?
       @credit_card_number = attributes[:credit_card_number]
     end

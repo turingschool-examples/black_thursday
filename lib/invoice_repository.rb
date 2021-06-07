@@ -59,7 +59,7 @@ class InvoiceRepository
   def delete(id)
     @all.delete(find_by_id(id))
   end
-  
+
   # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
