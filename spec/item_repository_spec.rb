@@ -147,7 +147,11 @@ RSpec.describe ItemRepository do
     expect(item_ids_by_merchant[12334185]).to eq([263395617, 263395721, 263396013])
   end
 
-  it '.items' do
-    expect(@repo.items_per_merchant[12334185]).to eq(3)
+  it '.items_per_merchant' do
+    expect(@repo.items_per_merchant[1]).to eq(3)
+  end
+
+  it 'returns the number of merchants' do
+    expect(@repo.number_of_merchants).to eq(24)
   end
 end
