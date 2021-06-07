@@ -4,15 +4,15 @@ require 'csv'
 
 RSpec.describe Invoice do
   before :each do
-    @time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
+    @date = Time.now.strftime("%m/%d/%Y")
     @repo = double('repo')
     @attributes = {
       :id          => 6,
       :customer_id    => 7,
       :merchant_id => 8,
       :status      => "pending",
-      :created_at  => @time,
-      :updated_at  => @time,
+      :created_at  => @date,
+      :updated_at  => @date,
       }
     @i = Invoice.new(@attributes, @repo)
   end
@@ -26,8 +26,8 @@ RSpec.describe Invoice do
     expect(@i.customer_id).to eq(7)
     expect(@i.merchant_id).to eq(8)
     expect(@i.status).to eq(:pending)
-    expect(@i.created_at).to eq(Time.parse(@time))
-    expect(@i.updated_at).to eq(Time.parse(@time))
+    expect(@i.created_at).to eq(Date.strptime(@date, "%m/%d/%Y"))
+    expect(@i.updated_at).to eq(Date.strptime(@date, "%m/%d/%Y"))
   end
 
   it 'can create new invoice' do
