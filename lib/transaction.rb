@@ -1,3 +1,5 @@
+require_relative '../lib/modules/timeable'
+
 class Transaction
   attr_reader :id,
               :invoice_id,
@@ -7,6 +9,8 @@ class Transaction
               :created_at,
               :updated_at
 
+  include Timeable
+
   def initialize(data)
     @id = data[:id].to_i
     @invoice_id = data[:invoice_id].to_i
@@ -15,16 +19,6 @@ class Transaction
     @result = data[:result].to_sym
     @created_at = update_time(data[:created_at].to_s)
     @updated_at = update_time(data[:updated_at].to_s)
-  end
-
-  def update_time(time)
-    if time.nil?
-      Time.now
-    elsif time.empty?
-      Time.now
-    else
-      Time.parse(time)
-    end
   end
 
   def update(attributes)
