@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/customer'
+require_relative '../lib/modules/findable'
 
 class CustomerRepository
+  include Findable
   attr_reader :all
 
   def initialize(path)

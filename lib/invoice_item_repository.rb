@@ -1,8 +1,10 @@
 require 'csv'
 require 'bigdecimal'
 require_relative '../lib/invoice_item'
+require_relative '../lib/modules/findable'
 
 class InvoiceItemRepository
+  include Findable
   attr_reader :all
 
   def initialize(path)
