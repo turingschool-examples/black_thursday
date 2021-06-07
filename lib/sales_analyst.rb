@@ -2,7 +2,14 @@ require_relative 'helper_methods'
 
 class SalesAnalyst
   include HelperMethods
-  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers, :engine, :all
+  attr_reader :items,
+              :merchants,
+              :invoices,
+              :invoice_items,
+              :transactions,
+              :customers,
+              :engine,
+              :all
 
   def initialize(item_repo, merchant_repo, invoice_repo, invoice_item_repo, transaction_repo, customer_repo, engine)
     @items = item_repo

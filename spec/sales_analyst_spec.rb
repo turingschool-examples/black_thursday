@@ -26,6 +26,10 @@ RSpec.describe SalesAnalyst do
 
       expect(sales_analyst.items.class).to eq(ItemRepository)
       expect(sales_analyst.merchants.class).to eq(MerchantRepository)
+      expect(sales_analyst.invoices.class).to eq(InvoiceRepository)
+      expect(sales_analyst.invoice_items.class).to eq(InvoiceItemRepository)
+      expect(sales_analyst.transactions.class).to eq(TransactionRepository)
+      expect(sales_analyst.customers.class).to eq(CustomerRepository)
       expect(sales_analyst.engine.class).to eq(SalesEngine)
     end
 
@@ -62,7 +66,7 @@ RSpec.describe SalesAnalyst do
       expect(result.class).to eq BigDecimal
     end
 
-    it 'returns the average price for all merchants' do
+    xit 'returns the average price for all merchants' do
       sales_analyst = @se.analyst
       result = sales_analyst.average_average_price_per_merchant
 
