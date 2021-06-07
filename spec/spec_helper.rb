@@ -12,5 +12,6 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_analyst'
-
+require_relative '../lib/invoice_item'
+require_relative '../lib/invoice_item_repository'
 #test_setup_data

@@ -131,7 +131,7 @@ RSpec.describe ItemRepository do
       expect(@item_repo.all.last.merchant_id).to eq(114488)
     end
 
-    xit 'can update an item with the corresponding id that has the provided attributes' do
+    it 'can update an item with the corresponding id that has the provided attributes' do
       attributes = {
                     :name        => "llama wink bikini",
                     :description => "It's like, a bikini with a llama on it that winks at you. Buy it.",
@@ -161,6 +161,7 @@ RSpec.describe ItemRepository do
       item_repo.delete(id)
       expect(item_repo.all.last.id).to eq(263396013)
       expect(item_repo.all.last.name).to eq("Free standing Woden letters")
+    end
 
     xit 'returns all items via merchant id' do 
       
