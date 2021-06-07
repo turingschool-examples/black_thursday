@@ -26,6 +26,10 @@ class SalesEngine
     SalesAnalyst.new(self)
   end
 
+  def item_repo_group_items_by_merchant
+    @items.group_items_by_merchant
+  end
+
   def item_repo_items_per_merchant
     @items.items_per_merchant
   end
@@ -36,5 +40,9 @@ class SalesEngine
 
   def item_repo_total_items
     @items.total_items
+  end
+
+  def merchant_repo_find_by_id(id)
+    @merchants.find_by_id(id)
   end
 end
