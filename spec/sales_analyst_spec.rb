@@ -158,12 +158,12 @@ RSpec.describe SalesEngine do
   end
 
   xit 'can return merchants that only sell one item by the month they registered (merchant.created_at)' do
-    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("June")).to eq([])
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month('June')).to eq([])
   end
 
-  xit 'can find the total revenue for a single merchant' do
-    expect(@sales_analyst.revenue_by_merchant(merchant_id)).to eq(1)
-  end 
+  it 'can find the total revenue for a single merchant' do
+    expect(@sales_analyst.revenue_by_merchant(5)).to eq(1)
+  end
 
   it 'returns true if the invoice with corresponding id is paid in full' do
     expect(@sales_analyst.invoice_paid_in_full?(1)). to eq(true)
