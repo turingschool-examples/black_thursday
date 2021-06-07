@@ -1,3 +1,5 @@
+require 'time'
+
 module Timeable
   def update_time(time)
     if time.nil?
