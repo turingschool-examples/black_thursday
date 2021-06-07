@@ -82,4 +82,12 @@ class ItemRepository
       item.merchant_id
     end
   end
+
+  def items_per_merchant
+    merchants = group_items_by_merchant
+    merchants.each do |merchant, items|
+      merchants[merchant] = items.length
+    end
+    merchants
+  end
 end
