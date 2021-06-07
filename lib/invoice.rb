@@ -21,7 +21,7 @@ class Invoice
 
   def self.create_new(attributes, repo)
     data_hash = {}
-    time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
+    time = Time.now.strftime("%d-%m-%Y")
     data_hash[:id] = repo.next_highest_id
     data_hash[:customer_id] = attributes[:customer_id]
     data_hash[:merchant_id] = attributes[:merchant_id]
@@ -32,7 +32,8 @@ class Invoice
   end
 
   def update_invoice(attributes)
+    date = Time.now.strftime("%m-%d-%Y")
     @status = attributes[:status]
-    @updated_at = Time.now
+    @updated_at = Time.parse(date)
   end
 end

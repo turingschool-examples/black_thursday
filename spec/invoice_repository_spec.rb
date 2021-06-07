@@ -10,52 +10,52 @@ RSpec.describe InvoiceRepository do
     expect(@repo).to be_an_instance_of(InvoiceRepository)
   end
 
-  it 'cna create invoice instances' do
+  it 'can create invoice instances' do
     @repo.all.each do |invoice|
       expect(invoice).to be_an_instance_of(Invoice)
     end
   end
 
   it 'can find an invoice by id' do
-  expect(@repo.find_by_id(1).merchant_id).to eq(101)
+  expect(@repo.find_by_id(1).merchant_id).to eq(12335938)
   expect(@repo.find_by_id(200)).to eq(nil)
-  expect(@repo.find_by_id(3).merchant_id).to eq(103)
+  expect(@repo.find_by_id(3).merchant_id).to eq(12335955)
   end
 
   it 'can find all invoices by customer id' do
     merchant_id = []
-    @repo.find_all_by_customer_id(1).each do |invoice|
+    @repo.find_all_by_customer_id(7).each do |invoice|
       merchant_id << invoice.merchant_id
     end
 
-    expect(merchant_id).to eq([101, 103])
+    expect(merchant_id).to eq([12334861, 12334208, 12335417, 12336821])
 
     expect(@repo.find_all_by_customer_id(200)).to eq([])
   end
 
   it 'can find all invoices by merchant id' do
     invoice_id = []
-    @repo.find_all_by_merchant_id(101).each do |invoice|
+    @repo.find_all_by_merchant_id(12335955).each do |invoice|
       invoice_id << invoice.id
     end
 
-    expect(invoice_id).to eq([1])
+    expect(invoice_id).to eq([3, 13])
 
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
 
   it 'can find all invoices by merchant id' do
     invoice_id = []
-    @repo.find_all_by_status(:pending).each do |invoice|
+    @repo.find_all_by_status(:returned).each do |invoice|
       invoice_id << invoice.id
     end
-    expect(invoice_id).to eq([1])
+    expect(invoice_id).to eq([25, 37, 49])
 
     expect(@repo.find_all_by_status(:sent)).to eq([])
   end
 
-  it 'creates the next highest merchant id' do
-    expect(@repo.next_highest_id).to eq(4)
+  it 'creates the next highest invoice id' do
+    expect(@repo.next_highest_id).to eq(51)
   end
 
   it 'can create a new invoice' do
@@ -67,12 +67,10 @@ RSpec.describe InvoiceRepository do
 
     @repo.create(attributes)
 
-    updated_all = []
-    @repo.all.each do |invoice|
-      updated_all << invoice.id
-    end
-
-    expect(updated_all).to eq([1, 2, 3, 4])
+    expect(@repo.all.length).to eq(51)
+    expect(@repo.find_by_id(51).customer_id).to eq(2)
+    expect(@repo.find_by_id(51).merchant_id).to eq(104)
+    expect(@repo.find_by_id(51).status).to eq(:pending)
   end
 
   it 'can only update status and nothing else' do
@@ -91,7 +89,7 @@ RSpec.describe InvoiceRepository do
 
   end
 
-  it 'can delete the merchant by id' do
+  it 'can delete the invoice by id' do
       @repo.delete(2)
 
       updated_all = []
