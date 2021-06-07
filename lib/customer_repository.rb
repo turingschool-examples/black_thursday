@@ -24,18 +24,18 @@ class CustomerRepository
   def new_customer_id_number
     @all.max_by do |customer|
       customer.id
-    end.id + 1 
+    end.id + 1
   end
 
   def find_all_by_first_name(first_name)
     @all.find_all do |customer|
-      customer.first_name == first_name
+      customer.first_name.upcase.include?(first_name.upcase)
     end
   end
 
   def find_all_by_last_name(last_name)
     @all.find_all do |customer|
-      customer.last_name == last_name
+      customer.last_name.upcase.include?(last_name.upcase)
     end
   end
 
