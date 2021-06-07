@@ -134,6 +134,16 @@ RSpec.describe ItemRepository do
   end
 
   it 'groups items by merchant' do
-    expect(@repo.group_items_by_merchant).to eq()
+    merchants = @repo.group_items_by_merchant
+    item_ids_by_merchant = Hash.new { |key, value| key[value] = [] }
+
+    merchants.each do |merchant, items|
+      items.each do |item|
+        expect(item).to be_a(Item)
+        item_ids_by_merchant[merchant] << item.id
+      end
+    end
+
+    expect(item_ids_by_merchant[12334185].to eq([263395617, 263395721, 263396013]))
   end
 end
