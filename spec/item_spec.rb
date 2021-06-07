@@ -2,6 +2,7 @@ require_relative 'spec_helper'
 
 RSpec.describe Item do
   before :each do
+    @mock_repo = double('ItemRepository')
     @item_data = {
       :id          => 1,
       :name        => "Pencil",
@@ -9,9 +10,8 @@ RSpec.describe Item do
       :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
-      :merchant_id => 2
-    }
-    @item = Item.new(@item_data)
+      :merchant_id => 2}
+    @item = Item.new(@item_data, @mock_repo)
   end
 
   describe 'instantiation' do
@@ -32,7 +32,6 @@ RSpec.describe Item do
 
   describe 'methods' do
     it 'returns unit price to dollars as a float' do
-      require "pry"; binding.pry
       expect(@item.unit_price_to_dollars).to eq(10.99)
     end
   end

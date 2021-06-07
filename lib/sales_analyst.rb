@@ -40,7 +40,7 @@ class SalesAnalyst
      
      
       @sales_engine.items.find_all_by_merchant_id(merchant.id) do |item_count|
-        item_count >= (average_items_per_merchant_standard_deviation + average_items_per_merchant)
+        sigma >= (average_items_per_merchant_standard_deviation + average_items_per_merchant)
           require "pry"; binding.pry
       end
     end

@@ -10,8 +10,8 @@ class ItemRepository
 
   def initialize(path, engine)
     @all = []
-    @engine = engine
     create_items(path)
+    @engine = engine
   end
 
   def create_items(path)
@@ -101,11 +101,11 @@ class ItemRepository
     @all.delete(to_delete)
   end
 
-  # def item_count_per_merchant
-  #   items_per_merchant = {}
-  #   @items.each do |item|
-  #     items_per_merchant[item.merchant_id] = find_all_by_merchant_id(merchant_id).length
-  #   end
-  #   items_per_merchant
-  # end
+  def item_count_per_merchant
+    items_per_merchant = {}
+    @all_items.each do |item|
+      items_per_merchant[item.merchant_id] = find_all_by_merchant_id(merchant_id).length
+    end
+    items_per_merchant
+  end
 end
