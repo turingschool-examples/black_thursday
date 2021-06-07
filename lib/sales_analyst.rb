@@ -191,4 +191,14 @@ class SalesAnalyst
         transaction.result == :success
       end
   end
+
+  def invoice_total(invoice_id)
+    result = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_total = 0
+    result.each do |invoice|
+      # require "pry"; binding.pry
+      invoice_total += (invoice.quantity.to_i * invoice.unit_price)
+    end
+    invoice_total
+  end
 end
