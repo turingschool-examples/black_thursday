@@ -167,11 +167,20 @@ class SalesAnalyst
     sorted = revenue_by_merchant_id_hash.max_by(2) do |merch, rev|
       rev
     end
-
     merch_id = sorted.map do |array|
       array[0]
     end
+    return_merch_obj(merch_id)
+  end
 
+
+  def top_revenue_earners
+    sorted = revenue_by_merchant_id_hash.max_by(20) do |merch, rev|
+      rev
+    end
+    merch_id = sorted.map do |array|
+      array[0]
+    end
     return_merch_obj(merch_id)
   end
 
