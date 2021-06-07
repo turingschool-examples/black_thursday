@@ -41,12 +41,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return average items per merchant standard deviation' do
-    # 1.33 is the mean
-    # set = [1, 1, 2]
-    # std_dev = sqrt( ( (1-1.33)^2+(1-1.33)^2+(2-1.33)^2 ) / 2 )
-    # std_dev = sqrt( ( .6667 / 2 )
-    # std_dev = sqrt( ( .33335 )
-    # std_dev = .578
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.15)
   end
 
@@ -81,13 +75,6 @@ RSpec.describe SalesEngine do
 
   it 'can return golden items' do
     expect(@sales_analyst.golden_items).to eq([])
-    # 13.5 is the mean item price
-    # set = [10, 12, 12, 20]
-    # std_dev = sqrt( ( (10-13.5)^2+(12-13.5)^2+(12-13.5)^2+(20-13.5)^2 ) / 2 )
-    # std_dev = sqrt( ( 12.25 + 2.25 + 2.25 + 42.25 ) / 2 )
-    # std_dev = sqrt( ( 59 / 2 )
-    # std_dev = sqrt( ( 29.5 )
-    # std_dev = 5.43
   end
 
   it 'can return average invoices per merchant' do
@@ -95,13 +82,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return average invoices per merchant standard deviation' do
-  # 1.67 is the mean
-  # set = [2, 1, 2] # number of invoices per merchant
-  # std_dev = sqrt( ( (2-1.67)^2+(1-1.67)^2+(2-1.67)^2 ) / 2 )
-  # std_dev = sqrt( ( 0.1089 + 0.4489 + 0.1089 ) / 2 )
-  # std_dev = sqrt( ( .6667 / 2 ) )
-  # std_dev = sqrt( 0.33335 )
-  # std_dev = 0.57736
     expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.58)
   end
 
@@ -113,44 +93,26 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.bottom_merchants_by_invoice_count).to eq([])
   end
 
-  #top_days_by_invoice_count
+  it 'returns date stamps for inovices' do
+    expect(@sales_analyst.pull_day_from_invoice).to eq([6, 0, 5, 3, 3])
+  end
+
+  it 'returns invoice counts for each day of week' do
+    expect(@sales_analyst.days_invoices_hash.values).to eq([1, 0, 0, 2, 0, 1, 1])
+  end
+
   it 'can return average invoices by days of the week' do
     expect(@sales_analyst.average_invoices_per_day).to eq(0.71)
   end
 
-  it 'returns date stamps for inovices' do
-    expect(@sales_analyst.pull_day_from_invoice).to eq([6, 5, 3, 1, 6])
-  end
-
-  it 'returns array of weekday invoice counts' do
-    # day_of_week_hash = {
-    #                       'Sunday'    => 0,
-    #                       'Monday'    => 1,
-    #                       'Tuesday'   => 0,
-    #                       'Wednesday' => 1,
-    #                       'Thursday'  => 0,
-    #                       'Friday'    => 1,
-    #                       'Saturday'  => 2
-    #                    }
-
-    expect(@sales_analyst.invoice_by_day_count).to eq([0, 1, 0, 1, 0, 1, 2])
-  end
-
   it 'can return standard deviation for days of the week' do
-    # .71
-    # set = [1, 0, 1, 0, 1, 2, 0] # number of invoices per day
-    # std_dev = sqrt( ( (1-0.71)^2+(0-0.71)^2+(1-0.71)^2+(0-0.71)^2+(1-0.71)^2+(2-0.71)^2+(0-0.71)^2 ) / 6 )
-    # std_dev = sqrt( ( 0.0841 + 0.5041 + 0.0841 + 0.5041 + 0.0841 + 1.6641 + 0.5041) / 6 )
-    # std_dev = sqrt( ( 3.4287 / 6 ) )
-    # std_dev = sqrt( 0.57145 )
-    # std_dev = 0.75594
     expect(@sales_analyst.avg_inv_per_day_std_dev).to eq(0.76)
   end
 
   it 'can return the top days for invoices' do
    expect(@sales_analyst.top_days_by_invoice_count.length).to eq 1
    expect(@sales_analyst.top_days_by_invoice_count.first.class).to eq String
-   expect(@sales_analyst.top_days_by_invoice_count).to eq(['Saturday'])
+   expect(@sales_analyst.top_days_by_invoice_count).to eq(['Wednesday'])
  end
 
   it 'can return the percentage of invoice shipped vs pending vs returned' do
@@ -158,6 +120,50 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.invoice_status(:shipped)).to eq(40.0)
     expect(@sales_analyst.invoice_status(:returned)).to eq(0)
   end
+
+########### Iteration 4
+  it 'can return a list of invoices with successful payments' do
+    expect(@sales_analyst.invoice_id_with_successful_payments).to eq([1, 2, 3, 4, 5])
+  end
+
+  it 'can return revenue by invoice id' do
+    expected = {
+                  1 => 10000.0,
+                  2 => 240.0,
+                  3 => 3032.0,
+                  4 => 10888.0,
+                  5 => 810.0
+                }
+    expect(@sales_analyst.revenue_by_invoice_hash).to eq(expected)
+  end
+  it 'can find out the total revenue for a given date' do
+    expect(@sales_analyst.total_revenue_by_date(Time.parse('2021-05-28'))).to eq(3032.00)
+  end
+
+  it 'find the top x performing merchants in terms of revenue' do
+    expect(@sales_analyst.top_revenue_earners(2)).to eq([@se.merchants.all[0], @se.merchants.all[2]])
+  end
+
+  it 'takes the top 20 merchants by default if no number is given for top_revenue_earners' do
+    expect(@sales_analyst.top_revenue_earners).to eq([@se.merchants.all[0], @se.merchants.all[1], @se.merchants.all[2]])
+  end
+
+  it 'can return which merchants have pending invoices' do
+    expect(@sales_analyst.merchants_with_pending_invoices).to eq([])
+    # Note: an invoice is considered pending if none of its transactions are successful.
+  end
+
+  it 'can return which merchants offer only one item' do
+    expect(@sales_analyst.merchants_with_only_one_item.length).to eq(2)
+  end
+
+  xit 'can return merchants that only sell one item by the month they registered (merchant.created_at)' do
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("June")).to eq([])
+  end
+
+  xit 'can find the total revenue for a single merchant' do
+    expect(@sales_analyst.revenue_by_merchant(merchant_id)).to eq(1)
+  end 
 
   it 'returns true if the invoice with corresponding id is paid in full' do
     expect(@sales_analyst.invoice_paid_in_full?(1)). to eq(true)

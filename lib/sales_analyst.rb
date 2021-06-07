@@ -1,57 +1,35 @@
 require 'date'
+require_relative '../lib/modules/hashable'
+require_relative '../lib/modules/countable'
+require_relative '../lib/modules/calculatable'
+require 'pry'
 
 class SalesAnalyst
+  include Hashable
+  include Countable
+  include Calculatable
+
   def initialize(engine)
     @engine = engine
   end
 
   def average_items_per_merchant
-    (@engine.items.all.length / @engine.merchants.all.length.to_f).round(2)
-  end
-
-  def merch_items_hash
-    merch_items = {}
-
-    @engine.merchants.all.map do |merchant|
-      merch_items[merchant.id] = @engine.items.find_all_by_merchant_id(merchant.id)
-    end
-
-    merch_items
-  end
-
-  def items_by_merch_count
-    merch_items_hash.values.map do |item_array|
-      item_array.count
-    end
+    average_mean(@engine.items.all.length, @engine.merchants.all.length)
   end
 
   def average_items_per_merchant_standard_deviation
-    numerator = items_by_merch_count.sum do |num|
-      (num - average_items_per_merchant) ** 2
-    end
-    denominator = (items_by_merch_count.length - 1).to_f
-    Math.sqrt(numerator / denominator).round(2)
+    average_standard_deviation(items_by_merch_count, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count
     merch_high_count = merch_items_hash.select do |merch_id, items|
-       # 6 items > 1.33 mean + .58 std dev
       items.length > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
-
-    merch_high_count.keys.map do |merch_id|
-      @engine.merchants.find_by_id(merch_id)
-    end
-  end
-
-  def price_of_items_for_merch(merchant_id)
-    merch_items_hash[merchant_id].map do |item|
-      item.unit_price
-    end
+    return_merch_obj(merch_high_count)
   end
 
   def average_item_price_for_merchant(merchant_id)
-    (price_of_items_for_merch(merchant_id).sum / price_of_items_for_merch(merchant_id).length).round(2)
+    average_mean(price_of_items_for_merch(merchant_id).sum, price_of_items_for_merch(merchant_id).length)
   end
 
   def average_average_price_per_merchant
@@ -61,131 +39,39 @@ class SalesAnalyst
     (avg_price_per_merch.sum / avg_price_per_merch.length).floor(2)
   end
 
-  def item_price_set
-    @engine.items.all.map do |item|
-      item.unit_price_to_dollars
-    end
-  end
-
-  def average_price_per_item
-    (item_price_set.sum / item_price_set.length).round(2)
-  end
-
-  def average_price_per_item_standard_deviation
-    numerator = item_price_set.sum do |num|
-      (num - average_price_per_item) ** 2
-    end
-    denominator = (item_price_set.length - 1).to_f
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
   def golden_items
     @engine.items.all.select do |item|
-      # 5 items > 2,010.80 mean + 4,466.10 std dev times 2
       item.unit_price_to_dollars > (average_price_per_item +
-        (average_price_per_item_standard_deviation * 2))
+        (2 * average_price_per_item_standard_deviation))
     end
   end
-  #Iteration 2
-  def average_invoices_per_merchant ###
-    (@engine.invoices.all.length / @engine.merchants.all.length.to_f).round(2)
+
+  def average_invoices_per_merchant
+    average_mean(@engine.invoices.all.length, @engine.merchants.all.length)
   end
 
-  def merch_invoices_hash
-    merch_invoices = {}
-
-    @engine.merchants.all.map do |merchant|
-      merch_invoices[merchant.id] = @engine.invoices.find_all_by_merchant_id(merchant.id)
-    end
-    merch_invoices
+  def average_invoices_per_merchant_standard_deviation
+    average_standard_deviation(invoices_by_merch_count, average_invoices_per_merchant)
   end
 
-  def invoices_by_merch_count
-    count = merch_invoices_hash.values.map do |invoice_array|
-      invoice_array.count
-    end
-    count
-  end
-
-  def average_invoices_per_merchant_standard_deviation ###
-    numerator = invoices_by_merch_count.sum do |num|
-      (num - average_invoices_per_merchant) ** 2
-    end
-    denominator = (invoices_by_merch_count.length - 1).to_f
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def top_merchants_by_invoice_count ###
+  def top_merchants_by_invoice_count
     merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
-       # 5 invoices > 1.67 mean + (2 * .58 std dev))
-      invoices.length > (average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation))
+      invoices.length > (average_invoices_per_merchant +
+        (2 * average_invoices_per_merchant_standard_deviation))
     end
-
     merch_high_count.keys.map do |merch_id|
       @engine.merchants.find_by_id(merch_id)
     end
   end
 
-  def bottom_merchants_by_invoice_count ###
-    merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
-       # 5 invoices < 1.67 mean + (2 * .58 std dev))
-      invoices.length < (average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation))
+  def bottom_merchants_by_invoice_count
+    merch_low_count = merch_invoices_hash.select do |merch_id, invoices|
+      invoices.length < (average_invoices_per_merchant +
+        (2 * average_invoices_per_merchant_standard_deviation))
     end
-
-    merch_high_count.keys.map do |merch_id|
+    merch_low_count.keys.map do |merch_id|
       @engine.merchants.find_by_id(merch_id)
     end
-  end
-
-  def average_invoices_per_day
-    (@engine.invoices.all.length.to_f / 7).round(2)
-  end
-
-  def pull_day_from_invoice
-    dates = @engine.invoices.all.map do |invoice|
-      invoice.created_at
-    end
-   # => [2009-02-07 00:00:00 -0500,
-          # 2012-11-23 00:00:00 -0500,
-          # 2009-12-09 00:00:00 -0500,
-          # 2013-08-05 00:00:00 -0400,
-          # 2014-02-08 00:00:00 -0500]
-    days_as_num = dates.map do |date_stamp|
-      date_stamp.wday  # => [6, 5, 3, 1, 6]
-    end
-    # days_as_num
-  end
-
-  def invoice_by_day_count
-    sun = pull_day_from_invoice.count(0) # => 0 Sun
-    mon = pull_day_from_invoice.count(1) # => 1 Mon
-    tue = pull_day_from_invoice.count(2) # => 0 Tues
-    wed = pull_day_from_invoice.count(3) # => 1 Wed
-    thu = pull_day_from_invoice.count(4) # => 0 Thurs
-    fri = pull_day_from_invoice.count(5) # => 1 Fri
-    sat = pull_day_from_invoice.count(6) # => 2 Sat
-
-    invoices_by_day_count = [sun, mon, tue, wed, thu, fri, sat]
-  end
-
-  def avg_inv_per_day_std_dev
-    numerator = invoice_by_day_count.sum do |num|
-      (num - average_invoices_per_day) ** 2
-    end
-    denominator = (invoice_by_day_count.length - 1).to_f
-    average_invoices_per_day_std_dev = Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def days_invoices_hash
-  days_invoices = {
-                     'Sunday'    => pull_day_from_invoice.count(0),
-                     'Monday'    => pull_day_from_invoice.count(1), # => 1 Mon
-                     'Tuesday'   => pull_day_from_invoice.count(2), # => 0 Tues
-                     'Wednesday' => pull_day_from_invoice.count(3), # => 1 Wed
-                     'Thursday'  => pull_day_from_invoice.count(4), # => 0 Thurs
-                     'Friday'    => pull_day_from_invoice.count(5), # => 1 Fri
-                     'Saturday'  => pull_day_from_invoice.count(6), # => 2 Sat
-                  }
   end
 
   def top_days_by_invoice_count
@@ -195,17 +81,129 @@ class SalesAnalyst
     days_high_count.keys
   end
 
-  def average_invoices_created_at_days
-    (@engine.invoices.all.length / @engine.merchants.all.length.to_f).round(2)
-  end
-
-  def invoice_status(invoice_status) ###
+  def invoice_status(invoice_status)
     invoices = @engine.invoices.all.select do |invoice|
       invoice.status.to_sym == invoice_status
     end
-    # need .round(2) to round two places after the decimal
-    # tested and works for 66.6666 to round to 66.67
     ((invoices.length / @engine.invoices.all.length.to_f) * 100).round(2)
+  end
+
+###### Helper Methods
+  def average_price_per_item
+    average_mean(item_price_set.sum, item_price_set.length)
+  end
+
+  def average_invoices_per_day
+    average_mean(@engine.invoices.all.length.to_f, 7)
+  end
+
+  def average_price_per_item_standard_deviation
+    average_standard_deviation(item_price_set, average_price_per_item)
+  end
+
+  def avg_inv_per_day_std_dev
+    numerator = days_invoices_hash.values.sum do |num|
+      (num - average_invoices_per_day) ** 2
+    end
+    average_invoices_per_day_std_dev = Math.sqrt(numerator / 6.0).round(2)
+  end
+  
+  def return_merch_obj(merch_id)
+    @engine.merchants.all.select do |merchant|
+      merch_id.include?(merchant.id)
+    end 
+  end 
+    
+  def bottom_merchants_by_invoice_count ###
+    merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
+       # 5 invoices < 1.67 mean + (2 * .58 std dev))
+      invoices.length < (average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation))
+    end
+  end
+
+  def price_of_items_for_merch(merchant_id)
+    merch_items_hash[merchant_id].map do |item|
+      item.unit_price
+    end
+  end
+
+  def item_price_set
+    @engine.items.all.map do |item|
+      item.unit_price_to_dollars
+    end
+  end
+
+  def pull_day_from_invoice
+    dates = @engine.invoices.all.map do |invoice|
+      invoice.created_at
+    end
+    dates.map do |date_stamp|
+      date_stamp.wday
+    end
+  end
+
+  def invoice_id_with_successful_payments
+    @engine.transactions.find_all_by_result(:success).map do |transaction|
+      transaction.invoice_id
+    end
+  end
+
+  def pending_invoices
+    @engine.invoices.all.select do |invoice|
+      !invoice_id_with_successful_payments.include?(invoice.id)
+    end
+  end
+##########
+########## Iteration 4
+  def total_revenue_by_date(date)
+    invoice_ids = @engine.invoices.find_all_by_date(date).map do |invoice|
+      invoice.id
+    end
+    invoice_ids.sum do |id|
+      revenue_by_invoice_hash[id]
+    end
+  end
+
+  def top_revenue_earners(num)
+    sorted = revenue_by_merchant_id_hash.max_by(2) do |merch, rev|
+      rev
+    end
+    merch_id = sorted.map do |array|
+      array[0]
+    end
+    return_merch_obj(merch_id)
+  end
+
+
+  def top_revenue_earners
+    sorted = revenue_by_merchant_id_hash.max_by(20) do |merch, rev|
+      rev
+    end
+    merch_id = sorted.map do |array|
+      array[0]
+    end
+    return_merch_obj(merch_id)
+  end
+
+  def merchants_with_pending_invoices
+    merchant_id = pending_invoices.map do |invoice|
+      invoice.merchant_id
+    end
+    return_merch_obj(merchant_id)
+  end
+
+  def merchants_with_only_one_item
+    merchants = []
+    merch_items_hash.each do |merch, item|
+      merchants << merch if item.count == 1
+    end
+    return_merch_obj(merchants)
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    num = month_to_num_hash.find do |name, num|
+      month == name
+    end
   end
 
   def invoice_paid_in_full?(invoice_id)
