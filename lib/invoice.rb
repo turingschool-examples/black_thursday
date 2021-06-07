@@ -26,7 +26,7 @@ class Invoice
   end
 
   def update(attributes)
-    @status = attributes[:status] if !attributes[:status].nil?
-    @updated_at = update_time("")
+    @status = attributes[:status] unless attributes[:status].nil?
+    @updated_at = update_time('')
   end
 end
