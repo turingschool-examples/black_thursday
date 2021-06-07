@@ -2,16 +2,16 @@ require_relative 'spec_helper'
 
 RSpec.describe Item do
   before :each do
-    item_data = {
+    @mock_repo = double('ItemRepository')
+    @item_data = {
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
-      :merchant_id => 2
-    }
-    @item = Item.new(item_data)
+      :merchant_id => 2}
+    @item = Item.new(@item_data, @mock_repo)
   end
 
   describe 'instantiation' do
