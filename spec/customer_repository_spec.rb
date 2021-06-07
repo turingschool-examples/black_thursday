@@ -18,7 +18,7 @@ RSpec.describe CustomerRepository do
   end
 
   it 'can find customer by id' do
-    expect(@repo.find_all_by_id(1).first_name).to eq("Joey")
+    expect(@repo.find_by_id(1).first_name).to eq("Joey")
     expect(@repo.find_by_id(2).first_name).to eq("Cecelia")
     expect(@repo.find_by_id(33)).to eq(nil)
   end
@@ -52,7 +52,6 @@ RSpec.describe CustomerRepository do
   @repo.update(33, attributes)
 
   expect(@repo.all.length).to eq(3)
-  expect(@repo.find_by_id(33).last_name).to eq("Clarke")
   expect(@repo.update(377, attributes)).to eq(nil)
   end
 
