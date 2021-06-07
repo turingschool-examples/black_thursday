@@ -188,24 +188,58 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    # revenue_by_invoice.map do |id, revenue|
-    #
-    # invoice_ids = @engine.invoices.find_all_by_date(date).map do |invoice|
-    #   invoice.id
-    # end
-    # revenue_by_invoice.sum do |id, revenue|
-    #   @engine.invoice_items.find_revenue_by_invoice_id(invoice_id)
-    # end
-    # ### only results that are successful
+    invoice_ids = @engine.invoices.find_all_by_date(date).map do |invoice|
+      invoice.id
+    end
+    invoice_ids.sum do |id|
+      revenue_by_invoice[id]
+    end
   end
 
   def top_revenue_earners(num)
-    @engine.invoices.all
-    @engine.merchants.all
-    @engine.invoice_items.find_revenue_by_invoice_id(id)
-    ### Revenue by merchant and find top num
-      ### Pull revenue by invoice
-      ### Associate invoice with merchant
-      ###
+    merch_invoices_hash
+    revenue_by_invoice
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices = @engine.invoices.all.select do |invoice|
+      !invoice_id_with_successful_payments.include?(invoice.id)
+    end
+    merchant_id = pending_invoices.map do |invoice|
+      invoice.merchant_id
+    end
+    @engine.merchants.all.select do |merchant|
+      merchant_id.include?(merchant.id)
+    end
+  end
+
+  def merchants_with_only_one_item
+    merchants = []
+    merch_items_hash.each do |merch, item|
+      merchants << merch if item.count == 1
+    end
+    @engine.merchants.all.select do |merchant|
+      merchants.include?(merchant.id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_to_num = {
+                      'January' => 1,
+                      'February' => 2,
+                      'March'=> 3,
+                      'April' => 4,
+                      'May' => 5,
+                      'June' => 6,
+                      'July' => 7,
+                      'August' => 8,
+                      'September' => 9,
+                      'October' => 10,
+                      'November' => 12,
+                      'December' => 12
+                    }
+    num = month_to_num.find do |name, num|
+      month == name
+    end
   end
 end
