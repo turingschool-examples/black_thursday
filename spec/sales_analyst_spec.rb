@@ -25,7 +25,12 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can find top revenue earners with an argument' do
-    expect(@sa.top_revenue_earners(3)).to eq([])
+    expected = [33333, 11111, 77777]
+    @sa.top_revenue_earners(3).each do |merchant|
+      expected.each do |expected_id|
+        expect(merchat.id).to eq(expected_id)
+      end
+    end
   end
 
 end
