@@ -2,11 +2,13 @@ require_relative '../spec/spec_helper'
 
 class SalesEngine
   attr_reader :items,
-              :merchants
+              :merchants,
+              :analyst
 
   def initialize(paths)
-    @items = ItemRepository.new(paths[:items])
-    @merchants = MerchantRepository.new(paths[:merchants])
+    @items = ItemRepository.new(paths[:items], self)
+    @merchants = MerchantRepository.new(paths[:merchants], self)
+    @analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(paths)

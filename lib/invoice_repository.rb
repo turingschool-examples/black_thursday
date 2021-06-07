@@ -1,7 +1,13 @@
 require './module/incravinable'
 
 class InvoiceRepository
+
   include Incravinable
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+
   attr_reader :all
 
   def initialize(path)

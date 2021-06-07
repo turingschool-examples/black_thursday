@@ -1,18 +1,19 @@
 require_relative 'spec_helper'
 
 RSpec.describe ItemRepository do
+  before :each do
+    @mock_engine = double("ItemRepository")
+    @path = "fixture/item_fixture.csv"
+    @item_repo = ItemRepository.new(@path, @mock_engine)
+  end
+
   describe 'instantiation' do
     it 'exists' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
-
-      expect(item_repo).to be_a(ItemRepository)
+      expect(@item_repo).to be_a(ItemRepository)
     end
 
     it "returns array of all items and has readable attributes" do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
-      all = item_repo.all
+      all = @item_repo.all
 
       expect(all).to be_an(Array)
       expect(all.length).to eq(4)
@@ -28,26 +29,22 @@ RSpec.describe ItemRepository do
 
   describe 'methods' do
     it 'finds items with matching id' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
       id = 263395721
-      expected = item_repo.find_by_id(id)
+      expected = @item_repo.find_by_id(id)
 
       expect(expected).to be_an(Item)
       expect(expected.id).to eq(id)
       expect(expected.name).to eq("Disney scrabble frames")
 
       id = 1
-      expected = item_repo.find_by_id(id)
+      expected = @item_repo.find_by_id(id)
 
       expect(expected).to eq(nil)
     end
 
     it 'finds items by name' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
       name = "Vogue Paris Original Givenchy 2307"
-      expected = item_repo.find_by_name("voguE Paris Original Givenchy 2307")
+      expected = @item_repo.find_by_name("voguE Paris Original Givenchy 2307")
 
       expect(expected).to be_an(Item)
       expect(expected.name).to eq(name)
@@ -55,80 +52,70 @@ RSpec.describe ItemRepository do
 
 
       name = "Sales Engine"
-      expected = item_repo.find_by_name(name)
+      expected = @item_repo.find_by_name(name)
 
       expect(expected).to eq(nil)
     end
 
     it 'finds all items matching given description' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
       description = "Vogue Paris Original 2307; ca. 1980; Givenchy - Dress, fitted through the bustline with back-lapped bodice and straight front-wrapped lined skirt, four inches below mid-knee or evening length, has bodice pleated at right shoulder (no shoulder seam) and bodice front and skirt front and back gathered into waistline seam. Left side of skirt has draped waistline extension. Skirt lining has side zipper closing and deep left side hemline slit. Skirt has shaped hemline.\n\nFeatured in Vogue Patterns May/June 1980\n\nSize 14\n\nRefer to image for size info\n\nEnvelope shows storage wear and crumpling, opened to one side."
-      expected = item_repo.find_all_with_description("dRESS, fitted through the bustline with back-lapped bodice and straight front-wrapped lined skirt")
+      expected = @item_repo.find_all_with_description("dRESS, fitted through the bustline with back-lapped bodice and straight front-wrapped lined skirt")
 
       expect(expected).to be_an(Array)
       expect(expected.first.description).to eq(description)
       expect(expected.first.id).to eq(263396209)
 
       description = "llama smiles"
-      expected = item_repo.find_all_with_description(description)
+      expected = @item_repo.find_all_with_description(description)
 
       expect(expected).to eq([])
       expect(expected.length).to eq(0)
     end
 
     it 'finds all items with that has a matching price' do
-    path = "fixture/item_fixture.csv"
-    item_repo = ItemRepository.new(path)
     price = 2999
-    expected = item_repo.find_all_by_price(price)
+    expected = @item_repo.find_all_by_price(price)
 
     expect(expected).to be_an(Array)
     expect(expected.first.unit_price).to eq(price)
 
     price = 10
-    expected = item_repo.find_all_by_price(price)
+    expected = @item_repo.find_all_by_price(price)
 
     expect(expected).to eq([])
     expect(expected.length).to eq(0)
     end
 
     it 'returns items where the price is in the supplied price range' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
       range = 1300..1350
 
-      expected = item_repo.find_all_by_price_in_range(range)
+      expected = @item_repo.find_all_by_price_in_range(range)
 
       expect(expected).to be_an(Array)
       expect(expected.length).to eq(2)
       expect(expected.first.id).to eq(263395617)
 
       range = 234879032890..234879032891
-      expected = item_repo.find_all_by_price_in_range(range)
+      expected = @item_repo.find_all_by_price_in_range(range)
 
       expect(expected).to eq([])
     end
 
     it 'can return item with supplied, matching merchant_id' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
       merchant_id = 12334185
-      expected = item_repo.find_all_by_merchant_id(merchant_id)
+      expected = @item_repo.find_all_by_merchant_id(merchant_id)
 
       expect(expected).to be_an(Array)
       expect(expected.length).to eq(3)
       expect(expected.last.id).to eq(263396013)
 
       merchant_id = 1
-      expected = item_repo.find_all_by_merchant_id(merchant_id)
+      expected = @item_repo.find_all_by_merchant_id(merchant_id)
 
       expect(expected).to eq([])
     end
 
     it 'can create a new item' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
       attributes = {:id          => nil,
                     :name        => "llama smile sweater",
                     :description => "White sweater with a smiling llama",
@@ -138,15 +125,13 @@ RSpec.describe ItemRepository do
                     :updated_at  => Time.now
                     }
 
-      item_repo.create(attributes)
-      expect(item_repo.all.length).to eq(5)
-      expect(item_repo.all.last.id).to eq(263396210)
-      expect(item_repo.all.last.merchant_id).to eq(114488)
+      @item_repo.create(attributes)
+      expect(@item_repo.all.length).to eq(5)
+      expect(@item_repo.all.last.id).to eq(263396210)
+      expect(@item_repo.all.last.merchant_id).to eq(114488)
     end
 
-    it 'can update an item with the corresponding id that has the provided attributes' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
+    xit 'can update an item with the corresponding id that has the provided attributes' do
       attributes = {
                     :name        => "llama wink bikini",
                     :description => "It's like, a bikini with a llama on it that winks at you. Buy it.",
@@ -154,18 +139,18 @@ RSpec.describe ItemRepository do
                     }
 
       id = 263396209
-      item_repo.update(id, attributes)
-      expect(item_repo.all.last.id).to eq(263396209)
-      expect(item_repo.all.last.name).to eq("llama wink bikini")
-      expect(item_repo.all.last.description).to eq("It's like, a bikini with a llama on it that winks at you. Buy it.")
-      expect(item_repo.all.last.unit_price).to eq(962)
+      @item_repo.update(id, attributes)
+      expect(@item_repo.all.last.id).to eq(263396209)
+      expect(@item_repo.all.last.name).to eq("llama wink bikini")
+      expect(@item_repo.all.last.description).to eq("It's like, a bikini with a llama on it that winks at you. Buy it.")
+      expect(@item_repo.all.last.unit_price).to eq(962)
 
       attributes = {:unit_price  => 42069}
 
       id = 263395617
-      item_repo.update(id, attributes)
-      expect(item_repo.all.first.unit_price).to eq(42069)
-      expect(item_repo.all.first.name).to eq('Glitter scrabble frames')
+      @item_repo.update(id, attributes)
+      expect(@item_repo.all.first.unit_price).to eq(42069)
+      expect(@item_repo.all.first.name).to eq('Glitter scrabble frames')
     end
 
     it 'can delete an item with the corresponding id' do
@@ -176,6 +161,10 @@ RSpec.describe ItemRepository do
       item_repo.delete(id)
       expect(item_repo.all.last.id).to eq(263396013)
       expect(item_repo.all.last.name).to eq("Free standing Woden letters")
+
+    xit 'returns all items via merchant id' do 
+      
+      expect(@item_repo.item_count_per_merchant).to be_a(Hash)
     end
   end
 end
