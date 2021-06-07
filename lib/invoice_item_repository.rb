@@ -39,6 +39,12 @@ class InvoiceItemRepository
     end
   end
 
+  def find_revenue_by_invoice_id(invoice_id)
+    find_all_by_invoice_id(invoice_id).sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+  end
+
   def create(attributes)
     new_id = @all.max_by do |invoice_item|
       invoice_item.id

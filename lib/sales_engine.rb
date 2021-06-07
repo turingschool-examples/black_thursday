@@ -22,7 +22,6 @@ class SalesEngine
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items])
     @customers = CustomerRepository.new(paths[:customers])
     @transactions = TransactionRepository.new(paths[:transactions])
-
     @analyst   = SalesAnalyst.new(self)
   end
 

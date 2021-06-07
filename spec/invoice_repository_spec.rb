@@ -41,6 +41,10 @@ RSpec.describe InvoiceRepository do
     expect(@ir.find_all_by_status('returned')).to eq([])
   end
 
+  it 'finds all invoices by date' do
+    expect(@ir.find_all_by_date(Time.parse('2021-05-28'))).to eq([@ir.all[2]])
+  end
+
   it 'creates a new instance with attributes' do
     expected = @ir.create({
                             :customer_id => 3,

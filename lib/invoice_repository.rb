@@ -45,6 +45,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_date(date)
+    @all.find_all do |invoice|
+      invoice.created_at == date
+    end
+  end
+
   def create(attributes)
     new_invoice_id = @all.max_by do |invoice|
       invoice.id

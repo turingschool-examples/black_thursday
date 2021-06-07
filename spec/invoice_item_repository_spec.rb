@@ -35,6 +35,10 @@ RSpec.describe InvoiceItemRepository do
     expect(@iir.find_all_by_invoice_id(2).length).to eq(3)
   end
 
+  it 'can find revenue by invoice id' do
+    expect(@iir.find_revenue_by_invoice_id(3)).to eq(3032)
+  end
+
   it 'can create a new invoice item object' do
     new = @iir.create({
                         :item_id => 4,
