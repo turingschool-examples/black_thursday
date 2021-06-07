@@ -17,10 +17,6 @@ class Customer
     @updated_at = update_time(data[:updated_at].to_s)
   end
 
-  def update_time(time)
-    time_module(time)
-  end
-
   def update(attributes)
     @first_name = attributes[:first_name] unless attributes[:first_name].nil?
     @last_name = attributes[:last_name] unless attributes[:last_name].nil?
