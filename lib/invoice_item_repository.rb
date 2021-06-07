@@ -2,7 +2,7 @@ require './module/incravinable'
 
 class InvoiceItemRepository
   include Incravinable
-  
+
   def inspect
     "#<#{self.class} #{invoice_items.size} rows>"
   end
@@ -38,5 +38,11 @@ class InvoiceItemRepository
 
   def find_by_id(id)
     find_with_id(id)
+  end
+
+  def find_all_by_item_id(id)
+    @all.find_all do |invoice|
+      invoice.item_id == id
+    end
   end
 end

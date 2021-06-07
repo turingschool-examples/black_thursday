@@ -28,5 +28,11 @@ RSpec.describe InvoiceItemRepository do
     it 'can find by id' do
       expect(@invoice_item_repo.find_by_id(14401)).to eq(@invoice_item_repo.all[1])
     end
+
+    it 'can find all by item id' do
+      id = 263562286
+      expect(@invoice_item_repo.find_all_by_item_id(id)).to be_an(Array)
+      expect(@invoice_item_repo.find_all_by_item_id(id).length).to eq(1)
+    end
   end
 end
