@@ -143,8 +143,8 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.top_revenue_earners(2)).to eq([@se.merchants.all[0], @se.merchants.all[2]])
   end
 
-  xit 'takes the top 20 merchants by default if no number is given for top_revenue_earners' do
-    expect(@sales_analyst.top_revenue_earners).to eq([merchant * 20])
+  it 'takes the top 20 merchants by default if no number is given for top_revenue_earners' do
+    expect(@sales_analyst.top_revenue_earners).to eq([@se.merchants.all[0], @se.merchants.all[1], @se.merchants.all[2]])
   end
 
   it 'can return which merchants have pending invoices' do
