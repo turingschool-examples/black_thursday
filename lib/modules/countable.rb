@@ -11,4 +11,11 @@ module Countable
     end
     count
   end
+
+  def top_days_by_invoice_count
+    days_high_count = days_invoices_hash.select do |days, invoices|
+      invoices > (average_invoices_per_day + avg_inv_per_day_std_dev)
+    end
+    days_high_count.keys
+  end
 end

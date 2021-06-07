@@ -12,51 +12,13 @@ class SalesAnalyst
   def initialize(engine)
     @engine = engine
   end
-###### Average Mean
+
   def average_items_per_merchant
     average_mean(@engine.items.all.length, @engine.merchants.all.length)
   end
 
-  def average_item_price_for_merchant(merchant_id)
-    average_mean(price_of_items_for_merch(merchant_id).sum, price_of_items_for_merch(merchant_id).length)
-  end
-
-  def average_price_per_item
-    average_mean(item_price_set.sum, item_price_set.length)
-  end
-
-  def average_invoices_per_merchant
-    average_mean(@engine.invoices.all.length, @engine.merchants.all.length)
-  end
-
-  def average_invoices_per_day
-    average_mean(@engine.invoices.all.length.to_f, 7)
-  end
-######
-###### Standard Deviation Mean
   def average_items_per_merchant_standard_deviation
     average_standard_deviation(items_by_merch_count, average_items_per_merchant)
-  end
-
-  def average_price_per_item_standard_deviation
-    average_standard_deviation(item_price_set, average_price_per_item)
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    average_standard_deviation(invoices_by_merch_count, average_invoices_per_merchant)
-  end
-
-  def avg_inv_per_day_std_dev
-    numerator = days_invoices_hash.values.sum do |num|
-      (num - average_invoices_per_day) ** 2
-    end
-    average_invoices_per_day_std_dev = Math.sqrt(numerator / 6.0).round(2)
-  end
-######
-  def return_merch_obj(merch_id)
-    @engine.merchants.all.select do |merchant|
-      merch_id.include?(merchant.id)
-    end
   end
 
   def merchants_with_high_item_count
@@ -66,10 +28,8 @@ class SalesAnalyst
     return_merch_obj(merch_high_count)
   end
 
-  def price_of_items_for_merch(merchant_id)
-    merch_items_hash[merchant_id].map do |item|
-      item.unit_price
-    end
+  def average_item_price_for_merchant(merchant_id)
+    average_mean(price_of_items_for_merch(merchant_id).sum, price_of_items_for_merch(merchant_id).length)
   end
 
   def average_average_price_per_merchant
@@ -79,17 +39,19 @@ class SalesAnalyst
     (avg_price_per_merch.sum / avg_price_per_merch.length).floor(2)
   end
 
-  def item_price_set
-    @engine.items.all.map do |item|
-      item.unit_price_to_dollars
-    end
-  end
-
   def golden_items
     @engine.items.all.select do |item|
       item.unit_price_to_dollars > (average_price_per_item +
         (2 * average_price_per_item_standard_deviation))
     end
+  end
+
+  def average_invoices_per_merchant
+    average_mean(@engine.invoices.all.length, @engine.merchants.all.length)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average_standard_deviation(invoices_by_merch_count, average_invoices_per_merchant)
   end
 
   def top_merchants_by_invoice_count
@@ -103,21 +65,12 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
+    merch_low_count = merch_invoices_hash.select do |merch_id, invoices|
       invoices.length < (average_invoices_per_merchant +
         (2 * average_invoices_per_merchant_standard_deviation))
     end
-    merch_high_count.keys.map do |merch_id|
+    merch_low_count.keys.map do |merch_id|
       @engine.merchants.find_by_id(merch_id)
-    end
-  end
-
-  def pull_day_from_invoice
-    dates = @engine.invoices.all.map do |invoice|
-      invoice.created_at
-    end
-    dates.map do |date_stamp|
-      date_stamp.wday
     end
   end
 
@@ -135,7 +88,53 @@ class SalesAnalyst
     ((invoices.length / @engine.invoices.all.length.to_f) * 100).round(2)
   end
 
-########## Iteration 4
+###### Helper Methods
+  def average_price_per_item
+    average_mean(item_price_set.sum, item_price_set.length)
+  end
+
+  def average_invoices_per_day
+    average_mean(@engine.invoices.all.length.to_f, 7)
+  end
+
+  def average_price_per_item_standard_deviation
+    average_standard_deviation(item_price_set, average_price_per_item)
+  end
+
+  def avg_inv_per_day_std_dev
+    numerator = days_invoices_hash.values.sum do |num|
+      (num - average_invoices_per_day) ** 2
+    end
+    average_invoices_per_day_std_dev = Math.sqrt(numerator / 6.0).round(2)
+  end
+
+  def return_merch_obj(merch_id)
+    @engine.merchants.all.select do |merchant|
+      merch_id.include?(merchant.id)
+    end
+  end
+
+  def price_of_items_for_merch(merchant_id)
+    merch_items_hash[merchant_id].map do |item|
+      item.unit_price
+    end
+  end
+
+  def item_price_set
+    @engine.items.all.map do |item|
+      item.unit_price_to_dollars
+    end
+  end
+
+  def pull_day_from_invoice
+    dates = @engine.invoices.all.map do |invoice|
+      invoice.created_at
+    end
+    dates.map do |date_stamp|
+      date_stamp.wday
+    end
+  end
+
   def invoice_id_with_successful_payments
     @engine.transactions.find_all_by_result(:success).map do |transaction|
       transaction.invoice_id
@@ -147,7 +146,8 @@ class SalesAnalyst
       !invoice_id_with_successful_payments.include?(invoice.id)
     end
   end
-
+##########
+########## Iteration 4
   def total_revenue_by_date(date)
     invoice_ids = @engine.invoices.find_all_by_date(date).map do |invoice|
       invoice.id
