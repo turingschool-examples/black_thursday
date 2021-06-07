@@ -15,7 +15,6 @@ class SalesAnalyst
 ###### Average Mean
   def average_items_per_merchant
     average_mean(@engine.items.all.length, @engine.merchants.all.length)
-    # (@engine.items.all.length / @engine.merchants.all.length.to_f).round(2)
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -23,15 +22,15 @@ class SalesAnalyst
   end
 
   def average_price_per_item
-    (item_price_set.sum / item_price_set.length).round(2)
+    average_mean(item_price_set.sum, item_price_set.length)
   end
 
   def average_invoices_per_merchant
-    (@engine.invoices.all.length / @engine.merchants.all.length.to_f).round(2)
+    average_mean(@engine.invoices.all.length, @engine.merchants.all.length)
   end
 
   def average_invoices_per_day
-    (@engine.invoices.all.length.to_f / 7).round(2)
+    average_mean(@engine.invoices.all.length.to_f, 7)
   end
 ######
 ###### Standard Deviation Mean
@@ -101,20 +100,14 @@ class SalesAnalyst
   def golden_items
     @engine.items.all.select do |item|
       item.unit_price_to_dollars > (average_price_per_item +
-        (average_price_per_item_standard_deviation * 2))
+        (2 * average_price_per_item_standard_deviation))
     end
-  end
-
-  def invoices_by_merch_count
-    count = merch_invoices_hash.values.map do |invoice_array|
-      invoice_array.count
-    end
-    count
   end
 
   def top_merchants_by_invoice_count
     merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
-      invoices.length > (average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation))
+      invoices.length > (average_invoices_per_merchant +
+        (2 * average_invoices_per_merchant_standard_deviation))
     end
     merch_high_count.keys.map do |merch_id|
       @engine.merchants.find_by_id(merch_id)
@@ -123,7 +116,8 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
-      invoices.length < (average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation))
+      invoices.length < (average_invoices_per_merchant +
+        (2 * average_invoices_per_merchant_standard_deviation))
     end
     merch_high_count.keys.map do |merch_id|
       @engine.merchants.find_by_id(merch_id)
@@ -176,7 +170,7 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(num)
-    
+
   end
 
   def merchants_with_pending_invoices

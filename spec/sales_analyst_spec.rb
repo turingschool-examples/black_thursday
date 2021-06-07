@@ -139,7 +139,7 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.total_revenue_by_date(Time.parse('2021-05-28'))).to eq(3032.00)
   end
 
-  it 'find the top x performing merchants in terms of revenue' do
+  xit 'find the top x performing merchants in terms of revenue' do
     expect(@sales_analyst.top_revenue_earners(2)).to eq([])
   end
   xit 'takes the top 20 merchants by default if no number is given for top_revenue_earners' do
