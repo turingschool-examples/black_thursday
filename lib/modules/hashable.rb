@@ -27,11 +27,48 @@ module Hashable
                   }
   end
 
-  def revenue_by_invoice
+  def revenue_by_invoice_hash
     revenue_invoice = {}
     invoice_id_with_successful_payments.map do |id|
       revenue_invoice[id] = @engine.invoice_items.find_revenue_by_invoice_id(id)
     end
     revenue_invoice
+  end
+
+  def month_name_to_number_hash
+    month_to_num = {
+                      'January' => 1,
+                      'February' => 2,
+                      'March'=> 3,
+                      'April' => 4,
+                      'May' => 5,
+                      'June' => 6,
+                      'July' => 7,
+                      'August' => 8,
+                      'September' => 9,
+                      'October' => 10,
+                      'November' => 12,
+                      'December' => 12
+                    }
+  end
+
+  def invoice_id_by_merchant_id_hash
+    merchid_invid = Hash.new { |hash, key| hash[key] = []}
+    merch_invoices_hash.each do |merchant, invoices|
+      invoices.map do |invoice|
+        merch_invid[merchant] << invoice.id
+      end
+    end
+    merchid_invid
+  end
+
+  def revenue_by_merchant_id_hash
+    merch_revenue = {}
+    merch_invid.each do |merchant, invoices|
+      merch_revenue[merchant] = invoices.sum do |inv|
+        revenue_by_invoice_hash[inv]
+      end
+    end
+    merch_revenue
   end
 end
