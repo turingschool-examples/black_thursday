@@ -1,15 +1,17 @@
-require 'spec_helper'
+require_relative '../spec/spec_helper'
 
 class MerchantRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-  
-  attr_reader :all
 
-  def initialize(path)
+  attr_reader :all,
+              :engine
+
+  def initialize(path, engine)
     @all = []
     create_merchants(path)
+    @engine = engine
   end
 
   def create_merchants(path)
@@ -20,7 +22,7 @@ class MerchantRepository
         created_at: merchant_data[:created_at],
         updated_at: merchant_data[:updated_at]
       }
-      @all << Merchant.new(merchant_hash)
+      @all << Merchant.new(merchant_hash, self)
     end
   end
 
@@ -44,16 +46,17 @@ class MerchantRepository
 
   def create(attributes)
     highest_id = @all.max_by { |merchant| merchant.id }
-    merchant = Merchant.new(attributes)
+    merchant = Merchant.new(attributes, self)
     merchant.new_id(highest_id.id + 1)
     @all << merchant
   end
 
   def update(id, attributes)
+    return nil unless
     update1 = @all.find do |merchant|
       merchant.id == id
     end
-    update1.update_name(attributes)
+    update1.update_name(attributes[:name])
   end
 
   def delete(id)
