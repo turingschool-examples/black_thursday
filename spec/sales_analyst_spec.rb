@@ -151,4 +151,33 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  context 'iteration3' do
+    before :each do
+      @paths = {
+        :items => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv",
+        :transactions => "./data/transactions.csv",
+        :customers => "./data/customers.csv"
+      }
+      @se = SalesEngine.from_csv(@paths)
+    end
+
+    it 'returns true if the invoice with the corresponding id is paid in full' do
+      sales_analyst = @se.analyst
+
+      result = sales_analyst.invoice_paid_in_full?(2179)
+      expect(result).to eq true
+
+      result = sales_analyst.invoice_paid_in_full?(1752)
+      expect(result).to eq false
+    end
+  #
+  #   # it 'returns the total amount of the invoice with the corresponding id' do
+  #   #
+  #   #   # expect().to eq()
+  #   # end
+  end
+
 end
