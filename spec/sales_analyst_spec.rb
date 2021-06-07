@@ -24,4 +24,8 @@ RSpec.describe SalesAnalyst do
     expect(@sa.total_revenue_by_date('2021-03-27 14:54:09 UTC')).to eq(BigDecimal(40)/100)
   end
 
+  it 'can find top revenue earners with an argument' do
+    expect(@sa.top_revenue_earners(3)).to eq([])
+  end
+
 end
