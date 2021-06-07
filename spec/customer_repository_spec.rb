@@ -20,7 +20,7 @@ RSpec.describe CustomerRepository do
   it 'can find customer by id' do
     expect(@repo.find_by_id(1).first_name).to eq("Joey")
     expect(@repo.find_by_id(2).first_name).to eq("Cecelia")
-    expect(@repo.find_by_id(33)).to eq(nil)
+    expect(@repo.find_by_id(33).first_name).to eq("Flossie")
   end
 
   it 'can find customers by first name' do
@@ -33,31 +33,31 @@ RSpec.describe CustomerRepository do
 
   it 'can create a new customer' do
     attributes = {
-      :id => 25,
+      :id => 51,
       :first_name => "Joan",
       :last_name => "Clarke",
     }
     @repo.create(attributes)
 
-    expect(@repo.all.length).to eq(4)
-    expect(@repo.all.last.id).to eq(4)
+    expect(@repo.all.length).to eq(51)
+    expect(@repo.all.last.id).to eq(51)
   end
 
   it 'can update customer' do
     attributes = {
-      :id => 25,
+      :id => 51,
       :first_name => "Joan",
-      :last_name => "Clarke",
+      :last_name => "Smith",
     }
   @repo.update(33, attributes)
 
-  expect(@repo.all.length).to eq(3)
+  expect(@repo.all.length).to eq(50)
   expect(@repo.update(377, attributes)).to eq(nil)
   end
 
   it 'can delete a customer' do
     @repo.delete(1)
 
-    expect(@repo.all.length).to eq(2)
+    expect(@repo.all.length).to eq(49)
   end
 end
