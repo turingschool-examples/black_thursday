@@ -207,4 +207,13 @@ class SalesAnalyst
     # tested and works for 66.6666 to round to 66.67
     ((invoices.length / @engine.invoices.all.length.to_f) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction = @engine.transactions.find_all_by_invoice_id(invoice_id)
+
+    transaction.any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
 end
