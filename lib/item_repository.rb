@@ -94,4 +94,8 @@ class ItemRepository
   def number_of_merchants
     items_per_merchant.length
   end
+
+  def total_items
+    @all.length
+  end
 end
