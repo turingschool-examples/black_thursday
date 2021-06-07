@@ -21,7 +21,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(self)
   end
 end
-
