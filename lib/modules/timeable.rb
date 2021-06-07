@@ -1,5 +1,5 @@
 module Timeable
-  def time_module(time)
+  def update_time(time)
     if time.nil?
       Time.now
     elsif time.empty?
