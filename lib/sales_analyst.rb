@@ -1,6 +1,8 @@
 require_relative 'sales_engine'
 
 class SalesAnalyst
+  include MathModule
+
   attr_reader :engine
 
   def initialize(engine)
@@ -103,4 +105,27 @@ class SalesAnalyst
     merchant_invoices = invoices_per_merchant.values
     standard_dev(merchant_invoices, mean)
   end
+
+  def top_merchants_by_invoice_count
+    solution = []
+    std_deviation_mean = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+    invoices_per_merchant.each do |merchant, number_of_invoices|
+      solution << merchant if number_of_invoices >= std_deviation_mean
+    end
+    solution
+  end
+
+  def bottom_merchants_by_invoice_count
+    solution = []
+    std_deviation_mean = (average_invoices_per_merchant_standard_deviation * -2) + average_invoices_per_merchant
+    invoices_per_merchant.each do |merchant, number_of_invoices|
+      solution << merchant if number_of_invoices <= std_deviation_mean
+    end
+    solution
+  end
+
+  def top_days_by_invoice_count
+    invoices_per_day_of_the_week
+  end
+
 end

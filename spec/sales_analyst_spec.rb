@@ -1,4 +1,5 @@
-require_relative './spec_helper'
+require_relative 'spec_helper'
+
 
 RSpec.describe SalesAnalyst do
   context 'instantiation' do
@@ -149,6 +150,20 @@ RSpec.describe SalesAnalyst do
       expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq(0.44)
     end
 
+    it 'can calculate the merchants with high invoice count' do
+
+      expect(@analyst.top_merchants_by_invoice_count).to eq([])
+    end
+
+    it 'can calculate the merchants with low invoice count' do
+
+      expect(@analyst.bottom_merchants_by_invoice_count).to eq([])
+    end
+
+    it 'can find top days by invoice count' do
+      expected = ["Sunday", "Saturday"]
+      expect(@analyst.top_days_by_invoice_count).to eq(expected)
+    end
 
   end
 end
