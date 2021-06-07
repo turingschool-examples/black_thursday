@@ -1,15 +1,20 @@
-require 'spec_helper'
+require './module/incravinable'
+require 'CSV'
 
 class MerchantRepository
+  include Incravinable
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-  
-  attr_reader :all
 
-  def initialize(path)
+  attr_reader :all,
+              :engine
+
+  def initialize(path, engine)
     @all = []
     create_merchants(path)
+    @engine = engine
   end
 
   def create_merchants(path)
@@ -20,46 +25,38 @@ class MerchantRepository
         created_at: merchant_data[:created_at],
         updated_at: merchant_data[:updated_at]
       }
-      @all << Merchant.new(merchant_hash)
+      @all << Merchant.new(merchant_hash, self)
     end
   end
 
   def find_by_id(id)
-    @all.find do |merchant|
-      merchant.id == id
-    end
+    find_with_id(id)
   end
 
   def find_by_name(name)
-    @all.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
+    find_with_name(name)
   end
 
   def find_all_by_name(name)
-    @all.find_all do |merchant|
-      merchant.name.downcase.include?(name)
-    end
+    find_all_with_name(name)
   end
 
   def create(attributes)
     highest_id = @all.max_by { |merchant| merchant.id }
-    merchant = Merchant.new(attributes)
+    merchant = Merchant.new(attributes, self)
     merchant.new_id(highest_id.id + 1)
     @all << merchant
   end
 
   def update(id, attributes)
-    update1 = @all.find do |merchant|
+    found_merchant = @all.find do |merchant|
       merchant.id == id
     end
-    update1.update_name(attributes)
+    found_merchant.update_name(attributes[:name])
+    found_merchant.time_update
   end
 
   def delete(id)
-    merchant = @all.find do |merchant|
-      merchant.id == id
-    end
-    @all.delete(merchant)
+    remove(id)
   end
 end
