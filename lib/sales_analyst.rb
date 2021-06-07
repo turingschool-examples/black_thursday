@@ -64,4 +64,22 @@ class SalesAnalyst
     y = average_item_price_per_merchant.values.length
     solution = (x / y).round(2)
   end
+
+  def average_price_per_item_standard_deviation
+    mean = average_average_price_per_merchant
+    item_prices = []
+    @engine.items.all.each do |item|
+      item_prices << item.unit_price
+    end
+    standard_dev(item_prices, mean)
+  end
+
+  def golden_items
+    solution = []
+    z = (average_price_per_item_standard_deviation * 2) + average_average_price_per_merchant
+    @engine.items.all.each do |item|
+      solution << item if item.unit_price > z
+    end
+    solution
+  end
 end

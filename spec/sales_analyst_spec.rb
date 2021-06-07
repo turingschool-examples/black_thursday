@@ -102,7 +102,16 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can calculate the average for the average price for each items per merchant' do
-      expect(@analyst.average_average_price_per_merchant).to eq(100)
+      expect(@analyst.average_average_price_per_merchant).to eq(BigDecimal(2.91, 4))
+    end
+
+    it 'can calculate standard deviation of item unit prices' do
+      expect(@analyst.average_price_per_item_standard_deviation).to eq(4.07)
+    end
+
+    it 'can find items that are two standard deviations above the mean' do
+      item2 = @se.items.all[16]
+      expect(@analyst.golden_items).to eq([item2])
     end
   end
 end
