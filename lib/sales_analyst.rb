@@ -207,4 +207,23 @@ class SalesAnalyst
     # tested and works for 66.6666 to round to 66.67
     ((invoices.length / @engine.invoices.all.length.to_f) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction = @engine.transactions.find_all_by_invoice_id(invoice_id)
+
+    transaction.any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id) #invoice_id(2)
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    # item_id(1) * qty(10) @ unit_price(0.1e2)
+    # item_id(2) * qty(10) @ unit_price(0.12e2)
+    # item_id(4) * qty(1) @ unit_price(0.2e2)
+    total = invoice_items.sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    # => 0.24e3
+  end
 end

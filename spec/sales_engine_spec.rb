@@ -4,7 +4,7 @@ SimpleCov.start
 require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
-require_relative '../lib/tranaction_repository'
+require_relative '../lib/transaction_repository'
 require_relative '../lib/sales_analyst'
 
 RSpec.describe SalesEngine do

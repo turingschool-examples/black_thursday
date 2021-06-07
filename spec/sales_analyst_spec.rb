@@ -158,4 +158,13 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.invoice_status(:shipped)).to eq(40.0)
     expect(@sales_analyst.invoice_status(:returned)).to eq(0)
   end
+
+  it 'returns true if the invoice with corresponding id is paid in full' do
+    expect(@sales_analyst.invoice_paid_in_full?(1)). to eq(true)
+    expect(@sales_analyst.invoice_paid_in_full?(6)). to eq(false)
+  end
+
+  it 'returns the total amount of the invoice with corresponding id' do
+    expect(@sales_analyst.invoice_total(2)).to eq(BigDecimal(240))
+  end
 end
