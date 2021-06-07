@@ -1,8 +1,10 @@
 require 'csv'
 require 'bigdecimal'
 require_relative '../lib/invoice_item'
+require_relative '../lib/modules/findable'
 
 class InvoiceItemRepository
+  include Findable
   attr_reader :all
 
   def initialize(path)
@@ -19,12 +21,6 @@ class InvoiceItemRepository
 
   def inspect
     "#<#{self.class} #{@invoice_items.size} rows>"
-  end
-
-  def find_by_id(id)
-    @all.find do |invoice_item|
-      invoice_item.id == id
-    end
   end
 
   def find_all_by_item_id(item_id)

@@ -1,8 +1,10 @@
 require 'csv'
 require 'bigdecimal'
 require_relative '../lib/item'
+require_relative '../lib/modules/findable'
 
 class ItemRepository
+  include Findable
   attr_reader :all
 
   def initialize(path)
@@ -19,18 +21,6 @@ class ItemRepository
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"
-  end
-
-  def find_by_id(id)
-    @all.find do |item|
-      item.id == id
-    end
-  end
-
-  def find_by_name(name)
-    @all.find do |item|
-      item.name.casecmp?(name)
-    end
   end
 
   def find_all_with_description(description)
@@ -73,15 +63,6 @@ class ItemRepository
     item = find_by_id(id)
     return item.update(attributes) unless item.nil?
   end
-
-  # def update(id, attributes)
-  #   info_edit = find_by_id(id)
-  #
-  #   info_edit.description = attributes[:description] if !attributes[:description].nil?
-  #   info_edit.unit_price = attributes[:unit_price] if !attributes[:unit_price].nil?
-  #   info_edit.name = attributes[:name] if !attributes[:name].nil?
-  #   info_edit.updated_at = Time.now if !info_edit.nil?
-  # end
 
   def delete(id)
     delete_item = find_by_id(id)
