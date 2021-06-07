@@ -216,12 +216,14 @@ class SalesAnalyst
     end
   end
 
-  def invoice_total(invoice_id)
-    total = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
-
-    total.sum do |invoice_item|
-      require "pry"; binding.pry
-      invoice_item.quantity * invoice_item.unit_price
+  def invoice_total(invoice_id) #invoice_id(2)
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    # item_id(1) * qty(10) @ unit_price(0.1e2)
+    # item_id(2) * qty(10) @ unit_price(0.12e2)
+    # item_id(4) * qty(1) @ unit_price(0.2e2)
+    total = invoice_items.sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
     end
+    # => 0.24e3
   end
 end
