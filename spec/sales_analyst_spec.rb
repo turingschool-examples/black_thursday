@@ -5,11 +5,14 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 
 RSpec.describe SalesEngine do
-  before :each do
+  before(:each) do
     @se = SalesEngine.from_csv({
                                   :items => './spec/fixture_files/item_fixture.csv',
                                   :merchants => './spec/fixture_files/merchant_fixture.csv',
-                                  :invoices => './spec/fixture_files/invoice_fixture.csv'
+                                  :invoices => './spec/fixture_files/invoice_fixture.csv',
+                                  :invoice_items => './spec/fixture_files/invoice_item_fixture.csv',
+                                  :customers => './spec/fixture_files/customer_fixture.csv',
+                                  :transactions => './spec/fixture_files/transactions_fixture.csv'
                                })
 
     @sales_analyst = @se.analyst
@@ -107,7 +110,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return merchants with low invoice count' do
-    expect(@sales_analyst.bottom_merchants_by_invoice_count).to eq(@se.merchants.all)
+    expect(@sales_analyst.bottom_merchants_by_invoice_count).to eq([])
   end
 
   #top_days_by_invoice_count
