@@ -22,11 +22,16 @@ RSpec.describe Invoice do
     expect(@i).to be_an_instance_of(Invoice)
   end
 
+  it 'status returns the invoice status as symbol' do
+    expect( @i.status).to eq :pending
+    expect( @i.status.class).to eq Symbol
+  end
+
   it 'initializes with attributes' do
     expect(@i.id).to eq(@data[:id])
     expect(@i.customer_id).to eq(@data[:customer_id])
     expect(@i.merchant_id).to eq(@data[:merchant_id])
-    expect(@i.status).to eq(@data[:status])
+    expect(@i.status).to eq(@data[:status].to_sym)
     expect(@i.created_at).to eq(Time.parse(@data[:created_at]))
     expect(@i.updated_at).to eq(Time.parse(@data[:updated_at]))
   end

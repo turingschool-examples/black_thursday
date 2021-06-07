@@ -129,7 +129,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count ###
     merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
        # 5 invoices < 1.67 mean + (2 * .58 std dev))
-      invoices.length < (average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation))
+      invoices.length < (average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation))
     end
 
     merch_high_count.keys.map do |merch_id|
