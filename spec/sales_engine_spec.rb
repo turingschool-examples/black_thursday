@@ -6,13 +6,14 @@ require 'csv'
 RSpec.describe SalesEngine do
   before(:each) do
     @se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :transactions => "./data/transactions.csv",
-      :invoice_items => "./data/invoice_items.csv"
-    })
+      :items     => './spec/fixtures/mock_items.csv',
+      :merchants => './spec/fixtures/mock_merchants.csv',
+      :invoices => './spec/fixtures/mock_invoices.csv',
+      :transactions => './spec/fixtures/mock_transactions.csv',
+      :invoice_items => './spec/fixtures/mock_invoice_items.csv'
+      :customers => './spec/fixtures/mock_customers.csv'})
   end
+
   it 'exists' do
     expect(@se).to be_an_instance_of(SalesEngine)
   end
@@ -33,7 +34,11 @@ RSpec.describe SalesEngine do
     expect(@se.analyst).to be_a(SalesAnalyst)
   end
 
-  it 'can create a transaction repositor' do
+  it 'can create a transaction repository' do
     expect(@se.transactions).to be_a(TransactionRepository)
+  end
+
+  it 'can create a customer repository' do
+    expect(@se.customers).to be_a(CustomerRepository)
   end
 end
