@@ -35,32 +35,20 @@ class SalesAnalyst
 ######
 ###### Standard Deviation Mean
   def average_items_per_merchant_standard_deviation
-    numerator = items_by_merch_count.sum do |num|
-      (num - average_items_per_merchant) ** 2
-    end
-    denominator = (items_by_merch_count.length - 1).to_f
-    Math.sqrt(numerator / denominator).round(2)
+    average_standard_deviation(items_by_merch_count, average_items_per_merchant)
   end
 
   def average_price_per_item_standard_deviation
-    numerator = item_price_set.sum do |num|
-      (num - average_price_per_item) ** 2
-    end
-    denominator = (item_price_set.length - 1).to_f
-    Math.sqrt(numerator / denominator).round(2)
+    average_standard_deviation(item_price_set, average_price_per_item)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    numerator = invoices_by_merch_count.sum do |num|
-      (num - average_invoices_per_merchant) ** 2
-    end
-    denominator = (invoices_by_merch_count.length - 1).to_f
-    Math.sqrt(numerator / denominator).round(2)
+    average_standard_deviation(invoices_by_merch_count, average_invoices_per_merchant)
   end
 
   def avg_inv_per_day_std_dev
-    numerator = days_invoices_hash.sum do |day, count|
-      (count - average_invoices_per_day) ** 2
+    numerator = days_invoices_hash.values.sum do |num|
+      (num - average_invoices_per_day) ** 2
     end
     average_invoices_per_day_std_dev = Math.sqrt(numerator / 6.0).round(2)
   end
