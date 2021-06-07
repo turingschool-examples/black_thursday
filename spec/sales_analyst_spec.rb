@@ -11,7 +11,8 @@ RSpec.describe SalesAnalyst do
                           merchants: './spec/fixtures/mock_merchants.csv',
                           invoices: './spec/fixtures/mock_invoices.csv',
                           invoice_items: './spec/fixtures/mock_invoice_items.csv',
-                          transactions: './spec/fixtures/mock_transactions.csv',})
+                          transactions: './spec/fixtures/mock_transactions.csv',
+                          customers: './spec/fixtures/mock_customers.csv'})
     @sa = @se.analyst
   end
 

@@ -7,6 +7,6 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    @se.unit_price_by_date(date)[date].sum
+    @se.invoice_items_by_date(date)[date].sum
   end
 end
