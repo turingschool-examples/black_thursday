@@ -2,6 +2,7 @@ require 'csv'
 require_relative '../lib/customer'
 
 class CustomerRepository
+  attr_reader :all
 
   def initialize(path)
     @all = []
@@ -14,10 +15,16 @@ class CustomerRepository
     end
   end
 
-  def find_by_id
+  def find_by_id(id)
     @all.find do |customer|
       customer.id == id
     end
+  end
+
+  def new_customer_id_number
+    @all.max_by do |customer|
+      customer.id
+    end.id + 1 
   end
 
   def find_all_by_first_name(first_name)
