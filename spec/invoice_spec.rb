@@ -26,8 +26,8 @@ RSpec.describe Invoice do
     expect(@i.customer_id).to eq(7)
     expect(@i.merchant_id).to eq(8)
     expect(@i.status).to eq(:pending)
-    expect(@i.created_at).to eq(Date.parse(@date))
-    expect(@i.updated_at).to eq(Date.parse(@date))
+    expect(@i.created_at).to eq(Time.parse(@date))
+    expect(@i.updated_at).to eq(Time.parse(@date))
   end
 
   it 'can create new invoice' do
