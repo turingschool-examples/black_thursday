@@ -59,7 +59,29 @@ class InvoiceRepository
   def delete(id)
     @all.delete(find_by_id(id))
   end
-  
+
+  def invoices_by_merchant
+    @all.group_by do |invoice|
+     invoice.merchant_id
+    end
+  end
+
+  def average_invoices_per_merchant
+require "pry"; binding.pry
+
+  end
+
+
+
+  def invoice_status(status)
+    @all.select do |invoice|
+      invoice.status == status
+    end.count / @all.count.to_f * 100
+    round(2)
+  end
+
+
+
   # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

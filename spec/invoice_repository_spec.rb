@@ -13,7 +13,7 @@ RSpec.describe InvoiceRepository do
   it 'cna create invoice instances' do
     @repo.all.each do |invoice|
       expect(invoice).to be_an_instance_of(Invoice)
-    end 
+    end
   end
 
   it 'can find an invoice by id' do
@@ -99,6 +99,18 @@ RSpec.describe InvoiceRepository do
         updated_all << invoice.merchant_id
       end
         expect(updated_all).to eq([101, 103])
+  end
+
+  xit 'shows invoices grouped by merchant' do
+    expect(@repo.invoices_by_merchant).to eq(0)
+  end
+
+  it 'shows average invoice per merchants' do
+    expect(@repo.average_invoices_per_merchant).to eq(12.2)
+  end
+
+  it 'shows total invoice by merchant' do
+    expect(@repo.invoice_status(:pending)).to eq(33.33)
   end
 
 end
