@@ -27,7 +27,7 @@ class Item
 
   def self.create_item(attributes, repo)
     item = Hash.new
-    time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
+    time = Time.now.utc.strftime("%d-%m-%Y %H:%M:%S %Z")
     item[:id] = repo.new_item_id_number
     item[:name] = attributes[:name]
     item[:description] = attributes[:description]
