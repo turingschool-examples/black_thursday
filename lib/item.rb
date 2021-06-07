@@ -31,15 +31,24 @@ class Item
     @id = id_number
   end
 
+  def update_attributes(attributes)
+   update_name(new_name = attributes[:name])
+   update_description(new_description = attributes[:description])
+   update_unit_price(new_price = attributes[:unit_price])
+ end
+
   def update_name(new_name)
+    return nil if new_name == nil
     @name = new_name
   end
 
   def update_description(new_description)
+    return nil if new_description == nil
     @description = new_description
   end
 
   def update_unit_price(new_price)
+    return nil if new_price == nil
     @unit_price = new_price
   end
 

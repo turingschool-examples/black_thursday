@@ -72,12 +72,24 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    found_element = @all.find do |element|
-      element.id == id
+    if find_by_id(id) != nil
+      found_item = find_by_id(id)
+      found_item.update_attributes(attributes)
+      found_item.time_update
     end
-    unless found_element.nil?
-        found_element.time_update
-    end
+    # found_item = @all.find do |item|
+    #   item.id == id
+    # end
+    # unless found_item.nil?
+    #   attributes.each do |attribute|
+    #     if found_item.item_data.include?(attribute)
+    #       found_item.update_name(attributes[:name])
+    #       found_item.update_description(attributes[:description])
+    #       found_item.update_unit_price(attributes[:unit_price])
+    #     end
+    #   end
+    #   found_item.time_update
+    # end
   end
 
 
