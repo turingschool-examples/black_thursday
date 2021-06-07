@@ -19,7 +19,7 @@ class Customer
 
   def self.create(attributes, repo)
     customer = Hash.new
-    time = Time.now.utc.strftime("%m-%d-%Y %H:%M:%S %Z")
+    time = Time.now.utc.strftime("%d-%m-%Y %H:%M:%S %Z")
     customer[:id] = repo.new_customer_id_number
     customer[:first_name] = attributes[:first_name]
     customer[:last_name] = attributes[:last_name]
@@ -35,7 +35,6 @@ class Customer
     unless attributes[:last_name].nil?
       @last_name = attributes[:last_name]
     end
-
     @updated_at = Time.now
   end
 end
