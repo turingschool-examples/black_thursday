@@ -1,4 +1,8 @@
+require './module/incravinable'
+
 class Item
+  include Incravinable
+
   attr_reader :id,
               :name,
               :description,
@@ -37,10 +41,6 @@ class Item
 
   def update_unit_price(new_price)
     @unit_price = new_price
-  end
-
-  def update_updated_at
-    @updated_at = Time.now
   end
 
   def item_hash

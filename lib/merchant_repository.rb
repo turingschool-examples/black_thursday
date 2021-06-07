@@ -1,6 +1,9 @@
+require './module/incravinable'
 require 'spec_helper'
 
 class MerchantRepository
+  include Incravinable
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
@@ -27,21 +30,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @all.find do |merchant|
-      merchant.id == id
-    end
+    find_with_id(id)
   end
 
   def find_by_name(name)
-    @all.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
+    find_with_name(name)
   end
 
   def find_all_by_name(name)
-    @all.find_all do |merchant|
-      merchant.name.downcase.include?(name)
-    end
+    find_all_with_name(name)
   end
 
   def create(attributes)
@@ -52,17 +49,14 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    return nil unless
-    update1 = @all.find do |merchant|
+    found_merchant = @all.find do |merchant|
       merchant.id == id
     end
-    update1.update_name(attributes[:name])
+    found_merchant.update_name(attributes[:name])
+    found_merchant.time_update
   end
 
   def delete(id)
-    merchant = @all.find do |merchant|
-      merchant.id == id
-    end
-    @all.delete(merchant)
+    remove(id)
   end
 end

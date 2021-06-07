@@ -1,7 +1,10 @@
 require 'spec_helper'
 require 'time'
+require './module/incravinable'
 
 class ItemRepository
+  include Incravinable
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
@@ -29,21 +32,11 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    return nil unless
-    @all.find_all do |item|
-      if item.id == id
-        return item
-      end
-    end
+    find_with_id(id)
   end
 
   def find_by_name(name)
-    return nil unless
-    @all.find_all do |item|
-      if item.name.downcase == name.downcase
-        return item
-      end
-    end
+    find_with_name(name)
   end
 
   def find_all_with_description(description)
@@ -65,10 +58,8 @@ class ItemRepository
     end
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @all.find_all do |item|
-      item.merchant_id == merchant_id
-    end
+  def find_all_by_merchant_id(id)
+    find_all_with_merchant_id(id)
   end
 
   def create(attributes)
@@ -81,21 +72,16 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    found_item = @all.find do |item|
-      item.id == id
+    found_element = @all.find do |element|
+      element.id == id
     end
-    # attributes.each do |key, value| #{this is a hash} lol jk
-    #   if found_item.item_data.has_key?(key) == true
-    #     item.item_hash[key] = value
-    #       puts true
-    #   end
-    # end
+    unless found_element.nil?
+        found_element.time_update
+    end
   end
 
-  def delete(id, attributes)
-    to_delete = @all.find do |item|
-      item.id == id
-    end
-    @all.delete(to_delete)
+
+  def delete(id)
+    remove(id)
   end
 end

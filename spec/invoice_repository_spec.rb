@@ -64,17 +64,15 @@ RSpec.describe InvoiceRepository do
     end
 
     it 'can update provided attributes with id' do
-      attributes = {
-                      :id => nil,
-                      :customer_id => 13,
-                      :merchant_id => 12335319,
-                      :status => 'pending',
-                      :created_at => Time.now,
-                      :updated_at => Time.now
-                    }
+      attributes = {:status => 'returned'}
 
-      @invoice_repo.update(31, attributes)
-      expect(@invoice_repo.all.last.status).to eq('pending')
+      @invoice_repo.update(30, attributes)
+      expect(@invoice_repo.all.last.status).to eq('returned')
+
+      attributes_1 = {:merchant_id => 1111}
+
+      @invoice_repo.update(27, attributes_1)
+      expect(@invoice_repo.all[2].merchant_id).to eq(12335319)
     end
 
     it 'can delete the invoice with the provided id' do

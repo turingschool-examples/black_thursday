@@ -1,4 +1,7 @@
+require './module/incravinable'
+
 class InvoiceRepository
+  include Incravinable
   attr_reader :all
 
   def initialize(path)
@@ -21,9 +24,7 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    @all.find do |invoice|
-      invoice.id == id
-    end
+    find_with_id(id)
   end
 
   def find_all_by_customer_id(id)
@@ -33,9 +34,7 @@ class InvoiceRepository
   end
 
   def find_all_by_merchant_id(id)
-    @all.find_all do |invoice|
-      invoice.merchant_id == id
-    end
+    find_all_with_merchant_id(id)
   end
 
   def find_all_by_status(status)
@@ -54,16 +53,15 @@ class InvoiceRepository
   end
 
   def update(id, attributes)
-    @all.find do |invoice|
-      invoice.new_status(attributes[:status])
-      invoice.update_updated_at
+    found_invoice = @all.find do |invoice|
+      invoice.id == id
     end
+    # require "pry"; binding.pry
+    found_invoice.new_status(attributes)
+    found_invoice.time_update
   end
 
   def delete(id)
-    to_delete = @all.find do |invoice|
-      invoice.id == id
-    end
-    @all.delete(to_delete)
+    remove(id)
   end
 end

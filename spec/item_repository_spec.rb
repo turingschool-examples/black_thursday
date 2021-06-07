@@ -168,17 +168,12 @@ RSpec.describe ItemRepository do
       expect(item_repo.all.first.name).to eq('Glitter scrabble frames')
     end
 
-    it 'can delete an item with the corresponding id and attributes' do
+    it 'can delete an item with the corresponding id' do
       path = "fixture/item_fixture.csv"
       item_repo = ItemRepository.new(path)
-      attributes = {
-                    :name        => "llama wink bikini",
-                    :description => "It's like, a bikini with a llama on it that winks at you. Buy it.",
-                    :unit_price  => 962,
-                    }
 
       id = 263396209
-      item_repo.delete(id, attributes)
+      item_repo.delete(id)
       expect(item_repo.all.last.id).to eq(263396013)
       expect(item_repo.all.last.name).to eq("Free standing Woden letters")
     end

@@ -1,6 +1,10 @@
+require './module/incravinable'
+
 class Merchant
+  include Incravinable
+  
   attr_reader :id,
-              :name, 
+              :name,
               :created_at,
               :updated_at
 
@@ -12,7 +16,7 @@ class Merchant
   end
 
   def new_id(rule)
-    @id = rule 
+    @id = rule
   end
 
   def update_name(new_name)
