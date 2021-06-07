@@ -17,7 +17,7 @@ class Invoice
   end
 
   def update_invoice(attributes)
-    @status = attributes[:status] unless attributes[:status].nil?
+    @status = attributes[:status].to_sym unless attributes[:status].to_sym.nil?
     @updated_at = Time.now
   end
 end
