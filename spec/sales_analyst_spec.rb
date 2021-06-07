@@ -25,6 +25,14 @@ RSpec.describe SalesAnalyst do
   end
 
   it '.average_items_per_merchant_standard_deviation' do
-    expect(@sa.average_items_per_merchant_standard_deviation).to eq()
+    expect(@sa.average_items_per_merchant_standard_deviation).to eq(2.34)
+  end
+
+  it '.merchants_with_high_item_count' do
+    merchant_ids = []
+    @sa.merchants_with_high_item_count.each do |merchant|
+      merchant_ids << merchant.id
+    end
+    expect(merchant_ids).to eq([12334195])
   end
 end
