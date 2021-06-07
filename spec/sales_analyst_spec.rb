@@ -3,7 +3,8 @@ require_relative './spec_helper'
 RSpec.describe SalesAnalyst do
   context 'instantiation' do
     before :each do
-      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
+
+      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv' })
       @analyst = SalesAnalyst.new(@se)
     end
 
@@ -18,7 +19,7 @@ RSpec.describe SalesAnalyst do
 
   context 'methods' do
     before :each do
-      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
+      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv'})
       @analyst = SalesAnalyst.new(@se)
     end
 
@@ -113,5 +114,41 @@ RSpec.describe SalesAnalyst do
       item2 = @se.items.all[16]
       expect(@analyst.golden_items).to eq([item2])
     end
+
+    it 'can find the average invoices per merchant' do
+      expect(@analyst.average_invoices_per_merchant).to eq(0.25)
+    end
+
+    it 'can group the number of invoices per merchant' do
+      expected = {
+        @se.merchants.all[0] => 1,
+        @se.merchants.all[1] => 1,
+        @se.merchants.all[2] => 1,
+        @se.merchants.all[3] => 1,
+        @se.merchants.all[4] => 1,
+        @se.merchants.all[5] => 0,
+        @se.merchants.all[6] => 0,
+        @se.merchants.all[7] => 0,
+        @se.merchants.all[8] => 0,
+        @se.merchants.all[9] => 0,
+        @se.merchants.all[10] => 0,
+        @se.merchants.all[11] => 0,
+        @se.merchants.all[12] => 0,
+        @se.merchants.all[13] => 0,
+        @se.merchants.all[14] => 0,
+        @se.merchants.all[15] => 0,
+        @se.merchants.all[16] => 0,
+        @se.merchants.all[17] => 0,
+        @se.merchants.all[18] => 0,
+        @se.merchants.all[19] => 0
+      }
+      expect(@analyst.invoices_per_merchant).to eq(expected)
+    end
+
+    it 'can calculate standard deviation for invoices per merchant' do
+      expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq(0.44)
+    end
+
+
   end
 end
