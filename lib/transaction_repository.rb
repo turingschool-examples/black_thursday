@@ -1,5 +1,4 @@
 require 'csv'
-require 'bigdecimal'
 require 'time'
 require_relative 'transaction'
 require_relative 'helper_methods'

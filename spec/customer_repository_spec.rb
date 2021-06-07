@@ -1,4 +1,4 @@
-require 'bigdecimal'
+require 'time'
 require_relative 'spec_helper'
 
 RSpec.describe CustomerRepository do
@@ -9,7 +9,7 @@ RSpec.describe CustomerRepository do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv",
-      :transactions => ".data/transactions.csv",
+      :transactions => "./data/transactions.csv",
       :customers => "./data/customers.csv"
     }
     @se = SalesEngine.from_csv(@paths)
@@ -93,7 +93,7 @@ RSpec.describe CustomerRepository do
       result = cr.find_by_id(1)
 
       expect(result.first_name).to eq("Tom")
-      expect(result.unit_price).to eq attributes[:unit_price]
+      expect(result.last_name).to eq attributes[:last_name]
       expect(Time.parse(result.updated_at)).to be > original_time
       result = cr.find_by_id(2000)
       expect(result).to eq nil
