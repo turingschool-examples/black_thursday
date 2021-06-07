@@ -154,4 +154,8 @@ RSpec.describe ItemRepository do
   it 'returns the number of merchants' do
     expect(@repo.number_of_merchants).to eq(24)
   end
+
+  it 'returns total number of items' do
+    expect(@repo.total_items).to eq(50)
+  end
 end
