@@ -21,12 +21,6 @@ class InvoiceRepository
     "#<#{self.class} #{@invoices.size} rows>"
   end
 
-  def find_by_id(id)
-    @all.find do |invoice|
-      invoice.id == id
-    end
-  end
-
   def find_all_by_customer_id(id)
     @all.find_all do |invoice|
       invoice.customer_id == id
