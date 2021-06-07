@@ -1,10 +1,10 @@
 require 'csv'
 require 'bigdecimal'
 require 'time'
-require_relative 'invoice'
+require_relative 'invoice_item'
 require_relative 'helper_methods'
 
-class InvoiceRepository
+class InvoiceItemRepository
   include HelperMethods
   attr_reader :all, :engine
 
@@ -12,12 +12,12 @@ class InvoiceRepository
     @file_path = file_path.to_s
     @engine = engine
     @all = Array.new
-    create_invoices
+    create_items
   end
 
-  def create_invoices
+  def create_items
     data = CSV.parse(File.read(@file_path), headers: true, header_converters: :symbol) do |line|
-      @all << Invoice.new(line.to_h, self)
+      @all << InvoiceItem.new(line.to_h, self)
     end
   end
 
@@ -25,32 +25,27 @@ class InvoiceRepository
     "#<#{self.class} #{@all.size} rows>"
   end
 
-  def find_all_by_customer_id(customer_id)
+  def find_all_by_item_id(item_id)
     result = @all.select do |line|
-      line.customer_id.to_s == customer_id.to_s
+      line.item_id.to_i == item_id.to_i
     end
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_by_invoice_id(invoice_id)
     result = @all.select do |line|
-      line.merchant_id.to_i == merchant_id.to_i
+      line.invoice_id.to_i == invoice_id.to_i
     end
   end
 
-  def find_all_by_status(status)
-    result = @all.select do |line|
-      line.status == status
-    end
-  end
-  #^^^ refactor point... add into helpermethods
 
   def create(attributes)
-    @all << Invoice.new(
+    @all << InvoiceItem.new(
       {
         :id => create_new_id,
-        :customer_id => attributes[:customer_id],
-        :merchant_id => attributes[:merchant_id],
-        :status => attributes[:status],
+        :item_id => attributes[:item_id],
+        :invoice_id => attributes[:invoice_id],
+        :quantity => attributes[:quantity],
+        :unit_price => attributes[:unit_price],
         :created_at => attributes[:created_at],
         :updated_at => attributes[:updated_at],
       }, self
@@ -61,7 +56,9 @@ class InvoiceRepository
     result = find_by_id(id)
     unless result == nil
       @all.delete(result)
-      result.status = attributes[:status] if attributes[:status] != nil
+      result.quantity = attributes[:quantity] if attributes[:quantity] != nil
+      result.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
+      #may require modification (doesn't currently align with #InvoiceItemRepository.initialize)
       result.updated_at = Time.now
       @all << result
     end
