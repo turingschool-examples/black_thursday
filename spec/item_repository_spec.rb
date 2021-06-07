@@ -182,5 +182,17 @@ RSpec.describe ItemRepository do
       expect(item_repo.all.last.id).to eq(263396013)
       expect(item_repo.all.last.name).to eq("Free standing Woden letters")
     end
+
+    xit 'returns all items via merchant id' do 
+      path = "fixture/item_fixture.csv"
+      item_repo = ItemRepository.new(path)
+      attributes = {
+                    :name        => "llama wink bikini",
+                    :description => "It's like, a bikini with a llama on it that winks at you. Buy it.",
+                    :unit_price  => 962,
+                    }
+
+      expect(item_repo.item_count_per_merchant).to be_a(Hash)
+    end
   end
 end

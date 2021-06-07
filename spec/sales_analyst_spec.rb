@@ -30,17 +30,22 @@ RSpec.describe 'SalesAnalyst' do
 
       it 'can return an average' do
         data = [1, 5, 9]
-
+        
         expect(@sales_analyst.avg(data)).to eq(5)
+      end
+
+      it 'can deviate in a standard way' do
+        data = [21, 4224, 17, 8008]
+        
+        expect(@sales_analyst.std_dev(data)).to eq(3844.16)
       end
 
       it 'can return the average items per mechant standard dev' do
         expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
       end
 
-      it 'can deviate in a standard way' do
-        data = [21, 4224, 17, 8008]
-        expect(@sales_analyst.std_dev(data)).to eq(3844.16)
+      it 'can return the merchants that have the most items for sale' do
+        expect(@sales_analyst.merchants_with_high_item_count).to be_an(Array)
       end
     end
   end

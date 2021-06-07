@@ -100,4 +100,12 @@ class ItemRepository
     end
     @all.delete(to_delete)
   end
+
+  # def item_count_per_merchant
+  #   items_per_merchant = {}
+  #   @items.each do |item|
+  #     items_per_merchant[item.merchant_id] = find_all_by_merchant_id(merchant_id).length
+  #   end
+  #   items_per_merchant
+  # end
 end
