@@ -90,7 +90,6 @@ RSpec.describe InvoiceItemRepository do
           :invoice_id => 8,
           :quantity => 13,
           :unit_price => BigDecimal(10.99,4),
-          #not getting testing but believe we should test
           :created_at => Time.now,
           :updated_at => Time.now
       }

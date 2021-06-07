@@ -38,4 +38,14 @@ module HelperMethods
     end
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    result = all.select do |line|
+      line.invoice_id.to_i == invoice_id.to_i
+    end
+  end
+
+  def unit_price_to_dollars
+    unit_price.to_f
+  end
+
 end

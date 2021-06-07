@@ -37,13 +37,6 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_status(status)
-    result = @all.select do |line|
-      line.status == status
-    end
-  end
-  #^^^ refactor point... add into helpermethods
-
   def create(attributes)
     @all << Invoice.new(
       {

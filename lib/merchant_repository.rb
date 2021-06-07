@@ -10,10 +10,10 @@ class MerchantRepository
     @file_path = file_path.to_s
     @engine = engine
     @all = Array.new
-    create_items
+    create_merchants
   end
 
-  def create_items
+  def create_merchants
     data = CSV.parse(File.read(@file_path), headers: true, header_converters: :symbol) do |line|
       @all << Merchant.new(line.to_h, self)
     end

@@ -11,10 +11,10 @@ class CustomerRepository
     @file_path = file_path.to_s
     @engine = engine
     @all = Array.new
-    create_items
+    create_customers
   end
 
-  def create_items
+  def create_customers
     data = CSV.parse(File.read(@file_path), headers: true, header_converters: :symbol) do |line|
       @all << Customer.new(line.to_h, self)
     end
@@ -54,7 +54,6 @@ class CustomerRepository
       @all.delete(result)
       result.first_name = attributes[:first_name] if attributes[:first_name] != nil
       result.last_name = attributes[:last_name] if attributes[:last_name] != nil
-      #may require modification (doesn't currently align with #InvoiceItemRepository.initialize)
       result.updated_at = Time.now
       @all << result
     end

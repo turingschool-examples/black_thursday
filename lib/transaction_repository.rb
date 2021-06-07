@@ -11,10 +11,10 @@ class TransactionRepository
     @file_path = file_path.to_s
     @engine = engine
     @all = Array.new
-    create_items
+    create_transactions
   end
 
-  def create_items
+  def create_transactions
     data = CSV.parse(File.read(@file_path), headers: true, header_converters: :symbol) do |line|
       @all << Transaction.new(line.to_h, self)
     end
@@ -24,12 +24,6 @@ class TransactionRepository
     "#<#{self.class} #{@all.size} rows>"
   end
 
-  def find_all_by_invoice_id(invoice_id)
-    result = @all.select do |line|
-      line.invoice_id.to_i == invoice_id.to_i
-    end
-  end
-  #possibly go into helpers
   def find_all_by_credit_card_number(credit_card_number)
     result = @all.select do |line|
       line.credit_card_number == credit_card_number

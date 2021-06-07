@@ -58,7 +58,6 @@ class ItemRepository
         :unit_price => attributes[:unit_price],
         :created_at => attributes[:created_at],
         :updated_at => attributes[:updated_at],
-        #update value to call helper method once built. Placeholder for now.
         :merchant_id => attributes[:merchant_id]
       }, self
     )
@@ -71,7 +70,6 @@ class ItemRepository
       result.name = attributes[:name] if attributes[:name] != nil
       result.description = attributes[:description] if attributes[:description] != nil
       result.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
-      #may require modification (doesn't currently align with #Item.initialize)
       result.updated_at = Time.now
       @all << result
     end

@@ -1,7 +1,9 @@
 require 'bigdecimal'
 require 'time'
+require_relative 'helper_methods'
 
 class Item
+  include HelperMethods
   attr_reader :repo
   attr_accessor :id,
                 :name,
@@ -32,10 +34,6 @@ class Item
     self_hash[:updated_at] = @updated_at
     self_hash[:merchant_id] = @merchant_id
     self_hash
-  end
-
-  def unit_price_to_dollars
-    @unit_price.to_f
   end
 
 end

@@ -117,7 +117,7 @@ RSpec.describe InvoiceRepository do
       expect(Time.parse(result.updated_at)).to be > original_time
       expect(result.customer_id).not_to eq attributes[:customer_id]
       expect(result.customer_id).not_to eq attributes[:merchant_id]
-      # expect(result.created_at).not_to eq (Time.parse(attributes[:created_at].to_s))
+      expect(result.created_at).not_to eq (Time.parse(attributes[:created_at].to_s))
 
       result = ir.find_by_id(5000)
       expect(result).to eq nil

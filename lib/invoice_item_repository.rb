@@ -12,10 +12,10 @@ class InvoiceItemRepository
     @file_path = file_path.to_s
     @engine = engine
     @all = Array.new
-    create_items
+    create_invoice_items
   end
 
-  def create_items
+  def create_invoice_items
     data = CSV.parse(File.read(@file_path), headers: true, header_converters: :symbol) do |line|
       @all << InvoiceItem.new(line.to_h, self)
     end
@@ -30,13 +30,6 @@ class InvoiceItemRepository
       line.item_id.to_i == item_id.to_i
     end
   end
-
-  def find_all_by_invoice_id(invoice_id)
-    result = @all.select do |line|
-      line.invoice_id.to_i == invoice_id.to_i
-    end
-  end
-
 
   def create(attributes)
     @all << InvoiceItem.new(
@@ -58,7 +51,6 @@ class InvoiceItemRepository
       @all.delete(result)
       result.quantity = attributes[:quantity] if attributes[:quantity] != nil
       result.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
-      #may require modification (doesn't currently align with #InvoiceItemRepository.initialize)
       result.updated_at = Time.now
       @all << result
     end

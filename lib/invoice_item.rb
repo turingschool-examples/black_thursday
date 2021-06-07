@@ -1,7 +1,9 @@
 require 'bigdecimal'
 require 'time'
+require_relative 'helper_methods'
 
 class InvoiceItem
+  include HelperMethods
   attr_reader :repo
   attr_accessor :id,
                 :item_id,
@@ -33,10 +35,5 @@ class InvoiceItem
     self_hash[:updated_at] = @updated_at
     self_hash
   end
-
-  def unit_price_to_dollars
-    @unit_price.to_f
-  end
-  # on refactor could be placed in helper methods. in item class i believe.
 
 end
