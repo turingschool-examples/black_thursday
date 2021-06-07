@@ -132,4 +132,8 @@ RSpec.describe ItemRepository do
     dollars = @repo.find_by_id(263401045).unit_price_to_dollars
     expect(dollars).to eq(25.0)
   end
+
+  it 'groups items by merchant' do
+    expect(@repo.group_items_by_merchant).to eq()
+  end
 end
