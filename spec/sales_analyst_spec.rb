@@ -139,22 +139,27 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.total_revenue_by_date(Time.parse('2021-05-28'))).to eq(3032.00)
   end
 
-  xit 'find the top x performing merchants in terms of revenue' do
-    expect(@sales_analyst.top_revenue_earners(2)).to eq([])
+  it 'find the top x performing merchants in terms of revenue' do
+    expect(@sales_analyst.top_revenue_earners(2)).to eq([@se.merchants.all[0], @se.merchants.all[2]])
   end
+
   xit 'takes the top 20 merchants by default if no number is given for top_revenue_earners' do
     expect(@sales_analyst.top_revenue_earners).to eq([merchant * 20])
   end
+
   it 'can return which merchants have pending invoices' do
     expect(@sales_analyst.merchants_with_pending_invoices).to eq([])
     # Note: an invoice is considered pending if none of its transactions are successful.
   end
+
   it 'can return which merchants offer only one item' do
     expect(@sales_analyst.merchants_with_only_one_item.length).to eq(2)
   end
+
   xit 'can return merchants that only sell one item by the month they registered (merchant.created_at)' do
     expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("June")).to eq([])
   end
+
   xit 'can find the total revenue for a single merchant' do
     expect(@sales_analyst.revenue_by_merchant(merchant_id)).to eq(1)
   end
