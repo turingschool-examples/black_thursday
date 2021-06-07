@@ -60,18 +60,19 @@ class InvoiceRepository
     @all.delete(find_by_id(id))
   end
 
-  def invoices_by_merchant
+  def group_invoices_by_merchant
     @all.group_by do |invoice|
-     invoice.merchant_id
+      invoice.merchant_id
     end
   end
 
-  def average_invoices_per_merchant
-require "pry"; binding.pry
-
+  def invoices_per_merchant
+    merchants = group_invoices_by_merchant
+    merchants.each do |merchant, invoice|
+      merchants[merchant] = invoice.length
+    end
+    merchants
   end
-
-
 
   def invoice_status(status)
     @all.select do |invoice|
@@ -79,8 +80,6 @@ require "pry"; binding.pry
     end.count / @all.count.to_f * 100
     round(2)
   end
-
-
 
   # :nocov:
   def inspect

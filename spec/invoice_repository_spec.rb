@@ -101,12 +101,17 @@ RSpec.describe InvoiceRepository do
         expect(updated_all).to eq([101, 103])
   end
 
-  xit 'shows invoices grouped by merchant' do
-    expect(@repo.invoices_by_merchant).to eq(0)
+  it 'shows invoices grouped by merchant' do
+    customer_id = []
+    @repo.invoices_by_merchant.each do |merchant, invoice|
+      customer_id << invoice.customer_id
+    end
+
+    expect(customer_id).to eq([])
   end
 
-  it 'shows average invoice per merchants' do
-    expect(@repo.average_invoices_per_merchant).to eq(12.2)
+  it 'shows invoice per merchants' do
+    expect(@repo.invoices_per_merchant).to eq(12.2)
   end
 
   it 'shows total invoice by merchant' do
