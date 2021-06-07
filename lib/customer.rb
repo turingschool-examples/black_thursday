@@ -1,9 +1,13 @@
+require_relative '../lib/modules/timeable'
+
 class Customer
   attr_reader :id,
               :first_name,
               :last_name,
               :created_at,
               :updated_at
+
+  include Timeable
 
   def initialize(data)
     @id         = data[:id].to_i
@@ -14,13 +18,7 @@ class Customer
   end
 
   def update_time(time)
-    if time.nil?
-      Time.now
-    elsif time.empty?
-      Time.now
-    else
-      Time.parse(time)
-    end
+    time_module(time)
   end
 
   def update(attributes)
