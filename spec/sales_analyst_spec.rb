@@ -9,7 +9,10 @@ RSpec.describe SalesEngine do
     @se = SalesEngine.from_csv({
                                   :items => './spec/fixture_files/item_fixture.csv',
                                   :merchants => './spec/fixture_files/merchant_fixture.csv',
-                                  :invoices => './spec/fixture_files/invoice_fixture.csv'
+                                  :invoices => './spec/fixture_files/invoice_fixture.csv',
+                                  :invoice_items => './spec/fixture_files/invoice_item_fixture.csv',
+                                  :customers => './spec/fixture_files/customer_fixture.csv',
+                                  :transactions => './spec/fixture_files/transactions_fixture.csv'
                                })
 
     @sales_analyst = @se.analyst
@@ -154,5 +157,10 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.invoice_status(:pending)).to eq(60.0)
     expect(@sales_analyst.invoice_status(:shipped)).to eq(40.0)
     expect(@sales_analyst.invoice_status(:returned)).to eq(0)
+  end
+
+  it 'returns true if the invoice with corresponding id is paid in full' do
+    expect(@sales_analyst.invoice_paid_in_full?(1)). to eq(true)
+    expect(@sales_analyst.invoice_paid_in_full?(6)). to eq(false)
   end
 end
