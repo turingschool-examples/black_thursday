@@ -1,4 +1,8 @@
+require'./module/incravinable'
+
 class Merchant
+  include Incravinable
+
   attr_reader :id,
               :name,
               :created_at,

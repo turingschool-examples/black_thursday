@@ -1,4 +1,8 @@
+require './module/incravinable'
+
 class Invoice
+  include Incravinable
+
   attr_reader :id,
               :customer_id,
               :merchant_id,
@@ -13,5 +17,13 @@ class Invoice
     @status = invoice_data[:status]
     @created_at = invoice_data[:created_at]
     @updated_at = invoice_data[:updated_at]
+  end
+
+  def new_id(num)
+    @id = num
+  end
+
+  def new_status(attribute)
+    @status = attribute[:status]
   end
 end

@@ -1,7 +1,13 @@
+require './module/incravinable'
+
 class InvoiceRepository
+
+  include Incravinable
+
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
+
   attr_reader :all
 
   def initialize(path)
@@ -21,5 +27,47 @@ class InvoiceRepository
                   }
       @all << Invoice.new(data_hash)
     end
+  end
+
+  def find_by_id(id)
+    find_with_id(id)
+  end
+
+  def find_all_by_customer_id(id)
+    @all.find_all do |invoice|
+      invoice.customer_id == id
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    find_all_with_merchant_id(id)
+  end
+
+  def find_all_by_status(status)
+    @all.find_all do |invoice|
+      invoice.status == status
+    end
+  end
+
+  def create(attributes)
+    highest_id = @all.max_by do |invoice|
+      invoice.id
+    end
+    new_invoice = Invoice.new(attributes)
+    new_invoice.new_id(highest_id.id + 1)
+    @all << new_invoice
+  end
+
+  def update(id, attributes)
+    found_invoice = @all.find do |invoice|
+      invoice.id == id
+    end
+    # require "pry"; binding.pry
+    found_invoice.new_status(attributes)
+    found_invoice.time_update
+  end
+
+  def delete(id)
+    remove(id)
   end
 end
