@@ -1,20 +1,15 @@
 require 'date'
+require_relative '../lib/modules/hashable'
 
 class SalesAnalyst
+  include Hashable
+
   def initialize(engine)
     @engine = engine
   end
 
   def average_items_per_merchant
     (@engine.items.all.length / @engine.merchants.all.length.to_f).round(2)
-  end
-
-  def merch_items_hash
-    merch_items = {}
-    @engine.merchants.all.map do |merchant|
-      merch_items[merchant.id] = @engine.items.find_all_by_merchant_id(merchant.id)
-    end
-    merch_items
   end
 
   def items_by_merch_count
@@ -86,14 +81,6 @@ class SalesAnalyst
     (@engine.invoices.all.length / @engine.merchants.all.length.to_f).round(2)
   end
 
-  def merch_invoices_hash
-    merch_invoices = {}
-    @engine.merchants.all.map do |merchant|
-      merch_invoices[merchant.id] = @engine.invoices.find_all_by_merchant_id(merchant.id)
-    end
-    merch_invoices
-  end
-
   def invoices_by_merch_count
     count = merch_invoices_hash.values.map do |invoice_array|
       invoice_array.count
@@ -136,18 +123,6 @@ class SalesAnalyst
     end
   end
 
-  def days_invoices_hash
-    days_invoices = {
-                       'Sunday'    => pull_day_from_invoice.count(0),
-                       'Monday'    => pull_day_from_invoice.count(1),
-                       'Tuesday'   => pull_day_from_invoice.count(2),
-                       'Wednesday' => pull_day_from_invoice.count(3),
-                       'Thursday'  => pull_day_from_invoice.count(4),
-                       'Friday'    => pull_day_from_invoice.count(5),
-                       'Saturday'  => pull_day_from_invoice.count(6),
-                    }
-  end
-
   def average_invoices_per_day
     (@engine.invoices.all.length.to_f / 7).round(2)
   end
@@ -177,14 +152,6 @@ class SalesAnalyst
     @engine.transactions.find_all_by_result(:success).map do |transaction|
       transaction.invoice_id
     end
-  end
-
-  def revenue_by_invoice
-    revenue_invoice = {}
-    invoice_id_with_successful_payments.map do |id|
-      revenue_invoice[id] = @engine.invoice_items.find_revenue_by_invoice_id(id)
-    end
-    revenue_invoice
   end
 
   def total_revenue_by_date(date)
