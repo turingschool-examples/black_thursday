@@ -23,6 +23,14 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(self)
+  end
+
+  def invoice_items_by_date(date)
+    ii_price_by_date = Hash.new{|hash, key| hash[key] = Array.new}
+    @invoice_items.find_unit_price_by_date(date).each do |invoice_item|
+      ii_price_by_date[date] << invoice_item.unit_price
+    end
+    ii_price_by_date
   end
 end
