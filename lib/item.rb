@@ -1,4 +1,3 @@
-# require 'time'
 require_relative '../lib/modules/timeable'
 
 class Item
@@ -20,10 +19,6 @@ class Item
     @created_at  = update_time(data[:created_at].to_s)
     @updated_at  = update_time(data[:updated_at].to_s)
     @merchant_id = data[:merchant_id].to_i
-  end
-
-  def update_time(time)
-    time_module(time)
   end
 
   def update(attributes)
