@@ -23,6 +23,18 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(self)
+  end
+
+  def item_repo_items_per_merchant
+    @items.items_per_merchant
+  end
+
+  def item_repo_total_merchants
+    @items.number_of_merchants
+  end
+
+  def item_repo_total_items
+    @items.total_items
   end
 end
