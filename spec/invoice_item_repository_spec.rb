@@ -23,4 +23,10 @@ RSpec.describe InvoiceItemRepository do
       expect(@invoice_item_repo.all.first.updated_at).to be_a(Time)
     end
   end
+
+  describe 'methods' do
+    it 'can find by id' do
+      expect(@invoice_item_repo.find_by_id(14401)).to eq(@invoice_item_repo.all[1])
+    end
+  end
 end

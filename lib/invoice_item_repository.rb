@@ -1,7 +1,8 @@
-require 'spec_helper'
 require './module/incravinable'
 
 class InvoiceItemRepository
+  include Incravinable
+  
   def inspect
     "#<#{self.class} #{invoice_items.size} rows>"
   end
@@ -33,5 +34,9 @@ class InvoiceItemRepository
       }
       @all << InvoiceItem.new(ii_hash)
     end
+  end
+
+  def find_by_id(id)
+    find_with_id(id)
   end
 end
