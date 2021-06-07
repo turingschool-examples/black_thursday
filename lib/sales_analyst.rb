@@ -66,7 +66,7 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     merch_low_count = merch_invoices_hash.select do |merch_id, invoices|
-      invoices.length < (average_invoices_per_merchant +
+      invoices.length < (average_invoices_per_merchant -
         (2 * average_invoices_per_merchant_standard_deviation))
     end
     merch_low_count.keys.map do |merch_id|
@@ -107,17 +107,10 @@ class SalesAnalyst
     end
     average_invoices_per_day_std_dev = Math.sqrt(numerator / 6.0).round(2)
   end
-  
+
   def return_merch_obj(merch_id)
     @engine.merchants.all.select do |merchant|
       merch_id.include?(merchant.id)
-    end 
-  end 
-    
-  def bottom_merchants_by_invoice_count ###
-    merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
-       # 5 invoices < 1.67 mean + (2 * .58 std dev))
-      invoices.length < (average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation))
     end
   end
 
@@ -164,19 +157,8 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(num)
-    sorted = revenue_by_merchant_id_hash.max_by(2) do |merch, rev|
-      rev
-    end
-    merch_id = sorted.map do |array|
-      array[0]
-    end
-    return_merch_obj(merch_id)
-  end
-
-
-  def top_revenue_earners
-    sorted = revenue_by_merchant_id_hash.max_by(20) do |merch, rev|
+  def top_revenue_earners(num = 20)
+    sorted = revenue_by_merchant_id_hash.max_by(num) do |merch, rev|
       rev
     end
     merch_id = sorted.map do |array|
@@ -201,17 +183,22 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    num = month_to_num_hash.find do |name, num|
+    num = month_name_to_number_hash.find do |name, num|
       month == name
+    end
+    merchants_with_only_one_item.values.each do |item|
     end
   end
 
   def invoice_paid_in_full?(invoice_id)
     transaction = @engine.transactions.find_all_by_invoice_id(invoice_id)
-
     transaction.any? do |transaction|
       transaction.result == :success
     end
+  end
+
+  def revenue_by_merchant(merch_id)
+    revenue_by_merchant_id_hash[merch_id]
   end
 
   def invoice_total(invoice_id) #invoice_id(2)
