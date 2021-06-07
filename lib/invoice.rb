@@ -4,7 +4,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :repo
 
   def initialize(info, repo)
     @id          = info[:id].to_i
@@ -17,7 +18,7 @@ class Invoice
   end
 
   def update_invoice(attributes)
-    @status = attributes[:status].to_sym unless attributes[:status].to_sym.nil?
+    @status = attributes[:status] unless attributes[:status].nil?
     @updated_at = Time.now
   end
 end

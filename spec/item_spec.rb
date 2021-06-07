@@ -4,7 +4,7 @@ RSpec.describe Item do
   context 'instantiation' do
     before :each do
       @ir = ItemRepository.new('spec/fixtures/items.csv', @sales_engine)
-      @sales_engine = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
+      @sales_engine = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv' })
       @ir.generate
       @item = @ir.all[1]
     end

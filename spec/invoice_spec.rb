@@ -15,7 +15,7 @@ RSpec.describe Invoice do
         :merchant_id => 8,
         :status      => :pending,
         :created_at  => Time.now.to_s,
-        :updated_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       }, @ivr)
     end
 
@@ -45,10 +45,14 @@ RSpec.describe Invoice do
         :merchant_id => 8,
         :status      => :pending,
         :created_at  => Time.now.to_s,
-        :updated_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       }, ivr)
 
-      i.update_invoice(:shipped)
+      attributes = {
+        :status => :shipped
+      }
+
+      i.update_invoice(attributes)
       expect(i.id).to eq(6)
       expect(i.status).to eq(:shipped)
     end
