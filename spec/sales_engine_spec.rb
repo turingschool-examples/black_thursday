@@ -5,7 +5,7 @@ require './lib/item_repository'
 require 'simplecov'
 SimpleCov.start
 
-RSpec.describe do
+RSpec.describe SalesEngine do
   before(:each) do
     @se = SalesEngine.from_csv({
       :items => './spec/fixtures/item_mock.csv',
