@@ -65,4 +65,8 @@ class InvoiceItemRepository
       invoice_item.created_at == Time.parse(date)
     end
   end
+
+  def unit_price_by_invoice_id
+    
+  end
 end
