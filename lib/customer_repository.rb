@@ -20,12 +20,6 @@ class CustomerRepository
     "#<#{self.class} #{@customers.size} rows>"
   end
 
-  def find_by_id(id)
-    @all.find do |customer|
-      customer.id == id
-    end
-  end
-
   def find_all_by_first_name(name)
     @all.find_all do |customer|
       customer.first_name.downcase.include?(name.downcase)
