@@ -41,4 +41,8 @@ RSpec.describe SalesEngine do
   it 'can create a customer repository' do
     expect(@se.customers).to be_a(CustomerRepository)
   end
+
+  it 'can store invoice item prices by date' do
+    expect(@se.invoice_items_by_date('2021-03-27 14:54:09 UTC')).to eq({'2021-03-27 14:54:09 UTC' => [0.1e0, 0.15e0, 0.5e-1, 0.1e0]})
+  end
 end
