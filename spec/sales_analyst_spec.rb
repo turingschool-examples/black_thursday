@@ -165,6 +165,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns the total amount of the invoice with corresponding id' do
-    expect(@sales_analyst.invoice_total(2).to eq(240.00)
+    expect(@sales_analyst.invoice_total(2)).to eq(240.00)
   end
 end
