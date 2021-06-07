@@ -23,5 +23,11 @@ class SalesEngine
   def analyst
     SalesAnalyst.new
   end
-end
 
+
+
+  def fj
+  end
+
+
+end
