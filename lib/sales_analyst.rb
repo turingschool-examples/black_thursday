@@ -1,3 +1,4 @@
+require 'date'
 require_relative 'helper_methods'
 
 class SalesAnalyst
@@ -33,6 +34,18 @@ class SalesAnalyst
   def group_items_by_merchant_id
     @items.all.group_by do |item|
       item.merchant_id
+    end
+  end
+
+  def group_invoices_by_merchant_id
+    @invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def group_invoices_by_created_date
+    @invoices.all.group_by do |invoice|
+      Date.parse(invoice.created_at.to_s).strftime("%A")
     end
   end
 
@@ -81,7 +94,7 @@ class SalesAnalyst
     # BigDecimal(mean, 4)
   end
 
-  def average_item_price_standard_deviation
+  def avg_item_price_std_dev
     total = @items.all.sum { |item| item.unit_price }
     mean = total / @items.all.length
     result = @items.all.reduce(0) do |total, item|
@@ -94,32 +107,82 @@ class SalesAnalyst
     total = @items.all.sum { |item| item.unit_price }
     mean = total / @items.all.length
     @items.all.select do |item|
-      item.unit_price >= (mean + (average_item_price_standard_deviation * 2))
+      item.unit_price >= (mean + (avg_item_price_std_dev * 2))
     end
   end
 
   def average_invoices_per_merchant
-    # do stuff
+    grouping = group_invoices_by_merchant_id
+    total = group_invoices_by_merchant_id.values.sum do |invoices_array|
+      invoices_array.length
+    end
+    (total / grouping.values.length.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    # do stuff
+    grouping = group_invoices_by_merchant_id
+    mean = average_invoices_per_merchant
+    result = grouping.values.reduce(0) do |total, invoices|
+      total + ((invoices.length - mean)**2)
+    end
+    (Math.sqrt(result/(grouping.values.length.to_f - 1))).round(2)
   end
 
   def top_merchants_by_invoice_count
-    # do stuff
+    collection_arr = []
+    group_invoices_by_merchant_id.each do |merchant_id, invoices|
+      if invoices.length >= (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+        collection_arr << merchant_id
+      end
+    end
+    set_all(@merchants)
+    result = collection_arr.map { |merchant_id| find_by_id(merchant_id) }
+    reset_all
+    result
   end
 
   def bottom_merchants_by_invoice_count
-    # do stuff
+    collection_arr = []
+    group_invoices_by_merchant_id.each do |merchant_id, invoices|
+      if invoices.length <= (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+        collection_arr << merchant_id
+      end
+    end
+    set_all(@merchants)
+    result = collection_arr.map { |merchant_id| find_by_id(merchant_id) }
+    reset_all
+    result
+  end
+
+  def avg_invoices_created_per_day
+    grouping = group_invoices_by_created_date
+    total = grouping.values.sum { |invoices| invoices.length }
+    total.to_f / grouping.values.length
+  end
+
+  def avg_invoices_created_per_day_std_dev
+    mean = avg_invoices_created_per_day
+    result = group_invoices_by_created_date.values.reduce(0) do |total, invoices|
+      total + ((invoices.length - mean)**2)
+    end
+    Math.sqrt(result/(group_invoices_by_created_date.values.length - 1))
   end
 
   def top_days_by_invoice_count
-    # do stuff
+    collection_arr = []
+    group_invoices_by_created_date.each do |day, invoices|
+      if invoices.length >= (avg_invoices_created_per_day + (avg_invoices_created_per_day_std_dev))
+        collection_arr << day
+      end
+    end
+    collection_arr
   end
 
-  def invoice_status
-    # do stuff
+  def invoice_status(status)
+    set_all(@invoices)
+    result = (find_all_by_status(status).length / @invoices.all.length.to_f)
+    reset_all
+    (result * 100).round(2)
   end
 
 end
