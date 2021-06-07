@@ -61,8 +61,10 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(id)
-    find_all_with_merchant_id(id)
-  end
+    @all.find_all do |element|
+      element.merchant_id == id
+    end
+  end 
 
   def create(attributes)
     highest_id = @all.max_by do |item|
@@ -97,13 +99,5 @@ class ItemRepository
 
   def delete(id)
     remove(id)
-  end
-
-  def item_count_per_merchant
-    items_per_merchant = {}
-    @all.each do |item|
-      items_per_merchant[item.merchant_id] = find_all_by_merchant_id(item.merchant_id).length
-    end
-    items_per_merchant
   end
 end

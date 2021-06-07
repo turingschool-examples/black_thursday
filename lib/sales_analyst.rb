@@ -12,9 +12,14 @@ class SalesAnalyst
   end
 
   def number_items_per_merchant
-    @sales_engine.all_merchants.map do |merchant|
-      @sales_engine.items.find_all_by_merchant_id(merchant.id).count
+    # @sales_engine.all_merchants.group_by do |merchant|
+    #   @sales_engine.items.find_all_by_merchant_id(merchant.id).length
+    # end
+    item_merchant_hash = {}
+    @sales_engine.all_merchants.each do |merchant|
+      item_merchant_hash[merchant] = @sales_engine.items.find_all_by_merchant_id(merchant.id).length
     end
+    item_merchant_hash
   end
 
   def avg(data)
@@ -27,23 +32,20 @@ class SalesAnalyst
     end
     Math.sqrt(numerator/(data.count - 1)).round(2)
   end
-  #why the -1 ??? 
+  #why the -1 ???
 
   def average_items_per_merchant_standard_deviation
-    std_dev(self.number_items_per_merchant).round(2)
+    std_dev(self.number_items_per_merchant.values).round(2)
   end
 
-  def merchants_with_high_item_count 
-    top_merchants = @sales_engine.all_merchants.map do |merchant|
-      merchant
-
-     
-     
-      @sales_engine.items.find_all_by_merchant_id(merchant.id) do |item_count|
-        sigma >= (average_items_per_merchant_standard_deviation + average_items_per_merchant)
-          require "pry"; binding.pry
+  def merchants_with_high_item_count
+    top_merchants = []
+    sigma = (average_items_per_merchant_standard_deviation + average_items_per_merchant)
+    number_items_per_merchant.find_all do |merchant, quantity|
+      if quantity > sigma
+        top_merchants << merchant
       end
     end
-    return top_merchants
+    top_merchants
   end
 end
