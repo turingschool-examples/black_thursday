@@ -33,6 +33,16 @@ RSpec.describe InvoiceItemRepository do
       id = 263562286
       expect(@invoice_item_repo.find_all_by_item_id(id)).to be_an(Array)
       expect(@invoice_item_repo.find_all_by_item_id(id).length).to eq(1)
+      id = 33
+      expect(@invoice_item_repo.find_all_by_item_id(id)).to eq([])
+    end
+
+    it 'can find all invoices given an invoice id' do
+      id = 3233
+      expect(@invoice_item_repo.find_all_by_invoice_id(id)).to be_an(Array)
+      expect(@invoice_item_repo.find_all_by_invoice_id(id).length).to eq(5)
+      id = 4224
+      expect(@invoice_item_repo.find_all_by_invoice_id(id)).to eq([])
     end
   end
 end
