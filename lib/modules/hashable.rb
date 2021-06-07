@@ -56,7 +56,7 @@ module Hashable
     merchid_invid = Hash.new { |hash, key| hash[key] = []}
     merch_invoices_hash.each do |merchant, invoices|
       invoices.map do |invoice|
-        merch_invid[merchant] << invoice.id
+        merchid_invid[merchant] << invoice.id
       end
     end
     merchid_invid
@@ -64,7 +64,7 @@ module Hashable
 
   def revenue_by_merchant_id_hash
     merch_revenue = {}
-    merch_invid.each do |merchant, invoices|
+    invoice_id_by_merchant_id_hash.each do |merchant, invoices|
       merch_revenue[merchant] = invoices.sum do |inv|
         revenue_by_invoice_hash[inv]
       end
