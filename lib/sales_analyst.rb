@@ -7,8 +7,6 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    @se.invoice_items.find_unit_price_by_date(date).sum do |invoice_items|
-      invoice_items.unit_price
-    end
+    @se.unit_price_by_date(date)[date].sum
   end
 end
