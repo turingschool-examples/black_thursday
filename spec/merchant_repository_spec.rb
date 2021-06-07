@@ -86,7 +86,7 @@ RSpec.describe do
       expect(merch_repo.find_by_name('Luis store')).to be_a(Merchant)
     end
 
-    it 'can create a new merchant' do
+    it 'can update a merchant' do
       mock_engine = double("salesengine mock")
       merch_repo = MerchantRepository.new('./spec/fixtures/merchant_fixtures.csv', mock_engine)
       merch_repo.create_repo
