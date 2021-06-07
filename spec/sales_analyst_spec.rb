@@ -13,4 +13,9 @@ RSpec.describe SalesAnalyst do
     expect(@sa).to be_a(SalesAnalyst)
   end
 
+  it '.average_items_per_merchant' do
+    expect(@sa.average_items_per_merchant).to eq()
+  end
+
+
 end
