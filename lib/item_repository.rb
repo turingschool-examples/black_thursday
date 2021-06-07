@@ -76,4 +76,10 @@ class ItemRepository
   def delete(id)
     @all.delete(find_by_id(id))
   end
+
+  def group_items_by_merchant
+    @all.group_by do |item|
+      item.merchant_id
+    end
+  end
 end
