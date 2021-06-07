@@ -9,10 +9,10 @@ class InvoiceRepository
 
   def initialize(path)
     @all = []
-    create_invoices(path)
+    create_objects(path)
   end
 
-  def create_invoices(path)
+  def create_objects(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       invoice = Invoice.new(row)
       @all << invoice

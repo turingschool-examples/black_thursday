@@ -1,6 +1,8 @@
 require_relative '../lib/modules/timeable'
 
 class Item
+  include Timeable
+
   attr_reader   :id,
                 :name,
                 :description,
@@ -8,8 +10,6 @@ class Item
                 :created_at,
                 :updated_at,
                 :merchant_id
-
-  include Timeable
 
   def initialize(data)
     @id          = data[:id].to_i

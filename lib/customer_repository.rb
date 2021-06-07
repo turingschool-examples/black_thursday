@@ -8,10 +8,10 @@ class CustomerRepository
 
   def initialize(path)
     @all = []
-    create_items(path)
+    create_objects(path)
   end
 
-  def create_items(path)
+  def create_objects(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       customer = Customer.new(row)
       @all << customer
