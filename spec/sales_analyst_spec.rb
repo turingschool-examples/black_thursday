@@ -127,7 +127,7 @@ RSpec.describe SalesAnalyst do
       expect(result.first.class).to eq String
     end
 
-    xit 'returns the percentage of invoices with given status' do
+    it 'returns the percentage of invoices with given status' do
       sales_analyst = @se.analyst
 
       result = sales_analyst.invoice_status(:pending)

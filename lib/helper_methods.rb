@@ -32,4 +32,10 @@ module HelperMethods
     end
   end
 
+  def find_all_by_status(status)
+    result = all.select do |line|
+      line.status == status
+    end
+  end
+
 end
