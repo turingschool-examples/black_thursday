@@ -6,4 +6,11 @@ module Findable
     end
   end
 
+  def find_by_name(name)
+    @all.find do |object|
+      object.name.downcase.include?(name.downcase)
+    end
+  end
+
+
 end
