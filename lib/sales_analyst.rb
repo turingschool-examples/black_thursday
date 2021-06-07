@@ -107,10 +107,17 @@ class SalesAnalyst
     end
     average_invoices_per_day_std_dev = Math.sqrt(numerator / 6.0).round(2)
   end
-
+  
   def return_merch_obj(merch_id)
     @engine.merchants.all.select do |merchant|
       merch_id.include?(merchant.id)
+    end 
+  end 
+    
+  def bottom_merchants_by_invoice_count ###
+    merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
+       # 5 invoices < 1.67 mean + (2 * .58 std dev))
+      invoices.length < (average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation))
     end
   end
 
@@ -197,5 +204,24 @@ class SalesAnalyst
     num = month_to_num_hash.find do |name, num|
       month == name
     end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction = @engine.transactions.find_all_by_invoice_id(invoice_id)
+
+    transaction.any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id) #invoice_id(2)
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    # item_id(1) * qty(10) @ unit_price(0.1e2)
+    # item_id(2) * qty(10) @ unit_price(0.12e2)
+    # item_id(4) * qty(1) @ unit_price(0.2e2)
+    total = invoice_items.sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    # => 0.24e3
   end
 end

@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/customer'
+require_relative '../lib/modules/findable'
 
 class CustomerRepository
+  include Findable
   attr_reader :all
 
   def initialize(path)
@@ -18,12 +20,6 @@ class CustomerRepository
 
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
-  end
-
-  def find_by_id(id)
-    @all.find do |customer|
-      customer.id == id
-    end
   end
 
   def find_all_by_first_name(name)
