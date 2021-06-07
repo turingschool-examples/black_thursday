@@ -176,7 +176,15 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(num)
-    
+    sorted = revenue_by_merchant_id_hash.max_by(2) do |merch, rev|
+      rev
+    end # => [[5, 0.13032e5], [7, 0.11698e5]]
+
+    merch_id = sorted.map do |array|
+      array[0]
+    end
+
+    return_merch_obj(merch_id)
   end
 
   def merchants_with_pending_invoices
