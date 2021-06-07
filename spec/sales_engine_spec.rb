@@ -10,7 +10,7 @@ RSpec.describe SalesEngine do
       :merchants => './spec/fixtures/mock_merchants.csv',
       :invoices => './spec/fixtures/mock_invoices.csv',
       :transactions => './spec/fixtures/mock_transactions.csv',
-      :invoice_items => './spec/fixtures/mock_invoice_items.csv'
+      :invoice_items => './spec/fixtures/mock_invoice_items.csv',
       :customers => './spec/fixtures/mock_customers.csv'})
   end
 
