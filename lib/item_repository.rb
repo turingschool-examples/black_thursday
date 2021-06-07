@@ -21,18 +21,6 @@ class ItemRepository
     "#<#{self.class} #{@items.size} rows>"
   end
 
-  def find_by_id(id)
-    @all.find do |item|
-      item.id == id
-    end
-  end
-
-  def find_by_name(name)
-    @all.find do |item|
-      item.name.casecmp?(name)
-    end
-  end
-
   def find_all_with_description(description)
     @all.find_all do |item|
       item.description.casecmp?(description)
