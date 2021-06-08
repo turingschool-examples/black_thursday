@@ -31,4 +31,12 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     (@se.item_repo_merchant_price_sum(merchant_id) / @se.item_repo_total_items_by_merchant(merchant_id)).round(2)
   end
+
+  def average_average_price_per_merchant
+    average_total = 0
+    @se.item_repo_group_items_by_merchant.each do |merchant, items|
+      average_total += average_item_price_for_merchant(merchant)
+    end
+    (average_total / @se.item_repo_group_items_by_merchant.keys.length).round(2)
+  end
 end
