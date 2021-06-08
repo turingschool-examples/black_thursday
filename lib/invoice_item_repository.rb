@@ -33,4 +33,9 @@ class InvoiceItemRepository
       invoice_item.item_id == item_id
     end
   end
+
+  def create(attributes)
+    attributes[:id] = @all.last.id + 1
+    @all << InvoiceItem.new(attributes, self)
+  end
 end
