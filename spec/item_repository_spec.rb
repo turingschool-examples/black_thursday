@@ -166,4 +166,12 @@ RSpec.describe ItemRepository do
   it 'returns price total by merchant' do
     expect(@repo.merchant_price_sum(12334195)).to eq(BigDecimal(5398))
   end
+
+  it 'returns sum of all item prices' do
+    expect(@repo.items_total_price).to eq(0.768343e4)
+  end
+
+  it 'returns all items by price' do
+    expect(@repo.all_items_by_price.length).to eq(50)
+  end
 end
