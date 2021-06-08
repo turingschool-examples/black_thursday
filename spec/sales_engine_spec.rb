@@ -41,4 +41,5 @@ RSpec.describe SalesEngine do
   it 'can create a customer repository' do
     expect(@se.customers).to be_a(CustomerRepository)
   end
+
 end
