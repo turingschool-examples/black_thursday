@@ -63,19 +63,19 @@ RSpec.describe InvoiceItemRepository do
       expect(@iir.find_by_id(1000000)).to eq(nil)
     end
 
-    it 'finds all invoices by customer id or return []' do
+    it 'finds all invoice_items by customer id or return []' do
       expect(@iir.find_all_by_item_id(01)).to eq([@invoice_item1])
       expect(@iir.find_all_by_item_id(02)).to eq([@invoice_item2])
       expect(@iir.find_all_by_item_id(1000000)).to eq([])
     end
 
-    it 'finds all invoices by customer id or return []' do
+    it 'finds all invoice_items by customer id or return []' do
       expect(@iir.find_all_by_invoice_id(01)).to eq([@invoice_item1])
       expect(@iir.find_all_by_invoice_id(02)).to eq([@invoice_item2])
       expect(@iir.find_all_by_invoice_id(1000000)).to eq([])
     end
 
-    it 'creates new invoice instance with given attributes' do
+    it 'creates new invoice_item instance with given attributes' do
       attributes = {
         id:         21,
         item_id: 21,
@@ -96,6 +96,23 @@ RSpec.describe InvoiceItemRepository do
       @iir.create(attributes)
       newer_item = @iir.all.last
       expect(newer_item.id).to eq(22)
+    end
+
+    it 'updates invoice_item by quantity and unit_price with given id' do
+      new_status = { quantity: 11,
+                     unit_price: BigDecimal(11.99, 4)}
+      prev_updated_at = @invoice_item1.updated_at
+      @iir.update(1, new_status)
+
+      expect(@invoice_item1.quantity).to eq(11)
+      expect(@invoice_item1.unit_price).to eq(BigDecimal(11.99, 4))
+      expect(prev_updated_at).to_not eq(@invoice_item1.updated_at)
+    end
+
+    it 'delete invoice by id' do
+      expect(@iir.all.length).to eq(20)
+      expect(@iir.delete(1)).to eq(@invoice_item1)
+      expect(@iir.all.length).to eq(19)
     end
   end
 end
