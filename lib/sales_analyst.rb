@@ -105,4 +105,13 @@ class SalesAnalyst
     end
     top_merchants
   end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    sigma2 = (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+    number_invoices_per_merchant.find_all do |merchant, quantity|
+      bottom_merchants << merchant if quantity < sigma2
+    end
+    bottom_merchants
+  end
 end

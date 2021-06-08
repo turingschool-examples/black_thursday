@@ -79,6 +79,11 @@ RSpec.describe 'SalesAnalyst' do
       expect(@sales_analyst.top_merchants_by_invoice_count.count).to eq(12)
     end
 
+    xit 'can find the merchants more than 2 standard deviations below the mean' do
+      expect(@sales_analyst.bottom_merchants_by_invoice_count).to be_an(Array)
+      expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
+    end
 
+    
   end
 end
