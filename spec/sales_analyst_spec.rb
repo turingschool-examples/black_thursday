@@ -41,6 +41,20 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq(0)
   end
 
+  it 'returns average invoice per day' do
+    expect(@sa.average_invoice_per_day).to eq(7.14)
+  end
+
+  it 'returns the average invoice per day standard deviation' do
+    expect(@sa.average_invoice_per_day_standard_deviation).to eq(3.48)
+  end
+
+  it 'returns the top days by invoice count' do
+    expected = @sa.top_days_by_invoice_count
+
+    expect(expected.length).to eq(1)
+  end
+
   it 'returns total invoice by merchant' do
     expect(@sa.invoice_status(:shipped)).to eq(60.0)
   end
