@@ -1,6 +1,9 @@
 require_relative 'sales_engine'
+require 'Date'
 
 class SalesAnalyst
+  include MathModule
+
   attr_reader :engine
 
   def initialize(engine)
@@ -20,11 +23,6 @@ class SalesAnalyst
       items_per_merchant_count[merchant] = count_num
     end
     items_per_merchant_count
-  end
-
-  def standard_dev(nums, average)
-    total_sum = nums.sum {|nums| (nums - average) **2 }
-    std_dev = Math.sqrt(total_sum / (nums.length - 1).to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -81,5 +79,61 @@ class SalesAnalyst
       solution << item if item.unit_price > z
     end
     solution
+  end
+
+  def average_invoices_per_merchant
+    (@engine.invoices.all.length / @engine.merchants.all.length.to_f).round(2)
+  end
+
+  def invoices_per_merchant
+    invoices_per_merchant_per_count = {}
+    @engine.merchants.all.each do |merchant|
+      count = @engine.invoices.all.count do |invoice|
+        invoice.merchant_id == merchant.id
+      end
+      invoices_per_merchant_per_count[merchant] = count
+    end
+    invoices_per_merchant_per_count
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    merchant_invoices = invoices_per_merchant.values
+    standard_dev(merchant_invoices, mean)
+  end
+
+  def top_merchants_by_invoice_count
+    solution = []
+    std_deviation_mean = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+    invoices_per_merchant.each do |merchant, number_of_invoices|
+      solution << merchant if number_of_invoices >= std_deviation_mean
+    end
+    solution
+  end
+
+  def bottom_merchants_by_invoice_count
+    solution = []
+    std_deviation_mean = (average_invoices_per_merchant_standard_deviation * -2) + average_invoices_per_merchant
+    invoices_per_merchant.each do |merchant, number_of_invoices|
+      solution << merchant if number_of_invoices <= std_deviation_mean
+    end
+    solution
+  end
+
+  def top_days_by_invoice_count
+    solution = []
+    z = (average_invoices_per_weekday_standard_deviation * 1) + average_invoices_per_weekday
+    invoices_per_day_of_the_week.each do |weekday, number_of_invoices|
+      solution << weekday if number_of_invoices >= z
+    end
+    tranform_weekday_values(solution)
+  end
+
+  def invoice_status(shipping_status)
+    invoice_status = []
+    @engine.invoices.all.each do |invoice|
+      invoice_status << invoice if invoice.status == shipping_status
+    end
+    percentage = ((invoice_status.length.to_f / @engine.invoices.all.length) * 100).round(2)
   end
 end

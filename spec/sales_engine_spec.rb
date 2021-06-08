@@ -2,7 +2,7 @@ require_relative './spec_helper'
 
 RSpec.describe SalesEngine do
   before :each do
-    @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
+    @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv' })
   end
 
   it 'exists' do

@@ -1,9 +1,11 @@
-require_relative './spec_helper'
+require_relative 'spec_helper'
+
 
 RSpec.describe SalesAnalyst do
   context 'instantiation' do
     before :each do
-      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
+
+      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv' })
       @analyst = SalesAnalyst.new(@se)
     end
 
@@ -18,7 +20,7 @@ RSpec.describe SalesAnalyst do
 
   context 'methods' do
     before :each do
-      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv' })
+      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv'})
       @analyst = SalesAnalyst.new(@se)
     end
 
@@ -112,6 +114,80 @@ RSpec.describe SalesAnalyst do
     it 'can find items that are two standard deviations above the mean' do
       item2 = @se.items.all[16]
       expect(@analyst.golden_items).to eq([item2])
+    end
+
+    it 'can find the average invoices per merchant' do
+      expect(@analyst.average_invoices_per_merchant).to eq(0.25)
+    end
+
+    it 'can group the number of invoices per merchant' do
+      expected = {
+        @se.merchants.all[0] => 1,
+        @se.merchants.all[1] => 1,
+        @se.merchants.all[2] => 1,
+        @se.merchants.all[3] => 1,
+        @se.merchants.all[4] => 1,
+        @se.merchants.all[5] => 0,
+        @se.merchants.all[6] => 0,
+        @se.merchants.all[7] => 0,
+        @se.merchants.all[8] => 0,
+        @se.merchants.all[9] => 0,
+        @se.merchants.all[10] => 0,
+        @se.merchants.all[11] => 0,
+        @se.merchants.all[12] => 0,
+        @se.merchants.all[13] => 0,
+        @se.merchants.all[14] => 0,
+        @se.merchants.all[15] => 0,
+        @se.merchants.all[16] => 0,
+        @se.merchants.all[17] => 0,
+        @se.merchants.all[18] => 0,
+        @se.merchants.all[19] => 0
+      }
+      expect(@analyst.invoices_per_merchant).to eq(expected)
+    end
+
+    it 'can calculate standard deviation for invoices per merchant' do
+      expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq(0.44)
+    end
+
+    it 'can calculate the merchants with high invoice count' do
+
+      expect(@analyst.top_merchants_by_invoice_count).to eq([])
+    end
+
+    it 'can calculate the merchants with low invoice count' do
+
+      expect(@analyst.bottom_merchants_by_invoice_count).to eq([])
+    end
+
+    it 'can find the mean for invoices created per day' do
+      expected = {6 => 2, 5 => 1, 3 => 1, 1 => 1}
+
+      expect(@analyst.invoices_per_day_of_the_week).to eq(expected)
+      expect(@analyst.average_invoices_per_weekday).to eq(1)
+    end
+
+    it 'can calculate standard deviation for invoices per week' do
+      expect(@analyst.average_invoices_per_weekday_standard_deviation).to eq(0.58)
+    end
+
+    it 'can tranfrom weekday values' do
+      values = [1, 6]
+      expected = ["Monday", "Saturday"]
+
+      expect(@analyst.tranform_weekday_values(values)).to eq(expected)
+    end
+
+    it 'can find top days by invoice count' do
+      expected = ["Saturday"]
+
+      expect(@analyst.top_days_by_invoice_count).to eq(expected)
+    end
+
+    it 'can find percentage of invoice statuses' do
+      expect(@analyst.invoice_status(:pending)).to eq(60.0)
+      expect(@analyst.invoice_status(:shipped)).to eq(40.0)
+      expect(@analyst.invoice_status(:returned)).to eq(0.0)
     end
   end
 end

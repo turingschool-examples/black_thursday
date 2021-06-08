@@ -4,13 +4,14 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :repo
 
   def initialize(info, repo)
     @id          = info[:id].to_i
     @customer_id = info[:customer_id].to_i
     @merchant_id = info[:merchant_id].to_i
-    @status      = info[:status]
+    @status      = info[:status].to_sym
     @created_at  = Time.parse(info[:created_at])
     @updated_at  = Time.parse(info[:updated_at])
     @repo = repo
