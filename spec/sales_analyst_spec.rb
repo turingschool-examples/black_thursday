@@ -144,6 +144,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can find merchants with only one item' do
-    expect(@sa.merchants_with_only_one_item.first).to eq(33333)
+    expect(@sa.merchants_with_only_one_item.first).to be_a(Merchant)
+    expect(@sa.merchants_with_only_one_item.last).to be_a(Merchant)
   end
 end

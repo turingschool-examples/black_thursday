@@ -143,7 +143,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item
     single_item_merchants = []
-    @se.item_repo_group_items_by_merchant.each do |key, value|
+    @se.group_items_by_merchant_instance.each do |key, value|
       if value.length == 1
         single_item_merchants << key
       end
