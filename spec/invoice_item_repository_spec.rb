@@ -96,9 +96,9 @@ RSpec.describe InvoiceItemRepository do
     expect(dollars).to eq(0.1)
   end
 
-  it 'can find unit price by date' do
-    @repo.find_unit_price_by_date('2021-03-27 14:54:09 UTC').each do |invoice_item|
-      expect(invoice_item.created_at).to eq(Time.parse('2021-03-27 14:54:09 UTC'))
+  it 'can find unit price by invoice id' do
+    @repo.find_price_by_invoice_id(1).each do |invoice_item|
+      expect(invoice_item.invoice_id).to eq(1)
     end
   end
 

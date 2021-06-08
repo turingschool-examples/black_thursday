@@ -60,9 +60,9 @@ class InvoiceItemRepository
     @all.delete(find_by_id(id))
   end
 
-  def find_unit_price_by_date(date)
+  def find_price_by_invoice_id(id)
     @all.find_all do |invoice_item|
-      invoice_item.created_at.strftime('%Y%m%d') == date.strftime('%Y%m%d')
+      invoice_item.invoice_id == id
     end
   end
 
