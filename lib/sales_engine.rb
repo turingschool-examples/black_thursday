@@ -58,6 +58,10 @@ class SalesEngine
     @items.all_items_by_price
   end
 
+  def item_repo_all_items
+    @items.all
+  end 
+
   def merchant_repo_find_by_id(id)
     @merchants.find_by_id(id)
   end
