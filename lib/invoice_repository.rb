@@ -8,11 +8,13 @@ class InvoiceRepository
     "#<#{self.class} #{@invoices.size} rows>"
   end
 
-  attr_reader :all
+  attr_reader :all,
+              :engine 
 
-  def initialize(path)
+  def initialize(path, engine)
     @all = []
     create_invoices(path)
+    @engine = engine
   end
 
   def create_invoices(path)
@@ -25,7 +27,7 @@ class InvoiceRepository
                     created_at: Time.parse(invoice_data[:created_at]),
                     updated_at: Time.parse(invoice_data[:updated_at])
                   }
-      @all << Invoice.new(data_hash)
+      @all << Invoice.new(data_hash, self)
     end
   end
 

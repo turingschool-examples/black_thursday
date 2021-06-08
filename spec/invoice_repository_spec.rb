@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 RSpec.describe InvoiceRepository do
   before :each do
     @path = "fixture/invoice_fixture.csv"
-    @invoice_repo = InvoiceRepository.new(@path)
+    @invoice_repo = InvoiceRepository.new(@path, self)
   end
   describe 'instantiation' do
     it 'exists' do

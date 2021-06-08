@@ -80,4 +80,8 @@ class SalesAnalyst
     end
     top_items
   end
+
+  def average_invoices_per_merchant
+    @sales_engine.all_invoices.length.fdiv(@sales_engine.all_merchants.length).round(2)
+  end
 end

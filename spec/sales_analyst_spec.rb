@@ -4,7 +4,8 @@ RSpec.describe 'SalesAnalyst' do
   before :each do
     @sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
       })
     @sales_analyst = @sales_engine.analyst
   end
@@ -63,6 +64,11 @@ RSpec.describe 'SalesAnalyst' do
         expect(@sales_analyst.golden_items).to be_an(Array)
         expect(@sales_analyst.golden_items.first).to be_an(Item)
         expect(@sales_analyst.golden_items.length).to eq(5)
+      end
+
+      it 'can return number of invoices the average merchant has' do
+        expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+
       end
     end
   end
