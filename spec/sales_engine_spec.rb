@@ -45,4 +45,8 @@ RSpec.describe SalesEngine do
   it 'can store invoice item prices by date' do
     expect(@se.invoice_items_by_date('2021-03-27 14:54:09 UTC')).to eq({'2021-03-27 14:54:09 UTC' => [0.5e-1, 0.1e0, 0.1e0, 0.15e0]})
   end
+
+  it 'can connect unit prices to merchant ids' do
+    expect(@se.unit_price_by_merchant_id[22222]).to eq([0.1e-1, 0.1e-1, 0.1e-1, 0.1e-1])
+  end
 end
