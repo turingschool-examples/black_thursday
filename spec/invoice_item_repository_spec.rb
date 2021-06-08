@@ -10,31 +10,51 @@ RSpec.describe InvoiceItemRepository do
         invoices: 'spec/fixtures/invoices.csv'
         })
 
-        iir = InvoiceItemRepository.new('spec/fixtures/invoice_item.csv', iir)
+        iir = InvoiceItemRepository.new('spec/fixtures/invoice_item.csv', se)
         # invoice_item = sales_engine.invoice_items.find_by_id(1)
 
         expect(iir).to be_a(InvoiceItemRepository)
       end
     end
 
-  descirbe 'methods' do
+  describe 'methods' do
     before :each do
       @sales_engine = SalesEngine.new({
-        # items: 'spec/fixtures/items.csv',
-        # merchants: 'spec/fixtures/merchants.csv',
-        # invoice_item: 'spec/fixtures/invoice_items.csv',
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoice_item: 'spec/fixtures/invoice_items.csv',
         invoices: 'spec/fixtures/invoices.csv'
         })
 
         @iir = InvoiceItemRepository.new('spec/fixtures/items.csv', @sales_engine)
-        # @iir.generate
+        @invoice_item1 = @iir.all[0]
+        @invoice_item2 = @iir.all[1]
+        @invoice_item3 = @iir.all[2]
+        @invoice_item4 = @iir.all[3]
+        @invoice_item5 = @iir.all[4]
+        @invoice_item6 = @iir.all[5]
+        @invoice_item7 = @iir.all[6]
+        @invoice_item8 = @iir.all[7]
+        @invoice_item9 = @iir.all[8]
+        @invoice_item10 = @iir.all[9]
+        @invoice_item11 = @iir.all[10]
+        @invoice_item12 = @iir.all[11]
+        @invoice_item13 = @iir.all[12]
+        @invoice_item14 = @iir.all[13]
+        @invoice_item15 = @iir.all[14]
+        @invoice_item16 = @iir.all[15]
+        @invoice_item17 = @iir.all[16]
+        @invoice_item18 = @iir.all[17]
+        @invoice_item19 = @iir.all[18]
+        @invoice_item20 = @iir.all[19]
       end
 
     it "generates InvoiceItemRepository " do
-      expect(@item1.id).to eq(2)
-      expect(@item1.name).to eq('pencils')
-      expect(@item2.id).to eq(20)
-      expect(@item2.name).to eq('mattress')
+      expect(@invoice_item1.id).to eq(1)
+      expect(@invoice_item1.item_id).to eq(263519844)
+      expect(@invoice_item1.invoice_id).to eq(1)
+      expect(@invoice_item1.quantity).to eq(5)
+      expect(@invoice_item1.unit_price).to eq(13635)
     end
   end
 end
