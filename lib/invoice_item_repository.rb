@@ -1,4 +1,4 @@
-require './module/incravinable'
+require_relative '../module/incravinable'
 
 class InvoiceItemRepository
   include Incravinable

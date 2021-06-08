@@ -1,6 +1,9 @@
 require_relative '../spec/spec_helper'
+require_relative '../module/incravinable'
 
 class SalesEngine
+  include Incravinable
+  
   attr_reader :items,
               :merchants,
               :analyst
