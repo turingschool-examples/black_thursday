@@ -11,4 +11,10 @@ module Crudable
     new_object
   end
 
+
+  def delete_new(id)
+    delete_object = find_by_id(id)
+    @all.delete(delete_object)
+  end
+
 end
