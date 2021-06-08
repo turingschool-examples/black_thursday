@@ -74,5 +74,28 @@ RSpec.describe InvoiceItemRepository do
       expect(@iir.find_all_by_invoice_id(02)).to eq([@invoice_item2])
       expect(@iir.find_all_by_invoice_id(1000000)).to eq([])
     end
+
+    it 'creates new invoice instance with given attributes' do
+      attributes = {
+        id:         21,
+        item_id: 21,
+        invoice_id: 21,
+        quantity: 10,
+        unit_price: BigDecimal(10.99, 4),
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s
+      }
+
+      @iir.create(attributes)
+      new_invoice_item = @iir.all.last
+      expect(new_invoice_item.id).to eq(21)
+      expect(@iir.all.length).to eq(21)
+      expect(new_invoice_item.created_at.class).to eq(Time)
+      expect(new_invoice_item.updated_at).to eq(new_invoice_item.created_at)
+      expect(@iir.find_by_id(21).invoice_id).to eq(21)
+      @iir.create(attributes)
+      newer_item = @iir.all.last
+      expect(newer_item.id).to eq(22)
+    end
   end
 end
