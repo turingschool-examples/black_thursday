@@ -3,13 +3,13 @@ require_relative 'spec_helper'
 RSpec.describe Invoice do
   before :each do
     @invoice_data = {
-      :id => 6,
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status => "pending",
-      :created_at => Time.now,
-      :updated_at => Time.now
-    }
+                      :id => 6,
+                      :customer_id => 7,
+                      :merchant_id => 8,
+                      :status => "pending",
+                      :created_at => Time.now,
+                      :updated_at => Time.now
+                    }
     @invoice = Invoice.new(@invoice_data)
   end
 
