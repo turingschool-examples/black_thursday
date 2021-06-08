@@ -49,6 +49,12 @@ RSpec.describe 'SalesAnalyst' do
         expect(@sales_analyst.merchants_with_high_item_count.count).to eq(52)
       end
 
+      it 'can find the average price of a merchants items' do
+        merchant_id = 12334159
+
+        expect(@sales_analyst.average_item_price_for_merchant(merchant_id)).to be_a(BigDecimal)
+      end
+
 
       # it 'can return the merchants that are 2 standard deviations from the average' do
       #   expect(@sales_analyst.golden_items).to be_an(Array)

@@ -1,6 +1,10 @@
 require_relative './sales_engine'
+require_relative '../module/incravinable'
+
 
 class SalesAnalyst
+  include Incravinable
+
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -45,6 +49,16 @@ class SalesAnalyst
     end
     top_merchants
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @sales_engine.all_items
+    x = @sales_engine.find_all_with_merchant_id(merchant_id, items)
+    sum = x.sum do |item|
+      item.unit_price
+    end
+    (sum / x.length).round(2)
+  end
+
 
   # def golden_items
   #   top_items = []
