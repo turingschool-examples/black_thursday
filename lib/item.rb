@@ -1,5 +1,4 @@
 class Item
-  include Incravinable
 
   attr_reader :id,
               :name,
@@ -54,5 +53,9 @@ class Item
 
   def item_hash
     @item_data
+  end
+
+  def update_time
+    @updated_at = Time.now
   end
 end

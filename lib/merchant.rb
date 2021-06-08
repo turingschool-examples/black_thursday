@@ -1,5 +1,4 @@
 class Merchant
-  include Incravinable
 
   attr_reader :id,
               :name,
@@ -21,5 +20,9 @@ class Merchant
 
   def update_name(new_name)
     @name = new_name
+  end
+
+  def update_time
+    @updated_at = Time.now
   end
 end
