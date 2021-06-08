@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'invoice'
+require 'time'
 
 class InvoiceRepository
   attr_reader :all
@@ -74,4 +75,9 @@ class InvoiceRepository
   end
   # :nocov:
 
+  def find_invoice_by_date(date)
+    @all.find_all do |invoice|
+      invoice.created_at.strftime('%Y%m%d') == date.strftime('%Y%m%d')
+    end
+  end
 end

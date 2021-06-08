@@ -99,4 +99,10 @@ RSpec.describe InvoiceRepository do
   it 'can match invoice id to merchant id' do
     expect(@repo.invoice_id_by_merchant_id[44444]).to eq([4])
   end
+
+  it 'can find id by date' do
+    @repo.find_invoice_by_date(Time.parse('2009-02-07')).each do |invoice|
+      expect(invoice.created_at).to eq(Time.parse('2009-02-07'))
+    end
+  end
 end
