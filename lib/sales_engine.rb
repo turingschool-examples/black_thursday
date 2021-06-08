@@ -30,7 +30,9 @@ class SalesEngine
     total_revenue_by_date = Hash.new{|hash, key| hash[key] = Array.new}
     @invoices.find_invoice_by_date(date).each do |invoice|
       @invoice_items.find_price_by_invoice_id(invoice.id).each do |invoice_item|
-        total_revenue_by_date[date] << invoice_item.unit_price
+        if transaction_repo_invoice_paid_in_full(invoice.id) == true
+          total_revenue_by_date[date] << invoice_item.unit_price
+        end
       end
     end
     total_revenue_by_date
@@ -130,7 +132,7 @@ class SalesEngine
     @invoices.invoice_status_total(status)
   end
 
-  def tranaction_repo_invoice_paid_in_full(invoice_id)
+  def transaction_repo_invoice_paid_in_full(invoice_id)
     @transactions.invoice_paid_in_full(invoice_id)
   end
 
