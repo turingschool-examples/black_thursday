@@ -156,10 +156,9 @@ RSpec.describe ItemRepository do
 
     it 'can delete an item with the corresponding id' do
       id = 263396209
-      @item_repo.delete(id)
-
-      expect(@item_repo.all.last.id).to eq(263396013)
-      expect(@item_repo.all.last.name).to eq("Free standing Woden letters")
+      item_repo.delete(id)
+      expect(item_repo.all.last.id).to eq(263396013)
+      expect(item_repo.all.last.name).to eq("Free standing Woden letters")
     end
   end
 end
