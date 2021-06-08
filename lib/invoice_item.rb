@@ -22,4 +22,16 @@ attr_reader :id,
   def new_id(id_number)
     @id = id_number
   end
+
+  def update_quantity(new_quantity)
+    @quantity = new_quantity
+  end
+
+  def update_unit_price(new_unit_price)
+    @unit_price = new_unit_price
+  end
+
+  def update_time
+   @updated_at = Time.now
+  end
 end

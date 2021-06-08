@@ -60,5 +60,16 @@ RSpec.describe InvoiceItemRepository do
       expect(@invoice_item_repo.all.length).to eq(7)
       expect(@invoice_item_repo.all.last.id).to eq(14406)
     end
+
+    it 'updates id and attributes' do 
+      # if possible, refactor to @updated_attributes
+      attributes = {
+        quantity: 9,
+        unit_price: 657483,
+        updated_at: Time.now
+      }
+      @invoice_item_repo.update(14405, attributes)
+      expect(@invoice_item_repo.all[5].unit_price).to eq(657483)
+    end
   end
 end

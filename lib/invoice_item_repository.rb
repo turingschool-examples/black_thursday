@@ -63,5 +63,14 @@ class InvoiceItemRepository
     @all << new_invoice_item
   end
 
-
+  def update(id, attribute)
+    found_invoice_item = @all.find do |invoice_item|
+      invoice_item.id == id
+    end
+    if find_by_id(id) != nil
+      found_invoice_item.update_quantity(attribute[:quantity])
+      found_invoice_item.update_unit_price(attribute[:unit_price])
+      found_invoice_item.update_time
+    end
+  end
 end
