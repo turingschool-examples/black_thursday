@@ -11,6 +11,11 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(number)
-    
+    # top_earners = []
+    top_earners = @se.price_by_merchant.max_by(number) do |merchant, unit_price|
+      unit_price
+    end.flat_map do |earner_pair|
+      earner_pair.first
+    end
   end
 end
