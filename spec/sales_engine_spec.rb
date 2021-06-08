@@ -47,6 +47,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'can connect unit prices to merchant ids' do
-    expect(@se.unit_price_by_merchant_id[22222]).to eq([0.1e-1, 0.1e-1, 0.1e-1, 0.1e-1])
+    expect(@se.total_unit_price_by_merchant_id[22222]).to eq(0.4e-1)
   end
 end

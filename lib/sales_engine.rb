@@ -34,9 +34,9 @@ class SalesEngine
     ii_price_by_date
   end
 
-  def unit_price_by_merchant_id
+  def total_unit_price_by_merchant_id
     merchant_id_to_unit_price = Hash.new
-    @invoice_items.unit_price_by_invoice_id.each do |invoice_id1, unit_price|
+    @invoice_items.total_unit_price_by_invoice_id.each do |invoice_id1, unit_price|
       @invoices.invoice_id_by_merchant_id.each do |merchant_id, invoice_ids|
         invoice_ids.each do |invoice_id2|
           if invoice_id2 == invoice_id1
