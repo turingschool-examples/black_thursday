@@ -60,7 +60,7 @@ class SalesEngine
 
   def item_repo_all_items
     @items.all
-  end 
+  end
 
   def merchant_repo_find_by_id(id)
     @merchants.find_by_id(id)
@@ -87,11 +87,14 @@ class SalesEngine
   end
 
   def invoice_repo_invoices_day_created_date
-    @invoices.invoices_by_created_date      
+    @invoices.invoices_by_created_date
   end
 
   def invoice_repo_by_status(status)
     @invoices.invoice_status_total(status)
   end
 
+  def tranaction_repo_invoice_paid_in_full(invoice_id)
+    @transactions.invoice_paid_in_full(invoice_id)
+  end 
 end
