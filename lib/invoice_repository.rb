@@ -1,4 +1,4 @@
-require './module/incravinable'
+require '../module/incravinable'
 
 class InvoiceRepository
 

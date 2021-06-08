@@ -1,6 +1,6 @@
 require_relative '../spec/spec_helper'
 require 'time'
-require './module/incravinable'
+require '../module/incravinable'
 
 class ItemRepository
   include Incravinable

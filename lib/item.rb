@@ -1,5 +1,3 @@
-require './module/incravinable'
-
 class Item
   include Incravinable
 

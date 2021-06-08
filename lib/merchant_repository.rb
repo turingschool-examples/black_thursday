@@ -1,4 +1,4 @@
-require './module/incravinable'
+require '../module/incravinable'
 require 'CSV'
 
 class MerchantRepository
