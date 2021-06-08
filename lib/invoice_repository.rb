@@ -30,7 +30,7 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    find_with_id(id)
+    find_with_id(id, @all)
   end
 
   def find_all_by_customer_id(id)
@@ -40,7 +40,7 @@ class InvoiceRepository
   end
 
   def find_all_by_merchant_id(id)
-    find_all_with_merchant_id(id)
+    find_all_with_merchant_id(id, @all)
   end
 
   def find_all_by_status(status)
@@ -67,6 +67,6 @@ class InvoiceRepository
   end
 
   def delete(id)
-    remove(id)
+    remove(id, @all)
   end
 end
