@@ -20,18 +20,18 @@ RSpec.describe SalesAnalyst do
     expect(@sa).to be_a(SalesAnalyst)
   end
 
-  xit 'calculates average invoice per merchant' do
-    expect(@sa.average_invoices_per_merchant).to eq(1.09)
+  it 'calculates average invoice per merchant' do
+    expect(@sa.average_invoices_per_merchant).to eq(1.04)
   end
 
-  xit 'calculates the average invoice per merchant standard deviation' do
-    expect(@sa.average_invoices_per_merchant_standard_deviation).to eq(0.28)
+  it 'calculates the average invoice per merchant standard deviation' do
+    expect(@sa.average_invoices_per_merchant_standard_deviation).to eq(0.2)
   end
 
-  xit 'returns top merchants by invoice count' do
+  it 'returns top merchants by invoice count' do
     expected = @sa.top_merchants_by_invoice_count
 
-    expect(expected.length).to eq(4)
+    expect(expected.length).to eq(2)
   end
 
   it 'returns bottom merchants bu invoice count' do
