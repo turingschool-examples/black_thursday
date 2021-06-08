@@ -65,4 +65,33 @@ class SalesEngine
   def merchant_repo_find_by_id(id)
     @merchants.find_by_id(id)
   end
+
+  def invoice_repo_group_by_merchant
+    @invoices.group_invoices_by_merchant
+  end
+
+  def invoice_repo_invoices_per_merchant
+    @invoices.invoices_per_merchant
+  end
+
+  def invoice_repo_total_merchants
+    @invoices.number_of_merchants
+  end
+
+  def invoice_repo_total_invoices
+    @invoices.total_invoices
+  end
+
+  def invoice_repo_invoices_per_day
+    @invoices.invoices_per_day
+  end
+
+  def invoice_repo_invoices_day_created_date
+    @invoices.invoices_by_created_date      
+  end
+
+  def invoice_repo_by_status(status)
+    @invoices.invoice_status_total(status)
+  end
+
 end

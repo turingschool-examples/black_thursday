@@ -60,6 +60,55 @@ class InvoiceRepository
     @all.delete(find_by_id(id))
   end
 
+  def group_invoices_by_merchant
+    @all.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def invoices_per_merchant
+    merchant_invoices_total = []
+    group_invoices_by_merchant.each do |merchant, invoices|
+      merchant_invoices_total << invoices.length
+    end
+    merchant_invoices_total
+  end
+
+  def number_of_merchants
+    invoices_per_merchant.length
+  end
+
+  def total_invoices
+    @all.length
+  end
+
+  def group_invoices_by_created_date
+    @all.group_by do |invoice|
+      invoice.created_at.wday
+    end
+  end
+
+  def invoices_per_day
+    day_invoice_total = []
+    group_invoices_by_created_date.each do |day, invoices|
+      day_invoice_total << invoices.length
+    end
+    day_invoice_total
+  end
+
+  def invoices_by_created_date
+    mappings = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
+    group_invoices_by_created_date.transform_keys! do |day|
+      mappings[day]
+    end
+  end
+
+  def invoice_status_total(status)
+    @all.select do |invoice|
+      invoice.status == status
+    end.count
+  end
+
   # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

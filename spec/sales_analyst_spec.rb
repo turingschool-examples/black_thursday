@@ -20,6 +20,30 @@ RSpec.describe SalesAnalyst do
     expect(@sa).to be_a(SalesAnalyst)
   end
 
+  it 'calculates average invoice per merchant' do
+    expect(@sa.average_invoices_per_merchant).to eq(1.09)
+  end
+
+  it 'calculates the average invoice per merchant standard deviation' do
+    expect(@sa.average_invoices_per_merchant_standard_deviation).to eq(0.28)
+  end
+
+  it 'returns top merchants by invoice count' do
+    expected = @sa.top_merchants_by_invoice_count
+
+    expect(expected.length).to eq(4)
+  end
+
+  it 'returns bottom merchants bu invoice count' do
+    expected = @sa.bottom_merchants_by_invoice_count
+
+    expect(expected.length).to eq(0)
+  end
+
+  it 'returns total invoice by merchant' do
+    expect(@sa.invoice_status(:shipped)).to eq(60.0)
+  end
+
   it '.average_items_per_merchant' do
     expect(@sa.average_items_per_merchant).to eq(2.08)
   end
