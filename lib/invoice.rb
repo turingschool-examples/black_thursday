@@ -5,15 +5,17 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :repo
 
-  def initialize(invoice_data)
+  def initialize(invoice_data, repo)
     @id = invoice_data[:id].to_i
     @customer_id = invoice_data[:customer_id].to_i
     @merchant_id = invoice_data[:merchant_id].to_i
     @status = invoice_data[:status]
     @created_at = invoice_data[:created_at]
     @updated_at = invoice_data[:updated_at]
+    @repo = repo
   end
 
   def new_id(num)
