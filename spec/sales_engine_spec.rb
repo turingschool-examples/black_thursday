@@ -49,4 +49,10 @@ RSpec.describe SalesEngine do
   it 'can connect unit prices to merchant ids' do
     expect(@se.total_unit_price_by_merchant_id[22222]).to eq(0.4e-1)
   end
+
+  it 'can connect total unit price to merchant instance' do
+    @se.price_by_merchant.each do |merchant, price|
+      expect(merchant).to be_a(Merchant)
+    end
+  end
 end

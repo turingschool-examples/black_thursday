@@ -47,4 +47,16 @@ class SalesEngine
     end
     merchant_id_to_unit_price
   end
+
+  def price_by_merchant
+    merchant_to_price = {}
+    total_unit_price_by_merchant_id.each do |merchant_id1, price|
+      @merchants.merchant_instance_by_id.each do |merchant_id2, merchant|
+        if merchant_id1 == merchant_id2
+          merchant_to_price[merchant] = price
+        end
+      end
+    end
+    merchant_to_price
+  end
 end
