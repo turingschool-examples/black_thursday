@@ -54,8 +54,7 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    item = find_by_id(id)
-    return item.update(attributes) unless item.nil?
+    update_new(id, attributes)
   end
 
   def delete(id)

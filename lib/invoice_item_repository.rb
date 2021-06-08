@@ -48,8 +48,7 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
-    invoice_item = find_by_id(id)
-    return invoice_item.update(attributes) unless invoice_item.nil?
+    update_new(id, attributes)
   end
 
   def delete(id)

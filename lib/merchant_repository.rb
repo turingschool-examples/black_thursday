@@ -35,8 +35,7 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    merchant = find_by_id(id)
-    return merchant.update(attributes) unless merchant.nil?
+    update_new(id, attributes)
   end
 
   def delete(id)

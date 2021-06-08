@@ -54,8 +54,7 @@ class InvoiceRepository
   end
 
   def update(id, attributes)
-    invoice = find_by_id(id)
-    return invoice.update(attributes) unless invoice.nil?
+    update_new(id, attributes)
   end
 
   def delete(id)
