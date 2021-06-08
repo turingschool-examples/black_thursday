@@ -8,11 +8,13 @@ class InvoiceRepository
     "#<#{self.class} #{@invoices.size} rows>"
   end
 
-  attr_reader :all
+  attr_reader :all,
+              :engine
 
-  def initialize(path)
+  def initialize(path, engine)
     @all = []
     create_invoices(path)
+    @engine = engine
   end
 
   def create_invoices(path)
@@ -25,7 +27,7 @@ class InvoiceRepository
                     created_at: Time.parse(invoice_data[:created_at]),
                     updated_at: Time.parse(invoice_data[:updated_at])
                   }
-      @all << Invoice.new(data_hash)
+      @all << Invoice.new(data_hash, self)
     end
   end
 
@@ -53,7 +55,7 @@ class InvoiceRepository
     highest_id = @all.max_by do |invoice|
       invoice.id
     end
-    new_invoice = Invoice.new(attributes)
+    new_invoice = Invoice.new(attributes, self)
     new_invoice.new_id(highest_id.id + 1)
     @all << new_invoice
   end
@@ -62,8 +64,10 @@ class InvoiceRepository
     found_invoice = @all.find do |invoice|
       invoice.id == id
     end
-    found_invoice.new_status(attributes)
-    found_invoice.update_time
+    if find_by_id(id) != nil
+      found_invoice.new_status(attributes)
+      found_invoice.update_time
+    end
   end
 
   def delete(id)

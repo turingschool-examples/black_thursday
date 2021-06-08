@@ -1,6 +1,10 @@
 require_relative './sales_engine'
+require_relative '../module/incravinable'
+
 
 class SalesAnalyst
+  include Incravinable
+
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -12,9 +16,11 @@ class SalesAnalyst
   end
 
   def number_items_per_merchant
-    @sales_engine.all_merchants.map do |merchant|
-      @sales_engine.items.find_all_by_merchant_id(merchant.id).count
+    item_merchant_hash = {}
+    @sales_engine.all_merchants.each do |merchant|
+      item_merchant_hash[merchant] = @sales_engine.items.find_all_by_merchant_id(merchant.id).length
     end
+    item_merchant_hash
   end
 
   def avg(data)
@@ -30,20 +36,48 @@ class SalesAnalyst
   #why the -1 ???
 
   def average_items_per_merchant_standard_deviation
-    std_dev(self.number_items_per_merchant).round(2)
+    std_dev(self.number_items_per_merchant.values).round(2)
   end
 
   def merchants_with_high_item_count
-    top_merchants = @sales_engine.all_merchants.map do |merchant|
-      merchant
-
-
-
-      @sales_engine.items.find_all_by_merchant_id(merchant.id) do |item_count|
-        sigma >= (average_items_per_merchant_standard_deviation + average_items_per_merchant)
-          require "pry"; binding.pry
+    top_merchants = []
+    sigma = (average_items_per_merchant_standard_deviation + average_items_per_merchant)
+    number_items_per_merchant.find_all do |merchant, quantity|
+      if quantity > sigma
+        top_merchants << merchant
       end
     end
-    return top_merchants
+    top_merchants
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @sales_engine.all_items
+    merchant_items = @sales_engine.find_all_with_merchant_id(merchant_id, items)
+    sum = merchant_items.sum do |item|
+      item.unit_price
+    end
+    (sum / merchant_items.length).round(2)
+  end
+
+  def average_average_price_per_merchant
+    average_array = []
+    @sales_engine.all_merchants.each do |merchant|
+    average_array << average_item_price_for_merchant(merchant.id)
+    end
+    (average_array.sum / average_array.length).round(2)
+  end
+
+  def golden_items
+    price_array = []
+    @sales_engine.all_items.each do |item|
+     price_array << item.unit_price
+    end
+    std_dev_prices = std_dev(price_array)
+    sigma2 = ((std_dev_prices * 2) + average_average_price_per_merchant)
+    top_items = []
+    @sales_engine.all_items.each do |item|
+      top_items << item if item.unit_price > sigma2
+    end
+    top_items
   end
 end

@@ -1,6 +1,7 @@
 require 'rspec'
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
+SimpleCov.add_filter ["spec"]
 require 'bigdecimal'
 require 'CSV'
 
