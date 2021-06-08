@@ -43,11 +43,11 @@ class SalesEngine
   end
 
   def item_repo_total_items_by_merchant(merchant_id)
-    @items.total_items_by_merchant
+    @items.total_items_by_merchant(merchant_id)
   end
 
   def item_repo_merchant_price_sum(merchant_id)
-    @items.merchant_price_sum
+    @items.merchant_price_sum(merchant_id)
   end
 
   def merchant_repo_find_by_id(id)
