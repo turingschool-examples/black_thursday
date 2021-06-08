@@ -39,4 +39,22 @@ class SalesAnalyst
     end
     (average_total / @se.item_repo_group_items_by_merchant.keys.length).round(2)
   end
+
+  def average_item_price
+    @se.item_repo_total_item_price / @se.item_repo_total_items
+  end
+
+  def item_price_standard_deviation
+    sum = @se.item_repo_all_items_by_price.sum do |item|
+      (item - average_item_price) ** 2
+    end
+    std_dev = sum / (@se.item_repo_total_items - 1)
+    Math.sqrt(std_dev).round(2)
+  end
+
+  def golden_items
+    @se.item_repo_all_items.find_all do |item|
+      (item.unit_price - item_price_standard_deviation * 2) > average_item_price
+    end
+  end
 end
