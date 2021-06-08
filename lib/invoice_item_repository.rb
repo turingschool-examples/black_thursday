@@ -7,7 +7,7 @@ class InvoiceItemRepository
     "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
-  attr_reader :all, 
+  attr_reader :all,
               :id,
               :item_id,
               :invoice_id,
@@ -22,7 +22,7 @@ class InvoiceItemRepository
     create_invoice_items(path)
     @engine = engine
   end
-  
+
   def create_invoice_items(path)
     invoice_items = CSV.foreach(path, headers: true, header_converters: :symbol) do |ii_data|
       ii_hash = {
@@ -39,7 +39,7 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id)
-    find_with_id(id)
+    find_with_id(id, @all)
   end
 
   def find_all_by_item_id(id)
@@ -56,7 +56,7 @@ class InvoiceItemRepository
 
   def create(attributes)
     highest_id = @all.max_by do |invoice_item|
-      invoice_item.id 
+      invoice_item.id
     end
     new_invoice_item = InvoiceItem.new(attributes, self)
     new_invoice_item.new_id(highest_id.id + 1)
@@ -75,6 +75,6 @@ class InvoiceItemRepository
   end
 
   def delete(id)
-    remove(id)
+    remove(id, @all)
   end
 end
