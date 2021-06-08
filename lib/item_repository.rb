@@ -1,6 +1,5 @@
-require_relative '../spec/spec_helper'
 require 'time'
-require '../module/incravinable'
+require_relative '../module/incravinable'
 
 class ItemRepository
   include Incravinable
@@ -77,7 +76,7 @@ class ItemRepository
     if find_by_id(id) != nil
       found_item = find_by_id(id)
       found_item.update_attributes(attributes)
-      found_item.time_update
+      found_item.update_time
     end
     # found_item = @all.find do |item|
     #   item.id == id

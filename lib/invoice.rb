@@ -1,5 +1,4 @@
 class Invoice
-  include Incravinable
 
   attr_reader :id,
               :customer_id,
@@ -23,5 +22,9 @@ class Invoice
 
   def new_status(attribute)
     @status = attribute[:status]
+  end
+
+  def update_time
+    @updated_at = Time.now
   end
 end

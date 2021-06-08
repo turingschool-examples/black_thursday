@@ -1,5 +1,4 @@
-require '../module/incravinable'
-require 'CSV'
+require_relative '../module/incravinable'
 
 class MerchantRepository
   include Incravinable
@@ -53,7 +52,7 @@ class MerchantRepository
       merchant.id == id
     end
     found_merchant.update_name(attributes[:name])
-    found_merchant.time_update
+    found_merchant.update_time
   end
 
   def delete(id)

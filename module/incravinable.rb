@@ -30,8 +30,4 @@ module Incravinable
       element.merchant_id == id
     end
   end
-
-  def time_update
-    @updated_at = Time.now
-  end
 end
