@@ -49,5 +49,11 @@ RSpec.describe 'SalesAnalyst' do
         expect(@sales_analyst.merchants_with_high_item_count.count).to eq(52)
       end
 
+
+      # it 'can return the merchants that are 2 standard deviations from the average' do
+      #   expect(@sales_analyst.golden_items).to be_an(Array)
+      #   expect(@sales_analyst.golden_items.first).to be_a(Item)
+      #   expect(@sales_analyst.golden_items.length).to eq(10)
+      # end
     end
   end

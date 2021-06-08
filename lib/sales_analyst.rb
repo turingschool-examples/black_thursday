@@ -12,9 +12,6 @@ class SalesAnalyst
   end
 
   def number_items_per_merchant
-    # @sales_engine.all_merchants.group_by do |merchant|
-    #   @sales_engine.items.find_all_by_merchant_id(merchant.id).length
-    # end
     item_merchant_hash = {}
     @sales_engine.all_merchants.each do |merchant|
       item_merchant_hash[merchant] = @sales_engine.items.find_all_by_merchant_id(merchant.id).length
@@ -48,4 +45,15 @@ class SalesAnalyst
     end
     top_merchants
   end
+
+  # def golden_items
+  #   top_items = []
+  #   sigma2 = ((average_items_per_merchant_standard_deviation * 2) + average_items_per_merchant)
+  #   number_items_per_merchant.find_all do |merchant, quantity|
+  #     if quantity > sigma
+  #       top_merchants << merchant
+  #     end
+  #   end
+  #   top_items
+  # end
 end
