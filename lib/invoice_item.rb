@@ -22,4 +22,10 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def update_invoice_item(attributes)
+    @quantity = attributes[:quantity] unless attributes[:quantity].nil?
+    @unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    @updated_at = Time.now
+  end
 end

@@ -38,4 +38,16 @@ class InvoiceItemRepository
     attributes[:id] = @all.last.id + 1
     @all << InvoiceItem.new(attributes, self)
   end
+
+  def update(id, attributes)
+    invoice_item = find_by_id(id)
+    return nil if invoice_item.nil?
+
+    invoice_item.update_invoice_item(attributes)
+  end
+
+  def delete(id)
+    deleted_invoice_item = find_by_id(id)
+    @all.delete(deleted_invoice_item)
+  end
 end
