@@ -2,8 +2,9 @@ require_relative 'spec_helper'
 
 RSpec.describe InvoiceRepository do
   before :each do
+    @mock_engine = double('InvoiceRepository')
     @path = "fixture/invoice_fixture.csv"
-    @invoice_repo = InvoiceRepository.new(@path)
+    @invoice_repo = InvoiceRepository.new(@path, @mock_engine)
   end
   describe 'instantiation' do
     it 'exists' do
