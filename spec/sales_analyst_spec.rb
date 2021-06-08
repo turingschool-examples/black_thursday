@@ -33,6 +33,7 @@ RSpec.describe SalesAnalyst do
     @sa.merchants_with_high_item_count.each do |merchant|
       merchant_ids << merchant.id
     end
+
     expect(merchant_ids).to eq([12334195])
   end
 
@@ -42,5 +43,14 @@ RSpec.describe SalesAnalyst do
 
   it '.average_average_price_per_merchant' do
     expect(@sa.average_average_price_per_merchant.to_f).to eq(90.74)
+  end
+
+  it '.golden_items' do
+    golden_items = []
+    @sa.golden_items.each do |item|
+      golden_items << item
+    end
+
+    expect(golden_items).to eq([])
   end
 end
