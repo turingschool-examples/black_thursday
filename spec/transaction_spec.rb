@@ -2,7 +2,8 @@ require_relative 'spec_helper'
 
 RSpec.describe Transaction do
   before :each do
-    @t_data = ({
+    @mock_repo = double('TransactionRepository')
+    @transaction_data = ({
                 :id => 6,
                 :invoice_id => 8,
                 :credit_card_number => "4242424242424242",
@@ -12,7 +13,7 @@ RSpec.describe Transaction do
                 :updated_at => Time.now
               })
 
-    @transaction = Transaction.new(@t_data)
+    @transaction = Transaction.new(@transaction_data, @mock_repo)
   end
 
   describe 'instantiation' do
@@ -21,7 +22,7 @@ RSpec.describe Transaction do
     end
 
     it 'has attributes' do
-      expect(@t_data).to be_a(Hash)
+      expect(@transaction_data).to be_a(Hash)
       expect(@transaction.id).to eq(6)
       expect(@transaction.invoice_id).to eq(8)
       expect(@transaction.credit_card_number).to eq("4242424242424242")
