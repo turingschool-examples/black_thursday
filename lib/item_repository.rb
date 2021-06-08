@@ -1,4 +1,8 @@
+require_relative 'inspectable'
+
 class ItemRepository
+  include Inspectable
+
   attr_reader :sales_engine, :all, :file_path
 
   def initialize(file_path, sales_engine)
@@ -67,7 +71,7 @@ class ItemRepository
     @all.delete(deleted_item)
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@all.size} rows>"
+  # end
 end
