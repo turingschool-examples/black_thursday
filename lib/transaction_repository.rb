@@ -51,15 +51,6 @@ class TransactionRepository
 
   def create(attributes)
     create_new(attributes, Transaction)
-    # new_id = @all.max_by do |transaction|
-    #   transaction.id
-    # end
-    #
-    # attributes[:id] = new_id.id + 1
-    #
-    # transaction = Transaction.new(attributes)
-    # @all << transaction
-    # transaction
   end
 
   def update(id, attributes)
@@ -69,7 +60,5 @@ class TransactionRepository
 
   def delete(id)
     delete_new(id)
-    # delete_transaction = find_by_id(id)
-    # @all.delete(delete_transaction)
   end
 end
