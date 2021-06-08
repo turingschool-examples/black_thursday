@@ -26,12 +26,14 @@ class SalesEngine
     SalesAnalyst.new(self)
   end
 
-  def invoice_items_by_date(date)
-    ii_price_by_date = Hash.new{|hash, key| hash[key] = Array.new}
-    @invoice_items.find_unit_price_by_date(date).each do |invoice_item|
-      ii_price_by_date[date] << invoice_item.unit_price
+  def revenue_by_date(date)
+    total_revenue_by_date = Hash.new{|hash, key| hash[key] = Array.new}
+    @invoices.find_invoice_by_date(date).each do |invoice|
+      @invoice_items.find_price_by_invoice_id(invoice.id).each do |invoice_item|
+        total_revenue_by_date[date] << invoice_item.unit_price
+      end
     end
-    ii_price_by_date
+    total_revenue_by_date
   end
 
   def total_unit_price_by_merchant_id
