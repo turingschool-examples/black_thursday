@@ -55,4 +55,5 @@ RSpec.describe SalesEngine do
       expect(merchant).to be_a(Merchant)
     end
   end
+
 end

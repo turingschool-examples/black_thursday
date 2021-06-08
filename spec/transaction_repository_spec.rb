@@ -80,4 +80,10 @@ RSpec.describe TransactionRepository do
     expect(@repo.all.length).to eq(49)
     expect(@repo.all.last.id).to eq(49)
   end
+
+  it '.invoice_paid_in_full' do
+    expect(@repo.invoice_paid_in_full(2179)).to eq(true)
+    expect(@repo.invoice_paid_in_full(1752)).to eq(false)
+    expect(@repo.invoice_paid_in_full(500000)).to eq(false)
+  end
 end

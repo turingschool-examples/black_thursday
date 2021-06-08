@@ -52,5 +52,93 @@ RSpec.describe SalesAnalyst do
 
     expect(last.class).to eq Merchant
   end
+  it 'calculates average invoice per merchant' do
+    expect(@sa.average_invoices_per_merchant).to eq(1.04)
+  end
 
+  it 'calculates the average invoice per merchant standard deviation' do
+    expect(@sa.average_invoices_per_merchant_standard_deviation).to eq(0.2)
+  end
+
+  it 'returns top merchants by invoice count' do
+    expected = @sa.top_merchants_by_invoice_count
+
+    expect(expected.length).to eq(2)
+  end
+
+  it 'returns bottom merchants bu invoice count' do
+    expected = @sa.bottom_merchants_by_invoice_count
+
+    expect(expected.length).to eq(0)
+  end
+
+  it 'returns average invoice per day' do
+    expect(@sa.average_invoice_per_day).to eq(7.14)
+  end
+
+  it 'returns the average invoice per day standard deviation' do
+    expect(@sa.average_invoice_per_day_standard_deviation).to eq(3.48)
+  end
+
+  it 'returns the top days by invoice count' do
+    expected = @sa.top_days_by_invoice_count
+
+    expect(expected.length).to eq(1)
+  end
+
+  it 'returns total invoice by merchant' do
+    expect(@sa.invoice_status(:shipped)).to eq(60.0)
+  end
+
+  it '.average_items_per_merchant' do
+    expect(@sa.average_items_per_merchant).to eq(2.08)
+  end
+
+  it '.average_items_per_merchant_standard_deviation' do
+    expect(@sa.average_items_per_merchant_standard_deviation).to eq(2.34)
+  end
+
+  it '.merchants_with_high_item_count' do
+    merchant_ids = []
+    @sa.merchants_with_high_item_count.each do |merchant|
+      merchant_ids << merchant.id
+    end
+
+    expect(merchant_ids).to eq([12334195])
+  end
+
+  it 'average_item_price_for_merchant' do
+    expect(@sa.average_item_price_for_merchant(12334195)).to eq(0.44983e3)
+  end
+
+  it '.average_average_price_per_merchant' do
+    expect(@sa.average_average_price_per_merchant.to_f).to eq(90.74)
+  end
+
+  it '.average_item_price' do
+    expect(@sa.average_item_price).to eq(0.1536686e3)
+  end
+
+  it 'item_price_standard_deviation' do
+    expect(@sa.item_price_standard_deviation).to eq(204.83)
+  end
+
+  it '.golden_items' do
+    items = []
+    @sa.golden_items.each do |item|
+      items << item.id
+    end
+
+    expect(items).to eq([263397313, 263397785, 263398653, 263399263, 263400013])
+  end
+
+  it '.invoice_paid_in_full' do
+    expect(@sa.invoice_paid_in_full?(2179)).to eq(true)
+    expect(@sa.invoice_paid_in_full?(1752)).to eq(false)
+    expect(@sa.invoice_paid_in_full?(500000)).to eq(false)
+  end
+
+  it '.invoice_total' do
+    expect(@sa.invoice_total(10)).to eq(0.1e0)
+  end
 end

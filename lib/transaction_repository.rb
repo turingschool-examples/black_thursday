@@ -63,4 +63,14 @@ class TransactionRepository
     "#{self.class} #{@transactions.size} rows"
   end
   # :nocov:
+
+  def invoice_paid_in_full(invoice_id)
+    if find_all_by_invoice_id(invoice_id) == []
+      false
+    else 
+      find_all_by_invoice_id(invoice_id).all? do |transaction|
+        transaction.result == :success
+      end
+    end
+  end
 end
