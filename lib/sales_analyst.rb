@@ -1,4 +1,5 @@
 require_relative 'sales_engine'
+require 'Date'
 
 class SalesAnalyst
   include MathModule
@@ -23,8 +24,6 @@ class SalesAnalyst
     end
     items_per_merchant_count
   end
-
-  
 
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
@@ -122,7 +121,20 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    invoices_per_day_of_the_week
+    solution = []
+    z = (average_invoices_per_weekday_standard_deviation * 1) + average_invoices_per_weekday
+    invoices_per_day_of_the_week.each do |weekday, number_of_invoices|
+      solution << weekday if number_of_invoices >= z
+    end
+    tranform_weekday_values(solution)
   end
 
+  def invoice_status(shipping_status)
+    invoice_status = []
+    @engine.invoices.all do |invoice|
+      require "pry"; binding.pry
+      invoice_status << invoice if invoice.status == shipping_status
+    end
+    percentage = (invoice_status.length.to_f / @engine.invoices.all.length).round(2)
+  end
 end

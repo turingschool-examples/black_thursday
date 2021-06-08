@@ -161,9 +161,16 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can find top days by invoice count' do
-      expected = ["Sunday", "Saturday"]
+      expected = ["Saturday"]
+
       expect(@analyst.top_days_by_invoice_count).to eq(expected)
     end
 
+    it 'can find percentage of invoice statuses' do
+      @analyst.invoice_status(:pending)
+      # expect(@analyst.invoice_status(:pending)).to eq(1.0)
+      # expect(@analyst.invoice_status(:shipped)).to eq(1.0)
+      # expect(@analyst.invoice_status(:returned)).to eq(1.0)
+    end
   end
 end
