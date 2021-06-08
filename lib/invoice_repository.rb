@@ -1,4 +1,7 @@
+require_relative 'inspectable'
 class InvoiceRepository
+  include Inspectable
+
   attr_reader :sales_engine, :all, :file_path
 
   def initialize(file_path, sales_engine)
@@ -55,7 +58,7 @@ class InvoiceRepository
     @all.delete(deleted_invoice)
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@all.size} rows>"
+  # end
 end
