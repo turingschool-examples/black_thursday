@@ -20,7 +20,7 @@ RSpec.describe ItemRepository do
       expect(all.first.id).to eq(263395617)
       expect(all.first.name).to eq("Glitter scrabble frames")
       expect(all.first.description).to be_a(String)
-      expect(all.first.unit_price).to eq(1300)
+      expect(all.first.unit_price).to eq(0.13e2)
       expect(all.first.created_at).to be_a(Time)
       expect(all.first.updated_at).to be_a(Time)
       expect(all.first.merchant_id).to eq(12334185)
@@ -50,7 +50,6 @@ RSpec.describe ItemRepository do
       expect(expected.name).to eq(name)
       expect(expected.id).to eq(263396209)
 
-
       name = "Sales Engine"
       expected = @item_repo.find_by_name(name)
 
@@ -73,29 +72,28 @@ RSpec.describe ItemRepository do
     end
 
     it 'finds all items with that has a matching price' do
-    price = 2999
-    expected = @item_repo.find_all_by_price(price)
+      price = 0.2999e2
+      expected = @item_repo.find_all_by_price(price)
 
-    expect(expected).to be_an(Array)
-    expect(expected.first.unit_price).to eq(price)
+      expect(expected).to be_an(Array)
+      expect(expected.first.unit_price).to eq(price)
 
-    price = 10
-    expected = @item_repo.find_all_by_price(price)
+      price = 10
+      expected = @item_repo.find_all_by_price(price)
 
-    expect(expected).to eq([])
-    expect(expected.length).to eq(0)
+      expect(expected).to eq([])
+      expect(expected.length).to eq(0)
     end
 
     it 'returns items where the price is in the supplied price range' do
-      range = 1300..1350
-
+      range = 0.13e2..0.135e2
       expected = @item_repo.find_all_by_price_in_range(range)
 
       expect(expected).to be_an(Array)
       expect(expected.length).to eq(2)
       expect(expected.first.id).to eq(263395617)
 
-      range = 234879032890..234879032891
+      range = 23.00e2..24.00e2
       expected = @item_repo.find_all_by_price_in_range(range)
 
       expect(expected).to eq([])
@@ -116,16 +114,18 @@ RSpec.describe ItemRepository do
     end
 
     it 'can create a new item' do
-      attributes = {:id          => nil,
-                    :name        => "llama smile sweater",
+      attributes = {
+                    :id => nil,
+                    :name => "llama smile sweater",
                     :description => "White sweater with a smiling llama",
-                    :unit_price  => 1999,
+                    :unit_price => 1999,
                     :merchant_id => 114488,
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now
-                    }
+                    :created_at => Time.now,
+                    :updated_at => Time.now
+                   }
 
       @item_repo.create(attributes)
+
       expect(@item_repo.all.length).to eq(5)
       expect(@item_repo.all.last.id).to eq(263396210)
       expect(@item_repo.all.last.merchant_id).to eq(114488)
@@ -133,34 +133,33 @@ RSpec.describe ItemRepository do
 
     it 'can update an item with the corresponding id that has the provided attributes' do
       attributes = {
-                    :name        => "llama wink bikini",
+                    :name => "llama wink bikini",
                     :description => "It's like, a bikini with a llama on it that winks at you. Buy it.",
-                    :unit_price  => 962,
-                    }
+                    :unit_price => 962,
+                   }
 
       id = 263396209
       @item_repo.update(id, attributes)
+
       expect(@item_repo.all.last.id).to eq(263396209)
       expect(@item_repo.all.last.name).to eq("llama wink bikini")
       expect(@item_repo.all.last.description).to eq("It's like, a bikini with a llama on it that winks at you. Buy it.")
       expect(@item_repo.all.last.unit_price).to eq(962)
 
       attributes = {:unit_price  => 42069}
-
       id = 263395617
       @item_repo.update(id, attributes)
+
       expect(@item_repo.all.first.unit_price).to eq(42069)
       expect(@item_repo.all.first.name).to eq('Glitter scrabble frames')
     end
 
     it 'can delete an item with the corresponding id' do
-
       id = 263396209
-      @item_repo.delete(id)
-      expect(@item_repo.all.last.id).to eq(263396013)
-      expect(@item_repo.all.last.name).to eq("Free standing Woden letters")
+      item_repo.delete(id)
+      
+      expect(item_repo.all.last.id).to eq(263396013)
+      expect(item_repo.all.last.name).to eq("Free standing Woden letters")
     end
-
-  
   end
 end
