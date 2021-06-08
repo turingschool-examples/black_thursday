@@ -2,8 +2,9 @@ require_relative 'spec_helper'
 
 RSpec.describe InvoiceItemRepository do
   before :each do
+    @mock_engine = double('InvoiceItemRepository')
     @path = "fixture/invoice_item_fixture.csv"
-    @invoice_item_repo = InvoiceItemRepository.new(@path)
+    @invoice_item_repo = InvoiceItemRepository.new(@path, @mock_engine)
   end
 
   describe 'instantiation' do
@@ -43,6 +44,21 @@ RSpec.describe InvoiceItemRepository do
       expect(@invoice_item_repo.find_all_by_invoice_id(id).length).to eq(5)
       id = 4224
       expect(@invoice_item_repo.find_all_by_invoice_id(id)).to eq([])
+    end
+
+    it 'creates attributes' do
+      attributes = {
+        id: 14406,
+        item_id: 123456789,
+        invoice_id: 5555,
+        quantity: 17,
+        unit_price: 737317,
+        created_at: '2020-03-27 14:56:49 UTC',
+        updated_at: '2021-03-27 14:56:49 UTC'
+      }
+      @invoice_item_repo.create(attributes)
+      expect(@invoice_item_repo.all.length).to eq(7)
+      expect(@invoice_item_repo.all.last.id).to eq(14406)
     end
   end
 end

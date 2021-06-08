@@ -4,7 +4,7 @@ class InvoiceItemRepository
   include Incravinable
 
   def inspect
-    "#<#{self.class} #{invoice_items.size} rows>"
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
   attr_reader :all, 
@@ -14,11 +14,13 @@ class InvoiceItemRepository
               :quantity,
               :unit_price,
               :created_at,
-              :updated_at
+              :updated_at,
+              :engine
 
-  def initialize(path)
+  def initialize(path, engine)
     @all = []
     create_invoice_items(path)
+    @engine = engine
   end
   
   def create_invoice_items(path)
@@ -32,7 +34,7 @@ class InvoiceItemRepository
         created_at: Time.parse(ii_data[:created_at]),
         updated_at: Time.parse(ii_data[:updated_at])
       }
-      @all << InvoiceItem.new(ii_hash)
+      @all << InvoiceItem.new(ii_hash, self)
     end
   end
 
@@ -51,4 +53,15 @@ class InvoiceItemRepository
       invoice.invoice_id == id
     end
   end
+
+  def create(attributes)
+    highest_id = @all.max_by do |invoice_item|
+      invoice_item.id 
+    end
+    new_invoice_item = InvoiceItem.new(attributes, self)
+    new_invoice_item.new_id(highest_id.id + 1)
+    @all << new_invoice_item
+  end
+
+
 end
