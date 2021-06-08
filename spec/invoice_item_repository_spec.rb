@@ -95,4 +95,8 @@ RSpec.describe InvoiceItemRepository do
     dollars = @repo.find_by_id(1).unit_price_to_dollars
     expect(dollars).to eq(0.1)
   end
+
+  it '.invoice_total_by_id' do
+    expect(@repo.invoice_total_by_id(10)).to eq(0.1e0)
+  end
 end
