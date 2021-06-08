@@ -33,4 +33,8 @@ class SalesEngine
     end
     ii_price_by_date
   end
+
+  def unit_price_by_merchant_id
+    @invoice_items.unit_price_by_invoice_id
+  end
 end
