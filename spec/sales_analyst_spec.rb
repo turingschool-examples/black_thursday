@@ -21,17 +21,38 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'finds the total revenue by date' do
-    expect(@sa.total_revenue_by_date('2021-03-27 14:54:09 UTC')).to eq(BigDecimal(40)/100)
+    date = Time.parse("2021-03-27")
+      expected = @sa.total_revenue_by_date(date)
+
+      expect(expected).to eq 0.4e0
+      expect(expected.class).to eq BigDecimal
+
+    expect(@sa.total_revenue_by_date(Time.parse'2021-03-27 14:54:09 UTC')).to eq(BigDecimal(40)/100)
   end
 
   it 'can find top revenue earners with an argument' do
-    expected = [33333, 11111, 77777]
-    @sa.top_revenue_earners(3).each do |merchant|
-      expected.each do |expected_id|
-        # require "pry"; binding.pry
-        expect(merchant.id).to eq(expected_id)
-      end
-    end
+    expected = @sa.top_revenue_earners(3)
+    first = expected.first
+    last = expected.last
+
+    expect(first.class).to eq Merchant
+    expect(first.id).to eq 33333
+
+    expect(last.class).to eq Merchant
+    expect(last.id).to eq 77777
+  end
+
+  it 'can find top revenue earners with no argument' do
+    expected = @sa.top_revenue_earners
+    first = expected.first
+    last = expected.last
+
+    expect(expected.length).to eq 10
+
+    expect(first.class).to eq Merchant
+    expect(first.id).to eq 33333
+
+    expect(last.class).to eq Merchant
   end
 
 end

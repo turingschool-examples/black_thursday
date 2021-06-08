@@ -10,11 +10,11 @@ class SalesAnalyst
     @se.invoice_items_by_date(date)[date].sum
   end
 
-  def top_revenue_earners(number)
-    # top_earners = []
+  def top_revenue_earners(number = 20)
     top_earners = @se.price_by_merchant.max_by(number) do |merchant, unit_price|
       unit_price
-    end.flat_map do |earner_pair|
+    end
+    top_earners.flat_map do |earner_pair|
       earner_pair.first
     end
   end
