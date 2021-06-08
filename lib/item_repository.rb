@@ -108,4 +108,16 @@ class ItemRepository
       item.unit_price
     end
   end
+
+  def items_total_price
+    @all.sum do |item|
+      item.unit_price
+    end
+  end
+
+  def all_items_by_price
+    @all.map do |item|
+      item.unit_price
+    end
+  end
 end
