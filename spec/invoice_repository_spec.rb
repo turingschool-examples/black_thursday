@@ -17,9 +17,9 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find an invoice by id' do
-  expect(@repo.find_by_id(1).merchant_id).to eq(12335938)
+  expect(@repo.find_by_id(1).merchant_id).to eq(11111)
   expect(@repo.find_by_id(200)).to eq(nil)
-  expect(@repo.find_by_id(3).merchant_id).to eq(12335955)
+  expect(@repo.find_by_id(3).merchant_id).to eq(33333)
   end
 
   it 'can find all invoices by customer id' do
@@ -39,7 +39,7 @@ RSpec.describe InvoiceRepository do
       invoice_id << invoice.id
     end
 
-    expect(invoice_id).to eq([3, 13])
+    expect(invoice_id).to eq([13])
 
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
@@ -110,7 +110,7 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'returns the number of merchants'do
-    expect(@repo.number_of_merchants).to eq(46)
+    expect(@repo.number_of_merchants).to eq(48)
   end
 
   it 'returns total number of invoices' do
@@ -125,12 +125,16 @@ RSpec.describe InvoiceRepository do
     expect(@repo.invoices_per_day.length).to eq(7)
   end
 
+<<<<<<< HEAD
   it 'returns invoice count per day created' do
     expect(@repo.invoices_by_created_date.keys.first.class).to eq(String)
+=======
+  xit 'returns invoice count per day created' do
+    expect(@repo.invoices_by_created_date.keys).to eq(String)
+>>>>>>> origin/master
   end
 
   it 'returns total invoice per status' do
     expect(@repo.invoice_status_total(:pending)).to eq(17)
   end
-
 end

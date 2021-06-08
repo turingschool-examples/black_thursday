@@ -35,7 +35,7 @@ RSpec.describe MerchantRepository do
       @repo.find_all_by_name("shop").each do |shop|
         shop_ids << shop.id
       end
-      expect(shop_ids).to eq([12334105, 12334176, 12334257, 12334299])
+      expect(shop_ids).to eq([11111, 12334176, 12334257, 12334299])
 
       @repo.find_all_by_name("Alfie").each do |shop|
         expect(shop.id).to eq([])
