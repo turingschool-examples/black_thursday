@@ -54,7 +54,12 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     top_days = []
-    
+    @se.invoice_repo_invoices_day_created_date.each do |day, invoices|
+      if (invoices.length - average_invoice_per_day_standard_deviation) > average_invoice_per_day
+        top_days << day
+      end
+    end
+    top_days
   end
 
   def invoice_status(status)

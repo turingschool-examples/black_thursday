@@ -121,8 +121,12 @@ RSpec.describe InvoiceRepository do
     expect(@repo.group_invoices_by_created_date).to eq()
   end
 
-  xit 'returns invoice count per day created' do
-    expect(@repo.invoices_by_created_date.keys).to eq([0, 1, 2, 3, 4, 5, 6])
+  it 'returns array of invoice per day' do
+    expect(@repo.invoices_per_day.length).to eq(7)
+  end
+
+  it 'returns invoice count per day created' do
+    expect(@repo.invoices_by_created_date.keys).to eq(String)
   end
 
   it 'returns total invoice per status' do

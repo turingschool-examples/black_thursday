@@ -90,19 +90,17 @@ class InvoiceRepository
 
   def invoices_per_day
     day_invoice_total = []
-    @group_invoices_by_created_date.each do |day, invoices|
+    group_invoices_by_created_date.each do |day, invoices|
       day_invoice_total << invoices.length
     end
     day_invoice_total
   end
 
   def invoices_by_created_date
-    day_of_week_invoice_total = {}
-    group_invoices_by_created_date.each do |created_at, invoices|
-      day_of_week_invoice_total[created_at] = invoices.length
+    mappings = {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
+    group_invoices_by_created_date.transform_keys! do |day|
+      mappings[day]
     end
-    require "pry"; binding.pry
-    day_of_week_invoice_total
   end
 
   def invoice_status_total(status)

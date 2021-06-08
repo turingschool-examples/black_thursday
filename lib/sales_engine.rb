@@ -50,6 +50,10 @@ class SalesEngine
     @invoices.invoices_per_day
   end
 
+  def invoice_repo_invoices_day_created_date
+    @invoices.invoices_by_created_date      
+  end
+
   def invoice_repo_by_status(status)
     @invoices.invoice_status_total(status)
   end
