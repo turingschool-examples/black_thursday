@@ -91,4 +91,8 @@ RSpec.describe SalesAnalyst do
     expect(@sa.invoice_paid_in_full?(1752)).to eq(false)
     expect(@sa.invoice_paid_in_full?(500000)).to eq(false)
   end
+
+  it '.invoice_total' do
+    expect(@sa.invoice_total(10)).to eq(0.1e0)
+  end
 end
