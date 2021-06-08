@@ -27,4 +27,8 @@ class SalesAnalyst
     end
     high_merchants
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    (@se.item_repo_merchant_price_sum(merchant_id) / @se.item_repo_total_items_by_merchant(merchant_id)).round(2)
+  end
 end
