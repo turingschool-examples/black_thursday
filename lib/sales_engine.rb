@@ -50,6 +50,14 @@ class SalesEngine
     @items.merchant_price_sum(merchant_id)
   end
 
+  def item_repo_total_item_price
+    @items.items_total_price
+  end
+
+  def item_repo_all_items_by_price
+    @items.all_items_by_price
+  end
+
   def merchant_repo_find_by_id(id)
     @merchants.find_by_id(id)
   end
