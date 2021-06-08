@@ -98,4 +98,14 @@ class ItemRepository
   def total_items
     @all.length
   end
+
+  def total_items_by_merchant(merchant_id)
+    group_items_by_merchant[merchant_id].length
+  end
+
+  def merchant_price_sum(merchant_id)
+    group_items_by_merchant[merchant_id].sum do |item|
+      item.unit_price
+    end
+  end
 end
