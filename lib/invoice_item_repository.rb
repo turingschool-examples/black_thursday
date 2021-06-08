@@ -73,4 +73,8 @@ class InvoiceItemRepository
       found_invoice_item.update_time
     end
   end
+
+  def delete(id)
+    remove(id)
+  end
 end

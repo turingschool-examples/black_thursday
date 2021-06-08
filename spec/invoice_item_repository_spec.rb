@@ -71,5 +71,12 @@ RSpec.describe InvoiceItemRepository do
       @invoice_item_repo.update(14405, attributes)
       expect(@invoice_item_repo.all[5].unit_price).to eq(657483)
     end
+
+    it 'deletes invoice items' do
+      expect(@invoice_item_repo.all.length).to eq(6)
+      id = 14400
+      @invoice_item_repo.delete(id)
+      expect(@invoice_item_repo.all.length).to eq(5)
+    end
   end
 end
