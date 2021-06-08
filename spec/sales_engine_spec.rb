@@ -56,4 +56,11 @@ RSpec.describe SalesEngine do
     end
   end
 
+  it 'can connect items to merchant instance' do
+    @se.group_items_by_merchant_instance.each do |key, value|
+      expect(key).to be_a(Merchant)
+      expect(value.first).to be_a(Item)
+    end
+  end
+
 end
