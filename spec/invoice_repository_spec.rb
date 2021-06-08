@@ -96,13 +96,13 @@ RSpec.describe InvoiceRepository do
     expect(@repo.find_by_id(2)).to eq(nil)
   end
 
-  xit 'shows invoices grouped by merchant' do
-    customer_id = []
+  it 'shows invoices grouped by merchant' do
+    invoice_count = []
     @repo.group_invoices_by_merchant.each do |merchant, invoice|
-      customer_id << invoice
+      invoice_count << invoice.length
     end
 
-    expect(customer_id).to eq([])
+    expect(invoice_count[0]).to eq(1)
   end
 
   it 'returns invoice count per merchants' do
@@ -117,16 +117,16 @@ RSpec.describe InvoiceRepository do
     expect(@repo.total_invoices).to eq(50)
   end
 
-  xit 'groups invoices by created date' do
-    expect(@repo.group_invoices_by_created_date).to eq()
+  it 'groups invoices by created date' do
+    expect(@repo.group_invoices_by_created_date.length).to eq(7)
   end
 
   it 'returns array of invoice per day' do
     expect(@repo.invoices_per_day.length).to eq(7)
   end
 
-  xit 'returns invoice count per day created' do
-    expect(@repo.invoices_by_created_date.keys).to eq(String)
+  it 'returns invoice count per day created' do
+    expect(@repo.invoices_by_created_date.keys.first.class).to eq(String)
   end
 
   it 'returns total invoice per status' do
