@@ -84,4 +84,25 @@ class SalesAnalyst
   def average_invoices_per_merchant
     @sales_engine.all_invoices.length.fdiv(@sales_engine.all_merchants.length).round(2)
   end
+
+  def number_invoices_per_merchant
+    invoices_merchant_hash = {}
+    @sales_engine.all_merchants.each do |merchant|
+      invoices_merchant_hash[merchant] = @sales_engine.invoices.find_all_by_merchant_id(merchant.id).length
+    end
+    invoices_merchant_hash
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    std_dev(self.number_invoices_per_merchant.values).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    sigma2 = ((average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant)
+    number_invoices_per_merchant.find_all do |merchant, quantity|
+      top_merchants << merchant if quantity > sigma2
+    end
+    top_merchants
+  end
 end
