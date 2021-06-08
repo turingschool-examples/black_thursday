@@ -67,14 +67,17 @@ class SalesAnalyst
     (average_array.sum / average_array.length).round(2)
   end
 
-  # def golden_items
-  #   top_items = []
-  #   sigma2 = ((average_items_per_merchant_standard_deviation * 2) + average_items_per_merchant)
-  #   number_items_per_merchant.find_all do |merchant, quantity|
-  #     if quantity > sigma
-  #       top_merchants << merchant
-  #     end
-  #   end
-  #   top_items
-  # end
+  def golden_items
+    price_array = []
+    @sales_engine.all_items.each do |item|
+     price_array << item.unit_price
+    end
+    std_dev_prices = std_dev(price_array)
+    sigma2 = ((std_dev_prices * 2) + average_average_price_per_merchant)
+    top_items = []
+    @sales_engine.all_items.each do |item|
+      top_items << item if item.unit_price > sigma2
+    end
+    top_items
+  end
 end
