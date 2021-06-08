@@ -5,9 +5,10 @@ class InvoiceItem
               :quantity,
               :unit_price,
               :created_at,
-              :updated_at
+              :updated_at,
+              :repo
 
-  def initialize(info)
+  def initialize(info, repo)
     @id = info[:id].to_i
     @item_id = info[:item_id].to_i
     @invoice_id = info[:invoice_id].to_i
@@ -15,6 +16,7 @@ class InvoiceItem
     @unit_price = BigDecimal(info[:unit_price], 4)
     @created_at = Time.parse(info[:created_at])
     @updated_at = Time.parse(info[:updated_at])
+    @repo = repo
   end
 
   def unit_price_to_dollars
