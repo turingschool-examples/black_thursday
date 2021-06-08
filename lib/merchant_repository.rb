@@ -24,6 +24,7 @@ class MerchantRepository
                         created_at: merchant_data[:created_at],
                         updated_at: merchant_data[:updated_at]
                       }
+                      
       @all << Merchant.new(merchant_hash, self)
     end
   end
@@ -51,8 +52,10 @@ class MerchantRepository
     found_merchant = @all.find do |merchant|
       merchant.id == id
     end
-    found_merchant.update_name(attributes[:name])
-    found_merchant.update_time
+    if find_by_id(id) != nil
+      found_merchant.update_name(attributes[:name])
+      found_merchant.update_time
+    end
   end
 
   def delete(id)

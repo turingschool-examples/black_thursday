@@ -42,5 +42,4 @@ module Incravinable
     end
     collection.delete(to_delete)
   end
-
 end

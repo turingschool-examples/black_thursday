@@ -27,18 +27,18 @@ class SalesAnalyst
     end
     Math.sqrt(numerator/(data.count - 1)).round(2)
   end
-  #why the -1 ??? 
+  #why the -1 ???
 
   def average_items_per_merchant_standard_deviation
     std_dev(self.number_items_per_merchant).round(2)
   end
 
-  def merchants_with_high_item_count 
+  def merchants_with_high_item_count
     top_merchants = @sales_engine.all_merchants.map do |merchant|
       merchant
 
-     
-     
+
+
       @sales_engine.items.find_all_by_merchant_id(merchant.id) do |item_count|
         sigma >= (average_items_per_merchant_standard_deviation + average_items_per_merchant)
           require "pry"; binding.pry
