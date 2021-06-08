@@ -35,4 +35,8 @@ RSpec.describe SalesAnalyst do
     end
     expect(merchant_ids).to eq([12334195])
   end
+
+  it 'average_item_price_for_merchant' do
+    expect(@sa.average_item_price_for_merchant(12334195)).to eq(0.44983e3)
+  end
 end
