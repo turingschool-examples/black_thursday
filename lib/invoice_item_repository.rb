@@ -62,7 +62,7 @@ class InvoiceItemRepository
 
   def find_unit_price_by_date(date)
     @all.find_all do |invoice_item|
-      invoice_item.created_at == Time.parse(date)
+      invoice_item.created_at.strftime('%Y%m%d') == date.strftime('%Y%m%d')
     end
   end
 
