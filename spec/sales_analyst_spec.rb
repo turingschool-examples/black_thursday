@@ -25,18 +25,18 @@ RSpec.describe 'SalesAnalyst' do
       end
 
       it 'can return number of items per merchant' do
-        expect(@sales_analyst.number_items_per_merchant).to be_an(Array)
+        expect(@sales_analyst.number_items_per_merchant).to be_an(Hash)
       end
 
       it 'can return an average' do
         data = [1, 5, 9]
-        
+
         expect(@sales_analyst.avg(data)).to eq(5)
       end
 
       it 'can deviate in a standard way' do
         data = [21, 4224, 17, 8008]
-        
+
         expect(@sales_analyst.std_dev(data)).to eq(3844.16)
       end
 
@@ -46,6 +46,8 @@ RSpec.describe 'SalesAnalyst' do
 
       it 'can return the merchants that have the most items for sale' do
         expect(@sales_analyst.merchants_with_high_item_count).to be_an(Array)
+        expect(@sales_analyst.merchants_with_high_item_count.count).to eq(52)
       end
+
     end
   end
