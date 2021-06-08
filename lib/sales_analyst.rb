@@ -52,13 +52,20 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items = @sales_engine.all_items
-    x = @sales_engine.find_all_with_merchant_id(merchant_id, items)
-    sum = x.sum do |item|
+    merchant_items = @sales_engine.find_all_with_merchant_id(merchant_id, items)
+    sum = merchant_items.sum do |item|
       item.unit_price
     end
-    (sum / x.length).round(2)
+    (sum / merchant_items.length).round(2)
   end
 
+  def average_average_price_per_merchant
+    average_array = []
+    @sales_engine.all_merchants.each do |merchant|
+    average_array << average_item_price_for_merchant(merchant.id)
+    end
+    (average_array.sum / average_array.length).round(2)
+  end
 
   # def golden_items
   #   top_items = []

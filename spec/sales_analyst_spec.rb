@@ -55,6 +55,10 @@ RSpec.describe 'SalesAnalyst' do
         expect(@sales_analyst.average_item_price_for_merchant(merchant_id)).to be_a(BigDecimal)
       end
 
+      it 'can sum all the averages and find the average price across all merchants' do
+        expect(@sales_analyst.average_average_price_per_merchant).to be_a(BigDecimal)
+      end
+
 
       # it 'can return the merchants that are 2 standard deviations from the average' do
       #   expect(@sales_analyst.golden_items).to be_an(Array)
