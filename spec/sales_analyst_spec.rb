@@ -45,12 +45,20 @@ RSpec.describe SalesAnalyst do
     expect(@sa.average_average_price_per_merchant.to_f).to eq(90.74)
   end
 
+  it '.average_item_price' do
+    expect(@sa.average_item_price).to eq(0.1536686e3)
+  end
+
+  it 'item_price_standard_deviation' do
+    expect(@sa.item_price_standard_deviation).to eq(204.83)
+  end
+
   it '.golden_items' do
-    golden_items = []
+    items = []
     @sa.golden_items.each do |item|
-      golden_items << item
+      items << item.id
     end
 
-    expect(golden_items).to eq([])
+    expect(items).to eq([263397313, 263397785, 263398653, 263399263, 263400013])
   end
 end
