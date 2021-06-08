@@ -46,6 +46,10 @@ class SalesEngine
     @invoices.total_invoices
   end
 
+  def invoice_repo_invoices_per_day
+    @invoices.invoices_per_day
+  end
+
   def invoice_repo_by_status(status)
     @invoices.invoice_status_total(status)
   end

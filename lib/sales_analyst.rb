@@ -40,8 +40,22 @@ class SalesAnalyst
     bottom_merchants
   end
 
-  # def top_days_by_invoice_count
-  # end
+  def average_invoice_per_day
+    (@se.invoice_repo_total_invoices.to_f / 7).round(2)
+  end
+
+  def average_invoice_per_day_standard_deviation
+    sum = @se.invoice_repo_invoices_per_day.sum do |invoice|
+      (invoice - average_invoice_per_day) ** 2
+    end
+    std_dev = Math.sqrt(sum / (7 - 1))
+    std_dev.round(2)
+  end
+
+  def top_days_by_invoice_count
+    top_days = []
+    
+  end
 
   def invoice_status(status)
     percentage = (@se.invoice_repo_by_status(status) / @se.invoice_repo_total_invoices.to_f) * 100
