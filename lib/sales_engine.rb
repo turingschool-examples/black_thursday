@@ -96,5 +96,9 @@ class SalesEngine
 
   def tranaction_repo_invoice_paid_in_full(invoice_id)
     @transactions.invoice_paid_in_full(invoice_id)
-  end 
+  end
+
+  def invoice_items_repo_invoice_total_by_id(invoice_id)
+    @invoice_items.invoice_total_by_id(invoice_id)
+  end
 end
