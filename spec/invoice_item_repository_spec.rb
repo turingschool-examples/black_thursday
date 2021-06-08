@@ -101,4 +101,8 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item.created_at).to eq(Time.parse('2021-03-27 14:54:09 UTC'))
     end
   end
+
+  it 'can connect unit price to invoice id' do
+    expect(@repo.unit_price_by_invoice_id[2]).to eq([0.1e-1, 0.1e-1, 0.1e-1, 0.1e-1])
+  end
 end
