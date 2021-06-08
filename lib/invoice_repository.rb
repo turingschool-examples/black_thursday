@@ -64,8 +64,10 @@ class InvoiceRepository
     found_invoice = @all.find do |invoice|
       invoice.id == id
     end
-    found_invoice.new_status(attributes)
-    found_invoice.update_time
+    if find_by_id(id) != nil
+      found_invoice.new_status(attributes)
+      found_invoice.update_time
+    end
   end
 
   def delete(id)
