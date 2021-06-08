@@ -33,8 +33,13 @@ class TransactionRepository
     end
   end
 
+  def find_by_id(id)
+    find_with_id(id, @all)
+  end
 
-
-
-
+  def find_all_by_invoice_id(id)
+    @all.find_all do |transaction|
+      transaction.invoice_id == id
+    end
+  end
 end
