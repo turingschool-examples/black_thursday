@@ -1,6 +1,8 @@
 require_relative '../lib/modules/timeable'
 
 class Transaction
+  include Timeable
+
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
@@ -8,8 +10,6 @@ class Transaction
               :result,
               :created_at,
               :updated_at
-
-  include Timeable
 
   def initialize(data)
     @id = data[:id].to_i

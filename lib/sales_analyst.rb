@@ -66,7 +66,7 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     merch_low_count = merch_invoices_hash.select do |merch_id, invoices|
-      invoices.length < (average_invoices_per_merchant +
+      invoices.length < (average_invoices_per_merchant -
         (2 * average_invoices_per_merchant_standard_deviation))
     end
     merch_low_count.keys.map do |merch_id|
@@ -88,6 +88,65 @@ class SalesAnalyst
     ((invoices.length / @engine.invoices.all.length.to_f) * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    transaction = @engine.transactions.find_all_by_invoice_id(invoice_id)
+    transaction.any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    total = invoice_items.sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
+
+  def total_revenue_by_date(date)
+    invoice_ids = @engine.invoices.find_all_by_date(date).map do |invoice|
+      invoice.id
+    end
+    invoice_ids.sum do |id|
+      revenue_by_invoice_hash[id]
+    end
+  end
+
+  def top_revenue_earners(num = 20)
+    sorted = revenue_by_merchant_id_hash.max_by(num) do |merch, rev|
+      rev
+    end
+    merch_id = sorted.map do |array|
+      array[0]
+    end
+    return_merch_obj(merch_id)
+  end
+
+  def merchants_with_pending_invoices
+    merchant_id = pending_invoices.map do |invoice|
+      invoice.merchant_id
+    end
+    return_merch_obj(merchant_id)
+  end
+
+  def merchants_with_only_one_item
+    merchants = []
+    merchants_with_one_item_hash.each do |merch, item|
+      merchants << merch
+    end
+    return_merch_obj(merchants)
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merch_month = []
+    merchants_with_one_item_hash.each do |merch, item|
+      merch_month << merch if item[0].created_at.month == month_to_number(month)
+    end
+    return_merch_obj(merch_month)
+  end
+
+  def revenue_by_merchant(merch_id)
+    revenue_by_merchant_id_hash[merch_id]
+  end
 ###### Helper Methods
   def average_price_per_item
     average_mean(item_price_set.sum, item_price_set.length)
@@ -107,17 +166,10 @@ class SalesAnalyst
     end
     average_invoices_per_day_std_dev = Math.sqrt(numerator / 6.0).round(2)
   end
-  
+
   def return_merch_obj(merch_id)
     @engine.merchants.all.select do |merchant|
       merch_id.include?(merchant.id)
-    end 
-  end 
-    
-  def bottom_merchants_by_invoice_count ###
-    merch_high_count = merch_invoices_hash.select do |merch_id, invoices|
-       # 5 invoices < 1.67 mean + (2 * .58 std dev))
-      invoices.length < (average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation))
     end
   end
 
@@ -153,75 +205,13 @@ class SalesAnalyst
       !invoice_id_with_successful_payments.include?(invoice.id)
     end
   end
+
+  def month_to_number(month)
+    number = nil
+    month_name_to_number_hash.each do |name, num|
+      number = num if month == name
+    end
+    number
+  end
 ##########
-########## Iteration 4
-  def total_revenue_by_date(date)
-    invoice_ids = @engine.invoices.find_all_by_date(date).map do |invoice|
-      invoice.id
-    end
-    invoice_ids.sum do |id|
-      revenue_by_invoice_hash[id]
-    end
-  end
-
-  def top_revenue_earners(num)
-    sorted = revenue_by_merchant_id_hash.max_by(2) do |merch, rev|
-      rev
-    end
-    merch_id = sorted.map do |array|
-      array[0]
-    end
-    return_merch_obj(merch_id)
-  end
-
-
-  def top_revenue_earners
-    sorted = revenue_by_merchant_id_hash.max_by(20) do |merch, rev|
-      rev
-    end
-    merch_id = sorted.map do |array|
-      array[0]
-    end
-    return_merch_obj(merch_id)
-  end
-
-  def merchants_with_pending_invoices
-    merchant_id = pending_invoices.map do |invoice|
-      invoice.merchant_id
-    end
-    return_merch_obj(merchant_id)
-  end
-
-  def merchants_with_only_one_item
-    merchants = []
-    merch_items_hash.each do |merch, item|
-      merchants << merch if item.count == 1
-    end
-    return_merch_obj(merchants)
-  end
-
-  def merchants_with_only_one_item_registered_in_month(month)
-    num = month_to_num_hash.find do |name, num|
-      month == name
-    end
-  end
-
-  def invoice_paid_in_full?(invoice_id)
-    transaction = @engine.transactions.find_all_by_invoice_id(invoice_id)
-
-    transaction.any? do |transaction|
-      transaction.result == :success
-    end
-  end
-
-  def invoice_total(invoice_id) #invoice_id(2)
-    invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
-    # item_id(1) * qty(10) @ unit_price(0.1e2)
-    # item_id(2) * qty(10) @ unit_price(0.12e2)
-    # item_id(4) * qty(1) @ unit_price(0.2e2)
-    total = invoice_items.sum do |invoice_item|
-      invoice_item.unit_price * invoice_item.quantity
-    end
-    # => 0.24e3
-  end
 end

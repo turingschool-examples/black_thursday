@@ -11,10 +11,10 @@ class InvoiceRepository
 
   def initialize(path)
     @all = []
-    create_invoices(path)
+    create_objects(path)
   end
 
-  def create_invoices(path)
+  def create_objects(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       invoice = Invoice.new(row)
       @all << invoice
@@ -39,7 +39,7 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     @all.find_all do |invoice|
-      invoice.status == status
+      invoice.status == status.to_sym
     end
   end
 

@@ -71,4 +71,10 @@ module Hashable
     end
     merch_revenue
   end
+
+  def merchants_with_one_item_hash
+    merch_items_hash.select do |merch, item|
+      item.count == 1
+    end
+  end
 end
