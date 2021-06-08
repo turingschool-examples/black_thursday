@@ -60,6 +60,14 @@ class InvoiceRepository
     @all.delete(find_by_id(id))
   end
 
+  def invoice_id_by_merchant_id
+    merchant_id_to_invoice_id = Hash.new{|hash, key| hash[key] = Array.new}
+    @all.each do |invoice|
+      merchant_id_to_invoice_id[invoice.merchant_id] << invoice.id
+    end
+    merchant_id_to_invoice_id
+  end
+
   # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
