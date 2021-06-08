@@ -86,4 +86,9 @@ RSpec.describe TransactionRepository do
     expect(@repo.invoice_paid_in_full(1752)).to eq(false)
     expect(@repo.invoice_paid_in_full(500000)).to eq(false)
   end
+
+  it 'returns all invoices pending' do
+    expect(@repo.pending_transactions.length).to eq(42)
+  end
+
 end
