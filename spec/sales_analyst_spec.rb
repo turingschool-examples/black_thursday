@@ -85,4 +85,10 @@ RSpec.describe SalesAnalyst do
 
     expect(items).to eq([263397313, 263397785, 263398653, 263399263, 263400013])
   end
+
+  it '.invoice_paid_in_full' do
+    expect(@sa.invoice_paid_in_full?(2179)).to eq(true)
+    expect(@sa.invoice_paid_in_full?(1752)).to eq(false)
+    expect(@sa.invoice_paid_in_full?(500000)).to eq(false)
+  end
 end
