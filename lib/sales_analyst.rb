@@ -7,16 +7,17 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    @se.revenue_by_date(date)[date].sum
+    @se.revenue_by_date(date)[date]
   end
 
   def top_revenue_earners(number = 20)
-    top_earners = @se.price_by_merchant.max_by(number) do |merchant, unit_price|
-      unit_price
+    top_earners = @se.price_by_merchant.max_by(number) do |merchant, revenue|
+      revenue
     end
     top_earners.flat_map do |earner_pair|
       earner_pair.first
     end
+    require "pry"; binding.pry
   end
 
   def average_invoices_per_merchant

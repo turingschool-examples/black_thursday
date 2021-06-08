@@ -24,7 +24,7 @@ RSpec.describe SalesAnalyst do
     date = Time.parse("2009-02-07")
     expected = @sa.total_revenue_by_date(date)
 
-    expect(expected).to eq 0.1300042e5
+    expect(expected).to eq 0.8600264e5
     expect(expected.class).to eq BigDecimal
   end
 
@@ -45,12 +45,13 @@ RSpec.describe SalesAnalyst do
     first = expected.first
     last = expected.last
 
-    expect(expected.length).to eq 10
+    expect(expected.length).to eq 8
 
     expect(first.class).to eq Merchant
     expect(first.id).to eq 33333
 
     expect(last.class).to eq Merchant
+    expect(last.id).to eq 44444
   end
   it 'calculates average invoice per merchant' do
     expect(@sa.average_invoices_per_merchant).to eq(1.04)

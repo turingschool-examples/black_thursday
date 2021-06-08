@@ -42,15 +42,15 @@ RSpec.describe SalesEngine do
     expect(@se.customers).to be_a(CustomerRepository)
   end
 
-  it 'can store invoice item prices by date' do
-    expect(@se.revenue_by_date(Time.parse('2009-02-07'))).to eq({Time.parse('2009-02-07') => [0.5e-1, 0.1e0, 0.1e0, 0.15e0, 0.1e-1, 0.1e-1, 0.5e4, 0.8e4]})
+  it 'can store invoice item total price by date' do
+    expect(@se.revenue_by_date(Time.parse('2009-02-07'))).to eq({Time.parse('2009-02-07') => 0.8600264e5})
   end
 
-  it 'can connect unit prices to merchant ids' do
-    expect(@se.total_unit_price_by_merchant_id[22222]).to eq(0.4e-1)
+  it 'can connect total invoice prices to merchant ids' do
+    expect(@se.total_unit_price_by_merchant_id[11111]).to eq([0.8600264e5])
   end
 
-  it 'can connect total unit price to merchant instance' do
+  it 'can connect total price to merchant instance' do
     @se.price_by_merchant.each do |merchant, price|
       expect(merchant).to be_a(Merchant)
     end
