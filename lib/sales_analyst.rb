@@ -120,4 +120,7 @@ class SalesAnalyst
     end
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    @se.tranaction_repo_invoice_paid_in_full(invoice_id)
+  end
 end
