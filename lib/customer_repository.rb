@@ -1,9 +1,11 @@
 require 'csv'
 require_relative '../lib/customer'
 require_relative '../lib/modules/findable'
+require_relative '../lib/modules/crudable'
 
 class CustomerRepository
   include Findable
+  include Crudable
   attr_reader :all
 
   def initialize(path)
@@ -35,22 +37,14 @@ class CustomerRepository
   end
 
   def create(attributes)
-    new_id = @all.max_by do |customer|
-      customer.id
-    end
-    attributes[:id] = new_id.id + 1
-    customer = Customer.new(attributes)
-    @all << customer
-    customer
+    create_new(attributes, Customer)
   end
 
   def update(id, attributes)
-    customer = find_by_id(id)
-    return customer.update(attributes) unless customer.nil?
+    update_new(id, attributes)
   end
 
   def delete(id)
-    delete_item = find_by_id(id)
-    @all.delete(delete_item)
+    delete_new(id)
   end
 end

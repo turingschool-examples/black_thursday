@@ -2,9 +2,11 @@ require 'csv'
 require 'bigdecimal'
 require_relative '../lib/invoice'
 require_relative '../lib/modules/findable'
+require_relative '../lib/modules/crudable'
 
 class InvoiceRepository
   include Findable
+  include Crudable
   attr_reader :all
 
   def initialize(path)
@@ -48,24 +50,14 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    new_invoice_id = @all.max_by do |invoice|
-      invoice.id
-    end
-
-    attributes[:id] = new_invoice_id.id + 1
-
-    invoice = Invoice.new(attributes)
-    @all << invoice
-    invoice
+    create_new(attributes, Invoice)
   end
 
   def update(id, attributes)
-    invoice = find_by_id(id)
-    return invoice.update(attributes) unless invoice.nil?
+    update_new(id, attributes)
   end
 
   def delete(id)
-    delete_item = find_by_id(id)
-    @all.delete(delete_item)
+    delete_new(id)
   end
 end

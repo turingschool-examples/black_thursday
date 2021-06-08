@@ -1,8 +1,12 @@
 require 'csv'
 require 'bigdecimal'
 require_relative '../lib/transaction'
+require_relative '../lib/modules/findable'
+require_relative '../lib/modules/crudable'
 
 class TransactionRepository
+  include Findable
+  include Crudable
   attr_reader :all
 
   def initialize(path)
@@ -46,24 +50,14 @@ class TransactionRepository
   end
 
   def create(attributes)
-    new_id = @all.max_by do |transaction|
-      transaction.id
-    end
-
-    attributes[:id] = new_id.id + 1
-
-    transaction = Transaction.new(attributes)
-    @all << transaction
-    transaction
+    create_new(attributes, Transaction)
   end
 
   def update(id, attributes)
-    transaction = find_by_id(id)
-    return transaction.update(attributes) unless transaction.nil?
+    update_new(id, attributes)
   end
 
   def delete(id)
-    delete_transaction = find_by_id(id)
-    @all.delete(delete_transaction)
+    delete_new(id)
   end
 end
