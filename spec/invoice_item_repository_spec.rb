@@ -51,7 +51,7 @@ RSpec.describe InvoiceItemRepository do
 
     it "generates InvoiceItemRepository " do
       expect(@invoice_item1.id).to eq(1)
-      expect(@invoice_item1.item_id).to eq(263519844)
+      expect(@invoice_item1.item_id).to eq(01)
       expect(@invoice_item1.invoice_id).to eq(1)
       expect(@invoice_item1.quantity).to eq(5)
       expect(@invoice_item1.unit_price).to eq(13635)
@@ -61,6 +61,18 @@ RSpec.describe InvoiceItemRepository do
       expect(@iir.find_by_id(1)).to eq(@invoice_item1)
       expect(@iir.find_by_id(2)).to eq(@invoice_item2)
       expect(@iir.find_by_id(1000000)).to eq(nil)
+    end
+
+    it 'finds all invoices by customer id or return []' do
+      expect(@iir.find_all_by_item_id(01)).to eq([@invoice_item1])
+      expect(@iir.find_all_by_item_id(02)).to eq([@invoice_item2])
+      expect(@iir.find_all_by_item_id(1000000)).to eq([])
+    end
+
+    it 'finds all invoices by customer id or return []' do
+      expect(@iir.find_all_by_invoice_id(01)).to eq([@invoice_item1])
+      expect(@iir.find_all_by_invoice_id(02)).to eq([@invoice_item2])
+      expect(@iir.find_all_by_invoice_id(1000000)).to eq([])
     end
   end
 end
