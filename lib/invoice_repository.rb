@@ -61,7 +61,7 @@ class InvoiceRepository
   end
 
   def invoice_id_by_merchant_id
-    merchant_id_to_invoice_id = Hash.new{|hash, key| hash[key] = Array.new}
+    merchant_id_to_invoice_id = Hash.new{|h,k| h[k] = Array.new}
     @all.each do |invoice|
       merchant_id_to_invoice_id[invoice.merchant_id] << invoice.id
     end
