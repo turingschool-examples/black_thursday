@@ -17,7 +17,6 @@ class SalesAnalyst
     top_earners.flat_map do |earner_pair|
       earner_pair.first
     end
-    require "pry"; binding.pry
   end
 
   def average_invoices_per_merchant
@@ -140,5 +139,15 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     @se.invoice_items_repo_invoice_total_by_id(invoice_id)
+  end
+
+  def merchants_with_only_one_item
+    single_item_merchants = []
+    @se.item_repo_group_items_by_merchant.each do |key, value|
+      if value.length == 1
+        single_item_merchants << key
+      end
+    end
+    single_item_merchants
   end
 end
