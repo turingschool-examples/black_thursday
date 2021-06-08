@@ -17,9 +17,9 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find an invoice by id' do
-  expect(@repo.find_by_id(1).merchant_id).to eq(12335938)
+  expect(@repo.find_by_id(1).merchant_id).to eq(11111)
   expect(@repo.find_by_id(200)).to eq(nil)
-  expect(@repo.find_by_id(3).merchant_id).to eq(12335955)
+  expect(@repo.find_by_id(3).merchant_id).to eq(33333)
   end
 
   it 'can find all invoices by customer id' do
@@ -39,7 +39,7 @@ RSpec.describe InvoiceRepository do
       invoice_id << invoice.id
     end
 
-    expect(invoice_id).to eq([3, 13])
+    expect(invoice_id).to eq([13])
 
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
@@ -94,5 +94,5 @@ RSpec.describe InvoiceRepository do
 
       expect(@repo.all.length).to eq(49)
       expect(@repo.find_by_id(2)).to eq(nil)
-    end 
+    end
 end
