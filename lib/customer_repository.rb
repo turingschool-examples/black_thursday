@@ -12,7 +12,7 @@ class CustomerRepository
 
   def create_repo
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      customer = CustomerRepository.new(row, self)
+      customer = Customer.new(row, self)
       @customers << customer
     end
     self
@@ -33,13 +33,13 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-    customers.find do |customer|
+    customers.find_all do |customer|
       customer.first_name == first_name
     end
   end
 
   def find_all_by_last_name(last_name)
-    customers.find do |customer|
+    customers.find_all do |customer|
       customer.last_name == last_name
     end
   end
@@ -55,7 +55,7 @@ class CustomerRepository
     if customer_by_id != nil
       customer_by_id.change_first_name(attributes[:first_name])
       customer_by_id.change_last_name(attributes[:last_name])
-      customer_by_id.update_at(attributes[:update_at])
+      customer_by_id.update_time
     end
   end
 

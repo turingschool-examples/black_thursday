@@ -20,4 +20,12 @@ class Customer
   def update_time
     @updated_at = Time.now
   end
+
+  def change_first_name(first_name)
+    @first_name = first_name
+  end
+
+  def change_last_name(last_name)
+    @last_name = last_name
+  end
 end
