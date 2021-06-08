@@ -117,7 +117,7 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can find the average invoices per merchant' do
-      expect(@analyst.average_invoices_per_merchant).to eq(0.25)
+      expect(@analyst.average_invoices_per_merchant).to eq(1.0)
     end
 
     it 'can group the number of invoices per merchant' do
@@ -127,48 +127,48 @@ RSpec.describe SalesAnalyst do
         @se.merchants.all[2] => 1,
         @se.merchants.all[3] => 1,
         @se.merchants.all[4] => 1,
-        @se.merchants.all[5] => 0,
-        @se.merchants.all[6] => 0,
-        @se.merchants.all[7] => 0,
-        @se.merchants.all[8] => 0,
-        @se.merchants.all[9] => 0,
-        @se.merchants.all[10] => 0,
-        @se.merchants.all[11] => 0,
-        @se.merchants.all[12] => 0,
-        @se.merchants.all[13] => 0,
-        @se.merchants.all[14] => 0,
-        @se.merchants.all[15] => 0,
-        @se.merchants.all[16] => 0,
-        @se.merchants.all[17] => 0,
-        @se.merchants.all[18] => 0,
-        @se.merchants.all[19] => 0
+        @se.merchants.all[5] => 1,
+        @se.merchants.all[6] => 1,
+        @se.merchants.all[7] => 1,
+        @se.merchants.all[8] => 1,
+        @se.merchants.all[9] => 1,
+        @se.merchants.all[10] => 1,
+        @se.merchants.all[11] => 1,
+        @se.merchants.all[12] => 1,
+        @se.merchants.all[13] => 1,
+        @se.merchants.all[14] => 1,
+        @se.merchants.all[15] => 1,
+        @se.merchants.all[16] => 1,
+        @se.merchants.all[17] => 1,
+        @se.merchants.all[18] => 1,
+        @se.merchants.all[19] => 1
       }
       expect(@analyst.invoices_per_merchant).to eq(expected)
     end
 
     it 'can calculate standard deviation for invoices per merchant' do
-      expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq(0.44)
+      expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq(0.0)
     end
 
     it 'can calculate the merchants with high invoice count' do
 
-      expect(@analyst.top_merchants_by_invoice_count).to eq([])
+      expect(@analyst.top_merchants_by_invoice_count).to eq(@se.merchants.all)
     end
 
     it 'can calculate the merchants with low invoice count' do
 
-      expect(@analyst.bottom_merchants_by_invoice_count).to eq([])
+      expect(@analyst.bottom_merchants_by_invoice_count).to eq(@se.merchants.all)
     end
 
     it 'can find the mean for invoices created per day' do
-      expected = {6 => 2, 5 => 1, 3 => 1, 1 => 1}
+      expected = {6 => 5, 5 => 6, 3 => 1, 1 => 4, 0 => 1, 2 => 2, 4 => 1}
 
       expect(@analyst.invoices_per_day_of_the_week).to eq(expected)
-      expect(@analyst.average_invoices_per_weekday).to eq(1)
+      expect(@analyst.average_invoices_per_weekday).to eq(2)
     end
 
     it 'can calculate standard deviation for invoices per week' do
-      expect(@analyst.average_invoices_per_weekday_standard_deviation).to eq(0.58)
+      expect(@analyst.average_invoices_per_weekday_standard_deviation).to eq(2.31)
     end
 
     it 'can tranfrom weekday values' do
@@ -179,14 +179,14 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can find top days by invoice count' do
-      expected = ["Saturday"]
+      expected = ["Saturday", "Friday"]
 
       expect(@analyst.top_days_by_invoice_count).to eq(expected)
     end
 
     it 'can find percentage of invoice statuses' do
-      expect(@analyst.invoice_status(:pending)).to eq(60.0)
-      expect(@analyst.invoice_status(:shipped)).to eq(40.0)
+      expect(@analyst.invoice_status(:pending)).to eq(45.0)
+      expect(@analyst.invoice_status(:shipped)).to eq(55.0)
       expect(@analyst.invoice_status(:returned)).to eq(0.0)
     end
   end
