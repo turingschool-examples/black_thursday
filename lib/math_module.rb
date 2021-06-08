@@ -36,8 +36,8 @@ module MathModule
     standard_dev(values, x)
   end
 
-  def tranform_weekday_values(array)
-    array.map do |day|
+  def tranform_weekday_values(collection)
+    collection.map do |day|
        Date::DAYNAMES[day]
      end
   end

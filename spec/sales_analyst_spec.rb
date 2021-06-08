@@ -160,6 +160,24 @@ RSpec.describe SalesAnalyst do
       expect(@analyst.bottom_merchants_by_invoice_count).to eq([])
     end
 
+    it 'can find the mean for invoices created per day' do
+      expected = {6 => 2, 5 => 1, 3 => 1, 1 => 1}
+
+      expect(@analyst.invoices_per_day_of_the_week).to eq(expected)
+      expect(@analyst.average_invoices_per_weekday).to eq(1)
+    end
+
+    it 'can calculate standard deviation for invoices per week' do
+      expect(@analyst.average_invoices_per_weekday_standard_deviation).to eq(0.58)
+    end
+
+    it 'can tranfrom weekday values' do
+      values = [1, 6]
+      expected = ["Monday", "Saturday"]
+
+      expect(@analyst.tranform_weekday_values(values)).to eq(expected)
+    end
+
     it 'can find top days by invoice count' do
       expected = ["Saturday"]
 
@@ -167,10 +185,9 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'can find percentage of invoice statuses' do
-      @analyst.invoice_status(:pending)
-      # expect(@analyst.invoice_status(:pending)).to eq(1.0)
-      # expect(@analyst.invoice_status(:shipped)).to eq(1.0)
-      # expect(@analyst.invoice_status(:returned)).to eq(1.0)
+      expect(@analyst.invoice_status(:pending)).to eq(60.0)
+      expect(@analyst.invoice_status(:shipped)).to eq(40.0)
+      expect(@analyst.invoice_status(:returned)).to eq(0.0)
     end
   end
 end

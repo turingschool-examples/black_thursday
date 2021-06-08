@@ -131,10 +131,9 @@ class SalesAnalyst
 
   def invoice_status(shipping_status)
     invoice_status = []
-    @engine.invoices.all do |invoice|
-      require "pry"; binding.pry
+    @engine.invoices.all.each do |invoice|
       invoice_status << invoice if invoice.status == shipping_status
     end
-    percentage = (invoice_status.length.to_f / @engine.invoices.all.length).round(2)
+    percentage = ((invoice_status.length.to_f / @engine.invoices.all.length) * 100).round(2)
   end
 end
