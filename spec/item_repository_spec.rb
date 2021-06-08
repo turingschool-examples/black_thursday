@@ -132,4 +132,46 @@ RSpec.describe ItemRepository do
     dollars = @repo.find_by_id(263401045).unit_price_to_dollars
     expect(dollars).to eq(25.0)
   end
+
+  it 'groups items by merchant' do
+    merchants = @repo.group_items_by_merchant
+    item_ids_by_merchant = Hash.new { |key, value| key[value] = [] }
+
+    merchants.each do |merchant, items|
+      items.each do |item|
+        expect(item).to be_a(Item)
+        item_ids_by_merchant[merchant] << item.id
+      end
+    end
+
+    expect(item_ids_by_merchant[12334185]).to eq([263395617, 263395721, 263396013])
+  end
+
+  it '.items_per_merchant' do
+    expect(@repo.items_per_merchant[1]).to eq(3)
+  end
+
+  it 'returns the number of merchants' do
+    expect(@repo.number_of_merchants).to eq(24)
+  end
+
+  it 'returns total number of items' do
+    expect(@repo.total_items).to eq(50)
+  end
+
+  it 'returns total merchant items by merchant' do
+    expect(@repo.total_items_by_merchant(12334195)).to eq(12)
+  end
+
+  it 'returns price total by merchant' do
+    expect(@repo.merchant_price_sum(12334195)).to eq(BigDecimal(5398))
+  end
+
+  it 'returns sum of all item prices' do
+    expect(@repo.items_total_price).to eq(0.768343e4)
+  end
+
+  it 'returns all items by price' do
+    expect(@repo.all_items_by_price.length).to eq(50)
+  end
 end
