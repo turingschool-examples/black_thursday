@@ -66,10 +66,13 @@ class InvoiceItemRepository
     end
   end
 
-  def unit_price_by_invoice_id
+  def total_unit_price_by_invoice_id
     invoice_id_to_price = Hash.new{|hash, key| hash[key] = Array.new}
     @all.each do |invoice_item|
       invoice_id_to_price[invoice_item.invoice_id] << invoice_item.unit_price
+    end
+    invoice_id_to_price.each do |invoice_id, unit_price|
+      invoice_id_to_price[invoice_id] = unit_price.sum
     end
     invoice_id_to_price
   end
