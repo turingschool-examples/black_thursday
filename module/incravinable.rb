@@ -43,7 +43,4 @@ module Incravinable
     collection.delete(to_delete)
   end
 
-  def time_update
-    @updated_at = Time.now
-  end
 end

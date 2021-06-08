@@ -1,4 +1,4 @@
-require './module/incravinable'
+require_relative '../module/incravinable'
 
 class InvoiceRepository
 
@@ -62,9 +62,8 @@ class InvoiceRepository
     found_invoice = @all.find do |invoice|
       invoice.id == id
     end
-    # require "pry"; binding.pry
     found_invoice.new_status(attributes)
-    found_invoice.time_update
+    found_invoice.update_time
   end
 
   def delete(id)
