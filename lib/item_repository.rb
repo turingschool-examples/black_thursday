@@ -76,4 +76,48 @@ class ItemRepository
   def delete(id)
     @all.delete(find_by_id(id))
   end
+
+  def group_items_by_merchant
+    @all.group_by do |item|
+      item.merchant_id
+    end
+  end
+
+  def items_per_merchant
+    merchant_items_total = []
+    group_items_by_merchant.each do |merchant, items|
+      merchant_items_total << items.length
+    end
+    merchant_items_total
+  end
+
+  def number_of_merchants
+    items_per_merchant.length
+  end
+
+  def total_items
+    @all.length
+  end
+
+  def total_items_by_merchant(merchant_id)
+    group_items_by_merchant[merchant_id].length
+  end
+
+  def merchant_price_sum(merchant_id)
+    group_items_by_merchant[merchant_id].sum do |item|
+      item.unit_price
+    end
+  end
+
+  def items_total_price
+    @all.sum do |item|
+      item.unit_price
+    end
+  end
+
+  def all_items_by_price
+    @all.map do |item|
+      item.unit_price
+    end
+  end
 end
