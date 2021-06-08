@@ -154,18 +154,10 @@ RSpec.describe ItemRepository do
     end
 
     it 'can delete an item with the corresponding id' do
-      path = "fixture/item_fixture.csv"
-      item_repo = ItemRepository.new(path)
-
       id = 263396209
       item_repo.delete(id)
       expect(item_repo.all.last.id).to eq(263396013)
       expect(item_repo.all.last.name).to eq("Free standing Woden letters")
-    end
-
-    xit 'returns all items via merchant id' do 
-      
-      expect(@item_repo.item_count_per_merchant).to be_a(Hash)
     end
   end
 end
