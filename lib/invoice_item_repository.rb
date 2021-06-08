@@ -53,7 +53,8 @@ class InvoiceItemRepository
   end
 
   def delete(id)
-    delete_item = find_by_id(id)
-    @all.delete(delete_item)
+    delete_new(id)
+    # delete_item = find_by_id(id)
+    # @all.delete(delete_item)
   end
 end
