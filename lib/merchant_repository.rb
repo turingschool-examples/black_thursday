@@ -1,9 +1,11 @@
 require 'csv'
 require_relative '../lib/merchant'
 require_relative '../lib/modules/findable'
+require_relative '../lib/modules/crudable'
 
 class MerchantRepository
   include Findable
+  include Crudable
   attr_reader :all
 
   def initialize(path)
@@ -28,13 +30,8 @@ class MerchantRepository
     end
   end
 
-  def create(attribute)
-    new_id = @all.max_by do |merchant|
-      merchant.id
-    end
-    merchant = Merchant.new({:id => new_id.id + 1, :name => attribute[:name]})
-    @all << merchant
-    merchant
+  def create(attributes)
+    create_new(attributes, Merchant)
   end
 
   def update(id, attributes)
