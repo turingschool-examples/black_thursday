@@ -150,4 +150,14 @@ class SalesAnalyst
     end
     single_item_merchants
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    single_item_merchants = []
+    @se.group_items_by_merchant_instance.each do |merchant, items|
+      if (items.length == 1) && (merchant.created_at.strftime('%B') == month)
+        single_item_merchants << merchant
+      end
+    end
+    single_item_merchants
+  end
 end

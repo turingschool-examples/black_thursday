@@ -147,4 +147,12 @@ RSpec.describe SalesAnalyst do
     expect(@sa.merchants_with_only_one_item.first).to be_a(Merchant)
     expect(@sa.merchants_with_only_one_item.last).to be_a(Merchant)
   end
+
+  it 'can find merchants with only one item by month' do
+    expect(@sa.merchants_with_only_one_item_registered_in_month('May').first).to be_a(Merchant)
+
+    @sa.merchants_with_only_one_item_registered_in_month('May').each do |merchant|
+      merchant.created_at.strftime('%B') == 'May'
+    end
+  end
 end
