@@ -67,18 +67,39 @@ class InvoiceRepository
   end
 
   def invoices_per_merchant
-    merchants = group_invoices_by_merchant
-    merchants.each do |merchant, invoice|
-      merchants[merchant] = invoice.length
+    merchant_invoices_total = []
+    group_invoices_by_merchant.each do |merchant, invoices|
+      merchant_invoices_total << invoices.length
     end
-    merchants
+    merchant_invoices_total
   end
 
-  def invoice_status(status)
+  def number_of_merchants
+    invoices_per_merchant.length
+  end
+
+  def total_invoices
+    @all.length
+  end
+
+  # def group_invoices_by_created_date
+  #   @all.group_by do |invoice|
+  #     invoice.created_at.wday
+  #   end
+  # end
+
+  # def invoices_by_created_date
+  #   day_of_week_invoice_total = {}
+  #   group_invoices_by_created_date.each do |created_at, invoices|
+  #     day_of_week_invoice_total[created_at] = invoices.length
+  #   end
+  #   day_of_week_invoice_total
+  # end
+
+  def invoice_status_total(status)
     @all.select do |invoice|
       invoice.status == status
-    end.count / @all.count.to_f * 100
-    round(2)
+    end.count
   end
 
   # :nocov:

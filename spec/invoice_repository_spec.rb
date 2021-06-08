@@ -90,30 +90,43 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can delete the invoice by id' do
-      @repo.delete(2)
+    @repo.delete(2)
 
-      updated_all = []
-      @repo.all.each do |invoice|
-        updated_all << invoice.merchant_id
-      end
-        expect(updated_all).to eq([101, 103])
+    expect(@repo.all.length).to eq(49)
+    expect(@repo.find_by_id(2)).to eq(nil)
   end
 
-  it 'shows invoices grouped by merchant' do
+  xit 'shows invoices grouped by merchant' do
     customer_id = []
-    @repo.invoices_by_merchant.each do |merchant, invoice|
-      customer_id << invoice.customer_id
+    @repo.group_invoices_by_merchant.each do |merchant, invoice|
+      customer_id << invoice
     end
 
     expect(customer_id).to eq([])
   end
 
-  it 'shows invoice per merchants' do
-    expect(@repo.invoices_per_merchant).to eq(12.2)
+  it 'returns invoice count per merchants' do
+    expect(@repo.invoices_per_merchant[5]).to eq(1)
   end
 
-  it 'shows total invoice by merchant' do
-    expect(@repo.invoice_status(:pending)).to eq(33.33)
+  it 'returns the number of merchants'do
+    expect(@repo.number_of_merchants).to eq(46)
+  end
+
+  it 'returns total number of invoices' do
+    expect(@repo.total_invoices).to eq(50)
+  end
+
+  xit 'groups invoices by created date' do
+    expect(@repo.group_invoices_by_created_date).to eq()
+  end
+
+  xit 'returns invoice count per day created' do
+    expect(@repo.invoices_by_created_date.keys).to eq([0, 1, 2, 3, 4, 5, 6])
+  end
+
+  it 'returns total invoice per status' do
+    expect(@repo.invoice_status_total(:pending)).to eq(17)
   end
 
 end
