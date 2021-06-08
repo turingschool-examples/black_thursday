@@ -10,7 +10,7 @@ RSpec.describe InvoiceItemRepository do
         invoices: 'spec/fixtures/invoices.csv'
         })
 
-        iir = InvoiceItemRepository.new('spec/fixtures/invoice_item.csv', se)
+        iir = InvoiceItemRepository.new('spec/fixtures/invoice_items.csv', se)
         # invoice_item = sales_engine.invoice_items.find_by_id(1)
 
         expect(iir).to be_a(InvoiceItemRepository)
@@ -26,7 +26,7 @@ RSpec.describe InvoiceItemRepository do
         invoices: 'spec/fixtures/invoices.csv'
         })
 
-        @iir = InvoiceItemRepository.new('spec/fixtures/items.csv', @sales_engine)
+        @iir = InvoiceItemRepository.new('spec/fixtures/invoice_items.csv', @sales_engine)
         @invoice_item1 = @iir.all[0]
         @invoice_item2 = @iir.all[1]
         @invoice_item3 = @iir.all[2]
@@ -55,6 +55,12 @@ RSpec.describe InvoiceItemRepository do
       expect(@invoice_item1.invoice_id).to eq(1)
       expect(@invoice_item1.quantity).to eq(5)
       expect(@invoice_item1.unit_price).to eq(13635)
+    end
+
+    it 'finds invoice_item by id or return nil' do
+      expect(@iir.find_by_id(1)).to eq(@invoice_item1)
+      expect(@iir.find_by_id(2)).to eq(@invoice_item2)
+      expect(@iir.find_by_id(1000000)).to eq(nil)
     end
   end
 end
