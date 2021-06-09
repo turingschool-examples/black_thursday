@@ -11,11 +11,11 @@ class Transaction
   def initialize(transaction_data, repo)
     @id                          = transaction_data[:id].to_i
     @invoice_id                  = transaction_data[:invoice_id].to_i
-    @credit_card_number          = transaction_data[:credit_card_number].to_i
-    @credit_card_expiration_date = transaction_data[:credit_card_expiration_date].to_i
-    @result                      = transaction_data[:result]
-    @created_at                  = transaction_data[:created_at]
-    @updated_at                  = transaction_data[:updated_at]
+    @credit_card_number          = transaction_data[:credit_card_number]
+    @credit_card_expiration_date = transaction_data[:credit_card_expiration_date]
+    @result                      = transaction_data[:result].to_sym
+    @created_at                  = Time.parse(transaction_data[:created_at].to_s)
+    @updated_at                  = Time.parse(transaction_data[:updated_at].to_s)
     @repo                        = repo
   end
 
@@ -25,16 +25,20 @@ class Transaction
 
   def update_cc_number(attribute)
     return nil if attribute == nil
-    @credit_card_number = attribute[:credit_card_number]
+    @credit_card_number = attribute
   end
 
   def update_cc_expiration(attribute)
     return nil if attribute == nil
-    @credit_card_expiration_date = attribute[:credit_card_expiration_date]
+    @credit_card_expiration_date = attribute
   end
 
   def update_result(attribute)
     return nil if attribute == nil
-    @result = attribute[:result]
+    @result = attribute
+  end
+
+  def update_time
+    @updated_at = Time.now
   end
 end

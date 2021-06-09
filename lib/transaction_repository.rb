@@ -65,13 +65,16 @@ class TransactionRepository
   end
 
   def update(id, attributes)
-    found_transaction = @all.find do |transaction|
-      transaction.id == id
+    found_transaction = find_by_id(id)
+    if found_transaction != nil
+      found_transaction.update_cc_number(attributes[:credit_card_number]) unless attributes[:credit_card_number].nil?
+      found_transaction.update_cc_expiration(attributes[:credit_card_expiration_date]) unless attributes[:credit_card_expiration_date].nil?
+      found_transaction.update_result(attributes[:result]) unless attributes[:result].nil?
+      found_transaction.update_time
     end
-    if find_by_id(id) != nil
-      found_transaction.update_cc_number(attributes[:credit_card_number])
-      found_transaction.update_cc_expiration(attributes[:credit_card_expiration_date])
-      found_transaction.update_result(attributes[:result])
-    end
+  end
+
+  def delete(id)
+    remove(id, @all)
   end
 end
