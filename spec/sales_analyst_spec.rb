@@ -203,5 +203,13 @@ RSpec.describe SalesAnalyst do
       expect(@analyst.invoice_status(:shipped)).to eq(55.0)
       expect(@analyst.invoice_status(:returned)).to eq(0.0)
     end
+
+    it 'determine if an invoice in paid in full or not' do
+      invoice1 = @se.transactions.all[0]
+      invoice2 = @se.transactions.all[8]
+
+      expect(@analyst.invoice_paid_in_full?(1)).to be(true)
+      expect(@analyst.invoice_paid_in_full?(9)).to be(false)
+    end
   end
 end
