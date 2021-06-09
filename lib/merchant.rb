@@ -1,3 +1,5 @@
+require_relative '../lib/modules/timeable'
+
 class Merchant
   include Timeable
 

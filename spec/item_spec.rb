@@ -43,6 +43,9 @@ RSpec.describe Item do
 
     expect(i.created_at).to be_a(Time)
     expect(i.updated_at).to be_a(Time)
+    
+    allow(i).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
+    expect(i.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
   end
 
   it 'can update attributes' do

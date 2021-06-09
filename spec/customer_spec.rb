@@ -18,6 +18,7 @@ RSpec.describe Customer do
   it 'exists' do
     expect(@c).to be_an_instance_of(Customer)
   end
+
   it 'has attributes' do
     expect(@c.id).to eq(1)
     expect(@c.first_name).to eq('Jennifer')
@@ -37,6 +38,9 @@ RSpec.describe Customer do
 
     expect(c.created_at).to be_a(Time)
     expect(c.updated_at).to be_a(Time)
+    
+    allow(@c).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
+    expect(@c.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
   end
 
   it 'can update attributes' do

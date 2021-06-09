@@ -35,4 +35,9 @@ RSpec.describe Invoice do
     expect(@i.created_at).to eq(Time.parse(@data[:created_at]))
     expect(@i.updated_at).to eq(Time.parse(@data[:updated_at]))
   end
+
+  it 'can create time' do
+    allow(@i).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
+    expect(@i.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
+  end
 end

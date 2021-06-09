@@ -30,10 +30,15 @@ RSpec.describe InvoiceItem do
     expect(@ii.created_at).to eq(Time.parse('2021-06-11 09:34:06 UTC'))
     expect(@ii.updated_at).to eq(Time.parse('2021-06-11 09:34:06 UTC'))
   end
+
   it 'Can parse time or create time' do
     expect(@ii.created_at).to be_a(Time)
     expect(@ii.updated_at).to be_a(Time)
+
+    allow(@ii).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
+    expect(@ii.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
   end
+
   it 'Can update attributes' do
     @ii.update({
       :quantity => 2,

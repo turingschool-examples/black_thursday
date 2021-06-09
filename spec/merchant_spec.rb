@@ -21,4 +21,9 @@ RSpec.describe Merchant do
 
     expect(@m.name).to eq('Turing School of Witchcraft and Wizardry')
   end
+
+  it 'can create time' do
+    allow(@m).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
+    expect(@m.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
+  end
 end
