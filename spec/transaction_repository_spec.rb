@@ -73,6 +73,7 @@ RSpec.describe TransactionRepository do
       @transaction_repo.create(attributes)
       expect(@transaction_repo.all.length).to eq(11)
       expect(@transaction_repo.all.last.id).to eq(11)
+      expect(@transaction_repo.all.last.credit_card_number).to eq(1111222233334444)
     end
   end
 end
