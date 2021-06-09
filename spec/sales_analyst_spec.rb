@@ -28,9 +28,9 @@ RSpec.describe SalesEngine do
 
   it 'can return a hash of the merchant ids and items' do
     expected = {
-                  5 => @se.items.find_all_by_merchant_id(5),
-                  6 => @se.items.find_all_by_merchant_id(6),
-                  7 => @se.items.find_all_by_merchant_id(7)
+                  @se.merchants.all[0] => @se.items.find_all_by_merchant_id(5),
+                  @se.merchants.all[1] => @se.items.find_all_by_merchant_id(6),
+                  @se.merchants.all[2] => @se.items.find_all_by_merchant_id(7)
                }
 
     expect(@sales_analyst.merch_items_hash).to eq(expected)
@@ -122,17 +122,13 @@ RSpec.describe SalesEngine do
   end
 
 ########### Iteration 4
-  it 'can return a list of invoices with successful payments' do
-    expect(@sales_analyst.invoice_id_with_successful_payments).to eq([1, 2, 3, 4, 5])
-  end
-
   it 'can return revenue by invoice id' do
     expected = {
-                  1 => 10000.0,
-                  2 => 240.0,
-                  3 => 3032.0,
-                  4 => 10888.0,
-                  5 => 810.0
+                  @se.invoices.all[0] => 10000.0,
+                  @se.invoices.all[1] => 240.0,
+                  @se.invoices.all[2] => 3032.0,
+                  @se.invoices.all[3] => 10888.0,
+                  @se.invoices.all[4] => 810.0
                 }
     expect(@sales_analyst.revenue_by_invoice_hash).to eq(expected)
   end
@@ -145,7 +141,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'takes the top 20 merchants by default if no number is given for top_revenue_earners' do
-    expect(@sales_analyst.top_revenue_earners).to eq([@se.merchants.all[0], @se.merchants.all[1], @se.merchants.all[2]])
+    expect(@sales_analyst.top_revenue_earners).to eq([@se.merchants.all[0], @se.merchants.all[2], @se.merchants.all[1]])
   end
 
   it 'can return which merchants have pending invoices' do
@@ -157,7 +153,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return merchants that only sell one item by the month they registered (merchant.created_at)' do
-    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month('June')).to eq([@se.merchants.all[0]])
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month('June')).to eq([@se.merchants.all[0],@se.merchants.all[1]])
   end
 
   it 'can find the total revenue for a single merchant' do
