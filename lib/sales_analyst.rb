@@ -80,7 +80,6 @@ class SalesAnalyst
     percentage.round(2)
   end
 
-
   def average_items_per_merchant
     (@se.item_repo_total_items.to_f / @se.item_repo_total_merchants).round(2)
   end
@@ -159,5 +158,33 @@ class SalesAnalyst
       end
     end
     single_item_merchants
+  end
+
+  def merchant_items_by_total_quantity(merchant_id)
+    items_by_quantity = @se.invoice_items_by_merchant_id(merchant_id).map do |invoice_item|
+      { invoice_item.item_id => invoice_item.quantity }
+    end
+    items_by_quantity.inject({}) do |hash, item|
+      hash.merge!(item) do |key, old_value, new_value|
+        old_value + new_value
+      end
+      hash
+    end
+  end
+
+  def most_sold_item_for_merchant_by_id(merchant_id)
+    biggest_quantity = merchant_items_by_total_quantity(merchant_id).values.max do |id, quantity|
+      quantity
+    end
+    most_items = merchant_items_by_total_quantity(merchant_id).select do |item_id, quantity|
+      quantity == biggest_quantity
+    end
+    most_items.keys
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    most_sold_item_for_merchant_by_id(merchant_id).map do |item_id|
+      @se.item_repo_find_by_id(item_id)
+    end
   end
 end
