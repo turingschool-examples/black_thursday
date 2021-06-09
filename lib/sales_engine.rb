@@ -36,30 +36,6 @@ class SalesEngine
     total_revenue_by_date
   end
 
-  def total_unit_price_by_merchant_id
-    merchant_id_to_invoice_total = Hash.new{|h,k| h[k] = Array.new}
-    @invoices.invoice_id_by_merchant_id.each do |merchant_id, invoice_ids|
-      invoice_ids.each do |invoice_id|
-        if transaction_repo_invoice_paid_in_full(invoice_id) == true
-          merchant_id_to_invoice_total[merchant_id] << invoice_items_repo_invoice_total_by_id(invoice_id)
-        end
-      end
-    end
-    merchant_id_to_invoice_total
-  end
-
-  def price_by_merchant
-    merchant_to_price = {}
-    total_unit_price_by_merchant_id.each do |merchant_id1, prices|
-      @merchants.merchant_instance_by_id.each do |merchant_id2, merchant|
-        if merchant_id1 == merchant_id2
-          merchant_to_price[merchant] = prices.sum
-        end
-      end
-    end
-    merchant_to_price
-  end
-
   def item_repo_group_items_by_merchant
     @items.group_items_by_merchant
   end
@@ -146,5 +122,21 @@ class SalesEngine
       end
     end
     merchant_instance_to_items
+  end
+
+  def merchant_revenue(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id).sum do |invoice|
+      if transaction_repo_invoice_paid_in_full(invoice.id) == true
+        @invoice_items.invoice_total_by_id(invoice.id)
+      else
+        0
+      end
+    end
+  end
+
+  def merchant_total_revenue_to_instance
+    @merchants.all.each_with_object({}) do |merchant, merchant_to_revenue|
+        merchant_to_revenue[merchant] = merchant_revenue(merchant.id)
+    end
   end
 end

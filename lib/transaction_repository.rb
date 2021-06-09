@@ -67,8 +67,8 @@ class TransactionRepository
   def invoice_paid_in_full(invoice_id)
     if find_all_by_invoice_id(invoice_id) == []
       false
-    else 
-      find_all_by_invoice_id(invoice_id).all? do |transaction|
+    else
+      find_all_by_invoice_id(invoice_id).any? do |transaction|
         transaction.result == :success
       end
     end
