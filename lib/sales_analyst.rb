@@ -144,6 +144,12 @@ class SalesAnalyst
     @se.invoice_items_repo_invoice_total_by_id(invoice_id)
   end
 
+  def merchants_with_pending_invoices
+    @se.pending_inovices.map do |invoice|
+      @se.merchant_repo_find_by_id(invoice.merchant_id)
+    end.uniq
+  end
+
   def merchants_with_only_one_item
     single_item_merchants = []
     @se.group_items_by_merchant_instance.each do |key, value|

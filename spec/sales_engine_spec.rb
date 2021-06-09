@@ -42,6 +42,10 @@ RSpec.describe SalesEngine do
     expect(@se.customers).to be_a(CustomerRepository)
   end
 
+  it 'returns all pending invoices' do
+    expect(@se.pending_inovices.length).to eq(44)
+  end
+
   it 'can store invoice item total price by date' do
     expect(@se.revenue_by_date(Time.parse('2009-02-07'))).to eq({Time.parse('2009-02-07') => 0.8600264e5})
   end
@@ -66,4 +70,5 @@ RSpec.describe SalesEngine do
   it 'returns total number of items' do
     expect(@se.item_repo_total_items).to eq(50)
   end
+
 end

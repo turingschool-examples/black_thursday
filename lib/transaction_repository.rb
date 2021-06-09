@@ -58,12 +58,6 @@ class TransactionRepository
     @all.delete(self.find_by_id(id))
   end
 
-  # :nocov:
-  def inspect
-    "#{self.class} #{@transactions.size} rows"
-  end
-  # :nocov:
-
   def invoice_paid_in_full(invoice_id)
     if find_all_by_invoice_id(invoice_id) == []
       false
@@ -73,4 +67,11 @@ class TransactionRepository
       end
     end
   end
+
+  # :nocov:
+  def inspect
+    "#{self.class} #{@transactions.size} rows"
+  end
+  # :nocov:
+
 end

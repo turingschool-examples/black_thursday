@@ -142,6 +142,10 @@ RSpec.describe SalesAnalyst do
     expect(@sa.invoice_total(10)).to eq(0.1e0)
   end
 
+  it 'returns a merchants with pending invoices' do
+    expect(@sa.merchants_with_pending_invoices.length).to eq(44)
+  end
+
   it 'can find merchants with only one item' do
     expect(@sa.merchants_with_only_one_item.first).to be_a(Merchant)
     expect(@sa.merchants_with_only_one_item.last).to be_a(Merchant)

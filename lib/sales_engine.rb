@@ -114,6 +114,14 @@ class SalesEngine
     @invoice_items.invoice_total_by_id(invoice_id)
   end
 
+  def pending_inovices
+    @invoices.all.select do |invoice|
+      if @transactions.invoice_paid_in_full(invoice.id) == false
+        invoice
+      end
+    end
+  end
+
   def group_items_by_merchant_instance
     merchant_instance_to_items = {}
     @items.group_items_by_merchant.each do |merchant_id, items|
