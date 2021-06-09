@@ -2,7 +2,7 @@ require_relative '../lib/modules/timeable'
 
 class InvoiceItem
   include Timeable
-  
+
   attr_reader :id,
               :item_id,
               :invoice_id,
@@ -22,7 +22,7 @@ class InvoiceItem
   end
 
   def update(attributes)
-    @quantity = attributes[:quantity] unless attributes[:quantity].nil?
+    @quantity    = attributes[:quantity] unless attributes[:quantity].nil?
     @unit_price  = BigDecimal(attributes[:unit_price]) unless attributes[:unit_price].nil?
     @updated_at  = update_time('')
   end

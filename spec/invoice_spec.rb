@@ -7,12 +7,12 @@ require 'bigdecimal'
 RSpec.describe Invoice do
   before :each do
     @data = {
-              :id          => 6,
-              :customer_id => 7,
-              :merchant_id => 8,
-              :status      => 'pending',
-              :created_at  => Time.now.to_s,
-              :updated_at  => Time.now.to_s,
+               :id          => 6,
+               :customer_id => 7,
+               :merchant_id => 8,
+               :status      => 'pending',
+               :created_at  => Time.now.to_s,
+               :updated_at  => Time.now.to_s,
             }
 
     @i = Invoice.new(@data)
@@ -34,5 +34,10 @@ RSpec.describe Invoice do
     expect(@i.status).to eq(@data[:status].to_sym)
     expect(@i.created_at).to eq(Time.parse(@data[:created_at]))
     expect(@i.updated_at).to eq(Time.parse(@data[:updated_at]))
+  end
+
+  it 'can create time' do
+    allow(@i).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
+    expect(@i.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
   end
 end

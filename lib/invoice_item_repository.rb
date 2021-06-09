@@ -7,6 +7,7 @@ require_relative '../lib/modules/crudable'
 class InvoiceItemRepository
   include Findable
   include Crudable
+  
   attr_reader :all
 
   def initialize(path)

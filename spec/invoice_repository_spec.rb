@@ -2,7 +2,6 @@ require 'SimpleCov'
 SimpleCov.start
 
 require_relative '../lib/invoice_repository'
-require_relative '../lib/invoice'
 
 RSpec.describe InvoiceRepository do
   before :each do
@@ -47,12 +46,12 @@ RSpec.describe InvoiceRepository do
 
   it 'creates a new instance with attributes' do
     expected = @ir.create({
-                            :customer_id => 3,
-                            :merchant_id => 5,
-                            :status      => 'pending',
-                            :created_at  => Time.now.to_s,
-                            :updated_at  => Time.now.to_s,
-                         })
+                             :customer_id => 3,
+                             :merchant_id => 5,
+                             :status      => 'pending',
+                             :created_at  => Time.now.to_s,
+                             :updated_at  => Time.now.to_s,
+                          })
 
     expect(@ir.all.length).to eq(6)
     expect(expected.id).to eq(6)
@@ -61,7 +60,7 @@ RSpec.describe InvoiceRepository do
 
   it 'finds invoice by ID and updates attributes' do
     data = {
-              :status => 'shipped',
+              :status      => 'shipped',
               :updated_at  => Time.now.to_s,
            }
     @ir.update(1, data)

@@ -1,13 +1,13 @@
 require 'SimpleCov'
 SimpleCov.start
 
-require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
-  before(:each) do
+  before :each do
     @mr = MerchantRepository.new('./spec/fixture_files/merchant_fixture.csv')
   end
+
   it 'exists' do
     expect(@mr).to be_an_instance_of(MerchantRepository)
   end
@@ -42,7 +42,7 @@ RSpec.describe MerchantRepository do
   end
 
   it 'creates a new merchant with attributes' do
-    attributes = {:name => 'Another Merchant'}
+    attributes = { :name => 'Another Merchant' }
 
     @mr.create(attributes)
     expected = @mr.find_by_id(8)
@@ -52,7 +52,7 @@ RSpec.describe MerchantRepository do
   end
 
   it 'finds merchant by id and updates name' do
-    attributes = {:name => 'Another Merchant'}
+    attributes = { :name => 'Another Merchant' }
 
     @mr.update(5, attributes)
     expected = @mr.find_by_id(5)

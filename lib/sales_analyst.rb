@@ -2,7 +2,6 @@ require 'date'
 require_relative '../lib/modules/hashable'
 require_relative '../lib/modules/countable'
 require_relative '../lib/modules/calculatable'
-require 'pry'
 
 class SalesAnalyst
   include Hashable
@@ -105,13 +104,6 @@ class SalesAnalyst
 
   def avg_inv_per_day_std_dev
     average_standard_deviation(days_invoices_hash.values, average_invoices_per_day)
-  end
-
-  def top_days_by_invoice_count
-    days_high_count = days_invoices_hash.select do |days, invoices|
-      invoices > (average_invoices_per_day + avg_inv_per_day_std_dev)
-    end
-    days_high_count.keys
   end
 
   def invoice_status(invoice_status)

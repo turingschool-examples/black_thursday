@@ -17,13 +17,13 @@ class SalesEngine
               :analyst
 
   def initialize(paths)
-    @items = ItemRepository.new(paths[:items])
-    @merchants = MerchantRepository.new(paths[:merchants])
-    @invoices = InvoiceRepository.new(paths[:invoices])
+    @items         = ItemRepository.new(paths[:items])
+    @merchants     = MerchantRepository.new(paths[:merchants])
+    @invoices      = InvoiceRepository.new(paths[:invoices])
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items])
-    @customers = CustomerRepository.new(paths[:customers])
-    @transactions = TransactionRepository.new(paths[:transactions])
-    @analyst = SalesAnalyst.new(self)
+    @customers     = CustomerRepository.new(paths[:customers])
+    @transactions  = TransactionRepository.new(paths[:transactions])
+    @analyst       = SalesAnalyst.new(self)
   end
 
   def self.from_csv(paths)

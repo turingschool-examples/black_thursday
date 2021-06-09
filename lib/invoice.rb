@@ -2,6 +2,7 @@ require_relative '../lib/modules/timeable'
 
 class Invoice
   include Timeable
+  
   attr_reader :id,
               :customer_id,
               :merchant_id,
@@ -19,7 +20,7 @@ class Invoice
   end
 
   def update(attributes)
-    @status = attributes[:status] unless attributes[:status].nil?
+    @status     = attributes[:status] unless attributes[:status].nil?
     @updated_at = update_time('')
   end
 end

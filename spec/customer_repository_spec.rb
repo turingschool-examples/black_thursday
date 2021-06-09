@@ -2,7 +2,6 @@ require 'SimpleCov'
 SimpleCov.start
 
 require_relative '../lib/customer_repository'
-require_relative '../lib/customer'
 
 RSpec.describe CustomerRepository do
   before(:each) do
@@ -30,14 +29,14 @@ RSpec.describe CustomerRepository do
   end
 
   it 'can find all customers by last name' do
-    expect(@cr.find_all_by_first_name('Fen').length).to eq(2)
+    expect(@cr.find_all_by_last_name('Lynch').length).to eq(1)
   end
 
   it 'can create a new customer' do
     new = @cr.create({
-                      :first_name => 'Jennifer',
-                      :last_name => 'Flowers'
-                    })
+                        :first_name => 'Jennifer',
+                        :last_name  => 'Flowers'
+                     })
 
     expect(@cr.all.length).to eq(11)
     expect(new.id).to eq(11)
