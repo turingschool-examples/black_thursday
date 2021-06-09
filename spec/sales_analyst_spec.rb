@@ -109,4 +109,10 @@ RSpec.describe SalesAnalyst do
   it '.invoice_total' do
     expect(@sa.invoice_total(10)).to eq(0.1e0)
   end
+
+  it 'returns a merchants with pending invoices' do
+    expect(@sa.merchants_with_pending_invoices.length).to eq(44)
+  end
+
+
 end

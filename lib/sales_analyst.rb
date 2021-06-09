@@ -129,11 +129,9 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    new_array = []
-    @se.pending_transaction_merchant_ids.each do |invoice|
-      new_array << @se.merchant_repo_find_by_id(invoice.merchant_id)
-    end
-    new_array
+    @se.pending_inovices.map do |invoice|
+      @se.merchant_repo_find_by_id(invoice.merchant_id)
+    end.uniq
   end
 
 end
