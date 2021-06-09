@@ -36,11 +36,7 @@ RSpec.describe MerchantRepository do
         shop_ids << shop.id
       end
       expect(shop_ids).to eq([11111, 12334176, 12334257, 12334299])
-
-      @repo.find_all_by_name("Alfie").each do |shop|
-        expect(shop.id).to eq([])
-      end
-    end
+    end 
 
     it 'creates the next highest merchant id' do
       expect(@repo.next_highest_merchant_id).to eq(12334300)
@@ -75,4 +71,7 @@ RSpec.describe MerchantRepository do
       expect(@repo.find_by_id(12334280)).to eq(nil)
     end
 
+    it 'can connect merchant instances to their id' do
+      expect(@repo.merchant_instance_by_id[11111]).to eq(@repo.find_by_id(11111))
+    end
 end

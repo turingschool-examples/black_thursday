@@ -62,35 +62,11 @@ class TransactionRepository
     if find_all_by_invoice_id(invoice_id) == []
       false
     else
-      find_all_by_invoice_id(invoice_id).all? do |transaction|
+      find_all_by_invoice_id(invoice_id).any? do |transaction|
         transaction.result == :success
       end
     end
   end
-
-  def pending_transactions_invoice_ids
-    hash = Hash.new { [] }
-    @all.each do |transaction|
-      hash[transaction.invoice_id] <<= transaction.result
-    end
-    new_array = []
-    hash.each do |key, value|
-      unless value.include?(:success)
-        new_array << key
-      end
-    end
-    # require "pry"; binding.pry
-    new_array
-  end
-  # def pending_transactions_invoice_ids
-  #   transaction_invoice_id = []
-  #   @all.each do |transaction|
-  #     if transaction.result != :success &&
-  #       transaction_invoice_id << transaction.invoice_id
-  #     end
-  #   end
-  #   transaction_invoice_id
-  # end
 
   # :nocov:
   def inspect

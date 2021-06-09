@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'invoice'
+require 'time'
 
 class InvoiceRepository
   attr_reader :all
@@ -60,6 +61,14 @@ class InvoiceRepository
     @all.delete(find_by_id(id))
   end
 
+  def invoice_id_by_merchant_id
+    merchant_id_to_invoice_id = Hash.new{|h,k| h[k] = Array.new}
+    @all.each do |invoice|
+      merchant_id_to_invoice_id[invoice.merchant_id] << invoice.id
+    end
+    merchant_id_to_invoice_id
+  end
+
   def group_invoices_by_merchant
     @all.group_by do |invoice|
       invoice.merchant_id
@@ -115,4 +124,9 @@ class InvoiceRepository
   end
   # :nocov:
 
+  def find_invoice_by_date(date)
+    @all.find_all do |invoice|
+      invoice.created_at.strftime('%Y%m%d') == date.strftime('%Y%m%d')
+    end
+  end
 end

@@ -20,6 +20,39 @@ RSpec.describe SalesAnalyst do
     expect(@sa).to be_a(SalesAnalyst)
   end
 
+  it 'finds the total revenue by date' do
+    date = Time.parse("2009-02-07")
+    expected = @sa.total_revenue_by_date(date)
+
+    expect(expected).to eq 0.8600264e5
+    expect(expected.class).to eq BigDecimal
+  end
+
+  it 'can find top revenue earners with an argument' do
+    expected = @sa.top_revenue_earners(3)
+    first = expected.first
+    last = expected.last
+
+    expect(first.class).to eq Merchant
+    expect(first.id).to eq 33333
+
+    expect(last.class).to eq Merchant
+    expect(last.id).to eq 77777
+  end
+
+  it 'can find top revenue earners with no argument' do
+    expected = @sa.top_revenue_earners
+    first = expected.first
+    last = expected.last
+
+    expect(expected.length).to eq 20
+
+    expect(first.class).to eq Merchant
+    expect(first.id).to eq 33333
+
+    expect(last.class).to eq Merchant
+  end
+
   it 'calculates average invoice per merchant' do
     expect(@sa.average_invoices_per_merchant).to eq(1.04)
   end
@@ -34,10 +67,9 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq(2)
   end
 
-  it 'returns bottom merchants bu invoice count' do
+  it 'returns bottom merchants by invoice count' do
     expected = @sa.bottom_merchants_by_invoice_count
-
-    expect(expected.length).to eq(0)
+    expect(expected).to eq([])
   end
 
   it 'returns average invoice per day' do
@@ -114,5 +146,21 @@ RSpec.describe SalesAnalyst do
     expect(@sa.merchants_with_pending_invoices.length).to eq(44)
   end
 
+  it 'can find merchants with only one item' do
+    expect(@sa.merchants_with_only_one_item.first).to be_a(Merchant)
+    expect(@sa.merchants_with_only_one_item.last).to be_a(Merchant)
+  end
 
+  it 'can find merchants with only one item by month' do
+    expect(@sa.merchants_with_only_one_item_registered_in_month('May').first).to be_a(Merchant)
+
+    @sa.merchants_with_only_one_item_registered_in_month('May').each do |merchant|
+      merchant.created_at.strftime('%B') == 'May'
+    end
+  end
+
+  it 'can find total revenue by merchant' do
+    expect(@sa.revenue_by_merchant(33333)).to eq(0.10900020e6)
+    expect(@sa.revenue_by_merchant(11111)).to eq(0.8600264e5)
+  end
 end

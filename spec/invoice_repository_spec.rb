@@ -35,12 +35,11 @@ RSpec.describe InvoiceRepository do
 
   it 'can find all invoices by merchant id' do
     invoice_id = []
-    @repo.find_all_by_merchant_id(12335955).each do |invoice|
+    @repo.find_all_by_merchant_id(77777).each do |invoice|
       invoice_id << invoice.id
     end
 
-    expect(invoice_id).to eq([13])
-
+    expect(invoice_id).to eq([7])
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
 
@@ -96,6 +95,16 @@ RSpec.describe InvoiceRepository do
     expect(@repo.find_by_id(2)).to eq(nil)
   end
 
+  it 'can match invoice id to merchant id' do
+    expect(@repo.invoice_id_by_merchant_id[44444]).to eq([4])
+  end
+
+  it 'can find id by date' do
+    @repo.find_invoice_by_date(Time.parse('2009-02-07')).each do |invoice|
+      expect(invoice.created_at).to eq(Time.parse('2009-02-07'))
+    end
+  end
+
   it 'shows invoices grouped by merchant' do
     invoice_count = []
     @repo.group_invoices_by_merchant.each do |merchant, invoice|
@@ -132,4 +141,5 @@ RSpec.describe InvoiceRepository do
   it 'returns total invoice per status' do
     expect(@repo.invoice_status_total(:pending)).to eq(17)
   end
+
 end

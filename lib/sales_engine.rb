@@ -26,6 +26,16 @@ class SalesEngine
     SalesAnalyst.new(self)
   end
 
+  def revenue_by_date(date)
+    total_revenue_by_date = {}
+    @invoices.find_invoice_by_date(date).each do |invoice|
+      if transaction_repo_invoice_paid_in_full(invoice.id) == true
+        total_revenue_by_date[date] = invoice_items_repo_invoice_total_by_id(invoice.id)
+      end
+    end
+    total_revenue_by_date
+  end
+
   def item_repo_group_items_by_merchant
     @items.group_items_by_merchant
   end
@@ -94,7 +104,7 @@ class SalesEngine
     @invoices.invoice_status_total(status)
   end
 
-  def tranaction_repo_invoice_paid_in_full(invoice_id)
+  def transaction_repo_invoice_paid_in_full(invoice_id)
     @transactions.invoice_paid_in_full(invoice_id)
   end
 
@@ -110,4 +120,31 @@ class SalesEngine
     end
   end
 
+  def group_items_by_merchant_instance
+    merchant_instance_to_items = {}
+    @items.group_items_by_merchant.each do |merchant_id, items|
+      @merchants.all.each do |merchant|
+        if merchant.id == merchant_id
+          merchant_instance_to_items[merchant] = items
+        end
+      end
+    end
+    merchant_instance_to_items
+  end
+
+  def merchant_revenue(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id).sum do |invoice|
+      if transaction_repo_invoice_paid_in_full(invoice.id) == true
+        @invoice_items.invoice_total_by_id(invoice.id)
+      else
+        0
+      end
+    end
+  end
+
+  def merchant_total_revenue_to_instance
+    @merchants.all.each_with_object({}) do |merchant, merchant_to_revenue|
+        merchant_to_revenue[merchant] = merchant_revenue(merchant.id)
+    end
+  end
 end

@@ -96,6 +96,12 @@ RSpec.describe InvoiceItemRepository do
     expect(dollars).to eq(0.1)
   end
 
+  it 'can find unit price by invoice id' do
+    @repo.find_price_by_invoice_id(1).each do |invoice_item|
+      expect(invoice_item.invoice_id).to eq(1)
+    end
+  end
+
   it '.invoice_total_by_id' do
     expect(@repo.invoice_total_by_id(10)).to eq(0.1e0)
   end
