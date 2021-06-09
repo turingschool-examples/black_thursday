@@ -48,5 +48,15 @@ RSpec.describe TransactionRepository do
       number = 6179420851156782
       expect(@transaction_repo.find_all_by_credit_card_number(number)).to eq([])
     end
+
+    it 'can find transactions given a result' do
+
+      result = 'success'
+      expect(@transaction_repo.find_all_by_result(result)).to be_an(Array)
+      expect(@transaction_repo.find_all_by_result(result).length).to eq(9)
+
+      result = 'cows'
+      expect(@transaction_repo.find_all_by_result(result)).to eq([])
+    end
   end
 end
