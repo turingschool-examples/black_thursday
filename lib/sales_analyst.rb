@@ -24,14 +24,14 @@ class SalesAnalyst
   end
 
   def avg(data)
-    data.sum.fdiv(data.count)
+    data.sum.fdiv(data.length)
   end
 
   def std_dev(data)
     numerator = data.reduce(0) do |sum, num|
       sum + (num - avg(data))**2
     end
-    Math.sqrt(numerator/(data.count - 1)).round(2)
+    Math.sqrt(numerator/(data.length - 1)).round(2)
   end
   #why the -1 ???
 
@@ -125,14 +125,14 @@ class SalesAnalyst
 
   def average_invoices_per_day
     num_invoices_per_day = self.date_invoice_hash.values.map do |value|
-      value.count
+      value.length
     end
     avg(num_invoices_per_day).round(2)
   end
 
   def invoices_per_day_standard_deviation
     num_invoices_per_day = self.date_invoice_hash.values.map do |value|
-      value.count
+      value.length
     end
     std_dev(num_invoices_per_day).round(2)
   end
@@ -141,15 +141,21 @@ class SalesAnalyst
     sigma = (self.average_invoices_per_day + self.invoices_per_day_standard_deviation)
     top_days = []
     self.date_invoice_hash.each do |key, value|
-      if value.count > sigma
-        top_days << key.strftime('%A')
-      end
+      top_days << key.strftime('%A') if value.length > sigma
     end
     top_invoice_day = []
     top_invoice_day << top_days.max
     top_invoice_day
-    # freq = top_days.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    # top_days.each_with_object(Hash.new(0)) { |day, counts| counts[day] +=1 }
+  end
+
+  def invoice_status(status)
+    invoices_with_status = []
+    sales_engine.all_invoices.each do |invoice|
+      if invoice.status == status
+        invoices_with_status << invoice
+      end
+    end
+    invoices_with_status.length / sales_engine.all_invoices.length
   end
 
 end
