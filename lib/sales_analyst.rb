@@ -114,4 +114,38 @@ class SalesAnalyst
     end
     bottom_merchants
   end
+
+  # def mediocre_merchants_by_invoice_count
+  #   mediocre_merchants = []
+  #   sigma = (average_invoices_per_merchant_standard_deviation + average_invoices_per_merchant)
+  #   number_invoices_per_merchant.find_all do |merchant, quantity|
+  #     mediocre_merchants << merchant.id if quantity > sigma
+  #   end
+  #   mediocre_merchants
+  # end
+  def average_invoices_per_day
+    hash = Hash.new { |hash, key| hash[key] = Array.new }
+    @sales_engine.all_invoices.each do |invoice|
+      hash[invoice.created_at] << invoice
+    end
+    num_keys = hash.keys.count
+    average = (@sales_engine.all_invoices.length.fdiv(num_keys)).round(2)
+    require 'pry'; binding.pry
+    # num_values = hash.each_value do |value|
+    #   if value != nil
+    #     value.count
+    #   end
+    #   (num_values / num_keys)
+    # end
+  end
+
+  # def top_days_by_invoice_count
+  #   top_invoices = mediocre_merchants_by_invoice_count.flat_map do |id|
+  #     @sales_engine.invoices.find_all_by_merchant_id(id)
+  #   end
+  #   all_days = top_invoices.map do |invoice|
+  #     invoice.created_at.strftime('%A')
+  #   end
+  #   all_days.max_by { |day| all_days.include?(day) }
+  # end
 end

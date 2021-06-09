@@ -31,7 +31,6 @@ RSpec.describe 'SalesAnalyst' do
 
     xit 'can return an average' do
       data = [1, 5, 9]
-
       expect(@sales_analyst.avg(data)).to eq(5)
     end
 
@@ -51,7 +50,6 @@ RSpec.describe 'SalesAnalyst' do
 
     xit 'can find the average price of a merchants items' do
       merchant_id = 12334159
-
       expect(@sales_analyst.average_item_price_for_merchant(merchant_id)).to be_a(BigDecimal)
     end
 
@@ -84,6 +82,18 @@ RSpec.describe 'SalesAnalyst' do
       expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     end
 
-    
+    xit 'can find the merchants more than 1 standard deviation above the mean' do
+      expect(@sales_analyst.mediocre_merchants_by_invoice_count).to be_an(Array)
+      expect(@sales_analyst.mediocre_merchants_by_invoice_count.first).to be_a(Integer)
+    end
+
+    it 'can find the average invoices per day' do
+      expect(@sales_analyst.average_invoices_per_day).to be_an(Hash)
+    end
+
+    xit 'can find the top days by invoice count' do
+      expect(@sales_analyst.top_days_by_invoice_count).to be_an(Array)
+      expect(@sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
+    end
   end
 end
