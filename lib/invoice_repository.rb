@@ -9,7 +9,7 @@ class InvoiceRepository
   end
 
   attr_reader :all,
-              :engine
+              :engine 
 
   def initialize(path, engine)
     @all = []

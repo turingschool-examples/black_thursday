@@ -6,6 +6,7 @@ RSpec.describe InvoiceRepository do
     @path = "fixture/invoice_fixture.csv"
     @invoice_repo = InvoiceRepository.new(@path, @mock_engine)
   end
+  
   describe 'instantiation' do
     it 'exists' do
       expect(@invoice_repo).to be_an(InvoiceRepository)
