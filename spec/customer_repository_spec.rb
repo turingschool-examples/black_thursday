@@ -76,5 +76,24 @@ RSpec.describe CustomerRepository do
       expect(@cr.find_all_by_last_name("Osi")).to eq([@customer2])
       expect(@cr.find_all_by_last_name("FriskyBuiscuit")).to eq([])
     end
+
+    it 'creates new invoice_item instance with given attributes' do
+      attributes = {
+        id:         21,
+        first_name: "Frisky",
+        last_name: "Biscuit",
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s
+      }
+
+      @cr.create(attributes)
+      new_customer = @cr.all.last
+      expect(new_customer.id).to eq(21)
+      expect(@cr.all.length).to eq(21)
+      expect(new_customer.updated_at).to eq(new_customer.created_at)
+      @cr.create(attributes)
+      newer_customer = @cr.all.last
+      expect(newer_customer.id).to eq(22)
+    end
   end
 end
