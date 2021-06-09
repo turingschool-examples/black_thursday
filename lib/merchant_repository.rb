@@ -1,6 +1,10 @@
-require 'merchant'
+require_relative 'inspectable'
+
 class MerchantRepository
-  attr_reader :all, :sales_engine
+  include Inspectable
+
+  attr_reader :all,
+              :sales_engine
 
   def initialize(file_path, sales_engine)
     @file_path = file_path
@@ -52,9 +56,5 @@ class MerchantRepository
   def delete(id)
     deleted_merchant = find_by_id(id)
     @all.delete(deleted_merchant)
-  end
-
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
   end
 end

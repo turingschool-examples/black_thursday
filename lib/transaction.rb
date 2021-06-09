@@ -13,8 +13,8 @@ class Transaction
     @invoice_id = info[:invoice_id].to_i
     @credit_card_number = info[:credit_card_number]
     @credit_card_expiration_date = info[:credit_card_expiration_date]
-    @result = info[:result]
-    @created_at = info[:created_at]
+    @result = info[:result].to_sym
+    @created_at = info[:created_at].is_a?(Time) ? info[:created_at] : Time.parse(info[:created_at])
     @updated_at = info[:updated_at].is_a?(Time) ? info[:updated_at] : Time.parse(info[:updated_at])
     @repo = repo
   end

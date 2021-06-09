@@ -12,8 +12,8 @@ class Invoice
     @customer_id = info[:customer_id].to_i
     @merchant_id = info[:merchant_id].to_i
     @status      = info[:status].to_sym
-    @created_at  = Time.parse(info[:created_at])
-    @updated_at  = Time.parse(info[:updated_at])
+    @created_at  = info[:created_at].is_a?(Time) ? info[:created_at] : Time.parse(info[:created_at])
+    @updated_at  = info[:updated_at].is_a?(Time) ? info[:updated_at] : Time.parse(info[:updated_at])
     @repo = repo
   end
 

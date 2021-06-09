@@ -33,7 +33,7 @@ RSpec.describe InvoiceItem do
       expect(@ii.item_id).to eq(7)
       expect(@ii.invoice_id).to eq(8)
       expect(@ii.quantity).to eq(1)
-      expect(@ii.unit_price).to eq(BigDecimal(10.99, 4))
+      expect(@ii.unit_price).to eq(BigDecimal(0.1099, 4))
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe InvoiceItem do
         }, se)
         # invoice_item1 = @iir.all[1]
 
-      expect(ii.unit_price_to_dollars).to eq(10.99)
+      expect(ii.unit_price_to_dollars).to eq(0.1099)
     end
   end
 end

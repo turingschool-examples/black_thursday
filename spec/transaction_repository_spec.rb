@@ -45,7 +45,7 @@ RSpec.describe TransactionRepository do
         expect(@transaction1.invoice_id).to eq(1)
         expect(@transaction1.credit_card_number).to eq('4068631943231473')
         expect(@transaction1.credit_card_expiration_date).to eq('0217')
-        expect(@transaction1.result).to eq('success')
+        expect(@transaction1.result).to eq(:success)
       end
 
       it 'finds transaction by id or return nil' do
@@ -67,9 +67,28 @@ RSpec.describe TransactionRepository do
       end
 
       it 'finds all invoice_id or return []' do
-        expect(@tr.find_all_by_result('success')).to eq([@transaction1, @transaction2, @transaction3, @transaction4, @transaction5, @transaction6, @transaction7, @transaction8, @transaction10, @transaction11, @transaction12, @transaction13, @transaction15, @transaction16, @transaction17, @transaction19, @transaction20])
-        expect(@tr.find_all_by_result('failed')).to eq([@transaction9, @transaction14, @transaction18])
-        expect(@tr.find_all_by_result('football')).to eq([])
+        expected = [
+          @transaction1,
+          @transaction2,
+          @transaction3,
+          @transaction4,
+          @transaction5,
+          @transaction6,
+          @transaction7,
+          @transaction8,
+          @transaction10,
+          @transaction11,
+          @transaction12,
+          @transaction13,
+          @transaction15,
+          @transaction16,
+          @transaction17,
+          @transaction19,
+          @transaction20
+        ]
+        expect(@tr.find_all_by_result(:success)).to eq(expected)
+        expect(@tr.find_all_by_result(:failed)).to eq([@transaction9, @transaction14, @transaction18])
+        expect(@tr.find_all_by_result(:football)).to eq([])
       end
 
       it 'creates new transaction instance with given attributes' do
@@ -78,7 +97,7 @@ RSpec.describe TransactionRepository do
           invoice_id: 21,
           credit_card_number: '20000000000000000',
           credit_card_expiration_date: '0922',
-          result: 'success',
+          result: :success,
           created_at: Time.now,
           updated_at: Time.now
         }
@@ -88,7 +107,6 @@ RSpec.describe TransactionRepository do
         expect(new_transaction.id).to eq(21)
         expect(@tr.all.length).to eq(21)
         expect(new_transaction.credit_card_number).to eq('20000000000000000')
-        expect(new_transaction.updated_at).to eq(new_transaction.created_at)
         expect(@tr.find_by_id(21).invoice_id).to eq(21)
         @tr.create(attributes)
         newer_transaction = @tr.all.last
@@ -98,14 +116,14 @@ RSpec.describe TransactionRepository do
       it 'updates transaction by quantity and unit_price with given id' do
         new_transaction = { credit_card_number: '20000000000000000',
                             credit_card_expiration_date: '0922',
-                            result: 'failed'
+                            result: :failed
                           }
         prev_updated_at = @transaction1.updated_at
         @tr.update(1, new_transaction)
 
         expect(@transaction1.credit_card_number).to eq('20000000000000000')
         expect(@transaction1.credit_card_expiration_date).to eq('0922')
-        expect(@transaction1.result).to eq('failed')
+        expect(@transaction1.result).to eq(:failed)
         expect(prev_updated_at).to_not eq(@transaction1.updated_at)
       end
 
