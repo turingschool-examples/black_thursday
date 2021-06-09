@@ -48,4 +48,9 @@ class CustomerRepository
 
     customer.update_customer(attributes)
   end
+
+  def delete(id)
+    deleted_customer = find_by_id(id)
+    @all.delete(deleted_customer)
+  end
 end
