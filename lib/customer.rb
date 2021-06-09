@@ -9,7 +9,7 @@ class Customer
   def initialize(info, repo)
     @id = info[:id].to_i
     @first_name = info[:first_name]
-    @last_name = Time.parse(info[:last_name])
+    @last_name = info[:last_name]
     @created_at = Time.parse(info[:created_at])
     @updated_at = Time.parse(info[:updated_at])
     @repo = repo
