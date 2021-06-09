@@ -4,6 +4,7 @@ require 'bigdecimal'
 RSpec.describe InvoiceItem do
   describe 'instantiation' do
     before :each do
+      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv', invoice_item: 'spec/fixtures/invoice_items.csv' })
       @ii = InvoiceItem.new({
         :id => 6,
         :item_id => 7,
@@ -12,7 +13,7 @@ RSpec.describe InvoiceItem do
         :unit_price => BigDecimal(10.99, 4),
         :created_at => Time.now.to_s,
         :updated_at => Time.now.to_s
-        })
+        }, @se)
     end
 
     it 'exists' do
@@ -31,6 +32,7 @@ RSpec.describe InvoiceItem do
 
   describe 'methods' do
     it 'returns the price of the item in dollars formatted as a Float' do
+      se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv', invoice_item: 'spec/fixtures/invoice_items.csv' })
       ii = InvoiceItem.new({
         :id => 6,
         :item_id => 7,
@@ -39,7 +41,7 @@ RSpec.describe InvoiceItem do
         :unit_price => BigDecimal(10.99, 4),
         :created_at => Time.now.to_s,
         :updated_at => Time.now.to_s
-        })
+        }, se)
         # invoice_item1 = @iir.all[1]
 
       expect(ii.unit_price_to_dollars).to eq(10.99)
