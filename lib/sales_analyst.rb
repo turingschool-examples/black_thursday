@@ -187,4 +187,11 @@ class SalesAnalyst
       @se.item_repo_find_by_id(item_id)
     end
   end
+
+  def best_item_for_merchant(merchant_id)
+    test = merchant_items_by_total_quantity(merchant_id).max_by do |id, quantity|
+      require "pry"; binding.pry
+      @se.item_repo_find_by_id(id) * quantity
+    end
+  end
 end
