@@ -147,4 +147,10 @@ class SalesEngine
     end
     merchant_instance_to_items
   end
+
+  def invoice_items_by_merchant_id(merchant_id)
+    test = @invoices.find_all_by_ids_by_merchant_id(merchant_id).flat_map do |invoice_id|
+      @invoice_items.find_all_by_invoice_id(invoice_id)
+    end
+  end
 end
