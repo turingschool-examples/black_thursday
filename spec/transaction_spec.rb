@@ -32,4 +32,12 @@ RSpec.describe Transaction do
       expect(@transaction.updated_at).to be_a(Time)
     end
   end
+
+  describe 'methods' do
+    it 'can create a new id' do
+
+      @transaction.new_id(11)
+      expect(@transaction.id).to eq(11)
+    end
+  end
 end

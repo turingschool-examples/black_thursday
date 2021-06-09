@@ -54,4 +54,13 @@ class TransactionRepository
       transaction.result == result
     end
   end
+
+  def create(attributes)
+    highest_id = @all.max_by do |transaction|
+      transaction.id
+    end
+    new_transaction = Transaction.new(attributes, self)
+    new_transaction.new_id(highest_id.id + 1)
+    @all << new_transaction
+  end
 end

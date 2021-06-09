@@ -58,5 +58,21 @@ RSpec.describe TransactionRepository do
       result = 'cows'
       expect(@transaction_repo.find_all_by_result(result)).to eq([])
     end
+
+    it 'can create a new transaction' do
+      attributes = {
+        id: 11,
+        invoice_id: 71,
+        credit_card_number: 1111222233334444,
+        credit_card_expiration_date: 6969,
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+
+      @transaction_repo.create(attributes)
+      expect(@transaction_repo.all.length).to eq(11)
+      expect(@transaction_repo.all.last.id).to eq(11)
+    end
   end
 end
