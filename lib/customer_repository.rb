@@ -41,4 +41,11 @@ class CustomerRepository
     attributes[:id] = @all.last.id + 1
     @all << Customer.new(attributes, self)
   end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    return nil if customer.nil?
+
+    customer.update_customer(attributes)
+  end
 end
