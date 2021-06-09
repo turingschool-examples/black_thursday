@@ -26,6 +26,40 @@ class SalesEngine
     SalesAnalyst.new(self)
   end
 
+  def revenue_by_date(date)
+    total_revenue_by_date = {}
+    @invoices.find_invoice_by_date(date).each do |invoice|
+      if transaction_repo_invoice_paid_in_full(invoice.id) == true
+        total_revenue_by_date[date] = invoice_items_repo_invoice_total_by_id(invoice.id)
+      end
+    end
+    total_revenue_by_date
+  end
+
+  def total_unit_price_by_merchant_id
+    merchant_id_to_invoice_total = Hash.new{|h,k| h[k] = Array.new}
+    @invoices.invoice_id_by_merchant_id.each do |merchant_id, invoice_ids|
+      invoice_ids.each do |invoice_id|
+        if transaction_repo_invoice_paid_in_full(invoice_id) == true
+          merchant_id_to_invoice_total[merchant_id] << invoice_items_repo_invoice_total_by_id(invoice_id)
+        end
+      end
+    end
+    merchant_id_to_invoice_total
+  end
+
+  def price_by_merchant
+    merchant_to_price = {}
+    total_unit_price_by_merchant_id.each do |merchant_id1, prices|
+      @merchants.merchant_instance_by_id.each do |merchant_id2, merchant|
+        if merchant_id1 == merchant_id2
+          merchant_to_price[merchant] = prices.sum
+        end
+      end
+    end
+    merchant_to_price
+  end
+
   def item_repo_group_items_by_merchant
     @items.group_items_by_merchant
   end
@@ -94,11 +128,23 @@ class SalesEngine
     @invoices.invoice_status_total(status)
   end
 
-  def tranaction_repo_invoice_paid_in_full(invoice_id)
+  def transaction_repo_invoice_paid_in_full(invoice_id)
     @transactions.invoice_paid_in_full(invoice_id)
   end
 
   def invoice_items_repo_invoice_total_by_id(invoice_id)
     @invoice_items.invoice_total_by_id(invoice_id)
+  end
+
+  def group_items_by_merchant_instance
+    merchant_instance_to_items = {}
+    @items.group_items_by_merchant.each do |merchant_id, items|
+      @merchants.all.each do |merchant|
+        if merchant.id == merchant_id
+          merchant_instance_to_items[merchant] = items
+        end
+      end
+    end
+    merchant_instance_to_items
   end
 end

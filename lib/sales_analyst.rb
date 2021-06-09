@@ -6,6 +6,19 @@ class SalesAnalyst
     @se = sales_engine
   end
 
+  def total_revenue_by_date(date)
+    @se.revenue_by_date(date)[date]
+  end
+
+  def top_revenue_earners(number = 20)
+    top_earners = @se.price_by_merchant.max_by(number) do |merchant, revenue|
+      revenue
+    end
+    top_earners.flat_map do |earner_pair|
+      earner_pair.first
+    end
+  end
+
   def average_invoices_per_merchant
     (@se.invoice_repo_total_invoices.to_f / @se.invoice_repo_total_merchants).round(2)
   end
@@ -121,10 +134,30 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @se.tranaction_repo_invoice_paid_in_full(invoice_id)
+    @se.transaction_repo_invoice_paid_in_full(invoice_id)
   end
 
   def invoice_total(invoice_id)
     @se.invoice_items_repo_invoice_total_by_id(invoice_id)
+  end
+
+  def merchants_with_only_one_item
+    single_item_merchants = []
+    @se.group_items_by_merchant_instance.each do |key, value|
+      if value.length == 1
+        single_item_merchants << key
+      end
+    end
+    single_item_merchants
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    single_item_merchants = []
+    @se.group_items_by_merchant_instance.each do |merchant, items|
+      if (items.length == 1) && (merchant.created_at.strftime('%B') == month)
+        single_item_merchants << merchant
+      end
+    end
+    single_item_merchants
   end
 end

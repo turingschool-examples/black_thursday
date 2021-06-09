@@ -60,9 +60,15 @@ class InvoiceItemRepository
     @all.delete(find_by_id(id))
   end
 
+  def find_price_by_invoice_id(id)
+    @all.find_all do |invoice_item|
+      invoice_item.invoice_id == id
+    end
+  end
+
   def invoice_total_by_id(invoice_id)
     find_all_by_invoice_id(invoice_id).sum do |invoice|
       invoice.quantity * invoice.unit_price
-    end 
+    end
   end
 end

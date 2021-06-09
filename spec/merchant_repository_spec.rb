@@ -71,4 +71,7 @@ RSpec.describe MerchantRepository do
       expect(@repo.find_by_id(12334280)).to eq(nil)
     end
 
+    it 'can connect merchant instances to their id' do
+      expect(@repo.merchant_instance_by_id[11111]).to eq(@repo.find_by_id(11111))
+    end
 end

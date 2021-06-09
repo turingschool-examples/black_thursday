@@ -60,4 +60,11 @@ class MerchantRepository
     @all.delete(find_by_id(id))
   end
 
+  def merchant_instance_by_id
+    id_to_merchant = {}
+    @all.each do |merchant|
+      id_to_merchant[merchant.id] = merchant
+    end
+    id_to_merchant
+  end
 end

@@ -5,7 +5,7 @@ require 'csv'
 
 RSpec.describe do
   before(:each) do
-    @data = {id: 5, name: 'Turing'}
+    @data = {id: 5, name: 'Turing', created_at: '2011-10-11'}
     @repo = double('repo')
     # @repo = MerchantRepository.new('./spec/fixtures/mock_merchants.csv')
     @merchant = Merchant.new(@data, @repo)
@@ -17,6 +17,7 @@ RSpec.describe do
   it 'has attributes' do
     expect(@merchant.id).to eq(5)
     expect(@merchant.name).to eq('Turing')
+    expect(@merchant.created_at).to eq(Time.parse('2011-10-11'))
   end
 
   it 'can create new merchants' do
