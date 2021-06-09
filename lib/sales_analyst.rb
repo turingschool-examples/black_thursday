@@ -11,7 +11,7 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(number = 20)
-    top_earners = @se.price_by_merchant.max_by(number) do |merchant, revenue|
+    top_earners = @se.merchant_total_revenue_to_instance.max_by(number) do |merchant, revenue|
       revenue
     end
     top_earners.flat_map do |earner_pair|
@@ -162,6 +162,6 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(id)
-    @se.merchant_id_to_revenue(id)
+    @se.merchant_revenue(id)
   end
 end

@@ -51,7 +51,6 @@ RSpec.describe SalesAnalyst do
     expect(first.id).to eq 33333
 
     expect(last.class).to eq Merchant
-    expect(last.id).to eq 44444
   end
 
   it 'calculates average invoice per merchant' do
