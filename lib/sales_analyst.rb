@@ -147,4 +147,13 @@ class SalesAnalyst
       object.invoice_id == invoice_id
     end
   end
+
+  def invoice_total(invoice_id)
+    count = 0
+    invoices = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoices.each do |invoice|
+      count += (invoice.quantity * invoice.unit_price)
+    end
+    count
+  end
 end
