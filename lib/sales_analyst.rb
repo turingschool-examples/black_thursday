@@ -160,4 +160,8 @@ class SalesAnalyst
     end
     single_item_merchants
   end
+
+  def revenue_by_merchant(id)
+    @se.merchant_id_to_revenue(id)
+  end
 end
