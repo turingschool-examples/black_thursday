@@ -63,4 +63,7 @@ RSpec.describe SalesEngine do
     end
   end
 
+  it 'can create a hash of merchant id to revenu total' do
+    expect(@se.merchant_id_to_revenue(33333)).to eq(0.10900020e6)
+  end
 end

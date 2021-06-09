@@ -50,12 +50,9 @@ class SalesEngine
 
   def price_by_merchant
     merchant_to_price = {}
-    total_unit_price_by_merchant_id.each do |merchant_id1, prices|
-      @merchants.merchant_instance_by_id.each do |merchant_id2, merchant|
-        if merchant_id1 == merchant_id2
-          merchant_to_price[merchant] = prices.sum
-        end
-      end
+    new_variable = total_unit_price_by_merchant_id
+    @merchants.merchant_instance_by_id.each do |merchant_id, merchant|
+      merchant_to_price[merchant] = new_variable[merchant_id].sum
     end
     merchant_to_price
   end
@@ -146,5 +143,11 @@ class SalesEngine
       end
     end
     merchant_instance_to_items
+  end
+
+  def merchant_id_to_revenue(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id).sum do |invoice|
+      @invoice_items.invoice_total_by_id(invoice.id)
+    end
   end
 end
