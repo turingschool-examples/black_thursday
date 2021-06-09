@@ -5,11 +5,11 @@ RSpec.describe Customer do
   describe 'instantiation' do
     before :each do
       @c = Customer.new({
-      :id         => 6,
-      :first_name => "Joan",
-      :last_name  => "Clarke",
-      :created_at => Time.now.to_s,
-      :updated_at => Time.now.to_s
+        :id         => 6,
+        :first_name => "Joan",
+        :last_name  => "Clarke",
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
       })
     end
 
@@ -25,7 +25,7 @@ RSpec.describe Customer do
   end
 
   # describe 'methods' do
-  #   it 'updates invoice status' do
+  #   it 'updates customer name' do
   #     se = SalesEngine.new({
   #        :customers => 'spec/fixtures/customers.csv',
   #     })
@@ -36,7 +36,7 @@ RSpec.describe Customer do
   #       :last_name  => "Clarke",
   #       :created_at => Time.now.to_s,
   #       :updated_at => Time.now.to_s
-  #     })
+  #     }, cr)
   #     attributes = {
   #       :first_name => "Jeff",
   #       :last_name => "Jefferson"
