@@ -17,7 +17,7 @@ RSpec.describe TransactionRepository do
   end
 
   it 'can find transactions by id' do
-    expect(@repo.find_by_id(2).invoice_id).to eq(46)
+    expect(@repo.find_by_id(2).invoice_id).to eq(2)
     expect(@repo.find_by_id(3).invoice_id).to eq(750)
     expect(@repo.find_by_id(99999)).to eq(nil)
   end

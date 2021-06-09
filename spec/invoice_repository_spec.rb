@@ -39,12 +39,7 @@ RSpec.describe InvoiceRepository do
       invoice_id << invoice.id
     end
 
-<<<<<<< HEAD
     expect(invoice_id).to eq([7])
-=======
-    expect(invoice_id).to eq([13])
->>>>>>> origin/master
-
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
 
@@ -146,5 +141,5 @@ RSpec.describe InvoiceRepository do
   it 'returns total invoice per status' do
     expect(@repo.invoice_status_total(:pending)).to eq(17)
   end
-  
+
 end
