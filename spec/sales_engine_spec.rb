@@ -42,8 +42,7 @@ RSpec.describe SalesEngine do
     expect(@se.customers).to be_a(CustomerRepository)
   end
 
-  it 'returns array of pending invoices with merchant_id' do
-    expect(@se.pending_transaction_merchant_ids.length).to eq(22)
+  it 'returns all pending invoices' do
+    expect(@se.pending_inovices.length).to eq(44)
   end
-
 end

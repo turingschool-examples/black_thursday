@@ -102,12 +102,12 @@ class SalesEngine
     @invoice_items.invoice_total_by_id(invoice_id)
   end
 
-  def pending_transaction_merchant_ids
-    new_array = []
-    @transactions.pending_transactions_invoice_ids.each do |invoice|
-      new_array << @invoices.find_by_id(invoice)
+  def pending_inovices
+    @invoices.all.select do |invoice|
+      if @transactions.invoice_paid_in_full(invoice.id) == false
+        invoice
+      end
     end
-    new_array
   end
 
 end
