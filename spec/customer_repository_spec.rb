@@ -61,12 +61,20 @@ RSpec.describe CustomerRepository do
       expect(@cr.find_by_id(1000000)).to eq(nil)
     end
 
-    it 'finds all customers by first name or []' do
+    it 'finds all customers by first name substring or []' do
       expect(@cr.find_all_by_first_name("Joey")).to eq([@customer1])
       expect(@cr.find_all_by_first_name("Jo")).to eq([@customer1, @customer9])
       expect(@cr.find_all_by_first_name("Cecelia")).to eq([@customer2])
       expect(@cr.find_all_by_first_name("Ce")).to eq([@customer2])
       expect(@cr.find_all_by_first_name("FriskyBuiscuit")).to eq([])
+    end
+
+    it 'finds all customers by last name substring or []' do
+      expect(@cr.find_all_by_last_name("Ondricka")).to eq([@customer1])
+      expect(@cr.find_all_by_last_name("Ond")).to eq([@customer1])
+      expect(@cr.find_all_by_last_name("Osinski")).to eq([@customer2])
+      expect(@cr.find_all_by_last_name("Osi")).to eq([@customer2])
+      expect(@cr.find_all_by_last_name("FriskyBuiscuit")).to eq([])
     end
   end
 end
