@@ -88,7 +88,7 @@ RSpec.describe TransactionRepository do
   end
 
   it 'returns all invoices pending' do
-    expect(@repo.pending_transactions.length).to eq(42)
+    expect(@repo.pending_transactions_invoice_ids.length).to eq(10)
   end
 
 end
