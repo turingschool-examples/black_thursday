@@ -35,4 +35,10 @@ class CustomerRepository
       customer.last_name.downcase.include?(last_name.downcase)
     end
   end
+
+  # Remember to copy this style
+  def create(attributes)
+    attributes[:id] = @all.last.id + 1
+    @all << Customer.new(attributes, self)
+  end
 end
