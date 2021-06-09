@@ -1,4 +1,8 @@
+require_relative 'inspectable'
+
 class TransactionRepository
+  include Inspectable
+
   attr_reader :file_path,
               :sales_engine,
               :all
