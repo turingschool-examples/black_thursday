@@ -2,6 +2,7 @@ require_relative 'spec_helper'
 
 RSpec.describe Customer do
   before :each do
+    @mock_repo = double("CustomerRepository")
     @customer_data = {
       :id => 6,
       :first_name => "Joan",
@@ -9,7 +10,7 @@ RSpec.describe Customer do
       :created_at => Time.now,
       :updated_at => Time.now
     }
-    @customer = Customer.new(@customer_data)
+    @customer = Customer.new(@customer_data, @mock_repo)
   end
   describe 'instantiation' do
     it 'exists' do
