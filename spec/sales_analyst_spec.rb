@@ -34,10 +34,9 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq(2)
   end
 
-  it 'returns bottom merchants bu invoice count' do
+  it 'returns bottom merchants by invoice count' do
     expected = @sa.bottom_merchants_by_invoice_count
-
-    expect(expected.length).to eq(0)
+    expect(expected).to eq([])
   end
 
   it 'returns average invoice per day' do
