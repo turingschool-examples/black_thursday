@@ -156,4 +156,17 @@ class SalesAnalyst
     end
     count
   end
+
+  # This gave us some problems . . .
+  def total_revenue_by_date(date)
+    given_date = @engine.invoice_items.all.find_all do |invoice_item|
+      invoice_item.created_at == date
+      require 'pry'; binding.pry
+    end
+    count = 0
+    given_date.each do |invoice|
+      count += (invoice.quantity * invoice.unit_price)
+    end
+    count
+  end
 end
