@@ -155,7 +155,9 @@ class SalesAnalyst
         invoices_with_status << invoice
       end
     end
-    invoices_with_status.length / sales_engine.all_invoices.length
+    # require "pry"; binding.pry
+    percentage = (invoices_with_status.length.to_f / sales_engine.all_invoices.length) * 100
+    percentage.round(2)
   end
 
 end
