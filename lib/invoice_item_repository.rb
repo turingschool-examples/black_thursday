@@ -1,4 +1,7 @@
+require_relative 'inspectable'
+
 class InvoiceItemRepository
+  include Inspectable
   attr_reader :file_path,
               :sales_engine,
               :all
@@ -28,9 +31,9 @@ class InvoiceItemRepository
     end
   end
 
-  def find_all_by_invoice_id(item_id)
+  def find_all_by_invoice_id(invoice_id)
     @all.find_all do |invoice_item|
-      invoice_item.item_id == item_id
+      invoice_item.invoice_id == invoice_id
     end
   end
 

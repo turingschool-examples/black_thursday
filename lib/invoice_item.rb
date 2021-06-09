@@ -13,9 +13,9 @@ class InvoiceItem
     @item_id = info[:item_id].to_i
     @invoice_id = info[:invoice_id].to_i
     @quantity = info[:quantity].to_i
-    @unit_price = BigDecimal(info[:unit_price], 4)
-    @created_at = Time.parse(info[:created_at])
-    @updated_at = Time.parse(info[:updated_at])
+    @unit_price = (BigDecimal(info[:unit_price], 4) / 100)
+    @created_at = info[:created_at].is_a?(Time) ? info[:created_at] : Time.parse(info[:created_at])
+    @updated_at = info[:updated_at].is_a?(Time) ? info[:updated_at] : Time.parse(info[:updated_at])
     @repo = repo
   end
 

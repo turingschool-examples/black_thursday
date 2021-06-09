@@ -6,8 +6,10 @@ RSpec.describe InvoiceItemRepository do
       se = SalesEngine.from_csv({
         items: 'spec/fixtures/items.csv',
         merchants: 'spec/fixtures/merchants.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
-        invoices: 'spec/fixtures/invoices.csv'
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
         })
 
         iir = InvoiceItemRepository.new('spec/fixtures/invoice_items.csv', se)
@@ -22,8 +24,10 @@ RSpec.describe InvoiceItemRepository do
       @sales_engine = SalesEngine.new({
         items: 'spec/fixtures/items.csv',
         merchants: 'spec/fixtures/merchants.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
-        invoices: 'spec/fixtures/invoices.csv'
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
         })
 
         @iir = InvoiceItemRepository.new('spec/fixtures/invoice_items.csv', @sales_engine)
@@ -54,7 +58,7 @@ RSpec.describe InvoiceItemRepository do
       expect(@invoice_item1.item_id).to eq(01)
       expect(@invoice_item1.invoice_id).to eq(1)
       expect(@invoice_item1.quantity).to eq(5)
-      expect(@invoice_item1.unit_price).to eq(13635)
+      expect(@invoice_item1.unit_price).to eq(BigDecimal(136.35, 5))
     end
 
     it 'finds invoice_item by id or return nil' do
@@ -63,15 +67,24 @@ RSpec.describe InvoiceItemRepository do
       expect(@iir.find_by_id(1000000)).to eq(nil)
     end
 
-    it 'finds all invoice_items by customer id or return []' do
+    it 'finds all invoice_items by item id or return []' do
       expect(@iir.find_all_by_item_id(01)).to eq([@invoice_item1])
       expect(@iir.find_all_by_item_id(02)).to eq([@invoice_item2])
       expect(@iir.find_all_by_item_id(1000000)).to eq([])
     end
 
-    it 'finds all invoice_items by customer id or return []' do
-      expect(@iir.find_all_by_invoice_id(01)).to eq([@invoice_item1])
-      expect(@iir.find_all_by_invoice_id(02)).to eq([@invoice_item2])
+    it 'finds all invoice_items by invoice id or return []' do
+      expected = [
+        @invoice_item1,
+        @invoice_item2,
+        @invoice_item3,
+        @invoice_item4,
+        @invoice_item5,
+        @invoice_item6,
+        @invoice_item7,
+        @invoice_item8
+       ]
+      expect(@iir.find_all_by_invoice_id(01)).to eq(expected)
       expect(@iir.find_all_by_invoice_id(1000000)).to eq([])
     end
 

@@ -1,4 +1,5 @@
 require_relative 'inspectable'
+
 class InvoiceRepository
   include Inspectable
 
@@ -57,8 +58,4 @@ class InvoiceRepository
     deleted_invoice = find_by_id(id)
     @all.delete(deleted_invoice)
   end
-
-  # def inspect
-  #   "#<#{self.class} #{@all.size} rows>"
-  # end
 end
