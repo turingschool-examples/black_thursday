@@ -7,7 +7,7 @@ RSpec.describe CustomerRepository do
       se = SalesEngine.new({
         :items => 'spec/fixtures/items.csv',
         :merchants => 'spec/fixtures/merchants.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
         :invoices => 'spec/fixtures/invoices.csv',
         :customers => 'spec/fixtures/customers.csv'
        })
@@ -94,6 +94,16 @@ RSpec.describe CustomerRepository do
       @cr.create(attributes)
       newer_customer = @cr.all.last
       expect(newer_customer.id).to eq(22)
+    end
+
+    it 'updates customer first & last name by given id' do
+      new_name = { first_name: "Frisky", last_name: "Biscuit"}
+      prev_updated_at = @customer1.updated_at
+      @cr.update(1, new_name)
+
+      expect(@customer1.first_name).to eq("Frisky")
+      expect(@customer1.last_name).to eq("Biscuit")
+      expect(prev_updated_at).to_not eq(@customer1.updated_at)
     end
   end
 end
