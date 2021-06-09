@@ -7,7 +7,7 @@ class SalesEngine
   attr_reader :items,
               :merchants,
               :invoices,
-              :invoice_item,
+              :invoice_items,
               :transactions,
               :analyst
 

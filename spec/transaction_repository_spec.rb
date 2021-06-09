@@ -18,7 +18,7 @@ RSpec.describe TransactionRepository do
       expect(@transaction_repo.all.first.id).to eq(1)
       expect(@transaction_repo.all.first.invoice_id).to eq(2179)
       expect(@transaction_repo.all.first.credit_card_number).to eq(4068631943231473)
-      expect(@transaction_repo.all.first.credit_card_expiration_date).to be_a(String)
+      expect(@transaction_repo.all.first.credit_card_expiration_date).to eq(0217)
       expect(@transaction_repo.all.first.result).to eq('success')
       expect(@transaction_repo.all.first.created_at).to be_a(Time)
       expect(@transaction_repo.all.first.updated_at).to be_a(Time)
@@ -74,6 +74,19 @@ RSpec.describe TransactionRepository do
       expect(@transaction_repo.all.length).to eq(11)
       expect(@transaction_repo.all.last.id).to eq(11)
       expect(@transaction_repo.all.last.credit_card_number).to eq(1111222233334444)
+    end
+
+    it 'can update id and attributes' do
+      id = 10
+      attributes = {
+                    credit_card_number: 55556666677778888,
+                    credit_card_expiration_date: 0720,
+                    result: 'success'
+                    }
+
+      @transaction_repo.update(10, attributes)
+      expect(@transaction_repo.all[9].credit_card_number).to eq(55556666677778888)
+      expect(@transaction_repo.all[9].credit_card_expiration_date).to eq(0720)
     end
   end
 end
