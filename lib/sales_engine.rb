@@ -49,7 +49,7 @@ class SalesEngine
   end
 
   def item_repo_total_items
-    @items.total_items
+    @items.all.length
   end
 
   def item_repo_total_items_by_merchant(merchant_id)
@@ -69,7 +69,9 @@ class SalesEngine
   end
 
   def item_repo_all_items
-    @items.all
+    @items.all.find_all do |item|
+      item.unit_price
+    end
   end
 
   def merchant_repo_find_by_id(id)
@@ -146,5 +148,9 @@ class SalesEngine
     @merchants.all.each_with_object({}) do |merchant, merchant_to_revenue|
         merchant_to_revenue[merchant] = merchant_revenue(merchant.id)
     end
+  end
+
+  def qualified_items
+    @items.all.unit_price > item_price_standard_deviation
   end
 end

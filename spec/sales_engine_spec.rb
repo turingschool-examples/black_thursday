@@ -66,4 +66,9 @@ RSpec.describe SalesEngine do
     expect(@se.merchant_total_revenue_to_instance.keys.first).to be_a(Merchant)
     expect(@se.merchant_total_revenue_to_instance.values.first).to be_a(BigDecimal)
   end
+
+  it 'returns total number of items' do
+    expect(@se.item_repo_total_items).to eq(50)
+  end
+
 end

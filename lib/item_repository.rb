@@ -95,10 +95,6 @@ class ItemRepository
     items_per_merchant.length
   end
 
-  def total_items
-    @all.length
-  end
-
   def total_items_by_merchant(merchant_id)
     group_items_by_merchant[merchant_id].length
   end
