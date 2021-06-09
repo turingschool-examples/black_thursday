@@ -60,6 +60,10 @@ class SalesEngine
     merchant_to_price
   end
 
+  def item_repo_find_by_id(id)
+    @items.find_by_id(id)
+  end
+
   def item_repo_group_items_by_merchant
     @items.group_items_by_merchant
   end
@@ -149,8 +153,9 @@ class SalesEngine
   end
 
   def invoice_items_by_merchant_id(merchant_id)
-    test = @invoices.find_all_by_ids_by_merchant_id(merchant_id).flat_map do |invoice_id|
+    @invoices.find_all_by_ids_by_merchant_id(merchant_id).flat_map do |invoice_id|
       @invoice_items.find_all_by_invoice_id(invoice_id)
     end
   end
+
 end
