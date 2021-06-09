@@ -105,5 +105,11 @@ RSpec.describe CustomerRepository do
       expect(@customer1.last_name).to eq("Biscuit")
       expect(prev_updated_at).to_not eq(@customer1.updated_at)
     end
+
+    it 'delete customer by id' do
+      expect(@cr.all.length).to eq(20)
+      expect(@cr.delete(1)).to eq(@customer1)
+      expect(@cr.all.length).to eq(19)
+    end
   end
 end
