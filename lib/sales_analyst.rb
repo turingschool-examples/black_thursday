@@ -12,13 +12,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    @sales_engine.all_items.length.fdiv(@sales_engine.all_merchants.length).round(2)
+    sales_engine.all_items.length.fdiv(sales_engine.all_merchants.length).round(2)
   end
 
   def number_items_per_merchant
     item_merchant_hash = {}
-    @sales_engine.all_merchants.each do |merchant|
-      item_merchant_hash[merchant] = @sales_engine.items.find_all_by_merchant_id(merchant.id).length
+    sales_engine.all_merchants.each do |merchant|
+      item_merchant_hash[merchant] = sales_engine.items.find_all_by_merchant_id(merchant.id).length
     end
     item_merchant_hash
   end
@@ -51,8 +51,8 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    items = @sales_engine.all_items
-    merchant_items = @sales_engine.find_all_with_merchant_id(merchant_id, items)
+    items = sales_engine.all_items
+    merchant_items = sales_engine.find_all_with_merchant_id(merchant_id, items)
     sum = merchant_items.sum do |item|
       item.unit_price
     end
@@ -61,7 +61,7 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     average_array = []
-    @sales_engine.all_merchants.each do |merchant|
+    sales_engine.all_merchants.each do |merchant|
     average_array << average_item_price_for_merchant(merchant.id)
     end
     (average_array.sum / average_array.length).round(2)
@@ -69,26 +69,26 @@ class SalesAnalyst
 
   def golden_items
     price_array = []
-    @sales_engine.all_items.each do |item|
+    sales_engine.all_items.each do |item|
      price_array << item.unit_price
     end
     std_dev_prices = std_dev(price_array)
     sigma2 = ((std_dev_prices * 2) + average_average_price_per_merchant)
     top_items = []
-    @sales_engine.all_items.each do |item|
+    sales_engine.all_items.each do |item|
       top_items << item if item.unit_price > sigma2
     end
     top_items
   end
 
   def average_invoices_per_merchant
-    @sales_engine.all_invoices.length.fdiv(@sales_engine.all_merchants.length).round(2)
+    sales_engine.all_invoices.length.fdiv(sales_engine.all_merchants.length).round(2)
   end
 
   def number_invoices_per_merchant
     invoices_merchant_hash = {}
-    @sales_engine.all_merchants.each do |merchant|
-      invoices_merchant_hash[merchant] = @sales_engine.invoices.find_all_by_merchant_id(merchant.id).length
+    sales_engine.all_merchants.each do |merchant|
+      invoices_merchant_hash[merchant] = sales_engine.invoices.find_all_by_merchant_id(merchant.id).length
     end
     invoices_merchant_hash
   end
@@ -115,37 +115,37 @@ class SalesAnalyst
     bottom_merchants
   end
 
-  # def mediocre_merchants_by_invoice_count
-  #   mediocre_merchants = []
-  #   sigma = (average_invoices_per_merchant_standard_deviation + average_invoices_per_merchant)
-  #   number_invoices_per_merchant.find_all do |merchant, quantity|
-  #     mediocre_merchants << merchant.id if quantity > sigma
-  #   end
-  #   mediocre_merchants
-  # end
-  def average_invoices_per_day
-    hash = Hash.new { |hash, key| hash[key] = Array.new }
-    @sales_engine.all_invoices.each do |invoice|
-      hash[invoice.created_at] << invoice
+  def date_invoice_hash
+    date_with_invoices_hash = Hash.new { |hash, key| hash[key] = Array.new }
+    sales_engine.all_invoices.each do |invoice|
+      date_with_invoices_hash[invoice.created_at] << invoice
     end
-    num_keys = hash.keys.count
-    average = (@sales_engine.all_invoices.length.fdiv(num_keys)).round(2)
-    require 'pry'; binding.pry
-    # num_values = hash.each_value do |value|
-    #   if value != nil
-    #     value.count
-    #   end
-    #   (num_values / num_keys)
-    # end
+    date_with_invoices_hash
   end
 
-  # def top_days_by_invoice_count
-  #   top_invoices = mediocre_merchants_by_invoice_count.flat_map do |id|
-  #     @sales_engine.invoices.find_all_by_merchant_id(id)
-  #   end
-  #   all_days = top_invoices.map do |invoice|
-  #     invoice.created_at.strftime('%A')
-  #   end
-  #   all_days.max_by { |day| all_days.include?(day) }
-  # end
+  def average_invoices_per_day
+    num_invoices_per_day = self.date_invoice_hash.values.map do |value|
+      value.count
+    end
+    avg(num_invoices_per_day).round(2)
+  end
+
+  def invoices_per_day_standard_deviation
+    num_invoices_per_day = self.date_invoice_hash.values.map do |value|
+      value.count
+    end
+    std_dev(num_invoices_per_day).round(2)
+  end
+
+  def top_days_by_invoice_count
+    sigma = (self.average_invoices_per_day + self.invoices_per_day_standard_deviation)
+    top_days = []
+    self.date_invoice_hash.each do |key, value|
+      if value.count > sigma
+        top_days << key.strftime('%A')
+      end
+    end
+    # require 'pry'; binding.pry
+    top_days.sort_by { |day| day.count.max }
+  end
 end
