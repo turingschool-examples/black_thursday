@@ -4,7 +4,14 @@ require 'bigdecimal'
 RSpec.describe InvoiceItem do
   describe 'instantiation' do
     before :each do
-      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv', invoice_item: 'spec/fixtures/invoice_items.csv' })
+      @se = SalesEngine.new({
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       @ii = InvoiceItem.new({
         :id => 6,
         :item_id => 7,
@@ -32,7 +39,14 @@ RSpec.describe InvoiceItem do
 
   describe 'methods' do
     it 'returns the price of the item in dollars formatted as a Float' do
-      se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv', invoice_item: 'spec/fixtures/invoice_items.csv' })
+      se = SalesEngine.new({
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       ii = InvoiceItem.new({
         :id => 6,
         :item_id => 7,

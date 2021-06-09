@@ -4,10 +4,13 @@ RSpec.describe InvoiceRepository do
   describe 'instantiation' do
     it 'exists' do
       se = SalesEngine.new({
-         :items => 'spec/fixtures/items.csv',
-         :merchants => 'spec/fixtures/merchants.csv',
-         :invoices => 'spec/fixtures/invoices.csv'
-       })
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       ivr = InvoiceRepository.new('spec/fixtures/invoices.csv', se)
 
       expect(ivr).to be_a(InvoiceRepository)
@@ -17,10 +20,13 @@ RSpec.describe InvoiceRepository do
   describe 'methods' do
     before :each do
       @se = SalesEngine.new({
-        :items => 'spec/fixtures/items.csv',
-        :merchants => 'spec/fixtures/merchants.csv',
-        :invoices => 'spec/fixtures/invoices.csv'
-      })
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       @ivr = InvoiceRepository.new('spec/fixtures/invoices.csv', @se)
       @invoice1 = @ivr.all[0]
       @invoice2 = @ivr.all[1]

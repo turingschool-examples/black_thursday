@@ -4,10 +4,13 @@ RSpec.describe Invoice do
   describe 'instantiation' do
     before :each do
       @se = SalesEngine.new({
-         :items => 'spec/fixtures/items.csv',
-         :merchants => 'spec/fixtures/merchants.csv',
-         :invoices => 'spec/fixtures/invoices.csv'
-       })
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       @ivr = InvoiceRepository.new('spec/fixtures/invoices.csv', @se)
       @i = Invoice.new({
         :id          => 6,
@@ -34,10 +37,13 @@ RSpec.describe Invoice do
   describe 'methods' do
     it 'updates invoice status' do
       se = SalesEngine.new({
-         :items => 'spec/fixtures/items.csv',
-         :merchants => 'spec/fixtures/merchants.csv',
-         :invoices => 'spec/fixtures/invoices.csv'
-       })
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       ivr = InvoiceRepository.new('spec/fixtures/invoices.csv', se)
       i = Invoice.new({
         :id          => 6,

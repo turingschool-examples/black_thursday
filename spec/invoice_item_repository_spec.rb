@@ -6,8 +6,10 @@ RSpec.describe InvoiceItemRepository do
       se = SalesEngine.from_csv({
         items: 'spec/fixtures/items.csv',
         merchants: 'spec/fixtures/merchants.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
-        invoices: 'spec/fixtures/invoices.csv'
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
         })
 
         iir = InvoiceItemRepository.new('spec/fixtures/invoice_items.csv', se)
@@ -22,8 +24,10 @@ RSpec.describe InvoiceItemRepository do
       @sales_engine = SalesEngine.new({
         items: 'spec/fixtures/items.csv',
         merchants: 'spec/fixtures/merchants.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
-        invoices: 'spec/fixtures/invoices.csv'
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
         })
 
         @iir = InvoiceItemRepository.new('spec/fixtures/invoice_items.csv', @sales_engine)

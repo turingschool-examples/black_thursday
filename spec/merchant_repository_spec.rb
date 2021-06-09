@@ -3,7 +3,14 @@ require_relative './spec_helper'
 RSpec.describe MerchantRepository do
   context 'instantiation' do
     it 'exists' do
-      se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv' })
+      se = SalesEngine.new({
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       mr = MerchantRepository.new('spec/fixtures/merchants.csv', se)
       expect(mr).to be_a(MerchantRepository)
     end
@@ -11,7 +18,14 @@ RSpec.describe MerchantRepository do
 
   context 'methods' do
     before :each do
-      @se = SalesEngine.new({ items: 'spec/fixtures/items.csv', merchants: 'spec/fixtures/merchants.csv', invoices: 'spec/fixtures/invoices.csv' })
+      @se = SalesEngine.new({
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       @mr = MerchantRepository.new('spec/fixtures/merchants.csv', @se)
       @mr.generate
       @merchant1 = @mr.all[1]

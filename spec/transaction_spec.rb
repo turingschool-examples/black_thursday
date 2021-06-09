@@ -7,7 +7,8 @@ RSpec.describe Transaction do
         items: 'spec/fixtures/items.csv',
         merchants: 'spec/fixtures/merchants.csv',
         invoices: 'spec/fixtures/invoices.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
         transactions: 'spec/fixtures/transactions.csv'
         })
       t = Transaction.new({
@@ -28,9 +29,11 @@ RSpec.describe Transaction do
         items: 'spec/fixtures/items.csv',
         merchants: 'spec/fixtures/merchants.csv',
         invoices: 'spec/fixtures/invoices.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
         transactions: 'spec/fixtures/transactions.csv'
         })
+
       t = Transaction.new({
         :id => 6,
         :invoice_id => 8,

@@ -27,12 +27,13 @@ RSpec.describe Customer do
   describe 'methods' do
     it 'updates customer name' do
       se = SalesEngine.new({
-        :items => 'spec/fixtures/items.csv',
-        :merchants => 'spec/fixtures/merchants.csv',
+        items: 'spec/fixtures/items.csv',
+        merchants: 'spec/fixtures/merchants.csv',
+        invoices: 'spec/fixtures/invoices.csv',
+        customers: 'spec/fixtures/customers.csv',
         invoice_items: 'spec/fixtures/invoice_items.csv',
-        :invoices => 'spec/fixtures/invoices.csv',
-        :customers => 'spec/fixtures/customers.csv',
-      })
+        transactions: 'spec/fixtures/transactions.csv'
+        })
       cr = CustomerRepository.new('spec/fixtures/customers.csv', se)
       c = Customer.new({
         :id         => 6,

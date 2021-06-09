@@ -8,8 +8,10 @@ RSpec.describe TransactionRepository do
         items: 'spec/fixtures/items.csv',
         merchants: 'spec/fixtures/merchants.csv',
         invoices: 'spec/fixtures/invoices.csv',
-        invoice_item: 'spec/fixtures/invoice_items.csv',
-        transactions: 'spec/fixtures/transactions.csv' })
+        customers: 'spec/fixtures/customers.csv',
+        invoice_items: 'spec/fixtures/invoice_items.csv',
+        transactions: 'spec/fixtures/transactions.csv'
+        })
         @tr = TransactionRepository.new('spec/fixtures/transactions.csv', @se)
         @transaction1 = @tr.all[0]
         @transaction2 = @tr.all[1]
