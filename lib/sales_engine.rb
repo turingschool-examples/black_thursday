@@ -77,7 +77,7 @@ class SalesEngine
   end
 
   def item_repo_total_items
-    @items.total_items
+    @items.all.length
   end
 
   def item_repo_total_items_by_merchant(merchant_id)
@@ -97,7 +97,9 @@ class SalesEngine
   end
 
   def item_repo_all_items
-    @items.all
+    @items.all.find_all do |item|
+      item.unit_price
+    end
   end
 
   def merchant_repo_find_by_id(id)
@@ -140,6 +142,14 @@ class SalesEngine
     @invoice_items.invoice_total_by_id(invoice_id)
   end
 
+  def pending_inovices
+    @invoices.all.select do |invoice|
+      if @transactions.invoice_paid_in_full(invoice.id) == false
+        invoice
+      end
+    end
+  end
+
   def group_items_by_merchant_instance
     merchant_instance_to_items = {}
     @items.group_items_by_merchant.each do |merchant_id, items|
@@ -158,4 +168,23 @@ class SalesEngine
     end
   end
 
+  def merchant_revenue(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id).sum do |invoice|
+      if transaction_repo_invoice_paid_in_full(invoice.id) == true
+        @invoice_items.invoice_total_by_id(invoice.id)
+      else
+        0
+      end
+    end
+  end
+
+  def merchant_total_revenue_to_instance
+    @merchants.all.each_with_object({}) do |merchant, merchant_to_revenue|
+        merchant_to_revenue[merchant] = merchant_revenue(merchant.id)
+    end
+  end
+
+  def qualified_items
+    @items.all.unit_price > item_price_standard_deviation
+  end
 end

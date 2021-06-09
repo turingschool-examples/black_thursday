@@ -45,14 +45,14 @@ RSpec.describe SalesAnalyst do
     first = expected.first
     last = expected.last
 
-    expect(expected.length).to eq 8
+    expect(expected.length).to eq 20
 
     expect(first.class).to eq Merchant
     expect(first.id).to eq 33333
 
     expect(last.class).to eq Merchant
-    expect(last.id).to eq 44444
   end
+
   it 'calculates average invoice per merchant' do
     expect(@sa.average_invoices_per_merchant).to eq(1.04)
   end
@@ -142,6 +142,10 @@ RSpec.describe SalesAnalyst do
     expect(@sa.invoice_total(10)).to eq(0.1e0)
   end
 
+  it 'returns a merchants with pending invoices' do
+    expect(@sa.merchants_with_pending_invoices.length).to eq(44)
+  end
+
   it 'can find merchants with only one item' do
     expect(@sa.merchants_with_only_one_item.first).to be_a(Merchant)
     expect(@sa.merchants_with_only_one_item.last).to be_a(Merchant)
@@ -180,5 +184,9 @@ RSpec.describe SalesAnalyst do
     expect(@sa.best_item_for_merchant(77777)).to be_a(Item)
 
     expect(@sa.best_item_for_merchant(77777).id).to eq(0)
+
+  it 'can find total revenue by merchant' do
+    expect(@sa.revenue_by_merchant(33333)).to eq(0.10900020e6)
+    expect(@sa.revenue_by_merchant(11111)).to eq(0.8600264e5)
   end
 end

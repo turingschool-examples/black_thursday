@@ -102,10 +102,6 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
-  # it 'can connect unit price to invoice id' do
-  #   expect(@repo.total_unit_price_by_invoice_id[2]).to eq(0.4e-1)
-  # end
-
   it '.invoice_total_by_id' do
     expect(@repo.invoice_total_by_id(10)).to eq(0.1e0)
   end
