@@ -127,4 +127,13 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     @se.invoice_items_repo_invoice_total_by_id(invoice_id)
   end
+
+  def merchants_with_pending_invoices
+    new_array = []
+    @se.pending_transaction_merchant_ids.each do |invoice|
+      new_array << @se.merchant_repo_find_by_id(invoice.merchant_id)
+    end
+    new_array
+  end
+
 end
