@@ -70,6 +70,7 @@ RSpec.describe TransactionRepository do
       }
       @repo.update(2, attributes)
       expected = @repo.find_by_id(2)
+
       expect(expected.result).to eq :failed
       expect(expected.credit_card_expiration_date).to eq "0813"
   end
@@ -86,9 +87,4 @@ RSpec.describe TransactionRepository do
     expect(@repo.invoice_paid_in_full(1752)).to eq(false)
     expect(@repo.invoice_paid_in_full(500000)).to eq(false)
   end
-
-  it 'returns all invoices pending' do
-    expect(@repo.pending_transactions_invoice_ids.length).to eq(10)
-  end
-
 end
