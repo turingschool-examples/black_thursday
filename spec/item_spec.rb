@@ -5,17 +5,18 @@ require_relative '../lib/item'
 require 'bigdecimal'
 
 RSpec.describe Item do
-  before(:each) do
+  before :each do
     @i = Item.new({
-      :id          => 1,
-      :name        => 'Pencil',
-      :description => 'You can use it to write things',
-      :unit_price  => BigDecimal(1099, 4),
-      :created_at  => '2021-06-11 09:34:06 UTC',
-      :updated_at  => '2021-06-11 09:34:06 UTC',
-      :merchant_id => 2
-    })
+                    :id          => 1,
+                    :name        => 'Pencil',
+                    :description => 'You can use it to write things',
+                    :unit_price  => BigDecimal(1099, 4),
+                    :created_at  => '2021-06-11 09:34:06 UTC',
+                    :updated_at  => '2021-06-11 09:34:06 UTC',
+                    :merchant_id => 2
+                  })
   end
+
   it 'exists' do
     expect(@i).to be_an_instance_of(Item)
   end
@@ -32,27 +33,28 @@ RSpec.describe Item do
 
   it 'can parse time or create time' do
     i = Item.new({
-      :id          => 1,
-      :name        => 'Pencil',
-      :description => 'You can use it to write things',
-      :unit_price  => BigDecimal(1099, 4),
-      :created_at  => '',
-      :updated_at  => nil,
-      :merchant_id => 2
-    })
+                    :id          => 1,
+                    :name        => 'Pencil',
+                    :description => 'You can use it to write things',
+                    :unit_price  => BigDecimal(1099, 4),
+                    :created_at  => '',
+                    :updated_at  => nil,
+                    :merchant_id => 2
+                 })
 
     expect(i.created_at).to be_a(Time)
     expect(i.updated_at).to be_a(Time)
-    
+
     allow(i).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
     expect(i.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
   end
 
   it 'can update attributes' do
-    new_data = {:name        => 'Flower Pencil',
-                :description => 'You can use it to write flowery things',
-                :unit_price  => BigDecimal(11.00, 4)
-              }
+    new_data = {
+                  :name        => 'Flower Pencil',
+                  :description => 'You can use it to write flowery things',
+                  :unit_price  => BigDecimal(11.00, 4)
+               }
 
     @i.update(new_data)
 

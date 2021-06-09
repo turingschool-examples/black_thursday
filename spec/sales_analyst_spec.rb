@@ -5,14 +5,14 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 
 RSpec.describe SalesEngine do
-  before(:each) do
+  before :each do
     @se = SalesEngine.from_csv({
-                                  :items => './spec/fixture_files/item_fixture.csv',
-                                  :merchants => './spec/fixture_files/merchant_fixture.csv',
-                                  :invoices => './spec/fixture_files/invoice_fixture.csv',
+                                  :items         => './spec/fixture_files/item_fixture.csv',
+                                  :merchants     => './spec/fixture_files/merchant_fixture.csv',
+                                  :invoices      => './spec/fixture_files/invoice_fixture.csv',
                                   :invoice_items => './spec/fixture_files/invoice_item_fixture.csv',
-                                  :customers => './spec/fixture_files/customer_fixture.csv',
-                                  :transactions => './spec/fixture_files/transactions_fixture.csv'
+                                  :customers     => './spec/fixture_files/customer_fixture.csv',
+                                  :transactions  => './spec/fixture_files/transactions_fixture.csv'
                                })
 
     @sales_analyst = @se.analyst
@@ -110,10 +110,10 @@ RSpec.describe SalesEngine do
   end
 
   it 'can return the top days for invoices' do
-   expect(@sales_analyst.top_days_by_invoice_count.length).to eq 1
-   expect(@sales_analyst.top_days_by_invoice_count.first.class).to eq String
+   expect(@sales_analyst.top_days_by_invoice_count.length).to eq(1)
+   expect(@sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
    expect(@sales_analyst.top_days_by_invoice_count).to eq(['Wednesday'])
- end
+  end
 
   it 'can return the percentage of invoice shipped vs pending vs returned' do
     expect(@sales_analyst.invoice_status(:pending)).to eq(60.0)
@@ -121,6 +121,14 @@ RSpec.describe SalesEngine do
     expect(@sales_analyst.invoice_status(:returned)).to eq(0)
   end
 
+  it 'returns true if the invoice with corresponding id is paid in full' do
+    expect(@sales_analyst.invoice_paid_in_full?(1)). to eq(true)
+    expect(@sales_analyst.invoice_paid_in_full?(6)). to eq(false)
+  end
+
+  it 'returns the total amount of the invoice with corresponding id' do
+    expect(@sales_analyst.invoice_total(2)).to eq(BigDecimal(240))
+  end
 ########### Iteration 4
   it 'can return revenue by invoice id' do
     expected = {
@@ -132,6 +140,7 @@ RSpec.describe SalesEngine do
                 }
     expect(@sales_analyst.revenue_by_invoice_hash).to eq(expected)
   end
+
   it 'can find out the total revenue for a given date' do
     expect(@sales_analyst.total_revenue_by_date(Time.parse('2021-05-28'))).to eq(3032.00)
   end
@@ -158,14 +167,5 @@ RSpec.describe SalesEngine do
 
   it 'can find the total revenue for a single merchant' do
     expect(@sales_analyst.revenue_by_merchant(5)).to eq(BigDecimal(13032))
-  end
-
-  it 'returns true if the invoice with corresponding id is paid in full' do
-    expect(@sales_analyst.invoice_paid_in_full?(1)). to eq(true)
-    expect(@sales_analyst.invoice_paid_in_full?(6)). to eq(false)
-  end
-
-  it 'returns the total amount of the invoice with corresponding id' do
-    expect(@sales_analyst.invoice_total(2)).to eq(BigDecimal(240))
   end
 end

@@ -5,16 +5,16 @@ require_relative '../lib/invoice_item'
 require 'bigdecimal'
 
 RSpec.describe InvoiceItem do
-  before(:each) do
+  before :each do
     @ii = InvoiceItem.new({
-      :id           => 6,
-      :item_id      => 7,
-      :invoice_id   => 8,
-      :quantity     => 1,
-      :unit_price   => BigDecimal(1099, 4),
-      :created_at   => '2021-06-11 09:34:06 UTC',
-      :updated_at   => '2021-06-11 09:34:06 UTC'
-    })
+                             :id           => 6,
+                             :item_id      => 7,
+                             :invoice_id   => 8,
+                             :quantity     => 1,
+                             :unit_price   => BigDecimal(1099, 4),
+                             :created_at   => '2021-06-11 09:34:06 UTC',
+                             :updated_at   => '2021-06-11 09:34:06 UTC'
+                          })
   end
 
   it 'Exists' do
@@ -41,9 +41,9 @@ RSpec.describe InvoiceItem do
 
   it 'Can update attributes' do
     @ii.update({
-      :quantity => 2,
-      :unit_price => BigDecimal(25.99, 4)
-      })
+                  :quantity => 2,
+                  :unit_price => BigDecimal(25.99, 4)
+               })
 
     expect(@ii.quantity).to eq(2)
     expect(@ii.unit_price_to_dollars).to eq(25.99)

@@ -35,9 +35,9 @@ RSpec.describe CustomerRepository do
 
   it 'can create a new customer' do
     new = @cr.create({
-                      :first_name => 'Jennifer',
-                      :last_name => 'Flowers'
-                    })
+                        :first_name => 'Jennifer',
+                        :last_name  => 'Flowers'
+                     })
 
     expect(@cr.all.length).to eq(11)
     expect(new.id).to eq(11)

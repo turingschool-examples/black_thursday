@@ -5,7 +5,7 @@ require_relative '../lib/invoice_item_repository'
 require_relative '../lib/invoice_item'
 
 RSpec.describe InvoiceItemRepository do
-  before(:each) do
+  before :each do
     @iir = InvoiceItemRepository.new('./spec/fixture_files/invoice_item_fixture.csv')
   end
 
@@ -41,10 +41,10 @@ RSpec.describe InvoiceItemRepository do
 
   it 'can create a new invoice item object' do
     new = @iir.create({
-                        :item_id => 4,
-                        :invoice_id => 4,
-                        :quantity => 250,
-                        :unit_price => 1875
+                         :item_id => 4,
+                         :invoice_id => 4,
+                         :quantity => 250,
+                         :unit_price => 1875
                       })
 
     expect(@iir.all.length).to eq(16)

@@ -4,16 +4,16 @@ SimpleCov.start
 require_relative '../lib/transaction'
 
 RSpec.describe Transaction do
-  before(:each) do
+  before :each do
     @t = Transaction.new({
-                          :id => 6,
-                          :invoice_id => 8,
-                          :credit_card_number => '4242424242424242',
-                          :credit_card_expiration_date => '0223',
-                          :result => 'success',
-                          :created_at => '2021-06-11 09:34:06 UTC',
-                          :updated_at => '2021-06-11 09:34:06 UTC'
-                        })
+                            :id                          => 6,
+                            :invoice_id                  => 8,
+                            :credit_card_number          => '4242424242424242',
+                            :credit_card_expiration_date => '0223',
+                            :result                      => 'success',
+                            :created_at                  => '2021-06-11 09:34:06 UTC',
+                            :updated_at                  => '2021-06-11 09:34:06 UTC'
+                         })
   end
 
   it 'exists' do
@@ -32,13 +32,13 @@ RSpec.describe Transaction do
 
   it 'can parse time or create time' do
     t = Transaction.new({
-                          :id => 6,
-                          :invoice_id => 8,
-                          :credit_card_number => '4242424242424242',
-                          :credit_card_expiration_date => '0223',
-                          :result => 'success',
-                          :created_at => '',
-                          :updated_at => nil
+                           :id                          => 6,
+                           :invoice_id                  => 8,
+                           :credit_card_number          => '4242424242424242',
+                           :credit_card_expiration_date => '0223',
+                           :result                      => 'success',
+                           :created_at                  => '',
+                           :updated_at                  => nil
                         })
 
     expect(t.created_at).to be_a(Time)
@@ -50,9 +50,9 @@ RSpec.describe Transaction do
 
   it 'can update attributes' do
     @t.update({
-                :credit_card_number => '4242424242425353',
-                :credit_card_expiration_date => '0623',
-                :result => 'failed',
+                 :credit_card_number          => '4242424242425353',
+                 :credit_card_expiration_date => '0623',
+                 :result                      => 'failed',
               })
 
     expect(@t.credit_card_number).to eq('4242424242425353')

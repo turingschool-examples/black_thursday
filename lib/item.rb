@@ -22,7 +22,7 @@ class Item
   end
 
   def update(attributes)
-    @name = attributes[:name] unless attributes[:name].nil?
+    @name        = attributes[:name] unless attributes[:name].nil?
     @description = attributes[:description] unless attributes[:description].nil?
     @unit_price  = BigDecimal(attributes[:unit_price]) unless attributes[:unit_price].nil?
     @updated_at  = update_time('')

@@ -45,10 +45,10 @@ RSpec.describe TransactionRepository do
 
   it 'creates a new transaction instance with attributes' do
     expected = @tr.create({
-                            :invoice_id                   => '1',
-                            :credit_card_number           => '1234631943231473',
-                            :credit_card_expiration_date  => '0825',
-                            :result                       => 'failed'
+                             :invoice_id                   => '1',
+                             :credit_card_number           => '1234631943231473',
+                             :credit_card_expiration_date  => '0825',
+                             :result                       => 'failed'
                           })
 
     expect(@tr.all.length).to eq(6)
@@ -59,8 +59,8 @@ RSpec.describe TransactionRepository do
 
   it 'finds transactions by ID and update attributes' do
     data = {
-              :invoice_id                   => '1',
-              :credit_card_number           => '1234631943231473',
+              :invoice_id         => '1',
+              :credit_card_number => '1234631943231473',
            }
     @tr.update(3, data)
     expected = @tr.find_by_id(3)

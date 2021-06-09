@@ -7,11 +7,11 @@ require 'bigdecimal'
 RSpec.describe Customer do
   before(:each) do
     @c = Customer.new({
-                        :id          => 1,
-                        :first_name  => 'Jennifer',
-                        :last_name   => 'Flowers',
-                        :created_at  => '2021-06-11 09:34:06 UTC',
-                        :updated_at  => '2021-06-11 09:34:06 UTC',
+                         :id          => 1,
+                         :first_name  => 'Jennifer',
+                         :last_name   => 'Flowers',
+                         :created_at  => '2021-06-11 09:34:06 UTC',
+                         :updated_at  => '2021-06-11 09:34:06 UTC',
                       })
   end
 
@@ -29,24 +29,24 @@ RSpec.describe Customer do
 
   it 'can parse time or create time' do
     c = Customer.new({
-                      :id          => 1,
-                      :first_name  => 'Jennifer',
-                      :last_name   => 'Flowers',
-                      :created_at  => '',
-                      :updated_at  => nil,
-                    })
+                        :id          => 1,
+                        :first_name  => 'Jennifer',
+                        :last_name   => 'Flowers',
+                        :created_at  => '',
+                        :updated_at  => nil,
+                     })
 
     expect(c.created_at).to be_a(Time)
     expect(c.updated_at).to be_a(Time)
-    
+
     allow(@c).to receive(:created_at).and_return(Time.parse('2021-06-11 02:34:56 UTC'))
     expect(@c.created_at).to eq(Time.parse('2021-06-11 02:34:56 UTC'))
   end
 
   it 'can update attributes' do
     @c.update({
-                :first_name => 'Dan',
-                :last_name  => 'Spring'
+                 :first_name => 'Dan',
+                 :last_name  => 'Spring'
               })
 
     expect(@c.first_name).to eq('Dan')
@@ -54,7 +54,7 @@ RSpec.describe Customer do
     expect(@c.updated_at).to be_a(Time)
 
     @c.update({
-                :first_name => 'Sam',
+                 :first_name => 'Sam',
               })
 
     expect(@c.first_name).to eq('Sam')

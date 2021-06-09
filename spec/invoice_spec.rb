@@ -7,12 +7,12 @@ require 'bigdecimal'
 RSpec.describe Invoice do
   before :each do
     @data = {
-              :id          => 6,
-              :customer_id => 7,
-              :merchant_id => 8,
-              :status      => 'pending',
-              :created_at  => Time.now.to_s,
-              :updated_at  => Time.now.to_s,
+               :id          => 6,
+               :customer_id => 7,
+               :merchant_id => 8,
+               :status      => 'pending',
+               :created_at  => Time.now.to_s,
+               :updated_at  => Time.now.to_s,
             }
 
     @i = Invoice.new(@data)

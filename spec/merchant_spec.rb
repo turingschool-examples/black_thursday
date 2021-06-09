@@ -4,9 +4,13 @@ SimpleCov.start
 require_relative '../lib/merchant'
 
 RSpec.describe Merchant do
-  before(:each) do
-    @m = Merchant.new({:id => 5, :name => 'Turing School'})
+  before :each do
+    @m = Merchant.new({
+                         :id => 5,
+                         :name => 'Turing School'
+                      })
   end
+
   it 'exists' do
     expect(@m).to be_an_instance_of(Merchant)
   end
