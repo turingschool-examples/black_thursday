@@ -215,5 +215,11 @@ RSpec.describe SalesAnalyst do
         it 'can return invoice total for an invoice' do
           expect(@analyst.invoice_total(2)).to eq(BigDecimal(5289.13, 6))
         end
+
+        it 'returns total revenue for given date' do
+          # date = @se.invoice_items.all[0].created_at
+          date = Time.parse('2012-03-27')
+          expect(@analyst.total_revenue_by_date(date)).to eq(BigDecimal(57415.51, 7))
+        end
       end
     end
