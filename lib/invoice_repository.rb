@@ -34,6 +34,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_ids_by_merchant_id(id)
+    find_all_by_merchant_id(id).map do |invoice|
+      invoice.id
+    end
+  end
+
   def find_all_by_status(status)
     @all.select do |invoice|
       invoice.status == status
