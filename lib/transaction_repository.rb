@@ -5,7 +5,7 @@ class TransactionRepository
   include Incravinable
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 
   attr_reader :all,
@@ -25,8 +25,8 @@ class TransactionRepository
                   credit_card_number: transaction_data[:credit_card_number].to_i,
                   credit_card_expiration_date: transaction_data[:credit_card_expiration_date],
                   result: transaction_data[:result],
-                  created_at: transaction_data[:created_at],
-                  updated_at: transaction_data[:updated_at]
+                  created_at: Time.parse(transaction_data[:created_at]),
+                  updated_at: Time.parse(transaction_data[:updated_at])
                 }
 
     @all << Transaction.new(transaction_hash, self)
