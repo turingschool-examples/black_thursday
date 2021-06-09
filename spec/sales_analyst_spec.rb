@@ -3,10 +3,13 @@ require_relative 'spec_helper'
 RSpec.describe 'SalesAnalyst' do
   before :each do
     @sales_engine = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
-      })
+                                          :items => "./data/items.csv",
+                                          :merchants => "./data/merchants.csv",
+                                          :invoices => "./data/invoices.csv",
+                                          :invoice_items => "./data/invoice_items.csv",
+                                          :transactions => "./data/transactions.csv"
+                                        })
+
     @sales_analyst = @sales_engine.analyst
   end
   describe 'instantiation' do
@@ -21,6 +24,10 @@ RSpec.describe 'SalesAnalyst' do
       expect(@sales_engine.all_merchants).to be_an(Array)
       expect(@sales_engine.invoices).to be_a(InvoiceRepository)
       expect(@sales_engine.all_invoices).to be_an(Array)
+      expect(@sales_engine.invoice_items).to be_an(InvoiceItemRepository)
+      expect(@sales_engine.all_invoice_items).to be_an(Array)
+      expect(@sales_engine.transactions).to be_an(TransactionRepository)
+      expect(@sales_engine.all_transactions).to be_an(Array)
     end
   end
 
@@ -37,11 +44,13 @@ RSpec.describe 'SalesAnalyst' do
 
     it 'can return an average of an array with integers' do
       data = [1, 5, 9]
+
       expect(@sales_analyst.avg(data)).to eq(5)
     end
 
     it 'can return the standard deviation of an array of itegers' do
       data = [21, 4224, 17, 8008]
+
       expect(@sales_analyst.std_dev(data)).to eq(3844.16)
     end
 
@@ -56,6 +65,7 @@ RSpec.describe 'SalesAnalyst' do
 
     it 'can find the average price of a merchants items' do
       merchant_id = 12334159
+      
       expect(@sales_analyst.average_item_price_for_merchant(merchant_id)).to be_a(BigDecimal)
     end
 
@@ -89,9 +99,9 @@ RSpec.describe 'SalesAnalyst' do
     end
 
     it 'can create a hash where the keys are dates and the values are invoices sold on that date' do
-    expect(@sales_analyst.date_invoice_hash).to be_a(Hash)
-    expect(@sales_analyst.date_invoice_hash.keys.first).to be_a(Time)
-    expect(@sales_analyst.date_invoice_hash.values).to be_an(Array)
+      expect(@sales_analyst.date_invoice_hash).to be_a(Hash)
+      expect(@sales_analyst.date_invoice_hash.keys.first).to be_a(Time)
+      expect(@sales_analyst.date_invoice_hash.values).to be_an(Array)
     end
 
     it 'can find the average invoices per day' do
@@ -101,7 +111,6 @@ RSpec.describe 'SalesAnalyst' do
     it 'can find the standard deviation of invoices per day' do
       expect(@sales_analyst.invoices_per_day_standard_deviation).to be_an(Float)
       expect(@sales_analyst.invoices_per_day_standard_deviation).to eq(0.74)
-
     end
 
     it 'can find the top days by invoice count' do
