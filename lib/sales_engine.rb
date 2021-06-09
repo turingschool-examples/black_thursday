@@ -3,11 +3,12 @@ require_relative '../module/incravinable'
 
 class SalesEngine
   include Incravinable
-  
+
   attr_reader :items,
               :merchants,
               :invoices,
-              :invoice_item,
+              :invoice_items,
+              :transactions,
               :analyst
 
   def initialize(paths)
@@ -15,6 +16,7 @@ class SalesEngine
     @merchants = MerchantRepository.new(paths[:merchants], self)
     @invoices = InvoiceRepository.new(paths[:invoices], self)
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items], self)
+    @transactions = TransactionRepository.new(paths[:transactions], self)
     @analyst = SalesAnalyst.new(self)
   end
 
@@ -29,12 +31,16 @@ class SalesEngine
   def all_items
     @items.all
   end
-  
+
   def all_invoices
     @invoices.all
   end
 
   def all_invoice_items
     @invoice_items.all
+  end
+
+  def all_transactions
+    @transactions.all
   end
 end
