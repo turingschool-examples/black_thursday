@@ -22,7 +22,6 @@ RSpec.describe TransactionRepository do
       expect(@transaction_repo.all.first.result).to eq('success')
       expect(@transaction_repo.all.first.created_at).to be_a(Time)
       expect(@transaction_repo.all.first.updated_at).to be_a(Time)
-
     end
   end
 
@@ -32,10 +31,13 @@ RSpec.describe TransactionRepository do
       expect(@transaction_repo.find_by_id(9)).to eq(@transaction_repo.all[8])
     end
 
-    xit 'can find transactions given a unique invoice id' do
+    it 'can find transactions given a unique invoice id' do
 
       id = 290
-      expect(expected.invoice_id).to eq(id)
+      expect(@transaction_repo.find_all_by_invoice_id(id)).to be_an(Array)
+      expect(@transaction_repo.find_all_by_invoice_id(id).length).to eq(1)
+      id = 8448
+      expect(@transaction_repo.find_all_by_invoice_id(id)).to eq([])
     end
   end
 end
