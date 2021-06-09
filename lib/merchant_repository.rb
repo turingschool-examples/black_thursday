@@ -9,9 +9,11 @@ class MerchantRepository
     create_merchants(path)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
+  # :nocov:
 
   def create_merchants(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant|

@@ -40,7 +40,6 @@ RSpec.describe InvoiceRepository do
     end
 
     expect(invoice_id).to eq([7])
-
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
 

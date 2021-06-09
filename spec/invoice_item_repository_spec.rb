@@ -102,4 +102,7 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+  it '.invoice_total_by_id' do
+    expect(@repo.invoice_total_by_id(10)).to eq(0.1e0)
+  end
 end
