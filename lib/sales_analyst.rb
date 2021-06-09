@@ -2,7 +2,6 @@ require 'date'
 require_relative '../lib/modules/hashable'
 require_relative '../lib/modules/countable'
 require_relative '../lib/modules/calculatable'
-require 'pry'
 
 class SalesAnalyst
   include Hashable

@@ -132,17 +132,17 @@ RSpec.describe SalesEngine do
 ########### Iteration 4
   it 'can return revenue by invoice id' do
     expected = {
-                  @se.invoices.all[0] => 10000.0,
+                  @se.invoices.all[0] => 10_000.0,
                   @se.invoices.all[1] => 240.0,
-                  @se.invoices.all[2] => 3032.0,
-                  @se.invoices.all[3] => 10888.0,
+                  @se.invoices.all[2] => 3_032.0,
+                  @se.invoices.all[3] => 10_888.0,
                   @se.invoices.all[4] => 810.0
                 }
     expect(@sales_analyst.revenue_by_invoice_hash).to eq(expected)
   end
 
   it 'can find out the total revenue for a given date' do
-    expect(@sales_analyst.total_revenue_by_date(Time.parse('2021-05-28'))).to eq(3032.00)
+    expect(@sales_analyst.total_revenue_by_date(Time.parse('2021-05-28'))).to eq(3_032.00)
   end
 
   it 'find the top x performing merchants in terms of revenue' do
@@ -166,6 +166,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'can find the total revenue for a single merchant' do
-    expect(@sales_analyst.revenue_by_merchant(5)).to eq(BigDecimal(13032))
+    expect(@sales_analyst.revenue_by_merchant(5)).to eq(BigDecimal(13_032))
   end
 end

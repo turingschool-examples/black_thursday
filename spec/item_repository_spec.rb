@@ -2,7 +2,6 @@ require 'SimpleCov'
 SimpleCov.start
 
 require_relative '../lib/item_repository'
-require_relative '../lib/item'
 
 RSpec.describe ItemRepository do
   before :each do
@@ -87,9 +86,9 @@ RSpec.describe ItemRepository do
 
   it 'finds item by ID and update attributes' do
     data = {
-      :description => 'You can write REALLY fancy things',
-      :unit_price  => BigDecimal(379.99, 5)
-    }
+              :description => 'You can write REALLY fancy things',
+              :unit_price  => BigDecimal(379.99, 5)
+           }
     @ir.update(3, data)
     expected = @ir.find_by_id(3)
 

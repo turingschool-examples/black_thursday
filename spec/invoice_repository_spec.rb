@@ -2,7 +2,6 @@ require 'SimpleCov'
 SimpleCov.start
 
 require_relative '../lib/invoice_repository'
-require_relative '../lib/invoice'
 
 RSpec.describe InvoiceRepository do
   before :each do
