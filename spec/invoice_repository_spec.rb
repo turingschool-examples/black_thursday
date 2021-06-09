@@ -43,7 +43,12 @@ RSpec.describe InvoiceRepository do
     expect(@repo.find_all_by_merchant_id(200)).to eq([])
   end
 
-  it 'can find all invoices by merchant id' do
+  it 'find_all_by_ids_by_merchant_id' do
+    expect(@repo.find_all_by_ids_by_merchant_id(77777)).to eq([7])
+    expect(@repo.find_all_by_ids_by_merchant_id(200)).to eq([])
+  end
+
+  it 'can find all invoices by status' do
     invoice_id = []
     @repo.find_all_by_status(:returned).each do |invoice|
       invoice_id << invoice.id
