@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 RSpec.describe InvoiceItem do
   before :each do
     @mock_repo = double("InvoiceItemRepository")
-    @ii_data = ({
+    @ii_data = {
                   :id => 6,
                   :item_id => 7,
                   :invoice_id => 8,
@@ -11,7 +11,7 @@ RSpec.describe InvoiceItem do
                   :unit_price => BigDecimal(10.99, 4),
                   :created_at => Time.now,
                   :updated_at => Time.now
-                })
+                }
 
     @invoice_item = InvoiceItem.new(@ii_data, @mock_repo)
   end
