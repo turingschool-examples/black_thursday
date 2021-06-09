@@ -145,7 +145,11 @@ class SalesAnalyst
         top_days << key.strftime('%A')
       end
     end
-    # require 'pry'; binding.pry
-    top_days.sort_by { |day| day.count.max }
+    top_invoice_day = []
+    top_invoice_day << top_days.max
+    top_invoice_day
+    # freq = top_days.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    # top_days.each_with_object(Hash.new(0)) { |day, counts| counts[day] +=1 }
   end
+
 end
