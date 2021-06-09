@@ -63,4 +63,14 @@ RSpec.describe SalesEngine do
     end
   end
 
+  it '.invoice_items_by_merchant_id' do
+    invoice_items = []
+    @se.invoice_items_by_merchant_id(77777).each do |invoice_item|
+      expect(invoice_item).to be_a(InvoiceItem)
+      invoice_items << invoice_item.id
+    end
+
+    expect(invoice_items).to eq([37, 36, 34, 35])
+  end
+
 end
