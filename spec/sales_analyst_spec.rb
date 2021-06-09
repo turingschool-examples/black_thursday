@@ -169,7 +169,7 @@ RSpec.describe SalesAnalyst do
     expect(@sa.most_sold_item_for_merchant_by_id(77777)).to eq(expected)
   end
 
-  xit '.most_sold_item_for_merchant' do
+  it '.most_sold_item_for_merchant' do
     expected = []
 
     @sa.most_sold_item_for_merchant(77777).each do |item|
@@ -177,13 +177,14 @@ RSpec.describe SalesAnalyst do
       expected << item.id
     end
 
-    expect(expected).to eq([36])
+    expect(expected).to eq([263445611, 263426763])
   end
 
   xit '.best_item_for_merchant' do
     expect(@sa.best_item_for_merchant(77777)).to be_a(Item)
 
     expect(@sa.best_item_for_merchant(77777).id).to eq(0)
+  end
 
   it 'can find total revenue by merchant' do
     expect(@sa.revenue_by_merchant(33333)).to eq(0.10900020e6)
