@@ -39,5 +39,14 @@ RSpec.describe TransactionRepository do
       id = 8448
       expect(@transaction_repo.find_all_by_invoice_id(id)).to eq([])
     end
+
+    it 'can find transactions given a credit card number' do
+
+      number = 4068631943231473
+      expect(@transaction_repo.find_all_by_credit_card_number(number)).to be_an(Array)
+      expect(@transaction_repo.find_all_by_credit_card_number(number).length).to eq(1)
+      number = 6179420851156782
+      expect(@transaction_repo.find_all_by_credit_card_number(number)).to eq([])
+    end
   end
 end
