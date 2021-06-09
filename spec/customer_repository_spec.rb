@@ -49,10 +49,16 @@ RSpec.describe CustomerRepository do
       @customer20 = @cr.all[19]
     end
 
-    it "generates CustomerRepository " do
+    it "generates CustomerRepository" do
       expect(@customer1.id).to eq(1)
       expect(@customer1.first_name).to eq("Joey")
       expect(@customer1.last_name).to eq("Ondricka")
+    end
+
+    it 'finds customer by id or return nil' do
+      expect(@cr.find_by_id(1)).to eq(@customer1)
+      expect(@cr.find_by_id(2)).to eq(@customer2)
+      expect(@cr.find_by_id(1000000)).to eq(nil)
     end
   end
 end
