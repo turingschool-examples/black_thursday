@@ -86,8 +86,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
+    avg_items = average_items_per_merchant
     sum = @se.item_repo_items_per_merchant.sum do |items|
-      (items - average_items_per_merchant) ** 2
+      (items - avg_items) ** 2
     end
     std_dev = sum / (@se.item_repo_total_merchants - 1)
     Math.sqrt(std_dev).round(2)
@@ -120,16 +121,18 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
+    avg_price = average_item_price
     sum = @se.item_repo_all_items_by_price.sum do |item|
-      (item - average_item_price) ** 2
+      (item - avg_price) ** 2
     end
     std_dev = sum / (@se.item_repo_total_items - 1)
     Math.sqrt(std_dev).round(2)
   end
 
   def golden_items
+    std_dev = item_price_standard_deviation
     @se.item_repo_all_items.find_all do |item|
-      (item.unit_price - item_price_standard_deviation * 2) > average_item_price
+      (item.unit_price > std_dev) && ((item.unit_price - std_dev * 2) > average_item_price)
     end
   end
 
