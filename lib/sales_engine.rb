@@ -101,4 +101,13 @@ class SalesEngine
   def invoice_items_repo_invoice_total_by_id(invoice_id)
     @invoice_items.invoice_total_by_id(invoice_id)
   end
+
+  def pending_transaction_merchant_ids
+    new_array = []
+    @transactions.pending_transactions_invoice_ids.each do |invoice|
+      new_array << @invoices.find_by_id(invoice)
+    end
+    new_array
+  end
+
 end
