@@ -28,13 +28,14 @@ module Hashable
   end
 
   def revenue_by_merchant_hash
-    merch_revenue = {}
-    merch_invoices_hash.map do |merchant, invoices|
-      merch_revenue[merchant] = invoices.sum do |invoice|
-        revenue_by_invoice_hash[invoice]
-      end
+    merchant_revenue = Hash.new(0)
+    new = revenue_by_invoice_hash.to_a.map do |hash|
+      hash[0] = @engine.merchants.find_by_id(hash[0].merchant_id), hash[1]
     end
-    merch_revenue
+    new.map do |merchant, revenue|
+      merchant_revenue[merchant] += revenue
+    end
+    merchant_revenue
   end
 
   def merchants_with_one_item_hash
