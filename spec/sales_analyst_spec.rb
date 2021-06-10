@@ -180,7 +180,7 @@ RSpec.describe SalesAnalyst do
     expect(expected).to eq([263445611, 263426763])
   end
 
-  xit '.best_item_for_merchant' do
+  it '.best_item_for_merchant' do
     expect(@sa.best_item_for_merchant(77777)).to be_a(Item)
 
     expect(@sa.best_item_for_merchant(77777).id).to eq(0)
