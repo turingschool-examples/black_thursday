@@ -43,7 +43,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns all pending invoices' do
-    expect(@se.pending_inovices.length).to eq(44)
+    expect(@se.pending_inovices.length).to eq(42)
   end
 
   it 'can store invoice item total price by date' do
@@ -65,7 +65,7 @@ RSpec.describe SalesEngine do
     end
 
     expect(invoice_items).to eq([37, 36, 34, 35])
-  end 
+  end
 
   it 'can find total revenue by merchant id' do
     expect(@se.merchant_revenue(33333)).to eq(0.10900020e6)

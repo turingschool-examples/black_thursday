@@ -89,7 +89,7 @@ RSpec.describe ItemRepository do
   end
 
   it 'creates new id number' do
-    expect(@repo.new_item_id_number).to eq(263401882)
+    expect(@repo.new_item_id_number).to eq(263556623)
   end
 
   it 'creates new item instance' do
@@ -101,9 +101,9 @@ RSpec.describe ItemRepository do
     @repo.create(attributes)
 
     expect(@repo.all.length).to eq(51)
-    expect(@repo.find_by_id(263401882).name).to eq('jersey')
-    expect(@repo.find_by_id(263401882).description).to eq('clothing')
-    expect(@repo.find_by_id(263401882).unit_price).to eq(0.2e0)
+    expect(@repo.find_by_id(263556623).name).to eq('jersey')
+    expect(@repo.find_by_id(263556623).description).to eq('clothing')
+    expect(@repo.find_by_id(263556623).unit_price).to eq(0.2e0)
   end
 
   it 'updates item attributes by id' do
