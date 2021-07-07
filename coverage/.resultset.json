@@ -1,0 +1,48 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/sabrinarobinson/Turing/1mod/projects/Final_Project/black_thursday/lib/sales_engine.rb": [
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        2,
+        0,
+        2,
+        0,
+        null,
+        2,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1523398172
+  }
+}
