@@ -1,0 +1,6 @@
+id,name,description,unit_price,merchant_id,created_at,updated_at
+1, Rapala minnow, catch big fish, 15, 12334105, 2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+2, Mepps spinner, catch smaller fish, 5, 12334112, 2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+3, Zoom super fluke, catch big bass, 6, 12334112, 2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+4, LiveTarget frog, catch really big bass, 20, 12334113, 2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+5, Yamamoto senko, catch fish all the time, 12, 12334113, 2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
