@@ -11,7 +11,7 @@ You can find the [project spec here](http://backend.turing.io/module1/projects/b
 ## Versioning
 - Ruby 2.7.2
 ## Getting Started
-[Clone down this repo](https://github.com/JoePeterson51/black_thursday)
+Clone down [this repo](https://github.com/JoePeterson51/black_thursday)
 
 ## Running the tests
 Git clone down the spec harness [here](https://github.com/turingschool/black_thursday_spec_harness) into a directory that lives at the same level as your `black_thursday` project directory. It should be arranged like:
