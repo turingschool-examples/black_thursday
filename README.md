@@ -43,9 +43,9 @@ To test your implementation against a single iteration of the evaluation specs, 
 where # is the iteration number.
 ## Authors
 - **Joe Peterson**
-  [LinkedIn](https://www.linkedin.com/in/joe-peterson-14718220b/)
+  [LinkedIn](https://www.linkedin.com/in/joe-peterson-14718220b/) |
   [GitHub](https://github.com/JoePeterson51)
-- **Netia Ingram
+- **Netia Ingram**
 - **Sidarth Bagawandoss**
 - **Zach Trokey**
 
