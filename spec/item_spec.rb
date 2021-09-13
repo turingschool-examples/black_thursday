@@ -1,5 +1,6 @@
 require 'rspec'
 require './lib/item'
+require 'bigdecimal'
 
 describe 'Item' do
   describe '#initialize' do
@@ -8,7 +9,7 @@ describe 'Item' do
         :id          => 1,
         :name        => "Pencil",
         :description => "You can use it to write things",
-        :unit_price  => 0,#BigDecimal.new(10.99,4),
+        :unit_price  => BigDecimal(10.99,4),
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 2
@@ -32,7 +33,11 @@ describe 'Item' do
     end
 
     it 'has a unit_price' do
-      expect(@item.unit_price).to eq(0)
+      expect(@item.unit_price).to eq(10.99)
+    end
+
+    it 'has a merchant_id' do
+      expect(@item.merchant_id).to eq(2)
     end
   end
 end
