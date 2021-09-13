@@ -26,5 +26,13 @@ describe 'Item' do
     it 'has a name' do
       expect(@item.name).to eq('Pencil')
     end
+
+    it 'has a description' do
+      expect(@item.description).to eq('You can use it to write things')
+    end
+
+    it 'has a unit_price' do
+      expect(@item.unit_price).to eq(0)
+    end
   end
 end
