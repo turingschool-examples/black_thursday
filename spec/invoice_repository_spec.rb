@@ -68,4 +68,25 @@ describe InvoiceRepository do
       expect(inre.find_all_by_status('this is not a status')).to eq([])
     end
   end
+
+  describe '#create' do
+    it 'creates a new Invoice instance' do
+      path = './data/invoices.csv'
+      inre = InvoiceRepository.new(path)
+
+      attributes = ({
+            :id          => 1,
+            :customer_id => 7,
+            :merchant_id => 8,
+            :status      => 'pending',
+            :created_at  => Time.now.round(2),
+            :updated_at  => Time.now.round(2),
+          })
+
+      expect(inre.create(attributes).last).to be_an_instance_of Invoice
+      expect(inre.create(attributes).last.id).to eq(4987)
+      expect(inre.create(attributes).last.customer_id).to eq(7)
+      expect(inre.create(attributes).last.status).to eq('pending')
+    end
+  end
 end
