@@ -3,7 +3,7 @@ require 'csv'
 
 class MerchantRepo
 
-  def self.all
+  def all
   merchants = []
   CSV.foreach('./data/merchants.csv', headers: true, header_converters: :symbol) do |row|
     headers = row.headers
@@ -12,25 +12,29 @@ class MerchantRepo
   merchants
   end
 
-  def self.find_by_id(id)
-    self.all.find do |merchant|
+  def find_by_id(id)
+    all.find do |merchant|
       merchant.id == id
     end
   end
 
-  def self.find_by_name(name)
-    self.all.find do |merchant|
+  def find_by_name(name)
+    all.find do |merchant|
       merchant.name.downcase == name.downcase
     end
   end
 
-  def self.find_all_by_name(name)
-    self.all.find_all do |merchant|
+  def find_all_by_name(name)
+    all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end
 
-  def self.create(attributes)
-    
-  end
+  # def create(attributes)
+  #
+  # end
+  #
+  # def find_highest_id
+  #
+  # end
 end
