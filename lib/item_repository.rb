@@ -55,5 +55,9 @@ class ItemRepository
     end
   end
 
-  
+  def find_all_by_price(price)
+    all.select do | item |
+      item.unit_price == price
+    end
+  end
 end

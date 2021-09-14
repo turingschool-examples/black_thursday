@@ -39,4 +39,10 @@ describe ItemRepository do
     expect(@ir.find_all_with_description("I have sizes S, M, and L").length).to eq 1
     expect(@ir.find_all_with_description("I have sizes S, M, and L")[0].id).to eq 263407685
   end
+
+  it "#find_all_by_price" do
+    expect(@ir.find_all_by_price(-1)).to eq []
+    expect(@ir.find_all_by_price(7500)).to be_a Array
+    expect(@ir.find_all_by_price(7500).empty?).to be false
+  end
 end
