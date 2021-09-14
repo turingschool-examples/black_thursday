@@ -3,7 +3,7 @@ require "./lib/merchant"
 
 describe Merchant do
   before :each do
-    @m = Merchant.new({:id => 5, :name => "Turing School"})
+    @m = Merchant.new({:id => "5", :name => "Turing School"})
   end
 
   it "is a Merchant" do

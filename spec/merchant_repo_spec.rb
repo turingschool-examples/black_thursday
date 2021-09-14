@@ -6,14 +6,17 @@ describe MerchantRepo do
     @mr = MerchantRepo.new
   end
 
-  xit 'exists' do
+  it 'exists' do
 
-    expect(mr.all).to be_an_instance_of(MerchantRepo)
+    expect(@mr).to be_an_instance_of(MerchantRepo)
   end
 
-  it '#all' do
+  it '.all' do
 
     expect(MerchantRepo.all).to be_an(Array)
-    expect(MerchantRepo.all).to include(merchant1, merchant2, merchant3, merchant4, merchant5)
+  end
+
+  it ".find_by_id" do
+    expect(MerchantRepo.find_by_id(12334105).name).to eq("Shopin1901")
   end
 end

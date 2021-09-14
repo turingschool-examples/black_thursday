@@ -1,18 +1,20 @@
 require './lib/merchant'
+require 'csv'
 
 class MerchantRepo
 
-  # @@file_name = './data/merchants.csv'
+  def self.all
+  merchants = []
+  CSV.foreach('./data/merchants.csv', headers: true, header_converters: :symbol) do |row|
+    headers = row.headers
+    merchants << Merchant.new(row.to_h)
+  end
+  merchants
+  end
 
-  # def initialize
-  #
-  # end
-
-  def all
-    merchant1 = Merchant.new({:id => 1, :name => "etsy"})
-    merchant2 = Merchant.new({:id => 2, :name => "ebay"})
-    merchant3 = Merchant.new({:id => 3, :name => "ampeg"})
-    merchant4 = Merchant.new({:id => 4, :name => "amazon"})
-    merchant5 = Merchant.new({:id => 5, :name => "fender"})
+  def self.find_by_id(id)
+    result = self.all.find do |merchant|
+      merchant.id == id
+    end
   end
 end
