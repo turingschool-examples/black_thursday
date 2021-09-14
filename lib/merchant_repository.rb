@@ -15,6 +15,5 @@ class MerchantRepository < SalesEngine
       result << row.to_hash
     end
     result
-    require "pry"; binding.pry
   end
 end

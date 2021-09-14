@@ -11,8 +11,11 @@ RSpec.describe MerchantRepository do
   it 'can return an array of all known merchants' do
     mr = MerchantRepository.new
 
-    expect(mr.all).to be_an(Array)
+    expect(mr.all).to be_an(Array)  
+    expect(mr.all[0]).to be_an_instance_of(Merchant)
   end
+
+
 
   xit 'can find merchant by id' do
     mr = MerchantRepository.new
