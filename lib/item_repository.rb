@@ -12,4 +12,10 @@ class ItemRepository
     end
     items
   end
+
+  def all
+    to_array.map do | item |
+      Item.new(item)
+    end
+  end
 end

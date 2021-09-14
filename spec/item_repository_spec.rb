@@ -15,4 +15,10 @@ describe ItemRepository do
     expect(@ir.to_array).to be_a Array
     expect(@ir.to_array.empty?).to be false
   end
+
+  it "#all" do
+    expect(@ir.all).to be_a Array
+    expect(@ir.all.empty?).to be false
+    expect(@ir.all[0]).to be_a Item
+  end
 end
