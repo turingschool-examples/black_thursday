@@ -1,5 +1,10 @@
 class SalesEngine
 
-def initialize(csv_hash)
+
+def initialize
+
 end
+def self.from_csv(csv_hash)
+end
+
 end
