@@ -1,16 +1,15 @@
 require 'csv'
-require './lib/item_repository'
+require './lib/itemrepository'
 require './lib/merchant_repository'
 
 class SalesEngine
-  attr_reader :item_path, :merchant_path
-  def self.from_csv(path)
-    item_path = path[:items]
-    merchant_path = path[:merchants]
+  def self.from_csv
+    @item_path = "./data/items.csv"
+    @merchant_path = "./data/merchants.csv"
   end
 
-  def initialize
-    @item_repository = ItemRepository.new
-    @merchant_repository = MerchantRepository.new 
-  end
+  # def initialize
+  #   @item_repository = ItemRepository.new
+  #   @merchant_repository = MerchantRepository.new
+  # end
 end
