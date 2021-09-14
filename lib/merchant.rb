@@ -17,7 +17,7 @@ class Merchant
     rows.by_col
 
     id = rows["id"]
-    
+
     merchants = id.find do |merchant|
       merchant == rows["name"]
     end
