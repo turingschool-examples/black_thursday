@@ -111,6 +111,7 @@ describe 'itemrepository' do
       }
 
       expect(ir.create(attributes).last.name).to eq("Pencil")
+      expect(ir.create(attributes).last.description).to eq("You can use it to write things")
     end
   end
 
@@ -130,8 +131,9 @@ describe 'itemrepository' do
       }
 
       ir.update('263395617', attributes)
-    require 'pry'; binding.pry
       expect(ir.find_by_id('263395617').name).to eq("Pencil")
+      expect(ir.find_by_id('263395617').description).to eq("You can use it to write things")
+      expect(ir.find_by_id('263395617').unit_price).to eq(1099)
     end
   end
 end
