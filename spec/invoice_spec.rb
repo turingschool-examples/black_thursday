@@ -9,8 +9,8 @@ describe Invoice do
             :customer_id => 7,
             :merchant_id => 8,
             :status      => 'pending',
-            :created_at  => Time.now.round(2),
-            :updated_at  => Time.now.round(2),
+            :created_at  => Time.now.round(1),
+            :updated_at  => Time.now.round(1),
           })
     end
 
@@ -35,11 +35,11 @@ describe Invoice do
     end
 
     it 'has a created_at' do
-      expect(@i.created_at).to eq(Time.now.round(2))
+      expect(@i.created_at).to eq(Time.now.round(1))
     end
 
     it 'has a updated_at' do
-      expect(@i.updated_at).to eq(Time.now.round(2))
+      expect(@i.updated_at).to eq(Time.now.round(1))
     end
   end
 end
