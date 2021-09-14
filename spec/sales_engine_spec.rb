@@ -20,4 +20,12 @@ RSpec.describe SalesEngine do
       expect(mr.find_by_name("jejum")).to be_an_instance_of(Merchant)
     end
   end
+
+  context 'Iteration 1' do
+    it 'exists' do
+      se = SalesEngine.new
+      sales_analyst = se.analyst
+      expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
+    end
+  end 
 end
