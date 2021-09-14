@@ -1,22 +1,22 @@
-require './transaction'
+require './lib/transaction'
 
 RSpec.describe Transaction do
-
-  before :each do
-    @time = Time.now
-
-    @t = Transaction.new({
-      :id => 6,
-      :invoice_id => 8,
-      :credit_card_number => '4242424242424242',
-      :credit_card_expiration_date => '0220',
-      :result => 'success',
-      :created_at => @time,
-      :updated_at => @time
-    })
-  end
-
   context 'instansiation' do
+
+    before :each do
+      @time = Time.now
+
+      @t = Transaction.new({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => '4242424242424242',
+        :credit_card_expiration_date => '0220',
+        :result => 'success',
+        :created_at => @time,
+        :updated_at => @time
+      })
+    end
+
     it 'exists' do
       expect(@t).to be_a Transaction
     end
