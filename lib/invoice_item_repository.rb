@@ -1,4 +1,15 @@
+require 'csv'
+
 class InvoiceItemRepository
   def initialize(path)
-  end 
+    @path = path
+    @rows = CSV.read(@path, headers: true, header_converters: :symbol)
+    @all = all
+  end
+
+  def all
+    result = @rows.map do |row|
+      InvoiceItem.new(row)
+    end
+  end
 end

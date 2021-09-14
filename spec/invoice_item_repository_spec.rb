@@ -10,4 +10,13 @@ RSpec.describe 'invoice_item_repository' do
       expect(iir).to be_an_instance_of InvoiceItemRepository
     end
   end
-end 
+
+  describe '#all' do
+    it 'returns an array of all invoice item instances' do
+      path = './data/invoice_items.csv'
+      iir = InvoiceItemRepository.new(path)
+
+      expect(iir.all).to be_an Array
+    end
+  end
+end
