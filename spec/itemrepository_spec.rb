@@ -29,6 +29,7 @@ describe 'itemrepository' do
       expect(ir.find_by_id("263395617")).to be_an_instance_of Item
       expect(ir.find_by_id("263395617").id).to eq("263395617")
       expect(ir.find_by_id("263395617").name).to eq("Glitter scrabble frames")
+      expect(ir.find_by_id("1253467890")).to eq(nil)
     end
   end
 
@@ -40,6 +41,21 @@ describe 'itemrepository' do
       expect(ir.find_by_name("JSK Chai")).to be_an_instance_of Item
       expect(ir.find_by_name("JSK Chai").id).to eq("263549122")
       expect(ir.find_by_name("JSK Chai").name).to eq("JSK Chai")
+      expect(ir.find_by_name("This Is Not A Name")).to eq(nil)
+    end
+  end
+
+  describe '#find_all_with_description' do
+    it 'returns all instances of Item matching the description' do
+      path = './data/items.csv'
+      ir = ItemRepository.new(path)
+
+      example_description = "Free standing wooden letters \n\n15cm\n\nAny colours"
+
+      expect(ir.find_all_with_description(example_description)).to be_an Array
+      expect(ir.find_all_with_description(example_description)[0].id).to eq("263396013")
+      expect(ir.find_all_with_description(example_description)[0].name).to eq("Free standing Woden letters")
+      expect(ir.find_all_with_description("This Is Not A Description")).to eq([])
     end
   end
 end
