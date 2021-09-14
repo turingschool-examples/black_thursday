@@ -58,4 +58,16 @@ describe 'itemrepository' do
       expect(ir.find_all_with_description("This Is Not A Description")).to eq([])
     end
   end
+
+  describe '#find_all_by_price' do
+    it 'returns all instances of Item matching the price' do
+      path = './data/items.csv'
+      ir = ItemRepository.new(path)
+
+      expect(ir.find_all_by_price('1300')).to be_an Array
+      expect(ir.find_all_by_price('1300')[0].id).to eq("263395617")
+      expect(ir.find_all_by_price('1300')[0].name).to eq("Glitter scrabble frames")
+      expect(ir.find_all_by_price('981762349871234')).to eq([])
+    end
+  end
 end
