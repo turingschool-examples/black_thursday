@@ -5,7 +5,7 @@ class Merchant
   attr_reader :id,
               :name,
               :merchants
-  @@filename = './data/merchants.csv'
+  @@filename = './data/sample.csv'
   def initialize(info)
     @id = info[:id]
     @name = info[:name]
@@ -14,13 +14,16 @@ class Merchant
 
   def self.find_by_id(id)
     rows = CSV.read(@@filename, headers: true)
-    rows.by_col
+    rows.by_row
 
-    id = rows["id"]
-
-    merchants = id.find do |merchant|
-      merchant == rows["name"]
+    id_1 = rows["id"]
+    merchants = []
+    rows.find do |merchant|
+      # require "pry"; binding.pry
+      if id_1 == id
+        merchants << merchant
+      end
+      merchants
     end
-    merchants
   end
 end

@@ -43,7 +43,9 @@ RSpec.describe 'Merchant' do
   end
 
   it "can find a merchant by ID number" do
-    expect(Merchant.find_by_id(12334105)).to eq("Shopin1901")
+    variable_1 = <CSV::Row "id":"12334105" "name":"Shopin1901" "created_at":"2010-12-10" "updated_at":"2011-12-04">
+
+    expect(Merchant.find_by_id(12334105)).to eq(variable_1)
 
   end
 
