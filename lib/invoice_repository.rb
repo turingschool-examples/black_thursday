@@ -37,4 +37,9 @@ class InvoiceRepository
       row.status == status
     end
   end
+
+  def create(attributes)
+    attributes[:id] = @all.last.id.to_i + 1
+    @all << Invoice.new(attributes)
+  end
 end
