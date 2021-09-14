@@ -4,7 +4,6 @@ RSpec.describe SalesEngine do
   context 'Iteration 0' do
     it 'exists' do
       se = SalesEngine.new
-      ir = se.item_path
       expect(se).to be_an_instance_of(SalesEngine)
     end
 
@@ -14,10 +13,10 @@ RSpec.describe SalesEngine do
       expect(ir.find_by_name("Disney scrabble frames")).to be_an_instance_of(Item)
     end
 
-    it 'can access merchants' do
-      se = SalesEngine.new
-      mr   = MerchantRepository.new("./data/merchants.csv")
-      expect(mr.find_by_name("jejum")).to be_an_instance_of(Merchant)
-    end
+    # it 'can access merchants' do
+    #   se = SalesEngine.new
+    #   mr   = MerchantRepository.new("./data/merchants.csv")
+    #   expect(mr.find_by_name("jejum")).to be_an_instance_of(Merchant)
+    # end
   end
 end
