@@ -1,3 +1,3 @@
 
 class SalesAnalyst
-end 
+end

@@ -27,5 +27,5 @@ RSpec.describe SalesEngine do
       sales_analyst = se.analyst
       expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
     end
-  end 
+  end
 end
