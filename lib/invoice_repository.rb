@@ -42,4 +42,10 @@ class InvoiceRepository
     attributes[:id] = @all.last.id.to_i + 1
     @all << Invoice.new(attributes)
   end
+
+  def update(id, attributes)
+    invoice_to_update = find_by_id(id)
+    invoice_to_update.status = attributes[:status]
+    invoice_to_update.updated_at = Time.now
+  end
 end
