@@ -48,4 +48,8 @@ class InvoiceRepository
     invoice_to_update.status = attributes[:status]
     invoice_to_update.updated_at = Time.now
   end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 end
