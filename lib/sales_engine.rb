@@ -1,6 +1,6 @@
 require 'csv'
 require './lib/itemrepository'
-# require './lib/merchant_repository'
+require './lib/merchant_repository'
 
 class SalesEngine
   attr_reader :analyst
