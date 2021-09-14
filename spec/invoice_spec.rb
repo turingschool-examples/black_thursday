@@ -1,7 +1,7 @@
 require 'rspec'
 require './lib/invoice'
 
-describe 'Invoice' do
+describe Invoice do
   describe '#initialize' do
     before do
       @i = Invoice.new({
