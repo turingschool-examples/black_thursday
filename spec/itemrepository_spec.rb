@@ -64,10 +64,22 @@ describe 'itemrepository' do
       path = './data/items.csv'
       ir = ItemRepository.new(path)
 
-      expect(ir.find_all_by_price('1300')).to be_an Array
-      expect(ir.find_all_by_price('1300')[0].id).to eq("263395617")
-      expect(ir.find_all_by_price('1300')[0].name).to eq("Glitter scrabble frames")
-      expect(ir.find_all_by_price('981762349871234')).to eq([])
+      expect(ir.find_all_by_price(1300)).to be_an Array
+      expect(ir.find_all_by_price(1300)[0].id).to eq("263395617")
+      expect(ir.find_all_by_price(1300)[0].name).to eq("Glitter scrabble frames")
+      expect(ir.find_all_by_price(981762349871234)).to eq([])
+    end
+  end
+
+  describe '#find_all_by_price_in_range' do
+    it 'returns all instances of Item in the price range' do
+      path = './data/items.csv'
+      ir = ItemRepository.new(path)
+
+      expect(ir.find_all_by_price_in_range(1300, 1500)).to be_an Array
+      expect(ir.find_all_by_price_in_range(1300, 1500)[0].id).to eq("263395617")
+      expect(ir.find_all_by_price_in_range(1300, 1500)[0].name).to eq("Glitter scrabble frames")
+      expect(ir.find_all_by_price_in_range(98176234, 1000000000)).to eq([])
     end
   end
 end
