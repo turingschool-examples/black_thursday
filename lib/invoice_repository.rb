@@ -13,4 +13,10 @@ class InvoiceRepository
       Invoice.new(row)
     end
   end
+
+  def find_by_id(id)
+    @all.find do |row|
+      row.id == id
+    end
+  end
 end
