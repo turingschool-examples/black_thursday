@@ -26,6 +26,25 @@ RSpec.describe MerchantRepository do
     it '#find_by_id' do
       expect(@mr.find_by_id(12334105)).to be_a Merchant
       expect(@mr.find_by_id(12334105).name).to eq 'Shopin1901'
+      expect(@mr.find_by_id(12334112).name).to eq 'Candisart'
+      expect(@mr.find_by_id(10)).to be nil
+    end
+
+    it '#find_by_name' do
+      expect(@mr.find_by_name('Candisart')).to be_a Merchant
+      expect(@mr.find_by_name('Candisart').id).to eq 12334112
+      expect(@mr.find_by_name('cAndisARt').id).to eq 12334112
+      expect(@mr.find_by_name('HaewonsDonuts')).to be nil
+    end
+
+    it '#find_all_by_name' do
+      fragment1 = "a"
+      fragment2 = "shop"
+      fragment3 = "oiawhge;jweiak;jhfdsioaghwd;"
+
+      expect(@mr.find_all_by_name(fragment1)).to be_an Array
+      expect(@mr.find_all_by_name(fragment2).count).to eq 26
+      expect(@mr.find_all_by_name(fragment3)).to eq []
     end
   end
 end
