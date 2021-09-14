@@ -94,4 +94,44 @@ describe 'itemrepository' do
       expect(ir.find_all_by_merchant_id('981762349871234')).to eq([])
     end
   end
+
+  describe '#create' do
+    it 'creates a new instance of Item' do
+      path = './data/items.csv'
+      ir = ItemRepository.new(path)
+
+      attributes = {
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => 1099,
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      }
+
+      expect(ir.create(attributes).last.name).to eq("Pencil")
+    end
+  end
+
+  describe '#update' do
+    it 'updates some of in Items values' do
+      path = './data/items.csv'
+      ir = ItemRepository.new(path)
+
+      attributes = {
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => 1099,
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      }
+
+      ir.update('263395617', attributes)
+    require 'pry'; binding.pry
+      expect(ir.find_by_id('263395617').name).to eq("Pencil")
+    end
+  end
 end
