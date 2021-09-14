@@ -46,5 +46,30 @@ RSpec.describe MerchantRepository do
       expect(@mr.find_all_by_name(fragment2).count).to eq 26
       expect(@mr.find_all_by_name(fragment3)).to eq []
     end
+
+    it '#create' do
+      attributes1 = {name: 'SamsCatSupplyStore'}
+      attributes2 = {id: 12030, name: 'fakestore', created_at: "2021-09-13"}
+
+      merchant1 = @mr.create(attributes1)
+      merchant2 = @mr.create(attributes2)
+
+      expect(merchant1).to be_a Merchant
+      expect(merchant1.id).to eq 12337412
+      expect(merchant1.name).to eq 'SamsCatSupplyStore'
+
+      expect(merchant2).to be_a Merchant
+      expect(merchant2.id).to eq 12337413
+      expect(merchant2.name).to eq 'fakestore'
+    end
+
+    it '#update' do
+      id = 12334112
+      attributes = {id: 10, name: 'Amazon'}
+      updated = @mr.update(id, attributes)
+
+      expect(updated.name).to eq 'Amazon'
+      expect(updated.id).to eq 12334112
+    end
   end
 end

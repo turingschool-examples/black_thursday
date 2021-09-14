@@ -35,4 +35,23 @@ class MerchantRepository
       merchant.name.downcase.include?(name.downcase)
     end
   end
+
+  def create(attributes)
+
+    max_id = @all.max_by do |merchant| # could split this into a helper method
+      merchant.id
+    end
+
+    attributes[:id] = max_id.id + 1
+
+    new_merchant = Merchant.new(attributes)
+    @all << new_merchant
+    new_merchant
+  end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    merchant.name = attributes[:name]
+    merchant
+  end
 end
