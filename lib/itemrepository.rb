@@ -76,4 +76,9 @@ class ItemRepository
     item_to_update.updated_at = Time.now
     item_to_update
   end
+
+  def delete(id)
+    item_to_delete = find_by_id(id)
+    @all.delete(item_to_delete)
+  end
 end
