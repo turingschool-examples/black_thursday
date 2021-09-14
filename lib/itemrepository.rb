@@ -41,4 +41,11 @@ class ItemRepository
     end
     result
   end
+
+  def find_all_by_price_in_range(num1, num2)
+    result = @all.find_all do |row|
+      row.unit_price.between?(num1, num2)
+    end
+    result
+  end
 end
