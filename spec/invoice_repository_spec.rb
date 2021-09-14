@@ -89,4 +89,24 @@ describe InvoiceRepository do
       expect(inre.create(attributes).last.status).to eq('pending')
     end
   end
+
+  describe '#update' do
+    it 'updates an instance of Invoice' do
+      path = './data/invoices.csv'
+      inre = InvoiceRepository.new(path)
+
+      attributes = ({
+            :id          => 1,
+            :customer_id => 7,
+            :merchant_id => 8,
+            :status      => 'shipped',
+            :created_at  => Time.now.round(2),
+            :updated_at  => Time.now.round(2),
+          })
+
+      inre.update('1', attributes)
+
+      expect(inre.find_by_id('1').status).to eq('shipped')
+    end
+  end
 end
