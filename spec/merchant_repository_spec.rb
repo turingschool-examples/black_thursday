@@ -22,5 +22,10 @@ RSpec.describe MerchantRepository do
       expect(@mr.all[0].id).to eq 12334105
       expect(@mr.all[0].name).to eq 'Shopin1901'
     end
+
+    it '#find_by_id' do
+      expect(@mr.find_by_id(12334105)).to be_a Merchant
+      expect(@mr.find_by_id(12334105).name).to eq 'Shopin1901'
+    end
   end
 end
