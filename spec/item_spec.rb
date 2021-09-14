@@ -5,13 +5,13 @@ require "./lib/item"
 describe Item do
   before :each do
     @i = Item.new({
-      :id          => 1,
+      :id          => '1',
       :name        => 'Pencil',
       :description => 'You can use it to write things',
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => '10.99',
+      :created_at  => '2016-01-11 09:34:06 UTC',
+      :updated_at  => '2007-06-04 21:35:10 UTC',
+      :merchant_id => '2'
     })
   end
 

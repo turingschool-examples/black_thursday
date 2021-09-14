@@ -1,3 +1,5 @@
+require "Time"
+
 class Item
   attr_reader :id,
               :name,
@@ -8,13 +10,13 @@ class Item
               :merchant_id
 
   def initialize(info)
-    @id           = info[:id]
+    @id           = info[:id].to_i
     @name         = info[:name]
     @description  = info[:description]
-    @unit_price   = info[:unit_price]
-    @created_at   = info[:created_at]
-    @updated_at   = info[:updated_at]
-    @merchant_id  = info[:merchant_id]
+    @unit_price   = BigDecimal.new(info[:unit_price], 4)
+    @created_at   = Time.parse(info[:created_at])
+    @updated_at   = Time.parse(info[:updated_at])
+    @merchant_id  = info[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
