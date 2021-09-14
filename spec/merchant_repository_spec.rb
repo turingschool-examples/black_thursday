@@ -71,5 +71,13 @@ RSpec.describe MerchantRepository do
       expect(updated.name).to eq 'Amazon'
       expect(updated.id).to eq 12334112
     end
+
+    it '#delete' do
+      id = 12334112
+      deleted = @mr.delete(id)
+
+      expect(deleted.name).to eq 'Candisart'
+      expect(@mr.all).not_to include(deleted)
+    end
   end
 end
