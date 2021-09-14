@@ -10,7 +10,7 @@ class SalesEngine
   end
 
   def initialize
-    @item_repository
-    @merchant_repository
+    @item_repository = ItemRepository.new
+    @merchant_repository = MerchantRepository.new 
   end
 end
