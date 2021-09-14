@@ -63,16 +63,17 @@ class ItemRepository
 
   def update(id, attributes)
     item_to_update = find_by_id(id)
+
     if attributes[:name] != nil
-      item_to_update.name.gsub!(item_to_update.name, attributes[:name])
+      item_to_update.name = attributes[:name]
     end
     if attributes[:description] != nil
-      item_to_update.description.gsub!(item_to_update.description, attributes[:description])
+      item_to_update.description = attributes[:description]
     end
     if attributes[:unit_price] != nil
-      item_to_update.unit_price - item_to_update.unit_price + attributes[:unit_price]
+      item_to_update.unit_price = attributes[:unit_price]
     end
-    # item_to_update.updated_at.gsub!(item_to_update.updated_at, attributes[:updated_at])
+    item_to_update.updated_at = Time.now
     item_to_update
   end
 end
