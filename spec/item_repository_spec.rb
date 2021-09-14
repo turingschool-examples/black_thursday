@@ -21,4 +21,10 @@ describe ItemRepository do
     expect(@ir.all.empty?).to be false
     expect(@ir.all[0]).to be_a Item
   end
+
+  it "#find_by_id" do
+    expect(@ir.find_by_id(263395237)).to be_a Item
+    expect(@ir.find_by_id(263395617).name).to eq "Glitter scrabble frames"
+    expect(@ir.find_by_id(2)).to eq nil
+  end
 end

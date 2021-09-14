@@ -18,4 +18,17 @@ class ItemRepository
       Item.new(item)
     end
   end
+
+  def find_by_id(id)
+    found = false
+    all.each do | item |
+      if item.id == id
+        return item
+        found = true
+      end
+    end
+    if found == false
+      return nil
+    end
+  end
 end
