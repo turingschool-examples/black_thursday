@@ -21,15 +21,15 @@ class SalesEngine
  #
  def merchants
    #returns an instance of MerchantsRepository
-  result_array = []
-  rows = CSV.read(@merchants,headers: true)
-  rows.each do |k,v|
-    next if k == "created_at"
-    next if k == "updated_at"
-    merchant_hash = {}
-    merchant_hash[k] = v
-    result_array.push(Merchant.new(merchant_hash))
+  merch_array = []
+  merch_table = CSV.read(@merchants,headers: true)
+  merch_table.each do |row|
+    merch_hash = {}
+    row_header = row.headers
+    merch_hash[row_header[0]] = row[0]
+    merch_hash[row_header[1]] = row[1]
+    merch_array.push(Merchant.new(merch_hash))
   end
-  mr = MerchantsRepository.new(result_array)
+  mr = MerchantsRepository.new(merch_array)
  end
 end
