@@ -47,5 +47,13 @@ class ItemRepository
     end
   end
 
+  def find_all_with_description(description)
+    description.upcase!
+
+    all.find_all do | item |
+      item.description.upcase.include?(description)
+    end
+  end
+
   
 end

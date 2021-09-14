@@ -34,7 +34,9 @@ describe ItemRepository do
     expect(@ir.find_by_name("")).to eq nil
   end
 
-  it "#find_all_with_descirption" do
-    expect(@ir.find_all_with_descirption("asdfvds2344")).to eq []
+  it "#find_all_with_description" do
+    expect(@ir.find_all_with_description("asdfvds2344")).to eq []
+    expect(@ir.find_all_with_description("I have sizes S, M, and L").length).to eq 1
+    expect(@ir.find_all_with_description("I have sizes S, M, and L")[0].id).to eq 263407685
   end
 end
