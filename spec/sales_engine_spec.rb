@@ -2,11 +2,14 @@ require './lib/sales_engine'
 
 RSpec.describe SalesEngine do
   it 'exists' do
-    x = SalesEngine.new()
-    expect(x).to be_an_instance_of(SalesEngine)
+
+  se = SalesEngine.new()
+    expect(se).to be_an_instance_of(SalesEngine)
   end
 
-  it 'has attributes' do
-    x = SalesEngine.new()
-    expect(customer_service.name).to eq("Customer Service")
+  xit 'has attributes' do
+    se = SalesEngine.new()
+    expect(x).to eq("...")
   end
+end
+
