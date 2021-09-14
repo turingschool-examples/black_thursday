@@ -27,4 +27,14 @@ describe ItemRepository do
     expect(@ir.find_by_id(263395617).name).to eq "Glitter scrabble frames"
     expect(@ir.find_by_id(2)).to eq nil
   end
+
+  it "#find_by_name" do
+    expect(@ir.find_by_name("510+ RealPush IcON SeT")).to be_a Item
+    expect(@ir.find_by_name("510+ RealPush IcON SeT").id).to eq 263395237
+    expect(@ir.find_by_name("")).to eq nil
+  end
+
+  it "#find_all_with_descirption" do
+    expect(@ir.find_all_with_descirption("asdfvds2344")).to eq []
+  end
 end

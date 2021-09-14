@@ -31,4 +31,21 @@ class ItemRepository
       return nil
     end
   end
+
+  def find_by_name(name)
+    name.upcase!
+    found = false
+
+    all.each do | item |
+      if item.name.upcase == name
+        return item
+        found = true
+      end
+    end
+    if found == false
+      return nil
+    end
+  end
+
+  
 end
