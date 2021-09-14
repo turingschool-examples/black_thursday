@@ -27,4 +27,11 @@ class ItemRepository
     end
     result
   end
+
+  def find_all_with_description(description)
+    result = @all.find_all do |row|
+      row.description == description
+    end
+    result
+  end
 end
