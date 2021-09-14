@@ -16,7 +16,7 @@ RSpec.describe Transaction do
     })
   end
 
-  context 'instansiation' do
+  context 'instantiation' do
     it 'exists' do
       expect(@t).to be_a Transaction
     end
