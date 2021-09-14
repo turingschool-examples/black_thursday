@@ -56,4 +56,9 @@ describe ItemRepository do
     expect(@ir.find_all_by_merchant_id(-1)).to eq []
     expect(@ir.find_all_by_merchant_id(12336642).length).to eq 2
   end
+
+  it "#find_highest_id" do
+    expect(@ir.find_highest_id).to be_a Integer
+    expect(@ir.find_highest_id).to be > 263567376
+  end
 end

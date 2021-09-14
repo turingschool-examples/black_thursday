@@ -72,4 +72,11 @@ class ItemRepository
       merchant_id == item.merchant_id
     end
   end
+
+  def find_highest_id
+    max_item = all.max_by do | item |
+      item.id
+    end
+    max_item.id
+  end
 end
