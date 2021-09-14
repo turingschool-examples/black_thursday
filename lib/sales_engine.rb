@@ -22,12 +22,12 @@ class SalesEngine
  def merchants
    #returns an instance of MerchantsRepository
   merch_array = []
-  merch_table = CSV.read(@merchants,headers: true)
+  merch_table = CSV.read("./data/items.csv",headers: true)
   merch_table.each do |row|
     merch_hash = {}
     row_header = row.headers
-    merch_hash[row_header[0]] = row[0]
-    merch_hash[row_header[1]] = row[1]
+    merch_hash[row_header[0].to_sym] = row[0]
+    merch_hash[row_header[1].to_sym] = row[1]
     merch_array.push(Merchant.new(merch_hash))
   end
   mr = MerchantsRepository.new(merch_array)
