@@ -136,4 +136,14 @@ describe 'itemrepository' do
       expect(ir.find_by_id('263395617').unit_price).to eq(1099)
     end
   end
+
+  describe '#delete' do
+    it 'deletes an instance of Item' do
+      path = './data/items.csv'
+      ir = ItemRepository.new(path)
+      require 'pry'; binding.pry
+      ir.delete('263395617')
+      expect(ir.find_by_id('263395617')).to eq(nil)
+    end
+  end
 end
