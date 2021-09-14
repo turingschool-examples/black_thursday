@@ -82,4 +82,16 @@ describe 'itemrepository' do
       expect(ir.find_all_by_price_in_range(98176234, 1000000000)).to eq([])
     end
   end
+
+  describe '#find_all_by_merchant_id' do
+    it 'returns all instances of Item matching the merchant_id' do
+      path = './data/items.csv'
+      ir = ItemRepository.new(path)
+
+      expect(ir.find_all_by_merchant_id('12334261')).to be_an Array
+      expect(ir.find_all_by_merchant_id('12334261')[0].id).to eq("263410631")
+      expect(ir.find_all_by_merchant_id('12334261')[0].name).to eq("OLIVE SOAP")
+      expect(ir.find_all_by_merchant_id('981762349871234')).to eq([])
+    end
+  end
 end
