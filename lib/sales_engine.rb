@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/itemrepository'
 require './lib/merchant_repository'
+require './lib/sales_analyst'
 
 class SalesEngine
   attr_reader :analyst
@@ -10,6 +11,6 @@ class SalesEngine
   end
 
   def initialize
-    @analyst = SalesAnalyst.new
+    @analyst = SalesAnalyst.new#(self)
   end
 end
