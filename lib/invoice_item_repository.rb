@@ -1,2 +1,4 @@
 class InvoiceItemRepository
-end 
+  def initialize(path)
+  end 
+end
