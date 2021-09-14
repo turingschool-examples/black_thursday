@@ -66,4 +66,10 @@ class ItemRepository
       range.first <= item.unit_price && range.last >= item.unit_price
     end
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    all.select do | item |
+      merchant_id == item.merchant_id
+    end
+  end
 end

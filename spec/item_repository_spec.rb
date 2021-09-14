@@ -51,4 +51,9 @@ describe ItemRepository do
     expect(@ir.find_all_by_price_in_range(0..1000)).to be_a Array
     expect(@ir.find_all_by_price_in_range(0..1000).empty?).to be false
   end
+
+  it "#find_all_by_merchant_id" do
+    expect(@ir.find_all_by_merchant_id(-1)).to eq []
+    expect(@ir.find_all_by_merchant_id(12336642).length).to eq 2
+  end
 end
