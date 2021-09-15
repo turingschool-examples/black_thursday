@@ -37,5 +37,23 @@ class InvoiceItemRepository
   def create(attributes)
     attributes[:id] = @all.last.id.to_i + 1
     @all << InvoiceItem.new(attributes)
-  end 
+  end
+
+  def update(id, attributes)
+    invoice_item_to_update = find_by_id(id)
+
+    if attributes[:quantity] != nil
+      invoice_item_to_update.quantity = attributes[:quantity]
+    end
+    if attributes[:unit_price] != nil
+      invoice_item_to_update.unit_price = attributes[:unit_price]
+    end
+    invoice_item_to_update.updated_at = Time.now
+    invoice_item_to_update
+  end
+
+  def delete(id)
+    invoice_item_to_delete = find_by_id(id)
+    @all.delete(invoice_item_to_delete)
+  end
 end

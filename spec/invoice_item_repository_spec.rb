@@ -88,7 +88,17 @@ RSpec.describe 'invoice_item_repository' do
       }
 
       iir.update('1', attributes)
-      expect(iir.find_by_id('1').id).to eq('6')
+      expect(iir.find_by_id('1').quantity).to eq('1')
+      expect(iir.find_by_id('1').unit_price).to eq('1099')
+    end
+  end
+
+  describe 'delete' do
+    it 'deletes an instance of InvoiceItem' do
+      path = './data/invoice_items.csv'
+      iir = InvoiceItemRepository.new(path)
+      iir.delete('1')
+      expect(iir.find_by_id('1')).to eq(nil)
     end
   end
 end
