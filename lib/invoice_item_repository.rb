@@ -12,4 +12,11 @@ class InvoiceItemRepository
       InvoiceItem.new(row)
     end
   end
+
+  def find_by_id(id)
+    result = @all.find do |row|
+      row.id == id
+    end
+    result 
+  end
 end
