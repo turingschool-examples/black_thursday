@@ -67,4 +67,13 @@ describe ItemRepository do
 
     expect(@ir.find_by_name("laptop").merchant_id).to eq(9)
   end
+
+  it "#update" do
+    @ir.create("laptop", "This is my old school laptop I used to learn how to code", 10000, 9)
+    attributes = {name: "desktop"}
+    
+    @ir.update(263567475, attributes)
+
+    expect(@ir.find_by_id(263567475).name).to eq("desktop")
+  end
 end

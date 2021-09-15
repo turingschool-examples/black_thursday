@@ -1,6 +1,9 @@
 class ItemRepository
+  attr_reader :all
+
   def initialize(path)
     @path = path
+    @all = to_array
   end
 
   def to_array
@@ -10,11 +13,7 @@ class ItemRepository
       headers = row.headers
       items << row.to_h
     end
-    items
-  end
-
-  def all
-    to_array.map do | item |
+    items.map do | item |
       Item.new(item)
     end
   end
@@ -81,10 +80,26 @@ class ItemRepository
   end
 
   def create(name, description, unit_price, merchant_id)
-  id = find_highest_id + 1
-  current_time = Time.now.utc
-  CSV.open(@path, "a") do | csv |
-    csv << [id.to_s, name, description, unit_price.to_s, merchant_id, current_time.to_s, current_time.to_s]
+    id = find_highest_id + 1
+    current_time = Time.now.utc
+    info = {
+      id: id.to_s,
+      name: name,
+      description: description,
+      unit_price: unit_price.to_s,
+      merchant_id: merchant_id.to_s,
+      created_at: current_time.to_s,
+      updated_at: current_time.to_s
+    }
+    @all << Item.new(info)
+  end
+
+  def update(id, attributes)
+    if attributes[:name] != nil
+      
+    elsif attributes[:description] != nil
+
+    elsif attributes[:unit_price] != nil
     end
   end
 end
