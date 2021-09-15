@@ -18,7 +18,7 @@ describe MerchantsRepository do
       expect(@mr).to be_an_instance_of MerchantsRepository
     end
 
-    it 'has readable attributes' do
+    it 'can return all merchants' do
       expect(@mr.all).to be_an Array
       expect(@mr.all).to eq([@object_1, @object_2, @object_3])
     end
@@ -31,11 +31,15 @@ describe MerchantsRepository do
       expect(@mr.find_by_name("MiniatureBikez")).to eq(@object_3)
     end
 
-    xit 'can find all by name' do
-      expect(mr.find_all_by_name(name)).to eq()
+    it 'can find all by name' do
+      @object_4 = Merchant.new({:id => 12334114, :name => "MiniatureBikez"})
+      @merchant_array.push(@object_4)
+
+      expect(@mr.find_all_by_name("MiniatureBikez")).to eq([@object_3, @object_4])
     end
 
-    xit 'can create attributes' do
+    it 'can create attributes' do
+      expect(@mr.create("TestingCo")).to eq({:id => 12334114, :name => "TestingCo"})
     end
 
     xit 'can update the merchant instance' do
