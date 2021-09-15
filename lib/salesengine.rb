@@ -10,4 +10,5 @@ class SalesEngine
     @merchants = data.fetch(:merchants)
   end
 
+  
 end
