@@ -1,9 +1,4 @@
 class SalesEngine
- attr_reader :merchants,
-             :items
-
-  # @@merchants = merch_item_hash[:merchants]
-  # @@items = merch_item_hash[:items]
 
   def initialize(merch_item_hash)
     @merchants = merch_item_hash[:merchants]
