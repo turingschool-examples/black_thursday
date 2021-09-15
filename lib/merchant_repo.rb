@@ -51,5 +51,7 @@ class MerchantRepo
     find_by_id(id).change_name(attributes[:name])
   end
 
-
+  def delete(id)
+    all.delete(find_by_id(id))
+  end
 end

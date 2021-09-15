@@ -44,4 +44,11 @@ describe @mr do
     @mr.update(12337413, {:name => "Jean N."})
     expect(@mr.all[476].name).to eq("Jean N.")
   end
+
+  it "#delete(id)" do
+    @mr.create({:name => "John N."})
+    @mr.delete(12337413)
+
+    expect(@mr.find_by_id(12337413)).to eq(nil)
+  end
 end
