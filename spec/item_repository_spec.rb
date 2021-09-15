@@ -24,6 +24,10 @@ describe ItemRepository do
       it 'returns items with matching names' do
       end
     end
+    describe 'find_all_with_description(description)' do
+      it 'returns all items with matching descriptions' do
+      end
+    end
 
     describe 'find_all_by_price(price)' do
       it 'returns items with matching prices' do
