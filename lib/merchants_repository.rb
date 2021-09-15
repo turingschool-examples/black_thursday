@@ -1,7 +1,11 @@
 class MerchantsRepository
-  attr_reader :merchant_array
+  attr_reader :all
 
   def initialize(merchant_array)
-    @merchant_array = merchant_array
+    @all = merchant_array
+
   end
+
+  def find_by_id(id)
+    @all.find
 end
