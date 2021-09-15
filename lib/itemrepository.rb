@@ -1,4 +1,5 @@
 require 'csv'
+require_relative 'item'
 
 class ItemRepository
 
@@ -6,6 +7,10 @@ class ItemRepository
     @path = path
     @rows = CSV.read(@path, headers: true, header_converters: :symbol)
     @all = all
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def all

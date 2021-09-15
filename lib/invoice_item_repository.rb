@@ -1,10 +1,15 @@
 require 'csv'
+require_relative 'invoice_item'
 
 class InvoiceItemRepository
   def initialize(path)
     @path = path
     @rows = CSV.read(@path, headers: true, header_converters: :symbol)
     @all = all
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
   def all

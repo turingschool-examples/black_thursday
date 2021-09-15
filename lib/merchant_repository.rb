@@ -1,5 +1,5 @@
-require 'merchant.rb'
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :path,
@@ -8,6 +8,10 @@ class MerchantRepository
   def initialize(path)
     @path = path
     @all  = read_file
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def read_file

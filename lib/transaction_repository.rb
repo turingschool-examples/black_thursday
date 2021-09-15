@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'transaction'
 require 'csv'
+require_relative 'transaction'
+
 
 class TransactionRepository
   attr_reader :path,
@@ -10,6 +11,10 @@ class TransactionRepository
   def initialize(path)
     @path = path
     @all  = read_file
+  end
+
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 
   def read_file
