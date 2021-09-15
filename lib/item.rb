@@ -1,7 +1,8 @@
 class Item
   @@all         = []
 
-  attr_reader :id, :name, :description, :unit_price,  :created_at, :updated_at, :merchant_id
+  attr_reader :id, :created_at, :updated_at, :merchant_id
+  attr_accessor :name, :description, :unit_price
   def initialize(data)
     @id           = data[:id]
     @name         = data[:name]
@@ -52,6 +53,14 @@ class Item
       item.unit_price == unit_price
     end
   end
+  def self.find_all_by_price_in_range(num1, num2)
+    csv = $csv
+    result = @@all.find_all do |item|
+      item.unit_price.between?(num1, num2)
+    end
+    result
+  end
+
   def self.find_all_by_merchant_id(merchant_id)
     csv = $csv
     @@all.find_all do |item|
@@ -64,4 +73,19 @@ class Item
     new = self.new(attributes)
     @@all.push(new)
   end
+
+  def self.update(id, attributes)
+
+      updated_item = self.find_by_id(id)
+      updated_item.name = attributes[:name]
+      updated_item.description = attributes[:description]
+      updated_item.unit_price = attributes[:unit_price]
+    updated_item
+
+  end
+
+  def self.delete(id)
+     self.all.find_by_id(id)
+  end
+
 end

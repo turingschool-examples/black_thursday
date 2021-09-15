@@ -276,7 +276,7 @@ RSpec.describe Item do
       expect(Item.find_all_by_price(BigDecimal(15.99, 4))).to eq([Item.all[1]])
       expect(Item.find_all_by_price(BigDecimal(16.99, 4))).to eq([])
     end
-    xit "can find by price range" do
+    it "can find by price range" do
 
         i = Item.new({
           :id          => 1,
@@ -321,8 +321,9 @@ RSpec.describe Item do
 
       Item.add_from_csv(nil)
       Item.all
-      expect(Item.find_all_with_description("You can use it to write things")).to eq([Item.all[0]])
-      expect(Item.find_all_with_description("Imaginary")).to eq([])
+      expect(Item.find_all_by_price_in_range(BigDecimal(5.99, 4), BigDecimal(14.99, 4))).to eq([Item.all[0]])
+      expect(Item.find_all_by_price_in_range(BigDecimal(75.99, 4), BigDecimal(95.99, 4))).to eq([])
+
     end
     it "can find by merchant_id" do
 
@@ -452,6 +453,125 @@ RSpec.describe Item do
       expect(Item.all[3].id).to eq(8)
     end
 
+    xit "can update id and attributes" do
+      i = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+        })
+
+      a = Item.new({
+        :id           => 5,
+        :name         => "Water Bottles",
+        :description  => "You can use it to drink things",
+        :unit_price   => BigDecimal(15.99, 4),
+        :created_at   => Time.now,
+        :updated_at   => Time.now,
+        :merchant_id  => 10
+        })
+
+        $csv = [
+                {
+                :id          => 1,
+                :name        => "Pencil",
+                :description => "You can use it to write things",
+                :unit_price  => BigDecimal(10.99,4),
+                :created_at  => Time.now,
+                :updated_at  => Time.now,
+                :merchant_id => 2
+                },
+                {
+                :id           => 5,
+                :name         => "Water Bottles",
+                :description  => "You can use it to drink things",
+                :unit_price   => BigDecimal(15.99, 4),
+                :created_at   => Time.now,
+                :updated_at   => Time.now,
+                :merchant_id  => 10
+                },
+                {
+                :id           => 7,
+                :name         => "Water Bottle Cage",
+                :description  => "You can use it to hold water on a bike!",
+                :unit_price   => BigDecimal(125.99, 5),
+                :created_at   => Time.now,
+                :updated_at   => Time.now,
+                :merchant_id  => 10
+                }
+                ]
+
+    Item.add_from_csv(nil)
+    Item.all
+
+    attributes = {
+                  :id           => 6,
+                  :name         => "Bike",
+                  :description  => "You can use it to go fast",
+                  :unit_price   => BigDecimal(400.99, 5),
+                  :created_at   => Time.now,
+                  :updated_at   => Time.now,
+                  :merchant_id  => 10
+
+                  }
+
+    Item.all
+
+    results =   {
+      :id           => 5,
+      :name         => "Bike",
+      :description  => "You can use it to go fast",
+      :unit_price   => BigDecimal(400.99, 5),
+      :created_at   => Time.now,
+      :updated_at   => Time.now,
+      :merchant_id  => 10
+      }
+
+
+    expect(Item.update(5, attributes)).to eq(results)
+
+  end
+
+  it "can delete by id" do
+  $csv = [
+          {
+          :id          => 1,
+          :name        => "Pencil",
+          :description => "You can use it to write things",
+          :unit_price  => BigDecimal(10.99,4),
+          :created_at  => Time.now,
+          :updated_at  => Time.now,
+          :merchant_id => 2
+          },
+          {
+          :id           => 5,
+          :name         => "Water Bottles",
+          :description  => "You can use it to drink things",
+          :unit_price   => BigDecimal(15.99, 4),
+          :created_at   => Time.now,
+          :updated_at   => Time.now,
+          :merchant_id  => 10
+          },
+          {
+          :id           => 7,
+          :name         => "Water Bottle Cage",
+          :description  => "You can use it to hold water on a bike!",
+          :unit_price   => BigDecimal(125.99, 5),
+          :created_at   => Time.now,
+          :updated_at   => Time.now,
+          :merchant_id  => 10
+          }
+          ]
+
+        Item.add_from_csv(nil)
+        Item.all
+        Item.delete(7)
+        expect(Item.all.length).to eq(2)
+
+    end
 
   end
 end
