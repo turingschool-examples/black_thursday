@@ -1,7 +1,6 @@
 require 'csv'
 require './lib/sales_engine'
 
-
 class MerchantRepository < SalesEngine
   # attr_reader :@@filename
   @@filename = './data/merchants.csv'
