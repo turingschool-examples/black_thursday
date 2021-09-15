@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'transaction'
 require 'csv'
 
@@ -33,6 +35,12 @@ class TransactionRepository
   def find_by_credit_card_number(number)
     @all.find_all do |transaction|
       number == transaction.credit_card_number
+    end
+  end
+
+  def find_all_by_result(result)
+    @all.find_all do |transaction|
+      result == transaction.result
     end
   end
 end
