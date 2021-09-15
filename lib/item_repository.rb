@@ -103,4 +103,8 @@ class ItemRepository
       find_by_id(id).change_unit_price(attributes[:unit_price])
     end
   end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 end
