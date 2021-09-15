@@ -6,27 +6,25 @@ require 'csv'
 class ItemRepository
 attr_reader :all
 
-
-  @@filename = './data/items.csv'
-  def initialize(fill_items)
-    @all = fill_items
+  def initialize(file)
+    @all = fill_items(file)
   end
 
-  # def fill_items
-  #   all_items = CSV.parse(File.read(@@filename))
-  #   categories = all_items.shift
-  #   grouped_items = []
-  #
-  #   all_items.each do |item|
-  #     individual_item = {}
-  #     categories.zip(item) do |category, attribute|
-  #
-  #       individual_item[category.to_sym] = attribute
-  #     end
-  #     grouped_items << Item.new(individual_item)
-  #   end
-  #   grouped_items
-  # end
+  def fill_items(file)
+    all_items = CSV.parse(File.read(file))
+    categories = all_items.shift
+    grouped_items = []
+
+    all_items.each do |item|
+      individual_item = {}
+      categories.zip(item) do |category, attribute|
+
+        individual_item[category.to_sym] = attribute
+      end
+      grouped_items << Item.new(individual_item)
+    end
+    grouped_items
+  end
 
   def find_by_id(id)
     all.find do |item|
@@ -73,29 +71,7 @@ attr_reader :all
 
   def update(id, attributes)
     current_item = find_by_id(id)
-    new_item = Item.new(attributes)
-      if new_item.id == nil
-        new_item.id = current_item.id
-      end
-      if new_item.name == nil
-        new_item.name = current_item.name
-      end
-      if new_item.description == nil
-        new_item.description = current_item.description
-      end
-      if new_item.unit_price == nil
-        new_item.unit_price = current_item.unit_price
-      end
-      if new_item.created_at == nil
-        new_item.created_at = current_item.created_at
-      end
-      if new_item.updated_at == nil
-        new_item.updated_at = current_item.updated_at
-      end
-      if new_item.merchant_id == nil
-        new_item.merchant_id = current_item.merchant_id
-      end
-    all[all.find_index(current_item)] = new_item
+    all[all.find_index(current_item)] = current_item.update_item(attributes)
   end
 
   def delete(id)
