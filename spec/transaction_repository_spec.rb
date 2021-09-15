@@ -32,12 +32,12 @@ RSpec.describe TransactionRepository do
       expect(@tr.find_by_invoice_id(-1)).to be nil
     end
 
-    it '#find_by_credit_card_number' do
+    it '#find_all_by_credit_card_number' do
       transaction = @tr.find_by_id(1)
 
-      expect(@tr.find_by_credit_card_number('4068631943231473')).to be_an Array
-      expect(@tr.find_by_credit_card_number('4068631943231473')).to include transaction
-      expect(@tr.find_by_credit_card_number(-1)).to eq []
+      expect(@tr.find_all_by_credit_card_number('4068631943231473')).to be_an Array
+      expect(@tr.find_all_by_credit_card_number('4068631943231473')).to include transaction
+      expect(@tr.find_all_by_credit_card_number(-1)).to eq []
     end
 
     it '#find_all_by_result' do
@@ -56,7 +56,7 @@ RSpec.describe TransactionRepository do
         result: 'failed',
         created_at: '2021-07-14 20:56:57 UTC',
         updated_at: '2021-07-14 20:56:57 UTC'
-        }
+      }
       last_id = @tr.all.last.id
       new_transactions = @tr.create(data)
 
@@ -74,7 +74,7 @@ RSpec.describe TransactionRepository do
         credit_card_expiration_date: '0721',
         created_at: '2021-07-14 20:56:57 UTC',
         updated_at: time
-        }
+      }
       updated_transaction = @tr.update(id, attributes)
 
       expect(updated_transaction).to be_a Transaction

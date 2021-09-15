@@ -32,7 +32,7 @@ class TransactionRepository
     end
   end
 
-  def find_by_credit_card_number(number)
+  def find_all_by_credit_card_number(number)
     @all.find_all do |transaction|
       number == transaction.credit_card_number
     end
@@ -50,12 +50,16 @@ class TransactionRepository
   end
 
   def update(id, attributes)
-    transaction_to_update = find_by_id(id)
-    transaction_to_update.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
-    transaction_to_update.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
-    transaction_to_update.result = attributes[:result] if attributes[:result]
-    transaction_to_update.updated_at = Time.now
-    transaction_to_update
+    txn_to_update = find_by_id(id)
+    cc_num        = attributes[:credit_card_number]
+    cc_expiration = attributes[:credit_card_expiration_date]
+    result        = attributes[:result]
+
+    txn_to_update.credit_card_number = cc_num if cc_num
+    txn_to_update.credit_card_expiration_date = cc_expiration if cc_expiration
+    txn_to_update.result = result if result
+    txn_to_update.updated_at = Time.now
+    txn_to_update
   end
 
   def delete(id)
