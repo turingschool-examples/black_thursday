@@ -55,7 +55,11 @@ class SalesAnalyst
   end
 
   def average_average_item_price_for_merchant
-
+    total = 0
+    @mr.all.each do |merchant|
+      total += average_item_price_for_merchant(merchant.id.to_s)
+    end
+    average = total/@mr.all.length.to_f
   end
 
   def golden_item

@@ -36,11 +36,11 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_item_price_for_merchant(12334159)).to eq(3150)
   end
 
-  it '#average_average_item_price_for_merchant' do
+  it '#average_average_item_price_for_merchant' do #better test? 'big decimal?'
     expect(@sales_analyst.average_average_item_price_for_merchant).to be_a(Float)
   end
 
-  xit '#golden_item' do
+  xit '#golden_item' do #better test
     expect(@sales_analyst.golden_item).to be_a(Array)
   end
 end
