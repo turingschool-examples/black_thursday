@@ -44,15 +44,12 @@ class MerchantRepo
 
 
   def create(attributes)
-    all << {id: find_highest_id + 1, name: attributes[:name]}
+    all << Merchant.new({id: find_highest_id + 1, name: attributes[:name]})
   end
 
   def update(id, attributes)
-    all.each do |merchant|
-      if merchant.id == id
-        merchant.name = attributes[:name]
-      end
-    end
+    find_by_id(id).change_name(attributes[:name])
   end
+
 
 end

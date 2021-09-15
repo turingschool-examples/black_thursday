@@ -36,12 +36,12 @@ describe @mr do
 
   it "#create(attributes)" do
     @mr.create({:name => "John N."})
-    expect(@mr.all.last[:name]).to eq("John N.")
+    expect(@mr.all.last.name).to eq("John N.")
   end
 
   it "#update(attributes)" do
     @mr.create({:name => "John N."})
-    @mr.update(12337412, {:name => "Jean N."})
-    expect(@mr.all.last.name).to eq("Jean N.")
+    @mr.update(12337413, {:name => "Jean N."})
+    expect(@mr.all[476].name).to eq("Jean N.")
   end
 end
