@@ -20,12 +20,10 @@ class SalesEngine
       items_hash[row_headers[6].to_sym] = row[6]
       items_array.push(Item.new(items_hash))
     end
-    #ItemRepository.new(items_array)
-    items_array
+    ItemRepository.new(items_array)
   end
 
   def merchants
-  #returns an instance of MerchantsRepository
     merch_array = []
     merch_table = CSV.read(@merchants, headers: true)
     merch_table.each do |row|
@@ -35,8 +33,7 @@ class SalesEngine
       merch_hash[row_headers[1].to_sym] = row[1]
       merch_array.push(Merchant.new(merch_hash))
     end
-    #MerchantsRepository.new(merch_array)
-    merch_array
+    MerchantsRepository.new(merch_array)
   end
 
 end
