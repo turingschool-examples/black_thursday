@@ -13,10 +13,6 @@ RSpec.describe SalesAnalyst do
     @sales_engine = SalesEngine.new
     @sales_analyst = @sales_engine.analyst
 
-
-
-
-
   end
 
   it 'exists' do
@@ -25,5 +21,9 @@ RSpec.describe SalesAnalyst do
 
   it '#average_items_per_merchant' do
     expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
+  end
+
+  it "#average_items_per_merchant_standard_deviation" do
+    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
 end
