@@ -53,5 +53,20 @@ class Merchant
     end
   end
 
-  
+  def self.find_all_by_name(name)
+    name_1 = name.upcase
+
+    rows = CSV.read(@@filename, headers: true)
+    rows.by_row
+
+    csv_2_hash = rows.map do |row|
+      row = row.to_hash
+    end
+
+    csv_2_hash.find_all do |merchant|
+      merchant.values[1].upcase!
+      merchant["name"].include?(name_1)
+    end
+  end
+
 end

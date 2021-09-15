@@ -71,5 +71,12 @@ RSpec.describe 'Merchant' do
     expect(Merchant.find_by_name("Candisart")).to eq([{"created_at"=>"2009-05-30", "id"=>"12334112", "name"=>"CANDISART", "updated_at"=>"2010-08-29"}])
   end
 
+  it 'finds all by name' do
 
+    expect(Merchant.find_all_by_name("shop")).to eq([{"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"SHOPIN1901", "updated_at"=>"2011-12-04"},
+      {"created_at"=>"2008-12-20", "id"=>"12334176", "name"=>"THEPURPLEPENSHOP", "updated_at"=>"2012-06-25"}])
+    expect(Merchant.find_all_by_name("PinkBow")).to eq ([{"created_at"=>"2004-11-19", "id"=>"12334149", "name"=>"THELILPINKBOWTIQUE", "updated_at"=>"2014-01-17"}])
+  end
+
+  
 end
