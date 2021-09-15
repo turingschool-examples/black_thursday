@@ -39,5 +39,12 @@ RSpec.describe TransactionRepository do
       expect(@tr.find_by_credit_card_number('4068631943231473')).to include transaction
       expect(@tr.find_by_credit_card_number(-1)).to eq []
     end
+
+    it '#find_all_by_result' do
+      result = 'failed'
+
+      expect(@tr.find_all_by_result(result)).to be_an Array
+      expect(@tr.find_all_by_result(result).first.id).to eq 9 
+    end
   end
 end
