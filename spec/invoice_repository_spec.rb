@@ -115,9 +115,9 @@ describe InvoiceRepository do
       path = './data/invoices.csv'
       inre = InvoiceRepository.new(path)
 
-      inre.delete('1')
+      inre.delete(1)
 
-      expect(inre.find_by_id('1')).to eq(nil)
+      expect(inre.find_by_id(1)).to eq(nil)
     end
   end
 end
