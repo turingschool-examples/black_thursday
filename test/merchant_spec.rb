@@ -64,9 +64,11 @@ RSpec.describe 'Merchant' do
   end
 
   it 'can find a merchant by name' do
-    expect(Merchant.find_by_name("Shopin1901")).to eq([{"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"Shopin1901", "updated_at"=>"2011-12-04"}])
-    expect(Merchant.find_by_name("SHOPIN1901")).to eq([{"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"Shopin1901", "updated_at"=>"2011-12-04"}])
-    expect(Merchant.find_by_name("Candisart")).to eq([{"created_at"=>"2009-05-30", "id"=>"12334112", "name"=>"Candisart", "updated_at"=>"2010-08-29"}])
+
+    expect(Merchant.find_by_name("Shopin1901")).to eq([{"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"SHOPIN1901", "updated_at"=>"2011-12-04"}])
+    expect(Merchant.find_by_name("shopin1901")).to eq([{"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"SHOPIN1901", "updated_at"=>"2011-12-04"}])
+    expect(Merchant.find_by_name("SHOPIN1901")).to eq([{"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"SHOPIN1901", "updated_at"=>"2011-12-04"}])
+    expect(Merchant.find_by_name("Candisart")).to eq([{"created_at"=>"2009-05-30", "id"=>"12334112", "name"=>"CANDISART", "updated_at"=>"2010-08-29"}])
   end
 
 

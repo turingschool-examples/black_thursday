@@ -7,8 +7,6 @@ class Merchant
               :merchants
   @@filename = './data/sample.csv'
 
-
-
   def initialize(info)
     @id = info[:id]
     @name = info[:name]
@@ -39,6 +37,9 @@ class Merchant
   end
 
   def self.find_by_name(name)
+
+    name_1 = name.upcase
+
     rows = CSV.read(@@filename, headers: true)
     rows.by_row
 
@@ -47,7 +48,10 @@ class Merchant
     end
 
     csv_2_hash.find_all do |merchant|
-      merchant["name"] == name
+      merchant.values[1].upcase!
+      merchant["name"] == name_1
     end
   end
+
+  
 end
