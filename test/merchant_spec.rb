@@ -4,26 +4,26 @@ require './lib/merchant'
 # require './lib/sales_engine'
 
 RSpec.describe 'Merchant' do
-  before(:each) do
-
-  end
-
-
   it "exists" do
     @merchant_1 = Merchant.new({
-                            :id   => 5,
-                            :name => "Turing School"
+                            :id   => 12334105,
+                            :name => "Shopin1901",
+                            :created_at => "2010-12-10",
+                            :updated_at => "2011-12-04"
                             })
     expect(@merchant_1).to be_a Merchant
+
   end
 
   it "has readable info" do
     @merchant_1 = Merchant.new({
-                            :id   => 5,
-                            :name => "Turing School"
+                            :id   => 12334105,
+                            :name => "Shopin1901",
+                            :created_at => "2010-12-10",
+                            :updated_at => "2011-12-04"
                             })
-    expect(@merchant_1.id).to eq(5)
-    expect(@merchant_1.name).to eq("Turing School")
+    expect(@merchant_1.id).to eq(12334105)
+    expect(@merchant_1.name).to eq("Shopin1901")
   end
 
   it "can list all instantiated merchants" do
@@ -78,5 +78,8 @@ RSpec.describe 'Merchant' do
     expect(Merchant.find_all_by_name("PinkBow")).to eq ([{"created_at"=>"2004-11-19", "id"=>"12334149", "name"=>"THELILPINKBOWTIQUE", "updated_at"=>"2014-01-17"}])
   end
 
-  
+  it 'creates' do
+    expect(Merchant.create(123, "OutStore", "2020-12-10", "2021-03-20")).to eq([{"created_at"=>"2020-12-10", "id"=>"123", "name"=>"OurStore", "updated_at"=>"2021-03-20"}])
+  end
+
 end

@@ -4,12 +4,16 @@ class Merchant
   # include MerchantRepository
   attr_reader :id,
               :name,
-              :merchants
+              :created_at,
+              :updated_at
+
   @@filename = './data/sample.csv'
 
   def initialize(info)
     @id = info[:id]
     @name = info[:name]
+    @created_at = info[:created_at]
+    @updated_at = info[:updated_at]
   end
 
   def self.all
@@ -67,6 +71,15 @@ class Merchant
       merchant.values[1].upcase!
       merchant["name"].include?(name_1)
     end
+  end
+
+  def self.create(id, name, created_at, updated_at)
+    CSV.open(@@filename, "a") do |csv|
+      csv << [{@id => id,
+              @name => name,
+              @created_at => created_at,
+              @updated_at => updated_at}]
+      end
   end
 
 end
