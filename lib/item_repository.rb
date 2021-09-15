@@ -1,6 +1,9 @@
 class ItemRepository
+  attr_reader :all
+
   def initialize(path)
     @path = path
+    @all = to_array
   end
 
   def to_array
@@ -10,11 +13,7 @@ class ItemRepository
       headers = row.headers
       items << row.to_h
     end
-    items
-  end
-
-  def all
-    to_array.map do | item |
+    items.map do | item |
       Item.new(item)
     end
   end
@@ -78,5 +77,34 @@ class ItemRepository
       item.id
     end
     max_item.id
+  end
+
+  def create(name, description, unit_price, merchant_id)
+    id = find_highest_id + 1
+    current_time = Time.now.utc
+    info = {
+      id: id.to_s,
+      name: name,
+      description: description,
+      unit_price: unit_price.to_s,
+      merchant_id: merchant_id.to_s,
+      created_at: current_time.to_s,
+      updated_at: current_time.to_s
+    }
+    @all << Item.new(info)
+  end
+
+  def update(id, attributes)
+    if attributes[:name] != nil
+      find_by_id(id).change_name(attributes[:name])
+    elsif attributes[:description] != nil
+      find_by_id(id).change_description(attributes[:description])
+    elsif attributes[:unit_price] != nil
+      find_by_id(id).change_unit_price(attributes[:unit_price])
+    end
+  end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
   end
 end
