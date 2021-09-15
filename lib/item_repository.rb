@@ -1,12 +1,13 @@
 require 'csv'
 
+
 #CSV::Converters[:hashify] = ->(value) { stuff = value }
 
 class ItemRepository
 attr_reader :all
 
 
-  @@filename = '../data/items.csv'
+  @@filename = './data/items.csv'
   def initialize
     @all = fill_items
   end
@@ -22,32 +23,32 @@ attr_reader :all
 
         individual_item[category.to_sym] = attribute
       end
-      grouped_items << individual_item
+      grouped_items << Item.new(individual_item)
     end
     grouped_items
   end
 
   def find_by_id(id)
     @all.find do |item|
-      item[:id].to_i == id.to_i
+      item.id.to_i == id.to_i
     end
   end
 
   def find_by_name(name)
     @all.find do |item|
-      item[:name].downcase == name.downcase
+      item.name.downcase == name.downcase
     end
   end
 
   def find_all_with_description(description)
     @all.find_all do |item|
-      (item[:description].downcase).include?(description.downcase)
-    end
+      item.description.downcase.include?(description.downcase)
+    end.uniq
   end
 
   def find_all_by_price(price)
     @all.find_all do |item|
-      item[:price] == price
+      item.unit_price.to_i == price.to_i
     end
   end
 
@@ -57,7 +58,7 @@ attr_reader :all
 
   def find_all_by_merchant_id(merchant_id)
     @all.find_all do |item|
-      item[:merchant_id] == merchant_id
+      item.merchant_id.to_i == merchant_id.to_i
     end
   end
 
