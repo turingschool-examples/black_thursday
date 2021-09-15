@@ -79,4 +79,12 @@ class ItemRepository
     end
     max_item.id
   end
+
+  def create(name, description, unit_price, merchant_id)
+  id = find_highest_id + 1
+  current_time = Time.now.utc
+  CSV.open(@path, "a") do | csv |
+    csv << [id.to_s, name, description, unit_price.to_s, merchant_id, current_time.to_s, current_time.to_s]
+    end
+  end
 end
