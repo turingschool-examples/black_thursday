@@ -30,7 +30,17 @@ describe @mr do
     expect(@mr.find_all_by_name("neart")[1].name).to eq("GlassFigurineArt")
   end
 
+  it '#find_highest_id' do
+    expect(@mr.find_highest_id).to be >= 12337411
+  end
+
   xit "#create(attributes)" do
-    expect(@mr.create({:name => "John Napier"})).to eq()
+    @mr.create({:name => "John N."})
+    expect(@mr.all.last.name).to eq("John N.")
+  end
+
+  it "#create(attributes)" do
+    @mr.update(12337413, {:name => "Jean N."})
+    expect(@mr.all.last.name).to eq("Jean N.")
   end
 end
