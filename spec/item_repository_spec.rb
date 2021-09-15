@@ -1,6 +1,6 @@
 require "CSV"
 require "Rspec"
-require "./lib/item_repository"
+require_relative "../lib/item_repository"
 
 describe ItemRepository do
   before :each do
@@ -82,6 +82,6 @@ describe ItemRepository do
 
     @ir.delete(263567475)
 
-    expect(@ir.find_by_id(263567475)).to eq nil 
+    expect(@ir.find_by_id(263567475)).to eq nil
   end
 end
