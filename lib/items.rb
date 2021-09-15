@@ -20,4 +20,18 @@ attr_accessor :id,
   def unit_price_to_dollars
     unit_price.to_f
   end
+
+  def update_item(attributes)
+    if attributes[:name] != nil
+      @name = attributes[:name]
+    end
+    if attributes[:description] != nil
+      @description = attributes[:description]
+    end
+    if attributes[:unit_price] != nil
+      @unit_price = attributes[:unit_price]
+    end
+      @updated_at = Time.now
+    self
+  end
 end
