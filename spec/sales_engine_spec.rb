@@ -3,21 +3,14 @@ require 'csv'
 
 RSpec.describe SalesEngine do
   it 'exists' do
-    se = SalesEngine.new
-    # se = SalesEngine.from_csv({
-    #   :items     => "./data/items.csv",
-    #   :merchants => "./data/merchants.csv",
-    #   })
-    #
-    #   data = {
-    #       items: item_path,
-    #       merchants: merchant_path
-    #   }
-
-    expect(se).to be_an_instance_of(SalesEngine)
+     se = SalesEngine.from_csv({
+       :items     => "./data/items.csv",
+       :merchants => "./data/merchants.csv",
+       })
+    expect(se).not_to eq nil
   end
 
-  xit 'test csv hash' do
+  xit 'creates an array of item hashes' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -32,4 +25,13 @@ RSpec.describe SalesEngine do
       })
     expect(x).to eq("...")
   end
+
+  it 'returns the merchants' do
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    expect(se[:merchants]).not_to be nil
+  end
+
 end
