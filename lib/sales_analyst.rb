@@ -20,8 +20,8 @@ class SalesAnalyst
 
     mean = self.average_items_per_merchant.to_f
     sum = 0.0
-    (@mr.all).each do |merchant|
-      diff = (mean - @ir.find_all_by_merchant_id(merchant.id).length.to_f)
+    @mr.all.each do |merchant|
+      diff = (mean - @ir.find_all_by_merchant_id(merchant.id.to_s).length.to_f)
       sum += diff**2
     end
     s_d = Math.sqrt(sum/((@mr.all.length.to_f)-1))
@@ -29,22 +29,29 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    array = []
-    #s_d = self.average_items_per_merchant_standard_deviation
-    s_d = 3.26
-    mean_item = self.average_items_per_merchant
+    mer_array = []
+    mean_item = average_items_per_merchant
+    s_d = average_items_per_merchant_standard_deviation
     one_above_sd = mean_item + s_d
 
-    (@mr.all).each do |merchant|
-      if @ir.find_all_by_merchant_id(merchant.id).length > one_above_sd
-        array << merchant
+    @mr.all.each do |merchant|
+      if @ir.find_all_by_merchant_id(merchant.id.to_s).length > one_above_sd
+        mer_array << merchant
       end
     end
-    array
+    mer_array
   end
 
   def average_item_price_for_merchant(id)
+    items_by_a_mr = @ir.find_all_by_merchant_id(id.to_s)
+    num_of_items = items_by_a_mr.length.to_f
+    total_price_item = 0.0
 
+    items_by_a_mr.each do |item|
+      total_price_item += item.unit_price
+    end
+
+    average = total_price_item.to_f/num_of_items
   end
 
   def average_average_item_price_for_merchant

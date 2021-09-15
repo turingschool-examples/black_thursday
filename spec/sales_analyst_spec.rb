@@ -32,11 +32,11 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.merchants_with_high_item_count).to be_a(Array)
   end
 
-  xit '#average_item_price_for_merchant' do
+  it '#average_item_price_for_merchant' do
     expect(@sales_analyst.average_item_price_for_merchant(12334159)).to eq(3150)
   end
 
-  xit '#average_average_item_price_for_merchant' do
+  it '#average_average_item_price_for_merchant' do
     expect(@sales_analyst.average_average_item_price_for_merchant).to be_a(Float)
   end
 
