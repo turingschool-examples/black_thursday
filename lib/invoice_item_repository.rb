@@ -21,14 +21,14 @@ class InvoiceItemRepository
   end
 
   def find_all_by_item_id(item_id)
-    result = @all.find do |row|
+    result = @all.find_all do |row|
       row.item_id == item_id
     end
     result
   end
 
   def find_all_by_invoice_id(invoice_id)
-    result = @all.find do |row|
+    result = @all.find_all do |row|
       row.invoice_id == invoice_id
     end
     result
@@ -41,7 +41,6 @@ class InvoiceItemRepository
 
   def update(id, attributes)
     invoice_item_to_update = find_by_id(id)
-
     if attributes[:quantity] != nil
       invoice_item_to_update.quantity = attributes[:quantity]
     end

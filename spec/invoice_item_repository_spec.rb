@@ -25,10 +25,10 @@ RSpec.describe 'invoice_item_repository' do
       path = './data/invoice_items.csv'
       iir = InvoiceItemRepository.new(path)
 
-      expect(iir.find_by_id("1")).to be_an_instance_of(InvoiceItem)
-      expect(iir.find_by_id("1").id).to eq("1")
-      expect(iir.find_by_id("1").quantity).to eq("5")
-      expect(iir.find_by_id("21831")).to eq(nil)
+      expect(iir.find_by_id(1)).to be_an_instance_of(InvoiceItem)
+      expect(iir.find_by_id(1).id).to eq(1)
+      expect(iir.find_by_id(1).quantity).to eq(5)
+      expect(iir.find_by_id(21831)).to eq(nil)
     end
   end
 
@@ -37,8 +37,10 @@ RSpec.describe 'invoice_item_repository' do
       path = './data/invoice_items.csv'
       iir = InvoiceItemRepository.new(path)
 
-      expect(iir.find_all_by_item_id('263454779')).to be_an_instance_of(InvoiceItem)
-      #expect(iir.find_all_by_item_id('263454779')).to be_an(Array)
+      expect(iir.find_all_by_item_id(263519844)).to be_an(Array)
+      expect(iir.find_all_by_item_id(263519844)[0].id).to eq(1)
+      expect(iir.find_all_by_item_id(263519844)[0].quantity).to eq(5)
+      expect(iir.find_all_by_item_id(300000000)).to eq([])
     end
   end
 
@@ -47,8 +49,10 @@ RSpec.describe 'invoice_item_repository' do
       path = './data/invoice_items.csv'
       iir = InvoiceItemRepository.new(path)
 
-      expect(iir.find_all_by_invoice_id('1')).to be_an_instance_of(InvoiceItem)
-      #expect(iir.find_all_by_invoice_id("1")).to be_an(Array)
+      expect(iir.find_all_by_invoice_id(2)).to be_an(Array)
+      expect(iir.find_all_by_invoice_id(2)[0].id).to eq(9)
+      expect(iir.find_all_by_invoice_id(2)[0].quantity).to eq(6)
+      expect(iir.find_all_by_invoice_id(300000000)).to eq([])
     end
   end
 
@@ -87,9 +91,9 @@ RSpec.describe 'invoice_item_repository' do
         :updated_at  => Time.now
       }
 
-      iir.update('1', attributes)
-      expect(iir.find_by_id('1').quantity).to eq('1')
-      expect(iir.find_by_id('1').unit_price).to eq('1099')
+      iir.update(1, attributes)
+      expect(iir.find_by_id(1).quantity).to eq(1)
+      expect(iir.find_by_id(1).unit_price).to eq(1099)
     end
   end
 
