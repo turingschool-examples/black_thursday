@@ -52,21 +52,10 @@ attr_reader :all
     end
   end
 
-  # def find_all_by_price_in_range(range)
-  #   @all.find_all
-  # end
 
   def find_all_by_merchant_id(merchant_id)
     @all.find_all do |item|
       item.merchant_id.to_i == merchant_id.to_i
     end
-  end
-
-  def create(attributes)
-    new_id = @all.map do |item|
-      item.id.max + 1
-    end
-    new_item = Item.new(attributes)
-    new_item[:id] = new_id
   end
 end
