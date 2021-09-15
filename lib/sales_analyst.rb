@@ -62,8 +62,28 @@ class SalesAnalyst
     average = total/@mr.all.length.to_f
   end
 
-  def golden_item
+  def average_price_standard_deviation
+    mean = average_average_item_price_for_merchant
+    item_count = (@ir.all.length.to_f - 1).to_f
+    sum = 0.0
+    @ir.all.each do |item|
+      diff = (mean - item.unit_price.to_f)
+      sum += diff**2
+    end
+    s_d = Math.sqrt((sum)/item_count)
+    s_d.round(2)
+  end
 
+
+  def golden_item
+    array_gold_item = []
+    two_s_d = average_price_standard_deviation * 2
+
+    @ir.all.each do |item|
+      if item.unit_price > two_s_d
+        array_gold_item << item
+      end
+    end
   end
 
 end

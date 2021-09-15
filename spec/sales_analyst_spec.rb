@@ -40,7 +40,12 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_average_item_price_for_merchant).to be_a(Float)
   end
 
-  xit '#golden_item' do #better test
+  it '#average_price_standard_deviation' do
+    expect(@sales_analyst.average_price_standard_deviation).to be_a(Float)
+    expect(@sales_analyst.average_price_standard_deviation).not_to eq(0.0)
+  end
+
+  it '#golden_item' do #better test
     expect(@sales_analyst.golden_item).to be_a(Array)
   end
 end

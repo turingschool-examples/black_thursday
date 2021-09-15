@@ -11,6 +11,6 @@ class SalesEngine
   end
 
   def initialize
-    @analyst = SalesAnalyst.new#(self)
+    @analyst = SalesAnalyst.new
   end
 end
