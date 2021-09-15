@@ -72,9 +72,36 @@ attr_reader :all
   end
 
   def update(id, attributes)
-    if attributes[key] != nil
-      find_by_id(id).key = attributes[key]
-    end
+    current_item = find_by_id(id)
+    new_item = Item.new(attributes)
+      if new_item.id == nil
+        new_item.id = current_item.id
+      end
+      if new_item.name == nil
+        new_item.name = current_item.name
+      end
+      if new_item.description == nil
+        new_item.description = current_item.description
+      end
+      if new_item.unit_price == nil
+        new_item.unit_price = current_item.unit_price
+      end
+      if new_item.created_at == nil
+        new_item.created_at = current_item.created_at
+      end
+      if new_item.updated_at == nil
+        new_item.updated_at = current_item.updated_at
+      end
+      if new_item.merchant_id == nil
+        new_item.merchant_id = current_item.merchant_id
+      end
+    all[all.find_index(current_item)] = new_item
+  end
+
+  def delete(id)
+    item_to_delete = find_by_id(id)
+    position_of_item = all.find_index(item_to_delete)
+    all.delete_at(position_of_item)
   end
 end
 
