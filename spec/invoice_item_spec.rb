@@ -11,7 +11,7 @@ RSpec.describe 'InvoiceItem' do
         :quantity    => 1,
         :unit_price  => BigDecimal(10.99,4),
         :created_at  => Time.now.round(2),
-        :updated_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2)
       })
     end
 
@@ -45,6 +45,10 @@ RSpec.describe 'InvoiceItem' do
 
     it 'has a updated at time' do
       expect(@ii.updated_at).to eq(Time.now.round(2))
+    end
+
+    it 'returns the price of invoice items' do
+      expect(@ii.unit_price_to_dollars).to be_a(Float)
     end
   end
 end

@@ -1,5 +1,5 @@
 class InvoiceItem
-  attr_accessor :id,
+  attr_reader :id,
                 :item_id,
                 :invoice_id,
                 :quantity,
@@ -15,5 +15,9 @@ class InvoiceItem
     @unit_price = data[:unit_price]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
+  end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
   end
 end
