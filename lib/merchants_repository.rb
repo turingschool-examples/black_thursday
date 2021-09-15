@@ -6,7 +6,11 @@ class MerchantsRepository
   end
 
   def find_by_id(id)
-    @all.find
+    @all.find {|merchant| merchant.id == id}
   end
-  
+
+  def find_by_name(name)
+    @all.find {|merchant| merchant.name.upcase == name.upcase}
+  end
+
 end
