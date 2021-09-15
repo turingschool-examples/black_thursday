@@ -11,10 +11,12 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
+
     (@ir.all.length.to_f/@mr.all.length.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
+
 
     mean = self.average_items_per_merchant.to_f
     sum = 0.0
