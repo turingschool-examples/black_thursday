@@ -7,11 +7,9 @@ require './lib/item_repository'
 require 'csv'
 
 
-<<<<<<< HEAD
-=======
+
 describe SalesEngine do
 
->>>>>>> 46f08309bdd33ebaca98e51906d08b7df68cf082
   describe '#initialize' do
     it 'creates an instance of SalesEngine' do
       se = SalesEngine.new({
@@ -23,7 +21,6 @@ describe SalesEngine do
   end
 
   describe '#items' do
-<<<<<<< HEAD
     xit 'returns a new instance of ItemRepository with an array of item objects' do
       se = SalesEngine.new({
         :items     => "./data/items.csv",
@@ -43,7 +40,6 @@ describe SalesEngine do
         })
       mr = se.merchants
 
-=======
     it 'returns a new instance of ItemRepository with an array of item objects' do
       se = SalesEngine.new({
         :items     => "./data/items.csv",
@@ -63,7 +59,6 @@ describe SalesEngine do
         })
       mr = se.merchants
 
->>>>>>> 46f08309bdd33ebaca98e51906d08b7df68cf082
       expect(mr).to be_an_instance_of(MerchantsRepository)
     end
   end
