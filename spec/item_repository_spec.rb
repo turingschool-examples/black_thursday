@@ -102,13 +102,17 @@ describe ItemRepository do
             :updated_at  => Time.now,
             :merchant_id => 2}
 
-        expect(@item_repo1.update(12334141, attributes)).to eq(@item_repo1[0])
-        expect(@item_repo1[0].name).to eq("Pencil")
+        expect(@item_repo1.update(263395237, attributes)).to eq(@item_repo1.all[0])
+        expect(@item_repo1.all[0].name).to eq("Pencil")
       end
     end
 
     describe 'delete(id)' do
-      xit 'deletes the item with the given id' do
+      it 'deletes the item with the given id' do
+        deleted_item = @item_repo1.all[0]
+
+        expect(@item_repo1.delete(263395237)).to eq(deleted_item)
+        expect(@item_repo1.find_by_id(263395237)).to be_nil
       end
     end
   end
