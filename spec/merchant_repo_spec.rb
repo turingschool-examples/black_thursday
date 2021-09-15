@@ -1,5 +1,5 @@
 require 'rspec'
-require './lib/merchant_repo'
+require_relative '../lib/merchant_repo'
 
 describe @mr do
   before(:each) do
