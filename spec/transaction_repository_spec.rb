@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require './lib/transaction'
 require './lib/transaction_repository'
 
 RSpec.describe TransactionRepository do
-
   before :each do
     path = './data/transactions.csv'
     @tr = TransactionRepository.new(path)
@@ -33,10 +34,11 @@ RSpec.describe TransactionRepository do
     end
 
     it '#find_all_by_credit_card_number' do
-      transaction = @tr.find_by_id(1)
+      txn = @tr.find_by_id(1)
+      cc_num = '4068631943231473'
 
-      expect(@tr.find_all_by_credit_card_number('4068631943231473')).to be_an Array
-      expect(@tr.find_all_by_credit_card_number('4068631943231473')).to include transaction
+      expect(@tr.find_all_by_credit_card_number(cc_num)).to be_an Array
+      expect(@tr.find_all_by_credit_card_number(cc_num)).to include txn
       expect(@tr.find_all_by_credit_card_number(-1)).to eq []
     end
 
