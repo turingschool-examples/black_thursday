@@ -5,13 +5,13 @@ RSpec.describe 'InvoiceItem' do
   describe '#initialize' do
     before do
       @ii = InvoiceItem.new({
-        :id          => 6,
-        :item_id     => 7,
-        :invoice_id  => 8,
-        :quantity    => 1,
-        :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now.round(1),
-        :updated_at  => Time.now.round(1)
+        id:           6,
+        item_id:      7,
+        invoice_id:   8,
+        quantity:     1,
+        unit_price:   BigDecimal(10.99,4),
+        created_at:   Time.now.round(1),
+        updated_at:   Time.now.round(1)
       })
     end
 
@@ -48,7 +48,7 @@ RSpec.describe 'InvoiceItem' do
     end
 
     it 'returns the price of invoice items' do
-      expect(@ii.unit_price_to_dollars).to be_a(Float)
+      expect(@ii.unit_price_to_dollars).to be_a(String)
     end
   end
 end

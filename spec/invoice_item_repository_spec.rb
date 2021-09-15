@@ -17,6 +17,7 @@ RSpec.describe 'invoice_item_repository' do
       iir = InvoiceItemRepository.new(path)
 
       expect(iir.all).to be_an Array
+      expect(iir.all.length).to eq(21830)
     end
   end
 
@@ -63,13 +64,13 @@ RSpec.describe 'invoice_item_repository' do
       iir = InvoiceItemRepository.new(path)
 
       attributes = {
-        :id          => 6,
-        :item_id     => 7,
-        :invoice_id  => 8,
-        :quantity    => 1,
-        :unit_price  => 1099,
-        :created_at  => Time.now,
-        :updated_at  => Time.now
+        id:           6,
+        item_id:      7,
+        invoice_id:   8,
+        quantity:     1,
+        unit_price:   1099,
+        created_at:   Time.now,
+        updated_at:   Time.now
       }
 
       expect(iir.create(attributes).last.quantity).to eq(1)
@@ -83,13 +84,13 @@ RSpec.describe 'invoice_item_repository' do
       iir = InvoiceItemRepository.new(path)
 
       attributes = {
-        :id          => 6,
-        :item_id     => 7,
-        :invoice_id  => 8,
-        :quantity    => 1,
-        :unit_price  => 1099,
-        :created_at  => Time.now,
-        :updated_at  => Time.now
+        id:           6,
+        item_id:      7,
+        invoice_id:   8,
+        quantity:     1,
+        unit_price:   1099,
+        created_at:   Time.now,
+        updated_at:   Time.now
       }
 
       iir.update(1, attributes)

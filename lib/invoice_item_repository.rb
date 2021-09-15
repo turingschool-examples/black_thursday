@@ -8,7 +8,7 @@ class InvoiceItemRepository
   end
 
   def all
-    result = @rows.map do |row|
+    @rows.map do |row|
       InvoiceItem.new(row)
     end
   end
@@ -21,21 +21,19 @@ class InvoiceItemRepository
   end
 
   def find_all_by_item_id(item_id)
-    result = @all.find_all do |row|
+    @all.find_all do |row|
       row.item_id == item_id
     end
-    result
   end
 
   def find_all_by_invoice_id(invoice_id)
-    result = @all.find_all do |row|
+    @all.find_all do |row|
       row.invoice_id == invoice_id
     end
-    result
   end
 
   def create(attributes)
-    attributes[:id] = @all.last.id.to_i + 1
+    attributes[:id] = @all.last.id + 1
     @all << InvoiceItem.new(attributes)
   end
 
