@@ -19,10 +19,10 @@ describe SalesEngine do
   end
 
   describe '#items' do
-    xit 'returns a new instance of ItemRepository with an array of item objects' do
+    it 'returns a new instance of ItemRepository with an array of item objects' do
       se = SalesEngine.new({
         :items     => "./data/items.csv",
-        :merchants => "./data/items.csv"
+        :merchants => "./data/merchants.csv"
         })
       ir = se.items
 
@@ -34,7 +34,7 @@ describe SalesEngine do
     it 'returns a new instance of MerchantRepository with an array of merchant objects' do
       se = SalesEngine.new({
         :items     => "./data/items.csv",
-        :merchants => "./data/items.csv"
+        :merchants => "./data/merchants.csv"
         })
       mr = se.merchants
 
