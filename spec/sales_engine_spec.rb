@@ -19,7 +19,7 @@ describe SalesEngine do
   end
 
   describe '#items' do
-    it 'returns a new instance of ItemRepository with an array of item objects' do
+    xit 'returns a new instance of ItemRepository with an array of item objects' do
       se = SalesEngine.new({
         :items     => "./data/items.csv",
         :merchants => "./data/items.csv"
@@ -36,9 +36,9 @@ describe SalesEngine do
         :items     => "./data/items.csv",
         :merchants => "./data/items.csv"
         })
-      mr = se.items
+      mr = se.merchants
 
-      expect(mr).to be_an_instance_of(MerchantRepository)
+      expect(mr).to be_an_instance_of(MerchantsRepository)
     end
   end
 
