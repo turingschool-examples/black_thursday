@@ -3,7 +3,7 @@ require './lib/merchant_repo'
 
 describe @mr do
   before(:each) do
-    @mr = MerchantRepo.new
+    @mr = MerchantRepo.new('./data/merchants.csv')
   end
 
   it 'exists' do

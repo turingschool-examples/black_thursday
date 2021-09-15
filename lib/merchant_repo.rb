@@ -4,13 +4,14 @@ require 'csv'
 class MerchantRepo
   attr_reader :all
 
-  def initialize
+  def initialize(path)
+    @path = path
     @all = to_array
   end
 
   def to_array
   merchants = []
-  CSV.foreach('./data/merchants.csv', headers: true, header_converters: :symbol) do |row|
+  CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
     headers = row.headers
     merchants << Merchant.new(row.to_h)
   end
