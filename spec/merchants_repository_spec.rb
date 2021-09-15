@@ -1,44 +1,47 @@
 require 'rspec'
 require './lib/merchants_repository'
-require './.lib/merchant'
+require './lib/merchant'
 
 
 describe MerchantsRepository do
-
-  describe '#initialize' do
-    it 'is an instance of MerchantsRepository class' do
-    merchant_array = []
+  before(:each) do
+    @merchant_array = []
     @object_1 = Merchant.new({:id => 12334105, :name => "Shopin1901"})
     @object_2 = Merchant.new({:id => 12334112, :name => "Candisart"})
     @object_3 = Merchant.new({:id => 12334113, :name => "MiniatureBikez"})
-    merchant_array.push(object_1, object_2, object_3)
-    mr = MerchantsRepository.new(merchant_array)
+    @merchant_array.push(@object_1, @object_2, @object_3)
+    @mr = MerchantsRepository.new(@merchant_array)
+  end
+
+  describe '#initialize' do
+    it 'is an instance of MerchantsRepository class' do
+      expect(@mr).to be_an_instance_of MerchantsRepository
     end
 
     it 'has readable attributes' do
-      merchant_array = []
-      expect(mr.all).to be_an Array
+      expect(@mr.all).to be_an Array
+      expect(@mr.all).to eq([@object_1, @object_2, @object_3])
     end
 
     it 'can return merchant by id' do
-      expect(mr.find_by_id(id)).to eq()
+      expect(@mr.find_by_id(12334112)).to eq(@object_2)
     end
 
     it 'can return merchant by name' do
-      expect(mr.find_by_name(name)).to eq()
+      expect(@mr.find_by_name("MiniatureBikez")).to eq(@object_3)
     end
 
-    it 'can find all by name' do
+    xit 'can find all by name' do
       expect(mr.find_all_by_name(name)).to eq()
     end
 
-    it 'can create attributes' do
+    xit 'can create attributes' do
     end
 
-    it 'can update the merchant instance' do
+    xit 'can update the merchant instance' do
     end
 
-    it 'can delete a merchant instance' do
+    xit 'can delete a merchant instance' do
       expect(mr.delete(id)).to eq()
     end
   end
