@@ -61,4 +61,10 @@ describe ItemRepository do
     expect(@ir.find_highest_id).to be_a Integer
     expect(@ir.find_highest_id).to be > 263567376
   end
+
+  it "#create" do
+    @ir.create("laptop", "This is my old school laptop I used to learn how to code", 10000, 9)
+
+    expect(@ir.find_by_name("laptop").merchant_id).to eq(9)
+  end
 end
