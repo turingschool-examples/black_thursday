@@ -14,18 +14,29 @@ class Merchant
     @name = info[:name]
   end
 
+  def self.all
+    rows = CSV.read(@@filename, headers: true)
+    rows.by_row
+
+    csv_2_array = rows.map do |row|
+      row.to_a.flatten
+    end
+
+    csv_2_array
+  end
+
   def self.find_by_id(id)
     rows = CSV.read(@@filename, headers: true)
     rows.by_row
 
     csv_2_hash = rows.map do |row|
-      row = row.to_hash
+      row.to_hash
     end
 
     id_1 = rows["id"]
 
     merchants = []
-    csv_2_hash.find do |merchant|
+    csv_2_hash.each do |merchant|
       if id_1 == id
         merchants << merchant
       end
