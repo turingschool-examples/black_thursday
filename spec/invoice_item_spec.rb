@@ -10,8 +10,8 @@ RSpec.describe 'InvoiceItem' do
         :invoice_id  => 8,
         :quantity    => 1,
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now.round(2),
-        :updated_at  => Time.now.round(2)
+        :created_at  => Time.now.round(1),
+        :updated_at  => Time.now.round(1)
       })
     end
 
@@ -40,11 +40,11 @@ RSpec.describe 'InvoiceItem' do
     end
 
     it 'has a created at time' do
-      expect(@ii.created_at).to eq(Time.now.round(2))
+      expect(@ii.created_at).to eq(Time.now.round(1))
     end
 
     it 'has a updated at time' do
-      expect(@ii.updated_at).to eq(Time.now.round(2))
+      expect(@ii.updated_at).to eq(Time.now.round(1))
     end
 
     it 'returns the price of invoice items' do
