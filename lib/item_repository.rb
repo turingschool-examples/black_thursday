@@ -19,32 +19,18 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    found = false
-    all.each do | item |
-      if item.id == id
-        return item
-        found = true
-      end
-    end
-    if found == false
-      return nil
+    all.find do |item|
+      item.id == id
     end
   end
+
 
   def find_by_name(name)
-    name.upcase!
-    found = false
-
-    all.each do | item |
-      if item.name.upcase == name
-        return item
-        found = true
-      end
-    end
-    if found == false
-      return nil
+    all.find do | item |
+      item.name.downcase == name.downcase
     end
   end
+
 
   def find_all_with_description(description)
     description.upcase!
