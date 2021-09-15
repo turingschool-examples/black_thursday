@@ -17,6 +17,25 @@ class InvoiceItemRepository
     result = @all.find do |row|
       row.id == id
     end
-    result 
+    result
   end
+
+  def find_all_by_item_id(item_id)
+    result = @all.find do |row|
+      row.item_id == item_id
+    end
+    result
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    result = @all.find do |row|
+      row.invoice_id == invoice_id
+    end
+    result
+  end
+
+  def create(attributes)
+    attributes[:id] = @all.last.id.to_i + 1
+    @all << InvoiceItem.new(attributes)
+  end 
 end
