@@ -1,12 +1,12 @@
 class Transaction
   attr_reader   :id,
                 :invoice_id,
-                :created_at,
-                :updated_at
+                :created_at
 
   attr_accessor :credit_card_number,
                 :credit_card_expiration_date,
-                :result
+                :result,
+                :updated_at
 
   def initialize(data)
     @id                           = data[:id].to_i

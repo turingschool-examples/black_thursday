@@ -43,4 +43,22 @@ class TransactionRepository
       result == transaction.result
     end
   end
+
+  def create(attributes)
+    attributes[:id] = @all.last.id + 1
+    @all << Transaction.new(attributes)
+  end
+
+  def update(id, attributes)
+    transaction_to_update = find_by_id(id)
+    transaction_to_update.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
+    transaction_to_update.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
+    transaction_to_update.result = attributes[:result] if attributes[:result]
+    transaction_to_update.updated_at = Time.now
+    transaction_to_update
+  end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 end
