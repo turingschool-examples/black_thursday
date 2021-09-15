@@ -2,6 +2,7 @@ require './lib/merchant'
 require 'csv'
 
 class MerchantRepo
+  attr_reader :all
 
   def initialize
     @all = to_array
@@ -43,26 +44,14 @@ class MerchantRepo
 
 
   def create(attributes)
-    CSV.open('./data/merchants.csv', 'a') do |csv|
-      csv << [find_highest_id + 1, attributes[:name], Time.now.strftime("%F"), Time.now.strftime("%F")]
-    end
+    all << {id: find_highest_id + 1, name: attributes[:name]}
   end
 
   def update(id, attributes)
-    # found_merchant = nil
-    # all.each do |merchant|
-    #   if all[:id] == id
-    #     merchant[:name] = attributes[:name]
-    #   end
-    # end
-    # all.
-    CSV.open('./data/merchants.csv', 'a+') do |csv|
-      csv.each do |row|
-        if row[:id] == id
-          row[:name] = attributes[:name]
-        end
+    all.each do |merchant|
+      if merchant.id == id
+        merchant.name = attributes[:name]
       end
-      output << row
     end
   end
 

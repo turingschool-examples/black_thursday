@@ -34,13 +34,14 @@ describe @mr do
     expect(@mr.find_highest_id).to be >= 12337411
   end
 
-  xit "#create(attributes)" do
+  it "#create(attributes)" do
     @mr.create({:name => "John N."})
-    expect(@mr.all.last.name).to eq("John N.")
+    expect(@mr.all.last[:name]).to eq("John N.")
   end
 
-  it "#create(attributes)" do
-    @mr.update(12337413, {:name => "Jean N."})
+  it "#update(attributes)" do
+    @mr.create({:name => "John N."})
+    @mr.update(12337412, {:name => "Jean N."})
     expect(@mr.all.last.name).to eq("Jean N.")
   end
 end
