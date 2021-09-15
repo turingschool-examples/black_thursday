@@ -21,6 +21,7 @@ class Item
   end
 
   def self.add_from_csv(file)
+    #
     csv = $csv
     @@all = csv.map do |row|
       Item.new(row)
@@ -31,8 +32,36 @@ class Item
     csv = $csv
     @@all.find_all do |item|
       item.id == id
-    end.pop 
+    end.pop
   end
-
-
+  def self.find_by_name(name)
+    csv = $csv
+    @@all.find_all do |item|
+      item.name == name
+    end
+  end
+  def self.find_all_with_description(description)
+    csv = $csv
+    @@all.find_all do |item|
+      item.description == description
+    end
+  end
+  def self.find_all_by_price(unit_price)
+    csv = $csv
+    @@all.find_all do |item|
+      item.unit_price == unit_price
+    end
+  end
+  def self.find_all_by_merchant_id(merchant_id)
+    csv = $csv
+    @@all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+  def self.create(attributes)
+    id_max = @@all.max_by {|item| item.id}
+    attributes[:id] = id_max.id + 1
+    new = self.new(attributes)
+    @@all.push(new)
+  end
 end
