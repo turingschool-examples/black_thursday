@@ -21,12 +21,32 @@ class Merchant
     csv_2_hash = rows.map do |row|
       row = row.to_hash
     end
-    
+
     id_1 = rows["id"]
 
     merchants = []
     csv_2_hash.find do |merchant|
       if id_1 == id
+        merchants << merchant
+      end
+      merchants
+    end
+  end
+
+  def self.find_by_name(name)
+    rows = CSV.read(@@filename, headers: true)
+    rows.by_row
+
+    csv_2_hash = rows.map do |row|
+      row = row.to_hash
+    end
+
+    name_1 = rows["name"]
+
+
+    merchants = []
+    csv_2_hash.find do |merchant|
+      if name_1 == name.upcase
         merchants << merchant
       end
       merchants

@@ -45,7 +45,12 @@ RSpec.describe 'Merchant' do
   it "can find a merchant by ID number" do
 
     expect(Merchant.find_by_id(12334105)).to eq({"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"Shopin1901", "updated_at"=>"2011-12-04"})
-
   end
+
+  it 'can find a merchant by name' do
+    expect(Merchant.find_by_name("Shopin1901")).to eq({"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"Shopin1901", "updated_at"=>"2011-12-04"})
+    expect(Merchant.find_by_name("SHOPIN1901")).to eq({"created_at"=>"2010-12-10", "id"=>"12334105", "name"=>"Shopin1901", "updated_at"=>"2011-12-04"})
+  end
+  
 
 end
