@@ -28,8 +28,8 @@ describe InvoiceRepository do
       path = './data/invoices.csv'
       inre = InvoiceRepository.new(path)
 
-      expect(inre.find_by_id('379').merchant_id).to eq('12334434')
-      expect(inre.find_by_id('12341234')).to eq(nil)
+      expect(inre.find_by_id(379).merchant_id).to eq('12334434')
+      expect(inre.find_by_id(12341234)).to eq(nil)
     end
   end
 
@@ -51,7 +51,7 @@ describe InvoiceRepository do
       inre = InvoiceRepository.new(path)
 
       expect(inre.find_all_by_merchant_id('12334912')).to be_an Array
-      expect(inre.find_all_by_merchant_id('12334912').first.id).to eq('17')
+      expect(inre.find_all_by_merchant_id('12334912').first.id).to eq(17)
       expect(inre.find_all_by_merchant_id('12334912').length).to eq(15)
       expect(inre.find_all_by_merchant_id('12341234')).to eq([])
     end
@@ -63,7 +63,7 @@ describe InvoiceRepository do
       inre = InvoiceRepository.new(path)
 
       expect(inre.find_all_by_status('pending')).to be_an Array
-      expect(inre.find_all_by_status('pending').first.id).to eq('1')
+      expect(inre.find_all_by_status('pending').first.id).to eq(1)
       expect(inre.find_all_by_status('pending').length).to eq(1473)
       expect(inre.find_all_by_status('this is not a status')).to eq([])
     end
@@ -80,7 +80,7 @@ describe InvoiceRepository do
             :merchant_id => 8,
             :status      => 'pending',
             :created_at  => Time.now.round(2),
-            :updated_at  => Time.now.round(2),
+            :updated_at  => Time.now.round(2)
           })
 
       expect(inre.create(attributes).last).to be_an_instance_of Invoice
@@ -104,9 +104,9 @@ describe InvoiceRepository do
             :updated_at  => Time.now.round(2),
           })
 
-      inre.update('1', attributes)
+      inre.update(1, attributes)
 
-      expect(inre.find_by_id('1').status).to eq('shipped')
+      expect(inre.find_by_id(1).status).to eq('shipped')
     end
   end
 
