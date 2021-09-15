@@ -97,11 +97,12 @@ describe ItemRepository do
       it 'updates the item with given ids attributes' do
 
         attributes = {
-            :name        => "Pencil",
-            :description => "You can use it to write things",
-            :unit_price  => BigDecimal(10.99,4)}
+            name:         "Pencil",
+            description:  "You can use it to write things",
+            unit_price:   BigDecimal(10.99,4)
+          }
 
-        expect(@item_repo1.update(263395237, attributes)).to eq(@item_repo1.all[0])
+        expect(@item_repo1.update(263_395_237, attributes)).to eq(@item_repo1.all[0])
         expect(@item_repo1.all[0].name).to eq("Pencil")
       end
     end
@@ -110,8 +111,8 @@ describe ItemRepository do
       it 'deletes the item with the given id' do
         deleted_item = @item_repo1.all[0]
 
-        expect(@item_repo1.delete(263395237)).to eq(deleted_item)
-        expect(@item_repo1.find_by_id(263395237)).to be_nil
+        expect(@item_repo1.delete(263_395_237)).to eq(deleted_item)
+        expect(@item_repo1.find_by_id(263_395_237)).to be_nil
       end
     end
   end
