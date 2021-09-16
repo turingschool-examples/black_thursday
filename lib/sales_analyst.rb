@@ -59,7 +59,7 @@ class SalesAnalyst
     average = BigDecimal((total_price_item/num_of_items).round(2))
   end
 
-  def average_average_price_for_merchant
+  def average_average_price_per_merchant
     total = 0
     @merchants.all.each do |merchant|
       total += average_item_price_for_merchant(merchant.id)
@@ -68,7 +68,7 @@ class SalesAnalyst
   end
 
   def average_price_standard_deviation
-    mean = average_average_item_price_for_merchant
+    mean = average_average_price_per_merchant
     item_count = (@items.all.length.to_f - 1).to_f
     sum = 0.0
     @items.all.each do |item|
@@ -80,7 +80,7 @@ class SalesAnalyst
   end
 
 
-  def golden_item
+  def golden_items
     array_gold_item = []
     two_s_d = average_price_standard_deviation * 2
 
@@ -89,6 +89,8 @@ class SalesAnalyst
         array_gold_item << item
       end
     end
+    array_gold_item
+
   end
 
 end
