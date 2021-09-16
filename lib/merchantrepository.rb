@@ -6,12 +6,10 @@ require './lib/merchant'
 class MerchantRepository
 
   @@filename = './data/sample.csv'
-  @rows = CSV.read(@@filename, headers: true).by_row
+  @rows = CSV.table(@@filename, headers: true).by_row
   def initialize
 
   end
-
-
 
   def self.all
     csv_2_array = @rows.map do |row|
@@ -21,56 +19,54 @@ class MerchantRepository
   end
 
   def self.find_by_id(id)
-    csv_2_hash = @rows.map do |row|
-      row.to_hash
-    end
-    csv_2_hash.find do |merchant|
-      merchant["id"] == id.to_s
+    array_of_merchants = self.all
+    array_of_merchants.find do |merchant|
+      merchant[:id] == id
     end
   end
 
   def self.find_by_name(name)
     name_1 = name.upcase
-    csv_2_hash = @rows.map do |row|
-      row = row.to_hash
-    end
-    csv_2_hash.find_all do |merchant|
+    array_of_merchants = self.all
+
+    array_of_merchants.find_all do |merchant|
       merchant.values[1].upcase!
-      merchant["name"] == name_1
+      merchant[:name] == name_1
     end
   end
 
   def self.find_all_by_name(name)
     name_1 = name.upcase
+    array_of_merchants = self.all
 
-    csv_2_hash = @rows.map do |row|
-      row = row.to_hash
-    end
-
-    csv_2_hash.find_all do |merchant|
+    array_of_merchants.find_all do |merchant|
       merchant.values[1].upcase!
-      merchant["name"].include?(name_1)
+      merchant[:name].include?(name_1)
     end
   end
 
   def self.create(name, created_at, updated_at)
-    csv_2_hash = @rows.map do |row|
-      row = row.to_hash
-    end
+    array_of_merchants = self.all
 
-    last_id = csv_2_hash.last['id'].to_i
+    last_id = array_of_merchants.last[:id]
     new_id = last_id += 1
     new_biz = [new_id, name, created_at, updated_at]
 
-    # CSV.open(@@filename, "a+") do |csv|
-    #   csv << new_biz
-    #   end
+    CSV.open(@@filename, "a+") do |csv|
+      csv << new_biz
+    end
   end
 
   def self.update(id, attributes)
     object = self.find_by_id(id)
-    object["name"] = attributes
+    object[:name] = attributes
     object
   end
 
+  def self.delete(id)
+    #object = self.find_by_id(id)
+    @rows.delete_if do |row|
+      row[:id] == id
+    end
+  end
 end
