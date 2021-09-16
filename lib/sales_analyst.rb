@@ -1,18 +1,23 @@
 require 'csv'
+require_relative 'sales_engine'
+require 'bigdecimal'
+
+
 
 class SalesAnalyst
 
-  attr_reader :sales_engine
 
-  def initialize#(sales_engine)
-    # @sales_engine = sales_engine
-    @ir = ItemRepository.new('./data/items.csv')
-    @mr = MerchantRepository.new('./data/merchants.csv')
+
+  def initialize(repos)
+
+    @items = repos[:items]
+    @merchants = repos[:merchants]
+
   end
 
   def average_items_per_merchant
 
-    (@ir.all.length.to_f/@mr.all.length.to_f).round(2)
+    (@items.all.length.to_f/@merchants.all.length.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -20,11 +25,11 @@ class SalesAnalyst
 
     mean = self.average_items_per_merchant.to_f
     sum = 0.0
-    @mr.all.each do |merchant|
-      diff = (mean - @ir.find_all_by_merchant_id(merchant.id.to_s).length.to_f)
+    @merchants.all.each do |merchant|
+      diff = (mean - @items.find_all_by_merchant_id(merchant.id).length.to_f)
       sum += diff**2
     end
-    s_d = Math.sqrt(sum/((@mr.all.length.to_f)-1))
+    s_d = Math.sqrt(sum/((@merchants.all.length.to_f)-1))
     s_d.round(2)
   end
 
@@ -34,8 +39,8 @@ class SalesAnalyst
     s_d = average_items_per_merchant_standard_deviation
     one_above_sd = mean_item + s_d
 
-    @mr.all.each do |merchant|
-      if @ir.find_all_by_merchant_id(merchant.id.to_s).length > one_above_sd
+    @merchants.all.each do |merchant|
+      if @items.find_all_by_merchant_id(merchant.id).length > one_above_sd
         mer_array << merchant
       end
     end
@@ -43,7 +48,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    items_by_a_mr = @ir.find_all_by_merchant_id(id.to_s)
+    items_by_a_mr = @items.find_all_by_merchant_id(id)
     num_of_items = items_by_a_mr.length.to_f
     total_price_item = 0.0
 
@@ -51,22 +56,22 @@ class SalesAnalyst
       total_price_item += item.unit_price
     end
 
-    average = total_price_item.to_f/num_of_items
+    average = BigDecimal((total_price_item/num_of_items).round(2))
   end
 
-  def average_average_item_price_for_merchant
+  def average_average_price_for_merchant
     total = 0
-    @mr.all.each do |merchant|
-      total += average_item_price_for_merchant(merchant.id.to_s)
+    @merchants.all.each do |merchant|
+      total += average_item_price_for_merchant(merchant.id)
     end
-    average = total/@mr.all.length.to_f
+    average = (total/@merchants.all.length.to_f).round(2)
   end
 
   def average_price_standard_deviation
     mean = average_average_item_price_for_merchant
-    item_count = (@ir.all.length.to_f - 1).to_f
+    item_count = (@items.all.length.to_f - 1).to_f
     sum = 0.0
-    @ir.all.each do |item|
+    @items.all.each do |item|
       diff = (mean - item.unit_price.to_f)
       sum += diff**2
     end
@@ -79,7 +84,7 @@ class SalesAnalyst
     array_gold_item = []
     two_s_d = average_price_standard_deviation * 2
 
-    @ir.all.each do |item|
+    @items.all.each do |item|
       if item.unit_price > two_s_d
         array_gold_item << item
       end

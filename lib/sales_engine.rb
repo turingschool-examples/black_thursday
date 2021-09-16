@@ -16,7 +16,7 @@ class SalesEngine
               :customers
 
   def self.from_csv(data)
-    SalesEngine.new(data)
+    @sales_engine = SalesEngine.new(data)
   end
 
   def initialize(data)
@@ -25,10 +25,12 @@ class SalesEngine
     @invoices       = InvoiceRepository.new(data[:invoices])
     @invoice_items  = InvoiceItemRepository.new(data[:invoice_items])
     @transactions   = TransactionRepository.new(data[:transactions])
+    # @analyst = SalesAnalyst.new(self)
     # @customers      = CustomerRepository.new(data[:customers])
   end
 
   def analyst
-    SalesAnalyst.new
+    repos = {items: @items, merchants: @merchants}
+    SalesAnalyst.new(repos)
   end
 end
