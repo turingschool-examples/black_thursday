@@ -1,6 +1,8 @@
 require "CSV"
 require "Rspec"
 require_relative "../lib/invoice_repo"
+require_relative "../lib/invoice"
+require "Time"
 
 describe InvoiceRepo do
   before :each do
