@@ -4,15 +4,15 @@ require 'csv'
 #CSV::Converters[:hashify] = ->(value) { stuff = value }
 
 class ItemRepository
-  @@filename = './data/items.csv'
 attr_reader :all
 
-  def initialize
-    @all = fill_items
+  def initialize(file)
+    @all = fill_items(file)
+
   end
 
-  def fill_items
-    all_items = CSV.parse(File.read(@@filename))
+  def fill_items(file)
+    all_items = CSV.parse(File.read(file))
     categories = all_items.shift
     all_items.map do |item|
       individual_item = {}
