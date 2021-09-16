@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 
@@ -100,7 +101,7 @@ describe ItemRepository do
         attr = {
           name:         'Pencil',
           description:  'You can use it to write things',
-          unit_price:   BigDecimal(10.99,4)
+          unit_price:   BigDecimal(10.99,4) 
         }
 
         expect(@item_repo1.update(263_395_237, attr)).to eq(@item_repo1.all[0])
