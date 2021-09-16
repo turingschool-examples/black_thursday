@@ -80,5 +80,4 @@ class SalesAnalyst
     end
     array_gold_item
   end
-
 end
