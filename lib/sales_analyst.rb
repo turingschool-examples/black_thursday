@@ -46,5 +46,15 @@ class SalesAnalyst
     sum / @merchants.all.length 
   end 
 
-  
+  def golden_items 
+    average = average_average_price_per_merchant
+    sum = @items.all.sum do |item|
+      (item.unit_price - average) ** 2 
+    end 
+    sum /= (@items.all.length - 1)
+    sd = Math.sqrt(sum)
+    @items.all.select do |item|
+      item.unit_price > (sd * 2) 
+    end 
+  end 
 end
