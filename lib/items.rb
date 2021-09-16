@@ -11,10 +11,13 @@ class Items
     @id = items[:id]
     @name = items[:name]
     @description = items[:description]
-    @unit_price = items[3]
-    @merchant_id = items[4]
-    @created_at = items[5]
-    @updated_at = items[6]
+    @unit_price = items[:unit_price]
+    @merchant_id = items[:merchant_id]
+    @created_at = items[:created_at]
+    @updated_at = items[:updated_at]
   end
 
+  def item_repo
+    ItemRepository.new(@items)
+  end
 end
