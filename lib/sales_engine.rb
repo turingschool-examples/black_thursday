@@ -21,6 +21,11 @@ class SalesEngine
   #
   # end
   #
-  # def items
-  # end
+  def items
+    csv = CSV.read(@items, headers: true, header_converters: :symbol)
+     csv.map do |row|
+       Item.all << Item.new(row)
+    end
+    Item.all
+  end
 end

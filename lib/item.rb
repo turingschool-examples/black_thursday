@@ -1,8 +1,11 @@
 class Item
-  @@all         = []
+
 
   attr_reader :id, :created_at, :updated_at, :merchant_id
-  attr_accessor :name, :description, :unit_price
+  attr_accessor :name, :description, :unit_price, :all
+  @@all          = []
+
+
   def initialize(data)
     @id           = data[:id]
     @name         = data[:name]
@@ -85,7 +88,9 @@ class Item
   end
 
   def self.delete(id)
-     self.all.find_by_id(id)
+    x = (self.all).find_index(self.find_by_id(id))
+    self.all.delete_at(x)
+    self.all
   end
 
 end
