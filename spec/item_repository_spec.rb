@@ -79,32 +79,17 @@ describe ItemRepository do
 
     describe 'create(attributes)' do
       it 'creates a new item with given attributes' do
-        new_item = {
-          :id          => 1,
-          :name        => "Pencil",
-          :description => "You can use it to write things",
-          :unit_price  => BigDecimal(10.99,4),
-          :created_at  => Time.now,
-          :updated_at  => Time.now,
-          :merchant_id => 2
-          }
-        @item_repo1.create(new_item)
+        @item_repo1.create("Pencil", "You can use it to write things", 10.99, 4, 2)
 
         expect(@item_repo1.all.last).to be_a(Item)
-        expect(@item_repo1.all.last.name).to eq(new_item[:name])
+        expect(@item_repo1.all.last.name).to eq("Pencil")
       end
     end
 
     describe 'update(id, attributes)' do
       it 'updates the item with given ids attributes' do
 
-        attr = {
-          name:         'Pencil',
-          description:  'You can use it to write things',
-          unit_price:   BigDecimal(10.99,4)
-        }
-
-        expect(@item_repo1.update(263_395_237, attr)).to eq(@item_repo1.all[0])
+        expect(@item_repo1.update(263_395_237, "name", 'Pencil')).to eq(@item_repo1.all[0])
         expect(@item_repo1.all[0].name).to eq('Pencil')
       end
     end
