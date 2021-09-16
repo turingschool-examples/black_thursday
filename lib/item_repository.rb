@@ -11,21 +11,16 @@ attr_reader :all
     @all = fill_items
   end
 
-  def all_items
-    CSV.parse(File.read(@@filename))
-  end
-
   def fill_items
+    all_items = CSV.parse(File.read(@@filename))
     categories = all_items.shift
-    grouped_items = []
-    all_items.each do |item|
+    all_items.map do |item|
       individual_item = {}
       categories.zip(item) do |category, attribute|
         individual_item[category.to_sym] = attribute
       end
-      grouped_items << Item.new(individual_item)
+      Item.new(individual_item)
     end
-    grouped_items
   end
 
   def find_by_id(id)
