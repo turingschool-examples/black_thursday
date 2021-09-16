@@ -1,11 +1,11 @@
 class Item
-attr_accessor   :id,
-                :name,
-                :description,
-                :unit_price,
-                :created_at,
-                :updated_at,
-                :merchant_id
+  attr_accessor  :id,
+                 :name,
+                 :description,
+                 :unit_price,
+                 :created_at,
+                 :updated_at,
+                 :merchant_id
 
   def initialize(item)
     @id = item[:id]
@@ -22,15 +22,9 @@ attr_accessor   :id,
   end
 
   def update_item(attributes)
-    if !attributes[:name].nil?
-      @name = attributes[:name]
-    end
-    if !attributes[:description].nil?
-      @description = attributes[:description]
-    end
-    if !attributes[:unit_price].nil?
-      @unit_price = attributes[:unit_price]
-    end
+    @name = attributes[:name] if !attributes[:name].nil?
+    @description = attributes[:description] if !attributes[:description].nil?
+    @unit_price = attributes[:unit_price] if !attributes[:unit_price].nil?
     @updated_at = Time.now
     self
   end
