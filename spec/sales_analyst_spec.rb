@@ -16,7 +16,7 @@ RSpec.describe SalesAnalyst do
       transactions:   './data/transactions.csv',
       customers:      './data/customers.csv'
     }) }
-    
+
   let(:analyst) { se.analyst }
 
   context 'Iteration 1' do
@@ -56,5 +56,33 @@ RSpec.describe SalesAnalyst do
   end
 
   context 'Iteration 2' do
+    it '#average_invoices_per_merchant' do
+      expect(analyst.average_invoices_per_merchant).to eq 10.49
+    end
+
+    it '#average_invoices_per_merchant_standard_deviation' do
+      expect(analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
+    end
+
+    it '#top_merchants_by_invoice_count' do
+      expect(analyst.top_merchants_by_invoice_count).to be_an Array
+      expect(analyst.top_merchants_by_invoice_count.length).to eq 3
+    end
+
+    it '#bottom_merchants_by_invoice_count' do
+      expect(analyst.bottom_merchants_by_invoice_count).to be_an Array
+      expect(analyst.bottom_merchants_by_invoice_count.length).to eq 3
+    end
+
+    it '#top_days_by_invoice_count' do
+      expect(analyst.top_days_by_invoice_count).to be_an Array
+      expect(analyst.top_days_by_invoice_count).to eq ['Sunday', 'Saturday']
+    end
+
+    it '#invoice_status' do
+      expect(analyst.invoice_status(:pending)).to eq 29.55
+      expect(analyst.invoice_status(:shipped)).to eq 56.95
+      expect(analyst.invoice_status(:returned)).to eq 13.5
+    end
   end
 end
