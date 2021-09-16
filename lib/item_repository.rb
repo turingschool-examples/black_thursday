@@ -4,11 +4,10 @@ require 'csv'
 #CSV::Converters[:hashify] = ->(value) { stuff = value }
 
 class ItemRepository
-attr_reader :all
+  attr_reader :all
 
   def initialize(file)
     @all = fill_items(file)
-
   end
 
   def fill_items(file)
