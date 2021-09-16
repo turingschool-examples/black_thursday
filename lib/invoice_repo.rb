@@ -11,7 +11,7 @@ class InvoiceRepo
 
     CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
       headers = row.headers
-      invoices << row.to_h
+      invoices << Invoice.new(row.to_h)
     end
     invoices.map do | item |
       Invoice.new(item)
@@ -21,6 +21,18 @@ class InvoiceRepo
   def find_by_id(id)
     all.find do |invoice|
       invoice.id == id
+    end
+  end
+
+  def find_all_by_customer_id(customer_id)
+    all.select do | invoice |
+      customer_id == invoice.customer_id
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    all.select do | item |
+      merchant_id == item.merchant_id
     end
   end
 
