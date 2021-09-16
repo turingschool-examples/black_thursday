@@ -79,7 +79,9 @@ RSpec.describe 'Merchant' do
   end
 
   it 'creates' do
-    expect(Merchant.create(123, "OutStore", "2020-12-10", "2021-03-20")).to eq([{"created_at"=>"2020-12-10", "id"=>"123", "name"=>"OurStore", "updated_at"=>"2021-03-20"}])
+    expect(Merchant.create("OurStore", "2020-12-10", "2021-03-20")).to eq("created_at"=>"2020-12-10", "id"=>"12334203", "name"=>"OurStore", "updated_at"=>"2021-03-20")
   end
+
+
 
 end

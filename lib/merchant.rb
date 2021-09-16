@@ -73,12 +73,25 @@ class Merchant
     end
   end
 
-  def self.create(id, name, created_at, updated_at)
-    CSV.open(@@filename, "a") do |csv|
-      csv << [{@id => id,
-              @name => name,
-              @created_at => created_at,
-              @updated_at => updated_at}]
+  def self.create(name, created_at, updated_at)
+
+    rows = CSV.read(@@filename, headers: true)
+    rows.by_row
+
+    csv_2_hash = rows.map do |row|
+      row = row.to_hash
+    end
+
+    id = csv_2_hash.map do |merchant|
+      merchant[:id] += 1
+    end
+
+    # id = csv_2_hash.last += 1
+
+
+    new_biz = [id, name, created_at, updated_at]
+    CSV.open(@@filename, "a+") do |csv|
+      csv << new_biz
       end
   end
 
