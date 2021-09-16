@@ -38,4 +38,13 @@ class SalesAnalyst
     end 
     sum / @items.find_all_by_merchant_id(id).length 
   end
+
+  def average_average_price_per_merchant 
+    sum = @merchants.all.sum do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end 
+    sum / @merchants.all.length 
+  end 
+
+  
 end

@@ -34,4 +34,11 @@ describe SalesAnalyst do
 
     expect(@sa.average_item_price_for_merchant(12334159)).to be_a(BigDecimal)
   end 
+
+  xit '#average_average_price' do 
+
+    expect(@sa.average_average_price_per_merchant).to be_a(BigDecimal)
+  end 
+
+  
 end
