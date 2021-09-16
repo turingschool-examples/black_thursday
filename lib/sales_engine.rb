@@ -3,7 +3,6 @@ require_relative "merchant_repo"
 require_relative "sales_analyst"
 
 class SalesEngine
-  include SalesAnalyst
   attr_reader   :item_path,
                 :merchant_path
 
