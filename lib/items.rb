@@ -21,10 +21,10 @@ class Item
     unit_price.to_f
   end
 
-  def update_item(attributes)
-    @name = attributes[:name] unless attributes[:name].nil?
-    @description = attributes[:description] unless attributes[:description].nil?
-    @unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+  def update_item(item_attribute, item_value)
+    @name = item_value if item_attribute == "name"
+    @description = item_value if item_attribute == "description"
+    @unit_price = item_value if item_attribute == "unit_price"
     @updated_at = Time.now
     self
   end
