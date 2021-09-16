@@ -97,13 +97,13 @@ describe ItemRepository do
       it 'updates the item with given ids attributes' do
 
         attributes = {
-            name:         "Pencil",
-            description:  "You can use it to write things",
+            name:         'Pencil',
+            description:  'You can use it to write things', 
             unit_price:   BigDecimal(10.99,4)
-          }
+                     }
 
         expect(@item_repo1.update(263_395_237, attributes)).to eq(@item_repo1.all[0])
-        expect(@item_repo1.all[0].name).to eq("Pencil")
+        expect(@item_repo1.all[0].name).to eq('Pencil')
       end
     end
 
