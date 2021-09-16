@@ -6,23 +6,21 @@ class MerchantsRepository
   end
 
   def find_by_id(id)
-    @all.find {|merchant| merchant.id == id}
+    @all.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    @all.find {|merchant| merchant.name.upcase == name.upcase}
+    @all.find { |merchant| merchant.name.upcase == name.upcase }
   end
 
   def find_all_by_name(name)
-    @all.find_all {|merchant| merchant.name.upcase.include? name.upcase}
+    @all.find_all { |merchant| merchant.name.upcase.include? name.upcase }
   end
 
   def create(attributes)
     max_id = 0
     @all.each do |merchant|
-      if merchant.id > max_id
-        max_id = merchant.id
-      end
+      max_id = merchant.id if merchant.id > max_id
     end
     new_id = max_id + 1
     new_merch_hash = {}
