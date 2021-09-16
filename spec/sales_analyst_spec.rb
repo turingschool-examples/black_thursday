@@ -40,7 +40,7 @@ describe SalesAnalyst do
     expect(@sa.average_average_price_per_merchant).to be_a(BigDecimal)
   end 
 
-  it '#golden items' do 
+  xit '#golden items' do 
     good_items = @sa.golden_items
 
     expect(good_items).to be_a(Array)

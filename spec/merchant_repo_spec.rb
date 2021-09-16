@@ -41,14 +41,14 @@ describe MerchantRepo do
 
   it "#update(attributes)" do
     @mr.create({:name => "John N."})
-    @mr.update(12337413, {:name => "Jean N."})
-    expect(@mr.all[476].name).to eq("Jean N.")
+    @mr.update(12337412, {:name => "Jean N."})
+    expect(@mr.find_by_id(12337412).name).to eq("Jean N.")
   end
 
   it "#delete(id)" do
     @mr.create({:name => "John N."})
-    @mr.delete(12337413)
+    @mr.delete(12337412)
 
-    expect(@mr.find_by_id(12337413)).to eq(nil)
+    expect(@mr.find_by_id(12337412)).to eq(nil)
   end
 end
