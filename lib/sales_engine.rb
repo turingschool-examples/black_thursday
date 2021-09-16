@@ -1,14 +1,33 @@
 require 'csv'
-# require_relative './item_repository'
+require_relative './item_repository'
 require_relative './merchant_repository'
+require_relative './items'
+require_relative './merchants'
 
 class SalesEngine
   attr_accessor :items,
                 :merchants
 
+  def self.from_csv(paths)
+    data = {}
+    data[:items] = create_obj_csv(paths[:items], Items)
+    data[:merchants] = create_obj_csv(paths[:merchants], Merchants)
+    SalesEngine.new(data)
+  end
+
+
   def initialize(data)
     @items     = data[:items]
     @merchants = data[:merchants]
+  end
+
+  def self.create_obj_csv(locations, obj_type)
+    objects = []
+    CSV.foreach(locations, headers: true, header_converters: :symbol, :quote_char => '"', liberal_parsing: true) do |row|
+      object = obj_type.new(row)
+      objects << object
+    end
+    objects
   end
 
   def merchant_repo
@@ -18,23 +37,9 @@ class SalesEngine
   def item_repo
     ItemRepository.new(@items)
   end
-  # def self.from_csv(paths)
-  #   hash = {}
-  #   hash[:items]     = create_obj_csv(@items)
-  #   hash[:merchants] = create_obj_csv(@merchants)
-  # end
-
-  # def self.create_obj_csv(locations)
-  #   objects = []
-  #   CSV.foreach("./data/merchants.csv", headers: true, header_converters: :symbol) do |row|
-  #     # object = (row)
-  #     objects << row
-  #   end
-  #   objects
-  # end
 end
 
-se = SalesEngine.new({
+se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"
 })
