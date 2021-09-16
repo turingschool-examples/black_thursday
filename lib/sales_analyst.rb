@@ -1,28 +1,18 @@
 require 'csv'
-require_relative 'sales_engine'
 require 'bigdecimal'
-
-
+require_relative 'sales_engine'
 
 class SalesAnalyst
-
-
-
   def initialize(repos)
-
-    @items = repos[:items]
-    @merchants = repos[:merchants]
-
+    @items      = repos[:items]
+    @merchants  = repos[:merchants]
   end
 
   def average_items_per_merchant
-
     (@items.all.length.to_f/@merchants.all.length.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-
-
     mean = self.average_items_per_merchant.to_f
     sum = 0.0
     @merchants.all.each do |merchant|
@@ -56,7 +46,7 @@ class SalesAnalyst
       total_price_item += item.unit_price
     end
 
-    average = BigDecimal((total_price_item/num_of_items).round(2))
+    BigDecimal((total_price_item/num_of_items).round(2))
   end
 
   def average_average_price_per_merchant
@@ -64,7 +54,7 @@ class SalesAnalyst
     @merchants.all.each do |merchant|
       total += average_item_price_for_merchant(merchant.id)
     end
-    average = (total/@merchants.all.length.to_f).round(2)
+    (total/@merchants.all.length.to_f).round(2)
   end
 
   def average_price_standard_deviation
@@ -79,7 +69,6 @@ class SalesAnalyst
     s_d.round(2)
   end
 
-
   def golden_items
     array_gold_item = []
     two_s_d = average_price_standard_deviation * 2
@@ -90,7 +79,6 @@ class SalesAnalyst
       end
     end
     array_gold_item
-
   end
 
 end
