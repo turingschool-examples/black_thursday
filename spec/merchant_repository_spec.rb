@@ -8,8 +8,12 @@ RSpec.describe MerchantRepository do
   end
 
   it 'can return an array of all known merchants' do
-    mr = MerchantRepository.new
 
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    mr = MerchantRepository.new(se)
     expect(mr.all).to be_an(Array)
     expect(mr.all[0]).to be_an_instance_of(Merchant)
   end

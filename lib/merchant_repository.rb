@@ -1,18 +1,19 @@
 require 'csv'
 require './lib/sales_engine'
 
-class MerchantRepository < SalesEngine
-  # attr_reader :@@filename
-  @@filename = './data/merchants.csv'
-
-  # def initialize
-  # end
+class MerchantRepository
+  def initialize(data)
+  end
 
   def all
-    result = []
-    CSV.foreach(@@filename, headers: true) do |row|
-      result << row.to_hash
-    end
-    result
+    #all_merchant_objects = []
+    #SalesEngine.from_csv(data)[:merchants]
+
+
+    #.map do |merchant|
+    #  all_merchant_objects << Merchant.new(merchant[:id], merchant[:name],
+    #     merchant[:created_at], merchant[:updated_at])
+    #end
+    #all_merchant_objects
   end
 end
