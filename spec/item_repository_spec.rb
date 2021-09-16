@@ -11,7 +11,7 @@ require './lib/item_repository'
 
 describe ItemRepository do
   before(:each) do
-    @item_repo1 = ItemRepository.new
+    @item_repo1 = ItemRepository.new('./data/items.csv')
   end
   it 'exists' do
 
@@ -99,9 +99,9 @@ describe ItemRepository do
       it 'updates the item with given ids attributes' do
 
         attr = {
-          name:         'Pencil',
-          description:  'You can use it to write things',
-          unit_price:   BigDecimal(10.99,4) 
+        name:         'Pencil',
+        description:  'You can use it to write things',
+        unit_price:   BigDecimal(10.99,4)
         }
 
         expect(@item_repo1.update(263_395_237, attr)).to eq(@item_repo1.all[0])
