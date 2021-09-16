@@ -11,8 +11,11 @@ attr_reader :all
     @all = fill_items
   end
 
+  def all_items
+    CSV.parse(File.read(@@filename))
+  end
+
   def fill_items
-    all_items = CSV.parse(File.read(@@filename))
     categories = all_items.shift
     grouped_items = []
     all_items.each do |item|
