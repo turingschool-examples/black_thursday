@@ -25,4 +25,10 @@ class SalesAnalyst
     sum /= (@merchants.all.length - 1)
     Math.sqrt(sum).round(2)
   end
+
+  def merchants_with_high_item_count 
+    @merchants.all.find_all do |merchant|
+      @items.find_all_by_merchant_id(merchant.id).length > @standard_deviation
+    end 
+  end 
 end

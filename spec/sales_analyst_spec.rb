@@ -11,13 +11,22 @@ describe SalesAnalyst do
     @sa = SalesAnalyst.new(@se.items, @se.merchants)
   end
 
-  it '#average_item_per_merchant' do
+  xit '#average_item_per_merchant' do
 
     expect(@sa.average_item_per_merchant).to eq(2.88)
   end
 
-  it '#average_item_per_merchant_standard_deviation' do
+  xit '#average_item_per_merchant_standard_deviation' do
 
     expect(@sa.average_item_per_merchant_standard_deviation).to eq(3.26)
   end
+
+  it '#high item count' do 
+    high_item = @sa.merchants_with_high_item_count
+    
+    expect(high_item).to be_a(Array)
+    expect(high_item.empty?).to be(false)
+    expect(high_item.first).to be_a(Merchant)
+    expect(high_item.length).to be < 400 
+  end 
 end
