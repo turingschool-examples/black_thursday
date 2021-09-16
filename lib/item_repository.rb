@@ -1,63 +1,65 @@
 require 'csv'
+require_relative 'item'
 
 class ItemRepository
+  attr_reader :all
 
   def initialize(path)
-    @path = path
-    @rows = CSV.read(@path, headers: true, header_converters: :symbol)
-    @all = all
+    @all  = generate(path)
   end
 
-  def all
-    result = @rows.map do |row|
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
+  def generate(path)
+    rows = CSV.read(path, headers: true, header_converters: :symbol)
+
+    rows.map do |row|
       Item.new(row)
     end
   end
 
   def find_by_id(id)
-    result = @all.find do |row|
+    @all.find do |row|
       row.id == id
     end
-    result
   end
 
   def find_by_name(name)
-    result = @all.find do |row|
+    @all.find do |row|
       row.name == name
     end
-    result
   end
 
   def find_all_with_description(description)
-    result = @all.find_all do |row|
-      row.description == description
+    @all.find_all do |row|
+      row.description.downcase == description.downcase
     end
-    result
   end
 
   def find_all_by_price(price)
-    result = @all.find_all do |row|
+    @all.find_all do |row|
       row.unit_price == price
     end
-    result
   end
 
-  def find_all_by_price_in_range(num1, num2)
-    result = @all.find_all do |row|
-      row.unit_price.between?(num1, num2)
+  def find_all_by_price_in_range(range)
+    @all.find_all do |row|
+      range.cover?(row.unit_price)
     end
-    result
   end
 
   def find_all_by_merchant_id(merchant_id)
-    result = @all.find_all do |row|
+    @all.find_all do |row|
       row.merchant_id == merchant_id
     end
-    result
   end
 
   def create(attributes)
     attributes[:id] = @all.last.id.to_i + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     @all << Item.new(attributes)
   end
 
@@ -73,7 +75,9 @@ class ItemRepository
     if attributes[:unit_price] != nil
       item_to_update.unit_price = attributes[:unit_price]
     end
-    item_to_update.updated_at = Time.now
+    if item_to_update
+      item_to_update.updated_at = Time.now
+    end
     item_to_update
   end
 

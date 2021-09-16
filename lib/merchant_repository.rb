@@ -1,5 +1,5 @@
-require 'merchant.rb'
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :path,
@@ -8,6 +8,10 @@ class MerchantRepository
   def initialize(path)
     @path = path
     @all  = read_file
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def read_file
@@ -51,7 +55,7 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attributes[:name]
+    merchant.name = attributes[:name] if attributes[:name]
     merchant
   end
 
