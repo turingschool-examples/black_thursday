@@ -1,4 +1,5 @@
 require "Time"
+require "BigDecimal"
 
 class Item
   attr_reader :id,
