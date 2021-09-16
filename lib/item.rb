@@ -1,11 +1,12 @@
 class Item
-  attr_accessor :id,
-                :name,
+  attr_reader   :id,
+                :created_at,
+                :merchant_id
+
+  attr_accessor :name,
                 :description,
                 :unit_price,
-                :created_at,
-                :updated_at,
-                :merchant_id
+                :updated_at
 
   def initialize(data)
     @id = data[:id].to_i
