@@ -1,5 +1,5 @@
 require 'csv'
-
+require './lib/itemrepository'
 # mr = se.merchants
 # merchant = mr.find_by_name("CJsDecor")
 
@@ -22,10 +22,12 @@ class SalesEngine
   # end
   #
   def items
+    all = []
+
     csv = CSV.read(@items, headers: true, header_converters: :symbol)
      csv.map do |row|
-       Item.all << Item.new(row)
+       all << Item.new(row)
     end
-    Item.all
+    ir = ItemRepository.new(all)
   end
 end
