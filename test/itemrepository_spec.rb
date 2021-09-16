@@ -1,24 +1,24 @@
 require './lib/item'
 require './lib/itemrepository'
 require 'bigdecimal'
+require 'bigdecimal/util'
 require 'objspace'
+require './lib/sales_engine'
 
 RSpec.describe ItemRepository do
 
-  describe "instantiation" do
 
     it "can return the price of item in dollars (float)" do
-      b = Item.new({
-        :id          => 3,
-        :name        => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
-        :merchant_id => 2
-        })
+      se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+      })
 
-      expect(b.unit_price_to_dollars).to be_a(Float)
+      ir = se.items
+
+      item1 = ir.find_by_id("263395617")
+      require "pry"; binding.pry
+      expect(item1.unit_price_to_dollars).to eq(1300)
     end
 
     xit "can return an array of all know Item instances" do
@@ -70,53 +70,30 @@ RSpec.describe ItemRepository do
 
     it "can find by id" do
 
-        i = Item.new({
-          :id          => 1,
-          :name        => "Pencil",
-          :description => "You can use it to write things",
-          :unit_price  => BigDecimal(10.99,4),
-          :created_at  => Time.now,
-          :updated_at  => Time.now,
-          :merchant_id => 2
-          })
+      se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+      })
 
-        a = Item.new({
-          :id           => 5,
-          :name         => "Water Bottles",
-          :description  => "You can use it to drink things",
-          :unit_price   => BigDecimal(15.99, 4),
-          :created_at   => Time.now,
-          :updated_at   => Time.now,
-          :merchant_id  => 10
-          })
+      ir = se.items
 
-          $csv = [
-                  {
-                  :id          => 1,
-                  :name        => "Pencil",
-                  :description => "You can use it to write things",
-                  :unit_price  => BigDecimal(10.99,4),
-                  :created_at  => Time.now,
-                  :updated_at  => Time.now,
-                  :merchant_id => 2
-                  },
-                  {
-                  :id           => 5,
-                  :name         => "Water Bottles",
-                  :description  => "You can use it to drink things",
-                  :unit_price   => BigDecimal(15.99, 4),
-                  :created_at   => Time.now,
-                  :updated_at   => Time.now,
-                  :merchant_id  => 10
-                  }
-                  ]
+      item1 = ir.find_by_id("263395721")
 
-      Item.add_from_csv(nil)
-      Item.all
-      expect(Item.find_by_id(1)).to eq(Item.all[0])
-      expect(Item.find_by_id(10)).to eq(nil)
+      i = Item.new({
+        :id          => 263395721,
+        :name        => "Disney scrabble frames",
+        :description => "Disney glitter frames \n\nAny colour glitter available and can do any characters you require \n\nDifferent colour scrabble tiles\n\nBlue\nBlack\nPink\nWooden",
+        :unit_price  => BigDecimal(1350,4),
+        :created_at  => "2016-01-11 11:51:37 UTC",
+        :updated_at  => "2008-04-02 13:48:57 UTC",
+        :merchant_id => 12334185
+        })
+
+      expect(item1).to eq(i)
+
+
     end
-    it "can find by name" do
+    xit "can find by name" do
 
         i = Item.new({
           :id          => 1,
@@ -165,7 +142,7 @@ RSpec.describe ItemRepository do
       expect(Item.find_by_name("Imaginary")).to eq([])
     end
 
-    it "can find by description" do
+    xit "can find by description" do
 
         i = Item.new({
           :id          => 1,
@@ -214,7 +191,7 @@ RSpec.describe ItemRepository do
       expect(Item.find_all_with_description("Imaginary")).to eq([])
     end
 
-    it "can find by unit price" do
+    xit "can find by unit price" do
 
         i = Item.new({
           :id          => 1,
@@ -262,7 +239,7 @@ RSpec.describe ItemRepository do
       expect(Item.find_all_by_price(BigDecimal(15.99, 4))).to eq([Item.all[1]])
       expect(Item.find_all_by_price(BigDecimal(16.99, 4))).to eq([])
     end
-    it "can find by price range" do
+    xit "can find by price range" do
 
         i = Item.new({
           :id          => 1,
@@ -311,7 +288,7 @@ RSpec.describe ItemRepository do
       expect(Item.find_all_by_price_in_range(BigDecimal(75.99, 4), BigDecimal(95.99, 4))).to eq([])
 
     end
-    it "can find by merchant_id" do
+    xit "can find by merchant_id" do
 
         i = Item.new({
           :id          => 1,
@@ -368,7 +345,7 @@ RSpec.describe ItemRepository do
       expect(Item.find_all_by_merchant_id(10)).to eq([Item.all[1], Item.all[2]])
       expect(Item.find_all_by_merchant_id(6)).to eq([])
     end
-    it "can create a new item with max_id being +1" do
+    xit "can create a new item with max_id being +1" do
 
         i = Item.new({
           :id          => 1,
@@ -521,7 +498,7 @@ RSpec.describe ItemRepository do
 
   end
 
-  it "can delete by id" do
+  xit "can delete by id" do
   $csv = [
           {
           :id          => 1,
@@ -560,4 +537,3 @@ RSpec.describe ItemRepository do
     end
 
   end
-end
