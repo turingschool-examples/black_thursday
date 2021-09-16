@@ -70,7 +70,7 @@ attr_reader :all
 
   def update(id, attributes)
     current_item = find_by_id(id)
-     all[all.find_index(current_item)] = current_item.update_item(attributes)
+    all[all.find_index(current_item)] = current_item.update_item(attributes)
   end
 
   def delete(id)
