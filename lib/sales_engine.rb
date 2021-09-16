@@ -31,4 +31,8 @@ class SalesEngine
   def invoices
     InvoiceRepo.new(@invoice_path)
   end
+
+  def analyst
+    SalesAnalyst.new(@items, @merchants)
+  end
 end
