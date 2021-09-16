@@ -7,14 +7,6 @@ require_relative 'transaction_repository'
 require_relative 'sales_analyst'
 
 class SalesEngine
-  attr_reader :items,
-              :merchants,
-              :invoices,
-              :invoice_items,
-              :transactions,
-              :customers,
-              :analyst
-
   def self.from_csv(data)
     SalesEngine.new(data)
   end
