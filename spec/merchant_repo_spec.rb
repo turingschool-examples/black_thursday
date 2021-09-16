@@ -1,7 +1,7 @@
 require 'rspec'
 require_relative '../lib/merchant_repo'
 
-describe @mr do
+describe MerchantRepo do
   before(:each) do
     @mr = MerchantRepo.new('./data/merchants.csv')
   end
