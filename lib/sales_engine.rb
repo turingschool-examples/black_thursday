@@ -3,6 +3,8 @@ require 'pry'
 require './lib/merchant_repository'
 
 class SalesEngine
+  attr_reader  :merchants,
+               :items
 
   def self.from_csv(data)
       all_item_data = []
@@ -15,7 +17,12 @@ class SalesEngine
       end
       hash_of_stuff = {:items => all_item_data,
                        :merchants => all_merchant_data}
-      hash_of_stuff
+      SalesEngine.new(hash_of_stuff)
+  end
+
+  def initialize(data)
+    @merchants = MerchantRepository.new(data[:merchants])
+    @items = ItemRepository.new(data[:items])
   end
 
 end
