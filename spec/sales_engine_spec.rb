@@ -1,29 +1,32 @@
 require './lib/sales_engine'
+require 'bigdecimal'
 
 RSpec.describe SalesEngine do
+  before :each do
+    data = {
+      items: './data/items.csv',
+      merchants: './data/merchants.csv'
+    }
+    @se = SalesEngine.from_csv(data)
+  end
+
   context 'Iteration 0' do
     it 'exists' do
-      se = SalesEngine.new
-      expect(se).to be_an_instance_of(SalesEngine)
+      expect(@se).to be_an_instance_of(SalesEngine)
     end
 
     it 'can access items' do
-      se = SalesEngine.new
-      ir   = ItemRepository.new("./data/items.csv")
-      expect(ir.find_by_name("Disney scrabble frames")).to be_an_instance_of(Item)
+      expect(@se.items.find_by_name("Disney scrabble frames")).to be_an_instance_of(Item)
     end
 
     it 'can access merchants' do
-      se = SalesEngine.new
-      mr   = MerchantRepository.new("./data/merchants.csv")
-      expect(mr.find_by_name("jejum")).to be_an_instance_of(Merchant)
+      expect(@se.merchants.find_by_name("jejum")).to be_an_instance_of(Merchant)
     end
   end
 
   context 'Iteration 1' do
     it 'exists' do
-      se = SalesEngine.new
-      sales_analyst = se.analyst
+      sales_analyst = @se.analyst
       expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
     end
   end
