@@ -4,14 +4,14 @@ require 'csv'
 #CSV::Converters[:hashify] = ->(value) { stuff = value }
 
 class ItemRepository
-    @@filename = './data/items.csv'
+  @@filename = './data/items.csv'
 attr_reader :all
 
-  def initialize # (file)
-    @all = fill_items # (file)
+  def initialize
+    @all = fill_items
   end
 
-  def fill_items # (file)
+  def fill_items
     all_items = CSV.parse(File.read(@@filename))
     categories = all_items.shift
     grouped_items = []
@@ -70,7 +70,7 @@ attr_reader :all
 
   def update(id, attributes)
     current_item = find_by_id(id)
-  all[all.find_index(current_item)] = current_item.update_item(attributes)
+     all[all.find_index(current_item)] = current_item.update_item(attributes)
   end
 
   def delete(id)
