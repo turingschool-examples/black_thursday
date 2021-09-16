@@ -49,8 +49,8 @@ RSpec.describe do
     expect(i.name).to eq("Pencil")
     expect(i.description).to eq("You can use it to write things")
     expect(i.unit_price).to eq(BigDecimal(10.99,4))
-    # expect(i.created_at).to eq()
-    # expect(i.updated_at).to eq()
-    # expect(i.merchant_id).to eq(2)
+    expect(i.created_at).to be_an_instance_of(Time)
+    expect(i.updated_at).to be_an_instance_of(Time)
+    expect(i.merchant_id).to eq(2)
   end
 end
