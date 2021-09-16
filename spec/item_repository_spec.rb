@@ -57,7 +57,10 @@ describe ItemRepository do
     end
 
     describe 'find_all_by_price_in_range(range)' do
-      xit 'returns items within matching prices given a range' do
+      it 'returns items within matching prices given a range' do
+
+        expect(@item_repo1.find_all_by_price_in_range(700..1300)).to include(@item_repo1.all[0], @item_repo1.all[1])
+        expect(@item_repo1.find_all_by_price_in_range(52300..52400)).to eq([])
       end
     end
 
@@ -70,12 +73,37 @@ describe ItemRepository do
     end
 
     describe 'create(attributes)' do
-      xit 'creates a new item with given attributes' do
+      it 'creates a new item with given attributes' do
+        new_item = {
+          :id          => 1,
+          :name        => "Pencil",
+          :description => "You can use it to write things",
+          :unit_price  => BigDecimal(10.99,4),
+          :created_at  => Time.now,
+          :updated_at  => Time.now,
+          :merchant_id => 2
+          }
+        @item_repo1.create(new_item)
+
+        expect(@item_repo1.all.last).to be_a(Item)
+        expect(@item_repo1.all.last.name).to eq(new_item[:name])
       end
     end
 
     describe 'update(id, attributes)' do
-      xit 'updates the item with given ids attributes' do
+      it 'updates the item with given ids attributes' do
+
+        attributes = {
+            :id          => 1,
+            :name        => "Pencil",
+            :description => "You can use it to write things",
+            :unit_price  => BigDecimal(10.99,4),
+            :created_at  => Time.now,
+            :updated_at  => Time.now,
+            :merchant_id => 2}
+
+        expect(@item_repo1.update(12334141, attributes)).to eq(@item_repo1[0])
+        expect(@item_repo1[0].name).to eq("Pencil")
       end
     end
 
