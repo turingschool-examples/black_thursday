@@ -21,12 +21,17 @@ describe SalesAnalyst do
     expect(@sa.average_item_per_merchant_standard_deviation).to eq(3.26)
   end
 
-  it '#high item count' do 
+  xit '#high item count' do 
     high_item = @sa.merchants_with_high_item_count
     
     expect(high_item).to be_a(Array)
     expect(high_item.empty?).to be(false)
     expect(high_item.first).to be_a(Merchant)
     expect(high_item.length).to be < 400 
+  end 
+
+  xit '#average item price for merchant' do 
+
+    expect(@sa.average_item_price_for_merchant(12334159)).to be_a(BigDecimal)
   end 
 end

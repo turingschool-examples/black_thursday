@@ -31,4 +31,11 @@ class SalesAnalyst
       @items.find_all_by_merchant_id(merchant.id).length > @standard_deviation
     end 
   end 
+
+  def average_item_price_for_merchant(id) 
+    sum = @items.find_all_by_merchant_id(id).sum do |item|
+      item.unit_price
+    end 
+    sum / @items.find_all_by_merchant_id(id).length 
+  end
 end
