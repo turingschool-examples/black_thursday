@@ -8,7 +8,7 @@ class SalesEngine
   attr_reader :items, :merchants
 
   def initialize(data)
-    @items = data[:items]
+    @items     = data[:items]
     @merchants = data[:merchants]
   end
 
@@ -28,6 +28,6 @@ class SalesEngine
      csv.map do |row|
        all << Item.new(row)
     end
-    ir = ItemRepository.new(all)
+   ItemRepository.new(all)
   end
 end

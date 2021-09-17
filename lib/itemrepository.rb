@@ -6,16 +6,7 @@ class ItemRepository
     @all    = all
   end
 
-  def unit_price_to_dollars
-    @unit_price.to_f
-  end
-
-  # def self.all
-  #   @all
-  # end
-
-  def self.find_by_id(id)
-    csv = $csv
+  def find_by_id(id)
     @all.find_all do |item|
       item.id == id
     end.pop
