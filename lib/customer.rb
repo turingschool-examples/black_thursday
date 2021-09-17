@@ -6,7 +6,7 @@ class Customer
     @id = hash[:id].to_i
     @first_name = hash[:first_name]
     @last_name = hash[:last_name]
-    @created_at = hash[:created_at]
-    @updated_at = hash[:updated_at]
+    @created_at = Time.parse(hash[:created_at])
+    @updated_at = Time.parse(hash[:updated_at])
   end
 end
