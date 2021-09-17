@@ -21,7 +21,7 @@ RSpec.describe TransactionRepository do
 
     it '#find_by_id' do
       expect(@tr.find_by_id(1)).to be_a Transaction
-      expect(@tr.find_by_id(1).created_at).to eq(@tr.find_by_id(1).created_at)
+      expect(@tr.find_by_id(1).credit_card_number).to eq('4068631943231473')
       expect(@tr.find_by_id(-1)).to be nil
     end
 
