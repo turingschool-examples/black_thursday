@@ -29,8 +29,8 @@ RSpec.describe do
   it 'it can find an item by name' do
     results = @engine.items.find_by_name('510+ RealPush Icon Set')
     results2 = @engine.items.find_by_name('Tea For Bearded Women')
-    expect(results.id).to eq("263395237")
-    expect(results.unit_price).to eq("1200")
+    expect(results.id).to eq('263395237')
+    expect(results.unit_price).to eq('1200')
     expect(results2).to eq(nil)
   end
 
@@ -41,4 +41,20 @@ RSpec.describe do
     expect(results.first.unit_price).to eq('700')
     expect(results2).to eq([])
   end
+
+  it "can find all with price" do
+    results = @engine.items.find_all_by_price('1300')
+    expect(results.first.merchant_id).to eq('12334185')
+    expect(results.first.id).to eq('263395617')
+    results2 = @engine.items.find_all_by_price('0.000001')
+    expect(results2).to eq([])
+  end
+
+it "can find_all_by_price_in_range " do
+  results = @engine.items.find_all_by_price_in_range(1300..1305)
+  expect(results.first.id).to eq("263395617")
+end
+
+
+
 end

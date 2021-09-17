@@ -6,6 +6,7 @@ class ItemRepository
 
   def initialize(data)
     @items = data
+    #@id = data[:id]
   end
 
   def all
@@ -41,4 +42,36 @@ class ItemRepository
     end
     items_with_description
   end
+
+  def find_all_by_price(price)
+    items_with_price = @items.find_all do |item|
+       item.unit_price == price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    ranges = []
+    ranges << range.first
+    ranges << range.last
+    items_with_price_in_range = @items.find_all do |item|
+      if item.unit_price.to_i.between?(ranges[0],ranges[1])
+        item
+      end
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+  end
+
+  def create(attributes)
+  end
+
+  def update(id, attributes)
+  end
+
+  def delete(id)
+  end
+
+
+
 end
