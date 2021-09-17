@@ -1,15 +1,26 @@
 require 'csv'
+require_relative 'item'
 
 class ItemRepository
+  attr_reader :all
 
   def initialize(path)
-    @path = path
-    @rows = CSV.read(@path, headers: true, header_converters: :symbol)
-    @all = all
+    @all  = generate(path)
   end
 
+<<<<<<< HEAD:lib/itemrepository.rb
   def all
     @rows.map do |row|
+=======
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
+  def generate(path)
+    rows = CSV.read(path, headers: true, header_converters: :symbol)
+
+    rows.map do |row|
+>>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a:lib/item_repository.rb
       Item.new(row)
     end
   end
@@ -28,7 +39,11 @@ class ItemRepository
 
   def find_all_with_description(description)
     @all.find_all do |row|
+<<<<<<< HEAD:lib/itemrepository.rb
       row.description == description
+=======
+      row.description.downcase == description.downcase
+>>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a:lib/item_repository.rb
     end
   end
 
@@ -38,9 +53,15 @@ class ItemRepository
     end
   end
 
+<<<<<<< HEAD:lib/itemrepository.rb
   def find_all_by_price_in_range(num1, num2)
     @all.find_all do |row|
       row.unit_price.between?(num1, num2)
+=======
+  def find_all_by_price_in_range(range)
+    @all.find_all do |row|
+      range.cover?(row.unit_price)
+>>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a:lib/item_repository.rb
     end
   end
 
@@ -51,7 +72,9 @@ class ItemRepository
   end
 
   def create(attributes)
-    attributes[:id] = @all.last.id.to_i + 1
+    attributes[:id] = @all.last.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     @all << Item.new(attributes)
   end
 
@@ -67,7 +90,9 @@ class ItemRepository
     if attributes[:unit_price] != nil
       item_to_update.unit_price = attributes[:unit_price]
     end
-    item_to_update.updated_at = Time.now
+    if item_to_update
+      item_to_update.updated_at = Time.now
+    end
     item_to_update
   end
 

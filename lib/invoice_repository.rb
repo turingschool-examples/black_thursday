@@ -1,15 +1,21 @@
 require 'csv'
+require_relative 'invoice'
 
 class InvoiceRepository
+  attr_reader :all
 
   def initialize(path)
-    @path = path
-    @rows = CSV.read(@path, headers: true, header_converters: :symbol)
-    @all = all
+    @all = generate(path)
   end
 
-  def all
-    @rows.map do |row|
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+
+  def generate(path)
+    rows = CSV.read(path, headers: true, header_converters: :symbol)
+
+    rows.map do |row|
       Invoice.new(row)
     end
   end
@@ -39,7 +45,7 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    attributes[:id] = @all.last.id.to_i + 1
+    attributes[:id] = @all.last.id + 1
     @all << Invoice.new(attributes)
   end
 
