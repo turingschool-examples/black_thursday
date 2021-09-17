@@ -65,4 +65,12 @@ describe Invoice do
       expect(@invoice.updated_at).to eq(@new_invoice[:updated_at])
     end
   end
+
+  describe '#update' do
+    it 'updates the status' do
+
+      expect(@invoice.update("returned")).to eq(@invoice)
+      expect(@invoice.status).to eq("returned")
+    end
+  end
 end
