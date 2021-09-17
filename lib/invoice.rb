@@ -14,4 +14,10 @@ class Invoice
     @created_at = new_invoice[:created_at]
     @updated_at = new_invoice[:updated_at]
   end
+
+  def update(attribute)
+    @status = attribute if attribute.is_a?(String) #look at edge cases for attr input
+    @updated_at = Time.now
+    self
+  end
 end
