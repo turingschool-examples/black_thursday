@@ -1,5 +1,6 @@
 require './lib/invoice_item'
 require 'bigdecimal'
+require 'time'
 
 RSpec.describe 'InvoiceItem' do
   describe '#initialize' do
