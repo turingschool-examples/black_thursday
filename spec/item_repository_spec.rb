@@ -29,7 +29,6 @@ describe ItemRepository do
     end
   end
 
-
   describe 'find_by_id(id)' do
     it 'returns items with matching id' do
 
@@ -76,10 +75,10 @@ describe ItemRepository do
 
   describe 'find_all_by_merchant_id(merchant_id)' do
     it 'returns items with matching merchant ids' do
-    merchid1 = 123_341_95
-    merchid2 = 603_451
-    expect(@item_repo1.find_all_by_merchant_id(merchid1)).to include(@item_repo1.all[8])
-    expect(@item_repo1.find_all_by_merchant_id(merchid2)).to eq([])
+      merchid1 = 123_341_95
+      merchid2 = 603_451
+      expect(@item_repo1.find_all_by_merchant_id(merchid1)).to include(@item_repo1.all[8])
+      expect(@item_repo1.find_all_by_merchant_id(merchid2)).to eq([])
     end
   end
 
