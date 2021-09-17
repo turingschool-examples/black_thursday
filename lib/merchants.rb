@@ -14,18 +14,4 @@ class Merchants
     @updated_at = merchants[3]
   end
 
-  def hash_convert
-    headers = []
-    CSV.foreach('./data/merchants.csv', headers: true,
-                                        header_converters: :symbol) do |row|
-      headers << row
-    end
-    # names = headers.map do |name|
-    #     name[:name]
-    # end
-  end
-
-  def merchant_repo
-    MerchantRepository.new(@merchants)
-  end
 end
