@@ -7,4 +7,8 @@ class Merchant
     @id = merch_hash[:id]
     @name = merch_hash[:name]
   end
+
+  def update_name(new_name)
+    @name = new_name
+  end
 end

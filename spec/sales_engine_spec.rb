@@ -6,7 +6,6 @@ require './lib/items'
 require './lib/item_repository'
 require 'csv'
 
-
 describe SalesEngine do
 
   describe '#initialize' do
