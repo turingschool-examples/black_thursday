@@ -79,9 +79,9 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
     sum = @merchants.all.sum do |merchant|
-      (@invoices.find_all_by_merchant_id(merchant.id).length.to_f - mean) ** 2
+      (@invoices.find_all_by_merchant_id(merchant.id).length.to_f - mean)**2
     end
-    Math.sqrt(sum / ((@merchants.all.length.to_f) -1 )).round(2)
+    Math.sqrt(sum / (@merchants.all.length.to_f - 1)).round(2)
   end
 
   def top_merchants_by_invoice_count
