@@ -6,6 +6,7 @@ class ItemRepository
 
   def initialize(data)
     @items = data
+    # require "pry"; binding.pry
   end
 
   def all

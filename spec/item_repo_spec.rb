@@ -19,26 +19,26 @@ RSpec.describe do
   end
 
   it 'can find an item by id' do
-    results = @engine.items.find_by_id('263567474')
+    results = @engine.items.find_by_id(263567474)
     results2 = @engine.items.find_by_id('Camping Chair Actor')
-    expect(results.id).to eq("263567474")
-    expect(results.unit_price).to eq("3800")
+    expect(results.id).to eq(263567474)
+    expect(results.unit_price).to eq(3800)
     expect(results2).to eq(nil)
   end
 
   it 'it can find an item by name' do
     results = @engine.items.find_by_name('510+ RealPush Icon Set')
     results2 = @engine.items.find_by_name('Tea For Bearded Women')
-    expect(results.id).to eq("263395237")
-    expect(results.unit_price).to eq("1200")
+    expect(results.id).to eq(263395237)
+    expect(results.unit_price).to eq(1200)
     expect(results2).to eq(nil)
   end
 
   it 'can find all with descriptions' do
     results =  @engine.items.find_all_with_description('Free standing')
     results2 = @engine.items.find_all_with_description('adfadf')
-    expect(results.first.id).to eq('263396013')
-    expect(results.first.unit_price).to eq('700')
+    expect(results.first.id).to eq(263396013)
+    expect(results.first.unit_price).to eq(700)
     expect(results2).to eq([])
   end
 end
