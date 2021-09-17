@@ -18,7 +18,6 @@ describe SalesEngine do
     end
   end
 
-<<<<<<< HEAD
   describe '#items' do
     it 'returns a new instance of ItemRepository with an array of item objects' do
       se = SalesEngine.new({
@@ -33,22 +32,14 @@ describe SalesEngine do
 
   describe '#merchants' do
     it 'returns a new instance of MerchantRepository with an array of merchant objects' do
-=======
-    it 'has readable attributes' do
->>>>>>> 066de8858b2c4d05ea135590583dea6cc903f508
-      se = SalesEngine.new({
+      se = SalesEngine.new(
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv"
-        })
-<<<<<<< HEAD
+        )
       mr = se.merchants
 
       expect(mr).to be_an_instance_of(MerchantsRepository)
-=======
-      expect(se.merchants).to be_an_instance_of(MerchantsRepository)
-      expect(se.items).to be_an_instance_of(ItemRepository)
->>>>>>> 066de8858b2c4d05ea135590583dea6cc903f508
     end
   end
-  
+
 end
