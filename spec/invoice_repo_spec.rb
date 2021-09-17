@@ -57,10 +57,14 @@ describe InvoiceRepo do
     expect(@invoice_repo.find_by_id(4986).status).to eq("shipped")
   end
 
-  xit "#delete(id)" do
-    @mr.create({:name => "John N."})
-    @mr.delete(4986)
+  it "#delete(id)" do
+    @invoice_repo.create({
+                status: "pending",
+                customer_id: 1,
+                merchant_id: 12336652
+                })
+    @invoice_repo.delete(4986)
 
-    expect(@mr.find_by_id(4986)).to eq(nil)
+    expect(@invoice_repo.find_by_id(4986)).to eq(nil)
   end
 end
