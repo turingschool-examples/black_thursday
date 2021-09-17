@@ -50,8 +50,11 @@ RSpec.describe SalesAnalyst do
       expect(analyst.average_price_standard_deviation).not_to eq 0.0
     end
 
-    it '#golden_item' do # better test
-      expect(analyst.golden_items).to be_an Array
+    it '#golden_item' do
+      expected = analyst.golden_items
+
+      expect(expected).to be_an Array
+      expect(expected.length).to eq 5
     end
   end
 

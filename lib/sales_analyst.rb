@@ -16,72 +16,60 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    mean = self.average_items_per_merchant.to_f
-    sum = 0.0
-    @merchants.all.each do |merchant|
-      diff = (mean - @items.find_all_by_merchant_id(merchant.id).length.to_f)
-      sum += diff**2
+    mean = average_items_per_merchant
+    sum = @merchants.all.sum do |merchant|
+      (@items.find_all_by_merchant_id(merchant.id).length.to_f - mean) ** 2
     end
-    s_d = Math.sqrt(sum/((@merchants.all.length.to_f)-1))
-    s_d.round(2)
+
+    Math.sqrt(sum / (@merchants.all.length.to_f - 1)).round(2)
   end
 
   def merchants_with_high_item_count
-    mer_array = []
-    mean_item = average_items_per_merchant
-    s_d = average_items_per_merchant_standard_deviation
-    one_above_sd = mean_item + s_d
+    mean = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
 
-    @merchants.all.each do |merchant|
-      if @items.find_all_by_merchant_id(merchant.id).length > one_above_sd
-        mer_array << merchant
-      end
+    @merchants.all.find_all do |merchant|
+      mean + std_dev < @items.find_all_by_merchant_id(merchant.id).length
     end
-    mer_array
   end
 
   def average_item_price_for_merchant(id)
-    items_by_a_mr = @items.find_all_by_merchant_id(id)
-    num_of_items = items_by_a_mr.length.to_f
-    total_price_item = 0.0
+    items = @items.find_all_by_merchant_id(id)
 
-    items_by_a_mr.each do |item|
-      total_price_item += item.unit_price
+    sum = items.sum do |item|
+      item.unit_price
     end
 
-    BigDecimal((total_price_item/num_of_items).round(2))
+    BigDecimal((sum / items.length.to_f).round(2))
   end
 
   def average_average_price_per_merchant
-    total = 0
-    @merchants.all.each do |merchant|
-      total += average_item_price_for_merchant(merchant.id)
+    total = @merchants.all.sum do |merchant|
+      average_item_price_for_merchant(merchant.id)
     end
-    (total/@merchants.all.length.to_f).round(2)
+
+    (total / @merchants.all.length.to_f).round(2)
   end
 
   def average_price_standard_deviation
     mean = average_average_price_per_merchant
-    item_count = (@items.all.length.to_f - 1).to_f
-    sum = 0.0
-    @items.all.each do |item|
-      diff = (mean - item.unit_price.to_f)
-      sum += diff**2
+    item_count = (@items.all.length.to_f - 1)
+
+    sum = @items.all.sum do |item|
+      (item.unit_price.to_f - mean) ** 2
     end
-    s_d = Math.sqrt((sum)/item_count)
-    s_d.round(2)
+
+    Math.sqrt(sum / item_count).round(2)
   end
 
   def golden_items
-    array_gold_item = []
-    two_s_d = average_price_standard_deviation * 2
+    mean = average_average_price_per_merchant
+    std_dev = average_price_standard_deviation
+    threshold = mean + std_dev * 2
 
-    @items.all.each do |item|
-      if item.unit_price > two_s_d
-        array_gold_item << item
-      end
+    @items.all.find_all do |item|
+      item.unit_price > threshold
     end
-    array_gold_item
   end
 
   def average_invoices_per_merchant
