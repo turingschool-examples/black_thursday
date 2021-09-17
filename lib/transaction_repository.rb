@@ -51,7 +51,7 @@ class TransactionRepository
     attributes[:id] = @all.last.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
-    
+
     @all << Transaction.new(attributes)
   end
 
@@ -64,7 +64,9 @@ class TransactionRepository
     txn_to_update.credit_card_number = cc_num if cc_num
     txn_to_update.credit_card_expiration_date = cc_expiration if cc_expiration
     txn_to_update.result = result if result
-    txn_to_update.updated_at = Time.now
+    if txn_to_update != nil
+      txn_to_update.updated_at = Time.now
+    end 
     txn_to_update
   end
 
