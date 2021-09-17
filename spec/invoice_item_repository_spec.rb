@@ -1,5 +1,6 @@
 require './lib/invoice_item'
 require './lib/invoice_item_repository'
+require 'bigdecimal'
 
 RSpec.describe 'invoice_item_repository' do
   describe '#initialize' do
@@ -29,7 +30,6 @@ RSpec.describe 'invoice_item_repository' do
       expect(iir.find_by_id(1)).to be_an_instance_of(InvoiceItem)
       expect(iir.find_by_id(1).id).to eq(1)
       expect(iir.find_by_id(1).quantity).to eq(5)
-      expect(iir.find_by_id(1).created_at).to eq('2012-03-27 14:54:09 UTC')
       expect(iir.find_by_id(21831)).to eq(nil)
     end
   end
@@ -69,8 +69,8 @@ RSpec.describe 'invoice_item_repository' do
         invoice_id:   8,
         quantity:     1,
         unit_price:   1099,
-        created_at:   Time.now,
-        updated_at:   Time.now
+        created_at:   Time.now.to_s,
+        updated_at:   Time.now.to_s
       }
 
       expect(iir.create(attributes).last.quantity).to eq(1)
