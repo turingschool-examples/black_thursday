@@ -22,9 +22,9 @@ class Item
   end
 
   def update_item(item_attribute, item_value)
-    @name = item_value if item_attribute == "name"
-    @description = item_value if item_attribute == "description"
-    @unit_price = item_value if item_attribute == "unit_price"
+    @name = item_value if item_attribute == 'name'
+    @description = item_value if item_attribute == 'description'
+    @unit_price = item_value if item_attribute == 'unit_price'
     @updated_at = Time.now
     self
   end
