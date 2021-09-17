@@ -40,16 +40,21 @@ describe ItemRepository do
 
     describe 'find_by_name(name)' do
       it 'returns items with matching names' do
-
-      expect(@item_repo1.find_by_name('Glitter scrabble frames')).to eq(@item_repo1.all[1])
-      expect(@item_repo1.find_by_name('Replacement Boggle Dice')).to eq(nil)
+        name1 = 'Glitter scrabble frames'
+        name2 = 'Replacement Boggle Dice'
+        expect(@item_repo1.find_by_name(name1)).to eq(@item_repo1.all[1])
+        expect(@item_repo1.find_by_name(name2)).to eq(nil)
       end
     end
-    describe 'find_all_with_description(description)' do
-      it 'returns all items with matching descriptions' do
 
-      expect(@item_repo1.find_all_with_description('TABLEAU')).to include(@item_repo1.all[12])
-      expect(@item_repo1.find_all_with_description('Corncob on the bread')).to eq([])
+    describe 'find_all_with_descrip(description)' do
+      it 'returns all items with matching descriptions' do
+        description1 = 'TABLEAU'
+        description2 = 'Corncob on the bread'
+        item = @item_repo1.all[12]
+
+        expect(@item_repo1.find_all_with_descrip(description1)).to include(item)
+        expect(@item_repo1.find_all_with_descrip(description2)).to eq([])
       end
     end
 
@@ -86,10 +91,13 @@ describe ItemRepository do
       end
     end
 
-    describe 'update(id, attributes)' do
+    describe 'update(id, attribute, value)' do
       it 'updates the item with given ids attributes' do
+        id = 263_395_237
+        attr = 'name'
+        value = 'Pencil'
 
-        expect(@item_repo1.update(263_395_237, 'name', 'Pencil')).to eq(@item_repo1.all[0])
+        expect(@item_repo1.update(id, attr, value)).to eq(@item_repo1.all[0])
         expect(@item_repo1.all[0].name).to eq('Pencil')
       end
     end
