@@ -30,11 +30,38 @@ class CustomerRepository
     end
   end
 
-  def find_all_by_first_name
+  def find_all_by_first_name(first_name)
+    @all.find_all do |customer|
+      (customer.first_name.downcase).include?(first_name.downcase)
+    end
 
   end
 
-  def find_all_by_last_name
+  def find_all_by_last_name(last_name)
+    @all.find_all do |customer|
+      (customer.last_name.downcase).include?(last_name.downcase)
+    end
+  end
 
+  def create(hash)
+    hash[:id] = @all.last.id + 1
+    hash[:created_at] = Time.now.to_s
+    hash[:updated_at] = Time.now.to_s
+
+    new_customer = Customer.new(hash)
+    @all << new_customer
+    new_customer
+  end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    customer.first_name = attributes[:first_name]
+    customer.last_name = attributes[:last_name]
+  end
+
+  def delete(id)
+    deleted_customer = find_by_id(id)
+
+    @all.delete(deleted_customer)
   end
 end
