@@ -34,31 +34,5 @@ RSpec.describe CustomerRepository do
   end
 
   it '#create' do
-    attribute1 = {first_name: 'Haewon',last_name: 'Jeon'}
-    customer1 = @cus.create(attribute1)
-
-    expect(customer1).to be_an_instance_of Customer
-    expect(customer1.id).to eq(1001)
-    expect(customer1.first_name).to eq('Haewon')
-    expect(customer1.last_name).to eq('Jeon')
-  end
-
-  it '#update' do
-    id = 100
-    attributes = {first_name: 'John', last_name: 'Morris'}
-    updated = @cus.update(id, attributes)
-
-    expect(updated.first_name).to eq('John')
-    expect(updated.last_name).to eq('Morris')
-    expect(updated.id).to eq(100)
-    expect(updated.first_name).to_not eq("Genoveva")
-  end
-
-  it '#delete' do
-    id = 200
-    deleted_customer = @cus.find_by_id(200)
-    @cus.delete(200)
-
-    expect(@cus.all).not_to include(deleted_customer)
-  end
+    @cus.create()
 end
