@@ -56,8 +56,15 @@ class CustomerRepository
 
   def update(id, attributes)
     customer = find_by_id(id)
-    customer.first_name = attributes[:first_name]
-    customer.last_name = attributes[:last_name]
+    if attributes[:first_name] != nil
+      customer.first_name = attributes[:first_name]
+    end
+    if attributes[:last_name] != nil
+      customer.last_name = attributes[:last_name]
+    end
+    if customer != nil
+      customer.updated_at = Time.now
+    end
     customer
   end
 
