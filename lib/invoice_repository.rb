@@ -55,7 +55,7 @@ class InvoiceRepository
   def update(id, attributes)
     invoice_to_update = find_by_id(id)
     if attributes[:status] != nil
-      invoice_to_update.status = attributes[:status]
+      invoice_to_update.status = attributes[:status].to_sym
       invoice_to_update.updated_at = Time.now
     end
   end
