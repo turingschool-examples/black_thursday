@@ -48,7 +48,7 @@ class InvoiceRepository
       status: status,
       created_at: creation_time,
       updated_at: creation_time
-      )
+    )
   end
 
   def final_invoice

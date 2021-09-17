@@ -8,7 +8,6 @@ require 'csv'
 require './lib/invoice_repository'
 require './lib/invoice'
 
-
 describe InvoiceRepository do
   before(:each) do
     @ir = InvoiceRepository.new('./data/invoices.csv')
@@ -18,9 +17,8 @@ describe InvoiceRepository do
     expect(@ir).to be_a InvoiceRepository
   end
 
-  describe 'all' do
+  describe '#all' do
     it 'returns all invoices' do
-
       expect(@ir.all).to be_a(Array)
 
       @ir.all.each do |invoice|
@@ -60,12 +58,12 @@ describe InvoiceRepository do
 
   describe '#find_all_by_status' do
     it 'returns matches for given status in array form' do
-      expect(@ir.find_all_by_status("returned")).to include(@ir.all[24])
-      expect(@ir.find_all_by_status("returned")).to be_a(Array)
+      expect(@ir.find_all_by_status('returned')).to include(@ir.all[24])
+      expect(@ir.find_all_by_status('returned')).to be_a(Array)
     end
 
     it 'returns an empty array if no invoices match the status' do
-      expect(@ir.find_all_by_status("gone for good")).to eq([])
+      expect(@ir.find_all_by_status('gone for good')).to eq([])
     end
   end
 
@@ -83,9 +81,8 @@ describe InvoiceRepository do
 
   describe '#update' do
     it 'updates a specific invoice with the provided attribute' do
-
-      expect(@ir.update(63, "returned")).to eq(@ir.all[62])
-      expect(@ir.all[62].status).to eq("returned")
+      expect(@ir.update(63, 'returned')).to eq(@ir.all[62])
+      expect(@ir.all[62].status).to eq('returned')
     end
   end
 
