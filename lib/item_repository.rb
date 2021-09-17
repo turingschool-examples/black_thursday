@@ -1,12 +1,12 @@
 require 'csv'
-require_relative './lib/sales_engine'
+require './lib/sales_engine'
 
-module ItemRepository
+class ItemRepository
   attr_reader :items
 
-  def initialize
+  def initialize(data)
 
-    # @items =
+    @items = []
     #   (all_item_data = []
     #     CSV.foreach("./data/items.csv", headers: true) do |row|
     #     all_item_data << row.to_hash

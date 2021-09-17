@@ -1,7 +1,7 @@
 require 'csv'
-require_relative './lib/sales_engine'
+require './lib/sales_engine'
 
-module MerchantRepository
+class MerchantRepository
 
   def initialize(data)
     @merchants = data
