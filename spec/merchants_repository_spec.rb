@@ -5,9 +5,9 @@ require './lib/merchant'
 describe MerchantsRepository do
   before(:each) do
     @merchant_array = []
-    @object1 = Merchant.new( id: 123_341_05, name: 'Shopin1901' )
-    @object2 = Merchant.new( id: 123_341_12, name: 'Candisart' )
-    @object3 = Merchant.new( id: 123_341_13, name: 'MiniatureBikez' )
+    @object1 = Merchant.new(id: 123_341_05, name: 'Shopin1901')
+    @object2 = Merchant.new(id: 123_341_12, name: 'Candisart')
+    @object3 = Merchant.new(id: 123_341_13, name: 'MiniatureBikez')
     @merchant_array.push(@object1, @object2, @object3)
     @mr = MerchantsRepository.new(@merchant_array)
   end
@@ -37,7 +37,7 @@ describe MerchantsRepository do
 
   describe '#find_all_by_name' do
     it 'can find all by name' do
-      @object4 = Merchant.new( id: 123_341_14, name: 'MiniatureBikez' )
+      @object4 = Merchant.new(id: 123_341_14, name: 'MiniatureBikez')
       @merchant_array.push(@object4)
 
       expect(@mr.find_all_by_name('MiniatureBikez')).to eq([@object3, @object4])
