@@ -41,20 +41,18 @@ class MerchantRepository < Merchants
 
   def highest_id
     new = @merchants.max_by(&:id)
-    new.id
+    new.id + 1
   end
 
   def create(attributes)
-    new_merch = Merchant.new([
-      merchants.highest_id += 1, attributes[:name], Time.now, Time.now
-      ])
-      require "pry"; binding.pry
+    new_merch = Merchants.new([highest_id, attributes[:name],Time.now.strftime('%Y-%m-%d'), Time.now.strftime('%Y-%m-%d')])
       @merchants << new_merch
   end
 
-  def updates(id, attributes)
-    @merchants.id.name = attributes
-    @merchants.updated_at = Time.now
+  def update(id, attributes)
+    @merchants.find_by_id(id)
+    require "pry"; binding.pry
+     # Time.now.strftime('%Y-%m-%d')
   end
 
   def delete(id)
