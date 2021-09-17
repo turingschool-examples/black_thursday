@@ -7,7 +7,7 @@ class Invoice
               :status
 
   def initialize(info)
-    @id   = info[:id].to_i
+    @id            = info[:id].to_i
     @customer_id   = info[:customer_id].to_i
     @merchant_id   = info[:merchant_id].to_i
     @status        = info[:status]
