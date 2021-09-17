@@ -95,4 +95,22 @@ class SalesAnalyst
     end
     Math.sqrt(sum / ((@merchants.all.length.to_f) -1 )).round(2)
   end
+
+  def top_merchants_by_invoice_count
+    mean    = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+
+    @merchants.all.find_all do |merchant|
+      (mean + 2 * std_dev) <= @invoices.find_all_by_merchant_id(merchant.id).length
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean    = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+
+    @merchants.all.find_all do |merchant|
+      (mean - 2 * std_dev) >= @invoices.find_all_by_merchant_id(merchant.id).length
+    end
+  end
 end

@@ -57,21 +57,33 @@ RSpec.describe SalesAnalyst do
 
   context 'Iteration 2' do
     it '#average_invoices_per_merchant' do
-      expect(analyst.average_invoices_per_merchant).to eq 10.49
+      expected = analyst.average_invoices_per_merchant
+
+      expect(expected).to eq 10.49
+      expect(expected).to be_a Float
     end
 
     it '#average_invoices_per_merchant_standard_deviation' do
-      expect(analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
+      expected = analyst.average_invoices_per_merchant_standard_deviation
+
+      expect(expected).to eq 3.29
+      expect(expected).to be_a Float
     end
 
     it '#top_merchants_by_invoice_count' do
-      expect(analyst.top_merchants_by_invoice_count).to be_an Array
-      expect(analyst.top_merchants_by_invoice_count.length).to eq 3
+      expected = analyst.top_merchants_by_invoice_count
+
+      expect(expected).to be_an Array
+      expect(expected.length).to eq 12
+      expect(expected.first).to be_a Merchant
     end
 
     it '#bottom_merchants_by_invoice_count' do
-      expect(analyst.bottom_merchants_by_invoice_count).to be_an Array
-      expect(analyst.bottom_merchants_by_invoice_count.length).to eq 3
+      expected = analyst.bottom_merchants_by_invoice_count
+
+      expect(expected).to be_an Array
+      expect(expected.length).to eq 4
+      expect(expected.first).to be_a Merchant
     end
 
     it '#top_days_by_invoice_count' do
