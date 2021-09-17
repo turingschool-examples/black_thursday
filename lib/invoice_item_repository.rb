@@ -13,7 +13,7 @@ class InvoiceItemRepository
   end
 
   def generate(path)
-    rows = CSV.read(@path, headers: true, header_converters: :symbol)
+    rows = CSV.read(path, headers: true, header_converters: :symbol)
     rows.map do |row|
       InvoiceItem.new(row)
     end
@@ -23,7 +23,6 @@ class InvoiceItemRepository
     @all.find do |row|
       row.id == id
     end
-    result
   end
 
   def find_all_by_item_id(item_id)
