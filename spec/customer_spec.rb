@@ -8,8 +8,8 @@ RSpec.describe Customer do
       :id => 6,
       :first_name => "Joan",
       :last_name => "Clarke",
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
     })
   end
 
