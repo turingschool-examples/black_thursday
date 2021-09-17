@@ -6,6 +6,13 @@ class SalesEngine
   attr_reader  :merchants,
                :items
 
+  def initialize(data)
+   @merchants = MerchantRepository.new(data[:merchants])
+   @items = ItemRepository.new(data[:items])
+   # @merchants = data[:merchants]
+   # @items = data[:items]
+  end
+
   def self.from_csv(data)
       all_item_data = []
       CSV.foreach(data[:items], headers: true) do |row|
@@ -20,9 +27,6 @@ class SalesEngine
       SalesEngine.new(hash_of_stuff)
   end
 
-  def initialize(data)
-    @merchants = MerchantRepository.new(data[:merchants])
-    @items = ItemRepository.new(data[:items])
-  end
+
 
 end
