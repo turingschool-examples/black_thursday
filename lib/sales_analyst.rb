@@ -4,8 +4,11 @@ require_relative 'sales_engine'
 
 class SalesAnalyst
   def initialize(repos)
-    @items      = repos[:items]
-    @merchants  = repos[:merchants]
+    @items         = repos[:items]
+    @merchants     = repos[:merchants]
+    @invoices      = repos[:invoices]
+    @invoice_items = repos[:invoice_items]
+    @transactions  = repos[:transactions]
   end
 
   def average_items_per_merchant
@@ -79,5 +82,20 @@ class SalesAnalyst
       end
     end
     array_gold_item
+  end
+
+  def average_invoices_per_merchant
+    (@invoices.all.length.to_f / @merchants.all.length.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    sum = 0.0
+    @merchants.all.each do |merchant|
+      diff = @invoices.find_all_by_merchant_id(merchant.id).length.to_f - mean
+      sum += diff**2
+    end
+    s_d = Math.sqrt(sum/((@merchants.all.length.to_f)-1))
+    s_d.round(2)
   end
 end
