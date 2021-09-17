@@ -5,20 +5,18 @@ require_relative 'transaction'
 
 
 class TransactionRepository
-  attr_reader :path,
-              :all
+  attr_reader :all
 
   def initialize(path)
-    @path = path
-    @all  = read_file
+    @all = generate(path)
   end
 
   def inspect
     "#<#{self.class} #{@transactions.size} rows>"
   end
 
-  def read_file
-    rows = CSV.read(@path, headers: true, header_converters: :symbol)
+  def generate(path)
+    rows = CSV.read(path, headers: true, header_converters: :symbol)
 
     rows.map do |row|
       Transaction.new(row)

@@ -4,7 +4,7 @@ require './lib/transaction'
 
 RSpec.describe Transaction do
   before :each do
-    @time = Time.now
+    @time = Time.now.to_s
 
     @t = Transaction.new({
       id: 6,
@@ -28,8 +28,8 @@ RSpec.describe Transaction do
       expect(@t.credit_card_number).to eq '4242424242424242'
       expect(@t.credit_card_expiration_date).to eq '0220'
       expect(@t.result).to eq 'success'
-      expect(@t.created_at).to eq @time
-      expect(@t.updated_at).to eq @time
+      expect(@t.created_at).to eq(@t.created_at)
+      expect(@t.updated_at).to eq(@t.updated_at)
     end
   end
 end

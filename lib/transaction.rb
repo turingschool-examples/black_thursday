@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Transaction
   attr_reader   :id,
                 :invoice_id,
@@ -16,7 +14,7 @@ class Transaction
     @credit_card_number           = data[:credit_card_number]
     @credit_card_expiration_date  = data[:credit_card_expiration_date]
     @result                       = data[:result]
-    @created_at                   = data[:created_at]
-    @updated_at                   = data[:updated_at]
+    @created_at                   = Time.parse(data[:created_at])
+    @updated_at                   = Time.parse(data[:updated_at])
   end
 end

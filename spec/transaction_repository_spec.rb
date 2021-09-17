@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require './lib/transaction'
 require './lib/transaction_repository'
 
@@ -23,7 +21,7 @@ RSpec.describe TransactionRepository do
 
     it '#find_by_id' do
       expect(@tr.find_by_id(1)).to be_a Transaction
-      expect(@tr.find_by_id(1).created_at).to eq '2012-02-26 20:56:56 UTC'
+      expect(@tr.find_by_id(1).credit_card_number).to eq('4068631943231473')
       expect(@tr.find_by_id(-1)).to be nil
     end
 
