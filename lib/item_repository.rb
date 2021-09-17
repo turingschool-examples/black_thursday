@@ -34,7 +34,7 @@ class ItemRepository
     end
   end
 
-  def find_all_with_description(description)
+  def find_all_with_descrip(description)
     all.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end.uniq
@@ -61,23 +61,23 @@ class ItemRepository
   def create(item_name, description, unit_price, number_of_items, merchant_id)
     creation_time = Time.now
     all << Item.new(
-                      id: max_item.id.to_i + 1,
-                      name: item_name,
-                      description: description,
-                      unit_price: BigDecimal(unit_price,number_of_items),
-                      created_at: creation_time,
-                      updated_at: creation_time,
-                      merchant_id: merchant_id
-                    )
+                     id: max_item.id.to_i + 1,
+                     name: item_name,
+                     description: description,
+                     unit_price: BigDecimal(unit_price,number_of_items),
+                     created_at: creation_time,
+                     updated_at: creation_time,
+                     merchant_id: merchant_id
+                   )
   end
 
   def max_item
     @all.max_by(&:id)
   end
 
-  def update(id, item_attribute, item_value)
+  def update(id, attribute, value)
     current_item = find_by_id(id)
-    all[all.find_index(current_item)] = current_item.update_item(item_attribute, item_value)
+    all[all.find_index(current_item)] = current_item.update(attribute, value)
   end
 
   def delete(id)
