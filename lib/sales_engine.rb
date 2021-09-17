@@ -29,5 +29,6 @@ class SalesEngine
        all << Item.new(row)
     end
    ItemRepository.new(all)
+
   end
 end
