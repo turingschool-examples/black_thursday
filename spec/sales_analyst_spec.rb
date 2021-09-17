@@ -87,8 +87,12 @@ RSpec.describe SalesAnalyst do
     end
 
     it '#top_days_by_invoice_count' do
-      expect(analyst.top_days_by_invoice_count).to be_an Array
-      expect(analyst.top_days_by_invoice_count).to eq ['Sunday', 'Saturday']
+      expected = analyst.top_days_by_invoice_count
+
+      expect(expected).to be_an Array
+      expect(expected.length).to eq 1
+      expect(expected.first).to eq 'Wednesday'
+      expect(expected.first).to be_a String
     end
 
     it '#invoice_status' do

@@ -113,4 +113,30 @@ class SalesAnalyst
       (mean - 2 * std_dev) >= @invoices.find_all_by_merchant_id(merchant.id).length
     end
   end
+
+  def top_days_by_invoice_count # => on which days are invoices created at more than one std dev above the mean?
+    invoices_by_day = {0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0}
+    @invoices.all.each do |invoice|
+      time = invoice.created_at.wday
+      invoices_by_day[time] += 1
+    end
+    mean = (invoices_by_day.values.sum()).to_f / 7
+    sum = invoices_by_day.values.sum do |daily_value|
+      (daily_value - mean) ** 2
+    end
+    std_dev = Math.sqrt(sum / 6.0).round(2)
+
+    top_values = invoices_by_day.values.find_all do |value|
+      mean + std_dev <= value
+    end
+
+    top_values.map do |value|
+      Date::DAYNAMES[invoices_by_day.key(value)]
+    end
+  end
+
+  def invoice_status(status)
+    total = @invoices.all.length.to_f
+    (100.0 * @invoices.find_all_by_status(status).length / total).round(2)
+  end
 end

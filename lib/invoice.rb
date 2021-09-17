@@ -11,8 +11,8 @@ class Invoice
     @id          = data[:id].to_i
     @customer_id = data[:customer_id]
     @merchant_id = data[:merchant_id].to_i
-    @status      = data[:status]
-    @created_at  = data[:created_at]
-    @updated_at  = data[:updated_at]
+    @status      = data[:status].to_sym
+    @created_at  = Time.parse(data[:created_at])
+    @updated_at  = Time.parse(data[:updated_at])
   end
 end
