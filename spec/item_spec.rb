@@ -10,8 +10,8 @@ describe 'Item' do
                 :name        => "Pencil",
                 :description => "You can use it to write things",
                 :unit_price  => BigDecimal(10.99,4),
-                :created_at  => Time.now,
-                :updated_at  => Time.now,
+                :created_at  => Time.now.to_s,
+                :updated_at  => Time.now.to_s,
                 :merchant_id => 2
               })
     end
@@ -33,7 +33,7 @@ describe 'Item' do
     end
 
     it 'has a unit_price' do
-      expect(@item.unit_price).to eq(10.99)
+      expect(@item.unit_price).to eq(BigDecimal(10.99, 4) / 100)
     end
 
     it 'has a merchant_id' do
