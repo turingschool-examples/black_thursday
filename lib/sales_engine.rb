@@ -1,7 +1,8 @@
 require 'csv'
+require './lib/merchantrepository'
+require './lib/merchant'
 
-# mr = se.merchants
-# merchant = mr.find_by_name("CJsDecor")
+
 
 class SalesEngine
 
@@ -17,9 +18,9 @@ class SalesEngine
                       :merchants => "./data/merchants.csv"})
   end
 
-  # def merchants
-  #
-  # end
+  def merchants
+    MerchantRepository.new
+  end
   #
   # def items
   # end
