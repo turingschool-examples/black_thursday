@@ -19,7 +19,18 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new
+    @rows = CSV.table(@merchants, headers: true).by_row
+    MerchantRepository.new = []
+    MerchantRepository << @rows
+    MerchantRepository
+    # ({
+    #                         id: @id,
+    #                         name: @name,
+    #                         created_at: @created_at,
+    #                         updated_at: @updated_at
+    #                         })
+
+
   end
   #
   # def items

@@ -6,7 +6,12 @@ require './lib/merchantrepository'
 
 RSpec.describe 'MerchantRepository' do
   it "exists" do
-    @merchant_repository = MerchantRepository.new
+    @merchant_repository = MerchantRepository.new#({
+    #                                                 id: 12334135,
+    #                                                 name: "GoldenRayPress",
+    #                                                 created_at: "2011-12-13",
+    #                                                 updated_at: "2012-04-16"
+    #                                               })
 
     expect(@merchant_repository).to be_a(MerchantRepository)
 

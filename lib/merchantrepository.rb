@@ -4,11 +4,19 @@ require './lib/merchant'
 # require './data/sample.csv'
 
 class MerchantRepository
-
+  # attr_reader :id,
+  #             :name,
+  #             :created_at,
+  #             :updated_at
   @@filename = './data/sample.csv'
   @rows = CSV.table(@@filename, headers: true).by_row
-  def initialize
 
+  def initialize
+    # (info)
+    # @id         = info[:id]
+    # @name       = info[:name]
+    # @created_at = info[:created_at]
+    # @updated_at = info[:updated_at]
   end
 
   def self.all
