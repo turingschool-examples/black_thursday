@@ -48,10 +48,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     all.map do |item|
-      if item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last
-        item
-      else
-      end
+      item if range.include?(item.unit_price.to_i)
     end.compact
   end
 
@@ -63,19 +60,19 @@ class ItemRepository
 
   def create(item_name, description, unit_price, number_of_items, merchant_id)
     creation_time = Time.now
-    all << Item.new({
-      id: max_item.id.to_i + 1,
-      name: item_name,
-      description: description,
-      unit_price: BigDecimal(unit_price,number_of_items),
-      created_at: creation_time,
-      updated_at: creation_time,
-      merchant_id: merchant_id
-     })
+    all << Item.new(
+                      id: max_item.id.to_i + 1,
+                      name: item_name,
+                      description: description,
+                      unit_price: BigDecimal(unit_price,number_of_items),
+                      created_at: creation_time,
+                      updated_at: creation_time,
+                      merchant_id: merchant_id
+                    )
   end
 
   def max_item
-    @all.max { |item1, item2| item1.id <=> item2.id }
+    @all.max_by(&:id)
   end
 
   def update(id, item_attribute, item_value)
