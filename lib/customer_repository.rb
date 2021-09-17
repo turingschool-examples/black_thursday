@@ -5,6 +5,7 @@ class CustomerRepository
 
   attr_reader :all
 
+
 # says all is a method that returns an array of all known instances
 #but since everyone set it up as an instance var, I will do that too.
 
@@ -57,6 +58,7 @@ class CustomerRepository
     customer = find_by_id(id)
     customer.first_name = attributes[:first_name]
     customer.last_name = attributes[:last_name]
+    customer
   end
 
   def delete(id)

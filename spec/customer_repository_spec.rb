@@ -43,7 +43,7 @@ RSpec.describe CustomerRepository do
     expect(customer1.last_name).to eq('Jeon')
   end
 
-  xit '#update' do
+  it '#update' do
     id = 100
     attributes = {first_name: 'John', last_name: 'Morris'}
     updated = @cus.update(id, attributes)
@@ -59,6 +59,6 @@ RSpec.describe CustomerRepository do
     deleted_customer = @cus.find_by_id(200)
     @cus.delete(200)
 
-    expect(@cus).not_to include(deleted_customer)
+    expect(@cus.all).not_to include(deleted_customer)
   end
 end
