@@ -34,4 +34,49 @@ describe InvoiceRepository do
       expect(@ir.find_by_id(35)).to eq(@ir.all[34])
     end
   end
+
+  describe '#find_all_by_customer_id' do
+    it 'returns matches for customer id in array form' do
+      expect(@ir.find_all_by_customer_id(5)).to include(@ir.all[21])
+      expect(@ir.find_all_by_customer_id(5)).to be_a(Array)
+    end
+
+    it 'returns an empty array if no customers match the id' do
+      expect(@ir.find_all_by_customer_id(1234)).to eq([])
+    end
+  end
+
+  describe '#find_all_by_merchant_id' do
+    it 'returns matches for merchant id in array form' do
+      expect(@ir.find_all_by_merchant_id(123_343_89)).to include(@ir.all[5])
+      expect(@ir.find_all_by_merchant_id(123_343_89)).to be_a(Array)
+    end
+
+    it 'returns an empty array if no merchants match the id' do
+      expect(@ir.find_all_by_merchant_id(632_540_91)).to eq([])
+    end
+  end
+
+  describe '#find_all_by_status' do
+    it 'returns matches for given status in array form' do
+      expect(@ir.find_all_by_status("returned")).to include(@ir.all[24])
+      expect(@ir.find_all_by_status("returned")).to be_a(Array)
+    end
+
+    it 'returns an empty array if no invoices match the status' do
+      expect(@ir.find_all_by_status("gone for good")).to eq([])
+    end
+  end
+
+  describe '#create' do
+    it 'creates an invoice with the given attributes' do
+      customer_id = 72
+      merchant_id = 324_602_09
+      status = 'pending'
+      @ir.create(customer_id, merchant_id, status)
+
+      expect(@ir.all.last).to be_a(Invoice)
+      expect(@ir.all.last.merchant_id).to eq(324_602_09)
+    end
+  end
 end
