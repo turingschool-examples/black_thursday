@@ -17,7 +17,7 @@ class SalesEngine
 
   def initialize(data)
     @items     = ItemRepository.new(data[:items])
-    @merchants = ItemRepository.new(data[:merchants])
+    @merchants = MerchantRepository.new(data[:merchants])
   end
 
   def self.create_obj_csv(locations, obj_type)
