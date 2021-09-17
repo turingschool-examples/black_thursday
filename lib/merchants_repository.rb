@@ -18,15 +18,15 @@ class MerchantsRepository
   end
 
   def create(attributes)
-    max_id = 0
-    @all.each do |merchant|
-      max_id = merchant.id if merchant.id > max_id
-    end
-    new_id = max_id + 1
+    new_id = max_merchant.id.to_i + 1
     new_merch_hash = {}
     new_merch_hash[:id] = new_id
     new_merch_hash[:name] = attributes
     @all.push(Merchant.new(new_merch_hash))
+  end
+
+  def max_merchant
+    @all.max { |merch1, merch2| merch1.id <=> merch2.id }
   end
 
   def update(existing_name, new_name)
