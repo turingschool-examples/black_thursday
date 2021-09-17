@@ -19,7 +19,7 @@ class Item
     @merchant_id = info[:merchant_id]
   end
 
-  def unit_price
-    @unit_price.to_f
-  end
+  def unit_price_to_dollars
+   @unit_price.to_f.to_s.prepend("$") 
+ end
 end
