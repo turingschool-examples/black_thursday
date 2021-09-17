@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Transaction
   attr_reader   :id,
                 :invoice_id,
