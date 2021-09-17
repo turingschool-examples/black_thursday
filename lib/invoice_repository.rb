@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 require_relative 'invoice'
 
 class InvoiceRepository
@@ -46,13 +47,17 @@ class InvoiceRepository
 
   def create(attributes)
     attributes[:id] = @all.last.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     @all << Invoice.new(attributes)
   end
 
   def update(id, attributes)
     invoice_to_update = find_by_id(id)
-    invoice_to_update.status = attributes[:status]
-    invoice_to_update.updated_at = Time.now
+    if attributes[:status] != nil
+      invoice_to_update.status = attributes[:status].to_sym
+      invoice_to_update.updated_at = Time.now
+    end
   end
 
   def delete(id)

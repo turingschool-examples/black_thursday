@@ -1,6 +1,7 @@
 require 'rspec'
 require './lib/item'
 require 'bigdecimal'
+require 'time'
 
 describe 'Item' do
   describe '#initialize' do
