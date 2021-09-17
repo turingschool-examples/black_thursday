@@ -61,14 +61,14 @@ class ItemRepository
   def create(item_name, description, unit_price, number_of_items, merchant_id)
     creation_time = Time.now
     all << Item.new(
-                     id: max_item.id.to_i + 1,
-                     name: item_name,
-                     description: description,
-                     unit_price: BigDecimal(unit_price,number_of_items),
-                     created_at: creation_time,
-                     updated_at: creation_time,
-                     merchant_id: merchant_id
-                   )
+      id: max_item.id.to_i + 1,
+      name: item_name,
+      description: description,
+      unit_price: BigDecimal(unit_price,number_of_items),
+      created_at: creation_time,
+      updated_at: creation_time,
+      merchant_id: merchant_id
+    )
   end
 
   def max_item
