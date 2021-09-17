@@ -8,10 +8,6 @@ class ItemRepository
     @all  = generate(path)
   end
 
-<<<<<<< HEAD:lib/itemrepository.rb
-  def all
-    @rows.map do |row|
-=======
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
@@ -20,7 +16,6 @@ class ItemRepository
     rows = CSV.read(path, headers: true, header_converters: :symbol)
 
     rows.map do |row|
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a:lib/item_repository.rb
       Item.new(row)
     end
   end
@@ -39,11 +34,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     @all.find_all do |row|
-<<<<<<< HEAD:lib/itemrepository.rb
-      row.description == description
-=======
       row.description.downcase == description.downcase
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a:lib/item_repository.rb
     end
   end
 
@@ -53,15 +44,9 @@ class ItemRepository
     end
   end
 
-<<<<<<< HEAD:lib/itemrepository.rb
-  def find_all_by_price_in_range(num1, num2)
-    @all.find_all do |row|
-      row.unit_price.between?(num1, num2)
-=======
   def find_all_by_price_in_range(range)
     @all.find_all do |row|
       range.cover?(row.unit_price)
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a:lib/item_repository.rb
     end
   end
 

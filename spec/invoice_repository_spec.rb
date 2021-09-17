@@ -28,13 +28,8 @@ describe InvoiceRepository do
       path = './data/invoices.csv'
       inre = InvoiceRepository.new(path)
 
-<<<<<<< HEAD
-      expect(inre.find_by_id('379').merchant_id).to eq('12334434')
-      expect(inre.find_by_id('12341234')).to eq(nil)
-=======
       expect(inre.find_by_id(379).merchant_id).to eq('12334434')
       expect(inre.find_by_id(12341234)).to eq(nil)
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
     end
   end
 
@@ -56,11 +51,7 @@ describe InvoiceRepository do
       inre = InvoiceRepository.new(path)
 
       expect(inre.find_all_by_merchant_id('12334912')).to be_an Array
-<<<<<<< HEAD
-      expect(inre.find_all_by_merchant_id('12334912').first.id).to eq('17')
-=======
       expect(inre.find_all_by_merchant_id('12334912').first.id).to eq(17)
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
       expect(inre.find_all_by_merchant_id('12334912').length).to eq(15)
       expect(inre.find_all_by_merchant_id('12341234')).to eq([])
     end
@@ -72,11 +63,7 @@ describe InvoiceRepository do
       inre = InvoiceRepository.new(path)
 
       expect(inre.find_all_by_status('pending')).to be_an Array
-<<<<<<< HEAD
-      expect(inre.find_all_by_status('pending').first.id).to eq('1')
-=======
       expect(inre.find_all_by_status('pending').first.id).to eq(1)
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
       expect(inre.find_all_by_status('pending').length).to eq(1473)
       expect(inre.find_all_by_status('this is not a status')).to eq([])
     end
@@ -93,11 +80,7 @@ describe InvoiceRepository do
             :merchant_id => 8,
             :status      => 'pending',
             :created_at  => Time.now.round(2),
-<<<<<<< HEAD
-            :updated_at  => Time.now.round(2),
-=======
             :updated_at  => Time.now.round(2)
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
           })
 
       expect(inre.create(attributes).last).to be_an_instance_of Invoice
@@ -121,15 +104,9 @@ describe InvoiceRepository do
             :updated_at  => Time.now.round(2),
           })
 
-<<<<<<< HEAD
-      inre.update('1', attributes)
-
-      expect(inre.find_by_id('1').status).to eq('shipped')
-=======
       inre.update(1, attributes)
 
       expect(inre.find_by_id(1).status).to eq('shipped')
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
     end
   end
 
@@ -138,15 +115,9 @@ describe InvoiceRepository do
       path = './data/invoices.csv'
       inre = InvoiceRepository.new(path)
 
-<<<<<<< HEAD
-      inre.delete('1')
-
-      expect(inre.find_by_id('1')).to eq(nil)
-=======
       inre.delete(1)
 
       expect(inre.find_by_id(1)).to eq(nil)
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
     end
   end
 end

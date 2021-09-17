@@ -10,11 +10,7 @@ describe Invoice do
             :merchant_id => 8,
             :status      => 'pending',
             :created_at  => Time.now.round(1),
-<<<<<<< HEAD
-            :updated_at  => Time.now.round(1),
-=======
             :updated_at  => Time.now.round(1)
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
           })
     end
 
@@ -38,16 +34,8 @@ describe Invoice do
       expect(@i.status).to eq('pending')
     end
 
-<<<<<<< HEAD
-    it 'has a created_at' do
-      expect(@i.created_at).to eq(Time.now.round(1))
-    end
-
-    it 'has a updated_at' do
-=======
     it 'has a created_at and updated at time' do
       expect(@i.created_at).to eq(Time.now.round(1))
->>>>>>> ea9ca2ca91942479de27b959c172dd9cd604de8a
       expect(@i.updated_at).to eq(Time.now.round(1))
     end
   end
