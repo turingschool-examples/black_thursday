@@ -4,79 +4,77 @@ require './lib/merchant'
 # require './data/sample.csv'
 
 class MerchantRepository
-
+  # attr_reader :id,
+  #             :name,
+  #             :created_at,
+  #             :updated_at
   @@filename = './data/sample.csv'
+  @rows = CSV.table(@@filename, headers: true).by_row
 
   def initialize
-    @rows = CSV.read(@@filename, headers: true)
+    # (info)
+    # @id         = info[:id]
+    # @name       = info[:name]
+    # @created_at = info[:created_at]
+    # @updated_at = info[:updated_at]
   end
 
   def self.all
-    @rows.by_row
-
-    csv_2_array = rows.map do |row|
+    csv_2_array = @rows.map do |row|
       row.to_hash
     end
-
     csv_2_array
   end
 
   def self.find_by_id(id)
-    @rows.by_row
-
-    csv_2_hash = rows.map do |row|
-      row.to_hash
-    end
-
-    csv_2_hash.find do |merchant|
-      merchant["id"] == id.to_s
+    array_of_merchants = self.all
+    array_of_merchants.find do |merchant|
+      merchant[:id] == id
     end
   end
 
   def self.find_by_name(name)
     name_1 = name.upcase
-    @rows.by_row
+    array_of_merchants = self.all
 
-    csv_2_hash = rows.map do |row|
-      row = row.to_hash
-    end
-
-    csv_2_hash.find_all do |merchant|
+    array_of_merchants.find_all do |merchant|
       merchant.values[1].upcase!
-      merchant["name"] == name_1
+      merchant[:name] == name_1
     end
   end
 
   def self.find_all_by_name(name)
     name_1 = name.upcase
-    @rows.by_row
+    array_of_merchants = self.all
 
-    csv_2_hash = rows.map do |row|
-      row = row.to_hash
-    end
-
-    csv_2_hash.find_all do |merchant|
+    array_of_merchants.find_all do |merchant|
       merchant.values[1].upcase!
-      merchant["name"].include?(name_1)
+      merchant[:name].include?(name_1)
     end
   end
 
   def self.create(name, created_at, updated_at)
-    @rows.by_row
+    array_of_merchants = self.all
 
-    csv_2_hash = rows.map do |row|
-      row = row.to_hash
-    end
-
-    last_id = csv_2_hash.last['id'].to_i
+    last_id = array_of_merchants.last[:id]
     new_id = last_id += 1
+    new_biz = [new_id, name, created_at, updated_at]
 
-
-
-    # new_biz = [new_id, name, created_at, updated_at]
-    # CSV.open(@@filename, "a+") do |csv|
-    #   csv << new_biz
-    #   end
+    CSV.open(@@filename, "a+") do |csv|
+      csv << new_biz
+    end
   end
 
+  def self.update(id, attributes)
+    object = self.find_by_id(id)
+    object[:name] = attributes
+    object
+  end
+
+  def self.delete(id)
+    #object = self.find_by_id(id)
+    @rows.delete_if do |row|
+      row[:id] == id
+    end
+  end
 end
