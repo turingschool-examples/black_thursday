@@ -56,7 +56,7 @@ class SalesAnalyst
     item_count = (@items.all.length.to_f - 1)
 
     sum = @items.all.sum do |item|
-      (item.unit_price.to_f - mean) ** 2
+      (item.unit_price.to_f - mean)**2
     end
 
     Math.sqrt(sum / item_count).round(2)
