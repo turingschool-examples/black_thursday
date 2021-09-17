@@ -28,11 +28,11 @@ describe Item do
   end
 
   it '#description' do
-    expect(@i.description).to eq 'You can use it to write things'
+    expect(@i.description).to eq 'YOU CAN USE IT TO WRITE THINGS'
   end
 
   it '#unit_price' do
-    expect(@i.unit_price).to eq 0.1099e2
+    expect(@i.unit_price).to eq 0.1099e0
   end
 
   it '#created_at' do
@@ -48,6 +48,6 @@ describe Item do
   end
 
   it '#unit_price_to_dollars' do
-    expect(@i.unit_price_to_dollars).to eq 10.99
+    expect(@i.unit_price_to_dollars).to eq 0.1099
   end
 end

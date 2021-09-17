@@ -1,9 +1,16 @@
+require 'csv'
+require_relative '../lib/item'
+
 class ItemRepository
   attr_reader :all
 
   def initialize(path)
     @path = path
     @all = to_array
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def to_array
