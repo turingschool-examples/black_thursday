@@ -16,4 +16,8 @@ class InvoiceRepository
       Invoice.new(individual_invoice)
     end
   end
+
+  def find_by_id(id)
+    @all.find { |invoice| invoice.id.to_i == id.to_i }
+  end
 end
