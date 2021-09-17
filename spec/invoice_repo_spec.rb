@@ -36,4 +36,26 @@ describe InvoiceRepo do
     expect(@invoice_repo.find_all_by_status('burned to a crisp')).to eq([])
     expect(@invoice_repo.find_all_by_status('pending').length).to eq(1473)
   end
+
+  it "#create(attributes)" do
+    @invoice_repo.create({
+                          status: "pending",
+                      customer_id: 1,
+                      merchant_id: 12336652
+                          })
+    expect(@invoice_repo.all.last.merchant_id).to eq(12336652)
+  end
+
+  xit "#update(attributes)" do
+    @invoice_repo.create({:name => "John N."})
+    @invoice_repo.update(12337413, {:name => "Jean N."})
+    expect(@invoice_repo.all[476].name).to eq("Jean N.")
+  end
+
+  xit "#delete(id)" do
+    @invoice_repo.create({:name => "John N."})
+    @invoice_repo.delete(12337413)
+
+    expect(@invoice_repo.find_by_id(12337413)).to eq(nil)
+  end
 end
