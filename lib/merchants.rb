@@ -8,10 +8,9 @@ class Merchants
                 :updated_at
 
   def initialize(merchants)
-    @id         = merchants[0]
-    @name       = merchants[1]
-    @created_at = merchants[2]
-    @updated_at = merchants[3]
+    @id         = merchants[:id].to_i
+    @name       = merchants[:name]
+    @created_at = merchants[:created_at]
+    @updated_at = merchants[:updated_at]
   end
-
 end
