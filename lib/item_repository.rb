@@ -1,9 +1,7 @@
-require 'csv'
-
-
-#CSV::Converters[:hashify] = ->(value) { stuff = value }
+#require 'csv'
 
 class ItemRepository
+
   attr_reader :all
 
   def initialize(file)
@@ -86,5 +84,3 @@ class ItemRepository
     all.delete_at(position_of_item)
   end
 end
-
-# attributes.key.to_sym
