@@ -1,14 +1,14 @@
-require_relative "item_repository"
-require_relative "merchant_repo"
-require_relative "sales_analyst"
+require_relative "../lib/item_repository"
+require_relative "../lib/merchant_repo"
+require_relative "../lib/sales_analyst"
 
 class SalesEngine
-  attr_reader   :item_path,
-                :merchant_path
+  attr_reader   :items,
+                :merchants
 
-  def initialize(item_path, merchant_path)
-    @item_path      = item_path
-    @merchant_path  = merchant_path
+  def initialize(items, merchants)
+    @items     = items
+    @merchants  = merchants
     # @invoice_path   = invoice_path
   end
 
@@ -21,18 +21,18 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepo.new(@merchant_path)
+    MerchantRepo.new(@merchants)
   end
 
   def items
-    ItemRepository.new(@item_path)
+    ItemRepository.new(@items)
   end
 
   # def invoices
   #   InvoiceRepo.new(@invoice_path)
   # end
 
-  # def analyst
-  #   SalesAnalyst.new(@items, @merchants)
-  # end
+  def analyst
+    SalesAnalyst.new(@items, @merchants)
+  end
 end
