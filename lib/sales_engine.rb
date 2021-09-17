@@ -17,7 +17,7 @@ class SalesEngine
 
   def initialize(data)
     @items     = ItemRepository.new(data[:items])
-    @merchants = data[:merchants]
+    @merchants = ItemRepository.new(data[:merchants])
   end
 
   def self.create_obj_csv(locations, obj_type)
@@ -28,20 +28,5 @@ class SalesEngine
       objects << object
     end
     objects
-    # ItemRepository.new(objects)
-    # MerchantRepository.new(objects)
   end
-
-  # def merchant_repo
-  # end
-  #
-  # def item_repo
-  #   ItemRepository.new(@items)
-  # end
 end
-
-# se = SalesEngine.from_csv({
-#                             items: './data/items.csv',
-#                             merchants: './data/merchants.csv'
-#                           })
-# require "pry"; binding.pry
