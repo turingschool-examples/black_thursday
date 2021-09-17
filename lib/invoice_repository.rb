@@ -54,4 +54,12 @@ class InvoiceRepository
   def final_invoice
     all.max_by(&:id)
   end
+
+  def update(id, attribute)
+    find_by_id(id).update(attribute)
+  end
+
+  def delete(id)
+    all.delete(find_by_id(id))
+  end
 end
