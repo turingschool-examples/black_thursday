@@ -124,10 +124,10 @@ class SalesAnalyst
   end
 
   def invoices_by_day_mean
-    invoices_by_day.values.sum.to_f / 7
+    (invoices_by_day.values.sum.to_f / 7).round(2)
   end
 
-  def invoices_per_day_standard_deviation
+  def invoices_by_day_standard_deviation
     sum = invoices_by_day.values.sum do |daily_value|
       (daily_value - invoices_by_day_mean) ** 2
     end
@@ -137,7 +137,7 @@ class SalesAnalyst
 
   def top_days_by_invoice_count # => on which days are invoices created at more than one std dev above the mean?
     top_values = invoices_by_day.values.find_all do |value|
-      invoices_by_day_mean + invoices_per_day_standard_deviation <= value
+      invoices_by_day_mean + invoices_by_day_standard_deviation <= value
     end
 
     top_values.map do |value|

@@ -86,6 +86,27 @@ RSpec.describe SalesAnalyst do
       expect(expected.first).to be_a Merchant
     end
 
+    it '#invoices_by_day' do
+      expected = analyst.invoices_by_day
+
+      expect(expected).to be_a Hash
+      expect(expected.keys.length).to eq 7
+    end
+
+    it '#invoices_by_day_mean' do
+      expected = analyst.invoices_by_day_mean
+
+      expect(expected).to be_a Float
+      expect(expected).to eq 712.14
+    end
+
+    it '#invoices_by_day_standard_deviation' do
+      expected = analyst.invoices_by_day_standard_deviation
+
+      expect(expected).to be_a Float
+      expect(expected).to eq 18.07
+    end
+
     it '#top_days_by_invoice_count' do
       expected = analyst.top_days_by_invoice_count
 
