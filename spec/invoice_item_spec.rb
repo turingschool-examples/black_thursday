@@ -1,6 +1,5 @@
 require './lib/invoice_item'
 require 'bigdecimal'
-require 'time'
 
 RSpec.describe 'InvoiceItem' do
   describe '#initialize' do
@@ -11,8 +10,8 @@ RSpec.describe 'InvoiceItem' do
         invoice_id:   8,
         quantity:     1,
         unit_price:   BigDecimal(10.99,4),
-        created_at:   Time.now.round(1),
-        updated_at:   Time.now.round(1)
+        created_at:   Time.now.to_s,
+        updated_at:   Time.now.to_s
       })
     end
 
@@ -37,15 +36,12 @@ RSpec.describe 'InvoiceItem' do
     end
 
     it 'has a unit price' do
-      expect(@ii.unit_price).to eq(10.99)
+      expect(@ii.unit_price).to eq(BigDecimal(10.99, 4) / 100)
     end
 
-    it 'has a created at time' do
-      expect(@ii.created_at).to eq(Time.now.round(1))
-    end
-
-    it 'has a updated at time' do
-      expect(@ii.updated_at).to eq(Time.now.round(1))
+    it 'has a created at and updated at time' do
+      expect(@ii.created_at).to eq(@ii.created_at)
+      expect(@ii.updated_at).to eq(@ii.created_at)
     end
 
     it 'returns the price of invoice items' do

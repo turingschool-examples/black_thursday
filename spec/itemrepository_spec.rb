@@ -1,6 +1,7 @@
 require 'rspec'
 require './lib/item'
-require './lib/itemrepository'
+require './lib/item_repository'
+require 'bigdecimal'
 
 describe 'itemrepository' do
   describe '#initialize' do
@@ -26,10 +27,10 @@ describe 'itemrepository' do
       path = './data/items.csv'
       ir = ItemRepository.new(path)
 
-      expect(ir.find_by_id("263395617")).to be_an_instance_of Item
-      expect(ir.find_by_id("263395617").id).to eq("263395617")
-      expect(ir.find_by_id("263395617").name).to eq("Glitter scrabble frames")
-      expect(ir.find_by_id("1253467890")).to eq(nil)
+      expect(ir.find_by_id(263395617)).to be_an_instance_of Item
+      expect(ir.find_by_id(263395617).id).to eq(263395617)
+      expect(ir.find_by_id(263395617).name).to eq("Glitter scrabble frames")
+      expect(ir.find_by_id(1253467890)).to eq(nil)
     end
   end
 
@@ -39,7 +40,7 @@ describe 'itemrepository' do
       ir = ItemRepository.new(path)
 
       expect(ir.find_by_name("JSK Chai")).to be_an_instance_of Item
-      expect(ir.find_by_name("JSK Chai").id).to eq("263549122")
+      expect(ir.find_by_name("JSK Chai").id).to eq(263549122)
       expect(ir.find_by_name("JSK Chai").name).to eq("JSK Chai")
       expect(ir.find_by_name("This Is Not A Name")).to eq(nil)
     end
@@ -53,7 +54,7 @@ describe 'itemrepository' do
       example_description = "Free standing wooden letters \n\n15cm\n\nAny colours"
 
       expect(ir.find_all_with_description(example_description)).to be_an Array
-      expect(ir.find_all_with_description(example_description)[0].id).to eq("263396013")
+      expect(ir.find_all_with_description(example_description)[0].id).to eq(263396013)
       expect(ir.find_all_with_description(example_description)[0].name).to eq("Free standing Woden letters")
       expect(ir.find_all_with_description("This Is Not A Description")).to eq([])
     end
@@ -65,8 +66,8 @@ describe 'itemrepository' do
       ir = ItemRepository.new(path)
 
       expect(ir.find_all_by_price(1300)).to be_an Array
-      expect(ir.find_all_by_price(1300)[0].id).to eq("263395617")
-      expect(ir.find_all_by_price(1300)[0].name).to eq("Glitter scrabble frames")
+      expect(ir.find_all_by_price(BigDecimal(1300) / 100)[0].id).to eq(263395617)
+      expect(ir.find_all_by_price(BigDecimal(1300) / 100)[0].name).to eq("Glitter scrabble frames")
       expect(ir.find_all_by_price(981762349871234)).to eq([])
     end
   end
@@ -76,10 +77,10 @@ describe 'itemrepository' do
       path = './data/items.csv'
       ir = ItemRepository.new(path)
 
-      expect(ir.find_all_by_price_in_range(1300, 1500)).to be_an Array
-      expect(ir.find_all_by_price_in_range(1300, 1500)[0].id).to eq("263395617")
-      expect(ir.find_all_by_price_in_range(1300, 1500)[0].name).to eq("Glitter scrabble frames")
-      expect(ir.find_all_by_price_in_range(98176234, 1000000000)).to eq([])
+      expect(ir.find_all_by_price_in_range(1300..1500)).to be_an Array
+      expect(ir.find_all_by_price_in_range(1300..1500).last.id).to eq(263395617)
+      expect(ir.find_all_by_price_in_range(1300..1500).first.name).to eq("Glitter scrabble frames")
+      expect(ir.find_all_by_price_in_range(98176234..1000000000)).to eq([])
     end
   end
 
@@ -88,10 +89,10 @@ describe 'itemrepository' do
       path = './data/items.csv'
       ir = ItemRepository.new(path)
 
-      expect(ir.find_all_by_merchant_id('12334261')).to be_an Array
-      expect(ir.find_all_by_merchant_id('12334261')[0].id).to eq("263410631")
-      expect(ir.find_all_by_merchant_id('12334261')[0].name).to eq("OLIVE SOAP")
-      expect(ir.find_all_by_merchant_id('981762349871234')).to eq([])
+      expect(ir.find_all_by_merchant_id(12334261)).to be_an Array
+      expect(ir.find_all_by_merchant_id(12334261)[0].id).to eq(263410631)
+      expect(ir.find_all_by_merchant_id(12334261)[0].name).to eq("OLIVE SOAP")
+      expect(ir.find_all_by_merchant_id(981762349871234)).to eq([])
     end
   end
 
@@ -130,10 +131,10 @@ describe 'itemrepository' do
         :merchant_id => 2
       }
 
-      ir.update('263395617', attributes)
-      expect(ir.find_by_id('263395617').name).to eq("Pencil")
-      expect(ir.find_by_id('263395617').description).to eq("You can use it to write things")
-      expect(ir.find_by_id('263395617').unit_price).to eq(1099)
+      ir.update(263395617, attributes)
+      expect(ir.find_by_id(263395617).name).to eq("Pencil")
+      expect(ir.find_by_id(263395617).description).to eq("You can use it to write things")
+      expect(ir.find_by_id(263395617).unit_price).to eq(1099)
     end
   end
 
@@ -141,8 +142,8 @@ describe 'itemrepository' do
     it 'deletes an instance of Item' do
       path = './data/items.csv'
       ir = ItemRepository.new(path)
-      ir.delete('263395617')
-      expect(ir.find_by_id('263395617')).to eq(nil)
+      ir.delete(263395617)
+      expect(ir.find_by_id(263395617)).to eq(nil)
     end
   end
 end
