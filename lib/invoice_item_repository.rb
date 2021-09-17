@@ -2,27 +2,27 @@ require 'csv'
 require_relative 'invoice_item'
 
 class InvoiceItemRepository
+  attr_reader :all
+
   def initialize(path)
-    @path = path
-    @rows = CSV.read(@path, headers: true, header_converters: :symbol)
-    @all = all
+    @all = generate(path)
   end
 
   def inspect
     "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
-  def all
-    @rows.map do |row|
+  def generate(path)
+    rows = CSV.read(path, headers: true, header_converters: :symbol)
+    rows.map do |row|
       InvoiceItem.new(row)
     end
   end
 
   def find_by_id(id)
-    result = @all.find do |row|
+    @all.find do |row|
       row.id == id
     end
-    result
   end
 
   def find_all_by_item_id(item_id)
@@ -50,7 +50,9 @@ class InvoiceItemRepository
     if attributes[:unit_price] != nil
       invoice_item_to_update.unit_price = attributes[:unit_price]
     end
+    if invoice_item_to_update
     invoice_item_to_update.updated_at = Time.now
+    end
     invoice_item_to_update
   end
 
