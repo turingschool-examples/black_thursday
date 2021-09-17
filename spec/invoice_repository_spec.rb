@@ -28,4 +28,10 @@ describe InvoiceRepository do
       end
     end
   end
+
+  describe '#find_by_id' do
+    it 'can find an invoice with given id' do
+      expect(@ir.find_by_id(35)).to eq(@ir.all[34])
+    end
+  end
 end
