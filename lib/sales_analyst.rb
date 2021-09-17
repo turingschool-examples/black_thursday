@@ -18,7 +18,7 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
     sum = @merchants.all.sum do |merchant|
-      (@items.find_all_by_merchant_id(merchant.id).length.to_f - mean) ** 2
+      (@items.find_all_by_merchant_id(merchant.id).length.to_f - mean)**2
     end
 
     Math.sqrt(sum / (@merchants.all.length.to_f - 1)).round(2)
@@ -103,7 +103,7 @@ class SalesAnalyst
   end
 
   def invoices_by_day
-    invoices_by_day = {0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0}
+    invoices_by_day = { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0 }
     @invoices.all.each do |invoice|
       time = invoice.created_at.wday
       invoices_by_day[time] += 1
@@ -117,13 +117,13 @@ class SalesAnalyst
 
   def invoices_by_day_standard_deviation
     sum = invoices_by_day.values.sum do |daily_value|
-      (daily_value - invoices_by_day_mean) ** 2
+      (daily_value - invoices_by_day_mean)**2
     end
 
     Math.sqrt(sum / 6.0).round(2)
   end
 
-  def top_days_by_invoice_count # => on which days are invoices created at more than one std dev above the mean?
+  def top_days_by_invoice_count
     top_values = invoices_by_day.values.find_all do |value|
       invoices_by_day_mean + invoices_by_day_standard_deviation <= value
     end

@@ -54,7 +54,7 @@ RSpec.describe SalesAnalyst do
       expect(expected).to be_a BigDecimal
     end
 
-    it '#average_average_price_per_merchant' do #better test? 'big decimal?'
+    it '#average_average_price_per_merchant' do
       expected = analyst.average_average_price_per_merchant
 
       expect(expected).to eq 350.29

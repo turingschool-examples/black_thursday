@@ -5,7 +5,7 @@ class MerchantRepository
   attr_reader :all
 
   def initialize(path)
-    @all  = generate(path)
+    @all = generate(path)
   end
 
   def inspect
