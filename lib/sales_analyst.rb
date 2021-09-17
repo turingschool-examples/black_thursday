@@ -36,14 +36,14 @@ class SalesAnalyst
     sum = @items.find_all_by_merchant_id(id).sum do |item|
       item.unit_price
     end 
-    sum / @items.find_all_by_merchant_id(id).length 
+    (sum / @items.find_all_by_merchant_id(id).length ).round(2)
   end
 
   def average_average_price_per_merchant 
     sum = @merchants.all.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
     end 
-    sum / @merchants.all.length 
+    (sum / @merchants.all.length ).round(2)
   end 
 
   def golden_items 
