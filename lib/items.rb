@@ -1,11 +1,11 @@
 class Item
-attr_reader :id,
-            :name,
-            :description,
-            :unit_price,
-            :created_at,
-            :updated_at,
-            :merchant_id
+  attr_accessor  :id,
+                 :name,
+                 :description,
+                 :unit_price,
+                 :created_at,
+                 :updated_at,
+                 :merchant_id
 
   def initialize(item)
     @id = item[:id]
@@ -19,5 +19,13 @@ attr_reader :id,
 
   def unit_price_to_dollars
     unit_price.to_f
+  end
+
+  def update(item_attribute, item_value)
+    @name = item_value if item_attribute == 'name'
+    @description = item_value if item_attribute == 'description'
+    @unit_price = item_value if item_attribute == 'unit_price'
+    @updated_at = Time.now
+    self
   end
 end
