@@ -9,13 +9,13 @@ require './lib/invoice'
 describe Invoice do
   before(:each) do
     @new_invoice = {
-    :id          => 6,
-    :customer_id => 7,
-    :merchant_id => 8,
-    :status      => 'pending',
-    :created_at  => Time.now,
-    :updated_at  => Time.now
-      }
+      id:           6,
+      customer_id:  7,
+      merchant_id:  8,
+      status:       'pending',
+      created_at:   Time.now,
+      updated_at:   Time.now
+    }
     @invoice = Invoice.new(@new_invoice)
   end
 

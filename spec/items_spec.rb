@@ -85,19 +85,19 @@ describe Item do
 
   describe 'update' do
     it 'updates the item based off given attribute with a value' do
-      @item1.update("name", "Pen")
+      @item1.update('name', 'Pen')
 
-      expect(@item1.name).to eq("Pen")
+      expect(@item1.name).to eq('Pen')
     end
 
     it 'updates the item based off given attribute with a value' do
-      @item1.update("description", "Filled with lead")
+      @item1.update('description', 'Filled with lead')
 
-      expect(@item1.description).to eq("Filled with lead")
+      expect(@item1.description).to eq('Filled with lead')
     end
 
     it 'updates the item based off given attribute with a value' do
-      @item1.update("unit_price", 9.99)
+      @item1.update('unit_price', 9.99)
 
       expect(@item1.unit_price).to eq(9.99)
     end
