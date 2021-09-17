@@ -10,7 +10,7 @@ class MerchantsRepository
   end
 
   def find_by_name(name)
-    @all.find { |merchant| merchant.name.upcase == name.upcase }
+    @all.find { |merchant| merchant.name.casecmp?(name) }
   end
 
   def find_all_by_name(name)
