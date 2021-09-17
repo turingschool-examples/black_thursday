@@ -13,9 +13,7 @@ class InvoiceRepo
       headers = row.headers
       invoices << Invoice.new(row.to_h)
     end
-    invoices.map do | item |
-      Invoice.new(item)
-    end
+    invoices
   end
 
   def find_by_id(id)
@@ -33,6 +31,12 @@ class InvoiceRepo
   def find_all_by_merchant_id(merchant_id)
     all.select do | item |
       merchant_id == item.merchant_id
+    end
+  end
+
+  def find_all_by_status(status)
+    all.select do | invoice |
+      status == invoice.status
     end
   end
 

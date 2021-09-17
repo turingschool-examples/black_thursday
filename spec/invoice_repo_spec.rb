@@ -24,11 +24,16 @@ describe InvoiceRepo do
 
   it "#find_all_by_customer_id" do
     expect(@invoice_repo.find_all_by_customer_id(-1)).to eq []
-    expect(@invoice_repo.find_all_by_customer_id(12336642).length).to eq 7
+    expect(@invoice_repo.find_all_by_customer_id(1).length).to eq 8
   end
 
-  xit "#find_all_by_merchant_id" do
+  it "#find_all_by_merchant_id" do
     expect(@invoice_repo.find_all_by_merchant_id(-1)).to eq []
-    expect(@invoice_repo.find_all_by_merchant_id(12336642).length).to eq 2
+    expect(@invoice_repo.find_all_by_merchant_id(12336642).length).to eq 7
+  end
+
+  it "#find_all_by_status" do
+    expect(@invoice_repo.find_all_by_status('burned to a crisp')).to eq([])
+    expect(@invoice_repo.find_all_by_status('pending').length).to eq(1473)
   end
 end
