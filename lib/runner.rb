@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/sales_engine'
+require_relative './lib/sales_engine'
 
 se = SalesEngine.new({
   :items     => "./data/items.csv",
