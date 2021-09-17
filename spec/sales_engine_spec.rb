@@ -1,29 +1,49 @@
-require_relative './lib/sales_engine'
+require './lib/sales_engine'
 require 'csv'
 
 RSpec.describe SalesEngine do
-  customers     = './data/sample_data/sample_customers.csv'
-  invoice_items = './data/sample_data/sample_invoice_items.csv'
-  invoices      = './data/sample_data/sample_invoices.csv'
-  items         = './data/sample_data/sample_items.csv'
-  merchant      = './data/sample_data/sample_merchants.csv'
-  transactions  = './data/sample_data/sample_transactions.csv'
+  customers_path     = './data/sample_data/sample_customers.csv'
+  invoice_items_path = './data/sample_data/sample_invoice_items.csv'
+  invoices_path      = './data/sample_data/sample_invoices.csv'
+  items_path         = './data/sample_data/sample_items.csv'
+  merchants_path     = './data/sample_data/sample_merchants.csv'
+  transactions_path  = './data/sample_data/sample_transactions.csv'
 
-  locations = {
+  data = {
     customers:      customers_path,
     invoice_items:  invoice_items_path,
     invoices:       invoices_path,
     items:          items_path,
-    merchant:       merchants_path,
-    transactions:   transactions _path
+    merchants:      merchants_path,
+    transactions:   transactions_path
     }
 
-  sales_engine = SalesEngine.new(locations)
-  sales_engine = SalesEngine.from_csv(locations)
+  sales_engine = SalesEngine.new(data)
+  sales_engine = SalesEngine.from_csv(data)
 
-  # it 'exists' do
-  #   expect(sales_engine).to be_a(SalesEngine)
-  # end
+  it 'exists' do
+
+    customers_path     = './data/sample_data/sample_customers.csv'
+    invoice_items_path = './data/sample_data/sample_invoice_items.csv'
+    invoices_path      = './data/sample_data/sample_invoices.csv'
+    items_path         = './data/sample_data/sample_items.csv'
+    merchants_path     = './data/sample_data/sample_merchants.csv'
+    transactions_path  = './data/sample_data/sample_transactions.csv'
+
+    data = {
+      customers:      customers_path,
+      invoice_items:  invoice_items_path,
+      invoices:       invoices_path,
+      items:          items_path,
+      merchants:      merchants_path,
+      transactions:   transactions_path
+      }
+
+    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.from_csv(data)
+
+    expect(sales_engine).to be_a(SalesEngine)
+  end
   #
   # xit '' do
   #    se = SalesEngine.from_csv({
