@@ -33,7 +33,7 @@ describe ItemRepository do
     describe 'find_by_id(id)' do
       it 'returns items with matching id' do
 
-        expect(@item_repo1.find_by_id("263395237")).to eq(@item_repo1.all[0])
+        expect(@item_repo1.find_by_id('263395237')).to eq(@item_repo1.all[0])
         expect(@item_repo1.find_by_id('8675309')).to eq(nil)
       end
     end
@@ -41,15 +41,15 @@ describe ItemRepository do
     describe 'find_by_name(name)' do
       it 'returns items with matching names' do
 
-      expect(@item_repo1.find_by_name("Glitter scrabble frames")).to eq(@item_repo1.all[1])
-      expect(@item_repo1.find_by_name("Replacement Boggle Dice")).to eq(nil)
+      expect(@item_repo1.find_by_name('Glitter scrabble frames')).to eq(@item_repo1.all[1])
+      expect(@item_repo1.find_by_name('Replacement Boggle Dice')).to eq(nil)
       end
     end
     describe 'find_all_with_description(description)' do
       it 'returns all items with matching descriptions' do
 
-      expect(@item_repo1.find_all_with_description("TABLEAU")).to include(@item_repo1.all[12])
-      expect(@item_repo1.find_all_with_description("Corncob on the bread")).to eq([])
+      expect(@item_repo1.find_all_with_description('TABLEAU')).to include(@item_repo1.all[12])
+      expect(@item_repo1.find_all_with_description('Corncob on the bread')).to eq([])
       end
     end
 
@@ -79,17 +79,17 @@ describe ItemRepository do
 
     describe 'create(attributes)' do
       it 'creates a new item with given attributes' do
-        @item_repo1.create("Pencil", "You can use it to write things", 10.99, 4, 2)
+        @item_repo1.create('Pencil', 'Use it to write things', 10.99, 4, 2)
 
         expect(@item_repo1.all.last).to be_a(Item)
-        expect(@item_repo1.all.last.name).to eq("Pencil")
+        expect(@item_repo1.all.last.name).to eq('Pencil')
       end
     end
 
     describe 'update(id, attributes)' do
       it 'updates the item with given ids attributes' do
 
-        expect(@item_repo1.update(263_395_237, "name", 'Pencil')).to eq(@item_repo1.all[0])
+        expect(@item_repo1.update(263_395_237, 'name', 'Pencil')).to eq(@item_repo1.all[0])
         expect(@item_repo1.all[0].name).to eq('Pencil')
       end
     end
