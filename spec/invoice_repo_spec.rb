@@ -40,22 +40,27 @@ describe InvoiceRepo do
   it "#create(attributes)" do
     @invoice_repo.create({
                           status: "pending",
-                      customer_id: 1,
-                      merchant_id: 12336652
+                          customer_id: 1,
+                          merchant_id: 12336652
                           })
     expect(@invoice_repo.all.last.merchant_id).to eq(12336652)
+    expect(@invoice_repo.all.last.id).to eq(4986)
   end
 
-  xit "#update(attributes)" do
-    @invoice_repo.create({:name => "John N."})
-    @invoice_repo.update(12337413, {:name => "Jean N."})
-    expect(@invoice_repo.all[476].name).to eq("Jean N.")
+  it "#update(attributes)" do
+    @invoice_repo.create({
+                status: "pending",
+                customer_id: 1,
+                merchant_id: 12336652
+                })
+    @invoice_repo.update(4986, {:status => "shipped"})
+    expect(@invoice_repo.find_by_id(4986).status).to eq("shipped")
   end
 
   xit "#delete(id)" do
-    @invoice_repo.create({:name => "John N."})
-    @invoice_repo.delete(12337413)
+    @mr.create({:name => "John N."})
+    @mr.delete(4986)
 
-    expect(@invoice_repo.find_by_id(12337413)).to eq(nil)
+    expect(@mr.find_by_id(4986)).to eq(nil)
   end
 end
