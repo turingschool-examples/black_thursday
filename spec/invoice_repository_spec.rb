@@ -32,6 +32,7 @@ describe InvoiceRepository do
   describe '#find_by_id' do
     it 'can find an invoice with given id' do
       expect(@ir.find_by_id(35)).to eq(@ir.all[34])
+      expect(@ir.find_by_id(623_425)).to be nil
     end
   end
 
@@ -77,6 +78,23 @@ describe InvoiceRepository do
 
       expect(@ir.all.last).to be_a(Invoice)
       expect(@ir.all.last.merchant_id).to eq(324_602_09)
+    end
+  end
+
+  describe '#update' do
+    it 'updates a specific invoice with the provided attribute' do
+
+      expect(@ir.update(63, "returned")).to eq(@ir.all[62])
+      expect(@ir.all[62].status).to eq("returned")
+    end
+  end
+
+  describe '#delete' do
+    it 'removes the given invoice from the invoice repo' do
+      deleted_invoice = @ir.all[51]
+
+      expect(@ir.delete(52)).to eq(deleted_invoice)
+      expect(@ir.find_by_id(52)).to be nil
     end
   end
 end
