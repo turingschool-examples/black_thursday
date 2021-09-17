@@ -90,12 +90,9 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    sum = 0.0
-    @merchants.all.each do |merchant|
-      diff = @invoices.find_all_by_merchant_id(merchant.id).length.to_f - mean
-      sum += diff**2
+    sum = @merchants.all.sum do |merchant|
+      (@invoices.find_all_by_merchant_id(merchant.id).length.to_f - mean) ** 2
     end
-    s_d = Math.sqrt(sum/((@merchants.all.length.to_f)-1))
-    s_d.round(2)
+    Math.sqrt(sum / ((@merchants.all.length.to_f) -1 )).round(2)
   end
 end

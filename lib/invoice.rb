@@ -10,7 +10,7 @@ class Invoice
   def initialize(data)
     @id          = data[:id].to_i
     @customer_id = data[:customer_id]
-    @merchant_id = data[:merchant_id]
+    @merchant_id = data[:merchant_id].to_i
     @status      = data[:status]
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
