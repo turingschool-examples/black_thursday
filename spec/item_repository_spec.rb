@@ -61,8 +61,8 @@ describe ItemRepository do
   describe 'find_all_by_price(price)' do
     it 'returns items with matching prices' do
 
-    expect(@item_repo1.find_all_by_price(1300)).to include(@item_repo1.all[1])
-    expect(@item_repo1.find_all_by_price(72531)).to eq([])
+      expect(@item_repo1.find_all_by_price(1300)).to include(@item_repo1.all[1])
+      expect(@item_repo1.find_all_by_price(72_531)).to eq([])
     end
   end
 
@@ -70,15 +70,16 @@ describe ItemRepository do
     it 'returns items within matching prices given a range' do
 
       expect(@item_repo1.find_all_by_price_in_range(700..1300)).to include(@item_repo1.all[0], @item_repo1.all[1])
-      expect(@item_repo1.find_all_by_price_in_range(52300..52400)).to eq([])
+      expect(@item_repo1.find_all_by_price_in_range(52_300..52_400)).to eq([])
     end
   end
 
   describe 'find_all_by_merchant_id(merchant_id)' do
     it 'returns items with matching merchant ids' do
-
-    expect(@item_repo1.find_all_by_merchant_id(12334195)).to include(@item_repo1.all[8])
-    expect(@item_repo1.find_all_by_merchant_id(603451)).to eq([])
+    merchid1 = 123_341_95
+    merchid2 = 603_451
+    expect(@item_repo1.find_all_by_merchant_id(merchid1)).to include(@item_repo1.all[8])
+    expect(@item_repo1.find_all_by_merchant_id(merchid2)).to eq([])
     end
   end
 
