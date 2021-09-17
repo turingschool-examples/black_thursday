@@ -20,6 +20,7 @@ describe ItemRepository do
     expect(@ir.all).to be_a Array
     expect(@ir.all.empty?).to be false
     expect(@ir.all[0]).to be_a Item
+    expect(@ir.all.length).to eq 1367
   end
 
   it "#find_by_id" do
@@ -42,14 +43,14 @@ describe ItemRepository do
 
   it "#find_all_by_price" do
     expect(@ir.find_all_by_price(-1)).to eq []
-    expect(@ir.find_all_by_price(7500)).to be_a Array
-    expect(@ir.find_all_by_price(7500).empty?).to be false
+    expect(@ir.find_all_by_price(75.00)).to be_a Array
+    expect(@ir.find_all_by_price(75.00).empty?).to be false
   end
 
   it "#find_all_by_price_in_range" do
     expect(@ir.find_all_by_price_in_range(-5..-1)).to eq []
-    expect(@ir.find_all_by_price_in_range(0..1000)).to be_a Array
-    expect(@ir.find_all_by_price_in_range(0..1000).empty?).to be false
+    expect(@ir.find_all_by_price_in_range(0..10.00)).to be_a Array
+    expect(@ir.find_all_by_price_in_range(0..10.00).empty?).to be false
   end
 
   it "#find_all_by_merchant_id" do
