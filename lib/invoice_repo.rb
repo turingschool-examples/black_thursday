@@ -62,7 +62,7 @@ class InvoiceRepo
   end
 
   def update(id, attributes)
-    find_by_id(id).change_name(attributes[:name])
+    find_by_id(id).change_status(attributes[:status])
   end
 
   def delete(id)
