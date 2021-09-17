@@ -25,10 +25,10 @@ RSpec.describe TransactionRepository do
       expect(@tr.find_by_id(-1)).to be nil
     end
 
-    it '#find_by_invoice_id' do
-      expect(@tr.find_by_invoice_id(2179)).to be_a Transaction
-      expect(@tr.find_by_invoice_id(2179).id).to eq 1
-      expect(@tr.find_by_invoice_id(-1)).to be nil
+    it '#find_all_by_invoice_id' do
+      expect(@tr.find_all_by_invoice_id(2179)).to be_a Transaction
+      expect(@tr.find_all_by_invoice_id(2179).id).to eq 1
+      expect(@tr.find_all_by_invoice_id(-1)).to be nil
     end
 
     it '#find_all_by_credit_card_number' do

@@ -29,8 +29,8 @@ class TransactionRepository
     end
   end
 
-  def find_by_invoice_id(id)
-    @all.find do |transaction|
+  def find_all_by_invoice_id(id)
+    @all.find_all do |transaction|
       id == transaction.invoice_id
     end
   end
@@ -49,6 +49,9 @@ class TransactionRepository
 
   def create(attributes)
     attributes[:id] = @all.last.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    
     @all << Transaction.new(attributes)
   end
 
