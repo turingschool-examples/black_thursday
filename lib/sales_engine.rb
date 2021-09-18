@@ -3,12 +3,12 @@ require_relative "../lib/merchant_repo"
 require_relative "../lib/sales_analyst"
 
 class SalesEngine
-  attr_reader   :items,
-                :merchants
+  attr_reader   :item_path,
+                :merchant_path
 
-  def initialize(items, merchants)
-    @items     = items
-    @merchants  = merchants
+  def initialize(item_path, merchant_path)
+    @item_path     = item_path
+    @merchant_path  = merchant_path
     # @invoice_path   = invoice_path
   end
 
@@ -21,11 +21,11 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepo.new(@merchants)
+    MerchantRepo.new(@merchant_path)
   end
 
   def items
-    ItemRepository.new(@items)
+    ItemRepository.new(@item_path)
   end
 
   # def invoices
@@ -33,6 +33,6 @@ class SalesEngine
   # end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants)
+    SalesAnalyst.new(items, merchants)
   end
 end

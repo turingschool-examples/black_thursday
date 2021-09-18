@@ -5,7 +5,7 @@ class SalesAnalyst
     @merchants          = merchants
   end
 
-  def average_item_per_merchant
+  def average_items_per_merchant
     sum = items_per_merchant.sum 
     average = sum.to_f/@merchants.all.length
     average.round(2)
@@ -17,7 +17,7 @@ class SalesAnalyst
     end
   end
 
-  def average_item_per_merchant_standard_deviation
+  def average_items_per_merchant_standard_deviation
     sum = items_per_merchant.sum do |item_per_merchant|
       (item_per_merchant - average_item_per_merchant) ** 2 
     end 
