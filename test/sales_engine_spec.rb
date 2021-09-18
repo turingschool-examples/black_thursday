@@ -2,7 +2,7 @@ require './lib/sales_engine'
 require 'rspec'
 require 'csv'
 require './lib/merchantrepository'
-# require '/lib/merchant'
+
 #
 describe SalesEngine do
 
@@ -20,19 +20,12 @@ describe SalesEngine do
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    # merchant_repository_1 = MerchantRepository.new
-                                                  # ({
-                                                  #   id: 12334135,
-                                                  #   name: "GoldenRayPress",
-                                                  #   created_at: "2011-12-13",
-                                                  #   updated_at: "2012-04-16"
-                                                  # })
+
     mr = se.merchants
-    # require "pry"; binding.pry
+
     expect(mr).to be_a(MerchantRepository)
-    require "pry"; binding.pry
-    expect(mr.find_by_id(12334135)).to eq({:created_at=>"2011-12-13", :id=>12334135, :name=>"GoldenRayPress", :updated_at=>"2012-04-16"})
-
-
+    expect(se.merchants).to be_an_instance_of(MerchantRepository)
+    expect(se.merchants.all[0]).to be_a(Merchant)
+    expect(mr.find_by_id(12334135).name).to eq("GoldenRayPress")
   end
 end

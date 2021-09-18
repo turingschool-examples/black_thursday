@@ -2,8 +2,6 @@ require 'csv'
 require './lib/merchantrepository'
 require './lib/merchant'
 
-
-
 class SalesEngine
 
   attr_reader :items, :merchants
@@ -19,20 +17,22 @@ class SalesEngine
   end
 
   def merchants
-    @rows = CSV.table(@merchants, headers: true).by_row
-    MerchantRepository.new = []
-    MerchantRepository << @rows
-    MerchantRepository
-    # ({
-    #                         id: @id,
-    #                         name: @name,
-    #                         created_at: @created_at,
-    #                         updated_at: @updated_at
-    #                         })
+    all = []
 
-
+    csv = CSV.table(@merchants, headers: true, header_converters: :symbol)
+     csv.map do |row|
+       all << Merchant.new(row)
+    end
+   MerchantRepository.new(all)
   end
-  #
-  # def items
-  # end
+
+  def items
+    all = []
+
+    csv = CSV.read(@items, headers: true, header_converters: :symbol)
+     csv.map do |row|
+       all << Item.new(row)
+    end
+    ItemRepository.new(all)
+  end
 end
