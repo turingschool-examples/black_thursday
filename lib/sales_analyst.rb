@@ -1,3 +1,5 @@
+require 'BigDecimal'
+
 class SalesAnalyst
 
   attr_reader :items,
@@ -48,6 +50,18 @@ class SalesAnalyst
       end
     end
     return_array
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    sum_amount = 0
+    num_items = 0
+    @items.each do |item|
+      if item.merchant_id == merchant_id.to_s
+        sum_amount += item.unit_price.to_f
+        num_items += 1.to_f
+      end
+    end
+    BigDecimal(sum_amount/num_items, 2)
   end
 
 end
