@@ -10,8 +10,7 @@ RSpec.describe do
                               })
     end
   it 'exists' do
-    repo = ItemRepository.new('./data/items.csv')
-    expect(repo).to be_an_instance_of(ItemRepository)
+    expect(@engine.items).to be_an_instance_of(ItemRepository)
   end
 
   it 'adds keys to item instances array' do
