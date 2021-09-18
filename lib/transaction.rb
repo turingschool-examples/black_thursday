@@ -12,7 +12,7 @@ class Transaction
               :updated_at
 
   def initialize(transaction)
-    @id = transaction[:id]
+    @id = transaction[:id].to_i
     @invoice_id = transaction[:invoice_id]
     @credit_card_number = transaction[:credit_card_number]
     @credit_card_expiration_date = transaction[:credit_card_expiration_date]
