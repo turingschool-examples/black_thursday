@@ -65,20 +65,45 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    items_by_merchant_id = @items.find_all do |item|
-       item.merchant_id == merchant_id
+    @items.find_all do |item|
+      if item.merchant_id == merchant_id
+        item
+      end
     end
+  end
 
+  def highest_id
+    new = @items.max_by(&:id)
+    new.id + 1
   end
 
   def create(attributes)
+   new_item = Items.new({id: highest_id,
+                        name: attributes[:name],
+                        description: attributes[:description],
+                        unit_price: attributes[:unit_price],
+                        updated_at: attributes[:updated_at],
+                        created_at: attributes[:created_at],
+                        merchant_id: attributes[:merchant_id]})
+    @items << new_item
   end
 
   def update(id, attributes)
+    # update = find_by_id(id)
+    # update = {name: attributes[:name],
+    #                   description: attributes[:description],
+    #                   unit_price: attributes[:unit_price],
+    #                   updated_at: Time.now.strftime('%Y-%m-%d')}
+    # # update the item instance with id and provided attributes
+    # # items name description and unitprice can be updated
+    # # updated_at = time.now?
   end
 
   def delete(id)
+    trash = @items.find do |item|
+      item.id == id
+    end
+    items.delete(trash)
   end
-
 
 end
