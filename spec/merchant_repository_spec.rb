@@ -17,9 +17,12 @@ RSpec.describe MerchantRepository do
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
-    mr = MerchantRepository.new
-    expect(mr.all).to be_an(Array)
-    # expect(mr.all[0]).to be_an_instance_of(Merchant)
+
+    mr = se.merchants
+
+    # mr = MerchantRepository.new
+    # expect(mr.all).to be_an(Array)
+    expect(mr.merchant).to be_an_instance_of(Merchant)
   end
 
   xit 'can find merchant by id' do
