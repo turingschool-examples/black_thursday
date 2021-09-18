@@ -44,7 +44,7 @@ describe InvoiceItemRepo do
     expect(@iir.find_highest_id).to be > 21829
   end
 
-  it "#create" do
+  xit "#create" do
     attributes = {
               id: '1',
          item_id: '263519844',
@@ -62,33 +62,41 @@ describe InvoiceItemRepo do
 
   xit "#update" do
     info =  {
-      name: 'laptop',
-      description: 'This is my old school laptop I used to learn how to code',
-      unit_price: 10000,
-      created_at: Time.now.utc,
-      updated_at: Time.now.utc,
-      merchant_id: 9
-    }
+          id: '1',
+     item_id: '263519844',
+  invoice_id: '1',
+    quantity: '5',
+  unit_price: '13635',
+  created_at: Time.now.utc,
+  updated_at: Time.now.utc
+            }
 
     @iir.create(info)
-    attributes = {name: "desktop"}
-    @iir.update(263567475, attributes)
-    expect(@iir.find_by_id(263567475).name).to eq("desktop")
+    attributes = {
+         quantity: '4',
+         unit_price: '10000'
+       }
+    @iir.update(21831, attributes)
+    expect(@iir.find_by_id(21831).quantity).to eq('4')
+    expect(@iir.find_by_id(21831).unit_price).to eq('10000')
   end
 
   xit "#delete" do
     info =  {
-      name: 'laptop',
-      description: 'This is my old school laptop I used to learn how to code',
-      unit_price: 10000,
-      created_at: Time.now.utc,
-      updated_at: Time.now.utc,
-      merchant_id: 9
-    }
+          id: '1',
+     item_id: '263519844',
+  invoice_id: '1',
+    quantity: '5',
+  unit_price: '13635',
+  created_at: Time.now.utc,
+  updated_at: Time.now.utc
+            }
     @iir.create(info)
-    @iir.delete(263567475)
 
-    expect(@iir.find_by_id(263567475)).to eq nil
+
+    expect(@iir.find_by_id(21831)).to be_a(InvoiceItem)
+    @iir.delete(21831)
+    expect(@iir.find_by_id(21831)).to eq nil
   end
 
 end

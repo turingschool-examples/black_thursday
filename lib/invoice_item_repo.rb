@@ -65,7 +65,13 @@ class InvoiceItemRepo
     end
 
   def update(id, attributes)
-    find_by_id(id).change_name(attributes[:name])
+    invoice_item = find_by_id(id)
+    invoice_item.change_quantity(attributes[:quantity])
+    invoice_item.change_unit_price(attributes[:unit_price])
+  end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
   end
 
 end

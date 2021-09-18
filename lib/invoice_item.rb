@@ -24,4 +24,14 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def change_unit_price(new_price)
+    @unit_price = new_price
+    @updated_at = Time.now.utc
+  end
+
+  def change_quantity(quantity)
+    @quantity = quantity
+    @updated_at = Time.now.utc
+  end
 end
