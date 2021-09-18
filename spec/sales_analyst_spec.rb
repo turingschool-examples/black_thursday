@@ -83,4 +83,16 @@ describe SalesAnalyst do
     end
   end
 
+  describe "#average_average_item_price_for_merchant" do
+    it 'returns the average price across all merchants' do
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
+      sales_analyst = se.analyst(se.items, se.merchants)
+
+      expect(sales_analyst.average_average_item_price_for_merchant).to be_a(BigDecimal)
+    end
+  end
+
 end
