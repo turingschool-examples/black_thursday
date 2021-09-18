@@ -40,12 +40,20 @@ describe SalesAnalyst do
         :merchants => './data/merchants.csv'
         })
       sales_analyst = se.analyst(se.items, se.merchants)
-      require 'pry'; binding.pry
-      num_merchants = sales_analyst.merchants.length.to_f
-      num_items = sales_analyst.items.length.to_f
-      expected = (num_items / num_merchants).round(2)
 
-      expect(sales_analyst.average_items_per_merchant).to eq(expected)
+      expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+    end
+  end
+
+  describe '#average_items_per_merchant_standard_deviation' do
+    it 'returns the standard deviation of items per merchant' do
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
+      sales_analyst = se.analyst(se.items, se.merchants)
+
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
   end
 
