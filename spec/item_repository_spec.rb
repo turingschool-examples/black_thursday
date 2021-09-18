@@ -64,13 +64,33 @@ describe ItemRepository do
   end
 
   it "#create" do
-    @ir.create("laptop", "This is my old school laptop I used to learn how to code", 10000, 9)
+    attributes = {
+      name: 'laptop',
+      description: 'This is my old school laptop I used to learn how to code',
+      unit_price: 10000,
+      created_at: Time.now.utc,
+      updated_at: Time.now.utc,
+      merchant_id: 9
+    }
+    
+    @ir.create(attributes)
 
     expect(@ir.find_by_name("laptop").merchant_id).to eq(9)
+    expect(@ir.find_by_id(263567475).name).to eq 'laptop'
   end
 
   it "#update" do
-    @ir.create("laptop", "This is my old school laptop I used to learn how to code", 10000, 9)
+    info =  {
+      name: 'laptop',
+      description: 'This is my old school laptop I used to learn how to code',
+      unit_price: 10000,
+      created_at: Time.now.utc,
+      updated_at: Time.now.utc,
+      merchant_id: 9
+    }
+    
+    @ir.create(info)
+
     attributes = {name: "desktop"}
 
     @ir.update(263567475, attributes)
@@ -79,7 +99,16 @@ describe ItemRepository do
   end
 
   it "#delete" do
-    @ir.create("laptop", "This is my old school laptop I used to learn how to code", 10000, 9)
+    info =  {
+      name: 'laptop',
+      description: 'This is my old school laptop I used to learn how to code',
+      unit_price: 10000,
+      created_at: Time.now.utc,
+      updated_at: Time.now.utc,
+      merchant_id: 9
+    }
+    
+    @ir.create(info)
 
     @ir.delete(263567475)
 

@@ -71,17 +71,17 @@ class ItemRepository
     max_item.id
   end
 
-  def create(name, description, unit_price, merchant_id)
+  def create(attributes)
     id = find_highest_id + 1
-    current_time = Time.now.utc
+    # current_time = Time.now.utc
     info = {
       id: id.to_s,
-      name: name,
-      description: description,
-      unit_price: unit_price.to_s,
-      merchant_id: merchant_id.to_s,
-      created_at: current_time.to_s,
-      updated_at: current_time.to_s
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price].to_s,
+      merchant_id: attributes[:merchant_id].to_s,
+      created_at: attributes[:created_at].to_s,
+      updated_at: attributes[:updated_at].to_s
     }
     @all << Item.new(info)
   end
