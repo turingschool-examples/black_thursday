@@ -35,4 +35,6 @@ describe Customer do
   it '#updated_at' do
     expect(@c.updated_at).to be_a Time
   end
+
+  
 end

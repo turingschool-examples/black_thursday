@@ -51,6 +51,22 @@ describe CustomerRepo do
   end
 
   it '#update' do
+    @cr.update(1, {first_name: 'Fred', last_name: 'Joe'})
 
-  end 
+    expect(@cr.find_by_id(1).first_name).to eq('Fred')
+    expect(@cr.find_by_id(1).last_name).to eq('Joe')
+  end
+
+  it '#delete' do
+    @cr.create({
+      first_name: "Gregory",
+      last_name: "Fischer",
+      created_at: Time.now.utc,
+      updated_at: Time.now.utc
+      })
+
+    @cr.delete(1001)
+
+    expect(@cr.find_by_id(1001)).to eq nil
+  end
 end

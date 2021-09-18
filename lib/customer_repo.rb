@@ -61,4 +61,17 @@ class CustomerRepo
       }
     @all << Customer.new(info)
   end
+
+  def update(id, attributes)
+    if attributes[:first_name] != nil
+      find_by_id(id).change_first_name(attributes[:first_name])
+    end
+    if attributes[:last_name] != nil
+      find_by_id(id).change_last_name(attributes[:last_name])
+    end
+  end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 end
