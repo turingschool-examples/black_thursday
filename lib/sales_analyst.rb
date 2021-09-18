@@ -32,5 +32,12 @@ class SalesAnalyst
     expected = (num_items / num_merchants).round(2)
   end
 
+  def average_items_per_merchant_standard_deviation
+    sum_diff_squared = 0
+    merch_item_hash.each do |k,v|
+      sum_diff_squared += (v.length - average_items_per_merchant) ** 2
+    end
+    ((sum_diff_squared / @merchants.length.to_f) ** 0.5).round(2)
+  end
 
 end
