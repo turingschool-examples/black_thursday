@@ -27,9 +27,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    num_merchants = @merchants.length
-    num_items = @items.length
-    expected = num_items / num_merchants
+    num_merchants = @merchants.length.to_f
+    num_items = @items.length.to_f
+    expected = (num_items / num_merchants).round(2)
   end
+
 
 end
