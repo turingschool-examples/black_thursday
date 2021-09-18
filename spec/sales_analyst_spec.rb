@@ -54,4 +54,8 @@ describe SalesAnalyst do
   it '#average_invoices_per_merchant' do
     expect(@sa.average_invoices_per_merchant).to eq 10.49
   end
+
+  it "#average_invoices_per_merchant_standard_deviation" do
+    expect(@sa.average_invoices_per_merchant_standard_deviation).to eq 3.29
+  end
 end
