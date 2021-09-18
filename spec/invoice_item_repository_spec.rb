@@ -48,4 +48,33 @@ describe InvoiceItemRepository do
       expect(@iir.find_all_by_invoice_id(754_234)).to eq([])
     end
   end
+
+  describe '#create' do
+    it 'it can create a new instance of invoice item' do
+      item_id = 5
+      invoice_id = 5
+      quantity = 5
+      unit_price = BigDecimal(20.99, 4)
+      @iir.create(item_id, invoice_id, quantity, unit_price)
+
+      expect(@iir.create(item_id, invoice_id, quantity, unit_price)).to
+    end
+  end
+
+  describe '#update' do
+    it 'it can update an specific invoice item with given attributes' do
+      expect(@iir.update(5, [5, 10.99])).to eq(@iir.all[4])
+      expect(@irr.all[4].quantity).to eq(5)
+      expect(@irr.all[4].unit_price).to eq(10.99)
+    end
+  end
+
+  describe '#delete' do
+    it 'can delete an invoice item' do
+      deleted_item = @iir.all[6]
+
+      expect(@iir.delete(7)).to eq(deleted_item)
+      expect(@iir.find_by_id(7)).to be nil
+    end
+  end 
 end
