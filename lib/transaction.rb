@@ -30,8 +30,8 @@ class Transaction
     @updated_at = Time.now.utc
   end
 
-  def change_status(status)
-    @status = status
+  def change_result(result)
+    @result = result
     @updated_at = Time.now.utc
   end
 end
