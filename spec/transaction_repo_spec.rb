@@ -68,30 +68,32 @@ describe TransactionRepo do
 
     @tr.create(info)
     attributes = {
-         quantity: '4',
-         unit_price: '10000'
+         credit_card_number: '4242424242432242',
+         credit_card_expiration_date: '1222',
+         result: 'failed'
        }
-    @tr.update(21831, attributes)
-    expect(@tr.find_by_id(21831).quantity).to eq('4')
-    expect(@tr.find_by_id(21831).unit_price).to eq('10000')
+    @tr.update(4986, attributes)
+    expect(@tr.find_by_id(4986).credit_card_number).to eq('4242424242432242')
+    expect(@tr.find_by_id(4986).credit_card_expiration_date).to eq('1222')
+    expect(@tr.find_by_id(4986).result).to eq('failed')
   end
 
-  xit "#delete" do
+  it "#delete" do
     info =  {
-          id: '1',
-     item_id: '263519844',
-  invoice_id: '1',
-    quantity: '5',
-  unit_price: '13635',
-  created_at: Time.now.utc,
-  updated_at: Time.now.utc
+      :id => "4986",
+      :invoice_id => "8",
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => Time.now.utc,
+      :updated_at => Time.now.utc
             }
     @tr.create(info)
 
 
-    expect(@tr.find_by_id(21831)).to be_a(Transaction)
-    @tr.delete(21831)
-    expect(@tr.find_by_id(21831)).to eq nil
+    expect(@tr.find_by_id(4986)).to be_a(Transaction)
+    @tr.delete(4986)
+    expect(@tr.find_by_id(4986)).to eq nil
   end
 
 end
