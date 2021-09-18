@@ -7,10 +7,10 @@ class SalesAnalyst
   def initialize(items, merchants)
     @items = items.all
     @merchants = merchants.all
-    @merch_item_hash = hash_create #(@items, @merchants)
+    @merch_item_hash = hash_create
   end
 
-  def hash_create #(items, merchants)
+  def hash_create
     return_hash = {}
     @merchants.each do |merchant|
       @items.each do |item|
@@ -24,6 +24,12 @@ class SalesAnalyst
       end
     end
     return_hash
+  end
+
+  def average_items_per_merchant
+    num_merchants = @merchants.length
+    num_items = @items.length
+    expected = num_items / num_merchants
   end
 
 end
