@@ -1,10 +1,10 @@
 require "Rspec"
 require "bigdecimal"
-require_relative "../lib/item"
+require_relative "../lib/invoice_item"
 
-describe Item do
+describe InvoiceItem do
   before :each do
-    @i = Item.new({
+    @ii = InvoiceItem.new({
               id: '1',
          item_id: '263519844',
       invoice_id: '1',
@@ -15,6 +15,18 @@ describe Item do
     })
   end
 
-  it 'is an item' do
-    expect(@i).to be_a Item
+  it 'is an invoice item' do
+    expect(@ii).to be_a InvoiceItem
   end
+
+  it '#attributes' do
+
+    expect(@ii.id).to eq 1
+    expect(@ii.item_id).to eq 263519844
+    expect(@ii.invoice_id).to eq 1
+    expect(@ii.quantity).to eq 5
+    expect(@ii.unit_price).to eq 0.13635e3
+    expect(@ii.created_at).to be_a Time
+    expect(@ii.updated_at).to be_a Time
+  end
+end
