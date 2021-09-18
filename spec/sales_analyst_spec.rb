@@ -74,4 +74,12 @@ describe SalesAnalyst do
     expect(bottom_merchants.empty?).to be false
     expect(bottom_merchants.length).to eq 4
   end
+
+  it '#top_days_by_invoice_count' do
+    days = @sa.top_days_by_invoice_count
+
+    expect(days).to be_a Array
+    expect(days.empty?).to be false
+    expect(days).to eq ["Wednesday"]
+  end
 end

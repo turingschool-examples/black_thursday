@@ -1,3 +1,5 @@
+require 'time'
+
 class SalesAnalyst
 
   def initialize(items, merchants, invoices)
@@ -107,5 +109,57 @@ class SalesAnalyst
     end
   end
 
-  
+  def top_days_by_invoice_count
+    days = {
+      'Sunday' => 0,
+      'Monday' => 0,
+      'Tuesday' => 0,
+      'Wednesday' => 0,
+      'Thursday' => 0,
+      'Friday' => 0,
+      'Saturday' => 0
+    }
+    
+    #counting the number of times that each day has orders
+    @invoices.all.each do | invoice |
+      if invoice.created_at.wday == 0
+        days['Sunday'] += 1
+      elsif invoice.created_at.wday == 1
+        days['Monday'] += 1
+      elsif invoice.created_at.wday == 2
+        days['Tuesday'] += 1
+      elsif invoice.created_at.wday == 3
+        days['Wednesday'] += 1
+      elsif invoice.created_at.wday == 4
+        days['Thursday'] += 1
+      elsif invoice.created_at.wday == 5
+        days['Friday'] += 1
+      elsif invoice.created_at.wday == 6
+        days['Saturday'] += 1
+      end
+    end
+    
+    #finding the mean
+    sum = days.values.sum do | day |
+      day
+    end
+
+    mean = sum / 7.0
+
+    #finding the standard deviation
+    sd_sum = days.values.sum do | day |
+      (day - mean) ** 2
+    end
+
+    sd = Math.sqrt((sd_sum / 6))
+
+    #finding top days
+    high_days = days.select do | day, orders |
+      orders > (mean + sd)
+    end
+
+    high_days.to_h
+    
+    high_days.keys
+  end
 end
