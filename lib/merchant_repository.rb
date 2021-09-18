@@ -51,14 +51,15 @@ class MerchantRepository < Merchants
 
   def update(id, attributes)
     @merchants.find_by_id(id)
-    require "pry"; binding.pry
      # Time.now.strftime('%Y-%m-%d')
   end
 
   def delete(id)
-    @merchants.select do |merchant|
-      if merchant.id.to_i == id
-        merchant = nil
+    @merchants.find do |merchant|
+      if merchant.id == id
+        @merchants.delete(merchant)
+      else
+        nil
       end
     end
   end
