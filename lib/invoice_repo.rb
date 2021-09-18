@@ -1,3 +1,7 @@
+require "CSV"
+require_relative "../lib/invoice"
+require "Time"
+
 class InvoiceRepo
   attr_reader :all
 
