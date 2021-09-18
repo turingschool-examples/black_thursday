@@ -22,7 +22,7 @@ class SalesEngine
   def self.from_csv(data)
     sales            = {}
     data[:merchants] = create_obj_csv(data[:merchants], Merchant)
-    # data[:items]     = create_obj_csv(data[:items], Item)
+    data[:items]     = create_obj_csv(data[:items], Item)
 
     SalesEngine.new(data)
   end
