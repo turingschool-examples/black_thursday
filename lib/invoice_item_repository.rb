@@ -1,4 +1,6 @@
-#this is the Invoice Item Repository class for Black Thursday
+# frozen_string_literal: true
+
+# this is the Invoice Item Repository class for Black Thursday
 
 class InvoiceItemRepository
   attr_reader :all

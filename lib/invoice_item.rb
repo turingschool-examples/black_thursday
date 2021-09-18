@@ -1,4 +1,6 @@
-#this is the Invoice Item class for Black Thursday
+# frozen_string_literal: true
+
+# this is the Invoice Item class for Black Thursday
 
 class InvoiceItem
   attr_reader :id,
