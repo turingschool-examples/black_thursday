@@ -60,8 +60,8 @@ RSpec.describe do
         name: "Capita Defenders of Awesome 2018",
         description: "This board both rips and shreds",
         unit_price: BigDecimal(399.99, 5),
-        created_at: Time.now,
-        updated_at: Time.now,
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s,
         merchant_id: 25
       })
     expect(results.last.id).to eq(263567475)
@@ -72,8 +72,8 @@ RSpec.describe do
         name: "Capita Defenders of Awesome 2018",
         description: "This board both rips and shreds",
         unit_price: BigDecimal(399.99, 5),
-        created_at: Time.now,
-        updated_at: Time.now,
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s,
         merchant_id: 25
       })
 
