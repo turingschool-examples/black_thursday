@@ -14,9 +14,7 @@ describe SalesAnalyst do
       :merchants => "./data/merchants.csv"
       })
     sales_analyst = se.analyst(se.items, se.merchants)
-​
-    # sales_analyst.merch_item_creation(sales_analyst.items, sales_analyst.merchants)
-​
+
     expect(sales_analyst).to be_a(SalesAnalyst)
   end
 end

@@ -1,4 +1,5 @@
 class SalesAnalyst
+<<<<<<< HEAD
 
   attr_reader :items,
               :merchants
@@ -20,5 +21,8 @@ class SalesAnalyst
         end
       end
     end
+=======
+  def initialize(items, merchants)
+>>>>>>> 0705cc0ff1d05bf152bded540317d0d30835850b
   end
 end
