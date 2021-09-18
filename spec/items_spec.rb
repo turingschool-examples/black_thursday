@@ -82,4 +82,24 @@ describe Item do
       expect(@item1.unit_price_to_dollars).to eq(10.99)
     end
   end
+
+  describe 'update' do
+    it 'updates the item based off given attribute with a value' do
+      @item1.update('name', 'Pen')
+
+      expect(@item1.name).to eq('Pen')
+    end
+
+    it 'updates the item based off given attribute with a value' do
+      @item1.update('description', 'Filled with lead')
+
+      expect(@item1.description).to eq('Filled with lead')
+    end
+
+    it 'updates the item based off given attribute with a value' do
+      @item1.update('unit_price', 9.99)
+
+      expect(@item1.unit_price).to eq(9.99)
+    end
+  end
 end
