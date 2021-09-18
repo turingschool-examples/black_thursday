@@ -5,7 +5,7 @@ require 'bigdecimal/util'
 require 'rspec'
 require 'csv'
 require './lib/merchantrepository'
-require '/lib/merchant'
+require './lib/merchant'
 
 describe SalesEngine do
 
@@ -31,7 +31,8 @@ describe SalesEngine do
     expect(se.merchants).to be_an_instance_of(MerchantRepository)
     expect(se.merchants.all[0]).to be_a(Merchant)
     expect(mr.find_by_id(12334135).name).to eq("GoldenRayPress")
-    
+  end
+
   it "can create an array of items from csv input" do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -39,9 +40,8 @@ describe SalesEngine do
     })
 
     ir = se.items
-     
-    expect(se.items.find_by_id(263395721)).to be_an_instance_of(Item)
-    expect(se.items.all.length).to eq(1367)
-   end
-  end    
 
+    expect(ir.find_by_id(263395721)).to be_an_instance_of(Item)
+    expect(ir.all.length).to eq(1367)
+   end
+end
