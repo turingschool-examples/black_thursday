@@ -4,6 +4,7 @@ require './lib/merchant'
 require './lib/merchants_repository'
 require './lib/items'
 require './lib/item_repository'
+require './lib/sales_analyst'
 require 'csv'
 
 describe SalesEngine do
@@ -42,4 +43,16 @@ describe SalesEngine do
     end
   end
 
+  describe '#analyst' do
+    it 'creates a new instance of SalesAnalyst' do
+      se = SalesEngine.new(
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+        )
+
+      analyst = se.analyst(se.items, se.merchants)
+
+      expect(analyst).to be_a(SalesAnalyst)
+    end
+  end
 end
