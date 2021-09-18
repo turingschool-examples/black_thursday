@@ -38,6 +38,28 @@ describe CustomerRepository do
     it 'can return all customers with given first name' do
       expect(@c.find_all_by_first_name('Joey')).to include(@c.all[0])
       expect(@c.find_all_by_first_name('Joey')).to be_a Array
+      expect(@c.find_all_by_first_name('Gwenifer')).to be_a Array
+    end
+  end
+
+  describe '#find_all_by_last_name' do
+    it 'can return all customers with given last name' do
+      expect(@c.find_all_by_first_name('Kris')).to include(@c.all[11])
+      expect(@c.find_all_by_first_name('Kris')).to be_a Array
+      expect(@c.find_all_by_first_name('Maaaaaaar')).to be_a Array
+    end
+  end
+
+  describe '#create' do
+    it 'creates a customer with given attributes' do
+      first_name = "Georgamin-Keanu"
+      last_name = "McSabertoothson III"
+      @c.create(first_name, last_name)
+
+      expect(@c.all.last).to be_a Customer
+      expect(@c.all.last.first_name).to eq("Georgamin-Keanu")
+      expect(@c.all.last.last_name).to eq("McSabertoothson III")
+      expect(@c.all.customer_id.last).to eq(1001)
     end
   end
 end
