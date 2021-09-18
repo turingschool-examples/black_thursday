@@ -9,7 +9,7 @@ describe SalesAnalyst do
       merchants: './data/merchants.csv',
       invoices: './data/invoices.csv'
     })
-    @sa = SalesAnalyst.new(@se.items, @se.merchants, @se.invoices)
+    @sa = @se.analyst
   end
 
   it '#average_item_per_merchant' do
@@ -49,5 +49,43 @@ describe SalesAnalyst do
     expect(good_items).to be_a(Array)
     expect(good_items.empty?).to be(false)
     expect(good_items.length).to eq 5
+  end
+
+  it '#average_invoices_per_merchant' do
+    expect(@sa.average_invoices_per_merchant).to eq 10.49
+  end
+
+  it '#average_invoices_per_merchant_standard_deviation' do
+    expect(@sa.average_invoices_per_merchant_standard_deviation).to eq 3.29
+  end
+
+  it '#top_merchants_by_invoice_count' do
+    top_merchants = @sa.top_merchants_by_invoice_count
+
+    expect(top_merchants).to be_a Array
+    expect(top_merchants.empty?).to be false
+    expect(top_merchants.length).to eq 12
+  end
+
+  it '#bottom_merchants_by_invoice_count' do
+    bottom_merchants = @sa.bottom_merchants_by_invoice_count
+
+    expect(bottom_merchants).to be_a Array
+    expect(bottom_merchants.empty?).to be false
+    expect(bottom_merchants.length).to eq 4
+  end
+
+  it '#top_days_by_invoice_count' do
+    days = @sa.top_days_by_invoice_count
+
+    expect(days).to be_a Array
+    expect(days.empty?).to be false
+    expect(days).to eq ["Wednesday"]
+  end
+
+  it 'invoice_status' do
+    expect(@sa.invoice_status(:pending)).to eq 29.55
+    expect(@sa.invoice_status(:shipped)).to eq 56.95
+    expect(@sa.invoice_status(:returned)).to eq 13.5
   end
 end
