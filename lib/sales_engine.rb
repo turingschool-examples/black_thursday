@@ -3,21 +3,26 @@ require_relative './item_repository'
 require_relative './merchant_repository'
 require_relative './items'
 require_relative './merchants'
+require_relative './invoice_repo'
+require_relative './invoices'
 
 class SalesEngine
   attr_accessor :items,
-                :merchants
+                :merchants,
+                :invoices
 
   def self.from_csv(paths)
     data = {}
     data[:items]     = create_obj_csv(paths[:items], Items)
     data[:merchants] = create_obj_csv(paths[:merchants], Merchants)
+    # data[:invoices]  = create_obj_csv(paths[:invoices], Invoices)
     SalesEngine.new(data)
   end
 
   def initialize(data)
     @items     = ItemRepository.new(data[:items])
     @merchants = MerchantRepository.new(data[:merchants])
+    # @invoices  = InvoiceRepository.new(data[:invoices])
   end
 
   def self.create_obj_csv(locations, obj_type)
