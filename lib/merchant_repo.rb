@@ -49,8 +49,16 @@ class MerchantRepo
 
 
   def create(attributes)
-    all << Merchant.new({id: find_highest_id + 1, name: attributes[:name]})
-  end
+    id = find_highest_id + 1
+    current_time = Time.now.strftime("%F")
+    attributes = {
+      id: id.to_s,
+      name: attributes[:name],
+      created_at: current_time,
+      updated_at: current_time
+    }
+    @all << Merchant.new(attributes)
+    end
 
   def update(id, attributes)
     find_by_id(id).change_name(attributes[:name])
