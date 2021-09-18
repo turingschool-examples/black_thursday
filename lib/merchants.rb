@@ -1,7 +1,7 @@
 require 'csv'
 require_relative './sales_engine'
 
-class Merchants
+class Merchant
   attr_reader   :id
   attr_accessor :name,
                 :created_at,

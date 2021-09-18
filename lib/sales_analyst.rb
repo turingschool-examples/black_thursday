@@ -30,6 +30,14 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    test = []
+    @merchants.all.each do |merchant|
+      if
+        @items.find_all_by_merchant_id(merchant.id).length > (average_items_per_merchant_standard_deviation * 2)
+        test << merchant
+      end
+    end
+    test
   end
 
   def average_item_price_for_merchant(id)
