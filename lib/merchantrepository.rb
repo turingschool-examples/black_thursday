@@ -1,80 +1,61 @@
 require 'csv'
 require './lib/merchant'
-# require './data/merchants'
-# require './data/sample.csv'
 
 class MerchantRepository
-  # attr_reader :id,
-  #             :name,
-  #             :created_at,
-  #             :updated_at
-  @@filename = './data/sample.csv'
-  @rows = CSV.table(@@filename, headers: true).by_row
+  attr_reader :all
 
-  def initialize
-    # (info)
-    # @id         = info[:id]
-    # @name       = info[:name]
-    # @created_at = info[:created_at]
-    # @updated_at = info[:updated_at]
+  def initialize(all)
+    @all = all
   end
 
-  def self.all
-    csv_2_array = @rows.map do |row|
-      row.to_hash
-    end
-    csv_2_array
-  end
-
-  def self.find_by_id(id)
-    array_of_merchants = self.all
-    array_of_merchants.find do |merchant|
-      merchant[:id] == id
+  def find_by_id(id)
+    @all.find do |merchant|
+      merchant.id == id
     end
   end
 
-  def self.find_by_name(name)
+  def find_by_name(name)
     name_1 = name.upcase
-    array_of_merchants = self.all
 
-    array_of_merchants.find_all do |merchant|
-      merchant.values[1].upcase!
-      merchant[:name] == name_1
+    @all.find do |merchant|
+
+      merchant.name.upcase!
+      merchant.name == name_1
     end
   end
 
-  def self.find_all_by_name(name)
+  def find_all_by_name(name)
     name_1 = name.upcase
-    array_of_merchants = self.all
 
-    array_of_merchants.find_all do |merchant|
-      merchant.values[1].upcase!
-      merchant[:name].include?(name_1)
+    @all.find_all do |merchant|
+      merchant.name.upcase!
+      merchant.name.include?(name_1)
     end
   end
 
-  def self.create(name, created_at, updated_at)
-    array_of_merchants = self.all
+  def create(name, created_at, updated_at)
 
-    last_id = array_of_merchants.last[:id]
+    last_id = @all.last.id
     new_id = last_id += 1
     new_biz = [new_id, name, created_at, updated_at]
 
-    CSV.open(@@filename, "a+") do |csv|
-      csv << new_biz
+    # CSV.open('./data/merchants.csv', "a+") do |csv|
+    #   csv << new_biz
+    # end
+  end
+
+  def update(id, attributes)
+
+     @all.find do |merchant|
+      merchant.id == id
+        merchant.name = attributes
+      attributes
     end
   end
 
-  def self.update(id, attributes)
-    object = self.find_by_id(id)
-    object[:name] = attributes
-    object
-  end
-
-  def self.delete(id)
-    #object = self.find_by_id(id)
-    @rows.delete_if do |row|
-      row[:id] == id
+  def delete(id)
+    @all.delete_if do |row|
+      row.id == id
     end
   end
 end
