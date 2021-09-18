@@ -17,7 +17,7 @@ describe Transaction do
       :created_at => Time.now,
       :updated_at => Time.now
     }
-    @t = Transaction.new(transaction_info)
+    @t = Transaction.new(@transaction_info)
   end
 
   it 'is an instance of Transaction' do
@@ -62,6 +62,7 @@ describe Transaction do
 
   describe '#updated_at' do
     it 'returns the time that the transaction was last updated' do
-      expect(@t.created_at).to eq(@transaction_info[:updated_at])
+      expect(@t.updated_at).to eq(@transaction_info[:updated_at])
     end
   end
+end
