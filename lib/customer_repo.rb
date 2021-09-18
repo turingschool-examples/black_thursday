@@ -30,4 +30,35 @@ class CustomerRepo
       customer.id == id
     end
   end
+
+  def find_all_by_first_name(first_name)
+    @all.find_all do |customer|
+      customer.first_name == first_name
+    end
+  end
+
+  def find_all_by_last_name(last_name)
+    @all.find_all do |customer|
+      customer.last_name == last_name
+    end
+  end
+
+  def find_highest_id
+    max = all.max_by do |customer|
+      customer.id
+    end
+    max.id
+  end
+
+  def create(attributes)
+    id = find_highest_id + 1
+    info = {
+      id: id,
+      first_name: attributes[:first_name],
+      last_name: attributes[:last_name],
+      created_at: attributes[:created_at].to_s,
+      updated_at: attributes[:updated_at].to_s
+      }
+    @all << Customer.new(info)
+  end
 end

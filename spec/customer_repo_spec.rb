@@ -28,4 +28,29 @@ describe CustomerRepo do
     expect(@cr.find_by_id(850).first_name).to eq "Shane"
     expect(@cr.find_by_id(-1)).to eq nil
   end
+
+  it '#find_all_by_first_name' do
+    expect(@cr.find_all_by_first_name("Shane").length).to eq 2
+    expect(@cr.find_all_by_first_name("Shane")).to be_a Array
+  end
+
+  it '#find_all_by_last_name' do
+    expect(@cr.find_all_by_last_name("Purdy").length).to eq 5
+    expect(@cr.find_all_by_last_name("Purdy")).to be_a Array
+  end
+
+  it '#create' do
+    @cr.create({
+      first_name: "Gregory",
+      last_name: "Fischer",
+      created_at: Time.now.utc,
+      updated_at: Time.now.utc
+      })
+
+    expect(@cr.find_all_by_first_name("Gregory").length).to eq 2
+  end
+
+  it '#update' do
+
+  end 
 end
