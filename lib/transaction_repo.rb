@@ -52,12 +52,12 @@ class TransactionRepo
     id = find_highest_id + 1
     attributes = {
               id: id.to_s,
-         item_id: attributes[:item_id],
-      invoice_id: attributes[:invoice_id],
-        quantity: attributes[:quantity],
-      unit_price: attributes[:unit_price],
-      created_at: attributes[:created_at].to_s,
-      updated_at: attributes[:updated_at].to_s
+              invoice_id: attributes[:invoice_id],
+              credit_card_number: attributes[:credit_card_number],
+              credit_card_expiration_date: attributes[:credit_card_expiration_date],
+              result: attributes[:result],
+              created_at: attributes[:created_at].to_s,
+              updated_at: attributes[:updated_at].to_s
     }
     @all << Transaction.new(attributes)
     end
