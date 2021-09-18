@@ -20,4 +20,11 @@ class InvoiceItem
   def unit_price_to_dollars
     unit_price.to_f
   end
+
+  def update(quantity, unit_price)
+    @updated_at = Time.now
+    @quantity = quantity
+    @unit_price = unit_price
+    self
+  end
 end
