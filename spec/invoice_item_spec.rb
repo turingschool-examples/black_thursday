@@ -66,4 +66,10 @@ describe InvoiceItem do
       expect(@inv_item.updated_at).to eq(@ii_hash[:updated_at])
     end
   end
+
+  describe '#unit_price_to_dollars' do
+    it 'returns the price of the item in a float' do
+      expect(@inv_item.unit_price_to_dollars).to eq(10.99)
+    end
+  end
 end
