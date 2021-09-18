@@ -1,3 +1,7 @@
+# frozen_string_literal:true
+
+# This is an Invoice class for Black Friday 
+
 class Invoice
   attr_reader :id,
               :customer_id,
