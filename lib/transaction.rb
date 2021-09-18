@@ -19,4 +19,19 @@ class Transaction
     @credit_card_expiration_date = info[:credit_card_expiration_date]
     @result                      = info[:result]
   end
-end 
+
+  def change_credit_card_number(credit_card_number)
+    @credit_card_number = credit_card_number
+    @updated_at = Time.now.utc
+  end
+
+  def change_credit_card_expiration_date(credit_card_expiration_date)
+    @credit_card_expiration_date = credit_card_expiration_date
+    @updated_at = Time.now.utc
+  end
+
+  def change_status(status)
+    @status = status
+    @updated_at = Time.now.utc
+  end
+end
