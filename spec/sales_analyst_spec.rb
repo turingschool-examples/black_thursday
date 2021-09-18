@@ -1,5 +1,7 @@
 require 'rspec'
 require 'csv'
+require 'SimpleCov'
+require 'BigDecimal'
 require './lib/sales_engine'
 require './lib/merchant'
 require './lib/merchants_repository'
@@ -66,6 +68,18 @@ describe SalesAnalyst do
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.merchants_with_high_item_count).to be_an(Array)
+    end
+  end
+
+  describe '#average_item_price_for_merchant' do
+    it 'returns the average price of items for a particular merchant' do
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
+      sales_analyst = se.analyst(se.items, se.merchants)
+
+      expect(sales_analyst.average_item_price_for_merchant(12334159)).to be_a(BigDecimal)
     end
   end
 
