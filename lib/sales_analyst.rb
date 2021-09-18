@@ -162,4 +162,14 @@ class SalesAnalyst
     
     high_days.keys
   end
+
+  def invoice_status(status)
+    status_count = Hash.new(0)
+
+    @invoices.all.each do | invoice |
+      status_count[invoice.status.to_sym] += 1
+    end
+    
+    ((100.0  * status_count[status]) / @invoices.all.length).round(2)
+  end
 end

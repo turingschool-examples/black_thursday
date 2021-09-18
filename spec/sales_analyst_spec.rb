@@ -82,4 +82,10 @@ describe SalesAnalyst do
     expect(days.empty?).to be false
     expect(days).to eq ["Wednesday"]
   end
+
+  it 'invoice_status' do
+    expect(@sa.invoice_status(:pending)).to eq 29.55
+    expect(@sa.invoice_status(:shipped)).to eq 56.95
+    expect(@sa.invoice_status(:returned)).to eq 13.5
+  end
 end
