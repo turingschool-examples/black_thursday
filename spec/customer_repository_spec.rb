@@ -30,6 +30,14 @@ describe CustomerRepository do
   describe '#find_by_id' do
     it 'can find customer by given id' do
       expect(@c.find_by_id(3)).to eq(@c.all[2])
+      expect(@c.find_by_id(334_456)).to be nil
+    end
+  end
+
+  describe '#find_all_by_first_name' do
+    it 'can return all customers with given first name' do
+      expect(@c.find_all_by_first_name('Joey')).to include(@c.all[0])
+      expect(@c.find_all_by_first_name('Joey')).to be_a Array
     end
   end
 end
