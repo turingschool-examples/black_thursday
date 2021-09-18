@@ -13,10 +13,10 @@ class Customer
     @updated_at = customer[:updated_at]
   end
 
-  def update(new_first, new_last)
-    @first_name = new_first
-    @last_name = new_last
+  def update(attribute)
+    @first_name = attribute.split(' ').first
+    @last_name = attribute.split(' ').last
     @updated_at = Time.now
     self
-  end 
+  end
 end
