@@ -140,8 +140,8 @@ class SalesAnalyst
     end
     
     #finding the mean
-    sum = days.values.sum do | day |
-      day
+    sum = days.values.sum do | day_count |
+      day_count
     end
 
     mean = sum / 7.0
