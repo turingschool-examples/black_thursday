@@ -1,4 +1,4 @@
-class CustomerRepository
+  class CustomerRepository
   attr_reader :all
 
   def initialize(customer_data)
