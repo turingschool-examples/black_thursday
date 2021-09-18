@@ -31,7 +31,7 @@ describe InvoiceRepo do
 
   it "#find_all_by_status" do
     expect(@invoice_repo.find_all_by_status('burned to a crisp')).to eq([])
-    expect(@invoice_repo.find_all_by_status('pending').length).to eq(1473)
+    expect(@invoice_repo.find_all_by_status(:pending).length).to eq(1473)
   end
 
   it "#create(attributes)" do
