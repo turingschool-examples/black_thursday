@@ -55,16 +55,16 @@ describe TransactionRepo do
     expect(@tr.find_by_id(4986).credit_card_number).to eq("4242424242424242")
   end
 
-  xit "#update" do
+  it "#update" do
     info =  {
-          id: '1',
-     item_id: '263519844',
-  invoice_id: '1',
-    quantity: '5',
-  unit_price: '13635',
-  created_at: Time.now.utc,
-  updated_at: Time.now.utc
-            }
+              :id => "4986",
+              :invoice_id => "8",
+              :credit_card_number => "4242424242424242",
+              :credit_card_expiration_date => "0220",
+              :result => "success",
+              :created_at => Time.now.utc,
+              :updated_at => Time.now.utc
+              }
 
     @tr.create(info)
     attributes = {
