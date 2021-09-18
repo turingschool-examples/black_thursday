@@ -10,7 +10,7 @@ require './lib/customer'
 
 describe CustomerRepository do
   before(:each) do
-    @c = CustomerRepository.new('./data/customer.csv')
+    @c = CustomerRepository.new('./data/customers.csv')
   end
 
   it 'exists' do
@@ -32,4 +32,4 @@ describe CustomerRepository do
       expect(@c.find_by_id(3)).to eq(@c.all[2])
     end
   end
-end 
+end
