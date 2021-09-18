@@ -37,7 +37,7 @@ class CustomerRepository
   def create(first_name, last_name)
     creation_time = Time.now
     all << Customer.new(
-      id: most_recent_customer.id.to_i + 1,
+      id: most_recent_customer.id.to_i + 2,
       first_name: first_name,
       last_name: last_name,
       created_at: creation_time,
@@ -49,5 +49,7 @@ class CustomerRepository
     all.max { |cust1, cust2| cust1.id <=> cust2.id }
   end
 
-
+  def update(id, attribute)
+    find_by_id(id).update(attribute)
+  end
 end
