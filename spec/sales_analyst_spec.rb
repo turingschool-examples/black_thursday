@@ -40,10 +40,10 @@ describe SalesAnalyst do
         :merchants => './data/merchants.csv'
         })
       sales_analyst = se.analyst(se.items, se.merchants)
-
-      num_merchants = sales_analyst.merchants.length
-      num_items = sales_analyst.items.length
-      expected = num_items / num_merchants
+      require 'pry'; binding.pry
+      num_merchants = sales_analyst.merchants.length.to_f
+      num_items = sales_analyst.items.length.to_f
+      expected = (num_items / num_merchants).round(2)
 
       expect(sales_analyst.average_items_per_merchant).to eq(expected)
     end
