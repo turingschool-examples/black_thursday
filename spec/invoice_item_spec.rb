@@ -31,6 +31,6 @@ describe InvoiceItem do
   end
 
   it '#unit_price_to_dollars' do
-
+    expect(@ii.unit_price_to_dollars).to eq (136.35)
   end
 end
