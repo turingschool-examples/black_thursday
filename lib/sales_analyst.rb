@@ -4,21 +4,8 @@ class SalesAnalyst
               :merchants
 
   def initialize(items, merchants)
-    @merchants = merchants
     @items = items
+    @merchants = merchants
   end
 
-  def merch_item_creation(items, merchants)
-    return_hash = {}
-    merchants.all.each do |merchant|
-    items.all.each do |item|
-      if merchant.id == item.merchant.id
-        if return_hash[merchant].nil?
-          return_hash[merchant.name] = [item]
-        else
-          return_hash[merchant.name] += [item]
-        end
-      end
-    end
-  end
 end
