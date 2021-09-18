@@ -7,7 +7,6 @@ class ItemRepository
 
   def initialize(data)
     @items = data
-    # require "pry"; binding.pry
   end
 
   def all
@@ -46,11 +45,10 @@ class ItemRepository
 
   def find_all_by_price(price)
    @items.find_all do |item|
-       #BigDecimal(item.unit_price) == BigDecimal(price)
-       if item.unit_price == price
-         item
+     if item.unit_price == price
+       item
      end
-    end
+   end
   end
 
   def find_all_by_price_in_range(range)
@@ -82,21 +80,26 @@ class ItemRepository
                         name: attributes[:name],
                         description: attributes[:description],
                         unit_price: attributes[:unit_price],
-                        updated_at: attributes[:updated_at],
-                        created_at: attributes[:created_at],
+                        updated_at: Time.now.strftime('%Y-%m-%d'),
+                        created_at: Time.now.strftime('%Y-%m-%d'),
                         merchant_id: attributes[:merchant_id]})
     @items << new_item
   end
 
   def update(id, attributes)
-    # update = find_by_id(id)
-    # update = {name: attributes[:name],
-    #                   description: attributes[:description],
-    #                   unit_price: attributes[:unit_price],
-    #                   updated_at: Time.now.strftime('%Y-%m-%d')}
-    # # update the item instance with id and provided attributes
-    # # items name description and unitprice can be updated
-    # # updated_at = time.now?
+    update = find_by_id(id)
+    new = {id: update.id,
+                         name: update.name,
+                         description: update.description,
+                         unit_price: update.unit_price,
+                         updated_at: Time.now.strftime('%Y-%m-%d'),
+                         created_at: update.created_at,
+                         merchant_id: update.merchant_id}
+    # require "pry"; binding.pry
+    new[attributes.keys.first] = attributes.values.first
+    # update the item instance with id and provided attributes
+    # items name description and unitprice can be updated
+    # updated_at = time.now?
   end
 
   def delete(id)
