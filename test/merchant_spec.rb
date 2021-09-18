@@ -1,7 +1,6 @@
 require 'rspec'
 require 'csv'
 require './lib/merchant'
-# require './lib/sales_engine'
 
 RSpec.describe 'Merchant' do
   it "exists" do

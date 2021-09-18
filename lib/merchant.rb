@@ -1,7 +1,7 @@
-# require './merchantrepository'
 require 'csv'
+
 class Merchant
-  attr_reader :id,
+  attr_accessor :id,
               :name,
               :created_at,
               :updated_at
