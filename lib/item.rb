@@ -1,10 +1,12 @@
 require 'csv'
 require 'pry'
+require 'bigdecimal'
 
 class Item
   attr_reader :id,
               :name,
               :description,
+              :unit_price,
               :created_at,
               :updated_at,
               :merchant_id
@@ -20,6 +22,6 @@ class Item
   end
 
   def unit_price_to_dollars
-   @unit_price.to_f.to_s.prepend("$") 
+   @unit_price.to_f.to_s.prepend("$")
  end
 end
