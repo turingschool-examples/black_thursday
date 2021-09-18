@@ -1,37 +1,53 @@
 require 'csv'
-require 'pry'
-require './lib/item'
 require './lib/sales_engine'
+require './lib/item'
 
 class ItemRepository
-  def initialize
-  end
-end
-  # attr_reader :items
-  #
-  # def initialize(data)
-  #
-  #   @items = []
-  #   #   (all_item_data = []
-  #   #     CSV.foreach("./data/items.csv", headers: true) do |row|
-  #   #     all_item_data << row.to_hash
-  #   #   end
-  #   #   all_item_data)
-  # end
+  attr_reader :all
 
-  # def all
-  #   @items
-  # end
-  #
-  # def create_item_objects
-  #   @items.map do |item|
-  #     Item.new(item)
-  #   end
-  # end
-  #
-  # #find_by_name incomplete
-  # def find_by_name(item_name)
-  #   @items.find do|item|
-  #     item == item_name
-  #   end
-  # end
+  def initialize(item_path)
+    @all = (
+      item_objects = []
+      CSV.foreach(item_path, headers: true, header_converters: :symbol) do |row|
+        item_objects << Item.new(row)
+      end
+    item_objects)
+
+  end
+
+  def find_by_id(id)
+    if (@all.any? do |item|
+      item.id == id
+    end) == true
+      @all.find do |item|
+        item.id == id
+      end
+    else
+      nil
+    end
+  end
+
+  def find_by_name(name)
+    if (@all.any? do |item|
+      item.name == name
+    end) == true
+      @all.find do |item|
+        item.name == name
+      end
+    else
+      nil
+    end
+  end
+
+  def find_all_with_description(description)
+    if (@all.any? do |item|
+      item.description == description
+    end) == true
+      @all.find do |item|
+        item.description == description
+      end
+    else
+      []
+    end
+  end 
+end
