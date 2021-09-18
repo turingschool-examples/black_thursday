@@ -34,10 +34,20 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     sum_diff_squared = 0
-    merch_item_hash.each do |k,v|
-      sum_diff_squared += (v.length - average_items_per_merchant) ** 2
+    @merch_item_hash.each do |merchant,items|
+      sum_diff_squared += (items.length - average_items_per_merchant) ** 2
     end
     ((sum_diff_squared / @merchants.length.to_f) ** 0.5).round(2)
+  end
+
+  def merchants_with_high_item_count
+    return_array = []
+    @merch_item_hash.each do |merchant,items|
+      if items.length >= average_items_per_merchant_standard_deviation
+        return_array.push(merchant)
+      end
+    end
+    return_array
   end
 
 end
