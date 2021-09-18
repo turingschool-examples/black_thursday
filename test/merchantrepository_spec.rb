@@ -14,7 +14,6 @@ RSpec.describe 'MerchantRepository' do
     mr = se.merchants
 
     expect(mr).to be_a(MerchantRepository)
-    # require "pry"; binding.pry
     expect(mr.find_by_id(12334146).id).to eq(12334146)
     expect(mr.find_by_id(12334146).name).to eq("MotankiDarena")
   end
