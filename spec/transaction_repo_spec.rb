@@ -29,35 +29,30 @@ describe TransactionRepo do
     expect(@tr.find_by_id(30000)).to eq nil
   end
 
-  xit "#find_all_by_item_id" do
-    expect(@tr.find_all_by_item_id(-1)).to eq []
-    expect(@tr.find_all_by_item_id(263519844).length).to eq(164)
-  end
 
-  xit "#find_all_by_invoice_id" do
+  it "#find_all_by_invoice_id" do
     expect(@tr.find_all_by_invoice_id(-1)).to eq([])
-    expect(@tr.find_all_by_invoice_id(1).length).to eq(8)
+    expect(@tr.find_all_by_invoice_id(4208).length).to eq(3)
   end
 
-  xit "#find_highest_id" do
+  it "#find_highest_id" do
     expect(@tr.find_highest_id).to be_a Integer
-    expect(@tr.find_highest_id).to be > 21829
+    expect(@tr.find_highest_id).to be > 4984
   end
 
-  xit "#create" do
+  it "#create" do
     attributes = {
-              id: '1',
-         item_id: '263519844',
-      invoice_id: '1',
-        quantity: '5',
-      unit_price: '13635',
-      created_at: Time.now.utc,
-      updated_at: Time.now.utc
-    }
-
+                  :id => "4986",
+                  :invoice_id => "8",
+                  :credit_card_number => "4242424242424242",
+                  :credit_card_expiration_date => "0220",
+                  :result => "success",
+                  :created_at => Time.now.utc,
+                  :updated_at => Time.now.utc
+                  }
     @tr.create(attributes)
 
-    expect(@tr.find_by_id(21831).quantity).to eq(5)
+    expect(@tr.find_by_id(4986).credit_card_number).to eq("4242424242424242")
   end
 
   xit "#update" do
