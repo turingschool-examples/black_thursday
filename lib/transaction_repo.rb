@@ -51,21 +51,22 @@ class TransactionRepo
   def create(attributes)
     id = find_highest_id + 1
     attributes = {
-              id: id.to_s,
-              invoice_id: attributes[:invoice_id],
-              credit_card_number: attributes[:credit_card_number],
-              credit_card_expiration_date: attributes[:credit_card_expiration_date],
-              result: attributes[:result],
-              created_at: attributes[:created_at].to_s,
-              updated_at: attributes[:updated_at].to_s
-    }
+                  id: id.to_s,
+                  invoice_id: attributes[:invoice_id],
+                  credit_card_number: attributes[:credit_card_number],
+                  credit_card_expiration_date: attributes[:credit_card_expiration_date],
+                  result: attributes[:result],
+                  created_at: attributes[:created_at].to_s,
+                  updated_at: attributes[:updated_at].to_s
+                 }
     @all << Transaction.new(attributes)
     end
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    transaction.change_quantity(attributes[:quantity])
-    transaction.change_unit_price(attributes[:unit_price])
+    transaction.change_credit_card_number(attributes[:credit_card_number])
+    transaction.change_credit_card_expiration_date(attributes[:credit_card_expiration_date])
+    transaction.change_result(attributes[:result])
   end
 
   def delete(id)
