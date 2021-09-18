@@ -44,4 +44,13 @@ RSpec.describe ItemRepository do
     expect(item_repository.find_all_with_description(example_item.description)).to eq example_item
     expect(item_repository.find_all_with_description("Item Repellat Dolorum")).to eq([])
   end
+
+  it 'can find all by price' do
+    items_path = './data/items.csv'
+    item_repository = ItemRepository.new(items_path)
+    example_item = item_repository.all[25]
+
+    expect(item_repository.find_all_by_price(example_item.unit_price)).to eq example_item
+    expect(item_repository.find_all_by_price("Item Repellat Dolorum")).to eq([])
+  end
 end
