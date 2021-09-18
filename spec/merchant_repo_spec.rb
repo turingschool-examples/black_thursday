@@ -61,15 +61,15 @@ RSpec.describe 'MerchantRepository' do
                 'this test',
                 014-10-02,
                 014-10-02]
-    Merchants.new(expected)
-    expect(@engine.merchants.find_by_id(111666111)).to be_a(Merchants)
+    Merchant.new(expected)
+    expect(@engine.merchants.find_by_id(111666111)).to be_a(Merchant)
   end
 
   xit '#updates merchant instance by id with new attributes' do
   end
 
   it '#delete can delete an instance of merchant by id' do
-    expected = Merchants.new([111666111,
+    expected = Merchant.new([111666111,
                   'this test',
                   Time.now.strftime('%Y-%m-%d'),
                   Time.now.strftime('%Y-%m-%d')])
