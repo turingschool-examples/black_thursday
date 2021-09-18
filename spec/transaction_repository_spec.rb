@@ -43,7 +43,7 @@ RSpec.describe TransactionRepository do
       result = 'failed'
 
       expect(@tr.find_all_by_result(result)).to be_an Array
-      expect(@tr.find_all_by_result(Symbol).first).to be_a Symbol
+
     end
 
     it '#create' do
