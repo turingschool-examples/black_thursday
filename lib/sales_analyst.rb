@@ -59,4 +59,11 @@ class SalesAnalyst
       item.unit_price > ((sd * 2) + average)
     end
   end
+
+  def average_invoices_per_merchant
+    sum = @merchants.all.sum do | merchant |
+      @invoices.find_all_by_merchant_id(merchant.id).length
+    end
+    (sum.to_f / @merchants.all.length).round(2)
+  end
 end
