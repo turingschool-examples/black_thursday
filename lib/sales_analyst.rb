@@ -19,16 +19,16 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     sum = items_per_merchant.sum do |item_per_merchant|
-      (item_per_merchant - average_item_per_merchant) ** 2 
+      (item_per_merchant - average_items_per_merchant) ** 2 
     end 
     sum /= (@merchants.all.length - 1)
     Math.sqrt(sum).round(2)
   end
 
   def merchants_with_high_item_count 
-    sd = average_item_per_merchant_standard_deviation
+    sd = average_items_per_merchant_standard_deviation
     @merchants.all.find_all do |merchant|
-      @items.find_all_by_merchant_id(merchant.id).length > (sd + average_item_per_merchant)
+      @items.find_all_by_merchant_id(merchant.id).length > (sd + average_items_per_merchant)
     end 
   end 
 
