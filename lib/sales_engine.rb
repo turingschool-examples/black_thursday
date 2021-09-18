@@ -1,7 +1,6 @@
 require 'csv'
+require './lib/merchantrepository'
 require './lib/itemrepository'
-# mr = se.merchants
-# merchant = mr.find_by_name("CJsDecor")
 
 class SalesEngine
 
@@ -17,9 +16,20 @@ class SalesEngine
                       :merchants => "./data/merchants.csv"})
   end
 
-  # def merchants
-  #
-  # end
+  def merchants
+    @rows = CSV.table(@merchants, headers: true).by_row
+    MerchantRepository.new = []
+    MerchantRepository << @rows
+    MerchantRepository
+    # ({
+    #                         id: @id,
+    #                         name: @name,
+    #                         created_at: @created_at,
+    #                         updated_at: @updated_at
+    #                         })
+
+
+  end
   #
   def items
     all = []
