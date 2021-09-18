@@ -56,17 +56,24 @@ RSpec.describe 'MerchantRepository' do
     expect(expected2.first.name).to eq("justMstyle")
   end
 
-  xit '#create a new merchant instance with attributes' do
+  it '#create a new merchant instance with attributes' do
+    results = {name: 'Turing School of Software and Design'}
+    new = @engine.merchants.create(results)
+    expect(new.last.id).to eq(12337412)
+    expect(new.last.name).to eq('Turing School of Software and Design')
   end
 
   xit '#updates merchant instance by id with new attributes' do
+    @engine.merchants.create({name: 'Turing School of Software and Design'})
+    results = {name: 'TSSD'}
+    update = @engine.merchants.update(12337412, results)
+    expect(update.last.id).to eq(12337412)
+    expect(update.last.name).to eq('TSSD')
   end
 
-  xit '#delete can delete an instance of merchant by id' do
-    id = 12335971
-    expected = @engine.merchants.delete(id)
-
-    expect(expected.id).to eq(nil)
-    expect(expected.name).to eq(nil)
+  it '#delete can delete an instance of merchant by id' do
+    @engine.merchants.delete(12337412)
+    expected = @engine.merchants.find_by_id(12337412)
+    expect(expected).to eq nil
   end
 end

@@ -2,7 +2,7 @@ require 'csv'
 require_relative './sales_engine'
 require_relative './merchants'
 
-class MerchantRepository < Merchants
+class MerchantRepository
   def initialize(data)
     @merchants = data
   end
@@ -50,16 +50,18 @@ class MerchantRepository < Merchants
   end
 
   def update(id, attributes)
-    @merchants.find_by_id(id)
-    require "pry"; binding.pry
-     # Time.now.strftime('%Y-%m-%d')
+    @merchants.map do |merchant|
+      if merchant.id == id
+        merchant.name = attributes[:name]
+        merchant.updated_at = Time.now.strftime('%Y-%m-%d')
+      end
+    end
   end
 
   def delete(id)
-    @merchants.select do |merchant|
-      if merchant.id.to_i == id
-        merchant = nil
-      end
+    trash = @merchants.find do |merchant|
+      merchant.id == id
     end
+    @merchants.delete(trash)
   end
 end
