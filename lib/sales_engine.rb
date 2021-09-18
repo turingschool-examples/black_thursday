@@ -1,15 +1,13 @@
 require 'csv'
 require './lib/merchantrepository'
-require './lib/merchant'
-
-
+require './lib/itemrepository'
 
 class SalesEngine
 
   attr_reader :items, :merchants
 
   def initialize(data)
-    @items = data[:items]
+    @items     = data[:items]
     @merchants = data[:merchants]
   end
 
@@ -33,6 +31,14 @@ class SalesEngine
 
   end
   #
-  # def items
-  # end
+  def items
+    all = []
+
+    csv = CSV.read(@items, headers: true, header_converters: :symbol)
+     csv.map do |row|
+       all << Item.new(row)
+    end
+   ItemRepository.new(all)
+
+  end
 end

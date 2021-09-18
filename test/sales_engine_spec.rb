@@ -1,9 +1,12 @@
 require './lib/sales_engine'
+require './lib/item'
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'rspec'
 require 'csv'
 require './lib/merchantrepository'
-# require '/lib/merchant'
-#
+require '/lib/merchant'
+
 describe SalesEngine do
 
   it 'exists' do
@@ -15,24 +18,8 @@ describe SalesEngine do
     expect(se).to be_a(SalesEngine)
   end
 
-  it "adds new instances of merchant repository" do
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
-    # merchant_repository_1 = MerchantRepository.new
-                                                  # ({
-                                                  #   id: 12334135,
-                                                  #   name: "GoldenRayPress",
-                                                  #   created_at: "2011-12-13",
-                                                  #   updated_at: "2012-04-16"
-                                                  # })
-    mr = se.merchants
-    # require "pry"; binding.pry
-    expect(mr).to be_a(MerchantRepository)
-    require "pry"; binding.pry
-    expect(mr.find_by_id(12334135)).to eq({:created_at=>"2011-12-13", :id=>12334135, :name=>"GoldenRayPress", :updated_at=>"2012-04-16"})
-
-
+  it "can create an array of items from csv input" do
+     expect(se.items.find_by_id(263395721)).to be_an_instance_of(Item)
+    expect(se.items.all.length).to eq(1367)
   end
-end
+end 
