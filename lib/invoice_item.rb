@@ -1,3 +1,5 @@
+#this is the Invoice Item class for Black Thursday
+
 class InvoiceItem
   attr_reader :id,
               :item_id,
