@@ -18,6 +18,7 @@ describe MerchantRepo do
 
   it "#find_by_id" do
     expect(@mr.find_by_id(12334105).name).to eq("Shopin1901")
+    expect(@mr.find_by_id(13000000)).to eq(nil)
   end
 
   it "#find_by_name" do
@@ -36,7 +37,7 @@ describe MerchantRepo do
 
   it "#create(attributes)" do
     @mr.create({:name => "John N."})
-    expect(@mr.all.last.name).to eq("John N.")
+    expect(@mr.find_by_id(12337412).name).to eq("John N.")
   end
 
   it "#update(attributes)" do
