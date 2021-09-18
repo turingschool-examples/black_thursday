@@ -64,4 +64,23 @@ class SalesAnalyst
     BigDecimal(sum_amount/num_items, 2)
   end
 
+  def average_average_item_price_for_merchant
+    sum_price = 0
+    avg_price_array.each { |avg_price| sum_price += avg_price }
+    BigDecimal(sum_price / @merchants.length, 2)
+  end
+
+  def avg_price_array
+    return_array = []
+    @merch_item_hash.each do |merchant, items|
+      total_price = 0
+      item_count = items.length.to_f
+      items.each do |item|
+          total_price += item.unit_price.to_f
+      end
+      return_array.push(total_price / item_count)
+    end
+    return_array
+  end
+
 end
