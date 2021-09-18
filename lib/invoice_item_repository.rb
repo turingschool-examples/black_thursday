@@ -28,4 +28,29 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_id)
     all.find_all { |invoice_item| invoice_item.invoice_id.to_i == invoice_id}
   end
+
+  def create(item_id, invoice_id, quantity, unit_price)
+    creation_time = Time.now
+    all << InvoiceItem.new(
+      id: most_recent_ii.id.to_i + 1,
+      item_id: item_id,
+      invoice_id: invoice_id,
+      quantity: quantity,
+      unit_price: unit_price,
+      created_at: creation_time,
+      updated_at: creation_time
+    )
+  end
+
+  def most_recent_ii
+    all.max_by(&:id)
+  end
+
+  def update(id, attributes)
+    find_by_id(id).update(attributes[0], attributes[1])
+  end
+
+  def delete(id)
+    all.delete(find_by_id(id))
+  end
 end
