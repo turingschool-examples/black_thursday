@@ -57,15 +57,17 @@ describe InvoiceItemRepository do
       unit_price = BigDecimal(20.99, 4)
       @iir.create(item_id, invoice_id, quantity, unit_price)
 
-      expect(@iir.create(item_id, invoice_id, quantity, unit_price)).to
+      expect(@iir.all.last).to be_a InvoiceItem
+      expect(@iir.all.last.quantity).to eq(5)
+
     end
   end
 
   describe '#update' do
     it 'it can update an specific invoice item with given attributes' do
       expect(@iir.update(5, [5, 10.99])).to eq(@iir.all[4])
-      expect(@irr.all[4].quantity).to eq(5)
-      expect(@irr.all[4].unit_price).to eq(10.99)
+      expect(@iir.all[4].quantity).to eq(5)
+      expect(@iir.all[4].unit_price).to eq(10.99)
     end
   end
 
@@ -76,5 +78,5 @@ describe InvoiceItemRepository do
       expect(@iir.delete(7)).to eq(deleted_item)
       expect(@iir.find_by_id(7)).to be nil
     end
-  end 
+  end
 end
