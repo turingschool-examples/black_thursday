@@ -66,4 +66,12 @@ describe SalesAnalyst do
     expect(top_merchants.empty?).to be false
     expect(top_merchants.length).to eq 12
   end
+
+  it '#bottom_merchants_by_invoice_count' do
+    bottom_merchants = @sa.bottom_merchants_by_invoice_count
+
+    expect(bottom_merchants).to be_a Array
+    expect(bottom_merchants.empty?).to be false
+    expect(bottom_merchants.length).to eq 4
+  end
 end

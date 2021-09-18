@@ -97,4 +97,15 @@ class SalesAnalyst
       @invoices.find_all_by_merchant_id(merchant.id).length > (mean + (sd * 2))
     end
   end
+
+  def bottom_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    sd = average_invoices_per_merchant_standard_deviation
+
+    @merchants.all.select do | merchant |
+      @invoices.find_all_by_merchant_id(merchant.id).length < (mean - (sd * 2))
+    end
+  end
+
+  
 end
