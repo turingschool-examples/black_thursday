@@ -29,4 +29,8 @@ describe InvoiceItem do
     expect(@ii.created_at).to be_a Time
     expect(@ii.updated_at).to be_a Time
   end
+
+  it '#unit_price_to_dollars' do
+
+  end
 end
