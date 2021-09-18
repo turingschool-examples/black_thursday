@@ -19,3 +19,4 @@ class Transaction
     @credit_card_expiration_date = info[:credit_card_expiration_date]
     @result                      = info[:result]
   end
+end 
