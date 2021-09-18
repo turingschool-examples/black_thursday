@@ -57,4 +57,16 @@ describe SalesAnalyst do
     end
   end
 
+  describe '#merchants_with_high_item_count' do
+    it 'returns merchants with item counts above 1 standard deviation above mean' do
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
+      sales_analyst = se.analyst(se.items, se.merchants)
+
+      expect(sales_analyst.merchants_with_high_item_count).to be_an(Array)
+    end
+  end
+
 end
