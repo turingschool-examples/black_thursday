@@ -45,8 +45,13 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_merch = Merchants.new([highest_id, attributes[:name],Time.now.strftime('%Y-%m-%d'), Time.now.strftime('%Y-%m-%d')])
-      @merchants << new_merch
+    # require "pry"; binding.pry
+    new_merch = [highest_id,
+                              attributes[:name],
+                              Time.now.strftime('%Y-%m-%d'),
+                              Time.now.strftime('%Y-%m-%d')]
+    new = Merchant .new(new_merch)
+    @merchants << new
   end
 
   def update(id, attributes)

@@ -10,12 +10,12 @@ RSpec.describe 'MerchantRepository' do
                                 merchants: './data/merchants.csv'
                                   })
   end
-  it "#all returns an array of all merchant instances" do
+  it '#all' do
     expected = @engine.merchants.all
     expect(expected.count).to eq 475
   end
 
-  it "#find_by_id finds a merchant by id" do
+  it '#find_by_id' do
     id = 12335971
     expected = @engine.merchants.find_by_id(id)
 
@@ -23,14 +23,14 @@ RSpec.describe 'MerchantRepository' do
     expect(expected.name).to eq('ivegreenleaves')
   end
 
-  it "#find_by_id returns nil if the merchant does not exist" do
+  it '#find_by_id' do
     id = 101
     expected = @engine.merchants.find_by_id(id)
 
     expect(expected).to eq(nil)
   end
 
-  it "#find_by_name finds a merchant by name" do
+  it '#find_by_name' do
     name = 'Teeforbeardedmen'
     expected = @engine.merchants.find_by_name(name)
 
@@ -38,43 +38,53 @@ RSpec.describe 'MerchantRepository' do
     expect(expected.name).to eq(name)
   end
 
-  it '#find_by_name returns nil if the merchant does not exist' do
+  it '#find_by_name' do
     name_2 = 'Teaforbeardedwomen'
     expected = @engine.merchants.find_by_name(name_2)
 
     expect(expected).to eq(nil)
   end
 
-  it '#find_all_by_name returns an array of all merchants with name' do
+  it '#find_all_by_name' do
     name = 'Moon'
     name2 = 'style'
     expected = @engine.merchants.find_all_by_name(name)
     expected2 = @engine.merchants.find_all_by_name(name2)
     expect(expected.count).to eq(3)
     expect(expected2.count).to eq(3)
-    expect(expected.first.name).to eq("IvyMoonCat")
-    expect(expected2.first.name).to eq("justMstyle")
+    expect(expected.first.name).to eq('IvyMoonCat')
+    expect(expected2.first.name).to eq('justMstyle')
   end
 
-  it '#create a new merchant instance with attributes' do
-    expected = [111666111,
-                'this test',
-                014-10-02,
-                014-10-02]
-    Merchant.new(expected)
-    expect(@engine.merchants.find_by_id(111666111)).to be_a(Merchant)
+  it '#highest_id' do
+    expect(@engine.merchants.highest_id).to eq(12337412)
   end
 
-  xit '#updates merchant instance by id with new attributes' do
+  it '#create' do
+    expected = {name: 'this test'}
+    @engine.merchants.create(expected)
+    expect(@engine.merchants.find_by_id(12337412)).to be_a(Merchant)
   end
 
-  it '#delete can delete an instance of merchant by id' do
+  it '#updates' do
+    expected = {name: 'this test'}
+    @engine.merchants.create(expected)
+    attributes = {
+        name: 'this is another test'
+      }
+      expected = @engine.merchants.find_by_id(12337412)
+      @engine.merchants.update(12337412, attributes)
+      expect(expected.name).to eq('this is another test')
+  end
+
+  it '#delete' do
     expected = Merchant.new([111666111,
                   'this test',
                   Time.now.strftime('%Y-%m-%d'),
                   Time.now.strftime('%Y-%m-%d')])
     id = 111666111
     expect(expected.id).to eq(111666111)
+
     expected = @engine.merchants.delete(id)
 
     expect(expected).to eq(nil)
