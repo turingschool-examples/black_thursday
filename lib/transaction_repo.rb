@@ -41,7 +41,7 @@ class TransactionRepo
                   updated_at: attributes[:updated_at].to_s
                  }
     @all << Transaction.new(attributes)
-    end
+  end
 
   def update(id, attributes)
     transaction = find_by_id(id)
