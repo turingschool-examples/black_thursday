@@ -57,20 +57,14 @@ class SalesAnalyst
     (@avgavg.sum / @merchants.all.count).to_d.round(2)
   end
 
-  # def average_item_price
-  #   average = (@items.all.unit_price.sum)/@items.all.count
-  #   require "pry"; binding.pry
-  # end
-
   def item_price_standard_dev
     mean = average_average_price_per_merchant
-    x = @avgavg.sum(0.0) { |element| (element - mean) ** 2 }
-    variance = x / (@items.all.count - 1)
+    sum = @avgavg.sum(0.0) { |element| (element - mean) ** 2 }
+    variance = sum / (@items.all.count - 1)
     standard_deviation = Math.sqrt(variance).round(2)
   end
 
   def golden_items
-    # average_item_price
     expensive_items = []
     @items.all.each do |item|
       if item.unit_price > (item_price_standard_dev * 3)
