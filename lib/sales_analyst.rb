@@ -145,7 +145,6 @@ class SalesAnalyst
     all_transaction.each do |transaction|
       if transaction.result == 'success'
         trans_result = true
-        break
       end
     end
     trans_result
@@ -163,4 +162,19 @@ class SalesAnalyst
     total
   end
 
+#maybe move this to the invoice_item_repo?
+  def find_all_invoice_item_by_date(date)
+    invoice_items.all.find_all |invoice_item|
+      invoice_item.created_at == date
+    end
+  end
+
+  def total_revenue_by_date(date)
+    #need to change this if we move find_all_invoice_item_by_date
+    invoice_items = find_all_invoice_item_by_date(date)
+
+    invoice_items.sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+  end
 end
