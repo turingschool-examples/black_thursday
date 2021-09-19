@@ -67,6 +67,7 @@ describe CustomerRepository do
     it 'updates a specific customer with the provided attributes' do
       expect(@cr.update(5, "Joe Bob")).to eq(@cr.all[4])
       expect(@cr.all[4].first_name).to eq('Joe')
+      expect(@cr.all[4].last_name).to eq('Bob')
     end
-  end 
+  end
 end
