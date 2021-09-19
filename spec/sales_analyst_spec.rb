@@ -95,4 +95,40 @@ describe SalesAnalyst do
     end
   end
 
+  describe "#average_price_all" do
+    it 'calculates the average price of all items' do
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
+      sales_analyst = se.analyst(se.items, se.merchants)
+
+    expect(sales_analyst.average_price_all).to be_a(Float)
+    end
+  end
+
+  describe "#average_price_standard_deviation" do
+    it 'calculates the standard deviation of all items' do
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
+      sales_analyst = se.analyst(se.items, se.merchants)
+
+    expect(sales_analyst.average_price_standard_deviation).to be_a(Float)
+    end
+  end
+
+  describe "#golden_items" do
+    it 'returns an array of items that are more than 2 SD above average price' do
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
+      sales_analyst = se.analyst(se.items, se.merchants)
+
+    expect(sales_analyst.golden_items).to be_a(Array)
+    end
+  end
+
 end
