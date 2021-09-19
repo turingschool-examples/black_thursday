@@ -25,21 +25,21 @@ class SalesAnalyst
     mean = average_items_per_merchant
 
     sum = items_per_merchant.sum do |item_per_merchant|
-      (item_per_merchant - mean) ** 2 
-    end 
+      (item_per_merchant - mean) ** 2
+    end
 
     sum /= (@merchants.all.length - 1)
     Math.sqrt(sum).round(2)
   end
 
-  def merchants_with_high_item_count 
+  def merchants_with_high_item_count
     sd = average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
 
     @merchants.all.find_all do |merchant|
       @items.find_all_by_merchant_id(merchant.id).length > (sd + mean)
-    end 
-  end 
+    end
+  end
 
   def average_item_price_for_merchant(id)
     sum = @items.find_all_by_merchant_id(id).sum do |item|
@@ -84,7 +84,7 @@ class SalesAnalyst
     mean = average_invoices_per_merchant
 
     sum = @merchants.all.sum do | merchant |
-      (@invoices.find_all_by_merchant_id(merchant.id).length - mean) ** 2 
+      (@invoices.find_all_by_merchant_id(merchant.id).length - mean) ** 2
     end
 
     sum /= (@merchants.all.length - 1)
@@ -119,7 +119,7 @@ class SalesAnalyst
       'Friday' => 0,
       'Saturday' => 0
     }
-    
+
     #counting the number of times that each day has orders
     @invoices.all.each do | invoice |
       if invoice.created_at.wday == 0
@@ -138,7 +138,7 @@ class SalesAnalyst
         days['Saturday'] += 1
       end
     end
-    
+
     #finding the mean
     sum = days.values.sum do | day_count |
       day_count
@@ -159,7 +159,7 @@ class SalesAnalyst
     end
 
     high_days.to_h
-    
+
     high_days.keys
   end
 
@@ -171,5 +171,10 @@ class SalesAnalyst
     end
 
     ((100.0  * status_count[status]) / @invoices.all.length).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+
+    
   end
 end

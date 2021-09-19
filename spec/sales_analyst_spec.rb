@@ -88,4 +88,8 @@ describe SalesAnalyst do
     expect(@sa.invoice_status(:shipped)).to eq 56.95
     expect(@sa.invoice_status(:returned)).to eq 13.5
   end
+
+  it 'invoice_paid_in_full' do
+    expect(@sa.invoice_paid_in_full?(2)).to be(true)
+  end
 end
