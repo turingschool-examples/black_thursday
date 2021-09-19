@@ -189,7 +189,7 @@ class SalesAnalyst
   end
 
 def invoice_total(invoice_id)
-  
+
 end
 
 end
