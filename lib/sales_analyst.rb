@@ -187,4 +187,9 @@ class SalesAnalyst
     end
     results.all?(true)
   end
+
+def invoice_total(invoice_id)
+  
+end
+
 end
