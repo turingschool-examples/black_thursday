@@ -2,7 +2,7 @@ require 'bigdecimal/util'
 # frozen_string_literal: true
 require 'time'
 
-class Items
+class Item
   attr_accessor :name,
                 :description,
                 :unit_price,

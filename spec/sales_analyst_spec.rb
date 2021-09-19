@@ -48,11 +48,9 @@ RSpec.describe SalesAnalyst do
   end
 
   it "#golden_items returns items that are two standard deviations above the average price" do
-      expected = @sales_analyst.golden_items
+    expected = @sales_analyst.golden_items
 
-
-      expect(expected.length).to eq 5
-      expect(expected.first.class).to eq Item
+    expect(expected.length).to eq 5
+    expect(expected.first.class).to eq Item
   end
-
 end

@@ -2,6 +2,7 @@ require 'bigdecimal/util'
 # frozen_string_literal: true
 
 # require 'csv'
+require 'bigdecimal/util'
 # require_relative './items'
 # require_relative './merchants'
 # require_relative './sales_engine'
@@ -58,8 +59,11 @@ class SalesAnalyst
   end
 
   def item_price_standard_dev
-    mean = average_average_price_per_merchant
-    sum = @avgavg.sum(0.0) { |element| (element - mean) ** 2 }
+    avg_item_price = @items.all.map do |item|
+      item.unit_price
+    end
+    mean = (avg_item_price.sum / @items.all.count)
+    sum = avg_item_price.sum(0.0) { |element| (element - mean) ** 2 }
     variance = sum / (@items.all.count - 1)
     standard_deviation = Math.sqrt(variance).round(2)
   end
@@ -67,7 +71,7 @@ class SalesAnalyst
   def golden_items
     expensive_items = []
     @items.all.each do |item|
-      if item.unit_price > (item_price_standard_dev * 3)
+      if item.unit_price > (item_price_standard_dev * 2)
         expensive_items << item
       end
     end

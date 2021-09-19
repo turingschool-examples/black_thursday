@@ -72,13 +72,13 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_item = Items.new({ id: highest_id,
-                           name: attributes[:name],
-                           description: attributes[:description],
-                           unit_price: attributes[:unit_price],
-                           updated_at: Time.now.strftime('%Y-%m-%d'),
-                           created_at: Time.now.strftime('%Y-%m-%d'),
-                           merchant_id: attributes[:merchant_id] })
+   new_item = Item.new({id: highest_id,
+                        name: attributes[:name],
+                        description: attributes[:description],
+                        unit_price: attributes[:unit_price],
+                        updated_at: Time.now.strftime('%Y-%m-%d'),
+                        created_at: Time.now.strftime('%Y-%m-%d'),
+                        merchant_id: attributes[:merchant_id]})
     @items << new_item
   end
 
