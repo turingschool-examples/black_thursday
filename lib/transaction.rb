@@ -20,4 +20,12 @@ class Transaction
     @created_at = transaction[:created_at]
     @updated_at = transaction[:updated_at]
   end
+
+  def update(attributes)
+    @last_updated = Time.now
+    @credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+    @credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
+    @result = attributes[:result] unless attributes[:result].nil?
+    self
+  end
 end
