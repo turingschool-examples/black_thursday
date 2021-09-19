@@ -62,4 +62,21 @@ class ItemRepository
       []
     end
   end
+
+  # def find_all_by_price_in_range
+  #
+  # end
+
+  def find_all_by_merchant_id(merchant_id)
+    if (@all.any? do |item|
+      item.merchant_id == merchant_id
+    end) == true
+      @all.find_all do |item|
+      item.merchant_id == merchant_id
+      end
+    else
+      []
+    end
+  end
+
 end
