@@ -1,5 +1,6 @@
 require 'BigDecimal'
 
+
 class SalesAnalyst
 
   attr_reader :items,
@@ -84,13 +85,16 @@ class SalesAnalyst
   end
 
   def average_price_all
-    (items.unit_price).to_f.sum / items.length
+    num_items = @items.length
+    items_price = @items.unit_price.to_f
+    expected = (items_price.sum / num_items)
+    return expected
   end
 
   def average_price_standard_deviation
     sum_diff_squared = 0
     @items.each do |item|
-      sum_diff_squared += (items.length - items.average_price_all) ** 2
+      sum_diff_squared += (items.unit_price - items.average_price_all.to_f) ** 2
     end
 
     ((sum_diff_squared / items.length) ** 0.5).round(2)
@@ -99,7 +103,7 @@ class SalesAnalyst
   def golden_items
     result_array = []
     @items.each do |item|
-      if item.unit_price > (item.average_price_all += (item.average_price_standard_deviation * 2))
+      if item.unit_price.to_f > (item.average_price_all.to_f + (item.average_price_standard_deviation * 2))
         result_array.append(item)
       end
     end
