@@ -177,8 +177,14 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @transactions.all.find_all_by_invoice_id(invoice_id)
-    require "pry"; binding.pry
-
+    results = []
+    @transactions.find_all_by_invoice_id(invoice_id).each do |transaction|
+      if transaction.result == "success"
+        results << true
+      else
+        results << false
+      end
+    end
+    results.all?(true)
   end
 end
