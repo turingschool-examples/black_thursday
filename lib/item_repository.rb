@@ -1,7 +1,10 @@
 require 'csv'
 require_relative '../lib/item'
+require_relative '../lib/repo_module'
+
 
 class ItemRepository
+  include Repo
   attr_reader :all
 
   def initialize(path)
@@ -9,34 +12,11 @@ class ItemRepository
     @all = to_array
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
-  def to_array
-    items = []
-
-    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      headers = row.headers
-      items << row.to_h
-    end
-    items.map do | item |
+  def create_array_of_objects
+    @things.map do | item |
       Item.new(item)
     end
   end
-
-  def find_by_id(id)
-    all.find do |item|
-      item.id == id
-    end
-  end
-
-  def find_by_name(name)
-    all.find do | item |
-      item.name.downcase == name.downcase
-    end
-  end
-
 
   def find_all_with_description(description)
     description.upcase!
@@ -56,19 +36,6 @@ class ItemRepository
     all.select do | item |
       range.first <= item.unit_price && range.last >= item.unit_price
     end
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    all.select do | item |
-      merchant_id == item.merchant_id
-    end
-  end
-
-  def find_highest_id
-    max_item = all.max_by do | item |
-      item.id
-    end
-    max_item.id
   end
 
   def create(attributes)
@@ -94,9 +61,5 @@ class ItemRepository
     elsif attributes[:unit_price] != nil
       find_by_id(id).change_unit_price(attributes[:unit_price])
     end
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
   end
 end

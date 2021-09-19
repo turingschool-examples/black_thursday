@@ -1,8 +1,11 @@
 require "CSV"
 require_relative "../lib/invoice"
 require "Time"
+require_relative '../lib/repo_module'
+
 
 class InvoiceRepo
+  include Repo
   attr_reader :all
 
   def initialize(path)
@@ -10,38 +13,15 @@ class InvoiceRepo
     @all = to_array
   end
 
-  def to_array
-    invoices = []
-
-    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      headers = row.headers
-      invoices << Invoice.new(row.to_h)
+  def create_array_of_objects
+    @things.map do | invoice |
+      Invoice.new(invoice)
     end
-    invoices
-  end
-
-  def find_by_id(id)
-    all.find do |invoice|
-      invoice.id == id
-    end
-  end
-
-  def find_highest_id
-    highest = all.max_by do |invoice|
-      invoice.id
-    end
-    highest.id
   end
 
   def find_all_by_customer_id(customer_id)
     all.select do | invoice |
       customer_id == invoice.customer_id
-    end
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    all.select do | item |
-      merchant_id == item.merchant_id
     end
   end
 
@@ -67,10 +47,6 @@ class InvoiceRepo
 
   def update(id, attributes)
     find_by_id(id).change_status(attributes[:status])
-  end
-
-  def delete(id)
-    all.delete(find_by_id(id))
   end
 
 end
