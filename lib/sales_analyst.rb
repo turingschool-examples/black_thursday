@@ -179,7 +179,7 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id)
     results = []
     @transactions.find_all_by_invoice_id(invoice_id).each do |transaction|
-      if transaction.result == "success"
+      if transaction.result == :success
         results << true
       else
         results << false
@@ -188,11 +188,11 @@ class SalesAnalyst
     results.any?(true)
   end
 
-def invoice_total(invoice_id)
-  @invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
-    if invoice_paid_in_full?(invoice_id)
-      invoice_item.quantity * invoice_item.unit_price
+  def invoice_total(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
+      if invoice_paid_in_full?(invoice_id)
+        invoice_item.quantity * invoice_item.unit_price
+      end
     end
   end
-end
 end
