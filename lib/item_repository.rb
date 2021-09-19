@@ -29,10 +29,10 @@ class ItemRepository
 
   def find_by_name(name)
     if (@all.any? do |item|
-      item.name == name
+      item.name.upcase == name.upcase
     end) == true
       @all.find do |item|
-        item.name == name
+        item.name.upcase == name.upcase
       end
     else
       nil
