@@ -5,7 +5,11 @@ describe SalesEngine do
   before :each do
     @se = SalesEngine.from_csv({
       items: './data/items.csv',
-      merchants: './data/merchants.csv'
+      merchants: './data/merchants.csv',
+      customers: './data/customers.csv',
+      invoices: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      transactions: './data/transactions.csv'
     })
   end
 
