@@ -45,7 +45,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     return_array = []
     @merch_item_hash.each do |merchant,items|
-      if items.length >= average_items_per_merchant_standard_deviation
+      if items.length >= (average_items_per_merchant_standard_deviation + average_items_per_merchant)
         return_array.push(merchant)
       end
     end
@@ -67,7 +67,7 @@ class SalesAnalyst
   def average_average_item_price_for_merchant
     sum_price = 0
     avg_price_array.each { |avg_price| sum_price += avg_price }
-    BigDecimal(sum_price / @merchants.length, 2)
+    BigDecimal(sum_price.to_f / @merchants.length.to_f, 2)
   end
 
   def avg_price_array
@@ -78,7 +78,7 @@ class SalesAnalyst
       items.each do |item|
           total_price += item.unit_price.to_f
       end
-      return_array.push(total_price / item_count)
+      return_array.push(total_price.to_f / item_count.to_f)
     end
     return_array
   end
