@@ -137,4 +137,18 @@ class SalesAnalyst
     total = @invoices.all.length.to_f
     (100.0 * @invoices.find_all_by_status(status).length / total).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    all_transaction = @transactions.find_all_by_invoice_id(invoice_id)
+    trans_result = false
+
+    all_transaction.each do |transaction|
+      if transaction.result == 'success'
+        trans_result = true
+        break
+      end
+    end
+    trans_result
+  end
+
 end
