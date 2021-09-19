@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-class SalesEngine
-
-
-def initialize
-
-end
-def self.from_csv(csv_hash)
-end
-
-=======
 require_relative "../lib/item_repository"
 require_relative "../lib/merchant_repo"
 require_relative "../lib/invoice_repo"
@@ -48,5 +37,4 @@ class SalesEngine
   def analyst
     SalesAnalyst.new(items, merchants, invoices)
   end
->>>>>>> 54383722135aaa5ac8379e0ec48636b533698895
 end

@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/merchant'
+require_relative '../lib/repo_module'
 
 class MerchantRepo
+  include Repo
   attr_reader :all
 
   def initialize(path)
@@ -21,12 +23,12 @@ class MerchantRepo
   end
   merchants
   end
-
-  def find_by_id(id)
-    all.find do |merchant|
-      merchant.id == id
-    end
-  end
+  #
+  # def find_by_id(id)
+  #   all.find do |merchant|
+  #     merchant.id == id
+  #   end
+  # end
 
   def find_by_name(name)
     all.find do |merchant|
