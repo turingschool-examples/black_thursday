@@ -185,7 +185,7 @@ class SalesAnalyst
         results << false
       end
     end
-    results.all?(true)
+    results.any?(true)
   end
 
 def invoice_total(invoice_id)
