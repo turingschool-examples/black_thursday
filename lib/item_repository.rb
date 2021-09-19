@@ -81,7 +81,7 @@ class ItemRepository
   def update(id, attributes)
     update = find_by_id(id)
     if update.nil?
-      exit!
+      nil
     else
       update.updated_at = Time.now
       if attributes.keys.first == :unit_price

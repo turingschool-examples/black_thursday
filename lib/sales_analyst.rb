@@ -1,3 +1,4 @@
+require 'bigdecimal/util'
 # frozen_string_literal: true
 
 # require 'csv'
@@ -19,7 +20,7 @@ class SalesAnalyst
   def items_per_merchant
     @merchants.all.map do |merchant|
       @items.find_all_by_merchant_id(merchant.id).length
-    end  
+    end
   end
 
   def average_items_per_merchant_standard_deviation
@@ -46,14 +47,14 @@ class SalesAnalyst
         items_by_merchant << item.unit_price
       end
     end
-    (items_by_merchant.sum/items_by_merchant.count).round(2)
+    (items_by_merchant.sum/items_by_merchant.count).to_d.round(2)
   end
 
   def average_average_price_per_merchant
     @merchants.all.each do |merchant|
       @avgavg << average_item_price_for_merchant(merchant.id)
     end
-    (@avgavg.sum / @merchants.all.count).round(2)
+    (@avgavg.sum / @merchants.all.count).to_d.round(2)
   end
 
   # def average_item_price
