@@ -95,7 +95,7 @@ describe SalesAnalyst do
   it 'invoice_paid_in_full' do
     expect(@sa.invoice_paid_in_full?(2)).to be(true)
     expect(@sa.invoice_paid_in_full?(10)).to be(true)
-    expect(@sa.invoice_paid_in_full?(79)).to be(false)
+    expect(@sa.invoice_paid_in_full?(203)).to be(false)
   end
 
   it 'invoice_total' do
