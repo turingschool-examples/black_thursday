@@ -189,7 +189,11 @@ class SalesAnalyst
   end
 
 def invoice_total(invoice_id)
-
+  @invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
+    if invoice_paid_in_full?(invoice_id)
+      invoice_item.unit_price_to_dollars
+    end
+  end
 end
 
 end
