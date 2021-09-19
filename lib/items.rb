@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 require 'time'
 
@@ -21,7 +23,7 @@ class Items
   end
 
   def unit_price_to_dollars
-    #unit_price needs to be BigDecimal when it comes in, and converted to float here. Need to update ItemRepo methods when fixed
+    # unit_price needs to be BigDecimal when it comes in, and converted to float here. Need to update ItemRepo methods when fixed
     @unit_price
   end
 end
