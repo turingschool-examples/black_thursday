@@ -41,7 +41,7 @@ RSpec.describe ItemRepository do
     item_repository = ItemRepository.new(items_path)
     example_item = item_repository.all[25]
 
-    expect(item_repository.find_all_with_description(example_item.description)).to eq example_item
+    expect(item_repository.find_all_with_description(example_item.description)).to eq [example_item]
     expect(item_repository.find_all_with_description("Item Repellat Dolorum")).to eq([])
   end
 

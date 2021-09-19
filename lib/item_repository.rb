@@ -43,7 +43,7 @@ class ItemRepository
     if (@all.any? do |item|
       item.description == description
     end) == true
-      @all.find do |item|
+      @all.find_all do |item|
         item.description == description
       end
     else
@@ -55,7 +55,7 @@ class ItemRepository
     if (@all.any? do |item|
       item.unit_price == unit_price
     end) == true
-      @all.find do |item|
+      @all.find_all do |item|
         item.unit_price == unit_price
       end
     else
