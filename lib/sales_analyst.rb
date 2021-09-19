@@ -83,4 +83,25 @@ class SalesAnalyst
     return_array
   end
 
+  def average_price_all
+    (items.unit_price).to_f.sum / items.length
+  end
+
+  def average_price_standard_deviation
+    sum_diff_squared = 0
+    @items.each do |item|
+      sum_diff_squared += (items.length - items.average_price_all) ** 2
+    end
+
+    ((sum_diff_squared / items.length) ** 0.5).round(2)
+  end
+
+  def golden_items
+    result_array = []
+    @items.each do |item|
+      if item.unit_price > (item.average_price_all += (item.average_price_standard_deviation * 2))
+        result_array.append(item)
+      end
+    end
+  end
 end
