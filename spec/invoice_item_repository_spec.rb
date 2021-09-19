@@ -59,7 +59,6 @@ describe InvoiceItemRepository do
 
       expect(@iir.all.last).to be_a InvoiceItem
       expect(@iir.all.last.quantity).to eq(5)
-
     end
   end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This is a CustomerRepository class for Black Friday
+# This is a CustomerRepository class for Black Thursday
 
 class CustomerRepository
   attr_reader :all

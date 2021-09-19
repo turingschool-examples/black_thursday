@@ -9,11 +9,11 @@ require './lib/customer'
 describe Customer do
   before(:each) do
     @customer = {
-                id:          6,
-                first_name:  'Joan',
-                last_name:   'Clarke',
-                created_at:  Time.now,
-                updated_at:  Time.now
+      id:          6,
+      first_name:  'Joan',
+      last_name:   'Clarke',
+      created_at:  Time.now,
+      updated_at:  Time.now
     }
     @c = Customer.new(@customer)
   end
