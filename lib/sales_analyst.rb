@@ -151,4 +151,16 @@ class SalesAnalyst
     trans_result
   end
 
+  def invoice_total(invoice_id)
+    all_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+
+    total = 0
+
+    all_invoice_items.each do |invoice_item|
+      total += (invoice_item.quantity * invoice_item.unit_price)
+    end
+
+    total
+  end
+
 end

@@ -153,5 +153,9 @@ RSpec.describe SalesAnalyst do
       expect(expected2).to be false
     end
 
+    it '#invoice_total' do
+      invoice_total1 = analyst.invoice_total(2).to eq(528913)
+
+    end
   end
 end
