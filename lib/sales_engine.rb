@@ -1,3 +1,4 @@
+require './lib/sales_analyst'
 require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/item'
@@ -7,11 +8,13 @@ require 'pry'
 
 class SalesEngine
   attr_reader :items,
-              :merchants
+              :merchants,
+              :analyst
 
   def initialize(data)
     @items = ItemRepository.new(data[:items])
     @merchants = MerchantRepository.new(data[:merchants])
+    @analyst = SalesAnalyst.new({:items => @items, :merchants => @merchants})
   end
 
 end
