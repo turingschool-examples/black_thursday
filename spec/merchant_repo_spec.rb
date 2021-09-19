@@ -58,6 +58,9 @@ RSpec.describe 'MerchantRepository' do
 
   it '#highest_id' do
     expect(@engine.merchants.highest_id).to eq(12337412)
+    expected = {name: 'this test'}
+    @engine.merchants.create(expected)
+    expect(@engine.merchants.highest_id).to eq(12337413)
   end
 
   it '#create' do

@@ -45,7 +45,6 @@ class MerchantRepository
   end
 
   def create(attributes)
-    # require "pry"; binding.pry
     new_merch = [highest_id,
                               attributes[:name],
                               Time.now.strftime('%Y-%m-%d'),
