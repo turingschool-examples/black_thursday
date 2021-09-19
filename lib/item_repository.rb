@@ -44,11 +44,12 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-   @items.find_all do |item|
-     if item.unit_price == price
+   test = @items.find_all do |item|
+     if item.unit_price_to_dollars == price
        item
      end
    end
+   # require "pry"; binding.pry
   end
 
   def find_all_by_price_in_range(range)
@@ -56,7 +57,7 @@ class ItemRepository
     ranges << range.first
     ranges << range.last
     items_with_price_in_range = @items.find_all do |item|
-      if item.unit_price.between?(ranges[0],ranges[1])
+      if item.unit_price_to_dollars.between?(ranges[0],ranges[1])
         item
       end
     end
@@ -89,7 +90,7 @@ class ItemRepository
   def update(id, attributes)
     update = find_by_id(id)
     if update.nil?
-      exit!
+      nil
     else
       update.updated_at = Time.now
       if attributes.keys.first == :unit_price
