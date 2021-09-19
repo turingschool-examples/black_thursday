@@ -65,4 +65,19 @@ describe Transaction do
       expect(@t.updated_at).to eq(@transaction_info[:updated_at])
     end
   end
+
+  describe '#update' do
+    it 'updates all information based on given input' do
+      attributes = {
+        credit_card_number: 432_123_456_765_432_1,
+        credit_card_expiration_date: 1223,
+        result: "success"
+      }
+      @t.update(attributes)
+
+      expect(@t.credit_card_number).to eq(432_123_456_765_432_1)
+      expect(@t.credit_card_expiration_date).to eq(1223)
+      expect(@t.result).to eq("success")
+    end
+  end
 end
