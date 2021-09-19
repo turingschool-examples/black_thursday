@@ -1,7 +1,7 @@
 require 'bigdecimal/util'
 require 'time'
 
-class Items
+class Item
   attr_accessor :name,
                 :description,
                 :unit_price,

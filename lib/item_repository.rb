@@ -77,7 +77,7 @@ class ItemRepository
   end
 
   def create(attributes)
-   new_item = Items.new({id: highest_id,
+   new_item = Item.new({id: highest_id,
                         name: attributes[:name],
                         description: attributes[:description],
                         unit_price: attributes[:unit_price],
