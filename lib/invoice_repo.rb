@@ -13,18 +13,10 @@ class InvoiceRepo
     @all = to_array
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
-  def to_array
-    invoices = []
-
-    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      headers = row.headers
-      invoices << Invoice.new(row.to_h)
+  def create_array_of_objects
+    @things.map do | invoice |
+      Invoice.new(invoice)
     end
-    invoices
   end
 
   def find_all_by_customer_id(customer_id)

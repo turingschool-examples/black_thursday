@@ -12,18 +12,8 @@ class CustomerRepo
     @all = to_array
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
-  def to_array
-    customers = []
-
-    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      headers = row.headers
-      customers << row.to_h
-    end
-    customers.map do | customer |
+  def create_array_of_objects
+    @things.map do | customer |
       Customer.new(customer)
     end
   end

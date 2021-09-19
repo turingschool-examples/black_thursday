@@ -29,4 +29,18 @@ module Repo
     end
   end
 
+  def to_array
+    @things = []
+
+    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
+      headers = row.headers
+      @things << row.to_h
+    end
+    create_array_of_objects
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
 end

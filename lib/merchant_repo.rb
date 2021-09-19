@@ -11,17 +11,10 @@ class MerchantRepo
     @all = to_array
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
-  def to_array
-  merchants = []
-  CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-    headers = row.headers
-    merchants << Merchant.new(row.to_h)
-  end
-  merchants
+  def create_array_of_objects
+    @things.map do | merchant |
+      Merchant.new(merchant)
+    end
   end
 
   def find_all_by_name(name)

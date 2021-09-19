@@ -12,18 +12,8 @@ class ItemRepository
     @all = to_array
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
-  def to_array
-    items = []
-
-    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      headers = row.headers
-      items << row.to_h
-    end
-    items.map do | item |
+  def create_array_of_objects
+    @things.map do | item |
       Item.new(item)
     end
   end

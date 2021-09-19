@@ -12,18 +12,8 @@ class InvoiceItemRepo
     @all = to_array
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
-  def to_array
-    invoice_items = []
-
-    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      headers = row.headers
-      invoice_items << row.to_h
-    end
-    invoice_items.map do | invoice_item |
+  def create_array_of_objects
+    @things.map do | invoice_item |
       InvoiceItem.new(invoice_item)
     end
   end
