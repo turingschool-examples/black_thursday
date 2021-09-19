@@ -22,11 +22,11 @@ class InvoiceItemRepository
   end
 
   def find_all_by_item_id(item_id)
-    all.find_all { |invoice_item| invoice_item.item_id.to_i == item_id}
+    all.find_all { |invoice_item| invoice_item.item_id.to_i == item_id }
   end
 
   def find_all_by_invoice_id(invoice_id)
-    all.find_all { |invoice_item| invoice_item.invoice_id.to_i == invoice_id}
+    all.find_all { |invoice_item| invoice_item.invoice_id.to_i == invoice_id }
   end
 
   def create(item_id, invoice_id, quantity, unit_price)

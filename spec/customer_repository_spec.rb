@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'SimpleCov'
 SimpleCov.start
 
@@ -52,20 +50,20 @@ describe CustomerRepository do
 
   describe '#create' do
     it 'creates a customer with given attributes' do
-      first_name = "Georgamin-Keanu"
-      last_name = "McSabertoothson III"
+      first_name = 'Georgamin-Keanu'
+      last_name = 'McSabertoothson III'
       @cr.create(first_name, last_name)
 
       expect(@cr.all.last).to be_a Customer
-      expect(@cr.all.last.first_name).to eq("Georgamin-Keanu")
-      expect(@cr.all.last.last_name).to eq("McSabertoothson III")
+      expect(@cr.all.last.first_name).to eq('Georgamin-Keanu')
+      expect(@cr.all.last.last_name).to eq('McSabertoothson III')
       expect(@cr.all.last.id).to eq(1001)
     end
   end
 
   describe '#update' do
     it 'updates a specific customer with the provided attributes' do
-      expect(@cr.update(5, "Joe Bob")).to eq(@cr.all[4])
+      expect(@cr.update(5, 'Joe Bob')).to eq(@cr.all[4])
       expect(@cr.all[4].first_name).to eq('Joe')
       expect(@cr.all[4].last_name).to eq('Bob')
     end

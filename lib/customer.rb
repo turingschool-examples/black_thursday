@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# This is a Customer class for Black Friday
+
 class Customer
   attr_reader :id,
               :first_name,

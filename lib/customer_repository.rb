@@ -2,7 +2,7 @@
 
 # This is a CustomerRepository class for Black Friday
 
-  class CustomerRepository
+class CustomerRepository
   attr_reader :all
 
   def initialize(customer_data)

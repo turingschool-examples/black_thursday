@@ -10,8 +10,8 @@ describe Customer do
   before(:each) do
     @customer = {
                 id:          6,
-                first_name:  "Joan",
-                last_name:   "Clarke",
+                first_name:  'Joan',
+                last_name:   'Clarke',
                 created_at:  Time.now,
                 updated_at:  Time.now
     }
@@ -30,13 +30,13 @@ describe Customer do
 
   describe '#first_name' do
     it 'returns a customer first name' do
-      expect(@c.first_name).to eq("Joan")
+      expect(@c.first_name).to eq('Joan')
     end
   end
 
   describe '#last name' do
     it 'returns a customer last name' do
-      expect(@c.last_name).to eq("Clarke")
+      expect(@c.last_name).to eq('Clarke')
     end
   end
 
