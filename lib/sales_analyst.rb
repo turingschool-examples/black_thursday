@@ -34,8 +34,26 @@ class SalesAnalyst < SalesEngine
       num += ((item - average_items_per_merchant)**2)
 
     end
-    cats = (num / 475)
-    Math.sqrt(cats).round(2)
+    sd = (num / 475)
+    Math.sqrt(sd).round(2)
   end
 
+  def merchants_with_high_item_count
+    #started psuedo coding this
+    ir = @@se.items
+    mr = @@se.merchants
+    high_items = []
+
+    ipm = ir.map do |merchant|
+      count = 0
+      
+      "items per each merchant"
+    end
+
+    if ipm > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+      high_items << "merchant"
+    end
+
+    high_items
+  end
 end

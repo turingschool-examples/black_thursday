@@ -48,4 +48,31 @@ describe SalesAnalyst do
 
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
+
+
+  xit 'shows merchants that sell a lot of items' do
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    ir = se.items
+    mr = se.merchants
+    sales_analyst = SalesAnalyst.new
+
+    expect(sales_analyst.merchants_with_high_item_count).to eq([])
+  end
+
+  xit 'shows average price of merchant items' do
+    #test for our next method
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    ir = se.items
+    mr = se.merchants
+    sales_analyst = SalesAnalyst.new
+
+    expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq("num")
+  end
+
 end
