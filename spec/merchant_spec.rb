@@ -1,9 +1,14 @@
 require "Rspec"
-require "./lib/merchant"
+require_relative "../lib/merchant"
 
 describe Merchant do
   before :each do
-    @m = Merchant.new({:id => 5, :name => "Turing School"})
+    @m = Merchant.new({
+                      :id => "5",
+                      :name => "Turing School",
+                      :created_at  => '2016-01-11',
+                      :updated_at  => '2007-06-04'
+                      })
   end
 
   it "is a Merchant" do

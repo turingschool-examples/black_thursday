@@ -1,17 +1,17 @@
 require "Rspec"
 require "bigdecimal"
-require "./lib/item"
+require_relative "../lib/item"
 
 describe Item do
   before :each do
     @i = Item.new({
-      :id          => 1,
+      :id          => '1',
       :name        => 'Pencil',
       :description => 'You can use it to write things',
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
+      :unit_price  => '10.99',
+      :created_at  => '2016-01-11 09:34:06 UTC',
+      :updated_at  => '2007-06-04 21:35:10 UTC',
+      :merchant_id => '2'
     })
   end
 
@@ -28,11 +28,11 @@ describe Item do
   end
 
   it '#description' do
-    expect(@i.description).to eq 'You can use it to write things'
+    expect(@i.description).to eq 'YOU CAN USE IT TO WRITE THINGS'
   end
 
   it '#unit_price' do
-    expect(@i.unit_price).to eq 0.1099e2
+    expect(@i.unit_price).to eq 0.1099e0
   end
 
   it '#created_at' do
@@ -48,6 +48,6 @@ describe Item do
   end
 
   it '#unit_price_to_dollars' do
-    expect(@i.unit_price_to_dollars).to eq 10.99
+    expect(@i.unit_price_to_dollars).to eq 0.1099
   end
 end
