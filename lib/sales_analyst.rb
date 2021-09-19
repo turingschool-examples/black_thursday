@@ -39,21 +39,21 @@ class SalesAnalyst < SalesEngine
   end
 
   def merchants_with_high_item_count
-    #started psuedo coding this
+
     ir = @@se.items
     mr = @@se.merchants
-    high_items = []
 
-    ipm = ir.map do |merchant|
-      count = 0
-      
-      "items per each merchant"
+    item_set = mr.all.map do |merchant|
+      ir.find_all_by_merchant_id(merchant.id)
     end
 
-    if ipm > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
-      high_items << "merchant"
+    high_items = item_set.find_all do |ipm|
+       ipm.count > 7 #(average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
 
-    high_items
+    high_merchants = high_items.map do |items|
+      mr.find_by_id(items[0].merchant_id)
+    end
+    high_merchants
   end
 end

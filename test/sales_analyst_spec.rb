@@ -37,7 +37,7 @@ describe SalesAnalyst do
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 
-  it 'calculates standard deviation' do
+  xit 'calculates standard deviation' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -50,7 +50,7 @@ describe SalesAnalyst do
   end
 
 
-  xit 'shows merchants that sell a lot of items' do
+  it 'shows merchants that sell a lot of items' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -59,7 +59,7 @@ describe SalesAnalyst do
     mr = se.merchants
     sales_analyst = SalesAnalyst.new
 
-    expect(sales_analyst.merchants_with_high_item_count).to eq([])
+    expect(sales_analyst.merchants_with_high_item_count.count).to eq(42)
   end
 
   xit 'shows average price of merchant items' do
