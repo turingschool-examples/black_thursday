@@ -12,17 +12,17 @@ describe SalesAnalyst do
     @sa = @se.analyst
   end
 
-  it '#average_item_per_merchant' do
+  xit '#average_item_per_merchant' do
 
     expect(@sa.average_items_per_merchant).to eq(2.88)
   end
 
-  it '#average_item_per_merchant_standard_deviation' do
+  xit '#average_item_per_merchant_standard_deviation' do
 
     expect(@sa.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
 
-  it '#high item count' do
+  xit '#high item count' do
     high_item = @sa.merchants_with_high_item_count
 
     expect(high_item).to be_a(Array)
@@ -31,19 +31,19 @@ describe SalesAnalyst do
     expect(high_item.length).to eq 52
   end
 
-  it '#average item price for merchant' do
+  xit '#average item price for merchant' do
 
     expect(@sa.average_item_price_for_merchant(12334105)).to be_a(BigDecimal)
     expect(@sa.average_item_price_for_merchant(12334105)).to eq 16.66
   end
 
-  it '#average_average_price' do
+  xit '#average_average_price' do
 
     expect(@sa.average_average_price_per_merchant).to be_a(BigDecimal)
     expect(@sa.average_average_price_per_merchant).to eq 350.29
   end
 
-  it '#golden items' do
+  xit '#golden items' do
     good_items = @sa.golden_items
 
     expect(good_items).to be_a(Array)
@@ -51,15 +51,15 @@ describe SalesAnalyst do
     expect(good_items.length).to eq 5
   end
 
-  it '#average_invoices_per_merchant' do
+  xit '#average_invoices_per_merchant' do
     expect(@sa.average_invoices_per_merchant).to eq 10.49
   end
 
-  it '#average_invoices_per_merchant_standard_deviation' do
+  xit '#average_invoices_per_merchant_standard_deviation' do
     expect(@sa.average_invoices_per_merchant_standard_deviation).to eq 3.29
   end
 
-  it '#top_merchants_by_invoice_count' do
+  xit '#top_merchants_by_invoice_count' do
     top_merchants = @sa.top_merchants_by_invoice_count
 
     expect(top_merchants).to be_a Array
@@ -67,7 +67,7 @@ describe SalesAnalyst do
     expect(top_merchants.length).to eq 12
   end
 
-  it '#bottom_merchants_by_invoice_count' do
+  xit '#bottom_merchants_by_invoice_count' do
     bottom_merchants = @sa.bottom_merchants_by_invoice_count
 
     expect(bottom_merchants).to be_a Array
@@ -75,7 +75,7 @@ describe SalesAnalyst do
     expect(bottom_merchants.length).to eq 4
   end
 
-  it '#top_days_by_invoice_count' do
+  xit '#top_days_by_invoice_count' do
     days = @sa.top_days_by_invoice_count
 
     expect(days).to be_a Array
@@ -83,7 +83,7 @@ describe SalesAnalyst do
     expect(days).to eq ["Wednesday"]
   end
 
-  it 'invoice_status' do
+  xit 'invoice_status' do
     expect(@sa.invoice_status(:pending)).to eq 29.55
     expect(@sa.invoice_status(:shipped)).to eq 56.95
     expect(@sa.invoice_status(:returned)).to eq 13.5
@@ -91,5 +91,6 @@ describe SalesAnalyst do
 
   it 'invoice_paid_in_full' do
     expect(@sa.invoice_paid_in_full?(2)).to be(true)
+    expect(@sa.invoice_paid_in_full?(10)).to be(false)
   end
 end

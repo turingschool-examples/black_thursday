@@ -174,7 +174,8 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
+    @transactions.all.find_all_by_invoice_id(invoice_id)
+    require "pry"; binding.pry
 
-    
   end
 end
