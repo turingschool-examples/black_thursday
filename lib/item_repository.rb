@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'csv'
-require "bigdecimal"
+require 'bigdecimal'
 require_relative './sales_engine'
 
 class ItemRepository
@@ -16,9 +18,7 @@ class ItemRepository
   def find_by_id(id)
     item_id = nil
     @items.select do |item|
-      if item.id == id
-        item_id = item
-      end
+      item_id = item if item.id == id
     end
     item_id
   end
@@ -26,9 +26,7 @@ class ItemRepository
   def find_by_name(name)
     item_name = nil
     @items.select do |item|
-      if item.name == name
-        item_name = item
-      end
+      item_name = item if item.name == name
     end
     item_name
   end
@@ -44,11 +42,9 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-   @items.find_all do |item|
-     if item.unit_price == price
-       item
-     end
-   end
+    @items.find_all do |item|
+      item if item.unit_price == price
+    end
   end
 
   def find_all_by_price_in_range(range)
@@ -56,17 +52,13 @@ class ItemRepository
     ranges << range.first
     ranges << range.last
     items_with_price_in_range = @items.find_all do |item|
-      if item.unit_price.between?(ranges[0],ranges[1])
-        item
-      end
+      item if item.unit_price.between?(ranges[0], ranges[1])
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
-        if item.merchant_id == merchant_id
-          item
-        end
+      item if item.merchant_id == merchant_id
     end
   end
 
@@ -76,13 +68,13 @@ class ItemRepository
   end
 
   def create(attributes)
-   new_item = Items.new({id: highest_id,
-                        name: attributes[:name],
-                        description: attributes[:description],
-                        unit_price: attributes[:unit_price],
-                        updated_at: Time.now.strftime('%Y-%m-%d'),
-                        created_at: Time.now.strftime('%Y-%m-%d'),
-                        merchant_id: attributes[:merchant_id]})
+    new_item = Items.new({ id: highest_id,
+                           name: attributes[:name],
+                           description: attributes[:description],
+                           unit_price: attributes[:unit_price],
+                           updated_at: Time.now.strftime('%Y-%m-%d'),
+                           created_at: Time.now.strftime('%Y-%m-%d'),
+                           merchant_id: attributes[:merchant_id] })
     @items << new_item
   end
 
@@ -96,8 +88,7 @@ class ItemRepository
         update.unit_price = attributes.values.first
       elsif attributes.keys.first == :description
         update.description = attributes.values.first
-      elsif
-        update.name = attributes.values.first
+      elsif update.name = attributes.values.first
       else
         update
       end
@@ -110,5 +101,4 @@ class ItemRepository
     end
     items.delete(trash)
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 require_relative './sales_engine'
 require_relative './merchants'
@@ -14,9 +16,7 @@ class MerchantRepository
   def find_by_id(id)
     merchant_id = nil
     @merchants.select do |merchant|
-      if merchant.id.to_i == id
-        merchant_id = merchant
-      end
+      merchant_id = merchant if merchant.id.to_i == id
     end
     merchant_id
   end
@@ -24,18 +24,14 @@ class MerchantRepository
   def find_by_name(name)
     merchant_name = nil
     @merchants.find do |merchant|
-      if merchant.name.downcase == name.downcase
-        merchant_name = merchant
-      end
+      merchant_name = merchant if merchant.name.downcase == name.downcase
     end
     merchant_name
   end
 
   def find_all_by_name(name)
     @merchants.find_all do |merchant|
-      if merchant.name.downcase.include?(name.downcase)
-        merchant
-      end
+      merchant if merchant.name.downcase.include?(name.downcase)
     end
   end
 
@@ -46,10 +42,10 @@ class MerchantRepository
 
   def create(attributes)
     new_merch = [highest_id,
-                              attributes[:name],
-                              Time.now.strftime('%Y-%m-%d'),
-                              Time.now.strftime('%Y-%m-%d')]
-    new = Merchant .new(new_merch)
+                 attributes[:name],
+                 Time.now.strftime('%Y-%m-%d'),
+                 Time.now.strftime('%Y-%m-%d')]
+    new = Merchant.new(new_merch)
     @merchants << new
   end
 

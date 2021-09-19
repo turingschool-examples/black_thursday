@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 require './lib/merchant_repository'
 
-
 RSpec.describe 'MerchantRepository' do
-  before (:each) do
+  before(:each) do
     @engine = SalesEngine.from_csv({
-                                items: './data/items.csv',
-                                merchants: './data/merchants.csv'
-                                  })
+                                     items: './data/items.csv',
+                                     merchants: './data/merchants.csv'
+                                   })
   end
   it '#all' do
     expected = @engine.merchants.all
@@ -16,10 +17,10 @@ RSpec.describe 'MerchantRepository' do
   end
 
   it '#find_by_id' do
-    id = 12335971
+    id = 12_335_971
     expected = @engine.merchants.find_by_id(id)
 
-    expect(expected.id).to eq(12335971)
+    expect(expected.id).to eq(12_335_971)
     expect(expected.name).to eq('ivegreenleaves')
   end
 
@@ -34,7 +35,7 @@ RSpec.describe 'MerchantRepository' do
     name = 'Teeforbeardedmen'
     expected = @engine.merchants.find_by_name(name)
 
-    expect(expected.id).to eq(12335541)
+    expect(expected.id).to eq(12_335_541)
     expect(expected.name).to eq(name)
   end
 
@@ -57,36 +58,36 @@ RSpec.describe 'MerchantRepository' do
   end
 
   it '#highest_id' do
-    expect(@engine.merchants.highest_id).to eq(12337412)
-    expected = {name: 'this test'}
+    expect(@engine.merchants.highest_id).to eq(12_337_412)
+    expected = { name: 'this test' }
     @engine.merchants.create(expected)
-    expect(@engine.merchants.highest_id).to eq(12337413)
+    expect(@engine.merchants.highest_id).to eq(12_337_413)
   end
 
   it '#create' do
-    expected = {name: 'this test'}
+    expected = { name: 'this test' }
     @engine.merchants.create(expected)
-    expect(@engine.merchants.find_by_id(12337412)).to be_a(Merchant)
+    expect(@engine.merchants.find_by_id(12_337_412)).to be_a(Merchant)
   end
 
   it '#updates' do
-    expected = {name: 'this test'}
+    expected = { name: 'this test' }
     @engine.merchants.create(expected)
     attributes = {
-        name: 'this is another test'
-      }
-      expected = @engine.merchants.find_by_id(12337412)
-      @engine.merchants.update(12337412, attributes)
-      expect(expected.name).to eq('this is another test')
+      name: 'this is another test'
+    }
+    expected = @engine.merchants.find_by_id(12_337_412)
+    @engine.merchants.update(12_337_412, attributes)
+    expect(expected.name).to eq('this is another test')
   end
 
   it '#delete' do
-    expected = Merchant.new([111666111,
-                  'this test',
-                  Time.now.strftime('%Y-%m-%d'),
-                  Time.now.strftime('%Y-%m-%d')])
-    id = 111666111
-    expect(expected.id).to eq(111666111)
+    expected = Merchant.new([111_666_111,
+                             'this test',
+                             Time.now.strftime('%Y-%m-%d'),
+                             Time.now.strftime('%Y-%m-%d')])
+    id = 111_666_111
+    expect(expected.id).to eq(111_666_111)
 
     expected = @engine.merchants.delete(id)
 
