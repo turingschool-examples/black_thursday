@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# This is a CustomerRepository class for Black Friday
+
   class CustomerRepository
   attr_reader :all
 
@@ -33,11 +37,10 @@
     end
   end
 
-#come back to id number
   def create(first_name, last_name)
     creation_time = Time.now
     all << Customer.new(
-      id: most_recent_customer.id.to_i + 2,
+      id: most_recent_customer.id.to_i + 1,
       first_name: first_name,
       last_name: last_name,
       created_at: creation_time,
@@ -46,7 +49,7 @@
   end
 
   def most_recent_customer
-    all.max { |cust1, cust2| cust1.id <=> cust2.id }
+    all.max_by(&:id)
   end
 
   def update(id, attribute)
