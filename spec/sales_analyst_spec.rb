@@ -96,4 +96,8 @@ describe SalesAnalyst do
     expect(@sa.invoice_paid_in_full?(2)).to be(true)
     expect(@sa.invoice_paid_in_full?(10)).to be(false)
   end
+
+  it 'invoice_total' do
+    expect(@sa.invoice_total(1)).to eq(21067.77)
+  end
 end
