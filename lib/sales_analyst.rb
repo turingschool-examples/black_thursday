@@ -2,10 +2,13 @@ require 'time'
 
 class SalesAnalyst
 
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, customers, invoices, invoice_items, transactions)
     @items              = items
     @merchants          = merchants
+    @customers          = customers
     @invoices           = invoices
+    @invoice_items      = invoice_items
+    @transactions       = transactions
   end
 
 
