@@ -5,6 +5,8 @@ require './lib/merchants_repository'
 require './lib/items'
 require './lib/item_repository'
 require './lib/sales_analyst'
+require './lib/invoice_repository'
+require './lib/invoice'
 require 'csv'
 
 
@@ -49,6 +51,14 @@ describe SalesEngine do
       analyst = se.analyst(se.items, se.merchants)
 
       expect(analyst).to be_a(SalesAnalyst)
+    end
+  end
+
+  describe '.from_csv' do
+    it 'creates an instance of InvoiceRepository' do
+      se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+      expect(se).to be_an_instance_of(InvoiceRepository)
     end
   end
 
