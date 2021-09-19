@@ -88,15 +88,19 @@ class ItemRepository
 
   def update(id, attributes)
     update = find_by_id(id)
-    update.updated_at = Time.now.strftime('%Y-%m-%d')
-    if attributes.keys.first == :unit_price
-      update.unit_price = attributes.values.first
-    elsif attributes.keys.first == :description
-      update.description = attributes.values.first
-    elsif
-      update.name = attributes.values.first
+    if update.nil?
+      exit!
     else
-      update
+      update.updated_at = Time.now
+      if attributes.keys.first == :unit_price
+        update.unit_price = attributes.values.first
+      elsif attributes.keys.first == :description
+        update.description = attributes.values.first
+      elsif
+        update.name = attributes.values.first
+      else
+        update
+      end
     end
   end
 
