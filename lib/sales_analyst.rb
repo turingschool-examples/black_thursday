@@ -192,7 +192,9 @@ class SalesAnalyst
     @invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
       if invoice_paid_in_full?(invoice_id)
         invoice_item.quantity * invoice_item.unit_price
-      end
+      else
+        0
+      end 
     end
   end
 end
