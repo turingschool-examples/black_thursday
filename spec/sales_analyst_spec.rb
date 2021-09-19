@@ -154,14 +154,19 @@ RSpec.describe SalesAnalyst do
     end
 
     xit '#invoice_total' do
-      invoice_total1 = analyst.invoice_total(2).to eq(528913)
+      invoice_total1 = analyst.invoice_total(2)
+      expect(invoice_total1).to eq(5289.13)
     end
   end
 
   context 'Iteration 4' do
 
-    it '#find_all_invoice_item_by_date' do
-
+    xit '#find_all_invoice_item_by_date' do
+      expect(analyst.find_all_invoice_item_by_date('2012-03-27')).to be_a(Array)
+    end
+#not sure how to test for this
+    xit '#total_revenue_by_date' do
+      expect(analyst.total_revenue_by_date('2012-03-27')).to 
     end
   end
 end
