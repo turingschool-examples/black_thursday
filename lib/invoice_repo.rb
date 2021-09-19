@@ -46,7 +46,8 @@ class InvoiceRepo
   end
 
   def update(id, attributes)
-    find_by_id(id).change_status(attributes[:status])
+    if attributes[:status] != nil
+      find_by_id(id).change_status(attributes[:status])  
+    end
   end
-
 end

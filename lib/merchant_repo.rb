@@ -36,6 +36,8 @@ class MerchantRepo
     end
 
   def update(id, attributes)
-    find_by_id(id).change_name(attributes[:name])
+    if attributes[:name] != nil
+      find_by_id(id).change_name(attributes[:name])
+    end
   end
 end

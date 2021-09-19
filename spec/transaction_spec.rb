@@ -23,7 +23,7 @@ describe Transaction do
     expect(@t.credit_card_number).to eq "4242424242424242"
     expect(@t.invoice_id).to eq 520
     expect(@t.credit_card_expiration_date).to eq "0220"
-    expect(@t.result).to eq "success"
+    expect(@t.result).to eq :success
     expect(@t.created_at).to be_a Time
     expect(@t.updated_at).to be_a Time
   end

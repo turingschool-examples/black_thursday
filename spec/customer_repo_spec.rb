@@ -30,7 +30,7 @@ describe CustomerRepo do
   end
 
   it '#find_all_by_first_name' do
-    expect(@cr.find_all_by_first_name("Shane").length).to eq 2
+    expect(@cr.find_all_by_first_name("Shane").length).to eq 3
     expect(@cr.find_all_by_first_name("Shane")).to be_a Array
   end
 

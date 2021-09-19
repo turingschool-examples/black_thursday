@@ -17,6 +17,6 @@ class Invoice
 
   def change_status(new_status)
     @status = new_status
-    @updated_at = Time.now.strftime("%F")
+    @updated_at = Time.now.utc
   end
 end
