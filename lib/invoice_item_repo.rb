@@ -42,12 +42,17 @@ class InvoiceItemRepo
       updated_at: attributes[:updated_at].to_s
     }
     @all << InvoiceItem.new(attributes)
-    end
+  end
 
   def update(id, attributes)
     invoice_item = find_by_id(id)
-    invoice_item.change_quantity(attributes[:quantity])
-    invoice_item.change_unit_price(attributes[:unit_price])
+    
+    if attributes[:quantity] != nil 
+      invoice_item.change_quantity(attributes[:quantity])
+    end
+    if attributes[:unit_price] != nil
+      invoice_item.change_unit_price(attributes[:unit_price]) 
+    end
   end
 
 end

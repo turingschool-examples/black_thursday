@@ -29,6 +29,12 @@ class TransactionRepo
     end
   end
 
+  def find_all_by_result(result)
+    @all.select do |transaction|
+      transaction.result == result
+    end
+  end
+
   def create(attributes)
     id = find_highest_id + 1
     attributes = {
@@ -36,7 +42,7 @@ class TransactionRepo
                   invoice_id: attributes[:invoice_id],
                   credit_card_number: attributes[:credit_card_number],
                   credit_card_expiration_date: attributes[:credit_card_expiration_date],
-                  result: attributes[:result],
+                  result: attributes[:result].to_s,
                   created_at: attributes[:created_at].to_s,
                   updated_at: attributes[:updated_at].to_s
                  }
@@ -45,8 +51,14 @@ class TransactionRepo
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    transaction.change_credit_card_number(attributes[:credit_card_number])
-    transaction.change_credit_card_expiration_date(attributes[:credit_card_expiration_date])
-    transaction.change_result(attributes[:result])
+    if attributes[:credit_card_number] != nil
+      transaction.change_credit_card_number(attributes[:credit_card_number])
+    end
+    if attributes[:credit_card_expiration_date] != nil
+      transaction.change_credit_card_expiration_date(attributes[:credit_card_expiration_date])
+    end
+    if attributes[:result] != nil
+      transaction.change_result(attributes[:result])
+    end
   end
 end
