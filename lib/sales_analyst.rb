@@ -26,6 +26,25 @@ class SalesAnalyst
     (@analyst_items.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
 
+  def average_items_per_merchant_standard_deviation
+    items_per_merchant_array = []
+    item_count = 0
+    @analyst_merchants.all.each do |merchant|
+      item_count = 0
+      @analyst_items.all.each do |item|
+        if item.merchant_id == merchant.id
+          item_count += 1
+        end
+      end
+      items_per_merchant_array << item_count
+    end
+    sum = 0
+    items_per_merchant_array.each do |ipm|
+      sum += (ipm - average_items_per_merchant)**2
+    end
+    Math.sqrt(sum / items_per_merchant_array.count).round(2)
+  end
+
   def merchants_with_high_item_count
     #Which merchants are more than one standard deviation
     #above the average number of products offered?
@@ -33,6 +52,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
+
     #some math or something idk
     #use BigDecimal here
   end
@@ -50,3 +70,15 @@ class SalesAnalyst
     #the average item price?" Returns an ARRAY of ITEM OBJECTS
   end
 end
+
+
+# items_per_merchant_array = []
+# set = []
+#   @analyst_merchants.all.each  do |merchant|
+#     merchants_items = []
+#     @analyst_items.all.each  do |item|
+#       if item.merchant_id == merchant.id
+#         merchants_items << item
+#       end
+#     end
+#   items_per_merchant_array << merchants_items.count

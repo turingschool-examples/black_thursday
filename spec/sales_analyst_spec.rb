@@ -24,7 +24,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_items_per_merchant).to eq 2.88
   end
 
-  xit 'average_items_per_merchant_standard_deviation' do
+  it 'average_items_per_merchant_standard_deviation' do
     sales_engine = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
