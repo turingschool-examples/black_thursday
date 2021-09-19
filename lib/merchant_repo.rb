@@ -23,32 +23,12 @@ class MerchantRepo
   end
   merchants
   end
-  #
-  # def find_by_id(id)
-  #   all.find do |merchant|
-  #     merchant.id == id
-  #   end
-  # end
-
-  def find_by_name(name)
-    all.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
-  end
 
   def find_all_by_name(name)
     all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end
-
-  def find_highest_id
-    highest = all.max_by do |merchant|
-      merchant.id
-    end
-    highest.id
-  end
-
 
   def create(attributes)
     id = find_highest_id + 1
@@ -64,9 +44,5 @@ class MerchantRepo
 
   def update(id, attributes)
     find_by_id(id).change_name(attributes[:name])
-  end
-
-  def delete(id)
-    all.delete(find_by_id(id))
   end
 end

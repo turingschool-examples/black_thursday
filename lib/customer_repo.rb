@@ -1,7 +1,10 @@
 require 'csv'
 require_relative '../lib/customer'
+require_relative '../lib/repo_module'
+
 
 class CustomerRepo
+  include Repo
   attr_reader :all
 
   def initialize(path)
@@ -25,12 +28,6 @@ class CustomerRepo
     end
   end
 
-  def find_by_id(id)
-    all.find do |customer|
-      customer.id == id
-    end
-  end
-
   def find_all_by_first_name(first_name)
     @all.find_all do |customer|
       customer.first_name == first_name
@@ -41,13 +38,6 @@ class CustomerRepo
     @all.find_all do |customer|
       customer.last_name == last_name
     end
-  end
-
-  def find_highest_id
-    max = all.max_by do |customer|
-      customer.id
-    end
-    max.id
   end
 
   def create(attributes)
@@ -69,9 +59,5 @@ class CustomerRepo
     if attributes[:last_name] != nil
       find_by_id(id).change_last_name(attributes[:last_name])
     end
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
   end
 end

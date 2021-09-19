@@ -1,7 +1,10 @@
 require 'csv'
 require_relative '../lib/invoice_item'
+require_relative '../lib/repo_module'
+
 
 class InvoiceItemRepo
+  include Repo
   attr_reader :all
 
   def initialize(path)
@@ -25,12 +28,6 @@ class InvoiceItemRepo
     end
   end
 
-  def find_by_id(id)
-    all.find do |invoice_item|
-      invoice_item.id == id
-    end
-  end
-
   def find_all_by_item_id(item_id)
     all.select do |invoice_item|
       item_id == invoice_item.item_id
@@ -41,13 +38,6 @@ class InvoiceItemRepo
     all.select do |invoice_item|
       invoice_id == invoice_item.invoice_id
     end
-  end
-
-  def find_highest_id
-    highest = all.max_by do |invoice_item|
-      invoice_item.id
-    end
-    highest.id
   end
 
   def create(attributes)
@@ -68,10 +58,6 @@ class InvoiceItemRepo
     invoice_item = find_by_id(id)
     invoice_item.change_quantity(attributes[:quantity])
     invoice_item.change_unit_price(attributes[:unit_price])
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
   end
 
 end
