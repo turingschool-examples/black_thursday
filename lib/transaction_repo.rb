@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/transaction'
+require_relative '../lib/repo_module'
 
 class TransactionRepo
+  include Repo
   attr_reader :all
 
   def initialize(path)
@@ -9,23 +11,9 @@ class TransactionRepo
     @all = to_array
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
-  def to_array
-    transactions = []
-
-    CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
-      headers = row.headers
-      transactions << Transaction.new(row.to_h)
-    end
-    transactions
-  end
-
-  def find_by_id(id)
-    all.find do |transaction|
-      transaction.id == id
+  def create_array_of_objects(things)
+    things.map do | transaction |
+      Transaction.new(transaction)
     end
   end
 
@@ -39,13 +27,6 @@ class TransactionRepo
     all.select do |transaction|
       invoice_id == transaction.invoice_id
     end
-  end
-
-  def find_highest_id
-    highest = all.max_by do |transaction|
-      transaction.id
-    end
-    highest.id
   end
 
   def create(attributes)
@@ -67,9 +48,5 @@ class TransactionRepo
     transaction.change_credit_card_number(attributes[:credit_card_number])
     transaction.change_credit_card_expiration_date(attributes[:credit_card_expiration_date])
     transaction.change_result(attributes[:result])
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
   end
 end

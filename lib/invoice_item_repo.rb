@@ -12,8 +12,8 @@ class InvoiceItemRepo
     @all = to_array
   end
 
-  def create_array_of_objects
-    @things.map do | invoice_item |
+  def create_array_of_objects(things)
+    things.map do | invoice_item |
       InvoiceItem.new(invoice_item)
     end
   end

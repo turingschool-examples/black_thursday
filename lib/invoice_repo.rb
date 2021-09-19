@@ -13,8 +13,8 @@ class InvoiceRepo
     @all = to_array
   end
 
-  def create_array_of_objects
-    @things.map do | invoice |
+  def create_array_of_objects(things)
+    things.map do | invoice |
       Invoice.new(invoice)
     end
   end

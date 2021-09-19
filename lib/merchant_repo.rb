@@ -11,8 +11,8 @@ class MerchantRepo
     @all = to_array
   end
 
-  def create_array_of_objects
-    @things.map do | merchant |
+  def create_array_of_objects(things)
+    things.map do | merchant |
       Merchant.new(merchant)
     end
   end

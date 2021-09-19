@@ -12,8 +12,8 @@ class ItemRepository
     @all = to_array
   end
 
-  def create_array_of_objects
-    @things.map do | item |
+  def create_array_of_objects(things)
+    things.map do | item |
       Item.new(item)
     end
   end

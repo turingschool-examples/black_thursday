@@ -30,13 +30,13 @@ module Repo
   end
 
   def to_array
-    @things = []
+    things = []
 
     CSV.foreach(@path, headers: true, header_converters: :symbol) do |row|
       headers = row.headers
-      @things << row.to_h
+      things << row.to_h
     end
-    create_array_of_objects
+    create_array_of_objects(things)
   end
 
   def inspect

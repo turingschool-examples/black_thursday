@@ -12,8 +12,8 @@ class CustomerRepo
     @all = to_array
   end
 
-  def create_array_of_objects
-    @things.map do | customer |
+  def create_array_of_objects(things)
+    things.map do | customer |
       Customer.new(customer)
     end
   end
