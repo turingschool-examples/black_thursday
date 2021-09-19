@@ -12,4 +12,9 @@ class SalesEngine
   def analyst(items, merchant)
     SalesAnalyst.new(items, merchants)
   end
+
+  def self.from_csv(invoice_hash)
+    InvoiceRepository.new(invoice_hash[:invoices])
+  end
+
 end
