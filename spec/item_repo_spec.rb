@@ -1,6 +1,7 @@
+require 'simplecov'
+SimpleCov.start
 require './lib/item_repository'
-require './lib/sales_engine'
-require 'csv'
+
 
 RSpec.describe do
   before(:each) do
@@ -13,11 +14,11 @@ RSpec.describe do
     expect(@engine.items).to be_an_instance_of(ItemRepository)
   end
 
-  it 'adds keys to item instances array' do
+  it '#all' do
     expect(@engine.items.all.count).to eq(1367)
   end
 
-  it 'can find an item by id' do
+  it '#find_by_id' do
     results = @engine.items.find_by_id(263567474)
     results2 = @engine.items.find_by_id('Camping Chair Actor')
     expect(results.id).to eq(263567474)
@@ -25,7 +26,7 @@ RSpec.describe do
     expect(results2).to eq(nil)
   end
 
-  it 'it can find an item by name' do
+  it '#find_by_name' do
     results = @engine.items.find_by_name('510+ RealPush Icon Set')
     results2 = @engine.items.find_by_name('Tea For Bearded Women')
     expect(results.id).to eq(263395237)
@@ -34,7 +35,7 @@ RSpec.describe do
     expect(results2).to eq(nil)
   end
 
-  it 'can find all with descriptions' do
+  it '#find_all_with_description' do
     results =  @engine.items.find_all_with_description('Free standing')
     results2 = @engine.items.find_all_with_description('adfadf')
     expect(results.first.id).to eq(263396013)
@@ -42,7 +43,7 @@ RSpec.describe do
     expect(results2).to eq([])
   end
 
-  it "can find all with price" do
+  it '#find_all_by_price' do
     results = @engine.items.find_all_by_price(13.0)
     expect(results.first.merchant_id).to eq(12334185)
     expect(results.first.id).to eq(263395617)
@@ -50,15 +51,35 @@ RSpec.describe do
     expect(results2).to eq([])
   end
 
-  it "can find_all_by_price_in_range " do
+  it '#find_all_by_price_in_range' do
     results = @engine.items.find_all_by_price_in_range(13.0..18.0)
     expect(results.first.id).to eq(263395617)
   end
 
-  it '#creates attributes' do
+  it '#find_all_by_merchant_id' do
+    results =  @engine.items.find_all_by_merchant_id(12336851)
+    results2 =  @engine.items.find_all_by_merchant_id(12334123)
+    expect(results.count).to eq(3)
+    expect(results2.count).to eq(25)
+  end
+
+  it '#highest_id' do
+    expect(@engine.items.highest_id).to eq(263567475)
     results = @engine.items.create({
-        name: "Capita Defenders of Awesome 2018",
-        description: "This board both rips and shreds",
+        name: 'Capita Defenders of Awesome 2018',
+        description: 'This board both rips and shreds',
+        unit_price: BigDecimal(399.99, 5),
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s,
+        merchant_id: 25
+      })
+      expect(@engine.items.highest_id).to eq(263567476)
+  end
+
+  it '#create' do
+    results = @engine.items.create({
+        name: 'Capita Defenders of Awesome 2018',
+        description: 'This board both rips and shreds',
         unit_price: BigDecimal(399.99, 5),
         created_at: Time.now.to_s,
         updated_at: Time.now.to_s,
@@ -67,24 +88,24 @@ RSpec.describe do
     expect(results.last.id).to eq(263567475)
   end
 
-  xit '#updates attributes' do
+  it '#update' do
     results = @engine.items.create({
-        name: "Capita Defenders of Awesome 2018",
-        description: "This board both rips and shreds",
+        name: 'Capita Defenders of Awesome 2018',
+        description: 'This board both rips and shreds',
         unit_price: BigDecimal(399.99, 5),
         created_at: Time.now.to_s,
         updated_at: Time.now.to_s,
         merchant_id: 25
       })
 
-    # update = @engine.items.update(263567475, {unit_price: BigDecimal(379.99, 5)})
+    update = @engine.items.update(263567475, {unit_price: BigDecimal(379.99, 5)})
     expect(results.last.unit_price).to eq(379.99)
   end
 
   it '#delete' do
     @engine.items.delete(263567474)
     expected = @engine.items.find_by_id(263567474)
-  expect(expected).to eq nil
+    expect(expected).to eq(nil)
   end
 
 end

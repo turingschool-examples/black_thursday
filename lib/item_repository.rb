@@ -64,9 +64,9 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
-      if item.merchant_id == merchant_id
-        item
-      end
+        if item.merchant_id == merchant_id
+          item
+        end
     end
   end
 
@@ -88,18 +88,16 @@ class ItemRepository
 
   def update(id, attributes)
     update = find_by_id(id)
-    new = {id: update.id,
-                         name: update.name,
-                         description: update.description,
-                         unit_price: update.unit_price,
-                         updated_at: Time.now.strftime('%Y-%m-%d'),
-                         created_at: update.created_at,
-                         merchant_id: update.merchant_id}
-    # require "pry"; binding.pry
-    new[attributes.keys.first] = attributes.values.first
-    # update the item instance with id and provided attributes
-    # items name description and unitprice can be updated
-    # updated_at = time.now?
+    update.updated_at = Time.now.strftime('%Y-%m-%d')
+    if attributes.keys.first == :unit_price
+      update.unit_price = attributes.values.first
+    elsif attributes.keys.first == :description
+      update.description = attributes.values.first
+    elsif
+      update.name = attributes.values.first
+    else
+      update
+    end
   end
 
   def delete(id)
