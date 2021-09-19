@@ -1,3 +1,6 @@
+require 'bigdecimal/util'
+# frozen_string_literal: true
+
 # require 'csv'
 require 'bigdecimal/util'
 # require_relative './items'
@@ -23,7 +26,7 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
-    x = items_per_merchant.sum(0.0) { |element| (element - mean) ** 2 }
+    x = items_per_merchant.sum(0.0) { |element| (element - mean)**2 }
     variance = x / (items_per_merchant.count - 1)
     standard_deviation = Math.sqrt(variance).round(2)
   end

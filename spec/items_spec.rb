@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 require 'time'
 require './lib/sales_engine'
@@ -5,17 +7,17 @@ require './lib/sales_engine'
 RSpec.describe do
   before(:each) do
     @engine = @engine = SalesEngine.from_csv({
-                                    items: './data/items.csv',
-                                    merchants: './data/merchants.csv'
-                                              })
+                                               items: './data/items.csv',
+                                               merchants: './data/merchants.csv'
+                                             })
   end
 
   it 'can return the item id' do
     item_1 = @engine.items.all.first
-    expect(item_1.id).to eq 263395237
+    expect(item_1.id).to eq 263_395_237
 
     item_2 = @engine.items.all.last
-    expect(item_2.id).to eq 263567474
+    expect(item_2.id).to eq 263_567_474
   end
 
   it 'can return the item name' do
@@ -37,14 +39,14 @@ RSpec.describe do
     item_1 = @engine.items.all.first
 
     expect(item_1.unit_price).to eq 12.00
-    #expects BigDecimal, but we're returning float. Need to figure out conversion to BD
+    # expects BigDecimal, but we're returning float. Need to figure out conversion to BD
     # expect(item_1.unit_price).to be_a(BigDecimal)
   end
 
   it 'can return the merchant_id' do
     item_1 = @engine.items.all.first
 
-    expect(item_1.merchant_id).to eq(12334141)
+    expect(item_1.merchant_id).to eq(12_334_141)
   end
 
   it 'can return the Time the item was created' do
