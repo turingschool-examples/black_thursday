@@ -16,4 +16,11 @@ class InvoiceItem
     @created_at = invoice_item[:created_at]
     @updated_at = invoice_item[:updated_at]
   end
+
+  def update(quantity, unit_price)
+    @updated_at = Time.now
+    @quantity = quantity
+    @unit_price = unit_price
+    self
+  end
 end
