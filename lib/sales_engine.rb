@@ -1,5 +1,4 @@
 class SalesEngine
-
   attr_reader :items,
               :merchants
 
@@ -15,5 +14,4 @@ class SalesEngine
   def analyst(items, merchant)
     SalesAnalyst.new(items, merchants)
   end
-
 end
