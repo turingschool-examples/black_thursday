@@ -1,8 +1,6 @@
 require 'BigDecimal'
 
-
 class SalesAnalyst
-
   attr_reader :items,
               :merchants,
               :merch_item_hash
@@ -38,9 +36,9 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     sum_diff_squared = 0
     @merch_item_hash.each do |merchant,items|
-      sum_diff_squared += (items.length - average_items_per_merchant) ** 2
+      sum_diff_squared += (items.length - average_items_per_merchant)**2
     end
-    ((sum_diff_squared / @merchants.length.to_f) ** 0.5).round(2)
+    ((sum_diff_squared / @merchants.length.to_f)**0.5).round(2)
   end
 
   def merchants_with_high_item_count
@@ -62,7 +60,7 @@ class SalesAnalyst
         num_items += 1.to_f
       end
     end
-    BigDecimal(sum_amount/num_items, 2)
+    BigDecimal(sum_amount / num_items, 2)
   end
 
   def average_average_item_price_for_merchant
@@ -94,12 +92,12 @@ class SalesAnalyst
   end
 
   def average_price_standard_deviation
-    sum_diff_squared =
+    sum_diff_squared = 0
     avg = average_price_all
     @items.each do |item|
-      sum_diff_squared += ((item.unit_price.to_f - avg) ** 2)
+      sum_diff_squared += ((item.unit_price.to_f - avg)**2)
     end
-    ((sum_diff_squared / items.length.to_f) ** 0.5).round(2)
+    ((sum_diff_squared / items.length.to_f)**0.5).round(2)
   end
 
   def golden_items
@@ -111,5 +109,4 @@ class SalesAnalyst
       end
     end
   end
-
 end
