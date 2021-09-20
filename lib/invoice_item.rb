@@ -1,5 +1,5 @@
 class InvoiceItem
-  attr_reader :id, :item_id, :created_at
+  attr_reader :id, :item_id, :created_at, :invoice_id
   attr_accessor :quantity, :unit_price, :updated_at
 
   def initialize(data)

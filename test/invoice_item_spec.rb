@@ -9,7 +9,7 @@ require './lib/merchantrepository'
 require './lib/invoice'
 require 'csv'
 require './lib/invoice_item'
-# require './lib/invoice_item_repo'
+require './lib/invoice_item_repo'
 require 'rspec'
 
 describe InvoiceItem do
