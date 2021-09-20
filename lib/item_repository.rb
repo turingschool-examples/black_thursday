@@ -53,6 +53,7 @@ class ItemRepository
 
   def find_all_by_price(unit_price)
     # @unit_price.to_f.to_s
+
     if (@all.any? do |item|
       item.unit_price == unit_price
     end) == true
@@ -65,16 +66,22 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-  in_range = []
-
-     @all.find_all do |item|
-      item.unit_price do |price|
-        if price.include?(range)
-        end
-      end
-        in_range << item
+    in_range = []
+    @all.find_all do |item|
+      if item.find_all_by_price.include?(range)
     end
-     in_range
+      # item.unit_price do |price|
+      # end
+    # if item.find_all_by_price.include?(range)
+
+      #  @all.find_all do |item|
+      #   item.unit_price do |price|
+      #     if price.include?(range)
+      #     end
+    end
+      in_range << item
+
+      in_range
   end
 
   def find_all_by_merchant_id(merchant_id)
