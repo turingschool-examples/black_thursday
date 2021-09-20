@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TransactionRepository class for Black Thursday
 
 class TransactionRepository

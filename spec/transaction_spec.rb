@@ -9,13 +9,13 @@ require './lib/transaction'
 describe Transaction do
   before(:each) do
     @transaction_info = {
-      :id => 6,
-      :invoice_id => 8,
-      :cc_num => '4242424242424242',
-      :cc_exp => '0220',
-      :result => 'success',
-      :created_at => Time.now,
-      :updated_at => Time.now
+      id: 6,
+      invoice_id: 8,
+      cc_num: '4242424242424242',
+      cc_exp: '0220',
+      result: 'success',
+      created_at: Time.now,
+      updated_at: Time.now
     }
     @t = Transaction.new(@transaction_info)
   end

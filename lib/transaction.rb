@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Transaction class, built for the Black Thursday project!
 
 class Transaction
