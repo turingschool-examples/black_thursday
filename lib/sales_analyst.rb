@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/merchantrepository'
-require './lib/itemrepository'
-require './lib/sales_engine'
+require_relative 'merchantrepository'
+require_relative 'itemrepository'
+require_relative 'sales_engine'
 
 class SalesAnalyst < SalesEngine
 
@@ -81,12 +81,14 @@ class SalesAnalyst < SalesEngine
     pun = sum.sum do |num|
       num
     end
-    (pun / ir.all.count).to_d
+    (pun / mr.all.count).to_d
+
   end
 
   def golden_items
+    # need to check the g_threshold to make sure it is correct number.
     ir = @@se.items
-
+    aappm = average_average_price_per_merchant
     price_set = ir.all.map do |item|
       item.unit_price.to_f
     end
@@ -95,12 +97,59 @@ class SalesAnalyst < SalesEngine
 
     price_set.map do |price|
 
-      num += ((price - average_average_price_per_merchant)**2)
+      num += ((price - aappm)**2)
 
     end
-    sd = (num / (ir.all.count - 1))
+    x = (num / (ir.all.count - 1))
+    std_dev = Math.sqrt(x).round(2)
+
+    g_threshold = (std_dev*2) + aappm.to_f
+
+    ir.find_all_by_price_in_range(g_threshold, Float::INFINITY)
+  end
+
+  def average_invoices_per_merchant
+    inr = @@se.invoices
+    mr = @@se.merchants
+
+    ((inr.all.count.to_f) / (mr.all.count.to_f)).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    inr = @@se.invoices
+    mr = @@se.merchants
+    invoice_set = mr.all.map do |merchant|
+      inr.find_all_by_merchant_id(merchant.id).count
+    end
+
+    num = 0.0
+
+    invoice_set.map do |invoice|
+
+      num += ((invoice - average_invoices_per_merchant)**2)
+
+    end
+    sd = (num / (mr.all.count - 1))
     Math.sqrt(sd).round(2)
 
+  end
+
+  def top_merchants_by_invoice_count
+    #need to finish golden items, then transport that code here.
+  end
+
+  def bottom_merchants_by_invoice_count
+    #need to finish golden items, then transport that code here.
+  end
+
+  def top_days_by_invoice_count
+    #need to finish golden items, then transport that code here.
+  end
+
+  def invoice_status(status)
+    inr = @@se.invoices
+
+    (((inr.find_all_by_status(status).count) / ((inr.all.count).to_f)) * 100).round(2)
   end
 
 end

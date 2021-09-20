@@ -1,9 +1,11 @@
 require 'csv'
+
 require './lib/merchantrepository'
 require './lib/itemrepository'
 require './lib/invoicerepository'
 require './lib/invoice_item_repo'
 require './lib/transactionrepository'
+
 
 class SalesEngine
 

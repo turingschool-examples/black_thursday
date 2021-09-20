@@ -7,7 +7,7 @@ require './lib/sales_engine'
 require './lib/merchant'
 require './lib/merchantrepository'
 require './lib/invoice'
-require './invoicerepository'
+require './lib/invoicerepository'
 require 'csv'
 
 describe InvoiceRepository do
@@ -59,8 +59,8 @@ describe InvoiceRepository do
                       :merchants => "./data/merchants.csv",
                       :invoices => './data/invoices.csv'})
     inv = se.invoices
-    invoice1 = inv.find_all_by_status("pending")
-    invoice2 = inv.find_all_by_status("shipped")
+    invoice1 = inv.find_all_by_status(:pending)
+    invoice2 = inv.find_all_by_status(:shipped)
 
     expect(invoice1).to be_a(Array)
     expect(invoice1.count).to eq(1473)
@@ -77,7 +77,7 @@ describe InvoiceRepository do
                   :id           => 4986,
                   :customer_id  => 2,
                   :merchant_id  => 12334839,
-                  :status       => "shipped",
+                  :status       => :shipped,
                   :created_at   => "2020-09-17",
                   :updated_at   => "2021-08-13"
                   }
@@ -99,7 +99,7 @@ describe InvoiceRepository do
             :id           => 4965,
             :customer_id  => 996,
             :merchant_id  => 12334839,
-            :status       => "shipped",
+            :status       => :shipped,
             :created_at   => "2012-01-22",
             :updated_at   => Time.now
             }
@@ -108,7 +108,7 @@ describe InvoiceRepository do
                   :id           => 4965,
                   :customer_id  => 996,
                   :merchant_id  => 12334839,
-                  :status       => "shipped",
+                  :status       => :shipped,
                   :created_at   => "2012-01-22",
                   :updated_at   => Time.now
                   }
