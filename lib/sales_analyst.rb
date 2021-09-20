@@ -1,4 +1,7 @@
+# frozen_string_literal: true
 require 'BigDecimal'
+
+# SalesAnalyst class creates handles all analysis of merch, items, and invoices
 
 class SalesAnalyst
   attr_reader :items,
@@ -104,9 +107,7 @@ class SalesAnalyst
     result_array = []
     expected = (average_price_all + (average_price_standard_deviation * 2))
     @items.each do |item|
-      if item.unit_price.to_f >= expected
-        result_array.append(item)
-      end
+      result_array.append(item) if item.unit_price.to_f >= expected
     end
   end
 end
