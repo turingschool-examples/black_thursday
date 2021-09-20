@@ -25,7 +25,7 @@ describe SalesAnalyst do
 
   end
 
-  it 'calculates average items per merchant' do
+  xit 'calculates average items per merchant' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -37,7 +37,7 @@ describe SalesAnalyst do
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 
-  it 'calculates standard deviation' do
+  xit 'calculates standard deviation' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -59,11 +59,11 @@ describe SalesAnalyst do
     mr = se.merchants
     sales_analyst = SalesAnalyst.new
 
-    expect(sales_analyst.merchants_with_high_item_count).to eq([])
+    expect(sales_analyst.merchants_with_high_item_count.count).to eq(42)
   end
 
   xit 'shows average price of merchant items' do
-    #test for our next method
+
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -72,7 +72,38 @@ describe SalesAnalyst do
     mr = se.merchants
     sales_analyst = SalesAnalyst.new
 
-    expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq("num")
+    expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq(0.315e4)
+    expect(sales_analyst.average_item_price_for_merchant(12336819)).not_to eq(0.315e4)
+
   end
+
+  xit 'shows the average average price of merchant items' do
+
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    ir = se.items
+    mr = se.merchants
+    sales_analyst = SalesAnalyst.new
+
+    expect(sales_analyst.average_average_price_per_merchant).to eq(0.1217190792320321e5)
+  end
+
+  it 'can list golden items' do
+
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    ir = se.items
+    mr = se.merchants
+    sales_analyst = SalesAnalyst.new
+
+    expect(sales_analyst.golden_items).to eq([])
+
+  end
+
+
 
 end
