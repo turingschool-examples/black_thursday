@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 'require_relative'
+require 'simplecov'
+SimpleCov.start
 require 'rspec'
 require './lib/sales_engine'
 require './lib/merchant'
@@ -18,7 +20,7 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       expect(se).to be_an_instance_of(DataRepository)
     end
 
@@ -26,7 +28,7 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       ir = se.items
 
       expect(ir).to be_an_instance_of(ItemRepository)
@@ -36,7 +38,7 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                               )
+      )
       mr = se.merchants
 
       expect(mr).to be_an_instance_of(MerchantsRepository)
@@ -48,7 +50,7 @@ describe SalesEngine do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       analyst = se.analyst(se.items, se.merchants)
 
       expect(analyst).to be_a(SalesAnalyst)
