@@ -8,7 +8,9 @@ require 'pry'
 
 class SalesAnalyst
   attr_reader :analyst_items,
-              :analyst_merchants
+              :analyst_merchants,
+              :average_items_per_merchant,
+              :average_items_per_merchant_standard_deviation
 
 #How to access data insie this class:
     # => @analyst_items.all.count
@@ -26,27 +28,52 @@ class SalesAnalyst
     (@analyst_items.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
 
-  def merchants_with_high_item_count
-    #Which merchants are more than one standard deviation
-    #above the average number of products offered?
-    #should return and array of merchant objects
+  def items_per_merchant_hashes
+    items_per_merchant_hashes = []
+    item_count = 0
+    @analyst_merchants.all.each do |merchant|
+      item_count = 0
+      @analyst_items.all.each do |item|
+        if item.merchant_id == merchant.id
+          item_count += 1
+        end
+      end
+    items_per_merchant_hashes << {:merchant => merchant, :item_count => item_count}
+    end
+    items_per_merchant_hashes
+  end
+
+  def average_items_per_merchant_standard_deviation
+    sum = 0
+    aipm = average_items_per_merchant
+    items_per_merchant_hashes.each do |ipm|
+      sum += (ipm[:item_count] - aipm)**2
+    end
+    std = Math.sqrt(sum / items_per_merchant_hashes.count).round(2)
+    std
+  end
+
+   def merchants_with_high_item_count
+     std = average_items_per_merchant_standard_deviation
+     aipm = average_items_per_merchant
+     mwhic = []
+     items_per_merchant_hashes.each do |ipm|
+       if ipm[:item_count] > aipm + std
+         mwhic << ipm[:merchant]
+       end
+     end
+     mwhic
   end
 
   def average_item_price_for_merchant(merchant_id)
-    #some math or something idk
-    #use BigDecimal here
+
   end
 
   def average_average_price_per_merchant
-    #i don't even know anymore
-    #Then we can sum all of the averages and find the average price across all
-    # merchants (this implies that each merchant’s average has equal weight in the calculation)
-    #use Big Decimal again
+
   end
 
   def golden_items
-    #i'm going to take a break
-    #"Which are our “Golden Items”, those two standard-deviations above
-    #the average item price?" Returns an ARRAY of ITEM OBJECTS
+
   end
 end
