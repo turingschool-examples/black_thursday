@@ -33,9 +33,9 @@ class TransactionRepository
     end
   end
 
-  def find_all_by_credit_card_number(number)
+  def find_all_by_cc_num(number)
     all.find_all do |transaction|
-      transaction.credit_card_number.to_i == number
+      transaction.cc_num.to_i == number
     end
   end
 
@@ -50,7 +50,7 @@ class TransactionRepository
     all << Transaction.new(
       id: highest_id_transaction.id + 1,
       invoice_id: attributes[:invoice_id],
-      credit_card_number: attributes[:credit_card_number],
+      cc_num: attributes[:cc_num],
       credit_card_expiration_date: attributes[:credit_card_expiration_date],
       result: attributes[:status],
       created_at: creation_time,

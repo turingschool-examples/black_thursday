@@ -39,11 +39,11 @@ describe TransactionRepository do
     end
   end
 
-  describe '#find_all_by_credit_card_number' do
+  describe '#find_all_by_cc_num' do
     it 'returns all transactions with matching credit card # in an array' do
       card_number = 489_037_127_963_277_5
-      expect(@tr.find_all_by_credit_card_number(card_number)).to include(@tr.all[19])
-      expect(@tr.find_all_by_credit_card_number(532_723_123)).to eq([])
+      expect(@tr.find_all_by_cc_num(card_number)).to include(@tr.all[19])
+      expect(@tr.find_all_by_cc_num(532_723_123)).to eq([])
     end
   end
 
@@ -58,7 +58,7 @@ describe TransactionRepository do
     it 'creates a new instance of a transaction with given attributes' do
       new_transaction = {
         invoice_id: 3245,
-        credit_card_number: 123_456_789_012_131_4,
+        cc_num: 123_456_789_012_131_4,
         credit_card_expiration_date: 0227,
         status: 'pending'
       }
@@ -73,7 +73,7 @@ describe TransactionRepository do
   describe '#update' do
     it 'updates a transaction credit card number/expiriation date/result' do
       info = {
-        credit_card_number: 543_265_437_654_876_5,
+        cc_num: 543_265_437_654_876_5,
         credit_card_expiration_date: 1223,
         result: 'failed'
       }

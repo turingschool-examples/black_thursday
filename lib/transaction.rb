@@ -14,8 +14,8 @@ class Transaction
   def initialize(transaction)
     @id = transaction[:id].to_i
     @invoice_id = transaction[:invoice_id]
-    @cc_num = transaction[:cc_num]
-    @cc_exp = transaction[:cc_exp]
+    @cc_num = transaction[:credit_card_number]
+    @cc_exp = transaction[:credit_card_expiration_date]
     @result = transaction[:result]
     @created_at = transaction[:created_at]
     @updated_at = transaction[:updated_at]
