@@ -66,4 +66,10 @@ class InvoiceRepository
     new_invoice = Invoice.new(attributes)
     @all << new_invoice
   end
+
+  def update(id, attribute)
+    if find_by_id(id) != nil
+      (find_by_id(id).status.clear.gsub!("", attribute[:status]))
+    end
+  end
 end
