@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# DataRepository class creates instances of merchant, item, and invoice repos
+
 class DataRepository
   attr_reader :merchants,
               :items,
