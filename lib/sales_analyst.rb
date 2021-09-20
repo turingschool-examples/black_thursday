@@ -69,22 +69,20 @@ class SalesAnalyst
    end
 
   def average_item_price_for_merchant(merchant_id)
-    (store_hashes.find do |store|
-      store[:merchant].id == merchant_id
-      end)[:items].each do |item|
-    #   sum = 0
-    #     sum += item.unit_price
-    #   end
-    # average_item_price_for_m = (sum / store[:item_count]).round(2)
-    #     end
-    #   end
-    #   average_item_price_for_m
+    store_to_analyze = 0
+    number_of_items = 0
+    sum = 0
+    store_hashes.each do |store|
+      if store[:merchant].id == merchant_id
+        store_to_analyze = store
+      end
+    end
+    store_to_analyze[:stores_items].each do |item|
+      number_of_items += 1
+      sum += item.unit_price.to_i
+    end
+    (sum.to_f / number_of_items.to_f).round(2)
   end
-
-  #
-  #       store
-  # end
-
 
   def average_average_price_per_merchant
 
