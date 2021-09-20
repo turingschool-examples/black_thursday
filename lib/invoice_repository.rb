@@ -49,4 +49,16 @@ class InvoiceRepository
       []
     end
   end
+
+  def find_all_by_status(status)
+    if (@all.any? do |invoice|
+      invoice.status == status
+    end) == true
+      @all.find_all do |invoice|
+        invoice.status == status
+      end
+    else
+      []
+    end
+  end
 end

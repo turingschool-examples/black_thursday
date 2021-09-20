@@ -40,4 +40,12 @@ RSpec.describe do
     expect(invoice_repository.find_all_by_merchant_id(example_invoice.merchant_id).count).to eq 16
     expect(invoice_repository.find_all_by_merchant_id(000000)).to eq([])
   end
+
+  it 'can find_all_by status' do
+    invoice_path = './data/invoices.csv'
+    invoice_repository = InvoiceRepository.new(invoice_path)
+
+    expect(invoice_repository.find_all_by_status("returned").count).to eq 673
+    expect(invoice_repository.find_all_by_status("went_overboard")).to eq([])
+  end
 end
