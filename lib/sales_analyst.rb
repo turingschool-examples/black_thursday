@@ -59,7 +59,6 @@ class SalesAnalyst < SalesEngine
 
   def average_item_price_for_merchant(merchant_id)
     ir = @@se.items
-    mr = @@se.merchants
 
     merchant_items = ir.find_all_by_merchant_id(merchant_id)
     total_price = 0.0
@@ -87,7 +86,6 @@ class SalesAnalyst < SalesEngine
 
   def golden_items
     ir = @@se.items
-    mr = @@se.merchants
 
     price_set = ir.all.map do |item|
       item.unit_price.to_f
