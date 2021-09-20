@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'BigDecimal'
 
+# SalesAnalyst class creates handles all analysis of merch, items, and invoices
 
 class SalesAnalyst
-
   attr_reader :items,
               :merchants,
               :merch_item_hash
@@ -38,9 +39,9 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     sum_diff_squared = 0
     @merch_item_hash.each do |merchant,items|
-      sum_diff_squared += (items.length - average_items_per_merchant) ** 2
+      sum_diff_squared += (items.length - average_items_per_merchant)**2
     end
-    ((sum_diff_squared / @merchants.length.to_f) ** 0.5).round(2)
+    ((sum_diff_squared / @merchants.length.to_f)**0.5).round(2)
   end
 
   def merchants_with_high_item_count
@@ -62,7 +63,7 @@ class SalesAnalyst
         num_items += 1.to_f
       end
     end
-    BigDecimal(sum_amount/num_items, 2)
+    BigDecimal(sum_amount / num_items, 2)
   end
 
   def average_average_item_price_for_merchant
@@ -86,26 +87,27 @@ class SalesAnalyst
 
   def average_price_all
     num_items = @items.length
-    items_price = @items.unit_price.to_f
-    expected = (items_price.sum / num_items)
-    return expected
+    items_price = 0
+    @items.each do |item|
+      items_price += item.unit_price.to_f
+    end
+    (items_price / num_items.to_f).round(2)
   end
 
   def average_price_standard_deviation
     sum_diff_squared = 0
+    avg = average_price_all
     @items.each do |item|
-      sum_diff_squared += (items.unit_price - items.average_price_all.to_f) ** 2
+      sum_diff_squared += ((item.unit_price.to_f - avg)**2)
     end
-
-    ((sum_diff_squared / items.length) ** 0.5).round(2)
+    ((sum_diff_squared / items.length.to_f)**0.5).round(2)
   end
 
   def golden_items
     result_array = []
+    expected = (average_price_all + (average_price_standard_deviation * 2))
     @items.each do |item|
-      if item.unit_price.to_f > (item.average_price_all.to_f + (item.average_price_standard_deviation * 2))
-        result_array.append(item)
-      end
+      result_array.append(item) if item.unit_price.to_f >= expected
     end
   end
 end
