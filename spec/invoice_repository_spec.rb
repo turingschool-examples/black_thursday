@@ -48,4 +48,29 @@ RSpec.describe do
     expect(invoice_repository.find_all_by_status("returned").count).to eq 673
     expect(invoice_repository.find_all_by_status("went_overboard")).to eq([])
   end
+
+  it 'can create a invoice with given attributes' do
+    invoices_path = './data/invoices.csv'
+    invoice_repository = InvoiceRepository.new(invoices_path)
+    expect(invoice_repository.find_by_id(4986)).to eq(nil)
+    invoice_repository.create({
+                              :id          => 4986,
+                              :customer_id => 7,
+                              :merchant_id => 8,
+                              :status      => "pending",
+                              :created_at  => Time.now,
+                              :updated_at  => Time.now,
+                            })
+    expect(invoice_repository.find_by_id(4986)).not_to eq(nil)
+    expect(invoice_repository.all.last.id).to eq(4986)
+  end
+
+  # xit 'can update invoice attributes using ID' do
+  #   invoice_path = './data/invoices.csv'
+  #   invoice_repository = InvoiceRepository.new(invoice_path)
+  #   invoice_repository.create(:name => "Shopkeep0", :id => 12337412)
+  #   invoice_repository.update(12337412, "ThisTestWillPass")
+  #
+  #   expect((invoice_repository.create(12337412)).name).to eq "ThisTestWillPass"
+  # end
 end

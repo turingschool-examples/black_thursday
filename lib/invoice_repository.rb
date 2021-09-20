@@ -61,4 +61,9 @@ class InvoiceRepository
       []
     end
   end
+
+  def create(attributes)
+    new_invoice = Invoice.new(attributes)
+    @all << new_invoice
+  end
 end
