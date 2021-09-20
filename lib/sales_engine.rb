@@ -2,17 +2,17 @@ require 'csv'
 require './lib/merchantrepository'
 require './lib/itemrepository'
 require './lib/invoicerepository'
-require './lib/invoice_item'
+require './lib/invoice_item_repo'
 
 class SalesEngine
 
-  attr_reader :items, :merchants, :invoices, :invoice_item
+  attr_reader :items, :merchants, :invoices, :invoice_items
 
   def initialize(data)
     @items     = data[:items]
     @merchants = data[:merchants]
     @invoices = data[:invoices]
-    @invoice_item = data[:invoiceitem]
+    @invoice_items = data[:invoice_items]
   end
 
   def self.from_csv(info)
@@ -55,7 +55,7 @@ class SalesEngine
   def invoice_items
     all = []
 
-    csv = CSV.read(@invoice_item, headers: true, header_converters: :symbol)
+    csv = CSV.read(@invoice_items, headers: true, header_converters: :symbol)
      csv.map do |row|
        all << InvoiceItem.new(row)
     end

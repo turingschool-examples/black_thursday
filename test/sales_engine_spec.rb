@@ -6,6 +6,8 @@ require 'rspec'
 require 'csv'
 require './lib/merchantrepository'
 require './lib/merchant'
+require './lib/invoice'
+require './lib/invoicerepository'
 require './lib/invoice_item'
 require './lib/invoice_item_repo'
 
@@ -46,4 +48,28 @@ describe SalesEngine do
     expect(ir.find_by_id(263395721)).to be_an_instance_of(Item)
     expect(ir.all.length).to eq(1367)
    end
+
+   it "can create an array of invoices from csv input" do
+     se = SalesEngine.new({ :items => "./data/items.csv",
+                       :merchants => "./data/merchants.csv",
+                       :invoices => './data/invoices.csv',
+                       :invoice_items => './data/invoice_items.csv'})
+
+     inv = se.invoices
+
+     expect(inv.find_by_id(1)).to be_an_instance_of(Invoice)
+     expect(inv.all.length).to eq(4985)
+    end
+
+    it "can create an array of invoice_items from csv input" do
+      se = SalesEngine.new({ :items => "./data/items.csv",
+                        :merchants => "./data/merchants.csv",
+                        :invoices => './data/invoices.csv',
+                        :invoice_items => './data/invoice_items.csv'})
+
+      invi = se.invoice_item
+
+      expect(invi).to be_an_instance_of(InvoiceItem)
+      expect(inv.all.length).to eq(21830)
+     end
 end
