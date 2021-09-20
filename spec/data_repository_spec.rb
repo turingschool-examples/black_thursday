@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 'require relative'
+require 'simplecov'
+SimpleCov.start
 require 'rspec'
 require './lib/sales_engine'
 require './lib/merchant'
@@ -19,7 +21,7 @@ describe DataRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         invoices: './data/invoices.csv'
-                             )
+      )
 
       expect(dr).to be_an_instance_of(DataRepository)
     end
@@ -29,7 +31,7 @@ describe DataRepository do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         invoices: './data/invoices.csv'
-                             )
+      )
 
       expect(dr.items).to be_an_instance_of(ItemRepository)
       expect(dr.merchants).to be_an_instance_of(MerchantsRepository)
