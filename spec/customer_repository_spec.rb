@@ -34,5 +34,18 @@ RSpec.describe CustomerRepository do
   end
 
   it '#create' do
-    @cus.create()
+    path = './data/customers.csv'
+    iir = CustomerRepository.new(path)
+
+    attributes = {
+      :id => 6,
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+
+    expect(@cus.create(attributes).first_name).to eq("Joan")
+    expect(@cus.create(attributes).last_name).to eq("Clarke")
+  end
 end

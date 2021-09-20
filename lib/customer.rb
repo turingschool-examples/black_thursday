@@ -4,7 +4,7 @@ class Customer
   attr_accessor :first_name,
                 :last_name,
                 :created_at,
-                :updated_at 
+                :updated_at
 
   def initialize(hash)
     @id = hash[:id].to_i
