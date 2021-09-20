@@ -6,10 +6,11 @@ require './lib/sales_engine'
 
 RSpec.describe do
   before(:each) do
-    @engine = @engine = SalesEngine.from_csv({
-                                               items: './data/items.csv',
-                                               merchants: './data/merchants.csv'
-                                             })
+    @engine = SalesEngine.from_csv({
+                                     items: './data/items.csv',
+                                     merchants: './data/merchants.csv',
+                                     invoices: "./data/invoices.csv"
+                                   })
   end
 
   it 'can return the item id' do

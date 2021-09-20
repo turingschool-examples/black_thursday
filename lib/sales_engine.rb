@@ -17,14 +17,14 @@ class SalesEngine
     data = {}
     data[:items]     = create_obj_csv(paths[:items], Item)
     data[:merchants] = create_obj_csv(paths[:merchants], Merchant)
-    # data[:invoices]  = create_obj_csv(paths[:invoices], Invoices)
+    data[:invoices]  = create_obj_csv(paths[:invoices], Invoice)
     SalesEngine.new(data)
   end
 
   def initialize(data)
     @items     = ItemRepository.new(data[:items])
     @merchants = MerchantRepository.new(data[:merchants])
-    # @invoices  = InvoiceRepository.new(data[:invoices])
+    @invoices  = InvoiceRepository.new(data[:invoices])
   end
 
   def self.create_obj_csv(locations, obj_type)
@@ -38,6 +38,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants)
+    SalesAnalyst.new(@items, @merchants, @invoices)
   end
 end
