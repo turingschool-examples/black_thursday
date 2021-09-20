@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bigdecimal/util'
 # frozen_string_literal: true
 require 'time'
@@ -15,7 +17,7 @@ class Item
     @id = items[:id].to_i
     @name = items[:name]
     @description = items[:description]
-    @unit_price = (items[:unit_price].to_d) / 100
+    @unit_price = items[:unit_price].to_d / 100
     @merchant_id = items[:merchant_id].to_i
     @created_at = Time.parse(items[:created_at])
     @updated_at = Time.parse(items[:updated_at])
