@@ -1,7 +1,7 @@
 require 'csv'
-require_relative './lib/merchantrepository'
-require_relative './lib/itemrepository'
-require_relative './lib/sales_engine'
+require_relative 'merchantrepository'
+require_relative 'itemrepository'
+require_relative 'sales_engine'
 
 class SalesAnalyst < SalesEngine
 
