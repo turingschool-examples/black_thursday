@@ -167,13 +167,14 @@ RSpec.describe SalesAnalyst do
 
   context 'Iteration 4' do
 
-    xit '#find_all_invoice_item_by_date' do
-      require 'pry';binding.pry
-      expect(analyst.find_all_invoice_item_by_date('2012-03-27')).to be_a(Array)
+    it '#find_all_invoice_item_by_date' do
+      expect(analyst.find_all_invoice_item_by_date('2014-02-13')).to be_a(Array)
+      expect(analyst.find_all_invoice_item_by_date('2014-02-13').length).to eq(1)
     end
 #not sure how to test for this
-    xit '#total_revenue_by_date' do
-      expect(analyst.total_revenue_by_date('2012-03-27')).to
+    it '#total_revenue_by_date' do
+      expect(analyst.total_revenue_by_date('2014-02-13')).to eq(0)
+      expect(analyst.total_revenue_by_date('2009-02-07')).to eq(21067.77)
     end
   end
 end

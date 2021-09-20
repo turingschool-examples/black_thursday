@@ -161,17 +161,21 @@ class SalesAnalyst
 
 
   def find_all_invoice_item_by_date(date)
-    invoice_items.all.find_all do |invoice_item|
-      invoice_item.created_at == date
+    @invoice_items.all.find_all do |invoice_item|
+      invoice_item.created_at.strftime("%Y-%m-%d") == date
     end
   end
 
   def total_revenue_by_date(date)
     #need to change this if we move find_all_invoice_item_by_date
-    invoice_items = find_all_invoice_item_by_date(date)
+    invoice_items_array = find_all_invoice_item_by_date(date)
 
-    invoice_items.sum do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
+    invoice_items_array.sum do |invoice_item|
+      if invoice_paid_in_full?(invoice_item.invoice_id)
+        invoice_item.quantity * invoice_item.unit_price
+      else
+        0
+      end
     end
   end
 
