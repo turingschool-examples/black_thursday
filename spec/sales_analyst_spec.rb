@@ -51,21 +51,21 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_item_price_for_merchant("12334105")).to eq 1665.67
   end
 
-  xit 'average_average_price_per_merchant' do
+  it 'average_average_price_per_merchant' do
     sales_engine = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
     sales_analyst = sales_engine.analyst
-    expect(sales_analyst.average_average_price_per_merchant).to eq nil
+    expect(sales_analyst.average_average_price_per_merchant).to eq 35029.47
   end
 
-  xit 'golden_items' do
+  it 'golden_items' do
     sales_engine = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
     sales_analyst = sales_engine.analyst
-    expect(sales_analyst.golden_items).to eq "An array of item objects"
+    expect(sales_analyst.golden_items.count).to eq 5
   end
 end
