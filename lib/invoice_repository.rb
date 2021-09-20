@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# This is an InvoiceRepository class for Black Friday
+
 class InvoiceRepository
   attr_reader :all
 
