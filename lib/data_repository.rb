@@ -1,5 +1,4 @@
 class DataRepository
-
   attr_reader :merchants,
               :items,
               :invoices
@@ -33,5 +32,4 @@ class DataRepository
       InvoiceRepository.new(data_hash[:invoices])
     end
   end
-
 end
