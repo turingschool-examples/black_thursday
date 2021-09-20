@@ -34,7 +34,7 @@ class SalesAnalyst < SalesEngine
       num += ((item - average_items_per_merchant)**2)
 
     end
-    sd = (num / 475)
+    sd = (num / (mr.all.count - 1))
     Math.sqrt(sd).round(2)
   end
 
@@ -48,7 +48,7 @@ class SalesAnalyst < SalesEngine
     end
 
     high_items = item_set.find_all do |ipm|
-       ipm.count > 7 #(average_items_per_merchant + average_items_per_merchant_standard_deviation)
+       ipm.count > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
 
     high_merchants = high_items.map do |items|
@@ -56,4 +56,53 @@ class SalesAnalyst < SalesEngine
     end
     high_merchants
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    ir = @@se.items
+    mr = @@se.merchants
+
+    merchant_items = ir.find_all_by_merchant_id(merchant_id)
+    total_price = 0.0
+
+    merchant_items.each do |item|
+      total_price += item.unit_price.to_f
+    end
+
+    (total_price / merchant_items.count).to_d
+  end
+
+  def average_average_price_per_merchant
+    ir = @@se.items
+    mr = @@se.merchants
+
+    sum = mr.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id).to_f
+    end
+
+    pun = sum.sum do |num|
+      num
+    end
+    (pun / ir.all.count).to_d
+  end
+
+  def golden_items
+    ir = @@se.items
+    mr = @@se.merchants
+
+    price_set = ir.all.map do |item|
+      item.unit_price.to_f
+    end
+
+    num = 0.0
+
+    price_set.map do |price|
+
+      num += ((price - average_average_price_per_merchant)**2)
+
+    end
+    sd = (num / (ir.all.count - 1))
+    Math.sqrt(sd).round(2)
+
+  end
+
 end
