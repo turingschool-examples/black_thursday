@@ -38,4 +38,15 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    if (@all.any? do |invoice|
+      invoice.merchant_id == merchant_id
+    end) == true
+      @all.find_all do |invoice|
+        invoice.merchant_id == merchant_id
+      end
+    else
+      []
+    end
+  end
 end

@@ -31,4 +31,13 @@ RSpec.describe do
     expect(invoice_repository.find_all_by_customer_id(example_invoice.customer_id).count).to eq 5
     expect(invoice_repository.find_all_by_customer_id(1234)).to eq([])
   end
+
+  it 'can find_all_by merchant id' do
+    invoice_path = './data/invoices.csv'
+    invoice_repository = InvoiceRepository.new(invoice_path)
+    example_invoice = invoice_repository.all[25]
+
+    expect(invoice_repository.find_all_by_merchant_id(example_invoice.merchant_id).count).to eq 16
+    expect(invoice_repository.find_all_by_merchant_id(000000)).to eq([])
+  end
 end
