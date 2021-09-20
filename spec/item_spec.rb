@@ -66,6 +66,5 @@ RSpec.describe do
       })
 
     expect(i.unit_price_to_dollars).to eq("$10.99")
-require "pry"; binding.pry
   end
 end
