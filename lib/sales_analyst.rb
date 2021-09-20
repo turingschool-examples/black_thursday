@@ -149,13 +149,13 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     all_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
 
-    total = BigDecimal('0')
+    # total = BigDecimal('0')
 
-    all_invoice_items.each do |invoice_item|
-      total += (invoice_item.quantity * invoice_item.unit_price)
+    all_invoice_items.sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
     end
 
-    total
+    # total
   end
 
 #maybe move this to the invoice_item_repo?
