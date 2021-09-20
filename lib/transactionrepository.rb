@@ -10,18 +10,18 @@ class TransactionRepository
       transaction.id == id
     end.pop
   end
-  #
-  # def find_all_by_item_id(item_id)
-  #   @all.find_all do |invoiceitem|
-  #    invoiceitem.item_id == item_id
-  #   end
-  # end
-  #
-  # def find_all_by_invoice_id(invoice_id)
-  #   @all.find_all do |invoiceitem|
-  #    invoiceitem.invoice_id == invoice_id
-  #   end
-  # end
+
+  def find_all_by_invoice_id(invoice_id)
+    @all.find_all do |t|
+      t.invoice_id == invoice_id
+    end
+  end
+
+  def find_all_by_credit_card_number(cc_num)
+    @all.find_all do |t|
+      t.invoice_id == invoice_id
+    end
+  end
   #
   # def create(attributes)
   #   id_max = @all.max_by {|invoiceitem| invoiceitem.id}

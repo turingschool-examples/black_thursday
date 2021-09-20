@@ -34,10 +34,36 @@ describe TransactionRepository do
                       :transactions   => './data/transactions.csv'})
     transaction = se.transactions
 
-    trans1 = transaction.find_by_id(1)
-    trans2 = invi.find_by_id(371)
+    trans1 = transaction.find_by_id(6)
+    trans2 = transaction.find_by_id(390)
 
-    expect(invoiceitem1.item_id).to eq(263519844)
-    expect(invoiceitem2.item_id).to eq(263514300)
+    expect(trans1.credit_card_number).to eq("4558368405929183")
+    expect(trans2.result).to eq("success")
+  end
+
+  it 'finds all by invoice id' do
+    se = SalesEngine.new({ :items     => "./data/items.csv",
+                      :merchants      => "./data/merchants.csv",
+                      :invoices       => './data/invoices.csv',
+                      :invoice_items  => './data/invoice_items.csv',
+                      :transactions   => './data/transactions.csv'})
+    transaction = se.transactions
+
+    trans1 = transaction.find_all_by_invoice_id(2668)
+
+    expect(trans1[0].id).to eq(20)
+  end
+
+  it 'finds all by invoice id' do
+    se = SalesEngine.new({ :items     => "./data/items.csv",
+                      :merchants      => "./data/merchants.csv",
+                      :invoices       => './data/invoices.csv',
+                      :invoice_items  => './data/invoice_items.csv',
+                      :transactions   => './data/transactions.csv'})
+    transaction = se.transactions
+
+    trans1 = transaction.find_all_by_invoice_id(2668)
+
+    expect(trans1[0].id).to eq(20)
   end
 end
