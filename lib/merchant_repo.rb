@@ -33,7 +33,7 @@ class MerchantRepo
       updated_at: current_time
     }
     @all << Merchant.new(attributes)
-    end
+  end
 
   def update(id, attributes)
     if attributes[:name] != nil
