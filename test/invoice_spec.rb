@@ -17,7 +17,7 @@ describe Invoice do
                     :id          => 6,
                     :customer_id => 7,
                     :merchant_id => 8,
-                    :status      => "pending",
+                    :status      => :pending,
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
                     })
