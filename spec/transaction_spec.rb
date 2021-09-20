@@ -19,7 +19,7 @@ RSpec.describe Transaction do
 
   context 'instantiation' do
     it 'exists' do
-      expect(@t).to be_a Transaction
+      expect(@t).to be_an_instance_of Transaction 
     end
 
     it 'has readable attributes' do
@@ -27,7 +27,7 @@ RSpec.describe Transaction do
       expect(@t.invoice_id).to eq 8
       expect(@t.credit_card_number).to eq '4242424242424242'
       expect(@t.credit_card_expiration_date).to eq '0220'
-      expect(@t.result).to eq 'success'
+      expect(@t.result).to be_a Symbol
       expect(@t.created_at).to eq(@t.created_at)
       expect(@t.updated_at).to eq(@t.updated_at)
     end
