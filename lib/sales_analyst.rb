@@ -1,3 +1,5 @@
+require 'time'
+
 # frozen_string_literal: true
 
 require 'bigdecimal/util'
@@ -95,26 +97,53 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     test = []
     @merchants.all.each do |merchant|
-      if @invoices.find_all_by_merchant_id(merchant.id).length > (average_invoices_per_merchant_standard_deviation * 3)
+      if @invoices.find_all_by_merchant_id(merchant.id).length > (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
         test << merchant
       end
     end
     test
   end
 
-  # def bottom_merchants_by_invoice_count
-  #   test = []
-  #   @merchants.all.each do |merchant|
-  #     if @invoices.find_all_by_merchant_id(merchant.id).length < (average_invoices_per_merchant_standard_deviation * 2)
-  #       test << merchant
-  #     end
-  #   end
-  #   test
-  # end
+  def bottom_merchants_by_invoice_count
+    test = []
+    @merchants.all.each do |merchant|
+      if @invoices.find_all_by_merchant_id(merchant.id).length < average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+        test << merchant
+      end
+    end
+    test
+  end
+
+  def values_per_day
+    weekdays = Hash.new(0)
+    @invoices.all.find_all do |invoice|
+      day = invoice.created_at.strftime('%A')
+      if weekdays[day] += 1
+      end
+    end
+    weekdays
+  end
+
+  def days_created_at_stddev
+    mean = values_per_day.values.sum / 7
+    sum = values_per_day.values.sum(0.0) {|element| (element - mean) ** 2}
+    variance = sum / (values_per_day.values.length - 1)
+
+    standard_deviation = Math.sqrt(variance).round(2)
+  end
 
   def top_days_by_invoice_count
+    result = []
+    values_per_day.each do |weekday, count|
+      if count > ((values_per_day.values.sum / 7) + days_created_at_stddev)
+      result << weekday
+      end
+    end
+    result
   end
 
   def invoice_status(status)
+    result = @invoices.find_all_by_status(status)
+    ((result.count.to_f / @invoices.all.count) * 100).round(2)
   end
 end
