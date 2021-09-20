@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # TransactionRepository class for Black Thursday
 
 class TransactionRepository
@@ -14,9 +12,9 @@ class TransactionRepository
     categories = all_transactions.shift
     all_transactions.map do |transaction|
       individual_transaction = {}
-        categories.zip(transaction) do |category, attribute|
-          individual_transaction[category.to_sym] = attribute
-        end
+      categories.zip(transaction) do |category, attribute|
+        individual_transaction[category.to_sym] = attribute
+      end
       Transaction.new(individual_transaction)
     end
   end

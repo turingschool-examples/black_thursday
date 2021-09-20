@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 # Transaction class, built for the Black Thursday project!
 
 class Transaction
   attr_reader :id,
               :invoice_id,
-              :credit_card_number,
-              :credit_card_expiration_date,
+              :cc_num,
+              :cc_exp,
               :result,
               :created_at,
               :updated_at
@@ -14,8 +12,8 @@ class Transaction
   def initialize(transaction)
     @id = transaction[:id].to_i
     @invoice_id = transaction[:invoice_id]
-    @credit_card_number = transaction[:credit_card_number]
-    @credit_card_expiration_date = transaction[:credit_card_expiration_date]
+    @cc_num = transaction[:cc_num]
+    @cc_exp = transaction[:cc_exp]
     @result = transaction[:result]
     @created_at = transaction[:created_at]
     @updated_at = transaction[:updated_at]
@@ -23,8 +21,8 @@ class Transaction
 
   def update(attributes)
     @last_updated = Time.now
-    @credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
-    @credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
+    @cc_num = attributes[:cc_num] unless attributes[:cc_num].nil?
+    @cc_exp = attributes[:cc_exp] unless attributes[:cc_exp].nil?
     @result = attributes[:result] unless attributes[:result].nil?
     self
   end
