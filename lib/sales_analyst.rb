@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bigdecimal/util'
 # frozen_string_literal: true
 
@@ -45,11 +47,9 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     items_by_merchant = []
     @items.all.each do |item|
-      if item.merchant_id == id
-        items_by_merchant << item.unit_price
-      end
+      items_by_merchant << item.unit_price if item.merchant_id == id
     end
-    (items_by_merchant.sum/items_by_merchant.count).to_d.round(2)
+    (items_by_merchant.sum / items_by_merchant.count).to_d.round(2)
   end
 
   def average_average_price_per_merchant
@@ -60,11 +60,9 @@ class SalesAnalyst
   end
 
   def item_price_standard_dev
-    avg_item_price = @items.all.map do |item|
-      item.unit_price
-    end
+    avg_item_price = @items.all.map(&:unit_price)
     mean = (avg_item_price.sum / @items.all.count)
-    sum = avg_item_price.sum(0.0) { |element| (element - mean) ** 2 }
+    sum = avg_item_price.sum(0.0) { |element| (element - mean)**2 }
     variance = sum / (@items.all.count - 1)
     standard_deviation = Math.sqrt(variance).round(2)
   end
@@ -72,9 +70,7 @@ class SalesAnalyst
   def golden_items
     expensive_items = []
     @items.all.each do |item|
-      if item.unit_price > (item_price_standard_dev * 2)
-        expensive_items << item
-      end
+      expensive_items << item if item.unit_price > (item_price_standard_dev * 2)
     end
     expensive_items
   end

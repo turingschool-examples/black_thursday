@@ -4,13 +4,13 @@ require 'csv'
 require 'time'
 require './lib/sales_engine'
 
-RSpec.describe do
+RSpec.describe Item do
   before(:each) do
     @engine = SalesEngine.from_csv({
                                      items: './data/items.csv',
                                      merchants: './data/merchants.csv',
                                      invoices: "./data/invoices.csv"
-                                   })
+    })
   end
 
   it 'can return the item id' do
@@ -36,12 +36,11 @@ RSpec.describe do
     expect(item_1.description.length).to eq(2236)
   end
 
-  xit 'can return the items unit price' do
+  it 'can return the items unit price' do
     item_1 = @engine.items.all.first
 
     expect(item_1.unit_price).to eq 12.00
-    # expects BigDecimal, but we're returning float. Need to figure out conversion to BD
-    # expect(item_1.unit_price).to be_a(BigDecimal)
+    expect(item_1.unit_price).to be_a(BigDecimal)
   end
 
   it 'can return the merchant_id' do
