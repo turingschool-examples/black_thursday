@@ -133,14 +133,17 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    values_per_day.find_all do |weekday, count|
+    result = []
+    values_per_day.each do |weekday, count|
       if count > ((values_per_day.values.sum / 7) + days_created_at_stddev)
-        # require "pry"; binding.pry
-      weekday
+      result << weekday
       end
     end
+    result
   end
 
   def invoice_status(status)
+    result = @invoices.find_all_by_status(status)
+    ((result.count.to_f / @invoices.all.count) * 100).round(2)
   end
 end
