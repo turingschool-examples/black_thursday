@@ -10,9 +10,10 @@ require 'bigdecimal/util'
 # require_relative './sales_engine'
 
 class SalesAnalyst
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
+    @invoices = invoices
     @avgavg = []
   end
 

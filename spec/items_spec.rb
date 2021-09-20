@@ -8,8 +8,9 @@ RSpec.describe Item do
   before(:each) do
     @engine = SalesEngine.from_csv({
                                      items: './data/items.csv',
-                                     merchants: './data/merchants.csv'
-                                   })
+                                     merchants: './data/merchants.csv',
+                                     invoices: "./data/invoices.csv"
+    })
   end
 
   it 'can return the item id' do
