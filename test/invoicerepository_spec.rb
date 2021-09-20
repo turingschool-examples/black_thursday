@@ -26,8 +26,10 @@ describe InvoiceRepository do
                       :invoices => './data/invoices.csv'})
     inv = se.invoices
     invoice1 = inv.find_by_id(1)
+    invoice2 = inv.find_by_id(4965)
 
     expect(invoice1.customer_id).to eq(1)
+    expect(invoice2.customer_id).to eq(996)
   end
 
   it 'finds all by customer id' do
@@ -85,22 +87,13 @@ describe InvoiceRepository do
     expect(inv.all.length).to eq(4986)
   end
 
-  xit "can update status" do
+  it "can update status" do
     se = SalesEngine.new({ :items => "./data/items.csv",
                       :merchants => "./data/merchants.csv",
                       :invoices => './data/invoices.csv'})
     inv = se.invoices
 
     invoice1 = inv.find_by_id(4965)
-
-    i = {
-            :id           => 4965,
-            :customer_id  => 996,
-            :merchant_id  => 12334839,
-            :status       => "pending",
-            :created_at   => "2012-01-22",
-            :updated_at   => 2013-12-17
-            }
 
     attributes =  {
             :id           => 4965,
@@ -121,7 +114,8 @@ describe InvoiceRepository do
                   }
 
   invoice_results = Invoice.new(results)
-  expect(inv.update(4965, attributes).merchant_id).to eq(invoice_results.merchant_id)
+
+  expect(inv.update(4965, attributes).status).to eq(invoice_results.status)
   expect(inv.update(4965, attributes).customer_id).to eq(invoice_results.customer_id)
   end
 
