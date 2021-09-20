@@ -95,7 +95,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     test = []
     @merchants.all.each do |merchant|
-      if @invoices.find_all_by_merchant_id(merchant.id).length > (average_invoices_per_merchant_standard_deviation * 3)
+      if @invoices.find_all_by_merchant_id(merchant.id).length > (average_invoices_per_merchant_standard_deviation * 5)
         test << merchant
       end
     end

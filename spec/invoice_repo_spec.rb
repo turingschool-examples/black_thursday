@@ -52,11 +52,11 @@ RSpec.describe do
   end
 
   it 'can find all by status' do
-    results = @engine.invoices.find_all_by_status('pending')
+    results = @engine.invoices.find_all_by_status(:pending)
 
     expect(results.length).to eq(1473)
 
-    results2 = @engine.invoices.find_all_by_status('rejected')
+    results2 = @engine.invoices.find_all_by_status(:rejected)
     expect(results2).to eq([])
   end
 
