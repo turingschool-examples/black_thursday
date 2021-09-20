@@ -9,8 +9,8 @@ require 'pry'
 class SalesAnalyst
   attr_reader :analyst_items,
               :analyst_merchants,
-              :average_items_per_merchant,
-              :average_items_per_merchant_standard_deviation
+              :store_hashes,
+              :average_items_per_merchant
 
 #How to access data insie this class:
     # => @analyst_items.all.count
@@ -28,28 +28,31 @@ class SalesAnalyst
     (@analyst_items.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
 
-  def items_per_merchant_hashes
-    items_per_merchant_hashes = []
-    item_count = 0
+  def store_hashes
+    store_hashes = []
+    stores_items = []
     @analyst_merchants.all.each do |merchant|
-      item_count = 0
+      stores_items = []
       @analyst_items.all.each do |item|
         if item.merchant_id == merchant.id
-          item_count += 1
+          stores_items << item
         end
       end
-    items_per_merchant_hashes << {:merchant => merchant, :item_count => item_count}
-    end
-    items_per_merchant_hashes
+     store_hashes << {
+       :merchant => merchant,
+       :stores_items => stores_items,
+       :item_count => stores_items.count}
+     end
+     store_hashes
   end
 
   def average_items_per_merchant_standard_deviation
     sum = 0
     aipm = average_items_per_merchant
-    items_per_merchant_hashes.each do |ipm|
-      sum += (ipm[:item_count] - aipm)**2
+    store_hashes.each do |store|
+      sum += (store[:item_count] - aipm)**2
     end
-    std = Math.sqrt(sum / items_per_merchant_hashes.count).round(2)
+    std = Math.sqrt(sum / store_hashes.count).round(2)
     std
   end
 
@@ -57,17 +60,35 @@ class SalesAnalyst
      std = average_items_per_merchant_standard_deviation
      aipm = average_items_per_merchant
      mwhic = []
-     items_per_merchant_hashes.each do |ipm|
-       if ipm[:item_count] > aipm + std
-         mwhic << ipm[:merchant]
+     store_hashes.each do |store|
+       if store[:item_count] > aipm + std
+         mwhic << store[:merchant]
        end
      end
      mwhic
-  end
+   end
 
   def average_item_price_for_merchant(merchant_id)
+    (store_hashes.find do |store|
+      store[:merchant].id == merchant_id
+      end)[:items].each do |item|
+    #   sum = 0
+    #     sum += item.unit_price
+    #   end
+    # average_item_price_for_m = (sum / store[:item_count]).round(2)
+    #     end
+    #   end
+    #   average_item_price_for_m
+
+
+
 
   end
+
+  #
+  #       store
+  # end
+
 
   def average_average_price_per_merchant
 
