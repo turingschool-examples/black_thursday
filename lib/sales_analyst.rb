@@ -79,10 +79,6 @@ class SalesAnalyst
     #     end
     #   end
     #   average_item_price_for_m
-
-
-
-
   end
 
   #
