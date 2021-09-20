@@ -148,9 +148,9 @@ RSpec.describe SalesAnalyst do
 
     it '#invoice_paid_in_full?' do
       expected1 = analyst.invoice_paid_in_full?(4702)
-      # expected2 = analyst.invoice_paid_in_full?(1389)
+      expected2 = analyst.invoice_paid_in_full?(1389)
       expect(expected1).to be true
-      # expect(expected2).to be false
+      expect(expected2).to be false
     end
 
     xit '#invoice_total' do
@@ -162,11 +162,12 @@ RSpec.describe SalesAnalyst do
   context 'Iteration 4' do
 
     xit '#find_all_invoice_item_by_date' do
+      require 'pry';binding.pry
       expect(analyst.find_all_invoice_item_by_date('2012-03-27')).to be_a(Array)
     end
 #not sure how to test for this
     xit '#total_revenue_by_date' do
-      expect(analyst.total_revenue_by_date('2012-03-27')).to 
+      expect(analyst.total_revenue_by_date('2012-03-27')).to
     end
   end
 end
