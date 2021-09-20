@@ -42,11 +42,9 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-   test = @items.find_all do |item|
-     if item.unit_price_to_dollars == price
-       item
-     end
-   end
+    test = @items.find_all do |item|
+      item if item.unit_price_to_dollars == price
+    end
   end
 
   def find_all_by_price_in_range(range)
@@ -54,9 +52,7 @@ class ItemRepository
     ranges << range.first
     ranges << range.last
     items_with_price_in_range = @items.find_all do |item|
-      if item.unit_price_to_dollars.between?(ranges[0],ranges[1])
-        item
-      end
+      item if item.unit_price_to_dollars.between?(ranges[0], ranges[1])
     end
   end
 
@@ -72,13 +68,13 @@ class ItemRepository
   end
 
   def create(attributes)
-   new_item = Item.new({id: highest_id,
-                        name: attributes[:name],
-                        description: attributes[:description],
-                        unit_price: attributes[:unit_price],
-                        updated_at: Time.now.strftime('%Y-%m-%d'),
-                        created_at: Time.now.strftime('%Y-%m-%d'),
-                        merchant_id: attributes[:merchant_id]})
+    new_item = Item.new({ id: highest_id,
+                          name: attributes[:name],
+                          description: attributes[:description],
+                          unit_price: attributes[:unit_price],
+                          updated_at: Time.now.strftime('%Y-%m-%d'),
+                          created_at: Time.now.strftime('%Y-%m-%d'),
+                          merchant_id: attributes[:merchant_id] })
     @items << new_item
   end
 
