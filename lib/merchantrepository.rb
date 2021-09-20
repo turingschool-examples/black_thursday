@@ -15,20 +15,20 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    name_1 = name.upcase
+    name_1 = name.downcase
 
     @all.find do |merchant|
 
-      merchant.name.upcase!
+      merchant.name.downcase!
       merchant.name == name_1
     end
   end
 
   def find_all_by_name(name)
-    name_1 = name.upcase
+    name_1 = name.downcase
 
     @all.find_all do |merchant|
-      merchant.name.upcase!
+      merchant.name.downcase!
       merchant.name.include?(name_1)
     end
   end

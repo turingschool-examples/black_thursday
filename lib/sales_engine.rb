@@ -16,10 +16,11 @@ class SalesEngine
   end
 
   def self.from_csv(info)
-    SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    SalesEngine.new(info)
+  #   SalesEngine.new({ :items => "./data/items.csv",
+  #                     :merchants => "./data/merchants.csv",
+  #                     :invoices => './data/invoices.csv',
+  #                     :invoice_items => './data/invoice_items.csv'})
   end
 
   def merchants

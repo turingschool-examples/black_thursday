@@ -26,8 +26,8 @@ RSpec.describe 'MerchantRepository' do
     })
     mr = se.merchants
 
-    expect(mr.find_by_name("Shopin1901").name).to eq("SHOPIN1901")
-    expect(mr.find_by_name("fancybookart").name).to eq("FANCYBOOKART")
+    expect(mr.find_by_name("Shopin1901").name).to eq("shopin1901")
+    expect(mr.find_by_name("FANCYBOOKART").name).to eq("fancybookart")
   end
 
   it 'finds all by name' do
