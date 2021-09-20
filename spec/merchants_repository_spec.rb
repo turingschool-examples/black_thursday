@@ -1,7 +1,6 @@
 require 'rspec'
 require 'csv'
 require './lib/merchants_repository'
-require './lib/merchant'
 
 describe MerchantsRepository do
   before(:each) do

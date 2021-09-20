@@ -1,5 +1,7 @@
 #require 'csv'
 
+require_relative 'items'
+
 class ItemRepository
 
   attr_reader :all

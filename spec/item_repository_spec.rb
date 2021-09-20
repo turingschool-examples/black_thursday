@@ -3,11 +3,11 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'BigDecimal'
 require 'rspec'
 require 'csv'
-require './lib/items'
 require './lib/item_repository'
-
+# require_relative './lib/items'
 
 describe ItemRepository do
   before(:each) do

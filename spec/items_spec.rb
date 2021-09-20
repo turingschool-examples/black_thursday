@@ -4,8 +4,8 @@ require 'simplecov'
 SimpleCov.start
 
 require 'rspec'
-require './lib/items'
 require 'BigDecimal'
+require './lib/items'
 
 describe Item do
   before(:each) do
