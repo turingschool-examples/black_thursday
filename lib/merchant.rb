@@ -1,10 +1,9 @@
 require 'csv'
 
 class Merchant
-  attr_accessor :id,
-                :name,
-                :created_at,
-                :updated_at
+  attr_reader :id, :created_at, :updated_at
+  attr_accessor :name
+
 
   def initialize(info)
     @id = info[:id]
