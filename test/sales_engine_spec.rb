@@ -6,6 +6,8 @@ require 'rspec'
 require 'csv'
 require './lib/merchantrepository'
 require './lib/merchant'
+require './lib/invoice_item'
+require './lib/invoice_item_repo'
 
 describe SalesEngine do
 

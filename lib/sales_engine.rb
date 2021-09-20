@@ -2,21 +2,24 @@ require 'csv'
 require './lib/merchantrepository'
 require './lib/itemrepository'
 require './lib/invoicerepository'
+require './lib/invoice_item'
 
 class SalesEngine
 
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :invoice_item
 
   def initialize(data)
     @items     = data[:items]
     @merchants = data[:merchants]
     @invoices = data[:invoices]
+    @invoice_item = data[:invoiceitem]
   end
 
   def self.from_csv(info)
     SalesEngine.new({ :items => "./data/items.csv",
                       :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+                      :invoices => './data/invoices.csv',
+                      :invoice_items => './data/invoice_items.csv'})
   end
 
   def merchants
@@ -49,4 +52,13 @@ class SalesEngine
     InvoiceRepository.new(all)
   end
 
+  def invoice_items
+    all = []
+
+    csv = CSV.read(@invoice_item, headers: true, header_converters: :symbol)
+     csv.map do |row|
+       all << InvoiceItem.new(row)
+    end
+    InvoiceItemRepository.new(all)
+  end
 end
