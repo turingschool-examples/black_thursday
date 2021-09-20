@@ -14,7 +14,7 @@ class SalesEngine
     @merchants = data[:merchants]
     @invoices = data[:invoices]
     @invoice_items = data[:invoice_items]
-    @transactions = data[:transaction]
+    @transactions = data[:transactions]
   end
 
   def self.from_csv(info)
@@ -68,7 +68,7 @@ class SalesEngine
   def transactions
     all = []
 
-    csv = CSV.read(@transaction, headers: true, header_converters: :symbol)
+    csv = CSV.read(@transactions, headers: true, header_converters: :symbol)
      csv.map do |row|
        all << Transaction.new(row)
     end
