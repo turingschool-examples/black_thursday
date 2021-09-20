@@ -74,4 +74,47 @@ class SalesAnalyst
     end
     expensive_items
   end
+
+  def average_invoices_per_merchant
+    (@invoices.all.count.to_f / @merchants.all.count).round(2)
+  end
+
+  def invoices_per_merchant
+    @merchants.all.map do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).length
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    x = invoices_per_merchant.sum(0.0) { |element| (element - mean)**2 }
+    variance = x / (invoices_per_merchant.count - 1)
+    standard_deviation = Math.sqrt(variance).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    test = []
+    @merchants.all.each do |merchant|
+      if @invoices.find_all_by_merchant_id(merchant.id).length > (average_invoices_per_merchant_standard_deviation * 3)
+        test << merchant
+      end
+    end
+    test
+  end
+
+  # def bottom_merchants_by_invoice_count
+  #   test = []
+  #   @merchants.all.each do |merchant|
+  #     if @invoices.find_all_by_merchant_id(merchant.id).length < (average_invoices_per_merchant_standard_deviation * 2)
+  #       test << merchant
+  #     end
+  #   end
+  #   test
+  # end
+
+  def top_days_by_invoice_count
+  end
+
+  def invoice_status(status)
+  end
 end
