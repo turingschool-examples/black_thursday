@@ -72,4 +72,17 @@ describe SalesEngine do
       expect(invi).to be_an_instance_of(InvoiceItemRepository)
       expect(invi.all.length).to eq(21830)
      end
+
+     it "can create an array of taransactions from csv input" do
+       se = SalesEngine.new({ :items          => "./data/items.csv",
+                              :merchants      => "./data/merchants.csv",
+                              :invoices       => './data/invoices.csv',
+                              :invoice_items  => './data/invoice_items.csv',
+                              :transactions   => './data/transactions.csv'})
+
+       trans = se.transactions
+
+       expect(trans).to be_an_instance_of(TransactionRepository)
+       expect(trans.all.length).to eq(4985)
+      end
 end
