@@ -34,8 +34,8 @@ describe TransactionRepository do
                       :transactions   => './data/transactions.csv'})
     transaction = se.transactions
 
-    invoiceitem1 = invi.find_by_id(1)
-    invoiceitem2 = invi.find_by_id(371)
+    trans1 = transaction.find_by_id(1)
+    trans2 = invi.find_by_id(371)
 
     expect(invoiceitem1.item_id).to eq(263519844)
     expect(invoiceitem2.item_id).to eq(263514300)
