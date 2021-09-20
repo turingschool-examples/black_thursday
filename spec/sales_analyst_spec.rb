@@ -156,6 +156,12 @@ RSpec.describe SalesAnalyst do
     it '#invoice_total' do
       invoice_total1 = (analyst.invoice_total(2)).to_f
       expect(invoice_total1).to eq(5289.13)
+
+      invoice_total2 = (analyst.invoice_total(1389)).to_f
+      expect(invoice_total2).to eq(0)
+
+      invoice_total3 = (analyst.invoice_total(4702)).to_f
+      expect(invoice_total3).to eq(5010.21)
     end
   end
 

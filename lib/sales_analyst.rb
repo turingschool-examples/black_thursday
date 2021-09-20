@@ -149,16 +149,17 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     all_invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
 
-    # total = BigDecimal('0')
-
-    all_invoice_items.sum do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
+    if invoice_paid_in_full?(invoice_id) == true
+      all_invoice_items.sum do |invoice_item|
+        invoice_item.quantity * invoice_item.unit_price
+      end
+    else
+      return 0
     end
 
-    # total
   end
 
-#maybe move this to the invoice_item_repo?
+
   def find_all_invoice_item_by_date(date)
     invoice_items.all.find_all do |invoice_item|
       invoice_item.created_at == date
