@@ -18,7 +18,7 @@ RSpec.describe ItemRepository do
 
       item1 = ir.find_by_id(263395617)
       #require "pry"; binding.pry
-      expect(item1.unit_price_to_dollars).to eq(1300)
+      expect(item1.unit_price_to_dollars).to eq(13.00)
     end
 
     it "can return an array of all know Item instances" do
@@ -119,7 +119,7 @@ RSpec.describe ItemRepository do
         :updated_at  => "2008-04-02 13:48:57 UTC",
         :merchant_id => 12334185
         })
-      expect(ir.find_all_by_price(BigDecimal(1350,4)).length).to eq(1)
+      expect(ir.find_all_by_price(BigDecimal(13.50,4)).length).to eq(1)
     end
     it "can find by price range" do
       se = SalesEngine.from_csv({
@@ -140,7 +140,7 @@ RSpec.describe ItemRepository do
         :updated_at  => "2008-04-02 13:48:57 UTC",
         :merchant_id => 12334185
         })
-      expect(ir.find_all_by_price_in_range(1350, 1350).length).to eq(1)
+      expect(ir.find_all_by_price_in_range(13.50, 13.50).length).to eq(1)
 
     end
     it "can find by merchant_id" do
@@ -236,7 +236,7 @@ RSpec.describe ItemRepository do
       :id           => 263395721,
       :name         => "Bike",
       :description  => "You can use it to go fast",
-      :unit_price   => BigDecimal(400.99, 5),
+      :unit_price   => BigDecimal(40099.0, 5),
       :created_at   => "2016-01-11 11:51:37 UTC",
       :updated_at   => "2008-04-02 13:48:57 UTC",
       :merchant_id  => 12334185
