@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 'require relative'
+require 'simplecov'
+SimpleCov.start
 require 'rspec'
 require 'csv'
-require 'SimpleCov'
 require 'BigDecimal'
 require './lib/sales_engine'
 require './lib/merchant'
@@ -17,7 +18,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
@@ -27,7 +28,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.items).to be_an(Array)
@@ -41,7 +42,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.average_items_per_merchant).to eq(2.88)
@@ -53,7 +54,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
@@ -65,7 +66,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.merchants_with_high_item_count).to be_an(Array)
@@ -77,7 +78,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.average_item_price_for_merchant(12334159)).to be_a(BigDecimal)
@@ -89,7 +90,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.average_average_item_price_for_merchant).to be_a(BigDecimal)
@@ -101,7 +102,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.average_price_all).to be_a(Float)
@@ -113,7 +114,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.average_price_standard_deviation).to be_a(Float)
@@ -125,7 +126,7 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv'
-                          )
+      )
       sales_analyst = se.analyst(se.items, se.merchants)
 
       expect(sales_analyst.golden_items).to be_a(Array)
