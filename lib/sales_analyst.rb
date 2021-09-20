@@ -141,8 +141,12 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id)
     all_transaction = @transactions.find_all_by_invoice_id(invoice_id)
 
-    all_transaction.any? do |transaction|
-      transaction.result == :success
+    if @transactions.find_all_by_invoice_id(invoice_id) != nil
+      all_transaction.any? do |transaction|
+        transaction.result == :success
+      end
+    else
+      false
     end
   end
 
@@ -156,28 +160,25 @@ class SalesAnalyst
     else
       return 0
     end
-
   end
 
+  def find_all_invoice_items_by_date(date)
+    invoice_array = @invoices.all.find_all do |invoice|
+      invoice.created_at == date
+    end # => array of invoices created on date
 
-  def find_all_invoice_item_by_date(date)
-    @invoice_items.all.find_all do |invoice_item|
-      invoice_item.created_at.strftime("%Y-%m-%d") == date
-    end
+    invoice_id_array = invoice_array.map do |invoice|
+      invoice.id
+    end # => array of invoice ids created on date
+
+    invoice_id_array.map do |invoice_id|
+      @invoice_items.find_all_by_invoice_id(invoice_id)
+    end.flatten # => array of invoice items from date of invoice
   end
 
   def total_revenue_by_date(date)
-    #need to change this if we move find_all_invoice_item_by_date
-    invoice_items_array = find_all_invoice_item_by_date(date)
-
-    invoice_items_array.sum do |invoice_item|
-      if invoice_paid_in_full?(invoice_item.invoice_id)
-        invoice_item.quantity * invoice_item.unit_price
-      else
-        0
-      end
+    find_all_invoice_items_by_date(date).sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
     end
   end
-
-
 end

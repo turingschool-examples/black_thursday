@@ -174,7 +174,7 @@ RSpec.describe SalesAnalyst do
 #not sure how to test for this
     it '#total_revenue_by_date' do
       expect(analyst.total_revenue_by_date('2014-02-13')).to eq(0)
-      expect(analyst.total_revenue_by_date('2009-02-07')).to eq(21067.77)
+      expect(analyst.total_revenue_by_date('2009-02-24')).to eq(1363.50)
     end
   end
 end
