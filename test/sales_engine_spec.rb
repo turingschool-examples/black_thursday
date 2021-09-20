@@ -67,9 +67,9 @@ describe SalesEngine do
                         :invoices => './data/invoices.csv',
                         :invoice_items => './data/invoice_items.csv'})
 
-      invi = se.invoice_item
+      invi = se.invoice_items
 
-      expect(invi).to be_an_instance_of(InvoiceItem)
-      expect(inv.all.length).to eq(21830)
+      expect(invi).to be_an_instance_of(InvoiceItemRepository)
+      expect(invi.all.length).to eq(21830)
      end
 end
