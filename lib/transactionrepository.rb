@@ -19,31 +19,37 @@ class TransactionRepository
 
   def find_all_by_credit_card_number(cc_num)
     @all.find_all do |t|
-      t.invoice_id == invoice_id
+      t.credit_card_number == cc_num
     end
   end
-  #
-  # def create(attributes)
-  #   id_max = @all.max_by {|invoiceitem| invoiceitem.id}
-  #   attributes[:id] = id_max.id + 1
-  #   new = InvoiceItem.new(attributes)
-  #   @all.push(new)
-  # end
-  #
-  # def update(id, attribute)
-  #
-  #   updated_invoice_item = self.find_by_id(id)
-  #     updated_invoice_item.quantity = attribute[:quantity]
-  #     updated_invoice_item.unit_price = attribute[:unit_price]
-  #     updated_invoice_item.updated_at = attribute[:updated_at]
-  #   updated_invoice_item
-  # end
-  #
-  # def delete(id)
-  #   x = (self.all).find_index(self.find_by_id(id))
-  #   self.all.delete_at(x)
-  #   self.all
-  # end
 
+  def find_all_by_result(result)
+    @all.find_all do |t|
+      t.result == result
+    end
+  end
 
+  def create(attributes)
+    id_max = @all.max_by {|transaction| transaction.id}
+    attributes[:id] = id_max.id + 1
+    new = Transaction.new(attributes)
+    @all.push(new)
+  end
+
+  def update(id, attribute)
+
+    updated_transaction = self.find_by_id(id)
+
+      updated_transaction.credit_card_number = attribute[:credit_card_number]
+      updated_transaction.credit_card_expiration_date = attribute[:credit_card_expiration_date]
+      updated_transaction.result = attribute[:result]
+      updated_transaction.updated_at = attribute[:updated_at]
+    updated_transaction
+  end
+
+  def delete(id)
+    x = (self.all).find_index(self.find_by_id(id))
+    self.all.delete_at(x)
+    self.all
+  end
 end
