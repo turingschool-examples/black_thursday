@@ -7,22 +7,23 @@ require './lib/item_repository'
 require './lib/sales_analyst'
 require './lib/invoice_repository'
 require './lib/invoice'
+require './lib/data_repository'
 require 'csv'
 
 
 describe SalesEngine do
 
-  describe '#initialize' do
-    it 'creates an instance of SalesEngine' do
-      se = SalesEngine.new({
+  describe '.from_csv' do
+    it 'creates an instance of DataRepository' do
+      se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv"
         })
-      expect(se).to be_an_instance_of SalesEngine
+      expect(se).to be_an_instance_of(DataRepository)
     end
 
     it 'returns a new instance of ItemRepository with an array of item objects' do
-      se = SalesEngine.new({
+      se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv"
         })
@@ -32,7 +33,7 @@ describe SalesEngine do
     end
 
     it 'returns a new instance of MerchantRepository with an array of merchant objects' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv"
         )
@@ -44,10 +45,10 @@ describe SalesEngine do
 
   describe '#analyst' do
     it 'creates a new instance of SalesAnalyst' do
-      se = SalesEngine.new(
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv"
-        )
+      se = SalesEngine.new({
+        :items => './data/items.csv',
+        :merchants => './data/merchants.csv'
+        })
       analyst = se.analyst(se.items, se.merchants)
 
       expect(analyst).to be_a(SalesAnalyst)
@@ -58,7 +59,13 @@ describe SalesEngine do
     it 'creates an instance of InvoiceRepository' do
       se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
 
-      expect(se).to be_an_instance_of(InvoiceRepository)
+      expect(se).to be_an_instance_of(DataRepository)
+    end
+
+    it 'can find an invoice by id' do
+      se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+      expect(se.invoices.find_by_id(6)).to be_an_instance_of(Invoice)
     end
   end
 
