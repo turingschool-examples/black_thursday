@@ -39,8 +39,8 @@ class InvoiceRepository
   def update(id, attributes)
 
     updated_invoice = self.find_by_id(id)
-      updated_invoice.status = attributes[:status]
-      updated_invoice.updated_at = attributes[:updated_at]
+    updated_invoice.status = attributes[:status]
+    updated_invoice.updated_at = attributes[:updated_at]
     updated_invoice
   end
 
@@ -48,5 +48,9 @@ class InvoiceRepository
     x = (self.all).find_index(self.find_by_id(id))
     self.all.delete_at(x)
     self.all
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoice.size} rows>"
   end
 end

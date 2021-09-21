@@ -11,31 +11,15 @@ class SalesEngine
   attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
   def initialize(data)
-    @items          = data[:items]
-    @merchants      = data[:merchants]
-    @invoices       = data[:invoices]
-    @invoice_items  = data[:invoice_items]
-    @transactions   = data[:transactions]
-    @customers      = data[:customers]
+    @items     = data[:items]
+    @merchants = MerchantRepository.new(data[:merchants], self)
+    @invoices = data[:invoices]
+    @invoice_items = data[:invoice_items]
+    @sa = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items)
   end
 
   def self.from_csv(info)
-    SalesEngine.new({ :items          => "./data/items.csv",
-                      :merchants      => "./data/merchants.csv",
-                      :invoices       => './data/invoices.csv',
-                      :invoice_items  => './data/invoice_items.csv',
-                      :transactions   => './data/transactions.csv',
-                      :customers      => './data/customers.csv'})
-  end
-
-  def merchants
-    all = []
-
-    csv = CSV.table(@merchants, headers: true, header_converters: :symbol)
-     csv.map do |row|
-       all << Merchant.new(row)
-    end
-   MerchantRepository.new(all)
+    SalesEngine.new(info)
   end
 
   def items

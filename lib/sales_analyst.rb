@@ -5,25 +5,25 @@ require_relative 'sales_engine'
 
 class SalesAnalyst < SalesEngine
 
-  @@se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-  })
+  # @@se = SalesEngine.from_csv({
+  #   :items     => "./data/items.csv",
+  #   :merchants => "./data/merchants.csv",
+  # })
 
-  def initialize
+  def initialize(items, merchants, invoices, invoice_items)
+    @ir = items
+    @mr = merchants
+    @inr = invoices
+    @inv_items = invoice_items
   end
 
   def average_items_per_merchant
-    ir = @@se.items
-    mr = @@se.merchants
-    ((ir.all.count.to_f) / (mr.all.count.to_f)).round(2)
+    ((@ir.all.count.to_f) / (@mr.all.count.to_f)).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    ir = @@se.items
-    mr = @@se.merchants
-    item_set = mr.all.map do |merchant|
-      ir.find_all_by_merchant_id(merchant.id).count
+    item_set = @mr.all.map do |merchant|
+      @ir.find_all_by_merchant_id(merchant.id).count
     end
     num = 0.0
     item_set.map do |item|
@@ -34,25 +34,22 @@ class SalesAnalyst < SalesEngine
   end
 
   def merchants_with_high_item_count
-    ir = @@se.items
-    mr = @@se.merchants
     aipm = average_items_per_merchant
     aipmsd = average_items_per_merchant_standard_deviation
     item_set = mr.all.map do |merchant|
-      ir.find_all_by_merchant_id(merchant.id)
+      @ir.find_all_by_merchant_id(merchant.id)
     end
     high_items = item_set.find_all do |ipm|
        ipm.count > (aipm + aipmsd)
     end
     high_merchants = high_items.map do |items|
-      mr.find_by_id(items[0].merchant_id)
+      @mr.find_by_id(items[0].merchant_id)
     end
     high_merchants
   end
 
   def average_item_price_for_merchant(merchant_id)
-    ir = @@se.items
-    merchant_items = ir.find_all_by_merchant_id(merchant_id)
+    merchant_items = @ir.find_all_by_merchant_id(merchant_id)
     total_price = 0.0
     merchant_items.each do |item|
       total_price += item.unit_price.to_f
@@ -61,93 +58,79 @@ class SalesAnalyst < SalesEngine
   end
 
   def average_average_price_per_merchant
-    ir = @@se.items
-    mr = @@se.merchants
-    sum = mr.all.map do |merchant|
+    sum = @mr.all.map do |merchant|
       average_item_price_for_merchant(merchant.id).to_f
     end
     pun = sum.sum do |num|
       num
     end
-    (pun / mr.all.count).to_d
+    (pun / @mr.all.count).to_d
   end
 
   def golden_items
-    ir = @@se.items
     aappm = average_average_price_per_merchant
-    price_set = ir.all.map do |item|
+    price_set = @ir.all.map do |item|
       item.unit_price.to_f
     end
     num = 0.0
     price_set.map do |price|
       num += ((price - aappm)**2)
     end
-    x = (num / (ir.all.count - 1))
+    x = (num / (@ir.all.count - 1))
     std_dev = Math.sqrt(x).round(2)
     g_threshold = (std_dev*2) + aappm.to_f
-    ir.find_all_by_price_in_range(g_threshold, Float::INFINITY)
+    @ir.find_all_by_price_in_range(g_threshold, Float::INFINITY)
   end
 
   def average_invoices_per_merchant
-    inr = @@se.invoices
-    mr = @@se.merchants
-    ((inr.all.count.to_f) / (mr.all.count.to_f)).round(2)
+    ((@inr.all.count.to_f) / (@mr.all.count.to_f)).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    inr = @@se.invoices
-    mr = @@se.merchants
-    invoice_set = mr.all.map do |merchant|
-      inr.find_all_by_merchant_id(merchant.id).count
+    invoice_set = @mr.all.map do |merchant|
+      @inr.find_all_by_merchant_id(merchant.id).count
     end
     num = 0.0
     invoice_set.map do |invoice|
       num += ((invoice - average_invoices_per_merchant)**2)
     end
-    sd = (num / (mr.all.count - 1))
+    sd = (num / (@mr.all.count - 1))
     Math.sqrt(sd).round(2)
   end
 
   def top_merchants_by_invoice_count
-    ir = @@se.items
-    mr = @@se.merchants
     aipm = average_invoices_per_merchant
     aipmsd = average_invoices_per_merchant_standard_deviation
-    item_set = mr.all.map do |merchant|
-      ir.find_all_by_merchant_id(merchant.id)
+    item_set = @mr.all.map do |merchant|
+      @ir.find_all_by_merchant_id(merchant.id)
     end
     high_items = item_set.find_all do |ipm|
        ipm.count > (aipm + (aipmsd*2))
     end
     high_merchants = high_items.map do |items|
-      mr.find_by_id(items[0].merchant_id)
+      @mr.find_by_id(items[0].merchant_id)
     end
     high_merchants
   end
 
   def bottom_merchants_by_invoice_count
-    ir = @@se.items
-    mr = @@se.merchants
     aipm = average_invoices_per_merchant
     aipmsd = average_invoices_per_merchant_standard_deviation
     item_set = mr.all.map do |merchant|
-      ir.find_all_by_merchant_id(merchant.id)
+      @ir.find_all_by_merchant_id(merchant.id)
     end
     high_items = item_set.find_all do |ipm|
        ipm.count < (aipm - (aipmsd*2))
     end
     bottom_merchants = high_items.map do |items|
-      mr.find_by_id(items[0].merchant_id)
+      @mr.find_by_id(items[0].merchant_id)
     end
     bottom_merchants
   end
 
   def invoices_per_day
-    ir = @@se.items
-    mr = @@se.merchants
-    inr = @@se.invoices
     ipd = Hash.new(0)
-    ipd = inr.all.group_by do |invoice|
+    ipd = @inr.all.group_by do |invoice|
       Date.parse(invoice.created_at).cwday
     end
     ipd["Monday"] = ipd.delete(1)
@@ -185,30 +168,21 @@ end
   # end
 
   def average_invoices_per_day
-    ir = @@se.items
-    mr = @@se.merchants
-    inr = @@se.invoices
-    ((inr.all.count.to_f)/7).round(2)
+    ((@inr.all.count.to_f)/7).round(2)
   end
 
   def average_invoices_per_day_standard_deviation
-    ir = @@se.items
-    mr = @@se.merchants
-    inr = @@se.invoices
     num = 0.0
     invoices_per_day.each_key do |day|
 
       num += ((invoices_per_day[day].count - average_invoices_per_day)**2)
     end
-    sd = (num / (inr.all.count - 1))
+    sd = (num / (@inr.all.count - 1))
     Math.sqrt(sd).round(2)
   end
 
   def top_days_by_invoice_count
     #need to finish golden items, then transport that code here.
-    ir = @@se.items
-    mr = @@se.merchants
-    inr = @@se.invoices
 
     high_days = invoices_per_day.filter do |day, value|
 
@@ -222,9 +196,7 @@ end
   end
 
   def invoice_status(status)
-    inr = @@se.invoices
-
-    (((inr.find_all_by_status(status).count) / ((inr.all.count).to_f)) * 100).round(2)
+    (((@inr.find_all_by_status(status).count) / ((@inr.all.count).to_f)) * 100).round(2)
   end
 
 end

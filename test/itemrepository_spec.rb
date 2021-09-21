@@ -1,3 +1,4 @@
+require 'csv'
 require './lib/item'
 require './lib/itemrepository'
 require 'bigdecimal'
@@ -17,7 +18,6 @@ RSpec.describe ItemRepository do
       ir = se.items
 
       item1 = ir.find_by_id(263395617)
-      #require "pry"; binding.pry
       expect(item1.unit_price_to_dollars).to eq(13.00)
     end
 

@@ -44,4 +44,8 @@ class InvoiceItemRepository
     self.all.delete_at(x)
     self.all
   end
+
+  def inspect
+   "#<#{self.class} #{@invoiceitem.size} rows>"
+ end
 end
