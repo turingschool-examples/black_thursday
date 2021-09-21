@@ -15,12 +15,13 @@ RSpec.describe Transaction do
   end
 
   it 'has attributes' do
-    require "pry"; binding.pry
-    transaction_1 = @engine.transactions.first
+    transaction_1 = @engine.transactions.all.first
     expect(transaction_1.id).to eq(1)
-    expect(transaction_1.credit_card_expiration_date).to eq(0217)
-    transaction_1 = @engine.transactions.last
+    expect(transaction_1.credit_card_expiration_date).to eq("0217")
+    transaction_1 = @engine.transactions.all.last
     expect(transaction_1.id).to eq(4985)
-    #expect(transaction_1.credit_card_expiration_date).to eq(0913)
+    expect(transaction_1.credit_card_expiration_date).to eq("0913")
   end
+
+
 end
