@@ -16,6 +16,15 @@ RSpec.describe do
     expect(transaction_repository.all[0]).to be_an_instance_of(Transaction)
     expect(transaction_repository.all.count).to eq 4985
   end
+
+  it 'can find transaction by id' do
+    transaction_path = './data/transactions.csv'
+    transaction_repository = TransactionRepository.new(transaction_path)
+    example_transaction = transaction_repository.all[25]
+    
+    expect(transaction_repository.find_by_id(example_transaction.id)).to eq example_transaction
+    expect(transaction_repository.find_by_id(999999)).to eq nil
+  end
 end
 
 
