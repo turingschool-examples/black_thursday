@@ -238,4 +238,29 @@ class SalesAnalyst
       @items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    months = {
+      'January' => 1,
+      'Febrary' => 2,
+      'March' => 3,
+      'April' => 4,
+      'May' => 5,
+      'June' => 6,
+      'July' => 7,
+      'August' => 8,
+      'September' => 9,
+      'October' => 10,
+      'November' => 11,
+      'December' => 12
+    }
+
+    merchants_registered_in_month = @merchants.all.find_all do |merchant|
+      merchant.created_at[5..6].to_i == months[month]
+    end
+
+    merchants_registered_in_month.find_all do |merchant|
+      @items.find_all_by_merchant_id(merchant.id).length == 1
+    end
+  end
 end

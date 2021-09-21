@@ -198,5 +198,21 @@ RSpec.describe SalesAnalyst do
       expect(expected.length).to eq 467
       require "pry"; binding.pry
     end
+
+    it '#merchants_with_only_one_item' do
+      expected = analyst.merchants_with_only_one_item
+
+      expect(expected).to be_an Array
+      expect(expected.length).to eq 243
+    end
+
+    it '#merchants_with_only_one_item_registered_in_month' do
+      expected1 = analyst.merchants_with_only_one_item_registered_in_month('March')
+      expected2 = analyst.merchants_with_only_one_item_registered_in_month('June')
+
+      expect(expected1).to be_an Array
+      expect(expected1.length).to eq 21
+      expect(expected2.length).to eq 18
+    end
   end
 end
