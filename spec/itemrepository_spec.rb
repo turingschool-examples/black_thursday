@@ -77,9 +77,10 @@ describe 'itemrepository' do
       path = './data/items.csv'
       ir = ItemRepository.new(path)
 
-      expect(ir.find_all_by_price_in_range(1300..1500)).to be_an Array
-      expect(ir.find_all_by_price_in_range(1300..1500).last.id).to eq(263395617)
-      expect(ir.find_all_by_price_in_range(1300..1500).first.name).to eq("Glitter scrabble frames")
+      expect(ir.find_all_by_price_in_range(1000.00..1500.00).length).to eq 19
+      expect(ir.find_all_by_price_in_range(1000.00..1500.00)).to be_an Array
+      expect(ir.find_all_by_price_in_range(10.00..150.00).length).to eq 910
+      expect(ir.find_all_by_price_in_range(10.00..15.00).length).to eq 205
       expect(ir.find_all_by_price_in_range(98176234..1000000000)).to eq([])
     end
   end

@@ -14,7 +14,6 @@ RSpec.describe MerchantRepository do
   context 'functionality' do
     before :each do
       @mr = MerchantRepository.new('./data/merchants.csv')
-      @mr.read_file
     end
 
     it 'creates Merchant objects' do
@@ -51,8 +50,8 @@ RSpec.describe MerchantRepository do
       attributes1 = {name: 'SamsCatSupplyStore'}
       attributes2 = {id: 12030, name: 'fakestore', created_at: "2021-09-13"}
 
-      merchant1 = @mr.create(attributes1)
-      merchant2 = @mr.create(attributes2)
+      merchant1 = @mr.create(attributes1).last
+      merchant2 = @mr.create(attributes2).last
 
       expect(merchant1).to be_a Merchant
       expect(merchant1.id).to eq 12337412

@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 require 'csv'
 require_relative 'invoice_item'
+require_relative 'csv_readable'
 
 class InvoiceItemRepository
+  include CSV_readable
+
   attr_reader :all
 
   def initialize(path)
@@ -13,7 +18,8 @@ class InvoiceItemRepository
   end
 
   def generate(path)
-    rows = CSV.read(path, headers: true, header_converters: :symbol)
+    rows = read_csv(path)
+    
     rows.map do |row|
       InvoiceItem.new(row)
     end
