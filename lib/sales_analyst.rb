@@ -256,4 +256,12 @@ class SalesAnalyst
     end
     merchant_total_revenue_hash[merchant_id]
   end
+
+  def merchants_with_pending_invoices
+      @invoices.all.map do |invoice|
+        if invoice_paid_in_full?(invoice.id) == false
+          @merchants.find_by_id(invoice.merchant_id)
+        end
+      end.uniq
+  end
 end
