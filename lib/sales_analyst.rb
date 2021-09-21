@@ -82,7 +82,7 @@ class SalesAnalyst
       total_price = 0
       item_count = items.length.to_f
       items.each do |item|
-          total_price += item.unit_price.to_f
+        total_price += item.unit_price.to_f
       end
       return_array.push(total_price.to_f / item_count.to_f)
     end
@@ -117,5 +117,70 @@ class SalesAnalyst
 
   def average_invoices_per_merchant
     (@invoices.length.to_f / @merchants.length.to_f).round(2)
+  end
+
+  def merchant_invoice_count
+    merchant_invoice_hash = {}
+    invoices.each do |invoice|
+      merchants.each do |merchant|
+        if invoice.merchant_id == merchant.id
+          merchant_invoice_hash[merchant] ||= 0
+          merchant_invoice_hash[merchant] += 1
+        end
+      end
+    end
+    merchant_invoice_hash
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    sum_diff_squared = 0
+    avg = average_invoices_per_merchant
+    merchant_invoice_count.each do |key, value|
+      sum_diff_squared += ((value - avg)**2)
+    end
+    ((sum_diff_squared / (merchants.length.to_f - 1))**0.5).round(2)
+  end
+
+
+  def top_merchants_by_invoice_count
+    result_array = []
+    two_sd = (average_invoices_per_merchant_standard_deviation) * 2
+    @merchants.each do |merchant|
+      if invoices.length > (two_sd)
+        result_array.append(merchant)
+      end
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    result_array = []
+    two_sd = average_invoices_per_merchant_standard_deviation * 2
+    @merchants.each do |merchant|
+      if (invoices.length + two_sd) < average_invoices_per_merchant
+        result_array.append(merchant)
+      end
+    end
+  end
+
+  def top_days_by_invoice_count
+    result_array = []
+    invoice_created = @invoices.created_at
+    average_created_at = average_invoices_per_merchant.created_at
+    sd = average_invoices_per_merchant_standard_deviation
+    @merchants.each do |merchant|
+      if invoice_created.length > average_created_at.length + sd
+        result_array.append(merchant)
+      end
+    end
+  end
+
+  def invoice_status_count(status)
+    invoices.map do |invoice|
+      invoice if invoice.status.to_sym == status
+    end.compact
+  end
+
+  def invoice_status(status)
+    ((invoice_status_count(status).length.to_f / invoices.length) * 100).to_f.round(2)
   end
 end

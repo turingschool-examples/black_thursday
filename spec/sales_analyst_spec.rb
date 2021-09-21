@@ -152,7 +152,66 @@ describe SalesAnalyst do
       )
       sales_analyst = se.analyst
 
+      expect(sales_analyst.average_invoices_per_merchant).to be_a(Float)
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
   end
+
+  describe "#average_invoices_per_merchant_standard_deviation" do
+    it 'calculates the standard deviation of invoices per merchant' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
+
+      sales_analyst = se.analyst
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to be_a(Float)
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
+  end
+
+  describe "#top_merchants_by_invoice_count" do
+    it 'returns an array of merchants with 2SD above mean number of invoices' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
+
+      sales_analyst = se.analyst
+      expect(sales_analyst.top_merchants_by_invoice_count).to be_a(Array)
+    end
+  end
+
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'returns an array of merchants with 2SD below mean number of invoices' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
+
+      sales_analyst = se.analyst
+      expect(sales_analyst.bottom_merchants_by_invoice_count).to be_a(Array)
+    end
+  end
+
+  describe '#invoice_status' do
+    it 'calculates the percent of invoices with a given status' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
+
+      sales_analyst = se.analyst
+      expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
+      expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
+      expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
+    end
+  end
 end
+
+#   # describe "#top_merchants_by_invoice_count" do
+#   #   it 'returns merchants with invoices'

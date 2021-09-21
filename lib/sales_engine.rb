@@ -15,7 +15,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new(data_hash[:invoices])
     @analyst = SalesAnalyst.new(@items, @merchants, @invoices)
   end
-
+  
   def self.from_csv(data_hash)
     self.new(data_hash)
   end
