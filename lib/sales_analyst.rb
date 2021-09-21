@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+require 'BigDecimal'
 
 # SalesAnalyst class creates handles all analysis of merch, items, and invoices
 
 class SalesAnalyst
   attr_reader :items,
               :merchants,
+              :invoices,
               :merch_item_hash
 
   def initialize(items, merchants, invoices)
@@ -31,17 +33,15 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    num_merchants = @merchants.length.to_f
-    num_items = @items.length.to_f
-    expected = (num_items / num_merchants).round(2)
+    (@items.length.to_f / @merchants.length.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    sum_diff_squared = 0
-    @merch_item_hash.each do |merchant,items|
-      sum_diff_squared += (items.length - average_items_per_merchant)**2
+    sum_diff = 0
+    @merch_item_hash.each do |merchant, items|
+      sum_diff += 1
     end
-    ((sum_diff_squared / @merchants.length.to_f)**0.5).round(2)
+    sum_diff
   end
 
   def merchants_with_high_item_count
