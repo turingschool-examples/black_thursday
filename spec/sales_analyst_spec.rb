@@ -86,19 +86,26 @@ describe SalesAnalyst do
     expect(days).to eq ["Wednesday"]
   end
 
-  xit 'invoice_status' do
+  xit '#invoice_status' do
     expect(@sa.invoice_status(:pending)).to eq 29.55
     expect(@sa.invoice_status(:shipped)).to eq 56.95
     expect(@sa.invoice_status(:returned)).to eq 13.5
   end
 
-  it 'invoice_paid_in_full' do
+  xit '#invoice_paid_in_full' do
     expect(@sa.invoice_paid_in_full?(2)).to be(true)
     expect(@sa.invoice_paid_in_full?(10)).to be(true)
     expect(@sa.invoice_paid_in_full?(203)).to be(false)
   end
 
-  it 'invoice_total' do
+  xit '#invoice_total' do
     expect(@sa.invoice_total(1)).to eq(21067.77)
+  end
+
+  it "#total_revenue_by_date" do
+    date = Time.parse("2009-02-07")
+
+    expect(@sa.total_revenue_by_date(date)).to eq(21067.77)
+    expect(@sa.total_revenue_by_date(date).class).to eq(BigDecimal)
   end
 end
