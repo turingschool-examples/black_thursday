@@ -68,9 +68,10 @@ describe ItemRepository do
 
   describe 'find_all_by_price_in_range(range)' do
     it 'returns items within matching prices given a range' do
-
-      expect(@item_repo1.find_all_by_price_in_range(700.00..1300.00).length).to eq(35)
-      expect(@item_repo1.find_all_by_price_in_range(52_300.00..52_400.00).length).to eq(0)
+      range1 = 700.00..1300.00
+      range2 = 52_300.00..52_400.00
+      expect(@item_repo1.find_all_by_price_in_range(range1).length).to eq(35)
+      expect(@item_repo1.find_all_by_price_in_range(range2).length).to eq(0)
     end
   end
 
