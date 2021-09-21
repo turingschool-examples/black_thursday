@@ -2,9 +2,11 @@
 
 require 'csv'
 require_relative 'transaction'
-
+require_relative 'csv_readable'
 
 class TransactionRepository
+  include CSV_readable
+
   attr_reader :all
 
   def initialize(path)
@@ -16,7 +18,7 @@ class TransactionRepository
   end
 
   def generate(path)
-    rows = CSV.read(path, headers: true, header_converters: :symbol)
+    rows = read_csv(path)
 
     rows.map do |row|
       Transaction.new(row)
@@ -66,7 +68,7 @@ class TransactionRepository
     txn_to_update.result = result if result
     if txn_to_update != nil
       txn_to_update.updated_at = Time.now
-    end 
+    end
     txn_to_update
   end
 

@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 require 'csv'
 require_relative 'merchant'
+require_relative 'csv_readable'
 
 class MerchantRepository
+  include CSV_readable
+
   attr_reader :all
 
   def initialize(path)
@@ -13,7 +18,7 @@ class MerchantRepository
   end
 
   def generate(path)
-    rows = CSV.read(path, headers: true, header_converters: :symbol)
+    rows = read_csv(path)
 
     rows.map do |row|
       Merchant.new(row)
@@ -32,7 +37,7 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_name(name) # include
+  def find_all_by_name(name)
     @all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
