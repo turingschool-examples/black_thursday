@@ -1,11 +1,11 @@
 require "CSV"
 require_relative "../lib/invoice"
 require "Time"
-require_relative '../lib/repo_module'
+require_relative '../lib/repoable'
 
 
 class InvoiceRepo
-  include Repo
+  include Repoable
   attr_reader :all
 
   def initialize(path)
@@ -47,7 +47,7 @@ class InvoiceRepo
 
   def update(id, attributes)
     if attributes[:status] != nil
-      find_by_id(id).change_status(attributes[:status])  
+      find_by_id(id).change_status(attributes[:status])
     end
   end
 end

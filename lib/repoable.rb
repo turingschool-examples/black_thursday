@@ -1,4 +1,4 @@
-module Repo
+module Repoable
 
   def find_by_id(id)
     all.find do |thing|
