@@ -3,8 +3,10 @@
 require 'csv'
 require_relative './sales_engine'
 require_relative './merchants'
+require_relative './inspectable'
 
 class MerchantRepository
+  include Inspectable
   def initialize(data)
     @merchants = data
   end
