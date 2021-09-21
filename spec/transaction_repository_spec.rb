@@ -9,6 +9,13 @@ RSpec.describe do
     transaction_repository = TransactionRepository.new(transaction_path)
     expect(transaction_repository).to be_an_instance_of(TransactionRepository)
   end
+
+  it 'can return an array of all known transactions' do
+    transaction_path = './data/transactions.csv'
+    transaction_repository = TransactionRepository.new(transaction_path)
+    expect(transaction_repository.all[0]).to be_an_instance_of(Transaction)
+    expect(transaction_repository.all.count).to eq 4985
+  end
 end
 
 
