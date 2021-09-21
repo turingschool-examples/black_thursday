@@ -6,11 +6,13 @@ require './lib/sales_engine'
 
 RSpec.describe 'MerchantRepository' do
 
-  xit "can find a merchant by ID number" do
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
+  it "can find a merchant by ID number" do
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     mr = se.merchants
 
     expect(mr).to be_a(MerchantRepository)
@@ -18,33 +20,40 @@ RSpec.describe 'MerchantRepository' do
     expect(mr.find_by_id(12334146).name).to eq("MotankiDarena")
   end
 
-  xit 'can find a merchant by name' do
+  it 'can find a merchant by name' do
 
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     mr = se.merchants
 
     expect(mr.find_by_name("Shopin1901").name).to eq("shopin1901")
     expect(mr.find_by_name("FANCYBOOKART").name).to eq("fancybookart")
   end
 
-  xit 'finds all by name' do
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
+  it 'finds all by name' do
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     mr = se.merchants
 
-    expect(mr.find_all_by_name("Georgia").first.name).to eq("GEORGIAFAYEDESIGNS")
-    expect(mr.find_all_by_name("shop")[2].name).to eq("WOODENPENSHOP")
+    expect(mr.find_all_by_name("Georgia").first.name).to eq("GeorgiaFayeDesigns")
+    expect(mr.find_all_by_name("shop")[2].name).to eq("Woodenpenshop")
   end
 
   it 'creates' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv"
-                      })
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     mr = se.merchants
 
 
@@ -55,7 +64,6 @@ RSpec.describe 'MerchantRepository' do
 
     expect(mr.all.length).to eq(475)
     mr.create(attributes)
-    expect(mr[0].name).to eq([])
     expect(mr.all.length).to eq(476)
 
 
@@ -70,10 +78,12 @@ RSpec.describe 'MerchantRepository' do
   end
 
   it "can update the name of merchants" do
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     mr = se.merchants
 
     expect(mr.update(12334149, "Bluebow").name).to eq("Bluebow")
@@ -81,10 +91,12 @@ RSpec.describe 'MerchantRepository' do
   end
 
   it "can delete merchants" do
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     mr = se.merchants
 
     mr.delete(12337413)
