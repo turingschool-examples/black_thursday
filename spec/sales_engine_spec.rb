@@ -17,6 +17,7 @@ describe SalesEngine do
       expect(se).to be_an_instance_of(SalesEngine)
     end
 
+  describe '#items' do
     it 'returns a new instance of ItemRepository with an array of item objects' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
