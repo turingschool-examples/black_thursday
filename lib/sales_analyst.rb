@@ -3,7 +3,7 @@ require_relative 'merchantrepository'
 require_relative 'itemrepository'
 require_relative 'sales_engine'
 
-class SalesAnalyst < SalesEngine
+class SalesAnalyst
 
   # @@se = SalesEngine.from_csv({
   #   :items     => "./data/items.csv",
