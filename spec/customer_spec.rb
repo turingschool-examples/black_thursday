@@ -12,7 +12,8 @@ RSpec.describe do
                                      merchants: './data/merchants.csv',
                                      invoices: "./data/invoices.csv",
                                      invoice_items: './data/invoice_items.csv',
-                                     customers: './data/customers.csv'
+                                     customers: './data/customers.csv',
+                                     transactions: './data/transactions.csv'
                                    })
   end
 

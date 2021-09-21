@@ -6,13 +6,14 @@ require 'bigdecimal/util'
 
 
 class SalesAnalyst
-  def initialize(items, merchants, invoices, invoice_items, customers)
+  def initialize(items, merchants, invoices, invoice_items, customers, transactions)
     @items = items
     @merchants = merchants
     @invoices = invoices
     @avgavg = []
     @invoice_items = invoice_items
     @customers = customers
+    @transactions = transactions
   end
 
   def average_items_per_merchant
