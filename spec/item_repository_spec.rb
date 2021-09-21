@@ -48,21 +48,21 @@ describe ItemRepository do
 
   describe 'find_all_with_description(description)' do
     it 'returns all items with matching descriptions' do
-      description1 = 'TABLEAU'
-      description2 = 'Corncob on the bread'
+      desc1 = 'TABLEAU'
+      desc2 = 'Corncob on the bread'
       item = @item_repo1.all[12]
 
-      expect(@item_repo1.find_all_with_description(description1)).to include(item)
-      expect(@item_repo1.find_all_with_description(description2)).to eq([])
+      expect(@item_repo1.find_all_with_description(desc1)).to include(item)
+      expect(@item_repo1.find_all_with_description(desc2)).to eq([])
     end
   end
 
   describe 'find_all_by_price(price)' do
     it 'returns items with matching prices' do
-      price1 = BigDecimal(13)
-      price2 = BigDecimal(7250)
-      expect(@item_repo1.find_all_by_price(price1)).to include(@item_repo1.all[1])
-      expect(@item_repo1.find_all_by_price(price2)).to eq([])
+      p1 = BigDecimal(13)
+      p2 = BigDecimal(7250)
+      expect(@item_repo1.find_all_by_price(p1)).to include(@item_repo1.all[1])
+      expect(@item_repo1.find_all_by_price(p2)).to eq([])
     end
   end
 
