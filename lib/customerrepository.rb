@@ -64,4 +64,8 @@ class CustomerRepository
     self.all.delete_at(c_1)
     self.all
   end
+
+  def inspect
+   "#<#{self.class} #{@customer.size} rows>"
+ end
 end

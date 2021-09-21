@@ -2,19 +2,19 @@ require 'csv'
 require 'rspec'
 require 'bigdecimal'
 require 'bigdecimal/util'
-require './lib/merchantrepository'
-require './lib/itemrepository'
-require './lib/invoicerepository'
-require './lib/invoice_item_repo'
-require './lib/transactionrepository'
-require './lib/customerrepository'
-require './lib/sales_analyst'
-require './lib/merchant'
-require './lib/item'
-require './lib/invoice'
-require './lib/invoice_item'
-require './lib/transaction'
-require './lib/customer'
+require_relative 'merchantrepository'
+require_relative 'itemrepository'
+require_relative 'invoicerepository'
+require_relative 'invoice_item_repo'
+require_relative 'transactionrepository'
+require_relative 'customerrepository'
+require_relative 'sales_analyst'
+require_relative 'merchant'
+require_relative 'item'
+require_relative 'invoice'
+require_relative 'invoice_item'
+require_relative 'transaction'
+require_relative 'customer'
 
 class SalesEngine
 
@@ -27,7 +27,7 @@ class SalesEngine
     @invoice_items = InvoiceItemRepository.new(data[:invoice_items], self)
     @transactions = TransactionRepository.new(data[:transactions], self)
     @customers = CustomerRepository.new(data[:customers], self)
-    @analyst = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items)
+    @analyst = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions)
   end
 
   def self.from_csv(info)

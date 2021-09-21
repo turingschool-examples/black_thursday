@@ -65,4 +65,8 @@ class TransactionRepository
     self.all.delete_at(x)
     self.all
   end
+
+  def inspect
+   "#<#{self.class} #{@transaction.size} rows>"
+ end
 end

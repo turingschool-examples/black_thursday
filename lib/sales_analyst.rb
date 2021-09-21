@@ -16,6 +16,7 @@ class SalesAnalyst
     @inr = invoices
     @inv_items = invoice_items
     @tran = transactions
+
   end
 
   def average_items_per_merchant
