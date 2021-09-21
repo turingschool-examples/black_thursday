@@ -12,4 +12,16 @@ class CustomerRepository
       end
       customer_objects)
   end
+
+  def find_by_id(id)
+    if (@all.any? do |customer|
+      customer.id == id
+    end) == true
+      @all.find do |customer|
+        customer.id == id
+      end
+    else
+      nil
+    end
+  end
 end
