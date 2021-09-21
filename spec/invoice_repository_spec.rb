@@ -65,7 +65,7 @@ RSpec.describe do
     expect(invoice_repository.all.last.id).to eq(4986)
   end
 
-  it 'can update invoice attributes using ID' do
+  xit 'can update invoice attributes using ID' do
     invoice_path = './data/invoices.csv'
     invoice_repository = InvoiceRepository.new(invoice_path)
     invoice_repository.create({
@@ -78,6 +78,25 @@ RSpec.describe do
                             })
     expect(invoice_repository.find_by_id(4986).status).to eq "pending"
     invoice_repository.update(4986, {:status => "shipped"})
-
+    expect(invoice_repository.find_by_id(4986).status).to eq "shipped"
+    Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    expect(invoice_repository.find_by_id(4986).updated_at).to eq Time.now
   end
+
+  it 'can delete a invoice by ID' do
+    invoices_path = './data/invoices.csv'
+    invoice_repository = InvoiceRepository.new(invoices_path)
+    invoice_repository.create({
+                              :id          => 4986,
+                              :customer_id => 7,
+                              :merchant_id => 8,
+                              :status      => "pending",
+                              :created_at  => Time.now,
+                              :updated_at  => Time.now,
+                            })
+
+    expect(invoice_repository.all.count).to eq 4986
+    invoice_repository.delete(4986)
+    expect(invoice_repository.all.count).to eq 4985
+ end
 end
