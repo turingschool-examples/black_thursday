@@ -82,7 +82,7 @@ class SalesAnalyst
       total_price = 0
       item_count = items.length.to_f
       items.each do |item|
-          total_price += item.unit_price.to_f
+        total_price += item.unit_price.to_f
       end
       return_array.push(total_price.to_f / item_count.to_f)
     end
@@ -152,13 +152,13 @@ class SalesAnalyst
     end
   end
 
-
   def bottom_merchants_by_invoice_count
     result_array = []
     two_sd = average_invoices_per_merchant_standard_deviation * 2
     @merchants.each do |merchant|
-    if (invoices.length + two_sd) < average_invoices_per_merchant
-      result_array.append(merchant)
+      if (invoices.length + two_sd) < average_invoices_per_merchant
+        result_array.append(merchant)
+      end
     end
   end
 
@@ -179,6 +179,7 @@ class SalesAnalyst
       invoice if invoice.status.to_sym == status
     end.compact
   end
+
   def invoice_status(status)
     ((invoice_status_count(status).length.to_f / invoices.length) * 100).to_f.round(2)
   end
