@@ -5,9 +5,8 @@ class InvoiceItem
   attr_reader   :id,
                 :item_id,
                 :invoice_id,
-                :created_at
-
-  attr_accessor :quantity,
+                :created_at,
+                :quantity,
                 :unit_price,
                 :updated_at
 
@@ -23,5 +22,17 @@ class InvoiceItem
 
   def unit_price_to_dollars
     "$" + @unit_price.to_s
+  end
+
+  def update_quantity(quantity)
+    @quantity = quantity
+  end
+
+  def update_unit_price(up)
+    @unit_price = up
+  end
+
+  def update_updated_at
+    @updated_at = Time.now
   end
 end

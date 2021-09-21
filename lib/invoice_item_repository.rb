@@ -19,7 +19,7 @@ class InvoiceItemRepository
 
   def generate(path)
     rows = read_csv(path)
-    
+
     rows.map do |row|
       InvoiceItem.new(row)
     end
@@ -54,13 +54,13 @@ class InvoiceItemRepository
   def update(id, attributes)
     invoice_item_to_update = find_by_id(id)
     if attributes[:quantity] != nil
-      invoice_item_to_update.quantity = attributes[:quantity]
+      invoice_item_to_update.update_quantity(attributes[:quantity])
     end
     if attributes[:unit_price] != nil
-      invoice_item_to_update.unit_price = attributes[:unit_price]
+      invoice_item_to_update.update_unit_price(attributes[:unit_price])
     end
     if invoice_item_to_update
-    invoice_item_to_update.updated_at = Time.now
+    invoice_item_to_update.update_updated_at
     end
     invoice_item_to_update
   end
