@@ -10,6 +10,7 @@ require './lib/invoice'
 require './lib/invoicerepository'
 require './lib/invoice_item'
 require './lib/invoice_item_repo'
+require './lib/itemrepository'
 
 describe SalesEngine do
 

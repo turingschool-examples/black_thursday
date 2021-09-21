@@ -20,18 +20,6 @@ RSpec.describe Item do
         })
 
       expect(i).to be_an_instance_of(Item)
-    end
-
-    it "can create an item" do
-      i = Item.new({
-        :id          => 1,
-        :name        => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price  => BigDecimal(1099.0,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
-        :merchant_id => 2
-        })
 
       expect(i.id).to eq(1)
       expect(i.name).to eq("Pencil")
