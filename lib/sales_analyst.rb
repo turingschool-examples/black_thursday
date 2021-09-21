@@ -1,22 +1,27 @@
 # frozen_string_literal: true
+require 'BigDecimal'
+require './lib/invoice'
+require './lib/invoice_repository'
 
 # SalesAnalyst class creates handles all analysis of merch, items, and invoices
 
 class SalesAnalyst
   attr_reader :items,
               :merchants,
-              :merch_item_hash
+              :merch_item_hash,
+              :invoices
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items.all
     @merchants = merchants.all
     @merch_item_hash = hash_create
+    @invoices = invoices.all
   end
 
   def hash_create
     return_hash = {}
-    @merchants.each do |merchant|
-      @items.each do |item|
+    merchants.each do |merchant|
+      items.each do |item|
         if merchant.id == item.merchant_id
           if return_hash[merchant.name].nil?
             return_hash[merchant.name] = [item]
@@ -57,7 +62,7 @@ class SalesAnalyst
     sum_amount = 0
     num_items = 0
     @items.each do |item|
-      if item.merchant_id == merchant_id.to_s
+      if item.merchant_id == merchant_id
         sum_amount += item.unit_price.to_f
         num_items += 1.to_f
       end
@@ -108,5 +113,9 @@ class SalesAnalyst
     @items.each do |item|
       result_array.append(item) if item.unit_price.to_f >= expected
     end
+  end
+
+  def average_invoices_per_merchant
+    (@invoices.length.to_f / @merchants.length.to_f).round(2)
   end
 end
