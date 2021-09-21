@@ -25,16 +25,47 @@ class CustomerRepository
     end
   end
 
-  # def find_all_by_first_name
-  #
-  # end
-  #
-  # def find_all_by_last_name
-  #
-  # end
+  def find_all_by_first_name(first_name)
+   if (@all.any? do |customer|
+      customer.first_name.upcase == first_name.upcase
+    end) == true
+      @all.find do |customer|
+        customer.first_name.upcase == first_name.upcase
+      end
+    else
+      nil
+    end
+  end
+
+  def find_all_by_last_name(last_name)
+    if (@all.any? do |customer|
+       customer.last_name.upcase == last_name.upcase
+     end) == true
+       @all.find do |customer|
+         customer.last_name.upcase == last_name.upcase
+       end
+     else
+       nil
+     end
+  end
 
   def create(attributes)
-    new_customer = customer.new(attributes)
+    new_customer = Customer.new(attributes)
     @all << new_customer
+  end
+
+  def update(id, new_first_name, new_last_name)
+    if find_by_id(id) != nil
+      (find_by_id(id).first_name.clear.gsub!("", new_first_name))
+      (find_by_id(id).last_name.clear.gsub!("", new_last_name))
+    end
+  end
+
+  def delete(id)
+    if find_by_id(id) != nil
+      @all.delete(@all.find do |customer|
+        customer.id == id
+      end)
+    end
   end
 end
