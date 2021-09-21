@@ -3,6 +3,8 @@ require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/item'
 require './lib/merchant'
+require './lib/invoice_repository'
+require './lib/invoice'
 require 'csv'
 require 'pry'
 
@@ -13,11 +15,13 @@ class SalesAnalyst
               :average_items_per_merchant,
               :average_item_price,
               :all_item_prices,
-              :every_stores_average
+              :every_stores_average,
+              :analyst_invoices
 
   def initialize(data)
     @analyst_items = data[:items]
     @analyst_merchants = data[:merchants]
+    @analyst_invoices = data[:invoices]
   end
 
   def average_items_per_merchant
@@ -123,5 +127,9 @@ class SalesAnalyst
       end
     end
     golden_items
+  end
+
+  def average_invoices_per_merchant
+    (@analyst_invoices.all.count.to_f / @analyst_merchant.all.count.to_f).round(2)
   end
 end

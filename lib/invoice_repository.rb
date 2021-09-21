@@ -67,12 +67,12 @@ class InvoiceRepository
     @all << new_invoice
   end
 
-  # def update(id, attribute)
-  #   if find_by_id(id) != nil
-  #     (find_by_id(id).status.clear.gsub!("", attribute[:status]))
-  #     find_by_id(id).updated_at = Time.now
-  #   end
-  # end
+  def update(id, attribute)
+    if find_by_id(id) != nil
+      (find_by_id(id).status.clear.gsub!("", attribute[:status]))
+      find_by_id(id).updated_at = Time.now
+    end
+  end
 
   def delete(id)
     if find_by_id(id) != nil
