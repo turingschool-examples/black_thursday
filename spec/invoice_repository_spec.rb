@@ -1,7 +1,9 @@
 require 'pry'
 require './lib/invoice_repository'
+require 'Timecop'
 
 RSpec.describe do
+
   it "exists" do
     invoice_path = './data/invoices.csv'
     invoice_repository = InvoiceRepository.new(invoice_path)
@@ -65,7 +67,13 @@ RSpec.describe do
     expect(invoice_repository.all.last.id).to eq(4986)
   end
 
+  before do
+    Timecop.freeze(Time.local(1990))
+  end
+
   it 'can update invoice attributes using ID' do
+
+
     invoice_path = './data/invoices.csv'
     invoice_repository = InvoiceRepository.new(invoice_path)
     invoice_repository.create({
@@ -74,17 +82,17 @@ RSpec.describe do
                               :merchant_id => 8,
                               :status      => "pending",
                               :created_at  => Time.now,
-                              :updated_at  => Time.now.to_i,
+                              :updated_at  => "1989-01-01 00:00:00 -0700"
                             })
-    start_time = (invoice_repository.find_by_id(4986)).updated_at
     expect(invoice_repository.find_by_id(4986).status).to eq "pending"
+    expect(invoice_repository.find_by_id(4986).updated_at).to eq("1989-01-01 00:00:00 -0700")
     invoice_repository.update(4986, {:status => "shipped"})
-    sleep 1
-
-    update_time = (invoice_repository.find_by_id(4986)).updated_at
-
     expect(invoice_repository.find_by_id(4986).status).to eq "shipped"
-    expect((update_time - start_time).round(2)).to be_within(0.1).of(1.00)
+    expect(invoice_repository.find_by_id(4986).updated_at).to eq("1990-01-01 00:00:00 -0700")
+  end
+
+  after do
+    Timecop.return
   end
 
   it 'can delete a invoice by ID' do
