@@ -11,6 +11,8 @@ require_relative './invoice_item'
 require_relative './invoice_item_repo'
 require_relative './transaction'
 require_relative './transaction_repository'
+require_relative './customer_repo'
+require_relative './customer'
 
 class SalesEngine
   attr_accessor :items,
@@ -26,6 +28,7 @@ class SalesEngine
     data[:invoices]       = create_obj_csv(paths[:invoices], Invoice)
     data[:invoice_items]  = create_obj_csv(paths[:invoice_items], InvoiceItem)
     data[:transactions]   = create_obj_csv(paths[:transactions], Transaction)
+    data[:customers] = create_obj_csv(paths[:customers], Customer)
     SalesEngine.new(data)
   end
 
@@ -35,6 +38,7 @@ class SalesEngine
     @invoices       = InvoiceRepository.new(data[:invoices])
     @invoice_items  = InvoiceItemRepository.new(data[:invoice_items])
     @transactions   = TransactionRepository.new(data[:transactions])
+    @customers = CustomerRepository.new(data[:customers])
   end
 
   def self.create_obj_csv(locations, obj_type)
@@ -48,6 +52,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions)
+    SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @customers, @transactions)
   end
 end
