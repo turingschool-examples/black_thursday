@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'BigDecimal'
 
 class Item
@@ -13,7 +15,7 @@ class Item
     @id = item[:id].to_i
     @name = item[:name]
     @description = item[:description]
-    @unit_price = BigDecimal(item[:unit_price].to_i)/100
+    @unit_price = BigDecimal(item[:unit_price].to_i) / 100
     @created_at = Time.parse(item[:created_at])
     @updated_at = Time.parse(item[:updated_at])
     @merchant_id = item[:merchant_id]

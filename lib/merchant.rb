@@ -10,9 +10,7 @@ class Merchant
 
   def update_info(attributes)
     attributes.each do |key, value|
-      if key == :name
-        @name = value
-      end
+      @name = value if key == :name
     end
   end
 end

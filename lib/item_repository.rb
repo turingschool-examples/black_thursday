@@ -60,17 +60,17 @@ class ItemRepository
 
   def create(attributes)
     creation_time = Time.now
-    new_hash = {id: max_item.id + 1}
+    new_hash = { id: max_item.id + 1 }
     attributes.each do |key, value|
       new_hash[key] = value
     end
-    new_hash[:created_at] = "#{creation_time}"
-    new_hash[:updated_at] = "#{creation_time}"
+    new_hash[:created_at] = creation_time.to_s
+    new_hash[:updated_at] = creation_time.to_s
     all << Item.new(new_hash)
   end
 
   def max_item
-    @all.max { |item1, item2| item1.id <=> item2.id }
+    @all.max_by(&:id)
   end
 
   def update(id, attributes)
@@ -83,9 +83,7 @@ class ItemRepository
   def delete(id)
     item_to_delete = find_by_id(id)
     position_of_item = all.find_index(item_to_delete)
-    if !item_to_delete.nil?
-      all.delete_at(position_of_item)
-    end
+    all.delete_at(position_of_item) unless item_to_delete.nil?
   end
 
   def inspect

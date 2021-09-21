@@ -62,7 +62,7 @@ describe MerchantsRepository do
       @mr.update(123_341_05, attributes)
 
       expect(@mr.all[0].name).to eq(attributes[:name])
-      expect(@mr.all[0].id).to eq(123_341_05)
+      expect(@mr.all[0].id(123_341_05)).to eq(123_341_05)
     end
   end
 
