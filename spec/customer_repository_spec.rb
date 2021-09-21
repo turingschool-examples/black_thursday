@@ -32,6 +32,14 @@ RSpec.describe do
     expect(customer_repository.find_all_by_first_name("Porky")).to eq(nil)
   end
 
+  it 'can find merchants by last name' do
+    customer_path = './data/customers.csv'
+    customer_repository = CustomerRepository.new(customer_path)
+    example_customer = customer_repository.all[25]
+    expect(customer_repository.find_all_by_last_name("Porky")).to eq(nil)
+    expect(customer_repository.find_all_by_last_name("Porky")).to eq(nil)
+  end
+
   it 'can create a customer with given attributes' do
     customer_path = './data/customers.csv'
     customer_repository = CustomerRepository.new(customer_path)

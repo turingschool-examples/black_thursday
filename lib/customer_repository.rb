@@ -36,10 +36,18 @@ class CustomerRepository
       nil
     end
   end
-  #
-  # def find_all_by_last_name
-  #
-  # end
+
+  def find_all_by_last_name(last_name)
+    if (@all.any? do |customer|
+       customer.last_name.upcase == last_name.upcase
+     end) == true
+       @all.find do |customer|
+         customer.last_name.upcase == last_name.upcase
+       end
+     else
+       nil
+     end
+  end
 
   def create(attributes)
     new_customer = Customer.new(attributes)
