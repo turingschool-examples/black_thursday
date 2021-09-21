@@ -4,20 +4,20 @@ require 'simplecov'
 SimpleCov.start
 
 require 'rspec'
-require './lib/items'
 require 'BigDecimal'
+require './lib/items'
 
 describe Item do
   before(:each) do
 
     @item = {
-  :id          => 1,
-  :name        => "Pencil",
-  :description => "You can use it to write things",
-  :unit_price  => BigDecimal(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  :merchant_id => 2
+  id: 1,
+  name: 'Pencil',
+  description: 'You can use it to write things',
+  unit_price: '1099',
+  created_at: Time.now.to_s,
+  updated_at: Time.now.to_s,
+  merchant_id: 2
 }
     @item1 = Item.new(@item)
   end
@@ -44,7 +44,7 @@ describe Item do
   describe 'description' do
     it 'returns the description' do
 
-      expect(@item1.description).to eq("You can use it to write things")
+      expect(@item1.description).to eq('You can use it to write things')
     end
   end
 
@@ -58,14 +58,14 @@ describe Item do
   describe 'created_at' do
     it 'returns the created_at' do
 
-      expect(@item1.created_at).to eq(@item[:created_at])
+      expect(@item1.created_at).to be_a(Time)
     end
   end
 
   describe 'updated_at' do
     it 'returns the updated_at' do
 
-      expect(@item1.updated_at).to eq(@item[:updated_at])
+      expect(@item1.updated_at).to be_a(Time)
     end
   end
 
@@ -84,22 +84,17 @@ describe Item do
   end
 
   describe 'update' do
-    it 'updates the item based off given attribute with a value' do
-      @item1.update('name', 'Pen')
+    it 'updates the item based off given attributes with a value' do
+      attributes = {
+        name: 'Pencil',
+        description: 'Filled with lead',
+        unit_price: BigDecimal(1099)
+      }
+      @item1.update(attributes)
 
-      expect(@item1.name).to eq('Pen')
-    end
-
-    it 'updates the item based off given attribute with a value' do
-      @item1.update('description', 'Filled with lead')
-
+      expect(@item1.name).to eq('Pencil')
       expect(@item1.description).to eq('Filled with lead')
-    end
-
-    it 'updates the item based off given attribute with a value' do
-      @item1.update('unit_price', 9.99)
-
-      expect(@item1.unit_price).to eq(9.99)
+      expect(@item1.unit_price).to eq(BigDecimal(1099))
     end
   end
 end

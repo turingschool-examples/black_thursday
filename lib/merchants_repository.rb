@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+require_relative 'merchant'
+require 'csv'
+
 class MerchantsRepository
   attr_reader :all
 
@@ -33,20 +38,19 @@ class MerchantsRepository
   def create(attributes)
     new_id = max_merchant.id.to_i + 1
     new_merch_hash = {}
+    attributes.each do |key, value|
+      new_merch_hash[key] = value
+    end
     new_merch_hash[:id] = new_id
-    new_merch_hash[:name] = attributes
-    @all.push(Merchant.new(new_merch_hash))
+    all << Merchant.new(new_merch_hash)
   end
 
   def max_merchant
     @all.max { |merch1, merch2| merch1.id <=> merch2.id }
   end
 
-  def update(existing_name, new_name)
-    merch_object = @all.find do |merchant|
-      merchant.name == existing_name
-    end
-    merch_object.update_name(new_name)
+  def update(id, attributes)
+    find_by_id(id).update_info(attributes) unless find_by_id(id).nil?
   end
 
   def delete(id)
@@ -54,5 +58,9 @@ class MerchantsRepository
       merchant.id.to_i == id
     end
     @all.delete(merch_object)
+  end
+
+  def inspect
+    "#<#{self.class} #{all.size} rows>"
   end
 end

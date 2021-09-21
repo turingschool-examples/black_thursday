@@ -3,11 +3,11 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'BigDecimal'
 require 'rspec'
 require 'csv'
-require './lib/items'
 require './lib/item_repository'
-
+# require_relative './lib/items'
 
 describe ItemRepository do
   before(:each) do
@@ -46,30 +46,32 @@ describe ItemRepository do
     end
   end
 
-  describe 'find_all_with_descrip(description)' do
+  describe 'find_all_with_description(description)' do
     it 'returns all items with matching descriptions' do
-      description1 = 'TABLEAU'
-      description2 = 'Corncob on the bread'
+      desc1 = 'TABLEAU'
+      desc2 = 'Corncob on the bread'
       item = @item_repo1.all[12]
 
-      expect(@item_repo1.find_all_with_descrip(description1)).to include(item)
-      expect(@item_repo1.find_all_with_descrip(description2)).to eq([])
+      expect(@item_repo1.find_all_with_description(desc1)).to include(item)
+      expect(@item_repo1.find_all_with_description(desc2)).to eq([])
     end
   end
 
   describe 'find_all_by_price(price)' do
     it 'returns items with matching prices' do
-
-      expect(@item_repo1.find_all_by_price(1300)).to include(@item_repo1.all[1])
-      expect(@item_repo1.find_all_by_price(72_531)).to eq([])
+      p1 = BigDecimal(13)
+      p2 = BigDecimal(7250)
+      expect(@item_repo1.find_all_by_price(p1)).to include(@item_repo1.all[1])
+      expect(@item_repo1.find_all_by_price(p2)).to eq([])
     end
   end
 
   describe 'find_all_by_price_in_range(range)' do
     it 'returns items within matching prices given a range' do
-
-      expect(@item_repo1.find_all_by_price_in_range(700..1300)).to include(@item_repo1.all[0], @item_repo1.all[1])
-      expect(@item_repo1.find_all_by_price_in_range(52_300..52_400)).to eq([])
+      range1 = 700.00..1300.00
+      range2 = 52_300.00..52_400.00
+      expect(@item_repo1.find_all_by_price_in_range(range1).length).to eq(35)
+      expect(@item_repo1.find_all_by_price_in_range(range2).length).to eq(0)
     end
   end
 
@@ -84,20 +86,26 @@ describe ItemRepository do
 
   describe 'create(attributes)' do
     it 'creates a new item with given attributes' do
-      @item_repo1.create('Pencil', 'Use it to write things', 10.99, 4, 2)
+      attributes = {
+        name: 'Pencil',
+        description: 'Use it to write things',
+        unit_price: 10.99
+      }
+      @item_repo1.create(attributes)
 
       expect(@item_repo1.all.last).to be_a(Item)
       expect(@item_repo1.all.last.name).to eq('Pencil')
     end
   end
 
-  describe 'update(id, attribute, value)' do
+  describe 'update(id, attributes)' do
     it 'updates the item with given ids attributes' do
       id = 263_395_237
-      attr = 'name'
-      value = 'Pencil'
-
-      expect(@item_repo1.update(id, attr, value)).to eq(@item_repo1.all[0])
+      attributes = {
+        name: 'Pencil',
+        description: 'It can write stuff'
+      }
+      expect(@item_repo1.update(id, attributes)).to eq(@item_repo1.all[0])
       expect(@item_repo1.all[0].name).to eq('Pencil')
     end
   end

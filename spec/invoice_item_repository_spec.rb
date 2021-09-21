@@ -5,8 +5,8 @@ SimpleCov.start
 
 require 'rspec'
 require 'csv'
+require 'BigDecimal'
 require './lib/invoice_item_repository'
-require './lib/invoice_item'
 
 describe InvoiceItemRepository do
   before(:each) do
