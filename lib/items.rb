@@ -1,8 +1,6 @@
 # frozen_string_literal: true
-
-require 'bigdecimal/util'
-# frozen_string_literal: true
 require 'time'
+require 'bigdecimal/util'
 
 class Item
   attr_accessor :name,
