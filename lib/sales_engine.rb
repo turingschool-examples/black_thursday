@@ -10,7 +10,7 @@ class SalesEngine
 
   def initialize(data)
     @items     = data[:items]
-    @merchants = data[:merchants]
+    @merchants = MerchantRepository.new(data[:merchants])
     @invoices = data[:invoices]
     @invoice_items = data[:invoice_items]
   end
@@ -23,15 +23,15 @@ class SalesEngine
   #                     :invoice_items => './data/invoice_items.csv'})
   end
 
-  def merchants
-    all = []
-
-    csv = CSV.read(@merchants, headers: true, header_converters: :symbol)
-     csv.map do |row|
-       all << Merchant.new(row)
-    end
-   MerchantRepository.new(all)
-  end
+  # def merchants
+  #   all = []
+  #
+  #   csv = CSV.read(@merchants, headers: true, header_converters: :symbol)
+  #    csv.map do |row|
+  #      all << Merchant.new(row)
+  #   end
+  #  MerchantRepository.new(all)
+  # end
 
   def items
     all = []

@@ -5,10 +5,10 @@ require_relative 'sales_engine'
 
 class SalesAnalyst < SalesEngine
 
-  @@se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-  })
+  # @@se = SalesEngine.from_csv({
+  #   :items     => "./data/items.csv",
+  #   :merchants => "./data/merchants.csv",
+  # })
 
   def initialize
   end

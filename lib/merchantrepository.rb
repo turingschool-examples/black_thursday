@@ -4,8 +4,19 @@ require_relative 'merchant'
 class MerchantRepository
   attr_reader :all
 
-  def initialize(all)
-    @all = all
+  def initialize(file_path)
+    
+    @all = create_repository(file_path)
+  end
+
+  def create_repository(file_path)
+    all = []
+
+    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+     csv.map do |row|
+       all << Merchant.new(row)
+    end
+    all
   end
 
   def find_by_id(id)
@@ -41,7 +52,7 @@ class MerchantRepository
     attributes[:updated_at] = Time.now.to_s
     new = Merchant.new(attributes)
      #require "pry"; binding.pry
-    @all << new
+    @all.push(new)
     #require "pry"; binding.pry
   end
 
