@@ -26,7 +26,7 @@ class SalesEngine
   def merchants
     all = []
 
-    csv = CSV.table(@merchants, headers: true, header_converters: :symbol)
+    csv = CSV.read(@merchants, headers: true, header_converters: :symbol)
      csv.map do |row|
        all << Merchant.new(row)
     end

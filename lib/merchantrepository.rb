@@ -28,8 +28,8 @@ class MerchantRepository
     name_1 = name.downcase
 
     @all.find_all do |merchant|
-      merchant.name.downcase!
-      merchant.name.include?(name_1)
+      name = merchant.name.downcase
+      name.include?(name_1)
     end
   end
 
