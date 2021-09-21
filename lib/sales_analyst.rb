@@ -72,6 +72,7 @@ class SalesAnalyst
     (store_hashes.find do |store|
       store[:merchant].id == merchant_id
       end)[:items].each do |item|
+    end
     #   sum = 0
     #     sum += item.unit_price
     #   end
@@ -86,11 +87,11 @@ class SalesAnalyst
   # end
 
 
-  def average_average_price_per_merchant
-
-  end
-
-  def golden_items
-
-  end
+  # def average_average_price_per_merchant
+  #
+  # end
+  #
+  # def golden_items
+  #
+  # end
 end
