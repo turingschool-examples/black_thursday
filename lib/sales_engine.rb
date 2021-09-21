@@ -1,15 +1,22 @@
-class SalesEngine
+require_relative 'item_repository'
+require_relative 'merchants_repository'
+require_relative 'data_repository'
+require_relative 'sales_analyst'
 
-  attr_reader :merchants,
-              :items
+class SalesEngine
+  attr_reader :items,
+              :merchants
 
   def initialize(merch_item_hash)
-    @merchants = MerchantsRepository.new(merch_item_hash[:merchants])
     @items = ItemRepository.new(merch_item_hash[:items])
+    @merchants = MerchantsRepository.new(merch_item_hash[:merchants])
   end
 
-  def initialize(merch_item_hash)
-    @merchants = MerchantsRepository.new(merch_item_hash[:merchants])
-    @items = ItemRepository.new(merch_item_hash[:items])
+  def self.from_csv(item_merch_hash)
+    DataRepository.new(item_merch_hash)
+  end
+
+  def analyst(items, merchant)
+    SalesAnalyst.new(items, merchants)
   end
 end

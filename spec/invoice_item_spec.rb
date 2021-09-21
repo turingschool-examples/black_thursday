@@ -10,13 +10,13 @@ require './lib/invoice_item'
 describe InvoiceItem do
   before(:each) do
     @ii_hash = {
-                id:         6,
-                item_id:    7,
-                invoice_id: 8,
-                quantity:   1,
-                unit_price: BigDecimal(10.99, 4),
-                created_at: Time.now,
-                updated_at: Time.now
+      id:         6,
+      item_id:    7,
+      invoice_id: 8,
+      quantity:   1,
+      unit_price: BigDecimal(10.99, 4),
+      created_at: Time.now,
+      updated_at: Time.now
     }
     @inv_item = InvoiceItem.new(@ii_hash)
   end
@@ -64,6 +64,12 @@ describe InvoiceItem do
   describe '#updated_at' do
     it 'returns updated at time' do
       expect(@inv_item.updated_at).to eq(@ii_hash[:updated_at])
+    end
+  end
+
+  describe '#unit_price_to_dollars' do
+    it 'returns the price of the item in a float' do
+      expect(@inv_item.unit_price_to_dollars).to eq(10.99)
     end
   end
 end

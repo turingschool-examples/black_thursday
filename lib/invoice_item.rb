@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# this is the Invoice Item class for Black Thursday
+
 class InvoiceItem
   attr_reader :id,
               :item_id,
@@ -15,6 +19,10 @@ class InvoiceItem
     @unit_price = invoice_item[:unit_price]
     @created_at = invoice_item[:created_at]
     @updated_at = invoice_item[:updated_at]
+  end
+
+  def unit_price_to_dollars
+    unit_price.to_f
   end
 
   def update(quantity, unit_price)

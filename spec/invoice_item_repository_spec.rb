@@ -5,8 +5,8 @@ SimpleCov.start
 
 require 'rspec'
 require 'csv'
+require 'BigDecimal'
 require './lib/invoice_item_repository'
-require './lib/invoice_item'
 
 describe InvoiceItemRepository do
   before(:each) do
@@ -36,14 +36,14 @@ describe InvoiceItemRepository do
   end
 
   describe '#find_all_by_item_id' do
-    it 'returns all invoice items that have matching item id, or empty array otherwise' do
+    it 'returns all invoice items with matching item id as an arry' do
       expect(@iir.find_all_by_item_id(263_539_664)).to include(@iir.all[5], @iir.all[388])
       expect(@iir.find_all_by_item_id(634_713_543)).to eq([])
     end
   end
 
   describe '#find_all_by_invoice_id' do
-    it 'returns all invoice items that have matching invoice id, or empty array otherwise' do
+    it 'returns all invoice items with matching invoice id as an array' do
       expect(@iir.find_all_by_invoice_id(3)).to include(@iir.all[12], @iir.all[19])
       expect(@iir.find_all_by_invoice_id(754_234)).to eq([])
     end
