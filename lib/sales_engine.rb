@@ -1,43 +1,22 @@
+require_relative 'item_repository'
+require_relative 'merchants_repository'
+require_relative 'data_repository'
+require_relative 'sales_analyst'
+
 class SalesEngine
   attr_reader :items,
               :merchants,
-              :invoices
+              :invoices,
+              :analyst
 
-  def initialize(merch_item_hash)
-    @items = item_creation(merch_item_hash)
-    @merchants = merchant_creation(merch_item_hash)
-    @invoices = invoice_creation(merch_item_hash)
+  def initialize(data_hash)
+    @items = ItemRepository.new(data_hash[:items])
+    @merchants = MerchantsRepository.new(data_hash[:merchants])
+    @invoices = InvoiceRepository.new(data_hash[:invoices])
+    @analyst = SalesAnalyst.new(@items, @merchants, @invoices)
   end
-
-  def item_creation(merch_item_hash)
-    if merch_item_hash[:items].nil?
-      nil
-    else
-      ItemRepository.new(merch_item_hash[:items])
-    end
-  end
-
-  def merchant_creation(merch_item_hash)
-    if merch_item_hash[:merchants].nil?
-      nil
-    else
-      MerchantsRepository.new(merch_item_hash[:merchants])
-    end
-  end
-
-  def invoice_creation(merch_item_hash)
-    if merch_item_hash[:invoices].nil?
-      nil
-    else
-      InvoiceRepository.new(merch_item_hash[:invoices])
-    end
-  end
-
-  def self.from_csv(item_merch_hash)
-    DataRepository.new(item_merch_hash)
-  end
-
-  def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices)
+  
+  def self.from_csv(data_hash)
+    self.new(data_hash)
   end
 end

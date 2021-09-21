@@ -2,6 +2,8 @@
 
 # this is the Invoice Item Repository class for Black Thursday
 
+require_relative 'invoice_item'
+
 class InvoiceItemRepository
   attr_reader :all
 

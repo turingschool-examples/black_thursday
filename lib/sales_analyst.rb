@@ -2,7 +2,6 @@
 require 'BigDecimal'
 require './lib/invoice'
 require './lib/invoice_repository'
-require './lib/invoice_item'
 
 # SalesAnalyst class creates handles all analysis of merch, items, and invoices
 
@@ -10,44 +9,19 @@ class SalesAnalyst
   attr_reader :items,
               :merchants,
               :merch_item_hash,
-              :invoices,
-              :status
+              :invoices
 
   def initialize(items, merchants, invoices)
-    @items = item_assign(items)
-    @merchants = merchant_assign(merchants)
+    @items = items.all
+    @merchants = merchants.all
     @merch_item_hash = hash_create
-    @invoices = invoice_assign(invoices)
-  end
-
-  def item_assign(items)
-    if items.nil?
-      nil
-    else
-      items.all
-    end
-  end
-
-  def merchant_assign(merchants)
-    if merchants.nil?
-      nil
-    else
-      merchants.all
-    end
-  end
-
-  def invoice_assign(invoices)
-    if invoices.nil?
-      nil
-    else
-      invoices.all
-    end
+    @invoices = invoices.all
   end
 
   def hash_create
     return_hash = {}
-    @merchants.each do |merchant|
-      @items.each do |item|
+    merchants.each do |merchant|
+      items.each do |item|
         if merchant.id == item.merchant_id
           if return_hash[merchant.name].nil?
             return_hash[merchant.name] = [item]
@@ -88,7 +62,7 @@ class SalesAnalyst
     sum_amount = 0
     num_items = 0
     @items.each do |item|
-      if item.merchant_id == merchant_id.to_s
+      if item.merchant_id == merchant_id
         sum_amount += item.unit_price.to_f
         num_items += 1.to_f
       end
@@ -187,7 +161,6 @@ class SalesAnalyst
       result_array.append(merchant)
     end
   end
-end
 
   def top_days_by_invoice_count
     result_array = []
@@ -210,6 +183,3 @@ end
     ((invoice_status_count(status).length.to_f / invoices.length) * 100).to_f.round(2)
   end
 end
-
-  def invoice_paid_in_full?(invoice_id)
-  end

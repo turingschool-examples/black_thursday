@@ -1,4 +1,10 @@
-#require 'csv'
+# frozen_string_literal: true
+
+# This is a ItemRepository class for Black Thursday
+
+require_relative 'items'
+require 'BigDecimal'
+require 'Time'
 
 class ItemRepository
 
@@ -22,7 +28,7 @@ class ItemRepository
 
   def find_by_id(id)
     all.find do |item|
-      item.id.to_i == id.to_i
+      item.id == id.to_i
     end
   end
 
@@ -32,21 +38,19 @@ class ItemRepository
     end
   end
 
-  def find_all_with_descrip(description)
+  def find_all_with_description(description)
     all.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end.uniq
   end
 
   def find_all_by_price(price)
-    all.find_all do |item|
-      item.unit_price.to_i == price.to_i
-    end
+    all.find_all { |item| item.unit_price == price }
   end
 
   def find_all_by_price_in_range(range)
     all.map do |item|
-      item if range.include?(item.unit_price.to_i)
+      item if range.include?(item.unit_price)
     end.compact
   end
 
@@ -56,31 +60,33 @@ class ItemRepository
     end
   end
 
-  def create(item_name, description, unit_price, number_of_items, merchant_id)
+  def create(attributes)
     creation_time = Time.now
-    all << Item.new(
-      id: max_item.id.to_i + 1,
-      name: item_name,
-      description: description,
-      unit_price: BigDecimal(unit_price,number_of_items),
-      created_at: creation_time,
-      updated_at: creation_time,
-      merchant_id: merchant_id
-    )
+    new_hash = { id: max_item.id + 1 }
+    attributes.each do |key, value|
+      new_hash[key] = value
+    end
+    new_hash[:created_at] = creation_time.to_s
+    new_hash[:updated_at] = creation_time.to_s
+    all << Item.new(new_hash)
   end
 
   def max_item
     @all.max_by(&:id)
   end
 
-  def update(id, attribute, value)
+  def update(id, attributes)
     current_item = find_by_id(id)
-    all[all.find_index(current_item)] = current_item.update(attribute, value)
+    all[all.find_index(current_item)] = current_item.update(attributes) unless find_by_id(id).nil?
   end
 
   def delete(id)
     item_to_delete = find_by_id(id)
     position_of_item = all.find_index(item_to_delete)
-    all.delete_at(position_of_item)
+    all.delete_at(position_of_item) unless item_to_delete.nil?
+  end
+
+  def inspect
+    "#<#{self.class} #{all.size} rows>"
   end
 end

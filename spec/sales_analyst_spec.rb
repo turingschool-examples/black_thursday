@@ -15,9 +15,10 @@ require './lib/sales_analyst'
 describe SalesAnalyst do
   describe '#initialize' do
     it 'creates an instance of SalesAnalyst' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -25,9 +26,10 @@ describe SalesAnalyst do
     end
 
     it 'has readable attributes' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -39,9 +41,10 @@ describe SalesAnalyst do
 
   describe '#average_items_per_merchant' do
     it 'returns the average number of items for sale per merchant' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -51,9 +54,10 @@ describe SalesAnalyst do
 
   describe '#average_items_per_merchant_standard_deviation' do
     it 'returns the standard deviation of items per merchant' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -63,9 +67,10 @@ describe SalesAnalyst do
 
   describe '#merchants_with_high_item_count' do
     it 'returns merchants with item counts above 1 standard deviation above mean' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -75,9 +80,10 @@ describe SalesAnalyst do
 
   describe '#average_item_price_for_merchant' do
     it 'returns the average price of items for a particular merchant' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -87,9 +93,10 @@ describe SalesAnalyst do
 
   describe "#average_average_item_price_for_merchant" do
     it 'returns the average price across all merchants' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -99,7 +106,7 @@ describe SalesAnalyst do
 
   describe "#average_price_all" do
     it 'calculates the average price of all items' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         invoices: './data/invoices.csv'
@@ -112,7 +119,7 @@ describe SalesAnalyst do
 
   describe "#average_price_standard_deviation" do
     it 'calculates the standard deviation of all items' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         invoices: './data/invoices.csv'
@@ -125,9 +132,10 @@ describe SalesAnalyst do
 
   describe "#golden_items" do
     it 'returns an array of items that are more than 2 SD above average price' do
-      se = SalesEngine.new(
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
-        merchants: './data/merchants.csv'
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
       )
       sales_analyst = se.analyst
 
@@ -135,9 +143,9 @@ describe SalesAnalyst do
     end
   end
 
-  describe "#average_invoices_per_merchant" do
-    it 'returns the average number of invoices per merchant' do
-      se = SalesEngine.new(
+  describe '#average_invoices_per_merchant' do
+    it 'returns the average num of invoices per merchant' do
+      se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         invoices: './data/invoices.csv'
@@ -148,7 +156,6 @@ describe SalesAnalyst do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
   end
-end
 
   describe "#average_invoices_per_merchant_standard_deviation" do
     it 'calculates the standard deviation of invoices per merchant' do
@@ -166,11 +173,11 @@ end
 
   describe "#top_merchants_by_invoice_count" do
     it 'returns an array of merchants with 2SD above mean number of invoices' do
-    se = SalesEngine.new(
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
-    )
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
 
       sales_analyst = se.analyst
       expect(sales_analyst.top_merchants_by_invoice_count).to be_a(Array)
@@ -179,24 +186,24 @@ end
 
   describe '#bottom_merchants_by_invoice_count' do
     it 'returns an array of merchants with 2SD below mean number of invoices' do
-    se = SalesEngine.new(
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
-    )
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+      )
 
       sales_analyst = se.analyst
       expect(sales_analyst.bottom_merchants_by_invoice_count).to be_a[Array]
     end
   end
 
-    describe '#invoice_status' do
-      it 'calculates the percent of invoices with a given status' do
-        se = SalesEngine.new(
-          items: './data/items.csv',
-          merchants: './data/merchants.csv',
-          invoices: './data/invoices.csv'
-      )
+  describe '#invoice_status' do
+    it 'calculates the percent of invoices with a given status' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv'
+    )
 
     sales_analyst = se.analyst
     expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
@@ -204,7 +211,6 @@ end
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 end
-
 
 #   # describe "#top_merchants_by_invoice_count" do
 #   #   it 'returns merchants with invoices'
