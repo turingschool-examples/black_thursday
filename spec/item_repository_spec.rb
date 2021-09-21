@@ -99,10 +99,10 @@ describe ItemRepository do
 
   describe 'update(id, attributes)' do
     it 'updates the item with given ids attributes' do
-      id = 263_395_237
-      attributes = {
-      name: 'Pencil',
-      description: 'It can write stuff'
+        id = 263_395_237
+        attributes = {
+        name: 'Pencil',
+        description: 'It can write stuff'
       }
       expect(@item_repo1.update(id, attributes)).to eq(@item_repo1.all[0])
       expect(@item_repo1.all[0].name).to eq('Pencil')

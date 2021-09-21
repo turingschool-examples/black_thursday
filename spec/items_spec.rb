@@ -11,13 +11,13 @@ describe Item do
   before(:each) do
 
     @item = {
-  :id          => 1,
-  :name        => "Pencil",
-  :description => "You can use it to write things",
-  :unit_price  => '1099',
-  :created_at  => (Time.now).to_s,
-  :updated_at  => (Time.now).to_s,
-  :merchant_id => 2
+  id: 1,
+  name: "Pencil",
+  description: "You can use it to write things",
+  unit_price: '1099',
+  created_at: (Time.now).to_s,
+  updated_at: (Time.now).to_s,
+  merchant_id: 2
 }
     @item1 = Item.new(@item)
   end
