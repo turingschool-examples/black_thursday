@@ -53,7 +53,7 @@ describe CustomerRepository do
     expect(c1.last_name).to eq("Sawayn")
   end
 
-  xit 'finds by first name' do
+  it 'finds by first name' do
     se = SalesEngine.new({ :items      => "./data/items.csv",
                        :merchants      => "./data/merchants.csv",
                        :invoices       => './data/invoices.csv',
@@ -61,12 +61,12 @@ describe CustomerRepository do
                        :transactions   => './data/transactions.csv',
                        :customers      => './data/customers.csv'})
     customer = se.customers
-    c1 = customer.find_all_by_first_name("jo")
+    c1 = customer.find_all_by_first_name("j")
 
-    expect(c1.count).to eq(1)
+    expect(c1.count).to eq(72)
   end
 
-  xit 'finds by last name' do
+  it 'finds by last name' do
     se = SalesEngine.new({ :items      => "./data/items.csv",
                        :merchants      => "./data/merchants.csv",
                        :invoices       => './data/invoices.csv',
@@ -74,9 +74,9 @@ describe CustomerRepository do
                        :transactions   => './data/transactions.csv',
                        :customers      => './data/customers.csv'})
     customer = se.customers
-    c1 = customer.find_all_by_last_name("ma")
+    c1 = customer.find_all_by_last_name("m")
 
-    expect(c1.count).to eq(1)
+    expect(c1.count).to eq(202)
   end
 
   it "can create a new invoice item with max_id being +1" do

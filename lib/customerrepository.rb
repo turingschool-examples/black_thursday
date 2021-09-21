@@ -13,20 +13,20 @@ class CustomerRepository
 
   def find_all_by_first_name(first_name)
     name_1 = first_name.downcase
-    @all.find do |customer|
 
-      customer.first_name.downcase
-      customer.first_name == name_1
-    end
+      @all.find_all do |customer|
+        first_name1 = customer.first_name.downcase
+        first_name1.include?(name_1)
+      end
   end
 
   def find_all_by_last_name(last_name)
     name_1 = last_name.downcase
-    @all.find do |customer|
 
-      customer.last_name.downcase
-      customer.last_name == name_1
-    end
+      @all.find_all do |customer|
+        last_name1 = customer.last_name.downcase
+        last_name1.include?(name_1)
+      end
   end
 
   def create(attributes)
