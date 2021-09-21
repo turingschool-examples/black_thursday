@@ -109,7 +109,7 @@ describe SalesAnalyst do
     expect(@sa.total_revenue_by_date(date).class).to eq(BigDecimal)
   end
 
-  it '#top_revenue_earners'do
+  xit '#top_revenue_earners'do
   expected = @sa.top_revenue_earners
   first = expected.first
   last = expected.last
@@ -123,7 +123,13 @@ describe SalesAnalyst do
   expect(last.id).to eq 12334159
   end
 
-  it '#revenue_by_merchant' do
+  it "merchants_with_only_one_item" do
+
+    expect(@sa.merchants_with_only_one_item.length).to eq 243
+    expect(@sa.merchants_with_only_one_item[0].class).to eq Merchant
+  end
+
+  xit '#revenue_by_merchant' do
     expected = @sa.revenue_by_merchant(12334194)
 
     expect(expected).to eq BigDecimal(expected)
