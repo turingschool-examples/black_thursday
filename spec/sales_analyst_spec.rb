@@ -1,9 +1,10 @@
 # frozen_string_literal: true
-
+require 'simplecov'
 require './lib/sales_analyst'
 require './lib/sales_engine'
 require './lib/items'
 require './lib/merchants'
+SimpleCov.start
 
 RSpec.describe SalesAnalyst do
   before(:each) do
@@ -27,6 +28,13 @@ RSpec.describe SalesAnalyst do
 
     expect(expected).to eq 2.88
     expect(expected.class).to eq Float
+  end
+
+  it '#items_per_merchant' do
+    expected = @sales_analyst.items_per_merchant
+
+    expect(expected).to be_a(Array)
+    expect(expected.length).to eq(475)
   end
 
   it '#average_items_per_merchant_standard_deviation returns the standard deviation' do
@@ -62,6 +70,12 @@ RSpec.describe SalesAnalyst do
     expected = @sales_analyst.average_invoices_per_merchant
     expect(expected).to eq 10.49
     expect(expected.class).to eq Float
+  end
+
+  it '#invoices_per_merchant' do
+    expected = @sales_analyst.invoices_per_merchant
+    expect(expected).to be_a(Array)
+    expect(expected.length).to eq(475)
   end
 
   it "#average_invoices_per_merchant_standard_deviation" do
