@@ -52,6 +52,7 @@ class ItemRepository
 
   def find_all_by_price(unit_price)
     # @unit_price.to_f.to_s
+
     if (@all.any? do |item|
       item.unit_price == unit_price
     end) == true
@@ -65,12 +66,14 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     in_range = []
+
     @all.each do |item|
 
       if item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last
         in_range << item
       end
     end
+
       in_range
   end
 
@@ -86,15 +89,24 @@ class ItemRepository
     end
   end
 
-  # def create(attributes)
-  #
-  # end
 
-  # def update(id, attributes)
-  #
-  # end
+  def create(attributes)
+    new_item = Item.new(attributes)
+    @all << new_item
+  end
 
-  # def delete(id)
-  #
-  # end
+  def update(id, new_name)
+    if find_by_id(id) != nil
+      (find_by_id(id).name.clear.gsub!("", new_name))
+    end
+  end
+
+  def delete(id)
+    if find_by_id(id) != nil
+      @all.delete(@all.find do |item|
+        item.id == id
+      end)
+    end
+  end
+
 end

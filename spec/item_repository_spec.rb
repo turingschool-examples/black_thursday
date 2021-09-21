@@ -61,6 +61,7 @@ RSpec.describe ItemRepository do
 
     expect(item_repository.find_all_by_price_in_range(1..2)).to eq([])
     expect(item_repository.find_all_by_price_in_range(0..20)).to eq([example_item])
+
   end
 
   it "can find all by merchant id" do
@@ -75,4 +76,22 @@ RSpec.describe ItemRepository do
     expect(item_repository.find_all_by_merchant_id(00000000)).to eq([])
   end
 
+  def create(attributes)
+    new_item = Item.new(attributes)
+    @all << new_item
+  end
+
+  def update(id, new_name)
+    if find_by_id(id) != nil
+      (find_by_id(id).name.clear.gsub!("", new_name))
+    end
+  end
+
+  def delete(id)
+    if find_by_id(id) != nil
+      @all.delete(@all.find do |item|
+        merchant.id == id
+      end)
+    end
+  end
 end
