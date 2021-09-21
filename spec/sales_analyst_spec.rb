@@ -181,6 +181,7 @@ RSpec.describe SalesAnalyst do
       expected = analyst.top_revenue_earners(5)
       first = expected.first
       last = expected.last
+      require "pry"; binding.pry
 
       expect(expected.length).to eq 5
 
@@ -188,7 +189,7 @@ RSpec.describe SalesAnalyst do
       expect(first.id).to eq 12334634
 
       expect(last.class).to eq Merchant
-      expect(last.id).to eq 12335747
+      expect(last.id).to eq 12335747 # need to update once method runs
     end
 
     it '#merchants_with_pending_invoices' do
@@ -213,6 +214,13 @@ RSpec.describe SalesAnalyst do
       expect(expected1).to be_an Array
       expect(expected1.length).to eq 21
       expect(expected2.length).to eq 18
+    end
+
+    it '#revenue_by_merchant' do
+      expected = analyst.revenue_by_merchant(12334194)
+
+      expect(expected).to eq BigDecimal(expected)
+      expect(expected.class).to eq BigDecimal
     end
   end
 end

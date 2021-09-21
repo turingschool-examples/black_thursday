@@ -196,34 +196,6 @@ class SalesAnalyst
     end.flatten # => array of invoice items from a given merchant
   end
 
-  def revenue_by_merchant(merchant)
-    find_all_invoice_items_by_merchant(merchant).sum do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
-    end
-  end # => 1 merchant's total revenue
-
-  def top_revenue_earners(x = 20)
-    # if we can't figure this out...
-    # define a @total_revenue variable in the Merchant class
-    # sort @merchants.all by total revenue
-    # output top x
-    arr = []
-    @merchants.all.each do |merchant|
-      arr << [merchant, revenue_by_merchant(merchant)]
-    end
-    arr
-  end
-
-  # def merchants_with_pending_invoices
-  #     pending_array = @invoices.find_all_by_status(:pending)
-  #     id_array = pending_array.map do |invoice|
-  #       invoice.merchant_id
-  #     end
-  #     id_array.map do |id|
-  #       @merchants.find_by_id(id)
-  #     end.uniq!
-  #   end
-
   def merchants_with_pending_invoices
     @invoices.all.map do |invoice|
       var = @transactions.find_all_by_invoice_id(invoice.id).none? do |transaction|
@@ -257,6 +229,27 @@ class SalesAnalyst
 
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at[5..6].to_i == months[month]
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = @merchants.find_by_id(merchant_id)
+    find_all_invoice_items_by_merchant(merchant).sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+  end
+
+  def top_revenue_earners(x = 20)
+    array = @merchants.all.map do |merchant|
+      {merchant => revenue_by_merchant(merchant.id)}
+    end
+
+    array.sort_by! do |element|
+      element.values[0]
+    end.reverse!
+
+    array[0..(x-1)].map do |element|
+      element.keys[0]
     end
   end
 end
