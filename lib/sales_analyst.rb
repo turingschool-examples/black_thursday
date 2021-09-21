@@ -1,17 +1,45 @@
 # frozen_string_literal: true
 require 'BigDecimal'
+require './lib/invoice'
+require './lib/invoice_repository'
 
 # SalesAnalyst class creates handles all analysis of merch, items, and invoices
 
 class SalesAnalyst
   attr_reader :items,
               :merchants,
-              :merch_item_hash
+              :merch_item_hash,
+              :invoices
 
-  def initialize(items, merchants)
-    @items = items.all
-    @merchants = merchants.all
+  def initialize(items, merchants, invoices)
+    @items = item_assign(items)
+    @merchants = merchant_assign(merchants)
     @merch_item_hash = hash_create
+    @invoices = invoice_assign(invoices)
+  end
+
+  def item_assign(items)
+    if items.nil?
+      nil
+    else
+      items.all
+    end
+  end
+
+  def merchant_assign(merchants)
+    if merchants.nil?
+      nil
+    else
+      merchants.all
+    end
+  end
+
+  def invoice_assign(invoices)
+    if invoices.nil?
+      nil
+    else
+      invoices.all
+    end
   end
 
   def hash_create
