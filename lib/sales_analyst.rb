@@ -10,11 +10,12 @@ class SalesAnalyst < SalesEngine
   #   :merchants => "./data/merchants.csv",
   # })
 
-  def initialize(items, merchants, invoices, invoice_items)
+  def initialize(items, merchants, invoices, invoice_items, transactions)
     @ir = items
     @mr = merchants
     @inr = invoices
     @inv_items = invoice_items
+    @tran = transactions
   end
 
   def average_items_per_merchant
@@ -199,4 +200,11 @@ end
     (((@inr.find_all_by_status(status).count) / ((@inr.all.count).to_f)) * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    tran.find_all_by_invoice_id(invoice_id).include?("success")
+  end
+
+  def invoice_total(invoice_id)
+    inv_item.find_all_by_invoice_id(invoice_id).map {|item| item.unit_price}.sum
+  end
 end
