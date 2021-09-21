@@ -51,7 +51,7 @@ describe SalesEngine do
         items: './data/items.csv',
         merchants: './data/merchants.csv'
       )
-      analyst = se.analyst(se.items, se.merchants)
+      analyst = se.analyst
 
       expect(analyst).to be_a(SalesAnalyst)
     end
