@@ -1,11 +1,10 @@
 require 'csv'
-
 require './lib/merchantrepository'
 require './lib/itemrepository'
 require './lib/invoicerepository'
 require './lib/invoice_item_repo'
 require './lib/transactionrepository'
-require './lib/customerrespository'
+require './lib/customerrepository'
 
 class SalesEngine
 
@@ -45,6 +44,7 @@ class SalesEngine
     csv = CSV.read(@items, headers: true, header_converters: :symbol)
      csv.map do |row|
        all << Item.new(row)
+    
     end
     ItemRepository.new(all)
   end
