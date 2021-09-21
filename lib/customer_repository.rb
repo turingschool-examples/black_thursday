@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 require 'csv'
 require_relative 'customer'
+require_relative 'csv_readable'
 
 class CustomerRepository
+  include CSV_readable
 
   attr_reader :all
-
-
-# says all is a method that returns an array of all known instances
-#but since everyone set it up as an instance var, I will do that too.
 
   def initialize(path)
     @all  = generate(path)
@@ -18,7 +18,7 @@ class CustomerRepository
   end
 
   def generate(path)
-    rows = CSV.read(path, headers: true, header_converters: :symbol)
+    rows = read_csv(path)
 
     rows.map do |row|
       Customer.new(row)
