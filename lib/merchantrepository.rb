@@ -35,14 +35,14 @@ class MerchantRepository
 
   def create(attributes)
     id_max = @all.max_by {|merchant| merchant.id}
-    new = Merchant.new(attributes)
+
     attributes[:id] = id_max.id + 1
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
-    #new = Merchant.new(attributes)
-    # require "pry"; binding.pry
+    new = Merchant.new(attributes)
+     #require "pry"; binding.pry
     @all << new
-    require "pry"; binding.pry
+    #require "pry"; binding.pry
   end
 
   def update(id, attributes)
