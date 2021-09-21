@@ -1,4 +1,6 @@
-#require 'csv'
+# frozen_string_literal: true
+
+# This is a ItemRepository class for Black Thursday
 
 require_relative 'items'
 require 'BigDecimal'
