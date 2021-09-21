@@ -7,9 +7,10 @@ class SalesAnalyst
               :merchants,
               :merch_item_hash
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items.all
     @merchants = merchants.all
+    @invoices = invoices.all
     @merch_item_hash = hash_create
   end
 
