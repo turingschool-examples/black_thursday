@@ -40,20 +40,20 @@ RSpec.describe MerchantRepository do
     expect(merchant_repository.all.last.id).to eq(12337412)
   end
 
-  it 'can update merchant attributes using ID' do
-    merchants_path = './data/merchants.csv'
-    merchant_repository = MerchantRepository.new(merchants_path)
-    merchant_repository.create(:name => "Shopkeep0", :id => 12337412)
-    merchant_repository.update(12337412, "ThisTestWillPass")
-    expect((merchant_repository.find_by_id(12337412)).name).to eq "ThisTestWillPass"
-  end
-
-  it 'can delete a merchant by ID' do
-    merchants_path = './data/merchants.csv'
-    merchant_repository = MerchantRepository.new(merchants_path)
-    merchant_repository.create(:name => "Shopkeep0", :id => 12337412)
-    expect(merchant_repository.all.count).to eq 476
-    merchant_repository.delete(12337412)
-    expect(merchant_repository.all.count).to eq 475
- end
+ #  it 'can update merchant attributes using ID' do
+ #    merchants_path = './data/merchants.csv'
+ #    merchant_repository = MerchantRepository.new(merchants_path)
+ #    merchant_repository.create(:name => "Shopkeep0", :id => 12337412)
+ #    merchant_repository.update(12337412, "ThisTestWillPass")
+ #    expect((merchant_repository.find_by_id(12337412)).name).to eq "ThisTestWillPass"
+ #  end
+ #
+ #  it 'can delete a merchant by ID' do
+ #    merchants_path = './data/merchants.csv'
+ #    merchant_repository = MerchantRepository.new(merchants_path)
+ #    merchant_repository.create(:name => "Shopkeep0", :id => 12337412)
+ #    expect(merchant_repository.all.count).to eq 476
+ #    merchant_repository.delete(12337412)
+ #    expect(merchant_repository.all.count).to eq 475
+ # end
 end

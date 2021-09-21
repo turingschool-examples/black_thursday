@@ -28,8 +28,17 @@ RSpec.describe do
     customer_path = './data/customers.csv'
     customer_repository = CustomerRepository.new(customer_path)
     expect(customer_repository.find_by_id(1001)).to eq(nil)
-    customer_repository.create({:id => 1001, :first_name => "Garth"})
-    # expect(customer_repository.find_by_id(1001)).not_to eq(nil)
-    # expect(customer_repository.all.last.id).to eq(1001)
+    customer_repository.create({:id => 1001, :first_name => "Garth", :last_name => "Wayne"})
+    expect(customer_repository.find_by_id(1001)).not_to eq(nil)
+    expect(customer_repository.all.last.id).to eq(1001)
+  end
+
+  it 'can update merchant attributes using ID' do
+    customer_path = './data/customers.csv'
+    customer_repository = CustomerRepository.new(customer_path)
+    customer_repository.create(:first_name => "Garth", :last_name => "Wayne", :id => 1001)
+    customer_repository.update(1001, "Brooke", "Shields")
+    expect((customer_repository.find_by_id(1001)).first_name).to eq("Brooke")
+    expect((customer_repository.find_by_id(1001)).last_name).to eq("Shields")
   end
 end
