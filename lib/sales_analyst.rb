@@ -10,14 +10,16 @@ class SalesAnalyst
               :merchants,
               :merch_item_hash,
               :invoices,
+              :invoice_items,
               :transactions
 
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, invoices, transactions, invoice_items)
     @items = items.all
     @merchants = merchants.all
-    @merch_item_hash = hash_create
     @invoices = invoices.all
     @transactions = transactions.all
+    @invoice_items = invoice_items.all
+    @merch_item_hash = hash_create
   end
 
   def hash_create
@@ -187,12 +189,36 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    transactions.each do |transaction|
-      if transaction.invoice_id == invoice_id
-        transaction.result == "success"
-      else
-        false
+    paid_in_full_status = transactions.select do |transaction|
+      transaction.invoice_id == invoice_id && transaction.result == 'success'
+    end
+    paid_in_full_status.length >= 1
+  end
+
+  def invoice_total(invoice_id)
+    total_of_invoice = 0
+    matching_transactions(invoice_id).each do |transaction|
+      matching_invoices(invoice_id).each do |invoice|
+        total_of_invoice += invoice.quantity * invoice.unit_price
       end
+    end
+    (total_of_invoice / 100).round(2)
+  end
+
+  def matching_transactions(invoice_id)
+    transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id && transaction.result == "success"
+    end
+  end
+
+  def matching_invoices(invoice_id)
+    invoice_items.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
     end
   end
 end
+
+# find transaction with invoice id and make sure it was a success
+# find all invoice_items with corresponding invoice id
+# add all total prices together (quantity * unit_price)
+# convert to USD
