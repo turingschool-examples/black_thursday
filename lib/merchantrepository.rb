@@ -33,15 +33,16 @@ class MerchantRepository
     end
   end
 
-  def create(name, created_at, updated_at)
-
-    last_id = @all.last.id
-    new_id = last_id += 1
-    new_biz = [new_id, name, created_at, updated_at]
-
-    # CSV.open('./data/merchants.csv', "a+") do |csv|
-    #   csv << new_biz
-    # end
+  def create(attributes)
+    id_max = @all.max_by {|merchant| merchant.id}
+    new = Merchant.new(attributes)
+    attributes[:id] = id_max.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    #new = Merchant.new(attributes)
+    # require "pry"; binding.pry
+    @all << new
+    require "pry"; binding.pry
   end
 
   def update(id, attributes)

@@ -39,8 +39,8 @@ class InvoiceRepository
   def update(id, attributes)
 
     updated_invoice = self.find_by_id(id)
-      updated_invoice.status = attributes[:status]
-      updated_invoice.updated_at = attributes[:updated_at]
+    updated_invoice.status = attributes[:status]
+    updated_invoice.updated_at = attributes[:updated_at]
     updated_invoice
   end
 
