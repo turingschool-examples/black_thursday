@@ -1,15 +1,9 @@
+# frozen_string_literal: true
 require 'time'
-
-# frozen_string_literal: true
-
 require 'bigdecimal/util'
-# frozen_string_literal: true
-
-# require 'csv'
 require 'bigdecimal/util'
-# require_relative './items'
-# require_relative './merchants'
-# require_relative './sales_engine'
+
+
 
 class SalesAnalyst
   def initialize(items, merchants, invoices, invoice_items)
@@ -19,7 +13,7 @@ class SalesAnalyst
     @avgavg = []
     @invoice_items = invoice_items
   end
-t
+
   def average_items_per_merchant
     (@items.all.count.to_f / @merchants.all.count).round(2)
   end

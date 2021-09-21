@@ -7,7 +7,8 @@ require_relative './items'
 require_relative './merchants'
 require_relative './invoice_repo'
 require_relative './invoices'
-
+require_relative './invoice_item'
+require_relative './invoice_item_repo'
 class SalesEngine
   attr_accessor :items,
                 :merchants,

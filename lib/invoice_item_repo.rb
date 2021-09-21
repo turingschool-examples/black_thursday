@@ -62,5 +62,5 @@ class InvoiceItemRepository
       invoice_item.id == id
     end
     @invoice_items.delete(trash)
-
+  end
 end
