@@ -1,8 +1,22 @@
+require 'csv'
+require_relative 'invoice_item'
+
 class InvoiceItemRepository
   attr_reader :all
 
-  def initialize(all)
-    @all = all
+  def initialize(file_path, engine)
+    @engine = engine
+    @all = create_repository(file_path)
+  end
+
+  def create_repository(file_path)
+    all = []
+
+    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+     csv.map do |row|
+       all << InvoiceItem.new(row)
+    end
+    all
   end
 
   def find_by_id(id)

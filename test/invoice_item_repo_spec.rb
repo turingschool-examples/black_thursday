@@ -14,20 +14,24 @@ require 'rspec'
 
 describe InvoiceItemRepository do
   it 'exists' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     invi = se.invoice_items
 
     expect(invi).to be_a(InvoiceItemRepository)
   end
 
   it 'finds by id' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     invi = se.invoice_items
     invoiceitem1 = invi.find_by_id(1)
     invoiceitem2 = invi.find_by_id(371)
@@ -37,10 +41,12 @@ describe InvoiceItemRepository do
   end
 
   it 'finds all by item id' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     invi = se.invoice_items
     invoiceitem1 = invi.find_all_by_item_id(263524984)
 
@@ -49,10 +55,12 @@ describe InvoiceItemRepository do
   end
 
   it 'finds all by invoice id' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     invi = se.invoice_items
     invoiceitem1 = invi.find_all_by_invoice_id(3)
 
@@ -61,10 +69,12 @@ describe InvoiceItemRepository do
   end
 
   it "can create a new invoice item with max_id being +1" do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     invi = se.invoice_items
 
     attributes = {
@@ -84,10 +94,12 @@ describe InvoiceItemRepository do
   end
 
   it "can update attributes" do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     invi = se.invoice_items
 
     attribute = {
@@ -117,10 +129,12 @@ describe InvoiceItemRepository do
   end
 
   it 'deletes an invoice' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv',
-                      :invoice_items => './data/invoice_items.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     invi = se.invoice_items
 
     expect(invi.delete(300).length).to eq(21829)
