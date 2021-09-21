@@ -130,6 +130,46 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (@analyst_invoices.all.count.to_f / @analyst_merchant.all.count.to_f).round(2)
+    (@analyst_invoices.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
+
+  def invoice_hashes
+    invoice_hashes = []
+    @analyst_merchants.all.each do |merchant|
+      merchants_invoices = []
+      @analyst_invoices.all.each do |invoice|
+        if invoice.merchant_id == merchant.id
+          merchants_invoices << invoice
+        end
+      end
+     invoice_hashes << {
+       :merchant => merchant,
+       :merchants_invoices => merchants_invoices,
+       :invoice_count => merchants_invoices.count}
+     end
+     invoice_hashes
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    sum = 0
+    aipm = average_invoices_per_merchant
+    invoice_hashes.each do |invoice_hash|
+      sum += (invoice_hash[:invoice_count] - aipm)**2
+    end
+    std = Math.sqrt(sum / invoice_hashes.count).round(2)
+    std
+  end
+
+  def top_merchants_by_invoice_count
+    std = average_invoices_per_merchant_standard_deviation
+    aipm = average_invoices_per_merchant
+    mwhic = []
+    invoice_hashes.each do |invoice_hash|
+      if invoice_hash[:invoice_count] > aipm + (std * 2)
+        mwhic << invoice_hash[:merchant]
+      end
+    end
+    mwhic
+  end
+
 end
