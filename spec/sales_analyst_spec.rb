@@ -18,7 +18,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -29,7 +30,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -44,7 +46,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -57,7 +60,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -70,7 +74,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -83,7 +88,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -96,7 +102,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -109,7 +116,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -122,7 +130,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -135,7 +144,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -148,7 +158,8 @@ describe SalesAnalyst do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
       sales_analyst = se.analyst
 
@@ -162,7 +173,8 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
 
       sales_analyst = se.analyst
@@ -176,7 +188,8 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
 
       sales_analyst = se.analyst
@@ -189,7 +202,8 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
 
       sales_analyst = se.analyst
@@ -202,13 +216,30 @@ describe SalesAnalyst do
       se = SalesEngine.new(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
       )
 
       sales_analyst = se.analyst
       expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
       expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
       expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
+    end
+  end
+
+  describe '#invoice_paid_in_full?' do
+    it 'returns true if the invoice is paid in full' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
+      )
+
+      sales_analyst = se.analyst
+      expect(sales_analyst.invoice_paid_in_full?(32)).to be_a(Boolean)
+      expect(sales_analyst.invoice_paid_in_full?(290)).to be(true)
+      expect(sales_analyst.invoice_paid_in_full?(1752)).to be(false)
     end
   end
 end
