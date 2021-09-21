@@ -44,12 +44,12 @@ class CustomerRepository
     end
   end
 
-  def create(hash)
-    hash[:id] = @all.last.id + 1
-    hash[:created_at] = Time.now.to_s
-    hash[:updated_at] = Time.now.to_s
+  def create(attributes)
+    attributes[:id] = @all.last.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
 
-    new_customer = Customer.new(hash)
+    new_customer = Customer.new(attributes)
     @all << new_customer
     new_customer
   end
