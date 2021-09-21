@@ -1,9 +1,9 @@
 require 'csv'
 require_relative '../lib/merchant'
-require_relative '../lib/repo_module'
+require_relative '../lib/repoable'
 
 class MerchantRepo
-  include Repo
+  include Repoable
   attr_reader :all
 
   def initialize(path)

@@ -1,10 +1,10 @@
 require 'csv'
 require_relative '../lib/invoice_item'
-require_relative '../lib/repo_module'
+require_relative '../lib/repoable'
 
 
 class InvoiceItemRepo
-  include Repo
+  include Repoable
   attr_reader :all
 
   def initialize(path)
@@ -46,12 +46,12 @@ class InvoiceItemRepo
 
   def update(id, attributes)
     invoice_item = find_by_id(id)
-    
-    if attributes[:quantity] != nil 
+
+    if attributes[:quantity] != nil
       invoice_item.change_quantity(attributes[:quantity])
     end
     if attributes[:unit_price] != nil
-      invoice_item.change_unit_price(attributes[:unit_price]) 
+      invoice_item.change_unit_price(attributes[:unit_price])
     end
   end
 

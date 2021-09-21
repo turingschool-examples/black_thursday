@@ -1,10 +1,10 @@
 require 'csv'
 require_relative '../lib/customer'
-require_relative '../lib/repo_module'
+require_relative '../lib/repoable'
 
 
 class CustomerRepo
-  include Repo
+  include Repoable
   attr_reader :all
 
   def initialize(path)
