@@ -264,4 +264,11 @@ class SalesAnalyst
         end
       end.uniq
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    item_array = @items.find_all_by_merchant_id(merchant_id)
+    item_array.max_by do |item|
+      @invoice_items.find_all_by_item_id(item.id)
+    end
+  end
 end
