@@ -1,4 +1,5 @@
 require 'bigdecimal/util'
+require_relative './sales_engine'
 
 class InvoiceItem
   attr_reader   :id,
@@ -6,7 +7,7 @@ class InvoiceItem
                 :invoice_id,
                 :created_at
   attr_accessor :quantity,
-                :unit_price,  
+                :unit_price,
                 :updated_at
   def initialize(data)
     @id = data[0].to_i
