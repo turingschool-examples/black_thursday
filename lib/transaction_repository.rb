@@ -60,14 +60,14 @@ class TransactionRepository
   def update(id, attributes)
     txn_to_update = find_by_id(id)
     cc_num        = attributes[:credit_card_number]
-    cc_expiration = attributes[:credit_card_expiration_date]
+    cc_exp        = attributes[:credit_card_expiration_date]
     result        = attributes[:result]
 
-    txn_to_update.credit_card_number = cc_num if cc_num
-    txn_to_update.credit_card_expiration_date = cc_expiration if cc_expiration
-    txn_to_update.result = result if result
+    txn_to_update.update_ccnum(cc_num) if cc_num
+    txn_to_update.update_cc_expiration(cc_exp) if cc_exp
+    txn_to_update.update_result(result) if result
     if txn_to_update != nil
-      txn_to_update.updated_at = Time.now
+      txn_to_update.update_updated_at
     end
     txn_to_update
   end
