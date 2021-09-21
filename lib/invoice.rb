@@ -1,11 +1,11 @@
 class Invoice
-  attr_accessor :status,
-                :updated_at
 
   attr_reader :id,
               :customer_id,
               :merchant_id,
-              :created_at
+              :created_at,
+              :status,
+              :updated_at
 
   def initialize(data)
     @id          = data[:id].to_i
@@ -14,5 +14,13 @@ class Invoice
     @status      = data[:status].to_sym
     @created_at  = Time.parse(data[:created_at])
     @updated_at  = Time.parse(data[:updated_at])
+  end
+
+  def update_status(status)
+    @status = status
+  end
+
+  def update_updated_at
+    @updated_at = Time.now
   end
 end
