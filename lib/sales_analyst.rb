@@ -172,4 +172,16 @@ class SalesAnalyst
     mwhic
   end
 
+  def bottom_merchants_by_invoice_count
+    std = average_invoices_per_merchant_standard_deviation
+    aipm = average_invoices_per_merchant
+    mwlic = []
+    invoice_hashes.each do |invoice_hash|
+      if invoice_hash[:invoice_count] < aipm - (std * 2)
+        mwlic << invoice_hash[:merchant]
+      end
+    end
+    mwlic
+  end
+
 end

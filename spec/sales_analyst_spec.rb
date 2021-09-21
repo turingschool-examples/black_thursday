@@ -104,8 +104,19 @@ RSpec.describe SalesAnalyst do
       })
       sales_analyst = sales_engine.analyst
 
-
     expect(sales_analyst.top_merchants_by_invoice_count.count).to eq 12
   end
+
+  it 'bottom_merchants_by_invoice_count' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+      sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.bottom_merchants_by_invoice_count.count).to eq 4
+  end
+
 
 end
