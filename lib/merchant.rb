@@ -1,5 +1,6 @@
 class Merchant
-  attr_reader :id
+  attr_reader :id,
+              :created_at
   attr_accessor :name
 
   def initialize(info)

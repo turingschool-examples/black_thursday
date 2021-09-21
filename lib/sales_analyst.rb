@@ -232,6 +232,23 @@ class SalesAnalyst
     merchant_array
   end
 
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchant_month_array = []
+    @merchants.all.each do |merchant|
+      if merchant.created_at.strftime('%B') == month
+        merchant_month_array << merchant
+      end
+    end
+    merchant_array = []
+    merchant_month_array.each do |merchant|
+      if @items.find_all_by_merchant_id(merchant.id).length == 1
+        merchant_array << merchant
+      end
+    end
+    merchant_array
+  end
+
+
   def revenue_by_merchant(merchant_id)
     merchant_total_revenue_hash = Hash.new(0)
     @invoices.all.each do |invoice|

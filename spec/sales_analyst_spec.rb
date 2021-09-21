@@ -123,10 +123,23 @@ describe SalesAnalyst do
   expect(last.id).to eq 12334159
   end
 
-  it "merchants_with_only_one_item" do
+  xit "#merchants_with_only_one_item" do
 
     expect(@sa.merchants_with_only_one_item.length).to eq 243
     expect(@sa.merchants_with_only_one_item[0].class).to eq Merchant
+  end
+
+  it "#merchants_with_only_one_item_registered_in_month" do
+    expected = @sa.merchants_with_only_one_item_registered_in_month("March")
+
+    expect(expected.length).to eq 21
+    expect(expected.first.class).to eq Merchant
+
+    expected = @sa.merchants_with_only_one_item_registered_in_month("June")
+
+    expect(expected.length).to eq 18
+    expect(expected.first.class).to eq Merchant
+
   end
 
   xit '#revenue_by_merchant' do
