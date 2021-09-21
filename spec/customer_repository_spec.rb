@@ -23,4 +23,13 @@ RSpec.describe do
     expect(customer_repository.find_by_id(example_customer.id)).to eq(example_customer)
     expect(customer_repository.find_by_id(999999)).to eq nil
   end
+
+  it 'can create a customer with given attributes' do
+    customer_path = './data/customers.csv'
+    customer_repository = CustomerRepository.new(customer_path)
+    expect(customer_repository.find_by_id(1001)).to eq(nil)
+    customer_repository.create({:id => 1001, :first_name => "Garth"})
+    # expect(customer_repository.find_by_id(1001)).not_to eq(nil)
+    # expect(customer_repository.all.last.id).to eq(1001)
+  end
 end

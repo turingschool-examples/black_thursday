@@ -24,4 +24,17 @@ class CustomerRepository
       nil
     end
   end
+
+  # def find_all_by_first_name
+  #
+  # end
+  #
+  # def find_all_by_last_name
+  #
+  # end
+
+  def create(attributes)
+    new_customer = customer.new(attributes)
+    @all << new_customer
+  end
 end
