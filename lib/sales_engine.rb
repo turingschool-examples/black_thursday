@@ -10,9 +10,10 @@ class SalesEngine
 
   def initialize(data)
     @items     = data[:items]
-    @merchants = MerchantRepository.new(data[:merchants])
+    @merchants = MerchantRepository.new(data[:merchants], self)
     @invoices = data[:invoices]
     @invoice_items = data[:invoice_items]
+    @sa = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items)
   end
 
   def self.from_csv(info)

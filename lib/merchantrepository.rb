@@ -4,8 +4,8 @@ require_relative 'merchant'
 class MerchantRepository
   attr_reader :all
 
-  def initialize(file_path)
-    
+  def initialize(file_path, engine)
+    @engine = engine
     @all = create_repository(file_path)
   end
 

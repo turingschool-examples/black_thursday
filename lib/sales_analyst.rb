@@ -10,14 +10,15 @@ class SalesAnalyst < SalesEngine
   #   :merchants => "./data/merchants.csv",
   # })
 
-  def initialize
+  def initialize(items, merchants, invoices, invoice_items)
+    @ir = items
+    @mr = merchants
+    @inv = invoices
+    @inv_items = invoice_items
   end
 
   def average_items_per_merchant
-    ir = @@se.items
-    mr = @@se.merchants
-
-    ((ir.all.count.to_f) / (mr.all.count.to_f)).round(2)
+    ((@ir.all.count.to_f) / (@mr.all.count.to_f)).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
