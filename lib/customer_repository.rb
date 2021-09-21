@@ -38,13 +38,13 @@ class CustomerRepository
     @all << new_customer
   end
 
-  # def update(id, new_first_name, new_last_name)
-  #   if find_by_id(id) != nil
-  #     (find_by_id(id).first_name.clear.gsub!("", new_first_name))
-  #     (find_by_id(id).last_name.clear.gsub!("", new_last_name))
-  #   end
-  # end
-  #
+  def update(id, new_first_name, new_last_name)
+    if find_by_id(id) != nil
+      (find_by_id(id).first_name.clear.gsub!("", new_first_name))
+      (find_by_id(id).last_name.clear.gsub!("", new_last_name))
+    end
+  end
+
   # def delete(id)
   #   if find_by_id(id) != nil
   #     @all.delete(@all.find do |merchant|
