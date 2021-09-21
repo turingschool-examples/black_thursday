@@ -75,7 +75,7 @@ class ItemRepository
 
   def update(id, attributes)
     current_item = find_by_id(id)
-    all[all.find_index(current_item)] = current_item.update(attributes) if !find_by_id(id).nil?
+    all[all.find_index(current_item)] = current_item.update(attributes) unless find_by_id(id).nil?
   end
 
   def delete(id)

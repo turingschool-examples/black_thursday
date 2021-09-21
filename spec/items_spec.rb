@@ -12,11 +12,11 @@ describe Item do
 
     @item = {
   id: 1,
-  name: "Pencil",
-  description: "You can use it to write things",
+  name: 'Pencil',
+  description: 'You can use it to write things',
   unit_price: '1099',
-  created_at: (Time.now).to_s,
-  updated_at: (Time.now).to_s,
+  created_at: Time.now.to_s,
+  updated_at: Time.now.to_s,
   merchant_id: 2
 }
     @item1 = Item.new(@item)
@@ -44,7 +44,7 @@ describe Item do
   describe 'description' do
     it 'returns the description' do
 
-      expect(@item1.description).to eq("You can use it to write things")
+      expect(@item1.description).to eq('You can use it to write things')
     end
   end
 

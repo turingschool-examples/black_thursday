@@ -99,8 +99,8 @@ describe ItemRepository do
 
   describe 'update(id, attributes)' do
     it 'updates the item with given ids attributes' do
-        id = 263_395_237
-        attributes = {
+      id = 263_395_237
+      attributes = {
         name: 'Pencil',
         description: 'It can write stuff'
       }
