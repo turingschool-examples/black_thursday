@@ -208,13 +208,6 @@ class SalesAnalyst
     BigDecimal.new(total_revenue.to_s)
   end
 
-  def revenue_by_merchant(merchant_id)
-    merchant_total_revenue_hash = Hash.new(0)
-    @invoices.all.each do |invoice|
-      merchant_total_revenue_hash[invoice.merchant_id]  += invoice_total(invoice.id)
-    end
-    merchant_total_revenue_hash[merchant_id]
-  end
 
   def top_revenue_earners(num = 20)
     merchant_total_revenue_hash = Hash.new(0)
@@ -227,5 +220,13 @@ class SalesAnalyst
     array.first(num).map do |merchant_id_array|
       @merchants.find_by_id(merchant_id_array[0])
     end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_total_revenue_hash = Hash.new(0)
+    @invoices.all.each do |invoice|
+      merchant_total_revenue_hash[invoice.merchant_id]  += invoice_total(invoice.id)
+    end
+    merchant_total_revenue_hash[merchant_id]
   end
 end

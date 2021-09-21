@@ -122,4 +122,11 @@ describe SalesAnalyst do
   expect(last.class).to eq Merchant
   expect(last.id).to eq 12334159
   end
+
+  it '#revenue_by_merchant' do
+    expected = @sa.revenue_by_merchant(12334194)
+
+    expect(expected).to eq BigDecimal(expected)
+    expect(expected.class).to eq BigDecimal
+  end
 end
