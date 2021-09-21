@@ -55,25 +55,44 @@ RSpec.describe ItemRepository do
   end
 
   #unsure how to tackle this method
-  # it "can find all by price in range" do
-  #   items_path = './data/items.csv'
-  #   item_repository = ItemRepository.new(items_path)
-  #   example_item = item_repository.all[25]
-  #
-  #   expect(item_repository.find_all_by_price_in_range(example_item.)).to eq example_item
+  it "can find all by price in range" do
+    items_path = './data/items.csv'
+    item_repository = ItemRepository.new(items_path)
+    example_item = item_repository.all[25]
+
+    expect(item_repository.find_all_by_price_in_range(1..2)).to eq([])
+    # expect(item_repository.find_all_by_price_in_range(example_item.)).to eq example_item
   #   expect(item_repository.find_all_by_price_in_range()).to eq([])
-  # end
+  end
 
-    it "can find all by merchant id" do
-      items_path = './data/items.csv'
-      item_repository = ItemRepository.new(items_path)
-      example_item = item_repository.all[25]
+  it "can find all by merchant id" do
+    items_path = './data/items.csv'
+    item_repository = ItemRepository.new(items_path)
+    example_item = item_repository.all[25]
 
-      #example_item.merchant_id => 12334365    12334365 is being passed as the argument below
-      expect(item_repository.find_all_by_merchant_id(example_item.merchant_id)).to be_an(Array)
-      #there are 9 items that match merchant_id 12334365. Counted # of items in array for 2nd test.
-      expect(item_repository.find_all_by_merchant_id(example_item.merchant_id).count).to eq(9)
-      expect(item_repository.find_all_by_merchant_id(00000000)).to eq([])
+    #example_item.merchant_id => 12334365    12334365 is being passed as the argument below
+    expect(item_repository.find_all_by_merchant_id(example_item.merchant_id)).to be_an(Array)
+    #there are 9 items that match merchant_id 12334365. Counted # of items in array for 2nd test.
+    expect(item_repository.find_all_by_merchant_id(example_item.merchant_id).count).to eq(9)
+    expect(item_repository.find_all_by_merchant_id(00000000)).to eq([])
+  end
+
+  def create(attributes)
+    new_item = Item.new(attributes)
+    @all << new_item
+  end
+
+  def update(id, new_name)
+    if find_by_id(id) != nil
+      (find_by_id(id).name.clear.gsub!("", new_name))
     end
+  end
 
+  def delete(id)
+    if find_by_id(id) != nil
+      @all.delete(@all.find do |item|
+        merchant.id == id
+      end)
+    end
+  end
 end
