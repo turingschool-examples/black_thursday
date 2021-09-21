@@ -7,9 +7,11 @@ require './lib/sales_engine'
 RSpec.describe Merchant do
   before(:each) do
     @engine = SalesEngine.from_csv({
-                                     items: './data/items.csv',
-                                     merchants: './data/merchants.csv'
-                                   })
+                                       items: './data/items.csv',
+                                       merchants: './data/merchants.csv',
+                                       invoices: "./data/invoices.csv",
+                                       invoice_items: './data/invoice_items.csv'
+                                     })
   end
 
   it 'has attributes' do
