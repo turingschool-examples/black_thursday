@@ -86,19 +86,66 @@ describe SalesAnalyst do
     expect(days).to eq ["Wednesday"]
   end
 
-  xit 'invoice_status' do
+  xit '#invoice_status' do
     expect(@sa.invoice_status(:pending)).to eq 29.55
     expect(@sa.invoice_status(:shipped)).to eq 56.95
     expect(@sa.invoice_status(:returned)).to eq 13.5
   end
 
-  it 'invoice_paid_in_full' do
+  xit '#invoice_paid_in_full' do
     expect(@sa.invoice_paid_in_full?(2)).to be(true)
     expect(@sa.invoice_paid_in_full?(10)).to be(true)
     expect(@sa.invoice_paid_in_full?(203)).to be(false)
   end
 
-  it 'invoice_total' do
+  xit '#invoice_total' do
     expect(@sa.invoice_total(1)).to eq(21067.77)
+  end
+
+  xit "#total_revenue_by_date" do
+    date = Time.parse("2009-02-07")
+
+    expect(@sa.total_revenue_by_date(date)).to eq(21067.77)
+    expect(@sa.total_revenue_by_date(date).class).to eq(BigDecimal)
+  end
+
+  xit '#top_revenue_earners'do
+  expected = @sa.top_revenue_earners
+  first = expected.first
+  last = expected.last
+
+  expect(expected.length).to eq 20
+
+  expect(first.class).to eq Merchant
+  expect(first.id).to eq 12334634
+
+  expect(last.class).to eq Merchant
+  expect(last.id).to eq 12334159
+  end
+
+  xit "#merchants_with_only_one_item" do
+
+    expect(@sa.merchants_with_only_one_item.length).to eq 243
+    expect(@sa.merchants_with_only_one_item[0].class).to eq Merchant
+  end
+
+  it "#merchants_with_only_one_item_registered_in_month" do
+    expected = @sa.merchants_with_only_one_item_registered_in_month("March")
+
+    expect(expected.length).to eq 21
+    expect(expected.first.class).to eq Merchant
+
+    expected = @sa.merchants_with_only_one_item_registered_in_month("June")
+
+    expect(expected.length).to eq 18
+    expect(expected.first.class).to eq Merchant
+
+  end
+
+  xit '#revenue_by_merchant' do
+    expected = @sa.revenue_by_merchant(12334194)
+
+    expect(expected).to eq BigDecimal(expected)
+    expect(expected.class).to eq BigDecimal
   end
 end
