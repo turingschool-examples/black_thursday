@@ -181,4 +181,61 @@ class SalesAnalyst
       invoice_item.quantity * invoice_item.unit_price
     end
   end
+
+  def find_all_invoice_items_by_merchant(merchant)
+    invoice_array = @invoices.all.find_all do |invoice|
+      invoice.merchant_id == merchant.id
+    end # => array of invoices for a given merchant
+
+    invoice_id_array = invoice_array.map do |invoice|
+      invoice.id
+    end # => array of invoice ids for a given merchant
+
+    invoice_id_array.map do |invoice_id|
+      @invoice_items.find_all_by_invoice_id(invoice_id)
+    end.flatten # => array of invoice items from a given merchant
+  end
+
+  def revenue_by_merchant(merchant)
+    find_all_invoice_items_by_merchant(merchant).sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+  end # => 1 merchant's total revenue
+
+  def top_revenue_earners(x = 20)
+    # if we can't figure this out...
+    # define a @total_revenue variable in the Merchant class
+    # sort @merchants.all by total revenue
+    # output top x
+    arr = []
+    @merchants.all.each do |merchant|
+      arr << [merchant, revenue_by_merchant(merchant)]
+    end
+    arr
+  end
+
+  # def merchants_with_pending_invoices
+  #     pending_array = @invoices.find_all_by_status(:pending)
+  #     id_array = pending_array.map do |invoice|
+  #       invoice.merchant_id
+  #     end
+  #     id_array.map do |id|
+  #       @merchants.find_by_id(id)
+  #     end.uniq!
+  #   end
+
+  def merchants_with_pending_invoices
+    @invoices.all.map do |invoice|
+      var = @transactions.find_all_by_invoice_id(invoice.id).none? do |transaction|
+        transaction.result == :success
+      end
+      @merchants.find_by_id(invoice.merchant_id) if var
+    end.uniq.compact
+  end
+
+  def merchants_with_only_one_item
+    @merchants.all.find_all do |merchant|
+      @items.find_all_by_merchant_id(merchant.id).length == 1
+    end
+  end
 end

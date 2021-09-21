@@ -171,10 +171,32 @@ RSpec.describe SalesAnalyst do
       expect(analyst.find_all_invoice_item_by_date('2014-02-13')).to be_a(Array)
       expect(analyst.find_all_invoice_item_by_date('2014-02-13').length).to eq(1)
     end
-#not sure how to test for this
+
     it '#total_revenue_by_date' do
       expect(analyst.total_revenue_by_date('2014-02-13')).to eq(0)
       expect(analyst.total_revenue_by_date('2009-02-24')).to eq(1363.50)
+    end
+
+    it '#top_revenue_earners' do
+      expected = analyst.top_revenue_earners(5)
+      first = expected.first
+      last = expected.last
+
+      expect(expected.length).to eq 5
+
+      expect(first.class).to eq Merchant
+      expect(first.id).to eq 12334634
+
+      expect(last.class).to eq Merchant
+      expect(last.id).to eq 12335747
+    end
+
+    it '#merchants_with_pending_invoices' do
+      expected = analyst.merchants_with_pending_invoices
+
+      expect(expected).to be_an Array
+      expect(expected.length).to eq 467
+      require "pry"; binding.pry
     end
   end
 end
