@@ -6,4 +6,9 @@ class TransactionRepository
   def initialize(data)
      @transactions = data
   end
+
+  def all
+    @transactions
+  end
+  
 end
