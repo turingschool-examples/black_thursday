@@ -201,7 +201,7 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     total_revenue = 0.0
     @invoice_items.all.each do |invoice_item|
-      if invoice_item.updated_at == date
+      if invoice_item.updated_at.strftime("%F") == date.strftime("%F")
         total_revenue += invoice_total(invoice_item.invoice_id)
       end
     end
