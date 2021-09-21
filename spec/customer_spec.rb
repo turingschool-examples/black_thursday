@@ -20,6 +20,9 @@ end
                       :created_at => Time.now,
                       :updated_at => Time.now
                       })
-  expect(c.id).to be_an_instance_of(6)
+  expect(c.id).to eq(6)
+  expect(c.first_name).to eq("Joan")
+  expect(c.last_name).to eq("Clarke")
+  expect(c.created_at).to eq(Time.now)
   end
 end
