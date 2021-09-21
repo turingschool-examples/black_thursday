@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
+'require relative'
 require 'simplecov'
 SimpleCov.start
 require 'rspec'
 require 'csv'
 require 'BigDecimal'
 require './lib/sales_engine'
-require './lib/merchant.rb'
-require './lib/merchants_repository.rb'
+require './lib/merchant'
+require './lib/merchants_repository'
 require './lib/items'
 require './lib/item_repository'
 require './lib/sales_analyst'
-
+require './lib/invoice'
+require './lib/invoice_repository'
 describe SalesAnalyst do
   before(:each) do
     @se = SalesEngine.from_csv(
@@ -25,13 +27,11 @@ describe SalesAnalyst do
   describe '#initialize' do
     it 'creates an instance of SalesAnalyst' do
       expect(@sales_analyst).to be_an_instance_of(SalesAnalyst)
-      require 'pry'; binding.pry
     end
 
     it 'has readable attributes' do
       expect(@sales_analyst.items).to be_an(Array)
       expect(@sales_analyst.merchants).to be_an(Array)
-      expect(@sales_analyst.invoices).to be_an(Array)
       expect(@sales_analyst.merch_item_hash).to be_a(Hash)
     end
   end
@@ -79,8 +79,14 @@ describe SalesAnalyst do
   end
 
   describe "#golden_items" do
-    it 'returns an array of items that are more than 2 SD above average price' do
+    it 'returns items that are two standard devs above the avg price' do
       expect(@sales_analyst.golden_items).to be_a(Array)
+    end
+  end
+
+  describe '#average_invoices_per_merchant' do
+    it 'returns the average num of invoices per merchant' do
+      expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
   end
 end

@@ -6,14 +6,38 @@ require 'BigDecimal'
 class SalesAnalyst
   attr_reader :items,
               :merchants,
-              :invoices,
-              :merch_item_hash
+              :merch_item_hash,
+              :invoices
 
   def initialize(items, merchants, invoices)
-    @items = items.all
-    @merchants = merchants.all
-    @invoices = invoices.all
+    @items = item_assign(items)
+    @merchants = merchant_assign(merchants)
     @merch_item_hash = hash_create
+    @invoices = invoice_assign(invoices)
+  end
+
+  def item_assign(items)
+    if items.nil?
+      nil
+    else
+      items.all
+    end
+  end
+
+  def merchant_assign(merchants)
+    if merchants.nil?
+      nil
+    else
+      merchants.all
+    end
+  end
+
+  def invoice_assign(invoices)
+    if invoices.nil?
+      nil
+    else
+      invoices.all
+    end
   end
 
   def hash_create
@@ -33,15 +57,17 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (@items.length.to_f / @merchants.length.to_f).round(2)
+    num_merchants = @merchants.length.to_f
+    num_items = @items.length.to_f
+    expected = (num_items / num_merchants).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    sum_diff = 0
-    @merch_item_hash.each do |merchant, items|
-      sum_diff += 1
+    sum_diff_squared = 0
+    @merch_item_hash.each do |merchant,items|
+      sum_diff_squared += (items.length - average_items_per_merchant)**2
     end
-    sum_diff
+    ((sum_diff_squared / @merchants.length.to_f)**0.5).round(2)
   end
 
   def merchants_with_high_item_count
@@ -109,5 +135,9 @@ class SalesAnalyst
     @items.each do |item|
       result_array.append(item) if item.unit_price.to_f >= expected
     end
+  end
+
+  def average_invoices_per_merchant
+    (@invoices.length.to_f / @merchants.length.to_f).round(2)
   end
 end
