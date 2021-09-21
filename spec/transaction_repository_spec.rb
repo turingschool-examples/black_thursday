@@ -8,7 +8,7 @@ RSpec.describe TransactionRepository do
                                        invoices: "./data/invoices.csv",
                                        invoice_items: './data/invoice_items.csv',
                                        transactions: './data/transactions.csv',
-                                       customers: './data/customers.csv'
+                                       customers: './data/customers.csv',
                                      })
   end
 

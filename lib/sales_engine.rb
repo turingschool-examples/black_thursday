@@ -19,7 +19,8 @@ class SalesEngine
                 :merchants,
                 :invoices,
                 :invoice_items,
-                :transactions
+                :transactions,
+                :customers
 
   def self.from_csv(paths)
     data = {}
