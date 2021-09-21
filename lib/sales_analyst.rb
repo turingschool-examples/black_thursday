@@ -194,7 +194,22 @@ class SalesAnalyst
         invoice_item.quantity * invoice_item.unit_price
       else
         0
-      end 
+      end
     end
+  end
+
+  def merchants_with_pending_invoices
+    require "pry"; binding.pry
+        # invoice.status == :pending
+      #    invoice.status == :pending
+      # end
+      # x.map do |invoice|
+      #   @merchants.find_by_id(invoice.merchant_id)
+      # end.uniq
+      @invoices.all.map do |invoice|
+        if invoice_paid_in_full?(invoice.id) == false
+          @merchants.find_by_id(invoice.merchant_id)
+        end
+      end.uniq
   end
 end
