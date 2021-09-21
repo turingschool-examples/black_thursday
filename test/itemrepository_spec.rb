@@ -10,10 +10,12 @@ RSpec.describe ItemRepository do
 
 
     it "can return the price of item in dollars (float)" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -22,10 +24,12 @@ RSpec.describe ItemRepository do
     end
 
     it "can return an array of all know Item instances" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -34,10 +38,12 @@ RSpec.describe ItemRepository do
 
     it "can find by id" do
 
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -57,10 +63,12 @@ RSpec.describe ItemRepository do
 
     end
     it "can find by name" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -79,10 +87,12 @@ RSpec.describe ItemRepository do
     end
 
     it "can find by description" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -101,10 +111,12 @@ RSpec.describe ItemRepository do
     end
 
     it "can find by unit price" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -122,10 +134,12 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_price(BigDecimal(13.50,4)).length).to eq(1)
     end
     it "can find by price range" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -144,10 +158,12 @@ RSpec.describe ItemRepository do
 
     end
     it "can find by merchant_id" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -165,10 +181,12 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_merchant_id(12334185).length).to eq(6)
     end
     it "can create a new item with max_id being +1" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -202,10 +220,12 @@ RSpec.describe ItemRepository do
     end
 
     it "can update id and attributes" do
-      se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-      })
+      se = SalesEngine.new({ :items      => "./data/items.csv",
+                         :merchants      => "./data/merchants.csv",
+                         :invoices       => './data/invoices.csv',
+                         :invoice_items  => './data/invoice_items.csv',
+                         :transactions   => './data/transactions.csv',
+                         :customers      => './data/customers.csv'})
 
       ir = se.items
 
@@ -247,17 +267,16 @@ RSpec.describe ItemRepository do
     expect((ir.update(263395721, attributes)).id).to eq(item_results.id)
     expect((ir.update(263395721, attributes)).description).to eq(item_results.description)
     expect((ir.update(263395721, attributes)).unit_price).to eq(item_results.unit_price)
-
-
   end
 
   it "can delete by id" do
 
-
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
 
     ir = se.items
 
