@@ -9,13 +9,15 @@ class SalesAnalyst
   attr_reader :items,
               :merchants,
               :merch_item_hash,
-              :invoices
+              :invoices,
+              :transactions
 
   def initialize(items, merchants, invoices)
     @items = items.all
     @merchants = merchants.all
     @merch_item_hash = hash_create
     @invoices = invoices.all
+    @transactions = transactions.all
   end
 
   def hash_create
@@ -182,5 +184,15 @@ class SalesAnalyst
 
   def invoice_status(status)
     ((invoice_status_count(status).length.to_f / invoices.length) * 100).to_f.round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions.each do |transaction|
+      if transaction.invoice_id == invoice_id
+        transaction.result == "success"
+      else
+        false
+      end
+    end
   end
 end
