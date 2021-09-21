@@ -9,26 +9,32 @@ require_relative './invoice_repo'
 require_relative './invoices'
 require_relative './invoice_item'
 require_relative './invoice_item_repo'
+require_relative './transaction'
+require_relative './transaction_repository'
+
 class SalesEngine
   attr_accessor :items,
                 :merchants,
                 :invoices,
                 :invoice_items,
+                :transactions
 
   def self.from_csv(paths)
     data = {}
-    data[:items]     = create_obj_csv(paths[:items], Item)
-    data[:merchants] = create_obj_csv(paths[:merchants], Merchant)
-    data[:invoices]  = create_obj_csv(paths[:invoices], Invoice)
-    data[:invoice_items] = create_obj_csv(paths[:invoice_items], InvoiceItem)
+    data[:items]          = create_obj_csv(paths[:items], Item)
+    data[:merchants]      = create_obj_csv(paths[:merchants], Merchant)
+    data[:invoices]       = create_obj_csv(paths[:invoices], Invoice)
+    data[:invoice_items]  = create_obj_csv(paths[:invoice_items], InvoiceItem)
+    data[:transactions]   = create_obj_csv(paths[:transactions], Transaction)
     SalesEngine.new(data)
   end
 
   def initialize(data)
-    @items     = ItemRepository.new(data[:items])
-    @merchants = MerchantRepository.new(data[:merchants])
-    @invoices  = InvoiceRepository.new(data[:invoices])
-    @invoice_items = InvoiceItemRepository.new(data[:invoice_items])
+    @items          = ItemRepository.new(data[:items])
+    @merchants      = MerchantRepository.new(data[:merchants])
+    @invoices       = InvoiceRepository.new(data[:invoices])
+    @invoice_items  = InvoiceItemRepository.new(data[:invoice_items])
+    @transactions   = TransactionRepository.new(data[:transactions])
   end
 
   def self.create_obj_csv(locations, obj_type)
@@ -42,6 +48,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items)
+    SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions)
   end
 end
