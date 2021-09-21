@@ -4,7 +4,7 @@ class InvoiceItemRepository
   def initialize(all)
     @all = all
   end
-#
+
   def find_by_id(id)
     @all.find_all do |invoiceitem|
       invoiceitem.id == id
