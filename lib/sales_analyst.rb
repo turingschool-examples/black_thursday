@@ -255,12 +255,8 @@ class SalesAnalyst
       'December' => 12
     }
 
-    merchants_registered_in_month = @merchants.all.find_all do |merchant|
+    merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at[5..6].to_i == months[month]
-    end
-
-    merchants_registered_in_month.find_all do |merchant|
-      @items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
 end
