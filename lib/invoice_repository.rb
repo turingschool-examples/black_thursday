@@ -69,8 +69,8 @@ class InvoiceRepository
 
   def update(id, attribute)
     if find_by_id(id) != nil
-      (find_by_id(id).status.clear.gsub!("", attribute[:status]))
-      find_by_id(id).updated_at = Time.now
+      find_by_id(id).status.clear.gsub!("", attribute[:status])
+      find_by_id(id).updated_at.clear.gsub!("", Time.now.to_s)
     end
   end
 
