@@ -25,9 +25,17 @@ class CustomerRepository
     end
   end
 
-  # def find_all_by_first_name
-  #
-  # end
+  def find_all_by_first_name(first_name)
+   if (@all.any? do |customer|
+      customer.first_name.upcase == first_name.upcase
+    end) == true
+      @all.find do |customer|
+        customer.first_name.upcase == first_name.upcase
+      end
+    else
+      nil
+    end
+  end
   #
   # def find_all_by_last_name
   #
@@ -45,10 +53,11 @@ class CustomerRepository
     end
   end
 
-  # def delete(id)
-  #   if find_by_id(id) != nil
-  #     @all.delete(@all.find do |merchant|
-  #       merchant.id == id
-  #     end)
-  #   end
+  def delete(id)
+    if find_by_id(id) != nil
+      @all.delete(@all.find do |customer|
+        customer.id == id
+      end)
+    end
+  end
 end

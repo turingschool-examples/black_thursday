@@ -24,6 +24,14 @@ RSpec.describe do
     expect(customer_repository.find_by_id(999999)).to eq nil
   end
 
+  it 'can find merchants by first name' do
+    customer_path = './data/customers.csv'
+    customer_repository = CustomerRepository.new(customer_path)
+    example_customer = customer_repository.all[25]
+    expect(customer_repository.find_all_by_first_name("Porky")).to eq(nil)
+    expect(customer_repository.find_all_by_first_name("Porky")).to eq(nil)
+  end
+
   it 'can create a customer with given attributes' do
     customer_path = './data/customers.csv'
     customer_repository = CustomerRepository.new(customer_path)
@@ -41,4 +49,13 @@ RSpec.describe do
     expect((customer_repository.find_by_id(1001)).first_name).to eq("Brooke")
     expect((customer_repository.find_by_id(1001)).last_name).to eq("Shields")
   end
+
+  it 'can delete a customer by ID' do
+    customer_path = './data/customers.csv'
+    customer_repository = CustomerRepository.new(customer_path)
+    customer_repository.create(:first_name => "Garth", :last_name => "Wayne", :id => 1001)
+    expect(customer_repository.all.count).to eq(1001)
+    customer_repository.delete(1001)
+    expect(customer_repository.all.count).to eq(1000)
+   end
 end
