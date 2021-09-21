@@ -33,20 +33,25 @@ class ItemRepository
 
   def find_all_with_description(description)
 
+    description1 = description.downcase!
     @all.find_all do |item|
-      item.description == description
+      item.description.downcase!
+      item.description == description1
     end
   end
+
+
   def find_all_by_price(unit_price)
 
     @all.find_all do |item|
       item.unit_price == unit_price
     end
   end
-  def find_all_by_price_in_range(num1, num2)
+
+  def find_all_by_price_in_range(range)
 
     result = @all.find_all do |item|
-      item.unit_price.between?(num1, num2)
+      item.unit_price.between?(range)
     end
     result
   end
