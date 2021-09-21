@@ -12,13 +12,14 @@ require 'bigdecimal/util'
 # require_relative './sales_engine'
 
 class SalesAnalyst
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, invoices, invoice_items)
     @items = items
     @merchants = merchants
     @invoices = invoices
     @avgavg = []
+    @invoice_items = invoice_items
   end
-
+t
   def average_items_per_merchant
     (@items.all.count.to_f / @merchants.all.count).round(2)
   end
