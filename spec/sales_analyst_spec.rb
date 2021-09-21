@@ -103,9 +103,9 @@ describe SalesAnalyst do
   end
 
   it "#total_revenue_by_date" do
-    date = Time.parse("2009-02-19")
+    date = Time.parse("2009-02-07")
 
-    expect(@sa.total_revenue_by_date(date)).to eq(409.05)
+    expect(@sa.total_revenue_by_date(date)).to eq(21067.77)
     expect(@sa.total_revenue_by_date(date).class).to eq(BigDecimal)
   end
 end
