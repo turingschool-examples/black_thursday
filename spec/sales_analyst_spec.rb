@@ -98,14 +98,28 @@ describe SalesAnalyst do
     expect(@sa.invoice_paid_in_full?(203)).to be(false)
   end
 
-  it '#invoice_total' do
+  xit '#invoice_total' do
     expect(@sa.invoice_total(1)).to eq(21067.77)
   end
 
-  it "#total_revenue_by_date" do
+  xit "#total_revenue_by_date" do
     date = Time.parse("2009-02-07")
 
     expect(@sa.total_revenue_by_date(date)).to eq(21067.77)
     expect(@sa.total_revenue_by_date(date).class).to eq(BigDecimal)
+  end
+
+  it '#top_revenue_earners'do
+  expected = @sa.top_revenue_earners
+  first = expected.first
+  last = expected.last
+
+  expect(expected.length).to eq 20
+
+  expect(first.class).to eq Merchant
+  expect(first.id).to eq 12334634
+
+  expect(last.class).to eq Merchant
+  expect(last.id).to eq 12334159
   end
 end
