@@ -200,11 +200,11 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     total_revenue = 0.0
-    @invoice_items.all.each do |invoice_item|
-      if invoice_item.updated_at.strftime("%F") == date.strftime("%F")
-        total_revenue += invoice_total(invoice_item.invoice_id)
+    @invoices.all.each do |invoice|
+      if invoice.created_at.strftime("%F") == date.strftime("%F")
+        total_revenue += invoice_total(invoice.id)
       end
     end
-    BigDecimal.new(total_revenue)
+    BigDecimal.new(total_revenue.to_s)
   end
 end
