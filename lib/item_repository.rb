@@ -3,8 +3,10 @@
 require 'csv'
 require 'bigdecimal'
 require_relative './sales_engine'
+require_relative './inspectable'
 
 class ItemRepository
+  include Inspectable
   attr_reader :items
 
   def initialize(data)

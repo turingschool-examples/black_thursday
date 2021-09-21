@@ -1,8 +1,9 @@
 require 'csv'
 require_relative './sales_engine'
+require_relative './inspectable.rb'
 
 class InvoiceItemRepository
-
+  include Inspectable
   def initialize(data)
     @invoice_items = data
   end

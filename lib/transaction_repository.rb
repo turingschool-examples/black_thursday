@@ -1,8 +1,10 @@
 require 'csv'
 require_relative './sales_engine'
 require_relative './transaction'
+require_relative './inspectable'
 
 class TransactionRepository
+  include Inspectable
   def initialize(data)
      @transactions = data
   end

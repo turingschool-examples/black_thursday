@@ -13,8 +13,10 @@ require_relative './transaction'
 require_relative './transaction_repository'
 require_relative './customer_repo'
 require_relative './customer'
+require_relative './inspectable'
 
 class SalesEngine
+  include Inspectable
   attr_accessor :items,
                 :merchants,
                 :invoices,

@@ -1,9 +1,10 @@
 require 'csv'
 require_relative './sales_engine'
 require_relative './customer'
+require_relative './inspectable'
 
 class CustomerRepository
-
+  include Inspectable
   def initialize(data)
     @customers = data
   end
