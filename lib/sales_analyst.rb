@@ -69,6 +69,7 @@ class SalesAnalyst
    end
 
   def average_item_price_for_merchant(merchant_id)
+
     store_to_analyze = 0
     number_of_items = 0
     sum = 0
@@ -82,6 +83,7 @@ class SalesAnalyst
       sum += item.unit_price.to_i
     end
     (sum.to_f / number_of_items.to_f).round(2)
+
   end
 
   def every_stores_average

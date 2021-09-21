@@ -54,15 +54,14 @@ RSpec.describe ItemRepository do
     expect(item_repository.find_all_by_price("Item Repellat Dolorum")).to eq([])
   end
 
-  #unsure how to tackle this method
   it "can find all by price in range" do
     items_path = './data/items.csv'
     item_repository = ItemRepository.new(items_path)
-    example_item = item_repository.all[25]
+    example_item = item_repository.all[61]
 
     expect(item_repository.find_all_by_price_in_range(1..2)).to eq([])
-    # expect(item_repository.find_all_by_price_in_range(example_item.)).to eq example_item
-  #   expect(item_repository.find_all_by_price_in_range()).to eq([])
+    expect(item_repository.find_all_by_price_in_range(0..20)).to eq([example_item])
+
   end
 
   it "can find all by merchant id" do

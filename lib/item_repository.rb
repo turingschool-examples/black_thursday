@@ -12,7 +12,6 @@ class ItemRepository
         item_objects << Item.new(row)
       end
     item_objects)
-
   end
 
   def find_by_id(id)
@@ -67,19 +66,13 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     in_range = []
-    @all.find_all do |item|
-      if item.find_all_by_price.include?(range)
-    end
-      # item.unit_price do |price|
-      # end
-    # if item.find_all_by_price.include?(range)
 
-      #  @all.find_all do |item|
-      #   item.unit_price do |price|
-      #     if price.include?(range)
-      #     end
+    @all.each do |item|
+
+      if item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last
+        in_range << item
+      end
     end
-      in_range << item
 
       in_range
   end
@@ -95,6 +88,7 @@ class ItemRepository
       []
     end
   end
+
 
   def create(attributes)
     new_item = Item.new(attributes)
@@ -114,4 +108,5 @@ class ItemRepository
       end)
     end
   end
+
 end
