@@ -12,7 +12,9 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
       )
       expect(se).to be_an_instance_of(SalesEngine)
     end
@@ -23,7 +25,9 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
       )
       ir = se.items
 
@@ -34,7 +38,9 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
       )
       mr = se.merchants
 
@@ -45,7 +51,9 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
       )
       ir = se.invoices
 
@@ -56,7 +64,9 @@ describe SalesEngine do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
         merchants: './data/merchants.csv',
-        invoices: './data/invoices.csv'
+        invoices: './data/invoices.csv',
+        transactions: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
       )
 
       expect(se.invoices.find_by_id(6)).to be_an_instance_of(Invoice)
