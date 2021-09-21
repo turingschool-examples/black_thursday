@@ -1,5 +1,7 @@
+require 'SimpleCov'
+SimpleCov.start
+
 require 'rspec'
-require 'csv'
 require './lib/merchants_repository'
 
 describe MerchantsRepository do
@@ -41,7 +43,10 @@ describe MerchantsRepository do
 
   describe '#create' do
     it 'can create attributes' do
-      @mr.create('TestingCo')
+      attributes = {
+        name: 'TestingCo'
+      }
+      @mr.create(attributes)
       object4 = @mr.all[3]
       expect(@mr.all[3]).to eq(object4)
       expect(@mr.all.last.id).to eq(123_341_14)
@@ -50,9 +55,14 @@ describe MerchantsRepository do
 
   describe '#update' do
     it 'can update the merchant instance' do
-      @mr.update('Shopin1901', 'TestingTesting123')
+      attributes = {
+        name: 'TestingTesting123',
+        id: '123_321_123'
+      }
+      @mr.update(123_341_05, attributes)
 
-      expect(@mr.all[0].name).to eq('TestingTesting123')
+      expect(@mr.all[0].name).to eq(attributes[:name])
+      expect(@mr.all[0].id).to eq(123_341_05)
     end
   end
 

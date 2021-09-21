@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require_relative 'simplecov'
+require 'simplecov'
 SimpleCov.start
-require_relative 'rspec'
-require_relative './lib/sales_engine'
-require_relative './lib/merchant'
-require_relative './lib/merchants_repository'
-require_relative './lib/items'
-require_relative './lib/item_repository'
-require_relative './lib/sales_analyst'
-require_relative './lib/invoice_repository'
-require_relative './lib/invoice'
-require_relative './lib/data_repository'
-require_relative 'csv'
+require 'rspec'
+require './lib/sales_engine'
+require './lib/merchant'
+require './lib/merchants_repository'
+require './lib/items'
+require './lib/item_repository'
+require './lib/sales_analyst'
+require './lib/invoice_repository'
+require './lib/invoice'
+require './lib/data_repository'
+require 'csv'
 describe DataRepository do
   describe '#initialize' do
     it 'creates an instance of DataRepository' do
