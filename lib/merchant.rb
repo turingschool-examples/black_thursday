@@ -4,11 +4,13 @@ class Merchant
               :name
 
   def initialize(merch_hash)
-    @id = merch_hash[:id]
+    @id = merch_hash[:id].to_i
     @name = merch_hash[:name]
   end
 
-  def update_name(new_name)
-    @name = new_name
+  def update_info(attributes)
+    attributes.each do |key, value|
+      @name = value if key == :name
+    end
   end
 end
