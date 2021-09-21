@@ -1,18 +1,10 @@
 # frozen_string_literal: true
 
-'require_relative'
 require 'simplecov'
 SimpleCov.start
 require 'rspec'
 require './lib/sales_engine'
-require './lib/merchant'
-require './lib/merchants_repository'
-require './lib/items'
-require './lib/item_repository'
-require './lib/sales_analyst'
-require './lib/invoice_repository'
-require './lib/invoice'
-require './lib/data_repository'
+
 require 'csv'
 describe SalesEngine do
   describe '.from_csv' do

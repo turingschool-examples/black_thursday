@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-'require relative'
 require 'simplecov'
 SimpleCov.start
 require 'rspec'
@@ -12,6 +11,7 @@ require './lib/merchants_repository'
 require './lib/items'
 require './lib/item_repository'
 require './lib/sales_analyst'
+
 describe SalesAnalyst do
   describe '#initialize' do
     it 'creates an instance of SalesAnalyst' do

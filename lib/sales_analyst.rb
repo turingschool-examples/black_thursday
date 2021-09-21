@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'BigDecimal'
 
 # SalesAnalyst class creates handles all analysis of merch, items, and invoices
 

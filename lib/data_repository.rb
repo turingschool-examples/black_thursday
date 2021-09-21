@@ -2,6 +2,10 @@
 
 # DataRepository class creates instances of merchant, item, and invoice repos
 
+require_relative 'merchants_repository'
+require_relative 'item_repository'
+require_relative 'invoice_repository'
+
 class DataRepository
   attr_reader :merchants,
               :items,
@@ -35,5 +39,9 @@ class DataRepository
     else
       InvoiceRepository.new(data_hash[:invoices])
     end
+  end
+
+  def inspect
+    "#<#{self.class}"
   end
 end

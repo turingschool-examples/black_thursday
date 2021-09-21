@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-'require relative'
 require 'simplecov'
 SimpleCov.start
 require 'rspec'
