@@ -17,7 +17,6 @@ require 'bigdecimal/util'
 require 'rspec'
 require 'csv'
 
-
 describe SalesEngine do
 
   it 'exists' do
