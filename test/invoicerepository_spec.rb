@@ -9,21 +9,28 @@ require './lib/merchantrepository'
 require './lib/invoice'
 require './lib/invoicerepository'
 require 'csv'
+require 'rspec'
 
 describe InvoiceRepository do
   it 'exists' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     inv = se.invoices
 
     expect(inv).to be_a(InvoiceRepository)
   end
 
   it 'finds by id' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     inv = se.invoices
     invoice1 = inv.find_by_id(1)
     invoice2 = inv.find_by_id(4965)
@@ -33,9 +40,12 @@ describe InvoiceRepository do
   end
 
   it 'finds all by customer id' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     inv = se.invoices
     invoice1 = inv.find_all_by_customer_id(1)
 
@@ -43,10 +53,13 @@ describe InvoiceRepository do
     expect(invoice1.count).to eq(8)
   end
 
-  it 'finds all by merchant id' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+ it 'finds all by merchant id' do
+   se = SalesEngine.new({ :items      => "./data/items.csv",
+                      :merchants      => "./data/merchants.csv",
+                      :invoices       => './data/invoices.csv',
+                      :invoice_items  => './data/invoice_items.csv',
+                      :transactions   => './data/transactions.csv',
+                      :customers      => './data/customers.csv'})
     inv = se.invoices
     invoice1 = inv.find_all_by_merchant_id(12335955)
 
@@ -55,9 +68,12 @@ describe InvoiceRepository do
   end
 
   it 'finds all by status' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     inv = se.invoices
     invoice1 = inv.find_all_by_status(:pending)
     invoice2 = inv.find_all_by_status(:shipped)
@@ -68,9 +84,12 @@ describe InvoiceRepository do
   end
 
   it "can create a new invoice with max_id being +1" do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     inv = se.invoices
 
     attributes = {
@@ -88,9 +107,12 @@ describe InvoiceRepository do
   end
 
   it "can update status" do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     inv = se.invoices
 
     invoice1 = inv.find_by_id(4965)
@@ -120,9 +142,12 @@ describe InvoiceRepository do
   end
 
   it 'deletes an invoice' do
-    se = SalesEngine.new({ :items => "./data/items.csv",
-                      :merchants => "./data/merchants.csv",
-                      :invoices => './data/invoices.csv'})
+    se = SalesEngine.new({ :items      => "./data/items.csv",
+                       :merchants      => "./data/merchants.csv",
+                       :invoices       => './data/invoices.csv',
+                       :invoice_items  => './data/invoice_items.csv',
+                       :transactions   => './data/transactions.csv',
+                       :customers      => './data/customers.csv'})
     inv = se.invoices
 
     expect(inv.delete(4965).length).to eq(4984)
