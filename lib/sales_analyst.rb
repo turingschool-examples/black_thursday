@@ -295,5 +295,4 @@ class SalesAnalyst
       end
     end
   end
-
 end
