@@ -23,7 +23,6 @@ end
 # Code below is from the Item Repository and needs to begin
 # adjusted to be used in this repo
 
-
 # def create(attributes)
 #   new_item = Item.new(attributes)
 #   @all << new_item

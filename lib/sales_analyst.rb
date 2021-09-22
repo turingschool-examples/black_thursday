@@ -12,23 +12,30 @@ require 'date'
 class SalesAnalyst
   attr_reader :analyst_items,
               :analyst_merchants,
-              :store_hashes,
-              :average_items_per_merchant,
-              :average_item_price,
-              :all_item_prices,
-              :every_stores_average,
-              :analyst_invoices
+              :analyst_invoices,
+              :analyst_invoice_items,
+              :analyst_transactions,
+              :analyst_customers
+              # :store_hashes,
+              # :average_items_per_merchant,
+              # :average_item_price,
+              # :all_item_prices,
+              # :every_stores_average,
+
 
   def initialize(data)
     @analyst_items = data[:items]
     @analyst_merchants = data[:merchants]
     @analyst_invoices = data[:invoices]
+    @analyst_invoice_items = data[:analyst_invoice_items]
+    @analyst_transactions = data[:analyst_transactions]
+    @analyst_customers = data[:analyst_customers]
   end
 
   def average_items_per_merchant
     (@analyst_items.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
-  
+
   #helper method
   def store_hashes
     store_hashes = []
@@ -197,18 +204,16 @@ class SalesAnalyst
     by_days = []
     @analyst_invoices.all.each do |invoice|
       by_days << Date.parse(invoice.created_at).strftime("%A")
-    end
-    #dotw = by_days.uniq
+      end
     dotw = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     container = []
     dotw.each do |day|
-    container << (by_days.find_all do |invoice_day|
+      container << (by_days.find_all do |invoice_day|
       day == invoice_day
       end.count)
     end
     h = Hash[dotw.zip container]
     h
-
   end
 
   #helper method
@@ -239,5 +244,42 @@ class SalesAnalyst
       end
     end
     top_days
+  end
+
+  def all_invoice_statuses
+    all_invoice_statuses = []
+    analyst_invoices.all.each do |invoice|
+      all_invoice_statuses << invoice.status
+    end
+    all_invoice_statuses
+  end
+
+  def invoice_status_hasher
+    ais = all_invoice_statuses
+    possible_statuses = ["pending", "shipped", "returned"]
+    container = []
+    ais.each do |status|
+      container << (ais.find_all do |possible_status|
+        status == possible_status
+        end.count)
+    end
+    ais_symbols = []
+    ais.each do |status|
+      ais_symbols << status.to_sym
+    end
+  h = Hash[ais_symbols.zip container]
+  h
+  end
+
+  def invoice_status(status)
+    total = invoice_status_hasher.values.sum.to_f
+    x = invoice_status_hasher[status].to_f
+    (( x / total ) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+  end
+
+  def invoice_total(invoice_id)
   end
 end

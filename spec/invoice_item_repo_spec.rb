@@ -32,6 +32,7 @@ RSpec.describe do
   it 'can find all by item id' do
     invoice_items_path = './data/invoice_items.csv'
     invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
+
     example_invoice_item = sales_engine.invoice_items.find_all_by_item_id(6)
 
     expect(invoice_items_repository.find_all_by_item_id).to eq example_invoice_item
@@ -42,12 +43,13 @@ RSpec.describe do
     invoice_items_path = './data/invoice_items.csv'
     invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
     example_invoice_item = sales_engine.invoice_items.find_all_by_invoice_id(6)
+
     #may need example with invoice id vs item id
 
     expect(invoice_items_repository.find_all_by_invoice_id).to eq example_invoice_item
     expect(invoice_items_repository.find_all_by_invoice_id(99898013042)).to eq([])
   end
-
+  
   it 'can create attributes' do
     invoice_items_path = './data/invoice_items.csv'
     invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
