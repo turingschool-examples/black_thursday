@@ -4,7 +4,7 @@ require_relative 'data_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
 require_relative 'sales_analyst'
-require_relatice 'invoice'
+require_relative 'invoice'
 
 class SalesEngine
   attr_reader :items,
