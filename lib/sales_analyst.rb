@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'BigDecimal'
-require './lib/invoice'
-require './lib/invoice_repository'
+#require_relative 'invoice'
+#require_relative 'invoice_repository'
 
 # SalesAnalyst class creates handles all analysis of merch, items, and invoices
 
@@ -27,10 +27,10 @@ class SalesAnalyst
     merchants.each do |merchant|
       items.each do |item|
         if merchant.id == item.merchant_id
-          if return_hash[merchant.name].nil?
-            return_hash[merchant.name] = [item]
+          if return_hash[merchant].nil?
+            return_hash[merchant] = [item]
           else
-            return_hash[merchant.name] += [item]
+            return_hash[merchant] += [item]
           end
         end
       end
@@ -55,7 +55,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     return_array = []
     @merch_item_hash.each do |merchant,items|
-      if items.length >= (average_items_per_merchant_standard_deviation + average_items_per_merchant)
+      if items.length > (average_items_per_merchant_standard_deviation + average_items_per_merchant)
         return_array.push(merchant)
       end
     end
@@ -68,16 +68,16 @@ class SalesAnalyst
     @items.each do |item|
       if item.merchant_id == merchant_id
         sum_amount += item.unit_price.to_f
-        num_items += 1.to_f
+        num_items += 1
       end
     end
-    BigDecimal(sum_amount / num_items, 2)
+    BigDecimal(sum_amount.to_f / num_items.to_f, 4)
   end
 
-  def average_average_item_price_for_merchant
+  def average_average_price_per_merchant
     sum_price = 0
     avg_price_array.each { |avg_price| sum_price += avg_price }
-    BigDecimal(sum_price.to_f / @merchants.length.to_f, 2)
+    BigDecimal(sum_price.to_f / @merchants.length.to_f, 5)
   end
 
   def avg_price_array
@@ -117,6 +117,7 @@ class SalesAnalyst
     @items.each do |item|
       result_array.append(item) if item.unit_price.to_f >= expected
     end
+    result_array
   end
 
   def average_invoices_per_merchant
@@ -264,7 +265,7 @@ class SalesAnalyst
     end
     BigDecimal(total_rev.to_f / 100.0, 2)
   end
-  
+
   def merchants_with_only_one_item
     one_item = []
     items_by_merchant.map do |merchant, items|
