@@ -206,7 +206,7 @@ class SalesAnalyst
         total_revenue += invoice_total(invoice.id)
       end
     end
-    BigDecimal.new(total_revenue.to_s)
+    total_revenue
   end
 
 
