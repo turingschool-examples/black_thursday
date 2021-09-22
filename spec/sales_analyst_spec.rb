@@ -149,12 +149,16 @@ describe SalesAnalyst do
     expect(expected.class).to eq BigDecimal
   end
 
-<<<<<<< HEAD
-  it '#merchants_with_pending_invoices' do
+  xit '#merchants_with_pending_invoices' do
     expected = @sa.merchants_with_pending_invoices
 
     expect(expected.length).to eq 467
     expect(expected.first.class).to eq Merchant
+  end
+
+  it "#invoice_items_for_merchant" do
+    expect(@sa.invoice_items_for_merchant(12334105)).to be_an(Array)
+    expect(@sa.invoice_items_for_merchant(12334105)[0]).to be_an(InvoiceItem)
   end
 
   it '#most_sold_item_for_merchant' do
@@ -162,11 +166,5 @@ describe SalesAnalyst do
     expect(@sa.most_sold_item_for_merchant(12334105)).to be_an(Array)
     expect(@sa.most_sold_item_for_merchant(12334105)[0]).to be_an(Item)
     expect(@sa.most_sold_item_for_merchant(12334105)[0]).to eq(@sa.items.find_by_id(263396209))
-=======
-  it "#most_sold_item_for_merchant" do
-    @sa.most_sold_item_for_merchant(12334105)
-
-    
->>>>>>> 8cb893434966916123a913e2008f7c9be262ef5c
   end
 end

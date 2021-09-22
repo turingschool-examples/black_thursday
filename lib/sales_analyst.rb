@@ -266,14 +266,16 @@ class SalesAnalyst
       end.uniq
   end
 
-  def most_sold_item_for_merchant(merchant_id)
-    items_for_merchant = @items.find_all_by_merchant_id(merchant_id)
+    def invoice_items_for_merchant(merchant_id)
+      items_for_merchant = @items.find_all_by_merchant_id(merchant_id)
 
-    invoice_items_for_merchant = items_for_merchant.map do |item|
-      @invoice_items.find_all_by_item_id(item.id)
-    end.flatten
-    #method
-    invoice_items_grouped_by_quantity = invoice_items_for_merchant.each_with_object({}) do |invoice_item, items_grouped_by_quantity|
+      items_for_merchant.map do |item|
+        @invoice_items.find_all_by_item_id(item.id)
+      end.flatten
+    end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoice_items_grouped_by_quantity = invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_grouped_by_quantity|
       if items_grouped_by_quantity[invoice_item.item_id]
         items_grouped_by_quantity[invoice_item.item_id] += invoice_item.quantity
       else
