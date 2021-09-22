@@ -33,9 +33,9 @@ class SalesAnalyst
     @analyst_items = data[:items]
     @analyst_merchants = data[:merchants]
     @analyst_invoices = data[:invoices]
-    @analyst_invoice_items = data[:analyst_invoice_items]
-    @analyst_transactions = data[:analyst_transactions]
-    @analyst_customers = data[:analyst_customers]
+    @analyst_invoice_items = data[:invoice_items]
+    @analyst_transactions = data[:transactions]
+    @analyst_customers = data[:customers]
   end
 
   def average_items_per_merchant
@@ -284,6 +284,7 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
+    true
   end
 
   def invoice_total(invoice_id)
