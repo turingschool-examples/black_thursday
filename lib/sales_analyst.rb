@@ -1,14 +1,6 @@
-require 'csv'
-require_relative 'merchantrepository'
-require_relative 'itemrepository'
 require_relative 'sales_engine'
 
 class SalesAnalyst
-
-  # @@se = SalesEngine.from_csv({
-  #   :items     => "./data/items.csv",
-  #   :merchants => "./data/merchants.csv",
-  # })
 
   def initialize(items, merchants, invoices, invoice_items, transactions)
     @ir = items
@@ -16,7 +8,6 @@ class SalesAnalyst
     @inr = invoices
     @inv_items = invoice_items
     @tran = transactions
-
   end
 
   def average_items_per_merchant
@@ -31,14 +22,14 @@ class SalesAnalyst
     item_set.map do |item|
       num += ((item - average_items_per_merchant)**2)
     end
-    sd = (num / (mr.all.count - 1))
+    sd = (num / (@mr.all.count - 1))
     Math.sqrt(sd).round(2)
   end
 
   def merchants_with_high_item_count
     aipm = average_items_per_merchant
     aipmsd = average_items_per_merchant_standard_deviation
-    item_set = mr.all.map do |merchant|
+    item_set = @mr.all.map do |merchant|
       @ir.find_all_by_merchant_id(merchant.id)
     end
     high_items = item_set.find_all do |ipm|
@@ -118,7 +109,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     aipm = average_invoices_per_merchant
     aipmsd = average_invoices_per_merchant_standard_deviation
-    item_set = mr.all.map do |merchant|
+    item_set = @mr.all.map do |merchant|
       @ir.find_all_by_merchant_id(merchant.id)
     end
     high_items = item_set.find_all do |ipm|
@@ -143,31 +134,15 @@ class SalesAnalyst
     ipd["Saturday"] = ipd.delete(6)
     ipd["Sunday"] = ipd.delete(7)
     ipd
-
   end
 
-def invoices_per_day_count
-  x = Hash.new(0)
-  invoices_per_day.each_key do |day|
-    x[day] = invoices_per_day[day].count
+  def invoices_per_day_count
+    x = Hash.new(0)
+    invoices_per_day.each_key do |day|
+      x[day] = invoices_per_day[day].count
+    end
+    x
   end
-  x
-end
-  # def average_invoices_per_day_of_week
-  #   ir = @@se.items
-  #   mr = @@se.merchants
-  #   inr = @@se.invoices
-  #   average_invoices_per_day = Hash.new(0)
-  #   average_invoices_per_day["Monday"] = (inr.all.count.to_f / invoices_per_day["Monday"].count)
-  #   average_invoices_per_day["Tuesday"] = (inr.all.count.to_f / invoices_per_day["Tuesday"].count)
-  #   average_invoices_per_day["Wednesday"] = (inr.all.count.to_f / invoices_per_day["Wednesday"].count)
-  #   average_invoices_per_day["Thursday"] = (inr.all.count.to_f / invoices_per_day["Thursday"].count)
-  #   average_invoices_per_day["Friday"] = (inr.all.count.to_f / invoices_per_day["Friday"].count)
-  #   average_invoices_per_day["Saturday"] = (inr.all.count.to_f / invoices_per_day["Saturday"].count)
-  #   average_invoices_per_day["Sunday"] = (inr.all.count.to_f / invoices_per_day["Sunday"].count)
-  #
-  #   average_invoices_per_day
-  # end
 
   def average_invoices_per_day
     ((@inr.all.count.to_f)/7).round(2)
@@ -176,7 +151,6 @@ end
   def average_invoices_per_day_standard_deviation
     num = 0.0
     invoices_per_day.each_key do |day|
-
       num += ((invoices_per_day[day].count - average_invoices_per_day)**2)
     end
     sd = (num / (@inr.all.count - 1))
@@ -184,17 +158,12 @@ end
   end
 
   def top_days_by_invoice_count
-    #need to finish golden items, then transport that code here.
-
     high_days = invoices_per_day.filter do |day, value|
-
       invoices_per_day[day].count > average_invoices_per_day_standard_deviation + average_invoices_per_day
-
     end
     high_days.each_key do |day|
       high_days[day] = high_days[day].count
     end.keys
-
   end
 
   def invoice_status(status)
@@ -202,10 +171,77 @@ end
   end
 
   def invoice_paid_in_full?(invoice_id)
-    tran.find_all_by_invoice_id(invoice_id).include?("success")
+    @tran.find_all_by_invoice_id(invoice_id).map {|tran| tran.result}.include?("success")
   end
 
   def invoice_total(invoice_id)
-    inv_item.find_all_by_invoice_id(invoice_id).map {|item| item.unit_price}.sum
+    @inv_items.find_all_by_invoice_id(invoice_id).map {|item| item.unit_price}.sum
   end
+
+  def total_revenue_by_date(date)
+
+    date_f = Date.parse(date)
+    invoices_on_day = @inv_items.all.find_all do |invoice|
+
+      date_g = Date.parse(invoice.created_at)
+      date_g == date_f
+    end
+    invoices_on_day.map {|invoice| invoice.unit_price}.sum
+  end
+
+  def top_revenue_earners(x=20)
+    merchant_invoices = @mr.all.map do |merchant|
+      @inr.find_all_by_merchant_id(merchant.id)
+    end
+    merchants_revenue = merchant_invoices.sort_by do |invoices|
+
+    c =  invoices.map do |invoice|
+        # if invoice_paid_in_full?(invoice.id)
+        t = @inv_items.find_all_by_invoice_id(invoice.id).map do |inv_item|
+           inv_item.unit_price
+         end.sum
+        # else
+        #   0
+        # end
+      end.sum
+    end
+    merchants_revenue[-x..-1].map {|invoices| invoices[0].merchant_id}.map {|merchant_id| @mr.find_by_id(merchant_id)}.reverse
+  end
+
+  def merchants_with_pending_invoices
+    pending_inv = @inr.find_all_by_status(:pending)
+    merch_w_pending_inv = pending_inv.map do |invoice|
+      invoice.merchant_id
+    end.uniq
+
+    merch_w_pending_inv.map {|merch_id| @mr.find_by_id(merch_id)}
+  end
+
+  def merchants_with_only_one_item
+    @mr.all.filter do |merchant|
+      @ir.find_all_by_merchant_id(merchant.id).count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    f_date = Date.parse(month).month
+    new_merchants_by_month = @mr.all.filter do |merchant|
+      Date.parse(merchant.created_at).month == f_date
+    end
+    new_merchants_by_month.filter {|merchant| @ir.find_all_by_merchant_id(merchant.id).count == 1}
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchants_revenue = @inr.find_all_by_merchant_id(merchant_id)
+    c =  merchants_revenue.map do |invoice|
+        # if invoice_paid_in_full?(invoice.id)
+        t = @inv_items.find_all_by_invoice_id(invoice.id).map do |inv_item|
+           inv_item.unit_price
+         end.sum
+        # else
+        #   0
+        # end
+    end.sum.to_f
+  end
+
 end
