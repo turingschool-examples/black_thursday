@@ -144,14 +144,40 @@ class SalesAnalyst
     ((result.count.to_f / @invoices.all.count) * 100).round(2)
   end
 
-  def invoice_paid_in_full?(id)
-    if @transactions.find_all_by_invoice_id(id).empty?
+  def find_success(invoice_id)
+    test = @transactions.find_all_by_invoice_id(invoice_id)
+    test.all? do |trans|
+      trans.result == :success
+    end
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    if @transactions.find_all_by_invoice_id(invoice_id).empty?
       false
-    elsif @transactions.find_all_by_invoice_id(id).first.result == :success &&
-          @invoices.find_by_id(id).status != :returned
+    elsif find_success(invoice_id) == true &&
+          @invoices.find_by_id(invoice_id).status != :returned
       true
     else
       false
     end
+  end
+
+  def succesful_invoices(invoice_id)
+    if find_success(invoice_id) == true
+      test = @invoice_items.find_all_by_invoice_id(invoice_id)
+      test.sum do |transaction|
+        transaction.unit_price
+      end
+    end
+    test
+  end
+
+  def invoice_total(invoice_id)
+    total = 0
+    test = succesful_invoices(invoice_id)
+    test.each do |invoice|
+      total += (invoice.quantity * invoice.unit_price)
+    end
+    total
   end
 end
