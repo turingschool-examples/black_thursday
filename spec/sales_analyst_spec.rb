@@ -12,6 +12,7 @@ require './lib/merchants_repository'
 require './lib/items'
 require './lib/item_repository'
 require './lib/sales_analyst'
+require './lib/invoice'
 describe SalesAnalyst do
   describe '#initialize' do
     it 'creates an instance of SalesAnalyst' do
@@ -341,7 +342,7 @@ describe SalesAnalyst do
       expect(sales_analyst.revenue_by_merchant(12334112)).to be_a(BigDecimal)
     end
   end
-  
+
   describe '#top_revenue_earners' do
     it 'returns top 20 merchants if no argument is given' do
       se = SalesEngine.from_csv(
