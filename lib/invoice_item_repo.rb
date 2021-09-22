@@ -15,6 +15,42 @@ class InvoiceItemRepository
       end
       invoice_items_objects)
   end
+
+  def find_by_id(id)
+    if (@all.any? do |item|
+      item.id == id
+    end) == true
+    @all.find do |item|
+      item.id == id
+    end
+    else
+      nil
+    end
+  end
+
+  def find_all_by_item_id(item_id)
+    if (@all.any? do |item|
+      item.item_id == item_id
+    end) == true
+    @all.find_all do |item|
+      item.item_id == item_id
+    end
+    else
+      []
+    end
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    if (@all.any? do |item|
+      item.invoice_id == invoice_id
+    end) == true
+    @all.find_all do |item|
+      item.invoice_id == invoice_id
+    end
+    else
+      []
+    end
+  end
 end
 
 
