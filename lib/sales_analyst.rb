@@ -118,7 +118,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     aipm = average_invoices_per_merchant
     aipmsd = average_invoices_per_merchant_standard_deviation
-    item_set = mr.all.map do |merchant|
+    item_set = @mr.all.map do |merchant|
       @ir.find_all_by_merchant_id(merchant.id)
     end
     high_items = item_set.find_all do |ipm|
