@@ -39,7 +39,6 @@ class MerchantRepository
     name_1 = name.downcase
 
     @all.find_all do |merchant|
-      #require "pry"; binding.pry
       name = merchant.name
       name.downcase.include?(name_1)
     end
@@ -53,26 +52,14 @@ class MerchantRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     new = Merchant.new(attributes)
-     #require "pry"; binding.pry
     @all.push(new)
-    #require "pry"; binding.pry
   end
 
   def update(id, attributes)
-
     merchant = @all.find do |merchant|
       merchant.id == id
     end
     merchant.name = attributes[:name] if attributes[:name]
-
-
-    # @all.find do |merchant|
-    #   merchant.id == id
-    #   merchant.name = attributes.values
-    #   new_name << merchant.name
-    #   require "pry"; binding.pry
-    
-
   end
 
   def delete(id)
