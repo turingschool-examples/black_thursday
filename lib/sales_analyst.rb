@@ -12,17 +12,24 @@ require 'date'
 class SalesAnalyst
   attr_reader :analyst_items,
               :analyst_merchants,
-              :store_hashes,
-              :average_items_per_merchant,
-              :average_item_price,
-              :all_item_prices,
-              :every_stores_average,
-              :analyst_invoices
+              :analyst_invoices,
+              :analyst_invoice_items,
+              :analyst_transactions,
+              :analyst_customers
+              # :store_hashes,
+              # :average_items_per_merchant,
+              # :average_item_price,
+              # :all_item_prices,
+              # :every_stores_average,
+
 
   def initialize(data)
     @analyst_items = data[:items]
     @analyst_merchants = data[:merchants]
     @analyst_invoices = data[:invoices]
+    @analyst_invoice_items = data[:analyst_invoice_items]
+    @analyst_transactions = data[:analyst_transactions]
+    @analyst_customers = data[:analyst_customers]
   end
 
   def average_items_per_merchant
@@ -270,4 +277,9 @@ class SalesAnalyst
     (( x / total ) * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+  end
+
+  def invoice_total(invoice_id)
+  end
 end
