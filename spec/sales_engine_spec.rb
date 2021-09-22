@@ -4,52 +4,115 @@ require 'csv'
 RSpec.describe SalesEngine do
 
   it 'exists' do
-    se = SalesEngine.new({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices => "./data/invoices.csv"
-    })
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
     expect(se).to be_a(SalesEngine)
   end
 
-  it 'returns the a loaded MerchantRepository' do
-     se = SalesEngine.new({
-       :items     => "./data/items.csv",
-       :merchants => "./data/merchants.csv",
-       :invoices => "./data/invoices.csv"
-       })
+  it 'returns a loaded MerchantRepository' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
      expect(se.merchants).not_to be nil
   end
 
-  it 'returns the a loaded ItemRepository' do
-     se = SalesEngine.new({
-       :items     => "./data/items.csv",
-       :merchants => "./data/merchants.csv",
-       :invoices => "./data/invoices.csv"
-       })
+  it 'returns a loaded ItemRepository' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
      expect(se.items).not_to be nil
   end
 
-  it 'returns the a loaded InvoiceRepository' do
-    se = SalesEngine.new({
+  it 'returns a loaded InvoiceRepository' do
+    sales_engine = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
       })
      expect(se.invoices.all).not_to be nil
   end
 
+  it 'returns a loaded InvoiceItemRepository' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
+     expect(se.invoice_items.all).not_to be nil
+  end
+
+  it 'returns a loaded TransactionRepository' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
+     expect(se.transactions.all).not_to be nil
+  end
+
+  it 'returns a loaded CustomerRepository' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
+     expect(se.customers.all).not_to be nil
+  end
+
   it 'can allow access to repository data' do
-    se = SalesEngine.new({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices => "./data/invoices.csv"
-    })
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
     mr = se.merchants
     merchant = mr.find_by_name("CJsDecor")
     expect(merchant).to be_a(Merchant)
+    mit = se.items
+    item = mit.find_by_id(263395237)
+    expect(item).to be_an(Item)
     mi = se.invoices
-    invoices = mi.find_by_id("1")
-    expect(invoices).to be_a(Invoice)
+    invoice = mi.find_by_id("1")
+    expect(invoice).to be_an(Invoice)
+    mii = se.invoice_items
+    invoice_item = mii.find_by_id(263519844)
+    expect(invoice_item).to be_an(InvoiceItem)
+    mt = se.transactions
+    transaction = mt.find_by_id(1)
+    expect(transaction).to be_a(Transaction)
+    mc = se.customers
+    customer = mc.find_by_id(1)
+    expect(customer).to be_a(Customer)
   end
 end
