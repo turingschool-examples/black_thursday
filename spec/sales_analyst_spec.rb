@@ -161,6 +161,10 @@ describe SalesAnalyst do
     expect(@sa.invoice_items_for_merchant(12334105)[0]).to be_an(InvoiceItem)
   end
 
+  it "#invoice_items_grouped_by_quantity" do
+    expect(@sa.invoice_items_grouped_by_quantity(12334105)).to be_a(Hash)
+  end
+
   it '#most_sold_item_for_merchant' do
 
     expect(@sa.most_sold_item_for_merchant(12334105)).to be_an(Array)

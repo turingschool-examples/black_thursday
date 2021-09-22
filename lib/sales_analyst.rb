@@ -274,27 +274,29 @@ class SalesAnalyst
       end.flatten
     end
 
-  def most_sold_item_for_merchant(merchant_id)
-    invoice_items_grouped_by_quantity = invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_grouped_by_quantity|
-      if items_grouped_by_quantity[invoice_item.item_id]
-        items_grouped_by_quantity[invoice_item.item_id] += invoice_item.quantity
-      else
-        items_grouped_by_quantity[invoice_item.item_id] = invoice_item.quantity
-      end
-    end
-    #method
-    invoice_array = invoice_items_grouped_by_quantity.sort_by do |item_id, quantity|
-      - quantity
-    end
-    #method
-    if invoice_array[0][1] != invoice_array[1][1]
-      [@items.find_by_id(invoice_array[0][0])]
-    else
-      invoice_array.map do |array|
-        if invoice_array[0][1] == array[1]
-          @items.find_by_id(array[0])
+    def invoice_items_grouped_by_quantity(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_grouped_by_quantity|
+        if items_grouped_by_quantity[invoice_item.item_id]
+          items_grouped_by_quantity[invoice_item.item_id] += invoice_item.quantity
+        else
+          items_grouped_by_quantity[invoice_item.item_id] = invoice_item.quantity
         end
       end
     end
-  end
+
+    def most_sold_item_for_merchant(merchant_id)
+      invoice_array = invoice_items_grouped_by_quantity(merchant_id).sort_by do |item_id, quantity|
+        - quantity
+      end
+      #method
+      if invoice_array[0][1] != invoice_array[1][1]
+        [@items.find_by_id(invoice_array[0][0])]
+      else
+        invoice_array.map do |array|
+          if invoice_array[0][1] == array[1]
+            @items.find_by_id(array[0])
+          end
+        end
+      end
+    end
 end
