@@ -1,19 +1,4 @@
-require './lib/sales_analyst'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/invoice_repository'
-require './lib/invoice_item_repo'
-require './lib/transaction_repository'
-require './lib/customer_repository'
-require './lib/item'
-require './lib/merchant'
-require './lib/invoice'
-require './lib/invoiceitem'
-require './lib/transaction'
-require './lib/customer'
-require 'csv'
-require 'pry'
-require 'date'
+require './lib/spec_helper'
 
 class SalesAnalyst
   attr_reader :analyst_items,
@@ -47,8 +32,7 @@ class SalesAnalyst
         end
       end
      store_hashes << {
-       :merchant => merchant,
-       :stores_items => stores_items,
+       :merchant => merchant, :stores_items => stores_items,
        :item_count => stores_items.count}
      end
      store_hashes
@@ -67,13 +51,13 @@ class SalesAnalyst
    def merchants_with_high_item_count
      std = average_items_per_merchant_standard_deviation
      aipm = average_items_per_merchant
-     mwhic = []
+     merchants_with_high_items = []
      store_hashes.each do |store|
        if store[:item_count] > aipm + std
-         mwhic << store[:merchant]
+         merchants_with_high_items << store[:merchant]
        end
      end
-     mwhic
+     merchants_with_high_items
    end
 
   def average_item_price_for_merchant(merchant_id)
@@ -185,13 +169,13 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     std = average_invoices_per_merchant_standard_deviation
     aipm = average_invoices_per_merchant
-    mwlic = []
+    merchants_with_low_items = []
     invoice_hashes.each do |invoice_hash|
       if invoice_hash[:invoice_count] < aipm - (std * 2)
-        mwlic << invoice_hash[:merchant]
+        merchants_with_low_items << invoice_hash[:merchant]
       end
     end
-    mwlic
+    merchants_with_low_items
   end
 
   def days_by_invoice_hash
