@@ -193,12 +193,18 @@ class SalesAnalyst
 
   def top_merchant_for_customer(customer_id)
     invoice_array = @invoices.find_all_by_customer_id(customer_id)
-    invoice_item_array = []
+    
+    invoice_item_hash = {}
     invoice_array.each do |invoice|
-      invoice_item_array = @invoice_items.find_all_by_invoice_id(invoice_id)
+      invoice_item_hash[invoice.id] = @invoice_items.find_all_by_invoice_id(invoice.id)
     end
-    invoice_item_array.each_with_object({}) do |invoice_item|
-
+    invoice_hash = {}
+    invoice_item_hash.each do |invoice_id, invoice_item_array|
+      invoice_hash[invoice_id] = invoice_item_array.sum {|item| item.quantity}
     end
+    pair = invoice_hash.max_by do |key, value|
+      value
+    end
+    @merchants.find_by_id(@invoices.find_by_id(pair[0]).merchant_id)
   end
 end
