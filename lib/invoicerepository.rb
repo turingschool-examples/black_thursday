@@ -62,9 +62,9 @@ class InvoiceRepository
   end
 
   def delete(id)
-    x = (self.all).find_index(self.find_by_id(id))
-    self.all.delete_at(x)
-    self.all
+    @all.delete_if do |row|
+      row.id == id
+    end
   end
 
   def inspect
