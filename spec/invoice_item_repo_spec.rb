@@ -32,7 +32,8 @@ RSpec.describe do
   it 'can find all by item id' do
     invoice_items_path = './data/invoice_items.csv'
     invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
-    example_invoice_item = sales_engine.invoice_items.find_by_id(6)
+
+    example_invoice_item = sales_engine.invoice_items.find_all_by_item_id(6)
 
     expect(invoice_items_repository.find_all_by_item_id).to eq example_invoice_item
     expect(invoice_items_repository.find_all_by_item_id(99898013042)).to eq([])
@@ -41,20 +42,49 @@ RSpec.describe do
   it 'can find all by invoice id' do
     invoice_items_path = './data/invoice_items.csv'
     invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
-    example_invoice_item = sales_engine.invoice_items.find_by_id(6)
+    example_invoice_item = sales_engine.invoice_items.find_all_by_invoice_id(6)
+
     #may need example with invoice id vs item id
 
     expect(invoice_items_repository.find_all_by_invoice_id).to eq example_invoice_item
     expect(invoice_items_repository.find_all_by_invoice_id(99898013042)).to eq([])
   end
   
-  it 'can find all by invoice id' do
+  it 'can create attributes' do
     invoice_items_path = './data/invoice_items.csv'
     invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
     example_invoice_item = sales_engine.invoice_items.find_by_id(6)
-    #may need example with invoice id vs item id
 
-    expect(invoice_items_repository.find_all_by_invoice_id).to eq example_invoice_item
-    expect(invoice_items_repository.find_all_by_invoice_id(99898013042)).to eq([])
+    expect(invoice_items_repository.find_by_id(21831)).to eq(nil)
+    invoice_items_repository.create({:id => 21831})
+
+
+    expect(invoice_items_repository.find_by_id(21831)).not_to eq(nil)
+    expect(invoice_items_repository.all.last.id).to eq(21831)
+  end
+
+  it 'can update attributes' do
+    invoice_items_path = './data/invoice_items.csv'
+    invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
+    example_invoice_item = sales_engine.invoice_items.find_by_id(6)
+
+    expect(invoice_items_repository.find_by_id(21831)).to eq(nil)
+    invoice_items_repository.create({:id => 21831})
+    invoice_items_repository.update({:id => 21831, :quantity => 10, :unit_price => 1300})
+
+
+    expect((invoice_items_repository.find_by_id(21831)).quantity).to eq(10)
+    expect((invoice_items_repository.find_by_id(21831)).unit_price).to eq(1300)
+  end
+
+  it 'can delete an invoice instance' do
+    invoice_items_path = './data/invoice_items.csv'
+    invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
+    example_invoice_item = sales_engine.invoice_items.find_by_id(6)
+
+    invoice_items_repository.create({:id => 21831})
+    expect(invoice_items_repository.all.count).to eq 21831
+    merchant_repository.delete(21831)
+    expect(invoice_items_repository.all.count).to eq 21830
   end
 end
