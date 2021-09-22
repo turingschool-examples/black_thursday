@@ -30,7 +30,7 @@ class MerchantRepository
 
     @all.find do |merchant|
 
-      merchant.name.downcase!
+      merchant.name.downcase
       merchant.name == name_1
     end
   end
@@ -39,9 +39,10 @@ class MerchantRepository
     name_1 = name.downcase
 
     @all.find_all do |merchant|
-      name = merchant.name.downcase
-      name.include?(name_1)
+      name = merchant.name
+      name.downcase.include?(name_1)
     end
+
   end
 
   def create(attributes)
@@ -51,18 +52,14 @@ class MerchantRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     new = Merchant.new(attributes)
-     #require "pry"; binding.pry
     @all.push(new)
-    #require "pry"; binding.pry
   end
 
   def update(id, attributes)
-
-     @all.find do |merchant|
+    merchant = @all.find do |merchant|
       merchant.id == id
-        merchant.name = attributes
-      attributes
     end
+    merchant.name = attributes[:name] if attributes[:name]
   end
 
   def delete(id)
