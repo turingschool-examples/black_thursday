@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Repoable
 
   def find_by_id(id)
