@@ -1,4 +1,4 @@
-require './lib/spec_helper'
+require_relative './spec_helper'
 
 class SalesEngine
   attr_reader :items,

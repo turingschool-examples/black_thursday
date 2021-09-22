@@ -1,4 +1,3 @@
-require 'pry'
 require './lib/invoice_repository'
 require 'Timecop'
 

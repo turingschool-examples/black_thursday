@@ -1,4 +1,4 @@
-require './lib/spec_helper'
+require_relative './spec_helper'
 
 class SalesAnalyst
   attr_reader :analyst_items,

@@ -1,5 +1,4 @@
 require './lib/sales_engine'
-require 'csv'
 
 RSpec.describe SalesEngine do
 

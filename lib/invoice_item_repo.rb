@@ -1,5 +1,5 @@
-require './lib/invoiceitem'
-require './lib/sales_engine'
+require_relative './invoiceitem'
+require_relative './sales_engine'
 require 'csv'
 require 'BigDecimal'
 

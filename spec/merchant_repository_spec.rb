@@ -1,5 +1,4 @@
 require './lib/merchant_repository'
-require './lib/merchant'
 
 RSpec.describe MerchantRepository do
 
@@ -24,8 +23,6 @@ RSpec.describe MerchantRepository do
   end
 
   it 'can find merchants by name' do
-    merchants_path = './data/merchants.csv'
-    merchant_repository = MerchantRepository.new(merchants_path)
     example_merchant = @merchant_repository.all[25]
     expect(@merchant_repository.find_by_name(example_merchant.name)).to eq example_merchant
     expect(@merchant_repository.find_by_name("woody woodpecker")).to eq nil

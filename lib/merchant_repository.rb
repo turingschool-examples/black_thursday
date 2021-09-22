@@ -1,6 +1,4 @@
-require 'csv'
-require './lib/sales_engine'
-require './lib/merchant'
+require_relative './sales_engine'
 
 class MerchantRepository
   attr_reader :all

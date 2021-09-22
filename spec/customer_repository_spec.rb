@@ -1,4 +1,3 @@
-require './lib/customer'
 require './lib/customer_repository'
 require 'Timecop'
 
@@ -82,7 +81,7 @@ RSpec.describe do
     expect((customer_repository.find_by_id(1001)).first_name).to eq("Brooke")
     expect((customer_repository.find_by_id(1001)).last_name).to eq("Shields")
   end
-  
+
   after do
     Timecop.return
   end

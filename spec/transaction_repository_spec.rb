@@ -1,6 +1,4 @@
 require './lib/transaction_repository'
-require './lib/transaction'
-require 'csv'
 
 RSpec.describe do
 
@@ -75,7 +73,7 @@ RSpec.describe do
       created_at: "now",
       updated_at: "just a moment ago"
       })
-      
+
       expect(transaction_repository.new_highest_id).to eq "4987"
       expect(transaction_repository.find_by_id(4986)).not_to eq([])
   end
