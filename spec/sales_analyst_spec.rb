@@ -185,8 +185,8 @@ describe SalesAnalyst do
     expected.each { |c| expect(c.class).to eq Customer }
   end
 
-  xit '#top_merchant_for_customer' do
-    expected = sales_analyst.top_merchant_for_customer(100)
+  it '#top_merchant_for_customer' do
+    expected = @sa.top_merchant_for_customer(100)
 
     expect(expected.class).to eq Merchant
     expect(expected.id).to eq 12336753
