@@ -12,11 +12,11 @@ class InvoiceItem
               :updated_at
 
   def initialize(invoice_item)
-    @id = invoice_item[:id]
+    @id = invoice_item[:id].to_i
     @item_id = invoice_item[:item_id]
-    @invoice_id = invoice_item[:invoice_id]
-    @quantity = invoice_item[:quantity]
-    @unit_price = invoice_item[:unit_price]
+    @invoice_id = invoice_item[:invoice_id].to_i
+    @quantity = invoice_item[:quantity].to_f
+    @unit_price = invoice_item[:unit_price].to_f
     @created_at = invoice_item[:created_at]
     @updated_at = invoice_item[:updated_at]
   end

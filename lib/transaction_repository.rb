@@ -2,6 +2,8 @@
 
 # TransactionRepository class for Black Thursday
 
+require 'transaction'
+
 class TransactionRepository
   attr_reader :all
 
