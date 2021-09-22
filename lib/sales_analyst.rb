@@ -220,9 +220,9 @@ class SalesAnalyst
   def top_revenue_earners(number_of_merchants = 20)
     total_revenue_generation
 
-    merch_by_revenue = merchants.sort_by { |merchant| merchant.total_revenue }
+    merch_by_revenue = merchants.sort_by(&:total_revenue)
 
-    return merch_by_revenue.compact.reverse[0..(number_of_merchants - 1)]
+    merch_by_revenue.compact.reverse[0..(number_of_merchants - 1)]
   end
 
   # assigns the total revenue earned for each merchant to them
