@@ -9,6 +9,7 @@ class Transaction
                 :credit_card_expiration_date,
                 :result,
                 :updated_at
+
   def initialize(data)
     @id = data[0].to_i
     @invoice_id = data[1].to_i

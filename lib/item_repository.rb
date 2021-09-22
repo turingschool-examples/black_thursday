@@ -44,7 +44,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    test = @items.find_all do |item|
+    @items.find_all do |item|
       item if item.unit_price_to_dollars == price
     end
   end
@@ -53,7 +53,7 @@ class ItemRepository
     ranges = []
     ranges << range.first
     ranges << range.last
-    items_with_price_in_range = @items.find_all do |item|
+    @items.find_all do |item|
       item if item.unit_price_to_dollars.between?(ranges[0], ranges[1])
     end
   end

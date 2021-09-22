@@ -16,9 +16,7 @@ class CustomerRepository
   def find_by_id(id)
     customer_id = nil
     @customers.select do |customer|
-      if customer.id == id
-        customer_id = customer
-      end
+      customer_id = customer if customer.id == id
     end
     customer_id
   end
@@ -41,17 +39,22 @@ class CustomerRepository
   end
 
   def create(attributes)
-    new_customer = Customer.new([highest_id, attributes[:first_name].downcase.capitalize, attributes[:last_name].downcase.capitalize, Time.now.strftime('%Y-%m-%d'), Time.now.strftime('%Y-%m-%d')])
+    new_customer = Customer.new([highest_id,
+                                 attributes[:first_name].downcase.capitalize, attributes[:last_name].downcase.capitalize, Time.now.strftime('%Y-%m-%d'), Time.now.strftime('%Y-%m-%d')])
     @customers << new_customer
   end
 
   def update(id, attribute)
     @customers.map do |customer|
-      if customer.id == id
-        customer.first_name = attribute[:first_name] if attribute.keys.include?(:first_name)
-        customer.last_name = attribute[:last_name] if attribute.keys.include?(:last_name)
-        customer.updated_at = Time.now
+      next unless customer.id == id
+
+      if attribute.keys.include?(:first_name)
+        customer.first_name = attribute[:first_name]
       end
+      if attribute.keys.include?(:last_name)
+        customer.last_name = attribute[:last_name]
+      end
+      customer.updated_at = Time.now
     end
   end
 

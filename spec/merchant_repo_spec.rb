@@ -17,7 +17,7 @@ RSpec.describe 'MerchantRepository' do
   end
   it '#all' do
     expected = @engine.merchants.all
-    expect(expected.count).to eq 475
+    expect(expected.count).to eq(475)
   end
 
   it '#find_by_id' do

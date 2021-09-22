@@ -10,7 +10,7 @@ RSpec.describe do
     @engine = SalesEngine.from_csv({
                                      items: './data/items.csv',
                                      merchants: './data/merchants.csv',
-                                     invoices: "./data/invoices.csv",
+                                     invoices: './data/invoices.csv',
                                      invoice_items: './data/invoice_items.csv',
                                      customers: './data/customers.csv',
                                      transactions: './data/transactions.csv'
@@ -22,17 +22,17 @@ RSpec.describe do
   end
 
   it 'returns all known InvoiceItem instances' do
-    expect(@engine.invoice_items.all.count).to eq(21830)
+    expect(@engine.invoice_items.all.count).to eq(21_830)
   end
 
   it 'can find invoiceitem by id' do
     results = @engine.invoice_items.find_by_id(1)
 
-    expect(results.item_id).to eq(263519844)
+    expect(results.item_id).to eq(263_519_844)
   end
 
   it 'can find all by an item_id' do
-    results = @engine.invoice_items.find_all_by_item_id(263519844)
+    results = @engine.invoice_items.find_all_by_item_id(263_519_844)
     expect(results.count).to eq(164)
   end
 
@@ -43,24 +43,24 @@ RSpec.describe do
 
   it 'can create a new invoice id' do
     attributes = {
-      :item_id => 8,
-      :invoice_id => 7,
-      :quantity => 10,
-      :unit_price => 10,
-      :created_at => Time.now,
-      :updated_at  => Time.now,
-                  }
+      item_id: 8,
+      invoice_id: 7,
+      quantity: 10,
+      unit_price: 10,
+      created_at: Time.now,
+      updated_at: Time.now
+    }
     @engine.invoice_items.create(attributes)
-    results = @engine.invoice_items.find_by_id(21831)
+    results = @engine.invoice_items.find_by_id(21_831)
     expect(results.item_id).to eq(8)
   end
 
   it 'can update the invoice_items status' do
     attributes = {
-      :quantity => 7,
-      :unit_price => 1
-                  }
-    @engine.invoice_items.update(1,attributes)
+      quantity: 7,
+      unit_price: 1
+    }
+    @engine.invoice_items.update(1, attributes)
     expected = @engine.invoice_items.find_by_id(1)
     expect(expected.quantity).to eq(7)
     expect(expected.unit_price).to eq(1)
@@ -68,10 +68,6 @@ RSpec.describe do
 
   it 'can delete a invoice by id' do
     @engine.invoice_items.delete(6969)
-    expect(@engine.invoice_items.all.count).to eq(21829)
+    expect(@engine.invoice_items.all.count).to eq(21_829)
   end
-
-
-
-
 end

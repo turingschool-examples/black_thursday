@@ -10,13 +10,13 @@ SimpleCov.start
 RSpec.describe do
   before(:each) do
     @engine = SalesEngine.from_csv({
-                                       items: './data/items.csv',
-                                       merchants: './data/merchants.csv',
-                                       invoices: "./data/invoices.csv",
-                                       invoice_items: './data/invoice_items.csv',
-                                       customers: './data/customers.csv',
-                                       transactions: './data/transactions.csv'
-                                     })
+                                     items: './data/items.csv',
+                                     merchants: './data/merchants.csv',
+                                     invoices: './data/invoices.csv',
+                                     invoice_items: './data/invoice_items.csv',
+                                     customers: './data/customers.csv',
+                                     transactions: './data/transactions.csv'
+                                   })
   end
 
   it 'exists' do
@@ -30,7 +30,7 @@ RSpec.describe do
   it 'can return an invoice by id' do
     results = @engine.invoices.find_by_id(4648)
 
-    expect(results.merchant_id).to eq(12335967)
+    expect(results.merchant_id).to eq(12_335_967)
 
     results2 = @engine.invoices.find_by_id(5000)
     expect(results2).to eq(nil)
@@ -46,11 +46,11 @@ RSpec.describe do
   end
 
   it 'can find all by merchant_id' do
-    results = @engine.invoices.find_all_by_merchant_id(12335955)
+    results = @engine.invoices.find_all_by_merchant_id(12_335_955)
 
     expect(results.length).to eq(12)
 
-    results2 = @engine.invoices.find_all_by_merchant_id(000000)
+    results2 = @engine.invoices.find_all_by_merchant_id(0o00000)
     expect(results2).to eq([])
   end
 
@@ -65,12 +65,12 @@ RSpec.describe do
 
   it 'can create a new invoice item' do
     attributes = {
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-                  }
+      customer_id: 7,
+      merchant_id: 8,
+      status: 'pending',
+      created_at: Time.now,
+      updated_at: Time.now
+    }
     @engine.invoices.create(attributes)
     results = @engine.invoices.find_by_id(4986)
     expect(results.merchant_id).to eq(8)
@@ -78,16 +78,16 @@ RSpec.describe do
 
   it 'can update the invoices status' do
     attributes = {
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-                  }
+      customer_id: 7,
+      merchant_id: 8,
+      status: 'pending',
+      created_at: Time.now,
+      updated_at: Time.now
+    }
     @engine.invoices.create(attributes)
     status_update = {
-        status: :success
-      }
+      status: :success
+    }
     @engine.invoices.update(4986, status_update)
     expected = @engine.invoices.find_by_id(4986)
     expect(expected.status).to eq :success
