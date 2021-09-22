@@ -19,7 +19,7 @@ RSpec.describe MerchantRepository do
   it 'can find merchant by id' do
     example_merchant = @merchant_repository.all[25]
     expect(@merchant_repository.find_by_id(example_merchant.id)).to eq example_merchant
-    expect(@merchant_repository.find_by_id(999999)).to eq nil
+    expect(@merchant_repository.find_by_id(12335971)).to eq nil
   end
 
   it 'can find merchants by name' do

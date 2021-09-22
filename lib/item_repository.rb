@@ -12,6 +12,10 @@ class ItemRepository
     item_objects)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def find_by_id(id)
     if (@all.any? do |item|
       item.id == id
