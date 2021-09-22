@@ -72,7 +72,7 @@ class SalesAnalyst
     x = (num / (@ir.all.count - 1))
     std_dev = Math.sqrt(x).round(2)
     g_threshold = (std_dev*2) + aappm.to_f
-    @ir.find_all_by_price_in_range(g_threshold, Float::INFINITY)
+    @ir.find_all_by_price_in_range(g_threshold..Float::INFINITY)
   end
 
   def average_invoices_per_merchant
