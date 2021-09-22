@@ -16,12 +16,10 @@ describe SalesAnalyst do
   end
 
   it '#average_item_per_merchant' do
-
     expect(@sa.average_items_per_merchant).to eq(2.88)
   end
 
   it '#average_item_per_merchant_standard_deviation' do
-
     expect(@sa.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
 
@@ -35,13 +33,11 @@ describe SalesAnalyst do
   end
 
   it '#average item price for merchant' do
-
     expect(@sa.average_item_price_for_merchant(12334105)).to be_a(BigDecimal)
     expect(@sa.average_item_price_for_merchant(12334105)).to eq 16.66
   end
 
   it '#average_average_price' do
-
     expect(@sa.average_average_price_per_merchant).to be_a(BigDecimal)
     expect(@sa.average_average_price_per_merchant).to eq 350.29
   end
@@ -124,7 +120,6 @@ describe SalesAnalyst do
   end
 
   it "#merchants_with_only_one_item" do
-
     expect(@sa.merchants_with_only_one_item.length).to eq 243
     expect(@sa.merchants_with_only_one_item[0].class).to eq Merchant
   end
@@ -139,7 +134,6 @@ describe SalesAnalyst do
 
     expect(expected.length).to eq 18
     expect(expected.first.class).to eq Merchant
-
   end
 
   it '#revenue_by_merchant' do
@@ -159,18 +153,20 @@ describe SalesAnalyst do
     expect(@sa.invoice_items_for_merchant(12334105)[0]).to be_an(InvoiceItem)
   end
 
-  it "#invoice_items_grouped_by_quantity" do
-    expect(@sa.invoice_items_grouped_by_quantity(12334105)).to be_a(Hash)
+  it "#invoice_items_by_quantity" do
+    expect(@sa.invoice_items_by_quantity(12334105)).to be_a(Hash)
   end
 
   it '#most_sold_item_for_merchant' do
+    expected = @sa.items.find_by_id(263396209)
 
     expect(@sa.most_sold_item_for_merchant(12334105)).to be_an(Array)
     expect(@sa.most_sold_item_for_merchant(12334105)[0]).to be_an(Item)
-    expect(@sa.most_sold_item_for_merchant(12334105)[0]).to eq(@sa.items.find_by_id(263396209))
+    expect(@sa.most_sold_item_for_merchant(12334105)[0]).to eq(expected)
   end
 
   it '#best_item_for_merchant' do
-    expect(@sa.best_item_for_merchant(12334105)).to eq(@sa.items.find_by_id(263396209))
+    expected = @sa.items.find_by_id(263396209)
+    expect(@sa.best_item_for_merchant(12334105)).to eq(expected)
   end
 end

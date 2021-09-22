@@ -10,7 +10,7 @@ describe CustomerRepo do
     expect(@cr).to be_a CustomerRepo
   end
 
-  it "creates an array full of hashes from the csv" do
+  it "creates an array of hashes from the csv" do
     expect(@cr.to_array).to be_a Array
     expect(@cr.to_array.empty?).to be false
   end

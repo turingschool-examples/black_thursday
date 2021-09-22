@@ -274,21 +274,21 @@ class SalesAnalyst
       end.flatten
     end
 
-    def invoice_items_grouped_by_quantity(merchant_id)
-      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_grouped_by_quantity|
-        if items_grouped_by_quantity[invoice_item.item_id]
-          items_grouped_by_quantity[invoice_item.item_id] += invoice_item.quantity
+    def invoice_items_by_quantity(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_by_quantity|
+        if items_by_quantity[invoice_item.item_id]
+          items_by_quantity[invoice_item.item_id] += invoice_item.quantity
         else
-          items_grouped_by_quantity[invoice_item.item_id] = invoice_item.quantity
+          items_by_quantity[invoice_item.item_id] = invoice_item.quantity
         end
       end
     end
 
     def most_sold_item_for_merchant(merchant_id)
-      invoice_array = invoice_items_grouped_by_quantity(merchant_id).sort_by do |item_id, quantity|
+      invoice_array = invoice_items_by_quantity(merchant_id).sort_by do |item_id, quantity|
         - quantity
       end
-      #method
+
       if invoice_array[0][1] != invoice_array[1][1]
         [@items.find_by_id(invoice_array[0][0])]
       else
@@ -300,18 +300,18 @@ class SalesAnalyst
       end
     end
 
-    def invoice_items_grouped_by_revenue(merchant_id)
-      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_grouped_by_revenue|
-        if items_grouped_by_revenue[invoice_item.item_id]
-          items_grouped_by_revenue[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+    def invoice_items_by_revenue(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_by_revenue|
+        if items_by_revenue[invoice_item.item_id]
+          items_by_revenue[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
         else
-          items_grouped_by_revenue[invoice_item.item_id] = (invoice_item.quantity * invoice_item.unit_price)
+          items_by_revenue[invoice_item.item_id] = (invoice_item.quantity * invoice_item.unit_price)
         end
       end
     end
 
     def best_item_for_merchant(merchant_id)
-      invoice_array = invoice_items_grouped_by_revenue(merchant_id).sort_by do |item_id, revenue|
+      invoice_array = invoice_items_by_revenue(merchant_id).sort_by do |item_id, revenue|
         - revenue
       end
       @items.find_by_id(invoice_array[0][0])
