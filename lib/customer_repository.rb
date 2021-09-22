@@ -26,12 +26,12 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-   if (@all.any? do |customer|
-      customer.first_name.upcase == first_name.upcase
-    end) == true
-      @all.find do |customer|
+    if (@all.any? do |customer|
         customer.first_name.upcase == first_name.upcase
-      end
+      end) == true
+        @all.find do |customer|
+          customer.first_name.upcase == first_name.upcase
+        end
     else
       nil
     end
@@ -39,14 +39,21 @@ class CustomerRepository
 
   def find_all_by_last_name(last_name)
     if (@all.any? do |customer|
-       customer.last_name.upcase == last_name.upcase
-     end) == true
-       @all.find do |customer|
          customer.last_name.upcase == last_name.upcase
-       end
-     else
-       nil
-     end
+       end) == true
+         @all.find do |customer|
+           customer.last_name.upcase == last_name.upcase
+         end
+    else
+      nil
+    end
+  end
+
+  def new_highest_id
+    last = @all.last
+    new_high = last.id.to_i
+    new_high += 1
+    new_high.to_s
   end
 
   def create(attributes)
