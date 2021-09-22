@@ -216,9 +216,56 @@ class SalesAnalyst
       invoice_item.invoice_id == invoice_id
     end
   end
-end
 
-# find transaction with invoice id and make sure it was a success
-# find all invoice_items with corresponding invoice id
-# add all total prices together (quantity * unit_price)
-# convert to USD
+  def total_revenue_by_date(date)
+    # get all successful transactions on date
+    # get all invoice_items with matching invoice_id
+    # sum quantity times price
+    invoice_ids = []
+    sum_bucket = 0
+    transactions.each do |transaction|
+      if transaction.created_at.split(' ')[0] == date && transaction.result == 'success'
+          invoice_ids.push(transaction.invoice_id)
+      end
+    end
+    invoice_ids.uniq.each do |id|
+      invoice_items.each do |item|
+        sum_bucket += (item.quantity * item.unit_price) if id = item.invoice_id
+      end
+    end
+    BigDecimal((sum_bucket.to_f)/100.0, 2)
+  end
+
+  def merchants_with_pending_invoices
+    merchant_array = []
+    ids = []
+    invoices.each do |invoice|
+      ids.push(invoice.merchant_id) if invoice.status == 'pending'
+    end
+    ids.uniq.each do |id|
+      merchants.each do |merchant|
+        merchant_array.push(merchant) if merchant.id == id
+      end
+    end
+    merchant_array.uniq
+  end
+
+  def revenue_by_merchant(merchant_id)
+    total_rev = 0
+    invoices.each do |invoice|
+      if invoice.merchant_id == merchant_id
+        transactions.each do |transaction|
+          if transaction.result == 'success'
+            invoice_items.each do |item|
+              if item.invoice_id == transaction.invoice_id
+                total_rev += (item.quantity * item.unit_price)
+              end
+            end
+          end
+        end
+      end
+    end
+    BigDecimal(total_rev.to_f / 100.0, 2)
+    require 'pry'; binding.pry
+  end
+end
