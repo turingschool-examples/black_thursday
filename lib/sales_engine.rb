@@ -23,6 +23,10 @@ class SalesEngine
               :customers,
               :analyst
 
+  def self.from_csv(data)
+    SalesEngine.new(data)
+  end
+
   def initialize(data)
     @items = ItemRepository.new(data[:items])
     @merchants = MerchantRepository.new(data[:merchants])

@@ -1,5 +1,6 @@
 require './lib/customer'
 require './lib/customer_repository'
+require 'Timecop'
 
 RSpec.describe do
   it 'exists' do
@@ -14,7 +15,7 @@ RSpec.describe do
     customer_repository = CustomerRepository.new(customer_path)
 
     expect(customer_repository.all[0]).to be_an_instance_of(Customer)
-    expect(customer_repository.all.count).to eq 1000
+    expect(customer_repository.all.count).to eq(1000)
   end
 
   it 'can find customer by id' do
@@ -63,9 +64,14 @@ RSpec.describe do
 
       expect(customer_repository.new_highest_id).to eq "1002"
       expect(customer_repository.find_by_id(1001)).not_to eq([])
+
   end
 
-  it 'can update merchant attributes using ID' do
+  before do
+    Timecop.freeze(Time.local(1990))
+  end
+
+  it 'can update customer attributes using ID' do
     customer_path = './data/customers.csv'
     customer_repository = CustomerRepository.new(customer_path)
 
@@ -75,6 +81,10 @@ RSpec.describe do
 
     expect((customer_repository.find_by_id(1001)).first_name).to eq("Brooke")
     expect((customer_repository.find_by_id(1001)).last_name).to eq("Shields")
+  end
+  
+  after do
+    Timecop.return
   end
 
   it 'can delete a customer by ID' do
