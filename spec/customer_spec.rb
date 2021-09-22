@@ -1,5 +1,5 @@
-require "Rspec"
-require_relative "../lib/customer"
+require 'Rspec'
+require_relative '../lib/customer'
 
 describe Customer do
   before :each do
@@ -36,5 +36,5 @@ describe Customer do
     expect(@c.updated_at).to be_a Time
   end
 
-  
+
 end
