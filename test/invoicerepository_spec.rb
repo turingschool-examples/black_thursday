@@ -126,19 +126,20 @@ describe InvoiceRepository do
             :updated_at   => Time.now
             }
 
-    results = {
-                  :id           => 4965,
-                  :customer_id  => 996,
-                  :merchant_id  => 12334839,
-                  :status       => :shipped,
-                  :created_at   => "2012-01-22",
-                  :updated_at   => Time.now
-                  }
+    # results = {
+    #               :id           => 4965,
+    #               :customer_id  => 996,
+    #               :merchant_id  => 12334839,
+    #               :status       => :shipped,
+    #               :created_at   => "2012-01-22",
+    #               :updated_at   => Time.now
+    #               }
 
-  invoice_results = Invoice.new(results)
+  # invoice_results = Invoice.new(results)
 
-  expect(inv.update(4965, attributes).status).to eq(invoice_results.status)
-  expect(inv.update(4965, attributes).customer_id).to eq(invoice_results.customer_id)
+  inv.update(4965, attributes)
+  expect(inv.find_by_id(4965).status).to eq(:shipped)
+  expect(inv.find_by_id(4965).customer_id).to eq(996)
   end
 
   it 'deletes an invoice' do
