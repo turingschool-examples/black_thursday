@@ -1,4 +1,3 @@
-require "CSV"
 require "Rspec"
 require_relative "../lib/customer_repo"
 

@@ -150,10 +150,8 @@ describe SalesAnalyst do
   end
 
   it '#merchants_with_pending_invoices' do
-    expected = @sa.merchants_with_pending_invoices
-
-    expect(expected.length).to eq 467
-    expect(expected.first.class).to eq Merchant
+    expect(@sa.merchants_with_pending_invoices.length).to eq 467
+    expect(@sa.merchants_with_pending_invoices.last.class).to eq Merchant
   end
 
   it "#invoice_items_for_merchant" do

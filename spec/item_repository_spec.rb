@@ -1,4 +1,3 @@
-require "CSV"
 require "Rspec"
 require_relative "../lib/item_repository"
 
@@ -72,7 +71,7 @@ describe ItemRepository do
       updated_at: Time.now.utc,
       merchant_id: 9
     }
-    
+
     @ir.create(attributes)
 
     expect(@ir.find_by_name("laptop").merchant_id).to eq(9)
@@ -88,7 +87,7 @@ describe ItemRepository do
       updated_at: Time.now.utc,
       merchant_id: 9
     }
-    
+
     @ir.create(info)
 
     attributes = {name: "desktop"}
@@ -107,7 +106,7 @@ describe ItemRepository do
       updated_at: Time.now.utc,
       merchant_id: 9
     }
-    
+
     @ir.create(info)
 
     @ir.delete(263567475)

@@ -263,7 +263,7 @@ class SalesAnalyst
         if invoice_paid_in_full?(invoice.id) == false
           @merchants.find_by_id(invoice.merchant_id)
         end
-      end.uniq
+      end.uniq.compact
   end
 
     def invoice_items_for_merchant(merchant_id)
