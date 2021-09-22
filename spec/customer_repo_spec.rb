@@ -1,3 +1,4 @@
+require_relative 'spec_helper'
 require "Rspec"
 require_relative "../lib/customer_repo"
 

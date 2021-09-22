@@ -206,7 +206,7 @@ class SalesAnalyst
         total_revenue += invoice_total(invoice.id)
       end
     end
-    BigDecimal.new(total_revenue.to_s)
+    total_revenue
   end
 
 
@@ -337,7 +337,7 @@ class SalesAnalyst
         invoice_item_array = @invoice_items.find_all_by_invoice_id(invoice_id)
       end
       invoice_item_array.each_with_object({}) do |invoice_item|
-        
+
       end
     end
 end

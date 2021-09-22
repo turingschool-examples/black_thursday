@@ -1,3 +1,4 @@
+require_relative 'spec_helper'
 require "Rspec"
 require "bigdecimal"
 require_relative "../lib/item"

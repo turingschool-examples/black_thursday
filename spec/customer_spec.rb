@@ -1,3 +1,4 @@
+require_relative 'spec_helper'
 require "Rspec"
 require_relative "../lib/customer"
 
@@ -36,5 +37,5 @@ describe Customer do
     expect(@c.updated_at).to be_a Time
   end
 
-  
+
 end
