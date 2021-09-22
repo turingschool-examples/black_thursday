@@ -26,13 +26,6 @@ class MerchantRepository
   end
 
   def find_by_name(search_term)
-    # name_1 = name.downcase
-    #
-    # @all.find do |merchant|
-    #
-    #   merchant.name.downcase
-    #   merchant.name == name_1
-    # end
 
     @all.find do |merchant|
       ne = merchant.name.downcase
@@ -61,10 +54,11 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    merchant = @all.find do |merchant|
-      merchant.id == id
+    updated_merchant = self.find_by_id(id)
+    if updated_merchant != nil
+      updated_merchant.name = attributes[:name] if attributes[:name]
+      updated_merchant.updated_at = Time.now
     end
-    merchant.name = attributes[:name] if attributes[:name]
   end
 
   def delete(id)

@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'invoice'
+require 'time'
 
 class InvoiceRepository
   attr_reader :all
@@ -54,11 +55,10 @@ class InvoiceRepository
 
   def update(id, attributes)
     updated_invoice = self.find_by_id(id)
-      if updated_invoice != nil
-        updated_invoice.status = attributes[:status]
-        updated_invoice.updated_at = Time.now
-      end
-
+    if updated_invoice != nil
+      updated_invoice.status = attributes[:status] if attributes[:status]
+      updated_invoice.updated_at = Time.now
+    end
   end
 
   def delete(id)

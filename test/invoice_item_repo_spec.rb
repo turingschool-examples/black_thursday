@@ -123,9 +123,9 @@ describe InvoiceItemRepository do
                   }
 
   invoice_item_results = InvoiceItem.new(results)
+  invi.update(10, attribute)
 
-  expect(invi.update(10, attribute).quantity).to eq(invoice_item_results.quantity)
-  expect(invi.update(10, attribute).unit_price).to eq(invoice_item_results.unit_price)
+  expect(invi.find_by_id(10).quantity).to eq(invoice_item_results.quantity)
   end
 
   it 'deletes an invoice' do
