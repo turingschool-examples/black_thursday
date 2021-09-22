@@ -60,10 +60,13 @@ RSpec.describe do
     expect(transaction_repository.new_highest_id).to eq "4986"
   end
 
-  xit 'can make a new transaction' do
+  it 'can make a new transaction' do
     transaction_path = './data/transactions.csv'
     transaction_repository = TransactionRepository.new(transaction_path)
-    new_transaction.Transaction.new = {
+
+    expect(transaction_repository.new_highest_id).to eq "4986"
+
+    transaction_repository.create({
       id: transaction_repository.new_highest_id,
       invoice_id: "111",
       credit_card_number: "1111111111111111",
@@ -71,10 +74,9 @@ RSpec.describe do
       result: "success",
       created_at: "now",
       updated_at: "just a moment ago"
-      }
-
-    expect(transaction_repository.create(new_transaction)).to eq
+      })
+      
+      expect(transaction_repository.new_highest_id).to eq "4987"
+      expect(transaction_repository.find_by_id(4986)).not_to eq([])
   end
-
-
 end
