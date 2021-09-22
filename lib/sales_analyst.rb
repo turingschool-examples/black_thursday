@@ -7,6 +7,7 @@ require './lib/invoice_repository'
 require './lib/invoice'
 require 'csv'
 require 'pry'
+require 'date'
 
 class SalesAnalyst
   attr_reader :analyst_items,
@@ -27,7 +28,8 @@ class SalesAnalyst
   def average_items_per_merchant
     (@analyst_items.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
-
+  
+  #helper method
   def store_hashes
     store_hashes = []
     stores_items = []
@@ -99,6 +101,7 @@ class SalesAnalyst
     (esa.sum.to_f / esa.count).round(2)
   end
 
+  #helper method
   def all_item_prices
     all_item_prices = []
     @analyst_items.all.each do |item|
@@ -107,10 +110,12 @@ class SalesAnalyst
     all_item_prices
   end
 
+  #helper method
   def average_item_price
     all_item_prices.sum.to_f / all_item_prices.count
   end
 
+  #helper method
   def standard_deviation_of_all_item_prices
     sum = 0
     aip = average_item_price
@@ -132,6 +137,107 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (@analyst_invoices.all.count.to_f / @analyst_merchant.all.count.to_f).round(2)
+    (@analyst_invoices.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
+  end
+
+  #helper method
+  def invoice_hashes
+    invoice_hashes = []
+    @analyst_merchants.all.each do |merchant|
+      merchants_invoices = []
+      @analyst_invoices.all.each do |invoice|
+        if invoice.merchant_id == merchant.id
+          merchants_invoices << invoice
+        end
+      end
+     invoice_hashes << {
+       :merchant => merchant,
+       :merchants_invoices => merchants_invoices,
+       :invoice_count => merchants_invoices.count}
+     end
+     invoice_hashes
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    sum = 0
+    aipm = average_invoices_per_merchant
+    invoice_hashes.each do |invoice_hash|
+      sum += (invoice_hash[:invoice_count] - aipm)**2
+    end
+    std = Math.sqrt(sum / invoice_hashes.count).round(2)
+    std
+  end
+
+  def top_merchants_by_invoice_count
+    std = average_invoices_per_merchant_standard_deviation
+    aipm = average_invoices_per_merchant
+    mwhic = []
+    invoice_hashes.each do |invoice_hash|
+      if invoice_hash[:invoice_count] > aipm + (std * 2)
+        mwhic << invoice_hash[:merchant]
+      end
+    end
+    mwhic
+  end
+
+  def bottom_merchants_by_invoice_count
+    std = average_invoices_per_merchant_standard_deviation
+    aipm = average_invoices_per_merchant
+    mwlic = []
+    invoice_hashes.each do |invoice_hash|
+      if invoice_hash[:invoice_count] < aipm - (std * 2)
+        mwlic << invoice_hash[:merchant]
+      end
+    end
+    mwlic
+  end
+
+  #helper method
+  def days_by_invoice_hash
+    by_days = []
+    @analyst_invoices.all.each do |invoice|
+      by_days << Date.parse(invoice.created_at).strftime("%A")
+    end
+    #dotw = by_days.uniq
+    dotw = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    container = []
+    dotw.each do |day|
+    container << (by_days.find_all do |invoice_day|
+      day == invoice_day
+      end.count)
+    end
+    h = Hash[dotw.zip container]
+    h
+
+  end
+
+  #helper method
+  def average_invoices_per_day
+    average_invoices_per_day = (
+      days_by_invoice_hash.values.sum / days_by_invoice_hash.values.count.to_f)
+  end
+
+  #helper method
+  def average_invoices_per_day_standard_deviation
+    sum = 0
+    aipd = average_invoices_per_day
+    days_by_invoice_hash.values.each do |v|
+      sum += (v - aipd)**2
+    end
+  std = Math.sqrt(sum / 7)
+  std
+  end
+
+  def top_days_by_invoice_count
+    top_days = []
+    aipd = average_invoices_per_day
+    std = average_invoices_per_day_standard_deviation
+    day = days_by_invoice_hash
+    day.each do |k, v|
+      if (v > (aipd + std))
+      top_days << k
+      end
+    end
+    top_days
   end
 end

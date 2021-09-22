@@ -3,9 +3,6 @@ require 'csv'
 
 RSpec.describe SalesAnalyst do
 
-  #How to access stuff:
-  # => sales_analyst.analyst_items.all.count
-
   it 'exists' do
     sales_engine = SalesEngine.new({
       :items     => "./data/items.csv",
@@ -56,7 +53,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_item_price_for_merchant("12334105")).to eq 1665.67
   end
 
-  xit 'average_average_price_per_merchant' do
+  it 'average_average_price_per_merchant' do
     sales_engine = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -84,6 +81,48 @@ RSpec.describe SalesAnalyst do
       })
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_invoices_per_merchant).to eq 10.49
-  end 
+  end
 
+  it 'average_invoices_per_merchant_standard_deviation' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
+  end
+
+  it 'top_merchants_by_invoice_count' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+      sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.top_merchants_by_invoice_count.count).to eq 12
+  end
+
+  it 'bottom_merchants_by_invoice_count' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+      sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.bottom_merchants_by_invoice_count.count).to eq 4
+  end
+
+  it 'top_days_by_invoice_count' do
+    sales_engine = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+      sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday", "Saturday"])
+  end
 end
