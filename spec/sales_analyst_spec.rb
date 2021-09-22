@@ -265,15 +265,18 @@ describe SalesAnalyst do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         invoices: './data/invoices.csv',
-        transactions: './data/transactions.csv'
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
       )
 
       sales_analyst = se.analyst
 
-      expect(sales_analyst.merchants_with_only_one_item).to eq(mercant, merchant, merchant)
+      expect(sales_analyst.merchants_with_only_one_item).to be_an(Array)
+      expect(sales_analyst.merchants_with_only_one_item.first).to be_a(Merchant)
+      expect(sales_analyst.merchants_with_only_one_item.last).to be_a(Merchant)
     end
-  end 
-end
+  end
+
 
   describe '#invoice_total' do
     it 'returns the total $ amount of the invoice with given id' do
