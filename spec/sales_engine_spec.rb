@@ -4,7 +4,7 @@ require 'csv'
 RSpec.describe SalesEngine do
 
   it 'exists' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -16,7 +16,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns a loaded MerchantRepository' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -28,7 +28,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns a loaded ItemRepository' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -40,7 +40,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns a loaded InvoiceRepository' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -52,7 +52,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns a loaded InvoiceItemRepository' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -64,7 +64,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns a loaded TransactionRepository' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -76,7 +76,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'returns a loaded CustomerRepository' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -88,7 +88,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'can allow access to repository data' do
-    sales_engine = SalesEngine.new({
+    se = SalesEngine.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -100,19 +100,19 @@ RSpec.describe SalesEngine do
     merchant = mr.find_by_name("CJsDecor")
     expect(merchant).to be_a(Merchant)
     mit = se.items
-    item = mit.find_by_id(263395237)
+    item = mit.all[0]
     expect(item).to be_an(Item)
     mi = se.invoices
     invoice = mi.find_by_id("1")
     expect(invoice).to be_an(Invoice)
     mii = se.invoice_items
-    invoice_item = mii.find_by_id(263519844)
+    invoice_item = mii.all[0]
     expect(invoice_item).to be_an(InvoiceItem)
     mt = se.transactions
-    transaction = mt.find_by_id(1)
+    transaction = mt.all[0]
     expect(transaction).to be_a(Transaction)
     mc = se.customers
-    customer = mc.find_by_id(1)
+    customer = mc.all[0]
     expect(customer).to be_a(Customer)
   end
 end
