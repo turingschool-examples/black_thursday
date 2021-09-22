@@ -1,3 +1,8 @@
+require './lib/invoiceitem'
+require './lib/sales_engine'
+require 'csv'
+require 'BigDecimal'
+
 class InvoiceItemRepository
 
   attr_reader :all
