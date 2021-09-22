@@ -10,7 +10,7 @@ RSpec.describe do
     @engine = SalesEngine.from_csv({
                                      items: './data/items.csv',
                                      merchants: './data/merchants.csv',
-                                     invoices: "./data/invoices.csv",
+                                     invoices: './data/invoices.csv',
                                      invoice_items: './data/invoice_items.csv',
                                      customers: './data/customers.csv',
                                      transactions: './data/transactions.csv'
@@ -25,10 +25,10 @@ RSpec.describe do
   it 'has attributes' do
     item_1 = @engine.customers.all.first
     expect(item_1.id).to eq(1)
-    expect(item_1.last_name).to eq("Ondricka")
+    expect(item_1.last_name).to eq('Ondricka')
     item_1 = @engine.customers.all.last
     expect(item_1.id).to eq(1000)
-    expect(item_1.first_name).to eq("Shawn")
+    expect(item_1.first_name).to eq('Shawn')
     item_1 = @engine.customers.find_by_id(1001)
     expect(item_1).to eq(nil)
   end

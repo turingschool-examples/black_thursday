@@ -9,6 +9,7 @@ class InvoiceItem
   attr_accessor :quantity,
                 :unit_price,
                 :updated_at
+
   def initialize(data)
     @id = data[0].to_i
     @item_id = data[1].to_i

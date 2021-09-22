@@ -1,9 +1,8 @@
 # frozen_string_literal: true
+
 require 'time'
 require 'bigdecimal/util'
 require 'bigdecimal/util'
-
-
 
 class SalesAnalyst
   def initialize(items, merchants, invoices, invoice_items, customers, transactions)
@@ -30,7 +29,7 @@ class SalesAnalyst
     mean = average_items_per_merchant
     x = items_per_merchant.sum(0.0) { |element| (element - mean)**2 }
     variance = x / (items_per_merchant.count - 1)
-    standard_deviation = Math.sqrt(variance).round(2)
+    Math.sqrt(variance).round(2)
   end
 
   def merchants_with_high_item_count
@@ -123,7 +122,7 @@ class SalesAnalyst
 
   def days_created_at_stddev
     mean = values_per_day.values.sum / 7
-    sum = values_per_day.values.sum(0.0) {|element| (element - mean) ** 2}
+    sum = values_per_day.values.sum(0.0) { |element| (element - mean)**2 }
     variance = sum / (values_per_day.values.length - 1)
 
     standard_deviation = Math.sqrt(variance).round(2)
@@ -133,7 +132,7 @@ class SalesAnalyst
     result = []
     values_per_day.each do |weekday, count|
       if count > ((values_per_day.values.sum / 7) + days_created_at_stddev)
-      result << weekday
+        result << weekday
       end
     end
     result
