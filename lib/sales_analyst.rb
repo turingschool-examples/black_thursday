@@ -22,12 +22,6 @@ class SalesAnalyst
               :analyst_invoice_items,
               :analyst_transactions,
               :analyst_customers
-              # :store_hashes,
-              # :average_items_per_merchant,
-              # :average_item_price,
-              # :all_item_prices,
-              # :every_stores_average,
-
 
   def initialize(data)
     @analyst_items = data[:items]
@@ -260,6 +254,7 @@ class SalesAnalyst
     all_invoice_statuses
   end
 
+  #helper method
   def invoice_status_hasher
     ais = all_invoice_statuses
     possible_statuses = ["pending", "shipped", "returned"]
@@ -284,9 +279,22 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    true
+    ttc = []
+    @analyst_transactions.find_all_by_invoice_id(invoice_id).each do |transaction|
+      ttc << transaction
+    end
+    ttc.all? { |transaction| transaction.result == "success" }
   end
 
   def invoice_total(invoice_id)
+    ita = []
+    @analyst_invoice_items.find_all_by_invoice_id(invoice_id).each do |init|
+      ita << init
+    end
+    totals = []
+    ita.each do |ii|
+      totals << ii.quantity.to_i * ii.unit_price.to_i
+    end
+    totals.sum
   end
 end
