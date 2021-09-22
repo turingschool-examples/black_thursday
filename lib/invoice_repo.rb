@@ -1,6 +1,6 @@
-require "CSV"
-require_relative "../lib/invoice"
-require "Time"
+require 'CSV'
+require_relative '../lib/invoice'
+require 'Time'
 require_relative '../lib/repoable'
 
 
@@ -33,7 +33,7 @@ class InvoiceRepo
 
   def create(attributes)
     id = find_highest_id + 1
-    current_time = Time.now.strftime("%F")
+    current_time = Time.now.strftime('%F')
     attributes = {
       id: id.to_s,
       status: attributes[:status],
