@@ -25,13 +25,18 @@ class MerchantRepository
     end
   end
 
-  def find_by_name(name)
-    name_1 = name.downcase
+  def find_by_name(search_term)
+    # name_1 = name.downcase
+    #
+    # @all.find do |merchant|
+    #
+    #   merchant.name.downcase
+    #   merchant.name == name_1
+    # end
 
     @all.find do |merchant|
-
-      merchant.name.downcase
-      merchant.name == name_1
+      ne = merchant.name.downcase
+      ne == search_term.downcase
     end
   end
 

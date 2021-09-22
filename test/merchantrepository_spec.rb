@@ -29,8 +29,8 @@ RSpec.describe 'MerchantRepository' do
                        :transactions   => './data/transactions.csv',
                        :customers      => './data/customers.csv'})
     mr = se.merchants
+    expect(mr.find_by_name("Shopin1901").name).to eq("Shopin1901")
 
-    expect(mr.find_by_name("Shopin1901").name).to eq("shopin1901")
     expect(mr.find_by_name("FANCYBOOKART").name).to eq("fancybookart")
   end
 
