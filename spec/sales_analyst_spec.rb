@@ -275,4 +275,51 @@ describe SalesAnalyst do
       expect(sales_analyst.invoice_total(46)).to eq(1973.36)
     end
   end
+
+  describe '#total_revenue_by_date' do
+    it 'returns total revenue for a given date across all merchants' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.total_revenue_by_date('2012-03-27')).to be_a(BigDecimal)
+    end
+  end
+
+  describe '#merchants_with_pending_invoices' do
+    it 'returns an array of merchants with pending invoices' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.merchants_with_pending_invoices).to be_an(Array)
+      expect(sales_analyst.merchants_with_pending_invoices.first).to be_a(Merchant)
+      expect(sales_analyst.merchants_with_pending_invoices.last).to be_a(Merchant)
+    end
+  end
+
+  describe '#revenue_by_merchant' do
+    xit 'returns the total revenue for a merchant' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.revenue_by_merchant(12334112)).to be_a(BigDecimal)
+    end
+  end
 end
