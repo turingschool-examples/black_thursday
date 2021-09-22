@@ -31,14 +31,41 @@ RSpec.describe MerchantRepository do
     expect(merchant_repository.find_by_name("woody woodpecker")).to eq nil
   end
 
-  it 'can create a merchant with given attributes' do
+  it 'can make a new highest_id' do
     merchants_path = './data/merchants.csv'
     merchant_repository = MerchantRepository.new(merchants_path)
-    expect(merchant_repository.find_by_id(12337412)).to eq(nil)
-    merchant_repository.create({:id => 12337412, :name => "Lil_Shop"})
-    expect(merchant_repository.find_by_id(12337412)).not_to eq(nil)
-    expect(merchant_repository.all.last.id).to eq(12337412)
+
+    expect(merchant_repository.new_highest_id).to eq "12337412"
   end
+
+  it 'can make a new transaction' do
+    merchants_path = './data/merchants.csv'
+    merchant_repository = MerchantRepository.new(merchants_path)
+
+    expect(merchant_repository.new_highest_id).to eq "12337412"
+
+    merchant_repository.create({
+      id: merchant_repository.new_highest_id,
+      invoice_id: "111",
+      credit_card_number: "1111111111111111",
+      credit_card_expiration_date: "1111",
+      result: "success",
+      created_at: "now",
+      updated_at: "just a moment ago"
+      })
+
+      expect(merchant_repository.new_highest_id).to eq "12337413"
+      expect(merchant_repository.find_by_id(4986)).not_to eq([])
+  end
+
+  # it 'can create a merchant with given attributes' do
+  #   merchants_path = './data/merchants.csv'
+  #   merchant_repository = MerchantRepository.new(merchants_path)
+  #   expect(merchant_repository.find_by_id(12337412)).to eq(nil)
+  #   merchant_repository.create({:id => 12337412, :name => "Lil_Shop"})
+  #   expect(merchant_repository.find_by_id(12337412)).not_to eq(nil)
+  #   expect(merchant_repository.all.last.id).to eq(12337412)
+  # end
 
   it 'can update merchant attributes using ID' do
     merchants_path = './data/merchants.csv'
