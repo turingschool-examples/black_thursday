@@ -207,7 +207,7 @@ class SalesAnalyst
 
   def matching_transactions(invoice_id)
     transactions.find_all do |transaction|
-      transaction.invoice_id == invoice_id && transaction.result == "success"
+      transaction.invoice_id == invoice_id && transaction.result == 'success'
     end
   end
 
