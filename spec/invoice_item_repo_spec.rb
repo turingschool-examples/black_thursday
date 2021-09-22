@@ -61,6 +61,33 @@ RSpec.describe do
     expect(invoice_items_repository.find_all_by_invoice_id(99898013042)).to eq([])
   end
 
+  it 'can make a new highest id' do
+    invoice_items_path = './data/invoice_items.csv'
+    invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
+
+    expect(invoice_items_repository.new_highest_id).to eq("21831")
+  end
+
+  it 'can create a new invoice item with given attributes' do
+    invoice_items_path = './data/invoice_items.csv'
+    invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
+
+    expect(invoice_items_repository.find_by_id(21831)).to eq nil
+    invoice_items_repository.create({
+            id: invoice_items_repository.new_highest_id,
+            item_id: "263519844",
+            invoice_id: "8",
+            quantity: "111",
+            unit_price: "1234",
+            created_at: "2014-02-13",
+            updated_at: "2016-01-06"
+            })
+
+    expect(invoice_items_repository.find_by_id(21831)).not_to eq nil
+    expect(invoice_items_repository.new_highest_id).to eq(21832)
+  end
+
+
   xit 'can create attributes' do
     invoice_items_path = './data/invoice_items.csv'
     invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
