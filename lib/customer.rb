@@ -1,4 +1,4 @@
-require 'Time'
+# require 'Time'
 
 class Customer
   attr_reader :id,
