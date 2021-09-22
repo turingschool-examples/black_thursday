@@ -165,6 +165,10 @@ describe SalesAnalyst do
     expect(@sa.most_sold_item_for_merchant(12334105)[0]).to eq(expected)
   end
 
+  it "#invoice_items_by_revenue" do
+    expect(@sa.invoice_items_by_revenue(12334105)).to be_a(Hash)
+  end
+
   it '#best_item_for_merchant' do
     expected = @sa.items.find_by_id(263396209)
     expect(@sa.best_item_for_merchant(12334105)).to eq(expected)
