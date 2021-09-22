@@ -202,7 +202,7 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     total_revenue = 0.0
     @invoices.all.each do |invoice|
-      if invoice.created_at.strftime("%F") == date.strftime("%F")
+      if invoice.created_at.strftime('%F') == date.strftime('%F')
         total_revenue += invoice_total(invoice.id)
       end
     end
@@ -337,7 +337,7 @@ class SalesAnalyst
         invoice_item_array = @invoice_items.find_all_by_invoice_id(invoice_id)
       end
       invoice_item_array.each_with_object({}) do |invoice_item|
-        
+
       end
     end
 end
