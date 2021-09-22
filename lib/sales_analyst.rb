@@ -218,9 +218,6 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    # get all successful transactions on date
-    # get all invoice_items with matching invoice_id
-    # sum quantity times price
     invoice_ids = []
     sum_bucket = 0
     transactions.each do |transaction|
@@ -266,6 +263,49 @@ class SalesAnalyst
       end
     end
     BigDecimal(total_rev.to_f / 100.0, 2)
-    require 'pry'; binding.pry
+  end
+  
+  def merchants_with_only_one_item
+    one_item = []
+    items_by_merchant.map do |merchant, items|
+      if items.length == 1
+         one_item << merchant
+      end
+    end
+    one_item
+  end
+
+  def top_revenue_earners(number_of_merchants = 20)
+    total_revenue_generation
+
+    merch_by_revenue = merchants.sort_by(&:total_revenue)
+
+    merch_by_revenue.compact.reverse[0..(number_of_merchants - 1)]
+  end
+
+  # assigns the total revenue earned for each merchant to them
+  def total_revenue_generation
+    items_by_merchant.each do |merchant, items|
+      total_revenue = 0
+      items.each do |item|
+        invoice_items.each do |invoice_item|
+          if invoice_item.item_id == item.id
+            total_revenue += invoice_item.quantity * invoice_item.unit_price
+          end
+        end
+      end
+      merchant.total_revenue = total_revenue
+    end
+  end
+
+  # helper method for merchant related methods
+  def items_by_merchant
+    items_by_merchant = {}
+    merchants.each do |merchant|
+      items_by_merchant[merchant] = items.map do |item|
+        item if item.merchant_id == merchant.id
+      end.compact
+    end
+    items_by_merchant
   end
 end

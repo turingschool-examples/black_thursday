@@ -259,6 +259,25 @@ describe SalesAnalyst do
     end
   end
 
+  describe '#merchants_with_only_one_item' do
+    it 'can return all merchants with only one item' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.merchants_with_only_one_item).to be_an(Array)
+      expect(sales_analyst.merchants_with_only_one_item.first).to be_a(Merchant)
+      expect(sales_analyst.merchants_with_only_one_item.last).to be_a(Merchant)
+    end
+  end
+
+
   describe '#invoice_total' do
     it 'returns the total $ amount of the invoice with given id' do
       se = SalesEngine.new(
@@ -320,6 +339,26 @@ describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.revenue_by_merchant(12334112)).to be_a(BigDecimal)
+    end
+  end
+  
+  describe '#top_revenue_earners' do
+    it 'returns top 20 merchants if no argument is given' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      mr = se.merchants
+
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.top_revenue_earners.length).to eq(20)
+      expect(sales_analyst.top_revenue_earners).to include(mr.all[453])
+      expect(sales_analyst.top_revenue_earners(64).length).to eq(64)
     end
   end
 end
