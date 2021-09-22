@@ -161,4 +161,10 @@ RSpec.describe SalesAnalyst do
     expect(expected1).to be_a(BigDecimal)
     expect(expected2).to be_a(BigDecimal)
   end
+
+  it '#top_revenue_earners' do
+    expected = @sales_analyst.top_revenue_earners(5)
+
+    expect(expected).to eq([])
+  end
 end

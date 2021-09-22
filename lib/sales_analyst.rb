@@ -195,4 +195,25 @@ class SalesAnalyst
       invoice_total(invoice)
     end
   end
+
+  def top_revenue_earners_helper
+    merchant_invoices = Hash.new
+    top_revenue_earners_helper.each do |invoices|
+      invoices.each do |invoice|
+        if hash[invoice.merchant_id].nil?
+          hash[invoice.merchant_id] = [invoice.id]
+        else hash[invoice.merchant_id] << invoice.id
+        end
+      end
+    end
+    merchant_invoices
+  end
+
+  def top_revenue_earners(x)
+  end
+
+  # def invoices_per_merchant
+  #   @merchants.all.map do |merchant|
+  #     @invoices.find_all_by_merchant_id(merchant.id).length
+  #   end
 end
