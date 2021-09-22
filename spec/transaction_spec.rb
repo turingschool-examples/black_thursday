@@ -1,4 +1,3 @@
-require 'pry'
 require './lib/transaction'
 
 RSpec.describe do

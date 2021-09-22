@@ -1,18 +1,4 @@
-require './lib/sales_analyst'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/invoice_repository'
-require './lib/invoice_item_repo'
-require './lib/transaction_repository'
-require './lib/customer_repository'
-require './lib/item'
-require './lib/merchant'
-require './lib/invoice'
-require './lib/invoiceitem'
-require './lib/transaction'
-require './lib/customer'
-require 'csv'
-require 'pry'
+require_relative './spec_helper'
 
 class SalesEngine
   attr_reader :items,

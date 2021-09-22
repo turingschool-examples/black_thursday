@@ -1,4 +1,3 @@
-require 'pry'
 require './lib/invoice'
 
 RSpec.describe do
@@ -24,7 +23,7 @@ RSpec.describe do
       :created_at  => Time.now,
       :updated_at  => Time.now,
     })
-    
+
     expect(i.id).to eq(6)
     expect(i.customer_id).to eq(7)
     expect(i.merchant_id).to eq(8)

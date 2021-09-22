@@ -1,5 +1,4 @@
 require './lib/sales_analyst'
-require 'csv'
 
 RSpec.describe SalesAnalyst do
 

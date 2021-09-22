@@ -1,6 +1,4 @@
-require 'csv'
-require './lib/sales_engine'
-require './lib/item'
+require_relative './sales_engine'
 
 class ItemRepository
   attr_reader :all

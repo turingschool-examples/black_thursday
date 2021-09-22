@@ -1,7 +1,4 @@
-
 require './lib/item_repository'
-require './lib/item'
-require 'pry'
 
 RSpec.describe ItemRepository do
   it "exists" do
@@ -75,5 +72,4 @@ RSpec.describe ItemRepository do
     expect(item_repository.find_all_by_merchant_id(example_item.merchant_id).count).to eq(9)
     expect(item_repository.find_all_by_merchant_id(00000000)).to eq([])
   end
-
-  #Need to add back the test for remaining methods
+end

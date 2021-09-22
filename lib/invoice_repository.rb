@@ -1,6 +1,4 @@
-require 'csv'
-require './lib/sales_engine'
-require './lib/invoice'
+require_relative './sales_engine'
 
 class InvoiceRepository
   attr_reader :all

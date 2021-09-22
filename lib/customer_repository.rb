@@ -1,6 +1,4 @@
-require 'csv'
-require './lib/sales_engine'
-require './lib/customer'
+require_relative './sales_engine'
 
 class CustomerRepository
   attr_reader :all
