@@ -16,7 +16,7 @@ class SalesAnalyst
     @inr = invoices
     @inv_items = invoice_items
     @tran = transactions
-    
+
   end
 
   def average_items_per_merchant
@@ -31,14 +31,14 @@ class SalesAnalyst
     item_set.map do |item|
       num += ((item - average_items_per_merchant)**2)
     end
-    sd = (num / (mr.all.count - 1))
+    sd = (num / (@mr.all.count - 1))
     Math.sqrt(sd).round(2)
   end
 
   def merchants_with_high_item_count
     aipm = average_items_per_merchant
     aipmsd = average_items_per_merchant_standard_deviation
-    item_set = mr.all.map do |merchant|
+    item_set = @mr.all.map do |merchant|
       @ir.find_all_by_merchant_id(merchant.id)
     end
     high_items = item_set.find_all do |ipm|
@@ -56,7 +56,7 @@ class SalesAnalyst
     merchant_items.each do |item|
       total_price += item.unit_price.to_f
     end
-    (total_price / merchant_items.count).to_d
+    (total_price / merchant_items.count).to_d.round(2)
   end
 
   def average_average_price_per_merchant
@@ -66,7 +66,7 @@ class SalesAnalyst
     pun = sum.sum do |num|
       num
     end
-    (pun / @mr.all.count).to_d
+    (pun / @mr.all.count).to_d.round(2)
   end
 
   def golden_items
