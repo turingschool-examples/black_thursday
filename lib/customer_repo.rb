@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'csv'
 require_relative '../lib/customer'
 require_relative '../lib/repoable'
