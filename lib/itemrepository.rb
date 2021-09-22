@@ -1,5 +1,7 @@
 require 'csv'
 require_relative 'item'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 class ItemRepository
   attr_reader    :all
@@ -49,9 +51,8 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-
     result = @all.find_all do |item|
-      item.unit_price.between?(range)
+      range.include?(item.unit_price.to_f)
     end
     result
   end
@@ -64,14 +65,16 @@ class ItemRepository
   end
 
   def create(attributes)
+    attributes.to_a
     id_max = @all.max_by {|item| item.id}
     attributes[:id] = id_max.id + 1
-    new = Item.new(attributes)
-    @all.push(new)
+    new_biz = [attributes[:id], attributes[:name], attributes[:description], attributes[:unit_price].to_f, attributes[:merchant_id], attributes[:created_at], attributes[:updated_at]]
+    CSV.open("./data/items.csv", "a+") do |csv|
+      csv << new_biz
+    end
   end
 
   def update(id, attributes)
-
       updated_item = self.find_by_id(id)
       updated_item.name = attributes[:name]
       updated_item.description = attributes[:description]

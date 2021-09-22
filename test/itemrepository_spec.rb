@@ -190,26 +190,14 @@ RSpec.describe ItemRepository do
 
       ir = se.items
 
-      item1 = ir.find_by_name("Disney scrabble frames")
-
-      i = Item.new({
-        :id          => 263395721,
-        :name        => "Disney scrabble frames",
-        :description => item1.description,
-        :unit_price  => BigDecimal(1350,4),
-        :created_at  => "2016-01-11 11:51:37 UTC",
-        :updated_at  => "2008-04-02 13:48:57 UTC",
-        :merchant_id => 12334185
-        })
-
         attributes = {
-                      :id           => 6,
-                      :name         => "Bike",
-                      :description  => "You can use it to go fast",
-                      :unit_price   => BigDecimal(400.99, 5),
-                      :created_at   => Time.now,
-                      :updated_at   => Time.now,
-                      :merchant_id  => 10
+
+                      name:         "Unicycle",
+                      description:  "You can use it to go fast",
+                      unit_price:   BigDecimal(400.99, 5),
+                      created_at:   Time.now,
+                      updated_at:   Time.now,
+                      merchant_id:  12
 
                       }
 
