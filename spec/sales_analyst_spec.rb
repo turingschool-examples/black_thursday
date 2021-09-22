@@ -294,4 +294,24 @@ describe SalesAnalyst do
       expect(sales_analyst.invoice_total(46)).to eq(1973.36)
     end
   end
+
+  describe '#top_revenue_earners' do
+    it 'returns top 20 merchants if no argument is given' do
+      se = SalesEngine.from_csv(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      mr = se.merchants
+
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.top_revenue_earners.length).to eq(20)
+      expect(sales_analyst.top_revenue_earners).to include(mr.all[453])
+      expect(sales_analyst.top_revenue_earners(64).length).to eq(64)
+    end
+  end
 end
