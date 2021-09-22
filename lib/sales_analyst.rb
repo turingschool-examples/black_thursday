@@ -1,5 +1,6 @@
 require_relative 'sales_engine'
 
+
 class SalesAnalyst
 
   def initialize(items, merchants, invoices, invoice_items, transactions)
@@ -176,15 +177,15 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     x = @inv_items.find_all_by_invoice_id(invoice_id).map {|item| item.unit_price * item.quantity}.sum
-    
+
   end
 
   def total_revenue_by_date(date)
 
-    date_f = Date.parse(date)
+    date_f = Date.parse(date.to_s)
     invoices_on_day = @inv_items.all.find_all do |invoice|
 
-      date_g = Date.parse(invoice.created_at)
+      date_g = Date.parse(invoice.created_at.to_s)
       date_g == date_f
     end
     invoices_on_day.map {|invoice| invoice.unit_price}.sum
@@ -199,7 +200,7 @@ class SalesAnalyst
     c =  invoices.map do |invoice|
         # if invoice_paid_in_full?(invoice.id)
         t = @inv_items.find_all_by_invoice_id(invoice.id).map do |inv_item|
-           inv_item.unit_price
+           inv_item.unit_price * inv_item.quantity
          end.sum
         # else
         #   0
