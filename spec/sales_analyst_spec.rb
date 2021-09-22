@@ -133,4 +133,11 @@ RSpec.describe SalesAnalyst do
     expect(expected3).to eq(false)
     expect(expected4).to eq(false)
   end
+
+  it '#invoice_total' do
+    expected = @sales_analyst.invoice_total(1)
+
+    expect(expected).to eq 21067.77
+    expect(expected.class).to eq BigDecimal
+  end
 end
