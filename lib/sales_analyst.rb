@@ -216,6 +216,27 @@ class SalesAnalyst
       invoice_item.invoice_id == invoice_id
     end
   end
+
+  def merchants_with_only_one_item
+    one_item = []
+    items_by_merchant.map do |merchant, items|
+      if items.length == 1
+         one_item << merchant
+      end
+    end
+    one_item
+  end
+
+  def items_by_merchant
+    items_by_merchant = {}
+    merchants.each do |merchant|
+      items_by_merchant[merchant] = items.map do |item|
+        item if item.merchant_id == merchant.id
+      end.compact
+    end
+    items_by_merchant
+  end
+
 end
 
 # find transaction with invoice id and make sure it was a success
