@@ -173,4 +173,21 @@ describe SalesAnalyst do
     expected = @sa.items.find_by_id(263396209)
     expect(@sa.best_item_for_merchant(12334105)).to eq(expected)
   end
+
+  it "#top_buyers" do
+    expected = @sa.top_buyers(5)
+
+    expect(expected.length).to eq 5
+    expect(expected.first.id).to eq 313
+    expect(expected.last.id).to eq 478
+
+    expected.each { |c| expect(c.class).to eq Customer }
+  end
+
+  xit "#top_merchant_for_customer" do
+    expected = sales_analyst.top_merchant_for_customer(100)
+
+    expect(expected.class).to eq Merchant
+    expect(expected.id).to eq 12336753
+  end
 end

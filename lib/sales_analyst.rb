@@ -316,4 +316,28 @@ class SalesAnalyst
       end
       @items.find_by_id(invoice_array[0][0])
     end
+
+    def top_buyers(num = 20)
+      customer_total_purchase_hash = Hash.new(0)
+      @invoices.all.each do |invoice|
+        customer_total_purchase_hash[invoice.customer_id]  += invoice_total(invoice.id)
+      end
+      array = customer_total_purchase_hash.sort_by do |merchant_id, total|
+        - total
+      end
+      array.first(num).map do |customer_id_array|
+        @customers.find_by_id(customer_id_array[0])
+      end
+    end
+
+    def top_merchant_for_customer(customer_id)
+      invoice_array = @invoices.find_all_by_customer_id(customer_id)
+      invoice_item_array = []
+      invoice_array.each do |invoice|
+        invoice_item_array = @invoice_items.find_all_by_invoice_id(invoice_id)
+      end
+      invoice_item_array.each_with_object({}) do |invoice_item|
+        
+      end
+    end
 end
