@@ -1,6 +1,7 @@
 require 'time'
 
 class SalesAnalyst
+  attr_reader :items
 
   def initialize(items, merchants, customers, invoices, invoice_items, transactions)
     @items              = items
@@ -262,6 +263,57 @@ class SalesAnalyst
         if invoice_paid_in_full?(invoice.id) == false
           @merchants.find_by_id(invoice.merchant_id)
         end
-      end.uniq
+      end.uniq.compact
   end
+
+    def invoice_items_for_merchant(merchant_id)
+      items_for_merchant = @items.find_all_by_merchant_id(merchant_id)
+
+      items_for_merchant.map do |item|
+        @invoice_items.find_all_by_item_id(item.id)
+      end.flatten
+    end
+
+    def invoice_items_by_quantity(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_by_quantity|
+        if items_by_quantity[invoice_item.item_id]
+          items_by_quantity[invoice_item.item_id] += invoice_item.quantity
+        else
+          items_by_quantity[invoice_item.item_id] = invoice_item.quantity
+        end
+      end
+    end
+
+    def most_sold_item_for_merchant(merchant_id)
+      invoice_array = invoice_items_by_quantity(merchant_id).sort_by do |item_id, quantity|
+        - quantity
+      end
+
+      if invoice_array[0][1] != invoice_array[1][1]
+        [@items.find_by_id(invoice_array[0][0])]
+      else
+        invoice_array.map do |array|
+          if invoice_array[0][1] == array[1]
+            @items.find_by_id(array[0])
+          end
+        end
+      end
+    end
+
+    def invoice_items_by_revenue(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_by_revenue|
+        if items_by_revenue[invoice_item.item_id]
+          items_by_revenue[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+        else
+          items_by_revenue[invoice_item.item_id] = (invoice_item.quantity * invoice_item.unit_price)
+        end
+      end
+    end
+
+    def best_item_for_merchant(merchant_id)
+      invoice_array = invoice_items_by_revenue(merchant_id).sort_by do |item_id, revenue|
+        - revenue
+      end
+      @items.find_by_id(invoice_array[0][0])
+    end
 end
