@@ -198,7 +198,7 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     total_of_invoice = 0
     matching_transactions(invoice_id).each do |transaction|
-      matching_invoices(invoice_id).each do |invoice|
+      matching_invoices(transaction.invoice_id).each do |invoice|
         total_of_invoice += invoice.quantity * invoice.unit_price
       end
     end
