@@ -40,7 +40,6 @@ class ItemRepository
 
   def create(attributes)
     id = find_highest_id + 1
-    # current_time = Time.now.utc
     info = {
       id: id.to_s,
       name: attributes[:name],
