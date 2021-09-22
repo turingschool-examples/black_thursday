@@ -51,6 +51,19 @@ class InvoiceItemRepository
       []
     end
   end
+
+  def new_highest_id
+      last = @all.last
+      new_high = last.id.to_i
+      new_high += 1
+      new_high.to_s
+      # require "pry"; binding.pry
+  end
+
+  def create(attributes)
+    iinew = InvoiceItemRepository.new(attributes)
+    @all << iinew
+  end
 end
 
 
