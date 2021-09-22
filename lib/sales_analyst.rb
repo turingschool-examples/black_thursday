@@ -211,11 +211,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    average_invoices_per_day = (
-      days_by_invoice_hash.values.sum / days_by_invoice_hash.values.count.to_f)
+      days_by_invoice_hash.values.sum / days_by_invoice_hash.values.count.to_f
   end
 
-  #helper method
   def average_invoices_per_day_standard_deviation
     sum = 0
     aipd = average_invoices_per_day
