@@ -1,5 +1,7 @@
 class InvoiceItemRepository
 
+  attr_reader :all
+
   def initialize(invoice_items_path)
     @all = (
       invoice_items_objects = []
