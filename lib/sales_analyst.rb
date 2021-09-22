@@ -299,4 +299,21 @@ class SalesAnalyst
         end
       end
     end
+
+    def invoice_items_grouped_by_revenue(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_grouped_by_revenue|
+        if items_grouped_by_revenue[invoice_item.item_id]
+          items_grouped_by_revenue[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+        else
+          items_grouped_by_revenue[invoice_item.item_id] = (invoice_item.quantity * invoice_item.unit_price)
+        end
+      end
+    end
+
+    def best_item_for_merchant(merchant_id)
+      invoice_array = invoice_items_grouped_by_revenue(merchant_id).sort_by do |item_id, revenue|
+        - revenue
+      end
+      @items.find_by_id(invoice_array[0][0])
+    end
 end
