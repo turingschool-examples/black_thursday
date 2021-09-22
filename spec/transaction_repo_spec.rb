@@ -91,10 +91,24 @@ describe TransactionRepo do
             }
     @tr.create(info)
 
-
     expect(@tr.find_by_id(4986)).to be_a(Transaction)
     @tr.delete(4986)
     expect(@tr.find_by_id(4986)).to eq nil
   end
 
+  it '#find_all_by_credit_card_number' do
+    expect(@tr.find_all_by_credit_card_number('4068631943231473').length).to eq 1
+    expect(@tr.find_all_by_credit_card_number('4068631943231473')).to be_a Array
+    expect(@tr.find_all_by_credit_card_number('4068631943231473')[0]).to be_a Transaction
+  end
+
+  it '#find_all_by_result' do
+    expect(@tr.find_all_by_result(:success).length).to eq 4158
+    expect(@tr.find_all_by_result(:success)).to be_a Array
+    expect(@tr.find_all_by_result(:success)[0]).to be_a Transaction
+    
+    expect(@tr.find_all_by_result(:failed).length).to eq 827
+    expect(@tr.find_all_by_result(:failed)).to be_a Array
+    expect(@tr.find_all_by_result(:failed)[0]).to be_a Transaction
+  end
 end

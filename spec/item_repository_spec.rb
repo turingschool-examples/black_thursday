@@ -96,6 +96,14 @@ describe ItemRepository do
     @ir.update(263567475, attributes)
 
     expect(@ir.find_by_id(263567475).name).to eq('desktop')
+
+    attributes_2 = {description: 'test', unit_price: 5000}
+
+    @ir.update(263567475, attributes_2)
+
+    expect(@ir.find_by_id(263567475).name).to eq('desktop')
+    expect(@ir.find_by_id(263567475).description).to eq 'test'
+    expect(@ir.find_by_id(263567475).unit_price).to eq 5000
   end
 
   it '#delete' do

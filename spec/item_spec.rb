@@ -51,4 +51,19 @@ describe Item do
   it '#unit_price_to_dollars' do
     expect(@i.unit_price_to_dollars).to eq 0.1099
   end
+
+  it '#change_name' do
+    @i.change_name('pen')
+    expect(@i.name).to eq 'pen'
+  end
+  
+  it '#change_description' do
+    @i.change_description('test')
+    expect(@i.description).to eq 'test'
+  end
+
+  it '#change_unit_price' do
+    @i.change_unit_price(50)
+    expect(@i.unit_price).to eq 50
+  end
 end
