@@ -2,6 +2,7 @@
 require 'time'
 
 class SalesAnalyst
+  attr_reader :items
 
   def initialize(items, merchants, customers, invoices, invoice_items, transactions)
     @items              = items
@@ -263,6 +264,81 @@ class SalesAnalyst
         if invoice_paid_in_full?(invoice.id) == false
           @merchants.find_by_id(invoice.merchant_id)
         end
-      end.uniq
+      end.uniq.compact
   end
+
+    def invoice_items_for_merchant(merchant_id)
+      items_for_merchant = @items.find_all_by_merchant_id(merchant_id)
+
+      items_for_merchant.map do |item|
+        @invoice_items.find_all_by_item_id(item.id)
+      end.flatten
+    end
+
+    def invoice_items_by_quantity(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_by_quantity|
+        if items_by_quantity[invoice_item.item_id]
+          items_by_quantity[invoice_item.item_id] += invoice_item.quantity
+        else
+          items_by_quantity[invoice_item.item_id] = invoice_item.quantity
+        end
+      end
+    end
+
+    def most_sold_item_for_merchant(merchant_id)
+      invoice_array = invoice_items_by_quantity(merchant_id).sort_by do |item_id, quantity|
+        - quantity
+      end
+
+      if invoice_array[0][1] != invoice_array[1][1]
+        [@items.find_by_id(invoice_array[0][0])]
+      else
+        invoice_array.map do |array|
+          if invoice_array[0][1] == array[1]
+            @items.find_by_id(array[0])
+          end
+        end
+      end
+    end
+
+    def invoice_items_by_revenue(merchant_id)
+      invoice_items_for_merchant(merchant_id).each_with_object({}) do |invoice_item, items_by_revenue|
+        if items_by_revenue[invoice_item.item_id]
+          items_by_revenue[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+        else
+          items_by_revenue[invoice_item.item_id] = (invoice_item.quantity * invoice_item.unit_price)
+        end
+      end
+    end
+
+    def best_item_for_merchant(merchant_id)
+      invoice_array = invoice_items_by_revenue(merchant_id).sort_by do |item_id, revenue|
+        - revenue
+      end
+      @items.find_by_id(invoice_array[0][0])
+    end
+
+    def top_buyers(num = 20)
+      customer_total_purchase_hash = Hash.new(0)
+      @invoices.all.each do |invoice|
+        customer_total_purchase_hash[invoice.customer_id]  += invoice_total(invoice.id)
+      end
+      array = customer_total_purchase_hash.sort_by do |merchant_id, total|
+        - total
+      end
+      array.first(num).map do |customer_id_array|
+        @customers.find_by_id(customer_id_array[0])
+      end
+    end
+
+    def top_merchant_for_customer(customer_id)
+      invoice_array = @invoices.find_all_by_customer_id(customer_id)
+      invoice_item_array = []
+      invoice_array.each do |invoice|
+        invoice_item_array = @invoice_items.find_all_by_invoice_id(invoice_id)
+      end
+      invoice_item_array.each_with_object({}) do |invoice_item|
+        
+      end
+    end
 end
