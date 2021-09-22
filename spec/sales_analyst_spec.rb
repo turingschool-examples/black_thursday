@@ -4,7 +4,7 @@ require 'csv'
 RSpec.describe SalesAnalyst do
 
   it 'exists' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -17,7 +17,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'average_items_per_merchant' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -30,7 +30,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'average_items_per_merchant_standard_deviation' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -43,7 +43,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'merchants_with_high_item_count' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -56,7 +56,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'average_item_price_for_merchant given a merchant id' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -69,7 +69,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'average_average_price_per_merchant' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -82,7 +82,7 @@ RSpec.describe SalesAnalyst do
   end
 
 it 'golden_items' do
-  sales_engine = SalesEngine.new({
+  sales_engine = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     :invoices => "./data/invoices.csv",
@@ -95,7 +95,7 @@ it 'golden_items' do
   end
 
   it 'average_invoices_per_merchant' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -108,7 +108,7 @@ it 'golden_items' do
   end
 
   it 'average_invoices_per_merchant_standard_deviation' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -121,7 +121,7 @@ it 'golden_items' do
   end
 
   it 'top_merchants_by_invoice_count' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -134,7 +134,7 @@ it 'golden_items' do
   end
 
   it 'bottom_merchants_by_invoice_count' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -147,7 +147,7 @@ it 'golden_items' do
   end
 
   it 'top_days_by_invoice_count' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -160,7 +160,7 @@ it 'golden_items' do
   end
 
   it 'invoice_status by percentage' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -175,7 +175,7 @@ it 'golden_items' do
   end
 
   it 'invoice_paid_in_full?' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
@@ -189,7 +189,7 @@ it 'golden_items' do
   end
 
   it 'returns the total $ amount of an invoice' do
-    sales_engine = SalesEngine.new({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
