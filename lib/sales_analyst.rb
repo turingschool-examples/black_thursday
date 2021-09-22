@@ -36,7 +36,6 @@ class SalesAnalyst
     (@analyst_items.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
 
-  #helper method
   def store_hashes
     store_hashes = []
     stores_items = []
@@ -108,7 +107,6 @@ class SalesAnalyst
     (esa.sum.to_f / esa.count).round(2)
   end
 
-  #helper method
   def all_item_prices
     all_item_prices = []
     @analyst_items.all.each do |item|
@@ -117,12 +115,10 @@ class SalesAnalyst
     all_item_prices
   end
 
-  #helper method
   def average_item_price
     all_item_prices.sum.to_f / all_item_prices.count
   end
 
-  #helper method
   def standard_deviation_of_all_item_prices
     sum = 0
     aip = average_item_price
@@ -147,7 +143,6 @@ class SalesAnalyst
     (@analyst_invoices.all.count.to_f / @analyst_merchants.all.count.to_f).round(2)
   end
 
-  #helper method
   def invoice_hashes
     invoice_hashes = []
     @analyst_merchants.all.each do |merchant|
@@ -199,7 +194,6 @@ class SalesAnalyst
     mwlic
   end
 
-  #helper method
   def days_by_invoice_hash
     by_days = []
     @analyst_invoices.all.each do |invoice|
@@ -216,7 +210,6 @@ class SalesAnalyst
     h
   end
 
-  #helper method
   def average_invoices_per_day
     average_invoices_per_day = (
       days_by_invoice_hash.values.sum / days_by_invoice_hash.values.count.to_f)
@@ -254,7 +247,6 @@ class SalesAnalyst
     all_invoice_statuses
   end
 
-  #helper method
   def invoice_status_hasher
     ais = all_invoice_statuses
     possible_statuses = ["pending", "shipped", "returned"]
@@ -288,7 +280,7 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     ita = []
-    @analyst_invoice_items.find_all_by_invoice_id(invoice_id).each do |init|
+    @analyst_invoice_items.find_all_by_invoice_id(invoice_id.to_s).each do |init|
       ita << init
     end
     totals = []
