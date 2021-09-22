@@ -18,7 +18,7 @@ require_relative 'customer'
 
 class SalesEngine
 
-  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers, :analyst
 
   def initialize(data)
     @items     = ItemRepository.new(data[:items], self)
