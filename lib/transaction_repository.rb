@@ -65,6 +65,8 @@ class TransactionRepository
     new_high.to_s
   end
 
-  def create(attribute)
+  def create(attributes)
+      new_transaction = Transaction.new(attributes)
+      @all << new_transaction
   end
 end
