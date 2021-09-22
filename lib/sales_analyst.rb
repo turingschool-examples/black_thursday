@@ -217,6 +217,16 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_only_one_item
+    one_item = []
+    items_by_merchant.map do |merchant, items|
+      if items.length == 1
+         one_item << merchant
+      end
+    end
+    one_item
+  end
+
   def top_revenue_earners(number_of_merchants = 20)
     total_revenue_generation
 
@@ -251,9 +261,3 @@ class SalesAnalyst
     items_by_merchant
   end
 end
-
-# use merchant's id to find their items
-# use their items to find corresponding successful invoice_items
-# mutliply their items' value by quantity
-# add all items together
-# compare

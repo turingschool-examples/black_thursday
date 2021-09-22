@@ -259,6 +259,25 @@ describe SalesAnalyst do
     end
   end
 
+  describe '#merchants_with_only_one_item' do
+    it 'can return all merchants with only one item' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv',
+        invoice_items: './data/invoice_items.csv'
+      )
+
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.merchants_with_only_one_item).to be_an(Array)
+      expect(sales_analyst.merchants_with_only_one_item.first).to be_a(Merchant)
+      expect(sales_analyst.merchants_with_only_one_item.last).to be_a(Merchant)
+    end
+  end
+
+
   describe '#invoice_total' do
     it 'returns the total $ amount of the invoice with given id' do
       se = SalesEngine.new(
