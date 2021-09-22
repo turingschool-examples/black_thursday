@@ -9,17 +9,17 @@ describe Invoice do
                       :id          => '6',
                       :customer_id => '7',
                       :merchant_id => '8',
-                      :status      => "pending",
-                      :created_at  => "2009-02-07",
-                      :updated_at  => "2014-03-15",
+                      :status      => 'pending',
+                      :created_at  => '2009-02-07',
+                      :updated_at  => '2014-03-15',
                       })
   end
 
-  it "exists" do
+  it 'exists' do
     expect(@invoice).to be_an_instance_of(Invoice)
   end
 
-  it "attributes" do
+  it 'attributes' do
     expect(@invoice.id).to eq(6)
     expect(@invoice.customer_id).to eq(7)
     expect(@invoice.merchant_id).to eq(8)

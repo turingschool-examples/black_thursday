@@ -80,7 +80,7 @@ describe SalesAnalyst do
 
     expect(days).to be_a Array
     expect(days.empty?).to be false
-    expect(days).to eq ["Wednesday"]
+    expect(days).to eq ['Wednesday']
   end
 
   it '#invoice_status' do
@@ -99,8 +99,8 @@ describe SalesAnalyst do
     expect(@sa.invoice_total(1)).to eq(21067.77)
   end
 
-  it "#total_revenue_by_date" do
-    date = Time.parse("2009-02-07")
+  it '#total_revenue_by_date' do
+    date = Time.parse('2009-02-07')
 
     expect(@sa.total_revenue_by_date(date)).to eq(21067.77)
     expect(@sa.total_revenue_by_date(date).class).to eq(BigDecimal)
@@ -120,18 +120,18 @@ describe SalesAnalyst do
   expect(last.id).to eq 12334159
   end
 
-  it "#merchants_with_only_one_item" do
+  it '#merchants_with_only_one_item' do
     expect(@sa.merchants_with_only_one_item.length).to eq 243
     expect(@sa.merchants_with_only_one_item[0].class).to eq Merchant
   end
 
-  it "#merchants_with_only_one_item_registered_in_month" do
-    expected = @sa.merchants_with_only_one_item_registered_in_month("March")
+  it '#merchants_with_only_one_item_registered_in_month' do
+    expected = @sa.merchants_with_only_one_item_registered_in_month('March')
 
     expect(expected.length).to eq 21
     expect(expected.first.class).to eq Merchant
 
-    expected = @sa.merchants_with_only_one_item_registered_in_month("June")
+    expected = @sa.merchants_with_only_one_item_registered_in_month('June')
 
     expect(expected.length).to eq 18
     expect(expected.first.class).to eq Merchant
@@ -149,12 +149,12 @@ describe SalesAnalyst do
     expect(@sa.merchants_with_pending_invoices.last.class).to eq Merchant
   end
 
-  it "#invoice_items_for_merchant" do
+  it '#invoice_items_for_merchant' do
     expect(@sa.invoice_items_for_merchant(12334105)).to be_an(Array)
     expect(@sa.invoice_items_for_merchant(12334105)[0]).to be_an(InvoiceItem)
   end
 
-  it "#invoice_items_by_quantity" do
+  it '#invoice_items_by_quantity' do
     expect(@sa.invoice_items_by_quantity(12334105)).to be_a(Hash)
   end
 
@@ -166,7 +166,7 @@ describe SalesAnalyst do
     expect(@sa.most_sold_item_for_merchant(12334105)[0]).to eq(expected)
   end
 
-  it "#invoice_items_by_revenue" do
+  it '#invoice_items_by_revenue' do
     expect(@sa.invoice_items_by_revenue(12334105)).to be_a(Hash)
   end
 
@@ -175,7 +175,7 @@ describe SalesAnalyst do
     expect(@sa.best_item_for_merchant(12334105)).to eq(expected)
   end
 
-  it "#top_buyers" do
+  it '#top_buyers' do
     expected = @sa.top_buyers(5)
 
     expect(expected.length).to eq 5
@@ -185,7 +185,7 @@ describe SalesAnalyst do
     expected.each { |c| expect(c.class).to eq Customer }
   end
 
-  xit "#top_merchant_for_customer" do
+  xit '#top_merchant_for_customer' do
     expected = sales_analyst.top_merchant_for_customer(100)
 
     expect(expected.class).to eq Merchant

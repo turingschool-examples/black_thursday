@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'time'
 
 class SalesAnalyst
@@ -202,7 +203,7 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     total_revenue = 0.0
     @invoices.all.each do |invoice|
-      if invoice.created_at.strftime("%F") == date.strftime("%F")
+      if invoice.created_at.strftime('%F') == date.strftime('%F')
         total_revenue += invoice_total(invoice.id)
       end
     end

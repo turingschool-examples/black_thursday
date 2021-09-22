@@ -1,10 +1,11 @@
-require_relative "../lib/item_repository"
-require_relative "../lib/merchant_repo"
-require_relative "../lib/invoice_repo"
-require_relative "../lib/sales_analyst"
-require_relative "../lib/customer_repo"
-require_relative "../lib/invoice_item_repo"
-require_relative "../lib/transaction_repo"
+# frozen_string_literal: true
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repo'
+require_relative '../lib/invoice_repo'
+require_relative '../lib/sales_analyst'
+require_relative '../lib/customer_repo'
+require_relative '../lib/invoice_item_repo'
+require_relative '../lib/transaction_repo'
 
 class SalesEngine
   attr_reader   :items,

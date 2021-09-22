@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'csv'
 require_relative '../lib/merchant'
 require_relative '../lib/repoable'
@@ -25,7 +26,7 @@ class MerchantRepo
 
   def create(attributes)
     id = find_highest_id + 1
-    current_time = Time.now.strftime("%F")
+    current_time = Time.now.strftime('%F')
     attributes = {
       id: id.to_s,
       name: attributes[:name],

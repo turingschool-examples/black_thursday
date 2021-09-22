@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Repoable
 
   def find_by_id(id)
@@ -39,7 +40,7 @@ module Repoable
   end
 
   def inspect
-    "#<#{self.class} #{@all.size} rows>"
+    '#<#{self.class} #{@all.size} rows>'
   end
 
 end
