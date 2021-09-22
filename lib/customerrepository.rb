@@ -20,9 +20,9 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    @all.find_all do |customer|
+    @all.find do |customer|
       customer.id == id
-    end.pop
+    end
   end
 
   def find_all_by_first_name(first_name)
@@ -46,6 +46,8 @@ class CustomerRepository
   def create(attributes)
     id_max = @all.max_by {|customer| customer.id}
     attributes[:id] = id_max.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     new = Customer.new(attributes)
     @all.push(new)
   end
@@ -53,16 +55,24 @@ class CustomerRepository
   def update(id, attributes)
 
       updated_customer = self.find_by_id(id)
-      updated_customer.first_name = attributes[:first_name]
-      updated_customer.last_name = attributes[:last_name]
+    if updated_customer != nil
+      if attributes[:first_name] == nil && attributes[:last_name] == nil
+
+      elsif attributes[:first_name] != nil && attributes[:last_name] == nil
+        updated_customer.first_name = attributes[:first_name]
+
+      elsif attributes[:first_name] == nil && attributes[:last_name] != nil
+        updated_customer.last_name = attributes[:last_name]
+      end
       updated_customer.updated_at = Time.now
-    updated_customer
+    end
+
   end
 
   def delete(id)
-    c_1 = (self.all).find_index(self.find_by_id(id))
-    self.all.delete_at(c_1)
-    self.all
+    @all.delete_if do |row|
+      row.id == id
+    end
   end
 
   def inspect

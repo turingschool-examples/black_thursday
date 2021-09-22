@@ -8,8 +8,8 @@ class InvoiceItem
     @invoice_id   = data[:invoice_id].to_i
     @quantity     = data[:quantity].to_i
     @unit_price   = ((data[:unit_price].to_d) / 100)
-    @created_at   = data[:created_at]
-    @updated_at   = data[:updated_at]
+    @created_at   = Time.parse(data[:created_at])
+    @updated_at   = Time.parse(data[:updated_at])
   end
 
   def unit_price_to_dollars

@@ -19,9 +19,9 @@ class TransactionRepository
   end
 
   def find_by_id(id)
-    @all.find_all do |transaction|
+    @all.find do |transaction|
       transaction.id == id
-    end.pop
+    end
   end
 
   def find_all_by_invoice_id(invoice_id)
@@ -39,12 +39,15 @@ class TransactionRepository
   def find_all_by_result(result)
     @all.find_all do |t|
       t.result == result
+
     end
   end
 
   def create(attributes)
     id_max = @all.max_by {|transaction| transaction.id}
     attributes[:id] = id_max.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     new = Transaction.new(attributes)
     @all.push(new)
   end
@@ -52,18 +55,19 @@ class TransactionRepository
   def update(id, attribute)
 
     updated_transaction = self.find_by_id(id)
+      if updated_transaction != nil
 
-      updated_transaction.credit_card_number = attribute[:credit_card_number]
-      updated_transaction.credit_card_expiration_date = attribute[:credit_card_expiration_date]
-      updated_transaction.result = attribute[:result]
-      updated_transaction.updated_at = attribute[:updated_at]
-    updated_transaction
+        updated_transaction.result = attribute[:result]
+        updated_transaction.updated_at = Time.now
+
+      end
+
   end
 
   def delete(id)
-    x = (self.all).find_index(self.find_by_id(id))
-    self.all.delete_at(x)
-    self.all
+    @all.delete_if do |row|
+      row.id == id
+    end
   end
 
   def inspect

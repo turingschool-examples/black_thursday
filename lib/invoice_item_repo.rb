@@ -40,6 +40,8 @@ class InvoiceItemRepository
   def create(attributes)
     id_max = @all.max_by {|invoiceitem| invoiceitem.id}
     attributes[:id] = id_max.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     new = InvoiceItem.new(attributes)
     @all.push(new)
   end
@@ -47,16 +49,18 @@ class InvoiceItemRepository
   def update(id, attribute)
 
     updated_invoice_item = self.find_by_id(id)
-      updated_invoice_item.quantity = attribute[:quantity]
-      updated_invoice_item.unit_price = attribute[:unit_price]
-      updated_invoice_item.updated_at = attribute[:updated_at]
-    updated_invoice_item
+      if updated_invoice_item != nil
+        updated_invoice_item.quantity = attribute[:quantity]
+        updated_invoice_item.unit_price = attribute[:unit_price]
+        updated_invoice_item.updated_at = Time.now
+      end
+
   end
 
   def delete(id)
-    x = (self.all).find_index(self.find_by_id(id))
-    self.all.delete_at(x)
-    self.all
+    @all.delete_if do |row|
+      row.id == id
+    end
   end
 
   def inspect
