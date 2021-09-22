@@ -243,28 +243,15 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoice_ids = []
-    sum_bucket = 0
-    transactions.each do |transaction|
-      if transaction.created_at.split(' ')[0] == date && transaction.result == 'success'
-          invoice_ids.push(transaction.invoice_id)
-      end
-    end
-    invoice_ids.uniq.each do |id|
-      invoice_items.each do |item|
-        sum_bucket += (item.quantity * item.unit_price) if id = item.invoice_id
-      end
-    end
-    BigDecimal((sum_bucket.to_f)/100.0, 2)
-  end
+    
 
   def merchants_with_pending_invoices
     merchant_array = []
     ids = []
     invoices.each do |invoice|
-      ids.push(invoice.merchant_id) if invoice.status == 'pending'
+      ids.push(invoice.merchant_id) if invoice.status != :success
     end
-    ids.uniq.each do |id|
+    ids.each do |id|
       merchants.each do |merchant|
         merchant_array.push(merchant) if merchant.id == id
       end
@@ -300,11 +287,19 @@ class SalesAnalyst
     one_item
   end
 
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.map do |merchant|
+      merchant if merchant.created_at.strftime('%B') == month
+    end.compact
+  end
+
+
+
+
   def top_revenue_earners(number_of_merchants = 20)
     total_revenue_generation
 
     merch_by_revenue = merchants.sort_by(&:total_revenue)
-
     merch_by_revenue.compact.reverse[0..(number_of_merchants - 1)]
   end
 
@@ -314,7 +309,7 @@ class SalesAnalyst
       total_revenue = 0
       items.each do |item|
         invoice_items.each do |invoice_item|
-          if invoice_item.item_id == item.id
+          if invoice_item.item_id === item.id
             total_revenue += invoice_item.quantity * invoice_item.unit_price
           end
         end
@@ -322,6 +317,16 @@ class SalesAnalyst
       merchant.total_revenue = total_revenue
     end
   end
+
+  # def transaction_is_success?(invoice_item)
+  #   v = transactions.find_all do |transaction|
+  #     transaction.invoice_id == invoice_item.invoice_id
+  #   end
+  #   v2 = v.find do |transaction|
+  #     transaction.result == :failed
+  #   end
+  #   !v2.include?(Transaction)
+  # end
 
   # helper method for merchant related methods
   def items_by_merchant

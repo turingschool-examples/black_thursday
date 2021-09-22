@@ -18,6 +18,8 @@ class MerchantsRepository
       row_headers = row.headers
       merch_hash[row_headers[0].to_sym] = row[0]
       merch_hash[row_headers[1].to_sym] = row[1]
+      merch_hash[row_headers[2].to_sym] = row[2]
+      merch_hash[row_headers[3].to_sym] = row[3]
       merch_array.push(Merchant.new(merch_hash))
     end
     merch_array
