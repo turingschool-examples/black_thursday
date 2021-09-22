@@ -51,11 +51,14 @@ describe InvoiceItemRepository do
 
   describe '#create' do
     it 'it can create a new instance of invoice item' do
-      item_id = 5
-      invoice_id = 5
-      quantity = 5
-      unit_price = BigDecimal(20.99, 4)
-      @iir.create(item_id, invoice_id, quantity, unit_price)
+      attributes = {
+        item_id = 5
+        invoice_id = 5
+        quantity = 5
+        unit_price = BigDecimal(20.99, 4)
+      }
+      @iir.create(attributes)
+
 
       expect(@iir.all.last).to be_a InvoiceItem
       expect(@iir.all.last.quantity).to eq(5)

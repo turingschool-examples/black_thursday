@@ -35,14 +35,14 @@ class InvoiceItemRepository
     all.find_all { |invoice_item| invoice_item.invoice_id.to_i == invoice_id }
   end
 
-  def create(item_id, invoice_id, quantity, unit_price)
+  def create(attributes)
     creation_time = Time.now
     all << InvoiceItem.new(
       id: most_recent_ii.id.to_i + 1,
-      item_id: item_id,
-      invoice_id: invoice_id,
-      quantity: quantity,
-      unit_price: unit_price,
+      item_id: attributes[:item_id],
+      invoice_id: attributes[:invoice_id],
+      quantity: attributes[:quantity],
+      unit_price: attributes[:unit_price],
       created_at: creation_time,
       updated_at: creation_time
     )
@@ -53,7 +53,7 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
-    find_by_id(id).update(attributes[0], attributes[1])
+    find_by_id(id).update(attributes) unless find_by_id(id).nil?
   end
 
   def delete(id)

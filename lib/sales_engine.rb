@@ -12,7 +12,7 @@ class SalesEngine
               :invoices,
               :analyst,
               :transactions,
-              :invoice_item
+              :invoice_items
 
   def initialize(data_hash)
     @items = ItemRepository.new(data_hash[:items])

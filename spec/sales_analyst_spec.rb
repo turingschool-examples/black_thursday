@@ -104,7 +104,7 @@ describe SalesAnalyst do
     end
   end
 
-  describe "#average_average_item_price_for_merchant" do
+  describe "#average_average_price_per_merchant" do
     it 'returns the average price across all merchants' do
       se = SalesEngine.from_csv(
         items: './data/items.csv',
@@ -115,7 +115,7 @@ describe SalesAnalyst do
       )
       sales_analyst = se.analyst
 
-      expect(sales_analyst.average_average_item_price_for_merchant).to be_a(BigDecimal)
+      expect(sales_analyst.average_average_price_per_merchant).to be_a(BigDecimal)
     end
   end
 
