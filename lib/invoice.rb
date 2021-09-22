@@ -2,6 +2,8 @@
 
 # This is an Invoice class for Black Friday
 
+require 'Date'
+
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -11,18 +13,17 @@ class Invoice
               :updated_at
 
   def initialize(new_invoice)
-    @id = new_invoice[:id]
-    @customer_id = new_invoice[:customer_id]
+    @id = new_invoice[:id].to_i
+    @customer_id = new_invoice[:customer_id].to_i
     @merchant_id = new_invoice[:merchant_id].to_i
-    @status = new_invoice[:status]
-    @created_at = new_invoice[:created_at]
-    @updated_at = new_invoice[:updated_at]
+    @status = new_invoice[:status].to_sym
+    @created_at = Time.parse(new_invoice[:created_at])
+    @updated_at = Time.parse(new_invoice[:updated_at])
   end
 
   # look at edge cases for attr input
-  def update(attribute)
-    @status = attribute if attribute.is_a?(String)
+  def update(key, value)
+    @status = value if key == :status
     @updated_at = Time.now
-    self
   end
 end

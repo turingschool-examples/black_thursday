@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'BigDecimal'
+require 'Date'
 #require_relative 'invoice'
 #require_relative 'invoice_repository'
 
@@ -149,34 +150,51 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     result_array = []
-    two_sd = (average_invoices_per_merchant_standard_deviation) * 2
-    @merchants.each do |merchant|
-      if invoices.length > (two_sd)
+    two_sd = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    merchant_invoice_count.each do |merchant, invoices|
+      if invoices > two_sd
         result_array.append(merchant)
       end
     end
+    result_array
   end
 
   def bottom_merchants_by_invoice_count
     result_array = []
-    two_sd = average_invoices_per_merchant_standard_deviation * 2
-    @merchants.each do |merchant|
-      if (invoices.length + two_sd) < average_invoices_per_merchant
+    negative_two_sd = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    merchant_invoice_count.each do |merchant, invoices|
+      if invoices < negative_two_sd
         result_array.append(merchant)
       end
     end
+    result_array
   end
 
   def top_days_by_invoice_count
-    result_array = []
-    invoice_created = @invoices.created_at
-    average_created_at = average_invoices_per_merchant.created_at
-    sd = average_invoices_per_merchant_standard_deviation
-    @merchants.each do |merchant|
-      if invoice_created.length > average_created_at.length + sd
-        result_array.append(merchant)
-      end
+    standard_deviation = days_of_week_hash.sum do |key, value|
+      (value - average_invoices_per_day)**2
     end
+    standard_deviation = (standard_deviation / 6)**0.5
+
+    day_array = days_of_week_hash.map do |key, value|
+      key if value >= (average_invoices_per_day + standard_deviation)
+    end.compact
+  end
+
+  def average_invoices_per_day
+    average = days_of_week_hash.sum do |key, value|
+      value
+    end
+    average = average / 7
+  end
+
+  def days_of_week_hash
+    days_of_week_hash = {}
+    invoices.each do |invoice|
+      days_of_week_hash[invoice.created_at.strftime("%A")] ||= 0
+      days_of_week_hash[invoice.created_at.strftime("%A")] += 1
+    end
+    days_of_week_hash
   end
 
   def invoice_status_count(status)

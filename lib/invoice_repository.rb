@@ -24,18 +24,18 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    all.find { |invoice| invoice.id.to_i == id.to_i }
+    all.find { |invoice| invoice.id == id }
   end
 
   def find_all_by_customer_id(customer_id)
     all.find_all do |invoice|
-      invoice.customer_id.to_i == customer_id.to_i
+      invoice.customer_id == customer_id
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
     all.find_all do |invoice|
-      invoice.merchant_id.to_i == merchant_id.to_i
+      invoice.merchant_id == merchant_id
     end
   end
 
@@ -45,13 +45,13 @@ class InvoiceRepository
     end
   end
 
-  def create(customer_id, merchant_id, status)
-    creation_time = Time.now
+  def create(attributes)
+    creation_time = Time.now.to_s
     all << Invoice.new(
       id: final_invoice.id.to_i + 1,
-      customer_id: customer_id,
-      merchant_id: merchant_id,
-      status: status,
+      customer_id: attributes[:customer_id],
+      merchant_id: attributes[:merchant_id],
+      status: attributes[:status],
       created_at: creation_time,
       updated_at: creation_time
     )
@@ -62,7 +62,9 @@ class InvoiceRepository
   end
 
   def update(id, attribute)
-    find_by_id(id).update(attribute)
+    attribute.each do |key, value|
+      find_by_id(id).update(key, value)
+    end
   end
 
   def delete(id)
