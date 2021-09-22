@@ -1,6 +1,6 @@
-require "Rspec"
-require "bigdecimal"
-require_relative "../lib/item"
+require 'Rspec'
+require 'bigdecimal'
+require_relative '../lib/item'
 
 describe Item do
   before :each do
