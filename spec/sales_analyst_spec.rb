@@ -242,6 +242,21 @@ describe SalesAnalyst do
       expect(sales_analyst.invoice_paid_in_full?(1752)).to be(false)
     end
   end
+
+  describe '#merchants_with_only_one_item' do
+    it 'can return all merchants with only one item' do
+      se = SalesEngine.new(
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        transactions: './data/transactions.csv'
+      )
+
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.merchants_with_only_one_item).to eq(mercant, merchant, merchant)
+    end
+  end 
 end
 
 #   # describe "#top_merchants_by_invoice_count" do
