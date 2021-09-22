@@ -1,6 +1,7 @@
-require 'CSV'
-require 'Rspec'
-require_relative '../lib/transaction_repo'
+require_relative 'spec_helper'
+require "CSV"
+require "Rspec"
+require_relative "../lib/transaction_repo"
 
 describe TransactionRepo do
   before :each do

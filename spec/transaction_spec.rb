@@ -1,5 +1,6 @@
-require 'Rspec'
-require_relative '../lib/transaction'
+require_relative 'spec_helper'
+require "Rspec"
+require_relative "../lib/transaction"
 
 describe Transaction do
   before :each do

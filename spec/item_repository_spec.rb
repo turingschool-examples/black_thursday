@@ -1,5 +1,6 @@
-require 'Rspec'
-require_relative '../lib/item_repository'
+require_relative 'spec_helper'
+require "Rspec"
+require_relative "../lib/item_repository"
 
 describe ItemRepository do
   before :each do

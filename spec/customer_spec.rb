@@ -1,5 +1,6 @@
-require 'Rspec'
-require_relative '../lib/customer'
+require_relative 'spec_helper'
+require "Rspec"
+require_relative "../lib/customer"
 
 describe Customer do
   before :each do

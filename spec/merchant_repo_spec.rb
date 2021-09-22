@@ -1,3 +1,4 @@
+require_relative 'spec_helper'
 require 'rspec'
 require_relative '../lib/merchant_repo'
 
