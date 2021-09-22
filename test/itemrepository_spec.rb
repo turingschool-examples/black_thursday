@@ -133,6 +133,7 @@ RSpec.describe ItemRepository do
         })
       expect(ir.find_all_by_price(BigDecimal(13.50,4)).length).to eq(1)
     end
+
     it "can find by price range" do
       se = SalesEngine.new({ :items      => "./data/items.csv",
                          :merchants      => "./data/merchants.csv",
@@ -154,7 +155,7 @@ RSpec.describe ItemRepository do
         :updated_at  => "2008-04-02 13:48:57 UTC",
         :merchant_id => 12334185
         })
-      expect(ir.find_all_by_price_in_range(13.50, 13.50).length).to eq(1)
+      expect(ir.find_all_by_price_in_range(13.50..13.500).length).to eq(1)
 
     end
     it "can find by merchant_id" do
@@ -215,46 +216,20 @@ RSpec.describe ItemRepository do
                          :transactions   => './data/transactions.csv',
                          :customers      => './data/customers.csv'})
 
-      ir = se.items
+    ir = se.items
 
-      item1 = ir.find_by_name("Disney scrabble frames")
+    attributes = {
+                  :id           => 263567292,
+                  :name         => "Unicycle",
+                  :description  => "You can use it to go fast on one wheel",
+                  :unit_price   => BigDecimal(400.99, 5),
+                  :created_at   => Time.now,
+                  :updated_at   => Time.now,
+                  :merchant_id  => 123456
+                  }
 
-      i = Item.new({
-        :id          => 263395721,
-        :name        => "Disney scrabble frames",
-        :description => item1.description,
-        :unit_price  => BigDecimal(1350,4),
-        :created_at  => "2016-01-11 11:51:37 UTC",
-        :updated_at  => "2008-04-02 13:48:57 UTC",
-        :merchant_id => 12334185
-        })
-
-        attributes = {
-                      :id           => 6,
-                      :name         => "Bike",
-                      :description  => "You can use it to go fast",
-                      :unit_price   => BigDecimal(400.99, 5),
-                      :created_at   => Time.now,
-                      :updated_at   => Time.now,
-                      :merchant_id  => 10
-
-                      }
-
-    results =   {
-      :id           => 263395721,
-      :name         => "Bike",
-      :description  => "You can use it to go fast",
-      :unit_price   => BigDecimal(40099.0, 5),
-      :created_at   => "2016-01-11 11:51:37 UTC",
-      :updated_at   => "2008-04-02 13:48:57 UTC",
-      :merchant_id  => 12334185
-      }
-
-    item_results = Item.new(results)
-    expect((ir.update(263395721, attributes)).name).to eq(item_results.name)
-    expect((ir.update(263395721, attributes)).id).to eq(item_results.id)
-    expect((ir.update(263395721, attributes)).description).to eq(item_results.description)
-    expect((ir.update(263395721, attributes)).unit_price).to eq(item_results.unit_price)
+    ir.update(263567292, attributes)
+    expect(ir.find_by_id(263567292).name).to eq("Unicycle")
   end
 
   it "can delete by id" do
@@ -304,5 +279,4 @@ RSpec.describe ItemRepository do
     item_results = Item.new(results)
     expect(ir.delete(263395721).length).to eq(1366)
     end
-
   end
