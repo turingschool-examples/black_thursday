@@ -49,12 +49,20 @@ class InvoiceItemRepository
   def update(id, attribute)
 
     updated_invoice_item = self.find_by_id(id)
+<<<<<<< HEAD
       if updated_invoice_item != nil
         updated_invoice_item.quantity = attribute[:quantity]
         updated_invoice_item.unit_price = attribute[:unit_price]
         updated_invoice_item.updated_at = Time.now
       end
 
+=======
+    if updated_invoice_item != nil
+      updated_invoice_item.quantity = attribute[:quantity] if attribute[:quantity]
+      updated_invoice_item.unit_price = attribute[:unit_price] if attribute[:unit_price]
+      updated_invoice_item.updated_at = Time.now
+    end
+>>>>>>> bdc7986bcc5a2f66fae06366b867c00e7480b08b
   end
 
   def delete(id)
@@ -65,5 +73,5 @@ class InvoiceItemRepository
 
   def inspect
    "#<#{self.class} #{@invoiceitem.size} rows>"
- end
+  end
 end
