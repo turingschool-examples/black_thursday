@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
-require "Rspec"
-require "bigdecimal"
-require_relative "../lib/invoice_item"
+require 'Rspec'
+require 'bigdecimal'
+require_relative '../lib/invoice_item'
 
 describe InvoiceItem do
   before :each do

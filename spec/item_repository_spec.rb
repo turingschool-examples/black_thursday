@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
-require "Rspec"
-require_relative "../lib/item_repository"
+require 'Rspec'
+require_relative '../lib/item_repository'
 
 describe ItemRepository do
   before :each do
@@ -32,7 +32,7 @@ describe ItemRepository do
   it '#find_by_name' do
     expect(@ir.find_by_name('510+ RealPush IcON SeT')).to be_a Item
     expect(@ir.find_by_name('510+ RealPush IcON SeT').id).to eq 263395237
-    expect(@ir.find_by_name(')).to eq nil
+    expect(@ir.find_by_name('')).to eq nil
   end
 
   it '#find_all_with_description' do

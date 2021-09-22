@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require "Time"
+require 'Time'
 require 'rspec'
 require_relative '../lib/invoice'
 
