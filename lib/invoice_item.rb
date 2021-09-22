@@ -13,7 +13,7 @@ class InvoiceItem
 
   def initialize(invoice_item)
     @id = invoice_item[:id].to_i
-    @item_id = invoice_item[:item_id]
+    @item_id = invoice_item[:item_id].to_i
     @invoice_id = invoice_item[:invoice_id].to_i
     @quantity = invoice_item[:quantity].to_f
     @unit_price = invoice_item[:unit_price].to_f
