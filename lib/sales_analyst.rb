@@ -171,11 +171,12 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @tran.find_all_by_invoice_id(invoice_id).map {|tran| tran.result}.include?("success")
+    @tran.find_all_by_invoice_id(invoice_id).map {|tran| tran.result}.include?(:success)
   end
 
   def invoice_total(invoice_id)
-    @inv_items.find_all_by_invoice_id(invoice_id).map {|item| item.unit_price}.sum
+    x = @inv_items.find_all_by_invoice_id(invoice_id).map {|item| item.unit_price * item.quantity}.sum
+    
   end
 
   def total_revenue_by_date(date)
