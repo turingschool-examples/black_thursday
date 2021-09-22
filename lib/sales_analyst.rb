@@ -12,14 +12,16 @@ class SalesAnalyst
               :merch_item_hash,
               :invoices,
               :invoice_items,
-              :transactions
+              :transactions,
+              :customers
 
-  def initialize(items, merchants, invoices, transactions, invoice_items)
+  def initialize(items, merchants, invoices, transactions, invoice_items, customers)
     @items = items.all
     @merchants = merchants.all
     @invoices = invoices.all
     @transactions = transactions.all
     @invoice_items = invoice_items.all
+    @customers = customers.all
     @merch_item_hash = hash_create
   end
 
@@ -209,7 +211,7 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice_id)
     paid_in_full_status = transactions.select do |transaction|
-      transaction.invoice_id == invoice_id && transaction.result == 'success'
+      transaction.invoice_id == invoice_id && transaction.result == :success
     end
     paid_in_full_status.length >= 1
   end
@@ -222,6 +224,10 @@ class SalesAnalyst
       end
     end
     (total_of_invoice / 100).round(2)
+  end
+
+  def total(invoice_id)
+    invoice_total(invoice_id)
   end
 
   def matching_transactions(invoice_id)

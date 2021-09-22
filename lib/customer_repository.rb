@@ -2,8 +2,14 @@
 
 # This is a CustomerRepository class for Black Thursday
 
+require_relative 'customer'
+
 class CustomerRepository
   attr_reader :all
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
 
   def initialize(customer_data)
     @all = fill_customers(customer_data)
@@ -27,22 +33,22 @@ class CustomerRepository
 
   def find_all_by_first_name(name)
     all.find_all do |customer|
-      customer.first_name == name
+      customer if customer.first_name.downcase.include?(name.downcase)
     end
   end
 
   def find_all_by_last_name(name)
     all.find_all do |customer|
-      customer.last_name == name
+      customer if customer.last_name.downcase.include?(name.downcase)
     end
   end
 
-  def create(first_name, last_name)
-    creation_time = Time.now
+  def create(attributes)
+    creation_time = Time.now.to_s
     all << Customer.new(
       id: most_recent_customer.id.to_i + 1,
-      first_name: first_name,
-      last_name: last_name,
+      first_name: attributes[:first_name],
+      last_name: attributes[:last_name],
       created_at: creation_time,
       updated_at: creation_time
     )
@@ -53,6 +59,10 @@ class CustomerRepository
   end
 
   def update(id, attribute)
-    find_by_id(id).update(attribute)
+    find_by_id(id).update(attribute) unless find_by_id(id).nil?
+  end
+
+  def delete(id)
+    all.delete(find_by_id(id)) unless find_by_id(id).nil?
   end
 end

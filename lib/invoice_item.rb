@@ -2,7 +2,10 @@
 
 # this is the Invoice Item class for Black Thursday
 
+require 'BigDecimal'
+
 class InvoiceItem
+
   attr_reader :id,
               :item_id,
               :invoice_id,
@@ -16,13 +19,9 @@ class InvoiceItem
     @item_id = invoice_item[:item_id].to_i
     @invoice_id = invoice_item[:invoice_id].to_i
     @quantity = invoice_item[:quantity].to_f
-    @unit_price = inv_item_unit_price(invoice_item)
-    @created_at = invoice_item[:created_at]
-    @updated_at = invoice_item[:updated_at]
-  end
-
-  def inv_item_unit_price(invoice_item)
-    (invoice_item[:unit_price].to_f / 100).round(2)
+    @unit_price = BigDecimal(invoice_item[:unit_price].to_i) / 100
+    @created_at = Time.parse(invoice_item[:created_at])
+    @updated_at = Time.parse(invoice_item[:updated_at])
   end
 
   def unit_price_to_dollars

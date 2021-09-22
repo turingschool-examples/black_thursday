@@ -36,7 +36,7 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    creation_time = Time.now
+    creation_time = Time.now.to_s
     all << InvoiceItem.new(
       id: most_recent_ii.id.to_i + 1,
       item_id: attributes[:item_id],
