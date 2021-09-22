@@ -72,8 +72,6 @@ RSpec.describe do
   end
 
   it 'can update invoice attributes using ID' do
-
-
     invoice_path = './data/invoices.csv'
     invoice_repository = InvoiceRepository.new(invoice_path)
     invoice_repository.create({
