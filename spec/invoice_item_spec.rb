@@ -14,9 +14,9 @@ describe InvoiceItem do
       item_id:    7,
       invoice_id: 8,
       quantity:   1,
-      unit_price: BigDecimal(10.99, 4),
-      created_at: Time.now,
-      updated_at: Time.now
+      unit_price: BigDecimal(1099, 4),
+      created_at: Time.now.to_s,
+      updated_at: Time.now.to_s
     }
     @inv_item = InvoiceItem.new(@ii_hash)
   end
@@ -57,13 +57,13 @@ describe InvoiceItem do
 
   describe '#created_at' do
     it 'returns created at time' do
-      expect(@inv_item.created_at).to eq(@ii_hash[:created_at])
+      expect(@inv_item.created_at).to eq(Time.parse(@ii_hash[:created_at]))
     end
   end
 
   describe '#updated_at' do
     it 'returns updated at time' do
-      expect(@inv_item.updated_at).to eq(@ii_hash[:updated_at])
+      expect(@inv_item.updated_at).to eq(Time.parse(@ii_hash[:updated_at]))
     end
   end
 

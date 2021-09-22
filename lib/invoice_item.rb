@@ -25,14 +25,14 @@ class InvoiceItem
   end
 
   def unit_price_to_dollars
-    “$” + unit_price.to_s
+    unit_price.to_s
   end
 
   def update(attributes)
     @updated_at = Time.now
     attributes.each do |key, value|
-      @quantity = value if key = :quantity
-      @unit_price = value if key = :unit_price
+      @quantity = value if key == :quantity
+      @unit_price = value if key == :unit_price
     end
     self
   end

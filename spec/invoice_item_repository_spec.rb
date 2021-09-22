@@ -52,10 +52,10 @@ describe InvoiceItemRepository do
   describe '#create' do
     it 'it can create a new instance of invoice item' do
       attributes = {
-        item_id = 5
-        invoice_id = 5
-        quantity = 5
-        unit_price = BigDecimal(20.99, 4)
+        item_id: 5,
+        invoice_id: 5,
+        quantity: 5,
+        unit_price: BigDecimal(20.99, 4)
       }
       @iir.create(attributes)
 
@@ -67,7 +67,11 @@ describe InvoiceItemRepository do
 
   describe '#update' do
     it 'it can update an specific invoice item with given attributes' do
-      expect(@iir.update(5, [5, 10.99])).to eq(@iir.all[4])
+      attributes = {
+        quantity: 5,
+        unit_price: 10.99
+      }
+      expect(@iir.update(5, attributes)).to eq(@iir.all[4])
       expect(@iir.all[4].quantity).to eq(5)
       expect(@iir.all[4].unit_price).to eq(10.99)
     end

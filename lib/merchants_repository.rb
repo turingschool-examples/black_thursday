@@ -38,12 +38,15 @@ class MerchantsRepository
   end
 
   def create(attributes)
+    created_at = Time.now.to_s
     new_id = max_merchant.id.to_i + 1
     new_merch_hash = {}
     attributes.each do |key, value|
-      new_merch_hash[key] = value
+      new_merch_hash[key.to_sym] = value
     end
     new_merch_hash[:id] = new_id
+    new_merch_hash[:created_at] = created_at
+    new_merch_hash[:updated_at] = created_at
     all << Merchant.new(new_merch_hash)
   end
 

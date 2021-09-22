@@ -216,6 +216,16 @@ class SalesAnalyst
     paid_in_full_status.length >= 1
   end
 
+  def total(invoice_id)
+    total = 0
+    if invoice_paid_in_full?
+      invoice_items.each do |invoice_item|
+        total += invoice_item.quantity * invoice_item.unit_price if invoice_item.invoice_id = invoice_id
+      end
+    end
+    total
+  end
+
   def invoice_total(invoice_id)
     total_of_invoice = 0
     matching_transactions(invoice_id).each do |transaction|
@@ -243,7 +253,21 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    
+    id_array = []
+    sum_bucket = 0
+    invoice_items.reverse.each do |invoice_item|
+      date_1 = invoice_item.created_at.to_s.split(' ').first
+      date_2 = date.to_s.split(' ').first
+      id_array << invoice_item.invoice_id if date_1 == date_2
+    end
+    id_array.each do |id|
+      if id == item.invoice_id
+        sum_bucket += (item.quantity.to_f * item.unit_price.to_f)
+      end
+    end
+    BigDecimal((sum_bucket / 100.0), 7)
+  end
+
 
   def merchants_with_pending_invoices
     merchant_array = []
@@ -293,13 +317,11 @@ class SalesAnalyst
     end.compact
   end
 
-
-
-
   def top_revenue_earners(number_of_merchants = 20)
     total_revenue_generation
 
     merch_by_revenue = merchants.sort_by(&:total_revenue)
+
     merch_by_revenue.compact.reverse[0..(number_of_merchants - 1)]
   end
 
@@ -317,16 +339,6 @@ class SalesAnalyst
       merchant.total_revenue = total_revenue
     end
   end
-
-  # def transaction_is_success?(invoice_item)
-  #   v = transactions.find_all do |transaction|
-  #     transaction.invoice_id == invoice_item.invoice_id
-  #   end
-  #   v2 = v.find do |transaction|
-  #     transaction.result == :failed
-  #   end
-  #   !v2.include?(Transaction)
-  # end
 
   # helper method for merchant related methods
   def items_by_merchant

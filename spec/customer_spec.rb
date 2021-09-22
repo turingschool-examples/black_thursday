@@ -12,8 +12,8 @@ describe Customer do
       id:          6,
       first_name:  'Joan',
       last_name:   'Clarke',
-      created_at:  Time.now,
-      updated_at:  Time.now
+      created_at:  Time.now.to_s,
+      updated_at:  Time.now.to_s
     }
     @c = Customer.new(@customer)
   end
@@ -42,13 +42,13 @@ describe Customer do
 
   describe '#created_at' do
     it 'returns a time customer was created' do
-      expect(@c.created_at).to eq(@customer[:created_at])
+      expect(@c.created_at).to eq(Time.parse(@customer[:created_at]))
     end
   end
 
   describe '#updated_at' do
     it 'returns a time customer was updated' do
-      expect(@c.updated_at).to eq(@customer[:updated_at])
+      expect(@c.updated_at).to eq(Time.parse(@customer[:updated_at]))
     end
   end
 end
