@@ -216,9 +216,44 @@ class SalesAnalyst
       invoice_item.invoice_id == invoice_id
     end
   end
+
+  def top_revenue_earners(number_of_merchants = 20)
+    total_revenue_generation
+
+    merch_by_revenue = merchants.sort_by { |merchant| merchant.total_revenue }
+
+    return merch_by_revenue.compact.reverse[0..(number_of_merchants - 1)]
+  end
+
+  # assigns the total revenue earned for each merchant to them
+  def total_revenue_generation
+    items_by_merchant.each do |merchant, items|
+      total_revenue = 0
+      items.each do |item|
+        invoice_items.each do |invoice_item|
+          if invoice_item.item_id == item.id
+            total_revenue += invoice_item.quantity * invoice_item.unit_price
+          end
+        end
+      end
+      merchant.total_revenue = total_revenue
+    end
+  end
+
+  # helper method for merchant related methods
+  def items_by_merchant
+    items_by_merchant = {}
+    merchants.each do |merchant|
+      items_by_merchant[merchant] = items.map do |item|
+        item if item.merchant_id == merchant.id
+      end.compact
+    end
+    items_by_merchant
+  end
 end
 
-# find transaction with invoice id and make sure it was a success
-# find all invoice_items with corresponding invoice id
-# add all total prices together (quantity * unit_price)
-# convert to USD
+# use merchant's id to find their items
+# use their items to find corresponding successful invoice_items
+# mutliply their items' value by quantity
+# add all items together
+# compare
