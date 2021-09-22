@@ -1,6 +1,6 @@
 require 'csv'
 require_relative './sales_engine'
-require_relative './inspectable.rb'
+require_relative './inspectable'
 
 class InvoiceItemRepository
   include Inspectable
@@ -15,26 +15,20 @@ class InvoiceItemRepository
   def find_by_id(id)
     invoice_item_id = nil
     @invoice_items.select do |invoice_item|
-      if invoice_item.id == id
-        invoice_item_id = invoice_item
-      end
+      invoice_item_id = invoice_item if invoice_item.id == id
     end
     invoice_item_id
   end
 
   def find_all_by_item_id(id)
     @invoice_items.find_all do |invoice_item|
-      if invoice_item.item_id == id
-        invoice_item
-      end
+      invoice_item if invoice_item.item_id == id
     end
   end
 
   def find_all_by_invoice_id(id)
     @invoice_items.find_all do |invoice_item|
-      if invoice_item.invoice_id == id
-        invoice_item
-      end
+      invoice_item if invoice_item.invoice_id == id
     end
   end
 
@@ -44,17 +38,18 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    new_invoice_item = InvoiceItem.new([highest_id, attributes[:item_id], attributes[:invoice_id], attributes[:quantity], attributes[:unit_price], Time.now.strftime('%Y-%m-%d'), Time.now.strftime('%Y-%m-%d')])
-      @invoice_items << new_invoice_item
+    new_invoice_item = InvoiceItem.new([highest_id, attributes[:item_id],
+                                        attributes[:invoice_id], attributes[:quantity], attributes[:unit_price], Time.now.strftime('%Y-%m-%d'), Time.now.strftime('%Y-%m-%d')])
+    @invoice_items << new_invoice_item
   end
 
   def update(id, attributes)
     @invoice_items.map do |invoice_item|
-      if invoice_item.id == id
-        invoice_item.quantity = attributes[:quantity]
-        invoice_item.unit_price = attributes[:unit_price]
-        invoice_item.updated_at = Time.now
-      end
+      next unless invoice_item.id == id
+
+      invoice_item.quantity = attributes[:quantity]
+      invoice_item.unit_price = attributes[:unit_price]
+      invoice_item.updated_at = Time.now
     end
   end
 

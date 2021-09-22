@@ -138,7 +138,27 @@ RSpec.describe SalesAnalyst do
   it '#invoice_total' do
     expected = @sales_analyst.invoice_total(1)
 
-    expect(expected).to eq 21067.77
-    expect(expected.class).to eq BigDecimal
+    expect(expected).to eq(21067.77)
+    expect(expected.class).to eq(BigDecimal)
+  end
+
+  it '#searches_date' do
+  expected1 = @sales_analyst.searches_date("2009-02-07")
+  expected2 = @sales_analyst.searches_date("2012-11-23")
+
+  expect(expected1.count).to eq(1)
+  expect(expected2.count).to eq(2)
+  end
+
+  it 'invoices_per_date' do
+    date1 = Time.parse("2009-02-07")
+    date2 = Time.parse("2014-02-08")
+    expected1 = @sales_analyst.total_revenue_by_date(date1)
+    expected2 = @sales_analyst.total_revenue_by_date(date2)
+
+    expect(expected1).to eq(21067.77)
+    expect(expected2).to eq(55422.72)
+    expect(expected1).to be_a(BigDecimal)
+    expect(expected2).to be_a(BigDecimal)
   end
 end

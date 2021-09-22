@@ -179,4 +179,20 @@ class SalesAnalyst
     end
     total
   end
+
+  def searches_date(date)
+   this = []
+   @invoices.all.find_all do |invoice|
+     if invoice.created_at == date
+       this << invoice.id
+     end
+    end
+    this
+  end
+
+  def total_revenue_by_date(date)
+    searches_date(date).sum do |invoice|
+      invoice_total(invoice)
+    end
+  end
 end
