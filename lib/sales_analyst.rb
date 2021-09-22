@@ -143,4 +143,15 @@ class SalesAnalyst
     result = @invoices.find_all_by_status(status)
     ((result.count.to_f / @invoices.all.count) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(id)
+    if @transactions.find_all_by_invoice_id(id).empty?
+      false
+    elsif @transactions.find_all_by_invoice_id(id).first.result == :success &&
+          @invoices.find_by_id(id).status != :returned
+      true
+    else
+      false
+    end
+  end
 end

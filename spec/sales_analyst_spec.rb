@@ -122,4 +122,15 @@ RSpec.describe SalesAnalyst do
     expected = @sales_analyst.invoice_status(:returned)
     expect(expected).to eq 13.5
   end
+
+  it '#paid_in_full' do
+    expected1 = @sales_analyst.invoice_paid_in_full?(2)
+    expected2 = @sales_analyst.invoice_paid_in_full?(156)
+    expected3 = @sales_analyst.invoice_paid_in_full?(13)
+    expected4 = @sales_analyst.invoice_paid_in_full?(666)
+    expect(expected1).to eq(true)
+    expect(expected2).to eq(true)
+    expect(expected3).to eq(false)
+    expect(expected4).to eq(false)
+  end
 end
