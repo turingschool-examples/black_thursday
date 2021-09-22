@@ -163,8 +163,10 @@ RSpec.describe SalesAnalyst do
   end
 
   it '#top_revenue_earners' do
-    expected = @sales_analyst.top_revenue_earners(5)
+    expected1 = @sales_analyst.top_revenue_earners(5)
+    expected2 = @sales_analyst.top_revenue_earners
 
-    expect(expected).to eq([])
+    expect(expected1.count).to eq(5)
+    expect(expected2.count).to eq(20)
   end
 end

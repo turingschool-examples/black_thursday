@@ -174,8 +174,10 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     total = 0
     test = succesful_invoices(invoice_id)
-    test.each do |invoice|
-      total += (invoice.quantity * invoice.unit_price)
+    if test != nil
+      test.each do |invoice|
+        total += (invoice.quantity * invoice.unit_price)
+      end
     end
     total
   end
@@ -196,24 +198,41 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners_helper
+  def top_revenue_earners_helper_helper
     merchant_invoices = Hash.new
-    top_revenue_earners_helper.each do |invoices|
-      invoices.each do |invoice|
-        if hash[invoice.merchant_id].nil?
-          hash[invoice.merchant_id] = [invoice.id]
-        else hash[invoice.merchant_id] << invoice.id
-        end
+    @invoices.all.each do |invoice|
+        if merchant_invoices[invoice.merchant_id].nil?
+          merchant_invoices[invoice.merchant_id] = [invoice.id]
+        else merchant_invoices[invoice.merchant_id] << invoice.id
       end
     end
     merchant_invoices
   end
 
-  def top_revenue_earners(x)
+  def top_revenue_earners_helper
+    rev_hash = Hash.new(0)
+    top_revenue_earners_helper_helper.each do |key, values|
+      values.each do |value|
+        rev_hash[key] += invoice_total(value)
+      end
+    end
+    array = rev_hash.sort_by { |key, value | value}.reverse
   end
 
-  # def invoices_per_merchant
-  #   @merchants.all.map do |merchant|
-  #     @invoices.find_all_by_merchant_id(merchant.id).length
-  #   end
+#We didn't end up using this method,
+# but I liked the name too much to get rid of it
+
+  # def this_isnt_even_my_final_method(x = 20)
+    # if x == nil
+    #   top_revenue_earners_helper[0..19]
+    # else
+    # end
+  # end
+
+  def top_revenue_earners(x = 20)
+    slh = top_revenue_earners_helper[0..(x-1)]
+    slh.map do |earner, _|
+      @merchants.find_by_id(earner)
+    end
+  end
 end
