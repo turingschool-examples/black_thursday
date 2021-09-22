@@ -129,7 +129,7 @@ describe SalesAnalyst do
     expect(@sa.merchants_with_only_one_item[0].class).to eq Merchant
   end
 
-  it "#merchants_with_only_one_item_registered_in_month" do
+  xit "#merchants_with_only_one_item_registered_in_month" do
     expected = @sa.merchants_with_only_one_item_registered_in_month("March")
 
     expect(expected.length).to eq 21
@@ -147,5 +147,19 @@ describe SalesAnalyst do
 
     expect(expected).to eq BigDecimal(expected)
     expect(expected.class).to eq BigDecimal
+  end
+
+  it '#merchants_with_pending_invoices' do
+    expected = @sa.merchants_with_pending_invoices
+
+    expect(expected.length).to eq 467
+    expect(expected.first.class).to eq Merchant
+  end
+
+  it '#most_sold_item_for_merchant' do
+
+    expect(@sa.most_sold_item_for_merchant(12334105)).to be_an(Array)
+    expect(@sa.most_sold_item_for_merchant(12334105)[0]).to be_an(Item)
+    expect(@sa.most_sold_item_for_merchant(12334105)[0]).to eq(@sa.items.find_by_id(263396209))
   end
 end
