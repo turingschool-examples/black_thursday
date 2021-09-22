@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'item'
 require 'bigdecimal'
 require 'bigdecimal/util'
+require 'time'
 
 class ItemRepository
   attr_reader    :all
@@ -22,23 +23,22 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @all.find_all do |item|
+    @all.find do |item|
       item.id == id
-    end.pop
+    end
   end
 
   def find_by_name(name)
-    @all.find_all do |item|
+    @all.find do |item|
       item.name == name
-    end.pop
+    end
   end
 
-  def find_all_with_description(description)
+  def find_all_with_description(search_term)
 
-    description1 = description.downcase!
     @all.find_all do |item|
-      item.description.downcase!
-      item.description == description1
+      description = item.description.downcase
+      description == search_term.downcase
     end
   end
 
@@ -65,27 +65,29 @@ class ItemRepository
   end
 
   def create(attributes)
-    attributes.to_a
     id_max = @all.max_by {|item| item.id}
     attributes[:id] = id_max.id + 1
-    new_biz = [attributes[:id], attributes[:name], attributes[:description], attributes[:unit_price].to_f, attributes[:merchant_id], attributes[:created_at], attributes[:updated_at]]
-    CSV.open("./data/items.csv", "a+") do |csv|
-      csv << new_biz
-    end
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    new_item = Item.new(attributes)
+    @all << new_item
   end
 
   def update(id, attributes)
-      updated_item = self.find_by_id(id)
-      updated_item.name = attributes[:name]
-      updated_item.description = attributes[:description]
-      updated_item.unit_price = attributes[:unit_price]
-    updated_item
-
+    updated_item = self.find_by_id(id)
+    if updated_item != nil
+      updated_item.name = attributes[:name] if attributes[:name]
+      updated_item.description = attributes[:description] if attributes[:description]
+      updated_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
+      updated_item.updated_at = Time.now
+    end
   end
 
   def delete(id)
     x = (self.all).find_index(self.find_by_id(id))
-    self.all.delete_at(x)
+    if x != nil
+      self.all.delete_at(x)
+    end
     self.all
   end
 
