@@ -1,4 +1,4 @@
-require_relative 'merchant'
+require_relative '../lib/merchant'
 
 RSpec.describe Merchant do
   describe "Iteration 1" do
