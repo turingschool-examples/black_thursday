@@ -32,4 +32,8 @@ RSpec.describe Item do
     expect(@i.description).to eq("You can use it to write things")
   end
 
+  it "returns the price of the item formatted as a BigDecimal" do
+    expect(@i.unit_price).to eq(BigDecimal(10.99,4))
+  end
+
 end
