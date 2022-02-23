@@ -21,7 +21,7 @@ RSpec.describe Item do
   end
 
   it "returns the integer id of the item" do
-    expect(@i).to eq(1)
+    expect(@i.id).to eq(1)
   end
 
 end
