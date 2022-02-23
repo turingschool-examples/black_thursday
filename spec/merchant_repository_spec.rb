@@ -25,4 +25,9 @@ describe MerchantRepository do
     expect(merch_rep.find_by_name('SWISSIonenSchmuck')).to eq(merch_rep.all[204])
     expect(merch_rep.find_by_name('nothing')).to be_nil
   end
+
+  it "can find all instances of Merchants with the same name" do
+    expect(merch_rep.find_all_by_name('Shopin1901')).to eq([merch_rep.all[0], merch_rep.all[1]])
+    expect(merch_rep.find_all_by_name('nothing')).to eq([])
+  end
 end

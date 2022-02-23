@@ -18,6 +18,11 @@ class MerchantRepository
     @all_merchants.find{|merchant| merchant.name == name}
   end
 
+  def find_all_by_name(name)
+    found = []
+    found << @all_merchants.find_all{|merchant| merchant.name.downcase == name.downcase}
+    found.flatten
+  end
 
 
 end
