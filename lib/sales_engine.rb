@@ -2,20 +2,16 @@ require_relative 'item_repository'
 require_relative 'merchant_repository'
 require 'pry'
 
-class SalesEngine < ItemRepository
+class SalesEngine
   attr_accessor :items, :merchants, :hash
-  # def initialize
-  # end
-  def self.from_csv(info)
-    # @hash = info
-    @merchants = MerchantRepository.new(info.fetch(:merchants))
-    @items = ItemRepository.new(info.fetch(:items))
-    # binding.pry
+  def initialize(items, merchants)
+    @items = items
+    @merchants = merchants
   end
-  # def items
-  #   @items = ItemRepository.new(@hash[:items])
-  # end
-  # def merchants
-  #   @merchants = MerchantRepository.new(@hash[:merchants])
-  # end
+
+  def self.from_csv(info)
+    items = ItemRepository.new(info[:items])
+    merchants = MerchantRepository.new(info[:merchants])
+    new(items, merchants)
+  end
 end

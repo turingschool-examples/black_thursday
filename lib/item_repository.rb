@@ -2,6 +2,10 @@ require 'csv'
 
 class ItemRepository
   def initialize(csv)
-    @csv = CSV.read(csv)
+
+  end
+
+  def self.read_file
+    @csv = CSV.read(csv, headers: true)
   end
 end
