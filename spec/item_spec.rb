@@ -44,4 +44,10 @@ describe Item do
       expect(i.merchant_id).to be 2
     end
   end
+
+  describe 'unit_price_to_dollars' do
+    it 'converts the unit_price to a float' do
+      expect(i.unit_price_to_dollars).to eq(10.99)
+    end
+  end
 end
