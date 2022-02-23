@@ -2,7 +2,11 @@ require './lib/merchant'
 
 RSpec.describe Merchant do
   before :each do
-    m = Merchant.new(5, 'Turing School')
+    info = {
+      id: 5,
+      name: 'Turing School'
+    }
+    @m = Merchant.new(info)
   end
   it 'exists' do
     expect(@m).to be_a(Merchant)
