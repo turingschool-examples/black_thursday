@@ -27,6 +27,14 @@ class ItemRepository
     end
   end
 
+  def find_by_name(name)
+    @items.find do |item|
+      if item.name == name
+        item
+      end
+    end
+  end
+
 
 
 
