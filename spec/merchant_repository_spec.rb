@@ -59,4 +59,15 @@ describe MerchantsRepository do
     end
   end
 
+  describe '#update' do
+    it 'can change the Merchants name' do
+      mr = MerchantsRepository.new("./data/merchants.csv")
+      merchant = mr.find_by_id("12334364")
+      expect(merchant.name).to eq("ToThePoints")
+      mr.update("12334364", {:name => "ToTheRounds"})
+      # merchant = mr.find_by_id("12334364")
+      expect(merchant.name).to eq("ToTheRounds")
+    end
+  end
+
 end
