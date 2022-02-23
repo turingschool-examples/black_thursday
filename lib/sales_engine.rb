@@ -2,14 +2,13 @@ require 'csv'
 
 class SalesEngine
 
-  def initialize
-    @items = ''
-    @merchants = ''
+  def initialize(info)
+    @items = info[:items]
+    @merchants = info[:merchants]
   end
 
-  def self.from_csv(files)
-    @items = files[:items]
-    @merchants = files[:merchants]
+  def self.from_csv(info)
+    SalesEngine.new(info)
   end
 
 end #SalesEngine class end
