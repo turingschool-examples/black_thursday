@@ -27,8 +27,19 @@ class MerchantsRepository
     end
   end
 
-  # def find_all_by_name(name)
-  #   @repository.find_all do |merchant|
+  def find_all_by_name(name)
+    @repository.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
+  end
 
+  def create(attributes)
+    new_id = @repository.sort_by do |merchant|
+                merchant.id
+              end.last
+    new_id = new_id.id.to_i
+    new_id += 1
+    Merchant.new({id: new_id.to_s, name: attributes})
+  end
 
 end
