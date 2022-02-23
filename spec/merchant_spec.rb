@@ -1,5 +1,5 @@
 require 'rspec'
-require './lib/merchant'
+require_relative './lib/merchant'
 
 describe Merchant do
   m = Merchant.new({:id => 5, :name => "Turing School"})
