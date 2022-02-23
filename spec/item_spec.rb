@@ -37,7 +37,11 @@ RSpec.describe Item do
   end
 
   it "returns a Time instance for the date the item was first created" do
-    expect(@i.created_at).to eq(Time.now)
+    expect(@i.created_at).to eq(@i.item_info[:created_at])
+  end
+
+  it "returns a Time instance for the date the item was last modified" do
+    expect(@i.updated_at).to eq(@i.item_info[:updated_at])
   end
 
 end
