@@ -37,14 +37,15 @@ RSpec.describe ItemRepository do
   end
 
   it 'can find_all_with_description(description)' do
-    require "pry"; binding.pry
+    item_1 = @item_repo.find_all_with_description('standing wooden')
+    expect(item_1.count).to eq(1)
     expect(@item_repo.find_all_with_description('standing wooden')).to be_a(Array)
     expect(@item_repo.find_all_with_description('no shot this is a description')).to eq([])
   end
 
   it 'can find_all_by_price(price)' do
     item = @item_repo.find_all_by_price("2999")
-    expect(item.count).to eq(1)
+    expect(item.count).to eq(3)
     expect(@item_repo.find_all_by_price("2999")).to be_a(Array)
   end
 

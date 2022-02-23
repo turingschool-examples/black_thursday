@@ -44,6 +44,15 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price(price)
+    @items.find_all do |item|
+
+      if item.unit_price == price
+        item
+      end
+    end
+  end
+
 
 
 
