@@ -1,6 +1,7 @@
 require './lib/item'
 require 'simplecov'
 require 'bigdecimal'
+#built in class method
 SimpleCov.start
 
 RSpec.describe Item do
@@ -24,10 +25,18 @@ RSpec.describe Item do
       expect(@i.id).to eq(1)
       expect(@i.name).to eq("Pencil")
       expect(@i.description).to eq("You can use it to write things")
-      # expect(@i.unit_price).to be_a(BigDecimal(10.99, 4))
+      expect(@i.unit_price).to eq(0.1099e2)
       expect(@i.created_at).to be_a(Time)
       expect(@i.updated_at).to be_a(Time)
       expect(@i.merchant_id).to eq(2)
     end
   end
+
+  describe 'Item methods' do
+    it 'returns a unit_price to dollars' do
+      expect(@i.unit_price_to_dollars).to eq(10.99)
+      expect(@i.unit_price_to_dollars).to be_a(Float)
+    end
+  end
 end
+require 'pry'; binding.pry

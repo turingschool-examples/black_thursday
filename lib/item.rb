@@ -16,4 +16,8 @@ class Item
     @updated_at  = info_hash[:updated_at]
     @merchant_id = info_hash[:merchant_id]
   end
+
+  def unit_price_to_dollars
+    unit_price.to_f.round(2)
+  end
 end
