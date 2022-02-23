@@ -9,4 +9,8 @@ class Item
     @item_info[:id]
   end
 
+  def name
+    @item_info[:name]
+  end
+
 end
