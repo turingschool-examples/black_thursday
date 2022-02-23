@@ -1,6 +1,8 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'cane'
-gem 'reek'
-gem 'rake'
-gem 'rspec'
+gem "standard"
+gem "cane"
+gem "reek"
+gem "rake"
+gem "rspec"
+gem "simplecov", require: false, group: :test
