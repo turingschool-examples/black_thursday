@@ -21,4 +21,8 @@ class Item
     @item_info[:unit_price]
   end
 
+  def created_at
+    @item_info[:created_at]
+  end
+
 end
