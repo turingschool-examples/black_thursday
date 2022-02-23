@@ -15,6 +15,20 @@ RSpec.describe MerchantRepository do
     end
   end
 
+  describe '#rows' do
+    it 'can create a CSV::Table object' do
+
+      expect(@merchant_repo.rows).to be_a(CSV::Table)
+    end
+  end
+
+  describe '#current_highest_id' do
+    it 'can sort the rows of csv data by id number from lowest to highest' do
+
+      expect(@merchant_repo.current_highest_id).to eq(12334183)
+    end
+  end
+
   describe '#all' do
     it 'can create a merchant instance for every line on the data file' do
 
@@ -44,8 +58,15 @@ RSpec.describe MerchantRepository do
     it 'can create merchant instances for all lines containing the name fragment passed as an argument' do
 
       expect(@merchant_repo.find_all_by_name("in").count).to eq(4)
-      binding.pry
       expect(@merchant_repo.find_all_by_name("o").count).to eq(12)
     end
   end
+
+  describe '#create' do
+    it 'can create new merchants with attributes' do
+      expect(@merchant_repo.create("King Sooper's")).to be_a(Merchant)
+      expect(@merchant_repo.create("King Sooper's").id).to eq("12334184")
+    end
+  end
+
 end

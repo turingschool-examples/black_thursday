@@ -14,6 +14,12 @@ class MerchantRepository
     rows = CSV.read(@filename, headers: true, header_converters: :symbol)
   end
 
+  def current_highest_id
+    sorted = rows.sort_by {|row| row[:id]}
+    highest_id = sorted[-1][:id]
+    highest_id.to_i
+  end
+
   def all
     result = rows.map {|row| Merchant.new(row)}
   end
@@ -37,6 +43,12 @@ class MerchantRepository
       row[:name].include?(fragment)
     end
     !result.empty? ? result.map {|row| Merchant.new(row)} : nil
+  end
+
+  def create(name)
+    id = current_highest_id + 1
+    id = id.to_s
+    Merchant.new(id: id, name: name)
   end
 
 end
