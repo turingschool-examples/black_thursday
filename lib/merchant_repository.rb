@@ -19,10 +19,24 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    result = rows.find_all do |row|
+    result = rows.map do |row|
       Merchant.new(row) if row[:id] == id
     end
-    !result.empty? ? result : nil 
+    !result.empty? ? result[0] : nil
+  end
+
+  def find_by_name(name)
+    result = rows.map do |row|
+      Merchant.new(row) if row[:name] == name
+    end
+    !result.empty? ? result[0] : nil
+  end
+
+  def find_all_by_name(fragment)
+    result = rows.find_all do |row|
+      row[:name].include?(fragment)
+    end
+    !result.empty? ? result.map {|row| Merchant.new(row)} : nil
   end
 
 end
