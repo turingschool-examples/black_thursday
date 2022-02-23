@@ -11,9 +11,15 @@ let(:se) {SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./da
       expect(sales_engine).to be_a(SalesEngine)
     end
 
-    it 'has merchants' do
+    it 'has / can read merchants' do
+
 
       expect(se.merchants).to be("./data/merchants.csv")
+    end
+
+    it 'has / can read items' do
+
+      expect(se.items).to be("./data/items.csv")
     end
   end
 end
