@@ -1,8 +1,10 @@
 require 'CSV'
 require 'pry'
 require_relative '../lib/sales_engine.rb'
+require_relative '../lib/findable.rb'
 
 class ItemRepository < SalesEngine
+  include Findable
   attr_reader :all
 
   def initialize array
@@ -17,6 +19,14 @@ class ItemRepository < SalesEngine
       item_object_array << item
     end
     self.new(item_object_array)
+  end
+
+  def find_all_with_description (descriptive_string)
+    @all.find_all {|item| item.description.downcase.include?(descriptive_string.downcase)}
+  end
+
+  def find_all_by_price (desired_price)
+    @all.find_all {|item| item.unit_price == desired_price}
   end
 
 end
