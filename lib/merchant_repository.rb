@@ -11,6 +11,13 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    found = @all_merchants.find{|merchant| merchant.id == id}
+    @all_merchants.find{|merchant| merchant.id == id}
   end
+
+  def find_by_name(name)
+    @all_merchants.find{|merchant| merchant.name == name}
+  end
+
+
+
 end
