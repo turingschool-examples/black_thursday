@@ -1,31 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/spec/sales_engine_spec.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/sales_engine.rb": {
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/spec/merchant_repository_spec.rb": {
         "lines": [
           1,
           1,
@@ -33,7 +9,7 @@
           null,
           1,
           1,
-          1,
+          null,
           1,
           1,
           null,
@@ -41,71 +17,11 @@
           1,
           1,
           1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/item_repository.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/item.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          1367,
-          1367,
-          1367,
-          1367,
-          1367,
-          1367,
-          1367,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1367,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/merchant_repository.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          0,
           null,
           null
         ]
       },
-      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/merchant.rb": {
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           null,
@@ -124,11 +40,27 @@
           null,
           null,
           null,
+          null,
+          null
+        ]
+      },
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/lib/merchant_repository.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          2,
           null,
           null
         ]
       }
     },
-    "timestamp": 1645653509
+    "timestamp": 1645654893
   }
 }
