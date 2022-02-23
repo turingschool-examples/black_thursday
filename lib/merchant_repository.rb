@@ -1,13 +1,15 @@
 require_relative '../lib/merchant'
 require 'CSV'
+require 'date'
 require 'pry'
 
 class MerchantRepository
 
-  attr_reader :filename
+  attr_reader :filename, :merchants
 
   def initialize(filename)
     @filename = filename
+    @merchants = self.all
   end
 
   def rows
@@ -48,7 +50,14 @@ class MerchantRepository
   def create(name)
     id = current_highest_id + 1
     id = id.to_s
-    Merchant.new(id: id, name: name)
+    @merchants << new_merchant = Merchant.new(id: id, name: name)
+    new_merchant
+  end
+
+  def update(id, new_name)
+    @merchants.each do |merchant|
+      merchant.name = new_name if merchant.id == id
+    end
   end
 
 end

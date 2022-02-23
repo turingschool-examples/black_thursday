@@ -74,11 +74,20 @@
           null,
           null,
           null,
+          1,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
           null
         ]
       },
       "/Users/jimbo/turing/1module/projects/black_thursday/lib/merchant_repository.rb": {
         "lines": [
+          1,
           1,
           1,
           1,
@@ -89,20 +98,21 @@
           null,
           1,
           8,
+          8,
           null,
           null,
           1,
-          11,
+          18,
           null,
           null,
           1,
-          60,
-          3,
-          3,
+          40,
+          2,
+          2,
           null,
           null,
           1,
-          20,
+          180,
           null,
           null,
           1,
@@ -127,9 +137,16 @@
           null,
           null,
           1,
-          2,
-          2,
-          2,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
           null,
           null,
           null
@@ -142,8 +159,8 @@
           1,
           null,
           1,
-          42,
-          42,
+          193,
+          193,
           null,
           null,
           null
@@ -175,6 +192,6 @@
         ]
       }
     },
-    "timestamp": 1645651705
+    "timestamp": 1645655642
   }
 }

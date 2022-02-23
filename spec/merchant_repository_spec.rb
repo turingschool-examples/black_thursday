@@ -64,8 +64,16 @@ RSpec.describe MerchantRepository do
 
   describe '#create' do
     it 'can create new merchants with attributes' do
-      expect(@merchant_repo.create("King Sooper's")).to be_a(Merchant)
       expect(@merchant_repo.create("King Sooper's").id).to eq("12334184")
+      expect(@merchant_repo.merchants.count).to eq(20)
+    end
+  end
+
+  describe '#update' do
+    xit 'can update the name for a given id' do
+      @merchant_repo.create("King Sooper's")
+      @merchant_repo.update("12334184", "Safeway")
+      expect(@merchant_repo.find_by_id("12334184").name).to eq("Safeway")
     end
   end
 
