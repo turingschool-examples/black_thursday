@@ -1,4 +1,5 @@
 require 'rspec'
+require 'csv'
 require './lib/sales_engine'
 
 RSpec.describe SalesEngine do
@@ -8,7 +9,7 @@ RSpec.describe SalesEngine do
   :merchants => "./data/merchants.csv",
   })
 
-  expect(se).to be_an_instance_of(SalesEngine)
+  expect(se).to be_a(SalesEngine)
   end
 
 end #RSpec end
