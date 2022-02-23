@@ -26,4 +26,9 @@ RSpec.describe 'Item' do
     expect(item.created_at).to eq(item.updated_at)
     expect(item.merchant_id).to eq(2)
   end
+
+  it 'can convert unit price to dollars' do
+    expect(item.unit_price_to_dollars).to eq(10.99)
+  end
+
 end

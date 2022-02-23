@@ -10,4 +10,8 @@ class Item
     @updated_at = item[:updated_at]
     @merchant_id = item[:merchant_id]
   end
+
+  def unit_price_to_dollars
+    return unit_price.to_f
+  end
 end
