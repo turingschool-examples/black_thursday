@@ -49,4 +49,11 @@ RSpec.describe ItemRepository do
     expect(@item_repo.find_all_by_price("2999")).to be_a(Array)
   end
 
+  it 'can find_all_by_price_in_range(range)' do
+    item_2 = @item_repo.find_all_by_price_in_range(1..200)
+    expect(item_2.count).to eq(10)
+  end
+
+
+
 end
