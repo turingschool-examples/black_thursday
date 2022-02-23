@@ -1,7 +1,107 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/spec/sales_engine_spec.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/lib/sales_engine.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/lib/item_repository.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/lib/merchant_repository.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/sandiszthieme/turing/1module/projects/black_thursday/lib/merchant.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          475,
+          475,
+          475,
+          475,
+          null,
+          null,
+          1,
+          1,
+          1,
+          475,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
     },
-    "timestamp": 1645582321
+    "timestamp": 1645639283
   }
 }
