@@ -10,8 +10,13 @@ RSpec.describe do
                         })
     end
 
-    it 'exists ' do
+    it 'exists' do
       expect(@m).to be_an_instance_of(Merchant)
+    end
+
+    it 'has attributes' do
+      expect(@m.id).to eq(5)
+      expect(@m.name).to eq('Turing School')
     end
   end
   # context "Iteration 2" do
