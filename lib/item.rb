@@ -29,4 +29,8 @@ class Item
     @item_info[:updated_at]
   end
 
+  def merchant_id
+    @item_info[:merchant_id]
+  end
+
 end
