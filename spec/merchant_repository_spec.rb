@@ -17,7 +17,7 @@ RSpec.describe MerchantRepository do
   end
 
 
-  xit 'can find all merchants that include fragment' do
+  it 'can find all merchants that include fragment' do
     expect(@mr.find_all_by_name("nick")).to eq([@merchant1,@merchant2])
   end
 
