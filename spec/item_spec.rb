@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative './lib/item'
+require './lib/item'
 
 describe Item do
   i = Item.new({

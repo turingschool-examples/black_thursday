@@ -1,6 +1,6 @@
 require 'rspec'
 require 'csv'
-require_relative './lib/sales_engine'
+require './lib/sales_engine'
 # require "./data/items.csv"
 # require "./data/merchants.csv"
 
