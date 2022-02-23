@@ -17,4 +17,8 @@ class Item
     @item_info[:description]
   end
 
+  def unit_price
+    @item_info[:unit_price]
+  end
+
 end
