@@ -5,5 +5,4 @@ class Merchant
     @id = info_hash[:id]
     @name = info_hash[:name]
   end
-
 end
