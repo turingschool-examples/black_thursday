@@ -36,4 +36,8 @@ RSpec.describe Item do
     expect(@i.unit_price).to eq(BigDecimal(10.99,4))
   end
 
+  it "returns a Time instance for the date the item was first created" do
+    expect(@i.created_at).to eq(Time.now)
+  end
+
 end
