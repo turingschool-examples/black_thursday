@@ -16,6 +16,7 @@ class SalesEngine
     merchants = CSV.read(files[:merchants])
     merchants.shift
     merchants.each {|data| @@merchants << Merchant.new({:id => data[0], :name => data[1]})}
+    MerchantRepository.new(@@merchants)
   end
 
 end
