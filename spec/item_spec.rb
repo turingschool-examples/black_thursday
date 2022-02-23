@@ -31,6 +31,10 @@ RSpec.describe Item do
       expect(i.merchant_id).to eq(2)
     end
 
+    it 'converts unit price to dollars' do
+      expect(i.unit_price_to_dollars).to eq(10.99)
+    end
+
   end
 
 end
