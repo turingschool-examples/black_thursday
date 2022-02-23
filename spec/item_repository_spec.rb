@@ -26,8 +26,11 @@ RSpec.describe ItemRepository do
   end
 
   it 'can #find_by_id(id)' do
-
     expect(@item_repo.find_by_id("263395237")).to be_a(Item)
+  end
+
+  it 'can #find_by_name(name)' do
+    expect(@item_repo.find_by_name("Glitter scrabble frames")).to be_a(Item)
   end
 
 end
