@@ -15,10 +15,13 @@ RSpec.describe Item do
       :merchant_id => 2
     })
   end
-  
+
   it "exists" do
     expect(@i).to be_an_instance_of(Item)
   end
 
+  it "returns the integer id of the item" do
+    expect(@i).to eq(1)
+  end
 
 end
