@@ -13,4 +13,8 @@ class Item
     @item_info[:name]
   end
 
+  def description
+    @item_info[:description]
+  end
+
 end
