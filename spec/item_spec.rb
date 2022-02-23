@@ -24,4 +24,8 @@ RSpec.describe Item do
     expect(@i.id).to eq(1)
   end
 
+  it "returns the name of the item" do
+    expect(@i.name).to eq("Pencil")
+  end
+
 end
