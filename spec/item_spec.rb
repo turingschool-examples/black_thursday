@@ -44,4 +44,8 @@ RSpec.describe Item do
     expect(@i.updated_at).to eq(@i.item_info[:updated_at])
   end
 
+  it "returns the integer merchant id of the item" do
+    expect(@i.merchant_id).to eq(2)
+  end
+
 end
