@@ -6,7 +6,9 @@ RSpec.describe do
     before(:each) do
       @m = Merchant.new({
                           id: 5,
-                          name: 'Turing School'
+                          name: 'Turing School',
+                          created_at: '2010-12-10',
+                          updated_at: '2011-12-04'
                         })
     end
 
@@ -17,23 +19,8 @@ RSpec.describe do
     it 'has attributes' do
       expect(@m.id).to eq(5)
       expect(@m.name).to eq('Turing School')
+      expect(@m.created_at).to eq('2010-12-10')
+      expect(@m.updated_at).to eq('2011-12-04')
     end
   end
-  # context "Iteration 2" do
-  #   before(:each) do
-
-  #   end
-
-  #   xit ' ' do
-  #     expect().to eq()
-  #   end
-
-  #   xit ' ' do
-  #     expect().to eq()
-  #   end
-
-  #   xit ' ' do
-  #     expect().to eq()
-  #   end
-  # end
 end
