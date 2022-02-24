@@ -39,4 +39,4 @@ RSpec.describe Item do
     it "returns price of item in dollars as a float" do
       expect(@i.unit_price_to_dollars).to eq(10.99)
     end
-  end
+end
