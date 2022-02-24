@@ -3,7 +3,7 @@ require './lib/items_repository'
 
 describe ItemsRepository do
   before(:each) do
-    ir = ItemsRepository.new("./data/items.csv")
+    @ir = ItemsRepository.new("./data/items.csv")
   end
 
   it "exists" do
