@@ -36,4 +36,21 @@ RSpec.describe ItemRepository do
     expect(@item_repo1.find_all_by_price_in_range(1000..2000).length).to eq(317)
     expect(@item_repo1.find_all_by_price_in_range(25..35)).to eq([])
   end
+
+  it "can find all items by merchant id" do
+    expect(@item_repo1.find_all_by_merchant_id(12334213).length).to eq(2)
+    expect(@item_repo1.find_all_by_merchant_id(2)).to eq([])
+  end
+
+  it "can create a new instance of item with provided attributes" do
+    expect(@item_repo1.find_all_by_merchant_id(12334213).length).to eq(2)
+    @item_repo1.create({name: "Item name", description: "It's an item", unit_price: 1000, merchant_id: 12334213})
+    expect(@item_repo1.find_all_by_merchant_id(12334213).length).to eq(3)
+  end
+
+  it "can update the Item instance to change attributes" do
+    expect(@item_repo1.find_by_id(263416405).name).to eq("Tappeto pon pon")
+    @item_repo1.update(263416405, {name: "nothing", description: "not really an item", unit_price: 160001})
+    expect(@item_repo1.find_by_id(263416405).name).to eq("nothing")
+  end
 end
