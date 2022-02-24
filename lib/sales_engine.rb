@@ -11,4 +11,12 @@ class SalesEngine
     SalesEngine.new(info)
   end
 
+  def items
+    ItemsRepository.new(@items)
+  end
+
+  def merchants
+    Merchants.new(@merchants)
+  end
+
 end #SalesEngine class end

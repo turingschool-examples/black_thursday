@@ -1,6 +1,7 @@
 {
   "RSpec": {
     "coverage": {
+
       "/Users/susanboyd/turing/1module/projects/black_thursday/spec/merchant_spec.rb": {
         "lines": [
           1,
@@ -183,11 +184,14 @@
           1,
           1,
           null,
+
           null,
           null
         ]
       }
     },
+
     "timestamp": 1645661101
+
   }
 }
