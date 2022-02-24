@@ -36,23 +36,29 @@ RSpec.describe ItemRepository do
     expect(@item_repo.find_by_name("blah blah blah")).to eq(nil)
   end
 
-  it 'can find_all_with_description(description)' do
+  it 'can #find_all_with_description(description)' do
     item_1 = @item_repo.find_all_with_description('standing wooden')
     expect(item_1.count).to eq(1)
     expect(@item_repo.find_all_with_description('standing wooden')).to be_a(Array)
     expect(@item_repo.find_all_with_description('no shot this is a description')).to eq([])
   end
 
-  it 'can find_all_by_price(price)' do
+  it 'can #find_all_by_price(price)' do
     item = @item_repo.find_all_by_price("2999")
     expect(item.count).to eq(3)
     expect(@item_repo.find_all_by_price("2999")).to be_a(Array)
   end
 
-  it 'can find_all_by_price_in_range(range)' do
+  it 'can #find_all_by_price_in_range(range)' do
     # require "pry"; binding.pry
     item_2 = @item_repo.find_all_by_price_in_range(1..3000)
     expect(item_2.count).to eq(735)
+  end
+
+  it 'can #find_all_by_merchant_id(merchant_id)' do
+    item_3 = @item_repo.find_all_by_merchant_id("12334195")
+    expect(item_3.count).to eq(2)
+
   end
 
 
