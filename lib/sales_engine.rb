@@ -2,6 +2,7 @@ require_relative '../lib/item'
 require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
+require_relative '../lib/sales_analyst'
 require 'CSV'
 
 class SalesEngine
@@ -16,4 +17,7 @@ class SalesEngine
     SalesEngine.new(data_hash)
   end
 
+  def analyst
+    SalesAnalyst.new(@merchants,@items)
+  end
 end
