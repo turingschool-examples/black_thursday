@@ -50,8 +50,9 @@ RSpec.describe ItemRepository do
   end
 
   it 'can find_all_by_price_in_range(range)' do
-    item_2 = @item_repo.find_all_by_price_in_range(1..200)
-    expect(item_2.count).to eq(10)
+    # require "pry"; binding.pry
+    item_2 = @item_repo.find_all_by_price_in_range(1..3000)
+    expect(item_2.count).to eq(735)
   end
 
 
