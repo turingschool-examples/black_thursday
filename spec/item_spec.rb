@@ -1,7 +1,7 @@
-require_relative 'csv'
-require_relative './lib/item'
-require_relative './lib/sales_engine'
-require_relative './spec/spec_helper'
+require 'csv'
+require_relative '../lib/item'
+require_relative '../lib/sales_engine'
+require_relative 'spec_helper'
 
   RSpec.describe Item do
     before (:each) do

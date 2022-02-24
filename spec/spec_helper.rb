@@ -1,2 +1,2 @@
-require_relative 'simplecov'
+require 'simplecov'
 SimpleCov.start

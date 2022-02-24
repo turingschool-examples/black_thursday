@@ -1,6 +1,6 @@
-require_relative './lib/sales_engine'
-require_relative './spec/spec_helper'
-require_relative 'pry'
+require_relative '../lib/sales_engine'
+require_relative 'spec_helper'
+require 'pry'
 
 RSpec.describe SalesEngine do
 let(:se) {SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})}
