@@ -24,7 +24,7 @@ class Item
   def update (updated_info_hash)
     @name = updated_info_hash[:name] if updated_info_hash[:name]
     @description = updated_info_hash[:description] if updated_info_hash[:description]
-    @unit_price = BigDecimal.new((updated_info_hash[:unit_price].to_f / 100).round(2), 4) if updated_info_hash[:unit_price]
+    @unit_price = BigDecimal(updated_info_hash[:unit_price])  if updated_info_hash[:unit_price]
     @updated_at = Time.now.getutc
   end
 end

@@ -15,15 +15,15 @@ class ItemRepository < SalesEngine
   end
 
   # vvv LET'S MOVE THIS LOGIC TO THE SALES ENGINE CLASS! vvv (with some modification)
-  # def self.from_csv (path_string)
-  #   csv_source = CSV.read(path_string, headers: true, header_converters: :symbol)
-  #   item_object_array = []
-  #   csv_source.each do |line|
-  #     item = Item.new({ id: line[:id].to_i, name: line[:name], description: line[:description], merchant_id: line[:merchant_id].to_i, unit_price: BigDecimal.new((line[:unit_price].to_f / 100).round(2), line[:unit_price].digits.count), created_at: line[:created_at], updated_at: line[:updated_at] })
-  #     item_object_array << item
-  #   end
-  #   self.new(item_object_array)
-  # end
+  def self.from_csv (path_string)
+    csv_source = CSV.read(path_string, headers: true, header_converters: :symbol)
+    item_object_array = []
+    csv_source.each do |line|
+      item = Item.new({ id: line[:id].to_i, name: line[:name], description: line[:description], merchant_id: line[:merchant_id].to_i, unit_price: BigDecimal(line[:unit_price]), created_at: line[:created_at], updated_at: line[:updated_at] })
+      item_object_array << item
+    end
+    self.new(item_object_array)
+  end
   # ^^^ LET'S MOVE THIS LOGIC TO THE SALES ENGINE CLASS! ^^^
 
   def find_all_with_description (descriptive_string)
