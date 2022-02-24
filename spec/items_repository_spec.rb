@@ -25,4 +25,18 @@ describe ItemsRepository do
     expect(item.id).to eq("263395237")
     expect(item.unit_price).to eq("1200")
   end
+
+  it 'can find an item by description' do
+    item = @ir.find_by_description("Acrylique sur toile exécutée en 2011
+    Format : 65 x 54 cm
+    Toile sur châssis en bois - non encadré
+    Artiste : Flavien Couche - Artiste côté Akoun
+
+    TABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE
+
+    www.flavien-couche.com")
+    
+    expect(item.id).to eq("263398179")
+    expect(item.unit_price).to eq("50000")
+  end
 end
