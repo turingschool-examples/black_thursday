@@ -6,6 +6,7 @@ RSpec.describe Merchant do
 
   before(:each) do
     @m = Merchant.new({:id => 5, :name => "Turing School", :created_at => 12/12/12, :updated_at => 2/22/22})
+
   end
 
   it 'exists' do
@@ -17,6 +18,11 @@ RSpec.describe Merchant do
     expect(@m.name).to eq("Turing School")
     expect(@m.created_at).to eq(12/12/12)
     expect(@m.updated_at).to eq(2/22/22)
+  end
+
+  it 'reads a csv file and creates an array from the data' do
+    test = Merchant.read_file('./data/merchants.csv')
+    expect(test.length).to eq(475)
   end
 
 
