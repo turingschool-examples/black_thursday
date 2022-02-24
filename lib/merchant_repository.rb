@@ -34,5 +34,8 @@ class MerchantRepository
       @all_merchants << new_merchant
   end
 
+  def delete(id)
+    @all_merchants.delete(find_by_id(id))
+  end
 
 end

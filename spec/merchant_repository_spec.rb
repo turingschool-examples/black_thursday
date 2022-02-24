@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/merchant'
 require './lib/merchant_repository'
+require 'pry'
 
 describe MerchantRepository do
   merch_rep = MerchantRepository.new('./data/merchants.csv')
@@ -20,7 +21,7 @@ describe MerchantRepository do
     expect(merch_rep.find_by_id('nothing')).to be_nil
   end
 
-  it "can find an instance of Merchant using it's name" do
+  it "can find an instance of Merchant uwsing it's name" do
     expect(merch_rep.find_by_name('GJGemology')).to eq(merch_rep.all[26])
     expect(merch_rep.find_by_name('SWISSIonenSchmuck')).to eq(merch_rep.all[204])
     expect(merch_rep.find_by_name('nothing')).to be_nil
@@ -36,5 +37,11 @@ describe MerchantRepository do
     merch_rep.create('Not A Real Merchant')
     expect(merch_rep.all[-1].name).to eq('Not A Real Merchant')
     expect(merch_rep.all[-1].id).to eq('12337412')
+  end
+
+  it 'can delete a merchant based on their id' do
+    expect(merch_rep.find_by_id('12334319').name).to eq('dansoilpaintings')
+    merch_rep.delete('12334319')
+    expect(merch_rep.find_by_id('12334319')).to eq(nil)
   end
 end
