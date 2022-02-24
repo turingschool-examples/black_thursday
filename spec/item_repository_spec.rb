@@ -23,10 +23,18 @@ RSpec.describe ItemRepository do
   it 'can return an item id' do
     id = 263567376
     expected = @se.items.find_by_id(id)
-# require "pry"; binding.pry
     expect(expected.id).to eq(id)
     expect(expected.name).to eq("The Gold Coast, Chicago, Illinois")
-  ends
+  end
+
+  it 'will return nil if improper id entered' do
+    id = 000
+    expected = @se.items.find_by_id(id)
+
+    expect(expected).to eq(nil)
+  end
+
+
 
 
 end
