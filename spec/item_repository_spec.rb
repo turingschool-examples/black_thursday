@@ -30,4 +30,10 @@ RSpec.describe ItemRepository do
     expect(@item_repo1.find_all_by_price(1790)).to include(@item_repo1.all[249])
     expect(@item_repo1.find_all_by_price(0)).to eq([])
   end
+
+  it "can find all items within a given range" do
+    expect(@item_repo1.find_all_by_price_in_range(100..10000).length).to eq(1090)
+    expect(@item_repo1.find_all_by_price_in_range(1000..2000).length).to eq(317)
+    expect(@item_repo1.find_all_by_price_in_range(25..35)).to eq([])
+  end
 end

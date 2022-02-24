@@ -20,6 +20,13 @@ class ItemRepository
     found.flatten
   end
 
+  def find_all_by_price_in_range(range)
+    found = []
+    found << @all.find_all do |item|
+      range.include?(item.unit_price.to_f)
+    end
+    return found.flatten
+  end
 
 
   include SalesModule
