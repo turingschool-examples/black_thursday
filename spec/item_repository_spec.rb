@@ -15,4 +15,8 @@ RSpec.describe ItemRepository do
   it 'exists' do
     expect(@se.items).to be_a(ItemRepository)
   end
+
+  it 'can return an array of #all items' do
+    expect(@se.items.all.count).to eq(1367)
+  end
 end
