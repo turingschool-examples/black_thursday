@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'merchant'
+require 'date'
 
 class MerchantRepository
   def initialize(csv)
@@ -22,6 +23,15 @@ class MerchantRepository
     found = []
     found << @all_merchants.find_all{|merchant| merchant.name.downcase == name.downcase}
     found.flatten
+  end
+
+  def create(name)
+    new_merchant = Merchant.new({
+      id: (@all_merchants[-1].id.to_i + 1).to_s,
+      name: name,
+      created_at: Date.today,
+      updated_at: Date.today})
+      @all_merchants << new_merchant
   end
 
 
