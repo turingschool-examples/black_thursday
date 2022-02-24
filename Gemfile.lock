@@ -37,7 +37,11 @@ GEM
     simplecov_json_formatter (0.1.4)
 
 PLATFORMS
+<<<<<<< HEAD
+  x86_64-darwin-21
+=======
   arm64-darwin-20
+>>>>>>> fd9fd2579fadcc824ae186c626f8830409eed9d6
 
 DEPENDENCIES
   cane
@@ -47,4 +51,8 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
+<<<<<<< HEAD
+   2.3.6
+=======
    2.3.5
+>>>>>>> fd9fd2579fadcc824ae186c626f8830409eed9d6
