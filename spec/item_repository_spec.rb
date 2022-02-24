@@ -19,4 +19,14 @@ RSpec.describe ItemRepository do
   it 'can return an array of #all items' do
     expect(@se.items.all.count).to eq(1367)
   end
+
+  it 'can return an item id' do
+    id = 263567376
+    expected = @se.items.find_by_id(id)
+
+    expect(expected.id).to eq(26356736)
+    expect(expected.name).to eq "The Gold Coast, Chicago, Illinois"
+  end
+
+  
 end
