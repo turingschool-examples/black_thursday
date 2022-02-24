@@ -5,15 +5,19 @@ require 'json'
 
 module EtsyHelpers
   attr_reader :result
+
   def format_time(seconds_i_think)
     Time.at(seconds_i_think).utc
   end
-  def get(key, default=:raise)
+
+  def get(key, default = :raise)
     raise "NO KEY GIVEN!" unless key
+
     key   = key.to_s
     value = @result[key]
     return value   if value
     return default unless default == :raise
+
     raise "NO KEY #{key.inspect} IN #{@result.keys.inspect}"
   end
 
@@ -21,11 +25,14 @@ module EtsyHelpers
     seconds = get(:creation_tsz, random_seconds)
     format_time seconds
   end
+
   def updated_at
     seconds = get(:last_updated_tsz, random_seconds)
     format_time seconds
   end
+
   private
+
   def random_seconds
     rand 1452543954
   end
@@ -48,7 +55,6 @@ class Shop
     get :shop_name
   end
 end
-
 
 class Listing
   include EtsyHelpers
@@ -82,11 +88,9 @@ class Listing
   end
 end
 
-
-
 listings_by_shop_id = Dir['tmp/listing*']
-  .map { |filename| Listing.new JSON.parse File.read filename }
-  .group_by { |listing| listing.shop_id }
+                      .map { |filename| Listing.new JSON.parse File.read filename }
+                      .group_by { |listing| listing.shop_id }
 
 shops = Dir['tmp/shop*'].map do |filename|
   result   = JSON.parse File.read filename
@@ -117,7 +121,8 @@ File.open "data/items.csv", "wb" do |file|
   CSV file do |csv|
     csv << %w[id name description unit_price merchant_id created_at updated_at]
     shops.flat_map(&:listings).sort_by(&:id).each do |listing|
-      csv << [listing.id, listing.name, listing.description, listing.unit_price, listing.shop_id, listing.created_at, listing.updated_at]
+      csv << [listing.id, listing.name, listing.description, listing.unit_price, listing.shop_id, listing.created_at,
+              listing.updated_at]
     end
   end
 end
