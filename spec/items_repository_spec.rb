@@ -26,10 +26,15 @@ describe ItemsRepository do
     expect(item.unit_price).to eq("1200")
   end
 
-  it 'can find an item by description' do
+  it 'can find all items with specific description' do
     item = @ir.find_all_with_description("Acrylique sur toile exécutée en 2011")
 
     expect(item.count).to eq(3)
-    # expect(item).to eq("50000")
+  end
+
+  it 'can find all items with specific price' do
+    item = @ir.find_all_with_price("50000")
+
+    expect(item.count).to eq(10)
   end
 end
