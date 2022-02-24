@@ -71,7 +71,7 @@ RSpec.describe ItemRepository do
                                 :merchant_id => 2})
     expect(item_4).to be_a(Item)
     expect(@item_repo.items[-1]).to eq(item_4)
-    
+
   end
 
   it 'can #update(id, attributes)' do
@@ -87,7 +87,18 @@ RSpec.describe ItemRepository do
     expect(item_5.description).to eq("It erases things")
     expect(item_5.unit_price).to eq(BigDecimal(10.88,4))
 
+  end
 
+  it 'can #delete(id)' do
+    item_6 = @item_repo.create({:id => '1',
+                                :name => "Pencil",
+                                :description => "You can use it to write things",
+                                :unit_price => BigDecimal(10.99,4),
+                                :created_at => Time.now,
+                                :updated_at => Time.now,
+                                :merchant_id => 2})
+    @item_repo.delete("263567475")
+    expect(@item_repo.find_by_id("263567475")).to eq(nil)
   end
 
 
