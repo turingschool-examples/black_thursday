@@ -53,7 +53,11 @@ name - returns the name of the merchant
 We create an instance like this:
 
 m = Merchant.new({:id => 5, :name => "Turing School"})
+
+
 ItemRepository
+***************************
+
 The ItemRepository is responsible for holding and searching our Item instances. This object represents one line of data from the file items.csv.
 
 It offers the following methods:
