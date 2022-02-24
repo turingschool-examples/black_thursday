@@ -1,12 +1,13 @@
 require 'csv'
 
 class Merchant
-  attr_reader :id, :name, :created_at, :updated_at
+  attr_reader :created_at, :id
+  attr_accessor :name, :updated_at
   def initialize(data)
-    @id = data[:id]
     @name = data[:name]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
+    @id = data[:id].to_i
   end
 
   def self.read_file(csv)
@@ -15,6 +16,4 @@ class Merchant
       new(row)
     end
   end
-
-
 end
