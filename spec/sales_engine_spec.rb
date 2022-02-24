@@ -15,6 +15,6 @@ describe SalesEngine do
     expect(se).to be_an_instance_of(SalesEngine)
     expect(ir).to be_an_instance_of(ItemRepository)
     expect(mr).to be_an_instance_of(MerchantRepository)
-    
+    binding.pry 
   end
 end
