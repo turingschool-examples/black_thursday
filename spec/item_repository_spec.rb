@@ -58,7 +58,17 @@ RSpec.describe ItemRepository do
   it 'can #find_all_by_merchant_id(merchant_id)' do
     item_3 = @item_repo.find_all_by_merchant_id("12334195")
     expect(item_3.count).to eq(20)
+  end
 
+  it 'can #create(attributes)' do
+    item_4 = @item_repo.create({:id => '1',
+                                :name => "Pencil",
+                                :description => "You can use it to write things",
+                                :unit_price => BigDecimal(10.99,4),
+                                :created_at => Time.now,
+                                :updated_at => Time.now,
+                                :merchant_id => 2})
+    expect(item_4).to be_a(Item)                            
   end
 
 
