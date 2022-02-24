@@ -40,7 +40,7 @@ RSpec.describe ItemRepository do
     expect(repo.find_all_with_description("TE")).to eq([item1, item2])
   end
 
-  it "finds by price" do
+  it "finds all items by price" do
     item1 = Item.new({id: 1, name: "test", description: "test_description", unit_price: 1, created_at: "8:07pm UTC", updated_at: "2:34pm UTC", merchant_id: 001})
     item2 = Item.new({id: 2, name: "test-test", description: "another test description", unit_price: 3, created_at: "12:00am utc", udpated_at:"12:00pm UTC", merchant_id: 001})
     repo = ItemRepository.new([item1, item2])
@@ -48,6 +48,21 @@ RSpec.describe ItemRepository do
     expect(repo.find_all_by_price(1)).to eq([item1])
     expect(repo.find_all_by_price(2)).to eq([])
     expect(repo.find_all_by_price(3)).to eq([item2])
+
+    item2 = Item.new({id: 2, name: "test-test", description: "another test description", unit_price: 1, created_at: "12:00am utc", udpated_at:"12:00pm UTC", merchant_id: 001})
+    repo = ItemRepository.new([item1, item2])
+    expect(repo.find_all_by_price(1)).to eq([item1, item2])
+
+  end
+
+  it "finds all items within a price range" do
+    item1 = Item.new({id: 1, name: "test", description: "test_description", unit_price: 1, created_at: "8:07pm UTC", updated_at: "2:34pm UTC", merchant_id: 001})
+    item2 = Item.new({id: 2, name: "test-test", description: "another test description", unit_price: 3, created_at: "12:00am utc", udpated_at:"12:00pm UTC", merchant_id: 001})
+    repo = ItemRepository.new([item1, item2])
+
+    expect(repo.find_all_by_price_in_range(0..2)).to eq([item1])
+    expect(repo.find_all_by_price_in_range(0..1.5)).to eq([])
+    expect(repo.find_all_by_price(1..3)).to eq([item1, item2])
   end
 
 end
