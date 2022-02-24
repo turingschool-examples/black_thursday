@@ -49,4 +49,9 @@ class ItemRepository < SalesEngine
   def update(id, info_hash)
     find_by_id(id).update(info_hash)
   end
+
+  def delete (id)
+    index = @all.find_index(find_by_id(id))
+    @all.delete_at(index)
+  end
 end
