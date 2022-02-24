@@ -78,18 +78,15 @@ class ItemRepository
   end
 
   def create(attributes)
-
     new_id = current_highest_id + 1
     new_id = new_id.to_s
     attributes[:id] = new_id
     new_item = Item.new(attributes)
-
     @items << new_item
     return new_item
-
-
-
   end
+
+  
 
 
 

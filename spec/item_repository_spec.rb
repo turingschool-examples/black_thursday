@@ -74,9 +74,21 @@ RSpec.describe ItemRepository do
     require "pry"; binding.pry
   end
 
-  # it 'can #update(id, attributes)' do
-  #   item_5 = @item_repo.update()
-  # end
+  it 'can #update(id, attributes)' do
+    item_5 = @item_repo.create({:id => '1',
+                                :name => "Pencil",
+                                :description => "You can use it to write things",
+                                :unit_price => BigDecimal(10.99,4),
+                                :created_at => Time.now,
+                                :updated_at => Time.now,
+                                :merchant_id => 2})
+    item_5 = @item_repo.update("263567475", {:name => 'Eraser', :description => "It erases things", :unit_price => BigDecimal(10.88,4)})
+    expect(item_5.name).to eq('Eraser')
+    expect(item_5.description).to eq("It erases things")
+    expect(item_5.unit_price).to eq(BigDecimal(10.88,4))
+    
+
+  end
 
 
 
