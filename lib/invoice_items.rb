@@ -1,7 +1,7 @@
-class InvoiceItem
+class InvoiceItems
 
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price,
-                :created_at, :updated_at
+  attr_reader :id, :item_id, :invoice_id, :created_at
+  attr_accessor :quantity, :unit_price, :updated_at
 
   def initialize(invoice_info)
     @id = invoice_info[:id]

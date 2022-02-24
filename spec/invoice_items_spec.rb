@@ -1,11 +1,11 @@
 require 'rspec'
-require './lib/invoice_item'
+require './lib/invoice_items'
 require 'bigdecimal'
 require 'pry'
 
-describe InvoiceItem do
+describe InvoiceItems do
   before (:each) do
-    @ii = InvoiceItem.new({
+    @ii = InvoiceItems.new({
       :id => 6,
       :item_id => 7,
       :invoice_id => 8,
@@ -17,7 +17,7 @@ describe InvoiceItem do
   end
 
   it "exists" do
-    expect(@ii).to be_an_instance_of(InvoiceItem)
+    expect(@ii).to be_an_instance_of(InvoiceItems)
   end
 
   it "has an id" do
@@ -38,7 +38,7 @@ describe InvoiceItem do
 
   it "has a unit price" do
     expect(@ii.unit_price).to eq(BigDecimal(10.99, 4))
-    binding.pry
+    # binding.pry
   end
 
 end
