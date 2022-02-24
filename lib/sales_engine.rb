@@ -10,9 +10,14 @@ class SalesEngine
   #   @items = ItemRepository.new(items_data_file)
   #   @merchants = MerchantRepository.new(merchants_data_file)
   # end
-
-  def initialize
+  #
+  def initialize(data_hash)
+    require 'pry'; binding.pry
+    @merchants = MerchantRepository.new(data_hash[:merchants])
   end
 
+  def self.from_csv(data_hash)
+    SalesEngine.new(data_hash)
+  end
 
 end

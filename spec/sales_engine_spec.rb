@@ -17,13 +17,14 @@ RSpec.describe SalesEngine do
     end
 
     it "can instantiate a merchants repository" do
+      # se = SalesEngine.new
       se = SalesEngine.from_csv({
             :items     => "./data/items.csv",
             :merchants => "./data/merchants.csv",
             })
+      # require 'pry'; binding.pry
       mr = se.merchants
       expect(mr).to be_a(MerchantRepository)
-
     end
 
 

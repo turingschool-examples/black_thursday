@@ -1,7 +1,6 @@
 require_relative '../lib/item'
 require 'CSV'
 
-
 class ItemRepository
   attr_reader :filename, :items
 
