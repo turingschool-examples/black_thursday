@@ -35,6 +35,18 @@ class ItemRepository < SalesEngine
 
   def find_all_by_merchant_id(merchant_id)
     @all.find_all {|item| item.merchant_id == merchant_id}
-  end 
+  end
 
+  def create(info_hash)
+    current_largest_item_id = (@all.max {|current, subsequent| current.id <=> subsequent.id}).id #@all.max returns an Item instance, on which we can call id
+    info_hash[:id] = current_largest_item_id + 1
+    info_hash[:created_at] = Time.now.getutc if !(info_hash[:created_at])
+    info_hash[:updated_at] = Time.now.getutc
+    new_item = Item.new(info_hash)
+    @all << new_item
+  end
+
+  def update(id, info_hash)
+    find_by_id(id).update(info_hash)
+  end
 end
