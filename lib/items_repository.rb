@@ -2,7 +2,7 @@ require 'csv'
 require './lib/item'
 
 class ItemsRepository
-  attr_reader :respository
+  attr_reader :repository
 
   def initialize(file)
     @items = CSV.read(file, headers: true, header_converters: :symbol)
@@ -18,6 +18,12 @@ class ItemsRepository
         merchant_id: item_csv[:merchant_id]
         })
       end
+  end #initialize end
+
+  def all
+    @repository
   end
+
+
 
 end
