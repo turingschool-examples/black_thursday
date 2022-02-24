@@ -1,5 +1,5 @@
-require "./spec/spec_helper"
-require "./lib/test"
+require_relative "./spec/spec_helper"
+require_relative "./lib/test"
 
 RSpec.describe Test do
 

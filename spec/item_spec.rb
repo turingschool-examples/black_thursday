@@ -1,7 +1,7 @@
-require 'csv'
-require './lib/item'
-require './lib/sales_engine'
-require './spec/spec_helper'
+require_relative 'csv'
+require_relative './lib/item'
+require_relative './lib/sales_engine'
+require_relative './spec/spec_helper'
 
   RSpec.describe Item do
     before (:each) do
@@ -27,7 +27,7 @@ require './spec/spec_helper'
 
       it '#unit_price_to_dollars can return price of items in dollars as float' do
         expect(@item.unit_price_to_dollars).to eq(4995.0)
-      end 
+      end
     end
 
 
