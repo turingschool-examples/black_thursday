@@ -17,8 +17,8 @@ class MerchantRepository
   end
 
   def current_highest_id
-    sorted = rows.sort_by {|row| row[:id]}
-    highest_id = sorted[-1][:id]
+    sorted = @merchants.sort_by {|merchant| merchant.id}
+    highest_id = sorted[-1].id
     highest_id.to_i
   end
 
@@ -27,24 +27,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    result = rows.map do |row|
-      Merchant.new(row) if row[:id] == id
-    end
-    !result.empty? ? result[0] : nil
+    result = @merchants.find {|merchant| merchant.id == id}
   end
 
   def find_by_name(name)
-    result = rows.map do |row|
-      Merchant.new(row) if row[:name] == name
-    end
-    !result.empty? ? result[0] : nil
+    result = @merchants.find {|merchant| merchant.name == name}
   end
 
   def find_all_by_name(fragment)
-    result = rows.find_all do |row|
-      row[:name].include?(fragment)
-    end
-    !result.empty? ? result.map {|row| Merchant.new(row)} : nil
+    result = @merchants.find_all {|merchant| merchant.name.include?(fragment.downcase)}
   end
 
   def create(name)
@@ -58,6 +49,11 @@ class MerchantRepository
     @merchants.each do |merchant|
       merchant.name = new_name if merchant.id == id
     end
+  end
+
+  def delete(id)
+    deleted_merchant = find_by_id(id)
+    @merchants.delete(deleted_merchant)
   end
 
 end
