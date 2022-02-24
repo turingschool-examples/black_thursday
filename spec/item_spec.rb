@@ -24,6 +24,10 @@ require './spec/spec_helper'
         expect(@item.created_at).to eq("2016-01-11 11:23:02 UTC")
         expect(@item.updated_at).to eq("2012-10-27 09:12:45 UTC")
       end
+
+      it '#unit_price_to_dollars can return price of items in dollars as float' do
+        expect(@item.unit_price_to_dollars).to eq(4995.0)
+      end 
     end
 
 
