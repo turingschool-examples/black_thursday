@@ -38,7 +38,6 @@ describe InvoiceItemsRepository do
     it 'can find all invoice items by the invoice id' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
       invoice_item = iir.find_all_by_invoice_id("1")
-      # binding.pry
       expect(invoice_item.count).to eq(8)
       invoice_item = iir.find_all_by_invoice_id("205")
       expect(invoice_item.count).to eq(3)
@@ -47,29 +46,37 @@ describe InvoiceItemsRepository do
     end
   end
   #
-  # describe '#create' do
-  #   it 'can create a new instance of InvoiceItems class' do
-  #     iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
-  #     johnny = iir.create("Johnny")
-  #     expect(johnny.class).to be(Merchant)
-  #     invoice_item = iir.repository.sort_by do |invoice_item|
-  #                 invoice_item.id
-  #               end.last
-  #     expect(invoice_item.id < johnny.id).to be true
-  #     expect(johnny.name).to eq("Johnny")
-  #   end
-  # end
-  #
-  # describe '#update' do
-  #   it 'can change the Merchants name' do
-  #     iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
-  #     invoice_item = iir.find_by_id("12334364")
-  #     expect(invoice_item.name).to eq("ToThePoints")
-  #     iir.update("12334364", {:name => "ToTheRounds"})
-  #     # invoice_item = iir.find_by_id("12334364")
-  #     expect(invoice_item.name).to eq("ToTheRounds")
-  #   end
-  # end
+  describe '#create' do
+    it 'can create a new instance of InvoiceItems class' do
+      iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
+      harry = iir.create({item_id: 67983,
+                          invoice_id: 305,
+                          quantity: 3,
+                          unit_price: 999,
+                          created_at: Time.now,
+                          updated_at: Time.now})
+      expect(harry.class).to be(InvoiceItems)
+      invoice_item = iir.repository.sort_by do |invoice_item|
+                  invoice_item.id
+                end.last
+      expect(invoice_item.id.to_i < harry.id.to_i).to be true
+      expect(harry.quantity).to eq(3)
+    end
+  end
+
+  describe '#update' do
+    it 'can change the InvoiceItems quantity, unit price and updated_at' do
+      iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
+      invoice_item = iir.find_by_id("1008")
+      expect(invoice_item.quantity).to eq("5")
+      expect(invoice.item.unit_price).to eq("97806")
+      iir.update("1008", {:quantity => 10,
+                          :unit_price => 99978})
+      invoice_item = iir.find_by_id("1008")
+      expect(invoice_item.quantity).to eq(10)
+      expect(invoice_item.unit_price).to eq(99978)
+    end
+  end
   #
   # describe '#delete' do
   #   it 'can remove a invoice_item from the repository' do
