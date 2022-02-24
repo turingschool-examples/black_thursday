@@ -6,8 +6,8 @@ RSpec.describe do
     before(:each) do
       @m = Merchant.new({
                           id: 5,
-                          name: 'Turing School'
-                          created_at: '2010-12-10'
+                          name: 'Turing School',
+                          created_at: '2010-12-10',
                           updated_at: '2011-12-04'
                         })
     end
