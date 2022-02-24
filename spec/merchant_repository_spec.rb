@@ -40,7 +40,7 @@ RSpec.describe MerchantRepository do
     it 'can create merchant instances for each id passed as an argument' do
 
       expect(@merchant_repo.find_by_id("12334105")).to be_a(Merchant)
-
+      expect(@merchant_repo.find_by_id("12334105").id).to eq("12334105")
       expect(@merchant_repo.find_by_id("00000000")).to eq(nil)
     end
   end
@@ -49,6 +49,7 @@ RSpec.describe MerchantRepository do
     it 'can create merchant instances for each name passed as an argument' do
 
       expect(@merchant_repo.find_by_name("Shopin1901")).to be_a(Merchant)
+      expect(@merchant_repo.find_by_name("Shopin1901").name).to eq("Shopin1901")
 
       expect(@merchant_repo.find_by_name("King Sooper's")).to eq(nil)
     end
@@ -70,10 +71,18 @@ RSpec.describe MerchantRepository do
   end
 
   describe '#update' do
-    xit 'can update the name for a given id' do
+    it 'can update the name for a given id' do
       @merchant_repo.create("King Sooper's")
       @merchant_repo.update("12334184", "Safeway")
       expect(@merchant_repo.find_by_id("12334184").name).to eq("Safeway")
+    end
+  end
+
+  describe '#delete' do
+    it 'can delete merchants by id' do
+      @merchant_repo.create("King Sooper's")
+      @merchant_repo.delete("12334184")
+      expect(@merchant_repo.find_by_id("12334184")).to eq(nil)
     end
   end
 
