@@ -19,4 +19,20 @@ class InvoiceRepository
           end
   end
 
+  def all
+    @repository
+  end
+
+  def find_by_id(id)
+    @repository.find do |invoice|
+      invoice.id == id
+    end
+  end
+
+  def find_all_by_customer_id(id)
+    @repository.select do |invoice|
+      invoice.customer_id == id
+    end
+  end
+
 end

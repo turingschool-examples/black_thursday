@@ -13,7 +13,32 @@ describe InvoiceRepository do
 
     it 'creates a repository of Invoice items' do
       expect(@ir.repository.class).to eq(Array)
-      expect(@ir.repository.sample.class).to eq(Invoice)
+      5.times do
+        expect(@ir.repository.sample.class).to eq(Invoice)
+      end
     end
   end
+
+  describe '#all' do
+    it 'returns all instances of Invoice in the repository' do
+      expect(@ir.all).to eq(@ir.repository)
+    end
+  end
+
+  describe '#find_by_id' do
+    it 'finds a specific invoice using the id' do
+      invoice = @ir.find_by_id("214")
+
+      expect(invoice.id).to eq("214")
+      expect(invoice.class).to eq(Invoice)
+    end
+  end
+
+  describe '#find_all_by_customer_id' do
+    it 'can find all invoices by one customer' do
+      customer_invoices = @ir.find_all_by_customer_id("9")
+      expect(customer_invoices.class).to eq(Array)
+    end
+  end
+
 end
