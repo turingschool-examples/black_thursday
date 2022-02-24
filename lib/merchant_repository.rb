@@ -11,7 +11,7 @@ class MerchantRepository
 
   def create(name)
     new_merchant = Merchant.new({
-      id: (@all[-1].id.to_i + 1).to_s,
+      id: (@all[-1].id + 1),
       name: name,
       created_at: Date.today.to_s,
       updated_at: Date.today.to_s})
