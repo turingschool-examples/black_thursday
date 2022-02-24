@@ -9,4 +9,8 @@ describe ItemsRepository do
   it "exists" do
     expect(@ir).to be_an_instance_of(ItemsRepository)
   end
+
+  it 'lists all items' do
+    expect(@ir.all).to eq(@ir.repository)
+  end
 end
