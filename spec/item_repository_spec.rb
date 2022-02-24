@@ -34,10 +34,17 @@ RSpec.describe ItemRepository do
     expect(expected).to eq(nil)
   end
 
-  xit 'can find by name' do
+  it 'can find by name' do
     name = 'Bird houses'
     expected = @se.items.find_by_name(name)
 
-    expect(expected.id).to eq(263_550_286)
+    expect(expected.id).to eq(263_565_028)
+  end
+
+  it 'can find by name :case-insensitive' do
+    name = 'Bird hOuSes'
+    expected = @se.items.find_by_name(name)
+
+    expect(expected.id).to eq(263_565_028)
   end
 end

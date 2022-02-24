@@ -14,7 +14,7 @@ class ItemRepository
     @items.find { |item| item.id == id }
   end
 
-  def find_by_name(_name)
-    @items.find { |name| item.name.downcase == name.downcase }
+  def find_by_name(name)
+    @items.find { |item| item.name.downcase == name.downcase }
   end
 end
