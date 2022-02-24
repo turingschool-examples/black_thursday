@@ -3,7 +3,9 @@ require 'pry'
 require_relative './sales_engine.rb'
 require_relative './findable.rb'
 require_relative './item.rb'
+require 'BigDecimal'
 
+#This class takes one argument at initialization, an array of all Item instances. It is intended that the SalesEngine instance will take care of creating this array from its given CSV directory, and pass that array to this instance of ItemRepository at time of creation (when SalesEngine#items(item_object_array) is called)
 class ItemRepository < SalesEngine
   include Findable
   attr_reader :all
@@ -12,15 +14,17 @@ class ItemRepository < SalesEngine
     @all = array
   end
 
-  def self.from_csv (path_string)
-    csv_source = CSV.read(path_string, headers: true, header_converters: :symbol)
-    item_object_array = []
-    csv_source.each do |line|
-      item = Item.new({ id: line[:id], name: line[:name], description: line[:description], merchant_id: line[:merchant_id], unit_price: line[:unit_price], created_at: line[:created_at], updated_at: line[:updated_at] })
-      item_object_array << item
-    end
-    self.new(item_object_array)
-  end
+  # vvv LET'S MOVE THIS LOGIC TO THE SALES ENGINE CLASS! vvv (with some modification)
+  # def self.from_csv (path_string)
+  #   csv_source = CSV.read(path_string, headers: true, header_converters: :symbol)
+  #   item_object_array = []
+  #   csv_source.each do |line|
+  #     item = Item.new({ id: line[:id].to_i, name: line[:name], description: line[:description], merchant_id: line[:merchant_id].to_i, unit_price: BigDecimal.new((line[:unit_price].to_f / 100).round(2), line[:unit_price].digits.count), created_at: line[:created_at], updated_at: line[:updated_at] })
+  #     item_object_array << item
+  #   end
+  #   self.new(item_object_array)
+  # end
+  # ^^^ LET'S MOVE THIS LOGIC TO THE SALES ENGINE CLASS! ^^^
 
   def find_all_with_description (descriptive_string)
     @all.find_all {|item| item.description.downcase.include?(descriptive_string.downcase)}
