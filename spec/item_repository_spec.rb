@@ -71,7 +71,12 @@ RSpec.describe ItemRepository do
                                 :merchant_id => 2})
     expect(item_4).to be_a(Item)
     expect(@item_repo.items[-1]).to eq(item_4)
+    require "pry"; binding.pry
   end
+
+  # it 'can #update(id, attributes)' do
+  #   item_5 = @item_repo.update()
+  # end
 
 
 
