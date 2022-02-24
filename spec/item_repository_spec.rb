@@ -47,4 +47,11 @@ RSpec.describe ItemRepository do
 
     expect(expected.id).to eq(263_565_028)
   end
+
+  it 'find by name returns nil if invalid input' do
+    name = 'Shermans Shoe Shop'
+    expected = @se.items.find_by_name(name)
+
+    expect(expected).to eq(nil)
+  end
 end
