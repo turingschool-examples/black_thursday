@@ -29,4 +29,9 @@ class ItemRepository < SalesEngine
     @all.find_all {|item| item.unit_price == desired_price}
   end
 
+  def find_all_by_price_in_rance(price_range_object)
+    @all.find_all {|item| price_range_object.member?(item.unit_price)}
+
+  end
+
 end
