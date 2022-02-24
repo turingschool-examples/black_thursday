@@ -1,11 +1,13 @@
 require 'csv'
+require_relative 'item'
 
 class ItemRepository
   def initialize(csv)
-
+    @all_items = Item.read_file(csv)
   end
 
-  def self.read_file
-    @csv = CSV.read(csv, headers: true)
+  def all
+    @all_items
   end
+
 end
