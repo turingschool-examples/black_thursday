@@ -1,48 +1,25 @@
-# require "./data/items"
-# require "./data/merchants"
 require_relative "merchant_repository"
 require_relative 'item'
 require_relative 'merchant'
 require 'csv'
-
 class SalesEngine
-  attr_reader :items, :merchants
-    @@items = []
-    @@merchants = []
-
+  attr_reader :items_array, :merchants_array
+  def initialize
+  @items_array = []
+  @merchants_array = []
+  end
   def self.from_csv(files)
-    items = CSV.read(files[:items], headers: true)
-    # items.shift(2)
-    items.each {|data| @@items << Item.new({:id => data[0], :name => data[1], :description => data[2], :unit_price => data[3], :created_at => Time.now, :updated_at => Time.now, :merchant_id => data[4]})}
-    merchants = CSV.read(files[:merchants], headers: true)
-    # merchants.shift
-    merchants.each {|data| @@merchants << Merchant.new({:id => data[0], :name => data[1]})}
-    SalesEngine.new
+    engine = SalesEngine.new
+    items = CSV.open(files[:items], headers: true)
+    items.each {|data| engine.items_array << Item.new({:id => data[0], :name => data[1], :description => data[2], :unit_price => data[3], :created_at => Time.now, :updated_at => Time.now, :merchant_id => data[4]})}
+    merchants = CSV.open(files[:merchants], headers: true)
+    merchants.each {|data| engine.merchants_array << Merchant.new({:id => data[0], :name => data[1]})}
+    engine
   end
-  
-#   class SalesEngine
-# 
-# 
-#   def self.from_csv(files)
-#     items = CSV.read(files[:items])
-#     items.map do |item|
-#       Item.new(item[:id])
-#     end
-#     merchants = CSV.read(files[:merchants])
-#     merchants.map do |merchant|
-#       Item.new(item[:id])
-#     end
-#   end
-# end
-  
-
-  def self.merchants
-    MerchantRepository.new(@@merchants)
+  def merchants
+    MerchantRepository.new(@merchants_array)
   end
-
-  def self.items
-    ItemRepository.new(@@items)
+  def items
+    ItemRepository.new(@items_array)
   end
-
 end
-require "pry"; binding.pry
