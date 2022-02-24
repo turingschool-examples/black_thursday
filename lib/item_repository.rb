@@ -1,13 +1,13 @@
 require 'csv'
 require_relative 'item'
+require_relative 'sales_module'
 
 class ItemRepository
+  attr_reader :all
   def initialize(csv)
-    @all_items = Item.read_file(csv)
+    @all = Item.read_file(csv)
   end
 
-  def all
-    @all_items
-  end
+  include SalesModule
 
 end
