@@ -90,6 +90,4 @@ describe InvoiceRepository do
       expect(@ir.repository.include?(invoice)).to be false
     end
   end
-
-
 end
