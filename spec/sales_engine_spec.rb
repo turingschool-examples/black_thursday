@@ -11,20 +11,30 @@ RSpec.describe SalesEngine do
 
   describe '#initialize' do
 
-    it "it exists" do
-      se = SalesEngine.new
-      expect(se).to be_a(SalesEngine)
-    end
-
-    it "can instantiate a merchants repository" do
-      # se = SalesEngine.new
+    it "exists" do
       se = SalesEngine.from_csv({
             :items     => "./data/items.csv",
             :merchants => "./data/merchants.csv",
             })
-      # require 'pry'; binding.pry
+      expect(se).to be_a(SalesEngine)
+    end
+
+    it "can instantiate a merchants repository" do
+      se = SalesEngine.from_csv({
+            :items     => "./data/items.csv",
+            :merchants => "./data/merchants.csv",
+            })
       mr = se.merchants
       expect(mr).to be_a(MerchantRepository)
+    end
+
+    it "can instantiate a item repository" do
+      se = SalesEngine.from_csv({
+            :items     => "./data/items.csv",
+            :merchants => "./data/merchants.csv",
+            })
+      ir = se.items
+      expect(ir).to be_a(ItemRepository)
     end
 
 

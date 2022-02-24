@@ -6,13 +6,9 @@ require 'CSV'
 
 class SalesEngine
 
-  # def initialize(items_data_file, merchants_data_file)
-  #   @items = ItemRepository.new(items_data_file)
-  #   @merchants = MerchantRepository.new(merchants_data_file)
-  # end
-  #
+  attr_reader :items, :merchants
   def initialize(data_hash)
-    require 'pry'; binding.pry
+    @items = ItemRepository.new(data_hash[:items])
     @merchants = MerchantRepository.new(data_hash[:merchants])
   end
 
