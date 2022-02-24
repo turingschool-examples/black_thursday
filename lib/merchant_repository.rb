@@ -13,9 +13,15 @@ class MerchantRepository
     new_merchant = Merchant.new({
       id: (@all[-1].id.to_i + 1).to_s,
       name: name,
-      created_at: Date.today,
-      updated_at: Date.today})
+      created_at: Date.today.to_s,
+      updated_at: Date.today.to_s})
       @all << new_merchant
+  end
+
+  def update(id, name)
+    updated_merchant = @all.find{|merchant| merchant.id == id}
+    updated_merchant.name = name
+    updated_merchant.updated_at = Date.today.to_s
   end
 
   include SalesModule
