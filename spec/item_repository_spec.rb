@@ -61,6 +61,7 @@ RSpec.describe ItemRepository do
   end
 
   it 'can #create(attributes)' do
+
     item_4 = @item_repo.create({:id => '1',
                                 :name => "Pencil",
                                 :description => "You can use it to write things",
@@ -68,7 +69,8 @@ RSpec.describe ItemRepository do
                                 :created_at => Time.now,
                                 :updated_at => Time.now,
                                 :merchant_id => 2})
-    expect(item_4).to be_a(Item)                            
+    expect(item_4).to be_a(Item)
+    expect(@item_repo.items[-1]).to eq(item_4)
   end
 
 
