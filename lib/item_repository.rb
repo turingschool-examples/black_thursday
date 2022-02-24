@@ -61,6 +61,14 @@ class ItemRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all do |item|
+      if item.merchant_id == merchant_id
+        item
+      end
+    end
+  end
+
 
 
 

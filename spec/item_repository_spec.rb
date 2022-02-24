@@ -57,7 +57,7 @@ RSpec.describe ItemRepository do
 
   it 'can #find_all_by_merchant_id(merchant_id)' do
     item_3 = @item_repo.find_all_by_merchant_id("12334195")
-    expect(item_3.count).to eq(2)
+    expect(item_3.count).to eq(20)
 
   end
 
