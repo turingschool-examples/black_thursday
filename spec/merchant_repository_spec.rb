@@ -70,4 +70,14 @@ describe MerchantsRepository do
     end
   end
 
+  describe '#delete' do
+    it 'can remove a merchant from the repository' do
+      mr = MerchantsRepository.new("./data/merchants.csv")
+      merchant = mr.find_by_name("MattsNerdShoppe")
+      expect(mr.repository.include?(merchant)).to be true
+      mr.delete(merchant.id)
+      expect(mr.repository.include?(merchant)).to be false
+    end
+  end
+
 end
