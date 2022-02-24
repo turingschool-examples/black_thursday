@@ -86,7 +86,17 @@ class ItemRepository
     return new_item
   end
 
-  
+  def update(id, attributes)
+    updated_item = @items.find {|item| item.id == id }
+    updated_item.name = attributes[:name]
+    updated_item.description = attributes[:description]
+    updated_item.unit_price = attributes[:unit_price]
+    updated_item.updated_at = Time.now
+    updated_item
+
+  end
+
+
 
 
 

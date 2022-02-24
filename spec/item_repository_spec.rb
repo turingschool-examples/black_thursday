@@ -71,7 +71,7 @@ RSpec.describe ItemRepository do
                                 :merchant_id => 2})
     expect(item_4).to be_a(Item)
     expect(@item_repo.items[-1]).to eq(item_4)
-    require "pry"; binding.pry
+    
   end
 
   it 'can #update(id, attributes)' do
@@ -86,7 +86,7 @@ RSpec.describe ItemRepository do
     expect(item_5.name).to eq('Eraser')
     expect(item_5.description).to eq("It erases things")
     expect(item_5.unit_price).to eq(BigDecimal(10.88,4))
-    
+
 
   end
 
