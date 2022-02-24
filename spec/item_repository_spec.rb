@@ -62,7 +62,7 @@ RSpec.describe ItemRepository do
 
     expect(repo.find_all_by_price_in_range(0..2)).to eq([item1])
     expect(repo.find_all_by_price_in_range(0..1.5)).to eq([])
-    expect(repo.find_all_by_price(1..3)).to eq([item1, item2])
+    expect(repo.find_all_by_price_in_range(1..3)).to eq([item1, item2])
   end
 
 end
