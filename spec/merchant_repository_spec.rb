@@ -52,9 +52,10 @@ describe MerchantsRepository do
       johnny = mr.create("Johnny")
       expect(johnny.class).to be(Merchant)
       merchant = mr.repository.sort_by do |merchant|
-                  merchant.id
+                  merchant.id.to_i
                 end.last
       expect(merchant.id < johnny.id).to be true
+      require 'pry'; binding.pry
       expect(johnny.name).to eq("Johnny")
     end
   end
