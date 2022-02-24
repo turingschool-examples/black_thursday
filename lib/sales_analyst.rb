@@ -21,8 +21,12 @@ class SalesAnalyst
     merchant_ids.each do |id|
       merchant_items[id] += 1
     end
-  
+
     ((merchant_items.values.sum).to_f / merchant_items.keys.count).round(2)
+
+  end
+
+  def average_items_per_merchant_standard_deviation
 
   end
 end
