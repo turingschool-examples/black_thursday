@@ -8,6 +8,20 @@ class ItemRepository
     @all = Item.read_file(csv)
   end
 
+  def find_all_with_description(description)
+    found = []
+    found << @all.find_all{|item| item.description.downcase == description.downcase}
+    found.flatten
+  end
+
+  def find_all_by_price(price)
+    found = []
+    found << @all.find_all{|item| item.unit_price.to_f == price}
+    found.flatten
+  end
+
+
+
   include SalesModule
 
 end
