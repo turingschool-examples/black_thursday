@@ -13,4 +13,10 @@ describe ItemsRepository do
   it 'lists all items' do
     expect(@ir.all).to eq(@ir.repository)
   end
+
+  it 'can find an item by the id' do
+    item = @ir.find_by_id("263395237")
+    expect(item.name).to eq("510+ RealPush Icon Set")
+    expect(item.unit_price).to eq(1200)
+  end
 end
