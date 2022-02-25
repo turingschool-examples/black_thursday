@@ -68,4 +68,13 @@ RSpec.describe MerchantRepository do
 
   expect(expected).to eq ([])
   end
+
+  it "can #create a new merchant instance" do
+    attributes = {name: "AngryClownDayCare", created_at: Time.now,
+    updated_at: Time.now}
+
+    @se.merchants.create(attributes)
+    expected = @se.merchants.find_by_id(12337412)
+    expect(expected.name).to eq("AngryClownDayCare")
+  end
 end
