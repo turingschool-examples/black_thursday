@@ -1,4 +1,6 @@
 require 'csv'
+require './lib/items_repository'
+require './lib/merchants_repository'
 
 class SalesEngine
 
@@ -13,10 +15,6 @@ class SalesEngine
 
   def items
     ItemsRepository.new(@items)
-  end
-
-  def merchants
-    Merchants.new(@merchants)
   end
 
 end #SalesEngine class end
