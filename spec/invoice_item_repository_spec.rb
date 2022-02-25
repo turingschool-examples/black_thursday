@@ -31,8 +31,12 @@ describe InvoiceItemRepository do
     allow(@invoice_item3).to receive(:created_at){Time.now}
     allow(@invoice_item3).to receive(:updated_at){Time.now}
   end
-    it 'exists' do
-      iir = InvoiceItemRepository.new([@invoice_item1, @invoice_item2, @invoice_item3])
-      expect(iir).to be_a(InvoiceItemRepository)
-    end
+  it 'exists' do
+    iir = InvoiceItemRepository.new([@invoice_item1, @invoice_item2, @invoice_item3])
+    expect(iir).to be_a(InvoiceItemRepository)
+  end
+  it 'can find_all_by_invoice id' do
+    found = iir.find_all_by_invoice_id(11)
+    expect(found).to eq(@invoice_item_2)
+  end
 end
