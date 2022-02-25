@@ -1,12 +1,10 @@
 require './lib/sales_engine'
 
-Rspec.describe Salesengine do
-  before(:each) do
+describe SalesEngine do
     se = SalesEngine.from_csv({
             :items     => "./data/items.csv",
             :merchants => "./data/merchants.csv",
                               })
-  end
 
   it 'exists' do
     expect(se.items).to be_an_instance_of(ItemRepository)
@@ -14,5 +12,5 @@ Rspec.describe Salesengine do
   end
 
 
-  
+
 end
