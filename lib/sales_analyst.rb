@@ -1,3 +1,6 @@
+require_relative 'item_repository'
+require 'bigdecimal'
+
 class SalesAnalyst
   attr_reader :merchants, :items
   def initialize(merchants, items)
@@ -40,4 +43,12 @@ class SalesAnalyst
     merchant_ids = high_item_count.map{|merchants|merchants[0].merchant_id}
     merchant_ids.map{|id|@merchants.find_by_id(id)}
   end
+
+  def average_item_price_for_merchant(id)
+    all_items = @items.find_all_by_merchant_id(id)
+    all_prices = all_items.map {|item|item.unit_price.to_i}
+    all_prices.sum(0)/all_items.length
+  end
+
+
 end
