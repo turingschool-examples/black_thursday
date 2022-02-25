@@ -13,9 +13,10 @@ module IDManager
 
   def update(id, attributes)
     updated_hash = attributes
-    @all[@all.find_index{|index| index.id == id}].merge(updated_hash)
+    find_by_id(id).merge(updated_hash)
   end
 
   def delete(id)
+    @all.delete(find_by_id(id))
   end
 end

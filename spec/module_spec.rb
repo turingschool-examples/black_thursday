@@ -33,7 +33,7 @@ RSpec.describe IDManager do
     @mr.update(1320, name: "chicken")
   end
 
-  xit 'can delete an id' do
+  it 'can delete an id' do
     @mr.delete(1320)
     expect(@mr.all).to eq([@merchant1])
   end
