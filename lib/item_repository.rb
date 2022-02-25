@@ -26,4 +26,7 @@ class ItemRepository
     @items.find_all { |item| item.unit_price.to_i == price }
   end
 
+  def find_all_by_price_in_range(range)
+    @items.find_all { |item| item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last }
+  end
 end
