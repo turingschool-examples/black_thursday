@@ -5,8 +5,9 @@ require './lib/merchant'
 
 class SalesEngine
   attr_reader :items_csv_object, :merchants_csv_object
+
   def initialize(table_hash)
-      @items_csv_object = table_hash[:items]
+    @items_csv_object = table_hash[:items]
     @merchants_csv_object = table_hash[:merchants]
   end
 
@@ -31,5 +32,5 @@ class SalesEngine
       Merchant.new(row)
     end
     MerchantRepository.new(merchant_array)
-  end  
+  end
 end
