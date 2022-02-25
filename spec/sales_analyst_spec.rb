@@ -33,7 +33,8 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'dispays merchants with high item count' do
-      expect(@sales_analyst.merchants_with_high_item_count).to to_include(Merchant)
+      expect(@sales_analyst.merchants_with_high_item_count[0]).to be_a(Merchant)
+      expect(@sales_analyst.merchants_with_high_item_count.count).to eq(52)
     end
 
   end
