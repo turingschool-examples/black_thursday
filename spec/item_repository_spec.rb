@@ -96,7 +96,12 @@ RSpec.describe ItemRepository do
 
     expected = @se.items.find_all_by_price(price)
     expect(expected.length).to eq(0)
+  end
 
+  it "can find all items within given price range" do
+    range = (1000.00..20000.00)
+    expected = @se.items.find_all_by_price_in_range(range)
 
+    expect(expected.length).to eq 19
   end
 end
