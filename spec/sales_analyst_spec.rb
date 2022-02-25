@@ -39,6 +39,7 @@ RSpec.describe SalesAnalyst do
 
     it 'finds average item price per merchant' do
       expect(@sales_analyst.average_item_price_for_merchant(12334159)).to be_a(BigDecimal)
+      expect(@sales_analyst.average_item_price_for_merchant(12334105).to_f).to eq(16.66)
     end
 
   end

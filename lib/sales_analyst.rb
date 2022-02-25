@@ -3,6 +3,7 @@ require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
+require 'bigdecimal'
 require 'pry'
 require 'CSV'
 
@@ -59,11 +60,15 @@ class SalesAnalyst
       key if value > item_count_standard
     end
 
-
     high_item_count_merchants_id.map do |merchants_id|
       @merchants.find_by_id(merchants_id[0])
     end
 
+  end
 
+  def average_item_price_for_merchant(merchant_id)
+    merchant_items = @items.find_all_by_merchant_id(merchant_id.to_s)
+    merchant_item_prices = merchant_items.map {|item| BigDecimal(item.unit_price) }
+    ((merchant_item_prices.sum / merchant_item_prices.count)/100).round(2)
   end
 end
