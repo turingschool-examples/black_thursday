@@ -23,16 +23,6 @@ class ItemsRepository
       end
   end #initialize end
 
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find do |item|
-      item.id == id
-    end
-  end
-
   def find_by_name(name)
     @repository.find do |item|
       item.name == name
