@@ -114,4 +114,11 @@ RSpec.describe ItemRepository do
 
     expect(expected.length).to eq 1
   end
+
+  it "can find all items associated with a given merchant id" do
+    merchant_id = 12334105
+    expected = @se.items.find_all_by_merchant_id(merchant_id)
+
+    expect(expected.length).to eq(3)
+  end
 end
