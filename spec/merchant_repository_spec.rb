@@ -27,7 +27,7 @@ RSpec.describe MerchantRepository do
     expect(@merchants_i.find_by_id('1')).to be nil
   end
 
-  it "can find first matching merchant by case-insensitive name" do
+  it "can find first matching merchant by case-insensitive name or nil" do
       name = "leaburrot"
       expected = @merchants_i.find_by_name(name)
       expect(expected.id).to eq 12334411
@@ -36,6 +36,7 @@ RSpec.describe MerchantRepository do
       expected_up =@merchants_i.find_by_name(name_up)
       expect(expected_up.id).to eq 12334411
       expect(expected_up.name).to eq name
+      expect(@merchants_i.find_by_name("kk")).to be nil
   end
 
 
