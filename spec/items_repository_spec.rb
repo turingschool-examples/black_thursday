@@ -67,29 +67,24 @@ describe ItemsRepository do
     expect(@ir.find_all_by_price(BigDecimal(11.55,4))).to eq([item])
   end
 
-  it 'can find all items with specific merchant_id' do
-    item = @ir.find_by_id("263395237")
+  it 'can update item names, descriptions, and unit_price' do
+    item = @ir.find_by_id("263567474")
     first_update = item.updated_at
-    expect(item.name).to eq("510+ RealPush Icon Set")
+
+    expect(item.name).to eq("Minty Green Knit Crochet Infinity Scarf")
     expect(item.description).to eq("- Super Chunky knit infinity scarf
-    - Soft mixture of 97% Acrylic and 3% Viscose
-    - Beautiful, Warm, and Stylish
-    - Very easy to care for
+- Soft mixture of 97% Acrylic and 3% Viscose
+- Beautiful, Warm, and Stylish
+- Very easy to care for
 
-    Hand wash with cold water and lay flat to dry")
+Hand wash with cold water and lay flat to dry")
 
-    item.update("263395237", {name: "Johnny's Wizarding Whimsicals", description: "new description", unit_price: 6}
+    @ir.update("263567474", {name: "Johnny's Wizarding Whimsicals", description: "new description", unit_price: 6})
 
-    expect(item.name).to eq("Johnny's Wizarding Whimsicals")
+    expect(@ir.find_by_id('263567474').name).to eq("Johnny's Wizarding Whimsicals")
     expect(item.description).to eq("new description")
     expect(item.unit_price).to eq(6)
     expect(item.updated_at).not_to eq(first_update)
   end
-
-  # it 'can find an item by the id' do
-  #   item = @ir.find_by_id("263395237")
-  #   expect(item.name).to eq("510+ RealPush Icon Set")
-  #   expect(item.unit_price).to eq("1200")
-  # end
 
 end

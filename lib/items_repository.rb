@@ -61,4 +61,19 @@ class ItemsRepository
     end
   end
 
+  def create(attributes)
+    attributes[:id] = (@repository.last.id.to_i + 1).to_s
+    item = Item.new(attributes)
+    @repository << item
+    item
+  end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    item.name = attributes[:name]
+    item.description = attributes[:description]
+    item.unit_price = attributes[:unit_price]
+    item.updated_at = Time.now
+  end
+
 end
