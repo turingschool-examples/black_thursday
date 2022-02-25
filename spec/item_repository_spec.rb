@@ -1,4 +1,5 @@
 require_relative '../lib/item_repository'
+require 'pry'
 require 'simplecov'
 SimpleCov.start
 
@@ -26,8 +27,8 @@ RSpec.describe ItemRepository do
   end
 
   it 'can #find_by_id(id)' do
-    expect(@item_repo.find_by_id("263395237")).to be_a(Item)
-    expect(@item_repo.find_by_id("288888887")).to eq(nil)
+    expect(@item_repo.find_by_id(263395237)).to be_a(Item)
+    expect(@item_repo.find_by_id(288888887)).to eq(nil)
   end
 
   it 'can #find_by_name(name)' do
@@ -44,9 +45,8 @@ RSpec.describe ItemRepository do
   end
 
   it 'can #find_all_by_price(price)' do
-    item = @item_repo.find_all_by_price("2999")
-    expect(item.count).to eq(3)
-    expect(@item_repo.find_all_by_price("2999")).to be_a(Array)
+    items = @item_repo.find_all_by_price(25)
+    expect(items.count).to eq(79)
   end
 
   it 'can #find_all_by_price_in_range(range)' do
