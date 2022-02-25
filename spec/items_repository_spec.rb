@@ -50,4 +50,20 @@ describe ItemsRepository do
     expect(item.count).to eq(20)
     expect(item[0].unit_price).to eq('14900')
   end
+
+  it 'creates new items with highest id' do
+    item = @ir.create({
+      :id          => nil,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    })
+
+    expect(item.id).to eq("263567475")
+    expect(@ir.find_all_by_price).to eq([item])
+  end
+
 end
