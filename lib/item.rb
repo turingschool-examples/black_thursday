@@ -21,7 +21,7 @@ class Item
     unit_price.to_f.round(2)
   end
 
-  def update (updated_info_hash)
+  def update(updated_info_hash)
     @name = updated_info_hash[:name] if updated_info_hash[:name]
     @description = updated_info_hash[:description] if updated_info_hash[:description]
     @unit_price = BigDecimal(updated_info_hash[:unit_price])  if updated_info_hash[:unit_price]

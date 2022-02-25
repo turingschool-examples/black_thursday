@@ -1,7 +1,7 @@
 require './lib/item'
 require 'simplecov'
 require 'bigdecimal'
-#built in class method
+# built in class method
 SimpleCov.start
 
 RSpec.describe Item do

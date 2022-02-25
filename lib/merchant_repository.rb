@@ -10,7 +10,7 @@ class MerchantRepository
 
   def find_by_id(id)
     @merchants.find do |merchant|
-        merchant.id == id
+      merchant.id == id
     end
   end
 
@@ -26,7 +26,7 @@ class MerchantRepository
     end
   end
 
-#helper method for create
+  # helper method for create
   def highest_id
     last_id = 0
     @merchants.max do |merchant|
@@ -36,7 +36,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    attributes[:name] = Merchant.new({:id => self.highest_id + 1, :name => attributes[:name]})
+    attributes[:name] = Merchant.new({ :id => self.highest_id + 1, :name => attributes[:name] })
   end
 
   def update(id, attributes)
