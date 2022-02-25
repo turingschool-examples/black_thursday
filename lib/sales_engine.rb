@@ -1,23 +1,16 @@
 require 'csv'
 require 'pry'
 
+
 class SalesEngine
-  attr_reader :items, :merchants
+attr_reader :items, :merchants, :merchant_lines, :item_lines
 
-  def self.from_csv(argument)
-    @items = argument[:items]
-    @merchants = argument[:merchants]
+  def self.from_csv(data)
+    @merchant_lines = File.readlines data[:merchants]
+    @item_lines = File.readlines data[:items]
+    binding.pry
+    [@merchant_lines, @item_lines]
+    end
+
+
   end
-
-
-  # def load_data(data_csv, header)
-  #   rows = CSV.read(data_csv, headers: true)
-  #     rows.find_all do |element|
-  #       if element[header] == name
-  #         result << element
-  #       end
-  #     end
-  #   result
-  # end
-
-end
