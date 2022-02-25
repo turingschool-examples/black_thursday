@@ -9,8 +9,6 @@ require 'CSV'
 
 class SalesAnalyst
 
-
-
   def initialize(merchants, items)
     @merchants = merchants
     @items = items
@@ -22,12 +20,8 @@ class SalesAnalyst
     merchant_ids.each do |id|
       merchant_items[id] += 1
     end
-
     ((merchant_items.values.sum).to_f / merchant_items.keys.count).round(2)
-
   end
-
-
 
   def average_items_per_merchant_standard_deviation
     merchant_ids = @items.items.map {|item| item.merchant_id}
@@ -63,19 +57,18 @@ class SalesAnalyst
     high_item_count_merchants_id.map do |merchants_id|
       @merchants.find_by_id(merchants_id[0])
     end
-
   end
 
   def average_item_price_for_merchant(merchant_id)
-    merchant_items = @items.find_all_by_merchant_id(merchant_id.to_s)
-    merchant_item_prices = merchant_items.map {|item| BigDecimal(item.unit_price) }
-    ((merchant_item_prices.sum / merchant_item_prices.count)/100).round(2)
+    merchant_items = @items.find_all_by_merchant_id(merchant_id)
+    merchant_item_prices = merchant_items.map {|item| item.unit_price}
+    (merchant_item_prices.sum / merchant_item_prices.count).round(2)
   end
 
   def average_average_price_per_merchant
     merchant_ids = @merchants.merchants.map {|merchant| merchant.id}
     averages = merchant_ids.map { |id| average_item_price_for_merchant(id)}
-    ((averages.sum / averages.count)).round(2)
+    (averages.sum / averages.count).round(2)
   end
 
   def average_item_price
@@ -92,8 +85,9 @@ class SalesAnalyst
   end
 
   def golden_items
+    golden_minimum = (average_item_price + (item_price_std * 2))
     @items.items.find_all do |item|
-      item.unit_price_to_dollars > (average_item_price + (item_price_std * 2))
+      item.unit_price_to_dollars > golden_minimum
     end
   end
 end
