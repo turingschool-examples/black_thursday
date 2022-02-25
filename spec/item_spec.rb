@@ -10,8 +10,8 @@ RSpec.describe Item do
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :created_at  => '1:12pm',
+      :updated_at  => '2:00pm',
       :merchant_id => 2
     })
   end
@@ -37,11 +37,11 @@ RSpec.describe Item do
   end
 
   it "returns a Time instance for the date the item was first created" do
-    expect(@i.created_at).to eq(@i.created_at)
+    expect(@i.created_at).to eq('1:12pm')
   end
 
   it "returns a Time instance for the date the item was last modified" do
-    expect(@i.updated_at).to eq(@i.updated_at)
+    expect(@i.updated_at).to eq('2:00pm')
   end
 
   it "returns the integer merchant id of the item" do
