@@ -95,4 +95,10 @@ RSpec.describe MerchantRepository do
     mr.delete(3)
     expect(mr.all).to eq([m_1, m_2])
   end
+
+  it 'find a merchant by id from csv' do
+    se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
+    mr = se.merchants
+    expect(mr.find_by_id("12334105").name).to eq("Shopin1901")
+  end
 end
