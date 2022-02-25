@@ -33,4 +33,13 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
     @items.find_all { |item| item.merchant_id == merchant_id }
   end
+
+  def create(attributes)
+    # binding.pry
+    @items.sort_by { |item| item.id }
+    last_id = @items.last.id
+    # binding.pry
+    attributes[:id] = (last_id += 1)
+    @items << Item.new(attributes)
+  end
 end
