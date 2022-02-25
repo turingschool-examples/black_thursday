@@ -4,6 +4,8 @@ require_relative './sales_engine.rb'
 require_relative './findable.rb'
 require_relative './item.rb'
 require 'BigDecimal'
+require 'simplecov'
+SimpleCov.start
 
 #This class takes one argument at initialization, an array of all Item instances. It is intended that the SalesEngine instance will take care of creating this array from its given CSV directory, and pass that array to this instance of ItemRepository at time of creation (when SalesEngine#items(item_object_array) is called)
 class ItemRepository < SalesEngine
@@ -40,7 +42,7 @@ class ItemRepository < SalesEngine
   end
 
   def find_all_by_merchant_id(merchant_id_string)
-    @all.find_all {|item| item.merchant_id == merchant_id}
+    @all.find_all {|item| item.merchant_id == merchant_id_string}
   end
 
   def create(info_hash)

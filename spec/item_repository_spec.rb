@@ -2,6 +2,8 @@ require 'CSV'
 require 'pry'
 require_relative '../lib/item_repository.rb'
 require_relative '../lib/item.rb'
+require 'simplecov'
+SimpleCov.start
 
 RSpec.describe ItemRepository do
   it "initializes" do
@@ -95,11 +97,11 @@ RSpec.describe ItemRepository do
     item3 = Item.new({id: 3, name: "Test Item 3", description: "test_description", unit_price: 5, created_at: "9:07pm UTC", updated_at: "7:26am UTC", merchant_id: 002})
     repo = ItemRepository.new([item1, item2, item3])
 
-    repo.update(2, {id: 49, name: "Updated Test-Test", description: "This description is updated", unit_price: 9.99, merchant_id: 75})
+    repo.update(2, {id: 49, name: "Updated Test-Test", description: "This description is updated", unit_price: 999, merchant_id: 75})
 
     expect(repo.all[1].id).to eq(2)
     expect(repo.all[1].name).to eq("Updated Test-Test")
-    expect(repo.all[1].unit_price).to eq(9.99)
+    expect(repo.all[1].unit_price).to eq(999)
     expect(repo.all[1].description).to eq("This description is updated")
     expect(repo.all[1].updated_at).not_to eq("12:00pm UTC")
   end
