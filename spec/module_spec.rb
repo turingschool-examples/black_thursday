@@ -22,10 +22,10 @@ RSpec.describe IDManager do
   end
 
 
-  xit 'can create attributes' do
-    mr.create(name: "book")
-    expect(@mr.all.last.id).to eq(1321)
-
+  it 'can create attributes' do
+    expect(@merchant2).to receive(:+).and_return(1321)
+    @mr.create(name: "book")
+    expect(@mr.all.last[:id]).to eq(1321)
   end
 
   it 'can update an instance with a specific id' do

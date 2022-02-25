@@ -8,7 +8,9 @@ module IDManager
   end
 
   def create(attributes)
-
+    new_element = attributes
+    new_element[:id] = (@all.max{|index| index.id}) + 1
+    @all << new_element
   end
 
   def update(id, attributes)
