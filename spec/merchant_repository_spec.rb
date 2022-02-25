@@ -62,4 +62,10 @@ RSpec.describe MerchantRepository do
     expect(expected.map(&:id).include?(12334176)).to eq(true)
   end
 
+  it "#find_all_by_name returns empty array when no merchants" do
+    name = "AngryClownDayCare"
+    expected = @se.merchants.find_all_by_name(name)
+
+  expect(expected).to eq ([])
+  end
 end
