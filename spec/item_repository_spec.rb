@@ -120,5 +120,12 @@ RSpec.describe ItemRepository do
     expected = @se.items.find_all_by_merchant_id(merchant_id)
 
     expect(expected.length).to eq(3)
+
+    merchant_id = 42
+    expected = @se.items.find_all_by_merchant_id(merchant_id)
+
+    expect(expected.length).to eq(0)
+
+
   end
 end
