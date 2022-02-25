@@ -51,6 +51,6 @@ attr_reader :data, :merchants
 
     def delete(id)
       all
-      @merchants.delete(find_by_id(id))
+      @merchants.delete(find_by_id(id)) if find_by_id(id) != nil
     end
 end
