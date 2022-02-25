@@ -11,12 +11,14 @@ RSpec.describe IDManager do
   it 'can find units by id' do
     expect(@mr.find_by_id(1234)).to eq(@merchant1)
     expect(@mr.find_by_id(1320)).to eq(@merchant2)
+    expect(@mr.find_by_id(1555)).to eq(nil)
 
   end
 
-  xit 'can find a unit by name' do
-    expect(@mr.find_by_name("pencil")).to eq([@merchant1])
-    expect(@mr.find_by_name("eraser")).to eq([@merchant2])
+  it 'can find a unit by name' do
+    expect(@mr.find_by_name("pencil")).to eq(@merchant1)
+    expect(@mr.find_by_name("eraser")).to eq(@merchant2)
+    expect(@mr.find_by_name("sock")).to eq(nil)
   end
 
 

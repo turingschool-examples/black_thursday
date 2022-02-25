@@ -4,6 +4,7 @@ module IDManager
   end
 
   def find_by_name(search)
+    @all.find{|index| index.name == search}
   end
 
   def create(attributes)
