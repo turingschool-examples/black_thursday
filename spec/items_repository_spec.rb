@@ -39,8 +39,9 @@ describe ItemsRepository do
   end
 
   it 'can find all items within price range' do
-    item = @ir.find_all_by_price("30,000", "50000")
+    item = @ir.find_all_by_price_in_range("40000", "50000")
 
-    expect(item.count).to eq(11)
+    expect(item.count).to eq(26)
+    expect(item[0].id).to eq('263396517')
   end
 end

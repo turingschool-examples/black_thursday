@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/item'
+require 'pry'
 
 class ItemsRepository
   attr_reader :repository
@@ -39,6 +40,18 @@ class ItemsRepository
   def find_all_with_description(description)
     @repository.find_all do |item|
       item.description.downcase.include?(description.downcase)
+    end
+  end
+
+  def find_all_by_price(price)
+    @repository.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price_in_range(range_start, range_end)
+    @repository.find_all do |item|
+      item.unit_price.to_i.between?(range_start.to_i, range_end.to_i)
     end
   end
 
