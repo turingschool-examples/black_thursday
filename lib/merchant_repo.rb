@@ -1,10 +1,17 @@
+require "pry"
+
 class MerchantRepository
   def initialize(merchants_array)
+    @merchants_array = merchants_array
   end
 
-  def self.from_table(merchants_table)
-    # shovel new instances into an array in order (lowest id to highest)
-    # create new instance of MerchantRepository using array
+  def all
+    @merchants_array
+  end
+
+  def find_by_id(id)
+    binding.pry
+    @merchants_array.find { |merchant| id == merchant.id }
   end
 end
 

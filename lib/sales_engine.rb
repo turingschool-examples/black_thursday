@@ -2,18 +2,15 @@ require "csv"
 require "merchant"
 
 class SalesEngine
-  # attr_reader :merchants_data, :items_data
- def initialize(data)
-   @items_data = data[:items]
-   @merchants_data = data[:merchants]
- end
+  def initialize(data)
+    @items_data = data[:items]
+    @merchants_data = data[:merchants]
+  end
 
   def self.from_csv(argument)
-
     items = CSV.read(argument[:items], headers: true, header_converters: :symbol)
     merchants = CSV.read(argument[:merchants], headers: true, header_converters: :symbol)
-
-    SalesEngine.new({:items=> items, :merchants=> merchants})
+    SalesEngine.new({items: items, merchants: merchants})
   end
 
   def items
@@ -39,6 +36,4 @@ class SalesEngine
     end
     merchants_instances_array
   end
-
-
 end
