@@ -76,6 +76,5 @@ class SalesAnalyst
     merchant_ids = @merchants.merchants.map {|merchant| merchant.id}
     averages = merchant_ids.map { |id| average_item_price_for_merchant(id)}
     ((averages.sum / averages.count)).round(2)
-
   end
 end
