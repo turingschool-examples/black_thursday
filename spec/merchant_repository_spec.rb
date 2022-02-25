@@ -84,15 +84,15 @@ RSpec.describe MerchantRepository do
     expect(mr.update(3, {:id => 3, :name => "Wal-Mart"}).name).to eq("Wal-Mart")
   end
 
-
-
-
-
-
-
-
-
+  it 'can delete a merchant' do
+    m_1 = Merchant.new({:id => 1, :name => "True Value"})
+    m_2 = Merchant.new({:id => 2, :name => "Home Depot"})
+    m_3 = Merchant.new({:id => 3, :name => "Walmart"})
+    m_4 = Merchant.new({:id => 4, :name => "K Mart"})
+    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])
+    mr.delete(4)
+    expect(mr.all).to eq([m_1, m_2, m_3])
+    mr.delete(3)
+    expect(mr.all).to eq([m_1, m_2])
+  end
 end
-
-
-# m = merchant.new({:id => 5, :name => "Turing School"})

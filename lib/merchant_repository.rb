@@ -45,12 +45,8 @@ class MerchantRepository
     return new_name
   end
 
-
-
-
-
-
-
-
-
+  def delete(id)
+    erase = self.find_by_id(id)
+    @merchants.delete(erase)
+  end
 end
