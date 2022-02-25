@@ -50,13 +50,12 @@ RSpec.describe ItemRepository do
   end
 
   it 'can #find_all_by_price_in_range(range)' do
-    # require "pry"; binding.pry
     item_2 = @item_repo.find_all_by_price_in_range(1..3000)
-    expect(item_2.count).to eq(735)
+    expect(item_2.count).to eq(1354)
   end
 
   it 'can #find_all_by_merchant_id(merchant_id)' do
-    item_3 = @item_repo.find_all_by_merchant_id("12334195")
+    item_3 = @item_repo.find_all_by_merchant_id(12334195)
     expect(item_3.count).to eq(20)
   end
 
@@ -82,7 +81,7 @@ RSpec.describe ItemRepository do
                                 :created_at => Time.now,
                                 :updated_at => Time.now,
                                 :merchant_id => 2})
-    item_5 = @item_repo.update("263567475", {:name => 'Eraser', :description => "It erases things", :unit_price => BigDecimal(10.88,4)})
+    item_5 = @item_repo.update(263567475, {:name => 'Eraser', :description => "It erases things", :unit_price => BigDecimal(10.88,4)})
     expect(item_5.name).to eq('Eraser')
     expect(item_5.description).to eq("It erases things")
     expect(item_5.unit_price).to eq(BigDecimal(10.88,4))
