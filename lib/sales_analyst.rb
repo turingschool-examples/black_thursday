@@ -71,4 +71,11 @@ class SalesAnalyst
     merchant_item_prices = merchant_items.map {|item| BigDecimal(item.unit_price) }
     ((merchant_item_prices.sum / merchant_item_prices.count)/100).round(2)
   end
+
+  def average_average_price_per_merchant
+    merchant_ids = @merchants.merchants.map {|merchant| merchant.id}
+    averages = merchant_ids.map { |id| average_item_price_for_merchant(id)}
+    ((averages.sum / averages.count)).round(2)
+
+  end
 end
