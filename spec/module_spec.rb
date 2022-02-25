@@ -28,9 +28,9 @@ RSpec.describe IDManager do
 
   end
 
-  xit 'can update an instance with a specific id' do
+  it 'can update an instance with a specific id' do
+    expect(@merchant2).to receive(:merge).with(name: "chicken")
     @mr.update(1320, name: "chicken")
-    expect(@mr.all[1].name).to eq("chicken")
   end
 
   xit 'can delete an id' do
