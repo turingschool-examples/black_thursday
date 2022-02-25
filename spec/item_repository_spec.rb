@@ -158,7 +158,7 @@ RSpec.describe ItemRepository do
     }
     @se.items.update(263_567_475, attributes)
     expected = @se.items.find_by_id(263_567_475)
-    expect(expected.unit_price).to eq 379.99
+    expect(expected.unit_price).to eq 25.00
     expect(expected.name).to eq 'Capita Defenders of Awesome 2018'
     expect(expected.updated_at).to be > original_time
   end
