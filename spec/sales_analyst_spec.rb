@@ -24,6 +24,11 @@ describe SalesAnalyst do
     expect(sales_analyst.list_all_items_by_merchant[5].length).to eq(1)
   end
 
+  it "can determine the average items per merchant" do
+    expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+
+  end
+
   it "can determine the standard deviation of items per merchant" do
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end

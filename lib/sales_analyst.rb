@@ -14,17 +14,20 @@ class SalesAnalyst
     items_by_merchant.uniq
   end
 
+  def average_items_per_merchant
+    all_items_by_merchant = list_all_items_by_merchant
+    nums = []
+    all_items_by_merchant.uniq.each { |sub_arr| nums << sub_arr.length }
+    (nums.sum(0.0) / nums.length).round(2)
+  end
+
 
   def average_items_per_merchant_standard_deviation
-    std_dev_arr = list_all_items_by_merchant
-    nums = []
-
-    std_dev_arr.uniq.each { |sub_arr| nums << sub_arr.length }
-
-    mean = nums.sum(0.0) / nums.length
+    all_items_by_merchant = list_all_items_by_merchant
+    mean = average_items_per_merchant
     math_arr = []
 
-    std_dev_arr.each { |sub_arr| math_arr << (sub_arr.length - mean) ** 2 }
+    all_items_by_merchant.each { |sub_arr| math_arr << (sub_arr.length - mean) ** 2 }
     Math.sqrt((math_arr.sum)/474).round(2)
   end
 end
