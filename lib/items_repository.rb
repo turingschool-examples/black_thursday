@@ -1,8 +1,10 @@
 require 'csv'
 require './lib/item'
 require 'pry'
+require './lib/repository_aide'
 
 class ItemsRepository
+  include RepositoryAide
   attr_reader :repository
 
   def initialize(file)
@@ -20,16 +22,6 @@ class ItemsRepository
         })
       end
   end #initialize end
-
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find do |item|
-      item.id == id
-    end
-  end
 
   def find_by_name(name)
     @repository.find do |item|
@@ -62,8 +54,7 @@ class ItemsRepository
   end
 
   def create(attributes)
-    attributes[:id] = (@repository.last.id.to_i + 1).to_s
-    item = Item.new(attributes)
+    item = Item.new({id: new_id.to_s, name: attributes[:name], description: attributes[:description], unit_price: attributes[:unit_price], created_at: Time.now, updated_at: Time.now, merchant_id: attributes[:merchant_id]})
     @repository << item
     item
   end

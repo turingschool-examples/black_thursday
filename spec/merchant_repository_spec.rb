@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require './lib/merchants_repository'
 
 describe MerchantsRepository do
@@ -49,13 +50,14 @@ describe MerchantsRepository do
   describe '#create' do
     it 'can create a new instance of Merchant class' do
       mr = MerchantsRepository.new("./data/merchants.csv")
-      johnny = mr.create("Johnny")
-      expect(johnny.class).to be(Merchant)
       merchant = mr.repository.sort_by do |merchant|
                   merchant.id
                 end.last
+      johnny = mr.create("Johnny")
+      expect(johnny.class).to be(Merchant)
       expect(merchant.id < johnny.id).to be true
       expect(johnny.name).to eq("Johnny")
+      expect(mr.repository.include?(johnny)).to eq(true)
     end
   end
 
