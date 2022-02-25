@@ -5,8 +5,8 @@ require 'pry'
 RSpec.describe ItemRepository do
 
   before(:each) do
-    @se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})
-    @items = ItemRepository.new(@se[1])
+    se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})
+    @items = se.items
 
   end
 

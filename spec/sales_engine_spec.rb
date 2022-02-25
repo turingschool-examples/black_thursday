@@ -5,8 +5,8 @@ require_relative 'spec_helper'
 
 RSpec.describe SalesEngine do
     before(:each) do
-      data = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv"})
-      @se = SalesEngine.new(data)
+      @se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv"})
+
     end
 
 #

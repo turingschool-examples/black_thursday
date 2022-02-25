@@ -4,15 +4,16 @@ require 'pry'
 
 class SalesEngine
 attr_reader :merchant_lines, :item_lines
-  def initialize(data)
-    @merchant_lines = data[0]
-    @item_lines = data[1]
+  def initialize(merchants, items)
+    @merchant_lines = merchants
+    @item_lines = items
   end
 
   def self.from_csv(input)
     merchant_lines = File.readlines input[:merchants]
     item_lines = File.readlines input[:items]
-    [merchant_lines, item_lines]
+    # binding.binding.pry
+    SalesEngine.new(merchant_lines, item_lines)
   end
 
   def merchants
