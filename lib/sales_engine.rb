@@ -5,19 +5,11 @@ class SalesEngine
   attr_reader :items, :merchants
 
   def self.from_csv(argument)
-    @items = argument[:items]
-    @merchants = argument[:merchants]
+    @merchants = []
+    @merchants = CSV.read(argument[:merchants], headers: true, header_converters: :symbol)
+    @items = []
+    @items = CSV.read(argument[:items], headers: true, header_converters: :symbol)
+    [@items, @merchants]
   end
-
-
-  # def load_data(data_csv, header)
-  #   rows = CSV.read(data_csv, headers: true)
-  #     rows.find_all do |element|
-  #       if element[header] == name
-  #         result << element
-  #       end
-  #     end
-  #   result
-  # end
 
 end

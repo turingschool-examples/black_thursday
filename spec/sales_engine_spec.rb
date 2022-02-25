@@ -11,15 +11,14 @@ let(:se) {SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./da
       expect(sales_engine).to be_a(SalesEngine)
     end
 
-    xit 'has / can read merchants' do
+    it 'has / can read item info' do
 
-
-      expect(se.merchants).to be("./data/merchants.csv")
+      expect(se[0].count).to be(1367)
     end
 
-    xit 'has / can read items' do
+    it 'has / can read merchant info' do
 
-      expect(se.items).to be("./data/items.csv")
+      expect(se[1].count).to be(475)
     end
   end
 end
