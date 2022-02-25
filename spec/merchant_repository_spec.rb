@@ -48,4 +48,10 @@ RSpec.describe MerchantRepository do
       expect(@merchants_i.find_all_by_name('Turing School')).to eq []
     end
 
+  it "creates a new merchant" do
+    turing = {name: "Turing School of Software and Design"}
+    expected = @merchants_i.create(turing)
+    expect(expected.name).to eq "Turing School of Software and Design"
+
+  end
 end

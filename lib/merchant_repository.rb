@@ -24,8 +24,16 @@ attr_reader :data, :merchants
       all
       @merchants.find {|merchant| merchant.name == name.downcase}
     end
+
     def find_all_by_name(frag)
       all
       @merchants.find_all {|merchant| merchant.name.downcase.include?(frag.downcase)}
+    end
+
+    def create(new_name)
+      all
+      id = @merchants.count + 1
+      name = new_name[:name]
+      Merchant.new({id: id, name: name})
     end
 end
