@@ -5,9 +5,9 @@ require 'pry'
 RSpec.describe MerchantRepository do
 
   before(:each) do
-    @se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})
-    @merchants = MerchantRepository.new(@se[0])
-
+    data = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})
+    se = SalesEngine.new(data)
+    @merchants =se.merchants
   end
 
 
@@ -19,5 +19,8 @@ RSpec.describe MerchantRepository do
   it "holds #all merchant data" do
     expect(@merchants.all.count).to eq(476)
   end
+
+  # it "can find by id" do
+  #   expect(@mer)
 
 end
