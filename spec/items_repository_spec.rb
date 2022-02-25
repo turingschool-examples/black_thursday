@@ -1,4 +1,5 @@
 require 'rspec'
+require 'bigdecimal'
 require './lib/items_repository'
 
 describe ItemsRepository do
@@ -56,14 +57,39 @@ describe ItemsRepository do
       :id          => nil,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
+      :unit_price  => BigDecimal(11.55,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
     })
 
     expect(item.id).to eq("263567475")
-    expect(@ir.find_all_by_price).to eq([item])
+    expect(@ir.find_all_by_price(BigDecimal(11.55,4))).to eq([item])
   end
+
+  it 'can find all items with specific merchant_id' do
+    item = @ir.find_by_id("263395237")
+    first_update = item.updated_at
+    expect(item.name).to eq("510+ RealPush Icon Set")
+    expect(item.description).to eq("- Super Chunky knit infinity scarf
+    - Soft mixture of 97% Acrylic and 3% Viscose
+    - Beautiful, Warm, and Stylish
+    - Very easy to care for
+
+    Hand wash with cold water and lay flat to dry")
+
+    item.update("263395237", {name: "Johnny's Wizarding Whimsicals", description: "new description", unit_price: 6}
+
+    expect(item.name).to eq("Johnny's Wizarding Whimsicals")
+    expect(item.description).to eq("new description")
+    expect(item.unit_price).to eq(6)
+    expect(item.updated_at).not_to eq(first_update)
+  end
+
+  # it 'can find an item by the id' do
+  #   item = @ir.find_by_id("263395237")
+  #   expect(item.name).to eq("510+ RealPush Icon Set")
+  #   expect(item.unit_price).to eq("1200")
+  # end
 
 end
