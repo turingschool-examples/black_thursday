@@ -1,5 +1,3 @@
-require 'pry'
-
 class Merchant
   attr_reader :id, :name, :created_at, :updated_at
 
@@ -9,5 +7,4 @@ class Merchant
     @created_at = attributes[:created_at]
     @updated_at = attributes[:updated_at]
   end
-
 end
