@@ -1,10 +1,19 @@
+require "pry"
+
 class MerchantRepository
-  def initialize(merchants_array)
+  attr_reader :attributes
+  def initialize(merchants_instances_array)
+    @merchants_instances_array = merchants_instances_array
   end
 
-  def self.from_table(merchants_table)
-    # shovel new instances into an array in order (lowest id to highest)
-    # create new instance of MerchantRepository using array
+  def all
+    @merchants_instances_array
+  end
+
+  def find_by_id(id)
+    @merchants_instances_array.find do |merchant_instance|
+      merchant_instance.merchant_attributes[:id] == id
+    end
   end
 end
 
