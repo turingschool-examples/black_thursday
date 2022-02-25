@@ -3,6 +3,7 @@ require './lib/item_repository'
 # require './lib/items'
 require './lib/sales_engine'
 require 'pry'
+require 'bigdecimal'
 
 RSpec.describe ItemRepository do
   before(:each) do
@@ -78,5 +79,14 @@ RSpec.describe ItemRepository do
     expected = @se.items.find_all_with_description(description)
 
     expect(expected.length).to eq(0)
+  end
+
+  it "finds all items by price" do
+    price = BigDecimal(10000)
+
+    expected = @se.items.find_all_by_price(price)
+    expect(expected.length).to eq(26)
+
+    
   end
 end
