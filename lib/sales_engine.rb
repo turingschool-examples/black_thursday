@@ -1,5 +1,6 @@
 require "csv"
 require "merchant"
+require "pry"
 
 class SalesEngine
   def initialize(data)

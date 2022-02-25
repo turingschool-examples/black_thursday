@@ -1,17 +1,19 @@
 require "pry"
 
 class MerchantRepository
-  def initialize(merchants_array)
-    @merchants_array = merchants_array
+  attr_reader :attributes
+  def initialize(merchants_instances_array)
+    @merchants_instances_array = merchants_instances_array
   end
 
   def all
-    @merchants_array
+    @merchants_instances_array
   end
 
   def find_by_id(id)
-    binding.pry
-    @merchants_array.find { |merchant| id == merchant.id }
+    @merchants_instances_array.find do |merchant_instance|
+      merchant_instance.merchant_attributes[:id] == id
+    end
   end
 end
 
