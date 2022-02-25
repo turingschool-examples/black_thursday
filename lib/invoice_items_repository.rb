@@ -1,7 +1,9 @@
 require 'csv'
 require './lib/invoice_items'
+require './lib/repository_aide'
 
 class InvoiceItemsRepository
+  include RepositoryAide
   attr_reader :repository
 
   def initialize(file)
@@ -17,15 +19,15 @@ class InvoiceItemsRepository
                                   end
   end
 
-  def all
-    @repository
-  end
+  # def all
+  #   @repository
+  # end
 
-  def find_by_id(id)
-    @repository.find do |invoice_item|
-      invoice_item.id == id
-    end
-  end
+  # def find_by_id(id)
+  #   @repository.find do |invoice_item|
+  #     invoice_item.id == id
+  #   end
+  # end
 
   def find_all_by_item_id(item_id)
     @repository.find_all do |invoice_item|
@@ -40,11 +42,11 @@ class InvoiceItemsRepository
   end
 
   def create(attributes)
-    new_id = @repository.sort_by do |invoice_item|
-                invoice_item.id
-              end.last
-    new_id = new_id.id.to_i
-    new_id += 1
+    # new_id = @repository.sort_by do |invoice_item|
+    #             invoice_item.id
+    #           end.last
+    # new_id = new_id.id.to_i
+    # new_id += 1
     InvoiceItems.new({id: new_id.to_s,
                       item_id: attributes[:item_id],
                       invoice_id: attributes[:invoice_id],
@@ -61,8 +63,8 @@ class InvoiceItemsRepository
     invoice_item.updated_at = Time.now
   end
 
-  def delete(id)
-    invoice_item = find_by_id(id)
-    @repository.delete(invoice_item)
-  end
+  # def delete(id)
+  #   invoice_item = find_by_id(id)
+  #   @repository.delete(invoice_item)
+  # end
 end

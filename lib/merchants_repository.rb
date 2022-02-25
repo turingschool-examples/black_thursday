@@ -53,9 +53,9 @@ class MerchantsRepository
     merchant.name = attributes[:name]
   end
 
-  def delete(id)
-    merchant = find_by_id(id)
-    @repository.delete(merchant)
-  end
+  # def delete(id)
+  #   merchant = find_by_id(id)
+  #   @repository.delete(merchant)
+  # end
 
 end
