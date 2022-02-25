@@ -1,17 +1,13 @@
 class Item
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
+  attr_reader :item_attributes
 
-  def initialize(item)
-    @id = item[:id]
-    @name = item[:name]
-    @description = item[:description]
-    @unit_price = item[:unit_price]
-    @created_at = item[:created_at]
-    @updated_at = item[:updated_at]
-    @merchant_id = item[:merchant_id]
+  def initialize(attributes)
+    @item_attributes = attributes
+    @item_attributes[:id] = item_attributes[:id].to_i
+    @item_attributes[:merchant_id] = item_attributes[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
-    return unit_price.to_f
+    item_attributes[:unit_price].to_f
   end
 end
