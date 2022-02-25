@@ -20,7 +20,11 @@ RSpec.describe MerchantRepository do
     expect(@merchants.all.count).to eq(476)
   end
 
-  # it "can find by id" do
-  #   expect(@mer)
+  it "can find by id" do
+    merchant_found = @merchants.find_by_id('12334155')
+    expect(merchant_found.id).to eq('12334155')
+    expect(merchant_found.name).to eq('DesignerEstore')
+  end
+
 
 end

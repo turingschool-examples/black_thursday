@@ -1,9 +1,9 @@
 require 'pry'
-require_relative 'sales_engine'
-class MerchantRepository < SalesEngine
+
+class MerchantRepository
 attr_reader :data, :merchants
     def initialize(data)
-      @data = data #data is an array of merchant instances
+      @data = data
     end
 
     def all
@@ -15,5 +15,8 @@ attr_reader :data, :merchants
       end
     end
 
-
+    def find_by_id(id)
+      all
+      @merchants.find {|merchant| merchant.id == id}
+    end
 end
