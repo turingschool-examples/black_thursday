@@ -55,7 +55,6 @@ class ItemRepository
     updated_item.updated_at = Date.today.to_s
   end
 
-
   include SalesModule
 
 end

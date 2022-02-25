@@ -53,4 +53,11 @@ RSpec.describe ItemRepository do
     @item_repo1.update(263416405, {name: "nothing", description: "not really an item", unit_price: 160001})
     expect(@item_repo1.find_by_id(263416405).name).to eq("nothing")
   end
+
+  it "can delete items by id" do
+    @item_repo1.create({name: "Item name", description: "It's an item", unit_price: 1000, merchant_id: 12334213})
+    expect(@item_repo1.find_all_by_merchant_id(12334213).length).to eq(3)
+    @item_repo1.delete(263567475)
+    expect(@item_repo1.find_all_by_merchant_id(12334213).length).to eq(2)
+  end
 end
