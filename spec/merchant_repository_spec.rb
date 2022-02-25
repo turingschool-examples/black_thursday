@@ -39,5 +39,13 @@ RSpec.describe MerchantRepository do
       expect(@merchants_i.find_by_name("kk")).to be nil
   end
 
+  it "can find all merchants matching a fragment or return nil" do
+      fragment = "style"
+      expected = @merchants_i.find_all_by_name(fragment)
+      expect(expected.length).to eq 3
+      expect(expected.map(&:name).include?("justMstyle")).to eq true
+      expect(expected.map(&:id).include?(12337211)).to eq true
+      expect(@merchants_i.find_all_by_name('Turing School')).to eq []
+    end
 
 end

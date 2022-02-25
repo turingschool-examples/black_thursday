@@ -24,5 +24,8 @@ attr_reader :data, :merchants
       all
       @merchants.find {|merchant| merchant.name == name.downcase}
     end
-
+    def find_all_by_name(frag)
+      all
+      @merchants.find_all {|merchant| merchant.name.downcase.include?(frag.downcase)}
+    end
 end
