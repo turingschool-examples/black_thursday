@@ -85,7 +85,8 @@ RSpec.describe ItemRepository do
     price = BigDecimal(10000)
 
     expected = @se.items.find_all_by_price(price)
-    expect(expected.length).to eq(13)
+    expect(expected.length).to eq(26)
 
+    
   end
 end

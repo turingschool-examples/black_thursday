@@ -22,5 +22,8 @@ class ItemRepository
     @items.find_all { |item| item.description.downcase == description.downcase }
   end
 
-  
+  def find_all_by_price(price)
+    @items.find_all { |item| item.unit_price.to_i == price }
+  end
+
 end
