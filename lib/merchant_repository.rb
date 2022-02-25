@@ -56,4 +56,8 @@ class MerchantRepository
     @merchants.delete(deleted_merchant)
   end
 
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
+ end
+
 end

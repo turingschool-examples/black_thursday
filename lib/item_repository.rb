@@ -100,9 +100,7 @@ class ItemRepository
     @items.delete(deleted_item)
   end
 
-
-
-
-
-
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
+ end
 end
