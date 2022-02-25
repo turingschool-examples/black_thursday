@@ -19,6 +19,9 @@ RSpec.describe SalesAnalyst do
   end
 
 
-
-
+  it 'standard deviation above average' do
+    sales_engine = SalesEngine.new
+    sales_analyst = sales_engine.analyst
+    sales_analyst.merchants_with_high_item_count
+  end
 end

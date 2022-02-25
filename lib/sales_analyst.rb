@@ -22,6 +22,14 @@ class SalesAnalyst
     return ((total_to_be_square_rooted/(data.merchants_array.length.to_f - 1))**0.5).round(2)
   end
 
+  def merchants_with_high_item_count
+    average_items_per_merchant_fixed = average_items_per_merchant
+    average_items_per_merchant_standard_deviation_fixed = average_items_per_merchant_standard_deviation
+    id_counter_fixed = @id_counter
+    high_item_count =  id_counter_fixed.find_all {|index| index[1] >= average_items_per_merchant_standard_deviation_fixed + average_items_per_merchant_fixed}
+    binding.pry
+  end
+
 #helper method that returns a hash with every
 #merchant id and the number of items that
 #merchant has
