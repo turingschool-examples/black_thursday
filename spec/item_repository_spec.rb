@@ -81,8 +81,8 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq(0)
   end
 
-  it "finds all items by price" do
-    price = BigDecimal(10000)
+  it 'finds all items by price' do
+    price = BigDecimal(10_000)
 
     expected = @se.items.find_all_by_price(price)
     expect(expected.length).to eq(26)
@@ -98,8 +98,8 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq(0)
   end
 
-  it "can find all items within given price range" do
-    range = (1000.00..20000.00)
+  it 'can find all items within given price range' do
+    range = (1000.00..20_000.00)
     expected = @se.items.find_all_by_price_in_range(range)
 
     expect(expected.length).to eq 954
@@ -115,8 +115,8 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq 1
   end
 
-  it "can find all items associated with a given merchant id" do
-    merchant_id = 12334105
+  it 'can find all items associated with a given merchant id' do
+    merchant_id = 12_334_105
     expected = @se.items.find_all_by_merchant_id(merchant_id)
 
     expect(expected.length).to eq(3)
@@ -125,7 +125,41 @@ RSpec.describe ItemRepository do
     expected = @se.items.find_all_by_merchant_id(merchant_id)
 
     expect(expected.length).to eq(0)
+  end
 
+  it '#create creates a new item instance' do
+    attributes = {
+      name: "Timmy's Tutus",
+      description: 'Be the dancer you were meant to be.',
+      unit_price: BigDecimal(20.00, 4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 256
+    }
 
+    @se.items.create(attributes)
+    expected = @se.items.find_by_id(263_567_475)
+    expect(expected.name).to eq "Timmy's Tutus"
+  end
+
+  it '#update updates an item' do
+    @se.items.create(
+      name: "Timmy's Tutus",
+      description: 'Be the dancer you were meant to be.',
+      unit_price: BigDecimal(20.00, 4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 256
+    )
+
+    original_time = @se.items.find_by_id(263_567_475).updated_at
+    attributes = {
+      unit_price: BigDecimal(25.00, 4)
+    }
+    @se.items.update(263_567_475, attributes)
+    expected = @se.items.find_by_id(263_567_475)
+    expect(expected.unit_price).to eq 25.00
+    expect(expected.name).to eq 'Capita Defenders of Awesome 2018'
+    expect(expected.updated_at).to be > original_time
   end
 end
