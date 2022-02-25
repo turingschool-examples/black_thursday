@@ -1,4 +1,5 @@
 # item_repository
+require 'pry'
 class ItemRepository
   attr_reader :items
 
@@ -35,11 +36,30 @@ class ItemRepository
   end
 
   def create(attributes)
-    # binding.pry
     @items.sort_by { |item| item.id }
     last_id = @items.last.id
-    # binding.pry
     attributes[:id] = (last_id += 1)
     @items << Item.new(attributes)
+  end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    attributes.each do |key, v|
+      item = {key v}
+      # binding.pry
+    end
+    item
+    # case attributes
+    # when attributres[:name] == item.name
+    #   attributes[:name] = item.name
+    # when [:description]
+
+    #   item.attributes.each { | k , v |
+    #     if v = :name
+    #       item.name = attributes[:name]
+
+    # }
+
+    # name, description, unit_price only need to be updated
   end
 end
