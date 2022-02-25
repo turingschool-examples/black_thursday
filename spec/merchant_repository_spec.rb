@@ -47,4 +47,11 @@ RSpec.describe MerchantRepository do
     expect(expected.id).to eq(12334159)
   end
 
+  it "#find_by_name returns nil when merchant does not exist" do
+    name = "SassyStrange"
+    expected = @se.merchants.find_by_name(name)
+
+    expect(expected).to eq(nil)
+  end
+
 end
