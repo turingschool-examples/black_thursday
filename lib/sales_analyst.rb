@@ -77,4 +77,23 @@ class SalesAnalyst
     averages = merchant_ids.map { |id| average_item_price_for_merchant(id)}
     ((averages.sum / averages.count)).round(2)
   end
+
+  def average_item_price
+    item_prices = @items.items.map {|item| item.unit_price_to_dollars}
+    item_prices.sum / item_prices.length
+  end
+
+  def item_price_std
+    item_prices = @items.items.map {|item| item.unit_price_to_dollars}
+    sq_item_prices = item_prices.map do|price|
+      (price - average_item_price) ** 2
+    end
+    Math.sqrt(sq_item_prices.sum / (sq_item_prices.count - 1))
+  end
+
+  def golden_items
+    @items.items.find_all do |item|
+      item.unit_price_to_dollars > (average_item_price + (item_price_std * 2))
+    end
+  end
 end
