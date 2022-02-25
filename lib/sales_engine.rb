@@ -1,5 +1,6 @@
 require "csv"
 require "merchant"
+require "item"
 require "pry"
 
 class SalesEngine
