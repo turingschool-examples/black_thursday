@@ -1,17 +1,16 @@
 require 'pry'
 require 'csv'
-require './lib/item'
-require './lib/merchant'
+require_relative './item'
+require_relative './merchant'
 
 class SalesEngine
-  attr_reader :items_csv_object, :merchants_csv_object
+  attr_reader :table_hash
   def initialize(table_hash)
-      @items_csv_object = table_hash[:items]
-    @merchants_csv_object = table_hash[:merchants]
+      @table_hash = table_hash
   end
 
   def self.from_csv(path_hash)
-    table_hash = Hash.new
+    table_hash = {}
     path_hash.each do |name, path|
       csv = CSV.read(path, headers: true, header_converters: :symbol)
       table_hash[name] = csv
@@ -20,16 +19,18 @@ class SalesEngine
   end
 
   def items
-    item_array = @items_csv_object.map do |row|
+    item_array = @table_hash[:items].map do |row|
       Item.new(row)
     end
     ItemRepository.new(item_array)
   end
 
   def merchants
-    merchant_array = @merchants_csv_object.map do |row|
+    merchant_array = @table_hash[:merchants].map do |row|
       Merchant.new(row)
     end
     MerchantRepository.new(merchant_array)
-  end  
+  end
+
+
 end
