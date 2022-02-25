@@ -31,23 +31,22 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    result = @merchants.find {|merchant| merchant.name == name}
+    result = @merchants.find {|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_by_name(fragment)
-    result = @merchants.find_all {|merchant| merchant.name.include?(fragment.downcase)}
+    result = @merchants.find_all {|merchant| merchant.name.downcase.include?(fragment.downcase)}
   end
 
-  def create(name)
+  def create(attributes)
     id = current_highest_id + 1
-    id = id.to_s
-    @merchants << new_merchant = Merchant.new(id: id, name: name)
+    @merchants << new_merchant = Merchant.new(id: id, name: attributes[:name])
     new_merchant
   end
 
-  def update(id, new_name)
+  def update(id, attributes)
     @merchants.each do |merchant|
-      merchant.name = new_name if merchant.id == id
+      merchant.name = attributes[:name] if merchant.id == id
     end
   end
 
@@ -58,6 +57,6 @@ class MerchantRepository
 
   def inspect
    "#<#{self.class} #{@merchants.size} rows>"
- end
+  end
 
 end

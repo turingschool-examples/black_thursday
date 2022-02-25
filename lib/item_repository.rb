@@ -1,5 +1,6 @@
 require_relative '../lib/item'
 require 'CSV'
+require 'time'
 
 class ItemRepository
   attr_reader :filename, :items
@@ -35,9 +36,8 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    words = description.downcase
     @items.find_all do |item|
-      if item.description.include?(words)
+      if item.description.downcase.include?(description.downcase)
         item
       end
     end
@@ -52,9 +52,8 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-
     @items.find_all do |item|
-      if range.include?(item.unit_price.to_i)
+      if range.include?(item.unit_price_to_dollars)
         item
       end
     end
@@ -62,9 +61,7 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
-      if item.merchant_id == merchant_id
-        item
-      end
+      item.merchant_id == merchant_id
     end
   end
 
@@ -86,12 +83,13 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    updated_item = @items.find {|item| item.id == id }
-    updated_item.name = attributes[:name]
-    updated_item.description = attributes[:description]
-    updated_item.unit_price = attributes[:unit_price]
-    updated_item.updated_at = Time.now
-    updated_item
+    if updated_item = find_by_id(id)
+      updated_item.name = attributes[:name] if attributes[:name]
+      updated_item.description = attributes[:description] if attributes[:description]
+      updated_item.unit_price = attributes[:unit_price] if attributes[:unit_price]
+      updated_item.updated_at = Time.now
+      updated_item
+    end
   end
 
   def delete(id)
