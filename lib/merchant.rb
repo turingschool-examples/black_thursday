@@ -1,5 +1,3 @@
-require 'pry'
-
 class Merchant
   attr_reader :id, :name
 
@@ -7,5 +5,4 @@ class Merchant
     @id = attributes[:id]
     @name = attributes[:name]
   end
-
 end
