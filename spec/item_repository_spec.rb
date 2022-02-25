@@ -154,12 +154,13 @@ RSpec.describe ItemRepository do
 
     original_time = @se.items.find_by_id(263_567_475).updated_at
     attributes = {
-      unit_price: BigDecimal(25.00, 4)
+      unit_price: BigDecimal(25.00, 4), name: "Timmy's Tutus 2", description: "Dance Bitches!"
     }
     @se.items.update(263_567_475, attributes)
     expected = @se.items.find_by_id(263_567_475)
     expect(expected.unit_price).to eq 25.00
-    expect(expected.name).to eq 'Capita Defenders of Awesome 2018'
-    expect(expected.updated_at).to be > original_time
+    expect(expected.name).to eq "Timmy's Tutus 2"
+    expect(expected.description).to eq "Dance Bitches!"
+    expect(expected.updated_at).to be >= original_time
   end
 end

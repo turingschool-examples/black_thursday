@@ -44,22 +44,11 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    attributes.each do |key, v|
-      item = {key v}
-      # binding.pry
+    attributes.map do |key, v|
+        item.unit_price = v if key == :unit_price
+        item.description = v if key == :description
+        item.name = v if key == :name
+        item.updated_at = Time.now
     end
-    item
-    # case attributes
-    # when attributres[:name] == item.name
-    #   attributes[:name] = item.name
-    # when [:description]
-
-    #   item.attributes.each { | k , v |
-    #     if v = :name
-    #       item.name = attributes[:name]
-
-    # }
-
-    # name, description, unit_price only need to be updated
   end
 end
