@@ -30,4 +30,14 @@ class SalesAnalyst
     all_items_by_merchant.each { |sub_arr| math_arr << (sub_arr.length - mean) ** 2 }
     Math.sqrt((math_arr.sum)/474).round(2)
   end
+
+  def merchants_with_high_item_count
+    all_items_by_merchant = list_all_items_by_merchant
+    average = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
+
+    high_item_count = all_items_by_merchant.find_all{|merchant| merchant.length > (average + std_dev)}
+    merchant_ids = high_item_count.map{|merchants|merchants[0].merchant_id}
+    merchant_ids.map{|id|@merchants.find_by_id(id)}
+  end
 end

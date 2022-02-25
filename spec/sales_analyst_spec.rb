@@ -31,6 +31,13 @@ describe SalesAnalyst do
 
   it "can determine the standard deviation of items per merchant" do
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+    # binding.pry
+  end
+
+  it "can determine merchants with high item counts" do
+    expect(sales_analyst.merchants_with_high_item_count[0].name).to eq("FlavienCouche")
+    expect(sales_analyst.merchants_with_high_item_count[2].name).to eq("BowlsByChris")
+    expect(sales_analyst.merchants_with_high_item_count[35].name).to eq("BoDaisyClothing")
   end
 
 end
