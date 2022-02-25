@@ -87,6 +87,45 @@ RSpec.describe ItemRepository do
     expected = @se.items.find_all_by_price(price)
     expect(expected.length).to eq(26)
 
-    
+    price = BigDecimal(1790)
+
+    expected = @se.items.find_all_by_price(price)
+    expect(expected.length).to eq(10)
+
+    price = BigDecimal(12)
+
+    expected = @se.items.find_all_by_price(price)
+    expect(expected.length).to eq(0)
+  end
+
+  it "can find all items within given price range" do
+    range = (1000.00..20000.00)
+    expected = @se.items.find_all_by_price_in_range(range)
+
+    expect(expected.length).to eq 954
+
+    range = (200.00..250.00)
+    expected = @se.items.find_all_by_price_in_range(range)
+
+    expect(expected.length).to eq 32
+
+    range = (0.00..20.00)
+    expected = @se.items.find_all_by_price_in_range(range)
+
+    expect(expected.length).to eq 1
+  end
+
+  it "can find all items associated with a given merchant id" do
+    merchant_id = 12334105
+    expected = @se.items.find_all_by_merchant_id(merchant_id)
+
+    expect(expected.length).to eq(3)
+
+    merchant_id = 42
+    expected = @se.items.find_all_by_merchant_id(merchant_id)
+
+    expect(expected.length).to eq(0)
+
+
   end
 end

@@ -8,7 +8,7 @@ class Item
     @unit_price = attributes[:unit_price]
     @created_at = attributes[:created_at]
     @updated_at = attributes[:updated_at]
-    @merchant_id = attributes[:merchant_id]
+    @merchant_id = attributes[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
