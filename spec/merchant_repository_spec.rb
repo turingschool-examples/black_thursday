@@ -7,24 +7,31 @@ RSpec.describe MerchantRepository do
   before(:each) do
     data = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})
     se = SalesEngine.new(data)
-    @merchants =se.merchants
+    @merchants_i =se.merchants
   end
 
 
 
   it "exist" do
-    expect(@merchants).to be_a(MerchantRepository)
+    expect(@merchants_i).to be_a(MerchantRepository)
   end
 
   it "holds #all merchant data" do
-    expect(@merchants.all.count).to eq(476)
+    expect(@merchants_i.all.count).to eq(476)
   end
 
-  it "can find by id" do
-    merchant_found = @merchants.find_by_id('12334155')
-    expect(merchant_found.id).to eq('12334155')
-    expect(merchant_found.name).to eq('DesignerEstore')
+  it "can find by id or return nil" do
+    expected = @merchants_i.find_by_id(12334155)
+    expect(expected.id).to eq(12334155)
+    expect(expected.name).to eq('DesignerEstore')
+    expect(@merchants_i.find_by_id('1')).to be nil
   end
 
+  it "can find first matching merchant by name" do
+      name = "leaburrot"
+      expected = @merchants_i.find_by_name(name)
+      expect(expected.id).to eq 12334411
+      expect(expected.name).to eq name
 
+  end
 end

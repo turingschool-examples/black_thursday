@@ -10,7 +10,7 @@ require_relative 'spec_helper'
     end
 
       it 'can read merchant attributes' do
-        expect(@merchant.id).to eq("12334105")
+        expect(@merchant.id).to eq(12334105)
         expect(@merchant.name).to eq("Shopin1901")
       end
 

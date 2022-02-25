@@ -19,4 +19,10 @@ attr_reader :data, :merchants
       all
       @merchants.find {|merchant| merchant.id == id}
     end
+
+    def find_by_name(name)
+      all 
+      @merchants.find {|merchant| merchant.name == name}
+    end
+
 end
