@@ -36,7 +36,8 @@ describe InvoiceItemRepository do
     expect(iir).to be_a(InvoiceItemRepository)
   end
   it 'can find_all_by_invoice id' do
+    iir = InvoiceItemRepository.new([@invoice_item1, @invoice_item2, @invoice_item3])
     found = iir.find_all_by_invoice_id(11)
-    expect(found).to eq(@invoice_item_2)
+    expect(found).to eq([@invoice_item2])
   end
 end
