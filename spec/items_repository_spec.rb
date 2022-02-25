@@ -33,8 +33,14 @@ describe ItemsRepository do
   end
 
   it 'can find all items with specific price' do
-    item = @ir.find_all_with_price("50000")
+    item = @ir.find_all_by_price("50000")
 
-    expect(item.count).to eq(10)
+    expect(item.count).to eq(11)
+  end
+
+  it 'can find all items within price range' do
+    item = @ir.find_all_by_price("30,000", "50000")
+
+    expect(item.count).to eq(11)
   end
 end
