@@ -44,6 +44,7 @@ describe InvoiceRepository do
   describe '#find_all_by_merchant_id' do
     it 'can find all invoices by one merchant' do
       merchant_invoices = @ir.find_all_by_merchant_id("12334389")
+      require 'pry'; binding.pry
       expect(merchant_invoices.class).to eq(Array)
 
       merchant_invoices = @ir.find_all_by_merchant_id("234568")
