@@ -32,14 +32,22 @@ attr_reader :data, :merchants
 
     def create(new_name)
       all
-      id = @merchants.count + 1
+      id = @merchants[-1].id + 1
       name = new_name[:name]
-      Merchant.new({id: id, name: name})
+      new_merch = Merchant.new({id: id, name: name})
+      @merchants << new_merch
+      new_merch
     end
 
-    def update(id, name_update)
+    def update(id, attribute)
       all
-      @merchants.delete(find_by_id(id))
-      create(name_update)
+      if attribute.keys.include?(:name) == true
+          if find_by_id(id) != nil
+              @merchants.delete(find_by_id(id))
+              create(attribute)
+            end
+          end
     end
+
+    
 end

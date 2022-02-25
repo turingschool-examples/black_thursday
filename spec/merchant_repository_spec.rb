@@ -53,10 +53,13 @@ RSpec.describe MerchantRepository do
     expect(expected.name).to eq "Turing School of Software and Design"
   end
 
-  it "updates a merchant name" do 
-    turing_n = {name: "TSSD"}
-    expected = @merchants_i.update(12337412, turing_n)
+  it "updates a merchant name but not id" do
+    attribute = {name: "TSSD"}
+    expected = @merchants_i.update(12337411, attribute)
     expect(expected.name).to eq "TSSD"
     expect(@merchants_i.find_by_name("Turing School of Software and Design")).to be nil
+    turing_id = {id: 13000000}
+    expected_fake = @merchants_i.update(12337412, turing_id)
+    expect(expected_fake).to be nil
   end
 end
