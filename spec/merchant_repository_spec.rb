@@ -17,7 +17,7 @@ RSpec.describe MerchantRepository do
 
 
   xit "can return an array of #all elements within the merchant.csv file" do
-  expect@se.merchants.all.length).to eq(475)
+  expect(@se.merchants.all.length).to eq(475)
   end
 
 end
