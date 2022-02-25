@@ -2,6 +2,10 @@ require 'pry'
 
 class MerchantRepository
 attr_reader :data, :merchants
+    def inspect
+    "#<\#{self.class} \#{@merchants.size} rows>"
+    end
+
     def initialize(data)
       @data = data
     end
