@@ -44,4 +44,10 @@ describe ItemsRepository do
     expect(item.count).to eq(26)
     expect(item[0].id).to eq('263396517')
   end
+
+  it 'can find an item by the merchant_id' do
+    item = @ir.find_all_by_merchant_id("12334195")
+    expect(item.count).to eq(1)
+    expect(item.id).to eq("263396255")
+  end
 end
