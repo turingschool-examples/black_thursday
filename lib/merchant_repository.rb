@@ -1,4 +1,5 @@
 require 'pry'
+require_relative 'merchant'
 
 class MerchantRepository
 attr_reader :data, :merchants
@@ -7,7 +8,7 @@ attr_reader :data, :merchants
     end
 
     def initialize(data)
-      @data = data
+      @data = File.readlines data
     end
 
     def all

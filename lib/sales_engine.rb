@@ -6,12 +6,13 @@ class SalesEngine
 attr_reader :merchants, :items
   def initialize(merchants, items)
     @merchants = MerchantRepository.new(merchants)
+    # binding.pry
     @items = ItemRepository.new(items)
   end
 
   def self.from_csv(input)
-    merchant_lines = File.readlines input[:merchants]
-    item_lines = File.readlines input[:items]
+    merchant_lines = input[:merchants]
+    item_lines = input[:items]
     SalesEngine.new(merchant_lines, item_lines)
   end
 
