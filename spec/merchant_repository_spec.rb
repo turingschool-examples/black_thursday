@@ -70,7 +70,7 @@ RSpec.describe MerchantRepository do
   end
 
   it "can #create a new merchant instance" do
-    attributes = {name: "AngryClownDaycare", created_at: Time.now,
+    attributes = {name: "AngryClownDayCare", created_at: Time.now,
     updated_at: Time.now}
 
     @se.merchants.create(attributes)
