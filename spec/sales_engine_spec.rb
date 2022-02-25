@@ -5,14 +5,22 @@ require 'simplecov'
 require './lib/item_repository'
 require './lib/merchant_repository'
 
-
 SimpleCov.start
 
 RSpec.describe SalesEngine do
   it 'exists' do
-    se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
-# binding.pry
+    se = SalesEngine.new({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     expect(se.class).to eq(SalesEngine)
+  end
+
+  it 'has an items_csv_object attribute by default' do
+    se = SalesEngine.new({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    expect(se.items_csv_object).to eq("./data/items.csv")
+  end
+
+  it 'has an merchants_csv_object attribute by default' do
+    se = SalesEngine.new({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    expect(se.merchants_csv_object).to eq("./data/merchants.csv")
   end
 
   it 'Sets attributes to CSV objects' do
