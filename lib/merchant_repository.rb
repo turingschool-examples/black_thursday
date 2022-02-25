@@ -43,11 +43,14 @@ attr_reader :data, :merchants
       all
       if attribute.keys.include?(:name) == true
           if find_by_id(id) != nil
-              @merchants.delete(find_by_id(id))
+              delete(id)
               create(attribute)
             end
           end
     end
 
-    
+    def delete(id)
+      all
+      @merchants.delete(find_by_id(id))
+    end
 end

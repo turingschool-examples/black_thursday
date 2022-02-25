@@ -59,7 +59,14 @@ RSpec.describe MerchantRepository do
     expect(expected.name).to eq "TSSD"
     expect(@merchants_i.find_by_name("Turing School of Software and Design")).to be nil
     turing_id = {id: 13000000}
-    expected_fake = @merchants_i.update(12337412, turing_id)
-    expect(expected_fake).to be nil
+    expected_id= @merchants_i.update(12337411, turing_id)
+    expect(expected_id).to be nil
   end
+
+  it "deletes a merchant by id" do
+      @merchants_i.delete(12337412)
+      expected = @merchants_i.find_by_id(12337412)
+      expect(expected).to eq nil
+    end
+
 end
