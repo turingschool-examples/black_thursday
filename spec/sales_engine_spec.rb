@@ -16,10 +16,16 @@ RSpec.describe SalesEngine do
   expect(@se).to be_a(SalesEngine)
   end
 
-  it "creates an instnace of Item class" do
+  it "creates an instnace of items_repository class" do
     ir = @se.items
 
     expect(ir).to be_an_instance_of(ItemsRepository)
+  end
+
+  it "creates an instnace of merchants_repository class" do
+    mr = @se.merchants
+
+    expect(mr).to be_an_instance_of(MerchantsRepository)
   end
 
 end #RSpec end
