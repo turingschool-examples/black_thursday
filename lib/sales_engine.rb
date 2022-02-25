@@ -17,4 +17,8 @@ class SalesEngine
     ItemsRepository.new(@items)
   end
 
+  def merchants
+    MerchantsRepository.new(@merchants)
+  end
+
 end #SalesEngine class end
