@@ -10,10 +10,10 @@ class SalesEngine
   end
   def self.from_csv(files)
     engine = SalesEngine.new
-    items = CSV.open(files[:items], headers: true)
-    items.each {|data| engine.items_array << Item.new({:id => data[0], :name => data[1], :description => data[2], :unit_price => data[3], :created_at => Time.now, :updated_at => Time.now, :merchant_id => data[4]})}
-    merchants = CSV.open(files[:merchants], headers: true)
-    merchants.each {|data| engine.merchants_array << Merchant.new({:id => data[0], :name => data[1]})}
+    items = CSV.open(files[:items], headers: true, header_converters: :symbol)
+    items.each {|data| engine.items_array << Item.new(data)}
+    merchants = CSV.open(files[:merchants], headers: true, header_converters: :symbol)
+    merchants.each {|data| engine.merchants_array << Merchant.new(data)}
     engine
   end
   def merchants
@@ -23,3 +23,4 @@ class SalesEngine
     ItemRepository.new(@items_array)
   end
 end
+# require "pry"; binding.pry
