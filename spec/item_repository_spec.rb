@@ -1,16 +1,16 @@
 # item_repository_spec
 require './lib/item_repository'
 # require './lib/items'
-require './lib/sales_engine'
+require './lib/sales_@se'
 require 'pry'
 require 'bigdecimal'
 
 RSpec.describe ItemRepository do
   before(:each) do
-    @se = SalesEngine.from_csv({
-                                 items: './data/items.csv',
-                                 merchants: './data/merchants.csv'
-                               })
+    @se = Sales @se.from_csv({
+                               items: './data/items.csv',
+                               merchants: './data/merchants.csv'
+                             })
   end
 
   it 'exists' do
@@ -81,8 +81,8 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq(0)
   end
 
-  it "finds all items by price" do
-    price = BigDecimal(10000)
+  it 'finds all items by price' do
+    price = BigDecimal(10_000)
 
     expected = @se.items.find_all_by_price(price)
     expect(expected.length).to eq(26)
@@ -98,8 +98,8 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq(0)
   end
 
-  it "can find all items within given price range" do
-    range = (1000.00..20000.00)
+  it 'can find all items within given price range' do
+    range = (1000.00..20_000.00)
     expected = @se.items.find_all_by_price_in_range(range)
 
     expect(expected.length).to eq 954
@@ -115,8 +115,8 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq 1
   end
 
-  it "can find all items associated with a given merchant id" do
-    merchant_id = 12334105
+  it 'can find all items associated with a given merchant id' do
+    merchant_id = 12_334_105
     expected = @se.items.find_all_by_merchant_id(merchant_id)
 
     expect(expected.length).to eq(3)
@@ -125,7 +125,20 @@ RSpec.describe ItemRepository do
     expected = @se.items.find_all_by_merchant_id(merchant_id)
 
     expect(expected.length).to eq(0)
+  end
 
+  it '#create creates a new item instance' do
+    attributes = {
+      name: "Timmy's Tutus",
+      description: 'Be the dancer you were meant to be.',
+      unit_price: BigDecimal(20.00, 4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
 
+    @se.items.create(attributes)
+    expected = @se.items.find_by_id(263_567_475)
+    expect(expected.name).to eq "Timmy's Tutus"
   end
 end
