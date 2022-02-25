@@ -21,16 +21,6 @@ class InvoiceRepository
           end
   end
 
-  # def all
-  #   @repository
-  # end
-
-  # def find_by_id(id)
-  #   @repository.find do |invoice|
-  #     invoice.id == id
-  #   end
-  # end
-
   def find_all_by_customer_id(id)
     @repository.select do |invoice|
       invoice.customer_id == id
@@ -50,10 +40,6 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    # new_id = @repository.sort_by {|invoice| invoice.id.to_i}.last
-    # new_id = new_id.id.to_i
-    # new_id += 1
-
     Invoice.new({:id => new_id.to_s,
     :customer_id => attributes[:customer_id],
     :merchant_id => attributes[:merchant_id],
@@ -68,8 +54,5 @@ class InvoiceRepository
     invoice.status = attribute
     invoice.updated_at = Time.now
   end
-  # 
-  # def delete(id)
-  #   @repository.delete(find_by_id(id))
-  # end
+
 end
