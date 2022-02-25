@@ -44,15 +44,11 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    if attributes.has_key?(:name)
-      item.name = attributes[:name]
+    attributes.map do |key, v|
+        item.unit_price = v if key == :unit_price
+        item.description = v if key == :description
+        item.name = v if key == :name
+        item.updated_at = Time.now
     end
-    if attributes.has_key?(:description)
-      item.description = attributes[:description]
-    end
-    if attributes.has_key?(:unit_price)
-      item.unit_price = attributes[:unit_price]
-    end
-    item.updated_at = Time.now
   end
 end
