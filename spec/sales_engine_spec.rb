@@ -27,14 +27,22 @@ RSpec.describe SalesEngine do
 
   it "creates an instnace of merchants_repository class" do
     mr = @se.merchants
+    merchant = mr.find_by_name("CJsDecor")
 
     expect(mr).to be_an_instance_of(MerchantsRepository)
+    expect(merchant.name).to eq("CJsDecor")
   end
 
   it "creates an instance of invoice_items class" do
     invoice_items_repo = @se.invoice_items_repo
 
     expect(invoice_items_repo).to be_an_instance_of(InvoiceItemsRepository)
+  end
+
+  it "creates an instance of invoices class" do
+    invoices = @se.invoices
+
+    expect(invoices).to be_an_instance_of(InvoicesRepository)
   end
 
 end #RSpec end
