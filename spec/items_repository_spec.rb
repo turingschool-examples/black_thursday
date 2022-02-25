@@ -87,4 +87,11 @@ Hand wash with cold water and lay flat to dry")
     expect(item.updated_at).not_to eq(first_update)
   end
 
+  it "can delete items" do
+    item = @ir.find_by_id("263395237")
+    expect(@ir.repository.include?(item)).to be true
+    @ir.delete(item.id)
+    expect(@ir.repository.include?(item)).to be false
+  end
+
 end
