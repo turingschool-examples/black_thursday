@@ -57,9 +57,9 @@ RSpec.describe MerchantRepository do
   it "#find_all_by_name finds all merchants matching fragment" do
     fragment = 'shop'
     expected = @se.merchants.find_all_by_name(fragment)
-    expect(expected.length).to eq(24)
+    expect(expected.length).to eq(26)
     expect(expected.map(&:name).include?("thepurplepenshop")).to eq true
-    expect(expected.map(&:id).include?(12334176))to eq(true)
+    expect(expected.map(&:id).include?(12334176)).to eq(true)
   end
 
 end
