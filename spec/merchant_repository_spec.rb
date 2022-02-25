@@ -40,4 +40,11 @@ RSpec.describe MerchantRepository do
     expect(expected.id).to eq(12334159)
   end
 
+  it "#find_by_name is case insensitive" do
+    name = 'sassystrangeart'
+    expected = @se.merchants.find_by_name(name)
+
+    expect(expected.id).to eq(12334159)
+  end
+
 end
