@@ -1,16 +1,16 @@
 # item_repository_spec
 require './lib/item_repository'
 # require './lib/items'
-require './lib/sales_@se'
+require './lib/sales_engine'
 require 'pry'
 require 'bigdecimal'
 
 RSpec.describe ItemRepository do
   before(:each) do
-    @se = Sales @se.from_csv({
-                               items: './data/items.csv',
-                               merchants: './data/merchants.csv'
-                             })
+    @se = SalesEngine.from_csv({
+                                 items: './data/items.csv',
+                                 merchants: './data/merchants.csv'
+                               })
   end
 
   it 'exists' do
@@ -134,11 +134,32 @@ RSpec.describe ItemRepository do
       unit_price: BigDecimal(20.00, 4),
       created_at: Time.now,
       updated_at: Time.now,
-      merchant_id: 25
+      merchant_id: 256
     }
 
     @se.items.create(attributes)
     expected = @se.items.find_by_id(263_567_475)
     expect(expected.name).to eq "Timmy's Tutus"
+  end
+
+  it '#update updates an item' do
+    @se.items.create(
+      name: "Timmy's Tutus",
+      description: 'Be the dancer you were meant to be.',
+      unit_price: BigDecimal(20.00, 4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 256
+    )
+
+    original_time = @se.items.find_by_id(263_567_475).updated_at
+    attributes = {
+      unit_price: BigDecimal(25.00, 4)
+    }
+    @se.items.update(263_567_475, attributes)
+    expected = @se.items.find_by_id(263_567_475)
+    expect(expected.unit_price).to eq 379.99
+    expect(expected.name).to eq 'Capita Defenders of Awesome 2018'
+    expect(expected.updated_at).to be > original_time
   end
 end
