@@ -6,7 +6,7 @@ require_relative './merchant'
 class SalesEngine
   attr_reader :table_hash
   def initialize(table_hash)
-      @table_hash = table_hash
+    @table_hash = table_hash  
   end
 
   def self.from_csv(path_hash)
@@ -31,6 +31,4 @@ class SalesEngine
     end
     MerchantRepository.new(merchant_array)
   end
-
-
 end

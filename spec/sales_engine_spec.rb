@@ -9,10 +9,10 @@ SimpleCov.start
 
 RSpec.describe SalesEngine do
   it 'exists' do
-    se = SalesEngine.new({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.new({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     expect(se.class).to eq(SalesEngine)
   end
-
+  
   it 'has an table_hash[:items] attribute by default' do
     se = SalesEngine.new({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     expect(se.table_hash[:items]).to eq("./data/items.csv")
@@ -30,22 +30,13 @@ RSpec.describe SalesEngine do
   end
 
   it 'items method returns instance of ItemRepo... with instances loaded' do
-    se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     # binding.pry
     expect(se.items.class).to eq(ItemRepository)
   end
 
   it 'merchants method returns instance of MerchantsRepo... with instances loaded' do
-    se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     expect(se.merchants.class).to eq(MerchantRepository)
   end
-
-
-
-
-
-
-
-
-
 end
