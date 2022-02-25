@@ -2,22 +2,22 @@ require_relative '../lib/item_repository'
 require_relative 'spec_helper'
 require 'pry'
 
-RSpec.describe MerchantRepository do
+RSpec.describe ItemRepository do
 
   before(:each) do
     @se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})
-    @merchants = MerchantRepository.new(@se[1])
+    @items = ItemRepository.new(@se[1])
 
   end
 
 
 
   it "exist" do
-    expect(@merchants).to be_a(MerchantRepository)
+    expect(@items).to be_a(ItemRepository)
   end
 
   it "holds #all merchant data" do
-    expect(@merchants.all.count).to eq(476)
+    expect(@items.all.count).to eq(9253)
   end
 
 end

@@ -13,6 +13,7 @@ attr_reader :data, :merchants
         columns = line.split(",")
         @merchants << Merchant.new({id: columns[0], name: columns[1], start_date: columns[2], end_date: columns[3]})
       end
-  end
+
+    end
 
 end

@@ -8,7 +8,6 @@ attr_reader :items, :merchants, :merchant_lines, :item_lines
   def self.from_csv(data)
     @merchant_lines = File.readlines data[:merchants]
     @item_lines = File.readlines data[:items]
-    binding.pry
     [@merchant_lines, @item_lines]
     end
 
