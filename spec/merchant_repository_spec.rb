@@ -63,9 +63,29 @@ RSpec.describe MerchantRepository do
     m_3 = Merchant.new({:id => 3, :name => "Walmart"})
     m_4 = Merchant.new({:id => 4, :name => "K Mart"})
     mr = MerchantRepository.new([m_1, m_2, m_3, m_4])
-    binding.pry
     expect(mr.create(:id => 9000, :name => "Walgreens").class).to eq(Merchant)
   end
+
+  it 'new merchant has highest id' do
+    m_1 = Merchant.new({:id => 1, :name => "True Value"})
+    m_2 = Merchant.new({:id => 2, :name => "Home Depot"})
+    m_3 = Merchant.new({:id => 3, :name => "Walmart"})
+    m_4 = Merchant.new({:id => 4, :name => "K Mart"})
+    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])
+    expect(mr.create(:id => 9000, :name => "Walgreens").id).to eq(5)
+  end
+
+  it 'can change the name of a merchant' do
+    m_1 = Merchant.new({:id => 1, :name => "True Value"})
+    m_2 = Merchant.new({:id => 2, :name => "Home Depot"})
+    m_3 = Merchant.new({:id => 3, :name => "Walmart"})
+    m_4 = Merchant.new({:id => 4, :name => "K Mart"})
+    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])
+    expect(mr.update(3, {:id => 3, :name => "Wal-Mart"}).name).to eq("Wal-Mart")
+  end
+
+
+
 
 
 

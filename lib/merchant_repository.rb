@@ -39,6 +39,15 @@ class MerchantRepository
     attributes[:name] = Merchant.new({:id => self.highest_id + 1, :name => attributes[:name]})
   end
 
+  def update(id, attributes)
+    new_name = self.find_by_id(id)
+    new_name.name = attributes[:name]
+    return new_name
+  end
+
+
+
+
 
 
 
