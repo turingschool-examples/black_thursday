@@ -56,28 +56,27 @@ RSpec.describe ItemRepository do
   end
 
   it 'find by all by name' do
-    fragment = 'hand'
+    name = 'hand'
     expected = @se.items.find_by_name(name)
 
     expect(expected).to eq(nil)
   end
 
-  it "#find_all_with_description finds all items matching given description" do
-  description =  'beautiful bracelet from the North Locals believe that it will bring luck and energy.'
-  expected = @se.items.find_all_with_description(description)
+  it '#find_all_with_description finds all items matching given description' do
+    description = 'A bird house made of all natural material, hand crafted with love.'
+    expected = @se.items.find_all_with_description(description)
 
-  expect(expected.first.description).to eq (description)
-  expect(expected.first.id).to eq(263_510_466)
+    expect(expected.first.description).to eq(description)
+    expect(expected.first.id).to eq(263_565_028)
 
-  description = 'beautiful BRACELET from the NOrth lOcals believe that it will bring luck and energy.'
-  expected = @se.items.find_all_with_description(description)
+    description = 'A bird house MADE of all natural material, HAND crafted with love.'
+    expected = @se.items.find_all_with_description(description)
 
-  expect(expected.first.id).to eq
+    expect(expected.first.id).to eq(263_565_028)
 
-  description =
-  expected = @se.items.find_all_with_description(description)
+    description = 'shoes be clean'
+    expected = @se.items.find_all_with_description(description)
 
-  expect(expected.length).to eq
-end
-
+    expect(expected.length).to eq(0)
+  end
 end
