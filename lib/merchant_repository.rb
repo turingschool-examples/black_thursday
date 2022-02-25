@@ -36,4 +36,10 @@ attr_reader :data, :merchants
       name = new_name[:name]
       Merchant.new({id: id, name: name})
     end
+
+    def update(id, name_update)
+      all
+      @merchants.delete(find_by_id(id))
+      create(name_update)
+    end
 end

@@ -11,7 +11,6 @@ RSpec.describe MerchantRepository do
   end
 
 
-
   it "exist" do
     expect(@merchants_i).to be_a(MerchantRepository)
   end
@@ -52,6 +51,12 @@ RSpec.describe MerchantRepository do
     turing = {name: "Turing School of Software and Design"}
     expected = @merchants_i.create(turing)
     expect(expected.name).to eq "Turing School of Software and Design"
+  end
 
+  it "updates a merchant name" do 
+    turing_n = {name: "TSSD"}
+    expected = @merchants_i.update(12337412, turing_n)
+    expect(expected.name).to eq "TSSD"
+    expect(@merchants_i.find_by_name("Turing School of Software and Design")).to be nil
   end
 end
