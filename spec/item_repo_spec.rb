@@ -13,4 +13,8 @@ RSpec.describe ItemRepository do
   it "is an instance of ItemRepository" do
     expect(ir).to be_an_instance_of(ItemRepository)
   end
+
+  xit "can return an array of all item instances" do
+    expect(ir.all.count).to eq 
+  end
 end
