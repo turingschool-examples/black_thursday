@@ -42,6 +42,6 @@ describe Transaction do
     expect(@t.created_at).to eq("02-26-2022")
     expect(@t.updated_at).to eq("02-27-2022")
   end
-  
+
 
 end
