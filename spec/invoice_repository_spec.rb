@@ -45,4 +45,11 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repo.find_by_id(8888)).to eq(nil)
   end
 
+  it 'can #find_all_by_customers_id(id)' do
+
+    expect(@invoice_repo.find_all_by_customers_id(1)).to be_a(Array)
+    expect(@invoice_repo.find_all_by_customers_id(300).count).to eq(10)
+    expect(@invoice_repo.find_all_by_customers_id(8888)).to eq([])
+  end
+
 end
