@@ -36,7 +36,7 @@ RSpec.describe ItemRepository do
     allow(@item3).to receive(:merchant_id){2}
 
     @ir = ItemRepository.new([@item1, @item2, @item3])
-    binding.pry
+    # binding.pry
     # @item1 = Hash.new
     # @item1[:id] = 1
     # @item1[:name] = "pencil"

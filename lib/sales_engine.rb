@@ -3,24 +3,24 @@ require_relative 'item'
 require_relative 'merchant'
 require 'csv'
 class SalesEngine
-  attr_reader :items_array, :merchants_array
+  attr_reader :stash
   def initialize
-  @items_array = []
-  @merchants_array = []
+    @stash = []
   end
   def self.from_csv(files)
     engine = SalesEngine.new
-    items = CSV.open(files[:items], headers: true, header_converters: :symbol)
-    items.each {|data| engine.items_array << Item.new(data)}
-    merchants = CSV.open(files[:merchants], headers: true, header_converters: :symbol)
-    merchants.each {|data| engine.merchants_array << Merchant.new(data)}
+    files.each do |key, filepath|
+      formatted_key = key.to_s.delete("_").delete_suffix("s").capitalize
+      reader = CSV.open(filepath, headers: true, header_converters: :symbol)
+      reader.each {|line| engine.stash << eval("#{formatted_key}.new(#{line})")}
+    end
     engine
   end
   def merchants
-    MerchantRepository.new(@merchants_array)
+    MerchantRepository.new(@stash)
   end
   def items
-    ItemRepository.new(@items_array)
+    ItemRepository.new(@stash)
   end
 end
-# require "pry"; binding.pry
+require "pry"; binding.pry
