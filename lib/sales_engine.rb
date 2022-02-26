@@ -7,11 +7,11 @@ require './lib/merchant'
 require './lib/sales_analyst'
 
 class SalesEngine
-  attr_reader :item_repo, :merchants
+  attr_reader :item_repo, :merch_repo
 
   def initialize(items_, merchants_)
     @item_repo = ItemRepository.new(items_)
-    @merchants = MerchantRepository.new(merchants_)
+    @merch_repo = MerchantRepository.new(merchants_)
   end
 
   def self.from_csv(csv_hash)
