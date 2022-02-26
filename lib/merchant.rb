@@ -1,3 +1,5 @@
+require 'time'
+
 class Merchant
 
   attr_accessor :name, :updated_at
