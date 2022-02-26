@@ -41,12 +41,17 @@ class ItemRepository
     @items.find_all {|item| range.include?(item.unit_price)}
   end
 
-  def create(new_name)
-    id = @items[-1].id + 1
-    name = new_name[:name]
-    new_item = Item.new({id: id, name: name, created_at: Time.now, updated_at: Time.now})
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all {|item| item.merchant_id == merchant_id}
+  end
+
+  def create(attributes)
+    attributes[:id] = @items.last.id + 1
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
+    new_item = Item.new(attributes)
     @items << new_item
-    new_merch
+    new_item
   end
 
   def update(id, attribute)

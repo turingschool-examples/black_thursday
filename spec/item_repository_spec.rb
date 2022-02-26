@@ -58,12 +58,26 @@ RSpec.describe ItemRepository do
     items_10_15 = @items.find_all_by_price_in_range((10.0..15.0))
     expect(items_1000_1500.length).to eq 19
     expect(items_10_15.length).to eq 205
-  end 
+  end
 
-  xit "creates a new item" do
-    turing = {name: "Turing School of Software and Design"}
-    expected = @merchants_i.create(turing)
-    expect(expected.name).to eq "Turing School of Software and Design"
+  it 'can find all by merchant id' do
+    merchant_id = 12334141
+    item_by_merchant = @items.find_all_by_merchant_id(merchant_id)
+    expect(item_by_merchant.length).to eq 1
+  end
+
+  it "creates a new item instance" do
+    attributes = {
+      name: "KGBeer, Co",
+      description: "A smooth pale ale from the tundras of mother Russia",
+      unit_price: "500.0",
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 12334141
+    }
+    kgbeerco = @items.create(attributes)
+    expect(kgbeerco.name).to eq("KGBeer, Co")
+    expect(@items.find_all_by_merchant_id(12334141).length).to eq(2)
   end
 
   xit "updates a merchant name but not id" do
