@@ -25,26 +25,24 @@ RSpec.describe ItemRepository do
     expect(@items.find_by_id('1')).to be nil
   end
 
-  it "can find first matching merchant by case-insensitive name or nil" do
-      name = "510+ RealPush Icon Set"
-      expected = @items.find_by_name(name)
-      expect(expected.name).to eq("510+ RealPush Icon Set")
-      name_up = name.upcase
-      expected_up = @items.find_by_name(name_up)
-      expect(expected_up.id).to eq 263395237
-      expect(expected_up.name).to eq name
-      expect(@items.find_by_name("kk")).to be nil
+  it "can find first matching item by case-insensitive name or nil" do
+    name = "510+ RealPush Icon Set"
+    expected = @items.find_by_name(name)
+    expect(expected.name).to eq("510+ RealPush Icon Set")
+    name_up = name.upcase
+    expected_up = @items.find_by_name(name_up)
+    expect(expected_up.id).to eq 263395237
+    expect(expected_up.name).to eq name
+    expect(@items.find_by_name("kk")).to be nil
   end
 
-  xit "can find all merchants matching a fragment or return nil" do
-      fragment = "style"
-      expected = @merchants_i.find_all_by_name(fragment)
-      # binding.pry
-      expect(expected.length).to eq 3
-      expect(expected.map(&:name).include?("justMstyle")).to eq true
-      expect(expected.map(&:id).include?(12337211)).to eq true
-      # expect(@merchants_i.find_all_by_name('Turing School')).to eq []
-    end
+  it "can find all items matching a description or return nil" do
+    description = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
+    expected = @items.find_all_with_description(description)
+
+    expect(expected.first.description).to eq description
+    expect(expected.first.id).to eq 263550472
+  end
 
   xit "creates a new merchant" do
     turing = {name: "Turing School of Software and Design"}
