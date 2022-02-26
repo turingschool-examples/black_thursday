@@ -9,9 +9,16 @@ SimpleCov.start
 
 RSpec.describe TransactionRepository do
   it 'exists' do
-    tr = TransactionRepository.new
+    tr = TransactionRepository.new([])
     expect(tr).to be_a(TransactionRepository)
   end
+
+  it 'returns an array of all Transaction Instances' do
+    tr = TransactionRepository.new([])
+    expect(tr.all).to eq([])
+  end
+
+
 
 
 end
