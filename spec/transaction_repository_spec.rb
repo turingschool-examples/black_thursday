@@ -84,6 +84,4 @@ RSpec.describe TransactionRepository do
 
   xit 'can delete a transaction with the corresponding id' do
   end
-
-
 end
