@@ -3,7 +3,7 @@ require_relative 'item'
 require_relative 'merchant'
 require 'csv'
 class SalesEngine
-  attr_reader :items_array, :merchants_array
+  attr_reader :items_array, :merchants_array, :files
   def initialize(files)
     @items_array = []
     @merchants_array = []
@@ -15,12 +15,9 @@ class SalesEngine
   end
   def self.from_csv(files)
     engine = SalesEngine.new(files)
-    engine.file_helper(files, :items, Item)
-    engine.file_helper(files, :merchants, Merchant)
-    # engine.file_helper(files, :invoices, Invoice)
-    # engine.file_helper(files, :invoice_items, InvoiceItem)
-    # engine.file_helper(files, :customers, Customer)
-    # engine.file_helper(files, :transactions, Transaction)
+    engine.files.each do |filename, filepath|
+      engine.file_helper(filepath, filename)
+    end
     engine
   end
   def merchants
@@ -30,19 +27,28 @@ class SalesEngine
     ItemRepository.new(@stash)
   end
 
-  def file_helper(files, key, klass)
-    reader = CSV.open(files[key], headers: true, header_converters: :symbol)
-    # require "pry"; binding.pry
-    reader.each {|data| array_helper(key) << klass.new(data)}
+  def file_helper(filepath, key)
+    reader = CSV.open(filepath, headers: true, header_converters: :symbol)
+    reader.each {|data| array_finder(key) << class_converter(key)}
   end
 
-  def array_helper(key)
+  def array_finder(key)
     {items: @items_array,
      merchants: @merchants_array,
      invoices: @invoice_array,
      invoice_items: @invoice_item_array,
      customers: @customer_array,
      transactions: @transaction_array}[key]
+  end
+
+  def class_converter(key)
+    {items: Item,
+     merchants: Merchant,
+     # invoices: Invoice,
+     # invoice_item: InvoiceItem,
+     # customers: Customer,
+     # transactions: Transaction
+     }[key]
   end
 end
 # require "pry"; binding.pry
