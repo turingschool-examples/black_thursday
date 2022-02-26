@@ -13,8 +13,8 @@ RSpec.describe SalesEngine do
     end
     it "starts with no items or merchants" do
       se = SalesEngine.new
-      expect(se.items_array).to eq(nil)
-      expect(se.merchants_array).to eq(nil)
+      expect(se.items_array).to eq([])
+      expect(se.merchants_array).to eq([])
     end
     it "adds info from CSV files" do
       se = SalesEngine.from_csv({
