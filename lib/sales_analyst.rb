@@ -6,6 +6,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
 
+require 'date'
 require 'bigdecimal'
 require 'pry'
 require 'CSV'
@@ -151,5 +152,22 @@ class SalesAnalyst
     ungolden_merchants.keys
   end
 
+  def invoices_by_day
+    @invoices.invoices.map do |invoice|
+       Time.parse(invoice.created_at).wday
+    end
+  end
+
+  def invoices_per_day
+    invoices_per_day_hash = Hash.new(0)
+    invoices_by_day.each do |day|
+      invoices_per_day_hash[day] += 1
+    end
+    invoices_per_day_hash
+  end
+
+  def average_invoices_per_day
+    invoices_per_day.values.sum / 7 
+  end
 
 end

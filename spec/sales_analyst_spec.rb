@@ -74,7 +74,20 @@ RSpec.describe SalesAnalyst do
       expect(@sales_analyst.bottom_merchants_by_invoice_count[0]).to be_a(Merchant)
     end
 
+    it "can determine the day of the keep based on an invoice" do
+      expect(@sales_analyst.invoices_per_day).to be_a(Hash)
+      expect(@sales_analyst.invoices_per_day.keys.count).to eq(7)
+    end
 
+    xit "can determine the days with the most sales" do
+      expect(@sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
+    end
+
+    it "can determine average invoices by day" do
+      expect(@sales_analyst.average_invoices_per_day).to eq(712)
+    end
+
+    
   end
 
 end
