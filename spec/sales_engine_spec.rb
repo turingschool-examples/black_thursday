@@ -12,7 +12,9 @@ RSpec.describe SalesEngine do
         expect(se).to be_a(SalesEngine)
     end
     it "starts with no items or merchants" do
-      se = SalesEngine.new
+      se = SalesEngine.new({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",})
       expect(se.items_array).to eq([])
       expect(se.merchants_array).to eq([])
     end
