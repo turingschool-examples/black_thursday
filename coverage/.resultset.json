@@ -1,37 +1,23 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/spec/sales_analyst_spec.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/spec/sales_analyst_spec.rb": {
         "lines": [
           1,
           1,
           1,
           1,
           1,
-          null,
           1,
           null,
           1,
           null,
-          null,
-          null,
-          1,
-          null,
-          1,
           1,
           null,
           null,
-          1,
-          1,
-          1,
-          1,
-          1,
           null,
           null,
           1,
-          1,
-          null,
-          null,
           null,
           1,
           1,
@@ -41,15 +27,14 @@
           1,
           1,
           1,
-          null,
-          null,
-          1,
-          1,
           1,
           null,
           null,
           1,
           1,
+          null,
+          null,
+          null,
           1,
           1,
           null,
@@ -70,11 +55,42 @@
           1,
           1,
           null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
           null,
           null
         ]
       },
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/lib/sales_engine.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
@@ -86,8 +102,10 @@
           1,
           1,
           1,
+          1,
           null,
           null,
+          1,
           1,
           1,
           1,
@@ -102,7 +120,7 @@
           null
         ]
       },
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/lib/item_repository.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/item_repository.rb": {
         "lines": [
           1,
           1,
@@ -166,7 +184,7 @@
           null
         ]
       },
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/lib/item.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/item.rb": {
         "lines": [
           1,
           null,
@@ -197,7 +215,7 @@
           null
         ]
       },
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/lib/sales_module.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/sales_module.rb": {
         "lines": [
           1,
           1,
@@ -220,7 +238,7 @@
           null
         ]
       },
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/lib/merchant_repository.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/merchant_repository.rb": {
         "lines": [
           1,
           1,
@@ -274,7 +292,7 @@
           null
         ]
       },
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/lib/merchant.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           null,
@@ -297,11 +315,13 @@
           null
         ]
       },
-      "/Users/coryb/Turing/1_Mod/projects/black_thursday/lib/sales_analyst.rb": {
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/sales_analyst.rb": {
         "lines": [
           1,
           1,
+          1,
           null,
+          1,
           1,
           1,
           1,
@@ -385,10 +405,127 @@
           1368,
           null,
           null,
+          1,
+          4,
+          4,
+          19940,
+          null,
+          4,
+          null,
+          null,
+          1,
+          2,
+          2,
+          952,
+          2,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          476,
+          1,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/invoice_repository.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          19940,
+          99420840,
+          19940,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alexanderpsitos/turing/1module/group_project_1/black_thursday/lib/invoice.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          4985,
+          4985,
+          4985,
+          4985,
+          4985,
+          4985,
+          null,
+          null,
+          1,
+          1,
+          1,
+          4985,
+          null,
+          null,
+          null,
           null
         ]
       }
     },
-    "timestamp": 1645853074
+    "timestamp": 1645916660
   }
 }

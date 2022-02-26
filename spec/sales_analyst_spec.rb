@@ -2,6 +2,7 @@ require './lib/sales_engine'
 require './lib/item_repository'
 require './lib/merchant_repository'
 require './lib/sales_analyst'
+require './lib/invoice_repository'
 require 'pry'
 
 describe SalesAnalyst do
@@ -9,6 +10,7 @@ describe SalesAnalyst do
   sales_engine = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv"
                             })
   sales_analyst = sales_engine.analyst
 
@@ -57,7 +59,7 @@ describe SalesAnalyst do
 
   it 'gets the total item price standard deviation' do
     a = sales_analyst.item_price_standard_deviation
-    expect(a).to eq 2900.99
+    expect(a).to eq 2899.93
   end
 
   it 'gets the golden items' do
@@ -66,4 +68,18 @@ describe SalesAnalyst do
     expect(a[0].class).to eq Item
   end
 
+  it 'can list all invoices by merchant' do
+    a = sales_analyst.list_all_invoices_by_merchant
+    expect(a.length).to eq(475)
+  end
+
+  it "can find the average invoices per merchant" do
+    a = sales_analyst.average_invoices_per_merchant
+    expect(a).to eq(10.49)
+  end
+
+  it "can find the average invoices per merchant standard deviation" do
+    a = sales_analyst.average_invoices_per_merchant_standard_deviation
+    expect(a).to eq(3.29)
+  end
 end
