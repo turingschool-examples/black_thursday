@@ -18,4 +18,11 @@ RSpec.describe ItemRepository do
   it "can return an array of all item instances" do
     expect(ir.all.count).to eq 1367
   end
+
+  it "can find an item by id" do
+    test_id = 263397059
+    expected_item = ir.find_by_id(test_id)
+    expect(expected_item.item_attributes[:id]).to eq 263397059
+    expect(expected_item.item_attributes[:name]).to eq "Etre ailleurs"
+  end
 end
