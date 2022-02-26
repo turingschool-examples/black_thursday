@@ -13,8 +13,9 @@ RSpec.describe ItemRepository do
   end
 
   it "#average_items_per_merchant returns average items per merchant" do
-      expected = @sa.average_items_per_merchant
+    expected = @sa.average_items_per_merchant
 
-      expect(expected).to eq 2.88
-      expect(expected.class).to eq Float
-    end
+    expect(expected).to eq 2.88
+    expect(expected.class).to eq Float
+  end
+end
