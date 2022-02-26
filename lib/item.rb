@@ -1,9 +1,10 @@
 class Item
 
-  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
+  attr_reader :id, :merchant_id, :created_at
+  attr_accessor :name, :description, :unit_price, :updated_at
 
   def initialize(info)
-    @id = info[:id]
+    @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
     @unit_price = info[:unit_price]
