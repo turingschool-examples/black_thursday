@@ -1,6 +1,7 @@
 require 'csv'
 require 'pry'
 require_relative 'merchant_repository'
+require_relative 'item_repository'
 
 class SalesEngine
 attr_reader :merchants, :items
@@ -15,14 +16,5 @@ attr_reader :merchants, :items
     item_lines = input[:items]
     SalesEngine.new(merchant_lines, item_lines)
   end
-
-  # def merchants
-  #   MerchantRepository.new(@merchant_lines)
-  #   # binding.pry
-  # end
-  #
-  # def items
-  #   ItemRepository.new(@item_lines)
-  # end
 
 end

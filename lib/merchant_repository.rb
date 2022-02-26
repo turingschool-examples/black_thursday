@@ -9,14 +9,14 @@ attr_reader :data, :merchants
 
     def initialize(data)
       @data = File.readlines data
+      @merchants = []
     end
 
     def all
-      @merchants = []
       @data.each_with_index do |line, index|
         next if index == 0
         columns = line.split(",")
-        @merchants << Merchant.new({id: columns[0], name: columns[1], start_date: columns[2], end_date: columns[3]})
+        @merchants << Merchant.new({id: columns[0], name: columns[1], created_at: columns[2], updated_at: columns[3]})
       end
     end
 
@@ -30,16 +30,16 @@ attr_reader :data, :merchants
       @merchants.find {|merchant| merchant.name == name.downcase}
     end
 
-    def find_all_by_name(frag)
+    def find_all_by_name(fragment)
       all
-      @merchants.find_all {|merchant| merchant.name.downcase.include?(frag.downcase)}
+      @merchants.find_all {|merchant| merchant.name.downcase.include?(fragment.downcase)}
     end
 
     def create(new_name)
       all
       id = @merchants[-1].id + 1
       name = new_name[:name]
-      new_merch = Merchant.new({id: id, name: name})
+      new_merch = Merchant.new({id: id, name: name, created_at: Time.now, updated_at: Time.now})
       @merchants << new_merch
       new_merch
     end
@@ -48,10 +48,12 @@ attr_reader :data, :merchants
       all
       if attribute.keys.include?(:name) == true
           if find_by_id(id) != nil
-              delete(id)
-              create(attribute)
+              merchant = find_by_id(id)
+              merchant.name = attribute[:name]
+              merchant.updated_at = Time.now
             end
-          end
+        end
+      merchant
     end
 
     def delete(id)
