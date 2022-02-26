@@ -8,7 +8,9 @@ RSpec.describe SalesEngine do
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
   :invoice_items => "./data/invoice_items.csv",
-  :invoices => "./data/invoices.csv"
+  :invoices => "./data/invoices.csv",
+  :customers => "./data/customers.csv",
+  :transactions => "./data/transactions.csv"
   })
   end
 
@@ -16,15 +18,16 @@ RSpec.describe SalesEngine do
   expect(@se).to be_a(SalesEngine)
   end
 
-  it "creates an instnace of items_repository class" do
+  it "creates an instance of items_repository class" do
     ir = @se.items
     item = ir.repository.sample
+    mr = @se.merchants
 
     expect(ir).to be_an_instance_of(ItemsRepository)
     expect(item).to be_a(Item)
   end
 
-  it "creates an instnace of merchants_repository class" do
+  it "creates an instance of merchants_repository class" do
     mr = @se.merchants
     merchant = mr.find_by_name("CJsDecor")
 
@@ -44,4 +47,13 @@ RSpec.describe SalesEngine do
     expect(ir).to be_an_instance_of(InvoiceRepository)
   end
 
+  it 'creates an instance of customer repository class' do
+    cr = @se.customers
+    expect(cr).to be_an_instance_of(CustomerRepository)
+  end
+
+  it 'creates an instance of transaction repository class' do
+    tr = @se.transactions
+    expect(tr).to be_an_instance_of(TransactionRepository)
+  end
 end #RSpec end
