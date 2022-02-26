@@ -121,5 +121,24 @@ class SalesAnalyst
     Math.sqrt(empty.sum / (merchant_invoices.count - 1)).round(2)
   end
 
+  def top_merchants_by_invoice_count
+    golden_invoices = (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+
+    merchant_ids = @invoices.invoices.map {|invoice| invoice.merchant_id}
+    merchant_invoices = Hash.new(0)
+    merchant_ids.each do |id|
+      merchant_invoices[id] += 1
+    end
+
+    merchant_invoices.find_all do |merchant, invoice_count|
+      merchant if invoice_count > golden_invoices
+    end
+
+
+    # @items.items.find_all do |item|
+    #   item.unit_price_to_dollars > golden_invoices
+    # end
+  end
+
 
 end

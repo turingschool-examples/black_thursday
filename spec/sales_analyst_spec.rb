@@ -65,7 +65,7 @@ RSpec.describe SalesAnalyst do
     end
 
     it "can determine the top performing merchants" do
-      expect(@sales_analyst.sales_analyst.top_merchants_by_invoice_count.count).to eq(12)
+      expect(@sales_analyst.top_merchants_by_invoice_count.count).to eq(12)
     end
 
   end
