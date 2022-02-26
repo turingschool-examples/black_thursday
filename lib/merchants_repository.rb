@@ -29,7 +29,9 @@ class MerchantsRepository
   end
 
   def create(attributes)
-    Merchant.new({id: new_id.to_s, name: attributes})
+    merchant = Merchant.new({id: new_id.to_s, name: attributes})
+    @repository << merchant
+    merchant
   end
 
   def update(id, attributes)

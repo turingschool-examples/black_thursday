@@ -16,16 +16,16 @@ RSpec.describe SalesEngine do
   expect(@se).to be_a(SalesEngine)
   end
 
-  it "creates an instnace of items_repository class" do
+  it "creates an instance of items_repository class" do
     ir = @se.items
     item = ir.repository.sample
     mr = @se.merchants
-    require 'pry'; binding.pry
+    
     expect(ir).to be_an_instance_of(ItemsRepository)
     expect(item).to be_a(Item)
   end
 
-  it "creates an instnace of merchants_repository class" do
+  it "creates an instance of merchants_repository class" do
     mr = @se.merchants
     merchant = mr.find_by_name("CJsDecor")
 

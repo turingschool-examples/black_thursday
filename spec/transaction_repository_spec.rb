@@ -69,4 +69,22 @@ describe TransactionRepository do
     end
   end
 
+  describe '#update' do
+    it 'can update an existing transation' do
+      transaction = @tr.find_by_id(4)
+      transaction_time = transaction.updated_at
+      @tr.update(4, {:credit_card_number => "1212121212121212", :credit_card_expiration_date => "0925"})
+      expect(transaction.credit_card_number).to eq("1212121212121212")
+      expect(transaction.updated_at).not_to eq(transaction_time)
+    end
+  end
+
+  describe '#delete' do
+    it 'can remove a transaction from the repository' do
+      transaction = @tr.repository.sample
+      @tr.delete(transaction.id)
+      expect(@tr.repository.include?(transaction)).to be false
+    end
+  end
+
 end
