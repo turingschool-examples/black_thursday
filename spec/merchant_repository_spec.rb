@@ -79,13 +79,22 @@ RSpec.describe MerchantRepository do
   end
 
   it "#update updates a merchant" do
-      attributes = {
-        name: "Vlad's Variety Store",
-      }
-      @se.merchants.update(12336050, attributes)
-      expected = @se.merchants.find_by_id(12336050)
-      expect(expected.name).to eq "Vlad's Variety Store"
-      expected = @se.merchants.find_by_name("Intricate Sunset")
-      expect(expected).to eq nil
-    end
+    attributes = {
+      name: "Vlad's Variety Store",
+    }
+    @se.merchants.update(12336050, attributes)
+    expected = @se.merchants.find_by_id(12336050)
+    expect(expected.name).to eq "Vlad's Variety Store"
+    expected = @se.merchants.find_by_name("Intricate Sunset")
+    expect(expected).to eq nil
+  end
+
+  it "#update cannot update id" do
+    attributes = {
+      id: 42
+    }
+    engine.merchants.update(12337412, attributes)
+    expected = engine.merchants.find_by_id(42)
+    expect(expected).to eq nil
+  end
 end

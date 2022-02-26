@@ -33,7 +33,6 @@ class MerchantRepository
     merchant = find_by_id(id)
     attributes.map do |key, v|
         merchant.name = v if key == :name
-        merchant.updated_at = Time.now
     end
   end
 end
