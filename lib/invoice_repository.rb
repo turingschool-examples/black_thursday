@@ -31,7 +31,7 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_customers_id(customer_id)
+  def find_all_by_customer_id(customer_id)
     @invoices.find_all do |invoice|
       invoice.customer_id == customer_id
     end
@@ -64,8 +64,10 @@ class InvoiceRepository
 
   def update(id, attributes)
     if updated_invoice = find_by_id(id)
-      updated_invoice.status = attributes[:status].to_sym
-      updated_invoice.updated_at = Time.now
+      if attributes[:status]
+        updated_invoice.status = attributes[:status].to_sym
+        updated_invoice.updated_at = Time.now
+      end
     end
   end
 
@@ -74,11 +76,8 @@ class InvoiceRepository
     @invoices.delete(deleted_invoice)
   end
 
-
-
-
-
-
-
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
 end

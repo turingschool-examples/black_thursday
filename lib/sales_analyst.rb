@@ -154,7 +154,11 @@ class SalesAnalyst
 
   def invoices_by_day
     @invoices.invoices.map do |invoice|
+      if invoice.created_at.class == Time
+        invoice.created_at.wday
+      else
        Time.parse(invoice.created_at).wday
+     end
     end
   end
 
