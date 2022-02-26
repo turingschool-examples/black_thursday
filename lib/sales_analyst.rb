@@ -167,7 +167,41 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    invoices_per_day.values.sum / 7 
+    invoices_per_day.values.sum / 7
   end
+
+  def invoices_per_day_STD
+    square_difference_sum = invoices_per_day.values.map do |day_count|
+      (day_count - average_invoices_per_day) ** 2
+    end.sum
+    Math.sqrt(square_difference_sum / (invoices_per_day.values.count - 1))
+  end
+
+  def num_to_day_converter(num)
+    if num == 0
+      'Sunday'
+    elsif num == 1
+      'Monday'
+    elsif num == 2
+      'Tuesday'
+    elsif num == 3
+      'Wednesday'
+    elsif num == 4
+      'Thursday'
+    elsif num == 5
+      'Friday'
+    elsif num == 6
+      'Saturday'
+    end
+  end
+
+  def top_days_by_invoice_count
+    golden_day_count = average_invoices_per_day + invoices_per_day_STD
+    golden_days = invoices_per_day.select do |day_of_the_week, num_invoices|
+      num_invoices > golden_day_count
+    end
+    golden_weekdays = golden_days.keys.map {|day| num_to_day_converter(day)}
+  end
+
 
 end
