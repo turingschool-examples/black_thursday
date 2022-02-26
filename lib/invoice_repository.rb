@@ -5,23 +5,22 @@ require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/invoice'
-require_relative '../lib/invoice_repository'
 require 'CSV'
-require 'simplecov'
-require 'bigdecimal'
 
-SimpleCov.start
+class InvoiceRepository
 
-RSpec.describe InvoiceRepository do
-
-  before(:each) do
-    @invoice_repo = InvoiceRepository.new('./data/invoices.csv')
+  def initialize(filename)
+    @filename = filename
+    @invoices = self.all
   end
 
-  it 'exists' do
-    expect(@invoice_repo).to be_a(InvoiceRepository)
+  def rows
+    rows = CSV.read(@filename, headers: true, header_converters: :symbol)
   end
 
-  
+  def all
+    result = rows.map {|row| Invoice.new(row)}
+  end
+
 
 end
