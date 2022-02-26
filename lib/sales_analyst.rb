@@ -1,5 +1,5 @@
 require_relative 'item_repository'
-require 'bigdecimal'
+require 'bigdecimal/util'
 
 class SalesAnalyst
   attr_reader :merchants, :items
@@ -47,8 +47,15 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     all_items = @items.find_all_by_merchant_id(id)
     all_prices = all_items.map {|item|item.unit_price.to_i}
-    all_prices.sum(0)/all_items.length
+    # average = all_prices.sum(0.0)/all_items.length
+    BigDecimal(all_prices.sum(0)/all_items.length)
+    # (average.to_f * (10 ** -2)).round(2)
   end
+
+  # def average_average_price_per_merchant
+  #
+  #
+  # end
 
 
 end

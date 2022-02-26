@@ -38,7 +38,12 @@ describe SalesAnalyst do
     expect(sales_analyst.merchants_with_high_item_count[0].name).to eq("FlavienCouche")
     expect(sales_analyst.merchants_with_high_item_count[2].name).to eq("BowlsByChris")
     expect(sales_analyst.merchants_with_high_item_count[35].name).to eq("BoDaisyClothing")
-    binding.pry
+    # binding.pry
   end
 
+  it "can determine average item price for merchant" do
+    expect(sales_analyst.average_item_price_for_merchant(12334105).to_digits.to_f).to eq(16.66)
+    # expect(sales_analyst.average_item_price_for_merchant(12334105)).class.to eq(BigDecimal)
+  end
+  binding.pry
 end
