@@ -17,7 +17,7 @@ RSpec.describe MerchantRepository do
 
 
   it "can return an array of #all elements within the merchant.csv file" do
-  expect(@se.merchants.all.length).to eq(475)
+    expect(@se.merchants.all.length).to eq(475)
   end
 
   it "can find a merchant using id" do
@@ -66,7 +66,7 @@ RSpec.describe MerchantRepository do
     name = "AngryClownDayCare"
     expected = @se.merchants.find_all_by_name(name)
 
-  expect(expected).to eq ([])
+    expect(expected).to eq ([])
   end
 
   it "can #create a new merchant instance" do
@@ -76,5 +76,31 @@ RSpec.describe MerchantRepository do
     @se.merchants.create(attributes)
     expected = @se.merchants.find_by_id(12337412)
     expect(expected.name).to eq("AngryClownDayCare")
+  end
+
+  it "#update updates a merchant" do
+    attributes = {
+      name: "Vlad's Variety Store",
+    }
+    @se.merchants.update(12336050, attributes)
+    expected = @se.merchants.find_by_id(12336050)
+    expect(expected.name).to eq "Vlad's Variety Store"
+    expected = @se.merchants.find_by_name("Intricate Sunset")
+    expect(expected).to eq nil
+  end
+
+  it "#update cannot update id" do
+    attributes = {
+      id: 42
+    }
+    @se.merchants.update(12337412, attributes)
+    expected = @se.merchants.find_by_id(42)
+    expect(expected).to eq nil
+  end
+
+  it "#delete deletes the specified merchant" do
+    @se.merchants.delete(12336622)
+    expected = @se.merchants.find_by_id(12336622)
+    expect(expected).to eq nil
   end
 end

@@ -28,4 +28,15 @@ class MerchantRepository
     attributes[:id] = (last_id += 1)
     @merchants << Merchant.new(attributes)
   end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    attributes.map do |key, v|
+        merchant.name = v if key == :name
+    end
+  end
+
+  def delete(id)
+    @merchants.delete(find_by_id(id))
+  end
 end
