@@ -7,7 +7,6 @@ class MerchantsRepository
   attr_reader :repository, :ids
 
   def initialize(file)
-    # @merchants = CSV.read(file, headers: true, header_converters: :symbol)
     @repository = read_csv(file).map do |merchant|
                   Merchant.new({:id => merchant[:id], :name => merchant[:name]})
                 end
@@ -20,6 +19,7 @@ class MerchantsRepository
 
   def groups
     @ids = @repository.group_by {|merchant| merchant.id}
+    @names = @repository.group_by{|merchant| merchant.name}
   end
 
   def find_all_by_name(name)

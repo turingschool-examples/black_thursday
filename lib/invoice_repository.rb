@@ -7,9 +7,6 @@ class InvoiceRepository
   attr_reader :repository
 
   def initialize(file)
-
-    # @invoices = CSV.read(file, headers: true, header_converters: :symbol)
-
     @repository = read_csv(file).map do |invoice|
           Invoice.new({
             :id => invoice[:id],
@@ -55,5 +52,4 @@ class InvoiceRepository
     invoice.status = attribute
     invoice.updated_at = Time.now
   end
-
 end

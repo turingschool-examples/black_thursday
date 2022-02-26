@@ -4,13 +4,9 @@ require './lib/repository_aide'
 
 class CustomerRepository
   include RepositoryAide
-
   attr_reader :repository
 
   def initialize(file)
-
-    # @customers = CSV.read(file, headers: true, header_converters: :symbol)
-
     @repository = read_csv(file).map do |customer|
         Customer.new({
           :id => customer[:id],
@@ -53,6 +49,4 @@ class CustomerRepository
     customer.last_name = attributes[:last_name]
     customer.updated_at = Time.now
   end
-
-
 end

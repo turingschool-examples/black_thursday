@@ -8,8 +8,6 @@ class ItemsRepository
   attr_reader :repository, :merchant_ids
 
   def initialize(file)
-    # @items = CSV.read(file, headers: true, header_converters: :symbol)
-
     @repository = read_csv(file).map do |item_csv|
       Item.new({
         id: item_csv[:id],
