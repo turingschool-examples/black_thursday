@@ -33,5 +33,25 @@ class CustomerRepository
     end
   end
 
+  def create(attributes)
+    customer = Customer.new({
+      :id => new_id.to_s,
+      :first_name => attributes[:first_name],
+      :last_name => attributes[:last_name],
+      :created_at => Time.now,
+      :updated_at => Time.now
+      })
+
+    @repository << customer
+    customer
+  end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    customer.first_name = attributes[:first_name]
+    customer.last_name = attributes[:last_name]
+    customer.updated_at = Time.now
+  end
+
 
 end

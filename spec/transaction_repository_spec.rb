@@ -56,7 +56,7 @@ describe TransactionRepository do
   describe '#create' do
     it 'can make a new instance of transaction' do
       highest_trans_id = @tr.repository.sort_by do |transaction|
-        transaction.id
+        transaction.id.to_i
       end.last
 
       transaction = @tr.create({:invoice_id => 8,
