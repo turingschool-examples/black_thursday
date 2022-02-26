@@ -30,25 +30,25 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.find_by_id(3)).to eq(invoice_3)
   end
 
-  xit 'finds all invoices by a specific customer ID' do
+  it 'finds all invoices by a specific customer ID' do
     expect(invoice_repo.find_all_by_customer_id(2307)).to eq([invoice_1, invoice_2])
     expect(invoice_repo.find_all_by_customer_id(76)).to eq([invoice_3])
     expect(invoice_repo.find_all_by_customer_id(2)).to eq([])
   end
 
-  xit 'finds all invoices by a specific merchant ID' do
+  it 'finds all invoices by a specific merchant ID' do
     expect(invoice_repo.find_all_by_merchant_id(24601)).to eq([invoice_1])
     expect(invoice_repo.find_all_by_merchant_id(9000)).to eq([invoice_2, invoice_3])
     expect(invoice_repo.find_all_by_merchant_id(13)).to eq([])
   end
 
-  xit 'finds all invoice instances by similar status' do
+  it 'finds all invoice instances by similar status' do
     expect(invoice_repo.find_all_by_status(:pending)).to eq([invoice_1, invoice_3])
     expect(invoice_repo.find_all_by_status(:shipped)).to eq([invoice_2])
     expect(invoice_repo.find_all_by_status(:processing)).to eq([]) # because covid, obviously
   end
 
-  xit 'can create new invoices via the #create method' do
+  it 'can create new invoices via the #create method' do
     invoice_repo.create({customer_id: 47, merchant_id: 13, status: :received})
     expect(invoice_repo.all.length).to eq(4)
     expect(invoice_repo.all.last).to be_a(Invoice)
@@ -57,14 +57,14 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.all.last.updated_at).to be_truthy
   end
 
-  xit 'can update existing invoices via #update(id, :status_symbol)' do
+  it 'can update existing invoices via #update(id, :status_symbol)' do
     invoice_repo.update(3, :shipped)
 
     expect((invoice_repo.find_by_id(3)).status).to eq(:shipped)
     expect((invoice_repo.find_by_id(3)).updated_at).not_to eq("2020-01-27 14:22:45.246743")
   end
 
-  xit 'can delete an invoice from its library by #delete(id)' do
+  it 'can delete an invoice from its library by #delete(id)' do
     invoice_repo.delete(2)
     expect(invoice_repo.all).to eq([invoice_1, invoice_3])
     invoice_repo.delete(1)
