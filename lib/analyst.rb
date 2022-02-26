@@ -13,24 +13,21 @@ class Analyst
   end
 
   def get_array_of_items_per_merchant_count
-    items_per_merchant_count = array_of_merchant_items.map do |array|
+    @items_per_merchant_count = array_of_merchant_items.map do |array|
       array.count
     end
   end
 
   def average_items_per_merchant
-    @mean = (@ir.repository.count.to_f / @mr.repository.count).round(2)
+    @mean_per_merchant = average(@items_per_merchant_count)
   end
 
   def average_items_per_merchant_standard_deviation
-    total = @items_per_merchant_count.sum
-    sum_squares = @items_per_merchant_count.map { |number| square = (number - mean) ** 2}.sum
-    variance = sum_squares / (@items_per_merchant_count.count - 1)
-    st_dev = Math.sqrt(variance).round(2)
+    standard_devation(@items_per_merchant_count, @mean_per_merchant)
   end
 
   def merchants_with_high_item_count
-    #find merchants with more than one standard_devation from average
+    #find merchants with more than one standard_devation higher than average
   end
 
   def average_item_price_per_merchant(merchant_id)
@@ -43,8 +40,8 @@ class Analyst
 
   def golden_items
     #find the average price of items(of all items)
-    #find the standard_devation of the price of items 
-    #find merchants more than two standard_devation away from average item price
+    #find the standard_devation of the price of items
+    #find items more than two standard_devation away higher than average item price
   end
 
 end
