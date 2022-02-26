@@ -1,3 +1,4 @@
+require "./spec/spec_helper"
 require "./lib/item_repo"
 require "./lib/sales_engine"
 require "./lib/item"
@@ -14,7 +15,7 @@ RSpec.describe ItemRepository do
     expect(ir).to be_an_instance_of(ItemRepository)
   end
 
-  xit "can return an array of all item instances" do
-    expect(ir.all.count).to eq 
+  it "can return an array of all item instances" do
+    expect(ir.all.count).to eq 1367
   end
 end
