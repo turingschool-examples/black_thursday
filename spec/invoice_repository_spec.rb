@@ -78,6 +78,14 @@ RSpec.describe InvoiceRepository do
     expect(invoice).to be_a(Invoice)
   end
 
+  it 'can #update(id, attributes)' do
+    attributes = {:status => "returned"}
+
+
+    @invoice_repo.update(8, attributes)
+    expect(@invoice_repo.find_by_id(8).status).to eq(:returned)
+  end
+
 
 
 end
