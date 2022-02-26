@@ -21,8 +21,9 @@ require 'pry'
         expect(@item.id).to eq(263399361)
         expect(@item.name).to eq("Exotic Beaded Women&#39;s or Men&#39;s Handmade Bracelet or Anklet")
         expect(@item.description).to eq("Exotic Women&#39;s or Men&#39;s Handmade Bracelet or Anklet.  Sizes from 6 inches to 9 inches.  Made with premium crafted beads.  You may request colors and styles.  Most are made to order.  Email me after order is placed for specific or custom handmade designs, etc.")
-        expect(@item.unit_price).to eq("4995")
-        expect(@item.merchant_id).to eq("12334303")
+    # binding.pry
+        expect(@item.unit_price).to eq(4995.0)
+        expect(@item.merchant_id).to eq(12334303)
         expect(@item.created_at).to eq("2016-01-11 11:23:02 UTC")
         expect(@item.updated_at).to eq("2012-10-27 09:12:45 UTC")
       end
