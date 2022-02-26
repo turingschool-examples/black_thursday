@@ -1,0 +1,57 @@
+require 'rspec'
+require './lib/transaction_repository'
+
+describe TransactionRepository do
+  before (:each) do
+    @tr = TransactionRepository.new('./data/transactions.csv')
+  end
+
+  describe '#initialize' do
+    it 'exists' do
+      expect(@tr).to be_an_instance_of(TransactionRepository)
+    end
+
+    it 'creates an array of instances of transactions' do
+      expect(@tr.repository.class).to be(Array)
+      transaction = @tr.repository.sample
+      expect(transaction).to be_an_instance_of(Transaction)
+    end
+  end
+
+  describe '#all' do
+    it 'returns all instances of Transaction in the repository' do
+      expect(@tr.all).to eq(@tr.repository)
+    end
+  end
+
+  describe '#find_by_id' do
+    it 'finds the transaction of a specific id' do
+      transaction = @tr.find_by_id(17)
+      expect(transaction.id).to eq(17)
+      expect(transaction.invoice_id).to eq("2850")
+    end
+  end
+
+  describe '#find_all_by_credit_card_number' do
+    it 'finds all transactions with a specific card number' do
+      transaction = @tr.find_all_by_credit_card_number("4349426879923290")
+
+      expect(transaction.class).to eq(Array)
+      expect(transaction.sample.credit_card_number).to eq("4349426879923290")
+
+      transaction = @tr.find_all_by_credit_card_number("9898989898989898")
+      expect(transaction).to eq([])
+    end
+  end
+
+  describe '#find_all_by_result' do
+    it 'can search for all transactions with a specific result' do
+      transaction = @tr.find_all_by_result("success")
+
+      expect(transaction.class).to eq(Array)
+      expect(transaction.sample.result).to eq("success")
+    end
+  end
+
+
+end
