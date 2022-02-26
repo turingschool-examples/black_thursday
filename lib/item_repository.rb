@@ -67,15 +67,11 @@ class ItemRepository
 
   def current_highest_id
     sorted = @items.sort_by {|item| item.id}
-
     highest_id = sorted[-1].id
-    highest_id.to_i
-
   end
 
   def create(attributes)
     new_id = current_highest_id + 1
-    new_id = new_id.to_s
     attributes[:id] = new_id
     new_item = Item.new(attributes)
     @items << new_item
@@ -100,5 +96,5 @@ class ItemRepository
 
   def inspect
    "#<#{self.class} #{@merchants.size} rows>"
- end
+  end
 end
