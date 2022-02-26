@@ -203,5 +203,11 @@ class SalesAnalyst
     golden_weekdays = golden_days.keys.map {|day| num_to_day_converter(day)}
   end
 
+  def invoice_status(status)
+    invoices_by_status = @invoices.invoices.find_all do |invoice|
+      invoice.status == status
+    end
+    ((invoices_by_status.count.to_f / @invoices.invoices.count) * 100).round(2)
+  end
 
 end
