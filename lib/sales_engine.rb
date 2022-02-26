@@ -1,22 +1,24 @@
-#sales_engine
+# sales_engine
 require 'CSV'
 require './lib/item_repository'
 require './lib/merchant_repository'
+require './lib/item'
+require './lib/merchant'
 require './lib/sales_analyst'
 
 class SalesEngine
   attr_reader :items, :merchants
 
-  def initialize(items, merchants)
-    @items = ItemRepository.new(items)
-    @merchants = MerchantRepository.new(merchants)
+  def initialize(items_, merchants_)
+    @items = ItemRepository.new(items_)
+    @merchants = MerchantRepository.new(merchants_)
   end
 
   def self.from_csv(csv_hash)
     item_contents = CSV.open csv_hash[:items], headers: true, header_converters: :symbol
     merchant_contents = CSV.open csv_hash[:merchants], headers: true, header_converters: :symbol
 
-    #read file, create objects, return SE object
+    # read file, create objects, return SE object
     items = []
     item_contents.each do |row|
       items << Item.new(row)
