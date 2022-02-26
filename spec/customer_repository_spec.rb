@@ -8,7 +8,8 @@ SimpleCov.start
 
 RSpec.describe CustomerRepository do
   before :each do
-    @cr = CustomerRepository.new
+    @cr = CustomerRepository.new('./data/customer.csv')
+  end
 
     it 'exists' do
       expect(@cr).to be_a(CustomerRepository)
