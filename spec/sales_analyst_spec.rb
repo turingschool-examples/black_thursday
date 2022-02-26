@@ -48,11 +48,8 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'finds items two STD above average price' do
-      expect(@sales_analyst.golden_items).to be_a(Array)
       expect(@sales_analyst.golden_items.length).to eq(5)
       expect(@sales_analyst.golden_items.first.class).to eq(Item)
     end
-
   end
-
 end
