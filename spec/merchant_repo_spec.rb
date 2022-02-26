@@ -26,7 +26,7 @@ RSpec.describe MerchantRepository do
   it "finds a merchant by id" do
     expected_merchant = mr.find_by_id(12335677)
     expect(expected_merchant.merchant_attributes[:id]).to eq 12335677
-    expect(expected_merchant.merchant_attributes[:name]).to eq "Filiy"
+    expect(expected_merchant.merchant_attributes[:name]).to eq "filiy"
   end
 
   it "#find_by_id returns nil if merchant does not exist" do
@@ -39,41 +39,27 @@ RSpec.describe MerchantRepository do
     expect(expected_merchant.merchant_attributes[:name]).to eq("shop20161")
   end
 
-  #   it "#find_by_name finds the first matching merchant by name" do
-  #     name = "leaburrot"
-  #     expected = engine.merchants.find_by_name(name)
-  #
-  #     expect(expected.id).to eq 12334411
-  #     expect(expected.name).to eq name
-  #   end
-  #
-  #   it "#find_by_name is a case insensitive search" do
-  #     name = "LEABURROT"
-  #     expected = engine.merchants.find_by_name(name)
-  #
-  #     expect(expected.id).to eq 12334411
-  #
-  #     name = "leaburrot"
-  #     expected = engine.merchants.find_by_name(name)
-  #
-  #     expect(expected.id).to eq 12334411
-  #   end
-  #
-  #   it "#find_by_name returns nil if the merchant does not exist" do
-  #     name = "Turing School of Software and Design"
-  #     expected = engine.merchants.find_by_name(name)
-  #
-  #     expect(expected).to eq nil
-  #   end
-  #
-  #   it "#find_all_by_name finds all merchants matching the given name fragment" do
-  #     fragment = "style"
-  #     expected = engine.merchants.find_all_by_name(fragment)
-  #
-  #     expect(expected.length).to eq 3
-  #     expect(expected.map(&:name).include?("justMstyle")).to eq true
-  #     expect(expected.map(&:id).include?(12337211)).to eq true
-  #   end
+  it "#find_by_name is case insensitive" do
+    expected_merchant = mr.find_by_name("SEWCWTCH")
+    expected_merchant2 = mr.find_by_name("dejavuelry")
+    expect(expected_merchant.merchant_attributes[:id]).to eq(12335009)
+    expect(expected_merchant2.merchant_attributes[:id]).to eq(12335716)
+  end
+
+  it "#find_by_name returns nil if merchant does not exist" do
+    expected_merchant = mr.find_by_name("Bob's Crab Shack")
+
+    expect(expected_merchant).to eq nil
+  end
+
+  it "finds all merchants by name fragment" do
+    fragment = "style"
+    expected = engine.merchants.find_all_by_name(fragment)
+
+    expect(expected.length).to eq 3
+    expect(expected.map(&:name).include?("justMstyle")).to eq true
+    expect(expected.map(&:id).include?(12337211)).to eq true
+  end
   #
   #   it "#find_all_by_name returns an empty array if there are no matches" do
   #     name = "Turing School of Software and Design"

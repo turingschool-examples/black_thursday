@@ -15,6 +15,12 @@ class MerchantRepository
       merchant_instance.merchant_attributes[:id] == id
     end
   end
-end
 
-# see black thursday site for method descriptions
+  def find_by_name(name)
+    @merchants_instances_array.find do |merchant_instance|
+      merchant_instance.merchant_attributes[:name] == name.downcase
+    end
+  end
+
+  # see black thursday site for method descriptions
+end
