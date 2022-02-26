@@ -26,7 +26,7 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @items.find {|item| item.name == name.downcase}
+    @items.find {|item| item.name.downcase == name.downcase}
   end
 
   def find_all_by_name(fragment)

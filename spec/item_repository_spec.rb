@@ -25,16 +25,15 @@ RSpec.describe ItemRepository do
     expect(@items.find_by_id('1')).to be nil
   end
 
-  xit "can find first matching merchant by case-insensitive name or nil" do
-      name = "leaburrot"
-      expected = @merchants_i.find_by_name(name)
-      expect(expected.id).to eq 12334411
-      expect(expected.name).to eq name
-      name_up = "LEABURROT"
-      expected_up =@merchants_i.find_by_name(name_up)
-      expect(expected_up.id).to eq 12334411
+  it "can find first matching merchant by case-insensitive name or nil" do
+      name = "510+ RealPush Icon Set"
+      expected = @items.find_by_name(name)
+      expect(expected.name).to eq("510+ RealPush Icon Set")
+      name_up = name.upcase
+      expected_up = @items.find_by_name(name_up)
+      expect(expected_up.id).to eq 263395237
       expect(expected_up.name).to eq name
-      expect(@merchants_i.find_by_name("kk")).to be nil
+      expect(@items.find_by_name("kk")).to be nil
   end
 
   xit "can find all merchants matching a fragment or return nil" do
