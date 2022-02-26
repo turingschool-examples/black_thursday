@@ -1,3 +1,6 @@
+require_relative 'item_repository'
+require 'bigdecimal/util'
+
 class SalesAnalyst
   attr_reader :merchants, :items
   def initialize(merchants, items)
@@ -30,4 +33,55 @@ class SalesAnalyst
     all_items_by_merchant.each { |sub_arr| math_arr << (sub_arr.length - mean) ** 2 }
     Math.sqrt((math_arr.sum)/474).round(2)
   end
+
+  def merchants_with_high_item_count
+    all_items_by_merchant = list_all_items_by_merchant
+    average = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
+
+    high_item_count = all_items_by_merchant.find_all{|merchant| merchant.length > (average + std_dev)}
+    merchant_ids = high_item_count.map{|merchants|merchants[0].merchant_id}
+    merchant_ids.map{|id|@merchants.find_by_id(id)}
+  end
+
+  def average_item_price_for_merchant(id)
+    all_items = @items.find_all_by_merchant_id(id)
+    all_prices = all_items.map {|item|item.unit_price}
+    average = all_prices.sum(0.0)/all_items.length
+    average.round(2)
+  end
+
+  def average_average_price_per_merchant
+    sum = 0
+    item_array = list_all_items_by_merchant
+    item_array.each do |elem|
+      sum += average_item_price_for_merchant(elem[0].merchant_id)
+    end
+    (sum / item_array.length).round(2)
+  end
+
+  def average_item_price
+    total_price = 0
+    @items.all.each do |item|
+      total_price += item.unit_price
+    end
+    (total_price / @items.all.length).round(2)
+  end
+
+  def item_price_standard_deviation
+    all_items = @items.all
+    avg = average_item_price
+    math_arr = []
+    all_items.each do |item|
+      math_arr << (item.unit_price - avg) ** 2
+    end
+    Math.sqrt(math_arr.sum / (all_items.length - 1)).round(2)
+  end
+
+  def golden_items
+    std_dev = item_price_standard_deviation
+    avg = average_item_price
+    @items.all.find_all{|item| item.unit_price > (std_dev * 2) + avg}
+  end
+
 end
