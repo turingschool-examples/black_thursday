@@ -37,7 +37,11 @@ RSpec.describe InvoiceRepository do
 
   it '#rows' do
     expect(@invoice_repo.rows).to be_a(CSV::Table)
+  end
 
+  it 'can #find_by_id(id)' do
+    expect(@invoice_repo.find_by_id(3452)).to be_a(Invoice)
+    expect(@invoice_repo.find_by_id(8888)).to eq(nil)
   end
 
 end
