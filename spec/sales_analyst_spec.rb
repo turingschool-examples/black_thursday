@@ -14,6 +14,7 @@ RSpec.describe SalesAnalyst do
     @sales_engine = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv"
           })
     @sales_analyst = @sales_engine.analyst
   end
@@ -21,6 +22,7 @@ RSpec.describe SalesAnalyst do
   describe 'creates a working sales analyst' do
 
     it 'exists' do
+      # require 'pry'; binding.pry
       expect(@sales_analyst).to be_a(SalesAnalyst)
     end
 
