@@ -28,15 +28,15 @@ RSpec.describe InvoiceRepository do
 
   it 'can read #items' do
 
-    expect(@item_repo.invoices).to be_a(Array)
+    expect(@invoice_repo.invoices).to be_a(Array)
   end
 
   it '#all' do
-    expect(@item_repo.all).to be_a(Array)
+    expect(@invoice_repo.all).to be_a(Array)
   end
 
   it '#rows' do
-    expect(@item_repo.rows).to be_a(CSV::Table)
+    expect(@invoice_repo.rows).to be_a(CSV::Table)
 
   end
 

@@ -8,6 +8,7 @@ require_relative '../lib/invoice'
 require 'CSV'
 
 class InvoiceRepository
+  attr_reader :filename, :invoices
 
   def initialize(filename)
     @filename = filename
