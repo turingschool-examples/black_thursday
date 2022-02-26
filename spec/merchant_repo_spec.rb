@@ -48,34 +48,26 @@ RSpec.describe MerchantRepository do
 
   it "#find_by_name returns nil if merchant does not exist" do
     expected_merchant = mr.find_by_name("Bob's Crab Shack")
-
     expect(expected_merchant).to eq nil
   end
 
   it "finds all merchants by name fragment" do
-    fragment = "style"
-    expected = engine.merchants.find_all_by_name(fragment)
-
-    expect(expected.length).to eq 3
-    expect(expected.map(&:name).include?("justMstyle")).to eq true
-    expect(expected.map(&:id).include?(12337211)).to eq true
+    expected_merchant = mr.find_all_by_name("store")
+    expect(expected_merchant.length).to eq(4)
   end
-  #
-  #   it "#find_all_by_name returns an empty array if there are no matches" do
-  #     name = "Turing School of Software and Design"
-  #     expected = engine.merchants.find_all_by_name(name)
-  #
-  #     expect(expected).to eq []
-  #   end
-  #
-  #   it "#create creates a new merchant instance" do
-  #     attributes = {
-  #       name: "Turing School of Software and Design"
-  #     }
-  #     engine.merchants.create(attributes)
-  #     expected = engine.merchants.find_by_id(12337412)
-  #     expect(expected.name).to eq "Turing School of Software and Design"
-  #   end
+
+  it "#find_all_by_name returns empty array if no matches" do
+    expected_merchant = mr.find_all_by_name("Bob's Crab")
+    expect(expected_merchant).to eq([])
+  end
+
+  it "creates a new merchant instance" do
+    attributes = {name: "Bob's Crab Shack"}
+    mr.create(attributes)
+    expected_merchant = mr.find_by_name("Bob's Crab Shack")
+    # expected_merchant = mr.find_by_id(12337412)
+    expect(expected_merchant.merchant_attributes[:name]).to eq("bob's crab shack")
+  end
   #
   #   it "#update updates a merchant" do
   #     attributes = {

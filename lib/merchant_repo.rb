@@ -22,5 +22,14 @@ class MerchantRepository
     end
   end
 
+  def find_all_by_name(fragment)
+    @merchants_instances_array.find_all do |merchant_instance|
+      merchant_instance.merchant_attributes[:name].include?(fragment)
+    end
+  end
+
+  def create(attributes)
+    @merchants_instances_array << Merchant.new(attributes, id: @merchants_instances_array)
+  end
   # see black thursday site for method descriptions
 end
