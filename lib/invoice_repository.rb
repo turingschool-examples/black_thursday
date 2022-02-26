@@ -40,7 +40,13 @@ class InvoiceRepository
   def find_all_by_merchant_id(merchant_id)
     @invoices.find_all do |invoice|
       invoice.merchant_id == merchant_id
-    end   
+    end
+  end
+
+  def find_all_by_status(status)
+    @invoices.find_all do |invoice|
+      invoice.status == status
+    end 
   end
 
 

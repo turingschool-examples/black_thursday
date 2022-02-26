@@ -56,4 +56,13 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repo.find_all_by_merchant_id(8888)).to eq([])
   end
 
+  it 'can #find_all_by_status(id)' do
+    expect(@invoice_repo.find_all_by_status(:returned)).to be_a(Array)
+    expect(@invoice_repo.find_all_by_status(:shipped).count).to eq(2839)
+    expect(@invoice_repo.find_all_by_status(:pending).count).to eq(1473)
+    expect(@invoice_repo.find_all_by_status(:not_a_thing)).to eq([])
+  end
+
+
+
 end
