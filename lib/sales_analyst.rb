@@ -6,4 +6,7 @@ class SalesAnalyst
     @merchants = merchants
   end
 
+  def average_items_per_merchant
+    (@items.items.count.to_f / @merchants.merchants.count).round(2)
+  end
 end
