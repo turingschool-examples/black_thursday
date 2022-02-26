@@ -30,6 +30,22 @@ RSpec.describe Invoice do
     expect(@i.customer_id).to eq(7)
   end
 
+  it 'can read #customer_id' do
+    expect(@i.merchant_id).to eq(8)
+  end
+
+  it 'can read #customer_id' do
+    expect(@i.status).to eq("pending")
+  end
+
+  it 'can read #customer_id' do
+    expect(@i.created_at).to be_a(Time)
+  end
+
+  it 'can read #customer_id' do
+    expect(@i.updated_at).to be_a(Time)
+  end
+
 
 
 
