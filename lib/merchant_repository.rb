@@ -17,7 +17,6 @@ attr_reader :data, :merchants
         next if index == 0
         columns = line.split(",")
         @merchants << Merchant.new({id: columns[0], name: columns[1], created_at: columns[2], updated_at: columns[3]})
-        # binding.pry
       end
       @merchants
     end

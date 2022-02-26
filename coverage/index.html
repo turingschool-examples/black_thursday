@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-02-26T10:08:59-07:00">2022-02-26T10:08:59-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-02-26T10:23:15-07:00">2022-02-26T10:23:15-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>90</b> relevant lines,
-    <span class="green"><b>90</b> lines covered</span> and
+    <b>89</b> relevant lines,
+    <span class="green"><b>89</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -84,11 +84,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#407032035f54032fed5d2c050cc28a8c727cb9a8" class="src_link" title="spec/merchant_repository_spec.rb">spec/merchant_repository_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">74</td>
-            <td class="cell--number">50</td>
-            <td class="cell--number">50</td>
+            <td class="cell--number">75</td>
+            <td class="cell--number">49</td>
+            <td class="cell--number">49</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.28</td>
+            <td class="cell--number">1.29</td>
             
           </tr>
         
@@ -550,8 +550,8 @@
     
 
     <div class="t-line-summary">
-      <b>50</b> relevant lines.
-      <span class="green"><b>50</b> lines covered</span> and
+      <b>49</b> relevant lines.
+      <span class="green"><b>49</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -1058,13 +1058,13 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="46">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="46">
+            
             
 
             
 
-            <code class="ruby">      expect(expected.length).to eq 3</code>
+            <code class="ruby">      # binding.pry</code>
           </li>
         </div>
       
@@ -1075,7 +1075,7 @@
 
             
 
-            <code class="ruby">      expect(expected.map(&amp;:name).include?(&quot;justMstyle&quot;)).to eq true</code>
+            <code class="ruby">      expect(expected.length).to eq 3</code>
           </li>
         </div>
       
@@ -1086,7 +1086,7 @@
 
             
 
-            <code class="ruby">      expect(expected.map(&amp;:id).include?(12337211)).to eq true</code>
+            <code class="ruby">      expect(expected.map(&amp;:name).include?(&quot;justMstyle&quot;)).to eq true</code>
           </li>
         </div>
       
@@ -1097,7 +1097,7 @@
 
             
 
-            <code class="ruby">      expect(@merchants_i.find_all_by_name(&#39;Turing School&#39;)).to eq []</code>
+            <code class="ruby">      expect(expected.map(&amp;:id).include?(12337211)).to eq true</code>
           </li>
         </div>
       
@@ -1108,7 +1108,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      # expect(@merchants_i.find_all_by_name(&#39;Turing School&#39;)).to eq []</code>
           </li>
         </div>
       
@@ -1119,18 +1119,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="52">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="52">
+            
             
 
             
 
-            <code class="ruby">  it &quot;creates a new merchant&quot; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1141,7 +1141,7 @@
 
             
 
-            <code class="ruby">    turing = {name: &quot;Turing School of Software and Design&quot;}</code>
+            <code class="ruby">  it &quot;creates a new merchant&quot; do</code>
           </li>
         </div>
       
@@ -1152,7 +1152,7 @@
 
             
 
-            <code class="ruby">    expected = @merchants_i.create(turing)</code>
+            <code class="ruby">    turing = {name: &quot;Turing School of Software and Design&quot;}</code>
           </li>
         </div>
       
@@ -1163,18 +1163,18 @@
 
             
 
-            <code class="ruby">    expect(expected.name).to eq &quot;Turing School of Software and Design&quot;</code>
+            <code class="ruby">    expected = @merchants_i.create(turing)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="56">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="56">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    expect(expected.name).to eq &quot;Turing School of Software and Design&quot;</code>
           </li>
         </div>
       
@@ -1185,18 +1185,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="58">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="58">
+            
             
 
             
 
-            <code class="ruby">  it &quot;updates a merchant name but not id&quot; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1207,7 +1207,7 @@
 
             
 
-            <code class="ruby">    attribute = {name: &quot;TSSD&quot;}</code>
+            <code class="ruby">  it &quot;updates a merchant name but not id&quot; do</code>
           </li>
         </div>
       
@@ -1218,7 +1218,7 @@
 
             
 
-            <code class="ruby">    expected = @merchants_i.update(12337411, attribute)</code>
+            <code class="ruby">    attribute = {name: &quot;TSSD&quot;}</code>
           </li>
         </div>
       
@@ -1229,7 +1229,7 @@
 
             
 
-            <code class="ruby">    expect(expected.name).to eq &quot;TSSD&quot;</code>
+            <code class="ruby">    expected = @merchants_i.update(12337411, attribute)</code>
           </li>
         </div>
       
@@ -1240,7 +1240,7 @@
 
             
 
-            <code class="ruby">    expect(@merchants_i.find_by_name(&quot;Turing School of Software and Design&quot;)).to be nil</code>
+            <code class="ruby">    expect(expected.name).to eq &quot;TSSD&quot;</code>
           </li>
         </div>
       
@@ -1251,7 +1251,7 @@
 
             
 
-            <code class="ruby">    turing_id = {id: 13000000}</code>
+            <code class="ruby">    expect(@merchants_i.find_by_name(&quot;Turing School of Software and Design&quot;)).to be nil</code>
           </li>
         </div>
       
@@ -1262,7 +1262,7 @@
 
             
 
-            <code class="ruby">    expected_id= @merchants_i.update(12337411, turing_id)</code>
+            <code class="ruby">    turing_id = {id: 13000000}</code>
           </li>
         </div>
       
@@ -1273,18 +1273,18 @@
 
             
 
-            <code class="ruby">    expect(expected_id).to be nil</code>
+            <code class="ruby">    expected_id= @merchants_i.update(12337411, turing_id)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="66">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="66">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    expect(expected_id).to be nil</code>
           </li>
         </div>
       
@@ -1295,18 +1295,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="68">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="68">
+            
             
 
             
 
-            <code class="ruby">  it &quot;deletes a merchant by id&quot; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1317,7 +1317,7 @@
 
             
 
-            <code class="ruby">      @merchants_i.delete(12337412)</code>
+            <code class="ruby">  it &quot;deletes a merchant by id&quot; do</code>
           </li>
         </div>
       
@@ -1328,7 +1328,7 @@
 
             
 
-            <code class="ruby">      expected = @merchants_i.find_by_id(12337412)</code>
+            <code class="ruby">      @merchants_i.delete(12337412)</code>
           </li>
         </div>
       
@@ -1339,18 +1339,18 @@
 
             
 
-            <code class="ruby">      expect(expected).to eq nil</code>
+            <code class="ruby">      expected = @merchants_i.find_by_id(12337412)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="72">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="72">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    end</code>
+            
+
+            <code class="ruby">      expect(expected).to eq nil</code>
           </li>
         </div>
       
@@ -1361,12 +1361,23 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="74">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="75">
             
             
 
