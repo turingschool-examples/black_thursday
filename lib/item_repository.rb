@@ -47,8 +47,8 @@ class ItemRepository
 
   def create(attributes)
     attributes[:id] = @items.last.id + 1
-    attributes[:created_at] = Time.now
-    attributes[:updated_at] = Time.now
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     new_item = Item.new(attributes)
     @items << new_item
     new_item
