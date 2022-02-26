@@ -63,6 +63,21 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repo.find_all_by_status(:not_a_thing)).to eq([])
   end
 
+  it '#current_highest_id' do
+    expect(@invoice_repo.current_highest_id).to be_a(Integer)
+  end
+
+  it 'can #create(attributes)' do
+    invoice = @invoice_repo.create({
+                                    :customer_id => 7,
+                                    :merchant_id => 8,
+                                    :status      => "pending",
+                                    :created_at  => Time.now,
+                                    :updated_at  => Time.now,
+                                    })
+    expect(invoice).to be_a(Invoice)
+  end
+
 
 
 end

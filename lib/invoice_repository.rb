@@ -46,7 +46,21 @@ class InvoiceRepository
   def find_all_by_status(status)
     @invoices.find_all do |invoice|
       invoice.status == status
-    end 
+    end
+  end
+
+  def current_highest_id
+    sorted = @invoices.sort_by {|invoice| invoice.id}
+    highest_id = sorted[-1].id
+    # highest_id.to_i
+  end
+
+  def create(attributes)
+    new_id = current_highest_id + 1
+    attributes[:id] = new_id
+    new_invoice = Invoice.new(attributes)
+    @invoices << new_invoice
+    return new_invoice
   end
 
 
