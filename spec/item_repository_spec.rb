@@ -181,6 +181,7 @@ RSpec.describe ItemRepository do
       created_at: Time.now,
       merchant_id: 1
     }
+
     @se.items.update(263_567_475, attributes)
     expected = @se.items.find_by_id(222)
     expect(expected).to eq nil
@@ -198,6 +199,7 @@ RSpec.describe ItemRepository do
       updated_at: Time.now,
       merchant_id: 256
     )
+
     @se.items.delete(263_567_475)
     expected = @se.items.find_by_id(263_567_475)
     expect(expected).to eq nil
