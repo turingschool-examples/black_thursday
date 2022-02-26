@@ -60,5 +60,12 @@ class SalesAnalyst
     (sum / item_array.length).round(2)
   end
 
+  def average_item_price
+    total_price = 0
+    @items.all.each do |item|
+      total_price += item.unit_price
+    end
+    (total_price / @items.all.length).round(2)
+  end
 
 end

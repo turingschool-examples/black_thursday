@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-02-25T21:05:09-07:00">2022-02-25T21:05:09-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-02-25T21:38:22-07:00">2022-02-25T21:38:22-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  83.43%
+  84.21%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         211013.15
+         201025.03
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>181</b> relevant lines,
-    <span class="green"><b>151</b> lines covered</span> and
+    <b>190</b> relevant lines,
+    <span class="green"><b>160</b> lines covered</span> and
     <span class="red"><b>30</b> lines missed. </span>
     (<span class="yellow">
-  83.43%
+  84.21%
 </span>
 )
   </div>
@@ -117,11 +117,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#d4553b6e3a3b5c79953539dc3e1ffd70198dcc0a" class="src_link" title="lib/sales_analyst.rb">lib/sales_analyst.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">64</td>
-            <td class="cell--number">41</td>
-            <td class="cell--number">41</td>
+            <td class="cell--number">71</td>
+            <td class="cell--number">46</td>
+            <td class="cell--number">46</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">943.41</td>
+            <td class="cell--number">870.67</td>
             
           </tr>
         
@@ -150,9 +150,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#8e336b0b727e6b3b8b3509d1f2327e8676646f43" class="src_link" title="spec/sales_analyst_spec.rb">spec/sales_analyst_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">51</td>
-            <td class="cell--number">30</td>
-            <td class="cell--number">30</td>
+            <td class="cell--number">58</td>
+            <td class="cell--number">34</td>
+            <td class="cell--number">34</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -2029,8 +2029,8 @@
     
 
     <div class="t-line-summary">
-      <b>41</b> relevant lines.
-      <span class="green"><b>41</b> lines covered</span> and
+      <b>46</b> relevant lines.
+      <span class="green"><b>46</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -2724,7 +2724,84 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="63">
+          <li class="covered" data-hits="1" data-linenumber="63">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def average_item_price</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="64">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    total_price = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="65">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @items.all.each do |item|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1367" data-linenumber="66">
+            <span class="hits">1367</span>
+            
+
+            
+
+            <code class="ruby">      total_price += item.unit_price</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="67">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="68">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    (total_price / @items.all.length).round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="69">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="70">
             
             
 
@@ -2735,7 +2812,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="64">
+          <li class="never" data-hits="" data-linenumber="71">
             
             
 
@@ -3299,8 +3376,8 @@
     
 
     <div class="t-line-summary">
-      <b>30</b> relevant lines.
-      <span class="green"><b>30</b> lines covered</span> and
+      <b>34</b> relevant lines.
+      <span class="green"><b>34</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -3863,6 +3940,83 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="51">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="52">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  it &#39;gets the average price of all items&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="53">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    a = sales_analyst.average_item_price</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="54">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    expect(a).to eq 251.06</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="55">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    expect(a.class).to eq BigDecimal</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="56">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="57">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="58">
             
             
 

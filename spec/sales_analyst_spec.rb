@@ -49,5 +49,10 @@ describe SalesAnalyst do
     expect(a.class).to eq BigDecimal
   end
 
-  
+  it 'gets the average price of all items' do
+    a = sales_analyst.average_item_price
+    expect(a).to eq 251.06
+    expect(a.class).to eq BigDecimal
+  end
+
 end
