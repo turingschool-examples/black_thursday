@@ -35,4 +35,5 @@ class MerchantRepository
         merchant.name = v if key == :name
     end
   end
+
 end

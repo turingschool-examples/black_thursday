@@ -97,4 +97,10 @@ RSpec.describe MerchantRepository do
     expected = @se.merchants.find_by_id(42)
     expect(expected).to eq nil
   end
+
+  it "#delete deletes the specified merchant" do
+    @se.merchants.delete(12336622)
+    expected = @se.merchants.find_by_id(12336622)
+    expect(expected).to eq nil
+  end
 end
