@@ -1,4 +1,5 @@
 require './lib/merchant'
+require './lib/sales_engine'
 require 'pry'
 
 RSpec.describe do
