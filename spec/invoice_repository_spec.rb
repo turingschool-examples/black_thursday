@@ -40,6 +40,7 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can #find_by_id(id)' do
+
     expect(@invoice_repo.find_by_id(3452)).to be_a(Invoice)
     expect(@invoice_repo.find_by_id(8888)).to eq(nil)
   end

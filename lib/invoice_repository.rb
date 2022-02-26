@@ -23,5 +23,13 @@ class InvoiceRepository
     result = rows.map {|row| Invoice.new(row)}
   end
 
+  def find_by_id(id)
+    @invoices.find do |invoice|
+      if invoice.id == id
+        invoice
+      end
+    end
+  end
+
 
 end
