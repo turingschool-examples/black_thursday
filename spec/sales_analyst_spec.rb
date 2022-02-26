@@ -42,4 +42,12 @@ describe SalesAnalyst do
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to be_a(BigDecimal)
   end
+
+  it 'can determine the average of the average item price by merchant' do
+    a = sales_analyst.average_average_price_per_merchant
+    expect(a).to eq 350.29
+    expect(a.class).to eq BigDecimal
+  end
+
+  
 end

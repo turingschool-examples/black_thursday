@@ -51,10 +51,14 @@ class SalesAnalyst
     average.round(2)
   end
 
-  # def average_average_price_per_merchant
-  #
-  #
-  # end
+  def average_average_price_per_merchant
+    sum = 0
+    item_array = list_all_items_by_merchant
+    item_array.each do |elem|
+      sum += average_item_price_for_merchant(elem[0].merchant_id)
+    end
+    (sum / item_array.length).round(2)
+  end
 
 
 end
