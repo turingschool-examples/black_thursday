@@ -13,6 +13,7 @@ describe MerchantsRepository do
   describe '#all' do
     it 'lists all merchants' do
       mr = MerchantsRepository.new("./data/merchants.csv")
+      require 'pry'; binding.pry
       expect(mr.all).to eq(mr.repository)
     end
   end
