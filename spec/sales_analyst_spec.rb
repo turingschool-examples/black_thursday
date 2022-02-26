@@ -14,8 +14,15 @@ RSpec.describe ItemRepository do
 
   it "#average_items_per_merchant returns average items per merchant" do
     expected = @sa.average_items_per_merchant
-# require "pry"; binding.pry
+
     expect(expected).to eq 2.88
+    expect(expected.class).to eq Float
+  end
+
+  it "#average_items_per_merchant_standard_deviation returns the standard deviation" do
+    expected = sales_analyst.average_items_per_merchant_standard_deviation
+
+    expect(expected).to eq 3.26
     expect(expected.class).to eq Float
   end
 end
