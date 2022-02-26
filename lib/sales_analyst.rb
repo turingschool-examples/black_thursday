@@ -148,7 +148,6 @@ class SalesAnalyst
     ungolden_merchants = merchant_invoices.select do |merchant, invoice_count|
       invoice_count < ungolden_invoices
     end
-    # require 'pry'; binding.pry
     ungolden_merchants.keys
   end
 
