@@ -1,6 +1,10 @@
 
 module RepositoryAide
 
+  def read_csv(file)
+    CSV.read(file, headers: true, header_converters: :symbol)
+  end
+
   def all
     @repository
   end

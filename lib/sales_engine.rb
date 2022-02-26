@@ -3,6 +3,8 @@ require './lib/items_repository'
 require './lib/merchants_repository'
 require './lib/invoice_items_repository'
 require './lib/invoice_repository'
+require './lib/customer_repository'
+require './lib/transaction_repository'
 
 class SalesEngine
 
@@ -11,6 +13,8 @@ class SalesEngine
     @merchants = info[:merchants]
     @invoice_items = info[:invoice_items]
     @invoices = info[:invoices]
+    @customers = info[:customers]
+    @transactions = info[:transactions]
   end
 
   def self.from_csv(info)
@@ -33,4 +37,11 @@ class SalesEngine
     InvoiceRepository.new(@invoices)
   end
 
+  def customers
+    CustomerRepository.new(@customers)
+  end
+
+  def transactions
+    TransactionRepository.new(@transactions)
+  end
 end #SalesEngine class end

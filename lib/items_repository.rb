@@ -5,12 +5,10 @@ require './lib/repository_aide'
 
 class ItemsRepository
   include RepositoryAide
-  attr_reader :repository
+  attr_reader :repository, :merchant_ids
 
   def initialize(file)
-    @items = CSV.read(file, headers: true, header_converters: :symbol)
-
-    @repository = @items.map do |item_csv|
+    @repository = read_csv(file).map do |item_csv|
       Item.new({
         id: item_csv[:id],
         name: item_csv[:name],
@@ -21,12 +19,17 @@ class ItemsRepository
         merchant_id: item_csv[:merchant_id]
         })
       end
+    group
   end #initialize end
 
   def find_by_name(name)
     @repository.find do |item|
       item.name == name
     end
+  end
+
+  def group
+    @merchant_ids = @repository.group_by {|item| item.merchant_id}
   end
 
   def find_all_with_description(description)
