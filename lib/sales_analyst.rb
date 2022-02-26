@@ -104,4 +104,22 @@ class SalesAnalyst
     ((merchant_invoices.values.sum).to_f / merchant_invoices.keys.count).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    merchant_ids = @invoices.invoices.map {|invoice| invoice.merchant_id}
+    merchant_invoices = Hash.new(0)
+    merchant_ids.each do |id|
+      merchant_invoices[id] += 1
+    end
+
+    average_merchant_invoices= ((merchant_invoices.values.sum).to_f / merchant_invoices.keys.count)
+    empty = []
+    merchant_invoices.values.each do |number|
+      result = (number - average_merchant_invoices) * (number - average_merchant_invoices)
+      empty << result
+    end
+
+    Math.sqrt(empty.sum / (merchant_invoices.count - 1)).round(2)
+  end
+
+
 end
