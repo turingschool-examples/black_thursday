@@ -53,5 +53,20 @@ describe TransactionRepository do
     end
   end
 
+  describe '#create' do
+    it 'can make a new instance of transaction' do
+      highest_trans_id = @tr.repository.sort_by do |transaction|
+        transaction.id
+      end.last
+
+      transaction = @tr.create({:invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success"})
+
+      expect(transaction.id > highest_trans_id.id).to be true
+      expect(@tr.repository.include?(transaction)).to be true
+    end
+  end
 
 end
