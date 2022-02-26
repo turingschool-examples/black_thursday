@@ -11,24 +11,6 @@ class Analyst
     @ir = ItemsRepository.new("./data/items.csv")
   end
 
-  def get_merchants
-    merchant_ids = @mr.repository.map do |merchant|
-      merchant.id
-    end.uniq
-  end
-
-  def get_array_of_merchant_items
-    array_of_merchant_items = merchant_ids.map do |id|
-      @ir.find_all_by_merchant_id(id)
-    end
-  end
-
-  def get_array_of_items_per_merchant_count
-    @items_per_merchant_count = array_of_merchant_items.map do |array|
-      array.count
-    end
-  end
-
   def average_items_per_merchant
     average(@ir.repository.count, @mr.repository.count)
   end
@@ -39,8 +21,11 @@ class Analyst
   end
 
   def merchants_with_high_item_count
-    # @items_per_merchant_count.find_all { |}
-    #find merchants with more items than one standard_devation higher than average
+    big_sellers = @ir.merchant_ids.select do |merchant, items|
+      items.count > average_items_per_merchant_standard_deviation
+    end
+    big_sellers.keys
+    #find merchants with items than one standard_devation higher than average
   end
 
   def average_item_price_per_merchant(merchant_id)
