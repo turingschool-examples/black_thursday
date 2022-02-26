@@ -32,6 +32,7 @@ class MerchantRepository
   def update(id, attributes)
     merchant = find_by_id(id)
     attributes.map do |key, v|
+      # require "pry"; binding.pry
         merchant.name = v if key == :name
     end
   end
