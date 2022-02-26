@@ -2,6 +2,7 @@ require 'RSpec'
 require 'SimpleCov'
 require_relative '../lib/invoice.rb'
 require_relative '../lib/invoice_repository.rb'
+require_relative '../lib/sales_engine.rb'
 SimpleCov.start
 
 RSpec.describe InvoiceRepository do
@@ -71,5 +72,13 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.all).to eq([invoice_3])
     invoice_repo.delete(3)
     expect(invoice_repo.all).to eq([])
+  end
+
+  it 'initializes from SalesEngine#invoices()' do
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+    invoice_repo = se.invoices
+    expect(invoice_repo).to be_a(InvoiceRepository) #Test basic initialization
+    expect(invoice_repo.find_by_id(521)).to be_a(Invoice)
+    expect((invoice_repo.find_by_id(521)).status).to eq(:returned)
   end
 end
