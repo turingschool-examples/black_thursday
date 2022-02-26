@@ -8,14 +8,17 @@ RSpec.describe ItemRepository do
                                  items: './data/items.csv',
                                  merchants: './data/merchants.csv'
                                })
-    @sa = @se.analyst
-
+    @sales_analyst = @se.analyst
   end
 
-  it "#average_items_per_merchant returns average items per merchant" do
-    expected = @sa.average_items_per_merchant
+  it '#average_items_per_merchant returns average items per merchant' do
+    expected = @sales_analyst.average_items_per_merchant
 
     expect(expected).to eq 2.88
     expect(expected.class).to eq Float
+  end
+
+  it ' ' do
+    en
   end
 end
