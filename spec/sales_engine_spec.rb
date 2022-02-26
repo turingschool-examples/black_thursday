@@ -1,24 +1,19 @@
 require_relative '../lib/sales_engine'
+require_relative '../lib/item'
+require_relative '../lib/merchant'
 require_relative 'spec_helper'
-require 'pry'
+
 
 RSpec.describe SalesEngine do
-let(:se) {SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})}
-  describe 'items and merchants' do
+    before(:each) do
+      @se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv"})
+
+    end
     it 'exists' do
-      sales_engine = SalesEngine.new
-
-      expect(sales_engine).to be_a(SalesEngine)
+      expect(@se).to be_a(SalesEngine)
     end
-
-    it 'has / can read item info' do
-
-      expect(se[0].count).to be(1367)
+  
+    it 'has / can read merchants' do
+      expect(@se.merchants.all.count).to be(475)
     end
-
-    it 'has / can read merchant info' do
-
-      expect(se[1].count).to be(475)
-    end
-  end
 end
