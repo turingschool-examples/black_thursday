@@ -28,5 +28,5 @@ RSpec.describe Customer do
     expect(@c.updated_at).to eq(Time)
   end
 
-  
+
 end
