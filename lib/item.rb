@@ -16,8 +16,8 @@ class Item
                     info[:unit_price]
                   end
     @merchant_id = info[:merchant_id].to_i
-    @created_at = Time.parse(info[:created_at])
-    @updated_at = Time.parse(info[:updated_at])
+    @created_at = Time.parse(info[:created_at]).utc
+    @updated_at = Time.parse(info[:updated_at]).utc
   end
 
   def unit_price_to_dollars
