@@ -19,10 +19,9 @@ RSpec.describe SalesAnalyst do
     @sales_analyst = @sales_engine.analyst
   end
 
-  describe 'creates a working sales analyst' do
+  describe '#Iteration 1: creates a working sales analyst' do
 
     it 'exists' do
-      # require 'pry'; binding.pry
       expect(@sales_analyst).to be_a(SalesAnalyst)
     end
 
@@ -54,4 +53,13 @@ RSpec.describe SalesAnalyst do
       expect(@sales_analyst.golden_items.first.class).to eq(Item)
     end
   end
+
+  describe "#Iteration 2: creates business intelligence" do
+
+    it 'can determine the average invoices per merchant' do
+      expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+
+  end
+
 end

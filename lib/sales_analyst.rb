@@ -94,4 +94,14 @@ class SalesAnalyst
       item.unit_price_to_dollars > golden_minimum
     end
   end
+
+  def average_invoices_per_merchant
+    merchant_ids = @invoices.invoices.map {|invoice| invoice.merchant_id}
+    merchant_invoices = Hash.new(0)
+    merchant_ids.each do |id|
+      merchant_invoices[id] += 1
+    end
+    ((merchant_invoices.values.sum).to_f / merchant_invoices.keys.count).round(2)
+  end
+
 end
