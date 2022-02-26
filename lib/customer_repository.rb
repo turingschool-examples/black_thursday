@@ -8,9 +8,10 @@ class CustomerRepository
   attr_reader :repository
 
   def initialize(file)
-    @customers = CSV.read(file, headers: true, header_converters: :symbol)
 
-    @repository = @customers.map do |customer|
+    # @customers = CSV.read(file, headers: true, header_converters: :symbol)
+
+    @repository = read_csv(file).map do |customer|
         Customer.new({
           :id => customer[:id],
           :first_name => customer[:first_name],

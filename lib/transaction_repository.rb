@@ -7,9 +7,9 @@ class TransactionRepository
   attr_reader :repository
 
   def initialize(file)
-    @transactions = CSV.read(file, headers: true, header_converters: :symbol)
+    # @transactions = CSV.read(file, headers: true, header_converters: :symbol)
 
-    @repository = @transactions.map do |transaction|
+    @repository = read_csv(file).map do |transaction|
           Transaction.new({
             :id => transaction[:id],
             :invoice_id => transaction[:invoice_id],
