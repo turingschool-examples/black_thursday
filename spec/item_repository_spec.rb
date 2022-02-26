@@ -155,14 +155,53 @@ RSpec.describe ItemRepository do
     original_time = @se.items.find_by_id(263_567_475).updated_at
     attributes = {
       name: "Ursula's Unicycles",
-      description: "Underwater unicycles for all ages",
+      description: 'Underwater unicycles for all ages',
       unit_price: BigDecimal(25.00, 4)
     }
     @se.items.update(263_567_475, attributes)
     expected = @se.items.find_by_id(263_567_475)
     expect(expected.unit_price).to eq BigDecimal(25.00, 4)
     expect(expected.name).to eq "Ursula's Unicycles"
-    expect(expected.description).to eq "Underwater unicycles for all ages"
+    expect(expected.description).to eq 'Underwater unicycles for all ages'
     expect(expected.updated_at).to be > original_time
+  end
+
+  it '#update cannot update id, created_at, or merchant_id' do
+    @se.items.create(
+      name: "Timmy's Tutus",
+      description: 'Be the dancer you were meant to be.',
+      unit_price: BigDecimal(20.00, 4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 256
+    )
+
+    attributes = {
+      id: 222,
+      created_at: Time.now,
+      merchant_id: 1
+    }
+
+    @se.items.update(263_567_475, attributes)
+    expected = @se.items.find_by_id(222)
+    expect(expected).to eq nil
+    expected = @se.items.find_by_id(263_567_475)
+    expect(expected.created_at).not_to eq attributes[:created_at]
+    expect(expected.merchant_id).not_to eq attributes[:merchant_id]
+  end
+
+  it '#delete deletes the specified item' do
+    @se.items.create(
+      name: "Timmy's Tutus",
+      description: 'Be the dancer you were meant to be.',
+      unit_price: BigDecimal(20.00, 4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 256
+    )
+
+    @se.items.delete(263_567_475)
+    expected = @se.items.find_by_id(263_567_475)
+    expect(expected).to eq nil
   end
 end
