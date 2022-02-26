@@ -26,12 +26,10 @@ class SalesEngine
   def items
     ItemRepository.new(@stash)
   end
-
   def file_helper(filepath, key)
     reader = CSV.open(filepath, headers: true, header_converters: :symbol)
     reader.each {|data| key_converter(key)[:array] << key_converter(key)[:klass].new(data)}
   end
-
   def key_converter(key)
     {items: {array: @items_array, klass: Item},
      merchants: {array: @merchants_array, klass: Merchant}
@@ -41,15 +39,5 @@ class SalesEngine
      # transactions: {array: @transaction_array, klass: Transaction}
      }[key]
   end
-
-  # def class_converter(key)
-  #   {items: Item,
-  #    merchants: Merchant,
-  #    # invoices: Invoice,
-  #    # invoice_item: InvoiceItem,
-  #    # customers: Customer,
-  #    # transactions: Transaction
-  #    }[key]
-  # end
 end
 # require "pry"; binding.pry
