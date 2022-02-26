@@ -19,24 +19,26 @@ RSpec.describe MerchantRepository do
     expect(mr).to be_an_instance_of(MerchantRepository)
   end
 
-  it "can return an array of all merchant instances" do
+  it "returns an array of all merchant instances" do
     expect(mr.all.count).to eq 475
   end
 
-  it "can find a merchant by id" do
-    test_id = 12335677
-    expected_merchant = mr.find_by_id(test_id)
+  it "finds a merchant by id" do
+    expected_merchant = mr.find_by_id(12335677)
     expect(expected_merchant.merchant_attributes[:id]).to eq 12335677
     expect(expected_merchant.merchant_attributes[:name]).to eq "Filiy"
   end
-  #
-  #   it "#find_by_id returns nil if the merchant does not exist" do
-  #     id = 101
-  #     expected = engine.merchants.find_by_id(id)
-  #
-  #     expect(expected).to eq nil
-  #   end
-  #
+
+  it "#find_by_id returns nil if merchant does not exist" do
+    expect(mr.find_by_id(99999999)).to eq(nil)
+  end
+
+  it "finds a merchant by name" do
+    expected_merchant = mr.find_by_name("shop20161")
+    expect(expected_merchant.merchant_attributes[:id]).to eq(12335213)
+    expect(expected_merchant.merchant_attributes[:name]).to eq("shop20161")
+  end
+
   #   it "#find_by_name finds the first matching merchant by name" do
   #     name = "leaburrot"
   #     expected = engine.merchants.find_by_name(name)
