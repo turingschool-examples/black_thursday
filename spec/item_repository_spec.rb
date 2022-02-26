@@ -42,9 +42,17 @@ RSpec.describe ItemRepository do
 
     expect(expected.first.description).to eq description
     expect(expected.first.id).to eq 263550472
+    expect(@items.find_all_with_description("Luke's Whalesalers")).to eq []
   end
 
-  xit "creates a new merchant" do
+  it 'can find all items matching given price' do
+    price = 25
+    items_25 = @items.find_all_by_price(price)
+
+    expect(items_25.length).to eq 79
+  end
+
+  xit "creates a new item" do
     turing = {name: "Turing School of Software and Design"}
     expected = @merchants_i.create(turing)
     expect(expected.name).to eq "Turing School of Software and Design"

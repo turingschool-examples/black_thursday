@@ -33,6 +33,10 @@ class ItemRepository
     @items.find_all {|item| item.description.downcase.include?(description.downcase)}
   end
 
+  def find_all_by_price(price)
+    @items.find_all {|item| item.unit_price == BigDecimal(price)}
+  end
+
   def create(new_name)
     id = @items[-1].id + 1
     name = new_name[:name]
