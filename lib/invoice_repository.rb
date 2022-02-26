@@ -52,7 +52,6 @@ class InvoiceRepository
   def current_highest_id
     sorted = @invoices.sort_by {|invoice| invoice.id}
     highest_id = sorted[-1].id
-    # highest_id.to_i
   end
 
   def create(attributes)
@@ -62,6 +61,24 @@ class InvoiceRepository
     @invoices << new_invoice
     return new_invoice
   end
+
+  def update(id, attributes)
+    if updated_invoice = find_by_id(id)
+      updated_invoice.status = attributes[:status].to_sym
+      updated_invoice.updated_at = Time.now
+    end
+  end
+
+  def delete(id)
+    deleted_invoice = @invoices.find {|invoice| invoice.id == id }
+    @invoices.delete(deleted_invoice)
+  end
+
+
+
+
+
+
 
 
 end

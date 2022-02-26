@@ -80,10 +80,16 @@ RSpec.describe InvoiceRepository do
 
   it 'can #update(id, attributes)' do
     attributes = {:status => "returned"}
-
-
     @invoice_repo.update(8, attributes)
     expect(@invoice_repo.find_by_id(8).status).to eq(:returned)
+  end
+
+  it 'can #delete(id)' do
+    expect(@invoice_repo.find_by_id(8)).to be_a(Invoice)
+    @invoice_repo.delete(8)
+    expect(@invoice_repo.find_by_id(8)).to eq(nil)
+    @invoice_repo.delete(999999999)
+
   end
 
 
