@@ -14,7 +14,6 @@ describe SalesAnalyst do
 
   it "exists" do
     expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
-    # binding.pry
   end
 
   it "can list all items by merchant ID" do
@@ -31,19 +30,16 @@ describe SalesAnalyst do
 
   it "can determine the standard deviation of items per merchant" do
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
-    # binding.pry
   end
 
   it "can determine merchants with high item counts" do
     expect(sales_analyst.merchants_with_high_item_count[0].name).to eq("FlavienCouche")
     expect(sales_analyst.merchants_with_high_item_count[2].name).to eq("BowlsByChris")
     expect(sales_analyst.merchants_with_high_item_count[35].name).to eq("BoDaisyClothing")
-    # binding.pry
   end
 
   it "can determine average item price for merchant" do
-    expect(sales_analyst.average_item_price_for_merchant(12334105).to_digits.to_f).to eq(16.66)
-    # expect(sales_analyst.average_item_price_for_merchant(12334105)).class.to eq(BigDecimal)
+    expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
+    expect(sales_analyst.average_item_price_for_merchant(12334105)).to be_a(BigDecimal)
   end
-  binding.pry
 end

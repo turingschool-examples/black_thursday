@@ -46,10 +46,9 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     all_items = @items.find_all_by_merchant_id(id)
-    all_prices = all_items.map {|item|item.unit_price.to_i}
-    # average = all_prices.sum(0.0)/all_items.length
-    BigDecimal(all_prices.sum(0)/all_items.length)
-    # (average.to_f * (10 ** -2)).round(2)
+    all_prices = all_items.map {|item|item.unit_price}
+    average = all_prices.sum(0.0)/all_items.length
+    average.round(2)
   end
 
   # def average_average_price_per_merchant
