@@ -35,7 +35,7 @@ RSpec.describe Invoice do
   end
 
   it 'can read #customer_id' do
-    expect(@i.status).to eq("pending")
+    expect(@i.status).to eq(:pending)
   end
 
   it 'can read #customer_id' do
