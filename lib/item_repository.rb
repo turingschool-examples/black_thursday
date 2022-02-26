@@ -44,11 +44,15 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    attributes.map do |key, v|
-        item.unit_price = v if key == :unit_price
-        item.description = v if key == :description
-        item.name = v if key == :name
-        item.updated_at = Time.now
+    attributes.map do |key, value|
+      item.unit_price = value if key == :unit_price
+      item.description = value if key == :description
+      item.name = value if key == :name
     end
+    item.updated_at = Time.now
+  end
+
+  def delete(id)
+    @items.delete(find_by_id(id))
   end
 end
