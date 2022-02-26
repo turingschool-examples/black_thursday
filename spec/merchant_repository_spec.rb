@@ -17,7 +17,8 @@ RSpec.describe MerchantRepository do
   end
 
   it "holds #all merchant data" do
-    expect(@merchants_i.all.count).to eq(476)
+    expect(@merchants_i.all.count).to eq(475)
+
   end
 
   it "can find by id or return nil" do

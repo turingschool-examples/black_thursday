@@ -16,7 +16,7 @@ RSpec.describe SalesEngine do
     end
 #
     it 'has / can read merchants' do
-      expect(@se.merchants.all.count).to be(476)
+      expect(@se.merchants.all.count).to be(475)
     end
 
 #     xit 'has / can read items' do

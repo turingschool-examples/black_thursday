@@ -2,7 +2,7 @@ require 'csv'
 require_relative '../lib/merchant'
 require_relative '../lib/sales_engine'
 require_relative 'spec_helper'
-
+require 'pry'
   RSpec.describe Merchant do
     before (:each) do
       @merchant = Merchant.new({id: "12334105",
