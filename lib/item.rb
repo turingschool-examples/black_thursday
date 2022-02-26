@@ -9,8 +9,8 @@ class Item
     @description = info[:description]
     @unit_price = info[:unit_price].to_f.round(2)
     @merchant_id = info[:merchant_id].to_i
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @created_at = Time.parse(info[:created_at])
+    @updated_at = Time.parse(info[:updated_at])
   end
 
   def unit_price_to_dollars
