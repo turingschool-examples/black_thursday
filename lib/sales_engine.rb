@@ -7,10 +7,10 @@ require './lib/merchant'
 require './lib/sales_analyst'
 
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :item_repo, :merchants
 
   def initialize(items_, merchants_)
-    @items = ItemRepository.new(items_)
+    @item_repo = ItemRepository.new(items_)
     @merchants = MerchantRepository.new(merchants_)
   end
 
