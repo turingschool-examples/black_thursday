@@ -29,26 +29,27 @@ class SalesEngine
 
   def file_helper(filepath, key)
     reader = CSV.open(filepath, headers: true, header_converters: :symbol)
-    reader.each {|data| array_finder(key) << class_converter(key)}
+    reader.each {|data| key_converter(key)[:array] << key_converter(key)[:klass].new(data)}
   end
 
-  def array_finder(key)
-    {items: @items_array,
-     merchants: @merchants_array,
-     invoices: @invoice_array,
-     invoice_items: @invoice_item_array,
-     customers: @customer_array,
-     transactions: @transaction_array}[key]
-  end
-
-  def class_converter(key)
-    {items: Item,
-     merchants: Merchant,
-     # invoices: Invoice,
-     # invoice_item: InvoiceItem,
-     # customers: Customer,
-     # transactions: Transaction
+  def key_converter(key)
+    {items: {array: @items_array, klass: Item},
+     merchants: {array: @merchants_array, klass: Merchant}
+     # invoices: {array: @invoice_array, klass: Invoice},
+     # invoice_items: {array: @invoice_item_array, klass: InvoiceItem},
+     # customers: {array: @customer_array, klass: Customer},
+     # transactions: {array: @transaction_array, klass: Transaction}
      }[key]
   end
+
+  # def class_converter(key)
+  #   {items: Item,
+  #    merchants: Merchant,
+  #    # invoices: Invoice,
+  #    # invoice_item: InvoiceItem,
+  #    # customers: Customer,
+  #    # transactions: Transaction
+  #    }[key]
+  # end
 end
 # require "pry"; binding.pry
