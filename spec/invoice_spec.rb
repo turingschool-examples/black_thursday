@@ -26,5 +26,9 @@ RSpec.describe Invoice do
     expect(@i).to be_a(Invoice)
   end
 
+  it 'can read #id' do
+    expect(@i.id).to eq(6)
+  end
+
 
 end
