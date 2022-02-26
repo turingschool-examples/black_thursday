@@ -1,14 +1,14 @@
 # Merchant class
 class Merchant
-  attr_reader :id,
+  attr_accessor :id,
               :name,
               :created_at,
               :updated_at
 
-  def initialize(attr)
-    @id = attr[:id]
-    @name = attr[:name]
-    @created_at = attr[:created_at].to_s
-    @updated_at = attr[:updated_at].to_s
+  def initialize(attributes)
+    @id = attributes[:id].to_i
+    @name = attributes[:name]
+    @created_at = attributes[:created_at].to_s
+    @updated_at = attributes[:updated_at].to_s
   end
 end

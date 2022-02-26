@@ -24,7 +24,7 @@ class SalesEngine
 
     merchants = []
     merchant_contents.each do |row|
-      merchants << Item.new(row)
+      merchants << Merchant.new(row)
     end
 
     se = SalesEngine.new(items, merchants)
