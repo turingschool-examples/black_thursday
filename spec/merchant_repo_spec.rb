@@ -65,8 +65,9 @@ RSpec.describe MerchantRepository do
     attributes = {name: "Bob's Crab Shack"}
     mr.create(attributes)
     expected_merchant = mr.find_by_name("Bob's Crab Shack")
-    # expected_merchant = mr.find_by_id(12337412)
     expect(expected_merchant.merchant_attributes[:name]).to eq("bob's crab shack")
+    expected_merchant2 = mr.find_by_id(12337412)
+    expect(expected_merchant.merchant_attributes[:id]).to eq(12337412)
   end
   #
   #   it "#update updates a merchant" do
