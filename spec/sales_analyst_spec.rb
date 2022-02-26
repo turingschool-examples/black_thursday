@@ -55,4 +55,15 @@ describe SalesAnalyst do
     expect(a.class).to eq BigDecimal
   end
 
+  it 'gets the total item price standard deviation' do
+    a = sales_analyst.item_price_standard_deviation
+    expect(a).to eq 2900.99
+  end
+
+  it 'gets the golden items' do
+    a = sales_analyst.golden_items
+    expect(a.length).to eq 5
+    expect(a[0].class).to eq Item
+  end
+
 end

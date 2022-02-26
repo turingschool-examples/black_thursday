@@ -68,4 +68,20 @@ class SalesAnalyst
     (total_price / @items.all.length).round(2)
   end
 
+  def item_price_standard_deviation
+    all_items = @items.all
+    avg = average_item_price
+    math_arr = []
+    all_items.each do |item|
+      math_arr << (item.unit_price - avg) ** 2
+    end
+    Math.sqrt(math_arr.sum / (all_items.length - 1)).round(2)
+  end
+
+  def golden_items
+    std_dev = item_price_standard_deviation
+    avg = average_item_price
+    @items.all.find_all{|item| item.unit_price > (std_dev * 2) + avg}
+  end
+
 end
