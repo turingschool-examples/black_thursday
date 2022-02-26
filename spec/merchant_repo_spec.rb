@@ -4,11 +4,16 @@ require "./lib/merchant"
 require "pry"
 
 RSpec.describe MerchantRepository do
-  se = SalesEngine.from_csv({
-    items: "./data/items.csv",
-    merchants: "./data/merchants.csv"
-  })
-  mr = MerchantRepository.new(se.merchants_instanciator)
+  let(:se) do
+    SalesEngine.from_csv({
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv"
+    })
+  end
+
+  let(:mr) do
+    MerchantRepository.new(se.merchants_instanciator)
+  end
 
   it "is an instance of MerchantRepository" do
     expect(mr).to be_an_instance_of(MerchantRepository)
