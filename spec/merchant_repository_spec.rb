@@ -93,8 +93,8 @@ RSpec.describe MerchantRepository do
     attributes = {
       id: 42
     }
-    engine.merchants.update(12337412, attributes)
-    expected = engine.merchants.find_by_id(42)
+    @se.merchants.update(12337412, attributes)
+    expected = @se.merchants.find_by_id(42)
     expect(expected).to eq nil
   end
 end
