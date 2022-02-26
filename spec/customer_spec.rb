@@ -18,5 +18,15 @@ RSpec.describe Customer do
 
   it 'exists' do
     expect(@c).to be_a(Customer)
-  end 
+  end
+
+  it 'has attributes' do
+    expect(@c.id).to eq(24)
+    expect(@c.first_name).to eq('Esteban')
+    expect(@c.last_name).to eq('Jenkins')
+    expect(@c.created_at).to eq(Time)
+    expect(@c.updated_at).to eq(Time)
+  end
+
+  
 end
