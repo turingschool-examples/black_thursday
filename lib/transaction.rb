@@ -2,6 +2,7 @@ require 'pry'
 
 class Transaction
   attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
+
   def initialize(info_hash)
     @id = info_hash[:id]
     @invoice_id = info_hash[:invoice_id]
@@ -10,5 +11,5 @@ class Transaction
     @result = info_hash[:result]
     @created_at = info_hash[:created_at]
     @updated_at = info_hash[:updated_at]
-  end  
+  end
 end
