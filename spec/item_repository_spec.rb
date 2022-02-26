@@ -52,6 +52,14 @@ RSpec.describe ItemRepository do
     expect(items_25.length).to eq 79
   end
 
+  it 'can find all items in a given range' do
+    price_range = (1000.0..1500.0)
+    items_1000_1500 = @items.find_all_by_price_in_range(price_range)
+    items_10_15 = @items.find_all_by_price_in_range((10.0..15.0))
+    expect(items_1000_1500.length).to eq 19
+    expect(items_10_15.length).to eq 205
+  end 
+
   xit "creates a new item" do
     turing = {name: "Turing School of Software and Design"}
     expected = @merchants_i.create(turing)

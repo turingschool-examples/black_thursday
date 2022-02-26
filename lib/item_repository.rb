@@ -37,6 +37,10 @@ class ItemRepository
     @items.find_all {|item| item.unit_price == BigDecimal(price)}
   end
 
+  def find_all_by_price_in_range(range)
+    @items.find_all {|item| range.include?(item.unit_price)}
+  end
+
   def create(new_name)
     id = @items[-1].id + 1
     name = new_name[:name]
