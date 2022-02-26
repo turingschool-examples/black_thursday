@@ -22,4 +22,8 @@ class SalesEngine
   def items
     ItemRepository.new(@items_array)
   end
+  
+  def self.from_csv(files)
+    merchants
+    items
 end
