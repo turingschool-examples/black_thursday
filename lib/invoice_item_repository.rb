@@ -53,4 +53,9 @@ class InvoiceItemRepository
     end
   end
 
+  def delete(id)
+    deleted_invoice = find_by_id(id)
+    @invoice_items.delete(deleted_invoice)
+  end
+
 end

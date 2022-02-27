@@ -68,7 +68,7 @@ RSpec.describe InvoiceItemRepository do
       expect(@ii_repository.find_by_id(21830).updated_at).to be > original_time
     end
 
-    it 'can delete merchants by id' do
+    it 'can delete invoice item by id' do
       @attributes = {
         :item_id => 11,
         :invoice_id => 12,
