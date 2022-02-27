@@ -42,15 +42,12 @@ class SalesAnalyst
     @high_item_merchants
   end
 
-  def merchant_id_array
-    @items.map do |item|
-      item.merchant_id
+  def average_item_price_for_merchant(merchant_id)
+    merchant_items = @items.find_all { |item| item.merchant_id == merchant_id }
+    total_price = BigDecimal(0)
+    merchant_items.map do |item|
+      total_price += item.unit_price_to_dollars
     end
-  end
-
-  def items_per_merchant_list
-    merchant_id_array.each_with_object(Hash.new(0)) do |merchant_id, total|
-      total[merchant_id] += 1
-    end
+    BigDecimal((total_price / total_items_per_merchant[merchant_id]).to_f.round(2), 4)
   end
 end
