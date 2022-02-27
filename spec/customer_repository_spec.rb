@@ -55,6 +55,14 @@ RSpec.describe CustomerRepository do
     expect(@customer_repo.all.last.updated_at).to be_truthy
   end
 
+  it 'can update Customer instances with attributes' do
+    attributes = {first_name: "Burt", last_name: "Reynolds"}
+    @customer_repo.update(4, attributes)
+    expect(customer_repo.id).to eq(4)
+    expect(customer_repo.first_name).to eq("Burt")
+    expect(customer_repo.last_name).to eq("Reynold")
+  end
+
   it 'can delete Customer instance by id' do
     @customer_repo.delete(2)
     expect(@customer_repo.all).to eq([@customer_1, @customer_3])
