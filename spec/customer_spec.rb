@@ -10,9 +10,9 @@ RSpec.describe Customer do
     @c = Customer.new(
       id: 24,
       first_name: 'Esteban',
-      last_name:  'Jenkins',
-      created_at:  Time.now,
-      updated_at:  Time.now
+      last_name: 'Jenkins',
+      created_at: Time.now,
+      updated_at: Time.now
     )
   end
 
@@ -27,6 +27,4 @@ RSpec.describe Customer do
     expect(@c.created_at).to eq(Time)
     expect(@c.updated_at).to eq(Time)
   end
-
-
 end
