@@ -33,4 +33,13 @@ class InvoiceItemRepository
     @invoice_items.find_all {|invoice_item| invoice_item.id == id}
   end
 
+  def current_highest_id
+    sorted = @invoice_items.sort_by {|invoice| invoice.id}
+    highest_id = sorted[-1].id
+  end
+
+  def create(attributes)
+    @invoice_items
+  end
+
 end
