@@ -1,14 +1,17 @@
 require "csv"
 require "merchant"
 require "item"
+require "sales_analyst"
 require "pry"
 
 class SalesEngine
-  attr_reader :merchants_instances_array
+  attr_reader :merchants_instances_array, :items_instances_array, :analyst
   def initialize(data)
     @items_data = data[:items]
     @merchants_data = data[:merchants]
     @merchants_instances_array = []
+    @items_instances_array = []
+    @analyst = SalesAnalyst.new
   end
 
   def self.from_csv(argument)

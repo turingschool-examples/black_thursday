@@ -1,5 +1,6 @@
 require './lib/item'
 require 'bigdecimal'
+require 'time'
 
 RSpec.describe 'Item' do
   item = Item.new({
@@ -19,12 +20,13 @@ RSpec.describe 'Item' do
   end
 
   it 'has all expected attributes' do
-    expect(item.id).to eq(1)
-    expect(item.name).to eq("Pencil")
-    expect(item.description).to eq("You can use it to write things")
-    expect(item.unit_price).to eq(BigDecimal(10.99,4))
-    expect(item.created_at).to eq(item.updated_at)
-    expect(item.merchant_id).to eq(2)
+    expect(item.item_attributes[:id]).to eq(1)
+    expect(item.item_attributes[:name]).to eq("Pencil")
+    expect(item.item_attributes[:description]).to eq("You can use it to write things")
+    expect(item.item_attributes[:unit_price]).to eq(BigDecimal(10.99,4))
+    expect(item.item_attributes[:created_at]).to be_an_instance_of(Time)
+    expect(item.item_attributes[:updated_at]).to be_an_instance_of(Time)
+    expect(item.item_attributes[:merchant_id]).to eq(2)
   end
 
   it 'can convert unit price to dollars' do

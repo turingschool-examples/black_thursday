@@ -14,6 +14,6 @@ RSpec.describe Merchant do
 
   it "has a name" do
     m = Merchant.new({id: 5, name: "Turing School"})
-    expect(m.merchant_attributes[:name]).to eq("Turing School")
+    expect(m.merchant_attributes[:name]).to eq("turing school")
   end
 end

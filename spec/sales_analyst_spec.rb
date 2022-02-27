@@ -1,14 +1,35 @@
 require "spec_helper"
 require "./lib/sales_analyst"
-require "./lib/merchant"
-require "./lib/item"
+require "./lib/merchant_repo"
+require "./lib/item_repo"
 require "./lib/sales_engine"
 require "bigdecimal"
 require "pry"
 
 RSpec.describe SalesAnalyst do
   context "Iteration 1" do
-    let(:sales_analyst) { engine.analyst }
+
+    let(:se) do
+      SalesEngine.from_csv({
+        items: "./data/items.csv",
+        merchants: "./data/merchants.csv"
+      })
+    end
+
+    let(:mr) do
+      MerchantRepository.new(se.merchants_instanciator)
+    end
+
+    let(:ir) do
+      ItemRepository.new(se.items_instanciator)
+    end
+
+    let(:sales_analyst) { se.analyst }
+
+    it "exists" do
+
+      expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
+    end
 
     it "#average_items_per_merchant gives average number of items per merchant" do
 

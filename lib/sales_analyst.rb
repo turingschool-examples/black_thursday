@@ -1,15 +1,19 @@
 require "./lib/merchant_repo"
 require "./lib/item_repo"
-require "./lib/sales_engine"
+# require "./lib/sales_engine"
 require "bigdecimal"
 require 'descriptive_statistics'
 
 class SalesAnalyst
-  def initialize
+  attr_reader :ir, :mr
+
+  def initialize(ir, mr)
+    @ir = ir
+    @mr = mr
   end
 
   def average_items_per_merchant
-    @ir.all.count / @mr.all.count
+    (ir.all.count.to_f / mr.all.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
