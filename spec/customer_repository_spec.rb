@@ -46,6 +46,15 @@ RSpec.describe CustomerRepository do
     expect(@customer_repo.find_all_by_last_name("Davidson")).to eq([@customer_3])
   end
 
+  it 'can delete Customer instance by id' do
+    @customer_repo.delete(2)
+    expect(@customer_repo.all).to eq([@customer_1, @customer_3])
+    @customer_repo.delete(1)
+    expect(@customer_repo.all).to eq([@customer_3])
+    @customer_repo.delete(3)
+    expect(@customer_repo.all).to eq([])
+  end
+
   # it 'initializes #from_csv' do
   #   expect(@cr).to be_a(CustomerRepository)
   #   expect(@cr.all.length).to eq(999)
