@@ -48,7 +48,6 @@ RSpec.describe ItemRepository do
   it 'can find all items matching given price' do
     price = 25
     items_25 = @items.find_all_by_price(price)
-
     expect(items_25.length).to eq 79
   end
 
@@ -57,7 +56,7 @@ RSpec.describe ItemRepository do
     items_1000_1500 = @items.find_all_by_price_in_range(price_range)
     items_10_15 = @items.find_all_by_price_in_range((10.0..15.0))
     expect(items_1000_1500.length).to eq 19
-    expect(items_10_15.length).to eq 205
+
   end
 
   it 'can find all by merchant id' do
@@ -81,17 +80,19 @@ RSpec.describe ItemRepository do
   end
 
   it "updates a item name but not id" do
-    attribute = {unit_price: 179.99, description: "description"}
+    original_time = @items.find_by_id(263395237).updated_at
+    attribute = {unit_price: BigDecimal(179.99, 5), description: "Description"}
     expected = @items.update(263395237, attribute)
-
     expect(expected.unit_price).to eq(179.99)
     expect(expected.description).to eq("Description")
-    expect(expected.name).to be("510+ RealPush Icon Set")
+    expect(expected.name).to eq("510+ RealPush Icon Set")
+    expect(expected.updated_at).to be > original_time
+
   end
 
-  xit "deletes a merchant by id" do
-    @merchants_i.delete(12337412)
-    expected = @merchants_i.find_by_id(12337412)
+  it "deletes a merchant by id" do
+    @items.delete(263395237)
+    expected = @items.find_by_id(12337412)
     expect(expected).to eq nil
   end
 
