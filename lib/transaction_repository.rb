@@ -10,14 +10,16 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id
-
+    @all.find do |one|
+      one. == name
+    end
   end
 
   def find_all_by_item_id
 
   end
 
-  
+
 
 
 end

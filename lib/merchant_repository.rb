@@ -1,36 +1,24 @@
 require 'pry'
+require './lib/findable'
+
 class MerchantRepository
-  def initialize(merchants)
-    @merchants = merchants
+  include Findable
+  attr_reader :all
+  def initialize(array)
+    @all = array
   end
 
-  def all
-    @merchants
-  end
-
-  def find_by_id(id)
-    @merchants.find do |merchant|
-      merchant.id == id
-    end
-  end
-
-  def find_by_name(name)
-    @merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
-  end
-
-  def find_all_by_name(name)
-    @merchants.find_all do |merchant|
-      merchant.name.downcase.include?(name.downcase)
+    def find_all_by_name(name)
+    @all.find_all do |one|
+      one.name.downcase.include?(name.downcase)
     end
   end
 
   # helper method for create
   def highest_id
     last_id = 0
-    @merchants.max do |merchant|
-      last_id = merchant.id
+    @all.max do |one|
+      last_id = one.id
     end
     return last_id
   end
@@ -47,6 +35,6 @@ class MerchantRepository
 
   def delete(id)
     erase = self.find_by_id(id)
-    @merchants.delete(erase)
+    @all.delete(erase)
   end
 end

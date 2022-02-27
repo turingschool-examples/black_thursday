@@ -34,7 +34,7 @@ RSpec.describe TransactionRepository do
     expect(tr.find_by_id(6)).to eq(t)
   end
 
-  xit 'can find an array of transactions by invoice id' do
+  it 'can find an array of transactions by invoice id' do
     t = Transaction.new({
                           :id => 6,
                           :invoice_id => 8,
