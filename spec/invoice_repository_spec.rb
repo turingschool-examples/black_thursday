@@ -9,6 +9,7 @@ require 'pry'
       # binding.pry
       se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv", :invoices=> "./data/invoices.csv"})
       @invoices = se.invoices
+      # binding.pry
     end
 
     it 'exists' do
@@ -18,4 +19,6 @@ require 'pry'
     it '#find_by_id finds id by invoice id' do
       expect(@invoices.find_by_id(1).merchant_id).to eq(12335938)
     end
+
+
   end

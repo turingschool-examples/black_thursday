@@ -2,7 +2,7 @@ require_relative 'invoice'
 class InvoiceRepository
 
   def inspect
-    "#<\#{self.class} \#{@items.size} rows>"
+    "#<\#{self.class} \#{@invoices.size} rows>"
   end
 
   def initialize(data)

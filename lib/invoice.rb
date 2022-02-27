@@ -22,7 +22,7 @@ class Invoice
   end
 
   def status
-    status = @info[:status]
+    status = @info[:status].to_sym
   end
 
   def created_at
