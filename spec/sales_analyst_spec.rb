@@ -39,4 +39,11 @@ RSpec.describe ItemRepository do
     expect(expected).to eq 35.00
     expect(expected.class).to eq BigDecimal
   end
+
+  it "#average_average_price_per_merchant returns the average price for all merchants" do
+    expected = @sa.average_average_price_per_merchant
+
+    expect(expected).to eq 350.29
+    expect(expected.class).to eq BigDecimal
+  end
 end
