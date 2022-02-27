@@ -8,4 +8,16 @@ class TransactionRepository
   def initialize(array)
     @all = array
   end
+
+  def find_all_by_invoice_id
+
+  end
+
+  def find_all_by_item_id
+
+  end
+
+  
+
+
 end
