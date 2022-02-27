@@ -1,9 +1,6 @@
 require 'time'
 require 'bigdecimal'
 
-#headers
-#id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
-
 class InvoiceItem
   attr_accessor :info
 
