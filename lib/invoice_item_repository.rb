@@ -39,7 +39,10 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    @invoice_items
+    new_id = current_highest_id + 1
+    attributes[:id] = new_id
+    @invoice_items << new_invoice_item = InvoiceItem.new(attributes)
+    new_invoice_item
   end
 
 end
