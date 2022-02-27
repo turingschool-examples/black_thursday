@@ -18,5 +18,11 @@ RSpec.describe SalesAnalyst do
     expect(average_item.class).to be Float
   end
 
+  it 'calculates average items per standard deviation' do
+    average_item = @analyst.average_items_per_merchant_standard_deviation
+    expect(average_item).to eq 3.26
+    expect(average_item.class).to be Float
 
+
+  end
 end
