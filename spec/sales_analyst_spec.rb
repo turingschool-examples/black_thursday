@@ -1,4 +1,4 @@
-require './lib/sales_engine'
+require '../lib/sales_engine'
 require 'pry'
 require 'bigdecimal'
 
@@ -19,7 +19,7 @@ RSpec.describe ItemRepository do
   end
 
   it '#average_items_per_merchant_standard_deviation returns the standard deviation' do
-    expected = @sa.items_per_merchant_list
+    expected = @sa.average_items_per_merchant_standard_deviation
 
     expect(expected).to eq 3.26
     expect(expected.class).to eq Float
