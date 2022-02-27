@@ -1,5 +1,6 @@
+require_relative 'module'
 class ItemRepository
-
+include IDManager
 attr_accessor :all
   def initialize(items)
     @all = items

@@ -1,6 +1,8 @@
 #require_relative 'merchant.rb'
+require_relative "module"
 
 class MerchantRepository
+  include IDManager
 
 attr_reader :all
   def initialize(merchants)

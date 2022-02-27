@@ -3,6 +3,8 @@ require_relative 'item_repository'
 require_relative 'item'
 require_relative 'merchant'
 require 'csv'
+require './lib/sales_analyst.rb'
+
 class SalesEngine
   attr_reader :items_array, :merchants_array, :files
   def initialize(files)
@@ -54,6 +56,10 @@ class SalesEngine
   end
   def instantiator(key, data)
     key_converter(key)[:array] << key_converter(key)[:klass].new(data)
+  end
+
+  def analyst
+    SalesAnalyst.new
   end
 end
 # require "pry"; binding.pry
