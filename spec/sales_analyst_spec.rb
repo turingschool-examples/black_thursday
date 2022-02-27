@@ -29,4 +29,10 @@ RSpec.describe SalesAnalyst do
     expect(merchants_with_high_count.length).to eq 52
     expect(merchants_with_high_count.first.class).to eq Merchant
   end
+
+   it 'returns average price of given merchant' do
+     average_price_per_merchant = @analyst.average_item_price_for_merchant(12334105)
+     expect(average_price_per_merchant).to eq 16.66
+
+   end
 end
