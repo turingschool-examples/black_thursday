@@ -46,6 +46,15 @@ RSpec.describe CustomerRepository do
     expect(@customer_repo.find_all_by_last_name("Davidson")).to eq([@customer_3])
   end
 
+  it 'can create new customer instances' do
+    @customer_repo.create({first_name: "Burt", last_name: "Reynolds", created_at: Time.now, updated_at: Time.now})
+    expect(@customer_repo.all.length).to eq(4)
+    expect(@customer_repo.all.last).to be_a(Customer)
+    expect(@customer_repo.all.last.id).to eq(4)
+    expect(@customer_repo.all.last.created_at).to be_truthy
+    expect(@customer_repo.all.last.updated_at).to be_truthy
+  end
+
   it 'can delete Customer instance by id' do
     @customer_repo.delete(2)
     expect(@customer_repo.all).to eq([@customer_1, @customer_3])
