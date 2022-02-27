@@ -26,13 +26,7 @@ class Item
   end
 
   def unit_price
-    # if @info[:unit_price].class != "BigDecimal"
-    #     price_alt = @info[:unit_price].to_f
         unit_price = BigDecimal(@info[:unit_price], 5)
-    # else
-    #   @info[:unit_price]
-    # end
-
   end
 
   def merchant_id
@@ -45,6 +39,10 @@ class Item
 
   def updated_at
     updated_at = Time.parse(@info[:updated_at]).utc
+  end
+
+  def updated_item_time
+    @info[:updated_at] = (Time.now + 1).to_s
   end
 
   def unit_price_to_dollars
