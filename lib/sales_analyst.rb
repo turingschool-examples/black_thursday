@@ -42,6 +42,7 @@ attr_reader :item_num, :items, :merchants
       end
       merchant_with_high_count
   end
+
   def average_item_price_for_merchant(merchant_id)
     item_price = []
     @items.find_all_by_merchant_id(merchant_id).each do |item|
@@ -56,5 +57,22 @@ attr_reader :item_num, :items, :merchants
       average_price << average_item_price_for_merchant(merchant.id)
     end
     average_price_all_merchants = BigDecimal(average_price.sum/average_price.size).round(2)
+  end
+
+  def golden_items
+    average_item_price = average_average_price_per_merchant
+    item_price_sqr_diff = []
+    @items.all.each do |item|
+      item_price_sqr_diff << (item.unit_price - average_item_price) ** 2
+    end
+    # binding.pry
+    item_price_standard_dev = BigDecimal(Math.sqrt(item_price_sqr_diff.sum/@items.all.size), 5).round(2)
+    golden_item_list = []
+    @items.all.each do |item|
+      if item.unit_price > 2*item_price_standard_dev + average_item_price
+        golden_item_list << item
+      end
+    end
+    golden_item_list
   end
 end

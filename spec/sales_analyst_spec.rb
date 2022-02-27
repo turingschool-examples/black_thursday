@@ -39,4 +39,10 @@ RSpec.describe SalesAnalyst do
      average_price_all_merchants = @analyst.average_average_price_per_merchant
      expect(average_price_all_merchants).to eq 350.29
    end
+
+   it 'returns golden items' do
+     golden_items = @analyst.golden_items
+     expect(golden_items.length).to eq 5
+     expect(golden_items.first.class).to eq Item
+   end
 end
