@@ -50,4 +50,13 @@ attr_reader :items_per_merchant
     end
     BigDecimal((total_price / total_items_per_merchant[merchant_id]).to_f.round(2), 4)
   end
+
+  def average_average_price_per_merchant
+    sum_of_averages = 0
+    @merchants.map do |merchant|
+      sum_of_averages += average_item_price_for_merchant(merchant.id)
+    end
+    BigDecimal((sum_of_averages / @merchants.count).round(2), 4)
+    # require "pry"; binding.pry
+  end
 end
