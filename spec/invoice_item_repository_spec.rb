@@ -60,6 +60,12 @@ RSpec.describe InvoiceItemRepository do
       @ii_repository.create(@attributes)
       expect(@ii_repository.find_by_id(21831)).to be_a(InvoiceItem)
     end
+
+    it 'updates quanitity and unit price from invoice item' do
+      original_time = @ii_repository.invoice_items.find_by_id(21831).updated_at
+      attributes = {quanity: 10, unit_price: BigDecimal(1000000,7)}
+      expect(@ii_repository.update(21831, attributes).updated_at).to be > original_time
+    end
   end
 
 end
