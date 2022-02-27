@@ -36,6 +36,10 @@ RSpec.describe InvoiceItemRepository do
       expect(@ii_repository.find_by_id(2).id).to eq(2)
     end
 
+    it 'find all by item id' do
+      expect(@ii_repository.find_all_by_item_id(3)[0]).to be_a(InvoiceItem)
+    end
+
   end
 
 end
