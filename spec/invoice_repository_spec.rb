@@ -27,4 +27,10 @@ require 'pry'
       expect(@invoices.find_all_by_merchant_id(12335938).length).to eq(16)
     end
 
+    it ' #find_all_by_status' do
+      expect(@invoices.find_all_by_status(:pending).length).to eq(1473)
+    end
+
+
+
   end
