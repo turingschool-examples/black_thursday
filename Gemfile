@@ -6,3 +6,4 @@ gem "reek"
 gem "rake"
 gem "rspec"
 gem "simplecov", require: false, group: :test
+# gem "descriptive_statistics"

@@ -16,5 +16,3 @@ class MerchantRepository
     end
   end
 end
-
-# see black thursday site for method descriptions
