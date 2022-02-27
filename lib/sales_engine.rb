@@ -13,6 +13,11 @@ attr_reader :merchants, :items
   def self.from_csv(input)
     merchant_lines = input[:merchants]
     item_lines = input[:items]
+    # binding.pry
     SalesEngine.new(merchant_lines, item_lines)
+  end
+
+  def analyst
+    SalesAnalyst.new(@merchants, @items)
   end
 end

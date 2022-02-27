@@ -22,7 +22,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find {|item| item.id == id}
+    item_found = @items.find {|item| item.id == id}
   end
 
   def find_by_name(name)
@@ -56,10 +56,13 @@ class ItemRepository
 
   def update(id, attributes)
     item_to_update = find_by_id(id)
-    attributes.each do |key, value|
-      if ![:id, :created_at, :merchant_id].include?(key) 
-        item_to_update.info[key] = value
-      end
+    if item_to_update != nil
+        attributes.each do |key, value|
+          if ![:id, :created_at, :merchant_id].include?(key)
+            item_to_update.info[key.to_sym] = value
+            item_to_update.info[:updated_at] = (Time.now + 1).to_s
+          end
+        end
     end
     item_to_update
   end
