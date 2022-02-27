@@ -26,11 +26,11 @@ class Invoice
   end
 
   def created_at
-    created_at = Time.parse(@info[:created_at]).utc
+    created_at = @info[:created_at].utc
   end
 
   def updated_at
-    updated_at = Time.parse(@info[:updated_at]).utc
+    updated_at = @info[:updated_at].utc
   end
 
 end

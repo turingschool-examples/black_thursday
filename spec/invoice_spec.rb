@@ -14,8 +14,12 @@ require 'pry'
     })
   end
 
-
     it 'exists' do
       expect(@invoice).to be_a(Invoice)
+    end
+
+    it 'can read attributes' do
+      expect(@invoice.customer_id).to eq(7)
+      expect(@invoice.status).to eq("pending")
     end
 end
