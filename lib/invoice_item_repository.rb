@@ -21,4 +21,8 @@ class InvoiceItemRepository
     rows.map {|row| InvoiceItem.new(row)}
   end
 
+  def find_by_id(id)
+    @invoice_items.find {|invoice_item| invoice_item.id == id}
+  end
+
 end
