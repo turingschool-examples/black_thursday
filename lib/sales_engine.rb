@@ -28,7 +28,7 @@ class SalesEngine
   end
   def file_helper(filepath, key)
     reader = CSV.open(filepath, headers: true, header_converters: :symbol)
-    reader.each {|data| key_converter(key)[:array] << key_converter(key)[:klass].new(data)}
+    reader.each {|data| self.instantiator(key, data)}
   end
   def key_converter(key)
     {items: {array: @items_array, klass: Item},
@@ -38,6 +38,9 @@ class SalesEngine
      # customers: {array: @customer_array, klass: Customer},
      # transactions: {array: @transaction_array, klass: Transaction}
      }[key]
+  end
+  def instantiator(key, data)
+    key_converter(key)[:array] << key_converter(key)[:klass].new(data)
   end
 end
 # require "pry"; binding.pry
