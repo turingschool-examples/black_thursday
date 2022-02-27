@@ -1,4 +1,4 @@
-require './lib/sales_engine'
+require_relative 'sales_engine'
 
 RSpec.describe SalesEngine do
   it 'can pull items and merchants from csv' do

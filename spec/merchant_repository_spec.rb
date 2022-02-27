@@ -1,6 +1,6 @@
 # merchant_rep_spec
-require './lib/merchant_repository'
-require './lib/merchant'
+require_relative 'merchant_repository'
+require_relative 'merchant'
 require 'pry'
 
 RSpec.describe MerchantRepository do
