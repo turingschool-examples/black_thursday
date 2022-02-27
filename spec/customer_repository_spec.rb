@@ -31,6 +31,18 @@ RSpec.describe CustomerRepository do
     expect(@customer_repo.find_by_id(3)).to eq(@customer_3)
   end
 
+  it 'finds by specific customer first name ' do
+  expect(@customer_repo.find_all_by_first_name("Carl")).to eq([@customer_1])
+  expect(@customer_repo.find_all_by_first_name("Becky")).to eq([@customer_2])
+  expect(@customer_repo.find_all_by_first_name("Pete")).to eq([@customer_3])
+end
+
+it 'finds by specific customer last name ' do
+expect(@customer_repo.find_all_by_last_name("Carson")).to eq([@customer_1])
+expect(@customer_repo.find_all_by_last_name("Benson")).to eq([@customer_2])
+expect(@customer_repo.find_all_by_last_name("Davidson")).to eq([@customer_3])
+end
+
   # it 'initializes #from_csv' do
   #   expect(@cr).to be_a(CustomerRepository)
   #   expect(@cr.all.length).to eq(999)
