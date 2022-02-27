@@ -79,7 +79,7 @@ class SalesAnalyst
     all_items.each do |item|
       math_arr << (item.unit_price - avg) ** 2
     end
-    Math.sqrt(math_arr.sum / (all_items.length) - 1).round(2)
+    Math.sqrt(math_arr.sum / (all_items.length - 1)).round(2)
   end
 
   def golden_items
@@ -175,5 +175,10 @@ class SalesAnalyst
       top_days << day_converter(index)
     end}
     top_days
+  end
+
+  def invoice_status(status)
+    invoice_by_status = @invoices.all.find_all{|invoice| invoice.status == status}
+    (((invoice_by_status.length).to_f/(@invoices.all.length).to_f) * 100).round(2)
   end
 end
