@@ -24,11 +24,11 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @items.find_all { |item| item.unit_price.to_i == price }
+    @items.find_all { |item| item.unit_price == price }
   end
 
   def find_all_by_price_in_range(range)
-    @items.find_all { |item| item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last }
+    @items.find_all { |item| item.unit_price >= range.first && item.unit_price <= range.last }
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -48,11 +48,15 @@ class ItemRepository
       item.unit_price = value if key == :unit_price
       item.description = value if key == :description
       item.name = value if key == :name
+      item.updated_at = Time.now
     end
-    item.updated_at = Time.now
   end
 
   def delete(id)
     @items.delete(find_by_id(id))
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
