@@ -25,4 +25,11 @@ RSpec.describe ItemRepository do
     expect(expected_item.item_attributes[:id]).to eq 263397059
     expect(expected_item.item_attributes[:name]).to eq "Etre ailleurs"
   end
+
+  it "can find an item by name" do
+    test_name = "Etre ailleurs"
+    expected_item = ir.find_by_name(test_name)
+    expect(expected_item.item_attributes[:name]).to eq "Etre ailleurs"
+    expect(expected_item.item_attributes[:id]).to eq 263397059
+  end
 end
