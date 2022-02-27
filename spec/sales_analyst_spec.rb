@@ -14,7 +14,7 @@ describe SalesAnalyst do
           :invoices => "./data/invoices.csv"
                             })
   sales_analyst = sales_engine.analyst
-
+  # binding.pry
   it "exists" do
     expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
   end
@@ -25,7 +25,7 @@ describe SalesAnalyst do
     expect(sales_analyst.list_all_items_by_merchant[1].length).to eq(6)
     expect(sales_analyst.list_all_items_by_merchant[5].length).to eq(1)
   end
-require 'pry'; binding.pry
+
   it "can determine the average items per merchant" do
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
 
@@ -60,7 +60,7 @@ require 'pry'; binding.pry
 
   it 'gets the total item price standard deviation' do
     a = sales_analyst.item_price_standard_deviation
-    expect(a).to eq 2899.93
+    expect(a).to eq 2900.99
   end
 
   it 'gets the golden items' do
@@ -98,7 +98,31 @@ require 'pry'; binding.pry
     expect(a.first.class).to eq(Merchant)
   end
 
-  it "can find the top days by invoice count" do
-
+  it "can determine the invoices by the day of the week" do
+    expect(sales_analyst.invoices_by_days_of_the_week[0].length).to eq(708)
   end
+
+  it "can determine the average invoices per day of week" do
+    expect(sales_analyst.average_invoices_per_day_of_week).to eq(712)
+  end
+
+  it "can determine the standard deviation of invoices per day of week" do
+    expect(sales_analyst.invoices_per_day_of_week_std_deviation).to eq(18)
+  end
+
+  it "can convert numbers into days" do
+    expect(sales_analyst.day_converter(3)).to eq("Wednesday")
+  end
+
+  it "can determine the top days by invoice count" do
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
+    expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
+  end
+
+  it "can determine the percentage of invoices by status" do
+    expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
+    expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
+    expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
+  end
+
 end
