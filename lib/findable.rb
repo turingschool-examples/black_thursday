@@ -19,8 +19,4 @@ module Findable
       one.id == id
     end
   end
-
-
-
-
 end
