@@ -25,7 +25,14 @@ class CustomerRepository
     new_id = all.max_by {|customer| customer.id }.id + 1
     attributes[:id] = new_id
     all << Customer.new(attributes)
-  end 
+  end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    customer.first_name = attributes[:first_name]
+    customer.last_name = attributes[:last_name]
+    customer.updated_at = Time.now
+  end
 
   def delete(id)
     customer = find_by_id(id)
