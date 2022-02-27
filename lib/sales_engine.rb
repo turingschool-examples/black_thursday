@@ -2,6 +2,8 @@ require_relative "merchant_repository"
 require_relative 'item'
 require_relative 'merchant'
 require 'csv'
+require './lib/sales_analyst.rb'
+
 class SalesEngine
   attr_reader :items_array, :merchants_array
   def initialize
@@ -21,6 +23,10 @@ class SalesEngine
   end
   def items
     ItemRepository.new(@items_array)
+  end
+
+  def analyst
+    SalesAnalyst.new
   end
 end
 # require "pry"; binding.pry
