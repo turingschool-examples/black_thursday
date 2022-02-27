@@ -152,10 +152,9 @@ class SalesAnalyst
   def invoices_per_day_of_week_std_deviation
     days_of_week = invoices_by_days_of_the_week
     avg = average_invoices_per_day_of_week
-
     math_arr = []
     days_of_week.each { |day| math_arr << (day.length - avg) ** 2 }
-    Math.sqrt((math_arr.sum(0.0))/(invoices_by_days_of_the_week.length - 1)).round(2)
+    Math.sqrt((math_arr.sum)/(invoices_by_days_of_the_week.length - 1)).round(0)
   end
 
   def day_converter(num)
@@ -171,8 +170,10 @@ class SalesAnalyst
   def top_days_by_invoice_count
     avg = average_invoices_per_day_of_week
     std_dev = invoices_per_day_of_week_std_deviation
-    thing = @inv_per_day.each_with_index {|day, index| if day > (std_dev + avg)
-      return day_converter(index)
+    top_days = []
+    @inv_per_day.each_with_index {|day, index| if day > (std_dev + avg)
+      top_days << day_converter(index)
     end}
+    top_days
   end
 end

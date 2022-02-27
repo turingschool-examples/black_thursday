@@ -14,7 +14,7 @@ describe SalesAnalyst do
           :invoices => "./data/invoices.csv"
                             })
   sales_analyst = sales_engine.analyst
-  binding.pry
+  # binding.pry
   it "exists" do
     expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
   end
@@ -98,12 +98,25 @@ describe SalesAnalyst do
     expect(a.first.class).to eq(Merchant)
   end
 
-  it "#top_days_by_invoice_count returns days with an invoice count more than one standard deviation above the mean" do
-      expected = sales_analyst.top_days_by_invoice_count
+  it "can determine the invoices by the day of the week" do
+    expect(sales_analyst.invoices_by_days_of_the_week[0].length).to eq(708)
+  end
 
-      expect(expected.length).to eq 1
-      expect(expected.first).to eq "Wednesday"
-      expect(expected.first.class).to eq String
+  it "can determine the average invoices per day of week" do
+    expect(sales_analyst.average_invoices_per_day_of_week).to eq(712)
+  end
+
+  it "can determine the standard deviation of invoices per day of week" do
+    expect(sales_analyst.invoices_per_day_of_week_std_deviation).to eq(18)
+  end
+
+  it "can convert numbers into days" do
+    expect(sales_analyst.day_converter(3)).to eq("Wednesday")
+  end
+
+  it "can determine the top days by invoice count" do
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
+    expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
   end
 
 end
