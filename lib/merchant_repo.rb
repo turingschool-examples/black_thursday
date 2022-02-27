@@ -34,10 +34,15 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    find_by_id(id).merchant_attributes[:id] != attributes[:id]
-    find_by_id(id).merchant_attributes[:name] = attributes[:name]
-    find_by_id(id).merchant_attributes[:created_at] = attributes[:created_at]
-    find_by_id(id).merchant_attributes[:updated_at] = attributes[:updated_at]
+    if attributes.include?(:name)
+      find_by_id(id).merchant_attributes[:name] = attributes[:name]
+    end
+    if attributes.include?(:created_at)
+      find_by_id(id).merchant_attributes[:created_at] = attributes[:created_at]
+    end
+    if attributes.include?(:updated_at)
+      find_by_id(id).merchant_attributes[:updated_at] = attributes[:updated_at]
+    end
   end
   # see black thursday site for method descriptions
 end

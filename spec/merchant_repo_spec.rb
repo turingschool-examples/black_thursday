@@ -85,15 +85,11 @@ RSpec.describe MerchantRepository do
     expect(expected_merchant).to eq(nil)
   end
 
-  it "#update on unknown merchant does nothing" do
-    mr.update(13000000, {})
+  it "deletes a merchant" do
+    mr.create({name: "Scott's Crab Shack"})
+    mr.delete(12337412)
+    expect(mr.find_by_id(12337412)).to eq nil
   end
-  #
-  #   it "#delete deletes the specified merchant" do
-  #     engine.merchants.delete(12337412)
-  #     expected = engine.merchants.find_by_id(12337412)
-  #     expect(expected).to eq nil
-  #   end
   #
   #   it "#delete on unknown merchant does nothing" do
   #     engine.merchants.delete(12337412)
