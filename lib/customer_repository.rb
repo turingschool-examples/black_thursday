@@ -10,17 +10,16 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-    @all.find_all do |object| object.first_name.downcase == first_name.downcase
+    @all.find_all do |object|
+      object.first_name.downcase == first_name.downcase
     end
   end
 
-    def find_all_by_last_name(last_name)
-      @all.find_all do |customer| customer.last_name.downcase == last_name.downcase
-      end
+  def find_all_by_last_name(last_name)
+    @all.find_all do |customer|
+      customer.last_name.downcase == last_name.downcase
+    end
   end
-
-
-
 
   # def populate_repository(path)
   #   CSV.read(path, headers: true, header_converters: :symbol) do |row|
