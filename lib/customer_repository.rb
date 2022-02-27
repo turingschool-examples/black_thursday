@@ -21,6 +21,11 @@ class CustomerRepository
     end
   end
 
+  def delete(id)
+    customer = find_by_id(id)
+    all.delete(customer)
+  end
+
   # def populate_repository(path)
   #   CSV.read(path, headers: true, header_converters: :symbol) do |row|
   #     info_hash = {
