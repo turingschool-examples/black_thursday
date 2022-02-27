@@ -45,4 +45,12 @@ class InvoiceItemRepository
     new_invoice_item
   end
 
+  def update(id, attributes)
+    if updated_invoice = find_by_id(id)
+      updated_invoice.quantity = attributes[:quantity]
+      updated_invoice.unit_price = attributes[:unit_price]
+      updated_invoice.updated_at = Time.now
+    end
+  end
+
 end
