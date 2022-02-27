@@ -33,10 +33,10 @@ RSpec.describe ItemRepository do
   end
 
   it "#average_item_price_for_merchant returns the average item price for the given merchant" do
-    merchant_id = 12334105
+    merchant_id = 12334132
     expected = @sa.average_item_price_for_merchant(merchant_id)
 
-    expect(expected).to eq 16.66
+    expect(expected).to eq 35.00
     expect(expected.class).to eq BigDecimal
   end
 end

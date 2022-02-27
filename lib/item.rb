@@ -16,6 +16,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f.round(2)
+    BigDecimal(@unit_price.to_f.round(2), 4)
   end
 end
