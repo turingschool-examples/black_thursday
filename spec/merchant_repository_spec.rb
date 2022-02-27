@@ -74,6 +74,7 @@ RSpec.describe MerchantRepository do
     m_3 = Merchant.new({ :id => 3, :name => "Walmart" })
     m_4 = Merchant.new({ :id => 4, :name => "K Mart" })
     mr = MerchantRepository.new([m_1, m_2, m_3, m_4])
+    binding.pry
     expect(mr.create(:id => 9000, :name => "Walgreens").id).to eq(5)
   end
 
