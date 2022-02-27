@@ -27,9 +27,24 @@ class SalesAnalyst
     average_items_per_merchant_standard_deviation_fixed = average_items_per_merchant_standard_deviation
     id_counter_fixed = @id_counter
     high_item_count =  id_counter_fixed.find_all {|index| index[1] >= average_items_per_merchant_standard_deviation_fixed + average_items_per_merchant_fixed}
-    binding.pry
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    items_per_merchant
+    number_of_items = @id_counter[merchant_id]
+    items = data.items_array.find_all{|index| index.merchant_id == merchant_id}
+    total_cost = 0.0
+    items.each {|index| total_cost += index.unit_price.to_f}
+    return BigDecimal(total_cost.to_f/number_of_items.to_f,4)
+  end
+
+  def average_item_price_per_merchant
+    items_per_merchant
+    id_counter_fixed = @id_counter
+    sum_of_all_averages = 0.0
+    id_counter_fixed.keys.each {|index| sum_of_all_averages += average_item_price_for_merchant(index)}
+    sum_of_all_averages / data.merchants_array.length.to_f
+  end
 #helper method that returns a hash with every
 #merchant id and the number of items that
 #merchant has
@@ -42,6 +57,13 @@ class SalesAnalyst
     return @id_counter
   end
 
+  def standard_deviation_of_item_price
+    get_data
+    squared_item_price = 0.0
+    average_items_price_fixed = 
+    data.items_array.each {|index| squared_item_price += ((index.unit_price - average_items_per_merchant_fixed)**2)}
+    return squared_item_price/data.items_array.length
+  end
 #Helper method that loads the data
   def get_data
     @data = SalesEngine.from_csv({
@@ -49,4 +71,5 @@ class SalesAnalyst
       :merchants => "./data/merchants.csv",})
     return data
   end
+
 end
