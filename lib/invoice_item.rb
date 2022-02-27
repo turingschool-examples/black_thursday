@@ -18,11 +18,11 @@ class InvoiceItem
   end
 
   def item_id
-    @info[:item_id]
+    @info[:item_id].to_i
   end
 
   def invoice_id
-    @info[:invoice_id]
+    @info[:invoice_id].to_i
   end
 
   def quantity

@@ -4,6 +4,10 @@ require_relative 'invoice_item'
 
 class InvoiceItemRepository
 
+  def inspect
+    "#<\#{self.class} \#{@invoice_items.size} rows>"
+  end
+
   attr_reader :invoice_items
 
   def initialize(data)
@@ -12,9 +16,6 @@ class InvoiceItemRepository
     @invoice_items << InvoiceItem.new(row)
   end
 
-  def inspect
-    "#<\#{self.class} \#{@invoice_items.size} rows>"
-  end
 
   def all
     @invoice_items
@@ -24,12 +25,12 @@ class InvoiceItemRepository
     @invoice_items.find {|item| item.id == id}
   end
 
-  def find_by_item_id(item_id)
-    @invoice_items.find {|item| item.item_id == item_id }
+  def find_all_by_item_id(item_id)
+    @invoice_items.find_all {|item| item.item_id == item_id}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @invoice_items.find_all {|item| item.invoice_id.include?(invoice_id)}
+    @invoice_items.find_all {|item| item.invoice_id == invoice_id}
   end
 
   def create(attributes)
@@ -45,6 +46,7 @@ class InvoiceItemRepository
     item_to_update = find_by_id(id)
     if item_to_update != nil
         attributes.each do |key, value|
+#          binding.pry
           if ![:id, :item_id, :invoice_id, :created_at].include?(key)
             item_to_update.info[key.to_sym] = value
             item_to_update.info[:updated_at] = (Time.now + 1).to_s
