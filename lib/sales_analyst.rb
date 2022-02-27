@@ -48,7 +48,13 @@ attr_reader :item_num, :items, :merchants
       item_price << item.unit_price
     end
     average_item_price_by_merchant = BigDecimal(item_price.sum/item_price.size).round(2)
-
   end
 
+  def average_average_price_per_merchant
+    average_price = []
+    @merchants.all.each do |merchant|
+      average_price << average_item_price_for_merchant(merchant.id)
+    end
+    average_price_all_merchants = BigDecimal(average_price.sum/average_price.size).round(2)
+  end
 end
