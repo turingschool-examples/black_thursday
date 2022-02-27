@@ -19,5 +19,12 @@ require 'pry'
       expect(@invoices.find_by_id(1).merchant_id).to eq(12335938)
     end
 
+    it '#find_all_by_customer_id' do
+      expect(@invoices.find_all_by_customer_id(1).length).to eq(8)
+    end
+
+    xit '#find_all_by_merchant_id' do
+      expect(@invoices.find_all_by_merchant_id(12335938).length).to eq(16)
+    end
 
   end
