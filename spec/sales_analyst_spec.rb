@@ -20,7 +20,7 @@ RSpec.describe ItemRepository do
   end
 
   it "#average_items_per_merchant_standard_deviation returns the standard deviation" do
-    expected = sales_analyst.average_items_per_merchant_standard_deviation
+    expected = @sa.average_items_per_merchant_standard_deviation
 
     expect(expected).to eq 3.26
     expect(expected.class).to eq Float
