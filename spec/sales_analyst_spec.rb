@@ -46,4 +46,11 @@ RSpec.describe ItemRepository do
     expect(expected).to eq 350.29
     expect(expected.class).to eq BigDecimal
   end
+
+  it "#golden_items returns items that are two standard deviations above the average price" do
+    expected = @sa.golden_items
+
+    expect(expected.length).to eq 5
+    expect(expected.first.class).to eq Item
+  end
 end
