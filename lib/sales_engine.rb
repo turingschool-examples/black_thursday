@@ -4,9 +4,11 @@ require "item"
 require "pry"
 
 class SalesEngine
+  attr_reader :merchants_instances_array
   def initialize(data)
     @items_data = data[:items]
     @merchants_data = data[:merchants]
+    @merchants_instances_array = []
   end
 
   def self.from_csv(argument)
@@ -32,10 +34,9 @@ class SalesEngine
   end
 
   def merchants_instanciator
-    merchants_instances_array = []
     merchants.by_row!.each do |row|
-      merchants_instances_array << Merchant.new(row)
+      @merchants_instances_array << Merchant.new(row)
     end
-    merchants_instances_array
+    @merchants_instances_array
   end
 end
