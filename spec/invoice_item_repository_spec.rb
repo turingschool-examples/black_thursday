@@ -4,7 +4,6 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/invoice_item_repository'
 
 RSpec.describe InvoiceItemRepository do
-
   before(:each) do
     se = SalesEngine.from_csv({ :items=> "./data/items.csv",
                                 :merchants => "./data/merchants.csv",
@@ -17,5 +16,7 @@ RSpec.describe InvoiceItemRepository do
     expect(@invoice_items).to be_a(InvoiceItemRepository)
   end
 
-  it "holds @all invoice_item data"
-    expect(@invoice_item.all.count).to eq(21830)
+  it "holds @all invoice_item data" do
+    expect(@invoice_items.all.count).to eq(21830)
+  end
+end

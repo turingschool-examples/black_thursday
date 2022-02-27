@@ -2,7 +2,8 @@ require 'time'
 require 'bigdecimal'
 
 class InvoiceItem
-  attr_accessor :info
+  attr_reader :id, :item_id, :invoice_id, :created_at
+  attr_accessor :quantity, :unit_price, :updated_at
 
   def initialize(info)
     @info = info
