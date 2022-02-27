@@ -65,7 +65,6 @@ attr_reader :item_num, :items, :merchants
     @items.all.each do |item|
       item_price_sqr_diff << (item.unit_price - average_item_price) ** 2
     end
-    # binding.pry
     item_price_standard_dev = BigDecimal(Math.sqrt(item_price_sqr_diff.sum/@items.all.size), 5).round(2)
     golden_item_list = []
     @items.all.each do |item|

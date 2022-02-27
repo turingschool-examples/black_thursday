@@ -41,9 +41,6 @@ class Item
     updated_at = Time.parse(@info[:updated_at]).utc
   end
 
-  def updated_item_time
-    @info[:updated_at] = (Time.now + 1).to_s
-  end
 
   def unit_price_to_dollars
     unit_price.to_f

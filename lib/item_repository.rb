@@ -60,11 +60,10 @@ class ItemRepository
         attributes.each do |key, value|
           if ![:id, :created_at, :merchant_id].include?(key)
             item_to_update.info[key.to_sym] = value
-            item_to_update.updated_item_time
+            item_to_update.info[:updated_at] = (Time.now + 1).to_s
           end
         end
     end
-
     item_to_update
   end
 
