@@ -10,7 +10,9 @@ module Crudable
   end
 
   def create(attributes)
-    attributes[:name] = @new_object.new({ :id => self.highest_id + 1, :name => attributes[:name] })
+    attributes[:id] = self.highest_id + 1      
+    object = @new_object.new(attributes)
+    @all << object
   end
 
   def update(id, attributes)
