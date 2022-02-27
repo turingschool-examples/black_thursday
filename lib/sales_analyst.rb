@@ -1,6 +1,7 @@
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require 'bigdecimal/util'
+require 'date'
 
 class SalesAnalyst
   attr_reader :merchants, :items, :invoices
@@ -97,7 +98,7 @@ class SalesAnalyst
   def average_invoices_per_merchant
     all_invoices_by_merchant = list_all_invoices_by_merchant
     nums = []
-    all_invoices_by_merchant.uniq.each { |sub_arr| nums << sub_arr.length }
+    all_invoices_by_merchant.each { |sub_arr| nums << sub_arr.length }
     (nums.sum(0.0) / nums.length).round(2)
   end
 
@@ -113,7 +114,32 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     std_dev = average_invoices_per_merchant_standard_deviation
     avg = average_invoices_per_merchant
-    @invoices.all.find_all{|invoice| invoice.count > (std_dev * 2) + avg}
+    invoices_by_merchant = list_all_invoices_by_merchant
+    top_merchants = invoices_by_merchant.find_all{|merchant| merchant.count > (std_dev * 2) + avg}
+    arry = []
+    top_merchants.each {|merchant| arry << @merchants.find_by_id(merchant[0].merchant_id)}
+    arry
   end
 
+  def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    invoices_by_merchant = list_all_invoices_by_merchant
+    top_merchants = invoices_by_merchant.find_all{|merchant| merchant.count < (avg -(std_dev * 2))}
+    arry = []
+    top_merchants.each {|merchant| arry << @merchants.find_by_id(merchant[0].merchant_id)}
+    arry
+  end
+
+  def invoices_by_days_of_the_week
+    created_at_dates = []
+    @invoices.all.each {|invoice| created_at_dates << invoice.created_at}
+    days_of_week = []
+    created_at_dates.each {|date| days_of_week << Date.parse(date).wday}
+    days_of_week
+  end
+
+  def top_days_by_invoice_count
+
+  end 
 end
