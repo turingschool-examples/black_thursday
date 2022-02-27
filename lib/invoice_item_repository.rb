@@ -30,8 +30,8 @@ class InvoiceItemRepository
       invoice_id: data[:invoice_id],
       quantity: data[:quantity],
       unit_price: data[:unit_price],
-      created_at: Date.today.to_s,
-      updated_at: Date.today.to_s})
+      created_at: Time.now,
+      updated_at: Time.now})
       @all << new_item
   end
 
@@ -39,7 +39,7 @@ class InvoiceItemRepository
     updated_item = @all.find{|invoice| invoice.id == id}
     updated_item.quantity = attribute[:quantity]
     updated_item.unit_price = attribute[:unit_price]
-    updated_item.updated_at = Date.today.to_s
+    updated_item.updated_at = Time.now
   end
 
 end
