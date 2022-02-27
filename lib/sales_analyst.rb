@@ -4,11 +4,12 @@ require 'bigdecimal/util'
 require 'date'
 
 class SalesAnalyst
-  attr_reader :merchants, :items, :invoices
+  attr_reader :merchants, :items, :invoices, :inv_per_day
   def initialize(merchants, items, invoices)
     @merchants = merchants
     @items = items
     @invoices = invoices
+    @@inv_per_day = []
   end
 
   def list_all_items_by_merchant
@@ -78,7 +79,7 @@ class SalesAnalyst
     all_items.each do |item|
       math_arr << (item.unit_price - avg) ** 2
     end
-    Math.sqrt(math_arr.sum / (all_items.length)).round(2)
+    Math.sqrt(math_arr.sum / (all_items.length) - 1).round(2)
   end
 
   def golden_items
@@ -136,10 +137,42 @@ class SalesAnalyst
     @invoices.all.each {|invoice| created_at_dates << invoice.created_at}
     days_of_week = []
     created_at_dates.each {|date| days_of_week << Date.parse(date).wday}
-    days_of_week
+    ordered_days_of_week = []
+    (0..6).each { |num| ordered_days_of_week << days_of_week.find_all{|day| day == num} }
+    ordered_days_of_week
+  end
+
+  def average_invoices_per_day_of_week
+    days_of_week = invoices_by_days_of_the_week
+    @inv_per_day = []
+    days_of_week.each {|day| @inv_per_day << day.length}
+    @inv_per_day.sum/days_of_week.length
+  end
+
+  def invoices_per_day_of_week_std_deviation
+    days_of_week = invoices_by_days_of_the_week
+    avg = average_invoices_per_day_of_week
+
+    math_arr = []
+    days_of_week.each { |day| math_arr << (day.length - avg) ** 2 }
+    Math.sqrt((math_arr.sum(0.0))/(invoices_by_days_of_the_week.length - 1)).round(2)
+  end
+
+  def day_converter(num)
+    return "Sunday" if num == 0
+    return "Monday" if num == 1
+    return "Tuesday" if num == 2
+    return "Wednesday" if num == 3
+    return "Thursday" if num == 4
+    return "Friday" if num == 5
+    return "Saturday" if num == 6
   end
 
   def top_days_by_invoice_count
-
-  end 
+    avg = average_invoices_per_day_of_week
+    std_dev = invoices_per_day_of_week_std_deviation
+    thing = @inv_per_day.each_with_index {|day, index| if day > (std_dev + avg)
+      return day_converter(index)
+    end}
+  end
 end

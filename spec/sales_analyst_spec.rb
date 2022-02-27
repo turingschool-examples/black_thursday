@@ -14,7 +14,7 @@ describe SalesAnalyst do
           :invoices => "./data/invoices.csv"
                             })
   sales_analyst = sales_engine.analyst
-
+  binding.pry
   it "exists" do
     expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
   end
@@ -25,7 +25,7 @@ describe SalesAnalyst do
     expect(sales_analyst.list_all_items_by_merchant[1].length).to eq(6)
     expect(sales_analyst.list_all_items_by_merchant[5].length).to eq(1)
   end
-require 'pry'; binding.pry
+
   it "can determine the average items per merchant" do
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
 
@@ -60,7 +60,7 @@ require 'pry'; binding.pry
 
   it 'gets the total item price standard deviation' do
     a = sales_analyst.item_price_standard_deviation
-    expect(a).to eq 2899.93
+    expect(a).to eq 2900.99
   end
 
   it 'gets the golden items' do
@@ -98,7 +98,12 @@ require 'pry'; binding.pry
     expect(a.first.class).to eq(Merchant)
   end
 
-  it "can find the top days by invoice count" do
+  it "#top_days_by_invoice_count returns days with an invoice count more than one standard deviation above the mean" do
+      expected = sales_analyst.top_days_by_invoice_count
 
+      expect(expected.length).to eq 1
+      expect(expected.first).to eq "Wednesday"
+      expect(expected.first.class).to eq String
   end
+
 end
