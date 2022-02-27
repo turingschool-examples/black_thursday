@@ -34,7 +34,6 @@ class SalesEngine
   end
 
   def merchants_instanciator
-    # merchants_instances_array = []
     merchants.by_row!.each do |row|
       @merchants_instances_array << Merchant.new(row)
     end

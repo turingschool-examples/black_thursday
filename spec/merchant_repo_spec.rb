@@ -62,37 +62,32 @@ RSpec.describe MerchantRepository do
   end
 
   it "creates a new merchant instance" do
-    attributes = {name: "Bob's Crab Shack"}
-    mr.create(attributes)
+    mr.create({name: "Bob's Crab Shack"})
     expected_merchant = mr.find_by_name("Bob's Crab Shack")
     expect(expected_merchant.merchant_attributes[:name]).to eq("bob's crab shack")
-    expected_merchant2 = mr.find_by_id(12337412)
+    expected_merchant = mr.find_by_id(12337412)
     expect(expected_merchant.merchant_attributes[:id]).to eq(12337412)
   end
-  #
-  #   it "#update updates a merchant" do
-  #     attributes = {
-  #       name: "TSSD"
-  #     }
-  #     engine.merchants.update(12337412, attributes)
-  #     expected = engine.merchants.find_by_id(12337412)
-  #     expect(expected.name).to eq "TSSD"
-  #     expected = engine.merchants.find_by_name("Turing School of Software and Design")
-  #     expect(expected).to eq nil
-  #   end
-  #
-  #   it "#update cannot update id" do
-  #     attributes = {
-  #       id: 13000000
-  #     }
-  #     engine.merchants.update(12337412, attributes)
-  #     expected = engine.merchants.find_by_id(13000000)
-  #     expect(expected).to eq nil
-  #   end
-  #
-  #   it "#update on unknown merchant does nothing" do
-  #     engine.merchants.update(13000000, {})
-  #   end
+
+  it "updates a merchant" do
+    mr.create({name: "Bob's Crab Shack"})
+    mr.update(12337412, {name: "Bob's Shrimp Shack"})
+    expected_merchant = mr.find_by_id(12337412)
+    expect(expected_merchant.merchant_attributes[:name]).to eq("Bob's Shrimp Shack")
+    expected_merchant = mr.find_by_name("Bob's Crab Shack")
+    expect(expected_merchant).to eq nil
+  end
+
+  it "#update cannot update id" do
+    mr.create({name: "Scott's Crab Shack"})
+    mr.update(12337412, {id: 9999999})
+    expected_merchant = mr.find_by_id(9999999)
+    expect(expected_merchant).to eq(nil)
+  end
+
+  it "#update on unknown merchant does nothing" do
+    mr.update(13000000, {})
+  end
   #
   #   it "#delete deletes the specified merchant" do
   #     engine.merchants.delete(12337412)

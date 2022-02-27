@@ -1,7 +1,7 @@
 require "pry"
 
 class MerchantRepository
-  attr_reader :attributes, :merchants_instances_array
+  attr_reader :merchants_instances_array
   def initialize(merchants_instances_array)
     @merchants_instances_array = merchants_instances_array
   end
@@ -31,6 +31,13 @@ class MerchantRepository
   def create(attributes)
     attributes[:id] = merchants_instances_array[-1].merchant_attributes[:id] + 1
     merchants_instances_array << Merchant.new(attributes)
+  end
+
+  def update(id, attributes)
+    find_by_id(id).merchant_attributes[:id] != attributes[:id]
+    find_by_id(id).merchant_attributes[:name] = attributes[:name]
+    find_by_id(id).merchant_attributes[:created_at] = attributes[:created_at]
+    find_by_id(id).merchant_attributes[:updated_at] = attributes[:updated_at]
   end
   # see black thursday site for method descriptions
 end
