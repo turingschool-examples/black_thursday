@@ -82,7 +82,7 @@ RSpec.describe ItemRepository do
 
   it 'finds all items by price' do
     price = BigDecimal(100)
-# require "pry"; binding.pry
+    # require "pry"; binding.pry
     expected = @se.items.find_all_by_price(price)
     expect(expected.length).to eq(26)
 
