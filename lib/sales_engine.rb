@@ -16,19 +16,31 @@ class SalesEngine
   def self.from_csv(files)
     engine = SalesEngine.new(files)
     engine.files.each do |filename, filepath|
-      engine.file_helper(filepath, filename)
+      engine.file_reader(filepath, filename)
     end
     engine
   end
   def merchants
-    MerchantRepository.new(@stash)
+    MerchantRepository.new(@merchants_array)
   end
   def items
-    ItemRepository.new(@stash)
+    ItemRepository.new(@items_array)
   end
-  def file_helper(filepath, key)
+  def invoices
+    InvoiceRepository.new(@invoice_array)
+  end
+  def invoice_items
+    InvoiceItemRepository.new(@invoice_items_array)
+  end
+  def customers
+    CustomerRepository.new(@customer_array)
+  end
+  def transactions
+    TransactionRepository.new(@transaction_array)
+  end
+  def file_reader(filepath, key)
     reader = CSV.open(filepath, headers: true, header_converters: :symbol)
-    reader.each {|data| self.instantiator(key, data)}
+    reader.each {|data| instantiator(key, data)}
   end
   def key_converter(key)
     {items: {array: @items_array, klass: Item},
