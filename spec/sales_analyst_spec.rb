@@ -22,7 +22,11 @@ RSpec.describe SalesAnalyst do
     average_item = @analyst.average_items_per_merchant_standard_deviation
     expect(average_item).to eq 3.26
     expect(average_item.class).to be Float
+  end
 
-
+  it 'returns merchants with high item counts' do
+    merchants_with_high_count = @analyst.merchants_with_high_item_count
+    expect(merchants_with_high_count.length).to eq 52
+    expect(merchants_with_high_count.first.class).to eq Merchant
   end
 end

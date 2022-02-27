@@ -4,11 +4,12 @@ require_relative 'item_repository'
 require 'pry'
 
 class SalesAnalyst
-attr_reader :item_num
+attr_reader :item_num, :items, :merchants
   def initialize(merchants, items)
     @merchants = merchants
     @items = items
     @item_num = []
+    @standard_deviation = 0
   end
 
 
@@ -26,7 +27,20 @@ attr_reader :item_num
     @item_num.each do |num|
       item_num_diff_sqr << (num - @average_items_per_merchant) ** 2
     end
-    standard_deviation = (Math.sqrt(item_num_diff_sqr.sum / @item_num.size)).round(2)
+    @standard_deviation = (Math.sqrt(item_num_diff_sqr.sum / @item_num.size)).round(2)
   end
 
+
+  def merchants_with_high_item_count
+    average_items_per_merchant_standard_deviation
+    merchant_with_high_count = []
+    @merchants.all.each do |merchant|
+      items_per_merchant = @items.find_all_by_merchant_id(merchant.id)
+        if items_per_merchant.length > @standard_deviation + @average_items_per_merchant
+          merchant_with_high_count << @merchants.find_by_id(merchant.id)
+        end
+      end
+      merchant_with_high_count
+# binding.pry
   end
+end
