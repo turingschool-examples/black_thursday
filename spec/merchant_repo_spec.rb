@@ -90,23 +90,4 @@ RSpec.describe MerchantRepository do
     mr.delete(12337412)
     expect(mr.find_by_id(12337412)).to eq nil
   end
-  #
-  #   it "#delete on unknown merchant does nothing" do
-  #     engine.merchants.delete(12337412)
-  #   end
-  # end
-  #
-  # context "Merchant" do
-  #   it "#id returns the merchant id" do
-  #     merchant = engine.merchants.all.first
-  #     expect(merchant.id).to eq 12334105
-  #   end
-  #
-  #   it "#name returns the merchant name" do
-  #     merchant_one = engine.merchants.all.first
-  #     expect(merchant_one.name).to eq "Shopin1901"
-  #
-  #     merchant_two = engine.merchants.all.last
-  #     expect(merchant_two.name).to eq "CJsDecor"
-  #   end
 end

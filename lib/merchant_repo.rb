@@ -44,5 +44,8 @@ class MerchantRepository
       find_by_id(id).merchant_attributes[:updated_at] = attributes[:updated_at]
     end
   end
-  # see black thursday site for method descriptions
+
+  def delete(id)
+    merchants_instances_array.delete(find_by_id(id))
+  end
 end
