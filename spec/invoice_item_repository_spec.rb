@@ -15,7 +15,7 @@ RSpec.describe InvoiceItemRepository do
   describe 'create an invoice item' do
 
     before(:each) do
-      @ii_repository = InvoiceItemRepository.new("./data/invoice_items.csv")
+      @ii_repository = InvoiceItemRepository.new('./data/invoice_items.csv')
     end
 
     it 'exists' do
