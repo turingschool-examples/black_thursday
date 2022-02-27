@@ -33,4 +33,25 @@ class InvoiceRepository
     @invoices.find_all { |invoice| invoice.status == status}
   end
 
+  def create(attributes)
+    id = @invoices.last.id + 1
+    attributes[:id] = id
+    new_invoice = Invoice.new(attributes)
+    @invoices << new_invoice
+    new_invoice
+  end
+
+  def update(id, attributes)
+    invoice_to_update = find_by_id(id)
+    if invoice_to_update != nil
+        attributes.each do |key, value|
+          if ![:id, :created_at, :merchant_id].include?(key)
+            invoice_to_update.info[key.to_sym] = value
+            invoice_to_update.info[:updated_at] = (Time.now + 1).to_s
+          end
+        end
+    end
+    invoice_to_update
+  end
+
 end
