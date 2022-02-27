@@ -9,7 +9,7 @@ require_relative 'invoice'
 require_relative 'sales_analyst'
 
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :items, :merchants, :invoices
 
   def initialize(items_, merchants_, invoices_)
     @items = ItemRepository.new(items_)
@@ -42,6 +42,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items.all, @merchants.all)
+    SalesAnalyst.new(@items.all, @merchants.all, invoices.all)
   end
 end
