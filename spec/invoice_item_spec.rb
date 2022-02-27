@@ -18,13 +18,17 @@ RSpec.describe InvoiceItem do
         :item_id => 7,
         :invoice_id => 8,
         :quantity => 1,
-        :unit_price => BigDecimal.new(10.99, 4),
+        :unit_price => BigDecimal(10.99, 4),
         :created_at => Time.now,
         :updated_at => Time.now
         })
 
     it 'exists' do
       expect(ii).to be_a(InvoiceItem)
+    end
+
+    it 'converts unit price to float' do
+      expect(ii.unit_price_to_dollars).to be_a(Float)
     end
 
   end
