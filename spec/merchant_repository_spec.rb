@@ -1,8 +1,10 @@
 require 'pry'
 require 'rspec'
 require 'simplecov'
-require './lib/merchant_repository'
-require './lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/findable'
+require_relative '../lib/sales_engine'
 
 SimpleCov.start
 
