@@ -45,6 +45,12 @@ class SalesAnalyst
     id_counter_fixed.keys.each {|index| sum_of_all_averages += average_item_price_for_merchant(index)}
     sum_of_all_averages / data.merchants_array.length.to_f
   end
+
+  def golden_items
+    standard_deviation_of_item_price_fixed = standard_deviation_of_item_price
+    average_item_price_fixed = average_item_price
+    data.items_array.find_all {|index| index.unit_price.to_f > (average_item_price_fixed + standard_deviation_of_item_price_fixed + standard_deviation_of_item_price_fixed) }
+  end
 #helper method that returns a hash with every
 #merchant id and the number of items that
 #merchant has
@@ -57,12 +63,20 @@ class SalesAnalyst
     return @id_counter
   end
 
+  def average_item_price
+    get_data
+    cost_of_all_items = 0.0
+    data.items_array.each {|index| cost_of_all_items += index.unit_price.to_f}
+    return cost_of_all_items/data.items_array.length.to_f
+  end
+
+
   def standard_deviation_of_item_price
     get_data
-    squared_item_price = 0.0
-    average_items_price_fixed = 
-    data.items_array.each {|index| squared_item_price += ((index.unit_price - average_items_per_merchant_fixed)**2)}
-    return squared_item_price/data.items_array.length
+    squared_item_price_total = 0.0
+    average_item_price_fixed = average_item_price
+    data.items_array.each {|index| squared_item_price_total += ((index.unit_price.to_f - average_item_price_fixed)**2)}
+    return (squared_item_price_total/(data.items_array.length - 1 ))**0.5
   end
 #Helper method that loads the data
   def get_data
