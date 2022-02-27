@@ -80,20 +80,19 @@ RSpec.describe ItemRepository do
     expect(@items.find_all_by_merchant_id(12334141).length).to eq(2)
   end
 
-  xit "updates a merchant name but not id" do
-    attribute = {name: "TSSD"}
-    expected = @merchants_i.update(12337411, attribute)
-    expect(expected.name).to eq "TSSD"
-    expect(@merchants_i.find_by_name("Turing School of Software and Design")).to be nil
-    turing_id = {id: 13000000}
-    expected_id= @merchants_i.update(12337411, turing_id)
-    expect(expected_id).to be nil
+  it "updates a item name but not id" do
+    attribute = {unit_price: 179.99, description: "description"}
+    expected = @items.update(263395237, attribute)
+
+    expect(expected.unit_price).to eq(179.99)
+    expect(expected.description).to eq("Description")
+    expect(expected.name).to be("510+ RealPush Icon Set")
   end
 
   xit "deletes a merchant by id" do
-      @merchants_i.delete(12337412)
-      expected = @merchants_i.find_by_id(12337412)
-      expect(expected).to eq nil
-    end
+    @merchants_i.delete(12337412)
+    expected = @merchants_i.find_by_id(12337412)
+    expect(expected).to eq nil
+  end
 
 end

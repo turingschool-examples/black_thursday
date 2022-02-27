@@ -54,15 +54,14 @@ class ItemRepository
     new_item
   end
 
-  def update(id, attribute)
-    if attribute.keys.include?(:name) == true
-        if find_by_id(id) != nil
-            item = find_by_id(id)
-            item.name = attribute[:name]
-            item.updated_at = Time.now
-          end
+  def update(id, attributes)
+    item_to_update = find_by_id(id)
+    attributes.each do |key, value|
+      if ![:id, :created_at, :merchant_id].include?(key) 
+        item_to_update.info[key] = value
       end
-    item
+    end
+    item_to_update
   end
 
   def delete(id)
