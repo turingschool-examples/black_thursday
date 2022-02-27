@@ -1,3 +1,4 @@
+require_relative '../lib/invoice_item'
 require 'bigdecimal'
 require 'CSV'
 require 'time'

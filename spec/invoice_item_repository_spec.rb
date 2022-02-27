@@ -22,6 +22,11 @@ RSpec.describe InvoiceItemRepository do
       expect(@ii_repository).to be_a(InvoiceItemRepository)
     end
 
+    it 'returns all instances of invoice items' do
+      expect(@ii_repository.all.count).to eq(1000)
+      expect(@ii_repository.all[0]).to be_a(InvoiceItem)
+    end
+
   end
 
 end
