@@ -1,5 +1,5 @@
-require './lib/sales_engine'
-require './lib/item_repository'
+require_relative 'sales_engine'
+require_relative 'item_repository'
 
 class SalesAnalyst
   def initialize(items, merchants)

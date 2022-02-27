@@ -1,7 +1,6 @@
 # item_repository_spec
-require './lib/item_repository'
-# require './lib/items'
-require './lib/sales_engine'
+require_relative 'item_repository'
+require_relative 'sales_engine'
 require 'pry'
 require 'bigdecimal'
 

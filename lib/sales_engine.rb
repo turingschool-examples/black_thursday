@@ -1,17 +1,17 @@
 # sales_engine
 require 'CSV'
-require './lib/item_repository'
-require './lib/merchant_repository'
-require './lib/item'
-require './lib/merchant'
-require './lib/sales_analyst'
+require_relative 'item_repository'
+require_relative 'merchant_repository'
+require_relative 'item'
+require_relative 'merchant'
+require_relative 'sales_analyst'
 
 class SalesEngine
-  attr_reader :item_repo, :merch_repo
+  attr_reader :items, :merchants
 
   def initialize(items_, merchants_)
-    @item_repo = ItemRepository.new(items_)
-    @merch_repo = MerchantRepository.new(merchants_)
+    @items = ItemRepository.new(items_)
+    @merchants = MerchantRepository.new(merchants_)
   end
 
   def self.from_csv(csv_hash)
