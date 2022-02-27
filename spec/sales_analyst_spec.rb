@@ -25,8 +25,8 @@ RSpec.describe ItemRepository do
     expect(expected.class).to eq Float
   end
 
-  xit "returns #merchants_with_high_item_count" do
-    expected = sales_analyst.merchants_with_high_item_count
+  it "returns #merchants_with_high_item_count" do
+    expected = @sa.merchants_with_high_item_count
 
     expect(expected.length).to eq 52
     expect(expected.first.class).to eq Merchant

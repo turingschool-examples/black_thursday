@@ -31,4 +31,14 @@ attr_reader :items_per_merchant
     end
     Math.sqrt(total_square_diff / (@merchants.count - 1)).round(2)
   end
+
+  def merchants_with_high_item_count
+    @high_item_merchants = []
+    (total_items_per_merchant.select   {|k,v| v > 6 }.keys).each do |high_id|
+        @merchants.each do |merchant|
+          @high_item_merchants << merchant if merchant.id == high_id
+        end
+    end
+    @high_item_merchants
+  end
 end
