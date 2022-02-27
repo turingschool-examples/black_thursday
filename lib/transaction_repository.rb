@@ -21,6 +21,12 @@ class TransactionRepository
     end
   end
 
+  def find_all_by_result(result)
+    @all.find_all do |one|
+      one.result.include?(result)
+    end
+  end
+
   def find_all_by_item_id
 
   end

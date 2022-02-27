@@ -64,7 +64,7 @@ RSpec.describe TransactionRepository do
     expect(tr.find_all_by_credit_card_number("4242424242424242")).to eq([t])
   end
 
-  xit 'can find an array of transactions by result' do
+  it 'can find an array of transactions by result' do
     t = Transaction.new({
                           :id => 6,
                           :invoice_id => 8,
