@@ -21,7 +21,7 @@ RSpec.describe SalesEngine do
       expect(@se.items.all.count).to be(1367)
     end
 
-    xit 'has / can read invoices' do
+    it 'has / can read invoices' do
       expect(@se.invoices.all.count).to be()
     end
 end

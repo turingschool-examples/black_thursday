@@ -9,4 +9,9 @@ class InvoiceRepository
     end
   end
 
+  def all
+    @invoices
+  end
+
+
 end
