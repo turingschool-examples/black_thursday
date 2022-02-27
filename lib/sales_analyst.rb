@@ -41,4 +41,13 @@ attr_reader :items_per_merchant
     end
     @high_item_merchants
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant_items = @items.find_all { |item| item.merchant_id == merchant_id }
+    total_price = BigDecimal(0)
+    merchant_items.map do |item|
+      total_price += item.unit_price_to_dollars
+    end
+    BigDecimal((total_price / total_items_per_merchant[merchant_id]).to_f.round(2), 4)
+  end
 end
