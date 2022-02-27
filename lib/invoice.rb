@@ -15,8 +15,16 @@ class Invoice
     @customer_id = attributes[:customer_id].to_i
     @merchant_id = attributes[:merchant_id].to_i
     @status = attributes[:status].to_sym
-    @created_at = attributes[:created_at]
-    @updated_at = attributes[:updated_at]
+    @created_at = if attributes[:created_at].class == Time
+                    attributes[:created_at]
+                  else
+                    Time.parse(attributes[:created_at])
+                  end
+    @updated_at = if attributes[:updated_at].class == Time
+                    attributes[:updated_at]
+                  else
+                    Time.parse(attributes[:updated_at])
+                  end
   end
 
 end

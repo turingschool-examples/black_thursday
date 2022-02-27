@@ -6,6 +6,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
 
+require 'date'
 require 'bigdecimal'
 require 'pry'
 require 'CSV'
@@ -94,4 +95,123 @@ class SalesAnalyst
       item.unit_price_to_dollars > golden_minimum
     end
   end
+
+  def average_invoices_per_merchant
+    merchant_ids = @invoices.invoices.map {|invoice| invoice.merchant_id}
+    merchant_invoices = Hash.new(0)
+    merchant_ids.each do |id|
+      merchant_invoices[id] += 1
+    end
+    ((merchant_invoices.values.sum).to_f / merchant_invoices.keys.count).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchant_ids = @invoices.invoices.map {|invoice| invoice.merchant_id}
+    merchant_invoices = Hash.new(0)
+    merchant_ids.each do |id|
+      merchant_invoices[id] += 1
+    end
+
+    average_merchant_invoices= ((merchant_invoices.values.sum).to_f / merchant_invoices.keys.count)
+    empty = []
+    merchant_invoices.values.each do |number|
+      result = (number - average_merchant_invoices) * (number - average_merchant_invoices)
+      empty << result
+    end
+
+    Math.sqrt(empty.sum / (merchant_invoices.count - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    golden_invoices = (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+
+    merchant_ids = @invoices.invoices.map {|invoice| invoice.merchant_id}
+    merchant_invoices = Hash.new(0)
+    merchant_ids.each do |id|
+      merchant_invoices[@merchants.find_by_id(id)] += 1
+    end
+
+    golden_merchants = merchant_invoices.select do |merchant, invoice_count|
+      invoice_count > golden_invoices
+    end
+    golden_merchants.keys
+  end
+
+  def bottom_merchants_by_invoice_count
+    ungolden_invoices = (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+
+    merchant_ids = @invoices.invoices.map {|invoice| invoice.merchant_id}
+    merchant_invoices = Hash.new(0)
+    merchant_ids.each do |id|
+      merchant_invoices[@merchants.find_by_id(id)] += 1
+    end
+
+    ungolden_merchants = merchant_invoices.select do |merchant, invoice_count|
+      invoice_count < ungolden_invoices
+    end
+    ungolden_merchants.keys
+  end
+
+  def invoices_by_day
+    @invoices.invoices.map do |invoice|
+      if invoice.created_at.class == Time
+        invoice.created_at.wday
+      else
+       Time.parse(invoice.created_at).wday
+     end
+    end
+  end
+
+  def invoices_per_day
+    invoices_per_day_hash = Hash.new(0)
+    invoices_by_day.each do |day|
+      invoices_per_day_hash[day] += 1
+    end
+    invoices_per_day_hash
+  end
+
+  def average_invoices_per_day
+    invoices_per_day.values.sum / 7
+  end
+
+  def invoices_per_day_STD
+    square_difference_sum = invoices_per_day.values.map do |day_count|
+      (day_count - average_invoices_per_day) ** 2
+    end.sum
+    Math.sqrt(square_difference_sum / (invoices_per_day.values.count - 1))
+  end
+
+  def num_to_day_converter(num)
+    if num == 0
+      'Sunday'
+    elsif num == 1
+      'Monday'
+    elsif num == 2
+      'Tuesday'
+    elsif num == 3
+      'Wednesday'
+    elsif num == 4
+      'Thursday'
+    elsif num == 5
+      'Friday'
+    elsif num == 6
+      'Saturday'
+    end
+  end
+
+  def top_days_by_invoice_count
+    golden_day_count = average_invoices_per_day + invoices_per_day_STD
+    golden_days = invoices_per_day.select do |day_of_the_week, num_invoices|
+      num_invoices > golden_day_count
+    end
+    golden_weekdays = golden_days.keys.map {|day| num_to_day_converter(day)}
+  end
+
+  def invoice_status(status)
+    invoices_by_status = @invoices.invoices.find_all do |invoice|
+      invoice.status == status
+    end
+    ((invoices_by_status.count.to_f / @invoices.invoices.count) * 100).round(2)
+  end
+
 end

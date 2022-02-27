@@ -19,10 +19,9 @@ RSpec.describe SalesAnalyst do
     @sales_analyst = @sales_engine.analyst
   end
 
-  describe 'creates a working sales analyst' do
+  describe '#Iteration 1: creates a working sales analyst' do
 
     it 'exists' do
-      # require 'pry'; binding.pry
       expect(@sales_analyst).to be_a(SalesAnalyst)
     end
 
@@ -54,4 +53,54 @@ RSpec.describe SalesAnalyst do
       expect(@sales_analyst.golden_items.first.class).to eq(Item)
     end
   end
+
+  describe "#Iteration 2: creates business intelligence" do
+
+    it 'can determine the average invoices per merchant' do
+      expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+
+    it "can determine the average invoices per merchant's STD" do
+      expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
+
+    it "can determine the top performing merchants" do
+      expect(@sales_analyst.top_merchants_by_invoice_count.count).to eq(12)
+      expect(@sales_analyst.top_merchants_by_invoice_count[0]).to be_a(Merchant)
+    end
+
+    it "can determine the lowest performing merchants" do
+      expect(@sales_analyst.bottom_merchants_by_invoice_count.count).to eq(4)
+      expect(@sales_analyst.bottom_merchants_by_invoice_count[0]).to be_a(Merchant)
+    end
+
+    it "can determine the day of the keep based on an invoice" do
+      expect(@sales_analyst.invoices_per_day).to be_a(Hash)
+      expect(@sales_analyst.invoices_per_day.keys.count).to eq(7)
+    end
+
+    it "can determine average invoices by day" do
+      expect(@sales_analyst.average_invoices_per_day).to eq(712)
+    end
+
+    it "can determine invoices by day" do
+      expect(@sales_analyst.invoices_by_day.count).to eq(4985)
+    end
+
+    it "can determine invoices by day STD" do
+      expect(@sales_analyst.invoices_per_day_STD.round).to eq(18)
+    end
+
+    it "can determine the days with the most sales" do
+      expect(@sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
+    end
+
+    it "can determine the percentage of invoices based on status" do
+      expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
+      expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
+      expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
+    end
+
+  end
+
 end
