@@ -23,8 +23,12 @@ RSpec.describe InvoiceItemRepository do
     end
 
     it 'returns all instances of invoice items' do
-      expect(@ii_repository.all.count).to eq(1000)
+      expect(@ii_repository.all.count).to eq(21830)
       expect(@ii_repository.all[0]).to be_a(InvoiceItem)
+    end
+
+    it 'returns CSV :: Table Object' do   
+      expect(@ii_repository.rows).to be_a(CSV::Table)
     end
 
   end
