@@ -27,11 +27,5 @@ class TransactionRepository
     end
   end
 
-  def find_all_by_item_id
-
-  end
-
-
-
 
 end
