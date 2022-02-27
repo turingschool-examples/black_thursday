@@ -33,6 +33,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@item_repo.all, @merch_repo.all)
+    SalesAnalyst.new(@items.all, @merchants.all)
   end
 end
