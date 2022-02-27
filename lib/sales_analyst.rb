@@ -1,3 +1,5 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
 require_relative 'sales_engine'
 require_relative 'item_repository'
 
@@ -52,11 +54,10 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    sum_of_averages = 0
+    sum_of_averages = BigDecimal(0)
     @merchants.map do |merchant|
       sum_of_averages += average_item_price_for_merchant(merchant.id)
     end
-    BigDecimal((sum_of_averages / @merchants.count).round(2), 4)
-    # require "pry"; binding.pry
+    BigDecimal((sum_of_averages / @merchants.count), 5).truncate(2)
   end
 end
