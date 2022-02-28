@@ -60,4 +60,10 @@ RSpec.describe InvoiceRepository do
     expect(invr.find_by_id(4986).invoice_attributes[:status]).to eq(:sold)
     expect(invr.find_by_id(4986).invoice_attributes[:updated_at]).to_not eq(time)
   end
+
+  it 'deletes invoices' do
+    to_delete = invr.find_by_id(4986)
+    expect(invr.delete(4986)).to eq(to_delete)
+    expect(invr.invoice_instance_array.length).to eq(4985)
+  end
 end
