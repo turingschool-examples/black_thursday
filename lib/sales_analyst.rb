@@ -104,6 +104,16 @@ class SalesAnalyst
     @high_invoice_merchants
   end
 
+  def bottom_merchants_by_invoice_count
+    @low_invoice_merchants = []
+    total_invoices_per_merchant.select { |_k, v| v < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)) }.keys.each do |high_id|
+      @merchants.each do |merchant|
+        @low_invoice_merchants << merchant if merchant.id == high_id
+      end
+    end
+    @low_invoice_merchants
+  end
+
 
 
 

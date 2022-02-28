@@ -75,4 +75,11 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq 12
     expect(expected.first.class).to eq Merchant
   end
+
+  it "#bottom_merchants_by_invoice_count returns merchants that are two standard deviations below the mean" do
+    expected = @sa.bottom_merchants_by_invoice_count
+
+    expect(expected.length).to eq 4
+    expect(expected.first.class).to eq Merchant
+  end
 end
