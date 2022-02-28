@@ -79,7 +79,7 @@ RSpec.describe TransactionRepository do
   end
 
   it 'can create a new transaction with the highest transaction id' do
-    t = Transaction.new({
+    t_1 = Transaction.new({
                           :id => 6,
                           :invoice_id => 8,
                           :credit_card_number => "4242424242424242",
@@ -88,8 +88,59 @@ RSpec.describe TransactionRepository do
                           :created_at => Time.now,
                           :updated_at => Time.now
                         })
-    tr = TransactionRepository.new([t])
-    tr.create({
+    tr = TransactionRepository.new([t_1])
+    t_2 = tr.create({
+                          :id => 98,
+                          :invoice_id => 3,
+                          :credit_card_number => "2904857685940586",
+                          :credit_card_expiration_date => "0221",
+                          :result => "success",
+                          :created_at => Time.now,
+                          :updated_at => Time.now
+                        })
+    expect(tr.find_by_id(7)).to eq(t_2)
+    expect(tr.all).to eq([t_1, t_2])
+  end
+
+  it 'can delete a transaction with the corresponding id' do
+    t_1 = Transaction.new({
+                          :id => 6,
+                          :invoice_id => 8,
+                          :credit_card_number => "4242424242424242",
+                          :credit_card_expiration_date => "0220",
+                          :result => "success",
+                          :created_at => Time.now,
+                          :updated_at => Time.now
+                        })
+    tr = TransactionRepository.new([t_1])
+    t_2 = tr.create({
+                          :id => 98,
+                          :invoice_id => 3,
+                          :credit_card_number => "2904857685940586",
+                          :credit_card_expiration_date => "0221",
+                          :result => "success",
+                          :created_at => Time.now,
+                          :updated_at => Time.now
+                        })
+    expect(tr.find_by_id(7)).to eq(t_2)
+    expect(tr.all).to eq([t_1, t_2])
+    tr.delete(7)
+    expect(tr.find_by_id(7)).to eq(nil)
+    expect(tr.all).to eq([t_1])
+  end
+
+  it 'can update cc number, cc exp date, result and update time' do
+    t_1 = Transaction.new({
+                          :id => 6,
+                          :invoice_id => 8,
+                          :credit_card_number => "4242424242424242",
+                          :credit_card_expiration_date => "0220",
+                          :result => "success",
+                          :created_at => Time.now,
+                          :updated_at => Time.now
+                        })
+    tr = TransactionRepository.new([t_1])
+    t_2 = tr.create({
                           :id => 98,
                           :invoice_id => 3,
                           :credit_card_number => "2904857685940586",
@@ -99,9 +150,8 @@ RSpec.describe TransactionRepository do
                           :updated_at => Time.now
                         })
                         # binding.pry
-    expect(tr.find_by_id(7).credit_card_number).to eq("2904857685940586")
-  end
-
-  xit 'can delete a transaction with the corresponding id' do
+    tr.update(7, {:credit_card_number => "5438909854345943", :result => "failure"})
+    expect(t_2.credit_card_number).to eq("5438909854345943")
+    expect(t_2.result).to eq("failure")    
   end
 end
