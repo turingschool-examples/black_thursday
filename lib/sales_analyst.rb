@@ -1,3 +1,11 @@
+require 'csv'
+require './lib/items_repository'
+require './lib/merchants_repository'
+require './lib/invoice_items_repository'
+require './lib/invoice_repository'
+require './lib/customer_repository'
+require './lib/transaction_repository'
+
 class Analyst
 
   def get_merchants

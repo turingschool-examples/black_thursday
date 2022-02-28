@@ -9,6 +9,12 @@ module RepositoryAide
     @repository
   end
 
+  def find(search_repo, match)
+    search_repo.select do |keys, info|
+      keys == match
+    end
+  end
+
   def find_by_id(id)
     @repository.find do |element|
       element.id == id
@@ -25,7 +31,4 @@ module RepositoryAide
   def delete(id)
     @repository.delete(find_by_id(id))
   end
-
-
-
 end
