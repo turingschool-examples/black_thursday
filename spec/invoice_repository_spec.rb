@@ -57,5 +57,22 @@ RSpec.describe 'Iteration 2' do
 
       expect(expected).to eq []
     end
+
+    it '#find_all_by_status returns all invoices associated with given status' do
+      status = :shipped
+      expected = engine.invoices.find_all_by_status(status)
+
+      expect(expected.length).to eq 2839
+
+      status = :pending
+      expected = engine.invoices.find_all_by_status(status)
+
+      expect(expected.length).to eq 1473
+
+      status = :sold
+      expected = engine.invoices.find_all_by_status(status)
+
+      expect(expected).to eq []
+    end
   end
 end
