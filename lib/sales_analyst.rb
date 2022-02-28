@@ -6,6 +6,7 @@ require_relative '../lib/invoice_repository'
 
 class Analyst
   include Mathable
+  include TimeHelper
 
   def initialize
     @mr = MerchantsRepository.new("./data/merchants.csv")
@@ -74,10 +75,18 @@ class Analyst
   end
 
   def top_days_by_invoice_count
+    invoices_per_day = @in.call_weekdays.map { |day, invoices| invoices.count}
+    mean = average(invoices_per_day.sum.to_f, invoices_per_day.count)
+    std_dev = standard_devation(invoices_per_day, mean)
+    top_days = @in.call_weekdays.select do |day, invoices|
+      invoices.count > (mean + std_dev)
+    end
+    top_days.keys
   end
 
   def invoice_status(status)
-    binding.pry
+    decimal = (@in.invoice_status[status].count.to_f / @in.repository.count)
+    percentage = (decimal * 100).round(2)
   end
 
 
