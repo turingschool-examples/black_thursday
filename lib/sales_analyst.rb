@@ -1,13 +1,16 @@
 require_relative 'merchant_repository'
 require_relative 'sales_engine'
 require_relative 'item_repository'
+require 'time'
+require 'date'
 require 'pry'
 
 class SalesAnalyst
 attr_reader :item_num, :items, :merchants
-  def initialize(merchants, items)
+  def initialize(merchants, items, invoices)
     @merchants = merchants
     @items = items
+    @invoices = invoices
     @item_num = []
     @standard_deviation = 0
   end
@@ -73,5 +76,63 @@ attr_reader :item_num, :items, :merchants
       end
     end
     golden_item_list
+  end
+
+  def average_invoices_per_merchant
+    @invoice_num = []
+    @merchants.all.each do |merchant|
+      @invoice_num << @invoices.find_all_by_merchant_id(merchant.id).length
+    end
+    @average_invoices_per_merchant = (@invoice_num.sum(0.0)/@invoice_num.size).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average_invoices_per_merchant
+    invoice_num_diff_sqr = []
+    @invoice_num.each do |num|
+      invoice_num_diff_sqr << (num - @average_invoices_per_merchant) ** 2
+    end
+    @standard_deviation = (Math.sqrt(invoice_num_diff_sqr.sum / @invoice_num.size)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    average_invoices_per_merchant_standard_deviation
+    merchant_with_high_invoice_count = []
+    @merchants.all.each do |merchant|
+      invoices_per_merchant = @invoices.find_all_by_merchant_id(merchant.id)
+        if invoices_per_merchant.length > 2 * @standard_deviation + @average_invoices_per_merchant
+          merchant_with_high_invoice_count << @merchants.find_by_id(merchant.id)
+        end
+      end
+      merchant_with_high_invoice_count
+  end
+
+  def bottom_merchants_by_invoice_count
+    average_invoices_per_merchant_standard_deviation
+    merchant_with_low_invoice_count = []
+    @merchants.all.each do |merchant|
+      invoices_per_merchant = @invoices.find_all_by_merchant_id(merchant.id)
+        if invoices_per_merchant.length < @average_invoices_per_merchant - 2 * @standard_deviation
+          merchant_with_low_invoice_count << @merchants.find_by_id(merchant.id)
+        end
+      end
+      merchant_with_low_invoice_count
+  end
+
+  def top_days_by_invoice_count
+    invoice_per_wdays = Hash.new(0)
+    @invoices.all.each do |invoice|
+      invoice_per_wdays[invoice.created_at.strftime("%A")] +=1
+    end
+    [invoice_per_wdays.max_by{|k,v| v}[0]]
+  end
+
+
+  def invoice_status(status)
+    invoice_status = Hash.new(0)
+    @invoices.all.each do |invoice|
+      invoice_status[invoice.status] +=1
+    end
+    ((invoice_status[status].to_f / @invoices.all.count) * 100).round(2)
   end
 end
