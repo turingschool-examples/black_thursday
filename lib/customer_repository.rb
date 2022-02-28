@@ -1,10 +1,11 @@
 require_relative '../lib/findable.rb'
+require_relative '../lib/crudable.rb'
 require_relative '../lib/customer.rb'
 
 class CustomerRepository
   include Findable
   include Crudable
-  attr_reader :all
+  attr_reader :all, :new_object
 
   def initialize(customer_array)
     @all = customer_array
@@ -12,8 +13,8 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-    @all.find_all do |object|
-      object.first_name.downcase == first_name.downcase
+    @all.find_all do |customer|
+      customer.first_name.downcase == first_name.downcase
     end
   end
 
@@ -26,23 +27,23 @@ class CustomerRepository
   def inspect
   end
 
-  def create(attributes)
-    new_id = all.max_by {|customer| customer.id }.id + 1
-    attributes[:id] = new_id
-    all << Customer.new(attributes)
-  end
-
-  def update(id, attributes)
-    customer = find_by_id(id)
-    customer.first_name = attributes[:first_name]
-    customer.last_name = attributes[:last_name]
-    customer.updated_at = Time.now
-  end
-
-  def delete(id)
-    customer = find_by_id(id)
-    all.delete(customer)
-  end
+  # def create(attributes)
+  #   new_id = all.max_by {|customer| customer.id }.id + 1
+  #   attributes[:id] = new_id
+  #   all << Customer.new(attributes)
+  # end
+  #
+  # def update(id, attributes)
+  #   customer = find_by_id(id)
+  #   customer.first_name = attributes[:first_name]
+  #   customer.last_name = attributes[:last_name]
+  #   customer.updated_at = Time.now
+  # end
+  #
+  # def delete(id)
+  #   customer = find_by_id(id)
+  #   all.delete(customer)
+  # end
 
   # def populate_repository(path)
   #   CSV.read(path, headers: true, header_converters: :symbol) do |row|
