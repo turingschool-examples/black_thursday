@@ -126,5 +126,15 @@ RSpec.describe 'Iteration 2' do
       expect(expected.customer_id).not_to eq attributes[:merchant_id]
       expect(expected.created_at).not_to eq attributes[:created_at]
     end
+
+    it '#delete deletes the specified invoice' do
+      engine.invoices.delete(4986)
+      expected = engine.invoices.find_by_id(4986)
+      expect(expected).to eq nil
+    end
+
+    it '#delete on unknown invoice does nothing' do
+      engine.invoices.delete(6000)
+    end
   end
 end
