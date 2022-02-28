@@ -29,7 +29,7 @@ describe InvoiceRepository do
     it 'finds a specific invoice using the id' do
       invoice = @ir.find_by_id("214")
 
-      expect(invoice.id).to eq("214")
+      expect(invoice.id).to eq(214)
       expect(invoice.class).to eq(Invoice)
     end
   end
