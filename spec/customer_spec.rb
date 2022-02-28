@@ -11,8 +11,8 @@ RSpec.describe Customer do
       id: 24,
       first_name: 'Esteban',
       last_name: 'Jenkins',
-      created_at: Time.now,
-      updated_at: Time.now
+      created_at: "2022-02-26 03:17:26 UTC",
+      updated_at: "2022-02-26 03:17:26 UTC"
     )
   end
 
@@ -24,20 +24,20 @@ RSpec.describe Customer do
     expect(@c.id).to eq(24)
     expect(@c.first_name).to eq('Esteban')
     expect(@c.last_name).to eq('Jenkins')
-    expect(@c.created_at).to eq(Time)
-    expect(@c.updated_at).to eq(Time)
+    expect(@c.created_at).to eq("2022-02-26 03:17:26 UTC")
+    expect(@c.updated_at).to eq("2022-02-26 03:17:26 UTC")
   end
 
   it 'can update customer with attributes' do
     attributes = { first_name: "Burt", last_name: "Reynolds" }
 
-    intial_update_time = @c.updated_at
+    @c.updated_at = "2022-02-26 03:17:26 UTC"
     @c.update(attributes)
 
     expect(@c.id).to eq(24)
     expect(@c.first_name).to eq('Burt')
     expect(@c.last_name).to eq('Reynolds')
-    expect(@c.created_at).to eq(Time)
-    expect(@c.updated_at).to eq(intial_update_time)
+    expect(@c.created_at).to eq("2022-02-26 03:17:26 UTC")
+    expect(@c.updated_at).to eq("2022-02-26 03:17:26 UTC")
   end
 end
