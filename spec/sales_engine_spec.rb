@@ -17,7 +17,6 @@ RSpec.describe SalesEngine do
   end
 
   it "returns merchants" do
-    # binding.pry
     expect(se.items).to be_an_instance_of(CSV::Table)
     expect(se.merchants).to be_an_instance_of(CSV::Table)
   end
