@@ -91,6 +91,15 @@ RSpec.describe 'Iteration 2' do
     end
 
     it '#update updates an invoice' do
+      attributes = {
+        customer_id: 7,
+        merchant_id: 8,
+        status: 'pending',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.invoices.create(attributes)
+
       original_time = @se.invoices.find_by_id(4986).updated_at
       attributes = {
         status: :success
