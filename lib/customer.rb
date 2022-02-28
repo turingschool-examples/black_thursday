@@ -1,7 +1,8 @@
 require 'time'
 
 class Customer
-  attr_accessor :first_name, :last_name, :updated_at
+  attr_reader :id, :created_at
+  attr_accessor  :first_name, :last_name, :updated_at
 
   def initialize(info)
     @id = info[:id].to_i

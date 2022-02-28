@@ -18,10 +18,10 @@ RSpec.describe Customer do
 # headers
 #id,first_name,last_name,created_at,updated_at
     it 'can read Cusomer attributes' do
-binding.pry
       expect(@customer.id).to eq(1)
       expect(@customer.first_name).to eq("Joey")
       expect(@customer.last_name).to eq("Ondricka")
+#binding.pry
 
     end
   end
