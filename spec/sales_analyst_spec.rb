@@ -1,5 +1,7 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
+require_relative '../lib/invoice_repository'
+# require_relative '
 require_relative 'spec_helper'
 require 'pry'
 

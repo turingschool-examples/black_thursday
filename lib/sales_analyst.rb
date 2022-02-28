@@ -1,16 +1,19 @@
 require_relative 'merchant_repository'
 require_relative 'sales_engine'
 require_relative 'item_repository'
+require_relative 'invoice'
 require 'time'
 require 'date'
 require 'pry'
 
 class SalesAnalyst
-attr_reader :item_num, :items, :merchants
-  def initialize(merchants, items, invoices)
+attr_reader :item_num, :items, :merchants, :customers, :invoice_items
+  def initialize(merchants, items, invoices, invoice_items, customers)
     @merchants = merchants
     @items = items
     @invoices = invoices
+    @invoice_items = invoice_items
+    @customers = customers
     @item_num = []
     @standard_deviation = 0
   end
