@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/invoice_items'
-require './lib/repository_aide'
+require_relative '../lib/invoice_items'
+require_relative '../lib/repository_aide'
 
 class InvoiceItemsRepository
   include RepositoryAide

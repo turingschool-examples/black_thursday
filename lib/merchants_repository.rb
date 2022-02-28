@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/merchant'
-require './lib/repository_aide'
+require_relative '../lib/merchant'
+require_relative '../lib/repository_aide'
 
 class MerchantsRepository
   include RepositoryAide
@@ -11,6 +11,10 @@ class MerchantsRepository
                   Merchant.new({:id => merchant[:id], :name => merchant[:name]})
                 end
     group_hash
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def group_hash

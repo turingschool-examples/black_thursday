@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/item'
-require 'pry'
-require './lib/repository_aide'
+require_relative '../lib/item'
+# require_relative '.pry'
+require_relative '../lib/repository_aide'
 
 class ItemsRepository
   include RepositoryAide
@@ -21,6 +21,10 @@ class ItemsRepository
       end
     group
   end #initialize end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def group
     @ids = @repository.group_by{|item| item.id}

@@ -1,8 +1,8 @@
-require './mathable'
-require './merchants_repository'
-require './items_repository'
-require './invoice_repository'
-require 'pry'
+require_relative '../lib/mathable'
+require_relative '../lib/merchants_repository'
+require_relative '../lib/items_repository'
+require_relative '../lib/invoice_repository'
+# require_relative '.pry'
 
 class Analyst
   include Mathable

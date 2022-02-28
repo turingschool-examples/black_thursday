@@ -1,10 +1,10 @@
 require 'csv'
-require './lib/items_repository'
-require './lib/merchants_repository'
-require './lib/invoice_items_repository'
-require './lib/invoice_repository'
-require './lib/customer_repository'
-require './lib/transaction_repository'
+require_relative '../lib/items_repository'
+require_relative '../lib/merchants_repository'
+require_relative '../lib/invoice_items_repository'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/customer_repository'
+require_relative '../lib/transaction_repository'
 
 class SalesEngine
 
@@ -47,5 +47,5 @@ class SalesEngine
 
   def analyst
     Analyst.new
-  end 
+  end
 end #SalesEngine class end

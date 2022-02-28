@@ -9,6 +9,10 @@ module RepositoryAide
     @repository
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def find(search_repo, match)
     search_repo[match]
   end
