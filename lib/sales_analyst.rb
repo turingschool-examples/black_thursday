@@ -77,8 +77,9 @@ attr_reader :item_num, :items, :merchants
   end
 
   def average_invoices_per_merchant
+    @invoice_num = []
     @merchants.all.each do |merchant|
-      @invoice_num << @invoice.find_all_by_merchant_id(merchant.id).length
+      @invoice_num << @invoices.find_all_by_merchant_id(merchant.id).length
     end
     @average_invoices_per_merchant = (@invoice_num.sum(0.0)/@invoice_num.size).round(2)
   end
