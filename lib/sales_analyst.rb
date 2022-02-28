@@ -98,12 +98,23 @@ attr_reader :item_num, :items, :merchants
     merchant_with_high_invoice_count = []
     @merchants.all.each do |merchant|
       invoices_per_merchant = @invoices.find_all_by_merchant_id(merchant.id)
-        if invoices_per_merchant.length > 2* @standard_deviation + @average_invoices_per_merchant
+        if invoices_per_merchant.length > 2 * @standard_deviation + @average_invoices_per_merchant
           merchant_with_high_invoice_count << @merchants.find_by_id(merchant.id)
         end
       end
       merchant_with_high_invoice_count
   end
 
+  def bottom_merchants_by_invoice_count
+    average_invoices_per_merchant_standard_deviation
+    merchant_with_low_invoice_count = []
+    @merchants.all.each do |merchant|
+      invoices_per_merchant = @invoices.find_all_by_merchant_id(merchant.id)
+        if invoices_per_merchant.length < @average_invoices_per_merchant - 2 * @standard_deviation
+          merchant_with_low_invoice_count << @merchants.find_by_id(merchant.id)
+        end
+      end
+      merchant_with_low_invoice_count
+  end
 
 end

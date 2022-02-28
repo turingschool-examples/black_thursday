@@ -66,5 +66,10 @@ context 'iteration 1' do
         expect(merchants_with_high_invoice_count.first.class).to eq Merchant
       end
 
+      it 'returns bottom merchant by invoice count' do
+        merchants_with_low_invoice_count = @analyst.bottom_merchants_by_invoice_count
+        expect(merchants_with_low_invoice_count.length).to eq 4
+        expect(merchants_with_low_invoice_count.first.class).to eq Merchant
+      end
   end
 end
