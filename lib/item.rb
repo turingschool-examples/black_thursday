@@ -13,13 +13,13 @@ class Item
     @id = details[:id]
     @name = details[:name]
     @description = details[:description]
-    @unit_price = details[:unit_price]
+    @unit_price = BigDecimal(details[:unit_price],4)
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
     @merchant_id = details[:merchant_id]
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f
+    (@unit_price/100).round(2)
   end
 end
