@@ -110,5 +110,21 @@ RSpec.describe 'Iteration 2' do
       expect(expected.customer_id).to eq 7
       expect(expected.updated_at).to be > original_time
     end
+
+    it '#update cannot update id, customer_id, merchant_id, or created_at' do
+      attributes = {
+        id: 5000,
+        customer_id: 2,
+        merchant_id: 3,
+        created_at: Time.now
+      }
+      engine.invoices.update(4986, attributes)
+      expected = engine.invoices.find_by_id(5000)
+      expect(expected).to eq nil
+      expected = engine.invoices.find_by_id(4986)
+      expect(expected.customer_id).not_to eq attributes[:customer_id]
+      expect(expected.customer_id).not_to eq attributes[:merchant_id]
+      expect(expected.created_at).not_to eq attributes[:created_at]
+    end
   end
 end
