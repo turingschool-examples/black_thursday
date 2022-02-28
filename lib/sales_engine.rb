@@ -3,6 +3,7 @@ require 'pry'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_item_repository'
+require_relative 'invoice_repository'
 require_relative 'customer_repository'
 require_relative 'sales_analyst'
 
@@ -26,6 +27,6 @@ attr_reader :merchants, :items, :invoices, :invoice_items, :customers
   end
 
   def analyst
-    SalesAnalyst.new(@merchants, @items, @invoice_items, @invoices, @customers)
+    SalesAnalyst.new(@merchants, @items, @invoices, @invoice_items,  @customers)
   end
 end

@@ -1,6 +1,7 @@
 require_relative 'merchant_repository'
 require_relative 'sales_engine'
 require_relative 'item_repository'
+require_relative 'invoice'
 require 'time'
 require 'date'
 require 'pry'
