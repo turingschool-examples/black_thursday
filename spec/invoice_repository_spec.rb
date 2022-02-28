@@ -89,5 +89,17 @@ RSpec.describe 'Iteration 2' do
       expected = @se.invoices.find_by_id(4986)
       expect(expected.merchant_id).to eq 8
     end
+
+    it '#update updates an invoice' do
+      original_time = @se.invoices.find_by_id(4986).updated_at
+      attributes = {
+        status: :success
+      }
+      @se.invoices.update(4986, attributes)
+      expected = @se.invoices.find_by_id(4986)
+      expect(expected.status).to eq :success
+      expect(expected.customer_id).to eq 7
+      expect(expected.updated_at).to be > original_time
+    end
   end
 end
