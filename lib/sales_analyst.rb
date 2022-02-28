@@ -93,4 +93,8 @@ class SalesAnalyst
     end
     Math.sqrt(total_square_diff / (@merchants.count - 1)).round(2)
   end
+
+  
+
+
 end

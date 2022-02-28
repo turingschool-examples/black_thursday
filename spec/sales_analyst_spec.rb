@@ -68,4 +68,11 @@ RSpec.describe ItemRepository do
     expect(expected).to eq 3.29
     expect(expected.class).to eq Float
   end
+
+  it "#top_merchants_by_invoice_count returns merchants that are two standard deviations above the mean" do
+    expected = sales_analyst.top_merchants_by_invoice_count
+
+    expect(expected.length).to eq 12
+    expect(expected.first.class).to eq Merchant
+  end
 end
