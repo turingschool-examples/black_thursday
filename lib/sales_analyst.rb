@@ -114,6 +114,10 @@ class SalesAnalyst
     @low_invoice_merchants
   end
 
+  def top_days_by_invoice_count
+    average_invoice_per_day = @invoices.count / 7
+
+
 
 
 
