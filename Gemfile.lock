@@ -37,6 +37,7 @@ GEM
     simplecov_json_formatter (0.1.4)
 
 PLATFORMS
+  arm64-darwin-20
   arm64-darwin-21
 
 DEPENDENCIES

@@ -137,4 +137,14 @@ class SalesAnalyst
     top_days = invoices_by_day_of_week.find_all { |day, count| count > (average_invoice_per_day + std_dev_of_invoices_per_day) }
     top_days.flatten.find_all { |item| item.class == String }
   end
+
+  def invoice_status(status_type)
+    invoice_type_count = Hash.new(0)
+    @invoices.each do |invoice|
+      invoice_type_count[invoice.status.to_sym] += 1
+    end
+    ((invoice_type_count[status_type].to_f / @invoices.count) * 100).round(2)
+  end
+
+
 end

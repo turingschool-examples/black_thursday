@@ -90,4 +90,18 @@ RSpec.describe ItemRepository do
     expect(expected.first).to eq "Wednesday"
     expect(expected.first.class).to eq String
   end
+
+  it "#invoice_status returns the percentage of invoices with given status" do
+    expected = @sa.invoice_status(:pending)
+
+    expect(expected).to eq 29.55
+
+    expected = @sa.invoice_status(:shipped)
+
+    expect(expected).to eq 56.95
+
+    expected = @sa.invoice_status(:returned)
+
+    expect(expected).to eq 13.5
+  end
 end
