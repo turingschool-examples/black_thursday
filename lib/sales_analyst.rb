@@ -1,8 +1,8 @@
 require './mathable'
 require './merchants_repository'
 require './items_repository'
+require './invoice_repository'
 require 'pry'
-# require 'bigdecimal'
 
 class Analyst
   include Mathable
@@ -10,15 +10,16 @@ class Analyst
   def initialize
     @mr = MerchantsRepository.new("./data/merchants.csv")
     @ir = ItemsRepository.new("./data/items.csv")
+    @in = InvoiceRepository.new("./data/invoices.csv")
   end
 
   def average_items_per_merchant
-    average(@ir.repository.count, @mr.repository.count)
+    average(@ir.repository.count.to_f, @mr.repository.count)
   end
 
   def average_items_per_merchant_standard_deviation
     merchant_item_numbers = @ir.merchant_ids.values.map { |list| list.count }
-    @stn_dev_ipm = standard_devation(merchant_item_numbers, average_items_per_merchant)
+    stn_dev = standard_devation(merchant_item_numbers, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count
@@ -29,10 +30,9 @@ class Analyst
 
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
-    unit_price_array = items.map { |price| price.unit_price.to_i}
+    unit_price_array = items.map { |price| price.unit_price}
     average_price = average(unit_price_array.sum, unit_price_array.count)
     in_dollars = (average_price / 100).round(2)
-    return in_dollars
   end
 
   def average_average_price_per_merchant
@@ -50,7 +50,35 @@ class Analyst
     golden_items = @ir.repository.select do |gi|
       gi.unit_price.to_i > (mean + (std_dev * 2))
     end
-    return golden_items
   end
+
+  def average_invoices_per_merchant
+    average(@in.repository.count.to_f, @mr.repository.count)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchant_invoice_list = @in.merchant_ids.map { |id, invoices| invoices.count}
+    std_dev = standard_devation(merchant_invoice_list, average_invoices_per_merchant)
+  end
+
+  def top_merchants_by_invoice_count
+    top_sellers = @in.merchant_ids.select do |id, list|
+      list.count > (average_invoices_per_merchant + (average_items_per_merchant_standard_deviation * 2))
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_sellers = @in.merchant_ids.select do |id, list|
+      list.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+    end
+  end
+
+  def top_days_by_invoice_count
+  end
+
+  def invoice_status(status)
+    binding.pry
+  end
+
 
 end

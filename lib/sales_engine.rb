@@ -44,4 +44,8 @@ class SalesEngine
   def transactions
     TransactionRepository.new(@transactions)
   end
+
+  def analyst
+    Analyst.new
+  end 
 end #SalesEngine class end

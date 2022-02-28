@@ -6,7 +6,7 @@ require './lib/time_helper'
 class InvoiceRepository
   include RepositoryAide
   include TimeHelper
-  attr_reader :repository, :ids
+  attr_reader :repository, :merchant_ids
 
   def initialize(file)
     @repository = read_csv(file).map do |invoice|

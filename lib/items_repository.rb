@@ -13,7 +13,7 @@ class ItemsRepository
         id: item_csv[:id],
         name: item_csv[:name],
         description: item_csv[:description],
-        unit_price: item_csv[:unit_price],
+        unit_price: BigDecimal(item_csv[:unit_price], significant_numbers(item_csv[:unit_price])),
         created_at: item_csv[:created_at],
         updated_at: item_csv[:updated_at],
         merchant_id: item_csv[:merchant_id]
@@ -26,7 +26,7 @@ class ItemsRepository
     @ids = @repository.group_by{|item| item.id}
     @names = @repository.group_by{|item| item.name}
     @descriptions = @repository.group_by {|item| item.description.downcase}
-    @unit_prices = @repository.group_by {|item| item.unit_price}
+    @unit_prices = @repository.group_by {|item| item.unit_price.to_i}
     @merchant_ids = @repository.group_by {|item| item.merchant_id}
   end
 
