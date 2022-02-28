@@ -42,14 +42,17 @@ describe InvoiceItemsRepository do
       expect(invoice_item.count).to eq(8)
       invoice_item = iir.find_all_by_invoice_id("205")
       expect(invoice_item.count).to eq(3)
-      # invoice_item = iir.find_all_by_invoice_id("2r5t")
-      # expect(invoice_item).to eq([])
+      invoice_item = iir.find_all_by_invoice_id("2r5t")
+      expect(invoice_item).to eq(nil)
     end
   end
   #
   describe '#create' do
     it 'can create a new instance of InvoiceItems class' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
+      invoice_item = iir.repository.sort_by do |invoice_item|
+        invoice_item.id.to_i
+      end.last
       harry = iir.create({item_id: 67983,
                           invoice_id: 305,
                           quantity: 3,
@@ -57,9 +60,6 @@ describe InvoiceItemsRepository do
                           created_at: Time.now,
                           updated_at: Time.now})
       expect(harry.class).to be(InvoiceItems)
-      invoice_item = iir.repository.sort_by do |invoice_item|
-                  invoice_item.id
-                end.last
       expect(invoice_item.id.to_i < harry.id.to_i).to be true
       expect(harry.quantity).to eq(3)
     end

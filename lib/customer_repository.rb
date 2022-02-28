@@ -34,13 +34,15 @@ class CustomerRepository
   end
 
   def create(attributes)
-    customer = Customer.new({
-      :id => new_id.to_s,
-      :first_name => attributes[:first_name],
-      :last_name => attributes[:last_name],
-      :created_at => Time.now,
-      :updated_at => Time.now
-      })
+    # customer = Customer.new({
+    #   :id => new_id.to_s,
+    #   :first_name => attributes[:first_name],
+    #   :last_name => attributes[:last_name],
+    #   :created_at => Time.now,
+    #   :updated_at => Time.now
+    #   })
+    customer = Customer.new(create_attribute_hash(attributes))
+    require 'pry'; binding.pry
     @repository << customer
     customer
   end

@@ -26,6 +26,18 @@ module RepositoryAide
     new_id += 1
   end
 
+  def create_attribute_hash(attributes)
+    attribute_hash = {}
+    attributes.each do |key, value|
+      attribute_hash[key] = value
+    end
+    attribute_hash[:id] = new_id
+    attribute_hash[:created_at] = Time.new
+    attribute_hash[:updated_at] = Time.new
+    require 'pry'; binding.pry
+    attribute_hash
+  end
+
   def delete(id)
     @repository.delete(find_by_id(id))
   end
