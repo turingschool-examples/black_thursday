@@ -100,7 +100,7 @@ RSpec.describe 'Iteration 2' do
         updated_at: Time.now
       }
       @se.invoices.create(attributes)
-require "pry"; binding.pry
+
       original_time = @se.invoices.find_by_id(4986).updated_at
       attributes = {
         status: :success
