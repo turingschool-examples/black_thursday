@@ -16,7 +16,7 @@ class TransactionRepository
             :credit_card_number => transaction[:credit_card_number],
             :credit_card_expiration_date => transaction[:credit_card_expiration_date],
             :result => transaction[:result],
-            :created_at => create_time(transaction[:created_at]),
+            :created_at => transaction[:created_at],
             :updated_at => transaction[:updated_at]
           })
         end

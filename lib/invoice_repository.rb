@@ -1,9 +1,11 @@
 require 'csv'
 require './lib/invoice'
 require './lib/repository_aide'
+require './lib/time_helper'
 
 class InvoiceRepository
   include RepositoryAide
+  include TimeHelper
   attr_reader :repository
 
   def initialize(file)
@@ -13,7 +15,7 @@ class InvoiceRepository
             :customer_id => invoice[:customer_id],
             :merchant_id => invoice[:merchant_id],
             :status => invoice[:status],
-            :created_at => invoice[:created_at],
+            :created_at => create_time(invoice[:created_at]),
             :updated_at => invoice[:updated_at]
             })
           end

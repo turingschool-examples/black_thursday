@@ -9,6 +9,7 @@ describe InvoiceRepository do
   describe '#initialize' do
     it 'exists' do
       expect(@ir).to be_an_instance_of(InvoiceRepository)
+      require 'pry'; binding.pry
     end
 
     it 'creates a repository of Invoice items' do
