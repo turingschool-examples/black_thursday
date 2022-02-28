@@ -37,10 +37,8 @@ describe CustomerRepository do
     it 'can find a customer by name' do
       customer = @cr.find_all_by_first_name("Joey")
       expect(customer.sample.first_name).to eq("Joey")
-
       customer = @cr.find_all_by_last_name("Smith")
       expect(customer.sample.last_name).to eq("Smith")
-      expect(customer.class).to eq(Array)
     end
   end
 

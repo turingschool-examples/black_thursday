@@ -17,24 +17,26 @@ class InvoiceRepository
             :updated_at => invoice[:updated_at]
             })
           end
+    group
+  end
+
+  def group
+    @ids = @repository.group_by {|invoice| invoice.id}
+    @customer_ids = @repository.group_by {|invoice| invoice.customer_id}
+    @merchant_ids = @repository.group_by {|invoice| invoice.merchant_id}
+    @invoice_status = @repository.group_by {|invoice| invoice.status}
   end
 
   def find_all_by_customer_id(id)
-    @repository.select do |invoice|
-      invoice.customer_id == id
-    end
+    find(@customer_ids, id)
   end
 
   def find_all_by_merchant_id(id)
-    @repository.select do |invoice|
-      invoice.merchant_id == id
-    end
+    find(@merchant_ids, id)
   end
 
   def find_all_by_status(status)
-    @repository.select do |invoice|
-      invoice.status == status
-    end
+    find(@invoice_status, status)
   end
 
   def create(attributes)

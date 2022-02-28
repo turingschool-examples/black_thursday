@@ -81,5 +81,4 @@ describe MerchantsRepository do
       expect(mr.repository.include?(merchant)).to be false
     end
   end
-
 end

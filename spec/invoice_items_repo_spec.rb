@@ -30,6 +30,7 @@ describe InvoiceItemsRepository do
     it 'can find all invoice items by the item id' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
       invoice_item = iir.find_all_by_item_id("263520800")
+      # require 'pry'; binding.pry
       expect(invoice_item.count).to eq(15)
     end
   end
@@ -41,8 +42,8 @@ describe InvoiceItemsRepository do
       expect(invoice_item.count).to eq(8)
       invoice_item = iir.find_all_by_invoice_id("205")
       expect(invoice_item.count).to eq(3)
-      invoice_item = iir.find_all_by_invoice_id("2r5t")
-      expect(invoice_item).to eq([])
+      # invoice_item = iir.find_all_by_invoice_id("2r5t")
+      # expect(invoice_item).to eq([])
     end
   end
   #
@@ -77,15 +78,15 @@ describe InvoiceItemsRepository do
       expect(invoice_item.unit_price).to eq(99978)
     end
   end
-  #
-  # describe '#delete' do
-  #   it 'can remove a invoice_item from the repository' do
-  #     iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
-  #     invoice_item = iir.find_by_name("MattsNerdShoppe")
-  #     expect(iir.repository.include?(invoice_item)).to be true
-  #     iir.delete(invoice_item.id)
-  #     expect(iir.repository.include?(invoice_item)).to be false
-  #   end
-  # end
+
+  describe '#delete' do
+    it 'can remove a invoice_item from the repository' do
+      iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
+      invoice_item = iir.find_by_id("5")
+      expect(iir.repository.include?(invoice_item)).to be true
+      iir.delete(invoice_item.id)
+      expect(iir.repository.include?(invoice_item)).to be false
+    end
+  end
 
 end

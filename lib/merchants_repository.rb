@@ -10,22 +10,22 @@ class MerchantsRepository
     @repository = read_csv(file).map do |merchant|
                   Merchant.new({:id => merchant[:id], :name => merchant[:name]})
                 end
-    groups
+    group_hash
+  end
+
+  def group_hash
+    @ids = @repository.group_by {|merchant| merchant.id}
+    @names = @repository.group_by{|merchant| merchant.name.downcase}
   end
 
   def find_by_name(name)
     find_all_by_name(name).first
   end
 
-  def groups
-    @ids = @repository.group_by {|merchant| merchant.id}
-    @names = @repository.group_by{|merchant| merchant.name}
-  end
-
-  def find_all_by_name(name)
-    @repository.find_all do |merchant|
-      merchant.name.downcase.include?(name.downcase)
-    end
+  def find_all_by_name(search_name)
+    @names.select do |name, info|
+      name.include?(search_name.downcase)
+    end.values.flatten
   end
 
   def create(attributes)
@@ -38,5 +38,4 @@ class MerchantsRepository
     merchant = find_by_id(id)
     merchant.name = attributes[:name]
   end
-
 end

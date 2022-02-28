@@ -18,18 +18,22 @@ class TransactionRepository
             :updated_at => transaction[:updated_at]
           })
         end
+    group_hash
+  end
+
+  def group_hash
+    @ids = @repository.group_by {|trans| trans.id}
+    @invoice_ids = @repository.group_by {|trans| trans.invoice_id}
+    @credit_card_numbers = @repository.group_by {|trans| trans.credit_card_number}
+    @results = @repository.group_by {|trans| trans.result}
   end
 
   def find_all_by_credit_card_number(cc_num)
-    @repository.select do |transaction|
-      transaction.credit_card_number == cc_num
-    end
+    find(@credit_card_numbers, cc_num)
   end
 
   def find_all_by_result(result)
-    @repository.select do |transaction|
-      transaction.result == result
-    end
+    find(@results, result)
   end
 
   def create(attributes)

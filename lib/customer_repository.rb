@@ -16,18 +16,21 @@ class CustomerRepository
           :updated_at => customer[:updated_at]
           })
         end
+    group_hash
+  end
+
+  def group_hash
+    @ids = @repository.group_by {|customer| customer.id}
+    @first_names = @repository.group_by {|customer| customer.first_name}
+    @last_names = @repository.group_by {|customer| customer.last_name}
   end
 
   def find_all_by_first_name(name)
-    @repository.select do |customer|
-      customer.first_name == name
-    end
+    find(@first_names, name)
   end
 
   def find_all_by_last_name(name)
-    @repository.select do |customer|
-      customer.last_name == name
-    end
+    find(@last_names, name)
   end
 
   def create(attributes)
@@ -38,7 +41,6 @@ class CustomerRepository
       :created_at => Time.now,
       :updated_at => Time.now
       })
-
     @repository << customer
     customer
   end
