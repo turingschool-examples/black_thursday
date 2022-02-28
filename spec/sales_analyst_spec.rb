@@ -40,4 +40,8 @@ describe Analyst do
   it "finds the average invoices per merchant standard_devation" do
     expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
+
+  it "find merchants with high invoice count" do
+    expect(@sales_analyst.top_merchants_by_invoice_count).to eq(35)
+  end
 end
