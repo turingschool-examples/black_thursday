@@ -63,11 +63,11 @@ describe InvoiceRepository do
 
   describe '#create' do
     it 'can created a new instance of Invoice' do
-      invoice = @ir.create({:merchant_id => "12334389", :customer_id => "10", :status => "shipped"})
       highest_invoice_id = @ir.repository.sort_by {|invoice| invoice.id.to_i}.last
+      invoice = @ir.create({:merchant_id => "12334389", :customer_id => "10", :status => "shipped"})
 
       expect(invoice).to be_an_instance_of(Invoice)
-      expect(invoice.id > highest_invoice_id.id).to be true
+      expect(invoice.id.to_i > highest_invoice_id.id.to_i).to be true
     end
   end
 

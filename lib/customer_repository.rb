@@ -42,7 +42,6 @@ class CustomerRepository
     #   :updated_at => Time.now
     #   })
     customer = Customer.new(create_attribute_hash(attributes))
-    require 'pry'; binding.pry
     @repository << customer
     customer
   end
