@@ -1,7 +1,8 @@
 require 'time'
 
 class Customer
-  attr_reader :id,
+
+  attr_accessor  :id,
               :first_name,
               :last_name,
               :created_at,
@@ -20,5 +21,5 @@ class Customer
     @first_name = attributes[:first_name] || @first_name
     @last_name = attributes[:last_name] || @last_name
     @updated_at = attributes[:updated_at]
-  end 
+  end
 end
