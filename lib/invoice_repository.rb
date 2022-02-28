@@ -26,4 +26,11 @@ class InvoiceRepository
   def find_all_by_status(status)
     @invoices.find_all { |invoice| invoice.status == status }
   end
+
+  def create(attributes)
+    @invoices.sort_by { |_invoice| item.id }
+    last_id = @invoices.last.id
+    attributes[:id] = (last_id += 1)
+    @invoices << Invoice.new(attributes)
+  end
 end
