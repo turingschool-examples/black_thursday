@@ -21,4 +21,16 @@ class InvoiceRepository
       invoice_instance.invoice_attributes[:customer_id] == id
     end
   end
+
+  def find_all_by_merchant_id(id)
+    invoice_instance_array.find_all do |invoice_instance|
+      invoice_instance.invoice_attributes[:merchant_id] == id
+    end
+  end
+
+  def find_all_by_status(status)
+    invoice_instance_array.find_all do |invoice_instance|
+      invoice_instance.invoice_attributes[:status] == status
+    end
+  end
 end

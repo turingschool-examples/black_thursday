@@ -8,5 +8,6 @@ class Invoice
     @invoice_attributes[:id] = invoice_attributes[:id].to_i
     @invoice_attributes[:customer_id] = invoice_attributes[:customer_id].to_i
     @invoice_attributes[:merchant_id] = invoice_attributes[:merchant_id].to_i
+    @invoice_attributes[:status] = invoice_attributes[:status].to_sym
   end
 end

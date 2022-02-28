@@ -26,16 +26,19 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find all invoices by customer id' do
-    expect(invr.find_all_by_customer_id(1)).to eq(
-      [invr.invoice_instance_array[0],
-      invr.invoice_instance_array[1], 
-      invr.invoice_instance_array[2],
-      invr.invoice_instance_array[3],
-      invr.invoice_instance_array[4],
-      invr.invoice_instance_array[5],
-      invr.invoice_instance_array[6],
-      invr.invoice_instance_array[7]]
-    )
+    expect(invr.find_all_by_customer_id(1).length).to eq(8)
+    expect(invr.find_all_by_customer_id(1000).length).to eq(0)
+  end
+
+  it 'can find all invoices by merchant id' do
+    expect(invr.find_all_by_merchant_id(12335080).length).to eq(7)
+    expect(invr.find_all_by_merchant_id(1000).length).to eq(0)
+  end
+
+  it 'can find all invoices by status' do
+    expect(invr.find_all_by_status(:shipped).length).to eq(2839)
+    expect(invr.find_all_by_status(:pending).length).to eq(1473)
+    expect(invr.find_all_by_status(:sold).length).to eq(0)
   end
 
 end
