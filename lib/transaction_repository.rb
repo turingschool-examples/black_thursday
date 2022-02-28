@@ -1,9 +1,11 @@
 require 'csv'
 require './lib/transaction'
 require './lib/repository_aide'
+require './lib/time_helper'
 
 class TransactionRepository
   include RepositoryAide
+  include TimeHelper
   attr_reader :repository
 
   def initialize(file)
@@ -14,7 +16,7 @@ class TransactionRepository
             :credit_card_number => transaction[:credit_card_number],
             :credit_card_expiration_date => transaction[:credit_card_expiration_date],
             :result => transaction[:result],
-            :created_at => transaction[:created_at],
+            :created_at => create_time(transaction[:created_at]),
             :updated_at => transaction[:updated_at]
           })
         end
@@ -57,5 +59,4 @@ class TransactionRepository
     transaction.result = attributes[:result]
     transaction.updated_at = Time.now
   end
-
 end
