@@ -64,12 +64,19 @@ RSpec.describe InvoiceItemRepository do
       attributes = { quantity: 13 }
 
       @invoice_items.update(1, attributes)
-      expected = @invoice_items.find_by_id(21831)
+
+# no id 21831 in csv file usind 1
+#      expected = @invoice_items.find_by_id(21831)
+      expected = @invoice_items.find_by_id(1)
+      binding.pry
       expect(expected.quantity).to eq 13
       expect(expected.item_id).to eq 263519844
       expect(expected.updated_at).to be > original_time
     end
 
-    it "#delete" do
+    it "#deletes by id" do
+      @invoice_items.delete(1)
+      expected = @invoice_items.find_by_id(1)
+      expect(expected).to eq nil
     end
 end

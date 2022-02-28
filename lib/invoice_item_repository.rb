@@ -16,7 +16,6 @@ class InvoiceItemRepository
     @invoice_items << InvoiceItem.new(row)
   end
 
-
   def all
     @invoice_items
   end
@@ -46,10 +45,10 @@ class InvoiceItemRepository
     item_to_update = find_by_id(id)
     if item_to_update != nil
         attributes.each do |key, value|
-#          binding.pry
           if ![:id, :item_id, :invoice_id, :created_at].include?(key)
-            item_to_update.info[key.to_sym] = value
-            item_to_update.info[:updated_at] = (Time.now + 1).to_s
+            item_to_update.quantity = value
+            #item_to_update.quantity = attributes[value]
+            item_to_update.updated_at = (Time.now + 1).to_s
           end
         end
     end
