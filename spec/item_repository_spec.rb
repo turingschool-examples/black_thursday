@@ -6,7 +6,7 @@ require 'pry'
 RSpec.describe ItemRepository do
 
   before(:each) do
-    se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv",})
+    se = SalesEngine.from_csv({customers: "./data/customers.csv", invoice_items: "./data/invoice_items.csv", invoices: "./data/invoices.csv", items: "./data/items.csv", merchants: "./data/merchants.csv", transactions: "./data/transactions.csv"})
     @items = se.items
   end
 
@@ -83,7 +83,6 @@ RSpec.describe ItemRepository do
     original_time = @items.find_by_id(263395237).updated_at
     attribute = {unit_price: BigDecimal(179.99, 5), description: "Description"}
     expected = @items.update(263395237, attribute)
-    binding.pry
     expect(expected.unit_price).to eq(179.99)
     expect(expected.description).to eq("Description")
     expect(expected.name).to eq("510+ RealPush Icon Set")
