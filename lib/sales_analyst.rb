@@ -2,6 +2,7 @@ require './mathable'
 require './merchants_repository'
 require './items_repository'
 require 'pry'
+require 'bigdecimal'
 
 class Analyst
   include Mathable
@@ -22,24 +23,33 @@ class Analyst
 
   def merchants_with_high_item_count
     big_sellers = @ir.merchant_ids.select do |merchant, items|
-      items.count > average_items_per_merchant_standard_deviation
+      items.count > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
-    big_sellers.keys
-    #find merchants with items than one standard_devation higher than average
   end
 
   def average_item_price_per_merchant(merchant_id)
-    #find the average price of items sold by merchant
+    items = @ir.find_all_by_merchant_id(merchant_id)
+    unit_price_array = items.map { |price| price.unit_price.to_i}
+    average_price = average(unit_price_array.sum, unit_price_array.count)
+    in_dollars = BigDecimal((average_price / 100).round(2), 4)
+    return in_dollars
   end
 
   def average_average_price_per_merchant
-    #add all the average price together and find average
+    array_of_prices = @mr.repository.map do |merchant|
+      average_item_price_per_merchant(merchant.id)
+    end
+    return average(array_of_prices.sum, array_of_prices.count)
   end
 
   def golden_items
-    #find the average price of items(of all items)
-    #find the standard_devation of the price of items
-    #find items more than two standard_devation away higher than average item price
+    list = @ir.repository.map { |item| item.unit_price.to_i}
+    mean = average(list.sum, list.count)
+    std_dev_aappm = standard_devation(list, mean)
+    golden_items = @ir.repository.select do |gi|
+      gi.unit_price.to_i > (mean + (std_dev_aappm * 2))
+    end
+    return golden_items
   end
 
 end
