@@ -30,7 +30,7 @@ RSpec.describe 'Iteration 2' do
       expect(i.id).to eq(6)
       expect(i.customer_id).to eq(7)
       expect(i.merchant_id).to eq(8)
-      expect(i.status).to eq('pending')
+      expect(i.status).to eq(:pending)
       expect(i.created_at).to be_an_instance_of(Time)
       expect(i.updated_at).to be_an_instance_of(Time)
     end
