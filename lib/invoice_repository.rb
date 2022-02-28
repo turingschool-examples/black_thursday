@@ -28,7 +28,7 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    @invoices.sort_by { |_invoice| item.id }
+    @invoices.sort_by { |invoice| invoice.id }
     last_id = @invoices.last.id
     attributes[:id] = (last_id += 1)
     @invoices << Invoice.new(attributes)
