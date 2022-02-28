@@ -114,11 +114,27 @@ class SalesAnalyst
     @low_invoice_merchants
   end
 
+  def invoices_by_day_of_week
+    invoices_by_day_of_week = {}
+    @invoices.each do |invoice|
+      invoices_by_day_of_week[invoice.created_at.strftime("%A")] = 0 unless invoices_by_day_of_week.has_key?(invoice.created_at.strftime("%A"))
+      !invoices_by_day_of_week[invoice.created_at.strftime("%A")] += 1
+    end
+    invoices_by_day_of_week
+  end
+
+  def std_dev_of_invoices_per_day
+    average_invoice_per_day = (@invoices.count / 7).to_f
+    total_square_diff = 0
+    invoices_by_day_of_week.each do |day, count|
+      total_square_diff += ((count - average_invoice_per_day) ** 2)
+    end
+    Math.sqrt(total_square_diff.to_f / 6).round(2)
+  end
+
   def top_days_by_invoice_count
-    average_invoice_per_day = @invoices.count / 7
-
-
-
-
-
+    average_invoice_per_day = (@invoices.count / 7).to_f
+    top_days = invoices_by_day_of_week.find_all { |day, count| count > (average_invoice_per_day + std_dev_of_invoices_per_day) }
+    top_days.flatten.find_all { |item| item.class == String }
+  end
 end
