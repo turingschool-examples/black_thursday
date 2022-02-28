@@ -6,8 +6,7 @@ require "sales_analyst"
 require "pry"
 
 class SalesEngine
-  attr_reader :merchants_instances_array, :items_instances_array, :invoices_instances_array, :analyst
-
+  attr_reader :merchants_instances_array, :items_instances_array, :invoices_instances_array
   def initialize(data)
     @items_data = data[:items]
     @merchants_data = data[:merchants]

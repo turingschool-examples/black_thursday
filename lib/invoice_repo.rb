@@ -1,18 +1,24 @@
 require 'pry'
 
 class InvoiceRepository
-  attr_reader :invoices_instances_array
-  def initialize(invoices_instances_array)
-    @invoices_instances_array = invoices_instances_array
+  attr_reader :invoice_instance_array
+  def initialize(invoice_instance_array)
+    @invoice_instance_array = invoice_instance_array
   end
 
   def all
-    invoices_instances_array
+    invoice_instance_array
   end
 
   def find_by_id(id)
-    invoices_instances_array.find do |invoice_instance|
+    invoice_instance_array.find do |invoice_instance|
       invoice_instance.invoice_attributes[:id] == id
+    end
+  end
+
+  def find_all_by_customer_id(id)
+    invoice_instance_array.find_all do |invoice_instance|
+      invoice_instance.invoice_attributes[:customer_id] == id
     end
   end
 end

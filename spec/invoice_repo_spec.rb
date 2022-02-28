@@ -5,22 +5,37 @@ require "./lib/invoice"
 require "pry"
 
 RSpec.describe InvoiceRepository do
-  se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
-  invoice = se.invoices.find_by_id(3452)
-  inv_r = InvoiceRepository.new(se.invoices_instanciator)
+  se = SalesEngine.from_csv({
+    items: "./data/items.csv",
+    merchants: "./data/merchants.csv",
+    invoices: "./data/invoices.csv"
+  })
 
-  it "is an instance of InvoiceRepository" do
-    expect(inv_r).to be_an_instance_of(InvoiceRepository)
+  invr = InvoiceRepository.new(se.invoices_instanciator)
+
+  it 'exists' do
+    expect(invr).to be_an_instance_of(InvoiceRepository)
   end
 
-  it "can return an array of all invoice instances" do
-    expect(inv_r.all.length).to eq 4985
+  it 'returns invoice_instance_array when #all is called' do
+    expect(invr.all).to eq(se.invoices_instances_array)
   end
 
-  it "can find an invoice by id" do
-    test_id = 3452
-    expected_invoice = inv_r.find_by_id(test_id)
-    expect(expected_invoice.invoice_attributes[:id]).to eq test_id
-    # need merchant_id, customer_id, status
+  it 'can find an invoice by id using #find_by_id' do
+    expect(invr.find_by_id(6)).to eq(invr.invoice_instance_array[5])
   end
+
+  it 'can find all invoices by customer id' do
+    expect(invr.find_all_by_customer_id(1)).to eq(
+      [invr.invoice_instance_array[0],
+      invr.invoice_instance_array[1], 
+      invr.invoice_instance_array[2],
+      invr.invoice_instance_array[3],
+      invr.invoice_instance_array[4],
+      invr.invoice_instance_array[5],
+      invr.invoice_instance_array[6],
+      invr.invoice_instance_array[7]]
+    )
+  end
+
 end

@@ -29,12 +29,12 @@ RSpec.describe SalesAnalyst do
     let(:sa) { se.analyst }
       # SalesAnalyst.new
 
-    it "exists" do
+    xit "exists" do
 
       expect(sa).to be_an_instance_of(SalesAnalyst)
     end
 
-    it "#average_items_per_merchant gives average number of items per merchant" do
+    xit "#average_items_per_merchant gives average number of items per merchant" do
 
       expect(sa.average_items_per_merchant).to eq 2.88
     end
