@@ -7,6 +7,7 @@ require_relative 'item'
 require_relative 'merchant'
 # require_relative 'invoice'
 # require_relative 'sales_analyst'
+require 'pry'
 
 class SalesEngine
   attr_reader :data
@@ -23,7 +24,7 @@ class SalesEngine
     @merchants ||= MerchantRepository.new(data[:merchants])
   end
 
-  def ItemRepository
+  def items
     @items ||= ItemRepository.new(data[:items])
   end
 end

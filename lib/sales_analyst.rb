@@ -66,9 +66,9 @@ class SalesAnalyst
     average = average_average_price_per_merchant
     total_square_diff = 0
     @items.each do |item|
-      total_square_diff += ((item.unit_price.to_i - average) ** 2)
+      total_square_diff += ((item.unit_price.to_i - average)**2)
     end
     std_dev = Math.sqrt(total_square_diff / (@items.count - 1))
-    @items.find_all { |item| item.unit_price.to_i > (average + (std_dev * 2))}
+    @items.find_all { |item| item.unit_price.to_i > (average + (std_dev * 2)) }
   end
 end

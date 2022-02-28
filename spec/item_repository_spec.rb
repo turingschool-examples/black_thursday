@@ -6,11 +6,7 @@ require 'bigdecimal'
 
 RSpec.describe ItemRepository do
   before(:each) do
-    @se = SalesEngine.from_csv({
-                                 items: './data/items.csv',
-                                 merchants: './data/merchants.csv',
-                                 invoices: './data/invoices.csv'
-                               })
+    @se = SalesEngine.from_csv({ items: './data/items.csv' })
   end
 
   it 'exists' do
