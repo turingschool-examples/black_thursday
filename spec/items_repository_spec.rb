@@ -1,6 +1,7 @@
 require 'rspec'
 require 'bigdecimal'
 require './lib/items_repository'
+require 'pry'
 
 describe ItemsRepository do
   before(:each) do
@@ -18,13 +19,13 @@ describe ItemsRepository do
   it 'can find an item by the id' do
     item = @ir.find_by_id("263395237")
     expect(item.name).to eq("510+ RealPush Icon Set")
-    expect(item.unit_price).to eq("1200")
+    expect(item.unit_price).to eq(1200)
   end
 
   it 'can find an item by the name' do
     item = @ir.find_by_name("510+ RealPush Icon Set")
     expect(item.sample.id).to eq("263395237")
-    expect(item.sample.unit_price).to eq("1200")
+    expect(item.sample.unit_price).to eq(1200)
   end
 
   it 'can find all items with specific description' do
@@ -34,7 +35,7 @@ describe ItemsRepository do
   end
 
   it 'can find all items with specific price' do
-    item = @ir.find_all_by_price("50000")
+    item = @ir.find_all_by_price(50000)
     expect(item.count).to eq(11)
   end
 
