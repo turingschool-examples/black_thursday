@@ -8,6 +8,8 @@ class CustomerRepository
   def find_all_by_last_name(last_name)
     @all.find_all{|index| index.last_name == last_name}
   end
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
 
-
-end 
+end

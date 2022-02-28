@@ -7,7 +7,7 @@ attr_accessor :all
   end
 #inspect method is required for spec harness to run
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_all_by_description(search)
