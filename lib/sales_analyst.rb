@@ -34,8 +34,8 @@ class SalesAnalyst
     number_of_items = @id_counter[merchant_id]
     items = data.items_array.find_all{|index| index.merchant_id == merchant_id}
     total_cost = 0.0
-    items.each {|index| total_cost += index.unit_price.to_f}
-    return BigDecimal(total_cost.to_f/number_of_items.to_f,4)
+    items.each {|index| total_cost += index.unit_price}
+    return (total_cost./(100 * number_of_items)).round(2)
   end
 
   def average_item_price_per_merchant
@@ -43,7 +43,7 @@ class SalesAnalyst
     id_counter_fixed = @id_counter
     sum_of_all_averages = 0.0
     id_counter_fixed.keys.each {|index| sum_of_all_averages += average_item_price_for_merchant(index)}
-    sum_of_all_averages / data.merchants_array.length.to_f
+    (sum_of_all_averages / data.merchants_array.length).round(2)
   end
 
   def golden_items
