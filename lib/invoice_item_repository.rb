@@ -9,4 +9,8 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_id)
     @all.find_all { |item| item.invoice_id == invoice_id}
   end
+  #inspect method is required for spec harness to run
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
