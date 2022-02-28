@@ -22,7 +22,7 @@ RSpec.describe InvoiceItem do
     end
 
     it 'has attributes' do
-      expect(@ii.id).to eq(1)
+      expect(@ii.id).to eq(6)
       expect(@ii.item_id).to eq(7)
       expect(@ii.invoice_id).to eq(8)
       expect(@ii.quantity).to eq(1)
