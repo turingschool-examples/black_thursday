@@ -22,26 +22,26 @@ class ItemsRepository
     group
   end #initialize end
 
-  def find_by_name(name)
-    @repository.find do |item|
-      item.name == name
-    end
-  end
-
   def group
+    @ids = @repository.group_by{|item| item.id}
+    @names = @repository.group_by{|item| item.name}
+    @descriptions = @repository.group_by {|item| item.description.downcase}
+    @unit_prices = @repository.group_by {|item| item.unit_price}
     @merchant_ids = @repository.group_by {|item| item.merchant_id}
   end
 
+  def find_by_name(name)
+    find(@names, name)
+  end
+
   def find_all_with_description(description)
-    @repository.find_all do |item|
+      @repository.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end
   end
 
   def find_all_by_price(price)
-    @repository.find_all do |item|
-      item.unit_price == price
-    end
+    find(@unit_prices, price)
   end
 
   def find_all_by_price_in_range(range_start, range_end)
@@ -51,13 +51,18 @@ class ItemsRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @repository.find_all do |item|
-      item.merchant_id ==  merchant_id
-    end
+    find(@merchant_ids, merchant_id)
   end
 
   def create(attributes)
-    item = Item.new({id: new_id.to_s, name: attributes[:name], description: attributes[:description], unit_price: attributes[:unit_price], created_at: Time.now, updated_at: Time.now, merchant_id: attributes[:merchant_id]})
+    item = Item.new({
+      id: new_id.to_s,
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price],
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: attributes[:merchant_id]})
     @repository << item
     item
   end
@@ -69,5 +74,4 @@ class ItemsRepository
     item.unit_price = attributes[:unit_price]
     item.updated_at = Time.now
   end
-
 end

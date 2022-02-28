@@ -10,9 +10,8 @@ module RepositoryAide
   end
 
   def find(search_repo, match)
-    search_repo.select do |keys, info|
-      keys == match
-    end
+    # require 'pry'; binding.pry
+    search_repo[match]
   end
 
   def find_by_id(id)

@@ -29,23 +29,14 @@ class InvoiceRepository
 
   def find_all_by_customer_id(id)
     find(@customer_ids, id)
-    # @repository.select do |invoice|
-    #   invoice.customer_id == id
-    # end
   end
 
   def find_all_by_merchant_id(id)
     find(@merchant_ids, id)
-    # @repository.select do |invoice|
-    #   invoice.merchant_id == id
-    # end
   end
 
   def find_all_by_status(status)
     find(@invoice_status, status)
-    # @repository.select do |invoice|
-    #   invoice.status == status
-    # end
   end
 
   def create(attributes)

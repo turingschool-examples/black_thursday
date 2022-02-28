@@ -40,7 +40,7 @@ describe TransactionRepository do
       expect(transaction.sample.credit_card_number).to eq("4349426879923290")
 
       transaction = @tr.find_all_by_credit_card_number("9898989898989898")
-      expect(transaction).to eq([])
+      expect(transaction).to eq(nil)
     end
   end
 

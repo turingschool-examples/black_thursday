@@ -17,10 +17,10 @@ class InvoiceItemsRepository
                     :created_at => invoice_item[:created_at],
                     :updated_at => invoice_item[:updated_at]})
                                   end
-    group
+    group_hash
   end
 
-  def group
+  def group_hash
     @ids = @repository.group_by {|invoice_item| invoice_item.id}
     @item_ids = @repository.group_by {|invoice_item| invoice_item.item_id}
     @invoice_ids = @repository.group_by {|invoice_item| invoice_item.invoice_id}
@@ -28,17 +28,10 @@ class InvoiceItemsRepository
 
   def find_all_by_item_id(item_id)
     find(@item_ids, item_id)
-    # require 'pry'; binding.pry
-    # @repository.find_all do |invoice_item|
-    #   invoice_item.item_id == item_id
-    # end
   end
 
   def find_all_by_invoice_id(invoice_id)
     find(@invoice_ids, invoice_id)
-    # @repository.find_all do |invoice_item|
-    #   invoice_item.invoice_id == invoice_id
-    # end
   end
 
   def create(attributes)
