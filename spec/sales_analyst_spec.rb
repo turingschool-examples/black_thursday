@@ -82,4 +82,12 @@ RSpec.describe ItemRepository do
     expect(expected.length).to eq 4
     expect(expected.first.class).to eq Merchant
   end
+
+  it "#top_days_by_invoice_count returns days with an invoice count more than one standard deviation above the mean" do
+    expected = @sa.top_days_by_invoice_count
+
+    expect(expected.length).to eq 1
+    expect(expected.first).to eq "Wednesday"
+    expect(expected.first.class).to eq String
+  end
 end
