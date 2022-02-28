@@ -127,4 +127,12 @@ attr_reader :item_num, :items, :merchants
     [invoice_per_wdays.max_by{|k,v| v}[0]]
   end
 
+
+  def invoice_status(status)
+    invoice_status = Hash.new(0)
+    @invoices.all.each do |invoice|
+      invoice_status[invoice.status] +=1
+    end
+    ((invoice_status[status].to_f / @invoices.all.count) * 100).round(2)
+  end
 end

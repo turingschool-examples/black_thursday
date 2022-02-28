@@ -75,5 +75,10 @@ context 'iteration 1' do
       it 'returns top days by invoice count' do
         expect(@analyst.top_days_by_invoice_count).to eq ["Wednesday"]
       end
+
+      it 'returns a percentation of an invoice status' do
+        pending_percentage = @analyst.invoice_status(:pending)
+        expect(pending_percentage).to eq 29.55
+      end
     end
   end
