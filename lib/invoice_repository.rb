@@ -33,4 +33,14 @@ class InvoiceRepository
     attributes[:id] = (last_id += 1)
     @invoices << Invoice.new(attributes)
   end
+
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    attributes.map do |key, value|
+      invoice.customer_id = value if key == :customer_id
+      invoice.merchant_id = value if key == :merchant_id
+      invoice.status = value if key == :status
+      invoice.updated_at = Time.now
+    end
+  end
 end
