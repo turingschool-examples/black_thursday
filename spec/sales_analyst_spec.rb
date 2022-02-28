@@ -71,5 +71,9 @@ context 'iteration 1' do
         expect(merchants_with_low_invoice_count.length).to eq 4
         expect(merchants_with_low_invoice_count.first.class).to eq Merchant
       end
+
+      it 'returns top days by invoice count' do
+        expect(@analyst.top_days_by_invoice_count).to eq ["Wednesday"]
+      end
+    end
   end
-end

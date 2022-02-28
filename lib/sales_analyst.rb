@@ -1,6 +1,8 @@
 require_relative 'merchant_repository'
 require_relative 'sales_engine'
 require_relative 'item_repository'
+require 'time'
+require 'date'
 require 'pry'
 
 class SalesAnalyst
@@ -115,6 +117,14 @@ attr_reader :item_num, :items, :merchants
         end
       end
       merchant_with_low_invoice_count
+  end
+
+  def top_days_by_invoice_count
+    invoice_per_wdays = Hash.new(0)
+    @invoices.all.each do |invoice|
+      invoice_per_wdays[invoice.created_at.strftime("%A")] +=1
+    end
+    [invoice_per_wdays.max_by{|k,v| v}[0]]
   end
 
 end
