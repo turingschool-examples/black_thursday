@@ -37,17 +37,18 @@ describe InvoiceRepository do
   describe '#find_all_by_customer_id' do
     it 'can find all invoices by one customer' do
       customer_invoices = @ir.find_all_by_customer_id("9")
-      expect(customer_invoices.class).to eq(Array)
+      expect(customer_invoices.keys).to eq(["9"])
+      expect(customer_invoices.values.class).to eq(Array)
     end
   end
 
   describe '#find_all_by_merchant_id' do
     it 'can find all invoices by one merchant' do
       merchant_invoices = @ir.find_all_by_merchant_id("12334389")
-      expect(merchant_invoices.class).to eq(Array)
+      expect(merchant_invoices.values.class).to eq(Array)
 
       merchant_invoices = @ir.find_all_by_merchant_id("234568")
-      expect(merchant_invoices).to eq([])
+      expect(merchant_invoices.values).to eq([])
     end
   end
 
@@ -55,9 +56,9 @@ describe InvoiceRepository do
     it 'can find all invoices with a specific status' do
       pending = @ir.find_all_by_status("pending")
       5.times do
-        expect(pending.sample.status).to eq("pending")
+        expect(pending.values.flatten.sample.status).to eq("pending")
       end
-      expect(pending.class).to eq(Array)
+      expect(pending.keys.class).to eq(Array)
     end
   end
 
