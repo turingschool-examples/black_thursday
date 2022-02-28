@@ -1,5 +1,4 @@
 module Crudable
-
   # helper method for create
   def highest_id
     last_id = @all.map do |one|
