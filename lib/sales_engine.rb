@@ -1,9 +1,9 @@
 # sales_engine
 require 'CSV'
-# require_relative 'item_repository'
+require_relative 'item_repository'
 require_relative 'merchant_repository'
 # require_relative 'invoice_repository'
-# require_relative 'item'
+require_relative 'item'
 require_relative 'merchant'
 # require_relative 'invoice'
 # require_relative 'sales_analyst'
@@ -21,6 +21,10 @@ class SalesEngine
 
   def merchants
     @merchants ||= MerchantRepository.new(data[:merchants])
+  end
+
+  def ItemRepository
+    @items ||= ItemRepository.new(data[:items])
   end
 end
 # def initialize(items_, merchants_, invoices_)
