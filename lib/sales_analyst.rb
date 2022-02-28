@@ -19,7 +19,7 @@ class Analyst
 
   def average_items_per_merchant_standard_deviation
     merchant_item_numbers = @ir.merchant_ids.values.map { |list| list.count }
-    @stn_dev_ipm = standard_devation(merchant_item_numbers, average_items_per_merchant)
+    stn_dev = standard_devation(merchant_item_numbers, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count
@@ -31,9 +31,9 @@ class Analyst
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
     unit_price_array = items.map { |price| price.unit_price}
-    # binding.pry
     average_price = average(unit_price_array.sum, unit_price_array.count)
     in_dollars = (average_price / 100).round(2)
+    # binding.pry
   end
 
   def average_average_price_per_merchant
@@ -58,7 +58,8 @@ class Analyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    @in.merchant_ids.map { |id, invoices| invoices.count}
+    merchant_invoice_list = @in.merchant_ids.map { |id, invoices| invoices.count}
+    std_dev = standard_devation(merchant_invoice_list, average_invoices_per_merchant)
   end
 
 end

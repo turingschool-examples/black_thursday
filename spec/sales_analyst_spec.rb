@@ -38,6 +38,6 @@ describe Analyst do
   end
 
   it "finds the average invoices per merchant standard_devation" do
-    expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.56)
+    expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 end

@@ -5,7 +5,7 @@ require './items_repository'
 module Mathable
 
   def average(sum, count)
-    (sum.to_f / count).round(2)
+    (sum / count).round(2)
   end
 
   def standard_devation(array, mean)

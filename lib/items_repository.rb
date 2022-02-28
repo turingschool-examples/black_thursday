@@ -13,7 +13,7 @@ class ItemsRepository
         id: item_csv[:id],
         name: item_csv[:name],
         description: item_csv[:description],
-        unit_price: BigDecimal(item_csv[:unit_price], significant_numbers(item_csv[:unit_price])) 
+        unit_price: BigDecimal(item_csv[:unit_price], significant_numbers(item_csv[:unit_price])), 
         created_at: item_csv[:created_at],
         updated_at: item_csv[:updated_at],
         merchant_id: item_csv[:merchant_id]
