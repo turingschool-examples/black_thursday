@@ -1,7 +1,3 @@
-require 'csv'
-require 'pry'
-require './merchants_repository'
-require './items_repository'
 module Mathable
 
   def average(sum, count)

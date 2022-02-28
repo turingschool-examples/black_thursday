@@ -65,7 +65,17 @@ class Analyst
   def top_merchants_by_invoice_count
     top_sellers = @in.merchant_ids.select do |id, list|
       list.count > (average_invoices_per_merchant + (average_items_per_merchant_standard_deviation * 2))
-    end.count
+    end
   end
 
+  def bottom_merchants_by_invoice_count
+    bottom_sellers = @in.merchant_ids.select do |id, list|
+      list.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+    end
+  end
+
+  def top_days_by_invoice_count
+  end
+
+  
 end
