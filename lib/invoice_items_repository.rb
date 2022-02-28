@@ -35,13 +35,9 @@ class InvoiceItemsRepository
   end
 
   def create(attributes)
-    InvoiceItems.new({id: new_id.to_s,
-                      item_id: attributes[:item_id],
-                      invoice_id: attributes[:invoice_id],
-                      quantity: attributes[:quantity],
-                      unit_price: attributes[:unit_price],
-                      created_at: attributes[:created_at],
-                      updated_at: attributes[:updated_at]})
+    invoice_item = InvoiceItems.new(create_attribute_hash(attributes))
+    @repository << invoice_item
+    invoice_item
   end
 
   def update(id, attributes)

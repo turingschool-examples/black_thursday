@@ -29,7 +29,7 @@ class MerchantsRepository
   end
 
   def create(attributes)
-    merchant = Merchant.new({id: new_id.to_s, name: attributes})
+    merchant = Merchant.new(create_attribute_hash(attributes))
     @repository << merchant
     merchant
   end
