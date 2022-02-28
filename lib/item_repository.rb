@@ -9,7 +9,7 @@ require 'simplecov'
 SimpleCov.start
 
 # This class takes one argument at initialization, an array of all Item instances. It is intended that the SalesEngine instance will take care of creating this array from its given CSV directory, and pass that array to this instance of ItemRepository at time of creation (when SalesEngine#items(item_object_array) is called)
-class ItemRepository #< SalesEngine
+class ItemRepository # < SalesEngine
   include Findable
   include Crudable
   attr_reader :all, :new_object
