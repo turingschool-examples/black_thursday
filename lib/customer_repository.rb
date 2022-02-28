@@ -1,4 +1,6 @@
+require_relative "module"
 class CustomerRepository
+  include IDManager
   def initialize(info)
     @all = info
   end
