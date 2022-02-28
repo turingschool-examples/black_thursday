@@ -16,10 +16,4 @@ class MerchantRepository
       one.name.downcase.include?(name.downcase)
     end
   end
-
-  # def update(id, attributes)
-  #   new_name = self.find_by_id(id)
-  #   new_name.name = attributes[:name]
-  #   return new_name
-  # end
 end

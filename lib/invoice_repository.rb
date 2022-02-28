@@ -33,14 +33,14 @@ class InvoiceRepository
   #   @all << new_invoice
   # end
 
-  def update (id_integer, status_symbol)
-    target_invoice = find_by_id(id_integer)
-    target_invoice.status = status_symbol
-    target_invoice.updated_at = Time.now.getutc.to_s
-  end
-
-  def delete (id_integer)
-    target_index = @all.rindex{ |invoice| invoice.id == id_integer}
-    @all.delete_at(target_index)
-  end
+  # def update (id_integer, status_symbol)
+  #   target_invoice = find_by_id(id_integer)
+  #   target_invoice.status = status_symbol
+  #   target_invoice.updated_at = Time.now.getutc.to_s
+  # end
+  #
+  # def delete (id_integer)
+  #   target_index = @all.rindex{ |invoice| invoice.id == id_integer}
+  #   @all.delete_at(target_index)
+  # end
 end
