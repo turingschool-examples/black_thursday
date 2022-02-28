@@ -1,5 +1,9 @@
 require 'simplecov'
 SimpleCov.start
-require './spec/merchant_spec'
-require './spec/item_spec'
-require './spec/merchant_repository_spec'
+
+require_relative 'merchant_spec'
+require_relative 'item_spec'
+require_relative 'merchant_repository_spec'
+require_relative 'item_repository_spec'
+require_relative 'sales_engine_spec'
+require_relative 'sales_analyst_spec'

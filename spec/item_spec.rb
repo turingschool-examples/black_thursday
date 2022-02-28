@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative '../lib/item'
 require 'bigdecimal'
 
 RSpec.describe Item do
@@ -16,7 +16,7 @@ RSpec.describe Item do
     expect(i.id).to eq(1)
     expect(i.name).to eq("Pencil")
     expect(i.description).to eq("You can use it to write things")
-    expect(i.unit_price).to eq(BigDecimal(10.99,4))
+    expect(i.unit_price).to eq(BigDecimal(0.1099,4))
     expect(i.created_at).to be_an_instance_of(Time)
     expect(i.updated_at).to be_an_instance_of(Time)
     expect(i.merchant_id).to eq(2)
@@ -33,6 +33,6 @@ RSpec.describe Item do
       :merchant_id => 2
       })
 
-    expect(i.unit_price_to_dollars).to eq(10.99)
+    expect(i.unit_price_to_dollars).to eq(0.11)
   end
 end
