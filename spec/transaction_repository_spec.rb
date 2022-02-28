@@ -32,6 +32,13 @@ describe TransactionRepository do
     end
   end
 
+  describe '#find_all_by_invoice_id' do
+    it 'finds transaction with specific invoice id' do
+      transaction = @tr.find_all_by_invoice_id("3715")
+      expect(transaction[0].id).to eq(5)
+    end
+  end
+
   describe '#find_all_by_credit_card_number' do
     it 'finds all transactions with a specific card number' do
       transaction = @tr.find_all_by_credit_card_number("4349426879923290")
