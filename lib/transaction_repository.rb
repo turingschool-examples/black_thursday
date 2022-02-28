@@ -1,6 +1,6 @@
 require 'pry'
-require './lib/findable'
-require_relative '../lib/crudable'
+require_relative './lib/findable'
+require_relative './crudable'
 
 class TransactionRepository
   include Findable
@@ -10,6 +10,9 @@ class TransactionRepository
   def initialize(array)
     @all = array
     @new_object = Transaction
+  end
+
+  def inspect
   end
 
   def find_all_by_invoice_id(invoice_id)
