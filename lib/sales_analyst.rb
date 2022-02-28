@@ -5,9 +5,10 @@ require 'pry'
 
 class SalesAnalyst
 attr_reader :item_num, :items, :merchants
-  def initialize(merchants, items)
+  def initialize(merchants, items, invoices)
     @merchants = merchants
     @items = items
+    @invoices = invoices
     @item_num = []
     @standard_deviation = 0
   end
@@ -74,4 +75,13 @@ attr_reader :item_num, :items, :merchants
     end
     golden_item_list
   end
+
+  def average_invoices_per_merchant
+    @merchants.all.each do |merchant|
+      @invoice_num << @invoice.find_all_by_merchant_id(merchant.id).length
+    end
+    @average_invoices_per_merchant = (@invoice_num.sum(0.0)/@invoice_num.size).round(2)
+  end
+
+
 end

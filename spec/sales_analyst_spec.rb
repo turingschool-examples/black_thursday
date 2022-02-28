@@ -11,7 +11,7 @@ RSpec.describe SalesAnalyst do
     # binding.pry
   end
 
-
+context 'iteration 1' do
   it 'calculates average items per merchant' do
     average_item = @analyst.average_items_per_merchant
     expect(average_item).to eq 2.88
@@ -45,4 +45,13 @@ RSpec.describe SalesAnalyst do
      expect(golden_items.length).to eq 5
      expect(golden_items.first.class).to eq Item
    end
+
+ end
+
+  context 'iteration 2' do
+    it 'calculates average_invoices_per_merchant' do
+      expect(@analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+
+  end
 end

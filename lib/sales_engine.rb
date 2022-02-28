@@ -23,6 +23,6 @@ attr_reader :merchants, :items, :invoices, :invoice_items
   end
 
   def analyst
-    SalesAnalyst.new(@merchants, @items)
+    SalesAnalyst.new(@merchants, @items, @invoices)
   end
 end
