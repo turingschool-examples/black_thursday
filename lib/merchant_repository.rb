@@ -1,4 +1,3 @@
-#require_relative 'merchant.rb'
 require_relative "module"
 
 class MerchantRepository

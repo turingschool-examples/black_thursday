@@ -2,8 +2,8 @@ require_relative "merchant_repository"
 require_relative 'item_repository'
 require_relative 'item'
 require_relative 'merchant'
+require_relative 'sales_analyst'
 require 'csv'
-require './lib/sales_analyst.rb'
 
 class SalesEngine
   attr_reader :items_array, :merchants_array, :files
