@@ -52,4 +52,12 @@ RSpec.describe InvoiceRepository do
     invr.create(attributes)
     expect(invr.find_by_id(4986).invoice_attributes[:merchant_id]).to eq(8)
   end
+
+  it 'updates existing invoices' do
+    time = invr.find_by_id(4986).invoice_attributes[:updated_at]
+    attributes = {:status => :sold}
+    invr.update(4986, attributes)
+    expect(invr.find_by_id(4986).invoice_attributes[:status]).to eq(:sold)
+    expect(invr.find_by_id(4986).invoice_attributes[:updated_at]).to_not eq(time)
+  end
 end

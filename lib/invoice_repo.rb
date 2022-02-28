@@ -41,4 +41,11 @@ class InvoiceRepository
     attributes[:updated_at] = Time.now
     invoice_instance_array << Invoice.new(attributes)
   end
+
+  def update(id, attributes)
+    attributes.each do |attribute|
+      find_by_id(id).invoice_attributes[attribute[0]] = attribute[1]
+    end
+    find_by_id(id).invoice_attributes[:updated_at] = Time.now
+  end
 end
