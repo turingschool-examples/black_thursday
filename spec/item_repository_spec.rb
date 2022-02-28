@@ -83,6 +83,7 @@ RSpec.describe ItemRepository do
     original_time = @items.find_by_id(263395237).updated_at
     attribute = {unit_price: BigDecimal(179.99, 5), description: "Description"}
     expected = @items.update(263395237, attribute)
+    binding.pry
     expect(expected.unit_price).to eq(179.99)
     expect(expected.description).to eq("Description")
     expect(expected.name).to eq("510+ RealPush Icon Set")
