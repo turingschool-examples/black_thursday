@@ -11,6 +11,6 @@ class InvoiceItemRepository
   end
   #inspect method is required for spec harness to run
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 end
