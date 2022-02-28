@@ -84,5 +84,13 @@ attr_reader :item_num, :items, :merchants
     @average_invoices_per_merchant = (@invoice_num.sum(0.0)/@invoice_num.size).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    average_invoices_per_merchant
+    invoice_num_diff_sqr = []
+    @invoice_num.each do |num|
+      invoice_num_diff_sqr << (num - @average_invoices_per_merchant) ** 2
+    end
+    @standard_deviation = (Math.sqrt(invoice_num_diff_sqr.sum / @invoice_num.size)).round(2)
+  end
 
 end
