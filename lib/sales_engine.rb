@@ -11,6 +11,7 @@ attr_reader :merchants, :items, :invoice_items
     @merchants = MerchantRepository.new(merchants)
     @items = ItemRepository.new(items)
     @invoice_items = InvoiceItemRepository.new(invoice_items)
+    @_items = InvoiceItemRepository.new(invoice_items)
   end
 
   def self.from_csv(input)
