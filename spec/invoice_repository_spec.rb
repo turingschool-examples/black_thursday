@@ -86,6 +86,7 @@ RSpec.describe 'Iteration 2' do
         updated_at: Time.now
       }
       @se.invoices.create(attributes)
+
       expected = @se.invoices.find_by_id(4986)
       expect(expected.merchant_id).to eq 8
     end
@@ -112,29 +113,31 @@ RSpec.describe 'Iteration 2' do
     end
 
     it '#update cannot update id, customer_id, merchant_id, or created_at' do
-      attributes = {
+      @se.invoices.create(
         id: 5000,
         customer_id: 2,
         merchant_id: 3,
         created_at: Time.now
-      }
-      engine.invoices.update(4986, attributes)
-      expected = engine.invoices.find_by_id(5000)
+      )
+
+      @se.invoices.update(4986, attributes)
+      expected = @se.invoices.find_by_id(5000)
       expect(expected).to eq nil
-      expected = engine.invoices.find_by_id(4986)
+      expected = @se.invoices.find_by_id(4986)
       expect(expected.customer_id).not_to eq attributes[:customer_id]
-      expect(expected.customer_id).not_to eq attributes[:merchant_id]
+      expect(expected.merchant_id).not_to eq attributes[:merchant_id]
+      expect(expected.status).not_to eq attributes[:status]
       expect(expected.created_at).not_to eq attributes[:created_at]
     end
 
     it '#delete deletes the specified invoice' do
-      engine.invoices.delete(4986)
-      expected = engine.invoices.find_by_id(4986)
+      @se.invoices.delete(4986)
+      expected = @se.invoices.find_by_id(4986)
       expect(expected).to eq nil
     end
 
     it '#delete on unknown invoice does nothing' do
-      engine.invoices.delete(6000)
+      @se.invoices.delete(6000)
     end
   end
 end

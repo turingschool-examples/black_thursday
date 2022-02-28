@@ -43,4 +43,12 @@ class InvoiceRepository
       invoice.updated_at = Time.now
     end
   end
+
+  def delete(id)
+    @invoices.delete(find_by_id(id))
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
