@@ -3,8 +3,13 @@ require_relative 'item_repository'
 require_relative 'item'
 require_relative 'merchant'
 require_relative 'sales_analyst'
+require_relatice 'invoice'
+require_relative 'invoice_repository'
 require_relative 'invoice_item'
 require_relative 'invoice_item_repository'
+require_relative 'customers'
+require_relative 'customer_repository'
+
 require 'csv'
 
 class SalesEngine
