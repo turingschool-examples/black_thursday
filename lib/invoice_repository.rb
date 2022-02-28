@@ -4,7 +4,7 @@ require './lib/repository_aide'
 
 class InvoiceRepository
   include RepositoryAide
-  attr_reader :repository
+  attr_reader :repository, :merchant_ids
 
   def initialize(file)
     @repository = read_csv(file).map do |invoice|

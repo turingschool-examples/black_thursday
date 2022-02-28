@@ -21,14 +21,23 @@ describe Analyst do
 
   it "finds average item price per merchant" do
     expect(@sales_analyst.average_item_price_per_merchant("12334185")).to eq(10.78)
-    # expect(@sales_analyst.average_item_price_per_merchant("12334185")).to be_a(BigDecimal)
+    expect(@sales_analyst.average_item_price_per_merchant("12334185")).to be_a(BigDecimal)
   end
 
   it "finds average_average_price_per_merchant" do
     expect(@sales_analyst.average_average_price_per_merchant).to eq(350.29)
+    expect(@sales_analyst.average_average_price_per_merchant).to be_a(BigDecimal)
   end
 
   it "finds the golden iems" do
     expect(@sales_analyst.golden_items.count).to eq(5)
+  end
+
+  it "finds the average_invoices_per_merchant" do
+    expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+  end
+
+  it "finds the average invoices per merchant standard_devation" do
+    expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.56)
   end
 end

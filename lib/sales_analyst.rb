@@ -1,8 +1,8 @@
 require './mathable'
 require './merchants_repository'
 require './items_repository'
+require './invoice_repository'
 require 'pry'
-# require 'bigdecimal'
 
 class Analyst
   include Mathable
@@ -10,10 +10,11 @@ class Analyst
   def initialize
     @mr = MerchantsRepository.new("./data/merchants.csv")
     @ir = ItemsRepository.new("./data/items.csv")
+    @in = InvoiceRepository.new("./data/invoices.csv")
   end
 
   def average_items_per_merchant
-    average(@ir.repository.count, @mr.repository.count)
+    average(@ir.repository.count.to_f, @mr.repository.count)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -30,9 +31,9 @@ class Analyst
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
     unit_price_array = items.map { |price| price.unit_price.to_i}
+    # binding.pry
     average_price = average(unit_price_array.sum, unit_price_array.count)
     in_dollars = (average_price / 100).round(2)
-    return in_dollars
   end
 
   def average_average_price_per_merchant
@@ -50,7 +51,14 @@ class Analyst
     golden_items = @ir.repository.select do |gi|
       gi.unit_price.to_i > (mean + (std_dev * 2))
     end
-    return golden_items
+  end
+
+  def average_invoices_per_merchant
+    average(@in.repository.count.to_f, @mr.repository.count)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    @in.merchant_ids.map { |id, invoices| invoices.count}
   end
 
 end
