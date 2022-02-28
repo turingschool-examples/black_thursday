@@ -34,7 +34,7 @@ module RepositoryAide
     attribute_hash[:id] = new_id
     attribute_hash[:created_at] = Time.new
     attribute_hash[:updated_at] = Time.new
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     attribute_hash
   end
 
