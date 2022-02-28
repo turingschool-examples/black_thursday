@@ -1,10 +1,11 @@
 class Item
+  attr_accessor :name,
+                :description,
+                :unit_price,
+                :updated_at
+
   attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
               :created_at,
-              :updated_at,
               :merchant_id
 
   def initialize(info_hash)
@@ -21,10 +22,10 @@ class Item
     unit_price.to_f.round(2)
   end
 
-  def update(updated_info_hash)
-    @name = updated_info_hash[:name] if updated_info_hash[:name]
-    @description = updated_info_hash[:description] if updated_info_hash[:description]
-    @unit_price = BigDecimal(updated_info_hash[:unit_price])  if updated_info_hash[:unit_price]
-    @updated_at = Time.now.getutc
-  end
+  # def update(updated_info_hash)
+  #   @name = updated_info_hash[:name] if updated_info_hash[:name]
+  #   @description = updated_info_hash[:description] if updated_info_hash[:description]
+  #   @unit_price = BigDecimal(updated_info_hash[:unit_price])  if updated_info_hash[:unit_price]
+  #   @updated_at = Time.now.getutc
+  # end
 end
