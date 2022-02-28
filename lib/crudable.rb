@@ -18,7 +18,7 @@ module Crudable
     attributes.each do |k, v|
       find_by_id(id).instance_variable_set(k.to_s.insert(0, '@').to_sym, v)
     end
-    find_by_id(id).updated_at = Time.now
+    # find_by_id(id).updated_at = Time.now
   end
 
   def delete(id)
