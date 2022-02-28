@@ -21,7 +21,7 @@ class SalesEngine
     @invoice_array = []
     @invoice_items_array = []
     @customer_array = []
-    @transaciton_array = []
+    @transaction_array = []
     @files = files
   end
   def self.from_csv(files)
