@@ -4,11 +4,12 @@ require 'bigdecimal/util'
 require 'date'
 
 class SalesAnalyst
-  attr_reader :merchants, :items, :invoices, :inv_per_day
-  def initialize(merchants, items, invoices)
+  attr_reader :merchants, :items, :invoices, :customers, :inv_per_day
+  def initialize(merchants, items, invoices, customers)
     @merchants = merchants
     @items = items
     @invoices = invoices
+    @customers = customers
     @@inv_per_day = []
   end
 
@@ -35,7 +36,7 @@ class SalesAnalyst
     math_arr = []
 
     all_items_by_merchant.each { |sub_arr| math_arr << (sub_arr.length - mean) ** 2 }
-    Math.sqrt((math_arr.sum)/474).round(2)
+    Math.sqrt((math_arr.sum)/(all_items_by_merchant.length - 1)).round(2)
   end
 
   def merchants_with_high_item_count
@@ -109,7 +110,7 @@ class SalesAnalyst
     math_arr = []
 
     all_invoices_by_merchant.each { |sub_arr| math_arr << (sub_arr.length - mean) ** 2 }
-    Math.sqrt((math_arr.sum(0.0))/(all_invoices_by_merchant.length)).round(2)
+    Math.sqrt((math_arr.sum(0.0))/(all_invoices_by_merchant.length - 1)).round(2)
   end
 
   def top_merchants_by_invoice_count
