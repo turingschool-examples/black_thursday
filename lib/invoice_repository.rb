@@ -3,8 +3,15 @@ require 'pry'
 class InvoiceRepository
   attr_reader :invoices
 
-  def initialize(invoices)
-    @invoices = invoices
+  def initialize(file)
+    @invoices = []
+    open_items(file)
+  end
+
+  def open_items(file)
+    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      @invoices << Invoice.new(row)
+    end
   end
 
   def all
@@ -37,10 +44,10 @@ class InvoiceRepository
   def update(id, attributes)
     invoice = find_by_id(id)
     attributes.map do |key, value|
-      invoice.customer_id = value if key == :customer_id
-      invoice.merchant_id = value if key == :merchant_id
-      invoice.status = value if key == :status
-      invoice.updated_at = Time.now
+      if key == :status
+        invoice.status = value
+        invoice.updated_at = Time.now
+      end
     end
   end
 
