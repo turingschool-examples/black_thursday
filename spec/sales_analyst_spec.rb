@@ -61,4 +61,11 @@ RSpec.describe ItemRepository do
     expect(expected).to eq 10.49
     expect(expected.class).to eq Float
   end
+
+  it "#average_invoices_per_merchant_standard_deviation returns the standard deviation" do
+    expected = sales_analyst.average_invoices_per_merchant_standard_deviation
+
+    expect(expected).to eq 3.29
+    expect(expected.class).to eq Float
+  end
 end
