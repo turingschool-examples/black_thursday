@@ -6,10 +6,7 @@ require_relative '../lib/invoice_item'
 
 RSpec.describe InvoiceItemRepository do
   before(:each) do
-    se = SalesEngine.from_csv({ :items=> "./data/items.csv",
-                                :merchants => "./data/merchants.csv",
-                                :invoice_items => "./data/invoice_items.csv"})
-
+    se = SalesEngine.from_csv({customers: "./data/customers.csv", invoice_items: "./data/invoice_items.csv", invoices: "./data/invoices.csv", items: "./data/items.csv", merchants: "./data/merchants.csv", transactions: "./data/transactions.csv"})
     @invoice_items = se.invoice_items
   end
 
