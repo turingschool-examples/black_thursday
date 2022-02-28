@@ -1,5 +1,6 @@
 class Customer
-  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
+  attr_reader :id, :created_at, :updated_at
+  attr_accesor :first_name, :last_name 
   def initialize(info)
     @id  =info[:id]
     @first_name  = info[:first_name]
