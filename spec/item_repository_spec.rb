@@ -8,7 +8,8 @@ RSpec.describe ItemRepository do
   before(:each) do
     @se = SalesEngine.from_csv({
                                  items: './data/items.csv',
-                                 merchants: './data/merchants.csv'
+                                 merchants: './data/merchants.csv',
+                                 invoices: './data/invoices.csv'
                                })
   end
 

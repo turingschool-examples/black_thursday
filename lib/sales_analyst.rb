@@ -6,9 +6,10 @@ require_relative 'item_repository'
 class SalesAnalyst
   attr_reader
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
+    @invoices = invoices
     @items_per_merchant = {}
   end
 
