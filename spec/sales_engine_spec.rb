@@ -21,6 +21,10 @@ RSpec.describe SalesEngine do
     it "adds info from CSV files" do
       se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
+        :invoices     => "./data/invoices.csv",
+        :invoice_items     => "./data/invoice_items.csv",
+        :customers     => "./data/customers.csv",
+        :transactions     => "./data/transactions.csv",
         :merchants => "./data/merchants.csv",})
       expect(se.items_array).to_not be([])
       expect(se.merchants_array).to_not be([])
