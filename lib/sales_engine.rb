@@ -46,14 +46,5 @@ class SalesEngine
     SalesAnalyst.new(@items.all, @merchants.all, @invoices.all)
   end
 
-  # def assign_items_to_merchant
-  #   @merchants.each do |merchant|
-  #     merchant_items = []
-  #     @items.each do |item|
-  #       merchant_items << item if merchant.id == item.merchant_id
-  #     end
-  #     @merchant_items[:merch_items]=merchant_items
-  #     # require "pry"; binding.pry
-  #   end
-  # end
+
 end

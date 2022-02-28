@@ -4,7 +4,7 @@ require_relative 'sales_engine'
 require_relative 'item_repository'
 
 class SalesAnalyst
-  attr_reader
+  attr_reader :items, :merchants, :invoices
 
   def initialize(items, merchants, invoices)
     @items = items
@@ -71,4 +71,10 @@ class SalesAnalyst
     std_dev = Math.sqrt(total_square_diff / (@items.count - 1))
     @items.find_all { |item| item.unit_price.to_i > (average + (std_dev * 2))}
   end
+
+  def average_invoices_per_merchant
+    (@invoices.count.to_f / @merchants.count.to_f).round(2)
+  end
+
+  
 end

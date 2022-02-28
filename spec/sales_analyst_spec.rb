@@ -55,5 +55,10 @@ RSpec.describe ItemRepository do
     expect(expected.first.class).to eq Item
   end
 
-
+  it "#average_invoices_per_merchant returns average number of invoices per merchant" do
+    # require "pry"; binding.pry
+    expected = @sa.average_invoices_per_merchant
+    expect(expected).to eq 10.49
+    expect(expected.class).to eq Float
+  end
 end
