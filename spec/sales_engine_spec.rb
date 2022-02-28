@@ -10,9 +10,11 @@ RSpec.describe SalesEngine do
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",})
         expect(se).to be_a(SalesEngine)
-    end 
+    end
     it "starts with no items or merchants" do
-      se = SalesEngine.new
+      se = SalesEngine.new({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",})
       expect(se.items_array).to eq([])
       expect(se.merchants_array).to eq([])
     end
@@ -29,8 +31,8 @@ RSpec.describe SalesEngine do
         :merchants => "./data/merchants.csv",})
         mr = se.merchants
         expect(mr).to be_a(MerchantRepository)
-    end 
-    xit "ir to be a repo" do
+    end
+    it "ir to be a repo" do
       se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",})
