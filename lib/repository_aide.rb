@@ -14,9 +14,7 @@ module RepositoryAide
   end
 
   def find_by_id(id)
-    @repository.find do |element|
-      element.id == id
-    end
+    @repository.find {|element| element.id == id}
   end
 
   def new_id
@@ -28,13 +26,10 @@ module RepositoryAide
 
   def create_attribute_hash(attributes)
     attribute_hash = {}
-    attributes.each do |key, value|
-      attribute_hash[key] = value
-    end
+    attributes.each {|key, value| attribute_hash[key] = value}
     attribute_hash[:id] = new_id
     attribute_hash[:created_at] = Time.new
     attribute_hash[:updated_at] = Time.new
-    # require 'pry'; binding.pry
     attribute_hash
   end
 
