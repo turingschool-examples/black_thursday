@@ -2,7 +2,7 @@ require './mathable'
 require './merchants_repository'
 require './items_repository'
 require 'pry'
-require 'bigdecimal'
+# require 'bigdecimal'
 
 class Analyst
   include Mathable
@@ -31,7 +31,7 @@ class Analyst
     items = @ir.find_all_by_merchant_id(merchant_id)
     unit_price_array = items.map { |price| price.unit_price.to_i}
     average_price = average(unit_price_array.sum, unit_price_array.count)
-    in_dollars = BigDecimal((average_price / 100).round(2), 4)
+    in_dollars = (average_price / 100).round(2)
     return in_dollars
   end
 
@@ -39,15 +39,16 @@ class Analyst
     array_of_prices = @mr.repository.map do |merchant|
       average_item_price_per_merchant(merchant.id)
     end
-    return average(array_of_prices.sum, array_of_prices.count)
+    average = average(array_of_prices.sum, array_of_prices.count)
+    return average
   end
 
   def golden_items
     list = @ir.repository.map { |item| item.unit_price.to_i}
     mean = average(list.sum, list.count)
-    std_dev_aappm = standard_devation(list, mean)
+    std_dev = standard_devation(list, mean)
     golden_items = @ir.repository.select do |gi|
-      gi.unit_price.to_i > (mean + (std_dev_aappm * 2))
+      gi.unit_price.to_i > (mean + (std_dev * 2))
     end
     return golden_items
   end
