@@ -6,7 +6,7 @@ require './lib/time_helper'
 class InvoiceRepository
   include RepositoryAide
   include TimeHelper
-  attr_reader :repository, :merchant_ids
+  attr_reader :repository, :merchant_ids, :invoice_status, :day_invoices
 
   def initialize(file)
     @repository = read_csv(file).map do |invoice|
@@ -14,7 +14,7 @@ class InvoiceRepository
             :id => invoice[:id],
             :customer_id => invoice[:customer_id],
             :merchant_id => invoice[:merchant_id],
-            :status => invoice[:status],
+            :status => invoice[:status].to_sym,
             :created_at => create_time(invoice[:created_at]),
             :updated_at => invoice[:updated_at]
             })
@@ -27,6 +27,15 @@ class InvoiceRepository
     @customer_ids = @repository.group_by {|invoice| invoice.customer_id}
     @merchant_ids = @repository.group_by {|invoice| invoice.merchant_id}
     @invoice_status = @repository.group_by {|invoice| invoice.status}
+    @day_invoices = @repository.group_by {|invoice| invoice.created_at.wday}
+  end
+
+  def call_weekdays
+    invoices_by_day = {}
+    @day_invoices.map do |day, invoices|
+      invoices_by_day[week_day(day)] = invoices
+    end
+    invoices_by_day
   end
 
   def find_all_by_customer_id(id)
