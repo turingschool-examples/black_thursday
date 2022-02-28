@@ -5,11 +5,11 @@ require 'pry'
 RSpec.describe 'Iteration 2' do
   context 'Invoices' do
     before(:each) do
-      @se = SalesEngine.from_csv({
-                                   items: './data/items.csv',
-                                   merchants: './data/merchants.csv',
-                                   invoices: './data/invoices.csv'
-                                 })
+      @se = Sales @se.from_csv({
+                                 items: './data/items.csv',
+                                 merchants: './data/merchants.csv',
+                                 invoices: './data/invoices.csv'
+                               })
       @sa = @se.analyst
     end
 
@@ -60,19 +60,32 @@ RSpec.describe 'Iteration 2' do
 
     it '#find_all_by_status returns all invoices associated with given status' do
       status = :shipped
-      expected = engine.invoices.find_all_by_status(status)
+      expected = @se.invoices.find_all_by_status(status)
 
       expect(expected.length).to eq 2839
 
       status = :pending
-      expected = engine.invoices.find_all_by_status(status)
+      expected = @se.invoices.find_all_by_status(status)
 
       expect(expected.length).to eq 1473
 
       status = :sold
-      expected = engine.invoices.find_all_by_status(status)
+      expected = @se.invoices.find_all_by_status(status)
 
       expect(expected).to eq []
+    end
+
+    it '#create creates a new invoice instance' do
+      attributes = {
+        customer_id: 7,
+        merchant_id: 8,
+        status: 'pending',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.invoices.create(attributes)
+      expected = @se.invoices.find_by_id(4986)
+      expect(expected.merchant_id).to eq 8
     end
   end
 end
