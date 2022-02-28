@@ -17,11 +17,13 @@ class CustomerRepository
   def find_all_by_first_name(first_name)
     found = []
     found << @all.find_all{|customer| customer.first_name == first_name}
+    found.flatten
   end
 
   def find_all_by_last_name(last_name)
     found = []
     found << @all.find_all{|customer| customer.last_name == last_name}
+    found.flatten
   end
 
   def create(data)
