@@ -3,10 +3,12 @@ require_relative '../lib/customer.rb'
 
 class CustomerRepository
   include Findable
+  include Crudable
   attr_reader :all
 
   def initialize(customer_array)
     @all = customer_array
+    @new_object = Customer
   end
 
   def find_all_by_first_name(first_name)
@@ -19,6 +21,9 @@ class CustomerRepository
     @all.find_all do |customer|
       customer.last_name.downcase == last_name.downcase
     end
+  end
+
+  def inspect
   end
 
   def create(attributes)
