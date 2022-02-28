@@ -30,7 +30,7 @@ class CustomerRepository
   end
 
   def find_all_by_last_name(last_name)
-    @customers.find_all {|item| item.last_name == last_name}
+    @customers.find_all {|item| item.last_name.downcase.include?(last_name.downcase)}
   end
 
   def create(attributes)
@@ -38,7 +38,7 @@ class CustomerRepository
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
     new_item = Customer.new(attributes)
-    @customers < new_item
+    @customers << new_item
     new_item
   end
 
@@ -47,8 +47,8 @@ class CustomerRepository
     if item_to_update != nil
         attributes.each do |key, value|
           if ![:id, :created_at].include?(key)
-            item_to_update.info[key.to_sym] = value
-            item_to_update.info[:updated_at] = (Time.now + 1).to_s
+            item_to_update.last_name = value
+            item_to_update.updated_at = (Time.now + 1)
           end
         end
     end
