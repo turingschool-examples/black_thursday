@@ -1,15 +1,17 @@
 # Invoice Test spec
-require_relative '../lib/invoice'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/sales_engine'
 require 'pry'
+require 'bigdecimal'
 
 RSpec.describe 'Iteration 2' do
   context 'Invoices' do
     before(:each) do
-      @se = Sales @se.from_csv({
-                                 items: './data/items.csv',
-                                 merchants: './data/merchants.csv',
-                                 invoices: './data/invoices.csv'
-                               })
+      @se = SalesEngine.from_csv({
+                                   items: './data/items.csv',
+                                   merchants: './data/merchants.csv',
+                                   invoices: './data/invoices.csv'
+                                 })
       @sa = @se.analyst
     end
 
@@ -73,19 +75,6 @@ RSpec.describe 'Iteration 2' do
       expected = @se.invoices.find_all_by_status(status)
 
       expect(expected).to eq []
-    end
-
-    it '#create creates a new invoice instance' do
-      attributes = {
-        customer_id: 7,
-        merchant_id: 8,
-        status: 'pending',
-        created_at: Time.now,
-        updated_at: Time.now
-      }
-      @se.invoices.create(attributes)
-      expected = @se.invoices.find_by_id(4986)
-      expect(expected.merchant_id).to eq 8
     end
   end
 end
