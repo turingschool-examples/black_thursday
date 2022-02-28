@@ -8,7 +8,7 @@ require_relative 'sales_analyst'
 
 class SalesEngine
 attr_reader :merchants, :items, :invoices, :invoice_items, :customers
-  def initialize(merchants, items, invoices, invoice_items)
+  def initialize(merchants, items, invoices, invoice_items, customers)
     @merchants = MerchantRepository.new(merchants)
     @items = ItemRepository.new(items)
     @invoices = InvoiceRepository.new(invoices)
