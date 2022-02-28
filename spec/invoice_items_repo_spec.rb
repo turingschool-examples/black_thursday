@@ -30,7 +30,8 @@ describe InvoiceItemsRepository do
     it 'can find all invoice items by the item id' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
       invoice_item = iir.find_all_by_item_id("263520800")
-      expect(invoice_item.count).to eq(15)
+      # require 'pry'; binding.pry
+      expect(invoice_item.values.flatten.count).to eq(15)
     end
   end
 
@@ -38,11 +39,11 @@ describe InvoiceItemsRepository do
     it 'can find all invoice items by the invoice id' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
       invoice_item = iir.find_all_by_invoice_id("1")
-      expect(invoice_item.count).to eq(8)
+      expect(invoice_item.values.flatten.count).to eq(8)
       invoice_item = iir.find_all_by_invoice_id("205")
-      expect(invoice_item.count).to eq(3)
+      expect(invoice_item.values.flatten.count).to eq(3)
       invoice_item = iir.find_all_by_invoice_id("2r5t")
-      expect(invoice_item).to eq([])
+      expect(invoice_item.values).to eq([])
     end
   end
   #
