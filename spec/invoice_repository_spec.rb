@@ -33,5 +33,17 @@ RSpec.describe 'Iteration 2' do
 
       expect(expected).to eq nil
     end
+
+    it '#find_all_by_customer_id returns all invoices associated with given customer' do
+      customer_id = 300
+      expected = @se.invoices.find_all_by_customer_id(customer_id)
+
+      expect(expected.length).to eq 10
+
+      customer_id = 1000
+      expected = @se.invoices.find_all_by_customer_id(customer_id)
+
+      expect(expected).to eq []
+    end
   end
 end
