@@ -1,5 +1,4 @@
 module Findable
-
   def find_by_name(name)
     @all.find do |one|
       one.name.downcase == name.downcase

@@ -2,7 +2,6 @@ require 'pry'
 require './lib/findable'
 require_relative '../lib/crudable'
 
-
 class TransactionRepository
   include Findable
   include Crudable
