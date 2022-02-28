@@ -1,3 +1,5 @@
+require 'pry'
+
 class InvoiceRepository
   attr_reader :invoices_instances_array
   def initialize(invoices_instances_array)
