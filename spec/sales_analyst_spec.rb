@@ -39,5 +39,17 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq("ummmmm i don't know")
   end
 
+  xit 'what is the avg avg price for a merchant' do
+    sales_engine = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.average_average_price_for_merchant).to eq("ummmmm i don't know")
+  end
+
+  xit 'what items are over two st. devs above avg item price' do
+    sales_engine = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.golden_items).to eq("ummmmm i don't know")
+  end
+
 
 end
