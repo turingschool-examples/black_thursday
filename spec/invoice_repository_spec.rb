@@ -139,6 +139,10 @@ RSpec.describe 'Iteration 2' do
       expect(expected.created_at).not_to eq attributes[:created_at]
     end
 
+    it "#update on unknown item does nothing" do
+      @se.items.update(270000000, {})
+    end
+
     it '#delete deletes the specified invoice' do
       @se.invoices.delete(4986)
       expected = @se.invoices.find_by_id(4986)
