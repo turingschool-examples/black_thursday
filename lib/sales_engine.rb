@@ -30,7 +30,7 @@ class SalesEngine
   def items
     item_array = @table_hash[:items].map do |row|
       Item.new({ id: row[:id].to_i, name: row[:name], description: row[:description],
-                 unit_price: BigDecimal(row[:unit_price].to_f / 100, 4), merchant_id: row[:merchant_id].to_i, created_at: row[:created_at], updated_at: row[:updated_at] })
+                 unit_price: BigDecimal(row[:unit_price].to_f / 100, row[:unit_price].length), merchant_id: row[:merchant_id].to_i, created_at: row[:created_at], updated_at: row[:updated_at] })
     end
     if @item_repo == nil
       @item_repo = ItemRepository.new(item_array)
