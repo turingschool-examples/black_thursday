@@ -42,13 +42,6 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    # Invoice.new({:id => new_id.to_s,
-    # :customer_id => attributes[:customer_id],
-    # :merchant_id => attributes[:merchant_id],
-    # :status => attributes[:status],
-    # :created_at => Time.now,
-    # :updated_at => Time.now
-    # })
     invoice = Invoice.new(create_attribute_hash(attributes))
     @repository << invoice
     invoice

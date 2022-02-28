@@ -39,14 +39,6 @@ class TransactionRepository
   end
 
   def create(attributes)
-    # transaction = Transaction.new({
-    #   :id => new_id.to_s,
-    #   :invoice_id => attributes[:invoice_id],
-    #   :credit_card_number => attributes[:credit_card_number],
-    #   :credit_card_expiration_date => attributes[:credit_card_expiration_date],
-    #   :result => attributes[:result],
-    #   :created_at => Time.now,
-    #   :updated_at => Time.now})
     transaction = Transaction.new(create_attribute_hash(attributes))
     @repository << transaction
     transaction
