@@ -7,7 +7,7 @@ require 'pry'
 
     before (:each) do
       # binding.pry
-      se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv", :invoices=> "./data/invoices.csv"})
+    se = SalesEngine.from_csv({customers: "./data/customers.csv", invoice_items: "./data/invoice_items.csv", invoices: "./data/invoices.csv", items: "./data/items.csv", merchants: "./data/merchants.csv", transactions: "./data/transactions.csv"})
       @invoices = se.invoices
     end
 
@@ -39,15 +39,8 @@ require 'pry'
                     updated_at: Time.now
                   }
 
-
-                  expect(@invoices.create(attributes)).to eq(Invoice.new({
-                    customer_id: 999,
-                    merchant_id: 12335541,
-                    status: :shipped,
-                    created_at: Time.now,
-                    updated_at: Time.now,
-                    id: 4986
-                  }))
+      expected = @invoices.create(attributes)
+      expect(@invoices.find_by_id(4986)).to eq(expected)
     end
 
     it 'updates an existing invoice instance such as status, customer_id, and updated_at, and nothing else' do

@@ -6,7 +6,7 @@ require 'pry'
 RSpec.describe MerchantRepository do
 
   before(:each) do
-    se = SalesEngine.from_csv({:items=> "./data/items.csv", :merchants => "./data/merchants.csv", :invoices=> "./data/invoices.csv"})
+    se = SalesEngine.from_csv({customers: "./data/customers.csv", invoice_items: "./data/invoice_items.csv", invoices: "./data/invoices.csv", items: "./data/items.csv", merchants: "./data/merchants.csv", transactions: "./data/transactions.csv"})
 
     @merchants_i =se.merchants
   end
