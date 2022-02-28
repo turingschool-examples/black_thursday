@@ -3,6 +3,7 @@ require './time_helper'
 require './merchants_repository'
 require './items_repository'
 require './invoice_repository'
+require './transaction_repository'
 require 'pry'
 
 class Analyst
@@ -13,6 +14,7 @@ class Analyst
     @mr = MerchantsRepository.new("./data/merchants.csv")
     @ir = ItemsRepository.new("./data/items.csv")
     @in = InvoiceRepository.new("./data/invoices.csv")
+    @tr = TransactionRepository.new("./data/transactions.csv")
   end
 
   def average_items_per_merchant
