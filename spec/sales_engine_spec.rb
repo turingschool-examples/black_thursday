@@ -43,6 +43,6 @@ RSpec.describe SalesEngine do
   it 'customer method returns instance of CustomerRepo... with instances loaded' do
     se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv",
                                 :customers => "./data/customers.csv" })
-    expect(se.customer.class).to eq(CustomerRepository)
+    expect(se.customers.class).to eq(CustomerRepository)
   end
 end
