@@ -29,7 +29,7 @@ RSpec.describe Customer do
   end
 
   it 'can update customer with attributes' do
-    attributes = {first_name: "Burt", last_name: "Reynolds"}
+    attributes = { first_name: "Burt", last_name: "Reynolds" }
 
     intial_update_time = @c.updated_at
     @c.update(attributes)

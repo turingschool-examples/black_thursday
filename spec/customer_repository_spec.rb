@@ -49,7 +49,7 @@ RSpec.describe CustomerRepository do
   end
 
   it 'can create new customer instances' do
-    @cr.create({first_name: "Burt", last_name: "Reynolds", created_at: Time.now, updated_at: Time.now})
+    @cr.create({ first_name: "Burt", last_name: "Reynolds", created_at: Time.now, updated_at: Time.now })
     expect(@cr.all.length).to eq(4)
     expect(@cr.all.last).to be_a(Customer)
     expect(@cr.all.last.id).to eq(4)
@@ -59,14 +59,14 @@ RSpec.describe CustomerRepository do
 
   it 'can update Customer instances with attributes' do
     customer_1 = Customer.new({ id: 1, first_name: 'Carl', last_name: 'Carson', created_at: Time.now,
-                                 updated_at: Time.now })
+                                updated_at: Time.now })
     customer_2 = Customer.new({ id: 2, first_name: 'Becky', last_name: 'Benson', created_at: Time.now,
-                                 updated_at: Time.now })
+                                updated_at: Time.now })
     customer_3 = Customer.new({ id: 3, first_name: 'Pete', last_name:  'Davidson', created_at: Time.now,
-                                 updated_at: Time.now })
-    customer_4 = Customer.new({id: 4, first_name: "Burt", last_name: "Reynolds"})
+                                updated_at: Time.now })
+    customer_4 = Customer.new({ id: 4, first_name: "Burt", last_name: "Reynolds" })
     cr = CustomerRepository.new([@customer_1, @customer_2, @customer_3, @customer_4])
-    cr.update(3, {first_name: "Pete", last_name: "Davidson"})
+    cr.update(3, { first_name: "Pete", last_name: "Davidson" })
     expect(customer_3.id).to eq(3)
     expect(customer_3.first_name).to eq("Pete")
     expect(customer_3.last_name).to eq("Davidson")
@@ -82,7 +82,8 @@ RSpec.describe CustomerRepository do
   end
 
   it 'initializes #from_csv' do
-    se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv", :customers => "./data/customers.csv" })
+    se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv",
+                                :customers => "./data/customers.csv" })
     cr = se.customers
     # expect(cr.find_by_id(24).first_name).to eq("Esteban")
   end
