@@ -39,9 +39,12 @@ class SalesEngine
     end
 
     se = SalesEngine.new(items, merchants, invoices)
+    # assign_items_to_merchant
   end
 
   def analyst
     SalesAnalyst.new(@items.all, @merchants.all, @invoices.all)
   end
+
+
 end

@@ -4,7 +4,7 @@ require_relative 'sales_engine'
 require_relative 'item_repository'
 
 class SalesAnalyst
-  attr_reader
+  attr_reader :items, :merchants, :invoices
 
   def initialize(items, merchants, invoices)
     @items = items
@@ -71,4 +71,54 @@ class SalesAnalyst
     std_dev = Math.sqrt(total_square_diff / (@items.count - 1))
     @items.find_all { |item| item.unit_price.to_i > (average + (std_dev * 2))}
   end
+
+  def average_invoices_per_merchant
+    (@invoices.count.to_f / @merchants.count).round(2)
+  end
+
+  def total_invoices_per_merchant
+    @invoices_per_merchant = {}
+    @invoices.each do |item|
+      @invoices_per_merchant[item.merchant_id] = 0 unless @invoices_per_merchant.has_key?(item.merchant_id)
+      !@invoices_per_merchant[item.merchant_id] += 1
+    end
+    @invoices_per_merchant
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    total_invoices_per_merchant
+    total_square_diff = 0
+    total_invoices_per_merchant.values.map do |item_count|
+      total_square_diff += ((item_count - average_invoices_per_merchant)**2)
+    end
+    Math.sqrt(total_square_diff / (@merchants.count - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    @high_invoice_merchants = []
+    total_invoices_per_merchant.select { |_k, v| v > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)) }.keys.each do |high_id|
+      @merchants.each do |merchant|
+        @high_invoice_merchants << merchant if merchant.id == high_id
+      end
+    end
+    @high_invoice_merchants
+  end
+
+  def bottom_merchants_by_invoice_count
+    @low_invoice_merchants = []
+    total_invoices_per_merchant.select { |_k, v| v < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)) }.keys.each do |high_id|
+      @merchants.each do |merchant|
+        @low_invoice_merchants << merchant if merchant.id == high_id
+      end
+    end
+    @low_invoice_merchants
+  end
+
+  def top_days_by_invoice_count
+    average_invoice_per_day = @invoices.count / 7
+
+
+
+
+
 end
