@@ -45,5 +45,17 @@ RSpec.describe 'Iteration 2' do
 
       expect(expected).to eq []
     end
+
+    it '#find_all_by_merchant_id returns all invoices associated with given merchant' do
+      merchant_id = 12_335_080
+      expected = @se.invoices.find_all_by_merchant_id(merchant_id)
+
+      expect(expected.length).to eq 7
+
+      merchant_id = 1000
+      expected = @se.invoices.find_all_by_merchant_id(merchant_id)
+
+      expect(expected).to eq []
+    end
   end
 end
