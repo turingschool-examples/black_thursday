@@ -30,4 +30,8 @@ module RepositoryAide
   def delete(id)
     @repository.delete(find_by_id(id))
   end
+
+  def significant_numbers(number)
+    number.length
+  end
 end
