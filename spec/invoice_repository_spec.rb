@@ -76,5 +76,18 @@ RSpec.describe 'Iteration 2' do
 
       expect(expected).to eq []
     end
+
+    it '#create creates a new invoice instance' do
+      attributes = {
+        customer_id: 7,
+        merchant_id: 8,
+        status: 'pending',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.invoices.create(attributes)
+      expected = @se.invoices.find_by_id(4986)
+      expect(expected.merchant_id).to eq 8
+    end
   end
 end
