@@ -41,4 +41,15 @@ RSpec.describe InvoiceRepository do
     expect(invr.find_all_by_status(:sold).length).to eq(0)
   end
 
+  it 'creates new invoices' do
+    attributes = {
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status => "pending",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+    invr.create(attributes)
+    expect(invr.find_by_id(4986).invoice_attributes[:merchant_id]).to eq(8)
+  end
 end

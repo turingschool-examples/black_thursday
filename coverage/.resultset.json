@@ -279,11 +279,11 @@
           1,
           null,
           1,
-          9970,
-          9970,
-          9970,
-          9970,
-          9970,
+          9971,
+          9971,
+          9971,
+          9971,
+          9971,
           null,
           null
         ]
@@ -440,20 +440,21 @@
       "/Users/vaeliwen/turing/1module/black_thursday/lib/invoice_repo.rb": {
         "lines": [
           1,
-          null,
-          1,
-          1,
-          1,
           1,
           null,
-          null,
+          1,
+          1,
           1,
           1,
           null,
           null,
           1,
           1,
-          6,
+          null,
+          null,
+          1,
+          2,
+          4992,
           null,
           null,
           null,
@@ -474,10 +475,17 @@
           14955,
           null,
           null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
           null
         ]
       }
     },
-    "timestamp": 1646074079
+    "timestamp": 1646074578
   }
 }

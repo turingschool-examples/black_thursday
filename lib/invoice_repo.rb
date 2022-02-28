@@ -1,4 +1,5 @@
 require 'pry'
+require 'invoice'
 
 class InvoiceRepository
   attr_reader :invoice_instance_array
@@ -32,5 +33,12 @@ class InvoiceRepository
     invoice_instance_array.find_all do |invoice_instance|
       invoice_instance.invoice_attributes[:status] == status
     end
+  end
+
+  def create(attributes)
+    attributes[:id] = invoice_instance_array[-1].invoice_attributes[:id] + 1
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
+    invoice_instance_array << Invoice.new(attributes)
   end
 end
