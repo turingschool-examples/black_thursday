@@ -1,4 +1,3 @@
-require_relative 'invoice_item'
 require_relative 'module'
 class InvoiceItemRepository
   include IDManager

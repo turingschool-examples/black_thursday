@@ -1,5 +1,6 @@
+require_relative 'module'
 class InvoiceRepository
-
+  include IDManager
   def initialize(info)
     @all = info
   end
