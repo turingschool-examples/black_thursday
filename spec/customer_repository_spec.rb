@@ -49,7 +49,7 @@ describe CustomerRepository do
       end.last
       customer = @cr.create({:first_name => "Sammy", :last_name => "Johannson"})
 
-      expect(customer.id > highest_id_customer.id).to be true
+      expect(customer.id.to_i > highest_id_customer.id.to_i).to be true
       expect(@cr.repository.include?(customer)).to be true
     end
   end

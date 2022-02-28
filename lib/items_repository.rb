@@ -55,14 +55,7 @@ class ItemsRepository
   end
 
   def create(attributes)
-    item = Item.new({
-      id: new_id.to_s,
-      name: attributes[:name],
-      description: attributes[:description],
-      unit_price: attributes[:unit_price],
-      created_at: Time.now,
-      updated_at: Time.now,
-      merchant_id: attributes[:merchant_id]})
+    item = Item.new(create_attribute_hash(attributes))
     @repository << item
     item
   end

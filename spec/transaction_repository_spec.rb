@@ -86,5 +86,4 @@ describe TransactionRepository do
       expect(@tr.repository.include?(transaction)).to be false
     end
   end
-
 end

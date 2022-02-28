@@ -1,9 +1,11 @@
 require 'csv'
 require './lib/invoice'
 require './lib/repository_aide'
+require './lib/time_helper'
 
 class InvoiceRepository
   include RepositoryAide
+  include TimeHelper
   attr_reader :repository, :merchant_ids
 
   def initialize(file)
@@ -13,7 +15,7 @@ class InvoiceRepository
             :customer_id => invoice[:customer_id],
             :merchant_id => invoice[:merchant_id],
             :status => invoice[:status],
-            :created_at => invoice[:created_at],
+            :created_at => create_time(invoice[:created_at]),
             :updated_at => invoice[:updated_at]
             })
           end
@@ -40,13 +42,9 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    Invoice.new({:id => new_id.to_s,
-    :customer_id => attributes[:customer_id],
-    :merchant_id => attributes[:merchant_id],
-    :status => attributes[:status],
-    :created_at => Time.now,
-    :updated_at => Time.now
-    })
+    invoice = Invoice.new(create_attribute_hash(attributes))
+    @repository << invoice
+    invoice
   end
 
   def update(id, attribute)

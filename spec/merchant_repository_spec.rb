@@ -53,9 +53,9 @@ describe MerchantsRepository do
       merchant = mr.repository.sort_by do |merchant|
                   merchant.id
                 end.last
-      johnny = mr.create("Johnny")
+      johnny = mr.create({:name => "Johnny"})
       expect(johnny.class).to be(Merchant)
-      expect(merchant.id < johnny.id).to be true
+      expect(merchant.id.to_i < johnny.id.to_i).to be true
       expect(johnny.name).to eq("Johnny")
       expect(mr.repository.include?(johnny)).to eq(true)
     end
