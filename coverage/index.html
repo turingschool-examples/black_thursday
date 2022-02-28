@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-02-27T21:37:41-05:00">2022-02-27T21:37:41-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-02-28T12:07:40-05:00">2022-02-28T12:07:40-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -84,7 +84,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#d117c1704835f2c781c9a6e746f9750bca3f30c2" class="src_link" title="lib/merchant_repository.rb">lib/merchant_repository.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">19</td>
+            <td class="cell--number">20</td>
             <td class="cell--number">13</td>
             <td class="cell--number">13</td>
             <td class="cell--number">0</td>
@@ -106,7 +106,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#dec11ff1c71838d7027bfe2200bb74b5cdbae6ce" class="src_link" title="lib/transaction_repository.rb">lib/transaction_repository.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">33</td>
+            <td class="cell--number">32</td>
             <td class="cell--number">19</td>
             <td class="cell--number">19</td>
             <td class="cell--number">0</td>
@@ -150,7 +150,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#86fa70fe1c1e642cef4240297b849fe46c3cb41e" class="src_link" title="spec/merchant_repository_spec.rb">spec/merchant_repository_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">107</td>
+            <td class="cell--number">108</td>
             <td class="cell--number">83</td>
             <td class="cell--number">83</td>
             <td class="cell--number">0</td>
@@ -373,7 +373,7 @@
 
             
 
-            <code class="ruby">class ItemRepository #&lt; SalesEngine</code>
+            <code class="ruby">class ItemRepository # &lt; SalesEngine</code>
           </li>
         </div>
       
@@ -1146,51 +1146,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="9">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def initialize(array)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="12" data-linenumber="10">
-            <span class="hits">12</span>
-            
-
-            
-
-            <code class="ruby">    @all = array</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="12" data-linenumber="11">
-            <span class="hits">12</span>
-            
-
-            
-
-            <code class="ruby">    @new_object = Merchant</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="12">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="13">
+          <li class="never" data-hits="" data-linenumber="9">
             
             
 
@@ -1201,51 +1157,40 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="14">
+          <li class="covered" data-hits="1" data-linenumber="10">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    def find_all_by_name(name)</code>
+            <code class="ruby">  def initialize(array)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="15">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="12" data-linenumber="11">
+            <span class="hits">12</span>
             
 
             
 
-            <code class="ruby">    @all.find_all do |one|</code>
+            <code class="ruby">    @all = array</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="16">
-            <span class="hits">4</span>
+          <li class="covered" data-hits="12" data-linenumber="12">
+            <span class="hits">12</span>
             
 
             
 
-            <code class="ruby">      one.name.downcase.include?(name.downcase)</code>
+            <code class="ruby">    @new_object = Merchant</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="17">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="18">
+          <li class="never" data-hits="" data-linenumber="13">
             
             
 
@@ -1256,7 +1201,73 @@
         </div>
       
         <div>
+          <li class="never" data-hits="" data-linenumber="14">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="15">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def find_all_by_name(name)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="16">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @all.find_all do |one|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="17">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">      one.name.downcase.include?(name.downcase)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="18">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
           <li class="never" data-hits="" data-linenumber="19">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="20">
             
             
 
@@ -1549,18 +1560,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="5">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="6">
+          <li class="covered" data-hits="1" data-linenumber="5">
             <span class="hits">1</span>
             
 
@@ -1571,7 +1571,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="7">
+          <li class="covered" data-hits="1" data-linenumber="6">
             <span class="hits">1</span>
             
 
@@ -1582,7 +1582,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="8">
+          <li class="covered" data-hits="1" data-linenumber="7">
             <span class="hits">1</span>
             
 
@@ -1593,7 +1593,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="9">
+          <li class="covered" data-hits="1" data-linenumber="8">
             <span class="hits">1</span>
             
 
@@ -1604,7 +1604,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="10">
+          <li class="never" data-hits="" data-linenumber="9">
             
             
 
@@ -1615,7 +1615,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="11">
+          <li class="covered" data-hits="1" data-linenumber="10">
             <span class="hits">1</span>
             
 
@@ -1626,7 +1626,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="12">
+          <li class="covered" data-hits="9" data-linenumber="11">
             <span class="hits">9</span>
             
 
@@ -1637,7 +1637,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="13">
+          <li class="covered" data-hits="9" data-linenumber="12">
             <span class="hits">9</span>
             
 
@@ -1648,7 +1648,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="14">
+          <li class="never" data-hits="" data-linenumber="13">
             
             
 
@@ -1659,7 +1659,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="15">
+          <li class="never" data-hits="" data-linenumber="14">
             
             
 
@@ -1670,7 +1670,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="16">
+          <li class="covered" data-hits="1" data-linenumber="15">
             <span class="hits">1</span>
             
 
@@ -1681,7 +1681,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="17">
+          <li class="covered" data-hits="2" data-linenumber="16">
             <span class="hits">2</span>
             
 
@@ -1692,7 +1692,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="18">
+          <li class="covered" data-hits="2" data-linenumber="17">
             <span class="hits">2</span>
             
 
@@ -1703,13 +1703,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="19">
+          <li class="never" data-hits="" data-linenumber="18">
             
             
 
             
 
             <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="19">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -1720,23 +1731,12 @@
 
             
 
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="21">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="22">
+          <li class="covered" data-hits="1" data-linenumber="21">
             <span class="hits">1</span>
             
 
@@ -1747,7 +1747,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="23">
+          <li class="covered" data-hits="2" data-linenumber="22">
             <span class="hits">2</span>
             
 
@@ -1758,7 +1758,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="24">
+          <li class="covered" data-hits="2" data-linenumber="23">
             <span class="hits">2</span>
             
 
@@ -1769,13 +1769,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="25">
+          <li class="never" data-hits="" data-linenumber="24">
             
             
 
             
 
             <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="25">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -1786,23 +1797,12 @@
 
             
 
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="27">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="28">
+          <li class="covered" data-hits="1" data-linenumber="27">
             <span class="hits">1</span>
             
 
@@ -1813,7 +1813,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="29">
+          <li class="covered" data-hits="2" data-linenumber="28">
             <span class="hits">2</span>
             
 
@@ -1824,7 +1824,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="30">
+          <li class="covered" data-hits="2" data-linenumber="29">
             <span class="hits">2</span>
             
 
@@ -1835,7 +1835,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="31">
+          <li class="never" data-hits="" data-linenumber="30">
             
             
 
@@ -1846,7 +1846,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="32">
+          <li class="never" data-hits="" data-linenumber="31">
             
             
 
@@ -1857,7 +1857,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="33">
+          <li class="never" data-hits="" data-linenumber="32">
             
             
 
@@ -5061,7 +5061,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="68">
+          <li class="never" data-hits="" data-linenumber="68">
+            
+            
+
+            
+
+            <code class="ruby">    # binding.pry</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="69">
             <span class="hits">1</span>
             
 
@@ -5072,7 +5083,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="69">
+          <li class="never" data-hits="" data-linenumber="70">
             
             
 
@@ -5083,24 +5094,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="70">
+          <li class="never" data-hits="" data-linenumber="71">
             
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="71">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  it &#39;new merchant has highest id&#39; do</code>
           </li>
         </div>
       
@@ -5111,7 +5111,7 @@
 
             
 
-            <code class="ruby">    m_1 = Merchant.new({ :id =&gt; 1, :name =&gt; &quot;True Value&quot; })</code>
+            <code class="ruby">  it &#39;new merchant has highest id&#39; do</code>
           </li>
         </div>
       
@@ -5122,7 +5122,7 @@
 
             
 
-            <code class="ruby">    m_2 = Merchant.new({ :id =&gt; 2, :name =&gt; &quot;Home Depot&quot; })</code>
+            <code class="ruby">    m_1 = Merchant.new({ :id =&gt; 1, :name =&gt; &quot;True Value&quot; })</code>
           </li>
         </div>
       
@@ -5133,7 +5133,7 @@
 
             
 
-            <code class="ruby">    m_3 = Merchant.new({ :id =&gt; 3, :name =&gt; &quot;Walmart&quot; })</code>
+            <code class="ruby">    m_2 = Merchant.new({ :id =&gt; 2, :name =&gt; &quot;Home Depot&quot; })</code>
           </li>
         </div>
       
@@ -5144,7 +5144,7 @@
 
             
 
-            <code class="ruby">    m_4 = Merchant.new({ :id =&gt; 4, :name =&gt; &quot;K Mart&quot; })</code>
+            <code class="ruby">    m_3 = Merchant.new({ :id =&gt; 3, :name =&gt; &quot;Walmart&quot; })</code>
           </li>
         </div>
       
@@ -5155,7 +5155,7 @@
 
             
 
-            <code class="ruby">    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])</code>
+            <code class="ruby">    m_4 = Merchant.new({ :id =&gt; 4, :name =&gt; &quot;K Mart&quot; })</code>
           </li>
         </div>
       
@@ -5166,18 +5166,18 @@
 
             
 
-            <code class="ruby">    expect(mr.create(:id =&gt; 9000, :name =&gt; &quot;Walgreens&quot;).id).to eq(5)</code>
+            <code class="ruby">    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="78">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="78">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    expect(mr.create(:id =&gt; 9000, :name =&gt; &quot;Walgreens&quot;).id).to eq(5)</code>
           </li>
         </div>
       
@@ -5188,18 +5188,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="80">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="80">
+            
             
 
             
 
-            <code class="ruby">  it &#39;can change the name of a merchant&#39; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -5210,7 +5210,7 @@
 
             
 
-            <code class="ruby">    m_1 = Merchant.new({ :id =&gt; 1, :name =&gt; &quot;True Value&quot; })</code>
+            <code class="ruby">  it &#39;can change the name of a merchant&#39; do</code>
           </li>
         </div>
       
@@ -5221,7 +5221,7 @@
 
             
 
-            <code class="ruby">    m_2 = Merchant.new({ :id =&gt; 2, :name =&gt; &quot;Home Depot&quot; })</code>
+            <code class="ruby">    m_1 = Merchant.new({ :id =&gt; 1, :name =&gt; &quot;True Value&quot; })</code>
           </li>
         </div>
       
@@ -5232,7 +5232,7 @@
 
             
 
-            <code class="ruby">    m_3 = Merchant.new({ :id =&gt; 3, :name =&gt; &quot;Walmart&quot; })</code>
+            <code class="ruby">    m_2 = Merchant.new({ :id =&gt; 2, :name =&gt; &quot;Home Depot&quot; })</code>
           </li>
         </div>
       
@@ -5243,7 +5243,7 @@
 
             
 
-            <code class="ruby">    m_4 = Merchant.new({ :id =&gt; 4, :name =&gt; &quot;K Mart&quot; })</code>
+            <code class="ruby">    m_3 = Merchant.new({ :id =&gt; 3, :name =&gt; &quot;Walmart&quot; })</code>
           </li>
         </div>
       
@@ -5254,7 +5254,7 @@
 
             
 
-            <code class="ruby">    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])</code>
+            <code class="ruby">    m_4 = Merchant.new({ :id =&gt; 4, :name =&gt; &quot;K Mart&quot; })</code>
           </li>
         </div>
       
@@ -5265,7 +5265,7 @@
 
             
 
-            <code class="ruby">    mr.update(3, { :id =&gt; 3, :name =&gt; &quot;Wal-Mart&quot; })</code>
+            <code class="ruby">    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])</code>
           </li>
         </div>
       
@@ -5276,18 +5276,18 @@
 
             
 
-            <code class="ruby">    expect(m_3.name).to eq(&quot;Wal-Mart&quot;)</code>
+            <code class="ruby">    mr.update(3, { :id =&gt; 3, :name =&gt; &quot;Wal-Mart&quot; })</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="88">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="88">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    expect(m_3.name).to eq(&quot;Wal-Mart&quot;)</code>
           </li>
         </div>
       
@@ -5298,18 +5298,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="90">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="90">
+            
             
 
             
 
-            <code class="ruby">  it &#39;can delete a merchant&#39; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -5320,7 +5320,7 @@
 
             
 
-            <code class="ruby">    m_1 = Merchant.new({ :id =&gt; 1, :name =&gt; &quot;True Value&quot; })</code>
+            <code class="ruby">  it &#39;can delete a merchant&#39; do</code>
           </li>
         </div>
       
@@ -5331,7 +5331,7 @@
 
             
 
-            <code class="ruby">    m_2 = Merchant.new({ :id =&gt; 2, :name =&gt; &quot;Home Depot&quot; })</code>
+            <code class="ruby">    m_1 = Merchant.new({ :id =&gt; 1, :name =&gt; &quot;True Value&quot; })</code>
           </li>
         </div>
       
@@ -5342,7 +5342,7 @@
 
             
 
-            <code class="ruby">    m_3 = Merchant.new({ :id =&gt; 3, :name =&gt; &quot;Walmart&quot; })</code>
+            <code class="ruby">    m_2 = Merchant.new({ :id =&gt; 2, :name =&gt; &quot;Home Depot&quot; })</code>
           </li>
         </div>
       
@@ -5353,7 +5353,7 @@
 
             
 
-            <code class="ruby">    m_4 = Merchant.new({ :id =&gt; 4, :name =&gt; &quot;K Mart&quot; })</code>
+            <code class="ruby">    m_3 = Merchant.new({ :id =&gt; 3, :name =&gt; &quot;Walmart&quot; })</code>
           </li>
         </div>
       
@@ -5364,7 +5364,7 @@
 
             
 
-            <code class="ruby">    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])</code>
+            <code class="ruby">    m_4 = Merchant.new({ :id =&gt; 4, :name =&gt; &quot;K Mart&quot; })</code>
           </li>
         </div>
       
@@ -5375,7 +5375,7 @@
 
             
 
-            <code class="ruby">    mr.delete(4)</code>
+            <code class="ruby">    mr = MerchantRepository.new([m_1, m_2, m_3, m_4])</code>
           </li>
         </div>
       
@@ -5386,7 +5386,7 @@
 
             
 
-            <code class="ruby">    expect(mr.all).to eq([m_1, m_2, m_3])</code>
+            <code class="ruby">    mr.delete(4)</code>
           </li>
         </div>
       
@@ -5397,7 +5397,7 @@
 
             
 
-            <code class="ruby">    mr.delete(3)</code>
+            <code class="ruby">    expect(mr.all).to eq([m_1, m_2, m_3])</code>
           </li>
         </div>
       
@@ -5408,18 +5408,18 @@
 
             
 
-            <code class="ruby">    expect(mr.all).to eq([m_1, m_2])</code>
+            <code class="ruby">    mr.delete(3)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="100">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="100">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    expect(mr.all).to eq([m_1, m_2])</code>
           </li>
         </div>
       
@@ -5430,18 +5430,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="102">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="102">
+            
             
 
             
 
-            <code class="ruby">  it &#39;find a merchant by id from csv&#39; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -5452,7 +5452,7 @@
 
             
 
-            <code class="ruby">    se = SalesEngine.from_csv({ :items =&gt; &quot;./data/items.csv&quot;, :merchants =&gt; &quot;./data/merchants.csv&quot; })</code>
+            <code class="ruby">  it &#39;find a merchant by id from csv&#39; do</code>
           </li>
         </div>
       
@@ -5463,7 +5463,7 @@
 
             
 
-            <code class="ruby">    mr = se.merchants</code>
+            <code class="ruby">    se = SalesEngine.from_csv({ :items =&gt; &quot;./data/items.csv&quot;, :merchants =&gt; &quot;./data/merchants.csv&quot; })</code>
           </li>
         </div>
       
@@ -5474,12 +5474,23 @@
 
             
 
+            <code class="ruby">    mr = se.merchants</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="106">
+            <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">    expect(mr.find_by_id(12334105).name).to eq(&quot;Shopin1901&quot;)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="106">
+          <li class="never" data-hits="" data-linenumber="107">
             
             
 
@@ -5490,7 +5501,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="107">
+          <li class="never" data-hits="" data-linenumber="108">
             
             
 
