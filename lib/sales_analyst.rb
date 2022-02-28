@@ -30,7 +30,7 @@ class Analyst
 
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
-    unit_price_array = items.map { |price| price.unit_price.to_i}
+    unit_price_array = items.map { |price| price.unit_price}
     # binding.pry
     average_price = average(unit_price_array.sum, unit_price_array.count)
     in_dollars = (average_price / 100).round(2)
