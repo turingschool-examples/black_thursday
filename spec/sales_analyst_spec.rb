@@ -2,6 +2,7 @@ require "spec_helper"
 require "./lib/sales_analyst"
 require "./lib/merchant_repo"
 require "./lib/item_repo"
+require "./lib/invoice_repo"
 require "./lib/sales_engine"
 require "bigdecimal"
 require "pry"
@@ -12,7 +13,8 @@ RSpec.describe SalesAnalyst do
     let(:se) do
       SalesEngine.from_csv({
         items: "./data/items.csv",
-        merchants: "./data/merchants.csv"
+        merchants: "./data/merchants.csv",
+        invoices: "./data/invoices.csv"
       })
     end
 
