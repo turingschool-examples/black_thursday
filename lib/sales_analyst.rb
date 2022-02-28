@@ -77,7 +77,9 @@ class Analyst
   end
 
   def invoice_status(status)
-    binding.pry
+    # binding.pry
+    decimal = (@in.invoice_status[status].count.to_f / @in.repository.count)
+    percentage = (decimal * 100).round(2)
   end
 
 

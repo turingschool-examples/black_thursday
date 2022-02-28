@@ -54,6 +54,8 @@ describe Analyst do
   end
 
   it "can find invoices by status and returns a percent" do
-    
+    expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
+    expect(@sales_analyst.invoice_status(:shipped)).to eq(86)
+    expect(@sales_analyst.invoice_status(:returned)).to eq(45)
   end
 end
