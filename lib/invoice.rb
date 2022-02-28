@@ -5,7 +5,7 @@
 # which may be updated by the item_repository
 
 # require 'simplecov'
-require 'RSpec'
+# require 'RSpec'
 # SimpleCov.start
 
 # Represents a single invoice, to be held in a InvoiceRepository class instance

@@ -13,6 +13,9 @@ class InvoiceRepository
     @new_object = Invoice
   end
 
+  def inspect
+  end
+
   def find_all_by_customer_id(id_integer)
     @all.find_all { |invoice| invoice.customer_id == id_integer }
   end
