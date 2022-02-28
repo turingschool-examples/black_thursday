@@ -1,3 +1,5 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
 require_relative 'sales_engine'
 require_relative 'item_repository'
 
@@ -50,5 +52,23 @@ class SalesAnalyst
       total_price += item.unit_price_to_dollars
     end
     BigDecimal((total_price / total_items_per_merchant[merchant_id]).to_f.round(2), 4)
+  end
+
+  def average_average_price_per_merchant
+    sum_of_averages = BigDecimal(0)
+    @merchants.map do |merchant|
+      sum_of_averages += average_item_price_for_merchant(merchant.id)
+    end
+    BigDecimal((sum_of_averages / @merchants.count), 5).truncate(2)
+  end
+
+  def golden_items
+    average = average_average_price_per_merchant
+    total_square_diff = 0
+    @items.each do |item|
+      total_square_diff += ((item.unit_price.to_i - average) ** 2)
+    end
+    std_dev = Math.sqrt(total_square_diff / (@items.count - 1))
+    @items.find_all { |item| item.unit_price.to_i > (average + (std_dev * 2))}
   end
 end
