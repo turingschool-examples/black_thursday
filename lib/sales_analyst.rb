@@ -33,7 +33,6 @@ class Analyst
     unit_price_array = items.map { |price| price.unit_price}
     average_price = average(unit_price_array.sum, unit_price_array.count)
     in_dollars = (average_price / 100).round(2)
-    # binding.pry
   end
 
   def average_average_price_per_merchant
@@ -77,5 +76,9 @@ class Analyst
   def top_days_by_invoice_count
   end
 
-  
+  def invoice_status(status)
+    binding.pry
+  end
+
+
 end

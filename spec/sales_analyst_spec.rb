@@ -48,4 +48,12 @@ describe Analyst do
   it "finds merchants with low invoice count" do
     expect(@sales_analyst.bottom_merchants_by_invoice_count.count).to eq(4)
   end
+
+  xit "can tell the day of the week" do
+    expect(@sales_analyst.top_days_by_invoice_count).to eq("monday")
+  end
+
+  it "can find invoices by status and returns a percent" do
+    
+  end
 end
