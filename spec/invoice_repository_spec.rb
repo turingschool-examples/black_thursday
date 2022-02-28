@@ -113,12 +113,21 @@ RSpec.describe 'Iteration 2' do
     end
 
     it '#update cannot update id, customer_id, merchant_id, or created_at' do
-      @se.invoices.create(
+      attributes = {
+        customer_id: 7,
+        merchant_id: 8,
+        status: 'pending',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.invoices.create(attributes)
+
+      attributes = {
         id: 5000,
         customer_id: 2,
         merchant_id: 3,
         created_at: Time.now
-      )
+      }
 
       @se.invoices.update(4986, attributes)
       expected = @se.invoices.find_by_id(5000)
