@@ -9,19 +9,21 @@ module Crudable
   end
 
   def create(attributes)
-    attributes[:id] = self.highest_id + 1
+    attributes[:id] = highest_id + 1
     object = @new_object.new(attributes)
     @all << object
+    return object
   end
 
-  # def update(id, attributes)
-  #   new_name = self.find_by_id(id)
-  #   new_name.name = attributes[:name]
-  #   return new_name
-  # end
+  def update(id, attributes)
+    attributes.each do |k, v|
+      find_by_id(id).instance_variable_set(k.to_s.insert(0, '@').to_sym, v)
+    end
+    find_by_id(id).updated_at = Time.now
+  end
 
   def delete(id)
-    erase = self.find_by_id(id)
+    erase = find_by_id(id)
     @all.delete(erase)
   end
 end

@@ -30,6 +30,4 @@ class TransactionRepository
       one.result.include?(result)
     end
   end
-
-
 end
