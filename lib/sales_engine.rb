@@ -2,25 +2,25 @@
 require 'CSV'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
-# require_relative 'invoice_repository'
+require_relative 'invoice_repository'
 require_relative 'item'
 require_relative 'merchant'
 require_relative 'invoice'
 require_relative 'sales_analyst'
 
 class SalesEngine
-  attr_reader :items, :merchants # :invoices
+  attr_reader :items, :merchants, :invoices
 
-  def initialize(items_, merchants_) # invoices_)
+  def initialize(items_, merchants_, invoices_)
     @items = ItemRepository.new(items_)
     @merchants = MerchantRepository.new(merchants_)
-    # @invoices = InvoiceRepository.new(invoices_)
+    @invoices = InvoiceRepository.new(invoices_)
   end
 
   def self.from_csv(csv_hash)
     item_contents = CSV.open csv_hash[:items], headers: true, header_converters: :symbol
     merchant_contents = CSV.open csv_hash[:merchants], headers: true, header_converters: :symbol
-    # invoice_contents = CSV.open csv_hash[:invoices], headers: true, header_converters: :symbol
+    invoice_contents = CSV.open csv_hash[:invoices], headers: true, header_converters: :symbol
 
     # read file, create objects, return SE object
     items = []
@@ -33,15 +33,15 @@ class SalesEngine
       merchants << Merchant.new(row)
     end
 
-    # invoices = []
-    # invoice_contents.each do |row|
-    #   invoices << Invoice.new(row)
-    # end
+    invoices = []
+    invoice_contents.each do |row|
+      invoices << Invoice.new(row)
+    end
 
-    se = SalesEngine.new(items, merchants) # invoices)
+    se = SalesEngine.new(items, merchants, invoices)
   end
 
   def analyst
-    SalesAnalyst.new(@items.all, @merchants.all) # @invoices.all)
+    SalesAnalyst.new(@items.all, @merchants.all, @invoices.all)
   end
 end

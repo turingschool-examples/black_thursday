@@ -1,7 +1,7 @@
 # item_repository
 require 'pry'
-class ItemRepository
-  attr_reader :items
+class InvoiceRepository
+  attr_reader :invoices
 
   def initialize(invoices)
     @invoices = invoices

@@ -4,7 +4,8 @@ RSpec.describe SalesEngine do
   it 'can pull items and merchants from csv' do
     se = SalesEngine.from_csv({
                                 items: './data/items.csv',
-                                merchants: './data/merchants.csv'
+                                merchants: './data/merchants.csv',
+                                invoices: './data/invoices.csv'
                               })
 
     expect(se).to be_a(SalesEngine)
