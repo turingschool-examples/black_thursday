@@ -9,7 +9,7 @@ class CustomerRepository
   def initialize(file)
     @repository = read_csv(file).map do |customer|
         Customer.new({
-          :id => customer[:id],
+          :id => customer[:id].to_i,
           :first_name => customer[:first_name],
           :last_name => customer[:last_name],
           :created_at => customer[:created_at],

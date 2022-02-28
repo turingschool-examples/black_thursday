@@ -14,7 +14,7 @@ module RepositoryAide
   end
 
   def find_by_id(id)
-    @repository.find {|element| element.id == id}
+    @repository.find {|element| element.id == id.to_i}
   end
 
   def new_id
