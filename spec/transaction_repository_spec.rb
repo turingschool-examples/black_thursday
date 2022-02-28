@@ -20,7 +20,6 @@ describe TransactionRepository do
 
   describe '#all' do
     it 'returns all instances of Transaction in the repository' do
-      require 'pry'; binding.pry
       expect(@tr.all).to eq(@tr.repository)
     end
   end
