@@ -1,6 +1,6 @@
 require 'pry'
-require './lib/findable'
-require './lib/crudable'
+require_relative './findable'
+require_relative './crudable'
 
 class MerchantRepository
   include Findable
@@ -16,5 +16,8 @@ class MerchantRepository
     @all.find_all do |one|
       one.name.downcase.include?(name.downcase)
     end
+  end
+
+  def inspect
   end
 end
