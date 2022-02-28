@@ -15,6 +15,7 @@ class SalesEngine
     @table_hash = table_hash
     @invoice_repo = nil
     @merchant_repo = nil
+    @customer_repo = nil
     @item_repo = nil
   end
 
@@ -47,6 +48,17 @@ class SalesEngine
       @merchant_repo = MerchantRepository.new(merchant_array)
     else
       @merchant_repo
+    end
+  end
+
+  def customers
+    customer_array = @table_hash[:customers].map do |row|
+      Customer.new({ id: row[:id].to_i, name: row[:name] })
+    end
+    if @customer_repo == nil
+      @customer_repo = CustomerRepository.new(customer_array)
+    else
+      @customer_repo
     end
   end
 
