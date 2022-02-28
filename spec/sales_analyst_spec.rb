@@ -53,5 +53,18 @@ context 'iteration 1' do
       expect(@analyst.average_invoices_per_merchant).to eq(10.49)
     end
 
+
+      it 'calculates average invoices per standard deviation' do
+        average_invoices= @analyst.average_invoices_per_merchant_standard_deviation
+        expect(average_invoices).to eq 3.29
+        expect(average_invoices.class).to be Float
+      end
+
+      it 'returns top merchant by invoice count' do
+        merchants_with_high_invoice_count = @analyst.top_merchants_by_invoice_count
+        expect(merchants_with_high_invoice_count.length).to eq 12
+        expect(merchants_with_high_invoice_count.first.class).to eq Merchant
+      end
+
   end
 end
