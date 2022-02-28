@@ -34,8 +34,9 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    id = @invoices.last.id + 1
-    attributes[:id] = id
+    attributes[:id] = @invoices.last.id + 1
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     new_invoice = Invoice.new(attributes)
     @invoices << new_invoice
     new_invoice
@@ -45,13 +46,17 @@ class InvoiceRepository
     invoice_to_update = find_by_id(id)
     if invoice_to_update != nil
         attributes.each do |key, value|
-          if ![:id, :created_at, :merchant_id].include?(key)
+          if ![:id, :created_at, :merchant_id, :customer_id].include?(key)
             invoice_to_update.info[key.to_sym] = value
             invoice_to_update.info[:updated_at] = (Time.now + 1).to_s
           end
         end
     end
     invoice_to_update
+  end
+
+  def delete(id)
+    @invoices.delete(find_by_id(id)) if find_by_id(id) != nil
   end
 
 end

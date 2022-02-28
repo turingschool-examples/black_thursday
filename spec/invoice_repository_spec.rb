@@ -51,6 +51,7 @@ require 'pry'
     end
 
     it 'updates an existing invoice instance such as status, customer_id, and updated_at, and nothing else' do
+
       original_time = @invoices.find_by_id(1).updated_at
       attribute = { customer_id: 999,
                     merchant_id: 12335541,
@@ -59,11 +60,17 @@ require 'pry'
                     updated_at: Time.now
                   }
       expected = @invoices.update(1, attribute)
-      expect(expected.customer_id).to eq(999)
+      expect(expected.customer_id).to eq(1)
       expect(expected.merchant_id).to eq(12335938)
       expect(expected.status).to eq(:shipped)
       expect(expected.created_at).to eq(Time.parse("2009-02-07"))
       expect(expected.updated_at).to be > original_time
     end
 
-  end
+    it "deletes a invoice by id" do
+      @invoices.delete(1)
+      expected = @invoices.find_by_id(1)
+      expect(expected).to eq nil
+    end
+
+end
