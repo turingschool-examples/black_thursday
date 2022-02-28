@@ -31,6 +31,7 @@ class SalesEngine
   def items
     ItemRepository.new(@items_array)
   end
+
   def invoices
     InvoiceRepository.new(@invoice_array)
   end
