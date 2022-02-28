@@ -2,8 +2,10 @@ require_relative "merchant_repository"
 require_relative 'item_repository'
 require_relative 'item'
 require_relative 'merchant'
+require_relative 'sales_analyst'
+require_relative 'invoice_item'
+require_relative 'invoice_item_repository'
 require 'csv'
-require './lib/sales_analyst.rb'
 
 class SalesEngine
   attr_reader :items_array, :merchants_array, :files
@@ -47,11 +49,11 @@ class SalesEngine
   end
   def key_converter(key)
     {items: {array: @items_array, klass: Item},
-     merchants: {array: @merchants_array, klass: Merchant}
-     # invoices: {array: @invoice_array, klass: Invoice},
-     # invoice_items: {array: @invoice_item_array, klass: InvoiceItem},
-     # customers: {array: @customer_array, klass: Customer},
-     # transactions: {array: @transaction_array, klass: Transaction}
+     merchants: {array: @merchants_array, klass: Merchant},
+     invoices: {array: @invoice_array, klass: Invoice},
+     invoice_items: {array: @invoice_item_array, klass: InvoiceItem},
+     customers: {array: @customer_array, klass: Customer},
+     transactions: {array: @transaction_array, klass: Transaction}
      }[key]
   end
   def instantiator(key, data)

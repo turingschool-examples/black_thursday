@@ -5,7 +5,10 @@ attr_accessor :all
   def initialize(items)
     @all = items
   end
-
+#inspect method is required for spec harness to run
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def find_all_by_description(search)
     @all.find_all{|index| index.description.upcase.include?(search.upcase)}
