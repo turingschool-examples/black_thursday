@@ -1,19 +1,25 @@
-require "./lib/merchant_repo"
-require "./lib/item_repo"
-# require "./lib/sales_engine"
+# require "./lib/merchant_repo"
+# require "./lib/item_repo"
+require "sales_engine"
 require "bigdecimal"
 require 'descriptive_statistics'
 
-class SalesAnalyst
-  attr_reader :ir, :mr
+class SalesAnalyst #< SalesEngine
+  # attr_reader :merchants_instances_array, :items_instances_array
 
-  def initialize(ir, mr)
+  def initialize
+    # super(data)
+    # @items_data = data[:items]
+    # @merchants_data = data[:merchants]
+    # @merchants_instances_array = super.merchants_instances_array
+    # @items_instances_array = super.items_instances_array
     @ir = ir
     @mr = mr
   end
 
   def average_items_per_merchant
-    (ir.all.count.to_f / mr.all.count.to_f).round(2)
+    (items_instances_array.count.to_f / merchants_instances_array.count.to_f).round(2)
+    # super.items
   end
 
   def average_items_per_merchant_standard_deviation

@@ -24,16 +24,17 @@ RSpec.describe SalesAnalyst do
       ItemRepository.new(se.items_instanciator)
     end
 
-    let(:sales_analyst) { se.analyst }
+    let(:sa) { se.analyst }
+      # SalesAnalyst.new
 
     it "exists" do
 
-      expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
+      expect(sa).to be_an_instance_of(SalesAnalyst)
     end
 
     it "#average_items_per_merchant gives average number of items per merchant" do
 
-      expect(sales_analyst.average_items_per_merchant).to eq 2.88
+      expect(sa.average_items_per_merchant).to eq 2.88
     end
 
     xit "#average_items_per_merchant_standard_deviation gives a standard deviation" do

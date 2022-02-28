@@ -42,4 +42,5 @@ class SalesEngine
     end
     @merchants_instances_array
   end
+
 end
