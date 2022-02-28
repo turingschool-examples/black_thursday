@@ -21,7 +21,6 @@ class InvoiceItemsRepository
   end
 
   def group_hash
-    @ids = @repository.group_by {|invoice_item| invoice_item.id}
     @item_ids = @repository.group_by {|invoice_item| invoice_item.item_id}
     @invoice_ids = @repository.group_by {|invoice_item| invoice_item.invoice_id}
   end

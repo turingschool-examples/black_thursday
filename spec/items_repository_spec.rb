@@ -24,7 +24,7 @@ describe ItemsRepository do
 
   it 'can find an item by the name' do
     item = @ir.find_by_name("510+ RealPush Icon Set")
-    expect(item.sample.id).to eq("263395237")
+    expect(item.sample.id).to eq(263395237)
     expect(item.sample.unit_price).to eq(1200)
   end
 
@@ -43,7 +43,7 @@ describe ItemsRepository do
     item = @ir.find_all_by_price_in_range("40000", "50000")
 
     expect(item.count).to eq(26)
-    expect(item[0].id).to eq('263396517')
+    expect(item[0].id).to eq(263396517)
   end
 
   it 'can find all items with specific merchant_id' do

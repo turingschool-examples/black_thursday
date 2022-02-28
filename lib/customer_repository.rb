@@ -20,7 +20,6 @@ class CustomerRepository
   end
 
   def group_hash
-    @ids = @repository.group_by {|customer| customer.id}
     @first_names = @repository.group_by {|customer| customer.first_name}
     @last_names = @repository.group_by {|customer| customer.last_name}
   end

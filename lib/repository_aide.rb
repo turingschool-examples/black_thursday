@@ -18,9 +18,7 @@ module RepositoryAide
   end
 
   def new_id
-    new_id = @repository.sort_by do |element|
-                element.id
-              end.last.id
+    new_id = @repository.sort_by {|element| element.id}.last.id
     new_id += 1
   end
 

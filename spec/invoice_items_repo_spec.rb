@@ -22,7 +22,7 @@ describe InvoiceItemsRepository do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
       invoice_item = iir.find_by_id("244")
       expect(invoice_item.id).to eq(244)
-      expect(invoice_item.quantity).to eq("2")
+      expect(invoice_item.quantity).to eq(2)
     end
   end
 
@@ -68,7 +68,7 @@ describe InvoiceItemsRepository do
     it 'can change the InvoiceItems quantity, unit price and updated_at' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
       invoice_item = iir.find_by_id("1008")
-      expect(invoice_item.quantity).to eq("5")
+      expect(invoice_item.quantity).to eq(5)
       expect(invoice_item.unit_price).to eq("97806")
       iir.update("1008", {:quantity => 10,
                           :unit_price => 99978})

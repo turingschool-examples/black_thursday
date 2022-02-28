@@ -19,11 +19,10 @@ class InvoiceRepository
             :updated_at => invoice[:updated_at]
             })
           end
-    group
+    group_hash
   end
 
-  def group
-    @ids = @repository.group_by {|invoice| invoice.id}
+  def group_hash
     @customer_ids = @repository.group_by {|invoice| invoice.customer_id}
     @merchant_ids = @repository.group_by {|invoice| invoice.merchant_id}
     @invoice_status = @repository.group_by {|invoice| invoice.status}
