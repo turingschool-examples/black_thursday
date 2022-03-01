@@ -12,7 +12,7 @@ attr_accessor :all
     "#<#{self.class} #{@all.size} rows>"
   end
 
-  def find_all_by_description(search)
+  def find_all_with_description(search)
     @all.find_all{|index| index.description.upcase.include?(search.upcase)}
   end
 
