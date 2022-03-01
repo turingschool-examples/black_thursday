@@ -1,4 +1,4 @@
-# item_repository
+# invoice_repository
 require 'pry'
 class InvoiceRepository
   attr_reader :invoices

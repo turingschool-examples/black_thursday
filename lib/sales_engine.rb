@@ -17,14 +17,14 @@ class SalesEngine
     @items = ItemRepository.new(items_)
     @merchants = MerchantRepository.new(merchants_)
     @invoices = InvoiceRepository.new(invoices_)
-    @invoice_items = InvoiceItems.new(invoice_items_)
+    @invoice_items = InvoiceItemsRepository.new(invoice_items_)
   end
 
   def self.from_csv(csv_hash)
     item_contents = CSV.open csv_hash[:items], headers: true, header_converters: :symbol
     merchant_contents = CSV.open csv_hash[:merchants], headers: true, header_converters: :symbol
     invoice_contents = CSV.open csv_hash[:invoices], headers: true, header_converters: :symbol
-    invoice_items_contents = CSV.open csv_hash[:invoices], headers: true, header_converters: :symbol
+    invoice_items_contents = CSV.open csv_hash[:invoice_items], headers: true, header_converters: :symbol
 
 
     # read file, create objects, return SE object
@@ -53,7 +53,7 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items.all, @merchants.all, @invoices.all)
+    SalesAnalyst.new(@items.all, @merchants.all, @invoices.all, @invoice_items.all)
   end
 
 
