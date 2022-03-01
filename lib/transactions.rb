@@ -1,7 +1,7 @@
 # Transaction class
 require 'time'
 
-class Transaction
+class Transactions
   attr_accessor :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :updated_at
   attr_reader :id, :created_at
 

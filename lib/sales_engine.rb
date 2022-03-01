@@ -3,12 +3,12 @@ require 'CSV'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
-require_relative 'transaction_repository'
+require_relative 'transactions_repository'
 require_relative 'item'
 require_relative 'merchant'
 require_relative 'invoice'
 require_relative 'sales_analyst'
-require_relative 'transaction'
+require_relative 'transactions'
 
 class SalesEngine
   attr_reader :items, :merchants, :invoices, :transactions
@@ -17,7 +17,7 @@ class SalesEngine
     @items = ItemRepository.new(items_)
     @merchants = MerchantRepository.new(merchants_)
     @invoices = InvoiceRepository.new(invoices_)
-    @transactions = TransactionRepository.new(transactions_)
+    @transactions = TransactionsRepository.new(transactions_)
   end
 
   def self.from_csv(csv_hash)
@@ -44,7 +44,7 @@ class SalesEngine
 
     transactions = []
     transactions_contents.each do |row|
-      transactions << Invoice.new(row)
+      transactions << Transactions.new(row)
     end
 
     se = SalesEngine.new(items, merchants, invoices, transactions)
@@ -52,6 +52,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items.all, @merchants.all, @invoices.all, transactions.all)
+    SalesAnalyst.new(@items.all, @merchants.all, @invoices.all, @transactions.all)
   end
 end

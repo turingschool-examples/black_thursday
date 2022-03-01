@@ -10,7 +10,7 @@ RSpec.describe ItemRepository do
                                  items: './data/items.csv',
                                  merchants: './data/merchants.csv',
                                  invoices: './data/invoices.csv',
-                                 require_relative 'transaction_repository'
+                                 transactions: './data/transactions.csv'
                                })
   end
 
