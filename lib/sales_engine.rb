@@ -7,20 +7,25 @@ require_relative 'item'
 require_relative 'merchant'
 require_relative 'invoice'
 require_relative 'sales_analyst'
+require_relative 'invoice_items'
+require_relative 'invoice_items_repository'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :invoice_items
 
-  def initialize(items_, merchants_, invoices_)
+  def initialize(items_, merchants_, invoices_, invoice_items_)
     @items = ItemRepository.new(items_)
     @merchants = MerchantRepository.new(merchants_)
     @invoices = InvoiceRepository.new(invoices_)
+    @invoice_items = InvoiceItems.new(invoice_items_)
   end
 
   def self.from_csv(csv_hash)
     item_contents = CSV.open csv_hash[:items], headers: true, header_converters: :symbol
     merchant_contents = CSV.open csv_hash[:merchants], headers: true, header_converters: :symbol
     invoice_contents = CSV.open csv_hash[:invoices], headers: true, header_converters: :symbol
+    invoice_items_contents = CSV.open csv_hash[:invoices], headers: true, header_converters: :symbol
+
 
     # read file, create objects, return SE object
     items = []
@@ -38,7 +43,12 @@ class SalesEngine
       invoices << Invoice.new(row)
     end
 
-    se = SalesEngine.new(items, merchants, invoices)
+    invoice_items = []
+    invoice_items_contents.each do |row|
+      invoice_items << InvoiceItems.new(row)
+    end
+
+    se = SalesEngine.new(items, merchants, invoices, invoice_items)
     # assign_items_to_merchant
   end
 
