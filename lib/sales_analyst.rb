@@ -1,5 +1,6 @@
 class SalesAnalyst
   attr_reader :merchant_repo, :item_repo, :merchant_items_hash, :num_items_per_merchant, :set_of_square_differences
+
   def initialize(merchant_repo, item_repo)
     @merchant_repo = merchant_repo
     @item_repo = item_repo
@@ -29,7 +30,7 @@ class SalesAnalyst
   def square_differences
     average_items_per_merchant
     differences = @num_items_per_merchant.map { |number| number - @mean }
-    @set_of_square_differences = differences.map { |difference| (difference ** 2).round(2) }
+    @set_of_square_differences = differences.map { |difference| (difference**2).round(2) }
   end
 
   def average_items_per_merchant_standard_deviation
