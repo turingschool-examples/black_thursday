@@ -36,4 +36,8 @@ class CustomerRepository
         customer.updated_at = Time.now
     end
   end
+
+  def delete(id)
+    @customers.delete(find_by_id(id))
+  end
 end
