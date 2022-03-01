@@ -31,6 +31,13 @@ RSpec.describe 'Iteration 3' do
       expect(expected.invoice_id).to eq 2
     end
 
+    it "#find_by_id returns nil if the invoice item does not exist" do
+      id = 200000
+      expected = @se.invoice_items.find_by_id(id)
+
+      expect(expected).to eq nil
+    end
+
 
 
   end
