@@ -134,5 +134,21 @@ RSpec.describe 'Iteration 3' do
     it '#update on unknown transaction does nothing' do
       @se.transactions.update(5000, {})
     end
+
+    it '#delete deletes the specified transaction' do
+      attributes = {
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.transactions.create(attributes)
+
+      @se.transactions.delete(4986)
+      expected = @se.transactions.find_by_id(4986)
+      expect(expected).to eq nil
+    end
   end
 end
