@@ -143,7 +143,7 @@ RSpec.describe 'Iteration 2' do
     end
 
     it '#update on unknown invoice does nothing' do
-      @se.invoice.update(1_239_230, {})
+      @se.invoices.update(1_239_230, {})
     end
 
     it '#delete deletes the specified invoice' do
