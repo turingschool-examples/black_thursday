@@ -38,6 +38,15 @@ RSpec.describe 'Iteration 3' do
       expect(expected).to eq nil
     end
 
+    it "#find_all_by_item_id finds all items matching given item_id" do
+      item_id = 263408101
+      expected = @se.invoice_items.find_all_by_item_id(item_id)
+
+      expect(expected.length).to eq 11
+      expect(expected.first.class).to eq InvoiceItem
+    end
+
+    
 
 
   end
