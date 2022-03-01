@@ -45,7 +45,7 @@ class SalesEngine
 
     invoice_items = []
     invoice_items_contents.each do |row|
-      invoice_items << InvoiceItems.new(row)
+      invoice_items << InvoiceItem.new(row)
     end
 
     se = SalesEngine.new(items, merchants, invoices, invoice_items)
