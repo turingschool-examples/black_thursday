@@ -46,7 +46,15 @@ RSpec.describe 'Iteration 3' do
       expect(expected.first.class).to eq InvoiceItem
     end
 
-    
+    it "#find_all_by_item_id returns an empty array if there are no matches" do
+      item_id = 10
+      expected = @se.invoice_items.find_all_by_item_id(item_id)
+
+      expect(expected.length).to eq 0
+      expect(expected.empty?).to eq true
+    end
+
+
 
 
   end
