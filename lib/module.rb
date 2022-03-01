@@ -14,9 +14,19 @@ module IDManager
   # end
 
   def update(id, attributes)
-    updated_hash = attributes
-    find_by_id(id).merge(updated_hash)
+    seleted_instance = find_by_id(id)
+    attributes.each do |key, value|
+      seleted_instance.name = value
+    end 
   end
+
+  
+  
+  
+  # def update(id, attributes)
+  #   updated_hash = attributes
+  #   find_by_id(id).merge(updated_hash)
+  # end
 
   def delete(id)
     @all.delete(find_by_id(id))

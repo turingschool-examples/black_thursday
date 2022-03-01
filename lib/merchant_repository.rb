@@ -15,6 +15,12 @@ attr_reader :all
     new_element[:id] = (@all.max{|index| index.id}).id + 1
     @all << Merchant.new(new_element)
   end
+  def update(id, attributes)
+    seleted_instance = find_by_id(id)
+    attributes.each do |key, value|
+      seleted_instance.name = value
+    end 
+  end
 #inspect method is required for spec harness to run
   def inspect
     "#<#{self.class} #{@all.size} rows>"
