@@ -14,13 +14,11 @@ module RepositoryAide
   end
 
   def find_by_id(id)
-    @repository.find {|element| element.id == id}
+    @repository.find {|element| element.id == id.to_i}
   end
 
   def new_id
-    new_id = @repository.sort_by do |element|
-                element.id.to_i
-              end.last.id.to_i
+    new_id = @repository.sort_by {|element| element.id}.last.id
     new_id += 1
   end
 

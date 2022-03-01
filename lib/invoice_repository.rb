@@ -11,7 +11,7 @@ class InvoiceRepository
   def initialize(file)
     @repository = read_csv(file).map do |invoice|
           Invoice.new({
-            :id => invoice[:id],
+            :id => invoice[:id].to_i,
             :customer_id => invoice[:customer_id],
             :merchant_id => invoice[:merchant_id],
             :status => invoice[:status].to_sym,
@@ -19,11 +19,10 @@ class InvoiceRepository
             :updated_at => invoice[:updated_at]
             })
           end
-    group
+    group_hash
   end
 
-  def group
-    @ids = @repository.group_by {|invoice| invoice.id}
+  def group_hash
     @customer_ids = @repository.group_by {|invoice| invoice.customer_id}
     @merchant_ids = @repository.group_by {|invoice| invoice.merchant_id}
     @invoice_status = @repository.group_by {|invoice| invoice.status}

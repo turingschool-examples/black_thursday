@@ -9,7 +9,7 @@ class CustomerRepository
   def initialize(file)
     @repository = read_csv(file).map do |customer|
         Customer.new({
-          :id => customer[:id],
+          :id => customer[:id].to_i,
           :first_name => customer[:first_name],
           :last_name => customer[:last_name],
           :created_at => customer[:created_at],
@@ -20,7 +20,6 @@ class CustomerRepository
   end
 
   def group_hash
-    @ids = @repository.group_by {|customer| customer.id}
     @first_names = @repository.group_by {|customer| customer.first_name}
     @last_names = @repository.group_by {|customer| customer.last_name}
   end

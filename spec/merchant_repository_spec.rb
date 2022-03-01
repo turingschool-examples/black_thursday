@@ -21,7 +21,7 @@ describe MerchantsRepository do
     it 'can find a merchant by the id' do
       mr = MerchantsRepository.new("./data/merchants.csv")
       merchant = mr.find_by_id("12336395")
-      expect(merchant.id).to eq("12336395")
+      expect(merchant.id).to eq(12336395)
       expect(merchant.name).to eq("ACWBanners")
     end
   end
@@ -31,7 +31,7 @@ describe MerchantsRepository do
       mr = MerchantsRepository.new("./data/merchants.csv")
       merchant = mr.find_by_name("cardsbymarykate")
       expect(merchant.name).to eq("cardsbymarykate")
-      expect(merchant.id).to eq("12337409")
+      expect(merchant.id).to eq(12337409)
     end
   end
 
