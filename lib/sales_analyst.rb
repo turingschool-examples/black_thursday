@@ -6,14 +6,16 @@ require_relative 'sales_engine'
 require_relative 'item_repository'
 
 class SalesAnalyst
-  attr_reader :items, :merchants, :invoices, :transactions, :customers
+  attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
 
-  def initialize(items, merchants, invoices, transactions, _customers)
+  def initialize(items, merchants, invoices, transactions, _customers, invoice_items
+
     @items = items
     @merchants = merchants
     @invoices = invoices
     @transactions = transactions
     @items_per_merchant = {}
+    @invoice_items = invoice_items
   end
 
   def average_items_per_merchant

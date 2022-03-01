@@ -1,6 +1,5 @@
-# frozen_string_literal: true
+# invoice_repository
 
-# item_repository
 require 'pry'
 class InvoiceRepository
   attr_reader :invoices
