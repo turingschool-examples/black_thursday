@@ -4,13 +4,15 @@ require 'bigdecimal/util'
 require 'date'
 
 class SalesAnalyst
-  attr_reader :merchants, :items, :invoices, :customers, :inv_per_day
-  def initialize(merchants, items, invoices, customers)
-    @merchants = merchants
+  attr_reader :merchants, :items, :invoices, :customers, :inv_per_day, :transactions, :invoice_items
+  def initialize(items, merchants, invoices, customers, transactions, invoice_items)
     @items = items
     @invoices = invoices
     @customers = customers
-    @@inv_per_day = []
+    @transactions = transactions
+    @invoice_items = invoice_items
+    @merchants = merchants
+    @inv_per_day = []
   end
 
   def list_all_items_by_merchant
