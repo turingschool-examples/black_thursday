@@ -20,4 +20,11 @@ class CustomerRepository
   def find_all_by_last_name(name)
     @customers.find_all { |customer| customer.last_name.downcase.include?(name.downcase) }
   end
+
+  def create(attributes)
+    @customers.sort_by { |customer| customer.id}
+    last_id = @customers.last.id
+    attributes[:id] = (last_id += 1)
+    @customers << Customer.new(attributes)
+  end
 end
