@@ -60,6 +60,7 @@ describe Analyst do
   end
 
   it "determines if invoice has been paid in full" do
-    expect(@sales_analyst.invoice_paid_in_full?("2179")).to eq(true)
+    expect(@sales_analyst.invoice_paid_in_full?("46")).to eq(true)
+    expect(@sales_analyst.invoice_paid_in_full?("204")).to eq(false)
   end
 end

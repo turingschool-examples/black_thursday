@@ -92,5 +92,13 @@ class Analyst
     percentage = (decimal * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @tr.find_all_by_invoice_id(invoice_id)
+    if transactions.map {|transaction| transaction.result }.include?("success")
+      true
+    else
+     false
+    end
+  end
 
 end
