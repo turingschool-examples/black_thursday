@@ -1,9 +1,13 @@
 class SalesAnalyst
-  attr_reader :merchant_repo, :item_repo, :merchant_items_hash, :num_items_per_merchant, :set_of_square_differences
+  attr_reader :merchant_repo, :item_repo, :transaction_repo, :invoice_item_repo, :invoice_repo, :customer_repo, :merchant_items_hash, :num_items_per_merchant, :set_of_square_differences
 
-  def initialize(merchant_repo, item_repo)
+  def initialize(merchant_repo, item_repo, transaction_repo, invoice_item_repo, invoice_repo, customer_repo)
     @merchant_repo = merchant_repo
     @item_repo = item_repo
+    @transaction_repo = transaction_repo
+    @invoice_item_repo = invoice_item_repo
+    @invoice_repo = invoice_repo
+    @customer_repo = customer_repo
     @merchant_items_hash = {}
     @num_items_per_merchant = []
     @mean = 0
