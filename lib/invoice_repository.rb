@@ -44,10 +44,8 @@ class InvoiceRepository
   def update(id, attributes)
     invoice = find_by_id(id)
     attributes.map do |key, value|
-      if key == :status
-        invoice.status = value
-        invoice.updated_at = Time.now
-      end
+      invoice.status = value if key == :status
+      invoice.updated_at = Time.now
     end
   end
 
