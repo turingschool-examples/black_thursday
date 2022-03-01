@@ -28,7 +28,7 @@ describe CustomerRepository do
     it 'can find customers by their id' do
       customer = @cr.find_by_id("23")
       expect(customer.class).to eq(Customer)
-      expect(customer.id).to eq("23")
+      expect(customer.id).to eq(23)
       expect(customer.last_name).to eq("Nader")
     end
   end

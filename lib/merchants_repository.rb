@@ -8,17 +8,14 @@ class MerchantsRepository
 
   def initialize(file)
     @repository = read_csv(file).map do |merchant|
-                  Merchant.new({:id => merchant[:id], :name => merchant[:name]})
+                  Merchant.new({
+                    :id => merchant[:id].to_i,
+                    :name => merchant[:name]})
                 end
     group_hash
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def group_hash
-    @ids = @repository.group_by {|merchant| merchant.id}
     @names = @repository.group_by{|merchant| merchant.name.downcase}
   end
 

@@ -29,7 +29,7 @@ describe Analyst do
     expect(@sales_analyst.average_average_price_per_merchant).to be_a(BigDecimal)
   end
 
-  it "finds the golden iems" do
+  it "finds the golden items" do
     expect(@sales_analyst.golden_items.count).to eq(5)
   end
 
