@@ -6,6 +6,8 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
 require_relative './invoice'
+require_relative './transaction'
+require_relative './transaction_repository'
 
 class SalesEngine
   attr_accessor :invoice_repo, :merchant_repo, :item_repo
@@ -16,6 +18,7 @@ class SalesEngine
     @invoice_repo = nil
     @merchant_repo = nil
     @item_repo = nil
+    @transaction_repo = nil
   end
 
   def self.from_csv(path_hash)
@@ -50,7 +53,7 @@ class SalesEngine
     end
   end
 
-  def invoices
+  def invoice_items
     invoice_array = @table_hash[:invoices].map do |row|
       Invoice.new({ id: row[:id].to_i, customer_id: row[:customer_id].to_i, merchant_id: row[:merchant_id].to_i,
                     status: row[:status].to_sym, created_at: row[:created_at], updated_at: row[:updated_at] })
@@ -60,5 +63,12 @@ class SalesEngine
     else
       @invoice_repo
     end
+  end
+
+  def transactions
+    transaction_array = @table_hash[:transactions].map do |row|
+      Transaction.new ({id: row[:id].to_i, invoice_id: row[:invoice_id].to_i, credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result], created_at: row[:created_at], updated_at: row[:updated_at]})
+    end
+    @transaction_repo == nil ? @transaction_repo = TransactionRepository.new(transaction_array) : @transaction_repo
   end
 end
