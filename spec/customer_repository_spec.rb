@@ -41,5 +41,19 @@ RSpec.describe 'Iteration 3' do
       expect(expected.length).to eq 85
       expect(expected.first.class).to eq Customer
     end
+
+    it "#find_all_by_first_name and #find_all_by_last_name are case insensitive" do
+      fragment = "NN"
+      expected = @se.customers.find_all_by_first_name(fragment)
+
+      expect(expected.length).to eq 57
+      expect(expected.first.class).to eq Customer
+
+      fragment = "oN"
+      expected = @se.customers.find_all_by_last_name(fragment)
+
+      expect(expected.length).to eq 85
+      expect(expected.first.class).to eq Customer
+    end
   end
 end
