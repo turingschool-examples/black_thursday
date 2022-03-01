@@ -145,13 +145,13 @@ RSpec.describe 'Iteration 2' do
     end
 
     it '#delete deletes the specified invoice' do
-      @se.invoices.delete(4986)
-      expected = @se.invoices.find_by_id(4986)
+      @se.transactions.delete(4986)
+      expected = @se.transactions.find_by_id(4986)
       expect(expected).to eq nil
     end
 
     it '#delete on unknown invoice does nothing' do
-      @se.invoices.delete(6000)
+      @se.transactions.delete(6000)
     end
   end
 end

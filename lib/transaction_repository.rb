@@ -45,7 +45,7 @@ class TransactionRepository
   end
 
   def delete(id)
-    @invoices.delete(find_by_id(id))
+    @transactions.delete(find_by_id(id))
   end
 
   def inspect
