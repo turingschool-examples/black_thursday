@@ -8,9 +8,11 @@ require_relative './invoice_repository'
 require_relative './invoice'
 require_relative './customer'
 require_relative './customer_repository'
+require_relative './invoice_item'
+require_relative './invoice_item_repository'
 
 class SalesEngine
-  attr_accessor :invoice_repo, :merchant_repo, :item_repo, :customer_repo
+  attr_accessor :invoice_repo, :merchant_repo, :item_repo, :customer_repo, :invoice_item_repo
   attr_reader :table_hash
 
   def initialize(table_hash)
@@ -19,6 +21,7 @@ class SalesEngine
     @merchant_repo = nil
     @customer_repo = nil
     @item_repo = nil
+    @invoice_item_repo = nil
   end
 
   def self.from_csv(path_hash)
@@ -74,6 +77,18 @@ class SalesEngine
       @invoice_repo = InvoiceRepository.new(invoice_array)
     else
       @invoice_repo
+    end
+  end
+
+  def invoice_items
+    iir_array = @table_hash[:invoice_items].map do |row|
+      InvoiceItem.new({ id: row[:id].to_i, item_id: row[:item_id].to_i, invoice_id: row[:invoice_id].to_i,
+                        quantity: row[:quantity], unit_price: BigDecimal(row[:unit_price].to_f / 100, 4), created_at: row[:created_at], updated_at: row[:updated_at] })
+    end
+    if @invoice_item_repo == nil
+      @invoice_item_repo = InvoiceItemRepository.new(iir_array)
+    else
+      @invoice_item_repo
     end
   end
 end
