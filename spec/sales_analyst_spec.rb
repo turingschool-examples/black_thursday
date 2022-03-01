@@ -19,7 +19,7 @@ describe SalesAnalyst do
                               })
     @sales_analyst = sales_engine.analyst
   end
-  # binding.pry
+
   it "exists" do
     expect(@sales_analyst).to be_an_instance_of(SalesAnalyst)
   end
@@ -77,7 +77,6 @@ describe SalesAnalyst do
   it 'can list all invoices by merchant' do
     a = @sales_analyst.list_all_invoices_by_merchant
     expect(a.length).to eq(475)
-    # require 'pry'; binding.pry
   end
 
   it "can find the average invoices per merchant" do
@@ -91,7 +90,6 @@ describe SalesAnalyst do
   end
 
   it "can find the top merchants by invoice count" do
-     # require 'pry'; binding.pry
     a = @sales_analyst.top_merchants_by_invoice_count
     expect(a.length).to eq(12)
     expect(a.first.class).to eq(Merchant)
@@ -130,4 +128,24 @@ describe SalesAnalyst do
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
+  it "SalesAnalyst is_paid_in_full? returns true if the invoice is paid in full" do
+    expected = @sales_analyst.invoice_paid_in_full?(1)
+    expect(expected).to eq true
+
+    expected = @sales_analyst.invoice_paid_in_full?(200)
+    expect(expected).to eq true
+
+    expected = @sales_analyst.invoice_paid_in_full?(203)
+    expect(expected).to eq false
+
+    expected = @sales_analyst.invoice_paid_in_full?(204)
+    expect(expected).to eq false
+  end
+
+  it "SalesAnalyst total returns the total dollar amount if the invoice is paid in full" do
+    expected = @sales_analyst.invoice_total(1)
+
+    expect(expected).to eq 21067.77
+    expect(expected.class).to eq BigDecimal
+  end
 end
