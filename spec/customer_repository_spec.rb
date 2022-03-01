@@ -17,5 +17,13 @@ RSpec.describe 'Iteration 3' do
       expect(expected.length).to eq 1000
       expect(expected.first.class).to eq Customer
     end
+
+    it "#find_by_id returns the customer with matching id" do
+      id = 100
+      expected = @se.customers.find_by_id(id)
+
+      expect(expected.id).to eq id
+      expect(expected.class).to eq Customer
+    end
   end
 end
