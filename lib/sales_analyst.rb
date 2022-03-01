@@ -1,5 +1,5 @@
 require_relative 'sales_engine'
-
+require_relative 'merchant_repository'
 
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions, :id_counter
@@ -13,6 +13,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
+
       return (@items.length.to_f/@merchants.length.to_f).round(2)
   end
 
@@ -30,18 +31,28 @@ class SalesAnalyst
     average_items_per_merchant_standard_deviation_fixed = average_items_per_merchant_standard_deviation
     id_counter_fixed = @id_counter
     high_item_count =  id_counter_fixed.find_all {|index| index[1] >= average_items_per_merchant_standard_deviation_fixed + average_items_per_merchant_fixed}
+    high_item_count_merchants = []
+    # high_item_count.each{|item| merchants.find{|merchant| if merchant.id == item[0] high_item_count_merchants.push(merchant)}}
+    high_item_count.each do |item|
+      merchants.find_all do |merchant|
+        if item[0] == merchant.id
+          high_item_count_merchants.push(merchant)
+        end
+      end
+    end
+    return high_item_count_merchants
   end
 
   def average_item_price_for_merchant(merchant_id)
     items_per_merchant
-    number_of_items = @id_counter[merchant_id]
-    items = @items.find_all{|index| index.merchant_id == merchant_id}
+    number_of_items = @id_counter[merchant_id.to_s]
+    items = @items.find_all{|index| index.merchant_id == merchant_id.to_s}
     total_cost = 0.0
     items.each {|index| total_cost += index.unit_price}
     return (total_cost./(100 * number_of_items)).round(2)
   end
 
-  def average_item_price_per_merchant
+  def average_average_price_per_merchant
     items_per_merchant
     id_counter_fixed = @id_counter
     sum_of_all_averages = 0.0
@@ -78,5 +89,4 @@ class SalesAnalyst
     @items.each {|index| squared_item_price_total += ((index.unit_price.to_f - average_item_price_fixed)**2)}
     return (squared_item_price_total/(@items.length - 1 ))**0.5
   end
-
 end
