@@ -31,28 +31,44 @@ RSpec.describe 'Iteration 3' do
       id = 419
       expected = @se.transactions.find_all_by_invoice_id(id)
 
-      expect(expected.length).to eq 1
+      expect(expected.length).to eq(1)
 
-      expect(expected.first.invoice_id).to eq id
-      expect(expected.first.class).to eq Transaction
+      expect(expected.first.invoice_id).to eq(id)
+      expect(expected.first.class).to eq(Transaction)
 
       id = 194_345
       expected = @se.transactions.find_all_by_invoice_id(id)
-      expect(expected.empty?).to eq true
+      expect(expected.empty?).to eq(true)
     end
 
     it '#find_all_by_credit_card_number returns all transactions matching given credit card number' do
       credit_card_number = '4970472137240748'
       expected = @se.transactions.find_all_by_credit_card_number(credit_card_number)
 
-      expect(expected.length).to eq 1
-      expect(expected.first.class).to eq Transaction
-      expect(expected.first.credit_card_number).to eq credit_card_number
+      expect(expected.length).to eq(1)
+      expect(expected.first.class).to eq(Transaction)
+      expect(expected.first.credit_card_number).to eq(credit_card_number)
 
       credit_card_number = '4848466917766328'
       expected = @se.transactions.find_all_by_credit_card_number(credit_card_number)
 
-      expect(expected.empty?).to eq true
+      expect(expected.empty?).to eq(true)
+    end
+
+    it '#find_all_by_result returns all transactions matching given result' do
+      result = :success
+      expected = @se.transactions.find_all_by_result(result)
+
+      expect(expected.length).to eq(4158)
+      expect(expected.first.class).to eq(Transaction)
+      expect(expected.first.result).to eq(result)
+
+      result = :failed
+      expected = @se.transactions.find_all_by_result(result)
+
+      expect(expected.length).to eq(827)
+      expect(expected.first.class).to eq(Transaction)
+      expect(expected.first.result).to eq(result)
     end
   end
 end
