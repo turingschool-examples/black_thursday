@@ -17,7 +17,7 @@ RSpec.describe TransactionRepository do
       credit_card_number: 8275,
       result: "success"
       })
-    @tr = TransactionRepository.new([@transaction1, @transaction2, @  transaction3])
+    @tr = TransactionRepository.new([@transaction1, @transaction2, @transaction3])
   end
 
   it 'exists' do
