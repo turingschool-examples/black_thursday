@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/transaction'
-require './lib/repository_aide'
-require './lib/time_helper'
+require_relative '../lib/transaction'
+require_relative '../lib/repository_aide'
+require_relative '../lib/time_helper'
 
 class TransactionRepository
   include RepositoryAide

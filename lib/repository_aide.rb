@@ -9,7 +9,12 @@ module RepositoryAide
     @repository
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def find(search_repo, match)
+    # require 'pry'; binding.pry
     search_repo[match]
   end
 
@@ -29,6 +34,7 @@ module RepositoryAide
     attribute_hash[:created_at] = Time.new
     attribute_hash[:updated_at] = Time.new
     attribute_hash
+    # require 'pry'; binding.pry
   end
 
   def delete(id)

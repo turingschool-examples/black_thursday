@@ -1,10 +1,10 @@
-require './mathable'
-require './time_helper'
-require './merchants_repository'
-require './items_repository'
-require './invoice_repository'
-require './transaction_repository'
-require './invoice_items_repository'
+require_relative '../lib/mathable'
+require_relative '../lib/merchants_repository'
+require_relative '../lib/items_repository'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/time_helper'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/invoice_items_repository'
 require 'pry'
 
 class Analyst
