@@ -31,11 +31,21 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.num_items_per_merchant.sum).to be(1367)
   end
 
-  xit 'what is the average items per merchant' do
+  it 'what is the average items per merchant' do
     sales_engine = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
   end
+
+  it 'collects squared differences of each item count and mean of item counts' do
+    sales_engine = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
+    sales_analyst = sales_engine.analyst
+    sales_analyst.square_differences
+    expect(sales_analyst.set_of_square_differences.count).to eq(475)
+    expect(sales_analyst.set_of_square_differences.class).to eq(Array)
+    expect(sales_analyst.set_of_square_differences[0].class).to eq(Float)    
+  end
+
 
   xit 'what is the standard deviation' do
     sales_engine = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
