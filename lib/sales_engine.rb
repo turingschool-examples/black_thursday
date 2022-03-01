@@ -6,8 +6,11 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
 require_relative './invoice'
+require_relative './transaction'
+require_relative './transaction_repository'
 require_relative './customer'
 require_relative './customer_repository'
+
 
 class SalesEngine
   attr_accessor :invoice_repo, :merchant_repo, :item_repo, :customer_repo
@@ -19,6 +22,7 @@ class SalesEngine
     @merchant_repo = nil
     @customer_repo = nil
     @item_repo = nil
+    @transaction_repo = nil
   end
 
   def self.from_csv(path_hash)
@@ -33,7 +37,7 @@ class SalesEngine
   def items
     item_array = @table_hash[:items].map do |row|
       Item.new({ id: row[:id].to_i, name: row[:name], description: row[:description],
-                 unit_price: BigDecimal(row[:unit_price].to_f / 100, 4), merchant_id: row[:merchant_id].to_i, created_at: row[:created_at], updated_at: row[:updated_at] })
+                 unit_price: BigDecimal(row[:unit_price].to_f / 100, row[:unit_price].length), merchant_id: row[:merchant_id].to_i, created_at: row[:created_at], updated_at: row[:updated_at] })
     end
     if @item_repo == nil
       @item_repo = ItemRepository.new(item_array)
@@ -75,5 +79,12 @@ class SalesEngine
     else
       @invoice_repo
     end
+  end
+
+  def transactions
+    transaction_array = @table_hash[:transactions].map do |row|
+      Transaction.new ({id: row[:id].to_i, invoice_id: row[:invoice_id].to_i, credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result].to_sym, created_at: row[:created_at], updated_at: row[:updated_at]})
+    end
+    @transaction_repo == nil ? @transaction_repo = TransactionRepository.new(transaction_array) : @transaction_repo
   end
 end

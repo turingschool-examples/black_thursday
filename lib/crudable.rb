@@ -1,3 +1,4 @@
+require 'Time'
 module Crudable
   # helper method for create
   def highest_id
@@ -16,7 +17,8 @@ module Crudable
 
   def update(id, attributes)
     attributes.each do |k, v|
-      find_by_id(id).instance_variable_set(k.to_s.insert(0, '@').to_sym, v)
+      # require 'pry';binding.pry
+      find_by_id(id).instance_variable_set(k.to_s.insert(0, '@').to_sym, v) unless update_checker(k)
     end
     if find_by_id(id).instance_variables.include?(:@updated_at)
       find_by_id(id).updated_at = Time.now
@@ -27,4 +29,10 @@ module Crudable
     erase = find_by_id(id)
     @all.delete(erase)
   end
+
+  def update_checker (key)
+    forbidden = [:id, :created_at, :merchant_id, :customer_id, :invoice_id]
+    forbidden.include?(key)
+  end
+
 end
