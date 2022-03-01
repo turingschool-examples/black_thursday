@@ -9,4 +9,7 @@ class SalesAnalyst
     avg = @item_repo.all.count.to_f / @merchant_repo.all.count.to_f
     avg.round(2)
   end
+
+  def average_items_per_merchant_standard_deviation
+  end
 end
