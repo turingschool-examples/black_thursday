@@ -11,7 +11,7 @@ RSpec.describe Transaction do
                                      credit_card_expiration_date: '0220',
                                      result: 'success',
                                      created_at: '2012-02-26 20:56:56 UTC',
-                                     updated_at: Time.now
+                                     updated_at: '2012-03-26 20:56:56 UTC'
                                    })
   end
 
@@ -33,5 +33,10 @@ RSpec.describe Transaction do
   it '#created_at returns a Time instance for the date the invoice item was created' do
     expect(@transaction.created_at).to eq Time.parse('2012-02-26 20:56:56 UTC')
     expect(@transaction.created_at.class).to eq(Time)
+  end
+
+  it '#updated_at returns a Time instance for the date the invoice item was last updated' do
+    expect(@transaction.updated_at).to eq Time.parse('2012-03-26 20:56:56 UTC')
+    expect(@transaction.updated_at.class).to eq Time
   end
 end
