@@ -3,8 +3,8 @@ require 'time'
 require 'bigdecimal'
 
 class InvoiceItem
-  attr_accessor :item_id, :invoice_id, :quantity, :unit_price, :updated_at
-  attr_reader :id, :created_at
+  attr_accessor   :quantity, :unit_price, :updated_at
+  attr_reader :invoice_id, :item_id, :id, :created_at
 
   def initialize(attributes)
     @id = attributes[:id].to_i

@@ -85,16 +85,28 @@ RSpec.describe 'Iteration 3' do
     end
 
     it "#update updates an invoice item" do
-      original_time = engine.invoice_items.find_by_id(21831).updated_at
+      attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      
+      @se.invoice_items.create(attributes)
+      original_time = @se.invoice_items.find_by_id(21831).updated_at
       attributes = {
         quantity: 13
       }
       @se.invoice_items.update(21831, attributes)
-      expected = engine.invoice_items.find_by_id(21831)
+      expected = @se.invoice_items.find_by_id(21831)
       expect(expected.quantity).to eq 13
       expect(expected.item_id).to eq 7
       expect(expected.updated_at).to be > original_time
     end
+
+
 
 
 
