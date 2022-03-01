@@ -11,7 +11,8 @@ RSpec.describe 'Iteration 2' do
                                    items: './data/items.csv',
                                    merchants: './data/merchants.csv',
                                    invoices: './data/invoices.csv',
-                                   transactions: './data/transactions.csv'
+                                   transactions: './data/transactions.csv',
+                                   customers: './data/customers.csv'
                                  })
       @sa = @se.analyst
     end
