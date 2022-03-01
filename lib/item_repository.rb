@@ -48,8 +48,8 @@ class ItemRepository
       item.unit_price = value if key == :unit_price
       item.description = value if key == :description
       item.name = value if key == :name
+      item.updated_at = Time.now
     end
-    item.updated_at = Time.now
   end
 
   def delete(id)

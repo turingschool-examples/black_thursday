@@ -1,14 +1,16 @@
 # merchant_rep_spec
+require 'CSV'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 require 'pry'
 
 RSpec.describe MerchantRepository do
   before(:each) do
     @se = SalesEngine.from_csv({
-                                 items: './data/items.csv',
-                                 merchants: './data/merchants.csv',
-                                 invoice_items: './data/invoice_items.csv', invoices: '.data/invoices.csv'
+                                items: './data/items.csv',
+                                merchants: './data/merchants.csv',
+                                invoice_items: './data/invoice_items.csv', invoices: './data/invoices.csv'
                                })
   end
 

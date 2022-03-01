@@ -37,14 +37,10 @@ class InvoiceItemsRepository
   def update(id, attributes)
     invoice_item = find_by_id(id)
     attributes.map do |key, value|
-      if key == :quantity
-        invoice_item.quantity = value
-      elsif key == :unit_price
-        invoice_item.unit_price = value
-      end
+        invoice_item.quantity = value if key == :quantity
+        invoice_item.unit_price = value if key == :unit_price
+        invoice_item.updated_at = Time.now
     end
-
-    invoice_item.updated_at = Time.now
   end
 
 end

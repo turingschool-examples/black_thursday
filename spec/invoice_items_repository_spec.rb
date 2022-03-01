@@ -108,6 +108,16 @@ RSpec.describe 'Iteration 3' do
 
     it "#update cannot update id, item_id, invoice_id, or created_at" do
       attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @se.invoice_items.create(attributes)
+
+      attributes = {
         id: 22000,
         item_id: 32,
         invoice_id: 53,

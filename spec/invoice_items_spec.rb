@@ -5,7 +5,7 @@ require 'pry'
 RSpec.describe 'Iteration 3' do
   context 'Invoices Items' do
     it 'exists' do
-      i = InvoiceItems.new({
+      i = InvoiceItem.new({
                         id: 1,
                         item_id: 263519844,
                         invoice_id: 1,
@@ -15,11 +15,11 @@ RSpec.describe 'Iteration 3' do
                         updated_at: Time.now
                       })
 
-      expect(i).to be_an(InvoiceItems)
+      expect(i).to be_an(InvoiceItem)
     end
 
     it '#has attributes' do
-      i = InvoiceItems.new({
+      i = InvoiceItem.new({
                         id: 1,
                         item_id: 263519844,
                         invoice_id: 1,
