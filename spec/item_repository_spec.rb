@@ -13,7 +13,6 @@ RSpec.describe ItemRepository do
     expect(repo.all[0]).to be_an_instance_of(Item)
   end
 
-
   it 'finds by id' do
     item1 = Item.new({ id: 1, name: "test", description: "test_description", unit_price: 1, created_at: "8:07pm UTC",
                        updated_at: "2:34pm UTC", merchant_id: 001 })
@@ -95,7 +94,7 @@ RSpec.describe ItemRepository do
     repo = ItemRepository.new([item1, item2])
 
     item3 = repo.create({ id: 1, name: "Test Item 3", description: "test_description", unit_price: 5, created_at: "9:07pm UTC",
-                  updated_at: "7:26am UTC", merchant_id: 002 })
+                          updated_at: "7:26am UTC", merchant_id: 002 })
     expect(repo.all.length).to eq(3)
     expect(repo.all[2].class).to eq(Item)
     expect(repo.all[2].id).to eq(3)
@@ -111,8 +110,7 @@ RSpec.describe ItemRepository do
     repo = ItemRepository.new([item1, item2, item3])
 
     repo.update(2,
-                { name: "Updated Test-Test", description: "This description is updated", unit_price: 999,
-                   })
+                { name: "Updated Test-Test", description: "This description is updated", unit_price: 999, })
     expect(repo.all[1].unit_price).to eq(999)
     expect(repo.all[1].description).to eq("This description is updated")
     expect(repo.all[1].updated_at).not_to eq("12:00pm UTC")

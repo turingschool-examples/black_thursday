@@ -12,19 +12,19 @@ RSpec.describe SalesEngine do
     se = SalesEngine.new({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     expect(se.class).to eq(SalesEngine)
   end
-  
+
   it 'has an table_hash[:items] attribute by default' do
-    se = SalesEngine.new({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.new({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     expect(se.table_hash[:items]).to eq("./data/items.csv")
   end
 
   it 'has an table_hash[:merchants] attribute by default' do
-    se = SalesEngine.new({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.new({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     expect(se.table_hash[:merchants]).to eq("./data/merchants.csv")
   end
 
   it 'Sets attributes to CSV objects' do
-    se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     expect(se.table_hash[:items].class).to eq(CSV::Table)
     expect(se.table_hash[:merchants].class).to eq(CSV::Table)
   end
@@ -38,5 +38,11 @@ RSpec.describe SalesEngine do
   it 'merchants method returns instance of MerchantsRepo... with instances loaded' do
     se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv" })
     expect(se.merchants.class).to eq(MerchantRepository)
+  end
+
+  it 'customer method returns instance of CustomerRepo... with instances loaded' do
+    se = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv",
+                                :customers => "./data/customers.csv" })
+    expect(se.customers.class).to eq(CustomerRepository)
   end
 end
