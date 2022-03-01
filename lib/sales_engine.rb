@@ -19,7 +19,7 @@ require_relative 'invoice_items_repository'
 class SalesEngine
   attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
 
-  def initialize(items_, merchants_, invoices_, transactions_, customers_, invoice_items)
+  def initialize(items_, merchants_, invoices_, transactions_, customers_, invoice_items_)
     @items = ItemRepository.new(items_)
     @merchants = MerchantRepository.new(merchants_)
     @invoices = InvoiceRepository.new(invoices_)
@@ -61,13 +61,13 @@ class SalesEngine
     customer_contents.each do |row|
       customers << Customer.new(row)
     end
-    
+
     invoice_items = []
     invoice_items_contents.each do |row|
     invoice_items << InvoiceItem.new(row)
     end
 
-    se = SalesEngine.new(items, merchants, invoices, transactions, customers)
+    se = SalesEngine.new(items, merchants, invoices, transactions, customers, invoice_items)
   end
 
   def analyst
