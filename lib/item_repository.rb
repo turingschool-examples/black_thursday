@@ -21,12 +21,16 @@ attr_accessor :all
   end
 
   def find_all_by_price(price)
-   # @all.find_all{|index| index.unit_price.to_f == price}
-   @all.find_all{|index| index.unit_price == (BigDecimal(price,4))}
+   temp_price = (price*100).to_f
+   new_price = BigDecimal(temp_price,4)
+   @all.find_all{|index| index.unit_price == (new_price)}
   end
 
   def find_all_by_price_in_range(range)
-   @all.find_all{|index| range.include?(index.unit_price)}
+    new_min = BigDecimal((range.min*100).to_f,4)
+    new_max = BigDecimal((range.max*100).to_f,4)
+    new_range = (new_min..new_max )
+   @all.find_all{|index| new_range.include?(index.unit_price)}
   end
 
   # def update(id, attributes)
