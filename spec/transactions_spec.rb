@@ -29,4 +29,9 @@ RSpec.describe Transaction do
     expect(transaction.result).to eq :success
     expect(transaction.result.class).to eq Symbol
   end
+
+  it '#created_at returns a Time instance for the date the invoice item was created' do
+    expect(transaction.created_at).to eq Time.parse('2012-02-26 20:56:56 UTC')
+    expect(transaction.created_at.class).to eq Time
+  end
 end
