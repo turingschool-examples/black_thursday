@@ -10,7 +10,8 @@ RSpec.describe 'Iteration 2' do
       @se = SalesEngine.from_csv({
                                    items: './data/items.csv',
                                    merchants: './data/merchants.csv',
-                                   invoices: './data/invoices.csv'
+                                   invoices: './data/invoices.csv',
+                                   require_relative 'transaction_repository'
                                  })
       @sa = @se.analyst
     end

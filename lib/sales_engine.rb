@@ -3,10 +3,12 @@ require 'CSV'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'transaction_repository'
 require_relative 'item'
 require_relative 'merchant'
 require_relative 'invoice'
 require_relative 'sales_analyst'
+require_relative 'transaction'
 
 class SalesEngine
   attr_reader :items, :merchants, :invoices, :transactions
@@ -41,15 +43,15 @@ class SalesEngine
     end
 
     transactions = []
-    invoice_contents.each do |row|
-      invoices << Invoice.new(row)
+    transactions_contents.each do |row|
+      transactions << Invoice.new(row)
     end
 
-    se = SalesEngine.new(items, merchants, invoices)
+    se = SalesEngine.new(items, merchants, invoices, transactions)
     # assign_items_to_merchant
   end
 
   def analyst
-    SalesAnalyst.new(@items.all, @merchants.all, @invoices.all)
+    SalesAnalyst.new(@items.all, @merchants.all, @invoices.all, transactions.all)
   end
 end
