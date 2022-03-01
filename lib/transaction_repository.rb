@@ -1,5 +1,5 @@
 require 'pry'
-require_relative './lib/findable'
+require_relative './findable'
 require_relative './crudable'
 
 class TransactionRepository
