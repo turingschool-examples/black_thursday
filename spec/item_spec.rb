@@ -9,7 +9,7 @@ RSpec.describe Item do
     :id          => 1,
     :name        => "Pencil",
     :description => "You can use it to write things",
-    :unit_price  => BigDecimal(10.99,4),
+    :unit_price  => BigDecimal(1099,4),
     :created_at  => Time.new(2002, 10, 29),
     :updated_at  => Time.new(2002, 10, 31),
     :merchant_id => 2
@@ -25,6 +25,7 @@ RSpec.describe Item do
 
 
     it "has readable attributes" do
+      # require 'pry'; binding.pry
       # allow(Time).to receive(:now).and_return(@time_now)
       expect(@i.id).to eq(1)
       expect(@i.name).to eq("Pencil")
