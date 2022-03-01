@@ -111,5 +111,19 @@ RSpec.describe 'Iteration 3' do
     it "#update on unknown customer does nothing" do
       @se.customers.update(2000, {})
     end
+
+    it "#delete deletes the specified customer" do
+      attributes = {
+        :first_name => "Joan",
+        :last_name => "Clarke",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @se.customers.create(attributes)
+      
+      @se.customers.delete(1001)
+      expected = @se.customers.find_by_id(1001)
+      expect(expected).to eq nil
+    end
   end
 end
