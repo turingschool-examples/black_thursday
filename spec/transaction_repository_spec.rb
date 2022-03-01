@@ -28,16 +28,30 @@ RSpec.describe 'Iteration 3' do
     end
 
     it '#find_all_by_invoice_id returns all transactions matching the given id' do
-      id = 2179
+      id = 419
       expected = @se.transactions.find_all_by_invoice_id(id)
 
-      expect(expected.length).to eq 2
+      expect(expected.length).to eq 1
 
       expect(expected.first.invoice_id).to eq id
       expect(expected.first.class).to eq Transaction
 
-      id = 14_560
+      id = 194_345
       expected = @se.transactions.find_all_by_invoice_id(id)
+      expect(expected.empty?).to eq true
+    end
+
+    it '#find_all_by_credit_card_number returns all transactions matching given credit card number' do
+      credit_card_number = '4970472137240748'
+      expected = engine.transactions.find_all_by_credit_card_number(credit_card_number)
+
+      expect(expected.length).to eq 1
+      expect(expected.first.class).to eq Transaction
+      expect(expected.first.credit_card_number).to eq credit_card_number
+
+      credit_card_number = '4848466917766328'
+      expected = engine.transactions.find_all_by_credit_card_number(credit_card_number)
+
       expect(expected.empty?).to eq true
     end
   end
