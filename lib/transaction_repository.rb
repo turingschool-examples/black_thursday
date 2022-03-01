@@ -1,6 +1,6 @@
 # Transaction Repo
 require 'pry'
-class TransactionsRepository
+class TransactionRepository
   attr_reader :transactions
 
   def initialize(transactions)
