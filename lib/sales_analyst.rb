@@ -21,7 +21,6 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    # avg = @item_repo.all.count.to_f / @merchant_repo.all.count.to_f
     items_per_merchant
     avg = items_per_merchant.sum.to_f / items_per_merchant.count
     @mean = avg.round(2)
@@ -31,11 +30,12 @@ class SalesAnalyst
     average_items_per_merchant
     differences = @num_items_per_merchant.map { |number| number - @mean }
     @set_of_square_differences = differences.map { |difference| (difference ** 2).round(2) }
-    # binding.pry
   end
-  #
-  #
-  #
-  # def average_items_per_merchant_standard_deviation
-  # end
+
+  def average_items_per_merchant_standard_deviation
+    square_differences
+    sum_sq_diff = @set_of_square_differences.sum
+    result = sum_sq_diff / (@num_items_per_merchant.count - 1)
+    Math.sqrt(result).round(2)
+  end
 end
