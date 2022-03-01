@@ -10,7 +10,7 @@ SimpleCov.start
 
 RSpec.describe SalesAnalyst do
   it 'exists' do
-    sa = SalesAnalyst.new
+    sa = SalesAnalyst.new(1, 2)
     expect(sa).to be_a(SalesAnalyst)
   end
 
