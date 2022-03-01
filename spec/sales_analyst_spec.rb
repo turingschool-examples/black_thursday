@@ -13,7 +13,6 @@ RSpec.describe ItemRepository do
   end
 
   it '#average_items_per_merchant returns average items per merchant' do
-    binding.pry
     expected = @sa.average_items_per_merchant
 
     expect(expected).to eq 2.88

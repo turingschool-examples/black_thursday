@@ -10,10 +10,13 @@ require_relative 'sales_analyst'
 require 'pry'
 
 class SalesEngine
-  attr_reader :data
+  attr_reader :data, :items, :merchants, :invoices
 
   def initialize(data)
     @data = data
+    @items = nil
+    @merchants = nil
+    @invoices = nil
   end
 
   def self.from_csv(data)
@@ -29,7 +32,7 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(self)
+    SalesAnalyst.new(items, merchants, invoices)
   end
 
   def invoices

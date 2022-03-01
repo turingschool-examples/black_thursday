@@ -4,12 +4,17 @@ require_relative 'sales_engine'
 require_relative 'item_repository'
 require 'pry'
 class SalesAnalyst
-  def initialize(se)
-    @se = se
+  attr_reader :items, :merchants, :invoices
+
+  def initialize(items, merchants, invoices)
+    @items = items
+    @merchants = merchants
+    @invoices = invoices
+    binding.pry
   end
 
   def average_items_per_merchant
-    (@se.items.count.to_f / @se.merchants.count).round(2)
+    (@items.all.count.to_f / @merchants.all.count).round(2)
   end
 
   # def total_items_per_merchant
