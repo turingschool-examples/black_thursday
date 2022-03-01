@@ -28,7 +28,7 @@ RSpec.describe TransactionRepository do
     expect(@tr.all).to eq([@transaction1, @transaction2, @transaction3])
   end
 
-  xit 'can find all by a specific transactions id' do
+  it 'can find all by a specific transactions id' do
     expect(@tr.find_all_by_id(2)).to eq([@transaction2])
   end
 
