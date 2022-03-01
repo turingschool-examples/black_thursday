@@ -13,7 +13,7 @@ RSpec.describe ItemRepository do
     allow(@item1).to receive(:id){1}
     allow(@item1).to receive(:name){"pencil"}
     allow(@item1).to receive(:description){"You can use it to write"}
-    allow(@item1).to receive(:unit_price){BigDecimal(10.99,4)}
+    allow(@item1).to receive(:unit_price){1099}
     allow(@item1).to receive(:created_at){Time.now}
     allow(@item1).to receive(:updated_at){Time.now}
     allow(@item1).to receive(:merchant_id){1}
@@ -22,7 +22,7 @@ RSpec.describe ItemRepository do
     allow(@item2).to receive(:id){2}
     allow(@item2).to receive(:name){"phone case"}
     allow(@item2).to receive(:description){"Protects your phone"}
-    allow(@item2).to receive(:unit_price){BigDecimal(20.99,4)}
+    allow(@item2).to receive(:unit_price){2099}
     allow(@item2).to receive(:created_at){Time.now}
     allow(@item2).to receive(:updated_at){Time.now}
     allow(@item2).to receive(:merchant_id){2}
@@ -30,7 +30,7 @@ RSpec.describe ItemRepository do
     allow(@item3).to receive(:id){3}
     allow(@item3).to receive(:name){"phone diaper"}
     allow(@item3).to receive(:description){"A diaper for your phone"}
-    allow(@item3).to receive(:unit_price){BigDecimal(10.99,4)}
+    allow(@item3).to receive(:unit_price){1099}
     allow(@item3).to receive(:created_at){Time.now}
     allow(@item3).to receive(:updated_at){Time.now}
     allow(@item3).to receive(:merchant_id){2}
