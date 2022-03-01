@@ -85,6 +85,12 @@ class SalesEngine
   end
 
 
+  def analyst
+    merchants
+    items
+    SalesAnalyst.new(@merchant_repo, @item_repo)
+  end
+
   def invoice_items
     iir_array = @table_hash[:invoice_items].map do |row|
       InvoiceItem.new({ id: row[:id].to_i, item_id: row[:item_id].to_i, invoice_id: row[:invoice_id].to_i,
