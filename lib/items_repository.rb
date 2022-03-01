@@ -2,6 +2,7 @@ require 'csv'
 require './lib/item'
 require 'pry'
 require './lib/repository_aide'
+require 'bigdecimal'
 
 class ItemsRepository
   include RepositoryAide
