@@ -1,4 +1,4 @@
-require "./spec/spec_helper"
+# require "./spec/spec_helper"
 require "./lib/item_repo"
 require "./lib/sales_engine"
 require "./lib/item"
@@ -8,9 +8,10 @@ RSpec.describe ItemRepository do
   se = SalesEngine.from_csv({
     items: "./data/items.csv",
     merchants: "./data/merchants.csv",
-    invoices: "./data/invoices.csv"
+    invoices: "./data/invoices.csv",
+    customers: "./data/customers.csv"
   })
-  ir = ItemRepository.new(se.items_instanciator)
+  ir = ItemRepository.new("./data/items.csv")
 
   it "is an instance of ItemRepository" do
     expect(ir).to be_an_instance_of(ItemRepository)

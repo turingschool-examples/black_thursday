@@ -1,7 +1,9 @@
 require "csv"
 require './lib/sales_engine'
 require "./lib/merchant"
+require "./lib/item"
 require "./lib/invoice"
+require "./lib/customer"
 require 'pry'
 
 RSpec.describe SalesEngine do
@@ -9,7 +11,8 @@ RSpec.describe SalesEngine do
   se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
-    :invoices => "./data/invoices.csv"
+    :invoices => "./data/invoices.csv",
+    :customers => "./data/customers.csv"
   })
 
   it "exists" do
@@ -18,14 +21,11 @@ RSpec.describe SalesEngine do
 
   end
 
-  it "returns merchants" do
-    expect(se.items).to be_an_instance_of(CSV::Table)
-    expect(se.merchants).to be_an_instance_of(CSV::Table)
-  end
-
-  it "creates instances of merchant and item" do
-    expect(se.items_instanciator[0]).to be_an_instance_of(Item)
-    expect(se.merchants_instanciator[0]).to be_an_instance_of(Merchant)
+  it "returns merchants, items, invoices, customers" do
+    expect(se.items_repo).to be_an_instance_of(ItemRepository)
+    expect(se.merchants_repo).to be_an_instance_of(MerchantRepository)
+    expect(se.invoices_repo).to be_an_instance_of(InvoiceRepository)
+    expect(se.customers_repo).to be_an_instance_of(CustomerRepository)
   end
 
 end

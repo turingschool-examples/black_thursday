@@ -22,3 +22,4 @@ RSpec.describe 'Invoice' do
     expect(invoice.invoice_attributes[:created_at]).to be_an_instance_of(Time)
     expect(invoice.invoice_attributes[:updated_at]).to be_an_instance_of(Time)
   end
+end

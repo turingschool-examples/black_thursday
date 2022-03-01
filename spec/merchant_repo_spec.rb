@@ -1,3 +1,4 @@
+# require "./spec/spec_helper"
 require "./lib/merchant_repo"
 require "./lib/sales_engine"
 require "./lib/merchant"
@@ -8,12 +9,13 @@ RSpec.describe MerchantRepository do
     SalesEngine.from_csv({
       items: "./data/items.csv",
       merchants: "./data/merchants.csv",
-      invoices: "./data/invoices.csv"
+      invoices: "./data/invoices.csv",
+      customers: "./data/customers.csv"
     })
   end
 
   let(:mr) do
-    MerchantRepository.new(se.merchants_instanciator)
+    MerchantRepository.new("./data/merchants.csv")
   end
 
   it "is an instance of MerchantRepository" do
