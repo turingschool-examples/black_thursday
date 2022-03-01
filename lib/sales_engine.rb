@@ -8,15 +8,19 @@ require_relative './invoice_repository'
 require_relative './invoice'
 require_relative './transaction'
 require_relative './transaction_repository'
+require_relative './customer'
+require_relative './customer_repository'
+
 
 class SalesEngine
-  attr_accessor :invoice_repo, :merchant_repo, :item_repo
+  attr_accessor :invoice_repo, :merchant_repo, :item_repo, :customer_repo
   attr_reader :table_hash
 
   def initialize(table_hash)
     @table_hash = table_hash
     @invoice_repo = nil
     @merchant_repo = nil
+    @customer_repo = nil
     @item_repo = nil
     @transaction_repo = nil
   end
@@ -50,6 +54,18 @@ class SalesEngine
       @merchant_repo = MerchantRepository.new(merchant_array)
     else
       @merchant_repo
+    end
+  end
+
+  def customers
+    customer_array = @table_hash[:customers].map do |row|
+      Customer.new({ id: row[:id].to_i, first_name: row[:first_name], last_name: row[:last_name],
+                     created_at: row[:created_at], updated_at: row[:updated_at] })
+    end
+    if @customer_repo == nil
+      @customer_repo = CustomerRepository.new(customer_array)
+    else
+      @customer_repo
     end
   end
 
