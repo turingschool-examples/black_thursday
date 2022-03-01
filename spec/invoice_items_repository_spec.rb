@@ -70,5 +70,22 @@ RSpec.describe 'Iteration 3' do
       expect(expected.empty?).to eq true
     end
 
+    it "#create creates a new invoice item instance" do
+      attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @se.invoice_items.create(attributes)
+      expected = @se.invoice_items.find_by_id(21831)
+      expect(expected.item_id).to eq 7
+    end
+
+
+
+
   end
 end
