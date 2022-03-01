@@ -55,5 +55,17 @@ RSpec.describe 'Iteration 3' do
       expect(expected.length).to eq 85
       expect(expected.first.class).to eq Customer
     end
+
+    it "#create creates a new customer instance" do
+      attributes = {
+        :first_name => "Joan",
+        :last_name => "Clarke",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @se.customers.create(attributes)
+      expected = @se.customers.find_by_id(1001)
+      expect(expected.first_name).to eq "Joan"
+    end
   end
 end
