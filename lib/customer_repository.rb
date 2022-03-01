@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/customer'
-require './lib/repository_aide'
+require_relative '../lib/customer'
+require_relative '../lib/repository_aide'
 
 class CustomerRepository
   include RepositoryAide
@@ -17,6 +17,10 @@ class CustomerRepository
           })
         end
     group_hash
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def group_hash

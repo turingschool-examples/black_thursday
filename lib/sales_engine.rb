@@ -1,20 +1,20 @@
 require 'csv'
-require './lib/items_repository'
-require './lib/merchants_repository'
-require './lib/invoice_items_repository'
-require './lib/invoice_repository'
-require './lib/customer_repository'
-require './lib/transaction_repository'
+require_relative '../lib/items_repository'
+require_relative '../lib/merchants_repository'
+require_relative '../lib/invoice_items_repository'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/customer_repository'
+require_relative '../lib/transaction_repository'
 
 class SalesEngine
 
   def initialize(info)
-    @items = info[:items]
-    @merchants = info[:merchants]
-    @invoice_items = info[:invoice_items]
-    @invoices = info[:invoices]
-    @customers = info[:customers]
-    @transactions = info[:transactions]
+    @items_lines = (info[:items])
+    @merchants_lines = (info[:merchants])
+    @invoice_items_lines = info[:invoice_items]
+    @invoices_lines = info[:invoices]
+    @customers_lines = info[:customers]
+    @transactions_lines = info[:transactions]
   end
 
   def self.from_csv(info)
@@ -22,30 +22,30 @@ class SalesEngine
   end
 
   def items
-    ItemsRepository.new(@items)
+    @items ||= ItemsRepository.new(@items_lines)
   end
 
   def merchants
-    MerchantsRepository.new(@merchants)
+    @merchants ||= MerchantsRepository.new(@merchants_lines)
   end
 
   def invoice_items_repo
-    InvoiceItemsRepository.new(@invoice_items)
+    InvoiceItemsRepository.new(@invoice_items_lines)
   end
 
   def invoices
-    InvoiceRepository.new(@invoices)
+    InvoiceRepository.new(@invoices_lines)
   end
 
   def customers
-    CustomerRepository.new(@customers)
+    CustomerRepository.new(@customers_lines)
   end
 
   def transactions
-    TransactionRepository.new(@transactions)
+    TransactionRepository.new(@transactions_lines)
   end
 
   def analyst
     Analyst.new
-  end 
+  end
 end #SalesEngine class end

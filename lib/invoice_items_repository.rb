@@ -1,7 +1,7 @@
 require 'csv'
+require_relative '../lib/invoice_items'
+require_relative '../lib/repository_aide'
 require 'bigdecimal'
-require './lib/invoice_items'
-require './lib/repository_aide'
 
 class InvoiceItemsRepository
   include RepositoryAide
