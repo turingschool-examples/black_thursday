@@ -1,6 +1,6 @@
 module IDManager
   def find_by_id(id)
-    @all.find{|index| index.id == id}
+    @all.find{|index| index.id.to_i == id}
   end
 
   def find_by_name(search)

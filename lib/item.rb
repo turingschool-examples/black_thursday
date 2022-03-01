@@ -9,7 +9,7 @@ class Item
               :updated_at,
               :merchant_id
   def initialize(details)
-    @id = details[:id]
+    @id = details[:id].to_i
     @name = details[:name]
     @description = details[:description]
     @unit_price = BigDecimal(details[:unit_price],4)
