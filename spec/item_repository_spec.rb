@@ -7,10 +7,12 @@ require './lib/item_repository'
 RSpec.describe ItemRepository do
   before (:each) do
     @se = SalesEngine.from_csv({
-            :items     => "./data/items.csv",
-            :merchants => "./data/merchants.csv",
-            :invoices => './data/invoices.csv',
-            :customers => './data/customers.csv'
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => './data/invoices.csv',
+        :customers => './data/customers.csv',
+        :transactions => './data/transactions.csv',
+        :invoice_items => './data/invoice_items.csv'
                               })
   end
   #   @item_repo1 = ItemRepository.new('./data/items.csv')

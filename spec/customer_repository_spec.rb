@@ -7,10 +7,12 @@ require './lib/sales_engine'
 describe CustomerRepository do
   before (:each) do
     @se = SalesEngine.from_csv({
-            :items     => "./data/items.csv",
-            :merchants => "./data/merchants.csv",
-            :invoices => './data/invoices.csv',
-            :customers => './data/customers.csv'
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => './data/invoices.csv',
+        :customers => './data/customers.csv',
+        :transactions => './data/transactions.csv',
+        :invoice_items => './data/invoice_items.csv'
                               })
   end
   # customer_rep = CustomerRepository.new('./data/customers.csv')
@@ -67,5 +69,5 @@ describe CustomerRepository do
     cust = @se.customers.find_by_id(1001)
     expect(cust.first_name).to eq("Leo")
     expect(cust.last_name).to eq("Funkhouser")
-  end 
+  end
 end
