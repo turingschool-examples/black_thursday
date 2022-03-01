@@ -96,7 +96,7 @@ RSpec.describe 'Iteration 3' do
         :updated_at => Time.now
       }
       @se.customers.create(attributes)
-      
+
       attributes = {
         id: 2000,
         created_at: Time.now
@@ -106,6 +106,10 @@ RSpec.describe 'Iteration 3' do
       expect(expected).to eq nil
       expected = @se.customers.find_by_id(1001)
       expect(expected.created_at).not_to eq attributes[:created_at]
+    end
+
+    it "#update on unknown customer does nothing" do
+      @se.customers.update(2000, {})
     end
   end
 end
