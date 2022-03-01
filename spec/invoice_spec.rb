@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Invoice Test spec
 require_relative '../lib/invoice'
 require 'pry'

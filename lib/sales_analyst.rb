@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 require 'bigdecimal/util'
 require_relative 'sales_engine'
 require_relative 'item_repository'
 
 class SalesAnalyst
-  attr_reader :items, :merchants, :invoices, :invoice_items
+  attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
 
-  def initialize(items, merchants, invoices, invoice_items)
+  def initialize(items, merchants, invoices, transactions, _customers, invoice_items
+
     @items = items
     @merchants = merchants
     @invoices = invoices
+    @transactions = transactions
     @items_per_merchant = {}
     @invoice_items = invoice_items
   end
@@ -21,7 +25,7 @@ class SalesAnalyst
   def total_items_per_merchant
     @items_per_merchant = {}
     @items.each do |item|
-      @items_per_merchant[item.merchant_id] = 0 unless @items_per_merchant.has_key?(item.merchant_id)
+      @items_per_merchant[item.merchant_id] = 0 unless @items_per_merchant.key?(item.merchant_id)
       !@items_per_merchant[item.merchant_id] += 1
     end
     @items_per_merchant
@@ -38,7 +42,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     @high_item_merchants = []
-    total_items_per_merchant.select { |_k, v| v > 6 }.keys.each do |high_id|
+    total_items_per_merchant.select { |_k, v| v > 6 }.each_key do |high_id|
       @merchants.each do |merchant|
         @high_item_merchants << merchant if merchant.id == high_id
       end
@@ -67,10 +71,10 @@ class SalesAnalyst
     average = average_average_price_per_merchant
     total_square_diff = 0
     @items.each do |item|
-      total_square_diff += ((item.unit_price.to_i - average) ** 2)
+      total_square_diff += ((item.unit_price.to_i - average)**2)
     end
     std_dev = Math.sqrt(total_square_diff / (@items.count - 1))
-    @items.find_all { |item| item.unit_price.to_i > (average + (std_dev * 2))}
+    @items.find_all { |item| item.unit_price.to_i > (average + (std_dev * 2)) }
   end
 
   def average_invoices_per_merchant
@@ -80,7 +84,7 @@ class SalesAnalyst
   def total_invoices_per_merchant
     @invoices_per_merchant = {}
     @invoices.each do |item|
-      @invoices_per_merchant[item.merchant_id] = 0 unless @invoices_per_merchant.has_key?(item.merchant_id)
+      @invoices_per_merchant[item.merchant_id] = 0 unless @invoices_per_merchant.key?(item.merchant_id)
       !@invoices_per_merchant[item.merchant_id] += 1
     end
     @invoices_per_merchant
@@ -97,7 +101,9 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     @high_invoice_merchants = []
-    total_invoices_per_merchant.select { |_k, v| v > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)) }.keys.each do |high_id|
+    total_invoices_per_merchant.select do |_k, v|
+      v > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+    end.each_key do |high_id|
       @merchants.each do |merchant|
         @high_invoice_merchants << merchant if merchant.id == high_id
       end
@@ -107,7 +113,9 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     @low_invoice_merchants = []
-    total_invoices_per_merchant.select { |_k, v| v < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)) }.keys.each do |high_id|
+    total_invoices_per_merchant.select do |_k, v|
+      v < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+    end.each_key do |high_id|
       @merchants.each do |merchant|
         @low_invoice_merchants << merchant if merchant.id == high_id
       end
@@ -118,8 +126,11 @@ class SalesAnalyst
   def invoices_by_day_of_week
     invoices_by_day_of_week = {}
     @invoices.each do |invoice|
-      invoices_by_day_of_week[invoice.created_at.strftime("%A")] = 0 unless invoices_by_day_of_week.has_key?(invoice.created_at.strftime("%A"))
-      !invoices_by_day_of_week[invoice.created_at.strftime("%A")] += 1
+      unless invoices_by_day_of_week.key?(invoice.created_at.strftime('%A'))
+        invoices_by_day_of_week[invoice.created_at.strftime('%A')] =
+          0
+      end
+      !invoices_by_day_of_week[invoice.created_at.strftime('%A')] += 1
     end
     invoices_by_day_of_week
   end
@@ -127,16 +138,18 @@ class SalesAnalyst
   def std_dev_of_invoices_per_day
     average_invoice_per_day = (@invoices.count / 7).to_f
     total_square_diff = 0
-    invoices_by_day_of_week.each do |day, count|
-      total_square_diff += ((count - average_invoice_per_day) ** 2)
+    invoices_by_day_of_week.each do |_day, count|
+      total_square_diff += ((count - average_invoice_per_day)**2)
     end
     Math.sqrt(total_square_diff.to_f / 6).round(2)
   end
 
   def top_days_by_invoice_count
     average_invoice_per_day = (@invoices.count / 7).to_f
-    top_days = invoices_by_day_of_week.find_all { |day, count| count > (average_invoice_per_day + std_dev_of_invoices_per_day) }
-    top_days.flatten.find_all { |item| item.class == String }
+    top_days = invoices_by_day_of_week.find_all do |_day, count|
+      count > (average_invoice_per_day + std_dev_of_invoices_per_day)
+    end
+    top_days.flatten.find_all { |item| item.instance_of?(String) }
   end
 
   def invoice_status(status_type)
@@ -146,6 +159,4 @@ class SalesAnalyst
     end
     ((invoice_type_count[status_type].to_f / @invoices.count) * 100).round(2)
   end
-
-
 end

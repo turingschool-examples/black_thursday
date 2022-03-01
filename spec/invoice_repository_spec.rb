@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Invoice Test spec
 require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
@@ -10,9 +12,11 @@ RSpec.describe 'Iteration 2' do
       @se = SalesEngine.from_csv({
                                    items: './data/items.csv',
                                    merchants: './data/merchants.csv',
-                                   invoices: './data/invoices.csv', invoice_items: './data/invoice_items.csv'
+                                   invoices: './data/invoices.csv',
+                                   invoice_items: './data/invoice_items.csv',
+                                   transactions: './data/transactions.csv',
+                                   customers: './data/customers.csv'
                                  })
-      @sa = @se.analyst
     end
 
     it '#all returns all invoices' do
@@ -137,6 +141,10 @@ RSpec.describe 'Iteration 2' do
       expect(expected.merchant_id).not_to eq attributes[:merchant_id]
       expect(expected.status).not_to eq attributes[:status]
       expect(expected.created_at).not_to eq attributes[:created_at]
+    end
+
+    it '#update on unknown invoice does nothing' do
+      @se.invoices.update(1_239_230, {})
     end
 
     it '#delete deletes the specified invoice' do
