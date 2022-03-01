@@ -30,6 +30,10 @@ class TransactionRepository
     @results = @repository.group_by {|trans| trans.result}
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    find(@invoice_ids, invoice_id)
+  end
+
   def find_all_by_credit_card_number(cc_num)
     find(@credit_card_numbers, cc_num)
   end

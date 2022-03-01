@@ -58,4 +58,18 @@ describe Analyst do
     expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
+
+<<<<<<< HEAD
+  it "can find the total revenue for the day" do
+    expect(@sales_analyst.total_revenue_by_date(date)).to eq(456)
+=======
+  it "determines if invoice has been paid in full" do
+    expect(@sales_analyst.invoice_paid_in_full?(46)).to eq(true)
+    expect(@sales_analyst.invoice_paid_in_full?(204)).to eq(false)
+  end
+
+  it "returns total $ amount of invoice with corresponding invoice_id" do
+    expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
+>>>>>>> 56473477287a52083d175a84ff0ff71337451c25
+  end
 end

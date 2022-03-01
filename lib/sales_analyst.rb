@@ -2,7 +2,10 @@ require_relative '../lib/mathable'
 require_relative '../lib/merchants_repository'
 require_relative '../lib/items_repository'
 require_relative '../lib/invoice_repository'
-# require_relative '.pry'
+require_relative '../lib/time_helper'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/invoice_items_repository'
+require 'pry'
 
 class Analyst
   include Mathable
@@ -12,6 +15,8 @@ class Analyst
     @mr = MerchantsRepository.new("./data/merchants.csv")
     @ir = ItemsRepository.new("./data/items.csv")
     @in = InvoiceRepository.new("./data/invoices.csv")
+    @tr = TransactionRepository.new("./data/transactions.csv")
+    @iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
   end
 
   def average_items_per_merchant
@@ -38,7 +43,7 @@ class Analyst
 
   def average_average_price_per_merchant
     array_of_prices = @mr.repository.map do |merchant|
-      average_item_price_per_merchant(merchant.id)
+      average_item_price_per_merchant(merchant.id.to_s)
     end
     average = average(array_of_prices.sum, array_of_prices.count)
     return average
@@ -89,5 +94,20 @@ class Analyst
     percentage = (decimal * 100).round(2)
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @tr.find_all_by_invoice_id(invoice_id.to_s)
+    if transactions.map {|transaction| transaction.result }.include?("success")
+      true
+    else
+     false
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @iir.find_all_by_invoice_id(invoice_id.to_s)
+    sum = 0
+    invoice_items.each { |invoice_item| sum += ((invoice_item.unit_price.to_f * invoice_item.quantity.to_f)/100.0) }
+    sum
+  end
 
 end

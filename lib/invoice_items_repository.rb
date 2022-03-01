@@ -1,6 +1,7 @@
 require 'csv'
 require_relative '../lib/invoice_items'
 require_relative '../lib/repository_aide'
+require 'bigdecimal'
 
 class InvoiceItemsRepository
   include RepositoryAide
@@ -13,7 +14,7 @@ class InvoiceItemsRepository
                     :item_id => invoice_item[:item_id],
                     :invoice_id => invoice_item[:invoice_id],
                     :quantity => invoice_item[:quantity].to_i,
-                    :unit_price => invoice_item[:unit_price],
+                    :unit_price => BigDecimal(invoice_item[:unit_price], significant_numbers(invoice_item[:unit_price])),
                     :created_at => invoice_item[:created_at],
                     :updated_at => invoice_item[:updated_at]})
                                   end
