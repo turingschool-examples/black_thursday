@@ -53,9 +53,9 @@ describe InvoiceRepository do
 
   describe '#find_all_by_status' do
     it 'can find all invoices with a specific status' do
-      pending = @ir.find_all_by_status("pending")
+      pending = @ir.find_all_by_status(:pending)
       5.times do
-        expect(pending.sample.status).to eq("pending")
+        expect(pending.sample.status).to eq(:pending)
       end
       expect(pending.class).to eq(Array)
     end
@@ -75,9 +75,9 @@ describe InvoiceRepository do
     it 'can update information on an invoice' do
       invoice = @ir.find_by_id("3")
       first_update = invoice.updated_at
-      expect(invoice.status).to eq("shipped")
-      @ir.update("3", "returned")
-      expect(invoice.status).to eq("returned")
+      expect(invoice.status).to eq(:shipped)
+      @ir.update("3", :returned)
+      expect(invoice.status).to eq(:returned)
       expect(invoice.updated_at).not_to eq(first_update)
     end
   end
