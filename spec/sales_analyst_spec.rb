@@ -63,4 +63,8 @@ describe Analyst do
     expect(@sales_analyst.invoice_paid_in_full?("46")).to eq(true)
     expect(@sales_analyst.invoice_paid_in_full?("204")).to eq(false)
   end
+
+  it "returns total $ amount of invoice with corresponding invoice_id" do
+    expect(@sales_analyst.invoice_total(1)).to eq(3489.56)
+  end
 end
