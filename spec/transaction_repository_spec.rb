@@ -70,5 +70,19 @@ RSpec.describe 'Iteration 3' do
       expect(expected.first.class).to eq(Transaction)
       expect(expected.first.result).to eq(result)
     end
+
+    it '#create creates a new transaction instance' do
+      attributes = {
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.transactions.create(attributes)
+      expected = @se.transactions.find_by_id(4986)
+      expect(expected.invoice_id).to eq 8
+    end
   end
 end
