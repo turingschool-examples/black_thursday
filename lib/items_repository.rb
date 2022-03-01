@@ -10,7 +10,7 @@ class ItemsRepository
   def initialize(file)
     @repository = read_csv(file).map do |item_csv|
       Item.new({
-        id: item_csv[:id],
+        id: item_csv[:id].to_i,
         name: item_csv[:name],
         description: item_csv[:description],
         unit_price: BigDecimal(item_csv[:unit_price], significant_numbers(item_csv[:unit_price])),
@@ -19,11 +19,10 @@ class ItemsRepository
         merchant_id: item_csv[:merchant_id]
         })
       end
-    group
+    group_hash
   end #initialize end
 
-  def group
-    @ids = @repository.group_by{|item| item.id}
+  def group_hash
     @names = @repository.group_by{|item| item.name}
     @descriptions = @repository.group_by {|item| item.description.downcase}
     @unit_prices = @repository.group_by {|item| item.unit_price.to_i}

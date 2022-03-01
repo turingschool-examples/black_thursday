@@ -11,7 +11,7 @@ class TransactionRepository
   def initialize(file)
     @repository = read_csv(file).map do |transaction|
           Transaction.new({
-            :id => transaction[:id],
+            :id => transaction[:id].to_i,
             :invoice_id => transaction[:invoice_id],
             :credit_card_number => transaction[:credit_card_number],
             :credit_card_expiration_date => transaction[:credit_card_expiration_date],
