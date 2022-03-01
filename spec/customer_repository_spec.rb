@@ -69,6 +69,14 @@ RSpec.describe 'Iteration 3' do
     end
 
     it "#update updates a customer" do
+      attributes = {
+        :first_name => "Joan",
+        :last_name => "Clarke",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @se.customers.create(attributes)
+      
       original_time = @se.customers.find_by_id(1001).updated_at
       attributes = {
         last_name: "Smith"

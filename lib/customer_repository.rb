@@ -27,4 +27,13 @@ class CustomerRepository
     attributes[:id] = (last_id += 1)
     @customers << Customer.new(attributes)
   end
+
+  def update(id, attributes)
+    customer = find_by_id(id)
+    attributes.map do |key, v|
+        customer.first_name = v if key == :first_name
+        customer.last_name = v if key == :last_name
+        customer.updated_at = Time.now
+    end
+  end
 end
