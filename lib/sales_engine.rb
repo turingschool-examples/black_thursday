@@ -82,6 +82,6 @@ class SalesEngine
   # end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(@items_array, @merchants_array, @invoices_array, @invoice_items, @customers_array, @transactions_array)
   end
 end
