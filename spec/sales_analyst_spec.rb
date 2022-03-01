@@ -58,4 +58,8 @@ describe Analyst do
     expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
+
+  it "can find the total revenue for the day" do
+    expect(@sales_analyst.total_revenue_by_date(date)).to eq(456)
+  end
 end

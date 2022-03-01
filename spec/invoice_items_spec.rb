@@ -38,7 +38,10 @@ describe InvoiceItems do
 
   it "has a unit price" do
     expect(@ii.unit_price).to eq(BigDecimal(10.99, 4))
-    # binding.pry
+  end
+
+  it "returns a unit price in dollars" do
+    expect(@ii.unit_price_to_dollars).to eq(10.99)
   end
 
 end
