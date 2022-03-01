@@ -33,5 +33,13 @@ RSpec.describe 'Iteration 3' do
       expect(expected.length).to eq 8
       expect(expected.first.class).to eq Customer
     end
+
+    it "#find_all_by_last_name returns all customers with matching last name" do
+      fragment = "On"
+      expected = @se.customers.find_all_by_last_name(fragment)
+
+      expect(expected.length).to eq 85
+      expect(expected.first.class).to eq Customer
+    end
   end
 end
