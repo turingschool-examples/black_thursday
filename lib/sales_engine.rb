@@ -53,7 +53,7 @@ class SalesEngine
     end
   end
 
-  def invoice_items
+  def invoices
     invoice_array = @table_hash[:invoices].map do |row|
       Invoice.new({ id: row[:id].to_i, customer_id: row[:customer_id].to_i, merchant_id: row[:merchant_id].to_i,
                     status: row[:status].to_sym, created_at: row[:created_at], updated_at: row[:updated_at] })
@@ -67,7 +67,7 @@ class SalesEngine
 
   def transactions
     transaction_array = @table_hash[:transactions].map do |row|
-      Transaction.new ({id: row[:id].to_i, invoice_id: row[:invoice_id].to_i, credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result], created_at: row[:created_at], updated_at: row[:updated_at]})
+      Transaction.new ({id: row[:id].to_i, invoice_id: row[:invoice_id].to_i, credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result].to_sym, created_at: row[:created_at], updated_at: row[:updated_at]})
     end
     @transaction_repo == nil ? @transaction_repo = TransactionRepository.new(transaction_array) : @transaction_repo
   end

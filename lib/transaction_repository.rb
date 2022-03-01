@@ -29,7 +29,7 @@ class TransactionRepository
 
   def find_all_by_result(result)
     @all.find_all do |one|
-      one.result.include?(result)
+      one.result == result
     end
   end
 end
