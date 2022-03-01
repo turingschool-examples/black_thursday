@@ -45,11 +45,12 @@ class TransactionRepository
   end
 
   def update(id, attributes)
-    if !(attributes.include?(:id) || attributes.include?(:invoice_id) || attributes.include?(:created_at))
+    if !(attributes.include?(:id) || attributes.include?(:invoice_id) || attributes.include?(:created_at) || attributes.include?(:updated_at))
       find_by_id(id).transaction_attributes[:credit_card_number] = attributes[:credit_card_number]
       find_by_id(id).transaction_attributes[:credit_card_expiration_date] = attributes[:credit_card_expiration_date]
       find_by_id(id).transaction_attributes[:result] = attributes[:result]
     end
+    find_by_id(id).transaction_attributes[:updated_at] = Time.now
   end
 
   def delete(id)
