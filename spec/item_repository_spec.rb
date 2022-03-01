@@ -9,7 +9,8 @@ RSpec.describe ItemRepository do
     @se = SalesEngine.from_csv({
                                  items: './data/items.csv',
                                  merchants: './data/merchants.csv',
-                                 invoices: './data/invoices.csv'
+                                 invoices: './data/invoices.csv',
+                                 customers: './data/customers.csv'
                                })
   end
 
