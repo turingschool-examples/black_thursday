@@ -136,6 +136,21 @@ RSpec.describe 'Iteration 3' do
       @se.invoice_items.update(22000, {})
     end
 
+    it "#delete deletes the specified invoice" do
+      attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @se.invoice_items.create(attributes)
+      expect(@se.invoice_items.find_by_id).to be_a(InvoiceItem)
+      @se.invoice_items.delete(21831)
+      expected = @se.invoice_items.find_by_id(21831)
+      expect(expected).to eq nil
+    end
 
 
 
