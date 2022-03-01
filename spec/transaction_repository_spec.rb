@@ -84,5 +84,27 @@ RSpec.describe 'Iteration 3' do
       expected = @se.transactions.find_by_id(4986)
       expect(expected.invoice_id).to eq 8
     end
+
+    it '#update updates a transaction' do
+      attributes = {
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.transactions.create(attributes)
+
+      original_time = engine.transactions.find_by_id(4986).updated_at
+      attributes = {
+        result: :failed
+      }
+      engine.transactions.update(4986, attributes)
+      expected = engine.transactions.find_by_id(4986)
+      expect(expected.result).to eq :failed
+      expect(expected.credit_card_expiration_date).to eq '0220'
+      expect(expected.updated_at).to be > original_time
+    end
   end
 end
