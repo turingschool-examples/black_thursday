@@ -28,15 +28,16 @@ RSpec.describe 'Iteration 3' do
     end
 
     it '#find_all_by_invoice_id returns all transactions matching the given id' do
-      id = 1234
-      expected = engine.transactions.find_all_by_invoice_id(id)
+      id = 2179
+      expected = @se.transactions.find_all_by_invoice_id(id)
 
       expect(expected.length).to eq 2
+
       expect(expected.first.invoice_id).to eq id
       expect(expected.first.class).to eq Transaction
 
-      id = 19_660
-      expected = engine.transactions.find_all_by_invoice_id(id)
+      id = 14_560
+      expected = @se.transactions.find_all_by_invoice_id(id)
       expect(expected.empty?).to eq true
     end
   end
