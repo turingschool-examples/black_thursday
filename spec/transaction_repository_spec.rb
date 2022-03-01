@@ -13,7 +13,8 @@ RSpec.describe 'Iteration 3' do
                                    merchants: './data/merchants.csv',
                                    invoices: './data/invoices.csv',
                                    transactions: './data/transactions.csv',
-                                   customers: './data/customers.csv'
+                                   customers: './data/customers.csv',
+                                   invoice_items: './data/invoice_items.csv'
                                  })
     end
 
