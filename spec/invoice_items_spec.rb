@@ -19,23 +19,23 @@ RSpec.describe 'Iteration 3' do
     end
 
     it '#has attributes' do
-      i = InvoiceItem.new({
-                        id: 1,
-                        item_id: 263519844,
-                        invoice_id: 1,
+      invoice_item = InvoiceItem.new({
+                        id: 2345,
+                        item_id: 263562118,
+                        invoice_id: 522,
                         quantity: 5,
-                        unit_price: 13635,
-                        created_at: '2012-03-27 14:54:09 UTC',
-                        updated_at: '2012-03-27 14:54:09 UTC'
+                        unit_price: 84787,
+                        created_at: "2012-03-27 14:54:35 UTC",
+                        updated_at: '2012-03-27 14:54:35 UTC'
                       })
 
-      expect(i.id).to eq(1)
-      expect(i.item_id).to eq(263519844)
-      expect(i.invoice_id).to eq(1)
-      expect(i.quantity).to eq(5)
-      # expect(i.unit_price).to eq(136.35)
-      expect(i.created_at).to be_an_instance_of(Time)
-      expect(i.updated_at).to be_an_instance_of(Time)
+      expect(invoice_item.id).to eq(2345)
+      expect(invoice_item.item_id).to eq(263562118)
+      expect(invoice_item.invoice_id).to eq(522)
+      expect(invoice_item.quantity).to eq(5)
+      expect(invoice_item.unit_price).to eq(847.87)
+      expect(invoice_item.created_at).to be_an_instance_of(Time)
+      expect(invoice_item.updated_at).to be_an_instance_of(Time)
     end
   end
 end
