@@ -77,12 +77,12 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (@invoices.count.to_f / @merchants.count).round(2)
+    (@invoices.all.count.to_f / @merchants.count).round(2)
   end
 
   def total_invoices_per_merchant
     @invoices_per_merchant = {}
-    @invoices.each do |item|
+    @invoices.all.each do |item|
       @invoices_per_merchant[item.merchant_id] = 0 unless @invoices_per_merchant.key?(item.merchant_id)
       !@invoices_per_merchant[item.merchant_id] += 1
     end
@@ -124,7 +124,7 @@ class SalesAnalyst
 
   def invoices_by_day_of_week
     invoices_by_day_of_week = {}
-    @invoices.each do |invoice|
+    @invoices.all.each do |invoice|
       unless invoices_by_day_of_week.key?(invoice.created_at.strftime('%A'))
         invoices_by_day_of_week[invoice.created_at.strftime('%A')] =
           0
@@ -135,7 +135,7 @@ class SalesAnalyst
   end
 
   def std_dev_of_invoices_per_day
-    average_invoice_per_day = (@invoices.count / 7).to_f
+    average_invoice_per_day = (@invoices.all.count / 7).to_f
     total_square_diff = 0
     invoices_by_day_of_week.each do |_day, count|
       total_square_diff += ((count - average_invoice_per_day)**2)
@@ -144,7 +144,7 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    average_invoice_per_day = (@invoices.count / 7).to_f
+    average_invoice_per_day = (@invoices.all.count / 7).to_f
     top_days = invoices_by_day_of_week.find_all do |_day, count|
       count > (average_invoice_per_day + std_dev_of_invoices_per_day)
     end
@@ -153,10 +153,10 @@ class SalesAnalyst
 
   def invoice_status(status_type)
     invoice_type_count = Hash.new(0)
-    @invoices.each do |invoice|
+    @invoices.all.each do |invoice|
       invoice_type_count[invoice.status.to_sym] += 1
     end
-    ((invoice_type_count[status_type].to_f / @invoices.count) * 100).round(2)
+    ((invoice_type_count[status_type].to_f / @invoices.all.count) * 100).round(2)
   end
 
   def invoice_paid_in_full?(invoice_id)
