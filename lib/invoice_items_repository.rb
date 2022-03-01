@@ -27,4 +27,11 @@ class InvoiceItemsRepository
     @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
   end
 
+  def create(attributes)
+    @invoice_items.sort_by { |invoice_item| invoice_item.id }
+    last_id = @invoice_items.last.id
+    attributes[:id] = (last_id += 1)
+    @invoice_items << InvoiceItem.new(attributes)
+  end
+
 end
