@@ -4,7 +4,8 @@ require_relative '../lib/repository_aide'
 
 class MerchantsRepository
   include RepositoryAide
-  attr_reader :repository, :ids
+  attr_reader :ids
+  attr_accessor :repository
 
   def initialize(file)
     @repository = read_csv(file).map do |merchant|
@@ -32,11 +33,14 @@ class MerchantsRepository
   def create(attributes)
     merchant = Merchant.new(create_attribute_hash(attributes))
     @repository << merchant
+    # require 'pry'; binding.pry
     merchant
   end
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attributes[:name]
+    unless merchant == nil
+      merchant.name = attributes[:name]
+    end
   end
 end
