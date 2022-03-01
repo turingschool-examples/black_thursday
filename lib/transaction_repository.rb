@@ -33,4 +33,14 @@ class TransactionRepository
     attributes[:id] = (last_id += 1)
     @transactions << Transaction.new(attributes)
   end
+
+  def update(id, attributes)
+    transactions = find_by_id(id)
+    attributes.map do |key, value|
+      if key == :result
+        transactions.result = value
+        transactions.updated_at = Time.now
+      end
+    end
+  end
 end

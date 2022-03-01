@@ -96,12 +96,12 @@ RSpec.describe 'Iteration 3' do
       }
       @se.transactions.create(attributes)
 
-      original_time = engine.transactions.find_by_id(4986).updated_at
+      original_time = @se.transactions.find_by_id(4986).updated_at
       attributes = {
         result: :failed
       }
-      engine.transactions.update(4986, attributes)
-      expected = engine.transactions.find_by_id(4986)
+      @se.transactions.update(4986, attributes)
+      expected = @se.transactions.find_by_id(4986)
       expect(expected.result).to eq :failed
       expect(expected.credit_card_expiration_date).to eq '0220'
       expect(expected.updated_at).to be > original_time
