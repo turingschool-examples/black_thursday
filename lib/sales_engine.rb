@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # sales_engine
 require 'CSV'
 require_relative 'item_repository'
@@ -21,6 +23,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new(invoices_)
     @transactions = TransactionRepository.new(transactions_)
     @customers = CustomerRepository.new(customers_)
+  end
 
   def self.from_csv(csv_hash)
     item_contents = CSV.open csv_hash[:items], headers: true, header_converters: :symbol

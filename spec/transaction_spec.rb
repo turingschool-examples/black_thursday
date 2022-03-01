@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # transaction spec
 require_relative '../lib/transaction'
 require 'pry'

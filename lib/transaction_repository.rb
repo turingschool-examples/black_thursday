@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Transaction Repo
 require 'pry'
 class TransactionRepository
@@ -28,7 +30,7 @@ class TransactionRepository
   end
 
   def create(attributes)
-    @transactions.sort_by { |transaction| transaction.id }
+    @transactions.sort_by(&:id)
     last_id = @transactions.last.id
     attributes[:id] = (last_id += 1)
     @transactions << Transaction.new(attributes)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # merchant_rep_spec
 require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'

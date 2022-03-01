@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Transaction Test spec
 require_relative '../lib/transaction_repository'
 require_relative '../lib/sales_engine'
@@ -10,7 +12,8 @@ RSpec.describe 'Iteration 3' do
                                    items: './data/items.csv',
                                    merchants: './data/merchants.csv',
                                    invoices: './data/invoices.csv',
-                                   transactions: './data/transactions.csv'
+                                   transactions: './data/transactions.csv',
+                                   customers: './data/customers.csv'
                                  })
     end
 
@@ -149,6 +152,10 @@ RSpec.describe 'Iteration 3' do
       @se.transactions.delete(4986)
       expected = @se.transactions.find_by_id(4986)
       expect(expected).to eq nil
+    end
+
+    it '#delete on unknown customer does nothing' do
+      @se.customers.delete(2000)
     end
   end
 end

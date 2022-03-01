@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Invoice Test spec
 require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
@@ -14,7 +16,6 @@ RSpec.describe 'Iteration 2' do
                                    transactions: './data/transactions.csv',
                                    customers: './data/customers.csv'
                                  })
-      @sa = @se.analyst
     end
 
     it '#all returns all invoices' do

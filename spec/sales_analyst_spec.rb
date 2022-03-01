@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '../lib/sales_engine'
 require 'pry'
 require 'bigdecimal'
