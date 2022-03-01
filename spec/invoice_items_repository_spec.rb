@@ -146,7 +146,7 @@ RSpec.describe 'Iteration 3' do
         :updated_at => Time.now
       }
       @se.invoice_items.create(attributes)
-      expect(@se.invoice_items.find_by_id).to be_a(InvoiceItem)
+      expect(@se.invoice_items.find_by_id(21831)).to be_a(InvoiceItem)
       @se.invoice_items.delete(21831)
       expected = @se.invoice_items.find_by_id(21831)
       expect(expected).to eq nil

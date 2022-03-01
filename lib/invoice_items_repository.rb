@@ -15,7 +15,6 @@ class InvoiceItemsRepository
   end
 
   def find_by_id(id)
-    # require "pry"; binding.pry
     @invoice_items.find { |invoice| invoice.id == id }
   end
 
@@ -41,6 +40,10 @@ class InvoiceItemsRepository
         invoice_item.unit_price = value if key == :unit_price
         invoice_item.updated_at = Time.now
     end
+  end
+
+  def delete(id)
+    @invoice_items.delete(find_by_id(id))
   end
 
 end
