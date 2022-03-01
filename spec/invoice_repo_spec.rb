@@ -3,6 +3,7 @@ require "./lib/merchant_repo"
 require "./lib/customer_repo"
 require "./lib/invoice_repo"
 require "./lib/item_repo"
+require "./lib/transaction_repo"
 require "./lib/sales_engine"
 require "./lib/invoice"
 require "pry"
@@ -10,10 +11,11 @@ require "pry"
 RSpec.describe InvoiceRepository do
   let(:se) do
     SalesEngine.from_csv({
-      items: "./data/items.csv",
-      merchants: "./data/merchants.csv",
-      invoices: "./data/invoices.csv",
-      customers: "./data/customers.csv"
+      :items        => "./data/items.csv",
+      :merchants    => "./data/merchants.csv",
+      :invoices     => "./data/invoices.csv",
+      :customers    => "./data/customers.csv",
+      :transactions => "./data/transactions.csv"
     })
   end
   inv_r = InvoiceRepository.new("./data/invoices.csv")

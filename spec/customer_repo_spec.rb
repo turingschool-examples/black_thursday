@@ -5,16 +5,18 @@ require "./lib/merchant_repo"
 require "./lib/customer_repo"
 require "./lib/invoice_repo"
 require "./lib/item_repo"
+require "./lib/transaction_repo"
 require "Time"
 require "pry"
 
 RSpec.describe CustomerRepository do
   let(:se) do
     SalesEngine.from_csv({
-      items: "./data/items.csv",
-      merchants: "./data/merchants.csv",
-      invoices: "./data/invoices.csv",
-      customers: "./data/customers.csv"
+      :items        => "./data/items.csv",
+      :merchants    => "./data/merchants.csv",
+      :invoices     => "./data/invoices.csv",
+      :customers    => "./data/customers.csv",
+      :transactions => "./data/transactions.csv"
     })
   end
 
@@ -55,7 +57,7 @@ RSpec.describe CustomerRepository do
     expect(expected_customer.customer_attributes[:first_name]).to eq("cott")
   end
 
-  xit "updates existing customer" do
+  it "updates existing customer" do
     cr.create({first_name: "Cott",
                last_name: "Ullivan",
                created_at: Time.now,
@@ -68,7 +70,7 @@ RSpec.describe CustomerRepository do
     expect(cr.find_by_id(1001).customer_attributes[:updated_at]).to_not eq(time)
   end
 
-  xit "cannot update id or created_at" do
+  it "cannot update id or created_at" do
     cr.create({first_name: "Cott",
                last_name: "Ullivan",
                created_at: Time.now,
@@ -76,7 +78,7 @@ RSpec.describe CustomerRepository do
     attributes = {id: 9999, created_at: Time.now}
     cr.update(1001, attributes)
     expect(cr.find_by_id(9999)).to eq(nil)
-    expect(cr.find_by_id(1001).customer_attributes[:created_at]).to_not eq(customer_attributes[:created_at])
+    expect(cr.find_by_id(1001).customer_attributes[:created_at]).to_not eq(Time.now)
   end
 
   it "deletes customer" do

@@ -1,20 +1,34 @@
 require "merchant_repo"
 require "item_repo"
+require "invoice_repo"
+require "customer_repo"
+require "transaction_repo"
 require "bigdecimal"
 require 'pry'
 
 class SalesAnalyst
-  attr_reader :itemrepository, :merchantrepository, :invoicerepository, :customerrepository, :items, :merchants, :invoices, :customers
+  attr_reader :itemrepository,
+              :merchantrepository,
+              :invoicerepository,
+              :customerrepository,
+              :transactionrepository,
+              :items,
+              :merchants,
+              :invoices,
+              :customers,
+              :transactions
 
-  def initialize(items_repo, merchants_repo, invoices_repo, customers_repo)
+  def initialize(items_repo, merchants_repo, invoices_repo, customers_repo, transactions_repo)
     @itemrepository = items_repo
     @merchantrepository = merchants_repo
     @invoicerepository = invoices_repo
     @customerrepository = customers_repo
+    @transactionrepository = transactions_repo
     @items = @itemrepository.all
     @merchants = @merchantrepository.all
     @invoices = @invoicerepository.all
     @customers = @customerrepository.all
+    @transactions = @transactionrepository.all
   end
 
   def average_items_per_merchant

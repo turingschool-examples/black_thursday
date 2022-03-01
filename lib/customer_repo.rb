@@ -42,10 +42,11 @@ class CustomerRepository
   end
 
   def update(id, attributes)
-    if !(attributes.include?(:id) || attributes.include?(:created_at))
+    if !(attributes.include?(:id) || attributes.include?(:created_at) || attributes.include?(:updated_at))
       find_by_id(id).customer_attributes[:first_name] = attributes[:first_name]
       find_by_id(id).customer_attributes[:last_name] = attributes[:last_name]
     end
+    find_by_id(id).customer_attributes[:updated_at] = Time.now
   end
 
   def delete(id)
