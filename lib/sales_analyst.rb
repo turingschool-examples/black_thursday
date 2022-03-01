@@ -36,6 +36,7 @@ class Analyst
 
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
+    # binding.pry
     unit_price_array = items.map { |price| price.unit_price}
     average_price = average(unit_price_array.sum, unit_price_array.count)
     in_dollars = (average_price / 100).round(2)
@@ -43,7 +44,7 @@ class Analyst
 
   def average_average_price_per_merchant
     array_of_prices = @mr.repository.map do |merchant|
-      average_item_price_per_merchant(merchant.id.to_s)
+      average_item_price_per_merchant(merchant.id)
     end
     average = average(array_of_prices.sum, array_of_prices.count)
     return average
@@ -108,6 +109,13 @@ class Analyst
     sum = 0
     invoice_items.each { |invoice_item| sum += ((invoice_item.unit_price.to_f * invoice_item.quantity.to_f)/100.0) }
     sum
+  end
+
+  def merchant_with_pending_invoices
+    failed_tr = @tr.invoice_ids.select do |invoice_id, info|
+      !invoice_paid_in_full?(invoice_id)
+    end
+    binding.pry
   end
 
 end

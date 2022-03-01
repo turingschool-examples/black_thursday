@@ -20,8 +20,8 @@ describe Analyst do
   end
 
   it "finds average item price per merchant" do
-    expect(@sales_analyst.average_item_price_per_merchant("12334185")).to eq(10.78)
-    expect(@sales_analyst.average_item_price_per_merchant("12334185")).to be_a(BigDecimal)
+    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to eq(10.78)
+    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to be_a(BigDecimal)
   end
 
   it "finds average_average_price_per_merchant" do
@@ -67,4 +67,10 @@ describe Analyst do
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
   end
+
+  it "returns an array of merchants with pending invoices" do
+    expect(@sales_analyst.merchant_with_pending_invoices.count).to eq(467)
+  end
+
+
 end
