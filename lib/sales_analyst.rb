@@ -192,4 +192,10 @@ class SalesAnalyst
     end
     to_check.all? {|transaction| transaction.result == "success"}
   end
+
+  def invoice_total(invoice_id)
+    to_check = @invoice_items.find_all_by_invoice_id(invoice_id)
+    prices_array = to_check.map {|items| (items.unit_price * items.quantity)}
+    prices_array.sum
+  end
 end

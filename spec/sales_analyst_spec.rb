@@ -136,7 +136,7 @@ describe SalesAnalyst do
 
     expected = @sales_analyst.invoice_paid_in_full?(200)
     expect(expected).to eq true
-    # binding.pry
+
     expected = @sales_analyst.invoice_paid_in_full?(203)
     expect(expected).to eq false
 
@@ -144,4 +144,10 @@ describe SalesAnalyst do
     expect(expected).to eq false
   end
 
+  it "SalesAnalyst#total returns the total dollar amount if the invoice is paid in full" do
+    expected = @sales_analyst.invoice_total(1)
+
+    expect(expected).to eq 21067.77
+    expect(expected.class).to eq BigDecimal
+  end
 end
