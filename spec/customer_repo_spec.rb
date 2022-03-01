@@ -5,6 +5,7 @@ require "./lib/merchant_repo"
 require "./lib/customer_repo"
 require "./lib/invoice_repo"
 require "./lib/item_repo"
+require "./lib/transaction_repo"
 require "Time"
 require "pry"
 
@@ -14,7 +15,8 @@ RSpec.describe CustomerRepository do
       items: "./data/items.csv",
       merchants: "./data/merchants.csv",
       invoices: "./data/invoices.csv",
-      customers: "./data/customers.csv"
+      customers: "./data/customers.csv",
+      transactions: "./data/transactions.csv"
     })
   end
 
