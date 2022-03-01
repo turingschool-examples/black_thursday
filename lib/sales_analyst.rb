@@ -9,7 +9,6 @@ class SalesAnalyst
   attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
 
   def initialize(items, merchants, invoices, transactions, _customers, invoice_items)
-
     @items = items
     @merchants = merchants
     @invoices = invoices
@@ -158,5 +157,10 @@ class SalesAnalyst
       invoice_type_count[invoice.status.to_sym] += 1
     end
     ((invoice_type_count[status_type].to_f / @invoices.count) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions_by_invoice = @transactions.find_all_by_invoice_id(invoice_id)
+    transactions_by_invoice.any? { |transaction| transaction.result == :success }
   end
 end
