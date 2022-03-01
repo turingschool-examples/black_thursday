@@ -4,6 +4,7 @@ require './merchants_repository'
 require './items_repository'
 require './invoice_repository'
 require './transaction_repository'
+require './invoice_items_repository'
 require 'pry'
 
 class Analyst
@@ -15,6 +16,7 @@ class Analyst
     @ir = ItemsRepository.new("./data/items.csv")
     @in = InvoiceRepository.new("./data/invoices.csv")
     @tr = TransactionRepository.new("./data/transactions.csv")
+    @iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
   end
 
   def average_items_per_merchant
@@ -93,12 +95,19 @@ class Analyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    transactions = @tr.find_all_by_invoice_id(invoice_id)
+    transactions = @tr.find_all_by_invoice_id(invoice_id.to_s)
     if transactions.map {|transaction| transaction.result }.include?("success")
       true
     else
      false
     end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @iir.find_all_by_invoice_id(invoice_id.to_s)
+    sum = 0
+    invoice_items.each { |invoice_item| sum += ((invoice_item.unit_price.to_f * invoice_item.quantity.to_f)/100.0) }
+    sum
   end
 
 end
