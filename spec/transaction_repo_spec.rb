@@ -32,7 +32,7 @@ RSpec.describe TransactionRepository do
     expect(@tr.find_all_by_id(2)).to eq([@transaction2])
   end
 
-  xit 'can find all transactions by credit_card_number' do
+  it 'can find all transactions by credit_card_number' do
     expect(@tr.find_all_by_credit_card_number(5)).to eq([@transaction2, @transaction3])
   end
 
