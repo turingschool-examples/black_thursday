@@ -93,7 +93,7 @@ RSpec.describe 'Iteration 3' do
         :created_at => Time.now,
         :updated_at => Time.now
       }
-      
+
       @se.invoice_items.create(attributes)
       original_time = @se.invoice_items.find_by_id(21831).updated_at
       attributes = {
@@ -104,6 +104,22 @@ RSpec.describe 'Iteration 3' do
       expect(expected.quantity).to eq 13
       expect(expected.item_id).to eq 7
       expect(expected.updated_at).to be > original_time
+    end
+
+    it "#update cannot update id, item_id, invoice_id, or created_at" do
+      attributes = {
+        id: 22000,
+        item_id: 32,
+        invoice_id: 53,
+        created_at: Time.now
+      }
+      @se.invoice_items.update(21831, attributes)
+      expected = @se.invoice_items.find_by_id(22000)
+      expect(expected).to eq nil
+      expected = @se.invoice_items.find_by_id(21831)
+      expect(expected.item_id).not_to eq attributes[:item_id]
+      expect(expected.invoice_id).not_to eq attributes[:invoice_id]
+      expect(expected.created_at).not_to eq attributes[:created_at]
     end
 
 
