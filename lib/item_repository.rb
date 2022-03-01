@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # item_repository
 require 'pry'
 class ItemRepository
@@ -36,7 +38,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    @items.sort_by { |item| item.id }
+    @items.sort_by(&:id)
     last_id = @items.last.id
     attributes[:id] = (last_id += 1)
     @items << Item.new(attributes)

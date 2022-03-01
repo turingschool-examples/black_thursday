@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # item_repository_spec
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
@@ -8,7 +10,11 @@ RSpec.describe ItemRepository do
   before(:each) do
     @se = SalesEngine.from_csv({
                                  items: './data/items.csv',
-                                 merchants: './data/merchants.csv'
+                                 merchants: './data/merchants.csv',
+                                 invoices: './data/invoices.csv',
+                                 invoice_items: './data/invoice_items.csv',
+                                 transactions: './data/transactions.csv',
+                                 customers: './data/customers.csv'
                                })
   end
 
@@ -82,7 +88,7 @@ RSpec.describe ItemRepository do
 
   it 'finds all items by price' do
     price = BigDecimal(100)
-# require "pry"; binding.pry
+    # require "pry"; binding.pry
     expected = @se.items.find_all_by_price(price)
     expect(expected.length).to eq(26)
 
