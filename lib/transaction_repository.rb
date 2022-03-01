@@ -26,4 +26,11 @@ class TransactionRepository
   def find_all_by_result(result)
     @transactions.find_all { |transaction| transaction.result == result }
   end
+
+  def create(attributes)
+    @transactions.sort_by { |transaction| transaction.id }
+    last_id = @transactions.last.id
+    attributes[:id] = (last_id += 1)
+    @transactions << Transaction.new(attributes)
+  end
 end
