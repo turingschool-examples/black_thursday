@@ -36,7 +36,7 @@ class SalesAnalyst
     high_item_count.each do |item|
       merchants.find_all do |merchant|
         if item[0] == merchant.id
-          high_item_count_merchants.push(merchant)
+          high_item_count_merchants << merchant
         end
       end
     end
