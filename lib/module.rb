@@ -4,7 +4,7 @@ module IDManager
   end
 
   def find_by_name(search)
-    @all.find{|index| index.name == search}
+    @all.find{|index| index.name.upcase == search.upcase}
   end
 
   def create(attributes)
