@@ -106,5 +106,29 @@ RSpec.describe 'Iteration 3' do
       expect(expected.credit_card_expiration_date).to eq '0220'
       expect(expected.updated_at).to be > original_time
     end
+
+    it '#update cannot update id, invoice_id, or created_at' do
+      attributes = {
+        invoice_id: 8,
+        credit_card_number: '4242424242424242',
+        credit_card_expiration_date: '0220',
+        result: 'success',
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+      @se.transactions.create(attributes)
+
+      attributes = {
+        id: 5000,
+        invoice_id: 2,
+        created_at: Time.now
+      }
+      @se.transactions.update(4986, attributes)
+      expected = @se.transactions.find_by_id(5000)
+      expect(expected).to eq nil
+      expected = @se.transactions.find_by_id(4986)
+      expect(expected.invoice_id).not_to eq attributes[:invoice_id]
+      expect(expected.created_at).not_to eq attributes[:created_at]
+    end
   end
 end
