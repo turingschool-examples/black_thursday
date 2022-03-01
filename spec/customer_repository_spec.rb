@@ -76,7 +76,7 @@ RSpec.describe 'Iteration 3' do
         :updated_at => Time.now
       }
       @se.customers.create(attributes)
-      
+
       original_time = @se.customers.find_by_id(1001).updated_at
       attributes = {
         last_name: "Smith"
@@ -86,6 +86,26 @@ RSpec.describe 'Iteration 3' do
       expect(expected.last_name).to eq "Smith"
       expect(expected.first_name).to eq "Joan"
       expect(expected.updated_at).to be > original_time
+    end
+
+    it "#update cannot update id or created_at" do
+      attributes = {
+        :first_name => "Joan",
+        :last_name => "Clarke",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+      @se.customers.create(attributes)
+      
+      attributes = {
+        id: 2000,
+        created_at: Time.now
+      }
+      @se.customers.update(1001, attributes)
+      expected = @se.customers.find_by_id(2000)
+      expect(expected).to eq nil
+      expected = @se.customers.find_by_id(1001)
+      expect(expected.created_at).not_to eq attributes[:created_at]
     end
   end
 end
