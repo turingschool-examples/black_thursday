@@ -16,4 +16,8 @@ class TransactionRepository
   def find_all_by_credit_card_number(card_search)
     @all.find_all{|index| index[:credit_card_number].to_s.include?(card_search.to_s)}
   end
+
+  def find_all_by_result(result_search)
+    @all.find_all{|index| index[:result] == result_search}
+  end
 end
