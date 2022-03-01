@@ -12,11 +12,11 @@ require "pry"
 RSpec.describe CustomerRepository do
   let(:se) do
     SalesEngine.from_csv({
-      items: "./data/items.csv",
-      merchants: "./data/merchants.csv",
-      invoices: "./data/invoices.csv",
-      customers: "./data/customers.csv",
-      transactions: "./data/transactions.csv"
+      :items        => "./data/items.csv",
+      :merchants    => "./data/merchants.csv",
+      :invoices     => "./data/invoices.csv",
+      :customers    => "./data/customers.csv",
+      :transactions => "./data/transactions.csv"
     })
   end
 

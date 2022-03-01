@@ -9,13 +9,15 @@ require "./lib/item"
 require "pry"
 
 RSpec.describe ItemRepository do
-  se = SalesEngine.from_csv({
-    items: "./data/items.csv",
-    merchants: "./data/merchants.csv",
-    invoices: "./data/invoices.csv",
-    customers: "./data/customers.csv",
-    transactions: "./data/transactions.csv"
-  })
+  let(:se) do
+    SalesEngine.from_csv({
+      :items        => "./data/items.csv",
+      :merchants    => "./data/merchants.csv",
+      :invoices     => "./data/invoices.csv",
+      :customers    => "./data/customers.csv",
+      :transactions => "./data/transactions.csv"
+    })
+  end
   ir = ItemRepository.new("./data/items.csv")
 
   it "is an instance of ItemRepository" do

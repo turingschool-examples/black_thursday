@@ -8,7 +8,12 @@ require "sales_analyst"
 require "pry"
 
 class SalesEngine
-  attr_reader :merchants_repo, :items_repo, :invoices_repo, :customers_repo, :transactions_repo :analyst
+  attr_reader :merchants_repo,
+              :items_repo,
+              :invoices_repo,
+              :customers_repo,
+              :transactions_repo,
+              :analyst
   def initialize(data)
     @items_repo = ItemRepository.new(data[:items])
     @merchants_repo = MerchantRepository.new(data[:merchants])
