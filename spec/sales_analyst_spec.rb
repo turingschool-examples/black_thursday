@@ -3,6 +3,7 @@ require './lib/item_repository'
 require './lib/merchant_repository'
 require './lib/sales_analyst'
 require './lib/invoice_repository'
+require './lib/invoice_item_repository'
 require 'date'
 require 'pry'
 
