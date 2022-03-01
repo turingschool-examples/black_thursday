@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # item_repository_spec
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
@@ -10,6 +12,7 @@ RSpec.describe ItemRepository do
                                  items: './data/items.csv',
                                  merchants: './data/merchants.csv',
                                  invoices: './data/invoices.csv',
+                                 transactions: './data/transactions.csv',
                                  customers: './data/customers.csv'
                                })
   end

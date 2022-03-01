@@ -1,4 +1,6 @@
-#merchant_repository
+# frozen_string_literal: true
+
+# merchant_repository
 class MerchantRepository
   attr_reader :merchants
 
@@ -11,7 +13,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants.find {|merchant| merchant.id == id }
+    @merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
@@ -19,11 +21,11 @@ class MerchantRepository
   end
 
   def find_all_by_name(fragment)
-    @merchants.find_all { |merchant| merchant.name.downcase.include?(fragment)}
+    @merchants.find_all { |merchant| merchant.name.downcase.include?(fragment) }
   end
 
   def create(attributes)
-    @merchants.sort_by { |merchant| merchant.id}
+    @merchants.sort_by(&:id)
     last_id = @merchants.last.id
     attributes[:id] = (last_id += 1)
     @merchants << Merchant.new(attributes)
@@ -33,7 +35,7 @@ class MerchantRepository
     merchant = find_by_id(id)
     attributes.map do |key, v|
       # require "pry"; binding.pry
-        merchant.name = v if key == :name
+      merchant.name = v if key == :name
     end
   end
 

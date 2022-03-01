@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 # Merchant class
 class Merchant
   attr_accessor :id,
-              :name,
-              :created_at,
-              :updated_at
+                :name,
+                :created_at,
+                :updated_at
 
   def initialize(attributes)
     @id = attributes[:id].to_i

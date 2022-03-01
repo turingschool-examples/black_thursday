@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/sales_engine'
 
 RSpec.describe SalesEngine do
@@ -6,6 +8,7 @@ RSpec.describe SalesEngine do
                                 items: './data/items.csv',
                                 merchants: './data/merchants.csv',
                                 invoices: './data/invoices.csv',
+                                transactions: './data/transactions.csv',
                                 customers: './data/customers.csv'
                               })
 

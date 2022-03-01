@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # merchant_rep_spec
 require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
@@ -9,6 +11,7 @@ RSpec.describe MerchantRepository do
                                  items: './data/items.csv',
                                  merchants: './data/merchants.csv',
                                  invoices: './data/invoices.csv',
+                                 transactions: './data/transactions.csv',
                                  customers: './data/customers.csv'
                                })
   end

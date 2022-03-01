@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CustomerRepository
   attr_reader :customers
 
@@ -10,7 +12,7 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    @customers.find {|customer| customer.id == id }
+    @customers.find { |customer| customer.id == id }
   end
 
   def find_all_by_first_name(name)
@@ -22,7 +24,7 @@ class CustomerRepository
   end
 
   def create(attributes)
-    @customers.sort_by { |customer| customer.id}
+    @customers.sort_by(&:id)
     last_id = @customers.last.id
     attributes[:id] = (last_id += 1)
     @customers << Customer.new(attributes)
@@ -31,9 +33,9 @@ class CustomerRepository
   def update(id, attributes)
     customer = find_by_id(id)
     attributes.map do |key, v|
-        customer.first_name = v if key == :first_name
-        customer.last_name = v if key == :last_name
-        customer.updated_at = Time.now
+      customer.first_name = v if key == :first_name
+      customer.last_name = v if key == :last_name
+      customer.updated_at = Time.now
     end
   end
 
@@ -44,5 +46,4 @@ class CustomerRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
 end
